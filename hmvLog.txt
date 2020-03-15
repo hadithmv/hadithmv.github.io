@@ -1,0 +1,188 @@
+remember to format, validate, lint and minify
+prettier, set as default in vscode; format on save
+w3
+jslint
+kangax, csso, closure compiler
+====================
+       TO DOS
+====================
+Wait for ID 15.0.2.318 release
+
+reduce js char line to 80
+pass jslint
+
+clean up alt folder in github
+
+clean up readme.md
+
+get travis or circleci working???
+get github badges on readme???
+
+customize form
+
+moving js to end of body??
+
+add page about hadith history and faq
+
+buttons are ugly, style them
+
+darkmode toggle?
+
+make nav bar, responsive and drawer with icons??
+
+get plain arabic to generate without data
+
+get auto json to array set up
+
+pack up old files
+
+update root files, especially 404
+
+make jquery breakpoints realtime
+
+update menu link docs, like intro
+
+make cards more modern
+
+add modern about page
+
+add ripple effect
+
+change hammerjs to something else, maybe swipe js, zingtouch, alloyfinger, or atleast remove unused code in hammer
+
+remove eng stuff, make all dhiv
+
+add loading?
+
+Use less bold in hadith, just color, or shadow
+Optimize legibility on css
+
+Which numbering format do i follow? State it. fuad abdulghani. mutoon dates
+
+Chat offline leave a message?
+
+Update mockup, play store imgs
+
+Contrast blacks and whites, dont use pure
+
+Test if js and cs are smaller apks when uncompressed
+
+update offline apps
+
+Wassallaahu wasallam ala nabiyyinaa muhammadin wa alaa aalihi wasahbi ajmain, intro?
+
+Hadith 3 bukhari,ma ana bi qaariin, casual dhiv?؟
+
+barbaharee?
+
+Google analytics track download clicks
+
+Make desktop version like mobile instead of odd column table? or make it togglable
+
+Validate search by baabs, could use searchPane
+
+scrollUp on Tab change, all pages, ol and offl
+
+Make manifest, mobile pwa, service worker?
+
+Skip more pages hammer? two three fingers
+----------------------------------------
+
+====================
+       ISSUES
+====================
+copy bad for both select keytable and clipboard button
+
+align and resize input and buttons
+
+Hassaan Abdurrazzaq Mv:
+https://raw.githubusercontent.com/hadithmv/hadithmv.github.io/master/README.md
+add a font stack instead of just Tharujamaanu
+Rewrite live pages default css
+----------------------------------------
+
+====================
+  ADD THESE HADITH
+====================
+‏"ތެތްކަން ހުންނަ ކޮންމެ މޭގަނޑަކަށް އަޖުރު ހުއްޓެވެ." 
+ޞަޙާބީ ބޭކަލުން ދަންނަވައިފިއެވެ. “އޭ ﷲގެ ރަސޫލާ އެވެ! ހަމަކަށަވަރުން ޖަނަވާރުންނަށް ހެޔޮކޮށް ހިތުމުގެ ސަބަބުން އަޅުގަނޑުމެންނަށް އަޖުރު (ޘަވާބު) ލިބެނީ ތޯއެވެ؟” އެކަލޭގެފާނު ޙަދީޘް ކުރެއްވިއެވެ. “ދިރޭ ކޮންމެ އެއްޗެއްގެ ފުށުން ތިޔަބައިމީހުންނަށް އަޖުރު ލިބޭ ހުއްޓެވެ.”
+
+﴿وَمَا أُمِرُوا إِلَّا لِيَعْبُدُوا اللَّـهَ مُخْلِصِينَ لَهُ الدِّينَ حُنَفَاءَ وَيُقِيمُوا الصَّلَاةَ وَيُؤْتُوا الزَّكَاةَ ۚ وَذَٰلِكَ دِينُ الْقَيِّمَةِ﴾ [البينة: ٥] Thanks
+މާނައީ: “ކިޔަމަންތެރިކަން ﷲއަށް ޚާލިޞްކުރާޙާލު ޙުނަފާއިންގެ ގޮތުގައި (އެބަހީ: ތައުޙީދުގެ މަގަށް ލެނބިހުރެ) ﷲ އަށް އަޅުކަންކުރުމަށާއި، ނަމާދު ޤާއިމުކުރުމަށާއި، ޒަކާތްދިނުމަށް މެނުވީ އެބައިމީހުންނަށް އަމުރުވެވިގެންނުވެއެވެ. އަދި ސީދާވެގެންވާ ދީނަކީ އެއީއެވެ.”
+باطل މަގުން އެއްކިބާވެތިބެ، اللَّه އަށް އަޅުކަން خالص ކުރާ حال، اللَّه އަށް އަޅުކަންކުރުމަށާއި، ނަމާދު قائم ކުރުމަށާއި، ޒަކާތްދިނުމަށް މެނުވީ، އެއުރެންނަށް އަމުރުކުރައްވާފައެއް ނުވެތެވެ. އަދި ސީދާވެގެންވާ دين އަކީ އެއީއެވެ.
+"ހަމައެކަނި ﷲ އަށް ދީން ޚާލިޞް ކުރާ ޙާލު، ޙުނަފާއިންގެ ގޮތުގައި (އެބަހީ:ޝިރުކުގެ މަގުން އެއްކިބާވެ، ﷲ އެއްކައުވަންތަ ކުރުމުގެ މަގަށް ލެނބިހުރެ) ﷲ އަށް އަޅުކަން ކުރުމަށާއި، ނަމާދު ޤާއިމު ކުރުމަށާއި، ޒަކާތް ދިނުމަށް މެނުވީ އެބައިމީހުންނަށް އަމުރުވެވިގެން ނުވެއެވެ. އަދި ސީދާވެގެންވާ ދީނަކީ ހަމަ އެއީއެވެ.”
+" ހަމައެކަނި ﷲ އަށް ދީން ޚާލިޞް ކުރާ ޙާލު، ޙުނަފާއިންގެ ގޮތުގައި (ޝިރުކުން އެއްކިބާވެ، ﷲ އެއްކައުވަންތަ ކުރުމުގެ މަގަށް ލެނބިހުރެ) ﷲ އަށް އަޅުކަން ކުރުމަށާއި، ނަމާދު ޤާއިމު ކުރުމަށާއި އަދި ޒަކާތް ދިނުމަށް މެނުވި އެބައިމީހުންނަށް އަމުރު ކުރެވިގެނެއް ނުވެއެވެ. އަދި ސީދާވެގެންވާ ދީނަކީ ހަމަ އެއީއެވެ.”
+Quran quotes 122 bukh add
+----------------------------------------
+
+====================
+  PICKUP FROM HERE
+====================
+stopped at js placeholder last
+need to change page from input plugin
+2/22/2020
+----------------------------------------
+
+
+====================
+  HADITH CHECKS
+====================
+Last Checked Hadith Bukhari: 86
+
+Get 2018 mutoon from nabawi
+
+ތިޔަބައިމީހުންގެ ދީން ތިޔަބައިމީހުންނަށް ދަސްކޮށް ދެއްވުމަށެވެ
+Ungannavaidhevv
+
+Replace hyphens with dashes
+
+Change bun
+Get qr app
+
+Umdatul ahkam
+Shamaik muhammadiyya
+Bulughul maram-add these to write book
+فاطر السماوات
+فأطر
+----------------------------------------
+
+====================
+   SHOULD I FIX?
+====================
+csv button
+year versioning
+Keep jQuery out seperate cdn as everyone does it
+mas’ood doesnt match in search, mas'ood
+Full stop headings?
+----------------------------------------
+
+====================
+    ACTUAL BOOK
+====================
+Rajab rahimahu?
+----------------------------------------
+
+====================
+MATERIAL ENDED HERE
+====================
+menu text shows for a moment in place of hamburger menu in mobile view
+2/15/20
+
+input pagination plugin breaks table on material
+2/15/20
+
+colvis menu is ugly
+2/15/20
+----------------------------------------
+
+
+
+
+First thing I did:
+---
+layout: post
+title: "hadithmv site launched"
+date: 2017-07-17
+---
+
+Alhamdulillah. Finally got around to putting this website together. I ask Allah that He makes it easier as it goes along. Lots of work up ahead.
