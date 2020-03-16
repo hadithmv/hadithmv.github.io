@@ -1,4 +1,5 @@
-remember to format, validate, lint and minify
+remember to format, validate, lint, minify, lighthouse, remove unused code, treeshaking
+
 prettier, set as default in vscode; format on save
 w3
 
@@ -9,6 +10,8 @@ stylelint(ignore comment newline and selecter order)+csslint
 jslint
 
 kangax, csso, closure compiler
+
+unused-CSS, purifyCSS, unCSS-online
 
 VScode:
 settings sync

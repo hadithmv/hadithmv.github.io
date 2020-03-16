@@ -58,24 +58,24 @@ $(document).ready(function() {
     // NOT DataTable();
 
     data: FNdataSet, //https://datatables.net/manual/ajax
+    // CHANGE123 JSON
     columns: [
       { title: "#" },
       { title: "ވަނަ" },
       { title: "ޢަރަބި ސުރުޚީ" },
-      { title: "އިނގިރޭސި ސުރުޚީ" },
       { title: "ދިވެހި ސުރުޚީ" },
       { title: "ޢަރަބި ޙަދީޘް" },
       { title: "ޢަރަބި ފިލިނުޖަހައި" },
-      { title: "އިނގިރޭސި" },
       { title: "ދިވެހި ތަރުޖަމާ" },
       { title: "މަސްދަރު ޢަރަބިން." },
-      { title: "މަސްދަރު އިނގިރޭސިން." },
       { title: "މަސްދަރު ދިވެހިން." },
       { title: "މަސްދަރު ރިޔާޟުއްޞާލިޙީނުން." }
     ],
 
     columnDefs: [
       //classes columns for css in nweb view, but not print.
+      // CHANGE123 COL CLASSES
+
       {
         className: "fnCol1", // #
         targets: [0],
@@ -95,62 +95,44 @@ $(document).ready(function() {
         searchable: false
       },
       {
-        className: "fnCol4", // En Title
+        className: "fnCol4", // Dv Title
         targets: [3],
         visible: false,
         searchable: false
       },
       {
-        className: "fnCol5", // Dv Title
+        className: "fnCol5", // Ar Text
         targets: [4],
-        visible: false,
-        searchable: false
+        visible: true,
+        searchable: true
       },
       {
-        className: "fnCol6", // Ar Text
+        className: "fnCol6", // Ar Plain
         targets: [5],
-        visible: true,
+        visible: false,
         searchable: true
       },
       {
-        className: "fnCol7", // Ar Plain
+        className: "fnCol7", // Dv Text
         targets: [6],
-        visible: false,
+        visible: true,
         searchable: true
       },
       {
-        className: "fnCol8", // En Text
+        className: "fnCol8", // Ar Ref
         targets: [7],
-        visible: false,
-        searchable: true
+        visible: true,
+        searchable: false
       },
       {
-        className: "fnCol9", // Dv Text
+        className: "fnCol9", // Dv Ref
         targets: [8],
-        visible: true,
-        searchable: true
+        visible: false,
+        searchable: false
       },
       {
-        className: "fnCol10", // Ar Ref
+        className: "fnCol10", // Rs Ref
         targets: [9],
-        visible: true,
-        searchable: true
-      },
-      {
-        className: "fnCol11", // En Ref
-        targets: [10],
-        visible: false,
-        searchable: false
-      },
-      {
-        className: "fnCol12", // Dv Ref
-        targets: [11],
-        visible: false,
-        searchable: false
-      },
-      {
-        className: "fnCol13", // Rs Ref
-        targets: [12],
         visible: false,
         searchable: false
       },
@@ -331,17 +313,15 @@ $(document).ready(function() {
 
           //prev normal
           // data = data.replace( /\nNo.\tRef.\tArabic\tEnglish\tDhivehi/g,"" );
+          // CHANGE123 CLIP REGEX
 
           data = data.replace(/\tވަނަ./g, "");
           data = data.replace(/\tޢަރަބި\sސުރުޚީ/g, "");
-          data = data.replace(/\tއިނގިރޭސި ސުރުޚީ/g, "");
           data = data.replace(/\tދިވެހި ސުރުޚީ/g, "");
           data = data.replace(/\tޢަރަބި ޙަދީޘް/g, "");
           data = data.replace(/\tޢަރަބި ފިލިނުޖަހައި/g, "");
-          data = data.replace(/\tއިނގިރޭސި/g, "");
           data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, "");
           data = data.replace(/\tމަސްދަރު ޢަރަބިން./g, "");
-          data = data.replace(/\tމަސްދަރު އިނގިރޭސިން./g, "");
           data = data.replace(/\tމަސްދަރު ދިވެހިން./g, "");
           data = data.replace(/\tމަސްދަރު ރިޔާޟުއްޞާލިޙީނުން./g, "");
 
@@ -354,14 +334,11 @@ $(document).ready(function() {
 
           data = data.replace(/\nވަނަ./g, "");
           data = data.replace(/\nޢަރަބި ސުރުޚީ/g, "");
-          data = data.replace(/\nއިނގިރޭސި ސުރުޚީ/g, "");
           data = data.replace(/\nދިވެހި ސުރުޚީ/g, "");
           data = data.replace(/\nޢަރަބި ޙަދީޘް/g, "");
           data = data.replace(/\nޢަރަބި ފިލިނުޖަހައި/g, "");
-          data = data.replace(/\nއިނގިރޭސި/g, "");
           data = data.replace(/\nދިވެހި ތަރުޖަމާ/g, "");
           data = data.replace(/\nމަސްދަރު ޢަރަބިން./g, "");
-          data = data.replace(/\nމަސްދަރު އިނގިރޭސިން./g, "");
           data = data.replace(/\nމަސްދަރު ދިވެހިން./g, "");
           data = data.replace(/\nމަސްދަރު ރިޔާޟުއްޞާލިޙީނުން./g, "");
 

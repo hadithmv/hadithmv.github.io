@@ -228,35 +228,33 @@ table.dataTable tbody td {
   word-wrap: break-word;
 }
 
-/* removes justify from ar en dv (titles and refs) + rs.
+/* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells, right align to prevent gaps in text */
-.dataTable tbody.fnCol3,
-.dataTable tbody.fnCol4,
-.dataTable tbody.fnCol5,
-.dataTable tbody.fnCol10,
-.dataTable tbody.fnCol11,
-.dataTable tbody.fnCol12,
-.dataTable tbody.fnCol13 {
+.dataTable tr .fnCol2,
+.dataTable tr .fnCol3,
+.dataTable tr .fnCol4,
+.dataTable tr .fnCol8,
+.dataTable tr .fnCol9,
+.dataTable tr .fnCol10 {
   text-align: right;
 }
 
 /* mobile only row centering, for rows with strings that are not long */
 @media screen and (max-width: 900px) {
-  .dataTable tbody tr .fnCol1,
-  .dataTable tbody tr .fnCol2,
-  .dataTable tbody tr .fnCol3,
-  .dataTable tbody tr .fnCol4,
-  .dataTable tbody tr .fnCol5,
-  .dataTable tbody tr .fnCol10,
-  .dataTable tbody tr .fnCol11,
-  .dataTable tbody tr .fnCol12,
-  .dataTable tbody tr .fnCol13 {
+  .dataTable tr .fnCol1,
+  .dataTable tr .fnCol2,
+  .dataTable tr .fnCol3,
+  .dataTable tr .fnCol4,
+  .dataTable tr .fnCol8,
+  .dataTable tr .fnCol9,
+  .dataTable tr .fnCol10 {
     text-align: center;
   }
   /* bold headers for mobile */
-  .dataTable tbody tr .fnCol3,
-  .dataTable tbody tr .fnCol4,
-  .dataTable tbody tr .fnCol5 {
+  .dataTable tr .fnCol1,
+  .dataTable tr .fnCol2,
+  .dataTable tr .fnCol3,
+  .dataTable tr .fnCol4 {
     font-weight: bold;
   }
 }
