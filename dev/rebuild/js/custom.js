@@ -175,34 +175,34 @@ $(document).ready(function() {
     // ====================
 
     //Automatic column width calculation.  Default: true
-    //can be disabled as an optimisation (takes a finite time to calculate widths)
+    //can be disabled as an optimisation -takes time to calculate widths
     autoWidth: false,
 
     //By default, when data is laoded from an Ajax or Javascript data source
-    //will create all HTML elements needed up-front. with large data can take time
+    //creates all HTML elements needed up-front. takes time with large data
     //allows to create the nodes (rows/cells) only when needed for a draw
-    //if you load data with 10000 rows, but a paging display length of 10 records
-    //rather than create all 10000 rows, deferred rendering will create only 10
+    //if you load data with 10000 rows, but 10 records paging display length
+    //rather than create all 10000 rows, deferred rendering will create 10
     deferRender: true,
 
-    //ordering of columns - by default, allows to click on column head to order table
+    //ordering of columns - by default, allows to click on column head to order
     ordering: false,
 
     //stateSave: true // Breaks table, use the one below
     //Restore table state on page reload. When enabled aDataTables will store
     //state info like pagination position, display length, filtering and sorting
-    //When user reloads the page the table's state will be altered to match previous
+    //When user reloads the page the table's state will be altered to before
     //DOESNT WORK WITH JSON FETCHED FROM GSHEETS
     bstateSave: true,
 
-    //Duration for which the saved state information is valid. Default Value: 7200
+    //Duration for which the saved state information is valid. Default: 7200
     //After this period has elapsed the state will be returned to the default.
     //Set state duration to 1 day. Use with above.
     //stateDuration: 60*60*24 //currently set to 1 day, -1 is that session only
     stateDuration: "86400",
 
     //removes written search input upon state reload
-    //"stateSaveParams": function (settings, data) { data.search.search = ""; },
+    //"stateSaveParams": function (settings, data) { data.search.search = ""; }
 
     //Highlight columns being ordered in the table.
     //adds a class to the column cells, which has CSS applied
@@ -215,36 +215,40 @@ $(document).ready(function() {
     //simple - "Previous" and "Next" buttons only
     //simple_numbers - "Previous" and "Next" buttons, plus page numbers
     //full - "First", "Previous", "Next" and "Last" buttons
-    //full_numbers - "First", "Previous", "Next" and "Last" buttons & page numbers
+    //full_numbers - "First", "Previous", "Next", "Last" buttons & page numbers
     //first_last_numbers - "First" and "Last" buttons, plus page numbers
     //Default Value: simple_numbers,
     pagingType: "input",
 
     //Set a throttle frequency for searching.
-    //search will instantly search the table on every keypress in client-side processing mode
-    //and reduce the search call frequency to 400mS in server-side processing mode
+    //search will instantly search table on every keypress -clientside proc mode
+    //and reduce search call frequency to 400mS in serverside processing mode
     //processing load can be reduced by reducing the search frequency
     searchDelay: 1000,
 
-    //Change options in page length select list. allows you to specify the entries in the length drop down select list that DataTables shows when pagination is enabled.
-    //It can be either: 1D array of integer values which will be used for both the displayed option and the value to use for the display length,
-    //or 2D array which will use the first inner array as the page length values and the second inner array as the displayed options.
-    //-1 is used as a value this tells DataTables to disable pagination (i.e. display all rows).
+    //Change options in page length select list.
+    //It can be either: 1D array for both displayed option/display length value,
+    //or 2Darray where 1st inner array=page length values, 2nd displayed options
+    //-1 is used as a value this tells DataTables to disable pagination
     //Default [ 10, 25, 50, 100 ],
-    //lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ["1 ޙަދީޘް ދައްކާ", 2, 3, 5, 7, 10, 15, 20, "ހުރިހައި"]],
-    //lengthMenu: [ [5, 10, 20, 30, 40, -1, 1], ["Show 5", 10, 20, 30, 40, "All", 1] ],
+    //lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ["1 ޙަދީޘް ދައްކާ", 2, 3, 5,
+    // 7, 10, 15, 20, "ހުރިހައި"]],
+    //lengthMenu: [ [5, 10, 20, 30, 40, -1, 1], ["Show 5", 10, 20, 30, 40,
+    // "All", 1] ],
 
-    //Tab index control for keyboard navigation. By default DataTables allows keyboard navigation of the table (sorting, paging, and filtering) by adding a tabindex attribute to the required elements. This allows the end user to tab through the controls and press the enter key to activate them, allowing the table controls to be accessible without a mouse. The default tabindex is 0, meaning that the tab follows the flow of the document. You can overrule this using this parameter if you wish. Use a value of -1 to disable built-in keyboard navigation, although this is not recommended for accessibility reasons.
+    //Tab index control for keyboard navigation. default DT allows keyboard nav
+    //sorting, paging, filtering by adding tabindex attr to required elements
     //Default Value: null
     /*"tabIndex": 0,*/
 
-    //Store the DT conditions within the URL hash every time a condition changes (page/length/search/order) making it possible to copy/paste the URL.
+    //Store the DT conditions within the URL hash every time a condition changes
+    // (page/length/search/order) making it possible to copy/paste the URL.
     keepConditions: true,
 
-    //keytable, adds keyboard navigation to DataTables, operating in exactly the same way as traditional spreadsheet applications.
+    //keytable, adds keyboard navigation, like in traditional spreadsheet
     keys: true,
 
-    //markjs, a keyword highlighter for strings, arrays or regular expressions and works in any context (not just tables).
+    //markjs, a keyword highlighter for strings, arrays or regular expressions.
     mark: true,
 
     //=====================
@@ -258,7 +262,7 @@ $(document).ready(function() {
         next: "ކުރިއަށް&nbsp;>",
         last: "ފަހަށް&nbsp;>>",
 
-        info: "_INPUT_" //taken from input.ks plugin, changes text from default "Page _INPUT_ of _TOTAL_"
+        info: "_INPUT_" //taken from input plugin, "Page _INPUT_ of _TOTAL_"
       },
       buttons: {
         copyTitle: "ކޮޕީ",
@@ -280,7 +284,7 @@ $(document).ready(function() {
     //=====================
     //      DT CUSTOM DOM
     // ====================
-    /*DOM options, https://datatables.net/reference/option/dom, https://datatables.net/forums/discussion/33618/semantic-ui-with-dom-option
+    /*DOM options, https://datatables.net/reference/option/dom,
          default: lpfrtip
         l - length changing input control
         f - filtering input
@@ -289,20 +293,19 @@ $(document).ready(function() {
         p - pagination control
         r - processing display element
         B - Buttons
-        
-         "lBpfrtip",
-        
+
 < and > - div element
 <"class" and > - div with a class
 <"#id" and > - div with an ID
 <"#id.class" and > - div with an ID and a class */
+    //"lBpfrtip",
 
     dom: "lBpfrtip",
-
     buttons: [
-      //https://datatables.net/extensions/buttons/examples/initialisation/multiple
+      //datatables.net/extensions/buttons/examples/initialisation/multiple
       //used to use a container before, now 2 buttons
-      //{ text: "Button 2", action: function ( e, dt, node, conf ) { alert( "Button 2 clicked on" ); } },
+      //{ text: "Button 2", action: function ( e, dt, node, conf )
+      // { alert( "Button 2 clicked on" ); } },
       {
         extend: "copy",
         key: { key: "c", shiftKey: true },
@@ -315,17 +318,22 @@ $(document).ready(function() {
         // ====================
         customize: function(data) {
           /* https://www.rexegg.com/regex-quickstart.html
-                    \t	Tab, \r	Carriage return character, \n	Line feed character, \r\n	Line separator on Windows
+                    \t Tab, \r Carriage return character,
+                    \n Line feed character, \r\n Line separator on Windows
                     */
-          // data = data.replace( /\b([0-9]|[1-4][0-9]|50)\b/g, "No:" ); //adds string to hadith
-          //        data = data.replace( /\t\r\n/g, "\n\n\n" ); //fixes multiple row's lack of line break on desktop
+          //adds string to hadith
+          // data = data.replace( /\b([0-9]|[1-4][0-9]|50)\b/g, "No:" );
+
+          //fixes multiple row's lack of line break on desktop
+          //        data = data.replace( /\t\r\n/g, "\n\n\n" );
           data = data.replace(/\n#/g, "\n\n#"); //needed to make rnr work
           data = data.replace(/\n\n\n/g, "\n"); //rids empty space after title
 
-          // data = data.replace( /\nNo.\tRef.\tArabic\tEnglish\tDhivehi/g, "" ); //prev normal
+          //prev normal
+          // data = data.replace( /\nNo.\tRef.\tArabic\tEnglish\tDhivehi/g,"" );
 
           data = data.replace(/\tވަނަ./g, "");
-          data = data.replace(/\tޢަރަބި ސުރުޚީ/g, "");
+          data = data.replace(/\tޢަރަބި\sސުރުޚީ/g, "");
           data = data.replace(/\tއިނގިރޭސި ސުރުޚީ/g, "");
           data = data.replace(/\tދިވެހި ސުރުޚީ/g, "");
           data = data.replace(/\tޢަރަބި ޙަދީޘް/g, "");
@@ -342,7 +350,7 @@ $(document).ready(function() {
           data = data.replace(
             /ނަވަވީގެ 40 ޙަދީޘް\r\n\r\n\n\nޙަދީޘްގެ އަދަދު: \r\n\n/g,
             "ނަވަވީގެ 40 ޙަދީޘް\r\n"
-          ); /* add string and fix empty space، make sure to change the red too */
+          ); /* add string & fix empty space، make sure to change the red too */
 
           data = data.replace(/\nވަނަ./g, "");
           data = data.replace(/\nޢަރަބި ސުރުޚީ/g, "");
@@ -357,24 +365,29 @@ $(document).ready(function() {
           data = data.replace(/\nމަސްދަރު ދިވެހިން./g, "");
           data = data.replace(/\nމަސްދަރު ރިޔާޟުއްޞާލިޙީނުން./g, "");
 
-          data = data.replace(/\r\n\r\n\r/g, "\r\n\r"); //rids empty space after title
-          data = data.replace(/\t/g, "\n\n"); //seperates rows
+          //rids empty space after title
+          data = data.replace(/\r\n\r\n\r/g, "\r\n\r");
 
-          /*data = data.replace( /hadithmv.com\n/g, "hadithmv.com\n\n" ); //adds new line on android*/
+          //seperates rows
+          data = data.replace(/\t/g, "\n\n");
+
+          /*data = data.replace( /hadithmv.com\n/g, "hadithmv.com\n\n" );
+           //adds new line on android*/
           /*
-                                           data = data.replace( /\r/g, "" ); //rids windows platform newline
-                                           data = data.replace( /\t/g, "\n\n" );
-           
-                                          /**/
-          //                    console.log(JSON.stringify(data));    //json stringify to console
+               data = data.replace( /\r/g, "" ); //rids windows platform newline
+               data = data.replace( /\t/g, "\n\n" ); */
+
+          //    console.log(JSON.stringify(data));   //json stringify to console
 
           return data;
         },
-        //==================== edits clipboard regex end, customize: function(data) {
+        //=============== edits clipboard regex end, customize: function(data) {
 
-        exportOptions: { columns: [":visible"], rows: [":visible"] } ////copies currently displayed and rows
+        //copies currently displayed and rows
+        exportOptions: { columns: [":visible"], rows: [":visible"] }
 
-        //copies currently displayed columns and rows, "exportOptions: { modifier: { columns: [":visible"], rows: [":visible"]}" doesnt work after cards
+        //copies currently displayed columns and rows,
+        //"exportOptions: { modifier:{columns:[":visible"], rows: [":visible"]}"
         // needs .cards thead { visibility: hidden; } to work
       }, //end of copy customization
 
@@ -392,25 +405,27 @@ $(document).ready(function() {
                    $(dt.table().node()).toggleClass("cards");
                 },
              },
-             */
+      */
       // cards code END
     ]
-  }); //$("#fortyNawawi").DataTable( { - END //$("#fortyNawawi").DataTable( { - END //$("#fortyNawawi").DataTable( { - END
+  }); //$("#fortyNawawi").DataTable( { - END
   // from here to END OF $(document).ready( function () { used to be empty
 
   //=====================
   //      HammerJS - Swipe
   // ====================
-  delete Hammer.defaults.cssProps.userSelect; //enables text selection, but that conflicts with swipe
 
-  /* Old hammerjs swipe code 
-    if (window.matchMedia("(min-width: 1200px)").matches) {  // js media query on desktop 
-        // empty 
-    } else { // js media query on mobile, tablet 
-        Hammer(fortyNawawi).on("swipeleft", function () {
+  //enables text selection, but conflicts with swipe
+  delete Hammer.defaults.cssProps.userSelect;
+
+  /* Old hammerjs swipe code
+    if (window.matchMedia("(min-width: 1200px)").matches) {  // js desktop MQ
+        // empty
+    } else { // js media query on mobile, tablet
+      Hammer(fortyNawawi).on("swipeleft", function () {
             table.page("next").draw("page");
         });
-        Hammer(document.getElementById("fortyNawawi")).on("swiperight", function () {
+      Hammer(document.getElementById("fortyNawawi")).on("swiperight",function(){
             table.page("previous").draw("page");
         });
     } // end if else
@@ -446,7 +461,8 @@ $(document).ready(function() {
       },
       "fast"
     ); // smoothen or ease this later ??
-    $("main-content").focus(); // need to set focus at the top so that dataTables bootstrap doesn"t scroll back to the bottom
+    $("main-content").focus();
+    // need to set focus at top so DTBS doesn't scroll back to bottom
 
     var tempScrollTop = $(window).scrollTop();
     console.log("Scroll from Top: " + tempScrollTop.toString());
@@ -463,14 +479,15 @@ $(document).ready(function() {
 */
   if (window.matchMedia("(min-width: 900px)").matches) {
     // js media query on desktop
-    $("#fortyNawawi").addClass("row-border"); //adds row border class, line below every row to table on desktop
+    $("#fortyNawawi").addClass("row-border"); //adds rowborder class
   } else {
     // js media query on mobile, tablet
     $("#fortyNawawi").addClass("cards");
   } //  end if else
   //==================== Add cards class to table ID - END
 
-  // changes <input class="paginate_input" type="text"> type to search type, so that delete icon appears
+  // changes <input class="paginate_input" type="text"> type to search type,
+  // so that delete icon appears
   $(".paginate_input").prop("type", "search");
 
   // adds a placeholder to above <input class="paginate_input" type="text">

@@ -10,6 +10,13 @@ jslint
 
 kangax, csso, closure compiler
 
+VScode:
+settings sync
+file size
+add vertical character count line in
+prettier
+open in browser
+
 ctrl + p = command palette
 ctrl g = jump to line
 shift + alt = multi line cursor
@@ -28,6 +35,8 @@ add bulletproof font face
 }
 
 Wait for ID 15.0.2.318 release
+
+remove unused code tool??
 
 reduce js char line to 80
 pass jslint
