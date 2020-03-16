@@ -1,0 +1,11 @@
+\/\*(.+?)
+
+\/\*[^\s\\](\D)
+(\D)[^\s\\]\*\/
+
+/* and wildcard
+escape character with \
+regex goes in brackets
+
+(\D)	non digit character
+[^\s\\]	non space character

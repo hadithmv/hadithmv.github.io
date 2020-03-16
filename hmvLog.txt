@@ -1,11 +1,32 @@
 remember to format, validate, lint and minify
 prettier, set as default in vscode; format on save
 w3
+
+(tidy html5)
+
+stylelint(ignore comment newline and selecter order)+csslint
+
 jslint
+
 kangax, csso, closure compiler
+
+ctrl + p = command palette
+ctrl g = jump to line
+shift + alt = multi line cursor
 ====================
        TO DOS
 ====================
+make on copy popup fit mobile width
+
+add bulletproof font face
+@font-face {
+    font-family: 'MyFontFamily';
+    src: url('myfont-webfont.eot?#iefix') format('embedded-opentype'), 
+        url('myfont-webfont.woff') format('woff'), 
+        url('myfont-webfont.ttf')  format('truetype'),
+        url('myfont-webfont.svg#svgFontName') format('svg');
+}
+
 Wait for ID 15.0.2.318 release
 
 reduce js char line to 80

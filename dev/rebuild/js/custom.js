@@ -440,7 +440,12 @@ $(document).ready(function() {
 
   // ScrollTop - If the user changes the page, scroll to the top
   $(".dataTable").on("page.dt", function() {
-    $("html, body").animate({ scrollTop: 0 }, "fast");
+    $("html, body").animate(
+      {
+        scrollTop: 0
+      },
+      "fast"
+    ); // smoothen or ease this later ??
     $("main-content").focus(); // need to set focus at the top so that dataTables bootstrap doesn"t scroll back to the bottom
 
     var tempScrollTop = $(window).scrollTop();

@@ -19,13 +19,13 @@
 ======================= */
 html {
   /* main */
-  /*color: #222;*/
+  /* color: #222; */
   font-size: 1em;
   line-height: 1.4;
   /* do i need this?? */
   /* normalize */
-  /* line-height: 1.15;*/
-  /*-webkit-text-size-adjust: 100%;*/
+  /* line-height: 1.15; */
+  /* -webkit-text-size-adjust: 100%; */
 }
 
 /* Remove the margin in all browsers. - normalize */
@@ -40,10 +40,10 @@ body {
   text-shadow: none;
 }
 
-/*::-moz-selection {
+/* ::-moz-selection {
     background: #b3d4fc;
     text-shadow: none;
-}*/
+} */
 
 /* Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers  - main */
 img {
@@ -52,40 +52,40 @@ img {
 }
 
 /* normalize */
-/* 1. Change the font styles in all browsers. 2. Remove the margin in Firefox and Safari.*/
+/* 1. Change the font styles in all browsers. 2. Remove the margin in Firefox and Safari. */
 button,
 input,
 select {
-  /*font-family: inherit;*/
+  /* font-family: inherit; */
   /* 1 */
   font-size: 100%;
   /* 1 */
   /* makes input font as well as input box bigger, maybe more even */
-  /*line-height: 1.15;*/
+  /* line-height: 1.15; */
   /* 1 */
-  /*margin: 0;*/
+  /* margin: 0; */
   /* 2 */
 }
 
 /* Correct the inability to style clickable types in iOS and Safari. */
 
-/*button, [type="button"], [type="reset"], [type="submit"] {
+/* button, [type="button"], [type="reset"], [type="submit"] {
     -webkit-appearance: button;
-}*/
+} */
 
 /* 1. Correct the odd appearance in Chrome and Safari. 2. Correct the outline style in Safari.
 from what i see makes them smaller */
 
-/*[type="search"] {
+/* [type="search"] {
     -webkit-appearance: textfield;
     outline-offset: -2px;
-}*/
+} */
 
 /* Remove the inner padding in Chrome and Safari on macOS. */
 
-/*[type="search"]::-webkit-search-decoration {
+/* [type="search"]::-webkit-search-decoration {
     -webkit-appearance: none;
-}*/
+} */
 
 /* ===== BOILERPLATE - END ===== */
 
@@ -99,7 +99,7 @@ from what i see makes them smaller */
   /*
     -webkit-animation: animateRight 0.5s ease-in-out;
     -moz-animation:    animateRight 0.5s ease-in-out;
-    -o-animation:      animateRight 0.5s ease-in-out; 
+    -o-animation:      animateRight 0.5s ease-in-out;
     animation:        animateRight 0.5s ease-in-out;
     */
   animation-name: animateRight;
@@ -132,7 +132,7 @@ ORIGINAL CODE above */
 
   smooth as butter animation below
   also browser supports
-  
+
 @-webkit-keyframes animateRight {
     0%   { right: -300px; opacity: 0 }
     100% { right: 0; opacity: 1 }
@@ -152,19 +152,21 @@ ORIGINAL CODE above */
   0% {
     transform: translateX(100%);
   }
+
   100% {
     transform: none;
   }
 }
-/* ===== Tabs Animation - END =====*/
+/* ===== Tabs Animation - END ===== */
 
 /* ====================
      DT wrapper CSS
 ======================= */
-#fortyNawawi_wrapper, /* takes care of most of the table fonts*/
+.dataTables_wrapper, /* takes care of most of the table fonts */
 input, /* search and input page */
 select, /* page lengthmenu */
-button, .dt-button-info, /* clipboard message */
+button,
+.dt-button-info, /* clipboard message */
 li, /* for pushy side bar */
 .site-header {
   font-family: "mvtyper", "Almarai", sans-serif;
@@ -187,72 +189,74 @@ div.dataTables_wrapper {
 /* make cancel button for input, only works on webkit chrome and stuff. should i get more browser support???
 The ::-webkit-search-cancel-button CSS pseudo-element represents a button (the "cancel button") at the edge of an <input> of type="search" which clears away the current value of the <input> element. */
 input[type="search"]::-webkit-search-cancel-button {
-  /* adds x delete placeholder*/
+  /* adds x delete placeholder */
   -webkit-appearance: searchfield-cancel-button;
   border: 4px solid transparent;
-  /*makes x a bit bigger*/
+  /* makes x a bit bigger */
 }
 /* ===== DT wrapper CSS  - END ===== */
 
 /* ====================
    DT Custom Column CSS
 ======================= */
+
 /* Alignscell contents vertically */
 table.dataTable tbody td {
   vertical-align: top;
 }
 
 /* table data rows alignment */
-#fortyNawawi > tbody > tr > td {
+.fnClass > tbody > tr > td {
   text-align: justify;
-  /*word-spacing: -10px;*/
+  /* word-spacing: -10px; */
   font-size: 100%;
-  /*-ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;*/
+  /* -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%; */
   color: #24292e;
   line-height: 1.5;
   word-wrap: break-word;
 }
 
 /* table header row alignment */
-#fortyNawawi > thead > tr > th {
+.fnClass > thead > tr > th {
   font-size: 100%;
   text-align: center;
-  /*color: #205ca5;*/
-  /*-ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;*/
+  /* color: #205ca5; */
+  /* -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%; */
   line-height: 1.5;
   word-wrap: break-word;
 }
 
-/* removes justify from ar en dv rs refs table rows */
-.dataTable tbody tr td.fnCol3,
-.dataTable tbody tr td.fnCol4,
-.dataTable tbody tr td.fnCol5,
-.dataTable tbody tr td.fnCol10,
-.dataTable tbody tr td.fnCol11,
-.dataTable tbody tr td.fnCol12,
-.dataTable tbody tr td.fnCol13 {
-  text-align: right !important;
+/* removes justify from ar en dv (titles and refs) + rs.
+justify doesnt look good on short cells, right align to prevent gaps in text */
+.dataTable tbody.fnCol3,
+.dataTable tbody.fnCol4,
+.dataTable tbody.fnCol5,
+.dataTable tbody.fnCol10,
+.dataTable tbody.fnCol11,
+.dataTable tbody.fnCol12,
+.dataTable tbody.fnCol13 {
+  text-align: right;
 }
 
-/* mobile only row centering, like rows with strings that are not long */
+/* mobile only row centering, for rows with strings that are not long */
 @media screen and (max-width: 900px) {
-  .dataTable tbody tr td.fnCol1,
-  .dataTable tbody tr td.fnCol2,
-  .dataTable tbody tr td.fnCol3,
-  .dataTable tbody tr td.fnCol4,
-  .dataTable tbody tr td.fnCol5,
-  .dataTable tbody tr td.fnCol10,
-  .dataTable tbody tr td.fnCol11,
-  .dataTable tbody tr td.fnCol12,
-  .dataTable tbody tr td.fnCol13 {
-    text-align: center !important;
+  .dataTable tbody tr .fnCol1,
+  .dataTable tbody tr .fnCol2,
+  .dataTable tbody tr .fnCol3,
+  .dataTable tbody tr .fnCol4,
+  .dataTable tbody tr .fnCol5,
+  .dataTable tbody tr .fnCol10,
+  .dataTable tbody tr .fnCol11,
+  .dataTable tbody tr .fnCol12,
+  .dataTable tbody tr .fnCol13 {
+    text-align: center;
   }
   /* bold headers for mobile */
-  .dataTable tbody tr td.fnCol3,
-  .dataTable tbody tr td.fnCol4,
-  .dataTable tbody tr td.fnCol5 {
+  .dataTable tbody tr .fnCol3,
+  .dataTable tbody tr .fnCol4,
+  .dataTable tbody tr .fnCol5 {
     font-weight: bold;
   }
 }
@@ -261,24 +265,28 @@ table.dataTable tbody td {
 /* ====================
          DT plugins CSS
 ======================= */
-/* moves copied info in front, changes clipboard copied color, */
-#datatables_buttons_info {
-  z-index: 9999 !important;
-}
 
-#datatables_buttons_info > h2 {
+/* moves copied info in front  - is this still needed??? test with colvis 
+div.dt-button-info {
+  z-index: 9999 !important;
+} */
+
+/* , changes clipboard copied color, */
+div.dt-button-info > h2 {
   background: #add1f2;
 }
 
-/*hides table headers only on mobile, prev nth-child(2)
-           - Mobile only MQ */
+/* hides table headers only on mobile, prev nth-child(2)
+- Mobile only MQ 
+looks like we don't need this code anymore,
+instead use #fortyNawawi > thead { display: none; } below*/ /*
 @media screen and (max-width: 900px) {
   thead tr:nth-child(1) {
-    position: absolute !important;
-    top: -9999px !important;
-    left: -9999px !important;
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
   }
-}
+} */
 
 /* Keytable - Desktop only MQ */
 @media screen and (min-width: 900px) {
@@ -302,22 +310,27 @@ mark {
 /* ====================
        CARDS CODE
 ======================= */
+
 .cards tbody tr {
   float: left;
-  /*width: 190rem;*/
-  /* lets card fill width when cut out*/
+  /* width: 190rem; */
+  /* lets card fill width when cut out */
   margin: 0.5rem;
   border: 0.0625rem solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
+  border-radius: 0.25rem; /* makes cards a little rounder */
   box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
 }
 
+/* MQ on mobile, this gets rid of empty th space at right of table on mobile,
++ centers table, while 2nd bit hides table header on mobile, need either this or 
+  thead tr:nth-child(1) { position: absolute; top: -9999px; left: -9999px; above
+    but not both*/
 @media screen and (max-width: 900px) {
-  /* MQ on mobile, this gets rid of empty th space at right of table on mobile, as well as centers table */
-  #fortyNawawi {
+  .fnClass {
     display: flex;
   }
-  #fortyNawawi > thead {
+
+  .fnClass > thead {
     display: none;
   }
 }
@@ -339,11 +352,12 @@ mark {
   display: block;
 }
 
+/* is this needed?? */ /*
 .cards thead {
   visibility: hidden;
-}
+} */
 
-.cards td:before {
+.cards td::before {
   content: attr(data-label);
   position: relative;
   float: left;
@@ -354,7 +368,8 @@ mark {
   text-align: left;
 }
 
-tr.selected td:before {
+tr.selected td::before {
   color: #ccc;
 }
+
 /* cards code END ===== */
