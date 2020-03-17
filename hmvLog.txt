@@ -29,7 +29,7 @@ shift + alt = multi line cursor
 ====================
        TO DOS
 ====================
-make on copy popup fit mobile width
+make all boxes rounder
 
 add bulletproof font face
 @font-face {

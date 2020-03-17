@@ -284,9 +284,23 @@ div.dt-button-info {
   z-index: 9999 !important;
 } */
 
-/* , changes clipboard copied color, */
+/* changes clipboard copied color, */
 div.dt-button-info > h2 {
   background: #add1f2;
+}
+
+/* makes clipboard copy popup centered and fits width on mobile view */
+div#datatables_buttons_info.dt-button-info {
+  /* fits screen on mobile, is 400 on desktop */
+  width: auto;
+  max-width: 350px;
+  /* centers */
+  right: 0px;
+  left: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  /* makes borders rounder */
+  border-radius: 5px;
 }
 
 /* hides table headers only on mobile, prev nth-child(2)
