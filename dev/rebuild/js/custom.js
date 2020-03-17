@@ -267,6 +267,7 @@ $(document).ready(function() {
     //      DT CUSTOM DOM
     // ====================
     /*DOM options, https://datatables.net/reference/option/dom,
+    https://datatables.net/examples/basic_init/dom.html
          default: lpfrtip
         l - length changing input control
         f - filtering input
@@ -282,7 +283,8 @@ $(document).ready(function() {
 <"#id.class" and > - div with an ID and a class */
     //"lBpfrtip",
 
-    dom: "lBpfrtip",
+    dom: '<"top"pBfl>rt<"bottom"ip>',
+
     buttons: [
       //datatables.net/extensions/buttons/examples/initialisation/multiple
       //used to use a container before, now 2 buttons

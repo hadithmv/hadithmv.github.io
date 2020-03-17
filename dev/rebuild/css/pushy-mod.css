@@ -311,7 +311,8 @@ ul {
   direction: rtl;
 }
 
-/* Container، made padding y sides smaller, change x and padding top later if neede */
+/* Container، made padding y sides smaller,
+ change x and padding top later if needd */
 #container {
   padding: 20px 10px;
   padding-top: 80px;
@@ -319,7 +320,7 @@ ul {
 
 /* button hover change */
 .menu-btn:hover {
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 /* makes svg pushy arrows rtl */
