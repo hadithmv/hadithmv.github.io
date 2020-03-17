@@ -90,6 +90,20 @@ from what i see makes them smaller */
 /* ===== BOILERPLATE - END ===== */
 
 /* ====================
+     Hide scroll bar - probably needed for pushy nav
+======================= */
+/* while still being able to scroll - probably does not work on firefox, TODO*/
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 0px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+/* ===== Hide scroll bar - END ===== */
+
+/* ====================
      Tabs Animations
 ======================= */
 .w3-animate-right {
@@ -168,7 +182,8 @@ select, /* page lengthmenu */
 button,
 .dt-button-info, /* clipboard message */
 li, /* for pushy side bar */
-.site-header {
+.site-header /* for pushy side bar */
+ {
   font-family: "mvtyper", "Almarai", sans-serif;
   /*
               text-align: justify;
@@ -276,8 +291,7 @@ div.dt-button-info > h2 {
 
 /* hides table headers only on mobile, prev nth-child(2)
 - Mobile only MQ 
-looks like we don't need this code anymore,
-instead use #fortyNawawi > thead { display: none; } below*/ /*
+looks like we don't need this code anymore, use the hide below this */ /*
 @media screen and (max-width: 900px) {
   thead tr:nth-child(1) {
     position: absolute;
@@ -320,41 +334,53 @@ mark {
   box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
 }
 
-/* MQ on mobile, this gets rid of empty th space at right of table on mobile,
-+ centers table, while 2nd bit hides table header on mobile, need either this or 
-  thead tr:nth-child(1) { position: absolute; top: -9999px; left: -9999px; above
-    but not both*/
-@media screen and (max-width: 900px) {
-  .fnClass {
-    display: flex;
-  }
-
-  .fnClass > thead {
-    display: none;
-  }
-}
-
-/*
-#fortyNawawi {
-    display: flex;
-}
-*/
-
-/*
-#fortyNawawi > thead
-{
-    display: none;
-}
-*/
-
 .cards tbody td {
   display: block;
 }
 
-/* is this needed?? */ /*
+/* is this needed?? */
 .cards thead {
   visibility: hidden;
-} */
+
+  /* 'Hide only visually, but have it available for screen readers':
+  taken from boilerplate code, maybe this is better than the 
+  thead tr:nth-child(1) { position: absolute; top: -9999px; left: -9999px; 
+  from above, have commented out apparently useless code */
+  /*border: 0;*/
+  clip: rect(0, 0, 0, 0);
+  /*height: 1px;*/
+  /*margin: -1px;*/
+  /*overflow: hidden;*/
+  /*padding: 0;*/
+  position: absolute;
+  /*white-space: nowrap;*/
+  /*width: 1px;*/
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/* DEPRECIATED- dont use this anymore
+MQ on mobile, this gets rid of empty th space at right of table on mobile,
++ centers table, while 2nd bit hides table header on mobile, need either this or 
+  thead tr:nth-child(1) { position: absolute; top: -9999px; left: -9999px; above
+    but not both
+    @media screen and (max-width: 900px) {
+      .fnClass {
+        display: flex;
+      }
+    
+      .fnClass > thead {
+        display: none;
+      }
+    }
+*/
 
 .cards td::before {
   content: attr(data-label);
@@ -374,3 +400,7 @@ mark {
 */
 
 /* cards code END ===== */
+
+/* ====================
+       CARDS CODE
+======================= */

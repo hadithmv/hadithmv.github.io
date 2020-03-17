@@ -23,6 +23,9 @@ open in browser
 ctrl + p = command palette
 ctrl g = jump to line
 shift + alt = multi line cursor
+
+--mdc-theme-primary: #0277bd;
+--mdc-theme-secondary: #58a5f0;
 ====================
        TO DOS
 ====================

@@ -19,13 +19,13 @@
 
 .pushy a {
   display: block;
-  color: #b3b3b1;
+  color: #e2f1f8; /* dimmed color before mouse over */
   padding: 15px 30px;
   text-decoration: none;
 }
 
 .pushy a:hover {
-  color: #FFF;
+  color: #fff;
 }
 
 .pushy ul:first-child {
@@ -45,14 +45,16 @@
 }
 
 /* Menu Movement */
-
+/*
 .pushy-left {
   -webkit-transform: translate3d(-200px, 0, 0);
   -ms-transform: translate3d(-200px, 0, 0);
   transform: translate3d(-200px, 0, 0);
 }
+*/
 
-.pushy-open-left #container, .pushy-open-left .push {
+/*.pushy-open-left #container,*/
+.pushy-open-left .push {
   -webkit-transform: translate3d(200px, 0, 0);
   -ms-transform: translate3d(200px, 0, 0);
   transform: translate3d(200px, 0, 0);
@@ -64,26 +66,32 @@
   transform: translate3d(200px, 0, 0);
 }
 
-.pushy-open-right #container, .pushy-open-right .push {
+.pushy-open-right #container,
+.pushy-open-right .push {
   -webkit-transform: translate3d(-200px, 0, 0);
   -ms-transform: translate3d(-200px, 0, 0);
   transform: translate3d(-200px, 0, 0);
 }
 
-.pushy-open-left .pushy, .pushy-open-right .pushy {
+/*.pushy-open-left .pushy,*/
+.pushy-open-right .pushy {
   -webkit-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
 
-.pushy-open-left .pushy-content, .pushy-open-right .pushy-content {
+/*.pushy-open-left .pushy-content*/
+.pushy-open-right .pushy-content {
   visibility: visible;
 }
 
 /* Menu Transitions */
 
-#container, .pushy, .push {
+#container,
+.pushy,
+.push {
   transition: transform 0.2s cubic-bezier(0.16, 0.68, 0.43, 0.99);
+  /* transition: transform .3s cubic-bezier(.4,0,.6,1),opacity 0s .3s; -material menu */
 }
 
 .pushy-content {
@@ -96,7 +104,10 @@
   display: none;
 }
 
-.pushy-open-left .site-overlay, .pushy-open-right .site-overlay {
+/*.pushy-open-left .site-overlay,
+    --- dims rest of page on pushy nav open
+*/
+.pushy-open-right .site-overlay {
   display: block;
   position: fixed;
   top: 0;
@@ -104,7 +115,7 @@
   bottom: 0;
   left: 0;
   z-index: 9998;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3); /* this dims it -rgba(0, 0, 0, 0.5)*/
   -webkit-animation: fade 500ms;
   animation: fade 500ms;
 }
@@ -130,22 +141,22 @@
 /* Submenu Appearance */
 /*
 .pushy-submenu {*/
-  /* Submenu Buttons */
-  /* Submenu Icon *//*
+/* Submenu Buttons */
+/* Submenu Icon */ /*
 }
 */
-.pushy-submenu>ul {
+.pushy-submenu > ul {
   padding-left: 15px;
   transition: max-height 0.2s ease-in-out, visibility 0.2s ease-in-out;
 }
 
-.pushy-submenu>ul .pushy-link {
+.pushy-submenu > ul .pushy-link {
   transition: opacity 0.2s ease-in-out;
 }
 
 .pushy-submenu button {
   width: 100%;
-  color: #b3b3b1;
+  color: #e2f1f8; /* dimmed color before mouse over -b3b3b1*/
   padding: 15px 30px;
   text-align: left;
   background: transparent;
@@ -153,15 +164,17 @@
 }
 
 .pushy-submenu button:hover {
-  color: #FFF;
+  color: #fff;
 }
 
-.pushy-submenu>a, .pushy-submenu>button {
+.pushy-submenu > a,
+.pushy-submenu > button {
   position: relative;
 }
 
-.pushy-submenu>a::after, .pushy-submenu>button::after {
-  content: '';
+.pushy-submenu > a::after,
+.pushy-submenu > button::after {
+  content: "";
   display: block;
   height: 11px;
   width: 8px;
@@ -177,7 +190,7 @@
 
 /* Submenu Movement */
 
-.pushy-submenu-closed>ul {
+.pushy-submenu-closed > ul {
   max-height: 0;
   overflow: hidden;
   visibility: hidden;
@@ -188,10 +201,10 @@
 }
 /*
 .pushy-submenu-open {*/
-  /* Submenu Icon *//*
+/* Submenu Icon */ /*
 }*/
 
-.pushy-submenu-open>ul {
+.pushy-submenu-open > ul {
   max-height: 1000px;
   visibility: visible;
 }
@@ -200,7 +213,8 @@
   opacity: 1;
 }
 
-.pushy-submenu-open>a::after, .pushy-submenu-open>button::after {
+.pushy-submenu-open > a::after,
+.pushy-submenu-open > button::after {
   -webkit-transform: translateY(-50%) rotate(90deg);
   -ms-transform: translateY(-50%) rotate(90deg);
   transform: translateY(-50%) rotate(90deg);
@@ -210,7 +224,8 @@
 
 /* BELOW IS CUSTON CSS FROM PUSHY DEMO CSS */
 
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 
@@ -235,8 +250,10 @@ ul {
   width: 100px;
   padding: 10px;
   margin-bottom: 30px;
+  /*
   background: #000;
-  color: #FFF;
+  color: #fff;
+  */
   text-align: center;
   cursor: pointer;
   border: 0px;
@@ -250,8 +267,10 @@ ul {
 
 .site-header {
   position: fixed;
+  /*
   background: #000;
-  color: #FFF;
+  color: #fff;
+  */
   width: 100%;
   padding: 20px 0;
   text-align: center;
@@ -272,39 +291,25 @@ ul {
 
 /*# sourceMappingURL=demo.css.map */
 
-
-
-
-
-/* Hide scroll bar, but while still being able to scroll - probably does not work on firefox, TODO*/
-html {
-  overflow: scroll;
-  overflow-x: hidden;
-}
-::-webkit-scrollbar {
-  width: 0px;  /* Remove scrollbar space */
-  background: transparent;  /* Optional: just make scrollbar invisible */
-}
-/* Hide scroll bar, but while still being able to scroll - END */
-
+/* ====================
+     custom edits below
+======================= */
 
 /* mostly list items */
 .pushy-content {
   text-align: right;
 }
 
-
 /* buttons inside pushy content align */
 .pushy-content button {
   text-align: right;
 }
 
-
-/* moves pushy list items a little to the left, indent effect */
-body > nav > div > ul > li.pushy-submenu.pushy-submenu-open > ul > li:nth-child(n) > a {
-  padding-right: 50px;
+/* moves pushy list items a little to the left, indent */
+.pushy-link a {
+  text-indent: 1em;
+  direction: rtl;
 }
-
 
 /* Container، made padding y sides smaller, change x and padding top later if neede */
 #container {
@@ -317,16 +322,73 @@ body > nav > div > ul > li.pushy-submenu.pushy-submenu-open > ul > li:nth-child(
   opacity: 0.8;
 }
 
-
 /* makes svg pushy arrows rtl */
-.pushy-submenu>a::after, .pushy-submenu>button::after {
-left: 15px;
+.pushy-submenu > a::after,
+.pushy-submenu > button::after {
+  left: 15px;
 }
 
 /* arrow flip code is above not here */
 
-
 /* experimenting with colors */
-.menu-btn, .site-header {
-  background: #23272A;
+.site-header {
+  /* background: #23272A; */
+  color: #fff; /* nav menu center text -fff */
+  background-color: #34515e;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* side bar */
+.pushy {
+  background: #1a282f;
+}
+
+/* luxbar and mdc menu stuff below
+  .site-header {
+
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  */
+/*height: 58px;*/
+/*
+  list-style-type: disc;
+  background-color: #0277bd;
+  color: #fff;
+
+  width: 100%;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  z-index: 1000;
+  ------------------------------------
+  */
+
+/*
+    position: fixed;
+    top: 0;
+    transition: transform .3s cubic-bezier(.4,0,.6,1),opacity 0s .3s;
+    width: 100%;
+    */
+/*
+    background-color: #0277bd;
+    box-shadow: 0 2px 4px rgba(0,0,0,.5);
+*/
+/*display: -ms-flexbox;
+    display: flex;*/
+/*height: 112px;*/
+/*
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    z-index: 4;
+   
+}
+ */
+
+/* prevent scrolling of your site when Pushy is open */
+
+html,
+body {
+  overflow-x: hidden;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
 }
