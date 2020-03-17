@@ -32,9 +32,11 @@ $(document).ready(function() {
     //"keys": "true",   /* KeyTable extension, old  */
   });
 
+  /* js media query on desktop, needs to have quotes */
   if (window.matchMedia("(min-width: 1200px)").matches) {
-    /* js media query on desktop, needs to have quotes */
     $.extend(true, $.fn.dataTable.defaults, {
+      //desktop, goes rtl -->
+      dom: '<"top"pBfl>rt<"bottom"ip>',
       pageLength: 3, //# rows to display on single page when using pagination
       lengthMenu: [
         [1, 2, 3, 5, 7, 10, 15, 20, -1],
@@ -45,6 +47,8 @@ $(document).ready(function() {
   } else {
     /* js media query on mobile, tablet */
     $.extend(true, $.fn.dataTable.defaults, {
+      //mobile
+      dom: '<"top"fl> + <"top2"p> + <"top3"B> rt <"bottom"ip>',
       pageLength: 1,
       lengthMenu: [
         [1, 2, 3, 5, 7, 10, 15, 20, -1],
@@ -283,7 +287,12 @@ $(document).ready(function() {
 <"#id.class" and > - div with an ID and a class */
     //"lBpfrtip",
 
-    dom: '<"top"pBfl>rt<"bottom"ip>',
+    //desktop, goes rtl -->
+    //dom: '<"top"pBfl>rt<"bottom"ip>',
+    //mobile
+    //dom: '<"top"fl> + <"top2"p> + <"top3"B> rt <"bottom"ip>',
+    // MOVED TO   if (window.matchMedia("(min-width: 1200px)").matches) {
+    //$.extend(true, $.fn.dataTable.defaults, {   ABOVE
 
     buttons: [
       //datatables.net/extensions/buttons/examples/initialisation/multiple

@@ -245,31 +245,31 @@ table.dataTable tbody td {
 
 /* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells, right align to prevent gaps in text */
-.dataTable tr td .fnCol2,
-.dataTable tr td .fnCol3,
-.dataTable tr td .fnCol4,
-.dataTable tr td .fnCol8,
-.dataTable tr td .fnCol9,
-.dataTable tr td .fnCol10 {
+.dataTable tr td.fnCol2,
+.dataTable tr td.fnCol3,
+.dataTable tr td.fnCol4,
+.dataTable tr td.fnCol8,
+.dataTable tr td.fnCol9,
+.dataTable tr td.fnCol10 {
   text-align: right;
 }
 
 /* mobile only row centering, for rows with strings that are not long */
 @media screen and (max-width: 900px) {
-  .dataTable tr td .fnCol1,
-  .dataTable tr td .fnCol2,
-  .dataTable tr td .fnCol3,
-  .dataTable tr td .fnCol4,
-  .dataTable tr td .fnCol8,
-  .dataTable tr td .fnCol9,
-  .dataTable tr td .fnCol10 {
+  .dataTable tr td.fnCol1,
+  .dataTable tr td.fnCol2,
+  .dataTable tr td.fnCol3,
+  .dataTable tr td.fnCol4,
+  .dataTable tr td.fnCol8,
+  .dataTable tr td.fnCol9,
+  .dataTable tr td.fnCol10 {
     text-align: center;
   }
   /* bold headers for mobile */
-  .dataTable tr td .fnCol1,
-  .dataTable tr td .fnCol2,
-  .dataTable tr td .fnCol3,
-  .dataTable tr td .fnCol4 {
+  .dataTable tr td.fnCol1,
+  .dataTable tr td.fnCol2,
+  .dataTable tr td.fnCol3,
+  .dataTable tr td.fnCol4 {
     font-weight: bold;
   }
 }
@@ -332,7 +332,7 @@ mark {
   color: black;
   padding: 0;
 }
-/* ===== DT plugins CSS  - END ===== */
+/* ===== DT plugins CSS - END ===== */
 
 /* ====================
        CARDS CODE
@@ -414,18 +414,43 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 }
 */
 
-/* cards code END ===== */
+/* ===== cards code END ===== */
 
 /* ====================
-       CARDS CODE
+       DOM FLEXBOX
 ======================= */
 
 .top {
   display: flex; /* single-direction layout concept. */
-  flex-wrap: wrap; /* flex items will wrap onto multiple lines, from top to bottom. 
-  By default, flex items will all try to fit onto one line*/
-  justify-content: space-between; /*  alignment along the main axis 
-  items are evenly distributed in the line; first item is on the start line, last item on the end line */
+  flex-wrap: nowrap; /* (default): all flex items will be on one line */
+  justify-content: space-evenly; /*  items are distributed so that the spacing between any two items (and the space to the edges) is equal. */
   align-items: baseline; /* how flex items are laid out along the cross axis on the current line.
   Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align*/
 }
+
+.top2 {
+  display: flex; /* single-direction layout concept. */
+  flex-wrap: nowrap; /* (default): all flex items will be on one line */
+  justify-content: center; /*  items are centered along the line */
+}
+
+.top3 {
+  display: flex; /* single-direction layout concept. */
+  flex-wrap: nowrap; /* (default): all flex items will be on one line */
+  justify-content: center; /*  items are centered along the line */
+}
+
+/* Desktop only MQ */
+@media screen and (min-width: 900px) {
+  .top {
+    display: flex; /* single-direction layout concept. */
+    flex-wrap: wrap; /* flex items will wrap onto multiple lines, from top to bottom. 
+    By default, flex items will all try to fit onto one line*/
+    justify-content: space-between; /*  alignment along the main axis 
+    items are evenly distributed in the line; first item is on the start line, last item on the end line */
+    align-items: baseline; /* how flex items are laid out along the cross axis on the current line.
+    Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align*/
+  }
+}
+
+/* ===== dom flexbox - END ===== */
