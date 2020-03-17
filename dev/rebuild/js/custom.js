@@ -35,8 +35,8 @@ $(document).ready(function() {
   /* js media query on desktop, needs to have quotes */
   if (window.matchMedia("(min-width: 1200px)").matches) {
     $.extend(true, $.fn.dataTable.defaults, {
-      //desktop, goes rtl -->
-      dom: '<"top"pBfl>rt<"bottom"ip>',
+      //desktop, goes rtl --> //'<"dTop"pBfl>rt<"bottom"ip>',
+      dom: '<"dTop"pBfl>rtip',
       pageLength: 3, //# rows to display on single page when using pagination
       lengthMenu: [
         [1, 2, 3, 5, 7, 10, 15, 20, -1],
@@ -47,8 +47,8 @@ $(document).ready(function() {
   } else {
     /* js media query on mobile, tablet */
     $.extend(true, $.fn.dataTable.defaults, {
-      //mobile
-      dom: '<"top"fl> + <"top2"p> + <"top3"B> rt <"bottom"ip>',
+      //mobile //'<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rt <"bottom"ip>',
+      dom: '<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rtip',
       pageLength: 1,
       lengthMenu: [
         [1, 2, 3, 5, 7, 10, 15, 20, -1],
