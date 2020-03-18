@@ -29,6 +29,9 @@ shift + alt = multi line cursor
 ====================
        TO DOS
 ====================
+
+hiding scroll is bad, make it show on hover
+
 make all boxes rounder
 
 glow text effect?:

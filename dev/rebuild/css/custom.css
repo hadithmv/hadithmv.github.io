@@ -1,15 +1,22 @@
+/*
+Starting with / returns to the root directory and starts there
+Starting with ../ moves one directory backward and starts there
+Starting with ../../ moves two directories backward and starts there (and so on...)
+To move forward, just start with the first sub directory and keep moving forward.
+*/
+
 /* ====================
          FONTS
 ======================= */
 /* arabic */
 @font-face {
-  font-family: "Almarai";
-  src: url("Almarai.woff2");
+  font-family: "arFont";
+  src: url("../font/Almarai-original-Regular.woff2");
 }
 
 /* dhivehi */
 @font-face {
-  font-family: "mvtyper";
+  font-family: "dvFont";
   src: url("mvtyper-mod2.woff2");
 }
 /* ===== ===== FONTS - END ===== ===== */
@@ -184,8 +191,8 @@ button,
 li, /* for pushy side bar */
 .site-header /* for pushy side bar */
  {
-  font-family: "mvtyper", "Almarai", sans-serif;
-  /*
+  font-family: "dvFont", "arFont", sans-serif;
+  /* CHANGE123 FONT
               text-align: justify;
               font-size: 100%;
               -ms-text-size-adjust: 100%;
@@ -194,6 +201,9 @@ li, /* for pushy side bar */
               line-height: 1.5;
               word-wrap: break-word;
     */
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1rem;
 }
 
 /* makes table rtl */
@@ -272,6 +282,26 @@ justify doesnt look good on short cells, right align to prevent gaps in text */
   .dataTable tr td.fnCol4 {
     font-weight: bold;
   }
+}
+
+/* CHANGE123 FONT */
+/* ar fonts on table */
+.dataTable tr td.fnCol2,
+.dataTable tr td.fnCol3,
+.dataTable tr td.fnCol5,
+.dataTable tr td.fnCol6,
+.dataTable tr td.fnCol8,
+.dataTable tr td.fnCol10 {
+  font-family: "arFont", "dvFont";
+  /* do this next!!!*/
+}
+
+/* dv fonts on table */
+.dataTable tr td.fnCol1,
+.dataTable tr td.fnCol4,
+.dataTable tr td.fnCol7,
+.dataTable tr td.fnCol9 {
+  /* do this next!!!*/
 }
 
 /* ===== DT Custom Column CSS  - END ===== */
