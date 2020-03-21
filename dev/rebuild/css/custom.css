@@ -11,13 +11,17 @@ To move forward, just start with the first sub directory and keep moving forward
 /* arabic */
 @font-face {
   font-family: "arFont";
-  src: url("../font/Almarai-original-Regular.woff2");
+  src: url("Yakout-Linotype-W20-Light-Copy6.woff2") format("woff2"),
+    url("Yakout-Linotype-W20-Light-Copy5.woff") format("woff"),
+    url("Yakout-Linotype-W20-Light-Copy5.ttf") format("truetype");
 }
 
 /* dhivehi */
 @font-face {
   font-family: "dvFont";
-  src: url("mvtyper-mod2.woff2");
+  src: url("mvtyper-Copy7.woff2") format("woff2"),
+    url("mvtyper-Copy7.woff") format("woff"),
+    url("mvtyper-Copy7.ttf") format("truetype");
 }
 /* ===== ===== FONTS - END ===== ===== */
 
@@ -97,18 +101,46 @@ from what i see makes them smaller */
 /* ===== BOILERPLATE - END ===== */
 
 /* ====================
-     Hide scroll bar - probably needed for pushy nav
+     scroll bar - probably needed for pushy nav
 ======================= */
 /* while still being able to scroll - probably does not work on firefox, TODO*/
+/*
 html {
   overflow: scroll;
   overflow-x: hidden;
 }
-::-webkit-scrollbar {
-  width: 0px; /* Remove scrollbar space */
-  background: transparent; /* Optional: just make scrollbar invisible */
+*/
+/*::-webkit-scrollbar*/ /*{*/
+/*width: 0px;*/ /* Remove scrollbar space */
+/*background: transparent;*/ /* Optional: just make scrollbar invisible */ /*
+}*/
+
+/* https://css-tricks.com/the-current-state-of-styling-scrollbars/ */
+/* Desktop only MQ */
+@media screen and (min-width: 900px) {
+html {
+  --scrollbarBG: #cfd8dc;
+  --thumbBG: #90a4ae;
 }
-/* ===== Hide scroll bar - END ===== */
+body::-webkit-scrollbar {
+  width: 11px;
+}
+body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+body::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG);
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}
+}
+}
+
+/* ===== scroll bar - END ===== */
 
 /* ====================
      Tabs Animations
@@ -286,6 +318,8 @@ justify doesnt look good on short cells, right align to prevent gaps in text */
 
 /* CHANGE123 FONT */
 /* ar fonts on table */
+.dataTable tr td.fnCol1, /* not ar but need dv font */
+
 .dataTable tr td.fnCol2,
 .dataTable tr td.fnCol3,
 .dataTable tr td.fnCol5,
@@ -293,15 +327,44 @@ justify doesnt look good on short cells, right align to prevent gaps in text */
 .dataTable tr td.fnCol8,
 .dataTable tr td.fnCol10 {
   font-family: "arFont", "dvFont";
-  /* do this next!!!*/
+  font-size: 25px;
+  line-height: 1.6;
+
+  -webkit-font-smoothing: antialiased;
+  /*word-spacing: 0;*/
+  /*max-width: 100ch;*/
 }
+/*
+.dataTable tr td.fnCol3 {
+  width: 10ch;
+}
+.dataTable tr td.fnCol8 {
+  width: 16ch;
+}
+*/
 
 /* dv fonts on table */
-.dataTable tr td.fnCol1,
+/*.dataTable tr td.fnCol1, need this bigger */
 .dataTable tr td.fnCol4,
 .dataTable tr td.fnCol7,
 .dataTable tr td.fnCol9 {
-  /* do this next!!!*/
+  font-family: "dvFont", "arFont";
+  /* taken from http://www.hassanhameed.com/?page_id=154
+  /*font: 13px/20px PTSansRegular,Arial,Helvetica,sans-serif;*/
+  /*font-weight: 400;*/
+  /*letter-spacing: 0px;*/
+  /*font-style: normal;*/
+  /*color: #2a2a2a;*/
+  /*box-sizing: border-box;*/
+  /*margin: 0 0 20px;*/
+  /*margin-top: 0;*/
+  /*margin-bottom: 20px;*/
+  font-size: 18px;
+  line-height: 1.9;
+
+  -webkit-font-smoothing: antialiased;
+  /*word-spacing: 0;*/
+  /*max-width: 100ch;*/
 }
 
 /* ===== DT Custom Column CSS  - END ===== */
