@@ -1,3 +1,10 @@
+install ps in other drive
+move calibre there too
+
+yarkout
+abdoline
+karim
+
 remember to format, validate, lint, minify, lighthouse, remove unused code, treeshaking
 
 prettier, set as default in vscode; format on save
