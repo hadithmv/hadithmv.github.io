@@ -1,0 +1,47 @@
+{
+  "telemetry.enableTelemetry": false,
+  "telemetry.enableCrashReporter": false,
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  /*
+  "[css]": {
+      "editor.defaultFormatter": "stylelint.vscode-stylelint",
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "chenxsan.vscode-standardjs"
+  },
+*/
+  "sync.gist": "2199f3bc7a155947a1e27a09545e4de0",
+
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true, //formats with prettifier on save first
+
+  "editor.rulers": [
+    {
+      "column": 80,
+      "color": "#ffffff15"
+    }
+  ],
+
+  "editor.fontFamily": "'Fira Code Retina', Consolas, 'Courier New', monospace",
+
+  "stylelint.enable": true,
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+
+  "editor.codeActionsOnSave": {
+    // For ESLint
+    "source.fixAll.eslint": true,
+    // For TSLint //"source.fixAll.tslint": true,
+    // For Stylelint
+    "source.fixAll.stylelint": true
+  },
+
+  "javascript.validate.enable": false,
+  //"standard.autoFixOnSave": true, // fixes with standardjs after
+
+  "htmlhint.enable": true,
+  "todo-tree.tree.showScanModeButton": false,
+  "window.zoomLevel": 0
+}
