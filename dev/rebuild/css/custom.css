@@ -8,9 +8,11 @@ To move forward, just start with the first sub directory and keep moving forward
 /* ====================
          FONTS
 ======================= */
+
 /* arabic */
 @font-face {
   font-family: "arFont";
+
   src: url("Yakout-Linotype-W20-Light-Copy6.woff2") format("woff2"),
     url("Yakout-Linotype-W20-Light-Copy5.woff") format("woff"),
     url("Yakout-Linotype-W20-Light-Copy5.ttf") format("truetype");
@@ -19,10 +21,12 @@ To move forward, just start with the first sub directory and keep moving forward
 /* dhivehi */
 @font-face {
   font-family: "dvFont";
+
   src: url("mvtyper-Copy7.woff2") format("woff2"),
     url("mvtyper-Copy7.woff") format("woff"),
     url("mvtyper-Copy7.ttf") format("truetype");
 }
+
 /* ===== ===== FONTS - END ===== ===== */
 
 /* ====================
@@ -30,12 +34,17 @@ To move forward, just start with the first sub directory and keep moving forward
 ======================= */
 html {
   /* main */
+
   /* color: #222; */
   font-size: 1em;
   line-height: 1.4;
+
   /* do i need this?? */
+
   /* normalize */
+
   /* line-height: 1.15; */
+
   /* -webkit-text-size-adjust: 100%; */
 }
 
@@ -45,7 +54,13 @@ body {
 }
 
 /* evens out and better colors text highlights - main */
+
 /* Remove text-shadow in selection highlight. Customize the background color to match your design. */
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
 ::selection {
   background: #b3d4fc;
   text-shadow: none;
@@ -59,22 +74,31 @@ body {
 /* Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers  - main */
 img {
   vertical-align: middle;
+
   /* do i need this??? */
 }
 
 /* normalize */
+
 /* 1. Change the font styles in all browsers. 2. Remove the margin in Firefox and Safari. */
 button,
 input,
 select {
   /* font-family: inherit; */
+
   /* 1 */
   font-size: 100%;
+
   /* 1 */
+
   /* makes input font as well as input box bigger, maybe more even */
+
   /* line-height: 1.15; */
+
   /* 1 */
+
   /* margin: 0; */
+
   /* 2 */
 }
 
@@ -103,41 +127,58 @@ from what i see makes them smaller */
 /* ====================
      scroll bar - probably needed for pushy nav
 ======================= */
-/* while still being able to scroll - probably does not work on firefox, TODO*/
+
+/* while still being able to scroll - probably does not work on firefox, TODO */
+
 /*
 html {
   overflow: scroll;
   overflow-x: hidden;
 }
 */
-/*::-webkit-scrollbar*/ /*{*/
-/*width: 0px;*/ /* Remove scrollbar space */
-/*background: transparent;*/ /* Optional: just make scrollbar invisible */ /*
-}*/
+
+/* ::-webkit-scrollbar */
+
+/* { */
+
+/* width: 0px; */
+
+/* Remove scrollbar space */
+
+/* background: transparent; */
+
+/* Optional: just make scrollbar invisible */
+
+/*
+} */
 
 /* https://css-tricks.com/the-current-state-of-styling-scrollbars/ */
+
 /* Desktop only MQ */
 @media screen and (min-width: 900px) {
-html {
-  --scrollbarBG: #cfd8dc;
-  --thumbBG: #90a4ae;
-}
-body::-webkit-scrollbar {
-  width: 11px;
-}
-body {
-  scrollbar-width: thin;
-  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-}
-body::-webkit-scrollbar-track {
-  background: var(--scrollbarBG);
-}
-body::-webkit-scrollbar-thumb {
-  background-color: var(--thumbBG);
-  border-radius: 6px;
-  border: 3px solid var(--scrollbarBG);
-}
-}
+  html {
+    --scrollbarBG: #cfd8dc;
+    --thumbBG: #90a4ae;
+  }
+
+  body::-webkit-scrollbar {
+    width: 11px;
+  }
+
+  body {
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+  }
+
+  body::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG);
+    border-radius: 6px;
+    border: 3px solid var(--scrollbarBG);
+  }
 }
 
 /* ===== scroll bar - END ===== */
@@ -147,19 +188,26 @@ body::-webkit-scrollbar-thumb {
 ======================= */
 .w3-animate-right {
   position: relative;
+
   /*
     animation: animateRight 0.4s;  original code of below */
+
   /*
     -webkit-animation: animateRight 0.5s ease-in-out;
     -moz-animation:    animateRight 0.5s ease-in-out;
     -o-animation:      animateRight 0.5s ease-in-out;
     animation:        animateRight 0.5s ease-in-out;
     */
+  -webkit-animation-name: animateright;
   animation-name: animateRight;
+  -webkit-animation-duration: 400ms;
   animation-duration: 400ms;
   will-change: transform;
+
   /* gpu */
+  -webkit-transition-timing-function: ease-in-out;
   transition-timing-function: ease-in-out;
+
   /* smooth */
 }
 
@@ -201,15 +249,30 @@ ORIGINAL CODE above */
   removed opacity, right, added will-change and ease
   */
 
-@keyframes animateRight {
+@-webkit-keyframes animateRight {
   0% {
+    -webkit-transform: translateX(100%);
     transform: translateX(100%);
   }
 
   100% {
+    -webkit-transform: none;
     transform: none;
   }
 }
+
+@keyframes animateRight {
+  0% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+
+  100% {
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
 /* ===== Tabs Animation - END ===== */
 
 /* ====================
@@ -221,9 +284,9 @@ select, /* page lengthmenu */
 button,
 .dt-button-info, /* clipboard message */
 li, /* for pushy side bar */
-.site-header /* for pushy side bar */
- {
+.site-header {
   font-family: "dvFont", "arFont", sans-serif;
+
   /* CHANGE123 FONT
               text-align: justify;
               font-size: 100%;
@@ -249,8 +312,10 @@ input[type="search"]::-webkit-search-cancel-button {
   /* adds x delete placeholder */
   -webkit-appearance: searchfield-cancel-button;
   border: 4px solid transparent;
+
   /* makes x a bit bigger */
 }
+
 /* ===== DT wrapper CSS  - END ===== */
 
 /* ====================
@@ -265,8 +330,10 @@ table.dataTable tbody td {
 /* table data rows alignment */
 .fnClass > tbody > tr > td {
   text-align: justify;
+
   /* word-spacing: -10px; */
   font-size: 100%;
+
   /* -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%; */
   color: #24292e;
@@ -278,7 +345,9 @@ table.dataTable tbody td {
 .fnClass > thead > tr > th {
   font-size: 100%;
   text-align: center;
+
   /* color: #205ca5; */
+
   /* -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%; */
   line-height: 1.5;
@@ -307,33 +376,37 @@ justify doesnt look good on short cells, right align to prevent gaps in text */
   .dataTable tr td.fnCol10 {
     text-align: center;
   }
+
   /* bold headers for mobile */
   .dataTable tr td.fnCol1,
   .dataTable tr td.fnCol2,
-  .dataTable tr td.fnCol3,
+  /* .dataTable tr td.fnCol3, looks bad */
   .dataTable tr td.fnCol4 {
     font-weight: bold;
   }
 }
 
 /* CHANGE123 FONT */
+
 /* ar fonts on table */
 .dataTable tr td.fnCol1, /* not ar but need dv font */
-
 .dataTable tr td.fnCol2,
 .dataTable tr td.fnCol3,
 .dataTable tr td.fnCol5,
 .dataTable tr td.fnCol6,
 .dataTable tr td.fnCol8,
 .dataTable tr td.fnCol10 {
-  font-family: "arFont", "dvFont";
+  font-family: "arFont", "dvFont", sans-serif;
   font-size: 25px;
   line-height: 1.6;
-
+  font-size-adjust: 0.1;
   -webkit-font-smoothing: antialiased;
-  /*word-spacing: 0;*/
-  /*max-width: 100ch;*/
+
+  /* word-spacing: 0; */
+
+  /* max-width: 100ch; */
 }
+
 /*
 .dataTable tr td.fnCol3 {
   width: 10ch;
@@ -344,28 +417,316 @@ justify doesnt look good on short cells, right align to prevent gaps in text */
 */
 
 /* dv fonts on table */
-/*.dataTable tr td.fnCol1, need this bigger */
+
+/* .dataTable tr td.fnCol1, need this bigger */
 .dataTable tr td.fnCol4,
 .dataTable tr td.fnCol7,
 .dataTable tr td.fnCol9 {
-  font-family: "dvFont", "arFont";
+  font-family: "dvFont", "arFont", sans-serif;
+
   /* taken from http://www.hassanhameed.com/?page_id=154
-  /*font: 13px/20px PTSansRegular,Arial,Helvetica,sans-serif;*/
-  /*font-weight: 400;*/
-  /*letter-spacing: 0px;*/
-  /*font-style: normal;*/
-  /*color: #2a2a2a;*/
-  /*box-sizing: border-box;*/
-  /*margin: 0 0 20px;*/
-  /*margin-top: 0;*/
-  /*margin-bottom: 20px;*/
+  /*font: 13px/20px PTSansRegular,Arial,Helvetica,sans-serif; */
+
+  /* font-weight: 400; */
+
+  /* letter-spacing: 0px; */
+
+  /* font-style: normal; */
+
+  /* color: #2a2a2a; */
+
+  /* box-sizing: border-box; */
+
+  /* margin: 0 0 20px; */
+
+  /* margin-top: 0; */
+
+  /* margin-bottom: 20px; */
   font-size: 18px;
   line-height: 1.9;
-
   -webkit-font-smoothing: antialiased;
-  /*word-spacing: 0;*/
-  /*max-width: 100ch;*/
+
+  /* word-spacing: 0; */
+
+  /* max-width: 100ch; */
 }
+
+/* CHANGE123 darkmode
+taken from table.dataTable.stripe tbody tr.odd.selected, table.dataTable.display tbody tr.odd.selected */
+
+/*
+.fnClass tbody tr td {
+  background-color: red;
+  color: white;
+}
+*/
+
+/*
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: black !important;
+  border: 1px solid #111;
+  background-color: #585858;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0%, #585858),
+    color-stop(100%, #111)
+  );
+  background: none;
+
+  background-color: #007bff !important;
+  color: white !important;
+   border-color: #007bff !important;
+}
+*/
+
+/* CHANGE123 paginate buttons
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  box-sizing: border-box;
+  display: inline-block;
+  min-width: 1.5em;
+  padding: 0.5em 1em;
+  margin-left: 2px;
+  text-align: center;
+  text-decoration: none !important;
+  cursor: pointer;
+  *cursor: hand;
+  color: #333 !important;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: white !important;
+  border: 1px solid #111;
+  background-color: #585858;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0%, #585858),
+    color-stop(100%, #111)
+  );
+  background: -webkit-linear-gradient(top, #585858 0%, #111 100%);
+  background: -moz-linear-gradient(top, #585858 0%, #111 100%);
+  background: -ms-linear-gradient(top, #585858 0%, #111 100%);
+  background: -o-linear-gradient(top, #585858 0%, #111 100%);
+  background: linear-gradient(to bottom, #585858 0%, red 100%);
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  outline: none;
+  background-color: red;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0%, red),
+    color-stop(100%, red)
+  );
+  background: -webkit-linear-gradient(top, red 0%, red 100%);
+  background: -moz-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+  background: -ms-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+  background: -o-linear-gradient(top, #2b2b2b 0%, #0c0c0c 100%);
+  background: linear-gradient(to bottom, red 0%, red 100%);
+  box-shadow: inset 0 0 3px #111;
+}
+*/
+
+/* CHANGE123 html5 buttons */
+
+/*
+button.dt-button,
+div.dt-button,
+a.dt-button {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  margin-right: 0.333em;
+  margin-bottom: 0.333em;
+  padding: 0.5em 1em;
+  border: 1px solid #999;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 0.88em;
+  line-height: 1.6em;
+  color: black;
+  white-space: nowrap;
+  overflow: hidden;
+  background-color: #e9e9e9;
+  background-image: -webkit-linear-gradient(top, white 0%, #e9e9e9 100%);
+  background-image: -moz-linear-gradient(top, white 0%, #e9e9e9 100%);
+  background-image: -ms-linear-gradient(top, white 0%, #e9e9e9 100%);
+  background-image: -o-linear-gradient(top, white 0%, #e9e9e9 100%);
+  background-image: linear-gradient(to bottom, white 0%, red 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='white', EndColorStr='#e9e9e9');
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-decoration: none;
+  outline: none;
+  text-overflow: ellipsis;
+}
+div.dt-button-info {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  margin-top: -100px;
+  margin-left: -200px;
+  background-color: white;
+  border: 2px solid #111;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  text-align: center;
+  z-index: 21;
+}
+div.dt-button-info h2 {
+  padding: 0.5em;
+  margin: 0;
+  font-weight: normal;
+  border-bottom: 1px solid #ddd;
+  background-color: #f3f3f3;
+}
+div.dt-button-info > div {
+  padding: 1em;
+}
+
+div.dt-button-collection-title {
+  text-align: center;
+  padding: 0.3em 0 0.5em;
+  font-size: 0.9em;
+}
+
+div.dt-button-collection-title:empty {
+  display: none;
+}
+
+div.dt-button-collection {
+  position: absolute;
+}
+div.dt-button-collection ul.dropdown-menu {
+  display: block;
+  z-index: 2002;
+  min-width: 100%;
+}
+div.dt-button-collection div.dt-button-collection-title {
+  background-color: white;
+}
+div.dt-button-collection.fixed {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -75px;
+  border-radius: 0;
+}
+div.dt-button-collection.fixed.two-column {
+  margin-left: -200px;
+}
+div.dt-button-collection.fixed.three-column {
+  margin-left: -225px;
+}
+div.dt-button-collection.fixed.four-column {
+  margin-left: -300px;
+}
+div.dt-button-collection > :last-child {
+  display: block !important;
+  -webkit-column-gap: 8px;
+  -moz-column-gap: 8px;
+  -ms-column-gap: 8px;
+  -o-column-gap: 8px;
+  column-gap: 8px;
+}
+div.dt-button-collection > :last-child > * {
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+}
+div.dt-button-collection.two-column {
+  width: 400px;
+}
+div.dt-button-collection.two-column > :last-child {
+  padding-bottom: 1px;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  -ms-column-count: 2;
+  -o-column-count: 2;
+  column-count: 2;
+}
+div.dt-button-collection.three-column {
+  width: 450px;
+}
+div.dt-button-collection.three-column > :last-child {
+  padding-bottom: 1px;
+  -webkit-column-count: 3;
+  -moz-column-count: 3;
+  -ms-column-count: 3;
+  -o-column-count: 3;
+  column-count: 3;
+}
+div.dt-button-collection.four-column {
+  width: 600px;
+}
+div.dt-button-collection.four-column > :last-child {
+  padding-bottom: 1px;
+  -webkit-column-count: 4;
+  -moz-column-count: 4;
+  -ms-column-count: 4;
+  -o-column-count: 4;
+  column-count: 4;
+}
+div.dt-button-collection .dt-button {
+  border-radius: 0;
+}
+
+div.dt-button-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2001;
+}
+
+@media screen and (max-width: 767px) {
+  div.dt-buttons {
+    float: none;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5em;
+  }
+  div.dt-buttons a.btn {
+    float: none;
+  }
+}
+div.dt-buttons button.btn.processing,
+div.dt-buttons div.btn.processing,
+div.dt-buttons a.btn.processing {
+  color: rgba(0, 0, 0, 0.2);
+}
+div.dt-buttons button.btn.processing:after,
+div.dt-buttons div.btn.processing:after,
+div.dt-buttons a.btn.processing:after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  box-sizing: border-box;
+  display: block;
+  content: " ";
+  border: 2px solid #282828;
+  border-radius: 50%;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  animation: dtb-spinner 1500ms infinite linear;
+  -o-animation: dtb-spinner 1500ms infinite linear;
+  -ms-animation: dtb-spinner 1500ms infinite linear;
+  -webkit-animation: dtb-spinner 1500ms infinite linear;
+  -moz-animation: dtb-spinner 1500ms infinite linear;
+}
+*/
 
 /* ===== DT Custom Column CSS  - END ===== */
 
@@ -373,7 +734,7 @@ justify doesnt look good on short cells, right align to prevent gaps in text */
          DT plugins CSS
 ======================= */
 
-/* moves copied info in front  - is this still needed??? test with colvis 
+/* moves copied info in front  - is this still needed??? test with colvis
 div.dt-button-info {
   z-index: 9999 !important;
 } */
@@ -388,17 +749,19 @@ div#datatables_buttons_info.dt-button-info {
   /* fits screen on mobile, is 400 on desktop */
   width: auto;
   max-width: 350px;
+
   /* centers */
-  right: 0px;
-  left: 0px;
+  right: 0;
+  left: 0;
   margin-left: auto;
   margin-right: auto;
+
   /* makes borders rounder */
   border-radius: 5px;
 }
 
 /* hides table headers only on mobile, prev nth-child(2)
-- Mobile only MQ 
+- Mobile only MQ
 looks like we don't need this code anymore, use the hide below this */ /*
 @media screen and (max-width: 900px) {
   thead tr:nth-child(1) {
@@ -413,8 +776,10 @@ looks like we don't need this code anymore, use the hide below this */ /*
   table.dataTable tbody th.focus,
   table.dataTable tbody td.focus {
     box-shadow: inset 0 0 1px 3px #337ab7;
+
     /* last px makes box thicker */
     border-radius: 5px;
+
     /* makes box rounder */
   }
 }
@@ -425,6 +790,7 @@ mark {
   color: black;
   padding: 0;
 }
+
 /* ===== DT plugins CSS - END ===== */
 
 /* ====================
@@ -433,7 +799,8 @@ mark {
 
 .cards tbody tr {
   float: left;
-  /* width: 190rem; without it, card fill width*/
+
+  /* width: 190rem; without it, card fill width */
   margin: 0.5rem;
   border-width: 0.0625rem;
   border-style: solid;
@@ -451,39 +818,44 @@ mark {
   visibility: hidden;
 
   /* 'Hide only visually, but have it available for screen readers':
-  taken from boilerplate code, maybe this is better than the 
-  thead tr:nth-child(1) { position: absolute; top: -9999px; left: -9999px; 
+  taken from boilerplate code, maybe this is better than the
+  thead tr:nth-child(1) { position: absolute; top: -9999px; left: -9999px;
   from above, have commented out apparently useless code */
-  /*border: 0;*/
+
+  /* border: 0; */
   clip: rect(0, 0, 0, 0);
-  /*height: 1px;*/
-  /*margin: -1px;*/
-  /*overflow: hidden;*/
-  /*padding: 0;*/
+
+  /* height: 1px; */
+
+  /* margin: -1px; */
+
+  /* overflow: hidden; */
+
+  /* padding: 0; */
   position: absolute;
-  /*white-space: nowrap;*/
-  /*width: 1px;*/
+
+  /* white-space: nowrap; */
+
+  /* width: 1px; */
   border: 0;
-  clip: rect(0, 0, 0, 0);
   height: 1px;
   margin: -1px;
   overflow: hidden;
   padding: 0;
-  position: absolute;
   white-space: nowrap;
   width: 1px;
 }
 
 /* DEPRECIATED- dont use this anymore
 MQ on mobile, this gets rid of empty th space at right of table on mobile,
-+ centers table, while 2nd bit hides table header on mobile, need either this or 
++ centers table, while 2nd bit hides table header on mobile, need either this or
   thead tr:nth-child(1) { position: absolute; top: -9999px; left: -9999px; above
     but not both
     @media screen and (max-width: 900px) {
       .fnClass {
         display: flex;
       }
-    
+
       .fnClass > thead {
         display: none;
       }
@@ -515,30 +887,42 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 
 /* on mobile */
 .mTop {
+  display: -webkit-box;
   display: flex; /* single-direction layout concept. */
+  -webkit-box-pack: space-evenly;
   justify-content: space-evenly; /*  items are distributed so that the spacing between any two items (and the space to the edges) is equal. */
+  -webkit-box-align: baseline;
   align-items: baseline; /* how flex items are laid out along the cross axis on the current line.
-  Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align*/
+  Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align */
 }
+
 .mTop2 {
+  display: -webkit-box;
   display: flex; /* single-direction layout concept. */
+  -webkit-box-pack: center;
   justify-content: center; /*  items are centered along the line */
 }
+
 .mTop3 {
+  display: -webkit-box;
   display: flex; /* single-direction layout concept. */
+  -webkit-box-pack: center;
   justify-content: center; /*  items are centered along the line */
 }
 
 /* Desktop only MQ */
 @media screen and (min-width: 900px) {
   .dTop {
+    display: -webkit-box;
     display: flex; /* single-direction layout concept. */
-    flex-wrap: wrap; /* flex items will wrap onto multiple lines, from top to bottom. 
-    By default, flex items will all try to fit onto one line*/
-    justify-content: space-between; /*  alignment along the main axis 
+    flex-wrap: wrap; /* flex items will wrap onto multiple lines, from top to bottom.
+    By default, flex items will all try to fit onto one line */
+    -webkit-box-pack: justify;
+    justify-content: space-between; /*  alignment along the main axis
     items are evenly distributed in the line; first item is on the start line, last item on the end line */
+    -webkit-box-align: baseline;
     align-items: baseline; /* how flex items are laid out along the cross axis on the current line.
-    Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align*/
+    Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align */
   }
 }
 

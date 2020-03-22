@@ -1,7 +1,7 @@
-/*global document, window, alert, console, require*/
+// global document, window, alert, console, require
 // added to get rid of error "document" was used before it was defined.
 
-//=====================
+// =====================
 //       TABS
 // ====================
 function openLink(evt, tabName) {
@@ -21,7 +21,7 @@ function openLink(evt, tabName) {
 }
 // ===== ===== Tabs - End ===== =====
 
-//=====================
+// =====================
 //      DT JS BELOW
 // ====================
 $(document).ready(function() {
@@ -143,7 +143,7 @@ $(document).ready(function() {
 
       //below strips html tags off keystable copy, second part with keys on
       {
-        targets: "_all",
+        targets: "all",
         render: function(data, type, row, meta) {
           if (type === "export") {
             var div = document.createElement("div");

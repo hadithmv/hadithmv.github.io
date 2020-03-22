@@ -1,141 +1,67 @@
+====================
+       REMINDERS
+====================
+finish nahu and ruwath hw
+https://github.com/collections/clean-code-linters
+
 install ps in other drive
 move calibre there too
 
-yarkout
-abdoline
-karim
+yarkout, abdoline, karim fonts are nice
 
-remember to format, validate, lint, minify, lighthouse, remove unused code, treeshaking
-
-prettier, set as default in vscode; format on save
-w3
-
-(tidy html5)
-
-stylelint(ignore comment newline and selecter order)+csslint
-
-jslint
-
-kangax, csso, closure compiler
-
-unused-CSS, purifyCSS, unCSS-online
-
-VScode:
-settings sync
-file size
-add vertical character count line in
-prettier
-open in browser
-
-ctrl + p = command palette
-ctrl g = jump to line
-shift + alt = multi line cursor
-
---mdc-theme-primary: #0277bd;
---mdc-theme-secondary: #58a5f0;
+install npm: htmlhint, stylelint, standardjs,
+html-minifier, csso, closure compiler
 ====================
        TO DOS
 ====================
+fix clipboard extra text at top
+fix font missizing
 
-hiding scroll is bad, make it show on hover
+fix pagination long spill mobile. placeholder needs to ber shorter
+style buttons, pagination and  html, select list, input search
+table width had padding on sides??
+numbers too big, maybe remove them off the font?
 
-make all boxes rounder
-
-glow text effect?:
-  text-shadow: 0px 0px 30px white;
-  transition: all 0.2s ease 0s;
-
-add bulletproof font face
-@font-face {
-    font-family: 'MyFontFamily';
-    src: url('myfont-webfont.eot?#iefix') format('embedded-opentype'), 
-        url('myfont-webfont.woff') format('woff'), 
-        url('myfont-webfont.ttf')  format('truetype'),
-        url('myfont-webfont.svg#svgFontName') format('svg');
-}
-
-Wait for ID 15.0.2.318 release
-
+update menu link docs, like intro
 remove unused code tool??
-
-reduce js char line to 80
-pass jslint
-
 clean up alt folder in github
-
 clean up readme.md
-
-get travis or circleci working???
-get github badges on readme???
-
 customize form
+add page about hadith history and faq
+update root files, especially 404
+add modern about page
+Which numbering format do i follow? State it. fuad abdulghani. mutoon dates
+Update mockup, play store imgs
+update offline apps
+Wassallaahu wasallam ala nabiyyinaa muhammadin wa alaa aalihi wasahbi ajmain, intro?
+Make desktop version like mobile instead of odd column table? or make it togglable
 
 moving js to end of body??
 
-add page about hadith history and faq
-
+make all boxes rounder
 buttons are ugly, style them
-
 darkmode toggle?
-
 make nav bar, responsive and drawer with icons??
-
-get plain arabic to generate without data
-
-get auto json to array set up
-
-pack up old files
-
-update root files, especially 404
-
 make jquery breakpoints realtime
-
-update menu link docs, like intro
-
 make cards more modern
-
-add modern about page
-
 add ripple effect
-
-change hammerjs to something else, maybe swipe js, zingtouch, alloyfinger, or atleast remove unused code in hammer
-
-remove eng stuff, make all dhiv
-
-add loading?
+Contrast blacks and whites, dont use pure
 
 Use less bold in hadith, just color, or shadow
 Optimize legibility on css
 
-Which numbering format do i follow? State it. fuad abdulghani. mutoon dates
-
-Chat offline leave a message?
-
-Update mockup, play store imgs
-
-Contrast blacks and whites, dont use pure
+make shorter columns look cleaner on desktop, width ch
 
 Test if js and cs are smaller apks when uncompressed
 
-update offline apps
-
-Wassallaahu wasallam ala nabiyyinaa muhammadin wa alaa aalihi wasahbi ajmain, intro?
 
 Hadith 3 bukhari,ma ana bi qaariin, casual dhiv?؟
-
 barbaharee?
 
 Google analytics track download clicks
 
-Make desktop version like mobile instead of odd column table? or make it togglable
-
-Validate search by baabs, could use searchPane
 
 scrollUp on Tab change, all pages, ol and offl
-
-Make manifest, mobile pwa, service worker?
-
-Skip more pages hammer? two three fingers
 ----------------------------------------
 
 ====================
@@ -169,6 +95,10 @@ Rewrite live pages default css
 Quran quotes 122 bukh add
 ----------------------------------------
 
+
+
+
+
 ====================
   PICKUP FROM HERE
 ====================
@@ -201,13 +131,33 @@ Bulughul maram-add these to write book
 ----------------------------------------
 
 ====================
-   SHOULD I FIX?
+       ADVANCED
 ====================
+get plain arabic to generate without data
+get auto json to array set up
+change hammerjs to something else, maybe swipe js, zingtouch, alloyfinger, or atleast remove unused code in hammer
+Skip more pages hammer? two three fingers
+Validate search by baabs, could use searchPane
+Make manifest, mobile pwa, service worker?
+----------------------------------------
+
+====================
+   SHOULD I?
+====================
+hiding scroll is bad, make it show on hover??
 csv button
 year versioning
 Keep jQuery out seperate cdn as everyone does it
 mas’ood doesnt match in search, mas'ood
 Full stop headings?
+get travis or circleci working???
+get github badges on readme???
+add loading?
+Chat offline leave a message?
+
+glow text effect?:
+  text-shadow: 0px 0px 30px white;
+  transition: all 0.2s ease 0s;
 ----------------------------------------
 
 ====================
@@ -228,6 +178,36 @@ input pagination plugin breaks table on material
 colvis menu is ugly
 2/15/20
 ----------------------------------------
+
+
+
+
+====================
+       CONFIG
+====================
+VScode:
+settings sync
+file size
+add vertical character count line in
+prettier
+open in browser
+
+ctrl + p = command palette
+ctrl g = jump to line
+shift + alt = multi line cursor
+
+--mdc-theme-primary: #0277bd;
+--mdc-theme-secondary: #58a5f0;
+
+remember to format, validate, lint, minify, lighthouse, remove unused code, treeshaking:
+prettier, set as default in vscode; format on save
+w3
+(tidy html5)
+stylelint(ignore comment newline and selecter order)+csslint
+jslint
+kangax, csso, closure compiler
+unused-CSS, purifyCSS, unCSS-online
+
 
 
 
