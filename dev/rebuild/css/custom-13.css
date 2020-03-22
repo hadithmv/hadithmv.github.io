@@ -1,0 +1,551 @@
+/*
+Starting with / returns to the root directory and starts there
+Starting with ../ moves one directory backward and starts there
+Starting with ../../ moves two directories backward and starts there (and so on...)
+To move forward, just start with the first sub directory and keep moving forward.
+*/
+
+/* ====================
+         FONTS
+======================= */
+/* arabic */
+@font-face {
+  font-family: "arFont";
+  src: url("Yakout-Linotype-W20-Light-Copy6.woff2") format("woff2"),
+    url("Yakout-Linotype-W20-Light-Copy5.woff") format("woff"),
+    url("Yakout-Linotype-W20-Light-Copy5.ttf") format("truetype");
+}
+
+/* dhivehi */
+@font-face {
+  font-family: "dvFont";
+  src: url("mvtyper-Copy7.woff2") format("woff2"),
+    url("mvtyper-Copy7.woff") format("woff"),
+    url("mvtyper-Copy7.ttf") format("truetype");
+}
+/* ===== ===== FONTS - END ===== ===== */
+
+/* ====================
+       BOILERPLATE CODE - from normalize and main css
+======================= */
+html {
+  /* main */
+  /* color: #222; */
+  font-size: 1em;
+  line-height: 1.4;
+  /* do i need this?? */
+  /* normalize */
+  /* line-height: 1.15; */
+  /* -webkit-text-size-adjust: 100%; */
+}
+
+/* Remove the margin in all browsers. - normalize */
+body {
+  margin: 0;
+}
+
+/* evens out and better colors text highlights - main */
+/* Remove text-shadow in selection highlight. Customize the background color to match your design. */
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+/* ::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+} */
+
+/* Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers  - main */
+img {
+  vertical-align: middle;
+  /* do i need this??? */
+}
+
+/* normalize */
+/* 1. Change the font styles in all browsers. 2. Remove the margin in Firefox and Safari. */
+button,
+input,
+select {
+  /* font-family: inherit; */
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  /* makes input font as well as input box bigger, maybe more even */
+  /* line-height: 1.15; */
+  /* 1 */
+  /* margin: 0; */
+  /* 2 */
+}
+
+/* Correct the inability to style clickable types in iOS and Safari. */
+
+/* button, [type="button"], [type="reset"], [type="submit"] {
+    -webkit-appearance: button;
+} */
+
+/* 1. Correct the odd appearance in Chrome and Safari. 2. Correct the outline style in Safari.
+from what i see makes them smaller */
+
+/* [type="search"] {
+    -webkit-appearance: textfield;
+    outline-offset: -2px;
+} */
+
+/* Remove the inner padding in Chrome and Safari on macOS. */
+
+/* [type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+} */
+
+/* ===== BOILERPLATE - END ===== */
+
+/* ====================
+     scroll bar - probably needed for pushy nav
+======================= */
+/* while still being able to scroll - probably does not work on firefox, TODO*/
+/*
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+*/
+/*::-webkit-scrollbar*/ /*{*/
+/*width: 0px;*/ /* Remove scrollbar space */
+/*background: transparent;*/ /* Optional: just make scrollbar invisible */ /*
+}*/
+
+/* https://css-tricks.com/the-current-state-of-styling-scrollbars/ */
+/* Desktop only MQ */
+@media screen and (min-width: 900px) {
+html {
+  --scrollbarBG: #cfd8dc;
+  --thumbBG: #90a4ae;
+}
+body::-webkit-scrollbar {
+  width: 11px;
+}
+body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+body::-webkit-scrollbar-track {
+  background: var(--scrollbarBG);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--thumbBG);
+  border-radius: 6px;
+  border: 3px solid var(--scrollbarBG);
+}
+}
+}
+
+/* ===== scroll bar - END ===== */
+
+/* ====================
+     Tabs Animations
+======================= */
+.w3-animate-right {
+  position: relative;
+  /*
+    animation: animateRight 0.4s;  original code of below */
+  /*
+    -webkit-animation: animateRight 0.5s ease-in-out;
+    -moz-animation:    animateRight 0.5s ease-in-out;
+    -o-animation:      animateRight 0.5s ease-in-out;
+    animation:        animateRight 0.5s ease-in-out;
+    */
+  animation-name: animateRight;
+  animation-duration: 400ms;
+  will-change: transform;
+  /* gpu */
+  transition-timing-function: ease-in-out;
+  /* smooth */
+}
+
+/*
+@keyframes animateRight {
+    0% {
+        right: -300px;
+        opacity: 0
+    }
+    100% {
+        right: 0;
+        opacity: 1
+    }
+}
+ORIGINAL CODE above */
+
+/* second attempt
+  }
+  @keyframes animateRight {
+    0%   { right: -300px; opacity: 0 }
+    100% { right: 0; opacity: 1 }
+  }
+
+  smooth as butter animation below
+  also browser supports
+
+@-webkit-keyframes animateRight {
+    0%   { right: -300px; opacity: 0 }
+    100% { right: 0; opacity: 1 }
+  }
+  @-moz-keyframes animateRight {
+    0%   { right: -300px; opacity: 0 }
+    100% { right: 0; opacity: 1 }
+  }
+  @-o-keyframes animateRight {
+    0%   { right: -300px; opacity: 0 }
+    100% { right: 0; opacity: 1 }
+  }
+  removed opacity, right, added will-change and ease
+  */
+
+@keyframes animateRight {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: none;
+  }
+}
+/* ===== Tabs Animation - END ===== */
+
+/* ====================
+     DT wrapper CSS
+======================= */
+.dataTables_wrapper, /* takes care of most of the table fonts */
+input, /* search and input page */
+select, /* page lengthmenu */
+button,
+.dt-button-info, /* clipboard message */
+li, /* for pushy side bar */
+.site-header /* for pushy side bar */
+ {
+  font-family: "dvFont", "arFont", sans-serif;
+  /* CHANGE123 FONT
+              text-align: justify;
+              font-size: 100%;
+              -ms-text-size-adjust: 100%;
+              -webkit-text-size-adjust: 100%;
+              color: #24292e;
+              line-height: 1.5;
+              word-wrap: break-word;
+    */
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1rem;
+}
+
+/* makes table rtl */
+div.dataTables_wrapper {
+  direction: rtl;
+}
+
+/* make cancel button for input, only works on webkit chrome and stuff. should i get more browser support???
+The ::-webkit-search-cancel-button CSS pseudo-element represents a button (the "cancel button") at the edge of an <input> of type="search" which clears away the current value of the <input> element. */
+input[type="search"]::-webkit-search-cancel-button {
+  /* adds x delete placeholder */
+  -webkit-appearance: searchfield-cancel-button;
+  border: 4px solid transparent;
+  /* makes x a bit bigger */
+}
+/* ===== DT wrapper CSS  - END ===== */
+
+/* ====================
+   DT Custom Column CSS
+======================= */
+
+/* Alignscell contents vertically */
+table.dataTable tbody td {
+  vertical-align: top;
+}
+
+/* table data rows alignment */
+.fnClass > tbody > tr > td {
+  text-align: justify;
+  /* word-spacing: -10px; */
+  font-size: 100%;
+  /* -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%; */
+  color: #24292e;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+/* table header row alignment */
+.fnClass > thead > tr > th {
+  font-size: 100%;
+  text-align: center;
+  /* color: #205ca5; */
+  /* -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%; */
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+/* removes justify from ar dv (titles and refs) + rs.
+justify doesnt look good on short cells, right align to prevent gaps in text */
+.dataTable tr td.fnCol2,
+.dataTable tr td.fnCol3,
+.dataTable tr td.fnCol4,
+.dataTable tr td.fnCol8,
+.dataTable tr td.fnCol9,
+.dataTable tr td.fnCol10 {
+  text-align: right;
+}
+
+/* mobile only row centering, for rows with strings that are not long */
+@media screen and (max-width: 900px) {
+  .dataTable tr td.fnCol1,
+  .dataTable tr td.fnCol2,
+  .dataTable tr td.fnCol3,
+  .dataTable tr td.fnCol4,
+  .dataTable tr td.fnCol8,
+  .dataTable tr td.fnCol9,
+  .dataTable tr td.fnCol10 {
+    text-align: center;
+  }
+  /* bold headers for mobile */
+  .dataTable tr td.fnCol1,
+  .dataTable tr td.fnCol2,
+  .dataTable tr td.fnCol3,
+  .dataTable tr td.fnCol4 {
+    font-weight: bold;
+  }
+}
+
+/* CHANGE123 FONT */
+/* ar fonts on table */
+.dataTable tr td.fnCol1, /* not ar but need dv font */
+
+.dataTable tr td.fnCol2,
+.dataTable tr td.fnCol3,
+.dataTable tr td.fnCol5,
+.dataTable tr td.fnCol6,
+.dataTable tr td.fnCol8,
+.dataTable tr td.fnCol10 {
+  font-family: "arFont", "dvFont";
+  font-size: 25px;
+  line-height: 1.6;
+
+  -webkit-font-smoothing: antialiased;
+  /*word-spacing: 0;*/
+  /*max-width: 100ch;*/
+}
+/*
+.dataTable tr td.fnCol3 {
+  width: 10ch;
+}
+.dataTable tr td.fnCol8 {
+  width: 16ch;
+}
+*/
+
+/* dv fonts on table */
+/*.dataTable tr td.fnCol1, need this bigger */
+.dataTable tr td.fnCol4,
+.dataTable tr td.fnCol7,
+.dataTable tr td.fnCol9 {
+  font-family: "dvFont", "arFont";
+  /* taken from http://www.hassanhameed.com/?page_id=154
+  /*font: 13px/20px PTSansRegular,Arial,Helvetica,sans-serif;*/
+  /*font-weight: 400;*/
+  /*letter-spacing: 0px;*/
+  /*font-style: normal;*/
+  /*color: #2a2a2a;*/
+  /*box-sizing: border-box;*/
+  /*margin: 0 0 20px;*/
+  /*margin-top: 0;*/
+  /*margin-bottom: 20px;*/
+  font-size: 18px;
+  line-height: 1.9;
+
+  -webkit-font-smoothing: antialiased;
+  /*word-spacing: 0;*/
+  /*max-width: 100ch;*/
+}
+
+/* ===== DT Custom Column CSS  - END ===== */
+
+/* ====================
+         DT plugins CSS
+======================= */
+
+/* moves copied info in front  - is this still needed??? test with colvis 
+div.dt-button-info {
+  z-index: 9999 !important;
+} */
+
+/* changes clipboard copied color, */
+div.dt-button-info > h2 {
+  background: #add1f2;
+}
+
+/* makes clipboard copy popup centered and fits width on mobile view */
+div#datatables_buttons_info.dt-button-info {
+  /* fits screen on mobile, is 400 on desktop */
+  width: auto;
+  max-width: 350px;
+  /* centers */
+  right: 0px;
+  left: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  /* makes borders rounder */
+  border-radius: 5px;
+}
+
+/* hides table headers only on mobile, prev nth-child(2)
+- Mobile only MQ 
+looks like we don't need this code anymore, use the hide below this */ /*
+@media screen and (max-width: 900px) {
+  thead tr:nth-child(1) {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+} */
+
+/* Keytable - Desktop only MQ */
+@media screen and (min-width: 900px) {
+  table.dataTable tbody th.focus,
+  table.dataTable tbody td.focus {
+    box-shadow: inset 0 0 1px 3px #337ab7;
+    /* last px makes box thicker */
+    border-radius: 5px;
+    /* makes box rounder */
+  }
+}
+
+/* Mark JS - padding: 0; removes useless padding, donno if still needed? */
+mark {
+  background: #add1f2;
+  color: black;
+  padding: 0;
+}
+/* ===== DT plugins CSS - END ===== */
+
+/* ====================
+       CARDS CODE
+======================= */
+
+.cards tbody tr {
+  float: left;
+  /* width: 190rem; without it, card fill width*/
+  margin: 0.5rem;
+  border-width: 0.0625rem;
+  border-style: solid;
+  border-color: #00000020; /* changed rgba to hex */
+  border-radius: 0.25rem; /* makes cards a little rounder */
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+}
+
+.cards tbody td {
+  display: block;
+}
+
+/* is this needed?? */
+.cards thead {
+  visibility: hidden;
+
+  /* 'Hide only visually, but have it available for screen readers':
+  taken from boilerplate code, maybe this is better than the 
+  thead tr:nth-child(1) { position: absolute; top: -9999px; left: -9999px; 
+  from above, have commented out apparently useless code */
+  /*border: 0;*/
+  clip: rect(0, 0, 0, 0);
+  /*height: 1px;*/
+  /*margin: -1px;*/
+  /*overflow: hidden;*/
+  /*padding: 0;*/
+  position: absolute;
+  /*white-space: nowrap;*/
+  /*width: 1px;*/
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/* DEPRECIATED- dont use this anymore
+MQ on mobile, this gets rid of empty th space at right of table on mobile,
++ centers table, while 2nd bit hides table header on mobile, need either this or 
+  thead tr:nth-child(1) { position: absolute; top: -9999px; left: -9999px; above
+    but not both
+    @media screen and (max-width: 900px) {
+      .fnClass {
+        display: flex;
+      }
+    
+      .fnClass > thead {
+        display: none;
+      }
+    }
+*/
+
+.cards td::before {
+  content: attr(data-label);
+  position: relative;
+  float: left;
+  color: #808080;
+  min-width: 4rem;
+  margin-left: 0;
+  margin-right: 1rem;
+  text-align: left;
+}
+
+/* useless
+.selected td::before {
+  color: #ccc;
+}
+*/
+
+/* ===== cards code END ===== */
+
+/* ====================
+       DOM FLEXBOX
+======================= */
+
+/* on mobile */
+.mTop {
+  display: flex; /* single-direction layout concept. */
+  justify-content: space-evenly; /*  items are distributed so that the spacing between any two items (and the space to the edges) is equal. */
+  align-items: baseline; /* how flex items are laid out along the cross axis on the current line.
+  Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align*/
+}
+.mTop2 {
+  display: flex; /* single-direction layout concept. */
+  justify-content: center; /*  items are centered along the line */
+}
+.mTop3 {
+  display: flex; /* single-direction layout concept. */
+  justify-content: center; /*  items are centered along the line */
+}
+
+/* Desktop only MQ */
+@media screen and (min-width: 900px) {
+  .dTop {
+    display: flex; /* single-direction layout concept. */
+    flex-wrap: wrap; /* flex items will wrap onto multiple lines, from top to bottom. 
+    By default, flex items will all try to fit onto one line*/
+    justify-content: space-between; /*  alignment along the main axis 
+    items are evenly distributed in the line; first item is on the start line, last item on the end line */
+    align-items: baseline; /* how flex items are laid out along the cross axis on the current line.
+    Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align*/
+  }
+}
+
+/* ===== dom flexbox - END ===== */
+
+/* ====================
+       BUTTON STYLES
+======================= */
+
+/* ===== button styles - END ===== */
