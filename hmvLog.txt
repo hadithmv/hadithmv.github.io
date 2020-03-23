@@ -2,19 +2,28 @@
        REMINDERS
 ====================
 finish nahu and ruwath hw
-https://github.com/collections/clean-code-linters
+
 
 install ps in other drive
 move calibre there too
 
 yarkout, abdoline, karim fonts are nice
 
-npm list -g --depth 0
+npm list -g --depth 0 (all packages)
 install npm: htmlhint, prettier stylelint, standardjs
 
 stylelint works with prettier on, eslint doesnt??? left that for standardjs
 
 ???html-minifier, csso, closure compiler???
+
+ctrl + shift + g
+(c)shift + ; = commit message
+ctrl + , = settings
+
+shift + alt + u = upload settings sync, /d
+
+(c)shift + ' = push
+
 ====================
        TO DOS
 ====================
