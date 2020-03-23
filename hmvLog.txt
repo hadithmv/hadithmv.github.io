@@ -10,10 +10,11 @@ move calibre there too
 yarkout, abdoline, karim fonts are nice
 
 npm list -g --depth 0
-install npm: htmlhint, stylelint, standardjs (format and fix),
-html-minifier, csso, closure compiler
+install npm: htmlhint, prettier stylelint, standardjs
 
-stylelint-config-prettier, stylelint-prettier
+stylelint works with prettier on, eslint doesnt??? left that for standardjs
+
+???html-minifier, csso, closure compiler???
 ====================
        TO DOS
 ====================
