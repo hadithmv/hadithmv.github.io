@@ -4,20 +4,20 @@
 // =====================
 //       TABS
 // ====================
-function openLink(evt, tabName) {
+function openLink (evt, tabName) {
   // added to get rid of error Missing "use strict" statement.
-  let i;
-  x;
-  tablinks;
-  x = document.getElementsByClassName("myTab");
+  let i
+  x
+  tablinks
+  x = document.getElementsByClassName('myTab')
 
   for (i = 0; i < x.length; i += 1) {
     // changed due to Expected "+= 1" and instead saw "++".
-    x[i].style.display = "none";
+    x[i].style.display = 'none'
   }
-  tablinks = document.getElementsByClassName("tablink");
+  tablinks = document.getElementsByClassName('tablink')
 
-  document.getElementById(tabName).style.display = "block";
+  document.getElementById(tabName).style.display = 'block'
 }
 // ===== ===== Tabs - End ===== =====
 
@@ -30,20 +30,20 @@ $(document).ready(() => {
 
   $.extend(true, $.fn.dataTable.defaults, {
     // "keys": "true",   /* KeyTable extension, old  */
-  });
+  })
 
   /* js media query on desktop, needs to have quotes */
-  if (window.matchMedia("(min-width: 1200px)").matches) {
+  if (window.matchMedia('(min-width: 1200px)').matches) {
     $.extend(true, $.fn.dataTable.defaults, {
       // desktop, goes rtl --> //'<"dTop"pBfl>rt<"bottom"ip>',
       dom: '<"dTop"pBfl>rtip',
       pageLength: 3, // # rows to display on single page when using pagination
       lengthMenu: [
         [1, 2, 3, 5, 7, 10, 15, 20, -1],
-        [1, 2, "3 ޙަދީޘް ދައްކާ", 5, 7, 10, 15, 20, "ހުރިހައި"]
+        [1, 2, '3 ޙަދީޘް ދައްކާ', 5, 7, 10, 15, 20, 'ހުރިހައި']
       ], // display range of pages
-      keys: { clipboardOrthogonal: "export" } // strip  htmltags off keys copy
-    });
+      keys: { clipboardOrthogonal: 'export' } // strip  htmltags off keys copy
+    })
   } else {
     /* js media query on mobile, tablet */
     $.extend(true, $.fn.dataTable.defaults, {
@@ -52,28 +52,28 @@ $(document).ready(() => {
       pageLength: 1,
       lengthMenu: [
         [1, 2, 3, 5, 7, 10, 15, 20, -1],
-        ["1 ޙަދީޘް ދައްކާ", 2, 3, 5, 7, 10, 15, 20, "ހުރިހައި"]
+        ['1 ޙަދީޘް ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހައި']
       ] // display range of pages
-    });
+    })
   } //= =================== end if else
 
-  const table = $("#fortyNawawi").DataTable({
+  const table = $('#fortyNawawi').DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     data: FNdataSet, // https://datatables.net/manual/ajax
     // CHANGE123 JSON
     columns: [
-      { title: "#" },
-      { title: "ވަނަ" },
-      { title: "ޢަރަބި ސުރުޚީ" },
-      { title: "ދިވެހި ސުރުޚީ" },
-      { title: "ޢަރަބި ޙަދީޘް" },
-      { title: "ޢަރަބި ފިލިނުޖަހައި" },
-      { title: "ދިވެހި ތަރުޖަމާ" },
-      { title: "މަސްދަރު ޢަރަބިން." },
-      { title: "މަސްދަރު ދިވެހިން." },
-      { title: "މަސްދަރު ރިޔާޟުއްޞާލިޙީނުން." }
+      { title: '#' },
+      { title: 'ވަނަ' },
+      { title: 'ޢަރަބި ސުރުޚީ' },
+      { title: 'ދިވެހި ސުރުޚީ' },
+      { title: 'ޢަރަބި ޙަދީޘް' },
+      { title: 'ޢަރަބި ފިލިނުޖަހައި' },
+      { title: 'ދިވެހި ތަރުޖަމާ' },
+      { title: 'މަސްދަރު ޢަރަބިން.' },
+      { title: 'މަސްދަރު ދިވެހިން.' },
+      { title: 'މަސްދަރު ރިޔާޟުއްޞާލިޙީނުން.' }
     ],
 
     columnDefs: [
@@ -81,61 +81,61 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES
 
       {
-        className: "fnCol1", // #
+        className: 'fnCol1', // #
         targets: [0],
         visible: true,
         searchable: true
       },
       {
-        className: "fnCol2", // Ar No
+        className: 'fnCol2', // Ar No
         targets: [1],
         visible: false,
         searchable: false
       },
       {
-        className: "fnCol3", // Ar Title
+        className: 'fnCol3', // Ar Title
         targets: [2],
         visible: true,
         searchable: false
       },
       {
-        className: "fnCol4", // Dv Title
+        className: 'fnCol4', // Dv Title
         targets: [3],
         visible: false,
         searchable: false
       },
       {
-        className: "fnCol5", // Ar Text
+        className: 'fnCol5', // Ar Text
         targets: [4],
         visible: true,
         searchable: true
       },
       {
-        className: "fnCol6", // Ar Plain
+        className: 'fnCol6', // Ar Plain
         targets: [5],
         visible: false,
         searchable: true
       },
       {
-        className: "fnCol7", // Dv Text
+        className: 'fnCol7', // Dv Text
         targets: [6],
         visible: true,
         searchable: true
       },
       {
-        className: "fnCol8", // Ar Ref
+        className: 'fnCol8', // Ar Ref
         targets: [7],
         visible: true,
         searchable: false
       },
       {
-        className: "fnCol9", // Dv Ref
+        className: 'fnCol9', // Dv Ref
         targets: [8],
         visible: false,
         searchable: false
       },
       {
-        className: "fnCol10", // Rs Ref
+        className: 'fnCol10', // Rs Ref
         targets: [9],
         visible: false,
         searchable: false
@@ -143,14 +143,14 @@ $(document).ready(() => {
 
       // below strips html tags off keystable copy, second part with keys on
       {
-        targets: "all",
-        render(data, type, row, meta) {
-          if (type === "export") {
-            const div = document.createElement("div");
-            div.innerHTML = data;
-            return div.innerText;
+        targets: 'all',
+        render (data, type, row, meta) {
+          if (type === 'export') {
+            const div = document.createElement('div')
+            div.innerHTML = data
+            return div.innerText
           }
-          return data;
+          return data
         }
       }
       // needed to make keytable strip html tags off copy
@@ -185,7 +185,7 @@ $(document).ready(() => {
     // After this period has elapsed the state will be returned to the default.
     // Set state duration to 1 day. Use with above.
     // stateDuration: 60*60*24 //currently set to 1 day, -1 is that session only
-    stateDuration: "86400",
+    stateDuration: '86400',
 
     // removes written search input upon state reload
     // "stateSaveParams": function (settings, data) { data.search.search = ""; }
@@ -204,7 +204,7 @@ $(document).ready(() => {
     // full_numbers - "First", "Previous", "Next", "Last" buttons & page numbers
     // first_last_numbers - "First" and "Last" buttons, plus page numbers
     // Default Value: simple_numbers,
-    pagingType: "input",
+    pagingType: 'input',
 
     // Set a throttle frequency for searching.
     // search will instantly search table on every keypress -clientside proc mode
@@ -243,28 +243,28 @@ $(document).ready(() => {
     language: {
       paginate: {
         // &nbsp; prevents line breaks
-        first: "<<&nbsp;ފުރަތަމަ",
-        previous: "<&nbsp;ފަހަތަށް",
-        next: "ކުރިއަށް&nbsp;>",
-        last: "ފަހަށް&nbsp;>>",
+        first: '<<&nbsp;ފުރަތަމަ',
+        previous: '<&nbsp;ފަހަތަށް',
+        next: 'ކުރިއަށް&nbsp;>',
+        last: 'ފަހަށް&nbsp;>>',
 
-        info: "_INPUT_" // taken from input plugin, "Page _INPUT_ of _TOTAL_"
+        info: '_INPUT_' // taken from input plugin, "Page _INPUT_ of _TOTAL_"
       },
       buttons: {
-        copyTitle: "ކޮޕީ",
+        copyTitle: 'ކޮޕީ',
         copySuccess: {
-          1: "ކޮޕީ ވީ 1 ޙަދީޘް",
-          _: "ކޮޕީ ވީ  %d ޙަދީޘް"
+          1: 'ކޮޕީ ވީ 1 ޙަދީޘް',
+          _: 'ކޮޕީ ވީ  %d ޙަދީޘް'
         }
       },
 
-      info: "_TOTAL_ ޙަދީޘްގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް",
-      infoFiltered: "(ޖުމްލަ ބެލެވުނީ _MAX_)",
-      infoEmpty: "ނުފެނުނު",
-      lengthMenu: "_MENU_",
-      search: "", // Originally "Search:" leave this blank in production
-      searchPlaceholder: "ހޯއްދަވާ...",
-      zeroRecords: "ނުފެނުނު"
+      info: '_TOTAL_ ޙަދީޘްގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް',
+      infoFiltered: '(ޖުމްލަ ބެލެވުނީ _MAX_)',
+      infoEmpty: 'ނުފެނުނު',
+      lengthMenu: '_MENU_',
+      search: '', // Originally "Search:" leave this blank in production
+      searchPlaceholder: 'ހޯއްދަވާ...',
+      zeroRecords: 'ނުފެނުނު'
     }, //= =================== End of Internationalisation
 
     //= ====================
@@ -300,16 +300,16 @@ $(document).ready(() => {
       // { text: "Button 2", action: function ( e, dt, node, conf )
       // { alert( "Button 2 clicked on" ); } },
       {
-        extend: "copy",
-        key: { key: "c", shiftKey: true },
-        text: "ކޮޕީ",
-        messageTop: "ނަވަވީގެ 40 ޙަދީޘް",
-        title: "" /* title: "hadithmv.com", */,
+        extend: 'copy',
+        key: { key: 'c', shiftKey: true },
+        text: 'ކޮޕީ',
+        messageTop: 'ނަވަވީގެ 40 ޙަދީޘް',
+        title: '' /* title: "hadithmv.com", */,
 
         //= ====================
         // edits clipboard regex, code to manipulate the data string as desired
         // ====================
-        customize(data) {
+        customize (data) {
           /* https://www.rexegg.com/regex-quickstart.html
                     \t Tab, \r Carriage return character,
                     \n Line feed character, \r\n Line separator on Windows
@@ -319,45 +319,45 @@ $(document).ready(() => {
 
           // fixes multiple row's lack of line break on desktop
           //        data = data.replace( /\t\r\n/g, "\n\n\n" );
-          data = data.replace(/\n#/g, "\n\n#"); // needed to make rnr work
-          data = data.replace(/\n\n\n/g, "\n"); // rids empty space after title
+          data = data.replace(/\n#/g, '\n\n#') // needed to make rnr work
+          data = data.replace(/\n\n\n/g, '\n') // rids empty space after title
 
           // prev normal
           // data = data.replace( /\nNo.\tRef.\tArabic\tEnglish\tDhivehi/g,"" );
           // CHANGE123 CLIP REGEX
 
-          data = data.replace(/\tވަނަ./g, "");
-          data = data.replace(/\tޢަރަބި\sސުރުޚީ/g, "");
-          data = data.replace(/\tދިވެހި ސުރުޚީ/g, "");
-          data = data.replace(/\tޢަރަބި ޙަދީޘް/g, "");
-          data = data.replace(/\tޢަރަބި ފިލިނުޖަހައި/g, "");
-          data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, "");
-          data = data.replace(/\tމަސްދަރު ޢަރަބިން./g, "");
-          data = data.replace(/\tމަސްދަރު ދިވެހިން./g, "");
-          data = data.replace(/\tމަސްދަރު ރިޔާޟުއްޞާލިޙީނުން./g, "");
+          data = data.replace(/\tވަނަ./g, '')
+          data = data.replace(/\tޢަރަބި\sސުރުޚީ/g, '')
+          data = data.replace(/\tދިވެހި ސުރުޚީ/g, '')
+          data = data.replace(/\tޢަރަބި ޙަދީޘް/g, '')
+          data = data.replace(/\tޢަރަބި ފިލިނުޖަހައި/g, '')
+          data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
+          data = data.replace(/\tމަސްދަރު ޢަރަބިން./g, '')
+          data = data.replace(/\tމަސްދަރު ދިވެހިން./g, '')
+          data = data.replace(/\tމަސްދަރު ރިޔާޟުއްޞާލިޙީނުން./g, '')
 
           /* data = data.replace( /\n#/g, "" ); */
-          data = data.replace(/\n#/g, "\n\nޙަދީޘްގެ އަދަދު: ");
+          data = data.replace(/\n#/g, '\n\nޙަދީޘްގެ އަދަދު: ')
           data = data.replace(
             /ނަވަވީގެ 40 ޙަދީޘް\r\n\r\n\n\nޙަދީޘްގެ އަދަދު: \r\n\n/g,
-            "ނަވަވީގެ 40 ޙަދީޘް\r\n"
-          ); /* add string & fix empty space، make sure to change the red too */
+            'ނަވަވީގެ 40 ޙަދީޘް\r\n'
+          ) /* add string & fix empty space، make sure to change the red too */
 
-          data = data.replace(/\nވަނަ./g, "");
-          data = data.replace(/\nޢަރަބި ސުރުޚީ/g, "");
-          data = data.replace(/\nދިވެހި ސުރުޚީ/g, "");
-          data = data.replace(/\nޢަރަބި ޙަދީޘް/g, "");
-          data = data.replace(/\nޢަރަބި ފިލިނުޖަހައި/g, "");
-          data = data.replace(/\nދިވެހި ތަރުޖަމާ/g, "");
-          data = data.replace(/\nމަސްދަރު ޢަރަބިން./g, "");
-          data = data.replace(/\nމަސްދަރު ދިވެހިން./g, "");
-          data = data.replace(/\nމަސްދަރު ރިޔާޟުއްޞާލިޙީނުން./g, "");
+          data = data.replace(/\nވަނަ./g, '')
+          data = data.replace(/\nޢަރަބި ސުރުޚީ/g, '')
+          data = data.replace(/\nދިވެހި ސުރުޚީ/g, '')
+          data = data.replace(/\nޢަރަބި ޙަދީޘް/g, '')
+          data = data.replace(/\nޢަރަބި ފިލިނުޖަހައި/g, '')
+          data = data.replace(/\nދިވެހި ތަރުޖަމާ/g, '')
+          data = data.replace(/\nމަސްދަރު ޢަރަބިން./g, '')
+          data = data.replace(/\nމަސްދަރު ދިވެހިން./g, '')
+          data = data.replace(/\nމަސްދަރު ރިޔާޟުއްޞާލިޙީނުން./g, '')
 
           // rids empty space after title
-          data = data.replace(/\r\n\r\n\r/g, "\r\n\r");
+          data = data.replace(/\r\n\r\n\r/g, '\r\n\r')
 
           // seperates rows
-          data = data.replace(/\t/g, "\n\n");
+          data = data.replace(/\t/g, '\n\n')
 
           /* data = data.replace( /hadithmv.com\n/g, "hadithmv.com\n\n" );
            //adds new line on android */
@@ -367,12 +367,12 @@ $(document).ready(() => {
 
           //    console.log(JSON.stringify(data));   //json stringify to console
 
-          return data;
+          return data
         },
         //= ============== edits clipboard regex end, customize: function(data) {
 
         // copies currently displayed and rows
-        exportOptions: { columns: [":visible"], rows: [":visible"] }
+        exportOptions: { columns: [':visible'], rows: [':visible'] }
 
         // copies currently displayed columns and rows,
         // "exportOptions: { modifier:{columns:[":visible"], rows: [":visible"]}"
@@ -380,9 +380,9 @@ $(document).ready(() => {
       }, // end of copy customization
 
       {
-        extend: "colvis",
-        key: { key: "h", shiftKey: true },
-        text: "އިތުރު ކޮލަމްތައް"
+        extend: 'colvis',
+        key: { key: 'h', shiftKey: true },
+        text: 'އިތުރު ކޮލަމްތައް'
       } // end of colvis
 
       // cards code
@@ -396,7 +396,7 @@ $(document).ready(() => {
       */
       // cards code END
     ]
-  }); // $("#fortyNawawi").DataTable( { - END
+  }) // $("#fortyNawawi").DataTable( { - END
   // from here to END OF $(document).ready( function () { used to be empty
 
   //= ====================
@@ -404,7 +404,7 @@ $(document).ready(() => {
   // ====================
 
   // enables text selection, but conflicts with swipe
-  delete Hammer.defaults.cssProps.userSelect;
+  delete Hammer.defaults.cssProps.userSelect
 
   /* Old hammerjs swipe code
     if (window.matchMedia("(min-width: 1200px)").matches) {  // js desktop MQ
@@ -419,39 +419,39 @@ $(document).ready(() => {
     } // end if else
      ==================== END Old hammerjs code */
 
-  function myFunction(x) {
+  function myFunction (x) {
     if (x.matches) {
       // If media query matches
       // empty // document.body.style.backgroundColor = "pink";
     } else {
-      Hammer(fortyNawawi).on("swiperight", () => {
+      Hammer(fortyNawawi).on('swiperight', () => {
         // changed swipeleft and swiperight for dhivehi
-        table.page("next").draw("page");
-      });
-      Hammer(document.getElementById("fortyNawawi")).on("swipeleft", () => {
-        table.page("previous").draw("page");
-      });
+        table.page('next').draw('page')
+      })
+      Hammer(document.getElementById('fortyNawawi')).on('swipeleft', () => {
+        table.page('previous').draw('page')
+      })
     }
   }
-  const x = window.matchMedia("(min-width: 900px)"); // js media query on desktop
-  myFunction(x); // Call listener function at run time
-  x.addListener(myFunction); // Attach listener function on state changes
+  const x = window.matchMedia('(min-width: 900px)') // js media query on desktop
+  myFunction(x) // Call listener function at run time
+  x.addListener(myFunction) // Attach listener function on state changes
   //= =================== END HammerJS - Swipe
 
   // ScrollTop - If the user changes the page, scroll to the top
-  $(".dataTable").on("page.dt", () => {
-    $("html, body").animate(
+  $('.dataTable').on('page.dt', () => {
+    $('html, body').animate(
       {
         scrollTop: 0
       },
-      "fast"
-    ); // smoothen or ease this later ??
-    $("main-content").focus();
+      'fast'
+    ) // smoothen or ease this later ??
+    $('main-content').focus()
     // need to set focus at top so DTBS doesn't scroll back to bottom
 
-    const tempScrollTop = $(window).scrollTop();
+    const tempScrollTop = $(window).scrollTop()
     // console.log(`Scroll from Top: ${tempScrollTop.toString()}`);
-  });
+  })
 
   //= ====================
   // Add cards media quiery class to table ID, as well as row border
@@ -462,19 +462,19 @@ $(document).ready(() => {
         element.classList.add("cards");
       }
 */
-  if (window.matchMedia("(min-width: 900px)").matches) {
+  if (window.matchMedia('(min-width: 900px)').matches) {
     // js media query on desktop
-    $("#fortyNawawi").addClass("row-border"); // adds rowborder class
+    $('#fortyNawawi').addClass('row-border') // adds rowborder class
   } else {
     // js media query on mobile, tablet
-    $("#fortyNawawi").addClass("cards");
+    $('#fortyNawawi').addClass('cards')
   } //  end if else
   //= =================== Add cards class to table ID - END
 
   // changes <input class="paginate_input" type="text"> type to search type,
   // so that delete icon appears
-  $(".paginate_input").prop("type", "search");
+  $('.paginate_input').prop('type', 'search')
 
   // adds a placeholder to above <input class="paginate_input" type="text">
-  $(".paginate_input").attr("placeholder", "ސަފުހާ...");
-}); // ==================== END OF $(document).ready( function () {
+  $('.paginate_input').attr('placeholder', 'ސަފުހާ...')
+}) // ==================== END OF $(document).ready( function () {

@@ -7,13 +7,16 @@
   "[css]": {
       "editor.defaultFormatter": "stylelint.vscode-stylelint",
   },
+  */
+
   "[javascript]": {
-    "editor.defaultFormatter": "chenxsan.vscode-standardjs"
+    // this is only to stop prettier overwriting standardjs's format
+    "editor.defaultFormatter": "chenxsan.vscode-standardjs" //ignore the cannot format error it will give
   },
-*/
+
   "sync.gist": "2199f3bc7a155947a1e27a09545e4de0",
 
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "esbenp.prettier-vscode", //esbenp.prettier-vscode
   "editor.formatOnSave": true, //formats with prettifier on save first
 
   "editor.rulers": [
@@ -31,17 +34,14 @@
   "scss.validate": false,
 
   "editor.codeActionsOnSave": {
-    // For ESLint
-    "source.fixAll.eslint": true,
-    // For TSLint //"source.fixAll.tslint": true,
-    // For Stylelint
     "source.fixAll.stylelint": true
   },
 
-  "javascript.validate.enable": false,
-  //"standard.autoFixOnSave": true, // fixes with standardjs after
+  "javascript.validate.enable": false, // needed for standardjs
+  "standard.autoFixOnSave": true, // fixes with standardjs on save
 
-  "htmlhint.enable": true,
+  "htmlhint.enable": true, // default is true, turn off to test
+
   "todo-tree.tree.showScanModeButton": false,
   "window.zoomLevel": 0
 }
