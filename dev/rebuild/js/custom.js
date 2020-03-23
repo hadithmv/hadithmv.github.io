@@ -1,5 +1,4 @@
 // global document, window, alert, console, require
-// added to get rid of error "document" was used before it was defined.
 
 // =====================
 //       TABS
@@ -25,7 +24,7 @@ function openLink (evt, tabName) {
 //      DT JS BELOW
 // ====================
 $(document).ready(() => {
-  // $(document).ready( function () { //$(document).ready( function () { //
+  // $(document).ready( function () { ===== ===== //
   // from here to var table = $("#fortyNawawi").DataTable({ used to be empty
 
   $.extend(true, $.fn.dataTable.defaults, {
