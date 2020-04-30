@@ -7,15 +7,16 @@ yarkout, abdoline, karim fonts are nice
 
 --mdc-theme-primary: #0277bd;
 --mdc-theme-secondary: #58a5f0;
+
+figure out pagination colors
 ----------------------------------------
 
 ====================
        TO DOS
 ====================
 fix clipboard extra text at top
-fix font missizing
+fix font missing
 
-fix pagination long spill mobile. placeholder needs to ber shorter
 style buttons, pagination and  html, select list, input search
 table width had padding on sides??
 numbers too big, maybe remove them off the font?
@@ -212,6 +213,7 @@ shift + alt = multi line cursor
 custom:
 ctrl + shift + g = source control
 (c)shift + ; = commit message
+ctrl + enter = send
 ctrl + , = settings
 shift + alt + u = upload settings sync, /d
 (c)shift + ' = push
