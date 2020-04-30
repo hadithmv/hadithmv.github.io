@@ -1,28 +1,13 @@
 ====================
        REMINDERS
 ====================
-finish nahu and ruwath hw
-
-
 install ps in other drive
-move calibre there too
 
 yarkout, abdoline, karim fonts are nice
 
-npm list -g --depth 0 (all packages)
-install npm: htmlhint, prettier stylelint, standardjs
-
-stylelint works with prettier on, eslint doesnt??? left that for standardjs
-
-???html-minifier, csso, closure compiler???
-
-ctrl + shift + g
-(c)shift + ; = commit message
-ctrl + , = settings
-
-shift + alt + u = upload settings sync, /d
-
-(c)shift + ' = push
+--mdc-theme-primary: #0277bd;
+--mdc-theme-secondary: #58a5f0;
+----------------------------------------
 
 ====================
        TO DOS
@@ -108,10 +93,6 @@ Rewrite live pages default css
 Quran quotes 122 bukh add
 ----------------------------------------
 
-
-
-
-
 ====================
   PICKUP FROM HERE
 ====================
@@ -119,7 +100,6 @@ stopped at js placeholder last
 need to change page from input plugin
 2/22/2020
 ----------------------------------------
-
 
 ====================
   HADITH CHECKS
@@ -192,39 +172,66 @@ colvis menu is ugly
 2/15/20
 ----------------------------------------
 
-
-
-
 ====================
        CONFIG
 ====================
-VScode:
-settings sync
-file size
-add vertical character count line in
+remember to format, validate, lint, minify, lighthouse, remove unused code, treeshaking:
+prettier, set as default in vscode; format on save
+htmlhint (alt: w2 tidy html5)
+stylelint
 prettier
-open in browser
+standardjs linter
+kangax, csso, closure compiler
+unused-CSS, purifyCSS, unCSS-online
 
+VScode ext:
+alefragnani.numbered-bookmarks
+Aneryu.csso
+chenxsan.vscode-standardjs
+christian-kohler.path-intellisense
+CoenraadS.bracket-pair-colorizer-2
+donjayamanne.githistory
+esbenp.prettier-vscode
+HookyQR.minify
+jrebocho.vscode-random
+mkaufman.HTMLHint
+mrmlnc.vscode-autoprefixer
+ms-python.python
+ryu1kn.partial-diff
+Shan.code-settings-sync
+stylelint.vscode-stylelint
+techer.open-in-browser
+tombonnike.vscode-status-bar-format-toggle
+zh9528.file-size
+
+VSC shortcuts:
 ctrl + p = command palette
 ctrl g = jump to line
 shift + alt = multi line cursor
 
---mdc-theme-primary: #0277bd;
---mdc-theme-secondary: #58a5f0;
-
-remember to format, validate, lint, minify, lighthouse, remove unused code, treeshaking:
-prettier, set as default in vscode; format on save
-w3
-(tidy html5)
-stylelint(ignore comment newline and selecter order)+csslint
-jslint
-kangax, csso, closure compiler
-unused-CSS, purifyCSS, unCSS-online
+custom:
+ctrl + shift + g = source control
+(c)shift + ; = commit message
+ctrl + , = settings
+shift + alt + u = upload settings sync, /d
+(c)shift + ' = push
 
 
+NPM commands:
+npm list -g --depth 0 (list installed packages)
+npm outdated -g --depth=0 (...outdated)
+npm update -g
+node -v
+npm -v
+install the msi from the official site, updates npm too
 
+choco list -lo
+choco outdated
+----------------------------------------
 
-
+====================
+       Blog Post
+====================
 First thing I did:
 ---
 layout: post
