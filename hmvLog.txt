@@ -212,11 +212,11 @@ shift + alt = multi line cursor
 
 custom:
 ctrl + shift + g = source control
-(c)shift + ; = commit message
+ctrl + shift + ; = commit message
 ctrl + enter = send
 ctrl + , = settings
 shift + alt + u = upload settings sync, /d
-(c)shift + ' = push
+ctrl + shift + ' = push
 
 
 NPM commands:
