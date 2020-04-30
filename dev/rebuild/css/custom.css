@@ -331,6 +331,8 @@ a little off to the right because of the search cancel button
 @media screen and (max-width: 900px) {
   .paginate_button {
     font-weight: bold;
+    font-size: 18px;
+    
   }
 }
 
@@ -416,8 +418,8 @@ justify doesnt look good on short cells, right align to prevent gaps in text */
 .dataTable tr td.fnCol8,
 .dataTable tr td.fnCol10 {
   font-family: "arFont", "dvFont", sans-serif;
-  font-size: 25px;
-  line-height: 1.6;
+  font-size: 23px;
+  line-height: 1.7;
   font-size-adjust: 0.1;
   -webkit-font-smoothing: antialiased;
 
@@ -442,6 +444,9 @@ justify doesnt look good on short cells, right align to prevent gaps in text */
 .dataTable tr td.fnCol7,
 .dataTable tr td.fnCol9 {
   font-family: "dvFont", "arFont", sans-serif;
+  font-size: 16px;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
 }
 
   /* columns with numbers */
@@ -471,9 +476,7 @@ justify doesnt look good on short cells, right align to prevent gaps in text */
   /* margin-top: 0; */
 
   /* margin-bottom: 20px; */
-  font-size: 18px;
-  line-height: 1.9;
-  -webkit-font-smoothing: antialiased;
+
 
   /* word-spacing: 0; */
 
