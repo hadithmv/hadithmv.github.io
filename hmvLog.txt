@@ -8,18 +8,16 @@ yarkout, abdoline, karim fonts are nice
 --mdc-theme-primary: #0277bd;
 --mdc-theme-secondary: #58a5f0;
 
-figure out pagination colors
+figure out grey boxes dt
+
+find a fix for dv font webview prob
 ----------------------------------------
 
 ====================
        TO DOS
 ====================
-fix clipboard extra text at top
-fix font missing
 
-style buttons, pagination and  html, select list, input search
-table width had padding on sides??
-numbers too big, maybe remove them off the font?
+style buttons, select list, input search
 
 update menu link docs, like intro
 remove unused code tool??
@@ -152,6 +150,10 @@ Chat offline leave a message?
 glow text effect?:
   text-shadow: 0px 0px 30px white;
   transition: all 0.2s ease 0s;
+
+fix clipboard extra text at top
+table width had padding on sides??
+numbers too big, maybe remove them off the font??
 ----------------------------------------
 
 ====================

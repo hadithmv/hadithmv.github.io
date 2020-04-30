@@ -442,7 +442,7 @@ justify doesnt look good on short cells, right align to prevent gaps in text */
 .dataTable tr td.fnCol7,
 .dataTable tr td.fnCol9 {
   font-family: "dvFont", "arFont", sans-serif;
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.9;
   -webkit-font-smoothing: antialiased;
 }
@@ -492,8 +492,8 @@ taken from table.dataTable.stripe tbody tr.odd.selected, table.dataTable.display
 /* removes default ugly black color from pagination css buttons  */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
   background: none;
-  color: black !important; /* change the hover text color */
-  border: 1px solid black; /* can change color */
+  color: #1e1e1e !important; /* change the hover text color */
+  border: 1px solid #1e1e1e; /* can change color */
 
   /* border-radius: 5px;  a little rounder */
 }
@@ -501,7 +501,7 @@ taken from table.dataTable.stripe tbody tr.odd.selected, table.dataTable.display
 /* below block of css for change pagination buttom style when active */
 .dataTables_wrapper .dataTables_paginate .paginate_button:active {
   background: none;
-  color: black !important;
+  color: #1e1e1e !important;
   box-shadow: none; /* removes shading on press down */
 }
 
