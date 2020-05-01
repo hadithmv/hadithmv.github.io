@@ -20,9 +20,7 @@ To move forward, just start with the first sub directory and keep moving forward
 /* dhivehi */
 @font-face {
   font-family: "dvFont";
-  src: url("mvtyper-Copy7.woff2") format("woff2"),
-    url("mvtyper-Copy7.woff") format("woff"),
-    url("mvtyper-Copy7.ttf") format("truetype");
+  src: url("mvtyper-Copy7.otf") format("opentype");
 }
 
 /* ===== ===== FONTS - END ===== ===== */
