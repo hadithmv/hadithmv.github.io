@@ -3,6 +3,8 @@
 ====================
 install ps in other drive
 
+read n note web
+
 yarkout, abdoline, karim fonts are nice. changed from almarai
 
 --mdc-theme-primary: #0277bd;
