@@ -410,7 +410,7 @@ $(document).ready(() => {
       {
         extend: 'colvis',
         key: { key: 'h', shiftKey: true },
-        text: 'އިތުރު ކޮލަމްތައް',
+        text: 'އިތުރު ބަރިތައް',
         background: false /* removes background fade animation for collection */
       } // end of colvis
 
