@@ -379,10 +379,6 @@ a little off to the right because of the search cancel button
   box-shadow: none; /* removes shading on press down */
 }
 
-#fortyNawawi_length > label > select {
-  background-color: red !important;
-}
-
 /* ===== DT wrapper CSS  - END ===== */
 
 /* ====================
