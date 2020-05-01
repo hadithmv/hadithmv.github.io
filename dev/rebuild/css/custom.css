@@ -379,12 +379,8 @@ a little off to the right because of the search cancel button
   box-shadow: none; /* removes shading on press down */
 }
 
-.dataTables_length select {
-  background: none;
-}
-
-.select-selected {
-  background-color: black;
+#fortyNawawi_length > label > select {
+  background-color: none;
 }
 
 /* ===== DT wrapper CSS  - END ===== */
