@@ -302,6 +302,7 @@ li, /* for pushy side bar */
 /* makes table rtl */
 div.dataTables_wrapper {
   direction: rtl;
+  text-align: left;
 }
 
 /* make cancel button for input, only works on webkit chrome and stuff. should i get more browser support???
