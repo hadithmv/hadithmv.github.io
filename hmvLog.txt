@@ -221,6 +221,7 @@ VSC shortcuts:
 ctrl + p = command palette
 ctrl g = jump to line
 shift + alt = multi line cursor
+CTRL + K CTRL + SHIFT + S = save without formatting (simply keep CTRL pressed and then type K + SHIFT + S).
 
 custom:
 ctrl + shift + g = source control

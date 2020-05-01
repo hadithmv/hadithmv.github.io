@@ -31,67 +31,7 @@ Starting with ../../ moves two directories backward and starts there (and so on.
 To move forward, just start with the first sub directory and keep moving forward.
 */
 
-.hmv {
-  width: 200px;
-  height: 200px;
-}
-
-.badge {
-  width: 250px;
-}
-
-p {
-  text-align: justify;
-}
-
-.mid,
-.mid p {
-  text-align: center;
-}
-
-.dv {
-  direction: rtl;
-  font-family: "dvFont";
-  line-height: 2;
-}
-
-.ar,
-.ar p {
-  direction: rtl;
-  font-family: "arFont";
-  line-height: 1.7;
-  font-size: 21px;
-}
-
-h2,
-h3 {
-  line-height: 2;
-}
-
-.dv blockquote {
-  border-left: none;
-  border-right: 1px solid #e5e5e5;
-  margin: 0;
-  padding: 0 20px 0 0;
-}
-
-.dvTable th,
-.dvTable td {
-  text-align: right;
-  direction: rtl;
-  text-align: center;
-}
-
-th,
-td {
-  text-align: center;
-}
-
-.ind {
-  text-indent: 2em;
-}
-
-/* ==============END OF CUSTOM
+/* ==============The following is the original code with some parts commented out
 ============================= */
 
 body {
@@ -385,4 +325,67 @@ width:33%;
       color: #444;
     }
   }
+}
+
+/* ==============The following is additional custom code
+============================= */
+
+.hmv {
+  width: 200px;
+  height: 200px;
+}
+
+.badge {
+  width: 250px;
+}
+
+p {
+  text-align: justify;
+}
+
+.mid,
+.mid p {
+  text-align: center;
+}
+
+.dv {
+  direction: rtl;
+  font-family: "dvFont";
+  line-height: 2;
+}
+
+.ar,
+.ar p {
+  direction: rtl;
+  font-family: "arFont";
+  line-height: 1.7;
+  font-size: 21px;
+}
+
+h2,
+h3 {
+  line-height: 2;
+}
+
+.dv blockquote {
+  border-left: none;
+  border-right: 1px solid #e5e5e5;
+  margin: 0;
+  padding: 0 20px 0 0;
+}
+
+.dvTable th,
+.dvTable td {
+  text-align: right;
+  direction: rtl;
+  text-align: center;
+}
+
+th,
+td {
+  text-align: center;
+}
+
+.ind {
+  text-indent: 2em;
 }
