@@ -322,10 +322,31 @@ a little off to the right because of the search cancel button */
   /* text-align: center; */
 }
 
+/* makes copy button the same width as colvis, 81.918 + 14.080 + 14.080 */
+button.dt-button.buttons-copy.buttons-html5 {
+  width: 110.078px;
+}
+
+/* makes select list as tall in height as search box */
+#fortyNawawi_length > label > select {
+  height: 31px;
+}
+
+/* makes space padding below pagination mobile buttons same as above */
+#fortyNawawi_wrapper > div.mTop2 {
+  padding-bottom: 12px;
+}
+
 /* make  search placeholder text centered,
 a little off to the right because of the search cancel button 
 #fortyNawawi_filter > label > input[type=search] {
    text-align: center; */
+
+/* adds a little space to the left of pagination input box, because the other
+   buttons have the same space */
+#fortyNawawi_paginate > input {
+  margin-left: 2px;
+}
 
 /* makes pagination buttons stand out bold on mobile only mq */
 @media screen and (max-width: 900px) {
@@ -333,6 +354,22 @@ a little off to the right because of the search cancel button
     font-weight: bold;
     font-size: 18px;
   }
+}
+
+/* removes default ugly black color from pagination css buttons  */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: none;
+  color: #1e1e1e !important; /* change the hover text color */
+  border: 1px solid #1e1e1e; /* can change color */
+
+  /* border-radius: 5px;  a little rounder */
+}
+
+/* below block of css for change pagination buttom style when active */
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  background: none;
+  color: #1e1e1e !important;
+  box-shadow: none; /* removes shading on press down */
 }
 
 /* ===== DT wrapper CSS  - END ===== */
@@ -488,22 +525,6 @@ taken from table.dataTable.stripe tbody tr.odd.selected, table.dataTable.display
   color: white;
 }
 */
-
-/* removes default ugly black color from pagination css buttons  */
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-  background: none;
-  color: #1e1e1e !important; /* change the hover text color */
-  border: 1px solid #1e1e1e; /* can change color */
-
-  /* border-radius: 5px;  a little rounder */
-}
-
-/* below block of css for change pagination buttom style when active */
-.dataTables_wrapper .dataTables_paginate .paginate_button:active {
-  background: none;
-  color: #1e1e1e !important;
-  box-shadow: none; /* removes shading on press down */
-}
 
 /*
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
