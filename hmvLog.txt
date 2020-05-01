@@ -10,7 +10,7 @@ yarkout, abdoline, karim fonts are nice
 
 figure out grey boxes dt
 
-find a fix for dv font webview prob: fix seems to be otf
+find a fix for dv font webview prob: fix seems to be otf or base64 encoding
 ----------------------------------------
 
 ====================
