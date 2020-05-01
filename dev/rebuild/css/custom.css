@@ -380,7 +380,7 @@ a little off to the right because of the search cancel button
 }
 
 #fortyNawawi_length > label > select {
-  background-color: none;
+  background-color: white;
 }
 
 /* ===== DT wrapper CSS  - END ===== */
