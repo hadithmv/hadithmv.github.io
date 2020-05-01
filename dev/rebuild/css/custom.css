@@ -337,6 +337,13 @@ button.dt-button.buttons-copy.buttons-html5 {
   padding-bottom: 12px;
 }
 
+/* mobile mq add space at the bottom of table before last pagination row */
+@media screen and (max-width: 900px) {
+  .table {
+    padding-bottom: 15px;
+  }
+}
+
 /* make  search placeholder text centered,
 a little off to the right because of the search cancel button 
 #fortyNawawi_filter > label > input[type=search] {
@@ -433,11 +440,8 @@ justify doesnt look good on short cells, right align to prevent gaps in text */
     text-align: center;
   }
 
-  /* bold headers for mobile */
-  .dataTable tr td.fnCol1,
-  .dataTable tr td.fnCol2,
-  /* .dataTable tr td.fnCol3, looks bad */
-  .dataTable tr td.fnCol4 {
+  /* bold headers for mobile - first number at top */
+  .dataTable tr td.fnCol1 {
     font-weight: bold;
   }
 }
