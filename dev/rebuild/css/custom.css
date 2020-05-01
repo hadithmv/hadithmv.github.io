@@ -383,6 +383,10 @@ a little off to the right because of the search cancel button
   background: none;
 }
 
+.select-selected {
+  background-color: black;
+}
+
 /* ===== DT wrapper CSS  - END ===== */
 
 /* ====================
