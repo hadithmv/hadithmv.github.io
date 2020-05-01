@@ -8,9 +8,10 @@ yarkout, abdoline, karim fonts are nice
 --mdc-theme-primary: #0277bd;
 --mdc-theme-secondary: #58a5f0;
 
-figure out grey boxes dt
 
-find a fix for dv font webview prob with woff2: fix seems to be otf / woff 2 base64 encoding / using woff instead (but this didnt work in the apk?)
+find a fix for dv font webview prob with woff2: fix seems to be otf / woff 2 base64 encoding / using woff instead (but this didnt work in the apk?) / actually not sure anymore
+
+make app support android v5 and onwards
 ----------------------------------------
 
 ====================
@@ -154,6 +155,8 @@ glow text effect?:
 fix clipboard extra text at top
 table width had padding on sides??
 numbers too big, maybe remove them off the font??
+
+figure out grey boxes dt
 ----------------------------------------
 
 ====================
