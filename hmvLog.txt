@@ -234,6 +234,9 @@ install the msi from the official site, updates npm too
 
 choco list -lo
 choco outdated
+
+chrome:
+Alt + d = go to address bar
 ----------------------------------------
 
 ====================
