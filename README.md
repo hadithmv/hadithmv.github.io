@@ -7,8 +7,8 @@
       <meta name="google" value="notranslate">
 <body class="notranslate">
 
-<article class="markdown-body">	<!-- ARTICLE CHANGE123 -->
-	
+<article class="markdown-body"> <!-- ARTICLE CHANGE123 -->
+
 <h3 align="center"><b>
 بِسمِ اللهِ الرَّحمنِ الرَّحِيمِ
 </b></h3>
@@ -19,8 +19,6 @@
   <h3 align="center">Hadithmv - Accessible and Sourced</h3>
 
   <p align="center">Dhivehi Hadith translations at your fingertips</p>
-
-  <p align="center"><a href="http://hadithmv.github.io"><strong>Web Version »</strong></a></p>
 
   <p align="center">View the<strong><a href="http://hadithmv.github.io"> web version</strong></a></p>
 
@@ -34,9 +32,9 @@
     <br>
 -->
   <p align="center">
-  	<a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"><img src="https://hadithmv.github.io/img/playstore-badge/en_badge_web_generic-compressor.png" alt="" width=250></a><a href="https://goo.gl/EyjC4v"><img src="https://hadithmv.github.io/img/windows-desktop-badge/windows-badge-compressor.png" alt="" width=250></a>
-  </p>  
-   
+   <a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"><img src="https://hadithmv.github.io/img/playstore-badge/en_badge_web_generic-compressor.png" alt="" width=250></a><a href="https://goo.gl/EyjC4v"><img src="https://hadithmv.github.io/img/windows-desktop-badge/windows-badge-compressor.png" alt="" width=250></a>
+  </p>
+
 <br><br>
 
 <h2><b>Developing a Hadith App for Maldivians</b></h2>
@@ -50,18 +48,18 @@
 <h3><b>Goals:</b></h3>
 <hr/>
 <ul align="justify">
-	<li>
-	<h3><b>Accessible</b></h3>
-	<p>Bring the Hadith of Allah's Prophet ﷺ within the reach of everyone, regardless of the barriers of medium, location, portability, age, language or wealth. And use the platform of modern technology to help spread and instill the love of living according to the Sunnah in the hearts, as today's Maldivians are closer to their personal devices than they are to books.</p>
-	</li>
-	<li>
-	<h3><b>Educational</b></h3>
-	<p>The cause of most of our society's problems is due to people being uneducated about Islam. To solve this redundant issue, they need a way to access Islamic material they can look up for themselves. Also, teachers and students alike can benefit from these references, without having to repeat the translate process every time.</p>
-	</li>
-	<li>
-	<h3><b>Progressive</b></h3>
-	<p>It is Allah who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. Hmv is designed to be mobile-first with minimal bloat. Currently supports web, Windows desktop and Android platforms.</p>
-	</li>
+ <li>
+ <h3><b>Accessible</b></h3>
+ <p>Bring the Hadith of Allah's Prophet ﷺ within the reach of everyone, regardless of the barriers of medium, location, portability, age, language or wealth. And use the platform of modern technology to help spread and instill the love of living according to the Sunnah in the hearts, as today's Maldivians are closer to their personal devices than they are to books.</p>
+ </li>
+ <li>
+ <h3><b>Educational</b></h3>
+ <p>The cause of most of our society's problems is due to people being uneducated about Islam. To solve this redundant issue, they need a way to access Islamic material they can look up for themselves. Also, teachers and students alike can benefit from these references, without having to repeat the translate process every time.</p>
+ </li>
+ <li>
+ <h3><b>Progressive</b></h3>
+ <p>It is Allah who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. Hmv is designed to be mobile-first with minimal bloat. Currently supports web, Windows desktop and Android platforms.</p>
+ </li>
 </ul>
 
 <br>
@@ -69,9 +67,9 @@
 <h3><b>Milestones:</b></h3>
 <hr/>
 <ul>
-	<li>
-		<b>40 Nawawi</b>
-	</li>
+ <li>
+  <b>40 Nawawi</b>
+ </li>
 </ul>
 
 <br><br><br>
@@ -87,18 +85,18 @@
 <h3 dir="rtl"><b>އަމާޒު:</b></h3>
 <hr/>
 <ul align="justify" dir="rtl" font-family="Tharujamaanu">
-	<li>
-	<h3><b>ފޯރުކޮށްދިނުން</b></h3>
-	<p>ގެންގުޅޭ ވަޞީލަތްތަކާއި، އުޅޭ ތަނާއި، އުމުރާއި، ބަސްމޮށުންތެރިކަމާއި ތަނަވަސްކަން ނެތުމުގެ ސަބަބުން ކުރިމަތިވެފައިވާ ހުރަސްތައް ފަހަނަޅައ، ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތައް އެންމެންނާއި ހަމައަށް ފޯރުކޮށް ދިނުމެވެ. އަދި މި ޒަމާނަކީ ފޮތްތަކަށް ވުރެން ބޮޑަށް ފޯނާއި ކޮމްޕިޔުޓަރ ފަދަ ވަސީލަތްތަކަށް ދިވެހިން އަހުލުވެރި ވެފައިވާ ޒަމާނެއް ކަމުން، އަދުގެ ޓެކްނޮލަޖީގެ ޒަރިއްޔާއިން ސުންނަތް ފަތުރައި އެއާ އެއްގޮތަށް އުޅުމުގެ ލޯބި ހިތްތަކުގައި ޖެއްސުމެވެ.</p>
-	</li>
-	<li>
-	<h3><b>އުނގަންނައިދިނުން</b></h3>
-	<p>މި ކުޑަކުޑަ މުޖުތަމަޢުގެ ގިނަ މައްސަލަތަކުގެ މައިގަނޑު ސަބަބަކީ، މީސްތަކުން އިސްލާމް ދީނަށް ރަނގަޅަށް އަހުލުވެރިވެފައި ނުވުމެވެ. ވީމާ، މި ކަމަށް ޙައްލެއް ގެނައުމަށް ޓަކައި އަމިއްލައަށް އިސްލާމީ މަޢުލޫމާތު ބަލައި ހޯދޭނެ ފަސޭހަ މަގެއް އާންމުންނަށް ތަނަވަސްވެފައި އޮތުން މުހިންމެވެ. ހަމަ އެހެންމެ، މުދައްރިސުންނާއި ދަރިވަރުން މި މަސްދަރުތަކުގެ ބޭނުން ހިފައި، އެއް ޙަދީޘްތަކެއް ތަކުރާރުކޮށް ތަރުޖަމާ ކުރުމުގެ ބުރައިން ސަލާމަތް ވެގެން ދާނެއެވެ.</p>
-	</li>
-	<li>
-	<h3><b>ތަރައްޤީވުން</b></h3>
-	<p>އަޅުގަނޑުމެންނަށް ޓަކައި ޓެކްނޮލޮޖީގެ ޚިދުމަތް ލައްވައި، އޭގެ ބޭނުން ކުރެވޭނެ ގޮތް މިންވަރު ކުރެއްވީ ﷲ އެވެ. އަޅުގަނޑުމެންގެ އަމާޒަކީ ގިނަގުނަ ބޭނުންތައް ހިފޭ، ބޭނުން ކުރަން ފަސޭހަ އެޕްލިކޭޝަނެއް އެންމެންނަށް ފޯރުކޮށް ދިނުމެވެ. އަދި ގެންގުޅޭ ވަސީލަތްތަކާއި އުސްލޫބު ތަފާތު ވިޔެއްކަމަކު، ބޭނުން ކުރާ ފަރާތްތަކަށް އެކަށީގެންވާ ހިތްގައިމު މާހައުލެއް ޤާއިމުކޮށް ދިނުމެވެ. ޙަދީޘްއެމްވީ ފަރުމާ ކުރެވިފައި ވަނީ ފޯނަށް އަހަންމިއްޔަތުކަން ދެވި، ޖާގައަށް ބުރަ ނުވާ ގޮތަށެވެ. މި ވަގުތު ވެބް، ވިންޑޯސް ޑެސްކްޓޮޕް އަދި އެންޑުރޮއިޑު މަންސަތަކުގައި ބޭނުން ކުރެވޭނެއެވެ.</p>
-	</li>
+ <li>
+ <h3><b>ފޯރުކޮށްދިނުން</b></h3>
+ <p>ގެންގުޅޭ ވަޞީލަތްތަކާއި، އުޅޭ ތަނާއި، އުމުރާއި، ބަސްމޮށުންތެރިކަމާއި ތަނަވަސްކަން ނެތުމުގެ ސަބަބުން ކުރިމަތިވެފައިވާ ހުރަސްތައް ފަހަނަޅައ، ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތައް އެންމެންނާއި ހަމައަށް ފޯރުކޮށް ދިނުމެވެ. އަދި މި ޒަމާނަކީ ފޮތްތަކަށް ވުރެން ބޮޑަށް ފޯނާއި ކޮމްޕިޔުޓަރ ފަދަ ވަސީލަތްތަކަށް ދިވެހިން އަހުލުވެރި ވެފައިވާ ޒަމާނެއް ކަމުން، އަދުގެ ޓެކްނޮލަޖީގެ ޒަރިއްޔާއިން ސުންނަތް ފަތުރައި އެއާ އެއްގޮތަށް އުޅުމުގެ ލޯބި ހިތްތަކުގައި ޖެއްސުމެވެ.</p>
+ </li>
+ <li>
+ <h3><b>އުނގަންނައިދިނުން</b></h3>
+ <p>މި ކުޑަކުޑަ މުޖުތަމަޢުގެ ގިނަ މައްސަލަތަކުގެ މައިގަނޑު ސަބަބަކީ، މީސްތަކުން އިސްލާމް ދީނަށް ރަނގަޅަށް އަހުލުވެރިވެފައި ނުވުމެވެ. ވީމާ، މި ކަމަށް ޙައްލެއް ގެނައުމަށް ޓަކައި އަމިއްލައަށް އިސްލާމީ މަޢުލޫމާތު ބަލައި ހޯދޭނެ ފަސޭހަ މަގެއް އާންމުންނަށް ތަނަވަސްވެފައި އޮތުން މުހިންމެވެ. ހަމަ އެހެންމެ، މުދައްރިސުންނާއި ދަރިވަރުން މި މަސްދަރުތަކުގެ ބޭނުން ހިފައި، އެއް ޙަދީޘްތަކެއް ތަކުރާރުކޮށް ތަރުޖަމާ ކުރުމުގެ ބުރައިން ސަލާމަތް ވެގެން ދާނެއެވެ.</p>
+ </li>
+ <li>
+ <h3><b>ތަރައްޤީވުން</b></h3>
+ <p>އަޅުގަނޑުމެންނަށް ޓަކައި ޓެކްނޮލޮޖީގެ ޚިދުމަތް ލައްވައި، އޭގެ ބޭނުން ކުރެވޭނެ ގޮތް މިންވަރު ކުރެއްވީ ﷲ އެވެ. އަޅުގަނޑުމެންގެ އަމާޒަކީ ގިނަގުނަ ބޭނުންތައް ހިފޭ، ބޭނުން ކުރަން ފަސޭހަ އެޕްލިކޭޝަނެއް އެންމެންނަށް ފޯރުކޮށް ދިނުމެވެ. އަދި ގެންގުޅޭ ވަސީލަތްތަކާއި އުސްލޫބު ތަފާތު ވިޔެއްކަމަކު، ބޭނުން ކުރާ ފަރާތްތަކަށް އެކަށީގެންވާ ހިތްގައިމު މާހައުލެއް ޤާއިމުކޮށް ދިނުމެވެ. ޙަދީޘްއެމްވީ ފަރުމާ ކުރެވިފައި ވަނީ ފޯނަށް އަހަންމިއްޔަތުކަން ދެވި، ޖާގައަށް ބުރަ ނުވާ ގޮތަށެވެ. މި ވަގުތު ވެބް، ވިންޑޯސް ޑެސްކްޓޮޕް އަދި އެންޑުރޮއިޑު މަންސަތަކުގައި ބޭނުން ކުރެވޭނެއެވެ.</p>
+ </li>
 </ul>
 
 <br>
@@ -106,10 +104,10 @@
 <h3 dir="rtl"><b>ލަނޑުދަނޑިތައް:</b></h3>
 <hr/>
 <ul dir="rtl">
-	<li>
-		<b>40 ނަވަވީ</b>
-	</li>
+ <li>
+  <b>40 ނަވަވީ</b>
+ </li>
 </ul>
-</article>	<!-- END OF ARTICLE -->
+</article> <!-- END OF ARTICLE -->
 </body>
 </html>
