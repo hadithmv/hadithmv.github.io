@@ -14,6 +14,11 @@ make card shadows better
 
 clean up gdrive
 
+"Relative URLs can be tricky, but beginning with no slash is the same as ./, which means to begin from the current directory. Beginning with two dots and a slash (../) moves up one directory to the parent. Beginning with just a slash (/) goes to root.
+I think you're focusing on the stylesheet, but you should be looking at the URL of the font within the stylesheet. Your font is referenced to the current directory, with no slash:
+url("fonts/example.woff")
+To avoid any weirdness, it's probably a good idea to make asset references inside the stylesheet absolute even if the stylesheet itself is accessed by a relative reference."
+
 yarkout, abdoline, karim fonts are nice. changed from almarai
 
 yarkout has the following issues: زَکَرِيَّا, الرَّحْمٰنِ 
@@ -257,6 +262,7 @@ ctrl + shift + ' = push
 
 
 NPM commands:
+npm install -g <package_name>
 npm list -g --depth 0 (list installed packages)
 npm outdated -g --depth=0 (...outdated)
 npm update -g
