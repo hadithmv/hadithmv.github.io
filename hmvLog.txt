@@ -2,8 +2,18 @@
        REMINDERS
 ====================
 install ps in other drive
+learn ps
+
+NVIDIA GeForce 445.87 WHQL
+AMD Radeon Adrenalin 20.4.2 Beta
 
 read n note web
+
+notes fonts broken on mobile
+
+make card shadows better
+
+clean up gdrive
 
 yarkout, abdoline, karim fonts are nice. changed from almarai
 
@@ -166,6 +176,8 @@ table width had padding on sides??
 numbers too big, maybe remove them off the font??
 
 figure out grey boxes dt
+
+use cubic beziers for smoother animation
 ----------------------------------------
 
 ====================
@@ -218,6 +230,7 @@ stylelint.vscode-stylelint
 techer.open-in-browser
 tombonnike.vscode-status-bar-format-toggle
 zh9528.file-size
+ritwickdey.liveserver
 
 VSC shortcuts:
 ctrl + p = command palette
@@ -247,6 +260,9 @@ choco outdated
 
 chrome:
 Alt + d = go to address bar
+
+win:
+alt + f4 = shutdown (needs to be at desktop with no windows open
 ----------------------------------------
 
 ====================
