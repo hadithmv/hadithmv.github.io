@@ -356,8 +356,9 @@ p {
   line-height: 2;
 }
 
-h1.ar {
+body > div > div.mid > h1.ar {
   font-family: "arFont";
+  font-size: 32px;
 }
 
 .ar {
