@@ -21,6 +21,9 @@
   <p align="center">Dhivehi Hadith translations at your fingertips</p>
 
   <p align="center"><a href="http://hadithmv.github.io"><strong>Web Version »</strong></a></p>
+
+  <p align="center">View the<strong><a href="http://hadithmv.github.io"> web version</strong></a></p>
+
 <!--
     <br>
     <a href="http://hadithmv.github.io">Web Version</a>
