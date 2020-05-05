@@ -16,7 +16,7 @@ clean up gdrive
 
 yarkout, abdoline, karim fonts are nice. changed from almarai
 
-yarkout has the following issues: زَکَرِيَّا
+yarkout has the following issues: زَکَرِيَّا, الرَّحْمٰنِ 
 
 
 make menu bar burger menu

@@ -10,7 +10,7 @@
 <article class="markdown-body">	<!-- ARTICLE CHANGE123 -->
 	
 <h3 align="center"><b>
-بِسمِ اللَّهِ الرَّحمٰنِ الرَّحِيمِ
+بِسمِ اللهِ الرَّحمنِ الرَّحِيمِ
 </b></h3>
 <br>
 
@@ -70,7 +70,6 @@
 		<b>40 Nawawi</b>
 	</li>
 </ul>
-
 
 <br><br><br>
 
