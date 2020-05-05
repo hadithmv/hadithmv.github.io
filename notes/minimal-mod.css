@@ -356,7 +356,10 @@ p {
   line-height: 2;
 }
 
-.ar,
+h1.ar {
+  font-family: "arFont";
+}
+
 .ar p {
   direction: rtl;
   font-family: "arFont";
