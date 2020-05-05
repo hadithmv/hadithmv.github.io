@@ -12,9 +12,9 @@ To move forward, just start with the first sub directory and keep moving forward
 /* arabic */
 @font-face {
   font-family: "arFont";
-  src: url("Yakout-Linotype-W20-Light-Copy6.woff2") format("woff2"),
-    url("../fonts/Yakout-Linotype-W20-Light-Copy6.woff") format("woff"),
-    url("../fonts/Yakout-Linotype-W20-Light-Copy6.ttf") format("truetype");
+  src: url("fonts/Yakout-Linotype-W20-Light-Copy6.woff2") format("woff2"),
+    url("fonts/Yakout-Linotype-W20-Light-Copy6.woff") format("woff"),
+    url("fonts/Yakout-Linotype-W20-Light-Copy6.ttf") format("truetype");
 }
 
 /* dhivehi */
