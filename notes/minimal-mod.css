@@ -360,7 +360,7 @@ h1.ar {
   font-family: "arFont";
 }
 
-.ar p {
+.ar {
   direction: rtl;
   font-family: "arFont";
   line-height: 1.7;
