@@ -18,7 +18,7 @@ yarkout, abdoline, karim fonts are nice. changed from almarai
 
 yarkout has the following issues: زَکَرِيَّا, الرَّحْمٰنِ 
 
-
+readme.md has styling issues, add imgs
 make menu bar burger menu
 local works, online doesnt for some reason, styles and links
 
