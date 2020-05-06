@@ -6,8 +6,13 @@ learn ps
 
 NVIDIA GeForce 445.87 WHQL
 AMD Radeon Adrenalin 20.4.2 Beta
+----------------------
+
+make tashkeel less text self generated
 
 check other two notes files, muqaddima and app intro
+thaana font issue still on ddg
+pushyjs menu font errors on chrome
 
 make card shadows better
 
