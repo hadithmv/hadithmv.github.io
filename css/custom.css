@@ -12,17 +12,17 @@ To move forward, just start with the first sub directory and keep moving forward
 /* arabic */
 @font-face {
   font-family: "arFont";
-  src: url("../fonts/yakout.woff2") format("woff2"),
-    url("../fonts/Yakout-Linotype-W20-Light-Copy6.woff") format("woff"),
-    url("../fonts/Yakout-Linotype-W20-Light-Copy6.ttf") format("truetype");
+  src: url("../font/yakout.woff2") format("woff2"),
+    url("../font/Yakout-Linotype-W20-Light-Copy6.woff") format("woff"),
+    url("../font/Yakout-Linotype-W20-Light-Copy6.ttf") format("truetype");
 }
 
 /* dhivehi */
 @font-face {
   font-family: "dvFont";
-  src: url("../fonts/mvtyper-Copy7.woff2") format("woff2"),
-    url("../fonts/mvtyper-Copy7.woff") format("woff"),
-    url("../fonts/mvtyper-Copy7.ttf") format("truetype");
+  src: url("../font/mvtyper-Copy7.woff2") format("woff2"),
+    url("../font/mvtyper-Copy7.woff") format("woff"),
+    url("../font/mvtyper-Copy7.ttf") format("truetype");
 }
 
 /* ===== ===== FONTS - END ===== ===== */
