@@ -7,8 +7,7 @@ learn ps
 NVIDIA GeForce 445.87 WHQL
 AMD Radeon Adrenalin 20.4.2 Beta
 
-read the web notes
-notes fonts broken on mobile
+check other two notes files, muqaddima and app intro
 
 make card shadows better
 
