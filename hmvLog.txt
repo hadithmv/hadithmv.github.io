@@ -1,12 +1,22 @@
 ====================
        REMINDERS
 ====================
+ftp://192.168.43.1:2121
+
 install ps in other drive
 learn ps
 
 NVIDIA GeForce 445.87 WHQL
 AMD Radeon Adrenalin 20.4.2 Beta
+
+take a look at
+https://isnad.io
+http://qaalarasulallah.com/
+http://muslimscholars.info/
+https://www.kaggle.com/fahd09/hadith-narrators
+
 ----------------------
+
 
 make tashkeel less text self generated
 
