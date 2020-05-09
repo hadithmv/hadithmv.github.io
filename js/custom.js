@@ -86,27 +86,54 @@ $(document).ready(() => {
     data: FNdataSet, // https://datatables.net/manual/ajax
     // CHANGE123 JSON
     columns: [
-      { title: '#' },
-      { title: 'ވަނަ' },
-      { title: 'ޢަރަބި ސުރުޚީ' },
-      { title: 'ދިވެހި ސުރުޚީ' },
-      { title: 'ޢަރަބި ޙަދީޘް' },
+      {
+        data: 0,
+        title: '#'
+      },
+      {
+        data: 1,
+        title: 'ވަނަ'
+      },
+      {
+        data: 2,
+        title: 'ޢަރަބި ސުރުޚީ'
+      },
+      {
+        data: 3,
+        title: 'ދިވެހި ސުރުޚީ'
+      },
+      {
+        data: 4,
+        title: 'ޢަރަބި ޙަދީޘް'
+      },
       // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        title: 'ޢަރަބި ފިލިނުޖަހައި',
         data: 4,
+        title: 'ޢަރަބި ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
           return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ |ْ/g, '')
         }
       },
-      { title: 'ދިވެހި ތަރުޖަމާ' },
-      { title: 'މަސްދަރު ޢަރަބިން.' },
-      { title: 'މަސްދަރު ދިވެހިން.' },
-      { title: 'މަސްދަރު ރިޔާޟުއްޞާލިޙީނުން.' }
+      {
+        data: 5,
+        title: 'ދިވެހި ތަރުޖަމާ'
+      },
+      {
+        data: 6,
+        title: 'މަސްދަރު ޢަރަބިން.'
+      },
+      {
+        data: 7,
+        title: 'މަސްދަރު ދިވެހިން.'
+      },
+      {
+        data: 8,
+        title: 'މަސްދަރު ރިޔާޟުއްޞާލިޙީނުން.'
+      }
     ],
 
     columnDefs: [
