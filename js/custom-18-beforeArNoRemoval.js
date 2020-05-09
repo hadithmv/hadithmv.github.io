@@ -92,21 +92,25 @@ $(document).ready(() => {
       },
       {
         data: 1,
-        title: 'ޢަރަބި ސުރުޚީ'
+        title: 'ވަނަ'
       },
       {
         data: 2,
-        title: 'ދިވެހި ސުރުޚީ'
+        title: 'ޢަރަބި ސުރުޚީ'
       },
       {
         data: 3,
+        title: 'ދިވެހި ސުރުޚީ'
+      },
+      {
+        data: 4,
         title: 'ޢަރަބި ޙަދީޘް'
       },
       // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 3,
+        data: 4,
         title: 'ޢަރަބި ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -115,19 +119,19 @@ $(document).ready(() => {
         }
       },
       {
-        data: 4,
+        data: 5,
         title: 'ދިވެހި ތަރުޖަމާ'
       },
       {
-        data: 5,
+        data: 6,
         title: 'މަސްދަރު ޢަރަބިން.'
       },
       {
-        data: 6,
+        data: 7,
         title: 'މަސްދަރު ދިވެހިން.'
       },
       {
-        data: 7,
+        data: 8,
         title: 'މަސްދަރު ރިޔާޟުއްޞާލިޙީނުން.'
       }
     ],
@@ -143,50 +147,56 @@ $(document).ready(() => {
         searchable: true
       },
       {
-        className: 'fnCol2', // Ar Title
+        className: 'fnCol2', // Ar No
         targets: [1],
-        visible: true,
+        visible: false,
         searchable: false
       },
       {
-        className: 'fnCol3', // Dv Title
+        className: 'fnCol3', // Ar Title
         targets: [2],
+        visible: true,
+        searchable: false
+      },
+      {
+        className: 'fnCol4', // Dv Title
+        targets: [3],
         visible: false,
         searchable: false
       },
       {
-        className: 'fnCol4', // Ar Text
-        targets: [3],
+        className: 'fnCol5', // Ar Text
+        targets: [4],
         visible: true,
         searchable: true
       },
       {
-        className: 'fnCol5', // Ar Plain
-        targets: [4],
+        className: 'fnCol6', // Ar Plain
+        targets: [5],
         visible: false,
         searchable: true
       },
       {
-        className: 'fnCol6', // Dv Text
-        targets: [5],
-        visible: true,
-        searchable: true
-      },
-      {
-        className: 'fnCol7', // Ar Ref
+        className: 'fnCol7', // Dv Text
         targets: [6],
         visible: true,
+        searchable: true
+      },
+      {
+        className: 'fnCol8', // Ar Ref
+        targets: [7],
+        visible: true,
         searchable: false
       },
       {
-        className: 'fnCol8', // Dv Ref
-        targets: [7],
+        className: 'fnCol9', // Dv Ref
+        targets: [8],
         visible: false,
         searchable: false
       },
       {
-        className: 'fnCol9', // Rs Ref
-        targets: [8],
+        className: 'fnCol10', // Rs Ref
+        targets: [9],
         visible: false,
         searchable: false
       },
@@ -382,6 +392,7 @@ $(document).ready(() => {
           // data = data.replace( /\nNo.\tRef.\tArabic\tEnglish\tDhivehi/g,"" );
           // CHANGE123 CLIP REGEX
 
+          data = data.replace(/\tވަނަ./g, '')
           data = data.replace(/\tޢަރަބި\sސުރުޚީ/g, '')
           data = data.replace(/\tދިވެހި ސުރުޚީ/g, '')
           data = data.replace(/\tޢަރަބި ޙަދީޘް/g, '')
@@ -398,6 +409,7 @@ $(document).ready(() => {
             'ނަވަވީގެ 40 ޙަދީޘް\r\n'
           ) /* add string & fix empty space، make sure to change the red too */
 
+          data = data.replace(/\nވަނަ./g, '')
           data = data.replace(/\nޢަރަބި ސުރުޚީ/g, '')
           data = data.replace(/\nދިވެހި ސުރުޚީ/g, '')
           data = data.replace(/\nޢަރަބި ޙަދީޘް/g, '')
