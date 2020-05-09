@@ -91,18 +91,7 @@ $(document).ready(() => {
       { title: 'ޢަރަބި ސުރުޚީ' },
       { title: 'ދިވެހި ސުރުޚީ' },
       { title: 'ޢަރަބި ޙަދީޘް' },
-      // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
-      { /* instead of repeating this part of the array within the external json,
-         we can strip diacritics using regex within the table itself, this makes
-         the array file much smaller in the long run */
-        title: 'ޢަރަބި ފިލިނުޖަހައި',
-        data: 4,
-        render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
-          return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ |ْ/g, '')
-        }
-      },
+      { title: 'ޢަރަބި ފިލިނުޖަހައި' },
       { title: 'ދިވެހި ތަރުޖަމާ' },
       { title: 'މަސްދަރު ޢަރަބިން.' },
       { title: 'މަސްދަރު ދިވެހިން.' },
