@@ -3,8 +3,7 @@
 ====================
 ftp://192.168.43.1:2121
 
-install ps in other drive
-learn ps
+install ps in other drive, learn ps
 
 NVIDIA GeForce 445.87 WHQL
 AMD Radeon Adrenalin 20.4.2 Beta
@@ -16,6 +15,9 @@ http://muslimscholars.info/
 https://www.kaggle.com/fahd09/hadith-narrators
 
 ----------------------
+<a href="#">ޙަދީޘް ރިވާ ކުރެއްވި ޞަޙާބީން</a>
+add more keyboard nav
+update android and windows app
 
 check other two notes files, muqaddima and app intro
 thaana font issue still on ddg
@@ -26,13 +28,7 @@ pushy open page load in glitchy
 
 clean up gdrive
 
-"Relative URLs can be tricky, but beginning with no slash is the same as ./, which means to begin from the current directory. Beginning with two dots and a slash (../) moves up one directory to the parent. Beginning with just a slash (/) goes to root.
-I think you're focusing on the stylesheet, but you should be looking at the URL of the font within the stylesheet. Your font is referenced to the current directory, with no slash:
-url("fonts/example.woff")
-To avoid any weirdness, it's probably a good idea to make asset references inside the stylesheet absolute even if the stylesheet itself is accessed by a relative reference."
-
 yarkout, abdoline, karim fonts are nice. changed from almarai
-
 yarkout has the following issues: زَکَرِيَّا, الرَّحْمٰنِ 
 
 readme.md has styling issues, add imgs
@@ -182,6 +178,7 @@ Make manifest, mobile pwa, service worker?
 ====================
    SHOULD I?
 ====================
+add a card border to one side
 hiding scroll is bad, make it show on hover??
 csv button
 year versioning
