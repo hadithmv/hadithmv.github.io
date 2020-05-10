@@ -413,3 +413,8 @@ body {
   height: 100%;
   -webkit-overflow-scrolling: touch;
 }
+
+/* removes bullet points of ul in pushy */
+body > nav > div > ul > li.pushy-submenu > ul {
+  list-style-type: none;
+}
