@@ -430,5 +430,5 @@ body > nav > div > ul > li.pushy-submenu > ul {
 }
 
 .pushy-submenu {
-  white-space: nowrap;
+  white-space: pre;
 }
