@@ -193,6 +193,7 @@ tombonnike.vscode-status-bar-format-toggle
 zh9528.file-size
 ritwickdey.liveserver
 formulahendry.auto-close-tag
+formulahendry.auto-rename-tag
 
 VSC shortcuts:
 ctrl + p = command palette
@@ -206,8 +207,10 @@ ctrl + shift + ; = commit message
 ctrl + enter = send
 ctrl + , = settings
 shift + alt + u = upload settings sync, /d
+	code --list-extensions
 ctrl + shift + ' = push
 
+Better Comments: !, ? //, todo, *
 
 NPM commands:
 npm install -g <package_name>
