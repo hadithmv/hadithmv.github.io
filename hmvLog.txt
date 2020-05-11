@@ -19,8 +19,6 @@ clean up gdrive
 ====================
 clean up alt folder in github
 
-make menu bar burger menu
-
 take a look at
 https://isnad.io
 http://qaalarasulallah.com/
