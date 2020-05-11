@@ -172,29 +172,6 @@ standardjs linter
 kangax, csso, closure compiler
 unused-CSS, purifyCSS, unCSS-online
 
-VScode ext:
-alefragnani.numbered-bookmarks
-Aneryu.csso
-chenxsan.vscode-standardjs
-christian-kohler.path-intellisense
-CoenraadS.bracket-pair-colorizer-2
-donjayamanne.githistory
-esbenp.prettier-vscode
-HookyQR.minify
-jrebocho.vscode-random
-mkaufman.HTMLHint
-mrmlnc.vscode-autoprefixer
-ms-python.python
-ryu1kn.partial-diff
-Shan.code-settings-sync
-stylelint.vscode-stylelint
-techer.open-in-browser
-tombonnike.vscode-status-bar-format-toggle
-zh9528.file-size
-ritwickdey.liveserver
-formulahendry.auto-close-tag
-formulahendry.auto-rename-tag
-
 VSC shortcuts:
 ctrl + p = command palette
 ctrl g = jump to line
@@ -229,6 +206,36 @@ Alt + d = go to address bar
 
 win:
 alt + f4 = shutdown (needs to be at desktop with no windows open
+
+VScode ext:
+aaron-bond.better-comments
+alefragnani.numbered-bookmarks
+Aneryu.csso
+chenxsan.vscode-standardjs
+christian-kohler.path-intellisense
+CoenraadS.bracket-pair-colorizer-2
+DavidAnson.vscode-markdownlint
+donjayamanne.githistory
+eamodio.gitlens
+ecmel.vscode-html-css
+esbenp.prettier-vscode
+formulahendry.auto-close-tag
+formulahendry.auto-rename-tag
+GitHub.vscode-pull-request-github
+HookyQR.minify
+mkaufman.HTMLHint
+mrmlnc.vscode-autoprefixer
+ms-python.python
+ms-vsliveshare.vsliveshare
+oderwat.indent-rainbow
+ritwickdey.LiveServer
+ryu1kn.partial-diff
+Shan.code-settings-sync
+stylelint.vscode-stylelint
+techer.open-in-browser
+tombonnike.vscode-status-bar-format-toggle
+vscode-icons-team.vscode-icons
+zh9528.file-sizes
 ----------------------------------------
 
 ====================

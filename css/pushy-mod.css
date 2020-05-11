@@ -29,10 +29,11 @@
   color: #fff;
 }
 
+/* removes top margin 10px from sidebar when open
 .pushy ul:first-child {
   margin-top: 10px;
 }
-
+*/
 .pushy.pushy-left {
   left: 0;
 }
@@ -417,4 +418,13 @@ body {
 /* removes bullet points of ul in pushy */
 body > nav > div > ul > li.pushy-submenu > ul {
   list-style-type: none;
+}
+
+/* moves hamburger menu span to right + little up, does not affect header placement */
+.hamburg {
+  font-size: 25px;
+  right: 0;
+  padding-right: 15px;
+  margin-top: -2px; /* moves hamburg a little higher, similar baseline to header text */
+  position: absolute;
 }
