@@ -17,6 +17,10 @@ clean up gdrive
 ====================
        REMINDERS
 ====================
+
+vc
+check dhiv ms next time on hdrive
+
 clean up alt folder in github
 
 take a look at
