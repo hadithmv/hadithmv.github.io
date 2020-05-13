@@ -38,10 +38,7 @@ add more keyboard nav
 update android and windows app
 make app support android v5 and onwards
 
-make sure there are no thaana errors webview
 find a fix for dv font webview prob with woff2: fix seems to be otf / woff 2 base64 encoding / using woff instead (but this didnt work in the apk?) / actually not sure anymore
-font: 400 13.3333px Arial; this user agent stylesheet from chrome android webview seems to be the thing causing thaana font issues,
-specifically font-size: 13.3333px;
 
 Update mockup, play store imgs
 update offline apps
