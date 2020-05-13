@@ -429,7 +429,7 @@ body {
   position: absolute;
 }
 
-/* for some reason, 16px default on buttons make the spaces collapse on thaana writing */
+/* for some reason, 16px default on buttons make the spaces collapse in thaana writing */
 nav button {
   font-size: 17px;
 }
