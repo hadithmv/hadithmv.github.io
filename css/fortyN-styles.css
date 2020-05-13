@@ -540,7 +540,7 @@ looks like we don't need this code anymore, use the hide below this */ /*
   }
 } */
 
-/* Keytable - Desktop only MQ */
+/* Keytable 2.5.2 - Desktop only MQ */
 @media screen and (min-width: 900px) {
   table.dataTable tbody th.focus,
   table.dataTable tbody td.focus {
