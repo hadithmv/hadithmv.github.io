@@ -428,3 +428,7 @@ body > nav > div > ul > li.pushy-submenu > ul {
   margin-top: -2px; /* moves hamburg a little higher, similar baseline to header text */
   position: absolute;
 }
+
+body > nav > div > ul > li > button {
+  font-size: 17px;
+}
