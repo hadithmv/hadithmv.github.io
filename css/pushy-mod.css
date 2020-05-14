@@ -412,7 +412,7 @@ body {
 }
 
 /* removes bullet points of ul in pushy */
-.pushy-submenu ul {
+nav ul li {
   list-style-type: none;
 }
 
@@ -426,6 +426,7 @@ body {
 }
 
 /* for some reason, 16px default on buttons make the spaces collapse in thaana writing */
-nav button {
+nav button,
+nav ul li a {
   font-size: 17px;
 }
