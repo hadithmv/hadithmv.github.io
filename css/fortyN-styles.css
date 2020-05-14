@@ -509,6 +509,15 @@ div.dt-button-info {
   z-index: 9999 !important;
 } */
 
+#datatables_buttons_info {
+  /* border: 1px solid #111; old */
+  border-style: solid;
+  border-width: 1px;
+  border-color: #dadce0; /* #00000020 */
+  border-radius: 5px; /* makes cards a little rounder, used to be 4 */
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+}
+
 /* changes clipboard copied color, */
 div.dt-button-info > h2 {
   background: #add1f2;
@@ -571,17 +580,21 @@ mark {
   float: left;
 
   /* width: 190rem; without it, card fill width */
+
+  /* these used to be gyrocode rems */
   margin: 0.5rem;
-  border-width: 0.0625rem;
   border-style: solid;
-  border-color: #00000020; /* changed rgba to hex */
-  border-radius: 0.25rem; /* makes cards a little rounder */
+  border-width: 1px;
+  border-color: #dadce0; /* #00000020 */
+  border-radius: 5px; /* makes cards a little rounder, used to be 4 */
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
 
   /* box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25); old onesided card shadow */
 
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.2); */
+
   /* The box-shadow property takes values for offset-x (how far to push the shadow horizontally from the element),
    offset-y (how far to push the shadow vertically from the element), blur-radius, spread-radius and color, in that order. */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.2);
 }
 
 .cards tbody td {
