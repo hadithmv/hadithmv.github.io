@@ -430,3 +430,8 @@ nav button,
 nav ul li a {
   font-size: 17px;
 }
+
+/* removes horizontal scrollbar that is there for some reason on navbar open */
+.pushy {
+  overflow-x: hidden;
+}
