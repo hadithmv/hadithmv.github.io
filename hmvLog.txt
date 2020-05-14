@@ -18,7 +18,7 @@ clean up gdrive
        REMINDERS
 ====================
 
-vc
+vc, sort hdd
 check dhiv ms next time on hdrive
 
 clean up alt folder in github
@@ -186,7 +186,6 @@ ctrl + shift + ; = commit message
 ctrl + enter = send
 ctrl + , = settings
 shift + alt + u = upload settings sync, /d
-	code --list-extensions
 ctrl + shift + ' = push
 
 Better Comments: !, ? //, todo, *
@@ -209,19 +208,20 @@ Alt + d = go to address bar
 win:
 alt + f4 = shutdown (needs to be at desktop with no windows open
 
+List them:
+	code --list-extensions
 VScode ext:
 aaron-bond.better-comments
-alefragnani.numbered-bookmarks
+alefragnani.project-manager
 Aneryu.csso
+bierner.github-markdown-preview
 chenxsan.vscode-standardjs
 christian-kohler.path-intellisense
+CodeStream.codestream
 CoenraadS.bracket-pair-colorizer-2
 DavidAnson.vscode-markdownlint
-donjayamanne.githistory
 eamodio.gitlens
-ecmel.vscode-html-css
 esbenp.prettier-vscode
-formulahendry.auto-close-tag
 formulahendry.auto-rename-tag
 GitHub.vscode-pull-request-github
 HookyQR.minify
@@ -235,9 +235,16 @@ ryu1kn.partial-diff
 Shan.code-settings-sync
 stylelint.vscode-stylelint
 techer.open-in-browser
-tombonnike.vscode-status-bar-format-toggle
+VisualStudioExptTeam.vscodeintellicode
 vscode-icons-team.vscode-icons
-zh9528.file-sizes
+zh9528.file-size
+ms-vscode-remote.remote-ssh
+msjsdiag.debugger-for-chrome
+
+check for updates:
+ms-vscode.js-debug-nightly
+ms-vscode-remote.vscode-remote-extensionpack
+ms-vscode.vscode-github-issue-notebooks
 ----------------------------------------
 
 ====================
