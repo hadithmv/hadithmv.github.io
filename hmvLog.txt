@@ -245,6 +245,38 @@ check for updates:
 ms-vscode.js-debug-nightly
 ms-vscode-remote.vscode-remote-extensionpack
 ms-vscode.vscode-github-issue-notebooks
+
+notes/settings json:
+  "[javascript]": {
+    // this is only to stop prettier overwriting standardjs's format
+    "editor.defaultFormatter": "chenxsan.vscode-standardjs" //ignore the cannot format error it will give
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode", //esbenp.prettier-vscode
+  "editor.formatOnSave": true, //formats with prettifier on save first
+  "editor.rulers": [
+    {
+      "column": 80,
+      "color": "#ffffff15"
+    }
+  ],
+  "editor.fontFamily": "'Fira Code Retina', Consolas, 'Courier New', monospace",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true,
+    "source.fixAll.markdownlint": true
+  },
+  "javascript.validate.enable": false, // needed for standardjs
+  "standard.autoFixOnSave": true, // fixes with standardjs on save
+  "htmlhint.enable": true, // default is true, turn off to test
+
+errors unless:
+{
+  "extends": ["stylelint-config-standard", "stylelint-prettier/recommended"],
+  "rules": {
+    "function-name-case": null,
+    "value-keyword-case": null
+  }
+}
+
 ----------------------------------------
 
 ====================

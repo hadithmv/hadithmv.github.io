@@ -1,3 +1,7 @@
 {
-  "extends": ["stylelint-config-standard", "stylelint-prettier/recommended"]
+  "extends": ["stylelint-config-standard", "stylelint-prettier/recommended"],
+  "rules": {
+    "function-name-case": null,
+    "value-keyword-case": null
+  }
 }
