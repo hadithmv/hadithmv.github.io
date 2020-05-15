@@ -16,9 +16,7 @@ clean up gdrive
 
 ====================
        REMINDERS
-====================
-
-side menu overflowing
+====================s
 
 vc, sort hdd
 check dhiv ms next time on hdrive
