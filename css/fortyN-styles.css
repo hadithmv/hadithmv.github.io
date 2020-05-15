@@ -649,7 +649,8 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 /* CHANGE123 classes and fonts */
 
 /* removes justify from ar dv (titles and refs) + rs.
-justify doesnt look good on short cells, right align to prevent gaps in text */
+justify doesnt look good on short cells like surukhi, masdars.
+so right align to prevent gaps in text */
 .dataTable tr td.fnCol2,
 .dataTable tr td.fnCol3,
 .dataTable tr td.fnCol7,
@@ -670,17 +671,17 @@ justify doesnt look good on short cells, right align to prevent gaps in text */
   }
 
   /* bold headers for mobile - first number at top */
-  .dataTable tr td.fnCol1 {
+  .fnCol1 {
     font-weight: bold;
   }
 }
 
 /* ar fonts on table */
-.dataTable tr td.fnCol2,
-.dataTable tr td.fnCol4,
-.dataTable tr td.fnCol5,
-.dataTable tr td.fnCol7,
-.dataTable tr td.fnCol9 {
+tbody tr td.fnCol2,
+tbody tr td.fnCol4,
+tbody tr td.fnCol5,
+tbody tr td.fnCol7,
+tbody tr td.fnCol9 {
   font-family: "arFont", "dvFont", sans-serif;
   font-size: 23px;
   line-height: 1.7;

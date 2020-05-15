@@ -20,7 +20,9 @@ check dhiv ms next time on hdrive
 
 ====================
        REMINDERS
-====================s
+====================
+
+check what can be reduced in css
 
 clean up alt folder in github
 
