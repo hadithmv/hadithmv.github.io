@@ -9,6 +9,10 @@ NVIDIA GeForce 445.87 WHQL
 AMD Radeon Adrenalin 20.4.2 Beta
 
 clean up gdrive
+rename grasshopper
+clean inbox
+vc, sort hdd
+check dhiv ms next time on hdrive
 
 --mdc-theme-primary: #0277bd;
 --mdc-theme-secondary: #58a5f0;
@@ -17,9 +21,6 @@ clean up gdrive
 ====================
        REMINDERS
 ====================s
-
-vc, sort hdd
-check dhiv ms next time on hdrive
 
 clean up alt folder in github
 
@@ -42,8 +43,6 @@ find a fix for dv font webview prob with woff2: fix seems to be otf / woff 2 bas
 
 Update mockup, play store imgs
 update offline apps
-
-make card shadows better
 
 yarkout, abdoline, karim fonts are nice. changed from almarai
 yarkout has the following issues: زَکَرِيَّا, الرَّحْمٰنِ 
@@ -74,7 +73,7 @@ does jquery slim work?
 ====================
        TO DOS
 ====================
-add qr?
+add qr code?
 
 remove unused code tool??
 Optimize legibility on css
