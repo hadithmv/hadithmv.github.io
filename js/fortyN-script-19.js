@@ -83,8 +83,9 @@ $(document).ready(() => {
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
-    data: FNdataSet, // https://datatables.net/manual/ajax
     // CHANGE123 JSON
+    data: FNdataSet, // https://datatables.net/manual/ajax
+
     columns: [
       {
         data: 0,
@@ -92,53 +93,49 @@ $(document).ready(() => {
       },
       {
         data: 1,
-        title: 'ވަނަ'
-      },
-      {
-        data: 2,
         title: 'ޢަރަބި ސުރުޚީ'
       },
       {
-        data: 3,
+        data: 2,
         title: 'ދިވެހި ސުރުޚީ'
       },
       {
-        data: 4,
+        data: 3,
         title: 'ޢަރަބި ޙަދީޘް'
       },
       // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 4,
+        data: 3,
         title: 'ޢަރަބި ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ |ْ/g, '')
+          return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ/g, '')
         }
       },
       {
-        data: 5,
+        data: 4,
         title: 'ދިވެހި ތަރުޖަމާ'
       },
       {
-        data: 6,
+        data: 5,
         title: 'މަސްދަރު ޢަރަބިން.'
       },
       {
-        data: 7,
+        data: 6,
         title: 'މަސްދަރު ދިވެހިން.'
       },
       {
-        data: 8,
+        data: 7,
         title: 'މަސްދަރު ރިޔާޟުއްޞާލިޙީނުން.'
       }
     ],
 
     columnDefs: [
       // classes columns for css in nweb view, but not print.
-      // CHANGE123 COL CLASSES
+      // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
         className: 'fnCol1', // #
@@ -147,56 +144,50 @@ $(document).ready(() => {
         searchable: true
       },
       {
-        className: 'fnCol2', // Ar No
+        className: 'fnCol2', // Ar Title
         targets: [1],
-        visible: false,
+        visible: true,
         searchable: false
       },
       {
-        className: 'fnCol3', // Ar Title
+        className: 'fnCol3', // Dv Title
         targets: [2],
-        visible: true,
+        visible: false,
         searchable: false
       },
       {
-        className: 'fnCol4', // Dv Title
+        className: 'fnCol4', // Ar Text
         targets: [3],
-        visible: false,
-        searchable: false
-      },
-      {
-        className: 'fnCol5', // Ar Text
-        targets: [4],
         visible: true,
         searchable: true
       },
       {
-        className: 'fnCol6', // Ar Plain
-        targets: [5],
+        className: 'fnCol5', // Ar Plain
+        targets: [4],
         visible: false,
         searchable: true
       },
       {
-        className: 'fnCol7', // Dv Text
+        className: 'fnCol6', // Dv Text
+        targets: [5],
+        visible: true,
+        searchable: true
+      },
+      {
+        className: 'fnCol7', // Ar Ref
         targets: [6],
         visible: true,
-        searchable: true
-      },
-      {
-        className: 'fnCol8', // Ar Ref
-        targets: [7],
-        visible: true,
         searchable: false
       },
       {
-        className: 'fnCol9', // Dv Ref
-        targets: [8],
+        className: 'fnCol8', // Dv Ref
+        targets: [7],
         visible: false,
         searchable: false
       },
       {
-        className: 'fnCol10', // Rs Ref
-        targets: [9],
+        className: 'fnCol9', // Rs Ref
+        targets: [8],
         visible: false,
         searchable: false
       },
@@ -369,7 +360,7 @@ $(document).ready(() => {
         extend: 'copy',
         key: { key: 'c', shiftKey: true },
         text: 'ކޮޕީ',
-        messageTop: 'ނަވަވީގެ 40 ޙަދީޘް',
+        messageTop: 'ނަވަވީގެ 40 ޙަދީޘް', // CHANGE123 clipboard message
         title: '' /* title: "hadithmv.com", */,
 
         //= ====================
@@ -392,7 +383,6 @@ $(document).ready(() => {
           // data = data.replace( /\nNo.\tRef.\tArabic\tEnglish\tDhivehi/g,"" );
           // CHANGE123 CLIP REGEX
 
-          data = data.replace(/\tވަނަ./g, '')
           data = data.replace(/\tޢަރަބި\sސުރުޚީ/g, '')
           data = data.replace(/\tދިވެހި ސުރުޚީ/g, '')
           data = data.replace(/\tޢަރަބި ޙަދީޘް/g, '')
@@ -409,7 +399,6 @@ $(document).ready(() => {
             'ނަވަވީގެ 40 ޙަދީޘް\r\n'
           ) /* add string & fix empty space، make sure to change the red too */
 
-          data = data.replace(/\nވަނަ./g, '')
           data = data.replace(/\nޢަރަބި ސުރުޚީ/g, '')
           data = data.replace(/\nދިވެހި ސުރުޚީ/g, '')
           data = data.replace(/\nޢަރަބި ޙަދީޘް/g, '')
@@ -447,7 +436,7 @@ $(document).ready(() => {
 
       {
         extend: 'colvis',
-        key: { key: 'h', shiftKey: true },
+        key: { key: 's', shiftKey: true },
         text: 'އިތުރު ބަރިތައް',
         background: false /* removes background fade animation for collection */
       } // end of colvis
@@ -490,7 +479,7 @@ $(document).ready(() => {
     if (x.matches) {
       // If media query matches
       // empty // document.body.style.backgroundColor = "pink";
-    } else {
+    } else { // CHANGE123 HAMMER JS
       Hammer(fortyNawawi).on('swiperight', () => {
         // changed swipeleft and swiperight for dhivehi
         table.page('next').draw('page')
@@ -531,10 +520,12 @@ $(document).ready(() => {
 */
   if (window.matchMedia('(min-width: 900px)').matches) {
     // js media query on desktop
-    $('#fortyNawawi').addClass('row-border') // adds rowborder class
+    /* previously $('fnClass').addClass('row-border')
+    $('fnClass').addClass('cards') */
+    $('.dataTable').addClass('row-border') // adds rowborder class
   } else {
     // js media query on mobile, tablet
-    $('#fortyNawawi').addClass('cards')
+    $('.dataTable').addClass('cards')
   } //  end if else
   //= =================== Add cards class to table ID - END
 
@@ -545,3 +536,8 @@ $(document).ready(() => {
   // adds a placeholder to above <input class="paginate_input" type="text">
   $('.paginate_input').attr('placeholder', 'ސަފުހާ...')
 }) // ==================== END OF $(document).ready( function () {
+
+/* Desktop only keyboard nav help Alert */
+function myHelp () {
+  alert('Keyboard Controls: \n\n [Tab] =Tab Navigation \n [Arrow Keys] = Keyboard Navigation \n [Shift + s] = Show columns \n [Shift + c] = Copy')
+} /*  \n [Shift + x] = Excel \n [Shift + v] = Csv \n [Shift + p] = Print' */

@@ -1,0 +1,783 @@
+/*
+Starting with / returns to the root directory and starts there
+Starting with ../ moves one directory backward and starts there
+Starting with ../../ moves two directories backward and starts there (and so on...)
+To move forward, just start with the first sub directory and keep moving forward.
+*/
+
+/* ====================
+         FONTS
+======================= */
+
+/* arabic */
+@font-face {
+  font-family: "arFont";
+  src: url("../font/Yakout-Linotype-W20-Light-Copy6.woff2") format("woff2"),
+    url("../font/Yakout-Linotype-W20-Light-Copy6.woff") format("woff"),
+    url("../font/Yakout-Linotype-W20-Light-Copy6.ttf") format("truetype");
+}
+
+/* dhivehi */
+@font-face {
+  font-family: "dvFont";
+  src: url("../font/mvtyper-Copy7.woff2") format("woff2"),
+    url("../font/mvtyper-Copy7.woff") format("woff"),
+    url("../font/mvtyper-Copy7.ttf") format("truetype");
+}
+
+/* ===== ===== FONTS - END ===== ===== */
+
+/* ====================
+       BOILERPLATE CODE - from normalize and main css
+======================= */
+html {
+  /* main */
+
+  /* color: #222; */
+  font-size: 1em;
+  line-height: 1.4;
+
+  /* do i need this?? */
+
+  /* normalize */
+
+  /* line-height: 1.15; */
+
+  /* -webkit-text-size-adjust: 100%; */
+}
+
+/* Remove the margin in all browsers. - normalize */
+body {
+  margin: 0;
+}
+
+/* evens out and better colors text highlights - main */
+
+/* Remove text-shadow in selection highlight. Customize the background color to match your design. */
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+/* ::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+} */
+
+/* Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers  - main */
+img {
+  vertical-align: middle;
+
+  /* do i need this??? */
+}
+
+/* normalize */
+
+/* 1. Change the font styles in all browsers. 2. Remove the margin in Firefox and Safari. */
+button,
+input,
+select {
+  /* font-family: inherit; */
+
+  /* 1 */
+  font-size: 100%;
+
+  /* 1 */
+
+  /* makes input font as well as input box bigger, maybe more even */
+
+  /* line-height: 1.15; */
+
+  /* 1 */
+
+  /* margin: 0; */
+
+  /* 2 */
+}
+
+/* Correct the inability to style clickable types in iOS and Safari. */
+
+/* button, [type="button"], [type="reset"], [type="submit"] {
+    -webkit-appearance: button;
+} */
+
+/* 1. Correct the odd appearance in Chrome and Safari. 2. Correct the outline style in Safari.
+from what i see makes them smaller */
+
+/* [type="search"] {
+    -webkit-appearance: textfield;
+    outline-offset: -2px;
+} */
+
+/* Remove the inner padding in Chrome and Safari on macOS. */
+
+/* [type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+} */
+
+/* ===== BOILERPLATE - END ===== */
+
+/* ====================
+     scroll bar - probably needed for pushy nav
+======================= */
+
+/* while still being able to scroll - probably does not work on firefox, TODO */
+
+/*
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+*/
+
+/* ::-webkit-scrollbar */
+
+/* { */
+
+/* width: 0px; */
+
+/* Remove scrollbar space */
+
+/* background: transparent; */
+
+/* Optional: just make scrollbar invisible */
+
+/*
+} */
+
+/* https://css-tricks.com/the-current-state-of-styling-scrollbars/ */
+
+/* Desktop only MQ */
+@media screen and (min-width: 900px) {
+  html {
+    --scrollbarBG: #cfd8dc;
+    --thumbBG: #90a4ae;
+  }
+
+  body::-webkit-scrollbar {
+    width: 11px;
+  }
+
+  body {
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+  }
+
+  body::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG);
+    border-radius: 6px;
+    border: 3px solid var(--scrollbarBG);
+  }
+}
+
+/* ===== scroll bar - END ===== */
+
+/* ====================
+     Tabs Animations
+======================= */
+.w3-animate-right {
+  position: relative;
+
+  /*
+    animation: animateRight 0.4s;  original code of below */
+
+  /*
+    -webkit-animation: animateRight 0.5s ease-in-out;
+    -moz-animation:    animateRight 0.5s ease-in-out;
+    -o-animation:      animateRight 0.5s ease-in-out;
+    animation:        animateRight 0.5s ease-in-out;
+    */
+  -webkit-animation-name: animateright;
+  animation-name: animateRight;
+  -webkit-animation-duration: 400ms;
+  animation-duration: 400ms;
+  will-change: transform;
+
+  /* gpu */
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+
+  /* smooth */
+}
+
+/*
+@keyframes animateRight {
+    0% {
+        right: -300px;
+        opacity: 0
+    }
+    100% {
+        right: 0;
+        opacity: 1
+    }
+}
+ORIGINAL CODE above */
+
+/* second attempt
+  }
+  @keyframes animateRight {
+    0%   { right: -300px; opacity: 0 }
+    100% { right: 0; opacity: 1 }
+  }
+
+  smooth as butter animation below
+  also browser supports
+
+@-webkit-keyframes animateRight {
+    0%   { right: -300px; opacity: 0 }
+    100% { right: 0; opacity: 1 }
+  }
+  @-moz-keyframes animateRight {
+    0%   { right: -300px; opacity: 0 }
+    100% { right: 0; opacity: 1 }
+  }
+  @-o-keyframes animateRight {
+    0%   { right: -300px; opacity: 0 }
+    100% { right: 0; opacity: 1 }
+  }
+  removed opacity, right, added will-change and ease
+  */
+
+@-webkit-keyframes animateRight {
+  0% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+
+  100% {
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes animateRight {
+  0% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+
+  100% {
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+/* ===== Tabs Animation - END ===== */
+
+/* ====================
+     DT wrapper CSS
+======================= */
+.dataTables_wrapper, /* takes care of most of the table fonts */
+input, /* search and input page */
+select, /* page lengthmenu */
+button,
+.dt-button-info, /* clipboard message */
+li, /* for pushy side bar */
+.site-header {
+  font-family: "dvFont", "arFont", sans-serif;
+
+  /* CHANGE123 FONT
+              text-align: justify;
+              font-size: 100%;
+              -ms-text-size-adjust: 100%;
+              -webkit-text-size-adjust: 100%;
+              color: #24292e;
+              line-height: 1.5;
+              word-wrap: break-word;
+    */
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1rem;
+}
+
+/* makes table rtl */
+div.dataTables_wrapper {
+  direction: rtl;
+}
+
+/* make cancel button for input, only works on webkit chrome and stuff. should i get more browser support???
+The ::-webkit-search-cancel-button CSS pseudo-element represents a button (the "cancel button") at the edge of an <input> of type="search" which clears away the current value of the <input> element. */
+input[type="search"]::-webkit-search-cancel-button {
+  /* adds x delete placeholder */
+  -webkit-appearance: searchfield-cancel-button;
+  border: 4px solid transparent; /* makes x a bit bigger */
+
+  /* margin-right: -25px;  makes x icon not interfere with centering search text, but text goes over the icon then */
+}
+
+/* make pagination  placeholder a bit shorter and the text centered,
+a little off to the right because of the search cancel button */
+.paging_input input[type="search"] {
+  width: 70px;
+
+  /* text-align: center; */
+}
+
+/* makes copy button the same width as colvis, 81.918 + 14.080 + 14.080 */
+button.dt-button.buttons-copy.buttons-html5 {
+  width: 110.078px;
+}
+
+/* makes select list as tall in height as search box */
+.dataTables_length > label > select {
+  height: 31px;
+}
+
+/* on mobile, the top paginations buttons are given padding below, to be equal to
+the padding above */
+.mTop2 {
+  padding-bottom: 12px;
+}
+
+/* mobile mq add space at the bottom of table before last pagination row */
+@media screen and (max-width: 900px) {
+  .table {
+    padding-bottom: 15px;
+  }
+}
+
+/* make  search placeholder text centered,
+a little off to the right because of the search cancel button 
+.dataTables_filter > label > input[type=search] {
+   text-align: center; */
+
+/* adds a little space to the left of pagination input box, because the other
+   buttons have the same space */
+.dataTables_paginate > input {
+  margin-left: 2px;
+}
+
+/* makes pagination buttons stand out bold on mobile only mq */
+@media screen and (max-width: 900px) {
+  .paginate_button {
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+
+/* removes default ugly black color from pagination css buttons  */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: none;
+  color: #1e1e1e !important; /* change the hover text color */
+  border: 1px solid #1e1e1e; /* can change color */
+
+  /* border-radius: 5px;  a little rounder */
+}
+
+/* below block of css for change pagination buttom style when active */
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  background: none;
+  color: #1e1e1e !important;
+  box-shadow: none; /* removes shading on press down */
+}
+
+/* ===== DT wrapper CSS  - END ===== */
+
+/* ====================
+   DT Column CSS
+======================= */
+
+/* Alignscell contents vertically */
+table.dataTable tbody td {
+  vertical-align: top;
+}
+
+/* table data rows alignment */
+.dataTable > tbody > tr > td {
+  text-align: justify;
+
+  /* word-spacing: -10px; */
+  font-size: 100%;
+
+  /* -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%; */
+  color: #24292e;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+/* table header row alignment */
+.dataTable > thead > tr > th {
+  font-size: 100%;
+  text-align: center;
+
+  /* color: #205ca5; */
+
+  /* -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%; */
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+/* ===== DT Column CSS  - END ===== */
+
+/* ====================
+         DT plugins CSS
+======================= */
+
+/* moves copied info in front  - is this still needed??? test with colvis
+div.dt-button-info {
+  z-index: 9999 !important;
+} */
+
+#datatables_buttons_info {
+  /* border: 1px solid #111; old */
+  border-style: solid;
+  border-width: 1px;
+  border-color: #dadce0; /* #00000020 */
+  border-radius: 5px; /* makes cards a little rounder, used to be 4 */
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+}
+
+/* changes clipboard copied color, */
+div.dt-button-info > h2 {
+  background: #add1f2;
+}
+
+/* makes clipboard copy popup centered and fits width on mobile view */
+div#datatables_buttons_info.dt-button-info {
+  /* fits screen on mobile, is 400 on desktop */
+  width: auto;
+  max-width: 350px;
+
+  /* centers */
+  right: 0;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+
+  /* makes borders rounder */
+  border-radius: 5px;
+}
+
+/* hides table headers only on mobile, prev nth-child(2)
+- Mobile only MQ
+looks like we don't need this code anymore, use the hide below this */ /*
+@media screen and (max-width: 900px) {
+  thead tr:nth-child(1) {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+} */
+
+/* Keytable - Desktop only MQ */
+@media screen and (min-width: 900px) {
+  table.dataTable tbody th.focus,
+  table.dataTable tbody td.focus {
+    box-shadow: inset 0 0 1px 3px #337ab7;
+
+    /* last px makes box thicker */
+    border-radius: 5px;
+
+    /* makes box rounder */
+  }
+}
+
+/* Mark JS - padding: 0; removes useless padding, donno if still needed? */
+mark {
+  background: #add1f2;
+  color: black;
+  padding: 0;
+}
+
+/* ===== DT plugins CSS - END ===== */
+
+/* ====================
+       CARDS CODE
+======================= */
+
+.cards tbody tr {
+  float: left;
+
+  /* width: 190rem; without it, card fill width */
+
+  /* these used to be gyrocode rems */
+  margin: 0.5rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #dadce0; /* #00000020 */
+  border-radius: 5px; /* makes cards a little rounder, used to be 4 */
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+
+  /* box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25); old onesided card shadow */
+
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.2); */
+
+  /* The box-shadow property takes values for offset-x (how far to push the shadow horizontally from the element),
+   offset-y (how far to push the shadow vertically from the element), blur-radius, spread-radius and color, in that order. */
+}
+
+.cards tbody td {
+  display: block;
+}
+
+/* is this needed?? */
+.cards thead {
+  visibility: hidden;
+
+  /* 'Hide only visually, but have it available for screen readers':
+  taken from boilerplate code, maybe this is better than the
+  thead tr:nth-child(1) { position: absolute; top: -9999px; left: -9999px;
+  from above, have commented out apparently useless code */
+
+  /* border: 0; */
+  clip: rect(0, 0, 0, 0);
+
+  /* height: 1px; */
+
+  /* margin: -1px; */
+
+  /* overflow: hidden; */
+
+  /* padding: 0; */
+  position: absolute;
+
+  /* white-space: nowrap; */
+
+  /* width: 1px; */
+  border: 0;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/* DEPRECIATED- dont use this anymore
+MQ on mobile, this gets rid of empty th space at right of table on mobile,
++ centers table, while 2nd bit hides table header on mobile, need either this or
+  thead tr:nth-child(1) { position: absolute; top: -9999px; left: -9999px; above
+    but not both
+    @media screen and (max-width: 900px) {
+      .dataTable {
+        display: flex;
+      }
+
+      .dataTable > thead {
+        display: none;
+      }
+    }
+*/
+
+.cards td::before {
+  content: attr(data-label);
+  position: relative;
+  float: left;
+  color: #808080;
+  min-width: 4rem;
+  margin-left: 0;
+  margin-right: 1rem;
+  text-align: left;
+}
+
+/* useless
+.selected td::before {
+  color: #ccc;
+}
+*/
+
+/* ===== cards code END ===== */
+
+/* ====================
+       DOM FLEXBOX
+======================= */
+
+/* on mobile */
+.mTop {
+  display: -webkit-box;
+  display: flex; /* single-direction layout concept. */
+  -webkit-box-pack: space-evenly;
+  justify-content: space-evenly; /*  items are distributed so that the spacing between any two items (and the space to the edges) is equal. */
+  -webkit-box-align: baseline;
+  align-items: baseline; /* how flex items are laid out along the cross axis on the current line.
+  Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align */
+}
+
+.mTop2 {
+  display: -webkit-box;
+  display: flex; /* single-direction layout concept. */
+  -webkit-box-pack: center;
+  justify-content: center; /*  items are centered along the line */
+}
+
+.mTop3 {
+  display: -webkit-box;
+  display: flex; /* single-direction layout concept. */
+  -webkit-box-pack: center;
+  justify-content: center; /*  items are centered along the line */
+}
+
+/* Desktop only MQ */
+@media screen and (min-width: 900px) {
+  .dTop {
+    display: -webkit-box;
+    display: flex; /* single-direction layout concept. */
+    flex-wrap: wrap; /* flex items will wrap onto multiple lines, from top to bottom.
+    By default, flex items will all try to fit onto one line */
+    -webkit-box-pack: justify;
+    justify-content: space-between; /*  alignment along the main axis
+    items are evenly distributed in the line; first item is on the start line, last item on the end line */
+    -webkit-box-align: baseline;
+    align-items: baseline; /* how flex items are laid out along the cross axis on the current line.
+    Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align */
+  }
+}
+
+/* ===== dom flexbox - END ===== */
+
+/* ====================
+       BUTTON STYLES
+======================= */
+
+/* ===== button styles - END ===== */
+
+/* ====================
+  CUSTOM COLUMN CLASSES
+======================= */
+
+/* FOR FORTY NAWAWI */
+
+/* CHANGE123 classes and fonts */
+
+/* removes justify from ar dv (titles and refs) + rs.
+justify doesnt look good on short cells like surukhi, masdars.
+so right align to prevent gaps in text */
+.dataTable tr td.fnCol2,
+.dataTable tr td.fnCol3,
+.dataTable tr td.fnCol7,
+.dataTable tr td.fnCol8,
+.dataTable tr td.fnCol9 {
+  text-align: right;
+}
+
+/* mobile only row centering, for rows with strings that are not long */
+@media screen and (max-width: 900px) {
+  .dataTable tr td.fnCol1,
+  .dataTable tr td.fnCol2,
+  .dataTable tr td.fnCol3,
+  .dataTable tr td.fnCol7,
+  .dataTable tr td.fnCol8,
+  .dataTable tr td.fnCol9 {
+    text-align: center;
+  }
+
+  /* bold headers for mobile - first number at top */
+  .fnCol1 {
+    font-weight: bold;
+  }
+}
+
+/* --- AR FONTS FOR TABLE --- */
+
+/* tbody tr td.fnCol1, */
+tbody tr td.fnCol2,
+tbody tr td.fnCol4,
+tbody tr td.fnCol5,
+tbody tr td.fnCol7,
+tbody tr td.fnCol9 {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 23px;
+  line-height: 1.7;
+  font-size-adjust: 0.1;
+}
+
+/* --- DV FONTS FOR TABLE --- */
+
+/* .dataTable tr td.fnCol1, need this bigger */
+.dataTable tr td.fnCol3,
+.dataTable tr td.fnCol6,
+.dataTable tr td.fnCol8 {
+  font-family: "dvFont", "arFont", sans-serif;
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+/* columns with ar numbers */
+.dataTable tr td.fnCol7,
+.dataTable tr td.fnCol9 {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 21px;
+}
+
+/* css for first column
+# number column cuz it has hashtag and digits */
+.dataTable tr td.fnCol1 {
+  font-family: "dvFont", "arFont", sans-serif;
+  font-size: 21px;
+}
+
+/* ===================
+     FOR ALL HADITH 
+===================== */
+
+/* removes justify from ar dv (titles and refs) + rs.
+justify doesnt look good on short cells like surukhi, masdars.
+so right align to prevent gaps in text */
+.dataTable tr td.ahCol1 {
+  text-align: right;
+}
+
+/* mobile only row centering, for rows with strings that are not long */
+@media screen and (max-width: 900px) {
+  .dataTable tr td.ahCol1,
+  .dataTable tr td.ahCol5 {
+    text-align: center;
+  }
+
+  /* bold headers for mobile - first number at top */
+  .ahCol1 {
+    font-weight: bold;
+  }
+}
+
+/* --- AR FONTS FOR TABLE --- */
+
+/* tbody tr td.ahCol1, */
+tbody tr td.ahCol2,
+tbody tr td.ahCol3 {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 23px;
+  line-height: 1.7;
+  font-size-adjust: 0.1;
+}
+
+/* --- DV FONTS FOR TABLE --- */
+
+/* .dataTable tr td.fnCol1, need this bigger */
+.dataTable tr td.ahCol4 {
+  font-family: "dvFont", "arFont", sans-serif;
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+/* columns with ar numbers
+.dataTable tr td.ahCol7,
+.dataTable tr td.ahCol9 {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 21px;
+} */
+
+/* css for first column
+cuz it has hashtag and digits */
+.dataTable tr td.ahCol1 {
+  font-size: 21px;
+}
+
+/* extra changes from fnCols */
+.dataTable tr td.ahCol5 {
+  text-align: center;
+  font-size: 18px;
+}
+
+/* ===== custom column classes - END ===== */

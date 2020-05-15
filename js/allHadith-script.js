@@ -113,40 +113,40 @@ $(document).ready(() => {
       },
       {
         data: 3,
-        title: 'ތަޚްރީޖު.'
+        title: 'ތަޚްރީޖު'
       }
     ],
 
     columnDefs: [
       // classes columns for css in nweb view, but not print.
-      // CHANGE123 COL CLASSES
+      // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'fnCol1', // #
+        className: 'ahCol1', // Book
         targets: [0],
         visible: true,
         searchable: true
       },
       {
-        className: 'fnCol2', // Ar Title
+        className: 'ahCol2', // Ar Text
         targets: [1],
         visible: true,
         searchable: false
       },
       {
-        className: 'fnCol3', // Dv Title
+        className: 'fhCol3', // Ar Text Plain
         targets: [2],
         visible: false,
-        searchable: false
+        searchable: true
       },
       {
-        className: 'fnCol4', // Ar Text
+        className: 'ahCol4', // Dv Text
         targets: [3],
         visible: true,
         searchable: true
       },
       {
-        className: 'fnCol5', // Ar Plain
+        className: 'ahCol5', // Thakhrij
         targets: [4],
         visible: false,
         searchable: true
@@ -476,10 +476,10 @@ $(document).ready(() => {
 */
   if (window.matchMedia('(min-width: 900px)').matches) {
     // js media query on desktop
-    $('#fortyNawawi').addClass('row-border') // adds rowborder class
+    $('.dataTable').addClass('row-border') // adds rowborder class
   } else {
     // js media query on mobile, tablet
-    $('#fortyNawawi').addClass('cards')
+    $('.dataTable').addClass('cards')
   } //  end if else
   //= =================== Add cards class to table ID - END
 
