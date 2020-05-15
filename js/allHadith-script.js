@@ -28,11 +28,11 @@ $(document).ready(() => {
   // from here to var table = $("#fortyNawawi").DataTable({ used to be empty
 
   $.extend(true, $.fn.dataTable.defaults, {
-    // "keys": "true",   /* KeyTable extension, old  */
+    // "keys": "true", /* KeyTable extension, old */
   })
 
   /* js media query on desktop, needs to have quotes */
-  if (window.matchMedia('(min-width: 1200px)').matches) {
+  if (window.matchMedia('(min-width: 900px)').matches) {
     $.extend(true, $.fn.dataTable.defaults, {
       // desktop, goes rtl --> //'<"dTop"pBfl>rt<"bottom"ip>',
       dom: '<"dTop"pBfl>rtip',
@@ -41,7 +41,7 @@ $(document).ready(() => {
         [1, 2, 3, 5, 7, 10, 15, 20, -1],
         [1, 2, '3 ޙަދީޘް ދައްކާ', 5, 7, 10, 15, 20, 'ހުރިހައި']
       ], // display range of pages
-      keys: { clipboardOrthogonal: 'export' }, // strip  htmltags off keys copy
+      keys: { clipboardOrthogonal: 'export' }, // strip htmltags off keys copy
       language: {
         paginate: {
         // &nbsp; prevents line breaks
@@ -59,7 +59,7 @@ $(document).ready(() => {
     /* js media query on mobile, tablet */
     $.extend(true, $.fn.dataTable.defaults, {
       // mobile //'<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rt <"bottom"ip>',
-      dom: '<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rtip',
+      dom: '<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rtip', // moved to js MQ; dom: '<"dTop"pBfl>rtip',
       pageLength: 1,
       lengthMenu: [
         [1, 2, 3, 5, 7, 10, 15, 20, -1],
@@ -168,10 +168,10 @@ $(document).ready(() => {
     ], // end of columnDefs, previously without visible and searchable options.
 
     //= ====================
-    //  DT CUSTOM SETTINGS
+    // DT CUSTOM SETTINGS
     // ====================
 
-    // Automatic column width calculation.  Default: true
+    // Automatic column width calculation. Default: true
     // can be disabled as an optimisation -takes time to calculate widths
     autoWidth: false,
 
@@ -271,7 +271,7 @@ $(document).ready(() => {
         copyTitle: 'ކޮޕީ',
         copySuccess: {
           1: 'ކޮޕީ ވީ 1 ޙަދީޘް',
-          _: 'ކޮޕީ ވީ  %d ޙަދީޘް'
+          _: 'ކޮޕީ ވީ %d ޙަދީޘް'
         }
       },
 
@@ -308,8 +308,8 @@ $(document).ready(() => {
     // dom: '<"top"pBfl>rt<"bottom"ip>',
     // mobile
     // dom: '<"top"fl> + <"top2"p> + <"top3"B> rt <"bottom"ip>',
-    // MOVED TO   if (window.matchMedia("(min-width: 1200px)").matches) {
-    // $.extend(true, $.fn.dataTable.defaults, {   ABOVE
+    // MOVED TO if (window.matchMedia("(min-width: 1200px)").matches) {
+    // $.extend(true, $.fn.dataTable.defaults, { ABOVE
 
     buttons: [
       // datatables.net/extensions/buttons/examples/initialisation/multiple
@@ -320,7 +320,7 @@ $(document).ready(() => {
         extend: 'copy',
         key: { key: 'c', shiftKey: true },
         text: 'ކޮޕީ',
-        // messageTop: 'ނަވަވީގެ 40 ޙަދީޘް',  // CHANGE123 clipboard message
+        // messageTop: 'ނަވަވީގެ 40 ޙަދީޘް', // CHANGE123 clipboard message
         title: '' /* title: "hadithmv.com", */,
 
         //= ====================
@@ -335,7 +335,7 @@ $(document).ready(() => {
           // data = data.replace( /\b([0-9]|[1-4][0-9]|50)\b/g, "No:" );
 
           // fixes multiple row's lack of line break on desktop
-          //        data = data.replace( /\t\r\n/g, "\n\n\n" );
+          //     data = data.replace( /\t\r\n/g, "\n\n\n" );
           data = data.replace(/\n#/g, '\n\n#') // needed to make rnr work
           data = data.replace(/\n\n\n/g, '\n') // rids empty space after title
 
@@ -376,7 +376,7 @@ $(document).ready(() => {
                data = data.replace( /\r/g, "" ); //rids windows platform newline
                data = data.replace( /\t/g, "\n\n" ); */
 
-          //    console.log(JSON.stringify(data));   //json stringify to console
+          //    console.log(JSON.stringify(data)); //json stringify to console
 
           return data
         },
@@ -419,7 +419,7 @@ $(document).ready(() => {
   delete Hammer.defaults.cssProps.userSelect
 
   /* Old hammerjs swipe code
-    if (window.matchMedia("(min-width: 1200px)").matches) {  // js desktop MQ
+    if (window.matchMedia("(min-width: 1200px)").matches) { // js desktop MQ
         // empty
     } else { // js media query on mobile, tablet
       Hammer(fortyNawawi).on("swipeleft", function () {
@@ -480,7 +480,7 @@ $(document).ready(() => {
   } else {
     // js media query on mobile, tablet
     $('.dataTable').addClass('cards')
-  } //  end if else
+  } // end if else
   //= =================== Add cards class to table ID - END
 
   // changes <input class="paginate_input" type="text"> type to search type,
@@ -494,4 +494,4 @@ $(document).ready(() => {
 /* Desktop only keyboard nav help Alert */
 function myHelp () {
   alert('Keyboard Controls: \n\n [Tab] =Tab Navigation \n [Arrow Keys] = Keyboard Navigation \n [Shift + s] = Show columns \n [Shift + c] = Copy')
-} /*  \n [Shift + x] = Excel \n [Shift + v] = Csv \n [Shift + p] = Print' */
+} /* \n [Shift + x] = Excel \n [Shift + v] = Csv \n [Shift + p] = Print' */

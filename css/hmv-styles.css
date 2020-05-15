@@ -188,13 +188,13 @@ html {
   position: relative;
 
   /*
-    animation: animateRight 0.4s;  original code of below */
+    animation: animateRight 0.4s; original code of below */
 
   /*
     -webkit-animation: animateRight 0.5s ease-in-out;
     -moz-animation:    animateRight 0.5s ease-in-out;
     -o-animation:      animateRight 0.5s ease-in-out;
-    animation:        animateRight 0.5s ease-in-out;
+    animation:         animateRight 0.5s ease-in-out;
     */
   -webkit-animation-name: animateright;
   animation-name: animateRight;
@@ -311,10 +311,10 @@ input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: searchfield-cancel-button;
   border: 4px solid transparent; /* makes x a bit bigger */
 
-  /* margin-right: -25px;  makes x icon not interfere with centering search text, but text goes over the icon then */
+  /* margin-right: -25px; makes x icon not interfere with centering search text, but text goes over the icon then */
 }
 
-/* make pagination  placeholder a bit shorter and the text centered,
+/* make pagination placeholder a bit shorter and the text centered,
 a little off to the right because of the search cancel button */
 .paging_input input[type="search"] {
   width: 70px;
@@ -345,10 +345,44 @@ the padding above */
   }
 }
 
-/* make  search placeholder text centered,
+/* make search placeholder text centered,
 a little off to the right because of the search cancel button 
 .dataTables_filter > label > input[type=search] {
-   text-align: center; */
+  text-align: center; */
+
+/* together the following four make the search input fill up the width of the container around it
+removing this section of code makes the flex row distribute items evenly again */
+
+@media screen and (min-width: 900px) {
+  /* desktop mq */
+  .buttons-colvis {
+    /* puts a little space after colvis button, otherwise hits search box */
+
+    margin-left: 20px;
+  }
+  .dataTables_filter > label > input[type="search"] {
+    width: 100%;
+    max-width: 300px;
+  }
+  .dataTables_filter {
+    flex-grow: 4;
+  }
+  .dataTables_length {
+    /* puts a little space after search vox, otherwise hits select list */
+
+    margin-right: 20px;
+  }
+}
+
+/* if i want to change the box heights later,
+38 next button
+36.063 copy button
+27 pagination input 
+27 search input
+29 select input 
+*/
+
+/* end of above code */
 
 /* adds a little space to the left of pagination input box, because the other
    buttons have the same space */
@@ -364,13 +398,13 @@ a little off to the right because of the search cancel button
   }
 }
 
-/* removes default ugly black color from pagination css buttons  */
+/* removes default ugly black color from pagination css buttons */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
   background: none;
   color: #1e1e1e !important; /* change the hover text color */
   border: 1px solid #1e1e1e; /* can change color */
 
-  /* border-radius: 5px;  a little rounder */
+  /* border-radius: 5px; a little rounder */
 }
 
 /* below block of css for change pagination buttom style when active */
@@ -380,7 +414,7 @@ a little off to the right because of the search cancel button
   box-shadow: none; /* removes shading on press down */
 }
 
-/* ===== DT wrapper CSS  - END ===== */
+/* ===== DT wrapper CSS - END ===== */
 
 /* ====================
    DT Column CSS
@@ -418,13 +452,13 @@ table.dataTable tbody td {
   word-wrap: break-word;
 }
 
-/* ===== DT Column CSS  - END ===== */
+/* ===== DT Column CSS - END ===== */
 
 /* ====================
          DT plugins CSS
 ======================= */
 
-/* moves copied info in front  - is this still needed??? test with colvis
+/* moves copied info in front - is this still needed??? test with colvis
 div.dt-button-info {
   z-index: 9999 !important;
 } */
@@ -598,7 +632,7 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   display: -webkit-box;
   display: flex; /* single-direction layout concept. */
   -webkit-box-pack: space-evenly;
-  justify-content: space-evenly; /*  items are distributed so that the spacing between any two items (and the space to the edges) is equal. */
+  justify-content: space-evenly; /* items are distributed so that the spacing between any two items (and the space to the edges) is equal. */
   -webkit-box-align: baseline;
   align-items: baseline; /* how flex items are laid out along the cross axis on the current line.
   Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align */
@@ -608,14 +642,14 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   display: -webkit-box;
   display: flex; /* single-direction layout concept. */
   -webkit-box-pack: center;
-  justify-content: center; /*  items are centered along the line */
+  justify-content: center; /* items are centered along the line */
 }
 
 .mTop3 {
   display: -webkit-box;
   display: flex; /* single-direction layout concept. */
   -webkit-box-pack: center;
-  justify-content: center; /*  items are centered along the line */
+  justify-content: center; /* items are centered along the line */
 }
 
 /* Desktop only MQ */
@@ -626,7 +660,7 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
     flex-wrap: wrap; /* flex items will wrap onto multiple lines, from top to bottom.
     By default, flex items will all try to fit onto one line */
     -webkit-box-pack: justify;
-    justify-content: space-between; /*  alignment along the main axis
+    justify-content: space-between; /* alignment along the main axis
     items are evenly distributed in the line; first item is on the start line, last item on the end line */
     -webkit-box-align: baseline;
     align-items: baseline; /* how flex items are laid out along the cross axis on the current line.

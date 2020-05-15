@@ -25,8 +25,6 @@ check dhiv ms next time on hdrive
 Add 40n hadith takhreej to allH
 write site marjius
 
-check what can be reduced in css
-
 clean up alt folder in github
 
 take a look at
@@ -195,7 +193,7 @@ ctrl + shift + ' = push
 Better Comments: !, ? //, todo, *
 
 NPM commands:
-npm install -g <package_name>
+npm install -g <package_name> (global install)
 npm list -g --depth 0 (list installed packages)
 npm outdated -g --depth=0 (...outdated)
 npm update -g
