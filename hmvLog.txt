@@ -22,6 +22,9 @@ check dhiv ms next time on hdrive
        REMINDERS
 ====================
 
+Add 40n hadith takhreej to allH
+write site marjius
+
 check what can be reduced in css
 
 clean up alt folder in github
@@ -279,6 +282,14 @@ errors unless:
 }
 
 ----------------------------------------
+
+https://github.com/hadithmv/hadithmv-cloned-15.3.20
+
+Git was getting too large, so started over in a way:
+Created new repo with different name at first (without cloning).
+Uploaded necessary files and folders newly without history to that new repo.
+Renamed old repo with date, left as is since then.
+Rename new repo to be the same as old, this way the github pages works for that.
 
 ====================
        Blog Post

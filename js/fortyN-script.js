@@ -135,7 +135,7 @@ $(document).ready(() => {
 
     columnDefs: [
       // classes columns for css in nweb view, but not print.
-      // CHANGE123 COL CLASSES
+      // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
         className: 'fnCol1', // #
@@ -520,10 +520,12 @@ $(document).ready(() => {
 */
   if (window.matchMedia('(min-width: 900px)').matches) {
     // js media query on desktop
-    $('#fortyNawawi').addClass('row-border') // adds rowborder class
+    /* previously $('fnClass').addClass('row-border')
+    $('fnClass').addClass('cards') */
+    $('.dataTable').addClass('row-border') // adds rowborder class
   } else {
     // js media query on mobile, tablet
-    $('#fortyNawawi').addClass('cards')
+    $('.dataTable').addClass('cards')
   } //  end if else
   //= =================== Add cards class to table ID - END
 
