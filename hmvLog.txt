@@ -21,10 +21,14 @@ check dhiv ms next time on hdrive
 ====================
        REMINDERS
 ====================
+how would you translate the word "تَغْزُو؟" in
+16d
+
+أَنَّ رَجُلًا قَالَ لِعَبْدِ اللهِ بْنِ عُمَرَ: أَلَا تَغْزُو؟
 Google sheets copy formula for whole column:
 Double clicking on "drag indicator" (bottom right corner) will copy the formula to all cells. Make sure you CLEAR your column data first and only apply your formula to one.
 
-=SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(C2,"~",""),"ـ",""),"صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ","ﷺ")," ،","،")," :",":")," .",".")," ؟","؟")
+=SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(C2,"~",""),"ـ",""),"صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ","ﷺ")," ،","،")," ؛","؛")" :",":")," .",".")," ؟","؟")
 
 Add 40n hadith takhreej to allH
 skipped of 40n additions to allH: 2, 
