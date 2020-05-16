@@ -37,15 +37,18 @@ To move forward, just start with the first sub directory and keep moving forward
 body {
   background-color: #fff;
   padding: 50px;
-  font: 16px
-    /*-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,*/
-    sans-serif;
+  font-size: 16px;
+  font-family: sans-serif;
+
+  /* -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, */
+
   color: #222;
 
   /* font-weight: 400; */
 }
 
+/*
 h1,
 h2,
 h3,
@@ -55,13 +58,18 @@ h6 {
   color: #222;
   margin: 0 0 20px;
 }
-
-p, ul, ol, table,/* pre, dl*/ {
-  margin: 0 0 20px;
-}
+*/
 
 /*
-h1, h2, h3 {
+p, ul, ol, table, pre, dl {
+  margin: 0 0 20px;
+}
+*/
+
+/*
+h1,
+h2,
+h3 {
   line-height: 1.1;
 }
 */
@@ -71,7 +79,7 @@ h1 {
 }
 
 h2 {
-  color: #393939;
+  /* color: #393939; */
   font-weight: 500;
 }
 
@@ -79,7 +87,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #494949;
+  /* color: #494949; */
   font-weight: 500;
 }
 
@@ -92,6 +100,7 @@ a:hover {
   color: #069;
 }
 
+/*
 a small {
   font-size: 11px;
   color: #777;
@@ -102,7 +111,7 @@ a small {
 a:hover small {
   color: #777;
 }
-
+*/
 .wrapper {
   width: 860px;
   margin: 0 auto;
@@ -130,6 +139,7 @@ pre {
   overflow-x: auto;
 }
 */
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -207,10 +217,12 @@ background-color:#f0f0f0;
 }
 */
 
+/*
 strong {
   color: #222;
   font-weight: 500;
 }
+*/
 
 /*
 header ul li + li + li {
@@ -356,7 +368,7 @@ p {
   line-height: 2;
 }
 
-body > div > div.mid > h1.ar {
+h1.ar {
   font-family: "arFont";
   font-size: 32px;
 }
@@ -383,10 +395,21 @@ h3 {
 .dvTable th,
 .dvTable td {
   text-align: right;
-  direction: rtl;
+
+  /* direction: rtl; */
   text-align: center;
 }
 
+/* decided to skip this table for bullet points
+.marjTable td {
+  text-align: right;
+}
+
+table.marjTable > tbody > tr > td:nth-child(1) {
+  font-size: 2px;
+  font-family: "arFont";
+}
+*/
 th,
 td {
   text-align: center;
