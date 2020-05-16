@@ -21,7 +21,15 @@ check dhiv ms next time on hdrive
 ====================
        REMINDERS
 ====================
+Google sheets copy formula for whole column:
+Double clicking on "drag indicator" (bottom right corner) will copy the formula to all cells. Make sure you CLEAR your column data first and only apply your formula to one.
 
+=SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(C2,"~",""),"ـ",""),"صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ","ﷺ")," ،","،")," :",":")," .",".")," ؟","؟")
+
+Add 40n hadith takhreej to allH
+skipped of 40n additions to allH: 2, 
+
+add current bukhari takhrij to allH
 get sahhahadith hadith - forwarded til 16.5.20
 get abu huraira challenge hadith - forwared 16.5.20, now needs ocr
 
@@ -32,8 +40,7 @@ find a better way to highlight for  data-focus="#first-link", maybe with less su
 
 auto build minify and push
 
-Add 40n hadith takhreej to allH
-write site marjius
+
 set links to ah and 40n within themselves
 
 clean up alt folder in github
