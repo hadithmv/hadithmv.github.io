@@ -22,10 +22,13 @@ check dhiv ms next time on hdrive
        REMINDERS
 ====================
 
-get sahhahadith hadith
-get abu huraira challenge hadith
+get sahhahadith hadith - forwarded til 16.5.20
+get abu huraira challenge hadith - forwared 16.5.20, now needs ocr
 
 find out about compressing json
+
+find a better sub list name than "ޙަދީޘްތައް"
+find a better way to highlight for  data-focus="#first-link", maybe with less submenus
 
 auto build minify and push
 
@@ -65,11 +68,11 @@ Rewrite live pages default css -hassaan
 Wassallaahu wasallam ala nabiyyinaa muhammadin wa alaa aalihi wasahbi ajmain, intro?
 update root files, especially 404
 add modern about page
-Which numbering format do i follow? State it. fuad abdulghani. mutoon dates
+Which numbering format do i follow? State it. fuad abdulghani. mutoon dates -done for 40n, do for allH
 add muraja'a sources nawawi
 add nawawi ruwath?
 
-these two were changed on nawawi intro, may need to change them more
+these two were changed on nawawi intro web
 • މި ފޮތުގެ ޙަދީޘްތައް ރިވާ ކުރެއްވި ޞަޙާބީންގެ ކުޑަ ވަނަވަރެއް މި ސައިޓުގައި ހިމަނާފައިވާނެއެވެ. އެހެން ގޮތަކަށް ހަވާލާ ދީފައި ނުވާނަމަ، އެއީ އިމާމު ޛަހަބީގެ ’ސިޔަރު އަޢުލާމުއް ނުބަލާ‘ (މަތިވެރި ބޭކަލުންގެ ހަޔާތްތައް)، މި ފޮތުން ނަގާފައިވާ މައުލޫމާތެވެ. މިސާލު  : އެއީ ޢުމަރު ބިން އަލްޚައްޠާބު ބިން ނުފައިލެވެ. ޝަހީދުވެވަޑައިގަތީ ޙިޖުރައިން 23 ވަނަ އަހަރުގައެވެ.
 
 މި ޙަދީޘްތައް ވީހާވެސް ސާފުކޮށް މާނަ ކުރެވޭތޯ މަސައްކަތް ކުރެވިފައި ވާނެއެވެ. މިއިން ޙަދީޘަކާ މެދު އިތުރަށް އޮޅުންފިލުވަން ބޭނުންފުޅުވާ ނަމަ، ޢިލްމުވެރިން ދެއްވާފައިވާ ޝަރަޙަތަކާއި ދަރުސްތައް ބައްލަވާށެވެ. މި ފޮތުގެ މަރުޖިޢުތަކުގެ ބައިގައި މަޝްހޫރު ބައެއް ޝަރަޙަތައް ނަންގަނެވިފައި ވާނެއެވެ. އުންމީދަކީ މި ފޮތް މެދުވެރިކޮށް ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތައް އިސްލާމީ ދިވެހި މުޖުތަމައަށް ފޯރުކޮށް ދިނުމެވެ. އަދި ޤިޔާމަތް ދުވަހު އަޅަމެންގެ ހެޔޮ ޢަމަލުތަކުގެ ތެރޭގައި މި މަސައްކަތް ހިމެނިގެން ދިޔުމެވެ.

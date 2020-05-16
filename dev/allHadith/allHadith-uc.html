@@ -107,17 +107,23 @@
     <!-- added menu-btn to activate menu -->
 
     <!-- Pushy Menu -->
-    <nav class="pushy pushy-right" data-focus="#first-link">
+    <nav class="pushy pushy-right"  data-focus="#first-link">
       <!-- <nav class="pushy pushy-left"-->
       <div class="pushy-content pushy-right">
         <ul>
           <!-- Submenu -->
           <li class="pushy-submenu">
-            <button id="first-link">ނަވަވީގެ 40 ޙަދީޘް</button>
+            <button>ނަވަވީގެ 40 ޙަދީޘް</button>   <!-- / CHANGE123 FIRST LINK -->
             <!-- button id="first-link" sets focus on open menu -->
             <ul>
-              <li class="pushy-link" onclick="openLink(event, 'fortyTab')">
+              <li class="pushy-link" onclick="openLink(event, 'fortyNTab')">
                 <a href="#">ޙަދީޘްތައް</a>
+                <!--
+                href="https://hadithmv.github.io/dev/allHadith/allHadith-uc.html"
+                target="_blank"
+                rel="noopener"
+                >ޙަދީޘްތައް</a>
+                -->
               </li>
               <li class="pushy-link">
                 <a
@@ -135,7 +141,7 @@
           </li>
 
           <li class="pushy-submenu">
-            <button>އިތުރު ޙަދީޘްތައް</button>
+            <button id="first-link">އިތުރު ޙަދީޘްތައް</button>    <!-- / CHANGE123 FIRST LINK -->
             <ul>
               <!-- <li class="pushy-link" onclick="openLink(event, 'bukhariTab')" for offline tabs 
               <li class="pushy-link">
@@ -147,7 +153,7 @@
                 >
               </li>
               -->
-              <li class="pushy-link">
+              <li class="pushy-link" onclick="openLink(event, 'allHadithTab')">
                 <a href="#">ޖަމާ ކުރަމުންދާ ހުރިހައި ޙަދީޘް</a>
               </li>
             </ul>
@@ -253,8 +259,9 @@
         <button class="tablink" onclick="openLink(event, 'Right')">Right</button>
         myTabs - end -->
 
-      <!-- First tab -->
-      <div id="fortyTab" class="myTab w3-animate-right">
+      <!-- First tab
+      / CHANGE123 TAB -->
+      <div id="fortyNTab" class="myTab w3-animate-right">
         <!-- if these tab classes and IDs are given to table, dt wrapper wont hide when tabbed away -->
 
         <!-- DT table classes
@@ -280,7 +287,7 @@
         </table>
         <!-- ===== TABLE - END ===== -->
       </div>
-      <!-- <div id="fortyTab" class="myTab w3-animate-right"> first tab END -->
+      <!-- <div id="fortyNTab" class="myTab w3-animate-right"> first tab END -->
 
       <!-- Template for offline tabs
         <div id="bukhariTab" class="myTab w3-animate-right" style="display:none">

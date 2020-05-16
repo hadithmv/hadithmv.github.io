@@ -88,10 +88,10 @@
 
     <!-- / CHANGE123 JS
       'http://www.convertcsv.com/csv-to-json.htm', convert spreashsheet CSV to JSON Array. -->
-    <script src="../../js/40nJson.js"></script>
+    <script src="../../js/allHadithJson.js"></script>
 
     <!-- Custom JS -->
-    <script src="../../js/fortyN-script.js"></script>
+    <script src="../../js/allHadith-script.js"></script>
 
     <!-- ===== ===== JS LIBRARIES - END ===== ===== -->
   </head>
@@ -113,10 +113,10 @@
         <ul>
           <!-- Submenu -->
           <li class="pushy-submenu">
-            <button id="first-link">ނަވަވީގެ 40 ޙަދީޘް</button>  <!-- / CHANGE123 FIRST LINK -->
+            <button id="first-link">ނަވަވީގެ 40 ޙަދީޘް</button>
             <!-- button id="first-link" sets focus on open menu -->
             <ul>
-              <li class="pushy-link" onclick="openLink(event, 'fortyNTab')">
+              <li class="pushy-link" onclick="openLink(event, 'fortyTab')">
                 <a href="#">ޙަދީޘްތައް</a>
               </li>
               <li class="pushy-link">
@@ -135,7 +135,7 @@
           </li>
 
           <li class="pushy-submenu">
-            <button>އިތުރު ޙަދީޘްތައް</button> <!-- / CHANGE123 FIRST LINK -->
+            <button>އިތުރު ޙަދީޘްތައް</button>
             <ul>
               <!-- <li class="pushy-link" onclick="openLink(event, 'bukhariTab')" for offline tabs 
               <li class="pushy-link">
@@ -147,15 +147,8 @@
                 >
               </li>
               -->
-              <li class="pushy-link" onclick="openLink(event, 'allHadithTab')">
+              <li class="pushy-link">
                 <a href="#">ޖަމާ ކުރަމުންދާ ހުރިހައި ޙަދީޘް</a>
-                <!--
-                <a
-                href="../../notes/introFortyN/introFortyN.html"
-                target="_blank"
-                rel="noopener"
-                >ޙަދީޘްތައް</a>
-                -->
               </li>
             </ul>
           </li>
@@ -254,15 +247,14 @@
 
     <!-- Your Content after pushy sidebar, has to have this id or pushy navbar wont work -->
     <div id="container">
-      <!-- <button class="menu-btn">&#9776; Menu</button>  -->
+      <!-- <button class="menu-btn">&#9776; Menu</button> -->
 
       <!-- myTabs - MOVED INTO PUSHY MENU ABOVE
         <button class="tablink" onclick="openLink(event, 'Right')">Right</button>
         myTabs - end -->
 
-      <!-- First tab
-      / CHANGE123 TAB -->
-      <div id="fortyNTab" class="myTab w3-animate-right">
+      <!-- First tab -->
+      <div id="fortyTab" class="myTab w3-animate-right">
         <!-- if these tab classes and IDs are given to table, dt wrapper wont hide when tabbed away -->
 
         <!-- DT table classes
@@ -275,13 +267,9 @@
         <!-- added myTab and w3-animate-right for tabs -->
         <!-- ===== TABLE =====
             / CHANGE123 TABLE -->
-        <table id="fortyNawawi" class="stripe table"> <!-- fnClass -->
+        <table id="allHadith" class="stripe table fnClass"> <!-- fnClass -->
           <thead>
             <tr>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
               <th></th>
               <th></th>
               <th></th>
@@ -292,7 +280,7 @@
         </table>
         <!-- ===== TABLE - END ===== -->
       </div>
-      <!-- <div id="fortyNTab" class="myTab w3-animate-right"> first tab END -->
+      <!-- <div id="fortyTab" class="myTab w3-animate-right"> first tab END -->
 
       <!-- Template for offline tabs
         <div id="bukhariTab" class="myTab w3-animate-right" style="display:none">
