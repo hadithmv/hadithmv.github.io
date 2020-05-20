@@ -1,0 +1,79 @@
+opening files from explorer tree and quick open makes them open over each other in preview mode. to disable this go to settings, search for preview, turn off for 2 or 3 options.
+
+
+shift + ctrl + p = command palette
+ctrl + p = open typed file
+ctrl + n = new file in editor
+
+ctrl + r = switch between workspaces (each folder is a workspace)
+
+ctlr + g = jump to line
+
+ctrl + space = autocomplete / show suggestion to type / forces intellisense to open
+ctrl + tab = cycle tabs (+shift back)
+
+ctrl + k + c = toggle comment out
+shift + alt + right = select everything between brackets or quotes
+
+ctrl + \ = split editor
+ctrl + num = focus editor if many (if only one then 2 makes an empty editor next)
+ctrl + alt + arrow = moves tabs between split groups
+
+ctrl + shift + t = repon a closed editor
+
+ctrl + ` = terminal (can use as a normal cli)
+ctrl + backspace = delete written word
+
+alt + up/down = moves that line there
+shift + alt + up/down = copies that same line above/below
+alt + up/down = moves current line above/below
+
+ctrl + x = cuts out a line (use ctrl + shigt + k to not send it to clipboard, preserves)
+-----------------
+WELL KNOWN:
+ctrl + w = close editor
+ctrl + f = find (+alt = and replace, + ctrl - global find text through all files, can then replace that by clicking left dropdown arrow)
+ctrl + home/end = go to start/end
+ctrl + alt + mouse select and drag = multiline cursor
+f2 = rename file in explorer tree
+-----------------
+
+ctrl + alt + up/down = moves multiline cursor up or down
+alt + click in multiple place = multiline cursor there
+
+ctrl + b = toggle sidebar
+ctrl + j = toggle bottom panel
+
+ctrl + shift + e = fo
+ctrl + shift + \ = jump to closing bracket
+
+...debugger 
+
+"show running extensions" in command palette
+"startup performance" in command palette
+
+ctrl + k (release then ) z = zen mode
+
+ctrl + shift + x = extensions
+
+select a word + ctrl + d = Find and change occurrences/select next word also with matching text (if you want to skip editing those word, use cmd + k then (hold cmd) + d
+
+ctrl + k then m = set file language
+
+ctrl + shift + r = refactor js
+ctrl + alt + [ or ] = collapses code sections
+ctrl + shift + home/end = selects all the code from where you were to beginning/end
+
+select a word + ctrl + f2 = edit all occurrences
+ctrl + , = user settings ui
+shift + up/down = select text above/below
+
+ctrl + shif + v = preview markdown
+ctrl + k, then ctrl + s = show keybindings
+
+ctrl + shift + o = go to symbol (variables or selectors)
+
+
+
+
+

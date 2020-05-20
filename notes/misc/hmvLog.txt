@@ -6,6 +6,7 @@ ftp://192.168.43.1:2121
 install ps in other drive, learn ps
 learn touchtyping
 learn more js
+add tasks to vsc
 
 2 monitors?
 usb hub
