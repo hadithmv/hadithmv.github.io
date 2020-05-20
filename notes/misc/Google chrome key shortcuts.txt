@@ -32,7 +32,7 @@ ctrl + shift + b = show/hide bookmarks bar
 ctrl + shift + o = open bookmarks manager in new tab
 
 -----------------
-Well known:
+WELL KNOWN:
 ctrl + w = close current tab
 ctrl + (+/-) = zoom (ctrl + 0 is reset zoom)
 ctrl + r = refresh

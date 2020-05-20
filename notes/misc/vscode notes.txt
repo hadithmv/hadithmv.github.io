@@ -70,13 +70,8 @@ make list of extensions in vscode:
 	code --list-extensions
 
 EXTENSIONS LIST:
-VScode ext:
-aaron-bond.better-comments
-bierner.github-markdown-preview
 chenxsan.vscode-standardjs
-CodeStream.codestream
 CoenraadS.bracket-pair-colorizer-2
-eamodio.gitlens
 esbenp.prettier-vscode
 formulahendry.auto-rename-tag
 josee9988.minifyall
@@ -87,26 +82,33 @@ stylelint.vscode-stylelint
 techer.open-in-browser
 vscode-icons-team.vscode-icons
 zh9528.file-size
----
-??
-HookyQR.minify
-Aneryu.csso
+softwaredotcom.swdc-vscode
+
 ---
 
-DISABLED:
+NOT NEEDED RN:
 GitHub.vscode-pull-request-github
 alefragnani.project-manager
 christian-kohler.path-intellisense
 ryu1kn.partial-diff
+aaron-bond.better-comments
+CodeStream.codestream
+eamodio.gitlens
 
-NOT NEEDED RN:
 DavidAnson.vscode-markdownlint
+bierner.github-markdown-preview
 ms-python.python
 ms-vsliveshare.vsliveshare
 ritwickdey.LiveServer
 VisualStudioExptTeam.vscodeintellicode
 ms-vscode-remote.remote-ssh
 msjsdiag.debugger-for-chrome
+formulahendry.code-runner
+arcsine.chronicler
+emilast.LogFileHighlighter
+
+HookyQR.minify
+Aneryu.csso
 
 CHECK IN FUTURE:
 ms-vscode.js-debug-nightly

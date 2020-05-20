@@ -31,7 +31,7 @@ win + r = run cmd
 win + x = power user features
 
 -----------------
-Well known:
+WELL KNOWN:
 
 win = start menu
 ctrl + shift + esc = task manager
@@ -61,6 +61,7 @@ alt + f4 = close windows app (uwp)
 ctrl + shift + v = paste as plain text
 shift + arrow = highlight text character
 shift + ctrl + arrow = highlight whole word
+ctrl + backspace = delete written word
 
 win + p = external monitor options
 win + shift + arrow = move apps from one monitor to another
