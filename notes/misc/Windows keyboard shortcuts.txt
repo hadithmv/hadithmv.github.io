@@ -1,0 +1,97 @@
+open command window: Hold Shift + Right Click the folder you want it opened on, and click "open command window here".
+
+use ms powertoys fancyzones
+
+win + e = open explorer
+ctrl + shift + n = new folder
+f2 = rename
+alt + arrow = move forward/back in browser
+win + numbers = open pinned taskbar programs in numerical order
+win + alt + number = open jump list of above app
+
+alt = reveal keyboard shortcuts in apps
+shift + click app instance = open another instance
+ctrl + shift + click app instance = run another instance as admin
+ctrl +  click grouped apps = cycle thru them
+
+alt + tab(bing) = switch between open windows (+shift goes back)
+
+
+win + tab = task viewer
+win + ctrl + d = make virtual desktop
+win + ctrl + f4 = close virtual desktop
+win + ctrl + arrow = switch virtual desktops
+win + t = cycle thru taskbar apps
+
+win + s = search
+win + shift + s = snip
+
+win + i = settings
+win + r = run cmd
+win + x = power user features
+
+-----------------
+Well known:
+
+win = start menu
+ctrl + shift + esc = task manager
+win + d = hide/show desktop
+ctrl + f = search
+ctrl + click = select multiple items
+shift + click = select range of items
+ctrl + a = select all
+ctrl + s = save
+ctrl + z = undo
+ctrl + y = redo (undo an undo)
+ctrl + c = copy
+ctrl + x = cut
+ctrl + v = paste
+win + l = lock pc
+ctrl p = print
+ctrl + r = refresh
+prtscre = print screen
+esc = close current task
+shift + delete = permanent delete
+-----------------
+win + prtscre = save screenshot to screenshots
+
+ctrl + w = close desktop app
+alt + f4 = close windows app (uwp)
+
+ctrl + shift + v = paste as plain text
+shift + arrow = highlight text character
+shift + ctrl + arrow = highlight whole word
+
+win + p = external monitor options
+win + shift + arrow = move apps from one monitor to another
+
+f10 = right mouse click
+ctrl + (+/-) = zoom
+win + m = minimize all windows
+win + shift + m = unminimize all
+win + home = minimize all but current window
+win + shift + up = maximize vertically while maintaining current width
+
+win + down = minimze current window (maximize is up)
+win + left/right= windows snap
+
+win + v = clipboard history
+win + (+) = magnifier
+
+FILE EXPLORER:
+alt + d = select addressbar (you can go to it too)
+ctrl + alt + 6 = detail view list (other numbers up to 8 are changable too)
+ctrl + shift + e = expand all folders as tree view in navigation pane
+alt + arrows = move around a folder
+f11 = fullscreen
+home/end = scroll
+alt + e = open menu
+
+win + shift + arrow = move window to another monitor
+
+---
+PowerToys shortcuts:
+
+win + ` = fancyzones
+alt + space = run
+hold win = shortcuts guide
