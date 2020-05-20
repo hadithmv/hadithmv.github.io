@@ -4,6 +4,13 @@
 http://www.notyourdadsit.com/blog/2018/4/3/cheatsheet-setup-github-on-visual-studio-code
 
 if starting over and copying local files and folders offline, go to repository fodler > .git folder > config file. Edit that to update worktree = C:/... Remember to use forward slashes if copying explorer urls.
+When you get:
+"Run
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+to set your account's default identity.
+fatal: unable to auto-detect email address"
+Do as it says.
 
 ftp://192.168.43.1:2121
 
