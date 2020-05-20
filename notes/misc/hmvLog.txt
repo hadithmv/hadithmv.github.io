@@ -1,17 +1,6 @@
 ====================
        OTHER
 ====================
-http://www.notyourdadsit.com/blog/2018/4/3/cheatsheet-setup-github-on-visual-studio-code
-
-if starting over and copying local files and folders offline, go to repository fodler > .git folder > config file. Edit that to update worktree = C:/... Remember to use forward slashes if copying explorer urls.
-When you get:
-"Run
-  git config --global user.email "you@example.com"
-  git config --global user.name "Your Name"
-to set your account's default identity.
-fatal: unable to auto-detect email address"
-Do as it says.
-
 ftp://192.168.43.1:2121
 
 install ps in other drive, learn ps
@@ -22,9 +11,6 @@ learn more js
 usb hub
 
 they say silsilathu sahiha is best and in depth, while saheeh <book>s are shorter and just the ruling
-
-NVIDIA GeForce 445.87 WHQL
-AMD Radeon Adrenalin 20.4.2 Beta
 
 clean up gdrive
 rename grasshopper
@@ -208,148 +194,6 @@ use cubic beziers for smoother animation?
 ====================
 add Rajab rahimahu?
 ----------------------------------------
-
-====================
-       CONFIG
-====================
-remember to format, validate, lint, minify, lighthouse, remove unused code, treeshaking:
-prettier, set as default in vscode; format on save
-htmlhint (alt: w2 tidy html5)
-stylelint
-prettier
-standardjs linter
-kangax, csso, closure compiler
-unused-CSS, purifyCSS, unCSS-online
-
-VSC shortcuts:
-ctrl + p = command palette
-ctrl g = jump to line
-shift + alt = multi line cursor
-CTRL + K CTRL + SHIFT + S = save without formatting (simply keep CTRL pressed and then type K + SHIFT + S).
-
-custom:
-ctrl + shift + g = source control
-ctrl + shift + ; = commit message
-ctrl + enter = send
-ctrl + , = settings
-shift + alt + u = upload settings sync, /d = download
-ctrl + shift + ' = push
-
-Better Comments: !, ? //, todo, *
-
-NPM commands:
-npm install -g <package_name> (global install)
-npm uninstall -g <package_name>
-npm list -g --depth 0 (list installed packages)
-npm outdated -g --depth=0 (...outdated)
-npm update -g
-node -v
-npm -v
-install the msi from the official site, updates npm too
-
-choco list -lo
-choco outdated
-
-chrome:
-Alt + d = go to address bar
-
-win:
-alt + f4 = shutdown (needs to be at desktop with no windows open
----
-List them:
-	code --list-extensions
-VScode ext:
-aaron-bond.better-comments
-bierner.github-markdown-preview
-chenxsan.vscode-standardjs
-CodeStream.codestream
-CoenraadS.bracket-pair-colorizer-2
-eamodio.gitlens
-esbenp.prettier-vscode
-formulahendry.auto-rename-tag
-josee9988.minifyall
-kamikillerto.vscode-linthtml
-oderwat.indent-rainbow
-ryu1kn.partial-diffShan.code-settings-sync
-stylelint.vscode-stylelint
-techer.open-in-browser
-vscode-icons-team.vscode-icons
-zh9528.file-size
----
-??
-HookyQR.minify
-Aneryu.csso
----
-Disabled:
-GitHub.vscode-pull-request-github
-alefragnani.project-manager
-christian-kohler.path-intellisense
-ryu1kn.partial-diff
----
-Not Needed right now:
-DavidAnson.vscode-markdownlint
-ms-python.python
-ms-vsliveshare.vsliveshare
-ritwickdey.LiveServer
-VisualStudioExptTeam.vscodeintellicode
-ms-vscode-remote.remote-ssh
-msjsdiag.debugger-for-chrome
----
-check for updates:
-ms-vscode.js-debug-nightly
-ms-vscode-remote.vscode-remote-extensionpack
-ms-vscode.vscode-github-issue-notebooks
----
-
-NPM installs:
-npm i @linthtml/linthtml -g
-npm i stylelint -g
-npm i stylelint-config-standard -g
-npm i prettier -g
-npm i stylelint-config-prettier stylelint-prettier -g
-npm i standard -g
-
----
-notes/settings json:
-  "[javascript]": {
-    // this is only to stop prettier overwriting standardjs's format
-    "editor.defaultFormatter": "chenxsan.vscode-standardjs" //ignore the cannot format error it will give
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode", //esbenp.prettier-vscode
-  "editor.formatOnSave": true, //formats with prettifier on save first
-  "editor.rulers": [
-    {
-      "column": 80,
-      "color": "#ffffff15"
-    }
-  ],
-  "editor.fontFamily": "'Fira Code Retina', Consolas, 'Courier New', monospace",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.stylelint": true,
-    "source.fixAll.markdownlint": true
-  },
-  "javascript.validate.enable": false, // needed for standardjs
-  "standard.autoFixOnSave": true, // fixes with standardjs on save
-  "htmlhint.enable": true, // default is true, turn off to test
-
-errors unless:
-{
-  "extends": ["stylelint-config-standard", "stylelint-prettier/recommended"],
-  "rules": {
-    "function-name-case": null,
-    "value-keyword-case": null
-  }
-}
-
-----------------------------------------
-
-https://github.com/hadithmv/hadithmv-cloned-15.3.20
-
-Git was getting too large, so started over in a way:
-Created new repo with different name at first (without cloning).
-Uploaded necessary files and folders newly without history to that new repo.
-Renamed old repo with date, left as is since then.
-Rename new repo to be the same as old, this way the github pages works for that.
 
 ====================
        Blog Post
