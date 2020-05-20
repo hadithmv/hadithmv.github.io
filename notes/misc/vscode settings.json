@@ -26,7 +26,7 @@
     }
   ],
 
-  "editor.fontFamily": "'Fira Code Retina', Consolas, 'Courier New', monospace",
+  "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
 
   "stylelint.enable": true,
   "css.validate": false,
@@ -34,7 +34,8 @@
   "scss.validate": false,
 
   "editor.codeActionsOnSave": {
-    "source.fixAll.stylelint": true
+    "source.fixAll.stylelint": true,
+    "source.fixAll.markdownlint": true
   },
 
   "javascript.validate.enable": false, // needed for standardjs
@@ -42,6 +43,10 @@
 
   "htmlhint.enable": true, // default is true, turn off to test
 
-  "todo-tree.tree.showScanModeButton": false,
-  "window.zoomLevel": 0
+  "better-comments.multilineComments": true,
+
+  "window.zoomLevel": 0,
+  "workbench.iconTheme": "vscode-icons",
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
 }

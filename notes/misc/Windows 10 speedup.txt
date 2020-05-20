@@ -1,0 +1,43 @@
+
+
+Disable system visual effects: In the search box on the taskbar, type performance, then select Adjust the appearance and performance of Windows in the list of results. On the Visual Effects tab, select Adjust for best performance > Apply.
+
+Disable startup apps: Open Settings. Click on Apps. Click on Startup. Click the Sort by menu and select the Startup impact option. Turn off the toggle switch for any application that's not a priority (especially those marked as "High impact").
+
+Disable relaunch apps on startup: Open Settings. Click on Sign-in options. Under the "Privacy" section, turn off the Use my sign-in info to automatically finish setting up my device and reopen my apps after an upgrade or restart option.
+
+Disable background apps: Open Settings. Click on Privacy. Click on Background apps. Turn off the Let apps run in the background toggle switch to disable the functionality for all Store apps.
+
+Reclaim hard drive space: Open Settings. Click on System. Click on Storage. Under the "Local Disk" section, click the Temporary files item. Check the files that you want to delete. Click the Remove files button.
+
+Disabling transparency effects: Open Settings. Click on Personalization. Click on Colors. Turn off the Transparency effects toggle switch.
+
+Disable search indexing: Open Settings. Click on Search. Click on Search Windows. Under the "More Search Indexer Settings" section, click the Advanced Search Indexer Settings option. Click the Modify button. Click the Show all locations button. Clear all the selected locations. Click the OK button. Click the Close button.
+---
+
+Reduce boot menu time out if any. 
+Defrag if not using an SSD
+
+You can also reset windows
+
+An SSD is so much faster than an HDD
+
+You can meter your internet connection
+
+And as always clean up your files and folders
+
+----------------
+
+Remove items from context menu
+
+Remove unnecessary programs with iobit uninstaller
+
+Remove or delay unnecessary start up items with iobit advanced systemcare
+
+Regularly clean pc with iobit advanced systemcare/glary utilities
+
+---
+Single clicking is faster: Click Start, type Folder Options, and then hit Enter. In the General tab, find the Click items as follows section, then enable Single-click to open an item (point to select).
+This method also makes file selection a little trickier, especially if you're accustomed to the practice of Ctrl-clicking multiple files. Now, instead of clicking each file in turn, you just hold down the Ctrl key and mouse over each file you want to select, pausing for about a second on each one until it becomes highlighted.
+During first install turn off most of the things Windows tries to enable in the checkboxes.
+after installing powertools hovering seems to select as well

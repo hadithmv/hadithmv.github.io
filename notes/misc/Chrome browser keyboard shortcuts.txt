@@ -1,0 +1,59 @@
+alt + f4 = shutdown (may close windows first)
+ctrl + u = view page sourcecode
+
+ctrl + tab = next tab (+shift = previous)
+(or) ctrl + pgup or dwn
+
+alt + arrow = move forward/back in browser
+tab = move along items
+
+ctrl + t = new tab
+ctrl + shift + t = restore closed tab (pressing it more open more closed tabs)
+ctrl + number = go to that tab in order (but 9 is last tab always)
+
+ctrl + n = new window (+shift = incognito)
+ctrl + shift + w = close window
+
+ctrl + h = history
+ctrl + j = downloads
+
+alt + f = menu
+alt + enter = (open new tab with previously written url)
+				
+ctrl + d = bookmark
+space = scroll down a page view (+shift is up)
+
+f11 = fullscreen
+
+ctrl + shift + r = reload without cache
+
+ctrl + l = jump to address bar
+ctrl + shift + b = show/hide bookmarks bar
+ctrl + shift + o = open bookmarks manager in new tab
+
+-----------------
+Well known:
+ctrl + w = close current tab
+ctrl + (+/-) = zoom (ctrl + 0 is reset zoom)
+ctrl + r = refresh
+esc = stop loading 
+home/end/space
+ctrl + click = open link in new tab (shift click is open in new tab
+ctrl + shift + i = developer tools
+ctrl + f = find (+shift enter is previous highlight)
+-----------------
+
+alt + d = select addressbar (you can go to it too)
+ctrl + k = go to omnibox/searchbox/url
+
+ctrl + shift + v = paste without formatting
+shift + scrollwheel = scroll horizontally
+alt + home = open home page
+
+ctrl + enter = auto adds www and .com to you url query
+...
+
+shift + esc = chrome task manager
+ctrl + shift + m = switch chrome user
+ctrl + shift + del = open delete browsing data
+alt + shift + i = open feedback form
