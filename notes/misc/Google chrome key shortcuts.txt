@@ -20,6 +20,9 @@ ctrl + r = refresh (+shift = without cache)
 ctrl + t = new tab
 ctrl + n = new window (+shift = incognito)
 
+ctrl + (+/-) = zoom (ctrl + 0 is reset zoom)
+
+
 
 
 alt + f4 = shutdown (may close windows first)
@@ -52,7 +55,7 @@ ctrl + shift + o = open bookmarks manager in new tab
 -----------------
 WELL KNOWN:
 
-ctrl + (+/-) = zoom (ctrl + 0 is reset zoom)
+
 
 esc = stop loading 
 home/end/space
