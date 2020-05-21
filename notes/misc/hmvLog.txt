@@ -8,6 +8,8 @@ learn touchtyping
 learn more js
 add tasks to vsc
 
+find something that has actual live preview like https://www.activestate.com/products/komodo-ide/
+
 2 monitors?
 usb hub
 
@@ -28,8 +30,6 @@ check dhiv ms next time on hdrive
 ====================
 maybe make navbar thinner?
 tryout manjaro theme colors
-
-ie 10/11 dont show anything -not going to fix
 
 how would you translate the word "تَغْزُو؟" in
 16d
