@@ -1,0 +1,26 @@
+Enabled:
+Dark Reader
+Docs
+Enhanced GitHub
+!!!Export links of all extensions
+Gmail
+Google Analytics Opt-out Add-on (by Google)
+Google Docs Offline
+Google Drive
+Google Translate
+IBA Opt-out (by Google)
+Linkclump
+Office Editing for Docs, Sheets & Slides
+Sheets
+Slides
+The Great Suspender
+uBlock Origin
+UltraSurf Security, Privacy & Unblock VPN
+
+Disabled:
+Autofill
+Free Download Manager
+Lighthouse
+Lightshot (screenshot tool)
+Page Analytics (by Google)
+Screengrab!

@@ -29,10 +29,7 @@ check dhiv ms next time on hdrive
 maybe make navbar thinner?
 tryout manjaro theme colors
 
-site column css broke on firefox desktop
-safari browser doesnt show anything
 ie 10/11 dont show anything -not going to fix
-chrome shows overstretched search box (not on my comp)
 
 how would you translate the word "تَغْزُو؟" in
 16d
@@ -201,6 +198,16 @@ use cubic beziers for smoother animation?
     ACTUAL BOOK
 ====================
 add Rajab rahimahu?
+----------------------------------------
+
+====================
+    TESTING
+====================
+http://troy.labs.daum.net
+https://www.browserling.com
+https://comparium.app
+	safari doesnt work for above three
+https://www.lambdatest.com -sign up but free options
 ----------------------------------------
 
 ====================
