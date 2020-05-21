@@ -338,7 +338,7 @@ the padding above */
   padding-bottom: 12px;
 }
 
-/* desktop mq lessens padding in pagination buttons based on screen width, default is 16px */
+/* desktop mq lessens padding in pagination buttons based on screen width, default was 16px,  resposive and flexible */
 @media screen and (min-width: 900px) {
   .dataTables_wrapper .dataTables_paginate .paginate_button {
     padding-left: 1vw;
@@ -346,7 +346,7 @@ the padding above */
   }
 }
 
-/* movile mq, lessens padding in pagination buttons based on screen width */
+/* movile mq, lessens padding in pagination buttons based on screen width, resposive and flexible */
 @media screen and (max-width: 900px) {
   .dataTables_wrapper .dataTables_paginate .paginate_button {
     width: 15vw;
@@ -368,11 +368,12 @@ a little off to the right because of the search cancel button
 .dataTables_filter > label > input[type=search] {
   text-align: center; */
 
-/* together the following four make the search input fill up the width of the container around it
-removing this section of code makes the flex row distribute items evenly again */
+/*  desktop mq 
+together the following four make the search input fill up the width of the container around it, responsive and flexible
+removing this section of code makes the flex row distribute items evenly again
+changed  (min-width: 900px) to 600 to include tablets */
 
-@media screen and (min-width: 900px) {
-  /* desktop mq */
+@media screen and (min-width: 600px) {
   .buttons-colvis {
     /* puts a little space after colvis button, otherwise hits search box */
 
@@ -386,7 +387,7 @@ removing this section of code makes the flex row distribute items evenly again *
     flex-grow: 4;
   }
   .dataTables_length {
-    /* puts a little space after search vox, otherwise hits select list */
+    /* puts a little space after search box, otherwise hits select list */
 
     margin-right: 20px;
   }
