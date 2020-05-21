@@ -75,7 +75,7 @@ CoenraadS.bracket-pair-colorizer-2
 esbenp.prettier-vscode
 formulahendry.auto-rename-tag
 josee9988.minifyall
-kamikillerto.vscode-linthtml
+mkaufman.htmlhint
 oderwat.indent-rainbow
 ryu1kn.partial-diffShan.code-settings-sync
 stylelint.vscode-stylelint
@@ -117,7 +117,7 @@ ms-vscode.vscode-github-issue-notebooks
 ----------------------
 
 NPM PACKAGES TO INSTALL:
-npm i @linthtml/linthtml -g
+npm i htmlhint -g
 npm i stylelint -g
 npm i stylelint-config-standard -g
 npm i prettier -g

@@ -346,49 +346,53 @@ the padding above */
   }
 }
 
-/* for mobile without above mq */
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-  padding-left: 5vw;
-  padding-right: 5vw;
+/* movile mq, lessens padding in pagination buttons based on screen width */
+@media screen and (max-width: 900px) {
+  .dataTables_wrapper .dataTables_paginate .paginate_button {
+    width: 15vw;
+    max-width: 50px;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
-  /* mobile mq add space at the bottom of table before last pagination row */
-  @media screen and (max-width: 900px) {
-    .table {
-      padding-bottom: 15px;
-    }
+/* mobile mq add space at the bottom of table before last pagination row */
+@media screen and (max-width: 900px) {
+  .table {
+    padding-bottom: 15px;
   }
+}
 
-  /* make search placeholder text centered,
+/* make search placeholder text centered,
 a little off to the right because of the search cancel button 
 .dataTables_filter > label > input[type=search] {
   text-align: center; */
 
-  /* together the following four make the search input fill up the width of the container around it
+/* together the following four make the search input fill up the width of the container around it
 removing this section of code makes the flex row distribute items evenly again */
 
-  @media screen and (min-width: 900px) {
-    /* desktop mq */
-    .buttons-colvis {
-      /* puts a little space after colvis button, otherwise hits search box */
+@media screen and (min-width: 900px) {
+  /* desktop mq */
+  .buttons-colvis {
+    /* puts a little space after colvis button, otherwise hits search box */
 
-      margin-left: 20px;
-    }
-    .dataTables_filter > label > input[type="search"] {
-      width: 100%;
-      max-width: 300px;
-    }
-    .dataTables_filter {
-      flex-grow: 4;
-    }
-    .dataTables_length {
-      /* puts a little space after search vox, otherwise hits select list */
-
-      margin-right: 20px;
-    }
+    margin-left: 20px;
   }
+  .dataTables_filter > label > input[type="search"] {
+    width: 100%;
+    max-width: 300px;
+  }
+  .dataTables_filter {
+    flex-grow: 4;
+  }
+  .dataTables_length {
+    /* puts a little space after search vox, otherwise hits select list */
 
-  /* if i want to change the box heights later,
+    margin-right: 20px;
+  }
+}
+
+/* if i want to change the box heights later,
 38 next button
 36.063 copy button
 27 pagination input 
@@ -396,118 +400,118 @@ removing this section of code makes the flex row distribute items evenly again *
 29 select input 
 */
 
-  /* end of above code */
+/* end of above code */
 
-  /* adds a little space to the left of pagination input box, because the other
+/* adds a little space to the left of pagination input box, because the other
    buttons have the same space */
-  .dataTables_paginate > input {
-    margin-left: 2px;
+.dataTables_paginate > input {
+  margin-left: 2px;
+}
+
+/* makes pagination buttons stand out bold on mobile only mq */
+@media screen and (max-width: 900px) {
+  .paginate_button {
+    font-weight: bold;
+    font-size: 18px;
   }
+}
 
-  /* makes pagination buttons stand out bold on mobile only mq */
-  @media screen and (max-width: 900px) {
-    .paginate_button {
-      font-weight: bold;
-      font-size: 18px;
-    }
-  }
+/* removes default ugly black color from pagination css buttons */
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: none;
+  color: #1e1e1e !important; /* change the hover text color */
+  border: 1px solid #1e1e1e; /* can change color */
 
-  /* removes default ugly black color from pagination css buttons */
-  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-    background: none;
-    color: #1e1e1e !important; /* change the hover text color */
-    border: 1px solid #1e1e1e; /* can change color */
+  /* border-radius: 5px; a little rounder */
+}
 
-    /* border-radius: 5px; a little rounder */
-  }
+/* below block of css for change pagination buttom style when active */
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  background: none;
+  color: #1e1e1e !important;
+  box-shadow: none; /* removes shading on press down */
+}
 
-  /* below block of css for change pagination buttom style when active */
-  .dataTables_wrapper .dataTables_paginate .paginate_button:active {
-    background: none;
-    color: #1e1e1e !important;
-    box-shadow: none; /* removes shading on press down */
-  }
+/* ===== DT wrapper CSS - END ===== */
 
-  /* ===== DT wrapper CSS - END ===== */
-
-  /* ====================
+/* ====================
    DT Column CSS
 ======================= */
 
-  /* Alignscell contents vertically */
-  table.dataTable tbody td {
-    vertical-align: top;
-  }
+/* Alignscell contents vertically */
+table.dataTable tbody td {
+  vertical-align: top;
+}
 
-  /* table data rows alignment */
-  .dataTable > tbody > tr > td {
-    text-align: justify;
+/* table data rows alignment */
+.dataTable > tbody > tr > td {
+  text-align: justify;
 
-    /* word-spacing: -10px; */
-    font-size: 100%;
+  /* word-spacing: -10px; */
+  font-size: 100%;
 
-    /* -ms-text-size-adjust: 100%;
+  /* -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%; */
-    color: #24292e;
-    line-height: 1.5;
-    word-wrap: break-word;
-  }
+  color: #24292e;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
 
-  /* table header row alignment */
-  .dataTable > thead > tr > th {
-    font-size: 100%;
-    text-align: center;
+/* table header row alignment */
+.dataTable > thead > tr > th {
+  font-size: 100%;
+  text-align: center;
 
-    /* color: #205ca5; */
+  /* color: #205ca5; */
 
-    /* -ms-text-size-adjust: 100%;
+  /* -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%; */
-    line-height: 1.5;
-    word-wrap: break-word;
-  }
+  line-height: 1.5;
+  word-wrap: break-word;
+}
 
-  /* ===== DT Column CSS - END ===== */
+/* ===== DT Column CSS - END ===== */
 
-  /* ====================
+/* ====================
          DT plugins CSS
 ======================= */
 
-  /* moves copied info in front - is this still needed??? test with colvis
+/* moves copied info in front - is this still needed??? test with colvis
 div.dt-button-info {
   z-index: 9999 !important;
 } */
 
-  #datatables_buttons_info {
-    /* border: 1px solid #111; old */
-    border-style: solid;
-    border-width: 1px;
-    border-color: #dadce0; /* #00000020 */
-    border-radius: 5px; /* makes cards a little rounder, used to be 4 */
-    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
-  }
+#datatables_buttons_info {
+  /* border: 1px solid #111; old */
+  border-style: solid;
+  border-width: 1px;
+  border-color: #dadce0; /* #00000020 */
+  border-radius: 5px; /* makes cards a little rounder, used to be 4 */
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+}
 
-  /* changes clipboard copied color, */
-  div.dt-button-info > h2 {
-    background: #add1f2;
-  }
+/* changes clipboard copied color, */
+div.dt-button-info > h2 {
+  background: #add1f2;
+}
 
-  /* makes clipboard copy popup centered and fits width on mobile view */
-  div#datatables_buttons_info.dt-button-info {
-    /* fits screen on mobile, is 400 on desktop */
-    width: auto;
-    max-width: 350px;
+/* makes clipboard copy popup centered and fits width on mobile view */
+div#datatables_buttons_info.dt-button-info {
+  /* fits screen on mobile, is 400 on desktop */
+  width: auto;
+  max-width: 350px;
 
-    /* centers */
-    right: 0;
-    left: 0;
-    margin-left: auto;
-    margin-right: auto;
+  /* centers */
+  right: 0;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
 
-    /* makes borders rounder */
-    border-radius: 5px;
-  }
+  /* makes borders rounder */
+  border-radius: 5px;
+}
 
-  /* hides table headers only on mobile, prev nth-child(2)
+/* hides table headers only on mobile, prev nth-child(2)
 - Mobile only MQ
 looks like we don't need this code anymore, use the hide below this */ /*
 @media screen and (max-width: 900px) {
@@ -518,91 +522,91 @@ looks like we don't need this code anymore, use the hide below this */ /*
   }
 } */
 
-  /* Keytable - Desktop only MQ */
-  @media screen and (min-width: 900px) {
-    table.dataTable tbody th.focus,
-    table.dataTable tbody td.focus {
-      box-shadow: inset 0 0 1px 3px #337ab7;
+/* Keytable - Desktop only MQ */
+@media screen and (min-width: 900px) {
+  table.dataTable tbody th.focus,
+  table.dataTable tbody td.focus {
+    box-shadow: inset 0 0 1px 3px #337ab7;
 
-      /* last px makes box thicker */
-      border-radius: 5px;
+    /* last px makes box thicker */
+    border-radius: 5px;
 
-      /* makes box rounder */
-    }
+    /* makes box rounder */
   }
+}
 
-  /* Mark JS - padding: 0; removes useless padding, donno if still needed? */
-  mark {
-    background: #add1f2;
-    color: black;
-    padding: 0;
-  }
+/* Mark JS - padding: 0; removes useless padding, donno if still needed? */
+mark {
+  background: #add1f2;
+  color: black;
+  padding: 0;
+}
 
-  /* ===== DT plugins CSS - END ===== */
+/* ===== DT plugins CSS - END ===== */
 
-  /* ====================
+/* ====================
        CARDS CODE
 ======================= */
 
-  .cards tbody tr {
-    float: left;
+.cards tbody tr {
+  float: left;
 
-    /* width: 190rem; without it, card fill width */
+  /* width: 190rem; without it, card fill width */
 
-    /* these used to be gyrocode rems */
-    margin: 0.5rem;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #dadce0; /* #00000020 */
-    border-radius: 5px; /* makes cards a little rounder, used to be 4 */
-    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+  /* these used to be gyrocode rems */
+  margin: 0.5rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #dadce0; /* #00000020 */
+  border-radius: 5px; /* makes cards a little rounder, used to be 4 */
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
 
-    /* box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25); old onesided card shadow */
+  /* box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25); old onesided card shadow */
 
-    /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.2); */
+  /* box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.2); */
 
-    /* The box-shadow property takes values for offset-x (how far to push the shadow horizontally from the element),
+  /* The box-shadow property takes values for offset-x (how far to push the shadow horizontally from the element),
    offset-y (how far to push the shadow vertically from the element), blur-radius, spread-radius and color, in that order. */
-  }
+}
 
-  .cards tbody td {
-    display: block;
-  }
+.cards tbody td {
+  display: block;
+}
 
-  /* is this needed?? */
-  .cards thead {
-    visibility: hidden;
+/* is this needed?? */
+.cards thead {
+  visibility: hidden;
 
-    /* 'Hide only visually, but have it available for screen readers':
+  /* 'Hide only visually, but have it available for screen readers':
   taken from boilerplate code, maybe this is better than the
   thead tr:nth-child(1) { position: absolute; top: -9999px; left: -9999px;
   from above, have commented out apparently useless code */
 
-    /* border: 0; */
-    clip: rect(0, 0, 0, 0);
+  /* border: 0; */
+  clip: rect(0, 0, 0, 0);
 
-    /* height: 1px; */
+  /* height: 1px; */
 
-    /* margin: -1px; */
+  /* margin: -1px; */
 
-    /* overflow: hidden; */
+  /* overflow: hidden; */
 
-    /* padding: 0; */
-    position: absolute;
+  /* padding: 0; */
+  position: absolute;
 
-    /* white-space: nowrap; */
+  /* white-space: nowrap; */
 
-    /* width: 1px; */
-    border: 0;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    white-space: nowrap;
-    width: 1px;
-  }
+  /* width: 1px; */
+  border: 0;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  white-space: nowrap;
+  width: 1px;
+}
 
-  /* DEPRECIATED- dont use this anymore
+/* DEPRECIATED- dont use this anymore
 MQ on mobile, this gets rid of empty th space at right of table on mobile,
 + centers table, while 2nd bit hides table header on mobile, need either this or
   thead tr:nth-child(1) { position: absolute; top: -9999px; left: -9999px; above
@@ -618,215 +622,214 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
     }
 */
 
-  .cards td::before {
-    content: attr(data-label);
-    position: relative;
-    float: left;
-    color: #808080;
-    min-width: 4rem;
-    margin-left: 0;
-    margin-right: 1rem;
-    text-align: left;
-  }
+.cards td::before {
+  content: attr(data-label);
+  position: relative;
+  float: left;
+  color: #808080;
+  min-width: 4rem;
+  margin-left: 0;
+  margin-right: 1rem;
+  text-align: left;
+}
 
-  /* useless
+/* useless
 .selected td::before {
   color: #ccc;
 }
 */
 
-  /* ===== cards code END ===== */
+/* ===== cards code END ===== */
 
-  /* ====================
+/* ====================
        DOM FLEXBOX
 ======================= */
 
-  /* on mobile */
-  .mTop {
+/* on mobile */
+.mTop {
+  display: -webkit-box;
+  display: flex; /* single-direction layout concept. */
+  -webkit-box-pack: space-evenly;
+  justify-content: space-evenly; /* items are distributed so that the spacing between any two items (and the space to the edges) is equal. */
+  -webkit-box-align: baseline;
+  align-items: baseline; /* how flex items are laid out along the cross axis on the current line.
+  Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align */
+}
+
+.mTop2 {
+  display: -webkit-box;
+  display: flex; /* single-direction layout concept. */
+  -webkit-box-pack: center;
+  justify-content: center; /* items are centered along the line */
+}
+
+.mTop3 {
+  display: -webkit-box;
+  display: flex; /* single-direction layout concept. */
+  -webkit-box-pack: center;
+  justify-content: center; /* items are centered along the line */
+}
+
+/* Desktop only MQ */
+@media screen and (min-width: 900px) {
+  .dTop {
     display: -webkit-box;
     display: flex; /* single-direction layout concept. */
-    -webkit-box-pack: space-evenly;
-    justify-content: space-evenly; /* items are distributed so that the spacing between any two items (and the space to the edges) is equal. */
+    flex-wrap: wrap; /* flex items will wrap onto multiple lines, from top to bottom.
+    By default, flex items will all try to fit onto one line */
+    -webkit-box-pack: justify;
+    justify-content: space-between; /* alignment along the main axis
+    items are evenly distributed in the line; first item is on the start line, last item on the end line */
     -webkit-box-align: baseline;
     align-items: baseline; /* how flex items are laid out along the cross axis on the current line.
-  Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align */
-  }
-
-  .mTop2 {
-    display: -webkit-box;
-    display: flex; /* single-direction layout concept. */
-    -webkit-box-pack: center;
-    justify-content: center; /* items are centered along the line */
-  }
-
-  .mTop3 {
-    display: -webkit-box;
-    display: flex; /* single-direction layout concept. */
-    -webkit-box-pack: center;
-    justify-content: center; /* items are centered along the line */
-  }
-
-  /* Desktop only MQ */
-  @media screen and (min-width: 900px) {
-    .dTop {
-      display: -webkit-box;
-      display: flex; /* single-direction layout concept. */
-      flex-wrap: wrap; /* flex items will wrap onto multiple lines, from top to bottom.
-    By default, flex items will all try to fit onto one line */
-      -webkit-box-pack: justify;
-      justify-content: space-between; /* alignment along the main axis
-    items are evenly distributed in the line; first item is on the start line, last item on the end line */
-      -webkit-box-align: baseline;
-      align-items: baseline; /* how flex items are laid out along the cross axis on the current line.
     Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align */
-    }
   }
+}
 
-  /* ===== dom flexbox - END ===== */
+/* ===== dom flexbox - END ===== */
 
-  /* ====================
+/* ====================
        BUTTON STYLES
 ======================= */
 
-  /* ===== button styles - END ===== */
+/* ===== button styles - END ===== */
 
-  /* ====================
+/* ====================
   CUSTOM COLUMN CLASSES
 ======================= */
 
-  /* FOR FORTY NAWAWI */
+/* FOR FORTY NAWAWI */
 
-  /* CHANGE123 classes and fonts */
+/* CHANGE123 classes and fonts */
 
-  /* removes justify from ar dv (titles and refs) + rs.
+/* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells like surukhi, masdars.
 so right align to prevent gaps in text */
+.dataTable tr td.fnCol2,
+.dataTable tr td.fnCol3,
+.dataTable tr td.fnCol7,
+.dataTable tr td.fnCol8,
+.dataTable tr td.fnCol9 {
+  text-align: right;
+}
+
+/* mobile only row centering, for rows with strings that are not long */
+@media screen and (max-width: 900px) {
+  .dataTable tr td.fnCol1,
   .dataTable tr td.fnCol2,
   .dataTable tr td.fnCol3,
   .dataTable tr td.fnCol7,
   .dataTable tr td.fnCol8,
   .dataTable tr td.fnCol9 {
-    text-align: right;
+    text-align: center;
   }
 
-  /* mobile only row centering, for rows with strings that are not long */
-  @media screen and (max-width: 900px) {
-    .dataTable tr td.fnCol1,
-    .dataTable tr td.fnCol2,
-    .dataTable tr td.fnCol3,
-    .dataTable tr td.fnCol7,
-    .dataTable tr td.fnCol8,
-    .dataTable tr td.fnCol9 {
-      text-align: center;
-    }
-
-    /* bold headers for mobile - first number at top */
-    .fnCol1 {
-      font-weight: bold;
-    }
+  /* bold headers for mobile - first number at top */
+  .fnCol1 {
+    font-weight: bold;
   }
+}
 
-  /* --- AR FONTS FOR TABLE --- */
+/* --- AR FONTS FOR TABLE --- */
 
-  /* tbody tr td.fnCol1, */
-  tbody tr td.fnCol2,
-  tbody tr td.fnCol4,
-  tbody tr td.fnCol5,
-  tbody tr td.fnCol7,
-  tbody tr td.fnCol9 {
-    font-family: "arFont", "dvFont", sans-serif;
-    font-size: 23px;
-    line-height: 1.7;
-    font-size-adjust: 0.1;
-  }
+/* tbody tr td.fnCol1, */
+tbody tr td.fnCol2,
+tbody tr td.fnCol4,
+tbody tr td.fnCol5,
+tbody tr td.fnCol7,
+tbody tr td.fnCol9 {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 23px;
+  line-height: 1.7;
+  font-size-adjust: 0.1;
+}
 
-  /* --- DV FONTS FOR TABLE --- */
+/* --- DV FONTS FOR TABLE --- */
 
-  /* .dataTable tr td.fnCol1, need this bigger */
-  .dataTable tr td.fnCol3,
-  .dataTable tr td.fnCol6,
-  .dataTable tr td.fnCol8 {
-    font-family: "dvFont", "arFont", sans-serif;
-    font-size: 17px;
-    line-height: 1.9;
-  }
+/* .dataTable tr td.fnCol1, need this bigger */
+.dataTable tr td.fnCol3,
+.dataTable tr td.fnCol6,
+.dataTable tr td.fnCol8 {
+  font-family: "dvFont", "arFont", sans-serif;
+  font-size: 17px;
+  line-height: 1.9;
+}
 
-  /* columns with ar numbers */
-  .dataTable tr td.fnCol7,
-  .dataTable tr td.fnCol9 {
-    font-family: "arFont", "dvFont", sans-serif;
-    font-size: 21px;
-  }
+/* columns with ar numbers */
+.dataTable tr td.fnCol7,
+.dataTable tr td.fnCol9 {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 21px;
+}
 
-  /* css for first column
+/* css for first column
 # number column cuz it has hashtag and digits */
-  .dataTable tr td.fnCol1 {
-    font-family: "dvFont", "arFont", sans-serif;
-    font-size: 21px;
-  }
+.dataTable tr td.fnCol1 {
+  font-family: "dvFont", "arFont", sans-serif;
+  font-size: 21px;
+}
 
-  /* ===================
+/* ===================
      FOR ALL HADITH 
 ===================== */
 
-  /* removes justify from ar dv (titles and refs) + rs.
+/* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells like surukhi, masdars.
 so right align to prevent gaps in text */
-  .dataTable tr td.ahCol1 {
-    text-align: right;
+.dataTable tr td.ahCol1 {
+  text-align: right;
+}
+
+/* mobile only row centering, for rows with strings that are not long */
+@media screen and (max-width: 900px) {
+  .dataTable tr td.ahCol1,
+  .dataTable tr td.ahCol5 {
+    text-align: center;
   }
 
-  /* mobile only row centering, for rows with strings that are not long */
-  @media screen and (max-width: 900px) {
-    .dataTable tr td.ahCol1,
-    .dataTable tr td.ahCol5 {
-      text-align: center;
-    }
-
-    /* bold headers for mobile - first number at top */
-    .ahCol1 {
-      font-weight: bold;
-    }
+  /* bold headers for mobile - first number at top */
+  .ahCol1 {
+    font-weight: bold;
   }
+}
 
-  /* --- AR FONTS FOR TABLE --- */
+/* --- AR FONTS FOR TABLE --- */
 
-  /* tbody tr td.ahCol1, */
-  tbody tr td.ahCol2,
-  tbody tr td.ahCol3 {
-    font-family: "arFont", "dvFont", sans-serif;
-    font-size: 23px;
-    line-height: 1.7;
-    font-size-adjust: 0.1;
-  }
+/* tbody tr td.ahCol1, */
+tbody tr td.ahCol2,
+tbody tr td.ahCol3 {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 23px;
+  line-height: 1.7;
+  font-size-adjust: 0.1;
+}
 
-  /* --- DV FONTS FOR TABLE --- */
+/* --- DV FONTS FOR TABLE --- */
 
-  /* .dataTable tr td.fnCol1, need this bigger */
-  .dataTable tr td.ahCol4 {
-    font-family: "dvFont", "arFont", sans-serif;
-    font-size: 17px;
-    line-height: 1.9;
-  }
+/* .dataTable tr td.fnCol1, need this bigger */
+.dataTable tr td.ahCol4 {
+  font-family: "dvFont", "arFont", sans-serif;
+  font-size: 17px;
+  line-height: 1.9;
+}
 
-  /* columns with ar numbers
+/* columns with ar numbers
 .dataTable tr td.ahCol7,
 .dataTable tr td.ahCol9 {
   font-family: "arFont", "dvFont", sans-serif;
   font-size: 21px;
 } */
 
-  /* css for first column
+/* css for first column
 cuz it has hashtag and digits */
-  .dataTable tr td.ahCol1 {
-    font-size: 21px;
-  }
-
-  /* extra changes from fnCols */
-  .dataTable tr td.ahCol5 {
-    text-align: center;
-    font-size: 18px;
-  }
-
-  /* ===== custom column classes - END ===== */
+.dataTable tr td.ahCol1 {
+  font-size: 21px;
 }
+
+/* extra changes from fnCols */
+.dataTable tr td.ahCol5 {
+  text-align: center;
+  font-size: 18px;
+}
+
+/* ===== custom column classes - END ===== */
