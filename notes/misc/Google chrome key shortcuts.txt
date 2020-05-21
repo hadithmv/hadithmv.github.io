@@ -1,7 +1,7 @@
 space = scroll down a page (+shift is up)
 
 ctrl + tab = next tab (+shift = previous) or ctrl + pgup/dwn
-ctrl + w = close current tab
+ctrl + w = close current tab (+shift = close window)
 ctrl + shift + t = restore closed tab (can do multiple times)
 ctrl + num = go to that tab in order (9 is last tab)
 
@@ -17,7 +17,8 @@ alt + d = go to omnibox (can also use ctrl+e/l/k)
 
 ctrl + r = refresh (+shift = without cache)
 
-
+ctrl + t = new tab
+ctrl + n = new window (+shift = incognito)
 
 
 
@@ -29,12 +30,8 @@ ctrl + u = view page sourcecode
 
 tab = move along items
 
-ctrl + t = new tab
 
 
-
-ctrl + n = new window (+shift = incognito)
-ctrl + shift + w = close window
 
 
 

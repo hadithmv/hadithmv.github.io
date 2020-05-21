@@ -731,8 +731,7 @@ so right align to prevent gaps in text */
   }
 }
 
-/* --- AR FONTS FOR TABLE 
-dont change .dataTable to table, otherwise firefox wont apply the font css --- */
+/* --- AR FONTS FOR TABLE --- */
 
 /* tbody tr td.fnCol1, */
 .dataTable tr td.fnCol2,
@@ -743,7 +742,8 @@ dont change .dataTable to table, otherwise firefox wont apply the font css --- *
   font-family: "arFont", "dvFont", sans-serif;
   font-size: 23px;
   line-height: 1.7;
-  font-size-adjust: 0.1;
+
+  /* font-size-adjust: 0.1; this breaks firefox font size */
 }
 
 /* --- DV FONTS FOR TABLE --- */
@@ -803,7 +803,6 @@ so right align to prevent gaps in text */
   font-family: "arFont", "dvFont", sans-serif;
   font-size: 23px;
   line-height: 1.7;
-  font-size-adjust: 0.1;
 }
 
 /* --- DV FONTS FOR TABLE --- */

@@ -27,7 +27,8 @@ check dhiv ms next time on hdrive
        REMINDERS
 ====================
 maybe make navbar thinner?
-make pagination row shorter or flex or less wide mobiles -check troy
+tryout manjaro theme colors
+
 site column css broke on firefox desktop
 safari browser doesnt show anything
 ie 10/11 dont show anything -not going to fix
