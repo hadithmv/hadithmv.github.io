@@ -3,26 +3,28 @@
 ====================
 ftp://192.168.43.1:2121
 
-install ps in other drive, learn ps
+learn ps
 learn touchtyping
 learn more js
-add tasks to vsc
+add tasks to vsc, add builds to github
+
+clean up gdrive
+clean inbox
+sort hdd
+check dhiv ms next time on hdrive?
 
 find something that has actual live preview like https://www.activestate.com/products/komodo-ide/
 
-2 monitors?
-usb hub
+2 monitors?	usb hub
 
 they say silsilathu sahiha is best and in depth, while saheeh <book>s are shorter and just the ruling
 
-clean up gdrive
-rename grasshopper
-clean inbox
-vc, sort hdd
-check dhiv ms next time on hdrive
+--mdc-theme-primary: #0277bd;	--mdc-theme-secondary: #58a5f0;
 
---mdc-theme-primary: #0277bd;
---mdc-theme-secondary: #58a5f0;
+Google sheets copy formula for whole column:
+Double clicking on "drag indicator" (bottom right corner) will copy the formula to all cells. Make sure you CLEAR your column data first and only apply your formula to one.
+
+=SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(C2,"~",""),"ـ",""),"صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ","ﷺ")," ،","،")," :",":")," ؛","؛")," .",".")," ؟","؟")
 ----------------------
 
 ====================
@@ -38,11 +40,6 @@ how would you translate the word "تَغْزُو؟" in
 މީހަކު އަބްދު ﷲ ބިން ޢުމަރަށް ދެންނެވިއެވެ:
 އަބްދު ﷲ ބިން ޢުމަރަށް މީހަކު ދެންނެވިއެވެ:
 
-Google sheets copy formula for whole column:
-Double clicking on "drag indicator" (bottom right corner) will copy the formula to all cells. Make sure you CLEAR your column data first and only apply your formula to one.
-
-=SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(C2,"~",""),"ـ",""),"صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ","ﷺ")," ،","،")," :",":")," ؛","؛")," .",".")," ؟","؟")
-
 Add 40n hadith takhreej to allH
 skipped of 40n additions to allH: 2, 
 
@@ -56,7 +53,6 @@ find a better sub list name than "ޙަދީޘްތައް"
 find a better way to highlight for  data-focus="#first-link", maybe with less submenus
 
 auto build minify and push
-
 
 set links to ah and 40n within themselves
 
@@ -162,7 +158,6 @@ Ungannavaidhevv??
 Quran quotes 122 bukh add
 
 add to write?: Umdatul ahkam, Shamail muhammadiyya, Bulughul maram?
-
 ----------------------------------------
 
 ====================
