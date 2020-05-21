@@ -1,12 +1,22 @@
+win + e = open explorer
+
+ctrl + w = close desktop app
+alt + f4 = close windows app (uwp)
+
+ctrl + shift + n = new folder
+f2 = rename
+
+win + numbers = open pinned taskbar programs in order
+
 open command window: Hold Shift + Right Click the folder you want it opened on, and click "open command window here".
 
 use ms powertoys fancyzones
 
-win + e = open explorer
-ctrl + shift + n = new folder
-f2 = rename
-alt + arrow = move forward/back in browser
-win + numbers = open pinned taskbar programs in numerical order
+
+
+
+alt + arrow = move forward/back in explorer
+
 win + alt + number = open jump list of above app
 
 alt = reveal keyboard shortcuts in apps
@@ -55,8 +65,7 @@ shift + delete = permanent delete
 -----------------
 win + prtscre = save screenshot to screenshots
 
-ctrl + w = close desktop app
-alt + f4 = close windows app (uwp)
+
 
 ctrl + shift + v = paste as plain text
 shift + arrow = highlight text character

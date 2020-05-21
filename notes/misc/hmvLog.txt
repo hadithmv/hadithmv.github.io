@@ -26,9 +26,14 @@ check dhiv ms next time on hdrive
 ====================
        REMINDERS
 ====================
+maybe make navbar thinner?
+make pagination row shorter or flex or less wide mobiles -check troy
+site column css broke on firefox desktop
+safari browser doesnt show anything
+ie 10/11 dont show anything -not going to fix
+
 how would you translate the word "تَغْزُو؟" in
 16d
-
 أَنَّ رَجُلًا قَالَ لِعَبْدِ اللهِ بْنِ عُمَرَ: أَلَا تَغْزُو؟
 ހަމަކަށަވަރުން މީހަކު އަބްދު ﷲ ބިން ޢުމަރަށް ދެންނެވިއެވެ:
 މީހަކު އަބްދު ﷲ ބިން ޢުމަރަށް ދެންނެވިއެވެ:
