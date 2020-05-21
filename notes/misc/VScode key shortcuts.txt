@@ -1,9 +1,14 @@
+
+ctrl + k + c = toggle comment out
+
 opening files from explorer tree and quick open makes them open over each other in preview mode. to disable this go to settings, search for preview, turn off for 2 or 3 options.
 
 
 shift + ctrl + p = command palette
 ctrl + p = open typed file
 ctrl + n = new file in editor
+
+ctrl + u = go back to last cursor position
 
 ctrl + r = switch between workspaces (each folder is a workspace)
 
@@ -12,7 +17,7 @@ ctlr + g = jump to line
 ctrl + space = autocomplete / show suggestion to type / forces intellisense to open
 ctrl + tab = cycle tabs (+shift back)
 
-ctrl + k + c = toggle comment out
+
 shift + alt + right = select everything between brackets or quotes
 
 ctrl + \ = split editor
