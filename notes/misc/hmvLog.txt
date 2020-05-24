@@ -8,9 +8,6 @@ learn touchtyping
 learn more js
 add tasks to vsc, add builds to github
 
-clean up gdrive
-clean inbox
-sort hdd
 check dhiv ms next time on hdrive?
 
 find something that has actual live preview like https://www.activestate.com/products/komodo-ide/
@@ -20,16 +17,15 @@ find something that has actual live preview like https://www.activestate.com/pro
 they say silsilathu sahiha is best and in depth, while saheeh <book>s are shorter and just the ruling
 
 --mdc-theme-primary: #0277bd;	--mdc-theme-secondary: #58a5f0;
-
-Google sheets copy formula for whole column:
-Double clicking on "drag indicator" (bottom right corner) will copy the formula to all cells. Make sure you CLEAR your column data first and only apply your formula to one.
-
-=SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(C2,"~",""),"ـ",""),"صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ","ﷺ")," ،","،")," :",":")," ؛","؛")," .",".")," ؟","؟")
 ----------------------
 
 ====================
        REMINDERS
 ====================
+didnt add h41 nawawi to allhadith
+
+nest Allhadith in one json and fetch from that?
+
 maybe make navbar thinner?
 tryout manjaro theme colors
 
