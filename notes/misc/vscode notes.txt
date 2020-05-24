@@ -23,6 +23,10 @@ Do as it says.
 ====================
        CONFIG
 ====================
+
+Font: Fira Code
+Icons: VSC Icons
+
 remember to format, validate, lint, minify, lighthouse, remove unused code, treeshaking:
 prettier, set as default in vscode; format on save
 htmlhint (alt: w2 tidy html5)
@@ -31,10 +35,8 @@ prettier
 standardjs linter
 kangax, csso, closure compiler
 unused-CSS, purifyCSS, unCSS-online
+----------------------
 
-====================
-      CONFIG
-====================
 VSC KEYS:
 ctrl + p = command palette
 ctrl g = jump to line
