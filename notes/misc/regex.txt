@@ -2,7 +2,8 @@ Google sheets copy formula for whole column:
 Double clicking on "drag indicator" (bottom right corner) will copy the formula to all cells. Make sure you CLEAR your column data first and only apply your formula to one.
 
 Gsheets:
-=SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(E2,"~",""),"ـ",""),"صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ","ﷺ")," ،","،")," :",":")," ؛","؛")," .",".")," )",")"),"( ","(")," ؟","؟")
+=SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(E2,"~",""),"ـ",""),"صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ","ﷺ")," ،","،")," :",":")," ؛","؛"),"« ","«")," »","»")," .",".")," )",")"),"( ","(")," ؟","؟")
+
 
 ---
 
