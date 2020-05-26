@@ -1,7 +1,21 @@
 ====================
        OTHER
 ====================
-next allh 11
+”
+“
+❞
+❝
+ރަސޫލު ﷲ ﷺ
+
+އަބޫ ހުރައިރާ ރިވާ ކުރެއްވިއެވެ: ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”ސސސ“
+
+"those who don't automate are doomed to repeat themselves"
+check out winget when stable
+
+next allh 41
+
+later add 40n no 41 to allh:
+[حَتَّى يَكُونَ هَوَاهُ تَبَعًا لِمَا جِئْتُ بِهِ]
 
 ftp://192.168.43.1:2121
 
