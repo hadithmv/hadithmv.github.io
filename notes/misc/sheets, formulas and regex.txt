@@ -1,7 +1,13 @@
 Google sheets copy formula for whole column:
 Double clicking on "drag indicator" (bottom right corner) will copy the formula to all cells. Make sure you CLEAR your column data first and only apply your formula to one.
 
-Gsheets:
+Gsheets import table data from elsewhere (remember to skip one number for header cell):
+=IMPORTRANGE("https://docs.google.com/spreadsheets/d/1eGmJX17hkFge8xcPwJBZaj18gAjX6SmR7_eFsnnY-bU/edit#gid=0" , "E1:G67")
+
+=IMPORTRANGE
+("https://docs.google.com/spreadsheets/d/1G4ppBAng1myRYqFV2cEINDdxFG4IKYP0mhxEdWhUMcU/edit#gid=0" , "A1:H51")
+
+Gsheets remove things:
 =SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(E2,"~",""),"ـ",""),"صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ","ﷺ")," ،","،")," :",":")," ؛","؛"),"« ","«")," »","»")," .",".")," )",")"),"( ","(")," ؟","؟")
 
 ArRef Validation:
