@@ -1,3 +1,7 @@
+Ctrl + arrows = jump to end
+f4 = repeat last action
+
+
 Google sheets copy formula for whole column:
 Double clicking on "drag indicator" (bottom right corner) will copy the formula to all cells. Make sure you CLEAR your column data first and only apply your formula to one.
 
