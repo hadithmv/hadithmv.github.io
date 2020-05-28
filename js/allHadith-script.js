@@ -110,11 +110,11 @@ $(document).ready(() => {
       {
         data: 2,
         title: 'ދިވެހި ތަރުޖަމާ'
-      },
-      {
-        data: 3,
-        title: 'ތަޚްރީޖު'
       }
+      // add takhrij and stuff later {
+      //   data: 3,
+      //   title: 'ތަޚްރީޖު'
+      // }
     ],
 
     columnDefs: [
@@ -145,12 +145,12 @@ $(document).ready(() => {
         visible: true,
         searchable: true
       },
-      {
-        className: 'ahCol5', // Thakhrij
-        targets: [4],
-        visible: false,
-        searchable: true
-      },
+      // add takhrij and stuff later {
+      //   className: 'ahCol5', // Thakhrij
+      //   targets: [4],
+      //   visible: false,
+      //   searchable: true
+      // },
 
       // below strips html tags off keystable copy, second part with keys on
       {
