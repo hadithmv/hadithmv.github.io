@@ -37,10 +37,10 @@ $(document).ready(() => {
       // desktop, goes rtl --> //'<"dTop"pBfl>rt<"bottom"ip>',
       dom: '<"dTop"pBfl>rtip',
       pageLength: 3, // # rows to display on single page when using pagination
-      lengthMenu: [
-        [1, 2, 3, 5, 7, 10, 15, 20, -1],
-        [1, 2, '3 ދައްކާ', 5, 7, 10, 15, 20, 'ހުރިހައި']
-      ], // display range of pages
+      // lengthMenu: [
+      //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
+      //   [1, 2, '3 ދައްކާ', 5, 7, 10, 15, 20, 'ހުރިހައި']
+      // ], // display range of pages
       keys: { clipboardOrthogonal: 'export' }, // strip htmltags off keys copy
       language: {
         paginate: {
@@ -61,10 +61,10 @@ $(document).ready(() => {
       // mobile //'<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rt <"bottom"ip>',
       dom: '<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rtip', // moved to js MQ; dom: '<"dTop"pBfl>rtip',
       pageLength: 1,
-      lengthMenu: [
-        [1, 2, 3, 5, 7, 10, 15, 20, -1],
-        ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހައި']
-      ], // display range of pages
+      // lengthMenu: [
+      //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
+      //   ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހައި']
+      // ], // display range of pages
       language: {
         paginate: {
         // &nbsp; prevents line breaks
@@ -268,8 +268,7 @@ $(document).ready(() => {
     // or 2Darray where 1st inner array=page length values, 2nd displayed options
     // -1 is used as a value this tells DataTables to disable pagination
     // Default [ 10, 25, 50, 100 ],
-    // lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ["1 ޙަދީޘް ދައްކާ", 2, 3, 5,
-    // 7, 10, 15, 20, "ހުރިހައި"]],
+    lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހައި']],
     // lengthMenu: [ [5, 10, 20, 30, 40, -1, 1], ["Show 5", 10, 20, 30, 40,
     // "All", 1] ],
 
