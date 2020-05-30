@@ -28,5 +28,5 @@ Screengrab!
 ...
 	deleting this folder:
 C:\Users\usernamehere\AppData\Local\Google\Chrome\User Data\Crashpad
-	solves getting this error in debug files everywhere:
+	solves getting this error in debug.log files everywhere:
 [0104/143945.449:ERROR:crash_report_database_win.cc(469)] failed to stat report
