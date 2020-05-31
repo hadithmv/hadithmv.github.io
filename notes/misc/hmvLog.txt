@@ -1,6 +1,8 @@
 ====================
        OTHER
 ====================
+
+check if numbers match harf
 ”
 “
 ❞
@@ -57,8 +59,6 @@ how would you translate the word "تَغْزُو؟" in
 އަބްދު ﷲ ބިން ޢުމަރަށް މީހަކު ދެންނެވިއެވެ:
 
 Add 40n hadith takhreej to allH
-skipped of 40n additions to allH: 2, 
-
 add current bukhari takhrij to allH
 get sahhahadith hadith - forwarded til 16.5.20
 get abu huraira challenge hadith - forwared 16.5.20, now needs ocr
