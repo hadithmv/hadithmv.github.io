@@ -14,8 +14,12 @@ Gsheets import table data from elsewhere (remember to skip one number for header
 Gsheets remove things:
 =SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(E2,"~",""),"ـ",""),"صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ","ﷺ")," ،","،")," :",":")," ؛","؛"),"« ","«")," »","»")," .",".")," )",")"),"( ","(")," ؟","؟")
 
-ArRef Validation:
-البخاري,مسلم,أبو داود,الترمذي,النسائي,ابن ماجه,مالك,أحمد,الدارمي,ابن جارود,ابن خزيمة,الدارقطني,الحاكم,البيهقي
+ArRef Data > Data Validation:
+Cell range: Sheet1!B2
+Criteria: List of items
+Show dropdown list in cell
+Show warning
+صحيح البخاري,صحيح مسلم, سنن أبي داود,سنن الترمذي,سنن النسائي,سنن ابن ماجه,موطأ مالك,مسند أحمد,سنن الدارمي,منتقى ابن جارود,صحيح ابن خزيمة,سنن الدارقطني,مستدرك الحاكم,سنن البيهقي
 ---
 
 \/\*(.+?)
