@@ -11,6 +11,9 @@ Gsheets import table data from elsewhere (remember to skip one number for header
 =IMPORTRANGE
 ("https://docs.google.com/spreadsheets/d/1G4ppBAng1myRYqFV2cEINDdxFG4IKYP0mhxEdWhUMcU/edit#gid=0" , "A1:H51")
 
+ّ  َ  ً  ُ  ٌ  ِ  ٍ ~ ْ  ـ 
+صلى الله عليه وسلم ﷺ
+
 Gsheets remove things:
 =SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(E2,"~",""),"ـ",""),"صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ","ﷺ")," ،","،")," :",":")," ؛","؛"),"« ","«")," »","»")," .",".")," )",")"),"( ","(")," ؟","؟")
 

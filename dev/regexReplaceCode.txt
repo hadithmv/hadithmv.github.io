@@ -1,3 +1,0 @@
-ّ  َ  ً  ُ  ٌ  ِ  ٍ ~ ْ  ـ 
-صلى الله عليه وسلم ﷺ
-=SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(C2,"ّ",""),"َ",""),"ً",""),"ُ",""),"ٌ",""),"ِ",""),"ٍ",""),"~",""),"ْ",""),"ـ",""),"صلى الله عليه وسلم","ﷺ")," ،","،")," :",":")," .","."),"ġ","g")
