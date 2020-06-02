@@ -88,10 +88,10 @@
 
     <!-- / CHANGE123 JS
       'http://www.convertcsv.com/csv-to-json.htm', convert spreashsheet CSV to JSON Array. -->
-    <script src="../../js/40nHadith.json"></script>
+    <script src="../../js/otherHadith.json"></script>
 
     <!-- Custom JS -->
-    <script src="../../js/fortyN-script.js"></script>
+    <script src="../../js/otherHadith-script.js"></script>
 
     <!-- ===== ===== JS LIBRARIES - END ===== ===== -->
   </head>
@@ -107,17 +107,23 @@
     <!-- added menu-btn to activate menu -->
 
     <!-- Pushy Menu -->
-    <nav class="pushy pushy-right" data-focus="#first-link">
+    <nav class="pushy pushy-right"  data-focus="#first-link">
       <!-- <nav class="pushy pushy-left"-->
       <div class="pushy-content pushy-right">
         <ul>
           <!-- Submenu -->
           <li class="pushy-submenu">
-            <button id="first-link">ނަވަވީގެ 40 ޙަދީޘް</button>  <!-- / CHANGE123 FIRST LINK -->
+            <button>ނަވަވީގެ 40 ޙަދީޘް</button>   <!-- / CHANGE123 FIRST LINK -->
             <!-- button id="first-link" sets focus on open menu -->
             <ul>
               <li class="pushy-link" onclick="openLink(event, 'fortyNTab')">
                 <a href="#">ޙަދީޘްތައް</a>
+                <!--
+                href="https://hadithmv.github.io/dev/allHadith/saheehain-uc.html"
+                target="_blank"
+                rel="noopener"
+                >ޙަދީޘްތައް</a>
+                -->
               </li>
               <li class="pushy-link">
                 <a
@@ -135,7 +141,7 @@
           </li>
 
           <li class="pushy-submenu">
-            <button>އިތުރު ޙަދީޘްތައް</button> <!-- / CHANGE123 FIRST LINK -->
+            <button id="first-link">އިތުރު ޙަދީޘްތައް</button>    <!-- / CHANGE123 FIRST LINK -->
             <ul>
               <!-- <li class="pushy-link" onclick="openLink(event, 'bukhariTab')" for offline tabs 
               <li class="pushy-link">
@@ -152,13 +158,6 @@
               </li>
               <li class="pushy-link" onclick="openLink(event, 'otherHadithTab')">
                 <a href="#">އެހެނިހެން ޙަދީޘްތައް</a>
-                <!--
-                <a
-                href="../../notes/introFortyN/introFortyN.html"
-                target="_blank"
-                rel="noopener"
-                >ޙަދީޘްތައް</a>
-                -->
               </li>
             </ul>
           </li>
@@ -257,7 +256,7 @@
 
     <!-- Your Content after pushy sidebar, has to have this id or pushy navbar wont work -->
     <div id="container">
-      <!-- <button class="menu-btn">&#9776; Menu</button>  -->
+      <!-- <button class="menu-btn">&#9776; Menu</button> -->
 
       <!-- myTabs - MOVED INTO PUSHY MENU ABOVE
         <button class="tablink" onclick="openLink(event, 'Right')">Right</button>
@@ -265,7 +264,7 @@
 
       <!-- First tab
       / CHANGE123 TAB -->
-      <div id="fortyNTab" class="myTab w3-animate-right">
+      <div id="otherHadithTab" class="myTab w3-animate-right">
         <!-- if these tab classes and IDs are given to table, dt wrapper wont hide when tabbed away -->
 
         <!-- DT table classes
@@ -278,18 +277,14 @@
         <!-- added myTab and w3-animate-right for tabs -->
         <!-- ===== TABLE =====
             / CHANGE123 TABLE -->
-        <table id="fortyNTable" class="stripe table"> <!-- fnClass -->
+        <table id="otherHadithTable" class="stripe table"> <!-- fnClass -->
           <thead>
             <tr>
               <th></th>
               <th></th>
               <th></th>
               <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
+              <!-- <th></th> add takhrij and stuff later -->
             </tr>
           </thead>
         </table>
