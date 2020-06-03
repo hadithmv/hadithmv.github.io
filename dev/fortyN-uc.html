@@ -22,16 +22,16 @@
     <!-- ===== ===== CSS LIBRARIES ===== ===== -->
 
     <!-- DATATABLES CSS 1.10.21 -Originally 1.10.3 -->
-    <link rel="stylesheet" href="../../css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="../css/jquery.dataTables.min.css" />
 
     <!--Datatable Buttons Css 1.6.2 -->
-    <link rel="stylesheet" href="../../css/buttons.dataTables.min.css" />
+    <link rel="stylesheet" href="../css/buttons.dataTables.min.css" />
 
     <!-- pushy js sidebar -->
-    <link rel="stylesheet" href="../../css/pushy-mod.css" />
+    <link rel="stylesheet" href="../css/pushy-mod.css" />
 
     <!-- custom css -->
-    <link rel="stylesheet" href="../../css/hmv-styles.css" />
+    <link rel="stylesheet" href="../css/hmv-styles.css" />
 
     <!-- ===== ===== CSS LIBRARIES - END ===== ===== -->
 
@@ -39,20 +39,20 @@
 
     <!-- JQUERY 3.5.1 - Needed for DT, and BS if present. Originally 2.2.1 
         must remain at the top and not the bottom -->
-    <script src="../../js/jquery.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
 
     <!-- DATATABLES JS 1.10.21 - DT Core. Originally 1.10.3 -->
-    <script src="../../js/jquery.dataTables.min.js"></script>
+    <script src="../js/jquery.dataTables.min.js"></script>
 
     <!-- ===== DT JS extensions ===== -->
     <!-- DT Buttons 1.6.2 -->
-    <script src="../../js/dataTables.buttons.min.js"></script>
+    <script src="../js/dataTables.buttons.min.js"></script>
 
     <!-- DT Colvis 1.6.2 -->
-    <script src="../../js/buttons.colVis.min.js"></script>
+    <script src="../js/buttons.colVis.min.js"></script>
 
     <!-- DT Html5 1.6.2 -->
-    <script src="../../js/buttons.html5.min.js"></script>
+    <script src="../js/buttons.html5.min.js"></script>
 
     <!-- DT Excel Export - jszip 3.2.0 - Originally 2.5.0 - gets bigger
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.min.js"></script> -->
@@ -61,37 +61,37 @@
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.57/vfs_fonts.js"></script> -->
 
     <!-- DT Keytable 2.5.2 -->
-    <script src="../../js/dataTables.keyTable.min.js"></script>
+    <script src="../js/dataTables.keyTable.min.js"></script>
 
     <!-- DT Input - they dont have a min version on their cdn, made my own - not fully integrated yet with them.
     https://github.com/DataTables/Plugins/blob/master/pagination/input.js -->
-    <script src="../../js/input.js"></script>
+    <script src="../js/input.js"></script>
 
     <!-- DT Keep Conditions 1.2.0
     https://github.com/jhyland87/DataTables-Keep-Conditions/tree/master/dist
     https://www.gyrocode.com/articles/jquery-datatables-save-and-restore-table-state-using-unique-url/ -->
-    <script src="../../js/dataTables.keepConditions.min.js"></script>
+    <script src="../js/dataTables.keepConditions.min.js"></script>
 
     <!-- DT Mark Js - Css file content included with the header Css
                 9.0.0 seems to work now. previously (Keep at 8.11.1 - Upgrading to 9 breaks highlight) 
                 https://github.com/julmot/mark.js/tree/master/dist
                 https://github.com/julmot/datatables.mark.js/tree/master/dist -->
-    <script src="../../js/jquery.mark.min.js"></script>
-    <script src="../../js/datatables.mark.min.js"></script>
+    <script src="../js/jquery.mark.min.js"></script>
+    <script src="../js/datatables.mark.min.js"></script>
 
     <!-- pushy js has to come at the end of doc or sidebar wont work -->
     <!-- pushy js sidebar - this was moved to end
-    <script src="../../js/pushy.js"></script>-->
+    <script src="../js/pushy.js"></script>-->
 
     <!-- Hammerjs 2.0.8 -->
-    <script src="../../js/hammer.min.js"></script>
+    <script src="../js/hammer.min.js"></script>
 
     <!-- / CHANGE123 JS
       'http://www.convertcsv.com/csv-to-json.htm', convert spreashsheet CSV to JSON Array. -->
-    <script src="../../js/otherHadith.json"></script>
+    <script src="../js/40nHadith.json"></script>
 
     <!-- Custom JS -->
-    <script src="../../js/otherHadith-script.js"></script>
+    <script src="../js/fortyN-script.js"></script>
 
     <!-- ===== ===== JS LIBRARIES - END ===== ===== -->
   </head>
@@ -107,27 +107,21 @@
     <!-- added menu-btn to activate menu -->
 
     <!-- Pushy Menu -->
-    <nav class="pushy pushy-right"  data-focus="#first-link">
+    <nav class="pushy pushy-right" data-focus="#first-link">
       <!-- <nav class="pushy pushy-left"-->
       <div class="pushy-content pushy-right">
         <ul>
           <!-- Submenu -->
           <li class="pushy-submenu">
-            <button>ނަވަވީގެ 40 ޙަދީޘް</button>   <!-- / CHANGE123 FIRST LINK -->
+            <button id="first-link">ނަވަވީގެ 40 ޙަދީޘް</button>  <!-- / CHANGE123 FIRST LINK -->
             <!-- button id="first-link" sets focus on open menu -->
             <ul>
               <li class="pushy-link" onclick="openLink(event, 'fortyNTab')">
                 <a href="#">ޙަދީޘްތައް</a>
-                <!--
-                href="https://hadithmv.github.io/dev/allHadith/saheehain-uc.html"
-                target="_blank"
-                rel="noopener"
-                >ޙަދީޘްތައް</a>
-                -->
               </li>
               <li class="pushy-link">
                 <a
-                  href="../../notes/introFortyN/introFortyN.html"
+                  href="../notes/introFortyN/introFortyN.html"
                   target="_blank"
                   rel="noopener"
                   >ތަޢާރަފު</a
@@ -141,7 +135,7 @@
           </li>
 
           <li class="pushy-submenu">
-            <button id="first-link">އިތުރު ޙަދީޘްތައް</button>    <!-- / CHANGE123 FIRST LINK -->
+            <button>އިތުރު ޙަދީޘްތައް</button> <!-- / CHANGE123 FIRST LINK -->
             <ul>
               <!-- <li class="pushy-link" onclick="openLink(event, 'bukhariTab')" for offline tabs 
               <li class="pushy-link">
@@ -158,6 +152,13 @@
               </li>
               <li class="pushy-link" onclick="openLink(event, 'otherHadithTab')">
                 <a href="#">އެހެނިހެން ޙަދީޘްތައް</a>
+                <!--
+                <a
+                href="../notes/introFortyN/introFortyN.html"
+                target="_blank"
+                rel="noopener"
+                >ޙަދީޘްތައް</a>
+                -->
               </li>
             </ul>
           </li>
@@ -175,7 +176,7 @@
             <ul>
               <li class="pushy-link">
                 <a
-                  href="../../notes/introHmv/introHmv.html"
+                  href="../notes/introHmv/introHmv.html"
                   target="_blank"
                   rel="noopener"
                   >އިތުރު މައުލޫމާތު</a
@@ -239,9 +240,16 @@
               </li>
             </ul>
           </li>
-
+<br>
           <li>
             <a>އިސްދާރު: <span class="hmvVer">2.0</span> ⚙️</a>
+          </li>
+
+          <li>
+            <a class="madeby"
+            href="https://telegram.me/yahyasdad"
+            target="_blank"
+            rel="noopener">ހެދީ: ޔަޙްޔާގެބައްޕަ</a>
           </li>
         </ul>
 
@@ -256,7 +264,7 @@
 
     <!-- Your Content after pushy sidebar, has to have this id or pushy navbar wont work -->
     <div id="container">
-      <!-- <button class="menu-btn">&#9776; Menu</button> -->
+      <!-- <button class="menu-btn">&#9776; Menu</button>  -->
 
       <!-- myTabs - MOVED INTO PUSHY MENU ABOVE
         <button class="tablink" onclick="openLink(event, 'Right')">Right</button>
@@ -264,7 +272,7 @@
 
       <!-- First tab
       / CHANGE123 TAB -->
-      <div id="otherHadithTab" class="myTab w3-animate-right">
+      <div id="fortyNTab" class="myTab w3-animate-right">
         <!-- if these tab classes and IDs are given to table, dt wrapper wont hide when tabbed away -->
 
         <!-- DT table classes
@@ -277,17 +285,21 @@
         <!-- added myTab and w3-animate-right for tabs -->
         <!-- ===== TABLE =====
             / CHANGE123 TABLE -->
-        <table id="otherHadithTable" class="stripe table"> <!-- fnClass -->
+        <table id="fortyNTable" class="stripe table"> <!-- fnClass -->
           <thead>
             <tr>
               <th></th>
               <th></th>
               <th></th>
               <th></th>
-              <!-- <th></th> add takhrij and stuff later -->
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
-        </table>
+        </table>        
         <!-- ===== TABLE - END ===== -->
       </div>
       <!-- <div id="fortyNTab" class="myTab w3-animate-right"> first tab END -->
@@ -309,7 +321,7 @@
 
     <!-- pushy js has to come at the end of doc or sidebar wont work -->
     <!-- pushy js sidebar -->
-    <script src="../../js/pushy.js"></script>
+    <script src="../js/pushy.js"></script>
   </body>
   <!-- ===== BODY - END ===== -->
 </html>
