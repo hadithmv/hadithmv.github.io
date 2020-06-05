@@ -316,11 +316,11 @@ $(document).ready(() => {
 
       info: '_TOTAL_ ޙަދީޘްގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް',
       infoFiltered: '(ޖުމްލަ ބެލެވުނީ _MAX_)',
-      infoEmpty: 'ނުފެނުނު',
+      infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
       searchPlaceholder: 'ހޯއްދަވާ...',
-      zeroRecords: 'ނުފެނުނު'
+      zeroRecords: '- ނުފެނުނު -'
     }, //= =================== End of Internationalisation
 
     //= ====================
