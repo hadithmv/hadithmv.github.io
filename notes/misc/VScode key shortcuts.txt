@@ -78,6 +78,11 @@ ctrl + k, then ctrl + s = show keybindings
 
 ctrl + shift + o = go to symbol (variables or selectors)
 
+When you first open VSCode, configure it. Turn on auto save (File -> Auto Save) and enable word wrap (View -> Toggle Word Wrap). It could save you time
+
+write "log" and it will offer you console.log()
+
+
 
 
 

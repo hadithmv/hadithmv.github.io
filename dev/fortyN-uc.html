@@ -10,7 +10,7 @@
     <meta charset="UTF-8" />
     <meta name="google" content="notranslate" />
 
-    <link rel=”canonical” href=”https://hadithmv.github.io/” />
+    <link rel="canonical" href="https://hadithmv.github.io/" />
 
     <!-- makes responsive for mobile -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,7 +21,6 @@
       content="Hadith translations in Dhivehi, now at your fingertips. - Imam Nawawi's 40 hadith."
     />
     <!-- ===== ===== META TAGS - END ===== ===== -->
-
 
     <!-- ===== ===== CSS LIBRARIES ===== ===== -->
 
@@ -39,7 +38,6 @@
 
     <!-- ===== ===== CSS LIBRARIES - END ===== ===== -->
 
-    
     <!-- ===== ===== JS LIBRARIES ===== ===== -->
 
     <!-- JQUERY 3.5.1 - Needed for DT, and BS if present. Originally 2.2.1 
@@ -118,7 +116,8 @@
         <ul>
           <!-- Submenu -->
           <li class="pushy-submenu">
-            <button id="first-link">ނަވަވީގެ 40 ޙަދީޘް</button>  <!-- / CHANGE123 FIRST LINK -->
+            <button id="first-link">ނަވަވީގެ 40 ޙަދީޘް</button>
+            <!-- / CHANGE123 FIRST LINK -->
             <!-- button id="first-link" sets focus on open menu -->
             <ul>
               <li class="pushy-link" onclick="openLink(event, 'fortyNTab')">
@@ -140,7 +139,8 @@
           </li>
 
           <li class="pushy-submenu">
-            <button>އިތުރު ޙަދީޘްތައް</button> <!-- / CHANGE123 FIRST LINK -->
+            <button>އިތުރު ޙަދީޘްތައް</button>
+            <!-- / CHANGE123 FIRST LINK -->
             <ul>
               <!-- <li class="pushy-link" onclick="openLink(event, 'bukhariTab')" for offline tabs 
               <li class="pushy-link">
@@ -155,7 +155,10 @@
               <li class="pushy-link" onclick="openLink(event, 'saheehainTab')">
                 <a href="#">ޞަޙީޙައިން</a>
               </li>
-              <li class="pushy-link" onclick="openLink(event, 'otherHadithTab')">
+              <li
+                class="pushy-link"
+                onclick="openLink(event, 'otherHadithTab')"
+              >
                 <a href="#">އެހެނިހެން ޙަދީޘްތައް</a>
                 <!--
                 <a
@@ -167,14 +170,6 @@
               </li>
             </ul>
           </li>
-          <!-- single space is collapsing on android webview, double spaces seem to stop it
-            <p dir="rtl">صفحة الترجمة لموقع <span dir="ltr">W3C</span> على الرابط</p>
-<button><span>އިތުރު</span><span>ޙަދީޘްތައް</span> </button>
-<button dir="rtl">އިތުރު <span dir="ltr">W3C</span> ޙަދީޘްތައް</button>
-<button dir="rtl">އިތުރު <span dir="ltr"></span> ޙަދީޘްތައް</button>
-<button dir="rtl">އިތުރު <span></span> ޙަދީޘްތައް</button>
-<button>އިތުރު <span></span> ޙަދީޘްތައް</button>
-<button>އިތުރު ޙަދީޘްތައް</button> -->
 
           <li class="pushy-submenu">
             <button>އެހެނިހެން</button>
@@ -245,19 +240,20 @@
               </li>
             </ul>
           </li>
-<br>
+          <br />
           <li>
             <a>އިސްދާރު: <span class="hmvVer">2.0</span> ⚙️</a>
           </li>
 
           <li>
-            <a class="madeby"
-            href="https://telegram.me/yahyasdad"
-            target="_blank"
-            rel="noopener">ހެދީ: ޔަޙްޔާގެބައްޕަ</a>
+            <a
+              class="madeby"
+              href="https://telegram.me/yahyasdad"
+              target="_blank"
+              rel="noopener"
+              >ހެދީ: ޔަޙްޔާގެބައްޕަ</a
+            >
           </li>
-        </ul>
-
         </ul>
       </div>
       <!-- <div class="pushy-content pushy-right"> END -->
@@ -290,7 +286,8 @@
         <!-- added myTab and w3-animate-right for tabs -->
         <!-- ===== TABLE =====
             / CHANGE123 TABLE -->
-        <table id="fortyNTable" class="stripe table"> <!-- fnClass -->
+        <table id="fortyNTable" class="stripe table">
+          <!-- fnClass -->
           <thead>
             <tr>
               <th></th>
@@ -304,7 +301,7 @@
               <th></th>
             </tr>
           </thead>
-        </table>        
+        </table>
         <!-- ===== TABLE - END ===== -->
       </div>
       <!-- <div id="fortyNTab" class="myTab w3-animate-right"> first tab END -->
@@ -328,9 +325,6 @@
     <!-- pushy js sidebar -->
     <script src="../js/pushy.js"></script>
 
-
-
-
     <!-- New analytics code, but decided to use the old one below because it is faster
       Global site tag (gtag.js) - Google Analytics 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112777351-1"></script>
@@ -343,21 +337,31 @@
 </script>-->
 
     <!-- Google Analytics -->
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  
-  ga('create', 'UA-112777351-1', 'auto');
-  ga('send', 'pageview');
-  </script>
-  <!-- End Google Analytics -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function () {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(
+        window,
+        document,
+        "script",
+        "https://www.google-analytics.com/analytics.js",
+        "ga"
+      );
 
-
-
-
-
+      ga("create", "UA-112777351-1", "auto");
+      ga("send", "pageview");
+    </script>
+    <!-- End Google Analytics -->
   </body>
   <!-- ===== BODY - END ===== -->
 </html>
