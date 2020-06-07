@@ -1,0 +1,7 @@
+buttons.colVis.min.js
+dataTables.buttons.min.js
+hammer.min.js
+input.js	-minified file not available from site
+jquery.dataTables.min.js
+
+remove comments in jquery.mark.min.js, otherwise ok
