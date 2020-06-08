@@ -5,6 +5,9 @@ long hadith in bukhari: 7, 32, 122,
 
 add external dependencies licenses and mentions
 test whether async/defer/plaint at head or end of body is faster
+loadcss from filamentgroup?
+
+maybe use searchpanes?
 check if unused css/js in DT stuff
 make things like hammer js loadable on media query?
 ”
