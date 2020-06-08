@@ -11,6 +11,10 @@ Gsheets import table data from elsewhere (remember to skip one number for header
 =IMPORTRANGE
 ("https://docs.google.com/spreadsheets/d/1G4ppBAng1myRYqFV2cEINDdxFG4IKYP0mhxEdWhUMcU/edit#gid=0" , "A1:H51")
 
+=sort(sort(A1:A),IFNA(REGEXEXTRACT(sort(A1:A)&"","[0-9]+")*1),1)
+
+=QUERY(IMPORTRANGE("https://docs.google.com/spreadsheets/d/1eGmJX17hkFge8xcPwJBZaj18gAjX6SmR7_eFsnnY-bU/edit#gid=0","D1:g216"),"Select * order by Col1 asc")
+
 ّ  َ  ً  ُ  ٌ  ِ  ٍ ~ ْ  ـ 
 صلى الله عليه وسلم ﷺ
 
