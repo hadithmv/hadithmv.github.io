@@ -23,7 +23,8 @@
     <!-- ===== ===== META TAGS - END ===== ===== -->
 
     <!-- ===== ===== CSS LIBRARIES ===== ===== -->
-
+    <style>
+      /*
     <!-- DATATABLES CSS 1.10.21 -Originally 1.10.3 -->
     <link rel="stylesheet" href="../css/jquery.dataTables.min.css" />
 
@@ -37,67 +38,10 @@
     <link rel="stylesheet" href="../css/hmv-styles.min.css" />
 
     <!-- ===== ===== CSS LIBRARIES - END ===== ===== -->
-
-    <!-- ===== ===== JS LIBRARIES ===== ===== -->
-
-    <!-- JQUERY 3.5.1 - Needed for DT, and BS if present. Originally 2.2.1 
-        must remain at the top and not the bottom 
-      -note: slim build breaks pagination. -->
-    <script src="../js/jquery.min.js"></script>
-
-    <!-- DATATABLES JS 1.10.21 - DT Core. Originally 1.10.3 -->
-    <script src="../js/jquery.dataTables.min.js"></script>
-
-    <!-- ===== DT JS extensions ===== -->
-    <!-- DT Buttons 1.6.2 -->
-    <script src="../js/dataTables.buttons.min.js"></script>
-
-    <!-- DT Colvis 1.6.2 -->
-    <script src="../js/buttons.colVis.min.js"></script>
-
-    <!-- DT Html5 1.6.2 -->
-    <script src="../js/buttons.html5.min.js"></script>
-
-    <!-- DT Excel Export - jszip 3.2.0 - Originally 2.5.0 - gets bigger
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.min.js"></script> -->
-    <!-- DT Pdf Export - pdfmake 0.1.57 - Originally 0.1.36 - gets bigger
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.57/pdfmake.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.57/vfs_fonts.js"></script> -->
-
-    <!-- DT Keytable 2.5.2 -->
-    <script src="../js/dataTables.keyTable.min.js"></script>
-
-    <!-- DT Input - they dont have a min version on their cdn, made my own - not fully integrated yet with them.
-    https://github.com/DataTables/Plugins/blob/master/pagination/input.js -->
-    <script src="../js/input.min.js"></script>
-
-    <!-- DT Keep Conditions 1.2.0
-    https://github.com/jhyland87/DataTables-Keep-Conditions/tree/master/dist
-    https://www.gyrocode.com/articles/jquery-datatables-save-and-restore-table-state-using-unique-url/ -->
-    <script src="../js/dataTables.keepConditions.min.js"></script>
-
-    <!-- DT Mark Js - Css file content included with the header Css
-                9.0.0 seems to work now. previously (Keep at 8.11.1 - Upgrading to 9 breaks highlight) 
-                https://github.com/julmot/mark.js/tree/master/dist
-                https://github.com/julmot/datatables.mark.js/tree/master/dist -->
-    <script src="../js/jquery.mark.min.js"></script>
-    <script src="../js/datatables.mark.min.js"></script>
-
-    <!-- pushy js has to come at the end of doc or sidebar wont work -->
-    <!-- pushy js sidebar - this was moved to end
-    <script src="../js/pushy.min.js"></script>-->
-
-    <!-- Hammerjs 2.0.8 -->
-    <script src="../js/hammer.min.js"></script>
-
-    <!-- / CHANGE123 JS
-      'http://www.convertcsv.com/csv-to-json.htm', convert spreashsheet CSV to JSON Array. -->
-    <script src="../js/40nHadith.json"></script>
-
-    <!-- Custom JS -->
-    <script src="../js/fortyN-script.min.js"></script>
-
-    <!-- ===== ===== JS LIBRARIES - END ===== ===== -->
+    */
+    </style>
+    <!-- COMBINED css -->
+    <link rel="stylesheet" href="../css/COMBcss.css" />
   </head>
   <!-- ===== HEAD - END ===== -->
 
@@ -320,17 +264,70 @@
     </div>
     <!-- Pushy content container - END === -->
 
-    <!-- ===== Google Analytics: change UA-XXXXX-Y to be your site's ID. =====
-  <script>
-    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
-    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
-  </script>
-  <script src="https://www.google-analytics.com/analytics.js" async></script>
-  -->
+    <!-- ===== ===== JS LIBRARIES ===== ===== -->
+    <!-- COMBINED js -->
+    <script src="../js/COMBjs.js"></script>
+    <style>
+      /*
+        <!-- JQUERY 3.5.1 - Needed for DT, and BS if present. Originally 2.2.1 
+            must remain at the top and not the bottom 
+          -note: slim build breaks pagination. -->
+        <script src="../js/jquery.min.js"></script>
+
+    <!-- DATATABLES JS 1.10.21 - DT Core. Originally 1.10.3 -->
+    <script src="../js/jquery.dataTables.min.js"></script>
+
+    <!-- ===== DT JS extensions ===== -->
+    <!-- DT Buttons 1.6.2 -->
+    <script src="../js/dataTables.buttons.min.js"></script>
+
+    <!-- DT Colvis 1.6.2 -->
+    <script src="../js/buttons.colVis.min.js"></script>
+
+    <!-- DT Html5 1.6.2 -->
+    <script src="../js/buttons.html5.min.js"></script>
+
+    <!-- -not currently used- DT Excel Export - jszip 3.2.0 - Originally 2.5.0 - gets bigger
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.min.js"></script> -->
+    <!-- -not currently used- DT Pdf Export - pdfmake 0.1.57 - Originally 0.1.36 - gets bigger
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.57/pdfmake.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.57/vfs_fonts.js"></script> -->
+
+    <!-- DT Keytable 2.5.2 -->
+    <script src="../js/dataTables.keyTable.min.js"></script>
+
+    <!-- DT Input - they dont have a min version on their cdn, made my own - not fully integrated yet with them.
+        https://github.com/DataTables/Plugins/blob/master/pagination/input.js -->
+    <script src="../js/input.min.js"></script>
+
+    <!-- DT Keep Conditions 1.2.0
+        https://github.com/jhyland87/DataTables-Keep-Conditions/tree/master/dist
+        https://www.gyrocode.com/articles/jquery-datatables-save-and-restore-table-state-using-unique-url/ -->
+    <script src="../js/dataTables.keepConditions.min.js"></script>
+
+    <!-- DT Mark Js - Css file content included with the header Css
+                    9.0.0 seems to work now. previously (Keep at 8.11.1 - Upgrading to 9 breaks highlight) 
+                    https://github.com/julmot/mark.js/tree/master/dist
+                    https://github.com/julmot/datatables.mark.js/tree/master/dist -->
+    <script src="../js/jquery.mark.min.js"></script>
+    <script src="../js/datatables.mark.min.js"></script>
 
     <!-- pushy js has to come at the end of doc or sidebar wont work -->
-    <!-- pushy js sidebar -->
-    <script src="../js/pushy.min.js"></script>
+    <!-- pushy js sidebar - this was moved to end
+        <script src="../js/pushy.min.js"></script>-->
+
+    <!-- Hammerjs 2.0.8 -->
+    <script src="../js/hammer.min.js"></script>
+            */
+    </style>
+    <!-- Custom JS -->
+    <script src="../js/fortyN-script.min.js"></script>
+
+    <!-- / CHANGE123 JS
+          'http://www.convertcsv.com/csv-to-json.htm', convert spreashsheet CSV to JSON Array. -->
+    <script src="../js/40nHadith.json"></script>
+
+    <!-- ===== ===== JS LIBRARIES - END ===== ===== -->
 
     <!-- New analytics code, but decided to use the old one below because it is faster
       Global site tag (gtag.js) - Google Analytics 

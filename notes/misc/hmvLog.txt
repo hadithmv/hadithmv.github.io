@@ -4,6 +4,7 @@
 long hadith in bukhari: 7, 32, 122, 
 
 check if unused css/js in DT stuff
+make things like hammer js loadable on media query?
 ”
 “
 ❞
