@@ -10,6 +10,7 @@ http://github.com/orderedlist/minimal
   src: url("../font/Yakout-Linotype-W20-Light-Copy6.woff2") format("woff2"),
     url("../font/Yakout-Linotype-W20-Light-Copy6.woff") format("woff"),
     url("../font/Yakout-Linotype-W20-Light-Copy6.ttf") format("truetype");
+  font-display: swap;
 }
 
 /* dhivehi */
@@ -18,6 +19,7 @@ http://github.com/orderedlist/minimal
   src: url("../font/mvtyper-Copy7.woff2") format("woff2"),
     url("../font/mvtyper-Copy7.woff") format("woff"),
     url("../font/mvtyper-Copy7.ttf") format("truetype");
+  font-display: swap;
 }
 
 /* ../ is parent dir
