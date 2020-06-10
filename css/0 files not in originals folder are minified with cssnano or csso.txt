@@ -9,5 +9,4 @@ Load priority:
 hmv-styles.min.css
 jquery.dataTables.min.css
 pushy-mod.min.css
-pushyarrow.svg
-
+buttons.dataTables.min.css
