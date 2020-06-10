@@ -7,6 +7,9 @@ add external dependencies licenses and mentions, contributions, thanks?
 add loading for datatable
 is an electron app viable? why not just give an all os supported plain html file
 get a simpler navbar
+maybe inline critical css?
+minifying everything all together?
+check if uglifyjs is any better (w options)
 test whether async/defer/plaint at head or end of body is faster
 loadcss from filamentgroup?
 
