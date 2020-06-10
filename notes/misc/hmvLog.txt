@@ -3,7 +3,10 @@
 ====================
 long hadith in bukhari: 7, 32, 122, 
 
-add external dependencies licenses and mentions
+add external dependencies licenses and mentions, contributions, thanks?
+add loading for datatable
+is an electron app viable? why not just give an all os supported plain html file
+get a simpler navbar
 test whether async/defer/plaint at head or end of body is faster
 loadcss from filamentgroup?
 
