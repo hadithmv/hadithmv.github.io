@@ -20,6 +20,8 @@ https://github.com/prettier/prettier
 https://github.com/stylelint/stylelint
 https://github.com/standard/standard
 
+https://github.com/GoogleChrome/lighthouse
+
 https://github.com/tonsky/FiraCode
 http://www.hassanhameed.com/?page_id=154
 
