@@ -33,3 +33,6 @@ https://gerrit.libreoffice.org
 https://www.json.org/json-en
 https://github.com/shancarter/Mr-Data-Converter
 https://gitlab.gnome.org/GNOME/meld
+
+https://github.com/yoksel/url-encoder
+https://compressor.io
