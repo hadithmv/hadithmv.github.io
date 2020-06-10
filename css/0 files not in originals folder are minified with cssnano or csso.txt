@@ -2,3 +2,12 @@ jquery.dataTables.min.css	cssnano
 buttons.dataTables.min.css	cssnano
 hmv-styles.css	csso
 pushy-mod.css	csso
+
+---
+
+Load priority:
+hmv-styles.min.css
+jquery.dataTables.min.css
+pushy-mod.min.css
+pushyarrow.svg
+
