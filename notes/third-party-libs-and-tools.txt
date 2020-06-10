@@ -1,32 +1,33 @@
-https://html5boilerplate.com
-https://jquery.com
-https://hammerjs.github.io
-https://datatables.net
-https://chrisyee.ca/pushy
-https://markjs.io
+https://github.com/h5bp/html5-boilerplate
+https://github.com/necolas/normalize.css
+https://github.com/jquery/jquery
+https://github.com/hammerjs
+https://github.com/DataTables/DataTables
+https://github.com/christophery/pushy
+https://github.com/julmot/mark.js
 
-https://www.google.com/chrome/
-https://code.visualstudio.com
+https://github.com/chromium/chromium
+https://github.com/microsoft/vscode
 https://developer.android.com/studio
 
-https://kangax.github.io/html-minifier
-https://developers.google.com/closure/compiler
-https://css.github.io/csso/csso
-https://cssnano.co
+https://github.com/kangax/html-minifier
+https://github.com/google/closure-compiler
+https://github.com/css/csso
+https://github.com/cssnano/cssnano
 
-https://htmlhint.com
-https://prettier.io
-https://stylelint.io
-https://standardjs.com
+https://github.com/htmlhint/HTMLHint
+https://github.com/prettier/prettier
+https://github.com/stylelint/stylelint
+https://github.com/standard/standard
 
 https://github.com/tonsky/FiraCode
 http://www.hassanhameed.com/?page_id=154
 
-https://meldmerge.org
 https://sunnah.alifta.gov.sa
 
 https://docs.google.com/spreadsheets
-https://www.libreoffice.org
+https://gerrit.libreoffice.org
 
 https://www.json.org/json-en
-https://shancarter.github.io/mr-data-converter
+https://github.com/shancarter/Mr-Data-Converter
+https://gitlab.gnome.org/GNOME/meld
