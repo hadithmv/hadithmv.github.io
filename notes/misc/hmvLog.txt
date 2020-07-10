@@ -16,9 +16,9 @@ ftp://192.168.43.1:2121
 رَضِيَ اللَّهُ عَنْهَا
 رَضِيَ اللَّهُ عَنْهُمَا
 
-check hadith b27 takhrijs on muslim 150, all!!!!!!!!
+add takhrij column for sahihain, searchable but hidden
 
-long hadith in bukhari: 7, 32, 122, 
+long hadith in bukhari 122, 
 
 check: أَتَاهُمْ رَبُّ الْعَالَمِينَ سُبْحَانَهُ وَتَعَالَى فِي أَدْنَى صُورَةٍ مِنَ الَّتِي رَأَوْهُ فِيهَا
 ޒަހަމު/ހާނީއްކަ؟
@@ -45,8 +45,6 @@ make things like hammer js loadable on media query?
 					
 "those who don't automate are doomed to repeat themselves"
 check out winget when stable
-
-next allh 41
 
 later add 40n no 41 to allh:
 [حَتَّى يَكُونَ هَوَاهُ تَبَعًا لِمَا جِئْتُ بِهِ]
