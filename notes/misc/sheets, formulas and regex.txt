@@ -1,6 +1,7 @@
 Ctrl + arrows = jump to end
 f4 = repeat last action
 
+Hold ⇧ Shift and select the number of rows you want to insert. For example, if you want to insert 4 new rows, you will select the 4 rows above or below where you want to insert them.
 
 Google sheets copy formula for whole column:
 Double clicking on "drag indicator" (bottom right corner) will copy the formula to all cells. Make sure you CLEAR your column data first and only apply your formula to one.
