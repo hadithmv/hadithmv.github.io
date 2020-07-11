@@ -23,7 +23,7 @@ long hadith in bukhari 122,
 
 check: أَتَاهُمْ رَبُّ الْعَالَمِينَ سُبْحَانَهُ وَتَعَالَى فِي أَدْنَى صُورَةٍ مِنَ الَّتِي رَأَوْهُ فِيهَا
 
-books to check for hadith: Uthman -Raheequl Makhtoom-madina, BA naseem archive, Sifatu Salat -Ilyas Jamal
+books to check for hadith: Sifatu Salat -Ilyas Jamal,
 
 Do umdah, do barbahari
 
