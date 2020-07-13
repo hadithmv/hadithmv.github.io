@@ -9,8 +9,11 @@ ftp://192.168.43.1:2121
 ❝
 ’
 ‘
-NEXT TAKHRIJ: b50, cell 273
-ރަސޫލު ﷲ ﷺ
+NEXT TAKHRIJ: b53
+ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ” “
+ނަބިއްޔާ  ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ” “
+ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:
+
 ކުރީގެ ޙަދީޘާ އެއް ގޮތަކަށް ރިވާވެގެން އައެވެ.
 އަބޫ ހުރައިރާ ރިވާ ކުރެއްވިއެވެ: ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”ސސސ“
 رَضِيَ اللَّهُ عَنْهُ
@@ -20,6 +23,8 @@ NEXT TAKHRIJ: b50, cell 273
 add takhrij column for sahihain, searchable but hidden
 
 long hadith in bukhari 122, 
+
+no fili column text is smaller
 
 check: أَتَاهُمْ رَبُّ الْعَالَمِينَ سُبْحَانَهُ وَتَعَالَى فِي أَدْنَى صُورَةٍ مِنَ الَّتِي رَأَوْهُ فِيهَا
 
@@ -89,6 +94,8 @@ how would you translate
 ثُمَّ انْصَرَفَ
 
 އަދި [ނަމާދުން އަވަދިވަޑައިގަތެވެ/ނަމާދު ނިންމަވާލެއްވިއެވެ]
+
+should i go with postgresql or mongodb or mariadb
 
 
 add external dependencies licenses and mentions, contributions, thanks?
