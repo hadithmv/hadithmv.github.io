@@ -351,10 +351,10 @@ button.dt-button.buttons-copy.buttons-html5 {
 }
 
 /* on mobile, the top paginations buttons are given padding below, to be equal to
-the padding above */
+the padding above 
 .mTop2 {
   padding-bottom: 12px;
-}
+} */
 
 /* desktop mq lessens padding in pagination buttons based on screen width, default was 16px,  resposive and flexible */
 @media screen and (min-width: 900px) {
@@ -378,6 +378,13 @@ the padding above */
 @media screen and (max-width: 900px) {
   .table {
     padding-bottom: 15px;
+  }
+}
+
+/* mobile mq remove bottom border */
+@media screen and (max-width: 900px) {
+  table.dataTable.no-footer {
+    border-bottom: none;
   }
 }
 
