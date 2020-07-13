@@ -59,7 +59,7 @@ $(document).ready(() => {
     /* js media query on mobile, tablet */
     $.extend(true, $.fn.dataTable.defaults, {
       // mobile //'<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rt <"bottom"ip>',
-      dom: '<"mTop"fl> + <"mTop2"p> + <"mTop3"> rtBip', // moved to js MQ; dom: '<"dTop"pBfl>rtip',
+      dom: '<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rtip', // moved to js MQ; dom: '<"dTop"pBfl>rtip',
       pageLength: 1,
       // lengthMenu: [
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
@@ -79,27 +79,35 @@ $(document).ready(() => {
     })
   } //= =================== end if else
 
-  const table = $('#otherHadithTable').DataTable({
-    // var table = $("#allHadith").DataTable({
+  const table = $('#fortyNTable').DataTable({
+    // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: otherHadith_dataSet, // https://datatables.net/manual/ajax
+    data: fortyN_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
       {
         data: 0,
-        title: 'ފޮތް'
+        title: '#'
       },
       {
         data: 1,
+        title: 'ޢަރަބި ސުރުޚީ'
+      },
+      {
+        data: 2,
+        title: 'ދިވެހި ސުރުޚީ'
+      },
+      {
+        data: 3,
         title: 'ޢަރަބި ޙަދީޘް'
       },
       // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 1,
+        data: 3,
         title: 'ޢަރަބި ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -108,13 +116,21 @@ $(document).ready(() => {
         }
       },
       {
-        data: 2,
+        data: 4,
         title: 'ދިވެހި ތަރުޖަމާ'
+      },
+      {
+        data: 5,
+        title: 'މަސްދަރު ޢަރަބިން.'
+      },
+      {
+        data: 6,
+        title: 'މަސްދަރު ދިވެހިން.'
+      },
+      {
+        data: 7,
+        title: 'މަސްދަރު ރިޔާޟުއްޞާލިޙީނުން.'
       }
-      // add takhrij and stuff later {
-      //   data: 3,
-      //   title: 'ތަޚްރީޖު'
-      // }
     ],
 
     columnDefs: [
@@ -122,35 +138,59 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'ahCol1', // Book
+        className: 'fnCol1', // #
         targets: [0],
         visible: true,
         searchable: true
       },
       {
-        className: 'ahCol2', // Ar Text
+        className: 'fnCol2', // Ar Title
         targets: [1],
         visible: true,
         searchable: false
       },
       {
-        className: 'fhCol3', // Ar Text Plain
+        className: 'fnCol3', // Dv Title
         targets: [2],
         visible: false,
-        searchable: true
+        searchable: false
       },
       {
-        className: 'ahCol4', // Dv Text
+        className: 'fnCol4', // Ar Text
         targets: [3],
         visible: true,
         searchable: true
       },
-      // add takhrij and stuff later {
-      //   className: 'ahCol5', // Thakhrij
-      //   targets: [4],
-      //   visible: false,
-      //   searchable: true
-      // },
+      {
+        className: 'fnCol5', // Ar Plain
+        targets: [4],
+        visible: false,
+        searchable: true
+      },
+      {
+        className: 'fnCol6', // Dv Text
+        targets: [5],
+        visible: true,
+        searchable: true
+      },
+      {
+        className: 'fnCol7', // Ar Ref
+        targets: [6],
+        visible: true,
+        searchable: false
+      },
+      {
+        className: 'fnCol8', // Dv Ref
+        targets: [7],
+        visible: false,
+        searchable: false
+      },
+      {
+        className: 'fnCol9', // Rs Ref
+        targets: [8],
+        visible: false,
+        searchable: false
+      },
 
       // below strips html tags off keystable copy, second part with keys on
       {
@@ -168,7 +208,7 @@ $(document).ready(() => {
     ], // end of columnDefs, previously without visible and searchable options.
 
     //= ====================
-    // DT CUSTOM SETTINGS
+    //  DT CUSTOM SETTINGS
     // ====================
 
     // Automatic column width calculation. Default: true
@@ -319,7 +359,7 @@ $(document).ready(() => {
         extend: 'copy',
         key: { key: 'c', shiftKey: true },
         text: 'ކޮޕީ',
-        // messageTop: 'ނަވަވީގެ 40 ޙަދީޘް', // CHANGE123 clipboard message
+        messageTop: 'ނަވަވީގެ 40 ޙަދީޘް', // CHANGE123 clipboard message
         title: '' /* title: "hadithmv.com", */,
 
         //= ====================
@@ -342,26 +382,30 @@ $(document).ready(() => {
           // data = data.replace( /\nNo.\tRef.\tArabic\tEnglish\tDhivehi/g,"" );
           // CHANGE123 CLIP REGEX
 
-          data = data.replace(/\tފޮތް/g, '')
+          data = data.replace(/\tޢަރަބި\sސުރުޚީ/g, '')
+          data = data.replace(/\tދިވެހި ސުރުޚީ/g, '')
           data = data.replace(/\tޢަރަބި ޙަދީޘް/g, '')
           data = data.replace(/\tޢަރަބި ފިލިނުޖަހައި/g, '')
           data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
-          data = data.replace(/\tތަޚްރީޖު./g, '')
+          data = data.replace(/\tމަސްދަރު ޢަރަބިން./g, '')
+          data = data.replace(/\tމަސްދަރު ދިވެހިން./g, '')
+          data = data.replace(/\tމަސްދަރު ރިޔާޟުއްޞާލިޙީނުން./g, '')
 
           /* data = data.replace( /\n#/g, "" ); */
-          /*
           data = data.replace(/\n#/g, '\n\nޙަދީޘްގެ އަދަދު: ')
           data = data.replace(
             /ނަވަވީގެ 40 ޙަދީޘް\r\n\r\n\n\nޙަދީޘްގެ އަދަދު: \r\n\n/g,
             'ނަވަވީގެ 40 ޙަދީޘް\r\n'
-          )
-          */ /* add string & fix empty space، make sure to change the red too */
+          ) /* add string & fix empty space، make sure to change the red too */
 
-          data = data.replace(/\nފޮތް/g, '')
+          data = data.replace(/\nޢަރަބި ސުރުޚީ/g, '')
+          data = data.replace(/\nދިވެހި ސުރުޚީ/g, '')
           data = data.replace(/\nޢަރަބި ޙަދީޘް/g, '')
           data = data.replace(/\nޢަރަބި ފިލިނުޖަހައި/g, '')
           data = data.replace(/\nދިވެހި ތަރުޖަމާ/g, '')
-          data = data.replace(/\nތަޚްރީޖު./g, '')
+          data = data.replace(/\nމަސްދަރު ޢަރަބިން./g, '')
+          data = data.replace(/\nމަސްދަރު ދިވެހިން./g, '')
+          data = data.replace(/\nމަސްދަރު ރިޔާޟުއްޞާލިޙީނުން./g, '')
 
           // rids empty space after title
           data = data.replace(/\r\n\r\n\r/g, '\r\n\r')
@@ -435,11 +479,11 @@ $(document).ready(() => {
       // If media query matches
       // empty // document.body.style.backgroundColor = "pink";
     } else { // CHANGE123 HAMMER JS
-      Hammer(otherHadithTable).on('swiperight', () => {
+      Hammer(fortyNTable).on('swiperight', () => {
         // changed swipeleft and swiperight for dhivehi
         table.page('next').draw('page')
       })
-      Hammer(document.getElementById('otherHadithTable')).on('swipeleft', () => {
+      Hammer(document.getElementById('fortyNTable')).on('swipeleft', () => {
         table.page('previous').draw('page')
       })
     }
@@ -475,6 +519,8 @@ $(document).ready(() => {
 */
   if (window.matchMedia('(min-width: 900px)').matches) {
     // js media query on desktop
+    /* previously $('fnClass').addClass('row-border')
+    $('fnClass').addClass('cards') */
     $('.dataTable').addClass('row-border') // adds rowborder class
   } else {
     // js media query on mobile, tablet
