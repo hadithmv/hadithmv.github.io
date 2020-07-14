@@ -25,7 +25,8 @@ add takhrij column for sahihain, searchable but hidden
 long hadith in bukhari 122, 
 
 no fili column text is smaller
-ehenihen dropdown is too long it creates a scrollbar
+ehenihen dropdown is shows scrollbar, get rid of scrollbar
+make common js file for use by all urls
 
 books to check for hadith: Sifatu Salat -Ilyas Jamal,
 

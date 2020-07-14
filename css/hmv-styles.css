@@ -859,3 +859,10 @@ cuz it has hashtag and digits */
 }
 
 /* ===== custom column classes - END ===== */
+
+/* mobile only MQ - hides keyboard nav alert link */
+@media screen and (max-width: 900px) {
+  .desktopOnly {
+    display: ;
+  }
+}
