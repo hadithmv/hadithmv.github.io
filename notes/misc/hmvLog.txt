@@ -25,8 +25,7 @@ add takhrij column for sahihain, searchable but hidden
 long hadith in bukhari 122, 
 
 no fili column text is smaller
-
-check: أَتَاهُمْ رَبُّ الْعَالَمِينَ سُبْحَانَهُ وَتَعَالَى فِي أَدْنَى صُورَةٍ مِنَ الَّتِي رَأَوْهُ فِيهَا
+ehenihen dropdown is too long it creates a scrollbar
 
 books to check for hadith: Sifatu Salat -Ilyas Jamal,
 
