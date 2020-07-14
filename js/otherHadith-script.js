@@ -59,7 +59,7 @@ $(document).ready(() => {
     /* js media query on mobile, tablet */
     $.extend(true, $.fn.dataTable.defaults, {
       // mobile //'<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rt <"bottom"ip>',
-      dom: '<"mTop"fl> + <"mTop2"p> + <"mTop3"> rtBip', // moved to js MQ; dom: '<"dTop"pBfl>rtip',
+      dom: '<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rtip', // moved to js MQ; dom: '<"dTop"pBfl>rtip',
       pageLength: 1,
       // lengthMenu: [
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
