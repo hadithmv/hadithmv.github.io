@@ -21,6 +21,7 @@ NEXT TAKHRIJ: b53
 رَضِيَ اللَّهُ عَنْهُمَا
 
 add takhrij column for sahihain, searchable but hidden
+explore serverside
 
 long hadith in bukhari 122, 
 
