@@ -1,6 +1,14 @@
 Ctrl + arrows = jump to end
 f4 = repeat last action
 
+How to import a . csv file that uses UTF-8 character encoding:
+Open Microsoft Excel
+Click on the Data menu bar option.
+Click on the From Text icon.
+Navigate to the location of the file that you want to import. ...
+Choose the file type that best describes your data - Delimited or Fixed Width.
+Choose 65001: Unicode (UTF-8) from the drop-down list that appears next to File origin.
+
 Hold ⇧ Shift and select the number of rows you want to insert. For example, if you want to insert 4 new rows, you will select the 4 rows above or below where you want to insert them.
 
 Google sheets copy formula for whole column:
