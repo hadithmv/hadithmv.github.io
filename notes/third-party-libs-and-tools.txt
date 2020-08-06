@@ -29,10 +29,8 @@ https://sunnah.alifta.gov.sa
 https://shamela.ws/index.php
 
 https://docs.google.com/spreadsheets
-https://gerrit.libreoffice.org
 
 https://www.json.org/json-en
-https://github.com/shancarter/Mr-Data-Converter -MIT
 https://gitlab.gnome.org/GNOME/meld -GNU GPLv2
 
 https://github.com/yoksel/url-encoder

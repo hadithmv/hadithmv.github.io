@@ -110,6 +110,10 @@ $(document).ready(() => {
       {
         data: 2,
         title: 'ދިވެހި ތަރުޖަމާ'
+      },
+      {
+        data: 3,
+        title: 'ތަޚްރީޖު'
       }
       // add takhrij and stuff later {
       //   data: 3,
@@ -145,12 +149,12 @@ $(document).ready(() => {
         visible: true,
         searchable: true
       },
-      // add takhrij and stuff later {
-      //   className: 'ahCol5', // Thakhrij
-      //   targets: [4],
-      //   visible: false,
-      //   searchable: true
-      // },
+      {
+        className: 'ahCol5', // Takhrij
+        targets: [4],
+        visible: false,
+        searchable: true
+      },
 
       // below strips html tags off keystable copy, second part with keys on
       {
@@ -279,7 +283,7 @@ $(document).ready(() => {
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
-      searchPlaceholder: 'ހޯއްދަވާ...',
+      searchPlaceholder: 'ޞަޙީޙައިނިން ހޯއްދަވާ...',
       zeroRecords: '- ނުފެނުނު -'
     }, //= =================== End of Internationalisation
 
