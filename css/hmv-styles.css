@@ -808,3 +808,7 @@ so right align to prevent gaps in text */
     display: ;
   }
 }
+
+.madina {
+  font-size: 86%;
+}
