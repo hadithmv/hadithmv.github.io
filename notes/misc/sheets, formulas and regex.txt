@@ -1,5 +1,14 @@
+Gsheets:
 Ctrl + arrows = jump to end
 f4 = repeat last action
+
+Excel:
+ctrl + shift + down, then down again
+
+Google sheet exported excel files are smaller and load faster than actual ms excel made xlxs files
+download that, copy paste as values in new excel sheet for ordering.
+
+should delete empty rows after data to prevent empty data errors later
 
 How to import a . csv file that uses UTF-8 character encoding:
 Open Microsoft Excel
@@ -8,6 +17,25 @@ Click on the From Text icon.
 Navigate to the location of the file that you want to import. ...
 Choose the file type that best describes your data - Delimited or Fixed Width.
 Choose 65001: Unicode (UTF-8) from the drop-down list that appears next to File origin.
+
+Sort a table in Query Editor based on multiple columns
+When you sort based upon multiple columns, the order or hierarchy of the sorting is based on the order that the columns were selected.
+
+Open excel, data, get data, from file, from workbook, select file and sheet, transform data.
+To get rid of null values: select all columns, transform, replace values, write "null" replace with blank, ok
+To get rid of empty blanks now, home, remove rows, remove blank rows
+
+
+To sort a table based on multiple columns: Excel
+In Query Editor, select the primary column for the sort.
+Click the down arrow ( Down arrow ).
+From the drop-down menu, click Sort Ascending or Sort Descending.
+Repeat steps 1-3 for each subsequent column you want to use for sorting. (need to wait while previous columns finish sorting otherwise wont get expected result)
+Right click queries and connections and refresh after having saved the previous worksheet to update
+
+export from excel as utf 8 csv
+
+Open SQLiteStudio, create dt, name a table, select that, tools > import csv and export to json
 
 Hold ⇧ Shift and select the number of rows you want to insert. For example, if you want to insert 4 new rows, you will select the 4 rows above or below where you want to insert them.
 

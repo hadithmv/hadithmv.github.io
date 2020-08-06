@@ -9,6 +9,12 @@ ftp://192.168.43.1:2221
 ❝
 ’
 ‘
+
+takhrij header and all new headers wont show for some reason
+where is bukhari 4,5,6?
+86 87 89 104 112 122
+
+cut out libreoffice? https://gerrit.libreoffice.org
 NEXT TAKHRIJ: b53
 الْبُخَارِيُّ 1، وَمُسْلِمٌ 1907
 ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ” “
