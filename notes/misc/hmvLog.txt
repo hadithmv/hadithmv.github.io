@@ -32,6 +32,9 @@ where is bukhari 4,5,6?
 اللَّهُمَّ رَبَّ جَبرَائِيلَ وَمِيكَائِيلَ
 fix on about docs jabrail
 
+searched hadith with term "الحبة السوداء" and added upto all of ahmed, do the rest
+searched hadith with term "قسط" and added upto all sahihain, do the rest
+searched hadith muslim 2214 and added upto all sahihain, do abu dawud next
 cut out libreoffice? https://gerrit.libreoffice.org
 NEXT TAKHRIJ: b53
 الْبُخَارِيُّ 1، وَمُسْلِمٌ 1907
