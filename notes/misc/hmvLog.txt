@@ -24,7 +24,6 @@ unsorted, 2, 3 (has umdah), 4, 5, 6.docx (these are to be fixed and upped)
 unsorted b.docx (barbahari to be written, submitted and upped)
 unsorted u 1-100, 101-200 etc.docx (umd to be written, s and u)
 
-” ﷲގެ މަގުގައި (ޖިހާދަށް)
 takhrij header and all new headers wont show for some reason
 where is bukhari 4,5,6?
 86 87 89 104 112 122
@@ -42,9 +41,24 @@ NEXT TAKHRIJ: b53
 ނަބިއްޔާ  ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ” “
 ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:
 
-ކުރީގެ ޙަދީޘާ އެއް ގޮތަކަށް ރިވާވެގެން އައެވެ.
+ކުރީގެ ޙަދީޘާ އެއްގޮތަކަށް ރިވާވެފައިވެއެވެ.
 އަބޫ ހުރައިރާ ރިވާ ކުރެއްވިއެވެ: ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”ސސސ“
+
+""
+”
+
+~~
+“
+
+
+سنن الترمذي
+
+(ސ)
+ﷺ
+
+(ރ)
 رَضِيَ اللَّهُ عَنْهُ
+
 رَضِيَ اللَّهُ عَنْهَا
 رَضِيَ اللَّهُ عَنْهُمَا
 

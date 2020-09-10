@@ -1,4 +1,4 @@
-
+ctrl + k the nctrl + shift + s = save without formatting
 ctrl + k + c = toggle comment out
 
 opening files from explorer tree and quick open makes them open over each other in preview mode. to disable this go to settings, search for preview, turn off for 2 or 3 options.
