@@ -63,6 +63,9 @@ npm update -g
 node -v
 npm -v
 git --version
+
+(powershell)
+Get-Host | Select-Object Version
 install the msi from the official site, updates npm too
 
 choco list -lo
