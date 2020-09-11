@@ -126,31 +126,31 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'ahCol1', // Book
+        className: 'shCol1', // Book
         targets: [0],
         visible: true,
         searchable: true
       },
       {
-        className: 'ahCol2', // Ar Text
+        className: 'shCol2', // Ar Text
         targets: [1],
         visible: true,
-        searchable: false
+        searchable: true
       },
       {
-        className: 'fhCol3', // Ar Text Plain
+        className: 'shCol3', // Ar Text Plain
         targets: [2],
         visible: false,
         searchable: true
       },
       {
-        className: 'ahCol4', // Dv Text
+        className: 'shCol4', // Dv Text
         targets: [3],
         visible: true,
         searchable: true
       },
       {
-        className: 'ahCol5', // Takhrij
+        className: 'shCol5', // Takhrij
         targets: [4],
         visible: false,
         searchable: true

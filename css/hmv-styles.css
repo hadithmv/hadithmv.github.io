@@ -721,10 +721,12 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 /* ===== button styles - END ===== */
 
 /* ====================
-  CUSTOM COLUMN CLASSES
+  ****************** CUSTOM COLUMN CLASSES ********************
 ======================= */
 
-/* FOR FORTY NAWAWI */
+/* ===================
+  FOR FORTY NAWAWI HADITH
+===================== */
 
 /* CHANGE123 classes and fonts */
 
@@ -797,20 +799,20 @@ so right align to prevent gaps in text */
 }
 
 /* ===================
-     FOR ALL HADITH 
+  FOR OTHER HADITH 
 ===================== */
 
 /* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells like surukhi, masdars.
 so right align to prevent gaps in text */
-.dataTable tr td.ahCol1 {
+.dataTable tr td.ohCol1 {
   text-align: right;
 }
 
 /* mobile only row centering, for rows with strings that are not long */
 @media screen and (max-width: 900px) {
-  .dataTable tr td.ahCol1,
-  .dataTable tr td.ahCol5 {
+  .dataTable tr td.ohCol1,
+  .dataTable tr td.ohCol5 {
     text-align: center;
   }
 
@@ -823,8 +825,8 @@ so right align to prevent gaps in text */
 /* --- AR FONTS FOR TABLE --- */
 
 /* tbody tr td.ahCol1, */
-.dataTable tr td.ahCol2,
-.dataTable tr td.ahCol3 {
+.dataTable tr td.ohCol2,
+.dataTable tr td.ohCol3 {
   font-family: "arFont", "dvFont", sans-serif;
   font-size: 23px;
   line-height: 1.7;
@@ -833,7 +835,7 @@ so right align to prevent gaps in text */
 /* --- DV FONTS FOR TABLE --- */
 
 /* .dataTable tr td.fnCol1, need this bigger */
-.dataTable tr td.ahCol4 {
+.dataTable tr td.ohCol4 {
   font-family: "dvFont", "arFont", sans-serif;
   font-size: 17px;
   line-height: 1.9;
@@ -848,12 +850,74 @@ so right align to prevent gaps in text */
 
 /* css for first column
 cuz it has hashtag and digits */
-.dataTable tr td.ahCol1 {
+.dataTable tr td.ohCol1 {
   font-size: 21px;
 }
 
 /* extra changes from fnCols */
-.dataTable tr td.ahCol5 {
+.dataTable tr td.ohCol5 {
+  text-align: center;
+  font-size: 18px;
+}
+
+/* ===================
+  FOR SAHIHAIN HADITH 
+===================== */
+
+/* removes justify from ar dv (titles and refs) + rs.
+justify doesnt look good on short cells like surukhi, masdars.
+so right align to prevent gaps in text */
+.dataTable tr td.ohCol1 {
+  text-align: right;
+}
+
+/* mobile only row centering, for rows with strings that are not long */
+@media screen and (max-width: 900px) {
+  .dataTable tr td.ohCol1,
+  .dataTable tr td.ohCol5 {
+    text-align: center;
+  }
+
+  /* bold headers for mobile - first number at top */
+  .ahCol1 {
+    font-weight: bold;
+  }
+}
+
+/* --- AR FONTS FOR TABLE --- */
+
+/* tbody tr td.ahCol1, */
+.dataTable tr td.ohCol2,
+.dataTable tr td.ohCol3 {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 23px;
+  line-height: 1.7;
+}
+
+/* --- DV FONTS FOR TABLE --- */
+
+/* .dataTable tr td.fnCol1, need this bigger */
+.dataTable tr td.ohCol4 {
+  font-family: "dvFont", "arFont", sans-serif;
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+/* columns with ar numbers
+.dataTable tr td.ahCol7,
+.dataTable tr td.ahCol9 {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 21px;
+} */
+
+/* css for first column
+cuz it has hashtag and digits */
+.dataTable tr td.ohCol1 {
+  font-size: 21px;
+}
+
+/* extra changes from fnCols */
+.dataTable tr td.ohCol5 {
   text-align: center;
   font-size: 18px;
 }
