@@ -28,9 +28,6 @@ takhrij header and all new headers wont show for some reason
 where is bukhari 4,5,6?
 86 87 89 104 112 122
 
-اللَّهُمَّ رَبَّ جَبرَائِيلَ وَمِيكَائِيلَ
-fix on about docs jabrail
-
 searched hadith with term "الحبة السوداء" and added upto all of ahmed, do the rest
 searched hadith with term "قسط" and added upto all sahihain, do the rest
 searched hadith muslim 2214 and added all common books upto ahmad
