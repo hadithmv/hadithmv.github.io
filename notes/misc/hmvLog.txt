@@ -24,6 +24,30 @@ unsorted, 2, 3 (has umdah), 4, 5, 6.docx (these are to be fixed and upped)
 unsorted b.docx (barbahari to be written, submitted and upped)
 unsorted u 1-100, 101-200 etc.docx (umd to be written, s and u)
 
+Open SQLiteStudio
+Import CSV
+in structure, change row 1 data type to integer
+open data tab, right click first column header, define columns to sort by
+export as json
+run following as query to delete empty rows:
+DELETE FROM [sahihain-sort]
+      WHERE arRno = '' ;
+
+DELETE FROM s
+      WHERE arRno = '' ;
+...
+Open DB Browser
+Import CSV
+Brouse Data tab
+Ctrl + click to multi column sort (may not see sort order if columns too narrow) (first column is set to data type integer automatically)
+...
+open downloaded sheet csv in ms excel (dont download as excel format because that has formulas) (might need to use 1st row as header in power query)
+sort multi columns
+delete extra columns
+save as CSV UTF-8
+export to json with some other software
+
+
 takhrij header and all new headers wont show for some reason
 where is bukhari 4,5,6?
 86 87 89 104 112 122
@@ -55,7 +79,6 @@ NEXT TAKHRIJ: b53
 
 (ރ)
 رَضِيَ اللَّهُ عَنْهُ
-
 رَضِيَ اللَّهُ عَنْهَا
 رَضِيَ اللَّهُ عَنْهُمَا
 
