@@ -62,6 +62,7 @@ npm outdated -g
 npm update -g
 node -v
 npm -v
+git --version
 install the msi from the official site, updates npm too
 
 choco list -lo
