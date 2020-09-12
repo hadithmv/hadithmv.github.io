@@ -799,20 +799,20 @@ so right align to prevent gaps in text */
 }
 
 /* ===================
-  FOR OTHER HADITH 
+  FOR SAHIHAIN HADITH 
 ===================== */
 
 /* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells like surukhi, masdars.
 so right align to prevent gaps in text */
-.dataTable tr td.ohCol1 {
+.dataTable tr td.shCol1 {
   text-align: right;
 }
 
 /* mobile only row centering, for rows with strings that are not long */
 @media screen and (max-width: 900px) {
-  .dataTable tr td.ohCol1,
-  .dataTable tr td.ohCol5 {
+  .dataTable tr td.shCol1,
+  .dataTable tr td.shCol5 {
     text-align: center;
   }
 
@@ -825,8 +825,8 @@ so right align to prevent gaps in text */
 /* --- AR FONTS FOR TABLE --- */
 
 /* tbody tr td.ahCol1, */
-.dataTable tr td.ohCol2,
-.dataTable tr td.ohCol3 {
+.dataTable tr td.shCol2,
+.dataTable tr td.shCol3 {
   font-family: "arFont", "dvFont", sans-serif;
   font-size: 23px;
   line-height: 1.7;
@@ -835,7 +835,7 @@ so right align to prevent gaps in text */
 /* --- DV FONTS FOR TABLE --- */
 
 /* .dataTable tr td.fnCol1, need this bigger */
-.dataTable tr td.ohCol4 {
+.dataTable tr td.shCol4 {
   font-family: "dvFont", "arFont", sans-serif;
   font-size: 17px;
   line-height: 1.9;
@@ -850,24 +850,24 @@ so right align to prevent gaps in text */
 
 /* css for first column
 cuz it has hashtag and digits */
-.dataTable tr td.ohCol1 {
+.dataTable tr td.shCol1 {
   font-size: 21px;
 }
 
 /* extra changes from fnCols */
-.dataTable tr td.ohCol5 {
+.dataTable tr td.shCol5 {
   text-align: center;
   font-size: 18px;
 }
 
 /* ===================
-  FOR SAHIHAIN HADITH 
+    FOR OTHER HADITH 
 ===================== */
 
 /* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells like surukhi, masdars.
 so right align to prevent gaps in text */
-.dataTable tr td.ohCol1 {
+.dataTable tr td.hCol1 {
   text-align: right;
 }
 
