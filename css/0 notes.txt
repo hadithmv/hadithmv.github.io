@@ -1,6 +1,6 @@
 Load priority in COMB:
 
+**pushy-mod.min.css	  (minify w csso)
 **hmv-styles.min.css	  (minify w csso)
 **jquery.dataTables.min.css (minify w cssnano)
-**pushy-mod.min.css	  (minify w csso)
 **buttons.dataTables.min.css(minify w cssnano)
