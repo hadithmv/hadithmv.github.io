@@ -7,10 +7,10 @@ input.min.js	(minified file not available from site)
 **dataTables.buttons.min.js	(minify w closure)
 **buttons.colVis.min.js	(minify w closure)
 buttons.html5.min.js
-datatables.mark.min.js
-**jquery.mark.min.js	(remove comments, otherwise ok)
 **hammer.min.js	(minify w closure)
 dataTables.keyTable.min.js
 dataTables.keepConditions.min.js
+datatables.mark.min.js
+**jquery.mark.min.js	(remove comments, otherwise ok)
 
 
