@@ -441,3 +441,11 @@ nav ul li a {
 
 .madeby {
 }
+
+/* fixes leading in submenus. increases line height between list a's
+and removes the extra padding from above and below list items */
+.pushy-submenu .pushy-link a {
+  line-height: 1.7;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
