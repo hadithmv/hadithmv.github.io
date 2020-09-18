@@ -121,15 +121,15 @@ $(document).ready(() => {
       },
       {
         data: 5,
-        title: 'މަސްދަރު ޢަރަބިން.'
+        title: 'ތަޚްރީޖު'
       },
       {
         data: 6,
-        title: 'މަސްދަރު ދިވެހިން.'
+        title: 'ތަޚްރީޖު ދިވެހިން'
       },
       {
         data: 7,
-        title: 'މަސްދަރު ރިޔާޟުއްޞާލިޙީނުން.'
+        title: 'ރިޔާޟުއްޞާލިޙީނުން'
       }
     ],
 
@@ -387,9 +387,9 @@ $(document).ready(() => {
           data = data.replace(/\tޢަރަބި ޙަދީޘް/g, '')
           data = data.replace(/\tޢަރަބި ފިލިނުޖަހައި/g, '')
           data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
-          data = data.replace(/\tމަސްދަރު ޢަރަބިން./g, '')
-          data = data.replace(/\tމަސްދަރު ދިވެހިން./g, '')
-          data = data.replace(/\tމަސްދަރު ރިޔާޟުއްޞާލިޙީނުން./g, '')
+          data = data.replace(/\tތަޚްރީޖު/g, '')
+          data = data.replace(/\tތަޚްރީޖު ދިވެހިން./g, '')
+          data = data.replace(/\tރިޔާޟުއްޞާލިޙީނުން/g, '')
 
           /* data = data.replace( /\n#/g, "" ); */
           data = data.replace(/\n#/g, '\n\nޙަދީޘްގެ އަދަދު: ')
@@ -403,9 +403,9 @@ $(document).ready(() => {
           data = data.replace(/\nޢަރަބި ޙަދީޘް/g, '')
           data = data.replace(/\nޢަރަބި ފިލިނުޖަހައި/g, '')
           data = data.replace(/\nދިވެހި ތަރުޖަމާ/g, '')
-          data = data.replace(/\nމަސްދަރު ޢަރަބިން./g, '')
-          data = data.replace(/\nމަސްދަރު ދިވެހިން./g, '')
-          data = data.replace(/\nމަސްދަރު ރިޔާޟުއްޞާލިޙީނުން./g, '')
+          data = data.replace(/\nތަޚްރީޖު/g, '')
+          data = data.replace(/\nތަޚްރީޖު ދިވެހިން./g, '')
+          data = data.replace(/\nރިޔާޟުއްޞާލިޙީނުން/g, '')
 
           // rids empty space after title
           data = data.replace(/\r\n\r\n\r/g, '\r\n\r')
