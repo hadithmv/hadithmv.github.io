@@ -58,6 +58,9 @@ Complete:
 takhrij done upto 50 - tableAsWord
 
 
+لِلَّهِ، لَا إِلٰهَ إِلَّا اللَّهُ
+ilaha broken in current ar font
+
 Logs to do:
 maktaba hadith log (write to word)
 takhrij next 51 onwards.docx (most ready to up, later takhrijs to be made at end)
