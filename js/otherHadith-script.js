@@ -335,18 +335,6 @@ $(document).ready(() => {
 
           // fixes multiple row's lack of line break on desktop
           //     data = data.replace( /\t\r\n/g, "\n\n\n" );
-          data = data.replace(/\n#/g, '\n\n#') // needed to make rnr work
-          data = data.replace(/\n\n\n/g, '\n') // rids empty space after title
-
-          // prev normal
-          // data = data.replace( /\nNo.\tRef.\tArabic\tEnglish\tDhivehi/g,"" );
-          // CHANGE123 CLIP REGEX
-
-          data = data.replace(/\tފޮތް/g, '')
-          data = data.replace(/\tޢަރަބި ޙަދީޘް/g, '')
-          data = data.replace(/\tޢަރަބި ފިލިނުޖަހައި/g, '')
-          data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
-          data = data.replace(/\tތަޚްރީޖު./g, '')
 
           /* data = data.replace( /\n#/g, "" ); */
           /*
@@ -357,16 +345,20 @@ $(document).ready(() => {
           )
           */ /* add string & fix empty space، make sure to change the red too */
 
-          data = data.replace(/\nފޮތް/g, '')
-          data = data.replace(/\nޢަރަބި ޙަދީޘް/g, '')
-          data = data.replace(/\nޢަރަބި ފިލިނުޖަހައި/g, '')
-          data = data.replace(/\nދިވެހި ތަރުޖަމާ/g, '')
-          data = data.replace(/\nތަޚްރީޖު./g, '')
+          data = data.replace(/ފޮތް\t/g, '')
+          data = data.replace(/ޢަރަބި ޙަދީޘް\t/g, '')
+          data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
+          data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
+          data = data.replace(/ޙުކުމް\t/g, '')
+          data = data.replace(/ތަޚްރީޖު\t/g, '')
 
-          // rids empty space after title
-          data = data.replace(/\r\n\r\n\r/g, '\r\n\r')
+          data = data.replace(/ފޮތް\r\n/g, '')
+          data = data.replace(/ޢަރަބި ޙަދީޘް\r\n/g, '')
+          data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\r\n/g, '')
+          data = data.replace(/ދިވެހި ތަރުޖަމާ\r\n/g, '')
+          data = data.replace(/ޙުކުމް\r\n/g, '')
+          data = data.replace(/ތަޚްރީޖު\r\n/g, '')
 
-          // seperates rows
           data = data.replace(/\t/g, '\n\n')
 
           /* data = data.replace( /hadithmv.com\n/g, "hadithmv.com\n\n" );
