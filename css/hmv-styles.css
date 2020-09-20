@@ -517,7 +517,7 @@ div.dt-button-info {
 }
 
 /* changes clipboard copied color, */
-div.dt-button-info > h2 {
+#datatables_buttons_info.dt-button-info h2 {
   background: #add1f2;
 }
 
