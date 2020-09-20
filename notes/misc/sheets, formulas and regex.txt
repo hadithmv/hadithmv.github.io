@@ -1,3 +1,5 @@
+Save gsheet as excel, open in ms word and sort columns, save as csv, open new excel sheet and get data from csv, delete unneeded columns on either side, save as csv again, create database in sqlitestudio, import csv as table, export as json (clear empty rows)
+
 Copy ctrl all straight from google sheets and paste as values in excel for Raw.
 
 ..
