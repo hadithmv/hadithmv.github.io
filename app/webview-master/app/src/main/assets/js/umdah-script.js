@@ -79,12 +79,12 @@ $(document).ready(() => {
     })
   } //= =================== end if else
 
-  const table = $('#fortyNTable').DataTable({
-    // var table = $("#fortyNawawi").DataTable({
+  const table = $('#umdahTable').DataTable({
+    // var table = $("#allHadith").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: fortyN_dataSet, // https://datatables.net/manual/ajax
+    data: umdah_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
       {
@@ -93,21 +93,29 @@ $(document).ready(() => {
       },
       {
         data: 1,
-        title: 'ޢަރަބި ސުރުޚީ'
+        title: 'ފޮތް'
       },
       {
         data: 2,
-        title: 'ދިވެހި ސުރުޚީ'
+        title: 'ފޮތް ދިވެހިން'
       },
       {
         data: 3,
+        title: 'ބާބު'
+      },
+      {
+        data: 4,
+        title: 'ބާބު ދިވެހިން'
+      },
+      {
+        data: 5,
         title: 'ޢަރަބި ޙަދީޘް'
       },
       // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 3,
+        data: 5,
         title: 'ޢަރަބި ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -116,21 +124,17 @@ $(document).ready(() => {
         }
       },
       {
-        data: 4,
+        data: 6,
         title: 'ދިވެހި ތަރުޖަމާ'
       },
       {
-        data: 5,
-        title: 'ތަޚްރީޖު'
-      },
-      {
-        data: 6,
-        title: 'ތަޚްރީޖު ދިވެހިން'
-      },
-      {
         data: 7,
-        title: 'ރިޔާޟުއްޞާލިޙީނުން'
+        title: 'ތަޚްރީޖު'
       }
+      // add takhrij and stuff later {
+      //   data: 3,
+      //   title: 'ތަޚްރީޖު'
+      // }
     ],
 
     columnDefs: [
@@ -138,57 +142,57 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'fnCol1', // #
+        className: 'uhCol1', // #
         targets: [0],
         visible: true,
         searchable: true
       },
       {
-        className: 'fnCol2', // Ar Title
+        className: 'uhCol2', // Book
         targets: [1],
         visible: true,
-        searchable: false
+        searchable: true
       },
       {
-        className: 'fnCol3', // Dv Title
+        className: 'uhCol3', // Book Extra
         targets: [2],
         visible: false,
         searchable: false
       },
       {
-        className: 'fnCol4', // Ar Text
+        className: 'uhCol4', // Baab
         targets: [3],
         visible: true,
         searchable: true
       },
       {
-        className: 'fnCol5', // Ar Plain
+        className: 'uhCol5', // Baab Extra
         targets: [4],
         visible: false,
-        searchable: true
+        searchable: false
       },
       {
-        className: 'fnCol6', // Dv Text
+        className: 'uhCol6', // Ar Text
         targets: [5],
         visible: true,
         searchable: true
       },
       {
-        className: 'fnCol7', // Ar Ref
+        className: 'uhCol7', // Ar Text no fili
         targets: [6],
-        visible: true,
-        searchable: false
+        visible: false,
+        searchable: true
       },
       {
-        className: 'fnCol8', // Dv Ref
+        className: 'uhCol8', // Dv Text
         targets: [7],
-        visible: false,
-        searchable: false
+        visible: true,
+        searchable: true
       },
       {
-        className: 'fnCol9', // Rs Ref
+        className: 'uhCol9', // Takhrij
         targets: [8],
-        visible: false,
+        visible: true,
         searchable: false
       },
 
@@ -208,7 +212,7 @@ $(document).ready(() => {
     ], // end of columnDefs, previously without visible and searchable options.
 
     //= ====================
-    //  DT CUSTOM SETTINGS
+    // DT CUSTOM SETTINGS
     // ====================
 
     // Automatic column width calculation. Default: true
@@ -319,7 +323,7 @@ $(document).ready(() => {
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
-      searchPlaceholder: '40 ނަވަވީއިން ހޯއްދަވާ...',
+      searchPlaceholder: 'ޢުމްދާއިން ހޯއްދަވާ...',
       zeroRecords: '- ނުފެނުނު -'
     }, //= =================== End of Internationalisation
 
@@ -359,7 +363,7 @@ $(document).ready(() => {
         extend: 'copy',
         key: { key: 'c', shiftKey: true },
         text: 'ކޮޕީ',
-        messageTop: 'ނަވަވީގެ 40 ޙަދީޘް', // CHANGE123 clipboard message
+        messageTop: 'ޢުމްދަތުލް އަޙްކާމް', // CHANGE123 clipboard message
         title: '' /* title: "hadithmv.com", */,
 
         //= ====================
@@ -376,27 +380,24 @@ $(document).ready(() => {
           // fixes multiple row's lack of line break on desktop
           //     data = data.replace( /\t\r\n/g, "\n\n\n" );
 
-          data = data.replace(/#\t/g, '')
-          data = data.replace(/ޢަރަބި ސުރުޚީ\t/g, '')
-          data = data.replace(/ދިވެހި ސުރުޚީ\t/g, '')
+          data = data.replace(/\r\n\r\n/g, ' ') //  ONLY FOR 40N, because it has an inserted title
+          data = data.replace(/\n\n/g, ' ') //  ONLY FOR 40N, because it has an inserted title, the two lines below arent needed for 40n i think
+
+          data = data.replace(/\r\n/g, '\t') //  prevents first header showing up unneeded (windows)
+          data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
+
+          data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
+          data = data.replace(/ފޮތް\t/g, '')
+          data = data.replace(/ފޮތް ދިވެހިން\t/g, '')
+          data = data.replace(/ބާބު\t/g, '')
+          data = data.replace(/ބާބު ދިވެހިން\t/g, '')
           data = data.replace(/ޢަރަބި ޙަދީޘް\t/g, '')
           data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/ތަޚްރީޖު\t/g, '')
-          data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
-          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
 
-          data = data.replace(/#\r\n/g, '')
-          data = data.replace(/ޢަރަބި ސުރުޚީ\r\n/g, '')
-          data = data.replace(/ދިވެހި ސުރުޚީ\r\n/g, '')
-          data = data.replace(/ޢަރަބި ޙަދީޘް\r\n/g, '')
-          data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\r\n/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\r\n/g, '')
-          data = data.replace(/ތަޚްރީޖު\r\n/g, '')
-          data = data.replace(/ތަޚްރީޖު ދިވެހިން\r\n/g, '')
-          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\r\n/g, '')
-
-          data = data.replace(/\t/g, '\n\n')
+          data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
+          data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
 
           /* data = data.replace( /hadithmv.com\n/g, "hadithmv.com\n\n" );
            //adds new line on android */
@@ -404,7 +405,7 @@ $(document).ready(() => {
                data = data.replace( /\r/g, "" ); //rids windows platform newline
                data = data.replace( /\t/g, "\n\n" ); */
 
-          //    console.log(JSON.stringify(data)); //json stringify to console
+          //  console.log(JSON.stringify(data)) // json stringify to console
 
           return data
         },
@@ -464,11 +465,11 @@ $(document).ready(() => {
       // If media query matches
       // empty // document.body.style.backgroundColor = "pink";
     } else { // CHANGE123 HAMMER JS
-      Hammer(fortyNTable).on('swiperight', () => {
+      Hammer(umdahTable).on('swiperight', () => {
         // changed swipeleft and swiperight for dhivehi
         table.page('next').draw('page')
       })
-      Hammer(document.getElementById('fortyNTable')).on('swipeleft', () => {
+      Hammer(document.getElementById('umdahTable')).on('swipeleft', () => {
         table.page('previous').draw('page')
       })
     }
@@ -504,8 +505,6 @@ $(document).ready(() => {
 */
   if (window.matchMedia('(min-width: 900px)').matches) {
     // js media query on desktop
-    /* previously $('fnClass').addClass('row-border')
-    $('fnClass').addClass('cards') */
     $('.dataTable').addClass('row-border') // adds rowborder class
   } else {
     // js media query on mobile, tablet
