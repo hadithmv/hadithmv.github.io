@@ -1,0 +1,7 @@
+slymax webview
+
+https://stackoverflow.com/questions/16804093/rename-package-in-android-studio
+
+https://developer.android.com/studio/write/image-asset-studio
+
+https://developer.android.com/studio/build/shrink-code
