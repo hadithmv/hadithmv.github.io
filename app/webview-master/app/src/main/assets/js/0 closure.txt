@@ -1,0 +1,6 @@
+The simplest way to invoke the compiler (e.g. if you're just trying it out) is with npx:
+
+npx google-closure-compiler --js=my_program.js --js_output_file=out.js
+
+npm:
+google-closure-compiler --js=fortyN-script.js --js_output_file=fortyN-script.min.js

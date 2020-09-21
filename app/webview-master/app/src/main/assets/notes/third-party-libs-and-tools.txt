@@ -1,0 +1,40 @@
+https://github.com/h5bp/html5-boilerplate -MIT
+https://github.com/necolas/normalize.css -MIT
+https://github.com/jquery/jquery -MIT
+https://github.com/hammerjs -MIT
+https://github.com/DataTables/DataTables -MIT
+https://github.com/christophery/pushy -MIT
+https://github.com/julmot/mark.js -MIT
+
+https://github.com/chromium/chromium -BSD-3-Clause
+https://github.com/microsoft/vscode -MIT
+https://developer.android.com/studio -Apache 2.0
+
+https://github.com/kangax/html-minifier -MIT
+https://github.com/google/closure-compiler -Apache 2.0
+https://github.com/css/csso -MIT
+https://github.com/cssnano/cssnano -MIT
+
+https://github.com/htmlhint/HTMLHint -MIT
+https://github.com/prettier/prettier -MIT
+https://github.com/stylelint/stylelint -MIT
+https://github.com/standard/standard -MIT
+
+https://github.com/GoogleChrome/lighthouse -Apache 2.0
+
+https://github.com/tonsky/FiraCode -OFL-1.1
+http://www.hassanhameed.com/?page_id=154
+
+https://sunnah.alifta.gov.sa
+https://shamela.ws/index.php
+
+https://docs.google.com/spreadsheets
+
+https://www.json.org/json-en
+https://gitlab.gnome.org/GNOME/meld -GNU GPLv2
+
+https://github.com/yoksel/url-encoder
+https://compressor.io
+
+https://github.com/sqlite/sqlite
+https://github.com/pawelsalawa/sqlitestudio -GNU GPLv3
