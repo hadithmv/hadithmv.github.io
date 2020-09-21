@@ -97,7 +97,7 @@ $(document).ready(() => {
       },
       {
         data: 2,
-        title: 'އިތުރު މައުލޫމާތު'
+        title: 'ފޮތް ދިވެހިން'
       },
       {
         data: 3,
@@ -105,7 +105,7 @@ $(document).ready(() => {
       },
       {
         data: 4,
-        title: 'އިތުރު މައުލޫމާތު'
+        title: 'ބާބު ދިވެހިން'
       },
       {
         data: 5,
@@ -363,7 +363,7 @@ $(document).ready(() => {
         extend: 'copy',
         key: { key: 'c', shiftKey: true },
         text: 'ކޮޕީ',
-        // messageTop: 'ނަވަވީގެ 40 ޙަދީޘް', // CHANGE123 clipboard message
+        messageTop: 'ޢުމްދަތުލް އަޙްކާމް', // CHANGE123 clipboard message
         title: '' /* title: "hadithmv.com", */,
 
         //= ====================
@@ -380,24 +380,24 @@ $(document).ready(() => {
           // fixes multiple row's lack of line break on desktop
           //     data = data.replace( /\t\r\n/g, "\n\n\n" );
 
+          data = data.replace(/\r\n\r\n/g, ' ') //  ONLY FOR 40N, because it has an inserted title
+          data = data.replace(/\n\n/g, ' ') //  ONLY FOR 40N, because it has an inserted title, the two lines below arent needed for 40n i think
+
+          data = data.replace(/\r\n/g, '\t') //  prevents first header showing up unneeded (windows)
+          data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
+
+          data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/ފޮތް\t/g, '')
-          data = data.replace(/#\t/g, '')
-          data = data.replace(/ފޮތް\t/g, '')
+          data = data.replace(/ފޮތް ދިވެހިން\t/g, '')
           data = data.replace(/ބާބު\t/g, '')
+          data = data.replace(/ބާބު ދިވެހިން\t/g, '')
           data = data.replace(/ޢަރަބި ޙަދީޘް\t/g, '')
           data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/ތަޚްރީޖު\t/g, '')
 
-          data = data.replace(/#\r\n/g, '')
-          data = data.replace(/ފޮތް\r\n/g, '')
-          data = data.replace(/ބާބު\r\n/g, '')
-          data = data.replace(/ޢަރަބި ޙަދީޘް\r\n/g, '')
-          data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\r\n/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\r\n/g, '')
-          data = data.replace(/ތަޚްރީޖު\r\n/g, '')
-
-          data = data.replace(/\t/g, '\n\n')
+          data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
+          data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
 
           /* data = data.replace( /hadithmv.com\n/g, "hadithmv.com\n\n" );
            //adds new line on android */
@@ -405,7 +405,7 @@ $(document).ready(() => {
                data = data.replace( /\r/g, "" ); //rids windows platform newline
                data = data.replace( /\t/g, "\n\n" ); */
 
-          //    console.log(JSON.stringify(data)); //json stringify to console
+          //  console.log(JSON.stringify(data)) // json stringify to console
 
           return data
         },
