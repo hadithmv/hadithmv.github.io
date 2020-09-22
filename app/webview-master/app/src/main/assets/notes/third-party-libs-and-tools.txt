@@ -9,6 +9,7 @@ https://github.com/julmot/mark.js -MIT
 https://github.com/chromium/chromium -BSD-3-Clause
 https://github.com/microsoft/vscode -MIT
 https://developer.android.com/studio -Apache 2.0
+https://r8.googlesource.com/r8
 
 https://github.com/kangax/html-minifier -MIT
 https://github.com/google/closure-compiler -Apache 2.0
