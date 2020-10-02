@@ -1,0 +1,7 @@
+Vecta.io seems to be the best svg compressor
+
+that's compared to:
+
+compresss.com
+svgo
+compressor.io
