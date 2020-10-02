@@ -351,8 +351,32 @@ width:33%;
   height: 200px;
 }
 
-.badge {
+/*
+@media screen and (min-width: 600px) {
+.ContainerFlex {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100px;
+}
+  }
+*/
+.ContainerFlex {
+  height: 230px;
+}
+.badgeG {
   width: 250px;
+  display: block;
+  margin: auto;
+}
+
+.badgeW {
+  width: 210px;
+  display: block;
+  margin: auto;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-27%);
 }
 
 p {
