@@ -418,11 +418,12 @@ changed  (min-width: 900px) to 600 to include tablets */
   }
 }
 
-/* removes default ugly black color from pagination css buttons */
+/* removes default ugly black color from pagination css buttons
+CURRENTLY BROKEN - FIX LATER 123 */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
   background: none;
-  color: #1e1e1e !important; /* change the hover text color */
-  border: 1px solid #1e1e1e; /* can change color */
+  color: #1e1e1e !important; /* change the text color on hover */
+  border: 1px solid #1e1e1e; /* can change the box color */
 
   /* border-radius: 5px; a little rounder */
 }
