@@ -693,7 +693,7 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 /* mobile only MQ - hides keyboard nav alert link */
 @media screen and (max-width: 900px) {
   .desktopOnly {
-    display: ;
+    display: none;
   }
 }
 
