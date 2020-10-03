@@ -1,20 +1,28 @@
-<div class="wrapper">
+<h3 align="center"><b>
+بِسمِ اللهِ الرَّحمنِ الرَّحِيمِ
+</b></h3>
+<br>
+<p align="center">
+<img href="https://hadithmv.github.io" src="http://hadithmv.github.io/img/newLogo5-vectaio.svg" width="200">
+</p>
 
-<div class="mid">
+<h2 align="center"><b>
+hadithmv - Accessible and Sourced
+</b></h3>
 
-# بِسمِ اللهِ الرَّحمنِ الرَّحِيمِ
-
-[![](../../img/newLogo5-vectaio.svg)](https://hadithmv.github.io)  
-
-## hadithmv - Accessible and Sourced
-
+<p align="center">
 Dhivehi hadith translations at your fingertips
+</p>
 
 View the [web version](http://hadithmv.github.io)
 
-<div class="ContainerFlex">[![](../../img/google-play-badge-en_get-vectaio.svg)](https://play.google.com/store/apps/details?id=com.hadithmv.hmv) [![](../../img/windows-badge-vectaio.svg)](https://github.com/hadithmv/hadithmv.github.io/raw/master/alt/Desktop/hmv-win.zip)</div>
+<p align="center">
+<img href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv" src="http://hadithmv.github.io/img/google-play-badge-en_get-vectaio.svg" width="200">
+</p>
 
-</div>
+<p align="center">
+<img href="https://github.com/hadithmv/hadithmv.github.io/raw/master/alt/Desktop/hmv-win.zip" src="http://hadithmv.github.io/img/windows-badge-vectaio.svg" width="200">
+</p>
 
 _- In the Name of Allah, the Entirely Merciful, the Especially Merciful -_
 
