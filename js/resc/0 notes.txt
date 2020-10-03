@@ -3,7 +3,7 @@ Load priority in COMB:???
 pushy.min.js
 jquery.min.js
 **jquery.dataTables.min.js	(minify w closure)
-input.min.js	(minified file not available from site)
+**input.min.js	(minified file not available from site, so m w closure)
 **dataTables.buttons.min.js	(minify w closure)
 **buttons.colVis.min.js	(minify w closure)
 buttons.html5.min.js
