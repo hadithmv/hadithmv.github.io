@@ -419,15 +419,6 @@ nav ul li {
   list-style-type: none;
 }
 
-/* moves hamburger menu span to right + little up, does not affect header placement */
-.hamburg {
-  font-size: 25px;
-  right: 0;
-  padding-right: 15px;
-  margin-top: -2px; /* moves hamburg a little higher, similar baseline to header text */
-  position: absolute;
-}
-
 /* for some reason, 16px default on buttons make the spaces collapse in thaana writing */
 nav button,
 nav ul li a {
