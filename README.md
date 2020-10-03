@@ -1,113 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-      <meta http-equiv="content-language" content="en">
-      <meta name="google" value="notranslate">
-<body class="notranslate">
-
-<article class="markdown-body"> <!-- ARTICLE CHANGE123 -->
-
 <h3 align="center"><b>
 بِسمِ اللهِ الرَّحمنِ الرَّحِيمِ
 </b></h3>
 <br>
+<p align="center">
+<img href="https://hadithmv.github.io" src="http://hadithmv.github.io/img/newLogo5-vectaio.svg" width="200">
+</p>
 
-  <p align="center"><a href="https://hadithmv.github.io"><img src="https://hadithmv.github.io/img/newLogo5/newLogo5-compressor.svg" alt="" width=200 height=200></a></p>
+<h2 align="center"><b>
+hadithmv - Accessible and Sourced
+</b></h3>
 
-  <h3 align="center">Hadithmv - Accessible and Sourced</h3>
+<p align="center">
+Dhivehi hadith translations at your fingertips
+</p>
 
-  <p align="center">Dhivehi Hadith translations at your fingertips</p>
+View the [web version](http://hadithmv.github.io)
 
-  <p align="center">View the<strong><a href="http://hadithmv.github.io"> web version</strong></a></p>
+<p align="center">
+<img href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv" src="http://hadithmv.github.io/img/google-play-badge-en_get-vectaio.svg" width="200">
+</p>
 
-<!--
-    <br>
-    <a href="http://hadithmv.github.io">Web Version</a>
-    ·
-    <a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv">Android Version</a>
-    ·
-    <a href="https://hadithmv.github.io/alt/Desktop/hmv-win.zip">Desktop Version</a>
-    <br>
--->
-  <p align="center">
-   <a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"><img src="https://hadithmv.github.io/img/playstore-badge/en_badge_web_generic-compressor.png" alt="" width=250></a><a href="https://goo.gl/EyjC4v"><img src="https://hadithmv.github.io/img/windows-desktop-badge/windows-badge-compressor.png" alt="" width=250></a>
-  </p>
+<p align="center">
+<img href="https://github.com/hadithmv/hadithmv.github.io/raw/master/alt/Desktop/hmv-win.zip" src="http://hadithmv.github.io/img/windows-badge-vectaio.svg" width="200">
+</p>
 
-<br><br>
+_- In the Name of Allah, the Entirely Merciful, the Especially Merciful -_
 
-<h2><b>Developing a Hadith App for Maldivians</b></h2>
+### **Developing a Hadith App for Maldivians**
 
-<p align="center"><i>- In the Name of Allah, the Entirely Merciful, the Especially Merciful -</i></p>
+The **Hmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a Hadith collection in their native language, Dhivehi. Any good is from Allah, and any shortcomings are from ourselves and shaithan.
 
-<p align="justify">The <b>Hmv</b> project is a collaborated effort in making the sayings and teachings of Muhammad  ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a Hadith collection in their native language, Dhivehi. Any good is from Allah, and any shortcomings are from ourselves and Shaithan.</p>
+## Goals
 
-<br>
+* * *
 
-<h3><b>Goals:</b></h3>
-<hr/>
-<ul align="justify">
- <li>
- <h3><b>Accessible</b></h3>
- <p>Bring the Hadith of Allah's Prophet ﷺ within the reach of everyone, regardless of the barriers of medium, location, portability, age, language or wealth. And use the platform of modern technology to help spread and instill the love of living according to the Sunnah in the hearts, as today's Maldivians are closer to their personal devices than they are to books.</p>
- </li>
- <li>
- <h3><b>Educational</b></h3>
- <p>The cause of most of our society's problems is due to people being uneducated about Islam. To solve this redundant issue, they need a way to access Islamic material they can look up for themselves. Also, teachers and students alike can benefit from these references, without having to repeat the translate process every time.</p>
- </li>
- <li>
- <h3><b>Progressive</b></h3>
- <p>It is Allah who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. Hmv is designed to be mobile-first with minimal bloat. Currently supports web, Windows desktop and Android platforms.</p>
- </li>
-</ul>
+### **Accessible**
 
-<br>
+> Bring the Hadith of Allah's Prophet ﷺ within the reach of everyone, regardless of the barriers of medium, location, portability, age, language or wealth. And use the platform of modern technology to help spread and instill the love of living according to the Sunnah in the hearts, as today's Maldivians are closer to their personal devices than they are to books.
 
-<h3><b>Milestones:</b></h3>
-<hr/>
-<ul>
- <li>
-  <b>40 Nawawi</b>
- </li>
-</ul>
+### **Educational**
 
-<br><br><br>
+> The cause of most of our society's problems is due to people being uneducated about Islam. To solve this redundant issue, they need a way to access Islamic material they can look up for themselves. Also, teachers and students alike can benefit from these references, without having to repeat the translate process every time.
 
-<h2 dir="rtl"><b>ޙަދީޘްއެމްވީ - ދިވެހިންނަށް ޙަދީޘް އެޕްލިކޭޝަނެއް އުފެއްދުން</b></h2>
+### **Progressive**
 
-<p align="center" dir="rtl">- ރަޙްމާނުވަންތަ ރަޙީމުވަންތަ ﷲ ގެ އިސްމުފުޅުން ފަށައިގަންނަމެވެ -</p>
+> It is Allah who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. Hmv is designed to be mobile-first with minimal bloat. Currently both web and Android are supported.
 
-<p align="justify" dir="rtl" style="font-family: Tharujamaanu;">ޙަދީޘްއެމްވީ، މި މަޝްރޫޢަކީ އިސްލާމީ ދިވެހި މުޖުތަމަޢަށް ވީހާވެސް ފަސޭހަ ކަމާއިއެކު ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތަަކުގެ މާނަ އުނގަންނައިދީ ފޯރުކޮށް ދިނުމަށް ޓަކައި ވަސީލަތެއް ގާއިމު ކުރުމުގެ ގޮތުން ކުރެވޭ މަސައްކަތެކެވެ. މި މަސައްކަތް ފުރިހަމަ ވުމުން ގިނަ އަދަދެއްގެ ހަދީޘްތަކެއް ދިވެހި ބަހުން އެއްތަނަކުން ފަސޭހައިން ލިބެން ހުންނާނެއެވެ. މި ކަމުގައި އެއްވެސް ހެޔޮކަމެއް ވާނަމަ، އެއީ ﷲ ގެ ޙަޟްރަތުން އައި ކަމެކެވެ. އަދި މި ކަމުގައި އެއްވެސް އުނިކަމެއް ވާނަމަ އެއީ އަޅުގަނޑުމެންނާއި ޝައިޠާނާގެ ފަރާތުން އައި ކަމެކެވެ.</p>
+## Milestones
 
-<br>
+<table>
 
-<h3 dir="rtl"><b>އަމާޒު:</b></h3>
-<hr/>
-<ul align="justify" dir="rtl" font-family="Tharujamaanu">
- <li>
- <h3><b>ފޯރުކޮށްދިނުން</b></h3>
- <p>ގެންގުޅޭ ވަޞީލަތްތަކާއި، އުޅޭ ތަނާއި، އުމުރާއި، ބަސްމޮށުންތެރިކަމާއި ތަނަވަސްކަން ނެތުމުގެ ސަބަބުން ކުރިމަތިވެފައިވާ ހުރަސްތައް ފަހަނަޅައ، ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތައް އެންމެންނާއި ހަމައަށް ފޯރުކޮށް ދިނުމެވެ. އަދި މި ޒަމާނަކީ ފޮތްތަކަށް ވުރެން ބޮޑަށް ފޯނާއި ކޮމްޕިޔުޓަރ ފަދަ ވަސީލަތްތަކަށް ދިވެހިން އަހުލުވެރި ވެފައިވާ ޒަމާނެއް ކަމުން، އަދުގެ ޓެކްނޮލަޖީގެ ޒަރިއްޔާއިން ސުންނަތް ފަތުރައި އެއާ އެއްގޮތަށް އުޅުމުގެ ލޯބި ހިތްތަކުގައި ޖެއްސުމެވެ.</p>
- </li>
- <li>
- <h3><b>އުނގަންނައިދިނުން</b></h3>
- <p>މި ކުޑަކުޑަ މުޖުތަމަޢުގެ ގިނަ މައްސަލަތަކުގެ މައިގަނޑު ސަބަބަކީ، މީސްތަކުން އިސްލާމް ދީނަށް ރަނގަޅަށް އަހުލުވެރިވެފައި ނުވުމެވެ. ވީމާ، މި ކަމަށް ޙައްލެއް ގެނައުމަށް ޓަކައި އަމިއްލައަށް އިސްލާމީ މަޢުލޫމާތު ބަލައި ހޯދޭނެ ފަސޭހަ މަގެއް އާންމުންނަށް ތަނަވަސްވެފައި އޮތުން މުހިންމެވެ. ހަމަ އެހެންމެ، މުދައްރިސުންނާއި ދަރިވަރުން މި މަސްދަރުތަކުގެ ބޭނުން ހިފައި، އެއް ޙަދީޘްތަކެއް ތަކުރާރުކޮށް ތަރުޖަމާ ކުރުމުގެ ބުރައިން ސަލާމަތް ވެގެން ދާނެއެވެ.</p>
- </li>
- <li>
- <h3><b>ތަރައްޤީވުން</b></h3>
- <p>އަޅުގަނޑުމެންނަށް ޓަކައި ޓެކްނޮލޮޖީގެ ޚިދުމަތް ލައްވައި، އޭގެ ބޭނުން ކުރެވޭނެ ގޮތް މިންވަރު ކުރެއްވީ ﷲ އެވެ. އަޅުގަނޑުމެންގެ އަމާޒަކީ ގިނަގުނަ ބޭނުންތައް ހިފޭ، ބޭނުން ކުރަން ފަސޭހަ އެޕްލިކޭޝަނެއް އެންމެންނަށް ފޯރުކޮށް ދިނުމެވެ. އަދި ގެންގުޅޭ ވަސީލަތްތަކާއި އުސްލޫބު ތަފާތު ވިޔެއްކަމަކު، ބޭނުން ކުރާ ފަރާތްތަކަށް އެކަށީގެންވާ ހިތްގައިމު މާހައުލެއް ޤާއިމުކޮށް ދިނުމެވެ. ޙަދީޘްއެމްވީ ފަރުމާ ކުރެވިފައި ވަނީ ފޯނަށް އަހަންމިއްޔަތުކަން ދެވި، ޖާގައަށް ބުރަ ނުވާ ގޮތަށެވެ. މި ވަގުތު ވެބް، ވިންޑޯސް ޑެސްކްޓޮޕް އަދި އެންޑުރޮއިޑު މަންސަތަކުގައި ބޭނުން ކުރެވޭނެއެވެ.</p>
- </li>
-</ul>
+<tbody>
 
-<br>
+<tr>
 
-<h3 dir="rtl"><b>ލަނޑުދަނޑިތައް:</b></h3>
-<hr/>
-<ul dir="rtl">
- <li>
-  <b>40 ނަވަވީ</b>
- </li>
-</ul>
-</article> <!-- END OF ARTICLE -->
-</body>
-</html>
+<th>Hadith</th>
+
+<th>Progress</th>
+
+</tr>
+
+<tr>
+
+<td>40 Nawawi</td>
+
+<td>Complete</td>
+
+</tr>
+
+<tr>
+
+<td>Sahihain</td>
+
+<td>In Progress</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="dv">
+
+- ރަޙްމާން ވަންތަ ރަޙީމް ވަންތަ ﷲ ގެ އިސްމުފުޅުން ފަށައިގަންނަމެވެ -
+
+### **ޙަދީޘް އެމް.ވީ. - ދިވެހިންނަށް ޙަދީޘް އެޕްލިކޭޝަނެއް އުފެއްދުން**
+
+ޙަދީޘް އެމް.ވީ. މަޝްރޫޢަކީ އިސްލާމީ ދިވެހި މުޖުތަމަޢަށް ވީހާވެސް ފަސޭހަ ކަމާއިއެކު ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތަަކުގެ މާނަ އުނގަންނައިދީ ފޯރުކޮށް ދިނުމަށް ޓަކައި ވަސީލަތެއް ގާއިމު ކުރުމުގެ ގޮތުން ކުރެވޭ މަސައްކަތެކެވެ. މި މަސައްކަތް ފުރިހަމަ ވުމުން ގިނަ އަދަދެއްގެ ހަދީޘްތަކެއް ދިވެހި ބަހުން އެއްތަނަކުން ފަސޭހައިން ލިބެން ހުންނާނެއެވެ. މި ކަމުގައި އެއްވެސް ހެޔޮކަމެއް ވާނަމަ، ފަހެ އެއީ ﷲ ގެ ޙަޟްރަތުން އައި ކަމެކެވެ. އަދި މި ކަމުގައި އެއްވެސް އުނިކަމެއް ވާނަމަ އެއީ އަޅުގަނޑުމެންނާއި ޝައިޠާނާގެ ފަރާތުން އައި ކަމެކެވެ.
+
+## އަމާޒު
+
+* * *
+
+### **ފޯރުކޮށްދިނުން**
+
+> ގެންގުޅޭ ވަޞީލަތްތަކާއި، އުޅޭ ތަނާއި، އުމުރާއި، ބަސްމޮށުންތެރިކަމާއި ތަނަވަސްކަން ނެތުމުގެ ސަބަބުން ކުރިމަތިވެފައިވާ ހުރަސްތައް ފަހަނައަޅައި، ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތައް އެންމެންނާއި ހަމައަށް ފޯރުކޮށް ދިނުމެވެ. އަދި މި ޒަމާނަކީ ފޮތްތަކަށް ވުރެން ބޮޑަށް ފޯނާއި ކޮމްޕިޔުޓަރ ފަދަ ވަސީލަތްތަކަށް ދިވެހިން އަހުލުވެރި ވެފައިވާ ޒަމާނެއް ކަމުން، އަދުގެ ޓެކްނޮލަޖީގެ ޒަރިއްޔާއިން ސުންނަތް ފަތުރައި އެއާ އެއްގޮތަށް އުޅުމުގެ ލޯބި ހިތްތަކުގައި ޖެއްސުމެވެ.
+
+### **އުނގަންނައިދިނުން**
+
+> މި ކުޑަކުޑަ މުޖުތަމަޢުގެ ގިނަ މައްސަލަތަކުގެ މައިގަނޑު ސަބަބަކީ މީސްތަކުން އިސްލާމް ދީނަށް ރަނގަޅަށް އަހުލުވެރި ވެފައި ނުވުމެވެ. ވީމާ މި ކަމަށް ޙައްލެއް ގެނައުމަށް ޓަކައި އަމިއްލައަށް އިސްލާމީ މަޢުލޫމާތު ބަލައި ހޯދޭނެ ފަސޭހަ މަގެއް މީސްތަކުންނަށް ތަނަވަސްވެފައި އޮތުން މުހިންމެވެ. ހަމަ އެހެންމެ، މުދައްރިސުންނާއި ދަރިވަރުން މި މަސްދަރުތަކުގެ ބޭނުން ހިފައި، އެއް ޙަދީޘްތަކެއް ތަކުރާރުކޮށް ތަރުޖަމާ ކުރުމުގެ ބުރައިން ސަލާމަތް ވެގެން ދާނެއެވެ.
+
+### **ތަރައްޤީވުން**
+
+> އަޅުގަނޑުމެންނަށް ޓަކައި ޓެކްނޮލޮޖީގެ ޚިދުމަތް ލައްވައި އޭގެ ބޭނުން ކުރެވޭނެ ގޮތް މިންވަރު ކުރެއްވީ ﷲ އެވެ. އަޅުގަނޑުމެންގެ އަމާޒަކީ ގިނަގުނަ ބޭނުންތައް ހިފޭ، ބޭނުން ކުރަން ފަސޭހަ އެޕްލިކޭޝަނެއް އެންމެންނަށް ފޯރުކޮށް ދިނުމެވެ. އަދި ގެންގުޅޭ ވަސީލަތްތަކާއި އުސްލޫބު ތަފާތު ވިޔެއްކަމަކު، ބޭނުން ކުރާ ފަރާތްތަކަށް އެކަށީގެންވާ ހިތްގައިމު މާހައުލެއް ޤާއިމުކޮށް ދިނުމެވެ. ޙަދީޘް އެމް.ވީ. ފަރުމާ ކުރެވިފައި ވަނީ ފޯނަށް އަހަންމިއްޔަތުކަން ދެވި، ޖާގައަށް ބުރަ ނުވާ ގޮތަށެވެ. މި ވަގުތު އިންޓަރނެޓު އަދި އެންޑުރޮއިޑު ވަޞީލަތްތަކުގައި ބޭނުން ކުރެވޭނެއެވެ.
+
+## ލަނޑުދަނޑިތައް
+
+<table class="dvTable">
+
+<tbody>
+
+<tr>
+
+<th>ޙަދީޘް</th>
+
+<th>މަސައްކަތް</th>
+
+</tr>
+
+<tr>
+
+<td>40 ނަވަވީ</td>
+
+<td>ނިމިފައި</td>
+
+</tr>
+
+<tr>
+
+<td>ޞަޙީޙައިން</td>
+
+<td>ކުރިއަށް ދަނީ</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
