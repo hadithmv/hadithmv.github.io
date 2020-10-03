@@ -14,7 +14,10 @@ hadithmv - Accessible and Sourced
 Dhivehi hadith translations at your fingertips
 </p>
 
-View the [web version](http://hadithmv.github.io)
+<p align="center">
+  View the <a href="https://http://hadithmv.github.io">web version</a>
+</p>
+
 
 <p align="center">
 <img href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv" src="http://hadithmv.github.io/img/google-play-badge-en_get-vectaio.svg" width="200">
@@ -24,7 +27,9 @@ View the [web version](http://hadithmv.github.io)
 <img href="https://github.com/hadithmv/hadithmv.github.io/raw/master/alt/Desktop/hmv-win.zip" src="http://hadithmv.github.io/img/windows-badge-vectaio.svg" width="200">
 </p>
 
-_- In the Name of Allah, the Entirely Merciful, the Especially Merciful -_
+<p align="center"><i>
+  - In the Name of Allah, the Entirely Merciful, the Especially Merciful -</i>
+</p>
 
 ### **Developing a Hadith App for Maldivians**
 
