@@ -87,9 +87,14 @@ The **Hmv** project is a collaborated effort in making the sayings and teachings
 
 </table>
 
+
+<br/><br/>
 <div class="dv">
 
+<p align="center">
 - ރަޙްމާން ވަންތަ ރަޙީމް ވަންތަ ﷲ ގެ އިސްމުފުޅުން ފަށައިގަންނަމެވެ -
+</p>
+
 
 ### **ޙަދީޘް އެމް.ވީ. - ދިވެހިންނަށް ޙަދީޘް އެޕްލިކޭޝަނެއް އުފެއްދުން**
 
