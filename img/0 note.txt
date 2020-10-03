@@ -1,17 +1,21 @@
-Vecta.io seems to be the best svg compressor
-https://vecta.io/nano?utm_source=vectaio&utm_content=Nano&utm_campaign=vecta-nano
+Vecta.io then combined with svgo seems to be the best svg compression method
 
-that's compared to:
+https://vecta.io/nano?utm_source=vectaio&utm_content=Nano&utm_campaign=vecta-nano
+https://jakearchibald.github.io/svgomg/
+
+might have to manually then remove:
+ stroke-width="0" style="background-color:#fff" viewBox="0 0 1080 1080"
+
+that's compared to these when solo:
 
 compresss.com
 svgo (maybe better in node, havent checked except web version)
 compressor.io
 ...
 
-svg badge available from:
+svg badges available from:
 
 https://github.com/steverichey/google-play-badge-svg
-
 https://freeiconshop.com/icon/get-it-on-windows-store-button/
 
-further compressed by vectaio
+further compressed by vectaio+svgomg

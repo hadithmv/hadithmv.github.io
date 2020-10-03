@@ -17,13 +17,13 @@
     <link
       rel="icon"
       type="image/svg+xml"
-      href="../img/newLogo5-compressor.svg"
+      href="../img/newLogo5-vectaio.svg"
     />
     <meta name="theme-color" content="#29434e" />
     <!-- #34515e -->
     <link
       rel="mask-icon"
-      href="../img/newLogo5-compressor.svg"
+      href="../img/newLogo5-vectaio.svg"
       color="#337ab7"
     />
 
@@ -74,11 +74,18 @@
   <!-- ===== HEAD - END ===== -->
 
   <!-- ===== BODY ===== -->
+<style>
+  /* moves hamburger menu span to right + little up, does not affect header placement */
 
+</style>
   <body>
     <!-- top nav bar like -->
     <header class="site-header push menu-btn">
-      <a>ޙަދީޘްއެމްވީ</a><span class="hamburg">&#9776;</span>
+      <span class="navLogo">
+        <img src="../img/newLogo5-vectaioANDsvgomg-white-noback.svg" width="40px">
+      </span>
+      <a>ޙަދީޘްއެމްވީ</a>
+      <span class="hamburg">&#9776;</span>
     </header>
     <!-- added menu-btn to activate menu -->
 
@@ -110,15 +117,7 @@
             </li>-->
             </ul>
           </li>
-<style>
-  /* removes default ugly black color from pagination css buttons */
-  .dataTables_paginate .paginate_button:hover {
-    color: #fff !important;
 
-    /* border: 1px solid #111; */
-    border: 1px solid #eee;
-    background-color: #585858;
-}</style>
           <li class="pushy-submenu">
             <button>އިތުރު ޙަދީޘްތައް</button>
             <!-- / CHANGE123 FIRST LINK -->
@@ -134,12 +133,23 @@
             </li>
             -->
               <li class="pushy-link" onclick="openLink(event, 'sahihainTab')">
-                <!-- / CHANGE1
-                23 SECOND LINK -->
+                <!-- / CHANGE 123 SECOND LINK -->
                 <a href="../books/sahihain.html" target="_blank" rel="noopener"
                   >ޞަޙީޙައިން (ނުނިމޭ)</a
                 >
               </li>
+
+              <li
+                class="pushy-link"
+                onclick="openLink(event, 'umdahHadithTab')"
+              >
+                <a
+                  href="../books/umdah.html"
+                  target="_blank"
+                  rel="noopener"
+                  >ޢުމްދަތުލް އަޙްކާމް</a
+                ></li>
+
               <li
                 class="pushy-link"
                 onclick="openLink(event, 'otherHadithTab')"
@@ -157,6 +167,7 @@
               rel="noopener"
               >ޙަދީޘްތައް</a>
               --></li>
+
             </ul>
           </li>
 
