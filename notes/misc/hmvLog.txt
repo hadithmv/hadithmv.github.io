@@ -4,6 +4,7 @@
 ftp://192.168.43.1:2221
 ftp://192.168.100.3:2221
 
+change umdah view # hadith to more than 1 later
 ”
 “
 ❞
