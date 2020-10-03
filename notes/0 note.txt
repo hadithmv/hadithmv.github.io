@@ -1,1 +1,4 @@
 minimal-mod.css		csso
+
+markdown is very much line by line, but the least broken converter seems to be:
+https://www.browserling.com/tools/html-to-markdown
