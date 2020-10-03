@@ -137,7 +137,7 @@ The **Hmv** project is a collaborated effort in making the sayings and teachings
 ލަނޑުދަނޑިތައް
 </b></h3>
 
-<table class="dvTable">
+<table class="dvTable" align="right"  dir="rtl">
 
 <tbody>
 
