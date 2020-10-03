@@ -6,7 +6,7 @@ ftp://192.168.100.3:2221
 
 change umdah view # hadith to more than 1 later
 
-for some reason 1.6.4/css/buttons.dataTables.css breaks the copy
+for some reason 1.6.4/js/dataTables.buttons.js breaks the copy
 
 ”
 “
