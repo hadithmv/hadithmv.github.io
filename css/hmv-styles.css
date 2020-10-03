@@ -691,6 +691,23 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 
 /* ===== dom flexbox - END ===== */
 
+/* moves hamburger menu span to right + little up, does not affect header placement */
+.hamburg {
+  font-size: 25px;
+  right: 0;
+  padding-right: 15px;
+  margin-top: -2px; /* moves hamburg a little higher, similar baseline to header text */
+  position: absolute;
+}
+
+.navLogo {
+  font-size: 25px;
+  left: 0;
+  padding-left: 15px;
+  margin-top: -9px; /* moves hamburg a little higher, similar baseline to header text */
+  position: absolute;
+}
+
 /* mobile only MQ - hides keyboard nav alert link */
 @media screen and (max-width: 900px) {
   .desktopOnly {
