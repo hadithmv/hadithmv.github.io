@@ -4,6 +4,17 @@
 ftp://192.168.43.1:2221
 ftp://192.168.100.3:2221
 
+0 b
+2 b
+3 w
+4 w
+5 w
+6 w
+7 w
+8 w
+9 w
+10 w
+
 change umdah view # hadith to more than 1 later
 
 for some reason 1.6.4/js/dataTables.buttons.js breaks the copy
