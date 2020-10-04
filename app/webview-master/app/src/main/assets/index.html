@@ -17,13 +17,13 @@
     <link
       rel="icon"
       type="image/svg+xml"
-      href="../img/newLogo5-compressor.svg"
+      href="../img/newLogo5-vectaioANDsbgomg.svg"
     />
     <meta name="theme-color" content="#29434e" />
     <!-- #34515e -->
     <link
       rel="mask-icon"
-      href="../img/newLogo5-compressor.svg"
+      href="../img/newLogo5-vectaioANDsbgomg.svg"
       color="#337ab7"
     />
 
@@ -45,10 +45,10 @@
     <!-- ===== ===== CSS LIBRARIES ===== ===== -->
     <style>
       /*
-  <!-- DATATABLES CSS 1.10.21 -Originally 1.10.3 -->
+  <!-- DATATABLES CSS 1.10.22 -Originally 1.10.3 -->
   <link rel="stylesheet" href="../css/jquery.dataTables.min.css" />
 
-  <!--Datatable Buttons Css 1.6.3 -->
+  <!--Datatable Buttons Css 1.6.4 -->
   <link rel="stylesheet" href="../css/buttons.dataTables.min.css" />
 
   <!-- pushy js sidebar 1.3.0 -->
@@ -61,7 +61,7 @@
   */
     </style>
     <!-- COMBINED css -->
-    <link rel="stylesheet" href="css/COMBcss.min.css" />
+    <link rel="stylesheet" href="../css/COMBcss.min.css" />
     <!-- APKCHANGE 123 ===== -->
     <!-- loadcss by filament group, currently causes fouc so not in use, inline critical css later
     <link
@@ -70,6 +70,7 @@
     media="print"
     onload="this.media='all'; this.onload=null;"
   /> -->
+    
   </head>
   <!-- ===== HEAD - END ===== -->
 
@@ -78,7 +79,14 @@
   <body>
     <!-- top nav bar like -->
     <header class="site-header push menu-btn">
-      <a>ޙަދީޘްއެމްވީ</a><span class="hamburg">&#9776;</span>
+      <span class="navLogo"> <!-- remember to add width="40px" to svg or img
+      previously inlined as svg
+       -->
+       <img src="../img/newLogo5-vectaioANDsvgomg-white-noback.svg" width="40px" alt="navlogo">
+      <!-- APKCHANGE 123 ===== -->
+      </span>
+      <a>ޙަދީޘްއެމްވީ</a>
+      <span class="hamburg">&#9776;</span>
     </header>
     <!-- added menu-btn to activate menu -->
 
@@ -98,11 +106,11 @@
               </li>
               <li class="pushy-link">
                 <a
-                  href="notes/introFortyN/introFortyN.html"
+                  href="../notes/introFortyN/introFortyN.html"
                   target="_blank"
                   rel="noopener"
                   >ތަޢާރަފު</a
-                ><!-- APKCHANGE 123 ===== -->
+                >
               </li>
               <!-- TODO ?
             <li class="pushy-link">
@@ -126,19 +134,33 @@
             </li>
             -->
               <li class="pushy-link" onclick="openLink(event, 'sahihainTab')">
-                <!-- / CHANGE1
-                23 SECOND LINK -->
-                <a href="sahihain.html" target="_blank" rel="noopener"
+                <!-- / CHANGE 123 SECOND LINK -->
+                <a href="../books/sahihain.html" target="_blank" rel="noopener"
                   >ޞަޙީޙައިން (ނުނިމޭ)</a
-                ><!-- APKCHANGE 123 ===== -->
+                >
               </li>
+
+              <li
+                class="pushy-link"
+                onclick="openLink(event, 'umdahHadithTab')"
+              >
+                <a
+                  href="../books/umdah.html"
+                  target="_blank"
+                  rel="noopener"
+                  >ޢުމްދަތުލް އަޙްކާމް</a
+                ></li>
+
               <li
                 class="pushy-link"
                 onclick="openLink(event, 'otherHadithTab')"
               >
-                <a href="otherHadith-uc.html" target="_blank" rel="noopener"
+                <a
+                  href="../books/otherHadith-uc.html"
+                  target="_blank"
+                  rel="noopener"
                   >އެހެނިހެން ޙަދީޘްތައް</a
-                ><!-- APKCHANGE 123 ===== -->
+                >
                 <!--
               <a
               href="../notes/introFortyN/introFortyN.html"
@@ -146,44 +168,42 @@
               rel="noopener"
               >ޙަދީޘްތައް</a>
               --></li>
+
             </ul>
           </li>
 
           <li class="pushy-submenu">
-            <button>އެހެނިހެން</button>
+            <button>އިތުރު މައުލޫމާތު</button>
             <ul>
               <li class="pushy-link">
                 <a
-                  href="notes/introHmv/introHmv.html"
-                  target="_blank"
-                  rel="noopener"
-                  >އިތުރު މައުލޫމާތު</a
-                ><!-- APKCHANGE 123 ===== -->
-              </li>
-
-              <li class="pushy-link">
-                <a
-                  href="https://hadithmv.github.io/alt/docs"
+                  href="../notes/introHmv/introHmv.html"
                   target="_blank"
                   rel="noopener"
                   >ލިޔެކިޔުންތައް</a
                 >
               </li>
+
               <li class="pushy-link">
                 <a
-                  href="notes/third-party-libs-and-tools.txt"
+                  href="../notes/third-party-libs-and-tools.txt"
                   target="_blank"
                   rel="noopener"
                   >ބޭނުން ކުރެވުނު ތަކެތި</a
-                ><!-- APKCHANGE 123 ===== -->
+                >
+              </li>
+
               </li>
               <li class="pushy-link">
-                <a href="LICENSE.txt" target="_blank" rel="noopener">ހުއްދަ</a
-                ><!-- APKCHANGE 123 ===== -->
+                <a href="../LICENSE.txt" target="_blank" rel="noopener"
+                  >ހުއްދަ</a
+                >
               </li>
+
               <li class="pushy-link desktopOnly">
                 <a href="#" onclick="myHelp()">ކީބޯޑް ނެވިގޭޝަން</a>
               </li>
+              
             </ul>
           </li>
 
@@ -225,12 +245,19 @@
                   >ފޯމް</a
                 >
               </li>
+
+              <li class="pushy-link">
+                <a href="https://telegram.me/yahyasdadmv">ޓެލެގްރާމް</a>
+              </li>
+
               <li class="pushy-link">
                 <a href="mailto:yahyasdadmv@gmail.com">އީމެއިލް</a>
               </li>
             </ul>
           </li>
+
           <br />
+
           <li>
             <a>އިސްދާރު: <span class="hmvVer">2.0</span>&thinsp;⚙️</a>
           </li>
@@ -238,7 +265,7 @@
           <li>
             <a
               class="madeby"
-              href="https://telegram.me/yahyasdad"
+              href="https://telegram.me/yahyasdadmv"
               target="_blank"
               rel="noopener"
               >ފަރުމާ ކުރީ: أبو يحيى أشراف بن إبراهيم المحلي<br /><br />
@@ -266,7 +293,8 @@
 
       <!-- First tab
     / CHANGE123 TAB -->
-      <div id="fortyNTab" class="myTab w3-animate-right">
+      <main id="fortyNTab" class="myTab w3-animate-right">
+        <!-- previously main was div, might have broken some css elsewhere -->
         <!-- if these tab classes and IDs are given to table, dt wrapper wont hide when tabbed away -->
 
         <!-- DT table classes
@@ -299,7 +327,7 @@
           </thead>
         </table>
         <!-- ===== TABLE - END ===== -->
-      </div>
+      </main>
       <!-- <div id="fortyNTab" class="myTab w3-animate-right"> first tab END -->
 
       <!-- Template for offline tabs
@@ -311,7 +339,7 @@
 
     <!-- ===== ===== JS LIBRARIES ===== ===== -->
     <!-- COMBINED js -->
-    <script src="js/resc/COMBjs.js"></script>
+    <script src="../js/resc/COMBjs.js"></script>
     <!-- APKCHANGE 123 ===== -->
     <style>
       /*
@@ -320,17 +348,17 @@
         -note: slim build breaks pagination. -->
       <script src="../js/jquery.min.js"></script>
 
-  <!-- DATATABLES JS 1.10.21 - DT Core. Originally 1.10.3 -->
+  <!-- DATATABLES JS 1.10.22 - DT Core. Originally 1.10.3 -->
   <script src="../js/jquery.dataTables.min.js"></script>
 
   <!-- ===== DT JS extensions ===== -->
   <!-- DT Buttons 1.6.3 -->
   <script src="../js/dataTables.buttons.min.js"></script>
 
-  <!-- DT Colvis 1.6.3 -->
+  <!-- DT Colvis 1.6.4 -->
   <script src="../js/buttons.colVis.min.js"></script>
 
-  <!-- DT Html5 1.6.3 -->
+  <!-- DT Html5 1.6.4 -->
   <script src="../js/buttons.html5.min.js"></script>
 
   <!-- -not currently used- DT Excel Export - jszip 3.2.0 - Originally 2.5.0 - gets bigger
@@ -339,10 +367,10 @@
                   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.57/pdfmake.min.js"></script>
                   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.57/vfs_fonts.js"></script> -->
 
-  <!-- DT Keytable 2.5.2 -->
+  <!-- DT Keytable 2.5.3 -->
   <script src="../js/dataTables.keyTable.min.js"></script>
 
-  <!-- DT Input - they dont have a min version on their cdn, made my own - not fully integrated yet with them.
+  <!-- DT Input 1.10.21 - they dont have a min version on their cdn, made my own - not fully integrated yet with them.
       https://github.com/DataTables/Plugins/blob/master/pagination/input.js -->
   <script src="../js/input.min.js"></script>
 
@@ -351,15 +379,16 @@
       https://www.gyrocode.com/articles/jquery-datatables-save-and-restore-table-state-using-unique-url/ -->
   <script src="../js/dataTables.keepConditions.min.js"></script>
 
-  <!-- DT Mark Js - Css file content included with the header Css
-                  9.0.0 seems to work now. previously (Keep at 8.11.1 - Upgrading to 9 breaks highlight) 
+  <!-- DT Mark Js 9.0.0 - Css file content included with the header Css
                   https://github.com/julmot/mark.js/tree/master/dist
                   https://github.com/julmot/datatables.mark.js/tree/master/dist -->
   <script src="../js/jquery.mark.min.js"></script>
+
+  <!-- datatables.mark.js 2.0.2 -->
   <script src="../js/datatables.mark.min.js"></script>
 
   <!-- pushy js has to come at the end of doc or sidebar wont work -->
-  <!-- pushy js sidebar - this was moved to end
+  <!-- pushy js sidebar 1.3.0 - this was moved to end
       <script src="../js/pushy.min.js"></script>-->
 
   <!-- Hammerjs 2.0.8 -->
@@ -367,13 +396,11 @@
           */
     </style>
     <!-- Custom JS -->
-    <script src="js/fortyN-script.min.js"></script>
-    <!-- APKCHANGE 123 ===== -->
+    <script src="../js/fortyN-script.min.js"></script>
 
     <!-- / CHANGE123 JS
         'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
-    <script src="js/40nHadith.json"></script>
-    <!-- APKCHANGE 123 ===== -->
+    <script src="../js/40nHadith.json"></script>
 
     <!-- ===== ===== JS LIBRARIES - END ===== ===== -->
 
