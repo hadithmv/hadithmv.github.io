@@ -4,6 +4,10 @@
 ftp://192.168.43.1:2221
 ftp://192.168.100.3:2221
 
+app changes:
+license goes in main
+links to 40n main page need to be redirected within folders
+
 0 b
 2 b
 3 w w b
