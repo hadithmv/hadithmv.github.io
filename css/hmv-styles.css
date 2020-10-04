@@ -704,7 +704,7 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   font-size: 25px;
   left: 0;
   padding-left: 12px;
-  margin-top: -7px; /* moves hamburg a little higher, similar baseline to header text */
+  margin-top: -10px; /* moves navLogo a little higher, similar baseline to header text */
   position: absolute;
 }
 
