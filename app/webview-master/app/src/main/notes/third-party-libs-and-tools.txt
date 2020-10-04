@@ -36,6 +36,10 @@ https://gitlab.gnome.org/GNOME/meld -GNU GPLv2
 
 https://github.com/yoksel/url-encoder
 https://compressor.io
+https://vecta.io/nano
+https://github.com/svg/svgo -MIT
+
+https://github.com/github/codeql -MIT
 
 https://github.com/sqlite/sqlite
 https://github.com/pawelsalawa/sqlitestudio -GNU GPLv3
