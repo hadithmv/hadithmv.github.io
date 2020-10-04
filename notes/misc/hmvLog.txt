@@ -6,14 +6,26 @@ ftp://192.168.100.3:2221
 
 0 b
 2 b
-3 w
-4 w
-5 w
-6 w
-7 w
-8 w
-9 w
-10 w
+3 w w b
+4 w b
+5 w b
+6 w b
+7 w b
+8 w b
+9 w b
+10 w b
+
+2 ONWARDS
+1 b
+2 w b
+3 w b
+4 w bb
+5 w b
+6 w b
+7 w b
+8 w b
+9 w b
+10 w b
 
 change umdah view # hadith to more than 1 later
 
