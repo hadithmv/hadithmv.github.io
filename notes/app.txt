@@ -3,6 +3,7 @@
 
 <a href="#">ޙަދީޘްތައް</a>
 !!!<a href="index.html">ޙަދީޘްތައް</a>
+!!!<a href="../index.html">ޙަދީޘްތައް</a>
 
 href="../notes/introFortyN/introFortyN.html"
 href="notes/introFortyN/introFortyN.html"
