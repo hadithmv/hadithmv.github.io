@@ -61,7 +61,7 @@
   */
     </style>
     <!-- COMBINED css -->
-    <!-- <link rel="stylesheet" href="../css/COMBcss.min.css" /> previously without app fallback -->
+    <!-- <link rel="stylesheet" href="../css/COMBcss.min.css" /> previously without style link fallback for app below -->
     <link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
     <!-- APKCHANGE 123 ===== -->
     <!-- loadcss by filament group, currently causes fouc so not in use, inline critical css later
@@ -83,7 +83,7 @@
       previously inlined as svg
        -->
        <img width="40px" alt="navlogo" src="../img/newLogo5-vectaioANDsvgomg-white-noback.svg" onerror="this.onerror=null;this.src='img/newLogo5-vectaioANDsvgomg-white-noback.svg';" />
-
+       <!-- fallback img for app -->
       <!-- APKCHANGE 123 ===== -->
       </span>
       <a>ޙަދީޘްއެމްވީ</a>
@@ -340,15 +340,14 @@
 
     <!-- ===== ===== JS LIBRARIES ===== ===== -->
     <!-- COMBINED js 
-    <script src="js/resc/COMBjs.js"></script>-->
-    <script type="text/javascript" src="../js/resc/COMBjs.js" onerror="this.onerror=null;this.src='js/resc/COMBjs.js';"></script>
-    
+    <script src="js/resc/COMBjs.js"></script>--> 
+    <script src="../js/resc/COMBjs.js"></script>
+    <!-- fallback js for app -->
     <script>
-      function errorHandler(script) {
-          script.src = "js/resc/COMBjs.js";
-      }
-  </script>
-  <script src="../js/resc/COMBjs.js" onerror="errorHandler(this)"></script>
+           window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
+           window.jQuery || document.write('<script src="js/fortyN-script.min.js"><\/script>');
+           window.jQuery || document.write('<script src="js/40nHadith.json"><\/script>');
+    </script>
     <!-- APKCHANGE 123 ===== -->
     <style>
       /*
@@ -405,11 +404,12 @@
           */
     </style>
     <!-- Custom JS -->
-    <script src="js/fortyN-script.min.js"></script>
+    <script src="../js/fortyN-script.min.js"></script>
 
     <!-- / CHANGE123 JS
         'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
-    <script src="js/40nHadith.json"></script>
+    <script src="../js/40nHadith.json"></script>
+
     <!-- ===== ===== JS LIBRARIES - END ===== ===== -->
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
