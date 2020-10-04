@@ -61,8 +61,10 @@
   */
     </style>
     <!-- COMBINED css -->
-    <!-- <link rel="stylesheet" href="../css/COMBcss.min.css" /> previously without style link fallback for app below -->
-    <link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
+    <link rel="stylesheet" href="../css/COMBcss.min.css" />
+    <link rel="stylesheet" href="css/COMBcss.min.css" />  <!-- for app, either will cause an error -->
+    <!-- <link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
+    this works as fallback but causes FOUC -->
     <!-- APKCHANGE 123 ===== -->
     <!-- loadcss by filament group, currently causes fouc so not in use, inline critical css later
     <link
@@ -103,9 +105,11 @@
             <!-- button id="first-link" sets focus on open menu -->
             <ul>
               <li class="pushy-link" onclick="openLink(event, 'fortyNTab')">
+                <!-- APKCHANGE 123 ===== -->
                 <a href="#">ޙަދީޘްތައް</a>
               </li>
               <li class="pushy-link">
+                <!-- APKCHANGE 123 ===== -->
                 <a
                   href="../notes/introFortyN/introFortyN.html"
                   target="_blank"
@@ -136,7 +140,8 @@
             -->
               <li class="pushy-link" onclick="openLink(event, 'sahihainTab')">
                 <!-- / CHANGE 123 SECOND LINK -->
-                <a href="../books/sahihain.html" target="_blank" rel="noopener"
+                <!-- APKCHANGE 123 ===== -->
+                <a href="books/sahihain.html" target="_blank" rel="noopener"
                   >ޞަޙީޙައިން (ނުނިމޭ)</a
                 >
               </li>
@@ -145,6 +150,7 @@
                 class="pushy-link"
                 onclick="openLink(event, 'umdahHadithTab')"
               >
+              <!-- APKCHANGE 123 ===== -->
                 <a
                   href="../books/umdah.html"
                   target="_blank"
@@ -156,8 +162,9 @@
                 class="pushy-link"
                 onclick="openLink(event, 'otherHadithTab')"
               >
+              <!-- APKCHANGE 123 ===== -->
                 <a
-                  href="../books/otherHadith-uc.html"
+                  href="books/otherHadith-uc.html"
                   target="_blank"
                   rel="noopener"
                   >އެހެނިހެން ޙަދީޘްތައް</a
@@ -177,8 +184,9 @@
             <button>އިތުރު މައުލޫމާތު</button>
             <ul>
               <li class="pushy-link">
+                <!-- APKCHANGE 123 ===== -->
                 <a
-                  href="../notes/introHmv/introHmv.html"
+                  href="notes/introHmv/introHmv.html"
                   target="_blank"
                   rel="noopener"
                   >ލިޔެކިޔުންތައް</a
@@ -186,8 +194,9 @@
               </li>
 
               <li class="pushy-link">
+                <!-- APKCHANGE 123 ===== -->
                 <a
-                  href="../notes/third-party-libs-and-tools.txt"
+                  href="notes/third-party-libs-and-tools.txt"
                   target="_blank"
                   rel="noopener"
                   >ބޭނުން ކުރެވުނު ތަކެތި</a
@@ -196,7 +205,8 @@
 
               </li>
               <li class="pushy-link">
-                <a href="../LICENSE.txt" target="_blank" rel="noopener"
+                <!-- APKCHANGE 123 ===== -->
+                <a href="LICENSE.txt" target="_blank" rel="noopener"
                   >ހުއްދަ</a
                 >
               </li>
