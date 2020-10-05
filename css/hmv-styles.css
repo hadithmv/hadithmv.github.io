@@ -961,7 +961,9 @@ so right align to prevent gaps in text */
 @media screen and (max-width: 900px) {
   .dataTable tr td.uhCol1,
   .dataTable tr td.uhCol2,
+  .dataTable tr td.uhCol3,
   .dataTable tr td.uhCol4,
+  .dataTable tr td.uhCol5,
   .dataTable tr td.uhCol9 {
     text-align: center;
   }
@@ -1021,3 +1023,12 @@ so right align to prevent gaps in text */
 */
 
 /* ===== custom column classes - END ===== */
+
+/* Umdah only kitab bab top bottom padding removal */
+.dataTable tr td.uhCol2,
+.dataTable tr td.uhCol3,
+.dataTable tr td.uhCol4,
+.dataTable tr td.uhCol5 {
+  padding-top: 0;
+  padding-bottom: 0;
+}
