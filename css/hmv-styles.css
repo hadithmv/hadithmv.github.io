@@ -967,7 +967,7 @@ so right align to prevent gaps in text */
   }
 
   /* bold headers for mobile - first number at top */
-  .unCol1 {
+  .uhCol1 {
     font-weight: bold;
   }
 }
