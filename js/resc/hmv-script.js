@@ -1,5 +1,5 @@
-// havent tried this yet
-
+// havent ext ganalytics yet
+/*
 async
 src = 'https://www.googletagmanager.com/gtag/js?id=UA-112777351-1'
 
@@ -10,6 +10,7 @@ function gtag () {
 gtag('js', new Date())
 
 gtag('config', 'UA-112777351-1')
+*/
 
 /* Desktop only keyboard nav help Alert */
 function myHelp () {
