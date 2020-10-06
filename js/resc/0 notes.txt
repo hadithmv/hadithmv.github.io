@@ -12,5 +12,6 @@ dataTables.keyTable.min.js
 dataTables.keepConditions.min.js
 datatables.mark.min.js
 **jquery.mark.min.js	(remove comments, otherwise ok)
+**hmv-script.js	(not originally minified, so minify w closure)
 
 

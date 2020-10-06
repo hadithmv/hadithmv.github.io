@@ -8,29 +8,6 @@ app changes:
 license goes in main
 links to 40n main page need to be redirected within folders
 
-0 b
-2 b
-3 w w b
-4 w b
-5 w b
-6 w b
-7 w b
-8 w b
-9 w b
-10 w b
-
-2 ONWARDS
-1 b
-2 w b
-3 w b
-4 w bb
-5 w b
-6 w b
-7 w b
-8 w b
-9 w b
-10 w b
-
 change umdah view # hadith to more than 1 later
 
 for some reason 1.6.4/js/dataTables.buttons.js breaks the copy
@@ -47,11 +24,11 @@ for some reason 1.6.4/js/dataTables.buttons.js breaks the copy
 maybe add arabic numbers in fonts, otherwise too large
 
 
-البخاري 963، ومسلم 888
-البخاري 891، 879 واللفظ له
-البخاري 955 واللفظ له، ومسلم 1961
+البخاري 1923، ومسلم 1095
+البخاري 1933، ومسلم 1155 واللفظ له
+البخاري 1936 واللفظ له، ومسلم 111
 <p></p>
-مسلم 860
+مسلم 1594
 البخاري 1107
 
 واللفذ للنساي 1416

@@ -521,8 +521,3 @@ $(document).ready(() => {
   // adds a placeholder to above <input class="paginate_input" type="text">
   $('.paginate_input').attr('placeholder', 'ސަފުހާ...')
 }) // ==================== END OF $(document).ready( function () {
-
-/* Desktop only keyboard nav help Alert */
-function myHelp () {
-  alert('Keyboard Controls: \n\n [Tab] =Tab Navigation \n [Arrow Keys] = Keyboard Navigation \n [Shift + s] = Show columns \n [Shift + c] = Copy')
-} /* \n [Shift + x] = Excel \n [Shift + v] = Csv \n [Shift + p] = Print' */
