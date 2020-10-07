@@ -3,7 +3,7 @@
   <!--change languages later if needed -->
   <head>
     <!--<meta name="robots" content="noindex"/> -->
-
+    <meta name="robots" content="noindex" />
     <!--
    APPCHANGE
    VERSIONCHANGE
@@ -387,6 +387,7 @@
       /* corrects web view only/none-print display for these particular columns ? */
       .dataTable tbody tr td.fnCol1 {
         /* # number */
+
         /* margin-bottom: -1px; */
         font-size: 130%;
         text-align: center;
@@ -5099,7 +5100,7 @@ table unpadded too much, as if zoomed, readd padded around sides */
         //  $(document).ready(function() {
         var table = $("#fnTable").DataTable({
           /* TABLECHANGE123 */
-          data: FNdataSet, //has to match javascript json //==============================================autocomplete typeahead
+          data: FNdataSet, //has to match javascript json //==============================================autocomplete typeahead //   data: data, previously without column titles TABLECHANGE123
 
           /*
          //============================================autocomplete typeahead
@@ -5129,8 +5130,7 @@ table unpadded too much, as if zoomed, readd padded around sides */
                   );
          
                },
-         */ //   data: data, previously without column titles TABLECHANGE123
-          columns: [
+         */ columns: [
             { title: "#" },
             { title: "Ar No." },
             { title: "Ar Title" },
