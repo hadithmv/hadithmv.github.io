@@ -4,7 +4,7 @@
 
   <head>
     <!-- ===== HEAD ===== -->
-
+    <meta name="robots" content="noindex">
     <!-- ===== ===== META TAGS ===== ===== -->
     <!-- prevents google translating your page constant -->
     <meta charset="UTF-8" />
@@ -103,27 +103,44 @@
         <ul>
           <!-- Submenu -->
           <li class="pushy-submenu">
-            <button id="first-link">ފޮތްތައް</button><!-- button id="first-link" sets focus on open menu -->
+            <button id="first-link">ނަވަވީގެ 40 ޙަދީޘް</button>
             <!-- / CHANGE123 FIRST LINK -->
+            <!-- button id="first-link" sets focus on open menu -->
             <ul>
-
               <li class="pushy-link" onclick="openLink(event, 'fortyNTab')">
                 <!-- APKCHANGE 123 ===== -->
-                <a href="#">ނަވަވީގެ 40 ޙަދީޘް</a>
+                <a href="#">ޙަދީޘްތައް</a>
               </li>
+              <li class="pushy-link">
+                <!-- APKCHANGE 123 ===== -->
+                <a
+                  href="../notes/introFortyN/introFortyN.html"
+                  target="_blank"
+                  rel="noopener"
+                  >ތަޢާރަފު</a
+                >
+              </li>
+              <!-- TODO ?
+            <li class="pushy-link">
+              <a href="#">ޙަދީޘް ރިވާ ކުރެއްވި ޞަޙާބީން</a>
+            </li>-->
+            </ul>
+          </li>
 
-              <li
-              class="pushy-link"
-              onclick="openLink(event, 'umdahHadithTab')"
-            >
-            <!-- APKCHANGE 123 ===== -->
+          <li class="pushy-submenu">
+            <button>އިތުރު ޙަދީޘްތައް</button>
+            <!-- / CHANGE123 FIRST LINK -->
+            <ul>
+              <!-- <li class="pushy-link" onclick="openLink(event, 'bukhariTab')" for offline tabs 
+            <li class="pushy-link">
               <a
-                href="../books/umdah.html"
+                href="https://hadithmv.github.io/alt/bukhari"
                 target="_blank"
                 rel="noopener"
-                >ޢުމްދަތުލް އަޙްކާމް</a
-              ></li>
-
+                >ބުޚާރީގެ ފުރަތަމަ 100 ޙަދީޘް</a
+              >
+            </li>
+            -->
               <li class="pushy-link" onclick="openLink(event, 'sahihainTab')">
                 <!-- / CHANGE 123 SECOND LINK -->
                 <!-- APKCHANGE 123 ===== -->
@@ -131,6 +148,18 @@
                   >ޞަޙީޙައިން (ނުނިމޭ)</a
                 >
               </li>
+
+              <li
+                class="pushy-link"
+                onclick="openLink(event, 'umdahHadithTab')"
+              >
+              <!-- APKCHANGE 123 ===== -->
+                <a
+                  href="../books/umdah.html"
+                  target="_blank"
+                  rel="noopener"
+                  >ޢުމްދަތުލް އަޙްކާމް</a
+                ></li>
 
               <li
                 class="pushy-link"
@@ -143,7 +172,13 @@
                   rel="noopener"
                   >އެހެނިހެން ޙަދީޘްތައް</a
                 >
-              </li>
+                <!--
+              <a
+              href="../notes/introFortyN/introFortyN.html"
+              target="_blank"
+              rel="noopener"
+              >ޙަދީޘްތައް</a>
+              --></li>
 
             </ul>
           </li>
@@ -157,19 +192,9 @@
                   href="../notes/introHmv/introHmv.html"
                   target="_blank"
                   rel="noopener"
-                  >ޙަދީޘްއެމްވީ</a
+                  >ލިޔެކިޔުންތައް</a
                 >
               </li>
-
-            <li class="pushy-link">
-              <!-- APKCHANGE 123 ===== -->
-              <a
-              href="../notes/introFortyN/introFortyN.html"
-              target="_blank"
-              rel="noopener"
-              >ނަވަވީގެ 40 ޙަދީޘް</a
-            >
-            </li>
 
               <li class="pushy-link">
                 <!-- APKCHANGE 123 ===== -->
@@ -185,7 +210,7 @@
               <li class="pushy-link">
                 <!-- APKCHANGE 123 ===== -->
                 <a href="../LICENSE.txt" target="_blank" rel="noopener"
-                  >ލައިސެންސް</a
+                  >ހުއްދަ</a
                 >
               </li>
 

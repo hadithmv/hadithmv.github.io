@@ -103,65 +103,17 @@
         <ul>
           <!-- Submenu -->
           <li class="pushy-submenu">
-            <button>ނަވަވީގެ 40 ޙަދީޘް</button>
+            <button id="first-link">ފޮތްތައް</button><!-- button id="first-link" sets focus on open menu -->
             <!-- / CHANGE123 FIRST LINK -->
-            <!-- button id="first-link" sets focus on open menu -->
             <ul>
+
               <li class="pushy-link" onclick="openLink(event, 'fortyNTab')">
                 <!-- APKCHANGE 123 ===== -->
-                <a
-                  href="https://hadithmv.github.io/"
-                  target="_blank"
-                  rel="noopener"
-                  >ޙަދީޘްތައް</a
-                >
-                <!--
-                href="https://hadithmv.github.io/books/allHadith/sahihain-uc.html"
+                <a href="https://hadithmv.github.io/"
                 target="_blank"
                 rel="noopener"
-                >ޙަދީޘްތައް</a>
-                -->
+                >ނަވަވީގެ 40 ޙަދީޘް</a>
               </li>
-              <li class="pushy-link">
-                <!-- APKCHANGE 123 ===== -->
-                <a
-                  href="../notes/introFortyN/introFortyN.html"
-                  target="_blank"
-                  rel="noopener"
-                  >ތަޢާރަފު</a
-                >
-              </li>
-              <!-- TODO ?
-              <li class="pushy-link">
-                <a href="#">ޙަދީޘް ރިވާ ކުރެއްވި ޞަޙާބީން</a>
-              </li>-->
-            </ul>
-          </li>
-
-          <li class="pushy-submenu">
-            <button id="first-link">އިތުރު ޙަދީޘްތައް</button>
-            <!-- / CHANGE123 FIRST LINK -->
-            <ul>
-              <!-- <li class="pushy-link" onclick="openLink(event, 'bukhariTab')" for offline tabs 
-              <li class="pushy-link">
-                <a
-                  href="https://hadithmv.github.io/alt/bukhari"
-                  target="_blank"
-                  rel="noopener"
-                  >ބުޚާރީގެ ފުރަތަމަ 100 ޙަދީޘް</a
-                >
-              </li>
-              -->
-              <li class="pushy-link" onclick="openLink(event, 'sahihainTab')">
-                <!-- / CHANGE1
-                  23 SECOND LINK -->
-                  <!-- APKCHANGE 123 ===== -->
-                  <a
-                  href="../books/sahihain-uc.html"
-                  target="_blank"
-                  rel="noopener"
-                  >ޞަޙީޙައިން (ނުނިމޭ)</a
-                ></li>
 
               <li
               class="pushy-link"
@@ -174,14 +126,26 @@
                 rel="noopener"
                 >ޢުމްދަތުލް އަޙްކާމް</a
               ></li>
-              
+
+              <li class="pushy-link" onclick="openLink(event, 'sahihainTab')">
+                <!-- / CHANGE 123 SECOND LINK -->
+                <!-- APKCHANGE 123 ===== -->
+                <a href="../books/sahihain.html" target="_blank" rel="noopener"
+                  >ޞަޙީޙައިން (ނުނިމޭ)</a
+                >
+              </li>
+
               <li
                 class="pushy-link"
                 onclick="openLink(event, 'otherHadithTab')"
               >
               <!-- APKCHANGE 123 ===== -->
-                <a href="#">އެހެނިހެން ޙަދީޘްތައް</a>
+                <a
+                  href="#"
+                  >އެހެނިހެން ޙަދީޘްތައް</a
+                >
               </li>
+
             </ul>
           </li>
 
@@ -194,9 +158,19 @@
                   href="../notes/introHmv/introHmv.html"
                   target="_blank"
                   rel="noopener"
-                  >ލިޔެކިޔުންތައް</a
+                  >ޙަދީޘްއެމްވީ</a
                 >
               </li>
+
+            <li class="pushy-link">
+              <!-- APKCHANGE 123 ===== -->
+              <a
+              href="../notes/introFortyN/introFortyN.html"
+              target="_blank"
+              rel="noopener"
+              >ނަވަވީގެ 40 ޙަދީޘް</a
+            >
+            </li>
 
               <li class="pushy-link">
                 <!-- APKCHANGE 123 ===== -->
@@ -212,7 +186,7 @@
               <li class="pushy-link">
                 <!-- APKCHANGE 123 ===== -->
                 <a href="../LICENSE.txt" target="_blank" rel="noopener"
-                  >ހުއްދަ</a
+                  >ލައިސެންސް</a
                 >
               </li>
 
