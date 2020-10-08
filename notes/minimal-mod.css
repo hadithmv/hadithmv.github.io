@@ -1,3 +1,26 @@
+/*
+Starting with / returns to the root directory and starts there
+Starting with ../ moves one directory backward and starts there
+Starting with ../../ moves two directories backward and starts there (and so on...)
+To move forward, just start with the first sub directory and keep moving forward.
+
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+  @media (min-width: 600px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) { @content; }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px) { @content; }
+}
+@mixin for-big-desktop-up {
+  @media (min-width: 1800px) { @content; }
+}
+*/
+
 /* CUSTOM mod of Minimal css
 Minimal
 A Theme for GitHub Pages
@@ -407,15 +430,25 @@ h1.ar {
   font-size: 21px;
 }
 
+/* moves letter end name to make it look better */
 .leftAlign {
-  text-align: left;
+  text-align: center;
 }
-.padLeftBm {
-  padding-left: 100px;
+
+
+@media (min-width: 900px) {
+  .leftAlign {
+    text-align: left;
+    }
+  .padLeftBm {
+    padding-left: 100px;
+    }
+  .padLeftSm {
+    padding-left: 50px;
+    }
 }
-.padLeftSm {
-  padding-left: 50px;
-}
+
+
 
 h2,
 h3 {
@@ -454,4 +487,5 @@ td {
 
 .ind {
   text-indent: 2em;
+}
 }
