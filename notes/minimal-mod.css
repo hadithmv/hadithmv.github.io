@@ -407,6 +407,16 @@ h1.ar {
   font-size: 21px;
 }
 
+.leftAlign {
+  text-align: left;
+}
+.padLeftBm {
+  padding-left: 100px;
+}
+.padLeftSm {
+  padding-left: 50px;
+}
+
 h2,
 h3 {
   line-height: 2;
