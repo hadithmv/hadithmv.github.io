@@ -3,7 +3,10 @@ change from debug to release in apk when ready
 bundles (aab) files are smaller than apk files, might have trouble if not installing from playstore
 
 remember to update versionCode. versionName is just something that's shown to the user can be a raw string, versionCode is what matters. Just keep increasing it and everything should be good.
-last it was 28 (2.0)
+last it was 29 (2.0)
+
+commented out     <uses-permission android:name="android.permission.INTERNET" />
+in AndroidManifest.xml
 
 <!-- APKCHANGE 123 ===== -->
 
