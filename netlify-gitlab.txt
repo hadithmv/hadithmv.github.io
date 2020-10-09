@@ -38,5 +38,16 @@ Create a project
 CI/CD for external repo
 Connect repositories from Github
 Find name and connect
+wait till it syncs
+go to project
+
+....if not done before:
+on the repo > setup CI/CD
+Apply a template > jekyll > commit changes
+Run pipleline....
+
+
+
+https://gitlab.com/gitlab-org/gitlab/-/issues/202131
 
 
