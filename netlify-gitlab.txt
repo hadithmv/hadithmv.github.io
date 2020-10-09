@@ -34,3 +34,9 @@ Run pipleline
 
 
 
+Create a project
+CI/CD for external repo
+Connect repositories from Github
+Find name and connect
+
+
