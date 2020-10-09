@@ -14,7 +14,20 @@ https://serverfault.com/questions/531931/mirror-github-to-gitlab
 
 https://about.gitlab.com/stages-devops-lifecycle/pages/
 
+Create a project
+Import a project
+
 on the repo > setup CI/CD
 Apply a template > jekyll > commit changes
 Run pipleline
+
+
+Create a blank project
+make it public > create
+Settings > repository
+Mirroring repositories > url: https://github.com/hadithmv/hadithmv.github.io
+mirror direction pull
+mirror repository
+
+
 
