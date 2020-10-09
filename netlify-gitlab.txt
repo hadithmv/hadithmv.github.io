@@ -4,6 +4,10 @@ https://pages.github.com/versions/
 
 https://docs.netlify.com/configure-builds/get-started/#definitions
 
+create Gemfile and .ruby-version (without forward slash)
+index.html has to be in source dir for netlify to make the page
+
+plugins:
 Checklinks plugin breaks when old broken links are uploaded
 HTML Validate plugin breaks for old html
 Hashfiles plugin creates double static file assets for some reason
