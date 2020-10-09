@@ -8,10 +8,12 @@ create Gemfile and .ruby-version (without forward slash)
 index.html has to be in source dir for netlify to make the page
 
 plugins:
-Checklinks plugin breaks when old broken links are uploaded
+Checklinks plugin breaks for some reasons
 HTML Validate plugin breaks for old html
 Hashfiles plugin creates double static file assets for some reason
-subfont plugin also breaks for some reason
+subfont plugin also warns for some reason
+
+...
 ...
 
 https://serverfault.com/questions/531931/mirror-github-to-gitlab
