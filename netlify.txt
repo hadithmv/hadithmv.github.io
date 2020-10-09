@@ -3,3 +3,18 @@ https://www.netlify.com/blog/2017/05/11/migrating-your-jekyll-site-to-netlify/
 https://pages.github.com/versions/
 
 https://docs.netlify.com/configure-builds/get-started/#definitions
+
+Checklinks plugin breaks when old broken links are uploaded
+HTML Validate plugin breaks for old html
+Hashfiles plugin creates double static file assets for some reason
+
+...
+
+https://serverfault.com/questions/531931/mirror-github-to-gitlab
+
+https://about.gitlab.com/stages-devops-lifecycle/pages/
+
+on the repo > setup CI/CD
+Apply a template > jekyll > commit changes
+Run pipleline
+
