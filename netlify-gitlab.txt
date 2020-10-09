@@ -11,28 +11,18 @@ plugins:
 Checklinks plugin breaks when old broken links are uploaded
 HTML Validate plugin breaks for old html
 Hashfiles plugin creates double static file assets for some reason
-
+subfont plugin also breaks for some reason
 ...
 
 https://serverfault.com/questions/531931/mirror-github-to-gitlab
 
 https://about.gitlab.com/stages-devops-lifecycle/pages/
 
-instead of importing,
-Create a blank project
-make it public > create
-Settings > repository
-Mirroring repositories > url: https://github.com/hadithmv/hadithmv.github.io
-mirror direction pull
-dont mind the checkboxes
-mirror repository
 
-to activate pages:
-on the repo > setup CI/CD
-Apply a template > jekyll > commit changes
-Run pipleline
+Creating a blank project has this issue
+https://gitlab.com/gitlab-org/gitlab/-/issues/202131
 
-
+instead do:
 
 Create a project
 CI/CD for external repo
@@ -47,7 +37,38 @@ Apply a template > jekyll > commit changes
 Run pipleline....
 
 
+for these 2 errors:
+	You won't be able to pull or push project code via SSH until you add an SSH key to your profile
+	You won't be able to pull or push project code via HTTPS until you set a password on your account
+do https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
-https://gitlab.com/gitlab-org/gitlab/-/issues/202131
+$ ssh-keygen -t rsa -b 4096 -C "yahyasdadmv@gmail.com"
+Enter
+write passphrase twice
+run agent:
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_rsa
+enter pass
+on github click profile > settings > ssh keys > add
+Copy the contents of the id_rsa.pub file to your clipboard, paste in key
+title: hmvSsh
+
+now back to gitlab, paste that as ssh key
+
+now that that's done, set a password on acc
+
+Pull: for mirroring a repository from another location to GitLab. 
+this requires paid packages from gitlab, for pull only
+
+should be able to use
+https://username.gitlab.io/projectname
+https://hadithmv.gitlab.io/hadithmv-github-io
+
+but this has username and proj in the url, also links will break inside the webpage
+so go to settings, general, rename Project name from hadithmv-github-io to hadithmv
+go down, Change path from hadithmv-github-io to hadithmv.gitlab.io
+after a while it should work
+
+
 
 
