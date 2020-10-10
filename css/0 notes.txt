@@ -1,7 +1,7 @@
 Load priority in COMB:
 
-**fonts.css 		(minify w cssnano)	min file not kept as seperate
+**fonts.css 		(not originally minified, so minify w cssnano)	min file not kept as seperate
 **pushy-mod.css	  (minify w csso)	min file not kept as seperate
 **hmv-styles.css	  (minify w csso)	min file not kept as seperate
 **jquery.dataTables.min.css (minify w cssnano)
-**buttons.dataTables.min.css(minify w cssnano)
+**buttons.dataTables.min.css	(minify w cssnano)
