@@ -64,7 +64,8 @@
   */
     </style>
     <!-- COMBINED css -->
-    <link rel="stylesheet" href="../css/COMBcss.min.css">
+    <link rel="stylesheet" href="../css/COMBcss.min.css" />
+    <!--<link rel="stylesheet" href="css/COMBcss.min.css" />   for app, either will cause a console error -->
     <!-- <link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
     this works as fallback but causes FOUC -->
     <!-- APKCHANGE 123 ===== -->
@@ -402,12 +403,14 @@
           */
     </style>
 
-        <!-- old fallback js for app
-    <script>
+        <!-- now needed for keeping index in root dir for netlify
+          used to be old fallback js for app -->
+    <script defer>
            window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
-           window.jQuery || document.write('<script src="js/fortyN-script.min.js"><\/script>');
+           window.jQuery || document.write('<script src="js/resc/COMBjs-defer.js"><\/script>');
            window.jQuery || document.write('<script src="js/40nHadith.json"><\/script>');
-    </script> -->
+           window.jQuery || document.write('<script src="js/fortyN-script.min.js"><\/script>');
+    </script> 
     <!-- APKCHANGE 123 ===== -->
 
 

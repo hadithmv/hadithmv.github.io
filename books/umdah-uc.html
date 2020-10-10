@@ -402,13 +402,15 @@
           */
     </style>
 
-        <!-- old fallback js for app
-    <script>
-           window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
-           window.jQuery || document.write('<script src="js/fortyN-script.min.js"><\/script>');
-           window.jQuery || document.write('<script src="js/40nHadith.json"><\/script>');
-    </script> -->
-    <!-- APKCHANGE 123 ===== -->
+        <!-- now needed for keeping index in root dir for netlify
+          used to be old fallback js for app -->
+          <script>
+            window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
+            window.jQuery || document.write('<script src="js/resc/COMBjs-defer.js"><\/script>');
+            window.jQuery || document.write('<script src="js/umdah.json"><\/script>');
+            window.jQuery || document.write('<script src="js/umdah-script"><\/script>');
+     </script> 
+     <!-- APKCHANGE 123 ===== -->
 
 
     
