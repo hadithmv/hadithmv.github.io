@@ -8,7 +8,7 @@ create Gemfile and .ruby-version (without forward slash)
 index.html has to be in source dir for netlify to make the page
 
 plugins:
-Checklinks plugin breaks for some reasons
+Checklinks plugin breaks when links arent all connected
 HTML Validate plugin breaks for old html
 Hashfiles plugin creates double static file assets for some reason
 subfont plugin also warns for some reason
