@@ -442,7 +442,7 @@
 
 
     <!-- Global site tag (gtag.js) - Google Analytics 
-    changed async to defer -->
+    changed async to defer 
     <script
     defer
       src="https://www.googletagmanager.com/gtag/js?id=UA-112777351-1"
@@ -455,8 +455,21 @@
       gtag("js", new Date());
 
       gtag("config", "UA-112777351-1");
+    </script>-->
+
+  <!-- decided not to use boiletplate analytics setup as it has two requests
+    added async then changed to defer on my own https://developers.google.com/analytics/devguides/collection/analyticsjs
+    https://daan.dev/wordpress/difference-analyics-gtag-ga-js/ supports analytics js over gtag
+    -->
+  <!-- Google Analytics -->
+  <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-112777351-1', 'auto');
+    ga('send', 'pageview');
     </script>
+    <script defer src='https://www.google-analytics.com/analytics.js'></script>
     <!-- End Google Analytics -->
+    
   </body>
   <!-- ===== BODY - END ===== -->
 </html>
