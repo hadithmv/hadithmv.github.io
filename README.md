@@ -3,7 +3,7 @@
 </b></h3>
 <br>
 <p align="center">
-<img href="https://hadithmv.github.io" src="http://hadithmv.github.io/img/newLogo5-vectaio.svg" width="200">
+<img href="https://hadithmv.github.io" src="http://hadithmv.github.io/img/logo/newLogo5-N-iOptim.svg" width="200">
 </p>
 
 <h2 align="center"><b>
