@@ -7,7 +7,22 @@ https://docs.netlify.com/configure-builds/get-started/#definitions
 create Gemfile and .ruby-version (without forward slash)
 index.html has to be in source dir for netlify to make the page
 
-plugins:
+plugins used:
+netlify-plugin-minify-html
+netlify-plugin-image-optim
+netlify-plugin-inline-critical-css
+@netlify/plugin-sitemap
+netlify-plugin-is-website-vulnerable
+netlify-plugin-no-more-404
+netlify-plugin-gridsome-cache
+netlify-plugin-gatsby-cache
+netlify-plugin-hugo-cache-resources
+netlify-plugin-inline-source
+netlify-plugin-submit-sitemap
+netlify-plugin-debug-cache
+netlify-plugin-subfont
+
+plugins with issues:
 Checklinks plugin breaks when links arent all connected
 HTML Validate plugin breaks for old html
 Hashfiles plugin creates double static file assets for some reason
