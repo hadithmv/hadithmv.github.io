@@ -5,3 +5,7 @@ Load priority in COMB:
 **hmv-styles.css	  (minify w csso)	min file not kept as seperate
 **jquery.dataTables.min.css (minify w cssnano)
 **buttons.dataTables.min.css	(minify w cssnano)
+
+
+
+...html boilerplate in hmv styles is v 7.3.0
