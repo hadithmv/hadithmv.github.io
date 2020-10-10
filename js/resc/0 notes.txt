@@ -1,8 +1,9 @@
 Load priority in COMB:???
 
-pushy.min.js
 jquery.min.js
-**jquery.dataTables.min.js	(minify w closure)
+pushy.min.js (requires jq)
+**jquery.dataTables.min.js	(requires jq, minify w closure)
+
 **input.min.js	(minified file not available from site, so minify w closure)
 !!!**dataTables.buttons.min.js	(minify w closure)
 **buttons.colVis.min.js	(minify w closure)
@@ -15,3 +16,20 @@ datatables.mark.min.js
 **hmv-script.js	(not originally minified, so minify w closure)
 
 
+
+
+...Current order that needs updating:
+jquery.min.js
+jquery.dataTables.min.js
+dataTables.buttons.min.js
+buttons.colVis.min.js
+???buttons.html5.min.js
+dataTables.keyTable.min.js
+input.min.js
+dataTables.keepConditions.min.js
+jquery.mark.min.js
+datatables.mark.min.js
+pushy.min.js
+hammer.min.js
+
+hmv-script.js
