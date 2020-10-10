@@ -1,4 +1,3 @@
-                                                                     
 <h3 align="center"><b>
 بِسمِ اللهِ الرَّحمنِ الرَّحِيمِ
 </b></h3>
@@ -21,15 +20,16 @@ Dhivehi hadith translations at your fingertips
 
 <!---
 <p align="center">
-<img href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv" src="http://hadithmv.github.io/img/google-play-badge-en_get-vectaio.svg" width="200">(http://google.com.au/)
+<img href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv" src="http://hadithmv.github.io/img/gb/google-play-badge-N-iOptim.svg" width="200">(http://google.com.au/)
 </p>
 
 <p align="center">
-<img href="https://github.com/hadithmv/hadithmv.github.io/raw/master/alt/Desktop/hmv-win.zip" src="http://hadithmv.github.io/img/windows-badge-vectaio.svg" width="200">
+<img href="https://github.com/hadithmv/hadithmv.github.io/raw/master/alt/Desktop/hmv-win.zip" src="http://hadithmv.github.io/img/wb/windows-badge-N-iOptim.svg" width="200">
 </p>
 --->
 
 <br/><br/>
+
 <p align="center"><i>
   - In the Name of Allah, the Entirely Merciful, the Especially Merciful -</i>
 </p>
@@ -41,7 +41,7 @@ The **Hmv** project is a collaborated effort in making the sayings and teachings
 
 ## Goals
 
-* * *
+---
 
 ### **Accessible**
 
@@ -89,8 +89,8 @@ The **Hmv** project is a collaborated effort in making the sayings and teachings
 
 </table>
 
-
 <br/><br/>
+
 <div class="dv">
 
 <p align="center">
@@ -110,7 +110,7 @@ The **Hmv** project is a collaborated effort in making the sayings and teachings
 އަމާޒު
 </b></h3>
 
-* * *
+---
 
 <h3 align="right"><b>
 ފޯރުކޮށްދިނުން
