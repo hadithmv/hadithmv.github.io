@@ -24,7 +24,6 @@ this is to try an reduce having to edit dir redirects while editing
     </script>
 
 <link rel="stylesheet" href="../css/COMBcss.min.css" />
-    <link rel="stylesheet" href="css/COMBcss.min.css" />
 
        <img width="40px" alt="navlogo" src="../img/logo/newLogo5-N-iOptim-white-noback.svg" onerror="this.onerror=null;this.src='img/logo/newLogo5-N-iOptim-white-noback.svg';" />
 ......dont need to change END......
