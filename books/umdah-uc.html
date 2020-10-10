@@ -404,20 +404,20 @@
 
         <!-- now needed for keeping index in root dir for netlify
           used to be old fallback js for app 
-          <script>
-            window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
-            window.jQuery || document.write('<script src="js/resc/COMBjs-defer.js"><\/script>');
-            window.jQuery || document.write('<script src="js/umdah.json"><\/script>');
-            window.jQuery || document.write('<script src="js/umdah-script"><\/script>');
-     </script> -->
-     <!-- APKCHANGE 123 ===== -->
+    <script defer>
+           window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
+           window.jQuery || document.write('<script src="js/resc/COMBjs-defer.js"><\/script>');
+           window.jQuery || document.write('<script src="js/40nHadith.json"><\/script>');
+           window.jQuery || document.write('<script src="js/fortyN-script.min.js"><\/script>');
+    </script> -->
+    <!-- APKCHANGE 123 ===== -->
 
 
     
     <!-- COMBINED js part 1
     <script src="js/resc/COMBjs.js"></script>
     i split this into two, so as to defer js parsing -->
-    <script src="../js/resc/COMBjs.js"></script>
+    <script defer src="../js/resc/COMBjs.js"></script>
 
 
 
@@ -425,15 +425,15 @@
         otherwise if json too large script will take too long to load
         CHANGE123 JS
         'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
-        <script src="../js/umdah.json"></script>
+        <script defer src="../js/umdah.json"></script>
     <!-- Custom JS -->
-    <script src="../js/umdah-script.min.js"></script>
+    <script defer src="../js/umdah-script.min.js"></script>
 
 
 
         <!-- COMBINED js part 2
-    i split this into two, so as to defer js parsing -->
-    <script src="../js/resc/COMBjs-defer.js"></script>
+    i split this into two, so as to defer js parsing
+    <script src="../js/resc/COMBjs-defer.js"></script> -->
 
     <!-- ===== ===== JS LIBRARIES - END ===== ===== -->
 
