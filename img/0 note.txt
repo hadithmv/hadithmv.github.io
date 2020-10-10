@@ -1,4 +1,4 @@
-update: netlify img optimizer seems to do it the best
+update: netlify img optimizer seems to do it the best, currently did it on top of all of these
 
 if background isn't transparent or doesn't have holes, might have to first center/remove background/get rid of empty area around using:
 https://vectorpaint.yaks.co.nz/
@@ -28,3 +28,7 @@ https://github.com/steverichey/google-play-badge-svg
 https://freeiconshop.com/icon/get-it-on-windows-store-button/
 
 further compressed by vectaio+svgomg
+
+...
+
+remember to optimize android app res mipmap files as well as main ic_launcher-playstore.png
