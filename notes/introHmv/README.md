@@ -46,7 +46,7 @@
     <br>
 -->
   <p align="center">
-  	<a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"><img src="https://hadithmv.github.io/img/playstore-badge/en_badge_web_generic-compressor.png" alt="" width=250></a><a href="https://goo.gl/EyjC4v"><img src="https://hadithmv.github.io/img/windows-desktop-badge/windows-badge-compressor.png" alt="" width=250></a>
+  	<a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"><img src="https://hadithmv.github.io/img/playstore-badge/en_badge_web_generic-compressor.png" alt="" width=250></a><a href="https://goo.gl/EyjC4v"><img src="https://hadithmv.github.io/img/wb/windows-badge-N-iOptim.svg" alt="" width=250></a>
   </p>  
    
 <br><br>
@@ -85,7 +85,6 @@
 		<b>40 Nawawi</b>
 	</li>
 </ul>
-
 
 <br><br><br>
 
