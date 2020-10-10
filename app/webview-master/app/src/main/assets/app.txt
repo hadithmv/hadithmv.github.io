@@ -1,3 +1,7 @@
+https://github.com/slymax/webview
+
+https://developer.android.com/studio/build/shrink-code
+
 change from debug to release in apk when ready
 
 bundles (aab) files are smaller than apk files, might have trouble if not installing from playstore
@@ -8,8 +12,10 @@ last it was 29 (2.0)
 commented out     <uses-permission android:name="android.permission.INTERNET" />
 in AndroidManifest.xml
 
-The screenshot must have an aspect ratio of 0.500 or 2.000 (ideally 1440 x 2880).
 
+
+...
+...
 <!-- APKCHANGE 123 ===== -->
 
 changed        // mWebView.loadUrl("file:///android_asset/index.html");

@@ -341,17 +341,10 @@
     </div>
     <!-- Pushy content container - END === -->
 
-    <!-- ===== ===== JS LIBRARIES ===== ===== -->
-    <!-- COMBINED js 
-    <script src="js/resc/COMBjs.js"></script>--> 
-    <script src="../js/resc/COMBjs.js"></script>
-    <!-- fallback js for app -->
-    <script>
-           window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
-           window.jQuery || document.write('<script src="js/sahihain-script.min.js"><\/script>');
-           window.jQuery || document.write('<script src="js/sahihain.json"><\/script>');
-    </script>
-    <!-- APKCHANGE 123 ===== -->
+
+    
+    <!-- ===== ===== JS LIBRARIES ===== ===== 
+    I deferred everything to parse js last -->
     <style>
       /*
       <!-- JQUERY 3.5.1 - Needed for DT, and BS if present. Originally 2.2.1 
@@ -403,24 +396,51 @@
       <script src="../js/pushy.min.js"></script>-->
 
   <!-- Hammerjs 2.0.8 -->
-    <script src="../js/hammer.min.js"></script>
-            */
+  <script src="../js/hammer.min.js"></script>
+          */
     </style>
-    <!-- Custom JS -->
-    <script src="../js/sahihain-script.min.js"></script>
 
-    <!-- / CHANGE123 JS
-          'http://www.convertcsv.com/csv-to-json.htm', convert spreashsheet CSV to JSON Row Array. -->
-    <script src="../js/sahihain.json"></script>
+        <!-- old fallback js for app
+    <script>
+           window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
+           window.jQuery || document.write('<script src="js/fortyN-script.min.js"><\/script>');
+           window.jQuery || document.write('<script src="js/40nHadith.json"><\/script>');
+    </script> -->
+    <!-- APKCHANGE 123 ===== -->
+
+
+    
+    <!-- COMBINED js part 1
+    <script src="js/resc/COMBjs.js"></script>
+    i split this into two, so as to defer js parsing -->
+    <script src="../js/resc/COMBjs.js" defer></script>
+
+
+    <!-- / the json has to go over the script if deferred,
+        otherwise if json too large script will take too long to load
+        CHANGE123 JS
+        'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
+    <script src="../js/sahihain.json" defer></script>
+    <!-- Custom JS -->
+    <script src="../js/sahihain-script.min.js" defer></script>
+
+
+
+        <!-- COMBINED js part 2
+    i split this into two, so as to defer js parsing -->
+    <script src="../js/resc/COMBjs-defer.js" defer></script>
 
     <!-- ===== ===== JS LIBRARIES - END ===== ===== -->
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics 
+    changed async to defer -->
     <script
-      async
+    defer
       src="https://www.googletagmanager.com/gtag/js?id=UA-112777351-1"
     ></script>
-    <script>
+    <script defer>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
