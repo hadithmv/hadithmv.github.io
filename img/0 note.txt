@@ -1,3 +1,5 @@
+update: netlify img optimizer seems to do it the best
+
 if background isn't transparent or doesn't have holes, might have to first center/remove background/get rid of empty area around using:
 https://vectorpaint.yaks.co.nz/
 fit to content
