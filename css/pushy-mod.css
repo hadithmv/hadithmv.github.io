@@ -191,109 +191,114 @@
   top: 50%;
   right: 15px;
 
+  /* note:   transform: translateY(-50%) rotate(180deg);  previously without rotate(180deg), added to make it rtl 
+  removed this to lessen a network request */
+
   /* background: url("../css/pushyarrow.svg") no-repeat; old code */
-  background: url("data:image/svg+xml,%3Csvg id='arrow' xmlns='http://www.w3.org/2000/svg' width='7.9' height='10.9' viewBox='0 0 7.9 10.9'%3E%3Ctitle%3Earrow%3C/title%3E%3Cpath id='arrow' data-name='arrow' d='M8,5.5 L1.9,11,0.1,9.4,4.4,5.6,0.1,1.8,2,0.1,8,5.5' transform='' fill='%23b3b3b1'/%3E%3C/svg%3E")
+
+  /* background: url("data:image/svg+xml,%3Csvg id='arrow' xmlns='http://www.w3.org/2000/svg' width='7.9' height='10.9' viewBox='0 0 7.9 10.9'%3E%3Ctitle%3Earrow%3C/title%3E%3Cpath id='arrow' data-name='arrow' d='M8,5.5 L1.9,11,0.1,9.4,4.4,5.6,0.1,1.8,2,0.1,8,5.5' transform='' fill='%23b3b3b1'/%3E%3C/svg%3E")
     no-repeat;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
-  transform: translateY(-50%) rotate(180deg); /* previously without rotate(180deg), added to make it rtl */
+  transform: translateY(-50%) rotate(180deg);
   transition: transform 0.2s;
+  */
 }
 
-/* Submenu Movement */
+  /* Submenu Movement */
 
-.pushy-submenu-closed > ul {
-  max-height: 0;
-  overflow: hidden;
-  visibility: hidden;
-}
+  .pushy-submenu-closed > ul {
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
 
-.pushy-submenu-closed .pushy-link {
-  opacity: 0;
-}
+  .pushy-submenu-closed .pushy-link {
+    opacity: 0;
+  }
 
-/*
+  /*
 .pushy-submenu-open { */
 
-/* Submenu Icon */
+  /* Submenu Icon */
 
-/*
+  /*
 } */
 
-.pushy-submenu-open > ul {
-  max-height: 1000px;
-  visibility: visible;
-}
+  .pushy-submenu-open > ul {
+    max-height: 1000px;
+    visibility: visible;
+  }
 
-.pushy-submenu-open .pushy-link {
-  opacity: 1;
-}
+  .pushy-submenu-open .pushy-link {
+    opacity: 1;
+  }
 
-.pushy-submenu-open > a::after,
-.pushy-submenu-open > button::after {
-  -webkit-transform: translateY(-50%) rotate(90deg);
-  -ms-transform: translateY(-50%) rotate(90deg);
-  transform: translateY(-50%) rotate(90deg);
-}
+  .pushy-submenu-open > a::after,
+  .pushy-submenu-open > button::after {
+    -webkit-transform: translateY(-50%) rotate(90deg);
+    -ms-transform: translateY(-50%) rotate(90deg);
+    transform: translateY(-50%) rotate(90deg);
+  }
 
-/* BELOW IS CUSTON CSS FROM PUSHY DEMO CSS */
+  /* BELOW IS CUSTON CSS FROM PUSHY DEMO CSS */
 
-html,
-body {
-  overflow-x: hidden;
-}
+  html,
+  body {
+    overflow-x: hidden;
+  }
 
-/* Lists */
+  /* Lists */
 
-ul {
-  margin: 0;
-  padding: 0;
-}
+  ul {
+    margin: 0;
+    padding: 0;
+  }
 
-/* Container */
+  /* Container */
 
-#container {
-  position: relative;
-  padding: 20px 40px;
-  padding-top: 80px;
-}
+  #container {
+    position: relative;
+    padding: 20px 40px;
+    padding-top: 80px;
+  }
 
-/* Menu Button */
+  /* Menu Button */
 
-.menu-btn {
-  width: 100px;
-  padding: 10px;
-  margin-bottom: 30px;
+  .menu-btn {
+    width: 100px;
+    padding: 10px;
+    margin-bottom: 30px;
 
-  /*
+    /*
   background: #000;
   color: #fff;
   */
-  text-align: center;
-  cursor: pointer;
-  border: 0;
-}
+    text-align: center;
+    cursor: pointer;
+    border: 0;
+  }
 
-.menu-btn:hover {
-  opacity: 0.6;
-}
+  .menu-btn:hover {
+    opacity: 0.6;
+  }
 
-/* Header */
+  /* Header */
 
-.site-header {
-  position: fixed;
+  .site-header {
+    position: fixed;
 
-  /*
+    /*
   background: #000;
   color: #fff;
   */
-  width: 100%;
-  padding: 20px 0;
-  text-align: center;
-  z-index: 9998;
-}
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    z-index: 9998;
+  }
 
-/* Footer
+  /* Footer
 
 .site-footer {
   position: relative;
@@ -305,60 +310,60 @@ ul {
 }
 */
 
-/* ====================
+  /* ====================
      custom edits below
 ======================= */
 
-/* mostly list items */
-.pushy-content {
-  text-align: right;
-}
+  /* mostly list items */
+  .pushy-content {
+    text-align: right;
+  }
 
-/* buttons inside pushy content align */
-.pushy-content button {
-  text-align: right;
-}
+  /* buttons inside pushy content align */
+  .pushy-content button {
+    text-align: right;
+  }
 
-/* moves pushy list items a little to the left, indent */
-.pushy-link a {
-  text-indent: 1em;
-  direction: rtl;
-}
+  /* moves pushy list items a little to the left, indent */
+  .pushy-link a {
+    text-indent: 1em;
+    direction: rtl;
+  }
 
-/* Container، made padding y sides smaller,
+  /* Container، made padding y sides smaller,
  change x and padding top later if needd */
-#container {
-  padding: 20px 10px;
-  padding-top: 80px;
-}
+  #container {
+    padding: 20px 10px;
+    padding-top: 80px;
+  }
 
-/* button hover change */
-.menu-btn:hover {
-  opacity: 0.9;
-}
+  /* button hover change */
+  .menu-btn:hover {
+    opacity: 0.9;
+  }
 
-/* makes svg pushy arrows rtl */
-.pushy-submenu > a::after,
-.pushy-submenu > button::after {
-  left: 15px;
-}
+  /* makes svg pushy arrows rtl */
+  .pushy-submenu > a::after,
+  .pushy-submenu > button::after {
+    left: 15px;
+  }
 
-/* arrow flip code is above not here */
+  /* arrow flip code is above not here */
 
-/* experimenting with colors */
-.site-header {
-  /* background: #23272A; */
-  color: #fff; /* nav menu center text -fff */
-  background-color: #34515e;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
+  /* experimenting with colors */
+  .site-header {
+    /* background: #23272A; */
+    color: #fff; /* nav menu center text -fff */
+    background-color: #34515e;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
 
-/* side bar */
-.pushy {
-  background: #1a282f;
-}
+  /* side bar */
+  .pushy {
+    background: #1a282f;
+  }
 
-/* luxbar and mdc menu stuff below
+  /* luxbar and mdc menu stuff below
   .site-header {
 
   flex-direction: row;
@@ -366,9 +371,9 @@ ul {
   align-items: center;
   */
 
-/* height: 58px; */
+  /* height: 58px; */
 
-/*
+  /*
   list-style-type: disc;
   background-color: #0277bd;
   color: #fff;
@@ -380,24 +385,24 @@ ul {
   ------------------------------------
   */
 
-/*
+  /*
     position: fixed;
     top: 0;
     transition: transform .3s cubic-bezier(.4,0,.6,1),opacity 0s .3s;
     width: 100%;
     */
 
-/*
+  /*
     background-color: #0277bd;
     box-shadow: 0 2px 4px rgba(0,0,0,.5);
 */
 
-/* display: -ms-flexbox;
+  /* display: -ms-flexbox;
     display: flex; */
 
-/* height: 112px; */
+  /* height: 112px; */
 
-/*
+  /*
     -ms-flex-pack: justify;
     justify-content: space-between;
     z-index: 4;
@@ -405,38 +410,39 @@ ul {
 }
  */
 
-/* prevent scrolling of your site when Pushy is open */
+  /* prevent scrolling of your site when Pushy is open */
 
-html,
-body {
-  overflow-x: hidden;
-  height: 100%;
-  -webkit-overflow-scrolling: touch;
-}
+  html,
+  body {
+    overflow-x: hidden;
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
 
-/* removes bullet points of ul in pushy */
-nav ul li {
-  list-style-type: none;
-}
+  /* removes bullet points of ul in pushy */
+  nav ul li {
+    list-style-type: none;
+  }
 
-/* for some reason, 16px default on buttons make the spaces collapse in thaana writing */
-nav button,
-nav ul li a {
-  font-size: 17px;
-}
+  /* for some reason, 16px default on buttons make the spaces collapse in thaana writing */
+  nav button,
+  nav ul li a {
+    font-size: 17px;
+  }
 
-/* removes horizontal scrollbar that is there for some reason on navbar open */
-.pushy {
-  overflow-x: hidden;
-}
+  /* removes horizontal scrollbar that is there for some reason on navbar open */
+  .pushy {
+    overflow-x: hidden;
+  }
 
-.madeby {
-}
+  .madeby {
+  }
 
-/* fixes leading in submenus. increases line height between list a's
+  /* fixes leading in submenus. increases line height between list a's
 and removes the extra padding from above and below list items */
-.pushy-submenu .pushy-link a {
-  line-height: 1.7;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  .pushy-submenu .pushy-link a {
+    line-height: 1.7;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
 }
