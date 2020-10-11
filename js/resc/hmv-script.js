@@ -1,16 +1,8 @@
-// havent ext ganalytics yet
-/*
-async
-src = 'https://www.googletagmanager.com/gtag/js?id=UA-112777351-1'
-
-window.dataLayer = window.dataLayer || []
-function gtag () {
-  dataLayer.push(arguments)
-}
-gtag('js', new Date())
-
-gtag('config', 'UA-112777351-1')
-*/
+// <script>
+window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date
+ga('create', 'UA-112777351-1', 'auto')
+ga('send', 'pageview')
+//</script>
 
 /* Desktop only keyboard nav help Alert */
 function myHelp () {
