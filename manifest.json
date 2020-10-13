@@ -11,13 +11,18 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "img/logo/newLogo5-N-iOptim.svg",
+      "src": "img/newLogo5-512-compressor.png",
       "sizes": "512x512",
       "purpose": "any maskable"
     },
     {
-      "src": "img/logo/newLogo5-N-iOptim.svg",
+      "src": "img/newLogo5-144.png",
       "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/logo/newLogo5-N-iOptim.svg",
+      "sizes": "144x144",
       "purpose": "any maskable"
     },
     {
