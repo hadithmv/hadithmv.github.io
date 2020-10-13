@@ -1,12 +1,12 @@
 {
-  "name": "PWA Starter",
+  "name": "hadithmv",
   "display": "standalone",
   "start_url": "/",
   "short_name": "starter",
-  "theme_color": "#686bd2",
-  "description": "This is a PWA Starter app",
+  "theme_color": "#29434e",
+  "description": "Dhivehi hadith translations at your fingertips",
   "orientation": "any",
-  "background_color": "#686bd2",
+  "background_color": "#29434e",
   "related_applications": [],
   "prefer_related_applications": false,
   "icons": [
