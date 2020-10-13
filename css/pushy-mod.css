@@ -196,13 +196,14 @@
 
   /* background: url("../css/pushyarrow.svg") no-repeat; old code */
 
-  /* background: url("data:image/svg+xml,%3Csvg id='arrow' xmlns='http://www.w3.org/2000/svg' width='7.9' height='10.9' viewBox='0 0 7.9 10.9'%3E%3Ctitle%3Earrow%3C/title%3E%3Cpath id='arrow' data-name='arrow' d='M8,5.5 L1.9,11,0.1,9.4,4.4,5.6,0.1,1.8,2,0.1,8,5.5' transform='' fill='%23b3b3b1'/%3E%3C/svg%3E")
+  /* can comnebt out below for one less network request that takes no time to load */
+   background: url("data:image/svg+xml,%3Csvg id='arrow' xmlns='http://www.w3.org/2000/svg' width='7.9' height='10.9' viewBox='0 0 7.9 10.9'%3E%3Ctitle%3Earrow%3C/title%3E%3Cpath id='arrow' data-name='arrow' d='M8,5.5 L1.9,11,0.1,9.4,4.4,5.6,0.1,1.8,2,0.1,8,5.5' transform='' fill='%23b3b3b1'/%3E%3C/svg%3E")
     no-repeat;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%) rotate(180deg);
   transition: transform 0.2s;
-  */
+  
 }
 
   /* Submenu Movement */
