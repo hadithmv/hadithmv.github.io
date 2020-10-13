@@ -1,3 +1,5 @@
+console.log('Hello from service-worker.js')
+
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.4/workbox-sw.js')
 
 self.addEventListener('message', (event) => {
