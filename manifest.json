@@ -11,20 +11,24 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "assets/icons/icon_512.png",
-      "sizes": "512x512"
+      "src": "img/logo/newLogo5-N-iOptim.svg",
+      "sizes": "512x512",
+      "purpose": "any maskable"
     },
     {
-      "src": "assets/icons/icon_192.png",
-      "sizes": "192x192"
+      "src": "img/logo/newLogo5-N-iOptim.svg",
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
-      "src": "assets/icons/icon_48.png",
-      "sizes": "48x48"
+      "src": "img/logo/newLogo5-N-iOptim.svg",
+      "sizes": "48x48",
+      "purpose": "any maskable"
     },
     {
-      "src": "assets/icons/icon_24.png",
-      "sizes": "24x24"
+      "src": "img/logo/newLogo5-N-iOptim.svg",
+      "sizes": "24x24",
+      "purpose": "any maskable"
     }
   ],
   "screenshots": [
@@ -38,9 +42,5 @@
       "src": "assets/screenshots/screen.png"
     }
   ],
-  "features": [
-    "Cross Platform",
-    "fast",
-    "simple"
-  ]
+  "features": ["Cross Platform", "fast", "simple"]
 }
