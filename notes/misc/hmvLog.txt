@@ -79,6 +79,19 @@ takhrij done upto 50 - tableAsWord
 لِلَّهِ، لَا إِلٰهَ إِلَّا اللَّهُ
 ilaha broken in current ar font
 
+Dark mode native web app webview?
+get rid of tabs js if not gonna use
+Change color of sub subsub menu buttons
+Change hadithmv to yahyasdad??
+datatables with sqlite?
+Change p keytable tags to new line on copy
+google click links counter
+debug android webview with phone
+google analytics seperate ext script works?
+save state webview
+See if i can make scripts in one file
+Add rawaahu to umdah takhrij??
+
 Logs to do:
 maktaba hadith log (write to word)
 takhrij next 51 onwards.docx (most ready to up, later takhrijs to be made at end)
