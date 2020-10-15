@@ -497,7 +497,7 @@ inlining style font size 18 doesnt work either
 then afterwards have to give back ar font size 
 
 this thaana issue doesnt have to do with line wrapping it seems
-it only breaks on letter alif it seems */
+it breaks on letter alif it seems, but not in all cases */
 
 body > div > div.dv > p:nth-child(n + 7) {
   font-size: 17px;
