@@ -495,7 +495,7 @@ adding p tags and starting from n + 2 againt doesnt work either
 only one n selecter can be used it seems
 then afterwards have to give back ar font size */
 
-body > div > div.dv > p:nth-child(n + 3) {
+body > div > div.dv > p:nth-child(n + 7) {
   font-size: 17px;
 }
 
