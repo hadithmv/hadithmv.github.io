@@ -17,15 +17,11 @@ text-rendering: optimizeLegibility;
 /*
 */
 
-/*
 margin: 0 0 1.25em;
 margin-bottom: 1em;
 padding-right: 15px;
-padding-left: 15px;
-*/
-margin: 0;
-padding: 0;
-margin-bottom: 1em;
+
+/* padding-left: 15px; */
 
 /*
 */
