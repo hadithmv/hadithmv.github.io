@@ -2,7 +2,6 @@
 
 /* thaana mish mash render fix */
 body > div > div.dv > p:nth-child(even)
-body > div > div.dv > p:nth-child(odd),
 {
     font-size: 17px;
 }
