@@ -62,7 +62,7 @@ To move forward, just start with the first sub directory and keep moving forward
 body {
   background-color: #fff;
   padding: 30px; /* padding: 50px; */
-  font-size: 16px;
+  font-size: 16.5px; /* font-size: 16px; */
   font-family: sans-serif;
 
   /* -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
