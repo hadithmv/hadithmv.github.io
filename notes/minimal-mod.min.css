@@ -23,8 +23,10 @@ margin-bottom: 1em;
 padding-right: 15px;
 padding-left: 15px;
 */
+
+/* changing em to px breaks it */
 margin: 0 0 1.25em;
-margin-bottom: 16px;
+margin-bottom: 1em;
 padding-right: 15px;
 padding-left: 15px;
 
