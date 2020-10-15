@@ -489,8 +489,10 @@ td {
 /* ==================
 thaana mish mash render fix
 have to use this convuluted nth child hack, using both even and odd doesnt work,
-so have to go with n1 and every n above that
+so have to go with n7 and every n above that,
+trying n + 1 doesnt work
 then afterwards have to give back ar font size */
+body > div > div.dv > p:nth-child(1),
 body > div > div.dv > p:nth-child(n + 7) {
   font-size: 17px;
 }
