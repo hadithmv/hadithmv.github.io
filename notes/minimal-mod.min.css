@@ -8,6 +8,6 @@ body > div > div.dv > p:nth-child(n+9)
     font-size: 17px;
 }
 
-.ar {
+body > div > div.dv > p .ar {
     font-size: 21px;
   }
