@@ -491,8 +491,14 @@ thaana mish mash render fix
 have to use this convuluted nth child hack, using both even and odd doesnt work,
 so have to go with n7 and every n above that,
 trying n + 1 doesnt work
+adding p tags and starting from n + 2 againt doesnt work either
+only one n selecter can be used it seems
 then afterwards have to give back ar font size */
 body > div > div.dv > p:nth-child(n + 7) {
+  font-size: 17px;
+}
+
+body > div > div.dv > p.mid {
   font-size: 17px;
 }
 
