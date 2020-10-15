@@ -415,7 +415,7 @@ p {
 .dv {
   direction: rtl;
   font-family: "dvFont";
-  line-height: 2;
+  line-height: 2.1;
 }
 
 h1.ar {
@@ -485,3 +485,19 @@ td {
 .ind {
   text-indent: 2em;
 }
+
+/* ==================
+thaana mish mash render fix
+have to use this convuluted nth child hack, using both even and odd doesnt work
+the afterwards have to give back ar font size */
+body > div > div.dv > p:nth-child(n + 9) {
+  font-size: 17px;
+}
+
+body > div > div.dv > p.ar {
+  font-size: 21px;
+}
+
+/* ==================
+thaana mish mash render fix - END
+ ================== */
