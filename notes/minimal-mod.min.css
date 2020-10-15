@@ -3,5 +3,23 @@
 /* thaana mish mash render fix */
 body > div > div.dv > p
 {
-    font-size: 17px !important;
+    -webkit-font-smoothing: antialiased;
+    color: #333;
+    word-break: normal;
+    box-sizing: border-box;
+    direction: rtl;
+    unicode-bidi: embed;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline;
+    text-rendering: optimizeLegibility;
+    margin: 0 0 1.25em;
+    margin-bottom: 1em;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 18px;
+    line-height: 2.2;
+    text-align: justify;
+    text-align-last: right;
 }
