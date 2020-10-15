@@ -62,7 +62,7 @@ To move forward, just start with the first sub directory and keep moving forward
 body {
   background-color: #fff;
   padding: 30px; /* padding: 50px; */
-  font-size: 17px; /* otherwise thaana will mash up, previously font-size: 16px; */
+  font-size: 16px;
   font-family: sans-serif;
 
   /* -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -416,7 +416,6 @@ p {
   direction: rtl;
   font-family: "dvFont";
   line-height: 2;
-  font-size: 17px; /* otherwise thaana will mash up, previously font-size: 16px; */
 }
 
 h1.ar {
