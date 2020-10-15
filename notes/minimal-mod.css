@@ -503,9 +503,12 @@ after using up one nth child, it seems using bold or italic tags within p
 or header tags work as well, but there has to be a p tagged thaana text that comes before?
 
 while span tags dont work
-letter spacing doesnt work either */
+letter spacing doesnt work either
 
-body > div > div.dv > p:nth-child(n + 7) {
+previously body > div > div.dv > p:nth-child(n + 7)
+that would select 7 and everything past that */
+
+body > div > div.dv > p:nth-child(-n + 300) {
   font-size: 17px;
 }
 
