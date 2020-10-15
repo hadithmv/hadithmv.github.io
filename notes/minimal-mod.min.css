@@ -2,8 +2,7 @@
 
 body > div > div.dv > p:nth-child(9)
 {
--webkit-font-smoothing: antialiased;
-color: #333;
+/* -webkit-font-smoothing: antialiased;
 word-break: normal;
 box-sizing: border-box;
 direction: rtl;
@@ -13,6 +12,7 @@ border: 0;
 font: inherit;
 vertical-align: baseline;
 text-rendering: optimizeLegibility;
+*/
 margin: 0 0 1.25em;
 margin-bottom: 1em;
 padding-right: 15px;
