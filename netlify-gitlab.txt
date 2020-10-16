@@ -13,7 +13,6 @@ netlify-plugin-image-optim
 netlify-plugin-inline-critical-css
 @netlify/plugin-sitemap
 netlify-plugin-is-website-vulnerable
-netlify-plugin-no-more-404
 netlify-plugin-gridsome-cache
 netlify-plugin-gatsby-cache
 netlify-plugin-hugo-cache-resources
@@ -27,6 +26,7 @@ HTML Validate plugin breaks for old html
 Hashfiles plugin creates double static file assets for some reason
 subfont plugin also warns for some reason
 netlify-plugin-inline-source i think this makes the html bigger
+netlify-plugin-no-more-404 shows errors if previously existing files disappear later
 
 ...
 ...
