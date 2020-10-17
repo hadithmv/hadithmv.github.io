@@ -68,12 +68,12 @@
   <!-- ===== ===== CSS LIBRARIES - END ===== ===== -->
     */
   </style>
-    <!-- COMBINED css -->
-    <link rel="stylesheet" href="../css/COMBcss.min.css" />
+    <!-- COMBINED css 
+    <link rel="stylesheet" href="../css/COMBcss.min.css" />-->
     <!--<link rel="stylesheet" href="css/COMBcss.min.css" />   for app, either will cause a console error -->
-    <!-- <link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
-    this works as fallback but causes FOUC -->
-    <!-- APKCHANGE 123 ===== -->
+     <link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
+    <!-- this works as fallback but causes FOUC in apk app, but not in win app where this is needed -->
+    <!-- APKCHANGE 123 - WINCHANGE 123 ===== -->
     <!-- loadcss by filament group, currently causes fouc so not in use, inline critical css later
       <link
       rel="stylesheet"

@@ -35,10 +35,10 @@
     <meta http-equiv="last-modified" content="Mon, 08 June 2020 05:52:00 GMT" />
     <meta http-equiv="Expires" content="604800" />-->
 
-    <title>Hmv - Umdatul Ahkam</title>
+    <title>Hmv - Sahihain</title>
     <meta
       name="description"
-      content="Dhivehi hadith translations of Umdatul Ahkam."
+      content="Dhivehi hadith translations of Sahih Bukhari and Muslim."
     />
     <!-- ===== ===== META TAGS - END ===== ===== -->
 
@@ -67,13 +67,13 @@
 
   <!-- ===== ===== CSS LIBRARIES - END ===== ===== -->
     */
-    </style>
-    <!-- COMBINED css 
-    <link rel="stylesheet" href="../css/COMBcss.min.css" />-->
+  </style>
+    <!-- COMBINED css -->
+    <link rel="stylesheet" href="../css/COMBcss.min.css" />
     <!--<link rel="stylesheet" href="css/COMBcss.min.css" />   for app, either will cause a console error -->
-     <link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
-    <!-- this works as fallback but causes FOUC in apk app, but not in win app where this is needed -->
-    <!-- APKCHANGE 123 - WINCHANGE 123 ===== -->
+    <!-- <link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
+    this works as fallback but causes FOUC -->
+    <!-- APKCHANGE 123 ===== -->
     <!-- loadcss by filament group, currently causes fouc so not in use, inline critical css later
       <link
       rel="stylesheet"
@@ -102,197 +102,196 @@
     </header>
     <!-- added menu-btn to activate menu -->
 
-      <!-- Pushy Menu -->
-      <nav class="pushy pushy-right" data-focus="#first-link">
-        <!-- <nav class="pushy pushy-left"-->
-        <div class="pushy-content pushy-right">
-          <ul>
-            <!-- Submenu -->
-            <li class="pushy-submenu">
-              <button id="first-link">ފޮތްތައް</button><!-- button id="first-link" sets focus on open menu -->
-              <!-- / CHANGE123 FIRST LINK -->
-              <ul>
-  
-                <li class="pushy-link" onclick="openLink(event, 'fortyNTab')">
-                  <!-- APKCHANGE 123 ===== -->
-                  <a href="https://hadithmv.github.io/"
-                  target="_blank"
-                  rel="noopener"
-                  >ނަވަވީގެ 40 ޙަދީޘް</a>
-                </li>
-  
-                <li
+    <!-- Pushy Menu -->
+    <nav class="pushy pushy-right" data-focus="#first-link">
+      <!-- <nav class="pushy pushy-left"-->
+      <div class="pushy-content pushy-right">
+        <ul>
+          <!-- Submenu -->
+          <li class="pushy-submenu">
+            <button id="first-link">ފޮތްތައް</button><!-- button id="first-link" sets focus on open menu -->
+            <!-- / CHANGE123 FIRST LINK -->
+            <ul>
+
+              <li class="pushy-link" onclick="openLink(event, 'fortyNTab')">
+                <!-- APKCHANGE 123 ===== -->
+                <a href="index.html">ނަވަވީގެ 40 ޙަދީޘް</a>
+              </li>
+
+              <li
+              class="pushy-link"
+              onclick="openLink(event, 'umdahHadithTab')"
+            >
+            <!-- APKCHANGE 123 ===== -->
+              <a
+                href="../books/umdah-uc.html"
+                target="_blank"
+                rel="noopener"
+                >ޢުމްދަތުލް އަޙްކާމް</a
+              ></li>
+
+              <li class="pushy-link" onclick="openLink(event, 'sahihainTab')">
+                <!-- / CHANGE 123 SECOND LINK -->
+                <!-- APKCHANGE 123 ===== -->
+                <a href="#"
+                  >ޞަޙީޙައިން (ނުނިމޭ)</a
+                >
+              </li>
+
+              <li
                 class="pushy-link"
-                onclick="openLink(event, 'umdahHadithTab')"
+                onclick="openLink(event, 'otherHadithTab')"
               >
               <!-- APKCHANGE 123 ===== -->
                 <a
-                  href="#"
-                  >ޢުމްދަތުލް އަޙްކާމް</a
-                ></li>
-  
-                <li class="pushy-link" onclick="openLink(event, 'sahihainTab')">
-                  <!-- / CHANGE 123 SECOND LINK -->
-                  <!-- APKCHANGE 123 ===== -->
-                  <a href="../books/sahihain.html" target="_blank" rel="noopener"
-                  >ޞަޙީޙައިން (ނުނިމޭ)</a
-                  >
-                </li>
-  
-                <li
-                  class="pushy-link"
-                  onclick="openLink(event, 'otherHadithTab')"
+                  href="../books/otherHadith-uc.html"
+                  target="_blank"
+                  rel="noopener"
+                  >އެހެނިހެން ޙަދީޘްތައް</a
                 >
-                <!-- APKCHANGE 123 ===== -->
-                  <a
-                    href="../books/otherHadith-uc.html"
-                    target="_blank"
-                    rel="noopener"
-                    >އެހެނިހެން ޙަދީޘްތައް</a
-                  >
-                </li>
-  
-              </ul>
-            </li>
-  
-            <li class="pushy-submenu">
-              <button>އިތުރު މައުލޫމާތު</button>
-              <ul>
-                <li class="pushy-link">
-                  <!-- APKCHANGE 123 ===== -->
-                  <a
-                    href="../notes/introHmv/introHmv.html"
-                    target="_blank"
-                    rel="noopener"
-                    >ޙަދީޘްއެމްވީ</a
-                  >
-                </li>
-  
+              </li>
+
+            </ul>
+          </li>
+
+          <li class="pushy-submenu">
+            <button>އިތުރު މައުލޫމާތު</button>
+            <ul>
               <li class="pushy-link">
                 <!-- APKCHANGE 123 ===== -->
                 <a
-                href="../notes/introFortyN/introFortyN.html"
-                target="_blank"
-                rel="noopener"
-                >ނަވަވީގެ 40 ޙަދީޘް</a
-              >
+                  href="../notes/introHmv/introHmv.html"
+                  target="_blank"
+                  rel="noopener"
+                  >ޙަދީޘްއެމްވީ</a
+                >
               </li>
-  
-                <li class="pushy-link">
-                  <!-- APKCHANGE 123 ===== -->
-                  <a
-                    href="../notes/third-party-libs-and-tools.txt"
-                    target="_blank"
-                    rel="noopener"
-                    >ބޭނުން ކުރެވުނު ތަކެތި</a
-                  >
-                </li>
-  
-                </li>
-                <li class="pushy-link">
-                  <!-- APKCHANGE 123 ===== -->
-                  <a href="../LICENSE.txt" target="_blank" rel="noopener"
-                    >ލައިސެންސް</a
-                  >
-                </li>
-  
-                <li class="pushy-link desktopOnly">
-                  <a href="#" onclick="myHelp()">ކީބޯޑް ނެވިގޭޝަން</a>
-                </li>
-                
-              </ul>
-            </li>
-  
-            <li class="pushy-submenu">
-              <button>މަންސަތައް</button>
-              <ul>
-                <li class="pushy-link">
-                  <a
-                    href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
-                    target="_blank"
-                    rel="noopener"
-                    >އެންޑްރޮއިޑް</a
-                  >
-                </li>
-                <li class="pushy-link">
-                  <a href="https://goo.gl/EyjC4v" target="_blank" rel="noopener"
-                    >ވިންޑޯސް</a
-                  >
-                </li>
-                <li class="pushy-link">
-                  <a
-                    href="https://hadithmv.github.io"
-                    target="_blank"
-                    rel="noopener"
-                    >ވެބް</a
-                  >
-                </li>
-                <li class="pushy-link">
-                  <a
-                    href="https://hadithmv.netlify.app"
-                    target="_blank"
-                    rel="noopener"
-                    >(މިރަރ 1)</a
-                  >
-                </li>
-                <li class="pushy-link">
-                  <a
-                    href="https://hadithmv.gitlab.io"
-                    target="_blank"
-                    rel="noopener"
-                    >(މިރަރ 2)</a
-                  >
-                </li>
-              </ul>
-            </li>
-  
-            <li class="pushy-submenu">
-              <button>ގުޅުއްވުމަށް</button>
-              <ul>
-  
-                <li class="pushy-link">
-                  <a href="https://telegram.me/yahyasdadmv">ޓެލެގްރާމް</a>
-                </li>
-  
-                <li class="pushy-link">
-                  <a href="mailto:yahyasdadmv@gmail.com">އީމެއިލް</a>
-                </li>
-  
-                <li class="pushy-link">
-                  <a
-                    href="https://goo.gl/forms/O0SLwVntIGRdhVGv2"
-                    target="_blank"
-                    rel="noopener"
-                    >ފޯމް</a
-                  >
-                </li>
-                
-              </ul>
-            </li>
-  
-            <br />
-  
-            <li>
-              <a>އިސްދާރު: <span class="hmvVer">2.0</span>&thinsp;⚙️</a>
-            </li>
-  
-            <li>
+
+            <li class="pushy-link">
+              <!-- APKCHANGE 123 ===== -->
               <a
-                class="madeby"
-                href="https://telegram.me/yahyasdadmv"
-                target="_blank"
-                rel="noopener"
-                >ފަރުމާ ކުރީ: أبو يحيى أشراف بن إبراهيم المحلي<br /><br />
-                <span class="madina">
-                  މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް
-                </span>
-              </a>
+              href="../notes/introFortyN/introFortyN.html"
+              target="_blank"
+              rel="noopener"
+              >ނަވަވީގެ 40 ޙަދީޘް</a
+            >
             </li>
-          </ul>
-        </div>
-        <!-- <div class="pushy-content pushy-right"> END -->
-      </nav>
-      <!-- Pushy Menu - END -->
+
+              <li class="pushy-link">
+                <!-- APKCHANGE 123 ===== -->
+                <a
+                  href="../notes/third-party-libs-and-tools.txt"
+                  target="_blank"
+                  rel="noopener"
+                  >ބޭނުން ކުރެވުނު ތަކެތި</a
+                >
+              </li>
+
+              </li>
+              <li class="pushy-link">
+                <!-- APKCHANGE 123 ===== -->
+                <a href="../LICENSE.txt" target="_blank" rel="noopener"
+                  >ލައިސެންސް</a
+                >
+              </li>
+
+              <li class="pushy-link desktopOnly">
+                <a href="#" onclick="myHelp()">ކީބޯޑް ނެވިގޭޝަން</a>
+              </li>
+              
+            </ul>
+          </li>
+
+          <li class="pushy-submenu">
+            <button>މަންސަތައް</button>
+            <ul>
+              <li class="pushy-link">
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
+                  target="_blank"
+                  rel="noopener"
+                  >އެންޑްރޮއިޑް</a
+                >
+              </li>
+              <li class="pushy-link">
+                <a href="https://goo.gl/EyjC4v" target="_blank" rel="noopener"
+                  >ވިންޑޯސް</a
+                >
+              </li>
+              <li class="pushy-link">
+                <a
+                  href="https://hadithmv.github.io"
+                  target="_blank"
+                  rel="noopener"
+                  >ވެބް</a
+                >
+              </li>
+              <li class="pushy-link">
+                <a
+                  href="https://hadithmv.netlify.app"
+                  target="_blank"
+                  rel="noopener"
+                  >(މިރަރ 1)</a
+                >
+              </li>
+              <li class="pushy-link">
+                <a
+                  href="https://hadithmv.gitlab.io"
+                  target="_blank"
+                  rel="noopener"
+                  >(މިރަރ 2)</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li class="pushy-submenu">
+            <button>ގުޅުއްވުމަށް</button>
+            <ul>
+
+              <li class="pushy-link">
+                <a href="https://telegram.me/yahyasdadmv">ޓެލެގްރާމް</a>
+              </li>
+
+              <li class="pushy-link">
+                <a href="mailto:yahyasdadmv@gmail.com">އީމެއިލް</a>
+              </li>
+
+              <li class="pushy-link">
+                <a
+                  href="https://goo.gl/forms/O0SLwVntIGRdhVGv2"
+                  target="_blank"
+                  rel="noopener"
+                  >ފޯމް</a
+                >
+              </li>
+              
+            </ul>
+          </li>
+
+          <br />
+
+          <li>
+            <a>އިސްދާރު: <span class="hmvVer">2.0</span>&thinsp;⚙️</a>
+          </li>
+
+          <li>
+            <a
+              class="madeby"
+              href="https://telegram.me/yahyasdadmv"
+              target="_blank"
+              rel="noopener"
+              >ފަރުމާ ކުރީ: أبو يحيى أشراف بن إبراهيم المحلي<br /><br />
+              <span class="madina">
+                މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- <div class="pushy-content pushy-right"> END -->
+    </nav>
+    <!-- Pushy Menu - END -->
 
     <!-- Pushy site Overlay - dims rest of page on pushy nav open -->
     <div class="site-overlay"></div>
@@ -307,7 +306,7 @@
 
       <!-- First tab
       / CHANGE123 TAB -->
-      <main id="umdahTab" class="myTab w3-animate-right">
+      <main id="sahihainTab" class="myTab w3-animate-right">
         <!-- if these tab classes and IDs are given to table, dt wrapper wont hide when tabbed away -->
 
         <!-- DT table classes
@@ -322,14 +321,10 @@
             / CHANGE123 TABLE -->
         <!-- JEKYLL CHANGE123 {{ content }} -->
 
-        <table id="umdahTable" class="stripe table">
+        <table id="sahihainTable" class="stripe table">
           <!-- fnClass -->
           <thead>
             <tr>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
               <th></th>
               <th></th>
               <th></th>
@@ -340,7 +335,7 @@
           </thead>
         </table>
         <!-- ===== TABLE - END ===== -->
-      </main>
+      </div>
       <!-- <div id="fortyNTab" class="myTab w3-animate-right"> first tab END -->
 
       <!-- Template for offline tabs
@@ -405,44 +400,44 @@
       <script src="../js/pushy.min.js"></script>-->
 
   <!-- Hammerjs 2.0.8 -->
-  <script src="../js/hammer.min.js"></script>
-          */
-    </style>
+    <script src="../js/hammer.min.js"></script>
+            */
+          </style>
 
-        <!-- now needed for keeping index in root dir for netlify
-          used to be old fallback js for app 
-    <script defer>
-           window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
-           window.jQuery || document.write('<script src="js/resc/COMBjs-defer.js"><\/script>');
-           window.jQuery || document.write('<script src="js/40nHadith.json"><\/script>');
-           window.jQuery || document.write('<script src="js/fortyN-script.min.js"><\/script>');
-    </script> -->
-    <!-- APKCHANGE 123 ===== -->
-
-
-    
-    <!-- COMBINED js part 1
-    <script src="js/resc/COMBjs.js"></script>
-    i split this into two, so as to defer js parsing -->
-    <script defer src="../js/resc/COMBjs.js"></script>
+<!-- now needed for keeping index in root dir for netlify
+  used to be old fallback js for app 
+<script defer>
+   window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
+   window.jQuery || document.write('<script src="js/resc/COMBjs-defer.js"><\/script>');
+   window.jQuery || document.write('<script src="js/40nHadith.json"><\/script>');
+   window.jQuery || document.write('<script src="js/fortyN-script.min.js"><\/script>');
+</script> -->
+<!-- APKCHANGE 123 ===== -->
 
 
 
-    <!-- / the json has to go over the script if deferred,
-        otherwise if json too large script will take too long to load
-        CHANGE123 JS
-        'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
-        <script defer src="../js/umdah.json"></script>
-    <!-- Custom JS -->
-    <script defer src="../js/umdah-script.min.js"></script>
+<!-- COMBINED js part 1
+<script src="js/resc/COMBjs.js"></script>
+i split this into two, so as to defer js parsing -->
+<script defer src="../js/resc/COMBjs.js"></script>
 
 
 
-        <!-- COMBINED js part 2
-    i split this into two, so as to defer js parsing
-    <script src="../js/resc/COMBjs-defer.js"></script> -->
+<!-- / the json has to go over the script if deferred,
+otherwise if json too large script will take too long to load
+CHANGE123 JS
+'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
+<script defer src="../js/sahihain.json"></script>
+<!-- Custom JS -->
+<script defer src="../js/sahihain-script.min.js"></script>
 
-    <!-- ===== ===== JS LIBRARIES - END ===== ===== -->
+
+
+<!-- COMBINED js part 2
+i split this into two, so as to defer js parsing
+<script src="../js/resc/COMBjs-defer.js"></script> -->
+
+<!-- ===== ===== JS LIBRARIES - END ===== ===== -->
 
 
 
@@ -475,6 +470,6 @@
     <script defer src='https://www.google-analytics.com/analytics.js'></script>
     <!-- End Google Analytics -->
     
-  </body>
-  <!-- ===== BODY - END ===== -->
+</body>
+<!-- ===== BODY - END ===== -->
 </html>
