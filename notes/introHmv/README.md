@@ -46,7 +46,7 @@
     <br>
 -->
   <p align="center">
-  	<a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"><img src="https://hadithmv.github.io/img/playstore-badge/en_badge_web_generic-compressor.png" alt="" width=250></a><a href="https://goo.gl/EyjC4v"><img src="https://hadithmv.github.io/img/wb/windows-badge-N-iOptim.svg" alt="" width=250></a>
+  	<a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"><img src="https://hadithmv.github.io/img/playstore-badge/en_badge_web_generic-compressor.png" alt="" width=250></a><a href="https://github.com/hadithmv/hadithmv.github.io/raw/master/win/hmv/hadithmv_Win32.7z"><img src="https://hadithmv.github.io/img/wb/windows-badge-N-iOptim.svg" alt="" width=250></a>
   </p>  
    
 <br><br>
