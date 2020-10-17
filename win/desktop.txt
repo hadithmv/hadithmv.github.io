@@ -31,7 +31,7 @@ file description: Dhivehi hadith translations at your fingertips.
 File version:
 Product version:
 
-contents > can add *.exe mask here to exclude those redundant exes
+contents > can add *.exe mask here to exclude those redundant exes, as well as *7z.
 window > custom size > first cut out width and height leave those blank, then 
 min width: 1680
 min height: 1050
@@ -49,3 +49,5 @@ then compress with upx (fpux):
 upx64.exe --ultra-brute --compress-icons=3 --lzma <input_file>
 or just brute
 or just 7zip
+
+del exe from repo
