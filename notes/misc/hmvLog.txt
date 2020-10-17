@@ -9,6 +9,7 @@ sahihain takhrij done upto 50. next 51
 app changes:
 license goes in main
 links to 40n main page need to be redirected within folders
+apk mirror? or wait till aab files become installable normally?
 
 change umdah view # hadith to more than 1 later
 
