@@ -4,7 +4,7 @@
     <ID>{E74C1E8D-3A0E-4FFE-979D-399779EF49B0}</ID>
     <Name>hadithmv</Name>
     <CompanyName>hadithmv</CompanyName>
-    <FileDescription>Dhivehi hadith translations at your fingertips.</FileDescription>
+    <FileDescription>hadithmv</FileDescription>
     <FileVersion>2.0</FileVersion>
     <InternalName></InternalName>
     <LegalCopyright>yahyasdadmv</LegalCopyright>
@@ -32,8 +32,8 @@
     <Password></Password>
     <IndexHtml>hmv\index.html</IndexHtml>
     <EdgeInstaller>0</EdgeInstaller>
-    <OutputWin32>1</OutputWin32>
-    <OutputWin64>0</OutputWin64>
+    <OutputWin32>0</OutputWin32>
+    <OutputWin64>1</OutputWin64>
     <AllowInstances>0</AllowInstances>
     <ExcludeMasks>*.exe;*.7z</ExcludeMasks>
     <Generator>
