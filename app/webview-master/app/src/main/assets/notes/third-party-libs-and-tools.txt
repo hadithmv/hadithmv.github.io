@@ -43,3 +43,5 @@ https://github.com/github/codeql -MIT
 
 https://github.com/sqlite/sqlite
 https://github.com/pawelsalawa/sqlitestudio -GNU GPLv3
+
+https://github.com/upx/upx -GNU GPLv2

@@ -1,0 +1,48 @@
+﻿﻿<?xml version="1.0" encoding="utf-8"?>
+<HtmlCompiler Version="2021.9">
+  <App>
+    <ID>{E74C1E8D-3A0E-4FFE-979D-399779EF49B0}</ID>
+    <Name>hadithmv</Name>
+    <CompanyName>hadithmv</CompanyName>
+    <FileDescription>Dhivehi hadith translations at your fingertips.</FileDescription>
+    <FileVersion>2.0</FileVersion>
+    <InternalName></InternalName>
+    <LegalCopyright>yahyasdadmv</LegalCopyright>
+    <LegalTrademarks></LegalTrademarks>
+    <OriginalFileName></OriginalFileName>
+    <ProgramID></ProgramID>
+    <ProductVersion>2.0</ProductVersion>
+    <Comments></Comments>
+    <Width>0</Width>
+    <Height>0</Height>
+    <MaxWidth>1920</MaxWidth>
+    <MaxHeight>1080</MaxHeight>
+    <MinWidth>1680</MinWidth>
+    <MinHeight>1050</MinHeight>
+    <Theme>Windows</Theme>
+    <WindowStyle>0</WindowStyle>
+    <WindowBorder>2</WindowBorder>
+    <WindowOrder>0</WindowOrder>
+    <InstallFormColor>-16777190</InstallFormColor>
+    <InstallIndicatorColor>1</InstallIndicatorColor>
+    <InstallIndicatorType>0</InstallIndicatorType>
+    <IcoPath>..\img\logo\newLogo5-roundedSquare\newLogo5-roundedSquare.ico</IcoPath>
+    <AllowDebug>0</AllowDebug>
+    <AllowContextMenu>0</AllowContextMenu>
+    <Password></Password>
+    <IndexHtml>hmv\index.html</IndexHtml>
+    <EdgeInstaller>0</EdgeInstaller>
+    <OutputWin32>1</OutputWin32>
+    <OutputWin64>0</OutputWin64>
+    <AllowInstances>0</AllowInstances>
+    <ExcludeMasks>*.exe</ExcludeMasks>
+    <Generator>
+      <Name>DecSoft HTML Compiler</Name>
+      <Version>2021.9</Version>
+      <Website>https://www.decsoftutils.com/</Website>
+      <Orders>https://www.decsoftutils.com/store/</Orders>
+      <EMail>info@decsoftutils.com</EMail>
+      <Copyright>©2020 DecSoft HTML Compiler. All rights reserved.</Copyright>
+    </Generator>
+  </App>
+</HtmlCompiler>

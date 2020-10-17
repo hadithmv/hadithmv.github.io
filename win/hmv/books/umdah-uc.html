@@ -68,12 +68,12 @@
   <!-- ===== ===== CSS LIBRARIES - END ===== ===== -->
     */
     </style>
-    <!-- COMBINED css 
-    <link rel="stylesheet" href="../css/COMBcss.min.css" />-->
+    <!-- COMBINED css -->
+    <link rel="stylesheet" href="../css/COMBcss.min.css" />
     <!--<link rel="stylesheet" href="css/COMBcss.min.css" />   for app, either will cause a console error -->
-     <link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
-    <!-- this works as fallback but causes FOUC in apk app, but not in win app where this is needed -->
-    <!-- APKCHANGE 123 - WINCHANGE 123 ===== -->
+    <!-- <link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
+    this works as fallback but causes FOUC -->
+    <!-- APKCHANGE 123 ===== -->
     <!-- loadcss by filament group, currently causes fouc so not in use, inline critical css later
       <link
       rel="stylesheet"
@@ -115,10 +115,7 @@
   
                 <li class="pushy-link" onclick="openLink(event, 'fortyNTab')">
                   <!-- APKCHANGE 123 ===== -->
-                  <a href="https://hadithmv.github.io/"
-                  target="_blank"
-                  rel="noopener"
-                  >ނަވަވީގެ 40 ޙަދީޘް</a>
+                  <a href="index.html">ނަވަވީގެ 40 ޙަދީޘް</a>
                 </li>
   
                 <li
@@ -134,7 +131,7 @@
                 <li class="pushy-link" onclick="openLink(event, 'sahihainTab')">
                   <!-- / CHANGE 123 SECOND LINK -->
                   <!-- APKCHANGE 123 ===== -->
-                  <a href="../books/sahihain.html" target="_blank" rel="noopener"
+                  <a href="../books/sahihain-uc.html" target="_blank" rel="noopener"
                   >ޞަޙީޙައިން (ނުނިމޭ)</a
                   >
                 </li>
@@ -347,14 +344,14 @@
         <div id="bukhariTab" class="myTab w3-animate-right" style="display:none">
             <p>two</p>
         </div>-->
-    </div>
-    <!-- Pushy content container - END === -->
-
-
-
-    <!-- ===== ===== JS LIBRARIES ===== ===== 
-    I deferred everything to parse js last -->
-    <style>
+      </div>
+      <!-- Pushy content container - END === -->
+  
+  
+  
+      <!-- ===== ===== JS LIBRARIES ===== ===== 
+      I deferred everything to parse js last -->
+      <style>
       /*
       <!-- JQUERY 3.5.1 - Needed for DT, and BS if present. Originally 2.2.1 
           must remain at the top and not the bottom 
@@ -405,44 +402,44 @@
       <script src="../js/pushy.min.js"></script>-->
 
   <!-- Hammerjs 2.0.8 -->
-  <script src="../js/hammer.min.js"></script>
-          */
-    </style>
+    <script src="../js/hammer.min.js"></script>
+            */
+          </style>
 
-        <!-- now needed for keeping index in root dir for netlify
-          used to be old fallback js for app 
-    <script defer>
-           window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
-           window.jQuery || document.write('<script src="js/resc/COMBjs-defer.js"><\/script>');
-           window.jQuery || document.write('<script src="js/40nHadith.json"><\/script>');
-           window.jQuery || document.write('<script src="js/fortyN-script.min.js"><\/script>');
-    </script> -->
-    <!-- APKCHANGE 123 ===== -->
-
-
-    
-    <!-- COMBINED js part 1
-    <script src="js/resc/COMBjs.js"></script>
-    i split this into two, so as to defer js parsing -->
-    <script defer src="../js/resc/COMBjs.js"></script>
+<!-- now needed for keeping index in root dir for netlify
+  used to be old fallback js for app 
+<script defer>
+   window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
+   window.jQuery || document.write('<script src="js/resc/COMBjs-defer.js"><\/script>');
+   window.jQuery || document.write('<script src="js/40nHadith.json"><\/script>');
+   window.jQuery || document.write('<script src="js/fortyN-script.min.js"><\/script>');
+</script> -->
+<!-- APKCHANGE 123 ===== -->
 
 
 
-    <!-- / the json has to go over the script if deferred,
-        otherwise if json too large script will take too long to load
-        CHANGE123 JS
-        'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
-        <script defer src="../js/umdah.json"></script>
-    <!-- Custom JS -->
-    <script defer src="../js/umdah-script.min.js"></script>
+<!-- COMBINED js part 1
+<script src="js/resc/COMBjs.js"></script>
+i split this into two, so as to defer js parsing -->
+<script defer src="../js/resc/COMBjs.js"></script>
 
 
 
-        <!-- COMBINED js part 2
-    i split this into two, so as to defer js parsing
-    <script src="../js/resc/COMBjs-defer.js"></script> -->
+<!-- / the json has to go over the script if deferred,
+otherwise if json too large script will take too long to load
+CHANGE123 JS
+'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
+<script defer src="../js/umdah.json"></script>
+<!-- Custom JS -->
+<script defer src="../js/umdah-script.min.js"></script>
 
-    <!-- ===== ===== JS LIBRARIES - END ===== ===== -->
+
+
+<!-- COMBINED js part 2
+i split this into two, so as to defer js parsing
+<script src="../js/resc/COMBjs-defer.js"></script> -->
+
+<!-- ===== ===== JS LIBRARIES - END ===== ===== -->
 
 
 
@@ -475,6 +472,6 @@
     <script defer src='https://www.google-analytics.com/analytics.js'></script>
     <!-- End Google Analytics -->
     
-  </body>
-  <!-- ===== BODY - END ===== -->
+</body>
+<!-- ===== BODY - END ===== -->
 </html>
