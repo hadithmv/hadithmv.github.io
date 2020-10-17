@@ -45,3 +45,5 @@ https://github.com/sqlite/sqlite
 https://github.com/pawelsalawa/sqlitestudio -GNU GPLv3
 
 https://github.com/upx/upx -GNU GPLv2
+
+https://sourceforge.net/projects/sevenzip/ -GNU LGPL
