@@ -27,7 +27,7 @@ App > App options
 app name: hadithmv
 legal copyright: yahyasdadmv
 company name: hadithmv
-file description: Dhivehi hadith translations at your fingertips.
+file description: hadithmv (shows up on task manager)
 File version:
 Product version:
 
@@ -39,7 +39,9 @@ max width: 1920
 max height: 1080
 (any spaces after numbers will break resolution)
 
-compilations > output execs for 32 bit only for now
+compilations > output execs for 64 bit only for now because it loads up faster, even if 32 bit is more supported (for now) and smaller in size
+
+including edge installer so that pre win10 chromium edge browserless comps can run it, will make app too large, over 100mb.
 
 ico sizes should be resized and built one by one for quality
 
