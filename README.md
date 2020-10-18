@@ -24,7 +24,7 @@ Dhivehi hadith translations at your fingertips
 </p>
 
 <p align="center">
-<img href="https://github.com/hadithmv/hadithmv.github.io/raw/master/alt/Desktop/hmv-win.zip" src="http://hadithmv.github.io/img/wb/windows-badge-N-iOptim.svg" width="200">
+<img href="https://github.com/hadithmv/hadithmv.github.io/raw/master/win/hmv/hadithmv_Win64.7z" src="http://hadithmv.github.io/img/wb/windows-badge-N-iOptim.svg" width="200">
 </p>
 --->
 
