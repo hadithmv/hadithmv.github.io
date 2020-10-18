@@ -33,13 +33,13 @@ Product version:
 
 contents > can add *.exe mask here to exclude those redundant exes, as well as *7z.
 window > custom size > first cut out width and height leave those blank, then 
-min width: 1680
-min height: 1050
-max width: 1920
-max height: 1080
+min width: 1366
+min height: 768
 (any spaces after numbers will break resolution)
 
 compilations > output execs for 64 bit only for now because it loads up faster, even if 32 bit is more supported (for now) and smaller in size
+
+Allow the contexual menu > so that users can right click refresh and print
 
 including edge installer so that pre win10 chromium edge browserless comps can run it, will make app too large, over 100mb.
 
