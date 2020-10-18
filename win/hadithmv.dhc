@@ -15,20 +15,20 @@
     <Comments></Comments>
     <Width>0</Width>
     <Height>0</Height>
-    <MaxWidth>1920</MaxWidth>
-    <MaxHeight>1080</MaxHeight>
-    <MinWidth>1680</MinWidth>
-    <MinHeight>1050</MinHeight>
+    <MaxWidth>0</MaxWidth>
+    <MaxHeight>0</MaxHeight>
+    <MinWidth>1366</MinWidth>
+    <MinHeight>768</MinHeight>
     <Theme>Windows</Theme>
     <WindowStyle>0</WindowStyle>
-    <WindowBorder>2</WindowBorder>
+    <WindowBorder>1</WindowBorder>
     <WindowOrder>0</WindowOrder>
     <InstallFormColor>-16777190</InstallFormColor>
     <InstallIndicatorColor>1</InstallIndicatorColor>
     <InstallIndicatorType>0</InstallIndicatorType>
     <IcoPath>..\img\logo\newLogo5-roundedSquare\newLogo5-roundedSquare.ico</IcoPath>
     <AllowDebug>0</AllowDebug>
-    <AllowContextMenu>0</AllowContextMenu>
+    <AllowContextMenu>1</AllowContextMenu>
     <Password></Password>
     <IndexHtml>hmv\index.html</IndexHtml>
     <EdgeInstaller>0</EdgeInstaller>
