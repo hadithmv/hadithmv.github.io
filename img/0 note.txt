@@ -13,7 +13,7 @@ https://jakearchibald.github.io/svgomg/
 
 
 might have to manually then remove:
- stroke-width="0" style="background-color:#fff" viewbox="0 0 1080 1080"
+ stroke-width="0" style="background-color:#fff" viewBox="0 0 1080 1080"
 
 that's compared to these when solo:
 
