@@ -57,11 +57,11 @@ href="../books/otherHadith-uc.html"
 href="../books/otherHadith-uc.html"
 
 
-href="../notes/introHmv/introHmv.html"
-href="notes/introHmv/introHmv.html"
+href="../notes/info/introHmv.html"
+href="notes/info/introHmv.html"
 
-href="../notes/introFortyN/introFortyN.html"
-href="notes/introFortyN/introFortyN.html"
+href="../notes/info/introFortyN.html"
+href="notes/info/introFortyN.html"
 
 href="../notes/third-party-libs-and-tools.txt"
 href="notes/third-party-libs-and-tools.txt"
