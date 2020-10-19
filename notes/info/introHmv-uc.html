@@ -284,19 +284,20 @@
     added async then changed to defer on my own https://developers.google.com/analytics/devguides/collection/analyticsjs
     https://daan.dev/wordpress/difference-analyics-gtag-ga-js/ supports analytics js over gtag
     -->
-    <!-- Google Analytics -->
-    <script>
-      window.ga =
-        window.ga ||
-        function () {
-          (ga.q = ga.q || []).push(arguments);
-        };
-      ga.l = +new Date();
-      ga("create", "UA-112777351-1", "auto");
-      ga("send", "pageview");
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      defer
+      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
+    ></script>
+    <script defer>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-HL24Q9NN24");
     </script>
-    <script></script>
-    <script defer src="https://www.google-analytics.com/analytics.js"></script>
     <!-- End Google Analytics -->
   </body>
 </html>
