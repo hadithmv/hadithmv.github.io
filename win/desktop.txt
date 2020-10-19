@@ -4,6 +4,8 @@ FUPX
 ICFX
 ...
 
+index is exact same as apk assets index file
+
 for win desktop app, index has to be at root dir, not sub dir like with apk
 
 open index in dhc, save as hadithmv.dhc one dir back
@@ -12,14 +14,17 @@ open index in dhc, save as hadithmv.dhc one dir back
 should keep ico file outsize compile dir to reduce size
 should keep dhc outside compile dir too, else created exe's get repacked into the next exe, unless exe mask has been flagged
 
-had to change go back a dir for css into go foward a dir
+...
+dont have to go back a dir for css and js and then go foward a dir
+works as is in compiler
+althought the html file itself wont show anything if run on its own
 
 <link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
     <!-- this works as fallback but causes FOUC in apk app, but not in win app where this is needed -->
 
-but for some reason don't have to change for js
 <script defer src="../js/resc/COMBjs.js"></script>
 this is as is as are otehr scripts
+...
 
 App > App options
 	Interface > Icon > File path ... 
