@@ -9,7 +9,7 @@ Use ALT+0145 and ALT+0146 for the left and right single quotation mark or apostr
 Use ALT+0147 and ALT+0148 for the left and right double quotation marks, respectively.Apr 17, 2020
 ms word only ﷺ: write fdfa then press alt + x
 
-
+prettier not working on html?
 sahihain takhrij done upto 50. next 51
 
 app changes:
