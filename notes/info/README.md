@@ -31,7 +31,7 @@
 
   <p align="center"><a href="https://hadithmv.github.io"><img src="https://hadithmv.github.io/img/newLogo5/newLogo5-compressor.svg" alt="" width=200 height=200></a></p>
 
-  <h3 align="center">Hadithmv - Accessible and Sourced</h3>
+  <h3 align="center">hadithmv - Accessible and Sourced</h3>
 
   <p align="center">Dhivehi Hadith translations at your fingertips</p>
 
