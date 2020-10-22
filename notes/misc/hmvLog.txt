@@ -33,9 +33,9 @@ for some reason 1.6.4/js/dataTables.buttons.js breaks the copy
 maybe add arabic numbers in fonts, otherwise too large
 
 
-البخاري 3281، ومسلم 2175
+البخاري 1838، ومسلم 2175
 البخاري 1131، ومسلم 1159 واللفظ له
-البخاري 2035 واللفظ له، ومسلم 2175
+البخاري 1841 واللفظ له، ومسلم 1178
 <p></p>
 مسلم 1594
 البخاري 1107
