@@ -1,40 +1,13 @@
-https://www.netlify.com/blog/2017/05/11/migrating-your-jekyll-site-to-netlify/
+Use gitlab first
 
-https://pages.github.com/versions/
-
-https://docs.netlify.com/configure-builds/get-started/#definitions
-
-create Gemfile and .ruby-version (without forward slash)
-index.html has to be in source dir for netlify to make the page
-
-plugins used:
-netlify-plugin-minify-html
-netlify-plugin-image-optim
-netlify-plugin-inline-critical-css
-@netlify/plugin-sitemap
-netlify-plugin-is-website-vulnerable
-netlify-plugin-gridsome-cache
-netlify-plugin-gatsby-cache
-netlify-plugin-hugo-cache-resources
-netlify-plugin-submit-sitemap
-netlify-plugin-debug-cache
-netlify-plugin-subfont
-
-plugins with issues:
-Checklinks plugin breaks when links arent all connected
-HTML Validate plugin breaks for old html
-Hashfiles plugin creates double static file assets for some reason
-subfont plugin also warns for some reason
-netlify-plugin-inline-source i think this makes the html bigger
-netlify-plugin-no-more-404 shows errors if previously existing files disappear later
+DONT USE NETLIFY, they auto charge for too many builds, find alternatives instead.
 
 ...
 ...
-
+GITLAB:
 https://serverfault.com/questions/531931/mirror-github-to-gitlab
 
 https://about.gitlab.com/stages-devops-lifecycle/pages/
-
 
 Creating a blank project has this issue
 https://gitlab.com/gitlab-org/gitlab/-/issues/202131
@@ -52,7 +25,6 @@ go to project
 on the repo > setup CI/CD
 Apply a template > jekyll > commit changes
 Run pipleline....
-
 
 for these 2 errors:
 	You won't be able to pull or push project code via SSH until you add an SSH key to your profile
@@ -85,7 +57,40 @@ but this has username and proj in the url, also links will break inside the webp
 so go to settings, general, rename Project name from hadithmv-github-io to hadithmv
 go down, Change path from hadithmv-github-io to hadithmv.gitlab.io
 after a while it should work
+...
+...
 
+ONRENDER
+https://dashboard.render.com/
+new webservice
+environment: static site
+build command: jekyll build
+publish directory: _site/
 
-
-
+...
+...
+old netlify stuff, don't use it
+https://www.netlify.com/blog/2017/05/11/migrating-your-jekyll-site-to-netlify/
+https://pages.github.com/versions/
+https://docs.netlify.com/configure-builds/get-started/#definitions
+create Gemfile and .ruby-version (without forward slash)
+index.html has to be in source dir for netlify to make the page
+plugins used:
+netlify-plugin-minify-html
+netlify-plugin-image-optim
+netlify-plugin-inline-critical-css
+@netlify/plugin-sitemap
+netlify-plugin-is-website-vulnerable
+netlify-plugin-gridsome-cache
+netlify-plugin-gatsby-cache
+netlify-plugin-hugo-cache-resources
+netlify-plugin-submit-sitemap
+netlify-plugin-debug-cache
+netlify-plugin-subfont
+plugins with issues:
+Checklinks plugin breaks when links arent all connected
+HTML Validate plugin breaks for old html
+Hashfiles plugin creates double static file assets for some reason
+subfont plugin also warns for some reason
+netlify-plugin-inline-source i think this makes the html bigger
+netlify-plugin-no-more-404 shows errors if previously existing files disappear later
