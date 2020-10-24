@@ -12,6 +12,8 @@ ms word only ﷺ: write fdfa then press alt + x
 prettier not working on html?
 sahihain takhrij done upto 50. next 51
 
+replace js with proper json sometime, load it via ajax for easier upkeep
+
 app changes:
 license goes in main
 links to 40n main page need to be redirected within folders
