@@ -86,8 +86,8 @@ $(document).ready(() => {
     // CHANGE123 JSON
     // data: fortyN_dataSet, // https://datatables.net/manual/ajax
     ajax: {
-      url: 'js/40nHadith2.json'
-       dataSrc: ''
+      url: 'js/40nHadith2.txt'
+      // dataSrc: ''
     },
 
     columns: [
