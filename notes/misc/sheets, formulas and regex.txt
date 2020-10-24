@@ -101,7 +101,7 @@ Gsheets wildcard w regex:
 .*ވެއެވެ
 
 powershell convert csv to json:
-import-csv "Downloads\Sahihain-Json - Sheet1 (1).csv" | ConvertTo-Json -Compress| Set-Content -Path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\sahihain.json"
+import-csv "Downloads\Sahihain-Json - Sheet1 (1).csv" | ConvertTo-Json -Compress| Set-Content -Path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\sahihain.js"
 ---
 
 \/\*(.+?)

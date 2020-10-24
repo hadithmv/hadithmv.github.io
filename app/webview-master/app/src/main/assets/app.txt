@@ -26,7 +26,7 @@ this is to try an reduce having to edit dir redirects while editing
     <script>
            window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
            window.jQuery || document.write('<script src="js/umdah-script.min.js"><\/script>');
-           window.jQuery || document.write('<script src="js/umdah.json"><\/script>');
+           window.jQuery || document.write('<script src="js/umdah.js"><\/script>');
     </script>
 
 <link rel="stylesheet" href="../css/COMBcss.min.css" />
