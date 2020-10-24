@@ -578,4 +578,3 @@ $(document).ready(() => {
   // adds a placeholder to above <input class="paginate_input" type="text">
   $('.paginate_input').attr('placeholder', 'ސަފުހާ...')
 }) // ==================== END OF $(document).ready( function () {
-
