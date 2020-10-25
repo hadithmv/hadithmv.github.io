@@ -1046,9 +1046,9 @@ so right align to prevent gaps in text
 /* --- AR FONTS FOR TABLE --- */
 
 /* tbody tr td.fnCol1, */
+.dataTable tr td.qCol2,
 .dataTable tr td.qCol3,
-.dataTable tr td.qCol4,
-.dataTable tr td.qCol6 {
+.dataTable tr td.qCol5 {
   font-family: "arFont", "dvFont", sans-serif;
   font-size: 21px;
   line-height: 1.7;
@@ -1059,25 +1059,25 @@ so right align to prevent gaps in text
 /* --- DV FONTS FOR TABLE --- */
 
 /* .dataTable tr td.fnCol1, need this bigger */
-.dataTable tr td.qCol5,
-.dataTable tr td.qCol7 {
+.dataTable tr td.qCol4,
+.dataTable tr td.qCol6 {
   font-family: "dvFont", "arFont", sans-serif;
   font-size: 17px;
   line-height: 1.9;
 }
 
-/* columns with ar numbers */
+/* columns with ar numbers 
 .dataTable tr td.qCol2 {
   font-family: "arFont", "dvFont", sans-serif;
   font-size: 21px;
-}
+} */
 
 /* css for first column
-# number column cuz it has hashtag and digits */
+# number column cuz it has hashtag and digits
 .dataTable tr td.qCol1 {
   font-family: "dvFont", "arFont", sans-serif;
   font-size: 21px;
-}
+} */
 
 /*
 *
