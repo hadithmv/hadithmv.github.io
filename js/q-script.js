@@ -73,34 +73,30 @@ $(document).ready(() => {
       },
       {
         data: 1,
-        title: 'އާޔަތް'
-      },
-      {
-        data: 2,
         title: 'ޤުރްއާން'
       },
       // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 2,
+        data: 1,
         title: 'ޤުރްއާން ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ/g, '')
+          return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ|ۡ|ٰ/g, '').replace(/ٱ/g, 'ا')
         }
       },
       {
-        data: 3,
+        data: 2,
         title: 'ދިވެހި ތަރުޖަމާ'
       },
       {
-        data: 4,
+        data: 3,
         title: 'ތަފްސީރު އައްސަޢްދީ'
       },
       {
-        data: 5,
+        data: 4,
         title: 'ދިވެހި ތަފްސީރު'
       }
     ],
@@ -116,38 +112,32 @@ $(document).ready(() => {
         searchable: true
       },
       {
-        className: 'qCol2', // ayah #
+        className: 'qCol2', // quran
         targets: [1],
         visible: true,
         searchable: true
       },
       {
-        className: 'qCol3', // quran
+        className: 'qCol3', // quran plain
         targets: [2],
-        visible: true,
-        searchable: true
-      },
-      {
-        className: 'qCol4', // quran plain
-        targets: [3],
         visible: false,
         searchable: true
       },
       {
-        className: 'qCol5', // dv tarjama
-        targets: [4],
+        className: 'qCol4', // dv tarjama
+        targets: [3],
         visible: true,
         searchable: true
       },
       {
-        className: 'qCol6', // tafsir sadi
-        targets: [5],
+        className: 'qCol5', // tafsir sadi
+        targets: [4],
         visible: true,
         searchable: false
       },
       {
-        className: 'qCol7', // tafsir dv
-        targets: [6],
+        className: 'qCol6', // tafsir dv
+        targets: [5],
         visible: true,
         searchable: false
       },
