@@ -1014,6 +1014,70 @@ so right align to prevent gaps in text */
   font-size: 21px;
 }
 
+/* ===================
+    FOR QURAN
+===================== */
+
+/* CHANGE123 classes and fonts */
+
+/* removes justify from ar dv (titles and refs) + rs.
+justify doesnt look good on short cells like surukhi, masdars.
+so right align to prevent gaps in text 
+.dataTable tr td.qCol1,
+.dataTable tr td.qCol2,
+.dataTable tr td.qCol9 {
+  text-align: right;
+} */
+
+/* mobile only row centering, for rows with strings that are not long */
+@media screen and (max-width: 900px) {
+  .dataTable tr td.qCol1,
+  .dataTable tr td.qCol2 {
+    text-align: center;
+  }
+
+  /* bold headers for mobile - first number at top */
+  .qCol1 {
+    font-weight: bold;
+  }
+}
+
+/* --- AR FONTS FOR TABLE --- */
+
+/* tbody tr td.fnCol1, */
+.dataTable tr td.qCol3,
+.dataTable tr td.qCol4,
+.dataTable tr td.qCol6 {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 20px;
+  line-height: 1.7;
+
+  /* font-size-adjust: 0.1; this breaks firefox font size */
+}
+
+/* --- DV FONTS FOR TABLE --- */
+
+/* .dataTable tr td.fnCol1, need this bigger */
+.dataTable tr td.qCol5,
+.dataTable tr td.qCol7 {
+  font-family: "dvFont", "arFont", sans-serif;
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+/* columns with ar numbers */
+.dataTable tr td.qCol2 {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 21px;
+}
+
+/* css for first column
+# number column cuz it has hashtag and digits 
+.dataTable tr td.qCol1 {
+  font-family: "dvFont", "arFont", sans-serif;
+  font-size: 21px;
+} */
+
 /*
 *
 *
