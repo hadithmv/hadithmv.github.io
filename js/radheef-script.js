@@ -59,45 +59,41 @@ $(document).ready(() => {
     })
   } //= =================== end if else
 
-  const table = $('#qTable').DataTable({
+  const table = $('#radheefTable').DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: q_dataSet, // https://datatables.net/manual/ajax
+    data: radheef_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
       {
         data: 0,
-        title: 'ސޫރަތް'
-      },
-      {
-        data: 1,
-        title: 'ޤުރްއާން'
+        title: 'ޢަރަބި ލަފްޒު'
       },
       // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 1,
-        title: 'ޤުރްއާން ފިލިނުޖަހައި',
+        data: 0,
+        title: 'ޢަރަބި ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ|ۡ|ٰ/g, '').replace(/ٱ/g, 'ا')
+          return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ/g, '')
         }
       },
       {
+        data: 1,
+        title: 'ޢަރަބި ބަޔާން'
+      },
+      {
         data: 2,
-        title: 'ދިވެހި ތަރުޖަމާ'
+        title: 'ދިވެހި ލަފްޒު'
       },
       {
         data: 3,
-        title: 'ތަފްސީރު އައްސަޢްދީ'
-      },
-      {
-        data: 4,
-        title: 'ދިވެހި ތަފްސީރު'
+        title: 'އިނގިރޭސި ލަފްޒު'
       }
     ],
 
@@ -106,40 +102,34 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'qCol1', // surah
+        className: 'rCol1', // ar word
         targets: [0],
         visible: true,
         searchable: true
       },
       {
-        className: 'qCol2', // quran
+        className: 'rCol2', // ar word w/o fili
         targets: [1],
-        visible: true,
-        searchable: true
-      },
-      {
-        className: 'qCol3', // quran plain
-        targets: [2],
         visible: false,
         searchable: true
       },
       {
-        className: 'qCol4', // dv tarjama
+        className: 'rCol3', // ar expl
+        targets: [2],
+        visible: false,
+        searchable: false
+      },
+      {
+        className: 'rCol4', // dv word
         targets: [3],
         visible: true,
         searchable: true
       },
       {
-        className: 'qCol5', // tafsir sadi
+        className: 'rCol5', // en word
         targets: [4],
         visible: true,
-        searchable: false
-      },
-      {
-        className: 'qCol6', // tafsir dv
-        targets: [5],
-        visible: true,
-        searchable: false
+        searchable: true
       },
 
       // below strips html tags off keystable copy, second part with keys on
@@ -261,17 +251,17 @@ $(document).ready(() => {
       buttons: {
         copyTitle: 'ކޮޕީ',
         copySuccess: {
-          1: 'ކޮޕީ ވީ 1 އާޔަތް',
-          _: 'ކޮޕީ ވީ %d އާޔަތް'
+          1: 'ކޮޕީ ވީ 1 ބަސް',
+          _: 'ކޮޕީ ވީ %d ބަސް'
         }
       },
 
-      info: '_TOTAL_ އާޔަތުގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް',
+      info: '_TOTAL_ ބަހުގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް',
       infoFiltered: '(ޖުމްލަ ބެލެވުނީ _MAX_)',
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
-      searchPlaceholder: 'ކީރިތި ޤުރްއާނުން ހޯއްދަވާ...',
+      searchPlaceholder: 'ރަދީފުން ހޯއްދަވާ...',
       zeroRecords: '- ނުފެނުނު -'
     }, //= =================== End of Internationalisation
 
@@ -311,7 +301,7 @@ $(document).ready(() => {
         extend: 'copy',
         key: { key: 'c', shiftKey: true },
         text: 'ކޮޕީ',
-        messageTop: 'ޙަދީޘްއެމްވީ - ކީރިތި ޤުރްއާން', // CHANGE123 clipboard message
+        messageTop: 'ޙަދީޘްއެމްވީ - ރަދީފު', // CHANGE123 clipboard message
         title: '' /* title: "hadithmv.com", */,
 
         //= ====================
@@ -468,11 +458,11 @@ $(document).ready(() => {
       // If media query matches
       // empty // document.body.style.backgroundColor = "pink";
     } else { // CHANGE123 HAMMER JS
-      Hammer(qTable).on('swiperight', () => {
+      Hammer(radheefTable).on('swiperight', () => {
         // changed swipeleft and swiperight for dhivehi
         table.page('next').draw('page')
       })
-      Hammer(document.getElementById('qTable')).on('swipeleft', () => {
+      Hammer(document.getElementById('radheefTable')).on('swipeleft', () => {
         table.page('previous').draw('page')
       })
     }
