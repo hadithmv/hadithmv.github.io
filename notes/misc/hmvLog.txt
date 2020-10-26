@@ -13,6 +13,8 @@ prettier not working on html?
 sahihain takhrij done upto 50. next 51
 
 replace js with proper json sometime, load it via ajax for easier upkeep
+seems if i do that, i'll get the error: test.html:1 Access to XMLHttpRequest at ... from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.
+chrome blocks local json requests by default, ff doesnt. can unblock chrome in flag settings, but not sure if webview android will allow. it would have been easier if i could use json instead of js when editing, but changing computers or someone else downloading the repo would see no data this way.
 
 app changes:
 license goes in main

@@ -1,0 +1,28 @@
+{
+   "customers":  {
+      "customer1": {
+         "first_name": "Chris",
+         "last_name": "Manson",
+         "occupation": "Web Developer",
+         "email_address": "testingEmail1@mailinator.com"
+      },
+      "customer2": {
+         "first_name": "John",
+         "last_name": "Doe",
+         "occupation": "Civil Engineer",
+         "email_address": "someEmail2@mailinator.com"
+      },
+      "customer3": {
+         "first_name": "Jane",
+         "last_name": "Doe",
+         "occupation": "Pro Gamer",
+         "email_address": "someProGamer@mailinator.com"
+      },
+      "customer4": {
+         "first_name": "Jose",
+         "last_name": "Smith",
+         "occupation": "Standup Comedian",
+         "email_address": "thatFunnyGuy@mailinator.com"
+      }
+   }
+}
