@@ -332,10 +332,17 @@
   }
 
   /* Container، made padding y sides smaller,
- change x and padding top later if needd */
+ change x and padding top later if needed */
   #container {
-    padding: 20px 10px;
-    padding-top: 80px;
+    padding: 15px 10px;
+    padding-top: 75px;
+  }
+
+  /* mobile only padding top container */
+  @media screen and (max-width: 900px) {
+    #container {
+      padding-top: 70px;
+    }
   }
 
   /* button hover change */
