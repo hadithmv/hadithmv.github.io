@@ -7,7 +7,7 @@ fit to content
 then
 Vecta.io then combined with svgo seems to be the best svg compression method
 
-https://vecta.io/nano?utm_source=vectaio&utm_content=Nano&utm_campaign=vecta-nano
+https://vecta.io/nano
 https://jakearchibald.github.io/svgomg/
 
 
