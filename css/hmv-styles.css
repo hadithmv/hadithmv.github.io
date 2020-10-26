@@ -552,7 +552,10 @@ mark {
 ======================= */
 
 .cards tbody tr {
-  float: left;
+  /* float: left; this stacks cards side by side and orients them left, use flexbox columns code below instead */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px !important; /* removing float removes margin below, this is to fix that, without important gets overidden */
 
   /* width: 190rem; without it, card fill width */
 
@@ -639,6 +642,18 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 /* useless
 .selected td::before {
   color: #ccc;
+}
+*/
+
+/* alternates color and border in mobile table rows, which have been overriden by mobile to a same color
+@media screen and (max-width: 900px) {
+  .cards tbody td:nth-child(even) {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #dadce0;
+    background-color: #eee;
+    border-bottom-style: solid;
+  }
 }
 */
 
@@ -1104,10 +1119,10 @@ so right align to prevent gaps in text
     text-align: center;
   }
 
-  /* bold headers for mobile - first number at top */
-  .rCol1 {
-    font-weight: bold;
-  }
+  /* bold headers for mobile - first number at top 
+    .rCol1 {
+      font-weight: bold;
+    } */
 }
 
 /* --- AR FONTS FOR TABLE --- */
@@ -1117,7 +1132,7 @@ so right align to prevent gaps in text
 .dataTable tr td.rCol2,
 .dataTable tr td.rCol3 {
   font-family: "arFont", "dvFont", sans-serif;
-  font-size: 23px;
+  font-size: 21px;
   line-height: 1.7;
 
   /* font-size-adjust: 0.1; this breaks firefox font size */
@@ -1162,4 +1177,11 @@ so right align to prevent gaps in text
 .dataTable tr td.uhCol5 {
   padding-top: 0;
   padding-bottom: 0;
+}
+
+/* desktop radheef only eng word left align */
+@media screen and (min-width: 900px) {
+  .dataTable tr td.rCol5 {
+    text-align: left;
+  }
 }
