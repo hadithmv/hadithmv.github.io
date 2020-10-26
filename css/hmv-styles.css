@@ -1209,7 +1209,7 @@ so right align to prevent gaps in text
     border-image-slice: 30% 30.5%;
     border-image-width: 3em;
     border-image-repeat: round round;
-    border-image-source: url("../notes/misc/ms/q/mushaf-page-border/image/ayahbox-orig.svg");
+    border-image-source: url("../img/frame/ayahbox-orig-N-iOptim.svg");
     border-image-outset: 0.6em; /* margin + .1em for optical alignment */
 
     /* background-color: beige; */
