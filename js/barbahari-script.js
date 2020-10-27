@@ -89,7 +89,7 @@ $(document).ready(() => {
       },
       {
         data: 2,
-        title: 'ދިވެހި ތަރުޖަމާ'
+        title: 'ދިވެހި'
       }
     ],
 
@@ -98,25 +98,25 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'fnCol1', // #
+        className: 'barbaCol1', // #
         targets: [0],
         visible: true,
         searchable: true
       },
       {
-        className: 'fnCol1', // arText
+        className: 'barbaCol2', // arTxt
         targets: [1],
         visible: true,
         searchable: true
       },
       {
-        className: 'fnCol2', // arPlain
+        className: 'barbaCol3', // arPlain
         targets: [2],
         visible: false,
         searchable: true
       },
       {
-        className: 'fnCol3', // dvText
+        className: 'barbaCol4', // dv
         targets: [3],
         visible: true,
         searchable: true
@@ -241,17 +241,17 @@ $(document).ready(() => {
       buttons: {
         copyTitle: 'ކޮޕީ',
         copySuccess: {
-          1: 'ކޮޕީ ވީ 1 ޙަދީޘް',
-          _: 'ކޮޕީ ވީ %d ޙަދީޘް'
+          1: 'ކޮޕީ ވީ 1 ނުކުތާ',
+          _: 'ކޮޕީ ވީ %d ބަސް'
         }
       },
 
-      info: '_TOTAL_ ސަފުހާގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް',
+      info: '_TOTAL_ ނުކުތާގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް',
       infoFiltered: '(ޖުމްލަ ބެލެވުނީ _MAX_)',
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
-      searchPlaceholder: 'ޝަރްޙުއްސުއްނާއިން ހޯއްދަވާ...',
+      searchPlaceholder: 'ސުންނަތުގެ ޝަރަޙައިން ހޯއްދަވާ...',
       zeroRecords: '- ނުފެނުނު -'
     }, //= =================== End of Internationalisation
 
@@ -291,7 +291,7 @@ $(document).ready(() => {
         extend: 'copy',
         key: { key: 'c', shiftKey: true },
         text: 'ކޮޕީ',
-        messageTop: 'ޙަދީޘްއެމްވީ - ބަރްބަހާރީގެ ޝަރްޙުއްސުއްނާ', // CHANGE123 clipboard message
+        messageTop: 'ޙަދީޘްއެމްވީ - ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ', // CHANGE123 clipboard message
         title: '' /* title: "hadithmv.com", */,
 
         //= ====================
@@ -315,8 +315,8 @@ $(document).ready(() => {
           // data = data.replace(/r\n]/g, '') // needed to make rnr work
           // data = data.replace(/\r\n|\n|\t/gm, '')
 
-          data = data.replace(/\r\n\r\n/g, ' ') //  ONLY FOR 40N, because it has an inserted title
-          data = data.replace(/\n\n/g, ' ') //  ONLY FOR 40N, because it has an inserted title, the two lines below arent needed for 40n i think
+          // data = data.replace(/\r\n\r\n/g, ' ') //  ONLY FOR 40N, because it has an inserted title
+          // data = data.replace(/\n\n/g, ' ') //  ONLY FOR 40N, because it has an inserted title, the two lines below arent needed for 40n i think
 
           data = data.replace(/\r\n/g, '\t') //  prevents first header showing up unneeded (windows)
           data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
@@ -324,7 +324,7 @@ $(document).ready(() => {
           data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/ޢަރަބި\t/g, '')
           data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
+          data = data.replace(/ދިވެހި\t/g, '')
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
@@ -446,7 +446,7 @@ $(document).ready(() => {
         // changed swipeleft and swiperight for dhivehi
         table.page('next').draw('page')
       })
-      Hammer(document.getElementById('barbaNTable')).on('swipeleft', () => {
+      Hammer(document.getElementById('barbaTable')).on('swipeleft', () => {
         table.page('previous').draw('page')
       })
     }
