@@ -1195,7 +1195,7 @@ so right align to prevent gaps in text
 /* quran only tafsir sa'di font and line height smaller */
 .dataTable tr td.uhCol5 {
   font-family: "arFont", "dvFont", sans-serif;
-  font-size: 18px;
+  font-size: 19px;
   line-height: 1.5;
 }
 
