@@ -9,3 +9,7 @@ quran has:
       @font-face{font-family:arFont;src:url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff2) format("woff2"),url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff) format("woff"),url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.ttf) format("truetype");font-display:swap}
 
     </style>
+
+...
+
+40 n html has pwa rough code, may have been copied over to some, not all, other htmls
