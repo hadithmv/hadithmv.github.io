@@ -90,6 +90,12 @@ Gsheets import table data from elsewhere (remember to skip one number for header
 Gsheets remove things:
 =SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(C2,"~",""),"ـ",""),"صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ","ﷺ")," ،","،")," :",":")," !","!")," ؛","؛"),"« ","«")," »","»")," .",".")," )",")"),"( ","(")," ؟","؟")
 
+add strings together / concatenate:
+=CONCATENATE(C2," ",A2,B2)
+
+:
+=IMPORTRANGE("https://docs.google.com/spreadsheets/d/1wrSq_i5NGuBJXnNZjAra3zcJHSbqAbKifGCTA4qgRd0", "sheet1!A1:D32")
+
 ArRef Data > Data Validation:
 Cell range: Sheet1!B2
 Criteria: List of items
