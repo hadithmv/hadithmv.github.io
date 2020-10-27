@@ -1069,8 +1069,7 @@ so right align to prevent gaps in text
 
 /* tbody tr td.fnCol1, */
 .dataTable tr td.qCol2,
-.dataTable tr td.qCol3,
-.dataTable tr td.qCol5 {
+.dataTable tr td.qCol3 {
   font-family: "arFont", "dvFont", sans-serif;
   font-size: 21px;
   line-height: 1.7;
@@ -1191,6 +1190,13 @@ so right align to prevent gaps in text
   .dataTable tr td.rCol5 {
     text-align: left;
   }
+}
+
+/* quran only tafsir sa'di font and line height smaller */
+.dataTable tr td.uhCol5 {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
 }
 
 /* ===================
