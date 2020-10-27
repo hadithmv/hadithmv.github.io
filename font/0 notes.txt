@@ -1,0 +1,3 @@
+UthmanicHafs1-Ver14:
+
+don't delete glyph: arabicindiczero-arab and those numbers, because they show the arabic number text as ayah circled number
