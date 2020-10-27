@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="dv" >
+<!-- will dv prevent google translate? -->
+
+<head>
+  <!-- ===== HEAD ===== -->
+
+  <!-- ===== ===== META TAGS ===== ===== -->
+  <!-- prevents google translating your page constant -->
+  <meta charset="UTF-8" />
+  <meta name="google" content="notranslate" />
+
+  <!-- makes responsive for mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="canonical" href="https://hadithmv.github.io/" />
+  <link rel="icon" type="image/svg+xml" href="../img/logo/newLogo5-N-iOptim.svg" />
+  <meta name="theme-color" content="#29434e" />
+  <!-- #34515e -->
+  <link rel="mask-icon" href="../img/logo/newLogo5-N-iOptim.svg" color="#337ab7" />
+
+  <!-- svg probably doesnt work for this, needed for pwa lighthouse -->
+  <link rel="apple-touch-icon" href="../img/logo/newLogo5-N-iOptim.svg">
+
+  <meta property="og:title" content="hadithmv" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hadithmv.github.io" />
+  <meta property="og:image" content="https://hadithmv.github.io/img/newLogo5-512-compressor.png" />
+
+  <!-- - set these for pwa stuff later
+    <meta name="mobile-web-app-capable" content="yes" /> -->
+  <!-- Imports the manifest to represent the web application. A web app must have a manifest to be a PWA. 
+    href="manifest.json" 
+    <link rel="manifest" href="../manifest.json">-->
+
+  <!-- should bring this before body ends
+      For more info on the pwa-update component click here https://github.com/pwa-builder/pwa-update 
+   <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate"></script>
+   <pwa-update offlineToastDuration="0" swpath="pwabuilder-sw.js"></pwa-update>-->
+
+  <!-- should bring this before body ends 
+   <script>
+    // Check that service workers are supported
+    if ('serviceWorker' in navigator) {
+      // Use the window load event to keep the page load performant
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('pwabuilder-sw.js');
+      });
+    }
+    </script>-->
+
+  <!-- - this doesn't work - 
+  <meta http-equiv="Cache-control" content="public" />
+  <meta http-equiv="last-modified" content="Mon, 08 June 2020 05:52:00 GMT" />
+  <meta http-equiv="Expires" content="604800" />-->
+
+  <title>hadithmv - 40 Nawawi</title>
+  <meta name="description" content="Dhivehi hadith translations at your fingertips. - Imam Nawawi's 40 hadith." />
+  <!-- ===== ===== META TAGS - END ===== ===== -->
+
+  <!-- ===== ===== FONTS PRELOAD ===== ===== 
+    will also need regular css ext stylesheet for fallback on older browsers -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="../font/mvtyper-Copy7.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="../font/Yakout-Linotype-W20-Light-Copy6.woff2">
+
+  <!-- ===== ===== CSS LIBRARIES ===== ===== -->
+  <style>
+    /*
+  <!-- fonts css -->
+  <link rel="stylesheet" href="../css/fonts.css" />
+
+  <!-- DATATABLES CSS 1.10.22 -Originally 1.10.3 -->
+  <link rel="stylesheet" href="../css/jquery.dataTables.min.css" />
+
+  <!-- Datatable Buttons Css 1.6.4 -->
+  <link rel="stylesheet" href="../css/buttons.dataTables.min.css" />
+
+  <!-- pushy js sidebar 1.3.0 -->
+  <link rel="stylesheet" href="../css/pushy-mod.css" />
+
+  <!-- custom css -->
+  <link rel="stylesheet" href="../css/hmv-styles.css" />
+
+  <!-- ===== ===== CSS LIBRARIES - END ===== ===== -->
+  */
+  </style>
+  <!-- COMBINED css -->
+    <link rel="stylesheet" href="../css/COMBcss.min.css" />
+  <!--<link rel="stylesheet" href="css/COMBcss.min.css" />   for app, either will cause a console error -->
+  <!--<link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
+   this works as fallback but causes FOUC in apk app, but not in win app where this is needed -->
+  <!-- APKCHANGE 123 - WINCHANGE 123 ===== -->
+  <!-- loadcss by filament group, currently causes fouc so not in use, inline critical css later
+    <link
+    rel="stylesheet"
+    href="../css/COMBcss.min.css"
+    media="print"
+    onload="this.media='all'; this.onload=null;"
+  /> -->
+</head>
+<!-- ===== HEAD - END ===== -->
+
+<!-- ===== BODY ===== -->
+
+<body>
+  <!-- top nav bar like -->
+  <header class="site-header push menu-btn">
+    <span class="navLogo">
+      <!-- remember to add width="40px" to svg or img
+      previously inlined as svg
+       
+       <img width="40px" alt="navlogo" src="../img/logo/newLogo5-N-iOptim-white-noback.svg" onerror="this.onerror=null;this.src='img/logo/newLogo5-N-iOptim-white-noback.svg';" />-->
+      <svg width="40px" alt="navlogo" xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 1080 1080">
+        <path
+          d="M460 79.5L380.5 159H158v222.5l-79 79L0 541c0 .8 35.6 37 79 80.5l79 79V923h222.5l78.5 78.5 80.5 78.5c1.3 0 28.9-26.9 80.5-78.5l78.5-78.5H922V699.5l79.2-79.3 79.3-79.2L922 382.5V159H698.5L539.5 0 460 79.5zm119.7 42.7l42.3 43.2c0 .4-19.1 20-42.5 43.4L537 251.4l-42.5-42.5-42.5-43.4c0-1 84-85.5 85-85.5.3 0 19.5 19 42.7 42.2zM867 273.5V334H746V213h121v60.5zm-536 4V338H210V217h121v60.5zm236.1-17C671.8 271 760.9 337.4 801 435c26.2 63.8 27.5 139 3.5 203.1-25.5 68.2-75.2 123.5-139 154.9-41.9 20.6-79.1 29.3-125.5 29.3s-83.6-8.7-125.5-29.3c-76.7-37.7-133-110.6-150.4-194.7-4.1-19.7-5.4-33.9-5.4-57.3-.1-46.2 8.7-83.5 29.3-125.5 13.6-27.7 30.5-51.1 52.9-73.6 59.8-59.8 142.9-89.7 226.2-81.4zM206.6 500l42.2 42.8c.2.8-83.5 85.2-84.6 85.2-.4 0-19.8-19.1-43.2-42.5L78.5 543l42.5-42.5 43.1-42.5c.3 0 19.4 18.9 42.5 42zm752.4.5l42.5 42.5-42.5 42.5-43.2 42.5c-1.2 0-84.9-84.3-84.5-85.3.3-1.1 83.8-84.7 84.6-84.7.3 0 19.7 19.1 43.1 42.5zm-626 307V868H212V747h121v60.5zm532 3V871H744V750h121v60.5zm-285.4 63l42.4 43.2c0 .4-19.1 19.9-42.5 43.3l-42.5 42.5-42.5-42.5-42.5-43.3c0-.8 84-85.6 84.8-85.7.2 0 19.5 19.1 42.8 42.5zm-62.1-572.4c-23.7 2.2-51.6 9.4-73.1 18.9-16.2 7.1-22.4 10.5-38.2 20.9-88.8 58.7-128 170.8-95.6 273.3 29.2 92 111.6 157.9 208.4 166.7 23.1 2.2 44 .9 68.1-4 46.2-9.3 85.6-29.8 119.4-62 98.2-93.8 99-251.3 1.8-346-12.4-12.2-20.8-18.9-34.5-28-15.8-10.4-22-13.8-38.2-20.9-35.8-15.7-78.7-22.6-118.1-18.9zm-143 217.4v75l-23.5.6V442.9l11.8.3 11.7.3v75zm63.7-27.6c6.6 3.2 12.5 9.3 15.6 15.9l2.7 5.7.6 81.5h-23l-.3-37.3c-.2-20.4-.7-37.9-1.1-38.8-1.7-3.4-5.4-3.9-27.7-3.9h-22v-26.1l25.3.3c24.1.3 25.4.4 29.9 2.7zm107.1.8l5.7 3.1V488h18.4c14.6 0 19.5.4 23.6 1.7 7 2.3 15.9 10.4 19.1 17.5 2.4 5.3 2.4 5.6 2.7 46l.3 40.8h-23l-.3-37.3c-.2-20.4-.7-37.9-1.1-38.8-1.4-2.9-5.6-3.9-16.5-3.9h-10.7v79.5l-23.5.6v-35.9c0-22.5-.4-37-1-38.9-1.7-4.6-4.4-5.3-22-5.3h-16v80h-23v-48.5c0-53.1 0-52.8 5.8-56 2.3-1.2 7.1-1.4 29.2-1.2l26.5.2 5.8 3.2zM659 527.5c0 45.1-1.1 41 9.8 37.7 20.1-6.3 42.1-34.1 53.4-67.5l3.3-9.7h12.2c7 0 12.3.4 12.3.9 0 2.5-8.8 25.9-13.6 36-14.6 30.8-32.3 50.7-54.5 61-10.7 5-19.8 7.2-30.5 7.4l-8.5.2-3.5-3.7-3.4-3.8v-98h23v39.5z" />
+        </svg>
+      <!-- fallback img for app -->
+      <!-- APKCHANGE 123 ===== -->
+    </span>
+    <a>ޙަދީޘްއެމްވީ</a>
+    <span class="hamburg">&#9776;</span>
+  </header>
+  <!-- added menu-btn to activate menu -->
+
+  <!-- Pushy Menu -->
+  <nav class="pushy pushy-right" data-focus="#first-link">
+    <!-- <nav class="pushy pushy-left"-->
+    <div class="pushy-content pushy-right">
+      <ul>
+        <!-- Submenu -->
+        <li class="pushy-submenu">
+          <button id="first-link">ޙަދީޘް ފޮތްތައް</button><!-- button id="first-link" sets focus on open menu -->
+          <!-- / CHANGE123 FIRST LINK -->
+          <ul>
+
+            <li class="pushy-link">
+              <!-- APKCHANGE 123  onclick="openLink(event, 'fortyNTab')"===== -->
+              <a href="#">ނަވަވީގެ 40 ޙަދީޘް</a>
+            </li>
+
+            <li class="pushy-link">
+              <!-- APKCHANGE 123  onclick="openLink(event, 'umdahHadithTab')" ===== -->
+              <a href="../books/umdah.html" target="_blank" rel="noopener">ޢުމްދަތުލް އަޙްކާމް</a></li>
+
+            <li class="pushy-link">
+              <!-- / CHANGE 123 SECOND LINK  onclick="openLink(event, 'sahihainTab')" -->
+              <!-- APKCHANGE 123 ===== -->
+              <a href="../books/sahihain.html" target="_blank" rel="noopener">ޞަޙީޙައިން (ނުނިމޭ)</a>
+            </li>
+
+            <li class="pushy-link">
+              <!-- APKCHANGE 123  onclick="openLink(event, 'otherHadithTab')" ===== -->
+              <a href="../books/otherHadith-uc.html" target="_blank" rel="noopener">އެހެނިހެން ޙަދީޘްތައް</a>
+            </li>
+
+          </ul>
+        </li>
+
+        <li class="pushy-submenu">
+          <button>އިތުރު މައުލޫމާތު</button>
+          <ul>
+            <li class="pushy-link">
+              <!-- APKCHANGE 123 ===== -->
+              <a href="../notes/info/introHmv.html" target="_blank" rel="noopener">ޙަދީޘްއެމްވީ</a>
+            </li>
+
+            <li class="pushy-link">
+              <!-- APKCHANGE 123 ===== -->
+              <a href="../notes/info/introFortyN.html" target="_blank" rel="noopener">ނަވަވީގެ 40 ޙަދީޘް</a>
+            </li>
+
+            <li class="pushy-link">
+              <!-- APKCHANGE 123 ===== -->
+              <a href="../notes/info/introUmdah.html" target="_blank" rel="noopener">ޢުމްދަތުލް އަޙްކާމް</a>
+            </li>
+
+            <li class="pushy-link">
+              <!-- APKCHANGE 123 ===== -->
+              <a href="../notes/third-party-libs-and-tools.txt" target="_blank" rel="noopener">ބޭނުން ކުރެވުނު
+                ތަކެތި</a>
+            </li>
+
+        </li>
+        <li class="pushy-link">
+          <!-- APKCHANGE 123 ===== -->
+          <a href="../LICENSE.txt" target="_blank" rel="noopener">ލައިސެންސް</a>
+        </li>
+
+        <li class="pushy-link desktopOnly">
+          <a href="#" onclick="myHelp()">ކީބޯޑް ނެވިގޭޝަން</a>
+        </li>
+
+      </ul>
+      </li>
+
+      <li class="pushy-submenu">
+        <button>މަންސަތައް</button>
+        <ul>
+          <li class="pushy-link">
+            <a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv" target="_blank"
+              rel="noopener">އެންޑްރޮއިޑް</a>
+          </li>
+          <li class="pushy-link">
+            <a href="https://github.com/hadithmv/hadithmv.github.io/raw/master/win/hmv/hadithmv_Win64.7z"
+              target="_blank" rel="noopener">ވިންޑޯސް</a>
+          </li>
+          <li class="pushy-link">
+            <a href="https://www.virustotal.com/gui/url/559cb24958860c16114e38f9cb2a4b4dac409bd87304f8b2aa45b1ac3743b469/detection"
+              target="_blank" rel="noopener">(ވައިރަސް ޗެކް)</a>
+          </li>
+          <li class="pushy-link">
+            <a href="https://hadithmv.github.io" target="_blank" rel="noopener">ވެބް</a>
+          </li>
+          <li class="pushy-link">
+            <a href="https://hadithmv.gitlab.io" target="_blank" rel="noopener">(މިރަރ 1)</a>
+          </li>
+          <li class="pushy-link">
+            <a href="https://hadithmv.onrender.com" target="_blank" rel="noopener">(މިރަރ 2)</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="pushy-submenu">
+        <button>ގުޅުއްވުމަށް</button>
+        <ul>
+
+          <li class="pushy-link">
+            <a href="https://telegram.me/yahyasdadmv">ޓެލެގްރާމް</a>
+          </li>
+
+          <li class="pushy-link">
+            <a href="mailto:yahyasdadmv@gmail.com">އީމެއިލް</a>
+          </li>
+
+          <li class="pushy-link">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSe79Mmq2yFKwSw0_Sn5JP8H_M5hrHHwWuJQ8ki-GmaOEEHCnA/viewform"
+              target="_blank" rel="noopener">ފޯމް</a>
+          </li>
+
+        </ul>
+      </li>
+
+      <br />
+
+      <li>
+        <a>އިސްދާރު: <span class="hmvVer">2.01</span>&thinsp;⚙️</a>
+      </li>
+
+      <li>
+        <a class="madeby" href="https://telegram.me/yahyasdadmv" target="_blank" rel="noopener">ފަރުމާ ކުރީ: أبو يحيى
+          أشراف بن إبراهيم المحلي<br /><br />
+          <span class="madina">
+            މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް
+          </span>
+        </a>
+      </li>
+      </ul>
+    </div>
+    <!-- <div class="pushy-content pushy-right"> END -->
+  </nav>
+  <!-- Pushy Menu - END -->
+
+  <!-- Pushy site Overlay - dims rest of page on pushy nav open -->
+  <div class="site-overlay"></div>
+
+  <!-- Your Content after pushy sidebar, has to have this id or pushy navbar wont work -->
+  <div id="container">
+    <!-- <button class="menu-btn">&#9776; Menu</button>  -->
+
+    <!-- myTabs - MOVED INTO PUSHY MENU ABOVE
+      <button class="tablink" onclick="openLink(event, 'Right')">Right</button>
+      myTabs - end -->
+
+    <!-- First tab
+    / CHANGE123 TAB id="fortyNTab" class="myTab" -->
+    <main class="w3-animate-right">
+      <!-- previously main was div, might have broken some css elsewhere -->
+      <!-- if these tab classes and IDs are given to table, dt wrapper wont hide when tabbed away -->
+
+      <!-- DT table classes
+            "display": Short-hand for stripe, hover, row-border, order-column. "cell-border": Border around 4 sides of each cell.
+            "compact": Reduce the amount of white-space around tables, so denser. "hover": highlighting on mouse over.
+            "nowrap": no wrapping of content in table, cell text is on a single line. "order-column": Highlight column that table data is currently ordered on.
+            "row-border": Border around only the top an bottom of each row. cell-border and row-border cannot be used together. "stripe": Row striping-->
+      <!--removed: cell-border, cellspacing="0" class="fnClass width="100%" -->
+      <!-- cards adds card code to table ID, done via js -->
+      <!-- added myTab and w3-animate-right for tabs -->
+      <!-- ===== TABLE =====
+          / CHANGE123 TABLE -->
+      <!-- JEKYLL CHANGE123 {{ content }} -->
+
+      <table id="fortyNTable" class="stripe table">
+        <!-- fnClass -->
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <!-- <th></th> add takhrij and stuff later (NEEDED FOR COLUMN HEADERS) -->
+          </tr>
+        </thead>
+      </table>
+      <!-- ===== TABLE - END ===== -->
+    </main>
+    <!-- <div id="fortyNTab" class="myTab w3-animate-right"> first tab END -->
+
+    <!-- Template for offline tabs
+      <div id="bukhariTab" class="myTab w3-animate-right" style="display:none">
+          <p>two</p>
+      </div>-->
+  </div>
+  <!-- Pushy content container - END === -->
+
+
+
+  <!-- ===== ===== JS LIBRARIES ===== ===== 
+    I deferred everything to parse js last -->
+  <style>
+    /*
+      <!-- JQUERY 3.5.1 - Needed for DT, and BS if present. Originally 2.2.1 
+          must remain at the top and not the bottom 
+        -note: slim build breaks pagination. -->
+      <script src="../js/jquery.min.js"></script>
+
+  <!-- DATATABLES JS 1.10.22 - DT Core. Originally 1.10.3 -->
+  <script src="../js/jquery.dataTables.min.js"></script>
+
+  <!-- ===== DT JS extensions ===== -->
+  <!-- DT Buttons 1.6.3 -->
+  <script src="../js/dataTables.buttons.min.js"></script>
+
+  <!-- DT Colvis 1.6.4 -->
+  <script src="../js/buttons.colVis.min.js"></script>
+
+  <!-- DT Html5 1.6.4 -->
+  <script src="../js/buttons.html5.min.js"></script>
+
+  <!-- -not currently used- DT Excel Export - jszip 3.2.0 - Originally 2.5.0 - gets bigger
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.min.js"></script> -->
+  <!-- -not currently used- DT Pdf Export - pdfmake 0.1.57 - Originally 0.1.36 - gets bigger
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.57/pdfmake.min.js"></script>
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.57/vfs_fonts.js"></script> -->
+
+  <!-- DT Keytable 2.5.3 -->
+  <script src="../js/dataTables.keyTable.min.js"></script>
+
+  <!-- DT Input 1.10.21 - they dont have a min version on their cdn, made my own - not fully integrated yet with them.
+      https://github.com/DataTables/Plugins/blob/master/pagination/input.js -->
+  <script src="../js/input.min.js"></script>
+
+  <!-- DT Keep Conditions 1.2.0
+      https://github.com/jhyland87/DataTables-Keep-Conditions/tree/master/dist
+      https://www.gyrocode.com/articles/jquery-datatables-save-and-restore-table-state-using-unique-url/ -->
+  <script src="../js/dataTables.keepConditions.min.js"></script>
+
+  <!-- DT Mark Js 9.0.0 - Css file content included with the header Css
+                  https://github.com/julmot/mark.js/tree/master/dist
+                  https://github.com/julmot/datatables.mark.js/tree/master/dist -->
+  <script src="../js/jquery.mark.min.js"></script>
+
+  <!-- datatables.mark.js 2.0.2 -->
+  <script src="../js/datatables.mark.min.js"></script>
+
+  <!-- pushy js has to come at the end of doc or sidebar wont work -->
+  <!-- pushy js sidebar 1.3.0 - this was moved to end
+      <script src="../js/pushy.min.js"></script>-->
+
+  <!-- Hammerjs 2.0.8 -->
+  <script src="../js/hammer.min.js"></script>
+          */
+  </style>
+
+  <!-- now needed for keeping index in root dir for netlify
+          used to be old fallback js for app 
+    <script defer>
+           window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
+           window.jQuery || document.write('<script src="js/resc/COMBjs-defer.js"><\/script>');
+           window.jQuery || document.write('<script src="js/40nHadith.js"><\/script>');
+           window.jQuery || document.write('<script src="js/fortyN-script.min.js"><\/script>');
+    </script> -->
+  <!-- APKCHANGE 123 ===== -->
+
+
+
+  <!-- COMBINED js part 1
+    <script src="js/resc/COMBjs.js"></script>
+    i split this into two, so as to defer js parsing -->
+  <script defer src="../js/resc/COMBjs.js"></script>
+
+
+
+  <!-- / the json has to go over the script if deferred,
+        otherwise if json too large script will take too long to load
+        CHANGE123 JS
+        'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
+  <script defer src="../js/40nHadith.js"></script>
+  <!-- Custom JS -->
+  <script defer src="../js/fortyN-script.min.js"></script>
+
+
+
+  <!-- COMBINED js part 2
+    i split this into two, so as to defer js parsing
+    <script src="../js/resc/COMBjs-defer.js"></script> -->
+
+  <!-- ===== ===== JS LIBRARIES - END ===== ===== -->
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"></script>
+<script defer>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HL24Q9NN24');
+</script>
+<!-- End Google Analytics -->
+
+</body>
+<!-- ===== BODY - END ===== -->
+
+</html>
