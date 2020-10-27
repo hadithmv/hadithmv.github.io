@@ -84,6 +84,8 @@
     <style>
       @font-face{font-family:arFont;src:url(../font/UthmanicHafs1-Ver14-Hmod.woff2) format("woff2"),url(../font/UthmanicHafs1-Ver14.woff) format("woff"),url(../font/UthmanicHafs1-Ver14.ttf) format("truetype");font-display:swap}
 
+      /* mobile only quran border frame svg */
+@media screen and (max-width: 900px) {
       #quranTable > tbody > tr > td.qCol1 {
     float: left;
     position: relative;
@@ -112,7 +114,8 @@ padding-bottom: 1px;
 {
   margin-top: 7px;
 }
-      
+}
+
     </style>
   <!--<link rel="stylesheet" href="css/COMBcss.min.css" />   for app, either will cause a console error -->
   <!--<link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
