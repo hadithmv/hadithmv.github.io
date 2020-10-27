@@ -56,7 +56,7 @@
   <!-- ===== ===== FONTS PRELOAD ===== ===== 
     will also need regular css ext stylesheet for fallback on older browsers -->
   <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="../font/mvtyper-Copy7.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="../font/UthmanicHafs1-Ver14.woff">
+  <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="../font/UthmanicHafs1-Ver14-Hmod.woff2">
 
   <!-- ===== ===== CSS LIBRARIES ===== ===== -->
   <style>
@@ -82,7 +82,31 @@
   <!-- COMBINED css -->
     <link rel="stylesheet" href="../css/COMBcss.min.css" />
     <style>
-      @font-face{font-family:arFont;src:url(../font/UthmanicHafs1-Ver14.woff2) format("woff2"),url(../font/UthmanicHafs1-Ver14.woff) format("woff"),url(../font/UthmanicHafs1-Ver14.ttf) format("truetype");font-display:swap}
+      @font-face{font-family:arFont;src:url(../font/UthmanicHafs1-Ver14-Hmod.woff2) format("woff2"),url(../font/UthmanicHafs1-Ver14.woff) format("woff"),url(../font/UthmanicHafs1-Ver14.ttf) format("truetype");font-display:swap}
+
+      #quranTable > tbody > tr > td.qCol1 {
+    float: left;
+    position: relative;
+    top: .8em;
+    font-size: .8em;
+    line-height: 1.6em;
+    padding: 0 .5em;
+    background: #c1d1c3;
+    border-radius: .2em;
+    border: 1px solid #40455c;
+    box-shadow: inset 0 0 2px 0 #693, 0 0 0 2px #fff, 0 0 0 3px #40455c;
+
+/* center */
+top: -25px;
+width: 30%;
+margin: auto;
+text-align: center;
+
+/*
+padding-top: 1px;
+padding-bottom: 1px;
+*/
+      }
     </style>
   <!--<link rel="stylesheet" href="css/COMBcss.min.css" />   for app, either will cause a console error -->
   <!--<link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
