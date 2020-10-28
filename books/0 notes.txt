@@ -10,6 +10,28 @@ quran has:
 
     </style>
 
+
+
+data: 1,
+        title: 'އާޔަތް ފިލިނުޖަހައި',
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '')
+          // below code is shorter, no replace repeat, uses OR instead
+          return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ|ۡ|ٰ/g, '').replace(/ٱ/g, 'ا')
+
+
+
+if (window.matchMedia('(min-width: 900px)').matches) {
+    // js media query on desktop
+    /* previously $('fnClass').addClass('row-border')
+    $('fnClass').addClass('cards') */
+    // CUT FOR QURAN $('.dataTable').addClass('row-border') // adds rowborder class
+    $('.dataTable').addClass('cards') // ADDED FOR QURAN
+  } else {
+    // js media query on mobile, tablet
+    $('.dataTable').addClass('cards')
+  } // end if else
+  //= =================== Add cards class to table ID - END
 ...
 
 40 n html has pwa rough code, may have been copied over to some, not all, other htmls

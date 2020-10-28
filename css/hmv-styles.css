@@ -562,12 +562,18 @@ mark {
   /* float: left; this stacks cards side by side and orients them left, use flexbox columns code below instead */
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px !important; /* removing float removes margin below, this is to fix that, without important gets overidden */
+  margin: 0.5rem; /* this was taken from below so as not to override what's next */
+  margin-bottom: 1.25rem; /* !important; */
+
+  /* padding: 0.625rem;  added for nicer spacing */
+
+  /* removing float removes margin below, this is to fix that, without important gets overidden */
 
   /* width: 190rem; without it, card fill width */
 
   /* these used to be gyrocode rems */
-  margin: 0.5rem;
+
+  /* margin: 0.5rem; */
   border-style: solid;
   border-width: 1px;
   border-color: #dadce0; /* #00000020 */
@@ -1035,70 +1041,6 @@ so right align to prevent gaps in text */
 }
 
 /* ===================
-    FOR QURAN
-===================== */
-
-/* CHANGE123 classes and fonts */
-
-/* removes justify from ar dv (titles and refs) + rs.
-justify doesnt look good on short cells like surukhi, masdars.
-so right align to prevent gaps in text 
-.dataTable tr td.qCol1,
-.dataTable tr td.qCol2,
-.dataTable tr td.qCol9 {
-  text-align: right;
-} */
-
-/* mobile only row centering, for rows with strings that are not long */
-@media screen and (max-width: 900px) {
-  .dataTable tr td.qCol1,
-  .dataTable tr td.qCol2,
-  .dataTable tr td.qCol3 {
-    text-align: center;
-  }
-
-  /* bold headers for mobile - first number at top */
-  .qCol1 {
-    font-weight: bold;
-  }
-}
-
-/* --- AR FONTS FOR TABLE --- */
-
-/* tbody tr td.fnCol1, */
-.dataTable tr td.qCol2,
-.dataTable tr td.qCol3 {
-  font-family: "arFont", "dvFont", sans-serif;
-  font-size: 21px;
-  line-height: 1.7;
-
-  /* font-size-adjust: 0.1; this breaks firefox font size */
-}
-
-/* --- DV FONTS FOR TABLE --- */
-
-/* .dataTable tr td.fnCol1, need this bigger */
-.dataTable tr td.qCol4,
-.dataTable tr td.qCol6 {
-  font-family: "dvFont", "arFont", sans-serif;
-  font-size: 17px;
-  line-height: 1.9;
-}
-
-/* columns with ar numbers 
-.dataTable tr td.qCol2 {
-  font-family: "arFont", "dvFont", sans-serif;
-  font-size: 21px;
-} */
-
-/* css for first column
-# number column cuz it has hashtag and digits
-.dataTable tr td.qCol1 {
-  font-family: "dvFont", "arFont", sans-serif;
-  font-size: 21px;
-} */
-
-/* ===================
     FOR Radheef 
 ===================== */
 
@@ -1114,14 +1056,16 @@ so right align to prevent gaps in text
 } */
 
 /* mobile only row centering, for rows with strings that are not long */
-@media screen and (max-width: 900px) {
-  .dataTable tr td.rCol1,
-  .dataTable tr td.rCol2,
-  .dataTable tr td.rCol3,
-  .dataTable tr td.rCol4,
-  .dataTable tr td.rCol5 {
-    text-align: center;
-  }
+
+/* @media screen and (max-width: 900px) { */
+.dataTable tr td.rCol1,
+.dataTable tr td.rCol2,
+.dataTable tr td.rCol3,
+.dataTable tr td.rCol4,
+.dataTable tr td.rCol5 {
+  text-align: center;
+
+  /* } */
 
   /* bold headers for mobile - first number at top 
     .rCol1 {
@@ -1182,16 +1126,18 @@ so right align to prevent gaps in text
 } */
 
 /* mobile only row centering, for rows with strings that are not long */
-@media screen and (max-width: 900px) {
-  .dataTable tr td.barbaCol1 {
-    text-align: center;
-  }
 
-  /* bold headers for mobile - first number at top */
-  .barbaCol1 {
-    font-weight: bold;
-  }
+/* @media screen and (max-width: 900px) { */
+.dataTable tr td.barbaCol1 {
+  text-align: center;
 }
+
+/* bold headers for mobile - first number at top */
+.barbaCol1 {
+  font-weight: bold;
+}
+
+/* } */
 
 /* --- AR FONTS FOR TABLE --- */
 
@@ -1228,6 +1174,74 @@ so right align to prevent gaps in text
   font-size: 21px;
 }
 
+/* ===================
+    FOR QURAN
+    everything is mobile, mqs removed
+===================== */
+
+/* CHANGE123 classes and fonts */
+
+/* removes justify from ar dv (titles and refs) + rs.
+justify doesnt look good on short cells like surukhi, masdars.
+so right align to prevent gaps in text 
+.dataTable tr td.qCol1,
+.dataTable tr td.qCol2,
+.dataTable tr td.qCol9 {
+  text-align: right;
+} */
+
+/* mobile only row centering, for rows with strings that are not long */
+
+/* @media screen and (max-width: 900px) { */
+.dataTable tr td.qCol1,
+.dataTable tr td.qCol2,
+.dataTable tr td.qCol3,
+.dataTable tr td.qCol4 {
+  text-align: center;
+}
+
+/* bold headers for mobile - first number at top */
+.qCol1 {
+  font-weight: bold;
+}
+
+/* } */
+
+/* --- AR FONTS FOR TABLE --- */
+
+/* tbody tr td.fnCol1, */
+.dataTable tr td.qCol2,
+.dataTable tr td.qCol3 {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 21px;
+  line-height: 1.7;
+
+  /* font-size-adjust: 0.1; this breaks firefox font size */
+}
+
+/* --- DV FONTS FOR TABLE --- */
+
+/* .dataTable tr td.fnCol1, need this bigger */
+.dataTable tr td.qCol4,
+.dataTable tr td.qCol6 {
+  font-family: "dvFont", "arFont", sans-serif;
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+/* columns with ar numbers 
+  .dataTable tr td.qCol2 {
+    font-family: "arFont", "dvFont", sans-serif;
+    font-size: 21px;
+  } */
+
+/* css for first column
+  # number column cuz it has hashtag and digits
+  .dataTable tr td.qCol1 {
+    font-family: "dvFont", "arFont", sans-serif;
+    font-size: 21px;
+  } */
+
 /*
 *
 *
@@ -1255,71 +1269,78 @@ so right align to prevent gaps in text
 }
 
 /* quran only tafsir sa'di font and line height smaller */
-.dataTable tr td.uhCol5 {
+.dataTable tr td.qCol5 {
   font-family: "arFont", "dvFont", sans-serif;
-  font-size: 19px;
+  font-size: 20px;
   line-height: 1.5;
 }
 
 /* ===================
-    FOR Quran borderframe and ayahbox 
+    FOR Quran border frame and ayahbox 
 ===================== */
 
 /* mobile only quran border frame svg */
-@media screen and (max-width: 900px) {
-  #quranTable tr /*, table*/ {
-    /* font-family: hafs;
+
+/* @media screen and (max-width: 900px) { */
+#quranTable > tbody > tr /*, table*/ {
+  /* font-family: hafs;
     font-size: 20pt;
     text-align: justify;
       border-style: solid; */ /* for chromium */
 
-    /* margin: 0.5em; */
+  /* margin: 0.5em; */
 
-    /* to allow for background color by extending border transparent parts */
+  /* to allow for background color by extending border transparent parts */
 
-    padding: 18px; /* padding: 1em 2.2em; */
-    border-image-slice: 30% 30.5%;
-    border-image-width: 3em;
-    border-image-repeat: round round;
-    border-image-source: url("../img/frame/ayahbox-orig-N-iOptim.svg");
-    border-image-outset: 0.6em; /* margin + .1em for optical alignment */
+  padding: 1.15rem; /* padding: 1em 2.2em; */
+  border-image-slice: 30% 30.5%;
+  border-image-width: 3em;
+  border-image-repeat: round round;
+  border-image-source: url("../img/frame/ayahbox-orig-N-iOptim.svg");
+  border-image-outset: 0.6em; /* margin + .1em for optical alignment */
 
-    /* background-color: beige; */
-  }
+  /* background-color: beige; */
+
+  /* spaces out above and below quran table */
+  margin-top: 1.6rem;
+  margin-bottom: 2.4rem;
 }
+
+#quranTable > tbody > tr:last-child {
+  margin-bottom: 25px;
+}
+
+/* } */
 
 /* mobile only qyran ayah box */
-@media screen and (max-width: 900px) {
-  #quranTable > tbody > tr > td.qCol1 {
-    /* float: left; */
-    position: relative;
 
-    /* top: .8em; */
-    font-size: 0.9em;
-    line-height: 1.6em;
-    padding-top: 2px;
-    padding-bottom: 0;
-    padding-left: 0.5em;
-    padding-right: 0.5em; /* padding: 0 .5em; */
-    background: #c1d1c3;
-    border-radius: 0.2em;
-    border: 1px solid #40455c;
-    box-shadow: inset 0 0 2px 0 #693, 0 0 0 2px #fff, 0 0 0 3px #40455c;
+/* @media screen and (max-width: 900px) { */
+#quranTable > tbody > tr > td.qCol1 {
+  /* float: left; */
+  position: relative;
 
-    /* centers ayahbox */
-    top: -32px;
-    width: 30%;
-    margin: auto;
-    text-align: center;
+  /* top: .8em; */
+  font-size: 0.9em;
+  line-height: 1.6em;
+  padding-top: 2px;
+  padding-bottom: 0;
+  padding-left: 0.5em;
+  padding-right: 0.5em; /* padding: 0 .5em; */
+  background: #c1d1c3;
+  border-radius: 0.2em;
+  border: 1px solid #40455c;
+  box-shadow: inset 0 0 2px 0 #693, 0 0 0 2px #fff, 0 0 0 3px #40455c;
 
-    /* removes margin below ayahbox to lessen space above ayah */
-    margin-bottom: -15px;
-  }
+  /* centers ayahbox */
+  top: -32px;
+  width: 7.5rem;
+  margin: auto;
+  text-align: center;
 
-  /* moves quran table with border a bit lower */
-  #quranTable {
-    margin-top: 9px;
-  }
+  /* removes margin below ayahbox to lessen space above ayah */
+  margin-bottom: -15px;
 }
+
+/* } */
 
 /* ===== custom quran ayahbox - END ===== */
