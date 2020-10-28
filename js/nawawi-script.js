@@ -59,12 +59,12 @@ $(document).ready(() => {
     })
   } //= =================== end if else
 
-  const table = $('#fortyNTable').DataTable({
+  const table = $('#nawawiTable').DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: fortyN_dataSet, // https://datatables.net/manual/ajax
+    data: nawawi_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
       {
@@ -498,11 +498,11 @@ $(document).ready(() => {
       // If media query matches
       // empty // document.body.style.backgroundColor = "pink";
     } else { // CHANGE123 HAMMER JS
-      Hammer(fortyNTable).on('swiperight', () => {
+      Hammer(nawawiTable).on('swiperight', () => {
         // changed swipeleft and swiperight for dhivehi
         table.page('next').draw('page')
       })
-      Hammer(document.getElementById('fortyNTable')).on('swipeleft', () => {
+      Hammer(document.getElementById('nawawiTable')).on('swipeleft', () => {
         table.page('previous').draw('page')
       })
     }

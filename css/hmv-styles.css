@@ -1306,6 +1306,7 @@ so right align to prevent gaps in text
   margin-bottom: 2.4rem;
 }
 
+/* reduces margin last item at end of page */
 #quranTable > tbody > tr:last-child {
   margin-bottom: 25px;
 }
