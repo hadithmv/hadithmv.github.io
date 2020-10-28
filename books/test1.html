@@ -31,9 +31,6 @@
   <meta property="og:url" content="https://hadithmv.github.io" />
   <meta property="og:image" content="https://hadithmv.github.io/img/logo/newLogo5-roundedSquare/newLogo5-roundedSquare-1080-compressor.png" />
 
-  <!-- svg probably doesnt work for this, needed for pwa lighthouse -->
-  <link rel="apple-touch-icon" href="../img/logo/newLogo5-N-iOptim.svg">
-
   <!-- - set these for pwa stuff later
     <meta name="mobile-web-app-capable" content="yes" /> -->
   <!-- Imports the manifest to represent the web application. A web app must have a manifest to be a PWA. 
@@ -61,17 +58,21 @@
   <meta http-equiv="last-modified" content="Mon, 08 June 2020 05:52:00 GMT" />
   <meta http-equiv="Expires" content="604800" />-->
 
-  <title>hadithmv - Quran</title>
-  <meta name="description" content="Dhivehi Quran translation and tafsir at your fingertips." />
+  <title>hadithmv - 40 Nawawi</title>
+  <meta name="description" content="Dhivehi hadith translations at your fingertips. - Imam Nawawi's 40 hadith." />
   <!-- ===== ===== META TAGS - END ===== ===== -->
 
   <!-- ===== ===== FONTS PRELOAD ===== ===== 
     will also need regular css ext stylesheet for fallback on older browsers -->
   <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="../font/mvtyper-Copy7.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="../font/Yakout-Linotype-W20-Light-Copy6.woff2">
 
   <!-- ===== ===== CSS LIBRARIES ===== ===== -->
   <style>
+    body > header > span.hamburg {
+      color: white;
+    }
+
     /*
   <!-- fonts css -->
   <link rel="stylesheet" href="../css/fonts.css" />
@@ -91,13 +92,8 @@
   <!-- ===== ===== CSS LIBRARIES - END ===== ===== -->
   */
   </style>
-
   <!-- COMBINED css -->
     <link rel="stylesheet" href="../css/COMBcss.min.css" />
-    <style>
-      @font-face{font-family:arFont;src:url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff2) format("woff2"),url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff) format("woff"),url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.ttf) format("truetype");font-display:swap}
-
-    </style>
   <!--<link rel="stylesheet" href="css/COMBcss.min.css" />   for app, either will cause a console error -->
   <!--<link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
    this works as fallback but causes FOUC in apk app, but not in win app where this is needed -->
@@ -301,10 +297,14 @@
           / CHANGE123 TABLE -->
       <!-- JEKYLL CHANGE123 {{ content }} -->
 
-      <table id="quranTable" class="stripe table">
+      <table id="nawawiTable" class="stripe table">
         <!-- fnClass -->
         <thead>
           <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
             <th></th>
             <th></th>
             <th></th>
@@ -407,9 +407,9 @@
         otherwise if json too large script will take too long to load
         CHANGE123 JS
         'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
-  <script defer src="../js/quran.js"></script>
+  <script defer src="../js/nawawi.js"></script>
   <!-- Custom JS -->
-  <script defer src="../js/quran-script.js"></script>
+  <script defer src="../js/nawawi-script.min.js"></script>
 
 
 
