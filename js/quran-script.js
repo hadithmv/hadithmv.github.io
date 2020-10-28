@@ -506,7 +506,8 @@ $(document).ready(() => {
     // js media query on desktop
     /* previously $('fnClass').addClass('row-border')
     $('fnClass').addClass('cards') */
-    $('.dataTable').addClass('row-border') // adds rowborder class
+    // CUT FOR QURAN $('.dataTable').addClass('row-border') // adds rowborder class
+    $('.dataTable').addClass('cards') // ADDED FOR QURAN
   } else {
     // js media query on mobile, tablet
     $('.dataTable').addClass('cards')
