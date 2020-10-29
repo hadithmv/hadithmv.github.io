@@ -729,6 +729,10 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   padding-right: 15px;
   margin-top: -2px; /* moves hamburg a little higher, similar baseline to header text */
   position: absolute;
+
+  /* samsung unicode symbol color fix */
+  color: transparent;
+  text-shadow: 0 0 0 white;
 }
 
 .navLogo {
