@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://hadithmv.github.io/</loc>
+  <lastmod>2020-10-30T16:51:34+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/books/umdah.html</loc>
+  <lastmod>2020-10-30T16:51:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/books/sahihain.html</loc>
+  <lastmod>2020-10-30T16:51:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/books/otherHadith-uc.html</loc>
+  <lastmod>2020-10-30T16:51:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/notes/info/introHmv.html</loc>
+  <lastmod>2020-10-30T16:51:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/notes/info/introFortyN.html</loc>
+  <lastmod>2020-10-30T16:51:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/notes/info/introUmdah.html</loc>
+  <lastmod>2020-10-30T16:51:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/notes/third-party-libs-and-tools.txt</loc>
+  <lastmod>2020-10-30T16:51:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/LICENSE.txt</loc>
+  <lastmod>2020-10-30T16:51:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
+</urlset>
