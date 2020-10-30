@@ -66,9 +66,9 @@
   <!-- ===== ===== META TAGS - END ===== ===== -->
 
   <!-- ===== ===== FONTS PRELOAD ===== ===== 
-    will also need regular css ext stylesheet for fallback on older browsers -->
+    will also need regular css ext stylesheet for fallback on older browsers 
   <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="../font/mvtyper-Copy7.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff2"> -->
 
   <!-- ===== ===== CSS LIBRARIES ===== ===== -->
   <style>
@@ -93,11 +93,6 @@
   </style>
 
   <!-- COMBINED css -->
-    
-    <style>
-      @font-face{font-family:arFont;src:url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff2) format("woff2"),url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff) format("woff"),url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.ttf) format("truetype");font-display:swap}
-    </style>
-
     <link rel="stylesheet" href="../css/COMBcss.min.css" />
   <!--<link rel="stylesheet" href="css/COMBcss.min.css" />   for app, either will cause a console error -->
   <!--<link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
@@ -413,7 +408,12 @@
 
   <!-- ===== ===== JS LIBRARIES - END ===== ===== -->
 
-
+  <style> /* QURAN ONLY FONT CSS */
+    @font-face {
+font-family: arFont;
+src: url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff2) format("woff2"), url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff) format("woff"), url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.ttf) format("truetype");
+font-display: swap }  /* QURAN ONLY FONT CSS - END */
+  </style>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script defer src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"></script>
