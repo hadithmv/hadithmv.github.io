@@ -40,6 +40,7 @@ https://sourceforge.net/projects/sevenzip/ -GNU LGPL
 
 https://github.com/tonsky/FiraCode -OFL-1.1
 http://www.hassanhameed.com/?page_id=154
+https://github.com/maaldheefee/mushaf-page-border
 
 https://sunnah.alifta.gov.sa
 https://shamela.ws/index.php
