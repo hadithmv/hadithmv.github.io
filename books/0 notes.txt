@@ -1,11 +1,10 @@
 quran has:
 
-  <style> /* QURAN ONLY FONT CSS */
-    @font-face {
-font-family: arFont;
-src: url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff2) format("woff2"), url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff) format("woff"), url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.ttf) format("truetype");
-font-display: swap }  /* QURAN ONLY FONT CSS - END */
-  </style>
+<!-- ===== ===== CSS LIBRARIES ===== ===== -->
+  <style>
+
+/* fonts.css QURAN ONLY */
+@font-face{font-family:arFont;src:url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff2) format("woff2"),url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.woff) format("woff"),url(../font/UthmanicHafs1-Ver14-Hmod-FCmod.ttf) format("truetype");font-display:swap}@font-face{font-family:dvFont;src:url(../font/mvtyper-Copy7.woff2) format("woff2"),url(../font/mvtyper-Copy7.woff) format("woff"),url(../font/mvtyper-Copy7.ttf) format("truetype");font-display:swap}
 
 
 
