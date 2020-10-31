@@ -4,6 +4,8 @@
 ftp://192.168.43.1:2221
 ftp://192.168.100.3:2221
 
+thaana render letter mish mash doesnt happen when font size is 17px and over for some reason
+
 To use the numeric codes, press and hold the Alt key, then type the four-digit character code on the numeric keypad.
 Use ALT+0145 and ALT+0146 for the left and right single quotation mark or apostrophe, respectively.
 Use ALT+0147 and ALT+0148 for the left and right double quotation marks, respectively.Apr 17, 2020

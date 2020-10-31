@@ -62,7 +62,7 @@ To move forward, just start with the first sub directory and keep moving forward
 body {
   background-color: #fff;
   padding: 30px; /* padding: 50px; */
-  font-size: 16px;
+  font-size: 17px;
   font-family: sans-serif;
 
   /* -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -508,13 +508,14 @@ letter spacing doesnt work either
 
 this would select 7 and everything past that */
 
-body > div > div.dv > p:nth-child(n + 7) {
+/* ACTUALLY JUST KEEP THAANA FONTS AT 17PX OR OVER AND IT WILL BE FINE
+  body > div > div.dv > p:nth-child(n + 7) {
   font-size: 17px;
 }
 
 body > div > div.dv > p.ar {
   font-size: 21px;
-}
+} */
 
 /* ==================
 thaana mish mash render fix - END
