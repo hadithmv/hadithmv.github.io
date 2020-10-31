@@ -59,21 +59,21 @@ $(document).ready(() => {
     })
   } //= =================== end if else
 
-  const table = $('#otherHadithTable').DataTable({
-    // var table = $("#allHadith").DataTable({
+  const table = $('#barbaTable').DataTable({
+    // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: otherHadith_dataSet, // https://datatables.net/manual/ajax
+    data: barba_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
       {
         data: 0,
-        title: 'ފޮތް'
+        title: '#'
       },
       {
         data: 1,
-        title: 'ޢަރަބި ޙަދީޘް'
+        title: 'ޢަރަބި'
       },
       // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
@@ -89,12 +89,8 @@ $(document).ready(() => {
       },
       {
         data: 2,
-        title: 'ދިވެހި ތަރުޖަމާ'
+        title: 'ދިވެހި'
       }
-      // add takhrij and stuff later {
-      //   data: 3,
-      //   title: 'ތަޚްރީޖު'
-      // }
     ],
 
     columnDefs: [
@@ -102,35 +98,29 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'ohCol1', // Book
+        className: 'barbaCol1', // #
         targets: [0],
         visible: true,
         searchable: true
       },
       {
-        className: 'ohCol2', // Ar Text
+        className: 'barbaCol2', // arTxt
         targets: [1],
         visible: true,
         searchable: true
       },
       {
-        className: 'ohCol3', // Ar Text Plain
+        className: 'barbaCol3', // arPlain
         targets: [2],
         visible: false,
         searchable: true
       },
       {
-        className: 'ohCol4', // Dv Text
+        className: 'barbaCol4', // dv
         targets: [3],
         visible: true,
         searchable: true
       },
-      // add takhrij and stuff later {
-      //   className: 'ohCol5', // Thakhrij
-      //   targets: [4],
-      //   visible: false,
-      //   searchable: true
-      // },
 
       // below strips html tags off keystable copy, second part with keys on
       {
@@ -148,7 +138,7 @@ $(document).ready(() => {
     ], // end of columnDefs, previously without visible and searchable options.
 
     //= ====================
-    // DT CUSTOM SETTINGS
+    //  DT CUSTOM SETTINGS
     // ====================
 
     // Automatic column width calculation. Default: true
@@ -209,6 +199,7 @@ $(document).ready(() => {
     // -1 is used as a value this tells DataTables to disable pagination
     // Default [ 10, 25, 50, 100 ],
     lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, '50']],
+    // lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, '50']],
     // lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހައި']],
     // lengthMenu: [ [5, 10, 20, 30, 40, -1, 1], ["Show 5", 10, 20, 30, 40,
     // "All", 1] ],
@@ -250,17 +241,17 @@ $(document).ready(() => {
       buttons: {
         copyTitle: 'ކޮޕީ',
         copySuccess: {
-          1: 'ކޮޕީ ވީ 1 ޙަދީޘް',
-          _: 'ކޮޕީ ވީ %d ޙަދީޘް'
+          1: 'ކޮޕީ ވީ 1 ނުކުތާ',
+          _: 'ކޮޕީ ވީ %d ބަސް'
         }
       },
 
-      info: '_TOTAL_ ޙަދީޘްގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް',
+      info: '_TOTAL_ ނުކުތާގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް',
       infoFiltered: '(ޖުމްލަ ބެލެވުނީ _MAX_)',
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
-      searchPlaceholder: 'ހޯއްދަވާ...',
+      searchPlaceholder: 'ސުންނަތުގެ ޝަރަޙައިން ހޯއްދަވާ...',
       zeroRecords: '- ނުފެނުނު -'
     }, //= =================== End of Internationalisation
 
@@ -300,7 +291,7 @@ $(document).ready(() => {
         extend: 'copy',
         key: { key: 'c', shiftKey: true },
         text: 'ކޮޕީ',
-        messageTop: 'ޙަދީޘްއެމްވީ', // CHANGE123 clipboard message
+        messageTop: 'ޙަދީޘްއެމްވީ - ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ', // CHANGE123 clipboard message
         title: '' /* title: "hadithmv.com", */,
 
         //= ====================
@@ -317,27 +308,73 @@ $(document).ready(() => {
           // fixes multiple row's lack of line break on desktop
           //     data = data.replace( /\t\r\n/g, "\n\n\n" );
 
-          /* data = data.replace( /\n#/g, "" ); */
-          /*
-          data = data.replace(/\n#/g, '\n\nޙަދީޘްގެ އަދަދު: ')
-          data = data.replace(
-            /ނަވަވީގެ 40 ޙަދީޘް\r\n\r\n\n\nޙަދީޘްގެ އަދަދު: \r\n\n/g,
-            'ނަވަވީގެ 40 ޙަދީޘް\r\n'
-          )
-          */ /* add string & fix empty space، make sure to change the red too */
+          //  \t = literal tab
+          //  \n = LF (Line Feed) → Used as a new line character in Unix/Mac OS X
+          //  \r\n = CR + LF → Used as a new line character in Windows
+
+          // data = data.replace(/r\n]/g, '') // needed to make rnr work
+          // data = data.replace(/\r\n|\n|\t/gm, '')
+
+          // data = data.replace(/\r\n\r\n/g, ' ') //  ONLY FOR 40N, because it has an inserted title
+          // data = data.replace(/\n\n/g, ' ') //  ONLY FOR 40N, because it has an inserted title, the two lines below arent needed for 40n i think
 
           data = data.replace(/\r\n/g, '\t') //  prevents first header showing up unneeded (windows)
           data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
 
-          data = data.replace(/ފޮތް\t/g, '') // should be this way instead of /\tފޮތް/
-          data = data.replace(/ޢަރަބި ޙަދީޘް\t/g, '')
+          data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
+          data = data.replace(/ޢަރަބި\t/g, '')
           data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
-          data = data.replace(/ޙުކުމް\t/g, '')
-          data = data.replace(/ތަޚްރީޖު\t/g, '')
+          data = data.replace(/ދިވެހި\t/g, '')
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
+
+          /*
+          data = data.replace(/\n\n/g, '\t') // prevents # showing up unneeded (linux)
+          data = data.replace(/\r\n\r\n/g, '\t') //  prevents # showing up unneeded (windows)
+
+          data = data.replace(/\t#/g, '')
+          data = data.replace(/\tޢަރަބި ސުރުޚީ/g, '')
+          data = data.replace(/\tދިވެހި ސުރުޚީ/g, '')
+          data = data.replace(/\tޢަރަބި ޙަދީޘް/g, '')
+          data = data.replace(/\tޢަރަބި ފިލިނުޖަހައި/g, '')
+          data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
+          data = data.replace(/\tތަޚްރީޖު/g, '')
+          data = data.replace(/\tތަޚްރީޖު ދިވެހިން/g, '')
+          data = data.replace(/\tރިޔާޟުއްޞާލިޙީނުން/g, '')
+
+          data = data.replace(/\t/g, '\n\n') // creates line breaks
+*/
+          // data = data.replace(/\tތަޚްރީޖު\t/g, '')
+          /*
+          data = data.replace(/#\t/g, '')
+          data = data.replace(/ޢަރަބި ސުރުޚީ\t/g, '')
+          data = data.replace(/ދިވެހި ސުރުޚީ\t/g, '')
+          data = data.replace(/ޢަރަބި ޙަދީޘް\t/g, '')
+          data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
+          data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
+          data = data.replace(/ތަޚްރީޖު\t/g, '')
+          data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
+          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
+
+          //          data = data.replace(/\n\n/g, '')
+          //         data = data.replace(/\r\n\r\n/g, '')
+
+          data = data.replace(/\t/g, '\n\n') // creates line breaks
+*/
+          /*
+          data = data.replace(/#\n/g, '')
+          data = data.replace(/ޢަރަބި ސުރުޚީ\n/g, '')
+          data = data.replace(/ދިވެހި ސުރުޚީ\n/g, '')
+          data = data.replace(/ޢަރަބި ޙަދީޘް\n/g, '')
+          data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\n/g, '')
+          data = data.replace(/ދިވެހި ތަރުޖަމާ\n/g, '')
+          data = data.replace(/ތަޚްރީޖު\n/g, '')
+          data = data.replace(/ތަޚްރީޖު ދިވެހިން\n/g, '')
+          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\n/g, '')
+
+          data = data.replace(/\t/g, '\n\n') // creates line breaks
+*/
 
           /* data = data.replace( /hadithmv.com\n/g, "hadithmv.com\n\n" );
            //adds new line on android */
@@ -345,7 +382,7 @@ $(document).ready(() => {
                data = data.replace( /\r/g, "" ); //rids windows platform newline
                data = data.replace( /\t/g, "\n\n" ); */
 
-          //    console.log(JSON.stringify(data)); //json stringify to console
+          //  console.log(JSON.stringify(data)) // json stringify to console
 
           return data
         },
@@ -405,11 +442,11 @@ $(document).ready(() => {
       // If media query matches
       // empty // document.body.style.backgroundColor = "pink";
     } else { // CHANGE123 HAMMER JS
-      Hammer(otherHadithTable).on('swiperight', () => {
+      Hammer(barbaTable).on('swiperight', () => {
         // changed swipeleft and swiperight for dhivehi
         table.page('next').draw('page')
       })
-      Hammer(document.getElementById('otherHadithTable')).on('swipeleft', () => {
+      Hammer(document.getElementById('barbaTable')).on('swipeleft', () => {
         table.page('previous').draw('page')
       })
     }
@@ -445,6 +482,8 @@ $(document).ready(() => {
 */
   if (window.matchMedia('(min-width: 900px)').matches) {
     // js media query on desktop
+    /* previously $('fnClass').addClass('row-border')
+    $('fnClass').addClass('cards') */
     $('.dataTable').addClass('row-border') // adds rowborder class
   } else {
     // js media query on mobile, tablet

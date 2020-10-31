@@ -351,4 +351,6 @@ Recognizer:r,AttrRecognizer:p,Tap:K,Pan:J,Swipe:X,Pinch:U,Rotate:W,Press:V,on:z,
 // hmv-script.js
 function myHelp(){alert("Keyboard Controls: \n\n [Tab] =Tab Navigation \n [Arrow Keys] = Keyboard Navigation \n [Shift + s] = Show columns \n [Shift + c] = Copy")};
 
+// half of analytics js
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga("create","UA-112777351-1","auto");ga("send","pageview");
 
