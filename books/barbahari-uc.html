@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="dv" >
+<html lang="dv">
 <!-- will dv prevent google translate? -->
 
 <head>
@@ -29,7 +29,8 @@
   <meta property="og:title" content="hadithmv" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://hadithmv.github.io" />
-  <meta property="og:image" content="https://hadithmv.github.io/img/logo/newLogo5-roundedSquare/newLogo5-roundedSquare-1080-compressor.png" />
+  <meta property="og:image"
+    content="https://hadithmv.github.io/img/logo/newLogo5-roundedSquare/newLogo5-roundedSquare-1080-compressor.png" />
 
   <!-- svg probably doesnt work for this, needed for pwa lighthouse -->
   <link rel="apple-touch-icon" href="../img/logo/newLogo5-N-iOptim.svg">
@@ -92,7 +93,7 @@
   */
   </style>
   <!-- COMBINED css -->
-    <link rel="stylesheet" href="../css/COMBcss.min.css" />
+  <link rel="stylesheet" href="../css/COMBcss.min.css" />
   <!--<link rel="stylesheet" href="css/COMBcss.min.css" />   for app, either will cause a console error -->
   <!--<link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
    this works as fallback but causes FOUC in apk app, but not in win app where this is needed -->
@@ -140,18 +141,30 @@
 
             <li class="pushy-link">
               <!-- APKCHANGE 123  onclick="openLink(event, 'umdahHadithTab')" ===== -->
-              <a href="../books/umdah.html" target="_blank" rel="noopener">ޢުމްދަތުލް އަޙްކާމް</a></li>
+              <a href="../books/umdah-uc.html" target="_blank" rel="noopener">ޢުމްދަތުލް އަޙްކާމް</a></li>
 
             <li class="pushy-link">
               <!-- / CHANGE 123 SECOND LINK  onclick="openLink(event, 'sahihainTab')" -->
               <!-- APKCHANGE 123 ===== -->
-              <a href="../books/sahihain.html" target="_blank" rel="noopener">ޞަޙީޙައިން (ނުނިމޭ)</a>
+              <a href="../books/sahihain-uc.html" target="_blank" rel="noopener">ޞަޙީޙައިން (ނުނިމޭ)</a>
             </li>
 
             <li class="pushy-link">
               <!-- APKCHANGE 123  onclick="openLink(event, 'otherHadithTab')" ===== -->
               <a href="../books/otherHadith-uc.html" target="_blank" rel="noopener">އެހެނިހެން ޙަދީޘްތައް</a>
             </li>
+
+          </ul>
+        </li>
+
+        <li class="pushy-submenu">
+          <button id="first-link">ކީރިތި ޤުރްއާން</button>
+          <!-- / CHANGE123 FIRST LINK -->
+          <ul>
+
+            <li class="pushy-link">
+              <!-- APKCHANGE 123 ===== -->
+              <a href="../books/quran-uc.html" target="_blank" rel="noopener">ސޫރަތުލް ފާތިޙާ</a></li>
 
           </ul>
         </li>
@@ -408,16 +421,16 @@
 
 
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script defer src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"></script>
-<script defer>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"></script>
+  <script defer>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-HL24Q9NN24');
-</script>
-<!-- End Google Analytics -->
+    gtag('config', 'G-HL24Q9NN24');
+  </script>
+  <!-- End Google Analytics -->
 
 </body>
 <!-- ===== BODY - END ===== -->
