@@ -1075,15 +1075,14 @@ so right align to prevent gaps in text
 
 /* mobile only row centering, for rows with strings that are not long */
 
-/* @media screen and (max-width: 900px) { */
-.dataTable tr td.rCol1,
-.dataTable tr td.rCol2,
-.dataTable tr td.rCol3,
-.dataTable tr td.rCol4,
-.dataTable tr td.rCol5 {
-  text-align: center;
-
-  /* } */
+@media screen and (max-width: 900px) {
+  .dataTable tr td.rCol1,
+  .dataTable tr td.rCol2,
+  .dataTable tr td.rCol3,
+  .dataTable tr td.rCol4,
+  .dataTable tr td.rCol5 {
+    text-align: center;
+  }
 
   /* bold headers for mobile - first number at top 
     .rCol1 {
