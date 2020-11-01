@@ -166,7 +166,7 @@
 .pushy-submenu button {
   width: 100%;
   color: #e2f1f8; /* dimmed color before mouse over -b3b3b1 */
-  padding: 15px 30px;
+  padding: 12.5px 28px; /* 15px 30px; */
   text-align: left;
   background: transparent;
   border: 0;

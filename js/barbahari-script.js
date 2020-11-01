@@ -79,13 +79,13 @@ $(document).ready(() => {
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 1,
+        /* data: 1,
         title: 'ޢަރަބި ފިލިނުޖަހައި',
-        render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
-          return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ/g, '')
-        }
+        render: function (data, type, row) { */
+        // return data.replace(/َ/g, '').replace(/ِ/g, '')
+        // below code is shorter, no replace repeat, uses OR instead
+        /* return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ/g, '')
+        } */
       },
       {
         data: 2,

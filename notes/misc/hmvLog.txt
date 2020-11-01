@@ -4,7 +4,10 @@
 ftp://192.168.43.1:2221
 ftp://192.168.100.3:2221
 
-thaana render letter mish mash doesnt happen when font size is 17px and over for some reason
+sumatra:
+FixedPageUI [
+	TextColor = #ffffff
+	BackgroundColor = #121212
 
 To use the numeric codes, press and hold the Alt key, then type the four-digit character code on the numeric keypad.
 Use ALT+0145 and ALT+0146 for the left and right single quotation mark or apostrophe, respectively.
@@ -39,12 +42,12 @@ for some reason 1.6.4/js/dataTables.buttons.js breaks the copy
 maybe add arabic numbers in fonts, otherwise too large
 
 
-البخاري 1838، ومسلم 2175
-البخاري 1131، ومسلم 1159 واللفظ له
-البخاري 1841 واللفظ له، ومسلم 1178
+البخاري 2738، ومسلم 1627
+البخاري 91، ومسلم 1722 واللفظ له
+البخاري 2625 واللفظ له، ومسلم 1625
 <br><br>
-مسلم 1594
-البخاري 1107
+مسلم 1547
+البخاري 4518
 
 واللفذ للنساي 1416
 
