@@ -32,16 +32,38 @@
   <meta property="og:image"
     content="https://hadithmv.github.io/img/logo/newLogo5-roundedSquare/newLogo5-roundedSquare-1080-compressor.png" />
 
+  <!-- svg probably doesnt work for this, needed for pwa lighthouse -->
+  <link rel="apple-touch-icon" href="../img/logo/newLogo5-N-iOptim.svg">
+
   <!-- - set these for pwa stuff later
     <meta name="mobile-web-app-capable" content="yes" /> -->
+  <!-- Imports the manifest to represent the web application. A web app must have a manifest to be a PWA. 
+    href="manifest.json" 
+    <link rel="manifest" href="../manifest.json">-->
+
+  <!-- should bring this before body ends
+      For more info on the pwa-update component click here https://github.com/pwa-builder/pwa-update 
+   <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate"></script>
+   <pwa-update offlineToastDuration="0" swpath="pwabuilder-sw.js"></pwa-update>-->
+
+  <!-- should bring this before body ends 
+   <script>
+    // Check that service workers are supported
+    if ('serviceWorker' in navigator) {
+      // Use the window load event to keep the page load performant
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('pwabuilder-sw.js');
+      });
+    }
+    </script>-->
 
   <!-- - this doesn't work - 
-    <meta http-equiv="Cache-control" content="public" />
-    <meta http-equiv="last-modified" content="Mon, 08 June 2020 05:52:00 GMT" />
-    <meta http-equiv="Expires" content="604800" />-->
+  <meta http-equiv="Cache-control" content="public" />
+  <meta http-equiv="last-modified" content="Mon, 08 June 2020 05:52:00 GMT" />
+  <meta http-equiv="Expires" content="604800" />-->
 
-  <title>Hmv - Umdatul Ahkam</title>
-  <meta name="description" content="Dhivehi hadith translations of Umdatul Ahkam." />
+  <title>hadithmv - Radheef - Dictionary</title>
+  <meta name="description" content="Arabic - Dhivehi -English word translations at your fingertips." />
   <!-- ===== ===== META TAGS - END ===== ===== -->
 
   <!-- ===== ===== FONTS PRELOAD ===== ===== 
@@ -72,7 +94,7 @@
   <link rel="stylesheet" href="../css/hmv-styles.css" />
 
   <!-- ===== ===== CSS LIBRARIES - END ===== ===== -->
-    */
+  */
   </style>
   <!-- COMBINED css -->
   <link rel="stylesheet" href="../css/COMBcss.min.css" />
@@ -81,12 +103,12 @@
    this works as fallback but causes FOUC in apk app, but not in win app where this is needed -->
   <!-- APKCHANGE 123 - WINCHANGE 123 ===== -->
   <!-- loadcss by filament group, currently causes fouc so not in use, inline critical css later
-      <link
-      rel="stylesheet"
-      href="../css/COMBcss.min.css"
-      media="print"
-      onload="this.media='all'; this.onload=null;"
-    /> -->
+    <link
+    rel="stylesheet"
+    href="../css/COMBcss.min.css"
+    media="print"
+    onload="this.media='all'; this.onload=null;"
+  /> -->
 </head>
 <!-- ===== HEAD - END ===== -->
 
@@ -118,12 +140,12 @@
 
             <li class="pushy-link">
               <!-- APKCHANGE 123  onclick="openLink(event, 'fortyNTab')"===== -->
-              <a href="https://hadithmv.github.io" target="_blank" rel="noopener">ނަވަވީގެ 40 ޙަދީޘް</a>
+              <a href="index.html">ނަވަވީގެ 40 ޙަދީޘް</a>
             </li>
 
             <li class="pushy-link">
               <!-- APKCHANGE 123  onclick="openLink(event, 'umdahHadithTab')" ===== -->
-              <a href="../books/umdah-uc.html">ޢުމްދަތުލް އަޙްކާމް</a></li>
+              <a href="../books/umdah-uc.html" target="_blank" rel="noopener">ޢުމްދަތުލް އަޙްކާމް</a></li>
 
             <li class="pushy-link">
               <!-- / CHANGE 123 SECOND LINK  onclick="openLink(event, 'sahihainTab')" -->
@@ -132,7 +154,7 @@
             </li>
 
             <li class="pushy-link">
-              <!-- APKCHANGE 123 onclick="openLink(event, 'otherHadithTab')" ===== -->
+              <!-- APKCHANGE 123  onclick="openLink(event, 'otherHadithTab')" ===== -->
               <a href="../books/otherHadith-uc.html" target="_blank" rel="noopener">އެހެނިހެން ޙަދީޘްތައް</a>
             </li>
 
@@ -168,29 +190,29 @@
           <ul>
             <li class="pushy-link">
               <!-- APKCHANGE 123 ===== -->
-              <a href="../notes/info/introHmv.html" target="_blank" rel="noopener">ޙަދީޘްއެމްވީ</a>
+              <a href="notes/info/introHmv.html" target="_blank" rel="noopener">ޙަދީޘްއެމްވީ</a>
             </li>
 
             <li class="pushy-link">
               <!-- APKCHANGE 123 ===== -->
-              <a href="../notes/info/introFortyN.html" target="_blank" rel="noopener">ނަވަވީގެ 40 ޙަދީޘް</a>
+              <a href="notes/info/introFortyN.html" target="_blank" rel="noopener">ނަވަވީގެ 40 ޙަދީޘް</a>
             </li>
 
             <li class="pushy-link">
               <!-- APKCHANGE 123 ===== -->
-              <a href="../notes/info/introUmdah.html" target="_blank" rel="noopener">ޢުމްދަތުލް އަޙްކާމް</a>
+              <a href="notes/info/introUmdah.html" target="_blank" rel="noopener">ޢުމްދަތުލް އަޙްކާމް</a>
             </li>
 
             <li class="pushy-link">
               <!-- APKCHANGE 123 ===== -->
-              <a href="../notes/third-party-libs-and-tools.txt" target="_blank" rel="noopener">ބޭނުން ކުރެވުނު
+              <a href="notes/third-party-libs-and-tools.txt" target="_blank" rel="noopener">ބޭނުން ކުރެވުނު
                 ތަކެތި</a>
             </li>
 
         </li>
         <li class="pushy-link">
           <!-- APKCHANGE 123 ===== -->
-          <a href="../LICENSE.txt" target="_blank" rel="noopener">ލައިސެންސް</a>
+          <a href="LICENSE.txt" target="_blank" rel="noopener">ލައިސެންސް</a>
         </li>
 
         <li class="pushy-link desktopOnly">
@@ -210,6 +232,10 @@
           <li class="pushy-link">
             <a href="https://github.com/hadithmv/hadithmv.github.io/raw/master/win/hmv/hadithmv_Win64.7z"
               target="_blank" rel="noopener">ވިންޑޯސް</a>
+          </li>
+          <li class="pushy-link">
+            <a href="https://www.virustotal.com/gui/url/559cb24958860c16114e38f9cb2a4b4dac409bd87304f8b2aa45b1ac3743b469/detection"
+              target="_blank" rel="noopener">(ވައިރަސް ޗެކް)</a>
           </li>
           <li class="pushy-link">
             <a href="https://hadithmv.github.io" target="_blank" rel="noopener">ވެބް</a>
@@ -268,38 +294,34 @@
 
   <!-- Your Content after pushy sidebar, has to have this id or pushy navbar wont work -->
   <div id="container">
-    <!-- <button class="menu-btn">&#9776; Menu</button> -->
+    <!-- <button class="menu-btn">&#9776; Menu</button>  -->
 
     <!-- myTabs - MOVED INTO PUSHY MENU ABOVE
-        <button class="tablink" onclick="openLink(event, 'Right')">Right</button>
-        myTabs - end -->
+      <button class="tablink" onclick="openLink(event, 'Right')">Right</button>
+      myTabs - end -->
 
     <!-- First tab
-      / CHANGE123 TAB id="umdahTab" class="myTab"-->
+    / CHANGE123 TAB id="fortyNTab" class="myTab" -->
     <main class="w3-animate-right">
+      <!-- previously main was div, might have broken some css elsewhere -->
       <!-- if these tab classes and IDs are given to table, dt wrapper wont hide when tabbed away -->
 
       <!-- DT table classes
-             "display": Short-hand for stripe, hover, row-border, order-column. "cell-border": Border around 4 sides of each cell.
-             "compact": Reduce the amount of white-space around tables, so denser. "hover": highlighting on mouse over.
-             "nowrap": no wrapping of content in table, cell text is on a single line. "order-column": Highlight column that table data is currently ordered on.
-             "row-border": Border around only the top an bottom of each row. cell-border and row-border cannot be used together. "stripe": Row striping-->
+            "display": Short-hand for stripe, hover, row-border, order-column. "cell-border": Border around 4 sides of each cell.
+            "compact": Reduce the amount of white-space around tables, so denser. "hover": highlighting on mouse over.
+            "nowrap": no wrapping of content in table, cell text is on a single line. "order-column": Highlight column that table data is currently ordered on.
+            "row-border": Border around only the top an bottom of each row. cell-border and row-border cannot be used together. "stripe": Row striping-->
       <!--removed: cell-border, cellspacing="0" class="fnClass width="100%" -->
       <!-- cards adds card code to table ID, done via js -->
       <!-- added myTab and w3-animate-right for tabs -->
       <!-- ===== TABLE =====
-            / CHANGE123 TABLE -->
+          / CHANGE123 TABLE -->
       <!-- JEKYLL CHANGE123 {{ content }} -->
 
-      <table id="umdahTable" class="stripe table">
+      <table id="barbaTable" class="stripe table">
         <!-- fnClass -->
         <thead>
           <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
             <th></th>
             <th></th>
             <th></th>
@@ -313,9 +335,9 @@
     <!-- <div id="fortyNTab" class="myTab w3-animate-right"> first tab END -->
 
     <!-- Template for offline tabs
-        <div id="bukhariTab" class="myTab w3-animate-right" style="display:none">
-            <p>two</p>
-        </div>-->
+      <div id="bukhariTab" class="myTab w3-animate-right" style="display:none">
+          <p>two</p>
+      </div>-->
   </div>
   <!-- Pushy content container - END === -->
 
@@ -401,9 +423,9 @@
         otherwise if json too large script will take too long to load
         CHANGE123 JS
         'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
-  <script defer src="../js/umdah.js"></script>
+  <script defer src="../js/barbahari.js"></script>
   <!-- Custom JS -->
-  <script defer src="../js/umdah-script.min.js"></script>
+  <script defer src="../js/barbahari-script.js"></script>
 
 
 
