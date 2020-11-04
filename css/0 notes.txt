@@ -7,5 +7,13 @@ Load priority in COMB:
 **buttons.dataTables.min.css	(minify w cssnano)
 
 
-
 ...html boilerplate in hmv styles is v 7.3.0
+
+
+https://github.com/css/csso-cli
+csso [input] [options]
+csso inputfile.css --output outputfile.css
+
+https://github.com/ben-eb/cssnano-cli
+cssnano [input] [output] {OPTIONS}
+cssnano inputfile.css --output outputfile.css

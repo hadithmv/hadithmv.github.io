@@ -33,7 +33,7 @@ htmlhint (alt: w2 tidy html5)
 stylelint
 prettier
 standardjs linter
-kangax, csso, closure compiler
+kangax, csso (csso-cli), cssnano, closure compiler 
 unused-CSS, purifyCSS, unCSS-online
 ----------------------
 
