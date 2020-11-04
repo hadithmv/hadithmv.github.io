@@ -1,16 +1,3 @@
-The simplest way to invoke the compiler (e.g. if you're just trying it out) is with npx:
-npx google-closure-compiler --js=my_program.js --js_output_file=out.js
-
-npm:
-google-closure-compiler --js=nawawi-script.js --js_output_file=nawawi-script.min.js
-
-https://stackoverflow.com/questions/39194208/uglifyjs-convert-unicode-diacritics-to-ascii
-With closure-compiler, you can disable such encoding with the 
---charset=UTF-8
-flag. By default, input is UTF-8 and output is US ASCII.
-
-https://github.com/google/closure-compiler/wiki/Flags-and-Options
-
 Set-Location -Path C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js
 google-closure-compiler --charset=UTF-8 --js=barbahari-script.js --js_output_file=barbahari-script.min.js
 google-closure-compiler --charset=UTF-8 --js=nawawi-script.js --js_output_file=nawawi-script.min.js
