@@ -6,6 +6,10 @@ ftp://192.168.100.3:2221
 
 https://medium.com/@sahoosunilkumar/how-to-update-a-fork-in-git-95a7daadc14e
 
+regex to fix empty fili repeats:
+([ަ-ް])[ަ-ް]+
+Replace with $1
+
 sumatra:
 FixedPageUI [
 	TextColor = #ffffff
