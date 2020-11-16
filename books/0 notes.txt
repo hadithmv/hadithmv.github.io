@@ -1,6 +1,6 @@
 quran has:
 
-<!-- ===== ===== CSS LIBRARIES ===== ===== -->
+<!-- ==== CSS LIBRARIES ==== -->
   <style>
 
 /* fonts.css QURAN ONLY */
