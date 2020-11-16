@@ -22,7 +22,27 @@ To move forward, just start with the first sub directory and keep moving forward
 */
 
 /* ====================
-       BOILERPLATE 8.0.0 CODE - from normalize 8.0.1 and main css
+   Fonts
+======================= */
+
+@font-face {
+  font-family: arFont;
+  src: url(../font/Yakout-Linotype-W20-Light-Copy6.woff2) format("woff2"),
+    url(../font/Yakout-Linotype-W20-Light-Copy6.woff) format("woff"),
+    url(../font/Yakout-Linotype-W20-Light-Copy6.ttf) format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: dvFont;
+  src: url(../font/mvtyper-Copy7.woff2) format("woff2"),
+    url(../font/mvtyper-Copy7.woff) format("woff"),
+    url(../font/mvtyper-Copy7.ttf) format("truetype");
+  font-display: swap;
+}
+
+/* ====================
+   BOILERPLATE 8.0.0 CODE - from normalize 8.0.1 and main css
 ======================= */
 html {
   /* main */
