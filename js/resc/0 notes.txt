@@ -5,7 +5,7 @@ pushy.min.js (requires jq)
 **jquery.dataTables.min.js	(requires jq, minify w closure)
 
 **input.min.js	(minified file not available from site, so minify w closure)
-!!!**dataTables.buttons.min.js	(minify w closure)
+**dataTables.buttons.min.js
 **buttons.colVis.min.js	(minify w closure)
 buttons.html5.min.js
 **hammer.min.js	(minify w closure)
