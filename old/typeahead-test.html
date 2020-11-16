@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="robots" content="noindex">
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/datatables.min.css"
+    />
+
+    <script
+      type="text/javascript"
+      src="https://cdn.datatables.net/v/bs-3.3.7/dt-1.10.15/datatables.min.js"
+    ></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h3>
+        <a
+          href="https://www.gyrocode.com/articles/jquery-datatables-search-input-with-autocomplete-using-typeahead-and-bootstrap/"
+          >jQuery DataTables: Search input with autocomplete using Typeahead and
+          Bootstrap</a
+        >
+        <small>Client-side processing</small>
+      </h3>
+      <hr />
+
+      <table id="example" class="table" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+        <tbody><tr>
+            <td>أَنَا</td>
+            <td> </td>
+            <td>(ނ) އަހަރެން / އަހަރުން / އަހުރެން / އަނާ / އަޅުގަނޑު </td>
+            <td>I / me</td>
+            </tr>
+            <tr>
+            <td>بِطرِيق</td>
+            <td>بطريق؛ طائِرٌ مائِيّ؛ طرسوح<br/></td>
+            <td>ފީނާދޫނި</td>
+            <td>penguin</td>
+            </tr>
+            <tr>
+            <td>دُعسُوقَة</td>
+            <td>الدعسوقة : خنفساء صغيرة مرقَّطة الجناحين؛ خنفس الشمس؛ خُنْفُساءُ صَغِيرَةٌ مُرَقَّطَة؛ دعسوقة<br/></td>
+            <td>ނަލަމަޑި</td>
+            <td>ladybird</td>
+            </tr>
+            <tr>
+            <td>جِذْرُ الشَّمَنْدَر؛ شمندر</td>
+            <td> </td>
+            <td>ރަންގުމޫ</td>
+            <td>beetroot</td>
+            </tr>
+            <tr>
+            <td>عَتَّابِيّ، الحِمَارُ الوَحشِيّ</td>
+            <td>الحمار الوحشيّ؛ جِنْس مِن ذَوَات الْحَوَافِر وَفَصِيلَة الْخَيْل مَعْرُوف بِأَلْوَانِه الْمُخَطَّطَة؛ حمار الزَّرَد؛ حمار وحشى مخطط؛ عتابى<br/></td>
+            <td>ކަފިހިއަސް</td>
+            <td>zebra</td>
+            </tr>
+            <tr>
+            <td>جَلّ، جيلاتين، هُلَام</td>
+            <td>الجل : مادة هلامية؛ حول أو تحول إلى جل؛ مادَّةٌ بُرُوتِينِيَّةٌ تُسْتَخْرَجُ منَ الأَنْسِجَةِ الحَيَوانِيَّة؛ هلام؛ يتجلل</td>
+            <td>ޖެލް</td>
+            <td>gel</td>
+            </tr>
+            <tr>
+            <td>حافِز، غِذاء، مَحرُوقَات، وِقاد، وَقَد، وَقُود، وَقِيد</td>
+            <td> </td>
+            <td>އަނދަނަ</td>
+            <td>fuel</td>
+            </tr>
+            <tr>
+            <td>جَوَّانِيّ، دَاخِليّ</td>
+            <td> </td>
+            <td>އެތެރެ</td>
+            <td>indoor</td>
+            </tr>
+            <tr>
+            <td>خَارِجِيّ، خَلَائِيّ، مَكشُوف</td>
+            <td> </td>
+            <td>ބޭރު</td>
+            <td>outdoor</td>
+            </tr>
+            <tr>
+            <td>اِستِثنَائِيّ، اِضطِرار، اِضطِرارِيّ، أَزمَة، شِدَّة، ضَرُورَة، طَارِئ، طَوَارِئ</td>
+            <td> </td>
+            <td>ކުއްލިޙާލަތު</td>
+            <td>emergency</td>
+            </tr>
+            <tr>
+            <td>انتِخَاب فَرعِي أَو تَكمِيلِي أَو جُزئِي</td>
+            <td> </td>
+            <td>މެދައިންތިޚާބު</td>
+            <td>by-election</td>
+            </tr>
+            <tr>
+            <td>مُعاوَدَة</td>
+            <td> (فترة تدريب الطبيب في المستشفى)<br/></td>
+            <td>ދަސްވެރިކަން</td>
+            <td>internship</td>
+            </tr>
+            <tr>
+            <td>مُعاوِد </td>
+            <td>طَبِيْبٌ مُعاوِد (طبيب في مرحلة التدريب) [جمع مُعاوِدون]<br/></td>
+            <td>ދަސްވާރު</td>
+            <td>intern</td>
+            </tr>
+            <tr>
+            <td>أَذَى، تَذَمُّر، تَظَلُّم، شَكَاة، شِكَايَة، شَكوَة، شَكوَى، شَكِيَّة، ضَيم، ظُلم، مَظلَمَة</td>
+            <td> </td>
+            <td>ޝިކާޔަތު</td>
+            <td>grievance</td>
+            </tr>
+            <tr>
+            <td>إِعلَان، بَلاَغ، بَيَان، قَرَار، نَشرَة</td>
+            <td> </td>
+            <td>ތޫރަ</td>
+            <td>bulletin</td>
+            </tr>
+            <tr>
+            <td>الطَابِق الأَرضِي أَو الدَور الأَرضِي</td>
+            <td> </td>
+            <td>ތިރީ ބުރި</td>
+            <td>ground floor</td>
+            </tr>
+            <tr>
+            <td>نَائِب</td>
+            <td> </td>
+            <td>އިންތިޚާބީ ބައިވެރިޔާ</td>
+            <td>running mate</td>
+            </tr>
+            <tr>
+            <td>اِرتِكاس، اِستِجَابَة، إِجَابَة، تَجَاوُب، تَحَرّك، تَلبِيَة، جَوَاب، رَدٌّ، رَكس، قَضَاء</td>
+            <td> </td>
+            <td>އިޖާބަ</td>
+            <td>response</td>
+            </tr>
+            <tr>
+            <td>تَردِيدِيّ، حَسّاس، مُتَجَاوِب، مُجِيب، مُستَجِيب، مُلَبي، مُنفَتِح</td>
+            <td> </td>
+            <td>އިޖާބީ</td>
+            <td>responsive</td>
+            </tr>
+            <tr>
+            <td>اِنثِنَائِيّ، أَغيَد، أَقوَد، أَليِناء، أَملَد، سَلِس، طَوِيّ، غِيد، غَيداء، لِدان، لَدن، لَيّن، مِذعان، مَرِن، مِطوَاع، مُطِيع، مَلداء</td>
+            <td> </td>
+            <td>ފަހެލި</td>
+            <td>flexible</td>
+            </tr>
+            <tr>
+            <td>اِنثِنَاء، انثنائية، سَلاسَة، غَيَد، لَدَانَة، لَدُونَة، لِين، لُيُونَة، مُرُونَة، مِطوَاعِيّة</td>
+            <td> </td>
+            <td>ފަހެލިކަން</td>
+            <td>flexibility</td>
+            </tr>
+            <tr>
+            <td>غَير قَابِل لِلِانثِنَاء</td>
+            <td> </td>
+            <td>ނުފަހެލި</td>
+            <td>non flexible</td>
+            </tr>
+            <tr>
+            <td>دَولَة دَاخِل دَولَة<br/></td>
+            <td> </td>
+            <td>އަޑީ ސަރުކާރު</td>
+            <td>deep state</td>
+            </tr>
+            <tr>
+            <td>سَيَّارَة الإِسعَاف؛ سَيَّارَةُ تَنْقُل الْمَرْضَى إِلَى الْمُسْتَشْفَى</td>
+            <td> </td>
+            <td>އެންބިއުލަންސު</td>
+            <td>ambulance</td>
+            </tr>
+            <tr>
+            <td>لنج الإِسعَاف</td>
+            <td> </td>
+            <td>އެންބިއުލާންޗު / އެންބިއުލޯންޗު</td>
+            <td>sea ambulance</td>
+            </tr>
+            <tr>
+            <td>مُبَاشر عَلى الإنتَرنت؛ مُتَّصِل؛ مُتَّصِلُ بِإنتَرنت؛ ‎مُتَوِافِر عَلَى الشَّابَكَة؛ مَوصُول (إِلَى الخَط)<br/><br/></td>
+            <td> </td>
+            <td>އޮންލައިން</td>
+            <td>online</td>
+            </tr>
+            <tr>
+            <td>إِرَم، أُعلُومَة، صُوَّة، مَعلَم، مِيل</td>
+            <td>حدث هام يمثل مرحلة من مراحل التاريخ او الحياة الانسانية</td>
+            <td>މޭލުގާ / މޭލުދަނޑި</td>
+            <td>milestone</td>
+            </tr>
+            <tr>
+            <td>جَندَل، شاغُور، شَلَّال، مَسقَط، هَدّارَة</td>
+            <td> </td>
+            <td>ފެނާރު</td>
+            <td>waterfall</td>
+            </tr>
+            <tr>
+            <td>أرض، سَيّارَة، كَوكَب، كَوكَبِيّ، نَجم</td>
+            <td> </td>
+            <td>ގުރަހަ</td>
+            <td>planet</td>
+            </tr>
+            <tr>
+            <td>اِلتِزام، إِكارَة، تَعَهُّد، تَلزِيم، حِراثَة، زِرَاعَة، زِراعِيّ، فِلاحَة، مُؤاكَرَة</td>
+            <td> </td>
+            <td>ދަނޑުވެރިކަން</td>
+            <td>farming</td>
+            </tr>
+            <tr>
+            <td>إِرِّيس، أَكّار، زارِع، زَرّاع، فَلَّاح، مُزَارِع، مَزرَعانِيّ، ملتزِم، مُؤاكِر</td>
+            <td> </td>
+            <td>ދަނޑުވެރިޔާ</td>
+            <td>farmer</td>
+            </tr>
+            </tbody></table>
+      </table>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        var dataSrc = [];
+
+        var table = $("#example").DataTable({
+          initComplete: function () {
+            var api = this.api();
+
+            // Populate a dataset for autocomplete functionality
+            // using data from first, second and third columns
+            api.cells("tr", [0, 1, 2]).every(function () {
+              // Get cell data as plain text
+              var data = $("<div>").html(this.data()).text();
+              if (dataSrc.indexOf(data) === -1) {
+                dataSrc.push(data);
+              }
+            });
+
+            // Sort dataset alphabetically
+            dataSrc.sort();
+
+            // Initialize Typeahead plug-in
+            $(
+              '.dataTables_filter input[type="search"]',
+              api.table().container()
+            ).typeahead({
+              source: dataSrc,
+              afterSelect: function (value) {
+                api.search(value).draw();
+              },
+            });
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
