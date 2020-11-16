@@ -50,13 +50,84 @@
 
   <!-- ===== ===== CSS LIBRARIES ===== ===== -->
   <style>
+    /* fonts.css */
+    @font-face {
+      font-family: arFont;
+      src: url(../font/Yakout-Linotype-W20-Light-Copy6.woff2) format("woff2"), url(../font/Yakout-Linotype-W20-Light-Copy6.woff) format("woff"), url(../font/Yakout-Linotype-W20-Light-Copy6.ttf) format("truetype");
+      font-display: swap
+    }
 
-/* fonts.css */
-@font-face{font-family:arFont;src:url(../font/Yakout-Linotype-W20-Light-Copy6.woff2) format("woff2"),url(../font/Yakout-Linotype-W20-Light-Copy6.woff) format("woff"),url(../font/Yakout-Linotype-W20-Light-Copy6.ttf) format("truetype");font-display:swap}@font-face{font-family:dvFont;src:url(../font/mvtyper-Copy7.woff2) format("woff2"),url(../font/mvtyper-Copy7.woff) format("woff"),url(../font/mvtyper-Copy7.ttf) format("truetype");font-display:swap}
+    @font-face {
+      font-family: dvFont;
+      src: url(../font/mvtyper-Copy7.woff2) format("woff2"), url(../font/mvtyper-Copy7.woff) format("woff"), url(../font/mvtyper-Copy7.ttf) format("truetype");
+      font-display: swap
+    }
+
+    /* ====================
+      CUSTOM COLUMN CLASSES
+      FOR SAHIHAIN HADITH 
+    ===================== */
+
+    /* removes justify from ar dv (titles and refs) + rs.
+justify doesnt look good on short cells like surukhi, masdars.
+so right align to prevent gaps in text */
+    .dataTable tr td.shCol1 {
+      text-align: right;
+    }
+
+    /* mobile only row centering, for rows with strings that are not long */
+    @media screen and (max-width: 900px) {
+
+      .dataTable tr td.shCol1,
+      .dataTable tr td.shCol5 {
+        text-align: center;
+      }
+
+      /* bold headers for mobile - first number at top */
+      .shCol1 {
+        font-weight: bold;
+      }
+    }
+
+    /* --- AR FONTS FOR TABLE --- */
+
+    /* tbody tr td.ahCol1, */
+    .dataTable tr td.shCol2,
+    .dataTable tr td.shCol3 {
+      font-family: "arFont", "dvFont", sans-serif;
+      font-size: 23px;
+      line-height: 1.7;
+    }
+
+    /* --- DV FONTS FOR TABLE --- */
+
+    /* .dataTable tr td.fnCol1, need this bigger */
+    .dataTable tr td.shCol4 {
+      font-family: "dvFont", "arFont", sans-serif;
+      font-size: 17px;
+      line-height: 1.9;
+    }
+
+    /* columns with ar numbers
+.dataTable tr td.ahCol7,
+.dataTable tr td.ahCol9 {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 21px;
+} */
+
+    /* css for first column
+cuz it has hashtag and digits */
+    .dataTable tr td.shCol1 {
+      font-size: 21px;
+    }
+
+    /* extra changes from fnCols */
+    .dataTable tr td.shCol5 {
+      text-align: center;
+      font-size: 18px;
+    }
 
     /*
-  <!-- fonts css -->
-  <link rel="stylesheet" href="../css/fonts.css" />
 
   <!-- DATATABLES CSS 1.10.22 -Originally 1.10.3 -->
   <link rel="stylesheet" href="../css/jquery.dataTables.min.css" />
@@ -155,12 +226,13 @@
           <!-- / CHANGE123 FIRST LINK -->
           <ul>
 
-<li class="pushy-link">
-          <!-- APKCHANGE 123 ===== -->
-          <a href="../books/barbahari-uc.html" target="_blank" rel="noopener">ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ</a></li>
+            <li class="pushy-link">
+              <!-- APKCHANGE 123 ===== -->
+              <a href="../books/barbahari-uc.html" target="_blank" rel="noopener">ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ</a>
+            </li>
 
-      </ul>
-    </li>
+          </ul>
+        </li>
 
         <li class="pushy-submenu">
           <button>އިތުރު މައުލޫމާތު</button>
