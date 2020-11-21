@@ -5,6 +5,7 @@ https://github.com/DataTables/DataTables -MIT
 https://github.com/hammerjs -MIT
 https://github.com/christophery/pushy -MIT
 https://github.com/julmot/mark.js -MIT
+https://github.com/orderedlist/minimal -CC BY-SA 3.0
 
 https://github.com/chromium/chromium -BSD-3-Clause
 https://github.com/microsoft/vscode -MIT
@@ -35,7 +36,6 @@ https://compressor.io
 https://vecta.io/nano
 https://github.com/svg/svgo -MIT
 
-https://github.com/upx/upx -GNU GPLv2
 https://sourceforge.net/projects/sevenzip -GNU LGPL
 
 https://github.com/tonsky/FiraCode -OFL-1.1
