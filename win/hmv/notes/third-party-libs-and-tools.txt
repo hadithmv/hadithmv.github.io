@@ -9,6 +9,7 @@ https://github.com/orderedlist/minimal -CC BY-SA 3.0
 
 https://github.com/chromium/chromium -BSD-3-Clause
 https://github.com/microsoft/vscode -MIT
+https://github.com/notepad-plus-plus/notepad-plus-plus -GNU GPLv2
 https://developer.android.com/studio -Apache 2.0
 https://r8.googlesource.com/r8
 https://github.com/GoogleChrome/lighthouse -Apache 2.0
@@ -35,7 +36,6 @@ https://github.com/yoksel/url-encoder
 https://compressor.io
 https://vecta.io/nano
 https://github.com/svg/svgo -MIT
-
 https://sourceforge.net/projects/sevenzip -GNU LGPL
 
 https://github.com/tonsky/FiraCode -OFL-1.1
