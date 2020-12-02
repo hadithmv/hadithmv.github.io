@@ -12,6 +12,7 @@ open index in dhc, save as hadithmv.dhc one dir back
 
 
 should keep ico file outsize compile dir to reduce size
+	~hadithmv.github.io\img\logo\newLogo5-roundedSquare\newLogo5-roundedSquare.ico
 should keep dhc outside compile dir too, else created exe's get repacked into the next exe, unless exe mask has been flagged
 
 ...

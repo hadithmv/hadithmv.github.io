@@ -1,17 +1,17 @@
 ﻿﻿<?xml version="1.0" encoding="utf-8"?>
-<HtmlCompiler Version="2021.9">
+<HtmlCompiler Version="2021.21">
   <App>
-    <ID>{E74C1E8D-3A0E-4FFE-979D-399779EF49B0}</ID>
+    <ID>{971A6706-5EF2-4650-B117-D3B344EF09C1}</ID>
     <Name>hadithmv</Name>
     <CompanyName>hadithmv</CompanyName>
     <FileDescription>hadithmv</FileDescription>
-    <FileVersion>2.0</FileVersion>
+    <FileVersion>2.04</FileVersion>
     <InternalName></InternalName>
     <LegalCopyright>yahyasdadmv</LegalCopyright>
-    <LegalTrademarks></LegalTrademarks>
-    <OriginalFileName></OriginalFileName>
-    <ProgramID></ProgramID>
-    <ProductVersion>2.0</ProductVersion>
+    <LegalTrademarks>hadithmv</LegalTrademarks>
+    <OriginalFileName>hadithmv</OriginalFileName>
+    <ProgramID>hadithmv</ProgramID>
+    <ProductVersion>2.04</ProductVersion>
     <Comments></Comments>
     <Width>0</Width>
     <Height>0</Height>
@@ -21,24 +21,31 @@
     <MinHeight>768</MinHeight>
     <Theme>Windows</Theme>
     <WindowStyle>0</WindowStyle>
-    <WindowBorder>1</WindowBorder>
+    <WindowBorder>2</WindowBorder>
     <WindowOrder>0</WindowOrder>
+    <WindowState>0</WindowState>
     <InstallFormColor>-16777190</InstallFormColor>
     <InstallIndicatorColor>1</InstallIndicatorColor>
     <InstallIndicatorType>0</InstallIndicatorType>
     <IcoPath>..\img\logo\newLogo5-roundedSquare\newLogo5-roundedSquare.ico</IcoPath>
     <AllowDebug>0</AllowDebug>
     <AllowContextMenu>1</AllowContextMenu>
+    <DynamicAppTitle>1</DynamicAppTitle>
     <Password></Password>
     <IndexHtml>hmv\index.html</IndexHtml>
-    <EdgeInstaller>0</EdgeInstaller>
+    <EdgeInstallerFull>0</EdgeInstallerFull>
+    <EdgeInstallerDown>0</EdgeInstallerDown>
     <OutputWin32>0</OutputWin32>
     <OutputWin64>1</OutputWin64>
-    <AllowInstances>0</AllowInstances>
-    <ExcludeMasks>*.exe;*.7z</ExcludeMasks>
+    <AllowInstances>1</AllowInstances>
+    <ExcludeMasks>*.7z;*.exe</ExcludeMasks>
+    <SigningToolName></SigningToolName>
+    <WebviewJavascript>
+      <![CDATA[]]>
+    </WebviewJavascript>
     <Generator>
       <Name>DecSoft HTML Compiler</Name>
-      <Version>2021.9</Version>
+      <Version>2021.21</Version>
       <Website>https://www.decsoftutils.com/</Website>
       <Orders>https://www.decsoftutils.com/store/</Orders>
       <EMail>info@decsoftutils.com</EMail>
