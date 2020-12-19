@@ -28,12 +28,12 @@ Dhivehi hadith translations at your fingertips
 </p>
 --->
 
-<br/><br/>
+<br> <br>
 
 <p align="center"><i>
   - In the Name of Allah, the Entirely Merciful, the Especially Merciful -</i>
 </p>
-<br/>
+<br>
 
 ### **Developing a Hadith App for Maldivians**
 
@@ -89,14 +89,14 @@ The **Hmv** project is a collaborated effort in making the sayings and teachings
 
 </table>
 
-<br/><br/>
+<br> <br>
 
 <div class="dv">
 
 <p align="center">
 - ރަޙްމާން ވަންތަ ރަޙީމް ވަންތަ ﷲ ގެ އިސްމުފުޅުން ފަށައިގަންނަމެވެ -
 </p>
-<br/>
+<br>
 
 <h3 align="right"><b>
 ޙަދީޘް އެމް.ވީ. - ދިވެހިންނަށް ޙަދީޘް އެޕްލިކޭޝަނެއް އުފެއްދުން
