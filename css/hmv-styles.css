@@ -765,7 +765,7 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   height: 40px;
   width: 40px;
   position: absolute;
-  background: url("../img/logo/newLogo5-N-iOptim-white-noback.svg") no-repeat;
+  background: url("../img/logo/newLogo5-Opt-white-noback.svg") no-repeat;
 
   /* can inline the html isntead for one less network request
   https://yoksel.github.io/url-encoder/ */
