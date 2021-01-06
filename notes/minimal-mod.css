@@ -372,6 +372,9 @@ width:33%;
 .hmv {
   width: 200px;
   height: 200px;
+  background: url("../img/logo/newLogo5-min-Opt.svg") no-repeat;
+  filter: invert(42%) sepia(39%) saturate(797%) hue-rotate(166deg)
+    brightness(94%) contrast(96%); /* svg fill color hack https://stackoverflow.com/a/53336754 */
 }
 
 /*
