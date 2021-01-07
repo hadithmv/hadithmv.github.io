@@ -2,7 +2,7 @@
 <html ⚡>
   <head>
     <meta charset="utf-8" />
-    <meta name="google" value="notranslate" />
+    <!-- <meta name="google" value="notranslate" /> The attribute 'value' may not appear in tag 'meta'.-->
 
     <!-- == GOOGLE AMP CODE == -->
     <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js" />
@@ -15,6 +15,169 @@
     ></script>
     <style amp-custom>
       /* Add your styles here */
+      @font-face {
+        font-family: "arFont";
+        src: url(../font/Yakout-Linotype-W20-Light-Copy6.woff2) format("woff2"),
+          url(../font/Yakout-Linotype-W20-Light-Copy6.woff) format("woff"),
+          url(../font/Yakout-Linotype-W20-Light-Copy6.ttf) format("truetype");
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "dvFont";
+        src: url(../font/mvtyper-Copy7.woff2) format("woff2"),
+          url(../font/mvtyper-Copy7.woff) format("woff"),
+          url(../font/mvtyper-Copy7.ttf) format("truetype");
+        font-display: swap;
+      }
+      body {
+        background-color: #fff;
+        padding: 30px;
+        font-size: 16px;
+        font-family: "dvFont", "arFont", sans-serif;
+        color: #222;
+      }
+      h1 {
+        font-size: 28px;
+        font-weight: 500;
+      }
+      a {
+        color: #39c;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #069;
+      }
+      .wrapper {
+        width: 860px;
+        margin: 0 auto;
+      }
+      blockquote {
+        border-left: 1px solid #e5e5e5;
+        margin: 0;
+        padding: 0 0 0 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      td,
+      th {
+        padding: 5px 10px;
+        border-bottom: 1px solid #e5e5e5;
+      }
+      dt,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 500;
+      }
+      dt,
+      th {
+        color: #444;
+      }
+      img {
+        max-width: 100%;
+      }
+      hr {
+        border: 0;
+        background: #e5e5e5;
+        height: 1px;
+        margin: 0 0 20px;
+      }
+      @media print, screen and (max-width: 960px) {
+        div.wrapper {
+          width: auto;
+          margin: 0;
+        }
+        @media print {
+          body {
+            padding: 0.4in;
+            font-size: 12pt;
+            color: #444;
+          }
+        }
+      }
+      .hmv {
+        width: 200px;
+        height: 200px;
+        background: url(../img/logo/newLogo5-min-Opt.svg) no-repeat;
+        filter: invert(42%) sepia(39%) saturate(797%) hue-rotate(166deg)
+          brightness(94%) contrast(96%);
+      }
+      .ContainerFlex {
+        height: 230px;
+      }
+      .badgeG,
+      .badgeW {
+        width: 250px;
+        display: block;
+        margin: auto;
+        padding-bottom: 10px;
+        padding-top: 10px;
+      }
+      p {
+        text-align: justify;
+      }
+      .mid,
+      .mid p {
+        text-align: center;
+      }
+      .dv {
+        direction: rtl;
+        font-family: "dvFont";
+        line-height: 2.1;
+      }
+      .ar,
+      h1.ar {
+        font-family: "arFont";
+        font-size: 32px;
+      }
+      .ar {
+        direction: rtl;
+        line-height: 1.8;
+        font-size: 21px;
+      }
+      .leftAlign,
+      td,
+      th {
+        text-align: center;
+      }
+      @media (min-width: 900px) {
+        .leftAlign {
+          text-align: left;
+        }
+        .padLeftBm {
+          padding-left: 100px;
+        }
+        .padLeftSm {
+          padding-left: 50px;
+        }
+      }
+      h2,
+      h3 {
+        line-height: 2;
+      }
+      .dv blockquote {
+        border-left: none;
+        border-right: 1px solid #e5e5e5;
+        margin: 0;
+        padding: 0 20px 0 0;
+      }
+      .dvTable td,
+      .dvTable th {
+        text-align: center;
+      }
+      .ind {
+        text-indent: 2em;
+      }
+      body > div > div.dv > p:nth-child(n + 7) {
+        font-size: 17px;
+      }
+      body > div > div.dv > p.ar {
+        font-size: 21px;
+      }
     </style>
     <style amp-boilerplate>
       body {
@@ -93,8 +256,8 @@
       color="#337ab7"
     />
 
-    <link rel="stylesheet" href="../minimal-mod.min.css" />
-    <!--
+    <!--<link rel="stylesheet" href="../minimal-mod.min.css" />
+    
     https://github.com/orderedlist/minimal
     -->
   </head>
@@ -128,7 +291,10 @@
       <div class="mid">
         <h1 class="ar">بِسمِ اللهِ الرَّحمَنِ الرَّحِيمِ</h1>
         <br />
-        <img class="hmv" src="../../img/logo/newLogo5-min-Opt.svg" />
+        <amp-img
+          class="hmv"
+          src="../../img/logo/newLogo5-min-Opt.svg"
+        ></amp-img>
 
         <br /><br />
         <h2>hadithmv - Accessible and Sourced</h2>
@@ -139,13 +305,20 @@
         <div class="ContainerFlex">
           <a
             href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
-            ><img class="badgeG" src="../../img/gb/google-play-badge-Opt.svg"
-          /></a>
+            ><amp-img
+              class="badgeG"
+              src="../../img/gb/google-play-badge-Opt.svg"
+            ></amp-img
+          ></a>
 
           <a
             href="https://github.com/hadithmv/hadithmv.github.io/raw/master/win/hmv/hadithmv_Win64.7z"
-            ><img class="badgeW" src="../../img/wb/windows-badge-Opt.svg"
-          /></a>
+            ><amp-img
+              class="badgeW"
+              src="../../img/wb/windows-badge-Opt.svg"
+            ></amp-img
+            >/amp-img></a
+          >
         </div>
       </div>
 
