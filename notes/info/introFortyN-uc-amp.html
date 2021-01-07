@@ -4,6 +4,78 @@
     <meta charset="utf-8" />
     <meta name="google" value="notranslate" />
 
+    <!-- == GOOGLE AMP CODE == -->
+    <link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js" />
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <!-- Import other AMP Extensions here -->
+    <script
+      async
+      custom-element="amp-analytics"
+      src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"
+    ></script>
+    <style amp-custom>
+      /* Add your styles here */
+    </style>
+    <style amp-boilerplate>
+      body {
+        -webkit-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        -moz-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        -ms-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+      }
+      @-webkit-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-moz-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-ms-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-o-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+    </style>
+    <noscript
+      ><style amp-boilerplate>
+        body {
+          -webkit-animation: none;
+          -moz-animation: none;
+          -ms-animation: none;
+          animation: none;
+        }
+      </style></noscript
+    >
+    <!-- == GOOGLE AMP CODE END == -->
+
     <title>40 Nawawi Intro</title>
     <meta name="viewport" content="width=device-width" />
 
@@ -982,20 +1054,23 @@
     added async then changed to defer on my own https://developers.google.com/analytics/devguides/collection/analyticsjs
     https://daan.dev/wordpress/difference-analyics-gtag-ga-js/ supports analytics js over gtag
     -->
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      defer
-      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
-    ></script>
-    <script defer>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+    <!-- Global site tag (gtag.js) - Google Analytics 
+    AMP -->
 
-      gtag("config", "G-HL24Q9NN24");
-    </script>
-    <!-- End Google Analytics -->
+    <amp-analytics type="gtag" data-credentials="include">
+      <script type="application/json">
+        {
+          "vars": {
+            "gtag_id": "G-HL24Q9NN24",
+            "config": {
+              "G-HL24Q9NN24": {
+                "groups": "default"
+              }
+            }
+          }
+        }
+      </script>
+    </amp-analytics>
+    <!-- End Google Analytics = AMP -->
   </body>
 </html>
