@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<head>
+    <title>$title</title>
+    <meta property="og:site_name" content="$site_name">
+    <meta property="og:description" content="$description">
+    <meta property="article:author" content="$author">
+    <!--$image_url is set using og:image property-->
+    <meta property="og:image" content="http://mif.li/kek.jpg">
+    <meta property="telegram:channel" content="@cor_bee">
+    <!--site_verification property must be present, but could be empty (no IVBot-side verification for now?)-->
+    <meta property="tg:site_verification" content="g7j8/rPFXfhyrq5q0QQV7EsYWv4=">
+    <!--published_time property must be present, but you could leave content empty if no $published_date is wanted-->
+    <meta property="article:published_time" content="2020-02-03T23:10:04.654Z">
+</head>
+
+<body>
+    <div class="article">
+        <article class="article__content">
+            <!--if first element in article is figure it's going to be set/used as $cover-->
+            <figure>
+                <img src="http://mif.li/kek2.jpg" />
+                <figcaption>figcaption</figcaption>
+            </figure>
+
+            <p>Hello world</p>
+            <!--Your IV-code goes here-->
+        </article>
+    </div>
+</body>
+
+</html>
