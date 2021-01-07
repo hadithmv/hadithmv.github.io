@@ -4,4 +4,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: http://hadithmv.github.io/sitemap.xml
+Sitemap: https://hadithmv.github.io/sitemap.xml

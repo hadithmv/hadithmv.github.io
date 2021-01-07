@@ -3,7 +3,7 @@
 </b></h3>
 <br>
 <p align="center">
-<img src="http://hadithmv.github.io/img/logo/newLogo5-blueFront-whiteBack-Opt.svg" width="200">
+<img src="https://hadithmv.github.io/img/logo/newLogo5-blueFront-whiteBack-Opt.svg" width="200">
 </p>
 
 <h2 align="center"><b>
@@ -15,16 +15,16 @@ Dhivehi hadith translations at your fingertips
 </p>
 
 <p align="center">
-  View the <a href="https://http://hadithmv.github.io">web version</a>
+  View the <a href="https://https://hadithmv.github.io">web version</a>
 </p>
 
 <!---
 <p align="center">
-<img href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv" src="http://hadithmv.github.io/img/gb/google-play-badge-Opt.svg" width="200">(http://google.com.au/)
+<img href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv" src="https://hadithmv.github.io/img/gb/google-play-badge-Opt.svg" width="200">(http://google.com.au/)
 </p>
 
 <p align="center">
-<img href="https://github.com/hadithmv/hadithmv.github.io/raw/master/win/hmv/hadithmv_Win64.7z" src="http://hadithmv.github.io/img/wb/windows-badge-Opt.svg" width="200">
+<img href="https://github.com/hadithmv/hadithmv.github.io/raw/master/win/hmv/hadithmv_Win64.7z" src="https://hadithmv.github.io/img/wb/windows-badge-Opt.svg" width="200">
 </p>
 --->
 
