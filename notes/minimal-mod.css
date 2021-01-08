@@ -369,6 +369,15 @@ width:33%;
 /* ==============The following is additional custom code
 ============================= */
 
+body {
+  direction: rtl;
+}
+
+p {
+  line-height: 2.1;
+  text-align: justify;
+}
+
 .hmv {
   width: 200px;
   height: 200px;
@@ -406,17 +415,12 @@ width:33%;
   padding-top: 10px;
 }
 
-p {
-  text-align: justify;
-}
-
 .mid,
 .mid p {
   text-align: center;
 }
 
 .dv {
-  direction: rtl;
   font-family: "dvFont";
   line-height: 2.1;
 }
@@ -427,7 +431,6 @@ h1.ar {
 }
 
 .ar {
-  direction: rtl;
   font-family: "arFont";
   line-height: 1.8;
   font-size: 21px;
