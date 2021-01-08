@@ -327,7 +327,7 @@ ul {
 
 /* moves pushy list items a little to the left, indent */
 .pushy-link a {
-  text-indent: 1em;
+  /* text-indent: 1em; */
   direction: rtl;
 }
 
