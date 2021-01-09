@@ -17,7 +17,7 @@ in AndroidManifest.xml
 ...
 ...
 <!-- APKCHANGE 123 -->
-
+MainActivity.java
 changed        // mWebView.loadUrl("file:///android_asset/index.html");
 to         mWebView.loadUrl("file:///android_asset/books/index.html");
 this is to try an reduce having to edit dir redirects while editing
