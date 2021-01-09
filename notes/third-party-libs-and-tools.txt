@@ -2,7 +2,7 @@ https://github.com/h5bp/html5-boilerplate -MIT
 https://github.com/necolas/normalize.css -MIT
 https://github.com/jquery/jquery -MIT
 https://github.com/DataTables/DataTables -MIT
-https://github.com/hammerjs -MIT
+https://github.com/hammerjs/hammer.js -MIT
 https://github.com/christophery/pushy -MIT
 https://github.com/julmot/mark.js -MIT
 https://github.com/orderedlist/minimal -CC BY-SA 3.0
