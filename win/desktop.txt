@@ -19,6 +19,7 @@ should keep dhc outside compile dir too, else created exe's get repacked into th
 dont have to go back a dir for css and js and then go foward a dir
 ../css/COMBcss.min.css	this html wont work in browser
 but in compiler and exe it will work as css/COMBcss.min.css on execute
+(this is not true for apks)
 
 
 <link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
