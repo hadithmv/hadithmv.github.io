@@ -2,7 +2,7 @@ https://github.com/h5bp/html5-boilerplate -MIT
 https://github.com/necolas/normalize.css -MIT
 https://github.com/jquery/jquery -MIT
 https://github.com/DataTables/DataTables -MIT
-https://github.com/hammerjs -MIT
+https://github.com/hammerjs/hammer.js -MIT
 https://github.com/christophery/pushy -MIT
 https://github.com/julmot/mark.js -MIT
 https://github.com/orderedlist/minimal -CC BY-SA 3.0
@@ -29,6 +29,8 @@ https://docs.google.com/spreadsheets
 https://www.json.org/json-en
 https://github.com/sqlite/sqlite
 https://github.com/pawelsalawa/sqlitestudio -GNU GPLv3
+https://github.com/PowerShell/PowerShell -MIT
+https://sourceforge.net/projects/sevenzip -GNU LGPL
 https://gitlab.gnome.org/GNOME/meld -GNU GPLv2
 
 https://github.com/photopea/photopea
@@ -36,13 +38,13 @@ https://github.com/yoksel/url-encoder
 https://compressor.io
 https://vecta.io/nano
 https://github.com/svg/svgo -MIT
-https://sourceforge.net/projects/sevenzip -GNU LGPL
 
+https://github.com/maaldheefee/mushaf-page-border
+https://nashrschool.qurancomplex.gov.sa
 https://github.com/tonsky/FiraCode -OFL-1.1
 http://www.hassanhameed.com/?page_id=154
 https://fonts.qurancomplex.gov.sa/wp02
-https://github.com/maaldheefee/mushaf-page-border
 
 https://sunnah.alifta.gov.sa
 https://shamela.ws
-https://nashrschool.qurancomplex.gov.sa
+https://github.com/kudanai/Quran-Translation
