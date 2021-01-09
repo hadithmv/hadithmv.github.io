@@ -37,7 +37,7 @@ Dhivehi hadith translations at your fingertips
 
 ### **Developing a Hadith App for Maldivians**
 
-The **Hmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a Hadith collection in their native language, Dhivehi. Any good is from Allah, and any shortcomings are from ourselves and shaithan.
+The **hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a Hadith collection in their native language, Dhivehi. Any good is from Allah, and any shortcomings are from ourselves and shaithan.
 
 ## Goals
 
@@ -53,7 +53,7 @@ The **Hmv** project is a collaborated effort in making the sayings and teachings
 
 ### **Progressive**
 
-> It is Allah who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. Hmv is designed to be mobile-first with minimal bloat. Currently both web and Android are supported.
+> It is Allah who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. hadithmv is designed to be mobile-first with minimal bloat. Currently both web and Android are supported.
 
 ## Milestones
 
