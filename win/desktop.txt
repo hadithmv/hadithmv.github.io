@@ -6,7 +6,7 @@ ICFX
 
 index is exact same as apk assets index file
 
-for win desktop app, index has to be at root dir, not sub dir like with apk
+for win desktop app, index has to be at root dir, not sub dirs which are possible in apks
 
 open index in dhc, save as hadithmv.dhc one dir back
 
@@ -17,8 +17,9 @@ should keep dhc outside compile dir too, else created exe's get repacked into th
 
 ...
 dont have to go back a dir for css and js and then go foward a dir
-works as is in compiler
-althought the html file itself wont show anything if run on its own
+../css/COMBcss.min.css	this html wont work in browser
+but in compiler and exe it will work as css/COMBcss.min.css on execute
+
 
 <link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
     <!-- this works as fallback but causes FOUC in apk app, but not in win app where this is needed -->
