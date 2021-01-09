@@ -16,7 +16,7 @@ in AndroidManifest.xml
 
 ...
 ...
-<!-- APKCHANGE 123 ===== -->
+<!-- APKCHANGE 123 -->
 
 changed        // mWebView.loadUrl("file:///android_asset/index.html");
 to         mWebView.loadUrl("file:///android_asset/books/index.html");
