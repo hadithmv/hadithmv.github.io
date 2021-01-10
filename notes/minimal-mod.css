@@ -436,6 +436,11 @@ h1.ar {
   font-size: 21px;
 }
 
+.en {
+  font-family: sans-serif, serif;
+  direction: ltr;
+}
+
 /* moves letter end name to make it look better */
 .leftAlign {
   text-align: center;
