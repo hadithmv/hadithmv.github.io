@@ -48,11 +48,11 @@ to this		<a href="index.html">ނަވަވީގެ 40 ޙަދީޘް</a>
 
 
 href="../books/umdah.html"
-href="../books/umdah-uc.html"
+href="../books/umdah.html"
 <a href="../books/sahihain.html" target="_blank" rel="noopener"
-<a href="../books/sahihain-uc.html" target="_blank" rel="noopener"
-href="../books/otherHadith-uc.html"
-href="../books/otherHadith-uc.html"
+<a href="../books/sahihain.html" target="_blank" rel="noopener"
+href="../books/otherHadith.html"
+href="../books/otherHadith.html"
 
 .....remove ... back dir to go to them....
 href="../notes/info/introHmv.html"
