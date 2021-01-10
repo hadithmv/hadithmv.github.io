@@ -1,0 +1,2 @@
+Set-Location -Path C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\UC
+html-minifier --file-ext html --collapseBooleanAttributes --collapseWhitespace --decodeEntities --minifyCSS true --minifyJS true --processScripts [text/html] --removeAttributeQuotes --removeComments --removeEmptyAttributes --removeOptionalTags --removeRedundantAttributes --removeScriptTypeAttributes --removeStyleLinkTypeAttributes --removeTagWhitespace --sortAttributes --sortClassName --trimCustomFragments --useShortDoctype --output-dir ..\
