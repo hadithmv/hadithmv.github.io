@@ -135,6 +135,17 @@ npm i prettier -g
 npm i stylelint-config-prettier stylelint-prettier -g
 npm i standard -g
 
+CURRENT LIST
++-- csso-cli@3.0.0
++-- google-closure-compiler@20201102.0.1
++-- html-minifier@4.0.0
++-- htmlhint@0.14.2
++-- standard@16.0.3
++-- stylelint-config-prettier@8.0.2
++-- stylelint-config-standard@20.0.0
++-- stylelint-prettier@1.1.2
+`-- uglify-js@3.12.1
+
 ----------------------------------------
 
 https://github.com/hadithmv/hadithmv-cloned-15.3.20
