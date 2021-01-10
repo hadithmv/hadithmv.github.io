@@ -30,10 +30,10 @@
       content="https://hadithmv.github.io/img/logo/newLogo5-roundedSquare/newLogo5-roundedSquare-1080-compressor.png"
     />
 
-    <title>hadithmv - Umdatul Ahkam</title>
+    <title>hadithmv - Barbahari's Explanation of the Sunnah</title>
     <meta
       name="description"
-      content="Dhivehi hadith translations of Umdatul Ahkam."
+      content="Dhivehi Aqidah translations at your fingertips."
     />
     <!-- === META TAGS - END === -->
 
@@ -46,33 +46,31 @@
     <style>
       /* ====================
       CUSTOM COLUMN CLASSES
-      FOR FOR UMDAH HADITH 
+      FOR BARBAHARI
     ===================== */
 
       /* CHANGE123 classes and fonts */
 
       /* removes justify from ar dv (titles and refs) + rs.
-justify doesnt look good on short cells like surukhi, masdars.
-so right align to prevent gaps in text */
-      .dataTable tr td.uhCol1,
-      .dataTable tr td.uhCol2,
-      .dataTable tr td.uhCol9 {
-        text-align: right;
-      }
+    justify doesnt look good on short cells like surukhi, masdars.
+    so right align to prevent gaps in text 
+    .dataTable tr td.barbaCol2,
+    .dataTable tr td.barbaCol3,
+    .dataTable tr td.barbaCol7,
+    .dataTable tr td.barbaCol8,
+    .dataTable tr td.barbaCol9 {
+      text-align: right;
+    } */
 
       /* mobile only row centering, for rows with strings that are not long */
+
       @media screen and (max-width: 900px) {
-        .dataTable tr td.uhCol1,
-        .dataTable tr td.uhCol2,
-        .dataTable tr td.uhCol3,
-        .dataTable tr td.uhCol4,
-        .dataTable tr td.uhCol5,
-        .dataTable tr td.uhCol9 {
+        .dataTable tr td.barbaCol1 {
           text-align: center;
         }
 
         /* bold headers for mobile - first number at top */
-        .uhCol1 {
+        .barbaCol1 {
           font-weight: bold;
         }
       }
@@ -80,11 +78,8 @@ so right align to prevent gaps in text */
       /* --- AR FONTS FOR TABLE --- */
 
       /* tbody tr td.fnCol1, */
-      .dataTable tr td.uhCol2,
-      .dataTable tr td.uhCol4,
-      .dataTable tr td.uhCol6,
-      .dataTable tr td.uhCol7,
-      .dataTable tr td.uhCol9 {
+      .dataTable tr td.barbaCol2,
+      .dataTable tr td.barbaCol3 {
         font-family: "arFont", "dvFont", sans-serif;
         font-size: 23px;
         line-height: 1.7;
@@ -95,41 +90,30 @@ so right align to prevent gaps in text */
       /* --- DV FONTS FOR TABLE --- */
 
       /* .dataTable tr td.fnCol1, need this bigger */
-      .dataTable tr td.uhCol1,
-      .dataTable tr td.uhCol3,
-      .dataTable tr td.uhCol5,
-      .dataTable tr td.uhCol8 {
+      .dataTable tr td.barbaCol4 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 17px;
         line-height: 1.9;
       }
 
-      /* columns with ar numbers */
-      .dataTable tr td.uhCol9 {
-        font-family: "arFont", "dvFont", sans-serif;
-        font-size: 21px;
-      }
+      /* columns with ar numbers 
+    .dataTable tr td.barbaCol7,
+    .dataTable tr td.barbaCol9 {
+      font-family: "arFont", "dvFont", sans-serif;
+      font-size: 21px;
+    } */
 
       /* css for first column
-# number column cuz it has hashtag and digits */
-      .dataTable tr td.uhCol1 {
+    # number column cuz it has hashtag and digits */
+      .dataTable tr td.barbaCol1 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 21px;
       }
 
-      /* Umdah only kitab bab top bottom padding removal */
-      .dataTable tr td.uhCol2,
-      .dataTable tr td.uhCol3,
-      .dataTable tr td.uhCol4,
-      .dataTable tr td.uhCol5 {
-        padding-top: 0;
-        padding-bottom: 0;
-      }
-
       /*
-
-  <!-- DATATABLES CSS 1.10.23 -Originally 1.10.3 -->
-  <link rel="stylesheet" href="../css/jquery.dataTables.min.css" />
+    
+      <!-- DATATABLES CSS 1.10.23 -Originally 1.10.3 -->
+      <link rel="stylesheet" href="../css/jquery.dataTables.min.css" />
 
   <!-- Datatable Buttons Css 1.6.5 -->
   <link rel="stylesheet" href="../css/buttons.dataTables.min.css" />
@@ -141,7 +125,7 @@ so right align to prevent gaps in text */
   <link rel="stylesheet" href="../css/hmv-styles.css" />
 
   <!-- ===== ===== CSS LIBRARIES - END ===== ===== -->
-    */
+  */
     </style>
     <!-- COMBINED css -->
     <link rel="stylesheet" href="../css/COMBcss.min.css" />
@@ -150,12 +134,12 @@ so right align to prevent gaps in text */
    this works as fallback but causes FOUC in apk app, but not in win app where this is needed -->
     <!-- APKCHANGE 123 - WINCHANGE 123 ===== -->
     <!-- loadcss by filament group, currently causes fouc so not in use, inline critical css later
-      <link
-      rel="stylesheet"
-      href="../css/COMBcss.min.css"
-      media="print"
-      onload="this.media='all'; this.onload=null;"
-    /> -->
+    <link
+    rel="stylesheet"
+    href="../css/COMBcss.min.css"
+    media="print"
+    onload="this.media='all'; this.onload=null;"
+  /> -->
   </head>
   <!-- ===== HEAD - END ===== -->
 
@@ -177,81 +161,28 @@ so right align to prevent gaps in text */
         <ul>
           <!-- Submenu -->
           <li class="pushy-submenu">
-            <button id="first-link">ޙަދީޘް ފޮތްތައް</button>
+            <button>ޙަދީޘް ފޮތްތައް</button>
             <ul>
               <li class="pushy-link">
                 <!-- APKCHANGE 123 -->
-                <a
-                  href="https://hadithmv.github.io"
-                  target="_blank"
-                  rel="noopener"
-                  >ނަވަވީގެ 40 ޙަދީޘް</a
-                >
-              </li>
-
-              <li class="pushy-submenu">
-                <button>ޢުމްދަތުލް އަޙްކާމް</button>
-                <ul>
-                  <li class="pushy-link">
-                    <a href="umdah-uc.html" target="_blank" rel="noopener"
-                      >‌كتاب الطهارة</a
-                    >
-                  </li>
-                  <li class="pushy-link">
-                    <a
-                      href="umdah-uc.html#umdahTable=l1:p49"
-                      target="_blank"
-                      rel="noopener"
-                      >‌كتاب الصلاة</a
-                    >
-                  </li>
-                  <li class="pushy-link">
-                    <a
-                      href="umdah-uc.html#umdahTable=l1:p161"
-                      target="_blank"
-                      rel="noopener"
-                      >‌كتاب الجنائز</a
-                    >
-                  </li>
-                  <li class="pushy-link">
-                    <a
-                      href="umdah-uc.html#umdahTable=l1:p175"
-                      target="_blank"
-                      rel="noopener"
-                      >‌كتاب الزكاة</a
-                    >
-                  </li>
-                  <li class="pushy-link">
-                    <a
-                      href="umdah-uc.html#umdahTable=l1:p184"
-                      target="_blank"
-                      rel="noopener"
-                      >‌كتاب الصيام</a
-                    >
-                  </li>
-                  <li class="pushy-link">
-                    <a
-                      href="umdah-uc.html#umdahTable=l1:p218"
-                      target="_blank"
-                      rel="noopener"
-                      >‌كتاب الحج</a
-                    >
-                  </li>
-                </ul>
+                <a href="../index.html">ނަވަވީގެ 40 ޙަދީޘް</a>
               </li>
 
               <li class="pushy-link">
-                <a
-                  href="../books/sahihain-uc.html"
-                  target="_blank"
-                  rel="noopener"
+                <a href="../books/umdah.html" target="_blank" rel="noopener"
+                  >ޢުމްދަތުލް އަޙްކާމް</a
+                >
+              </li>
+
+              <li class="pushy-link">
+                <a href="../books/sahihain.html" target="_blank" rel="noopener"
                   >ޞަޙީޙައިން (ނުނިމޭ)</a
                 >
               </li>
 
               <li class="pushy-link">
                 <a
-                  href="../books/otherHadith-uc.html"
+                  href="../books/otherHadith.html"
                   target="_blank"
                   rel="noopener"
                   >އެހެނިހެން ޙަދީޘްތައް</a
@@ -264,7 +195,7 @@ so right align to prevent gaps in text */
             <button>ކީރިތި ޤުރްއާން</button>
             <ul>
               <li class="pushy-link">
-                <a href="../books/quran-uc.html" target="_blank" rel="noopener"
+                <a href="../books/quran.html" target="_blank" rel="noopener"
                   >ސޫރަތުލް ފާތިޙާ</a
                 >
               </li>
@@ -272,13 +203,10 @@ so right align to prevent gaps in text */
           </li>
 
           <li class="pushy-submenu">
-            <button>ޢަޤީދާގެ ފޮތްތައް</button>
+            <button id="first-link">ޢަޤީދާގެ ފޮތްތައް</button>
             <ul>
               <li class="pushy-link">
-                <a
-                  href="../books/barbahari-uc.html"
-                  target="_blank"
-                  rel="noopener"
+                <a href="../books/barbahari.html" target="_blank" rel="noopener"
                   >ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ</a
                 >
               </li>
@@ -325,7 +253,6 @@ so right align to prevent gaps in text */
               </li>
 
               <li class="pushy-link">
-                <!-- APKCHANGE 123 -->
                 <a href="../LICENSE.txt" target="_blank" rel="noopener"
                   >ލައިސެންސް</a
                 >
@@ -513,38 +440,34 @@ so right align to prevent gaps in text */
 
     <!-- Your Content after pushy sidebar, has to have this id or pushy navbar wont work -->
     <div id="container">
-      <!-- <button class="menu-btn">&#9776; Menu</button> -->
+      <!-- <button class="menu-btn">&#9776; Menu</button>  -->
 
       <!-- myTabs - MOVED INTO PUSHY MENU ABOVE
-        <button class="tablink" onclick="openLink(event, 'Right')">Right</button>
-        myTabs - end -->
+      <button class="tablink" onclick="openLink(event, 'Right')">Right</button>
+      myTabs - end -->
 
       <!-- First tab
-      / CHANGE123 TAB id="umdahTab" class="myTab"-->
+    / CHANGE123 TAB id="fortyNTab" class="myTab" -->
       <main class="w3-animate-right">
+        <!-- previously main was div, might have broken some css elsewhere -->
         <!-- if these tab classes and IDs are given to table, dt wrapper wont hide when tabbed away -->
 
         <!-- DT table classes
-             "display": Short-hand for stripe, hover, row-border, order-column. "cell-border": Border around 4 sides of each cell.
-             "compact": Reduce the amount of white-space around tables, so denser. "hover": highlighting on mouse over.
-             "nowrap": no wrapping of content in table, cell text is on a single line. "order-column": Highlight column that table data is currently ordered on.
-             "row-border": Border around only the top an bottom of each row. cell-border and row-border cannot be used together. "stripe": Row striping-->
+            "display": Short-hand for stripe, hover, row-border, order-column. "cell-border": Border around 4 sides of each cell.
+            "compact": Reduce the amount of white-space around tables, so denser. "hover": highlighting on mouse over.
+            "nowrap": no wrapping of content in table, cell text is on a single line. "order-column": Highlight column that table data is currently ordered on.
+            "row-border": Border around only the top an bottom of each row. cell-border and row-border cannot be used together. "stripe": Row striping-->
         <!--removed: cell-border, cellspacing="0" class="fnClass width="100%" -->
         <!-- cards adds card code to table ID, done via js -->
         <!-- added myTab and w3-animate-right for tabs -->
         <!-- ===== TABLE =====
-            / CHANGE123 TABLE -->
+          / CHANGE123 TABLE -->
         <!-- JEKYLL CHANGE123 {{ content }} -->
 
-        <table id="umdahTable" class="stripe table">
+        <table id="barbaTable" class="stripe table">
           <!-- fnClass -->
           <thead>
             <tr>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
               <th></th>
               <th></th>
               <th></th>
@@ -558,9 +481,9 @@ so right align to prevent gaps in text */
       <!-- <div id="fortyNTab" class="myTab w3-animate-right"> first tab END -->
 
       <!-- Template for offline tabs
-        <div id="bukhariTab" class="myTab w3-animate-right" style="display:none">
-            <p>two</p>
-        </div>-->
+      <div id="bukhariTab" class="myTab w3-animate-right" style="display:none">
+          <p>two</p>
+      </div>-->
     </div>
     <!-- Pushy content container - END === -->
 
@@ -641,9 +564,9 @@ https://github.com/christophery/pushy/tree/master/js
         otherwise if json too large script will take too long to load
         CHANGE123 JS
         'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
-    <script defer src="../js/umdah.js"></script>
+    <script defer src="../js/barbahari.js"></script>
     <!-- Custom JS -->
-    <script defer src="../js/umdah-script.min.js"></script>
+    <script defer src="../js/barbahari-script.min.js"></script>
 
     <!-- COMBINED js part 2
     i split this into two, so as to defer js parsing

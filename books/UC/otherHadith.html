@@ -24,8 +24,8 @@
   <meta property="og:image"
     content="https://hadithmv.github.io/img/logo/newLogo5-roundedSquare/newLogo5-roundedSquare-1080-compressor.png" />
 
-  <title>hadithmv - Sahihain</title>
-  <meta name="description" content="Dhivehi hadith translations of Sahih Bukhari and Muslim." />
+  <title>hadithmv - Other Hadith</title>
+  <meta name="description" content="Other hadith that have been collected and translated into Dhivehi." />
   <!-- === META TAGS - END === -->
 
   <!-- ===== ===== FONTS PRELOAD ===== ===== 
@@ -37,26 +37,26 @@
   <style>
     /* ====================
       CUSTOM COLUMN CLASSES
-      FOR SAHIHAIN HADITH 
+      FOR OTHER HADITH 
     ===================== */
 
     /* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells like surukhi, masdars.
 so right align to prevent gaps in text */
-    .dataTable tr td.shCol1 {
+    .dataTable tr td.hCol1 {
       text-align: right;
     }
 
     /* mobile only row centering, for rows with strings that are not long */
     @media screen and (max-width: 900px) {
 
-      .dataTable tr td.shCol1,
-      .dataTable tr td.shCol5 {
+      .dataTable tr td.ohCol1,
+      .dataTable tr td.ohCol5 {
         text-align: center;
       }
 
       /* bold headers for mobile - first number at top */
-      .shCol1 {
+      .ohCol1 {
         font-weight: bold;
       }
     }
@@ -64,8 +64,8 @@ so right align to prevent gaps in text */
     /* --- AR FONTS FOR TABLE --- */
 
     /* tbody tr td.ahCol1, */
-    .dataTable tr td.shCol2,
-    .dataTable tr td.shCol3 {
+    .dataTable tr td.ohCol2,
+    .dataTable tr td.ohCol3 {
       font-family: "arFont", "dvFont", sans-serif;
       font-size: 23px;
       line-height: 1.7;
@@ -74,7 +74,7 @@ so right align to prevent gaps in text */
     /* --- DV FONTS FOR TABLE --- */
 
     /* .dataTable tr td.fnCol1, need this bigger */
-    .dataTable tr td.shCol4 {
+    .dataTable tr td.ohCol4 {
       font-family: "dvFont", "arFont", sans-serif;
       font-size: 17px;
       line-height: 1.9;
@@ -89,12 +89,12 @@ so right align to prevent gaps in text */
 
     /* css for first column
 cuz it has hashtag and digits */
-    .dataTable tr td.shCol1 {
+    .dataTable tr td.ohCol1 {
       font-size: 21px;
     }
 
     /* extra changes from fnCols */
-    .dataTable tr td.shCol5 {
+    .dataTable tr td.ohCol5 {
       text-align: center;
       font-size: 18px;
     }
@@ -152,190 +152,190 @@ cuz it has hashtag and digits */
         <!-- Submenu -->
         <li class="pushy-submenu">
           <button id="first-link">ޙަދީޘް ފޮތްތައް</button>
-          <ul>
 
-            <li class="pushy-link">
-              <!-- APKCHANGE 123 -->
-              <a href="../index.html">ނަވަވީގެ 40 ޙަދީޘް</a>
-            </li>
-
-            <li class="pushy-link">
-              <a href="../books/umdah-uc.html" target="_blank" rel="noopener">ޢުމްދަތުލް އަޙްކާމް</a>
-            </li>
-
-            <li class="pushy-link">
-              <a href="../books/sahihain-uc.html">ޞަޙީޙައިން (ނުނިމޭ)</a>
-            </li>
-
-            <li class="pushy-link">
-              <a href="../books/otherHadith-uc.html" target="_blank" rel="noopener">އެހެނިހެން ޙަދީޘްތައް</a>
-            </li>
-
-          </ul>
+        <li class="pushy-link">
+          <!-- APKCHANGE 123 -->
+          <a href="https://hadithmv.github.io" target="_blank" rel="noopener">ނަވަވީގެ 40 ޙަދީޘް</a>
         </li>
 
-        <li class="pushy-submenu">
-          <button>ކީރިތި ޤުރްއާން</button>
-          <ul>
-
-            <li class="pushy-link">
-              <a href="../books/quran-uc.html" target="_blank" rel="noopener">ސޫރަތުލް ފާތިޙާ</a>
-            </li>
-
-          </ul>
+        <li class="pushy-link">
+          <a href="../books/umdah.html" target="_blank" rel="noopener">ޢުމްދަތުލް އަޙްކާމް</a>
         </li>
 
-        <li class="pushy-submenu">
-          <button>ޢަޤީދާގެ ފޮތްތައް</button>
-          <ul>
-
-            <li class="pushy-link">
-              <a href="../books/barbahari-uc.html" target="_blank" rel="noopener">ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ</a>
-            </li>
-
-          </ul>
+        <li class="pushy-link">
+          <a href="../books/sahihain.html" target="_blank" rel="noopener">ޞަޙީޙައިން (ނުނިމޭ)</a>
         </li>
 
-        <li class="pushy-submenu">
-          <button>އިތުރު މައުލޫމާތު</button>
-          <ul>
-            <li class="pushy-link">
-              <a href="../notes/info/introHmv.html" target="_blank" rel="noopener">ޙަދީޘްއެމްވީ</a>
-            </li>
-
-            <li class="pushy-link">
-              <a href="../notes/info/introFortyN.html" target="_blank" rel="noopener">ނަވަވީގެ 40 ޙަދީޘް</a>
-            </li>
-
-            <li class="pushy-link">
-              <a href="../notes/info/introUmdah.html" target="_blank" rel="noopener">ޢުމްދަތުލް އަޙްކާމް</a>
-            </li>
-
-            <li class="pushy-link">
-              <a href="../notes/third-party-libs-and-tools.txt" target="_blank" rel="noopener">ބޭނުން ކުރެވުނު
-                ތަކެތި</a>
-            </li>
-
-            <li class="pushy-link">
-              <a href="../LICENSE.txt" target="_blank" rel="noopener">ލައިސެންސް</a>
-            </li>
-
-            <li class="pushy-link desktopOnly">
-              <a href="#" onclick="myHelp()">ކީބޯޑް ނެވިގޭޝަން</a>
-            </li>
-
-          </ul>
+        <li class="pushy-link">
+          <a href="../books/otherHadith.html">އެހެނިހެން ޙަދީޘްތައް</a>
         </li>
 
-        <li class="pushy-submenu">
-          <button>މަންސަތައް</button>
-          <ul>
-            <li class="pushy-submenu">
-              <button>ޕީޑީއެފް</button>
-              <ul>
-                <li class="pushy-link">
-                  <a href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf" target="_blank"
-                    rel="noopener">ނަވަވީގެ 40 ޙަދީޘް</a>
-                </li>
-              </ul>
-            </li>
+      </ul>
+      </li>
 
-            <li class="pushy-submenu">
-              <button>ލައިޓް ވަރޝަން</button>
-              <ul>
-                <li class="pushy-link">
-                  <a href="https://hadithmv.github.io/books/nawawi-lite.html" target="_blank" rel="noopener">ނަވަވީގެ 40
-                    ޙަދީޘް</a>
-                </li>
-              </ul>
-            </li>
+      <li class="pushy-submenu">
+        <button>ކީރިތި ޤުރްއާން</button>
+        <ul>
 
-            <li class="pushy-link">
-              <a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv" target="_blank"
-                rel="noopener">އެންޑްރޮއިޑް</a>
-            </li>
-            <li class="pushy-submenu">
-              <button>ޑެސްކްޓޮޕް</button>
-              <ul>
-                <li class="pushy-link">
-                  <a href="https://github.com/hadithmv/hadithmv.github.io/raw/master/win/hmv/hadithmv_Win64.7z"
-                    target="_blank" rel="noopener">ވިންޑޯސް</a>
-                </li>
-                <li class="pushy-link">
-                  <a href="https://www.virustotal.com/gui/url/559cb24958860c16114e38f9cb2a4b4dac409bd87304f8b2aa45b1ac3743b469/detection"
-                    target="_blank" rel="noopener">(ވައިރަސް ޗެކް)</a>
-                </li>
-              </ul>
-            </li>
+          <li class="pushy-link">
+            <a href="../books/quran.html" target="_blank" rel="noopener">ސޫރަތުލް ފާތިޙާ</a>
+          </li>
 
-            <li class="pushy-submenu">
-              <button>ވެބް</button>
-              <ul>
-                <li class="pushy-link">
-                  <a href="https://hadithmv.github.io" target="_blank" rel="noopener">މައި ސައިޓު</a>
-                </li>
+        </ul>
+      </li>
 
-                <li class="pushy-link">
-                  <a href="https://hadithmv.gitlab.io" target="_blank" rel="noopener">(މިރަރ 1)</a>
-                </li>
-                <li class="pushy-link">
-                  <a href="https://hadithmv.onrender.com" target="_blank" rel="noopener">(މިރަރ 2)</a>
-                </li>
-                <li class="pushy-link">
-                  <a href="https://hadithmv.netlify.app" target="_blank" rel="noopener">(މިރަރ 3)</a>
-                  <!-- remember to update deploy manually, otherwise netlify hits build limits too soon -->
-                </li>
-              </ul>
-            </li>
+      <li class="pushy-submenu">
+        <button>ޢަޤީދާގެ ފޮތްތައް</button>
+        <ul>
 
-            <li class="pushy-submenu">
-              <button>މީސްމީޑިއާ</button>
-              <ul>
-                <li class="pushy-link">
-                  <a href="https://t.me/hadithmv" target="_blank" rel="noopener">ޓެލެގްރާމް</a>
-                </li>
-                <li class="pushy-link">
-                  <a href="https://www.facebook.com/hadithmvOfficial" target="_blank" rel="noopener">ފޭސްބުކް</a>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
+          <li class="pushy-link">
+            <a href="../books/barbahari.html" target="_blank" rel="noopener">ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ</a>
+          </li>
 
-        <li class="pushy-submenu">
-          <button>ގުޅުއްވުމަށް</button>
-          <ul>
+        </ul>
+      </li>
 
-            <li class="pushy-link">
-              <a href="https://telegram.me/yahyasdadmv">ޓެލެގްރާމް</a>
-            </li>
+      <li class="pushy-submenu">
+        <button>އިތުރު މައުލޫމާތު</button>
+        <ul>
+          <li class="pushy-link">
+            <a href="../notes/info/introHmv.html" target="_blank" rel="noopener">ޙަދީޘްއެމްވީ</a>
+          </li>
 
-            <li class="pushy-link">
-              <a href="mailto:yahyasdadmv@gmail.com">އީމެއިލް</a>
-            </li>
+          <li class="pushy-link">
+            <a href="../notes/info/introFortyN.html" target="_blank" rel="noopener">ނަވަވީގެ 40 ޙަދީޘް</a>
+          </li>
 
-            <li class="pushy-link">
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSe79Mmq2yFKwSw0_Sn5JP8H_M5hrHHwWuJQ8ki-GmaOEEHCnA/viewform"
-                target="_blank" rel="noopener">ފޯމް</a>
-            </li>
+          <li class="pushy-link">
+            <a href="../notes/info/introUmdah.html" target="_blank" rel="noopener">ޢުމްދަތުލް އަޙްކާމް</a>
+          </li>
 
-          </ul>
-        </li>
+          <li class="pushy-link">
+            <a href="../notes/third-party-libs-and-tools.txt" target="_blank" rel="noopener">ބޭނުން ކުރެވުނު
+              ތަކެތި</a>
+          </li>
 
-        <br />
+          <li class="pushy-link">
+            <!-- APKCHANGE 123 -->
+            <a href="../LICENSE.txt" target="_blank" rel="noopener">ލައިސެންސް</a>
+          </li>
 
-        <li>
-          <a class="Ver">އިސްދާރު: <span>2.05</span>&thinsp;⚙️</a>
-        </li>
+          <li class="pushy-link desktopOnly">
+            <a href="#" onclick="myHelp()">ކީބޯޑް ނެވިގޭޝަން</a>
+          </li>
 
-        <li>
-          <a class="madeby" href="https://telegram.me/yahyasdadmv" target="_blank" rel="noopener">ފަރުމާ ކުރީ: أبو يحيى
-            أشراف بن إبراهيم المحلي<br /><br />
-            <span class="madina">
-              މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް
-            </span>
-          </a>
-        </li>
+        </ul>
+      </li>
+
+      <li class="pushy-submenu">
+        <button>މަންސަތައް</button>
+        <ul>
+          <li class="pushy-submenu">
+            <button>ޕީޑީއެފް</button>
+            <ul>
+              <li class="pushy-link">
+                <a href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf" target="_blank"
+                  rel="noopener">ނަވަވީގެ 40 ޙަދީޘް</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="pushy-submenu">
+            <button>ލައިޓް ވަރޝަން</button>
+            <ul>
+              <li class="pushy-link">
+                <a href="https://hadithmv.github.io/books/nawawi-lite.html" target="_blank" rel="noopener">ނަވަވީގެ 40
+                  ޙަދީޘް</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="pushy-link">
+            <a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv" target="_blank"
+              rel="noopener">އެންޑްރޮއިޑް</a>
+          </li>
+          <li class="pushy-submenu">
+            <button>ޑެސްކްޓޮޕް</button>
+            <ul>
+              <li class="pushy-link">
+                <a href="https://github.com/hadithmv/hadithmv.github.io/raw/master/win/hmv/hadithmv_Win64.7z"
+                  target="_blank" rel="noopener">ވިންޑޯސް</a>
+              </li>
+              <li class="pushy-link">
+                <a href="https://www.virustotal.com/gui/url/559cb24958860c16114e38f9cb2a4b4dac409bd87304f8b2aa45b1ac3743b469/detection"
+                  target="_blank" rel="noopener">(ވައިރަސް ޗެކް)</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="pushy-submenu">
+            <button>ވެބް</button>
+            <ul>
+              <li class="pushy-link">
+                <a href="https://hadithmv.github.io" target="_blank" rel="noopener">މައި ސައިޓު</a>
+              </li>
+
+              <li class="pushy-link">
+                <a href="https://hadithmv.gitlab.io" target="_blank" rel="noopener">(މިރަރ 1)</a>
+              </li>
+              <li class="pushy-link">
+                <a href="https://hadithmv.onrender.com" target="_blank" rel="noopener">(މިރަރ 2)</a>
+              </li>
+              <li class="pushy-link">
+                <a href="https://hadithmv.netlify.app" target="_blank" rel="noopener">(މިރަރ 3)</a>
+                <!-- remember to update deploy manually, otherwise netlify hits build limits too soon -->
+              </li>
+            </ul>
+          </li>
+
+          <li class="pushy-submenu">
+            <button>މީސްމީޑިއާ</button>
+            <ul>
+              <li class="pushy-link">
+                <a href="https://t.me/hadithmv" target="_blank" rel="noopener">ޓެލެގްރާމް</a>
+              </li>
+              <li class="pushy-link">
+                <a href="https://www.facebook.com/hadithmvOfficial" target="_blank" rel="noopener">ފޭސްބުކް</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li class="pushy-submenu">
+        <button>ގުޅުއްވުމަށް</button>
+        <ul>
+
+          <li class="pushy-link">
+            <a href="https://telegram.me/yahyasdadmv">ޓެލެގްރާމް</a>
+          </li>
+
+          <li class="pushy-link">
+            <a href="mailto:yahyasdadmv@gmail.com">އީމެއިލް</a>
+          </li>
+
+          <li class="pushy-link">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSe79Mmq2yFKwSw0_Sn5JP8H_M5hrHHwWuJQ8ki-GmaOEEHCnA/viewform"
+              target="_blank" rel="noopener">ފޯމް</a>
+          </li>
+
+        </ul>
+      </li>
+
+      <br />
+
+      <li>
+        <a class="Ver">އިސްދާރު: <span>2.05</span>&thinsp;⚙️</a>
+      </li>
+
+      <li>
+        <a class="madeby" href="https://telegram.me/yahyasdadmv" target="_blank" rel="noopener">ފަރުމާ ކުރީ: أبو يحيى
+          أشراف بن إبراهيم المحلي<br /><br />
+          <span class="madina">
+            މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް
+          </span>
+        </a>
+      </li>
       </ul>
     </div>
     <!-- <div class="pushy-content pushy-right"> END -->
@@ -354,8 +354,8 @@ cuz it has hashtag and digits */
         myTabs - end -->
 
     <!-- First tab
-      / CHANGE123 TAB  id="sahihainTab" class="myTab"-->
-    <main class="w3-animate-right">
+      / CHANGE123 TAB -->
+    <main id="otherHadithTab" class="myTab w3-animate-right">
       <!-- if these tab classes and IDs are given to table, dt wrapper wont hide when tabbed away -->
 
       <!-- DT table classes
@@ -370,11 +370,10 @@ cuz it has hashtag and digits */
             / CHANGE123 TABLE -->
       <!-- JEKYLL CHANGE123 {{ content }} -->
 
-      <table id="sahihainTable" class="stripe table">
+      <table id="otherHadithTable" class="stripe table">
         <!-- fnClass -->
         <thead>
           <tr>
-            <th></th>
             <th></th>
             <th></th>
             <th></th>
@@ -450,42 +449,42 @@ https://github.com/christophery/pushy/tree/master/js
       <script src="../js/pushy.min.js"></script>-->
 
   <!-- Hammerjs 2.0.8 -->
-    <script src="../js/hammer.min.js"></script>
-            */
+  <script src="../js/hammer.min.js"></script>
+          */
   </style>
 
   <!-- now needed for keeping index in root dir for netlify
-  used to be old fallback js for app 
-<script defer>
-   window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
-   window.jQuery || document.write('<script src="js/resc/COMBjs-defer.js"><\/script>');
-   window.jQuery || document.write('<script src="js/40nHadith.js"><\/script>');
-   window.jQuery || document.write('<script src="js/nawawi-script.min.js"><\/script>');
-</script> -->
+          used to be old fallback js for app 
+    <script defer>
+           window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
+           window.jQuery || document.write('<script src="js/resc/COMBjs-defer.js"><\/script>');
+           window.jQuery || document.write('<script src="js/40nHadith.js"><\/script>');
+           window.jQuery || document.write('<script src="js/nawawi-script.min.js"><\/script>');
+    </script> -->
   <!-- APKCHANGE 123 -->
 
 
 
   <!-- COMBINED js part 1
-<script src="js/resc/COMBjs.js"></script>
-i split this into two, so as to defer js parsing -->
+    <script src="js/resc/COMBjs.js"></script>
+    i split this into two, so as to defer js parsing -->
   <script defer src="../js/resc/COMBjs.js"></script>
 
 
 
   <!-- / the json has to go over the script if deferred,
-otherwise if json too large script will take too long to load
-CHANGE123 JS
-'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
-  <script defer src="../js/sahihain.js"></script>
+        otherwise if json too large script will take too long to load
+        CHANGE123 JS
+        'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
+  <script defer src="../js/otherHadith.js"></script>
   <!-- Custom JS -->
-  <script defer src="../js/sahihain-script.min.js"></script>
+  <script defer src="../js/otherHadith-script.min.js"></script>
 
 
 
   <!-- COMBINED js part 2
-i split this into two, so as to defer js parsing
-<script src="../js/resc/COMBjs-defer.js"></script> -->
+    i split this into two, so as to defer js parsing
+    <script src="../js/resc/COMBjs-defer.js"></script> -->
 
   <!-- ===== ===== JS LIBRARIES - END ===== ===== -->
 

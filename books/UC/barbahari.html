@@ -30,10 +30,10 @@
       content="https://hadithmv.github.io/img/logo/newLogo5-roundedSquare/newLogo5-roundedSquare-1080-compressor.png"
     />
 
-    <title>hadithmv - Arabic Dictionary</title>
+    <title>hadithmv - Barbahari's Explanation of the Sunnah</title>
     <meta
       name="description"
-      content="Arabic - Dhivehi - English word translations at your fingertips."
+      content="Dhivehi Aqidah translations at your fingertips."
     />
     <!-- === META TAGS - END === -->
 
@@ -46,7 +46,7 @@
     <style>
       /* ====================
   CUSTOM COLUMN CLASSES
-  FOR Radheef 
+  FOR BARBAHARI
 ===================== */
 
       /* CHANGE123 classes and fonts */
@@ -54,37 +54,34 @@
       /* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells like surukhi, masdars.
 so right align to prevent gaps in text 
-.dataTable tr td.rCol1,
-.dataTable tr td.rCol2,
-.dataTable tr td.rCol9 {
+.dataTable tr td.barbaCol2,
+.dataTable tr td.barbaCol3,
+.dataTable tr td.barbaCol7,
+.dataTable tr td.barbaCol8,
+.dataTable tr td.barbaCol9 {
   text-align: right;
 } */
 
       /* mobile only row centering, for rows with strings that are not long */
 
       @media screen and (max-width: 900px) {
-        .dataTable tr td.rCol1,
-        .dataTable tr td.rCol2,
-        .dataTable tr td.rCol3,
-        .dataTable tr td.rCol4,
-        .dataTable tr td.rCol5 {
+        .dataTable tr td.barbaCol1 {
           text-align: center;
         }
 
-        /* bold headers for mobile - first number at top 
-    .rCol1 {
-      font-weight: bold;
-    } */
+        /* bold headers for mobile - first number at top */
+        .barbaCol1 {
+          font-weight: bold;
+        }
       }
 
       /* --- AR FONTS FOR TABLE --- */
 
       /* tbody tr td.fnCol1, */
-      .dataTable tr td.rCol1,
-      .dataTable tr td.rCol2,
-      .dataTable tr td.rCol3 {
+      .dataTable tr td.barbaCol2,
+      .dataTable tr td.barbaCol3 {
         font-family: "arFont", "dvFont", sans-serif;
-        font-size: 21px;
+        font-size: 23px;
         line-height: 1.7;
 
         /* font-size-adjust: 0.1; this breaks firefox font size */
@@ -93,30 +90,24 @@ so right align to prevent gaps in text
       /* --- DV FONTS FOR TABLE --- */
 
       /* .dataTable tr td.fnCol1, need this bigger */
-      .dataTable tr td.rCol4 {
+      .dataTable tr td.barbaCol4 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 17px;
         line-height: 1.9;
       }
 
       /* columns with ar numbers 
-.dataTable tr td.rCol9 {
+.dataTable tr td.barbaCol7,
+.dataTable tr td.barbaCol9 {
   font-family: "arFont", "dvFont", sans-serif;
   font-size: 21px;
 } */
 
       /* css for first column
-# number column cuz it has hashtag and digits 
-.dataTable tr td.rCol1 {
-  font-family: "dvFont", "arFont", sans-serif;
-  font-size: 21px;
-} */
-
-      /* desktop radheef only eng word left align */
-      @media screen and (min-width: 900px) {
-        .dataTable tr td.rCol5 {
-          text-align: left;
-        }
+# number column cuz it has hashtag and digits */
+      .dataTable tr td.barbaCol1 {
+        font-family: "dvFont", "arFont", sans-serif;
+        font-size: 21px;
       }
 
       /*
@@ -170,7 +161,7 @@ so right align to prevent gaps in text
         <ul>
           <!-- Submenu -->
           <li class="pushy-submenu">
-            <button id="first-link">ޙަދީޘް ފޮތްތައް</button>
+            <button>ޙަދީޘް ފޮތްތައް</button>
             <ul>
               <li class="pushy-link">
                 <!-- APKCHANGE 123 -->
@@ -178,23 +169,20 @@ so right align to prevent gaps in text
               </li>
 
               <li class="pushy-link">
-                <a href="../books/umdah-uc.html" target="_blank" rel="noopener"
+                <a href="../books/umdah.html" target="_blank" rel="noopener"
                   >ޢުމްދަތުލް އަޙްކާމް</a
                 >
               </li>
 
               <li class="pushy-link">
-                <a
-                  href="../books/sahihain-uc.html"
-                  target="_blank"
-                  rel="noopener"
+                <a href="../books/sahihain.html" target="_blank" rel="noopener"
                   >ޞަޙީޙައިން (ނުނިމޭ)</a
                 >
               </li>
 
               <li class="pushy-link">
                 <a
-                  href="../books/otherHadith-uc.html"
+                  href="../books/otherHadith.html"
                   target="_blank"
                   rel="noopener"
                   >އެހެނިހެން ޙަދީޘްތައް</a
@@ -207,7 +195,7 @@ so right align to prevent gaps in text
             <button>ކީރިތި ޤުރްއާން</button>
             <ul>
               <li class="pushy-link">
-                <a href="../books/quran-uc.html" target="_blank" rel="noopener"
+                <a href="../books/quran.html" target="_blank" rel="noopener"
                   >ސޫރަތުލް ފާތިޙާ</a
                 >
               </li>
@@ -215,13 +203,10 @@ so right align to prevent gaps in text
           </li>
 
           <li class="pushy-submenu">
-            <button>ޢަޤީދާގެ ފޮތްތައް</button>
+            <button id="first-link">ޢަޤީދާގެ ފޮތްތައް</button>
             <ul>
               <li class="pushy-link">
-                <a
-                  href="../books/barbahari-uc.html"
-                  target="_blank"
-                  rel="noopener"
+                <a href="../books/barbahari.html" target="_blank" rel="noopener"
                   >ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ</a
                 >
               </li>
@@ -268,15 +253,14 @@ so right align to prevent gaps in text
               </li>
 
               <li class="pushy-link">
+                <!-- APKCHANGE 123 -->
                 <a href="../LICENSE.txt" target="_blank" rel="noopener"
                   >ލައިސެންސް</a
                 >
               </li>
 
               <li class="pushy-link desktopOnly">
-                <a href="https://hadithmv.github.io" onclick="myHelp()"
-                  >ކީބޯޑް ނެވިގޭޝަން</a
-                >
+                <a href="#" onclick="myHelp()">ކީބޯޑް ނެވިގޭޝަން</a>
               </li>
             </ul>
           </li>
@@ -481,11 +465,10 @@ so right align to prevent gaps in text
           / CHANGE123 TABLE -->
         <!-- JEKYLL CHANGE123 {{ content }} -->
 
-        <table id="radheefTable" class="stripe table">
+        <table id="barbaTable" class="stripe table">
           <!-- fnClass -->
           <thead>
             <tr>
-              <th></th>
               <th></th>
               <th></th>
               <th></th>
@@ -582,9 +565,9 @@ https://github.com/christophery/pushy/tree/master/js
         otherwise if json too large script will take too long to load
         CHANGE123 JS
         'http://www.convertcsv.com/csv-to-json.htm', convert spreadsheet CSV to JSON Row Array. -->
-    <script defer src="../js/radheef.js"></script>
+    <script defer src="../js/barbahari.js"></script>
     <!-- Custom JS -->
-    <script defer src="../js/radheef-script.min.js"></script>
+    <script defer src="../js/barbahari-script.min.js"></script>
 
     <!-- COMBINED js part 2
     i split this into two, so as to defer js parsing
