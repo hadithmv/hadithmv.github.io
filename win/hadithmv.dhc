@@ -1,5 +1,5 @@
 ﻿﻿<?xml version="1.0" encoding="utf-8"?>
-<HtmlCompiler Version="2021.21">
+<HtmlCompiler Version="2021.22">
   <App>
     <ID>{971A6706-5EF2-4650-B117-D3B344EF09C1}</ID>
     <Name>hadithmv</Name>
@@ -45,11 +45,11 @@
     </WebviewJavascript>
     <Generator>
       <Name>DecSoft HTML Compiler</Name>
-      <Version>2021.21</Version>
+      <Version>2021.22</Version>
       <Website>https://www.decsoftutils.com/</Website>
       <Orders>https://www.decsoftutils.com/store/</Orders>
       <EMail>info@decsoftutils.com</EMail>
-      <Copyright>©2020 DecSoft HTML Compiler. All rights reserved.</Copyright>
+      <Copyright>©2021 DecSoft HTML Compiler. All rights reserved.</Copyright>
     </Generator>
   </App>
 </HtmlCompiler>
