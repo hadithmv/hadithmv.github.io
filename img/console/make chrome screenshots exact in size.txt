@@ -1,0 +1,5 @@
+open devtools
+
+toggle device toolbar
+
+change to responsive, change dpr to 1.0
