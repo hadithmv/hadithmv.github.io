@@ -765,7 +765,8 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   height: 40px;
   width: 40px;
   position: absolute;
-  background: url("../img/logo/newLogo5-min-Opt.svg") no-repeat;
+
+  /* background: url("../img/logo/newLogo5-min-Opt.svg") no-repeat; */
   filter: invert(96%) sepia(56%) saturate(2%) hue-rotate(340deg)
     brightness(111%) contrast(101%); /* svg fill color hack https://stackoverflow.com/a/53336754 */
 
