@@ -1,8 +1,0 @@
-uc aab: 817kb
-m  aab: 796kb
-	diff: 21kb
-uc apk: 813kb
-m  apk: 793kb
-	diff: 20kb
-
-apk-aab diff: 3/4kb
