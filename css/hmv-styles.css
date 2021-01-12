@@ -41,6 +41,10 @@ To move forward, just start with the first sub directory and keep moving forward
   font-display: swap;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* ====================
    BOILERPLATE 8.0.0 CODE - from normalize 8.0.1 and main css
 ======================= */

@@ -369,6 +369,10 @@ width:33%;
 /* ==============The following is additional custom code
 ============================= */
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   direction: rtl;
 }
