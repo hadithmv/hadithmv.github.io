@@ -23,7 +23,6 @@ https://github.com/htmlhint/HTMLHint -MIT
 https://github.com/prettier/prettier -MIT
 https://github.com/stylelint/stylelint -MIT
 https://github.com/standard/standard -MIT
-https://github.com/github/codeql -MIT
 
 https://docs.google.com/spreadsheets
 https://www.json.org/json-en
