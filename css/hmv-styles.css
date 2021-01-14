@@ -770,9 +770,11 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   width: 40px;
   position: absolute;
 
-  /* background: url("../img/logo/newLogo5-min-Opt.svg") no-repeat; */
-  filter: invert(96%) sepia(56%) saturate(2%) hue-rotate(340deg)
-    brightness(111%) contrast(101%); /* svg fill color hack https://stackoverflow.com/a/53336754 */
+  /* background: url("../img/logo/newLogo5-blue-noback-Opt.svg") no-repeat; */
+  filter: brightness(0) invert(1);
+
+  /* invert(96%) sepia(56%) saturate(2%) hue-rotate(340deg)
+    brightness(111%) contrast(101%); svg fill color hack https://stackoverflow.com/a/53336754 */
 
   /* can inline the html isntead for one less network request
   https://yoksel.github.io/url-encoder/ */
