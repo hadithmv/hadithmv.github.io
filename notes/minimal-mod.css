@@ -178,13 +178,14 @@ td {
 }
 
 dt {
-  color: #444;
+  /* color: #444; */
   font-weight: 500;
 }
 
+/*
 th {
   color: #444;
-}
+} */
 
 img {
   max-width: 100%;
@@ -361,7 +362,8 @@ width:33%;
     body {
       padding: 0.4in;
       font-size: 12pt;
-      color: #444;
+
+      /* color: #444; */
     }
   }
 }
@@ -553,7 +555,8 @@ thaana mish mash render fix - END
   }
 
   /* makes all bold text normal */
-  b {
+  b,
+  dt {
     font-weight: normal;
   }
 }
