@@ -1,0 +1,23 @@
+https://codeburst.io/50-shades-of-dark-mode-gray-d3e9907b1194
+
+1: 2
+2: 12
+3:
+4: 6
+5: 9
+6: 9
+7: 3
+
+tg:
+desktop
+#0e1621
+#17212b
+#242f3d
+
+mobile
+#151d27
+#212d3b
+#1a242e
+
+ha: Actually no. 4, 5, 6. I prefer monochrome options to tinted ones. But the blue tint is also very nice.
+mm: Black koh idhefa liyefa in bai thankolheh light viyma bodah riythiy
