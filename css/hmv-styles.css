@@ -322,6 +322,16 @@ div.dataTables_wrapper {
   direction: rtl;
 }
 
+button,
+input,
+select {
+  border: 1px solid #aaa;
+  border-radius: 3px;
+
+  /* padding: 5px; */
+  background-color: transparent;
+}
+
 /* make cancel button for input, only works on webkit chrome and stuff. should i get more browser support???
 The ::-webkit-search-cancel-button CSS pseudo-element represents a button (the "cancel button") at the edge of an <input> of type="search" which clears away the current value of the <input> element. */
 input[type="search"]::-webkit-search-cancel-button {
