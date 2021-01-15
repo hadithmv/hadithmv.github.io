@@ -539,3 +539,21 @@ body > div > div.dv > p.ar {
 /* ==================
 thaana mish mash render fix - END
  ================== */
+
+/* ====================
+       DARK MODE
+======================= */
+
+/* Chrome DevTools (Three dots > More tools > Rendering > Emulate CSS media feature prefers-color-scheme */
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #0e1621;
+    color: rgba(255, 255, 255, 0.847);
+  }
+
+  /* makes all bold text normal */
+  b {
+    font-weight: normal;
+  }
+}
