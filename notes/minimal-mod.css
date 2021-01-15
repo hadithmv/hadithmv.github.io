@@ -177,10 +177,11 @@ td {
   border-bottom: 1px solid #e5e5e5;
 }
 
-dt {
-  /* color: #444; */
+/* dt {
+   color: #444; 
   font-weight: 500;
 }
+*/
 
 /*
 th {
@@ -556,8 +557,7 @@ thaana mish mash render fix - END
   }
 
   /* makes all bold text normal */
-  b,
-  dt {
+  b {
     font-weight: normal;
   }
 
