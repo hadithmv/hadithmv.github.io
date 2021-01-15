@@ -157,16 +157,22 @@ so right align to prevent gaps in text */
 
       @media (prefers-color-scheme: dark) {
         body {
-          background-color: #151e27;
+          background-color: #0e1621;
           color: #99aab5;
         }
 
-        /* this is inner table */
-        .dataTable > tbody > tr > td,
+        /* this is inner table on desktop */
+        .dataTable > tbody > tr > td {
+          background-color: #1a232d;
+          color: rgba(255, 255, 255, 0.847);
+          border: none; /* removes card border */
+        }
+
+        /* this is inner table on mobile */
         .cards tbody tr {
           background-color: #1a232d;
-          color: rgba(255, 255, 255, 0.747);
-          border: none; /* removes card border */
+          color: rgba(255, 255, 255, 0.847);
+          border: 1px;
         }
 
         /* removes borders inside cells */
