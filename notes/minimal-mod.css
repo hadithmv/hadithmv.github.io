@@ -445,7 +445,7 @@ h1.ar {
 
 .en {
   font-family: sans-serif, serif;
-  direction: ltr !important;
+  direction: ltr;
 }
 
 /* moves letter end name to make it look better */
