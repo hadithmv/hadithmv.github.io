@@ -1022,11 +1022,11 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 
   /* changes clipboard copied color, */
   #datatables_buttons_info.dt-button-info h2 {
-    background-color: #0e1621;
+    /* background-color: #0e1621; */
     color: rgba(255, 255, 255, 0.847);
-    background: #1a282f;
+    background: #34515e;
   }
   div.dt-button-info {
-    background-color: #1a232d;
+    background-color: #1a282f !important;
   }
 }
