@@ -151,9 +151,9 @@ so right align to prevent gaps in text */
   /> -->
     <style>
       /*
-        Chrome
-        DevTools
-        (Three dots > More tools > Rendering > Emulate CSS media feature prefers-color-scheme */
+                  Chrome
+                  DevTools
+                  (Three dots > More tools > Rendering > Emulate CSS media feature prefers-color-scheme */
 
       @media (prefers-color-scheme: dark) {
         body {
@@ -161,41 +161,56 @@ so right align to prevent gaps in text */
           color: #99aab5;
         }
 
-        .stripe.table.dataTable.no-footer.row-border tr td {
-          /* background-color: #2c2f33; this makes borders visible */
-          border: none; /* ?? */
+        /* removes borders inside cells */
+
+        /* ?? */
+
+        /* select input */
+        .dataTables_wrapper .dataTables_length select {
+          background-color: #1a232d;
           color: #ccc;
         }
 
-        /* outer elements apart from table */
-        span,
-        select,
-        div {
-          color: #99aab5;
+        /* colvis button */
+        button.dt-button {
+          background-color: #1a232d;
+          color: #ccc;
         }
-        input {
-          background-color: #23272a;
-          color: #99aab5;
+
+        /* copy button */
+        button.dt-button.buttons-copy.buttons-html5 {
+          background-color: #1a232d;
+          color: #ccc;
         }
+
+        /* page input */
+        .paging_input input[type="search"] {
+          background-color: #1a232d;
+          color: #ccc;
+        }
+
+        /* search input */
+        .dataTables_wrapper .dataTables_filter input {
+          background-color: #1a232d;
+          color: #ccc;
+        }
+
+        /* pagination buttons */
         .dataTables_wrapper .dataTables_paginate .paginate_button {
           color: #99aab5 !important;
         }
+
+        /* info text out of how many */
         .dataTables_wrapper .dataTables_info {
           color: #99aab5;
         }
-        select option {
-          background-color: #23272a;
-          color: #99aab5;
-        }
 
-        /* border lines */
+        /* border lines on top and bottom */
         table.dataTable.no-footer {
           border-color: #99aab5;
         }
+
         table.dataTable thead th {
-          border-color: #99aab5;
-        }
-        table.dataTable.row-border tbody td {
           border-color: #99aab5;
         }
 
