@@ -581,7 +581,8 @@ div.dt-button-info {
 /* changes clipboard copied color, */
 
 #datatables_buttons_info.dt-button-info h2 {
-  background: #add1f2;
+  background: #1a282f;
+  border-radius: 5px;
 }
 
 /* makes clipboard copy popup centered and fits width on mobile view */
@@ -1017,5 +1018,15 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   div.dt-button-collection div.dt-button:active:not(.disabled) {
     background: #0e1621 !important;
     color: rgba(255, 255, 255, 0.847) !important;
+  }
+
+  /* changes clipboard copied color, */
+  #datatables_buttons_info.dt-button-info h2 {
+    background-color: #0e1621;
+    color: rgba(255, 255, 255, 0.847);
+    background: #1a282f;
+  }
+  div.dt-button-info {
+    background-color: #1a232d;
   }
 }
