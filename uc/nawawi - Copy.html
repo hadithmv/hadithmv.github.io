@@ -149,6 +149,63 @@ so right align to prevent gaps in text */
     media="print"
     onload="this.media='all'; this.onload=null;"
   /> -->
+    <style>
+      /*
+        Chrome
+        DevTools
+        (Three dots > More tools > Rendering > Emulate CSS media feature prefers-color-scheme */
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #23272a;
+          color: #99aab5;
+        }
+
+        .stripe.table.dataTable.no-footer.row-border tr td {
+          background-color: #2c2f33;
+          color: #ccc;
+        }
+
+        /* outer elements apart from table */
+        span,
+        select,
+        div {
+          color: #99aab5;
+        }
+        input {
+          background-color: #23272a;
+          color: #99aab5;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+          color: #99aab5 !important;
+        }
+        .dataTables_wrapper .dataTables_info {
+          color: #99aab5;
+        }
+        select option {
+          background-color: #23272a;
+          color: #99aab5;
+        }
+
+        /* border lines */
+        table.dataTable.no-footer {
+          border-color: #99aab5;
+        }
+        table.dataTable thead th {
+          border-color: #99aab5;
+        }
+        table.dataTable.row-border tbody td {
+          border-color: #99aab5;
+        }
+
+        .dataTable > tbody > tr > td,
+        .cards tbody tr {
+          background-color: #2c2f33;
+          color: #ccc;
+          border: #23272a;
+        }
+      }
+    </style>
   </head>
   <!-- ===== HEAD - END ===== -->
 
@@ -157,7 +214,7 @@ so right align to prevent gaps in text */
   <body>
     <!-- top nav bar like -->
     <header class="site-header push menu-btn">
-      <img class="navLogo" src="../img/logo/newLogo5-min-Opt-Copy.svg" />
+      <img class="navLogo" src="../img/logo/newLogo5-blue-noback-Opt.svg" />
       <a>ޙަދީޘްއެމްވީ</a>
       <span class="hamburg">&#9776;</span>
     </header>
