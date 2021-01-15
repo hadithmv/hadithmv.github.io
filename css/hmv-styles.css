@@ -48,6 +48,7 @@ html {
 /* ====================
    BOILERPLATE 8.0.0 CODE - from normalize 8.0.1 and main css
 ======================= */
+
 html {
   /* main */
 
@@ -65,6 +66,7 @@ html {
 }
 
 /* Remove the margin in all browsers. - normalize */
+
 body {
   margin: 0;
 }
@@ -72,6 +74,7 @@ body {
 /* evens out and better colors text highlights - main */
 
 /* Remove text-shadow in selection highlight. Customize the background color to match your design. */
+
 ::-moz-selection {
   background: #b3d4fc;
   text-shadow: none;
@@ -88,6 +91,7 @@ body {
 } */
 
 /* Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers  - main */
+
 img {
   vertical-align: middle;
 
@@ -97,6 +101,7 @@ img {
 /* normalize */
 
 /* 1. Change the font styles in all browsers. 2. Remove the margin in Firefox and Safari. */
+
 button,
 input,
 select {
@@ -171,25 +176,22 @@ html {
 /* https://css-tricks.com/the-current-state-of-styling-scrollbars/ */
 
 /* Desktop only MQ */
+
 @media screen and (min-width: 900px) {
   html {
     --scrollbarBG: #cfd8dc;
     --thumbBG: #90a4ae;
   }
-
   body::-webkit-scrollbar {
     width: 11px;
   }
-
   body {
     scrollbar-width: thin;
     scrollbar-color: var(--thumbBG) var(--scrollbarBG);
   }
-
   body::-webkit-scrollbar-track {
     background: var(--scrollbarBG);
   }
-
   body::-webkit-scrollbar-thumb {
     background-color: var(--thumbBG);
     border-radius: 6px;
@@ -202,6 +204,7 @@ html {
 /* ====================
      Tabs Animations
 ======================= */
+
 .w3-animate-right {
   position: relative;
 
@@ -270,7 +273,6 @@ ORIGINAL CODE above */
     -webkit-transform: translateX(100%);
     transform: translateX(100%);
   }
-
   100% {
     -webkit-transform: none;
     transform: none;
@@ -282,7 +284,6 @@ ORIGINAL CODE above */
     -webkit-transform: translateX(100%);
     transform: translateX(100%);
   }
-
   100% {
     -webkit-transform: none;
     transform: none;
@@ -294,12 +295,28 @@ ORIGINAL CODE above */
 /* ====================
      DT wrapper CSS
 ======================= */
-.dataTables_wrapper, /* takes care of most of the table fonts */
-input, /* search and input page */
-select, /* page lengthmenu */
+
+.dataTables_wrapper,
+
+/* takes care of most of the table fonts */
+
+input,
+
+/* search and input page */
+
+select,
+
+/* page lengthmenu */
+
 button,
-.dt-button-info, /* clipboard message */
-li, /* for pushy side bar */
+.dt-button-info,
+
+/* clipboard message */
+
+li,
+
+/* for pushy side bar */
+
 .site-header {
   font-family: "dvFont", "arFont", sans-serif;
 
@@ -318,6 +335,7 @@ li, /* for pushy side bar */
 }
 
 /* makes table rtl */
+
 div.dataTables_wrapper {
   direction: rtl;
 }
@@ -334,16 +352,20 @@ select {
 
 /* make cancel button for input, only works on webkit chrome and stuff. should i get more browser support???
 The ::-webkit-search-cancel-button CSS pseudo-element represents a button (the "cancel button") at the edge of an <input> of type="search" which clears away the current value of the <input> element. */
+
 input[type="search"]::-webkit-search-cancel-button {
   /* adds x delete placeholder */
   -webkit-appearance: searchfield-cancel-button;
-  border: 4px solid transparent; /* makes x a bit bigger */
+  border: 4px solid transparent;
+
+  /* makes x a bit bigger */
 
   /* margin-right: -25px; makes x icon not interfere with centering search text, but text goes over the icon then */
 }
 
 /* make pagination placeholder a bit shorter and the text centered,
 a little off to the right because of the search cancel button */
+
 .paging_input input[type="search"] {
   width: 70px;
 
@@ -351,11 +373,13 @@ a little off to the right because of the search cancel button */
 }
 
 /* makes copy button the same width as colvis, 81.918 + 14.080 + 14.080 */
+
 button.dt-button.buttons-copy.buttons-html5 {
   width: 110.078px;
 }
 
 /* makes select list as tall in height as search box */
+
 .dataTables_length > label > select {
   height: 31px;
 }
@@ -367,6 +391,7 @@ the padding above
 } */
 
 /* desktop mq lessens padding in pagination buttons based on screen width, default was 16px,  resposive and flexible */
+
 @media screen and (min-width: 900px) {
   .dataTables_wrapper .dataTables_paginate .paginate_button {
     padding-left: 1vw;
@@ -375,6 +400,7 @@ the padding above
 }
 
 /* movile mq, lessens padding in pagination buttons based on screen width, resposive and flexible */
+
 @media screen and (max-width: 900px) {
   .dataTables_wrapper .dataTables_paginate .paginate_button {
     width: 15vw;
@@ -385,6 +411,7 @@ the padding above
 }
 
 /* mobile mq add space at the bottom of table before last pagination row */
+
 @media screen and (max-width: 900px) {
   .table {
     padding-bottom: 15px;
@@ -392,6 +419,7 @@ the padding above
 }
 
 /* mobile mq removes margin above pagination buttons input */
+
 @media screen and (max-width: 900px) {
   div.dataTables_paginate.paging_input {
     margin-top: 0;
@@ -399,6 +427,7 @@ the padding above
 }
 
 /* mobile mq remove bottom border */
+
 @media screen and (max-width: 900px) {
   table.dataTable.no-footer {
     border-bottom: none;
@@ -418,7 +447,6 @@ changed  (min-width: 900px) to 600 to include tablets */
 @media screen and (min-width: 600px) {
   .buttons-colvis {
     /* puts a little space after colvis button, otherwise hits search box */
-
     margin-left: 20px;
   }
   .dataTables_filter > label > input[type="search"] {
@@ -430,7 +458,6 @@ changed  (min-width: 900px) to 600 to include tablets */
   }
   .dataTables_length {
     /* puts a little space after search box, otherwise hits select list */
-
     margin-right: 20px;
   }
 }
@@ -447,11 +474,13 @@ changed  (min-width: 900px) to 600 to include tablets */
 
 /* adds a little space to the left of pagination input box, because the other
    buttons have the same space */
+
 .dataTables_paginate > input {
   margin-left: 2px;
 }
 
 /* makes pagination buttons stand out bold on mobile only mq */
+
 @media screen and (max-width: 900px) {
   .paginate_button {
     font-weight: bold;
@@ -460,20 +489,28 @@ changed  (min-width: 900px) to 600 to include tablets */
 }
 
 /* removes default ugly black color from pagination css buttons
-CURRENTLY BROKEN - FIX LATER 123 */
+CURRENTLY BROKEN - FIX LATER 123 
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
   background: none;
-  color: #1e1e1e !important; /* change the text color on hover */
-  border: 1px solid #1e1e1e; /* can change the box color */
+  color: #1e1e1e !important;  change the text color on hover 
+  border: 1px solid #1e1e1e;  can change the box color */
 
-  /* border-radius: 5px; a little rounder */
+/* border-radius: 5px; a little rounder */
+a.dt-button,
+button.dt-button,
+div.dt-button,
+input.dt-button {
+  border-radius: 3px;
 }
 
 /* below block of css for change pagination buttom style when active */
+
 .dataTables_wrapper .dataTables_paginate .paginate_button:active {
   background: none;
   color: #1e1e1e !important;
-  box-shadow: none; /* removes shading on press down */
+  box-shadow: none;
+
+  /* removes shading on press down */
 }
 
 /* ===== DT wrapper CSS - END ===== */
@@ -483,11 +520,13 @@ CURRENTLY BROKEN - FIX LATER 123 */
 ======================= */
 
 /* Alignscell contents vertically */
+
 table.dataTable tbody td {
   vertical-align: top;
 }
 
 /* table data rows alignment */
+
 .dataTable > tbody > tr > td {
   text-align: justify;
 
@@ -502,6 +541,7 @@ table.dataTable tbody td {
 }
 
 /* table header row alignment */
+
 .dataTable > thead > tr > th {
   font-size: 100%;
   text-align: center;
@@ -529,17 +569,23 @@ div.dt-button-info {
   /* border: 1px solid #111; old */
   border-style: solid;
   border-width: 1px;
-  border-color: #dadce0; /* #00000020 */
-  border-radius: 5px; /* makes cards a little rounder, used to be 4 */
+  border-color: #dadce0;
+
+  /* #00000020 */
+  border-radius: 5px;
+
+  /* makes cards a little rounder, used to be 4 */
   box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
 }
 
 /* changes clipboard copied color, */
+
 #datatables_buttons_info.dt-button-info h2 {
   background: #add1f2;
 }
 
 /* makes clipboard copy popup centered and fits width on mobile view */
+
 div#datatables_buttons_info.dt-button-info {
   /* fits screen on mobile, is 400 on desktop */
   width: auto;
@@ -557,7 +603,9 @@ div#datatables_buttons_info.dt-button-info {
 
 /* hides table headers only on mobile, prev nth-child(2)
 - Mobile only MQ
-looks like we don't need this code anymore, use the hide below this */ /*
+looks like we don't need this code anymore, use the hide below this */
+
+/*
 @media screen and (max-width: 900px) {
   thead tr:nth-child(1) {
     position: absolute;
@@ -567,6 +615,7 @@ looks like we don't need this code anymore, use the hide below this */ /*
 } */
 
 /* Keytable - Desktop only MQ */
+
 @media screen and (min-width: 900px) {
   /* table.dataTable tbody th.focus, */
   table.dataTable tbody td.focus {
@@ -577,12 +626,14 @@ next 4 numbers: offset-x | offset-y | blur-radius | spread-radius
 last is color */
 
     /* last px makes box thicker */
+    border-radius: 5px;
 
-    border-radius: 5px; /* makes box rounder */
+    /* makes box rounder */
   }
 }
 
 /* Mark JS - padding: 0; removes useless padding, donno if still needed? */
+
 mark {
   background: #add1f2;
   color: black;
@@ -599,8 +650,12 @@ mark {
   /* float: left; this stacks cards side by side and orients them left, use flexbox columns code below instead */
   display: flex;
   flex-direction: column;
-  margin: 0.5rem; /* this was taken from below so as not to override what's next */
-  margin-bottom: 1.25rem; /* !important; */
+  margin: 0.5rem;
+
+  /* this was taken from below so as not to override what's next */
+  margin-bottom: 1.25rem;
+
+  /* !important; */
 
   /* padding: 0.625rem;  added for nicer spacing */
 
@@ -613,8 +668,12 @@ mark {
   /* margin: 0.5rem; */
   border-style: solid;
   border-width: 1px;
-  border-color: #dadce0; /* #00000020 */
-  border-radius: 5px; /* makes cards a little rounder, used to be 4 */
+  border-color: #dadce0;
+
+  /* #00000020 */
+  border-radius: 5px;
+
+  /* makes cards a little rounder, used to be 4 */
   box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
 
   /* box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25); old onesided card shadow */
@@ -630,6 +689,7 @@ mark {
 }
 
 /* is this needed?? */
+
 .cards thead {
   visibility: hidden;
 
@@ -714,42 +774,66 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 ======================= */
 
 /* on mobile */
+
 .mTop {
   display: -webkit-box;
-  display: flex; /* single-direction layout concept. */
+  display: flex;
+
+  /* single-direction layout concept. */
   -webkit-box-pack: space-evenly;
-  justify-content: space-evenly; /* items are distributed so that the spacing between any two items (and the space to the edges) is equal. */
+  justify-content: space-evenly;
+
+  /* items are distributed so that the spacing between any two items (and the space to the edges) is equal. */
   -webkit-box-align: baseline;
-  align-items: baseline; /* how flex items are laid out along the cross axis on the current line.
+  align-items: baseline;
+
+  /* how flex items are laid out along the cross axis on the current line.
   Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align */
 }
 
 .mTop2 {
   display: -webkit-box;
-  display: flex; /* single-direction layout concept. */
+  display: flex;
+
+  /* single-direction layout concept. */
   -webkit-box-pack: center;
-  justify-content: center; /* items are centered along the line */
+  justify-content: center;
+
+  /* items are centered along the line */
 }
 
 .mTop3 {
   display: -webkit-box;
-  display: flex; /* single-direction layout concept. */
+  display: flex;
+
+  /* single-direction layout concept. */
   -webkit-box-pack: center;
-  justify-content: center; /* items are centered along the line */
+  justify-content: center;
+
+  /* items are centered along the line */
 }
 
 /* Desktop only MQ */
+
 @media screen and (min-width: 900px) {
   .dTop {
     display: -webkit-box;
-    display: flex; /* single-direction layout concept. */
-    flex-wrap: wrap; /* flex items will wrap onto multiple lines, from top to bottom.
+    display: flex;
+
+    /* single-direction layout concept. */
+    flex-wrap: wrap;
+
+    /* flex items will wrap onto multiple lines, from top to bottom.
     By default, flex items will all try to fit onto one line */
     -webkit-box-pack: justify;
-    justify-content: space-between; /* alignment along the main axis
+    justify-content: space-between;
+
+    /* alignment along the main axis
     items are evenly distributed in the line; first item is on the start line, last item on the end line */
     -webkit-box-align: baseline;
-    align-items: baseline; /* how flex items are laid out along the cross axis on the current line.
+    align-items: baseline;
+
+    /* how flex items are laid out along the cross axis on the current line.
     Think of it as the justify-content version for the cross axis. -items are aligned such as their baselines align */
   }
 }
@@ -757,11 +841,14 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 /* ===== dom flexbox - END ===== */
 
 /* moves hamburger menu span to right + little up, does not affect header placement */
+
 .hamburg {
   font-size: 25px;
   right: 0;
   padding-right: 15px;
-  margin-top: -2px; /* moves hamburg a little higher, similar baseline to header text */
+  margin-top: -2px;
+
+  /* moves hamburg a little higher, similar baseline to header text */
   position: absolute;
 
   /* samsung unicode symbol color fix */
@@ -773,7 +860,9 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   /* font-size: 25px;
   left: 0; */
   margin-left: 12px;
-  margin-top: -10px; /* moves navLogo a little higher, similar baseline to header text */
+  margin-top: -10px;
+
+  /* moves navLogo a little higher, similar baseline to header text */
   content: "";
   display: block;
   height: 40px;
@@ -794,6 +883,7 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 }
 
 /* mobile only MQ - hides keyboard nav alert link */
+
 @media screen and (max-width: 900px) {
   .desktopOnly {
     display: none;
@@ -809,3 +899,123 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 ======================= */
 
 /* ===== button styles - END ===== */
+
+/* ====================
+       DARK MODE
+======================= */
+
+/* Chrome DevTools (Three dots > More tools > Rendering > Emulate CSS media feature prefers-color-scheme */
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #0e1621;
+    color: #99aab5;
+  }
+
+  /* this is inner table on desktop */
+  .dataTable > tbody > tr > td {
+    background-color: #1a232d;
+    color: rgba(255, 255, 255, 0.847);
+    border: none;
+
+    /* removes card border */
+  }
+
+  /* this is inner table on mobile */
+  .cards tbody tr {
+    background-color: #1a232d;
+    color: rgba(255, 255, 255, 0.847);
+    border: 1px;
+  }
+
+  /* makes bold tabler headers normal */
+  .dataTable > thead > tr > th {
+    font-weight: normal !important;
+  }
+
+  /* hover and active pagination buttons */
+  .dataTables_wrapper .dataTables_paginate .paginate_button:active,
+  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: #1a232d !important;
+    border-color: rgba(255, 255, 255, 0.847) !important;
+  }
+
+  /* removes borders inside cells */
+
+  /* ?? */
+
+  /* select input */
+  .dataTables_wrapper .dataTables_length select {
+    background-color: #1a232d !important;
+    color: rgba(255, 255, 255, 0.847) !important;
+  }
+
+  /* colvis button */
+  button.dt-button {
+    background-color: #1a232d !important;
+    color: rgba(255, 255, 255, 0.847) !important;
+    border: 1px solid rgba(255, 255, 255, 0.147) !important;
+  }
+  button.dt-button:hover:not(.disabled) {
+    background-color: #0e1621 !important;
+    border: 1px solid rgba(255, 255, 255, 0.847) !important;
+  }
+
+  /* copy button */
+  button.dt-button.buttons-copy.buttons-html5 {
+    background-color: #1a232d;
+    color: rgba(255, 255, 255, 0.847);
+    border: 1px solid rgba(255, 255, 255, 0.147);
+  }
+  button.dt-button.buttons-copy.buttons-html5:hover {
+    background-color: #0e1621;
+    border: 1px solid rgba(255, 255, 255, 0.847);
+  }
+
+  /* page input */
+  .paging_input input[type="search"] {
+    background-color: #1a232d;
+    color: rgba(255, 255, 255, 0.847);
+  }
+
+  /* search input */
+  .dataTables_wrapper .dataTables_filter input {
+    background-color: #1a232d !important;
+    color: rgba(255, 255, 255, 0.847) !important;
+  }
+
+  /* pagination buttons */
+  .dataTables_wrapper .dataTables_paginate.paging_input .paginate_button {
+    color: #99aab5 !important;
+  }
+
+  /* info text out of how many */
+  .dataTables_wrapper .dataTables_info {
+    color: #99aab5 !important;
+  }
+
+  /* border lines on top and bottom */
+  table.dataTable.no-footer {
+    border-color: #99aab5 !important;
+  }
+  table.dataTable thead th {
+    border-color: #99aab5 !important;
+  }
+
+  /* colvis menu  */
+  div.dt-button-collection {
+    background-color: #0e1621 !important;
+    color: #99aab5 !important;
+  }
+
+  /* inner colvis buttons */
+  div.dt-button-collection a.dt-button.active:not(.disabled),
+  div.dt-button-collection a.dt-button:active:not(.disabled),
+  div.dt-button-collection button.dt-button.active:not(.disabled),
+  div.dt-button-collection button.dt-button:active:not(.disabled),
+  div.dt-button-collection div.dt-button.active:not(.disabled),
+  div.dt-button-collection div.dt-button:active:not(.disabled) {
+    background: #0e1621 !important;
+    color: rgba(255, 255, 255, 0.847) !important;
+  }
+}
