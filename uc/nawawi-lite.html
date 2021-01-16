@@ -36,7 +36,9 @@
 
       body {
         background-color: #fff;
-        padding: 30px; /* padding: 50px; */
+        padding: 30px;
+
+        /* padding: 50px; */
         font-size: 16px;
         font-family: "dvFont", "arFont", sans-serif;
         color: #222;
@@ -46,12 +48,14 @@
         width: 860px;
         margin: 0 auto;
       }
+
       @media print, screen and (max-width: 960px) {
         div.wrapper {
           width: auto;
           margin: 0;
         }
       }
+
       @media print {
         body {
           padding: 0.4in;
@@ -70,15 +74,43 @@
       html {
         direction: rtl;
       }
+
       p {
         text-align: justify;
       }
+
       p:nth-of-type(2n) {
-        font-size: 18px; /* color: red; */
+        font-size: 18px;
+
+        /* color: red; */
       }
+
       .B {
         font-weight: bold;
         font-size: 18px;
+      }
+
+      /* ====================
+       DARK MODE
+======================= */
+
+      /* Chrome DevTools (Three dots > More tools > Rendering > Emulate CSS media feature prefers-color-scheme */
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #0e1621;
+          color: rgba(255, 255, 255, 0.847);
+        }
+
+        /* makes all bold text normal */
+        b {
+          font-weight: normal;
+        }
+
+        /*
+      .hmv {
+        filter: brightness(0) invert(1);
+      } */
       }
     </style>
   </head>
