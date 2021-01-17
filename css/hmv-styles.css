@@ -917,13 +917,14 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   .dataTable > tbody > tr > td {
     background-color: #1a232d;
     color: rgba(255, 255, 255, 0.847);
-    border: none;
 
-    /* removes card border */
+    /* border: none; removes card border ?? */
   }
 
   /* this is inner table on mobile */
-  .cards tbody tr {
+    /* The :not(X) property in CSS is a negation pseudo class and accepts a simple selector1 as an argument.
+  otherwise border : 1px overwrites the quran frame */
+  .dataTable:not(#quranTable) .cards tbody tr {
     background-color: #1a232d;
     color: rgba(255, 255, 255, 0.847);
     border: 1px;

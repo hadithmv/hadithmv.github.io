@@ -238,56 +238,11 @@ last is color */
           border-color: #1a232d;
           box-shadow: inset 0 0 2px 0 /*#693*/, 0 0 0 2px #eee,
             0 0 0 3px #40455c;
-
-          /*  */
-          top: -9px;
         }
 
-        /* moves table slighly lower */
-
-        #quranTable > tbody > tr {
-          margin-top: 21px !important;
-        }
-
-        /* removes top white line above ayahbox */
-        table.dataTable tbody tr {
-          /* background-color: #0e1621 !important; */
-        }
-
-        /* frame */
-        #quranTable > tbody > tr {
-          /* filter: brightness(0) invert(1); */
-
-          padding: 10px;
-          padding-top: 0;
-          margin: 10px;
-
-          /* padding: 1em 2.2em; */
-
-          /* border-image-slice: 30% 30.5%; */
-
-          /* border-image-width: 1em; */
-
-          /* border-image-repeat: round round; */
-
-          /* can move inside html to eliminate 1 network request, https://yoksel.github.io/ */
-
-          /* border-image-source: none; */
-
-          /* border-image-outset: 0.1em; */
-
-          /* spaces out above and below quran table */
-
-          /* margin-top: 1.6rem;
-          margin-bottom: 2.4rem; */
-
-          /* */
-
-          /* border: 5px solid red; */
-        }
-
-        #quranTable > tbody > tr > td.qCol2 {
-          padding-top: 35px;
+    /* this colors the square border around the frame in quran, otherwise white */ 
+        #quranTable>tbody>tr {
+          background-color: #1a232d;
         }
       }
 
@@ -311,6 +266,7 @@ last is color */
 
     <!-- COMBINED css -->
     <link rel="stylesheet" href="../css/COMBcss.min.css" />
+    <style></style>
     <!--<link rel="stylesheet" href="css/COMBcss.min.css" />   for app, either will cause a console error -->
     <!--<link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
    this works as fallback but causes FOUC in apk app, but not in win app where this is needed -->

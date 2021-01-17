@@ -1,3 +1,5 @@
+darkmode differs on, books html, notes html, quran html
+
 https://codeburst.io/50-shades-of-dark-mode-gray-d3e9907b1194
 
 1: 3
