@@ -1,0 +1,8 @@
+<style>.a{fill:#c1d1b9}.c{fill:#66a732}.t{fill:#fff}.u{fill:#40453e}</style>
+<path fill="#568633"
+
+0e1621
+34515e
+
+<style>.a{fill:#466d7f}.c{fill:#34515e}.t{fill:#ccc}.u{fill:#343832}
+<path fill="#2b434e"
