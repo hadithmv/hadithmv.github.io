@@ -601,8 +601,7 @@ div#datatables_buttons_info.dt-button-info {
   /* makes borders rounder */
   border-radius: 5px;
   
-    border-width: 3px;
-}
+    /*border-width: 3px;*/
 }
 
 /* hides table headers only on mobile, prev nth-child(2)
