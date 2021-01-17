@@ -581,8 +581,8 @@ div.dt-button-info {
 /* changes clipboard copied color, */
 
 #datatables_buttons_info.dt-button-info h2 {
-  background: #1a282f;
-  border-radius: 5px;
+  background: #add1f2;
+  /*border-radius: 5px;*/
 }
 
 /* makes clipboard copy popup centered and fits width on mobile view */
@@ -600,6 +600,9 @@ div#datatables_buttons_info.dt-button-info {
 
   /* makes borders rounder */
   border-radius: 5px;
+  
+    border-width: 3px;
+}
 }
 
 /* hides table headers only on mobile, prev nth-child(2)
