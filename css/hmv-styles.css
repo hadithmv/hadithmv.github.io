@@ -923,12 +923,15 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
     /* border: none; removes card border ?? */
   }
 
-  /* this is inner table on mobile */
-    /* The :not(X) property in CSS is a negation pseudo class and accepts a simple selector1 as an argument.
-  otherwise border : 1px overwrites the quran frame */
-  .dataTable:not(#quranTable) .cards tbody tr {
+  /* this is inner table on mobile
+this makes a faint white outline around card  */
+  .cards tbody tr {
     background-color: #1a232d;
     color: rgba(255, 255, 255, 0.847);
+  }
+    /* The :not(X) property in CSS is a negation pseudo class and accepts a simple selector1 as an argument.
+  otherwise border : 1px overwrites the quran frame and white outline gets larger */
+    :not(#quranTable) .cards tbody tr {
     border: 1px;
   }
 
