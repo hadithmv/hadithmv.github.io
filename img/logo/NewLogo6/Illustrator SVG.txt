@@ -1,0 +1,11 @@
+File > Export > Export As
+Name File > Export
+Styling = Presentation Attributes
+Font = Convert to Outlines
+(Images doesnt matter if there are none)
+Object IDs = 1
+Decimal = 1
+
+Otherwise, can Save as > Name File
+Svg Profiles = 1.1
+Font = Convert to outline
