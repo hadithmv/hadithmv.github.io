@@ -582,7 +582,8 @@ div.dt-button-info {
 
 #datatables_buttons_info.dt-button-info h2 {
   background: #add1f2;
-  /*border-radius: 5px;*/
+
+  /* border-radius: 5px; */
 }
 
 /* makes clipboard copy popup centered and fits width on mobile view */
@@ -601,7 +602,7 @@ div#datatables_buttons_info.dt-button-info {
   /* makes borders rounder */
   border-radius: 5px;
 
-  /*border-width: 3px;*/
+  /* border-width: 3px; */
 }
 
 /* hides table headers only on mobile, prev nth-child(2)
@@ -872,7 +873,7 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   width: 40px;
   position: absolute;
 
-  /* background: url("../img/logo/NewLogo6.1--NoBack-Opt.svg") no-repeat; */
+  /* background: url("../img/logo/NewLogo6.2--NoBack-Opt.svg") no-repeat; */
   filter: brightness(0) invert(1);
 
   /* invert(96%) sepia(56%) saturate(2%) hue-rotate(340deg)
@@ -929,6 +930,7 @@ this makes a faint white outline around card  */
     background-color: #1a232d;
     color: rgba(255, 255, 255, 0.847);
   }
+
   /* The :not(X) property in CSS is a negation pseudo class and accepts a simple selector1 as an argument.
   otherwise border : 1px overwrites the quran frame and white outline gets larger */
   :not(#quranTable).cards tbody tr {
