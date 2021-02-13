@@ -18,6 +18,7 @@ Vecta.io then combined with svgo, then followed by netlify seems to be the best 
 
 https://vecta.io/nano
 https://jakearchibald.github.io/svgomg/
+(this second one wont show svgs in indesign)
 
 
 
