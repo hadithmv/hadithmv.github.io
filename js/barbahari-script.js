@@ -19,7 +19,7 @@ $(document).ready(() => {
       pageLength: 3, // # rows to display on single page when using pagination
       // lengthMenu: [
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
-      //   [1, 2, '3 ދައްކާ', 5, 7, 10, 15, 20, 'ހުރިހައި']
+      //   [1, 2, '3 ދައްކާ', 5, 7, 10, 15, 20, 'ހުރިހާ']
       // ], // display range of pages
       keys: { clipboardOrthogonal: 'export' }, // strip htmltags off keys copy
       language: {
@@ -43,7 +43,7 @@ $(document).ready(() => {
       pageLength: 1,
       // lengthMenu: [
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
-      //   ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހައި']
+      //   ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހާ']
       // ], // display range of pages
       language: {
         paginate: {
@@ -200,7 +200,7 @@ $(document).ready(() => {
     // Default [ 10, 25, 50, 100 ],
     lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, '50']],
     // lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, '50']],
-    // lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހައި']],
+    // lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހާ']],
     // lengthMenu: [ [5, 10, 20, 30, 40, -1, 1], ["Show 5", 10, 20, 30, 40,
     // "All", 1] ],
 
