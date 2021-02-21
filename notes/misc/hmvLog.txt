@@ -12,6 +12,15 @@ regex to fix empty fili repeats:
 ([ަ-ް])[ަ-ް]+
 Replace with $1
 
+َّ
+َّ
+
+ِّ
+ِّ
+
+ُّ
+ُّ
+
 sumatra:
 FixedPageUI [
 	TextColor = #ffffff
@@ -317,7 +326,7 @@ Clean up hadithmv gmail
 make a misc/unsorted/beta/gammish version available?
 
 add to maybe docs or about or intro:
-قَالَ أَبُو عِيْسَى: صَنَّفْتُ هَذَا الكِتَابَ، وَعَرَضْتُهُ عَلَى عُلَمَاءِ الحِجَازِ، وَالعِرَاقِ وَخُرَاسَانَ، فَرَضُوا بِه، وَمَنْ كَانَ هَذَا الكِتَابُ -يَعْنِي: (الجَامِعُ) - فِي بَيْتِهِ، فَكَأَنَّمَا ‌فِي ‌بَيْتِهِ ‌نَبِيٌّ ‌يَتَكَلَّمُ (٢) .
+قَالَ أَبُو عِيْسَى: صَنَّفْتُ هَذَا الكِتَابَ، وَعَرَضْتُهُ عَلَى عُلَمَاءِ الحِجَازِ، وَالعِرَاقِ وَخُرَاسَانَ، فَرَضُوا بِه، وَمَنْ كَانَ هَذَا الكِتَابُ -يَعْنِي: (الجَامِعُ) - فِي بَيْتِهِ، فَكَأَنَّمَا ‌فِي ‌بَيْتِهِ ‌نَبِيٌّ ‌يَتَكَلَّمُ (٢) .
 (٢) "جامع الأصول" (٤/ ١١١)، و "تذكرة الحفاظ" ص (٦٣٤)، و "تهذيب التهذيب" (٩/ ٣٨٩).
 (٢) تذكرة الحفاظ: ٢ / ٦٣٤
 (١) سير أعلام النبلاء: ١٣/ ٢٧٤.
@@ -385,7 +394,7 @@ Update mockup, play store imgs
 update offline apps
 
 yarkout, abdoline, karim fonts are nice. changed from almarai
-yarkout has the following issues: زَکَرِيَّا, الرَّحْمٰنِ 
+yarkout has the following issues: زَکَرِيَّا, الرَّحْمٰنِ 
 
 readme.md has styling issues, add imgs, clean up readme.md
 https://raw.githubusercontent.com/hadithmv/hadithmv.github.io/master/README.md
