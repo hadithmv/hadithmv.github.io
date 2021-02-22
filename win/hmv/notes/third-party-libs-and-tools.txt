@@ -43,6 +43,7 @@ https://nashrschool.qurancomplex.gov.sa
 https://github.com/tonsky/FiraCode -OFL-1.1
 http://www.hassanhameed.com/?page_id=154
 https://fonts.qurancomplex.gov.sa/wp02
+https://fonts.hassaanmv.com/tharujamaanu
 
 https://sunnah.alifta.gov.sa
 https://shamela.ws
