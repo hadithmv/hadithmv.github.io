@@ -450,6 +450,7 @@ h1.ar {
 .en {
   font-family: sans-serif, serif;
   direction: ltr;
+  line-height: 1.5;
 }
 
 /* moves letter end name to make it look better */
