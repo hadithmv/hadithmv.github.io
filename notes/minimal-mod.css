@@ -509,6 +509,16 @@ td {
   text-indent: 2em;
 }
 
+.bookCover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 18.75em;
+  display: block;
+  margin: auto;
+
+  /* padding-bottom: 10px;
+  padding-top: 10px; */
+}
+
 /* ==================
 thaana mish mash render fix
 have to use this convuluted nth child hack, using both even and odd doesnt work,
