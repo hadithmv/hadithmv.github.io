@@ -565,4 +565,11 @@ thaana mish mash render fix - END
   .hmv {
     filter: brightness(0) invert(1);
   }
+  a {
+    color: #39c;
+  }
+
+  a:hover {
+    color: #069;
+  }
 }
