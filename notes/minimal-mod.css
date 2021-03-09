@@ -562,9 +562,9 @@ thaana mish mash render fix - END
     font-weight: normal;
   }
 
-  .hmv {
+  /* .hmv {
     filter: brightness(0) invert(1);
-  }
+  } */
   a {
     color: #39c;
   }
