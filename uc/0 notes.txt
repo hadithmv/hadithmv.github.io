@@ -137,3 +137,77 @@ if (window.matchMedia('(min-width: 900px)').matches) {
 ...
 
 40 n html has pwa rough code, may have been copied over to some, not all, other htmls
+
+
+
+
+
+
+
+
+
+
+====================
+Lite json changes
+====================
+
+<!--
+  ctrl+K then ctrl+shift+S to save without formatting (this is important as tabs and indents are to be replaced.)
+
+--this
+[
+  [
+--to
+<br>[
+
+--this
+"  ]
+]
+--to
+</p><br><br>
+
+--this
+["
+--to
+<p>
+
+this
+","
+to
+</p><p>
+
+--this
+",
+  "
+--to
+</p><p>
+
+--this
+"
+  ,"
+--to
+</p><p>
+
+--this
+"  ],
+--to
+</p>
+
+--this
+</p>
+  <p>
+--to
+<hr><p>
+
+--this
+\n
+--to
+--nothing--
+
+
+--this
+<p>#
+--to
+<p class="B">#
+
+-->
