@@ -1032,7 +1032,9 @@ this makes a faint white outline around card  */
   #datatables_buttons_info.dt-button-info h2 {
     /* background-color: #0e1621; */
     color: rgba(255, 255, 255, 0.847);
-    background: #34515e;
+
+    /* background: #34515e; */
+    background: #254e61;
   }
   div.dt-button-info {
     background-color: #1a282f !important;
