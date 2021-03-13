@@ -362,7 +362,9 @@ ul {
 .site-header {
   /* background: #23272A; */
   color: #fff; /* nav menu center text -fff */
-  background-color: #34515e;
+
+  /* background-color: #34515e; */
+  background-color: #254e61;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -457,3 +459,33 @@ and removes the extra padding from above and below list items */
   padding-top: 8px;
   padding-bottom: 8px;
 }
+
+/* ====================
+       DARK MODE
+======================= */
+
+/* Chrome DevTools (Three dots > More tools > Rendering > Emulate CSS media feature prefers-color-scheme */
+
+/*
+@media (prefers-color-scheme: dark) {
+  */
+
+/* experimenting with colors */
+
+/*
+  .site-header {
+    */
+
+/* background: #23272A; */
+
+/* color: #fff; */
+
+ /* nav menu center text -fff */
+
+/* background-color: #34515e;
+    color: #99aab5;
+  }
+  .pushy {
+    background: #1a282f;
+  }
+} */
