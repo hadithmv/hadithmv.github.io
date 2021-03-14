@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="author" content="www.frebsite.nl" />
+    <meta
+      name="viewport"
+      content="width=device-width minimum-scale=1.0 maximum-scale=1.0 user-scalable=no"
+    />
+
+    <title>mmenu light demo</title>
+
+    <link type="text/css" rel="stylesheet" href="demo.css" />
+    <link type="text/css" rel="stylesheet" href="mmenu-light.css" />
+  </head>
+  <body>
+    <div class="header">
+      <a href="#menu"><span></span></a>
+      ޙަދީޘްއެމްވީ
+      <nav id="menu">
+        <ul>
+          <li class="Selected"><a href="#">Home</a></li>
+
+          <li>
+            <span>ފޮތްތައް</span>
+            <ul>
+              <li>
+                <span>ޙަދީޘް</span>
+                <ul>
+                  <li>
+                    <a href="#about/team/management">ނަވަވީގެ 40 ޙަދީޘް</a>
+                  </li>
+                  <li><a href="#about/team/sales">ޢުމްދަތުލް އަޙްކާމް</a></li>
+                  <li>
+                    <a href="#about/team/development">ޞަޙީޙައިން (ނުނިމޭ)</a>
+                  </li>
+                  <li>
+                    <a href="#about/team/development">އެހެނިހެން ޙަދީޘްތައް</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span>ޤުރްއާން</span>
+                <ul>
+                  <li>
+                    <a href="#about/team/management"
+                      >ފާތިޙާ ސޫރަތް (ތަފްސީރު)</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span>ޢަޤީދާ</span>
+                <ul>
+                  <li>
+                    <a href="#about/team/management"
+                      >ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <span>ކީރިތި ޤުރްއާން</span>
+            <ul>
+              <li><a href="#about/history">ފާތިހާ ސޫރަތް (ތަފްސީރު)</a></li>
+            </ul>
+          </li>
+          <li>
+            <span>ޢަޤީދާގެ ފޮތްތައް</span>
+            <ul>
+              <li>
+                <a href="#about/history">ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span>އިތުރު މައުލޫމާތު</span>
+            <ul>
+              <li>
+                <a href="#about/history">ގުޅުއްވުމަށް</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span>މަންސަތައް</span>
+            <ul>
+              <li>
+                <a href="#about/history">ފޮތްތައް ގަތުމަށް</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span>ޢަޤީޤާ</span>
+            <ul>
+              <li>
+                <a href="#about/history">ފޮތްތައް ގަތުމަށް</a>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#contact">އިސްދާރު</a></li>
+          <li><a href="#contact">ފަރުމާ ކުރީ</a></li>
+          <li><a href="#contact">މަދީނާގެ</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="content">
+      <p>
+        <strong>This is a demo.</strong><br />
+        Click the hamburger icon to open the menu.
+      </p>
+    </div>
+
+    <script src="mmenu-light.js"></script>
+    <script>
+      var menu = new MmenuLight(document.querySelector("#menu"), "all");
+
+      var navigator = menu.navigation({
+        // selectedClass: 'Selected',
+        // slidingSubmenus: true,
+        // theme: 'dark',
+        // title: 'Menu',
+        // background-color:	#f3f3f3, // Background-color for the menu
+        // color:	#444,	// Color for the text and borders in the menu.
+        // VARIABLES
+        // --mm-spn-item-height:	50px,	// Height for menu items.
+        // --mm-spn-item-indent:	20px,	// Indent for menu items.
+        // --mm-spn-line-height: 24px,	// Line-height for text in the menu.
+      });
+
+      var drawer = menu.offcanvas({
+        // position: 'left'
+        position: "right", //change123
+
+        // top:	0,	// Position relative to the top of the page.
+        // bottom: 0, // Position relative to the bottom of the page.
+        // --mm-ocd-width: 80%, // Width for the menu.
+        // --mm-ocd-min-width	: 200px, // Minimal width for the menu.
+        // --mm-ocd-max-width	440px, // Maximum width for the menu.
+      });
+
+      //	Open the menu.
+      document
+        .querySelector('a[href="#menu"]')
+        .addEventListener("click", (evnt) => {
+          evnt.preventDefault();
+          drawer.open();
+        });
+    </script>
+  </body>
+</html>
