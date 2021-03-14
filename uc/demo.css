@@ -1,0 +1,158 @@
+/* html,
+body {
+  padding: 0;
+  margin: 0;
+}
+body {
+  background-color: #fff;
+  font-family: Arial, Helvetica, Verdana;
+  font-size: 14px;
+  line-height: 22px;
+  color: #666;
+  position: relative;
+  -webkit-text-size-adjust: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1;
+  font-weight: bold;
+  margin: 20px 0 10px 0;
+}
+h1,
+h2,
+h3 {
+  font-size: 18px;
+}
+h4,
+h5,
+h6 {
+  font-size: 16px;
+}
+p {
+  margin: 0 0 10px 0;
+}
+a,
+a:link,
+a:active,
+a:visited,
+a:hover {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.header nav {
+  display: none;
+}
+*/
+.header,
+.content,
+.footer {
+  text-align: center;
+}
+.header,
+.footer {
+  background: #254e61d1; /* #4bb5ef - top horizontal long navbar color */
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  line-height: 50px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: 60px; /* 50px; */
+  padding: 0 50px;
+
+  /* added this line height so as to move header center text lower */
+  line-height: 60px; /* unwritten default is 50px */*
+
+  /* added this shadow */
+  box-shadow: 0 2px 4px rgb(0 0 0 / 50%);box-shadowbox-shadowbox-shadowbox-shadowbox-shadowbox-shadowbox-shadowbox-shadow
+}
+.header.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+} /*
+.footer.fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+} */
+.header a {
+  /* this is the hamburger */
+  display: block;
+  width: 28px;
+  height: 18px;
+  padding: 11px;
+  margin: 5px;
+  position: absolute;
+  top: 0;
+
+  /* added this space to the right of hamburger to bring it more to left */
+  padding-right: 25px;
+
+  /* added this space above hamburger to bring it lower */
+  padding-top: 15px;
+
+  /* left: 0; */
+  right: 0; /* bring hamburger from the left to the right */
+}
+.header a::before,
+.header a::after {
+  content: "";
+  display: block;
+  background: #fff;
+  height: 2px;
+}
+.header a span {
+  background: #fff;
+  display: block;
+  height: 2px;
+  margin: 6px 0;
+}
+.content {
+  /* padding: 150px 50px 50px 50px; */
+
+  /* added - space around table */
+  padding-top: 12px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+/*
+===
+===
+===
+*/
+
+/* CUSTOM EDITS */
+#menu > ul > li {
+  text-align: right; /* rtl */
+}
+
+/*
+#menu > ul > li > span {
+  padding-right: 50px;  indent 
+}
+*/
+
+/*
+*/
+
+/*
+*/
+.header {
+  /* padding-top: 70px; */
+}
+
+/*
+body > div.header > span {
+  margin-top: 500px !important;
+  color: red;
+}
+*/
