@@ -43,10 +43,8 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="../font/Yakout-Linotype-W20-Light-Copy6.woff2"> -->
 
     <!-- ==== CSS LIBRARIES ==== -->
-    <!-- prettier-ignore -->
     <style>
-      
-/* ====================
+      /* ====================
   CUSTOM COLUMN CLASSES
   FOR FORTY NAWAWI HADITH
 ===================== */
@@ -155,345 +153,155 @@ so right align to prevent gaps in text */
   <!-- ===== HEAD - END ===== -->
 
   <!-- ===== BODY ===== -->
-
+  <link type="text/css" rel="stylesheet" href="demo.css" />
+  <link type="text/css" rel="stylesheet" href="mmenu-light.css" />
   <body>
-    <!-- top nav bar like -->
-    <header class="site-header push menu-btn">
-      <img class="navLogo" src="../img/logo/NewLogo6.2--NoBack-Opt.svg" />
-      <a>ޙަދީޘްއެމްވީ</a>
-      <span class="hamburg">&#9776;</span>
-    </header>
-    <!-- added menu-btn to activate menu -->
-
-    <!-- Pushy Menu -->
-    <nav class="pushy pushy-right" data-focus="#first-link">
-      <!-- <nav class="pushy pushy-left"-->
-      <div class="pushy-content pushy-right">
+    <div class="header">
+      <a href="#menu"><span></span></a>
+      <span class="navText">ޙަދީޘްއެމްވީ</span>
+      <!-- added this span to position this text -->
+      <nav id="menu">
         <ul>
-          <!-- Submenu -->
-          <li class="pushy-submenu">
-            <button id="first-link">ޙަދީޘް ފޮތްތައް</button>
+          <li class="Selected"><a href="#">Home</a></li>
+          
+          <li><span>ފޮތްތައް</span>
             <ul>
-              <li class="pushy-link">
-                <!-- APKCHANGE 123 -->
-                <a href="https://hadithmv.github.io">ނަވަވީގެ 40 ޙަދީޘް</a>
-              </li>
-
-              <li class="pushy-link">
-                <a href="../books/umdah.html" target="_blank" rel="noopener"
-                  >ޢުމްދަތުލް އަޙްކާމް</a
-                >
-              </li>
-
-              <li class="pushy-link">
-                <a href="../books/sahihain.html" target="_blank" rel="noopener"
-                  >ޞަޙީޙައިން (ނުނިމޭ)</a
-                >
-              </li>
-
-              <li class="pushy-link">
-                <a
-                  href="../books/otherHadith.html"
-                  target="_blank"
-                  rel="noopener"
-                  >އެހެނިހެން ޙަދީޘްތައް</a
-                >
-              </li>
-            </ul>
-          </li>
-
-          <li class="pushy-submenu">
-            <button>ކީރިތި ޤުރްއާން</button>
-            <ul>
-              <li class="pushy-link">
-                <a href="../books/quran.html" target="_blank" rel="noopener"
-                  >ސޫރަތުލް ފާތިޙާ</a
-                >
-              </li>
-            </ul>
-          </li>
-
-          <li class="pushy-submenu">
-            <button>ޢަޤީދާގެ ފޮތްތައް</button>
-            <ul>
-              <li class="pushy-link">
-                <a href="../books/barbahari.html" target="_blank" rel="noopener"
-                  >ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ</a
-                >
-              </li>
-            </ul>
-          </li>
-
-          <li class="pushy-submenu">
-            <button>އިތުރު މައުލޫމާތު</button>
-            <ul>
-              <li class="pushy-submenu">
-                <button>ގުޅުއްވުމަށް</button>
+              <li><span>ޙަދީޘް</span>
                 <ul>
-                  <li class="pushy-link">
-                    <a href="https://telegram.me/yahyasdadmv">ޓެލެގްރާމް</a>
-                  </li>
-
-                  <li class="pushy-link">
-                    <a href="mailto:yahyasdadmv@gmail.com">އީމެއިލް</a>
-                  </li>
-
-                  <li class="pushy-link">
-                    <a
-                      href="https://docs.google.com/forms/d/e/1FAIpQLSe79Mmq2yFKwSw0_Sn5JP8H_M5hrHHwWuJQ8ki-GmaOEEHCnA/viewform"
-                      target="_blank"
-                      rel="noopener"
-                      >ފޯމް</a
-                    >
-                  </li>
+                  <li><a href="../books/nawawi">ނަވަވީގެ 40 ޙަދީޘް</a></li>
+                  <li><a href="../books/umdah">ޢުމްދަތުލް އަޙްކާމް</a></li>
+                  <li><a href="../books/sahihain">ޞަޙީޙައިން (ނުނިމޭ)</a></li>
+                  <li><a href="../books/otherHadith">އެހެނިހެން ޙަދީޘްތައް</a></li>
                 </ul>
               </li>
-
-              <li class="pushy-link">
-                <a
-                  href="../notes/info/introHmv.html"
-                  target="_blank"
-                  rel="noopener"
-                  >ޙަދީޘްއެމްވީ</a
-                >
-              </li>
-
-              <li class="pushy-link">
-                <a
-                  href="../notes/info/introFortyN.html"
-                  target="_blank"
-                  rel="noopener"
-                  >ނަވަވީގެ 40 ޙަދީޘް</a
-                >
-              </li>
-
-              <li class="pushy-link">
-                <a
-                  href="../notes/info/introUmdah.html"
-                  target="_blank"
-                  rel="noopener"
-                  >ޢުމްދަތުލް އަޙްކާމް</a
-                >
-              </li>
-
-              <li class="pushy-link">
-                <a
-                  href="../notes/third-party-libs-and-tools.txt"
-                  target="_blank"
-                  rel="noopener"
-                  >ބޭނުން ކުރެވުނު ތަކެތި</a
-                >
-              </li>
-
-              <li class="pushy-link">
-                <!-- APKCHANGE 123 -->
-                <a href="../LICENSE.txt" target="_blank" rel="noopener"
-                  >ލައިސެންސް</a
-                >
-              </li>
-
-              <li class="pushy-link desktopOnly">
-                <a href="#" onclick="myHelp()">ކީބޯޑް ނެވިގޭޝަން</a>
-              </li>
-            </ul>
-          </li>
-
-          <li class="pushy-submenu">
-            <button>މަންސަތައް</button>
-            <ul>
-              <li class="pushy-link">
-                <a
-                  href="https://hadithmv.github.io/notes/info/purchase-books.html"
-                  target="_blank"
-                  rel="noopener"
-                  >ފޮތްތައް ގަތުމަށް</a
-                >
-              </li>
-              <li class="pushy-submenu">
-                <button>ޕީޑީއެފް</button>
+              <li><span>ޤުރްއާން</span>
                 <ul>
-                  <li class="pushy-link">
-                    <a
-                      href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf"
-                      target="_blank"
-                      rel="noopener"
-                      >ނަވަވީގެ 40 ޙަދީޘް</a
-                    >
-                  </li>
+                  <li><a href="../books/quran">ފާތިޙާ ސޫރަތް (ތަފްސީރު)</a></li>
                 </ul>
               </li>
-
-              <li class="pushy-submenu">
-                <button>ލައިޓް ވަރޝަން</button>
+              <li><span>ޢަޤީދާ</span>
                 <ul>
-                  <li class="pushy-link">
-                    <a
-                      href="https://hadithmv.github.io/books/nawawi-lite.html"
-                      target="_blank"
-                      rel="noopener"
-                      >ނަވަވީގެ 40 ޙަދީޘް</a
-                    >
-                  </li>
-                </ul>
-              </li>
-
-              <li class="pushy-link">
-                <a
-                  href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
-                  target="_blank"
-                  rel="noopener"
-                  >އެންޑްރޮއިޑް</a
-                >
-              </li>
-              <li class="pushy-submenu">
-                <button>ޑެސްކްޓޮޕް</button>
-                <ul>
-                  <li class="pushy-link">
-                    <a
-                      href="https://github.com/hadithmv/hadithmv.github.io/raw/master/win/hmv/hadithmv_Win64.7z"
-                      target="_blank"
-                      rel="noopener"
-                      >ވިންޑޯސް</a
-                    >
-                  </li>
-                  <li class="pushy-link">
-                    <a
-                      href="https://www.virustotal.com/gui/url/559cb24958860c16114e38f9cb2a4b4dac409bd87304f8b2aa45b1ac3743b469/detection"
-                      target="_blank"
-                      rel="noopener"
-                      >(ވައިރަސް ޗެކް)</a
-                    >
-                  </li>
-                </ul>
-              </li>
-
-              <li class="pushy-submenu">
-                <button>ވެބް</button>
-                <ul>
-                  <li class="pushy-link">
-                    <a
-                      href="https://hadithmv.github.io"
-                      target="_blank"
-                      rel="noopener"
-                      >މައި ސައިޓު</a
-                    >
-                  </li>
-
-                  <li class="pushy-link">
-                    <a
-                      href="https://hadithmv.gitlab.io"
-                      target="_blank"
-                      rel="noopener"
-                      >(މިރަރ 1)</a
-                    >
-                  </li>
-                  <li class="pushy-link">
-                    <a
-                      href="https://hadithmv.onrender.com"
-                      target="_blank"
-                      rel="noopener"
-                      >(މިރަރ 2)</a
-                    >
-                  </li>
-                  <li class="pushy-link">
-                    <a
-                      href="https://hadithmv.netlify.app"
-                      target="_blank"
-                      rel="noopener"
-                      >(މިރަރ 3)</a
-                    >
-                    <!-- remember to update deploy manually, otherwise netlify hits build limits too soon -->
-                  </li>
-                </ul>
-              </li>
-
-              <li class="pushy-submenu">
-                <button>މީސްމީޑިއާ</button>
-                <ul>
-                  <li class="pushy-link">
-                    <a
-                      href="https://t.me/hadithmv"
-                      target="_blank"
-                      rel="noopener"
-                      >ޓެލެގްރާމް</a
-                    >
-                  </li>
-                  <li class="pushy-link">
-                    <a
-                      href="https://www.facebook.com/hadithmvOfficial"
-                      target="_blank"
-                      rel="noopener"
-                      >ފޭސްބުކް</a
-                    >
-                  </li>
-                  <li class="pushy-link">
-                    <a
-                      href="https://twitter.com/hadithmv"
-                      target="_blank"
-                      rel="noopener"
-                      >ޓްވިޓަރ</a
-                    >
-                  </li>
-                  <li class="pushy-link">
-                    <a
-                      href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX%2FZVrvGtq%2FbJboZzADy3OssLND4H1TFWklNmNQZC"
-                      target="_blank"
-                      rel="noopener"
-                      >ވައިބަރ</a
-                    >
-                  </li>
-                  <li class="pushy-link">
-                    <a
-                      href="https://www.instagram.com/hadithmv"
-                      target="_blank"
-                      rel="noopener"
-                      >އިންސްޓަގްރާމް</a
-                    >
-                  </li>
+                  <li><a href="../books/barbahari">ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ</a></li>
                 </ul>
               </li>
             </ul>
           </li>
-
-          <li class="pushy-submenu">
-            <button
-              onClick="javascript:window.open('https://hadithmv.github.io/notes/info/aqiqa-ulhiya.html', '_blank');"
-            >
-              ޢަޤީޤާ
-            </button>
+          
+          <li><span>އިތުރު މައުލޫމާތު</span>
+            <ul>
+              <li><span>ގުޅުއްވުމަށް</span>
+                <ul>
+                  <li><a href="https://telegram.me/yahyasdadmv">ޓެލެގްރާމް</a></li>
+                  <li><a href="https://facebook.com/hadithmvOfficial">ފޭސްބުކް</a></li>
+                  <li><a href="mailto:yahyasdadmv@gmail.com">އީމެއިލް</a></li>
+                  <li><a href="https://forms.gle/rcdCYXvzWRxNDuJB7">ފޯމް</a></li>
+                </ul>
+              </li>
+              <li><a href="../notes/info/introHmv">ޙަދީޘްއެމްވީއަކީ ކޮބާ؟</a></li>
+              <li><a href="../notes/info/introFortyN">ނަވަވީގެ 40 ޙަދީޘަކީ ކޮބާ؟</a></li>
+              <li><a href="../notes/info/introUmdah">ޢުމްދަތުލް އަޙްކާމަކީ ކޮބާ؟</a></li>
+              <li><a href="../notes/third-party-libs-and-tools.txt">ޙަދީޘްއެމްވީ ހަދަން ބޭނުން ކުރެވުނު ތަކެތި</a></li>
+              <li><a href="../LICENSE.txt">ލައިސެންސް</a></li> <!-- APKCHANGE 123 -->
+              <li><a href="#about/team/management">ކީބޯޑުން ނެވިގޭޓް ކުރުމަށް</a></li>
+            </ul>
           </li>
 
-          <br />
-
-          <li>
-            <a class="Ver">އިސްދާރު: <span>2.16</span>&thinsp;⚙️</a>
+          <li><span>މީސްމީޑިއާ</span>
+            <ul>
+              <li><a href="https://t.me/hadithmv">ޓެލެގްރާމް</a></li>
+              <li><a href="https://facebook.com/hadithmvOfficial">ފޭސްބުކް</a></li>
+              <li><a href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX%2FZVrvGtq%2FbJboZzADy3OssLND4H1TFWklNmNQZC">ވައިބަރ</a></li>
+              <li><a href="https://twitter.com/hadithmv">ޓްވިޓަރ</a></li>
+              <li><a href="https://www.instagram.com/hadithmv">އިންސްޓަގްރާމް</a></li>
+            </ul>
           </li>
 
-          <li>
-            <a
-              class="madeby"
-              href="https://telegram.me/yahyasdadmv"
-              target="_blank"
-              rel="noopener"
-              >ފަރުމާ ކުރީ: أبو يحيى أشراف بن إبراهيم المالديفي<br /><br />
-              <span class="madina">
-                މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް
-              </span>
-            </a>
+          <li><span>މަންސަތައް</span>
+            <ul>
+              <li><span>ވެބް</span>
+                <ul>
+                  <li><a href="https://hadithmv.github.io">މައި ސައިޓު</a></li>
+                  <li><a href="https://hadithmv.gitlab.io">މިރަރ 1</a></li>
+                  <li><a href="https://hadithmv.onrender.com">މިރަރ 2</a></li>
+                  <li><a href="https://hadithmv.netlify.app">މިރަރ 3</a></li>
+                </ul>
+              </li>
+              <li><span>ލައިޓް ވާރޝަން</span>
+                <ul>
+                  <li><a href="https://hadithmv.github.io/books/nawawi-lite">ނަވަވީގެ 40 ޙަދީޘް</a></li>
+                </ul>
+              </li>
+              <li><a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv">އެންޑްރޮއިޑް</a></li>
+              <li><span>ލައިޓް ވާރޝަން</span>
+                <ul>
+                  <li><a href="https://github.com/hadithmv/hadithmv.github.io/raw/master/win/hmv/hadithmv_Win64.7z">ވިންޑޯސް</a></li>
+                  <li><a href="https://virustotal.com/gui/url/559cb24958860c16114e38f9cb2a4b4dac409bd87304f8b2aa45b1ac3743b469/detection">(ވައިރަސް ޗެކް)</a></li>
+                </ul>
+              </li>
+
+            </ul>
           </li>
+
+          <li><span>ޑައުންލޯޑުތައް</span>
+            <ul>
+              <li><a href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf">ނަވަވީގެ 40 ޙަދީޘް (ޕީޑީއެފް)</a></li>
+            </ul>
+          </li>
+
+          <li><span>ފިހާރަ</span>
+            <ul>
+              <li><a href="https://hadithmv.github.io/notes/info/purchase-books">ފޮތް ގަތުމަށް</a></li>
+              <li><a href="https://hadithmv.github.io/notes/info/aqiqa-ulhiya">ޢަޤީޤާއާއި އުޟްޙިޔާ ކަތިލުމަށް</a></li>
+            </ul>
+          </li>
+
+          <li class="HmvVer"><a>އިސްދާރު: 2.17</a></li>
+          <li class="HmvVer"><a>ފަރުމާ ކުރީ: أبو يحيى أشراف بن إبراهيم المالديفي</a></li>
+          <li class="HmvVer"><a>މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a></li>
+          
         </ul>
-      </div>
-      <!-- <div class="pushy-content pushy-right"> END -->
-    </nav>
-    <!-- Pushy Menu - END -->
+      </nav>
+    </div>
 
-    <!-- Pushy site Overlay - dims rest of page on pushy nav open -->
-    <div class="site-overlay"></div>
+    <script src="mmenu-light.js"></script>
+    <script>
+      var menu = new MmenuLight(document.querySelector("#menu"), "all");
 
-    <!-- Your Content after pushy sidebar, has to have this id or pushy navbar wont work -->
-    <div id="container">
-      <!-- <button class="menu-btn">&#9776; Menu</button>  -->
+      var navigator = menu.navigation({
+        // selectedClass: 'Selected',
+        // slidingSubmenus: true,
+        // theme: 'dark',
+        // title: 'Menu',
+        title: "މެންޔޫ",
+        // background-color:	#f3f3f3, // Background-color for the menu
+        // color:	#444,	// Color for the text and borders in the menu.
+        // VARIABLES
+        // --mm-spn-item-height:	50px,	// Height for menu items.
+        // --mm-spn-item-indent:	20px,	// Indent for menu items.
+        // --mm-spn-line-height: 24px,	// Line-height for text in the menu.
+      });
 
+      var drawer = menu.offcanvas({
+        // position: 'left'
+        position: "right", //change123
+
+        // top:	0,	// Position relative to the top of the page.
+        // bottom: 0, // Position relative to the bottom of the page.
+        // --mm-ocd-width: 80%, // Width for the menu.
+        // --mm-ocd-min-width	: 200px, // Minimal width for the menu.
+        // --mm-ocd-max-width	440px, // Maximum width for the menu.
+      });
+
+      //	Open the menu.
+      document
+        .querySelector('a[href="#menu"]')
+        .addEventListener("click", (evnt) => {
+          evnt.preventDefault();
+          drawer.open();
+        });
+    </script>
+
+    <div class="content">
       <!-- myTabs - MOVED INTO PUSHY MENU ABOVE
       <button class="tablink" onclick="openLink(event, 'Right')">Right</button>
       myTabs - end -->
@@ -535,14 +343,14 @@ so right align to prevent gaps in text */
         </table>
         <!-- ===== TABLE - END ===== -->
       </main>
-      <!-- <div id="fortyNTab" class="myTab w3-animate-right"> first tab END -->
+    </div>
 
-      <!-- Template for offline tabs
+    <!-- <div id="fortyNTab" class="myTab w3-animate-right"> first tab END -->
+
+    <!-- Template for offline tabs
       <div id="bukhariTab" class="myTab w3-animate-right" style="display:none">
           <p>two</p>
       </div>-->
-    </div>
-    <!-- Pushy content container - END === -->
 
     <!-- ===== ===== JS LIBRARIES ===== ===== 
     I deferred everything to parse js last -->

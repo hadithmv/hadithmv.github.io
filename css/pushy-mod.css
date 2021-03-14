@@ -34,17 +34,21 @@
   margin-top: 10px;
 }
 */
+
+/*
 .pushy.pushy-left {
   left: 0;
 }
-
+*/
 .pushy.pushy-right {
   right: 0;
 }
 
+/*
 .pushy-content {
   visibility: hidden;
 }
+*/
 
 /* Menu Movement */
 
@@ -83,24 +87,27 @@
   transform: translate3d(0, 0, 0);
 }
 
-/* .pushy-open-left .pushy-content */
+/* .pushy-open-left .pushy-content 
 .pushy-open-right .pushy-content {
   visibility: visible;
 }
+*/
 
 /* Menu Transitions */
 
 #container,
 .pushy,
 .push {
-  transition: transform 0.2s cubic-bezier(0.16, 0.68, 0.43, 0.99);
+  transition: transform 0s cubic-bezier(0.16, 0.68, 0.43, 0.99);
 
   /* transition: transform .3s cubic-bezier(.4,0,.6,1),opacity 0s .3s; -material menu */
 }
 
+/*
 .pushy-content {
   transition: visibility 0.2s cubic-bezier(0.16, 0.68, 0.43, 0.99);
 }
+*/
 
 /* Site Overlay */
 
@@ -120,10 +127,12 @@
   left: 0;
   z-index: 9998;
   background-color: rgba(0, 0, 0, 0.3); /* this dims it -rgba(0, 0, 0, 0.5) */
-  -webkit-animation: fade 500ms;
-  animation: fade 500ms;
+
+  /* -webkit-animation: fade 500ms;
+  animation: fade 500ms; */
 }
 
+/*
 @keyframes fade {
   0% {
     opacity: 0;
@@ -141,6 +150,7 @@
     opacity: 1;
   }
 }
+*/
 
 /* Submenu Appearance */
 
@@ -156,13 +166,15 @@
 */
 .pushy-submenu > ul {
   padding-left: 15px;
-  transition: max-height 0.2s ease-in-out, visibility 0.2s ease-in-out;
+
+  /* transition: max-height 0.2s ease-in-out, visibility 0.2s ease-in-out; */
 }
 
+/*
 .pushy-submenu > ul .pushy-link {
   transition: opacity 0.2s ease-in-out;
 }
-
+*/
 .pushy-submenu button {
   width: 100%;
   color: #e2f1f8; /* dimmed color before mouse over -b3b3b1 */
@@ -203,7 +215,7 @@
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%) rotate(180deg);
-  transition: transform 0.2s;
+  transition: transform 0.1s; /* transform 0.2s; */
 }
 
 /* Submenu Movement */
@@ -480,7 +492,7 @@ and removes the extra padding from above and below list items */
 
 /* color: #fff; */
 
- /* nav menu center text -fff */
+/* nav menu center text -fff */
 
 /* background-color: #34515e;
     color: #99aab5;
