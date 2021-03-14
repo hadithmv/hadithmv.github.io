@@ -119,7 +119,7 @@ body.mm-ocd-opened {
 }
 :root {
   --mm-spn-item-height: 50px; /* Height for menu items. */
-  --mm-spn-item-indent: 40px; /* 20px; - Indent for menu items. */
+  --mm-spn-item-indent: 45px; /* 20px; - Indent for menu items. */ /* remember to change .mm-spn.mm-spn--navbar::after too */
   --mm-spn-line-height: 24px; /* Line-height for text in the menu. */
 }
 .mm-spn {
@@ -193,10 +193,12 @@ body.mm-ocd-opened {
   opacity: 0.4;
 }
 .mm-spn li::after {
+  /* this is the line between menu items */
   content: "";
   display: block;
-  margin-left: 20px;
-  margin-left: var(--mm-spn-item-indent);
+  margin-left: 30px; /* 20px; */
+
+  /* margin-left: var(--mm-spn-item-indent); */
   border-top: 1px solid;
   opacity: 0.15;
 }
@@ -288,7 +290,7 @@ body.mm-ocd-opened {
   font-family: "dvFont", "arFont", sans-serif;
 
   /* added this, this undoes the added root indent padding for top menu text */
-  padding-right: 40px;
+  padding-right: 50px;
 }
 .mm-spn.mm-spn--navbar.mm-spn--main::after {
   padding-left: 20px;
