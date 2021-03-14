@@ -147,3 +147,22 @@ a:hover {
   text-align: right; /* rtl */
   direction: rtl;
 }
+
+/* highlights drawer links on hover */
+#menu > ul > li span:hover,
+#menu > ul > li a:hover {
+  color: #39c;
+}
+
+/* undoes highlight on none links as well as makes the cursor normal over them */
+#menu > ul > li.madani a:hover,
+#menu > ul > li.HmvVer a:hover {
+  color: #eee;
+  cursor: default;
+}
+
+/* darkens nav and changes cursor on mouseover so users know its somewhat clickable */
+body > div.header:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
