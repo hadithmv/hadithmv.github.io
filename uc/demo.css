@@ -55,9 +55,10 @@ a:hover {
 }
 .header,
 .footer {
-  background: #254e61d1; /* #4bb5ef - top horizontal long navbar color */
+  background: #254e61; /* #4bb5ef - top horizontal long navbar color */
   font-size: 16px;
-  font-weight: bold;
+
+  /* font-weight: bold; */
   color: #fff;
   line-height: 50px;
   -moz-box-sizing: border-box;
@@ -67,12 +68,15 @@ a:hover {
   padding: 0 50px;
 
   /* added this line height so as to move header center text lower */
-  line-height: 60px; /* unwritten default is 50px */*
+  line-height: 60px; /* unwritten default is 50px */
 
   /* added this shadow */
-  box-shadow: 0 2px 4px rgb(0 0 0 / 50%);box-shadowbox-shadowbox-shadowbox-shadowbox-shadowbox-shadowbox-shadowbox-shadow
+  box-shadow: 0 2px 4px rgb(0 0 0 / 50%);
+
+  /* added font because navbar top text is unstyled */
+  font-family: "dvFont", "arFont", sans-serif;
 }
-.header.fixed {
+.Selectedeader.fixed {
   position: fixed;
   top: 0;
   left: 0;
@@ -107,12 +111,20 @@ a:hover {
   display: block;
   background: #fff;
   height: 2px;
+
+  /* added samsung unicode symbol color fix */
+  color: transparent;
+  text-shadow: 0 0 0 white;
 }
 .header a span {
   background: #fff;
   display: block;
   height: 2px;
   margin: 6px 0;
+
+  /* added samsung unicode symbol color fix */
+  color: transparent;
+  text-shadow: 0 0 0 white;
 }
 .content {
   /* padding: 150px 50px 50px 50px; */
@@ -133,26 +145,5 @@ a:hover {
 /* CUSTOM EDITS */
 #menu > ul > li {
   text-align: right; /* rtl */
+  direction: rtl;
 }
-
-/*
-#menu > ul > li > span {
-  padding-right: 50px;  indent 
-}
-*/
-
-/*
-*/
-
-/*
-*/
-.header {
-  /* padding-top: 70px; */
-}
-
-/*
-body > div.header > span {
-  margin-top: 500px !important;
-  color: red;
-}
-*/
