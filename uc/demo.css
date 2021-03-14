@@ -76,7 +76,7 @@ a:hover {
   /* added font because navbar top text is unstyled */
   font-family: "dvFont", "arFont", sans-serif;
 }
-.Selectedeader.fixed {
+.header.fixed {
   position: fixed;
   top: 0;
   left: 0;
