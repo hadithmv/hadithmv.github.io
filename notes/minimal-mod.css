@@ -509,6 +509,50 @@ td {
   text-indent: 2em;
 }
 
+/* SCROLLBAR COLOR */
+
+/* Desktop only MQ */
+@media screen and (min-width: 900px) {
+  /* Works on Firefox */
+  * {
+    scrollbar-width: thin;
+
+    /* scrollbar-color: dark; */
+  }
+
+  /* Works on Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  *::-webkit-scrollbar-track {
+    /* the track (progress bar) of the scrollbar. */
+
+    background: #f1f1f1;
+
+    /* outer */
+  }
+
+  *::-webkit-scrollbar-thumb {
+    /* the draggable scrolling handle. */
+
+    background-color: #c1c1c1;
+
+    /* inner */
+    border-radius: 20px;
+
+    /* border-width: 3px; */
+
+    /* do i need? */
+    border-style: solid;
+    border-color: #f1f1f1;
+
+    /* outer */
+  }
+}
+
+/* ===== scroll bar - END ===== */
+
 /* ==================
 thaana mish mash render fix
 have to use this convuluted nth child hack, using both even and odd doesnt work,
@@ -570,5 +614,39 @@ thaana mish mash render fix - END
   }
   a:hover {
     color: #2a8dbf;
+  }
+
+  /* scrollbar code */
+  @media screen and (min-width: 900px) {
+    /* Works on Firefox */
+    * {
+      /* scrollbar-width: thin; */
+
+      scrollbar-color: dark;
+    }
+
+    /* Works on Chrome, Edge, and Safari */
+
+    /**  ::-webkit-scrollbar {
+      width: 12px;
+    } */
+
+    *::-webkit-scrollbar-track {
+      /* the track (progress bar) of the scrollbar. */
+      background: #424242; /* outer */
+    }
+
+    *::-webkit-scrollbar-thumb {
+      /* the draggable scrolling handle. */
+      background-color: #686868; /* inner */
+
+      /* border-radius: 20px; */
+
+      /* do i need? */
+
+      /* border-width: 3px; */
+      border-style: solid;
+      border-color: #424242; /* outer */
+    }
   }
 }
