@@ -4,11 +4,11 @@ Load priority in COMB:
 **pushy-mod.css		(minify w csso)	min file not kept as seperate
 **hmv-styles.css	(minify w csso)	min file not kept as seperate
 
-**jquery.dataTables.min.css	(minify w cssnano)
-**buttons.dataTables.min.css	(minify w cssnano)
+**jquery.dataTables.min.css 1.10.24	(minify w cssnano)
+**buttons.dataTables.min.css 1.7.0	(minify w cssnano)
 
 
-...html boilerplate in hmv styles is v8
+...html boilerplate in hmv styles is v8.0
 
 
 https://github.com/css/csso-cli

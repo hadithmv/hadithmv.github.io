@@ -233,10 +233,10 @@ body {
   *::-webkit-scrollbar-thumb {
     /* the draggable scrolling handle. */
 
+    /* inner */
     background-color: #c1c1c1;
 
-    /* inner */
-    border-radius: 20px;
+    /* border-radius: 20px; */
 
     /* border-width: 3px; */
 
@@ -672,17 +672,29 @@ looks like we don't need this code anymore, use the hide below this */
 @media screen and (min-width: 900px) {
   /* table.dataTable tbody th.focus, */
   table.dataTable tbody td.focus {
+    /* box-shadow: inset 0 0 1px 2px #3366ff; */
     box-shadow: inset 0 0 1px 2.5px #337ab7;
-
-    /* inset: Changes the shadow from an outer shadow (outset) to an inner shadow
-next 4 numbers: offset-x | offset-y | blur-radius | spread-radius 
-last is color */
 
     /* last px makes box thicker */
     border-radius: 5px;
 
     /* makes box rounder */
   }
+
+  /* div.dtk-focus-alt table.dataTable tbody th.focus, */
+  div.dtk-focus-alt table.dataTable tbody td.focus {
+    /* box-shadow: inset 0 0 1px 2px #ff8b33; */
+    box-shadow: inset 0 0 1px 2.5px #337ab7;
+
+    /* last px makes box thicker */
+    border-radius: 5px;
+
+    /* makes box rounder */
+  }
+
+  /* inset: Changes the shadow from an outer shadow (outset) to an inner shadow
+next 4 numbers: offset-x | offset-y | blur-radius | spread-radius 
+last is color */
 }
 
 /* Mark JS - padding: 0; removes useless padding, donno if still needed? */

@@ -1,22 +1,32 @@
 Load priority in COMB:???
 
-jquery.min.js
+jquery.min.js 3.6.0
 pushy.min.js (requires jq)
-**jquery.dataTables.min.js	(requires jq, minify w closure)
+**jquery.dataTables.min.js 1.10.24	(requires jq, minify w closure)
 
-**input.min.js	(minified file not available from site, so minify w closure)
-**dataTables.buttons.min.js
-**buttons.colVis.min.js	(minify w closure)
-buttons.html5.min.js
-**hammer.min.js	(minify w closure)
-dataTables.keyTable.min.js
-dataTables.keepConditions.min.js
-datatables.mark.min.js
-**jquery.mark.min.js	(remove comments, otherwise ok)
+**input.min.js 1.10.21	(minified file not available from site, so minify w closure)
+**dataTables.buttons.min.js 1.7.0
+**buttons.colVis.min.js 1.7.0	(minify w closure)
+buttons.html5.min.js 1.7.0
+**hammer.min.js 2.0.8	(minify w closure)
+dataTables.keyTable.min.js 2.6.1
+dataTables.keepConditions.min.js 1.2.0
+datatables.mark.min.js 9.0.0
+**jquery.mark.min.js 2.1.0	(remove comments, otherwise ok)
 **hmv-script.js	(not originally minified, so minify w closure)
 
 
+  <!-- DT Keep Conditions
+      https://github.com/jhyland87/DataTables-Keep-Conditions/tree/master/dist
+      https://www.gyrocode.com/articles/jquery-datatables-save-and-restore-table-state-using-unique-url/ -->
 
+  <!-- DT Mark Js - Css file content included with the header Css
+                  https://github.com/julmot/mark.js/tree/master/dist -->
+  <script src="../js/jquery.mark.min.js"></script>
+
+  <!-- datatables.mark.js
+https://github.com/julmot/datatables.mark.js/tree/master/dist -->
+  <script src="../js/datatables.mark.min.js"></script>
 
 ...Current order that needs updating:
 jquery.min.js

@@ -12,29 +12,26 @@ body {
   position: relative;
   -webkit-text-size-adjust: none;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  line-height: 1;
-  font-weight: bold;
-  margin: 20px 0 10px 0;
+*/
+
+/*
+h1, h2, h3, h4, h5, h6 {
+	line-height: 1;
+	font-weight: bold;
+	margin: 20px 0 10px 0;
 }
-h1,
-h2,
-h3 {
-  font-size: 18px;
+h1, h2, h3 {
+	font-size: 18px;
 }
-h4,
-h5,
-h6 {
-  font-size: 16px;
+h4, h5, h6 {
+	font-size: 16px;
 }
 p {
-  margin: 0 0 10px 0;
+	margin: 0 0 10px 0;
 }
+*/
+
+/*
 a,
 a:link,
 a:active,
@@ -43,19 +40,27 @@ a:hover {
   color: inherit;
   text-decoration: underline;
 }
+*/
+
+/* commenting this out causes FOUT */
 
 .header nav {
   display: none;
 }
-*/
+
 .header,
-.content,
-.footer {
+.content
+/*,
+.footer*/ {
   text-align: center;
 }
-.header,
-.footer {
-  background: #254e61; /* #4bb5ef - top horizontal long navbar color */
+
+.header
+/*,
+.footer*/ {
+  background: #254e61;
+
+  /* #4bb5ef - top horizontal long navbar color */
   font-size: 16px;
 
   /* font-weight: bold; */
@@ -64,11 +69,11 @@ a:hover {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
-  height: 60px; /* 50px; */
+  height: 50px;
   padding: 0 50px;
 
-  /* added this line height so as to move header center text lower */
-  line-height: 60px; /* unwritten default is 50px */
+  /* added z index to prevent table coming above it */
+  z-index: 999;
 
   /* added this shadow */
   box-shadow: 0 2px 4px rgb(0 0 0 / 50%);
@@ -76,16 +81,20 @@ a:hover {
   /* added font because navbar top text is unstyled */
   font-family: "dvFont", "arFont", sans-serif;
 }
+
 .header.fixed {
   position: fixed;
   top: 0;
   left: 0;
-} /*
+}
+
+/*
 .footer.fixed {
   position: fixed;
   bottom: 0;
   left: 0;
 } */
+
 .header a {
   /* this is the hamburger */
   display: block;
@@ -96,65 +105,52 @@ a:hover {
   position: absolute;
   top: 0;
 
-  /* added this space to the right of hamburger to bring it more to left */
-  padding-right: 25px;
-
-  /* added this space above hamburger to bring it lower */
-  padding-top: 15px;
-
   /* left: 0; */
-  right: 0; /* bring hamburger from the left to the right */
+
+  /* changed from left to bring hamburger to the right */
+  right: 0;
 }
+
 .header a::before,
 .header a::after {
   content: "";
   display: block;
   background: #fff;
   height: 2px;
-
-  /* added samsung unicode symbol color fix */
-  color: transparent;
-  text-shadow: 0 0 0 white;
 }
+
 .header a span {
   background: #fff;
   display: block;
   height: 2px;
   margin: 6px 0;
-
-  /* added samsung unicode symbol color fix */
-  color: transparent;
-  text-shadow: 0 0 0 white;
 }
+
 .content {
   /* padding: 150px 50px 50px 50px; */
-
-  /* added - space around table */
-  padding-top: 12px;
-  padding-bottom: 10px;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding: 60px 10px 10px 10px;
 }
 
-/*
-===
-===
-===
-*/
+/* === --- === --- ====
+CUSTOM EDITS
+=== --- === --- ==== */
 
-/* CUSTOM EDITS */
 #menu > ul > li {
-  text-align: right; /* rtl */
+  text-align: right;
+
+  /* rtl */
   direction: rtl;
 }
 
 /* highlights drawer links on hover */
+
 #menu > ul > li span:hover,
 #menu > ul > li a:hover {
   color: #39c;
 }
 
 /* undoes highlight on none links as well as makes the cursor normal over them */
+
 #menu > ul > li.madani a:hover,
 #menu > ul > li.HmvVer a:hover {
   color: #eee;
@@ -162,7 +158,8 @@ a:hover {
 }
 
 /* darkens nav and changes cursor on mouseover so users know its somewhat clickable */
-body > div.header:hover {
-  opacity: 0.9;
+
+#page > div.header:hover {
+  background-color: #1c4253;
   cursor: pointer;
 }
