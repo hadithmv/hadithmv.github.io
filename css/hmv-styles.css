@@ -208,41 +208,44 @@ body {
   scrollbar-width: thin;
 */
 
-/* Works on Firefox */
-* {
-  scrollbar-width: thin;
+/* Desktop only MQ */
+@media screen and (min-width: 900px) {
+  /* Works on Firefox */
+  * {
+    scrollbar-width: thin;
 
-  /* scrollbar-color: dark; */
-}
+    /* scrollbar-color: dark; */
+  }
 
-/* Works on Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 12px;
-}
+  /* Works on Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
 
-*::-webkit-scrollbar-track {
-  /* the track (progress bar) of the scrollbar. */
+  *::-webkit-scrollbar-track {
+    /* the track (progress bar) of the scrollbar. */
 
-  background: #f1f1f1;
+    background: #f1f1f1;
 
-  /* outer */
-}
+    /* outer */
+  }
 
-*::-webkit-scrollbar-thumb {
-  /* the draggable scrolling handle. */
+  *::-webkit-scrollbar-thumb {
+    /* the draggable scrolling handle. */
 
-  background-color: #c1c1c1;
+    background-color: #c1c1c1;
 
-  /* inner */
-  border-radius: 20px;
+    /* inner */
+    border-radius: 20px;
 
-  /* border-width: 3px; */
+    /* border-width: 3px; */
 
-  /* do i need? */
-  border-style: solid;
-  border-color: #f1f1f1;
+    /* do i need? */
+    border-style: solid;
+    border-color: #f1f1f1;
 
-  /* outer */
+    /* outer */
+  }
 }
 
 /* ===== scroll bar - END ===== */
@@ -1086,41 +1089,37 @@ this makes a faint white outline around card  */
     background-color: #1a282f !important;
   }
 
-  /* new code but not yet fully supported
-html,
-body {
-  scrollbar-color: dark;
-  scrollbar-width: thin;
-*/
+  /* scrollbar code */
+  @media screen and (min-width: 900px) {
+    /* Works on Firefox */
+    * {
+      /* scrollbar-width: thin; */
 
-  /* Works on Firefox */
-  * {
-    /* scrollbar-width: thin; */
+      scrollbar-color: dark;
+    }
 
-    scrollbar-color: dark;
-  }
+    /* Works on Chrome, Edge, and Safari */
 
-  /* Works on Chrome, Edge, and Safari */
-
-  /**  ::-webkit-scrollbar {
+    /**  ::-webkit-scrollbar {
     width: 12px;
   } */
 
-  *::-webkit-scrollbar-track {
-    /* the track (progress bar) of the scrollbar. */
-    background: #424242; /* outer */
-  }
+    *::-webkit-scrollbar-track {
+      /* the track (progress bar) of the scrollbar. */
+      background: #424242; /* outer */
+    }
 
-  *::-webkit-scrollbar-thumb {
-    /* the draggable scrolling handle. */
-    background-color: #686868; /* inner */
+    *::-webkit-scrollbar-thumb {
+      /* the draggable scrolling handle. */
+      background-color: #686868; /* inner */
 
-    /* border-radius: 20px; */
+      /* border-radius: 20px; */
 
-    /* do i need? */
+      /* do i need? */
 
-    /* border-width: 3px; */
-    border-style: solid;
-    border-color: #424242; /* outer */
+      /* border-width: 3px; */
+      border-style: solid;
+      border-color: #424242; /* outer */
+    }
   }
 }

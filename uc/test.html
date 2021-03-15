@@ -156,150 +156,197 @@ so right align to prevent gaps in text */
   <link type="text/css" rel="stylesheet" href="demo.css" />
   <link type="text/css" rel="stylesheet" href="mmenu-light.css" />
   <body>
-    <div class="header" onclick="drawer.open();"> <!-- on functions are custom -->
-      <a href="#menu"><span></span></a>
+    <div class="header" onclick="drawer.open();">
+      <!-- on functions are custom -->
+      <a href="#menu"><span></span></a><!-- hamburger -->
       <span class="navText">ޙަދީޘްއެމްވީ</span>
       <!-- added this span to position this text -->
+
       <nav id="menu">
+        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <ul>
           <!-- <li class="Selected"><a href="#">Home</a></li> dont know what this selected doesZ-->
-          
-          <li><span>ފޮތްތައް</span>
+          <li>
+            <span>ފޮތްތައް</span>
             <ul>
-              <li><span>ޙަދީޘް</span>
+              <li>
+                <span>ޙަދީޘް</span>
                 <ul>
                   <li><a href="../books/nawawi">ނަވަވީގެ 40 ޙަދީޘް</a></li>
                   <li><a href="../books/umdah">ޢުމްދަތުލް އަޙްކާމް</a></li>
                   <li><a href="../books/sahihain">ޞަޙީޙައިން (ނުނިމޭ)</a></li>
-                  <li><a href="../books/otherHadith">އެހެނިހެން ޙަދީޘްތައް</a></li>
+                  <li>
+                    <a href="../books/otherHadith">އެހެނިހެން ޙަދީޘްތައް</a>
+                  </li>
                 </ul>
               </li>
-              <li><span>ޤުރްއާން</span>
+              <li>
+                <span>ޤުރްއާން</span>
                 <ul>
-                  <li><a href="../books/quran">1. ފާތިޙާ ސޫރަތް (ތަފްސީރާއެކު)</a></li>
+                  <li>
+                    <a href="../books/quran">1. ފާތިޙާ ސޫރަތް (ތަފްސީރާއެކު)</a>
+                  </li>
                 </ul>
               </li>
-              <li><span>ޢަޤީދާ</span>
+              <li>
+                <span>ޢަޤީދާ</span>
                 <ul>
-                  <li><a href="../books/barbahari">ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ</a></li>
+                  <li>
+                    <a href="../books/barbahari"
+                      >ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ</a
+                    >
+                  </li>
                 </ul>
               </li>
             </ul>
           </li>
-          
-          <li><span>އިތުރު މައުލޫމާތު</span>
+          <li>
+            <span>އިތުރު މައުލޫމާތު</span>
             <ul>
-              <li><span>ގުޅުއްވުމަށް</span>
+              <li>
+                <span>ގުޅުއްވުމަށް</span>
                 <ul>
-                  <li><a href="https://telegram.me/yahyasdadmv">ޓެލެގްރާމް</a></li>
-                  <li><a href="https://facebook.com/hadithmvOfficial">ފޭސްބުކް</a></li>
+                  <li>
+                    <a href="https://telegram.me/yahyasdadmv">ޓެލެގްރާމް</a>
+                  </li>
+                  <li>
+                    <a href="https://facebook.com/hadithmvOfficial">ފޭސްބުކް</a>
+                  </li>
                   <li><a href="mailto:yahyasdadmv@gmail.com">އީމެއިލް</a></li>
-                  <li><a href="https://forms.gle/rcdCYXvzWRxNDuJB7">ފޯމް</a></li>
+                  <li>
+                    <a href="https://forms.gle/rcdCYXvzWRxNDuJB7">ފޯމް</a>
+                  </li>
                 </ul>
               </li>
-              <li><a href="../notes/info/introHmv">ޙަދީޘްއެމްވީއަކީ ކޮބާ؟</a></li>
-              <li><a href="../notes/info/introFortyN">ނަވަވީގެ 40 ޙަދީޘަކީ ކޮބާ؟</a></li>
-              <li><a href="../notes/info/introUmdah">ޢުމްދަތުލް އަޙްކާމަކީ ކޮބާ؟</a></li>
-              <li><a href="../notes/third-party-libs-and-tools.txt">ޙަދީޘްއެމްވީ ހަދަން ބޭނުން ކުރެވުނު ތަކެތި</a></li>
-              <li><a href="../LICENSE.txt">ލައިސެންސް</a></li> <!-- APKCHANGE 123 -->
-              <li><a href="#" onclick="myHelp()">ކީބޯޑުން ނެވިގޭޓް ކުރުމަށް</a></li>
+              <li>
+                <a href="../notes/info/introHmv">ޙަދީޘްއެމްވީއަކީ ކޮބާ؟</a>
+              </li>
+              <li>
+                <a href="../notes/info/introFortyN"
+                  >ނަވަވީގެ 40 ޙަދީޘަކީ ކޮބާ؟</a
+                >
+              </li>
+              <li>
+                <a href="../notes/info/introUmdah"
+                  >ޢުމްދަތުލް އަޙްކާމަކީ ކޮބާ؟</a
+                >
+              </li>
+              <li>
+                <a href="../notes/third-party-libs-and-tools.txt"
+                  >ޙަދީޘްއެމްވީ ހަދަން ބޭނުން ކުރެވުނު ތަކެތި</a
+                >
+              </li>
+              <li><a href="../LICENSE.txt">ލައިސެންސް</a></li>
+              <!-- APKCHANGE 123 -->
+              <li>
+                <a href="#" onclick="myHelp()">ކީބޯޑުން ނެވިގޭޓް ކުރުމަށް</a>
+              </li>
             </ul>
           </li>
-
-          <li><span>މީސްމީޑިއާ</span>
+          <li>
+            <span>މީސްމީޑިއާ</span>
             <ul>
               <li><a href="https://t.me/hadithmv">ޓެލެގްރާމް</a></li>
-              <li><a href="https://facebook.com/hadithmvOfficial">ފޭސްބުކް</a></li>
-              <li><a href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX%2FZVrvGtq%2FbJboZzADy3OssLND4H1TFWklNmNQZC">ވައިބަރ</a></li>
+              <li>
+                <a href="https://facebook.com/hadithmvOfficial">ފޭސްބުކް</a>
+              </li>
+              <li>
+                <a
+                  href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX%2FZVrvGtq%2FbJboZzADy3OssLND4H1TFWklNmNQZC"
+                  >ވައިބަރ</a
+                >
+              </li>
               <li><a href="https://twitter.com/hadithmv">ޓްވިޓަރ</a></li>
-              <li><a href="https://www.instagram.com/hadithmv">އިންސްޓަގްރާމް</a></li>
+              <li>
+                <a href="https://www.instagram.com/hadithmv">އިންސްޓަގްރާމް</a>
+              </li>
             </ul>
           </li>
-
-          <li><span>މަންސަތައް</span>
+          <li>
+            <span>މަންސަތައް</span>
             <ul>
-              <li><span>ވެބް</span>
+              <li>
+                <span>ވެބް</span>
                 <ul>
                   <li><a href="https://hadithmv.github.io">މައި ސައިޓު</a></li>
                   <li><a href="https://hadithmv.gitlab.io">މިރަރ 1</a></li>
                   <li><a href="https://hadithmv.onrender.com">މިރަރ 2</a></li>
                   <li><a href="https://hadithmv.netlify.app">މިރަރ 3</a></li>
-                  <li><span>ލައިޓް ވާރޝަން</span>
+                  <li>
+                    <span>ލައިޓް ވާރޝަން</span>
                     <ul>
-                      <li><a href="https://hadithmv.github.io/books/nawawi-lite">ނަވަވީގެ 40 ޙަދީޘް</a></li>
+                      <li>
+                        <a href="https://hadithmv.github.io/books/nawawi-lite"
+                          >ނަވަވީގެ 40 ޙަދީޘް</a
+                        >
+                      </li>
                     </ul>
                   </li>
                 </ul>
               </li>
-              <li><a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv">އެންޑްރޮއިޑް</a></li>
-              <li><span>ވިންޑޯސް</span>
+              <li>
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
+                  >އެންޑްރޮއިޑް</a
+                >
+              </li>
+              <li>
+                <span>ވިންޑޯސް</span>
                 <ul>
-                  <li><a href="https://github.com/hadithmv/hadithmv.github.io/raw/master/win/hmv/hadithmv_Win64.7z">ޑައުންލޯޑު</a></li>
-                  <li><a href="https://virustotal.com/gui/url/559cb24958860c16114e38f9cb2a4b4dac409bd87304f8b2aa45b1ac3743b469/detection">(ވައިރަސް ޗެކް)</a></li>
+                  <li>
+                    <a
+                      href="https://github.com/hadithmv/hadithmv.github.io/raw/master/win/hmv/hadithmv_Win64.7z"
+                      >ޑައުންލޯޑު</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://virustotal.com/gui/url/559cb24958860c16114e38f9cb2a4b4dac409bd87304f8b2aa45b1ac3743b469/detection"
+                      >(ވައިރަސް ޗެކް)</a
+                    >
+                  </li>
                 </ul>
               </li>
-
             </ul>
           </li>
-
-          <li><span>ޑައުންލޯޑުތައް</span>
+          <li>
+            <span>ޑައުންލޯޑުތައް</span>
             <ul>
-              <li><a href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf">ނަވަވީގެ 40 ޙަދީޘް (ޕީޑީއެފް)</a></li>
+              <li>
+                <a
+                  href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf"
+                  >ނަވަވީގެ 40 ޙަދީޘް (ޕީޑީއެފް)</a
+                >
+              </li>
             </ul>
           </li>
-
-          <li><span>ފިހާރަ</span>
+          <li>
+            <span>ފިހާރަ</span>
             <ul>
-              <li><a href="https://hadithmv.github.io/notes/info/purchase-books">ފޮތް ގަތުމަށް</a></li>
-              <li><a href="https://hadithmv.github.io/notes/info/aqiqa-ulhiya">ޢަޤީޤާއާއި އުޟްޙިޔާ ކަތިލުމަށް</a></li>
+              <li>
+                <a href="https://hadithmv.github.io/notes/info/purchase-books"
+                  >ފޮތް ގަތުމަށް</a
+                >
+              </li>
+              <li>
+                <a href="https://hadithmv.github.io/notes/info/aqiqa-ulhiya"
+                  >ޢަޤީޤާއާއި އުޟްޙިޔާ ކަތިލުމަށް</a
+                >
+              </li>
             </ul>
           </li>
-
-          <li class="HmvVer"><a>⚙️ އިސްދާރު: 2.17</a></li>
-          <li class="madeBy"><a href="https://telegram.me/yahyasdadmv">ފަރުމާ ކުރީ: أبو يحيى أشراف بن إبراهيم المالديفي</a></li>
-          <li class="madani"><a>މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a></li>
-          
+          <li class="HmvVer"><a href="#">⚙️ އިސްދާރު: 2.17</a></li>
+          <li class="madeBy">
+            <a href="https://telegram.me/yahyasdadmv"
+              >ފަރުމާ ކުރީ: أبو يحيى أشراف بن إبراهيم المالديفي</a
+            >
+          </li>
+          <li class="madani"><a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a></li>
         </ul>
       </nav>
+      <!-- <nav id="menu"> -->
     </div>
-
-    <script src="mmenu-light.js"></script>
-    <script>
-      var menu = new MmenuLight(document.querySelector("#menu"), "all");
-
-      var navigator = menu.navigation({
-        // selectedClass: 'Selected',
-        // slidingSubmenus: true,
-        // theme: 'dark',
-        // title: 'Menu',
-        title: "ޙަދީޘްއެމްވީ",
-        // background-color:	#f3f3f3, // Background-color for the menu
-        // color:	#444,	// Color for the text and borders in the menu.
-        // VARIABLES
-        // --mm-spn-item-height:	50px,	// Height for menu items.
-        // --mm-spn-item-indent:	20px,	// Indent for menu items.
-        // --mm-spn-line-height: 24px,	// Line-height for text in the menu.
-      });
-
-      var drawer = menu.offcanvas({
-        // position: 'left'
-        position: "right", //change123
-
-        // top:	0,	// Position relative to the top of the page.
-        // bottom: 0, // Position relative to the bottom of the page.
-        // --mm-ocd-width: 80%, // Width for the menu.
-        // --mm-ocd-min-width	: 200px, // Minimal width for the menu.
-        // --mm-ocd-max-width	440px, // Maximum width for the menu.
-      });
-
-      //	Open the menu.
-      document
-        .querySelector('a[href="#menu"]')
-        .addEventListener("click", (evnt) => {
-          evnt.preventDefault();
-          drawer.open();
-        });
-    </script>
+    <!-- <div class="header" onclick="drawer.open();"> -->
 
     <div class="content">
       <!-- myTabs - MOVED INTO PUSHY MENU ABOVE
@@ -351,6 +398,44 @@ so right align to prevent gaps in text */
       <div id="bukhariTab" class="myTab w3-animate-right" style="display:none">
           <p>two</p>
       </div>-->
+
+    <script src="mmenu-light.js"></script>
+    <script>
+      var menu = new MmenuLight(document.querySelector("#menu"), "all");
+
+      var navigator = menu.navigation({
+        // selectedClass: 'Selected',
+        // slidingSubmenus: true,
+        // theme: 'dark',
+        // title: 'Menu',
+        title: "ޙަދީޘްއެމްވީ",
+        // background-color:	#f3f3f3, // Background-color for the menu
+        // color:	#444,	// Color for the text and borders in the menu.
+        // VARIABLES
+        // --mm-spn-item-height:	50px,	// Height for menu items.
+        // --mm-spn-item-indent:	20px,	// Indent for menu items.
+        // --mm-spn-line-height: 24px,	// Line-height for text in the menu.
+      });
+
+      var drawer = menu.offcanvas({
+        // position: 'left'
+        position: "right", //change123
+
+        // top:	0,	// Position relative to the top of the page.
+        // bottom: 0, // Position relative to the bottom of the page.
+        // --mm-ocd-width: 80%, // Width for the menu.
+        // --mm-ocd-min-width	: 200px, // Minimal width for the menu.
+        // --mm-ocd-max-width	440px, // Maximum width for the menu.
+      });
+
+      //	Open the menu.
+      document
+        .querySelector('a[href="#menu"]')
+        .addEventListener("click", (evnt) => {
+          evnt.preventDefault();
+          drawer.open();
+        });
+    </script>
 
     <!-- ===== ===== JS LIBRARIES ===== ===== 
     I deferred everything to parse js last -->
