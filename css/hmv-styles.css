@@ -177,6 +177,7 @@ html {
 
 /* Desktop only MQ */
 
+/* --- old css tricks scrollbar styling ---
 @media screen and (min-width: 900px) {
   html {
     --scrollbarBG: #cfd8dc;
@@ -197,6 +198,14 @@ html {
     border-radius: 6px;
     border: 3px solid var(--scrollbarBG);
   }
+}
+*/
+
+/* new code */
+html,
+body {
+  scrollbar-color: dark;
+  scrollbar-width: thin;
 }
 
 /* ===== scroll bar - END ===== */
