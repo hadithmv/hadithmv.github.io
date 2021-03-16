@@ -1,15 +1,16 @@
 Load priority in COMB:
 
-**fonts.css 		(not originally minified, so minify w cssnano)	min file not kept as seperate
-**pushy-mod.css		(minify w csso)	min file not kept as seperate
+-Critical
+**mmenu-demo.css	(minify w cssnano)
+**mmenu-light.css  3.08	(minify w cssnano)
 **hmv-styles.css	(minify w csso)	min file not kept as seperate
 
+-Non critical
 **jquery.dataTables.min.css 1.10.24	(minify w cssnano)
 **buttons.dataTables.min.css 1.7.0	(minify w cssnano)
-
+fonts.css	(minify w cssnano)
 
 ...html boilerplate in hmv styles is v8.0
-
 
 https://github.com/css/csso-cli
 csso [input] [options]
