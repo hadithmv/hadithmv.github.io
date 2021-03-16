@@ -53,7 +53,8 @@ a:hover {
 .header/*,
 .footer*/ {
   background: #254e61; /* #4bb5ef - top horizontal long navbar color */
-  font-size: 16px;
+
+  /* font-size: 16px; */
 
   /* font-weight: bold; */
   color: #fff;
@@ -65,13 +66,13 @@ a:hover {
   padding: 0 50px;
 
   /* added z index to prevent table coming above it */
-  z-index: 999;
+  z-index: 9998;
 
   /* added this shadow */
   box-shadow: 0 2px 4px rgb(0 0 0 / 50%);
 
-  /* added font because navbar top text is unstyled */
-  font-family: "dvFont", "arFont", sans-serif;
+  /* added font because navbar top text is unstyled 
+  font-family: "dvFont", "arFont", sans-serif; */
 }
 .header.fixed {
   position: fixed;
