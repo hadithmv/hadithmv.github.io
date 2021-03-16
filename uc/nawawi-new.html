@@ -4,6 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <link rel="canonical" href="https://hadithmv.github.io/" />
     <link
       rel="icon"
@@ -11,6 +12,7 @@
       href="../img/logo/NewLogo6.2--NoBack-Opt.svg"
     />
     <meta name="theme-color" content="#29434e" />
+
     <!-- og metadata sm link previews -->
     <meta property="og:title" content="hadithmv" />
     <meta property="og:type" content="website" />
@@ -19,28 +21,31 @@
       property="og:image"
       content="https://hadithmv.github.io/img/logo/NewLogo6.2--RoundedBack-1080.png"
     />
+
     <title>hadithmv - 40 Nawawi</title>
     <meta
       name="description"
       content="Dhivehi hadith translations at your fingertips. - Imam Nawawi's 40 hadith."
     />
     <!-- META TAGS - END -->
+
     <!-- === EXT CSS === -->
     <link rel="stylesheet" href="../css/COMBcss.min.css" />
     <link rel="stylesheet" href="demo2.css" />
     <link rel="stylesheet" href="mmenu-light.css" />
+
     <!-- === INT CSS === -->
     <style>
       /* === --- === --- ====
-         CUSTOM COLUMN CLASSES
-         FOR 40 NAWAWI
-         === --- === --- ==== */
+		CUSTOM COLUMN CLASSES
+		FOR 40 NAWAWI
+		=== --- === --- ==== */
 
       /* CHANGE123 classes and fonts */
 
       /* removes justify from ar dv (titles and refs) + rs.
-         justify doesnt look good on short cells like surukhi, masdars.
-         so right align to prevent gaps in text */
+		  justify doesnt look good on short cells like surukhi, masdars.
+		  so right align to prevent gaps in text */
       .dataTable tr td.fnCol2,
       .dataTable tr td.fnCol3,
       .dataTable tr td.fnCol7,
@@ -100,7 +105,7 @@
       }
 
       /* css for first column
-         # number column cuz it has hashtag and digits */
+		  # number column cuz it has hashtag and digits */
       .dataTable tr td.fnCol1 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 21px;
@@ -108,6 +113,7 @@
     </style>
     <!-- === INT CSS - END === -->
   </head>
+
   <body>
     <div id="page">
       <!-- added fixed, wrote custom onclick -->
@@ -119,6 +125,7 @@
         <nav id="menu">
           <ul>
             <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
+
             <li>
               <span>ފޮތްތައް</span>
               <ul>
@@ -310,6 +317,7 @@
         <!-- <nav id="menu"> -->
       </div>
       <!-- <div class="header fixed" onclick="drawer.open();"> -->
+
       <div class="content">
         <main class="w3-animate-right">
           <!-- --- TABLE --- -->
@@ -338,6 +346,7 @@
       <!-- <div class="content"> -->
     </div>
     <!-- <div id="page"> -->
+
     <!-- === EXT JS === -->
     <!-- defer breaks mmenu light js -->
     <script src="mmenu-light.js"></script>
@@ -346,6 +355,7 @@
     <script src="../js/json/nawawi.js"></script>
     <script src="../js/nawawi-script.min.js"></script>
     <!-- === EXT JS - END === -->
+
     <!-- === INT JS === -->
     <script>
       var menu = new MmenuLight(document.querySelector("#menu"), "all");
