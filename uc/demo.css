@@ -29,9 +29,7 @@ h4, h5, h6 {
 p {
 	margin: 0 0 10px 0;
 }
-*/
-
-/*
+*/ /*
 a,
 a:link,
 a:active,
@@ -43,24 +41,18 @@ a:hover {
 */
 
 /* commenting this out causes FOUT */
-
 .header nav {
   display: none;
 }
 
 .header,
-.content
-/*,
+.content/*,
 .footer*/ {
   text-align: center;
 }
-
-.header
-/*,
+.header/*,
 .footer*/ {
-  background: #254e61;
-
-  /* #4bb5ef - top horizontal long navbar color */
+  background: #254e61; /* #4bb5ef - top horizontal long navbar color */
   font-size: 16px;
 
   /* font-weight: bold; */
@@ -81,20 +73,16 @@ a:hover {
   /* added font because navbar top text is unstyled */
   font-family: "dvFont", "arFont", sans-serif;
 }
-
 .header.fixed {
   position: fixed;
   top: 0;
   left: 0;
-}
-
-/*
+} /*
 .footer.fixed {
   position: fixed;
   bottom: 0;
   left: 0;
 } */
-
 .header a {
   /* this is the hamburger */
   display: block;
@@ -118,14 +106,12 @@ a:hover {
   background: #fff;
   height: 2px;
 }
-
 .header a span {
   background: #fff;
   display: block;
   height: 2px;
   margin: 6px 0;
 }
-
 .content {
   /* padding: 150px 50px 50px 50px; */
   padding: 60px 10px 10px 10px;
@@ -136,21 +122,17 @@ CUSTOM EDITS
 === --- === --- ==== */
 
 #menu > ul > li {
-  text-align: right;
-
-  /* rtl */
+  text-align: right; /* rtl */
   direction: rtl;
 }
 
 /* highlights drawer links on hover */
-
 #menu > ul > li span:hover,
 #menu > ul > li a:hover {
   color: #39c;
 }
 
 /* undoes highlight on none links as well as makes the cursor normal over them */
-
 #menu > ul > li.madani a:hover,
 #menu > ul > li.HmvVer a:hover {
   color: #eee;
@@ -158,7 +140,6 @@ CUSTOM EDITS
 }
 
 /* darkens nav and changes cursor on mouseover so users know its somewhat clickable */
-
 #page > div.header:hover {
   background-color: #1c4253;
   cursor: pointer;
