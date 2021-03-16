@@ -1,19 +1,26 @@
-Load priority in COMB:???
+Load priority in COMB:
 
+-Critical
+mmenu-light.js 3.08
+mmenu-inlineJs.js
+
+-Non critical
 jquery.min.js 3.6.0
-pushy.min.js (requires jq)
 **jquery.dataTables.min.js 1.10.24	(requires jq, minify w closure)
 
-**input.min.js 1.10.21	(minified file not available from site, so minify w closure)
 **dataTables.buttons.min.js 1.7.0
-**buttons.colVis.min.js 1.7.0	(minify w closure)
 buttons.html5.min.js 1.7.0
+**input.min.js 1.10.21	(minified file not available from site, so minify w closure)
 **hammer.min.js 2.0.8	(minify w closure)
-dataTables.keyTable.min.js 2.6.1
-dataTables.keepConditions.min.js 1.2.0
-datatables.mark.min.js 9.0.0
+
 **jquery.mark.min.js 2.1.0	(remove comments, otherwise ok)
+datatables.mark.min.js 9.0.0
+**buttons.colVis.min.js 1.7.0	(minify w closure)
+dataTables.keepConditions.min.js 1.2.0
+dataTables.keyTable.min.js 2.6.1
+
 **hmv-script.js	(not originally minified, so minify w closure)
+
 
 
   <!-- DT Keep Conditions
@@ -28,7 +35,7 @@ datatables.mark.min.js 9.0.0
 https://github.com/julmot/datatables.mark.js/tree/master/dist -->
   <script src="../js/datatables.mark.min.js"></script>
 
-...Current order that needs updating:
+..old order that needed updating:
 jquery.min.js
 jquery.dataTables.min.js
 dataTables.buttons.min.js
