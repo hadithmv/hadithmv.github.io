@@ -185,7 +185,7 @@ body {
 /* ===== scroll bar - END ===== */
 
 /* ====================
-     Tabs Animations
+     Slide In Animation
 ======================= */
 
 .w3-animate-right {
@@ -200,20 +200,8 @@ body {
     -o-animation:      animateRight 0.5s ease-in-out;
     animation:         animateRight 0.5s ease-in-out;
     */
-  -webkit-animation-name: animateright;
-  animation-name: animateRight;
-  -webkit-animation-duration: 400ms;
-  animation-duration: 400ms;
-  will-change: transform;
 
-  /* gpu */
-  -webkit-transition-timing-function: ease-in-out;
-  transition-timing-function: ease-in-out;
-
-  /* smooth */
-}
-
-/*
+  /*
 @keyframes animateRight {
     0% {
         right: -300px;
@@ -226,7 +214,7 @@ body {
 }
 ORIGINAL CODE above */
 
-/* second attempt
+  /* second attempt
   }
   @keyframes animateRight {
     0%   { right: -300px; opacity: 0 }
@@ -251,29 +239,43 @@ ORIGINAL CODE above */
   removed opacity, right, added will-change and ease
   */
 
-@-webkit-keyframes animateRight {
+  /*
+  animation-name: SlideIn;
+  -webkit-animation-name: SlideIn;
+  animation-duration: 400ms;
+  -webkit-animation-duration: 400ms;
+  will-change: transform;
+*/
+
+  /* gpu */
+
+  /*
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+*/
+
+  /* smooth */
+}
+
+@keyframes SlideIn {
   0% {
-    -webkit-transform: translateX(100%);
     transform: translateX(100%);
   }
   100% {
-    -webkit-transform: none;
     transform: none;
   }
 }
 
-@keyframes animateRight {
+@-webkit-keyframes SlideIn {
   0% {
     -webkit-transform: translateX(100%);
-    transform: translateX(100%);
   }
   100% {
     -webkit-transform: none;
-    transform: none;
   }
 }
 
-/* ===== Tabs Animation - END ===== */
+/* ===== Slide In Animation - END ===== */
 
 /* ====================
      DT wrapper CSS
@@ -296,7 +298,7 @@ button,
 
 /* clipboard message */
 
-/*li,*/
+li,
 /* for mmenu light nav menu drawer */
 .header
 /* for mmenu light nav horizontal bar */ {
@@ -314,6 +316,8 @@ button,
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-size: 1rem;
+
+  /* test */
 }
 
 /* makes table rtl */

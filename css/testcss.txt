@@ -1,0 +1,84 @@
+.w3-animate-right {
+  position: relative;
+
+  /*
+    animation: animateRight 0.4s; original code of below */
+
+  /*
+    -webkit-animation: animateRight 0.5s ease-in-out;
+    -moz-animation:    animateRight 0.5s ease-in-out;
+    -o-animation:      animateRight 0.5s ease-in-out;
+    animation:         animateRight 0.5s ease-in-out;
+    */
+  -webkit-animation-name: animateright;
+  animation-name: animateRight;
+  -webkit-animation-duration: 400ms;
+  animation-duration: 400ms;
+  will-change: transform;
+
+  /* gpu */
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+
+  /* smooth */
+}
+
+/*
+@keyframes animateRight {
+    0% {
+        right: -300px;
+        opacity: 0
+    }
+    100% {
+        right: 0;
+        opacity: 1
+    }
+}
+ORIGINAL CODE above */
+
+/* second attempt
+  }
+  @keyframes animateRight {
+    0%   { right: -300px; opacity: 0 }
+    100% { right: 0; opacity: 1 }
+  }
+
+  smooth as butter animation below
+  also browser supports
+
+@-webkit-keyframes animateRight {
+    0%   { right: -300px; opacity: 0 }
+    100% { right: 0; opacity: 1 }
+  }
+  @-moz-keyframes animateRight {
+    0%   { right: -300px; opacity: 0 }
+    100% { right: 0; opacity: 1 }
+  }
+  @-o-keyframes animateRight {
+    0%   { right: -300px; opacity: 0 }
+    100% { right: 0; opacity: 1 }
+  }
+  removed opacity, right, added will-change and ease
+  */
+
+@-webkit-keyframes animateRight {
+  0% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes animateRight {
+  0% {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: none;
+    transform: none;
+  }
+}
