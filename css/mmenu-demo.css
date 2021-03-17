@@ -176,7 +176,8 @@ CUSTOM EDITS
   /* width: 28px; */
 
   /* height: 18px; */
-  padding: 11px;
+
+  /* padding: 11px; */
 
   /* margin: 5px; */
 
@@ -192,6 +193,6 @@ CUSTOM EDITS
   height: 40px;
   width: 40px;
   position: absolute;
-  margin-left: 0;
-  margin-top: -6px;
+  margin-left: 11px;
+  margin-top: 4px;
 }
