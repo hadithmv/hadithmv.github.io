@@ -3,9 +3,9 @@ https://github.com/necolas/normalize.css -MIT
 https://github.com/jquery/jquery -MIT
 https://github.com/DataTables/DataTables -MIT
 https://github.com/hammerjs/hammer.js -MIT
-https://github.com/christophery/pushy -MIT
 https://github.com/julmot/mark.js -MIT
 https://github.com/orderedlist/minimal -CC BY-SA 3.0
+https://github.com/FrDH/mmenu-light -CC BY 4.0
 
 https://github.com/chromium/chromium -BSD-3-Clause
 https://github.com/microsoft/vscode -MIT

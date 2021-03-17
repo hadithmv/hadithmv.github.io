@@ -73,7 +73,11 @@ a:hover {
 
   /* added font because navbar top text is unstyled 
   font-family: "dvFont", "arFont", sans-serif; */
+
+  /* added fixed css because fixed class didnt work on mobile 
+  position: fixed !important; */
 }
+
 .header.fixed {
   position: fixed;
   top: 0;
@@ -115,7 +119,7 @@ a:hover {
 }
 .content {
   /* padding: 150px 50px 50px 50px; */
-  padding: 60px 10px 10px 10px;
+  padding: 7px 10px 10px 10px; /* first is space below navbar */
 }
 
 /* === --- === --- ====
