@@ -861,18 +861,21 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 .navLogo {
   /* font-size: 25px;
   left: 0; */
-  margin-left: 12px;
-  margin-top: -10px;
+
+  /* margin-left: 12px;
+  margin-top: -10px; */
 
   /* moves navLogo a little higher, similar baseline to header text */
-  content: "";
+
+  /* content: "";
   display: block;
   height: 40px;
   width: 40px;
-  position: absolute;
+  position: absolute; */
 
   /* background: url("../img/logo/NewLogo6.2--NoBack-Opt.svg") no-repeat; */
-  filter: brightness(0) invert(1);
+
+  /* filter: brightness(0) invert(1); */
 
   /* invert(96%) sepia(56%) saturate(2%) hue-rotate(340deg)
     brightness(111%) contrast(101%); svg fill color hack https://stackoverflow.com/a/53336754 */
