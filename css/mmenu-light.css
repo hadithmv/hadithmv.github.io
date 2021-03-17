@@ -199,8 +199,9 @@ body.mm-ocd-opened {
   margin-left: 30px; /* 20px; */
 
   /* margin-left: var(--mm-spn-item-indent); */
-  border-top: 1px solid;
-  opacity: 0.15;
+
+  /* border-top: 1px solid; this removes line between list items */
+  opacity: 0.15;opacity
 }
 .mm-spn a,
 .mm-spn span {
