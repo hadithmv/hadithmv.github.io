@@ -539,7 +539,8 @@ td {
     background-color: #c1c1c1;
 
     /* inner */
-    border-radius: 20px;
+
+    /* border-radius: 20px; */
 
     /* border-width: 3px; */
 

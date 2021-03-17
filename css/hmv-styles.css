@@ -134,7 +134,8 @@ from what i see makes them smaller */
      scroll bar
 ======================= */
 
-/* new code but not yet fully supported
+/* remember to change these in minimal mod css too
+new code but may not be yet fully supported hence webkits
 html,
 body {
   scrollbar-color: dark;
@@ -296,9 +297,9 @@ button,
 /* clipboard message */
 
 /*li,*/
-
+/* for mmenu light nav menu drawer */
 .header
-/* for mmenu light nav bar */ {
+/* for mmenu light nav horizontal bar */ {
   font-family: "dvFont", "arFont", sans-serif;
 
   /* CHANGE123 FONT
