@@ -50,6 +50,7 @@ a:hover {
 .footer*/ {
   text-align: center;
 }
+
 .header/*,
 .footer*/ {
   background: #254e61; /* #4bb5ef - top horizontal long navbar color */
@@ -66,7 +67,7 @@ a:hover {
   padding: 0 50px;
 
   /* added z index to prevent table coming above it */
-  z-index: 9998;
+  z-index: 999;
 
   /* added this shadow */
   box-shadow: 0 2px 4px rgb(0 0 0 / 50%);
@@ -74,8 +75,13 @@ a:hover {
   /* added font because navbar top text is unstyled 
   font-family: "dvFont", "arFont", sans-serif; */
 
-  /* added fixed css because fixed class didnt work on mobile 
-  position: fixed !important; */
+  /* added abosulte css because fixed class and fixed position didnt work on mobile
+  top right left needed to keep it from moving along with the animation */
+
+  /* position: fixed;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important; */
 }
 
 .header.fixed {
@@ -119,7 +125,15 @@ a:hover {
 }
 .content {
   /* padding: 150px 50px 50px 50px; */
-  padding: 7px 10px 10px 10px; /* first is space below navbar */
+  padding: 50px 10px 10px 10px; /* first is space below navbar */
+}
+
+/* desktop mq - adds a little more padding to top of content above */
+@media screen and (min-width: 900px) {
+  .content {
+    /* padding: 150px 50px 50px 50px; */
+    padding-top: 60px;
+  }
 }
 
 /* === --- === --- ====
