@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="dv">
+  <!-- prevent translate popup -->
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href="https://hadithmv.github.io/" />
+    <meta name="google" content="notranslate" />
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../img/logo/NewLogo6.2--NoBack-Opt.svg"
+    />
+    <meta name="theme-color" content="#29434e" />
+    <!-- og metadata sm link previews -->
+    <meta property="og:title" content="hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hadithmv.github.io" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo6.2--RoundedBack-1080.png"
+    />
+
+    <!-- change123 html -->
+    <title>hadithmv - 40 Nawawi</title>
+    <meta
+      name="description"
+      content="Dhivehi hadith translations at your fingertips. - Imam Nawawi's 40 hadith."
+    />
+    <!-- META TAGS - END -->
+
+    <!-- === EXT CSS === -->
+    <!-- critical -->
+    <link rel="stylesheet" href="../css/COMB-Crit.min.css" />
+
+    <!-- non critical -->
+    <link
+      rel="preload"
+      href="../css/COMB-nonCrit.min.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <link
+      rel="preload"
+      as="font"
+      href="../font/Yakout-Linotype-W20-Light-Copy6.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      href="../font/mvtyper-Copy7.woff2"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <!-- === EXT CSS - END === -->
+
+    <!-- === EXT JS === -->
+    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
+    <!-- critical -->
+    <script defer src="../js/resc/COMB-Crit.js"></script>
+    <!-- non critical -->
+    <script defer src="../js/resc/COMB-nonCrit.js"></script>
+    <!-- change123 js -->
+    <script defer src="../js/json/nawawi.js"></script>
+    <script defer src="../js/nawawi-script.min.js"></script>
+    <!-- === EXT JS - END === -->
+
+    <!-- === INT CSS === -->
+    <!-- Critical CSS -->
+    <!-- mmenu-demo -->
+    <!-- prettier-ignore -->
+    <style>
+    .header nav{display:none}.content,.header{text-align:center}.header{background:#254e61;color:#fff;line-height:50px;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 2px 4px rgb(0 0 0/50%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media screen and (min-width: 900px){.content{padding-top:48px}}#page>div.header:hover{background-color:#1c4253;cursor:pointer}.hmvLogo1{top:0;left:0;filter:brightness(0) invert(1);display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4px}
+    </style>
+    <!-- Critical CSS - END -->
+
+    <style>
+      /* change123 html */
+
+      /* === --- === --- ====
+         CUSTOM COLUMN CLASSES
+         for 40 nawawi
+         === --- === --- ==== */
+
+      /* removes justify from ar dv (titles and refs) + rs.
+         justify doesnt look good on short cells like surukhi, masdars.
+         so right align to prevent gaps in text */
+      .dataTable tr td.fnCol2,
+      .dataTable tr td.fnCol3,
+      .dataTable tr td.fnCol7,
+      .dataTable tr td.fnCol8,
+      .dataTable tr td.fnCol9 {
+        text-align: right;
+      }
+
+      /* mobile only row centering, for rows with strings that are not long */
+      @media screen and (max-width: 900px) {
+        .dataTable tr td.fnCol1,
+        .dataTable tr td.fnCol2,
+        .dataTable tr td.fnCol3,
+        .dataTable tr td.fnCol7,
+        .dataTable tr td.fnCol8,
+        .dataTable tr td.fnCol9 {
+          text-align: center;
+        }
+
+        /* bold headers for mobile - first number at top */
+        .fnCol1 {
+          font-weight: bold;
+        }
+      }
+
+      /* --- AR FONTS FOR TABLE --- */
+
+      /* tbody tr td.fnCol1, */
+      .dataTable tr td.fnCol2,
+      .dataTable tr td.fnCol4,
+      .dataTable tr td.fnCol5,
+      .dataTable tr td.fnCol7,
+      .dataTable tr td.fnCol9 {
+        font-family: "arFont", "dvFont", sans-serif;
+        font-size: 23px;
+        line-height: 1.7;
+
+        /* font-size-adjust: 0.1; this breaks firefox font size */
+      }
+
+      /* --- DV FONTS FOR TABLE --- */
+
+      /* .dataTable tr td.fnCol1, need this bigger */
+      .dataTable tr td.fnCol3,
+      .dataTable tr td.fnCol6,
+      .dataTable tr td.fnCol8 {
+        font-family: "dvFont", "arFont", sans-serif;
+        font-size: 17px;
+        line-height: 1.9;
+      }
+
+      /* columns with ar numbers */
+      .dataTable tr td.fnCol7,
+      .dataTable tr td.fnCol9 {
+        font-family: "arFont", "dvFont", sans-serif;
+        font-size: 21px;
+      }
+
+      /* css for first column
+         # number column cuz it has hashtag and digits */
+      .dataTable tr td.fnCol1 {
+        font-family: "dvFont", "arFont", sans-serif;
+        font-size: 21px;
+      }
+    </style>
+    <!-- === INT CSS - END === -->
+  </head>
+
+  <body translate="no">
+    <div id="page">
+      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
+      <!-- adding fixed or custom writing z index breaks on mobile -->
+      <div class="header fixed" onclick="drawer.open();">
+        <!-- hamburger -->
+        <a href="#menu"><span></span></a>
+        <img
+          class="hmvLogo1"
+          alt="logo"
+          loading="lazy"
+          src="../img/logo/NewLogo6.2--NoBack-Opt.svg"
+        />
+        <span class="navText">ޙަދީޘްއެމްވީ</span>
+        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
+        <nav id="menu">
+          <ul>
+            <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
+            <li>
+              <span>ފޮތްތައް</span>
+              <ul>
+                <li>
+                  <span>ޙަދީޘް</span>
+                  <ul>
+                    <li><a href="../books/nawawi">ނަވަވީގެ 40 ޙަދީޘް</a></li>
+                    <li><a href="../books/umdah">ޢުމްދަތުލް އަޙްކާމް</a></li>
+                    <li><a href="../books/sahihain">ޞަޙީޙައިން (ނުނިމޭ)</a></li>
+                    <li>
+                      <a href="../books/otherHadith">އެހެނިހެން ޙަދީޘްތައް</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span>ޤުރްއާން</span>
+                  <ul>
+                    <li>
+                      <a href="../books/quran"
+                        >1. ފާތިޙާ ސޫރަތް (ތަފްސީރާއެކު)</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <span>ޢަޤީދާ</span>
+                  <ul>
+                    <li>
+                      <a href="../books/barbahari"
+                        >ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span>އިތުރު މައުލޫމާތު</span>
+              <ul>
+                <li>
+                  <span>ގުޅުއްވުމަށް</span>
+                  <ul>
+                    <li>
+                      <a href="https://telegram.me/yahyasdadmv">ޓެލެގްރާމް</a>
+                    </li>
+                    <li>
+                      <a href="https://facebook.com/hadithmvOfficial"
+                        >ފޭސްބުކް</a
+                      >
+                    </li>
+                    <li><a href="mailto:yahyasdadmv@gmail.com">އީމެއިލް</a></li>
+                    <li>
+                      <a href="https://forms.gle/rcdCYXvzWRxNDuJB7">ފޯމް</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="../notes/info/introHmv">ޙަދީޘްއެމްވީއަކީ ކޮބާ؟</a>
+                </li>
+                <li>
+                  <a href="../notes/info/introFortyN"
+                    >ނަވަވީގެ 40 ޙަދީޘަކީ ކޮބާ؟</a
+                  >
+                </li>
+                <li>
+                  <a href="../notes/info/introUmdah"
+                    >ޢުމްދަތުލް އަޙްކާމަކީ ކޮބާ؟</a
+                  >
+                </li>
+                <li>
+                  <a href="../notes/third-party-libs-and-tools.txt"
+                    >ޙަދީޘްއެމްވީ ހަދަން ބޭނުން ކުރެވުނު ތަކެތި</a
+                  >
+                </li>
+                <li><a href="../LICENSE.txt">ލައިސެންސް</a></li>
+                <!-- APKCHANGE 123 -->
+                <li>
+                  <a href="#" onclick="myHelp()">ކީބޯޑުން ނެވިގޭޓް ކުރުމަށް</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span>މީސްމީޑިއާ</span>
+              <ul>
+                <li><a href="https://t.me/hadithmv">ޓެލެގްރާމް</a></li>
+                <li>
+                  <a href="https://facebook.com/hadithmvOfficial">ފޭސްބުކް</a>
+                </li>
+                <li>
+                  <a
+                    href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX%2FZVrvGtq%2FbJboZzADy3OssLND4H1TFWklNmNQZC"
+                    >ވައިބަރ</a
+                  >
+                </li>
+                <li><a href="https://twitter.com/hadithmv">ޓްވިޓަރ</a></li>
+                <li>
+                  <a href="https://www.instagram.com/hadithmv"
+                    >އިންސްޓަގްރާމް</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span>މަންސަތައް</span>
+              <ul>
+                <li>
+                  <span>ވެބް</span>
+                  <ul>
+                    <li>
+                      <a href="https://hadithmv.github.io">މައި ސައިޓު</a>
+                    </li>
+                    <li><a href="https://hadithmv.gitlab.io">މިރަރ 1</a></li>
+                    <li><a href="https://hadithmv.onrender.com">މިރަރ 2</a></li>
+                    <li><a href="https://hadithmv.netlify.app">މިރަރ 3</a></li>
+                    <li>
+                      <span>ލައިޓް ވާރޝަން</span>
+                      <ul>
+                        <li>
+                          <a href="https://hadithmv.github.io/books/nawawi-lite"
+                            >ނަވަވީގެ 40 ޙަދީޘް</a
+                          >
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
+                    >އެންޑްރޮއިޑް</a
+                  >
+                </li>
+                <li>
+                  <span>ވިންޑޯސް</span>
+                  <ul>
+                    <li>
+                      <a
+                        href="https://github.com/hadithmv/hadithmv.github.io/raw/master/win/hmv/hadithmv_Win64.7z"
+                        >ޑައުންލޯޑު</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="https://virustotal.com/gui/url/559cb24958860c16114e38f9cb2a4b4dac409bd87304f8b2aa45b1ac3743b469/detection"
+                        >(ވައިރަސް ޗެކް)</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span>ޑައުންލޯޑުތައް</span>
+              <ul>
+                <li>
+                  <a
+                    href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf"
+                    >ނަވަވީގެ 40 ޙަދީޘް (ޕީޑީއެފް)</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span>ފިހާރަ</span>
+              <ul>
+                <li>
+                  <a href="https://hadithmv.github.io/notes/info/purchase-books"
+                    >ފޮތް ގަތުމަށް</a
+                  >
+                </li>
+                <li>
+                  <a href="https://hadithmv.github.io/notes/info/aqiqa-ulhiya"
+                    >ޢަޤީޤާއާއި އުޟްޙިޔާ ކަތިލުމަށް</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="HmvVer"><a href="#">⚙️ އިސްދާރު: 2.20</a></li>
+            <li class="madeBy">
+              <a href="https://telegram.me/yahyasdadmv"
+                >ފަރުމާ ކުރީ: أبو يحيى أشراف بن إبراهيم المالديفي</a
+              >
+            </li>
+            <li class="madani">
+              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
+            </li>
+          </ul>
+        </nav>
+        <!-- <nav id="menu"> -->
+      </div>
+      <!-- <div class="header fixed" onclick="drawer.open();"> -->
+
+      <div class="content">
+        <main class="w3-animate-right">
+          <!-- --- TABLE --- -->
+          <!-- JEKYLL {{ content }} -->
+          <!-- cards js adds card classes to table ID -->
+          <!-- change123 TABLE -->
+          <table id="nawawiTable" class="stripe table">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+          </table>
+          <!-- --- TABLE - END --- -->
+        </main>
+        <!-- <main class="w3-animate-right"> -->
+      </div>
+      <!-- <div class="content"> -->
+    </div>
+    <!-- <div id="page"> -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      defer
+      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
+    ></script>
+    <script defer>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-HL24Q9NN24");
+    </script>
+    <!-- === INT JS - END === -->
+  </body>
+</html>
