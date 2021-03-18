@@ -34,12 +34,14 @@
     <!-- === EXT CSS === -->
     <!-- non critical -->
     <link
-      rel="stylesheet"
+      rel="preload"
       href="../css/COMB-nonCrit.min.css"
-      media="print"
-      onload="this.media='all'; this.onload=null;"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
 
+    <link rel="preload" href="../font/Yakout-Linotype-W20-Light-Copy6.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="../font/mvtyper-Copy7.woff2" as="font" type="font/woff2" crossorigin>
     <!-- === EXT CSS - END === -->
 
     <!-- === EXT JS === -->
