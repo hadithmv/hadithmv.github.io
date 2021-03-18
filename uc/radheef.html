@@ -35,12 +35,12 @@
     <!-- critical -->
     <link rel="stylesheet" href="../css/COMB-Crit.min.css" />
 
-    <!-- non critical -->
+    <!-- non critical - filamentgroup async -->
     <link
-      rel="preload"
+      rel="stylesheet"
       href="../css/COMB-nonCrit.min.css"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
+      media="print"
+      onload="this.media='all'; this.onload=null;"
     />
     <!-- === EXT CSS - END === -->
 
@@ -48,12 +48,12 @@
     <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
     <!-- critical -->
     <script defer src="../js/resc/COMB-Crit.js"></script>
-    <!-- non critical -->
+    <!-- non critical - filamentgroup async -->
     <link
-      rel="preload"
+      rel="stylesheet"
       href="../css/COMB-nonCrit.min.css"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
+      media="print"
+      onload="this.media='all'; this.onload=null;"
     />
     <!-- change123 js -->
     <script defer src="../js/json/radheef.js"></script>
