@@ -125,38 +125,27 @@ a:hover {
 }
 .content {
   /* padding: 150px 50px 50px 50px; */
-  padding: 50px 10px 10px 10px; /* first is space below navbar */
+
+  /* padding: 50px 10px 10px 10px; */
+
+  /* first is space below navbar */
+  padding-top: 45px;
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 /* desktop mq - adds a little more padding to top of content above */
 @media screen and (min-width: 900px) {
   .content {
     /* padding: 150px 50px 50px 50px; */
-    padding-top: 60px;
+
+    padding-top: 48px;
   }
 }
 
 /* === --- === --- ====
 CUSTOM EDITS
 === --- === --- ==== */
-
-#menu > ul > li {
-  text-align: right; /* rtl */
-  direction: rtl;
-}
-
-/* highlights drawer links on hover */
-#menu > ul > li span:hover,
-#menu > ul > li a:hover {
-  color: #39c;
-}
-
-/* undoes highlight on none links as well as makes the cursor normal over them */
-#menu > ul > li.madani a:hover,
-#menu > ul > li.HmvVer a:hover {
-  color: #eee;
-  cursor: default;
-}
 
 /* darkens nav and changes cursor on mouseover so users know its somewhat clickable */
 #page > div.header:hover {
