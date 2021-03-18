@@ -1,11 +1,13 @@
 Load priority in COMB:
 
--Critical
+-Critical Inline
 **mmenu-demo.css	(minify w cssnano)
+
+-Critical Ext
 **mmenu-light.css  3.08	(minify w cssnano)
 **hmv-styles.css	(minify w csso)	min file not kept as seperate
 
--Non critical
+-Non critical Ext
 **jquery.dataTables.min.css 1.10.24	(minify w cssnano)
 **buttons.dataTables.min.css 1.7.0	(minify w cssnano)
 fonts.css	(minify w cssnano)
