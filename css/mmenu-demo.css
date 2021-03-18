@@ -185,3 +185,11 @@ CUSTOM EDITS
   margin-left: 11px;
   margin-top: 4px;
 }
+
+/* dark mode, because preloading css causes fout, in this flash of case invisible white body */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #0e1621;
+    color: #99aab5;
+  }
+}
