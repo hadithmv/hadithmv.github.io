@@ -37,12 +37,11 @@
 
     <!-- non critical -->
     <link
-      rel="stylesheet"
+      rel="preload"
       href="../css/COMB-nonCrit.min.css"
-      media="print"
-      onload="this.media='all'"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
-
     <!-- === EXT CSS - END === -->
 
     <!-- === EXT JS === -->
