@@ -33,8 +33,9 @@ html {
   /* main */
 
   /* color: #222; */
-  font-size: 1em;
-  line-height: 1.4;
+
+  /* font-size: 1em;
+  line-height: 1.4; 
 
   /* do i need this?? */
 
@@ -48,7 +49,7 @@ html {
 /* Remove the margin in all browsers. - normalize */
 
 body {
-  margin: 0;
+  /* margin: 0; */
 }
 
 /* evens out and better colors text highlights - main */
@@ -257,7 +258,7 @@ ORIGINAL CODE above */
   /* smooth */
 }
 
-@keyframes SlideIn {
+/* @keyframes SlideIn {
   0% {
     transform: translateX(100%);
   }
@@ -273,7 +274,7 @@ ORIGINAL CODE above */
   100% {
     -webkit-transform: none;
   }
-}
+} */
 
 /* ===== Slide In Animation - END ===== */
 

@@ -9,7 +9,7 @@
  * http://creativecommons.org/licenses/by/4.0/
  */
 :root {
-  --mm-ocd-width: 10% /* 80%; - Width for the menu. */;
+  --mm-ocd-width: 10%; /* 80%; - Width for the menu. */
   --mm-ocd-min-width: 250px; /* 200 - Minimal width for the menu. */
   --mm-ocd-max-width: 300px; /* 440px; - Maximum width for the menu. */
 }
@@ -349,3 +349,28 @@ body.mm-ocd-opened {
   display: none;
 }
 */
+
+
+
+/* === --- === --- ====
+CUSTOM EDITS
+=== --- === --- ==== */
+
+#menu > ul > li {
+  text-align: right; /* rtl */
+  direction: rtl;
+}
+
+/* highlights drawer links on hover */
+#menu > ul > li span:hover,
+#menu > ul > li a:hover {
+  color: #39c;
+}
+
+/* undoes highlight on none links as well as makes the cursor normal over them */
+#menu > ul > li.madani a:hover,
+#menu > ul > li.HmvVer a:hover {
+  color: #eee;
+  cursor: default;
+}
+
