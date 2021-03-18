@@ -24,10 +24,6 @@
     https://github.com/orderedlist/minimal
     -->
     <style>
-      .hmv {
-        box-shadow: none;
-      }
-
       /* Flexbox gallery grid for images */
       .flexRow {
         display: flex;
@@ -49,23 +45,6 @@
         text-align: center !important;
       }
 
-      /*
-      .Pr h3 {
-        margin-top: -12px;
-      }
-
-      h3.en {
-        margin-top: 0;
-      }
-      div.flexItem.dv > h3 {
-        margin-top: 0;
-      }
-*/
-      .img {
-        /* height: 100%; */
-
-        /* width: 10%; */
-      }
       h3 {
         margin: 0;
       }
@@ -73,7 +52,9 @@
       /* End - Flexbox gallery grid for images */
 
       /* box-shadow: none|h-offset v-offset blur spread color |inset|initial|inherit; */
-      img {
+      .flexrow img {
+        border-radius: 5px;
+
         /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
         box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
 
@@ -92,7 +73,7 @@
       }
 
       @media (prefers-color-scheme: dark) {
-        img {
+        .flexrow img {
           /* box-shadow: 0 0.05px 5px 0 rgba(238, 238, 238, 0.7); */
 
           filter: brightness(0.87) contrast(1.02);
