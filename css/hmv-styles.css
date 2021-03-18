@@ -190,7 +190,7 @@ body {
 ======================= */
 
 .w3-animate-right {
-  position: relative;
+  /* position: relative; */
 
   /*
     animation: animateRight 0.4s; original code of below */
@@ -282,27 +282,21 @@ ORIGINAL CODE above */
      DT wrapper CSS
 ======================= */
 
-.dataTables_wrapper,
-
 /* takes care of most of the table fonts */
-
-input,
-
+.dataTables_wrapper,
 /* search and input page */
-
-select,
-
+input,
 /* page lengthmenu */
-
+select,
+/* clipboard message */
 button,
 .dt-button-info,
-
-/* clipboard message */
-
-li,
 /* for mmenu light nav menu drawer */
-.header
-/* for mmenu light nav horizontal bar */ {
+li,
+/* for mmenu light nav horizontal bar */
+.header,
+/* for mmenu light nav horizontal bar */
+.mm-spn.mm-spn--navbar::after {
   font-family: "dvFont", "arFont", sans-serif;
 
   /* CHANGE123 FONT
@@ -314,9 +308,10 @@ li,
               line-height: 1.5;
               word-wrap: break-word;
     */
-  -moz-osx-font-smoothing: grayscale;
+
+  /* -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-size: 1rem;
+  font-size: 1rem; */
 
   /* test */
 }
