@@ -9,67 +9,82 @@
 
 <url>
   <loc>https://hadithmv.github.io/</loc>
-  <lastmod>2021-01-14T19:53:18+00:00</lastmod>
+  <lastmod>2021-03-20T19:03:29+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://hadithmv.github.io/books/umdah.html</loc>
-  <lastmod>2021-01-14T19:53:13+00:00</lastmod>
+  <loc>https://hadithmv.github.io/books/nawawi</loc>
+  <lastmod>2021-03-20T19:03:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://hadithmv.github.io/books/sahihain.html</loc>
-  <lastmod>2021-01-14T19:53:13+00:00</lastmod>
+  <loc>https://hadithmv.github.io/books/umdah</loc>
+  <lastmod>2021-03-20T19:03:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://hadithmv.github.io/books/otherHadith.html</loc>
-  <lastmod>2021-01-14T19:53:13+00:00</lastmod>
+  <loc>https://hadithmv.github.io/books/sahihain</loc>
+  <lastmod>2021-03-20T19:03:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://hadithmv.github.io/books/quran.html</loc>
-  <lastmod>2021-01-14T19:53:13+00:00</lastmod>
+  <loc>https://hadithmv.github.io/books/otherHadith</loc>
+  <lastmod>2021-03-20T19:03:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://hadithmv.github.io/books/barbahari.html</loc>
-  <lastmod>2021-01-14T19:53:13+00:00</lastmod>
+  <loc>https://hadithmv.github.io/books/quran</loc>
+  <lastmod>2021-03-20T19:03:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://hadithmv.github.io/notes/info/introHmv.html</loc>
-  <lastmod>2021-01-14T19:53:13+00:00</lastmod>
+  <loc>https://hadithmv.github.io/books/barbahari</loc>
+  <lastmod>2021-03-20T19:03:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://hadithmv.github.io/notes/info/introFortyN.html</loc>
-  <lastmod>2021-01-14T19:53:13+00:00</lastmod>
+  <loc>https://hadithmv.github.io/notes/info/introHmv</loc>
+  <lastmod>2021-03-20T19:03:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://hadithmv.github.io/notes/info/introUmdah.html</loc>
-  <lastmod>2021-01-14T19:53:13+00:00</lastmod>
+  <loc>https://hadithmv.github.io/notes/info/introFortyN</loc>
+  <lastmod>2021-03-20T19:03:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/notes/info/introUmdah</loc>
+  <lastmod>2021-03-20T19:03:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/third-party-libs-and-tools.txt</loc>
-  <lastmod>2021-01-14T19:53:13+00:00</lastmod>
+  <lastmod>2021-03-20T19:03:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/LICENSE.txt</loc>
-  <lastmod>2021-01-14T19:53:13+00:00</lastmod>
+  <lastmod>2021-03-20T19:03:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/books/nawawi-lite</loc>
+  <lastmod>2021-03-20T19:03:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf</loc>
-  <lastmod>2021-01-14T19:53:13+00:00</lastmod>
+  <lastmod>2021-03-20T19:03:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://hadithmv.github.io/books/nawawi-lite.html</loc>
-  <lastmod>2021-01-14T19:53:13+00:00</lastmod>
+  <loc>https://hadithmv.github.io/notes/info/purchase-books</loc>
+  <lastmod>2021-03-20T19:03:24+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/notes/info/aqiqa-ulhiya</loc>
+  <lastmod>2021-03-20T19:03:24+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 
