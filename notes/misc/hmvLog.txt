@@ -8,6 +8,8 @@ ftp://192.168.100.9:2221
 …
 https://medium.com/@sahoosunilkumar/how-to-update-a-fork-in-git-95a7daadc14e
 
+.\cwebp NEW--2021-Cover-A5-Front-500width.png -q 100 -o NEW--2021-Cover-A5-Front-500width.webp
+
 regex to fix empty fili repeats:
 ([ަ-ް])[ަ-ް]+
 Replace with $1
