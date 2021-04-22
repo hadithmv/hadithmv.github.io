@@ -6,12 +6,19 @@ html-minifier --collapse-boolean-attributes --collapse-whitespace --decode-entit
 
 html-minifier --collapse-boolean-attributes --collapse-whitespace --decode-entities --minify-css true --minify-js true --process-scripts [text/html] --remove-attribute-quotes --remove-comments --remove-empty-attributes --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-style-link-type-attributes --remove-tag-whitespace --sort-attributes --sort-class-name --trim-custom-fragments --use-short-doctype introUmdah-uc.html --output introUmdah.html
 
+html-minifier --collapse-boolean-attributes --collapse-whitespace --decode-entities --minify-css true --minify-js true --process-scripts [text/html] --remove-attribute-quotes --remove-comments --remove-empty-attributes --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-style-link-type-attributes --remove-tag-whitespace --sort-attributes --sort-class-name --trim-custom-fragments --use-short-doctype purchase-books-uc.html --output purchase-books.html
+
+html-minifier --collapse-boolean-attributes --collapse-whitespace --decode-entities --minify-css true --minify-js true --process-scripts [text/html] --remove-attribute-quotes --remove-comments --remove-empty-attributes --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-style-link-type-attributes --remove-tag-whitespace --sort-attributes --sort-class-name --trim-custom-fragments --use-short-doctype aqiqa-ulhiya-uc.html --output aqiqa-ulhiya.html
+
+
+
 
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\notes\info\introHmv.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\notes\info\introHmv.html
 
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\notes\info\introFortyN.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\notes\info\introFortyN.html
 
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\notes\info\introUmdah.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\notes\info\introUmdah.html
+
 
 
 
