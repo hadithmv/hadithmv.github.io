@@ -15,7 +15,7 @@ Dhivehi hadith translations at your fingertips
 </p>
 
 <p align="center">
-  View the <a href="https://https://hadithmv.github.io">web version</a>
+  View the <a href="https://hadithmv.github.io">web version</a>
 </p>
 
 <!---
