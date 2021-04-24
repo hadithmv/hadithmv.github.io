@@ -28,7 +28,7 @@ $(document).ready(() => {
           first: '<<&nbsp;ފުރަތަމަ',
           previous: '<&nbsp;ފަހަތަށް',
           next: 'ކުރިއަށް&nbsp;>',
-          last: 'ފަހަށް&nbsp;>>',
+          last: 'ފަހު&nbsp;>>',
 
           info: '_INPUT_' // taken from input plugin, "Page _INPUT_ of _TOTAL_"
         }
@@ -246,7 +246,7 @@ $(document).ready(() => {
         first: '<<&nbsp;ފުރަތަމަ',
         previous: '<&nbsp;ފަހަތަށް',
         next: 'ކުރިއަށް&nbsp;>',
-        last: 'ފަހަށް&nbsp;>>',
+        last: 'ފަހު&nbsp;>>',
 
         info: '_INPUT_'
 },
