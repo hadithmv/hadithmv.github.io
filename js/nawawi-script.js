@@ -301,7 +301,7 @@ $(document).ready(() => {
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
-      searchPlaceholder: '40 ނަވަވީއިން ހޯއްދަވާ...',
+      searchPlaceholder: 'ހޯއްދަވާ...',
       zeroRecords: '- ނުފެނުނު -'
     }, //= =================== End of Internationalisation
 
