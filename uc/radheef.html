@@ -88,7 +88,8 @@ so right align to prevent gaps in text
         .dataTable tr td.rCol2,
         .dataTable tr td.rCol3,
         .dataTable tr td.rCol4,
-        .dataTable tr td.rCol5 {
+        .dataTable tr td.rCol5,
+        .dataTable tr td.rCol6 {
           text-align: center;
         }
 
@@ -116,7 +117,8 @@ so right align to prevent gaps in text
 
       /* .dataTable tr td.fnCol1, need this bigger */
 
-      .dataTable tr td.rCol4 {
+      .dataTable tr td.rCol4,
+      .dataTable tr td.rCol5 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 17px;
         line-height: 1.9;
@@ -138,9 +140,16 @@ so right align to prevent gaps in text
       /* desktop radheef only eng word left align */
 
       @media screen and (min-width: 900px) {
-        .dataTable tr td.rCol5 {
+        .dataTable tr td.rCol6 {
           text-align: left;
         }
+      }
+
+      .dataTable > thead > tr > th {
+        text-align: right;
+      }
+      .dataTable > thead > tr > th.rCol6 {
+        text-align: left;
       }
     </style>
     <!-- === INT CSS - END === -->
@@ -369,6 +378,7 @@ so right align to prevent gaps in text
           <table id="radheefTable" class="stripe table">
             <thead>
               <tr>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>

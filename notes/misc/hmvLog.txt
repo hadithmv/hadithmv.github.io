@@ -10,6 +10,8 @@ https://medium.com/@sahoosunilkumar/how-to-update-a-fork-in-git-95a7daadc14e
 
 .\cwebp NEW--2021-Cover-A5-Front-500width.png -q 100 -o NEW--2021-Cover-A5-Front-500width.webp
 
+import-csv "radheef-json - Sheet1.csv" | ConvertTo-Json | Add-Content -Path "radheef.json"
+
 regex to fix empty fili repeats:
 ([ަ-ް])[ަ-ް]+
 Replace with $1
