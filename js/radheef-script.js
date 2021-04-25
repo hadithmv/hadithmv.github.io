@@ -83,20 +83,20 @@ $(document).ready(() => {
           return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ/g, '')
         }
       },
-      {
+      /*{
         data: 1,
         title: 'ޢަރަބި މާނަ'
-      },
+      }, */
       {
-        data: 2,
+        data: 1,
         title: 'ދިވެހި ލަފްޒު'
       },
-      {
+      /*{
         data: 3,
         title: 'ދިވެހި މާނަ'
-      },
+      }, */
       {
-        data: 4,
+        data: 2,
         title: 'އިނގިރޭސި ލަފްޒު'
       }
     ],
@@ -117,27 +117,27 @@ $(document).ready(() => {
         visible: false,
         searchable: true
       },
-      {
+      /*{
         className: 'rCol3', // ar mean
         targets: [2],
         visible: false,
         searchable: false
-      },
+      }, */
       {
-        className: 'rCol4', // dv word
-        targets: [3],
+        className: 'rCol3', // dv word
+        targets: [2],
         visible: true,
         searchable: true
       },
-      {
-        className: 'rCol5', // dv mean
-        targets: [4],
+      /*{
+        className: 'rCol4', // dv mean
+        targets: [5],
         visible: false,
         searchable: false
-      },
+      }, */
       {
-        className: 'rCol6', // en word
-        targets: [5],
+        className: 'rCol4', // en word
+        targets: [3],
         visible: true,
         searchable: true
       },
