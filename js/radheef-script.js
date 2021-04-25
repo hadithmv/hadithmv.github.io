@@ -83,7 +83,7 @@ $(document).ready(() => {
           return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ/g, '')
         }
       },
-      /*{
+      /* {
         data: 1,
         title: 'ޢަރަބި މާނަ'
       }, */
@@ -91,7 +91,7 @@ $(document).ready(() => {
         data: 1,
         title: 'ދިވެހި ލަފްޒު'
       },
-      /*{
+      /* {
         data: 3,
         title: 'ދިވެހި މާނަ'
       }, */
@@ -117,7 +117,7 @@ $(document).ready(() => {
         visible: false,
         searchable: true
       },
-      /*{
+      /* {
         className: 'rCol3', // ar mean
         targets: [2],
         visible: false,
@@ -129,7 +129,7 @@ $(document).ready(() => {
         visible: true,
         searchable: true
       },
-      /*{
+      /* {
         className: 'rCol4', // dv mean
         targets: [5],
         visible: false,
@@ -343,9 +343,9 @@ $(document).ready(() => {
 
           data = data.replace(/ޢަރަބި ލަފްޒު\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
-          data = data.replace(/ޢަރަބި މާނަ\t/g, '')
+          /*data = data.replace(/ޢަރަބި މާނަ\t/g, '') */
           data = data.replace(/ދިވެހި ލަފްޒު\t/g, '')
-          data = data.replace(/ދިވެހި މާނަ\t/g, '')
+          /*data = data.replace(/ދިވެހި މާނަ\t/g, '') */
           data = data.replace(/އިނގިރޭސި ލަފްޒު\t/g, '')
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
