@@ -66,6 +66,8 @@ $(document).ready(() => {
     // CHANGE123 JSON
     data: radheef_dataSet, // https://datatables.net/manual/ajax
 
+    order: [[0, 'asc']], // CHANGE 123 - FOR RADHEEF ONLY
+
     columns: [
       {
         data: 0,
@@ -173,7 +175,7 @@ $(document).ready(() => {
     deferRender: true,
 
     // ordering of columns - by default, allows to click on column head to order
-    ordering: false,
+    ordering: true, // CHANGE 123 - FOR RADHEEF ONLY
 
     // stateSave: true // Breaks table, use the one below
     // Restore table state on page reload. When enabled aDataTables will store
@@ -343,9 +345,9 @@ $(document).ready(() => {
 
           data = data.replace(/ޢަރަބި ލަފްޒު\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
-          /*data = data.replace(/ޢަރަބި މާނަ\t/g, '') */
+          /* data = data.replace(/ޢަރަބި މާނަ\t/g, '') */
           data = data.replace(/ދިވެހި ލަފްޒު\t/g, '')
-          /*data = data.replace(/ދިވެހި މާނަ\t/g, '') */
+          /* data = data.replace(/ދިވެހި މާނަ\t/g, '') */
           data = data.replace(/އިނގިރޭސި ލަފްޒު\t/g, '')
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
