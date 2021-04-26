@@ -15,3 +15,6 @@ Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\sahihain.
 
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\umdah.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\json\umdah.js
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\umdah.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\json\umdah.js
+
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\radheef.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\json\radheef.js
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\radheef.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\json\radheef.js
