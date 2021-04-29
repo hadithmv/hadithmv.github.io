@@ -106,6 +106,7 @@ so right align to prevent gaps in text
       .dataTable tr td.rCol1,
       .dataTable tr td.rCol2
       /*.dataTable tr td.rCol3*/ {
+        /* ar */
         font-family: "arFont", "dvFont", sans-serif;
         font-size: 21px;
         line-height: 1.7;
@@ -119,6 +120,7 @@ so right align to prevent gaps in text
 
       .dataTable tr td.rCol3
       /*.dataTable tr td.rCol5*/ {
+        /* dv */
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 17px;
         line-height: 1.9;
@@ -140,7 +142,17 @@ so right align to prevent gaps in text
       /* desktop radheef only eng word left align */
 
       @media screen and (min-width: 900px) {
+        .dataTable tr td.rCol1,
+        .dataTable tr td.rCol1 {
+          /* ar */
+          text-align: right;
+        }
+        .dataTable tr td.rCol3 {
+          /* dv */
+          text-align: right;
+        }
         .dataTable tr td.rCol4 {
+          /* eng */
           text-align: left;
         }
       }
@@ -149,6 +161,7 @@ so right align to prevent gaps in text
         text-align: right !important;
       }
       .dataTable > thead > tr > th.rCol4 {
+        /* eng */
         text-align: left !important;
       }
     </style>
