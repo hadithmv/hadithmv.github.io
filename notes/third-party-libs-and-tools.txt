@@ -41,7 +41,7 @@ https://github.com/svg/svgo -MIT
 https://github.com/maaldheefee/mushaf-page-border
 https://nashrschool.qurancomplex.gov.sa
 https://github.com/tonsky/FiraCode -OFL-1.1
-http://www.hassanhameed.com/?page_id=154
+http://hassanhameed.com/?page_id=154
 https://fonts.qurancomplex.gov.sa/wp02
 https://fonts.hassaanmv.com/tharujamaanu
 
