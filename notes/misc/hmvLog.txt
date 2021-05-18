@@ -12,6 +12,15 @@ https://medium.com/@sahoosunilkumar/how-to-update-a-fork-in-git-95a7daadc14e
 
 import-csv "radheef-json - Sheet1.csv" | ConvertTo-Json | Add-Content -Path "radheef.json"
 
+find all non latin
+[^A-Za-z@.]
+
+find all arabic
+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa_]
+
+find all arabic
+\<[\x{0600}-\x{06FF}\x{0750}-\x{077F}\x{08A0}-\x{08FF}\x{FB50}-\x{FDFF}\x{FE70}-\x{FEFF} ،\.\!؟]+\>
+
 regex to fix empty fili repeats:
 ([ަ-ް])[ަ-ް]+
 Replace with $1

@@ -66,7 +66,7 @@ $(document).ready(() => {
     // CHANGE123 JSON
     data: radheef_dataSet, // https://datatables.net/manual/ajax
 
-    order: [[0, 'asc']], // CHANGE 123 - FOR RADHEEF ONLY
+   //order: [[0, 'asc']], // CHANGE 123 - FOR RADHEEF ONLY
 
     columns: [
       {
