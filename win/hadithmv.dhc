@@ -1,17 +1,17 @@
 ﻿﻿<?xml version="1.0" encoding="utf-8"?>
-<HtmlCompiler Version="2021.22">
+<HtmlCompiler Version="2021.34">
   <App>
     <ID>{971A6706-5EF2-4650-B117-D3B344EF09C1}</ID>
     <Name>hadithmv</Name>
     <CompanyName>hadithmv</CompanyName>
     <FileDescription>hadithmv</FileDescription>
-    <FileVersion>2.04</FileVersion>
+    <FileVersion>2.30</FileVersion>
     <InternalName></InternalName>
     <LegalCopyright>yahyasdadmv</LegalCopyright>
     <LegalTrademarks>hadithmv</LegalTrademarks>
     <OriginalFileName>hadithmv</OriginalFileName>
     <ProgramID>hadithmv</ProgramID>
-    <ProductVersion>2.04</ProductVersion>
+    <ProductVersion>2.30</ProductVersion>
     <Comments></Comments>
     <Width>0</Width>
     <Height>0</Height>
@@ -27,7 +27,7 @@
     <InstallFormColor>-16777190</InstallFormColor>
     <InstallIndicatorColor>1</InstallIndicatorColor>
     <InstallIndicatorType>0</InstallIndicatorType>
-    <IcoPath>..\img\logo\newLogo5-roundedSquare\newLogo5-roundedSquare.ico</IcoPath>
+    <IcoPath>..\img\newLogo5-roundedSquare.ico</IcoPath>
     <AllowDebug>0</AllowDebug>
     <AllowContextMenu>1</AllowContextMenu>
     <DynamicAppTitle>1</DynamicAppTitle>
@@ -45,7 +45,7 @@
     </WebviewJavascript>
     <Generator>
       <Name>DecSoft HTML Compiler</Name>
-      <Version>2021.22</Version>
+      <Version>2021.34</Version>
       <Website>https://www.decsoftutils.com/</Website>
       <Orders>https://www.decsoftutils.com/store/</Orders>
       <EMail>info@decsoftutils.com</EMail>
