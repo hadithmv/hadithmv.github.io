@@ -66,7 +66,7 @@ $(document).ready(() => {
     // CHANGE123 JSON
     data: radheef_dataSet, // https://datatables.net/manual/ajax
 
-    // order: [[0, 'asc']], // CHANGE 123 - FOR RADHEEF ONLY
+    order: [[0, 'asc']], // CHANGE 123 - FOR RADHEEF ONLY
 
     columns: [
       {
@@ -175,7 +175,7 @@ $(document).ready(() => {
     deferRender: true,
 
     // ordering of columns - by default, allows to click on column head to order
-    ordering: false, // CHANGE 123 - FOR RADHEEF ONLY
+    ordering: true, // CHANGE 123 - FOR RADHEEF ONLY
 
     // stateSave: true // Breaks table, use the one below
     // Restore table state on page reload. When enabled aDataTables will store
