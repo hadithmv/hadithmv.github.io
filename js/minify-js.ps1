@@ -14,4 +14,6 @@ google-closure-compiler --charset=UTF-8 --js=sahihain-script.js --js_output_file
 
 google-closure-compiler --charset=UTF-8 --js=umdah-script.js --js_output_file=umdah-script.min.js
 
-google-closure-compiler --charset=UTF-8 --js=radheef-script.js--js_output_file=radheef-script.min.js
+google-closure-compiler --charset=UTF-8 --js=radheef-script.js --js_output_file=radheef-script.min.js
+
+google-closure-compiler --charset=UTF-8 --js=eegaal-script.js --js_output_file=eegaal-script.min.js
