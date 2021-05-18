@@ -18,3 +18,6 @@ Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\umdah-script.m
 
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\radheef-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\radheef-script.min.js
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\radheef-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\radheef-script.min.js
+
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\eegaal-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\eegaal-script.min.js
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\eegaal-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\eegaal-script.min.js
