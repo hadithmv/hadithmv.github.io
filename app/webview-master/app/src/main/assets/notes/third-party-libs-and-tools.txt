@@ -41,10 +41,16 @@ https://github.com/svg/svgo -MIT
 https://github.com/maaldheefee/mushaf-page-border
 https://nashrschool.qurancomplex.gov.sa
 https://github.com/tonsky/FiraCode -OFL-1.1
-http://www.hassanhameed.com/?page_id=154
+http://hassanhameed.com/?page_id=154
 https://fonts.qurancomplex.gov.sa/wp02
 https://fonts.hassaanmv.com/tharujamaanu
 
 https://sunnah.alifta.gov.sa
 https://shamela.ws
 https://github.com/kudanai/Quran-Translation
+https://archive.org/details/BakurubeTranslationDhivehi/1-15%20%2825%20April%202011%29
+
+http://radheef.mv
+http://dhivehiacademy.edu.mv/beta/thoora
+https://dsal.uchicago.edu/dictionaries/maniku
+http://books.novelty.com.mv/v2/al-eegaal

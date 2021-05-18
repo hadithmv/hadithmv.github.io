@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
         // mWebView.loadUrl("https://example.com");
 
         // LOCAL RESOURCE
-        // mWebView.loadUrl("file:///android_asset/index.html");
+         //mWebView.loadUrl("file:///android_asset/index.html");
          mWebView.loadUrl("file:///android_asset/books/index.html");
          // this is to try an reduce having to edit dir redirects while editing
     }
