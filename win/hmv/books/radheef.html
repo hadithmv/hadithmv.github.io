@@ -273,6 +273,13 @@ so right align to prevent gaps in text
         /* eng */
         text-align: left !important;
       }
+
+      /* reduce card box shadows since 10 items per view */
+      #datatables_buttons_info,
+      .cards tbody tr {
+        /* box-shadow: 0 12px 15px 0 rgb(0 0 0 / 24%); */
+        box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.24);
+      }
     </style>
     <!-- === INT CSS - END === -->
   </head>
@@ -387,7 +394,6 @@ so right align to prevent gaps in text
                   >
                 </li>
                 <li><a href="../LICENSE.txt">ލައިސެންސް</a></li>
-                <!-- APKCHANGE 123 -->
                 <li>
                   <a href="#" onclick="myHelp()">ކީބޯޑުން ނެވިގޭޓް ކުރުމަށް</a>
                 </li>

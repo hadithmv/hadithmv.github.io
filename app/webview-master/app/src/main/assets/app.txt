@@ -1,3 +1,5 @@
+copy files from here to win, not the other way around
+
 https://github.com/slymax/webview
 
 https://developer.android.com/studio/build/shrink-code
