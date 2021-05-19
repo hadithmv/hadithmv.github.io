@@ -4,8 +4,10 @@ FUPX
 ICFX
 ...
 
-index is exact same as apk assets index file
+copy files from android assets to here, not the other way around
+so give two index files, one in root, other in subdir (exact copy)
 
+index is exact same as apk assets index file
 for win desktop app, index has to be at root dir, not sub dirs which are possible in apks
 
 open index in dhc, save as hadithmv.dhc one dir back
