@@ -887,7 +887,7 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 
 @media screen and (max-width: 900px) {
   .desktopOnly {
-    display: none;
+    display: none !important;
   }
 }
 
