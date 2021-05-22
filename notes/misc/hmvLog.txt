@@ -5,13 +5,19 @@ ftp://192.168.43.1:2221
 ftp://192.168.100.9:2221
 #337ab7
 2d7bb9
+
+new way of doing things:
+google sheets > publish to web (csv) > papaparse (no header) > copy from "data:", not "{data: Array"
 …
 https://medium.com/@sahoosunilkumar/how-to-update-a-fork-in-git-95a7daadc14e
 
+wepb convertor:
 .\cwebp NEW--2021-Cover-A5-Front-500width.png -q 100 -o NEW--2021-Cover-A5-Front-500width.webp
 
+ps csv to json converter (not used):
 import-csv "radheef-json - Sheet1.csv" | ConvertTo-Json | Add-Content -Path "radheef.json"
 
+REGEX
 find all non latin
 [^A-Za-z@.]
 
