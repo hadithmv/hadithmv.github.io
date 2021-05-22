@@ -58,7 +58,7 @@ NPM COMMANDS:
 npm install -g <package_name> (global install)
 npm uninstall -g <package_name>
 npm list -g --depth 0 (list installed packages)
-npm outdated -g
+npm outdated -g --depth=0
 npm update -g
 node -v
 npm -v
