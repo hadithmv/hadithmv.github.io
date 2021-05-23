@@ -91,13 +91,41 @@ $(document).ready(() => {
         data: 2,
         title: 'ދިވެހި ތަރުޖަމާ'
       },
-      {
+      { /* add tafsir asa'di in arabic */
         data: 3,
-        title: 'ތަފްސީރު އައްސަޢްދީ'
+        title: 'تفسير السعدي*',
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '')
+          // below code is shorter, no replace repeat, uses OR instead
+          return '[تفسير السعدي:] ' + data
+        }
       },
-      {
+      { /* add tafsir asa'di in dhivehi */
         data: 4,
-        title: 'ތަފްސީރު ދިވެހިން'
+        title: 'ތަފްސީރު އައްސަޢްދީ*',
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '')
+          // below code is shorter, no replace repeat, uses OR instead
+          return '[ތަފްސީރު އައްސަޢްދީ:] ' + data
+        }
+      },
+      { /* add tafsir asa'di in arabic */
+        data: 5,
+        title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '')
+          // below code is shorter, no replace repeat, uses OR instead
+          return '[ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ:] ' + data
+        }
+      },
+      { /* add tafsir asa'di in dhivehi */
+        data: 6,
+        title: 'ބަކުރުބެގެ އިޖްމާލީ މާނަ*',
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '')
+          // below code is shorter, no replace repeat, uses OR instead
+          return '[ބަކުރުބެގެ އިޖްމާލީ މާނަ:] ' + data
+        }
       }
     ],
 
@@ -130,15 +158,27 @@ $(document).ready(() => {
         searchable: true
       },
       {
-        className: 'qCol5', // tafsir sadi
+        className: 'qCol5', // tafsir sadi ar
         targets: [4],
         visible: true,
         searchable: false
       },
       {
-        className: 'qCol6', // tafsir dv
+        className: 'qCol6', // tafsir sadi dv
         targets: [5],
         visible: true,
+        searchable: false
+      },
+      {
+        className: 'qCol7', // bakurube lafzi
+        targets: [6],
+        visible: false,
+        searchable: false
+      },
+      {
+        className: 'qCol8', // bakurube ijmali
+        targets: [7],
+        visible: false,
         searchable: false
       },
 
@@ -345,8 +385,10 @@ $(document).ready(() => {
           data = data.replace(/އާޔަތް\t/g, '')
           data = data.replace(/އާޔަތް ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
-          data = data.replace(/ތަފްސީރު އައްސަޢްދީ\t/g, '')
-          data = data.replace(/ތަފްސީރު ދިވެހިން\t/g, '')
+          data = data.replace(/تفسير السعدي*\t/g, '')
+          data = data.replace(/ތަފްސީރު އައްސަޢްދީ*\t/g, '')
+          data = data.replace(/ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*\t/g, '')
+          data = data.replace(/ބަކުރުބެގެ އިޖްމާލީ މާނަ*\t/g, '')
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
