@@ -144,7 +144,7 @@ CURRENT LIST
 +-- stylelint-config-prettier@8.0.2
 +-- stylelint-config-standard@20.0.0
 +-- stylelint-prettier@1.1.2
-`-- uglify-js@3.12.1
++-- uglify-js@3.12.1
 
 ----------------------------------------
 
