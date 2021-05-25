@@ -17,6 +17,10 @@ wepb convertor:
 ps csv to json converter (not used):
 import-csv "radheef-json - Sheet1.csv" | ConvertTo-Json | Add-Content -Path "radheef.json"
 
+select odd and even row:
+=FILTER(A:A,ISODD(ROW(A:A)))
+=FILTER(A:A,ISEVEN(ROW(A:A)))
+
 REGEX
 find all non latin
 [^A-Za-z@.]
