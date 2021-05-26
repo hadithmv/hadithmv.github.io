@@ -131,7 +131,7 @@ $(document).ready(() => {
         className: 'rCol4', // page no
         targets: [3],
         visible: true,
-        searchable: false
+        searchable: true
       },
 
       // below strips html tags off keystable copy, second part with keys on
