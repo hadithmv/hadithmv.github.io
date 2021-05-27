@@ -66,7 +66,7 @@ $(document).ready(() => {
     // CHANGE123 JSON
     // data: eegaal_dataSet, // https://datatables.net/manual/ajax
     // "ajax": "data/arrays.txt",
-    ajax: 'json/eegaal-Defer.js',
+    ajax: '../js/json/eegaal-Defer.js',
 
     // order: [[0, 'asc']], // CHANGE 123 - FOR RADHEEF ONLY
 
