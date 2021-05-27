@@ -272,7 +272,7 @@ $(document).ready(() => {
       search: '', // Originally "Search:" leave this blank in production
       searchPlaceholder: 'ހޯއްދަވާ...',
       zeroRecords: '- ނުފެނުނު -'
-      /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
+      processing: 'ތައްޔާރުވަނީ...' // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
 
     //= ====================
