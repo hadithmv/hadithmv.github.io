@@ -194,6 +194,7 @@ body.mm-ocd-opened {
 
   /* added */
   margin-top: -2.5px;
+  color: #eee; /* colors side arrow for submenu list */
 }
 .mm-spn li::after {
   /* this is the line between menu items */
