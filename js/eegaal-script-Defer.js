@@ -165,7 +165,7 @@ $(document).ready(() => {
     // allows to create the nodes (rows/cells) only when needed for a draw
     // if you load data with 10000 rows, but 10 records paging display length
     // rather than create all 10000 rows, deferred rendering will create 10
-    deferRender: false,
+    deferRender: true,
 
     // ordering of columns - by default, allows to click on column head to order
     ordering: false, // CHANGE 123 - FOR RADHEEF ONLY
