@@ -1034,7 +1034,7 @@ this makes a faint white outline around card  */
     background: #254e61;
   }
   div.dt-button-info {
-    background-color: #1a282f !important;
+    background-color: #283a43 !important; /* 1a282f */
   }
 
   /* scrollbar code */
