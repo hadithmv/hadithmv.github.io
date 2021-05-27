@@ -166,6 +166,11 @@ $(document).ready(() => {
     // rather than create all 10000 rows, deferred rendering will create 10
     deferRender: true,
 
+    // Enable or disable the display of a 'processing' indicator when the table
+    // is being processed (e.g. a sort). This is particularly useful for tables with large
+    // amounts of data where it can take a noticeable amount of time to sort the entries.
+    processing: true,
+
     // ordering of columns - by default, allows to click on column head to order
     ordering: false, // CHANGE 123 - FOR RADHEEF ONLY
 
@@ -266,7 +271,8 @@ $(document).ready(() => {
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
       searchPlaceholder: 'ހޯއްދަވާ...',
-      zeroRecords: '- ނުފެނުނު -'
+      zeroRecords: '- ނުފެނުނު -',
+      processing: '- ތައްޔާރުވަނީ -'
     }, //= =================== End of Internationalisation
 
     //= ====================
