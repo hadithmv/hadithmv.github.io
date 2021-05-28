@@ -517,4 +517,9 @@ $(document).ready(() => {
 
   // adds a placeholder to above <input class="paginate_input" type="text">
   $('.paginate_input').attr('placeholder', 'ސަފުހާ...')
+
+  // makes credits visible after script finishes rendering, CHANGE123 eegaa; only
+  $(document).ready(function () {
+    $('#eegaalCredits').removeClass('hidden')
+  })
 }) // ==================== END OF $(document).ready( function () {
