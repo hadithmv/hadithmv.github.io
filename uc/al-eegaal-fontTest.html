@@ -152,6 +152,12 @@
     <!-- Critical CSS - END -->
 
     <style>
+      @font-face {
+        font-family: "dvFontN";
+        src: url(https://thaana.com/motaru-dhigu/woff2/MotaruDhigu-Regular.woff2)
+          format("woff2");
+      }
+
       /* change123 html */
 
       /* === --- === --- ====
@@ -201,7 +207,7 @@ so right align to prevent gaps in text
         /* ar */
 
         /* ar */
-        font-family: "arFont", "dvFont", sans-serif;
+        font-family: "arFont", "dvFontN", sans-serif;
         font-size: 21px;
         line-height: 1.7;
 
@@ -219,21 +225,21 @@ so right align to prevent gaps in text
         /* dv */
 
         /* dv */
-        font-family: "dvFont", "arFont", sans-serif;
+        font-family: "dvFontN", "arFont", sans-serif;
         font-size: 17px;
         line-height: 1.9;
       }
 
       /* columns with ar numbers 
 .dataTable tr td.rCol9 {
-  font-family: "arFont", "dvFont", sans-serif;
+  font-family: "arFont", "dvFontN", sans-serif;
   font-size: 21px;
 } */
 
       /* css for first column
 # number column cuz it has hashtag and digits 
 .dataTable tr td.rCol1 {
-  font-family: "dvFont", "arFont", sans-serif;
+  font-family: "dvFontN", "arFont", sans-serif;
   font-size: 21px;
 } */
 
@@ -242,7 +248,7 @@ so right align to prevent gaps in text
         /* en */
 
         /* ar 
-        font-family: "arFont", "dvFont", sans-serif;
+        font-family: "arFont", "dvFontN", sans-serif;
         font-size: 21px;
         line-height: 1.7; */
 
@@ -663,7 +669,7 @@ so right align to prevent gaps in text
             #eegaalCredits {
               text-align: justify;
               text-align-last: center;
-              font-family: "dvFont", "arFont", sans-serif;
+              font-family: "dvFontN", "arFont", sans-serif;
               font-size: 17px;
               line-height: 1.9;
               direction: rtl;
