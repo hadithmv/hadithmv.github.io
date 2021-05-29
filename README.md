@@ -20,11 +20,11 @@ Dhivehi hadith translations at your fingertips
 
 <!---
 <p align="center">
-<img href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv" src="https://hadithmv.github.io/img/gb/google-play-badge-Opt.svg" width="200">(http://google.com.au/)
+<img href="http://rebrand.ly/hmvAndroid" src="https://hadithmv.github.io/img/gb/google-play-badge-Opt.svg" width="200">(http://google.com.au/)
 </p>
 
 <p align="center">
-<img href="https://bit.ly/hadithmvWindows" src="https://hadithmv.github.io/img/wb/windows-badge-Opt.svg" width="200">
+<img href="https://rebrand.ly/hmvWindows" src="https://hadithmv.github.io/img/wb/windows-badge-Opt.svg" width="200">
 </p>
 --->
 
