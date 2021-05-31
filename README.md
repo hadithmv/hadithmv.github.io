@@ -40,8 +40,6 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 
 ## Goals
 
----
-
 ### **Accessible**
 
 > Bring the Hadith of Allah’s Prophet ﷺ within the reach of everyone, regardless of the barriers of medium, location, portability, age, language or wealth. And use the platform of modern technology to help spread and instill the love of living according to the Sunnah in the hearts, as the Maldivians of today are closer are closer to their personal devices than they are to books.
@@ -54,6 +52,9 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 
 > It is Allah who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. hadithmv is designed to be mobile-first with minimal bloat. Currently hadithmv is available on the Web, Android and Windows.
 
+<br /><br />
+<hr />
+<br />
 <!---
 ## Milestones
 
@@ -111,6 +112,9 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 ޔާ ﷲ އެވެ. އަޅަމެންގެ މި މަސައްކަތް ޤަބޫލު ކުރައްވާ، މިކަމުގައި ބަރަކާތް ލައްވާ، އަޅަމެންގެ ހެޔޮ ޢަމަލުތަކުގެ ތެރޭގައި ހިމަނުއްވާށިއެވެ. އަދި މިއީ ޤިޔާމަތަށް ދާންދެން ދެމިގެންދާ ޞަދަޤާ ޖާރިއާއެއް ކަމުގައި ލައްވާށިއެވެ. އަދި މިކަމުގައި ބައިވެރިވި އެންމެހައި އަޚުންނާއި އުޚްތުންނާއި އެ މީހުންގެ އާއިލާތަކާއި ރަޙްމަތްތެރިންގެ ފާފަތައް ފުއްސަވާށިއެވެ. އާމީން.
 </p>
 
+<br /><br />
+
+
 <h3 align="right"><b>
 ލަނޑުދަނޑިތައް
 </b></h3>
@@ -137,6 +141,10 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 
 <p align="right" dir="rtl">އަޅުގަނޑުމެންނަށް ޓަކައި ޓެކްނޮލޮޖީގެ ޚިދުމަތް ލައްވައި އޭގެ ބޭނުން ކުރެވޭނެ ގޮތް މިންވަރު ކުރެއްވީ ﷲ އެވެ. ޙަދީޘްއެމްވީގެ އަމާޒަކީ ގިނަގުނަ ބޭނުންތައް ހިފޭ، ބޭނުން ކުރަން ފަސޭހަ އެޕްލިކޭޝަނެއް އެންމެންނަށް ފޯރުކޮށް ދިނުމެވެ. އަދި ގެންގުޅޭ ވަސީލަތްތަކާއި އުސްލޫބު ތަފާތު ވިޔެއްކަމަކު، ބޭނުންކުރާ ފަރާތްތަކަށް އެކަށީގެންވާ ހިތްގައިމު މާހައުލެއް ޤާއިމުކޮށް ދިނުމެވެ. ޙަދީޘްއެމްވީ ފަރުމާ ކުރެވިފައި ވަނީ ފޯނަށް އަހަންމިއްޔަތުކަން ދެވި، ޖާގައަށް ބުރަ ނުވާ ގޮތަށެވެ. މި ވަގުތު ވެބް، އެންޑުރޮއިޑް އަދި ވިންޑޯސްގެ ވަޞީލަތްތަކުގައި ބޭނުން ކުރެވޭނެއެވެ.
 </p>
+  
+<br /><br />
+<hr />
+<br /><br />
 
 <!---
 <h3 align="right"><b>
