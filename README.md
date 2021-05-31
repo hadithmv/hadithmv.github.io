@@ -11,7 +11,7 @@ hadithmv - Accessible and Sourced
 </b></h3>
 
 <p align="center">
-Dhivehi hadith translations at your fingertips
+Islamic translations in Dhivehi at your fingertips
 </p>
 
 <p align="center">
@@ -35,9 +35,9 @@ Dhivehi hadith translations at your fingertips
 </p>
 <br>
 
-### **Developing a Hadith App for Maldivians**
+### **Developing a hadith App for Maldivians**
 
-The **hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a Hadith collection in their native language, Dhivehi. Any good is from Allah, and any shortcomings are from ourselves and shaithan.
+The **hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a hadith collection in their native language, Dhivehi, in sha Allah. We are also working on making other Islamic works available. Any good that comes of this is from Allah, and any shortcomings are from ourselves and shaithan.
 
 ## Goals
 
