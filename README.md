@@ -18,15 +18,13 @@ Islamic translations in Dhivehi at your fingertips
   View the <a href="https://hadithmv.github.io">web version</a>
 </p>
 
-<!---
 <p align="center">
-<img href="http://rebrand.ly/hmvAndroid" src="https://hadithmv.github.io/img/gb/google-play-badge-Opt.svg" width="200">(http://google.com.au/)
+<img src="https://hadithmv.github.io/img/gb/google-play-badge-Opt.svg" width="200px" />
 </p>
 
 <p align="center">
-<img href="https://rebrand.ly/hmvWindows" src="https://hadithmv.github.io/img/wb/windows-badge-Opt.svg" width="200">
+<img src="https://hadithmv.github.io/img/wb/windows-badge-Opt.svg" width="200px" />
 </p>
---->
 
 <br> <br>
 
