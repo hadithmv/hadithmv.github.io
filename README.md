@@ -37,7 +37,7 @@ Islamic translations in Dhivehi at your fingertips
 
 ### **Developing a hadith App for Maldivians**
 
-The **hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a hadith collection in their native language, Dhivehi, in sha Allah. We are also working on making other Islamic works available. Any good that comes of this is from Allah, and any shortcomings are from ourselves and shaithan.
+The **hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a hadith collection in their native Dhivehi language, in sha Allah. We are also working on making other Islamic works available. Any good that comes of this is from Allah, and any shortcomings are from ourselves and shaithan.
 
 ## Goals
 
@@ -45,16 +45,17 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 
 ### **Accessible**
 
-> Bring the Hadith of Allah’s Prophet ﷺ within the reach of everyone, regardless of the barriers of medium, location, portability, age, language or wealth. And use the platform of modern technology to help spread and instill the love of living according to the Sunnah in the hearts, as today’s Maldivians are closer to their personal devices than they are to books.
+> Bring the Hadith of Allah’s Prophet ﷺ within the reach of everyone, regardless of the barriers of medium, location, portability, age, language or wealth. And use the platform of modern technology to help spread and instill the love of living according to the Sunnah in the hearts, as the Maldivians of today are closer are closer to their personal devices than they are to books.
 
 ### **Educational**
 
-> The cause of most of our society’s problems is due to people being uneducated about Islam. To solve this redundant issue, they need a way to access Islamic material they can look up for themselves. Also, teachers and students alike can benefit from these references, without having to repeat the translate process every time.
+> The cause of most of our society’s problems is due to people being uneducated about Islam. To solve this redundant issue, they need a way to access Islamic material they can look up for themselves. Also, teachers and students alike can benefit from these references, without having to repeat the translate process every time. One database, multiple platforms.
 
 ### **Progressive**
 
-> It is Allah who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. hadithmv is designed to be mobile-first with minimal bloat. Currently both web and Android are supported.
+> It is Allah who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. hadithmv is designed to be mobile-first with minimal bloat. Currently hadithmv is available on the Web, Android and Windows.
 
+<!---
 ## Milestones
 
 <table>
@@ -88,26 +89,31 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 </tbody>
 
 </table>
+--->
 
 <br> <br>
 
 <div class="dv">
 
 <p align="center">
-- ރަޙްމާން ވަންތަ ރަޙީމް ވަންތަ ﷲ ގެ އިސްމުފުޅުން ފަށައިގަންނަމެވެ -
+- ރަޙްމާންވަންތަ ރަޙީމްވަންތަ ﷲ ގެ އިސްމުފުޅުން ފަށައިގަންނަމެވެ -
 </p>
 <br>
 
 <h3 align="right"><b>
-ޙަދީޘް އެމް.ވީ. - ދިވެހިންނަށް ޙަދީޘް އެޕްލިކޭޝަނެއް އުފެއްދުން
+ޙަދީޘްއެމްވީ - ދިވެހިންނަށް ޙަދީޘް އެޕްލިކޭޝަނެއް އުފެއްދުން
 </b></h3>
 
 <p align="right" dir="rtl">
-ޙަދީޘް އެމް.ވީ. މަޝްރޫޢަކީ އިސްލާމީ ދިވެހި މުޖުތަމަޢަށް ވީހާވެސް ފަސޭހަ ކަމާއިއެކު ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތަަކުގެ މާނަ އުނގަންނައިދީ ފޯރުކޮށް ދިނުމަށް ޓަކައި ވަސީލަތެއް ގާއިމު ކުރުމުގެ ގޮތުން ކުރެވޭ މަސައްކަތެކެވެ. މި މަސައްކަތް ފުރިހަމަ ވުމުން ގިނަ އަދަދެއްގެ ހަދީޘްތަކެއް ދިވެހި ބަހުން އެއްތަނަކުން ފަސޭހައިން ލިބެން ހުންނާނެއެވެ. މި ކަމުގައި އެއްވެސް ހެޔޮކަމެއް ވާނަމަ، ފަހެ އެއީ ﷲ ގެ ޙަޟްރަތުން އައި ކަމެކެވެ. އަދި މި ކަމުގައި އެއްވެސް އުނިކަމެއް ވާނަމަ އެއީ އަޅުގަނޑުމެންނާއި ޝައިޠާނާގެ ފަރާތުން އައި ކަމެކެވެ.
+ޙަދީޘްއެމްވީ މަޝްރޫޢަކީ އިސްލާމީ ދިވެހި މުޖުތަމަޢަށް ވީހާވެސް ފަސޭހަ ކަމާއިއެކު ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތަަކުގެ މާނަ އުނގަންނައިދީ ފޯރުކޮށް ދިނުމަށް ޓަކައި ޒަމާނީ ވަސީލަތެއް ގާއިމު ކުރުމުގެ ގޮތުން ކުރެވޭ މަސައްކަތެކެވެ. އިރާދަ ކުރެއްވިއްޔާ މި މަޝްރޫޢު ފުރިހަމަ ވުމުން ގިނަ އަދަދެއްގެ ހަދީޘް ދިވެހި ބަހުން ފަސޭހައިން އެއްތަނަކުން ލިބެން ހުންނާނެއެވެ. އަދި އެހެނިހެން އިސްލާމީ ލިޔުންތައް ގެނެސްދެވޭތޯ ވެސް އެބަ މަސައްކަތް ކުރަމެވެ. މި ކަމުގައި އެއްވެސް ހެޔޮކަމެއް ވާނަމަ، ފަހެ އެއީ ﷲ ގެ ޙަޟްރަތުން އައި ކަމެކެވެ. އަދި މި ކަމުގައި އެއްވެސް އުނިކަމެއް ވާނަމަ އެއީ އަޅުގަނޑުމެންނާއި ޝައިޠާނާގެ ފަރާތުން އައި ކަމެކެވެ.
+</p>
+
+<p align="right" dir="rtl">
+ޔާ ﷲ އެވެ. އަޅަމެންގެ މި މަސައްކަތް ޤަބޫލު ކުރައްވާ، މިކަމުގައި ބަރަކާތް ލައްވާ، އަޅަމެންގެ ހެޔޮ ޢަމަލުތަކުގެ ތެރޭގައި ހިމަނުއްވާށިއެވެ. އަދި މިއީ ޤިޔާމަތަށް ދާންދެން ދެމިގެންދާ ޞަދަޤާ ޖާރިއާއެއް ކަމުގައި ލައްވާށިއެވެ. އަދި މިކަމުގައި ބައިވެރިވި އެންމެހައި އަޚުންނާއި އުޚްތުންނާއި އެ މީހުންގެ އާއިލާތަކާއި ރަޙްމަތްތެރިންގެ ފާފަތައް ފުއްސަވާށިއެވެ. އާމީން.
 </p>
 
 <h3 align="right"><b>
-އަމާޒު
+ލަނޑުދަނޑިތައް
 </b></h3>
 
 ---
@@ -116,7 +122,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 ފޯރުކޮށްދިނުން
 </b></h3>
 
-<p align="right" dir="rtl">ގެންގުޅޭ ވަޞީލަތްތަކާއި، އުޅޭ ތަނާއި، އުމުރާއި، ބަސްމޮށުންތެރިކަމާއި ތަނަވަސްކަން ނެތުމުގެ ސަބަބުން ކުރިމަތިވެފައިވާ ހުރަސްތައް ފަހަނައަޅައި، ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތައް އެންމެންނާއި ހަމައަށް ފޯރުކޮށް ދިނުމެވެ. އަދި މި ޒަމާނަކީ ފޮތްތަކަށް ވުރެން ބޮޑަށް ފޯނާއި ކޮމްޕިޔުޓަރ ފަދަ ވަސީލަތްތަކަށް ދިވެހިން އަހުލުވެރި ވެފައިވާ ޒަމާނެއް ކަމުން، އަދުގެ ޓެކްނޮލަޖީގެ ޒަރިއްޔާއިން ސުންނަތް ފަތުރައި އެއާ އެއްގޮތަށް އުޅުމުގެ ލޯބި ހިތްތަކުގައި ޖެއްސުމެވެ.
+<p align="right" dir="rtl">ގެންގުޅޭ ވަޞީލަތްތަކާއި، އުޅޭ ތަނާއި، އުމުރާއި، ބަސްމޮށުންތެރިކަމާއި ތަނަވަސްކަން ނެތުމުގެ ސަބަބުން ކުރިމަތިވެފައިވާ ހުރަސްތައް ފަހަނައަޅައި، ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތައް އެންމެންނާއި ހަމައަށް ފޯރުކޮށް ދިނުމެވެ. އަދި މި ޒަމާނަކީ ފޮތްތަކަށް ވުރެން ބޮޑަށް ފޯނާއި ކޮމްޕިޔުޓަރ ފަދަ ވަސީލަތްތަކަށް ދިވެހިން އަހުލުވެރި ވެފައިވާ ޒަމާނެއް ކަމުން، އަދުގެ ޓެކްނޮލަޖީގެ ޒަރިއްޔާއިން ސުންނަތް ފަތުރައި އެއާ އެއްގޮތަށް އުޅުމުގެ ލޯބި ހިތްތަކުގައި ޖެއްސުމެވެ. އެ ގޮތުން އެއް ޑޭޓާބޭސެއް، ތަފާތު މަންސަތަކުން ލިބެން ހުންނާނެއެވެ
 </p>
 
 <h3 align="right"><b>
@@ -130,9 +136,10 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 ތަރައްޤީވުން
 </b></h3>
 
-<p align="right" dir="rtl"> އަޅުގަނޑުމެންނަށް ޓަކައި ޓެކްނޮލޮޖީގެ ޚިދުމަތް ލައްވައި އޭގެ ބޭނުން ކުރެވޭނެ ގޮތް މިންވަރު ކުރެއްވީ ﷲ އެވެ. އަޅުގަނޑުމެންގެ އަމާޒަކީ ގިނަގުނަ ބޭނުންތައް ހިފޭ، ބޭނުން ކުރަން ފަސޭހަ އެޕްލިކޭޝަނެއް އެންމެންނަށް ފޯރުކޮށް ދިނުމެވެ. އަދި ގެންގުޅޭ ވަސީލަތްތަކާއި އުސްލޫބު ތަފާތު ވިޔެއްކަމަކު، ބޭނުން ކުރާ ފަރާތްތަކަށް އެކަށީގެންވާ ހިތްގައިމު މާހައުލެއް ޤާއިމުކޮށް ދިނުމެވެ. ޙަދީޘް އެމް.ވީ. ފަރުމާ ކުރެވިފައި ވަނީ ފޯނަށް އަހަންމިއްޔަތުކަން ދެވި، ޖާގައަށް ބުރަ ނުވާ ގޮތަށެވެ. މި ވަގުތު އިންޓަރނެޓު އަދި އެންޑުރޮއިޑު ވަޞީލަތްތަކުގައި ބޭނުން ކުރެވޭނެއެވެ.
+<p align="right" dir="rtl">އަޅުގަނޑުމެންނަށް ޓަކައި ޓެކްނޮލޮޖީގެ ޚިދުމަތް ލައްވައި އޭގެ ބޭނުން ކުރެވޭނެ ގޮތް މިންވަރު ކުރެއްވީ ﷲ އެވެ. ޙަދީޘްއެމްވީގެ އަމާޒަކީ ގިނަގުނަ ބޭނުންތައް ހިފޭ، ބޭނުން ކުރަން ފަސޭހަ އެޕްލިކޭޝަނެއް އެންމެންނަށް ފޯރުކޮށް ދިނުމެވެ. އަދި ގެންގުޅޭ ވަސީލަތްތަކާއި އުސްލޫބު ތަފާތު ވިޔެއްކަމަކު، ބޭނުންކުރާ ފަރާތްތަކަށް އެކަށީގެންވާ ހިތްގައިމު މާހައުލެއް ޤާއިމުކޮށް ދިނުމެވެ. ޙަދީޘްއެމްވީ ފަރުމާ ކުރެވިފައި ވަނީ ފޯނަށް އަހަންމިއްޔަތުކަން ދެވި، ޖާގައަށް ބުރަ ނުވާ ގޮތަށެވެ. މި ވަގުތު ވެބް، އެންޑުރޮއިޑް އަދި ވިންޑޯސްގެ ވަޞީލަތްތަކުގައި ބޭނުން ކުރެވޭނެއެވެ.
 </p>
 
+<!---
 <h3 align="right"><b>
 ލަނޑުދަނޑިތައް
 </b></h3>
@@ -163,7 +170,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 
 <td>ކުރިއަށް ދަނީ</td>
 
-</tr>
+</tr>--->
 
 </tbody>
 
