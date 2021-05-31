@@ -26,7 +26,8 @@ Islamic translations in Dhivehi at your fingertips
 <img src="https://hadithmv.github.io/img/wb/windows-badge-Opt.svg" width="200px" />
 </p>
 
-<br> <br>
+<hr>
+<br>
 
 <p align="center"><i>
   - In the Name of Allah, the Entirely Merciful, the Especially Merciful -</i>
