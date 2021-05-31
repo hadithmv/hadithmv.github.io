@@ -495,6 +495,28 @@ input.dt-button {
   /* removes shading on press down */
 }
 
+/* changes pagination button hover color */
+.paginate_button:hover {
+  background: #1c4253 !important;
+}
+
+/* changes disabled > < color */
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+  color: #b2b2b2 !important;
+}
+
+/* lets pagination buttons increase in width a little, see on mobile */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  max-width: none !important;
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
+  margin-bottom: 7px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
 /* ===== DT wrapper CSS - END ===== */
 
 /* ====================
