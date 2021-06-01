@@ -4,4 +4,4 @@ html-minifier --input-dir C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\u
 
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\nawawi.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\_layouts\default.html
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\eegaal-uc.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\eegaal.html
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\uc\eegaal.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\eegaal.html
