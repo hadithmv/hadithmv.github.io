@@ -11,7 +11,7 @@ Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\uc\eegaal.html -D
 
 
 
-# copies site book files to asset book files one by one
+# copies site minified book files to asset book files one by one
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\barbahari.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\books\barbahari.html
 
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\eegaal.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\books\eegaal.html
@@ -29,7 +29,7 @@ Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\sahihain.ht
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\umdah.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\books\umdah.html
 
 
-# copies asset book folder contents to win book folder
+# copies minified asset book folder contents to win book folder
 Copy-Item -Path C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\books\* -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\books
 
 # copies index from win book to win root
