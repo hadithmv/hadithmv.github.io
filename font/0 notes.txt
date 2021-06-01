@@ -1,3 +1,6 @@
 UthmanicHafs1-Ver14:
 
 don't delete glyph: arabicindiczero-arab and those numbers, because they show the arabic number text as ayah circled number
+
+/* chromium webview has an issue with thaana rendering, letters get mashed together,
+only seems to happen for woff and woff2, use original unmodified otf or ttf to get it fixed */

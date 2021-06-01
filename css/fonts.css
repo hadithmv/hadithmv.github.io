@@ -12,11 +12,11 @@
 }
 
 /* chromium webview has an issue with thaana rendering, letters get mashed together,
-only seems to happen for woff and woff2, use otf or ttf to get it fixed */
+only seems to happen for woff and woff2, use original unmodified otf or ttf to get it fixed */
 @font-face {
   font-family: dvFont;
   src: /*url(../font/mvtyper-Copy7.woff2) format("woff2"),
-    url(../font/mvtyper-Copy7.woff) format("woff"),*/ url(../font/mvtyper-Copy7.ttf)
+    url(../font/mvtyper-Copy7.woff) format("woff"),*/ url(../font/mvtyper.ttf)
     format("truetype");
   font-display: swap;
 }
