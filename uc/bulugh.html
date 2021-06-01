@@ -141,14 +141,15 @@ so right align to prevent gaps in text */
         font-size: 21px;
       }
 
-      /* Umdah only kitab bab top bottom padding removal */
-
-      .dataTable tr td.uhCol2,
-      .dataTable tr td.uhCol3,
-      .dataTable tr td.uhCol4,
-      .dataTable tr td.uhCol5 {
-        padding-top: 0;
-        padding-bottom: 0;
+      /* mobile bulugh only kitab bab top bottom padding removal */
+      @media screen and (max-width: 900px) {
+        .dataTable tr td.uhCol2,
+        .dataTable tr td.uhCol3,
+        .dataTable tr td.uhCol4,
+        .dataTable tr td.uhCol5 {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
       }
     </style>
     <!-- === INT CSS - END === -->
