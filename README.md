@@ -218,7 +218,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
  Moosa Ayyoob, Mujahid Abdullah, Muthamin Ahmed, Mutheeu Ismail, Nazeem
  Nizaam, Nihreer Maajid Dawud, Rashad, Riyas Hussain, Sajid Muhammad,
  Samiu, Shahid Rameez, Shazin Ibrahim, Shifaq Ahmed, Shiro (M.M), Zahwan
- Nazim
+ Nazim, and their families and friends.
  </p>
 
  <br /><br />
