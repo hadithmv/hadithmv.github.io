@@ -185,7 +185,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 
 </div>
 
- <h2 class="en" style="text-align: center">Contributers</h2>
+ <h2 class="en" style="text-align: center">Contributors</h2>
 
  <h3 class="en">
  The following people have contributed to this project in various ways
