@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <!-- === EXT CSS === -->
+    <!-- non critical -->
 
-    <link
-      href="https://nightly.datatables.net/css/jquery.dataTables.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script>
+    <!-- === EXT CSS - END === -->
+
+    <!-- === EXT JS === -->
     <script src="https://cdn.datatables.net/plug-ins/1.10.24/api/row().show().js"></script>
     <link
       href="https://nightly.datatables.net/select/css/select.dataTables.css?_=24c64a7b9de9aab705cbdb9df9ba4ab4.css"
@@ -17,8 +15,19 @@
     />
     <script src="https://nightly.datatables.net/select/js/dataTables.select.js?_=24c64a7b9de9aab705cbdb9df9ba4ab4"></script>
 
+    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
+    <!-- critical -->
+    <script defer src="../js/resc/COMB-Crit.js"></script>
+    <!-- non critical -->
+    <script defer src="../js/resc/COMB-nonCrit.js"></script>
+
+    <script></script>
+    <!-- change123 js -->
+
+    <!-- === EXT JS - END === -->
+
     <script defer src="../js/test.js"></script>
-    <script defer src="../js/json/nawawi.js"></script>
+
     <meta charset="utf-8" />
     <title>DataTables - JS Bin</title>
     <style>
