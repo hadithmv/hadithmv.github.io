@@ -11,5 +11,5 @@ REM Call the compiler with the app file
 %COMPILER% %APP%
 
 REM Pause the script execution to see the results
-PAUSE
+REM PAUSE
 
