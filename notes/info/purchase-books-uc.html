@@ -38,17 +38,6 @@
     https://github.com/orderedlist/minimal
     -->
     <style>
-      .bookCover {
-        /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
-        box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
-        display: block;
-        margin: auto;
-        width: 300px;
-
-        /* padding-bottom: 10px;
-  padding-top: 10px; */
-      }
-
       .price {
         /* width: 500px;
         height: 500px; */
@@ -76,6 +65,7 @@
         border-color: #eee;
         border-width: 1.5px;
       }
+
       .price:hover {
         opacity: 0.9;
         cursor: pointer;
@@ -86,18 +76,77 @@
       }
 
       .price.noStock {
+        /* add this class to price */
         background: #23272a;
+        border-radius: 5px;
+        color: #d6d6d6;
+      }
+
+      .noStock:hover {
+        opacity: 1;
+        cursor: default;
+        width: 250px;
+        transition: none;
+      }
+
+      /* Flexbox gallery grid for images */
+      .flexRow {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        justify-content: center;
+      }
+
+      .flexItem {
+        flex-grow: 1;
+
+        /* flex-basis: 125px; this causes flex text to bunch up */
+
+        /* max-width: 300px; */
+        margin: 8px;
       }
 
       .Pr {
         text-align: center !important;
       }
 
-      @media (prefers-color-scheme: dark) {
-        .bookCover {
-          box-shadow: 0 0.05px 5px 0 rgba(238, 238, 238, 0.7);
+      h3 {
+        margin: 0;
+      }
 
-          /* filter: brightness(0.87) contrast(1.02); */
+      /* End - Flexbox gallery grid for images */
+
+      /* box-shadow: none|h-offset v-offset blur spread color |inset|initial|inherit; */
+      .flexRow img {
+        border-radius: 5px;
+
+        /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+
+        /* box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24); */
+        box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.24);
+
+        /* width: 19.75em; */
+
+        /* display: block; */
+
+        /* margin: auto; */
+
+        /* padding-bottom: 10px;
+          padding-top: 10px; */
+      }
+
+      @media (prefers-color-scheme: dark) {
+        .flexRow img {
+          /* box-shadow: 0 0.05px 5px 0 rgba(238, 238, 238, 0.7); */
+          box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+          filter: brightness(0.87) contrast(1.02);
+        }
+      }
+
+      /* @mixin for-tablet-landscape-up { */
+      @media (min-width: 900px) {
+        .flexItem {
+          max-width: 45%;
         }
       }
     </style>
@@ -122,7 +171,9 @@
         <p class="en">For those who want to get physical books</p>
       </div>
 
-      <br /><br />
+      <br />
+      <hr />
+      <br />
 
       <img
         loading="lazy"
@@ -135,6 +186,7 @@
         class="en Pr"
         onclick="window.open('https://telegram.me/yahyasdadmv');"
       >
+        <br />
         <h3 class="price"><b>35/- MVR</b></h3>
         <!--<h3><b>895/- MVR</b></h3> change after 15th april-->
       </div>
@@ -175,8 +227,6 @@
         <li>Delivery: to Male’ and Hulhumale</li>
       </ul>
 
-      <br />
-      <hr />
       <br />
 
       <div class="dv">
@@ -232,6 +282,13 @@
 
       <br /><br />
       <hr />
+      <br />
+
+      <h2 class="en mid">
+        - back to the
+        <b><a href="https://hadithmv.github.io">main site</a></b> -
+      </h2>
+
       <br />
     </div>
 
