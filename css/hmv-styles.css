@@ -56,7 +56,7 @@ body {
 
 /* Remove text-shadow in selection highlight. Customize the background color to match your design. */
 
-::-moz-selection {
+/* ::-moz-selection {
   background: #b3d4fc;
   text-shadow: none;
 }
@@ -64,7 +64,7 @@ body {
 ::selection {
   background: #b3d4fc;
   text-shadow: none;
-}
+} */
 
 /* ::-moz-selection {
     background: #b3d4fc;
@@ -1091,5 +1091,15 @@ this makes a faint white outline around card  */
       border-style: solid;
       border-color: #424242; /* outer */
     }
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  ::-moz-selection {
+    background: #b3d4fc;
+  }
+
+  ::selection {
+    background: #b3d4fc;
   }
 }
