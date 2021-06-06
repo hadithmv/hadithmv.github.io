@@ -53,6 +53,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 > It is Allah who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. hadithmv is designed to be mobile-first with minimal bloat. Currently hadithmv is available on the Web, Android and Windows.
 
 <br /><br />
+
 <hr />
 <br />
 <!---
@@ -113,7 +114,6 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 </p>
 
 <br /><br />
-
 
 <h3 align="right"><b>
 ލަނޑުދަނޑިތައް
@@ -196,8 +196,19 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
  Abu Yahya Ashraaf bin Ibrahim al-Maldifi, Umm Yahya, Hassaan Abdul Razzaq, Abdul Aziz, Abdul Muiz Rasheed, Abdullah Ahsan Saeed, Abdullah Amir, Abdullah Azzam, Abdullah Munawwar, Abdullah Saudhan, Abdullah Shaheed, Abu Nusaiba, Adam Ifham, Adiyy Muhammad, Affan Haleem, Ahmed Ahsan, Ahmed Ali Jabir, Ahmed Ashraf, Ahmed Azhan, Ahmed Fazad Faiz, Ahmed Nadih, Ahmed Nazmi Rasheed, Ahmed Rifshan, Ahmed Shuaib, Ahmed Shujau Shareef, Ali Naeem, Ali Shammakh, Ali Ziyad, Allan J, Ammar Ilyas, Ashraf Ali, Ateef Abubakr, Basheer Adam, Bilal Abdussattar, Colin M, Easa Hunain, Fahmy Didi, Falah, Fazloon Mohamad, Hasan Sobah, Hashmu Nazim, Hassan Faisal, Hassan Ziyan, Hathim Yusuf, Hood Mohamed, Humaid Shahid, Hussain Ansar, Hussain Ibrahim, Hussain Jauzan, Hussain Nashaath, Hussain Shifan, Hussain Sodiq, Hussain Toriq, Hussein Hizam, Ibrahim Jadeed Ahmed, Ibrahim Rafiu, Ibrahim Samooh, Ibrahim Saneeh, Ilyas Ahmed, Ilyas Jamal, Imad Yusuf, Imthitho Abbas, Ishaq Fathhee, Ismail Inash Haneef, Ismail Jumail Mohamed, Ismail Lamman, Ismail Riyaz, Ismail Shareef, Iyaz Naseem, Jailam Abdul Jaleel, Jaishan, Jaufar Mohamed Uthman, Kevin T, Mahfooz Ibrahim, Maihan Nazim, Mohamed Aamil Ali, Mohamed Abdurrahman, Mohamed Adil, Mohamed Ahmed, Mohamed Allam Naeem, Mohamed Arham, Mohamed Azhar, Mohamed Fazeel, Mohamed Ghalib Shahid, Mohamed Haleem, Mohamed Humam Yusuf, Mohamed Ihsan, Mohamed Jazlan Umar, Mohamed Maaiz Muaviyath, Mohamed Mafaz, Mohamed Maun Shareef, Mohamed Qubad, Mohamed Shafeeu, Mohamed Shahid, Mohamed Sinan, Mohamed Siraj, Mohamed Taha, Mohamed Wishah, Moosa Ayyoob, Mujahid Abdullah, Muthamin Ahmed, Mutheeu Ismail, Nazeem Nizaam, Nihreer Maajid Dawud, Rashad, Riyas Hussain, Sajid Muhammad, Samiu, Shahid Rameez, Shazin Ibrahim, Shifaq Ahmed, Shiham Mohamed, Shiro (M.M), Zahwan Nazim, and their families and friends.
  </p>
 
- <br /><br />
- <hr />
- <br /><br />
+<br /><br />
 
+<hr />
+<br />
+
+<p class="en mid tellUs" style="text-align: center">
+If you find a mistake or want to help in this project, please
+<a href="https://telegram.me/yahyasdadmv">contact us</a>.
+</p>
+<h2 class="en mid" style="text-align: center">
+- back to the
+<b><a href="https://hadithmv.github.io">main site</a></b> -
+</h2>
+
+<br />
 </div>
