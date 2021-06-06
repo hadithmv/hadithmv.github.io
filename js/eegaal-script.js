@@ -518,8 +518,8 @@ $(document).ready(() => {
   // adds a placeholder to above <input class="paginate_input" type="text">
   $('.paginate_input').attr('placeholder', 'ސަފުހާ...')
 
-  // makes credits visible after script finishes rendering, CHANGE123 eegaa; only
+  // makes footer visible after script finishes rendering
   $(document).ready(function () {
-    $('#eegaalCredits').removeClass('hidden')
+    $('#Footer').removeClass('hidden')
   })
 }) // ==================== END OF $(document).ready( function () {
