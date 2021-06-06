@@ -591,6 +591,30 @@ thaana mish mash render fix - END
  ================== */
 
 /* ====================
+       Footer
+======================= */
+
+#Footer {
+  text-align: justify;
+  text-align-last: center;
+  font-family: "dvFont", "arFont", sans-serif;
+  font-size: 17px;
+  line-height: 1.9;
+  direction: rtl;
+  padding: 15px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.tellUs {
+  text-align: center;
+}
+
+/* ====================
        DARK MODE
 ======================= */
 

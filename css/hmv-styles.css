@@ -917,6 +917,15 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   font-size: 86%;
 }
 
+a {
+  color: #3740ff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #252caf;
+}
+
 /* ====================
        BUTTON STYLES
 ======================= */
@@ -1091,6 +1100,13 @@ this makes a faint white outline around card  */
       border-style: solid;
       border-color: #424242; /* outer */
     }
+  }
+
+  a {
+    color: #39c;
+  }
+  a:hover {
+    color: #2a8dbf;
   }
 }
 
