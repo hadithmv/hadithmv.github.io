@@ -527,4 +527,9 @@ $(document).ready(() => {
 
   // adds a placeholder to above <input class="paginate_input" type="text">
   $('.paginate_input').attr('placeholder', 'ސަފުހާ...')
+
+  // makes footer visible after script finishes rendering
+  $(document).ready(function () {
+    $('#Footer').removeClass('hidden')
+  })
 }) // ==================== END OF $(document).ready( function () {
