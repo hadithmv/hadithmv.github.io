@@ -39,6 +39,7 @@ https://github.com/yoksel/url-encoder
 https://compressor.io
 https://vecta.io/nano
 https://github.com/svg/svgo -MIT
+https://chromium.googlesource.com/webm/libwebp -BSD
 
 https://github.com/maaldheefee/mushaf-page-border
 https://nashrschool.qurancomplex.gov.sa
@@ -47,6 +48,7 @@ http://hassanhameed.com/?page_id=154
 https://fonts.qurancomplex.gov.sa/wp02
 https://fonts.hassaanmv.com/tharujamaanu
 
+https://40-nawawi.hassaanmv.com
 https://sunnah.alifta.gov.sa
 https://shamela.ws
 https://github.com/kudanai/Quran-Translation
