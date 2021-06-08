@@ -206,8 +206,8 @@ If you find a mistake or want to help in this project, please
 <a href="https://telegram.me/yahyasdadmv">contact us</a>.
 </p>
 <h2 class="en mid" style="text-align: center">
-- back to the
-<b><a href="https://hadithmv.github.io">main site</a></b> -
+- Back to the
+<b><a href="https://hadithmv.github.io">Main Site</a></b> -
 </h2>
 
 <br />
