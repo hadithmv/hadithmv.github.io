@@ -11,11 +11,11 @@ hadithmv - Accessible and Sourced
 </b></h3>
 
 <p align="center">
-Islamic translations in Dhivehi at your fingertips
+The Maldivian hadith translation platform
 </p>
 
 <p align="center">
-  View the <a href="https://hadithmv.github.io">web version</a>
+  View the <a href="https://hadithmv.github.io">Web Version</a>
 </p>
 
 <p align="center">
@@ -34,19 +34,19 @@ Islamic translations in Dhivehi at your fingertips
 </p>
 <br>
 
-### **Developing a hadith App for Maldivians**
+### **Developing a hadith platform for Maldivians**
 
 The **hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a hadith collection in their native Dhivehi language, in sha Allah. We are also working on making other Islamic works available. Any good that comes of this is from Allah, and any shortcomings are from ourselves and shaithan.
 
 ## Goals
 
-### **Accessible**
+### **Accessibility**
 
 > Bring the Hadith of Allah’s Prophet ﷺ within the reach of everyone, regardless of the barriers of medium, location, portability, age, language or wealth. And use the platform of modern technology to help spread and instill the love of living according to the Sunnah in the hearts, as the Maldivians of today are closer are closer to their personal devices than they are to books.
 
-### **Educational**
+### **Education**
 
-> The cause of most of our society’s problems is due to people being uneducated about Islam. To solve this redundant issue, they need a way to access Islamic material they can look up for themselves. Also, teachers and students alike can benefit from these references, without having to repeat the translate process every time. One database, multiple platforms.
+> The cause of most of our society’s problems is due to people being uneducated about Islam. To solve this redundant issue, they need a way to access Islamic material they can look up for themselves. Also, teachers and students alike can benefit from these references, without having to repeat the translation process every time. One database, multiple platforms.
 
 ### **Progressive**
 
