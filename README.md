@@ -204,14 +204,14 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 <hr />
 <br />
 
-<p class="en mid tellUs" style="text-align: center">
+<p class="en mid tellUs" align="center">
 If you find a mistake or want to help in this project, please
 <a href="https://telegram.me/yahyasdadmv">contact us</a>.
 </p>
-<h2 class="en mid" style="text-align: center">
+<p class="en mid" align="center">
 - Back to the
 <b><a href="https://hadithmv.github.io">Main Site</a></b> -
-</h2>
+</p>
 
 <br />
 </div>
