@@ -46,15 +46,15 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 
 ### **Accessibility**
 
-> Bring the Hadith of Allah’s Prophet ﷺ within the reach of everyone, regardless of the barriers of medium, location, portability, age, language or wealth. And use the platform of modern technology to help spread and instill the love of living according to the Sunnah in the hearts, as the Maldivians of today are closer are closer to their personal devices than they are to books.
+> Bring the Hadith of Allah’s Prophet ﷺ within the reach of everyone, regardless of the barriers of medium, location, portability, age, language or wealth. And use the platform of modern technology to help spread and instill the love of living according to the Sunnah in the hearts, as the Maldivians of today are closer are closer to their personal devices than they are to books. One database, multiple platforms.
 
 ### **Education**
 
-> The cause of most of our society’s problems is due to people being uneducated about Islam. To solve this redundant issue, they need a way to access Islamic material they can look up for themselves. Also, teachers and students alike can benefit from these references, without having to repeat the translation process every time. One database, multiple platforms.
+> The cause of most of our society’s problems is due to people being uneducated about Islam. To solve this redundant issue, they need a way to access Islamic material they can look up for themselves. Also, teachers and students alike can benefit from these references, without having to repeat the translation process every time. One database, multiple platforms. Write once, look up anytime.
 
-### **Progressive**
+### **Progressiveness**
 
-> It is Allah who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. hadithmv is designed to be mobile-first with minimal bloat. Currently hadithmv is available on the Web, Android and Windows.
+> It is Allah Who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. hadithmv is designed to be mobile-first with minimal bloat. Currently available on the Web, Android and Windows.
 
 <br />
 
@@ -109,7 +109,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 </b></h3>
 
 <p align="right" dir="rtl">
-ޙަދީޘްއެމްވީ މަޝްރޫޢަކީ އިސްލާމީ ދިވެހި މުޖުތަމަޢަށް ވީހާވެސް ފަސޭހަ ކަމާއިއެކު ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތަަކުގެ މާނަ އުނގަންނައިދީ ފޯރުކޮށް ދިނުމަށް ޓަކައި ޒަމާނީ ވަސީލަތެއް ގާއިމު ކުރުމުގެ ގޮތުން ކުރެވޭ މަސައްކަތެކެވެ. އިރާދަ ކުރެއްވިއްޔާ މި މަޝްރޫޢު ފުރިހަމަ ވުމުން ގިނަ އަދަދެއްގެ ހަދީޘް ދިވެހި ބަހުން ފަސޭހައިން އެއްތަނަކުން ލިބެން ހުންނާނެއެވެ. އަދި އެހެނިހެން އިސްލާމީ ލިޔުންތައް ގެނެސްދެވޭތޯ ވެސް އެބަ މަސައްކަތް ކުރަމެވެ. މި ކަމުގައި އެއްވެސް ހެޔޮކަމެއް ވާނަމަ، ފަހެ އެއީ ﷲ ގެ ޙަޟްރަތުން އައި ކަމެކެވެ. އަދި މި ކަމުގައި އެއްވެސް އުނިކަމެއް ވާނަމަ އެއީ އަޅުގަނޑުމެންނާއި ޝައިޠާނާގެ ފަރާތުން އައި ކަމެކެވެ.
+ޙަދީޘްއެމްވީ މަޝްރޫޢަކީ އިސްލާމީ ދިވެހި މުޖުތަމަޢަށް ވީހާވެސް ފަސޭހަ ކަމާއިއެކު ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތަަކުގެ މާނަ އުނގަންނައިދީ ފޯރުކޮށްދިނުމަށް ޓަކައި ޒަމާނީ ވަސީލަތެއް ގާއިމު ކުރުމުގެ ގޮތުން ކުރެވޭ މަސައްކަތެކެވެ. އިރާދަ ކުރެއްވިއްޔާ މި މަޝްރޫޢު ފުރިހަމަ ވުމުން ގިނަ އަދަދެއްގެ ހަދީޘް ދިވެހި ބަހުން ފަސޭހައިން އެއްތަނަކުން ލިބެން ހުންނާނެއެވެ. އަދި އެހެނިހެން އިސްލާމީ ލިޔުންތައް ގެނެސްދެވޭތޯ ވެސް އެބަ މަސައްކަތް ކުރަމެވެ. މި ކަމުގައި އެއްވެސް ހެޔޮކަމެއް ވާނަމަ، ފަހެ އެއީ ﷲ ގެ ޙަޟްރަތުން އައި ކަމެކެވެ. އަދި މި ކަމުގައި އެއްވެސް އުނިކަމެއް ވާނަމަ އެއީ އަޅުގަނޑުމެންނާއި ޝައިޠާނާގެ ފަރާތުން އައި ކަމެކެވެ.
 </p>
 
 <p align="right" dir="rtl">
@@ -128,21 +128,21 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 ފޯރުކޮށްދިނުން
 </b></h3>
 
-<p align="right" dir="rtl">ގެންގުޅޭ ވަޞީލަތްތަކާއި، އުޅޭ ތަނާއި، އުމުރާއި، ބަސްމޮށުންތެރިކަމާއި ތަނަވަސްކަން ނެތުމުގެ ސަބަބުން ކުރިމަތިވެފައިވާ ހުރަސްތައް ފަހަނައަޅައި، ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތައް އެންމެންނާއި ހަމައަށް ފޯރުކޮށް ދިނުމެވެ. އަދި މި ޒަމާނަކީ ފޮތްތަކަށް ވުރެން ބޮޑަށް ފޯނާއި ކޮމްޕިޔުޓަރ ފަދަ ވަސީލަތްތަކަށް ދިވެހިން އަހުލުވެރި ވެފައިވާ ޒަމާނެއް ކަމުން، އަދުގެ ޓެކްނޮލަޖީގެ ޒަރިއްޔާއިން ސުންނަތް ފަތުރައި އެއާ އެއްގޮތަށް އުޅުމުގެ ލޯބި ހިތްތަކުގައި ޖެއްސުމެވެ. އެ ގޮތުން އެއް ޑޭޓާބޭސެއް، ތަފާތު މަންސަތަކުން ލިބެން ހުންނާނެއެވެ
+<p align="right" dir="rtl">ގެންގުޅޭ ވަސީލަތްތަކާއި، އުޅޭ ތަނާއި، އުމުރާއި، ބަސް އެނގެނުމާއި، ތަނަވަސްކަން ނެތުމުގެ ސަބަބުން ކުރިމަތިވެފައިވާ ހުރަސްތައް ފަހަނައަޅައި، ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތައް އެންމެހައި ދިވެހިންނަށް ހަމައަށް ފޯރުކޮށްދިނުމެވެ. އަދި މި ޒަމާނަކީ ފޮތްތަކަށް ވުރެ ބޮޑަށް ފޯނާއި ކޮމްޕިޔުޓަރ ފަދަ ވަސީލަތްތަކަށް ދިވެހިން އަހުލުވެރި ވެފައިވާ ޒަމާނެއް ކަމުން، އަދުގެ ޓެކްނޮލަޖީގެ ޒަރިއްޔާއިން ސުންނަތް ފަތުރައި އެއާ އެއްގޮތަށް އުޅުމުގެ ލޯބި ހިތްތަކުގައި ޖެއްސުމެވެ. އެ ގޮތުން އެއް ޑޭޓާބޭސެއް، ތަފާތު މަންސަތަކުން ލިބެން ހުންނާނެއެވެ.
 </p>
 
 <h3 align="right"><b>
 އުނގަންނައިދިނުން
 </b></h3>
 
-<p align="right" dir="rtl"> މި ކުޑަކުޑަ މުޖުތަމަޢުގެ ގިނަ މައްސަލަތަކުގެ މައިގަނޑު ސަބަބަކީ މީސްތަކުން އިސްލާމް ދީނަށް ރަނގަޅަށް އަހުލުވެރި ވެފައި ނުވުމެވެ. ވީމާ މި ކަމަށް ޙައްލެއް ގެނައުމަށް ޓަކައި އަމިއްލައަށް އިސްލާމީ މަޢުލޫމާތު ބަލައި ހޯދޭނެ ފަސޭހަ މަގެއް މީސްތަކުންނަށް ތަނަވަސްވެފައި އޮތުން މުހިންމެވެ. ހަމަ އެހެންމެ، މުދައްރިސުންނާއި ދަރިވަރުން މި މަސްދަރުތަކުގެ ބޭނުން ހިފައި، އެއް ޙަދީޘްތަކެއް ތަކުރާރުކޮށް ތަރުޖަމާ ކުރުމުގެ ބުރައިން ސަލާމަތް ވެގެން ދާނެއެވެ.
+<p align="right" dir="rtl">މި ކުޑަކުޑަ މުޖުތަމައުގެ ގިނަ މައްސަލަތަކުގެ މައިގަނޑު ސަބަބަކީ މީސްތަކުން އިސްލާމް ދީނަށް ރަނގަޅަށް އަހުލުވެރި ވެފައި ނުވުމެވެ. ވީމާ މި ކަމަށް ހައްލެއް ގެނައުމަށް ޓަކައި އަމިއްލައަށް އިސްލާމީ މަޢުލޫމާތު ބަލައި ހޯދޭނެ ފަސޭހަ މަގެއް މީސްތަކުންނަށް ތަނަވަސްވެފައި އޮތުން މުހިންމެވެ. ހަމަ އެހެންމެ، މުދައްރިސުންނާއި ދަރިވަރުން މި މަސްދަރުތަކުގެ ބޭނުން ހިފައި، އެއް ޙަދީޘްތަކެއް ތަކުރާރުކޮށް ތަރުޖަމާ ކުރުމުގެ ބުރައިން ސަލާމަތް ވެގެން ދާނެއެވެ. އެ ގޮތުން އެއް ފަހަރު ލިޔުމަށް ފަހު، ބޭނުން އިރަކު ތަރުޖަމާ ހޯދޭނެއެވެ.
 </p>
 
 <h3 align="right"><b>
 ތަރައްޤީވުން
 </b></h3>
 
-<p align="right" dir="rtl">އަޅުގަނޑުމެންނަށް ޓަކައި ޓެކްނޮލޮޖީގެ ޚިދުމަތް ލައްވައި އޭގެ ބޭނުން ކުރެވޭނެ ގޮތް މިންވަރު ކުރެއްވީ ﷲ އެވެ. ޙަދީޘްއެމްވީގެ އަމާޒަކީ ގިނަގުނަ ބޭނުންތައް ހިފޭ، ބޭނުން ކުރަން ފަސޭހަ އެޕްލިކޭޝަނެއް އެންމެންނަށް ފޯރުކޮށް ދިނުމެވެ. އަދި ގެންގުޅޭ ވަސީލަތްތަކާއި އުސްލޫބު ތަފާތު ވިޔެއްކަމަކު، ބޭނުންކުރާ ފަރާތްތަކަށް އެކަށީގެންވާ ހިތްގައިމު މާހައުލެއް ޤާއިމުކޮށް ދިނުމެވެ. ޙަދީޘްއެމްވީ ފަރުމާ ކުރެވިފައި ވަނީ ފޯނަށް އަހަންމިއްޔަތުކަން ދެވި، ޖާގައަށް ބުރަ ނުވާ ގޮތަށެވެ. މި ވަގުތު ވެބް، އެންޑުރޮއިޑް އަދި ވިންޑޯސްގެ ވަޞީލަތްތަކުގައި ބޭނުން ކުރެވޭނެއެވެ.
+<p align="right" dir="rtl">އަޅުގަނޑުމެންނަށް ޓަކައި ޓެކްނޮލޮޖީގެ ޚިދުމަތް ލައްވައި، އޭގެ ބޭނުން ކުރެވޭނެ ގޮތް މިންވަރު ކުރެއްވީ މާތް ﷲ އެވެ. ޙަދީޘްއެމްވީގެ އަމާޒަކީ ގިނަގުނަ ބޭނުން ހިފޭ، ބޭނުން ކުރަން ފަސޭހަ ޚިދުމަތެއް އެންމެންނަށް ފޯރުކޮށް ދިނުމެވެ. އަދި ގެންގުޅޭ ވަސީލަތްތަކާއި ސެޓިންގްތައް ތަފާތު ވިޔެއްކަމަކު، ބޭނުންކުރާ ފަރާތްތަކަށް އެކަށީގެންވާ ހިތްގައިމު މާހައުލެއް ގާއިމު ކޮށްދިނުމެވެ. ޙަދީޘްއެމްވީ ފަރުމާ ކުރެވިފައި ވަނީ ފޯނަށް އަހައްމިއްޔަތުކަން ދެވި، ޖާގައަށް ބުރަ ނުވާ ގޮތަށެވެ. މި ވަގުތު ވެބް، އެންޑުރޮއިޑް އަދި ވިންޑޯސްގެ ވަސީލަތްތަކުގައި ބޭނުން ކުރެވޭނެއެވެ.
 </p>
   
 <br /><br />
