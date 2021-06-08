@@ -205,7 +205,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 <br />
 
 <p class="en mid tellUs" align="center">
-If you find a mistake or want to help in this project, please
+If you find a mistake or want to join this translation platform, please
 <a href="https://telegram.me/yahyasdadmv">contact us</a>.
 </p>
 <p class="en mid" align="center">
