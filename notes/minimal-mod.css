@@ -39,9 +39,9 @@ http://github.com/orderedlist/minimal
 /* dhivehi */
 @font-face {
   font-family: "dvFont";
-  src: url("../font/mvtyper-Copy7.woff2") format("woff2"),
-    url("../font/mvtyper-Copy7.woff") format("woff"),
-    url("../font/mvtyper-Copy7.ttf") format("truetype");
+  src: /*url("../font/mvtyper-Copy7.woff2") format("woff2"),
+    url("../font/mvtyper-Copy7.woff") format("woff"),*/ url("../font/mvtyper.ttf")
+    format("truetype");
   font-display: swap;
 }
 
