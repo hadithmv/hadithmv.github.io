@@ -56,7 +56,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 
 > It is Allah who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. hadithmv is designed to be mobile-first with minimal bloat. Currently hadithmv is available on the Web, Android and Windows.
 
-<br /><br />
+<br />
 
 <hr />
 <!---
