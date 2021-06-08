@@ -59,7 +59,6 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 <br /><br />
 
 <hr />
-<br />
 <!---
 ## Milestones
 
@@ -96,7 +95,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 </table>
 --->
 
-<br> <br>
+<br>
 
 <div class="dv">
 
