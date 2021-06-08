@@ -15,6 +15,10 @@ The Maldivian hadith translation platform
 </p>
 
 <p align="center">
+ދިވެހިންގެ ޙަދީޘް ތަރުޖަމާކުރާ މަންސަ
+</p>
+
+<p align="center">
   View the <a href="https://hadithmv.github.io">Web Version</a>
 </p>
 
@@ -102,7 +106,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 <br>
 
 <h3 align="right"><b>
-ޙަދީޘްއެމްވީ - ދިވެހިންނަށް ޙަދީޘް އެޕްލިކޭޝަނެއް އުފެއްދުން
+ޙަދީޘްއެމްވީ - ދިވެހިންނަށް ޙަދީޘް މަންސައެއް އުފެއްދުން
 </b></h3>
 
 <p align="right" dir="rtl">
