@@ -27,6 +27,10 @@ A Theme for GitHub Pages
 http://github.com/orderedlist/minimal
 */
 
+/* ====================
+   Fonts - REMEBER TO CHANGE THESE FOR fonts.css AS WELL
+======================= */
+
 /* arabic */
 @font-face {
   font-family: "arFont";

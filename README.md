@@ -11,7 +11,7 @@ hadithmv - Accessible and Sourced
 </b></h3>
 
 <p align="center">
-The Maldivian hadith translation platform
+The Maldivian Hadith Translation Platform
 </p>
 
 <p align="center">
