@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="canonical" href="hadithmv.github.io/books/umdah.html" />
+    <link rel="canonical" href="https://hadithmv.github.io/" />
     <meta name="google" content="notranslate" />
 
     <link
@@ -17,20 +17,17 @@
     <!-- og metadata sm link previews -->
     <meta property="og:title" content="hadithmv" />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://hadithmv.github.io/books/umdah.html"
-    />
+    <meta property="og:url" content="https://hadithmv.github.io" />
     <meta
       property="og:image"
       content="https://hadithmv.github.io/img/logo/NewLogo6.2--RoundedBack-1080.png"
     />
 
     <!-- change123 html -->
-    <title>hadithmv - Umdatul Ahkam</title>
+    <title>hadithmv - 40 Nawawi</title>
     <meta
       name="description"
-      content="Dhivehi hadith translations of Umdatul Ahkam."
+      content="Dhivehi hadith translations at your fingertips. - Imam Nawawi's 40 hadith."
     />
     <!-- META TAGS - END -->
 
@@ -47,8 +44,8 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/umdah.js"></script>
-    <script defer src="../js/umdah-script.min.js"></script>
+    <script defer src="../js/json/nawawi.js"></script>
+    <script defer src="../js/nawawi-script.min.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -56,9 +53,96 @@
     <!-- mmenu-demo -->
     <!-- prettier-ignore -->
     <style>
-    .header nav{display:none}.content,.header{text-align:center}.header{background:#254e61;color:#fff;line-height:50px;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 2px 4px rgb(0 0 0/50%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media screen and (min-width: 900px){.content{padding-top:48px}}#page>div.header:hover{background-color:#1c4253;cursor:pointer}.hmvLogo1{top:0;left:0;filter:brightness(0) invert(1);display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4px}@media (prefers-color-scheme: dark){body{background-color:#0e1621;color:#99aab5}}
+    .header nav {
+      display: none
+    }
 
-    </style>
+    .content,
+    .header {
+      text-align: center
+    }
+
+    .header {
+      background: #254e61;
+      color: #fff;
+      line-height: 50px;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
+      height: 50px;
+      padding: 0 50px;
+      z-index: 999;
+      box-shadow: 0 2px 4px rgb(0 0 0/50%)
+    }
+
+    .header.fixed {
+      position: fixed;
+      top: 0;
+      left: 0
+    }
+
+    .header a {
+      display: block;
+      width: 28px;
+      height: 18px;
+      padding: 11px;
+      margin: 5px;
+      position: absolute;
+      top: 0;
+      right: 0
+    }
+
+    .header a::after,
+    .header a::before {
+      content: "";
+      display: block;
+      background: #fff;
+      height: 2px
+    }
+
+    .header a span {
+      background: #fff;
+      display: block;
+      height: 2px;
+      margin: 6px 0
+    }
+
+    .content {
+      padding-top: 45px;
+      padding-left: 2px;
+      padding-right: 2px
+    }
+
+    @media screen and (min-width: 900px) {
+      .content {
+        padding-top: 48px
+      }
+    }
+
+    #page>div.header:hover {
+      background-color: #1c4253;
+      cursor: pointer
+    }
+
+    .hmvLogo1 {
+      top: 0;
+      left: 0;
+      filter: brightness(0) invert(1);
+      display: block;
+      height: 40px;
+      width: 40px;
+      position: absolute;
+      margin-left: 11px;
+      margin-top: 4px
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #0e1621;
+        color: #99aab5
+      }
+    }
+  </style>
     <!-- Critical CSS - END -->
 
     <style>
@@ -66,33 +150,33 @@
 
       /* === --- === --- ====
          CUSTOM COLUMN CLASSES
-         for umdah
+         for 40 nawawi
          === --- === --- ==== */
 
       /* removes justify from ar dv (titles and refs) + rs.
-justify doesnt look good on short cells like surukhi, masdars.
-so right align to prevent gaps in text */
-
-      .dataTable tr td.uhCol1,
-      .dataTable tr td.uhCol2,
-      .dataTable tr td.uhCol9 {
+         justify doesnt look good on short cells like surukhi, masdars.
+         so right align to prevent gaps in text */
+      .dataTable tr td.fnCol2,
+      .dataTable tr td.fnCol3,
+      .dataTable tr td.fnCol7,
+      .dataTable tr td.fnCol8,
+      .dataTable tr td.fnCol9 {
         text-align: right;
       }
 
       /* mobile only row centering, for rows with strings that are not long */
-
       @media screen and (max-width: 900px) {
-        .dataTable tr td.uhCol1,
-        .dataTable tr td.uhCol2,
-        .dataTable tr td.uhCol3,
-        .dataTable tr td.uhCol4,
-        .dataTable tr td.uhCol5,
-        .dataTable tr td.uhCol9 {
+        .dataTable tr td.fnCol1,
+        .dataTable tr td.fnCol2,
+        .dataTable tr td.fnCol3,
+        .dataTable tr td.fnCol7,
+        .dataTable tr td.fnCol8,
+        .dataTable tr td.fnCol9 {
           text-align: center;
         }
 
         /* bold headers for mobile - first number at top */
-        .uhCol1 {
+        .fnCol1 {
           font-weight: bold;
         }
       }
@@ -100,12 +184,11 @@ so right align to prevent gaps in text */
       /* --- AR FONTS FOR TABLE --- */
 
       /* tbody tr td.fnCol1, */
-
-      .dataTable tr td.uhCol2,
-      .dataTable tr td.uhCol4,
-      .dataTable tr td.uhCol6,
-      .dataTable tr td.uhCol7,
-      .dataTable tr td.uhCol9 {
+      .dataTable tr td.fnCol2,
+      .dataTable tr td.fnCol4,
+      .dataTable tr td.fnCol5,
+      .dataTable tr td.fnCol7,
+      .dataTable tr td.fnCol9 {
         font-family: "arFont", "dvFont", sans-serif;
         font-size: 23px;
         line-height: 1.7;
@@ -116,40 +199,26 @@ so right align to prevent gaps in text */
       /* --- DV FONTS FOR TABLE --- */
 
       /* .dataTable tr td.fnCol1, need this bigger */
-
-      .dataTable tr td.uhCol1,
-      .dataTable tr td.uhCol3,
-      .dataTable tr td.uhCol5,
-      .dataTable tr td.uhCol8 {
+      .dataTable tr td.fnCol3,
+      .dataTable tr td.fnCol6,
+      .dataTable tr td.fnCol8 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 17px;
         line-height: 1.9;
       }
 
       /* columns with ar numbers */
-
-      .dataTable tr td.uhCol9 {
+      .dataTable tr td.fnCol7,
+      .dataTable tr td.fnCol9 {
         font-family: "arFont", "dvFont", sans-serif;
         font-size: 21px;
       }
 
       /* css for first column
-# number column cuz it has hashtag and digits */
-
-      .dataTable tr td.uhCol1 {
+         # number column cuz it has hashtag and digits */
+      .dataTable tr td.fnCol1 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 21px;
-      }
-
-      /* mobile Umdah only kitab bab top bottom padding removal */
-      @media screen and (max-width: 900px) {
-        .dataTable tr td.uhCol2,
-        .dataTable tr td.uhCol3,
-        .dataTable tr td.uhCol4,
-        .dataTable tr td.uhCol5 {
-          padding-top: 0;
-          padding-bottom: 0;
-        }
       }
     </style>
     <!-- === INT CSS - END === -->
@@ -168,220 +237,11 @@ so right align to prevent gaps in text */
           loading="lazy"
           src="../img/logo/NewLogo6.2--NoBack-Opt.svg"
         />
-        <span class="navText">ޙަދީޘްއެމްވީ - ޢުމްދަތުލް އަޙްކާމް</span>
+        <span class="navText">ޙަދީޘްއެމްވީ - ނަވަވީގެ 40 ޙަދީޘް</span>
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
             <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
-            <li>
-              <span>ޢުމްދުލް އަޙްކާމް</span>
-              <ul>
-                <li>
-                  <span>‌كتاب الطهارة</span>
-                  <ul>
-                    <li>
-                      <a href="../books/umdah.html">ـــ</a>
-                    </li>
-                    <li>
-                      <!-- to make these js url click jumps work, url has to match, uc and non uc, currently works on non uc -->
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p11'; location.reload();"
-                        >‌باب دخول الخلاء والاستطابة</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p18'; location.reload();"
-                        >‌باب السواك</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p22'; location.reload();"
-                        >باب المسح على الخفين</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p25'; location.reload();"
-                        >باب في المذي وغيره</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p30'; location.reload();"
-                        >باب الجنابة</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p39'; location.reload();"
-                        >باب التيمم</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p42'; location.reload();"
-                        >باب الحيض</a
-                      >
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <span>‌كتاب الصلاة</span>
-                  <ul>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p49'; location.reload();"
-                        >‌باب المواقيت</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p61'; location.reload();"
-                        >باب فضل الجماعة ووجوبها</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p67'; location.reload();"
-                        >‌باب الأذان والإقامة</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p71'; location.reload();"
-                        >باب استقبال القبلة</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p74'; location.reload();"
-                        >‌باب الصفوف</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p78'; location.reload();"
-                        >‌باب الإمامة</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p85'; location.reload();"
-                        >‌باب صفة صلاة النبي ﷺ</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p100'; location.reload();"
-                        >‌باب وجوب الطمأنينة في الركوع والسجود</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p101'; location.reload();"
-                        >‌باب القراءة في الصلاة</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p107'; location.reload();"
-                        >‌باب ترك الجهر ببسم الله الرحمن الرحيم</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p109'; location.reload();"
-                        >‌باب سجود السهو</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p111'; location.reload();"
-                        >باب المرور بين يدي المصلي</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p115'; location.reload();"
-                        >‌باب جامع</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p124'; location.reload();"
-                        >‌باب التشهد</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p130'; location.reload();"
-                        >‌باب الوتر</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p133'; location.reload();"
-                        >‌باب الذكر عقب الصلاة</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p137'; location.reload();"
-                        >‌باب الجمع بين الصلاتين في السفر</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p138'; location.reload();"
-                        >‌باب قصر الصلاة في السفر</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p139'; location.reload();"
-                        >‌باب الجمعة</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        onclick="window.location='../books/umdah.html#umdahTable=l1:p147'; location.reload();"
-                        >‌باب صلاة العيدين</a
-                      >
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-
             <li>
               <span>ފޮތްތައް</span>
               <ul>
@@ -619,7 +479,7 @@ so right align to prevent gaps in text */
           <!-- JEKYLL {{ content }} -->
           <!-- cards js adds card classes to table ID -->
           <!-- change123 TABLE -->
-          <table id="umdahTable" class="stripe table">
+          <table id="nawawiTable" class="stripe table">
             <thead>
               <tr>
                 <th></th>
@@ -637,10 +497,25 @@ so right align to prevent gaps in text */
           <!-- --- TABLE - END --- -->
           <div class="hidden" id="Footer">
             <p class="tellUs">
-              ކުށެއް ރަނގަޅު ކުރުމަށް ނުވަތަ މި ތަރުޖަމާ މަންސަގައި
-              <a href="https://telegram.me/yahyasdadmv">ބައިވެރިވުމަށް</a> |
-              ޢުމްދަތުލް އަޙްކާމްގެ
-              <a href="../notes/info/introUmdah.html">ތަޢާރަފު</a>
+              ނަވަވީގެ 40 ޙަދީޘްގެ
+              <a href="../notes/info/introFortyN.html">ތަޢާރަފު</a> | އެއް
+              ސަފުހާއެއްގައި މި ޙަދީޘްތައް
+              <a href="https:hadithmv.github.io/books/nawawi-lite.html"
+                >ބައްލަވާ</a
+              >
+              | މި ފޮތުގެ ހާރޑް ކޮޕީއެއް
+              <a
+                href="https://hadithmv.github.io/notes/info/purchase-books.html"
+                >ބައްލަވައިގަންނަވާ</a
+              >
+              | ކުށެއް ރަނގަޅު ކުރުމަށް ނުވަތަ މި ތަރުޖަމާ މަންސަގައި
+              ބައިވެރިވުމަށް
+              <a href="https://telegram.me/yahyasdadmv">މެސެޖު</a>
+              ކުރައްވާ | މި ތަރުޖަމާގެ އިތުރުން
+              <a href="https://40-nawawi.hassaanmv.com"
+                >ޙައްސާން ޢަބްދުއްރައްޒާޤް</a
+              >
+              ލިޔުއްވި 40 ޙަދީޘްގެ ތަރުޖަމާ ބައްލަވާ
             </p>
           </div>
         </main>
