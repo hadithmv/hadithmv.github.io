@@ -34,6 +34,7 @@ https://github.com/PowerShell/PowerShell -MIT
 https://sourceforge.net/projects/sevenzip -GNU LGPL
 https://gitlab.gnome.org/GNOME/meld -GNU GPLv2
 https://github.com/Lexikos/AutoHotkey_L -GNU GPLv2
+https://github.com/federico-terzi/espanso -GNU GPLv3
 
 https://github.com/photopea/photopea
 https://github.com/yoksel/url-encoder
