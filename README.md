@@ -7,7 +7,7 @@
 </p>
 
 <h2 align="center"><b>
-hadithmv - Accessible and Sourced
+hadithmv
 </b></h3>
 
 <p align="center">
