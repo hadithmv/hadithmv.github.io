@@ -31,65 +31,86 @@ matches:
 
   # C:\Users\ashraaf\AppData\Roaming\espanso
   # custom text replacements
-  - trigger: "ސ؛"
+  - trigger: "ސ-"
     replace: "ﷺ"
 
-  - trigger: "s;;"
+  - trigger: "s-"
     replace: "ﷺ"
 
-  - trigger: "؛\""
+  - trigger: "-\""
     replace: "”"
 
-  - trigger: "\";"
+  - trigger: "\"-"
     replace: "”"
 
-  - trigger: "\"؛"
+  - trigger: "\"-"
     replace: "“"
 
-  - trigger: ";\""
+  - trigger: "-\""
     replace: "“"
 
-  - trigger: "؛\'"
+  - trigger: "-\'"
     replace: "’"
 
-  - trigger: "\';"
+  - trigger: "\'-"
     replace: "’"
 
-  - trigger: "\'؛"
+  - trigger: "\'-"
     replace: "‘"
 
-  - trigger: ";\'"
+  - trigger: "-\'"
     replace: "‘"
 
-  - trigger: "br;"
+  - trigger: "br-"
     replace: "<br><br>"
 
-  - trigger: "ރ؛"
+  - trigger: "ރ-"
     replace: "رَضِيَ اللَّهُ عَنْهُ"
 
-  - trigger: "ރހ؛"
+  - trigger: "ރހ-"
     replace: "رَضِيَ اللَّهُ عَنْهَا"
 
-  - trigger: "ރހމ2؛"
+  - trigger: "ރހމ2-"
     replace: "رَضِيَ اللَّهُ عَنْهُمَا"
 
-  - trigger: "ރހމ؛"
+  - trigger: "ރހމ-"
     replace: "رَضِيَ اللَّهُ عَنْهُمْ"
 
-  - trigger: "ރވ؛"
+  - trigger: "ރވ-"
     replace: "ރިވާ ކުރެއްވިއެވެ:"
 
-  - trigger: "ރހކ؛"
+  - trigger: "ރހކ-"
     replace: "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
 
-  - trigger: "ރއޑ؛"
+  - trigger: "ރހކ-"
+    replace: "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
+
+  - trigger: "ރއޑ-"
     replace: "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ:"
 
-  - trigger: "ޞ؛"
+  - trigger: "ޞ-"
     replace: "މި ޙަދީޘް ޞައްޙަ ކުރެއްވިއެވެ."
 
-  - trigger: "ޟ؛"
+  - trigger: "ޟ-"
     replace: "މި ޙަދީޘް ޟަޢީފު ކުރެއްވިއެވެ."
 
-  - trigger: "މރވ؛"
+  - trigger: "މރވ-"
     replace: "މި ޙަދީޘް ރިވާ ކުރެއްވީ"
+
+  - trigger: "salam-"
+    replace: "السلام عليكم ورحمة الله وبركاته"
+
+  - trigger: "wsalam-"
+    replace: "وعليكم السلام ورحمة الله وبركاته"
+
+  - trigger: "hamd-"
+    replace: "الحمد لله"
+
+  - trigger: "keyf-"
+    replace: "كيف حالك"
+
+  - trigger: "jazak-"
+    replace: "جزاك الله خيرا"
+
+  - trigger: "barak-"
+    replace: "بارك الله فيك"
