@@ -8,6 +8,8 @@ uglifyjs radheef.js -c -m -o radheef.js
 uglifyjs sahihain.js -c -m -o sahihain.js
 uglifyjs umdah.js -c -m -o umdah.js
 
+uglifyjs bulugh.js -c -m -o bulugh.js
+
 
 
 # copy
