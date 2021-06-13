@@ -5,7 +5,7 @@
 ((Get-Content -path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\nawawi.js" -Raw) -replace 'const.*?=','') | Set-Content -Path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\uc\nawawi-Lite--jsonToHtml.html"
 
 
-((Get-Content -path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\uc\nawawi-Lite--jsonToHtml.html"-Raw) -replace '\[\["','<br>') | Set-Content -Path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\uc\nawawi-Lite--jsonToHtml.html"
+((Get-Content -path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\uc\nawawi-Lite--jsonToHtml.html"-Raw) -replace '\[\["','<br><p>') | Set-Content -Path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\uc\nawawi-Lite--jsonToHtml.html"
 
 ((Get-Content -path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\uc\nawawi-Lite--jsonToHtml.html"-Raw) -replace '","','</p><p>') | Set-Content -Path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\uc\nawawi-Lite--jsonToHtml.html"
 
