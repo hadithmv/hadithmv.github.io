@@ -786,6 +786,10 @@ h3 {
     padding-top: 10px; */
 }
 
+.iTitle {
+  text-align: center;
+}
+
 @media (prefers-color-scheme: dark) {
   .flexRow img {
     /* box-shadow: 0 0.05px 5px 0 rgba(238, 238, 238, 0.7); */
