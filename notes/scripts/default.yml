@@ -114,3 +114,23 @@ matches:
 
   - trigger: "barak-"
     replace: "بارك الله فيك"
+
+  - trigger: "pr-"
+    replace: "present"
+
+  - trigger: "thk-"
+    replace: "thank you"
+    
+  - trigger: "wc-"
+    replace: "welcome"
+    
+  - trigger: "gn-"
+    replace: "good night"
+    
+  - trigger: "tc-"
+    replace: "take care"
+    
+    
+    
+    
+    
