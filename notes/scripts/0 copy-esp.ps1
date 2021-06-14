@@ -1,0 +1,1 @@
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\notes\scripts\default.yml -Destination C:\Users\ashraaf\AppData\Roaming\espanso\default.yml

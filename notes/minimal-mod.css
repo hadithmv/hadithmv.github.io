@@ -626,7 +626,10 @@ thaana mish mash render fix - END
 
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #0e1621;
+    /* background-color: #0e1621; */
+
+    /* #1e2b33; */
+    background-color: #162233;
     color: rgba(255, 255, 255, 0.847);
   }
 
