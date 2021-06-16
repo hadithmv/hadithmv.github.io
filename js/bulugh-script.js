@@ -122,55 +122,55 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'uhCol1', // #
+        className: 'bulCol1', // #
         targets: [0],
         visible: true,
         searchable: true
       },
       {
-        className: 'uhCol2', // Book
+        className: 'bulCol2', // Book
         targets: [1],
         visible: true,
         searchable: true
       },
       {
-        className: 'uhCol3', // Book Extra
+        className: 'bulCol3', // Book Extra
         targets: [2],
         visible: false,
         searchable: false
       },
       {
-        className: 'uhCol4', // Baab
+        className: 'bulCol4', // Baab
         targets: [3],
         visible: true,
         searchable: true
       },
       {
-        className: 'uhCol5', // Baab Extra
+        className: 'bulCol5', // Baab Extra
         targets: [4],
         visible: false,
         searchable: false
       },
       {
-        className: 'uhCol6', // Ar Text
+        className: 'bulCol6', // Ar Text
         targets: [5],
         visible: true,
         searchable: true
       },
       {
-        className: 'uhCol7', // Ar Text no fili
+        className: 'bulCol7', // Ar Text no fili
         targets: [6],
         visible: false,
         searchable: true
       },
       {
-        className: 'uhCol8', // Dv Text
+        className: 'bulCol8', // Dv Text
         targets: [7],
         visible: true,
         searchable: true
       },
       {
-        className: 'uhCol9', // Takhrij
+        className: 'bulCol9', // Takhrij
         targets: [8],
         visible: true,
         searchable: false
