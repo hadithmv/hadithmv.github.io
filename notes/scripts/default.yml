@@ -1,3 +1,7 @@
+# Customizing the Toggle Key By default, espanso can be temporarily disabled and enabled by pressing the Alt key twice, resulting in a notification saying “espanso disabled.” Pressing Alt twice again will enable it, and you’ll receive a notification saying “espanso enabled.” If you’d like to customize the key, simply add the toggle_key option to your default.yml configuration and set it to one of the available options:
+
+toggle_key: OFF
+
 # espanso configuration file
 
 # This is the default configuration file, change it as you like it
@@ -29,6 +33,8 @@ matches:
         params:
           cmd: "echo Hello from your shell"
 
+
+
   # C:\Users\ashraaf\AppData\Roaming\espanso
   # custom text replacements
   - trigger: "ސ-"
@@ -37,43 +43,34 @@ matches:
   - trigger: "s-"
     replace: "ﷺ"
 
-  - trigger: "-\""
-    replace: "”"
-
   - trigger: "\"-"
     replace: "”"
 
-  - trigger: "\"-"
-    replace: "“"
-
   - trigger: "-\""
     replace: "“"
-
-  - trigger: "-\'"
-    replace: "’"
 
   - trigger: "\'-"
     replace: "’"
 
   - trigger: "\'-"
-    replace: "‘"
-
-  - trigger: "-\'"
     replace: "‘"
 
   - trigger: "br-"
     replace: "<br><br>"
 
-  - trigger: "ރ-"
+  - trigger: "ބރ-"
+    replace: "<br><br>"
+
+  - trigger: "ރއ-"
     replace: "رَضِيَ اللَّهُ عَنْهُ"
 
   - trigger: "ރހ-"
     replace: "رَضِيَ اللَّهُ عَنْهَا"
 
-  - trigger: "ރހމ2-"
+  - trigger: "ރމ2-"
     replace: "رَضِيَ اللَّهُ عَنْهُمَا"
 
-  - trigger: "ރހމ-"
+  - trigger: "ރމ-"
     replace: "رَضِيَ اللَّهُ عَنْهُمْ"
 
   - trigger: "ރވ-"
@@ -82,7 +79,7 @@ matches:
   - trigger: "ރހކ-"
     replace: "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
 
-  - trigger: "ރހކ-"
+  - trigger: "ނހކ-"
     replace: "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
 
   - trigger: "ރއޑ-"
