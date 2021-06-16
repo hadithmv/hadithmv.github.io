@@ -6,9 +6,6 @@ html-minifier --input-dir C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\u
 # copies nawawi over to layout index
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\index.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\_layouts\index.html
 
-# overrides eegal because minifying breaks it
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\uc\eegaal.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\eegaal.html
-
 
 
 # copies site minified book files to asset book files one by one
