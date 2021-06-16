@@ -8,6 +8,8 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
+ ; ^ Ctrl, + Shift, ! Alt
+
 ^+!s::
 Send, ﷺ
 return
