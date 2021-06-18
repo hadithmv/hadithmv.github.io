@@ -926,7 +926,6 @@ a {
 
 a:hover {
   color: #36c;
-  text-decoration: underline;
 }
 
 /* hiding footer until page load finishes */
