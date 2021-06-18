@@ -120,6 +120,8 @@ h6 {
   font-weight: 500;
 }
 
+/* Remember to change this for non crit css too */
+
 a {
   color: #069;
   text-decoration: none;
@@ -647,6 +649,7 @@ thaana mish mash render fix - END
   /* .hmv {
     filter: brightness(0) invert(1);
   } */
+
   a {
     color: #39c;
   }
