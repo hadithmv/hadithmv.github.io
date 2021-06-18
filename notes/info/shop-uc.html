@@ -25,11 +25,18 @@
 </head>
 
 <style>
-  img.flexItem:hover {
+  img {
     transition: transform 0.3s ease-in-out;
-    transform: scale(1.20);
+  }
+  img.flexItem:hover {
+    transform: scale(1.15);
     z-index: 9999;
-    border: 3px solid #1279c5;
+    border: 3px solid #106bae;
+    
+  }
+
+  body.changeBack {
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3Cpattern id='pattern' width='40' height='40' viewBox='0 0 40 40' patternUnits='userSpaceOnUse' patternTransform='rotate(135)'%3E%3Crect id='pattern-background' width='400%25' height='400%25' fill='rgba(235, 248, 255,0.5)'%3E%3C/rect%3E%3Cpath fill='rgba(44, 82, 130,0.5)' d='M0 29a 9-9 0 0 0 9-9a 11-11 0 0 1 11-11v2a-9 9 0 0 0-9 9a-11 11 0 0 1-11 11zM0 69a 9-9 0 0 0 9-9a 11-11 0 0 1 11-11v2a-9 9 0 0 0-9 9a-11 11 0 0 1-11 11z'%3E%3C/path%3E%3Cpath fill='rgba(255, 255, 240,0.5)' d='M20 29.5a 9.5-9.5 0 0 0 9.5-9.5a 10.5-10.5 0 0 1 10.5-10.5v1a-9.5 9.5 0 0 0-9.5 9.5a-10.5 10.5 0 0 1-10.5 10.5z'%3E%3C/path%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23pattern)' height='100%25' width='100%25'%3E%3C/rect%3E%3C/svg%3E")
   }
 </style>
 
@@ -49,6 +56,7 @@
     <br />
 
     <style>
+
       /* body {
   background: #202020;
 } */
@@ -131,7 +139,7 @@
         background-color: inherit;
 
         /* float: left; disabled for centering */
-        border: none;
+        border: 1px solid black;
         outline: none;
         cursor: pointer;
         padding: 14px 16px;
@@ -153,7 +161,9 @@
 
         /* added */
         color: #000;
-        font-size: 110%;
+
+        /* font-size: 110%; */
+        letter-spacing: 1px;
       }
 
       /* Create an active/current tablink class */
@@ -939,10 +949,14 @@
     </div> <!-- <div id="tabTwo" class="tabcontent"> -->
 
     <script>
+
+/*document.body.classList.add("changeBack");*/
+
+
       // Get the element with id="defaultOpen" and click on it
       document.getElementById("defaultOpen").click();
 
-      function openTab(evt, cityName) {
+      function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabcontent");
         for (i = 0; i < tabcontent.length; i++) {
@@ -952,7 +966,7 @@
         for (i = 0; i < tablinks.length; i++) {
           tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
-        document.getElementById(cityName).style.display = "block";
+        document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
       }
     </script>
@@ -975,6 +989,11 @@
 
         /* added */
         direction: ltr;
+        transition: transform 0.3s ease-in-out;
+      }
+  .quotes:hover {
+    transform: scale(1.20);
+    z-index: 9999;
       }
 
       .quotes li {
@@ -1140,14 +1159,14 @@
     <hr />
     <br />
 
-    <h3 class="en mid">
+    <p class="en mid">
       HADITHMV is registered under the Ministry of Economic Development
-    </h3>
+    </p>
     <br />
-    <h3 class="en mid">
+    <p class="en mid">
       - Back to the
       <b><a href="https://hadithmv.github.io">Main Site</a></b> -
-    </h3>
+    </p>
     <br />
 
   </div>

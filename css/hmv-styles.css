@@ -917,13 +917,16 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   font-size: 86%;
 }
 
+/* Remember to change this for minimal mod styles too */
+
 a {
-  color: #3740ff;
+  color: #069;
   text-decoration: none;
 }
 
 a:hover {
-  color: #252caf;
+  color: #36c;
+  text-decoration: underline;
 }
 
 /* ====================
