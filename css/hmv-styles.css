@@ -929,6 +929,15 @@ a:hover {
   text-decoration: underline;
 }
 
+/* hiding footer until page load finishes */
+
+#Footer {
+  font-family: "dvFont", "arFont", sans-serif;
+}
+.hidden {
+  display: none;
+}
+
 /* ====================
        BUTTON STYLES
 ======================= */
