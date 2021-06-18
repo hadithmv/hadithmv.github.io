@@ -794,7 +794,7 @@ h3 {
   .flexRow img {
     /* box-shadow: 0 0.05px 5px 0 rgba(238, 238, 238, 0.7); */
     box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
-    filter: brightness(0.87) contrast(1.02);
+    filter: brightness(0.9) contrast(1.05);
   }
 }
 
