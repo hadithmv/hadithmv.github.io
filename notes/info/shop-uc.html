@@ -24,12 +24,22 @@
     -->
 </head>
 
+<style>
+  img.flexItem:hover {
+    transition: transform 0.3s ease-in-out;
+    transform: scale(1.20);
+    z-index: 9999;
+    border: 3px solid #1279c5;
+  }
+</style>
+
 <body class="notranslate">
   <div class="wrapper">
     <div class="mid">
       <h1 class="ar">بِسمِ اللهِ الرَّحمَنِ الرَّحِيمِ</h1>
       <br />
-      <a href="https://hadithmv.github.io"><img class="hmv" alt="hadith mv" src="../../img/logo/NewLogo6.2--NoBack-Opt.svg" /></a>
+      <a href="https://hadithmv.github.io"><img class="hmv" alt="hadith mv"
+          src="../../img/logo/NewLogo6.2--NoBack-Opt.svg" /></a>
 
       <br /><br />
       <h2 class="en">
@@ -57,7 +67,9 @@
         font-family: arial;
         color: #fff;
         text-decoration: none;
-        background: #1798F7;
+        background: #1279c5;
+
+        /* 1798F7 */
         padding: 24px 12px 9px;
 
         /* padding: 24px 20px 8px; */
@@ -76,7 +88,9 @@
       }
 
       .btn-chat a:hover {
-        background: #47B6F5;
+        background: #3891c4;
+
+        /* #47B6F5; */
         right: -15px;
 
         /* -20px; */
@@ -139,6 +153,7 @@
 
         /* added */
         color: #000;
+        font-size: 110%;
       }
 
       /* Create an active/current tablink class */
@@ -147,6 +162,7 @@
 
         /* added */
         color: #000;
+        font-size: 110%;
       }
 
       /* Style the tab content */
