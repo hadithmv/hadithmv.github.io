@@ -393,7 +393,7 @@ p {
 .hmv {
   width: 200px;
   height: 200px;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 
   /* background: url("../img/logo/NewLogo6.2--NoBack-Opt.svg") no-repeat; */
 
