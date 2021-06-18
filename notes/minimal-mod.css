@@ -393,6 +393,7 @@ p {
 .hmv {
   width: 200px;
   height: 200px;
+  transition: transform 0.2s ease-in-out;
 
   /* background: url("../img/logo/NewLogo6.2--NoBack-Opt.svg") no-repeat; */
 
@@ -412,6 +413,9 @@ p {
 }
   }
 */
+.hmv:hover {
+  transform: scale(1.15);
+}
 .ContainerFlex {
   height: 230px;
 }
