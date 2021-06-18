@@ -121,12 +121,13 @@ h6 {
 }
 
 a {
-  color: #3740ff;
+  color: #069;
   text-decoration: none;
 }
 
 a:hover {
-  color: #252caf;
+  color: #36c;
+  text-decoration: underline;
 }
 
 /*

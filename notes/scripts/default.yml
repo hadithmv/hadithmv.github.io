@@ -37,10 +37,10 @@ matches:
 
   # C:\Users\ashraaf\AppData\Roaming\espanso
   # custom text replacements
-  - trigger: "ސ-"
+  - trigger: "ސސ-"
     replace: "ﷺ"
 
-  - trigger: "s-"
+  - trigger: "ss-"
     replace: "ﷺ"
 
   - trigger: "\"-"
