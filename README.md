@@ -19,7 +19,7 @@ The Maldivian Hadith Translation Platform
 </p>
 
 <p align="center">
-  View the <a href="https://hadithmv.github.io">Web Version</a>
+  View the <a href="https://hadithmv.github.io"><b>Web Version</b></a>
 </p>
 
 <p align="center">
