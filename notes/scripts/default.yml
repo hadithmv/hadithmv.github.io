@@ -52,7 +52,7 @@ matches:
   - trigger: "\'-"
     replace: "’"
 
-  - trigger: "\'-"
+  - trigger: "-\'"
     replace: "‘"
 
   - trigger: "br-"
@@ -64,17 +64,29 @@ matches:
   - trigger: "ރއ-"
     replace: "رَضِيَ اللَّهُ عَنْهُ"
 
-  - trigger: "ރހ-"
+  - trigger: "ރއހ-"
     replace: "رَضِيَ اللَّهُ عَنْهَا"
 
-  - trigger: "ރމ2-"
+  - trigger: "ރއހމ2-"
     replace: "رَضِيَ اللَّهُ عَنْهُمَا"
 
-  - trigger: "ރމ-"
+  - trigger: "ރއހމ-"
     replace: "رَضِيَ اللَّهُ عَنْهُمْ"
 
-  - trigger: "ރވ-"
+  - trigger: "ވދ-"
+    replace: "ވިދާޅުވިއެވެ:"
+
+  - trigger: "ދނ-"
+    replace: "ދެންނެވިއެވެ:"
+
+  - trigger: "ރކ-"
     replace: "ރިވާ ކުރެއްވިއެވެ:"
+
+  - trigger: "އއރ-"
+    replace: "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ:"
+
+  - trigger: "ހކ-"
+    replace: "ޙަދީޘް ކުރެއްވިއެވެ:"
 
   - trigger: "ރހކ-"
     replace: "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
