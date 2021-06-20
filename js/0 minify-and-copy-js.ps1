@@ -22,6 +22,8 @@ google-closure-compiler --charset=UTF-8 --js=eegaal-script.js --js_output_file=e
 
 google-closure-compiler --charset=UTF-8 --js=bulugh-script.js --js_output_file=bulugh-script.min.js
 
+google-closure-compiler --charset=UTF-8 --js=allHadith-script.js --js_output_file=allHadith-script.min.js
+
 
 
 # copy minified files
@@ -49,3 +51,6 @@ Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\radheef-script
 
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\eegaal-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\eegaal-script.min.js
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\eegaal-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\eegaal-script.min.js
+
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\allHadith-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\allHadith-script.min.js
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\allHadith-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\allHadith-script.min.js
