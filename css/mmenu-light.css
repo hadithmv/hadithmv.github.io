@@ -378,6 +378,11 @@ CUSTOM EDITS
   cursor: default;
 }
 
+/* adds padding, space before first nav open menu item */
+.mm-spn ul:nth-child(1) {
+  padding-top: 10px;
+}
+
 @media (prefers-color-scheme: dark) {
   .mm-spn.mm-spn--light {
     background: #1a282f; /* #f3f3f3 - Background-color for the menu. #1a282f */

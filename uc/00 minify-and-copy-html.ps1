@@ -25,6 +25,8 @@ Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\sahihain.ht
 
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\umdah.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\books\umdah.html
 
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\allHadith.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\books\allHadith.html
+
 
 # copies minified asset book folder contents to win book folder
 Copy-Item -Path C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\books\* -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\books
