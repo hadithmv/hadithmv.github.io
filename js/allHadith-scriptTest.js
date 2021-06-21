@@ -15,7 +15,7 @@ $(document).ready(() => {
   if (window.matchMedia('(min-width: 900px)').matches) {
     $.extend(true, $.fn.dataTable.defaults, {
       // desktop, goes rtl --> //'<"dTop"pBfl>rt<"bottom"ip>',
-      dom: 'P<"dTop"pBfl>rtip',
+      dom: '<"dTop"pBfl>rtip',
       pageLength: 3, // # rows to display on single page when using pagination
       // lengthMenu: [
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
@@ -39,7 +39,7 @@ $(document).ready(() => {
     /* js media query on mobile, tablet */
     $.extend(true, $.fn.dataTable.defaults, {
       // mobile //'<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rt <"bottom"ip>',
-      dom: 'P<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rtip', // moved to js MQ; dom: '<"dTop"pBfl>rtip',
+      dom: '<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rtip', // moved to js MQ; dom: '<"dTop"pBfl>rtip',
       pageLength: 1,
       // lengthMenu: [
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
@@ -110,7 +110,7 @@ $(document).ready(() => {
       // }
     ],
 
-    columnDefs: [
+    /* columnDefs: [
       // classes columns for css in nweb view, but not print.
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
@@ -164,7 +164,7 @@ $(document).ready(() => {
         }
       }
       // needed to make keytable strip html tags off copy
-    ], // end of columnDefs, previously without visible and searchable options.
+    ], // end of columnDefs, previously without visible and searchable options. */
 
     //= ====================
     // DT CUSTOM SETTINGS
@@ -317,6 +317,8 @@ $(document).ready(() => {
     // $.extend(true, $.fn.dataTable.defaults, { ABOVE
 
     buttons: [
+
+      'searchPanes',
       // datatables.net/extensions/buttons/examples/initialisation/multiple
       // used to use a container before, now 2 buttons
       // { text: "Button 2", action: function ( e, dt, node, conf )
