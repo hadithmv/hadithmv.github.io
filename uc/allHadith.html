@@ -78,13 +78,15 @@ so right align to prevent gaps in text */
 
       .dataTable tr td.ahCol1 {
         text-align: right;
+        padding-top: 10px;
       }
 
       /* mobile only row centering, for rows with strings that are not long */
 
       @media screen and (max-width: 900px) {
         .dataTable tr td.ahCol1,
-        .dataTable tr td.ahCol5 {
+        .dataTable tr td.ahCol5,
+        .dataTable tr td.ahCol6 {
           text-align: center;
         }
 
@@ -115,8 +117,8 @@ so right align to prevent gaps in text */
         line-height: 1.9;
       }
 
-      .mm-spn ul:nth-child(1) {
-        padding-top: 10px;
+      .dataTable tr td.ahCol5 {
+        font-size: 21px !important;
       }
 
       /* columns with ar numbers
@@ -137,7 +139,8 @@ cuz it has hashtag and digits */
 
       .dataTable tr td.ahCol5 {
         text-align: center;
-        font-size: 18px;
+
+        /* font-size: 18px; */
       }
     </style>
     <!-- === INT CSS - END === -->
