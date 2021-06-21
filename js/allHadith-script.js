@@ -64,7 +64,7 @@ $(document).ready(() => {
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: sahihain_dataSet, // https://datatables.net/manual/ajax
+    data: allHadith_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
       {
