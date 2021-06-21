@@ -69,17 +69,21 @@ $(document).ready(() => {
     columns: [
       {
         data: 0,
-        title: 'ޙަދީޘް ފޮތާއި #'
+        title: 'ފޮތް'
       },
       {
         data: 1,
+        title: '#'
+      },
+      {
+        data: 2,
         title: 'ޢަރަބި ޙަދީޘް'
       },
       // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 1,
+        data: 2,
         title: 'ޢަރަބި ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -88,20 +92,21 @@ $(document).ready(() => {
         }
       },
       {
-        data: 2,
+        data: 3,
         title: 'ދިވެހި ތަރުޖަމާ'
       },
       { /* add brackets string to hukum */
-        data: 3,
+        data: 4,
         title: 'ހުކުމް',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return '[' + data + ']'
+          data = '[' + data + ']'
+          return data.replace('[]', '')
         }
       },
       {
-        data: 4,
+        data: 5,
         title: 'ތަޚްރީޖު'
       }
       // add takhrij and stuff later {
@@ -115,38 +120,44 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'ahCol1', // hadith book #
+        className: 'ahCol1', // book
         targets: [0],
         visible: true,
         searchable: true
       },
       {
-        className: 'ahCol2', // Ar Text
+        className: 'ahCol2', // #
         targets: [1],
         visible: true,
         searchable: true
       },
       {
-        className: 'ahCol3', // Ar Text Plain
+        className: 'ahCol3', // Ar Text
         targets: [2],
+        visible: true,
+        searchable: true
+      },
+      {
+        className: 'ahCol4', // Ar Text Plain
+        targets: [3],
         visible: false,
         searchable: true
       },
       {
-        className: 'ahCol4', // Dv Text
-        targets: [3],
+        className: 'ahCol5', // Dv Text
+        targets: [4],
         visible: true,
         searchable: true
       },
       {
-        className: 'ahCol5', // hukum
-        targets: [4],
+        className: 'ahCol6', // hukum
+        targets: [5],
         visible: true,
         searchable: false
       },
       {
-        className: 'ahCol6', // takhrij
-        targets: [5],
+        className: 'ahCol7', // takhrij
+        targets: [6],
         visible: false,
         searchable: false
       },
@@ -347,7 +358,8 @@ $(document).ready(() => {
           data = data.replace(/\r\n/g, '\t') //  prevents first header showing up unneeded (windows)
           data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
 
-          data = data.replace(/ޙަދީޘް ފޮތާއި #\t/g, '') // should be this way instead of /\tފޮތް/
+          data = data.replace(/ފޮތް\t/g, '') // should be this way instead of /\tފޮތް/
+          data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/ޢަރަބި ޙަދީޘް\t/g, '')
           data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
