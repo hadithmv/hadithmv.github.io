@@ -69,7 +69,7 @@ $(document).ready(() => {
     columns: [
       {
         data: 0,
-        title: 'ފޮތް'
+        title: 'ޙަދީޘް ފޮތާއި #'
       },
       {
         data: 1,
@@ -91,13 +91,18 @@ $(document).ready(() => {
         data: 2,
         title: 'ދިވެހި ތަރުޖަމާ'
       },
-      {
+      { /* add brackets string to hukum */
         data: 3,
-        title: 'ތަޚްރީޖު'
+        title: 'ހުކުމް',
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '')
+          // below code is shorter, no replace repeat, uses OR instead
+          return '[' + data + ']'
+        }
       },
       {
         data: 4,
-        title: 'ހުކުމް'
+        title: 'ތަޚްރީޖު'
       }
       // add takhrij and stuff later {
       //   data: 3,
@@ -110,7 +115,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'ahCol1', // Book
+        className: 'ahCol1', // hadith book #
         targets: [0],
         visible: true,
         searchable: true
@@ -134,16 +139,16 @@ $(document).ready(() => {
         searchable: true
       },
       {
-        className: 'ahCol5', // Takhrij
+        className: 'ahCol5', // hukum
         targets: [4],
-        visible: false,
-        searchable: true
+        visible: true,
+        searchable: false
       },
       {
-        className: 'ahCol6', // Hukum
+        className: 'ahCol6', // takhrij
         targets: [5],
         visible: false,
-        searchable: true
+        searchable: false
       },
 
       // below strips html tags off keystable copy, second part with keys on
@@ -340,7 +345,7 @@ $(document).ready(() => {
           data = data.replace(/\r\n/g, '\t') //  prevents first header showing up unneeded (windows)
           data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
 
-          data = data.replace(/ފޮތް\t/g, '') // should be this way instead of /\tފޮތް/
+          data = data.replace(/ޙަދީޘް ފޮތާއި #\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/ޢަރަބި ޙަދީޘް\t/g, '')
           data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
