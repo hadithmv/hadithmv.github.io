@@ -115,7 +115,7 @@ $(document).ready(() => {
       // }
     ],
 
-    /* columnDefs: [
+    columnDefs: [
       // classes columns for css in nweb view, but not print.
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
@@ -123,13 +123,19 @@ $(document).ready(() => {
         className: 'ahCol1', // book
         targets: [0],
         visible: true,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: true
+        }
       },
       {
         className: 'ahCol2', // #
         targets: [1],
         visible: true,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: true
+        }
       },
       {
         className: 'ahCol3', // Ar Text
@@ -141,25 +147,37 @@ $(document).ready(() => {
         className: 'ahCol4', // Ar Text Plain
         targets: [3],
         visible: false,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
       },
       {
         className: 'ahCol5', // Dv Text
         targets: [4],
         visible: true,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
       },
       {
         className: 'ahCol6', // hukum
         targets: [5],
         visible: true,
-        searchable: false
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
       },
       {
         className: 'ahCol7', // takhrij
         targets: [6],
         visible: false,
-        searchable: false
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
       },
 
       // below strips html tags off keystable copy, second part with keys on
@@ -175,7 +193,7 @@ $(document).ready(() => {
         }
       }
       // needed to make keytable strip html tags off copy
-    ], // end of columnDefs, previously without visible and searchable options. */
+    ], // end of columnDefs, previously without visible and searchable options.
 
     //= ====================
     // DT CUSTOM SETTINGS
@@ -263,6 +281,10 @@ $(document).ready(() => {
     // markjs, a keyword highlighter for strings, arrays or regular expressions.
     mark: true,
 
+    searchPanes: {
+      columns: [1, 2, 3]
+    },
+
     //= ====================
     // Internationalisation
     // ====================
@@ -296,7 +318,19 @@ $(document).ready(() => {
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
       searchPlaceholder: 'ހޯއްދަވާ...',
-      zeroRecords: '- ނުފެނުނު -'
+      zeroRecords: '- ނުފެނުނު -',
+      searchPanes: {
+        clearMessage: 'ޚިޔާރުތައް ދުއްވާލާ',
+        collapse: { 0: 'ޚިޔާރުތައް', _: 'ޚިޔާރުތައް (%d)' },
+        title: {
+          _: '%d ޚިޔާރު ނެގިފައި ',
+          0: 'އެއްވެސް ޚިޔާރެއް ނުނެގޭ',
+          1: '1 ޚިޔާރު ނެގިފައި'
+        }
+        /* i18n: {
+          emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
+        } */
+      }
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
 
@@ -329,7 +363,39 @@ $(document).ready(() => {
 
     buttons: [
 
-      'searchPanes',
+      {
+        extend: 'searchPanes',
+        key: { key: 'p', shiftKey: true },
+        /* Multiselect on clicking only works with Pfrtip Dom not for Bfrtip Dom how can we use it with bfrtip Dom ?
+        need to put the SearchPanes configuration into the buttons config option.
+        https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
+        config: {
+          cascadePanes: true,
+          dtOpts: {
+            select: {
+              style: 'multi'
+            },
+            // order: [[1, 'desc']]
+            panes: [
+              {
+                header: 'Custom',
+                options: [
+                  {
+                    label: 'Accountants from Tokyo',
+                    value: function (rowData, rowIdx) {
+                      return rowData[1] === 'Accountant' && rowData[2] === 'Tokyo'
+                    }
+                  }
+                ],
+                dtOpts: {
+                  paging: true,
+                  order: [[1, 'desc']]
+                }
+              }
+            ]
+          }
+        }
+      },
       // datatables.net/extensions/buttons/examples/initialisation/multiple
       // used to use a container before, now 2 buttons
       // { text: "Button 2", action: function ( e, dt, node, conf )
@@ -494,4 +560,11 @@ $(document).ready(() => {
   $(document).ready(function () {
     $('#Footer').removeClass('hidden')
   })
+
+  /* $('tbody').on('dblclick', 'tr', function () {
+    if (table.search() !== '') {
+      table.search('').draw()
+    }
+    table.row(this).show().select().draw(false)
+  }) */
 }) // ==================== END OF $(document).ready( function () {
