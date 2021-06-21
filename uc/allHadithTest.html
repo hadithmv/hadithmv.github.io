@@ -43,9 +43,9 @@
     />
 
     <style>
-      .dt-buttons {
-        width: 12px !important;
-      }
+      /* .dt-buttons {
+        width: 12px;
+      } */
     </style>
 
     <title>hadithmv - All Hadith</title>
@@ -97,23 +97,25 @@
 justify doesnt look good on short cells like surukhi, masdars.
 so right align to prevent gaps in text */
 
-      .dataTable tr td.ahCol1 {
+      /* .dataTable tr td.ahCol1 {
         text-align: right;
         padding-top: 10px;
-      }
+      } */
 
       /* mobile only row centering, for rows with strings that are not long */
 
       @media screen and (max-width: 900px) {
         .dataTable tr td.ahCol1,
-        .dataTable tr td.ahCol5,
-        .dataTable tr td.ahCol6 {
+        .dataTable tr td.ahCol2,
+        .dataTable tr td.ahCol6,
+        .dataTable tr td.ahCol7 {
           text-align: center;
         }
 
         /* bold headers for mobile - first number at top */
         .ahCol1 {
           font-weight: bold;
+          padding-top: 10px !important;
         }
       }
 
@@ -121,8 +123,12 @@ so right align to prevent gaps in text */
 
       /* tbody tr td.ahCol1, */
 
+      .dataTable tr td.ahCol1,
       .dataTable tr td.ahCol2,
-      .dataTable tr td.ahCol3 {
+      .dataTable tr td.ahCol3,
+      .dataTable tr td.ahCol4,
+      .dataTable tr td.ahCol6,
+      .dataTable tr td.ahCol7 {
         font-family: "arFont", "dvFont", sans-serif;
         font-size: 23px;
         line-height: 1.7;
@@ -132,14 +138,10 @@ so right align to prevent gaps in text */
 
       /* .dataTable tr td.fnCol1, need this bigger */
 
-      .dataTable tr td.ahCol4 {
+      .dataTable tr td.ahCol5 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 17px;
         line-height: 1.9;
-      }
-
-      .dataTable tr td.ahCol5 {
-        font-size: 21px !important;
       }
 
       /* columns with ar numbers
@@ -152,17 +154,18 @@ so right align to prevent gaps in text */
       /* css for first column
 cuz it has hashtag and digits */
 
-      .dataTable tr td.ahCol1 {
+      /* .dataTable tr td.ahCol1 {
         font-size: 21px;
-      }
+      } */
 
       /* extra changes from fnCols */
 
-      .dataTable tr td.ahCol5 {
-        text-align: center;
+      /* .dataTable tr td.ahCol5 {
+        text-align: center; */
 
-        /* font-size: 18px; */
-      }
+      /* font-size: 18px; */
+
+      /* } */
     </style>
     <!-- === INT CSS - END === -->
   </head>
@@ -419,7 +422,7 @@ cuz it has hashtag and digits */
           <!-- JEKYLL {{ content }} -->
           <!-- cards js adds card classes to table ID -->
           <!-- change123 TABLE -->
-          <table id="allHTable" class="stripe table cards">
+          <table id="allHTable" class="stripe table">
             <thead>
               <tr>
                 <th></th>
