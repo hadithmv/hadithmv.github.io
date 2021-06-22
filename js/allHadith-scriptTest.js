@@ -125,8 +125,7 @@ $(document).ready(() => {
         visible: true,
         searchable: true,
         searchPanes: {
-          show: true,
-          name: 'Length of Life'
+          show: true
         }
       },
       {
