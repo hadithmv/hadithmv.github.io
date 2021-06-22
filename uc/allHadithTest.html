@@ -77,7 +77,7 @@
     <!-- === EXT JS === -->
     <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
     <!-- critical -->
-
+    <script defer src="../js/resc/COMB-Crit.js"></script>
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCritMod.js"></script>
     <!-- change123 js -->
@@ -127,6 +127,12 @@ so right align to prevent gaps in text */
         /* bold headers for mobile - first number at top */
         .ahCol1 {
           font-weight: bold;
+        }
+      }
+
+      /* adds padding to top on mobile */
+      @media screen and (max-width: 900px) {
+        .ahCol1 {
           padding-top: 10px !important;
         }
       }
