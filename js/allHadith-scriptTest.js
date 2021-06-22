@@ -125,7 +125,8 @@ $(document).ready(() => {
         visible: true,
         searchable: true,
         searchPanes: {
-          show: true
+          show: true,
+          name: 'Length of Life'
         }
       },
       {
@@ -134,14 +135,14 @@ $(document).ready(() => {
         visible: true,
         searchable: true,
         searchPanes: {
-          show: true
+          show: false
         }
       },
       {
         className: 'ahCol3', // Ar Text
         targets: [2],
         visible: true,
-        searchable: true
+        searchable: false
       },
       {
         className: 'ahCol4', // Ar Text Plain
@@ -281,10 +282,6 @@ $(document).ready(() => {
     // markjs, a keyword highlighter for strings, arrays or regular expressions.
     mark: true,
 
-    searchPanes: {
-      columns: [1, 2, 3]
-    },
-
     //= ====================
     // Internationalisation
     // ====================
@@ -370,29 +367,14 @@ $(document).ready(() => {
         need to put the SearchPanes configuration into the buttons config option.
         https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
         config: {
+          orderable: false,
+          columns: [0],
           cascadePanes: true,
           dtOpts: {
             select: {
               style: 'multi'
             },
-            // order: [[1, 'desc']]
-            panes: [
-              {
-                header: 'Custom',
-                options: [
-                  {
-                    label: 'Accountants from Tokyo',
-                    value: function (rowData, rowIdx) {
-                      return rowData[1] === 'Accountant' && rowData[2] === 'Tokyo'
-                    }
-                  }
-                ],
-                dtOpts: {
-                  paging: true,
-                  order: [[1, 'desc']]
-                }
-              }
-            ]
+            order: [[1, 'desc']] /* find way to order titles specifically later */
           }
         }
       },
