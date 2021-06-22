@@ -75,12 +75,21 @@ $(document).ready(() => {
         data: 1,
         title: 'އާޔަތް'
       },
+      { /* add brackets to quran */
+        data: 2,
+        title: 'ޤުރްއާން',
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '')
+          // below code is shorter, no replace repeat, uses OR instead
+          return data = '﴿' + data + '﴾'
+        }
+      },
       // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 1,
-        title: 'އާޔަތް ފިލިނުޖަހައި',
+        data: 2,
+        title: 'ޤުރްއާން ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
@@ -88,11 +97,11 @@ $(document).ready(() => {
         }
       },
       {
-        data: 2,
+        data: 3,
         title: 'ދިވެހި ތަރުޖަމާ'
       },
       { /* add tafsir asa'di in arabic */
-        data: 3,
+        data: 4,
         title: 'تفسير السعدي*',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -101,7 +110,7 @@ $(document).ready(() => {
         }
       },
       { /* add tafsir asa'di in dhivehi */
-        data: 4,
+        data: 5,
         title: 'ތަފްސީރު އައްސަޢްދީ*',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -110,7 +119,7 @@ $(document).ready(() => {
         }
       },
       { /* add tafsir asa'di in arabic */
-        data: 5,
+        data: 6,
         title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -119,7 +128,7 @@ $(document).ready(() => {
         }
       },
       { /* add tafsir asa'di in dhivehi */
-        data: 6,
+        data: 7,
         title: 'ބަކުރުބެގެ އިޖްމާލީ މާނަ*',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -140,44 +149,50 @@ $(document).ready(() => {
         searchable: true
       },
       {
-        className: 'qCol2', // quran
+        className: 'qCol2', // ayah
         targets: [1],
-        visible: true,
-        searchable: true
-      },
-      {
-        className: 'qCol3', // quran plain
-        targets: [2],
         visible: false,
         searchable: true
       },
       {
-        className: 'qCol4', // dv tarjama
-        targets: [3],
+        className: 'qCol3', // quran
+        targets: [2],
         visible: true,
         searchable: true
       },
       {
-        className: 'qCol5', // tafsir sadi ar
+        className: 'qCol4', // quran plain
+        targets: [3],
+        visible: false,
+        searchable: true
+      },
+      {
+        className: 'qCol5', // dv tarjama
         targets: [4],
         visible: true,
-        searchable: false
+        searchable: true
       },
       {
-        className: 'qCol6', // tafsir sadi dv
+        className: 'qCol6', // tafsir sadi ar
         targets: [5],
-        visible: true,
+        visible: false,
         searchable: false
       },
       {
-        className: 'qCol7', // bakurube lafzi
+        className: 'qCol7', // tafsir sadi dv
         targets: [6],
         visible: false,
         searchable: false
       },
       {
-        className: 'qCol8', // bakurube ijmali
+        className: 'qCol8', // bakurube lafzi
         targets: [7],
+        visible: false,
+        searchable: false
+      },
+      {
+        className: 'qCol9', // bakurube ijmali
+        targets: [8],
         visible: false,
         searchable: false
       },
