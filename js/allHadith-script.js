@@ -15,7 +15,7 @@ $(document).ready(() => {
   if (window.matchMedia('(min-width: 900px)').matches) {
     $.extend(true, $.fn.dataTable.defaults, {
       // desktop, goes rtl --> //'<"dTop"pBfl>rt<"bottom"ip>',
-      dom: 'P<"dTop"pBfl>rtip',
+      dom: '<"dTop"pBfl>rtip',
       pageLength: 3, // # rows to display on single page when using pagination
       // lengthMenu: [
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
@@ -24,7 +24,7 @@ $(document).ready(() => {
       keys: { clipboardOrthogonal: 'export' }, // strip htmltags off keys copy
       language: {
         paginate: {
-        // &nbsp; prevents line breaks
+          // &nbsp; prevents line breaks
           first: '<<&nbsp;ފުރަތަމަ',
           previous: '<&nbsp;ފަހަތަށް',
           next: 'ކުރިއަށް&nbsp;>',
@@ -39,7 +39,7 @@ $(document).ready(() => {
     /* js media query on mobile, tablet */
     $.extend(true, $.fn.dataTable.defaults, {
       // mobile //'<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rt <"bottom"ip>',
-      dom: 'P<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rtip', // moved to js MQ; dom: '<"dTop"pBfl>rtip',
+      dom: '<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rtip', // moved to js MQ; dom: '<"dTop"pBfl>rtip',
       pageLength: 1,
       // lengthMenu: [
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
@@ -47,7 +47,7 @@ $(document).ready(() => {
       // ], // display range of pages
       language: {
         paginate: {
-        // &nbsp; prevents line breaks
+          // &nbsp; prevents line breaks
           first: '<<',
           previous: '<',
           next: '>',
@@ -69,17 +69,21 @@ $(document).ready(() => {
     columns: [
       {
         data: 0,
-        title: 'ޙަދީޘް ފޮތާއި #'
+        title: 'ފޮތް'
       },
       {
         data: 1,
+        title: '#'
+      },
+      {
+        data: 2,
         title: 'ޢަރަބި ޙަދީޘް'
       },
       // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 1,
+        data: 2,
         title: 'ޢަރަބި ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -88,20 +92,21 @@ $(document).ready(() => {
         }
       },
       {
-        data: 2,
+        data: 3,
         title: 'ދިވެހި ތަރުޖަމާ'
       },
       { /* add brackets string to hukum */
-        data: 3,
+        data: 4,
         title: 'ހުކުމް',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return '[' + data + ']'
+          data = '[' + data + ']'
+          return data.replace('[]', '')
         }
       },
       {
-        data: 4,
+        data: 5,
         title: 'ތަޚްރީޖު'
       }
       // add takhrij and stuff later {
@@ -115,40 +120,64 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'ahCol1', // hadith book #
+        className: 'ahCol1', // book
         targets: [0],
         visible: true,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: true
+        }
       },
       {
-        className: 'ahCol2', // Ar Text
+        className: 'ahCol2', // #
         targets: [1],
         visible: true,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
       },
       {
-        className: 'ahCol3', // Ar Text Plain
+        className: 'ahCol3', // Ar Text
         targets: [2],
-        visible: false,
-        searchable: true
-      },
-      {
-        className: 'ahCol4', // Dv Text
-        targets: [3],
         visible: true,
-        searchable: true
+        searchable: false
       },
       {
-        className: 'ahCol5', // hukum
+        className: 'ahCol4', // Ar Text Plain
+        targets: [3],
+        visible: false,
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'ahCol5', // Dv Text
         targets: [4],
         visible: true,
-        searchable: false
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
       },
       {
-        className: 'ahCol6', // takhrij
+        className: 'ahCol6', // hukum
         targets: [5],
+        visible: true,
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'ahCol7', // takhrij
+        targets: [6],
         visible: false,
-        searchable: false
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
       },
 
       // below strips html tags off keystable copy, second part with keys on
@@ -285,7 +314,19 @@ $(document).ready(() => {
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
       searchPlaceholder: 'ހޯއްދަވާ...',
-      zeroRecords: '- ނުފެނުނު -'
+      zeroRecords: '- ނުފެނުނު -',
+      searchPanes: {
+        clearMessage: 'ޚިޔާރުތައް ދުއްވާލާ',
+        collapse: { 0: 'ޚިޔާރުތައް', _: 'ޚިޔާރުތައް (%d)' },
+        title: {
+          _: '%d ޚިޔާރު ނެގިފައި ',
+          0: '0 ޚިޔާރު ނެގިފައި',
+          1: '1 ޚިޔާރު ނެގިފައި'
+        }
+        /* i18n: {
+          emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
+        } */
+      }
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
 
@@ -317,6 +358,25 @@ $(document).ready(() => {
     // $.extend(true, $.fn.dataTable.defaults, { ABOVE
 
     buttons: [
+
+      {
+        extend: 'searchPanes',
+        key: { key: 'p', shiftKey: true },
+        /* Multiselect on clicking only works with Pfrtip Dom not for Bfrtip Dom how can we use it with bfrtip Dom ?
+        need to put the SearchPanes configuration into the buttons config option.
+        https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
+        config: {
+          orderable: false,
+          columns: [0],
+          cascadePanes: true,
+          dtOpts: {
+            select: {
+              style: 'multi'
+            },
+            order: [[1, 'desc']] /* find way to order titles specifically later */
+          }
+        }
+      },
       // datatables.net/extensions/buttons/examples/initialisation/multiple
       // used to use a container before, now 2 buttons
       // { text: "Button 2", action: function ( e, dt, node, conf )
@@ -345,7 +405,8 @@ $(document).ready(() => {
           data = data.replace(/\r\n/g, '\t') //  prevents first header showing up unneeded (windows)
           data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
 
-          data = data.replace(/ޙަދީޘް ފޮތާއި #\t/g, '') // should be this way instead of /\tފޮތް/
+          data = data.replace(/ފޮތް\t/g, '') // should be this way instead of /\tފޮތް/
+          data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/ޢަރަބި ޙަދީޘް\t/g, '')
           data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
@@ -480,4 +541,13 @@ $(document).ready(() => {
   $(document).ready(function () {
     $('#Footer').removeClass('hidden')
   })
+
+  // adds doublcick select go to page search was on, with rowshowjs
+  $('tbody').on('dblclick', 'tr', function () {
+    if (table.search() !== '') {
+      table.search('').draw()
+    }
+    table.row(this).show().select().draw(false)
+  })
+  //
 }) // ==================== END OF $(document).ready( function () {

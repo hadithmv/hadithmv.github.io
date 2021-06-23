@@ -12,6 +12,7 @@ jquery.min.js	3.6.0
 buttons.html5.min.js 1.7.0
 dataTables.searchPanes.min.js	1.3.0
 dataTables.select.min.js	1.3.3
+**row().show().js	1.10.25 (minify w closure)
 **input.min.js	1.10.21	(minified file not available from site, so minify w closure)
 **hammer.min.js	2.0.8	(minify w closure)
 
