@@ -320,7 +320,7 @@ $(document).ready(() => {
         collapse: { 0: 'ޚިޔާރުތައް', _: 'ޚިޔާރުތައް (%d)' },
         title: {
           _: '%d ޚިޔާރު ނެގިފައި ',
-          0: 'ޚިޔާރެއް ނުނެގޭ',
+          0: '0 ޚިޔާރު ނެގިފައި',
           1: '1 ޚިޔާރު ނެގިފައި'
         }
         /* i18n: {
@@ -542,10 +542,12 @@ $(document).ready(() => {
     $('#Footer').removeClass('hidden')
   })
 
+  // adds doublcick select go to page search was on, with rowshowjs
   $('tbody').on('dblclick', 'tr', function () {
     if (table.search() !== '') {
       table.search('').draw()
     }
     table.row(this).show().select().draw(false)
   })
+  //
 }) // ==================== END OF $(document).ready( function () {
