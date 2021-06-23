@@ -1079,7 +1079,10 @@ this makes a faint white outline around card  */
     background-color: #1c4253 !important; /* 1a282f */
   }
 
-  /* scrollbar code */
+  /* ====================
+       Scroll Bar Code
+======================= */
+
   @media screen and (min-width: 900px) {
     /* Works on Firefox */
     * {
@@ -1129,4 +1132,28 @@ this makes a faint white outline around card  */
   ::selection {
     background: #b3d4fc;
   }
+}
+
+/* ====================
+       Footer Code
+======================= */
+
+#Footer {
+  text-align: justify;
+  text-align-last: center;
+  font-family: "dvFont", "arFont", sans-serif;
+  font-size: 17px;
+  line-height: 1.9;
+  direction: rtl;
+  padding: 15px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.tellUs {
+  text-align: center;
 }
