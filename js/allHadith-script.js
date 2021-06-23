@@ -313,13 +313,13 @@ $(document).ready(() => {
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
-      searchPlaceholder: 'ހޯއްދަވާ...',
+      searchPlaceholder: 'ހޯދާ...',
       zeroRecords: '- ނުފެނުނު -',
       searchPanes: {
         clearMessage: 'ޚިޔާރުތައް ދުއްވާލާ',
         collapse: { 0: 'ޚިޔާރުތައް', _: 'ޚިޔާރުތައް (%d)' },
         title: {
-          _: '%d ޚިޔާރު ނެގިފައި ',
+          _: '%d ޚިޔާރު ނެގިފައި',
           0: '0 ޚިޔާރު ނެގިފައި',
           1: '1 ޚިޔާރު ނެގިފައި'
         }
