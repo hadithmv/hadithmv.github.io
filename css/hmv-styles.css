@@ -129,8 +129,6 @@ from what i see makes them smaller */
     -webkit-appearance: none;
 } */
 
-/* ===== BOILERPLATE - END ===== */
-
 /* ====================
      scroll bar
 ======================= */
@@ -182,8 +180,6 @@ body {
     /* outer */
   }
 }
-
-/* ===== scroll bar - END ===== */
 
 /* ====================
      Slide In Animation
@@ -276,8 +272,6 @@ ORIGINAL CODE above */
   }
 } */
 
-/* ===== Slide In Animation - END ===== */
-
 /* ====================
      DT wrapper CSS
 ======================= */
@@ -321,6 +315,21 @@ li,
 div.dataTables_wrapper {
   direction: rtl;
 }
+
+/* gives space around table wrapper in desktop view, and then centers */
+.dataTables_wrapper.no-footer {
+  max-width: 1080px;
+  margin: auto;
+
+  /* padding-right: 5% !important;
+        padding-left: 5% !important; */
+
+  /* width: 25px !important; */
+}
+
+/* ====================
+     ???
+======================= */
 
 button,
 input,
@@ -517,8 +526,6 @@ input.dt-button {
   margin-right: 2px;
 }
 
-/* ===== DT wrapper CSS - END ===== */
-
 /* ====================
    DT Column CSS
 ======================= */
@@ -557,8 +564,6 @@ table.dataTable tbody td {
   line-height: 1.5;
   word-wrap: break-word;
 }
-
-/* ===== DT Column CSS - END ===== */
 
 /* ====================
          DT plugins CSS
@@ -659,8 +664,6 @@ mark {
   color: black;
   padding: 0;
 }
-
-/* ===== DT plugins CSS - END ===== */
 
 /* ====================
        CARDS CODE
@@ -858,7 +861,9 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   }
 }
 
-/* ===== dom flexbox - END ===== */
+/* ====================
+       Hamburger
+======================= */
 
 /* moves hamburger menu span to right + little up, does not affect header placement */
 
@@ -940,8 +945,6 @@ a:hover {
 /* ====================
        BUTTON STYLES
 ======================= */
-
-/* ===== button styles - END ===== */
 
 /* ====================
        DARK MODE
