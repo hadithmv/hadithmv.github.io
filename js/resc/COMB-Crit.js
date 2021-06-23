@@ -3,6 +3,3 @@
 
 // mmenu-inlineJs.js
 var menu=new MmenuLight(document.querySelector("#menu"),"all"),navigator=menu.navigation({title:"\u0799\u07a6\u078b\u07a9\u0798\u07b0\u0787\u07ac\u0789\u07b0\u0788\u07a9"}),drawer=menu.offcanvas({position:"right"});document.querySelector('a[href="#menu"]').addEventListener("click",function(a){a.preventDefault();drawer.open()});
-
-
-
