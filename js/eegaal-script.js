@@ -268,7 +268,7 @@ $(document).ready(() => {
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
-      searchPlaceholder: 'ހޯއްދަވާ...',
+      searchPlaceholder: 'ހޯދާ...',
       zeroRecords: '- ނުފެނުނު -'
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
