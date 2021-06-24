@@ -44,16 +44,17 @@ https://github.com/svg/svgo -MIT
 https://chromium.googlesource.com/webm/libwebp -BSD
 
 https://github.com/maaldheefee/mushaf-page-border
-https://nashrschool.qurancomplex.gov.sa
-https://github.com/tonsky/FiraCode -OFL-1.1
-http://hassanhameed.com/?page_id=154
-https://fonts.qurancomplex.gov.sa/wp02
+https://github.com/tonsky/FiraCode 5.2 -OFL-1.1
+http://hassanhameed.com/?page_id=154 2.0
+https://fonts.qurancomplex.gov.sa/wp02 0.14
 https://fonts.hassaanmv.com/tharujamaanu
 
 https://40-nawawi.hassaanmv.com
 https://sunnah.alifta.gov.sa
 https://shamela.ws
 https://github.com/kudanai/Quran-Translation
+https://nashrmaktabi.qurancomplex.gov.sa 2.5
+https://tanzil.net 1.1 -CC BY 3.0
 https://archive.org/details/BakurubeTranslationDhivehi/1-15%20%2825%20April%202011%29
 
 http://radheef.mv
