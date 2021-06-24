@@ -316,7 +316,7 @@ $(document).ready(() => {
       searchPlaceholder: 'ހޯދާ...',
       zeroRecords: '- ނުފެނުނު -',
       searchPanes: {
-        clearMessage: 'ޚިޔާރުތައް ދުއްވާލާ',
+        clearMessage: 'ހުރިހާ ޚިޔާރެއް ދުއްވާލާ',
         collapse: { 0: 'ޚިޔާރުތައް', _: 'ޚިޔާރުތައް (%d)' },
         title: {
           _: '%d ޚިޔާރު ނެގިފައި',
