@@ -373,7 +373,8 @@ $(document).ready(() => {
             select: {
               style: 'multi'
             },
-            order: [[1, 'desc']] /* find way to order titles specifically later */
+            ordering: false
+            /* order: [[1, 'desc']] */
           }
         }
       },
