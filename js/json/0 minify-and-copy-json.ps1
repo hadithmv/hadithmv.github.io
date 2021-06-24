@@ -1,5 +1,6 @@
 #compress
 
+uglifyjs nawawi.js -c -m -o nawawi.js
 uglifyjs barbahari.js -c -m -o barbahari.js
 uglifyjs eegaal.js -c -m -o eegaal.js
 uglifyjs otherHadith.js -c -m -o otherHadith.js
