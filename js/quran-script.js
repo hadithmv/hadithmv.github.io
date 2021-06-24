@@ -413,7 +413,8 @@ $(document).ready(() => {
 
           data = data.replace(/ސޫރަތް\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/އާޔަތް\t/g, '')
-          data = data.replace(/އާޔަތް ފިލިނުޖަހައި\t/g, '')
+          data = data.replace(/ޤުރްއާން\t/g, '')
+          data = data.replace(/ޤުރްއާން ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/تفسير السعدي*\t/g, '')
           data = data.replace(/ތަފްސީރު އައްސަޢްދީ*\t/g, '')
