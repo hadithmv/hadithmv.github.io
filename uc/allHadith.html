@@ -31,28 +31,6 @@
 
     <!-- change123 html -->
 
-    <style>
-      /* this removes the selected color given by dt js css, which is in play
-      even without select css, this is for the dt table, not the sp inne table */
-      table.dataTable.display tbody tr.odd.selected,
-      table.dataTable.stripe tbody tr.odd.selected {
-        background-color: transparent !important;
-      }
-      div.dt-button-collection {
-        /* fits searchpanes as well as buttom collection as much as content */
-        width: fit-content !important;
-
-        /* centers */
-        margin: auto !important;
-        top: 0 !important;
-        left: 0 !important;
-      }
-
-      /* .dt-buttons {
-        width: 12px;
-      } */
-    </style>
-
     <title>hadithmv - All Hadith</title>
     <meta
       name="description"
@@ -88,84 +66,6 @@
     <!-- Critical CSS - END -->
 
     <style>
-
-
-      input {
-      /* moves ALL INPUTS a little more to the left */
-        text-indent: 5px;
-      }
-
-      input.dtsp-search, input.dtsp-search::placeholder {
-        /* changes color of searchpanes title placeholder where input is */
-        color: #99aab5 !important;
-
-        /* changes finger pointer cursor to text */
-        cursor: text !important;
-
-        /* moves input even mor to the left */
-        text-indent: 15px;
-
-
-      }
-
-
-      .dtsp-paneInputButton,
-      .dtsp-search {
-        /* changes background color to something lighter than main body */
-        background-color: #1a232d !important;
-
-        /* puts some space between input and pane below */
-        margin-bottom: 10px !important;
-      }
-
-      /* changes cross cancel icon color */
-      div.dtsp-searchPane button.dtsp-paneButton {
-        color: #eee;
-      }
-
-      /* changes cross cancel icon color when hovered, and changes cursor to pointer */
-      div.dtsp-searchPane button.dtsp-paneButton:hover {
-        color: #1a232d;
-        cursor: pointer !important;
-
-      }
-
-      div.dtsp-topRow div.dtsp-subRow1 button.dtsp-searchIcon {
-        background-color: red !important;
-        color: white !important;
-      }
-
-      /* changes pane list selected highlight color to something that matches dark theme */
-
-      #DataTables_Table_0 tbody tr.selected td {
-        background-color: #99aab599; /* #1c4253 */
-
-      }
-
-      .dtsp-nameColumn {
-        /* changes text cursor to finger pointer */
-        cursor: pointer;
-
-      }
-
-      .dtsp-clearAll {
-        /* text color when not disabled, ie active */
-        color: #eee;
-        opacity: 0.8;
-
-      }
-
-      div.dtsp-panesContainer button.dtsp-clearAll:hover:not([disabled]) {
-        /* text color when not disabled, ie active, not disabled is for preventing disabled being overwritten */
-        background-color: #99aab599; /* #1c4253 */
-      }
-
-      /* removes white scroll area */
-      div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
-        background-color: transparent !important;
-      }
-
-
 
         /* change123 html */
 
