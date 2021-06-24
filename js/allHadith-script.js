@@ -361,7 +361,7 @@ $(document).ready(() => {
 
       {
         extend: 'searchPanes',
-        key: { key: 'p', shiftKey: true },
+        key: { key: 'k', shiftKey: true },
         /* Multiselect on clicking only works with Pfrtip Dom not for Bfrtip Dom how can we use it with bfrtip Dom ?
         need to put the SearchPanes configuration into the buttons config option.
         https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
@@ -440,7 +440,7 @@ $(document).ready(() => {
 
       {
         extend: 'colvis',
-        key: { key: 's', shiftKey: true },
+        key: { key: 'd', shiftKey: true },
         text: 'އިތުރު ބަރިތައް',
         background: false /* removes background fade animation for collection */
       } // end of colvis
