@@ -97,20 +97,20 @@ $(document).ready(() => {
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 2,
+        data: 3,
         title: 'ޤުރްއާން ފިލިނުޖަހައި',
-        render: function (data, type, row) {
+        /*render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
           return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ|ۡ|ٰ/g, '').replace(/ٱ/g, 'ا')
-        }
+        }*/
       },
       {
-        data: 3,
+        data: 4,
         title: 'ދިވެހި ތަރުޖަމާ'
       },
       { /* add tafsir asa'di in arabic */
-        data: 4,
+        data: 5,
         title: 'تفسير السعدي*',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -119,7 +119,7 @@ $(document).ready(() => {
         }
       },
       { /* add tafsir asa'di in dhivehi */
-        data: 5,
+        data: 6,
         title: 'ތަފްސީރު އައްސަޢްދީ*',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -128,7 +128,7 @@ $(document).ready(() => {
         }
       },
       { /* add tafsir asa'di in arabic */
-        data: 6,
+        data: 7,
         title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -137,7 +137,7 @@ $(document).ready(() => {
         }
       },
       { /* add tafsir asa'di in dhivehi */
-        data: 7,
+        data: 8,
         title: 'ބަކުރުބެގެ އިޖްމާލީ މާނަ*',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
