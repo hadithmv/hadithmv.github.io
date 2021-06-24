@@ -81,7 +81,16 @@ $(document).ready(() => {
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return data = '﴿' + data + '﴾'
+          /* reverse ayah numbers because font wont display them properly otherwise,
+          this control solution is better than replace reverse, because it carries on to clipboard
+          https://stackoverflow.com/questions/2939766/regex-to-reverse-order-of-list
+          https://www.fileformat.info/info/unicode/char/202e/index.htm */
+          // data = data.replace(/([\u0660-\u0669]+)([\u0660-\u0669]+)([\u0660-\u0669]+)/, '$3$2$1')
+          data = data.replace(/([\u0660-\u0669]+)/, '\u202E$1')
+          /* reverse brackets because thats how the font file needs it */
+          data = '﴿' + data + '﴾'
+          /* move the bracket in surah start basmalas to the actual first ayah */
+          return data.replace('﴿بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n<br><br>\n', 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n<br><br>\n﴿')
         }
       },
       // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
