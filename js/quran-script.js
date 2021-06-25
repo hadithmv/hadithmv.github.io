@@ -514,8 +514,11 @@ $(document).ready(() => {
   // from here to END OF $(document).ready( function () { used to be empty
 
   //= ====================
-  //      vanilla js swipe https://stackoverflow.com/questions/2264072/detect-a-finger-swipe-through-javascript-on-the-iphone-and-android
+  //        SWIPE
   // ====================
+
+  // https://stackoverflow.com/questions/2264072/detect-a-finger-swipe-through-javascript-on-the-iphone-and-android
+  // that was with jquery, then converted with: https://properprogramming.com/tools/jquery-to-javascript-converter/
 
   document.addEventListener('touchstart', handleTouchStart, false)
   document.addEventListener('touchmove', handleTouchMove, false)
@@ -565,42 +568,6 @@ $(document).ready(() => {
     yDown = null
   };
   //= ==================== swipe - END
-  /* Old hammerjs code, removed dependency, would not work with jquery slim
-
-  // enables text selection, but conflicts with swipe
-  delete Hammer.defaults.cssProps.userSelect
-
-  // OLDER hammerjs swipe code
-  //  if (window.matchMedia("(min-width: 1200px)").matches) { // js desktop MQ
-  //      // empty
-  //  } else { // js media query on mobile, tablet
-  //    Hammer(fortyNawawi).on("swipeleft", function () {
-  //          table.page("next").draw("page");
-  //      });
-  //    Hammer(document.getElementById("fortyNawawi")).on("swiperight",function(){
-  //          table.page("previous").draw("page");
-  //      });
-  //  } // end if else
-  // END of OLDER hammerjs code
-
-     function myFunction (x) {
-      if (x.matches) {
-        // If media query matches
-        // empty // document.body.style.backgroundColor = "pink";
-      } else { // CHANGE123 HAMMER JS
-        Hammer(allHTable).on('swiperight', () => {
-          // changed swipeleft and swiperight for dhivehi
-          table.page('next').draw('page')
-        })
-        Hammer(document.getElementById('allHTable')).on('swipeleft', () => {
-          table.page('previous').draw('page')
-        })
-      }
-    }
-    const x = window.matchMedia('(min-width: 900px)') // js media query on desktop
-    myFunction(x) // Call listener function at run time
-    x.addListener(myFunction) // Attach listener function on state changes
-*/ // --- ---  END OF NEWER HAMMER JS CODE
 
   // ScrollTop - If the user changes the page, scroll to the top
   $('.dataTable').on('page.dt', () => {
