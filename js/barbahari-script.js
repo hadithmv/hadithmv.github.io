@@ -424,7 +424,7 @@ $(document).ready(() => {
   }) // $("#fortyNawawi").DataTable( { - END
   // from here to END OF $(document).ready( function () { used to be empty
 
-  //= ====================
+  // ====================
   //        SWIPE
   // ====================
 
@@ -461,24 +461,24 @@ $(document).ready(() => {
 
     if (Math.abs(xDiff) > Math.abs(yDiff)) { /* most significant */
       if (xDiff > 0) {
-        /* left swipe */
+        // left swipe
         table.page('previous').draw('page')
       } else {
-        /* right swipe */
+        // right swipe */
         table.page('next').draw('page')
       }
-    } else {
+    } /* else { // commented out otherwise detected as useless suspicious code
       if (yDiff > 0) {
-        /* up swipe */
+        // up swipe
       } else {
-        /* down swipe */
+        // down swipe
       }
-    }
+    } */
     /* reset values */
     xDown = null
     yDown = null
   };
-  //= ==================== swipe - END
+  // ==================== swipe - END
 
   // ScrollTop - If the user changes the page, scroll to the top
   $('.dataTable').on('page.dt', () => {
