@@ -460,7 +460,7 @@ $(document).ready(() => {
   // from here to END OF $(document).ready( function () { used to be empty
 
   //= ====================
-  //      HammerJS - Swipe
+  //      vanilla js swipe https://stackoverflow.com/questions/2264072/detect-a-finger-swipe-through-javascript-on-the-iphone-and-android
   // ====================
 
   document.addEventListener('touchstart', handleTouchStart, false)
@@ -486,10 +486,10 @@ $(document).ready(() => {
     }
 
     const xUp = evt.touches[0].clientX
-    let yUp = evt.touches[0].clientY
+    const yUp = evt.touches[0].clientY
 
-    let xDiff = xDown - xUp
-    let yDiff = yDown - yUp
+    const xDiff = xDown - xUp
+    const yDiff = yDown - yUp
 
     if (Math.abs(xDiff) > Math.abs(yDiff)) { /* most significant */
       if (xDiff > 0) {
@@ -510,40 +510,58 @@ $(document).ready(() => {
     xDown = null
     yDown = null
   };
+  //= ==================== swipe - END
+  /* Old hammerjs code, removed dependency, would not work with jquery slim
 
   // enables text selection, but conflicts with swipe
-  // delete Hammer.defaults.cssProps.userSelect
-  /*
-  function myFunction (x) {
-    if (x.matches) {
+  delete Hammer.defaults.cssProps.userSelect
 
-    } else {
-      Hammer(allHTable).on('swiperight', () => {
-        table.page('next').draw('page')
-      })
-      Hammer(document.getElementById('allHTable')).on('swipeleft', () => {
-        table.page('previous').draw('page')
-      })
+  // OLDER hammerjs swipe code
+  //  if (window.matchMedia("(min-width: 1200px)").matches) { // js desktop MQ
+  //      // empty
+  //  } else { // js media query on mobile, tablet
+  //    Hammer(fortyNawawi).on("swipeleft", function () {
+  //          table.page("next").draw("page");
+  //      });
+  //    Hammer(document.getElementById("fortyNawawi")).on("swiperight",function(){
+  //          table.page("previous").draw("page");
+  //      });
+  //  } // end if else
+  // END of OLDER hammerjs code
+
+     function myFunction (x) {
+      if (x.matches) {
+        // If media query matches
+        // empty // document.body.style.backgroundColor = "pink";
+      } else { // CHANGE123 HAMMER JS
+        Hammer(allHTable).on('swiperight', () => {
+          // changed swipeleft and swiperight for dhivehi
+          table.page('next').draw('page')
+        })
+        Hammer(document.getElementById('allHTable')).on('swipeleft', () => {
+          table.page('previous').draw('page')
+        })
+      }
     }
-  }
-  */
-  // const x = window.matchMedia('(min-width: 900px)') // js media query on desktop
-  // myFunction(x) // Call listener function at run time
-  // x.addListener(myFunction) // Attach listener function on state changes
-  //= =================== END HammerJS - Swipe
+    const x = window.matchMedia('(min-width: 900px)') // js media query on desktop
+    myFunction(x) // Call listener function at run time
+    x.addListener(myFunction) // Attach listener function on state changes
+*/ // END OF NEWER HAMMER JS CODE
 
-  /* Old hammerjs swipe code
-    if (window.matchMedia("(min-width: 1200px)").matches) { // js desktop MQ
-        // empty
-    } else { // js media query on mobile, tablet
-      Hammer(fortyNawawi).on("swipeleft", function () {
-            table.page("next").draw("page");
-        });
-      Hammer(document.getElementById("fortyNawawi")).on("swiperight",function(){
-            table.page("previous").draw("page");
-        });
-    } // end if else
-     ==================== END Old hammerjs code */
+  // ScrollTop - If the user changes the page, scroll to the top
+  $('.dataTable').on('page.dt', () => {
+    $('html, body').animate(
+      {
+        scrollTop: 0
+      },
+      'fast'
+    ) // smoothen or ease this later ??
+    $('main-content').focus()
+    // need to set focus at top so DTBS doesn't scroll back to bottom
+
+    const tempScrollTop = $(window).scrollTop()
+    // console.log(`Scroll from Top: ${tempScrollTop.toString()}`);
+  })
 
   //= ====================
   // Add cards media quiery class to table ID, as well as row border
