@@ -155,7 +155,7 @@ $(document).ready(() => {
         className: 'qCol1', // surah
         targets: [0],
         visible: true,
-        searchable: true
+        searchable: false
       },
       {
         className: 'qCol2', // ayah
