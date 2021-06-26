@@ -269,7 +269,19 @@ $(document).ready(() => {
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
       searchPlaceholder: 'ހޯދާ...',
-      zeroRecords: '- ނުފެނުނު -'
+      zeroRecords: '- ނުފެނުނު -',
+      searchPanes: {
+        clearMessage: 'ހުރިހާ ޚިޔާރެއް ދުއްވާލާ',
+        collapse: { 0: 'ޚިޔާރުތައް', _: 'ޚިޔާރުތައް (%d)' },
+        title: {
+          _: '%d ޚިޔާރު ނެގިފައި',
+          0: '0 ޚިޔާރު ނެގިފައި',
+          1: '1 ޚިޔާރު ނެގިފައި'
+        }
+        /* i18n: {
+          emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
+        } */
+      }
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
 
@@ -510,7 +522,7 @@ $(document).ready(() => {
   })
 
   //= ====================
-  // Add cards media quiery class to table ID, as well as row border
+  // Add cards media query class to table ID, as well as row border
   // ====================
   /*
     function myFunction() {
@@ -541,7 +553,7 @@ $(document).ready(() => {
     $('#Footer').removeClass('hidden')
   })
 
-  // adds doublcick select go to page search was on, with rowshowjs
+  // adds doubleclick select go to page search was on, with rowshowjs
   $('tbody').on('dblclick', 'tr', function () {
     if (table.search() !== '') {
       table.search('').draw()
