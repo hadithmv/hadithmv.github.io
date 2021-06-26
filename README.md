@@ -100,7 +100,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 <div class="dv">
 
 <p align="center">
-- ރަހްމާންވަންތަ ރަހީމްވަންތަ ﷲ ގެ އިސްމުފުޅުން ފަށައިގަންނަމެވެ -
+- ރަޙްމާންވަންތަ ރަޙީމްވަންތަ ﷲ ގެ އިސްމުފުޅުން ފަށައިގަންނަމެވެ -
 </p>
 <br>
 
