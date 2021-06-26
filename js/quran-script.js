@@ -126,8 +126,8 @@ $(document).ready(() => {
           // below code is shorter, no replace repeat, uses OR instead
           return '[ތަފްސީރު އައްސަޢްދީ:] ' + data
         }
-      },
-      { /* add tafsir asa'di in arabic */
+      }
+      /*{
         data: 7,
         title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
         render: function (data, type, row) {
@@ -136,7 +136,7 @@ $(document).ready(() => {
           return '[ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ:] ' + data
         }
       },
-      { /* add tafsir asa'di in dhivehi */
+      {
         data: 8,
         title: 'ބަކުރުބެގެ އިޖްމާލީ މާނަ*',
         render: function (data, type, row) {
@@ -144,7 +144,7 @@ $(document).ready(() => {
           // below code is shorter, no replace repeat, uses OR instead
           return '[ބަކުރުބެގެ އިޖްމާލީ މާނަ:] ' + data
         }
-      }
+      } */
     ],
 
     columnDefs: [
@@ -193,7 +193,7 @@ $(document).ready(() => {
         visible: false,
         searchable: false
       },
-      {
+      /*{
         className: 'qCol8', // bakurube lafzi
         targets: [7],
         visible: false,
@@ -204,7 +204,7 @@ $(document).ready(() => {
         targets: [8],
         visible: false,
         searchable: false
-      },
+      }, */
 
       // below strips html tags off keystable copy, second part with keys on
       {
