@@ -127,7 +127,7 @@ $(document).ready(() => {
           return '[ތަފްސީރު އައްސަޢްދީ:] ' + data
         }
       }
-      /*{
+      /* {
         data: 7,
         title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
         render: function (data, type, row) {
@@ -155,55 +155,82 @@ $(document).ready(() => {
         className: 'qCol1', // surah
         targets: [0],
         visible: true,
-        searchable: false
+        searchable: false,
+        searchPanes: {
+          show: true
+        }
       },
       {
         className: 'qCol2', // ayah
         targets: [1],
         visible: false,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
       },
       {
         className: 'qCol3', // quran
         targets: [2],
         visible: true,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
       },
       {
         className: 'qCol4', // quran plain
         targets: [3],
         visible: false,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
       },
       {
         className: 'qCol5', // dv tarjama
         targets: [4],
         visible: true,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
       },
       {
         className: 'qCol6', // tafsir sadi ar
         targets: [5],
         visible: false,
-        searchable: false
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
       },
       {
         className: 'qCol7', // tafsir sadi dv
         targets: [6],
         visible: false,
-        searchable: false
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
       },
-      /*{
+      /* {
         className: 'qCol8', // bakurube lafzi
         targets: [7],
         visible: false,
-        searchable: false
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
       },
       {
         className: 'qCol9', // bakurube ijmali
         targets: [8],
         visible: false,
-        searchable: false
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
       }, */
 
       // below strips html tags off keystable copy, second part with keys on
@@ -341,7 +368,19 @@ $(document).ready(() => {
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
       searchPlaceholder: 'ހޯދާ...',
-      zeroRecords: '- ނުފެނުނު -'
+      zeroRecords: '- ނުފެނުނު -',
+      searchPanes: {
+        clearMessage: 'ހުރިހާ ޚިޔާރެއް ދުއްވާލާ',
+        collapse: { 0: 'ޚިޔާރުތައް', _: 'ޚިޔާރުތައް (%d)' },
+        title: {
+          _: '%d ޚިޔާރު ނެގިފައި',
+          0: '0 ޚިޔާރު ނެގިފައި',
+          1: '1 ޚިޔާރު ނެގިފައި'
+        }
+        /* i18n: {
+          emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
+        } */
+      }
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
 
@@ -381,7 +420,7 @@ $(document).ready(() => {
         extend: 'copy',
         key: { key: 'c', shiftKey: true },
         text: 'ކޮޕީ',
-        messageTop: 'ޙަދީޘްއެމްވީ - ޤުރްއާނުގެ ތަރުޖަމާއާއި ތަފްސީރު', // CHANGE123 clipboard message
+        messageTop: 'ޙަދީޘްއެމްވީ - ކީރިތި ގުރްއާން', // CHANGE123 clipboard message
         title: '' /* title: "hadithmv.com", */,
 
         //= ====================
@@ -491,6 +530,26 @@ $(document).ready(() => {
         // "exportOptions: { modifier:{columns:[":visible"], rows: [":visible"]}"
         // needs .cards thead { visibility: hidden; } to work
       }, // end of copy customization
+
+      {
+        extend: 'searchPanes',
+        key: { key: 'k', shiftKey: true },
+        /* Multiselect on clicking only works with Pfrtip Dom not for Bfrtip Dom how can we use it with bfrtip Dom ?
+        need to put the SearchPanes configuration into the buttons config option.
+        https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
+        config: {
+          orderable: false,
+          columns: [0],
+          cascadePanes: true,
+          dtOpts: {
+            select: {
+              style: 'multi'
+            },
+            ordering: false
+            /* order: [[1, 'desc']] */
+          }
+        }
+      },
 
       {
         extend: 'colvis',
@@ -616,4 +675,13 @@ $(document).ready(() => {
   $(document).ready(function () {
     $('#Footer').removeClass('hidden')
   })
+
+  // adds doublcick select go to page search was on, with rowshowjs
+  $('tbody').on('dblclick', 'tr', function () {
+    if (table.search() !== '') {
+      table.search('').draw()
+    }
+    table.row(this).show().select().draw(false)
+  })
+  //
 }) // ==================== END OF $(document).ready( function () {
