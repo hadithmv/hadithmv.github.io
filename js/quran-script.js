@@ -644,7 +644,7 @@ $(document).ready(() => {
   })
 
   //= ====================
-  // Add cards media quiery class to table ID, as well as row border
+  // Add cards media query class to table ID, as well as row border
   // ====================
   /*
     function myFunction() {
@@ -676,7 +676,7 @@ $(document).ready(() => {
     $('#Footer').removeClass('hidden')
   })
 
-  // adds doublcick select go to page search was on, with rowshowjs
+  // adds doubleclick select go to page search was on, with rowshowjs
   $('tbody').on('dblclick', 'tr', function () {
     if (table.search() !== '') {
       table.search('').draw()

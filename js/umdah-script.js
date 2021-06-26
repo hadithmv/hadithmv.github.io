@@ -125,16 +125,22 @@ $(document).ready(() => {
         className: 'uhCol1', // #
         targets: [0],
         visible: true,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
       },
       {
         className: 'uhCol2', // Book
         targets: [1],
         visible: true,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: true
+        }
       },
       {
-        className: 'uhCol3', // Book Extra
+        className: 'uhCol3', // Book Dv
         targets: [2],
         visible: false,
         searchable: false
@@ -146,7 +152,7 @@ $(document).ready(() => {
         searchable: true
       },
       {
-        className: 'uhCol5', // Baab Extra
+        className: 'uhCol5', // Baab Dv
         targets: [4],
         visible: false,
         searchable: false
@@ -155,25 +161,37 @@ $(document).ready(() => {
         className: 'uhCol6', // Ar Text
         targets: [5],
         visible: true,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
       },
       {
         className: 'uhCol7', // Ar Text no fili
         targets: [6],
         visible: false,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
       },
       {
         className: 'uhCol8', // Dv Text
         targets: [7],
         visible: true,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
       },
       {
         className: 'uhCol9', // Takhrij
         targets: [8],
         visible: true,
-        searchable: false
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
       },
 
       // below strips html tags off keystable copy, second part with keys on
@@ -312,7 +330,19 @@ $(document).ready(() => {
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
       searchPlaceholder: 'ހޯދާ...',
-      zeroRecords: '- ނުފެނުނު -'
+      zeroRecords: '- ނުފެނުނު -',
+      searchPanes: {
+        clearMessage: 'ހުރިހާ ޚިޔާރެއް ދުއްވާލާ',
+        collapse: { 0: 'ޚިޔާރުތައް', _: 'ޚިޔާރުތައް (%d)' },
+        title: {
+          _: '%d ޚިޔާރު ނެގިފައި',
+          0: '0 ޚިޔާރު ނެގިފައި',
+          1: '1 ޚިޔާރު ނެގިފައި'
+        }
+        /* i18n: {
+          emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
+        } */
+      }
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
 
@@ -410,6 +440,26 @@ $(document).ready(() => {
       }, // end of copy customization
 
       {
+        extend: 'searchPanes',
+        key: { key: 'k', shiftKey: true },
+        /* Multiselect on clicking only works with Pfrtip Dom not for Bfrtip Dom how can we use it with bfrtip Dom ?
+        need to put the SearchPanes configuration into the buttons config option.
+        https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
+        config: {
+          orderable: false,
+          columns: [1, 3],
+          cascadePanes: true,
+          dtOpts: {
+            select: {
+              style: 'multi'
+            },
+            ordering: false
+            /* order: [[1, 'desc']] */
+          }
+        }
+      },
+
+      {
         extend: 'colvis',
         key: { key: 's', shiftKey: true },
         text: 'އިތުރު ބަރިތައް',
@@ -502,7 +552,7 @@ $(document).ready(() => {
   })
 
   //= ====================
-  // Add cards media quiery class to table ID, as well as row border
+  // Add cards media query class to table ID, as well as row border
   // ====================
   /*
     function myFunction() {
@@ -531,7 +581,7 @@ $(document).ready(() => {
     $('#Footer').removeClass('hidden')
   })
 
-  // adds doublcick select go to page search was on, with rowshowjs
+  // adds doubleclick select go to page search was on, with rowshowjs
   $('tbody').on('dblclick', 'tr', function () {
     if (table.search() !== '') {
       table.search('').draw()

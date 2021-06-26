@@ -436,7 +436,7 @@ $(document).ready(() => {
   })
 
   //= ====================
-  // Add cards media quiery class to table ID, as well as row border
+  // Add cards media query class to table ID, as well as row border
   // ====================
   /*
     function myFunction() {
