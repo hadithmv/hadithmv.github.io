@@ -582,4 +582,13 @@ $(document).ready(() => {
   $(document).ready(function () {
     $('#Footer').removeClass('hidden')
   })
+
+  // adds doublcick select go to page search was on, with rowshowjs
+  $('tbody').on('dblclick', 'tr', function () {
+    if (table.search() !== '') {
+      table.search('').draw()
+    }
+    table.row(this).show().select().draw(false)
+  })
+  //
 }) // ==================== END OF $(document).ready( function () {
