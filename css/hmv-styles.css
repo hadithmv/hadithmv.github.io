@@ -319,7 +319,8 @@ div.dataTables_wrapper {
 /* gives space around table wrapper in desktop view, and then centers */
 .dataTables_wrapper.no-footer {
   max-width: 1080px;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 
   /* padding-right: 5% !important;
         padding-left: 5% !important; */
