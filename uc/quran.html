@@ -73,18 +73,18 @@
       }
 
       /* === --- === --- ====
-         CUSTOM COLUMN CLASSES
-         for quran
-         === --- === --- ==== */
+               CUSTOM COLUMN CLASSES
+               for quran
+               === --- === --- ==== */
 
       /* removes justify from ar dv (titles and refs) + rs.
-justify doesnt look good on short cells like surukhi, masdars.
-so right align to prevent gaps in text 
-.dataTable tr td.qCol1,
-.dataTable tr td.qCol2,
-.dataTable tr td.qCol9 {
-  text-align: right;
-} */
+      justify doesnt look good on short cells like surukhi, masdars.
+      so right align to prevent gaps in text
+      .dataTable tr td.qCol1,
+      .dataTable tr td.qCol2,
+      .dataTable tr td.qCol9 {
+        text-align: right;
+      } */
 
       /* mobile only row centering, for rows with strings that are not long */
 
@@ -110,9 +110,9 @@ so right align to prevent gaps in text
 
       /* tbody tr td.fnCol1, */
 
+      .dataTable tr td.qCol2,
       .dataTable tr td.qCol3,
-      .dataTable tr td.qCol4,
-      .dataTable tr td.qCol6 {
+      .dataTable tr td.qCol4 {
         font-family: "arFont", "dvFont", sans-serif;
         font-size: 21px;
         line-height: 1.7;
@@ -124,28 +124,24 @@ so right align to prevent gaps in text
 
       /* .dataTable tr td.fnCol1, need this bigger */
 
-      .dataTable tr td.qCol5,
-      .dataTable tr td.qCol8,
-      .dataTable tr td.qCol9 
-/*,
-.dataTable tr td.qCol6 */ {
+      .dataTable tr td.qCol5 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 17px;
-        line-height: 1.9;
+        line-height: 2.5;
       }
 
-      /* columns with ar numbers 
-  .dataTable tr td.qCol2 {
-    font-family: "arFont", "dvFont", sans-serif;
-    font-size: 21px;
-  } */
+      /* columns with ar numbers
+        .dataTable tr td.qCol2 {
+          font-family: "arFont", "dvFont", sans-serif;
+          font-size: 21px;
+        } */
 
       /* css for first column
-  # number column cuz it has hashtag and digits
-  .dataTable tr td.qCol1 {
-    font-family: "dvFont", "arFont", sans-serif;
-    font-size: 21px;
-  } */
+        # number column cuz it has hashtag and digits
+        .dataTable tr td.qCol1 {
+          font-family: "dvFont", "arFont", sans-serif;
+          font-size: 21px;
+        } */
 
       /* quran only tafsir sa'di font and line height smaller */
 
@@ -162,19 +158,19 @@ so right align to prevent gaps in text
       }
 
       /* ===================
-    FOR Quran border frame and ayahbox 
-===================== */
+          FOR Quran border frame and ayahbox
+      ===================== */
 
       /* mobile only quran border frame svg */
 
       /* @media screen and (max-width: 900px) { */
 
       #quranTable>tbody>tr
-/*, table*/ {
+      /*, table*/ {
         /* font-family: hafs;
-    font-size: 20pt;
-    text-align: justify;
-      border-style: solid; */
+          font-size: 20pt;
+          text-align: justify;
+            border-style: solid; */
 
         /* for chromium */
 
@@ -251,16 +247,43 @@ so right align to prevent gaps in text
           box-shadow: inset 0 0 1px 2px #337ab7;
 
           /* inset: Changes the shadow from an outer shadow (outset) to an inner shadow
-next 4 numbers: offset-x | offset-y | blur-radius | spread-radius 
-last is color */
+      next 4 numbers: offset-x | offset-y | blur-radius | spread-radius
+      last is color */
 
           /* last px makes box thicker */
         }
       }
 
+      /* gives space to the left and right sides of words */
+      @media screen and (min-width: 900px) {
+        #quranTable > tbody > tr > td:not(:first-of-type) {
+          /* min-height: 200px !important; */
+          margin-left: 50px !important;
+          margin-right: 50px !important;
+        }
+
+        /* gives space to the top and bottom of cells */
+
+        #quranTable > tbody > tr > td.qCol1 {
+          margin-bottom: 5px !important;
+        }
+        #quranTable > tbody > tr > td.qCol5 {
+          margin-bottom: 35px !important;
+        }
+
+        /* gives even more space around table wrapper in desktop view, and then centers */
+        #quranTable > tbody > tr {
+          max-width: 700px;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 30px;
+          margin-bottom: 50px;
+        }
+      }
+
       /* ====================
-       DARK MODE
-======================= */
+             DARK MODE
+      ======================= */
 
       /* Chrome DevTools (Three dots > More tools > Rendering > Emulate CSS media feature prefers-color-scheme */
 
