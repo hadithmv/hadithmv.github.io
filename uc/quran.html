@@ -115,7 +115,7 @@
       .dataTable tr td.qCol4 {
         font-family: "arFont", "dvFont", sans-serif;
         font-size: 21px;
-        line-height: 1.7;
+        line-height: 2;
 
         /* font-size-adjust: 0.1; this breaks firefox font size */
       }
@@ -127,7 +127,11 @@
       .dataTable tr td.qCol5 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 17px;
-        line-height: 2.5;
+        line-height: 2.2;
+      }
+      @media screen and (max-width: 599px) {
+        .dataTable tr td.qCol5 {
+        }
       }
 
       /* columns with ar numbers
@@ -237,6 +241,15 @@
         margin-bottom: -15px;
       }
 
+      /* gives space to the top and bottom of cells */
+
+      #quranTable > tbody > tr > td.qCol1 {
+        margin-bottom: 5px !important;
+      }
+      #quranTable > tbody > tr > td.qCol5 {
+        margin-bottom: 35px !important;
+      }
+
       /* ===== quran ayahbox - END ===== */
 
       /* custom quran css for Keytable - Desktop only MQ */
@@ -254,14 +267,7 @@
         }
       }
 
-      /* gives space to the left and right sides of words */
       @media screen and (min-width: 900px) {
-        #quranTable > tbody > tr > td:not(:first-of-type) {
-          /* min-height: 200px !important; */
-          margin-left: 50px !important;
-          margin-right: 50px !important;
-        }
-
         /* gives space to the top and bottom of cells */
 
         #quranTable > tbody > tr > td.qCol1 {
@@ -278,6 +284,13 @@
           margin-right: auto;
           margin-top: 30px;
           margin-bottom: 50px;
+        }
+
+        /* gives space to the left and right sides of words */
+        #quranTable > tbody > tr > td:not(:first-of-type) {
+          /* min-height: 200px !important; */
+          margin-left: 50px !important;
+          margin-right: 50px !important;
         }
       }
 
