@@ -24,7 +24,7 @@ $(document).ready(() => {
       keys: { clipboardOrthogonal: 'export' }, // strip htmltags off keys copy
       language: {
         paginate: {
-        // &nbsp; prevents line breaks
+          // &nbsp; prevents line breaks
           first: '<<&nbsp;ފުރަތަމަ',
           previous: '<&nbsp;ފަހަތަށް',
           next: 'ކުރިއަށް&nbsp;>',
@@ -47,7 +47,7 @@ $(document).ready(() => {
       // ], // display range of pages
       language: {
         paginate: {
-        // &nbsp; prevents line breaks
+          // &nbsp; prevents line breaks
           first: '<<',
           previous: '<',
           next: '>',
@@ -59,92 +59,60 @@ $(document).ready(() => {
     })
   } //= =================== end if else
 
-  const table = $('#quranTable').DataTable({
-    // var table = $("#fortyNawawi").DataTable({
+  const table = $('#allHTable').DataTable({
+    // var table = $("#allHadith").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: quran_dataSet, // https://datatables.net/manual/ajax
+    data: allHadith_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
       {
         data: 0,
-        title: 'ސޫރަތް'
+        title: 'ފޮތް'
       },
       {
         data: 1,
-        title: 'އާޔަތް'
+        title: '#'
       },
-      { /* add brackets to quran */
+      {
         data: 2,
-        title: 'ޤުރްއާން',
-        render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
-          /* reverse ayah numbers because font wont display them properly otherwise,
-          this control solution is better than replace reverse, because it carries on to clipboard
-          https://stackoverflow.com/questions/2939766/regex-to-reverse-order-of-list
-          https://www.fileformat.info/info/unicode/char/202e/index.htm */
-          // data = data.replace(/([\u0660-\u0669]+)([\u0660-\u0669]+)([\u0660-\u0669]+)/, '$3$2$1')
-          data = data.replace(/([\u0660-\u0669]+)/, '\u202E$1')
-          /* reverse brackets because thats how the font file needs it */
-          data = '﴿' + data + '﴾'
-          /* move the bracket in surah start basmalas to the actual first ayah */
-          return data.replace('﴿بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n<br><br>\n', 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n<br><br>\n﴿')
-        }
+        title: 'ޢަރަބި ޙަދީޘް'
       },
       // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 3,
-        title: 'ޤުރްއާން ފިލިނުޖަހައި'
-        /* render: function (data, type, row) {
+        data: 2,
+        title: 'ޢަރަބި ފިލިނުޖަހައި',
+        render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ|ۡ|ٰ/g, '').replace(/ٱ/g, 'ا')
-        } */
+          return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ/g, '')
+        }
       },
       {
-        data: 4,
+        data: 3,
         title: 'ދިވެހި ތަރުޖަމާ'
       },
-      { /* add tafsir asa'di in arabic */
-        data: 5,
-        title: 'تفسير السعدي*',
+      { /* add brackets string to hukum */
+        data: 4,
+        title: 'ހުކުމް',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return '[تفسير السعدي:] ' + data
-        }
-      },
-      { /* add tafsir asa'di in dhivehi */
-        data: 6,
-        title: 'ތަފްސީރު އައްސަޢްދީ*',
-        render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
-          return '[ތަފްސީރު އައްސަޢްދީ:] ' + data
-        }
-      }
-      /* {
-        data: 7,
-        title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
-        render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
-          return '[ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ:] ' + data
+          data = '[' + data + ']'
+          return data.replace('[]', '')
         }
       },
       {
-        data: 8,
-        title: 'ބަކުރުބެގެ އިޖްމާލީ މާނަ*',
-        render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
-          return '[ބަކުރުބެގެ އިޖްމާލީ މާނަ:] ' + data
-        }
-      } */
+        data: 5,
+        title: 'ތަޚްރީޖު'
+      }
+      // add takhrij and stuff later {
+      //   data: 3,
+      //   title: 'ތަޚްރީޖު'
+      // }
     ],
 
     columnDefs: [
@@ -152,26 +120,17 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'qCol1', // surah
+        className: 'ahCol1', // book
         targets: [0],
         visible: true,
-        searchable: false,
+        searchable: true,
         searchPanes: {
           show: true
         }
       },
       {
-        className: 'qCol2', // ayah
+        className: 'ahCol2', // #
         targets: [1],
-        visible: false,
-        searchable: true,
-        searchPanes: {
-          show: false
-        }
-      },
-      {
-        className: 'qCol3', // quran
-        targets: [2],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -179,7 +138,13 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol4', // quran plain
+        className: 'ahCol3', // Ar Text
+        targets: [2],
+        visible: true,
+        searchable: false
+      },
+      {
+        className: 'ahCol4', // Ar Text Plain
         targets: [3],
         visible: false,
         searchable: true,
@@ -188,7 +153,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol5', // dv tarjama
+        className: 'ahCol5', // Dv Text
         targets: [4],
         visible: true,
         searchable: true,
@@ -197,16 +162,16 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol6', // tafsir sadi ar
+        className: 'ahCol6', // hukum
         targets: [5],
-        visible: false,
+        visible: true,
         searchable: false,
         searchPanes: {
           show: false
         }
       },
       {
-        className: 'qCol7', // tafsir sadi dv
+        className: 'ahCol7', // takhrij
         targets: [6],
         visible: false,
         searchable: false,
@@ -214,24 +179,6 @@ $(document).ready(() => {
           show: false
         }
       },
-      /* {
-        className: 'qCol8', // bakurube lafzi
-        targets: [7],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false
-        }
-      },
-      {
-        className: 'qCol9', // bakurube ijmali
-        targets: [8],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false
-        }
-      }, */
 
       // below strips html tags off keystable copy, second part with keys on
       {
@@ -249,7 +196,7 @@ $(document).ready(() => {
     ], // end of columnDefs, previously without visible and searchable options.
 
     //= ====================
-    //  DT CUSTOM SETTINGS
+    // DT CUSTOM SETTINGS
     // ====================
 
     // Automatic column width calculation. Default: true
@@ -356,12 +303,12 @@ $(document).ready(() => {
       buttons: {
         copyTitle: 'ކޮޕީ',
         copySuccess: {
-          1: 'ކޮޕީ ވީ 1 އާޔަތް',
-          _: 'ކޮޕީ ވީ %d އާޔަތް'
+          1: 'ކޮޕީ ވީ 1 ޙަދީޘް',
+          _: 'ކޮޕީ ވީ %d ޙަދީޘް'
         }
       },
 
-      info: '_TOTAL_ އާޔަތުގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް',
+      info: '_TOTAL_ ޙަދީޘްގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް',
       infoFiltered: '(ޖުމްލަ ބެލެވުނީ _MAX_)',
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
@@ -411,6 +358,7 @@ $(document).ready(() => {
     // $.extend(true, $.fn.dataTable.defaults, { ABOVE
 
     buttons: [
+
       // datatables.net/extensions/buttons/examples/initialisation/multiple
       // used to use a container before, now 2 buttons
       // { text: "Button 2", action: function ( e, dt, node, conf )
@@ -419,7 +367,7 @@ $(document).ready(() => {
         extend: 'copy',
         key: { key: 'c', shiftKey: true },
         text: 'ކޮޕީ',
-        messageTop: 'ޙަދީޘްއެމްވީ - ކީރިތި ގުރްއާން', // CHANGE123 clipboard message
+        messageTop: 'ޙަދީޘްއެމްވީ', // CHANGE123 clipboard message
         title: '' /* title: "hadithmv.com", */,
 
         //= ====================
@@ -436,79 +384,20 @@ $(document).ready(() => {
           // fixes multiple row's lack of line break on desktop
           //     data = data.replace( /\t\r\n/g, "\n\n\n" );
 
-          //  \t = literal tab
-          //  \n = LF (Line Feed) → Used as a new line character in Unix/Mac OS X
-          //  \r\n = CR + LF → Used as a new line character in Windows
-
-          // data = data.replace(/r\n]/g, '') // needed to make rnr work
-          // data = data.replace(/\r\n|\n|\t/gm, '')
-
-          // data = data.replace(/\r\n\r\n/g, ' ') //  ONLY FOR 40N, because it has an inserted title
-          // data = data.replace(/\n\n/g, ' ') //  ONLY FOR 40N, because it has an inserted title, the two lines below arent needed for 40n i think
-
           data = data.replace(/\r\n/g, '\t') //  prevents first header showing up unneeded (windows)
           data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
 
-          data = data.replace(/ސޫރަތް\t/g, '') // should be this way instead of /\tފޮތް/
-          data = data.replace(/އާޔަތް\t/g, '')
-          data = data.replace(/ޤުރްއާން\t/g, '')
-          data = data.replace(/ޤުރްއާން ފިލިނުޖަހައި\t/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
-          data = data.replace(/تفسير السعدي*\t/g, '')
-          data = data.replace(/ތަފްސީރު އައްސަޢްދީ*\t/g, '')
-          data = data.replace(/ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*\t/g, '')
-          data = data.replace(/ބަކުރުބެގެ އިޖްމާލީ މާނަ*\t/g, '')
-
-          data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
-          data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
-          data = data.replace(/\s\s/g, '\n\n') // turns two spaces into new lines, for multi line text
-
-          /*
-          data = data.replace(/\n\n/g, '\t') // prevents # showing up unneeded (linux)
-          data = data.replace(/\r\n\r\n/g, '\t') //  prevents # showing up unneeded (windows)
-
-          data = data.replace(/\t#/g, '')
-          data = data.replace(/\tޢަރަބި ސުރުޚީ/g, '')
-          data = data.replace(/\tދިވެހި ސުރުޚީ/g, '')
-          data = data.replace(/\tޢަރަބި ޙަދީޘް/g, '')
-          data = data.replace(/\tޢަރަބި ފިލިނުޖަހައި/g, '')
-          data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
-          data = data.replace(/\tތަޚްރީޖު/g, '')
-          data = data.replace(/\tތަޚްރީޖު ދިވެހިން/g, '')
-          data = data.replace(/\tރިޔާޟުއްޞާލިޙީނުން/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
-          // data = data.replace(/\tތަޚްރީޖު\t/g, '')
-          /*
-          data = data.replace(/#\t/g, '')
-          data = data.replace(/ޢަރަބި ސުރުޚީ\t/g, '')
-          data = data.replace(/ދިވެހި ސުރުޚީ\t/g, '')
+          data = data.replace(/ފޮތް\t/g, '') // should be this way instead of /\tފޮތް/
+          data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/ޢަރަބި ޙަދީޘް\t/g, '')
           data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/ތަޚްރީޖު\t/g, '')
-          data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
-          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
+          data = data.replace(/ހުކުމް\t/g, '')
 
-          //          data = data.replace(/\n\n/g, '')
-          //         data = data.replace(/\r\n\r\n/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
-          /*
-          data = data.replace(/#\n/g, '')
-          data = data.replace(/ޢަރަބި ސުރުޚީ\n/g, '')
-          data = data.replace(/ދިވެހި ސުރުޚީ\n/g, '')
-          data = data.replace(/ޢަރަބި ޙަދީޘް\n/g, '')
-          data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\n/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\n/g, '')
-          data = data.replace(/ތަޚްރީޖު\n/g, '')
-          data = data.replace(/ތަޚްރީޖު ދިވެހިން\n/g, '')
-          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\n/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
+          data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
+          data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
+          data = data.replace(/\s\s/g, '\n\n') // turns two spaces into new lines, for multi line text
 
           /* data = data.replace( /hadithmv.com\n/g, "hadithmv.com\n\n" );
            //adds new line on android */
@@ -516,7 +405,7 @@ $(document).ready(() => {
                data = data.replace( /\r/g, "" ); //rids windows platform newline
                data = data.replace( /\t/g, "\n\n" ); */
 
-          //  console.log(JSON.stringify(data)) // json stringify to console
+          // console.log(JSON.stringify(data)) // json stringify to console
 
           return data
         },
@@ -653,10 +542,7 @@ $(document).ready(() => {
 */
   if (window.matchMedia('(min-width: 900px)').matches) {
     // js media query on desktop
-    /* previously $('fnClass').addClass('row-border')
-    $('fnClass').addClass('cards') */
-    // CUT FOR QURAN $('.dataTable').addClass('row-border') // adds rowborder class
-    $('.dataTable').addClass('cards') // ADDED FOR QURAN
+    $('.dataTable').addClass('row-border') // adds rowborder class
   } else {
     // js media query on mobile, tablet
     $('.dataTable').addClass('cards')
