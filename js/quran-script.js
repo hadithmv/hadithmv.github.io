@@ -155,7 +155,7 @@ $(document).ready(() => {
         className: 'qCol1', // surah
         targets: [0],
         visible: true,
-        searchable: false,
+        searchable: true,
         searchPanes: {
           show: true
         }
