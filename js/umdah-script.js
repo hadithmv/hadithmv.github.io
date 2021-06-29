@@ -149,13 +149,19 @@ $(document).ready(() => {
         className: 'uhCol4', // Baab
         targets: [3],
         visible: true,
-        searchable: true
+        searchable: true,
+        searchPanes: {
+          show: true
+        }
       },
       {
         className: 'uhCol5', // Baab Dv
         targets: [4],
         visible: false,
-        searchable: false
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
       },
       {
         className: 'uhCol6', // Ar Text
