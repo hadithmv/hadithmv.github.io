@@ -8,3 +8,9 @@ Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\notes\minimal-mod
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\notes\third-party-libs-and-tools.txt -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\notes\third-party-libs-and-tools.txt
 
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\notes\third-party-libs-and-tools.txt -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\notes\third-party-libs-and-tools.txt
+
+
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\LICENSE.txt -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\LICENSE.txt.txt
+
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\LICENSE.txt -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\LICENSE.txt
+
