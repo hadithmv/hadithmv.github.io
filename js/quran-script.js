@@ -462,6 +462,7 @@ $(document).ready(() => {
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
           data = data.replace(/\s\s/g, '\n\n') // turns two spaces into new lines, for multi line text
+          data = data.replace(/\n\n\n\n/g, '\n\n') // turns 4 new lines spaces into 2
 
           /*
           data = data.replace(/\n\n/g, '\t') // prevents # showing up unneeded (linux)
@@ -651,16 +652,16 @@ $(document).ready(() => {
         element.classList.add("cards");
       }
 */
-  //if (window.matchMedia('(min-width: 900px)').matches) {
-    // js media query on desktop
-    /* previously $('fnClass').addClass('row-border')
+  // if (window.matchMedia('(min-width: 900px)').matches) {
+  // js media query on desktop
+  /* previously $('fnClass').addClass('row-border')
     $('fnClass').addClass('cards') */
-    // CUT FOR QURAN $('.dataTable').addClass('row-border') // adds rowborder class
-    //$('.dataTable').addClass('cards') // ADDED FOR QURAN
-  //} else {
-    // js media query on mobile, tablet
-    //$('.dataTable').addClass('cards')
-  //} // end if else
+  // CUT FOR QURAN $('.dataTable').addClass('row-border') // adds rowborder class
+  // $('.dataTable').addClass('cards') // ADDED FOR QURAN
+  // } else {
+  // js media query on mobile, tablet
+  // $('.dataTable').addClass('cards')
+  // } // end if else
   //= =================== Add cards class to table ID - END
 
   // changes <input class="paginate_input" type="text"> type to search type,
