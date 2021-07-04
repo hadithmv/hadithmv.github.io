@@ -379,7 +379,7 @@ CUSTOM EDITS
 }
 
 /* adds padding, space before first nav open menu item */
-.mm-spn ul:nth-child(1) {
+.mm-spn.mm-spn--navbar ul {
   padding-top: 10px;
 }
 
