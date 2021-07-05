@@ -15,13 +15,9 @@ Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\eegaal.html
 
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\index.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\books\index.html
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\otherHadith.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\books\otherHadith.html
-
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\quran.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\books\quran.html
 
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\radheef.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\books\radheef.html
-
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\sahihain.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\books\sahihain.html
 
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\books\umdah.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\books\umdah.html
 

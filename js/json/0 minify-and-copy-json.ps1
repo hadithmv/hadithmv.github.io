@@ -3,10 +3,8 @@
 uglifyjs nawawi.js -c -m -o nawawi.js
 uglifyjs barbahari.js -c -m -o barbahari.js
 uglifyjs eegaal.js -c -m -o eegaal.js
-uglifyjs otherHadith.js -c -m -o otherHadith.js
 uglifyjs quran.js -c -m -o quran.js
 uglifyjs radheef.js -c -m -o radheef.js
-uglifyjs sahihain.js -c -m -o sahihain.js
 uglifyjs umdah.js -c -m -o umdah.js
 uglifyjs bulugh.js -c -m -o bulugh.js
 uglifyjs allHadith.js -c -m -o allHadith.js
@@ -21,14 +19,8 @@ Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\barbahari
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\nawawi.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\json\nawawi.js
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\nawawi.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\json\nawawi.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\otherHadith.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\json\otherHadith.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\otherHadith.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\json\otherHadith.js
-
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\quran.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\json\quran.js
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\quran.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\json\quran.js
-
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\sahihain.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\json\sahihain.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\sahihain.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\json\sahihain.js
 
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\umdah.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\json\umdah.js
 Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\umdah.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\json\umdah.js
