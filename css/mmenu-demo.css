@@ -128,18 +128,16 @@ a:hover {
 
   /* padding: 50px 10px 10px 10px; */
 
-  /* first is space below navbar */
-  padding-top: 45px;
+  /* first is space below navbar, this leaves room before clicking search, margin room */
+  padding-top: 57px;
   padding-left: 2px;
   padding-right: 2px;
 }
 
-/* desktop mq - adds a little more padding to top of content above */
-@media screen and (min-width: 900px) {
+/* phone only mq - adds a little more padding to top of content above */
+@media (max-width: 599px) {
   .content {
-    /* padding: 150px 50px 50px 50px; */
-
-    padding-top: 55px;
+    padding-top: 50px;
   }
 }
 
