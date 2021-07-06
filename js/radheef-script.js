@@ -291,7 +291,7 @@ $(document).ready(() => {
         /* i18n: {
           emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
         } */
-      }s
+      }
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
 
@@ -570,6 +570,14 @@ $(document).ready(() => {
       table.search('').draw()
     }
     table.row(this).show().select().draw(false)
+  })
+
+  // removes diacritics on key up
+  $('.dataTables_filter input').off().on('keyup', function () {
+    let str = $(this).val()
+    str = str.replace(/ّ/g, '')
+    str = str.replace(/[ًٌٍَُِْ]/g, '')
+    table.search(str).draw()
   })
   //
 }) // ==================== END OF $(document).ready( function () {
