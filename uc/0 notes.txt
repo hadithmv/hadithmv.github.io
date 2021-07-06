@@ -127,7 +127,8 @@ if (window.matchMedia('(min-width: 900px)').matches) {
     // js media query on desktop
     /* previously $('fnClass').addClass('row-border')
     $('fnClass').addClass('cards') */
-    // CUT FOR QURAN $('.dataTable').addClass('row-border') // adds rowborder class
+    // CUT FOR QURAN $('.dataTable').addClass('row-border'), // adds rowborder class
+    $('div.dataTables_filter input', table.table().container()).focus() // autofocus search input on page load
     $('.dataTable').addClass('cards') // ADDED FOR QURAN
   } else {
     // js media query on mobile, tablet

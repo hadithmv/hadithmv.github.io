@@ -535,7 +535,8 @@ $(document).ready(() => {
     // js media query on desktop
     /* previously $('fnClass').addClass('row-border')
     $('fnClass').addClass('cards') */
-    $('.dataTable').addClass('row-border') // adds rowborder class
+    $('.dataTable').addClass('row-border'), // adds rowborder class
+    $('div.dataTables_filter input', table.table().container()).focus() // autofocus search input on page load
   } else {
     // js media query on mobile, tablet
     $('.dataTable').addClass('cards')
