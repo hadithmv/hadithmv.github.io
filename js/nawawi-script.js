@@ -92,7 +92,7 @@ $(document).ready(() => {
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ/g, '')
+          return data.replace(/[ًٌٍَُِّْ]/g, '')
         }
       },
       {
@@ -655,8 +655,7 @@ $(document).ready(() => {
   // removes diacritics on key up
   $('.dataTables_filter input').off().on('keyup', function () {
     let str = $(this).val()
-    str = str.replace(/ّ/g, '')
-    str = str.replace(/[ًٌٍَُِْ]/g, '')
+    str = str.replace(/[ًٌٍَُِّْ]/g, '')
     table.search(str).draw()
   })
   //
