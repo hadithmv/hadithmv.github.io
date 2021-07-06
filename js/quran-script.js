@@ -652,16 +652,17 @@ $(document).ready(() => {
         element.classList.add("cards");
       }
 */
-  // if (window.matchMedia('(min-width: 900px)').matches) {
+  if (window.matchMedia('(min-width: 900px)').matches) {
   // js media query on desktop
   /* previously $('fnClass').addClass('row-border')
     $('fnClass').addClass('cards') */
-  // CUT FOR QURAN $('.dataTable').addClass('row-border') // adds rowborder class
+  // CUT FOR QURAN $('.dataTable').addClass('row-border'), // adds rowborder class
+    $('div.dataTables_filter input', table.table().container()).focus() // autofocus search input on page load
   // $('.dataTable').addClass('cards') // ADDED FOR QURAN
   // } else {
   // js media query on mobile, tablet
   // $('.dataTable').addClass('cards')
-  // } // end if else
+  } // end if else
   //= =================== Add cards class to table ID - END
 
   // changes <input class="paginate_input" type="text"> type to search type,
