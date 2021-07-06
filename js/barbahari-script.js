@@ -509,7 +509,8 @@ $(document).ready(() => {
     // js media query on desktop
     /* previously $('fnClass').addClass('row-border')
     $('fnClass').addClass('cards') */
-    $('.dataTable').addClass('row-border') // adds rowborder class
+    $('.dataTable').addClass('row-border'), // adds rowborder class
+    $('div.dataTables_filter input', table.table().container()).focus() // autofocus search input on page load
   } else {
     // js media query on mobile, tablet
     $('.dataTable').addClass('cards')
@@ -534,14 +535,6 @@ $(document).ready(() => {
       table.search('').draw()
     }
     table.row(this).show().select().draw(false)
-  })
-
-  // removes diacritics on key up
-  $('.dataTables_filter input').off().on('keyup', function () {
-    let str = $(this).val()
-    str = str.replace(/ّ/g, '')
-    str = str.replace(/[ًٌٍَُِْ]/g, '')
-    table.search(str).draw()
   })
   //
 }) // ==================== END OF $(document).ready( function () {
