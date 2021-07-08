@@ -59,7 +59,7 @@ $(document).ready(() => {
     })
   } //= =================== end if else
 
-  const table = $('#allHTable').DataTable({
+  const table = $('#allHadithTable').DataTable({
     // var table = $("#allHadith").DataTable({
     // NOT DataTable();
 
