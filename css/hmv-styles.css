@@ -1175,6 +1175,7 @@ table.dataTable.stripe tbody tr.odd.selected {
 div.dt-button-collection {
   /* fits searchpanes as well as buttom collection as much as content */
   width: fit-content !important;
+  width: -moz-fit-content !important; /* otherwise doesnt center on firefox */
 
   /* centers */
   margin: auto !important;
