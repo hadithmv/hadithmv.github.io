@@ -1201,10 +1201,10 @@ input.dtsp-search::placeholder {
   text-indent: 15px;
 }
 
-.dtsp-paneInputButton,
-.dtsp-search {
-  /* puts some space between input and pane below */
-  margin-bottom: 10px !important;
+.dtsp-topRow {
+  /* puts some space above and below search box of pane */
+  margin-top: 6px !important;
+  margin-bottom: 8px !important;
 }
 
 div.dtsp-panesContainer button.dtsp-clearAll:hover:not([disabled]) {

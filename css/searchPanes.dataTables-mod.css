@@ -139,6 +139,8 @@ div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollHead {
 }
 div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
   /* background: white !important; */
+
+  /* changes white to transparent */
   border-bottom: none;
 }
 div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody thead {
