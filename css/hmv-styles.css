@@ -1243,11 +1243,6 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
     color: #000;
   }
 
-  /* removes white scroll area */
-  div.dtsp-panesContainer div.dataTables_wrapper div.dataTables_scrollBody {
-    background-color: transparent !important;
-  }
-
   .dtsp-paneInputButton,
   .dtsp-search {
     /* changes background color to something lighter than main body */
