@@ -202,7 +202,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 
 <p class="en mid tellUs" align="center">
 If you find a mistake or want to join this translation platform, please
-<a href="https://telegram.me/yahyasdadmv">contact us</a>&nbsp; |&nbsp; back to the
+<a href="https://t.me/yahyasdadmv">contact us</a>&nbsp; |&nbsp; back to the
 <a href="https://hadithmv.github.io">main site</a>
 
 <br />
