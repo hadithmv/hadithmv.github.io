@@ -200,10 +200,28 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 <hr />
 <br />
 
-<p class="en mid tellUs" align="center">
-If you find a mistake or want to join this translation platform, please
-<a href="https://t.me/yahyasdadmv">contact us</a>&nbsp; |&nbsp; back to the
-<a href="https://hadithmv.github.io">main site</a>
-
+<div class="en mid tellUs" align="center">
+<p>If you find a mistake, or want to join this translation platform, or want to provide assistance this project, please
+<a href="https://t.me/yahyasdadmv">let us know</a>.</p>
+  <p>
+    Follow us: <a href="http://fb.me/hadithmvOfficial">Facebook</a> |
+    <a href="https://rebrand.ly/hmvViber">Viber</a> |
+    <a href="http://t.me/hadithmv">Telegram</a> |
+    <a href="https://instagram.com/hadithmv">Instagram</a> |
+    <a href="https://twitter.com/hadithmv">Twitter</a>
+  </p>
+  <p>
+    Contact: <a href="http://m.me/hadithmvOfficial">Messenger</a> |
+    <a href="tel:+9607727960">Viber</a> |
+    <a href="http://t.me/hadithmvAdmin">Telegram</a> |
+    <a href="http://wa.me/message/IVXJAT4EBQ35C1">WhatsApp</a> |
+    <a href="mailto:yahyasdadmv@gmail.com">Email</a>
+  </p>
+  <p>
+    - Back to the
+    <b><a href="https://hadithmv.github.io">Main Site</a></b> -
+  </p>
+</div>
 <br />
+
 </div>
