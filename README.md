@@ -212,7 +212,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
   </p>
   <p>
     Contact: <a href="http://m.me/hadithmvOfficial">Messenger</a> |
-    <a href="tel:+9607727960">Viber</a> |
+    <a href="http://+9607727960">Viber</a> |
     <a href="http://t.me/hadithmvAdmin">Telegram</a> |
     <a href="http://wa.me/message/IVXJAT4EBQ35C1">WhatsApp</a> |
     <a href="mailto:yahyasdadmv@gmail.com">Email</a>
