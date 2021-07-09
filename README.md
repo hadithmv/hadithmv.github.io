@@ -201,7 +201,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 <br />
 
 <div class="en mid tellUs" align="center">
-<p>If you find a mistake, or want to join this translation platform, or want to provide assistance this project, please
+<p>If you find a mistake, or want to join this translation platform, or want to support this project, please
 <a href="https://t.me/yahyasdadmv">let us know</a>.</p>
   <p>
     Follow us: <a href="http://fb.me/hadithmvOfficial">Facebook</a> |
