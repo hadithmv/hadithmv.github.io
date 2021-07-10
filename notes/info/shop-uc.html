@@ -25,6 +25,7 @@
 </head>
 
 <style>
+  /* img */
   img {
     transition: transform 0.3s ease-in-out;
   }
@@ -33,7 +34,6 @@
     transform: scale(1.15);
     z-index: 9999;
     border: 3px solid #106bae;
-
   }
 </style>
 
@@ -42,7 +42,7 @@
     <div class="mid">
       <h1 class="ar">بِسمِ اللهِ الرَّحمَنِ الرَّحِيمِ</h1>
       <br />
-      <a href="https://hadithmv.github.io"><img class="hmv" alt="hadith mv"
+      <a href="https://hadithmv.github.io" class="noLine"><img class="hmv" alt="hadith mv"
           src="https://hadithmv.github.io/img/logo/NewLogo6.2--NoBack-Opt.svg" /></a>
 
       <br /><br />
@@ -1239,6 +1239,24 @@
         top: 50%;
         transform: translateY(-50%);
         -webkit-transform: translateY(-50%);
+
+        /* .w3-animate-top */
+        position: relative;
+        animation: animatetop 0.4s
+      }
+
+      @keyframes animatetop {
+        from {
+          top: -500px;
+          opacity: 0
+        }
+
+        to {
+          top: default;
+
+          /* changed from 0 */
+          opacity: 1
+        }
 
 
       }
