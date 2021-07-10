@@ -811,3 +811,30 @@ h3 {
     max-width: 45%;
   }
 }
+
+/* ====================
+       HOVER LINK UNDERLINE
+======================= */
+
+/*  http://jsfiddle.net/Markus_Steiger/wch6ara7/ */
+a {
+  /* font-size: 500%; */
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) bottom / 0 0.1em
+    no-repeat;
+  transition: 0.275s background-size;
+
+  /* 1s */
+
+  /* added space before line */
+  padding-bottom: 4px;
+}
+
+a:hover {
+  background-size: 100% 0.1em;
+}
+
+/* added remove to from things like img */
+.noLine {
+  background: none;
+}
