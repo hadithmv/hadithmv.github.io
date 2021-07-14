@@ -204,7 +204,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 <p>If you find a mistake, or want to join this translation platform, or want to support this project, please
 <a href="https://t.me/yahyasdadmv">let us know</a>.</p>
   <p>
-    Follow us: <a href="http://fb.me/hadithmvOfficial">Facebook</a> |
+    Subscribe: <a href="http://fb.me/hadithmvOfficial">Facebook</a> |
     <a href="https://rebrand.ly/hmvViber">Viber</a> |
     <a href="http://t.me/hadithmv">Telegram</a> |
     <a href="https://instagram.com/hadithmv">Instagram</a> |
@@ -217,6 +217,10 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
     <a href="http://wa.me/message/IVXJAT4EBQ35C1">WhatsApp</a> |
     <a href="http://yahyasdadmv@gmail.com">Email</a>
   </p>
+  <p>Get the hadithmv app:
+        <a href="https://hadithmv.github.io">Web</a> |
+        <a href="http://rebrand.ly/hmvAndroid">Android</a> | <a href="https://rebrand.ly/hmvWindows">Windows</a>
+      </p>
   <p>
     - Back to the
     <b><a href="https://hadithmv.github.io">Main Site</a></b> -
