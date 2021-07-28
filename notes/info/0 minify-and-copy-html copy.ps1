@@ -1,4 +1,4 @@
-Set-Location -Path $PSScriptRoot #C:/Users/ashraaf/Downloads/VScode/hadithmv.github.io/notes/info
+Set-Location -Path $PSScriptRoot #C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\notes\info
 
 kangax --collapse-boolean-attributes --collapse-whitespace --decode-entities --minify-css true --minify-js true --process-scripts [text/html] --remove-attribute-quotes --remove-comments --remove-empty-attributes --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-style-link-type-attributes --remove-tag-whitespace --sort-attributes --sort-class-name --trim-custom-fragments --use-short-doctype introHmv-uc.html -o introHmv.html
 
@@ -11,17 +11,17 @@ kangax --collapse-boolean-attributes --collapse-whitespace --decode-entities --m
 
 
 
-Copy-Item introHmv.html -Destination ../../app/webview-master/app/src/main/assets/notes/info/introHmv.html
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\notes\info\introHmv.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\notes\info\introHmv.html
 
-Copy-Item introFortyN.html -Destination ../../app/webview-master/app/src/main/assets/notes/info/introFortyN.html
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\notes\info\introFortyN.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\notes\info\introFortyN.html
 
-Copy-Item introUmdah.html -Destination ../../app/webview-master/app/src/main/assets/notes/info/introUmdah.html
-
-
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\notes\info\introUmdah.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\notes\info\introUmdah.html
 
 
-Copy-Item introHmv.html -Destination ../../win/hmv/notes/info/introHmv.html
 
-Copy-Item introFortyN.html -Destination ../../win/hmv/notes/info/introFortyN.html
 
-Copy-Item introUmdah.html -Destination ../../win/hmv/notes/info/introUmdah.html
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\notes\info\introHmv.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\notes\info\introHmv.html
+
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\notes\info\introFortyN.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\notes\info\introFortyN.html
+
+Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\notes\info\introUmdah.html -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\notes\info\introUmdah.html
