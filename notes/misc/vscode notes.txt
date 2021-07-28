@@ -7,7 +7,7 @@ http://www.notyourdadsit.com/blog/2018/4/3/cheatsheet-setup-github-on-visual-stu
 ====================
 COPYING REPO LOCALLY
 ====================
-If starting over offline, go to repository fodler > .git folder > config file.
+If starting over offline, go to repository folder > .git folder > config file.
 Edit that to update worktree = C:/...
 Remember to use forward slashes if copying explorer urls.
 
@@ -28,12 +28,15 @@ Font: Fira Code
 Icons: VSC Icons
 
 remember to format, validate, lint, minify, lighthouse, remove unused code, treeshaking:
+
+sudo npm install -g PACKAGENAME
+
 prettier, set as default in vscode; format on save
 htmlhint (alt: w2 tidy html5)
 stylelint
-prettier
 standardjs linter
-kangax, csso (csso-cli), cssnano, closure compiler 
+kangax, csso (csso-cli), cssnano, google-closure-compiler
+uglify-js
 unused-CSS, purifyCSS, unCSS-online
 ----------------------
 
