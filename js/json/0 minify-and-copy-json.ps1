@@ -1,3 +1,5 @@
+Set-Location -Path $PSScriptRoot
+
 #compress
 
 uglifyjs nawawi.js -c -m -o nawawi.js
@@ -13,23 +15,23 @@ uglifyjs allHadith.js -c -m -o allHadith.js
 
 # copy
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\barbahari.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\json\barbahari.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\barbahari.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\json\barbahari.js
+Copy-Item barbahari.js -Destination ../../app/webview-master/app/src/main/assets/js/json/barbahari.js
+Copy-Item barbahari.js -Destination ../../win/hmv/js/json/barbahari.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\nawawi.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\json\nawawi.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\nawawi.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\json\nawawi.js
+Copy-Item nawawi.js -Destination ../../app/webview-master/app/src/main/assets/js/json/nawawi.js
+Copy-Item nawawi.js -Destination ../../win/hmv/js/json/nawawi.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\quran.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\json\quran.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\quran.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\json\quran.js
+Copy-Item quran.js -Destination ../../app/webview-master/app/src/main/assets/js/json/quran.js
+Copy-Item quran.js -Destination ../../win/hmv/js/json/quran.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\umdah.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\json\umdah.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\umdah.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\json\umdah.js
+Copy-Item umdah.js -Destination ../../app/webview-master/app/src/main/assets/js/json/umdah.js
+Copy-Item umdah.js -Destination ../../win/hmv/js/json/umdah.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\radheef.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\json\radheef.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\radheef.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\json\radheef.js
+Copy-Item radheef.js -Destination ../../app/webview-master/app/src/main/assets/js/json/radheef.js
+Copy-Item radheef.js -Destination ../../win/hmv/js/json/radheef.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\eegaal.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\json\eegaal.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\eegaal.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\json\eegaal.js
+Copy-Item eegaal.js -Destination ../../app/webview-master/app/src/main/assets/js/json/eegaal.js
+Copy-Item eegaal.js -Destination ../../win/hmv/js/json/eegaal.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\allHadith.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\json\allHadith.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\allHadith.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\json\allHadith.js
+Copy-Item allHadith.js -Destination ../../app/webview-master/app/src/main/assets/js/json/allHadith.js
+Copy-Item allHadith.js -Destination ../../win/hmv/js/json/allHadith.js

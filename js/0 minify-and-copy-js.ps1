@@ -1,6 +1,6 @@
 # minify
 
-Set-Location -Path C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js
+Set-Location -Path $PSScriptRoot #C:/Users/ashraaf/Downloads/VScode/hadithmv.github.io/js
 
 google-closure-compiler --charset=UTF-8 --js=barbahari-script.js --js_output_file=barbahari-script.min.js
 
@@ -24,23 +24,23 @@ google-closure-compiler --charset=UTF-8 --js=allHadith-script.js --js_output_fil
 
 # copy minified files
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\barbahari-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\barbahari-script.min.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\barbahari-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\barbahari-script.min.js
+Copy-Item barbahari-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/barbahari-script.min.js
+Copy-Item barbahari-script.min.js -Destination ../win/hmv/js/barbahari-script.min.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\nawawi-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\nawawi-script.min.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\nawawi-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\nawawi-script.min.js
+Copy-Item nawawi-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/nawawi-script.min.js
+Copy-Item nawawi-script.min.js -Destination ../win/hmv/js/nawawi-script.min.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\quran-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\quran-script.min.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\quran-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\quran-script.min.js
+Copy-Item quran-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/quran-script.min.js
+Copy-Item quran-script.min.js -Destination ../win/hmv/js/quran-script.min.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\umdah-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\umdah-script.min.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\umdah-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\umdah-script.min.js
+Copy-Item umdah-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/umdah-script.min.js
+Copy-Item umdah-script.min.js -Destination ../win/hmv/js/umdah-script.min.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\radheef-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\radheef-script.min.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\radheef-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\radheef-script.min.js
+Copy-Item radheef-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/radheef-script.min.js
+Copy-Item radheef-script.min.js -Destination ../win/hmv/js/radheef-script.min.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\eegaal-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\eegaal-script.min.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\eegaal-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\eegaal-script.min.js
+Copy-Item eegaal-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/eegaal-script.min.js
+Copy-Item eegaal-script.min.js -Destination ../win/hmv/js/eegaal-script.min.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\allHadith-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\allHadith-script.min.js
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\allHadith-script.min.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\allHadith-script.min.js
+Copy-Item allHadith-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/allHadith-script.min.js
+Copy-Item allHadith-script.min.js -Destination ../win/hmv/js/allHadith-script.min.js
