@@ -1,9 +1,12 @@
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\resc\COMB-Crit.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\resc\COMB-Crit.js
-
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\resc\COMB-Crit.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\resc\COMB-Crit.js
+Set-Location -Path $PSScriptRoot
 
 
+Copy-Item COMB-Crit.js -Destination ../../app/webview-master/app/src/main/assets/js/resc/COMB-Crit.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\resc\COMB-nonCrit.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\app\webview-master\app\src\main\assets\js\resc\COMB-nonCrit.js
+Copy-Item COMB-Crit.js -Destination ../../win/hmv/js/resc/COMB-Crit.js
 
-Copy-Item C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\resc\COMB-nonCrit.js -Destination C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\win\hmv\js\resc\COMB-nonCrit.js
+
+
+Copy-Item COMB-nonCrit.js -Destination ../../app/webview-master/app/src/main/assets/js/resc/COMB-nonCrit.js
+
+Copy-Item COMB-nonCrit.js -Destination ../../win/hmv/js/resc/COMB-nonCrit.js
