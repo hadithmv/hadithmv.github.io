@@ -35,7 +35,7 @@ prettier, set as default in vscode; format on save
 htmlhint (alt: w2 tidy html5)
 stylelint
 standardjs linter
-kangax, csso (csso-cli), cssnano, google-closure-compiler
+html-minifier, csso (csso-cli), cssnano, google-closure-compiler
 uglify-js
 unused-CSS, purifyCSS, unCSS-online
 ----------------------
