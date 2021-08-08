@@ -20,6 +20,8 @@ google-closure-compiler --charset=UTF-8 --js=bulugh-script.js --js_output_file=b
 
 google-closure-compiler --charset=UTF-8 --js=allHadith-script.js --js_output_file=allHadith-script.min.js
 
+google-closure-compiler --charset=UTF-8 --js=hisnulMuslim-script.js --js_output_file=hisnulMuslim-script.min.js
+
 
 
 # copy minified files
@@ -44,3 +46,6 @@ Copy-Item eegaal-script.min.js -Destination ../win/hmv/js/eegaal-script.min.js
 
 Copy-Item allHadith-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/allHadith-script.min.js
 Copy-Item allHadith-script.min.js -Destination ../win/hmv/js/allHadith-script.min.js
+
+Copy-Item hisnulMuslim-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/hisnulMuslim-script.min.js
+Copy-Item hisnulMuslim-script.min.js -Destination ../win/hmv/js/hisnulMuslim-script.min.js

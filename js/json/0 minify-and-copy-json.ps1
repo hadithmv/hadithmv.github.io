@@ -35,3 +35,6 @@ Copy-Item eegaal.js -Destination ../../win/hmv/js/json/eegaal.js
 
 Copy-Item allHadith.js -Destination ../../app/webview-master/app/src/main/assets/js/json/allHadith.js
 Copy-Item allHadith.js -Destination ../../win/hmv/js/json/allHadith.js
+
+Copy-Item hisnulMuslim.js -Destination ../../app/webview-master/app/src/main/assets/js/json/hisnulMuslim.js
+Copy-Item hisnulMuslim.js -Destination ../../win/hmv/js/json/hisnulMuslim.js
