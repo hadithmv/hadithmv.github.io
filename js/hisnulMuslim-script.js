@@ -59,12 +59,12 @@ $(document).ready(() => {
     })
   } //= =================== end if else
 
-  const table = $('#nawawiTable').DataTable({
+  const table = $('#hisnulMuslimTable').DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: nawawi_dataSet, // https://datatables.net/manual/ajax
+    data: hisnulMuslim_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
       {
@@ -75,20 +75,32 @@ $(document).ready(() => {
         data: 1,
         title: 'ޢަރަބި ސުރުޚީ'
       },
+      // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
+      { /* instead of repeating this part of the array within the external json,
+         we can strip diacritics using regex within the table itself, this makes
+         the array file much smaller in the long run */
+        data: 1,
+        title: 'ސުރުޙީ ފިލިނުޖަހައި',
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '')
+          // below code is shorter, no replace repeat, uses OR instead
+          return data.replace(/[ًٌٍَُِّْ]/g, '')
+        }
+      },
       {
         data: 2,
         title: 'ދިވެހި ސުރުޚީ'
       },
       {
         data: 3,
-        title: 'ޢަރަބި ޙަދީޘް'
+        title: 'ޢަރަބި ޒިކުރު'
       },
       // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
         data: 3,
-        title: 'ޢަރަބި ފިލިނުޖަހައި',
+        title: 'ޒިކުރު ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
@@ -97,19 +109,19 @@ $(document).ready(() => {
       },
       {
         data: 4,
-        title: 'ދިވެހި ތަރުޖަމާ'
+        title: 'ޓްރާންސްލިޓަރޭޝަން'
       },
       {
         data: 5,
-        title: 'ތަޚްރީޖު'
+        title: 'ދިވެހި ތަރުޖަމާ'
       },
       {
         data: 6,
-        title: 'ތަޚްރީޖު ދިވެހިން'
+        title: 'ތަޚްރީޖު'
       },
       {
         data: 7,
-        title: 'ރިޔާޟުއްޞާލިޙީނުން'
+        title: 'ތަޚްރީޖު ދިވެހިން'
       }
     ],
 
@@ -118,7 +130,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'fnCol1', // #
+        className: 'hmCol1', // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -127,62 +139,53 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'fnCol2', // Ar Title
+        className: 'hmCol2', // Ar Title
         targets: [1],
         visible: true,
-        searchable: false,
+        searchable: true,
         searchPanes: {
           show: true
         }
       },
       {
-        className: 'fnCol3', // Dv Title
+        className: 'hmCol3', // Ar Title no fili
         targets: [2],
         visible: false,
-        searchable: false,
+        searchable: true,
         searchPanes: {
           show: false
         }
       },
       {
-        className: 'fnCol4', // Ar Text
+        className: 'hmCol4', // Dv Title
         targets: [3],
         visible: true,
         searchable: true,
         searchPanes: {
-          show: false
+          show: true
         }
       },
       {
-        className: 'fnCol5', // Ar Plain
+        className: 'hmCol5', // Ar Text
         targets: [4],
-        visible: false,
+        visible: true,
         searchable: true,
         searchPanes: {
           show: false
         }
       },
       {
-        className: 'fnCol6', // Dv Text
+        className: 'hmCol6', // Ar Plain
         targets: [5],
-        visible: true,
+        visible: false,
         searchable: true,
         searchPanes: {
           show: false
         }
       },
       {
-        className: 'fnCol7', // Ar Ref
+        className: 'hmCol7', // transliterate
         targets: [6],
-        visible: true,
-        searchable: false,
-        searchPanes: {
-          show: false
-        }
-      },
-      {
-        className: 'fnCol8', // Dv Ref
-        targets: [7],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -190,8 +193,26 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'fnCol9', // Rs Ref
+        className: 'hmCol8', // Dv Text
+        targets: [7],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'hmCol9', // Ar Ref
         targets: [8],
+        visible: true,
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'hmCol10', // Dv Ref
+        targets: [9],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -323,12 +344,12 @@ $(document).ready(() => {
       buttons: {
         copyTitle: 'ކޮޕީ',
         copySuccess: {
-          1: 'ކޮޕީ ވީ 1 ޙަދީޘް',
-          _: 'ކޮޕީ ވީ %d ޙަދީޘް'
+          1: 'ކޮޕީ ވީ 1 ޒިކުރު',
+          _: 'ކޮޕީ ވީ %d ޒިކުރު'
         }
       },
 
-      info: '_TOTAL_ ޙަދީޘްގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް',
+      info: '_TOTAL_ ޒިކުރުގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް',
       infoFiltered: '(ޖުމްލަ ބެލެވުނީ _MAX_)',
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
@@ -386,7 +407,7 @@ $(document).ready(() => {
         extend: 'copy',
         key: { key: 'c', shiftKey: true },
         text: 'ކޮޕީ',
-        messageTop: 'ޙަދީޘްއެމްވީ - ނަވަވީގެ 40 ޙަދީޘް', // CHANGE123 clipboard message
+        messageTop: 'ޙަދީޘްއެމްވީ - ހިޞްނުލް މުސްލިމު', // CHANGE123 clipboard message
         title: '' /* title: "hadithmv.com", */,
 
         //= ====================
@@ -418,13 +439,14 @@ $(document).ready(() => {
 
           data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/ޢަރަބި ސުރުޚީ\t/g, '')
+          data = data.replace(/ސުރުޙީ ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ސުރުޚީ\t/g, '')
-          data = data.replace(/ޢަރަބި ޙަދީޘް\t/g, '')
-          data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
+          data = data.replace(/ޢަރަބި ޒިކުރު\t/g, '')
+          data = data.replace(/ޒިކުރު ފިލިނުޖަހައި\t/g, '')
+          data = data.replace(/ޓްރާންސްލިޓަރޭޝަން\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/ތަޚްރީޖު\t/g, '')
           data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
-          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
