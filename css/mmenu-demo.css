@@ -70,7 +70,9 @@ a:hover {
   z-index: 999;
 
   /* added this shadow */
-  box-shadow: 0 2px 4px rgb(0 0 0 / 50%);
+  box-shadow: 0 1px 2.5px rgb(0 0 0 / 20%);
+
+  /* box-shadow: 0 2px 4px rgb(0 0 0 / 50%); */
 
   /* added font because navbar top text is unstyled 
   font-family: "dvFont", "arFont", sans-serif; */

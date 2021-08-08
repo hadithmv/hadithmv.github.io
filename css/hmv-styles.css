@@ -698,7 +698,9 @@ mark {
   border-radius: 5px;
 
   /* makes cards a little rounder, used to be 4 */
-  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+  box-shadow: 0 3px 10px 0 rgb(0 0 0 / 20%);
+
+  /* box-shadow: 0 10px 12px 0 rgba(0, 0, 0, 0.24); */
 
   /* box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25); old onesided card shadow */
 
@@ -706,6 +708,15 @@ mark {
 
   /* The box-shadow property takes values for offset-x (how far to push the shadow horizontally from the element),
    offset-y (how far to push the shadow vertically from the element), blur-radius, spread-radius and color, in that order. */
+}
+
+/* adds top border color on light scheme */
+
+@media (prefers-color-scheme: light) {
+  .cards tbody tr {
+    border-top: 4.5px solid #2f6f8c;
+    border-bottom: 4.5px solid #2f6f8c;
+  }
 }
 
 .cards tbody td {
