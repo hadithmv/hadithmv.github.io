@@ -135,7 +135,7 @@ $(document).ready(() => {
         visible: true,
         searchable: true,
         searchPanes: {
-          show: true
+          show: false
         }
       },
       {
@@ -204,7 +204,7 @@ $(document).ready(() => {
       {
         className: 'hmCol9', // Ar Ref
         targets: [8],
-        visible: true,
+        visible: false,
         searchable: false,
         searchPanes: {
           show: false
@@ -529,7 +529,7 @@ $(document).ready(() => {
         https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
         config: {
           orderable: false,
-          columns: [0, 1],
+          columns: [1, 3],
           cascadePanes: true,
           dtOpts: {
             select: {
