@@ -10,7 +10,7 @@ uglifyjs radheef.js -c -m -o radheef.js
 uglifyjs umdah.js -c -m -o umdah.js
 uglifyjs bulugh.js -c -m -o bulugh.js
 uglifyjs allHadith.js -c -m -o allHadith.js
-
+uglifyjs hisnulMuslim.js -c -m -o hisnulMuslim.js
 
 
 # copy
