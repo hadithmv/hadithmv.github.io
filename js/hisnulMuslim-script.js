@@ -144,7 +144,7 @@ $(document).ready(() => {
         visible: true,
         searchable: true,
         searchPanes: {
-          show: true
+          show: false
         }
       },
       {
@@ -153,7 +153,7 @@ $(document).ready(() => {
         visible: false,
         searchable: true,
         searchPanes: {
-          show: false
+          show: true
         }
       },
       {
@@ -529,7 +529,7 @@ $(document).ready(() => {
         https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
         config: {
           orderable: false,
-          columns: [1, 3],
+          columns: [2, 3],
           cascadePanes: true,
           dtOpts: {
             select: {
