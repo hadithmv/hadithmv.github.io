@@ -585,8 +585,18 @@ div.dt-button-info {
   border-radius: 5px;
 
   /* makes cards a little rounder, used to be 4 */
-  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+
+  box-shadow: 0 3px 10px 0 rgb(0 0 0 / 20%);
+
+  /* box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24); */
 }
+
+/* @media (prefers-color-scheme: light) {
+  #datatables_buttons_info {
+    border-top: 4.5px solid #2f6f8c;
+    border-bottom: 4.5px solid #2f6f8c;
+  }
+} */
 
 /* changes clipboard copied color, */
 
