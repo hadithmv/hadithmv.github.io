@@ -73,10 +73,14 @@ $(document).ready(() => {
       },
       {
         data: 1,
+        title: 'ޖުޒް'
+      },
+      {
+        data: 2,
         title: 'އާޔަތް'
       },
       { /* add brackets to quran */
-        data: 2,
+        data: 3,
         title: 'ޤުރްއާން',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -97,7 +101,7 @@ $(document).ready(() => {
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 3,
+        data: 4,
         title: 'ޤުރްއާން ފިލިނުޖަހައި'
         /* render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -106,11 +110,11 @@ $(document).ready(() => {
         } */
       },
       {
-        data: 4,
+        data: 5,
         title: 'ދިވެހި ތަރުޖަމާ'
       },
       { /* add tafsir asa'di in arabic */
-        data: 5,
+        data: 6,
         title: 'تفسير السعدي*',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -119,7 +123,7 @@ $(document).ready(() => {
         }
       },
       { /* add tafsir asa'di in dhivehi */
-        data: 6,
+        data: 7,
         title: 'ތަފްސީރު އައްސަޢްދީ*',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -161,26 +165,17 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol2', // ayah
+        className: 'qCol2', // juz
         targets: [1],
         visible: false,
         searchable: true,
         searchPanes: {
-          show: false
+          show: true
         }
       },
       {
-        className: 'qCol3', // quran
+        className: 'qCol3', // ayah
         targets: [2],
-        visible: true,
-        searchable: true,
-        searchPanes: {
-          show: false
-        }
-      },
-      {
-        className: 'qCol4', // quran plain
-        targets: [3],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -188,8 +183,8 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol5', // dv tarjama
-        targets: [4],
+        className: 'qCol4', // quran
+        targets: [3],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -197,8 +192,26 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol6', // tafsir sadi ar
+        className: 'qCol5', // quran plain
+        targets: [4],
+        visible: false,
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'qCol6', // dv tarjama
         targets: [5],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'qCol7', // tafsir sadi ar
+        targets: [6],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -206,8 +219,8 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol7', // tafsir sadi dv
-        targets: [6],
+        className: 'qCol8', // tafsir sadi dv
+        targets: [7],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -450,6 +463,7 @@ $(document).ready(() => {
           data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
 
           data = data.replace(/ސޫރަތް\t/g, '') // should be this way instead of /\tފޮތް/
+          data = data.replace(/ޖުޒް\t/g, '')
           data = data.replace(/އާޔަތް\t/g, '')
           data = data.replace(/ޤުރްއާން\t/g, '')
           data = data.replace(/ޤުރްއާން ފިލިނުޖަހައި\t/g, '')
@@ -540,7 +554,7 @@ $(document).ready(() => {
         https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
         config: {
           orderable: false,
-          columns: [0],
+          columns: [0,1],
           cascadePanes: true,
           dtOpts: {
             select: {
