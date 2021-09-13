@@ -59,6 +59,131 @@
     <!-- Critical CSS - END -->
 
     <style>
+      /* * */
+      .row,
+      .column,
+      .card {
+        box-sizing: border-box;
+      }
+
+      /* body {
+  font-family: Arial, Helvetica, sans-serif;
+} */
+
+      /* Remove extra left and right margins, due to padding */
+      .row {
+        /* margin: 0 -5px; */
+
+        /* add for rtl */
+        display: flex;
+        flex-direction: row-reverse;
+
+        /* wraps onto next line */
+        flex-wrap: wrap;
+
+        /* adds space above */
+        margin-top: 70px;
+
+        /* gives space around in desktop view, and then centers */
+        max-width: 1080px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Clear floats after the columns */
+
+      /* .row::after {
+  content: "";
+  display: table;
+  clear: both;
+} */
+
+      /* Float four columns side by side */
+      .column {
+        /* float: right; */
+
+        /* left */
+        padding: 0 10px;
+
+        /* add flex */
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: 21%;
+
+        /* add space below column */
+        margin-bottom: 20px;
+      }
+
+      /* Responsive columns */
+
+      /* @media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+} */
+
+      /* @mixin for-tablet-portrait or smaller */
+      @media screen and (max-width: 600px) {
+        .column {
+          /* width: 25%; */
+          display: block;
+          margin-bottom: 20px;
+
+          /* make it 2 cards on mobile */
+          flex-basis: 50%;
+        }
+      }
+
+      /* Style the counter cards */
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        padding: 16px;
+        text-align: center;
+        background-color: #f1f1f1;
+
+        /* add height to cards to fill up space */
+        height: 100%;
+
+        /* add font styles */
+        font-family: "dvFont", "arFont", sans-serif;
+        font-size: 17px;
+        line-height: 1.9;
+        color: #0e1621;
+        direction: rtl;
+
+        /* add borders */
+
+        border-style: solid;
+        border-width: 1px;
+        border-color: #dadce0;
+        border-radius: 5px;
+        box-shadow: 0 3px 10px 0 rgb(0 0 0 / 20%);
+        border-top: 4.5px solid #2f6f8c;
+        border-bottom: 4.5px solid #2f6f8c;
+
+        /* add ease in transition for hover */
+        transition: transform 0.3s ease-in-out;
+      }
+
+      /* add hover effect */
+      .card:hover {
+        transform: scale(1.15);
+        z-index: 9999;
+        border: 3px solid #106bae;
+        background-color: #f1f1f1;
+        color: #069;
+      }
+
+      .card p {
+        font-family: "arFont", "dvFont", sans-serif;
+        font-size: 23px;
+        line-height: 1.7;
+      }
+    </style>
+
+    <style>
       /* change123 html */
 
       /* === --- === --- ====
@@ -150,7 +275,9 @@
           loading="lazy"
           src="../img/logo/NewLogo6.2--NoBack-Opt.svg"
         />
-        <span class="navText">ޙަދީޘްއެމްވީ - ނަވަވީގެ 40 ޙަދީޘް</span>
+        <span class="navText"
+          >ޙަދީޘްއެމްވީ - ދިވެހިންގެ ޙަދީޘް ތަރުޖަމާ މަންސަ</span
+        >
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -357,76 +484,125 @@
       </div>
       <!-- <div class="header fixed" onclick="drawer.open();"> -->
 
-      <div class="content">
-        <main>
-          <!-- class="w3-animate-right" -->
-          <!-- --- TABLE --- -->
-          <!-- JEKYLL {{ content }} -->
-          <!-- cards js adds card classes to table ID -->
-          <!-- change123 TABLE -->
-          <table id="nawawiTable" class="stripe table">
-            <thead>
-              <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-          </table>
-          <!-- --- TABLE - END --- -->
-          <div class="hidden" id="Footer">
-            <p class="tellUs">
-              ކުށެއް
-              <a href="https://t.me/yahyasdadmv">ރަނގަޅުކުރުމަށް</a> | މި
-              ތަރުޖަމާ މަންސަގައި
-              <a href="https://t.me/yahyasdadmv">ބައިވެރިވުމަށް</a> | މި
-              މަޝްރޫއަށް <a href="https://t.me/yahyasdadmv">އެހީވެދިނުމަށް</a>
-            </p>
-            <p>
-              ނަވަވީގެ 40 ޙަދީޘްގެ
-              <a href="../notes/info/introFortyN.html">ތައާރަފު</a>
-              | މި ޙަދީޘްތައް އެއް
-              <a href="https://hadithmv.github.io/books/nawawi-Lite.html"
-                >ސަފުހާއެއްގައި</a
-              >
-              | މި ފޮތުގެ
-              <a href="https://hadithmv.github.io/shop">ހާރޑް ކޮޕީ</a>
-              | ޙައްސާން ޢަބްދުއްރައްޒާޤުގެ
-              <a href="https://40-nawawi.hassaanmv.com">ތަރުޖަމާ</a>
-            </p>
-            <p class="tellUs">
-              މީސްމީޑިއާގައި ތަބާވުމަށް:
-              <a href="http://fb.me/hadithmvOfficial">ފޭސްބުކް</a> |
-              <a href="https://rebrand.ly/hmvViber">ވައިބަރ</a> |
-              <a href="http://t.me/hadithmv">ޓެލެގްރާމް</a> |
-              <a href="https://instagram.com/hadithmv">އިންސްޓަރގްރާމް</a> |
-              <a href="https://twitter.com/hadithmv">ޓްވިޓަރ</a>
-            </p>
-            <p class="tellUs">
-              އަޅުގަނޑުމެންނާ ގުޅުއްވުމަށް:
-              <a href="http://m.me/hadithmvOfficial">މެސެންޖަރ</a> |
-              <a href="tel:+9607727960">ވައިބަރ</a> |
-              <a href="http://t.me/hadithmvAdmin">ޓެލެގްރާމް</a> |
-              <a href="http://wa.me/message/IVXJAT4EBQ35C1">ވަޓްސްއެޕް</a> |
-              <a href="mailto:yahyasdadmv@gmail.com">އީމެއިލް</a>
-            </p>
-            <p class="tellUs">
-              ޙަދީޘްއެމްވީ އެޕް ހޯދުމަށް:
-              <a href="https://hadithmv.github.io">ވެބް</a> |
-              <a href="http://rebrand.ly/hmvAndroid">އޭންޑްރޮއިޑް</a> |
-              <a href="https://rebrand.ly/hmvWindows">ވިންޑޯސް</a>
-            </p>
-          </div>
-        </main>
-        <!-- <main> -->
+      <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_column_cards -->
+      <!--<h2>Responsive Column Cards</h2>
+<p>Resize the browser window to see the effect.</p>-->
+
+      <div class="row">
+        <div class="column">
+          <a href="../books/quran.html">
+            <!-- added this anchor to make it a link -->
+            <div class="card">
+              <h3>1. ކީރިތި ގުރްއާން</h3>
+              <p>القران الكريم</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="column">
+          <a href="../books/allHadith.html">
+            <div class="card">
+              <h3>2. ހުރިހާ ޙަދީޘެއް</h3>
+              <p>جامع الأحاديث</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="column">
+          <a href="../books/hisnulMuslim.html">
+            <div class="card">
+              <h3>3. ޙިޞްނުލް މުސްލިމު</h3>
+              <p>حصن المسلم</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="column">
+          <a href="../books/index.html">
+            <div class="card">
+              <h3>4. ނަވަވީގެ 40 ޙަދީޘް</h3>
+              <p>الاربعين النووية</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="column">
+          <a href="../books/umdah.html">
+            <div class="card">
+              <h3>5. ޢުމްދަތުލް އަޙްކާމް</h3>
+              <p>عمدة الأحكام</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="column">
+          <a href="../books/barbahari.html">
+            <div class="card">
+              <h3>6. ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</h3>
+              <p>شرح السنة للبربهاري</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="column">
+          <a href="../books/radheef.html">
+            <div class="card">
+              <h3>7. އަރަބި - ދިވެހި - އިނގިރޭސި ރަދީފު</h3>
+              <p>قاموس عربي ديفهي إنجليزي</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="column">
+          <a href="../books/eegaal.html">
+            <div class="card">
+              <h3>8. އަލްއީޤާޡް އަރަބި - ދިވެހި ރަދީފު</h3>
+              <p>قاموس الإيقاظ</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="column">
+          <a href="../books/radheef.html">
+            <div class="card">
+              <h3>9. އީ - ފިހާރަ</h3>
+              <p>التسوق الإلكتروني</p>
+            </div>
+          </a>
+        </div>
       </div>
-      <!-- <div class="content"> -->
+      <!-- <div class="row"> -->
+
+      <div class="hidden" id="Footer">
+        <p class="tellUs">
+          ކުށެއް
+          <a href="https://t.me/yahyasdadmv">ރަނގަޅުކުރުމަށް</a> | މި ތަރުޖަމާ
+          މަންސަގައި <a href="https://t.me/yahyasdadmv">ބައިވެރިވުމަށް</a> | މި
+          މަޝްރޫއަށް <a href="https://t.me/yahyasdadmv">އެހީވެދިނުމަށް</a>
+        </p>
+        <p class="tellUs">
+          މީސްމީޑިއާގައި ތަބާވުމަށް:
+          <a href="http://fb.me/hadithmvOfficial">ފޭސްބުކް</a> |
+          <a href="https://rebrand.ly/hmvViber">ވައިބަރ</a> |
+          <a href="http://t.me/hadithmv">ޓެލެގްރާމް</a> |
+          <a href="https://instagram.com/hadithmv">އިންސްޓަރގްރާމް</a> |
+          <a href="https://twitter.com/hadithmv">ޓްވިޓަރ</a>
+        </p>
+        <p class="tellUs">
+          އަޅުގަނޑުމެންނާ ގުޅުއްވުމަށް:
+          <a href="http://m.me/hadithmvOfficial">މެސެންޖަރ</a> |
+          <a href="tel:+9607727960">ވައިބަރ</a> |
+          <a href="http://t.me/hadithmvAdmin">ޓެލެގްރާމް</a> |
+          <a href="http://wa.me/message/IVXJAT4EBQ35C1">ވަޓްސްއެޕް</a> |
+          <a href="mailto:yahyasdadmv@gmail.com">އީމެއިލް</a>
+        </p>
+        <p class="tellUs">
+          ޙަދީޘްއެމްވީ އެޕް ހޯދުމަށް:
+          <a href="https://hadithmv.github.io">ވެބް</a> |
+          <a href="http://rebrand.ly/hmvAndroid">އޭންޑްރޮއިޑް</a> |
+          <a href="https://rebrand.ly/hmvWindows">ވިންޑޯސް</a>
+        </p>
+      </div>
     </div>
     <!-- <div id="page"> -->
 
