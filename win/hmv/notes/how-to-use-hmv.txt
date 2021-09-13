@@ -2,8 +2,6 @@ Thank you for choosing hadithmv, the Maldivian Hadith Translation Platform.
 
 hadithmv is available online as a website, as well as an offline application on both Android and Windows.
 
-By default, hadithmv shows 40 Nawawi when it starts.
-
 ---------------------
 
 * General Usage:
