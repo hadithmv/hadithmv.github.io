@@ -9,6 +9,8 @@ Copy-Item ../books/index.html -Destination ../_layouts/index.html
 
 
 # copies site minified book files to asset book files one by one
+Copy-Item ../books/40nawawi.html -Destination ../app/webview-master/app/src/main/assets/books/40nawawi.html
+
 Copy-Item ../books/barbahari.html -Destination ../app/webview-master/app/src/main/assets/books/barbahari.html
 
 Copy-Item ../books/eegaal.html -Destination ../app/webview-master/app/src/main/assets/books/eegaal.html
