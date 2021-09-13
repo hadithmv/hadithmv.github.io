@@ -158,8 +158,10 @@
         border-style: solid;
         border-width: 1px;
         border-color: #dadce0;
-        border-radius: 8px;
-        box-shadow: 0 3px 10px 0 rgb(0 0 0 / 20%);
+        border-radius: 7px;
+
+        /* box-shadow: 0 3px 10px 0 rgb(0 0 0 / 20%); */
+        box-shadow: 0 2px 4px 0 #ccd0d9;
         border-top: 4.5px solid #2f6f8c;
         border-bottom: 4.5px solid #2f6f8c;
 
@@ -172,15 +174,14 @@
         transform: scale(1.15);
         z-index: 9999;
         border: 3px solid #106bae;
-        background-color: #f1f1f1;
         color: #069;
       }
 
       .card.disabled {
         transform: none;
         border: none;
-        background-color: #f1f1f1;
-        color: black;
+        background-color: rgba(255, 255, 255, 0.836);
+        color: rgba(0, 0, 0, 0.753);
       }
 
       .card p {
@@ -191,6 +192,18 @@
 
       h3 {
         font-size: 1.12em; /* 1.17 */
+      }
+
+      @media (prefers-color-scheme: light) {
+        body {
+          background-color: #f1f5fb;
+        }
+      }
+
+      @media (prefers-color-scheme: light) {
+        .card {
+          background-color: #fff;
+        }
       }
     </style>
 
