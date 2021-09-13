@@ -25,7 +25,7 @@ Copy-Item ../books/umdah.html -Destination ../app/webview-master/app/src/main/as
 
 Copy-Item ../books/allHadith.html -Destination ../app/webview-master/app/src/main/assets/books/allHadith.html
 
-Copy-Item ../books/allHadith.html -Destination ../app/webview-master/app/src/main/assets/books/hisnulMuslim.html
+Copy-Item ../books/hisnulMuslim.html -Destination ../app/webview-master/app/src/main/assets/books/hisnulMuslim.html
 
 # copies minified asset book folder contents to win book folder
 Copy-Item -Path ../app/webview-master/app/src/main/assets/books/* -Destination ../win/hmv/books
