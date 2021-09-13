@@ -290,6 +290,17 @@ small {
   margin: 0 0 20px;
 } */
 
+hr {
+  background: none;
+  border: 0;
+  border-radius: 20px;
+  height: 3px;
+  background-image: linear-gradient(to right, #f33939, #4f39f3);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /*
 footer {
 width                 :270px;
