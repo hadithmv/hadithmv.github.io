@@ -70,6 +70,34 @@
   font-family: Arial, Helvetica, sans-serif;
 } */
 
+      /* Remove extra left and right margins, due to padding */
+      .row {
+        /* margin: 0 -5px; */
+
+        /* add for rtl */
+        display: flex;
+        flex-direction: row-reverse;
+
+        /* wraps onto next line */
+        flex-wrap: wrap;
+
+        /* adds space above */
+        margin-top: 75px;
+
+        /* gives space around in desktop view, and then centers */
+        max-width: 1080px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Clear floats after the columns */
+
+      /* .row::after {
+  content: "";
+  display: table;
+  clear: both;
+} */
+
       /* Float four columns side by side */
       .column {
         /* float: right; */
@@ -86,29 +114,6 @@
         margin-bottom: 20px;
       }
 
-      /* Remove extra left and right margins, due to padding */
-      .row {
-        /* margin: 0 -5px; */
-
-        /* add for rtl */
-        display: flex;
-        flex-direction: row-reverse;
-
-        /* wraps onto next line */
-        flex-wrap: wrap;
-
-        /* adds space above */
-        margin-top: 75px;
-      }
-
-      /* Clear floats after the columns */
-
-      /* .row::after {
-  content: "";
-  display: table;
-  clear: both;
-} */
-
       /* Responsive columns */
 
       /* @media screen and (max-width: 600px) {
@@ -118,6 +123,8 @@
     margin-bottom: 20px;
   }
 } */
+
+      /* @mixin for-tablet-portrait or smaller */
       @media screen and (max-width: 600px) {
         .column {
           /* width: 25%; */
@@ -155,6 +162,18 @@
         box-shadow: 0 3px 10px 0 rgb(0 0 0 / 20%);
         border-top: 4.5px solid #2f6f8c;
         border-bottom: 4.5px solid #2f6f8c;
+
+        /* add ease in transition for hover */
+        transition: transform 0.3s ease-in-out;
+      }
+
+      /* add hover effect */
+      .card:hover {
+        transform: scale(1.15);
+        z-index: 9999;
+        border: 3px solid #106bae;
+        background-color: #f1f1f1;
+        color: #069;
       }
     </style>
 
@@ -251,7 +270,7 @@
           src="../img/logo/NewLogo6.2--NoBack-Opt.svg"
         />
         <span class="navText"
-          >ޙަދީޘްއެމްވީ - ދިވެހި ޙަދީޘް ތަރުޖަމާ މަންސަ</span
+          >ޙަދީޘްއެމްވީ - ދިވެހިންގެ ޙަދީޘް ތަރުޖަމާ މަންސަ</span
         >
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
@@ -271,24 +290,24 @@
               <ul>
                 <li>
                   <!-- APKCHANGE 123 -->
-                  <a href="../books/index.html">1. ނަވަވީގެ 40 ޙަދީޘް</a>
+                  <a href="../books/index.html">ނަވަވީގެ 40 ޙަދީޘް</a>
                 </li>
                 <li>
-                  <a href="../books/umdah.html">2. ޢުމްދަތުލް އަޙްކާމް</a>
+                  <a href="../books/umdah.html">ޢުމްދަތުލް އަޙްކާމް</a>
                 </li>
                 <li>
                   <a href="../books/barbahari.html"
-                    >3. ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</a
+                    >ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</a
                   >
                 </li>
                 <li>
                   <a href="../books/radheef.html"
-                    >4. އަރަބި - ދިވެހި - އިނގިރޭސި ރަދީފު</a
+                    >އަރަބި - ދިވެހި - އިނގިރޭސި ރަދީފު</a
                   >
                 </li>
                 <li>
                   <a href="../books/eegaal.html"
-                    >5. އަލްއީޤާޡް އަރަބި - ދިވެހި ރަދީފު</a
+                    >އަލްއީޤާޡް އަރަބި - ދިވެހި ރަދީފު</a
                   >
                 </li>
               </ul>
@@ -533,6 +552,47 @@
             </div>
           </a>
         </div>
+
+        <div class="column">
+          <a href="../books/radheef.html">
+            <div class="card">
+              <h3>9. އީ - ފިހާރަ</h3>
+              <p>Some text</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <!-- <div class="row"> -->
+
+      <div class="hidden" id="Footer">
+        <p class="tellUs">
+          ކުށެއް
+          <a href="https://t.me/yahyasdadmv">ރަނގަޅުކުރުމަށް</a> | މި ތަރުޖަމާ
+          މަންސަގައި <a href="https://t.me/yahyasdadmv">ބައިވެރިވުމަށް</a> | މި
+          މަޝްރޫއަށް <a href="https://t.me/yahyasdadmv">އެހީވެދިނުމަށް</a>
+        </p>
+        <p class="tellUs">
+          މީސްމީޑިއާގައި ތަބާވުމަށް:
+          <a href="http://fb.me/hadithmvOfficial">ފޭސްބުކް</a> |
+          <a href="https://rebrand.ly/hmvViber">ވައިބަރ</a> |
+          <a href="http://t.me/hadithmv">ޓެލެގްރާމް</a> |
+          <a href="https://instagram.com/hadithmv">އިންސްޓަރގްރާމް</a> |
+          <a href="https://twitter.com/hadithmv">ޓްވިޓަރ</a>
+        </p>
+        <p class="tellUs">
+          އަޅުގަނޑުމެންނާ ގުޅުއްވުމަށް:
+          <a href="http://m.me/hadithmvOfficial">މެސެންޖަރ</a> |
+          <a href="tel:+9607727960">ވައިބަރ</a> |
+          <a href="http://t.me/hadithmvAdmin">ޓެލެގްރާމް</a> |
+          <a href="http://wa.me/message/IVXJAT4EBQ35C1">ވަޓްސްއެޕް</a> |
+          <a href="mailto:yahyasdadmv@gmail.com">އީމެއިލް</a>
+        </p>
+        <p class="tellUs">
+          ޙަދީޘްއެމްވީ އެޕް ހޯދުމަށް:
+          <a href="https://hadithmv.github.io">ވެބް</a> |
+          <a href="http://rebrand.ly/hmvAndroid">އޭންޑްރޮއިޑް</a> |
+          <a href="https://rebrand.ly/hmvWindows">ވިންޑޯސް</a>
+        </p>
       </div>
     </div>
     <!-- <div id="page"> -->
