@@ -139,7 +139,7 @@
       /* Style the counter cards */
       .card {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        padding: 16px;
+        padding: 10px;
         text-align: center;
         background-color: #f1f1f1;
 
@@ -158,8 +158,9 @@
         border-style: solid;
         border-width: 1px;
         border-color: #dadce0;
-        border-radius: 5px;
-        box-shadow: 0 3px 10px 0 rgb(0 0 0 / 20%);
+        border-radius: 8px;
+
+        /* box-shadow: 0 3px 10px 0 rgb(0 0 0 / 20%); */
         border-top: 4.5px solid #2f6f8c;
         border-bottom: 4.5px solid #2f6f8c;
 
@@ -172,14 +173,37 @@
         transform: scale(1.15);
         z-index: 9999;
         border: 3px solid #106bae;
-        background-color: #f1f1f1;
         color: #069;
+      }
+
+      .card.disabled {
+        transform: none;
+        border: none;
+        background-color: none;
+        color: rgba(0, 0, 0, 0.651);
       }
 
       .card p {
         font-family: "arFont", "dvFont", sans-serif;
-        font-size: 23px;
-        line-height: 1.7;
+        font-size: 25px;
+        line-height: 1.5;
+      }
+
+      h3 {
+        font-size: 1.12em; /* 1.17 */
+      }
+
+      @media (prefers-color-scheme: light) {
+        body {
+          background-color: #f1f5fb;
+        }
+      }
+
+      @media (prefers-color-scheme: light) {
+        .card {
+          background-color: #fff;
+          box-shadow: 0 2px 4px 0 #ccd0d9;
+        }
       }
     </style>
 
@@ -292,7 +316,7 @@
               <a href="../books/allHadith.html">ހުރިހާ ޙަދީޘެއް</a>
             </li>
             <li>
-              <a href="../books/hisnulMuslim.html">ޙިޞްނުލް މުސްލިމު</a>
+              <a href="../books/hisnulMuslim.html">މުސްލިމުންެގެ ކިއްލާ</a>
             </li>
             <li>
               <span>ފޮތްތައް</span>
@@ -493,8 +517,8 @@
           <a href="../books/quran.html">
             <!-- added this anchor to make it a link -->
             <div class="card">
-              <h3>1. ކީރިތި ގުރްއާން</h3>
-              <p>القران الكريم</p>
+              <h3>① ކީރިތި ގުރްއާން</h3>
+              <p>القرآن الكريم</p>
             </div>
           </a>
         </div>
@@ -502,7 +526,7 @@
         <div class="column">
           <a href="../books/allHadith.html">
             <div class="card">
-              <h3>2. ހުރިހާ ޙަދީޘެއް</h3>
+              <h3>② ހުރިހާ ޙަދީޘެއް</h3>
               <p>جامع الأحاديث</p>
             </div>
           </a>
@@ -511,17 +535,17 @@
         <div class="column">
           <a href="../books/hisnulMuslim.html">
             <div class="card">
-              <h3>3. ޙިޞްނުލް މުސްލިމު</h3>
+              <h3>③ މުސްލިމުންެގެ ކިއްލާ</h3>
               <p>حصن المسلم</p>
             </div>
           </a>
         </div>
 
         <div class="column">
-          <a href="../books/index.html">
+          <a href="../books/40nawawi.html">
             <div class="card">
-              <h3>4. ނަވަވީގެ 40 ޙަދީޘް</h3>
-              <p>الاربعين النووية</p>
+              <h3>④ ނަވަވީގެ 40 ޙަދީޘް</h3>
+              <p>الأربعين النووية</p>
             </div>
           </a>
         </div>
@@ -529,7 +553,7 @@
         <div class="column">
           <a href="../books/umdah.html">
             <div class="card">
-              <h3>5. ޢުމްދަތުލް އަޙްކާމް</h3>
+              <h3>⑤ ޢުމްދަތުލް އަޙްކާމް</h3>
               <p>عمدة الأحكام</p>
             </div>
           </a>
@@ -538,7 +562,7 @@
         <div class="column">
           <a href="../books/barbahari.html">
             <div class="card">
-              <h3>6. ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</h3>
+              <h3>⑥ ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</h3>
               <p>شرح السنة للبربهاري</p>
             </div>
           </a>
@@ -547,7 +571,7 @@
         <div class="column">
           <a href="../books/radheef.html">
             <div class="card">
-              <h3>7. އަރަބި - ދިވެހި - އިނގިރޭސި ރަދީފު</h3>
+              <h3>⑦ އަރަބި - ދިވެހި - އިނގިރޭސި ރަދީފު</h3>
               <p>قاموس عربي ديفهي إنجليزي</p>
             </div>
           </a>
@@ -556,19 +580,28 @@
         <div class="column">
           <a href="../books/eegaal.html">
             <div class="card">
-              <h3>8. އަލްއީޤާޡް އަރަބި - ދިވެހި ރަދީފު</h3>
+              <h3>⑧ އަލްއީޤާޡް އަރަބި - ދިވެހި ރަދީފު</h3>
               <p>قاموس الإيقاظ</p>
             </div>
           </a>
         </div>
 
         <div class="column">
-          <a href="../books/radheef.html">
+          <a href="https://hadithmv.github.io/shop">
             <div class="card">
-              <h3>9. އީ - ފިހާރަ</h3>
+              <h3>⑨ އީ - ފިހާރަ</h3>
               <p>التسوق الإلكتروني</p>
             </div>
           </a>
+        </div>
+
+        <div class="column">
+          <!--<a href="">-->
+          <div class="card disabled">
+            <h3>⑩ އާ ފޮތެއް...</h3>
+            <p>سيأتي قريبا إن شاء الله...</p>
+          </div>
+          <!--</a>-->
         </div>
       </div>
       <!-- <div class="row"> -->
