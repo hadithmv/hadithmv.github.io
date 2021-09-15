@@ -118,9 +118,9 @@ body.mm-ocd-opened {
   box-sizing: border-box;
 }
 :root {
-  --mm-spn-item-height: 50px; /* Height for menu items. */
+  --mm-spn-item-height: 50px; /* 50px; Height for menu items. */
   --mm-spn-item-indent: 45px; /* 20px; - Indent for menu items. */ /* remember to change .mm-spn.mm-spn--navbar::after too */
-  --mm-spn-line-height: 24px; /* Line-height for text in the menu. */
+  --mm-spn-line-height: 30px; /* 24px; Line-height for text in the menu. */
 }
 .mm-spn {
   width: 100%;
@@ -143,7 +143,7 @@ body.mm-ocd-opened {
   z-index: 2;
   width: 130%;
   padding-right: 30%;
-  line-height: 24px;
+  line-height: 30px; /* 24 */
   line-height: var(--mm-spn-line-height);
   overflow: visible;
   overflow-y: auto;
@@ -211,7 +211,7 @@ body.mm-ocd-opened {
 .mm-spn span {
   position: relative;
   z-index: 1;
-  padding: 13px 20px;
+  padding: 10px 20px; /* 13px 20px; */
   padding: calc((var(--mm-spn-item-height) - var(--mm-spn-line-height)) / 2)
     var(--mm-spn-item-indent);
 }
