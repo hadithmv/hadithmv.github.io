@@ -55,6 +55,7 @@ https://github.com/kudanai/Quran-Translation
 https://nashrmaktabi.qurancomplex.gov.sa 2.5
 https://tanzil.net 1.1 -CC BY 3.0
 https://archive.org/details/BakurubeTranslationDhivehi/1-15%20%2825%20April%202011%29
+https://github.com/maaldheefee/Quran-Translation/blob/master/utils/gen_alternate.py
 
 http://radheef.mv
 http://dhivehiacademy.edu.mv/beta/thoora
