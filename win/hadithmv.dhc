@@ -1,20 +1,22 @@
 ﻿﻿<?xml version="1.0" encoding="utf-8"?>
-<HtmlCompiler Version="2021.34">
+<HtmlCompiler Version="2021.44">
   <App>
-    <ID>{971A6706-5EF2-4650-B117-D3B344EF09C1}</ID>
+    <ID>{EC14685E-A222-4C9B-90F5-730203CBD020}</ID>
     <Name>hadithmv</Name>
     <CompanyName>hadithmv</CompanyName>
-    <FileDescription>hadithmv</FileDescription>
-    <FileVersion>2.30</FileVersion>
+    <FileDescription></FileDescription>
+    <FileVersion>1.0.0.0</FileVersion>
     <InternalName></InternalName>
-    <LegalCopyright>yahyasdadmv</LegalCopyright>
+    <LegalCopyright>hadithmv</LegalCopyright>
     <LegalTrademarks>hadithmv</LegalTrademarks>
-    <OriginalFileName>hadithmv</OriginalFileName>
-    <ProgramID>hadithmv</ProgramID>
-    <ProductVersion>2.30</ProductVersion>
+    <OriginalFileName></OriginalFileName>
+    <ProgramID></ProgramID>
+    <ProductVersion>1.0.0.0</ProductVersion>
     <Comments></Comments>
-    <Width>0</Width>
-    <Height>0</Height>
+    <Top>50</Top>
+    <Left>50</Left>
+    <Width>800</Width>
+    <Height>600</Height>
     <MaxWidth>0</MaxWidth>
     <MaxHeight>0</MaxHeight>
     <MinWidth>1366</MinWidth>
@@ -24,6 +26,7 @@
     <WindowBorder>2</WindowBorder>
     <WindowOrder>0</WindowOrder>
     <WindowState>0</WindowState>
+    <WindowPosition>0</WindowPosition>
     <InstallFormColor>-16777190</InstallFormColor>
     <InstallIndicatorColor>1</InstallIndicatorColor>
     <InstallIndicatorType>0</InstallIndicatorType>
@@ -37,7 +40,7 @@
     <EdgeInstallerDown>0</EdgeInstallerDown>
     <OutputWin32>0</OutputWin32>
     <OutputWin64>1</OutputWin64>
-    <AllowInstances>1</AllowInstances>
+    <AllowInstances>0</AllowInstances>
     <ExcludeMasks>*.7z;*.exe</ExcludeMasks>
     <SigningToolName></SigningToolName>
     <WebviewJavascript>
@@ -45,7 +48,7 @@
     </WebviewJavascript>
     <Generator>
       <Name>DecSoft HTML Compiler</Name>
-      <Version>2021.34</Version>
+      <Version>2021.44</Version>
       <Website>https://www.decsoftutils.com/</Website>
       <Orders>https://www.decsoftutils.com/store/</Orders>
       <EMail>info@decsoftutils.com</EMail>
