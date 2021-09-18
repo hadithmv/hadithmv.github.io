@@ -528,6 +528,7 @@ $(document).ready(() => {
         need to put the SearchPanes configuration into the buttons config option.
         https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
         config: {
+          collapse: false,
           orderable: false,
           columns: [2, 3],
           cascadePanes: true,
