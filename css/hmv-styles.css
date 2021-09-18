@@ -579,7 +579,8 @@ div.dt-button-info {
   /* border: 1px solid #111; old */
   border-style: solid;
   border-width: 1px;
-  border-color: #dadce0;
+
+  /* border-color: #dadce0; */
 
   /* #00000020 */
   border-radius: 5px;
@@ -702,7 +703,8 @@ mark {
   /* margin: 0.5rem; */
   border-style: solid;
   border-width: 1px;
-  border-color: #dadce0;
+
+  /* border-color: #dadce0; */
 
   /* #00000020 */
   border-radius: 5px;
@@ -1126,6 +1128,7 @@ this makes a faint white outline around card  */
 
     /* background: #34515e; */
     background: #0e1621;
+    border-color: #dadce0;
   }
   div.dt-button-info {
     background-color: #1c4253 !important; /* 1a282f */
