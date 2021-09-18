@@ -139,7 +139,9 @@
       /* Style the counter cards */
       .card {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        padding: 10px;
+        padding: 5px;
+        padding-right: 8px;
+        padding-left: 8px;
         text-align: center;
         background-color: #f1f1f1;
 
@@ -180,18 +182,28 @@
         transform: none;
         border: none;
         background-color: none;
-        color: rgba(0, 0, 0, 0.651);
+        color: rgba(0, 0, 0, 0.74);
       }
 
-      .card p {
+      p.dv {
+        font-family: "dvFont", "arFont", sans-serif;
+        font-size: 19px;
+        line-height: 1.9;
+        margin-bottom: 12px;
+      }
+
+      p.ar {
         font-family: "arFont", "dvFont", sans-serif;
-        font-size: 25px;
+        font-size: 24px;
         line-height: 1.5;
+        margin-top: 12px;
       }
 
-      h3 {
-        font-size: 1.12em; /* 1.17 */
-      }
+      /* h3 {
+        font-size: 1.12em; 
+      } */
+
+      /* 1.17 */
 
       @media (prefers-color-scheme: light) {
         body {
@@ -207,82 +219,6 @@
       }
     </style>
 
-    <style>
-      /* change123 html */
-
-      /* === --- === --- ====
-         CUSTOM COLUMN CLASSES
-         for 40 nawawi
-         === --- === --- ==== */
-
-      /* removes justify from ar dv (titles and refs) + rs.
-         justify doesnt look good on short cells like surukhi, masdars.
-         so right align to prevent gaps in text */
-      .dataTable tr td.fnCol2,
-      .dataTable tr td.fnCol3,
-      .dataTable tr td.fnCol7,
-      .dataTable tr td.fnCol8,
-      .dataTable tr td.fnCol9 {
-        text-align: right;
-      }
-
-      /* mobile only row centering, for rows with strings that are not long */
-      @media screen and (max-width: 900px) {
-        .dataTable tr td.fnCol1,
-        .dataTable tr td.fnCol2,
-        .dataTable tr td.fnCol3,
-        .dataTable tr td.fnCol7,
-        .dataTable tr td.fnCol8,
-        .dataTable tr td.fnCol9 {
-          text-align: center;
-        }
-
-        /* bold headers for mobile - first number at top */
-        .fnCol1 {
-          font-weight: bold;
-        }
-      }
-
-      /* --- AR FONTS FOR TABLE --- */
-
-      /* tbody tr td.fnCol1, */
-      .dataTable tr td.fnCol2,
-      .dataTable tr td.fnCol4,
-      .dataTable tr td.fnCol5,
-      .dataTable tr td.fnCol7,
-      .dataTable tr td.fnCol9 {
-        font-family: "arFont", "dvFont", sans-serif;
-        font-size: 23px;
-        line-height: 1.7;
-
-        /* font-size-adjust: 0.1; this breaks firefox font size */
-      }
-
-      /* --- DV FONTS FOR TABLE --- */
-
-      /* .dataTable tr td.fnCol1, need this bigger */
-      .dataTable tr td.fnCol3,
-      .dataTable tr td.fnCol6,
-      .dataTable tr td.fnCol8 {
-        font-family: "dvFont", "arFont", sans-serif;
-        font-size: 17px;
-        line-height: 1.9;
-      }
-
-      /* columns with ar numbers */
-      .dataTable tr td.fnCol7,
-      .dataTable tr td.fnCol9 {
-        font-family: "arFont", "dvFont", sans-serif;
-        font-size: 21px;
-      }
-
-      /* css for first column
-         # number column cuz it has hashtag and digits */
-      .dataTable tr td.fnCol1 {
-        font-family: "dvFont", "arFont", sans-serif;
-        font-size: 21px;
-      }
-    </style>
     <!-- === INT CSS - END === -->
   </head>
 
@@ -522,8 +458,8 @@
           <a href="../books/quran.html">
             <!-- added this anchor to make it a link -->
             <div class="card">
-              <h3>① ކީރިތި ގުރްއާން</h3>
-              <p>القرآن الكريم</p>
+              <p class="dv">① ކީރިތި ގުރްއާން</p>
+              <p class="ar">القرآن الكريم</p>
             </div>
           </a>
         </div>
@@ -531,8 +467,8 @@
         <div class="column">
           <a href="../books/allHadith.html">
             <div class="card">
-              <h3>② ހުރިހާ ޙަދީޘެއް</h3>
-              <p>جامع الأحاديث</p>
+              <p class="dv">② ހުރިހާ ޙަދީޘެއް</p>
+              <p class="ar">جامع الأحاديث</p>
             </div>
           </a>
         </div>
@@ -540,8 +476,8 @@
         <div class="column">
           <a href="../books/hisnulMuslim.html">
             <div class="card">
-              <h3>③ މުސްލިމުންެގެ ކިއްލާ</h3>
-              <p>حصن المسلم</p>
+              <p class="dv">③ މުސްލިމުންެގެ ކިއްލާ</p>
+              <p class="ar">حصن المسلم</p>
             </div>
           </a>
         </div>
@@ -549,8 +485,8 @@
         <div class="column">
           <a href="../books/40nawawi.html">
             <div class="card">
-              <h3>④ ނަވަވީގެ 40 ޙަދީޘް</h3>
-              <p>الأربعين النووية</p>
+              <p class="dv">④ ނަވަވީގެ 40 ޙަދީޘް</p>
+              <p class="ar">الأربعون النووية</p>
             </div>
           </a>
         </div>
@@ -558,8 +494,8 @@
         <div class="column">
           <a href="../books/umdah.html">
             <div class="card">
-              <h3>⑤ ޢުމްދަތުލް އަޙްކާމް</h3>
-              <p>عمدة الأحكام</p>
+              <p class="dv">⑤ ޢުމްދަތުލް އަޙްކާމް</p>
+              <p class="ar">عمدة الأحكام</p>
             </div>
           </a>
         </div>
@@ -567,8 +503,8 @@
         <div class="column">
           <a href="../books/barbahari.html">
             <div class="card">
-              <h3>⑥ ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</h3>
-              <p>شرح السنة للبربهاري</p>
+              <p class="dv">⑥ ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</p>
+              <p class="ar">شرح السنة للبربهاري</p>
             </div>
           </a>
         </div>
@@ -576,8 +512,8 @@
         <div class="column">
           <a href="../books/radheef.html">
             <div class="card">
-              <h3>⑦ އަރަބި ދިވެހި އިނގިރޭސި ރަދީފު</h3>
-              <p>قاموس عربي ديفهي إنجليزي</p>
+              <p class="dv">⑦ އަރަބި ދިވެހި އިނގިރޭސި ރަދީފު</p>
+              <p class="ar">قاموس عربي ديفهي إنجليزي</p>
             </div>
           </a>
         </div>
@@ -585,8 +521,8 @@
         <div class="column">
           <a href="../books/eegaal.html">
             <div class="card">
-              <h3>⑧ އަލްއީޤާޡް އަރަބި ދިވެހި ރަދީފު</h3>
-              <p>قاموس الإيقاظ</p>
+              <p class="dv">⑧ އަލްއީޤާޡް އަރަބި ދިވެހި ރަދީފު</p>
+              <p class="ar">قاموس الإيقاظ</p>
             </div>
           </a>
         </div>
@@ -594,8 +530,8 @@
         <div class="column">
           <a href="https://hadithmv.github.io/shop">
             <div class="card">
-              <h3>⑨ އީ - ފިހާރަ</h3>
-              <p>التسوق الإلكتروني</p>
+              <p class="dv">⑨ އީ - ފިހާރަ</p>
+              <p class="ar">التسوق الإلكتروني</p>
             </div>
           </a>
         </div>
@@ -603,15 +539,15 @@
         <div class="column">
           <!--<a href="">-->
           <div class="card disabled">
-            <h3>⑩ އާ ފޮތެއް...</h3>
-            <p>سيأتي قريبا إن شاء الله...</p>
+            <p class="dv">⑩ އާ ފޮތެއް...</p>
+            <p class="ar">قريبا إن شاء الله...</p>
           </div>
           <!--</a>-->
         </div>
       </div>
       <!-- <div class="row"> -->
 
-      <div class="hidden" id="Footer">
+      <div class="" id="Footer">
         <p class="tellUs">
           ކުށެއް
           <a href="https://t.me/yahyasdadmv">ރަނގަޅުކުރުމަށް</a> | މި ތަރުޖަމާ
