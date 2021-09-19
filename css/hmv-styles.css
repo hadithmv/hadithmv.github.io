@@ -329,8 +329,36 @@ div.dataTables_wrapper {
 }
 
 /* ====================
-     ???
+     dt buttons?
 ======================= */
+
+/* colvis button, ACTUALLY all buttons? */
+button.dt-button {
+  /* background-color: #45494e; */
+  color: #0e1621 !important;
+
+  /* border: 1px solid rgba(255, 255, 255, 0.147); */
+  border-radius: 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0.147) !important;
+  background: #d8d8d8 !important; /* #d8d8d8 */
+
+  /* font-weight: bold; */
+}
+
+/* hover buttons */
+
+button.dt-button:hover:not(.disabled) {
+  background-color: #2f6f8c !important;
+  border: 1px solid rgba(255, 255, 255, 0.847) !important;
+  color: #fff !important;
+}
+
+/* colvis menu active */
+
+button.dt-button.active {
+  background: #2f6f8c !important;
+  color: #fff !important;
+}
 
 button,
 input,
@@ -602,9 +630,11 @@ div.dt-button-info {
 /* changes clipboard copied color, */
 
 #datatables_buttons_info.dt-button-info h2 {
-  background: #add1f2;
+  background: #2f6f8c; /* add1f2 */
 
   /* border-radius: 5px; */
+
+  color: #eee;
 }
 
 /* makes clipboard copy popup centered and fits width on mobile view */
@@ -1042,12 +1072,25 @@ this makes a faint white outline around card  */
     color: rgba(255, 255, 255, 0.847) !important;
   }
 
-  /* colvis button */
+  /* colvis button, ACTUALLY all buttons? */
   button.dt-button {
     background-color: #1a232d !important;
     color: rgba(255, 255, 255, 0.847) !important;
-    border: 1px solid rgba(255, 255, 255, 0.147) !important;
+    border: 1px solid #aaa !important;
   }
+
+  /* colvis menu active */
+  button.dt-button.active {
+    background: #d6d6d6 !important;
+    color: #000 !important;
+  }
+
+  /* colvis outer collection */
+  div.dt-button-collection {
+    background: #262d37 !important;
+  }
+
+  /* hover buttons */
   button.dt-button:hover:not(.disabled) {
     background-color: #0e1621 !important;
     border: 1px solid rgba(255, 255, 255, 0.847) !important;
@@ -1094,23 +1137,6 @@ this makes a faint white outline around card  */
     border-color: #99aab5 !important;
   }
 
-  /* colvis menu  */
-  div.dt-button-collection {
-    background-color: #0e1621 !important;
-    color: #99aab5 !important;
-  }
-
-  /* inner colvis buttons */
-  div.dt-button-collection a.dt-button.active:not(.disabled),
-  div.dt-button-collection a.dt-button:active:not(.disabled),
-  div.dt-button-collection button.dt-button.active:not(.disabled),
-  div.dt-button-collection button.dt-button:active:not(.disabled),
-  div.dt-button-collection div.dt-button.active:not(.disabled),
-  div.dt-button-collection div.dt-button:active:not(.disabled) {
-    background: #0e1621 !important;
-    color: rgba(255, 255, 255, 0.847) !important;
-  }
-
   /* changes clipboard copied color, */
   #datatables_buttons_info.dt-button-info h2 {
     /* background-color: #0e1621; */
@@ -1122,6 +1148,8 @@ this makes a faint white outline around card  */
   }
   div.dt-button-info {
     background-color: #1c4253 !important; /* 1a282f */
+    border-style: solid !important;
+    border-color: #f1f1f1 !important;
   }
 
   /* ====================
