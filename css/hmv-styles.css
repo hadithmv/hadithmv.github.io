@@ -956,15 +956,6 @@ a:hover {
   color: #36c;
 }
 
-/* hiding footer until page load finishes */
-
-#Footer {
-  font-family: "dvFont", "arFont", sans-serif;
-}
-.hidden {
-  display: none;
-}
-
 /* ====================
        HOVER LINK UNDERLINE --remember to change in minimal
 ======================= */
@@ -1192,7 +1183,8 @@ this makes a faint white outline around card  */
        Footer Code
 ======================= */
 
-#Footer {
+/* hide until display finishes */
+#footer {
   text-align: justify;
   text-align-last: center;
   font-family: "dvFont", "arFont", sans-serif;

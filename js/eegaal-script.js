@@ -553,7 +553,7 @@ $(document).ready(() => {
 
   // makes footer visible after script finishes rendering
   $(document).ready(function () {
-    $('#Footer').removeClass('hidden')
+    $('#footer').removeClass('hidden')
   })
 
   // adds doubleclick select go to page search was on, with rowshowjs
