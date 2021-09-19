@@ -174,16 +174,23 @@
           margin: auto;
 
           /* smooth transition on hover out */
-          transition: 250ms ease;
+          transition: 0.25s ease-out;
 
           /* box shadow */
 
           /* box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.24); */
 
           /* ??? */
-          border-style: solid;
+
+          /* border-style: solid;
           border-color: #eee;
-          border-width: 1.5px;
+          border-width: 1.5px; */
+        }
+        .price:hover {
+        transform: scale(1.15);
+        z-index: 9999;
+        width: 300px;
+        -webkit-font-smoothing: antialiased;
         }
 
         .price::before {
@@ -407,6 +414,22 @@
           color: #eee;
           flex-grow: 1;
           min-width: 20%;
+          transition: 0.25s ease-out;
+        }
+
+        @media (prefers-color-scheme: light) {
+          .tab button {
+            background-color: #eee;
+            color: #000;
+          }
+          .tab button:hover {
+            background-color: #0b578c !important;
+            color: #eee !important;
+          }
+          .tab button.active {
+            background-color: #0b578c !important;
+            color: #eee !important;
+          }
         }
 
         /* Change background color of buttons on hover */
@@ -418,6 +441,7 @@
 
           /* font-size: 110%; */
           letter-spacing: 1.5px;
+          -webkit-font-smoothing: antialiased;
         }
 
         /* Create an active/current tablink class */
@@ -435,8 +459,9 @@
         .tabcontent {
           display: none;
           padding: 6px 12px;
-          -webkit-animation: fadeEffect 1s;
-          animation: fadeEffect 1s;
+          -webkit-animation: fadeEffect 0.7s;
+          animation: fadeEffect 0.7s;
+          animation-timing-function: ease-out;
         }
 
         /* Fade in tabs */
