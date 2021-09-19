@@ -173,7 +173,10 @@
 
         /* border-top: 5px solid #f1f1f1;
         border-bottom: 5px solid #f1f1f1; */
-        border-color: transparent; /* none makes the cards smaller, moving what is around it */
+        border-color: transparent;
+
+        /* this makes border invisible but present, to avoid content being pushed away
+        none makes the cards smaller, moving what is around it */
       }
       .card:hover p {
         color: #fff;
@@ -222,14 +225,15 @@
           display: block;
           margin-bottom: 0;
           padding: 7px;
-          padding-top: 6px;
-          padding-bottom: 6px;
+
+          /* padding-top: 6px;
+          padding-bottom: 6px; */
 
           /* make it 2 cards on mobile */
           flex-basis: 50%;
         }
         p.dv {
-          font-size: 18px;
+          font-size: 17px;
           line-height: 1.6;
 
           /* margin-bottom: 12px; */
