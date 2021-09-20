@@ -635,8 +635,9 @@ div.dt-button-info {
   /* border-radius: 5px; */
 
   color: #eee;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+
+  /* border-top-left-radius: 3px;
+  border-top-right-radius: 3px; */
 }
 
 /* makes clipboard copy popup centered and fits width on mobile view */
