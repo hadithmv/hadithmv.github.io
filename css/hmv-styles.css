@@ -876,6 +876,9 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
   justify-content: center;
 
   /* items are centered along the line */
+
+  /* added to make a minimum space where mTop2 is so as not to squish mTop1 and 3 together when search turns up empty */
+  min-height: 14px;
 }
 
 .mTop3 {
