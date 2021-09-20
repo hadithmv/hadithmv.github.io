@@ -757,8 +757,8 @@ mark {
 
 @media (prefers-color-scheme: light) {
   .cards tbody tr {
-    border-top: 5.5px solid #2f6f8c;
-    border-bottom: 5.5px solid #2f6f8c;
+    border-top: 5px solid #2f6f8c;
+    border-bottom: 5px solid #2f6f8c;
   }
 }
 
