@@ -99,7 +99,7 @@
           right: -35px;
 
           /* -27px; */
-          transition: background 0.2s, right 0.2s;
+          transition: background 0.2s, right 0.2s ease-out;
         }
 
         .btn-chat a:hover {
@@ -109,7 +109,7 @@
           right: -25px;
 
           /* -20px; */
-          transition: background 0.2s, right 0.2s;
+          transition: background 0.2s, right 0.2s ease-out;
 
           /* added */
           cursor: pointer;
@@ -187,10 +187,10 @@
           border-width: 1.5px; */
         }
         .price:hover {
-        transform: scale(1.15);
-        z-index: 9999;
-        width: 300px;
-        -webkit-font-smoothing: antialiased;
+          transform: scale(1.15);
+          z-index: 9999;
+          width: 300px;
+          -webkit-font-smoothing: antialiased;
         }
 
         .price::before {
@@ -285,8 +285,6 @@
         }
           */
 
-        /*  */
-
         .noStock:hover {
           opacity: 1;
           cursor: default;
@@ -357,7 +355,6 @@
           .flexItem {
             max-width: 45%;
           }
-        }
         }
       </style>
       <!-- https://codepen.io/moonphase/pen/vEGMRg -->
