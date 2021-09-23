@@ -1098,8 +1098,9 @@ this makes a faint white outline around card  */
 
   /* hover buttons */
   button.dt-button:hover:not(.disabled) {
-    background-color: #0e1621 !important;
-    border: 1px solid rgba(255, 255, 255, 0.847) !important;
+    background: #d6d6d6 !important;
+    color: #000 !important;
+  }
   }
 
   /* copy button */
@@ -1201,7 +1202,6 @@ this makes a faint white outline around card  */
   a:hover {
     color: #2a8dbf;
   }
-}
 
 @media (prefers-color-scheme: light) {
   ::-moz-selection {
@@ -1364,4 +1364,5 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
     /* text color when not disabled, ie active, not disabled is for preventing disabled being overwritten */
     border: 1px solid #eee !important;
   }
+}
 }
