@@ -81,7 +81,7 @@ $(document).ready(() => {
       },
       { /* add brackets to quran */
         data: 3,
-        title: 'ޤުރްއާން',
+        title: 'ގުރްއާން',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
@@ -102,7 +102,7 @@ $(document).ready(() => {
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
         data: 4,
-        title: 'ޤުރްއާން ފިލިނުޖަހައި'
+        title: 'ގުރްއާން ފިލިނުޖަހައި'
         /* render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
@@ -465,7 +465,7 @@ $(document).ready(() => {
           data = data.replace(/ސޫރަތް\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/ޖުޒް\t/g, '')
           data = data.replace(/އާޔަތް\t/g, '')
-          data = data.replace(/ޤުރްއާން\t/g, '')
+          data = data.replace(/ގުރްއާން\t/g, '')
           data = data.replace(/ޤުރްއާން ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/تفسير السعدي*\t/g, '')
