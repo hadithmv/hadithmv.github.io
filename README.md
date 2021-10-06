@@ -184,22 +184,6 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 
 </div>
 
- <h2 class="en" style="text-align: center">Contributors</h2>
-
- <h3 class="en">
- The following people have contributed to this project in various ways
- over time:
- </h3>
-
- <p class="ind en">
-(Abu Yahya) Mohamed Ashraaf Ibrahim, Umm Yahya, Hassaan Abdul Razzaq, (H.M.), Abdul Aziz, Abdul Muiz Rasheed, Abdullah Ahsan Saeed, Abdullah Azzam, Abdullah Munawwar, Abdullah Saudhan, Abu Nusaiba, Adam Ifham, Adiyy Mohamed, Affan Haleem, Ahmed Ahsan, Ahmed Ali Jabir, Ahmed Ashraf, Ahmed Azhan, Ahmed Fazad Faiz, Ahmed Nadih, Ahmed Nazmi Rasheed, Ahmed Shuaib, Ahmed Shujau Shareef, Ali Shammakh, Ali Ziyad, Allan J, Ammar Ilyas, Ashraf Ali, Ateef Abubakr, Basheer Adam, Bilal Abdussattar, Colin M, Easa Hunain, Fahmy Didi, Falah, Hasan Sobah, Hashmu Nazim, Hassan Ziyan, Hathim Yusuf, Hood Mohamed, Humaid Shahid, Hussain Ansar, Hussain Ibrahim, Hussain Jauzan, Hussain Nashaath, Hussain Shifan, Hussain Sodiq, Hussain Toriq, Hussein Hizam, Ibrahim Jadeed Ahmed, Ibrahim Rafiu, Ibrahim Samooh, Ibrahim Saneeh, Ilyas Ahmed, Ilyas Jamal, Imad Yusuf, Imthitho Abbas, Ishaq Fathhee, Ismail Inash Haneef, Ismail Jumail Mohamed, Ismail Lamman, Ismail Riyaz, Ismail Shareef, Iyaz Naseem, Jailam Abdul Jaleel, Jaishan, Jaufar Mohamed Uthman, Kevin T, Mahfooz Ibrahim, Maihan Nazim, Mohamed Aamil Ali, Mohamed Abdurrahman, Mohamed Adil, Mohamed Ahmed, Mohamed Allam Naeem, Mohamed Arham, Mohamed Azhar, Mohamed Fazeel, Mohamed Ghalib Shahid, Mohamed Hafeez, Mohamed Haleem, Mohamed Humam Yusuf, Mohamed Ihsan, Mohamed Jazlan Umar, Mohamed Maaiz Muaviyath, Mohamed Mafaz, Mohamed Maun Shareef, Mohamed Qubad, Mohamed Shafeeu, Mohamed Shahid, Mohamed Shariu, Mohamed Siraj, Mohamed Taha, Mohamed Wishah, Moosa Ayyoob, Mujahid Abdullah, Muthamin Ahmed, Mutheeu Ismail, Nazeem Nizaam, Nihreer Maajid Dawud, Raaif Rushdhy, Rashad, Riyas Hussain, Samiu, Shahid Rameez, Shazin Ibrahim, Shifaq Ahmed, Shiham Mohamed, Shiro (M.M), Zahwan Nazim, and their families and friends.
- </p>
-
-<br /><br />
-
-<hr />
-<br />
-
 <div class="en mid tellUs" align="center">
 <p>If you find a mistake, or want to join this translation platform, or want to support this project, please
 <a href="https://t.me/yahyasdadmv">let us know</a>.</p>

@@ -10,6 +10,8 @@ html-minifier --collapse-boolean-attributes --collapse-whitespace --decode-entit
 
 html-minifier --collapse-boolean-attributes --collapse-whitespace --decode-entities --minify-css true --minify-js true --process-scripts [text/html] --remove-attribute-quotes --remove-comments --remove-empty-attributes --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-style-link-type-attributes --remove-tag-whitespace --sort-attributes --sort-class-name --trim-custom-fragments --use-short-doctype FAQ-uc.html -o FAQ.html
 
+html-minifier --collapse-boolean-attributes --collapse-whitespace --decode-entities --minify-css true --minify-js true --process-scripts [text/html] --remove-attribute-quotes --remove-comments --remove-empty-attributes --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-style-link-type-attributes --remove-tag-whitespace --sort-attributes --sort-class-name --trim-custom-fragments --use-short-doctype contributors-uc.html -o contributors.html
+
 
 
 
@@ -21,6 +23,8 @@ Copy-Item introUmdah.html -Destination ../../app/webview-master/app/src/main/ass
 
 Copy-Item FAQ.html -Destination ../../app/webview-master/app/src/main/assets/notes/info/FAQ.html
 
+Copy-Item contributors.html -Destination ../../app/webview-master/app/src/main/assets/notes/info/contributors.html
+
 
 
 
@@ -31,3 +35,5 @@ Copy-Item introFortyN.html -Destination ../../win/hmv/notes/info/introFortyN.htm
 Copy-Item introUmdah.html -Destination ../../win/hmv/notes/info/introUmdah.html
 
 Copy-Item FAQ.html -Destination ../../win/hmv/notes/info/FAQ.html
+
+Copy-Item contributors.html -Destination ../../win/hmv/notes/info/contributors.html
