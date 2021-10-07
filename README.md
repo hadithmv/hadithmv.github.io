@@ -40,7 +40,7 @@ The Maldivian Hadith Translation Platform
 
 ### **Developing a hadith platform for Maldivians**
 
-The **hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a hadith collection in their native Dhivehi language, in sha Allah. We are also working on making other Islamic works available. Any good that comes of this is from Allah, and any shortcomings are from ourselves and shaithan. O Allah, please accept and bless this work of ours, and make it from our good deeds. Let it be a Sadaqa Jariya that remains until the Day of Judgement. And forgive the brothers and sisters who participated in it, as well as their families and friends. Ameen.
+The **hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a hadith collection in their native Dhivehi language, in sha Allah. We are also working on making other Islamic works available.
 
 ## Goals
 
@@ -109,7 +109,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 </b></h3>
 
 <p align="right" dir="rtl">
-ޙަދީޘްއެމްވީ މަޝްރޫއަކީ އިސްލާމީ ދިވެހި މުޖުތަމައަށް ވީހާވެސް ފަސޭހަ ކަމާއިއެކު ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތަަކުގެ މާނަ އުނގަންނައިދީ ފޯރުކޮށްދިނުމަށް ޓަކައި ޒަމާނީ ވަސީލަތެއް ގާއިމު ކުރުމުގެ ގޮތުން ކުރެވޭ މަސައްކަތެކެވެ. އިރާދަ ކުރެއްވިއްޔާ މި މަޝްރޫއު ފުރިހަމަ ވުމުން ގިނަ އަދަދެއްގެ ޙަދީޘް ދިވެހި ބަހުން ފަސޭހައިން އެއްތަނަކުން ލިބެން ހުންނާނެއެވެ. އަދި އެހެނިހެން އިސްލާމީ ލިޔުންތައް ގެނެސްދެވޭތޯ ވެސް އެބަ މަސައްކަތް ކުރަމެވެ. މި ކަމުގައި އެއްވެސް ހެޔޮކަމެއް ވާނަމަ، ފަހެ އެއީ ﷲ ގެ ހަޒުރަތުން އައި ކަމެކެވެ. އަދި މި ކަމުގައި އެއްވެސް އުނިކަމެއް ވާނަމަ އެއީ އަޅުގަނޑުމެންނާއި ޝައިތާނާގެ ފަރާތުން އައި ކަމެކެވެ. ޔާ ﷲ އެވެ. އަޅަމެންގެ މި މަސައްކަތް ގަބޫލު ކުރައްވާ، މިކަމުގައި ބަރަކާތް ލައްވާ، އަޅަމެންގެ ހެޔޮ ޢަމަލުތަކުގެ ތެރޭގައި ހިމަނުއްވާށިއެވެ. އަދި މިއީ ގިޔާމަތަށް ދާންދެން ދެމިގެންދާ ސަދަގާ ޖާރިއާއެއް ކަމުގައި ލައްވާށިއެވެ. އަދި މިކަމުގައި ބައިވެރިވި އެންމެހައި އަޚުންނާއި އުޚްތުންނާއި އެ މީހުންގެ އާއިލާތަކާއި ރަހްމަތްތެރިންގެ ފާފަތައް ފުއްސަވާށިއެވެ. އާމީން.
+ޙަދީޘްއެމްވީ މަޝްރޫއަކީ އިސްލާމީ ދިވެހި މުޖުތަމައަށް ވީހާވެސް ފަސޭހަ ކަމާއިއެކު ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތަަކުގެ މާނަ އުނގަންނައިދީ ފޯރުކޮށްދިނުމަށް ޓަކައި ޒަމާނީ ވަސީލަތެއް ގާއިމު ކުރުމުގެ ގޮތުން ކުރެވޭ މަސައްކަތެކެވެ. އިރާދަ ކުރެއްވިއްޔާ މި މަޝްރޫއު ފުރިހަމަ ވުމުން ގިނަ އަދަދެއްގެ ޙަދީޘް ދިވެހި ބަހުން ފަސޭހައިން އެއްތަނަކުން ލިބެން ހުންނާނެއެވެ. އަދި އެހެނިހެން އިސްލާމީ ލިޔުންތައް ގެނެސްދެވޭތޯ ވެސް އެބަ މަސައްކަތް ކުރަމެވެ.
 </p>
 
 <br /><br />
