@@ -139,6 +139,8 @@ matches:
   - trigger: "tc-"
     replace: "take care"
     
+  - trigger: "سس-"
+    replace: "ﷺ"
     
     
     
