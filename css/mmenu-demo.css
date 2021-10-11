@@ -1,3 +1,5 @@
+/* this is the inlined css */
+
 /* html,
 body {
   padding: 0;
@@ -183,7 +185,7 @@ CUSTOM EDITS
   width: 40px;
   position: absolute;
   margin-left: 11px;
-  margin-top: 4.5px;
+  margin-top: 4.7px;
 }
 
 /* dark mode, because preloading css causes fout, in this flash of case invisible white body */
