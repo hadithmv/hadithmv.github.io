@@ -85,12 +85,13 @@ $(document).ready(() => {
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          /* reverse ayah numbers because font wont display them properly otherwise,
+          /* UPDATE: rtl override undoes it now? so removed.
+          reverse ayah numbers because font wont display them properly otherwise,
           this control solution is better than replace reverse, because it carries on to clipboard
           https://stackoverflow.com/questions/2939766/regex-to-reverse-order-of-list
           https://www.fileformat.info/info/unicode/char/202e/index.htm */
           // data = data.replace(/([\u0660-\u0669]+)([\u0660-\u0669]+)([\u0660-\u0669]+)/, '$3$2$1')
-          data = data.replace(/([\u0660-\u0669]+)/, '\u202E$1')
+          //data = data.replace(/([\u0660-\u0669]+)/, '\u202E$1')
           /* reverse brackets because thats how the font file needs it */
           data = '﴿' + data + '﴾'
           /* move the bracket in surah start basmalas to the actual first ayah */
@@ -478,6 +479,8 @@ $(document).ready(() => {
           data = data.replace(/\s\s/g, '\n\n') // turns two spaces into new lines, for multi line text
           data = data.replace(/\n\n\n\n/g, '\n\n') // turns 4 new lines spaces into 2
           data = data.replace(/\n\n\n\n/g, '\n\n') // turns 4 new lines spaces into 2
+
+          data = data.replace(/𝟢 |𝟣 |𝟤 |𝟥 |𝟦 |𝟧 |𝟨 |𝟩 |𝟪 |𝟫 /g, '') // removes these alt numbers from surah name
 
           /*
           data = data.replace(/\n\n/g, '\t') // prevents # showing up unneeded (linux)
