@@ -481,6 +481,7 @@ $(document).ready(() => {
           data = data.replace(/\n\n\n\n/g, '\n\n') // turns 4 new lines spaces into 2
 
           data = data.replace(/𝟢 |𝟣 |𝟤 |𝟥 |𝟦 |𝟧 |𝟨 |𝟩 |𝟪 |𝟫 /g, '') // removes these alt numbers from surah name
+          data = data.replace(/𝟢|𝟣|𝟤|𝟥|𝟦|𝟧|𝟨|𝟩|𝟪|𝟫/g, '') // removes these alt numbers from surah name
 
           /*
           data = data.replace(/\n\n/g, '\t') // prevents # showing up unneeded (linux)
