@@ -92,7 +92,12 @@ $(document).ready(() => {
           https://www.fileformat.info/info/unicode/char/202e/index.htm */
           // data = data.replace(/([\u0660-\u0669]+)([\u0660-\u0669]+)([\u0660-\u0669]+)/, '$3$2$1')
           //data = data.replace(/([\u0660-\u0669]+)/, '\u202E$1')
+
+          // this places a non break character before the numbers, also replaces a space before the numbers
+          data = data.replace(/\s([\u0660-\u0669]+)/, '\u00a0$1')
+          
           /* reverse brackets because thats how the font file needs it */
+          //data = '﴿' + data + '﴾'
           data = '﴿' + data + '﴾'
           /* move the bracket in surah start basmalas to the actual first ayah */
           return data.replace('﴿بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n<br><br>\n', 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n<br><br>\n﴿')
