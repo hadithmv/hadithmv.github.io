@@ -15,7 +15,7 @@ The Maldivian Hadith Translation Platform
 </p>
 
 <p align="center">
-ދިވެހިންގެ ޙަދީޘް ތަރުޖަމާކުރާ މަންސަ
+ދިވެހިންގެ ޙަދީޘް ތަރުޖަމާ މަންސަ
 </p>
 
 <!---
