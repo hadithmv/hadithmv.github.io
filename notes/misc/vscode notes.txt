@@ -79,19 +79,21 @@ make list of extensions in vscode:
 	code --list-extensions
 
 EXTENSIONS LIST:
-chenxsan.vscode-standardjs
-CoenraadS.bracket-pair-colorizer-2
+cwan.native-ascii-converter
+DavidAnson.vscode-markdownlint
 esbenp.prettier-vscode
-formulahendry.auto-rename-tag
-josee9988.minifyall
-mkaufman.htmlhint
-oderwat.indent-rainbow
-ryu1kn.partial-diffShan.code-settings-sync
+GitHub.remotehub
+GitHub.vscode-pull-request-github
+lacroixdavid1.vscode-format-context-menu
+mkaufman.HTMLHint
+ms-vscode.powershell
+shd101wyy.markdown-preview-enhanced
+standard.vscode-standard
 stylelint.vscode-stylelint
 techer.open-in-browser
 vscode-icons-team.vscode-icons
+Wattenberger.footsteps
 zh9528.file-size
-softwaredotcom.swdc-vscode
 
 ---
 
@@ -139,15 +141,18 @@ npm i stylelint-config-prettier stylelint-prettier -g
 npm i standard -g
 
 CURRENT LIST
-+-- csso-cli@3.0.0
-+-- google-closure-compiler@20201102.0.1
-+-- html-minifier@4.0.0
-+-- htmlhint@0.14.2
-+-- standard@16.0.3
-+-- stylelint-config-prettier@8.0.2
-+-- stylelint-config-standard@20.0.0
-+-- stylelint-prettier@1.1.2
-+-- uglify-js@3.12.1
+C:\Users...\AppData\Roaming\npm    
+├── csso-cli@3.0.0
+├── google-closure-compiler@20211006.0.0
+├── html-minifier@4.0.0
+├── htmlhint@0.15.2
+├── standard@16.0.4
+├── stylelint-config-prettier@8.0.2
+├── stylelint-config-standard@22.0.0
+└── stylelint-prettier@1.2.0
+
+
++-- uglify-js@3.12.1??
 
 ----------------------------------------
 
