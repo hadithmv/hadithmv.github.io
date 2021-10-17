@@ -18,6 +18,7 @@ The Maldivian Hadith Translation Platform
 ދިވެހިންގެ ޙަދީޘް ތަރުޖަމާކުރާ މަންސަ
 </p>
 
+<!---
 <p align="center">
   View the <a href="https://hadithmv.github.io"><b>Web Version</b></a>
 </p>
@@ -29,7 +30,9 @@ The Maldivian Hadith Translation Platform
 <p align="center">
 <img src="https://hadithmv.github.io/img/wb/windows-badge-Opt.svg" width="200px" />
 </p>
+--->
 
+<br>
 <hr>
 <br>
 
