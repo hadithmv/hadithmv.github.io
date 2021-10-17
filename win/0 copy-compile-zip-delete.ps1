@@ -50,7 +50,38 @@ Copy-Item ../notes/info/FAQ.html -Destination hmv/notes/info/FAQ.html
 Copy-Item ../notes/info/contributors.html -Destination hmv/notes/info/contributors.html
 
 #
-# WIN ONLY COMPILE
+# COPY MINIFIED JS
+#
+
+Copy-Item ../js/barbahari-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/barbahari-script.min.js
+Copy-Item ../js/nawawi-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/nawawi-script.min.js
+Copy-Item ../js/quran-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/quran-script.min.js
+Copy-Item ../js/umdah-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/umdah-script.min.js
+Copy-Item ../js/radheef-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/radheef-script.min.js
+Copy-Item ../js/eegaal-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/eegaal-script.min.js
+Copy-Item ../js/allHadith-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/allHadith-script.min.js
+Copy-Item ../js/hisnulMuslim-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/hisnulMuslim-script.min.js
+
+Copy-Item ../js/barbahari-script.min.js -Destination hmv/js/barbahari-script.min.js
+Copy-Item ../js/nawawi-script.min.js -Destination hmv/js/nawawi-script.min.js
+Copy-Item ../js/quran-script.min.js -Destination hmv/js/quran-script.min.js
+Copy-Item ../js/umdah-script.min.js -Destination /hmv/js/umdah-script.min.js
+Copy-Item ../js/radheef-script.min.js -Destination hmv/js/radheef-script.min.js
+Copy-Item ../js/eegaal-script.min.js -Destination hmv/js/eegaal-script.min.js
+Copy-Item ../js/allHadith-script.min.js -Destination hmv/js/allHadith-script.min.js
+Copy-Item ../js/hisnulMuslim-script.min.js -Destination hmv/js/hisnulMuslim-script.min.js
+
+#
+# COPY MINIFIED CSS
+#
+
+Copy-Item ../css/COMB-nonCrit.min.css -Destination ../app/webview-master/app/src/main/assets/css/COMB-nonCrit.min.css
+
+Copy-Item ../css/COMB-nonCrit.min.css -Destination hmv/css/COMB-nonCrit.min.css
+
+
+#
+# WIN COMPILE
 #
 
 # delete old 7z archive because that way new one is smaller
