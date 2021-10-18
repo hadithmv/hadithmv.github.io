@@ -1,8 +1,6 @@
-Set-Location -Path $PSScriptRoot
-
-# - - -
+#
 # COPY BOOKS
-# - - -
+#
 
 # copies site minified book files to asset book files one by one
 Copy-Item ../books/40nawawi.html -Destination ../app/webview-master/app/src/main/assets/books/40nawawi.html
@@ -21,31 +19,62 @@ Copy-Item ../app/webview-master/app/src/main/assets/books/* -Destination hmv/boo
 # copies index from win book to win root
 Copy-Item hmv/books/index.html -Destination hmv/index.html
 
-# - - -
+#
 # COPY NOTES
-# - - -
+#
 
 Copy-Item ../notes/minimal-mod.min.css -Destination ../app/webview-master/app/src/main/assets/notes/minimal-mod.min.css
 Copy-Item ../notes/third-party-libs-and-tools.txt -Destination ../app/webview-master/app/src/main/assets/notes/third-party-libs-and-tools.txt
 Copy-Item ../LICENSE.txt -Destination ../app/webview-master/app/src/main/assets/LICENSE.txt
 Copy-Item ../notes/how-to-use-hmv.txt -Destination ../app/webview-master/app/src/main/assets/notes/how-to-use-hmv.txt
 
-# - - -
+Copy-Item ../notes/minimal-mod.min.css -Destination hmv/notes/minimal-mod.min.css
+Copy-Item ../notes/third-party-libs-and-tools.txt -Destination hmv/notes/third-party-libs-and-tools.txt
+Copy-Item ../LICENSE.txt -Destination hmv/LICENSE.txt
+Copy-Item ../notes/how-to-use-hmv.txt -Destination hmv/notes/how-to-use-hmv.txt
+
+#
 # COPY INFO
-# - - -
+#
 
-Copy-Item ../notes/info/introHmv.html -Destination ../app/webview-master/app/src/main/assets/notes/info/introHmv.html
-Copy-Item ../notes/info/introFortyN.html -Destination ../app/webview-master/app/src/main/assets/notes/info/introFortyN.html
-Copy-Item ../notes/info/introUmdah.html -Destination ../app/webview-master/app/src/main/assets/notes/info/introUmdah.html
-Copy-Item ../notes/info/FAQ.html -Destination ../app/webview-master/app/src/main/assets/notes/info/FAQ.html
-Copy-Item ../notes/info/contributors.html -Destination ../app/webview-master/app/src/main/assets/notes/info/contributors.html
+Copy-Item ../notes/info/introHmv.html -Destination ../../app/webview-master/app/src/main/assets/notes/info/introHmv.html
+Copy-Item ../notes/info/introFortyN.html -Destination ../../app/webview-master/app/src/main/assets/notes/info/introFortyN.html
+Copy-Item ../notes/info/introUmdah.html -Destination ../../app/webview-master/app/src/main/assets/notes/info/introUmdah.html
+Copy-Item ../notes/info/FAQ.html -Destination ../../app/webview-master/app/src/main/assets/notes/info/FAQ.html
+Copy-Item ../notes/info/contributors.html -Destination ../../app/webview-master/app/src/main/assets/notes/info/contributors.html
 
-# copies previous notes folder contents to win notes folder (including info folder inside that)
-Copy-Item ../app/webview-master/app/src/main/assets/notes/* -Destination hmv/notes -Recurse -Force
+Copy-Item ../notes/info/introHmv.html -Destination hmv/notes/info/introHmv.html
+Copy-Item ../notes/info/introFortyN.html -Destination hmv/notes/info/introFortyN.html
+Copy-Item ../notes/info/introUmdah.html -Destination hmv/notes/info/introUmdah.html
+Copy-Item ../notes/info/FAQ.html -Destination hmv/notes/info/FAQ.html
+Copy-Item ../notes/info/contributors.html -Destination hmv/notes/info/contributors.html
 
-# - - -
+
+#
+# COPY JSON
+#
+
+Copy-Item ../js/json/barbahari.js -Destination ../../app/webview-master/app/src/main/assets/js/json/barbahari.js
+Copy-Item ../js/json/nawawi.js -Destination ../../app/webview-master/app/src/main/assets/js/json/nawawi.js
+Copy-Item ../js/json/quran.js -Destination ../../app/webview-master/app/src/main/assets/js/json/quran.js
+Copy-Item ../js/json/umdah.js -Destination ../../app/webview-master/app/src/main/assets/js/json/umdah.js
+Copy-Item ../js/json/radheef.js -Destination ../../app/webview-master/app/src/main/assets/js/json/radheef.js
+Copy-Item ../js/json/eegaal.js -Destination ../../app/webview-master/app/src/main/assets/js/json/eegaal.js
+Copy-Item ../js/json/allHadith.js -Destination ../../app/webview-master/app/src/main/assets/js/json/allHadith.js
+Copy-Item ../js/json/hisnulMuslim.js -Destination ../../app/webview-master/app/src/main/assets/js/json/hisnulMuslim.js
+
+Copy-Item ../js/json/barbahari.js -Destination hmv/js/json/barbahari.js
+Copy-Item ../js/json/nawawi.js -Destination hmv/js/json/nawawi.js
+Copy-Item ../js/json/quran.js -Destination hmv/js/json/quran.js
+Copy-Item ../js/json/umdah.js -Destination hmv/js/json/umdah.js
+Copy-Item ../js/json/radheef.js -Destination hmv/js/json/radheef.js
+Copy-Item ../js/json/eegaal.js -Destination hmv/js/json/eegaal.js
+Copy-Item ../js/json/allHadith.js -Destination hmv/js/json/allHadith.js
+Copy-Item ../js/json/hisnulMuslim.js -Destination hmv/js/json/hisnulMuslim.js
+
+#
 # COPY MINIFIED JS SCRIPTS
-# - - -
+#
 
 Copy-Item ../js/barbahari-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/barbahari-script.min.js
 Copy-Item ../js/nawawi-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/nawawi-script.min.js
@@ -56,37 +85,23 @@ Copy-Item ../js/eegaal-script.min.js -Destination ../app/webview-master/app/src/
 Copy-Item ../js/allHadith-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/allHadith-script.min.js
 Copy-Item ../js/hisnulMuslim-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/hisnulMuslim-script.min.js
 
-# - - -
-# COPY JS RESOURCE FILES
-# - - -
+Copy-Item ../js/barbahari-script.min.js -Destination hmv/js/barbahari-script.min.js
+Copy-Item ../js/nawawi-script.min.js -Destination hmv/js/nawawi-script.min.js
+Copy-Item ../js/quran-script.min.js -Destination hmv/js/quran-script.min.js
+Copy-Item ../js/umdah-script.min.js -Destination /hmv/js/umdah-script.min.js
+Copy-Item ../js/radheef-script.min.js -Destination hmv/js/radheef-script.min.js
+Copy-Item ../js/eegaal-script.min.js -Destination hmv/js/eegaal-script.min.js
+Copy-Item ../js/allHadith-script.min.js -Destination hmv/js/allHadith-script.min.js
+Copy-Item ../js/hisnulMuslim-script.min.js -Destination hmv/js/hisnulMuslim-script.min.js
 
-Copy-Item ../js/resc/COMB-Crit.js -Destination ../app/webview-master/app/src/main/assets/js/resc/COMB-Crit.js
-Copy-Item ../js/resc/COMB-nonCrit.js -Destination ../app/webview-master/app/src/main/assets/js/resc/COMB-nonCrit.js
-
-# - - -
-# COPY JSON
-# - - -
-
-Copy-Item ../js/json/barbahari.js -Destination ../app/webview-master/app/src/main/assets/js/json/barbahari.js
-Copy-Item ../js/json/nawawi.js -Destination ../app/webview-master/app/src/main/assets/js/json/nawawi.js
-Copy-Item ../js/json/quran.js -Destination ../app/webview-master/app/src/main/assets/js/json/quran.js
-Copy-Item ../js/json/umdah.js -Destination ../app/webview-master/app/src/main/assets/js/json/umdah.js
-Copy-Item ../js/json/radheef.js -Destination ../app/webview-master/app/src/main/assets/js/json/radheef.js
-Copy-Item ../js/json/eegaal.js -Destination ../app/webview-master/app/src/main/assets/js/json/eegaal.js
-Copy-Item ../js/json/allHadith.js -Destination ../app/webview-master/app/src/main/assets/js/json/allHadith.js
-Copy-Item ../js/json/hisnulMuslim.js -Destination ../app/webview-master/app/src/main/assets/js/json/hisnulMuslim.js
-
-# copies previous js folder contents to win js folder (including json and resc folder inside that)
-Copy-Item ../app/webview-master/app/src/main/assets/js/* -Destination hmv/js -Recurse -Force
-
-# - - -
+#
 # COPY MINIFIED CSS
-# - - -
+#
 
 Copy-Item ../css/COMB-nonCrit.min.css -Destination ../app/webview-master/app/src/main/assets/css/COMB-nonCrit.min.css
 
-# copies previous js folder contents to win js folder (including json and resc folder inside that)
-Copy-Item ../app/webview-master/app/src/main/assets/css/* -Destination hmv/css -Recurse -Force
+Copy-Item ../css/COMB-nonCrit.min.css -Destination hmv/css/COMB-nonCrit.min.css
+
 
 #
 # WIN COMPILE
