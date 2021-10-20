@@ -189,7 +189,16 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 
 <div class="en mid tellUs" align="center">
 <p>If you find a mistake, or want to join this translation platform, or want to support this project, please
-<a href="https://t.me/yahyasdadmv">let us know</a>.</p>
+let us know.
+
+  <p>
+    Contact us: <a href="http://m.me/hadithmvOfficial">Messenger</a> |
+    <a href="http://+9607727960">Viber</a> |
+    <a href="http://t.me/hadithmvAdmin">Telegram</a> |
+    <a href="http://wa.me/message/IVXJAT4EBQ35C1">WhatsApp</a> |
+    <a href="http://yahyasdadmv@gmail.com">Email</a>
+  </p>
+
   <p>
     Subscribe: <a href="http://fb.me/hadithmvOfficial">Facebook</a> |
     <a href="https://rebrand.ly/hmvViber">Viber</a> |
@@ -197,13 +206,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
     <a href="https://instagram.com/hadithmv">Instagram</a> |
     <a href="https://twitter.com/hadithmv">Twitter</a>
   </p>
-  <p>
-    Contact: <a href="http://m.me/hadithmvOfficial">Messenger</a> |
-    <a href="http://+9607727960">Viber</a> |
-    <a href="http://t.me/hadithmvAdmin">Telegram</a> |
-    <a href="http://wa.me/message/IVXJAT4EBQ35C1">WhatsApp</a> |
-    <a href="http://yahyasdadmv@gmail.com">Email</a>
-  </p>
+
   <p>Get the hadithmv app:
         <a href="https://hadithmv.github.io">Web</a> |
         <a href="http://rebrand.ly/hmvAndroid">Android</a> | <a href="https://rebrand.ly/hmvWindows">Windows</a>
