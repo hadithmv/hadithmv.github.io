@@ -1172,6 +1172,13 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   text-align: center;
 }
 
+.arMasdar {
+  font-family: "arFont", "dvFont", sans-serif;
+  font-size: 20px;
+  line-height: 1.7;
+  word-spacing: 2px;
+}
+
 /* ====================
        DARK MODE
 ======================= */
