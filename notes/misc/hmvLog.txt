@@ -36,14 +36,16 @@ regex to fix empty fili repeats:
 ([ަ-ް])[ަ-ް]+
 Replace with $1
 
-َّ
+
+َّ
 َّ
 
-ِّ
+ِّ
 ِّ
 
+ُّ
 ُّ
-ُّ
+
 
 sumatra:
 FixedPageUI [
