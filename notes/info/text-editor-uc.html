@@ -261,7 +261,7 @@
         <textarea
           id="textHere"
           placeholder="ލިޔެލާ..."
-          onkeyup="countChar();countWord();"
+          oninput="countChar();countWord();"
         ></textarea>
 
         <br />
@@ -284,6 +284,7 @@
         <button onclick="replaceSemiColon();">; -> ؛</button>
         <button onclick="replaceQbracket();">{ -> ﴿</button>
         <button onclick="replaceQstop();">* -> ۝</button>
+        <button onclick="replaceQuotes();">" -> ”</button>
 
         <br />
 
@@ -297,7 +298,7 @@
         <button onclick="copyRiwa();">ރިވާ ކުރެއްވި</button>
         <button onclick="copyRhadithK();">ރަސޫލާ ޙަދީޘް ކުރެއްވި</button>
         <button onclick="copyNhadithK();">ނަބިއްޔާ ޙަދީޘް ކުރެއްވި</button>
-        <button onclick="copyhadithAdu();">ޙަދީޘް ކުރައްވަނިކޮށް އަޑު</button>
+        <button onclick="copyhadithAdu();">ޙަދީޘް އަޑުއެހީމޭ</button>
 
         <button onclick="copyJazak();">جزاك الله</button>
         <button onclick="copyBarak();">بارك الله</button>
@@ -330,15 +331,19 @@
           height: 80px;
           margin: 5px;
           border-radius: 5px;
+          /*padding: 20px;*/
         }
 
         /* @mixin for-phone-only */
         @media (max-width: 599px) {
           button {
-            font-size: 14px;
-            width: 150px;
-            height: 50px;
+            font-size: 13px;
+            width: 130px;
+            height: 60px;
+            /*padding: 20px;*/
             margin: 3px;
+            margin-right: 0px;
+            margin-left: 0px;
           }
         }
 
@@ -462,6 +467,7 @@
         function replaceSpacesLines() {
           var text = document.getElementById("textHere").value;
           var newText = text
+            .replace(/ \:/g, ":")
             .replace(/^[ \s]+|[ \s]+$/g, "")
             .replace(/(\r\n|\r|\n){3,}/g, "$1\n");
           document.getElementById("textHere").value = newText;
@@ -512,6 +518,14 @@
             .replace(/\*/g, "۝")
             .replace(/ \*{/g, "۝")
             .replace(/ \۝/g, "۝");
+          document.getElementById("textHere").value = newText;
+        }
+
+        function replaceQuotes() {
+          var text = document.getElementById("textHere").value;
+          var newText = text
+            .replace(/(\s|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C")
+            .replace(/(\s|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C");
           document.getElementById("textHere").value = newText;
         }
       </script>
