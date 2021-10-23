@@ -252,7 +252,7 @@
       <div style="text-align: center">
         <p class="mid">
           ކެރެކްޓާތައް:
-          <span id="characters">0</span> &nbsp; | &nbsp; ބަސްތައް:
+          <span id="characters">0</span>&nbsp; | &nbsp;ބަސްތައް:
           <span id="words">0</span>
         </p>
 
@@ -274,34 +274,44 @@
         <button onclick="arToNum();">ނަމްބަރު ލެޓިންކުރޭ</button>
         <button onclick="remThiki();">ތިކިޖެހިތާނަ ފޮހެލާ</button>
         <button onclick="replaceSpacesLines();">ބޭކާރު ސްޕޭސް ފޮހެލާ</button>
-        <button onclick="shortenSalla();">صلى -> ﷺ</button>
-        <button onclick="replaceQmark();">? -> ؟</button>
-        <button onclick="replaceComma();">, -> ،</button>
-        <button onclick="replaceSemiColon();">; -> ؛</button>
-        <button onclick="replaceQbracket();">{ -> ﴿</button>
-        <button onclick="replaceQstop();">* -> ۝</button>
-        <button onclick="replaceQuotes();">" -> ”</button>
+        <button onclick="shortenSalla();" class="arButton">صلى -> ﷺ</button>
+        <button onclick="replaceQmark();" class="arButton">? -> ؟</button>
+        <button onclick="replaceComma();" class="arButton">, -> ،</button>
+        <button onclick="replaceSemiColon();" class="arButton">; -> ؛</button>
+        <button onclick="replaceQbracket();" class="arButton">{ -> ﴿</button>
+        <button onclick="replaceQstop();" class="arButton">* -> ۝</button>
+        <button onclick="replaceQuotes();" class="arButton">" -> ”</button>
 
         <br />
 
         <p class="buttonHeader">ކްލިޕްބޯޑަށް ކޮޕީކުރޭ:</p>
-        <button onclick="copySalla();">ﷺ</button>
-        <button onclick="copyRadiya1();">رَضِيَ اللَّهُ عَنْهُ</button>
-        <button onclick="copyRadiyaHaa();">رَضِيَ اللَّهُ عَنْهَا</button>
-        <button onclick="copyRadiya2();">رَضِيَ اللَّهُ عَنْهُمَا</button>
-        <button onclick="copyRadiyaHum();">رَضِيَ اللَّهُ عَنْهُمْ</button>
+        <button onclick="copySalla();" class="arButton">ﷺ</button>
+        <button onclick="copyRadiya1();" class="arButton">
+          رَضِيَ اللَّهُ عَنْهُ
+        </button>
+        <button onclick="copyRadiyaHaa();" class="arButton">
+          رَضِيَ اللَّهُ عَنْهَا
+        </button>
+        <button onclick="copyRadiya2();" class="arButton">
+          رَضِيَ اللَّهُ عَنْهُمَا
+        </button>
+        <button onclick="copyRadiyaHum();" class="arButton">
+          رَضِيَ اللَّهُ عَنْهُمْ
+        </button>
 
         <button onclick="copyRiwa();">ރިވާ ކުރެއްވި</button>
         <button onclick="copyRhadithK();">ރަސޫލާ ޙަދީޘްކުރެއްވި</button>
         <button onclick="copyNhadithK();">ނަބިއްޔާ ޙަދީޘްކުރެއްވި</button>
         <button onclick="copyhadithAdu();">ޙަދީޘް އަޑުއެހީމޭ</button>
 
-        <button onclick="copyJazak();">جزاك الله</button>
-        <button onclick="copyBarak();">بارك الله</button>
-        <button onclick="copyBismi();">بسم الله</button>
+        <button onclick="copyJazak();" class="arButton">جزاك الله</button>
+        <button onclick="copyBarak();" class="arButton">بارك الله</button>
+        <button onclick="copyBismi();" class="arButton">بسم الله</button>
 
-        <button onclick="copySalam();">السلام عليكم</button>
-        <button onclick="copyWassalam();">وعليكم السلام</button>
+        <button onclick="copySalam();" class="arButton">السلام عليكم</button>
+        <button onclick="copyWassalam();" class="arButton">
+          وعليكم السلام
+        </button>
         <button onclick="copyDate();">މި ތާރީޚާއި ވަގުތު</button>
       </div>
       <!--<button id="buttonC" onclick="count();">ގުނާލާ</button>-->
@@ -310,6 +320,11 @@
       <style>
         .buttonHeader {
           margin-bottom: 0;
+        }
+
+        .arButton {
+          font-family: "arFont", "dvFont", sans-serif;
+          font-size: 16px;
         }
         .mid,
         h2,
