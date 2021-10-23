@@ -429,7 +429,16 @@
       <script>
         function replaceFili() {
           var text = document.getElementById("textHere").value;
-          var newText = text.replace(/[ًٌٍَُِّْ]/g, "");
+          var newText = text
+            .replace(/[ًٌٍَُِّْ]/g, "")
+            .replace(/[\u06d4-\u06dc]/g, "")
+            .replace(/[\u06df-\u06ed]/g, "")
+            .replace(/[\u064b-\u066d]/g, "")
+            .replace(/[\u0610-\u061e]/g, "")
+            .replace(/\u0670/g, "")
+            .replace(/\u0674/g, "")
+            .replace(/ـ/g, "")
+            .replace(/ٱ|ٲ|ٳ/g, "ا");
           document.getElementById("textHere").value = newText;
         }
       </script>
