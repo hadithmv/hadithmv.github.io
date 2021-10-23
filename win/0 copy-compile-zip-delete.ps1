@@ -40,7 +40,7 @@ Copy-Item ../notes/info/introUmdah.html -Destination ../app/webview-master/app/s
 Copy-Item ../notes/info/FAQ.html -Destination ../app/webview-master/app/src/main/assets/notes/info/FAQ.html
 Copy-Item ../notes/info/contributors.html -Destination ../app/webview-master/app/src/main/assets/notes/info/contributors.html
 Copy-Item ../notes/info/khutba.html -Destination ../app/webview-master/app/src/main/assets/notes/info/khutba.html
-Copy-Item ../notes/info/tashkeel-remover.html -Destination ../app/webview-master/app/src/main/assets/notes/info/tashkeel-removers.html
+Copy-Item ../notes/info/text-edit.html -Destination ../app/webview-master/app/src/main/assets/notes/info/text-edits.html
 
 # copies previous notes folder contents to win notes folder (including info folder inside that)
 Copy-Item ../app/webview-master/app/src/main/assets/notes/* -Destination hmv/notes -Recurse -Force
