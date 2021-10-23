@@ -294,6 +294,8 @@
           border-radius: 5px;
           border-width: 0;
           /*padding: 20px;*/
+          /* add ease in transition for hover */
+          transition: transform 0.2s ease-out;
         }
 
         /* @mixin for-phone-only */
@@ -320,8 +322,15 @@
 
         button:hover {
           cursor: pointer;
-          background-color: #2f6f8c;
+
           color: #fff;
+
+          transform: scale(1.15);
+          z-index: 9999;
+
+          background-color: #2f6f8c;
+
+          -webkit-font-smoothing: antialiased;
         }
       </style>
 
