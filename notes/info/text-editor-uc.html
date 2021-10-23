@@ -271,17 +271,19 @@
           އަރަބި ފިލިތައް ފޮހެލާ
         </button>
         <button onclick="copyToClipB();">ލިޔުން ކޮޕީކުރޭ</button>
-        <button onclick="shortenSalla();">صلى -> ﷺ</button>
+
         <button onclick="numToAr();">ނަމްބަރުތައް އަރަބިކުރޭ</button>
         <button onclick="arToNum();">ނަމްބަރުތައް ލެޓިންކުރޭ</button>
         <button onclick="remThiki();">ތިކިޖެހިތާނަ ބަދަލުކުރޭ</button>
         <button onclick="replaceSpacesLines();">
           ބޭކާރު ސްޕޭސަތައް ފޮހެލާ
         </button>
+        <button onclick="shortenSalla();">صلى -> ﷺ</button>
         <button onclick="replaceQmark();">? -> ؟</button>
         <button onclick="replaceComma();">, -> ،</button>
         <button onclick="replaceSemiColon();">; -> ؛</button>
         <button onclick="replaceQbracket();">{ -> ﴿</button>
+        <button onclick="replaceQstop();">* -> ۝</button>
 
         <br />
 
@@ -303,7 +305,7 @@
 
         <button onclick="copySalam();">السلام عليكم</button>
         <button onclick="copyWassalam();">وعليكم السلام</button>
-        <button onclick="copyDate();">މިއަދުގެ ތާރީޚު</button>
+        <button onclick="copyDate();">މި ތާރީޚާއި ވަގުތު</button>
       </div>
       <!--<button id="buttonC" onclick="count();">ގުނާލާ</button>-->
       <br /><br />
@@ -326,9 +328,20 @@
           font-size: 16px;
           width: 180px;
           height: 80px;
-          border-radius: 5px;
           margin: 5px;
+          border-radius: 5px;
         }
+
+        /* @mixin for-phone-only */
+        @media (max-width: 599px) {
+          button {
+            font-size: 14px;
+            width: 150px;
+            height: 50px;
+            margin: 3px;
+          }
+        }
+
         button:hover {
           cursor: pointer;
         }
@@ -450,7 +463,7 @@
           var text = document.getElementById("textHere").value;
           var newText = text
             .replace(/^[ \s]+|[ \s]+$/g, "")
-            .replace(/[\n]+/g, "\n");
+            .replace(/(\r\n|\r|\n){3,}/g, "$1\n");
           document.getElementById("textHere").value = newText;
         }
 
@@ -490,6 +503,15 @@
             .replace(/\}/g, "﴿")
             .replace(/ \}/g, "﴿")
             .replace(/ ﴿/g, "﴿");
+          document.getElementById("textHere").value = newText;
+        }
+
+        function replaceQstop() {
+          var text = document.getElementById("textHere").value;
+          var newText = text
+            .replace(/\*/g, "۝")
+            .replace(/ \*{/g, "۝")
+            .replace(/ \۝/g, "۝");
           document.getElementById("textHere").value = newText;
         }
       </script>
@@ -574,17 +596,26 @@
         }
 
         function copyWassalam() {
-          navigator.clipboard.writeText(Date().toLocaleDateString());
+          navigator.clipboard.writeText("وعليكم السلام ورحمة الله وبركاته");
         }
 
         function copyDate() {
-          navigator.clipboard.writeText(
+          var today = new Date();
+          var date =
             today.getFullYear() +
-              "-" +
-              (today.getMonth() + 1) +
-              "-" +
-              today.getDate()
-          );
+            "-" +
+            (today.getMonth() + 1) +
+            "-" +
+            today.getDate();
+          var time =
+            today.getHours() +
+            ":" +
+            today.getMinutes() +
+            ":" +
+            today.getSeconds();
+          var dateTime = date + " " + time;
+
+          navigator.clipboard.writeText(dateTime);
         }
       </script>
 
