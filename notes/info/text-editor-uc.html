@@ -525,7 +525,9 @@
           var text = document.getElementById("textHere").value;
           var newText = text
             .replace(/(\s|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C")
-            .replace(/(\s|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C");
+            .replace(/(\s|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C")
+            .replace(/(\s|^)\'([^\']+)\'/g, "$1\u2019$2\u2018")
+            .replace(/(\s|^)\'([^\']+)\'/g, "$1\u2019$2\u2018");
           document.getElementById("textHere").value = newText;
         }
       </script>
