@@ -267,17 +267,13 @@
         <br />
 
         <p>ލިޔުން ބަދަލުކުރޭ:</p>
-        <button onclick="replaceFili();countChar()">
-          އަރަބި ފިލިތައް ފޮހެލާ
-        </button>
+        <button onclick="replaceFili();countChar()">އަރަބި ފިލި ފޮހެލާ</button>
         <button onclick="copyToClipB();">ލިޔުން ކޮޕީކުރޭ</button>
 
-        <button onclick="numToAr();">ނަމްބަރުތައް އަރަބިކުރޭ</button>
-        <button onclick="arToNum();">ނަމްބަރުތައް ލެޓިންކުރޭ</button>
+        <button onclick="numToAr();">ނަމްބަރު އަރަބިކުރޭ</button>
+        <button onclick="arToNum();">ނަމްބަރު ލެޓިންކުރޭ</button>
         <button onclick="remThiki();">ތިކިޖެހިތާނަ ފޮހެލާ</button>
-        <button onclick="replaceSpacesLines();">
-          ބޭކާރު ސްޕޭސަތައް ފޮހެލާ
-        </button>
+        <button onclick="replaceSpacesLines();">ބޭކާރު ސްޕޭސް ފޮހެލާ</button>
         <button onclick="shortenSalla();">صلى -> ﷺ</button>
         <button onclick="replaceQmark();">? -> ؟</button>
         <button onclick="replaceComma();">, -> ،</button>
@@ -296,8 +292,8 @@
         <button onclick="copyRadiyaHum();">رَضِيَ اللَّهُ عَنْهُمْ</button>
 
         <button onclick="copyRiwa();">ރިވާ ކުރެއްވި</button>
-        <button onclick="copyRhadithK();">ރަސޫލާ ޙަދީޘް ކުރެއްވި</button>
-        <button onclick="copyNhadithK();">ނަބިއްޔާ ޙަދީޘް ކުރެއްވި</button>
+        <button onclick="copyRhadithK();">ރަސޫލާ ޙަދީޘްކުރެއްވި</button>
+        <button onclick="copyNhadithK();">ނަބިއްޔާ ޙަދީޘްކުރެއްވި</button>
         <button onclick="copyhadithAdu();">ޙަދީޘް އަޑުއެހީމޭ</button>
 
         <button onclick="copyJazak();">جزاك الله</button>
@@ -337,11 +333,13 @@
         /* @mixin for-phone-only */
         @media (max-width: 599px) {
           button {
-            font-size: 13px;
-            width: 130px;
+            font-size: 13.5px;
+            width: 135px;
             height: 60px;
             /*padding: 20px;*/
             margin: 3px;
+            padding-right: 0px;
+            padding-left: 0px;
             margin-right: 0px;
             margin-left: 0px;
           }
