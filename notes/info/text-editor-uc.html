@@ -266,7 +266,7 @@
 
         <br />
 
-        <p>ލިޔުން ބަދަލުކުރޭ:</p>
+        <p class="buttonHeader">ލިޔުން ބަދަލުކުރޭ:</p>
         <button onclick="replaceFili();countChar()">އަރަބި ފިލި ފޮހެލާ</button>
         <button onclick="copyToClipB();">ލިޔުން ކޮޕީކުރޭ</button>
 
@@ -284,7 +284,7 @@
 
         <br />
 
-        <p>ކްލިޕްބޯޑަށް ކޮޕީކުރޭ:</p>
+        <p class="buttonHeader">ކްލިޕްބޯޑަށް ކޮޕީކުރޭ:</p>
         <button onclick="copySalla();">ﷺ</button>
         <button onclick="copyRadiya1();">رَضِيَ اللَّهُ عَنْهُ</button>
         <button onclick="copyRadiyaHaa();">رَضِيَ اللَّهُ عَنْهَا</button>
@@ -308,6 +308,9 @@
       <br /><br />
 
       <style>
+        .buttonHeader {
+          margin-bottom: 0;
+        }
         .mid,
         h2,
         body {
@@ -323,8 +326,8 @@
         button {
           font-family: "dvFont", "arFont", sans-serif;
           font-size: 16px;
-          width: 180px;
-          height: 80px;
+          width: 150px;
+          height: 50px;
           margin: 5px;
           border-radius: 5px;
           /*padding: 20px;*/
