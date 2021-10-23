@@ -249,6 +249,79 @@
         }
       </style>
 
+      <!--
+
+
+
+
+      -->
+
+      <style>
+        .notranslate {
+          padding-top: 0;
+        }
+        .buttonHeader {
+          margin-bottom: 0;
+        }
+
+        .arButton {
+          font-size: 18px;
+        }
+
+        p {
+          margin-top: 7px;
+        }
+        .mid,
+        h2,
+        body {
+          margin-top: 0;
+          margin-bottom: 5px;
+        }
+        textarea {
+          font-family: "arFont", "dvFont", sans-serif;
+          font-size: 19px;
+          line-height: 1.9;
+          width: 100%;
+          height: 300px;
+        }
+        button {
+          font-family: "dvFont", "arFont", sans-serif;
+          font-size: 16px;
+          width: 150px;
+          height: 50px;
+          margin: 5px;
+          border-radius: 5px;
+          border-width: 0;
+          /*padding: 20px;*/
+        }
+
+        /* @mixin for-phone-only */
+        @media (max-width: 599px) {
+          button {
+            font-size: 13.5px;
+            width: 135px;
+            height: 60px;
+            /*padding: 20px;*/
+            margin: 3px;
+            padding-right: 0px;
+            padding-left: 0px;
+            margin-right: 0px;
+            margin-left: 0px;
+          }
+          button .arButton {
+            font-size: 15px;
+          }
+          /*textarea {
+            font-size: 17px;
+            line-height: 1.6;
+          }*/
+        }
+
+        button:hover {
+          cursor: pointer;
+        }
+      </style>
+
       <div style="text-align: center">
         <p class="mid">
           ކެރެކްޓާރުތައް:
@@ -322,72 +395,6 @@
       <!--<button id="buttonC" onclick="count();">ގުނާލާ</button>-->
       <br /><br />
 
-      <style>
-        .notranslate {
-          padding-top: 0;
-        }
-        .buttonHeader {
-          margin-bottom: 0;
-        }
-
-        .arButton {
-          font-size: 18px;
-        }
-
-        p {
-          margin-top: 7px;
-        }
-        .mid,
-        h2,
-        body {
-          margin-top: 0;
-          margin-bottom: 5px;
-        }
-        textarea {
-          font-family: "arFont", "dvFont", sans-serif;
-          font-size: 19px;
-          line-height: 1.9;
-          width: 100%;
-          height: 300px;
-        }
-        button {
-          font-family: "dvFont", "arFont", sans-serif;
-          font-size: 16px;
-          width: 150px;
-          height: 50px;
-          margin: 5px;
-          border-radius: 5px;
-          border-width: 0;
-          /*padding: 20px;*/
-        }
-
-        /* @mixin for-phone-only */
-        @media (max-width: 599px) {
-          button {
-            font-size: 13.5px;
-            width: 135px;
-            height: 60px;
-            /*padding: 20px;*/
-            margin: 3px;
-            padding-right: 0px;
-            padding-left: 0px;
-            margin-right: 0px;
-            margin-left: 0px;
-          }
-          button .arButton {
-            font-size: 15px;
-          }
-          /*textarea {
-            font-size: 17px;
-            line-height: 1.6;
-          }*/
-        }
-
-        button:hover {
-          cursor: pointer;
-        }
-      </style>
-
       <!-- http://talkerscode.com/webtricks/demo/demo_live-character-count-using-javascript.php -->
 
       <script type="text/javascript">
@@ -446,6 +453,7 @@
             .replace(/ـ/g, "")
             .replace(/ٱ|ٲ|ٳ/g, "ا");
           document.getElementById("textHere").value = newText;
+          return false;
         }
       </script>
 
@@ -457,6 +465,7 @@
             .replace(/صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ/g, "ﷺ")
             .replace(/صَلَّى اللَّهُ عَلَيهِ وَسَلَّم/g, "ﷺ");
           document.getElementById("textHere").value = newText;
+          return false;
         }
       </script>
 
@@ -475,6 +484,7 @@
             .replace(/8/g, "٨")
             .replace(/9/g, "٩");
           document.getElementById("textHere").value = newText;
+          return false;
         }
 
         function arToNum() {
@@ -491,6 +501,7 @@
             .replace(/٨/g, "8")
             .replace(/٩/g, "9");
           document.getElementById("textHere").value = newText;
+          return false;
         }
 
         function remThiki() {
@@ -507,6 +518,7 @@
             .replace(/ޤ/g, "ގ")
             .replace(/ޥ/g, "ވ");
           document.getElementById("textHere").value = newText;
+          return false;
         }
 
         function replaceSpacesLines() {
@@ -516,6 +528,7 @@
             .replace(/^[ \s]+|[ \s]+$/g, "")
             .replace(/(\r\n|\r|\n){3,}/g, "$1\n");
           document.getElementById("textHere").value = newText;
+          return false;
         }
 
         function replaceQmark() {
@@ -525,6 +538,7 @@
             .replace(/ \?/g, "؟")
             .replace(/ ؟/g, "؟");
           document.getElementById("textHere").value = newText;
+          return false;
         }
 
         function replaceComma() {
@@ -534,6 +548,7 @@
             .replace(/ \,/g, "،")
             .replace(/ ،/g, "،");
           document.getElementById("textHere").value = newText;
+          return false;
         }
 
         function replaceSemiColon() {
@@ -543,6 +558,7 @@
             .replace(/ \;/g, "؛")
             .replace(/ ؛/g, "؛");
           document.getElementById("textHere").value = newText;
+          return false;
         }
 
         function replaceQbracket() {
@@ -555,6 +571,7 @@
             .replace(/ \}/g, "﴿")
             .replace(/ ﴿/g, "﴿");
           document.getElementById("textHere").value = newText;
+          return false;
         }
 
         function replaceQstop() {
@@ -564,6 +581,7 @@
             .replace(/ \*{/g, "۝")
             .replace(/ \۝/g, "۝");
           document.getElementById("textHere").value = newText;
+          return false;
         }
 
         function replaceTanween() {
@@ -574,6 +592,7 @@
             .replace(/\ُّ{/g, "۝")
             .replace(/\*{/g, "ُّ");
           document.getElementById("textHere").value = newText;
+          return false;
         }
 
         function replaceQuotes() {
@@ -584,6 +603,7 @@
             .replace(/(\s|^)\'([^\']+)\'/g, "$1\u2019$2\u2018")
             .replace(/(\s|^)\'([^\']+)\'/g, "$1\u2019$2\u2018");
           document.getElementById("textHere").value = newText;
+          return false;
         }
       </script>
 
@@ -603,47 +623,56 @@
 
           /* Alert the copied text 
           alert("ކޮޕީވީ: " + copyText.value); */
+          return false;
         }
       </script>
 
       <script>
         function copySalla() {
-          /* Copy the text inside the text field */
-          //var promise = navigator.clipboard.writeText(newClipText)
-
           navigator.clipboard.writeText("ﷺ");
-
-          /* Alert the copied text 
-    alert("ކޮޕީވީ: " + copyText.value); */
+          return false;
         }
-      </script>
 
-      <script>
         function copyRadiya1() {
           navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهُ");
+          return false;
         }
+
         function copyRadiyaHaa() {
           navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهَا");
+          return false;
         }
+
         function copyRadiya2() {
           navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهُمَا");
+          return false;
         }
+
         function copyRadiya1() {
           navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهُ");
+          return false;
         }
+
         function copyRadiyaHum() {
           navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهُمْ");
+          return false;
         }
 
         function copyRiwa() {
           navigator.clipboard.writeText("ރިވާ ކުރެއްވިއެވެ: ");
+          return false;
         }
+
         function copyRhadithK() {
           navigator.clipboard.writeText("ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ");
+          return false;
         }
+
         function copyNhadithK() {
           navigator.clipboard.writeText("ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ");
+          return false;
         }
+
         function copyhadithAdu() {
           navigator.clipboard.writeText(
             "ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: "
@@ -652,22 +681,27 @@
 
         function copyJazak() {
           navigator.clipboard.writeText("جزاك الله خيرا");
+          return false;
         }
 
         function copyBarak() {
           navigator.clipboard.writeText("بارك الله فيك");
+          return false;
         }
 
         function copyBismi() {
           navigator.clipboard.writeText("بسم الله الرحمن الرحيم");
+          return false;
         }
 
         function copySalam() {
           navigator.clipboard.writeText("السلام عليكم ورحمة الله وبركاته");
+          return false;
         }
 
         function copyWassalam() {
           navigator.clipboard.writeText("وعليكم السلام ورحمة الله وبركاته");
+          return false;
         }
 
         function copyDate() {
@@ -687,6 +721,7 @@
           var dateTime = date + " " + time;
 
           navigator.clipboard.writeText(dateTime);
+          return false;
         }
       </script>
 
