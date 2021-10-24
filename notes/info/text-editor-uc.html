@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="google" value="notranslate" />
 
-    <title>hadithmv - Text Edit</title>
-    <meta name="description" content="Text Edit." />
+    <title>hadithmv - Text Editor</title>
+    <meta name="description" content="Text Editor" />
     <meta name="viewport" content="width=device-width" />
 
     <link
@@ -54,6 +54,7 @@
         <h2 class="en">
           <b><a href="https://hadithmv.github.io">hadithmv</a></b> - Text Editor
         </h2>
+        <p>- A tool for writers -</p>
       </div>
       <!--
       <br />-->
@@ -336,7 +337,7 @@
 
       <div style="text-align: center">
         <p class="mid">
-          ކެރެކްޓާރުތައް:
+          ކެރެކްޓާތައް:
           <span id="characters">0</span>&nbsp; | &nbsp;ބަސްތައް:
           <span id="words">0</span>
         </p>
@@ -350,6 +351,7 @@
         ></textarea>
 
         <br />
+        <!-- !!! !!! -->
 
         <p class="buttonHeader">ލިޔުން ބަދަލުކުރުމަށް:</p>
         <button onclick="replaceFili();countChar()">އަރަބި ފިލި ފޮހެލާ</button>
@@ -359,18 +361,19 @@
         <button onclick="arToNum();">ނަމްބަރު ލެޓިންކުރޭ</button>
         <button onclick="remThiki();">ތިކިޖެހިތާނަ ފޮހެލާ</button>
         <button onclick="replaceSpacesLines();">ބޭކާރު ސްޕޭސް ފޮހެލާ</button>
-        <button onclick="shortenSalla();" class="arButton">صلى -> ﷺ</button>
-        <button onclick="replaceQmark();" class="arButton">? -> ؟</button>
-        <button onclick="replaceComma();" class="arButton">, -> ،</button>
-        <button onclick="replaceSemiColon();" class="arButton">; -> ؛</button>
-        <button onclick="replaceQbracket();" class="arButton">
-          { } -> ﴿ ﴾
-        </button>
-        <button onclick="replaceQstop();" class="arButton">* -> ۝</button>
+        <button onclick="shortenSalla();" class="arButton">صلى ← ﷺ</button>
+        <button onclick="replaceQmark();" class="arButton">? ← ؟</button>
+        <button onclick="replaceComma();" class="arButton">, ← ،</button>
+        <button onclick="replaceSemiColon();" class="arButton">; ← ؛</button>
+        <button onclick="replaceQbracket();" class="arButton">{ } ← ﴿ ﴾</button>
+        <button onclick="replaceQstop();" class="arButton">* ← ۝</button>
         <button onclick="replaceTanween();" class="arButton">
-          ـّ ـَ -> ـَ ـّ
+          ـّ ـَ ← ـَ ـّ
         </button>
-        <button onclick="replaceQuotes();" class="arButton">"" -> ” “</button>
+        <button onclick="replaceQuotes();" class="arButton">" " ← ” “</button>
+        <button onclick="replaceDoubleBrackets();" class="arButton">
+          (( )) ← ( )
+        </button>
 
         <br />
 
@@ -393,16 +396,37 @@
         <button onclick="copyRhadithK();">ރަސޫލާ ޙަދީޘްކުރެއްވި</button>
         <button onclick="copyNhadithK();">ނަބިއްޔާ ޙަދީޘްކުރެއްވި</button>
         <button onclick="copyhadithAdu();">ޙަދީޘް އަޑުއެހީމޭ</button>
-
-        <button onclick="copyJazak();" class="arButton">جزاك الله</button>
-        <button onclick="copyBarak();" class="arButton">بارك الله</button>
-        <button onclick="copyBismi();" class="arButton">بسم الله</button>
+        <button onclick="copyHaa();">هـ</button>
+        <button onclick="copyDate();">މި ތާރީޚާއި ވަގުތު</button>
 
         <button onclick="copySalam();" class="arButton">السلام عليكم</button>
         <button onclick="copyWassalam();" class="arButton">
           وعليكم السلام
         </button>
-        <button onclick="copyDate();">މި ތާރީޚާއި ވަގުތު</button>
+        <button onclick="copyJazak();" class="arButton">جزاك الله</button>
+        <button onclick="copyBarak();" class="arButton">بارك الله</button>
+        <button onclick="copyBismi();" class="arButton">بسم الله</button>
+
+        <button onclick="copyInshaAllah();" class="arButton">
+          إن شاء الله
+        </button>
+        <button onclick="copyMashaAllah();" class="arButton">
+          ما شاء الله
+        </button>
+        <button onclick="copyHamd();" class="arButton">الحمد لله</button>
+        <button onclick="copyLaIlaha();" class="arButton">
+          لا إله إلا الله
+        </button>
+        <button onclick="copySubhanAllah();" class="arButton">
+          سبحان الله
+        </button>
+        <button onclick="copyAllahAkbar();" class="arButton">الله أكبر</button>
+        <button onclick="copyKhutbatulHaja();" class="arButton">
+          إن الحمد لله
+        </button>
+        <button onclick="copyKaffaratulMajlis();" class="arButton">
+          سبحانك اللهم وبحمدك
+        </button>
       </div>
       <!--<button id="buttonC" onclick="count();">ގުނާލާ</button>-->
       <br /><br />
@@ -617,6 +641,17 @@
           document.getElementById("textHere").value = newText;
           return false;
         }
+
+        function replaceDoubleBrackets() {
+          var text = document.getElementById("textHere").value;
+          var newText = text
+            .replace(/\(\(/g, "(")
+            .replace(/\)\)/g, ")")
+            .replace(/ \)\)/g, ")")
+            .replace(/ \)/g, ")");
+          document.getElementById("textHere").value = newText;
+          return false;
+        }
       </script>
 
       <!-- https://www.w3schools.com/howto/howto_js_copy_clipboard.asp -->
@@ -691,16 +726,6 @@
           );
         }
 
-        function copyJazak() {
-          navigator.clipboard.writeText("جزاك الله خيرا");
-          return false;
-        }
-
-        function copyBarak() {
-          navigator.clipboard.writeText("بارك الله فيك");
-          return false;
-        }
-
         function copyBismi() {
           navigator.clipboard.writeText("بسم الله الرحمن الرحيم");
           return false;
@@ -713,6 +738,65 @@
 
         function copyWassalam() {
           navigator.clipboard.writeText("وعليكم السلام ورحمة الله وبركاته");
+          return false;
+        }
+
+        function copyJazak() {
+          navigator.clipboard.writeText("جزاك الله خيرا");
+          return false;
+        }
+
+        function copyBarak() {
+          navigator.clipboard.writeText("بارك الله فيك");
+          return false;
+        }
+
+        function copyHamd() {
+          navigator.clipboard.writeText("الحمد لله");
+          return false;
+        }
+
+        function copyInshaAllah() {
+          navigator.clipboard.writeText("إن شاء الله");
+          return false;
+        }
+
+        function copyMashaAllah() {
+          navigator.clipboard.writeText("ما شاء الله تبارك الله");
+          return false;
+        }
+
+        function copySubhanAllah() {
+          navigator.clipboard.writeText("سبحان الله");
+          return false;
+        }
+
+        function copyAllahAkbar() {
+          navigator.clipboard.writeText("الله أكبر");
+          return false;
+        }
+
+        function copyLaIlaha() {
+          navigator.clipboard.writeText("لا إله إلا الله");
+          return false;
+        }
+
+        function copyKhutbatulHaja() {
+          navigator.clipboard.writeText(
+            "إنَّ الْحَمْدَ لِلهِ نَحْمَدُهُ وَنَسْتَعِينُهُ وَنَسْتَغْفِرُهُ، وَنَعُوذُ بِاللهِ مِنْ شُرُورِ أَنْفُسِنَا وَمِنْ سَيِّئَاتِ أَعْمَالِنَا، مَنْ يَهْدِهِ اللهُ فَلاَ مُضِلَّ لَهُ، وَمَنْ يُضْلِلْ فَلاَ هَادِىَ لَهُ، وَأَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ\n\n{يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ حَقَّ تُقَاتِهِ وَلَا تَمُوتُنَّ إِلَّا وَأَنْتُمْ مُسْلِمُونَ} (آل عمران:102)\n\n{يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمُ الَّذِي خَلَقَكُمْ مِنْ نَفْسٍ وَاحِدَةٍ وَخَلَقَ مِنْهَا زَوْجَهَا وَبَثَّ مِنْهُمَا رِجَالًا كَثِيرًا وَنِسَاءً وَاتَّقُوا اللَّهَ الَّذِي تَسَاءَلُونَ بِهِ وَالْأَرْحَامَ إِنَّ اللَّهَ كَانَ عَلَيْكُمْ رَقِيبًا} (النساء:1)\n\n{يَاأَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللهَ وَقُولُوا قَوْلاً سَدِيدًا * يُصْلِحْ لَكُمْ أَعْمَالَكُمْ وَيَغْفِرْ لَكُمْ ذُنُوبَكُمْ وَمَنْ يُطِعِ اللهَ وَرَسُولَهُ فَقَدْ فَازَ فَوْزًا عَظِيمًا} (الأحزاب: 70، 71)\n\nأَمَّا بَعْدُ"
+          );
+          return false;
+        }
+
+        function copyKaffaratulMajlis() {
+          navigator.clipboard.writeText(
+            "سبحانك اللهم وبحمدك، أشهد أن لا إله إلا أنت، أستغفرك وأتوب إليك"
+          );
+          return false;
+        }
+
+        function copyHaa() {
+          navigator.clipboard.writeText("هـ");
           return false;
         }
 
@@ -736,6 +820,34 @@
           return false;
         }
       </script>
+      <div class="dv">
+        <p>
+          މިއީ ދިވެހި ބަހާއި އަރަބި ބަހުގެ ލިޔުންތެރިން ބޭނުން ހިފުމަށް
+          ހަދާފައިވާ ޓެކްސްޓު އެޑިޓަރެކެވެ.
+        </p>
+        <p>
+          ބޭނުމިއްޔާ ޑެސްކްޓޮޕްގައި ލިޔާ ޖާގަ ޑްރޭގްކޮށްގެން ބޮޑުކުރެވިދާނެއެވެ.
+        </p>
+        <p>އިތުރަށް ބޭނުން ކުރެވިދާނެ ލިންކުތައް:</p>
+        <ul>
+          <li>
+            <a href="http://behi.alinashath.com/"
+              >ތާނަ ލިޔުން ރަނގަޅުތޯ ބެލުމަށް</a
+            >
+          </li>
+          <li>
+            <a href="https://www.bing.com/translator?ref=TThis&from=ar&to=dv"
+              >އެހެން ބަހަކުން ދިވެހި ބަހަށް ތަރުޖަމާ ކުރުމަށް</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.google.ar.lens"
+              >ފޮޓޯއެއްގައިވާ ލިޔުމެއް ފޯނުގެ ކެމެރާއިން ނަގައިގަތުމަށް</a
+            >
+          </li>
+        </ul>
+      </div>
 
       <br />
       <hr />
