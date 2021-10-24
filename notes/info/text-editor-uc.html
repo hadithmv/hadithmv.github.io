@@ -54,7 +54,7 @@
         <h2 class="en">
           <b><a href="https://hadithmv.github.io">hadithmv</a></b> - Text Editor
         </h2>
-        <p>- A tool for writers -</p>
+        <h4>- A tool for writers -</h4>
       </div>
       <!--
       <br />-->
@@ -258,11 +258,16 @@
       -->
 
       <style>
+        h4 {
+          margin: 0;
+          margin-bottom: 10px;
+        }
         .notranslate {
           padding-top: 0;
         }
-        .buttonHeader {
-          margin-bottom: 0;
+        p.buttonHeader {
+          margin-top: 10px;
+          margin-bottom: 3px;
         }
 
         .arButton {
@@ -353,14 +358,16 @@
         <br />
         <!-- !!! !!! -->
 
-        <p class="buttonHeader">ލިޔުން ބަދަލުކުރުމަށް:</p>
+        <p class="buttonHeader">
+          މަތީގައި ލިޔުމަށްފަހު އެލިޔުން ބަދަލުކުރުމަށް:
+        </p>
         <button onclick="replaceFili();countChar()">އަރަބި ފިލި ފޮހެލާ</button>
         <button onclick="copyToClipB();">ލިޔުން ކޮޕީކުރޭ</button>
-
-        <button onclick="numToAr();">ނަމްބަރު އަރަބިކުރޭ</button>
-        <button onclick="arToNum();">ނަމްބަރު ލެޓިންކުރޭ</button>
         <button onclick="remThiki();">ތިކިޖެހިތާނަ ފޮހެލާ</button>
         <button onclick="replaceSpacesLines();">ބޭކާރު ސްޕޭސް ފޮހެލާ</button>
+
+        <button onclick="numToAr();">123 ← ١٢٣</button>
+        <button onclick="arToNum();">١٢٣ ← 123</button>
         <button onclick="shortenSalla();" class="arButton">صلى ← ﷺ</button>
         <button onclick="replaceQmark();" class="arButton">? ← ؟</button>
         <button onclick="replaceComma();" class="arButton">, ← ،</button>
@@ -377,7 +384,9 @@
 
         <br />
 
-        <p class="buttonHeader">ކްލިޕްބޯޑަށް ކޮޕީކުރުމަށް:</p>
+        <p class="buttonHeader">
+          ތިރީގައިވާ ލަފްޒުތައް ކްލިޕްބޯޑަށް ކޮޕީކުރުމަށް:
+        </p>
         <button onclick="copySalla();" class="arButton">ﷺ</button>
         <button onclick="copyRadiya1();" class="arButton">
           رَضِيَ اللَّهُ عَنْهُ
@@ -396,8 +405,9 @@
         <button onclick="copyRhadithK();">ރަސޫލާ ޙަދީޘްކުރެއްވި</button>
         <button onclick="copyNhadithK();">ނަބިއްޔާ ޙަދީޘްކުރެއްވި</button>
         <button onclick="copyhadithAdu();">ޙަދީޘް އަޑުއެހީމޭ</button>
-        <button onclick="copyHaa();">هـ</button>
+        <button onclick="copyHaa();" class="arButton">هـ</button>
         <button onclick="copyDate();">މި ތާރީޚާއި ވަގުތު</button>
+        <br /><br />
 
         <button onclick="copySalam();" class="arButton">السلام عليكم</button>
         <button onclick="copyWassalam();" class="arButton">
@@ -425,7 +435,86 @@
           إن الحمد لله
         </button>
         <button onclick="copyKaffaratulMajlis();" class="arButton">
-          سبحانك اللهم وبحمدك
+          سبحانك اللهم
+        </button>
+
+        <p class="buttonHeader">
+          ތިރީގައިވާ ލަފްޒުތައް ކޮޕީކުރުމަށްފަހު ވޯރޑު ޑޮކިޔުމެންޓެއްގައި
+          ދައްކާނީ "KFGQPC Arabic Symbols 01" މި ފޮންޓު އެޕްލައި ކުރުމަށް
+          ފަހުގައެވެ:
+        </p>
+        <button onclick="copyArSymBismi1();" class="arButton">
+          بسم الله 1
+        </button>
+        <button onclick="copyArSymBismi2();" class="arButton">
+          بسم الله 2
+        </button>
+        <button onclick="copyArSymSalla();" class="arButton">
+          صلى الله عليه
+        </button>
+        <button onclick="copyArSymRadiya1();" class="arButton">
+          رضي الله عنه
+        </button>
+        <button onclick="copyArSymRadiyaHaa();" class="arButton">
+          رضي الله عنها
+        </button>
+        <button onclick="copyArSymRadiya2();" class="arButton">
+          رضي الله عنهما
+        </button>
+        <button onclick="copyArSymRadiyaHum();" class="arButton">
+          رضي الله عنهم
+        </button>
+        <button onclick="copyArSymRadiyaHunna();" class="arButton">
+          رضي الله عنهن
+        </button>
+        <button onclick="copyArSymSubhana();" class="arButton">
+          سبحانه وتعالى
+        </button>
+        <button onclick="copyArSymTabaraka();" class="arButton">
+          تبارك وتعالى
+        </button>
+        <button onclick="copyArSymAzzaWajal();" class="arButton">عز وجل</button>
+        <button onclick="copyArSymJallaWaAla();" class="arButton">
+          جل وعلا
+        </button>
+        <button onclick="copyArSymJallaJalaluh();" class="arButton">
+          جل جلاله
+        </button>
+        <button onclick="copyArSymAllah();" class="arButton">الله</button>
+        <button onclick="copyArSymMuhammad();" class="arButton">محمد</button>
+        <button onclick="copyArSymTakbir();" class="arButton">الله أكبر</button>
+        <button onclick="copyArSymAlaihiSalam();" class="arButton">
+          عليه السلام
+        </button>
+        <button onclick="copyArSymAlaihiSalam2();" class="arButton">
+          عليه الصلاة السلام
+        </button>
+        <button onclick="copyArSymAlaihaSalam();" class="arButton">
+          عليها السلام
+        </button>
+        <button onclick="copyArSymAlaihimaSalam();" class="arButton">
+          عليهما السلام
+        </button>
+        <button onclick="copyArSymAlaihimSalam();" class="arButton">
+          عليهم السلام
+        </button>
+        <button onclick="copyArSymAlaihiWaAla();" class="arButton">
+          عليه وعلى عاله
+        </button>
+        <button onclick="copyArSymRahimaHu();" class="arButton">
+          رحمه الله
+        </button>
+        <button onclick="copyArSymRahimaHa();" class="arButton">
+          رحمها الله
+        </button>
+        <button onclick="copyArSymRahimaHuma();" class="arButton">
+          رحمهما الله
+        </button>
+        <button onclick="copyArSymRahimaHum();" class="arButton">
+          رحمهم الله
+        </button>
+        <button onclick="copyArSymRahimaHun();" class="arButton">
+          رحمهن الله
         </button>
       </div>
       <!--<button id="buttonC" onclick="count();">ގުނާލާ</button>-->
@@ -800,6 +889,120 @@
           return false;
         }
 
+        function copyArSymBismi1() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymBismi2() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymSalla() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+
+        function copyArSymRadiya1() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+
+        function copyArSymRadiyaHaa() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+
+        function copyArSymRadiya2() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+
+        function copyArSymRadiyaHum() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymRadiyaHunna() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymSubhana() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymTabaraka() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymAzzaWajal() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymJallaWaAla() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymJallaJalaluh() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymAllah() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymMuhammad() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymTakbir() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymAlaihiSalam() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymAlaihiSalam2() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymAlaihaSalam() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymAlaihimaSalam() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymAlaihimSalam() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymAlaihiWaAla() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+
+        function copyArSymRahimaHu() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymRahimaHa() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymRahimaHuma() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymRahimaHum() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+        function copyArSymRahimaHun() {
+          navigator.clipboard.writeText("");
+          return false;
+        }
+
         function copyDate() {
           var today = new Date();
           var date =
@@ -826,9 +1029,10 @@
           ހަދާފައިވާ ޓެކްސްޓު އެޑިޓަރެކެވެ.
         </p>
         <p>
-          ބޭނުމިއްޔާ ޑެސްކްޓޮޕްގައި ލިޔާ ޖާގަ ޑްރޭގްކޮށްގެން ބޮޑުކުރެވިދާނެއެވެ.
+          ޑެސްކްޓޮޕްގައި ބޭނުމިއްޔާ އެންމެ މަތީގައިވާ ލިޔާ ތަންކޮޅުގެ ޖާގަ
+          ޑްރޭގްކޮށްގެން ބޮޑުކުރެވިދާނެއެވެ.
         </p>
-        <p>އިތުރަށް ބޭނުން ކުރެވިދާނެ ލިންކުތައް:</p>
+        <p>އިތުރަށް ފައިދާކޮށްފާނެ ލިންކުތައް:</p>
         <ul>
           <li>
             <a href="http://behi.alinashath.com/"
@@ -843,7 +1047,7 @@
           <li>
             <a
               href="https://play.google.com/store/apps/details?id=com.google.ar.lens"
-              >ފޮޓޯއެއްގައިވާ ލިޔުމެއް ފޯނުގެ ކެމެރާއިން ނަގައިގަތުމަށް</a
+              >ފޮޓޯއަކުން ނުވަތަ ކެމެރާއިން ލިޔުމެއް ޑިޖިޓަލައިޒް ކުރުމަށް</a
             >
           </li>
         </ul>
