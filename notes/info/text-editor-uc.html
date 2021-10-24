@@ -649,9 +649,10 @@
         function replaceSpacesLines() {
           var text = document.getElementById("textHere").value;
           var newText = text
-
             .replace(/^[ \s]+|[ \s]+$/g, "")
             .replace(/(\r\n|\r|\n){3,}/g, "$1\n")
+            .replace(/\u0009 /g, " ")
+            .replace(/  /g, " ")
             .replace(/ \:/g, ":")
             .replace(/ \?/g, "?")
             .replace(/ ؟/g, "؟")
@@ -670,7 +671,12 @@
             .replace(/ \]\]/g, "]]")
             .replace(/ \]/g, "]")
             .replace(/ \}\}/g, "}}")
-            .replace(/ \}/g, "}");
+            .replace(/ \}/g, "}")
+            .replace(/\« /g, "«")
+            .replace(/ \»/g, "»")
+            .replace(/ \!/g, "!")
+            .replace(/ \./g, ".")
+            .replace(/\- \./g, "-.");
           document.getElementById("textHere").value = newText;
           return false;
         }
@@ -1038,7 +1044,7 @@
         <p>އިތުރަށް ފައިދާކޮށްފާނެ ލިންކުތައް:</p>
         <ul>
           <li>
-            <a href="http://behi.alinashath.com/"
+            <a href="http://behi.alinashath.com"
               >ތާނަ ލިޔުން ރަނގަޅުތޯ ބެލުމަށް</a
             >
           </li>
@@ -1052,6 +1058,16 @@
               href="https://play.google.com/store/apps/details?id=com.google.ar.lens"
               >ފޮޓޯއަކުން ނުވަތަ ކެމެރާއިން ލިޔުމެއް ޑިޖިޓަލައިޒް ކުރުމަށް</a
             >
+          </li>
+          <li>
+            އަރަބި ބަސްތަކުގައި ފިލިޖެހުމަށް
+            <a href="http://www.7koko.com/apps/tashkil/index.php">ސައިޓު 1</a> |
+            <a
+              href="https://learning.aljazeera.net/ar/pages/%D8%AA%D8%B4%D9%83%D9%8A%D9%84-vocalization"
+              >ސައިޓު 2</a
+            >
+            |
+            <a href="https://tashkeel.alsharekh.org/">ސައިޓު 3</a>
           </li>
         </ul>
       </div>
