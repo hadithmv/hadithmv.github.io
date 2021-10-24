@@ -649,62 +649,63 @@
         function replaceSpacesLines() {
           var text = document.getElementById("textHere").value;
           var newText = text
-            .replace(/ \:/g, ":")
+
             .replace(/^[ \s]+|[ \s]+$/g, "")
-            .replace(/(\r\n|\r|\n){3,}/g, "$1\n");
+            .replace(/(\r\n|\r|\n){3,}/g, "$1\n")
+            .replace(/ \:/g, ":")
+            .replace(/ \?/g, "?")
+            .replace(/ ؟/g, "؟")
+            .replace(/ \,/g, ",")
+            .replace(/ ،/g, "،")
+            .replace(/ \;/g, ";")
+            .replace(/ ؛/g, "؛")
+            .replace(/ \{/g, "{")
+            .replace(/ ﴾/g, "؛")
+            .replace(/ \}/g, "}")
+            .replace(/ ﴿/g, "﴿")
+            .replace(/ \*/g, "*")
+            .replace(/ \۝/g, "۝")
+            .replace(/ \)\)/g, "))")
+            .replace(/ \)/g, ")")
+            .replace(/ \]\]/g, "]]")
+            .replace(/ \]/g, "]")
+            .replace(/ \}\}/g, "}}")
+            .replace(/ \}/g, "}");
           document.getElementById("textHere").value = newText;
           return false;
         }
 
         function replaceQmark() {
           var text = document.getElementById("textHere").value;
-          var newText = text
-            .replace(/\?/g, "؟")
-            .replace(/ \?/g, "؟")
-            .replace(/ ؟/g, "؟");
+          var newText = text.replace(/\?/g, "؟");
           document.getElementById("textHere").value = newText;
           return false;
         }
 
         function replaceComma() {
           var text = document.getElementById("textHere").value;
-          var newText = text
-            .replace(/\,/g, "،")
-            .replace(/ \,/g, "،")
-            .replace(/ ،/g, "،");
+          var newText = text.replace(/\,/g, "،");
           document.getElementById("textHere").value = newText;
           return false;
         }
 
         function replaceSemiColon() {
           var text = document.getElementById("textHere").value;
-          var newText = text
-            .replace(/\;/g, "؛")
-            .replace(/ \;/g, "؛")
-            .replace(/ ؛/g, "؛");
+          var newText = text.replace(/\;/g, "؛");
           document.getElementById("textHere").value = newText;
           return false;
         }
 
         function replaceQbracket() {
           var text = document.getElementById("textHere").value;
-          var newText = text
-            .replace(/\{/g, "﴾")
-            .replace(/ \{/g, "﴾")
-            .replace(/ ﴾/g, "؛")
-            .replace(/\}/g, "﴿")
-            .replace(/ \}/g, "﴿")
-            .replace(/ ﴿/g, "﴿");
+          var newText = text.replace(/\{/g, "﴾").replace(/\}/g, "﴿");
           document.getElementById("textHere").value = newText;
           return false;
         }
 
         function replaceQstop() {
           var text = document.getElementById("textHere").value;
-          var newText = text
-            .replace(/\*/g, "۝")
-            .replace(/ \*{/g, "۝")
-            .replace(/ \۝/g, "۝");
+          var newText = text.replace(/\*/g, "۝");
           document.getElementById("textHere").value = newText;
           return false;
         }
@@ -736,16 +737,10 @@
           var newText = text
             .replace(/\(\(/g, "(")
             .replace(/\)\)/g, ")")
-            .replace(/ \)\)/g, ")")
-            .replace(/ \)/g, ")")
             .replace(/\[\[/g, "[")
             .replace(/\]\]/g, "]")
-            .replace(/ \]\]/g, "]")
-            .replace(/ \]/g, "]")
             .replace(/\{\{/g, "{")
-            .replace(/\}\}/g, "}")
-            .replace(/ \}\}/g, "}")
-            .replace(/ \}/g, "}");
+            .replace(/\}\}/g, "}");
           document.getElementById("textHere").value = newText;
           return false;
         }
