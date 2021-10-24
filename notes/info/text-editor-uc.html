@@ -737,7 +737,15 @@
             .replace(/\(\(/g, "(")
             .replace(/\)\)/g, ")")
             .replace(/ \)\)/g, ")")
-            .replace(/ \)/g, ")");
+            .replace(/ \)/g, ")")
+            .replace(/\[\[/g, "[")
+            .replace(/\]\]/g, "]")
+            .replace(/ \]\]/g, "]")
+            .replace(/ \]/g, "]")
+            .replace(/\{\{/g, "{")
+            .replace(/\}\}/g, "}")
+            .replace(/ \}\}/g, "}")
+            .replace(/ \}/g, "}");
           document.getElementById("textHere").value = newText;
           return false;
         }
