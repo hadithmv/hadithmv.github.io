@@ -383,7 +383,7 @@
         </button>
         <button onclick="numToSansSerif();">123 ← 𝟣𝟤𝟥</button>
         <button onclick="numToSuperScript();">123 ← ¹²³</button>
-        <button onclick="dotsToellipsis();">... ← …</button>
+        <button onclick="dotsToEllipsis();">. . . ← …</button>
         <button onclick="hyphenToEnDash();">- ← –</button>
         <button onclick="hyphenToEmDash();">- ← —</button>
 
@@ -651,9 +651,10 @@
           return false;
         }
 
-        function dotsToellipsis() {
+        function dotsToEllipsis() {
           var text = document.getElementById("textHere").value;
           var newText = text.replace(/\.\.\./g, "…");
+          var newText = text.replace(/ \. \. \./g, "…");
           document.getElementById("textHere").value = newText;
           return false;
         }
