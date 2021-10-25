@@ -367,6 +367,7 @@
 
         <button onclick="numToAr();">123 ← ١٢٣</button>
         <button onclick="arToNum();">١٢٣ ← 123</button>
+
         <button onclick="shortenSalla();" class="arButton">صلى ← ﷺ</button>
         <button onclick="replaceQmark();" class="arButton">? ← ؟</button>
         <button onclick="replaceComma();" class="arButton">, ← ،</button>
@@ -380,6 +381,8 @@
         <button onclick="replaceDoubleBrackets();" class="arButton">
           (( )) ← ( )
         </button>
+        <button onclick="numToSansSerif();">123 ← 𝟣𝟤𝟥</button>
+        <button onclick="numToSuperScript();">123 ← ¹²³</button>
 
         <br />
 
@@ -624,6 +627,40 @@
             .replace(/٧/g, "7")
             .replace(/٨/g, "8")
             .replace(/٩/g, "9");
+          document.getElementById("textHere").value = newText;
+          return false;
+        }
+
+        function numToSansSerif() {
+          var text = document.getElementById("textHere").value;
+          var newText = text
+            .replace(/0/g, "𝟢")
+            .replace(/1/g, "𝟣")
+            .replace(/2/g, "𝟤")
+            .replace(/3/g, "𝟥")
+            .replace(/4/g, "𝟦")
+            .replace(/5/g, "𝟧")
+            .replace(/6/g, "𝟨")
+            .replace(/7/g, "𝟩")
+            .replace(/8/g, "𝟪")
+            .replace(/9/g, "𝟫");
+          document.getElementById("textHere").value = newText;
+          return false;
+        }
+
+        function numToSuperScript() {
+          var text = document.getElementById("textHere").value;
+          var newText = text
+            .replace(/0/g, "⁰")
+            .replace(/1/g, "¹")
+            .replace(/2/g, "²")
+            .replace(/3/g, "³")
+            .replace(/4/g, "⁴")
+            .replace(/5/g, "⁵")
+            .replace(/6/g, "⁶")
+            .replace(/7/g, "⁷")
+            .replace(/8/g, "⁸")
+            .replace(/9/g, "⁹");
           document.getElementById("textHere").value = newText;
           return false;
         }
