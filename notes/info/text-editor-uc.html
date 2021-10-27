@@ -324,18 +324,27 @@
             line-height: 1.6;
           }*/
         }
-
-        button:hover {
-          cursor: pointer;
-
-          color: #fff;
-
-          transform: scale(1.15);
-          z-index: 9999;
-
-          background-color: #2f6f8c;
-
-          -webkit-font-smoothing: antialiased;
+        /* @mixin for-above phone-only */
+        @media (min-width: 599px) {
+          button:hover {
+            cursor: pointer;
+            color: #fff;
+            transform: scale(1.15);
+            z-index: 9999;
+            background-color: #2f6f8c;
+            -webkit-font-smoothing: antialiased;
+          }
+        }
+        /* @mixin for-phone-only */
+        @media (max-width: 599px) {
+          button:active {
+            cursor: pointer;
+            color: #fff;
+            transform: scale(1.15);
+            z-index: 9999;
+            background-color: #2f6f8c;
+            -webkit-font-smoothing: antialiased;
+          }
         }
       </style>
 
