@@ -275,8 +275,8 @@
         }
 
         /*p {
-          margin-top: 7px;
-        }*/
+                margin-top: 7px;
+              }*/
         .EditorHeader,
         body {
           margin-top: 0;
@@ -320,31 +320,25 @@
             font-size: 15px;
           }
           /*textarea {
-            font-size: 17px;
-            line-height: 1.6;
-          }*/
+                  font-size: 17px;
+                  line-height: 1.6;
+                }*/
         }
-        /* @mixin for-above phone-only */
-        @media (min-width: 599px) {
-          button:hover {
-            cursor: pointer;
-            color: #fff;
-            transform: scale(1.15);
-            z-index: 9999;
-            background-color: #2f6f8c;
-            -webkit-font-smoothing: antialiased;
-          }
+
+        button:hover {
+          cursor: pointer;
+          color: #fff;
+          transform: scale(1.15);
+          z-index: 9999;
+          background-color: #2f6f8c;
+          -webkit-font-smoothing: antialiased;
         }
-        /* @mixin for-phone-only */
-        @media (max-width: 599px) {
-          button:active {
-            cursor: pointer;
-            color: #fff;
-            transform: scale(1.15);
-            z-index: 9999;
-            background-color: #2f6f8c;
-            -webkit-font-smoothing: antialiased;
-          }
+
+        button:active {
+          -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+          -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+          box-shadow: inset 0px 0px 5px #c1c1c1;
+          outline: none;
         }
       </style>
 
