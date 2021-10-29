@@ -282,14 +282,13 @@
           margin-top: 0;
           margin-bottom: 5px;
         }
-        #textHere {
+        textarea {
           font-family: "arFont", "dvFont", sans-serif;
           font-size: 19px;
           line-height: 1.9;
           width: 100%;
           height: 300px;
           /*border-radius: 5px;*/
-          direction: rtl;
         }
         button {
           font-family: "dvFont", "arFont", sans-serif;
@@ -334,6 +333,13 @@
           background-color: #2f6f8c;
           -webkit-font-smoothing: antialiased;
         }
+
+        button:active {
+          -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+          -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+          box-shadow: inset 0px 0px 5px #c1c1c1;
+          outline: none;
+        }
       </style>
 
       <div style="text-align: center">
@@ -351,8 +357,6 @@
           oninput="countChar();countWord();"
           autofocus="autofocus"
         ></textarea>
-        <div id="img-out"></div>
-        <div id="output"></div>
 
         <br />
         <!-- !!! !!! -->
@@ -380,7 +384,6 @@
           <input id="slider" type="range" min="10" max="100" />
           <span class="big-letter">A</span>
         </div>
-
         <script>
           let i = document.getElementById("slider");
           i.addEventListener(
@@ -394,93 +397,9 @@
           );
         </script>
 
-        <!-- http://jsfiddle.net/Mottie/sodofkcs/44/ 
-        
-        https://codepen.io/MySecondLife/pen/QQjLgN 
-      
-      https://embed.plnkr.co/plunk/2O40L2 -->
-
-        <script>
-          function takeScreenShot() {
-            document.querySelector("#screenshot") &&
-              document.querySelector("#screenshot").remove();
-            //document.getElementById("img-out").remove(img);
-            var node = document.getElementById("textHere");
-
-            /*
-            var options = {
-              quality: 0.99,
-              width: 2000,
-              height: 2000,
-            };
-
-
-            const scale = 3;
-            const style = {
-              transform: "scale(" + scale + ")",
-              transformOrigin: "top left",
-              width: node.offsetWidth + "px",
-              height: node.offsetHeight + "px",
-            };
-
-            const options = {
-              height: node.offsetHeight * scale,
-              width: node.offsetWidth * scale,
-              quality: 1,
-              style,
-            };*/
-
-            domtoimage
-              //.toPng(node, options)
-              //.toPng(node)
-              .toPng(node, {
-                //height: 1304,
-                //width: 665,
-                scale: 2,
-                fontFamily: ["arFont"],
-
-                style: {
-                  backgroundColor: "white",
-                  width: "820px",
-                  height: "665px",
-                  margin: "unset",
-                  //marginRight: "50px",
-                  top: "0px",
-                  fontFamily: "arFont",
-                },
-              })
-              .then(function (dataUrl) {
-                var img = new Image();
-                img.id = "screenshot";
-                (img.src = dataUrl), { width: 200, height: 200 };
-                document.getElementById("img-out").appendChild(img);
-              })
-              .catch(function (error) {
-                console.error("oops, something went wrong!", error);
-              });
-          }
-
-          /*
-          function takeScreenShot() {
-            document.querySelector(".createdImg") &&
-              document.querySelector(".createdImg").remove();
-
-            html2canvas(document.querySelector("#textHere"), {
-              width: 500,
-              height: 500,
-              allowTaint: true,
-            }).then((canvas) => {
-              document.getElementById("img-out").appendChild(canvas).className =
-                "createdImg";
-            });
-          }
-          */
-        </script>
-
         <p class="buttonHeader">
           މަތީގައި ލިޔުމަށްފަހު އެލިޔުން ބަދަލުކުރުމަށް:
         </p>
-        <button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>
         <button onclick="replaceFili();countChar()">އަރަބި ފިލި ފޮހެލާ</button>
         <button onclick="copyToClipB();">ލިޔުން ކޮޕީކުރޭ</button>
         <button onclick="remThiki();">ތިކިޖެހިތާނަ ފޮހެލާ</button>
@@ -1657,24 +1576,6 @@ https://www.w3schools.com/howto/howto_css_modals.asp -->
       </div>
       <br />
     </div>
-
-    <!--<script
-      defer
-      src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"
-    ></script>
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/html-to-image@1.9.0/lib/index.min.js"
-    ></script>
-      <script
-      defer
-      src="https://unpkg.com/@nidi/html2canvas@1.0.0-rc.13/dist/html2canvas.js"
-    ></script>-->
-    <!--
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
-    -->
-    <script src="https://cdn.jsdelivr.net/npm/dom-to-image-more@2.9.1/dist/dom-to-image-more.min.js"></script>
 
     <!-- decided not to use boilerplate analytics setup as it has two requests
     added async then changed to defer on my own https://developers.google.com/analytics/devguides/collection/analyticsjs;<divid=<ul><li><divclass=<p>“Wentwithmywife,absolutelybrilliantrestaurant,thefoodtastedbeautiful,somuchdepthandverywellpresented.Asgoodifnotbetterthananyinthecitycentre.Willdefinitelybereturning.”<br>NathanielHarwoodGoogle</p></div></li><li><divclass=<p>“Greatfriendlyservice,thestaffdonlldefinitelybereturning.”<br>JoeHTripAdvisor</p></div></li></ul></div><br<hr<br<h3class=HADITHMVisregisteredundertheMinistryofEconomicDevelopment</h3><br<h3class=Backtothe<b><ahref=>MainSite</a></b></h3><br</div>decidednottouseboilerplateanalyticssetupasithastworequestsaddedasyncthenchangedtodeferonmyownhttps
