@@ -77,14 +77,14 @@ $(document).ready(() => {
       },
       {
         data: 2,
-        title: 'ޢަރަބި ޙަދީޘް'
+        title: 'އަރަބި ޙަދީޘް'
       },
-      // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
+      // { title: 'އަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
         data: 2,
-        title: 'ޢަރަބި ފިލިނުޖަހައި',
+        title: 'އަރަބި ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
@@ -389,8 +389,8 @@ $(document).ready(() => {
 
           data = data.replace(/ފޮތް\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
-          data = data.replace(/ޢަރަބި ޙަދީޘް\t/g, '')
-          data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
+          data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
+          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/ތަޚްރީޖު\t/g, '')
           data = data.replace(/ހުކުމް\t/g, '')

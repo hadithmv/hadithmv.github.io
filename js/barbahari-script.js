@@ -73,14 +73,14 @@ $(document).ready(() => {
       },
       {
         data: 1,
-        title: 'ޢަރަބި'
+        title: 'އަރަބި'
       },
-      // { title: 'ޢަރަބި ފިލިނުޖަހައި' },
+      // { title: 'އަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
         /* data: 1,
-        title: 'ޢަރަބި ފިލިނުޖަހައި',
+        title: 'އަރަބި ފިލިނުޖަހައި',
         render: function (data, type, row) { */
         // return data.replace(/َ/g, '').replace(/ِ/g, '')
         // below code is shorter, no replace repeat, uses OR instead
@@ -328,8 +328,8 @@ $(document).ready(() => {
           data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
 
           data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
-          data = data.replace(/ޢަރަބި\t/g, '')
-          data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
+          data = data.replace(/އަރަބި\t/g, '')
+          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި\t/g, '')
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
@@ -343,10 +343,10 @@ $(document).ready(() => {
           data = data.replace(/\r\n\r\n/g, '\t') //  prevents # showing up unneeded (windows)
 
           data = data.replace(/\t#/g, '')
-          data = data.replace(/\tޢަރަބި ސުރުޚީ/g, '')
-          data = data.replace(/\tދިވެހި ސުރުޚީ/g, '')
-          data = data.replace(/\tޢަރަބި ޙަދީޘް/g, '')
-          data = data.replace(/\tޢަރަބި ފިލިނުޖަހައި/g, '')
+          data = data.replace(/\tއަރަބި ސުރުހީ/g, '')
+          data = data.replace(/\tދިވެހި ސުރުހީ/g, '')
+          data = data.replace(/\tއަރަބި ޙަދީޘް/g, '')
+          data = data.replace(/\tއަރަބި ފިލިނުޖަހައި/g, '')
           data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
           data = data.replace(/\tތަޚްރީޖު/g, '')
           data = data.replace(/\tތަޚްރީޖު ދިވެހިން/g, '')
@@ -357,10 +357,10 @@ $(document).ready(() => {
           // data = data.replace(/\tތަޚްރީޖު\t/g, '')
           /*
           data = data.replace(/#\t/g, '')
-          data = data.replace(/ޢަރަބި ސުރުޚީ\t/g, '')
-          data = data.replace(/ދިވެހި ސުރުޚީ\t/g, '')
-          data = data.replace(/ޢަރަބި ޙަދީޘް\t/g, '')
-          data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\t/g, '')
+          data = data.replace(/އަރަބި ސުރުހީ\t/g, '')
+          data = data.replace(/ދިވެހި ސުރުހީ\t/g, '')
+          data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
+          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/ތަޚްރީޖު\t/g, '')
           data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
@@ -373,10 +373,10 @@ $(document).ready(() => {
 */
           /*
           data = data.replace(/#\n/g, '')
-          data = data.replace(/ޢަރަބި ސުރުޚީ\n/g, '')
-          data = data.replace(/ދިވެހި ސުރުޚީ\n/g, '')
-          data = data.replace(/ޢަރަބި ޙަދީޘް\n/g, '')
-          data = data.replace(/ޢަރަބި ފިލިނުޖަހައި\n/g, '')
+          data = data.replace(/އަރަބި ސުރުހީ\n/g, '')
+          data = data.replace(/ދިވެހި ސުރުހީ\n/g, '')
+          data = data.replace(/އަރަބި ޙަދީޘް\n/g, '')
+          data = data.replace(/އަރަބި ފިލިނުޖަހައި\n/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\n/g, '')
           data = data.replace(/ތަޚްރީޖު\n/g, '')
           data = data.replace(/ތަޚްރީޖު ދިވެހިން\n/g, '')
