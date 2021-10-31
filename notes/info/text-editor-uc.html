@@ -347,8 +347,8 @@
       cols="60"-->
         <textarea
           id="textHere"
-          placeholder="ލިޔެލާ..."
-          oninput="countChar();countWord();"
+          placeholder="އަބޫ ހުރައިރާ ރިވާ ކުރެއްވިއެވެ: ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”..."
+          oninput="countChar();countWord();replaceType();"
           autofocus="autofocus"
         ></textarea>
         <div id="img-out"></div>
@@ -645,7 +645,18 @@
         </button>
       </div>
       <!--<button id="buttonC" onclick="count();">ގުނާލާ</button>-->
-      <br /><br />
+
+      <p class="buttonHeader">
+        އެންމެ މަތީގައިވާ ހުސްޖާގައިގައި ތިރީގައި މިވާ އަކުރުތައް ލިޔުމާއެކީ
+        ވަގުތުން ބަސްތަކަކަށް ބަދަލުވެގެންދާނެއެވެ:
+      </p>
+      <ul>
+        <li>1</li>
+      </ul>
+
+      <br />
+      <hr />
+      <br />
 
       <!-- http://talkerscode.com/webtricks/demo/demo_live-character-count-using-javascript.php -->
 
@@ -707,9 +718,72 @@
           document.getElementById("textHere").value = newText;
           return false;
         }
-      </script>
 
-      <script>
+        function replaceType() {
+          var text = document.getElementById("textHere").value;
+          var newText = text
+            .replace(/ސސ-/g, "ﷺ")
+            .replace(/ss-/g, "ﷺ")
+            .replace(/سس-/g, "ﷺ")
+            .replace(/\"-/g, "”")
+            .replace(/-\"/g, "“")
+            .replace(/\'-/g, "’")
+            .replace(/-\'/g, "‘")
+            .replace(/br-/g, "<br><br>")
+            .replace(/ބރ-/g, "<br><br>")
+            .replace(/ރއ-/g, "رَضِيَ اللَّهُ عَنْهُ")
+            .replace(/ރއހ-/g, "ﷺرَضِيَ اللَّهُ عَنْهَا")
+            .replace(/ރއހމ2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
+            .replace(/ރއހމ-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
+            .replace(/ވދ-/g, "ވިދާޅުވިއެވެ: ")
+            .replace(/ދނ-/g, "ދެންނެވިއެވެ: ")
+            .replace(/ރކ-/g, "ރިވާ ކުރެއްވިއެވެ: ")
+            .replace(/އއރ-/g, "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ: ")
+            .replace(/ހކ-/g, "ޙަދީޘް ކުރެއްވިއެވެ: ”")
+            .replace(/ރހކ-/g, "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”")
+            .replace(/ނހކ-/g, "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”")
+            .replace(
+              /ރއޑ-/g,
+              "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+            )
+            .replace(
+              /ނއޑ-/g,
+              "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+            )
+            .replace(/ސައްހަ-/g, "މި ޙަދީޘް ސައްހަ ކުރެއްވިއެވެ.")
+            .replace(/ޟ-/g, "މި ޙަދީޘް ޟަޢީފު ކުރެއްވިއެވެ.")
+            .replace(/މރވ-/g, "މި ޙަދީޘް ރިވާ ކުރެއްވީ")
+            .replace(/ސސ-/g, "ﷺ")
+            .replace(/ss-/g, "ﷺ")
+            .replace(/ސސ-/g, "ﷺ")
+            .replace(/ss-/g, "ﷺ")
+            .replace(/ސސ-/g, "ﷺ")
+            .replace(/ss-/g, "ﷺ")
+            .replace(/ސސ-/g, "ﷺ")
+            .replace(/ss-/g, "ﷺ")
+            .replace(/ސސ-/g, "ﷺ")
+            .replace(/ss-/g, "ﷺ")
+            .replace(/ސސ-/g, "ﷺ")
+            .replace(/ss-/g, "ﷺ")
+            .replace(/ސސ-/g, "ﷺ")
+            .replace(/ss-/g, "ﷺ")
+            .replace(/ސސ-/g, "ﷺ")
+            .replace(/ss-/g, "ﷺ")
+            .replace(/ސސ-/g, "ﷺ")
+            .replace(/ss-/g, "ﷺ")
+            .replace(/ސސ-/g, "ﷺ")
+            .replace(/ss-/g, "ﷺ")
+            .replace(/ސސ-/g, "ﷺ")
+            .replace(/ss-/g, "ﷺ")
+            .replace(/ސސ-/g, "ﷺ")
+            .replace(/ss-/g, "ﷺ")
+            .replace(/ސސ-/g, "ﷺ")
+            .replace(/ss-/g, "ﷺ");
+
+          document.getElementById("textHere").value = newText;
+          return false;
+        }
+
         function shortenSalla() {
           var text = document.getElementById("textHere").value;
           var newText = text
@@ -719,9 +793,7 @@
           document.getElementById("textHere").value = newText;
           return false;
         }
-      </script>
 
-      <script>
         function numToAr() {
           var text = document.getElementById("textHere").value;
           var newText = text
@@ -1223,6 +1295,7 @@
         }
       </script>
       <div class="dv">
+        <h3 class="mid"><a>–&nbsp; އިތުރު މައުލޫމާތު&nbsp; –</a></h3>
         <p>
           މިއީ ދިވެހި ބަހާއި އަރަބި ބަހުގެ ލިޔުންތެރިން ބޭނުން ހިފުމަށް
           ހަދާފައިވާ ޓެކްސްޓު އެޑިޓަރެކެވެ.
