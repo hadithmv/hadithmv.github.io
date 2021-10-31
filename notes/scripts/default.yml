@@ -43,6 +43,9 @@ matches:
   - trigger: "ss-"
     replace: "ﷺ"
 
+  - trigger: "سس-"
+    replace: "ﷺ"
+
   - trigger: "\"-"
     replace: "”"
 
@@ -74,10 +77,10 @@ matches:
     replace: "رَضِيَ اللَّهُ عَنْهُمْ"
 
   - trigger: "ވދ-"
-    replace: "ވިދާޅުވިއެވެ:"
+    replace: "ވިދާޅުވިއެވެ: "
 
   - trigger: "ދނ-"
-    replace: "ދެންނެވިއެވެ:"
+    replace: "ދެންނެވިއެވެ: "
 
   - trigger: "ރކ-"
     replace: "ރިވާ ކުރެއްވިއެވެ: "
@@ -100,7 +103,7 @@ matches:
   - trigger: "ނއޑ-"
     replace: "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
 
-  - trigger: "ޞ-"
+  - trigger: "ސައްހަ-"
     replace: "މި ޙަދީޘް ސައްހަ ކުރެއްވިއެވެ."
 
   - trigger: "ޟ-"
@@ -144,10 +147,6 @@ matches:
     
   - trigger: "tc-"
     replace: "take care"
-    
-  - trigger: "سس-"
-    replace: "ﷺ"
-    
-    
+
     
     
