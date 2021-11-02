@@ -10,8 +10,8 @@ Load priority in COMB:
 **hmv-styles.css	(minify w csso)	min file not kept as seperate
 
 -even more non Critical Ext
-**jquery.dataTables.min.css	1.11.2	(minify w cssnano)
-**buttons.dataTables.min.css	2.0.0	(minify w cssnano)
+**jquery.dataTables.min.css	1.11.3	(minify w cssnano)
+**buttons.dataTables.min.css	2.0.1	(minify w cssnano)
 **searchPanes.dataTables.min.css	1.4.0	(use MOD, minify w cssnano)
 fonts.css	(minify w cssnano)
 
