@@ -6,11 +6,11 @@ mmenu-inlineJs.js
 
 -Non critical
 jquery.slim.min.js		3.6.0 (hammer breaks with jquery slim, zepto and cash doesnt work)
-**jquery.dataTables.min.js	1.11.2	(requires jq, minify w closure)
+**jquery.dataTables.min.js	1.11.3	(requires jq, minify w closure)
 
-dataTables.buttons.min.js	2.0.0
-buttons.colVis.min.js		2.0.0
-buttons.html5.min.js		2.0.0
+dataTables.buttons.min.js	2.0.1
+buttons.colVis.min.js		2.0.1
+buttons.html5.min.js		2.0.1
 dataTables.searchPanes.min.js	1.4.0
 dataTables.select.min.js	1.3.3
 **row().show().js		1.11.2 (minify w closure)

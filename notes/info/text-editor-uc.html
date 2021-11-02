@@ -744,13 +744,13 @@
           var text = document.getElementById("textHere").value;
           var newText = text
             .replace(/ސސ-/g, "ﷺ")
-            .replace(/ss-/g, "ﷺ")
+            .replace(/-ss/g, "ﷺ")
             .replace(/سس-/g, "ﷺ")
             .replace(/\"-/g, "”")
             .replace(/-\"/g, "“")
             .replace(/\'-/g, "’")
             .replace(/-\'/g, "‘")
-            .replace(/br-/g, "<br><br>")
+            .replace(/-br/g, "<br><br>")
             .replace(/ބރ-/g, "<br><br>")
             .replace(/ރއ-/g, "رَضِيَ اللَّهُ عَنْهُ")
             .replace(/ރއހ-/g, "رَضِيَ اللَّهُ عَنْهَا")
