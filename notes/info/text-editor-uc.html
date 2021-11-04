@@ -1375,18 +1375,19 @@
         }
       </style>
 
-      <p class="mid">
-        Total:
-        <span id="sumTotal">0.00</span>
-      </p>
-
       <!-- rows="10"
     cols="60"-->
+      <br />
+      <br />
       <textarea
         id="textSum"
         placeholder="Any numbers written here will be added..."
         oninput="outputSum();"
       ></textarea>
+      <p class="mid">
+        Total:
+        <span id="sumTotal">0.00</span>
+      </p>
 
       <script>
         // https://stackoverflow.com/questions/39236731/how-to-find-sum-of-integers-in-a-string-using-javascript
@@ -1395,7 +1396,7 @@
           var str = document.getElementById("textSum").value;
           //var str = "12sf0as9d";
           //var pattern = /\d+/g;    // \d should be fine for matching any nonnegative integer, \d is equivalent to [0-9]
-          //var pattern = /\-?\d+/g;
+          //var pattern = /\-?\d+/g; // https://stackoverflow.com/questions/6508043/regular-expression-to-find-any-number-in-a-string
           var pattern = /[+-]?\d+(?:\.\d+)?/g;
           var total = str.match(pattern).reduce(function (prev, num) {
             return prev + +num;
@@ -1405,11 +1406,11 @@
           console.log(total); // 21
 
           //document.getElementById("sumTotal").innerHTML = total;
+          //https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
           document.getElementById("sumTotal").innerHTML = total.toFixed(2);
         }
       </script>
 
-      <br />
       <br />
       <hr />
       <br />
