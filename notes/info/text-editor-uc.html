@@ -352,7 +352,6 @@
           autofocus="autofocus"
         ></textarea>
         <div id="img-out"></div>
-        <div id="output"></div>
 
         <br />
         <!-- !!! !!! -->
@@ -1363,6 +1362,58 @@
 
       <br />
       <hr />
+
+      <style>
+        #textSum {
+          font-family: "arFont", "dvFont", sans-serif;
+          font-size: 19px;
+          line-height: 1.9;
+          width: 100%;
+          height: 300px;
+          /*border-radius: 5px;*/
+          direction: ltr;
+        }
+      </style>
+
+      <p class="mid">
+        Total:
+        <span id="sumTotal">0.00</span>
+      </p>
+
+      <!-- rows="10"
+    cols="60"-->
+      <textarea
+        id="textSum"
+        placeholder="Any numbers written here will be added..."
+        oninput="outputSum();"
+      ></textarea>
+
+      <script>
+        // https://stackoverflow.com/questions/39236731/how-to-find-sum-of-integers-in-a-string-using-javascript
+
+        function outputSum() {
+          var str = document.getElementById("textSum").value;
+          //var str = "12sf0as9d";
+          //var pattern = /\d+/g;    // \d should be fine for matching any nonnegative integer, \d is equivalent to [0-9]
+          //var pattern = /\-?\d+/g;
+          var pattern = /[+-]?\d+(?:\.\d+)?/g;
+          var total = str.match(pattern).reduce(function (prev, num) {
+            return prev + +num;
+          }, 0);
+
+          console.log(str.match(pattern)); // ["12", "0", "9"]
+          console.log(total); // 21
+
+          //document.getElementById("sumTotal").innerHTML = total;
+          document.getElementById("sumTotal").innerHTML = total.toFixed(2);
+        }
+      </script>
+
+      <br />
+      <br />
+      <hr />
+      <br />
+      <!-- !!! !!! -->
 
       <h2 class="en mid testimonials">– &nbsp;Feedback&nbsp; –</h2>
 
