@@ -1203,26 +1203,24 @@ cols="60"-->
         </p>
 
         <script>
-          /*document.body.classList.add("changeBack");*/
+          // https://stackoverflow.com/questions/39236731/how-to-find-sum-of-integers-in-a-string-using-javascript
 
-          // Get the element with id="defaultOpen" and click on it
-          document.getElementById("defaultOpen").click();
+          function outputSum() {
+            var str = document.getElementById("textSum").value;
+            //var str = "12sf0as9d";
+            //var pattern = /\d+/g;    // \d should be fine for matching any nonnegative integer, \d is equivalent to [0-9]
+            //var pattern = /\-?\d+/g; // https://stackoverflow.com/questions/6508043/regular-expression-to-find-any-number-in-a-string
+            var pattern = /[+-]?\d+(?:\.\d+)?/g;
+            var total = str.match(pattern).reduce(function (prev, num) {
+              return prev + +num;
+            }, 0);
 
-          function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-              tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-              tablinks[i].className = tablinks[i].className.replace(
-                " active",
-                ""
-              );
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
+            console.log(str.match(pattern)); // ["12", "0", "9"]
+            console.log(total); // 21
+
+            //document.getElementById("sumTotal").innerHTML = total;
+            //https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
+            document.getElementById("sumTotal").innerHTML = total.toFixed(2);
           }
         </script>
       </div>
@@ -1282,40 +1280,38 @@ cols="60"-->
       <br />
       <hr />
 
-      <h2 class="en mid testimonials">– &nbsp;Testimonials&nbsp; –</h2>
+      <h2 class="en mid testimonials">– &nbsp;Feedback&nbsp; –</h2>
 
       <!-- http://fofwebdesign.co.uk/template/_testing/quotes-css.htm -->
       <ul id="quotes" class="quotes">
         <li class="show">
-          ⭐⭐⭐⭐⭐<span class="stars"></span>“The affordable prices are great
-          and it's nice to have a few options to choose from for the
-          wells.”<span>-Aminath N.</span>
-        </li>
-        <li class="show">
-          ⭐⭐⭐⭐⭐<span class="stars"></span>“Jazaakallah khaiyr. Its easy to
-          donate. Happy with the offer.”<span>-Mohamed R.</span>
+          ⭐⭐⭐⭐⭐<span class="stars"></span>“This is a very needed app for
+          the maldivian community. Hope to see this app grow in the future.
+          Would recommend this to all Maldivians.”<span>-Ismail G.</span>
         </li>
         <li>
-          ⭐⭐⭐⭐⭐<span class="stars"></span>“Maai Allah thiya kuravva
-          masakkathugai barakai lavvaashi. Aameen”<span>-Mariyam S.</span>
-        </li>
-        <li class="show">
-          ⭐⭐⭐⭐⭐<span class="stars"></span>“Alhamdulillah. Thank you for the
-          picture and video. You guys are doing a great job.”<span
-            >-Ahmed S.</span
-          >
+          ⭐⭐⭐⭐⭐<span class="stars"></span>“Maa sha Allah. بارك الله فيك. A
+          very important work and step in bringing our ummah closer to the
+          sunnah and making it more accessible”<span>-Mohamed H.</span>
         </li>
         <li>
-          ⭐⭐⭐⭐⭐<span class="stars"></span>“I was happy to get photos &
-          video of the well as it progressed & to see that it was completed on
-          time.”<span>-S. Abdul Rahman.</span>
+          ⭐⭐⭐⭐⭐<span class="stars"></span>“It's a relief to finally see
+          someone made a hadith app with dhivehi translations... Absolutely love
+          it... ❤️❤️❤️”<span>-A. A.</span>
         </li>
         <li>
-          ⭐⭐⭐⭐⭐<span class="stars"></span>“May Allah bless and reward your
-          team’s effort.. Jazakumullah Khair for making this sadaqa jariya
-          possible for us.. It was really fast and reliable.”<span
-            >-S. Hassan.</span
-          >
+          ⭐⭐⭐⭐⭐<span class="stars"></span>“Alhamdhulillah, Keep it up well
+          done great work hope your next work will be Bukhari and Muslim. In sha
+          Allaah.”<span>-Usha N.</span>
+        </li>
+        <li>
+          ⭐⭐⭐⭐⭐<span class="stars"></span>“Very impressive. First
+          impression, easy to use, good looks, fast... So far really good. مَا
+          شَاءَ ٱللَّهُ.”<span>-M. Nazim.</span>
+        </li>
+        <li>
+          ⭐⭐⭐⭐⭐<span class="stars"></span>“Great app الحمد لله May الله
+          تعالى bless you and your work.. آمین 🤲”<span>-Marie S.</span>
         </li>
       </ul>
 
@@ -1409,6 +1405,27 @@ https://www.w3schools.com/howto/howto_css_modals.asp -->
       <br />
     </div>
     <!-- <div class="wrapper"> -->
+
+    <script>
+      /*document.body.classList.add("changeBack");*/
+
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultOpen").click();
+
+      function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+    </script>
 
     <!-- decided not to use boilerplate analytics setup as it has two requests
     added async then changed to defer on my own https://developers.google.com/analytics/devguides/collection/analyticsjs;<divid=<ul><li><divclass=<p>“Wentwithmywife,absolutelybrilliantrestaurant,thefoodtastedbeautiful,somuchdepthandverywellpresented.Asgoodifnotbetterthananyinthecitycentre.Willdefinitelybereturning.”<br>NathanielHarwoodGoogle</p></div></li><li><divclass=<p>“Greatfriendlyservice,thestaffdonlldefinitelybereturning.”<br>JoeHTripAdvisor</p></div></li></ul></div><br<hr<br<h3class=HADITHMVisregisteredundertheMinistryofEconomicDevelopment</h3><br<h3class=Backtothe<b><ahref=>MainSite</a></b></h3><br</div>decidednottouseboilerplateanalyticssetupasithastworequestsaddedasyncthenchangedtodeferonmyownhttps
