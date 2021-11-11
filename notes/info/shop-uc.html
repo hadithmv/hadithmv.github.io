@@ -37,8 +37,14 @@
   </head>
 
   <style>
+    /* https://www.encodedna.com/css-tutorials/how-to-tilt-a-span-element-using-css.htm */
     .rotate {
-      transform: rotate(45deg) perspective(0) !important;
+      transform: rotate(270deg);
+      -ms-transform: rotate(270deg); /*  for IE  */
+
+      /* 	for browsers supporting webkit (such as chrome, firefox, safari etc.). */
+      -webkit-transform: rotate(270deg);
+      display: inline-block;
     }
   </style>
 
@@ -58,6 +64,9 @@
         <h2 class="en">
           <b><a href="https://hadithmv.github.io">hadithmv</a></b> - e Shop
         </h2>
+        <a onclick="openModal()">
+          Order Now<span class="rotateText">🛒</span>
+        </a>
       </div>
       <br />
 
