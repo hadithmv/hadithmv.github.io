@@ -1083,6 +1083,21 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
+
+            text-align: center;
+          }
+
+          /*input[type="date"]::-webkit-calendar-picker-indicator {
+            -webkit-appearance: none;
+            display: none;
+          }*/
+
+          ::-webkit-calendar-picker-indicator {
+            margin-left: 0px;
+          }
+
+          .dateResult {
+            font-weight: bold;
           }
         </style>
 
@@ -1092,11 +1107,11 @@
           </h2>
 
           <br />
-          Date of child's birth:
+          Date of child's birth: &nbsp;
           <input type="date" onchange="setSecondDate();" id="date1" />
 
           <br /><br />
-          Days you want to count after birth:
+          Days you want to count after birth: &nbsp;
           <select id="select">
             <option value="6">7 days</option>
             <option value="13">14 days</option>
@@ -1104,15 +1119,16 @@
           </select>
 
           <br /><br /><br />
-          <strong>Due date of Ageega:</strong>
+          <strong>Due date of Ageega is below</strong>
 
           <br /><br />
-          (if child born BEFORE maghrib):
-          <input type="date" id="date2" />
+          (if child born BEFORE maghrib): &nbsp;
+          <input class="dateResult" type="date" id="date2" readonly />
+          <!-- can add "readonly" just before end, but doest center properly-->
 
           <br /><br />
-          (if child born AFTER maghrib):
-          <input type="date" id="date3" />
+          (if child born AFTER maghrib): &nbsp;
+          <input class="dateResult" type="date" id="date3" readonly />
 
           <!--<input type="datetime-local" id="datePicker" />
           <output name="result" for="a b">60</output>-->
