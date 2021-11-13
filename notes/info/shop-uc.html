@@ -1068,8 +1068,111 @@
         </div>
         <br />
 
+        <hr />
+        <br />
+
+        <!-- TEXT ITEM -->
+
+        <style>
+          input,
+          select {
+            /*width: 50%;*/
+            padding: 8px 12px;
+            margin: 6px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+          }
+        </style>
+
+        <div class="en mid">
+          <h2 class="en mid">
+            <a><b>Aqeeqah Date Calculator</b></a>
+          </h2>
+
+          <br />
+          Date of child's birth:
+          <input type="date" onchange="setSecondDate();" id="date1" />
+
+          <br /><br />
+          Days you want to count after birth:
+          <select id="select">
+            <option value="6">7 days</option>
+            <option value="13">14 days</option>
+            <option value="20">21 days</option>
+          </select>
+
+          <br /><br /><br />
+          <strong>Due date of Ageega:</strong>
+
+          <br /><br />
+          (if child born BEFORE maghrib):
+          <input type="date" id="date2" />
+
+          <br /><br />
+          (if child born AFTER maghrib):
+          <input type="date" id="date3" />
+
+          <!--<input type="datetime-local" id="datePicker" />
+          <output name="result" for="a b">60</output>-->
+        </div>
+
+        <script>
+          /* https://stackoverflow.com/questions/46266352/how-to-add-days-in-input-type-date */
+          document.getElementById("date1").valueAsDate = new Date();
+
+          var days = document.getElementById("select").value;
+          var date = new Date(document.getElementById("date1").value);
+          date.setDate(date.getDate() + parseInt(days));
+          document.getElementById("date2").valueAsDate = date;
+
+          date.setDate(date.getDate() + 1);
+          document.getElementById("date3").valueAsDate = date;
+
+          function setSecondDate() {
+            var days = document.getElementById("select").value;
+            var date = new Date(document.getElementById("date1").value);
+            date.setDate(date.getDate() + parseInt(days));
+            document.getElementById("date2").valueAsDate = date;
+
+            date.setDate(date.getDate() + 1);
+            document.getElementById("date3").valueAsDate = date;
+          }
+
+          /* https://stackoverflow.com/a/16010247 */
+          /* document.getElementById("datePicker").valueAsDate = new Date(); */
+
+          /* https://stackoverflow.com/a/51066673 */
+          /*
+          window.addEventListener("load", function () {
+            var now = new Date();
+            var utcString = now.toISOString().substring(0, 19);
+            var year = now.getFullYear();
+            var month = now.getMonth() + 1;
+            var day = now.getDate();
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+            var localDatetime =
+              year +
+              "-" +
+              (month < 10 ? "0" + month.toString() : month) +
+              "-" +
+              (day < 10 ? "0" + day.toString() : day) +
+              "T" +
+              (hour < 10 ? "0" + hour.toString() : hour) +
+              ":" +
+              (minute < 10 ? "0" + minute.toString() : minute) +
+              utcString.substring(16, 19);
+            var datetimeField = document.getElementById("date1");
+            datetimeField.value = localDatetime;
+          }); */
+        </script>
+
         <!-- TEXT ITEM - END -->
       </div>
+
       <!-- <div id="tabThree" class="tabcontent"> -->
 
       <script>
