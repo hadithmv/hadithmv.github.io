@@ -360,23 +360,24 @@
           <button onclick="numToAr();">123 ← ١٢٣</button>
           <button onclick="arToNum();">١٢٣ ← 123</button>
 
-          <button onclick="shortenSalla();" class="arButton">صلى ← ﷺ</button>
-          <button onclick="replaceQmark();" class="arButton">? ← ؟</button>
-          <button onclick="replaceComma();" class="arButton">, ← ،</button>
-          <button onclick="replaceSemiColon();" class="arButton">; ← ؛</button>
-          <button onclick="replaceQbracket();" class="arButton">
-            { } ← ﴿ ﴾
+          <button onclick="shortenSalla();" class="arButton">
+            صلى ع و ← ﷺ
           </button>
-          <button onclick="replaceQstop();" class="arButton">* ← ۝</button>
+          <button onclick="replaceCommaScolonQ();" class="arButton">
+            , ; ? ← ، ؛ ؟
+          </button>
+          <button onclick="replaceQbracketQstop();" class="arButton">
+            {*} ← ﴿۝﴾
+          </button>
           <button onclick="replaceTanween();" class="arButton">
             ـّ ـَ ← ـَ ـّ
           </button>
-          <button onclick="replaceQuotes();" class="arButton">" " ← ” “</button>
+          <button onclick="replaceQuotes();" class="arButton">' " ← ’ “</button>
           <button onclick="replaceDoubleBrackets();" class="arButton">
             (( )) ← ( )
           </button>
-          <button onclick="numToSansSerif();">123 ← 𝟣𝟤𝟥</button>
           <button onclick="numToSuperScript();">123 ← ¹²³</button>
+          <button onclick="numToSansSerif();">123 ← 𝟣𝟤𝟥</button>
           <button onclick="dotsToEllipsis();">. . . ← …</button>
           <button onclick="hyphenToEnDash();">- ← –</button>
           <button onclick="hyphenToEmDash();">- ← —</button>
@@ -670,23 +671,11 @@
             return false;
           }
 
-          function replaceQmark() {
-            var text = document.getElementById("textHere").value;
-            var newText = text.replace(/\?/g, "؟");
-            document.getElementById("textHere").value = newText;
-            return false;
-          }
-
-          function replaceComma() {
+          function replaceCommaScolonQ() {
             var text = document.getElementById("textHere").value;
             var newText = text.replace(/\,/g, "،");
-            document.getElementById("textHere").value = newText;
-            return false;
-          }
-
-          function replaceSemiColon() {
-            var text = document.getElementById("textHere").value;
             var newText = text.replace(/\;/g, "؛");
+            var newText = text.replace(/\?/g, "؟");
             document.getElementById("textHere").value = newText;
             return false;
           }
@@ -694,12 +683,6 @@
           function replaceQbracket() {
             var text = document.getElementById("textHere").value;
             var newText = text.replace(/\{/g, "﴾").replace(/\}/g, "﴿");
-            document.getElementById("textHere").value = newText;
-            return false;
-          }
-
-          function replaceQstop() {
-            var text = document.getElementById("textHere").value;
             var newText = text.replace(/\*/g, "۝");
             document.getElementById("textHere").value = newText;
             return false;
@@ -1197,7 +1180,7 @@ cols="60"-->
 
         <textarea
           id="textSum"
-          placeholder=" Any numbers written here will be added, even within text... &#10; 50 books &#10; 70 internet &#10; ..."
+          placeholder=" Any numbers written here will be added, even within text... &#10; 50 books &#10; 5 print &#10; ..."
           oninput="outputSum();"
         ></textarea>
         <p class="mid">
