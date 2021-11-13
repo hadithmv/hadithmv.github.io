@@ -1085,6 +1085,7 @@
             box-sizing: border-box;
 
             text-align: center;
+            font-family: sans-serif;
           }
 
           /*input[type="date"]::-webkit-calendar-picker-indicator {
@@ -1112,7 +1113,7 @@
 
           <br /><br />
           Days you want to count after birth: &nbsp;
-          <select id="select">
+          <select id="select" onchange="setSecondDate();">
             <option value="6">7 days</option>
             <option value="13">14 days</option>
             <option value="20">21 days</option>
