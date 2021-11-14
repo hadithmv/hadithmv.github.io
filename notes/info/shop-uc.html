@@ -1138,7 +1138,6 @@
             id="date2"
             data-date=""
             data-date-format="DD MMMM YYYY"
-            readonly
           />
           <!-- can add "readonly" just before end, but doest center properly-->
 
@@ -1150,28 +1149,20 @@
             id="date3"
             data-date=""
             data-date-format="DD MMMM YYYY"
-            readonly
           />
 
-          <br /><br /><br />
+          <br /><br />
 
-          <input
-            type="datetime-local"
-            id="meeting-time"
-            name="meeting-time"
-            value="2018-06-12T19:30"
-            min="2018-06-07T00:00"
-            max="2018-06-14T00:00"
-          />
+          * check whether month comes before day (mm/dd) in the date picker,
+          this shows on certain devices based on the user's locale settings *
 
           <!--<input type="datetime-local" id="datePicker" />
           <output name="result" for="a b">60</output>-->
         </div>
 
         <script>
-          // → "20/12/2012"
           /* https://stackoverflow.com/questions/46266352/how-to-add-days-in-input-type-date */
-          /*document.getElementById("date1").valueAsDate = new Date();
+          document.getElementById("date1").valueAsDate = new Date();
 
           var days = document.getElementById("select").value;
           var date = new Date(document.getElementById("date1").value);
@@ -1189,7 +1180,7 @@
 
             date.setDate(date.getDate() + 1);
             document.getElementById("date3").valueAsDate = date;
-          }*/
+          }
 
           /* https://stackoverflow.com/a/16010247 */
           /* document.getElementById("datePicker").valueAsDate = new Date(); */
