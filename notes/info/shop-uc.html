@@ -1114,10 +1114,8 @@
           <input
             type="date"
             onchange="setSecondDate();"
-            placeholder="dd-mm-yyyy"
-            value=""
-            min="1800-01-01"
-            max="2200-12-31"
+            required
+            pattern="\d{4}-\d{2}-\d{2}"
             id="date1"
           />
 
@@ -1137,10 +1135,8 @@
           <input
             class="dateResult"
             type="date"
-            placeholder="dd-mm-yyyy"
-            value=""
-            min="1800-01-01"
-            max="2200-12-31"
+            required
+            pattern="\d{4}-\d{2}-\d{2}"
             id="date2"
             readonly
           />
@@ -1151,10 +1147,8 @@
           <input
             class="dateResult"
             type="date"
-            placeholder="dd-mm-yyyy"
-            value=""
-            min="1800-01-01"
-            max="2200-12-31"
+            required
+            pattern="\d{4}-\d{2}-\d{2}"
             id="date3"
             readonly
           />
