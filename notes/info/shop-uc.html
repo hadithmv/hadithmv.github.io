@@ -1098,7 +1098,9 @@
           }
 
           .dateResult {
-            font-weight: bold;
+            /*font-weight: bold;*/
+            color: #eee;
+            background-color: #0b578c;
           }
         </style>
 
@@ -1109,7 +1111,12 @@
 
           <br />
           Select the date on which your child was born: &nbsp;
-          <input type="date" onchange="setSecondDate();" id="date1" />
+          <input
+            type="date"
+            placeholder="dd-mm-yyyy"
+            onchange="setSecondDate();"
+            id="date1"
+          />
 
           <br /><br />
           Select the number of days you want to count after birth: &nbsp;
@@ -1124,12 +1131,24 @@
 
           <br /><br />
           If child born BEFORE maghrib, Ageegah is on: &nbsp;
-          <input class="dateResult" type="date" id="date2" readonly />
+          <input
+            class="dateResult"
+            type="date"
+            placeholder="dd-mm-yyyy"
+            id="date2"
+            readonly
+          />
           <!-- can add "readonly" just before end, but doest center properly-->
 
           <br /><br />
           If child born AFTER maghrib, Ageegah is on: &nbsp;
-          <input class="dateResult" type="date" id="date3" readonly />
+          <input
+            class="dateResult"
+            type="date"
+            placeholder="dd-mm-yyyy"
+            id="date3"
+            readonly
+          />
 
           <!--<input type="datetime-local" id="datePicker" />
           <output name="result" for="a b">60</output>-->
