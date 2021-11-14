@@ -1111,7 +1111,13 @@
 
           <br />
           Select the date on which your child was born: &nbsp;
-          <input type="date" onchange="setSecondDate();" id="date1" />
+          <input
+            type="date"
+            onchange="setSecondDate();"
+            data-date=""
+            data-date-format="DD MMMM YYYY"
+            id="date1"
+          />
 
           <br /><br />
           Select the number of days you want to count after birth: &nbsp;
@@ -1126,12 +1132,26 @@
 
           <br /><br />
           If child born BEFORE maghrib, Ageegah is on: &nbsp;
-          <input class="dateResult" type="date" id="date2" readonly />
+          <input
+            class="dateResult"
+            type="date"
+            id="date2"
+            data-date=""
+            data-date-format="DD MMMM YYYY"
+            readonly
+          />
           <!-- can add "readonly" just before end, but doest center properly-->
 
           <br /><br />
           If child born AFTER maghrib, Ageegah is on: &nbsp;
-          <input class="dateResult" type="date" id="date3" readonly />
+          <input
+            class="dateResult"
+            type="date"
+            id="date3"
+            data-date=""
+            data-date-format="DD MMMM YYYY"
+            readonly
+          />
 
           <!--<input type="datetime-local" id="datePicker" />
           <output name="result" for="a b">60</output>-->
@@ -1144,22 +1164,18 @@
           var days = document.getElementById("select").value;
           var date = new Date(document.getElementById("date1").value);
           date.setDate(date.getDate() + parseInt(days));
-          date.toLocaleDateString("en-GB");
           document.getElementById("date2").valueAsDate = date;
 
           date.setDate(date.getDate() + 1);
-          date.toLocaleDateString("en-GB");
           document.getElementById("date3").valueAsDate = date;
 
           function setSecondDate() {
             var days = document.getElementById("select").value;
             var date = new Date(document.getElementById("date1").value);
             date.setDate(date.getDate() + parseInt(days));
-            date.toLocaleDateString("en-GB");
             document.getElementById("date2").valueAsDate = date;
 
             date.setDate(date.getDate() + 1);
-            date.toLocaleDateString("en-GB");
             document.getElementById("date3").valueAsDate = date;
           }
 
