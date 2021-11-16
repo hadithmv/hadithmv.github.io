@@ -171,11 +171,11 @@
           Copy - ކޮޕީ
         </button>
         <button class="tablinks" onclick="openTab(event, 'tabThree')">
-          Calc - ހިސާބު
+          Add - ހިސާބު
         </button>
-        <!--<button class="tablinks" onclick="openTab(event, 'tabFour')">
-          Diff - ތަފާތު
-        </button>-->
+        <button class="tablinks" onclick="openTab(event, 'tabFour')">
+          &nbsp;&nbsp;Diff - ތަފާތު
+        </button>
       </div>
 
       <div id="tabOne" class="tabcontent">
@@ -1182,19 +1182,17 @@
           }
         </style>
 
-        <br />
         <!-- rows="10"
 cols="60"-->
-
+        <p class="mid">
+          Total:
+          <span id="sumTotal">0.00</span>
+        </p>
         <textarea
           id="textSum"
           placeholder=" Any numbers written here will be added, even within text... &#10; 50 books &#10; 5 print &#10; ..."
           oninput="outputSum();"
         ></textarea>
-        <p class="mid">
-          Total:
-          <span id="sumTotal">0.00</span>
-        </p>
 
         <script>
           // https://stackoverflow.com/questions/39236731/how-to-find-sum-of-integers-in-a-string-using-javascript
@@ -1220,7 +1218,221 @@ cols="60"-->
       </div>
       <!-- <div id="tabThree" class="tabcontent"> -->
 
-      <div id="tabFour" class="tabcontent"></div>
+      <div id="tabFour" class="tabcontent">
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.css"
+        />
+
+        <link
+          rel="stylesheet"
+          href="https://cdn.rawgit.com/wickedest/Mergely/3.4.5/lib/mergely.css"
+        />
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.js"></script>
+
+        <script src="https://cdn.rawgit.com/wickedest/Mergely/3.4.5/lib/mergely.js"></script>
+
+        <!--
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/codemirror.min.css"
+/>
+
+<link
+  rel="stylesheet"
+  href="https://cdn.rawgit.com/wickedest/Mergely/3.4.0/lib/mergely.css"
+/>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/codemirror.min.js"></script>
+
+<script src="https://cdn.rawgit.com/wickedest/Mergely/3.4.1/lib/mergely.js"></script>
+-->
+
+        <style>
+          /*h1,
+          ul {
+            margin: 0.3em 0;
+          }*/
+
+          .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            /*margin: 0 0.5em;*/
+
+          }
+          .diffs {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+
+            header * {
+              display: inline-block;
+              vertical-align: middle;
+            }
+
+            .compare-wrapper {
+              flex: 1 1 auto;
+              position: relative;
+
+
+            }
+
+              #compare {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+              }
+            }
+          }
+
+          /* Auto-height fix */
+          .mergely-column .CodeMirror {
+            height: 100%;
+          }
+
+          /* EDITS */
+
+          .CodeMirror-code {
+            font-family: "dvFont", "arFont", sans-serif;
+            font-size: 16px;
+            /*direction: rtl;*/ /* makes arrows disappear */
+          }
+
+          #compare .CodeMirror-lines pre, #compare .CodeMirror-gutter-text pre  {
+            line-height: 28px;
+            direction: rtl;
+          }
+
+          .CodeMirror {
+            height: 500px;
+          }
+
+          .mergely-canvas {
+            width: 10px; /* middle space */
+          }
+        </style>
+
+        <div class="container">
+          <div class="diffs">
+            <header>
+              <!--<h1>Visualized Diffs</h1>-->
+              <button id="prev" title="Previous diff">▲</button>
+              <button id="next" title="Next diff">▼</button>
+              <button id="wrap" title="Toggle line wrapping">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 10 10"
+                >
+                  <path
+                    d="M1 2h8M1 4.5h6A1 1 0 0 1 7 7H5v-.3l-.3.3.3.3V7M1 7h1.5"
+                    stroke-width="1.1"
+                    fill="none"
+                    stroke="#000"
+                  />
+                </svg>
+              </button>
+            </header>
+            <div class="compare-wrapper">
+              <div id="compare"></div>
+            </div>
+          </div>
+
+          <!--<div class="sources">
+            <h1>Source files</h1>
+            <ul>
+              <li>
+                <a
+                  id="file1"
+                  href="https://gist.githubusercontent.com/quotient/c426a69bfa550d1a43a0/raw/645d996d8d23e48dc9b691a10238d690df845f4f/gistfile1.txt"
+                  >File 1</a
+                >
+              </li>
+              <li>
+                <a
+                  id="file2"
+                  href="https://gist.githubusercontent.com/quotient/a9baf2c58972aa22c621/raw/c8f6caf22d330cb34fc6f70ece44699312b2b7b4/gistfile1.txt"
+                  >File 2</a
+                >
+              </li>
+            </ul>
+          </div>-->
+        </div>
+
+        <script>
+          $(document).ready(function () {
+            var comp = $("#compare");
+
+            function downloadJSON(url, callback) {
+              $.get(url, function (data) {
+                var json = JSON.parse(data);
+                var formattedText = JSON.stringify(json, null, 2);
+                callback(formattedText);
+              });
+            }
+
+            comp.mergely({
+              cmsettings: {
+                readOnly: false,
+                lineWrapping: true,
+              },
+              wrap_lines: true,
+
+              //Doesn't do anything?
+              //autoresize: true,
+
+              editor_width: "calc(50% - 25px)",
+              editor_height: "100%",
+
+              /*lhs: function (setValue) {
+                downloadJSON($("#file1").attr("href"), setValue);
+              },
+              rhs: function (setValue) {
+                downloadJSON($("#file2").attr("href"), setValue);
+              },*/
+              lhs: function (setValue) {
+                setValue(
+                  "ޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ރިވާ ކުރެއްވިއެވެ:\nރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
+                );
+              },
+              rhs: function (setValue) {
+                setValue(
+                  "އިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ރިވާ ކުރެއްވިއެވެ:\nނަބިއްޔާ ﷺ ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:"
+                );
+              },
+            });
+
+            function changeOptions(changer) {
+              var options = comp.mergely("options");
+              changer(options);
+
+              comp.mergely("options", options);
+              //comp.mergely('update');
+            }
+
+            $("#prev").click(function () {
+              comp.mergely("scrollToDiff", "prev");
+            });
+            $("#next").click(function () {
+              comp.mergely("scrollToDiff", "next");
+            });
+            $("#wrap").click(function () {
+              changeOptions(function (x) {
+                x.wrap_lines = !x.wrap_lines;
+              });
+            });
+          });
+        </script>
+      </div>
       <!-- <div id="tabFour" class="tabcontent"> -->
 
       <br />
