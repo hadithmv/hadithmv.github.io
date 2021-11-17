@@ -174,9 +174,15 @@
           Add - ހިސާބު
         </button>
         <button class="tablinks" onclick="openTab(event, 'tabFour')">
-          &nbsp;&nbsp;Diff - ތަފާތު
-        </button>
+          Diff - ތަފާތު</button
+        ><!-- &nbsp;&nbsp; previously put before diff-->
       </div>
+
+      <style>
+        body > div.wrapper > div.tab > button:nth-child(4) {
+          padding-left: 26px; /* moves the diff button text a little to the left, to make the button set look more even */
+        }
+      </style>
 
       <div id="tabOne" class="tabcontent">
         <p class="mid">
@@ -373,6 +379,12 @@
             ـّ ـَ ← ـَ ـّ
           </button>
           <button onclick="replaceQuotes();" class="arButton">' " ← ’ “</button>
+          <button onclick="replaceQtoDoubleAngBrackets();" class="arButton">
+            " " ← « »
+          </button>
+          <button onclick="replaceDoubleAngBracketstoQ();" class="arButton">
+            « » ← ” “
+          </button>
           <button onclick="replaceDoubleBrackets();" class="arButton">
             (( )) ← ( )
           </button>
@@ -673,7 +685,8 @@
               .replace(/ \»/g, "»")
               .replace(/ \!/g, "!")
               .replace(/ \./g, ".")
-              .replace(/\" /g, '"')
+              .replace(/\" /g, '"') //starting quotation mark
+              .replace(/(\s|^)\"([^\"]+) \"/g, '$1"$2"') //ending quotation mark
               .replace(/\- \./g, "-.");
             document.getElementById("textHere").value = newText;
             return false;
@@ -710,10 +723,28 @@
           function replaceQuotes() {
             var text = document.getElementById("textHere").value;
             var newText = text
+              .replace(/(|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C") //without spaces
               .replace(/(\s|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C")
-              .replace(/(\s|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C")
-              .replace(/(\s|^)\'([^\']+)\'/g, "$1\u2019$2\u2018")
+              .replace(/(|^)\'([^\']+)\'/g, "$1\u2019$2\u2018") //without spaces
               .replace(/(\s|^)\'([^\']+)\'/g, "$1\u2019$2\u2018");
+            document.getElementById("textHere").value = newText;
+            return false;
+          }
+
+          function replaceQtoDoubleAngBrackets() {
+            var text = document.getElementById("textHere").value;
+            var newText = text
+              .replace(/(|^)\"([^\"]+)\"/g, "$1\«$2\»") //without spaces
+              .replace(/(\s|^)\"([^\"]+)\"/g, "$1\«$2\»");
+            document.getElementById("textHere").value = newText;
+            return false;
+          }
+
+          function replaceDoubleAngBracketstoQ() {
+            var text = document.getElementById("textHere").value;
+            var newText = text
+              .replace(/(|^)\«([^\»]+)\»/g, "$1\u201D$2\u201C") //without spaces
+              .replace(/(\s|^)\«([^\»]+)\»/g, "$1\u201D$2\u201C");
             document.getElementById("textHere").value = newText;
             return false;
           }
@@ -1302,12 +1333,12 @@ cols="60"-->
 
           .CodeMirror-code {
             font-family: "dvFont", "arFont", sans-serif;
-            font-size: 16px;
+            font-size: 18px;
             /*direction: rtl;*/ /* makes arrows disappear */
           }
 
           #compare .CodeMirror-lines pre, #compare .CodeMirror-gutter-text pre  {
-            line-height: 28px;
+            line-height: 30px;
             direction: rtl;
           }
 
@@ -1317,6 +1348,10 @@ cols="60"-->
 
           .mergely-canvas {
             width: 10px; /* middle space */
+          }
+
+          .mergely.ch.d.lhs {
+            text-decoration: none;
           }
         </style>
 
@@ -1401,12 +1436,12 @@ cols="60"-->
               },*/
               lhs: function (setValue) {
                 setValue(
-                  "ޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ރިވާ ކުރެއްވިއެވެ:\nރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
+                  "عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُ قَالَ:\nقَالَ رَسُولُ اللَّهِ ﷺ:\nޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ރިވާ ކުރެއްވިއެވެ:\nރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
                 );
               },
               rhs: function (setValue) {
                 setValue(
-                  "އިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ރިވާ ކުރެއްވިއެވެ:\nނަބިއްޔާ ﷺ ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:"
+                  "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ:\nسَمِعْتُ النَّبِيَّ ﷺ يَقُولُ:\nއިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ރިވާ ކުރެއްވިއެވެ:\nނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:"
                 );
               },
             });
