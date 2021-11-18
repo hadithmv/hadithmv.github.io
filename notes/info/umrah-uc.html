@@ -34,6 +34,29 @@
     <!--
     https://github.com/orderedlist/minimal
     -->
+
+    <style>
+      /*@mixin for-ABOVEphone-only*/
+      @media (min-width: 599px) {
+        .row3 {
+          column-count: 3;
+        }
+      }
+
+      @media (min-width: 599px) {
+        .row2 {
+          column-count: 2;
+        }
+      }
+
+      label {
+        line-height: 30px;
+      }
+
+      h3 {
+        margin-bottom: 10px;
+      }
+    </style>
   </head>
 
   <body class="notranslate">
@@ -75,9 +98,7 @@
           class="tablinks"
           onclick="openTab(event, 'tabOne')"
           id="defaultOpen"
-        >
-          English
-        </button>
+        ></button>
         <!--
         <button class="tablinks" onclick="openTab(event, 'tabTwo')">
           ދިވެހި
@@ -90,7 +111,7 @@
         <h2 class="en mid">
           <a><b>Umrah</b></a>
         </h2>
-        <p class="en mid">(Short point by point)</p>
+        <p class="en mid">(Short & point by point)</p>
         <br /><br />
 
         <h3 class="en">
@@ -100,21 +121,6 @@
           Please read about that in the introduction to hadithmv
           <a href="introHmv.html">here</a>.
         </p>-->
-
-        <style>
-          /*@mixin for-ABOVEphone-only*/
-          @media (min-width: 599px) {
-            .row3 {
-              column-count: 3;
-            }
-          }
-
-          @media (min-width: 599px) {
-            .row2 {
-              column-count: 2;
-            }
-          }
-        </style>
 
         <div class="row3 en">
           <div class="column">
@@ -127,10 +133,7 @@
             <label> <input type="checkbox" /> Waist bag / handbag</label>
           </div>
           <div class="column">
-            <label> <input type="checkbox" /> Charger</label>
-          </div>
-          <div class="column">
-            <label> <input type="checkbox" /> Powerbank</label>
+            <label> <input type="checkbox" /> Charger & Powerbank</label>
           </div>
           <div class="column">
             <label> <input type="checkbox" /> Plastic bags</label>
@@ -151,10 +154,7 @@
             <label> <input type="checkbox" /> Socks</label>
           </div>
           <div class="column">
-            <label> <input type="checkbox" /> Cash</label>
-          </div>
-          <div class="column">
-            <label> <input type="checkbox" /> Cards</label>
+            <label> <input type="checkbox" /> Cash & Cards</label>
           </div>
           <div class="column">
             <label> <input type="checkbox" /> Glasses</label>
@@ -180,6 +180,9 @@
           <div class="column">
             <label> <input type="checkbox" /> Phone reload</label>
           </div>
+          <div class="column">
+            <label> <input type="checkbox" /> Panadol</label>
+          </div>
         </div>
 
         <br />
@@ -201,7 +204,7 @@
             >
           </div>
           <div class="column">
-            <label> <input type="checkbox" /> Wear Ihram</label>
+            <label> <input type="checkbox" /> Wear Ihram cloth</label>
           </div>
           <div class="column">
             <label>
@@ -220,7 +223,7 @@
               <input type="checkbox" />Say the dua for travel<br />
               اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، اللَّهُ أَكْبَرُ، {سُبْحَانَ
               الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ *
-              وَإِنَّا إِلَى رَبِّنَا لَمُنقَلِبُونَ} ((اللَّهُمَّ إِنّا
+              وَإِنَّا إِلَى رَبِّنَا لَمُنقَلِبُونَ} اللَّهُمَّ إِنّا
               نَسْأَلُكَ فِي سَفَرِنَا هَذَا البِرَّ وَالتَّقْوَى، وَمِنَ
               الْعَمَلِ مَا تَرْضَى اللَّهُمَّ هَوِّنْ عَلَيْنَا سَفَرَنَا هَذَا
               وَاطْوِ عَنَّا بُعْدَهُ، اللَّهُمَّ أَنْتَ الصَّاحِبُ فِي
@@ -235,7 +238,7 @@
               Allaahumma 'Antas-saahibu fis-safari, walkhaleefatu fil-'ahli,
               Allaahumma 'innee 'a'oothu bika min wa'thaa'is-safari, wa
               ka'aabanl-mandhari, wa soo'il-munqalabi fil-maaliwal'ahli.)<br />
-              Allah is the Most Great. Allah is the Most Great. Allah is the
+              ‘Allah is the Most Great. Allah is the Most Great. Allah is the
               Most Great. Glory is to Him Who has provided this for us though we
               could never have had it by our efforts. Surely, unto our Lord we
               are returning. O Allah, we ask You on this our journey for
@@ -244,7 +247,8 @@
               us. O Allah, You are our Companion on the road and the One in
               Whose care we leave our family. O Allah, I seek refuge in You from
               this journey's hardships, and from the wicked sights in store and
-              from finding our family and property in misfortune upon returning.
+              from finding our family and property in misfortune upon
+              returning.’
             </label>
           </div>
         </div>
@@ -252,7 +256,7 @@
         <br />
 
         <h3 class="en">
-          <a><b>3. Entering Ihram</b></a>
+          <a><b>3. Entering the state of Ihram</b></a>
         </h3>
 
         <div class="en">
@@ -267,28 +271,29 @@
           </div>
           <div class="column">
             <label>
-              <input type="checkbox" /> Make a condition so you don't have to
+              <input type="checkbox" /> Make a condition so you don’t have to
               give Fidyah if something goes wrong<br />
               اللَّهُمَّ مَحِلِّي حَيثُ حَبَستَنِي<br />
               (Allahumma maHillee Haisu Habasthanee)<br />
               ‘O Allah, my exiting of Ihram is wherever it is that you detain
-              me’<br />
+              me.’<br />
             </label>
           </div>
           <div class="column">
             <label>
               <input type="checkbox" /> Repeat the Talbiya as much as you can
               (loudly for men), until you begin the Tawaf<br />
-              لَبَّيكَ اللَّهُمَّ لَبَّيكَ، لَبَّيكَ لَا شَرِيكَ لَكَ لَبَّيكَ،
-              إِنَّ الحَمدَ وَالنِّعمَةَ لَكَ وَالمُلكَ، لَا شَرِيكَ لَكَ<br />
+              say لَبَّيكَ اللَّهُمَّ لَبَّيكَ، لَبَّيكَ لَا شَرِيكَ لَكَ
+              لَبَّيكَ، إِنَّ الحَمدَ وَالنِّعمَةَ لَكَ وَالمُلكَ، لَا شَرِيكَ
+              لَكَ<br />
               (Labbaika Allahumma labbaik, labbaika laa shareeka laka labbaik.
               Inna alhamda wa-ni’mata laka walmulk, laa shareeka lak)<br />
               ‘Here I am, O Allaah, here I am. Here I am, You have no partner,
               here I am. Verily all praise and blessings are Yours, and all
-              sovereignty, You have no partner’<br />
+              sovereignty, You have no partner.’<br />
               لَبَّيكَ إِلَهَ الحَقَّ<br />
               (Labbaika ilaahal Haqq)<br />
-              ‘Here I am, O God of Truth’<br />
+              ‘Here I am, O God of Truth.’<br />
               ...“Labbaayk wa sa’dayka, wa’l-khayr bi yadayka, wa’l-raghba’
               ilayka wa’l-‘aml (Here I am and blessed by You, and all good is in
               Your hands, and desire and action are directed towards You).”...
@@ -299,7 +304,7 @@
         <br />
 
         <h3 class="en">
-          <a><b>Tawaf (7 circuits)</b></a>
+          <a><b>4. Tawaf around Ka’bah (7 circuits)</b></a>
         </h3>
 
         <div class="en">
@@ -328,13 +333,13 @@
             <label>
               <input type="checkbox" /> From the Yemeni corner to the black
               stone<br />
-              رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً
-              وَقِنَا عَذَابَ النَّارِ<br />
+              say رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ
+              حَسَنَةً وَقِنَا عَذَابَ النَّارِ<br />
               (Rabbanaa aatina fi-dunya Hasanathan wa fil aakhirah Hasanathan wa
               qina Azaab an-naar)<br />
               ‘Our Lord, give us that which is good in this world and that which
               is good in the Hereafter, and protect us from the torment of the
-              Fire’</label
+              Fire.’</label
             >
           </div>
           <div class="column">
@@ -347,9 +352,19 @@
           <div class="column">
             <label>
               <input type="checkbox" /> Complete 7 circuits, ending at the black
-              stone, then cover right shoulder again (for men)</label
+              stone, don’t say Allah akbar, then cover right shoulder again (for
+              men)</label
             >
           </div>
+        </div>
+
+        <br />
+
+        <h3 class="en">
+          <a><b>5. Sunnah prayer behind Maqam Ibrahim</b></a>
+        </h3>
+
+        <div class="en">
           <div class="column">
             <label>
               <input type="checkbox" /> Go to an area behind Maqam Ibrahim<br />
@@ -375,19 +390,19 @@
         <br />
 
         <h3 class="en">
-          <a><b>Safa & Marwa (7 circuits)</b></a>
+          <a><b>6. Going between Safa & Marwa (7 circuits)</b></a>
         </h3>
 
         <div class="en">
           <div class="column">
             <label>
               <input type="checkbox" /> Approach Safa<br />
-              say إِنَّ الصَّفَا وَالْمَرْوَةَ مِنْ شَعَآئِرِ اللَّهِ(say this
-              only once, don't repeat it later)<br />Innas-safaa walmarw'ata min
-              shaaa'iri laahi<br />
+              say إِنَّ الصَّفَا وَالْمَرْوَةَ مِنْ شَعَآئِرِ اللَّهِ<br />Innas-safaa
+              walmarw'ata min shaaa'iri laahi<br />
               ‘Indeed, as-Safa and al-Marwah are among the symbols of Allah’<br />
               نَابدَؤُوا بما بَدَأَ اللهُ بهِ<br />Nabdau bima bada-Allahu
               bihi<br />‘We begin by that which Allah began’<br />
+              (say these only once at the beginning, don’t repeat it later)
             </label>
           </div>
           <div class="column">
@@ -418,9 +433,9 @@
           </div>
           <div class="column">
             <label>
-              <input type="checkbox" /> Then he should make his own dua, then
-              say the prescribed dua before, then make his own dua, then say the
-              prescribed dua before</label
+              <input type="checkbox" /> Then you should make your own dua, then
+              say the prescribed dua before, then make your own dua again, then
+              say the prescribed dua before.</label
             >
           </div>
           <div class="column">
@@ -455,18 +470,15 @@
           <div class="column">
             <label> <input type="checkbox" /> Complete 7 circuits</label>
           </div>
-          <div class="column">
-            <label> <input type="checkbox" /> Shave / cut your hair</label>
-          </div>
         </div>
 
         <br />
 
         <h3 class="en">
-          <a><b>Shave / cut the hair</b></a>
+          <a><b>7. Shave / cut the hair</b></a>
         </h3>
 
-        <div class="row2 en">
+        <div class="en">
           <div class="column">
             <label>
               <input type="checkbox" /> Shave or cut hair evenly (for men) women
