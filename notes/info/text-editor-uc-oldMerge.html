@@ -160,7 +160,11 @@
 
       <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs_fade -->
       <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'tabOne')">
+        <button
+          class="tablinks"
+          onclick="openTab(event, 'tabOne')"
+          id="defaultOpen"
+        >
           Edit - އެޑިޓް
         </button>
         <button class="tablinks" onclick="openTab(event, 'tabTwo')">
@@ -169,11 +173,7 @@
         <button class="tablinks" onclick="openTab(event, 'tabThree')">
           Add - ހިސާބު
         </button>
-        <button
-          class="tablinks"
-          onclick="openTab(event, 'tabFour')"
-          id="defaultOpen"
-        >
+        <button class="tablinks" onclick="openTab(event, 'tabFour')">
           Diff - ތަފާތު</button
         ><!-- &nbsp;&nbsp; previously put before diff-->
       </div>
@@ -1258,14 +1258,15 @@ cols="60"-->
 
         <link
           rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/mergely/4.3.5/mergely.min.css"
+          href="https://cdn.rawgit.com/wickedest/Mergely/3.4.5/lib/mergely.css"
         />
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.js"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mergely/4.3.5/mergely.min.js"></script>
+        <script src="https://cdn.rawgit.com/wickedest/Mergely/3.4.5/lib/mergely.js"></script>
+
         <!--
 <link
   rel="stylesheet"
@@ -1283,55 +1284,53 @@ cols="60"-->
 
 <script src="https://cdn.rawgit.com/wickedest/Mergely/3.4.1/lib/mergely.js"></script>
 -->
+
         <style>
-          /* CONVERTED FROM SCSS TO CSS */
+          /*h1,
+          ul {
+            margin: 0.3em 0;
+          }*/
 
-          /*html,
-  body {
-    margin: 0;
-    padding: 0;
-  }*/
-          .demo-editor {
-            font-family: sans-serif;
-            display: flex;
-            min-height: 100vh;
-          }
-          h1 {
-            margin: 4px;
-          }
-
-          .diffs {
+          .container {
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
-          }
+            height: 100vh;
+            /*margin: 0 0.5em;*/
 
-          header: {
+          }
+          .diffs {
+            flex: 1 1 auto;
             display: flex;
+            flex-direction: column;
+
+            header * {
+              display: inline-block;
+              vertical-align: middle;
+            }
+
+            .compare-wrapper {
+              flex: 1 1 auto;
+              position: relative;
+
+
+            }
+
+              #compare {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+              }
+            }
           }
 
-          .compare-container {
-            width: auto;
-            display: flex;
-            flex-grow: 1;
-            position: relative;
-          }
-
-          #mergely {
-            position: absolute;
-            bottom: 0;
-            top: 0;
+          /* Auto-height fix */
+          .mergely-column .CodeMirror {
             height: 100%;
           }
 
-          /*footer {
-        display: flex;
-      }*/
-
           /* EDITS */
-          #mergely-splash {
-            display: none; /* removes splash div popup */
-          }
 
           .CodeMirror-code {
             font-family: "dvFont", "arFont", sans-serif;
@@ -1339,17 +1338,9 @@ cols="60"-->
             /*direction: rtl;*/ /* makes arrows disappear */
           }
 
-          .CodeMirror-code {
-            direction: rtl; /* makes text rtl, but merge arrows too */
-          }
-
-          .merge-button {
-            direction: ltr; /* makes merge arrows ltr again */
-          }
-
-          #compare .CodeMirror-lines pre,
-          #compare .CodeMirror-gutter-text pre {
+          #compare .CodeMirror-lines pre, #compare .CodeMirror-gutter-text pre  {
             line-height: 30px;
+            direction: rtl;
           }
 
           .CodeMirror {
@@ -1357,7 +1348,7 @@ cols="60"-->
           }
 
           .mergely-canvas {
-            /*width: 10px;*/ /* middle space */
+            width: 10px; /* middle space */
           }
 
           .mergely.ch.d.lhs {
@@ -1365,48 +1356,59 @@ cols="60"-->
           }
         </style>
 
-        <div class="demo-editor">
+        <div class="container">
           <div class="diffs">
             <header>
-              <!--<h1>Mergely Visualized Diff</h1>-->
+              <!--<h1>Visualized Diffs</h1>-->
               <button id="prev" title="Previous diff">▲</button>
               <button id="next" title="Next diff">▼</button>
-              <button id="wrap" title="Toggle line wrapping">↲</button>
+              <button id="wrap" title="Toggle line wrapping">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 10 10"
+                >
+                  <path
+                    d="M1 2h8M1 4.5h6A1 1 0 0 1 7 7H5v-.3l-.3.3.3.3V7M1 7h1.5"
+                    stroke-width="1.1"
+                    fill="none"
+                    stroke="#000"
+                  />
+                </svg>
+              </button>
             </header>
-
-            <div class="compare-container">
-              <div class="mergely-resizer">
-                <div id="mergely"></div>
-              </div>
+            <div class="compare-wrapper">
+              <div id="compare"></div>
             </div>
-
-            <!--<footer>
-      <h1>Source files</h1>
-      <ul>
-        <li>
-          <a
-            id="file1"
-            href="https://gist.githubusercontent.com/quotient/c426a69bfa550d1a43a0/raw/645d996d8d23e48dc9b691a10238d690df845f4f/gistfile1.txt"
-            >File 1</a
-          >
-        </li>
-        <li>
-          <a
-            id="file2"
-            href="https://gist.githubusercontent.com/quotient/a9baf2c58972aa22c621/raw/c8f6caf22d330cb34fc6f70ece44699312b2b7b4/gistfile1.txt"
-            >File 2</a
-          >
-        </li>
-      </ul>
-    </footer>-->
           </div>
+
+          <!--<div class="sources">
+            <h1>Source files</h1>
+            <ul>
+              <li>
+                <a
+                  id="file1"
+                  href="https://gist.githubusercontent.com/quotient/c426a69bfa550d1a43a0/raw/645d996d8d23e48dc9b691a10238d690df845f4f/gistfile1.txt"
+                  >File 1</a
+                >
+              </li>
+              <li>
+                <a
+                  id="file2"
+                  href="https://gist.githubusercontent.com/quotient/a9baf2c58972aa22c621/raw/c8f6caf22d330cb34fc6f70ece44699312b2b7b4/gistfile1.txt"
+                  >File 2</a
+                >
+              </li>
+            </ul>
+          </div>-->
         </div>
 
         <script>
           $(document).ready(function () {
-            var comp = $("#mergely");
+            var comp = $("#compare");
 
-            function fetchJSON(url, callback) {
+            function downloadJSON(url, callback) {
               $.get(url, function (data) {
                 var json = JSON.parse(data);
                 var formattedText = JSON.stringify(json, null, 2);
@@ -1420,36 +1422,37 @@ cols="60"-->
                 lineWrapping: true,
               },
               wrap_lines: true,
-              width: "auto",
-              height: "auto",
-              autoresize: true,
+
+              //Doesn't do anything?
+              //autoresize: true,
+
+              editor_width: "calc(50% - 25px)",
+              editor_height: "100%",
 
               /*lhs: function (setValue) {
-        fetchJSON($("#file1").attr("href"), setValue);
-      },
-      rhs: function (setValue) {
-        fetchJSON($("#file2").attr("href"), setValue);
-      },*/
+                downloadJSON($("#file1").attr("href"), setValue);
+              },
+              rhs: function (setValue) {
+                downloadJSON($("#file2").attr("href"), setValue);
+              },*/
               lhs: function (setValue) {
                 setValue(
-                  "عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُ قَالَ:\nقَالَ رَسُولُ اللَّهِ ﷺ:\n\nޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ރިވާ ކުރެއްވިއެވެ:\nރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
+                  "عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُ قَالَ:\nقَالَ رَسُولُ اللَّهِ ﷺ:\nޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ރިވާ ކުރެއްވިއެވެ:\nރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
                 );
               },
               rhs: function (setValue) {
                 setValue(
-                  "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ:\nسَمِعْتُ النَّبِيَّ ﷺ يَقُولُ:\n\nއިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ރިވާ ކުރެއްވިއެވެ:\nނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:"
+                  "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ:\nسَمِعْتُ النَّبِيَّ ﷺ يَقُولُ:\nއިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ރިވާ ކުރެއްވިއެވެ:\nނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:"
                 );
               },
-            });
-            window.addEventListener("resize", () => {
-              comp.mergely("resize");
-              console.log("resize");
             });
 
             function changeOptions(changer) {
               var options = comp.mergely("options");
               changer(options);
+
               comp.mergely("options", options);
+              //comp.mergely('update');
             }
 
             $("#prev").click(function () {
