@@ -1216,8 +1216,9 @@
 
         <!-- rows="10"
 cols="60"-->
-        <p class="mid">
-          Total:
+        <p class="mid editorButtons">
+          <button onclick="copyAdd();">ކޮޕީ</button
+          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total:
           <span id="sumTotal">0.00</span>
         </p>
         <textarea
@@ -1227,6 +1228,12 @@ cols="60"-->
         ></textarea>
 
         <script>
+          function copyAdd() {
+            var addedNumbers = document.getElementById("sumTotal").innerText;
+            navigator.clipboard.writeText(addedNumbers);
+            return false;
+          }
+
           // https://stackoverflow.com/questions/39236731/how-to-find-sum-of-integers-in-a-string-using-javascript
 
           function outputSum() {
@@ -1258,14 +1265,15 @@ cols="60"-->
 
         <link
           rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/mergely/4.3.5/mergely.min.css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/mergely/4.3.8/mergely.min.css"
         />
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!-- slim doesnt work -->
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.js"></script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mergely/4.3.5/mergely.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mergely/4.3.8/mergely.min.js"></script>
         <!--
 <link
   rel="stylesheet"
@@ -1363,20 +1371,41 @@ cols="60"-->
           .mergely.ch.d.lhs {
             text-decoration: none;
           }
+
+          #prev,
+          #next {
+            font-family: "dvFont", "arFont", sans-serif;
+          }
         </style>
 
         <div class="demo-editor">
           <div class="diffs">
+            <br />
             <header>
               <!--<h1>Mergely Visualized Diff</h1>-->
-              <button id="prev" title="Previous diff">▲</button>
-              <button id="next" title="Next diff">▼</button>
-              <button id="wrap" title="Toggle line wrapping">↲</button>
+              <p class="mid editorButtons dv">
+                <button id="prev" title="Previous diff">ފަހަތަށް ▲</button>
+                <button id="next" title="Next diff">ކުރިއަށް ▼</button>
+              </p>
+              <p class="mid dv">
+                އިތުރުވި ފޮޅުވަތްތައް: <span id="addedLines">0</span>&nbsp; |
+                &nbsp;ބަދަލުވި ފޮޅުވަތްތައް:
+                <span id="changedLines">0</span>&nbsp; | &nbsp;ކަނޑާލެވުނު
+                ފޮޅުވަތްތައް: <span id="leftSideCharacters">0</span>&nbsp; |
+                &nbsp;ވާތު ފަޅީގައިވާ އަކުރުތައް:
+                <span id="rightSideCharacters">0</span>&nbsp; | &nbsp;ކަނާތު
+                ފަޅީގައިވާ އަކުރުތައް:
+                <span id="totalChangedLines">0</span>&nbsp; | &nbsp;ޖުމްލަ
+                ބަދަލުވި ފޮޅުވަތްތައް: <span id="changedLines">0</span>
+              </p>
+
+              <!--<button id="wrap" title="Toggle line wrapping">↲</button>-->
             </header>
+            <br />
 
             <div class="compare-container">
               <div class="mergely-resizer">
-                <div id="mergely"></div>
+                <div id="mergely" oninput="doSummary();"></div>
               </div>
             </div>
 
@@ -1404,6 +1433,48 @@ cols="60"-->
 
         <script>
           $(document).ready(function () {
+            // set editor content
+            $("#mergely").mergely({
+              lhs: function (setValue) {
+                setValue(
+                  "عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُ قَالَ:\nقَالَ رَسُولُ اللَّهِ ﷺ:\n\nޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ރިވާ ކުރެއްވިއެވެ:\nރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
+                );
+              },
+              rhs: function (setValue) {
+                setValue(
+                  "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ:\nسَمِعْتُ النَّبِيَّ ﷺ يَقُولُ:\n\nއިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ރިވާ ކުރެއްވިއެވެ:\nނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:"
+                );
+              },
+            });
+
+            $("#mergely").mergely("options", { wrap_lines: true });
+          });
+
+          $("#prev").click(function () {
+            $("#mergely").mergely("scrollToDiff", "prev");
+          });
+          $("#next").click(function () {
+            $("#mergely").mergely("scrollToDiff", "next");
+          });
+
+          $(window).on("load", function () {
+            // $( document ).ready(function() { doesnt work for summary
+            console.log($("#mergely").mergely("summary"));
+            // { a: 0, c: 1, d: 0, lhsLength: 44, numChanges: 1, rhsLength: 45 }
+          });
+
+          span.onclick = function () {
+            modal.style.display = "none";
+          }; //change this to remove values later
+
+          function doSummary() {
+            console.log($("#mergely").mergely("summary"));
+          }
+        </script>
+
+        <!--
+        <script>
+          $(document).ready(function () {
             var comp = $("#mergely");
 
             function fetchJSON(url, callback) {
@@ -1416,13 +1487,13 @@ cols="60"-->
 
             comp.mergely({
               cmsettings: {
-                readOnly: false,
+                readOnly: false, //default
                 lineWrapping: true,
               },
               wrap_lines: true,
               width: "auto",
               height: "auto",
-              autoresize: true,
+              autoresize: true, //default
 
               /*lhs: function (setValue) {
         fetchJSON($("#file1").attr("href"), setValue);
@@ -1464,7 +1535,9 @@ cols="60"-->
               });
             });
           });
+          
         </script>
+        -->
       </div>
       <!-- <div id="tabFour" class="tabcontent"> -->
 

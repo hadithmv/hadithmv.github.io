@@ -1,0 +1,137 @@
+<div id="tabFour" class="tabcontent">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.css"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/mergely/4.3.8/mergely.min.css"
+  />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- slim doesnt work -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mergely/4.3.8/mergely.min.js"></script>
+  <!--
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/codemirror.min.css"
+/>
+
+<link
+  rel="stylesheet"
+  href="https://cdn.rawgit.com/wickedest/Mergely/3.4.0/lib/mergely.css"
+/>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/codemirror.min.js"></script>
+
+<script src="https://cdn.rawgit.com/wickedest/Mergely/3.4.1/lib/mergely.js"></script>
+-->
+  <style>
+    /* CONVERTED FROM SCSS TO CSS */
+
+    /*html,
+  body {
+    margin: 0;
+    padding: 0;
+  }*/
+    .demo-editor {
+      font-family: sans-serif;
+      display: flex;
+      min-height: 100vh;
+    }
+    h1 {
+      margin: 4px;
+    }
+
+    .diffs {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    header: {
+      display: flex;
+    }
+
+    .compare-container {
+      width: auto;
+      display: flex;
+      flex-grow: 1;
+      position: relative;
+    }
+
+    #mergely {
+      position: absolute;
+      bottom: 0;
+      top: 0;
+      height: 100%;
+    }
+
+    /*footer {
+        display: flex;
+      }*/
+
+    /* EDITS */
+    #mergely-splash {
+      display: none; /* removes splash div popup */
+    }
+
+    .CodeMirror-code {
+      font-family: "dvFont", "arFont", sans-serif;
+      font-size: 18px;
+      /*direction: rtl;*/ /* makes arrows disappear */
+    }
+
+    .CodeMirror-code {
+      direction: rtl; /* makes text rtl, but merge arrows too */
+    }
+
+    .merge-button {
+      direction: ltr; /* makes merge arrows ltr again */
+    }
+
+    #compare .CodeMirror-lines pre,
+    #compare .CodeMirror-gutter-text pre {
+      line-height: 30px;
+    }
+
+    .CodeMirror {
+      height: 500px;
+    }
+
+    .mergely-canvas {
+      /*width: 10px;*/ /* middle space */
+    }
+
+    .mergely.ch.d.lhs {
+      text-decoration: none;
+    }
+  </style>
+
+  <div class="mergely-full-screen-8">
+    <div class="mergely-resizer">
+      <div id="mergely"></div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      // set editor content
+      $("#mergely").mergely({
+        lhs: function (setValue) {
+          setValue("the quick red fox\njumped over the hairy dog");
+        },
+        rhs: function (setValue) {
+          setValue("the quick brown fox\njumped over the lazy dog");
+        },
+      });
+    });
+  </script>
+</div>
+<!-- <div id="tabFour" class="tabcontent"> -->
