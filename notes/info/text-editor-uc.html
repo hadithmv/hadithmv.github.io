@@ -356,7 +356,7 @@
         </p>
 
         <div class="mid editorButtons">
-          <button onclick="replaceFili();countChar()">
+          <button onclick="replaceFili();countChar();copyToClipB()">
             އަރަބި ފިލި ފޮހެލާ
           </button>
           <button onclick="copyToClipB();">ލިޔުން ކޮޕީކުރޭ</button>
@@ -1384,23 +1384,41 @@ cols="60"-->
             <header>
               <!--<h1>Mergely Visualized Diff</h1>-->
               <p class="mid editorButtons dv">
-                <button id="prev" title="Previous diff">ފަހަތަށް ▲</button>
-                <button id="next" title="Next diff">ކުރިއަށް ▼</button>
+                <button id="prev" title="Previous diff">
+                  ކުރީގެ ބަދަލަށް ▲
+                </button>
+                <button id="next" title="Next diff">
+                  ޖެހިގެންވާ ބަދަލަށް ▼
+                </button>
+                <button id="wrap" title="Toggle line wrapping">
+                  އެއްފޮޅުވަތައް ފައްތާ ↲
+                </button>
               </p>
+
+              <div id="log"></div>
+              <style>
+                #log {
+                  font-family: "dvFont", "arFont", sans-serif;
+                  font-size: 16px;
+                  line-height: 2.1;
+                  text-align: center;
+                }
+              </style>
+
+              <!--
               <p class="mid dv">
                 އިތުރުވި ފޮޅުވަތްތައް: <span id="addedLines">0</span>&nbsp; |
                 &nbsp;ބަދަލުވި ފޮޅުވަތްތައް:
                 <span id="changedLines">0</span>&nbsp; | &nbsp;ކަނޑާލެވުނު
-                ފޮޅުވަތްތައް: <span id="leftSideCharacters">0</span>&nbsp; |
-                &nbsp;ވާތު ފަޅީގައިވާ އަކުރުތައް:
-                <span id="rightSideCharacters">0</span>&nbsp; | &nbsp;ކަނާތު
+                ފޮޅުވަތްތައް: <span id="deletedCharacters">0</span>&nbsp; |
+                &nbsp;ވާތު ފަޅީގައިވާ އަކުރުތައް: ފޮޅުވަތްތައް:
+                <span id="leftSideCharacters">0</span>&nbsp; | &nbsp;ކަނާތު
                 ފަޅީގައިވާ އަކުރުތައް:
-                <span id="totalChangedLines">0</span>&nbsp; | &nbsp;ޖުމްލަ
-                ބަދަލުވި ފޮޅުވަތްތައް: <span id="changedLines">0</span>
-              </p>
-
-              <!--<button id="wrap" title="Toggle line wrapping">↲</button>-->
+                <span id="rightSideCharacters">0</span>&nbsp; | &nbsp;ޖުމްލަ
+                ބަދަލުވި ފޮޅުވަތްތައް: <span id="totalChangedLines">0</span>
+              </p>-->
             </header>
+
             <br />
 
             <div class="compare-container">
@@ -1451,28 +1469,128 @@ cols="60"-->
           });
 
           $("#prev").click(function () {
-            $("#mergely").mergely("scrollToDiff", "prev");
+            $("#mergely").mergely("scrollToDiff", "prev"); // changed comp.mergely to $("#mergely").mergely
           });
           $("#next").click(function () {
             $("#mergely").mergely("scrollToDiff", "next");
           });
 
+          $("#wrap").click(function () {
+            changeOptions(function (x) {
+              x.wrap_lines = !x.wrap_lines;
+            });
+          });
+
+          // needed to toggle line wrap
+          function changeOptions(changer) {
+            var options = $("#mergely").mergely("options");
+            changer(options);
+            $("#mergely").mergely("options", options);
+          }
+
           $(window).on("load", function () {
             // $( document ).ready(function() { doesnt work for summary
             console.log($("#mergely").mergely("summary"));
             // { a: 0, c: 1, d: 0, lhsLength: 44, numChanges: 1, rhsLength: 45 }
-          });
+            /* a	The number of added lines.
+            c	The number of changed lines.
+            d	The number of deleted lines.
+            lhsLength	The number of characters in the lhs text.
+            rhsLength	The number of characters in the rhs text.
+            numChanges	The total number of changed lines. */
+
+            // https://github.com/wickedest/Mergely/blob/master/src/diff-view.js
+
+            // ADDITIONAL CODE BELOW
+            //document.getElementById("leftSideCharacters").innerHTML = 10;
+            /*document.getElementById("leftSideCharacters").innerHTML =
+              $("#mergely").mergely("summary");*/
+
+            /* https://stackoverflow.com/questions/20256760/javascript-console-log-to-html/20256785 */
+            (function () {
+              if (!console) {
+                console = {};
+              }
+              var old = console.log;
+              var logger = document.getElementById("log");
+              console.log = function (message) {
+                if (typeof message == "object") {
+                  logger.innerHTML +=
+                    (JSON && JSON.stringify
+                      ? JSON.stringify(message)
+                      : String(message)) + "<br />";
+                } else {
+                  logger.innerHTML += message + "<br />";
+                }
+              };
+            })();
+
+            //console.log("test");
+            console.log($("#mergely").mergely("summary"));
+
+            //var txt=elm.innerHTML;
+            //document.getElementById("log").innerHTML = 10;
+
+            var strMessage1 = document.getElementById("log");
+            strMessage1.innerHTML = strMessage1.innerHTML
+              .replace(/\{\"/g, "")
+              .replace(
+                /\,\"rhsLength\":/g,
+                " &nbsp;|&nbsp; ކަނާތު ފަޅީގައިވާ ކެރެކްޓާތައް: "
+              )
+              .replace(/numChanges\":/g, "ބަދަލުވި ފޮޅުވަތްތައް: ")
+              .replace(
+                /\,\"lhsLength\":/g,
+                " &nbsp;|&nbsp; ވާތު ފަޅީގައިވާ ކެރެކްޓާތައް: "
+              )
+              .replace(/\,\"a"\:/g, " &nbsp;|&nbsp; އިތުރުވި ފޮޅުވަތްތައް: ")
+              .replace(/\,\"c"\:/g, " &nbsp;|&nbsp; ބަދަލުވި ފޮޅުވަތްތައް: ")
+              .replace(/\,\"d"\:/g, " &nbsp;|&nbsp; ކަނޑާލެވުނު ފޮޅުވަތްތައް: ")
+              .replace(/\}/g, "");
+
+            /*.replace(/numChanges/g, "aaa")
+              .replace(/lhsLength/g, '/world">Helloworld</a>');*/
+
+            // {"numChanges":2,"lhsLength":180,"rhsLength":193,"c":2,"a":0,"d":0}
+            /* a	The number of added lines.
+            c	The number of changed lines.
+            d	The number of deleted lines.
+            lhsLength	The number of characters in the lhs text.
+            rhsLength	The number of characters in the rhs text.
+            numChanges	The total number of changed lines. */
+          }); // $(window).on("load", function () {
+
+          function doSummary() {
+            // remove content of log to add content again, otherwise content repeats
+            document.getElementById("log").innerHTML = "";
+
+            // repeated code before so as to add new strings when console is updated oninput
+            console.log($("#mergely").mergely("summary"));
+
+            var strMessage1 = document.getElementById("log");
+            strMessage1.innerHTML = strMessage1.innerHTML
+              .replace(/\{\"/g, "")
+              .replace(
+                /\,\"rhsLength\":/g,
+                " &nbsp;|&nbsp; ކަނާތު ފަޅީގައިވާ ކެރެކްޓާތައް: "
+              )
+              .replace(/numChanges\":/g, "ބަދަލުވި ފޮޅުވަތްތައް: ")
+              .replace(
+                /\,\"lhsLength\":/g,
+                " &nbsp;|&nbsp; ވާތު ފަޅީގައިވާ ކެރެކްޓާތައް: "
+              )
+              .replace(/\,\"a"\:/g, " &nbsp;|&nbsp; އިތުރުވި ފޮޅުވަތްތައް: ")
+              .replace(/\,\"c"\:/g, " &nbsp;|&nbsp; ބަދަލުވި ފޮޅުވަތްތައް: ")
+              .replace(/\,\"d"\:/g, " &nbsp;|&nbsp; ކަނޑާލެވުނު ފޮޅުވަތްތައް: ")
+              .replace(/\}/g, "");
+          }
 
           span.onclick = function () {
             modal.style.display = "none";
           }; //change this to remove values later
-
-          function doSummary() {
-            console.log($("#mergely").mergely("summary"));
-          }
         </script>
 
-        <!--
+        <!-- old code mergely
         <script>
           $(document).ready(function () {
             var comp = $("#mergely");
