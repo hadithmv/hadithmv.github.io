@@ -188,6 +188,11 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 </div>
 
 <div class="en mid tellUs" align="center">
+        <p>
+          If you would like to know more, consider reading the
+          <a href="http://hadithmv.github.io/notes/info/FAQ.html">FAQ</a>.
+        </p>
+
 <p>If you find a mistake, or want to join this translation platform, or want to support this project, please
 let us know.
 
