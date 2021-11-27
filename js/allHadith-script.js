@@ -71,6 +71,38 @@ $(document).ready(() => {
         data: 0,
         title: 'ފޮތް'
       },
+      { /* add brackets string to hukum */
+        data: 0,
+        title: 'ފޮތް ދިވެހިން',
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '')
+          // below code is shorter, no replace repeat, uses OR instead
+          data = data.replace('صحيح البخاري', 'ޞަޙީޙު ބުޚާރީ')
+          data = data.replace('صحيح مسلم', 'ޞަޙީޙު މުސްލިމް')
+          data = data.replace('سنن أبي داود', 'ސުނަން އަބޫ ދާވޫދު')
+          data = data.replace('المستدرك على الصحيحين للحاكم', 'ޙާކިމްގެ މުސްތަދްރަކު')
+          data = data.replace('الأدب المفرد', 'އަދަބުލް މުފްރަދު')
+          data = data.replace('منتقى ابن جارود', 'އިބްނު ޖާރޫދުގެ މުންތަޤާ')
+          data = data.replace('صحيح ابن خزيمة', 'ޞަޙީޙު އިބްނު ޚުޒައިމާ')
+          data = data.replace('صحيح ابن حبان', 'ޞަޙީޙު އިބްނު ޙިއްބާން')
+          data = data.replace('سنن النسائي', 'ސުނަން އައްނަސާއީ')
+          data = data.replace('سنن الترمذي', 'ސުނަން އައްތިރުމިޛީ')
+          data = data.replace('سنن ابن ماجه', 'ސުނަން އިބްނު މާޖާ')
+          data = data.replace('مسند أحمد', 'މުސްނަދު އަޙްމަދު')
+          data = data.replace('سنن الدارقطني', 'ސުނަން އައްދާރަޤުޠުނީ')
+          data = data.replace('سنن البيهقي', 'ސުނަން އަލްބައިހަޤީ')
+          data = data.replace('السنن الكبرى للنسائي', 'ނަސާއީގެ ސުނަން އަލްކުބްރާ')
+          data = data.replace('موطأ مالك', 'މުވައްޠާ މާލިކު')
+          data = data.replace('الأحاديث المختارة', 'އަޙާދީޘް އަލްމުޚްތާރާ')
+          data = data.replace('السنن الكبرى للبيهقي', 'ބައިހަޤީގެ ސުނަން އަލްކުބްރާ')
+          data = data.replace('مصنف عبد الرزاق', 'މުޞައްނަފު ޢަބްދުއްރައްޒާޤު')
+          data = data.replace('مسند الدارمي', 'މުސްނަދު އައްދާރިމީ')
+          data = data.replace('مصنف ابن أبي شيبة', 'މުޞައްނަފު އިބްނު އަބީ ޝައިބާ')
+          data = data.replace('الأربعون النووية', 'ނަވަވީގެ 40 ޙަދީޘް')
+          data = data.replace('عمدة الأحكام', 'ޢުމްދަތުލް އަޙްކާމް')
+          return data;
+        }
+      },
       {
         data: 1,
         title: '#'
@@ -129,8 +161,17 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'ahCol2', // #
+        className: 'ahCol2', // book dv
         targets: [1],
+        visible: false,
+        searchable: true,
+        searchPanes: {
+          show: true
+        }
+      },
+      {
+        className: 'ahCol3', // #
+        targets: [2],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -138,14 +179,14 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'ahCol3', // Ar Text
-        targets: [2],
+        className: 'ahCol4', // Ar Text
+        targets: [3],
         visible: true,
         searchable: false
       },
       {
-        className: 'ahCol4', // Ar Text Plain
-        targets: [3],
+        className: 'ahCol5', // Ar Text Plain
+        targets: [4],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -153,8 +194,8 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'ahCol5', // Dv Text
-        targets: [4],
+        className: 'ahCol6', // Dv Text
+        targets: [5],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -162,8 +203,8 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'ahCol6', // hukum
-        targets: [5],
+        className: 'ahCol7', // hukum
+        targets: [6],
         visible: true,
         searchable: false,
         searchPanes: {
@@ -171,8 +212,8 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'ahCol7', // takhrij
-        targets: [6],
+        className: 'ahCol8', // takhrij
+        targets: [7],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -388,6 +429,7 @@ $(document).ready(() => {
           data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
 
           data = data.replace(/ފޮތް\t/g, '') // should be this way instead of /\tފޮތް/
+          data = data.replace(/ފޮތް ދިވެހިން\t/g, '')
           data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
@@ -430,7 +472,7 @@ $(document).ready(() => {
         config: {
           collapse: false,
           orderable: false,
-          columns: [0],
+          columns: [0, 1],
           cascadePanes: true,
           dtOpts: {
             select: {
