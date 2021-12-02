@@ -1237,31 +1237,41 @@
           <br /><br /><br />
           <strong>Due date of sacrifice is below</strong>
 
-          <br /><br />
-          If child born BEFORE maghrib, Ageega is on: &nbsp;
-          <input
-            class="dateResult"
-            type="date"
-            id="date2"
-            data-date=""
-            data-date-format="DD MMMM YYYY"
-          />
+          <div class="oldDateOutput" style="display: none">
+            If child born BEFORE maghrib, Ageega is on: &nbsp;
+            <input
+              class="dateResult"
+              type="date"
+              id="date2"
+              data-date=""
+              data-date-format="DD MMMM YYYY"
+            />
+
+            <br />
+            If child born AFTER maghrib, Ageega is on: &nbsp;
+            <input
+              class="dateResult"
+              type="date"
+              id="date3"
+              data-date=""
+              data-date-format="DD MMMM YYYY"
+            />
+          </div>
           <!-- can add "readonly" just before end, but doest center properly-->
 
-          <br /><br />
-          If child born AFTER maghrib, Ageega is on: &nbsp;
-          <input
-            class="dateResult"
-            type="date"
-            id="date3"
-            data-date=""
-            data-date-format="DD MMMM YYYY"
-          />
+          <br />
+          <p class="mid">
+            If child born BEFORE maghrib, Ageega is on: &nbsp;
+            <strong><span id="b4Maghrib" style="color: #39c">0</span></strong>
+            <br /><br />
+            If child born AFTER maghrib, Ageega is on: &nbsp;
+            <strong>
+              <span id="afterMaghrib" style="color: #39c">0</span></strong
+            >
+          </p>
 
-          <br /><br />
-
-          * check whether month comes before day (mm/dd) in the date picker,
-          this shows on certain devices based on the user’s locale settings *
+          <!--* check whether month comes before day (mm/dd) in the date picker,
+          this shows on certain devices based on the user’s locale settings *-->
 
           <!--<input type="datetime-local" id="datePicker" />
           <output name="result" for="a b">60</output>-->
@@ -1276,9 +1286,19 @@
           date.setDate(date.getDate() + parseInt(days));
           document.getElementById("date2").valueAsDate = date;
 
+          //added later
+          document.getElementById("b4Maghrib").innerHTML = date.toDateString(); // d.toDateString(); removes time and gmt;
+
           date.setDate(date.getDate() + 1);
           document.getElementById("date3").valueAsDate = date;
+          // added
 
+          document.getElementById("afterMaghrib").innerHTML =
+            date.toDateString();
+
+          //
+
+          /*OLD CODE
           function setSecondDate() {
             var days = document.getElementById("select").value;
             var date = new Date(document.getElementById("date1").value);
@@ -1287,6 +1307,24 @@
 
             date.setDate(date.getDate() + 1);
             document.getElementById("date3").valueAsDate = date;
+          }*/
+
+          function setSecondDate() {
+            var days = document.getElementById("select").value;
+            var date = new Date(document.getElementById("date1").value);
+            date.setDate(date.getDate() + parseInt(days));
+            document.getElementById("date2").valueAsDate = date;
+
+            //added later
+            document.getElementById("b4Maghrib").innerHTML =
+              date.toDateString(); // d.toDateString(); removes time and gmt;
+
+            date.setDate(date.getDate() + 1);
+            document.getElementById("date3").valueAsDate = date;
+            // added
+
+            document.getElementById("afterMaghrib").innerHTML =
+              date.toDateString();
           }
 
           /* https://stackoverflow.com/a/16010247 */
