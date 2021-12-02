@@ -1262,14 +1262,34 @@
           <!-- can add "readonly" just before end, but doest center properly-->
 
           <br />
+
+          <style>
+            #b4Maghrib,
+            #afterMaghrib {
+              /*color: #39c;*/
+
+              /*width: 50%;*/
+              padding: 4px 8px;
+              margin: 4px 0;
+              display: inline-block;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              box-sizing: border-box;
+
+              text-align: center;
+              font-family: sans-serif;
+
+              color: #eee;
+              background-color: #0b578c;
+              font-size: 90%;
+            }
+          </style>
           <p class="mid">
             If child born BEFORE maghrib, Ageega is on: &nbsp;
-            <strong><span id="b4Maghrib" style="color: #39c">0</span></strong>
+            <span id="b4Maghrib">0</span>
             <br /><br />
             If child born AFTER maghrib, Ageega is on: &nbsp;
-            <strong>
-              <span id="afterMaghrib" style="color: #39c">0</span></strong
-            >
+            <span id="afterMaghrib">0</span>
           </p>
 
           <!--* check whether month comes before day (mm/dd) in the date picker,
