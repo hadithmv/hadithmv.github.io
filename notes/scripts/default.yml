@@ -88,14 +88,16 @@ matches:
   - trigger: "އއރ-"
     replace: "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ: "
 
-  - trigger: "ހކ-"
-    replace: "ޙަދީޘް ކުރެއްވިއެވެ: ”"
-
   - trigger: "ރހކ-"
     replace: "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”"
 
   - trigger: "ނހކ-"
     replace: "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”"
+
+  # ހކ should only come after the previous two, otherwise might override them in js, even if not in espanso
+
+  - trigger: "ހކ-"
+    replace: "ޙަދީޘް ކުރެއްވިއެވެ: ”"
 
   - trigger: "ރއޑ-"
     replace: "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
