@@ -67,14 +67,20 @@
       margin-bottom: 5px;
     }
 
-    #textHere {
+    #textHere,
+    #textSum {
       font-family: "arFont", "dvFont", sans-serif;
       font-size: 19px;
       line-height: 1.9;
       width: 100%;
       height: 300px;
-      /*border-radius: 5px;*/
+      border-radius: 4px;
       direction: rtl;
+      padding: 8px;
+    }
+
+    #textSum {
+      direction: ltr;
     }
 
     .editorButtons button {
@@ -1230,18 +1236,6 @@
       <!-- <div id="tabTwo" class="tabcontent"> -->
 
       <div id="tabThree" class="tabcontent">
-        <style>
-          #textSum {
-            font-family: "arFont", "dvFont", sans-serif;
-            font-size: 19px;
-            line-height: 1.9;
-            width: 100%;
-            height: 300px;
-            /*border-radius: 5px;*/
-            direction: ltr;
-          }
-        </style>
-
         <!-- rows="10"
 cols="60"-->
         <p class="mid editorButtons">
