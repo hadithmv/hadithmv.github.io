@@ -42,6 +42,7 @@ Copy-Item ../notes/info/contributors.html -Destination ../app/webview-master/app
 Copy-Item ../notes/info/khutba.html -Destination ../app/webview-master/app/src/main/assets/notes/info/khutba.html
 Copy-Item ../notes/info/text-editor.html -Destination ../app/webview-master/app/src/main/assets/notes/info/text-editor.html
 Copy-Item ../notes/info/umrah.html -Destination ../app/webview-master/app/src/main/assets/notes/info/umrah.html
+Copy-Item ../notes/info/mirror-backups.html -Destination ../app/webview-master/app/src/main/assets/notes/info/mirror-backups.html
 
 # copies previous notes folder contents to win notes folder (including info folder inside that)
 Copy-Item ../app/webview-master/app/src/main/assets/notes/* -Destination hmv/notes -Recurse -Force

@@ -364,6 +364,10 @@
           <button onclick="replaceSpacesLines();">ބޭކާރު ސްޕޭސް ފޮހެލާ</button>
           <!--<button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>-->
 
+          <button onclick="toTitleCase();">To Title Case</button>
+          <button onclick="toSentCase();">To sentence case</button>
+          <button onclick="toLowerCase();">to lower case</button>
+
           <button onclick="numToAr();">123 ← ١٢٣</button>
           <button onclick="arToNum();">١٢٣ ← 123</button>
 
@@ -540,13 +544,35 @@
             return false;
           }
 
-          function shortenSalla() {
+          // https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
+
+          function toTitleCase() {
             var text = document.getElementById("textHere").value;
-            var newText = text
-              .replace(/صلى الله عليه وسلم/g, "ﷺ")
-              .replace(/صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ/g, "ﷺ")
-              .replace(/صَلَّى اللَّهُ عَلَيهِ وَسَلَّم/g, "ﷺ");
+            var newText = text.replace(/\w\S*/g, function (txt) {
+              return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
             document.getElementById("textHere").value = newText;
+            navigator.clipboard.writeText(newText);
+            return false;
+          }
+
+          // https://stackoverflow.com/questions/19089442/convert-string-to-sentence-case-in-javascript
+          function toSentCase() {
+            var text = document.getElementById("textHere").value;
+            var rg = /(^\w{1}|\.\s*\w{1})/gi;
+            var newText = text.replace(rg, function (toReplace) {
+              return toReplace.toUpperCase();
+            });
+            document.getElementById("textHere").value = newText;
+            navigator.clipboard.writeText(newText);
+            return false;
+          }
+
+          function toLowerCase() {
+            var text = document.getElementById("textHere").value;
+            var newText = text.toLowerCase();
+            document.getElementById("textHere").value = newText;
+            navigator.clipboard.writeText(newText);
             return false;
           }
 
