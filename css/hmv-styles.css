@@ -339,7 +339,7 @@ button.dt-button {
 
   /* border: 1px solid rgba(255, 255, 255, 0.147); */
   border-radius: 10px !important;
-  border: 1px solid rgba(255, 255, 255, 0.147) !important;
+  border: 1px solid rgb(255 255 255 / 14.7%) !important;
   background: #d8d8d8 !important; /* #d8d8d8 */
 
   /* font-weight: bold; */
@@ -349,7 +349,7 @@ button.dt-button {
 
 button.dt-button:hover:not(.disabled) {
   background-color: #2f6f8c !important;
-  border: 1px solid rgba(255, 255, 255, 0.847) !important;
+  border: 1px solid rgb(255 255 255 / 84.7%) !important;
   color: #fff !important;
 }
 
@@ -375,7 +375,7 @@ The ::-webkit-search-cancel-button CSS pseudo-element represents a button (the "
 
 input[type="search"]::-webkit-search-cancel-button {
   /* adds x delete placeholder */
-  -webkit-appearance: searchfield-cancel-button;
+  appearance: searchfield-cancel-button;
   border: 4px solid transparent;
 
   /* makes x a bit bigger */
@@ -469,13 +469,16 @@ changed  (min-width: 900px) to 600 to include tablets */
     /* puts a little space after colvis button, otherwise hits search box */
     margin-left: 20px;
   }
+
   .dataTables_filter > label > input[type="search"] {
     width: 100%;
     max-width: 300px;
   }
+
   .dataTables_filter {
     flex-grow: 4;
   }
+
   .dataTables_length {
     /* puts a little space after search box, otherwise hits select list */
     margin-right: 20px;
@@ -855,7 +858,7 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 /* on mobile */
 
 .mTop {
-  display: -webkit-box;
+  display: box;
   display: flex;
 
   /* single-direction layout concept. */
@@ -871,7 +874,7 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 }
 
 .mTop2 {
-  display: -webkit-box;
+  display: box;
   display: flex;
 
   /* single-direction layout concept. */
@@ -885,7 +888,7 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 }
 
 .mTop3 {
-  display: -webkit-box;
+  display: box;
   display: flex;
 
   /* single-direction layout concept. */
@@ -899,7 +902,7 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 
 @media screen and (min-width: 900px) {
   .dTop {
-    display: -webkit-box;
+    display: box;
     display: flex;
 
     /* single-direction layout concept. */
@@ -1032,7 +1035,7 @@ table.dataTable.stripe tbody tr.odd.selected {
 div.dt-button-collection {
   /* fits searchpanes as well as buttom collection as much as content */
   width: fit-content !important;
-  width: -moz-fit-content !important; /* otherwise doesnt center on firefox */
+  width: fit-content !important; /* otherwise doesnt center on firefox */
 
   /* centers */
   margin: auto !important;
@@ -1162,15 +1165,20 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   padding: 15px;
   padding-top: 30px;
   padding-bottom: 20px;
+
+  /* set max width for text, needs margin 0 auto otherwise text align gets messed up */
+  max-width: 1000px;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .hidden {
   display: none;
 }
 
-.tellUs {
+/* .tellUs {
   text-align: center;
-}
+} */
 
 .arMasdar {
   font-family: "arFont", "dvFont", sans-serif;
@@ -1194,7 +1202,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   /* this is inner table on desktop */
   .dataTable > tbody > tr > td {
     background-color: #1a232d;
-    color: rgba(255, 255, 255, 0.847);
+    color: rgb(255 255 255 / 84.7%);
 
     /* border: none; removes card border ?? */
   }
@@ -1203,7 +1211,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 this makes a faint white outline around card  */
   .cards tbody tr {
     background-color: #1a232d;
-    color: rgba(255, 255, 255, 0.847);
+    color: rgb(255 255 255 / 84.7%);
   }
 
   /* The :not(X) property in CSS is a negation pseudo class and accepts a simple selector1 as an argument.
@@ -1221,7 +1229,7 @@ this makes a faint white outline around card  */
   .dataTables_wrapper .dataTables_paginate .paginate_button:active,
   .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     background: #1a232d !important;
-    border-color: rgba(255, 255, 255, 0.847) !important;
+    border-color: rgb(255 255 255 / 84.7%) !important;
   }
 
   /* removes borders inside cells */
@@ -1231,13 +1239,13 @@ this makes a faint white outline around card  */
   /* select input */
   .dataTables_wrapper .dataTables_length select {
     background-color: #1a232d !important;
-    color: rgba(255, 255, 255, 0.847) !important;
+    color: rgb(255 255 255 / 84.7%) !important;
   }
 
   /* colvis button, ACTUALLY all buttons? */
   button.dt-button {
     background-color: #1a232d !important;
-    color: rgba(255, 255, 255, 0.847) !important;
+    color: rgb(255 255 255 / 84.7%) !important;
     border: 1px solid #aaa !important;
   }
 
@@ -1261,24 +1269,25 @@ this makes a faint white outline around card  */
   /* copy button */
   button.dt-button.buttons-copy.buttons-html5 {
     background-color: #1a232d;
-    color: rgba(255, 255, 255, 0.847);
-    border: 1px solid rgba(255, 255, 255, 0.147);
+    color: rgb(255 255 255 / 84.7%);
+    border: 1px solid rgb(255 255 255 / 14.7%);
   }
+
   button.dt-button.buttons-copy.buttons-html5:hover {
     background-color: #0e1621;
-    border: 1px solid rgba(255, 255, 255, 0.847);
+    border: 1px solid rgb(255 255 255 / 84.7%);
   }
 
   /* page input */
   .paging_input input[type="search"] {
     background-color: #1a232d;
-    color: rgba(255, 255, 255, 0.847);
+    color: rgb(255 255 255 / 84.7%);
   }
 
   /* search input */
   .dataTables_wrapper .dataTables_filter input {
     background-color: #1a232d !important;
-    color: rgba(255, 255, 255, 0.847) !important;
+    color: rgb(255 255 255 / 84.7%) !important;
   }
 
   /* pagination buttons */
@@ -1295,6 +1304,7 @@ this makes a faint white outline around card  */
   table.dataTable.no-footer {
     border-color: #99aab5 !important;
   }
+
   table.dataTable thead th {
     border-color: #99aab5 !important;
   }
@@ -1302,12 +1312,13 @@ this makes a faint white outline around card  */
   /* changes clipboard copied color, */
   #datatables_buttons_info.dt-button-info h2 {
     /* background-color: #0e1621; */
-    color: rgba(255, 255, 255, 0.847);
+    color: rgb(255 255 255 / 84.7%);
 
     /* background: #34515e; */
     background: #0e1621;
     border-color: #dadce0;
   }
+
   div.dt-button-info {
     background-color: #1c4253 !important; /* 1a282f */
     border-style: solid !important;
@@ -1354,12 +1365,13 @@ this makes a faint white outline around card  */
   a {
     color: #39c;
   }
+
   a:hover {
     color: #2a8dbf;
   }
 
   @media (prefers-color-scheme: light) {
-    ::-moz-selection {
+    ::selection {
       background: #b3d4fc;
     }
 
