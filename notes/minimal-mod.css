@@ -460,17 +460,17 @@ p {
 }
 
 .dv {
-  font-family: "dvFont";
+  font-family: "dvFont", "arFont", sans-serif;
   line-height: 2.1;
 }
 
 h1.ar {
-  font-family: "arFont";
+  font-family: "arFont", "dvFont", sans-serif;
   font-size: 32px;
 }
 
 .ar {
-  font-family: "arFont";
+  font-family: "arFont", "dvFont", sans-serif;
   line-height: 1.8;
   font-size: 21px;
 }
@@ -533,10 +533,6 @@ table.marjTable > tbody > tr > td:nth-child(1) {
 th,
 td {
   text-align: center;
-}
-
-.ind {
-  text-indent: 2em;
 }
 
 /* SCROLLBAR COLOR */
@@ -636,12 +632,24 @@ thaana mish mash render fix - END
   padding-bottom: 20px;
 }
 
+/* ====================
+   shared css code with hmv-styles and comb-noncrit css
+======================= */
+
 .hidden {
   display: none;
 }
 
-.tellUs {
+.mid {
   text-align: center;
+}
+
+.justi {
+  text-align: justify;
+}
+
+.inde {
+  text-indent: 25px;
 }
 
 /* ====================
@@ -1119,15 +1127,25 @@ img.flexItem:hover {
 }
 
 /* Change background color of buttons on hover */
+
+/* above mobile, tablet-portrait-up */
+@media (min-width: 600px) {
+  .tab button:hover {
+    /* font-size: 110%; */
+    letter-spacing: 1.5px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .tab button.active {
+    font-size: 110%;
+  }
+}
+
 .tab button:hover {
   background-color: #eee;
 
   /* added */
   color: #000;
-
-  /* font-size: 110%; */
-  letter-spacing: 1.5px;
-  -webkit-font-smoothing: antialiased;
 }
 
 /* Create an active/current tablink class */
@@ -1136,7 +1154,6 @@ img.flexItem:hover {
 
   /* added */
   color: #000;
-  font-size: 110%;
   letter-spacing: 0;
   cursor: default;
 }

@@ -1232,9 +1232,8 @@
       <div id="tabThree" class="tabcontent">
         <!-- rows="10"
 cols="60"-->
-        <p class="mid editorButtons">
-          <button onclick="copyAdd();">ކޮޕީ</button
-          >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total:
+        <p class="mid">
+          Total:
           <span id="sumTotal">0.00</span>
         </p>
         <textarea
@@ -1242,6 +1241,9 @@ cols="60"-->
           placeholder=" Any numbers written here will be added, even within text... &#10; 50 books &#10; 5 print &#10; ..."
           oninput="outputSum();"
         ></textarea>
+        <div class="mid editorButtons">
+          <button onclick="copyAdd();">Copy Result</button>
+        </div>
 
         <script>
           function copyAdd() {
