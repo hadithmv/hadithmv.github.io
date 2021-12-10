@@ -92,4 +92,6 @@ div.dtsp-topRow{display:flex;flex-direction:row;flex-wrap:nowrap;border:2px soli
 
 
 /* fonts.css */
-@font-face{font-family:arFont;src:url(../font/Yakout-Linotype-W20-Light-Copy6.woff2) format("woff2");font-display:swap}@font-face{font-family:dvFont;src:url(../font/mvtyper.ttf) format("truetype");font-display:swap}
+@font-face{font-family:arFont;src:url(../font/Yakout-mod.woff2) format("woff2"),
+    url(../font/Yakout-mod.woff) format("woff"),
+    url(../font/Yakout Linotype W20 Light.ttf) format("truetype");font-display:block}@font-face{font-family:dvFont;src:url(../font/mvtyper-mod.woff2) format("woff2"),url(../font/mvtyper-mod.woff) format("woff"),url(../font/mvtyper.ttf) format("truetype");font-display:block}
