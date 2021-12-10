@@ -33,18 +33,24 @@ http://github.com/orderedlist/minimal
 
 /* arabic */
 @font-face {
-  font-family: "arFont";
-  src: url("../font/Yakout-Linotype-W20-Light-Copy6.woff2") format("woff2");
-  font-display: swap;
+  font-family: arFont;
+  src: url(../font/Yakout-mod.woff2) format("woff2"),
+    url(../font/Yakout-mod.woff) format("woff"),
+    url(../font/Yakout Linotype W20 Light.ttf) format("truetype");
+  font-display: block; /* previously swap */
 }
+
+/* UPDATE - THIS SEEMS TO BE FIXED UNIVERSALLY AS OF 10/12/21
+chromium webview has an issue with thaana rendering, letters get mashed together,
+only seems to happen for woff and woff2, use original unmodified otf or ttf to get it fixed */
 
 /* dhivehi */
 @font-face {
-  font-family: "dvFont";
-  src: /*url("../font/mvtyper-Copy7.woff2") format("woff2"),
-    url("../font/mvtyper-Copy7.woff") format("woff"),*/ url("../font/mvtyper.ttf")
-    format("truetype");
-  font-display: swap;
+  font-family: dvFont;
+  src: url(../font/mvtyper-mod.woff2) format("woff2"),
+    url(../font/mvtyper-mod.woff) format("woff"),
+    url(../font/mvtyper.ttf) format("truetype");
+  font-display: block; /* previously swap */
 }
 
 /* ../ is parent dir
@@ -914,7 +920,7 @@ img.flexItem:hover {
   width: calc(100% + 4px);
   height: calc(100% + 4px);
   animation: glowing 20s linear infinite;
-  opacity: 0%;
+  opacity: 0;
   transition: opacity 0.3s ease-in-out;
 
   /* border-radius: 10px; */
@@ -929,7 +935,7 @@ img.flexItem:hover {
 }
 
 .price:hover::before {
-  opacity: 100%;
+  opacity: 1;
 }
 
 .price::after {
@@ -985,7 +991,7 @@ img.flexItem:hover {
             */
 
 .noStock:hover {
-  opacity: 100%;
+  opacity: 1;
   cursor: default;
   width: 250px;
   transition: none;
@@ -1147,21 +1153,21 @@ img.flexItem:hover {
 /* Fade in tabs */
 @keyframes fadeEffect {
   from {
-    opacity: 0%;
+    opacity: 0;
   }
 
   to {
-    opacity: 100%;
+    opacity: 1;
   }
 }
 
 @keyframes fadeEffect {
   from {
-    opacity: 0%;
+    opacity: 0;
   }
 
   to {
-    opacity: 100%;
+    opacity: 1;
   }
 }
 
@@ -1191,7 +1197,7 @@ img.flexItem:hover {
   text-align: center;
   padding: 1em;
   border-radius: 0.25em;
-  opacity: 0%;
+  opacity: 0;
 
   /* added */
   padding-top: 25px;
@@ -1266,44 +1272,44 @@ img.flexItem:hover {
 @keyframes quote {
   /* whole numbers only - round steps to nearest % */
   0% {
-    opacity: 0%;
+    opacity: 0;
   }
 
   /* (step 2 % = 100% / total quotes x .25) */
   4% {
-    opacity: 100%;
+    opacity: 1;
   }
 
   /* (step 3 % = 100% / total quotes x .75) */
   13% {
-    opacity: 100%;
+    opacity: 1;
   }
 
   /* (step 4 % = 100% / total quotes) */
   17% {
-    opacity: 0%;
+    opacity: 0;
   }
 }
 
 @keyframes quote {
   /* whole numbers only - round steps to nearest % */
   0% {
-    opacity: 0%;
+    opacity: 0;
   }
 
   /* (step 2 % = 100% / total quotes x .25) */
   4% {
-    opacity: 100%;
+    opacity: 1;
   }
 
   /* (step 3 % = 100% / total quotes x .75) */
   13% {
-    opacity: 100%;
+    opacity: 1;
   }
 
   /* (step 4 % = 100% / total quotes) */
   17% {
-    opacity: 0%;
+    opacity: 0;
   }
 }
 
@@ -1383,14 +1389,14 @@ img.flexItem:hover {
 @keyframes animatetop {
   from {
     top: -500px;
-    opacity: 0%;
+    opacity: 0;
   }
 
   to {
     top: default;
 
     /* changed from 0 */
-    opacity: 100%;
+    opacity: 1;
   }
 }
 
