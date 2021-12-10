@@ -36,7 +36,7 @@ http://github.com/orderedlist/minimal
   font-family: "arFont";
   src: url(../font/Yakout-mod.woff2) format("woff2"),
     url(../font/Yakout-mod.woff) format("woff"),
-    url(../font/Yakout Linotype W20 Light.ttf) format("truetype");
+    url(../font/Yakout-Linotype-W20-Light.ttf) format("truetype");
   font-display: block; /* previously swap */
 }
 
