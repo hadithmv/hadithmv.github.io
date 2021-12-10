@@ -1,6 +1,16 @@
+UthmanicHafs1 Ver18
+
+https://fonts.qurancomplex.gov.sa/wp02/%D8%AD%D9%81%D8%B5#05
+
+Family Name: KFGQPC HAFS Uthmanic Script
+Created / Modified: Tuesday, July 6, 2021
+
+---
+
 UthmanicHafs1-Ver14:
 
 don't delete glyph: arabicindiczero-arab and those numbers, because they show the arabic number text as ayah circled number
 
-/* chromium webview has an issue with thaana rendering, letters get mashed together,
+/* UPDATE - NOW FIXED IT SEEMS
+chromium webview has an issue with thaana rendering, letters get mashed together,
 only seems to happen for woff and woff2, use original unmodified otf or ttf to get it fixed */
