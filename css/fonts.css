@@ -2,19 +2,24 @@
    Fonts - REMEBER TO CHANGE THESE FOR minimal-mod.css AS WELL
 ======================= */
 
-/* ar */
+/* arabic */
 @font-face {
   font-family: arFont;
-  src: url(../font/Yakout-Linotype-W20-Light-Copy6.woff2) format("woff2");
-  font-display: swap;
+  src: url(../font/Yakout-mod.woff2) format("woff2"),
+    url(../font/Yakout-mod.woff) format("woff"),
+    url(../font/Yakout Linotype W20 Light.ttf) format("truetype");
+  font-display: block; /* previously swap */
 }
 
-/* chromium webview has an issue with thaana rendering, letters get mashed together,
+/* UPDATE - THIS SEEMS TO BE FIXED UNIVERSALLY AS OF 10/12/21
+chromium webview has an issue with thaana rendering, letters get mashed together,
 only seems to happen for woff and woff2, use original unmodified otf or ttf to get it fixed */
+
+/* dhivehi */
 @font-face {
   font-family: dvFont;
-  src: /*url(../font/mvtyper-Copy7.woff2) format("woff2"),
-    url(../font/mvtyper-Copy7.woff) format("woff"),*/ url(../font/mvtyper.ttf)
-    format("truetype");
-  font-display: swap;
+  src: url(../font/mvtyper-mod.woff2) format("woff2"),
+    url(../font/mvtyper-mod.woff) format("woff"),
+    url(../font/mvtyper.ttf) format("truetype");
+  font-display: block; /* previously swap */
 }
