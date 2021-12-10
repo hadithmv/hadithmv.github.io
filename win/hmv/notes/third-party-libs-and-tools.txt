@@ -26,14 +26,14 @@ https://github.com/stylelint/stylelint -MIT
 https://github.com/standard/standard -MIT
 
 https://docs.google.com/spreadsheets
-https://www.json.org/json-en
-https://github.com/sqlite/sqlite
 https://github.com/pawelsalawa/sqlitestudio -GNU GPLv3
 https://github.com/PowerShell/PowerShell -MIT
 https://sourceforge.net/projects/sevenzip -GNU LGPL
 https://gitlab.gnome.org/GNOME/meld -GNU GPLv2
 https://github.com/Lexikos/AutoHotkey_L -GNU GPLv2
 https://github.com/federico-terzi/espanso -GNU GPLv3
+https://github.com/wickedest/Mergely -GPL/LGPL/MPL
+https://github.com/codemirror/CodeMirror -MIT
 
 https://github.com/photopea/photopea
 https://github.com/yoksel/url-encoder
@@ -60,4 +60,3 @@ https://github.com/maaldheefee/Quran-Translation/blob/master/utils/gen_alternate
 http://radheef.mv
 http://dhivehiacademy.edu.mv/beta/thoora
 https://dsal.uchicago.edu/dictionaries/maniku
-http://books.novelty.com.mv/v2/eegaal
