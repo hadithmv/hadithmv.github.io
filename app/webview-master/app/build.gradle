@@ -6,9 +6,9 @@ android {
     defaultConfig {
         applicationId "com.hadithmv.hmv"
         minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 40
-        versionName "2.53"
+        targetSdkVersion 30
+        versionCode 41
+        versionName "2.60"
     }
     buildTypes {
         release {
