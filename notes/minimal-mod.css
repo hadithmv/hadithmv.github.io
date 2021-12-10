@@ -33,7 +33,7 @@ http://github.com/orderedlist/minimal
 
 /* arabic */
 @font-face {
-  font-family: arFont;
+  font-family: "arFont";
   src: url(../font/Yakout-mod.woff2) format("woff2"),
     url(../font/Yakout-mod.woff) format("woff"),
     url(../font/Yakout Linotype W20 Light.ttf) format("truetype");
@@ -46,7 +46,7 @@ only seems to happen for woff and woff2, use original unmodified otf or ttf to g
 
 /* dhivehi */
 @font-face {
-  font-family: dvFont;
+  font-family: "dvFont";
   src: url(../font/mvtyper-mod.woff2) format("woff2"),
     url(../font/mvtyper-mod.woff) format("woff"),
     url(../font/mvtyper.ttf) format("truetype");
