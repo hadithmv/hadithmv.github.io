@@ -1156,8 +1156,8 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 
 /* hide until display finishes */
 #footer {
-  text-align: justify;
-  text-align-last: center;
+  /* text-align: justify;
+  text-align-last: center; */
   font-family: "dvFont", "arFont", sans-serif;
   font-size: 17px;
   line-height: 1.9;
@@ -1168,23 +1168,34 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 
   /* set max width for text, needs margin 0 auto otherwise text align gets messed up */
   max-width: 1000px;
-  text-align: center;
   margin: 0 auto;
 }
-
-.hidden {
-  display: none;
-}
-
-/* .tellUs {
-  text-align: center;
-} */
 
 .arMasdar {
   font-family: "arFont", "dvFont", sans-serif;
   font-size: 20px;
   line-height: 1.7;
   word-spacing: 2px;
+}
+
+/* ====================
+   shared css code with hmv-styles and comb-noncrit css
+======================= */
+
+.hidden {
+  display: none;
+}
+
+.mid {
+  text-align: center;
+}
+
+.justi {
+  text-align: justify;
+}
+
+.inde {
+  text-indent: 25px;
 }
 
 /* ====================
