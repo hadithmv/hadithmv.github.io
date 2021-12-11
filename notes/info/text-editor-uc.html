@@ -371,6 +371,7 @@
           <button onclick="toSentCase();">Sentence case</button>
           <button onclick="toLowerCase();">lower case</button>
 
+          <button onclick="numToSuperScript();">(1) ← ⁽¹⁾</button>
           <button onclick="numToAr();">123 ← ١٢٣</button>
           <button onclick="arToNum();">١٢٣ ← 123</button>
 
@@ -396,7 +397,6 @@
           <button onclick="replaceDoubleBrackets();" class="arButton">
             (( )) ← ( )
           </button>
-          <button onclick="numToSuperScript();">123 ← ¹²³</button>
           <button onclick="numToSansSerif();">123 ← 𝟣𝟤𝟥</button>
           <button onclick="dotsToEllipsis();">. . . ← …</button>
           <button onclick="hyphenToEnDash();">- ← –</button>
@@ -652,6 +652,8 @@
           function numToSuperScript() {
             var text = document.getElementById("textHere").value;
             var newText = text
+              .replace(/\(/g, "⁽")
+              .replace(/\)/g, "⁾")
               .replace(/0/g, "⁰")
               .replace(/1/g, "¹")
               .replace(/2/g, "²")
