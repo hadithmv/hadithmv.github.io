@@ -163,13 +163,19 @@
 
       <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs_fade -->
       <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'tabOne')">
+        <button
+          class="tablinks"
+          onclick="openTab(event, 'tabOne'); focusEditor();"
+        >
           Edit - އެޑިޓް
         </button>
         <button class="tablinks" onclick="openTab(event, 'tabTwo')">
           Copy - ކޮޕީ
         </button>
-        <button class="tablinks" onclick="openTab(event, 'tabThree')">
+        <button
+          class="tablinks"
+          onclick="openTab(event, 'tabThree'); focusAdder();"
+        >
           Add - ހިސާބު
         </button>
         <button
@@ -180,6 +186,16 @@
           Diff - ތަފާތު</button
         ><!-- &nbsp;&nbsp; previously put before diff-->
       </div>
+
+      <script>
+        function focusEditor() {
+          document.getElementById("textHere").focus();
+        }
+
+        function focusAdder() {
+          document.getElementById("textSum").focus();
+        }
+      </script>
 
       <style>
         body > div.wrapper > div.tab > button:nth-child(4) {
@@ -203,6 +219,7 @@
           oninput="countChar();countWord();replaceType();"
           autofocus="autofocus"
         ></textarea>
+        <!-- autofocus wont work if hidden by another tab -->
         <div id="img-out"></div>
 
         <br />
@@ -552,8 +569,17 @@
               return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
             });
             document.getElementById("textHere").value = newText;
-            navigator.clipboard.writeText(newText);
-            return false;
+            //navigator.clipboard.writeText(newText);
+            //return false;
+
+            /* https://stackoverflow.com/a/57192718 */
+            /* the copy button only solutions remove the whole textarea, thats why not using that here */
+
+            var copyText = document.getElementById("textHere"); //document.getElementById("dummy");
+            copyText.type = "text";
+            copyText.select();
+            document.execCommand("copy");
+            copyText.type = "hidden";
           }
 
           // https://stackoverflow.com/questions/19089442/convert-string-to-sentence-case-in-javascript
@@ -564,16 +590,28 @@
               return toReplace.toUpperCase();
             });
             document.getElementById("textHere").value = newText;
-            navigator.clipboard.writeText(newText);
-            return false;
+            //navigator.clipboard.writeText(newText);
+            //return false;
+
+            var copyText = document.getElementById("textHere");
+            copyText.type = "text";
+            copyText.select();
+            document.execCommand("copy");
+            copyText.type = "hidden";
           }
 
           function toLowerCase() {
             var text = document.getElementById("textHere").value;
             var newText = text.toLowerCase();
             document.getElementById("textHere").value = newText;
-            navigator.clipboard.writeText(newText);
-            return false;
+            //navigator.clipboard.writeText(newText);
+            //return false;
+
+            var copyText = document.getElementById("textHere");
+            copyText.type = "text";
+            copyText.select();
+            document.execCommand("copy");
+            copyText.type = "hidden";
           }
 
           function numToAr() {
@@ -802,15 +840,20 @@
             var copyText = document.getElementById("textHere");
 
             /* Select the text field */
+            //copyText.select();
+            //copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+            /* Copy the text inside the text field */
+            //navigator.clipboard.writeText(copyText.value);
+
             copyText.select();
             copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
-            /* Copy the text inside the text field */
-            navigator.clipboard.writeText(copyText.value);
+            document.execCommand("copy");
 
-            /* Alert the copied text 
-        alert("ކޮޕީވީ: " + copyText.value); */
-            return false;
+            /* Alert the copied text
+          alert("ކޮޕީވީ: " + copyText.value); */
+            //return false;
           }
 
           function copyDate() {
@@ -829,8 +872,18 @@
               today.getSeconds();
             var dateTime = date + " " + time;
 
-            navigator.clipboard.writeText(dateTime);
-            return false;
+            //navigator.clipboard.writeText(dateTime);
+            //return false;
+
+            /* https://stackoverflow.com/a/42416105 */
+
+            var tempInput = document.createElement("textarea"); // previously input, but that doesnt respect newlines oa
+            tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+            tempInput.value = dateTime; //value
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
           }
         </script>
       </div>
@@ -985,248 +1038,612 @@
 
         <script>
           function copySalla() {
-            navigator.clipboard.writeText("ﷺ");
-            //document.execCommand("Copy");
-            return false;
+            //navigator.clipboard.writeText("ﷺ");
+            //return false;
+
+            /* https://stackoverflow.com/questions/31593297/using-execcommand-javascript-to-copy-hidden-text-to-clipboard */
+
+            var input = document.createElement("textarea");
+            input.innerHTML = "ﷺ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+
+            /* below doesnt work */
+
+            /*var copyText = "ﷺ"; //document.getElementById("dummy");
+            copyText.type = "text";
+            copyText.select();
+            document.execCommand("copy");
+            copyText.type = "hidden";*/
           }
 
           function copyRadiya1() {
-            navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهُ");
-            return false;
+            //navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهُ");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "رَضِيَ اللَّهُ عَنْهُ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyRadiyaHaa() {
-            navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهَا");
-            return false;
+            //navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهَا");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "رَضِيَ اللَّهُ عَنْهَا";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyRadiya2() {
-            navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهُمَا");
-            return false;
-          }
-
-          function copyRadiya1() {
-            navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهُ");
-            return false;
+            //navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهُمَا");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "رَضِيَ اللَّهُ عَنْهُمَا";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyRadiyaHum() {
-            navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهُمْ");
-            return false;
+            //navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهُمْ");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "رَضِيَ اللَّهُ عَنْهُمْ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyRiwa() {
-            navigator.clipboard.writeText("ރިވާ ކުރެއްވިއެވެ: ");
-            return false;
+            //navigator.clipboard.writeText("ރިވާ ކުރެއްވިއެވެ: ");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "ރިވާ ކުރެއްވިއެވެ: ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyRhadithK() {
-            navigator.clipboard.writeText("ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ");
-            return false;
+            //navigator.clipboard.writeText("ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyNhadithK() {
-            navigator.clipboard.writeText("ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ");
-            return false;
+            //navigator.clipboard.writeText("ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyhadithAdu() {
-            navigator.clipboard.writeText(
-              "ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: "
-            );
+            //navigator.clipboard.writeText(
+            //  "ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: "
+            //);
+            var input = document.createElement("textarea");
+            input.innerHTML = "ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyBismi() {
-            navigator.clipboard.writeText("بسم الله الرحمن الرحيم");
-            return false;
+            //navigator.clipboard.writeText("بسم الله الرحمن الرحيم");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "بسم الله الرحمن الرحيم";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copySalam() {
-            navigator.clipboard.writeText("السلام عليكم ورحمة الله وبركاته");
-            return false;
+            //navigator.clipboard.writeText("السلام عليكم ورحمة الله وبركاته");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "السلام عليكم ورحمة الله وبركاته";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyWassalam() {
-            navigator.clipboard.writeText("وعليكم السلام ورحمة الله وبركاته");
-            return false;
+            //navigator.clipboard.writeText("وعليكم السلام ورحمة الله وبركاته");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "وعليكم السلام ورحمة الله وبركاته";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyJazak() {
-            navigator.clipboard.writeText("جزاك الله خيرا");
-            return false;
+            //navigator.clipboard.writeText("جزاك الله خيرا");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "جزاك الله خيرا";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyBarak() {
-            navigator.clipboard.writeText("بارك الله فيك");
-            return false;
+            //navigator.clipboard.writeText("بارك الله فيك");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "بارك الله فيك";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyHamd() {
-            navigator.clipboard.writeText("الحمد لله");
-            return false;
+            //navigator.clipboard.writeText("الحمد لله");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "الحمد لله";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyInshaAllah() {
-            navigator.clipboard.writeText("إن شاء الله");
-            return false;
+            //navigator.clipboard.writeText("إن شاء الله");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "إن شاء الله";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyMashaAllah() {
-            navigator.clipboard.writeText("ما شاء الله تبارك الله");
-            return false;
+            //navigator.clipboard.writeText("ما شاء الله تبارك الله");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "ما شاء الله تبارك الله";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copySubhanAllah() {
-            navigator.clipboard.writeText("سبحان الله");
-            return false;
+            //navigator.clipboard.writeText("سبحان الله");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "سبحان الله";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyAllahAkbar() {
-            navigator.clipboard.writeText("الله أكبر");
-            return false;
+            //navigator.clipboard.writeText("الله أكبر");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "الله أكبر";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyInnaLillah() {
-            navigator.clipboard.writeText("إنا لله وإنا إليه راجعون");
-            return false;
+            //navigator.clipboard.writeText("إنا لله وإنا إليه راجعون");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "إنا لله وإنا إليه راجعون";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyLaIlaha() {
-            navigator.clipboard.writeText("لا إله إلا الله");
-            return false;
+            //navigator.clipboard.writeText("لا إله إلا الله");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "لا إله إلا الله";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyKhutbatulHaja() {
-            navigator.clipboard.writeText(
+            /*navigator.clipboard.writeText(
               "إنَّ الْحَمْدَ لِلهِ نَحْمَدُهُ وَنَسْتَعِينُهُ وَنَسْتَغْفِرُهُ، وَنَعُوذُ بِاللهِ مِنْ شُرُورِ أَنْفُسِنَا وَمِنْ سَيِّئَاتِ أَعْمَالِنَا، مَنْ يَهْدِهِ اللهُ فَلاَ مُضِلَّ لَهُ، وَمَنْ يُضْلِلْ فَلاَ هَادِىَ لَهُ، وَأَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ\n\n{يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ حَقَّ تُقَاتِهِ وَلَا تَمُوتُنَّ إِلَّا وَأَنْتُمْ مُسْلِمُونَ} (آل عمران:102)\n\n{يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمُ الَّذِي خَلَقَكُمْ مِنْ نَفْسٍ وَاحِدَةٍ وَخَلَقَ مِنْهَا زَوْجَهَا وَبَثَّ مِنْهُمَا رِجَالًا كَثِيرًا وَنِسَاءً وَاتَّقُوا اللَّهَ الَّذِي تَسَاءَلُونَ بِهِ وَالْأَرْحَامَ إِنَّ اللَّهَ كَانَ عَلَيْكُمْ رَقِيبًا} (النساء:1)\n\n{يَاأَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللهَ وَقُولُوا قَوْلاً سَدِيدًا * يُصْلِحْ لَكُمْ أَعْمَالَكُمْ وَيَغْفِرْ لَكُمْ ذُنُوبَكُمْ وَمَنْ يُطِعِ اللهَ وَرَسُولَهُ فَقَدْ فَازَ فَوْزًا عَظِيمًا} (الأحزاب: 70، 71)\n\nأَمَّا بَعْدُ"
             );
-            return false;
+            return false;*/
+            var input = document.createElement("textarea");
+            input.innerHTML =
+              "إنَّ الْحَمْدَ لِلهِ نَحْمَدُهُ وَنَسْتَعِينُهُ وَنَسْتَغْفِرُهُ، وَنَعُوذُ بِاللهِ مِنْ شُرُورِ أَنْفُسِنَا وَمِنْ سَيِّئَاتِ أَعْمَالِنَا، مَنْ يَهْدِهِ اللهُ فَلاَ مُضِلَّ لَهُ، وَمَنْ يُضْلِلْ فَلاَ هَادِىَ لَهُ، وَأَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ\n\n{يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ حَقَّ تُقَاتِهِ وَلَا تَمُوتُنَّ إِلَّا وَأَنْتُمْ مُسْلِمُونَ} (آل عمران:102)\n\n{يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمُ الَّذِي خَلَقَكُمْ مِنْ نَفْسٍ وَاحِدَةٍ وَخَلَقَ مِنْهَا زَوْجَهَا وَبَثَّ مِنْهُمَا رِجَالًا كَثِيرًا وَنِسَاءً وَاتَّقُوا اللَّهَ الَّذِي تَسَاءَلُونَ بِهِ وَالْأَرْحَامَ إِنَّ اللَّهَ كَانَ عَلَيْكُمْ رَقِيبًا} (النساء:1)\n\n{يَاأَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللهَ وَقُولُوا قَوْلاً سَدِيدًا * يُصْلِحْ لَكُمْ أَعْمَالَكُمْ وَيَغْفِرْ لَكُمْ ذُنُوبَكُمْ وَمَنْ يُطِعِ اللهَ وَرَسُولَهُ فَقَدْ فَازَ فَوْزًا عَظِيمًا} (الأحزاب: 70، 71)\n\nأَمَّا بَعْدُ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyKaffaratulMajlis() {
-            navigator.clipboard.writeText(
+            /*navigator.clipboard.writeText(
               "سبحانك اللهم وبحمدك، أشهد أن لا إله إلا أنت، أستغفرك وأتوب إليك"
             );
-            return false;
+            return false;*/
+            var input = document.createElement("textarea");
+            input.innerHTML =
+              "سبحانك اللهم وبحمدك، أشهد أن لا إله إلا أنت، أستغفرك وأتوب إليك";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyHaa() {
-            navigator.clipboard.writeText("هـ");
-            return false;
+            //navigator.clipboard.writeText("هـ");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "هـ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyArSymBismi1() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymBismi2() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymSalla() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyArSymRadiya1() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyArSymRadiyaHaa() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyArSymRadiya2() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyArSymRadiyaHum() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymRadiyaHunna() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymSubhana() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymTabaraka() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymAzzaWajal() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymJallaWaAla() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymJallaJalaluh() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymAllah() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymMuhammad() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymTakbir() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymAlaihiSalam() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymAlaihiSalam2() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymAlaihaSalam() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymAlaihimaSalam() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymAlaihimSalam() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymAlaihiWaAla() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
 
           function copyArSymRahimaHu() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymRahimaHa() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymRahimaHuma() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymRahimaHum() {
-            navigator.clipboard.writeText("");
-            return false;
+            //navigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
           function copyArSymRahimaHun() {
-            navigator.clipboard.writeText("");
-            return false;
+            //avigator.clipboard.writeText("");
+            //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
           }
         </script>
       </div>
@@ -1249,12 +1666,6 @@ cols="60"-->
         </div>
 
         <script>
-          function copyAdd() {
-            var addedNumbers = document.getElementById("sumTotal").innerText;
-            navigator.clipboard.writeText(addedNumbers);
-            return false;
-          }
-
           // https://stackoverflow.com/questions/39236731/how-to-find-sum-of-integers-in-a-string-using-javascript
 
           function outputSum() {
@@ -1273,6 +1684,21 @@ cols="60"-->
             //document.getElementById("sumTotal").innerHTML = total;
             //https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
             document.getElementById("sumTotal").innerHTML = total.toFixed(2);
+          }
+
+          function copyAdd() {
+            var addedNumbers = document.getElementById("sumTotal").innerText;
+
+            //navigator.clipboard.writeText(addedNumbers);
+            //return false;
+
+            var tempInput = document.createElement("textarea"); // previously input, but that doesnt respect newlines oa
+            tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+            tempInput.value = addedNumbers; //value
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
           }
         </script>
       </div>
