@@ -187,7 +187,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 
 </div>
 
-<div class="en mid tellUs" align="center">
+<div class="en mid" align="center">
         <p>
           If you would like to know more, consider reading the
           <a href="http://hadithmv.github.io/notes/info/FAQ.html">FAQ</a>.
