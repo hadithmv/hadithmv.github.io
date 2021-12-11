@@ -218,7 +218,7 @@ let us know.
       </p>
   <p>
     - Back to the
-    <b><a href="https://hadithmv.github.io">Main Site</a></b> -
+    <b><a href="../../books/index.html">Main Page</a></b> -
   </p>
 </div>
 <br />
