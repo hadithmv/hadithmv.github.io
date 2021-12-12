@@ -188,6 +188,9 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 </div>
 
 <div class="en mid" align="center">
+<p>For more queries, read our
+          <a href="http://hadithmv.github.io/notes/info/FAQ.html">FAQ</a> section | For a list of participants, get to know our <a href="http://hadithmv.github.io/notes/info/contributors.html">contributors</a>
+        </p>
         <p>
           If you would like to know more, consider reading the
           <a href="http://hadithmv.github.io/notes/info/FAQ.html">FAQ</a>.
