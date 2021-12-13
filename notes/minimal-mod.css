@@ -70,6 +70,7 @@ To move forward, just start with the first sub directory and keep moving forward
 body {
   background-color: #fff;
   padding: 30px; /* padding: 50px; */
+  padding-top: 10px; /* added this */
   font-size: 16px;
   font-family: "dvFont", "arFont", sans-serif;
 
@@ -473,6 +474,10 @@ h1.ar {
   font-family: "arFont", "dvFont", sans-serif;
   line-height: 1.8;
   font-size: 21px;
+}
+
+.basmala {
+  padding-bottom: 20px !important;
 }
 
 .en {
