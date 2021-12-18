@@ -11,3 +11,4 @@ uglifyjs umdah.js -c -m -o umdah.js
 uglifyjs bulugh.js -c -m -o bulugh.js
 uglifyjs allHadith.js -c -m -o allHadith.js
 uglifyjs hisnulMuslim.js -c -m -o hisnulMuslim.js
+uglifyjs aajurry.js -c -m -o aajurry.js

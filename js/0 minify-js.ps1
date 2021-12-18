@@ -12,3 +12,4 @@ google-closure-compiler --charset=UTF-8 --js=eegaal-script.js --js_output_file=e
 google-closure-compiler --charset=UTF-8 --js=bulugh-script.js --js_output_file=bulugh-script.min.js
 google-closure-compiler --charset=UTF-8 --js=allHadith-script.js --js_output_file=allHadith-script.min.js
 google-closure-compiler --charset=UTF-8 --js=hisnulMuslim-script.js --js_output_file=hisnulMuslim-script.min.js
+google-closure-compiler --charset=UTF-8 --js=aajurry-script.js --js_output_file=aajurry-script.min.js
