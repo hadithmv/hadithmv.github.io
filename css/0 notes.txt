@@ -11,7 +11,7 @@ Load priority in COMB:
 
 -even more non Critical Ext
 **jquery.dataTables.min.css	1.11.3	(minify w cssnano)
-**buttons.dataTables.min.css	2.0.1	(minify w cssnano)
+**buttons.dataTables.min.css	2.1.1	(minify w cssnano)
 **searchPanes.dataTables.min.css	1.4.0	(use MOD, minify w cssnano)
 fonts.css	(minify w cssnano)
 
