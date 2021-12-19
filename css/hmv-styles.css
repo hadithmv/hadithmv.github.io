@@ -345,6 +345,16 @@ button.dt-button {
   /* font-weight: bold; */
 }
 
+/* removes the space after the down arrow in the colvis button */
+
+.dataTables_wrapper
+  > div
+  > div
+  > button.dt-button.buttons-collection.buttons-colvis
+  > span.dt-down-arrow {
+  padding: 0;
+}
+
 /* hover buttons */
 
 button.dt-button:hover:not(.disabled) {
@@ -482,6 +492,11 @@ changed  (min-width: 900px) to 600 to include tablets */
   .dataTables_length {
     /* puts a little space after search box, otherwise hits select list */
     margin-right: 20px;
+  }
+
+  /* puts a little space before the search box, otherwise colvis touches it */
+  .dataTables_filter > label > input[type="search"] {
+    margin-right: 8px;
   }
 }
 
