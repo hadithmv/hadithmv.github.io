@@ -630,6 +630,19 @@
             return false;
           }
 
+          function shortenSalla() {
+            var text = document.getElementById("textHere").value;
+            var newText = text
+              .replace(/صلى الله عليه وسلم/g, "ﷺ")
+              .replace(/صَلَّى اللَّهُ عَلَيهِ وَسَلَّم/g, "ﷺ")
+              .replace(/صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمْ/g, "ﷺ")
+              .replace(/صَلَّى اللَّهُ عَلَيهِ وَسَلَّم/g, "ﷺ")
+              .replace(/صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمْ/g, "ﷺ")
+              .replace(/صَلَّى الله عَلَيهِ وَسَلَّم/g, "ﷺ");
+            document.getElementById("textHere").value = newText;
+            return false;
+          }
+
           function arToNum() {
             var text = document.getElementById("textHere").value;
             var newText = text
