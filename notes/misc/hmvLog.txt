@@ -57,6 +57,7 @@ regex to fix empty fili repeats:
 ([ަ-ް])[ަ-ް]+
 Replace with $1
 
+shadda goes before haraka
 
 َّ
 َّ
@@ -66,6 +67,15 @@ Replace with $1
 
 ُّ
 ُّ
+
+ًّ
+ًّ
+
+ٍّ
+ٍّ
+
+ٌّ
+ٌّ
 
 
 sumatra:

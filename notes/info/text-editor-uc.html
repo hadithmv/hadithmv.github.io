@@ -380,7 +380,8 @@
             އަރަބި ފިލި ފޮހެލާ
           </button>
           <button onclick="remThiki();">ތިކިޖެހިތާނަ ފޮހެލާ</button>
-          <button onclick="replaceSpacesLines();">ބޭކާރު ސްޕޭސް ފޮހެލާ</button>
+          <button onclick="replaceSpacesLines();">އިތުރު ސްޕޭސް ފޮހެލާ</button>
+          <button onclick="replacePunct();">ޕަންކްޗުއޭޝަން ފޮހެލާ</button>
           <!--<button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>-->
 
           <button onclick="toTitleCase();">Title Case</button>
@@ -400,8 +401,11 @@
           <button onclick="replaceQbracketQstop();" class="arButton">
             {*} ← ﴿۝﴾
           </button>
-          <button onclick="replaceTanween();" class="arButton">
-            ـّ ـَ ← ـَ ـّ
+          <button onclick="shaddaB4Haraka();" class="arButton">
+            ـَ ـّ ← ـّ ـَ
+          </button>
+          <button onclick="replaceKashida();" class="arButton">
+            ســلاــم ← سلام
           </button>
           <button onclick="replaceQuotes();" class="arButton">' " ← ’ “</button>
           <button onclick="replaceQtoDoubleAngBrackets();" class="arButton">
@@ -773,6 +777,47 @@
             return false;
           }
 
+          function replacePunct() {
+            var text = document.getElementById("textHere").value;
+            var newText = text
+              .replace(/\!/g, "")
+              .replace(/\@/g, "")
+              .replace(/\#/g, "")
+              .replace(/\$/g, "")
+              .replace(/\%/g, "")
+              .replace(/\^/g, "")
+              .replace(/\&/g, "")
+              .replace(/\*/g, "")
+              .replace(/\(/g, "")
+              .replace(/\)/g, "")
+              .replace(/\-/g, "")
+              .replace(/\_/g, "")
+              .replace(/\=/g, "")
+              .replace(/\+/g, "")
+              .replace(/\[/g, "")
+              .replace(/\]/g, "")
+              .replace(/\{/g, "")
+              .replace(/\}/g, "")
+              .replace(/\|/g, "")
+              .replace(/\;/g, "")
+              .replace(/\:/g, "")
+              .replace(/\'/g, "")
+              .replace(/\"/g, "")
+              .replace(/\</g, "")
+              .replace(/\>/g, "")
+              .replace(/\?/g, "")
+              .replace(/\,/g, "")
+              .replace(/\،/g, "")
+              .replace(/\؟/g, "")
+              .replace(/\؛/g, "")
+              .replace(/\‘/g, "")
+              .replace(/\’/g, "")
+              .replace(/\”/g, "")
+              .replace(/\“/g, "");
+            document.getElementById("textHere").value = newText;
+            return false;
+          }
+
           function replaceCommaScolonQ() {
             var text = document.getElementById("textHere").value;
             var newText = text.replace(/\,/g, "،");
@@ -790,13 +835,23 @@
             return false;
           }
 
-          function replaceTanween() {
+          function shaddaB4Haraka() {
             var text = document.getElementById("textHere").value;
             var newText = text
-              .replace(/\َّ/g, "َّ")
-              .replace(/\ِّ{/g, "ِّ")
-              .replace(/\ُّ{/g, "۝")
-              .replace(/\*{/g, "ُّ");
+              .replace(/ُّ/g, "ُّ")
+              .replace(/َّ/g, "َّ")
+              .replace(/ِّ/g, "ِّ")
+
+              .replace(/ٌّ/g, "ٌّ")
+              .replace(/ًّ/g, "ًّ")
+              .replace(/ٍّ/g, "ٍّ");
+            document.getElementById("textHere").value = newText;
+            return false;
+          }
+
+          function replaceKashida() {
+            var text = document.getElementById("textHere").value;
+            var newText = text.replace(/ـ/g, "");
             document.getElementById("textHere").value = newText;
             return false;
           }
