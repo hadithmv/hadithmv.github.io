@@ -13,3 +13,4 @@ uglifyjs allHadith.js -c -m -o allHadith.js
 uglifyjs hisnulMuslim.js -c -m -o hisnulMuslim.js
 uglifyjs aajurry.js -c -m -o aajurry.js
 uglifyjs muharrar.js -c -m -o muharrar.js
+uglifyjs muwatta.js -c -m -o muwatta.js
