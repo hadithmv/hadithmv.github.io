@@ -73,22 +73,30 @@ $(document).ready(() => {
       },
       {
         data: 1,
+        title: '# ބާރބޭންކު'
+      },
+      {
+        data: 2,
+        title: '# ފައުޒާން'
+      },
+      {
+        data: 3,
         title: 'އަރަބި'
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
-         we can strip diacritics using regex within the table itself, this makes
-         the array file much smaller in the long run */
-        /* data: 1,
-        title: 'އަރަބި ފިލިނުޖަހައި',
-        render: function (data, type, row) { */
-        // return data.replace(/َ/g, '').replace(/ِ/g, '')
-        // below code is shorter, no replace repeat, uses OR instead
-        /* return data.replace(/[ًٌٍَُِّْ]/g, '')
-        } */
-      },
+        we can strip diacritics using regex within the table itself, this makes
+        the array file much smaller in the long run */
+       data: 3,
+       title: 'އަރަބި ފިލިނުޖަހައި',
+       render: function (data, type, row) {
+         // return data.replace(/َ/g, '').replace(/ِ/g, '')
+         // below code is shorter, no replace repeat, uses OR instead
+         return data.replace(/[ًٌٍَُِّْ]/g, '')
+       }
+     },
       {
-        data: 2,
+        data: 4,
         title: 'ދިވެހި'
       }
     ],
@@ -104,20 +112,32 @@ $(document).ready(() => {
         searchable: true
       },
       {
-        className: 'barbaCol2', // arTxt
+        className: 'barbaCol2', // # burbank
         targets: [1],
+        visible: false,
+        searchable: false
+      },
+      {
+        className: 'barbaCol3', // # fauzan
+        targets: [2],
+        visible: false,
+        searchable: false
+      },
+      {
+        className: 'barbaCol4', // arTxt
+        targets: [3],
         visible: true,
         searchable: true
       },
       {
-        className: 'barbaCol3', // arPlain
-        targets: [2],
+        className: 'barbaCol5', // arPlain
+        targets: [4],
         visible: false,
         searchable: true
       },
       {
-        className: 'barbaCol4', // dv
-        targets: [3],
+        className: 'barbaCol6', // dv
+        targets: [5],
         visible: true,
         searchable: true
       },
