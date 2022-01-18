@@ -85,7 +85,9 @@ so right align to prevent gaps in text
       /* mobile only row centering, for rows with strings that are not long */
 
       @media screen and (max-width: 900px) {
-        .dataTable tr td.barbaCol1 {
+        .dataTable tr td.barbaCol1,
+        .dataTable tr td.barbaCol2,
+        .dataTable tr td.barbaCol3 {
           text-align: center;
         }
 
@@ -99,8 +101,8 @@ so right align to prevent gaps in text
 
       /* tbody tr td.fnCol1, */
 
-      .dataTable tr td.barbaCol2,
-      .dataTable tr td.barbaCol3 {
+      .dataTable tr td.barbaCol4,
+      .dataTable tr td.barbaCol5 {
         font-family: "arFont", "dvFont", sans-serif;
         font-size: 23px;
         line-height: 1.7;
@@ -112,7 +114,7 @@ so right align to prevent gaps in text
 
       /* .dataTable tr td.fnCol1, need this bigger */
 
-      .dataTable tr td.barbaCol4 {
+      .dataTable tr td.barbaCol6 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 17px;
         line-height: 1.9;
@@ -128,9 +130,14 @@ so right align to prevent gaps in text
       /* css for first column
 # number column cuz it has hashtag and digits */
 
-      .dataTable tr td.barbaCol1 {
+      .dataTable tr td.barbaCol1,
+      .dataTable tr td.barbaCol2,
+      .dataTable tr td.barbaCol3 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 21px;
+
+        /* barbaharee only addition*/
+        direction: ltr;
       }
     </style>
     <!-- === INT CSS - END === -->
@@ -307,6 +314,8 @@ so right align to prevent gaps in text
           <table id="barbahariTable" class="stripe table">
             <thead>
               <tr>
+                <th></th>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
