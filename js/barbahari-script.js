@@ -73,7 +73,7 @@ $(document).ready(() => {
       },
       {
         data: 1,
-        title: '# ބާރބޭންކު'
+        title: '# ބަރބޭންކް'
       },
       {
         data: 2,
