@@ -81,13 +81,17 @@ $(document).ready(() => {
       },
       {
         data: 3,
+        title: '# ރަބީޢު'
+      },
+      {
+        data: 4,
         title: 'އަރަބި'
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
         we can strip diacritics using regex within the table itself, this makes
         the array file much smaller in the long run */
-       data: 3,
+       data: 4,
        title: 'އަރަބި ފިލިނުޖަހައި',
        render: function (data, type, row) {
          // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -96,7 +100,7 @@ $(document).ready(() => {
        }
      },
       {
-        data: 4,
+        data: 5,
         title: 'ދިވެހި'
       }
     ],
@@ -124,20 +128,26 @@ $(document).ready(() => {
         searchable: false
       },
       {
-        className: 'barbaCol4', // arTxt
+        className: 'barbaCol4', // # rabee
         targets: [3],
+        visible: false,
+        searchable: false
+      },
+      {
+        className: 'barbaCol5', // arTxt
+        targets: [4],
         visible: true,
         searchable: true
       },
       {
-        className: 'barbaCol5', // arPlain
-        targets: [4],
+        className: 'barbaCol6', // arPlain
+        targets: [5],
         visible: false,
         searchable: true
       },
       {
-        className: 'barbaCol6', // dv
-        targets: [5],
+        className: 'barbaCol7', // dv
+        targets: [6],
         visible: true,
         searchable: true
       },
