@@ -96,6 +96,9 @@ matches:
 
   # ހކ should only come after the previous two, otherwise might override them in js, even if not in espanso
 
+  - trigger: "ހދ-"
+    replace: "ޙަދީޘް"
+
   - trigger: "ރސ-"
     replace: "ރަސޫލު ﷲ ﷺ"
 
