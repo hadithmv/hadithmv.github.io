@@ -212,39 +212,22 @@
       </style>
 
       <div id="tabOne" class="tabcontent">
-        <div class="mid" style="margin-bottom: 2px">
+        <p class="mid">
           ކެރެކްޓާތައް:
           <span id="characters">0</span>&nbsp; | &nbsp;ބަސްތައް:
           <span id="words">0</span>
-          <span class="spaceShow"
-            >&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span
-          >
-          <br class="breakHide" />
-
           <!-- https://jsfiddle.net/Meline222/fgpedL0z/1/ 
         https://codepen.io/alexandercastillo/pen/YXrmPE
       -->
 
+      <div style="display: inline;">
           <span class="small-letter">A</span>&nbsp;
           <input id="slider" type="range" min="10" max="100" />&nbsp;
           <span class="big-letter">A</span>
         </div>
+        </p>
 
         <style>
-          /*@mixin for-ABOVEphone-only*/
-          @media (min-width: 599px) {
-            .breakHide {
-              display: none;
-            }
-          }
-
-          /*@mixin for-phone-only*/
-          @media (max-width: 599px) {
-            .spaceShow {
-              display: none;
-            }
-          }
-
           .small-letter {
             font-size: 14px;
             margin-bottom: 5px;
@@ -256,9 +239,9 @@
             font-size: 24px;
           }
 
-          /*.sliderLetters {
+          .sliderLetters {
             margin-bottom: -20px;
-          }*/
+          }
         </style>
 
         <!-- 
@@ -276,6 +259,7 @@
         <!-- autofocus wont work if hidden by another tab -->
         <div id="img-out"></div>
 
+        <br />
         <!-- !!! !!! -->
 
         <script>
