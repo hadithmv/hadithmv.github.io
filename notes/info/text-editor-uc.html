@@ -101,9 +101,34 @@
       transition: transform 0.2s ease-out;
     }
 
+    .editorButtons .findRepClass {
+      font-family: "dvFont", "arFont", sans-serif;
+      font-size: 16px;
+      width: 150px;
+      height: 50px;
+      margin: 5px;
+      border-radius: 5px;
+      border-width: 0;
+      /*padding: 20px;*/
+      /* add ease in transition for hover */
+      transition: transform 0.2s ease-out;
+    }
+
     /* @mixin for-phone-only */
     @media (max-width: 599px) {
       .editorButtons button {
+        font-size: 13.5px;
+        width: 120px;
+        height: 60px;
+        /*padding: 20px;*/
+        margin: 3px;
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-right: 0px;
+        margin-left: 0px;
+      }
+
+      .editorButtons .findRepClass {
         font-size: 13.5px;
         width: 120px;
         height: 60px;
@@ -402,8 +427,11 @@
           މަތީގައި ލިޔުމަށްފަހު އެލިޔުން ބަދަލުކުރުމަށް:
         </p>
 
+        <!-- https://stackoverflow.com/questions/50951625/use-html-input-to-replace-information-from-string-using-javascript -->
+
         <div class="mid editorButtons">
           <button onclick="copyToClipB();">📋 ލިޔުން ކޮޕީކުރޭ</button>
+
           <button onclick="clearTextArea();">ލިޔުން ފޮހެލާ</button>
           <button onclick="replaceFili();countChar();copyToClipB()">
             އަރަބި ފިލި ފޮހެލާ
@@ -450,8 +478,39 @@
           <button onclick="dotsToEllipsis();">. . . ← …</button>
           <button onclick="hyphenToEnDash();">- ← –</button>
           <button onclick="hyphenToEmDash();">- ← —</button>
+          <br />
+
+          <input
+            class="findRepClass"
+            placeholder=" ހޯދާ ލަފްޒު ލިޔޭ..."
+            type="text"
+            id="find"
+            style="color: red; text-indent: 5px"
+          />
+          <input
+            class="findRepClass"
+            placeholder=" ބަދަލުކުރަންވީ މިއަށް"
+            type="text"
+            id="newTxt"
+            style="color: blue; text-indent: 5px"
+          />
+          <button onclick="findAndReplace()">ލަފްޒު ބަދަލު ކުރޭ</button>
         </div>
         <!-- <div class="mid"> -->
+
+        <script>
+          function findAndReplace() {
+            var input = document.getElementById("textHere").value;
+            var newTxt = document.getElementById("newTxt").value;
+            var find = new RegExp(document.getElementById("find").value, "g");
+            //var regex = new RegExp("ReGeX" + find + "ReGeX");
+
+            document.getElementById("textHere").value = input.replace(
+              find,
+              newTxt
+            );
+          }
+        </script>
 
         <p class="buttonHeader">
           އެންމެ މަތީގައިވާ ހުސްޖާގައިގައި ތިރީގައި މިވާ އަކުރުތައް ލިޔުމާއެކީ
