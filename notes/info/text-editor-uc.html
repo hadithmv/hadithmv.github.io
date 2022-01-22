@@ -426,8 +426,6 @@
           މަތީގައި ލިޔުމަށްފަހު އެލިޔުން ބަދަލުކުރުމަށް:
         </p>
 
-        <!-- https://stackoverflow.com/questions/50951625/use-html-input-to-replace-information-from-string-using-javascript -->
-
         <div class="mid editorButtons">
           <button onclick="copyToClipB();">📋 ލިޔުން ކޮޕީކުރޭ</button>
 
@@ -483,30 +481,35 @@
             class="findRepClass"
             placeholder=" ބަދަލުކުރަންވީ ލަފްޒު"
             type="text"
-            id="find"
+            id="findThis"
             style="color: red; text-indent: 5px"
           />
           <input
             class="findRepClass"
             placeholder=" ބަދަލުކުރަންވީ މިއަށް"
             type="text"
-            id="newTxt"
+            id="replaceWith"
             style="color: blue; text-indent: 5px"
           />
           <button onclick="findAndReplace()">ލަފްޒު ބަދަލު ކުރޭ</button>
         </div>
         <!-- <div class="mid"> -->
 
+        <!-- https://stackoverflow.com/a/50951734 -->
+
         <script>
           function findAndReplace() {
             var input = document.getElementById("textHere").value;
-            var newTxt = document.getElementById("newTxt").value;
-            var find = new RegExp(document.getElementById("find").value, "g");
+            var replaceWith = document.getElementById("replaceWith").value;
+            var find = new RegExp(
+              document.getElementById("findThis").value,
+              "g"
+            );
             //var regex = new RegExp("ReGeX" + find + "ReGeX");
 
             document.getElementById("textHere").value = input.replace(
               find,
-              newTxt
+              replaceWith
             );
           }
         </script>
