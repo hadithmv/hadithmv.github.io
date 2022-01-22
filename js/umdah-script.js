@@ -16,7 +16,7 @@ $(document).ready(() => {
     $.extend(true, $.fn.dataTable.defaults, {
       // desktop, goes rtl --> //'<"dTop"pBfl>rt<"bottom"ip>',
       dom: '<"dTop"pBfl>rtip',
-      pageLength: 3, // # rows to display on single page when using pagination
+      pageLength: 1, // # rows to display on single page when using pagination
       // lengthMenu: [
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
       //   [1, 2, '3 ދައްކާ', 5, 7, 10, 15, 20, 'ހުރިހާ']
