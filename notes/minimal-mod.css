@@ -1100,7 +1100,7 @@ img.flexItem:hover {
   border: 1px solid black;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: 12px 14px;
 
   /* padding: 14px 16px; */
   transition: 0.3s;
@@ -1114,7 +1114,7 @@ img.flexItem:hover {
   transition: 0.25s ease-out;
 
   /* fix odd four unaligned buttons */
-  width: 170px;
+  width: 150px;
 }
 
 @media (prefers-color-scheme: light) {
