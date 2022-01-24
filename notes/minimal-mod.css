@@ -1114,7 +1114,7 @@ img.flexItem:hover {
   transition: 0.25s ease-out;
 
   /* fix odd four unaligned buttons */
-  width: 150px;
+  width: 170px;
 }
 
 @media (prefers-color-scheme: light) {
