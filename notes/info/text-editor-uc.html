@@ -86,6 +86,11 @@
 
     #textSum {
       direction: ltr;
+      max-width: 650px;
+      /* centers */
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .editorButtons button {
@@ -581,7 +586,11 @@
 
             /* https://www.reddit.com/r/javascript/comments/57uzul/javascript_word_count_with_line_breaks/ */
 
-            count = words.split(/\s+/).length;
+            //count = words.split(/\s+/).length;
+            count = words
+              .replace(/\n/gm, " ")
+              .split(" ")
+              .filter((el) => el !== "").length;
 
             /* previous old code, above is much simpler
             var count = 0;
