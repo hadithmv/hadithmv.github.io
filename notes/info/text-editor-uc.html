@@ -66,14 +66,15 @@
     /*p {
             margin-top: 7px;
           }*/
-    .EditorHeader,
+
+    /*.EditorHeader,
     body {
       margin-top: 0;
       margin-bottom: 5px;
-    }
+    }*/
 
     #textHere,
-    #textSum {
+    #textSumArea {
       font-family: "arFont", "dvFont", sans-serif;
       font-size: 21px;
       line-height: 1.9;
@@ -84,7 +85,7 @@
       padding: 8px;
     }
 
-    #textSum {
+    #textSumArea {
       direction: ltr;
       max-width: 650px;
       /* centers */
@@ -97,7 +98,7 @@
       font-family: "dvFont", "arFont", sans-serif;
       font-size: 16px;
       width: 150px;
-      height: 50px;
+      height: 47px;
       margin: 5px;
       border-radius: 5px;
       border-width: 0;
@@ -110,7 +111,7 @@
       font-family: "dvFont", "arFont", sans-serif;
       font-size: 16px;
       width: 150px;
-      height: 50px;
+      height: 47px;
       margin: 5px;
       border-radius: 5px;
       border-width: 0;
@@ -124,7 +125,7 @@
       .editorButtons button {
         font-size: 13.5px;
         width: 120px;
-        height: 60px;
+        height: 42px;
         /*padding: 20px;*/
         margin: 3px;
         padding-right: 0px;
@@ -177,11 +178,15 @@
             src="https://hadithmv.github.io/img/logo/NewLogo6.2--NoBack-Opt.svg"
         /></a>-->
 
-        <br /><!--<br />-->
-        <h2 class="en EditorHeader">
-          <b><a href="https://hadithmv.github.io">hadithmv</a></b> - Text Editor
+        <!--<br /><br />-->
+        <h2 class="en" style="margin-top: 2px; margin-bottom: 6px">
+          <b><a href="https://hadithmv.github.io">hadithmv</a></b> Text Editor
+          <span class="spaceShow">&nbsp; &nbsp; &nbsp;</span>
+          <br class="breakHide" />
+          <span class="hideMobile" style="font-size: 16px"
+            >— A tool for writers —</span
+          >
         </h2>
-        <h4>— A tool for writers —</h4>
       </div>
 
       <!-- https://codepen.io/moonphase/pen/vEGMRg -->
@@ -198,7 +203,7 @@
       </div>
 
       <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs_fade -->
-      <div class="tab">
+      <div class="tab" style="max-width: 1000px; margin: 0 auto">
         <button
           class="tablinks"
           onclick="openTab(event, 'tabOne'); focusEditor();"
@@ -229,7 +234,7 @@
         }
 
         function focusAdder() {
-          document.getElementById("textSum").focus();
+          document.getElementById("textSumArea").focus();
         }
       </script>
 
@@ -270,6 +275,9 @@
           /*@mixin for-phone-only*/
           @media (max-width: 599px) {
             .spaceShow {
+              display: none;
+            }
+            .hideMobile {
               display: none;
             }
           }
@@ -463,6 +471,7 @@
           <button onclick="shaddaB4Haraka();" class="arButton">
             ـَ ـّ ← ـّ ـَ
           </button>
+          <button onclick="replaceColon();" class="arButton">: ← .</button>
           <button onclick="replaceKashida();" class="arButton">
             ســلاــم ← سلام
           </button>
@@ -532,16 +541,14 @@
           }
         </style>
         <ul class="listItems">
-          <li>ސސ- / سس- / -ss ← ﷺ</li>
-          <li>"- ← ”</li>
-          <li>-" ← “</li>
-          <li>'- ← ’</li>
-          <li>-' ← ‘</li>
+          <li>ސސ- / صص- / -ss ← ﷺ</li>
+          <li>"- ← ” / -" ← “</li>
+          <li>'- ← ’ / -' ← ‘</li>
           <li>ބރ- / -br&gt;&lt;br&gt; ← br&gt;</li>
-          <li>ރއ- ← رَضِيَ اللَّهُ عَنْهُ</li>
-          <li>ރއހ- ← رَضِيَ اللَّهُ عَنْهَا</li>
-          <li>ރއހމ2- ← رَضِيَ اللَّهُ عَنْهُمَا</li>
-          <li>ރއހމ- ← رَضِيَ اللَّهُ عَنْهُمْ</li>
+          <li>ރއ- / رض- / -ra ← رَضِيَ اللَّهُ عَنْهُ</li>
+          <li>ރއހ- / رضه- / -rah ← رَضِيَ اللَّهُ عَنْهَا</li>
+          <li>ރއ2- / رض2- / -ra2 ← رَضِيَ اللَّهُ عَنْهُمَا</li>
+          <li>ރއ3- رض3- / -ra3 ← رَضِيَ اللَّهُ عَنْهُمْ</li>
           <li>ވދ- ← ވިދާޅުވިއެވެ:</li>
           <li>ދނ- ← ދެންނެވިއެވެ:</li>
           <li>ރކ- ← ރިވާ ކުރެއްވިއެވެ:</li>
@@ -633,17 +640,25 @@
             var newText = text
               .replace(/ސސ-/g, "ﷺ")
               .replace(/ss-/g, "ﷺ")
-              .replace(/سس-/g, "ﷺ")
+              .replace(/صص-/g, "ﷺ")
               .replace(/\"-/g, "”")
               .replace(/-\"/g, "“")
               .replace(/\'-/g, "’")
               .replace(/-\'/g, "‘")
               .replace(/-br/g, "<br><br>")
               .replace(/ބރ-/g, "<br><br>")
+              .replace(/رض-/g, "رَضِيَ اللَّهُ عَنْهُ")
               .replace(/ރއ-/g, "رَضِيَ اللَّهُ عَنْهُ")
+              .replace(/ra-/g, "رَضِيَ اللَّهُ عَنْهُ")
+              .replace(/رضه-/g, "رَضِيَ اللَّهُ عَنْهَا")
               .replace(/ރއހ-/g, "رَضِيَ اللَّهُ عَنْهَا")
-              .replace(/ރއހމ2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
-              .replace(/ރއހމ-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
+              .replace(/rah-/g, "رَضِيَ اللَّهُ عَنْهَا")
+              .replace(/رض2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
+              .replace(/ރއ2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
+              .replace(/ra2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
+              .replace(/رض3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
+              .replace(/ރއ3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
+              .replace(/ra3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
               .replace(/ވދ-/g, "ވިދާޅުވިއެވެ: ")
               .replace(/ދނ-/g, "ދެންނެވިއެވެ: ")
               .replace(/ރކ-/g, "ރިވާ ކުރެއްވިއެވެ: ")
@@ -952,6 +967,13 @@
               .replace(/ٌّ/g, "ٌّ")
               .replace(/ًّ/g, "ًّ")
               .replace(/ٍّ/g, "ٍّ");
+            document.getElementById("textHere").value = newText;
+            return false;
+          }
+
+          function replaceColon() {
+            var text = document.getElementById("textHere").value;
+            var newText = text.replace(/:/g, ".");
             document.getElementById("textHere").value = newText;
             return false;
           }
@@ -1833,13 +1855,14 @@
 cols="60"-->
 
         <textarea
-          id="textSum"
+          id="textSumArea"
           placeholder=" Any numbers written here will be added, even within text... &#10; 50 books &#10; 5 print &#10; ..."
           oninput="outputSum();"
         ></textarea>
+
         <p
           class="mid"
-          style="font-size: 115%; margin-top: 0px; margin-bottom: 0px"
+          style="font-size: 115%; margin-top: 3px; margin-bottom: 0px"
         >
           Total:
           <span id="sumTotal">0.00</span>
@@ -1853,7 +1876,7 @@ cols="60"-->
           // https://stackoverflow.com/questions/39236731/how-to-find-sum-of-integers-in-a-string-using-javascript
 
           function outputSum() {
-            var str = document.getElementById("textSum").value;
+            var str = document.getElementById("textSumArea").value;
             //var str = "12sf0as9d";
             //var pattern = /\d+/g;    // \d should be fine for matching any nonnegative integer, \d is equivalent to [0-9]
             //var pattern = /\-?\d+/g; // https://stackoverflow.com/questions/6508043/regular-expression-to-find-any-number-in-a-string
@@ -1871,7 +1894,7 @@ cols="60"-->
           }
 
           function clearAdd() {
-            document.getElementById("textSum").value = "";
+            document.getElementById("textSumArea").value = "";
           }
 
           function copyAdd() {
