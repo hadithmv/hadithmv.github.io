@@ -43,7 +43,7 @@ matches:
   - trigger: "ss-"
     replace: "ﷺ"
 
-  - trigger: "سس-"
+  - trigger: "صص-"
     replace: "ﷺ"
 
   - trigger: "\"-"
@@ -64,16 +64,40 @@ matches:
   - trigger: "ބރ-"
     replace: "<br><br>"
 
+  - trigger: "رض-"
+    replace: "رَضِيَ اللَّهُ عَنْهُ"
+
   - trigger: "ރއ-"
     replace: "رَضِيَ اللَّهُ عَنْهُ"
+
+  - trigger: "ra-"
+    replace: "رَضِيَ اللَّهُ عَنْهُ"
+
+  - trigger: "رض-"
+    replace: "رَضِيَ اللَّهُ عَنْهَا"
 
   - trigger: "ރއހ-"
     replace: "رَضِيَ اللَّهُ عَنْهَا"
 
-  - trigger: "ރއހމ2-"
+  - trigger: "rah-"
+    replace: "رَضِيَ اللَّهُ عَنْهَا"
+
+  - trigger: "رض2-"
     replace: "رَضِيَ اللَّهُ عَنْهُمَا"
 
-  - trigger: "ރއހމ-"
+  - trigger: "ރއ2-"
+    replace: "رَضِيَ اللَّهُ عَنْهُمَا"
+
+  - trigger: "ra2-"
+    replace: "رَضِيَ اللَّهُ عَنْهُمَا"
+
+  - trigger: "رض3-"
+    replace: "رَضِيَ اللَّهُ عَنْهُمْ"
+
+  - trigger: "ރއ3-"
+    replace: "رَضِيَ اللَّهُ عَنْهُمْ"
+
+  - trigger: "ra3-"
     replace: "رَضِيَ اللَّهُ عَنْهُمْ"
 
   - trigger: "ވދ-"
