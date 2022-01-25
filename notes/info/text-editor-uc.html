@@ -76,7 +76,7 @@
       margin-bottom: 5px;
     }*/
 
-    #textHere,
+    #textMainArea,
     #textSumArea {
       font-family: "arFont", "dvFont", sans-serif;
       font-size: 21px;
@@ -182,7 +182,10 @@
         /></a>-->
 
         <!--<br /><br />-->
-        <h2 class="en" style="margin-top: 4px; margin-bottom: 8px">
+        <h2
+          class="en"
+          style="margin-top: 4px; margin-bottom: 5px; font-size: 20px"
+        >
           <b><a href="https://hadithmv.github.io">hadithmv</a></b> Text Editor
           <span class="spaceShow">&nbsp; &nbsp; &nbsp;</span>
           <br class="breakHide" />
@@ -233,7 +236,7 @@
 
       <script>
         function focusEditor() {
-          document.getElementById("textHere").focus();
+          document.getElementById("textMainArea").focus();
         }
 
         function focusAdder() {
@@ -308,7 +311,7 @@
         <!-- rows="10"
       cols="60"-->
         <textarea
-          id="textHere"
+          id="textMainArea"
           placeholder=" އަބޫ ހުރައިރާ ރިވާ ކުރެއްވިއެވެ: ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”..."
           oninput="countChar();countWord();replaceType();"
           autofocus="autofocus"
@@ -323,7 +326,7 @@
           i.addEventListener(
             "input",
             function () {
-              var o = document.getElementById("textHere");
+              var o = document.getElementById("textMainArea");
               var val = i.value;
               o.style.fontSize = val + "px";
             },
@@ -351,10 +354,10 @@
             document.querySelector(".screenshot") &&
               document.querySelector(".screenshot").remove();
 
-            var textarea = document.getElementById("textHere");
+            var textarea = document.getElementById("textMainArea");
             textarea.style.height = textarea.scrollHeight + "px";
 
-            html2canvas(document.querySelector("#textHere"), {
+            html2canvas(document.querySelector("#textMainArea"), {
               //height: 1200,
             }).then((canvas) => {
               document.getElementById("img-out").appendChild(canvas).className =
@@ -366,7 +369,7 @@
                     document.querySelector("#screenshot") &&
                       document.querySelector("#screenshot").remove();
                     //document.getElementById("img-out").remove(img);
-                    var node = document.getElementById("textHere");*/
+                    var node = document.getElementById("textMainArea");*/
 
           /*
                     var options = {
@@ -426,7 +429,7 @@
                     document.querySelector(".createdImg") &&
                       document.querySelector(".createdImg").remove();
 
-                    html2canvas(document.querySelector("#textHere"), {
+                    html2canvas(document.querySelector("#textMainArea"), {
                       width: 500,
                       height: 500,
                       allowTaint: true,
@@ -516,7 +519,7 @@
 
         <script>
           function findAndReplace() {
-            var input = document.getElementById("textHere").value;
+            var input = document.getElementById("textMainArea").value;
             var replaceWith = document.getElementById("replaceWith").value;
             var find = new RegExp(
               document.getElementById("findThis").value,
@@ -524,7 +527,7 @@
             );
             //var regex = new RegExp("ReGeX" + find + "ReGeX");
 
-            document.getElementById("textHere").value = input.replace(
+            document.getElementById("textMainArea").value = input.replace(
               find,
               replaceWith
             );
@@ -574,7 +577,7 @@
 
         <script type="text/javascript">
           function countChar() {
-            var total = document.getElementById("textHere").value;
+            var total = document.getElementById("textMainArea").value;
             /* this does not count spaces */
             //total = total.replace(/\s/g, "");
 
@@ -589,7 +592,7 @@
         <script>
           function countWord() {
             // Get the input text value
-            var words = document.getElementById("textHere").value;
+            var words = document.getElementById("textMainArea").value;
 
             /* doesnt include new lines https://stackoverflow.com/questions/18679576/counting-words-in-string */
             //count = words.split(" ").length;
@@ -623,7 +626,7 @@
 
         <script>
           function replaceFili() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/[ًٌٍَُِّْ]/g, "")
               .replace(/[\u06d4-\u06dc]/g, "")
@@ -634,12 +637,12 @@
               .replace(/\u0674/g, "")
               .replace(/ـ/g, "")
               .replace(/ٱ|ٲ|ٳ/g, "ا");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function replaceType() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/ސސ-/g, "ﷺ")
               .replace(/ss-/g, "ﷺ")
@@ -685,25 +688,25 @@
               .replace(/ޟ-/g, "މި ޙަދީޘް ޟަޢީފު ކުރެއްވިއެވެ.")
               .replace(/މރވ-/g, "މި ޙަދީޘް ރިވާ ކުރެއްވީ");
 
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           // https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
 
           function toTitleCase() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text.replace(/\w\S*/g, function (txt) {
               return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
             });
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             //navigator.clipboard.writeText(newText);
             //return false;
 
             /* https://stackoverflow.com/a/57192718 */
             /* the copy button only solutions remove the whole textarea, thats why not using that here */
 
-            var copyText = document.getElementById("textHere"); //document.getElementById("dummy");
+            var copyText = document.getElementById("textMainArea"); //document.getElementById("dummy");
             copyText.type = "text";
             copyText.select();
             document.execCommand("copy");
@@ -712,16 +715,16 @@
 
           // https://stackoverflow.com/questions/19089442/convert-string-to-sentence-case-in-javascript
           function toSentCase() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var rg = /(^\w{1}|\.\s*\w{1})/gi;
             var newText = text.replace(rg, function (toReplace) {
               return toReplace.toUpperCase();
             });
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             //navigator.clipboard.writeText(newText);
             //return false;
 
-            var copyText = document.getElementById("textHere");
+            var copyText = document.getElementById("textMainArea");
             copyText.type = "text";
             copyText.select();
             document.execCommand("copy");
@@ -729,13 +732,13 @@
           }
 
           function toLowerCase() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text.toLowerCase();
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             //navigator.clipboard.writeText(newText);
             //return false;
 
-            var copyText = document.getElementById("textHere");
+            var copyText = document.getElementById("textMainArea");
             copyText.type = "text";
             copyText.select();
             document.execCommand("copy");
@@ -743,7 +746,7 @@
           }
 
           function numToAr() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/0/g, "٠")
               .replace(/1/g, "١")
@@ -755,12 +758,12 @@
               .replace(/7/g, "٧")
               .replace(/8/g, "٨")
               .replace(/9/g, "٩");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function shortenSalla() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/صلى الله عليه وسلم/g, "ﷺ")
               .replace(/صَلَّى اللَّهُ عَلَيهِ وَسَلَّم/g, "ﷺ")
@@ -768,12 +771,12 @@
               .replace(/صَلَّى اللَّهُ عَلَيهِ وَسَلَّم/g, "ﷺ")
               .replace(/صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمْ/g, "ﷺ")
               .replace(/صَلَّى الله عَلَيهِ وَسَلَّم/g, "ﷺ");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function arToNum() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/٠/g, "0")
               .replace(/١/g, "1")
@@ -785,12 +788,12 @@
               .replace(/٧/g, "7")
               .replace(/٨/g, "8")
               .replace(/٩/g, "9");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function numToSansSerif() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/0/g, "𝟢")
               .replace(/1/g, "𝟣")
@@ -802,34 +805,34 @@
               .replace(/7/g, "𝟩")
               .replace(/8/g, "𝟪")
               .replace(/9/g, "𝟫");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function dotsToEllipsis() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text.replace(/\.\.\./g, "…");
             var newText = text.replace(/ \. \. \./g, "…");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function hyphenToEnDash() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text.replace(/\-/g, "–");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function hyphenToEmDash() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text.replace(/\-/g, "—");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function numToSuperScript() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/\(/g, "⁽")
               .replace(/\)/g, "⁾")
@@ -843,12 +846,12 @@
               .replace(/7/g, "⁷")
               .replace(/8/g, "⁸")
               .replace(/9/g, "⁹");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function remThiki() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/ޘ/g, "ސ")
               .replace(/ޙ/g, "ހ")
@@ -860,12 +863,12 @@
               .replace(/ޢ/g, "އ")
               .replace(/ޤ/g, "ގ")
               .replace(/ޥ/g, "ވ");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function replaceSpacesLines() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/^[ \s]+|[ \s]+$/g, "")
               .replace(/(\r\n|\r|\n){3,}/g, "$1\n")
@@ -898,12 +901,12 @@
               .replace(/\" /g, '"') //starting quotation mark
               .replace(/(\s|^)\"([^\"]+) \"/g, '$1"$2"') //ending quotation mark
               .replace(/\- \./g, "-.");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function replacePunct() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/\!/g, "")
               .replace(/\@/g, "")
@@ -939,29 +942,29 @@
               .replace(/\’/g, "")
               .replace(/\”/g, "")
               .replace(/\“/g, "");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function replaceCommaScolonQ() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text.replace(/\,/g, "،");
             var newText = text.replace(/\;/g, "؛");
             var newText = text.replace(/\?/g, "؟");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function replaceQbracket() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text.replace(/\{/g, "﴾").replace(/\}/g, "﴿");
             var newText = text.replace(/\*/g, "۝");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function shaddaB4Haraka() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/ُّ/g, "ُّ")
               .replace(/َّ/g, "َّ")
@@ -970,55 +973,55 @@
               .replace(/ٌّ/g, "ٌّ")
               .replace(/ًّ/g, "ًّ")
               .replace(/ٍّ/g, "ٍّ");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function replaceColon() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text.replace(/:/g, ".");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function replaceKashida() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text.replace(/ـ/g, "");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function replaceQuotes() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/(|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C") //without spaces
               .replace(/(\s|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C")
               .replace(/(|^)\'([^\']+)\'/g, "$1\u2019$2\u2018") //without spaces
               .replace(/(\s|^)\'([^\']+)\'/g, "$1\u2019$2\u2018");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function replaceQtoDoubleAngBrackets() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/(|^)\"([^\"]+)\"/g, "$1\«$2\»") //without spaces
               .replace(/(\s|^)\"([^\"]+)\"/g, "$1\«$2\»");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function replaceDoubleAngBracketstoQ() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/(|^)\«([^\»]+)\»/g, "$1\u201D$2\u201C") //without spaces
               .replace(/(\s|^)\«([^\»]+)\»/g, "$1\u201D$2\u201C");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
 
           function replaceDoubleBrackets() {
-            var text = document.getElementById("textHere").value;
+            var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/\(\(/g, "(")
               .replace(/\)\)/g, ")")
@@ -1026,7 +1029,7 @@
               .replace(/\]\]/g, "]")
               .replace(/\{\{/g, "{")
               .replace(/\}\}/g, "}");
-            document.getElementById("textHere").value = newText;
+            document.getElementById("textMainArea").value = newText;
             return false;
           }
         </script>
@@ -1036,7 +1039,7 @@
         <script>
           function copyToClipB() {
             /* Get the text field */
-            var copyText = document.getElementById("textHere");
+            var copyText = document.getElementById("textMainArea");
 
             /* Select the text field */
             //copyText.select();
@@ -1056,7 +1059,7 @@
           }
 
           function clearTextArea() {
-            document.getElementById("textHere").value = "";
+            document.getElementById("textMainArea").value = "";
           }
 
           function copyDate() {
@@ -1922,6 +1925,12 @@ cols="60"-->
         <link rel="stylesheet" href="../editor.css" />
         <script src="../../js/resc/COMB-nonCrit.js"></script>
         <script src="../editor.js"></script>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/highlight-within-textarea@2.0.5/jquery.highlight-within-textarea.css"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/highlight-within-textarea@2.0.5/jquery.highlight-within-textarea.min.js"></script>
+
         <!-- replaced internal links with external local ones -->
         <!--<link
           rel="stylesheet"
