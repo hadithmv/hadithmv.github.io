@@ -219,11 +219,9 @@
         <button class="tablinks" onclick="openTab(event, 'tabTwo')">
           Copy - ކޮޕީ
         </button>
-        <button
-          class="tablinks"
-          onclick="openTab(event, 'tabThree'); focusAdder();"
-        >
-          Add - ހިސާބު
+        <button class="tablinks" onclick="openTab(event, 'tabThree');">
+          <!--  focusAdder();-->
+          Calc - ހިސާބު
         </button>
         <button
           class="tablinks"
@@ -239,9 +237,9 @@
           document.getElementById("textMainArea").focus();
         }
 
-        function focusAdder() {
+        /*function focusAdder() {
           document.getElementById("textSumArea").focus();
-        }
+        }*/
       </script>
 
       <style>
@@ -252,7 +250,7 @@
       </style>
 
       <div id="tabOne" class="tabcontent">
-        <div class="mid" style="margin-top: 3px; margin-bottom: 2px">
+        <div class="mid">
           ކެރެކްޓާތައް:
           <span id="characters">0</span>&nbsp; | &nbsp;ބަސްތައް:
           <span id="words">0</span>
@@ -266,7 +264,13 @@
       -->
 
           <span class="small-letter">A</span>&nbsp;
-          <input id="slider" type="range" min="10" max="100" />&nbsp;
+          <input
+            id="slider"
+            type="range"
+            min="10"
+            max="100"
+            style="padding: 0"
+          />&nbsp;
           <span class="big-letter">A</span>
         </div>
 
@@ -290,7 +294,7 @@
 
           .small-letter {
             font-size: 14px;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             display: inline-block;
             vertical-align: middle;
           }
@@ -301,6 +305,7 @@
 
           /*.sliderLetters {
             margin-bottom: -20px;
+            display: inline;
           }*/
         </style>
 
@@ -1861,7 +1866,7 @@ cols="60"-->
 
         <textarea
           id="textSumArea"
-          placeholder=" Any numbers written here will be added, even within text... &#10; 50 books &#10; 5 print &#10; ..."
+          placeholder=" Any numbers written here will be added, even within text. Use it to add up the total cost for a list of items. Eg: &#10; 50 books &#10; 5 print &#10; ..."
           oninput="outputSum();"
           style="margin-top: 15px"
         ></textarea>
@@ -1873,9 +1878,11 @@ cols="60"-->
           Total:
           <span id="sumTotal">0.00</span>
         </p>
-        <div class="mid editorButtons">
+        <div class="mid editorButtons" style="font-family: sans-serif">
           <button onclick="copyAdd();">Copy</button>
           <button onclick="clearAdd();">Clear</button>
+
+          <div id="sumZakat"></div>
         </div>
 
         <script>
@@ -1887,7 +1894,7 @@ cols="60"-->
             //var pattern = /\d+/g;    // \d should be fine for matching any nonnegative integer, \d is equivalent to [0-9]
             //var pattern = /\-?\d+/g; // https://stackoverflow.com/questions/6508043/regular-expression-to-find-any-number-in-a-string
             var pattern = /[+-]?\d+(?:\.\d+)?/g;
-            var total = str.match(pattern).reduce(function (prev, num) {
+            var totalSum = str.match(pattern).reduce(function (prev, num) {
               return prev + +num;
             }, 0);
 
@@ -1896,7 +1903,22 @@ cols="60"-->
 
             //document.getElementById("sumTotal").innerHTML = total;
             //https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
-            document.getElementById("sumTotal").innerHTML = total.toFixed(2);
+            document.getElementById("sumTotal").innerHTML = totalSum.toFixed(2);
+
+            /**/
+
+            var calcZakat = totalSum * 0.025;
+
+            /*document
+              .querySelector("#sumZakat")
+              .text(
+                "The zakat for this total would be: " + calcZakat.toFixed(2)
+              );*/
+
+            document.getElementById("sumZakat").innerHTML =
+              "<br />The zakat for this total would be: " +
+              calcZakat.toFixed(2);
+            /**/
           }
 
           function clearAdd() {
@@ -1916,6 +1938,178 @@ cols="60"-->
             tempInput.select();
             document.execCommand("copy");
             document.body.removeChild(tempInput);
+          }
+        </script>
+
+        <br />
+        <hr />
+
+        <style>
+          input,
+          select {
+            /*width: 50%;*/
+            padding: 6px 6px;
+            margin: 4px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+
+            text-align: center;
+            font-family: sans-serif;
+          }
+
+          /*input[type="date"]::-webkit-calendar-picker-indicator {
+            -webkit-appearance: none;
+            display: none;
+          }*/
+
+          /*::-webkit-calendar-picker-indicator {
+            margin-left: 0px;
+          }*/
+
+          /*.dateResult {
+            font-weight: bold;
+            color: #eee;
+            background-color: #0b578c;
+          }*/
+
+          /*#b4Maghrib,
+            #afterMaghrib*/
+          #thirdOfNight,
+          #halfOfNight {
+            /*color: #39c;*/
+
+            /*width: 50%;*/
+            padding: 4px 8px;
+            margin: 4px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+
+            text-align: center;
+            font-family: sans-serif;
+
+            color: #eee;
+            background-color: #0b578c;
+            font-size: 90%;
+          }
+        </style>
+
+        <div class="en mid">
+          <h2 style="font-size: 23px">
+            <a><b>Third and Half of Night Calculator</b></a>
+          </h2>
+          Select Maghrib Time: &nbsp;
+          <input type="time" id="time1" onchange="calcTime();" />
+          <br />
+          Select Fajr Time: &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+          <input type="time" id="time2" onchange="calcTime();" />
+          <br /><br />
+          <!-- commented out after testing, had to comment out the js putting the values here first
+          Maghrib in Seconds &nbsp;
+          <input type="text" id="seconds1" />
+          <br />
+          Fajr in Seconds &nbsp;
+          <input type="text" id="seconds2" />
+          <br />
+          Difference in Seconds &nbsp;
+          <input type="text" id="secondsDiff" />
+          <br />
+          a third in seconds &nbsp;
+          <input type="text" id="thirdS" />
+          <br />
+          a half in seconds &nbsp;
+          <input type="text" id="halfS" />
+          <br />
+          Last third of the night starts seconds &nbsp;
+          <input type="text" id="thirdOfNightS" />
+          <br />
+          Last half of the night starts seconds &nbsp;
+          <input type="text" id="halfOfNightS" />
+          <br />-->
+          Last third is: &nbsp;
+          <input type="text" id="thirdOfNight" style="width: 70px" />
+          <div id="time"></div>
+          Midnight is: &nbsp;&nbsp;
+          <input type="text" id="halfOfNight" style="width: 70px" />
+          <br />
+        </div>
+
+        <script>
+          function calcTime() {
+            /*var start = document.getElementById("time1").value;
+              var end = document.getElementById("time2").value;*/
+
+            /* https://thewebdev.info/2021/05/23/how-to-convert-hhmmss-time-string-to-seconds-only-in-javascript/ */
+
+            var maghribStart = document.getElementById("time1").value;
+            var [hours1, minutes1] = maghribStart.split(":");
+            var maghribSeconds = +hours1 * 60 * 60 + +minutes1 * 60;
+            //document.getElementById("seconds1").value = maghribSeconds;
+
+            var fajrEnd = document.getElementById("time2").value;
+            var [hours2, minutes2] = fajrEnd.split(":");
+            var fajrSeconds = +hours2 * 60 * 60 + +minutes2 * 60;
+            //document.getElementById("seconds2").value = fajrSeconds;
+
+            /* https://github.com/proateen/thirdofthenight/blob/main/script.js 
+              
+              alternative: https://fawazahmed0.github.io/last-third-night-calculator/ 
+              
+              they dont match, so obviously one is wrong, first i thought it was the former, now the latter */
+
+            if (maghribSeconds > fajrSeconds) {
+              var diffSeconds = 86400 - (maghribSeconds - fajrSeconds); //subtract 1 day
+            } else {
+              var diffSeconds = fajrSeconds - maghribSeconds;
+            }
+            //document.getElementById("secondsDiff").value = diffSeconds;
+
+            //var diffSeconds = fajrSeconds - maghribSeconds;
+
+            var thirdsOfSeconds = diffSeconds / 3;
+            //document.getElementById("thirdS").value = thirdsOfSeconds;
+            var nightThirdinSeconds = fajrSeconds - thirdsOfSeconds;
+            //document.getElementById("thirdOfNightS").value =
+            nightThirdinSeconds;
+
+            var halfOfSeconds = diffSeconds / 2;
+            //document.getElementById("halfS").value = halfOfSeconds;
+            var nightHalfinSeconds = fajrSeconds - halfOfSeconds;
+            //document.getElementById("halfOfNightS").value =
+            nightHalfinSeconds;
+
+            /*var date = new Date(null);
+              date.setSeconds(nightThirdinSeconds); // specify value for SECONDS here
+              var result = date.toISOString().substr(11, 5);*/
+
+            var dateThird = new Date(null);
+            dateThird.setSeconds(nightThirdinSeconds); // specify value for SECONDS here
+            /* seconds to time again
+              https://stackoverflow.com/a/25279340 
+              removed seconds with https://stackoverflow.com/a/69278958 */
+            var nightThirdinTime = dateThird.toISOString().substr(11, 5);
+            document.getElementById("thirdOfNight").value = nightThirdinTime; // + " PM"
+
+            var dateHalf = new Date(null);
+            dateHalf.setSeconds(nightHalfinSeconds);
+            var nightHalfinTime = dateHalf.toISOString().substr(11, 5);
+            document.getElementById("halfOfNight").value = nightHalfinTime; // + " PM"
+
+            //var calcRemThird = fajrSeconds - nightThirdinSeconds;
+
+            //https://stackoverflow.com/a/13904621
+            /*var calcNewYear = setInterval(function () {
+
+                //https://stackoverflow.com/a/3830279
+                var timeNow = new Date().toLocaleTimeString(); //new Date().toTimeString().split(" ")[0];
+
+                $("#time").text("Time remaining is\n" + timeNow + " seconds");
+              }, 1000);*/
+
+            /**/
           }
         </script>
       </div>
