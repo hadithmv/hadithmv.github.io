@@ -85,7 +85,7 @@
       height: 300px;
       border-radius: 4px;
       direction: rtl;
-      padding: 8px;
+      padding: 10px;
     }
 
     #textSumArea {
@@ -320,6 +320,7 @@
           placeholder=" އަބޫ ހުރައިރާ ރިވާ ކުރެއްވިއެވެ: ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”..."
           oninput="countChar();countWord();replaceType();"
           autofocus="autofocus"
+          style="padding-right: 13px"
         ></textarea>
         <!-- autofocus wont work if hidden by another tab -->
         <div id="img-out"></div>
@@ -1866,9 +1867,9 @@ cols="60"-->
 
         <textarea
           id="textSumArea"
-          placeholder=" Any numbers written here will be added, even within text. Use it to add up the total cost for a list of items. Eg: &#10; 50 books &#10; 5 print &#10; ..."
+          placeholder="Any numbers written here will be added, even within text. Use it to add up the total cost for a list of items. Eg: &#10;50 books &#10;5 print &#10;..."
           oninput="outputSum();"
-          style="margin-top: 15px"
+          style="margin-top: 15px; padding-left: 13px"
         ></textarea>
 
         <p
