@@ -54,8 +54,8 @@
     .tab button {
       /* fix odd four unaligned buttons
   width: 170px;
-  but 100 percent below to accomodate long third buttons*/
-      width: 100%;
+  but auto below to accomodate long third buttons*/
+      width: auto;
     }
   </style>
 
@@ -651,7 +651,7 @@
             </p>
             <p>
               * If you don’t know the date of your child’s Aqeeqah, you can
-              scroll down to use our date calculator.
+              scroll down to use our <a href="#jumpCalc">date calculator</a>.
             </p>
           </div>
         </div>
@@ -672,7 +672,8 @@
             </p>
             <p>
               * ދަރިފުޅުގެ އަގީގާ ކަތިލަންވީ ތާރީޚު އެނގިނުއްލަވާ ނަމަ، ތިރިއަށް
-              ގޮސް އަޅުގަނޑުމެންގެ ތާރީޚު ކެލްކިއުލޭޓަރ ބޭނުން ކުރެވިދާނެ.
+              ގޮސް އަޅުގަނޑުމެންގެ
+              <a href="#jumpCalc">ތާރީޚު ކެލްކިއުލޭޓަރ</a> ބޭނުން ކުރެވިދާނެ.
             </p>
           </div>
         </div>
@@ -1195,14 +1196,34 @@
             margin-left: 0px;
           }
 
-          .dateResult {
-            /*font-weight: bold;*/
+          /*.dateResult {
+            font-weight: bold;
             color: #eee;
             background-color: #0b578c;
+          }*/
+
+          #b4Maghrib,
+          #afterMaghrib {
+            /*color: #39c;*/
+
+            /*width: 50%;*/
+            padding: 4px 8px;
+            margin: 4px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+
+            text-align: center;
+            font-family: sans-serif;
+
+            color: #eee;
+            background-color: #0b578c;
+            font-size: 90%;
           }
         </style>
 
-        <div class="en mid">
+        <div class="en mid" id="jumpCalc">
           <h2>
             <a><b>Ageega Date Calculator</b></a>
           </h2>
@@ -1227,8 +1248,9 @@
           <br /><br /><br />
           <strong>Due date of sacrifice is below</strong>
 
+          <!-- this replaces the second date output after calculation,
+           this is so as to let the american format mess things up -->
           <div class="oldDateOutput" style="display: none">
-            If child born BEFORE maghrib, Ageega is on: &nbsp;
             <input
               class="dateResult"
               type="date"
@@ -1236,9 +1258,6 @@
               data-date=""
               data-date-format="DD MMMM YYYY"
             />
-
-            <br />
-            If child born AFTER maghrib, Ageega is on: &nbsp;
             <input
               class="dateResult"
               type="date"
@@ -1249,33 +1268,12 @@
           </div>
           <!-- can add "readonly" just before end, but doest center properly-->
 
-          <br />
-
-          <style>
-            #b4Maghrib,
-            #afterMaghrib {
-              /*color: #39c;*/
-
-              /*width: 50%;*/
-              padding: 4px 8px;
-              margin: 4px 0;
-              display: inline-block;
-              border: 1px solid #ccc;
-              border-radius: 4px;
-              box-sizing: border-box;
-
-              text-align: center;
-              font-family: sans-serif;
-
-              color: #eee;
-              background-color: #0b578c;
-              font-size: 90%;
-            }
-          </style>
+          <!-- this gets replaced by the first date output after calculation,
+           this is so as to let the american format mess things up -->
           <p class="mid">
             If child born BEFORE maghrib, Aqeeqah is on: &nbsp;
             <span id="b4Maghrib">0</span>
-            <br /><br />
+            <br />
             If child born AFTER maghrib, Aqeeqah is on: &nbsp;
             <span id="afterMaghrib">0</span>
           </p>
