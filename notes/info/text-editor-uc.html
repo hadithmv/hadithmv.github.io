@@ -37,11 +37,17 @@
   </head>
 
   <style>
+    /*.tabcontent {
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }*/
     hr {
       width: 90%;
     }
     .wrapper {
       width: 100%;
+      max-width: 1200px;
     }
     body {
       padding-left: 20px;
@@ -1886,7 +1892,11 @@ cols="60"-->
           <button onclick="copyAdd();">Copy</button>
           <button onclick="clearAdd();">Clear</button>
 
-          <div id="sumZakat"></div>
+          <br />
+
+          <p>
+            The zakat for this total would be: <span id="sumZakat">0.00</span>
+          </p>
         </div>
 
         <script>
@@ -1912,6 +1922,8 @@ cols="60"-->
             /**/
 
             var calcZakat = totalSum * 0.025;
+            document.getElementById("sumZakat").innerHTML =
+              calcZakat.toFixed(2);
 
             /*document
               .querySelector("#sumZakat")
@@ -1919,10 +1931,10 @@ cols="60"-->
                 "The zakat for this total would be: " + calcZakat.toFixed(2)
               );*/
 
-            document.getElementById("sumZakat").innerHTML =
+            /*document.getElementById("sumZakat").innerHTML =
               "<br />The zakat for this total would be: " +
               calcZakat.toFixed(2);
-            /**/
+            */
           }
 
           function clearAdd() {
@@ -2002,6 +2014,7 @@ cols="60"-->
         </style>
 
         <div class="en mid">
+          <br />
           <h2 style="font-size: 23px; line-height: 1.5">
             <a><b>Third and Half of Night Calculator</b></a>
           </h2>
