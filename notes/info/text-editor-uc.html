@@ -1980,7 +1980,7 @@ cols="60"-->
 
           /*#b4Maghrib,
             #afterMaghrib*/
-          #thirdOfNight,
+          #thirdOfNight3,
           #halfOfNight {
             /*color: #39c;*/
 
@@ -2005,13 +2005,43 @@ cols="60"-->
           <h2 style="font-size: 23px; line-height: 1.5">
             <a><b>Third and Half of Night Calculator</b></a>
           </h2>
-          Select Maghrib Time: &nbsp;
-          <input type="time" id="time1" onchange="calcTime();" />
-          <br />
-          Select Fajr Time: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          <input type="time" id="time2" onchange="calcTime();" />
-          <br /><br />
-          <!-- commented out after testing, had to comment out the js putting the values here first
+
+          <table style="margin-left: auto; margin-right: auto; font-size: 110%">
+            <tr>
+              <td>Select Maghrib Time: &nbsp; &nbsp;</td>
+              <td><input type="time" id="time1" onchange="calcTime();" /></td>
+            </tr>
+            <tr>
+              <td>Select Fajr Time:</td>
+              <td><input type="time" id="time2" onchange="calcTime();" /></td>
+            </tr>
+            <tr>
+              <td>Midnight is:</td>
+              <td>
+                <input type="text" id="halfOfNight" style="width: 70px" />
+              </td>
+            </tr>
+            <tr>
+              <td>Last third is:</td>
+              <td>
+                <input type="text" id="thirdOfNight3" style="width: 70px" />
+              </td>
+            </tr>
+            <tr>
+              <td>Second third is:</td>
+              <td>
+                <input type="text" id="thirdOfNight2" style="width: 70px" />
+              </td>
+            </tr>
+            <tr>
+              <td>First third is:</td>
+              <td>
+                <input type="text" id="thirdOfNight1" style="width: 70px" />
+              </td>
+            </tr>
+          </table>
+        </div>
+        <!-- commented out after testing, had to comment out the js putting the values here first
           Maghrib in Seconds &nbsp;
           <input type="text" id="seconds1" />
           <br />
@@ -2028,18 +2058,11 @@ cols="60"-->
           <input type="text" id="halfS" />
           <br />
           Last third of the night starts seconds &nbsp;
-          <input type="text" id="thirdOfNightS" />
+          <input type="text" id="thirdOfNight3S" />
           <br />
           Last half of the night starts seconds &nbsp;
           <input type="text" id="halfOfNightS" />
           <br />-->
-          Last third is: &nbsp;
-          <input type="text" id="thirdOfNight" style="width: 70px" />
-          <div id="time"></div>
-          Midnight is: &nbsp;&nbsp;
-          <input type="text" id="halfOfNight" style="width: 70px" />
-          <br />
-        </div>
 
         <script>
           function calcTime() {
@@ -2076,8 +2099,11 @@ cols="60"-->
             var thirdsOfSeconds = diffSeconds / 3;
             //document.getElementById("thirdS").value = thirdsOfSeconds;
             var nightThirdinSeconds = fajrSeconds - thirdsOfSeconds;
-            //document.getElementById("thirdOfNightS").value =
+            //document.getElementById("thirdOfNight3S").value =
             nightThirdinSeconds;
+
+            var nightSecondinSeconds = nightThirdinSeconds - thirdsOfSeconds;
+            var nightFirstinSeconds = nightSecondinSeconds - thirdsOfSeconds;
 
             var halfOfSeconds = diffSeconds / 2;
             //document.getElementById("halfS").value = halfOfSeconds;
@@ -2095,7 +2121,17 @@ cols="60"-->
               https://stackoverflow.com/a/25279340 
               removed seconds with https://stackoverflow.com/a/69278958 */
             var nightThirdinTime = dateThird.toISOString().substr(11, 5);
-            document.getElementById("thirdOfNight").value = nightThirdinTime; // + " PM"
+            document.getElementById("thirdOfNight3").value = nightThirdinTime; // + " PM"
+
+            var dateSecond = new Date(null);
+            dateSecond.setSeconds(nightSecondinSeconds); // specify value for SECONDS here
+            var nightSecondinTime = dateSecond.toISOString().substr(11, 5);
+            document.getElementById("thirdOfNight2").value = nightSecondinTime; // + " PM"
+
+            var dateFirst = new Date(null);
+            dateFirst.setSeconds(nightFirstinSeconds); // specify value for SECONDS here
+            var nightFirstinTime = dateFirst.toISOString().substr(11, 5);
+            document.getElementById("thirdOfNight1").value = nightFirstinTime; // + " PM"
 
             var dateHalf = new Date(null);
             dateHalf.setSeconds(nightHalfinSeconds);

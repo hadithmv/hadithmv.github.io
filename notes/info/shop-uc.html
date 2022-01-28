@@ -1228,28 +1228,48 @@
             <a><b>Ageega Date Calculator</b></a>
           </h2>
 
-          Select the date on which your child was born: &nbsp;
-          <input
-            type="date"
-            onchange="setSecondDate();"
-            data-date=""
-            data-date-format="DD MMMM YYYY"
-            id="date1"
-          />
+          <table style="margin-left: auto; margin-right: auto; font-size: 110%">
+            <tr>
+              <td>Select the date on which your child was born:</td>
+              <td>
+                <input
+                  type="date"
+                  onchange="setSecondDate();"
+                  data-date=""
+                  data-date-format="DD MMMM YYYY"
+                  id="date1"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Select the number of days you want to count after birth:</td>
+              <td>
+                <select id="select" onchange="setSecondDate();">
+                  <option value="6">7 days</option>
+                  <option value="13">14 days</option>
+                  <option value="20">21 days</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>If child born BEFORE maghrib, Aqeeqah is on:</td>
+              <td>
+                <span id="b4Maghrib">0</span>
+              </td>
+            </tr>
+            <tr>
+              <td>If child born AFTER maghrib, Aqeeqah is on:</td>
+              <td>
+                <span id="afterMaghrib">0</span>
+              </td>
+            </tr>
+          </table>
+          <!-- above 0 gets replaced by the below date output after calculation,
+           this is so as to not let the american format mess things up -->
 
-          <br /><br />
-          Select the number of days you want to count after birth: &nbsp;
-          <select id="select" onchange="setSecondDate();">
-            <option value="6">7 days</option>
-            <option value="13">14 days</option>
-            <option value="20">21 days</option>
-          </select>
+          <!--<strong>Due date of sacrifice is below</strong>-->
 
-          <br /><br /><br />
-          <strong>Due date of sacrifice is below</strong>
-
-          <!-- this replaces the second date output after calculation,
-           this is so as to let the american format mess things up -->
+          <!-- below replaces the above date output after calculation -->
           <div class="oldDateOutput" style="display: none">
             <input
               class="dateResult"
@@ -1267,16 +1287,6 @@
             />
           </div>
           <!-- can add "readonly" just before end, but doest center properly-->
-
-          <!-- this gets replaced by the first date output after calculation,
-           this is so as to let the american format mess things up -->
-          <p class="mid">
-            If child born BEFORE maghrib, Aqeeqah is on: &nbsp;
-            <span id="b4Maghrib">0</span>
-            <br />
-            If child born AFTER maghrib, Aqeeqah is on: &nbsp;
-            <span id="afterMaghrib">0</span>
-          </p>
 
           <!--* check whether month comes before day (mm/dd) in the date picker,
           this shows on certain devices based on the user’s locale settings *-->
