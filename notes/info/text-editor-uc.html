@@ -91,6 +91,7 @@
       height: 300px;
       border-radius: 4px;
       direction: rtl;
+
       /* box sizing lets me add padding without losing the centering */
       padding: 10px;
       box-sizing: border-box;
@@ -220,17 +221,15 @@
 
       <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs_fade -->
       <div class="tab" style="max-width: 1000px; margin: 0 auto">
-        <button
-          class="tablinks"
-          onclick="openTab(event, 'tabOne'); focusEditor();"
-        >
+        <button class="tablinks" onclick="openTab(event, 'tabOne');">
+          <!--  focusEditor(); -->
           Edit - އެޑިޓް
         </button>
         <button class="tablinks" onclick="openTab(event, 'tabTwo')">
           Copy - ކޮޕީ
         </button>
         <button class="tablinks" onclick="openTab(event, 'tabThree');">
-          <!--  focusAdder();-->
+          <!--  focusAdder(); -->
           Calc - ހިސާބު
         </button>
         <button
@@ -243,9 +242,9 @@
       </div>
 
       <script>
-        function focusEditor() {
+        /*function focusEditor() {
           document.getElementById("textMainArea").focus();
-        }
+        }*/
 
         /*function focusAdder() {
           document.getElementById("textSumArea").focus();
