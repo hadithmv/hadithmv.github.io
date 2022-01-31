@@ -221,8 +221,11 @@
 
       <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs_fade -->
       <div class="tab" style="max-width: 1000px; margin: 0 auto">
-        <button class="tablinks" onclick="openTab(event, 'tabOne');">
-          <!--  focusEditor(); -->
+        <button
+          class="tablinks"
+          onclick="openTab(event, 'tabOne'); focusEditor();"
+        >
+          <!--   -->
           Edit - އެޑިޓް
         </button>
         <button class="tablinks" onclick="openTab(event, 'tabTwo')">
@@ -242,9 +245,9 @@
       </div>
 
       <script>
-        /*function focusEditor() {
+        function focusEditor() {
           document.getElementById("textMainArea").focus();
-        }*/
+        }
 
         /*function focusAdder() {
           document.getElementById("textSumArea").focus();
@@ -568,7 +571,7 @@
           <li>ރއ- / رض- / -ra ← رَضِيَ اللَّهُ عَنْهُ</li>
           <li>ރއހ- / رضه- / -rah ← رَضِيَ اللَّهُ عَنْهَا</li>
           <li>ރއ2- / رض2- / -ra2 ← رَضِيَ اللَّهُ عَنْهُمَا</li>
-          <li>ރއ3- رض3- / -ra3 ← رَضِيَ اللَّهُ عَنْهُمْ</li>
+          <li>ރއ3- / رض3- / -ra3 ← رَضِيَ اللَّهُ عَنْهُمْ</li>
           <li>ވދ- ← ވިދާޅުވިއެވެ:</li>
           <li>ދނ- ← ދެންނެވިއެވެ:</li>
           <li>ރކ- ← ރިވާ ކުރެއްވިއެވެ:</li>
@@ -576,9 +579,9 @@
           <li>ރސ- ← ރަސޫލު ﷲ ﷺ</li>
           <li>ނސ- ← ނަބިއްޔާ ﷺ</li>
           <li>ހދ- ← ޙަދީޘް</li>
-          <li>ހކ- ← ޙަދީޘް ކުރެއްވިއެވެ: ”</li>
           <li>ރހކ- ← ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”</li>
           <li>ނހކ- ← ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”</li>
+          <li>ހކ- ← ޙަދީޘް ކުރެއްވިއެވެ: ”</li>
           <li>
             ރއޑ- ← ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”
           </li>
@@ -655,7 +658,9 @@
             return false;
           }
 
-          function replaceType() {
+          // old code for replace below, causes cursor to jump to end upon replace, after moving cursor manually })
+
+          /*function replaceType() {
             var text = document.getElementById("textMainArea").value;
             var newText = text
               .replace(/ސސ-/g, "ﷺ")
@@ -704,7 +709,74 @@
 
             document.getElementById("textMainArea").value = newText;
             return false;
-          }
+          }*/
+
+          /* solution for above code https://stackoverflow.com/a/40198673 */
+
+          var area = document.getElementById("textMainArea");
+
+          var getCount = function (str, search) {
+            return str.split(search).length - 1;
+          };
+
+          var replaceText = function (search, replaceWith) {
+            if (area.value.indexOf(search) >= 0) {
+              var start = area.selectionStart;
+              var end = area.selectionEnd;
+              var textBefore = area.value.substr(0, end);
+              var lengthDiff =
+                (replaceWith.length - search.length) *
+                getCount(textBefore, search);
+              area.value = area.value.replace(search, replaceWith);
+              area.selectionStart = start + lengthDiff;
+              area.selectionEnd = end + lengthDiff;
+            }
+          };
+
+          area.addEventListener("keypress", function (e) {
+            setTimeout(function () {
+              //replaceText("==", "+");
+              //replaceText("ރއ-", "رَضِيَ اللَّهُ عَنْهُ");
+              replaceText("ސސ-", "ﷺ");
+              replaceText("صص-", "ﷺ");
+              replaceText("-ss", "ﷺ");
+              replaceText('"-', "”");
+              replaceText('-"', "“");
+              replaceText("ބރ-", "<br><br>");
+              replaceText("br-", "<br><br>");
+              replaceText("ރއ-", "رَضِيَ اللَّهُ عَنْهُ");
+              replaceText("رض-", "رَضِيَ اللَّهُ عَنْهُ");
+              replaceText("-ra", "رَضِيَ اللَّهُ عَنْهُ");
+              replaceText("ރއހ-", "رَضِيَ اللَّهُ عَنْهَا");
+              replaceText("رضه-", "رَضِيَ اللَّهُ عَنْهَا");
+              replaceText("-rah", "رَضِيَ اللَّهُ عَنْهَا");
+              replaceText("ރއ2-", "رَضِيَ اللَّهُ عَنْهُمَا");
+              replaceText("رض2-", "رَضِيَ اللَّهُ عَنْهُمَا");
+              replaceText("-ra2", "رَضِيَ اللَّهُ عَنْهُمَا");
+              replaceText("ރއ3-", "رَضِيَ اللَّهُ عَنْهُمْ");
+              replaceText("رض3-", "رَضِيَ اللَّهُ عَنْهُمْ");
+              replaceText("-ra3", "رَضِيَ اللَّهُ عَنْهُمْ");
+              replaceText("ވދ-", "ވިދާޅުވިއެވެ:");
+              replaceText("ދނ-", "ދެންނެވިއެވެ:");
+              replaceText("ރކ-", "ރިވާ ކުރެއްވިއެވެ:");
+              replaceText("އއރ-", "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ:");
+              replaceText("ރސ-", "ރަސޫލު ﷲ ﷺ");
+              replaceText("ނސ-", "ނަބިއްޔާ ﷺ");
+              replaceText("ހދ-", "ޙަދީޘް");
+              replaceText("ރހކ-", "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
+              replaceText("ނހކ-", "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
+              replaceText("ހކ-", "ޙަދީޘް ކުރެއްވިއެވެ: ”");
+              replaceText(
+                "ރއޑ-",
+                "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+              );
+              replaceText(
+                "ނއޑ-",
+                "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+              );
+              //replaceText("mmm", "mmm");
+            }, 0);
+          });
 
           // https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
 
