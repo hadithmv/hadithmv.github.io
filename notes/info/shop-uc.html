@@ -651,10 +651,20 @@
             </p>
             <p>
               * If you don’t know the date of your child’s Aqeeqah, you can
-              scroll down to use our <a href="#jumpCalc">date calculator</a>.
+              scroll down to use our
+              <a onclick="jumpCalcF()">date calculator</a>.
             </p>
           </div>
         </div>
+
+        <script>
+          /* there is some delay in href anchors, so https://stackoverflow.com/a/2368393 */
+          function jumpCalcF() {
+            document
+              .getElementById("jumpCalc")
+              .scrollIntoView({ behaviour: "smooth" });
+          }
+        </script>
 
         <br />
 
@@ -673,7 +683,8 @@
             <p>
               * ދަރިފުޅުގެ އަގީގާ ކަތިލަންވީ ތާރީޚު އެނގިނުއްލަވާ ނަމަ، ތިރިއަށް
               ގޮސް އަޅުގަނޑުމެންގެ
-              <a href="#jumpCalc">ތާރީޚު ކެލްކިއުލޭޓަރ</a> ބޭނުން ކުރެވިދާނެ.
+              <a onclick="jumpCalcF()">ތާރީޚު ކެލްކިއުލޭޓަރ</a> ބޭނުން
+              ކުރެވިދާނެ.
             </p>
           </div>
         </div>
