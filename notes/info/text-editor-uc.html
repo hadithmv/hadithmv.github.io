@@ -2049,6 +2049,13 @@ cols="60"-->
             font-family: sans-serif;
           }
 
+          /*@mixin for-phone-only*/
+          @media (max-width: 599px) {
+            select {
+              width: 70px;
+            }
+          }
+
           /*input[type="date"]::-webkit-calendar-picker-indicator {
             -webkit-appearance: none;
             display: none;
