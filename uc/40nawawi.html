@@ -63,15 +63,18 @@
 
     <style>
       /* provides padding aroud the row datas */
-      .dataTable > tbody > tr > td {
-        padding-right: 50px;
-        padding-left: 50px;
-      }
-      .dataTable > tbody > tr > td:nth-child(1) {
-        padding-top: 40px;
-      }
-      .dataTable > tbody > tr > td:nth-last-child(1) {
-        padding-bottom: 50px;
+      /*@mixin for-ABOVEphone-only*/
+      @media (min-width: 599px) {
+        .dataTable > tbody > tr > td {
+          padding-right: 50px;
+          padding-left: 50px;
+        }
+        .dataTable > tbody > tr > td:nth-child(1) {
+          padding-top: 40px;
+        }
+        .dataTable > tbody > tr > td:nth-last-child(1) {
+          padding-bottom: 50px;
+        }
       }
 
       /* change123 html */
