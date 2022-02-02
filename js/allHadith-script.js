@@ -147,7 +147,17 @@ $(document).ready(() => {
       // }
     ],
 
+    /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
+
+      /* replace \n newlines from json to <br> in table
+      https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
+      { targets: '_all',
+          render: function (data, type, row) {
+          return data.replace(/\n/g, ' <br>')
+          } // added space before br, otherwise clipboard copy export has no space
+      },
+      
       // classes columns for css in nweb view, but not print.
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
