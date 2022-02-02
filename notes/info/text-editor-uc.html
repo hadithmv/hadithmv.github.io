@@ -231,8 +231,11 @@
         <button class="tablinks" onclick="openTab(event, 'tabTwo')">
           Copy - ކޮޕީ
         </button>
-        <button class="tablinks" onclick="openTab(event, 'tabThree');">
-          <!--  focusAdder(); -->
+        <button
+          class="tablinks"
+          onclick="openTab(event, 'tabThree'); focusAdder();"
+        >
+          <!--   -->
           Calc - ހިސާބު
         </button>
         <button
@@ -249,9 +252,9 @@
           document.getElementById("textMainArea").focus();
         }
 
-        /*function focusAdder() {
+        function focusAdder() {
           document.getElementById("textSumArea").focus();
-        }*/
+        }
       </script>
 
       <style>
