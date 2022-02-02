@@ -62,6 +62,18 @@
     <!-- Critical CSS - END -->
 
     <style>
+      /* provides padding aroud the row datas */
+      .dataTable > tbody > tr > td {
+        padding-right: 50px;
+        padding-left: 50px;
+      }
+      .dataTable > tbody > tr > td:nth-child(1) {
+        padding-top: 40px;
+      }
+      .dataTable > tbody > tr > td:nth-last-child(1) {
+        padding-bottom: 50px;
+      }
+
       /* change123 html */
 
       /* === --- === --- ====
@@ -133,6 +145,12 @@
          # number column cuz it has hashtag and digits */
       .dataTable tr td.fnCol1 {
         font-family: "dvFont", "arFont", sans-serif;
+        font-size: 21px;
+      }
+
+      /* sharhs */
+      .dataTable tr td.fnCol10 {
+        font-family: "arFont", "dvFont", sans-serif;
         font-size: 21px;
       }
     </style>
@@ -306,10 +324,11 @@
           <!-- --- TABLE --- -->
           <!-- JEKYLL {{ content }} -->
           <!-- cards js adds card classes to table ID -->
-          <!-- change123 TABLE -->
-          <table id="nawawiTable" class="stripe table">
+          <!-- change123 TABLE - card view set as default here -->
+          <table id="nawawiTable" class="stripe table cards">
             <thead>
               <tr>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
