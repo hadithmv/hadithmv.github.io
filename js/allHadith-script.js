@@ -365,7 +365,7 @@ $(document).ready(() => {
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
       searchPlaceholder: 'ހޯދާ...',
-      zeroRecords: '- ނުފެނުނު -',
+      zeroRecords: '<br><br><br><br>- ނުފެނުނު -<br><br><br><br><br><br>',
       searchPanes: {
         clearMessage: 'ހުރިހާ ފިލްޓާއެއް ދުއްވާލާ',
         collapse: { 0: 'ފިލްޓާތައް', _: 'ފިލްޓާތައް (%d)' },
