@@ -113,12 +113,20 @@ $(document).ready(() => {
       },
       {
         data: 8,
-        title: 'شرح العباد'
+        title: 'شرح العباد',
       }
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
+
+      // adds footnote line for shurooh
+      { targets: 9,
+        render: function (data, type, row) {
+          data = '‌‌____________<br>' + data
+          return data.replace(/\n/g, ' <br>') // without this line breaks not preserved
+          } 
+        },
 
       /* replace \n newlines from json to <br> in table
       https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
@@ -127,7 +135,7 @@ $(document).ready(() => {
           return data.replace(/\n/g, ' <br>')
           } // added space before br, otherwise clipboard copy export has no space
       },
-      
+
       // classes columns for css in nweb view, but not print.
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
@@ -213,7 +221,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'fnCol10', // Uth Sh
+        className: 'fnCol10', // Sharh
         targets: [9],
         visible: false,
         searchable: false,
