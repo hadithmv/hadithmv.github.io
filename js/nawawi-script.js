@@ -456,6 +456,7 @@ $(document).ready(() => {
           data = data.replace(/ތަޚްރީޖު\t/g, '')
           data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
           data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
+          data = data.replace(/شرح العباد\t/g, '')
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
