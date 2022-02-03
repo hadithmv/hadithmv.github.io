@@ -58,12 +58,6 @@ matches:
   - trigger: "-\'"
     replace: "‘"
 
-  - trigger: "br-"
-    replace: "<br><br>"
-
-  - trigger: "ބރ-"
-    replace: "<br><br>"
-
   - trigger: "رض-"
     replace: "رَضِيَ اللَّهُ عَنْهُ"
 
