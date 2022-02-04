@@ -100,8 +100,11 @@ matches:
   - trigger: "ދނ-"
     replace: "ދެންނެވިއެވެ: "
 
-  - trigger: "ރކ-"
+  - trigger: "ރވ-"
     replace: "ރިވާވެގެންވެއެވެ: "
+
+  - trigger: "ގއރ-"
+    replace: "ގެ އަރިހުން ރިވާވެގެންވެއެވެ: "
 
   - trigger: "އއރ-"
     replace: "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ: "
