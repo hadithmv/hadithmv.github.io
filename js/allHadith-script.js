@@ -482,6 +482,7 @@ $(document).ready(() => {
         config: {
           collapse: false,
           orderable: false,
+          //order: ['صحيح البخاري', 'صحيح مسلم', 'سنن أبي داود', 'سنن الترمذي', 'سنن النسائي', 'سنن ابن ماجه', 'موطأ مالك', 'مسند الدارمي', 'مسند أحمد', ]
           columns: [0, 1],
           cascadePanes: true,
           dtOpts: {
