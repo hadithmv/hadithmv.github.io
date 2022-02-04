@@ -576,7 +576,7 @@ $(document).ready(() => {
   $('.dataTable').on('page.dt', () => {
     $('html, body').animate(
       {
-        scrollTop: 0
+        scrollTop: 150 //prev 0
       },
       'fast'
     ) // smoothen or ease this later ??
