@@ -560,19 +560,35 @@ $(document).ready(() => {
   // ==================== swipe - END
 
   // ScrollTop - If the user changes the page, scroll to the top
-  $('.dataTable').on('page.dt', () => {
-    $('html, body').animate(
-      {
-        scrollTop: 150 //prev 0
-      },
-      'fast'
-    ) // smoothen or ease this later ??
-    $('main-content').focus()
-    // need to set focus at top so DTBS doesn't scroll back to bottom
+  // js media query on desktop
+  if (window.matchMedia('(min-width: 900px)').matches) {
 
-    const tempScrollTop = $(window).scrollTop()
-    // console.log(`Scroll from Top: ${tempScrollTop.toString()}`);
-  })
+    $('.dataTable').on('page.dt', () => {
+      $('html, body').animate(
+        {
+          scrollTop: 0
+        },
+        'fast'
+      ) // smoothen or ease this later ??
+      $('main-content').focus()
+      // need to set focus at top so DTBS doesn't scroll back to bottom
+  
+      const tempScrollTop = $(window).scrollTop()
+      // console.log(`Scroll from Top: ${tempScrollTop.toString()}`);
+    })
+        // js media query on mobile, tablet
+  } else {
+    $('.dataTable').on('page.dt', () => {
+      $('html, body').animate(
+        {
+          scrollTop: 150 //prev 0
+        },
+        'fast'
+      )
+      $('main-content').focus()
+      const tempScrollTop = $(window).scrollTop()
+    })
+  } // end if else
 
   //= ====================
   // Add cards media query class to table ID, as well as row border
