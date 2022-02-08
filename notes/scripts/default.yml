@@ -120,6 +120,12 @@ matches:
 
   # ހކ should only come after the previous two, otherwise might override them in js, even if not in espanso
 
+  - trigger: "ހކ-"
+    replace: "ޙަދީޘް ކުރެއްވިއެވެ: ”"
+    
+  - trigger: "ހމ-"
+    replace: "ހަމަކަށަވަރުން"
+    
   - trigger: "ހދ-"
     replace: "ޙަދީޘް"
 
@@ -128,9 +134,6 @@ matches:
 
   - trigger: "ނސ-"
     replace: "ނަބިއްޔާ ﷺ"
-
-  - trigger: "ހކ-"
-    replace: "ޙަދީޘް ކުރެއްވިއެވެ: ”"
 
   - trigger: "ރއޑ-"
     replace: "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
