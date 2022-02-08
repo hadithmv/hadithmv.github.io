@@ -106,7 +106,7 @@ matches:
   - trigger: "ވރ-"
     replace: "ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ: "
 
-  - trigger: "ގއރ-"
+  - trigger: "ގރ-"
     replace: "ގެ އަރިހުން ރިވާވެގެންވެއެވެ: "
 
   - trigger: "އއރ-"
