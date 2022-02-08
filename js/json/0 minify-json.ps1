@@ -1,6 +1,6 @@
 Set-Location -Path $PSScriptRoot
 
-#compress
+#minify the spaces
 
 uglifyjs nawawi.js -c -m -o nawawi.js
 uglifyjs barbahari.js -c -m -o barbahari.js
