@@ -125,6 +125,12 @@ matches:
     
   - trigger: "ހމ-"
     replace: "ހަމަކަށަވަރުން"
+
+  - trigger: "އކ-"
+    replace: "އެކަލޭގެފާނު"
+
+  - trigger: "ކލ-"
+    replace: "ކަލޭގެފާނު"
     
   - trigger: "ހދ-"
     replace: "ޙަދީޘް"
