@@ -100,6 +100,7 @@ $(document).ready(() => {
           data = data.replace('مصنف ابن أبي شيبة', 'މުޞައްނަފު އިބްނު އަބީ ޝައިބާ')
           data = data.replace('الأربعون النووية', 'ނަވަވީގެ 40 ޙަދީޘް')
           data = data.replace('عمدة الأحكام', 'ޢުމްދަތުލް އަޙްކާމް')
+          data = data.replace('بلوغ المرام', 'ބުލޫޣުލް މަރާމް')
           return data;
         }
       },
