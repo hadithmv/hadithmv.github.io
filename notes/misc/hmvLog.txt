@@ -27,6 +27,7 @@
 السنن الكبرى للبيهقي
 مصنف عبد الرزاق
 مصنف ابن أبي شيبة
+رياض الصالحين
 
 new way of doing things:
 google sheets > publish to web (csv) > papaparse (no header) > copy from "data:", not "{data: Array"
