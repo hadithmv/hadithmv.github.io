@@ -69,19 +69,19 @@ $(document).ready(() => {
     columns: [
       {
         data: 0,
-        title: 'ސޫރަތް'
+        title: 'ސޫރަތުގެ ނަން'
       },
       {
         data: 1,
-        title: 'ޖުޒް'
+        title: 'ޖުޒް #'
       },
       {
         data: 2,
-        title: 'އާޔަތް'
+        title: 'އާޔަތް #'
       },
       { /* add brackets to quran */
         data: 3,
-        title: 'ޤުރްއާން ޢަަރަބިން',
+        title: 'ޤުރްއާން އަރަބިން',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
@@ -478,10 +478,10 @@ $(document).ready(() => {
           data = data.replace(/\r\n/g, '\t') //  prevents first header showing up unneeded (windows)
           data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
 
-          data = data.replace(/ސޫރަތް\t/g, '') // should be this way instead of /\tފޮތް/
-          data = data.replace(/ޖުޒް\t/g, '')
-          data = data.replace(/އާޔަތް\t/g, '')
-          data = data.replace(/ޤުރްއާން ޢަަރަބިން\t/g, '')
+          data = data.replace(/ސޫރަތުގެ ނަން\t/g, '') // should be this way instead of /\tފޮތް/
+          data = data.replace(/ޖުޒް #\t/g, '')
+          data = data.replace(/އާޔަތް #\t/g, '')
+          data = data.replace(/ޤުރްއާން އަރަބިން\t/g, '')
           data = data.replace(/ޤުރްއާން ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/تفسير السعدي*\t/g, '')

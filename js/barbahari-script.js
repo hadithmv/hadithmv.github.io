@@ -85,7 +85,7 @@ $(document).ready(() => {
       },
       {
         data: 4,
-        title: 'އަރަބި'
+        title: 'އަރަބި ލިޔުން'
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
@@ -101,7 +101,7 @@ $(document).ready(() => {
      },
       {
         data: 5,
-        title: 'ދިވެހި'
+        title: 'ދިވެހި ތަރުޖަމާ'
       }
     ],
 
@@ -368,9 +368,9 @@ $(document).ready(() => {
           data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
 
           data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
-          data = data.replace(/އަރަބި\t/g, '')
+          data = data.replace(/އަރަބި ލިޔުން\t/g, '')
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
-          data = data.replace(/ދިވެހި\t/g, '')
+          data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
