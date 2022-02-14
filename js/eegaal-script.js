@@ -96,7 +96,7 @@ $(document).ready(() => {
 
       { /* add sofhaa string to page no */
         data: 2,
-        title: 'ސަފުހާ',
+        title: 'ސަފުހާ #',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
@@ -366,7 +366,7 @@ $(document).ready(() => {
           /* data = data.replace(/އަރަބި މާނަ\t/g, '') */
           data = data.replace(/ދިވެހި ލަފްޒު\t/g, '')
           /* data = data.replace(/ދިވެހި މާނަ\t/g, '') */
-          data = data.replace(/ސަފުހާ\t/g, '')
+          data = data.replace(/ސަފުހާ #\t/g, '')
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data

@@ -69,7 +69,7 @@ $(document).ready(() => {
     columns: [
       {
         data: 0,
-        title: 'ފޮތް'
+        title: 'ފޮތް އަރަބިން'
       },
       { /* add brackets string to hukum */
         data: 0,
@@ -131,7 +131,7 @@ $(document).ready(() => {
       },
       { /* add brackets string to hukum */
         data: 4,
-        title: 'ހުކުމް',
+        title: 'ސައްހަކަމުގެ ހުކުމް',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
@@ -441,14 +441,14 @@ $(document).ready(() => {
           data = data.replace(/\r\n/g, '\t') //  prevents first header showing up unneeded (windows)
           data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
 
-          data = data.replace(/ފޮތް\t/g, '') // should be this way instead of /\tފޮތް/
+          data = data.replace(/ފޮތް އަރަބިން\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/ފޮތް ދިވެހިން\t/g, '')
           data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/ތަޚްރީޖު\t/g, '')
-          data = data.replace(/ހުކުމް\t/g, '')
+          data = data.replace(/ސައްހަކަމުގެ ހުކުމް\t/g, '')
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
