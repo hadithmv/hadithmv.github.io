@@ -101,7 +101,7 @@ $(document).ready(() => {
       },
       {
         data: 5,
-        title: 'ތަޚްރީޖު'
+        title: 'ތަޚްރީޖު އަރަބިން'
       },
       {
         data: 6,
@@ -453,7 +453,7 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
-          data = data.replace(/ތަޚްރީޖު\t/g, '')
+          data = data.replace(/ތަޚްރީޖު އަރަބިން\t/g, '')
           data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
           data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
           data = data.replace(/شرح العباد\t/g, '')

@@ -73,7 +73,7 @@ $(document).ready(() => {
       },
       {
         data: 1,
-        title: 'ފޮތް'
+        title: 'ފޮތް އަރަބިން'
       },
       {
         data: 2,
@@ -81,7 +81,7 @@ $(document).ready(() => {
       },
       {
         data: 3,
-        title: 'ބާބު'
+        title: 'ބާބު އަރަބިން'
       },
       {
         data: 4,
@@ -423,9 +423,9 @@ $(document).ready(() => {
           data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
 
           data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
-          data = data.replace(/ފޮތް\t/g, '')
+          data = data.replace(/ފޮތް އަރަބިން\t/g, '')
           data = data.replace(/ފޮތް ދިވެހިން\t/g, '')
-          data = data.replace(/ބާބު\t/g, '')
+          data = data.replace(/ބާބު އަރަބިން\t/g, '')
           data = data.replace(/ބާބު ދިވެހިން\t/g, '')
           data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')

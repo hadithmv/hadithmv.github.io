@@ -80,7 +80,7 @@ $(document).ready(() => {
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
         data: 1,
-        title: 'ސުރުޙީ ފިލިނުޖަހައި',
+        title: 'ސުރުހީ ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
@@ -449,7 +449,7 @@ $(document).ready(() => {
 
           data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/އަރަބި ސުރުހީ\t/g, '')
-          data = data.replace(/ސުރުޙީ ފިލިނުޖަހައި\t/g, '')
+          data = data.replace(/ސުރުހީ ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ސުރުހީ\t/g, '')
           data = data.replace(/އަރަބި ޒިކުރު\t/g, '')
           data = data.replace(/ޒިކުރު ފިލިނުޖަހައި\t/g, '')
