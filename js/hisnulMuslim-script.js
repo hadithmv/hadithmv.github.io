@@ -73,17 +73,8 @@ $(document).ready(() => {
       },
       {
         data: 1,
-        title: 'އަރަބި ސުރުހީ'
-      },
-      // { title: 'އަރަބި ފިލިނުޖަހައި' },
-      { /* instead of repeating this part of the array within the external json,
-         we can strip diacritics using regex within the table itself, this makes
-         the array file much smaller in the long run */
-        data: 1,
-        title: 'ސުރުހީ ފިލިނުޖަހައި',
+        title: 'އަރަބި ސުރުހީ',
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
           return data.replace(/[ًٌٍَُِّْ]/g, '')
         }
       },
@@ -158,53 +149,44 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'hmCol3', // Ar Title no fili
+        className: 'hmCol3', // Dv Title
         targets: [2],
-        visible: false,
+        visible: true,
         searchable: true,
         searchPanes: {
           show: true
         }
       },
       {
-        className: 'hmCol4', // Dv Title
+        className: 'hmCol4', // Ar Text
         targets: [3],
         visible: true,
         searchable: true,
         searchPanes: {
-          show: true
+          show: false
         }
       },
       {
-        className: 'hmCol5', // Ar Text
+        className: 'hmCol5', // Ar Plain
         targets: [4],
-        visible: true,
+        visible: false,
         searchable: true,
         searchPanes: {
           show: false
         }
       },
       {
-        className: 'hmCol6', // Ar Plain
+        className: 'hmCol6', // transliterate
         targets: [5],
         visible: false,
-        searchable: true,
-        searchPanes: {
-          show: false
-        }
-      },
-      {
-        className: 'hmCol7', // transliterate
-        targets: [6],
-        visible: false,
         searchable: false,
         searchPanes: {
           show: false
         }
       },
       {
-        className: 'hmCol8', // Dv Text
-        targets: [7],
+        className: 'hmCol7', // Dv Text
+        targets: [6],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -212,8 +194,8 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'hmCol9', // Ar Ref
-        targets: [8],
+        className: 'hmCol8', // Ar Ref
+        targets: [7],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -221,8 +203,8 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'hmCol10', // Dv Ref
-        targets: [9],
+        className: 'hmCol9', // Dv Ref
+        targets: [8],
         visible: false,
         searchable: false,
         searchPanes: {

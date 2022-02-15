@@ -512,6 +512,7 @@
             (( )) ← ( )
           </button>
           <button onclick="numToSansSerif();">123 ← 𝟣𝟤𝟥</button>
+          <button onclick="sansSerifToNum();">𝟣𝟤𝟥 ← 123</button>
           <button onclick="dotsToEllipsis();">. . . ← …</button>
           <button onclick="hyphenToEnDash();">- ← –</button>
           <button onclick="hyphenToEmDash();">- ← —</button>
@@ -904,6 +905,23 @@
               .replace(/7/g, "𝟩")
               .replace(/8/g, "𝟪")
               .replace(/9/g, "𝟫");
+            document.getElementById("textMainArea").value = newText;
+            return false;
+          }
+
+          function sansSerifToNum() {
+            var text = document.getElementById("textMainArea").value;
+            var newText = text
+              .replace(/𝟢/g, "0")
+              .replace(/𝟣/g, "1")
+              .replace(/𝟤/g, "2")
+              .replace(/𝟥/g, "3")
+              .replace(/𝟦/g, "4")
+              .replace(/𝟧/g, "5")
+              .replace(/𝟨/g, "6")
+              .replace(/𝟩/g, "7")
+              .replace(/𝟪/g, "8")
+              .replace(/𝟫/g, "9");
             document.getElementById("textMainArea").value = newText;
             return false;
           }
