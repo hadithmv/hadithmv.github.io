@@ -145,7 +145,7 @@ $(document).ready(() => {
         visible: true,
         searchable: true,
         searchPanes: {
-          show: false
+          show: true
         }
       },
       {
