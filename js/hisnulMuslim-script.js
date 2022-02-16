@@ -73,14 +73,14 @@ $(document).ready(() => {
       },
       {
         data: 1,
-        title: 'އަރަބި ސުރުހީ',
+        title: 'އަރަބި ބާބު',
         render: function (data, type, row) {
           return data.replace(/[ًٌٍَُِّْ]/g, '')
         }
       },
       {
         data: 2,
-        title: 'ދިވެހި ސުރުހީ'
+        title: 'ދިވެހި ބާބު'
       },
       {
         data: 3,
@@ -430,9 +430,8 @@ $(document).ready(() => {
           data = data.replace(/\n/g, '\t') //  prevents first header showing up unneeded (linux) this needs to go below windows rn
 
           data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
-          data = data.replace(/އަރަބި ސުރުހީ\t/g, '')
-          data = data.replace(/ސުރުހީ ފިލިނުޖަހައި\t/g, '')
-          data = data.replace(/ދިވެހި ސުރުހީ\t/g, '')
+          data = data.replace(/އަރަބި ބާބު\t/g, '')
+          data = data.replace(/ދިވެހި ބާބު\t/g, '')
           data = data.replace(/އަރަބި ޒިކުރު\t/g, '')
           data = data.replace(/ޒިކުރު ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ޓްރާންސްލިޓަރޭޝަން\t/g, '')

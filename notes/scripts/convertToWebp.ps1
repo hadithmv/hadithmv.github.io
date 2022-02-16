@@ -16,3 +16,6 @@ foreach ($img in $images) {
   # copy-paste the path to where you extracted the cwebp program 
   C:\Users\hadit\Downloads\libwebp-1.2.2-windows-x64\bin\cwebp.exe $img.FullName -o $outputName
 }
+
+# Use the Invoke-Item cmdlet, or its alias: ii to open a folder or file
+ii C:\Users\hadit\Desktop\webConvert # open the directory in windows explorer
