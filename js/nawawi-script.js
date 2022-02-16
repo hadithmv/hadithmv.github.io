@@ -124,7 +124,7 @@ $(document).ready(() => {
       { targets: 9,
         render: function (data, type, row) {
           data = '‌‌____________<br>' + data
-          return data.replace(/\n/g, ' <br>') // without this line breaks not preserved
+          return data.replace(/\n/g, ' <br class="br">') // without this line breaks not preserved
           } 
         },
 
@@ -132,7 +132,7 @@ $(document).ready(() => {
       https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
       { targets: '_all',
           render: function (data, type, row) {
-          return data.replace(/\n/g, ' <br>')
+          return data.replace(/\n/g, ' <br class="br">')
           } // added space before br, otherwise clipboard copy export has no space
       },
 

@@ -130,7 +130,7 @@ $(document).ready(() => {
       https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
       { targets: '_all',
           render: function (data, type, row) {
-          return data.replace(/\n/g, ' <br>')
+          return data.replace(/\n/g, ' <br class="br">')
           } // added space before br, otherwise clipboard copy export has no space
       },
       

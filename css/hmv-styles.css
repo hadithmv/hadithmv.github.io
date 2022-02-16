@@ -291,7 +291,7 @@ li,
 .header,
 /* for mmenu light nav horizontal bar */
 .mm-spn.mm-spn--navbar::after {
-  font-family: "dvFont", "arFont", sans-serif;
+  font-family: dvFont, arFont, sans-serif;
 
   /* CHANGE123 FONT
               text-align: justify;
@@ -1191,7 +1191,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 #footer {
   /* text-align: justify;
   text-align-last: center; */
-  font-family: "dvFont", "arFont", sans-serif;
+  font-family: dvFont, arFont, sans-serif;
   font-size: 17px;
   line-height: 1.9;
   direction: rtl;
@@ -1205,7 +1205,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 }
 
 .arMasdar {
-  font-family: "arFont", "dvFont", sans-serif;
+  font-family: arFont, dvFont, sans-serif;
   font-size: 20px;
   line-height: 1.7;
   word-spacing: 2px;
@@ -1229,6 +1229,18 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 
 .inde {
   text-indent: 25px;
+}
+
+/* ====================
+       
+======================= */
+
+/* How to change the height of a <br>?
+      https://stackoverflow.com/a/31633969 */
+.br {
+  display: block; /* makes it have a width */
+  content: ""; /* clears default height */
+  margin-bottom: 10px; /* change this to whatever height you want it */
 }
 
 /* ====================
