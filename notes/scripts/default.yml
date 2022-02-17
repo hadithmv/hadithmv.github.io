@@ -104,10 +104,10 @@ matches:
     replace: "ރިވާވެގެންވެއެވެ: "
 
   - trigger: "ރކ-"
-    replace: "ރިވާ ކުރެއްވިއެވެ: "
+    replace: "ރިވާ ކުރެއްވީ"
 
-  - trigger: "ނރ-"
-    replace: "ނެރުއްވީ"
+  - trigger: "މހ-"
+    replace: "މި ޙަދީޘް"
 
   - trigger: "ވރ-"
     replace: "ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ: "
