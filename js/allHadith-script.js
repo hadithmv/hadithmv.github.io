@@ -193,13 +193,13 @@ $(document).ready(() => {
       {
         className: 'ahCol4', // Ar Text
         targets: [3],
-        visible: true,
+        visible: false,
         searchable: false
       },
       {
         className: 'ahCol5', // Ar Text Plain
         targets: [4],
-        visible: false,
+        visible: true,
         searchable: true,
         searchPanes: {
           show: false
