@@ -106,6 +106,12 @@ matches:
   - trigger: "ރކ-"
     replace: "ރިވާ ކުރެއްވީ"
 
+  - trigger: "ރކއ-"
+    replace: "ރިވާ ކުރެއްވިއެވެ :"
+
+  - trigger: "ނރ-"
+    replace: "ނެރުއްވީ"
+
   - trigger: "މހ-"
     replace: "މި ޙަދީޘް"
 
