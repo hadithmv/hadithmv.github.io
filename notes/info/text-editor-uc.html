@@ -339,7 +339,37 @@
         <!-- autofocus wont work if hidden by another tab -->
         <div id="img-out"></div>
 
-        <!-- !!! !!! -->
+        <script>
+          /* localstorage cache
+          https://stackoverflow.com/a/54897926 */
+
+          var data;
+          window.onload = function () {
+            data = localStorage.getItem("data");
+          };
+          var taid;
+
+          var taid = document.createElement("textarea");
+          taid.setAttribute("src", "");
+          taid.setAttribute("onkeyup", "a()");
+          taid.style.width = "100%";
+          taid.style.height = "100%";
+          taid.style.border = "0px";
+          taid.style.background = "lightblue";
+          taid.value = data || "";
+
+          document.getElementById("textMainArea").appendChild(taid);
+
+          function a() {
+            localStorage.setItem("data", taid.value);
+          }
+        </script>
+
+        <!-- http://jsfiddle.net/Mottie/sodofkcs/44/ 
+        
+        https://codepen.io/MySecondLife/pen/QQjLgN 
+      
+      https://embed.plnkr.co/plunk/2O40L2 -->
 
         <script>
           let i = document.getElementById("slider");
@@ -353,12 +383,6 @@
             false
           );
         </script>
-
-        <!-- http://jsfiddle.net/Mottie/sodofkcs/44/ 
-        
-        https://codepen.io/MySecondLife/pen/QQjLgN 
-      
-      https://embed.plnkr.co/plunk/2O40L2 -->
 
         <style>
           .screenshot {
