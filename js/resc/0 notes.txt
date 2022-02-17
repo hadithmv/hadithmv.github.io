@@ -1,7 +1,7 @@
 Load priority in COMB:
 
 -Critical
-mmenu-light.js	3.09
+mmenu-light.js	3.10
 mmenu-inlineJs.js
 
 -Non critical
