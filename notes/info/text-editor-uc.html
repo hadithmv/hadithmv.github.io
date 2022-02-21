@@ -340,7 +340,7 @@
         <div id="img-out"></div>
 
         <script>
-          /* localstorage cache
+          /* localstorage cache of textarea
           https://stackoverflow.com/a/54897926 */
 
           var data;
@@ -506,12 +506,11 @@
           <button onclick="toLowerCase();">lower case</button>
 
           <button onclick="numToSuperScript();">(1) ← ⁽¹⁾</button>
+          <button onclick="replaceFootNos();">⁽¹⁾ / (1) ފޮހެލާ</button>
           <button onclick="numToAr();">123 ← ١٢٣</button>
           <button onclick="arToNum();">١٢٣ ← 123</button>
 
-          <button onclick="shortenSalla();" class="arButton">
-            صلى ع و ← ﷺ
-          </button>
+          <button onclick="shortenSalla();" class="arButton">صلى… ← ﷺ</button>
           <button onclick="replaceCommaScolonQ();" class="arButton">
             , ; ? ← ، ؛ ؟
           </button>
@@ -540,6 +539,11 @@
           <button onclick="dotsToEllipsis();">. . . ← …</button>
           <button onclick="hyphenToEnDash();">- ← –</button>
           <button onclick="hyphenToEmDash();">- ← —</button>
+          <button onclick="findDoubleFilis();">އިތުރަށްޖެހުނު ފިލިހޯދާ</button>
+          <p style="direction: rtl">
+            އެއް އަކުރެއްގައި ޖެހިފައިވާ ދެފިލި: &nbsp;
+            <span id="doubleFilis">-</span>
+          </p>
           <br />
 
           <input
@@ -560,9 +564,40 @@
         </div>
         <!-- <div class="mid"> -->
 
-        <!-- https://stackoverflow.com/a/50951734 -->
-
         <script>
+          function findDoubleFilis() {
+            //const string = "something format_abc oanasasd";
+            //const regexp = /(?:^|\s)format_(.*?)(?:\s|$)/g;
+
+            //let str = "governance[string_i_want]";
+            let str = document.getElementById("textMainArea").value;
+            //let res = str.match(/[^governance\[](.*)[^\]]/g);
+            // let res = str.match(/\b\w*oana\w*\b/i);
+
+            const regexp = /\b\w*oana\w*\b/g;
+
+            //let reg = /#([\S]+)/gim; // Get hashtags.
+            //let string = 'mi alegría es total! ✌🙌\n#fiestasdefindeaño #PadreHijo #buenosmomentos #france #paris';
+
+            //let reg = /(\b[dog]+\b(?![,])+)/gim; // https://stackoverflow.com/a/10713232
+            //let reg = /([dog]+)/gim;
+            //let reg = /(\b\w*oana\w*\b)/gim;
+            //let reg = /(\b\W*ަި|na\W*\b)/gim;
+            //let reg =
+            /(\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim;
+            let reg =
+              /(\b\[^\u0000-\u007F]|\w*ަިަި|ަޮ|ަު|ަޭ|ަޫ|ަީ|ަް|ިަ|ިޮ|ިު|ިޭ|ިޫ|ިީ|ިް|ޮަ|ޮި|ޮު|ޮޭ|ޮޫ|ޮީ|ޮް|ުަ|ުި|ުޮ|ުޭ|ުޫ|ުީ|ުް|ޭަ|ޭި|ޭޮ|ޭު|ޭޫ|ޭީ|ޭް|ޫަ|ޫި|ޫޮ|ޫު|ޫޭ|ޫީ|ޫް|ީަ|ީި|ީޮ|ީު|ީޭ|ީޫ|ީް|ްަ|ްި|ްޮ|ްު|ްޭ|ްޫ|ްީ|\[^\u0000-\u007F]|\w*\b)/gim;
+
+            let string = document.getElementById("textMainArea").value;
+            let matches = (string.match(reg) || []).map((e) =>
+              e.replace(reg, "$1")
+            );
+            //console.log(matches);
+
+            document.getElementById("doubleFilis").innerHTML = matches;
+          }
+
+          // find and replace https://stackoverflow.com/a/50951734
           function findAndReplace() {
             var input = document.getElementById("textMainArea").value;
             var replaceWith = document.getElementById("replaceWith").value;
@@ -992,6 +1027,15 @@
               .replace(/7/g, "⁷")
               .replace(/8/g, "⁸")
               .replace(/9/g, "⁹");
+            document.getElementById("textMainArea").value = newText;
+            return false;
+          }
+
+          // https://stackoverflow.com/a/13807294
+          function replaceFootNos() {
+            var text = document.getElementById("textMainArea").value;
+            var newText = text.replace(/^.*?\([^\d]*(\d+)[^\d]*\).*$/g, "");
+            var newText = text.replace(/⁽(.*)⁾/g, "");
             document.getElementById("textMainArea").value = newText;
             return false;
           }
