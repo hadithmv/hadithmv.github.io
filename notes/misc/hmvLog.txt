@@ -4,6 +4,18 @@
 #337ab7
 2d7bb9
 
+double fili find regex:
+https://numbergenerator.org/permutations-and-combinations/permutations/list
+unique, permutations (not combinations), items per permutations is 2, no space (not csv)
+copy to excel
+=JOIN("|",A1:A28,"")
+(would need to replace a space with nothing)
+
+ަި|ަޮ|ަު|ަޭ|ަޫ|ަީ|ަް|ިަ|ިޮ|ިު|ިޭ|ިޫ|ިީ|ިް|ޮަ|ޮި|ޮު|ޮޭ|ޮޫ|ޮީ|ޮް|ުަ|ުި|ުޮ|ުޭ|ުޫ|ުީ|ުް|ޭަ|ޭި|ޭޮ|ޭު|ޭޫ|ޭީ|ޭް|ޫަ|ޫި|ޫޮ|ޫު|ޫޭ|ޫީ|ޫް|ީަ|ީި|ީޮ|ީު|ީޭ|ީޫ|ީް|ްަ|ްި|ްޮ|ްު|ްޭ|ްޫ|ްީ|
+
+ًَ|َُ|ٌَ|َِ|ٍَ|َْ|َ~|ًَ|ًُ|ًٌ|ًِ|ًٍ|ًْ|ً~|َُ|ًُ|ٌُ|ُِ|ٍُ|ُْ|ُ~|ٌَ|ًٌ|ٌُ|ٌِ|ٌٍ|ٌْ|ٌ~|َِ|ًِ|ُِ|ٌِ|ٍِ|ِْ|ِ~|ٍَ|ًٍ|ٍُ|ٌٍ|ٍِ|ٍْ|ٍ~|َْ|ًْ|ُْ|ٌْ|ِْ|ٍْ|ْ~|~َ|~ً|~ُ|~ٌ|~ِ|~ٍ|~ْ|
+
+
 (ޘ|ޙ|ޚ|ޛ|ޜ|ޞ|ޟ|ޠ|ޡ|ޢ|ޣ|ޤ|ޥ)
 ޝޕޣ
 
