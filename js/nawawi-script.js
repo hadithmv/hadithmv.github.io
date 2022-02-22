@@ -701,10 +701,10 @@ $(document).ready(() => {
     table.row(this).show().select().draw(false)
   })
 
-  // removes diacritics on key up
+  // removes diacritics and punctuation on key up for search
   $('.dataTables_filter input').off().on('keyup', function () {
     let str = $(this).val()
-    str = str.replace(/[ًٌٍَُِّْ]/g, '')
+    str = str.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g, '')
     table.search(str).draw()
   })
   //
