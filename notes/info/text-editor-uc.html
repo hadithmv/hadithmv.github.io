@@ -571,10 +571,8 @@
 
             //let str = "governance[string_i_want]";
             let str = document.getElementById("textMainArea").value;
-            //let res = str.match(/[^governance\[](.*)[^\]]/g);
-            // let res = str.match(/\b\w*oana\w*\b/i);
-
-            const regexp = /\b\w*oana\w*\b/g;
+            //let res = str.match(/[^governance\[](.*)[^\]]/g); //https://stackoverflow.com/a/65108501
+            //let res = str.match(/\b\w*oana\w*\b/i); //https://stackoverflow.com/a/42535687
 
             //let reg = /#([\S]+)/gim; // Get hashtags.
             //let string = 'mi alegría es total! ✌🙌\n#fiestasdefindeaño #PadreHijo #buenosmomentos #france #paris';
@@ -586,7 +584,7 @@
             //let reg =
             /(\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim;
             let reg =
-              /(\b\[^\u0000-\u007F]|\w*ަިަި|ަޮ|ަު|ަޭ|ަޫ|ަީ|ަް|ިަ|ިޮ|ިު|ިޭ|ިޫ|ިީ|ިް|ޮަ|ޮި|ޮު|ޮޭ|ޮޫ|ޮީ|ޮް|ުަ|ުި|ުޮ|ުޭ|ުޫ|ުީ|ުް|ޭަ|ޭި|ޭޮ|ޭު|ޭޫ|ޭީ|ޭް|ޫަ|ޫި|ޫޮ|ޫު|ޫޭ|ޫީ|ޫް|ީަ|ީި|ީޮ|ީު|ީޭ|ީޫ|ީް|ްަ|ްި|ްޮ|ްު|ްޭ|ްޫ|ްީ|\[^\u0000-\u007F]|\w*\b)/gim;
+              /(\b\[^\u0000-\u007F]|\w*ަިަި|ަޮ|ަު|ަޭ|ަޫ|ަީ|ަް|ިަ|ިޮ|ިު|ިޭ|ިޫ|ިީ|ިް|ޮަ|ޮި|ޮު|ޮޭ|ޮޫ|ޮީ|ޮް|ުަ|ުި|ުޮ|ުޭ|ުޫ|ުީ|ުް|ޭަ|ޭި|ޭޮ|ޭު|ޭޫ|ޭީ|ޭް|ޫަ|ޫި|ޫޮ|ޫު|ޫޭ|ޫީ|ޫް|ީަ|ީި|ީޮ|ީު|ީޭ|ީޫ|ީް|ްަ|ްި|ްޮ|ްު|ްޭ|ްޫ|ްީ|\[^\u0000-\u007F]|\w*\b)/gim; // https://stackoverflow.com/a/150078
 
             let string = document.getElementById("textMainArea").value;
             let matches = (string.match(reg) || []).map((e) =>
