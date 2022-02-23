@@ -1133,7 +1133,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   /* changes pane list selected highlight color to something that matches dark theme */
 
   #DataTables_Table_0 tbody tr.selected td {
-    background-color: #99aab599; /* #1c4253 */
+    background-color: #b8c4cc99; /* #1c4253 */
     color: #000;
   }
 
@@ -1169,12 +1169,12 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   input.dtsp-search,
   input.dtsp-search::placeholder {
     /* changes color of searchpanes title placeholder where input is */
-    color: #99aab5 !important;
+    color: #b8c4cc !important;
   }
 
   div.dtsp-panesContainer button.dtsp-clearAll:hover:not([disabled]) {
     /* text color when not disabled, ie active, not disabled is for preventing disabled being overwritten */
-    background-color: #99aab599; /* #1c4253 */
+    background-color: #b8c4cc99; /* #1c4253 */
   }
 
   div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
@@ -1252,7 +1252,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #0e1621;
-    color: #99aab5;
+    color: #b8c4cc;
   }
 
   /* this is inner table on desktop */
@@ -1348,21 +1348,21 @@ this makes a faint white outline around card  */
 
   /* pagination buttons */
   .dataTables_wrapper .dataTables_paginate.paging_input .paginate_button {
-    color: #99aab5 !important;
+    color: #b8c4cc !important;
   }
 
   /* info text out of how many */
   .dataTables_wrapper .dataTables_info {
-    color: #99aab5 !important;
+    color: #b8c4cc !important;
   }
 
   /* border lines on top and bottom */
   table.dataTable.no-footer {
-    border-color: #99aab5 !important;
+    border-color: #b8c4cc !important;
   }
 
   table.dataTable thead th {
-    border-color: #99aab5 !important;
+    border-color: #b8c4cc !important;
   }
 
   /* changes clipboard copied color, */
