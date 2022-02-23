@@ -120,25 +120,25 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'rCol1', // ar word
+        className: 'eegCol1', // ar word
         targets: [0],
         visible: true,
         searchable: true
       },
       {
-        className: 'rCol2', // ar word w/o fili
+        className: 'eegCol2', // ar word w/o fili
         targets: [1],
         visible: false,
         searchable: true
       },
       {
-        className: 'rCol3', // dv word
+        className: 'eegCol3', // dv word
         targets: [2],
         visible: true,
         searchable: true
       },
       {
-        className: 'rCol4', // page no
+        className: 'eegCol4', // page no
         targets: [3],
         visible: true,
         searchable: true

@@ -68,33 +68,51 @@
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
 
+      /* header colors */
+      .uaCol1,
+      .uaCol2,
+      .uaCol3,
+      .uaCol4,
+      .uaCol5 {
+        color: #004466 !important;
+      }
+      @media (prefers-color-scheme: dark) {
+        .uaCol1,
+        .uaCol2,
+        .uaCol3,
+        .uaCol4,
+        .uaCol5 {
+          color: #66bce6 !important;
+        }
+      }
+
       /* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells like surukhi, masdars.
 so right align to prevent gaps in text */
 
-      .dataTable tr td.uhCol1,
-      .dataTable tr td.uhCol2,
-      .dataTable tr td.uhCol3,
-      .dataTable tr td.uhCol4,
-      .dataTable tr td.uhCol5,
-      .dataTable tr td.uhCol9 {
+      .dataTable tr td.uaCol1,
+      .dataTable tr td.uaCol2,
+      .dataTable tr td.uaCol3,
+      .dataTable tr td.uaCol4,
+      .dataTable tr td.uaCol5,
+      .dataTable tr td.uaCol9 {
         text-align: right;
       }
 
       /* mobile only row centering, for rows with strings that are not long */
 
       @media screen and (max-width: 900px) {
-        .dataTable tr td.uhCol1,
-        .dataTable tr td.uhCol2,
-        .dataTable tr td.uhCol3,
-        .dataTable tr td.uhCol4,
-        .dataTable tr td.uhCol5,
-        .dataTable tr td.uhCol9 {
+        .dataTable tr td.uaCol1,
+        .dataTable tr td.uaCol2,
+        .dataTable tr td.uaCol3,
+        .dataTable tr td.uaCol4,
+        .dataTable tr td.uaCol5,
+        .dataTable tr td.uaCol9 {
           text-align: center;
         }
 
         /* bold headers for mobile - first number at top */
-        .uhCol1 {
+        .uaCol1 {
           font-weight: bold;
         }
       }
@@ -103,11 +121,11 @@ so right align to prevent gaps in text */
 
       /* tbody tr td.fnCol1, */
 
-      .dataTable tr td.uhCol2,
-      .dataTable tr td.uhCol4,
-      .dataTable tr td.uhCol6,
-      .dataTable tr td.uhCol7,
-      .dataTable tr td.uhCol9 {
+      .dataTable tr td.uaCol2,
+      .dataTable tr td.uaCol4,
+      .dataTable tr td.uaCol6,
+      .dataTable tr td.uaCol7,
+      .dataTable tr td.uaCol9 {
         font-family: "arFont", "dvFont", sans-serif;
         font-size: 23px;
         line-height: 1.7;
@@ -119,10 +137,10 @@ so right align to prevent gaps in text */
 
       /* .dataTable tr td.fnCol1, need this bigger */
 
-      .dataTable tr td.uhCol1,
-      .dataTable tr td.uhCol3,
-      .dataTable tr td.uhCol5,
-      .dataTable tr td.uhCol8 {
+      .dataTable tr td.uaCol1,
+      .dataTable tr td.uaCol3,
+      .dataTable tr td.uaCol5,
+      .dataTable tr td.uaCol8 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 17px;
         line-height: 1.9;
@@ -130,7 +148,7 @@ so right align to prevent gaps in text */
 
       /* columns with ar numbers */
 
-      .dataTable tr td.uhCol9 {
+      .dataTable tr td.uaCol9 {
         font-family: "arFont", "dvFont", sans-serif;
         font-size: 21px;
       }
@@ -138,17 +156,17 @@ so right align to prevent gaps in text */
       /* css for first column
 # number column cuz it has hashtag and digits */
 
-      .dataTable tr td.uhCol1 {
+      .dataTable tr td.uaCol1 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 21px;
       }
 
       /* mobile Umdah only kitab bab top bottom padding removal */
       @media screen and (max-width: 900px) {
-        .dataTable tr td.uhCol2,
-        .dataTable tr td.uhCol3,
-        .dataTable tr td.uhCol4,
-        .dataTable tr td.uhCol5 {
+        .dataTable tr td.uaCol2,
+        .dataTable tr td.uaCol3,
+        .dataTable tr td.uaCol4,
+        .dataTable tr td.uaCol5 {
           padding-top: 0;
           padding-bottom: 0;
         }
