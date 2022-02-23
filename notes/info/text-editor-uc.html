@@ -582,28 +582,75 @@
             //const string = "something format_abc oanasasd";
             //const regexp = /(?:^|\s)format_(.*?)(?:\s|$)/g;
 
-            //let str = "governance[string_i_want]";
             let str = document.getElementById("textMainArea").value;
-            //let res = str.match(/[^governance\[](.*)[^\]]/g); //https://stackoverflow.com/a/65108501
             //let res = str.match(/\b\w*oana\w*\b/i); //https://stackoverflow.com/a/42535687
 
             //let reg = /#([\S]+)/gim; // Get hashtags.
-            //let string = 'mi alegría es total! ✌🙌\n#fiestasdefindeaño #PadreHijo #buenosmomentos #france #paris';
+            //let string = 'mi alegría es total! ✌🙌\n#fiestasdefindeaño #PadreHijo #buenosmomentos #france #paris'; // https://stackoverflow.com/a/41445988
 
             //let reg = /(\b[dog]+\b(?![,])+)/gim; // https://stackoverflow.com/a/10713232
             //let reg = /([dog]+)/gim;
             //let reg = /(\b\w*oana\w*\b)/gim;
             //let reg = /(\b\W*ަި|na\W*\b)/gim;
-            /*let reg =
-                      (\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim;*/
-            let reg =
-              /(\b\[^\u0000-\u007F]|\w*ަިަި|ަޮ|ަު|ަޭ|ަޫ|ަީ|ަް|ިަ|ިޮ|ިު|ިޭ|ިޫ|ިީ|ިް|ޮަ|ޮި|ޮު|ޮޭ|ޮޫ|ޮީ|ޮް|ުަ|ުި|ުޮ|ުޭ|ުޫ|ުީ|ުް|ޭަ|ޭި|ޭޮ|ޭު|ޭޫ|ޭީ|ޭް|ޫަ|ޫި|ޫޮ|ޫު|ޫޭ|ޫީ|ޫް|ީަ|ީި|ީޮ|ީު|ީޭ|ީޫ|ީް|ްަ|ްި|ްޮ|ްު|ްޭ|ްޫ|ްީ|\[^\u0000-\u007F]|\w*\b)/gim; // https://stackoverflow.com/a/150078
+            /* let reg =
+              /(\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim; */
+            /*
+            let reg = \b[dog]+\b(?![,])
+
+              /(\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim;
+              */
+
+            /*
+
+            let reg = /#([\S]+)/gim; // Get hashtags.
 
             let string = document.getElementById("textMainArea").value;
             let matches = (string.match(reg) || []).map((e) =>
               e.replace(reg, "$1")
             );
             //console.log(matches);
+            */
+
+            /*
+
+            function getMatches(string, regex, index) {
+              index || (index = 1); // default to the first capturing group
+              var matches = [];
+              var match;
+              while ((match = regex.exec(string))) {
+                matches.push(match[index]);
+              }
+              return matches;
+            }
+
+            // Example :
+            var myString = document.getElementById("textMainArea").value;
+            var myRegEx = /(?:^|\s)format_(.*?)(?:\s|$)/g;
+
+            // Get an array containing the first capturing group for every match
+            var matches = getMatches(myString, myRegEx, 1);
+            */
+
+            // https://stackoverflow.com/a/41445988
+
+            //let reg = /([ަި]+)/gim; // Get hashtags.
+            //let reg = /(\b\w*[a]\w*\b)/gim; // Get hashtags.
+            let reg = /(\b\w*އަި\w*\b)/gim; // Get hashtags.
+
+            let string =
+              "mشi aއިަlegría es އަި total! ✌🙌\n#fiestasde findشََeaño #PadreHijo #buenosއmomentos #franއަިce #paris";
+
+            let matches = (string.match(reg) || []).map((e) =>
+              e.replace(reg, "$1")
+            );
+            console.log(matches);
+
+            // Log results
+            /*document.write(
+              matches.length + " matches found: " + JSON.stringify(matches)
+            );
+            console.log(matches);
+            */
 
             document.getElementById("doubleFilis").innerHTML = matches;
           }
