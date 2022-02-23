@@ -69,11 +69,11 @@
          === --- === --- ==== */
 
       /* header colors */
-      .rCol4, {
+      .eegCol4, {
         color: #004466 !important;
       }
       @media (prefers-color-scheme: dark) {
-        .rCol4 {
+        .eegCol4 {
           color: #66bce6 !important;
         }
       }
@@ -81,23 +81,23 @@
       /* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells like surukhi, masdars.
 so right align to prevent gaps in text 
-.dataTable tr td.rCol1,
-.dataTable tr td.rCol2,
-.dataTable tr td.rCol9 {
+.dataTable tr td.eegCol1,
+.dataTable tr td.eegCol2,
+.dataTable tr td.eegCol9 {
   text-align: right;
 } */
 
       /* mobile only row centering, for rows with strings that are not long */
 
       @media screen and (max-width: 900px) {
-        .dataTable tr td.rCol1,
-      .dataTable tr td.rCol2,
-      .dataTable tr td.rCol3,
-      .dataTable tr td.rCol4
+        .dataTable tr td.eegCol1,
+      .dataTable tr td.eegCol2,
+      .dataTable tr td.eegCol3,
+      .dataTable tr td.eegCol4
 
       /*
-        .dataTable tr td.rCol5,
-        .dataTable tr td.rCol6 */ {
+        .dataTable tr td.eegCol5,
+        .dataTable tr td.eegCol6 */ {
           /* text-align: center; */
           text-align: justify;
           text-align-last: center;
@@ -106,7 +106,7 @@ so right align to prevent gaps in text
         /* center-justify the last line of text */
 
         /* bold headers for mobile - first number at top 
-    .rCol1 {
+    .eegCol1 {
       font-weight: bold;
     } */
       }
@@ -115,10 +115,10 @@ so right align to prevent gaps in text
 
       /* tbody tr td.fnCol1, */
 
-      .dataTable tr td.rCol1,
-    .dataTable tr td.rCol2
+      .dataTable tr td.eegCol1,
+    .dataTable tr td.eegCol2
 
-    /*.dataTable tr td.rCol3*/ {
+    /*.dataTable tr td.eegCol3*/ {
         /* ar */
 
         /* ar */
@@ -133,10 +133,10 @@ so right align to prevent gaps in text
 
       /* .dataTable tr td.fnCol1, need this bigger */
 
-      .dataTable tr td.rCol3,
-    .dataTable tr td.rCol4
+      .dataTable tr td.eegCol3,
+    .dataTable tr td.eegCol4
 
-    /*.dataTable tr td.rCol5*/ {
+    /*.dataTable tr td.eegCol5*/ {
         /* dv */
 
         /* dv */
@@ -146,20 +146,20 @@ so right align to prevent gaps in text
       }
 
       /* columns with ar numbers 
-.dataTable tr td.rCol9 {
+.dataTable tr td.eegCol9 {
   font-family: "arFont", "dvFont", sans-serif;
   font-size: 21px;
 } */
 
       /* css for first column
 # number column cuz it has hashtag and digits 
-.dataTable tr td.rCol1 {
+.dataTable tr td.eegCol1 {
   font-family: "dvFont", "arFont", sans-serif;
   font-size: 21px;
 } */
 
       /* --- EN FOR TABLE --- */
-      .dataTable tr td.rCol4 {
+      .dataTable tr td.eegCol4 {
         /* en */
 
         /* ar 
@@ -176,18 +176,18 @@ so right align to prevent gaps in text
       /* desktop radheef only eng word left align */
 
       @media screen and (min-width: 900px) {
-        .dataTable tr td.rCol1,
-        .dataTable tr td.rCol2 {
+        .dataTable tr td.eegCol1,
+        .dataTable tr td.eegCol2 {
           /* ar */
           text-align: right;
         }
 
-        .dataTable tr td.rCol3 {
+        .dataTable tr td.eegCol3 {
           /* dv */
           text-align: right;
         }
 
-        .dataTable tr td.rCol4 {
+        .dataTable tr td.eegCol4 {
           /* eng */
           text-align: left;
         }
@@ -197,7 +197,7 @@ so right align to prevent gaps in text
         text-align: right !important;
       }
 
-      .dataTable > thead > tr > th.rCol4 {
+      .dataTable > thead > tr > th.eegCol4 {
         /* eng */
         text-align: left !important;
       }
