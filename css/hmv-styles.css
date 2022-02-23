@@ -1120,6 +1120,24 @@ div.dtsp-panesContainer
   font-size: 20px;
 }
 
+/* adds space to left and right of rtl titles of searchpane */
+.dtsp-panesContainer > .dtsp-titleRow > button {
+  margin-right: 40px;
+}
+
+.dtsp-panesContainer > .dtsp-titleRow > div {
+  margin-left: 20px;
+}
+
+#allHadithTable_wrapper
+  > div.mTop3
+  > div.dt-buttons
+  > div
+  > div.dtsp-panesContainer
+  > div.dtsp-titleRow
+  > button {
+}
+
 #DataTables_Table_0 tbody tr {
   font-size: 16px;
 }
