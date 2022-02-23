@@ -540,9 +540,12 @@
           <button onclick="hyphenToEnDash();">- ← –</button>
           <button onclick="hyphenToEmDash();">- ← —</button>
           <button onclick="findDoubleFilis();">އިތުރަށްޖެހުނު ފިލިހޯދާ</button>
-          <p style="direction: rtl">
+          <p
+            class="doubleFiliHolder"
+            style="direction: rtl; display: none; margin-bottom: 0"
+          >
             އެއް އަކުރެއްގައި ޖެހިފައިވާ ދެފިލި: &nbsp;
-            <span id="doubleFilis">-</span>
+            <span id="doubleFilis"></span>
           </p>
           <br />
 
@@ -552,7 +555,11 @@
             type="text"
             id="findThis"
             style="color: red"
+            oninput="findCounter();"
           />
+
+          <span>(<span id="findCounted">0</span>)</span>
+
           <input
             class="findRepClass"
             placeholder="ބަދަލުކުރަންވީ މިއަށް"
@@ -566,6 +573,12 @@
 
         <script>
           function findDoubleFilis() {
+            // https://stackoverflow.com/a/13688269
+            document.getElementsByClassName(
+              "doubleFiliHolder"
+            )[0].style.display = "block";
+            // https://stackoverflow.com/a/12194465
+
             //const string = "something format_abc oanasasd";
             //const regexp = /(?:^|\s)format_(.*?)(?:\s|$)/g;
 
@@ -581,8 +594,8 @@
             //let reg = /([dog]+)/gim;
             //let reg = /(\b\w*oana\w*\b)/gim;
             //let reg = /(\b\W*ަި|na\W*\b)/gim;
-            //let reg =
-            /(\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim;
+            /*let reg =
+                      (\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim;*/
             let reg =
               /(\b\[^\u0000-\u007F]|\w*ަިަި|ަޮ|ަު|ަޭ|ަޫ|ަީ|ަް|ިަ|ިޮ|ިު|ިޭ|ިޫ|ިީ|ިް|ޮަ|ޮި|ޮު|ޮޭ|ޮޫ|ޮީ|ޮް|ުަ|ުި|ުޮ|ުޭ|ުޫ|ުީ|ުް|ޭަ|ޭި|ޭޮ|ޭު|ޭޫ|ޭީ|ޭް|ޫަ|ޫި|ޫޮ|ޫު|ޫޭ|ޫީ|ޫް|ީަ|ީި|ީޮ|ީު|ީޭ|ީޫ|ީް|ްަ|ްި|ްޮ|ްު|ްޭ|ްޫ|ްީ|\[^\u0000-\u007F]|\w*\b)/gim; // https://stackoverflow.com/a/150078
 
@@ -593,6 +606,36 @@
             //console.log(matches);
 
             document.getElementById("doubleFilis").innerHTML = matches;
+          }
+
+          // https://stackoverflow.com/a/4009768
+
+          function findCounter() {
+            var str = document.getElementById("textMainArea").value;
+
+            searchText = document.getElementById("findThis").value;
+
+            ans = 0;
+
+            // https://stackoverflow.com/a/5280308
+
+            //var patt1 = /ain/gi; //noticed the g.  g will enable match of all occurance, and without it it'll only match the first occurance
+
+            const patt1 = new RegExp(searchText, "gi"); // https://stackoverflow.com/a/494046
+
+            //ans = str.match(patt1).length; //4 matched
+            ans = (str.match(patt1) || []).length; // https://bobbyhadz.com/blog/javascript-count-regex-matches
+            // https://stackoverflow.com/questions/1072765/count-number-of-matches-of-a-regex-in-javascript
+
+            document.getElementById("findCounted").innerHTML = ans;
+
+            if (document.getElementById("findThis").value.length == 0) {
+              document.getElementById("findCounted").innerHTML = 0;
+            } // https://stackoverflow.com/a/17128007
+
+            //var count = (temp.match(/is/g) || []).length;
+            //console.log(count);
+            //document.getElementById("findCounted").innerHTML = count;
           }
 
           // find and replace https://stackoverflow.com/a/50951734
