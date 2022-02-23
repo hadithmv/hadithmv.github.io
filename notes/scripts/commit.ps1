@@ -6,6 +6,5 @@ git add .
 git commit -m $mes
 git push
 
-# git commit -a -m "u"
-# git push
-# git commit -am "u" && git push 
+# https://stackoverflow.com/questions/19595067/git-add-commit-and-push-commands-in-one
+# git add . && git commit -m "u" && git push 
