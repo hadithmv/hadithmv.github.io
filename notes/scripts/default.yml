@@ -205,9 +205,10 @@ matches:
     replace: "take care"
 
   - trigger: "cc-"
-    replace: "git add .
-    git commit --message \"u\"
-    git push"
+    replace: "git commit -a -m \"u\""
+
+  - trigger: "pp-"
+    replace: "git push"
 
     
     
