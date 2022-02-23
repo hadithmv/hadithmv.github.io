@@ -138,7 +138,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'bulCol1', // #
+        className: 'muwCol1', // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -147,7 +147,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'bulCol2', // Book
+        className: 'muwCol2', // Book
         targets: [1],
         visible: true,
         searchable: true,
@@ -156,7 +156,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'bulCol3', // Book Dv
+        className: 'muwCol3', // Book Dv
         targets: [2],
         visible: false,
         searchable: false,
@@ -165,7 +165,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'bulCol4', // Baab
+        className: 'muwCol4', // Baab
         targets: [3],
         visible: true,
         searchable: true,
@@ -174,7 +174,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'bulCol5', // Baab Dv
+        className: 'muwCol5', // Baab Dv
         targets: [4],
         visible: false,
         searchable: false,
@@ -183,7 +183,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'bulCol6', // Ar Text
+        className: 'muwCol6', // Ar Text
         targets: [5],
         visible: true,
         searchable: true,
@@ -192,7 +192,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'bulCol7', // Ar Text no fili
+        className: 'muwCol7', // Ar Text no fili
         targets: [6],
         visible: false,
         searchable: true,
@@ -201,7 +201,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'bulCol8', // Dv Text
+        className: 'muwCol8', // Dv Text
         targets: [7],
         visible: true,
         searchable: true,
@@ -210,7 +210,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'bulCol9', // Takhrij
+        className: 'muwCol9', // Takhrij
         targets: [8],
         visible: true,
         searchable: false,

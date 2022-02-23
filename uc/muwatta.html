@@ -71,33 +71,51 @@
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
 
+      /* header colors */
+      .muwCol1,
+      .muwCol2,
+      .muwCol3,
+      .muwCol4,
+      .muwCol5 {
+        color: #004466 !important;
+      }
+      @media (prefers-color-scheme: dark) {
+        .muwCol1,
+        .muwCol2,
+        .muwCol3,
+        .muwCol4,
+        .muwCol5 {
+          color: #66bce6 !important;
+        }
+      }
+
       /* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells like surukhi, masdars.
 so right align to prevent gaps in text */
 
-      .dataTable tr td.bulCol1,
-      .dataTable tr td.bulCol2,
-      .dataTable tr td.bulCol3,
-      .dataTable tr td.bulCol4,
-      .dataTable tr td.bulCol5,
-      .dataTable tr td.bulCol9 {
+      .dataTable tr td.muwCol1,
+      .dataTable tr td.muwCol2,
+      .dataTable tr td.muwCol3,
+      .dataTable tr td.muwCol4,
+      .dataTable tr td.muwCol5,
+      .dataTable tr td.muwCol9 {
         text-align: right;
       }
 
       /* mobile only row centering, for rows with strings that are not long */
 
       @media screen and (max-width: 900px) {
-        .dataTable tr td.bulCol1,
-        .dataTable tr td.bulCol2,
-        .dataTable tr td.bulCol3,
-        .dataTable tr td.bulCol4,
-        .dataTable tr td.bulCol5,
-        .dataTable tr td.bulCol9 {
+        .dataTable tr td.muwCol1,
+        .dataTable tr td.muwCol2,
+        .dataTable tr td.muwCol3,
+        .dataTable tr td.muwCol4,
+        .dataTable tr td.muwCol5,
+        .dataTable tr td.muwCol9 {
           text-align: center;
         }
 
         /* bold headers for mobile - first number at top */
-        .bulCol1 {
+        .muwCol1 {
           font-weight: bold;
         }
       }
@@ -106,11 +124,11 @@ so right align to prevent gaps in text */
 
       /* tbody tr td.fnCol1, */
 
-      .dataTable tr td.bulCol2,
-      .dataTable tr td.bulCol4,
-      .dataTable tr td.bulCol6,
-      .dataTable tr td.bulCol7,
-      .dataTable tr td.bulCol9 {
+      .dataTable tr td.muwCol2,
+      .dataTable tr td.muwCol4,
+      .dataTable tr td.muwCol6,
+      .dataTable tr td.muwCol7,
+      .dataTable tr td.muwCol9 {
         font-family: "arFont", "dvFont", sans-serif;
         font-size: 23px;
         line-height: 1.7;
@@ -122,10 +140,10 @@ so right align to prevent gaps in text */
 
       /* .dataTable tr td.fnCol1, need this bigger */
 
-      .dataTable tr td.bulCol1,
-      .dataTable tr td.bulCol3,
-      .dataTable tr td.bulCol5,
-      .dataTable tr td.bulCol8 {
+      .dataTable tr td.muwCol1,
+      .dataTable tr td.muwCol3,
+      .dataTable tr td.muwCol5,
+      .dataTable tr td.muwCol8 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 17px;
         line-height: 1.9;
@@ -133,7 +151,7 @@ so right align to prevent gaps in text */
 
       /* columns with ar numbers */
 
-      .dataTable tr td.bulCol9 {
+      .dataTable tr td.muwCol9 {
         font-family: "arFont", "dvFont", sans-serif;
         font-size: 21px;
       }
@@ -141,17 +159,17 @@ so right align to prevent gaps in text */
       /* css for first column
 # number column cuz it has hashtag and digits */
 
-      .dataTable tr td.bulCol1 {
+      .dataTable tr td.muwCol1 {
         font-family: "dvFont", "arFont", sans-serif;
         font-size: 21px;
       }
 
       /* mobile bulugh only kitab bab top bottom padding removal */
       @media screen and (max-width: 900px) {
-        .dataTable tr td.bulCol2,
-        .dataTable tr td.bulCol3,
-        .dataTable tr td.bulCol4,
-        .dataTable tr td.bulCol5 {
+        .dataTable tr td.muwCol2,
+        .dataTable tr td.muwCol3,
+        .dataTable tr td.muwCol4,
+        .dataTable tr td.muwCol5 {
           padding-top: 0;
           padding-bottom: 0;
         }
