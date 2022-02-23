@@ -558,7 +558,9 @@
             oninput="findCounter();"
           />
 
-          <span>(<span id="findCounted">0</span>)</span>
+          <span class="hiddenFindCount" style="display: none"
+            >(<span id="findCounted">0</span>)</span
+          >
 
           <input
             class="findRepClass"
@@ -567,7 +569,9 @@
             id="replaceWith"
             style="color: blue"
           />
-          <button onclick="findAndReplace()">ލަފްޒު ބަދަލު ކުރޭ</button>
+          <button onclick="findAndReplace(); findCounter();">
+            ލަފްޒު ބަދަލު ކުރޭ
+          </button>
         </div>
         <!-- <div class="mid"> -->
 
@@ -658,6 +662,10 @@
           // https://stackoverflow.com/a/4009768
 
           function findCounter() {
+            document.getElementsByClassName(
+              "hiddenFindCount"
+            )[0].style.display = "inline";
+
             var str = document.getElementById("textMainArea").value;
 
             searchText = document.getElementById("findThis").value;
