@@ -639,15 +639,17 @@
 
             //let reg = /([ަި]+)/gim; // Get hashtags.
             //let reg = /(\b\w*[a]\w*\b)/gim; // Get hashtags.
-            let reg = /(\b\w*އަި\w*\b)/gim; // Get hashtags.
+            //let reg = /(\b\w*އަި\w*\b)/gim; // Get hashtags.
+            let reg =
+              /(\b\w*[\u0787-\u07BF](ަި|ަޮ|ަު|ަޭ|ަޫ|ަީ|ަް|ިަ|ިޮ|ިު|ިޭ|ިޫ|ިީ|ިް|ޮަ|ޮި|ޮު|ޮޭ|ޮޫ|ޮީ|ޮް|ުަ|ުި|ުޮ|ުޭ|ުޫ|ުީ|ުް|ޭަ|ޭި|ޭޮ|ޭު|ޭޫ|ޭީ|ޭް|ޫަ|ޫި|ޫޮ|ޫު|ޫޭ|ޫީ|ޫް|ީަ|ީި|ީޮ|ީު|ީޭ|ީޫ|ީް|ްަ|ްި|ްޮ|ްު|ްޭ|ްޫ|ްީ|)\w*\b)/gim;
 
             let string =
               "mشi aއިަlegría es އަި total! ✌🙌\n#fiestasde findشََeaño #PadreHijo #buenosއmomentos #franއަިce #paris";
 
             let matches = (string.match(reg) || []).map((e) =>
-              e.replace(reg, "$1")
+              e.replace(reg, " $1")
             );
-            console.log(matches);
+            //console.log(matches);
 
             // Log results
             /*document.write(
