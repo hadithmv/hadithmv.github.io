@@ -132,7 +132,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'uhCol1', // #
+        className: 'uaCol1', // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -141,7 +141,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'uhCol2', // Book
+        className: 'uaCol2', // Book
         targets: [1],
         visible: true,
         searchable: true,
@@ -150,13 +150,13 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'uhCol3', // Book Dv
+        className: 'uaCol3', // Book Dv
         targets: [2],
         visible: false,
         searchable: false
       },
       {
-        className: 'uhCol4', // Baab
+        className: 'uaCol4', // Baab
         targets: [3],
         visible: true,
         searchable: true,
@@ -165,7 +165,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'uhCol5', // Baab Dv
+        className: 'uaCol5', // Baab Dv
         targets: [4],
         visible: false,
         searchable: false,
@@ -174,7 +174,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'uhCol6', // Ar Text
+        className: 'uaCol6', // Ar Text
         targets: [5],
         visible: true,
         searchable: true,
@@ -183,7 +183,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'uhCol7', // Ar Text no fili
+        className: 'uaCol7', // Ar Text no fili
         targets: [6],
         visible: false,
         searchable: true,
@@ -192,7 +192,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'uhCol8', // Dv Text
+        className: 'uaCol8', // Dv Text
         targets: [7],
         visible: true,
         searchable: true,
@@ -201,7 +201,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'uhCol9', // Takhrij
+        className: 'uaCol9', // Takhrij
         targets: [8],
         visible: true,
         searchable: false,
