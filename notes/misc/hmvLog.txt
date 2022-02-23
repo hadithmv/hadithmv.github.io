@@ -4,6 +4,11 @@
 #337ab7
 2d7bb9
 
+https://app.contrast-finder.org/result.html
+#069 --> #00598b
+#39C --> #66bce6
+
+
 double fili find regex:
 https://textmechanic.com/text-tools/combination-permutation-tools/combination-generator/
 =JOIN("|",A1:A28,"")
