@@ -545,7 +545,8 @@
             style="direction: rtl; display: none; margin-bottom: 0"
           >
             އެއް އަކުރެއްގައި ޖެހިފައިވާ ދެފިލި: &nbsp;
-            <span id="doubleFilis"></span>
+            <span id="doubleFilis"></span><br />
+            <span id="doubleFilis2"></span>
           </p>
           <br />
 
@@ -586,7 +587,7 @@
             //const string = "something format_abc oanasasd";
             //const regexp = /(?:^|\s)format_(.*?)(?:\s|$)/g;
 
-            let str = document.getElementById("textMainArea").value;
+            //let str = document.getElementById("textMainArea").value;
             //let res = str.match(/\b\w*oana\w*\b/i); //https://stackoverflow.com/a/42535687
 
             //let reg = /#([\S]+)/gim; // Get hashtags.
@@ -641,10 +642,11 @@
             //let reg = /(\b\w*[a]\w*\b)/gim; // Get hashtags.
             //let reg = /(\b\w*އަި\w*\b)/gim; // Get hashtags.
             let reg =
-              /(\b\w*[\u0787-\u07BF](ަި|ަޮ|ަު|ަޭ|ަޫ|ަީ|ަް|ިަ|ިޮ|ިު|ިޭ|ިޫ|ިީ|ިް|ޮަ|ޮި|ޮު|ޮޭ|ޮޫ|ޮީ|ޮް|ުަ|ުި|ުޮ|ުޭ|ުޫ|ުީ|ުް|ޭަ|ޭި|ޭޮ|ޭު|ޭޫ|ޭީ|ޭް|ޫަ|ޫި|ޫޮ|ޫު|ޫޭ|ޫީ|ޫް|ީަ|ީި|ީޮ|ީު|ީޭ|ީޫ|ީް|ްަ|ްި|ްޮ|ްު|ްޭ|ްޫ|ްީ|)\w*\b)/gim;
+              /(\b\w*[\u0787-\u07BF]|ަު|ަެ|ަާ|ަީ|ަޫ|ަޭ|ަް|ަޮ|ަޯ|ިަ|ިި|ިު|ިެ|ިާ|ިީ|ިޫ|ިޭ|ިް|ިޮ|ިޯ|ުަ|ުި|ުު|ުެ|ުާ|ުީ|ުޫ|ުޭ|ުް|ުޮ|ުޯ|ެަ|ެި|ެު|ެެ|ެާ|ެީ|ެޫ|ެޭ|ެް|ެޮ|ެޯ|ާަ|ާި|ާު|ާެ|ާާ|ާީ|ާޫ|ާޭ|ާް|ާޮ|ާޯ|ީަ|ީި|ީު|ީެ|ީާ|ީީ|ީޫ|ީޭ|ީް|ީޮ|ީޯ|ޫަ|ޫި|ޫު|ޫެ|ޫާ|ޫީ|ޫޫ|ޫޭ|ޫް|ޫޮ|ޫޯ|ޭަ|ޭި|ޭު|ޭެ|ޭާ|ޭީ|ޭޫ|ޭޭ|ޭް|ޭޮ|ޭޯ|ްަ|ްި|ްު|ްެ|ްާ|ްީ|ްޫ|ްޭ|ްް|ްޮ|ްޯ|ޮަ|ޮި|ޮު|ޮެ|ޮާ|ޮީ|ޮޫ|ޮޭ|ޮް|ޮޮ|ޮޯ|ޯަ|ޯި|ޯު|ޯެ|ޯާ|ޯީ|ޯޫ|ޯޭ|ޯް|ޯޮ|ޯޯ\w*\b)/gim;
 
-            let string =
-              "mشi aއިަlegría es އަި total! ✌🙌\n#fiestasde findشََeaño #PadreHijo #buenosއmomentos #franއަިce #paris";
+            /*let string =
+              " mشi aއިަlegría es އަި total! ✌🙌\n#fiestaشََsde findشََeaño #PadreHijo #buenosއmomentos #franއަިce #parشis";*/
+            let string = document.getElementById("textMainArea").value;
 
             let matches = (string.match(reg) || []).map((e) =>
               e.replace(reg, " $1")
@@ -658,7 +660,22 @@
             console.log(matches);
             */
 
+            /* arabic half */
+
             document.getElementById("doubleFilis").innerHTML = matches;
+
+            let reg2 =
+              /(\b[\u0600-\u06FF]|ًَ|َُ|ٌَ|َِ|ٍَ|َْ|َ~|َّ|ًَ|ًً|ًُ|ًٌ|ًِ|ًٍ|ًْ|ً~|ًّ|َُ|ًُ|ُُ|ٌُ|ُِ|ٍُ|ُْ|ُ~|ُّ|ٌَ|ًٌ|ٌُ|ٌٌ|ٌِ|ٌٍ|ٌْ|ٌ~|ٌّ|َِ|ًِ|ُِ|ٌِ|ِِ|ٍِ|ِْ|ِ~|ِّ|ٍَ|ًٍ|ٍُ|ٌٍ|ٍِ|ٍٍ|ٍْ|ٍ~|ٍّ|َْ|ًْ|ُْ|ٌْ|ِْ|ٍْ|ْْ|ْ~|ّْ|~َ|~ً|~ُ|~ٌ|~ِ|~ٍ|~ْ|~~|~ّ|ّْ|ّ~|ّّ\b)/gim;
+
+            /*let string2 =
+              " mشi aއިަlegría es އަި total! ✌🙌\n#fiestaشََsde findشََeaño #PadreHijo #buenosއmomentos #franއަިce #parشis";*/
+            let string2 = document.getElementById("textMainArea").value;
+
+            let matches2 = (string2.match(reg2) || []).map((e) =>
+              e.replace(reg2, " $1")
+            );
+
+            document.getElementById("doubleFilis2").innerHTML = matches2;
           }
 
           // https://stackoverflow.com/a/4009768
