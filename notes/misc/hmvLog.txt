@@ -4,10 +4,16 @@
 #337ab7
 2d7bb9
 
+https://coolors.co/contrast-checker
 https://app.contrast-finder.org/result.html
-#069 --> #00598b
-#39C --> #66bce6
+https://learnui.design/tools/accessible-color-generator.html
+https://color.adobe.com/create/color-contrast-analyzer
 
+#069 --> #005580
+#F9F9F9/fff -->
+
+#39C --> #66bce6
+#1A232D -->
 
 double fili find regex:
 https://textmechanic.com/text-tools/combination-permutation-tools/combination-generator/
