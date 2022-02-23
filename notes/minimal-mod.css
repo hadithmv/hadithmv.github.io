@@ -33,7 +33,7 @@ http://github.com/orderedlist/minimal
 
 /* arabic */
 @font-face {
-  font-family: "arFont";
+  font-family: arFont;
   src: url(../font/Yakout-mod.woff2) format("woff2"),
     url(../font/Yakout-mod.woff) format("woff"),
     url(../font/Yakout-Linotype-W20-Light.ttf) format("truetype");
@@ -46,7 +46,7 @@ only seems to happen for woff and woff2, use original unmodified otf or ttf to g
 
 /* dhivehi */
 @font-face {
-  font-family: "dvFont";
+  font-family: dvFont;
   src: url(../font/mvtyper-mod.woff2) format("woff2"),
     url(../font/mvtyper-mod.woff) format("woff"),
     url(../font/mvtyper.ttf) format("truetype");
@@ -72,7 +72,7 @@ body {
   padding: 30px; /* padding: 50px; */
   padding-top: 10px; /* added this */
   font-size: 16px;
-  font-family: "dvFont", "arFont", sans-serif;
+  font-family: dvFont, arFont, sans-serif;
 
   /* -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, */
@@ -128,7 +128,7 @@ h6 {
 /* Remember to change this for non crit css too */
 
 a {
-  color: #069;
+  color: #00598b;
   text-decoration: none;
 }
 
@@ -463,17 +463,17 @@ p {
 }
 
 .dv {
-  font-family: "dvFont", "arFont", sans-serif;
+  font-family: dvFont, arFont, sans-serif;
   line-height: 2.1;
 }
 
 h1.ar {
-  font-family: "arFont", "dvFont", sans-serif;
+  font-family: arFont, dvFont, sans-serif;
   font-size: 32px;
 }
 
 .ar {
-  font-family: "arFont", "dvFont", sans-serif;
+  font-family: arFont, dvFont, sans-serif;
   line-height: 1.8;
   font-size: 21px;
 }
@@ -630,7 +630,7 @@ thaana mish mash render fix - END
 #Footer {
   text-align: justify;
   text-align-last: center;
-  font-family: "dvFont", "arFont", sans-serif;
+  font-family: dvFont, arFont, sans-serif;
   font-size: 17px;
   line-height: 1.9;
   direction: rtl;
@@ -685,11 +685,11 @@ thaana mish mash render fix - END
   } */
 
   a {
-    color: #39c;
+    color: #66bce6;
   }
 
   a:hover {
-    color: #2a8dbf;
+    color: #7dc4e6;
   }
 
   /* scrollbar code */
@@ -1109,7 +1109,7 @@ img.flexItem:hover {
   font-size: 17px;
 
   /* added */
-  font-family: "dvFont", "arFont", sans-serif;
+  font-family: dvFont, arFont, sans-serif;
   color: #eee;
   flex-grow: 1;
   min-width: 20%;

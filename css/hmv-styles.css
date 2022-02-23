@@ -1020,7 +1020,7 @@ MQ on mobile, this gets rid of empty th space at right of table on mobile,
 /* Remember to change this for minimal mod styles too */
 
 a {
-  color: #069;
+  color: #00598b;
   text-decoration: none;
 }
 
@@ -1419,11 +1419,11 @@ this makes a faint white outline around card  */
   }
 
   a {
-    color: #39c;
+    color: #66bce6;
   }
 
   a:hover {
-    color: #2a8dbf;
+    color: #7dc4e6;
   }
 
   @media (prefers-color-scheme: light) {

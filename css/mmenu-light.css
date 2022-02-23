@@ -320,7 +320,7 @@ body.mm-ocd-opened {
   direction: rtl;
 
   /* added this color for top menu text */
-  color: #39c;
+  color: #66bce6;
 
   /* added font because drawer top text is unstyled 
   font-family: "dvFont", "arFont", sans-serif; */
@@ -406,7 +406,7 @@ CUSTOM EDITS
 /* highlights drawer links on hover */
 #menu > ul > li span:hover,
 #menu > ul > li a:hover {
-  color: #39c;
+  color: #7dc4e6;
 }
 
 /* undoes highlight on none links as well as makes the cursor normal over them */
