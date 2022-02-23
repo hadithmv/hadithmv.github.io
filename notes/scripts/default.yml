@@ -204,5 +204,10 @@ matches:
   - trigger: "tc-"
     replace: "take care"
 
+  - trigger: "cc-"
+    replace: "git add .
+    git commit --message \"u\"
+    git push"
+
     
     
