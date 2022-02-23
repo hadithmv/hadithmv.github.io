@@ -204,7 +204,7 @@ let us know.
     <a href="http://+9607727960">Viber</a> |
     <a href="http://t.me/hadithmvAdmin">Telegram</a> |
     <a href="http://wa.me/message/IVXJAT4EBQ35C1">WhatsApp</a> |
-    <a href="http://yahyasdadmv@gmail.com">Email</a>
+    <a href="http://hadithmv@gmail.com">Email</a>
   </p>
 
   <p>
