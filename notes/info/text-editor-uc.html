@@ -285,6 +285,7 @@
             min="10"
             max="100"
             style="padding: 0"
+            title="ފޮންޓް ސައިޒް"
           />&nbsp;
           <span class="big-letter">A</span>
         </div>
@@ -515,20 +516,20 @@
           <button onclick="toSentCase();">Sentence case</button>
           <button onclick="toLowerCase();">lower case</button>
 
-          <button onclick="numToSuperScript();">(1) ← ⁽¹⁾</button>
+          <button onclick="numToSuperScript();">(1) ↔ ⁽¹⁾</button>
           <button onclick="replaceFootNos();">⁽¹⁾ / (1) ފޮހެލާ</button>
-          <button onclick="numToAr();">123 ← ١٢٣</button>
-          <button onclick="arToNum();">١٢٣ ← 123</button>
+          <button onclick="numToAr();">123 ↔ ١٢٣</button>
+          <button onclick="numToSansSerif();">123 ↔ 𝟣𝟤𝟥</button>
 
           <button
             onclick="shortenSalla();"
             class="arButton"
-            title="صلى الله عليه وسلم ← ﷺ"
+            title="صَلَّى اللَّهُ عَلَيهِ وَسَلَّم ↔ ﷺ"
           >
-            صلى… ← ﷺ
+            صلى… ↔ ﷺ
           </button>
           <button onclick="replaceCommaScolonQ();" class="arButton">
-            , ; ? ← ، ؛ ؟
+            , ; ? ↔ ، ؛ ؟
           </button>
           <button onclick="replaceQbracketQstop();" class="arButton">
             {*} ← ﴿۝﴾
@@ -540,21 +541,26 @@
           <button onclick="replaceKashida();" class="arButton">
             ســلاــم ← سلام
           </button>
-          <button onclick="replaceQuotes();" class="arButton">' " ← ’ “</button>
+          <button
+            onclick="replaceQuotes();"
+            class="arButton"
+            title="' ' ← ‘ ’ / &quot; &quot; ← “ ”"
+          >
+            ' " ↔ ’ “
+          </button>
           <button onclick="replaceQtoDoubleAngBrackets();" class="arButton">
-            " " ← « »
+            " " ↔ « »
           </button>
-          <button onclick="replaceDoubleAngBracketstoQ();" class="arButton">
-            « » ← ” “
-          </button>
-          <button onclick="replaceDoubleBrackets();" class="arButton">
+          <button
+            onclick="replaceDoubleBrackets();"
+            class="arButton"
+            title="{{ }} [[ ]] (( )) ← { } [ ] ( )"
+          >
             (( )) ← ( )
           </button>
-          <button onclick="numToSansSerif();">123 ← 𝟣𝟤𝟥</button>
-          <button onclick="sansSerifToNum();">𝟣𝟤𝟥 ← 123</button>
+
           <button onclick="dotsToEllipsis();">. . . ← …</button>
-          <button onclick="hyphenToEnDash();">- ← –</button>
-          <button onclick="hyphenToEmDash();">- ← —</button>
+          <button onclick="hyphenToEnEmDash();">- ← – / —</button>
           <button onclick="findDoubleFilis();">އިތުރަށްޖެހުނު ފިލިހޯދާ</button>
           <p
             class="doubleFiliHolder"
@@ -744,6 +750,11 @@
             );
           }
         </script>
+
+        <p class="buttonHeader">
+          ↔ މި ނިޝާން ޖަހާފައި ހުރި ބަޓަންތަކަށް ދެވަނަ ފަހަރު ފިތާލީމަ،
+          ފުރަތަމަ ގޮތް ނޫން އަނެއް ގޮތަށް ލިޔުން ބަދަލުވެގެން ދާނެއެވެ.
+        </p>
 
         <p class="buttonHeader">
           އެންމެ މަތީގައިވާ ހުސްޖާގައިގައި ތިރީގައި މިވާ އަކުރުތައް ލިޔުމާއެކީ
@@ -1041,34 +1052,70 @@
             copyText.type = "hidden";
           }
 
+          //https://stackoverflow.com/questions/44572859/a-function-that-runs-on-the-second-click
+          var numToAr_timesClicked = 0;
           function numToAr() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/0/g, "٠")
-              .replace(/1/g, "١")
-              .replace(/2/g, "٢")
-              .replace(/3/g, "٣")
-              .replace(/4/g, "٤")
-              .replace(/5/g, "٥")
-              .replace(/6/g, "٦")
-              .replace(/7/g, "٧")
-              .replace(/8/g, "٨")
-              .replace(/9/g, "٩");
-            document.getElementById("textMainArea").value = newText;
-            return false;
+            numToAr_timesClicked++;
+            if (numToAr_timesClicked % 2 == 0) {
+              //run second function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text
+                .replace(/٠/g, "0")
+                .replace(/١/g, "1")
+                .replace(/٢/g, "2")
+                .replace(/٣/g, "3")
+                .replace(/٤/g, "4")
+                .replace(/٥/g, "5")
+                .replace(/٦/g, "6")
+                .replace(/٧/g, "7")
+                .replace(/٨/g, "8")
+                .replace(/٩/g, "9");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            } else {
+              //run first function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text
+                .replace(/0/g, "٠")
+                .replace(/1/g, "١")
+                .replace(/2/g, "٢")
+                .replace(/3/g, "٣")
+                .replace(/4/g, "٤")
+                .replace(/5/g, "٥")
+                .replace(/6/g, "٦")
+                .replace(/7/g, "٧")
+                .replace(/8/g, "٨")
+                .replace(/9/g, "٩");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            }
           }
 
+          var shortenSalla_timesClicked = 0;
           function shortenSalla() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/صلى الله عليه وسلم/g, "ﷺ")
-              .replace(/صَلَّى اللَّهُ عَلَيهِ وَسَلَّم/g, "ﷺ")
-              .replace(/صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمْ/g, "ﷺ")
-              .replace(/صَلَّى اللَّهُ عَلَيهِ وَسَلَّم/g, "ﷺ")
-              .replace(/صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمْ/g, "ﷺ")
-              .replace(/صَلَّى الله عَلَيهِ وَسَلَّم/g, "ﷺ");
-            document.getElementById("textMainArea").value = newText;
-            return false;
+            shortenSalla_timesClicked++;
+            if (shortenSalla_timesClicked % 2 == 0) {
+              //run second function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text.replace(
+                /ﷺ/g,
+                "صَلَّى اللَّهُ عَلَيهِ وَسَلَّم"
+              );
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            } else {
+              //run first function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text
+                .replace(/صلى الله عليه وسلم/g, "ﷺ")
+                .replace(/صَلَّى اللَّهُ عَلَيهِ وَسَلَّم/g, "ﷺ")
+                .replace(/صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمْ/g, "ﷺ")
+                .replace(/صَلَّى اللَّهُ عَلَيهِ وَسَلَّم/g, "ﷺ")
+                .replace(/صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمْ/g, "ﷺ")
+                .replace(/صَلَّى الله عَلَيهِ وَسَلَّم/g, "ﷺ");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            }
           }
 
           function arToNum() {
@@ -1088,38 +1135,42 @@
             return false;
           }
 
+          var numToSansSerif_timesClicked = 0;
           function numToSansSerif() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/0/g, "𝟢")
-              .replace(/1/g, "𝟣")
-              .replace(/2/g, "𝟤")
-              .replace(/3/g, "𝟥")
-              .replace(/4/g, "𝟦")
-              .replace(/5/g, "𝟧")
-              .replace(/6/g, "𝟨")
-              .replace(/7/g, "𝟩")
-              .replace(/8/g, "𝟪")
-              .replace(/9/g, "𝟫");
-            document.getElementById("textMainArea").value = newText;
-            return false;
-          }
-
-          function sansSerifToNum() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/𝟢/g, "0")
-              .replace(/𝟣/g, "1")
-              .replace(/𝟤/g, "2")
-              .replace(/𝟥/g, "3")
-              .replace(/𝟦/g, "4")
-              .replace(/𝟧/g, "5")
-              .replace(/𝟨/g, "6")
-              .replace(/𝟩/g, "7")
-              .replace(/𝟪/g, "8")
-              .replace(/𝟫/g, "9");
-            document.getElementById("textMainArea").value = newText;
-            return false;
+            numToSansSerif_timesClicked++;
+            if (numToSansSerif_timesClicked % 2 == 0) {
+              //run second function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text
+                .replace(/𝟢/g, "0")
+                .replace(/𝟣/g, "1")
+                .replace(/𝟤/g, "2")
+                .replace(/𝟥/g, "3")
+                .replace(/𝟦/g, "4")
+                .replace(/𝟧/g, "5")
+                .replace(/𝟨/g, "6")
+                .replace(/𝟩/g, "7")
+                .replace(/𝟪/g, "8")
+                .replace(/𝟫/g, "9");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            } else {
+              //run first function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text
+                .replace(/0/g, "𝟢")
+                .replace(/1/g, "𝟣")
+                .replace(/2/g, "𝟤")
+                .replace(/3/g, "𝟥")
+                .replace(/4/g, "𝟦")
+                .replace(/5/g, "𝟧")
+                .replace(/6/g, "𝟨")
+                .replace(/7/g, "𝟩")
+                .replace(/8/g, "𝟪")
+                .replace(/9/g, "𝟫");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            }
           }
 
           function dotsToEllipsis() {
@@ -1129,37 +1180,64 @@
             return false;
           }
 
-          function hyphenToEnDash() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text.replace(/\-/g, "–");
-            document.getElementById("textMainArea").value = newText;
-            return false;
+          var hyphenToEnEmDash_timesClicked = 0;
+          function hyphenToEnEmDash() {
+            hyphenToEnEmDash_timesClicked++;
+            if (hyphenToEnEmDash_timesClicked % 2 == 0) {
+              //run second function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text.replace(/\-/g, "—").replace(/\–/g, "—");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            } else {
+              //run first function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text.replace(/\-/g, "–").replace(/\—/g, "–");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            }
           }
 
-          function hyphenToEmDash() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text.replace(/\-/g, "—");
-            document.getElementById("textMainArea").value = newText;
-            return false;
-          }
-
+          var numToSuperScript_timesClicked = 0;
           function numToSuperScript() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/\(/g, "⁽")
-              .replace(/\)/g, "⁾")
-              .replace(/0/g, "⁰")
-              .replace(/1/g, "¹")
-              .replace(/2/g, "²")
-              .replace(/3/g, "³")
-              .replace(/4/g, "⁴")
-              .replace(/5/g, "⁵")
-              .replace(/6/g, "⁶")
-              .replace(/7/g, "⁷")
-              .replace(/8/g, "⁸")
-              .replace(/9/g, "⁹");
-            document.getElementById("textMainArea").value = newText;
-            return false;
+            numToSuperScript_timesClicked++;
+            if (numToSuperScript_timesClicked % 2 == 0) {
+              //run second function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text
+                .replace(/⁽/g, "\(")
+                .replace(/⁾/g, "\)")
+                .replace(/⁰/g, "0")
+                .replace(/¹/g, "1")
+                .replace(/²/g, "2")
+                .replace(/³/g, "3")
+                .replace(/⁴/g, "4")
+                .replace(/⁵/g, "5")
+                .replace(/⁶/g, "6")
+                .replace(/⁷/g, "7")
+                .replace(/⁸/g, "8")
+                .replace(/⁹/g, "9");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            } else {
+              //run first function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text
+                .replace(/\(/g, "⁽")
+                .replace(/\)/g, "⁾")
+                .replace(/0/g, "⁰")
+                .replace(/1/g, "¹")
+                .replace(/2/g, "²")
+                .replace(/3/g, "³")
+                .replace(/4/g, "⁴")
+                .replace(/5/g, "⁵")
+                .replace(/6/g, "⁶")
+                .replace(/7/g, "⁷")
+                .replace(/8/g, "⁸")
+                .replace(/9/g, "⁹");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            }
           }
 
           // https://stackoverflow.com/a/13807294
@@ -1267,13 +1345,28 @@
             return false;
           }
 
+          var replaceCommaScolonQ_timesClicked = 0;
           function replaceCommaScolonQ() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text.replace(/\,/g, "،");
-            var newText = text.replace(/\;/g, "؛");
-            var newText = text.replace(/\?/g, "؟");
-            document.getElementById("textMainArea").value = newText;
-            return false;
+            replaceCommaScolonQ_timesClicked++;
+            if (replaceCommaScolonQ_timesClicked % 2 == 0) {
+              //run second function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text
+                .replace(/،/g, "\,")
+                .replace(/؛/g, "\;")
+                .replace(/؟/g, "\?");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            } else {
+              //run first function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text
+                .replace(/\,/g, "،")
+                .replace(/\;/g, "؛")
+                .replace(/\?/g, "؟");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            }
           }
 
           function replaceQbracket() {
@@ -1312,33 +1405,48 @@
             return false;
           }
 
+          var replaceQuotes_timesClicked = 0;
           function replaceQuotes() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/(|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C") //without spaces
-              .replace(/(\s|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C")
-              .replace(/(|^)\'([^\']+)\'/g, "$1\u2019$2\u2018") //without spaces
-              .replace(/(\s|^)\'([^\']+)\'/g, "$1\u2019$2\u2018");
-            document.getElementById("textMainArea").value = newText;
-            return false;
+            replaceQuotes_timesClicked++;
+            if (replaceQuotes_timesClicked % 2 == 0) {
+              //run second function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text
+                .replace(/\u201D|\u201C/g, '"')
+                .replace(/\u2019|\u2018/g, "'");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            } else {
+              //run first function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text
+                .replace(/(|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C") //without spaces
+                .replace(/(\s|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C")
+                .replace(/(|^)\'([^\']+)\'/g, "$1\u2019$2\u2018") //without spaces
+                .replace(/(\s|^)\'([^\']+)\'/g, "$1\u2019$2\u2018");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            }
           }
 
+          var replaceQtoDoubleAngBrackets_timesClicked = 0;
           function replaceQtoDoubleAngBrackets() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/(|^)\"([^\"]+)\"/g, "$1\«$2\»") //without spaces
-              .replace(/(\s|^)\"([^\"]+)\"/g, "$1\«$2\»");
-            document.getElementById("textMainArea").value = newText;
-            return false;
-          }
-
-          function replaceDoubleAngBracketstoQ() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/(|^)\«([^\»]+)\»/g, "$1\u201D$2\u201C") //without spaces
-              .replace(/(\s|^)\«([^\»]+)\»/g, "$1\u201D$2\u201C");
-            document.getElementById("textMainArea").value = newText;
-            return false;
+            replaceQtoDoubleAngBrackets_timesClicked++;
+            if (replaceQtoDoubleAngBrackets_timesClicked % 2 == 0) {
+              //run second function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text.replace(/\«|\»/g, '"');
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            } else {
+              //run first function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text
+                .replace(/(|^)\"([^\"]+)\"/g, "$1\«$2\»") //without spaces
+                .replace(/(\s|^)\"([^\"]+)\"/g, "$1\«$2\»");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            }
           }
 
           function replaceDoubleBrackets() {
