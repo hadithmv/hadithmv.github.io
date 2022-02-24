@@ -496,8 +496,18 @@
           <button onclick="replaceFili();countChar();">
             އަރަބި ފިލި ފޮހެލާ
           </button>
-          <button onclick="remThiki();">ތިކިޖެހިތާނަ ފޮހެލާ</button>
-          <button onclick="replaceSpacesLines();">އިތުރު ސްޕޭސް ފޮހެލާ</button>
+          <button
+            onclick="remThiki();"
+            title="ތިކިޖެހި ތާނަ ތިކިނުޖަހާ ތާނައަށް ބަދަލުކުރޭ"
+          >
+            ތާނަތިކި ފޮހެލާ
+          </button>
+          <button
+            onclick="replaceSpacesLines();"
+            title="އިތުރު ސްޕޭސްތަކާ އާފޮޅުވަތްތައް ފޮހެލާ"
+          >
+            އިތުރު ސްޕޭސް ފޮހެލާ
+          </button>
           <button onclick="replacePunct();">ޕަންކްޗުއޭޝަން ފޮހެލާ</button>
           <!--<button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>-->
 
@@ -510,7 +520,13 @@
           <button onclick="numToAr();">123 ← ١٢٣</button>
           <button onclick="arToNum();">١٢٣ ← 123</button>
 
-          <button onclick="shortenSalla();" class="arButton">صلى… ← ﷺ</button>
+          <button
+            onclick="shortenSalla();"
+            class="arButton"
+            title="صلى الله عليه وسلم ← ﷺ"
+          >
+            صلى… ← ﷺ
+          </button>
           <button onclick="replaceCommaScolonQ();" class="arButton">
             , ; ? ← ، ؛ ؟
           </button>
