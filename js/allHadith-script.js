@@ -77,14 +77,14 @@ $(document).ready(() => {
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          data = data.replace('صحيح البخاري', 'ސަހީހު ބުޚާރީ')
-          data = data.replace('صحيح مسلم', 'ސަހީހު މުސްލިމް')
+          data = data.replace('صحيح البخاري', 'ޞަޙީޙު ބުޚާރީ')
+          data = data.replace('صحيح مسلم', 'ޞަޙީޙު މުސްލިމް')
           data = data.replace('سنن أبي داود', 'ސުނަން އަބޫ ދާވޫދު')
           data = data.replace('المستدرك للحاكم', 'ޙާކިމްގެ މުސްތަދްރަކު')
           data = data.replace('الأدب المفرد', 'އަދަބުލް މުފްރަދު')
           data = data.replace('منتقى ابن جارود', 'އިބްނު ޖާރޫދުގެ މުންތަގާ')
-          data = data.replace('صحيح ابن خزيمة', 'ސަހީހު އިބްނު ޚުޒައިމާ')
-          data = data.replace('صحيح ابن حبان', 'ސަހީހު އިބްނު ޙިއްބާން')
+          data = data.replace('صحيح ابن خزيمة', 'ޞަޙީޙު އިބްނު ޚުޒައިމާ')
+          data = data.replace('صحيح ابن حبان', 'ޞަޙީޙު އިބްނު ޙިއްބާން')
           data = data.replace('سنن النسائي', 'ސުނަން އައްނަސާއީ')
           data = data.replace('سنن الترمذي', 'ސުނަން އައްތިރުމިޛީ')
           data = data.replace('سنن ابن ماجه', 'ސުނަން އިބްނު މާޖާ')
