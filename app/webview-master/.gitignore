@@ -31,6 +31,8 @@ build/
 .navigation
 captures/
 output.json
+gradle
+# added the last
 
 #NDK
 obj/
