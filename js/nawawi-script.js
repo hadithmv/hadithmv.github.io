@@ -101,7 +101,7 @@ $(document).ready(() => {
       },
       {
         data: 5,
-        title: 'eng'
+        title: 'English'
       },
       {
         data: 6,
