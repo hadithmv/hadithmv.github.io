@@ -30,7 +30,7 @@
     <InstallFormColor>-16777190</InstallFormColor>
     <InstallIndicatorColor>1</InstallIndicatorColor>
     <InstallIndicatorType>0</InstallIndicatorType>
-    <IcoPath>..\img\newLogo5-roundedSquare.ico</IcoPath>
+    <IcoPath>..\img\newLogo7-roundedSquare.ico</IcoPath>
     <AllowDebug>0</AllowDebug>
     <AllowContextMenu>1</AllowContextMenu>
     <DynamicAppTitle>1</DynamicAppTitle>
