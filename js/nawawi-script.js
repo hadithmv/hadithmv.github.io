@@ -101,18 +101,22 @@ $(document).ready(() => {
       },
       {
         data: 5,
-        title: 'ތަޚްރީޖު އަރަބިން'
+        title: 'eng'
       },
       {
         data: 6,
-        title: 'ތަޚްރީޖު ދިވެހިން'
+        title: 'ތަޚްރީޖު އަރަބިން'
       },
       {
         data: 7,
-        title: 'ރިޔާޟުއްޞާލިޙީނުން'
+        title: 'ތަޚްރީޖު ދިވެހިން'
       },
       {
         data: 8,
+        title: 'ރިޔާޟުއްޞާލިޙީނުން'
+      },
+      {
+        data: 9,
         title: 'شرح العباد',
       }
     ],
@@ -121,7 +125,7 @@ $(document).ready(() => {
     columnDefs: [
 
       // adds footnote line for shurooh
-      { targets: 9,
+      { targets: 10,
         render: function (data, type, row) {
           data = '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>' + data
           return data.replace(/\n/g, ' <br class="br">') // without this line breaks not preserved
@@ -194,8 +198,17 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'fnCol7', // Ar Ref
+        className: 'fnCol7', // Eng Text
         targets: [6],
+        visible: false,
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'fnCol8', // Ar Ref
+        targets: [7],
         visible: true,
         searchable: false,
         searchPanes: {
@@ -203,16 +216,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'fnCol8', // Dv Ref
-        targets: [7],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false
-        }
-      },
-      {
-        className: 'fnCol9', // Rs Ref
+        className: 'fnCol9', // Dv Ref
         targets: [8],
         visible: false,
         searchable: false,
@@ -221,8 +225,17 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'fnCol10', // Sharh
+        className: 'fnCol10', // Rs Ref
         targets: [9],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'fnCol11', // Sharh
+        targets: [10],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -453,6 +466,7 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
+          data = data.replace(/eng\t/g, '')
           data = data.replace(/ތަޚްރީޖު އަރަބިން\t/g, '')
           data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
           data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
