@@ -1059,6 +1059,21 @@ a:hover {
        BUTTON STYLES
 ======================= */
 
+/* increases searchpanes height based on screen height */
+
+div.dtsp-searchPane div.dataTables_scrollBody {
+  height: 50vh !important;
+  max-height: 50vh !important;
+}
+
+/* Desktop only MQ */
+@media screen and (min-width: 900px) {
+  div.dtsp-searchPane div.dataTables_scrollBody {
+    height: 60vh !important;
+    max-height: 60vh !important;
+  }
+}
+
 /* this removes the selected color given by dt js css ON THE MAIN TABLE as well as pane, which is in play even without select css, this is for the dt table, not the sp inner table */
 table.dataTable.display tbody tr.odd.selected,
 table.dataTable.stripe tbody tr.odd.selected {
