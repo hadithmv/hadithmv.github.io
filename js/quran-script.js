@@ -98,9 +98,9 @@ $(document).ready(() => {
           
           /* reverse brackets because thats how the font file needs it */
           //data = '﴿' + data + '﴾'
-          data = '﴿' + data + '﴾'
+          data = '﴿ ' + data + ' ﴾'
           /* move the bracket in surah start basmalas to the actual first ayah */
-          return data.replace('﴿بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n<br><br>\n', 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n<br><br>\n﴿')
+          return data.replace('﴿ بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n', 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n<br><br>﴿ ')
         }
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
