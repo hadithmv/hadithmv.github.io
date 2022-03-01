@@ -100,7 +100,7 @@ $(document).ready(() => {
           //data = '﴿' + data + '﴾'
           data = '﴿ ' + data + ' ﴾'
           /* move the bracket in surah start basmalas to the actual first ayah */
-          return data.replace('﴿ بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n', 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n<br><br>﴿ ')
+          return data.replace('﴿ بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n', 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n<br class="br"><br class="br">﴿ ')
         }
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
