@@ -123,7 +123,8 @@ $(document).ready(() => {
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return data.replace(/[ًٌٍَُِّْ]/g, '')
+          return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g, '')
+          //return data.replace(/[ًٌٍَُِّْ]/g, '')
         }
       },
       {
@@ -335,11 +336,6 @@ $(document).ready(() => {
 
     // markjs, a keyword highlighter for strings, arrays or regular expressions.
     mark: true,
-
-    // default "smart" filtering breaks input into individual words and then matches those words in any position and in any order in the table (rather than simple doing a simple string compare).
-    search: {
-      smart: false
-    },
 
     // default "smart" filtering breaks input into individual words and then matches those words in any position and in any order in the table (rather than simple doing a simple string compare).
     search: {
