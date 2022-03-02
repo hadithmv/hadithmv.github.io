@@ -323,7 +323,7 @@ body.mm-ocd-opened {
   color: #66bce6;
 
   /* added font because drawer top text is unstyled 
-  font-family: "dvFont", "arFont", sans-serif; */
+  font-family: "dvFont", "faruma", "arFont", sans-serif; */
 
   /* added this, this undoes the added root indent padding for top menu text */
   padding-right: 50px;
