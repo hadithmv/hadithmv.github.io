@@ -322,6 +322,11 @@ $(document).ready(() => {
     // markjs, a keyword highlighter for strings, arrays or regular expressions.
     mark: true,
 
+    // default "smart" filtering breaks input into individual words and then matches those words in any position and in any order in the table (rather than simple doing a simple string compare).
+    search: {
+      smart: false
+    },
+
     //= ====================
     // Internationalisation
     // ====================
@@ -354,7 +359,7 @@ $(document).ready(() => {
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
-      searchPlaceholder: 'ސީދާ ޖުމްލަ "މިހެން ހޯދާނީ"',
+      searchPlaceholder: 'ލަފްޒު ހޯދާ...',
       zeroRecords: '<br><br><br><br>- ނުފެނުނު -<br><br><br><br><br><br>',
       searchPanes: {
         clearMessage: 'ހުރިހާ ފިލްޓާއެއް ދުއްވާލާ',
