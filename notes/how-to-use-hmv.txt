@@ -9,6 +9,7 @@ hadithmv is available online as a website, as well as an offline application on 
 Click on the top navbar to open the menu.
 Open a book to begin browsing.
 Use the search box to look up words.
+To search for an exact match, enclose your search terms within double quotes. "like this"
 Use the show 1 box to select how many items to show.
 Use the page buttons to move forward or backward. (Can also swipe to change pages on mobile)
 Write in the page box to jump to a page. (Can also use arrow keys once inside the box)
