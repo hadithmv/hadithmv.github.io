@@ -291,7 +291,7 @@ li,
 .header,
 /* for mmenu light nav horizontal bar */
 .mm-spn.mm-spn--navbar::after {
-  font-family: dvFont, arFont, sans-serif;
+  font-family: dvFont, arFont, faruma, sans-serif;
 
   /* CHANGE123 FONT
               text-align: justify;
@@ -1224,7 +1224,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 #footer {
   /* text-align: justify;
   text-align-last: center; */
-  font-family: dvFont, arFont, sans-serif;
+  font-family: dvFont, arFont, faruma, sans-serif;
   font-size: 17px;
   line-height: 1.9;
   direction: rtl;
@@ -1238,7 +1238,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 }
 
 .arMasdar {
-  font-family: arFont, dvFont, sans-serif;
+  font-family: arFont, dvFont, faruma, sans-serif;
   font-size: 20px;
   line-height: 1.7;
   word-spacing: 2px;
