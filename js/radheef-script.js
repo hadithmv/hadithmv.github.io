@@ -288,7 +288,7 @@ $(document).ready(() => {
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
-      searchPlaceholder: 'ހޯދާ...',
+      searchPlaceholder: 'ސީދާ ލަފްޒު ހޯދުމަށް "މިހެން" ޖަހާ',
       zeroRecords: '<br><br><br><br>- ނުފެނުނު -<br><br><br><br><br><br>',
       searchPanes: {
         clearMessage: 'ހުރިހާ ފިލްޓާއެއް ދުއްވާލާ',
