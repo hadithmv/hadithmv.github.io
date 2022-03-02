@@ -296,7 +296,7 @@ $(document).ready(() => {
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
-      searchPlaceholder: 'ސީދާ ޖުމްލަ ހޯދުމަށް "މިހެން" ޖަހާ',
+      searchPlaceholder: '"ސީދާ ޖުމްލަ ހޯދުމަށް "މިހެން ޖަހާ',
       zeroRecords: '<br><br><br><br>- ނުފެނުނު -<br><br><br><br><br><br>'
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
