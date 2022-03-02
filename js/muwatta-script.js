@@ -75,7 +75,8 @@ $(document).ready(() => {
         data: 1,
         title: 'ފޮތް އަރަބިން',
         render: function (data, type, row) {
-          return data.replace(/[ًٌٍَُِّْ]/g, '')
+          return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g, '')
+          //return data.replace(/[ًٌٍَُِّْ]/g, '')
         }
       },
       {
@@ -86,7 +87,8 @@ $(document).ready(() => {
         data: 3,
         title: 'ބާބު އަރަބިން',
         render: function (data, type, row) {
-          return data.replace(/[ًٌٍَُِّْ]/g, '')
+          return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g, '')
+          //return data.replace(/[ًٌٍَُِّْ]/g, '')
         }
       },
       {
@@ -106,7 +108,8 @@ $(document).ready(() => {
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return data.replace(/[ًٌٍَُِّْ]/g, '')
+          return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g, '')
+          //return data.replace(/[ًٌٍَُِّْ]/g, '')
         }
       },
       {
