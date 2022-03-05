@@ -339,7 +339,7 @@ $(document).ready(() => {
 
     // default "smart" filtering breaks input into individual words and then matches those words in any position and in any order in the table (rather than simple doing a simple string compare).
     search: {
-      smart: false
+      smart: true
     },
 
     //= ====================
