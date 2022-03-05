@@ -98,9 +98,9 @@ $(document).ready(() => {
           
           /* reverse brackets because thats how the font file needs it */
           //data = '﴿' + data + '﴾'
-          data = '﴿ ' + data + ' ﴾'
+          data = '﴿' + data + '﴾'
           /* move the bracket in surah start basmalas to the actual first ayah */
-          return data.replace('﴿ بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n', 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n<br class="br"><br class="br">﴿ ')
+          return data.replace('﴿بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n', 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n<br class="br"><br class="br">﴿')
         }
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
@@ -172,7 +172,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'qCol1', // surah
+        className: 'qCol1', // surah name
         targets: [0],
         visible: true,
         searchable: true,
@@ -181,7 +181,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol2', // juz
+        className: 'qCol2', // juz #
         targets: [1],
         visible: false,
         searchable: true,
@@ -190,7 +190,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol3', // ayah
+        className: 'qCol3', // ayah #
         targets: [2],
         visible: false,
         searchable: true,
@@ -364,9 +364,9 @@ $(document).ready(() => {
     mark: true,
 
     // default "smart" filtering breaks input into individual words and then matches those words in any position and in any order in the table (rather than simple doing a simple string compare).
-    search: {
+    /*search: {
       smart: false
-    },
+    },*/
 
     //= ====================
     // Internationalisation
@@ -401,7 +401,7 @@ $(document).ready(() => {
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
       searchPlaceholder: 'ލަފްޒު ހޯދާ...',
-      zeroRecords: '<br><br><br><br>- ނުފެނުނު -<br><br><br><br><br><br>',
+      zeroRecords: '<br><br><br><br>- ނުފެނުނު -<br><br><br><br><br>',
       searchPanes: {
         clearMessage: 'ހުރިހާ ފިލްޓާއެއް ދުއްވާލާ',
         collapse: { 0: 'ފިލްޓާތައް', _: 'ފިލްޓާތައް (%d)' },
