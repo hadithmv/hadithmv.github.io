@@ -73,21 +73,21 @@
          === --- === --- ==== */
 
       /* bold headers for first number at top */
-      /*.ahCol1*/
-      .ahCol3 {
+      /*.allHCol1*/
+      .allHCol3 {
         font-weight: bold;
       }
 
-      /* header colors */
-      .ahCol1,
-      .ahCol2,
-      .ahCol3 {
+      /* kitab baab and takhrij colors */
+      .allHCol1,
+      .allHCol2,
+      .allHCol3 {
         color: #004466 !important;
       }
       @media (prefers-color-scheme: dark) {
-        .ahCol1,
-        .ahCol2,
-        .ahCol3 {
+        .allHCol1,
+        .allHCol2,
+        .allHCol3 {
           color: #66bce6 !important;
         }
       }
@@ -96,7 +96,7 @@
       justify doesnt look good on short cells like surukhi, masdars.
       so right align to prevent gaps in text */
 
-      /* .dataTable tr td.ahCol1 {
+      /* .dataTable tr td.allHCol1 {
               text-align: right;
               padding-top: 10px;
             } */
@@ -104,32 +104,32 @@
       /* mobile only row centering, for rows with strings that are not long */
 
       @media screen and (max-width: 900px) {
-        .dataTable tr td.ahCol1,
-        .dataTable tr td.ahCol2,
-        .dataTable tr td.ahCol3,
-        .dataTable tr td.ahCol7,
-        .dataTable tr td.ahCol8 {
+        .dataTable tr td.allHCol1,
+        .dataTable tr td.allHCol2,
+        .dataTable tr td.allHCol3,
+        .dataTable tr td.allHCol7,
+        .dataTable tr td.allHCol8 {
           text-align: center;
         }
       }
 
       /* adds padding to top on mobile */
       @media screen and (max-width: 900px) {
-        .ahCol1 {
+        .allHCol1 {
           padding-top: 10px !important;
         }
       }
 
       /* --- AR FONTS FOR TABLE --- */
 
-      /* tbody tr td.ahCol1, */
+      /* tbody tr td.allHCol1, */
 
-      .dataTable tr td.ahCol1,
-      .dataTable tr td.ahCol3,
-      .dataTable tr td.ahCol4,
-      .dataTable tr td.ahCol5,
-      .dataTable tr td.ahCol7,
-      .dataTable tr td.ahCol8 {
+      .dataTable tr td.allHCol1,
+      .dataTable tr td.allHCol3,
+      .dataTable tr td.allHCol4,
+      .dataTable tr td.allHCol5,
+      .dataTable tr td.allHCol7,
+      .dataTable tr td.allHCol8 {
         font-family: "arFont", "dvFont", sans-serif, "faruma";
         font-size: 23px;
         line-height: 1.7;
@@ -139,16 +139,22 @@
 
       /* .dataTable tr td.fnCol1, need this bigger */
 
-      .dataTable tr td.ahCol2,
-      .dataTable tr td.ahCol6 {
+      .dataTable tr td.allHCol2,
+      .dataTable tr td.allHCol6 {
         font-family: "dvFont", "arFont", sans-serif, "faruma";
         font-size: 17px;
         line-height: 1.9;
       }
 
+      /* takhrij font size */
+      .dataTable tr td.allHCol7,
+      .dataTable tr td.allHCol8 {
+        font-size: 21px;
+      }
+
       /* columns with ar numbers
-      .dataTable tr td.ahCol7,
-      .dataTable tr td.ahCol9 {
+      .dataTable tr td.allHCol7,
+      .dataTable tr td.allHCol9 {
         font-family: "arFont", "dvFont", sans-serif, "faruma";
         font-size: 21px;
       } */
@@ -156,13 +162,13 @@
       /* css for first column
       cuz it has hashtag and digits */
 
-      /* .dataTable tr td.ahCol1 {
+      /* .dataTable tr td.allHCol1 {
               font-size: 21px;
             } */
 
       /* extra changes from fnCols */
 
-      /* .dataTable tr td.ahCol5 {
+      /* .dataTable tr td.allHCol5 {
               text-align: center; */
 
       /* font-size: 18px; */
