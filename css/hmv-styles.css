@@ -1059,22 +1059,7 @@ a:hover {
        BUTTON STYLES
 ======================= */
 
-/* increases searchpanes height based on screen height */
-
-div.dtsp-searchPane div.dataTables_scrollBody {
-  height: 50vh !important;
-  max-height: 50vh !important;
-}
-
-/* Desktop only MQ */
-@media screen and (min-width: 900px) {
-  div.dtsp-searchPane div.dataTables_scrollBody {
-    height: 60vh !important;
-    max-height: 60vh !important;
-  }
-}
-
-/* this removes the selected color given by dt js css ON THE MAIN TABLE as well as pane, which is in play even without select css, this is for the dt table, not the sp inner table */
+/* this removes the selected color given by dt js css ON THE MAIN TABLE as well as searchpane, which is in play even without select css, this is for the dt table, not the sp inner table */
 table.dataTable.display tbody tr.odd.selected,
 table.dataTable.stripe tbody tr.odd.selected {
   background-color: transparent !important;
@@ -1091,14 +1076,81 @@ div.dt-button-collection {
   left: 0 !important;
 }
 
+
+
+input {
+  /* moves ALL INPUTS a little more to the left */
+  text-indent: 5px;
+}
+
+/* ====================
+       Searchpanes STYLES
+======================= */
+
+/* font sizes */
+/*  */
+@media screen and (min-width: 900px) {
+  div.dtsp-panesContainer
+div.dataTables_wrapper
+div.dataTables_scrollBody
+div.dtsp-nameCont
+span.dtsp-name,
+div.dtsp-panesContainer
+div.dataTables_wrapper
+div.dataTables_scrollBody
+div.dtsp-nameCont
+span.dtsp-pill {
+font-size: 18px;
+}
+}
+
+
+/* increases searchpanes height based on screen height */
+
+div.dtsp-searchPane div.dataTables_scrollBody {
+  height: 50vh !important;
+  max-height: 50vh !important;
+}
+
+/* Desktop only MQ */
+@media screen and (min-width: 900px) {
+  div.dtsp-searchPane div.dataTables_scrollBody {
+    height: 60vh !important;
+    max-height: 60vh !important;
+  }
+}
+
 .dtsp-nameColumn {
   /* changes text cursor to finger pointer */
   cursor: pointer;
 }
 
-input {
-  /* moves ALL INPUTS a little more to the left */
-  text-indent: 5px;
+/* ====================
+       Footer STYLES
+======================= */
+
+/* hide until display finishes */
+#footer {
+  /* text-align: justify;
+  text-align-last: center; */
+  font-family: dvFont, arFont, sans-serif, faruma;
+  font-size: 17px;
+  line-height: 1.9;
+  direction: rtl;
+  padding: 15px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+
+  /* set max width for text, needs margin 0 auto otherwise text align gets messed up */
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.arMasdar {
+  font-family: arFont, dvFont, sans-serif, faruma;
+  font-size: 20px;
+  line-height: 1.7;
+  word-spacing: 2px;
 }
 
 input.dtsp-search,
@@ -1144,18 +1196,11 @@ div.dtsp-panesContainer
   margin-left: 20px;
 }
 
-#allHadithTable_wrapper
-  > div.mTop3
-  > div.dt-buttons
-  > div
-  > div.dtsp-panesContainer
-  > div.dtsp-titleRow
-  > button {
-}
-
+/*
 #DataTables_Table_0 tbody tr {
   font-size: 16px;
 }
+*/
 
 div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   /* text color when not disabled, ie active, not disabled is for preventing disabled being overwritten */
@@ -1214,34 +1259,6 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
     /* text color when not disabled, ie active, not disabled is for preventing disabled being overwritten */
     border: 1px solid #eee !important;
   }
-}
-
-/* ====================
-       Footer Code
-======================= */
-
-/* hide until display finishes */
-#footer {
-  /* text-align: justify;
-  text-align-last: center; */
-  font-family: dvFont, arFont, sans-serif, faruma;
-  font-size: 17px;
-  line-height: 1.9;
-  direction: rtl;
-  padding: 15px;
-  padding-top: 30px;
-  padding-bottom: 20px;
-
-  /* set max width for text, needs margin 0 auto otherwise text align gets messed up */
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.arMasdar {
-  font-family: arFont, dvFont, sans-serif, faruma;
-  font-size: 20px;
-  line-height: 1.7;
-  word-spacing: 2px;
 }
 
 /* ====================
