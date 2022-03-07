@@ -119,7 +119,7 @@ $(document).ready(() => {
           data = data.replace(/\s([\u0660-\u0669]+)/, '\u00a0$1')
           data = '﴿' + data + '﴾'
           // replaces basmalas opening closing brackets non breaks, then kashida, then arabic numbers, then space, than br tag
-          return data.replace('﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace('﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace(/ـ/g, '').replace(/[^\u0621-\u064A| |<br class="br">]/g, '')
+          return data.replace('﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace('﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace(/ـ/g, '').replace(/[^\u0621-\u064A|\s|<br class="br">]/g, '')
 
           //
           /* old code */
@@ -522,7 +522,7 @@ $(document).ready(() => {
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
-          data = data.replace(/\s\s/g, '\n\n') // turns two spaces into new lines, for multi line text
+          //data = data.replace(/\s\s/g, '\n\n') // turns two spaces into new lines, for multi line text
           data = data.replace(/\n\n\n\n/g, '\n\n') // turns 4 new lines spaces into 2
           data = data.replace(/\n\n\n\n/g, '\n\n') // turns 4 new lines spaces into 2
 
@@ -582,7 +582,7 @@ $(document).ready(() => {
                data = data.replace( /\r/g, "" ); //rids windows platform newline
                data = data.replace( /\t/g, "\n\n" ); */
 
-          //  console.log(JSON.stringify(data)) // json stringify to console
+            //console.log(JSON.stringify(data)) // json stringify to console
 
           return data
         },
