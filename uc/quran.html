@@ -48,7 +48,7 @@
     <script defer src="../js/resc/COMB-nonCrit.js"></script>
     <!-- change123 js -->
     <script defer src="../js/json/quran.js"></script>
-    <script defer src="../js/quran-script.min.js"></script>
+    <script defer src="../js/quran-script.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -99,7 +99,8 @@
       .dataTable tr td.qCol3,
       .dataTable tr td.qCol4,
       .dataTable tr td.qCol5,
-      .dataTable tr td.qCol6 {
+      .dataTable tr td.qCol6,
+      .dataTable tr td.qCol7 {
         text-align: center;
       }
 
@@ -112,7 +113,8 @@
       .dataTable tr td.qCol2,
       .dataTable tr td.qCol3,
       .dataTable tr td.qCol4,
-      .dataTable tr td.qCol5 {
+      .dataTable tr td.qCol5,
+      .dataTable tr td.qCol6 {
         font-family: "arFont", "dvFont", sans-serif, "faruma";
         font-size: 21px;
         line-height: 2;
@@ -124,13 +126,13 @@
 
       /* .dataTable tr td.fnCol1, need this bigger */
 
-      .dataTable tr td.qCol6 {
+      .dataTable tr td.qCol7 {
         font-family: "dvFont", "arFont", sans-serif, "faruma";
         font-size: 17px;
         line-height: 2.2;
       }
       @media screen and (max-width: 599px) {
-        .dataTable tr td.qCol6 {
+        .dataTable tr td.qCol7 {
         }
       }
 
@@ -149,13 +151,13 @@
 
       /* quran only tafsir sa'di font and line height smaller */
 
-      .dataTable tr td.qCol7 {
+      .dataTable tr td.qCol8 {
         font-family: "arFont", "dvFont", sans-serif, "faruma";
         font-size: 20px;
         line-height: 1.6;
       }
 
-      .dataTable tr td.qCol8 {
+      .dataTable tr td.qCol9 {
         font-family: "dvFont", "arFont", sans-serif, "faruma";
         font-size: 16px;
         line-height: 1.9;
@@ -1261,6 +1263,7 @@
                 <th></th>
                 <th></th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
           </table>
@@ -1269,13 +1272,14 @@
           <div class="hidden" id="footer">
             <p>
               މި ތަރުޖަމާ ބިނާކޮށްފައި ވަނީ: ރައީސުލް ޖުމްހޫރިއްޔާގެ އޮފީހުގެ
-              ތަރުޖަމާގެ މައްޗަށެވެ. ނަމަވެސް މި ތަރުޖަމާގައި އަޝްޢަރީ ފިކުރުގެ
-              އަގީދާއެއް ނުހިމެނޭނެއެވެ. އަދި އަރަބި ލަފްޒުތައް ވާނީ
-              ތާނަކޮށްފައެވެ. ނެޓުގައި ދިވެހި ތަރުޖަމާގެ ޓެކްސްޓު ނެގޭ
-              ސައިޓުތަކަށް ބަލާއިރު، އަދި އެކި މީހުން ހަދާފައިވާ ތަފާތު ދިވެހި
-              ޤުރްއާން އެޕްލިކޭޝަންތަކަށް ބަލާއިރު، ޙަދީޘްއެމްވީގައި މިވާ
-              ތަރުޖަމާއަކީ މި ދެންނެވި ދެ ކަންތައް ތަންފީޒު ކުރި ހަމައެކަނި
-              ތަރުޖަމާއެވެ. ولله الحمد.
+              ތަރުޖަމާގެ މައްޗަށެވެ. ނަމަވެސް އަޝްޢަރީ އަގީދާ މުސްލިމުންނަށް
+              ފެތުރުން ހުއްދަ ނުވާތީ، މި ތަރުޖަމާގައި އެ ފިކުރުގެ އެއްވެސް
+              ކަމެއް ނުހިމެނޭނެއެވެ. އަދި ދިވެހިންނަށް ކިޔަން ފަސޭހައަކަށް،
+              އަރަބި ލަފްޒުތައް ވާނީ ތާނަކޮށްފައެވެ. ނެޓުގައި ދިވެހި ތަރުޖަމާގެ
+              ޓެކްސްޓު ނެގޭ ސައިޓުތަކަށް ބަލާއިރު، އަދި އެކި މީހުން ހަދާފައިވާ
+              ތަފާތު ދިވެހި ޤުރްއާން އެޕްލިކޭޝަންތަކަށް ބަލާއިރު،
+              ޙަދީޘްއެމްވީގައި މިވާ ތަރުޖަމާއަކީ މި ދެންނެވި ދެ ކަންތައް
+              ތަންފީޒު ކުރި ހަމައެކަނި ތަރުޖަމާއެވެ. ولله الحمد.
             </p>
 
             <p>
