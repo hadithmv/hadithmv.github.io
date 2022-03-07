@@ -81,7 +81,7 @@ $(document).ready(() => {
       },
       { /* add brackets to quran */
         data: 3,
-        title: 'ޤުރްއާން އަރަބިން',
+        title: 'މުޖައްމާ ޤުރްއާން',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
@@ -103,17 +103,33 @@ $(document).ready(() => {
           return data.replace('﴿بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n', 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n<br class="br"><br class="br">﴿')
         }
       },
-      // { title: 'އަރަބި ފިލިނުޖަހައި' },
-      { /* instead of repeating this part of the array within the external json,
-         we can strip diacritics using regex within the table itself, this makes
-         the array file much smaller in the long run */
+      { 
         data: 4,
-        title: 'ޤުރްއާން ފިލިނުޖަހައި'
-        /* render: function (data, type, row) {
+        title: 'ތަންޒީލު ޤުރްއާން',
+        render: function (data, type, row) {
+          data = data.replace(/\s([\u0660-\u0669]+)/, '\u00a0$1')
+          data = '﴿' + data + '﴾'
+          return data.replace('﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace('﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿')
+        }
+      },
+      {
+        data: 4,
+        title: 'ފިލިނުޖަހާ ޤުރްއާން',
+         render: function (data, type, row) {
+          data = data.replace(/\s([\u0660-\u0669]+)/, '\u00a0$1')
+          data = '﴿' + data + '﴾'
+          // replaces basmalas opening closing brackets non breaks, then kashida, then arabic numbers, then space, than br tag
+          return data.replace('﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace('﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace(/ـ/g, '').replace(/[^\u0621-\u064A| |<br class="br">]/g, '')
+
+          //
+          /* old code */
+          /*
+                  /* render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
           return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ|ۡ|ٰ/g, '').replace(/ٱ/g, 'ا')
         } */
+         }
       },
       {
         data: 5,
@@ -199,7 +215,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol4', // quran
+        className: 'qCol4', // quran mujamma
         targets: [3],
         visible: true,
         searchable: true,
@@ -208,7 +224,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol5', // quran plain
+        className: 'qCol5', // quran tanzil
         targets: [4],
         visible: false,
         searchable: true,
@@ -217,8 +233,17 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol6', // dv tarjama
+        className: 'qCol6', // quran plain
         targets: [5],
+        visible: false,
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'qCol7', // dv tarjama
+        targets: [6],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -226,8 +251,8 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol7', // tafsir sadi ar
-        targets: [6],
+        className: 'qCol8', // tafsir sadi ar
+        targets: [7],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -235,8 +260,8 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol8', // tafsir sadi dv
-        targets: [7],
+        className: 'qCol9', // tafsir sadi dv
+        targets: [8],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -343,7 +368,7 @@ $(document).ready(() => {
     // or 2Darray where 1st inner array=page length values, 2nd displayed options
     // -1 is used as a value this tells DataTables to disable pagination
     // Default [ 10, 25, 50, 100 ],
-    lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, '50']],
+    lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50, 100, 200, 300], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, '50, 100, 200, 300']],
     // lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހާ']],
     // lengthMenu: [ [5, 10, 20, 30, 40, -1, 1], ["Show 5", 10, 20, 30, 40,
     // "All", 1] ],
@@ -486,8 +511,9 @@ $(document).ready(() => {
           data = data.replace(/ސޫރަތުގެ ނަން\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/ޖުޒް #\t/g, '')
           data = data.replace(/އާޔަތް #\t/g, '')
-          data = data.replace(/ޤުރްއާން އަރަބިން\t/g, '')
-          data = data.replace(/ޤުރްއާން ފިލިނުޖަހައި\t/g, '')
+          data = data.replace(/މުޖައްމާ ޤުރްއާން\t/g, '')
+          data = data.replace(/ތަންޒީލު ޤުރްއާން\t/g, '')
+          data = data.replace(/ފިލިނުޖަހާ ޤުރްއާން\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/تفسير السعدي*\t/g, '')
           data = data.replace(/ތަފްސީރު އައްސަޢްދީ*\t/g, '')
