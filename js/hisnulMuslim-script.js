@@ -133,7 +133,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'hmCol1', // #
+        className: 'hisnCol1', // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -142,7 +142,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'hmCol2', // Ar Title
+        className: 'hisnCol2', // Ar Title
         targets: [1],
         visible: true,
         searchable: true,
@@ -151,7 +151,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'hmCol3', // Dv Title
+        className: 'hisnCol3', // Dv Title
         targets: [2],
         visible: true,
         searchable: true,
@@ -160,7 +160,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'hmCol4', // Ar Text
+        className: 'hisnCol4', // Ar Text
         targets: [3],
         visible: true,
         searchable: true,
@@ -169,7 +169,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'hmCol5', // Ar Plain
+        className: 'hisnCol5', // Ar Plain
         targets: [4],
         visible: false,
         searchable: true,
@@ -178,7 +178,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'hmCol6', // transliterate
+        className: 'hisnCol6', // transliterate
         targets: [5],
         visible: false,
         searchable: false,
@@ -187,7 +187,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'hmCol7', // Dv Text
+        className: 'hisnCol7', // Dv Text
         targets: [6],
         visible: true,
         searchable: true,
@@ -196,7 +196,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'hmCol8', // Ar Ref
+        className: 'hisnCol8', // Ar Ref
         targets: [7],
         visible: false,
         searchable: false,
@@ -205,7 +205,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'hmCol9', // Dv Ref
+        className: 'hisnCol9', // Dv Ref
         targets: [8],
         visible: false,
         searchable: false,

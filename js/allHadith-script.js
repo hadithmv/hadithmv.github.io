@@ -166,7 +166,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'ahCol1', // book
+        className: 'allHCol1', // book
         targets: [0],
         visible: true,
         searchable: true,
@@ -175,7 +175,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'ahCol2', // book dv
+        className: 'allHCol2', // book dv
         targets: [1],
         visible: false,
         searchable: true,
@@ -184,7 +184,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'ahCol3', // #
+        className: 'allHCol3', // #
         targets: [2],
         visible: true,
         searchable: true,
@@ -193,13 +193,13 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'ahCol4', // Ar Text
+        className: 'allHCol4', // Ar Text
         targets: [3],
         visible: false,
         searchable: false
       },
       {
-        className: 'ahCol5', // Ar Text Plain
+        className: 'allHCol5', // Ar Text Plain
         targets: [4],
         visible: true,
         searchable: true,
@@ -208,7 +208,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'ahCol6', // Dv Text
+        className: 'allHCol6', // Dv Text
         targets: [5],
         visible: true,
         searchable: true,
@@ -217,7 +217,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'ahCol7', // hukum
+        className: 'allHCol7', // hukum
         targets: [6],
         visible: true,
         searchable: false,
@@ -226,7 +226,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'ahCol8', // takhrij
+        className: 'allHCol8', // takhrij
         targets: [7],
         visible: false,
         searchable: false,

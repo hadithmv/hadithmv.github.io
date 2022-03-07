@@ -1097,7 +1097,7 @@ input {
     div.dataTables_scrollBody
     div.dtsp-nameCont
     span.dtsp-pill {
-    font-size: 18px;
+    font-size: 18px !important;
   }
 }
 
