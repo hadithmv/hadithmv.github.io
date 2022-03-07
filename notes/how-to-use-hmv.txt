@@ -17,6 +17,7 @@ Use the Copy button to copy all visible data.
 Use the Extra Columns button to show or hide specific data.
 
 After searching, you can double click on a search result to jump to the page where that result comes from.
+For exact matches only, write your search term within quotes "like this"
 
 ---------------------
 

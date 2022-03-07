@@ -302,7 +302,7 @@ $(document).ready(() => {
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
       search: '', // Originally "Search:" leave this blank in production
-      searchPlaceholder: 'ލަފްޒު ހޯދާ...',
+      searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"',
       zeroRecords: '<br><br><br><br>- ނުފެނުނު -<br><br><br><br><br><br>'
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
