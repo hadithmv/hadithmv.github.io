@@ -72,20 +72,20 @@
          === --- === --- ==== */
 
       /* bold headers for first number at top */
-      .hmCol1 {
+      .hisnCol1 {
         font-weight: bold;
       }
 
-      /* header colors */
-      .hmCol1,
-      .hmCol2,
-      .hmCol3 {
+      /* kitab baab and takhrij colors */
+      .hisnCol1,
+      .hisnCol2,
+      .hisnCol3 {
         color: #004466 !important;
       }
       @media (prefers-color-scheme: dark) {
-        .hmCol1,
-        .hmCol2,
-        .hmCol3 {
+        .hisnCol1,
+        .hisnCol2,
+        .hisnCol3 {
           color: #66bce6 !important;
         }
       }
@@ -93,31 +93,31 @@
       /* removes justify from ar dv (titles and refs) + rs.
          justify doesnt look good on short cells like surukhi, masdars.
          so right align to prevent gaps in text */
-      .dataTable tr td.hmCol2,
-      .dataTable tr td.hmCol3,
-      .dataTable tr td.hmCol8,
-      .dataTable tr td.hmCol9 {
+      .dataTable tr td.hisnCol2,
+      .dataTable tr td.hisnCol3,
+      .dataTable tr td.hisnCol8,
+      .dataTable tr td.hisnCol9 {
         text-align: right;
       }
 
       /* mobile only row centering, for rows with strings that are not long */
       @media screen and (max-width: 900px) {
-        .dataTable tr td.hmCol1,
-        .dataTable tr td.hmCol2,
-        .dataTable tr td.hmCol3,
-        .dataTable tr td.hmCol8,
-        .dataTable tr td.hmCol9 {
+        .dataTable tr td.hisnCol1,
+        .dataTable tr td.hisnCol2,
+        .dataTable tr td.hisnCol3,
+        .dataTable tr td.hisnCol8,
+        .dataTable tr td.hisnCol9 {
           text-align: center;
         }
       }
 
       /* --- AR FONTS FOR TABLE --- */
 
-      /* tbody tr td.hmCol1, */
-      .dataTable tr td.hmCol2,
-      .dataTable tr td.hmCol4,
-      .dataTable tr td.hmCol5,
-      .dataTable tr td.hmCol8 {
+      /* tbody tr td.hisnCol1, */
+      .dataTable tr td.hisnCol2,
+      .dataTable tr td.hisnCol4,
+      .dataTable tr td.hisnCol5,
+      .dataTable tr td.hisnCol8 {
         font-family: "arFont", "dvFont", sans-serif, "faruma";
         font-size: 23px;
         line-height: 1.7;
@@ -127,27 +127,32 @@
 
       /* --- DV FONTS FOR TABLE --- */
 
-      /* .dataTable tr td.hmCol1, need this bigger */
-      .dataTable tr td.hmCol3,
-      .dataTable tr td.hmCol6,
-      .dataTable tr td.hmCol7,
-      .dataTable tr td.hmCol9 {
+      /* .dataTable tr td.hisnCol1, need this bigger */
+      .dataTable tr td.hisnCol3,
+      .dataTable tr td.hisnCol6,
+      .dataTable tr td.hisnCol7,
+      .dataTable tr td.hisnCol9 {
         font-family: "dvFont", "arFont", sans-serif, "faruma";
         font-size: 17px;
         line-height: 1.9;
       }
 
       /* columns with ar numbers 
-      .dataTable tr td.hmCol7,
-      .dataTable tr td.hmCol9 {
+      .dataTable tr td.hisnCol7,
+      .dataTable tr td.hisnCol9 {
         font-family: "arFont", "dvFont", sans-serif, "faruma";
         font-size: 21px;
       } */
 
       /* css for first column
          # number column cuz it has hashtag and digits */
-      .dataTable tr td.hmCol1 {
+      .dataTable tr td.hisnCol1 {
         font-family: "dvFont", "arFont", sans-serif, "faruma";
+        font-size: 21px;
+      }
+
+      /* takhrij font size */
+      .dataTable tr td.hisnCol8 {
         font-size: 21px;
       }
     </style>
