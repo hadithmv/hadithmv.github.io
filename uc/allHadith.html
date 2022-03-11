@@ -366,8 +366,11 @@
                 font-size: 20px;
               }
 
-              ::placeholder {
-                color: #ffffff9e;
+              /* changes color from black for dark mode*/
+              @media (prefers-color-scheme: dark) {
+                #search_form_input_homepage {
+                  color: #b8c4cc;
+                }
               }
             </style>
             <br />
