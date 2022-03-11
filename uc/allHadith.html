@@ -309,7 +309,7 @@
               ލަފްޒުތައް ޖަހާލައިގެން ބަލާލެވިދާނެއެވެ. ފެހި ކުލައިގެ މާނައަކީ
               ސައްހައެވެ. އަދި ރަތް ކުލައިގެ މާނައަކީ ޟަޢީފެވެ.
             </p>
-            <iframe
+            <!--<iframe
               src="http://hdith.com/iframe.php?width=400&prefill=&newwindow=yes&summary=no"
               style="
                 overflow: hidden;
@@ -319,7 +319,53 @@
                 height: 60px;
               "
               frameborder="0"
-            ></iframe>
+            ></iframe>-->
+            <!--
+          took the form element out of the above, pasted below, removed style of 400px width,
+        -->
+            <form
+              id="search_form_homepage"
+              class="no-menu"
+              name="x"
+              action="http://hdith.com"
+              target="_blank"
+              style=""
+            >
+              <div id="sxd"></div>
+
+              <input
+                type="text"
+                autocomplete="off"
+                name="s"
+                id="search_form_input_homepage"
+                onfocus="if ('rc' in window) {
+                          nua('nro', rc)
+                      }
+                      ;
+                      fq = 1;"
+                onblur="fq = 0"
+                onclick="if (this.value == 'تأكد من صحة الحديث') {
+                          this.value = '';
+                          this.style.color = '#000000';
+                      }"
+                value=""
+                placeholder="تأكد من صحة الحديث"
+              />
+              <div id="search_wrapper_homepage">
+                <input id="search_button_homepage" type="submit" value="" />
+              </div>
+            </form>
+            <style>
+              /* removes search button */
+              #search_button_homepage {
+                display: none;
+              }
+
+              #search_form_input_homepage {
+                font-size: 20px;
+              }
+            </style>
+            <br />
 
             <p>
               ކުށެއް ރަނގަޅުކުރުމަށް، ނުވަތަ ތަރުޖަމާ މަސައްކަތުގައި
