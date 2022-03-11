@@ -1301,6 +1301,10 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
     color: #b8c4cc;
   }
 
+  ::placeholder {
+    color: #ffffff9e;
+  }
+
   /* this is inner table on desktop */
   .dataTable > tbody > tr > td {
     background-color: #1a232d;
