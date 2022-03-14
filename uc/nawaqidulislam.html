@@ -27,7 +27,7 @@
     />
 
     <!-- change123 html -->
-    <title>hadithmv - 40 Nawawi</title>
+    <title>hadithmv - Nawaqidul Islam</title>
     <meta
       name="description"
       content="The Maldivian Hadith Translation Platform | ދިވެހިންގެ ޙަދީޘް ތަރުޖަމާ މަންސަ"
@@ -47,8 +47,8 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/nawawi.js"></script>
-    <script defer src="../js/nawawi-script.min.js"></script>
+    <script defer src="../js/json/nawaqid.js"></script>
+    <script defer src="../js/nawaqid-script.min.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -69,20 +69,20 @@
          === --- === --- ==== */
 
       /* bold headers for first number at top */
-      .fnCol1 {
+      .nwqCol1 {
         font-weight: bold;
       }
 
       /* kitab baab and takhrij colors */
-      .fnCol1,
-      .fnCol2,
-      .fnCol3 {
+      .nwqCol1,
+      .nwqCol2,
+      .nwqCol3 {
         color: #004466 !important;
       }
       @media (prefers-color-scheme: dark) {
-        .fnCol1,
-        .fnCol2,
-        .fnCol3 {
+        .nwqCol1,
+        .nwqCol2,
+        .nwqCol3 {
           color: #66bce6 !important;
         }
       }
@@ -90,34 +90,29 @@
       /* removes justify from ar dv (titles and refs) + rs.
          justify doesnt look good on short cells like surukhi, masdars.
          so right align to prevent gaps in text */
-      .dataTable tr td.fnCol2,
-      .dataTable tr td.fnCol3,
-      .dataTable tr td.fnCol8,
-      .dataTable tr td.fnCol9,
-      .dataTable tr td.fnCol10 {
+      .dataTable tr td.nwqCol2,
+      .dataTable tr td.nwqCol3,
+      .dataTable tr td.nwqCol8 {
         text-align: right;
       }
 
       /* mobile only row centering, for rows with strings that are not long */
       @media screen and (max-width: 900px) {
-        .dataTable tr td.fnCol1,
-        .dataTable tr td.fnCol2,
-        .dataTable tr td.fnCol3,
-        .dataTable tr td.fnCol8,
-        .dataTable tr td.fnCol9,
-        .dataTable tr td.fnCol10 {
+        .dataTable tr td.nwqCol1,
+        .dataTable tr td.nwqCol2,
+        .dataTable tr td.nwqCol3,
+        .dataTable tr td.nwqCol8 {
           text-align: center;
         }
       }
 
       /* --- AR FONTS FOR TABLE --- */
 
-      /* tbody tr td.fnCol1, */
-      .dataTable tr td.fnCol2,
-      .dataTable tr td.fnCol4,
-      .dataTable tr td.fnCol5,
-      .dataTable tr td.fnCol8,
-      .dataTable tr td.fnCol10 {
+      /* tbody tr td.nwqCol1, */
+      .dataTable tr td.nwqCol2,
+      .dataTable tr td.nwqCol4,
+      .dataTable tr td.nwqCol5,
+      .dataTable tr td.nwqCol8 {
         font-family: "arFont", "dvFont", sans-serif, "faruma";
         font-size: 23px;
         line-height: 1.7;
@@ -127,43 +122,40 @@
 
       /* --- DV FONTS FOR TABLE --- */
 
-      /* .dataTable tr td.fnCol1, need this bigger */
-      .dataTable tr td.fnCol3,
-      .dataTable tr td.fnCol6,
-      .dataTable tr td.fnCol9 {
+      /* .dataTable tr td.nwqCol1, need this bigger */
+      .dataTable tr td.nwqCol3,
+      .dataTable tr td.nwqCol6 {
         font-family: "dvFont", "arFont", sans-serif, "faruma";
         font-size: 17px;
         line-height: 1.9;
       }
 
       /* columns with ar numbers */
-      .dataTable tr td.fnCol8,
-      .dataTable tr td.fnCol10 {
+      .dataTable tr td.nwqCol8 {
         font-family: "arFont", "dvFont", sans-serif, "faruma";
         font-size: 21px;
       }
 
       /* css for first column
          # number column cuz it has hashtag and digits */
-      .dataTable tr td.fnCol1 {
+      .dataTable tr td.nwqCol1 {
         font-family: "dvFont", "arFont", sans-serif, "faruma";
         font-size: 21px;
       }
 
       /* sharhs */
-      .dataTable tr td.fnCol11 {
+      .dataTable tr td.nwqCol9 {
         font-family: "arFont", "dvFont", sans-serif, "faruma";
         font-size: 21px;
       }
 
       /* takhrij font size */
-      .dataTable tr td.fnCol8,
-      .dataTable tr td.fnCol10 {
+      .dataTable tr td.nwqCol8 {
         font-size: 21px;
       }
 
       /* english */
-      .dataTable tr td.fnCol7 {
+      .dataTable tr td.nwqCol7 {
         font-family: sans-serif;
         font-size: 17px;
         direction: ltr;
@@ -187,7 +179,7 @@
           loading="lazy"
           src="../img/logo/NewLogo7--NoBack-trim-opt.svg"
         />
-        <span class="navText">ޙަދީޘްއެމްވީ - ނަވަވީގެ 40 ޙަދީޘް</span>
+        <span class="navText">ޙަދީޘްއެމްވީ - އިސްލާމްކަން ގެއްލޭ ކަންތައް</span>
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -272,13 +264,9 @@
           <!-- JEKYLL {{ content }} -->
           <!-- cards js adds card classes to table ID -->
           <!-- change123 TABLE - card view set as default here -->
-          <table id="nawawiTable" class="stripe table cards">
+          <table id="nawaqidTable" class="stripe table cards">
             <thead>
               <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -301,7 +289,8 @@
             <p class="arMasdar">
               مصدر النص: متون طالب العلم - المستوى الأول | لعبد المحسن القاسم
               <br />
-              الأربعون النووية | لمحيي الدين يحيى بن شرف النووي (ت ٦٧٦ هـ)
+              ‌‌نواقض الإسلام | لمحمد بن عبد الوهاب بن سليمان التميمي (ت ١٢٠٦
+              هـ)
               <br />
               الطبعة السادسة، ١٤٣٩ هـ - ٢٠١٨ م.
             </p>
