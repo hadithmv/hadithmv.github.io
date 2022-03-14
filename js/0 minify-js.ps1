@@ -16,3 +16,4 @@ google-closure-compiler --charset=UTF-8 --js=aajurry-script.js --js_output_file=
 google-closure-compiler --charset=UTF-8 --js=muharrar-script.js --js_output_file=muharrar-script.min.js
 google-closure-compiler --charset=UTF-8 --js=muwatta-script.js --js_output_file=muwatta-script.min.js
 google-closure-compiler --charset=UTF-8 --js=nawaqid-script.js --js_output_file=nawaqid-script.min.js
+google-closure-compiler --charset=UTF-8 --js=qawaid-script.js --js_output_file=qawaid-script.min.js
