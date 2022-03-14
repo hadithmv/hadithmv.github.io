@@ -120,7 +120,7 @@ $(document).ready(() => {
       // adds footnote line for shurooh
       { targets: 8,
         render: function (data, type, row) {
-          data = '____________________<br>' + data
+          data = '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>' + data
           return data.replace(/\n/g, ' <br class="br">') // without this line breaks not preserved
           } 
         },
@@ -449,7 +449,7 @@ $(document).ready(() => {
           data = data.replace(/eng\t/g, '')
           data = data.replace(/ތަޚްރީޖު އަރަބިން\t/g, '')
           data = data.replace(/شرح الراجحي\t/g, '')
-          data = data.replace(/\t____________________/g, '\n\n____________________\n') // adds a line break after takhrij line, use two for a new line
+          data = data.replace(/\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g, '\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n') // adds a line break after takhrij line, use two for a new line
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
