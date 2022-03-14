@@ -1,5 +1,4 @@
 const nawaqid_dataSet=[
-
     [
         "1",
         "[الشرك في عبادة الله]",
@@ -7,7 +6,7 @@ const nawaqid_dataSet=[
         "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ\n \n* اعْلَمْ أَنَّ مِنْ أَعْظَمِ‌‌ نَوَاقِضِ الإِسْلَامِ عَشَرَةً:\n\nالأَوَّلُ: الشِّرْكُ فِي عِبَادَةِ اللَّهِ تَعَالَى؛ وَالدَّلِيلُ قَوْلُهُ تَعَالَى ﴿إِنَّ اللَّهَ لَا يَغْفِرُ أَن يُشْرَكَ بِهِ وَيَغْفِرُ مَا دُونَ ذَلِكَ لِمَن يَشَاءُ﴾، وَمِنْهُ: الذَّبْحُ لِغَيْرِ اللَّهِ؛ كَمَنْ يَذْبَحُ لِلْجِنِّ، أَوْ لِلْقَبْرِ.",
         "ރަޙްމާންވަންތަ ރަޙީމްވަންތަ ﷲ ގެ އިސްމުފުޅުން ފަށައިގަންނަމެވެ.\n\nދަންނާށެވެ. ހަމަކަށަވަރުން އިސްލާމްކަން ގެއްލޭ އެންމެ ބޮޑެތި ކަންކަމަކީ ދިހައެކެވެ:\n\nފުރަތަމަ ކަމަކީ: އަޅުކަމުގައި ﷲ ތަޢާލާއަށް ޝިރްކު ކުރުމެވެ. އަދި ދަލީލަކީ ﷲ ތަޢާލާގެ މި ބަސްފުޅެވެ: ’ހަމަކަށަވަރުން ﷲ، އެ އިލާހަށް ޝިރްކު ކުރުމުގެ ފާފައެއް ނުފުއްސަވައެވެ. އަދި އެ ނޫން ފާފަތައް، އެ އިލާހު އިރާދަކުރައްވާ މީހަކަށް ފުއްސަވައެވެ.‘ އަދި އެ (ޝިރްކުގެ) ތެރެއިން، ﷲ ނޫން ފަރާތަކަށް ގުރުބާންކުރުން ހިމެނިގެންވެއެވެ. އެއީ ޖިންނިއަކަށް ނުވަތަ މަހާނައަކަށް ގުރުބާން ކުރާ މީހާ ފަދައިންނެވެ.",
         "In the Name of Allah, the Entirely Merciful, the Especially Merciful.\n\nKnow that the Nullifiers of Islam are ten.\n\nFirst: Shirk (associating partners) in the worship of Allah. And the proof for this is Allah’s statement, may He be Exalted: “Verily, Allah does not forgive that partners be associated with Him in worship, but He forgives what is less than that to whom He wills.” What falls into this is performing sacrifices to anyone other than Allah, such as the person who offers a sacrifice to the Jinn or to a grave.",
-        "سورة النساء 48",
+        "____________________\nسورة النساء 48",
         ""
     ],
     [
@@ -47,7 +46,7 @@ const nawaqid_dataSet=[
         "الخَامِسُ: مَنْ أَبْغَضَ شَيْئاً مِمَّا جَاءَ بِهِ الرَّسُولُ ﷺ - وَلَوْ عَمِلَ بِهِ -؛ كَفَرَ إِجْمَاعاً؛ وَالدَّلِيلُ قَوْلُهُ تَعَالَى: ﴿ذَلِكَ بِأَنَّهُمْ كَرِهُوا مَا أَنزَلَ اللَّهُ فَأَحْبَطَ أَعْمَالَهُمْ﴾.",
         "ފަސްވަނަ ކަމަކީ: ރަސޫލާ ﷺ ގެނެސްދެއްވި ކަންކަމުގެ ތެރެއިން ކަމަކަށް ނަފުރަތު ކުރާ މީހާއެވެ. އެއީ އޭނާ އެ ކަމަކަށް އަމަލު ކުރި ކަމުގައި ވިޔަސްމެއެވެ. (އިލްމުވެރިންގެ) އިޖްމާއާއެކު (އެފަދަ މީހަކު) ކާފަރުވެއްޖެއެވެ. އަދި ދަލީލަކީ ﷲ ތަޢާލާގެ މި ބަސްފުޅެވެ: ’އެއީ ހަމަކަށަވަރުން އެ (ކާފަރުވީ) މީހުން ﷲ ބާވައިލެއްވި ތަކެއްޗަށް ނުރުހުމުގެ ސަބަބުންނެވެ. ދެން ފަހެ އެ އިލާހު އެބައިމީހުންގެ އަމަލުތައް ބާތިލު ކުރެއްވިއެވެ.‘",
         "Fifth: Whoever hates something that the Messenger ﷺ came with, even though he may act on it, has commited disbelief according to the unanimous agreement (of scholars, ie: Ijmaa’). And the proof for this is Allah’s statement, may He be Exalted: “That is because they disliked what Allah sent down, so He nullified their (good) deeds.”",
-        "سورة محمد 9",
+        "____________________\nسورة محمد 9",
         ""
     ],
     [
@@ -57,7 +56,7 @@ const nawaqid_dataSet=[
         "السَّادِسُ: مَنِ اسْتَهْزَأَ بِشَيْءٍ مِنْ دِينِ اللهِ، أَوْ ثَوَابِهِ، أَوْ عِقَابِهِ؛ كَفَرَ؛ وَالدَّلِيلُ قَوْلُهُ تَعَالَى: ﴿قُلْ أَبِاللَّهِ وَآيَاتِهِ وَرَسُولِهِ كُنتُمْ تَسْتَهْزِءُونَ ۝ لَا تَعْتَذِرُوا قَدْ كَفَرْتُم بَعْدَ إِيمَانِكُمْ﴾.",
         "ހަވަނަ ކަމަކީ: ﷲ ގެ ދީން، ނުވަތަ އެ ދީނުގެ އަޖުރު، ނުވަތަ އެ ދީނުގެ އުގޫބާތެއްގެ ތެރެއިން ކަމަކަށް މަލާމަތްކޮށް ފުރައްސާރަ ކުރާ މީހާ ކާފަރުވެއްޖެއެވެ. އަދި ދަލީލަކީ ﷲ ތަޢާލާގެ މި ބަސްފުޅެވެ: ’އަދި ހަމަކަވަރުން އިބަ ނަބިއްޔާ އެބައިމީހުންނާ ސުވާލު ކުރައްވައިފި ނަމަ، އެބައިމީހުން ބުނާނެކަން ކަށަވަރެވެ: ހަމަކަށަވަރުން ތިމަންމެން ހަމައެކަނި ވާހަކަ ދައްކާލައި، ކުޅިވަރު ކުޅޭކަމުގައި ވީމެވެ. އިބަ ނަބިއްޔާ ވިދާޅުވާށެވެ: ތިޔަބައިމީހުން ތިޔަ މަލާމާތްކޮށް އުޅެނީ ﷲއާއި، އެ އިލާހުގެ އާޔަތްތަކާއި، އެ އިލާހުގެ ރަސޫލާއަށްހެއްޔެވެ؟ ތިޔަބައިމީހުން އުޒުރު ނުދައްކާށެވެ. ހަމަކަށަވަރުން ތިޔަބައިމީހުން އީމާންވުމަށް ފަހު، ތިޔަ ތިބީ ކާފަރުވެފައެވެ. ތިމަން އިލާހު ތިޔަބައިމީހުންގެ ތެރެއިން ބަޔަކަށް އަފޫ ކުރެއްވިޔަސް، އަނެއްބަޔަކަށް އަޒާބު ދެއްވާނަމެވެ. އެއީ ހަމަކަށަވަރުން އެބައިމީހުން މުޖުރިމުން ކަމުގައި ވީކަމަށްޓަކައެވެ.‘",
         "Sixth: Whoever mocks or ridicules any part of the Allah’s religion or its rewards or punishments has committed an act of disbelief. And the proof for this is Allah’s statement, may He be Exalted: “Say: ‘Was it Allah and His verses and His Messenger that you were mocking? Make no excuses, you have disbelieved after having had faith.”",
-        "سورة التوبة 65-66",
+        "____________________\nسورة التوبة 65-66",
         ""
     ],
     [
@@ -67,7 +66,7 @@ const nawaqid_dataSet=[
         "السَّابِعُ: السِّحْرُ - وَمِنْهُ: الصَّرْفُ وَالعَطْفُ - فَمَنْ فَعَلَهُ أَوْ رَضِيَ بِهِ؛ كَفَرَ؛ وَالدَّلِيلُ قَوْلُهُ تَعَالَى: ﴿وَمَا يُعَلِّمَانِ مِنْ أَحَدٍ حَتَّى يَقُولَا إِنَّمَا نَحْنُ فِتْنَةٌ فَلَا تَكْفُرْ﴾.",
         "ހަތްވަނަ ކަމަކީ: ސިހުރެވެ. އަދި އޭގެ ތެރެއިން ވަކި ކުރުވާ ސިހުރާއި ގާތް ކުރާ ސިހުރު ހިމެނިގެންވެއެވެ. ފަހެ ސިހުރު ހަދައިފި މީހާ ނުވަތަ އެއަށް ރުހިެއްޖެ މީހާ ކާފަރުވެއްޖެއެވެ. އަދި ދަލީލަކީ ﷲ ތަޢާލާގެ މި ބަސްފުޅެވެ: ’އަދި ތިމަންމެންނީ ހަމައެކަނި (އީމާންކަން ހުރި ވަރު ބެލުމަށްވާ) އިމްތިހާނެކޭ، ފަހެ (މި ސިހުރު ދަސްކޮށްގެން) ކާފަރު ނުވާށޭ (މިފަދައިން) ވިދާޅުވުމަށް ފަހުގައި މެނުވީ، އެކަކަށްވެސް އެ ދެމަލާއިކަތުން އުނގަންނަވައެއް ނުދެއްވައެވެ.‘",
         "Seventh: Sorcery, which includes magic spells that cause a person to hate something he seeks after (sarf) or love something he doesn’t seek after (‘atf). So whoever performs it or is pleased with it being done, has committed disbelief. And the proof for this is Allah’s statement, may He be Exalted: “And neither of these two (angels) would teach anyone until they had first said to them: We are only a trial (for the people), so do not commit disbelief.”",
-        "سورة البقرة 102",
+        "____________________\nسورة البقرة 102",
         ""
     ],
     [
@@ -77,7 +76,7 @@ const nawaqid_dataSet=[
         "الثَّامِنُ: مُظَاهَرَةُ المُشْرِكِينَ وَمُعَاوَنَتُهُمْ عَلَى المُسْلِمِينَ؛ وَالدَّلِيلُ قَوْلُهُ تَعَالَى: ﴿وَمَن يَتَوَلَّهُم مِّنكُمْ فَإِنَّهُ مِنْهُمْ إِنَّ اللَّهَ لَا يَهْدِي الْقَوْمَ الظَّالِمِينَ﴾.",
         "އަށްވަނަ ކަމަކީ: މުޝްރިކުންނަށް ނަސްރުދީ، މުސްލިމުންނާ ދެކޮޅަށް އެބައިމީހުންނަށް އެހީވެދިނުމެވެ. އަދި ދަލީލަކީ ﷲ ތަޢާލާގެ މި ބަސްފުޅެވެ: ’އަދި ތިޔަބައިމީހުންގެ ތެރެއިން، އެބައިމީހުން އެކުވެރިން ކަމުގައި ނަގައިފި މީހަކީ، ފަހެ ހަމަކަށަވަރުން އެބައިމީހުންގެ ތެރެއިންވާ މީހެކެވެ. ހަމަކަށަވަރުން އަނިޔާވެރިވެގެންވާ ބަޔަކަށް ﷲ ތެދުމަގެއް ނުދައްކަވައެވެ.‘",
         "Eighth: Supporting and assisting the polytheists against the Muslims. And the proof for this is Allah’s statement, may He be Exalted: “And whoever amongst you takes them (the disbelievers) as allies and protectors then he is indeed from among them. Verily, Allah does not guide a wrong-doing people.”",
-        "سورة المائدة 51",
+        "____________________\nسورة المائدة 51",
         ""
     ],
     [
@@ -97,7 +96,7 @@ const nawaqid_dataSet=[
         "العَاشِرُ: الإِعْرَاضُ عَنْ دِينِ اللَّهِ - لَا يَتَعَلَّمُهُ وَلَا يَعْمَلُ بِهِ -؛ وَالدَّلِيلُ قَوْلُهُ تَعَالَى: ﴿وَمَنْ أَظْلَمُ مِمَّن ذُكِّرَ بِآيَاتِ رَبِّهِ ثُمَّ أَعْرَضَ عَنْهَا إِنَّا مِنَ الْمُجْرِمِينَ مُنتَقِمُونَ﴾.\n\nوَلَا فَرْقَ فِي جَمِيعِ هَذِهِ النَّوَاقِضِ بَيْنَ الهَازِلِ وَالجَادِّ وَالخَائِفِ، إِلَّا المُكْرَهِ. وَكُلُّهَا مِنْ أَعْظَمِ مَا يَكُونُ خَطَراً، وَمِنْ أَكْثَرِ مَا يَكُونُ وُقُوعاً، فَيَنْبَغِي لِلْمُسْلِمِ أَنْ يَحْذَرَهَا وَيَخَافَ مِنْهَا عَلَى نَفْسِهِ. نَعُوذُ بِاللَّهِ مِنْ مُوجِبَاتِ غَضَبِهِ، وَأَلِيمِ عِقَابِهِ. وَصَلَّى اللَّهُ عَلَى نَبِيِّنَا مُحَمَّدٍ، وَعَلَى آلِهِ وَصَحْبِهِ وَسَلَّمَ.",
         "ދިހަވަނަ ކަމަކީ: ﷲ ގެ ދީނުން މޫނު އަނބުރާލުމެވެ. އެ ދީން ދަސްނުކޮށް، އެ ދީނަށް އަމަލު ކުރުމަކާ ނުލައެވެ. އަދި ދަލީލަކީ ﷲ ތަޢާލާގެ މި ބަސްފުޅެވެ: ’އެ މީހެއްގެ ވެރި ރައްބުގެ އާޔަތްތައް އެ މީހަކަށް ހަނދާން ކޮށްދެއްވުމުން، ދެން އެ އާޔަތްތަކަށް ފުރަގަސްދީ އެނބުރިގަތް މީހަކަށް ވުރެ، އަނިޔާވެރިކަން ބޮޑީ ކާކުހެއްޔެވެ؟ ހަމަކަށަވަރުން ތިމަން އިލާހު، މުޖުރިމުންގެ ކިބައިން ބަދަލުހިއްޕަވާނަމެވެ.‘\n\nއަދި އިސްލާމްކަން ގެއްލޭ މި ހުރިހާ ކަމެއްގައި، މަލާމާތް ކުރާ މީހާއާއި، ސަމާސާއެއް ނޫން ގޮތުގައި ކުރާ މީހާއާއި، ބިރުން ކުރާ މީހާއާމެދު އެއްވެސް ތަފާތެއް ނެތެވެ. އެއީ މަޖުބޫރުން ކުރުވާ މީހާ ފިޔަވައެވެ. އަދި މި ކަންކަމަކީ އެންމެ ނުރައްކާތެރިކަން ބޮޑު، އަދި އެންމެ ގިނައިން ހިނގާ ކަންކަމެވެ. އެހެންކަމުން މުސްލިމަކު އެއިން ރައްކާތެރިވެ، އަމިއްލަ ނަފްސާމެދު އެއިން ބިރުގަތުން ހުއްޓެވެ. ﷲ ގެ ކޯފާވޮޑިގަތުން ވާޖިވުމާ ކަންކަމާއި، އެ އިލާހުގެ އުގޫބާތުގެ ވޭނުން އަޅަމެން ރައްކާތެރި ކޮށްދެއްވުން އެދި އެ އިލާހަށް ދަންނަވަމެވެ. އަދި އަޅަމެންގެ ނަބިއްޔާ މުޙައްމަދުގެފާނަށާއި، އެ ނަބިއްޔާގެ އާލުންނާއި އަސްހާބުންނަށް ސަލާމާއި ސަލަވާތް ލެއްވުން އެދި ދުއާކުރަމެވެ.",
         "Tenth: Turning away from Allah’s Religion, not learning it or implementing it (is an act of disbelief). And the proof for this is Allah’s statement, may He be Exalted: “And who does more wrong than he who is reminded of the ayaat (signs/verses) of his Lord, then turns away from them. Verily, We shall extract retribution from the criminals.”\n\nThere is no difference, with regard to (committing any of) these nullifiers, between the one who jokes, the one who is serious or the one who does so out of fear. However, the one who commits them due to being coerced (is excused). All of these (ten) matters are from the gravest in danger and from those that most often occur. So the Muslim must beware of them and fear from these acts befalling him. We seek refuge in Allah from those things that bring about His Anger and painful punishment. And may peace and blessings be on our prophet Muhammad, as well as his family and companions.\n\n",
-        "سورة السجدة 22",
+        "____________________\nسورة السجدة 22",
         ""
     ]
 ]
