@@ -122,7 +122,7 @@ $(document).ready(() => {
     columnDefs: [
 
       // adds footnote line for shurooh
-      { targets: [8,9]
+      { targets: [8,9],
         render: function (data, type, row) {
           data = '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>' + data
           return data.replace(/\n/g, ' <br class="br">') // without this line breaks not preserved
