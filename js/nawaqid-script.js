@@ -111,6 +111,10 @@ $(document).ready(() => {
       {
         data: 7,
         title: 'شرح الراجحي',
+      },
+      {
+        data: 8,
+        title: 'شرح السحيمي',
       }
     ],
 
@@ -118,7 +122,7 @@ $(document).ready(() => {
     columnDefs: [
 
       // adds footnote line for shurooh
-      { targets: 8,
+      { targets: [8,9],
         render: function (data, type, row) {
           data = '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>' + data
           return data.replace(/\n/g, ' <br class="br">') // without this line breaks not preserved
@@ -211,6 +215,15 @@ $(document).ready(() => {
       {
         className: 'nwqCol9', // Sharh
         targets: [8],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'nwqCol10', // Sharh
+        targets: [9],
         visible: false,
         searchable: false,
         searchPanes: {
