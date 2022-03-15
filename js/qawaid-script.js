@@ -59,12 +59,12 @@ $(document).ready(() => {
     })
   } //= =================== end if else
 
-  const table = $('#nawaqidTable').DataTable({
+  const table = $('#qawaidTable').DataTable({
     // var table = $("#fortynawaqid").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: nawaqid_dataSet, // https://datatables.net/manual/ajax
+    data: qawaid, // https://datatables.net/manual/ajax
 
     columns: [
       {
@@ -111,6 +111,10 @@ $(document).ready(() => {
       {
         data: 7,
         title: 'شرح الراجحي',
+      },
+      {
+        data: 8,
+        title: 'شرح آل الشيخ',
       }
     ],
 
@@ -118,7 +122,7 @@ $(document).ready(() => {
     columnDefs: [
 
       // adds footnote line for shurooh
-      { targets: 8,
+      { targets: [8,9]
         render: function (data, type, row) {
           data = '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>' + data
           return data.replace(/\n/g, ' <br class="br">') // without this line breaks not preserved
@@ -137,7 +141,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'nwqCol1', // #
+        className: 'qawCol1', // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -146,7 +150,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'nwqCol2', // Ar Title
+        className: 'qawCol2', // Ar Title
         targets: [1],
         visible: true,
         searchable: false,
@@ -155,7 +159,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'nwqCol3', // Dv Title
+        className: 'qawCol3', // Dv Title
         targets: [2],
         visible: false,
         searchable: false,
@@ -164,7 +168,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'nwqCol4', // Ar Text
+        className: 'qawCol4', // Ar Text
         targets: [3],
         visible: true,
         searchable: true,
@@ -173,7 +177,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'nwqCol5', // Ar Plain
+        className: 'qawCol5', // Ar Plain
         targets: [4],
         visible: false,
         searchable: true,
@@ -182,7 +186,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'nwqCol6', // Dv Text
+        className: 'qawCol6', // Dv Text
         targets: [5],
         visible: true,
         searchable: true,
@@ -191,7 +195,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'nwqCol7', // Eng Text
+        className: 'qawCol7', // Eng Text
         targets: [6],
         visible: false,
         searchable: true,
@@ -200,7 +204,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'nwqCol8', // Ar Ref
+        className: 'qawCol8', // Ar Ref
         targets: [7],
         visible: true,
         searchable: false,
@@ -209,8 +213,17 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'nwqCol9', // Sharh
+        className: 'qawCol9', // Sharh
         targets: [8],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'qawCol10', // Sharh
+        targets: [9],
         visible: false,
         searchable: false,
         searchPanes: {
