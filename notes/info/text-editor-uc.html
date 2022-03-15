@@ -1382,7 +1382,9 @@
 
           function replaceQbracket() {
             var text = document.getElementById("textMainArea").value;
-            var newText = text.replace(/\{/g, "﴾").replace(/\}/g, "﴿");
+            //var newText = text.replace(/\{/g, "﴾").replace(/\}/g, "﴿");
+            var newText = text.replace(/\{/g, "﴾");
+            var newText = text.replace(/\}/g, "﴿");
             var newText = text.replace(/\*/g, "۝");
             document.getElementById("textMainArea").value = newText;
             return false;
