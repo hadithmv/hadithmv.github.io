@@ -64,7 +64,7 @@ $(document).ready(() => {
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: qawaid, // https://datatables.net/manual/ajax
+    data: qawaid_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
       {
