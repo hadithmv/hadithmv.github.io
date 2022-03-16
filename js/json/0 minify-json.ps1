@@ -16,3 +16,4 @@ uglifyjs muharrar.js -c -m -o muharrar.js
 uglifyjs muwatta.js -c -m -o muwatta.js
 uglifyjs nawaqid.js -c -m -o nawaqid.js
 uglifyjs qawaid.js -c -m -o qawaid.js
+uglifyjs quranBakurube.js -c -m -o quranBakurube.js

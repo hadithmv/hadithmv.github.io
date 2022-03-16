@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="dv">
+  <!-- prevent translate popup -->
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="canonical"
+      href="https://hadithmv.github.io/books/quranBakurube.html"
+    />
+    <meta name="google" content="notranslate" />
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="../img/logo/NewLogo7--NoBack-trim-opt.svg"
+    />
+    <meta name="theme-color" content="#29434e" />
+    <!-- og metadata sm link previews -->
+    <meta property="og:title" content="hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://hadithmv.github.io/book/quranBakurube.html"
+    />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7-RoundedBack-512.png"
+    />
+
+    <!-- change123 html -->
+    <title>hadithmv - Quran Bakurube Translation</title>
+    <meta
+      name="description"
+      content="The Maldivian Hadith Translation Platform | ދިވެހިންގެ ޙަދީޘް ތަރުޖަމާ މަންސަ"
+    />
+    <!-- META TAGS - END -->
+
+    <!-- === EXT CSS === -->
+    <!-- non critical -->
+    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
+    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
+    <!-- === EXT CSS - END === -->
+
+    <!-- === EXT JS === -->
+    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
+    <!-- critical -->
+    <script defer src="../js/resc/COMB-Crit.js"></script>
+    <!-- non critical -->
+    <script defer src="../js/resc/COMB-nonCrit.js"></script>
+    <!-- change123 js -->
+    <script defer src="../js/json/quranBakurube.js"></script>
+    <script defer src="../js/quranBakurube-script.js"></script>
+    <!-- === EXT JS - END === -->
+
+    <!-- === INT CSS === -->
+    <!-- Critical CSS -->
+    <!-- mmenu-demo -->
+    <!-- prettier-ignore -->
+    <style>
+.header nav{display:none}.content,.header{text-align:center}.header{background:#254e61;color:#fff;line-height:50px;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:57px;padding-left:2px;padding-right:2px}@media (max-width: 599px){.content{padding-top:50px}}#page>div.header:hover{background-color:#1c4253;cursor:pointer}.hmvLogo1{top:0;left:0;filter:brightness(0) invert(1);display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme: dark){body{background-color:#0e1621;color:#b8c4cc}}
+
+    </style>
+    <!-- Critical CSS - END -->
+
+    <style>
+      /* change123 html */
+
+      @font-face {
+        font-family: "arFont";
+        src: url(../font/UthmanicHafs1-Ver18-mod.woff2) format("woff2"),
+          url(../font/UthmanicHafs1-Ver18-mod.woff) format("woff"),
+          url(../font/UthmanicHafs1-Ver18.ttf) format("truetype");
+        font-display: block; /* previously swap */
+      }
+
+      /* === --- === --- ====
+         CUSTOM COLUMN CLASSES
+         === --- === --- ==== */
+
+      /* bold headers for first number at top 
+      .fnCol1 {
+        font-weight: bold;
+      }*/
+
+      /* removes justify from ar dv (titles and refs) + rs.
+      justify doesnt look good on short cells like surukhi, masdars.
+      so right align to prevent gaps in text
+      .dataTable tr td.qCol1,
+      .dataTable tr td.qCol2,
+      .dataTable tr td.qCol9 {
+        text-align: right;
+      } */
+
+      /* mobile only row centering, for rows with strings that are not long */
+
+      /* @media screen and (max-width: 900px) { */
+
+      .dataTable tr td.qCol1,
+      .dataTable tr td.qCol2,
+      .dataTable tr td.qCol3,
+      .dataTable tr td.qCol4,
+      .dataTable tr td.qCol5,
+      .dataTable tr td.qCol6,
+      .dataTable tr td.qCol7,
+      .dataTable tr td.qCol8 {
+        text-align: center;
+      }
+
+      /* } */
+
+      /* --- AR FONTS FOR TABLE --- */
+
+      /* tbody tr td.fnCol1, */
+
+      .dataTable tr td.qCol2,
+      .dataTable tr td.qCol3,
+      .dataTable tr td.qCol4,
+      .dataTable tr td.qCol5,
+      .dataTable tr td.qCol6 {
+        font-family: "arFont", "dvFont", sans-serif, "faruma";
+        font-size: 21px;
+        line-height: 2;
+
+        /* font-size-adjust: 0.1; this breaks firefox font size */
+      }
+
+      /* --- DV FONTS FOR TABLE --- */
+
+      /* .dataTable tr td.fnCol1, need this bigger */
+
+      .dataTable tr td.qCol7,
+      .dataTable tr td.qCol8 {
+        font-family: "dvFont", "arFont", sans-serif, "faruma";
+        font-size: 17px;
+        line-height: 2.2;
+      }
+      @media screen and (max-width: 599px) {
+        .dataTable tr td.qCol7 {
+        }
+      }
+
+      /* columns with ar numbers
+        .dataTable tr td.qCol2 {
+          font-family: "arFont", "dvFont", sans-serif, "faruma";
+          font-size: 21px;
+        } */
+
+      /* css for first column
+        # number column cuz it has hashtag and digits
+        .dataTable tr td.qCol1 {
+          font-family: "dvFont", "arFont", sans-serif, "faruma";
+          font-size: 21px;
+        } */
+
+      /* quran only tafsir sa'di font and line height smaller
+
+      .dataTable tr td.qCol8 {
+        font-family: "arFont", "dvFont", sans-serif, "faruma";
+        font-size: 20px;
+        line-height: 1.6;
+      }
+
+      .dataTable tr td.qCol9 {
+        font-family: "dvFont", "arFont", sans-serif, "faruma";
+        font-size: 16px;
+        line-height: 1.9;
+      }*/
+
+      /* ===================
+          FOR Quran border frame and ayahbox
+      ===================== */
+
+      /* mobile only quran border frame svg */
+
+      /* @media screen and (max-width: 900px) { */
+
+      #quranBakurubeTable>tbody>tr
+      /*, table*/ {
+        /* font-family: hafs;
+          font-size: 20pt;
+          text-align: justify;
+            border-style: solid; */
+
+        /* for chromium */
+
+        /* margin: 0.5em; */
+
+        /* to allow for background color by extending border transparent parts */
+        padding: 1.15rem;
+
+        /* padding: 1em 2.2em; */
+        border-image-slice: 30% 30.5%;
+        border-image-width: 3em;
+        border-image-repeat: round round;
+
+        /* can move inside html to eliminate 1 network request, https://yoksel.github.io/ */
+        border-image-source: url("../img/frame/ayahbox-mod-Opt.svg");
+        border-image-outset: 0.6em;
+
+        /* margin + .1em for optical alignment */
+
+        /* background-color: beige; */
+
+        /* spaces out above and below quran table */
+        margin-top: 1.6rem;
+        margin-bottom: 2.4rem;
+      }
+
+      /* reduces margin last item at end of page */
+
+      #quranBakurubeTable > tbody > tr:last-child {
+        margin-bottom: 25px;
+      }
+
+      /* } */
+
+      /* ===== quran frame border - END ===== */
+
+      /* ayah box */
+
+      #quranBakurubeTable > tbody > tr > td.qCol1 {
+        /* float: left; */
+        position: relative;
+
+        /* top: .8em; */
+        font-size: 0.9em;
+        line-height: 1.6em;
+        padding-top: 2px;
+        padding-bottom: 0;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+
+        /* padding: 0 .5em; */
+        background: #c1d1c3;
+        border-radius: 0.2em;
+        border: 1px solid #40455c;
+        box-shadow: inset 0 0 2px 0 #693, 0 0 0 2px #fff, 0 0 0 3px #40455c;
+
+        /* centers ayahbox */
+        top: -32px;
+        width: 7.5rem;
+        margin: auto;
+        text-align: center;
+
+        /* removes margin below ayahbox to lessen space above ayah */
+        margin-bottom: -15px;
+      }
+
+      /* gives space to the top and bottom of cells */
+
+      /* #quranBakurubeTable > tbody */
+      #quranBakurubeTable > tbody > tr > td.qCol1 {
+        margin-bottom: 5px !important;
+      }
+      #quranBakurubeTable > tbody > tr {
+        padding-bottom: 50px !important;
+      }
+
+      /* gives space above the empty no results row */
+      /* table.dataTable td.dataTables_empty
+      margin-top: 30px  !important; */
+      #quranBakurubeTable > tbody > tr > td:nth-child(2) {
+        margin-top: 0;
+      }
+
+      /*
+      #quranBakurubeTable > tbody > tr > td.qCol1 {
+        margin-bottom: 5px !important;
+      }
+      #quranBakurubeTable > tbody > tr > td.qCol5 {
+        margin-bottom: 35px !important;
+      }
+      */
+
+      /* ===== quran ayahbox - END ===== */
+
+      /* custom quran css for Keytable - Desktop only MQ */
+
+      @media screen and (min-width: 900px) {
+        /* #quranBakurubeTable tbody th.focus, */
+        #quranBakurubeTable tbody td.focus {
+          box-shadow: inset 0 0 1px 2px #337ab7;
+
+          /* inset: Changes the shadow from an outer shadow (outset) to an inner shadow
+      next 4 numbers: offset-x | offset-y | blur-radius | spread-radius
+      last is color */
+
+          /* last px makes box thicker */
+        }
+      }
+
+      /*@mixin for-ABOVEphone and tablet-only*/
+      @media screen and (min-width: 900px) {
+        /* gives space to the top and bottom of cells */
+
+        /*
+        #quranBakurubeTable > tbody > tr > td.qCol1 {
+          margin-bottom: 5px !important;
+        }
+        #quranBakurubeTable > tbody > tr > td.qCol5 {
+          margin-bottom: 35px !important;
+        }
+        */
+
+        /* gives even more space around table wrapper in desktop view, and then centers */
+        #quranBakurubeTable > tbody > tr {
+          max-width: 700px;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 30px;
+          margin-bottom: 50px;
+        }
+
+        #quranBakurubeTable > tbody > tr > td:nth-child(2) {
+          margin-top: 30px;
+        }
+
+        /* gives space to the left and right sides of words */
+        #quranBakurubeTable > tbody > tr > td:not(:first-of-type) {
+          /* min-height: 200px !important; */
+          margin-left: 50px !important;
+          margin-right: 50px !important;
+        }
+      }
+
+      /* ====================
+             DARK MODE
+      ======================= */
+
+      /* Chrome DevTools (Three dots > More tools > Rendering > Emulate CSS media feature prefers-color-scheme */
+
+      @media (prefers-color-scheme: dark) {
+        /* ayahbox */
+        #quranBakurubeTable > tbody > tr > td.qCol1 {
+          /* font-weight: normal;*/
+          background: #212d39;
+          color: rgba(255, 255, 255, 0.847);
+          border-color: #212d39;
+          box-shadow: inset 0 0 2px 0 /*#693*/,
+            0 0 0 1.75px rgba(255, 255, 255, 0.847), 0 0 0 2.75px #40455c;
+        }
+
+        /* this colors the square border around the frame in quran, otherwise white */
+        #quranBakurubeTable > tbody > tr {
+          background-color: #1a232d !important;
+        }
+        /* without important, double click go to jumping changes some of the inner background color */
+      }
+    </style>
+    <!-- === INT CSS - END === -->
+  </head>
+
+  <body translate="no">
+    <div id="page">
+      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
+      <!-- adding fixed or custom writing z index breaks on mobile -->
+      <div class="header fixed" onclick="drawer.open();">
+        <!-- hamburger -->
+        <a href="#menu"><span></span></a>
+        <img
+          class="hmvLogo1"
+          alt="hadith mv"
+          loading="lazy"
+          src="../img/logo/NewLogo7--NoBack-trim-opt.svg"
+        />
+        <span class="navText">ބަކުރުބެގެ ޤުރްއާން ތަރުޖަމާ</span>
+        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
+        <nav id="menu">
+          <ul>
+            <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
+
+            <li>
+              <span>ސޫރަތްތައް</span>
+              <ul>
+                <li>
+                  <!-- to make these js url click jumps work, url has to match, uc and non uc, currently works on non uc -->
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html'; location.reload();"
+                    >𝟣 سورة الفاتحة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p7'; location.reload();"
+                    >𝟤 سورة البقرة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p293'; location.reload();"
+                    >𝟥 سورة آل عمران</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p493'; location.reload();"
+                    >𝟦 سورة النساء</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p669'; location.reload();"
+                    >𝟧 سورة المائدة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p789'; location.reload();"
+                    >𝟨 سورة الأنعام</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p954'; location.reload();"
+                    >𝟩 سورة الأعراف</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p1160'; location.reload();"
+                    >𝟪 سورة الأَنفال</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p1235'; location.reload();"
+                    >𝟫 سورة التوبة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p1364'; location.reload();"
+                    >𝟣𝟢 سورة يونس</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p1473'; location.reload();"
+                    >𝟣𝟣 سورة هود</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p1596'; location.reload();"
+                    >𝟣𝟤 سورة يوسف</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p1707'; location.reload();"
+                    >𝟣𝟥 سورة الرعد</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p1750'; location.reload();"
+                    >𝟣𝟦 سورة إبراهيم</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p1802'; location.reload();"
+                    >𝟣𝟧 سورة الحجر</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p1901'; location.reload();"
+                    >𝟣𝟨 سورة النحل</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p2029'; location.reload();"
+                    >𝟣𝟩 سورة الإسراء</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p2140'; location.reload();"
+                    >𝟣𝟪 سورة الكهف</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p2250'; location.reload();"
+                    >𝟣𝟫 سورة مريم</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p2348'; location.reload();"
+                    >𝟤𝟢 سورة طه</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p2483'; location.reload();"
+                    >𝟤𝟣 سورة الأنبياء</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p2595'; location.reload();"
+                    >𝟤𝟤 سورة الحج</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p2673'; location.reload();"
+                    >𝟤𝟥 سورة المؤمنون</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p2791'; location.reload();"
+                    >𝟤𝟦 سورة النور</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p2855'; location.reload();"
+                    >𝟤𝟧 سورة الفرقان</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p2932'; location.reload();"
+                    >𝟤𝟨 سورة الشعراء</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p3159'; location.reload();"
+                    >𝟤𝟩 سورة النمل</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p3252'; location.reload();"
+                    >𝟤𝟪 سورة القَصص</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p3340'; location.reload();"
+                    >𝟤𝟫 سورة العنكبوت</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p3409'; location.reload();"
+                    >𝟥𝟢 سورة الروم</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p3469'; location.reload();"
+                    >𝟥𝟣 سورة لقمان</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p3503'; location.reload();"
+                    >𝟥𝟤 سورة السجدة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p3533'; location.reload();"
+                    >𝟥𝟥 سورة الأحزاب</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p3606'; location.reload();"
+                    >𝟥𝟦 سورة سبإ</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p3660'; location.reload();"
+                    >𝟥𝟧 سورة فاطر</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p3705'; location.reload();"
+                    >𝟥𝟨 سورة يس</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p3788'; location.reload();"
+                    >𝟥𝟩 سورة الصافات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p3970'; location.reload();"
+                    >𝟥𝟪 سورة ص</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4058'; location.reload();"
+                    >𝟥𝟫 سورة الزمر</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4133'; location.reload();"
+                    >𝟦𝟢 سورة غافر</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4218'; location.reload();"
+                    >𝟦𝟣 سورة فصلت</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4272'; location.reload();"
+                    >𝟦𝟤 سورة الشورى</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4325'; location.reload();"
+                    >𝟦𝟥 سورة الزخرف</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4414'; location.reload();"
+                    >𝟦𝟦 سورة الدخان</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4473'; location.reload();"
+                    >𝟦𝟧 سورة الجاثية</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4510'; location.reload();"
+                    >𝟦𝟨 سورة الأحقاف</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4545'; location.reload();"
+                    >𝟦𝟩 سورة محمد</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4583'; location.reload();"
+                    >𝟦𝟪 سورة الفتح</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4612'; location.reload();"
+                    >𝟦𝟫 سورة الحجرات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4630'; location.reload();"
+                    >𝟧𝟢 سورة ق</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4675'; location.reload();"
+                    >𝟧𝟣 سورة الذارِيات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4735'; location.reload();"
+                    >𝟧𝟤 سورة الطور</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4784'; location.reload();"
+                    >𝟧𝟥 سورة النجم</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4846'; location.reload();"
+                    >𝟧𝟦 سورة القمر</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4901'; location.reload();"
+                    >𝟧𝟧 سورة الرحمن</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p4979'; location.reload();"
+                    >𝟧𝟨 سورة الواقعة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5075'; location.reload();"
+                    >𝟧𝟩 سورة الحديد</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5104'; location.reload();"
+                    >𝟧𝟪 سورة المجادلة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5126'; location.reload();"
+                    >𝟧𝟫 سورة الحشر</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5150'; location.reload();"
+                    >𝟨𝟢 سورة الممتحنة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5163'; location.reload();"
+                    >𝟨𝟣 سورة الصف</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5177'; location.reload();"
+                    >𝟨𝟤 سورة الجمعة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5188'; location.reload();"
+                    >𝟨𝟥 سورة المنافقون</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5199'; location.reload();"
+                    >𝟨𝟦 سورة التغابن</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5217'; location.reload();"
+                    >𝟨𝟧 سورة الطلاق</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5229'; location.reload();"
+                    >𝟨𝟨 سورة التحرِيم</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5241'; location.reload();"
+                    >𝟨𝟩 سورة الملك</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5271'; location.reload();"
+                    >𝟨𝟪 سورة القلم</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5323'; location.reload();"
+                    >𝟨𝟫 سورة الحاقة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5375'; location.reload();"
+                    >𝟩𝟢 سورة المعارِج</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5419'; location.reload();"
+                    >𝟩𝟣 سورة نوح</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5447'; location.reload();"
+                    >𝟩𝟤 سورة الجن</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5475'; location.reload();"
+                    >𝟩𝟥 سورة المزمل</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5495'; location.reload();"
+                    >𝟩𝟦 سورة المدثر</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5551'; location.reload();"
+                    >𝟩𝟧 سورة القيامة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5591'; location.reload();"
+                    >𝟩𝟨 سورة الإنسان</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5622'; location.reload();"
+                    >𝟩𝟩 سورة المرسلات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5672'; location.reload();"
+                    >𝟩𝟪 سورة النبإ</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5712'; location.reload();"
+                    >𝟩𝟫 سورة النازعات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5758'; location.reload();"
+                    >𝟪𝟢 سورة عبس</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5800'; location.reload();"
+                    >𝟪𝟣 سورة التكوير</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5829'; location.reload();"
+                    >𝟪𝟤 سورة الانفطار</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5848'; location.reload();"
+                    >𝟪𝟥 سورة المطففين</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5884'; location.reload();"
+                    >𝟪𝟦 سورة الانشقاق</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5909'; location.reload();"
+                    >𝟪𝟧 سورة البروج</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5931'; location.reload();"
+                    >𝟪𝟨 سورة الطارق</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5948'; location.reload();"
+                    >𝟪𝟩 سورة الأعلى</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5967'; location.reload();"
+                    >𝟪𝟪 سورة الغاشية</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p5993'; location.reload();"
+                    >𝟪𝟫 سورة الفجر</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6023'; location.reload();"
+                    >𝟫𝟢 سورة البلد</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6043'; location.reload();"
+                    >𝟫𝟣 سورة الشمس</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6058'; location.reload();"
+                    >𝟫𝟤 سورة الليل</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6079'; location.reload();"
+                    >𝟫𝟥 سورة الضحى</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6090'; location.reload();"
+                    >𝟫𝟦 سورة الشرح</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6098'; location.reload();"
+                    >𝟫𝟧 سورة التين</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6106'; location.reload();"
+                    >𝟫𝟨 سورة العلق</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6125'; location.reload();"
+                    >𝟫𝟩 سورة القدر</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6130'; location.reload();"
+                    >𝟫𝟪 سورة البينة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6138'; location.reload();"
+                    >𝟫𝟫 سورة الزلزلة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6146'; location.reload();"
+                    >𝟣𝟢𝟢 سورة العاديات</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6157'; location.reload();"
+                    >𝟣𝟢𝟣 سورة القارِعة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6168'; location.reload();"
+                    >𝟣𝟢𝟤 سورة التكاثر</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6176'; location.reload();"
+                    >𝟣𝟢𝟥 سورة العصر</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6179'; location.reload();"
+                    >𝟣𝟢𝟦 سورة الهمزة</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6188'; location.reload();"
+                    >𝟣𝟢𝟧 سورة الفيل</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6193'; location.reload();"
+                    >𝟣𝟢𝟨 سورة قريش</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6197'; location.reload();"
+                    >𝟣𝟢𝟩 سورة الماعون</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6204'; location.reload();"
+                    >𝟣𝟢𝟪 سورة الكوثر</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6207'; location.reload();"
+                    >𝟣𝟢𝟫 سورة الكافرون</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6213'; location.reload();"
+                    >𝟣𝟣𝟢 سورة النصر</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6216'; location.reload();"
+                    >𝟣𝟣𝟣 سورة المسد</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6221'; location.reload();"
+                    >𝟣𝟣𝟤 سورة الإخلاص</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6225'; location.reload();"
+                    >𝟣𝟣𝟥 سورة الفلق</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="javascript:void(0)"
+                    onclick="window.location='../books/quran.html#quranBakurubeTable=l1:p6230'; location.reload();"
+                    >𝟣𝟣𝟦 سورة الناس</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="../books/index.html">މައި ސަފުހާ</a>
+            </li>
+
+            <li>
+              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
+            </li>
+
+            <li>
+              <span>ޑައުންލޯޑުތައް</span>
+              <ul>
+                <li>
+                  <a
+                    href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf"
+                    >ނަވަވީގެ 40 ޙަދީޘް (ޕީޑީއެފް)</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <span>އިތުރު މައުލޫމާތު</span>
+              <ul>
+                <li>
+                  <a href="../notes/info/introHmv.html"
+                    >ޙަދީޘްއެމްވީއަކީ ކޮބާ؟</a
+                  >
+                </li>
+                <li>
+                  <a href="../notes/info/introFortyN.html"
+                    >ނަވަވީގެ 40 ޙަދީޘަކީ ކޮބާ؟</a
+                  >
+                </li>
+                <li>
+                  <a href="../notes/info/introUmdah.html"
+                    >ޢުމްދަތުލް އަޙްކާމަކީ ކޮބާ؟</a
+                  >
+                </li>
+                <li>
+                  <a href="../notes/how-to-use-hmv.txt"
+                    >ޙަދީޘްއެމްވީ ބޭނުން ކުރާނެ ގޮތް</a
+                  >
+                </li>
+                <li>
+                  <a href="../notes/third-party-libs-and-tools.txt"
+                    >ޙަދީޘްއެމްވީ ހަދަން ބޭނުން ކުރެވުނު ތަކެތި</a
+                  >
+                </li>
+                <li><a href="../LICENSE.txt">ލައިސެންސް</a></li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="../notes/info/FAQ.html"
+                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
+              >
+            </li>
+
+            <li class="HmvVer"><a href="#">⚙️ އިސްދާރު: 2.70</a></li>
+            <li>
+              <a href="https://t.me/yahyasdadmv"
+                >ފަރުމާ ކުރީ: (އަބޫ ޔަޙްޔާ) މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
+              >
+            </li>
+            <li class="madani">
+              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
+            </li>
+          </ul>
+        </nav>
+        <!-- <nav id="menu"> -->
+      </div>
+      <!-- <div class="header fixed" onclick="drawer.open();"> -->
+
+      <div class="content">
+        <main>
+          <!-- class="w3-animate-right" -->
+          <!-- --- TABLE --- -->
+          <!-- JEKYLL {{ content }} -->
+          <!-- cards js adds card classes to table ID -->
+          <!-- change123 TABLE - card view set as default here -->
+          <table id="quranBakurubeTable" class="stripe table cards">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+          </table>
+          <!-- --- TABLE - END --- -->
+
+          <div class="hidden" id="footer">
+            <p class="arMasdar">مقدمة</p>
+            <p class="arMasdar">
+              الحَمْدُ لِلَّهِ الَّذِى لَهُ مَا فِى السَّمواتِ وَمَا فِى
+              الأَرْضِ وَلَهُ الحَمْدُ فِى الآخِرَةِ وَهُوَ الحَكِيمُ الخَبِير
+              وَأَشْهَدُ أَنْ لاَ إلَهَ إلاّ اللَّهُ وَحْدَهُ لاَ شَرِيْكَ لَهُ
+              الَّذِى أَنْزَلَ الْقُرْآنَ عَلَى عَبْدِهِ هُدًى لِلنَّاسِ
+              وَبَيِّنَاتٍ مِنَ الهُدَى وَالفُرْقَان وَأَشْهَدُ أَنَّ مُحَمَّدًا
+              عَبْدُهُ وَرَسُولُهُ الَّذِى أرْسَلَهُ اللَّهُ هادِيًا
+              لِلثَّقَلَين صَلَّى اللَّهُ عَلَيْهِ وَسَلاَمُهُ دَائِمَينِ إلَى
+              يَوْمِ المَعَادِ وَعَلَى آلِهِ وَأصْحَابِه وَمَنْ تَبِعَهُمْ
+              بِـإِحْسَانٍ إلَى يَوْمِ الحِسَابِ . أَمَّابَعْدُ:
+            </p>
+            <p>
+              ކީރިތި قرآن ގެ މާނަ އުނގެނި ދަސްކުރުމީ އަޅުގަނޑު އެންމެބޮޑަށް
+              شَوْق ވެރިވާ ކަންތައްތަކުގެ ތެރެއިންވެސް އެންމެ شَوْق ވެރިވާ
+              ކަންތަކެވެ. އަޅުގަނޑުގެ عُمْرُ ން އެގާރަ ބާރަ އަހަރުހައި
+              ހިސާބުގައި އެކަމަށް ފެށިއްޖެއެވެ. އެންމެ ފުރަތަމަވެސް މިރޮނގުން
+              އަޅުގަނޑުގެ أُسْتَاذ އަކީ فَضِيلَة الشَّيْخ حُسَين صَلاحُ الدِّين
+              (رحمه اللّه) މަޖައްލާއާއި، އެކިއެކި ލިޔުމުގައި ލިޔުއްވާފައިވާ "
+              قرآن ގެ ترجمة އާއި تفسير މިނަމުގައިވާ مضمون އެވެ. އޭގެފަހުގައި
+              ދެން ފެންނަންފެށީ فضيلة الشّيخ عبد اللّه فَهمِى ދީދީ (رحمه اللّه)
+              ގެ ترجمة ގެ ރީތި عبارة ތަކެވެ. ދެން ހަމަ އެޔާއެކުއެކުހެން الشَّيخُ
+              الحَافِظ آدم سعيد (رحمه اللّه) ގެ ترجمة އެވެ. މި أُسْتَاذُ ންގެ
+              ހިތްފަސޭހަ ތަރުޖަމާތަކަށްފަހު ދެން فَضِيلة الشَّيخ مُحَمَّد جَمِيل
+              ދީދީ (رحمه اللّه) ހިންގެވި ހަވީރުގެ ކުލާހުގައި އިށީނުމުގެ فرصة
+              އަޅުގަނޑަށް ލިބުނުމަކީ މިކަމަށް ލިބުނު އިތުރު ކުރިއެރުމަކާއި، އާ
+              ހިތްވަރެކެވެ. މި މި أُسْتَاذُ ންގެ އަތުން އަޅުގަނޑަށް ލިބުނު
+              ތަރުޖަމާތައް އަޅުގަނޑު ދަސްކުރީ ދަސްކުރާހިތުން، ގަޔާވެގެންނެވެ.
+              ދެން މިޔަށްފަހު ދުވަސްތައް ވޭތިވަމުންގޮސް المَدِينَة الـمُنَوَّرة
+              ގެ الجَامِعَةُ الإِسلامِيَّة ގެ كُلِّـيَّة الشَّرِيعَة އެއީ
+              އަޅުގަނޑަށް ލިބިފައިވާ ވަކިވަކި މި ترجمة ކޮޅުތައް ގުޅުވާ،
+              އެއްކޮށްދެއްވި، بَركَاة ތެރި މަރުކަޒެވެ. އެ جَامِعَة ގައި އެގާރަ
+              އަހަރުގެ دِرَاسَة އެއް ނިމިގެން ރާއްޖެ އައިއިރު އަމިއްލައަށް قرآن
+              ގެ كَلِمَة ތަކުގެ މާނަތައް ދިވެހިބަހުން ލިޔުމުގެ شَوْق ވެރިކަން
+              ގަދަވެ އެކަމަށް ފަށައިގަނެވުނީއެވެ.
+            </p>
+            <p>
+              އަޅުގަނޑުގެ މި ترجمة ލިޔުމުގައި އިސްވެދިޔަ ދިވެހި أُسْتَاذ ންގެ
+              ފަރާތުން ދަސްވި ترجمة ތަކުގެ އިތުރަށް ދެން ترجمة ލިބިގަތުމަށް
+              إختيار ކުރި مُهِمُّ ފޮތްތަކަކީ އެ فَنّ ގައި ފުނަށް ފައިބާފައިވާ
+              އެފަންނުގެ އެދުރުންކަމުގައި މުޅިދުނިޔެއަށް مَشْهُور ބައެއް
+              مُفَسِّر ންގެ ފޮތްފޮތެވެ. އޭގެތެރޭގައި:
+            </p>
+            <p class="arMasdar">
+              (1) جَامِعُ البَيان عَن تَأْوِيل آى القُرْآن = لأبِى جَعْفَر
+              مُحَمَّد بن جَرِير الطَّبَرى
+            </p>
+            <p class="arMasdar">
+              (2) تَفْسِير القُرْآن العَظِيم = لِلحَافِظ عِمَاد الدِّين أبى
+              الفِداء إسماعيل ابن كَثِير القُرَشِى
+            </p>
+            <p class="arMasdar">
+              (3) الجامِعُ لأِحْكَامِ القُرْآن = لأبِى عَبْداللَّه مُحَمَّد بن
+              أحْمَدُ لأنْصَارِى القُرْطُبى
+            </p>
+            <p class="arMasdar">
+              (4) فَتْحُ القَدِير (بَنين فَنىء الرِّوايَة والدِّرايَة) =
+              لِمُحَمَّدُ بن عَلِى بن مُحَمَّد الشَّوكانِى
+            </p>
+            <p class="arMasdar">
+              (5) أيْسَرُ التَّفاسِير = لأبِى بَكْربن جابِر الجَزائِرِى
+            </p>
+            <p class="arMasdar">
+              (6) زُبْدَةُ التَّفْسِير = د. مُحَمَّد سُلَيْمَان عَبْد اللَّه
+              الأشْقَر
+            </p>
+            <p class="arMasdar">
+              (7) النَّفْسِيْرُ المُيَسّر = نُخْبَة مِنَ العُلَمَاء
+            </p>
+            <p>މިފޮތްތަކާއި، އަދި މިނޫންވެސް ބައެއް ފޮތް ހިމެނެއެވެ.</p>
+            <p>
+              އަޅުގަނޑުގެ މި ترجمة ލިޔެފައިމިވަނީ މި މަތިވެރި، މާތް أُسْتَاذُ ން
+              عَرَب ބަހުން ލިޔުއްވާފައިވާ قُرْآن ގެ މާނަތަކުގެ ދިވެހި ترجمة
+              އެވެ. އަޅުގަނޑު އަލުން-ބަލުން ފަށައިގެން ކުރި ترجمة އެއް ނޫނެވެ.
+              އެއީ އަޅުގަނޑަށް އެކަށީގެންވާ ކަމެއްނޫނެވެ. އަދި عِلْمُ
+              التَّفْسِير އަށް ބަލާއިރު، އަޅުގަޑު މިވަނީ އެހެންވާދީއެއްގައެވެ.
+              ވެރިންއެވަނީ އެހެންވާދީއެއްގައެވެ. ނަމަވެސް އަޅުގަނޑު މިކުރި
+              މަސައްކަތަކީ އެބޭބޭކަލުން ލިޔުއްވި މާނަތައް އަޅުގަނޑަށް އެނގިހުރި
+              ފެންވަރަކުން ހަމައެކަނި ދިވެހިބަހަށް ترجمة ކުރީއެވެ. އެބޭކަލުންގެ
+              މާނައެވެ. އަޅުގަނޑުގެ ދިވެހި ترجمة އެވެ. މިހެންވެ އަޅުގަނޑުގެ
+              މިފޮތަށް ކިޔަން قصد ކުރީވެސް (ކީރިތ قرآن ގެ މާނަތަކުގެ ދިވެހި
+              ترجمة) އެވެ. މިއެވެ.
+            </p>
+            <p>
+              ދެންފަހެ، މިމާނަތައް ترجمة ކުރުމުގައި އޮޅުން ނުފިލައިފާނޭކަމަށް
+              ލަފާވާ ތަނެއްގައިވިއްޔާ، އެބޭކަލުންގެ އެ تفسير ފޮތްތައް ބަލައިގެން
+              ކުޑަ بيان އެއް ލިޔެފައިވާނެއެވެ. ކިޔުއްވަމުންދާއިރު އެތަންތައް
+              އެނގިލައްވާނެއެވެ. މި ترجمة ގައި އަޅުގަނޑު މަސައްކަތްކުރީ ވީހާ
+              ކުރުކޮށް، ލުއިފަސޭހަކޮށް – އެކަމަކު މާނަޔާ ދުރަށް ނުގޮސް –
+              ދިވެހިބަހުން ވާހަކަދައްކާ މީހުންނަށް اللّه ގެ ބަސްފުޅު
+              ވިސްނައިދެވޭތޯއެވެ. ދެދުނިޔޭގެ ބާއްޖަވެރިކަމުގެ މަގު އަތުވާންއޮތީ
+              މި ބަސްފުޅުތަކުންކަމުގައި ވާތީއެވެ.
+            </p>
+            <p>
+              ދެން އޮތް އަނެއް ވާހަކަޔަކީ، ދިވެހިބަހުން ވާހަކަދެއްކުމުގައި
+              ރަށްރަށާއި، އަތޮޅުއަތޮޅާއި، ތަންތާ ހުރި ބައެއްތަފާތެވެ. އެހެން
+              އެކަން ހުރީތީ ދިވެހިބަސް ރީތިކުރުމަށްޓަކައި އެހާބޮޑަކަށް
+              މަސައްކަތެއް ނުކުރަމެވެ. މެދުފަންތީގެމީހުނަށް ވިސްނޭފަދަވީމާ
+              ނިމުނީކަމަށް ބެލީއެވެ.– މިސާލަކަށް: 'ތިބާ' ކިޔާ ތަނުގައި 'ކަލޭ'
+              އަދި 'ތިޔަބައިމީހުން' ކިޔާ މާނައިގައި 'ކަލޭމެން' ކިޔުންކަހަލަ،
+              އަދި 'ތިމަންކަލޭގެފާނު' ގެ ބަދަލުގައި 'އަހުރެން' މި كَلِمَة
+              ބޭނުންކުރުންކަހަލަ – ކަންކަމަކަށް މާބޮޑު ފަރުވާއެއް
+              ނުބަހައްޓަމެވެ. ބަސްފުޅު ވިސްނޭފަދަ ވެއްޖިއްޔާ ފުދުނީ ކަމުގައި
+              ބެލީއެވެ.
+            </p>
+            <p>
+              ދެންފަހެ މި ترجمة އަކީ ދާދި ކުޑަ ތަރުޖަމާއެކެވެ. اللّه ގެ
+              މިންވަރުފުޅު ނިޔާކުރާގޮތުން ދުނިޔޭގައި صِحَّة ސަލާމަތުން
+              ލަހައްޓަވާފައި ހުރިއްޔާ މިފޮތް ފުޅާކޮށް، ތަނަވަސްކުރުމުގެ قَصْد
+              ވަރަށްބޮޑަށް އެބައޮތެވެ. އެބަހީ މިފޮތް މިއޮތްގޮތަށް އޮވެފައި، صَحّ
+              ސަނަދުން ސާބިތުވާ سَبَب النُّزُول ތައް އޭގެ مَحَلّ ތަކަށް
+              އިތުރުކޮށް، އަދި نَبِى ބޭކަލުންގެ قِصَّة ތައް އާދައިގެ ވަރަކަށް
+              بيان ކުރެވި، أحْكَام ގެ އާޔަތްތަކާމެދު ހިސާބަކަށް ވާހަކަދެކެވި،
+              އަދި إختلاف ތަކުގެ مُهِمّ صَفْحة ތައްވެސް ބަލައިލެވޭތޯ
+              ބަލައިލުމުގެ أُمِّيد އެބައޮތެވެ. އޭރުން ދެން އެފޮތް ތަންކޮޅެއް
+              ބޮޑުވެފައި ބަރުވެސްވާނެއެވެ.
+            </p>
+            <p>
+              އަޅުގަނޑުގެ دعاء އަކީ އަޅުގަނޑުގެ މިترجمة އާދެ! ((ترجمة مَعانِى
+              القُرْآن الكَرِيم)) (قرآنގެމާނަތަކުގެ ތަރުޖަމާ) އަކީ اللّه
+              ބާވައިލެއްވި ކީރިތި قرآن ގެ ترجمة ދިވެހިން ވިސްނައި، فَهْم
+              ކޮށްގަތުމުގެ އެހީތެރި މަދަދުގާރަކުކަމުގައި اللّه
+              ލައްވައިދެއްވުމެވެ. އަދި މިކުރި عمل އަކީ اللّه ރުހިވޮޑިގަންނަވާ
+              ލޯބިވެތި عمل އެއްކަމުގައި ލައްވައި قيامة ދުވަހުން މިއަޅާއާއި،
+              މިއަޅާގެ މައިންބަފައިންގެ ފާފަފުއްސަވައި، ހެޔޮކަމުގެ މީޒާން
+              ބަރުކޮށްދެއްވައި، އެއްވެސް ބިރުވެރިކަމެއްނެތި، އަދި ހިސާބު
+              ބެއްލެވުމަކާނުލައި އެކަލާނގެ فَضْلُ ވަންތަކަމާއި އެކަލާނގެ رَحْمَة
+              ފުޅުން ސުވަރުގެ ވައްދަވައިދެއްވުމެވެ. އޭމަތިވެރިމާތް اللّه އެވެ.
+              ހަމަކަށަވަރުން އިބަރަސްކަލާނގެއީ ކޮންމެކަމެއްގެ މައްޗަށް
+              ކުޅަދުންވަންތަވެ ވޮޑިގެންވާ ކަލާނގެކަން يقين އެވެ.
+            </p>
+            <p class="arMasdar">
+              إنَّـهُ جَوَادٌ كَرِيم–وَصَلَّى اللَّهُ وَسَلَّمَ عَلَى مُحَمَّدٍ
+              وَعَلَى آلِهِ وَأَصْحَابِهِ أجْمَعِين وَسَلاَمٌ عَلَى المُرْسَلِين
+              وَالْحَمْدُ لِلَّهِ رَبِّ العالَمِين وَبِاللَّهِ التَّوفِيق
+            </p>
+            <p class="arMasdar">27 رَجَب 1427 </p>
+            <p>21 އޯގަސްޓް 2006 މ</p>
+            <p class="arMasdar">أبُوبكْر إبْراهِيم عَلِى</p>
+            <p class="arMasdar">هِنَّوَرِى</p>
+
+            <br />
+            <hr />
+            <br />
+
+            <p>أعــوذ ކިޔުން</p>
+            <p>
+              މާތްވެގެންވާ قُرْآن ކިޔަވާ ކޮންމެ މީހަކަށްވެސް ﷲ ގެ رَحْمَة ން
+              ފައްސާލެވި އަދި لَعْنَة ލެއްވިގެންވާ شَيْطَان އާގެ ފަރާތުން
+              ރައްކާތެރިވެ ސަލާމަތްކަން ލިބިގަތުމަށް ﷲ ގެ حَضْرَةُ ގައި ދަންނަވާ
+              އެފަރާތުން حِمَايَة ލިބިގަތުން شَرْعُ ކުރެވިގެންވެއެވެ. އެބަހީ
+              أَعُوذ ކިއުން سُنَّة ވެގެންވެއެވެ. اللهُ سُبْحَانَه وَتَعَالَى
+              وَحِى ކުރެއްވިއެވެ. (فَإِذَا قَرَأْتَ القُرْآنَ فَسْتَعِذْ بِا لله
+              مِنَ الشَّيْطَانِ الرَّجِيْم) މިހެނީ ކީރިތި قُرْآن އަކީ
+              މީސްތަކުންނަށްވާ ތެދުމަގަކާއި އަދި ހިތްތަކުގައިވާ އެކިބާވަތުގެ
+              ބަލިބަލީގެ شِفَاء އެކެވެ. އަދި شَيْطَان އެއީ ނުބައިކަމާ އަދި
+              މަގުފުރެދުމުގެ ސަބަބެވެ. މިހެންވެ قُرْآن ކިޔަވާ ކޮންމެމީހަކުވެސް
+              އެ ނުބައި شَيْطَان އާގެ ކިބައިން ރައްކާތެރިވެ ސަލާމަތްކަން
+              ދެއްވުން އެދި ﷲ ގެ حَضْرَةُ ގައި ދަންނަވައި ދުޢާކުރުން
+              އެދެވިގެންވެއެވެ. އެބަހީ أَعُوذ ކިޔުން ހުއްޓެވެ.
+            </p>
+            <p>
+              عَامُّ ކޮށް ގިނަ عِلْم ވެރީން އެއްބަސް ވެވަޑައިގަންނަވަނީ أَعُوذ
+              އަކީ قُرْآن ގެއާޔަތެއް ނޫކަމަށެވެ. އެހެންވެ مُصْحَفُ ތައް
+              ލިއުމުގައި أَعُوذ ވަކިން ލިޔެވިގެން ނުވަނީއެވެ.
+            </p>
+            <p>ދެންފަހެ :</p>
+            <p>
+              أَعُوذ بِا لله ގެ މާނައީ : އެއްކައުވަންތަ ﷲ ގެ حَضْرَةُ ން މިއަޅާ
+              ރައްކާތެރިކަމާއި حِمَايَة ލިބިގަންނަމެވެ.
+            </p>
+            <p>
+              مِنَ الشَّيْطَانِ : މިއަޅާގެ رَبّ އަށް ކިޔަމަންތެރިކަން
+              އަދާކުރުމާއި އަދި މިއަޅާގެ قُرْآن ކިޔެވުމަށް ހުރަސްއަޅާ
+              ޖިންނިންނާއި އަދި އިންސާނުންގެ ތެރެއިންވެސް ވާ އެންމެހައި شَيْطَان
+              ން ގެ ކިބައިން
+            </p>
+            <p>
+              الرَّجِيْم ގެމާނައީ : ﷲ ގެ رَحْمَة ން ފައްސައިލެވިގެންވާ ނުވަތަ
+              ރަޖަމު ކުރެވިގެންވާނެ.
+            </p>
+
+            <br />
+            <hr />
+            <br />
+
+            <p>
+              މި ސަފުހާގައިވާ އާޔަތްތައް ކޮޕީކުރުމަށް ފަހު، ޑެސްކްޓޮޕް ވޯޑުގައި
+              ހަމަ އެ އިންގޮތަށް ދެއްކުމަށްޓަކައި
+              <a href="https://hadithmv.github.io/font/UthmanicHafs_V20.ttf"
+                >މި ފޮންޓު</a
+              >
+              ބޭނުން ކުރެވިދާނެއެވެ.
+            </p>
+
+            <p>
+              ޑެސްކްޓޮޕްގައި އޮފްލައިންކޮށް މި ސަފުހާ ބޭނުންކުރަން އެދޭނަމަ،
+              ބަރައުސަރގައި ހުންނަވާއިރު ކީބޯޑުގައި ctrl+s އަށް ފިތާލުމަށްފަހު،
+              ކޮމްޕްލީޓް ވެބްޕޭޖް html. ފައިލެއްހެން ސޭވްކޮށްގެން ބޭނުން
+              ކުރެވިދާނެއެވެ. އެގޭ ފަހުން އަދާހަމަކުރަން އެދޭނަމަ އަލުން
+              އެގޮތަށް ސޭވް ކުރާނީއެވެ.
+            </p>
+
+            <p>
+              ވަކި ސޫރަތަކަށް ދިޔުމަށް: އެންމެ މަތީގައިވާ ’ޙަދީޘްއެމްވީ - ކީރިތި
+              ޤުރްއާން‘ ޖަހާފައިވާ މެނިއޫއަށް ފިތާލުމަށް ފަހު، ’ސޫރަތްތަކަށް‘
+              ގޮސް ސޫރަތެއް އިޚްތިޔާރު ކުރައްވާށެވެ. އަނެއް ގޮތަކީ ’ފިލްޓާތައް‘
+              މި ބަޓަންއަށް ފިތާލެއްވުމަށް ފަހު، ސޫރަތެއް އިޚްތިޔާރު ކުރުއްމެވެ.
+              <br />
+              ވަކި އާޔަތަކަށް ދިޔުމަށް: އާޔަތް އަރަބިން ފިލިނުޖަހައި ސާޗުގައި
+              ލިޔުއްވާ (މިސާލަކަށް: ومن يشاقق الرسول)، ނޫނީ ސޫރަތުގެ ނަމާއި
+              އާޔަތް ނަމްބަރު ސާޗުގައި ލިޔުއްވާ (މިސާލަކަށް: النساء 115)،
+              އެއަށްފަހު އަރާ ނަތީޖާގައި ދެ ފަހަރު ފިތާލައްވާށެވެ. އޭރުން އެ
+              އާޔަތް ހުރި ތަނަކަށް ދެވޭނެއެވެ.
+            </p>
+            <br />
+
+            <p>
+              ކުށެއް ރަނގަޅުކުރުމަށް، ނުވަތަ ތަރުޖަމާ މަސައްކަތުގައި
+              ބައިވެރިވުމަށް، ނުވަތަ މި މަޝްރޫއަށް އެހީވެދިނުމަށް
+              <br />
+              އަޅުގަނޑުމެންނާ ގުޅުއްވާ:
+              <a href="http://m.me/hadithmvOfficial">މެސެންޖަރ</a> |
+              <a href="tel:+9607583166">ވައިބަރ</a> |
+              <a href="https://t.me/yahyasdadmv">ޓެލެގްރާމް</a> |
+              <a href="https://wa.me/qr/FJFBCPFQXUBKJ1">ވަޓްސްއެޕް</a> |
+              <a href="mailto:hadithmv@gmail.com">އީމެއިލް</a>
+            </p>
+
+            <p>
+              މީސްމީޑިއާގައި ތަބާވުމަށް:
+              <a href="http://fb.me/hadithmvOfficial">ފޭސްބުކް</a> |
+              <a
+                href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX/ZVrvGtq/bJboZzADy3OssLND4H1TFWklNmNQZC"
+                >ވައިބަރ</a
+              >
+              | <a href="http://t.me/hadithmv">ޓެލެގްރާމް</a> |
+              <a href="https://instagram.com/hadithmv">އިންސްޓަގްރާމް</a> |
+              <a href="https://twitter.com/hadithmv">ޓްވިޓަރ</a>
+            </p>
+
+            <p>
+              ޙަދީޘްއެމްވީ އެޕް ހޯދުމަށް:
+              <a href="https://hadithmv.github.io">ވެބް</a> |
+              <a
+                href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
+                >އޭންޑްރޮއިޑް</a
+              >
+              |
+              <a
+                href="https://github.com/hadithmv/hadithmv.github.io/blob/master/win/hmv/hadithmv_Win64.7z?raw=true"
+                >ވިންޑޯސް</a
+              >
+            </p>
+
+            <p>
+              <a href="https://hassaanmv.com/post/waleed-and-quran"
+                >މުސްހަފުގެ ފްރޭމް</a
+              >
+              އާއި
+              <a
+                href="https://github.com/maaldheefee/Quran-Translation/blob/master/utils/gen_alternate.py"
+                >އަރަބި ތާނަކުރާ ސްކްރިޕްޓް</a
+              >
+              ހެދީ ޙައްސާން ޢަބްދުއްރައްޒާގް
+            </p>
+          </div>
+        </main>
+        <!-- <main> -->
+      </div>
+      <!-- <div class="content"> -->
+    </div>
+    <!-- <div id="page"> -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics - inlined part placed in ext script -->
+    <script
+      defer
+      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
+    ></script>
+
+    <!-- === INT JS - END === -->
+  </body>
+</html>
