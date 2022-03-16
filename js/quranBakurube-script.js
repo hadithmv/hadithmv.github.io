@@ -59,12 +59,12 @@ $(document).ready(() => {
     })
   } //= =================== end if else
 
-  const table = $('#quranTable').DataTable({
+  const table = $('#quranBakurubeTable').DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: quran_dataSet, // https://datatables.net/manual/ajax
+    data: quranBakurube_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
       {
@@ -133,9 +133,13 @@ $(document).ready(() => {
       },
       {
         data: 5,
-        title: 'ދިވެހި ތަރުޖަމާ'
+        title: 'ލަފްޒީ ތަރުޖަމާ'
       },
-      { // add tafsir asa'di in arabic
+      {
+        data: 6,
+        title: 'އިޖްމާލީ މާނަ'
+      }/*,
+      { // add tafsir asa'di in arabic 
         data: 6,
         title: 'تفسير السعدي*',
         render: function (data, type, row) {
@@ -144,7 +148,7 @@ $(document).ready(() => {
           return '[تفسير السعدي:] ' + data
         }
       },
-      { // add tafsir asa'di in dhivehi
+      { // add tafsir asa'di in dhivehi 
         data: 7,
         title: 'ތަފްސީރު އައްސަޢްދީ*',
         render: function (data, type, row) {
@@ -152,7 +156,7 @@ $(document).ready(() => {
           // below code is shorter, no replace repeat, uses OR instead
           return '[ތަފްސީރު އައްސަޢްދީ:] ' + data
         }
-      }
+      }*/
       /* {
         data: 7,
         title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
@@ -251,14 +255,14 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol8', // tafsir sadi ar
+        className: 'qCol8', // dv tarjama ijmali
         targets: [7],
-        visible: false,
-        searchable: false,
+        visible: true,
+        searchable: true,
         searchPanes: {
           show: false
         }
-      },
+      },/*
       {
         className: 'qCol9', // tafsir sadi dv
         targets: [8],
@@ -267,7 +271,7 @@ $(document).ready(() => {
         searchPanes: {
           show: false
         }
-      },
+      },*/
       /* {
         className: 'qCol8', // bakurube lafzi
         targets: [7],
@@ -368,8 +372,8 @@ $(document).ready(() => {
     // or 2Darray where 1st inner array=page length values, 2nd displayed options
     // -1 is used as a value this tells DataTables to disable pagination
     // Default [ 10, 25, 50, 100 ],
-    lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50, 100, 200, 300], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, 50, 100, 200, '300']],
-    // lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހާ']],
+    //lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50, 100, 200, 300], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, 50, 100, 200, '300']],
+     lengthMenu: [[1, 2, 3, 5, 7, 10], ['1 ދައްކާ', 2, 3, 5, 7, 10, '']],
     // lengthMenu: [ [5, 10, 20, 30, 40, -1, 1], ["Show 5", 10, 20, 30, 40,
     // "All", 1] ],
 
@@ -478,7 +482,7 @@ $(document).ready(() => {
         extend: 'copy',
         key: { key: 'c', shiftKey: true },
         text: 'ކޮޕީ',
-        messageTop: 'ޙަދީޘްއެމްވީ - ކީރިތި ޤުރްއާން', // CHANGE123 clipboard message
+        messageTop: 'ބަކުރުބެގެ ޤުރްއާން ތަރުޖަމާ', // CHANGE123 clipboard message
         title: '' /* title: "hadithmv.com", */,
 
         //= ====================
@@ -514,11 +518,8 @@ $(document).ready(() => {
           data = data.replace(/މުޖައްމާ ޤުރްއާން\t/g, '')
           data = data.replace(/ތަންޒީލު ޤުރްއާން\t/g, '')
           data = data.replace(/ފިލިނުޖަހާ ޤުރްއާން\t/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
-          data = data.replace(/تفسير السعدي*\t/g, '')
-          data = data.replace(/ތަފްސީރު އައްސަޢްދީ*\t/g, '')
-          data = data.replace(/ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*\t/g, '')
-          data = data.replace(/ބަކުރުބެގެ އިޖްމާލީ މާނަ*\t/g, '')
+          data = data.replace(/ލަފްޒީ ތަރުޖަމާ\t/g, '')
+          data = data.replace(/އިޖްމާލީ މާނަ\t/g, '')
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
