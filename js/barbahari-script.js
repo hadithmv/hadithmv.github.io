@@ -103,6 +103,10 @@ $(document).ready(() => {
       {
         data: 5,
         title: 'ދިވެހި ތަރުޖަމާ'
+      },
+      {
+        data: 6,
+        title: 'English'
       }
     ],
 
@@ -160,6 +164,12 @@ $(document).ready(() => {
         className: 'barbaCol7', // dv
         targets: [6],
         visible: true,
+        searchable: true
+      },
+      {
+        className: 'barbaCol8', // en
+        targets: [7],
+        visible: false,
         searchable: true
       },
 
@@ -377,6 +387,7 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ލިޔުން\t/g, '')
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
+          data = data.replace(/English\t/g, '')
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
