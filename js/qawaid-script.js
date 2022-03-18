@@ -110,7 +110,7 @@ $(document).ready(() => {
       },
       {
         data: 7,
-        title: 'شرح الراجحي',
+        title: 'شرح الفوزان',
       },
       {
         data: 8,
@@ -459,9 +459,11 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ނައްސު\t/g, '')
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
-          data = data.replace(/eng\t/g, '')
+          data = data.replace(/English\t/g, '')
           data = data.replace(/ތަޚްރީޖު އަރަބިން\t/g, '')
-          data = data.replace(/شرح الراجحي\t/g, '')
+          data = data.replace(/شرح الفوزان\t/g, '')
+          data = data.replace(/شرح آل الشيخ\t/g, '')
+
           data = data.replace(/\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g, '\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n') // adds a line break after takhrij line, use two for a new line
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
