@@ -2,6 +2,6 @@
 
 # Allow crawling of all content
 User-agent: *
-Disallow:
+Disallow: /notes/info/index/
 
 Sitemap: https://hadithmv.github.io/sitemap.xml
