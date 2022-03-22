@@ -115,10 +115,8 @@
         /* add space below column */
         margin-bottom: 20px;
 
-        /* Center horizontally*/
-        /*margin-left: auto;
-        margin-right: auto;*/
-        max-width: 500px;
+        /* contains the size */
+        max-width: 300px;
       }
 
       /* Responsive columns */
@@ -285,26 +283,25 @@
       https://coolors.co/f9c80e-f86624-ea3546-662e9b-43bccd 
       
       https://paletton.com/#uid=13r0u0kmhrTcNFZi5vxqGomtEjn */
-      .qCard {
-        border-top: 5px solid #a54d52;
-        border-bottom: 5px solid #a54d52;
+      .quranCard {
+        border-top: 5px solid #8c0b17;
+        border-bottom: 5px solid #8c0b17;
       }
 
-      .hrCard,
-      .erCard {
-        border-top: 5px solid #008957;
-        border-bottom: 5px solid #008957;
+      .langCard {
+        border-top: 5px solid #006e46;
+        border-bottom: 5px solid #006e46;
       }
 
-      .sbCard {
-        border-top: 5px solid #d56f10;
-        border-bottom: 5px solid #d56f10;
+      .aqidaCard {
+        border-top: 5px solid #c05602;
+        border-bottom: 5px solid #c05602;
       }
 
-      .shCard {
+      /*.shCard {
         border-top: 5px solid #5647b8;
         border-bottom: 5px solid #5647b8;
-      }
+      }*/
     </style>
 
     <!-- === INT CSS - END === -->
@@ -674,13 +671,13 @@
         }
 
         .tabQuran {
-          background-color: #a54d52 !important;
+          background-color: #8c0b17 !important;
         }
         .tabAqida {
-          background-color: #d56f10 !important;
+          background-color: #c05602 !important;
         }
         .tabLang {
-          background-color: #008957 !important;
+          background-color: #006e46 !important;
         }
         .tabQuran:hover,
         .tabAqida:hover,
@@ -688,7 +685,9 @@
           background-color: #eee !important;
         }
 
-        .tabQuran.active {
+        .tabQuran.active,
+        .tabAqida.active,
+        .tabLang.active {
           background-color: #eee !important;
         }
       </style>
@@ -734,7 +733,7 @@
         class="tablinks"
         onclick="openTab(event, 'tabOne');
          focusEditor();">
-            <div class="card qCard">
+            <div class="card quranCard">
               <p class="dv">ކީރިތި ޤުރްއާން</p>
               <p class="ar">القرآن الكريم</p>
             </div>
@@ -748,7 +747,7 @@
           <div class="column">
             <a href="../books/quran.html">
               <!-- added this anchor to make it a link -->
-              <div class="card qCard">
+              <div class="card quranCard">
                 <p class="dv">ޙަދީޘްއެމްވީ ޤުރްއާން ތަރުޖަމާ</p>
                 <p class="ar">ترجمة القرآن لحديث أم وي</p>
               </div>
@@ -831,7 +830,7 @@
         <div class="row">
           <div class="column">
             <a href="../books/barbahari.html">
-              <div class="card sbCard">
+              <div class="card aqidaCard">
                 <p class="dv">ބަރްބަހާރީ ލިޔުއްވި ސުންނަތުގެ ޝަރަހަ</p>
                 <p class="ar">شرح السنة للبربهاري</p>
               </div>
@@ -840,7 +839,7 @@
 
           <div class="column">
             <a href="../books/nawaqidulislam.html">
-              <div class="card sbCard">
+              <div class="card aqidaCard">
                 <p class="dv">އިސްލާމްކަން ގެއްލޭ ކަންކަން</p>
                 <p class="ar">نواقض الإسلام</p>
               </div>
@@ -854,7 +853,7 @@
         <div class="row">
           <div class="column">
             <a href="../books/radheef.html">
-              <div class="card hrCard">
+              <div class="card langCard">
                 <p class="dv">ޙަދީޘްއެމްވީ އަރަބި ދިވެހި އިނގިރޭސި ރަދީފު</p>
                 <p class="ar">قاموس عربي ديفهي إنجليزي</p>
               </div>
@@ -863,7 +862,7 @@
 
           <div class="column">
             <a href="../books/eegaal.html">
-              <div class="card erCard">
+              <div class="card langCard">
                 <p class="dv">އަލްއީޤާޡް އަރަބި ދިވެހި ރަދީފު</p>
                 <p class="ar">قاموس الإيقاظ</p>
               </div>
@@ -881,7 +880,7 @@
         <div class="column">
           <a href="../books/quran.html">
             <!-- added this anchor to make it a link -->
-            <div class="card qCard">
+            <div class="card quranCard">
               <p class="dv">ކީރިތި ޤުރްއާން</p>
               <p class="ar">القرآن الكريم</p>
             </div>
@@ -938,7 +937,7 @@
 
         <div class="column">
           <a href="../books/barbahari.html">
-            <div class="card sbCard">
+            <div class="card aqidaCard">
               <p class="dv">ބަރްބަހާރީ ލިޔުއްވި ސުންނަތުގެ ޝަރަހަ</p>
               <p class="ar">شرح السنة للبربهاري</p>
             </div>
@@ -947,7 +946,7 @@
 
         <div class="column">
           <a href="../books/nawaqidulislam.html">
-            <div class="card sbCard">
+            <div class="card aqidaCard">
               <p class="dv">އިސްލާމްކަން ގެއްލޭ ކަންކަން</p>
               <p class="ar">نواقض الإسلام</p>
             </div>
@@ -956,7 +955,7 @@
 
         <div class="column">
           <a href="../books/radheef.html">
-            <div class="card hrCard">
+            <div class="card langCard">
               <p class="dv">ޙަދީޘްއެމްވީ އަރަބި ދިވެހި އިނގިރޭސި ރަދީފު</p>
               <p class="ar">قاموس عربي ديفهي إنجليزي</p>
             </div>
@@ -965,7 +964,7 @@
 
         <div class="column">
           <a href="../books/eegaal.html">
-            <div class="card erCard">
+            <div class="card langCard">
               <p class="dv">އަލްއީޤާޡް އަރަބި ދިވެހި ރަދީފު</p>
               <p class="ar">قاموس الإيقاظ</p>
             </div>
