@@ -87,6 +87,9 @@
         max-width: 1080px;
         margin-left: auto;
         margin-right: auto;
+
+        /* https://www.freecodecamp.org/news/how-to-center-anything-with-css-align-a-div-text-and-more/ */
+        justify-content: center;
       }
 
       /* Clear floats after the columns */
@@ -111,6 +114,11 @@
 
         /* add space below column */
         margin-bottom: 20px;
+
+        /* Center horizontally*/
+        /*margin-left: auto;
+        margin-right: auto;*/
+        max-width: 500px;
       }
 
       /* Responsive columns */
@@ -635,17 +643,18 @@
 <p>Resize the browser window to see the effect.</p>-->
 
       <style>
+        /* custom tab stuff here */
         button.tablinks {
-          font-size: 22px;
+          font-size: 21px;
         }
         .tab button.active {
-          font-size: 22px;
+          font-size: 21px;
         }
         .arSpan {
-          font-size: 28px;
+          font-size: 26px;
         }
         .tab button {
-          width: 200px;
+          width: 180px;
         }
 
         /* mobile, tablet-portrait-up */
@@ -663,6 +672,25 @@
             width: 150px;
           }
         }
+
+        .tabQuran {
+          background-color: #a54d52 !important;
+        }
+        .tabAqida {
+          background-color: #d56f10 !important;
+        }
+        .tabLang {
+          background-color: #008957 !important;
+        }
+        .tabQuran:hover,
+        .tabAqida:hover,
+        .tabLang:hover {
+          background-color: #eee !important;
+        }
+
+        .tabQuran.active {
+          background-color: #eee !important;
+        }
       </style>
 
       <div class="row" style="margin-top: 80px">
@@ -671,7 +699,7 @@
           class="tab"
           style="max-width: 1000px; margin: 0 auto; flex-direction: row-reverse"
         >
-          <button class="tablinks" onclick="openTab(event, 'tabOne');">
+          <button class="tablinks tabQuran" onclick="openTab(event, 'tabOne');">
             <!--   -->
             ޤުރްއާން <br />
             <span class="arSpan">القرآن</span>
@@ -685,14 +713,14 @@
             <span class="arSpan">الحديث</span>
           </button>
           <button
-            class="tablinks"
+            class="tablinks tabAqida"
             onclick="openTab(event, 'tabThree'); focusAdder();"
           >
             <!--   -->
             އަގީދާ <br />
             <span class="arSpan">العقيدة</span>
           </button>
-          <button class="tablinks" onclick="openTab(event, 'tabFour')">
+          <button class="tablinks tabLang" onclick="openTab(event, 'tabFour')">
             ބަސް <br />
             <span class="arSpan">اللغة</span></button
           ><!-- &nbsp;&nbsp; previously put before diff-->

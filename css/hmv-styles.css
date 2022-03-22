@@ -25,6 +25,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page */
+html {
+  overflow-y: scroll;
+}
+
 /* ====================
    BOILERPLATE 8.0.0 CODE - from normalize 8.0.1 and main css
 ======================= */
