@@ -284,8 +284,8 @@
       
       https://paletton.com/#uid=13r0u0kmhrTcNFZi5vxqGomtEjn */
       .quranCard {
-        border-top: 5px solid #8c0b17;
-        border-bottom: 5px solid #8c0b17;
+        border-top: 5px solid #ad0e1c;
+        border-bottom: 5px solid #ad0e1c;
       }
 
       .langCard {
@@ -524,7 +524,7 @@
           width: 150px;
         }
 
-        @media (prefers-color-scheme: light) {
+        /*@media (prefers-color-scheme: light) {
           .tab button {
             background-color: #eee;
             color: #000;
@@ -539,7 +539,7 @@
             background-color: #0b578c !important;
             color: #eee !important;
           }
-        }
+        }*/
 
         /* Change background color of buttons on hover */
 
@@ -671,7 +671,7 @@
         }
 
         .tabQuran {
-          background-color: #8c0b17 !important;
+          background-color: #ad0e1c !important;
         }
         .tabAqida {
           background-color: #c05602 !important;
@@ -679,16 +679,25 @@
         .tabLang {
           background-color: #006e46 !important;
         }
+
+        .tabQuran,
+        .tabAqida,
+        .tabLang {
+          color: #eee !important;
+        }
+
         .tabQuran:hover,
         .tabAqida:hover,
         .tabLang:hover {
           background-color: #eee !important;
+          color: #000 !important;
         }
 
         .tabQuran.active,
         .tabAqida.active,
         .tabLang.active {
           background-color: #eee !important;
+          color: #000 !important;
         }
       </style>
 
