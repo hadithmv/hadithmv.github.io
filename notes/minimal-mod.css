@@ -21,6 +21,11 @@ To move forward, just start with the first sub directory and keep moving forward
 }
 */
 
+/* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page */
+html {
+  overflow-y: scroll;
+}
+
 /* CUSTOM mod of Minimal css
 Minimal
 A Theme for GitHub Pages
