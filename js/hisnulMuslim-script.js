@@ -85,13 +85,17 @@ $(document).ready(() => {
       },
       {
         data: 3,
+        title: 'Eng Chapter'
+      },
+      {
+        data: 4,
         title: 'އަރަބި ޒިކުރު'
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 3,
+        data: 4,
         title: 'ޒިކުރު ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -101,19 +105,23 @@ $(document).ready(() => {
         }
       },
       {
-        data: 4,
+        data: 5,
         title: 'ޓްރާންސްލިޓަރޭޝަން'
       },
       {
-        data: 5,
+        data: 6,
         title: 'ދިވެހި ތަރުޖަމާ'
       },
       {
-        data: 6,
+        data: 7,
+        title: 'English'
+      },
+      {
+        data: 8,
         title: 'ތަޚްރީޖު'
       },
       {
-        data: 7,
+        data: 9,
         title: 'ތަޚްރީޖު ދިވެހިން'
       }
     ],
@@ -160,8 +168,17 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'hisnCol4', // Ar Text
+        className: 'hisnCol4', // En Title
         targets: [3],
+        visible: false,
+        searchable: true,
+        searchPanes: {
+          show: true
+        }
+      },
+      {
+        className: 'hisnCol5', // Ar Text
+        targets: [4],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -169,35 +186,17 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'hisnCol5', // Ar Plain
-        targets: [4],
-        visible: false,
-        searchable: true,
-        searchPanes: {
-          show: false
-        }
-      },
-      {
-        className: 'hisnCol6', // transliterate
+        className: 'hisnCol6', // Ar Plain
         targets: [5],
         visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false
-        }
-      },
-      {
-        className: 'hisnCol7', // Dv Text
-        targets: [6],
-        visible: true,
         searchable: true,
         searchPanes: {
           show: false
         }
       },
       {
-        className: 'hisnCol8', // Ar Ref
-        targets: [7],
+        className: 'hisnCol7', // transliterate
+        targets: [6],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -205,8 +204,35 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'hisnCol9', // Dv Ref
+        className: 'hisnCol8', // Dv Text
+        targets: [7],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'hisnCol9', // En Text
         targets: [8],
+        visible: false,
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'hisnCol10', // Ar Ref
+        targets: [9],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'hisnCol11', // Dv Ref
+        targets: [10],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -439,10 +465,12 @@ $(document).ready(() => {
           data = data.replace(/#\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/އަރަބި ބާބު\t/g, '')
           data = data.replace(/ދިވެހި ބާބު\t/g, '')
+          data = data.replace(/Eng Chapter\t/g, '')
           data = data.replace(/އަރަބި ޒިކުރު\t/g, '')
           data = data.replace(/ޒިކުރު ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ޓްރާންސްލިޓަރޭޝަން\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
+          data = data.replace(/English\t/g, '')
           data = data.replace(/ތަޚްރީޖު\t/g, '')
           data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
 
@@ -528,7 +556,7 @@ $(document).ready(() => {
         config: {
           collapse: false,
           orderable: false,
-          columns: [1, 2],
+          columns: [1, 2, 3],
           cascadePanes: true,
           dtOpts: {
             select: {
