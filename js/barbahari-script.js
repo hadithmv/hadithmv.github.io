@@ -107,11 +107,23 @@ $(document).ready(() => {
       {
         data: 6,
         title: 'English'
+      },
+      {
+        data: 7,
+        title: 'شرح النجمي'
       }
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
+
+      // adds footnote line for shurooh
+      { targets: 8,
+        render: function (data, type, row) {
+          data = '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>' + data
+          return data.replace(/\n/g, ' <br class="br">') // without this line breaks not preserved
+          } 
+        },
 
       /* replace \n newlines from json to <br> in table
       https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
@@ -171,6 +183,12 @@ $(document).ready(() => {
         targets: [7],
         visible: false,
         searchable: true
+      },
+      {
+        className: 'barbaCol9', // sharh
+        targets: [8],
+        visible: false,
+        searchable: false
       },
 
       // below strips html tags off keystable copy, second part with keys on
@@ -388,6 +406,7 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/English\t/g, '')
+          data = data.replace(/شرح النجمي\t/g, '')
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
