@@ -151,12 +151,6 @@ a:hover {
 CUSTOM EDITS
 === --- === --- ==== */
 
-/* removes margin around opened menu background shadow thing, otherwise causes content to shift down in index */
-
-.mm-ocd-opened {
-  margin: 0;
-}
-
 /* darkens nav and changes cursor on mouseover so users know its somewhat clickable */
 #page > div.header:hover {
   background-color: #1c4253;
