@@ -35,7 +35,7 @@ App > App options
 	Interface > Icon > File path ... 
 	Information
 app name: hadithmv
-legal copyright: yahyasdadmv
+legal copyright: ashraaf
 company name: hadithmv
 file description: hadithmv (shows up on task manager)
 File version:

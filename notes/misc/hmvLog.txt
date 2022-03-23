@@ -203,7 +203,7 @@ ilaha broken in current ar font
 Dark mode native web app webview?
 get rid of tabs js if not gonna use
 Change color of sub subsub menu buttons
-Change hadithmv to yahyasdad??
+Change hadithmv to my name??
 datatables with sqlite?
 Change p keytable tags to new line on copy
 google click links counter
@@ -306,7 +306,7 @@ books to check for hadith: Sifatu Salat -Ilyas Jamal,
 
 Do umdah, do barbahari
 
-Move everything to yahyasdadmv
+Move everything to yahyasdadmv?
 Bring buttons to bottom row on mobile?
 Add hmv version? To book
 Csv utf exportable
