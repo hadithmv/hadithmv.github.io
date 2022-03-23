@@ -79,13 +79,15 @@
       /* kitab baab and takhrij colors */
       .hisnCol1,
       .hisnCol2,
-      .hisnCol3 {
+      .hisnCol3,
+      .hisnCol4 {
         color: #004466 !important;
       }
       @media (prefers-color-scheme: dark) {
         .hisnCol1,
         .hisnCol2,
-        .hisnCol3 {
+        .hisnCol3,
+        .hisnCol4 {
           color: #66bce6 !important;
         }
       }
@@ -95,8 +97,8 @@
          so right align to prevent gaps in text */
       .dataTable tr td.hisnCol2,
       .dataTable tr td.hisnCol3,
-      .dataTable tr td.hisnCol8,
-      .dataTable tr td.hisnCol9 {
+      .dataTable tr td.hisnCol10,
+      .dataTable tr td.hisnCol11 {
         text-align: right;
       }
 
@@ -105,8 +107,8 @@
         .dataTable tr td.hisnCol1,
         .dataTable tr td.hisnCol2,
         .dataTable tr td.hisnCol3,
-        .dataTable tr td.hisnCol8,
-        .dataTable tr td.hisnCol9 {
+        .dataTable tr td.hisnCol10,
+        .dataTable tr td.hisnCol11 {
           text-align: center;
         }
       }
@@ -115,9 +117,9 @@
 
       /* tbody tr td.hisnCol1, */
       .dataTable tr td.hisnCol2,
-      .dataTable tr td.hisnCol4,
       .dataTable tr td.hisnCol5,
-      .dataTable tr td.hisnCol8 {
+      .dataTable tr td.hisnCol6,
+      .dataTable tr td.hisnCol10 {
         font-family: "arFont", "dvFont", sans-serif, "faruma";
         font-size: 23px;
         line-height: 1.7;
@@ -129,9 +131,9 @@
 
       /* .dataTable tr td.hisnCol1, need this bigger */
       .dataTable tr td.hisnCol3,
-      .dataTable tr td.hisnCol6,
       .dataTable tr td.hisnCol7,
-      .dataTable tr td.hisnCol9 {
+      .dataTable tr td.hisnCol8,
+      .dataTable tr td.hisnCol11 {
         font-family: "dvFont", "arFont", sans-serif, "faruma";
         font-size: 17px;
         line-height: 1.9;
@@ -152,8 +154,28 @@
       }
 
       /* takhrij font size */
-      .dataTable tr td.hisnCol8 {
-        font-size: 21px;
+      .dataTable tr td.hisnCol9 {
+        font-size: 20px;
+        line-height: 1.5;
+        padding-bottom: 25px;
+      }
+
+      /* english */
+      .dataTable tr td.hisnCol9 {
+        font-family: sans-serif;
+        font-size: 17px;
+        direction: ltr;
+        text-align: justify;
+        line-height: 1.4;
+      }
+
+      /* en chapter */
+      .dataTable tr td.hisnCol4 {
+        font-family: sans-serif;
+        font-size: 20px;
+        direction: ltr;
+        text-align: justify;
+        line-height: 1.4;
       }
     </style>
     <!-- === INT CSS - END === -->
