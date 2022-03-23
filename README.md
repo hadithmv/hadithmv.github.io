@@ -202,7 +202,7 @@ let us know.
   <p>
     Contact us: <a href="http://m.me/hadithmvOfficial">Messenger</a> |
     <a href="http://+9607727960">Viber</a> |
-    <a href="https://t.me/yahyasdadmv">Telegram</a> |
+    <a href="https://t.me/ashraafmv">Telegram</a> |
     <a href="https://wa.me/qr/FJFBCPFQXUBKJ1">WhatsApp</a> |
     <a href="http://hadithmv@gmail.com">Email</a>
   </p>
