@@ -189,7 +189,7 @@ matches:
   - trigger: "bismi-"
     replace: "بسم الله الرحمن الرحيم"
     
-  - trigger: "pr-"
+  - trigger: "pp-"
     replace: "present"
 
   - trigger: "thk-"
