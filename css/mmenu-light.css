@@ -398,12 +398,13 @@ body.mm-ocd-opened {
 CUSTOM EDITS
 === --- === --- ==== */
 
-/* removes margin around opened menu background shadow thing, otherwise causes content to shift down in index */
+/* removes margin around opened menu background shadow thing, otherwise causes content to shift or jump down in index */
 
+/*
 .mm-ocd-opened {
-  margin: 0;
+  margin: 0 !important;
 }
-
+*/
 #menu > ul > li {
   text-align: right; /* rtl */
   direction: rtl;
