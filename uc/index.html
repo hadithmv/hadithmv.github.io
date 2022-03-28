@@ -707,6 +707,20 @@
           background-color: #eee !important;
           color: #000 !important;
         }*/
+
+        /* space and height for below cards stuff */
+
+        .tabcontent {
+          min-height: 340px;
+          margin-bottom: -33px;
+        }
+
+        /* @mixin for-tablet-portrait or smaller */
+        @media screen and (max-width: 600px) {
+          .tabcontent {
+            min-height: 360px;
+          }
+        }
       </style>
 
       <div class="row" style="margin-top: 80px">
@@ -813,15 +827,17 @@
           </div>
 
           <div class="column">
+            <!--<a href="">-->
             <div class="card disabled dCard">
               <p class="dv">ބުލޫޣުލް މަރާމް</p>
-              <p
-                class="dv"
-                style="padding-top: 5px; padding-bottom: 5px; margin-top: 0"
-              >
-                ( ނިމިފަ، މުރާޖާކުރަނީ )
+              <p class="ar">
+                <a style="font-size: 80%; color: #000000bf; background: none"
+                  >( ނިމިފަ، މުރާޖާކުރަނީ )</a
+                >
               </p>
+              <!--<p class="ar">قريبا إن شاء الله...</p>-->
             </div>
+            <!--</a>-->
           </div>
 
           <div class="column">
@@ -1022,7 +1038,7 @@
       <div class="mid" id="footer">
         <!-- previously class had "hidden"-->
 
-        <p style="font-size: 110%">
+        <p style="font-size: 107%">
           އިމާމު <a href="../books/barbahari.html">ބަރްބަހާރީ</a> رَحِمَهُ
           اللَّهُ ވިދާޅުވިއެވެ: ”ދަންނާށެވެ. އިސްލާމް ދީނަކީ ސުންނަތެވެ. އަދި
           ސުންނަތަކީ އިސްލާމް ދީނެވެ. އަދި އެއިން އެއް ކަމެއް، އަނެއް ކަމަކާ
