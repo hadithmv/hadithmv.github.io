@@ -814,7 +814,7 @@ h3 {
 
   /* border-radius: 2px; */;
   border-bottom-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
   transform: rotate(90deg) translate(0, -20px);
   transform: rotate(90deg) translate(0, -20px);
   transform: rotate(90deg) translate(0, -20px);
