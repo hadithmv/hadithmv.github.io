@@ -62,8 +62,19 @@
       /* removes margin around opened menu background shadow thing, otherwise causes content to shift or jump down in index */
 
       .mm-ocd-opened {
-        margin: 0 !important;
+        margin-top: 0px;
+        margin-bottom: 0px;
+        margin-left: 8px;
+        margin-right: 8px;
       }
+      /* @mixin for-tablet-portrait or smaller 
+      @media screen and (max-width: 600px) {
+        .mm-ocd-opened {
+          margin-left: 8px;
+          margin-right: 8px;
+        }
+      }
+      */
 
       /* rows and columns and cards */
 
@@ -74,8 +85,8 @@
       }
 
       /* body {
-  font-family: Arial, Helvetica, sans-serif;
-} */
+        font-family: Arial, Helvetica, sans-serif;
+      } */
 
       /* Remove extra left and right margins, due to padding */
       .row {
@@ -103,10 +114,10 @@
       /* Clear floats after the columns */
 
       /* .row::after {
-  content: "";
-  display: table;
-  clear: both;
-} */
+        content: "";
+        display: table;
+        clear: both;
+      } */
 
       /* Float four columns side by side */
       .column {
@@ -130,12 +141,12 @@
       /* Responsive columns */
 
       /* @media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-  }
-} */
+        .column {
+          width: 100%;
+          display: block;
+          margin-bottom: 20px;
+        }
+      } */
 
       /* Style the counter cards */
       .card {
@@ -152,11 +163,11 @@
         /* add font styles */
 
         /* font-family: "dvFont", "arFont", sans-serif, "faruma";
-        font-size: 17px;
-        line-height: 1.9;
-        color: #0e1621;
-        color: #0e1621;
-        direction: rtl; */
+              font-size: 17px;
+              line-height: 1.9;
+              color: #0e1621;
+              color: #0e1621;
+              direction: rtl; */
 
         /* add borders */
 
@@ -184,17 +195,17 @@
         z-index: 9999;
 
         /* border: 3px solid #106bae;
-        color: #00598b; */
+              color: #00598b; */
 
         /* color: #f1f1f1; */
         background-color: #2f6f8c;
 
         /* border-top: 5px solid #f1f1f1;
-        border-bottom: 5px solid #f1f1f1; */
+              border-bottom: 5px solid #f1f1f1; */
         border-color: transparent;
 
         /* this makes border invisible but present, to avoid content being pushed away
-        none makes the cards smaller, moving what is around it */
+              none makes the cards smaller, moving what is around it */
 
         -webkit-font-smoothing: antialiased;
       }
@@ -230,8 +241,8 @@
       }
 
       /* h3 {
-        font-size: 1.12em; 
-      } */
+              font-size: 1.12em;
+            } */
 
       /* 1.17 */
 
@@ -247,7 +258,7 @@
           padding: 6px;
 
           /* padding-top: 6px;
-          padding-bottom: 6px; */
+                padding-bottom: 6px; */
 
           /* make it 2 cards on mobile */
           flex-basis: 50%;
@@ -264,8 +275,8 @@
         }
 
         /* .card {
-          padding: 1px;
-        } */
+                padding: 1px;
+              } */
       }
 
       @media (prefers-color-scheme: light) {
