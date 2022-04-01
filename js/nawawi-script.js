@@ -119,6 +119,10 @@ $(document).ready(() => {
       {
         data: 9,
         title: 'شرح العباد',
+      },
+      {
+        data: 10,
+        title: 'شرح الخضير',
       }
     ],
 
@@ -126,7 +130,7 @@ $(document).ready(() => {
     columnDefs: [
 
       // adds footnote line for shurooh
-      { targets: 9,
+      { targets: [10,11],
         render: function (data, type, row) {
           data = '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>' + data
           return data.replace(/\n/g, ' <br class="br">') // without this line breaks not preserved
@@ -237,6 +241,15 @@ $(document).ready(() => {
       {
         className: 'fnCol11', // Sharh
         targets: [10],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'fnCol12', // Sharh
+        targets: [11],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -477,6 +490,7 @@ $(document).ready(() => {
           data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
           data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
           data = data.replace(/شرح العباد\t/g, '')
+          data = data.replace(/شرح الخضير\t/g, '')
           data = data.replace(/\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g, '\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n') // adds a line break after takhrij line, use two for a new line
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
