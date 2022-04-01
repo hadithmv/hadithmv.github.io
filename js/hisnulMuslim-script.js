@@ -667,7 +667,7 @@ $(document).ready(() => {
     $('.dataTable').on('page.dt', () => {
       $('html, body').animate(
         {
-          scrollTop: 145 //prev 0
+          scrollTop: 148 //prev 0
         },
         'fast'
       )
