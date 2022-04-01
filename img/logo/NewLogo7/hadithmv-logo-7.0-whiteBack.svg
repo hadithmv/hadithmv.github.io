@@ -1,0 +1,26 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1500" width="1500" height="1500">
+	<title>hadithmv-logo-7</title>
+	<defs>
+		<image  width="1500" height="1500" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABdwAAAXcAQMAAAAC+94nAAAAAXNSR0IB2cksfwAAAANQTFRF////p8QbyAAAASlJREFUeJztwQENAAAAwqD3T20PBxQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfBpTqAABLeClTgAAAABJRU5ErkJggg=="/>
+	</defs>
+	<style>
+		.s0 { fill: #1f6cb9 } 
+		.s1 { fill: #1f6cb9;stroke: #ffffff;stroke-linejoin: round;stroke-width: 28 } 
+		.s2 { fill: #ffffff } 
+	</style>
+	<use id="Layer 1" href="#img1" x="0" y="0"/>
+	<g id="Layer">
+		<path id="Layer" fill-rule="evenodd" class="s0" d="m715.1 99.1c18.7-18.8 49.1-18.8 67.8 0l167.2 167.2h-402.2zm685.5 617.6c18.8 18.8 18.8 49.2 0 67.9l-166 166v-399.9zm-616 683.9c-18.7 18.8-49.1 18.8-67.9 0l-167.2-167.2h402.3zm-685.5-617.7c-18.8-18.7-18.8-49.1 0-67.8l166-166v399.9zm166 166l284.4 284.5h-236.4c-26.5 0-48-21.5-48-48zm686.7 284.5l282.8-282.8v234.8c0 26.5-21.5 48-48 48zm282.8-682.7l-284.5-284.4h236.5c26.5 0 48 21.5 48 48zm-686.7-284.4l-282.8 282.8v-234.8c0-26.5 21.5-48 48-48z"/>
+		<rect id="Layer" class="s0" x="255.6" y="261.6" width="991.5" height="972.5" rx="50"></rect>
+		<path id="Layer" fill-rule="evenodd" class="s1" d="m728.8 167.3c11.7-11.7 30.7-11.7 42.4 0l155.7 155.7h-353.8zm603.9 561.5c11.7 11.7 11.7 30.7 0 42.4l-155.7 155.7v-353.8zm-561.5 603.9c-11.7 11.7-30.7 11.7-42.4 0l-155.7-155.7h353.8zm-603.9-561.5c-11.7-11.7-11.7-30.7 0-42.4l155.7-155.7v353.8zm155.7 155.7l250.1 250.1h-220.1c-16.6 0-30-13.4-30-30zm603.9 250.1l250.1-250.1v220.1c0 16.6-13.4 30-30 30zm250.1-603.9l-250.1-250.1h220.1c16.6 0 30 13.4 30 30zm-603.9-250.1l-250.1 250.1v-220.1c0-16.6 13.4-30 30-30z"/>
+		<path id="Layer" fill-rule="evenodd" class="s0" d="m732.3 183.6c2.3-2.3 5.1-4.2 8.1-5.4 3.1-1.3 6.3-1.9 9.6-1.9 3.3 0 6.5 0.6 9.6 1.9 3 1.2 5.8 3.1 8.1 5.4l153.4 153.4h-342.2zm584.1 548.7c2.3 2.3 4.2 5.1 5.4 8.1 1.3 3.1 1.9 6.3 1.9 9.6 0 3.3-0.6 6.5-1.9 9.6-1.2 3-3.1 5.8-5.4 8.1l-153.4 153.4v-342.2zm-548.7 584.1c-2.3 2.3-5.1 4.2-8.1 5.4-3.1 1.3-6.3 1.9-9.6 1.9-3.3 0-6.5-0.6-9.6-1.9-3-1.2-5.8-3.1-8.1-5.4l-153.4-153.4h342.2zm-584.1-548.7c-2.3-2.3-4.2-5.1-5.4-8.1-1.3-3.1-1.9-6.3-1.9-9.6 0-3.3 0.6-6.5 1.9-9.6 1.2-3 3.1-5.8 5.4-8.1l153.4-153.4v342.2zm153.4 370.3c0 13.8 11.2 25 25 25h216.9l-241.9-241.9zm801 25c13.8 0 25-11.2 25-25v-216.9l-241.9 241.9zm25-801c0-13.8-11.2-25-25-25h-216.9l241.9 241.9zm-801-25c-13.8 0-25 11.2-25 25v216.9l241.9-241.9z"/>
+	</g>
+	<g id="Layer">
+		<path id="Layer" class="s2" d="m984.6 662.9v274.7c-31.6 0-57.2-25.7-57.2-57.3v-274.7 0.6c31.6 0 57.2 25 57.2 56.7zm-117.4 96h-91.8c-10.5-0.1-17 3.8-17 17v161.9c-32.6 0-58.9-26.3-58.9-58.9v-104.5c0.2-10.8 3.3-27.8 8-37.4 12.8-26.4 34.2-33.8 63.3-34.7 9.9-0.3 23.6-0.4 37.5-0.4v-15.3c0-13.3-6.5-17.2-17-17-26.3 0.4-87.3 0-91.8 0v-63.4h96.4c29.1 0.8 50.5 15.1 63.3 41.4 4.7 9.6 7.4 19.9 7.6 30.7 0.1 3.5 0.4 7 0.4 10.5z"/>
+		<ellipse id="Layer" class="s2" cx="494.4" cy="552.9" rx="22.8" ry="22.9"/>
+		<ellipse id="Layer" class="s2" cx="555.4" cy="552.9" rx="22.8" ry="22.9"/>
+		<ellipse id="Layer" class="s2" cx="616.5" cy="552.9" rx="22.8" ry="22.9"/>
+		<ellipse id="Layer" class="s2" cx="1037.8" cy="914.7" rx="22.8" ry="22.9"/>
+		<path id="Layer" fill-rule="evenodd" class="s2" d="m639.3 701.5v57.3q0 3.4-0.1 6.3h-91.7c-7.4-0.2-12.9 1.8-15.5 7.6-1 2.4-1.6 5.5-1.6 9.3v15.3l37.6 0.5c29.1 0.8 50.5 8.3 63.3 34.6 4.7 9.6 7.4 26.7 7.6 37.5q0.1 2.8 0 67.9c-33.5 0-60.6-27.1-60.6-60.6v-16.2c-2.4-4.3-6.5-6.2-12.1-6.5q0-0.1-0.1 0c-1.7-0.1-91.6-0.1-94.5-0.1v-248.2q86.5-0.3 96.4 0c29.1 0.8 50.5 15.1 63.3 41.4 4.7 9.6 7.4 19.9 7.6 30.7q0.1 3.5 0.4 23.2zm-58.9-14.9c0-13.2-6.6-17.2-17.1-17-8.4 0.2-20.3 0-32.9 0v31.9h50z"/>
+	</g>
+</svg>
