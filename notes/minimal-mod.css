@@ -813,8 +813,8 @@ h3 {
   border: 1px solid #144866;
 
   /* border-radius: 2px; */;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
   transform: rotate(90deg) translate(0, -20px);
   transform: rotate(90deg) translate(0, -20px);
   transform: rotate(90deg) translate(0, -20px);
@@ -851,7 +851,7 @@ h3 {
   /* #f1f1f1 */
 
   /* added */
-  border-radius: 20px /* 5px; */;
+  border-radius: 15px /* 5px; */;
   text-align: center;
   direction: ltr;
   display: flex;
@@ -1003,7 +1003,7 @@ h3 {
   /* added #ddd */
   text-align: center;
   padding: 1em;
-  border-radius: 20px /*0.25em;*/;
+  border-radius: 15px /*0.25em;*/;
   opacity: 0;
 
   /* added */
@@ -1177,7 +1177,7 @@ h3 {
   width: 80%;
 
   /* added */
-  border-radius: 40px; /* 5px; */;
+  border-radius: 20px; /* 5px; */;
   max-width: 500px;
   box-shadow: 0 1px 2.5px rgb(0 0 0 / 20%);
 
