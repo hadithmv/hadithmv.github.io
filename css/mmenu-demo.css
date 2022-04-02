@@ -181,7 +181,8 @@ CUSTOM EDITS
   /* changed from left to bring hamburger to the right 
   right: 0; */
 
-  filter: brightness(0) invert(1);
+  /* no longer need this since not keeping the logo white anymore 
+  filter: brightness(0) invert(1); */
   display: block;
   height: 40px;
   width: 40px;
