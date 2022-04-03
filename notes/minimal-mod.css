@@ -780,6 +780,15 @@ h3 {
        Chat Button
 ======================= */
 
+/* fix for not being able to click things on mobile view because some chat button container divs overlay them */
+#livechat-compact-container {
+  height: 1px;
+}
+
+.btn-holder {
+  height: 1px;
+}
+
 /* body {
           background: #202020;
         } */
