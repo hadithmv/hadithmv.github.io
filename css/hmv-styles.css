@@ -1171,7 +1171,7 @@ input.dtsp-search::placeholder {
 
 div.dtsp-panesContainer button.dtsp-clearAll:hover:not([disabled]) {
   /* text color when not disabled, ie active, not disabled is for preventing disabled being overwritten */
-  background-color: #b0bed9; /* #1c4253 */
+  background-color: #b0bed9; /* #0d4266 */
 }
 
 div.dtsp-panesContainer
@@ -1205,14 +1205,14 @@ div.dtsp-panesContainer
 
 div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   /* text color when not disabled, ie active, not disabled is for preventing disabled being overwritten */
-  border: 1.5px solid #254e61 !important;
+  border: 1.5px solid #0f4c75 !important;
 }
 
 @media (prefers-color-scheme: dark) {
   /* changes pane list selected highlight color to something that matches dark theme */
 
   #DataTables_Table_0 tbody tr.selected td {
-    background-color: #b8c4cc99; /* #1c4253 */
+    background-color: #b8c4cc99; /* #0d4266 */
     color: #000;
   }
 
@@ -1253,7 +1253,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 
   div.dtsp-panesContainer button.dtsp-clearAll:hover:not([disabled]) {
     /* text color when not disabled, ie active, not disabled is for preventing disabled being overwritten */
-    background-color: #b8c4cc99; /* #1c4253 */
+    background-color: #b8c4cc99; /* #0d4266 */
   }
 
   div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
@@ -1433,7 +1433,7 @@ this makes a faint white outline around card  */
   }
 
   div.dt-button-info {
-    background-color: #1c4253 !important; /* 1a282f */
+    background-color: #0d4266 !important; /* 1a282f */
     border-style: solid !important;
     border-color: #f1f1f1 !important;
   }
