@@ -352,7 +352,7 @@ body.mm-ocd-opened {
 
 .mm-spn.mm-spn--light {
   color: #eee; /* #444; text-color for the menu */
-  background: #0d4266; /* #f3f3f3 - Background-color for the menu. #1a282f */
+  background: #0d4266; /* #f3f3f3 - Background-color for the menu. #0d4266 */
 } /*
 
 .mm-spn.mm-spn--dark {
@@ -430,6 +430,6 @@ CUSTOM EDITS
 
 @media (prefers-color-scheme: dark) {
   .mm-spn.mm-spn--light {
-    background: #1a282f; /* #f3f3f3 - Background-color for the menu. #1a282f */
+    background: #0c3b5c; /* #f3f3f3 - Background-color for the menu. #0d4266 */
   }
 }

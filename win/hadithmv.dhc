@@ -1,26 +1,26 @@
 ﻿﻿<?xml version="1.0" encoding="utf-8"?>
-<HtmlCompiler Version="2021.44">
+<HtmlCompiler Version="2022.4">
   <App>
-    <ID>{EC14685E-A222-4C9B-90F5-730203CBD020}</ID>
+    <ID>{1F5716D2-B197-4610-B08B-ED0F21786EA7}</ID>
     <Name>hadithmv</Name>
     <CompanyName>hadithmv</CompanyName>
-    <FileDescription></FileDescription>
+    <FileDescription>hadithmv</FileDescription>
     <FileVersion>1.0.0.0</FileVersion>
     <InternalName></InternalName>
-    <LegalCopyright>hadithmv</LegalCopyright>
-    <LegalTrademarks>hadithmv</LegalTrademarks>
+    <LegalCopyright></LegalCopyright>
+    <LegalTrademarks></LegalTrademarks>
     <OriginalFileName></OriginalFileName>
     <ProgramID></ProgramID>
     <ProductVersion>1.0.0.0</ProductVersion>
     <Comments></Comments>
     <Top>50</Top>
     <Left>50</Left>
-    <Width>800</Width>
-    <Height>600</Height>
+    <Width>1024</Width>
+    <Height>768</Height>
     <MaxWidth>0</MaxWidth>
     <MaxHeight>0</MaxHeight>
-    <MinWidth>1366</MinWidth>
-    <MinHeight>768</MinHeight>
+    <MinWidth>0</MinWidth>
+    <MinHeight>0</MinHeight>
     <Theme>Windows</Theme>
     <WindowStyle>0</WindowStyle>
     <WindowBorder>2</WindowBorder>
@@ -30,8 +30,9 @@
     <InstallFormColor>-16777190</InstallFormColor>
     <InstallIndicatorColor>1</InstallIndicatorColor>
     <InstallIndicatorType>0</InstallIndicatorType>
-    <IcoPath>..\img\newLogo7-roundedSquare.ico</IcoPath>
+    <IcoPath>..\img\logo\logo.ico</IcoPath>
     <AllowDebug>0</AllowDebug>
+    <AllowZoom>0</AllowZoom>
     <AllowContextMenu>1</AllowContextMenu>
     <DynamicAppTitle>1</DynamicAppTitle>
     <Password></Password>
@@ -40,19 +41,19 @@
     <EdgeInstallerDown>0</EdgeInstallerDown>
     <OutputWin32>0</OutputWin32>
     <OutputWin64>1</OutputWin64>
-    <AllowInstances>0</AllowInstances>
-    <ExcludeMasks>*.7z;*.exe</ExcludeMasks>
+    <AllowInstances>1</AllowInstances>
+    <ExcludeMasks></ExcludeMasks>
     <SigningToolName></SigningToolName>
     <WebviewJavascript>
       <![CDATA[]]>
     </WebviewJavascript>
     <Generator>
       <Name>DecSoft HTML Compiler</Name>
-      <Version>2021.44</Version>
+      <Version>2022.4</Version>
       <Website>https://www.decsoftutils.com/</Website>
       <Orders>https://www.decsoftutils.com/store/</Orders>
       <EMail>info@decsoftutils.com</EMail>
-      <Copyright>©2021 DecSoft HTML Compiler. All rights reserved.</Copyright>
+      <Copyright>©2022 DecSoft HTML Compiler. All rights reserved.</Copyright>
     </Generator>
   </App>
 </HtmlCompiler>
