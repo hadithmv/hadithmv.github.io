@@ -43,7 +43,7 @@ The Maldivian Hadith Translation Platform
 
 ### **Developing a hadith platform for Maldivians**
 
-The **hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a hadith collection in their native Dhivehi language, in sha Allah. We are also working on making other Islamic works available.
+The **Hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a hadith collection in their native Dhivehi language, in sha Allah. We are also working on making other Islamic works available.
 
 ## Goals
 
@@ -57,7 +57,7 @@ The **hadithmv** project is a collaborated effort in making the sayings and teac
 
 ### **Progressiveness**
 
-> It is Allah Who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. hadithmv is designed to be mobile-first with minimal bloat. Currently available on the Web, Android and Windows.
+> It is Allah Who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. Hadithmv is designed to be mobile-first with minimal bloat. Currently available on the Web, Android and Windows.
 
 <br />
 
@@ -215,7 +215,7 @@ let us know.
     <a href="https://twitter.com/hadithmv">Twitter</a>
   </p>
 
-  <p>Get the hadithmv app:
+  <p>Get the Hadithmv app:
         <a href="https://hadithmv.github.io">Web</a> |
         <a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv">Android</a> | <a href="https://github.com/hadithmv/hadithmv.github.io/releases">Windows</a>
       </p>

@@ -203,7 +203,7 @@ ilaha broken in current ar font
 Dark mode native web app webview?
 get rid of tabs js if not gonna use
 Change color of sub subsub menu buttons
-Change hadithmv to my name??
+Change hadithmv to my name?
 datatables with sqlite?
 Change p keytable tags to new line on copy
 google click links counter
@@ -606,7 +606,7 @@ https://www.lambdatest.com -sign up but free options
 First thing I did:
 ---
 layout: post
-title: "hadithmv site launched"
+title: "Hadithmv site launched"
 date: 2017-07-17
 ---
 

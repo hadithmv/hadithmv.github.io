@@ -1,6 +1,6 @@
-The official hadithmv app for Android.
+The official Hadithmv app for Android.
 
-This is a collection of over a thousand hadith in the Maldivian language, from books such as:
+This is a collection of around four thousand hadith in the Maldivian language, from books such as:
 • 40 Nawawi
 • Umdatul Ahkam
 • Sahih Bukhari
@@ -8,7 +8,7 @@ This is a collection of over a thousand hadith in the Maldivian language, from b
 as well as many others.
 May Allah aid me in adding more. Ameen.
 
-Features of the hadithmv app include:
+Features of the Hadithmv app include:
 
 • Unique:
 First Dhivehi hadith app ever developed.
