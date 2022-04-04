@@ -363,7 +363,7 @@ button.dt-button {
 /* hover buttons */
 
 button.dt-button:hover:not(.disabled) {
-  background-color: #2f6f8c !important;
+  background-color: #136296 !important;
   border: 1px solid rgb(255 255 255 / 84.7%) !important;
   color: #fff !important;
 }
@@ -371,7 +371,7 @@ button.dt-button:hover:not(.disabled) {
 /* colvis menu active */
 
 button.dt-button.active {
-  background: #2f6f8c !important;
+  background: #136296 !important;
   color: #fff !important;
 }
 
@@ -558,7 +558,7 @@ input.dt-button {
 
 /* changes pagination button hover color */
 .paginate_button:hover {
-  background: #325464 !important;
+  background: #136296 !important;
 }
 
 /* changes disabled > < color */
@@ -645,15 +645,15 @@ div.dt-button-info {
 
 /* @media (prefers-color-scheme: light) {
   #datatables_buttons_info {
-    border-top: 4.5px solid #2f6f8c;
-    border-bottom: 4.5px solid #2f6f8c;
+    border-top: 4.5px solid #136296;
+    border-bottom: 4.5px solid #136296;
   }
 } */
 
 /* changes clipboard copied color, */
 
 #datatables_buttons_info.dt-button-info h2 {
-  background: #2f6f8c; /* add1f2 */
+  background: #136296; /* add1f2 */
 
   /* border-radius: 5px; */
 
@@ -799,8 +799,8 @@ mark {
 
 @media (prefers-color-scheme: light) {
   .cards tbody tr {
-    border-top: 5px solid #2f6f8c;
-    border-bottom: 5px solid #2f6f8c;
+    border-top: 5px solid #136296;
+    border-bottom: 5px solid #136296;
   }
 }
 
@@ -1205,7 +1205,7 @@ div.dtsp-panesContainer
 
 div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   /* text color when not disabled, ie active, not disabled is for preventing disabled being overwritten */
-  border: 1.5px solid #0f4c75 !important;
+  border: 1.5px solid #136296 !important;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1433,7 +1433,7 @@ this makes a faint white outline around card  */
   }
 
   div.dt-button-info {
-    background-color: #0d4266 !important; /* 1a282f */
+    background-color: #0d4266 !important; /* 0d4266 */
     border-style: solid !important;
     border-color: #f1f1f1 !important;
   }
