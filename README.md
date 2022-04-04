@@ -217,7 +217,7 @@ let us know.
 
   <p>Get the hadithmv app:
         <a href="https://hadithmv.github.io">Web</a> |
-        <a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv">Android</a> | <a href="https://github.com/hadithmv/hadithmv.github.io/blob/master/win/hmv/hadithmv_Win64.7z?raw=true">Windows</a>
+        <a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv">Android</a> | <a href="https://github.com/hadithmv/hadithmv.github.io/releases">Windows</a>
       </p>
   <p>
     - Back to the

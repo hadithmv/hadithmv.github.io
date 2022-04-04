@@ -821,7 +821,7 @@ h3 {
   box-shadow: 0 0 0 1px #1d80c7 inset;
   border: 1px solid #144866;
 
-  /* border-radius: 2px; */;
+  /* border-radius: 2px; */
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   transform: rotate(90deg) translate(0, -20px);
@@ -855,7 +855,7 @@ h3 {
 .tab {
   overflow: hidden;
   border: 1px solid #ccc;
-  background: #1a5c9d;
+  background: #136296;
 
   /* #f1f1f1 */
 
@@ -893,20 +893,20 @@ h3 {
   width: 150px;
 }
 
-  /* outline border shown on mobile tablet but not above */
+/* outline border shown on mobile tablet but not above */
 
-  /* @mixin for-tablet-portrait-up */
-  @media (min-width: 600px) {
-    .tab button {
-      border-top: none;
-      border-bottom: none;
-    }
-
-    .tab button:first-child,
-    .tab button:last-child {
-      border: none;
-    }
+/* @mixin for-tablet-portrait-up */
+@media (min-width: 600px) {
+  .tab button {
+    border-top: none;
+    border-bottom: none;
   }
+
+  .tab button:first-child,
+  .tab button:last-child {
+    border: none;
+  }
+}
 
 @media (prefers-color-scheme: light) {
   .tab button {
@@ -915,12 +915,12 @@ h3 {
   }
 
   .tab button:hover {
-    background-color: #0b578c !important;
+    background-color: #136296 !important;
     color: #eee !important;
   }
 
   .tab button.active {
-    background-color: #0b578c !important;
+    background-color: #136296 !important;
     color: #eee !important;
   }
 }
@@ -1007,7 +1007,7 @@ h3 {
   position: absolute;
   left: 0;
   right: 0;
-  background: #0d619c;
+  background: #136296;
 
   /* added #ddd */
   text-align: center;
@@ -1035,7 +1035,7 @@ h3 {
   left: -0.75em;
   border-top: 0.75em solid transparent;
   border-bottom: 0.75em solid transparent;
-  border-right: 0.75em solid #0b578c;
+  border-right: 0.75em solid #136296;
 
   /* changed ddd */
 }
@@ -1186,7 +1186,7 @@ h3 {
   width: 80%;
 
   /* added */
-  border-radius: 20px; /* 5px; */;
+  border-radius: 20px; /* 5px; */
   max-width: 500px;
   box-shadow: 0 1px 2.5px rgb(0 0 0 / 20%);
 
@@ -1241,5 +1241,4 @@ h3 {
   /* hr {
             background: #000;
           } */
-}
 }
