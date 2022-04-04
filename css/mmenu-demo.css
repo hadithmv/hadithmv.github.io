@@ -55,11 +55,9 @@ a:hover {
 
 .header/*,
 .footer*/ {
-  background: #254e61; /* #4bb5ef - top horizontal long navbar color */
-
-  /* font-size: 16px; */
-
-  /* font-weight: bold; */
+  background: #254e61 /*#254e61;*/
+    /* #4bb5ef - top horizontal long navbar color */ /* font-size: 16px; */
+    /* font-weight: bold; */;
   color: #fff;
   line-height: 50px;
   box-sizing: border-box;
