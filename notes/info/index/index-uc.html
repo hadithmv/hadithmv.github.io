@@ -275,18 +275,8 @@
   </style>
 
   <style>
-    /* https://www.encodedna.com/css-tutorials/how-to-tilt-a-span-element-using-css.htm */
-    .rotate {
-      transform: rotate(270deg);
-      -ms-transform: rotate(270deg);
-      /*  for IE  */
-
-      /* 	for browsers supporting webkit (such as chrome, firefox, safari etc.). */
-      -webkit-transform: rotate(270deg);
-      display: inline-block;
-
-      font-weight: normal;
-      /* otherwise card is whitened */
+    .tab {
+      background: #1c61a6;
     }
 
     .tab button {
@@ -344,6 +334,22 @@
         <br /><br />
       </div>
 
+      <style>
+        /* https://www.encodedna.com/css-tutorials/how-to-tilt-a-span-element-using-css.htm */
+        .rotateEmoji {
+          transform: rotate(270deg);
+          -ms-transform: rotate(270deg);
+          /*  for IE  */
+
+          /* 	for browsers supporting webkit (such as chrome, firefox, safari etc.). */
+          -webkit-transform: rotate(270deg);
+          display: inline-block;
+
+          font-weight: normal;
+          /* otherwise card is whitened */
+        }
+      </style>
+
       <!-- https://codepen.io/moonphase/pen/vEGMRg -->
       <div
         class="btn-chat"
@@ -352,7 +358,7 @@
       >
         <div class="btn-holder">
           <a onclick="openModal()">
-            <span class="rotate">🛒</span>&nbsp;&nbsp;Order Now
+            <span class="rotateEmoji">🛒</span>&nbsp;&nbsp;Order Now
           </a>
           <!-- <a onclick="parent.LC_API.open_chat_window();return false;" href="tel:+9607583166"
           class="link">Chat with us</a> -->
