@@ -2,4 +2,4 @@
 
 Set-Location -Path $PSScriptRoot #C:/Users/ashraaf/Downloads/VScode/hadithmv.github.io/uc
 
-Copy-Item default.yml -Destination C:\Users\hadit\AppData\Roaming\espanso
+Copy-Item base.yml -Destination C:\Users\hadit\AppData\Roaming\espanso\match
