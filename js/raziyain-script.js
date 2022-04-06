@@ -103,11 +103,12 @@ $(document).ready(() => {
       {
         data: 5,
         title: 'English'
-      },
+      },/*
       {
         data: 6,
         title: 'ތަޚްރީޖު އަރަބިން'
-      },
+      },*/
+      /*
       {
         data: 7,
         title: 'شرح الراجحي',
@@ -115,19 +116,19 @@ $(document).ready(() => {
       {
         data: 8,
         title: 'شرح السحيمي',
-      }
+      }*/
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
 
       // adds footnote line for shurooh
-      { targets: [8,9],
+      /*{ targets: [8,9],
         render: function (data, type, row) {
           data = '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>' + data
           return data.replace(/\n/g, ' <br class="br">') // without this line breaks not preserved
           } 
-        },
+        },*/
 
       /* replace \n newlines from json to <br> in table
       https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
@@ -202,7 +203,7 @@ $(document).ready(() => {
         searchPanes: {
           show: false
         }
-      },
+      },/*
       {
         className: 'nwqCol8', // Ar Ref
         targets: [7],
@@ -211,8 +212,8 @@ $(document).ready(() => {
         searchPanes: {
           show: false
         }
-      },
-      {
+      },*/
+      /*{
         className: 'nwqCol9', // Sharh
         targets: [8],
         visible: false,
@@ -229,7 +230,7 @@ $(document).ready(() => {
         searchPanes: {
           show: false
         }
-      },
+      },*/
 
       // below strips html tags off keystable copy, second part with keys on
       {
@@ -423,7 +424,7 @@ $(document).ready(() => {
         extend: 'copy',
         key: { key: 'c', shiftKey: true },
         text: 'ކޮޕީ',
-        messageTop: 'ޙަދީޘްއެމްވީ - އިސްލާމްކަން ގެއްލޭ ކަންކަން', // CHANGE123 clipboard message
+        messageTop: 'ޙަދީޘްއެމްވީ – ދެ ރާޒީންގެ އަގީދާ', // CHANGE123 clipboard message
         title: '' /* title: "hadithmv.com", */,
 
         //= ====================
@@ -461,8 +462,8 @@ $(document).ready(() => {
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/English\t/g, '')
           data = data.replace(/ތަޚްރީޖު އަރަބިން\t/g, '')
-          data = data.replace(/شرح الراجحي\t/g, '')
-          data = data.replace(/شرح السحيمي\t/g, '')
+          /*data = data.replace(/شرح الراجحي\t/g, '')
+          data = data.replace(/شرح السحيمي\t/g, '')*/
           data = data.replace(/\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g, '\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n') // adds a line break after takhrij line, use two for a new line
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
