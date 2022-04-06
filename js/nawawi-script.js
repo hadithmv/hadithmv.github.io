@@ -449,7 +449,7 @@ $(document).ready(() => {
         extend: 'copy',
         key: { key: 'c', shiftKey: true },
         text: 'ކޮޕީ',
-        messageTop: 'ޙަދީޘްއެމްވީ - ނަވަވީގެ 40 ޙަދީޘް', // CHANGE123 clipboard message
+        messageTop: 'ޙަދީޘްއެމްވީ – ނަވަވީގެ 40 ޙަދީޘް', // CHANGE123 clipboard message
         title: '' /* title: "hadithmv.com", */,
 
         //= ====================
