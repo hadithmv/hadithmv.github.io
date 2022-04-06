@@ -108,7 +108,7 @@ The **Hadithmv** project is a collaborated effort in making the sayings and teac
 <br>
 
 <h3 align="right"><b>
-ޙަދީޘްއެމްވީ - ދިވެހިންނަށް ޙަދީޘް މަންސައެއް އުފެއްދުން
+ޙަދީޘްއެމްވީ – ދިވެހިންނަށް ޙަދީޘް މަންސައެއް އުފެއްދުން
 </b></h3>
 
 <p align="right" dir="rtl">
