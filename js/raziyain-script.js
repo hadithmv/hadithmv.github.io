@@ -71,6 +71,7 @@ $(document).ready(() => {
         data: 0,
         title: '#'
       },
+      /*
       {
         data: 1,
         title: 'އަރަބި ސުރުހީ'
@@ -79,15 +80,16 @@ $(document).ready(() => {
         data: 2,
         title: 'ދިވެހި ސުރުހީ'
       },
+      */
       {
-        data: 3,
+        data: 1,
         title: 'އަރަބި ނައްސު'
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
       { /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 3,
+        data: 1,
         title: 'އަރަބި ފިލިނުޖަހައި',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -97,11 +99,11 @@ $(document).ready(() => {
         }
       },
       {
-        data: 4,
+        data: 2,
         title: 'ދިވެހި ތަރުޖަމާ'
       },
       {
-        data: 5,
+        data: 3,
         title: 'English'
       },/*
       {
@@ -150,6 +152,7 @@ $(document).ready(() => {
           show: true
         }
       },
+      /*
       {
         className: 'nwqCol2', // Ar Title
         targets: [1],
@@ -168,8 +171,27 @@ $(document).ready(() => {
           show: false
         }
       },
+      */
       {
-        className: 'nwqCol4', // Ar Text
+        className: 'nwqCol2', // Ar Text
+        targets: [1],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'nwqCol3', // Ar Plain
+        targets: [2],
+        visible: false,
+        searchable: true,
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        className: 'nwqCol4', // Dv Text
         targets: [3],
         visible: true,
         searchable: true,
@@ -178,26 +200,8 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'nwqCol5', // Ar Plain
+        className: 'nwqCol5', // Eng Text
         targets: [4],
-        visible: false,
-        searchable: true,
-        searchPanes: {
-          show: false
-        }
-      },
-      {
-        className: 'nwqCol6', // Dv Text
-        targets: [5],
-        visible: true,
-        searchable: true,
-        searchPanes: {
-          show: false
-        }
-      },
-      {
-        className: 'nwqCol7', // Eng Text
-        targets: [6],
         visible: false,
         searchable: true,
         searchPanes: {
