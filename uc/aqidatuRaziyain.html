@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="dv">
+  <!-- prevent translate popup -->
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="canonical"
+      href="https://hadithmv.github.io/books/aqidatuRaziyain.html"
+    />
+    <meta name="google" content="notranslate" />
+
+    <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
+    <meta name="theme-color" content="#29434e" />
+    <!-- og metadata sm link previews -->
+    <meta property="og:title" content="hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://hadithmv.github.io/books/aqidatuRaziyain.html"
+    />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+
+    <!-- change123 html -->
+    <title>Hadithmv - Aqidatu Raziyain</title>
+    <meta
+      name="description"
+      content="The Maldivian Hadith Translation Platform | ދިވެހިންގެ ޙަދީޘް ތަރުޖަމާ މަންސަ"
+    />
+    <!-- META TAGS - END -->
+
+    <!-- === EXT CSS === -->
+    <!-- non critical -->
+    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
+    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
+    <!-- === EXT CSS - END === -->
+
+    <!-- === EXT JS === -->
+    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
+    <!-- critical -->
+    <script defer src="../js/resc/COMB-Crit.js"></script>
+    <!-- non critical -->
+    <script defer src="../js/resc/COMB-nonCrit.js"></script>
+    <!-- change123 js -->
+    <script defer src="../js/json/raziyain.js"></script>
+    <script defer src="../js/raziyain-script.min.js"></script>
+    <!-- === EXT JS - END === -->
+
+    <!-- === INT CSS === -->
+    <!-- Critical CSS -->
+    <!-- mmenu-demo -->
+    <!-- prettier-ignore -->
+    <style>
+.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:57px;padding-left:2px;padding-right:2px}@media (max-width: 599px){.content{padding-top:50px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme: dark){body{background-color:#0e1621;color:#b8c4cc}}
+
+  </style>
+    <!-- Critical CSS - END -->
+
+    <style>
+      /* change123 html */
+
+      /* === --- === --- ====
+         CUSTOM COLUMN CLASSES
+         === --- === --- ==== */
+
+      /* bold headers for first number at top */
+      .nwqCol1 {
+        font-weight: bold;
+      }
+
+      /* kitab baab and takhrij colors */
+      .nwqCol1,
+      .nwqCol2,
+      .nwqCol3 {
+        color: #0f4c75 !important;
+      }
+      @media (prefers-color-scheme: dark) {
+        .nwqCol1,
+        .nwqCol2,
+        .nwqCol3 {
+          color: #66bce6 !important;
+        }
+      }
+
+      /* removes justify from ar dv (titles and refs) + rs.
+         justify doesnt look good on short cells like surukhi, masdars.
+         so right align to prevent gaps in text */
+      .dataTable tr td.nwqCol2,
+      .dataTable tr td.nwqCol3,
+      .dataTable tr td.nwqCol8 {
+        text-align: right;
+      }
+
+      /* mobile only row centering, for rows with strings that are not long */
+      @media screen and (max-width: 900px) {
+        .dataTable tr td.nwqCol1,
+        .dataTable tr td.nwqCol2,
+        .dataTable tr td.nwqCol3,
+        .dataTable tr td.nwqCol8 {
+          text-align: center;
+        }
+      }
+
+      /* --- AR FONTS FOR TABLE --- */
+
+      /* tbody tr td.nwqCol1, */
+      .dataTable tr td.nwqCol2,
+      .dataTable tr td.nwqCol4,
+      .dataTable tr td.nwqCol5,
+      .dataTable tr td.nwqCol8 {
+        font-family: "arFont", "dvFont", sans-serif, "faruma";
+        font-size: 23px;
+        line-height: 1.7;
+
+        /* font-size-adjust: 0.1; this breaks firefox font size */
+      }
+
+      /* --- DV FONTS FOR TABLE --- */
+
+      /* .dataTable tr td.nwqCol1, need this bigger */
+      .dataTable tr td.nwqCol3,
+      .dataTable tr td.nwqCol6 {
+        font-family: "dvFont", "arFont", sans-serif, "faruma";
+        font-size: 17px;
+        line-height: 1.9;
+      }
+
+      /* columns with ar numbers */
+      .dataTable tr td.nwqCol8 {
+        font-family: "arFont", "dvFont", sans-serif, "faruma";
+        font-size: 21px;
+      }
+
+      /* css for first column
+         # number column cuz it has hashtag and digits */
+      .dataTable tr td.nwqCol1 {
+        font-family: "dvFont", "arFont", sans-serif, "faruma";
+        font-size: 21px;
+      }
+
+      /* english */
+      .dataTable tr td.nwqCol7 {
+        font-family: sans-serif;
+        font-size: 17px;
+        direction: ltr;
+        text-align: justify;
+        line-height: 1.4;
+      }
+
+      /* sharhs */
+      .dataTable tr td.nwqCol9,
+      .dataTable tr td.nwqCol10 {
+        font-family: "arFont", "dvFont", sans-serif, "faruma";
+        font-size: 21px;
+      }
+
+      /* takhrij */
+      .dataTable tr td.nwqCol8 {
+        font-size: 20px;
+        line-height: 1.5;
+        padding-bottom: 25px;
+      }
+    </style>
+    <!-- === INT CSS - END === -->
+  </head>
+
+  <body translate="no">
+    <div id="page">
+      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
+      <!-- adding fixed or custom writing z index breaks on mobile -->
+      <div class="header fixed" onclick="drawer.open();">
+        <!-- hamburger -->
+        <a href="#menu"><span></span></a>
+        <img
+          class="hmvLogo1"
+          alt="hadith mv"
+          loading="lazy"
+          src="../img/logo/logo.svg"
+        />
+        <span class="navText">ޙަދީޘްއެމްވީ - ދެ ރާޒީންގެ އަގީދާ</span>
+        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
+        <nav id="menu">
+          <ul>
+            <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
+            <li>
+              <a href="../books/index.html">މައި ސަފުހާ</a>
+            </li>
+
+            <li>
+              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
+            </li>
+
+            <li>
+              <span>ޑައުންލޯޑުތައް</span>
+              <ul>
+                <li>
+                  <a
+                    href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf"
+                    >ނަވަވީގެ 40 ޙަދީޘް (ޕީޑީއެފް)</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <span>އިތުރު މައުލޫމާތު</span>
+              <ul>
+                <li>
+                  <a href="../notes/info/introHmv.html"
+                    >ޙަދީޘްއެމްވީއަކީ ކޮބާ؟</a
+                  >
+                </li>
+                <li>
+                  <a href="../notes/info/introFortyN.html"
+                    >ނަވަވީގެ 40 ޙަދީޘަކީ ކޮބާ؟</a
+                  >
+                </li>
+                <li>
+                  <a href="../notes/info/introUmdah.html"
+                    >ޢުމްދަތުލް އަޙްކާމަކީ ކޮބާ؟</a
+                  >
+                </li>
+                <li>
+                  <a href="../notes/how-to-use-hmv.txt"
+                    >ޙަދީޘްއެމްވީ ބޭނުން ކުރާނެ ގޮތް</a
+                  >
+                </li>
+                <li>
+                  <a href="../notes/third-party-libs-and-tools.txt"
+                    >ޙަދީޘްއެމްވީ ހަދަން ބޭނުން ކުރެވުނު ތަކެތި</a
+                  >
+                </li>
+                <li><a href="../LICENSE.txt">ލައިސެންސް</a></li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="../notes/info/FAQ.html"
+                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
+              >
+            </li>
+
+            <li class="HmvVer"><a href="#">⚙️ އިސްދާރު: 2.72</a></li>
+            <li>
+              <a href="https://t.me/ashraafmv"
+                >ފަރުމާ ކުރީ: (އަބޫ ޔަޙްޔާ) މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
+              >
+            </li>
+            <li class="madani">
+              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
+            </li>
+          </ul>
+        </nav>
+        <!-- <nav id="menu"> -->
+      </div>
+      <!-- <div class="header fixed" onclick="drawer.open();"> -->
+
+      <div class="content">
+        <main>
+          <!-- class="w3-animate-right" -->
+          <!-- --- TABLE --- -->
+          <!-- JEKYLL {{ content }} -->
+          <!-- cards js adds card classes to table ID -->
+          <!-- change123 TABLE - card view set as default here -->
+          <table id="raziyainTable" class="stripe table cards"></table>
+          <!-- --- TABLE - END --- -->
+          <div class="hidden" id="footer">
+            <p class="arMasdar">
+              مصدر النص: شرح أصول اعتقاد أهل السنة والجماعة | ل أبي القاسم هبة
+              الله بن الحسن بن منصور الطبري الرازي اللالكائي (ت ٤١٨هـ)
+              <br />
+              الناشر: دار طيبة، الطبعة الثامنة، ١٤٢٣ هـ - ٢٠٠٣ م.
+            </p>
+
+            <p>
+              ކުށެއް ރަނގަޅުކުރުމަށް، ނުވަތަ ތަރުޖަމާ މަސައްކަތުގައި
+              ބައިވެރިވުމަށް، ނުވަތަ މި މަޝްރޫއަށް އެހީވެދިނުމަށް
+              <br />
+              އަޅުގަނޑުމެންނާ ގުޅުއްވާ:
+              <a href="http://m.me/hadithmvOfficial">މެސެންޖަރ</a> |
+              <a href="tel:+9607583166">ވައިބަރ</a> |
+              <a href="https://t.me/ashraafmv">ޓެލެގްރާމް</a> |
+              <a href="https://wa.me/qr/FJFBCPFQXUBKJ1">ވަޓްސްއެޕް</a> |
+              <a href="mailto:hadithmv@gmail.com">އީމެއިލް</a>
+            </p>
+
+            <p>
+              މީސްމީޑިއާގައި ތަބާވުމަށް:
+              <a href="http://fb.me/hadithmvOfficial">ފޭސްބުކް</a> |
+              <a
+                href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX/ZVrvGtq/bJboZzADy3OssLND4H1TFWklNmNQZC"
+                >ވައިބަރ</a
+              >
+              | <a href="http://t.me/hadithmv">ޓެލެގްރާމް</a> |
+              <a href="https://instagram.com/hadithmv">އިންސްޓަގްރާމް</a> |
+              <a href="https://twitter.com/hadithmv">ޓްވިޓަރ</a>
+            </p>
+
+            <p>
+              ޙަދީޘްއެމްވީ އެޕް ހޯދުމަށް:
+              <a href="https://hadithmv.github.io">ވެބް</a> |
+              <a
+                href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
+                >އޭންޑްރޮއިޑް</a
+              >
+              |
+              <a href="https://github.com/hadithmv/hadithmv.github.io/releases"
+                >ވިންޑޯސް</a
+              >
+            </p>
+          </div>
+        </main>
+        <!-- <main> -->
+      </div>
+      <!-- <div class="content"> -->
+    </div>
+    <!-- <div id="page"> -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics - inlined part placed in ext script -->
+    <script
+      defer
+      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
+    ></script>
+
+    <!-- === INT JS - END === -->
+  </body>
+</html>
