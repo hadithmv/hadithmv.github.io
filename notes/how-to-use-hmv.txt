@@ -25,7 +25,7 @@ For exact matches only, write your search term within quotes "like this"
 
 [Tab] = Tab Navigation
 [Arrow Keys] = Keyboard Navigation
-[Shift + d] = Show Extra Columns
+[Shift + s] = Show Additional Columns
 [Shift + c] = Copy
 [Shift + f] = Filter
 
