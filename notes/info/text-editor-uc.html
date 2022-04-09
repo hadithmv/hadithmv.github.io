@@ -536,9 +536,7 @@
           <button onclick="replacePunct();">ޕަންކްޗުއޭޝަން ފޮހެލާ</button>
           <!--<button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>-->
 
-          <button onclick="toTitleCase();">Title Case</button>
-          <button onclick="toSentCase();">Sentence case</button>
-          <button onclick="toLowerCase();">lower case</button>
+          <button onclick="toTitleCase();" id="caseChange">Title Case</button>
 
           <button onclick="numToSuperScript();">(1) ↔ ⁽¹⁾</button>
           <button onclick="replaceFootNos();">⁽¹⁾ / (1) ފޮހެލާ</button>
@@ -1028,57 +1026,49 @@
             }, 0);
           });
 
-          // https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
+          // better switch like click function
+          // https://stackoverflow.com/questions/30266496/event-on-second-and-third-click
 
+          var toTitleCase_timesClicked = 0;
           function toTitleCase() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text.replace(/\w\S*/g, function (txt) {
-              return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-            });
-            document.getElementById("textMainArea").value = newText;
-            //navigator.clipboard.writeText(newText);
-            //return false;
+            toTitleCase_timesClicked++;
+            if (toTitleCase_timesClicked == 1) {
+              //run first function
 
-            /* https://stackoverflow.com/a/57192718 */
-            /* the copy button only solutions remove the whole textarea, thats why not using that here */
+              // https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
 
-            var copyText = document.getElementById("textMainArea"); //document.getElementById("dummy");
-            copyText.type = "text";
-            copyText.select();
-            document.execCommand("copy");
-            copyText.type = "hidden";
-          }
+              var text = document.getElementById("textMainArea").value;
+              var newText = text.replace(/\w\S*/g, function (txt) {
+                return (
+                  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                );
+              });
+              document.getElementById("textMainArea").value = newText;
 
-          // https://stackoverflow.com/questions/19089442/convert-string-to-sentence-case-in-javascript
-          function toSentCase() {
-            var text = document.getElementById("textMainArea").value;
-            var rg = /(^\w{1}|\.\s*\w{1})/gi;
-            var newText = text.replace(rg, function (toReplace) {
-              return toReplace.toUpperCase();
-            });
-            document.getElementById("textMainArea").value = newText;
-            //navigator.clipboard.writeText(newText);
-            //return false;
+              document.getElementById("caseChange").innerHTML = "lower case";
+            } else if (toTitleCase_timesClicked == 2) {
+              //run second function
 
-            var copyText = document.getElementById("textMainArea");
-            copyText.type = "text";
-            copyText.select();
-            document.execCommand("copy");
-            copyText.type = "hidden";
-          }
+              var text = document.getElementById("textMainArea").value;
+              var newText = text.toLowerCase();
+              document.getElementById("textMainArea").value = newText;
 
-          function toLowerCase() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text.toLowerCase();
-            document.getElementById("textMainArea").value = newText;
-            //navigator.clipboard.writeText(newText);
-            //return false;
+              document.getElementById("caseChange").innerHTML = "Sentence case";
+            } else if (toTitleCase_timesClicked == 3) {
+              $(".test").text("third");
+              //run third function
+              // https://stackoverflow.com/questions/19089442/convert-string-to-sentence-case-in-javascript
+              var text = document.getElementById("textMainArea").value;
+              var rg = /(^\w{1}|\.\s*\w{1})/gi;
+              var newText = text.replace(rg, function (toReplace) {
+                return toReplace.toUpperCase();
+              });
+              document.getElementById("textMainArea").value = newText;
 
-            var copyText = document.getElementById("textMainArea");
-            copyText.type = "text";
-            copyText.select();
-            document.execCommand("copy");
-            copyText.type = "hidden";
+              document.getElementById("caseChange").innerHTML = "Title Case";
+
+              toTitleCase_timesClicked = 0;
+            }
           }
 
           //https://stackoverflow.com/questions/44572859/a-function-that-runs-on-the-second-click
@@ -3335,19 +3325,20 @@ https://www.w3schools.com/howto/howto_css_modals.asp -->
     added async then changed to defer on my own https://developers.google.com/analytics/devguides/collection/analyticsjs
     https://daan.dev/wordpress/difference-analyics-gtag-ga-js/ supports analytics js over gtag
     -->
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- Global site tag (gtag.js) - Google Analytics - inlined part placed in
+    ext script -->
     <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-223399111-1"
+      defer
+      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
     ></script>
-    <script>
+    <script defer>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
 
-      gtag("config", "UA-223399111-1");
+      gtag("config", "G-HL24Q9NN24");
     </script>
     <!-- End Google Analytics -->
   </body>
