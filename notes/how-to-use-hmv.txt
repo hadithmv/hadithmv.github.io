@@ -21,7 +21,7 @@ For exact matches only, write your search term within quotes "like this"
 
 ---------------------
 
-* Desktop Keyboard Controls:
+* Desktop Keyboard Shortcuts:
 
 [Tab] = Tab Navigation
 [Arrow Keys] = Keyboard Navigation
@@ -30,5 +30,6 @@ For exact matches only, write your search term within quotes "like this"
 [Shift + f] = Filter
 
 Cursor starts already inside the search box on desktop
+(So to use desktop keyboard shortcuts, you must click outside the search box first)
 
 You can save a complete webpage (ctrl+s) for offline use
