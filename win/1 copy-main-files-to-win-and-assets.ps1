@@ -10,6 +10,7 @@ Set-Location -Path $PSScriptRoot
 # copies site minified book files to asset book files one by one
 Copy-Item ../books/40nawawi.html -Destination ../app/webview-master/app/src/main/assets/books/40nawawi.html -Recurse -Force
 Copy-Item ../books/allHadith.html -Destination ../app/webview-master/app/src/main/assets/books/allHadith.html -Recurse -Force
+Copy-Item ../books/aqidatuRaziyain.html -Destination ../app/webview-master/app/src/main/assets/books/aqidatuRaziyain.html -Recurse -Force
 Copy-Item ../books/barbahari.html -Destination ../app/webview-master/app/src/main/assets/books/barbahari.html -Recurse -Force
 Copy-Item ../books/eegaal.html -Destination ../app/webview-master/app/src/main/assets/books/eegaal.html -Recurse -Force
 Copy-Item ../books/hisnulMuslim.html -Destination ../app/webview-master/app/src/main/assets/books/hisnulMuslim.html -Recurse -Force
@@ -65,6 +66,7 @@ Copy-Item ../js/nawaqid-script.min.js -Destination ../app/webview-master/app/src
 Copy-Item ../js/nawawi-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/nawawi-script.min.js -Recurse -Force
 Copy-Item ../js/quran-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/quran-script.min.js -Recurse -Force
 Copy-Item ../js/radheef-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/radheef-script.min.js -Recurse -Force
+Copy-Item ../js/raziyain-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/raziyain-script.min.js -Recurse -Force
 Copy-Item ../js/umdah-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/umdah-script.min.js -Recurse -Force
 
 # - - -
@@ -84,6 +86,7 @@ Copy-Item ../js/json/nawaqid.js -Destination ../app/webview-master/app/src/main/
 Copy-Item ../js/json/nawawi.js -Destination ../app/webview-master/app/src/main/assets/js/json/nawawi.js -Recurse -Force
 Copy-Item ../js/json/quran.js -Destination ../app/webview-master/app/src/main/assets/js/json/quran.js -Recurse -Force
 Copy-Item ../js/json/radheef.js -Destination ../app/webview-master/app/src/main/assets/js/json/radheef.js -Recurse -Force
+Copy-Item ../js/json/raziyain.js -Destination ../app/webview-master/app/src/main/assets/js/json/raziyain.js -Recurse -Force
 Copy-Item ../js/json/umdah.js -Destination ../app/webview-master/app/src/main/assets/js/json/umdah.js -Recurse -Force
 
 # copies previous JS AND JSON AND RESC folder contents to win js folder
