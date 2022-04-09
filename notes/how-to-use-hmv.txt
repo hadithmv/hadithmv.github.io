@@ -27,7 +27,7 @@ For exact matches only, write your search term within quotes "like this"
 [Arrow Keys] = Keyboard Navigation
 [Shift + d] = Show Extra Columns
 [Shift + c] = Copy
-[Shift + k] = Options
+[Shift + f] = Filter
 
 Cursor starts already inside the search box on desktop
 
