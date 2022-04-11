@@ -75,7 +75,7 @@ a:hover {
   /* box-shadow: 0 2px 4px rgb(0 0 0 / 50%); */
 
   /* added font because navbar top text is unstyled 
-  font-family: "dvFont", "arFont", sans-serif, "faruma"; */
+  font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma"; */
 
   /* added abosulte css because fixed class and fixed position didnt work on mobile
   top right left needed to keep it from moving along with the animation */

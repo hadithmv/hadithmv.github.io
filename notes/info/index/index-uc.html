@@ -29,7 +29,25 @@
     -->
   </head>
 
+  <!--
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+-->
   <style>
+    /* latin */
+    @font-face {
+      font-family: "Quicksand";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block; /* swap */
+      src: url(https://fonts.gstatic.com/s/quicksand/v28/6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkP8o58a-wg.woff2)
+        format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+        U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
     /* ====================
           SHOPPING ITEMS
     ======================= */
@@ -296,6 +314,22 @@
       }
     }
 
+    .quotes li {
+      background: #1f6cb9;
+    }
+    .quotes li::after {
+      border-right: 0.75em solid #1f6cb9;
+    }
+
+    .btn-holder a {
+      background-color: #1f6cb9;
+    }
+
+    #b4Maghrib,
+    #afterMaghrib {
+      background-color: #1f6cb9 !important;
+    }
+
     /*for-phone-only*/
     @media (max-width: 599px) {
       .mobHidden {
@@ -367,7 +401,7 @@
         style="visibility: visible; opacity: 1"
       >
         <div class="btn-holder">
-          <a onclick="openModal()" style="background-color: #1f6cb9">
+          <a onclick="openModal()">
             <span class="rotateEmoji">🛒</span>&nbsp;&nbsp;Order Now
           </a>
           <!-- <a onclick="parent.LC_API.open_chat_window();return false;" href="tel:+9607583166"
