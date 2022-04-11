@@ -8,12 +8,12 @@ quran has:
 
     /* quran only tafsir sa'di font and line height smaller */
 .dataTable tr td.qCol5 {
-  font-family: "arFont", "dvFont", sans-serif, "faruma";
+  font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
   font-size: 20px;
   line-height: 1.5;
 }
 .dataTable tr td.qCol6 {
-  font-family: "dvFont", "arFont", sans-serif, "faruma";
+  font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
   font-size: 17px;
   line-height: 1.8;
 }

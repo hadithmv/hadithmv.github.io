@@ -296,7 +296,7 @@ li,
 .header,
 /* for mmenu light nav horizontal bar */
 .mm-spn.mm-spn--navbar::after {
-  font-family: dvFont, arFont, sans-serif, faruma;
+  font-family: dvFont, arFont, Quicksand, sans-serif, faruma;
 
   /* CHANGE123 FONT
               text-align: justify;
@@ -1134,7 +1134,7 @@ div.dtsp-searchPane div.dataTables_scrollBody {
 #footer {
   /* text-align: justify;
   text-align-last: center; */
-  font-family: dvFont, arFont, sans-serif, faruma;
+  font-family: dvFont, arFont, Quicksand, sans-serif, faruma;
   font-size: 17px;
   line-height: 1.9;
   direction: rtl;
@@ -1148,7 +1148,7 @@ div.dtsp-searchPane div.dataTables_scrollBody {
 }
 
 .arMasdar {
-  font-family: arFont, dvFont, sans-serif, faruma;
+  font-family: arFont, dvFont, Quicksand, sans-serif, faruma;
   font-size: 20px;
   line-height: 1.7;
   word-spacing: 2px;
