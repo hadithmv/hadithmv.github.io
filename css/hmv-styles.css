@@ -1283,6 +1283,39 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 }
 
 /* ====================
+       copyURL button
+======================= */
+.copyURL {
+  direction: rtl;
+  font-family: dvFont, arFont, Quicksand, sans-serif, faruma;
+  font-size: 16px;
+
+  /* width: 150px; */
+  height: 47px;
+  margin: 5px;
+  border-radius: 5px;
+  border-width: 0;
+
+  /* add ease in transition for hover */
+  transition: transform 0.2s ease-out;
+
+  /*  */
+  background: #efefef;
+
+  /* add border to button */
+  border: 0.25px solid rgb(0 0 0 / 25%);
+}
+
+.copyURL:hover {
+  cursor: pointer;
+  color: #fff;
+  transform: scale(1.15);
+  z-index: 9999;
+  background-color: #136296;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ====================
        
 ======================= */
 
