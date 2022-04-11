@@ -276,7 +276,7 @@
 
   <style>
     .tab {
-      background: #1c61a6;
+      background: #1f6cb9; /*#1c61a6;*/
     }
 
     .tab button {
@@ -284,6 +284,16 @@
   width: 170px;
   but auto below to accomodate long third buttons*/
       width: auto;
+    }
+
+    @media (prefers-color-scheme: light) {
+      .tab button:hover {
+        background-color: #1f6cb9 !important;
+      }
+
+      .tab button.active {
+        background-color: #1f6cb9 !important;
+      }
     }
 
     /*for-phone-only*/
@@ -357,7 +367,7 @@
         style="visibility: visible; opacity: 1"
       >
         <div class="btn-holder">
-          <a onclick="openModal()">
+          <a onclick="openModal()" style="background-color: #1f6cb9">
             <span class="rotateEmoji">🛒</span>&nbsp;&nbsp;Order Now
           </a>
           <!-- <a onclick="parent.LC_API.open_chat_window();return false;" href="tel:+9607583166"
@@ -809,16 +819,37 @@
         <hr />
         <br />
 
+        <!-- IMG ITEM -->
+        <div class="flexRow">
+          <img
+            loading="lazy"
+            width="500"
+            class="flexItem"
+            alt="water well"
+            src="img/well-africa-500px.webp"
+          />
+        </div>
+        <br />
+        <!-- IMG ITEM - END -->
+
+        <br />
+
         <!-- TEXT ITEM -->
         <div class="flexRow">
           <div class="flexItem dv">
             <h3 class="iTitle">
-              އަދި މީގެ އިތުރުން އެފްރިކާގައި ފެންވަޅު ހެދިދާނެއެވެ.
+              އަދި މީގެ އިތުރުން
+              <b><a href="https://t.me/birrumv/98">އެފްރިކާގައި</a></b> ފެންވަޅު
+              ހެދިދާނެއެވެ.
             </h3>
           </div>
 
           <div class="flexItem en">
-            <h3 class="iTitle">We can also build wells in Africa.</h3>
+            <h3 class="iTitle">
+              We can also build wells in
+              <b><a href="https://t.me/birrumv/98">Africa</a></b
+              >.
+            </h3>
           </div>
         </div>
 
@@ -1266,7 +1297,7 @@
 
         <div class="en Pr">
           <h3 class="price" onclick="openModal()">
-            <b>1695/-</b>
+            <b>2250/-</b>
           </h3>
         </div>
         <br />
@@ -1285,7 +1316,7 @@
             width="500"
             class="flexItem"
             alt="madeenah"
-            src="img/sheep-madina-2.webp"
+            src="img/sheep-madina-3-500px.webp"
           />
         </div>
         <!-- IMG ITEM - END -->
@@ -1306,7 +1337,7 @@
 
         <div class="en Pr">
           <h3 class="price" onclick="openModal()">
-            <b>1875/- MVR</b>
+            <b>2500/- MVR</b>
           </h3>
         </div>
         <br />
