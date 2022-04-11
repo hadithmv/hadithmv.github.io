@@ -293,6 +293,17 @@
           </table>
           <!-- --- TABLE - END --- -->
           <div class="hidden" id="footer">
+            <button class="copyURL" onclick="copyToClipB();">
+              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+            </button>
+
+            <script>
+              const button = document.querySelector("button");
+              button.onclick = () => {
+                navigator.clipboard.writeText(window.location.href);
+              };
+            </script>
+
             <p>
               އިސްލާމިކް މިނިސްޓްރީއިން ”  ނަވަވީގެ 40 ޙަދީޘް“ ފޮތުގެ ތަރުޖަމާ
               ފާސްކުރިކަމުގެ ކާޑުގައިވާ ރެފް ނަމްބަރު :
