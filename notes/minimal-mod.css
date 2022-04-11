@@ -806,7 +806,7 @@ h3 {
 }
 
 .btn-chat a {
-  font-family: arial;
+  font-family: Quicksand, sans-serif, serif; /* arial; */
   color: #fff;
   text-decoration: none;
   background: #0d619c;
