@@ -307,11 +307,20 @@ so right align to prevent gaps in text */
     </div>
     <!-- <div id="page"> -->
 
-    <!-- Global site tag (gtag.js) - Google Analytics - inlined part placed in ext script -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       defer
       src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
     ></script>
+    <script defer>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-HL24Q9NN24");
+    </script>
 
     <!-- === INT JS - END === -->
   </body>
