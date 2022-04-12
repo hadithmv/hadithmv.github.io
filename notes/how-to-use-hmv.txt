@@ -19,6 +19,8 @@ Use the Extra Columns button to show or hide specific data.
 After searching, you can double click on a search result to jump to the page where that result comes from.
 For exact matches only, write your search term within quotes "like this"
 
+If you are using Hadithmv from the website, the place where you were reading stays saved even if you close the browser. As for the app, you can click the "copy current page link" button at the bottom of a page and save that link to continue from there later on.
+
 ---------------------
 
 * Desktop Keyboard Shortcuts:
