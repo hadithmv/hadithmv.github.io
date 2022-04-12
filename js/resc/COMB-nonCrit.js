@@ -247,4 +247,3 @@ a||e)&&(e=c.extend({},e,a),!1!==a&&new t(b,e))});return t});
 // hmv-script.js
 function copyURLToClipB(){var a=document.createElement("textarea");document.body.appendChild(a);a.value=window.location;a.value=a.value.replace(/^.+hadithmv\./,"https://hadithmv.");a.select();document.execCommand("copy");document.body.removeChild(a)};
 
-
