@@ -31,8 +31,8 @@ function copyURLToClipB() {
   dummy.value = window.location;
   // added line below
   dummy.value = dummy.value.replace(
-    /^.+hadithmv.github.io/,
-    "https://hadithmv.github.io"
+    /^.+hadithmv\./,
+    "https://hadithmv."
   );
   dummy.select();
   document.execCommand("copy");
