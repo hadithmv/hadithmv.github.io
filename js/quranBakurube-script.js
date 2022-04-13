@@ -180,6 +180,14 @@ $(document).ready(() => {
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
 
+            // adds footnote line after lafzee tharujama
+            { targets: 6,
+              render: function (data, type, row) {
+                data = data + '<br class="Qbr">‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br class="LQbr">'
+                return data.replace(/\n/g, ' <br class="br">') // without this line breaks not preserved
+                } 
+              },
+
       /* replace \n newlines from json to <br> in table
       https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
       { targets: '_all',
@@ -520,6 +528,8 @@ $(document).ready(() => {
           data = data.replace(/ފިލިނުޖަހާ ޤުރްއާން\t/g, '')
           data = data.replace(/ލަފްޒީ ތަރުޖަމާ\t/g, '')
           data = data.replace(/އިޖްމާލީ މާނަ\t/g, '')
+          data = data.replace(/\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g, '\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n') // adds a line break after takhrij line, use two for a new line
+
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, '\n\n') // creates line breaks between cell data
