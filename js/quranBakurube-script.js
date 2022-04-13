@@ -529,7 +529,7 @@ $(document).ready(() => {
           data = data.replace(/ލަފްޒީ ތަރުޖަމާ\t/g, '')
           data = data.replace(/އިޖްމާލީ މާނަ\t/g, '')
           //data = data.replace(/\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g, '\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n') // adds a line break after takhrij line, use two for a new line
-          data = data.replace(/‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\t/g, '\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n') // adds a line break after takhrij line, use two for a new line
+          data = data.replace(/‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\t/g, '\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n')
 
 
           data = data.replace(/\t\t/g, '\t') //  This prevents a double or more line breaks when columns are hidden
