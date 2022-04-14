@@ -1062,9 +1062,43 @@
         </p>
         <br />
 
+        <script>
+          // https://stackoverflow.com/questions/8252638/executing-javascript-after-x-seconds
+          function copySalla() {
+            document.getElementById("sallaButton").innerHTML =
+              "&nbsp; ކޮޕީ &nbsp;";
+            /**/
+            var input = document.createElement("textarea");
+            input.innerHTML = "ﷺ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+
+            /**/
+            setTimeout(function () {
+              document.getElementById("sallaButton").innerHTML =
+                "&nbsp; ﷺ &nbsp;";
+              document.getElementById("div2").style.display = "none";
+            }, 1500);
+
+            /**/
+            return result;
+          }
+        </script>
+
         <p>
-          ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”ހެޔޮކަމަކަށް މަގުދައްކައިފި މީހަކަށް
-          އެ ހެޔޮކަން ކުރި މީހަކާ އެއްފަދަ އަޖުރެއް ލިބޭނެއެވެ.“ [މުސްލިމު 1893]
+          ނަބިއްޔާ
+          <button
+            class="copyURL"
+            id="sallaButton"
+            onclick="copySalla();"
+            title="ﷺ Copy"
+          >
+            &nbsp; ﷺ &nbsp;
+          </button>
+          ޙަދީޘް ކުރެއްވިއެވެ: ”ހެޔޮކަމަކަށް މަގުދައްކައިފި މީހަކަށް އެ ހެޔޮކަން
+          ކުރި މީހަކާ އެއްފަދަ އަޖުރެއް ލިބޭނެއެވެ.“ [މުސްލިމު 1893]
           <br />
           ކުށެއް ރަނގަޅުކުރުމަށް، ނުވަތަ ތަރުޖަމާ މަސައްކަތުގައި ބައިވެރިވުމަށް،
           ނުވަތަ މި މަޝްރޫއަށް އެހީވެދިނުމަށް
@@ -1102,8 +1136,83 @@
           >
         </p>
         <br />
+
+        <div id="supriseDiv" style="display: none">
+          I
+
+          <svg class="heart" viewBox="0 0 32 29.6">
+            <path
+              d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+	c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
+            />
+          </svg>
+
+          You Nau, Yayya & Yoosh
+        </div>
+
+        <style>
+          #supriseDiv {
+            background: #333;
+            color: #fff;
+            /*font-family: "Archivo Black", sans-serif;*/
+            font-family: "Quicksand", sans-serif;
+            font-size: 3em;
+            margin-top: 1em;
+            text-align: center;
+            text-transform: uppercase;
+            /**/
+            border-radius: 20px;
+            line-height: 1.5;
+            padding: 20px;
+          }
+          /*body {
+            background: #333;
+            color: #fff;
+            font-family: "Archivo Black", sans-serif;
+            font-size: 3em;
+            margin-top: 1em;
+            text-align: center;
+            text-transform: uppercase;
+          }*/
+
+          .heart {
+            fill: red;
+            position: relative;
+            top: 5px;
+            width: 50px;
+            animation: pulse 1s ease infinite;
+          }
+
+          @keyframes pulse {
+            0% {
+              transform: scale(1);
+            }
+            50% {
+              transform: scale(1.3);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
+        </style>
+
+        <script>
+          var suprise_timesClicked = 0;
+          function supriseClick() {
+            suprise_timesClicked++;
+            if (suprise_timesClicked == 1) {
+              //run first function
+            } else if (suprise_timesClicked == 2) {
+              //run second function
+            } else if (suprise_timesClicked == 5) {
+              document.getElementById("supriseDiv").style.display = "block";
+              suprise_timesClicked = 0;
+            }
+          }
+        </script>
+
         <p>
-          އެހެނިހެން:
+          <span onclick="supriseClick();">އެހެނިހެން: </span>
           <a href="../books/hisnulMuslim.html#hisnulMuslimTable=l1:p74"
             >ކިޔަންވީ ޒިކުރުތައް</a
           >
