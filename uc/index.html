@@ -317,6 +317,28 @@
         border-top: 5px solid #5647b8;
         border-bottom: 5px solid #5647b8;
       }*/
+
+      .quoteHere {
+        text-align: center;
+        font-family: dvFont, arFont, Quicksand, sans-serif, faruma;
+        font-size: 17px;
+        line-height: 1.9;
+        direction: rtl;
+        /**/
+        font-size: 115% !important;
+      }
+
+      #footer {
+        /*position: absolute;
+        top: 720px !important;*/
+        /* center */
+        /*left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;*/
+        /* Need a specific value to work */
+        /*width: 95%;*/
+      }
     </style>
 
     <!-- === INT CSS - END === -->
@@ -718,7 +740,7 @@
         /* space and height for below cards stuff */
 
         .tabcontent {
-          min-height: 340px;
+          min-height: 400px;
           margin-bottom: -27px;
         }
 
@@ -792,6 +814,8 @@
             </a>
           </div>
         </div>
+
+        <p class="quoteHere"></p>
       </div>
       <!--  class="tabcontent"> -->
 
@@ -863,7 +887,48 @@
             <!--</a>-->
           </div>
         </div>
+
+        <script>
+          // https://stackoverflow.com/questions/8252638/executing-javascript-after-x-seconds
+          function copySalla() {
+            document.getElementById("sallaButton").innerHTML =
+              "&nbsp; ކޮޕީ &nbsp;";
+            /**/
+            var input = document.createElement("textarea");
+            input.innerHTML = "ﷺ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+
+            /**/
+            setTimeout(function () {
+              document.getElementById("sallaButton").innerHTML =
+                "&nbsp; ﷺ &nbsp;";
+              document.getElementById("div2").style.display = "none";
+            }, 1500);
+
+            /**/
+            return result;
+          }
+        </script>
+
+        <p class="quoteHere">
+          ނަބިއްޔާ
+          <button
+            class="copyURL"
+            id="sallaButton"
+            onclick="copySalla();"
+            title="ﷺ Copy"
+            style="margin: 0; height: 35px"
+          >
+            &nbsp; ﷺ &nbsp;
+          </button>
+          ޙަދީޘް ކުރެއްވިއެވެ: ”ހެޔޮކަމަކަށް މަގުދައްކައިފި މީހަކަށް އެ ހެޔޮކަން
+          ކުރި މީހަކާ އެއްފަދަ އަޖުރެއް ލިބޭނެއެވެ.“ [މުސްލިމު 1893]
+        </p>
       </div>
+
       <!--  class="tabcontent"> -->
 
       <div id="tabThree" class="tabcontent">
@@ -895,6 +960,13 @@
             </a>
           </div>
         </div>
+
+        <p class="quoteHere">
+          އިމާމު <a href="../books/barbahari.html">ބަރްބަހާރީ</a> رَحِمَهُ
+          اللَّهُ ވިދާޅުވިއެވެ: ”ދަންނާށެވެ. އިސްލާމް ދީނަކީ ސުންނަތެވެ. އަދި
+          ސުންނަތަކީ އިސްލާމް ދީނެވެ. އަދި އެއިން އެއް ކަމެއް، އަނެއް ކަމަކާ
+          ލައިގެން މެނުވީ ގާއިމެއް ނުކުރެވޭނެއެވެ.“
+        </p>
       </div>
       <!--  class="tabcontent"> -->
 
@@ -918,6 +990,8 @@
             </a>
           </div>
         </div>
+
+        <p class="quoteHere"></p>
       </div>
       <!--  class="tabcontent"> -->
 
@@ -1053,54 +1127,7 @@
 
       <div class="mid" id="footer">
         <!-- previously class had "hidden"-->
-
-        <p style="font-size: 105%">
-          އިމާމު <a href="../books/barbahari.html">ބަރްބަހާރީ</a> رَحِمَهُ
-          اللَّهُ ވިދާޅުވިއެވެ: ”ދަންނާށެވެ. އިސްލާމް ދީނަކީ ސުންނަތެވެ. އަދި
-          ސުންނަތަކީ އިސްލާމް ދީނެވެ. އަދި އެއިން އެއް ކަމެއް، އަނެއް ކަމަކާ
-          ލައިގެން މެނުވީ ގާއިމެއް ނުކުރެވޭނެއެވެ.“
-        </p>
-        <br />
-
-        <script>
-          // https://stackoverflow.com/questions/8252638/executing-javascript-after-x-seconds
-          function copySalla() {
-            document.getElementById("sallaButton").innerHTML =
-              "&nbsp; ކޮޕީ &nbsp;";
-            /**/
-            var input = document.createElement("textarea");
-            input.innerHTML = "ﷺ";
-            document.body.appendChild(input);
-            input.select();
-            var result = document.execCommand("copy");
-            document.body.removeChild(input);
-
-            /**/
-            setTimeout(function () {
-              document.getElementById("sallaButton").innerHTML =
-                "&nbsp; ﷺ &nbsp;";
-              document.getElementById("div2").style.display = "none";
-            }, 1500);
-
-            /**/
-            return result;
-          }
-        </script>
-
         <p>
-          ނަބިއްޔާ
-          <button
-            class="copyURL"
-            id="sallaButton"
-            onclick="copySalla();"
-            title="ﷺ Copy"
-            style="margin: 0; height: 35px"
-          >
-            &nbsp; ﷺ &nbsp;
-          </button>
-          ޙަދީޘް ކުރެއްވިއެވެ: ”ހެޔޮކަމަކަށް މަގުދައްކައިފި މީހަކަށް އެ ހެޔޮކަން
-          ކުރި މީހަކާ އެއްފަދަ އަޖުރެއް ލިބޭނެއެވެ.“ [މުސްލިމު 1893]
-          <br />
           ކުށެއް ރަނގަޅުކުރުމަށް، ނުވަތަ ތަރުޖަމާ މަސައްކަތުގައި ބައިވެރިވުމަށް،
           ނުވަތަ މި މަޝްރޫއަށް އެހީވެދިނުމަށް
           <br />
