@@ -1447,6 +1447,8 @@
               //run first function
               var text = document.getElementById("textMainArea").value;
               var newText = text
+                .replace(/\'\'/g, "’‘")
+                .replace(/\"\"/g, "”“")
                 .replace(/(|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C") //without spaces
                 .replace(/(\s|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C")
                 .replace(/(|^)\'([^\']+)\'/g, "$1\u2019$2\u2018") //without spaces
@@ -1469,6 +1471,7 @@
               //run first function
               var text = document.getElementById("textMainArea").value;
               var newText = text
+                .replace(/\"\"/g, "\»\«")
                 .replace(/(|^)\"([^\"]+)\"/g, "$1\«$2\»") //without spaces
                 .replace(/(\s|^)\"([^\"]+)\"/g, "$1\«$2\»");
               document.getElementById("textMainArea").value = newText;
