@@ -73,7 +73,11 @@ $(document).ready(() => {
       },
       {
         data: 1,
-        title: 'ފޮތް އަރަބިން'
+        title: 'ފޮތް އަރަބިން',
+        render: function (data, type, row) {
+          return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g, '')
+          //return data.replace(/[ًٌٍَُِّْ]/g, '')
+        }
       },
       {
         data: 2,
@@ -81,7 +85,11 @@ $(document).ready(() => {
       },
       {
         data: 3,
-        title: 'ބާބު އަރަބިން'
+        title: 'ބާބު އަރަބިން',
+        render: function (data, type, row) {
+          return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g, '')
+          //return data.replace(/[ًٌٍَُِّْ]/g, '')
+        }
       },
       {
         data: 4,
