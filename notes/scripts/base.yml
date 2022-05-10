@@ -24,9 +24,9 @@ matches:
     replace: ﷺ
   - trigger: صص-
     replace: ﷺ
-  - trigger: "\"-"
+  - trigger: '"-'
     replace: ”
-  - trigger: "-\""
+  - trigger: '-"'
     replace: “
   - trigger: "'-"
     replace: ’
@@ -94,9 +94,9 @@ matches:
     replace: ރަސޫލު ﷲ ﷺ
   - trigger: ނސ-
     replace: ނަބިއްޔާ ﷺ
-  - trigger: ރއޑ-
+  - trigger: ރހއ-
     replace: "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
-  - trigger: ނއޑ-
+  - trigger: ނހއ-
     replace: "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
   - trigger: ސައްހަ-
     replace: މި ޙަދީޘް ސައްހަ ކުރެއްވިއެވެ.
@@ -129,4 +129,4 @@ matches:
   - trigger: tc-
     replace: take care
   - trigger: cc-
-    replace: "git add . && git commit -m \"u\" && git push"
+    replace: 'git add . && git commit -m "u" && git push'
