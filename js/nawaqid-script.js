@@ -360,12 +360,12 @@ $(document).ready(() => {
       buttons: {
         copyTitle: 'ކޮޕީ',
         copySuccess: {
-          1: 'ކޮޕީ ވީ 1 ޙަދީޘް',
-          _: 'ކޮޕީ ވީ %d ޙަދީޘް'
+          1: 'ކޮޕީ ވީ 1 ނުކުތާ',
+          _: 'ކޮޕީ ވީ %d ނުކުތާ'
         }
       },
 
-      info: '_TOTAL_ ޙަދީޘްގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް',
+      info: '_TOTAL_ ނުކުތާގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް',
       infoFiltered: '(ޖުމްލަ ބެލެވުނީ _MAX_)',
       infoEmpty: '- ނުފެނުނު -',
       lengthMenu: '_MENU_',
