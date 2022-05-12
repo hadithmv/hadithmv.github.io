@@ -141,7 +141,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: 'qawCol1', // #
+        className: 'nwqCol1', // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -150,7 +150,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qawCol2', // Ar Title
+        className: 'nwqCol2', // Ar Title
         targets: [1],
         visible: true,
         searchable: false,
@@ -159,7 +159,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qawCol3', // Dv Title
+        className: 'nwqCol3', // Dv Title
         targets: [2],
         visible: false,
         searchable: false,
@@ -168,7 +168,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qawCol4', // Ar Text
+        className: 'nwqCol4', // Ar Text
         targets: [3],
         visible: true,
         searchable: true,
@@ -177,7 +177,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qawCol5', // Ar Plain
+        className: 'nwqCol5', // Ar Plain
         targets: [4],
         visible: false,
         searchable: true,
@@ -186,7 +186,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qawCol6', // Dv Text
+        className: 'nwqCol6', // Dv Text
         targets: [5],
         visible: true,
         searchable: true,
@@ -195,7 +195,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qawCol7', // Eng Text
+        className: 'nwqCol7', // Eng Text
         targets: [6],
         visible: false,
         searchable: true,
@@ -204,7 +204,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qawCol8', // Ar Ref
+        className: 'nwqCol8', // Ar Ref
         targets: [7],
         visible: true,
         searchable: false,
@@ -213,7 +213,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qawCol9', // Sharh
+        className: 'nwqCol9', // Sharh
         targets: [8],
         visible: false,
         searchable: false,
@@ -222,7 +222,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qawCol10', // Sharh
+        className: 'nwqCol10', // Sharh
         targets: [9],
         visible: false,
         searchable: false,
