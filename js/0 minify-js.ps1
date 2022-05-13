@@ -16,3 +16,4 @@ google-closure-compiler --charset=UTF-8 --js=quranBakurube-script.js --js_output
 google-closure-compiler --charset=UTF-8 --js=radheef-script.js --js_output_file=radheef-script.min.js
 google-closure-compiler --charset=UTF-8 --js=raziyain-script.js --js_output_file=raziyain-script.min.js
 google-closure-compiler --charset=UTF-8 --js=umdah-script.js --js_output_file=umdah-script.min.js
+google-closure-compiler --charset=UTF-8 --js=usool-script.js --js_output_file=usool-script.min.js
