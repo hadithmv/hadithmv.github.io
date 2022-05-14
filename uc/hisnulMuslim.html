@@ -165,6 +165,21 @@
         line-height: 1.4;
       }
 
+      /* SEARCH PANE MODS FOR ENGLISH */
+
+      /* tr is the column here, that singles this one out from the rest */
+
+      #DataTables_Table_2 > tbody > tr > td > div > span.dtsp-name {
+        text-align: left !important;
+        direction: ltr;
+      }
+
+      /* adds space before eng header in pane */
+
+      #DataTables_Table_2 > tbody > tr > td > div > span.dtsp-name:before {
+        content: "\00a0";
+      }
+
       /* takhrij font size */
       .dataTable tr td.hisnCol9 {
         font-size: 20px;
