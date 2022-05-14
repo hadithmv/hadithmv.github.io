@@ -524,6 +524,7 @@
           <button onclick="copyToClipB();">📋 ލިޔުން ކޮޕީކުރޭ</button>
           <button onclick="clearTextArea();">❌ ލިޔުން ފޮހެލާ</button>
           <button onclick="wrapToOneLine();">↲ އެއްފޮޅުވަތައް ފައްތާ</button>
+          <button onclick="sortLines();">ފޮޅުވަތް ↔ ތަރުތީބު</button>
           <button onclick="replaceFili();countChar();">عربي ފިލި ފޮހެލާ</button>
           <button
             onclick="remThiki();"
@@ -1556,6 +1557,28 @@
               .getElementById("textMainArea")
               .value.replace(/[\n\r]+/g, "")
               .replace(/\s\s+/g, " ");
+          }
+
+          var sortLines_timesClicked = 0;
+          // https://stackoverflow.com/questions/14867479/how-can-i-alphabetize-within-a-textarea-javascript-sort/14867487#14867487
+
+          function sortLines() {
+            sortLines_timesClicked++;
+            if (sortLines_timesClicked % 2 == 0) {
+              //run second function
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.split("\n")
+                .reverse()
+                .join("\n");
+            } else {
+              //run first function
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.split("\n")
+                .sort()
+                .join("\n");
+            }
           }
 
           /* end of above */
