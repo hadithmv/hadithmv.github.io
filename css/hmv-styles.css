@@ -695,34 +695,59 @@ looks like we don't need this code anymore, use the hide below this */
   }
 } */
 
+/* removes blue box that shows up when double clicking a cell in the new DT update */
+
+/* not qCol1 prevents ayahbox box from disappearing */
+table.dataTable.display > tbody > tr.odd.selected > *:not(.qCol1),
+table.dataTable.stripe > tbody > tr.odd.selected > *:not(.qCol1) {
+  box-shadow: none !important;
+
+  /* removes the fff white text color that comes with that too */
+  color: inherit !important;
+}
+
 /* Keytable - Desktop only MQ */
+
+/* https://cdn.datatables.net/keytable/latest/js/dataTables.keyTable.js */
 
 @media screen and (min-width: 900px) {
   /* table.dataTable tbody th.focus, */
   table.dataTable tbody td.focus {
-    /* box-shadow: inset 0 0 1px 2px #3366ff; */
-    box-shadow: inset 0 0 1px 2.5px #337ab7;
+    /* outline: 2px solid #3366ff; */
+    outline: 2.5px solid #337ab7;
+    outline-offset: -2px; /* ? */
 
-    /* last px makes box thicker */
+    /* added, makes box rounder */
     border-radius: 5px;
-
-    /* makes box rounder */
   }
 
-  /* div.dtk-focus-alt table.dataTable tbody th.focus, */
+  div.dtk-focus-alt table.dataTable tbody th.focus,
   div.dtk-focus-alt table.dataTable tbody td.focus {
-    /* box-shadow: inset 0 0 1px 2px #ff8b33; */
-    box-shadow: inset 0 0 1px 2.5px #337ab7;
+    /* outline: 2px solid #ff8b33; */
+    outline: 2.5px solid #337ab7;
+    outline-offset: -2px; /* ? */
 
-    /* last px makes box thicker */
+    /* added, makes box rounder */
     border-radius: 5px;
 
-    /* makes box rounder */
+    /* old code */
+
+    /*
+  table.dataTable tbody td.focus {
+    box-shadow: inset 0 0 1px 2.5px #337ab7;
+    border-radius: 5px;
   }
 
-  /* inset: Changes the shadow from an outer shadow (outset) to an inner shadow
+  div.dtk-focus-alt table.dataTable tbody td.focus {
+    box-shadow: inset 0 0 1px 2.5px #337ab7;
+    border-radius: 5px;
+  }
+  */
+
+    /* inset: Changes the shadow from an outer shadow (outset) to an inner shadow
 next 4 numbers: offset-x | offset-y | blur-radius | spread-radius 
 last is color */
+  }
 }
 
 /* Mark JS - padding: 0; removes useless padding, donno if still needed? */
