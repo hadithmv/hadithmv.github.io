@@ -771,13 +771,13 @@ mark {
     padding-left: 50px;
   }
 
-  /* instead of margin, these were previous padding */
+  /* if changed from padding to margin, non quran cards will seem to not have enough sapce */
   table.cards.dataTable > tbody > tr > td:nth-child(1) {
-    margin-top: 40px;
+    padding-top: 40px;
   }
 
   table.cards.dataTable > tbody > tr > td:nth-last-child(1) {
-    margin-bottom: 45px;
+    padding-bottom: 45px;
   }
 }
 
