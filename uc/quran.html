@@ -231,10 +231,10 @@
         }
       }
 
-      /* reduces margin last item at end of page */
+      /* reduces margin last item at end of page, NOT WITHIN TABLE BOX, OUTSIDE IT */
 
       #quranTable > tbody > tr:last-child {
-        margin-bottom: 25px;
+        margin-bottom: 30px;
       }
 
       /* } */
@@ -336,8 +336,12 @@
           margin-bottom: 50px;
         }
 
+        /* TRULY effects first and last space above and below quran table */
         #quranTable > tbody > tr > td:nth-child(2) {
           margin-top: 30px;
+        }
+        #quranTable > tbody > tr > td:nth-last-child(1) {
+          margin-bottom: 30px;
         }
 
         /* gives space to the left and right sides of words */
@@ -346,6 +350,14 @@
           margin-left: 50px !important;
           margin-right: 50px !important;
         }
+      }
+
+      /* UNDOES unproportionate padding brought on by general card code */
+      table.cards.dataTable > tbody > tr > td:nth-child(1) {
+        padding-top: 0px;
+      }
+      table.cards.dataTable > tbody > tr > td:nth-last-child(1) {
+        padding-bottom: 0px;
       }
 
       /* ====================
