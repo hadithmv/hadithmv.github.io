@@ -522,11 +522,9 @@
 
         <div class="mid editorButtons">
           <button onclick="copyToClipB();">📋 ލިޔުން ކޮޕީކުރޭ</button>
-
-          <button onclick="clearTextArea();">ލިޔުން ފޮހެލާ</button>
-          <button onclick="replaceFili();countChar();">
-            އަރަބި ފިލި ފޮހެލާ
-          </button>
+          <button onclick="clearTextArea();">❌ ލިޔުން ފޮހެލާ</button>
+          <button onclick="wrapToOneLine();">↲ އެއްފޮޅުވަތައް ފައްތާ</button>
+          <button onclick="replaceFili();countChar();">عربي ފިލި ފޮހެލާ</button>
           <button
             onclick="remThiki();"
             title="ތިކިޖެހި ތާނަ ތިކިނުޖަހާ ތާނައަށް ބަދަލުކުރޭ"
@@ -1513,12 +1511,8 @@
             document.execCommand("copy");
 
             /* Alert the copied text
-          alert("ކޮޕީވީ: " + copyText.value); */
+            alert("ކޮޕީވީ: " + copyText.value); */
             //return false;
-          }
-
-          function clearTextArea() {
-            document.getElementById("textMainArea").value = "";
           }
 
           function copyDate() {
@@ -1550,6 +1544,21 @@
             document.execCommand("copy");
             document.body.removeChild(tempInput);
           }
+
+          function clearTextArea() {
+            document.getElementById("textMainArea").value = "";
+          }
+
+          // https://lingojam.com/TexttoOneLine
+          // https://stackoverflow.com/questions/1981349/regex-to-replace-multiple-spaces-with-a-single-space/1981366#1981366
+          function wrapToOneLine() {
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/[\n\r]+/g, "")
+              .replace(/\s\s+/g, " ");
+          }
+
+          /* end of above */
         </script>
       </div>
       <!-- <div id="tabOne" class="tabcontent"> -->
@@ -2802,13 +2811,13 @@ cols="60"-->
                 style="margin-bottom: -3px; margin-top: 5px"
               >
                 <button id="prev" title="Previous diff">
-                  ކުރީގެ ބަދަލަށް ▲
+                  ▲ ކުރީގެ ބަދަލަށް
                 </button>
                 <button id="next" title="Next diff">
-                  ޖެހިގެންވާ ބަދަލަށް ▼
+                  ▼ ޖެހިގެންވާ ބަދަލަށް
                 </button>
                 <button id="wrap" title="Toggle line wrapping">
-                  އެއްފޮޅުވަތައް ފައްތާ ↲
+                  ↲ އެއްފޮޅުވަތައް ފައްތާ
                 </button>
                 <!--<button id="fullScreen" title="Toggle fullscreen">
                   ފުލްސްކްރީން 🖥️
