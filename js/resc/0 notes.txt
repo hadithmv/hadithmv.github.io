@@ -6,22 +6,22 @@ mmenu-inlineJs.js
 
 -Non critical
 jquery.min.js		3.6.0 (mergely and hammer breaks with jquery slim, zepto and cash doesnt work)
-**jquery.dataTables.min.js	1.11.4	(requires jq, minify w closure)
+**jquery.dataTables.min.js	1.12.0	(requires jq, minify w closure)
 
-dataTables.buttons.min.js	2.2.2
-buttons.colVis.min.js		2.2.2
-buttons.html5.min.js		2.2.2
-dataTables.searchPanes.min.js	1.4.0
-dataTables.select.min.js	1.3.4
-**row().show().js		1.11.2 (minify w closure)
+dataTables.buttons.min.js	2.2.3
+buttons.colVis.min.js		2.2.3
+buttons.html5.min.js		2.2.3
+dataTables.searchPanes.min.js	2.0.1
+dataTables.select.min.js	1.4.0
+**row().show().js		1.0 (minify w closure) 
 https://github.com/DataTables/Plugins/blob/master/api/row().show().js
-**input.min.js			1.11.2	(minify w closure)https://github.com/DataTables/Plugins/blob/master/pagination/input.js
+**input.min.js			1.11.2/??	(minify w closure) https://github.com/DataTables/Plugins/blob/master/pagination/input.js
 
 
-**jquery.mark.min.js		9.0.0	(remove comments, otherwise ok)
-datatables.mark.min.js		2.1.0
+**jquery.mark.min.js		9.0.0	(remove comments, otherwise ok) https://github.com/julmot/mark.js/blob/master/dist/jquery.mark.min.js
+datatables.mark.min.js		2.1.0 https://github.com/julmot/datatables.mark.js/blob/master/dist/datatables.mark.min.js
 dataTables.keepConditions.min.js	1.2.0 https://github.com/jhyland87/DataTables-Keep-Conditions/blob/master/dist/dataTables.keepConditions.min.js
-dataTables.keyTable.min.js	2.6.4
+dataTables.keyTable.min.js	2.7.0
 
 **hmv-script.js	(not originally minified, so minify w closure)
 
