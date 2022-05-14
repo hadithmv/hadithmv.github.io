@@ -84,33 +84,9 @@ $(document).ready(() => {
         data: 2,
         title: 'އާޔަތް #'
       },
-      { /* add brackets to quran */
-        data: 3,
-        title: 'މުޖައްމާ ޤުރްއާން',
-        render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
-          /* UPDATE: rtl override undoes it now? so removed.
-          reverse ayah numbers because font wont display them properly otherwise,
-          this control solution is better than replace reverse, because it carries on to clipboard
-          https://stackoverflow.com/questions/2939766/regex-to-reverse-order-of-list
-          https://www.fileformat.info/info/unicode/char/202e/index.htm */
-          // data = data.replace(/([\u0660-\u0669]+)([\u0660-\u0669]+)([\u0660-\u0669]+)/, '$3$2$1')
-          //data = data.replace(/([\u0660-\u0669]+)/, '\u202E$1')
-
-          // this places a non break character before the numbers, also replaces a space before the numbers
-          data = data.replace(/\s([\u0660-\u0669]+)/, '\u00a0$1')
-          
-          /* reverse brackets because thats how the font file needs it */
-          //data = '﴿' + data + '﴾'
-          data = '﴿' + data + '﴾'
-          /* move the bracket in surah start basmalas to the actual first ayah */
-          return data.replace('﴿بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n', 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n<br class="br"><br class="br">﴿')
-        }
-      },
       { 
-        data: 4,
-        title: 'ތަންޒީލު ޤުރްއާން',
+        data: 3,
+        title: 'ޤުރްއާން އަރަބިން',
         render: function (data, type, row) {
           data = data.replace(/\s([\u0660-\u0669]+)/, '\u00a0$1')
           data = '﴿' + data + '﴾'
@@ -118,8 +94,8 @@ $(document).ready(() => {
         }
       },
       {
-        data: 4,
-        title: 'ފިލިނުޖަހާ ޤުރްއާން',
+        data: 3,
+        title: 'ޤުރްއާން ފިލިނުޖަހާ',
          render: function (data, type, row) {
           data = data.replace(/\s([\u0660-\u0669]+)/, '\u00a0$1')
           data = '﴿' + data + '﴾'
@@ -136,6 +112,30 @@ $(document).ready(() => {
         } */
          }
       },
+      { /* add brackets to quran */
+      data: 4,
+      title: 'ރަސްމު އުޘްމާނީ',
+      render: function (data, type, row) {
+        // return data.replace(/َ/g, '').replace(/ِ/g, '')
+        // below code is shorter, no replace repeat, uses OR instead
+        /* UPDATE: rtl override undoes it now? so removed.
+        reverse ayah numbers because font wont display them properly otherwise,
+        this control solution is better than replace reverse, because it carries on to clipboard
+        https://stackoverflow.com/questions/2939766/regex-to-reverse-order-of-list
+        https://www.fileformat.info/info/unicode/char/202e/index.htm */
+        // data = data.replace(/([\u0660-\u0669]+)([\u0660-\u0669]+)([\u0660-\u0669]+)/, '$3$2$1')
+        //data = data.replace(/([\u0660-\u0669]+)/, '\u202E$1')
+
+        // this places a non break character before the numbers, also replaces a space before the numbers
+        data = data.replace(/\s([\u0660-\u0669]+)/, '\u00a0$1')
+        
+        /* reverse brackets because thats how the font file needs it */
+        //data = '﴿' + data + '﴾'
+        data = '﴿' + data + '﴾'
+        /* move the bracket in surah start basmalas to the actual first ayah */
+        return data.replace('﴿بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n', 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n<br class="br"><br class="br">﴿')
+      }
+    },
       {
         data: 5,
         title: 'ދިވެހި ތަރުޖަމާ'
@@ -220,7 +220,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol4', // quran mujamma
+        className: 'qCol4', // quran tanzil
         targets: [3],
         visible: true,
         searchable: true,
@@ -229,7 +229,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol5', // quran tanzil
+        className: 'qCol5', // quran plain
         targets: [4],
         visible: false,
         searchable: true,
@@ -238,7 +238,7 @@ $(document).ready(() => {
         }
       },
       {
-        className: 'qCol6', // quran plain
+        className: 'qCol6', // quran mujamma
         targets: [5],
         visible: false,
         searchable: true,
@@ -516,9 +516,9 @@ $(document).ready(() => {
           data = data.replace(/ސޫރަތުގެ ނަން\t/g, '') // should be this way instead of /\tފޮތް/
           data = data.replace(/ޖުޒް #\t/g, '')
           data = data.replace(/އާޔަތް #\t/g, '')
-          data = data.replace(/މުޖައްމާ ޤުރްއާން\t/g, '')
-          data = data.replace(/ތަންޒީލު ޤުރްއާން\t/g, '')
-          data = data.replace(/ފިލިނުޖަހާ ޤުރްއާން\t/g, '')
+          data = data.replace(/ޤުރްއާން އަރަބިން\t/g, '')
+          data = data.replace(/ޤުރްއާން ފިލިނުޖަހާ\t/g, '')
+          data = data.replace(/ރަސްމު އުޘްމާނީ\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/تفسير السعدي*\t/g, '')
           data = data.replace(/ތަފްސީރު އައްސަޢްދީ*\t/g, '')
@@ -775,7 +775,9 @@ $(document).ready(() => {
   // removes diacritics and punctuation on key up for search
    $('.dataTables_filter input').off().on('keyup', function () {
     let str = $(this).val()
-    str = str.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g, '')
+    /* modded below for quran, to let search match properly */
+    str = str.replace('﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace('﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace(/ـ/g, '').replace(/[^\u0621-\u064A|\s|<br class="br">]/g, '').replace(/\s\s/g, ' ')
+    //str = str.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g, '')
     table.search(str).draw()
   }) 
   //
