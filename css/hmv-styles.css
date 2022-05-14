@@ -1070,6 +1070,16 @@ table.dataTable.stripe tbody tr.odd.selected {
   background-color: transparent !important;
 }
 
+/* aligns pane header text right */
+
+div.dtsp-panesContainer
+  div.dataTables_wrapper
+  div.dataTables_scrollBody
+  div.dtsp-nameCont
+  span.dtsp-name {
+  text-align: right !important;
+}
+
 div.dt-button-collection {
   /* fits searchpanes as well as buttom collection as much as content */
   width: fit-content !important;
