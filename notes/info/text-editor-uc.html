@@ -525,6 +525,7 @@
           <button onclick="clearTextArea();">❌ ލިޔުން ފޮހެލާ</button>
           <button onclick="wrapToOneLine();">↲ އެއްފޮޅުވަތައް ފައްތާ</button>
           <button onclick="sortLines();">ފޮޅުވަތް ↔ ތަރުތީބު</button>
+          <button onclick="numberedList();">ފޮޅުވަތް ↔ ނަމްބަރު</button>
           <button onclick="replaceFili();countChar();">عربي ފިލި ފޮހެލާ</button>
           <button
             onclick="remThiki();"
@@ -1580,6 +1581,39 @@
                 .join("\n");
             }
           }
+
+          var numberedList_timesClicked = 0;
+          // https://stackoverflow.com/questions/27030758/how-to-remove-line-numbers-with-a-dot-at-the-end-of-number/27030855#27030855
+          // https://stackoverflow.com/questions/17395697/remove-line-numbers-at-the-start-of-each-line/17395705#17395705
+          function numberedList() {
+            numberedList_timesClicked++;
+            if (numberedList_timesClicked % 2 == 0) {
+              //run second function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text.replace(/\d+\.\s/g, "");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            } else {
+              //run first function
+              // https://stackoverflow.com/questions/49714971/how-to-add-line-numbers-to-beginning-of-each-line-in-string-in-javascript/49714994#49714994
+              var numbered = document
+                .getElementById("textMainArea")
+                .value.split("\n")
+                .map((line, index) => `${index + 1}. ${line}`)
+                .join("\n");
+              document.getElementById("textMainArea").value = numbered;
+            }
+          }
+
+          /*
+          
+                        var numbered = document
+                .getElementById("textMainArea")
+                .value.split("\n")
+                .map((line, index) => `${index + 1}. ${line}`)
+                .join("\n");
+              document.getElementById("textMainArea").value = numbered;
+              */
 
           /* end of above */
         </script>
