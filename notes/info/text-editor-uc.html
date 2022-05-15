@@ -523,6 +523,7 @@
         <div class="mid editorButtons">
           <button onclick="copyToClipB();">📋 ލިޔުން ކޮޕީކުރޭ</button>
           <button onclick="clearTextArea();">❌ ލިޔުން ފޮހެލާ</button>
+          <button onclick="leftToRight();">LTR ↔ RTL</button>
           <button onclick="wrapToOneLine();">↲ އެއްފޮޅުވަތައް ފައްތާ</button>
           <button onclick="sortLines();">ފޮޅުވަތް ↔ ތަރުތީބު</button>
           <button onclick="numberedList();">ފޮޅުވަތް ↔ ނަމްބަރު</button>
@@ -1582,6 +1583,20 @@
             }
           }
 
+          var leftToRight_timesClicked = 0;
+          // https://stackoverflow.com/questions/38346671/direction-rtl-to-all-page/38346971#38346971
+
+          function leftToRight() {
+            leftToRight_timesClicked++;
+            if (leftToRight_timesClicked % 2 == 0) {
+              //run second function
+              document.getElementById("textMainArea").style.direction = "rtl";
+            } else {
+              //run first function
+              document.getElementById("textMainArea").style.direction = "ltr";
+            }
+          }
+
           var numberedList_timesClicked = 0;
           // https://stackoverflow.com/questions/27030758/how-to-remove-line-numbers-with-a-dot-at-the-end-of-number/27030855#27030855
           // https://stackoverflow.com/questions/17395697/remove-line-numbers-at-the-start-of-each-line/17395705#17395705
@@ -1590,7 +1605,8 @@
             if (numberedList_timesClicked % 2 == 0) {
               //run second function
               var text = document.getElementById("textMainArea").value;
-              var newText = text.replace(/\d+\.\s/g, "");
+              // https://javascript.info/regexp-multiline-mode
+              var newText = text.replace(/^\d+\.\s/gm, "");
               document.getElementById("textMainArea").value = newText;
               return false;
             } else {
