@@ -371,6 +371,7 @@ $(document).ready(() => {
       searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"',
       zeroRecords: '<br><br><br><br>- ނުފެނުނު -<br><br><br><br><br><br>',
       searchPanes: {
+        emptyMessage: "- ވަކި ނަމެއް ނެތް -",
         clearMessage: 'ހުރިހާ ފިލްޓާއެއް ދުއްވާލާ',
         collapse: { 0: 'ފިލްޓާތައް', _: 'ފިލްޓާތައް (%d)' },
         title: {
