@@ -616,6 +616,7 @@
           <!--<button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>-->
 
           <button onclick="toTitleCase();" id="caseChange">Title Case</button>
+          <button onclick="shuffleText();">Shuffle</button>
 
           <button onclick="numToSuperScript();">(1) ↔ ⁽¹⁾</button>
           <button onclick="replaceFootNos();">⁽¹⁾ / (1) ފޮހެލާ</button>
@@ -663,7 +664,7 @@
           <button onclick="dotsToEllipsis();">. . . ← …</button>
           <button onclick="hyphenToEnEmDash();">- ← – / —</button>
 
-          <button onclick="csvToJson();">CSV → CSV</button>
+          <!--<button onclick="csvToJson();">CSV → JSON</button>-->
 
           <button onclick="findDoubleFilis();">އިތުރަށްޖެހުނު ފިލިހޯދާ</button>
           <p
@@ -1720,12 +1721,51 @@
               document.getElementById("textMainArea").value = numbered;
               */
 
-          function csvToJson() {
-            document.getElementById("textMainArea").value = "";
+          // https://txtfiddle.com/~aolam6a/shuffle-lines Rearranges the lines of a text in random order.
+
+          function shuffleText() {
+            // Split input text into an array of lines
+            const lines = document
+              .getElementById("textMainArea")
+              .value.split(/\r?\n/);
+            // Use Fisher–Yates shuffle to randomize the array
+            // See https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#The_modern_algorithm
+            for (let i = lines.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [lines[i], lines[j]] = [lines[j], lines[i]];
+            }
+            // Join line array back into a string
+            //return lines.join("\n");
+            return (document.getElementById("textMainArea").value =
+              lines.join("\n"));
           }
+
+          // https://www.geeksforgeeks.org/how-to-convert-csv-to-json-file-and-vice-versa-in-javascript/
+          // not working, shows something but not what i want
+
+          /*function csvToJson() {
+            exampleCSV = document.getElementById("textMainArea").value;
+            const CSVToJSON = (csv) => {
+              const lines = csv.split("\n");
+              const keys = lines[0].split(",");
+              return lines.slice(1).map((line) => {
+                return line.split(",").reduce((acc, cur, i) => {
+                  const toAdd = {};
+                  toAdd[keys[i]] = cur;
+                  return { ...acc, ...toAdd };
+                }, {});
+              });
+            };
+
+            console.log(CSVToJSON(exampleCSV));
+            document.getElementById("textMainArea").value =
+              CSVToJSON(exampleCSV);
+          }*/
 
           /* end of above */
         </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.5.0/papaparse.min.js"></script>
       </div>
       <!-- <div id="tabOne" class="tabcontent"> -->
 
