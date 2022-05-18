@@ -1602,9 +1602,13 @@
             if (leftToRight_timesClicked % 2 == 0) {
               //run second function
               document.getElementById("textMainArea").style.direction = "rtl";
+              document.getElementById("textMainArea").innerHTML =
+                "އަބޫ ހުރައިރާގެ އަރިހުން ރިވާވެގެންވެއެވެ: ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”...";
             } else {
               //run first function
               document.getElementById("textMainArea").style.direction = "ltr";
+              document.getElementById("textMainArea").innerHTML =
+                "Abu Hurairah narrated that the Prophet ﷺ said: “...";
             }
           }
 
