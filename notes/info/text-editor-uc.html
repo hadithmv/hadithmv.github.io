@@ -524,6 +524,77 @@
         <div class="mid editorButtons">
           <button onclick="copyToClipB();">📋 ލިޔުން ކޮޕީކުރޭ</button>
           <button onclick="clearTextArea();">❌ ލިޔުން ފޮހެލާ</button>
+
+          <input type="file" id="inputfile" style="display: none" />
+          <button
+            type="button"
+            value="Browse..."
+            onclick="document.getElementById('inputfile').click();"
+          >
+            📁 ފައިލެއް ލުމަށް
+          </button>
+
+          <script>
+            // https://community.splunk.com/t5/Splunk-Search/fill-textarea-from-a-file/td-p/176570
+            // https://stackoverflow.com/questions/1084925/input-type-file-show-only-button/14806776#14806776
+
+            //External data file handling starts here
+            var control = document.getElementById("inputfile");
+            control.addEventListener(
+              "change",
+              function (event) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                  var contents = event.target.result;
+                  document.getElementById("textMainArea").value = contents;
+                };
+                reader.onerror = function (event) {
+                  console.error(
+                    "File could not be read! Code " + event.target.error.code
+                  );
+                };
+                console.log("Filename: " + control.files[0].name);
+                reader.readAsText(control.files[0]);
+              },
+              false
+            );
+
+            //
+            //
+            //
+
+            // https://stackoverflow.com/questions/58676967/load-textfile-via-drag-and-drop-on-textarea/58677161#58677161
+            // edit textarea
+            function dropfile(file) {
+              var reader = new FileReader();
+              reader.onload = function (e) {
+                textMainArea.value = e.target.result;
+              };
+              reader.readAsText(file, "UTF-8");
+            }
+
+            textMainArea.ondrop = function (e) {
+              e.preventDefault();
+              var file = e.dataTransfer.files[0];
+              dropfile(file);
+            };
+
+            // calc textarea | NOT WORKING
+            /*function dropfile2(file2) {
+            var reader2 = new FileReader();
+            reader2.onload = function (e) {
+              textSumArea.value = e.target.result;
+            };
+            reader2.readAsText(file2, "UTF-8");
+          }
+
+          textSumArea.ondrop = function (e) {
+            e.preventDefault();
+            var file2 = e.dataTransfer.files[0];
+            dropfile2(file2);
+          };*/
+          </script>
+
           <button onclick="leftToRight();">LTR ↔ RTL</button>
           <button onclick="wrapToOneLine();">↲ އެއްފޮޅުވަތައް ފައްތާ</button>
           <button onclick="sortLines();">ފޮޅުވަތް ↔ ތަރުތީބު</button>
@@ -591,6 +662,9 @@
 
           <button onclick="dotsToEllipsis();">. . . ← …</button>
           <button onclick="hyphenToEnEmDash();">- ← – / —</button>
+
+          <button onclick="csvToJson();">CSV → CSV</button>
+
           <button onclick="findDoubleFilis();">އިތުރަށްޖެހުނު ފިލިހޯދާ</button>
           <p
             class="doubleFiliHolder"
@@ -626,6 +700,7 @@
             ލަފްޒު ބަދަލު ކުރޭ
           </button>
         </div>
+
         <!-- <div class="mid"> -->
 
         <script>
@@ -1637,7 +1712,6 @@
           }
 
           /*
-          
                         var numbered = document
                 .getElementById("textMainArea")
                 .value.split("\n")
@@ -1645,6 +1719,10 @@
                 .join("\n");
               document.getElementById("textMainArea").value = numbered;
               */
+
+          function csvToJson() {
+            document.getElementById("textMainArea").value = "";
+          }
 
           /* end of above */
         </script>
