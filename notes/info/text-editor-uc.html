@@ -525,6 +525,45 @@
           <button onclick="copyToClipB();">📋 ލިޔުން ކޮޕީކުރޭ</button>
           <button onclick="clearTextArea();">❌ ލިޔުން ފޮހެލާ</button>
 
+          <button onclick="saveTextAsFile();">📩 ލިޔުން ޑައުންލޯޑު</button>
+
+          <script>
+            // https://stackoverflow.com/questions/21479107/saving-html5-textarea-contents-to-file/30740104#30740104
+
+            function saveTextAsFile() {
+              var textToWrite = document.getElementById("textMainArea").value;
+              var textFileAsBlob = new Blob([textToWrite], {
+                type: "text/plain",
+              });
+              var fileNameToSaveAs = "file.txt"; //filename.extension
+
+              var downloadLink = document.createElement("a");
+              downloadLink.download = fileNameToSaveAs;
+              downloadLink.innerHTML = "Download File";
+              if (window.webkitURL != null) {
+                // Chrome allows the link to be clicked without actually adding it to the DOM.
+                downloadLink.href =
+                  window.webkitURL.createObjectURL(textFileAsBlob);
+              } else {
+                // Firefox requires the link to be added to the DOM before it can be clicked.
+                downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+                downloadLink.onclick = destroyClickedElement;
+                downloadLink.style.display = "none";
+                document.body.appendChild(downloadLink);
+              }
+
+              downloadLink.click();
+            }
+
+            var button = document.getElementById("save");
+            button.addEventListener("click", saveTextAsFile);
+
+            function destroyClickedElement(event) {
+              // remove the link from the DOM
+              document.body.removeChild(event.target);
+            }
+          </script>
+
           <input type="file" id="inputfile" style="display: none" />
           <button
             type="button"
@@ -664,7 +703,7 @@
           <button onclick="dotsToEllipsis();">. . . ← …</button>
           <button onclick="hyphenToEnEmDash();">- ← – / —</button>
 
-          <!--<button onclick="csvToJson();">CSV → JSON</button>-->
+          <button onclick="csvToJson();">CSV → JSON</button>
 
           <button onclick="findDoubleFilis();">އިތުރަށްޖެހުނު ފިލިހޯދާ</button>
           <p
@@ -1738,6 +1777,62 @@
             //return lines.join("\n");
             return (document.getElementById("textMainArea").value =
               lines.join("\n"));
+          }
+
+          // https://coderszine.com/convert-csv-to-json-using-javascript/
+
+          function csvToJson() {
+            //var csvData = $("#csvData").val();
+            var csvData = document.getElementById("textMainArea").value;
+            var jsonData = CSVToJSON(csvData);
+            $("#textMainArea").val(jsonData);
+
+            function CSVToJSON(csvData) {
+              var data = CSVToArray(csvData);
+              var objData = [];
+              for (var i = 1; i < data.length; i++) {
+                objData[i - 1] = {};
+                for (var k = 0; k < data[0].length && k < data[i].length; k++) {
+                  var key = data[0][k];
+                  objData[i - 1][key] = data[i][k];
+                }
+              }
+              var jsonData = JSON.stringify(objData);
+              jsonData = jsonData.replace(/},/g, "},\r\n");
+              return jsonData;
+            }
+
+            function CSVToArray(csvData, delimiter) {
+              delimiter = delimiter || ",";
+              var pattern = new RegExp(
+                "(\\" +
+                  delimiter +
+                  "|\\r?\\n|\\r|^)" +
+                  '(?:"([^"]*(?:""[^"]*)*)"|' +
+                  '([^"\\' +
+                  delimiter +
+                  "\\r\\n]*))",
+                "gi"
+              );
+              var data = [[]];
+              var matches = null;
+              while ((matches = pattern.exec(csvData))) {
+                var matchedDelimiter = matches[1];
+                if (matchedDelimiter.length && matchedDelimiter != delimiter) {
+                  data.push([]);
+                }
+                if (matches[2]) {
+                  var matchedDelimiter = matches[2].replace(
+                    new RegExp('""', "g"),
+                    '"'
+                  );
+                } else {
+                  var matchedDelimiter = matches[3];
+                }
+                data[data.length - 1].push(matchedDelimiter);
+              }
+              return data;
+            }
           }
 
           // https://www.geeksforgeeks.org/how-to-convert-csv-to-json-file-and-vice-versa-in-javascript/
