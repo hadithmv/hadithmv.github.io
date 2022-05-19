@@ -634,13 +634,19 @@
           };*/
           </script>
 
-          <button onclick="leftToRight();">LTR ↔ RTL</button>
-          <button onclick="toTitleCase();" id="caseChange">Title Case</button>
+          <button onclick="leftToRight();">LTR ↔️ RTL</button>
+          <button onclick="toTitleCase();" id="caseChange">
+            🔠 Title Case
+          </button>
           <button onclick="shuffleText();">🔀 Shuffle</button>
 
           <button onclick="wrapToOneLine();">↲ އެއްފޮޅުވަތަށް ފައްތާ</button>
-          <button onclick="sortLines();">ފޮޅުވަތް ↔ ތަރުތީބު</button>
-          <button onclick="numberedList();">ފޮޅުވަތް ↔ ނަމްބަރު</button>
+          <button onclick="sortLines();" id="lineSort">
+            ↕️ މަތިންތިރި ތަރުތީބު
+          </button>
+          <button onclick="numberedList();" id="listNumbers">
+            🔢 ފޮޅުވަތް ނަމްބަރުލާ
+          </button>
           <button onclick="replaceFili();countChar();">عربي ފިލި ފޮހެލާ</button>
           <button
             onclick="remThiki();"
@@ -1178,7 +1184,7 @@
               });
               document.getElementById("textMainArea").value = newText;
 
-              document.getElementById("caseChange").innerHTML = "lower case";
+              document.getElementById("caseChange").innerHTML = "🔠 lower case";
             } else if (toTitleCase_timesClicked == 2) {
               //run second function
 
@@ -1186,7 +1192,7 @@
               var newText = text.toLowerCase();
               document.getElementById("textMainArea").value = newText;
 
-              document.getElementById("caseChange").innerHTML = "Sentence case";
+              document.getElementById("caseChange").innerHTML = "🔠 Sent. case";
             } else if (toTitleCase_timesClicked == 3) {
               $(".test").text("third");
               //run third function
@@ -1198,7 +1204,7 @@
               });
               document.getElementById("textMainArea").value = newText;
 
-              document.getElementById("caseChange").innerHTML = "Title Case";
+              document.getElementById("caseChange").innerHTML = "🔠 Title Case";
 
               toTitleCase_timesClicked = 0;
             }
@@ -1699,6 +1705,8 @@
                 .value.split("\n")
                 .reverse()
                 .join("\n");
+              document.getElementById("lineSort").innerHTML =
+                "↕️ މަތިންތިރި ތަރުތީބު";
             } else {
               //run first function
               document.getElementById("textMainArea").value = document
@@ -1706,6 +1714,8 @@
                 .value.split("\n")
                 .sort()
                 .join("\n");
+              document.getElementById("lineSort").innerHTML =
+                "↕️ ތިރިންމަތި ތަރުތީބު";
             }
           }
 
@@ -1738,6 +1748,8 @@
               // https://javascript.info/regexp-multiline-mode
               var newText = text.replace(/^\d+\.\s/gm, "");
               document.getElementById("textMainArea").value = newText;
+              document.getElementById("listNumbers").innerHTML =
+                "🔢 ފޮޅުވަތް ނަމްބަރުލާ";
               return false;
             } else {
               //run first function
@@ -1748,6 +1760,8 @@
                 .map((line, index) => `${index + 1}. ${line}`)
                 .join("\n");
               document.getElementById("textMainArea").value = numbered;
+              document.getElementById("listNumbers").innerHTML =
+                "ފޮޅުވަތް ނަމްބަރުނުލާ";
             }
           }
 
