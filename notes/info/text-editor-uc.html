@@ -365,7 +365,7 @@
         <textarea
           id="textMainArea"
           placeholder="އަބޫ ހުރައިރާގެ އަރިހުން ރިވާވެގެންވެއެވެ: ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”..."
-          oninput="countChar();countWord();countLine();replaceType();"
+          oninput="countChar();countWord();countLine();replaceTyp();"
           autofocus="autofocus"
         ></textarea>
         <!-- autofocus wont work if hidden by another tab -->
@@ -373,7 +373,7 @@
 
         <script>
           /* localstorage cache of textarea
-          https://stackoverflow.com/a/54897926 */
+          https://stackoverflow.com/questions/54897890/how-to-cache-text-area/54897926#54897926 */
 
           var data;
           window.onload = function () {
