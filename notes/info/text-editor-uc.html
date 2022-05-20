@@ -296,10 +296,53 @@
 
       <div id="tabOne" class="tabcontent">
         <div class="mid">
-          ކެރެކްޓާ:
-          <span id="characterC">0</span>&nbsp; | &nbsp;ބަސް:
-          <span id="wordC">0</span>&nbsp; | &nbsp;ފޮޅުވަތް:
-          <span id="lineC">0</span>
+          <!-- https://stackoverflow.com/questions/1473556/using-span-to-add-a-direction-dir-rtl/1473607#1473607 
+          https://stackoverflow.com/questions/24379227/how-to-put-a-table-inside-an-inline-block-element-where-cells-have-a-percentage/24379941#24379941 -->
+
+          <style>
+            .textInfos {
+              table-layout: fixed;
+              /*width: 400px;*/
+              direction: ltr;
+              display: inline-table;
+              /* prevents being too tight */
+              white-space: nowrap;
+            }
+            /*@mixin for-phone-only*/
+            /*@media (max-width: 599px) {
+              .textInfos tr td {
+                width: 100%;
+              }
+            }*/
+          </style>
+          <table class="textInfos">
+            <tr style="">
+              <td width="50px">char:</td>
+              <td width="50px"><span id="characterC">0</span></td>
+              <td width="50px">|</td>
+              <td width="50px">wrd:</td>
+              <td width="50px"><span id="wordC">0</span></td>
+              <td width="50px">|</td>
+              <td width="50px">ln:</td>
+              <td width="50px"><span id="lineC">0</span></td>
+              <td width="50px">|</td>
+              <td width="50px" style="direction: ltr">
+                <span id="sizeC">0</span>
+              </td>
+              <td width="50px" id="sizeCletter">B</td>
+            </tr>
+          </table>
+
+          <!-- old code
+          <span dir="rtl">
+            char:
+            <span id="characterC">0</span>&nbsp; | &nbsp;wrd:
+            <span id="wordC">0</span>&nbsp; | &nbsp;ln:
+            <span id="lineC">0</span>&nbsp; | &nbsp;
+            <span id="sizeC">0 B</span>
+          </span>
+          -->
+
           <span class="spaceShow"
             >&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span
           >
@@ -362,10 +405,16 @@
 
         <!-- rows="10"
       cols="60"-->
+
+        <!-- https://stackoverflow.com/questions/16736198/typing-in-textarea-super-slow-when-lots-of-text-inside/36435920#36435920 -->
         <textarea
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
           id="textMainArea"
           placeholder="އަބޫ ހުރައިރާގެ އަރިހުން ރިވާވެގެންވެއެވެ: ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”..."
-          oninput="countChar();countWord();countLine();replaceType();"
+          oninput="countChar();countWord();countLine();countSize();replaceType();"
           autofocus="autofocus"
         ></textarea>
         <!-- autofocus wont work if hidden by another tab -->
@@ -586,13 +635,20 @@
                 reader.onload = function (event) {
                   var contents = event.target.result;
                   document.getElementById("textMainArea").value = contents;
+
+                  // added below to do the counts after file loads
+                  countChar();
+                  countWord();
+                  countLine();
+                  countSize();
+                  //
                 };
                 reader.onerror = function (event) {
                   console.error(
                     "File could not be read! Code " + event.target.error.code
                   );
                 };
-                console.log("Filename: " + control.files[0].name);
+                //console.log("Filename: " + control.files[0].name);
                 reader.readAsText(control.files[0]);
               },
               false
@@ -639,6 +695,7 @@
             🔠 Title Case
           </button>
           <button onclick="shuffleText();">🔀 Shuffle</button>
+          <!-- ބޭތަރުތީބު؟ -->
 
           <button onclick="wrapToOneLine();">↲ އެއްފޮޅުވަތަށް ފައްތާ</button>
           <button onclick="sortLines();" id="lineSort">
@@ -970,6 +1027,10 @@
             document.getElementById("characterC").innerHTML = total.length;
             //"ކެރެކްޓާތައް: " + total.length;
             // removed the added string and just kept the total length instead
+
+            // can add below so that less js calculations would happen rather than starting to count size kbs from scratch
+            /*s = total.length;
+            formatBytes(s);*/
           }
 
           // https://www.geeksforgeeks.org/how-to-make-a-word-count-in-textarea-using-javascript/
@@ -990,16 +1051,16 @@
               .filter((el) => el !== "").length;
 
             /* previous old code, above is much simpler
-            var count = 0;
+                      var count = 0;
 
-            var split = words.split(" ");
+                      var split = words.split(" ");
 
-            for (var i = 0; i < split.length; i++) {
-              if (split[i] != "") {
-                count += 1;
-              }
-            }
-            */
+                      for (var i = 0; i < split.length; i++) {
+                        if (split[i] != "") {
+                          count += 1;
+                        }
+                      }
+                      */
 
             // Display it as output
             document.getElementById("wordC").innerHTML = count;
@@ -1011,8 +1072,51 @@
             const text2 = document.getElementById("textMainArea").value;
             const lines2 = text2.split("\n");
             const count2 = lines2.length;
-            console.log(count2);
+            //console.log(count2);
             document.getElementById("lineC").innerHTML = count2;
+          }
+
+          // https://stackoverflow.com/questions/5515869/string-length-in-bytes-in-javascript/12203648#12203648
+
+          /*function countSize() {
+                        stringSize = document.getElementById("textMainArea").value;
+                        document.getElementById("sizeC").innerHTML = new Blob([
+                          stringSize,
+                        ]).size;
+                      }*/
+
+          // https://stackoverflow.com/questions/5515869/string-length-in-bytes-in-javascript/23329386#23329386
+
+          function countSize() {
+            str = document.getElementById("textMainArea").value;
+            var s = str.length;
+            for (var i = str.length - 1; i >= 0; i--) {
+              var code = str.charCodeAt(i);
+              if (code > 0x7f && code <= 0x7ff) s++;
+              else if (code > 0x7ff && code <= 0xffff) s += 2;
+              if (code >= 0xdc00 && code <= 0xdfff) i--;
+            }
+
+            // https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript/18650828#18650828
+
+            formatBytes(s);
+          }
+
+          function formatBytes(s, decimals = 2) {
+            if (s === 0) return "0 B";
+
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+
+            const i = Math.floor(Math.log(s) / Math.log(k));
+
+            //return parseFloat((s / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+            /*s2 =
+                parseFloat((s / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];*/
+            s2 = parseFloat((s / Math.pow(k, i)).toFixed(dm));
+            document.getElementById("sizeC").innerHTML = s2;
+            document.getElementById("sizeCletter").innerHTML = sizes[i];
           }
 
           //
@@ -1040,55 +1144,55 @@
           // old code for replace below, causes cursor to jump to end upon replace, after moving cursor manually })
 
           /*function replaceType() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/ސސ-/g, "ﷺ")
-              .replace(/ss-/g, "ﷺ")
-              .replace(/صص-/g, "ﷺ")
-              .replace(/\"-/g, "”")
-              .replace(/-\"/g, "“")
-              .replace(/\'-/g, "’")
-              .replace(/-\'/g, "‘")
-              .replace(/-br/g, "<br><br>")
-              .replace(/ބރ-/g, "<br><br>")
-              .replace(/رض-/g, "رَضِيَ اللَّهُ عَنْهُ")
-              .replace(/ރއ-/g, "رَضِيَ اللَّهُ عَنْهُ")
-              .replace(/ra-/g, "رَضِيَ اللَّهُ عَنْهُ")
-              .replace(/رضه-/g, "رَضِيَ اللَّهُ عَنْهَا")
-              .replace(/ރއހ-/g, "رَضِيَ اللَّهُ عَنْهَا")
-              .replace(/rah-/g, "رَضِيَ اللَّهُ عَنْهَا")
-              .replace(/رض2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
-              .replace(/ރއ2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
-              .replace(/ra2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
-              .replace(/رض3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
-              .replace(/ރއ3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
-              .replace(/ra3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
-              .replace(/ވދ-/g, "ވިދާޅުވިއެވެ: ")
-              .replace(/ދނ-/g, "ދެންނެވިއެވެ: ")
-              .replace(/ރކ-/g, "ރިވާ ކުރެއްވިއެވެ: ")
-              .replace(/އއރ-/g, "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ: ")
-              .replace(/ރސ-/g, "ރަސޫލު ﷲ ﷺ")
-              .replace(/ނސ--/g, "ނަބިއްޔާ ﷺ")
-              .replace(/ނހކ-/g, "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”")
-              .replace(/ރހކ-/g, "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”")
+                      var text = document.getElementById("textMainArea").value;
+                      var newText = text
+                        .replace(/ސސ-/g, "ﷺ")
+                        .replace(/ss-/g, "ﷺ")
+                        .replace(/صص-/g, "ﷺ")
+                        .replace(/\"-/g, "”")
+                        .replace(/-\"/g, "“")
+                        .replace(/\'-/g, "’")
+                        .replace(/-\'/g, "‘")
+                        .replace(/-br/g, "<br><br>")
+                        .replace(/ބރ-/g, "<br><br>")
+                        .replace(/رض-/g, "رَضِيَ اللَّهُ عَنْهُ")
+                        .replace(/ރއ-/g, "رَضِيَ اللَّهُ عَنْهُ")
+                        .replace(/ra-/g, "رَضِيَ اللَّهُ عَنْهُ")
+                        .replace(/رضه-/g, "رَضِيَ اللَّهُ عَنْهَا")
+                        .replace(/ރއހ-/g, "رَضِيَ اللَّهُ عَنْهَا")
+                        .replace(/rah-/g, "رَضِيَ اللَّهُ عَنْهَا")
+                        .replace(/رض2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
+                        .replace(/ރއ2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
+                        .replace(/ra2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
+                        .replace(/رض3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
+                        .replace(/ރއ3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
+                        .replace(/ra3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
+                        .replace(/ވދ-/g, "ވިދާޅުވިއެވެ: ")
+                        .replace(/ދނ-/g, "ދެންނެވިއެވެ: ")
+                        .replace(/ރކ-/g, "ރިވާ ކުރެއްވިއެވެ: ")
+                        .replace(/އއރ-/g, "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ: ")
+                        .replace(/ރސ-/g, "ރަސޫލު ﷲ ﷺ")
+                        .replace(/ނސ--/g, "ނަބިއްޔާ ﷺ")
+                        .replace(/ނހކ-/g, "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”")
+                        .replace(/ރހކ-/g, "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”")
 
-              .replace(/ހކ-/g, "ޙަދީޘް ކުރެއްވިއެވެ: ”") // this has to come after the previous two, otherwise overrides them
+                        .replace(/ހކ-/g, "ޙަދީޘް ކުރެއްވިއެވެ: ”") // this has to come after the previous two, otherwise overrides them
 
-              .replace(
-                /ރއޑ-/g,
-                "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
-              )
-              .replace(
-                /ނއޑ-/g,
-                "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
-              )
-              .replace(/ސައްހަ-/g, "މި ޙަދީޘް ސައްހަ ކުރެއްވިއެވެ.")
-              .replace(/ޟ-/g, "މި ޙަދީޘް ޟަޢީފު ކުރެއްވިއެވެ.")
-              .replace(/މރވ-/g, "މި ޙަދީޘް ރިވާ ކުރެއްވީ");
+                        .replace(
+                          /ރއޑ-/g,
+                          "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+                        )
+                        .replace(
+                          /ނއޑ-/g,
+                          "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+                        )
+                        .replace(/ސައްހަ-/g, "މި ޙަދީޘް ސައްހަ ކުރެއްވިއެވެ.")
+                        .replace(/ޟ-/g, "މި ޙަދީޘް ޟަޢީފު ކުރެއްވިއެވެ.")
+                        .replace(/މރވ-/g, "މި ޙަދީޘް ރިވާ ކުރެއްވީ");
 
-            document.getElementById("textMainArea").value = newText;
-            return false;
-          }*/
+                      document.getElementById("textMainArea").value = newText;
+                      return false;
+                    }*/
 
           /* solution for above code https://stackoverflow.com/a/40198673 */
 
@@ -2643,6 +2747,10 @@
 cols="60"-->
 
         <textarea
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
           id="textSumArea"
           placeholder="Any numbers written here will be added, even within text. Use it to add up the total cost for a list of items. Eg: &#10;50 books &#10;5 print &#10;..."
           oninput="outputSum();"
