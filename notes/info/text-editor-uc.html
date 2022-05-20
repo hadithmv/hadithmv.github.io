@@ -707,9 +707,11 @@
           </script>
 
           <button onclick="leftToRight();">LTR ↔️ RTL</button>
+
           <button onclick="toTitleCase();" id="caseChange">
             🔠 Title Case
           </button>
+
           <button onclick="shuffleText();">🔀 Shuffle</button>
           <!-- ބޭތަރުތީބު؟ -->
 
@@ -717,26 +719,19 @@
 
           <input
             class="findRepClass"
-            placeholder="Max No: 10"
+            placeholder=".Enter Max No"
             type="text"
             id="maximumNumber"
-            style="color: blue"
+            style="color: blue; display: none"
           />
 
           <input
             class="findRepClass"
-            placeholder="Min No: 1"
+            placeholder=".Enter Min No"
             type="text"
             id="minimumNumber"
-            style="color: red"
+            style="color: red; display: none"
           />
-
-          <style>
-            #minimumNumber,
-            #maximumNumber {
-              display: none;
-            }
-          </style>
 
           <button onclick="wrapToOneLine();triggerTheCounts();">
             ↲ އެއްފޮޅުވަތަށް ފައްތާ
@@ -835,11 +830,10 @@
 
           <input
             class="findRepClass"
-            placeholder="ބަދަލުކުރާ ލަފްޒު"
+            placeholder="ބަދަލުކުރަންވީ މިއަށް"
             type="text"
-            id="findThis"
-            style="color: red"
-            oninput="findCounter();"
+            id="replaceWith"
+            style="color: blue"
           />
 
           <span class="hiddenFindCount" style="display: none"
@@ -848,36 +842,47 @@
 
           <input
             class="findRepClass"
-            placeholder="ބަދަލުކުރަންވީ މިއަށް"
+            placeholder="ބަދަލުކުރާ ލަފްޒު"
             type="text"
-            id="replaceWith"
-            style="color: blue"
+            id="findThis"
+            style="color: red"
+            oninput="findCounter();"
           />
-          <button onclick="findAndReplace();findCounter();triggerTheCounts();">
+
+          <button
+            id="findReplaceButton"
+            onclick="findAndReplace();findCounter();triggerTheCounts();"
+          >
             ލަފްޒު ބަދަލު ކުރޭ
           </button>
+
+          <!--<button onclick="regexFindReplace();triggerTheCounts();">
+            Regex Replace
+          </button>-->
         </div>
 
         <!-- <div class="mid"> -->
 
         <script>
           function findDoubleFilis() {
-            // https://stackoverflow.com/a/13688269
+            // https://stackoverflow.com/questions/13688238/javascript-style-display-none-or-jquery-hide-is-more-efficient/13688269#13688269
             document.getElementsByClassName(
               "doubleFiliHolder"
             )[0].style.display = "block";
-            // https://stackoverflow.com/a/12194465
+            // https://stackoverflow.com/questions/12194435/cannot-set-property-display-of-undefined/12194465#12194465
 
             //const string = "something format_abc oanasasd";
             //const regexp = /(?:^|\s)format_(.*?)(?:\s|$)/g;
 
             //let str = document.getElementById("textMainArea").value;
-            //let res = str.match(/\b\w*oana\w*\b/i); //https://stackoverflow.com/a/42535687
+            //let res = str.match(/\b\w*oana\w*\b/i);
+            // https://stackoverflow.com/questions/42535652/regex-match-all-the-words-that-contains-some-word/42535687#42535687
 
             //let reg = /#([\S]+)/gim; // Get hashtags.
-            //let string = 'mi alegría es total! ✌🙌\n#fiestasdefindeaño #PadreHijo #buenosmomentos #france #paris'; // https://stackoverflow.com/a/41445988
+            //let string = 'mi alegría es total! ✌🙌\n#fiestasdefindeaño #PadreHijo #buenosmomentos #france #paris'; // https://stackoverflow.com/questions/432493/how-do-you-access-the-matched-groups-in-a-javascript-regular-expression/41445988#41445988
 
-            //let reg = /(\b[dog]+\b(?![,])+)/gim; // https://stackoverflow.com/a/10713232
+            //let reg = /(\b[dog]+\b(?![,])+)/gim;
+            // https://stackoverflow.com/questions/10713189/regex-to-match-entire-words-containing-only-certain-characters/10713232#10713232
             //let reg = /([dog]+)/gim;
             //let reg = /(\b\w*oana\w*\b)/gim;
             //let reg = /(\b\W*ަި|na\W*\b)/gim;
@@ -920,7 +925,7 @@
             var matches = getMatches(myString, myRegEx, 1);
             */
 
-            // https://stackoverflow.com/a/41445988
+            // https://stackoverflow.com/questions/432493/how-do-you-access-the-matched-groups-in-a-javascript-regular-expression/41445988#41445988
 
             //let reg = /([ަި]+)/gim; // Get hashtags.
             //let reg = /(\b\w*[a]\w*\b)/gim; // Get hashtags.
@@ -962,7 +967,7 @@
             document.getElementById("doubleFilis2").innerHTML = matches2;
           }
 
-          // https://stackoverflow.com/a/4009768
+          // https://stackoverflow.com/questions/4009756/how-to-count-string-occurrence-in-string/4009768#4009768
 
           function findCounter() {
             document.getElementsByClassName(
@@ -975,11 +980,12 @@
 
             ans = 0;
 
-            // https://stackoverflow.com/a/5280308
+            // https://stackoverflow.com/questions/5280287/count-regular-expression-matches-in-jquery/5280308#5280308
 
             //var patt1 = /ain/gi; //noticed the g.  g will enable match of all occurance, and without it it'll only match the first occurance
 
-            const patt1 = new RegExp(searchText, "gi"); // https://stackoverflow.com/a/494046
+            // https://stackoverflow.com/questions/494035/how-do-you-use-a-variable-in-a-regular-expression/494046#494046
+            const patt1 = new RegExp(searchText, "gi");
 
             //ans = str.match(patt1).length; //4 matched
             ans = (str.match(patt1) || []).length; // https://bobbyhadz.com/blog/javascript-count-regex-matches
@@ -989,14 +995,14 @@
 
             if (document.getElementById("findThis").value.length == 0) {
               document.getElementById("findCounted").innerHTML = 0;
-            } // https://stackoverflow.com/a/17128007
+            } // https://stackoverflow.com/questions/3937513/javascript-validation-for-empty-input-field/17128007#17128007
 
             //var count = (temp.match(/is/g) || []).length;
             //console.log(count);
             //document.getElementById("findCounted").innerHTML = count;
           }
 
-          // find and replace https://stackoverflow.com/a/50951734
+          // https://stackoverflow.com/questions/50951625/use-html-input-to-replace-information-from-string-using-javascript/50951734#50951734
           function findAndReplace() {
             var input = document.getElementById("textMainArea").value;
             var replaceWith = document.getElementById("replaceWith").value;
@@ -1011,6 +1017,9 @@
               replaceWith
             );
           }
+
+          //
+          //
         </script>
 
         <p class="buttonHeader">
@@ -1579,7 +1588,7 @@
             }
           }
 
-          // https://stackoverflow.com/a/13807294
+          // https://stackoverflow.com/questions/13807207/regex-find-a-number-between-parentheses/13807294#13807294
           function replaceFootNos() {
             var text = document.getElementById("textMainArea").value;
             var newText = text.replace(/^.*?\([^\d]*(\d+)[^\d]*\).*$/g, "");
@@ -1850,7 +1859,7 @@
             //navigator.clipboard.writeText(dateTime);
             //return false;
 
-            /* https://stackoverflow.com/a/42416105 */
+            // https://stackoverflow.com/questions/31593297/using-execcommand-javascript-to-copy-hidden-text-to-clipboard/42416105#42416105
 
             var tempInput = document.createElement("textarea"); // previously input, but that doesnt respect newlines oa
             tempInput.style = "position: absolute; left: -1000px; top: -1000px";
@@ -1908,13 +1917,32 @@
             if (leftToRight_timesClicked % 2 == 0) {
               //run second function
               document.getElementById("textMainArea").style.direction = "rtl";
-              document.getElementById("textMainArea").innerHTML =
+              document.getElementById("textMainArea").placeholder =
                 "އަބޫ ހުރައިރާގެ އަރިހުން ރިވާވެގެންވެއެވެ: ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”...";
+              //
+              // other stuff below
+              document.getElementById("findReplaceButton").innerHTML =
+                "ލަފްޒު ބަދަލު ކުރޭ";
+              document.getElementById("findThis").style.direction = "rtl";
+              document.getElementById("replaceWith").style.direction = "rtl";
+              document.getElementById("findThis").placeholder =
+                "ބަދަލުކުރާ ލަފްޒު";
+              document.getElementById("replaceWith").placeholder =
+                "ބަދަލުކުރަންވީ މިއަށް";
             } else {
               //run first function
               document.getElementById("textMainArea").style.direction = "ltr";
-              document.getElementById("textMainArea").innerHTML =
+              document.getElementById("textMainArea").placeholder =
                 "Abu Hurairah narrated that the Prophet ﷺ said: “...";
+              //
+              // other stuff below
+              document.getElementById("findReplaceButton").innerHTML =
+                "Regex/Replace";
+              document.getElementById("findThis").style.direction = "ltr";
+              document.getElementById("replaceWith").style.direction = "ltr";
+              document.getElementById("findThis").placeholder = "Find This";
+              document.getElementById("replaceWith").placeholder =
+                "Replace This";
             }
           }
 
@@ -1942,7 +1970,7 @@
                 .join("\n");
               document.getElementById("textMainArea").value = numbered;
               document.getElementById("listNumbers").innerHTML =
-                "ފޮޅުވަތް ނަމްބަރުނުލާ";
+                "ފޮޅުވަތް ނަމްބަރު ފޮހެލާ";
             }
           }
 
@@ -3115,9 +3143,8 @@ cols="60"-->
 
             var dateThird = new Date(null);
             dateThird.setSeconds(nightThirdinSeconds); // specify value for SECONDS here
-            /* seconds to time again
-              https://stackoverflow.com/a/25279340 
-              removed seconds with https://stackoverflow.com/a/69278958 */
+            // https://stackoverflow.com/questions/1322732/convert-seconds-to-hh-mm-ss-with-javascript/25279340#25279340 seconds to time again
+            // removed seconds with https://stackoverflow.com/questions/69278917/how-to-return-hhmm-only-in-date-javascript/69278958#69278958 */
             var nightThirdinTime = dateThird.toISOString().substr(11, 5);
             document.getElementById("thirdOfNight3").value = nightThirdinTime; // + " PM"
 
@@ -3138,10 +3165,10 @@ cols="60"-->
 
             //var calcRemThird = fajrSeconds - nightThirdinSeconds;
 
-            //https://stackoverflow.com/a/13904621
+            // https://stackoverflow.com/questions/13903897/javascript-return-number-of-days-hours-minutes-seconds-between-two-dates/13904621#13904621
             /*var calcNewYear = setInterval(function () {
 
-                //https://stackoverflow.com/a/3830279
+                // https://stackoverflow.com/questions/3830244/how-to-get-the-current-date-or-and-time-in-seconds/3830279#3830279
                 var timeNow = new Date().toLocaleTimeString(); //new Date().toTimeString().split(" ")[0];
 
                 $("#time").text("Time remaining is\n" + timeNow + " seconds");
