@@ -315,7 +315,10 @@
               }
             }*/
           </style>
-          <table class="textInfos">
+          <table
+            class="textInfos"
+            style="display: inline-block; margin-bottom: -10px"
+          >
             <tr style="">
               <td width="50px">char:</td>
               <td width="50px"><span id="characterC">0</span></td>
@@ -351,17 +354,28 @@
           <!-- https://jsfiddle.net/Meline222/fgpedL0z/1/ 
         https://codepen.io/alexandercastillo/pen/YXrmPE
       -->
+          <div style="display: inline-block; top: -50px !important">
+            <table style="display: inline-block; margin-bottom: -10px">
+              <tr style="">
+                <td width="35px">
+                  <span id="fontSlider">20</span>
+                </td>
+              </tr>
+            </table>
 
-          <span class="small-letter">A</span>&nbsp;
-          <input
-            id="slider"
-            type="range"
-            min="10"
-            max="100"
-            style="padding: 0"
-            title="ފޮންޓް ސައިޒް"
-          />&nbsp;
-          <span class="big-letter">A</span>
+            <span class="small-letter">A</span>&nbsp;
+            <input
+              id="slider"
+              type="range"
+              min="10"
+              max="100"
+              style="padding: 0"
+              title="ފޮންޓް ސައިޒް"
+            />&nbsp;
+            <span class="big-letter">A</span>
+          </div>
+
+          <!-- -->
         </div>
 
         <style>
@@ -460,6 +474,9 @@
               var o = document.getElementById("textMainArea");
               var val = i.value;
               o.style.fontSize = val + "px";
+
+              // added below
+              document.getElementById("fontSlider").innerHTML = val;
             },
             false
           );
