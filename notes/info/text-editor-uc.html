@@ -713,6 +713,31 @@
           <button onclick="shuffleText();">🔀 Shuffle</button>
           <!-- ބޭތަރުތީބު؟ -->
 
+          <button onclick="randomNumber();">#️⃣ .Random No</button>
+
+          <input
+            class="findRepClass"
+            placeholder="Max No: 10"
+            type="text"
+            id="maximumNumber"
+            style="color: blue"
+          />
+
+          <input
+            class="findRepClass"
+            placeholder="Min No: 1"
+            type="text"
+            id="minimumNumber"
+            style="color: red"
+          />
+
+          <style>
+            #minimumNumber,
+            #maximumNumber {
+              display: none;
+            }
+          </style>
+
           <button onclick="wrapToOneLine();triggerTheCounts();">
             ↲ އެއްފޮޅުވަތަށް ފައްތާ
           </button>
@@ -1062,7 +1087,7 @@
           function triggerTheReplace() {
             setTimeout(function () {
               replaceType();
-            }, 1500);
+            }, 7000);
           }
 
           // http://talkerscode.com/webtricks/demo/demo_live-character-count-using-javascript.php
@@ -1296,7 +1321,7 @@
                 "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
               );
               //replaceText("mmm", "mmm");
-            }, 0);
+            }, 7000);
           });
 
           //
@@ -1947,6 +1972,31 @@
             //return lines.join("\n");
             return (document.getElementById("textMainArea").value =
               lines.join("\n"));
+          }
+
+          // https://www.w3schools.com/js/js_random.asp
+
+          function randomNumber() {
+            document.getElementById("minimumNumber").style.display =
+              "inline-block";
+            document.getElementById("maximumNumber").style.display =
+              "inline-block";
+
+            min = document.getElementById("minimumNumber").value;
+
+            if (min == "") {
+              document.getElementById("textMainArea").value =
+                Math.floor(Math.random() * 10) + 1;
+            } else {
+              //document.getElementById("textMainArea").value = "0";
+              min = document.getElementById("minimumNumber").value;
+              max = document.getElementById("maximumNumber").value;
+              //return Math.floor(Math.random() * (max - min + 1)) + min;
+              // https://stackoverflow.com/questions/14496531/adding-two-numbers-concatenates-them-instead-of-calculating-the-sum/14496556#14496556
+              minMaxRange =
+                Math.floor(Math.random() * (+max - +min + 1)) + +min;
+              document.getElementById("textMainArea").value = minMaxRange;
+            }
           }
 
           // https://coderszine.com/convert-csv-to-json-using-javascript/
