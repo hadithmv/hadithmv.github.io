@@ -428,7 +428,7 @@
           spellcheck="false"
           id="textMainArea"
           placeholder="އަބޫ ހުރައިރާގެ އަރިހުން ރިވާވެގެންވެއެވެ: ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”..."
-          oninput="countChar();countWord();countLine();countSize();replaceType();"
+          oninput="triggerTheCounts();triggerTheReplace();"
           autofocus="autofocus"
         ></textarea>
         <!-- autofocus wont work if hidden by another tab -->
@@ -589,7 +589,9 @@
 
         <div class="mid editorButtons">
           <button onclick="copyToClipB();">📋 ލިޔުން ކޮޕީކުރޭ</button>
-          <button onclick="clearTextArea();">❌ ލިޔުން ފޮހެލާ</button>
+          <button onclick="clearTextArea();triggerTheCounts();">
+            ❌ ލިޔުން ފޮހެލާ
+          </button>
 
           <button onclick="saveTextAsFile();">📩 ލިޔުން ޑައުންލޯޑު</button>
 
@@ -654,10 +656,7 @@
                   document.getElementById("textMainArea").value = contents;
 
                   // added below to do the counts after file loads
-                  countChar();
-                  countWord();
-                  countLine();
-                  countSize();
+                  triggerTheCounts();
                   //
                 };
                 reader.onerror = function (event) {
@@ -714,14 +713,18 @@
           <button onclick="shuffleText();">🔀 Shuffle</button>
           <!-- ބޭތަރުތީބު؟ -->
 
-          <button onclick="wrapToOneLine();">↲ އެއްފޮޅުވަތަށް ފައްތާ</button>
+          <button onclick="wrapToOneLine();triggerTheCounts();">
+            ↲ އެއްފޮޅުވަތަށް ފައްތާ
+          </button>
           <button onclick="sortLines();" id="lineSort">
             ↕️ މަތިންތިރި ތަރުތީބު
           </button>
-          <button onclick="numberedList();" id="listNumbers">
+          <button onclick="numberedList();triggerTheCounts();" id="listNumbers">
             🔢 ފޮޅުވަތް ނަމްބަރުލާ
           </button>
-          <button onclick="replaceFili();countChar();">عربي ފިލި ފޮހެލާ</button>
+          <button onclick="replaceFili();triggerTheCounts();">
+            عربي ފިލި ފޮހެލާ
+          </button>
           <button
             onclick="remThiki();"
             title="ތިކިޖެހި ތާނަ ތިކިނުޖަހާ ތާނައަށް ބަދަލުކުރޭ"
@@ -729,21 +732,25 @@
             ތާނަތިކި ފޮހެލާ
           </button>
           <button
-            onclick="replaceSpacesLines();"
+            onclick="replaceSpacesLines();triggerTheCounts();"
             title="އިތުރު ސްޕޭސްތަކާ އާފޮޅުވަތްތައް ފޮހެލާ"
           >
             އިތުރު ސްޕޭސް ފޮހެލާ
           </button>
-          <button onclick="replacePunct();">ޕަންކްޗުއޭޝަން ފޮހެލާ</button>
+          <button onclick="replacePunct();triggerTheCounts();">
+            ޕަންކްޗުއޭޝަން ފޮހެލާ
+          </button>
           <!--<button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>-->
 
           <button onclick="numToSuperScript();">(1) ↔ ⁽¹⁾</button>
-          <button onclick="replaceFootNos();">⁽¹⁾ / (1) ފޮހެލާ</button>
+          <button onclick="replaceFootNos();triggerTheCounts();">
+            ⁽¹⁾ / (1) ފޮހެލާ
+          </button>
           <button onclick="numToAr();">123 ↔ ١٢٣</button>
           <button onclick="numToSansSerif();">123 ↔ 𝟣𝟤𝟥</button>
 
           <button
-            onclick="shortenSalla();"
+            onclick="shortenSalla();triggerTheCounts();"
             class="arButton"
             title="صَلَّى اللَّهُ عَلَيهِ وَسَلَّم ↔ ﷺ"
           >
@@ -759,7 +766,10 @@
             ـَ ـّ ← ـّ ـَ
           </button>
           <button onclick="replaceColon();" class="arButton">: ← .</button>
-          <button onclick="replaceKashida();" class="arButton">
+          <button
+            onclick="replaceKashida();triggerTheCounts();"
+            class="arButton"
+          >
             ســلاــم ← سلام
           </button>
           <button
@@ -773,17 +783,19 @@
             " " ↔ « »
           </button>
           <button
-            onclick="replaceDoubleBrackets();"
+            onclick="replaceDoubleBrackets();triggerTheCounts();"
             class="arButton"
             title="{{ }} [[ ]] (( )) ← { } [ ] ( )"
           >
             (( )) ← ( )
           </button>
 
-          <button onclick="dotsToEllipsis();">. . . ← …</button>
+          <button onclick="dotsToEllipsis();triggerTheCounts();">
+            . . . ← …
+          </button>
           <button onclick="hyphenToEnEmDash();">- ← – / —</button>
 
-          <button onclick="csvToJson();">CSV → JSON</button>
+          <button onclick="csvToJson();triggerTheCounts();">CSV → JSON</button>
 
           <button onclick="findDoubleFilis();">އިތުރަށްޖެހުނު ފިލިހޯދާ</button>
           <p
@@ -816,7 +828,7 @@
             id="replaceWith"
             style="color: blue"
           />
-          <button onclick="findAndReplace(); findCounter();">
+          <button onclick="findAndReplace();findCounter();triggerTheCounts();">
             ލަފްޒު ބަދަލު ކުރޭ
           </button>
         </div>
@@ -1033,9 +1045,28 @@
           </li>
         </ul>
 
-        <!-- http://talkerscode.com/webtricks/demo/demo_live-character-count-using-javascript.php -->
+        <!--  -->
 
         <script type="text/javascript">
+          // https://stackoverflow.com/questions/8752541/jquery-delay-after-click/8752555#8752555
+
+          function triggerTheCounts() {
+            setTimeout(function () {
+              countChar();
+              countWord();
+              countLine();
+              countSize();
+            }, 1000);
+          }
+
+          function triggerTheReplace() {
+            setTimeout(function () {
+              replaceType();
+            }, 1500);
+          }
+
+          // http://talkerscode.com/webtricks/demo/demo_live-character-count-using-javascript.php
+
           function countChar() {
             var total = document.getElementById("textMainArea").value;
             /* this does not count spaces */
@@ -1140,24 +1171,6 @@
           //
           //
 
-          // https://stackoverflow.com/questions/39925761/replace-word-user-wrote-in-text-box-with-javascript/39925901#39925901
-
-          function replaceFili() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/[ًٌٍَُِّْ]/g, "")
-              .replace(/[\u06d4-\u06dc]/g, "")
-              .replace(/[\u06df-\u06ed]/g, "")
-              .replace(/[\u064b-\u066d]/g, "")
-              .replace(/[\u0610-\u061e]/g, "")
-              .replace(/\u0670/g, "")
-              .replace(/\u0674/g, "")
-              .replace(/ـ/g, "")
-              .replace(/ٱ|ٲ|ٳ/g, "ا");
-            document.getElementById("textMainArea").value = newText;
-            return false;
-          }
-
           // old code for replace below, causes cursor to jump to end upon replace, after moving cursor manually })
 
           /*function replaceType() {
@@ -1211,7 +1224,7 @@
                       return false;
                     }*/
 
-          /* solution for above code https://stackoverflow.com/a/40198673 */
+          /* solution for above code https://stackoverflow.com/questions/40196467/restore-cursor-position-after-replace/40198673#40198673 */
 
           var area = document.getElementById("textMainArea");
 
@@ -1285,6 +1298,28 @@
               //replaceText("mmm", "mmm");
             }, 0);
           });
+
+          //
+          //
+          //
+
+          // https://stackoverflow.com/questions/39925761/replace-word-user-wrote-in-text-box-with-javascript/39925901#39925901
+
+          function replaceFili() {
+            var text = document.getElementById("textMainArea").value;
+            var newText = text
+              .replace(/[ًٌٍَُِّْ]/g, "")
+              .replace(/[\u06d4-\u06dc]/g, "")
+              .replace(/[\u06df-\u06ed]/g, "")
+              .replace(/[\u064b-\u066d]/g, "")
+              .replace(/[\u0610-\u061e]/g, "")
+              .replace(/\u0670/g, "")
+              .replace(/\u0674/g, "")
+              .replace(/ـ/g, "")
+              .replace(/ٱ|ٲ|ٳ/g, "ا");
+            document.getElementById("textMainArea").value = newText;
+            return false;
+          }
 
           // better switch like click function
           // https://stackoverflow.com/questions/30266496/event-on-second-and-third-click
