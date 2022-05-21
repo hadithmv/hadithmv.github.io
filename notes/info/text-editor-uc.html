@@ -357,7 +357,7 @@
           <div style="display: inline-block; top: -50px !important">
             <table style="display: inline-block; margin-bottom: -10px">
               <tr style="">
-                <td width="35px">
+                <td width="25px">
                   <span id="fontSlider">20</span>
                 </td>
               </tr>
@@ -398,7 +398,7 @@
 
           .small-letter {
             font-size: 14px;
-            margin-bottom: 8px;
+            margin-bottom: 5px; /* 8 */
             display: inline-block;
             vertical-align: middle;
           }
@@ -431,6 +431,7 @@
           oninput="triggerTheCounts();triggerTheReplace();"
           autofocus="autofocus"
         ></textarea>
+        <!-- oninput="triggerTheCounts();triggerTheReplace();" -->
         <!-- autofocus wont work if hidden by another tab -->
         <div id="img-out"></div>
 
@@ -749,7 +750,7 @@
             onclick="remThiki();"
             title="ތިކިޖެހި ތާނަ ތިކިނުޖަހާ ތާނައަށް ބަދަލުކުރޭ"
           >
-            ތާނަތިކި ފޮހެލާ
+            ◌̇ ◌̣ ތާނަތިކި ފޮހެލާ
           </button>
           <button
             onclick="replaceSpacesLines();triggerTheCounts();"
@@ -1082,6 +1083,44 @@
         <!--  -->
 
         <script type="text/javascript">
+          // https://stackoverflow.com/questions/4220126/run-javascript-function-when-user-finishes-typing-instead-of-on-key-up/5926782#5926782
+
+          /*
+          //setup before functions
+          let typingTimer; //timer identifier
+          let doneTypingInterval = 500; //time in ms (5 seconds)
+          let myInput = document.getElementById("textMainArea");
+
+          //on keyup, start the countdown
+          // CHANGED keyup to input below
+          myInput.addEventListener("input", () => {
+            clearTimeout(typingTimer);
+            if (myInput.value) {
+              typingTimer = setTimeout(doneTyping, doneTypingInterval);
+            }
+          });
+
+          //user is "finished typing," do something
+          function doneTyping() {
+            //do something
+            countChar();
+            countWord();
+            countLine();
+            countSize();
+          }
+
+          let taVal = document.getElementById("textMainArea").value;
+          if (taVal == "") {
+            // alert("This field is required");
+            countChar();
+            countWord();
+            countLine();
+            countSize();
+            document.getElementById("textMainArea").value = 5;
+          } else {
+            console.log("success");
+          }*/
+
           // https://stackoverflow.com/questions/8752541/jquery-delay-after-click/8752555#8752555
 
           function triggerTheCounts() {
@@ -1090,7 +1129,7 @@
               countWord();
               countLine();
               countSize();
-            }, 1000);
+            }, 900);
           }
 
           function triggerTheReplace() {
