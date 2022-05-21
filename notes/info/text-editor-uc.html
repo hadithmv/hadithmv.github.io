@@ -754,6 +754,7 @@
             ◌̇ ◌̣ ތާނަތިކި ފޮހެލާ
           </button>
           <button
+            id="extraSpaces"
             onclick="replaceSpacesLines();triggerTheCounts();"
             title="އިތުރު ސްޕޭސްތަކާ އާފޮޅުވަތްތައް ފޮހެލާ"
           >
@@ -1065,9 +1066,9 @@
             <li>ރހކ- ← ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”</li>
             <li>ނހކ- ← ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”</li>
             <li>ހކ- ← ޙަދީޘް ކުރެއްވިއެވެ: ”</li>
-            <li>ހމ- ← ހަމަކަށަވަރުން: ”</li>
-            <li>އކ- ← އެކަލޭގެފާނު: ”</li>
-            <li>ކލ- ← ކަލޭގެފާނު: ”</li>
+            <li>ހމ- ← ހަމަކަށަވަރުން</li>
+            <li>އކ- ← އެކަލޭގެފާނު</li>
+            <li>ކލ- ← ކަލޭގެފާނު</li>
             <li>
               ރހއ- ← ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”
             </li>
@@ -1232,14 +1233,39 @@
             document.getElementById("wordC").innerHTML = count;
           }
 
-          // https://thewebdev.info/2021/08/29/how-to-get-the-number-of-lines-in-a-textarea-using-javascript/
+          // https://stackoverflow.com/questions/8488729/how-to-count-the-number-of-lines-of-a-string-in-javascript/43820645#43820645
 
           function countLine() {
+            // bringing this first, otherwise counted number shows more than zero
+            document.getElementById("lineC").innerHTML = 0;
+            //
+
+            var el = document.getElementById("textMainArea");
+
+            lineCount = 0;
+            var lines = el.value.split("\n");
+            for (var i = 0; i < lines.length; i++) {
+              if (lines[i].length > 0) lineCount++;
+            }
+            console.log(lineCount);
+
+            // or
+
+            el.value.split("\n").length;
+            el.value.split(/\r?\n|\r/).length;
+
+            /*
+            count2 = document
+              .getElementById("textMainArea")
+              .value.split(/\r\n|\r|\n/).length;
+              */
+            /*
             const text2 = document.getElementById("textMainArea").value;
             const lines2 = text2.split("\n");
             const count2 = lines2.length;
             //console.log(count2);
-            document.getElementById("lineC").innerHTML = count2;
+            */
+            document.getElementById("lineC").innerHTML = lineCount;
           }
 
           // https://stackoverflow.com/questions/5515869/string-length-in-bytes-in-javascript/12203648#12203648
@@ -1254,6 +1280,10 @@
           // https://stackoverflow.com/questions/5515869/string-length-in-bytes-in-javascript/23329386#23329386
 
           function countSize() {
+            // bringing this first, otherwise counted number shows more than zero
+            document.getElementById("sizeC").innerHTML = 0;
+            //
+
             str = document.getElementById("textMainArea").value;
             var s = str.length;
             for (var i = str.length - 1; i >= 0; i--) {
@@ -1705,42 +1735,56 @@
             return false;
           }
 
+          var replaceSpacesLines_timesClicked = 0;
           function replaceSpacesLines() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/^[ \s]+|[ \s]+$/g, "")
-              .replace(/(\r\n|\r|\n){3,}/g, "$1\n")
-              .replace(/\u0009 /g, " ")
-              .replace(/  /g, " ")
-              .replace(/ \:/g, ":")
-              .replace(/ \?/g, "?")
-              .replace(/ ؟/g, "؟")
-              .replace(/ \,/g, ",")
-              .replace(/ ،/g, "،")
-              .replace(/ \;/g, ";")
-              .replace(/ ؛/g, "؛")
-              .replace(/ ﴾/g, "﴾")
-              .replace(/﴿ /g, "﴿")
-              .replace(/ \*/g, "*")
-              .replace(/ \۝/g, "۝")
-              .replace(/ \)\)/g, "))")
-              .replace(/ \)/g, ")")
-              .replace(/\( /g, "(")
-              .replace(/ \]\]/g, "]]")
-              .replace(/ \]/g, "]")
-              .replace(/\[ /g, "[")
-              .replace(/ \}\}/g, "}}")
-              .replace(/ \}/g, "}")
-              .replace(/\{ /g, "{")
-              .replace(/\« /g, "«")
-              .replace(/ \»/g, "»")
-              .replace(/ \!/g, "!")
-              .replace(/ \./g, ".")
-              .replace(/\" /g, '"') //starting quotation mark
-              .replace(/(\s|^)\"([^\"]+) \"/g, '$1"$2"') //ending quotation mark
-              .replace(/\- \./g, "-.");
-            document.getElementById("textMainArea").value = newText;
-            return false;
+            replaceSpacesLines_timesClicked++;
+            if (replaceSpacesLines_timesClicked % 2 == 0) {
+              //run second function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text.replace(/[\r\n]+/g, "\n");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            } else {
+              //run first function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text
+                .replace(/^[ \s]+|[ \s]+$/g, "")
+                .replace(/(\r\n|\r|\n){3,}/g, "$1\n")
+                .replace(/\u0009 /g, " ")
+                .replace(/  /g, " ")
+                .replace(/ \:/g, ":")
+                .replace(/ \?/g, "?")
+                .replace(/ ؟/g, "؟")
+                .replace(/ \,/g, ",")
+                .replace(/ ،/g, "،")
+                .replace(/ \;/g, ";")
+                .replace(/ ؛/g, "؛")
+                .replace(/ ﴾/g, "﴾")
+                .replace(/﴿ /g, "﴿")
+                .replace(/ \*/g, "*")
+                .replace(/ \۝/g, "۝")
+                .replace(/ \)\)/g, "))")
+                .replace(/ \)/g, ")")
+                .replace(/\( /g, "(")
+                .replace(/ \]\]/g, "]]")
+                .replace(/ \]/g, "]")
+                .replace(/\[ /g, "[")
+                .replace(/ \}\}/g, "}}")
+                .replace(/ \}/g, "}")
+                .replace(/\{ /g, "{")
+                .replace(/\« /g, "«")
+                .replace(/ \»/g, "»")
+                .replace(/ \!/g, "!")
+                .replace(/ \./g, ".")
+                .replace(/\" /g, '"') //starting quotation mark
+                .replace(/(\s|^)\"([^\"]+) \"/g, '$1"$2"') //ending quotation mark
+                .replace(/\- \./g, "-.");
+              document.getElementById("textMainArea").value = newText;
+
+              document.getElementById("extraSpaces").innerHTML =
+                "އަދިވެސް ސްޕޭސް ފޮހެލާ";
+              return false;
+            }
           }
 
           function replacePunct() {
@@ -2992,7 +3036,7 @@ cols="60"-->
           <br />
 
           <p>
-            The zakat for this total would be: <span id="sumZakat">0.00</span>
+            The Zakat for this total would be: <span id="sumZakat">0.00</span>
           </p>
         </div>
 
