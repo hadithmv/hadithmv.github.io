@@ -1743,6 +1743,9 @@
               var text = document.getElementById("textMainArea").value;
               var newText = text.replace(/[\r\n]+/g, "\n");
               document.getElementById("textMainArea").value = newText;
+
+              document.getElementById("extraSpaces").innerHTML =
+                "އިތުރު ސްޕޭސް ފޮހެލާ";
               return false;
             } else {
               //run first function
