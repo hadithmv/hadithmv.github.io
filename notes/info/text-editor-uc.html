@@ -1749,6 +1749,7 @@
               var text = document.getElementById("textMainArea").value;
               var newText = text
                 .replace(/^[ \s]+|[ \s]+$/g, "")
+                // https://stackoverflow.com/questions/22962220/remove-multiple-line-breaks-n-in-javascript/22962255#22962255
                 .replace(/(\r\n|\r|\n){3,}/g, "$1\n")
                 .replace(/\u0009 /g, " ")
                 .replace(/  /g, " ")
