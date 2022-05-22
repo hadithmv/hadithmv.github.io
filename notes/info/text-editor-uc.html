@@ -444,7 +444,6 @@
               min="10"
               max="100"
               style="padding: 0"
-              title="ފޮންޓް ސައިޒް"
               class="ttClass"
               data-tooltip="Changes the font size of the text"
             />&nbsp;
@@ -887,7 +886,6 @@
           </button>
           <button
             onclick="remThiki();"
-            title="ތިކިޖެހި ތާނަ ތިކިނުޖަހާ ތާނައަށް ބަދަލުކުރޭ"
             class="ttClass"
             data-tooltip="Replaces most thikijehi thaana letters to those without thiki"
           >
@@ -896,7 +894,6 @@
           <button
             id="extraSpaces"
             onclick="replaceSpacesLines();triggerTheCounts();"
-            title="އިތުރު ސްޕޭސްތަކާ އާފޮޅުވަތްތައް ފޮހެލާ"
             class="ttClass"
             data-tooltip="Removes unneccessary extra spaces and more than one empty line on the first click, and all empty lines on the second"
           >
@@ -907,7 +904,7 @@
             class="ttClass"
             data-tooltip="Removes most punctuation marks from the text"
           >
-            ޕަންކްޗުއޭޝަން ފޮހެލާ
+            ޕަންކްޗުއޭޝަން ފޮހެލާ!
           </button>
           <!--<button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>-->
 
@@ -943,8 +940,7 @@
           <button
             onclick="shortenSalla();triggerTheCounts();"
             class="arButton ttClass"
-            title="صَلَّى اللَّهُ عَلَيهِ وَسَلَّم ↔ ﷺ"
-            data-tooltip="Converts the long form of the words sallallaahu alaihi wasallam to the short character on the first click, and does the reverse on the second"
+            data-tooltip="Converts the long form of the words صَلَّى اللَّهُ عَلَيهِ وَسَلَّم to the short character ﷺ on the first click, and does the reverse on the second"
           >
             صلى… ↔ ﷺ
           </button>
@@ -1284,7 +1280,11 @@
           //
         </script>
 
-        <div id="lineThruForToggle">
+        <div
+          id="lineThruForToggle"
+          class="ttClass"
+          data-tooltip="Replaces most thikijehi thaana letters to those without thiki"
+        >
           <p class="buttonHeader">
             ތިރީގައި މިވާ އަކުރުތައް، މަތީގައިވާ ހުސްޖާގައިގައި ލިޔުމާއެކީ
             ވަގުތުން ދެންނެވިފައިވާ ބަސްތަކަށް ބަދަލުވެގެންދާނެއެވެ:
@@ -2162,13 +2162,13 @@
           function replacePunct() {
             var text = document.getElementById("textMainArea").value;
             var newText = text
-              .replace(/\!/g, "")
+              .replace(/\!/g, ".")
               .replace(/\@/g, "")
               .replace(/\#/g, "")
               .replace(/\$/g, "")
               .replace(/\%/g, "")
               .replace(/\^/g, "")
-              .replace(/\&/g, "")
+              .replace(/\&/g, " and ")
               .replace(/\*/g, "")
               .replace(/\(/g, "")
               .replace(/\)/g, "")
@@ -2187,15 +2187,17 @@
               .replace(/\"/g, "")
               .replace(/\</g, "")
               .replace(/\>/g, "")
-              .replace(/\?/g, "")
+              //.replace(/\?/g, "")
               .replace(/\,/g, "")
               .replace(/\،/g, "")
-              .replace(/\؟/g, "")
+              //.replace(/\؟/g, "")
               .replace(/\؛/g, "")
               .replace(/\‘/g, "")
               .replace(/\’/g, "")
               .replace(/\”/g, "")
-              .replace(/\“/g, "");
+              .replace(/\“/g, "")
+              .replace(/\.\./g, ".")
+              .replace(/\.\./g, ".");
             document.getElementById("textMainArea").value = newText;
             return false;
           }
@@ -3399,36 +3401,26 @@ cols="60"-->
         <p
           class="mid"
           style="font-size: 115%; margin-top: 4px; margin-bottom: 0px"
+          data-tooltip="Shows the sum total of the numbers above"
         >
-          <span
-            class="ttClass"
-            data-tooltip="Shows the sum total of the numbers above"
-          >
-            Total:
-            <span id="sumTotal">0.00</span>
-          </span>
+          Sum Total:
+          <span id="sumTotal">0.00</span>
         </p>
         <div class="mid editorButtons" style="font-family: sans-serif">
           <button
             onclick="copyAdd();"
-            class="ttClass"
             data-tooltip="Copies the calculated total into your clipboard to paste"
           >
-            Copy
+            📋 Copy
           </button>
-          <button
-            onclick="clearAdd();"
-            class="ttClass"
-            data-tooltip="Erases everything above"
-          >
-            Clear
+          <button onclick="clearAdd();" data-tooltip="Erases everything above">
+            ❌ Clear
           </button>
 
           <br />
 
           <p>
             <span
-              class="ttClass"
               data-tooltip="Shows the calculated Zakat due on the total amount, which is 1/40th or 0.25%"
             >
               The Zakat for this total would be: <span id="sumZakat">0.00</span>
@@ -3561,10 +3553,9 @@ cols="60"-->
           <br />
           <h2 style="font-size: 23px; line-height: 1.5">
             <a
-              class="ttClass"
               data-tooltip="Calculates the first, second and last thirds of the night, as well as half, when you have set the time for Maghrib and Isha"
               style="font-weight: normal"
-              ><b>Third and Half of Night Calculator</b></a
+              ><b>Third and Half of Night Calculator 🌙</b></a
             >
           </h2>
 
@@ -3900,23 +3891,14 @@ cols="60"-->
               >
                 <button
                   id="prev"
-                  class="ttClass"
                   data-tooltip="Jump to the previous difference"
                 >
                   ▲ ކުރީގެ ބަދަލަށް
                 </button>
-                <button
-                  id="next"
-                  class="ttClass"
-                  data-tooltip="Jump to the next difference"
-                >
+                <button id="next" data-tooltip="Jump to the next difference">
                   ▼ ޖެހިގެންވާ ބަދަލަށް
                 </button>
-                <button
-                  id="wrap"
-                  class="ttClass"
-                  data-tooltip="Turn wordwrap on or off"
-                >
+                <button id="wrap" data-tooltip="Turn wordwrap on or off">
                   ↲ އެއްފޮޅުވަތަށް ފައްތާ
                 </button>
                 <!--<button id="fullScreen" title="Toggle fullscreen">
