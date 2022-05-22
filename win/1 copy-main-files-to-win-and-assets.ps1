@@ -17,6 +17,7 @@ Copy-Item ../books/hisnulMuslim.html -Destination ../app/webview-master/app/src/
 Copy-Item ../books/index.html -Destination ../app/webview-master/app/src/main/assets/books/index.html -Recurse -Force
 Copy-Item ../books/nawaqidulislam.html -Destination ../app/webview-master/app/src/main/assets/books/nawaqidulislam.html -Recurse -Force
 Copy-Item ../books/quran.html -Destination ../app/webview-master/app/src/main/assets/books/quran.html -Recurse -Force
+Copy-Item ../books/quranBakurube.html -Destination ../app/webview-master/app/src/main/assets/books/quranBakurube.html -Recurse -Force
 Copy-Item ../books/radheef.html -Destination ../app/webview-master/app/src/main/assets/books/radheef.html -Recurse -Force
 Copy-Item ../books/umdah.html -Destination ../app/webview-master/app/src/main/assets/books/umdah.html -Recurse -Force
 # copies minified asset book folder contents to win book folder
@@ -65,6 +66,7 @@ Copy-Item ../js/hisnulMuslim-script.min.js -Destination ../app/webview-master/ap
 Copy-Item ../js/nawaqid-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/nawaqid-script.min.js -Recurse -Force
 Copy-Item ../js/nawawi-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/nawawi-script.min.js -Recurse -Force
 Copy-Item ../js/quran-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/quran-script.min.js -Recurse -Force
+Copy-Item ../js/quranBakurube-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/quranBakurube-script.min.js -Recurse -Force
 Copy-Item ../js/radheef-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/radheef-script.min.js -Recurse -Force
 Copy-Item ../js/raziyain-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/raziyain-script.min.js -Recurse -Force
 Copy-Item ../js/umdah-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/umdah-script.min.js -Recurse -Force
@@ -85,6 +87,8 @@ Copy-Item ../js/json/hisnulMuslim.js -Destination ../app/webview-master/app/src/
 Copy-Item ../js/json/nawaqid.js -Destination ../app/webview-master/app/src/main/assets/js/json/nawaqid.js -Recurse -Force
 Copy-Item ../js/json/nawawi.js -Destination ../app/webview-master/app/src/main/assets/js/json/nawawi.js -Recurse -Force
 Copy-Item ../js/json/quran.js -Destination ../app/webview-master/app/src/main/assets/js/json/quran.js -Recurse -Force
+Copy-Item ../js/json/quranBakurube.js -Destination ../app/webview-master/app/src/main/assets/js/json/quranBakurube.js -Recurse -Force
+
 Copy-Item ../js/json/radheef.js -Destination ../app/webview-master/app/src/main/assets/js/json/radheef.js -Recurse -Force
 Copy-Item ../js/json/raziyain.js -Destination ../app/webview-master/app/src/main/assets/js/json/raziyain.js -Recurse -Force
 Copy-Item ../js/json/umdah.js -Destination ../app/webview-master/app/src/main/assets/js/json/umdah.js -Recurse -Force
