@@ -37,6 +37,55 @@
   </head>
 
   <style>
+    /* https://www.webtips.dev/webtips/html/native-html-tooltips */
+
+    .ttClass[data-tooltip] {
+      position: relative;
+      /* added important to override otherwise mouse cursor */
+      cursor: help !important;
+      /*text-decoration: underline;*/
+    }
+
+    .ttClass[data-tooltip]:hover::before {
+      transform: translate(0);
+      opacity: 1;
+      /* added this below otherwise font color fades away*/
+      color: initial;
+    }
+    .ttClass[data-tooltip]::before {
+      content: attr(data-tooltip);
+      position: absolute;
+      /*width: 150px;*/
+      display: block;
+      background: #fff;
+      padding: 10px;
+      top: -50px;
+      box-shadow: 0px 2px 5px #0000008c;
+      border-radius: 3px;
+      text-align: center;
+      left: 0;
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      /* added */
+      font-family: "Quicksand", sans-serif, "dvFont", "arFont", "faruma";
+      /*text-align: right;
+      direction: ltr;*/
+      /**/
+      /*font-size: 20px;
+      line-height: 1.8;
+      width: 100%;
+      height: 300px;
+      border-radius: 4px;
+      */
+    }
+
+    /*
+
+    */
+
     /*.tabcontent {
       max-width: 1000px;
       margin-left: auto;
@@ -69,7 +118,7 @@
     }
 
     .editorButtons button.arButton {
-      font-size: 16.5px;
+      font-size: 17px;
     }
 
     /*p {
@@ -184,6 +233,17 @@
       background-color: #136296;
       -webkit-font-smoothing: antialiased;
     }
+
+    /* https://stackoverflow.com/questions/38377062/how-to-make-html-button-look-pressed-in-using-css/38377286#38377286 */
+    .editorButtons button:active,
+    .editorButtons button .pressedButton {
+      /*background: #e5e5e5;*/
+      -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+      -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+      box-shadow: inset 0px 0px 5px #c1c1c1;
+      outline: none;
+      /* added */
+    }
   </style>
 
   <body class="notranslate">
@@ -252,7 +312,7 @@
       <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs_fade -->
       <div class="tab" style="max-width: 1000px; margin: 0 auto">
         <button
-          class="tablinks"
+          class="tablinks ttClass"
           onclick="openTab(event, 'tabOne'); focusEditor();"
         >
           <!--   -->
@@ -320,7 +380,10 @@
             style="display: inline-block; margin-bottom: -10px"
             id="lineThruForToggle2"
           >
-            <tr style="">
+            <tr
+              class="ttClass"
+              data-tooltip="Shows the number of characters, words, lines and bytes of text"
+            >
               <td width="50px">char:</td>
               <td width="50px"><span id="characterC">0</span></td>
               <td width="50px">|</td>
@@ -357,7 +420,7 @@
       -->
           <div style="display: inline-block; top: -50px !important">
             <table style="display: inline-block; margin-bottom: -10px">
-              <tr style="">
+              <tr>
                 <td width="25px">
                   <span id="fontSlider">20</span>
                 </td>
@@ -372,6 +435,8 @@
               max="100"
               style="padding: 0"
               title="ފޮންޓް ސައިޒް"
+              class="ttClass"
+              data-tooltip="Changes the font size of the text"
             />&nbsp;
             <span class="big-letter">A</span>
           </div>
@@ -485,15 +550,18 @@
         </script>
 
         <style>
+          /*
           .screenshot {
-            /*width: 3000px !important;
-            height: 3000px !important;*/
-            /*color: #000;
-            background-color: red;*/
+            width: 3000px !important;
+            height: 3000px !important;
+            color: #000;
+            background-color: red;
           }
+          */
         </style>
 
         <script>
+          /*
           function takeScreenShot() {
             document.querySelector(".screenshot") &&
               document.querySelector(".screenshot").remove();
@@ -508,6 +576,7 @@
                 "screenshot";
             });
           }
+          */
           /*
                   function takeScreenShot() {
                     document.querySelector("#screenshot") &&
@@ -590,12 +659,28 @@
         </p>
 
         <div class="mid editorButtons">
-          <button onclick="copyToClipB();">📋 ލިޔުން ކޮޕީކުރޭ</button>
-          <button onclick="clearTextArea();triggerTheCounts();">
+          <button
+            onclick="copyToClipB();"
+            class="ttClass"
+            data-tooltip="Copies above text into the clipboard for pasting"
+          >
+            📋 ލިޔުން ކޮޕީކުރޭ
+          </button>
+          <button
+            onclick="clearTextArea();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Erases everything above"
+          >
             ❌ ލިޔުން ފޮހެލާ
           </button>
 
-          <button onclick="saveTextAsFile();">📩 ލިޔުން ޑައުންލޯޑު</button>
+          <button
+            onclick="saveTextAsFile();"
+            class="ttClass"
+            data-tooltip="Saves and downloads the text above as a .txt file to your device"
+          >
+            📩 ލިޔުން ޑައުންލޯޑު
+          </button>
 
           <script>
             // https://stackoverflow.com/questions/21479107/saving-html5-textarea-contents-to-file/30740104#30740104
@@ -639,6 +724,8 @@
             type="button"
             value="Browse..."
             onclick="document.getElementById('inputfile').click();"
+            class="ttClass"
+            data-tooltip="Uploads the text of a file that you choose on your device"
           >
             📁 ލިޔުން އަޕްލޯޑު
           </button>
@@ -708,16 +795,39 @@
           };*/
           </script>
 
-          <button onclick="leftToRight();">LTR ↔️ RTL</button>
+          <button
+            onclick="leftToRight();"
+            class="ttClass"
+            data-tooltip="Changes text direction from right to left and left to right"
+          >
+            LTR ↔️ RTL
+          </button>
 
-          <button onclick="toTitleCase();" id="caseChange">
+          <button
+            onclick="toTitleCase();"
+            id="caseChange"
+            class="ttClass"
+            data-tooltip="Changes english text to title case, then lower case, then sentence case"
+          >
             🔠 Title Case
           </button>
 
-          <button onclick="shuffleText();">🔀 Shuffle Lines</button>
+          <button
+            onclick="shuffleText();"
+            class="ttClass"
+            data-tooltip="Randomizes the order of the lines in the text"
+          >
+            🔀 Shuffle Lines
+          </button>
           <!-- ބޭތަރުތީބު؟ -->
 
-          <button onclick="randomNumber();">#️⃣ .Random No</button>
+          <button
+            onclick="randomNumber();"
+            class="ttClass"
+            data-tooltip="Generate a random number from 1-10, or based on your minimum and maximum input next to this button after you click it"
+          >
+            #️⃣ .Random No
+          </button>
 
           <input
             class="findRepClass"
@@ -735,21 +845,41 @@
             style="color: red; display: none"
           />
 
-          <button onclick="wrapToOneLine();triggerTheCounts();">
+          <button
+            onclick="wrapToOneLine();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Fits everything in the text into one single line"
+          >
             ↲ އެއްފޮޅުވަތަށް ފައްތާ
           </button>
-          <button onclick="sortLines();" id="lineSort">
+          <button
+            onclick="sortLines();"
+            id="lineSort"
+            class="ttClass"
+            data-tooltip="Sorts the lines of text alphabetically on the first click, and in reverse on the second"
+          >
             ↕️ މަތިންތިރި ތަރުތީބު
           </button>
-          <button onclick="numberedList();triggerTheCounts();" id="listNumbers">
+          <button
+            onclick="numberedList();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
+            id="listNumbers"
+          >
             🔢 ފޮޅުވަތް ނަމްބަރުލާ
           </button>
-          <button onclick="replaceFili();triggerTheCounts();">
+          <button
+            onclick="replaceFili();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Removes all diacritical marks / tashkeel / haraka of arabic letters"
+          >
             عربي ފިލި ފޮހެލާ
           </button>
           <button
             onclick="remThiki();"
             title="ތިކިޖެހި ތާނަ ތިކިނުޖަހާ ތާނައަށް ބަދަލުކުރޭ"
+            class="ttClass"
+            data-tooltip="Replaces most thikijehi thaana letters to those without thiki"
           >
             ◌̇ ◌̣ ތާނަތިކި ފޮހެލާ
           </button>
@@ -757,74 +887,162 @@
             id="extraSpaces"
             onclick="replaceSpacesLines();triggerTheCounts();"
             title="އިތުރު ސްޕޭސްތަކާ އާފޮޅުވަތްތައް ފޮހެލާ"
+            class="ttClass"
+            data-tooltip="Removes unneccessary extra spaces and more than one empty line on the first click, and all empty lines on the second"
           >
             އިތުރު ސްޕޭސް ފޮހެލާ
           </button>
-          <button onclick="replacePunct();triggerTheCounts();">
+          <button
+            onclick="replacePunct();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Removes most punctuation marks from the text"
+          >
             ޕަންކްޗުއޭޝަން ފޮހެލާ
           </button>
           <!--<button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>-->
 
-          <button onclick="numToSuperScript();">(1) ↔ ⁽¹⁾</button>
-          <button onclick="replaceFootNos();triggerTheCounts();">
+          <button
+            onclick="numToSuperScript();"
+            class="ttClass"
+            data-tooltip="Changes numbers and round brackets to superscript, like footnotes on the first click, and reverts them on the second"
+          >
+            (1) ↔ ⁽¹⁾
+          </button>
+          <button
+            onclick="replaceFootNos();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Erases all numbers inside any brackets"
+          >
             ⁽¹⁾ / (1) ފޮހެލާ
           </button>
-          <button onclick="numToAr();">123 ↔ ١٢٣</button>
-          <button onclick="numToSansSerif();">123 ↔ 𝟣𝟤𝟥</button>
+          <button
+            onclick="numToAr();"
+            class="ttClass"
+            data-tooltip="Converts Hindu Digits to Arabic on the first click, and does the reverse on the second"
+          >
+            123 ↔ ١٢٣
+          </button>
+          <button
+            onclick="numToSansSerif();"
+            class="ttClass"
+            data-tooltip="Converts Serif Digits to Sans Serif on the first click, and does the reverse on the second"
+          >
+            123 ↔ 𝟣𝟤𝟥
+          </button>
 
           <button
             onclick="shortenSalla();triggerTheCounts();"
-            class="arButton"
+            class="arButton ttClass"
             title="صَلَّى اللَّهُ عَلَيهِ وَسَلَّم ↔ ﷺ"
+            data-tooltip="Converts the long form of the words sallallaahu alaihi wasallam to the short character on the first click, and does the reverse on the second"
           >
             صلى… ↔ ﷺ
           </button>
-          <button onclick="replaceCommaScolonQ();" class="arButton">
+          <button
+            onclick="replaceCommaScolonQ();"
+            class="arButton ttClass"
+            data-tooltip="Converts left facing commas, semicolons and questions marks to the right on the first click, and does the reverse on the second"
+          >
             , ; ? ↔ ، ؛ ؟
           </button>
-          <button onclick="replaceQbracket();" class="arButton">
+          <button
+            onclick="replaceQbracket();"
+            class="arButton ttClass"
+            data-tooltip="Converts curly braces and asterisks to quranic brackets and ayah stops"
+          >
             {*} ← ﴿۝﴾
           </button>
-          <button onclick="shaddaB4Haraka();" class="arButton">
+          <button
+            onclick="shaddaB4Haraka();"
+            class="arButton ttClass"
+            data-tooltip="Makes all the arabic diacritics / tashkeel / harakas come after the tanweed / shadda and not before it"
+          >
             ـَ ـّ ← ـّ ـَ
           </button>
-          <button onclick="replaceColon();" class="arButton">: ← .</button>
+          <button
+            onclick="replaceColon();"
+            class="arButton ttClass"
+            data-tooltip="Replaces all colons with fullstops"
+          >
+            >: ← .
+          </button>
           <button
             onclick="replaceKashida();triggerTheCounts();"
-            class="arButton"
+            class="arButton ttClass"
+            data-tooltip="Removes all kashidas, which elongate arabic letters"
           >
             ســلاــم ← سلام
           </button>
           <button
             onclick="replaceQuotes();"
-            class="arButton"
-            title="' ' ← ‘ ’ / &quot; &quot; ← “ ”"
+            class="arButton ttClass"
+            data-tooltip="Replaces all &#39;dumb&#39; &#34;straight&#34; quotes with ‘curly’ “smart” quotes on the first click, and does the reverse on the second"
           >
             ' " ↔ ’ “
           </button>
-          <button onclick="replaceQtoDoubleAngBrackets();" class="arButton">
+          <button
+            onclick="replaceQtoDoubleAngBrackets();"
+            class="arButton ttClass"
+            data-tooltip="Replaces all doubles straight quotes or double brackets with angular arabic quotes, and does the reverse on the second"
+          >
             " " ↔ « »
           </button>
           <button
             onclick="replaceDoubleBrackets();triggerTheCounts();"
-            class="arButton"
-            title="{{ }} [[ ]] (( )) ← { } [ ] ( )"
+            class="arButton ttClass"
+            data-tooltip="Replaces all doubles brackets to single ones"
           >
             (( )) ← ( )
           </button>
 
-          <button onclick="dotsToEllipsis();triggerTheCounts();">
+          <button
+            onclick="dotsToEllipsis();triggerTheCounts();"
+            class="arButton ttClass"
+            data-tooltip="Converts three dots to proper a ellipsis"
+          >
             . . . ← …
           </button>
-          <button onclick="hyphenToEnEmDash();">- ← – / —</button>
+          <button
+            onclick="hyphenToEnEmDash();"
+            class="arButton ttClass"
+            data-tooltip="Converts a hyphen to an en dash on the first click, then to an em dash on the second"
+          >
+            - ← – / —
+          </button>
 
-          <button onclick="csvToJson();triggerTheCounts();">CSV → JSON</button>
+          <button
+            onclick="csvToJson();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Converts CSV data in the text into JSON"
+          >
+            CSV → JSON
+          </button>
 
-          <button id="toggleCandR" onclick="toggleCountsReplace();">
+          <button
+            id="toggleCandR"
+            onclick="toggleCountsReplace();"
+            class="ttClass"
+            data-tooltip="Turns off the char / word / line / bytes counter as well as the text shortcuts while typing"
+          >
             Count/ShrtC. OFF
           </button>
 
-          <button onclick="findDoubleFilis();">އިތުރަށްޖެހުނު ފިލިހޯދާ</button>
+          <button
+            id="toggleHandT"
+            onclick="toggleHelpTips();"
+            class="ttClass"
+            data-tooltip="Turns on tooltip help, which explains what these buttons do when you point at them"
+          >
+            Turn Help ON
+          </button>
+
+          <button
+            onclick="findDoubleFilis();"
+            class="ttClass"
+            data-tooltip="Checks whether your text has repeat fili / diacritics / tashkeel / harakas in arabic or dhivehi"
+          >
+            އިތުރަށްޖެހުނު ފިލިހޯދާ
+          </button>
           <p
             class="doubleFiliHolder"
             style="direction: rtl; display: none; margin-bottom: 0"
@@ -837,19 +1055,23 @@
 
           <input
             class="findRepClass"
-            placeholder="ބަދަލުކުރަންވީ މިއަށް"
+            placeholder="2 މިއަށް ބަދަލުކުރޭ"
             type="text"
             id="replaceWith"
             style="color: blue"
           />
 
-          <span class="hiddenFindCount" style="display: none"
+          <span
+            id="hiddenFindCount"
+            style="display: none"
+            class="ttClass"
+            data-tooltip="Shows the number of instances the search has matched in the text"
             >(<span id="findCounted">0</span>)</span
           >
 
           <input
             class="findRepClass"
-            placeholder="ބަދަލުކުރާ ލަފްޒު"
+            placeholder="1 މިލަފްޒު ހޯދާފާ"
             type="text"
             id="findThis"
             style="color: red"
@@ -859,6 +1081,8 @@
           <button
             id="findReplaceButton"
             onclick="findAndReplace();findCounter();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Searches your text and replaces based on your input. Turn on LTR to make Regex searches"
           >
             ލަފްޒު ބަދަލު ކުރޭ
           </button>
@@ -977,9 +1201,7 @@
           // https://stackoverflow.com/questions/4009756/how-to-count-string-occurrence-in-string/4009768#4009768
 
           function findCounter() {
-            document.getElementsByClassName(
-              "hiddenFindCount"
-            )[0].style.display = "inline";
+            document.getElementById("hiddenFindCount").style.display = "inline";
 
             var str = document.getElementById("textMainArea").value;
 
@@ -1119,12 +1341,29 @@
             console.log("success");
           }*/
 
-          var toggleStateNow = 1;
+          //
+          //
+          /* toggle counter and replace off */
+
+          var toggleCandRState = 1;
+
+          /* toggle help on */
+
+          const els = document.querySelectorAll(".ttClass");
+          for (const el of [...els]) {
+            el.className = "ttClassDisabled";
+          }
+
+          document.getElementById("toggleHandT").className = "ttClass";
+
+          //
+          //
+          //
 
           // https://stackoverflow.com/questions/8752541/jquery-delay-after-click/8752555#8752555
 
           function triggerTheCounts() {
-            if (toggleStateNow == 1) {
+            if (toggleCandRState == 1) {
               setTimeout(function () {
                 countChar();
                 countWord();
@@ -1141,13 +1380,15 @@
             }, 1000);
           }*/
 
+          // https://www.w3schools.com/cssref/css3_pr_text-decoration-line.asp
+
           var toggleCountsReplace_timesClicked = 0;
           function toggleCountsReplace() {
             toggleCountsReplace_timesClicked++;
             if (toggleCountsReplace_timesClicked % 2 == 0) {
               //run second function
 
-              toggleStateNow = 1;
+              toggleCandRState = 1;
               triggerTheCounts();
 
               document.getElementById("toggleCandR").innerHTML =
@@ -1164,11 +1405,7 @@
             } else {
               //run first function
 
-              toggleStateNow = 0;
-              document.getElementById("characterC").innerHTML = 0;
-              document.getElementById("wordC").innerHTML = 0;
-              document.getElementById("lineC").innerHTML = 0;
-              document.getElementById("sizeC").innerHTML = 0;
+              toggleCandRState = 0;
 
               document.getElementById("toggleCandR").innerHTML =
                 "Count/ShrtC. ON";
@@ -1179,6 +1416,48 @@
               document.getElementById(
                 "lineThruForToggle2"
               ).style.textDecorationLine = "line-through";
+
+              return false;
+            }
+          }
+
+          //
+          //  HELP TIPS
+          //
+
+          var toggleHelpTips_timesClicked = 0;
+          function toggleHelpTips() {
+            toggleHelpTips_timesClicked++;
+            if (toggleHelpTips_timesClicked % 2 == 0) {
+              //run second function
+
+              document.getElementById("toggleHandT").innerHTML = "Turn Help ON";
+
+              const els = document.querySelectorAll(".ttClass");
+              for (const el of [...els]) {
+                el.className = "ttClassDisabled";
+              }
+
+              //document.getElementById("toggleHandT").className = "ttClass";
+
+              return false;
+            } else {
+              //run first function
+
+              document.getElementById("toggleHandT").innerHTML =
+                "Turn Help OFF";
+
+              // https://thewebdev.info/2022/01/17/how-to-get-all-elements-by-class-name-and-the-change-class-name-for-each-with-javascript/
+
+              // The problem is that the NodeList returned to you is "live" - it changes as you alter the class name. That is, when you change the class on the first element, the list is immediately one element shorter than it was.
+
+              const els = document.querySelectorAll(".ttClassDisabled");
+              for (const el of [...els]) {
+                el.className = "ttClass";
+              }
+
+              document.getElementById("toggleHandT").className =
+                "ttClassDisabled";
 
               return false;
             }
@@ -1396,7 +1675,7 @@
 
           area.addEventListener("keypress", function (e) {
             //
-            if (toggleStateNow == 1) {
+            if (toggleCandRState == 1) {
               //
               setTimeout(function () {
                 //replaceText("==", "+");
@@ -1694,6 +1973,8 @@
               var newText = text
                 .replace(/\(/g, "⁽")
                 .replace(/\)/g, "⁾")
+                .replace(/\[/g, "⁽")
+                .replace(/\]/g, "⁾")
                 .replace(/0/g, "⁰")
                 .replace(/1/g, "¹")
                 .replace(/2/g, "²")
@@ -1712,8 +1993,10 @@
           // https://stackoverflow.com/questions/13807207/regex-find-a-number-between-parentheses/13807294#13807294
           function replaceFootNos() {
             var text = document.getElementById("textMainArea").value;
-            var newText = text.replace(/^.*?\([^\d]*(\d+)[^\d]*\).*$/g, "");
-            var newText = text.replace(/⁽(.*)⁾/g, "");
+            var newText = text
+              .replace(/^.*?\([^\d]*(\d+)[^\d]*\).*$/g, "")
+              .replace(/^.*?\[[^\d]*(\d+)[^\d]*\].*$/g, "")
+              .replace(/⁽(.*)⁾/g, "");
             document.getElementById("textMainArea").value = newText;
             return false;
           }
@@ -1934,6 +2217,8 @@
               var text = document.getElementById("textMainArea").value;
               var newText = text
                 .replace(/\"\"/g, "\»\«")
+                .replace(/\)\)/g, "\»")
+                .replace(/\(\(/g, "\«")
                 .replace(/(|^)\"([^\"]+)\"/g, "$1\«$2\»") //without spaces
                 .replace(/(\s|^)\"([^\"]+)\"/g, "$1\«$2\»");
               document.getElementById("textMainArea").value = newText;
@@ -2065,9 +2350,9 @@
               document.getElementById("findThis").style.direction = "rtl";
               document.getElementById("replaceWith").style.direction = "rtl";
               document.getElementById("findThis").placeholder =
-                "ބަދަލުކުރާ ލަފްޒު";
+                "1 މިލަފްޒު ހޯދާފާ";
               document.getElementById("replaceWith").placeholder =
-                "ބަދަލުކުރަންވީ މިއަށް";
+                "2 މިއަށް ބަދަލުކުރޭ";
             } else {
               //run first function
               document.getElementById("textMainArea").style.direction = "ltr";
@@ -2079,9 +2364,9 @@
                 "Regex/Replace";
               document.getElementById("findThis").style.direction = "ltr";
               document.getElementById("replaceWith").style.direction = "ltr";
-              document.getElementById("findThis").placeholder = "Find This";
+              document.getElementById("findThis").placeholder = "1 Find This";
               document.getElementById("replaceWith").placeholder =
-                "Replace This";
+                "2 Replace This";
             }
           }
 
@@ -3501,13 +3786,13 @@ cols="60"-->
                 class="mid editorButtons dv"
                 style="margin-bottom: -3px; margin-top: 5px"
               >
-                <button id="prev" title="Previous diff">
+                <button id="prev" title="Go to previous difference">
                   ▲ ކުރީގެ ބަދަލަށް
                 </button>
-                <button id="next" title="Next diff">
+                <button id="next" title="Go to next difference">
                   ▼ ޖެހިގެންވާ ބަދަލަށް
                 </button>
-                <button id="wrap" title="Toggle line wrapping">
+                <button id="wrap" title="Toggle line wrapping on/off">
                   ↲ އެއްފޮޅުވަތަށް ފައްތާ
                 </button>
                 <!--<button id="fullScreen" title="Toggle fullscreen">
