@@ -71,10 +71,12 @@
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       /* added */
       font-family: "Quicksand", sans-serif, "dvFont", "arFont", "faruma";
+      font-size: 17px !important;
+      line-height: normal !important;
       /*text-align: right;
       direction: ltr;*/
       /**/
-      /*font-size: 20px;
+      /*
       line-height: 1.8;
       width: 100%;
       height: 300px;
@@ -241,8 +243,7 @@
       -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
       -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
       box-shadow: inset 0px 0px 5px #c1c1c1;
-      outline: none;
-      /* added */
+      /*outline: none;*/
     }
   </style>
 
@@ -964,7 +965,7 @@
             class="arButton ttClass"
             data-tooltip="Replaces all colons with fullstops"
           >
-            >: ← .
+            : ← .
           </button>
           <button
             onclick="replaceKashida();triggerTheCounts();"
@@ -1024,7 +1025,7 @@
             class="ttClass"
             data-tooltip="Turns off the char / word / line / bytes counter as well as the text shortcuts while typing"
           >
-            Count/ShrtC. OFF
+            Count/ShrtC. ON
           </button>
 
           <button
@@ -1033,7 +1034,7 @@
             class="ttClass"
             data-tooltip="Turns on tooltip help, which explains what these buttons do when you point at them"
           >
-            Turn Help ON
+            Help is OFF
           </button>
 
           <button
@@ -1392,7 +1393,7 @@
               triggerTheCounts();
 
               document.getElementById("toggleCandR").innerHTML =
-                "Count/ShrtC. OFF";
+                "Count/ShrtC. ON";
 
               document.getElementById(
                 "lineThruForToggle"
@@ -1400,6 +1401,24 @@
               document.getElementById(
                 "lineThruForToggle2"
               ).style.textDecorationLine = "none";
+
+              //
+
+              if (
+                window.matchMedia &&
+                window.matchMedia("(prefers-color-scheme: dark)").matches
+              ) {
+                // dark mode
+                document.getElementById("toggleCandR").style.backgroundColor =
+                  "#fff";
+              } else {
+                document.getElementById("toggleCandR").style.backgroundColor =
+                  "#efefef";
+              }
+
+              document.getElementById("toggleCandR").style.color = "initial";
+              document.getElementById("toggleCandR").style.boxShadow =
+                "initial";
 
               return false;
             } else {
@@ -1408,7 +1427,7 @@
               toggleCandRState = 0;
 
               document.getElementById("toggleCandR").innerHTML =
-                "Count/ShrtC. ON";
+                "Count/ShrtC. OFF";
 
               document.getElementById(
                 "lineThruForToggle"
@@ -1416,6 +1435,15 @@
               document.getElementById(
                 "lineThruForToggle2"
               ).style.textDecorationLine = "line-through";
+
+              //
+
+              document.getElementById("toggleCandR").style.backgroundColor =
+                "#136296";
+              document.getElementById("toggleCandR").style.color = "#fff";
+
+              document.getElementById("toggleCandR").style.boxShadow =
+                "inset 0px 0px 5px #c1c1c1";
 
               return false;
             }
@@ -1431,25 +1459,36 @@
             if (toggleHelpTips_timesClicked % 2 == 0) {
               //run second function
 
-              document.getElementById("toggleHandT").innerHTML = "Turn Help ON";
-
               const els = document.querySelectorAll(".ttClass");
               for (const el of [...els]) {
                 el.className = "ttClassDisabled";
               }
+
+              document.getElementById("toggleHandT").innerHTML = "Help is OFF";
+
+              //
+
+              if (
+                window.matchMedia &&
+                window.matchMedia("(prefers-color-scheme: dark)").matches
+              ) {
+                // dark mode
+                document.getElementById("toggleHandT").style.backgroundColor =
+                  "#fff";
+              } else {
+                document.getElementById("toggleHandT").style.backgroundColor =
+                  "#efefef";
+              }
+
+              document.getElementById("toggleHandT").style.color = "initial";
+              document.getElementById("toggleHandT").style.boxShadow =
+                "initial";
 
               //document.getElementById("toggleHandT").className = "ttClass";
 
               return false;
             } else {
               //run first function
-
-              document.getElementById("toggleHandT").innerHTML =
-                "Turn Help OFF";
-
-              // https://thewebdev.info/2022/01/17/how-to-get-all-elements-by-class-name-and-the-change-class-name-for-each-with-javascript/
-
-              // The problem is that the NodeList returned to you is "live" - it changes as you alter the class name. That is, when you change the class on the first element, the list is immediately one element shorter than it was.
 
               const els = document.querySelectorAll(".ttClassDisabled");
               for (const el of [...els]) {
@@ -1458,6 +1497,20 @@
 
               document.getElementById("toggleHandT").className =
                 "ttClassDisabled";
+
+              document.getElementById("toggleHandT").innerHTML = "Help is ON";
+
+              //
+
+              document.getElementById("toggleHandT").style.backgroundColor =
+                "#136296";
+              document.getElementById("toggleHandT").style.color = "#fff";
+              document.getElementById("toggleHandT").style.boxShadow =
+                "inset 0px 0px 5px #c1c1c1";
+
+              // https://thewebdev.info/2022/01/17/how-to-get-all-elements-by-class-name-and-the-change-class-name-for-each-with-javascript/
+
+              // The problem is that the NodeList returned to you is "live" - it changes as you alter the class name. That is, when you change the class on the first element, the list is immediately one element shorter than it was.
 
               return false;
             }
@@ -3306,7 +3359,7 @@ cols="60"-->
           autocapitalize="off"
           spellcheck="false"
           id="textSumArea"
-          placeholder="Any numbers written here will be added, even within text. Use it to add up the total cost for a list of items. Eg: &#10;50 books &#10;5 print &#10;..."
+          placeholder="Any numbers written here will be added together, even with text. Use this to calculate the total cost for a list of items. Eg: &#10;50 books &#10;5 print &#10;-10 refund &#10;..."
           oninput="outputSum();"
           style="margin-top: 15px"
         ></textarea>
@@ -3315,17 +3368,39 @@ cols="60"-->
           class="mid"
           style="font-size: 115%; margin-top: 4px; margin-bottom: 0px"
         >
-          Total:
-          <span id="sumTotal">0.00</span>
+          <span
+            class="ttClass"
+            data-tooltip="Shows the sum total of the numbers above"
+          >
+            Total:
+            <span id="sumTotal">0.00</span>
+          </span>
         </p>
         <div class="mid editorButtons" style="font-family: sans-serif">
-          <button onclick="copyAdd();">Copy</button>
-          <button onclick="clearAdd();">Clear</button>
+          <button
+            onclick="copyAdd();"
+            class="ttClass"
+            data-tooltip="Copies the calculated total into your clipboard to paste"
+          >
+            Copy
+          </button>
+          <button
+            onclick="clearAdd();"
+            class="ttClass"
+            data-tooltip="Erases everything above"
+          >
+            Clear
+          </button>
 
           <br />
 
           <p>
-            The Zakat for this total would be: <span id="sumZakat">0.00</span>
+            <span
+              class="ttClass"
+              data-tooltip="Shows the calculated Zakat due on the total amount, which is 1/40th or 0.25%"
+            >
+              The Zakat for this total would be: <span id="sumZakat">0.00</span>
+            </span>
           </p>
         </div>
 
@@ -3453,7 +3528,12 @@ cols="60"-->
         <div class="en mid">
           <br />
           <h2 style="font-size: 23px; line-height: 1.5">
-            <a><b>Third and Half of Night Calculator</b></a>
+            <a
+              class="ttClass"
+              data-tooltip="Calculates the first, second and last thirds of the night, as well as half, when you have set the time for Maghrib and Isha"
+              style="font-weight: normal"
+              ><b>Third and Half of Night Calculator</b></a
+            >
           </h2>
 
           <table style="margin-left: auto; margin-right: auto; font-size: 110%">
@@ -3786,13 +3866,25 @@ cols="60"-->
                 class="mid editorButtons dv"
                 style="margin-bottom: -3px; margin-top: 5px"
               >
-                <button id="prev" title="Go to previous difference">
+                <button
+                  id="prev"
+                  class="ttClass"
+                  data-tooltip="Jump to the previous difference"
+                >
                   ▲ ކުރީގެ ބަދަލަށް
                 </button>
-                <button id="next" title="Go to next difference">
+                <button
+                  id="next"
+                  class="ttClass"
+                  data-tooltip="Jump to the next difference"
+                >
                   ▼ ޖެހިގެންވާ ބަދަލަށް
                 </button>
-                <button id="wrap" title="Toggle line wrapping on/off">
+                <button
+                  id="wrap"
+                  class="ttClass"
+                  data-tooltip="Turn wordwrap on or off"
+                >
                   ↲ އެއްފޮޅުވަތަށް ފައްތާ
                 </button>
                 <!--<button id="fullScreen" title="Toggle fullscreen">
