@@ -71,28 +71,37 @@
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       /* added */
       font-family: "Quicksand", sans-serif, "dvFont", "arFont", "faruma";
-      font-size: 17px !important;
+      font-size: 16px !important;
       line-height: normal !important;
       /*text-align: right;
-      direction: ltr;*/
+        direction: ltr;*/
       /**/
       /*
-      line-height: 1.8;
-      width: 100%;
-      height: 300px;
-      border-radius: 4px;
-      */
+        line-height: 1.8;
+        width: 100%;
+        height: 300px;
+        border-radius: 4px;
+        */
     }
 
     /*
 
-    */
+      */
+
+    /* fixes tab button border overlap */
+    /*@mixin for-ab0ve-phone-only*/
+
+    @media (min-width: 599px) {
+      .tab button:nth-child(2) {
+        border-right: none;
+      }
+    }
 
     /*.tabcontent {
-      max-width: 1000px;
-      margin-left: auto;
-      margin-right: auto;
-    }*/
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+      }*/
     hr {
       width: 90%;
     }
@@ -124,14 +133,14 @@
     }
 
     /*p {
-            margin-top: 7px;
-          }*/
+              margin-top: 7px;
+            }*/
 
     /*.EditorHeader,
-    body {
-      margin-top: 0;
-      margin-bottom: 5px;
-    }*/
+      body {
+        margin-top: 0;
+        margin-bottom: 5px;
+      }*/
 
     #textMainArea,
     #textSumArea {
@@ -222,9 +231,9 @@
       }
 
       /*textarea {
-              font-size: 17px;
-              line-height: 1.6;
-            }*/
+                font-size: 17px;
+                line-height: 1.6;
+              }*/
     }
 
     .editorButtons button:hover {
