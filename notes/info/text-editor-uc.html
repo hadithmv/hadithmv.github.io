@@ -2327,28 +2327,45 @@
           }
         </script>
 
-        <!-- https://www.w3schools.com/howto/howto_js_copy_clipboard.asp -->
-
         <script>
           function copyToClipB() {
-            /* Get the text field */
+            // https://www.techiedelight.com/copy-text-to-clipboard-javascript/
+
+            var copyTextarea = document.createElement("textarea");
+            copyTextarea.style.position = "fixed";
+            copyTextarea.style.opacity = "0";
+            copyTextarea.textContent =
+              document.getElementById("textMainArea").value;
+
+            document.body.appendChild(copyTextarea);
+            copyTextarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(copyTextarea);
+            return false;
+
+            /* doesnt copy very long text */
+            /*
+            // Get the text field 
             var copyText = document.getElementById("textMainArea");
 
-            /* Select the text field */
+            // Select the text field
             //copyText.select();
-            //copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            //copyText.setSelectionRange(0, 99999);
+            // For mobile devices 
 
-            /* Copy the text inside the text field */
+            // Copy the text inside the text field
             //navigator.clipboard.writeText(copyText.value);
 
             copyText.select();
-            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            copyText.setSelectionRange(0, 99999);
+            // For mobile devices 
 
             document.execCommand("copy");
 
-            /* Alert the copied text
-            alert("ކޮޕީވީ: " + copyText.value); */
+            // Alert the copied text
+            // alert("ކޮޕީވީ: " + copyText.value);
             //return false;
+            */
           }
 
           function copyDate() {
