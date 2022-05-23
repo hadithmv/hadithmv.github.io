@@ -43,9 +43,9 @@ The Maldivian Hadith Translation Platform
 
 ### **Developing a hadith platform for Maldivians**
 
-The **Hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a hadith collection in their native Dhivehi language, in sha Allah. We are also working on making other Islamic works available.
+The **Hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a hadith collection in their native Dhivehi language, in sha Allah. We are also working on making other Islamic works available, as well as beneficial tools and content for those who wish to make use of them.
 
-## Goals
+## Primary Goals
 
 ### **Accessibility**
 
@@ -112,13 +112,13 @@ The **Hadithmv** project is a collaborated effort in making the sayings and teac
 </b></h3>
 
 <p align="right" dir="rtl">
-ޙަދީޘްއެމްވީ މަޝްރޫއަކީ އިސްލާމީ ދިވެހި މުޖުތަމައަށް ވީހާވެސް ފަސޭހަ ކަމާއިއެކު ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތަަކުގެ މާނަ އުނގަންނައިދީ ފޯރުކޮށްދިނުމަށް ޓަކައި ޒަމާނީ ވަސީލަތެއް ގާއިމު ކުރުމުގެ ގޮތުން ކުރެވޭ މަސައްކަތެކެވެ. އިރާދަ ކުރެއްވިއްޔާ މި މަޝްރޫއު ފުރިހަމަ ވުމުން ގިނަ އަދަދެއްގެ ޙަދީޘް ދިވެހި ބަހުން ފަސޭހައިން އެއްތަނަކުން ލިބެން ހުންނާނެއެވެ. އަދި އެހެނިހެން އިސްލާމީ ލިޔުންތައް ގެނެސްދެވޭތޯ ވެސް އެބަ މަސައްކަތް ކުރަމެވެ.
+ޙަދީޘްއެމްވީ މަޝްރޫއަކީ އިސްލާމީ ދިވެހި މުޖުތަމައަށް ވީހާވެސް ފަސޭހަ ކަމާއިއެކު ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތަަކުގެ މާނަ އުނގަންނައިދީ ފޯރުކޮށްދިނުމަށް ޓަކައި ޒަމާނީ ވަސީލަތެއް ގާއިމު ކުރުމުގެ ގޮތުން ކުރެވޭ މަސައްކަތެކެވެ. އިރާދަ ކުރެއްވިއްޔާ މި މަޝްރޫއު ފުރިހަމަ ވުމުން ގިނަ އަދަދެއްގެ ޙަދީޘް ދިވެހި ބަހުން ފަސޭހައިން އެއްތަނަކުން ލިބެން ހުންނާނެއެވެ. އަދި އެހެނިހެން އިސްލާމީ ލިޔުންތައް އެކުލަވާލާ ގެނެސްދިނުމުގެ އިތުރުން، ބޭނުން ކުރާ ބަޔަކަށް ފައިދާކުރާނެ އާލަތްތަކައި މައުލޫމާތު ވެސް ފޯރުކޮށްދެވޭތޯ އެބަ މަސައްކަތް ކުރަމެވެ.
 </p>
 
 <br /><br />
 
 <h3 align="right"><b>
-ލަނޑުދަނޑިތައް
+މައިގަނޑު ލަނޑުދަނޑިތައް
 </b></h3>
 
 ---
