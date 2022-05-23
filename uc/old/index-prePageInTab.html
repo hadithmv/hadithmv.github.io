@@ -204,8 +204,6 @@
               none makes the cards smaller, moving what is around it */
 
         -webkit-font-smoothing: antialiased;
-
-        cursor: pointer;
       }
       .card:hover p {
         color: #fff;
@@ -300,21 +298,18 @@
       https://coolors.co/f9c80e-f86624-ea3546-662e9b-43bccd 
       
       https://paletton.com/#uid=13r0u0kmhrTcNFZi5vxqGomtEjn */
-      /*#tab2 > div > div > a > div*/
-      #tab2 .card {
+      /*#tabOne > div > div > a > div*/
+      #tabOne .card {
         border-top: 5px solid #ad0e1c;
         border-bottom: 5px solid #ad0e1c;
       }
 
-      #tab3 .card {
+      #tabThree .card {
+        border-top: 5px solid #c05602;
+        border-bottom: 5px solid #c05602;
       }
 
-      #tab4 .card {
-        border-top: 5px solid #006e46;
-        border-bottom: 5px solid #006e46;
-      }
-
-      #tab5 .card {
+      #tabFour .card {
         border-top: 5px solid #006e46;
         border-bottom: 5px solid #006e46;
       }
@@ -764,23 +759,20 @@
         }
       </style>
 
-      <div class="row" style="margin-top: 60px; margin-bottom: -10px">
-        <!-- margin-top: 65px -->
+      <div class="row" style="margin-top: 65px; margin-bottom: -10px">
         <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs_fade -->
-        <!-- 
         <div
           class="tab"
           style="max-width: 1000px; margin: 0 auto; flex-direction: row-reverse"
         >
-          
-          <button class="tablink" onclick="openTab(event, 'tab2');">
-              
+          <button class="tablinks" onclick="openTab(event, 'tabOne');">
+            <!--   -->
             ޤުރްއާން <br />
             <span class="arSpan">القرآن</span>
           </button>
           <button
             class="tablinks"
-            onclick="openTab(event, 'tab1'); focusEditor();"
+            onclick="openTab(event, 'tabTwo'); focusEditor();"
             id="defaultOpen"
           >
             ޙަދީޘް <br />
@@ -788,26 +780,25 @@
           </button>
           <button
             class="tablinks tabAqida"
-            onclick="openTab(event, 'tab3'); focusAdder();"
+            onclick="openTab(event, 'tabThree'); focusAdder();"
           >
-  
+            <!--   -->
             އަގީދާ <br />
             <span class="arSpan">العقيدة</span>
           </button>
-          <button class="tablinks tabLang" onclick="openTab(event, 'tab4')">
+          <button class="tablinks tabLang" onclick="openTab(event, 'tabFour')">
             ބަސް <br />
             <span class="arSpan">اللغة</span></button
-          >
-        -->
+          ><!-- &nbsp;&nbsp; previously put before diff-->
+        </div>
       </div>
-    </div>
 
-    <!--
+      <!--
         <div class="row">
         <div class="column">
           <a
         class="tablinks"
-        onclick="openTab(event, 'tab2');
+        onclick="openTab(event, 'tabOne');
          focusEditor();">
             <div class="card quranCard">
               <p class="dv">ކީރިތި ޤުރްއާން</p>
@@ -818,239 +809,111 @@
       </div>
     -->
 
-    <div id="tab2" class="tabcontent">
-      <div class="row">
-        <div class="column">
-          <a href="../books/quran.html">
-            <!-- added this anchor to make it a link -->
-            <div class="card">
-              <p class="dv">ޙަދީޘްއެމްވީ ޤުރްއާން ތަރުޖަމާ</p>
-              <p class="ar">ترجمة القرآن الكريم</p>
-            </div>
-          </a>
+      <div id="tabOne" class="tabcontent">
+        <div class="row">
+          <div class="column">
+            <a href="../books/quran.html">
+              <!-- added this anchor to make it a link -->
+              <div class="card">
+                <p class="dv">ޙަދީޘްއެމްވީ ޤުރްއާން ތަރުޖަމާ</p>
+                <p class="ar">ترجمة القرآن الكريم</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="column">
+            <a href="../books/quranBakurube.html">
+              <!-- added this anchor to make it a link -->
+              <div class="card">
+                <p class="dv">ބަކުރުބެގެ ޤުރްއާން ތަރުޖަމާ</p>
+                <p class="ar">
+                  <span style="font-size: 80%"
+                    >( ނުނިމޭ، ބައިވެރިވެލައްވާ )</span
+                  >
+                </p>
+              </div>
+            </a>
+          </div>
         </div>
 
-        <div class="column">
-          <a href="../books/quranBakurube.html">
-            <!-- added this anchor to make it a link -->
-            <div class="card">
-              <p class="dv">ބަކުރުބެގެ ޤުރްއާން ތަރުޖަމާ</p>
+        <p class="quoteHere">
+          މާތް ﷲ ވަހީ ކުރެއްވިއެވެ: ’ހަމަކަށަވަރުން މި ޤުރްއާން އެންމެ ސީދާ
+          މަގަށް މަގުދައްކައެވެ. އަދި ހަމަކަށަވަރުން ސާލިހު އަމަލުތައް ކުރާ
+          މުއުމިނުންނަށް ބޮޑުވެގެންވާ ދަރުމައެއް ހުރިކަމުގެ އުފާވެރި ޚަބަރު
+          ދެއެވެ.‘ [އަލްއިސްރާ 9]
+        </p>
+      </div>
+      <!--  class="tabcontent"> -->
+
+      <div id="tabTwo" class="tabcontent">
+        <div class="row">
+          <div class="column">
+            <a href="../books/allHadith.html">
+              <div class="card">
+                <p class="dv">އެއްކުރަމުންދާ ޙަދީޘްތައް</p>
+                <p class="ar">جامع الأحاديث</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="column">
+            <a href="../books/hisnulMuslim.html">
+              <div class="card">
+                <p class="dv">މުސްލިމުންގެ ކިއްލާ</p>
+                <p class="ar">حصن المسلم</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="column">
+            <a href="../books/40nawawi.html">
+              <div class="card">
+                <p class="dv">ނަވަވީގެ 40 ޙަދީޘް</p>
+                <p class="ar">الأربعون النووية</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="column">
+            <a href="../books/umdah.html">
+              <div class="card">
+                <p class="dv">ޢުމްދަތުލް އަޙްކާމް</p>
+                <p class="ar">عمدة الأحكام</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="column">
+            <!--<a href="">-->
+            <div class="card disabled">
+              <p class="dv">ބުލޫޣުލް މަރާމް</p>
               <p class="ar">
-                <span style="font-size: 80%">( ނުނިމޭ، ބައިވެރިވެލައްވާ )</span>
+                <a style="font-size: 80%; color: #000000bf; background: none"
+                  >( ނިމިފަ، މުރާޖާކުރަނީ )</a
+                >
               </p>
+              <!--<p class="ar">قريبا إن شاء الله...</p>-->
             </div>
-          </a>
-        </div>
-
-        <!-- -->
-        <div class="column">
-          <a
-            class="tablinks"
-            onclick="openTab(event, 'tab1');"
-            id="defaultOpen"
-          >
-            <div class="card">
-              <!--<p class="dv">ފަހަތަށް</p>
-                <p class="ar">🔙</p>-->
-              <p><span style="font-size: 40px">🔙</span></p>
-            </div>
-          </a>
-        </div>
-        <!-- -->
-      </div>
-
-      <p class="quoteHere">
-        މާތް ﷲ ވަހީ ކުރެއްވިއެވެ: ’ހަމަކަށަވަރުން މި ޤުރްއާން އެންމެ ސީދާ މަގަށް
-        މަގުދައްކައެވެ. އަދި ހަމަކަށަވަރުން ސާލިހު އަމަލުތައް ކުރާ
-        މުއުމިނުންނަށް ބޮޑުވެގެންވާ ދަރުމައެއް ހުރިކަމުގެ އުފާވެރި ޚަބަރު
-        ދެއެވެ.‘ [އަލްއިސްރާ 9]
-      </p>
-    </div>
-    <!--  class="tabcontent"> -->
-
-    <div id="tab3" class="tabcontent">
-      <div class="row">
-        <div class="column">
-          <a href="../books/allHadith.html">
-            <div class="card">
-              <p class="dv">އެއްކުރަމުންދާ ޙަދީޘްތައް</p>
-              <p class="ar">جامع الأحاديث</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../books/hisnulMuslim.html">
-            <div class="card">
-              <p class="dv">މުސްލިމުންގެ ކިއްލާ</p>
-              <p class="ar">حصن المسلم</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../books/40nawawi.html">
-            <div class="card">
-              <p class="dv">ނަވަވީގެ 40 ޙަދީޘް</p>
-              <p class="ar">الأربعون النووية</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../books/umdah.html">
-            <div class="card">
-              <p class="dv">ޢުމްދަތުލް އަޙްކާމް</p>
-              <p class="ar">عمدة الأحكام</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <!--<a href="">-->
-          <div class="card disabled">
-            <p class="dv">ބުލޫޣުލް މަރާމް</p>
-            <p class="ar">
-              <a style="font-size: 80%; color: #000000bf; background: none"
-                >( ނިމިފަ، މުރާޖާކުރަނީ )</a
-              >
-            </p>
-            <!--<p class="ar">قريبا إن شاء الله...</p>-->
+            <!--</a>-->
           </div>
-          <!--</a>-->
-        </div>
 
-        <div class="column">
-          <!--<a href="">-->
-          <div class="card disabled">
-            <p class="dv">9 ޙަދީޘް ފޮތް ތައްޔާރުވަނީ…</p>
-            <p class="ar">
-              <a
-                href="https://hadithmv.github.io/books/hadithmv-sitee.pdf"
-                style="font-size: 80%; color: #00598b"
-                >މިކަމުގައި ބައިވެރިވެލައްވާ</a
-              >
-            </p>
-            <!--<p class="ar">قريبا إن شاء الله...</p>-->
+          <div class="column">
+            <!--<a href="">-->
+            <div class="card disabled">
+              <p class="dv">9 ޙަދީޘް ފޮތް ތައްޔާރުވަނީ…</p>
+              <p class="ar">
+                <a
+                  href="https://hadithmv.github.io/books/hadithmv-sitee.pdf"
+                  style="font-size: 80%; color: #00598b"
+                  >މިކަމުގައި ބައިވެރިވެލައްވާ</a
+                >
+              </p>
+              <!--<p class="ar">قريبا إن شاء الله...</p>-->
+            </div>
+            <!--</a>-->
           </div>
-          <!--</a>-->
         </div>
 
-        <!-- -->
-        <div class="column">
-          <a
-            class="tablinks"
-            onclick="openTab(event, 'tab1');"
-            id="defaultOpen"
-          >
-            <div class="card">
-              <p><span style="font-size: 40px">🔙</span></p>
-            </div>
-          </a>
-        </div>
-        <!-- -->
-
-        <p class="quoteHere">
-          ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”ތިމަން ނަބިއްޔާގެ ބަސްފުޅު
-          އަޑުއަހައި، އެ ރަނގަޅަށް ވިސްނި، ދެން އެ ބަސްފުޅު އަޑުއެހި ގޮތަށް
-          (އެހެން މީހަކަށް  ) ފޯރުކޮށްދީފި މީހާގެ މޫނު އުޖާލާ ކުރައްވާށިއެވެ.“
-          [ޙިލްޔަތުލް އައުލިޔާ 105]
-        </p>
-        <!-- -->
-      </div>
-    </div>
-    <!--  class="tabcontent"> -->
-
-    <div id="tab1" class="tabcontent">
-      <div class="row">
-        <!-- -->
-
-        <div class="column">
-          <a class="tablinks" onclick="openTab(event, 'tab2');">
-            <div class="card">
-              <p class="dv">📖 ޤުރްއާން</p>
-              <p class="ar">القرآن</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a class="tablinks" onclick="openTab(event, 'tab3');">
-            <div class="card">
-              <p class="dv">📘 ޙަދީޘް</p>
-              <p class="ar">الحديث</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a class="tablinks" onclick="openTab(event, 'tab4');">
-            <div class="card">
-              <p class="dv">📙 އަގީދާ</p>
-              <p class="ar">العقيدة</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a class="tablinks" onclick="openTab(event, 'tab5');">
-            <div class="card">
-              <p class="dv">🌐 ބަސް</p>
-              <p class="ar">اللغة</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../books/hisnulMuslim.html#hisnulMuslimTable=l1:p74">
-            <div class="card">
-              <p class="dv">🤲 ހެނދުނާއި ހަވީރުގެ ޒިކުރުތައް</p>
-              <p class="ar">أذكار الصباح والمساء</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../notes/info/text-editor.html">
-            <div class="card">
-              <p class="dv">📝 ޓެކްސްޓު އެޑިޓަރ</p>
-              <p class="ar">محرر النصوص</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a class="tablinks" onclick="openTab(event, 'tab6');">
-            <div class="card">
-              <p class="dv">📚 އެހެނިހެން</p>
-              <p class="ar">المتنوعات</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="https://birrumv.com">
-            <div class="card">
-              <p class="dv">🚰 އަގީގާއާއި ވަޅުހެދުން</p>
-              <p class="ar">العقيقة والآبار</p>
-            </div>
-          </a>
-        </div>
-
-        <p class="quoteHere">
-          ނަބިއްޔާ
-          <button
-            class="copyURL"
-            id="sallaButton"
-            onclick="copySalla();"
-            title="ﷺ Copy"
-            style="margin: 0; height: 35px"
-          >
-            &nbsp; ﷺ &nbsp;
-          </button>
-          ޙަދީޘް ކުރެއްވިއެވެ: ”ހެޔޮކަމަކަށް މަގުދައްކައިފި މީހަކަށް އެ ހެޔޮކަން
-          ކުރި މީހަކާ އެއްފަދަ އަޖުރެއް ލިބޭނެއެވެ.“ [މުސްލިމު 1893]
-        </p>
         <script>
           // https://stackoverflow.com/questions/8252638/executing-javascript-after-x-seconds
           function copySalla() {
@@ -1076,185 +939,106 @@
           }
         </script>
 
-        <!-- -->
-      </div>
-    </div>
-
-    <!--  class="tabcontent"> -->
-
-    <div id="tab4" class="tabcontent">
-      <div class="row">
-        <div class="column">
-          <a href="../books/barbahari.html">
-            <div class="card">
-              <p class="dv">ބަރްބަހާރީ ލިޔުއްވި ސުންނަތުގެ ޝަރަހަ</p>
-              <p class="ar">شرح السنة للبربهاري</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../books/aqidatuRaziyain.html">
-            <div class="card">
-              <p class="dv">ދެ ރާޒީންގެ އަގީދާ</p>
-              <p class="ar">عقيدة الرازيين</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../books/nawaqidulislam.html">
-            <div class="card">
-              <p class="dv">އިސްލާމްކަން ގެއްލޭ ކަންކަން</p>
-              <p class="ar">نواقض الإسلام</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../books/qawaidulArbau.html">
-            <div class="card">
-              <p class="dv">ހަތަރު ގަވާއިދު</p>
-              <p class="ar">‌‌القواعد الأربع</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- -->
-        <div class="column">
-          <a
-            class="tablinks"
-            onclick="openTab(event, 'tab1');"
-            id="defaultOpen"
+        <p class="quoteHere">
+          ނަބިއްޔާ
+          <button
+            class="copyURL"
+            id="sallaButton"
+            onclick="copySalla();"
+            title="ﷺ Copy"
+            style="margin: 0; height: 35px"
           >
-            <div class="card">
-              <p><span style="font-size: 40px">🔙</span></p>
-            </div>
-          </a>
-        </div>
-        <!-- -->
+            &nbsp; ﷺ &nbsp;
+          </button>
+          ޙަދީޘް ކުރެއްވިއެވެ: ”ހެޔޮކަމަކަށް މަގުދައްކައިފި މީހަކަށް އެ ހެޔޮކަން
+          ކުރި މީހަކާ އެއްފަދަ އަޖުރެއް ލިބޭނެއެވެ.“ [މުސްލިމު 1893]
+        </p>
       </div>
 
-      <p class="quoteHere">
-        އިމާމު <a href="../books/barbahari.html">ބަރްބަހާރީ</a>
-        ވިދާޅުވިއެވެ: ’ދަންނާށެވެ. އިސްލާމް ދީނަކީ ސުންނަތެވެ. އަދި ސުންނަތަކީ
-        އިސްލާމް ދީނެވެ. އަދި އެއިން އެއް ކަމެއް، އަނެއް ކަމަކާ ލައިގެން މެނުވީ
-        ގާއިމެއް ނުކުރެވޭނެއެވެ.‘ [ސުންނަތުގެ ޝަރަހަ 1]
-      </p>
-    </div>
-    <!--  class="tabcontent"> -->
+      <!--  class="tabcontent"> -->
 
-    <div id="tab6" class="tabcontent">
-      <div class="row">
-        <div class="column">
-          <a href="../notes/info/umrah-travel.html">
-            <div class="card">
-              <p class="dv">އުމްރާއާއި ދަތުރު</p>
-              <p class="ar">العمرة والسفر</p>
-            </div>
-          </a>
+      <div id="tabThree" class="tabcontent">
+        <div class="row">
+          <div class="column">
+            <a href="../books/barbahari.html">
+              <div class="card">
+                <p class="dv">ބަރްބަހާރީ ލިޔުއްވި ސުންނަތުގެ ޝަރަހަ</p>
+                <p class="ar">شرح السنة للبربهاري</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="column">
+            <a href="../books/aqidatuRaziyain.html">
+              <div class="card">
+                <p class="dv">ދެ ރާޒީންގެ އަގީދާ</p>
+                <p class="ar">عقيدة الرازيين</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="column">
+            <a href="../books/nawaqidulislam.html">
+              <div class="card">
+                <p class="dv">އިސްލާމްކަން ގެއްލޭ ކަންކަން</p>
+                <p class="ar">نواقض الإسلام</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="column">
+            <a href="../books/qawaidulArbau.html">
+              <div class="card">
+                <p class="dv">ހަތަރު ގަވާއިދު</p>
+                <p class="ar">‌‌القواعد الأربع</p>
+              </div>
+            </a>
+          </div>
         </div>
 
-        <div class="column">
-          <a href="../notes/info/madina-info.html">
-            <div class="card">
-              <p class="dv">މަދީނާގެ މައުލޫމާތު</p>
-              <p class="ar">فضائل المدينة</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../notes/info/khutba.html">
-            <div class="card">
-              <p class="dv">ޚުޠުބަތުލް ޙާޖާ</p>
-              <p class="ar">خطبة الحاجة</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../notes/info/mirror-backups.html">
-            <div class="card">
-              <p class="dv">ބެކްއަޕް ސައިޓުތައް</p>
-              <p class="ar">الموقع المثيلة</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- -->
-        <div class="column">
-          <a
-            class="tablinks"
-            onclick="openTab(event, 'tab1');"
-            id="defaultOpen"
-          >
-            <div class="card">
-              <p><span style="font-size: 40px">🔙</span></p>
-            </div>
-          </a>
-        </div>
-        <!-- -->
+        <p class="quoteHere">
+          އިމާމު <a href="../books/barbahari.html">ބަރްބަހާރީ</a>
+          ވިދާޅުވިއެވެ: ’ދަންނާށެވެ. އިސްލާމް ދީނަކީ ސުންނަތެވެ. އަދި ސުންނަތަކީ
+          އިސްލާމް ދީނެވެ. އަދި އެއިން އެއް ކަމެއް، އަނެއް ކަމަކާ ލައިގެން
+          މެނުވީ ގާއިމެއް ނުކުރެވޭނެއެވެ.‘ [ސުންނަތުގެ ޝަރަހަ 1]
+        </p>
       </div>
+      <!--  class="tabcontent"> -->
 
-      <p class="quoteHere">
-        ޢުމަރުގެފާނު ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ: ’ތިޔަބައިމީހުން
-        ސުންނަތުގައި ފިގުހުވެރި ވާށެވެ. އަދި އަރަބި ބަހުގައި ވެސް ފިގުހުވެރި
-        ވާށެވެ. އަދި ޤުރްއާނުގައިވާ އަރަބި ބަސްތަކުގެ މާނަ ދެނެގަންނާށެވެ.
-        އެހެނީ ހަމަކަށަވަރުން އެ ޤުރްއާން ވަނީ އަރަބި ބަހުންނެވެ.‘ [މުޞައްނަފު
-        އިބްނު އަބީ ޝައިބާ 29914]
-      </p>
-    </div>
-    <!--  class="tabcontent"> -->
+      <div id="tabFour" class="tabcontent">
+        <div class="row">
+          <div class="column">
+            <a href="../books/radheef.html">
+              <div class="card">
+                <p class="dv">ޙަދީޘްއެމްވީ އަރަބި ދިވެހި އިނގިރޭސި ރަދީފު</p>
+                <p class="ar">قاموس عربي ديفهي إنجليزي</p>
+              </div>
+            </a>
+          </div>
 
-    <div id="tab5" class="tabcontent">
-      <div class="row">
-        <div class="column">
-          <a href="../books/radheef.html">
-            <div class="card">
-              <p class="dv">ޙަދީޘްއެމްވީ އަރަބި ދިވެހި އިނގިރޭސި ރަދީފު</p>
-              <p class="ar">قاموس عربي ديفهي إنجليزي</p>
-            </div>
-          </a>
+          <div class="column">
+            <a href="../books/eegaal.html">
+              <div class="card">
+                <p class="dv">އަލްއީޤާޡް އަރަބި ދިވެހި ރަދީފު</p>
+                <p class="ar">قاموس الإيقاظ</p>
+              </div>
+            </a>
+          </div>
         </div>
 
-        <div class="column">
-          <a href="../books/eegaal.html">
-            <div class="card">
-              <p class="dv">އަލްއީޤާޡް އަރަބި ދިވެހި ރަދީފު</p>
-              <p class="ar">قاموس الإيقاظ</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- -->
-        <div class="column">
-          <a
-            class="tablinks"
-            onclick="openTab(event, 'tab1');"
-            id="defaultOpen"
-          >
-            <div class="card">
-              <p><span style="font-size: 40px">🔙</span></p>
-            </div>
-          </a>
-        </div>
-        <!-- -->
+        <p class="quoteHere">
+          ޢުމަރުގެފާނު ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ: ’ތިޔަބައިމީހުން
+          ސުންނަތުގައި ފިގުހުވެރި ވާށެވެ. އަދި އަރަބި ބަހުގައި ވެސް ފިގުހުވެރި
+          ވާށެވެ. އަދި ޤުރްއާނުގައިވާ އަރަބި ބަސްތަކުގެ މާނަ ދެނެގަންނާށެވެ.
+          އެހެނީ ހަމަކަށަވަރުން އެ ޤުރްއާން ވަނީ އަރަބި ބަހުންނެވެ.‘ [މުޞައްނަފު
+          އިބްނު އަބީ ޝައިބާ 29914]
+        </p>
       </div>
+      <!--  class="tabcontent"> -->
 
-      <p class="quoteHere">
-        ޢުމަރުގެފާނު ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ: ’ތިޔަބައިމީހުން
-        ސުންނަތުގައި ފިގުހުވެރި ވާށެވެ. އަދި އަރަބި ބަހުގައި ވެސް ފިގުހުވެރި
-        ވާށެވެ. އަދި ޤުރްއާނުގައިވާ އަރަބި ބަސްތަކުގެ މާނަ ދެނެގަންނާށެވެ.
-        އެހެނީ ހަމަކަށަވަރުން އެ ޤުރްއާން ވަނީ އަރަބި ބަހުންނެވެ.‘ [މުޞައްނަފު
-        އިބްނު އަބީ ޝައިބާ 29914]
-      </p>
-    </div>
-    <!--  class="tabcontent"> -->
-
-    <!-- -->
-    <style>
-      /*
+      <!-- -->
+      <style>
+        /*
 
       <div class="row">
         <div class="column">
@@ -1380,125 +1164,137 @@
       </div>
       <!-- <div class="row"> -->
       */
-    </style>
-
-    <div class="mid" id="footer">
-      <!-- previously class had "hidden"-->
-      <p>
-        ކުށެއް ރަނގަޅުކުރުމަށް، ނުވަތަ ތަރުޖަމާ މަސައްކަތުގައި ބައިވެރިވުމަށް،
-        ނުވަތަ މި މަޝްރޫއަށް އެހީވެދިނުމަށް
-        <br />
-        އަޅުގަނޑުމެންނާ ގުޅުއްވާ:
-        <a href="http://m.me/hadithmvOfficial">މެސެންޖަރ</a> |
-        <a href="tel:+9607583166">ވައިބަރ</a> |
-        <a href="https://t.me/ashraafmv">ޓެލެގްރާމް</a> |
-        <a href="https://wa.me/qr/FJFBCPFQXUBKJ1">ވަޓްސްއެޕް</a> |
-        <a href="mailto:hadithmv@gmail.com">އީމެއިލް</a>
-      </p>
-
-      <p>
-        މީސްމީޑިއާގައި ތަބާވުމަށް:
-        <a href="http://fb.me/hadithmvOfficial">ފޭސްބުކް</a> |
-        <a
-          href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX/ZVrvGtq/bJboZzADy3OssLND4H1TFWklNmNQZC"
-          >ވައިބަރ</a
-        >
-        | <a href="http://t.me/hadithmv">ޓެލެގްރާމް</a> |
-        <a href="https://instagram.com/hadithmv">އިންސްޓަގްރާމް</a> |
-        <a href="https://twitter.com/hadithmv">ޓްވިޓަރ</a>
-      </p>
-
-      <p>
-        <span onclick="supriseClick();">ޙަދީޘްއެމްވީ</span> އެޕް ހޯދުމަށް:
-        <a href="https://hadithmv.github.io">ވެބް</a> |
-        <a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
-          >އޭންޑްރޮއިޑް</a
-        >
-        |
-        <a href="https://github.com/hadithmv/hadithmv.github.io/releases"
-          >ވިންޑޯސް</a
-        >
-      </p>
-
-      <div id="supriseDiv" style="display: none">
-        I
-
-        <svg class="heart" viewBox="0 0 32 29.6">
-          <path
-            d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
-c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
-          />
-        </svg>
-
-        You Nau, Yayya & Yoosh
-      </div>
-
-      <style>
-        #supriseDiv {
-          background: #333;
-          color: #fff;
-          /*font-family: "Archivo Black", sans-serif;*/
-          font-family: "Quicksand", sans-serif;
-          font-size: 3em;
-          /*margin-top: 1em;*/
-          text-align: center;
-          text-transform: uppercase;
-          /**/
-          border-radius: 20px;
-          line-height: 1.5;
-          padding: 20px;
-          padding-top: 35px;
-          padding-bottom: 35px;
-        }
-        /*body {
-          background: #333;
-          color: #fff;
-          font-family: "Archivo Black", sans-serif;
-          font-size: 3em;
-          margin-top: 1em;
-          text-align: center;
-          text-transform: uppercase;
-        }*/
-
-        .heart {
-          fill: red;
-          position: relative;
-          top: 5px;
-          width: 50px;
-          animation: pulse 1s ease infinite;
-        }
-
-        @keyframes pulse {
-          0% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.3);
-          }
-          100% {
-            transform: scale(1);
-          }
-        }
       </style>
 
-      <script>
-        var suprise_timesClicked = 0;
-        function supriseClick() {
-          suprise_timesClicked++;
-          if (suprise_timesClicked == 1) {
-            //run first function
-          } else if (suprise_timesClicked == 2) {
-            //run second function
-          } else if (suprise_timesClicked == 5) {
-            document.getElementById("supriseDiv").style.display = "block";
-            suprise_timesClicked = 0;
-          }
-        }
-      </script>
+      <div class="mid" id="footer">
+        <!-- previously class had "hidden"-->
+        <p>
+          ކުށެއް ރަނގަޅުކުރުމަށް، ނުވަތަ ތަރުޖަމާ މަސައްކަތުގައި ބައިވެރިވުމަށް،
+          ނުވަތަ މި މަޝްރޫއަށް އެހީވެދިނުމަށް
+          <br />
+          އަޅުގަނޑުމެންނާ ގުޅުއްވާ:
+          <a href="http://m.me/hadithmvOfficial">މެސެންޖަރ</a> |
+          <a href="tel:+9607583166">ވައިބަރ</a> |
+          <a href="https://t.me/ashraafmv">ޓެލެގްރާމް</a> |
+          <a href="https://wa.me/qr/FJFBCPFQXUBKJ1">ވަޓްސްއެޕް</a> |
+          <a href="mailto:hadithmv@gmail.com">އީމެއިލް</a>
+        </p>
 
-    </div>
-    
-      <br />
+        <p>
+          މީސްމީޑިއާގައި ތަބާވުމަށް:
+          <a href="http://fb.me/hadithmvOfficial">ފޭސްބުކް</a> |
+          <a
+            href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX/ZVrvGtq/bJboZzADy3OssLND4H1TFWklNmNQZC"
+            >ވައިބަރ</a
+          >
+          | <a href="http://t.me/hadithmv">ޓެލެގްރާމް</a> |
+          <a href="https://instagram.com/hadithmv">އިންސްޓަގްރާމް</a> |
+          <a href="https://twitter.com/hadithmv">ޓްވިޓަރ</a>
+        </p>
+
+        <p>
+          ޙަދީޘްއެމްވީ އެޕް ހޯދުމަށް:
+          <a href="https://hadithmv.github.io">ވެބް</a> |
+          <a
+            href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
+            >އޭންޑްރޮއިޑް</a
+          >
+          |
+          <a href="https://github.com/hadithmv/hadithmv.github.io/releases"
+            >ވިންޑޯސް</a
+          >
+        </p>
+        <br />
+
+        <div id="supriseDiv" style="display: none">
+          I
+
+          <svg class="heart" viewBox="0 0 32 29.6">
+            <path
+              d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+	c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
+            />
+          </svg>
+
+          You Nau, Yayya & Yoosh
+        </div>
+
+        <style>
+          #supriseDiv {
+            background: #333;
+            color: #fff;
+            /*font-family: "Archivo Black", sans-serif;*/
+            font-family: "Quicksand", sans-serif;
+            font-size: 3em;
+            margin-top: 1em;
+            text-align: center;
+            text-transform: uppercase;
+            /**/
+            border-radius: 20px;
+            line-height: 1.5;
+            padding: 20px;
+            padding-top: 35px;
+            padding-bottom: 35px;
+          }
+          /*body {
+            background: #333;
+            color: #fff;
+            font-family: "Archivo Black", sans-serif;
+            font-size: 3em;
+            margin-top: 1em;
+            text-align: center;
+            text-transform: uppercase;
+          }*/
+
+          .heart {
+            fill: red;
+            position: relative;
+            top: 5px;
+            width: 50px;
+            animation: pulse 1s ease infinite;
+          }
+
+          @keyframes pulse {
+            0% {
+              transform: scale(1);
+            }
+            50% {
+              transform: scale(1.3);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
+        </style>
+
+        <script>
+          var suprise_timesClicked = 0;
+          function supriseClick() {
+            suprise_timesClicked++;
+            if (suprise_timesClicked == 1) {
+              //run first function
+            } else if (suprise_timesClicked == 2) {
+              //run second function
+            } else if (suprise_timesClicked == 5) {
+              document.getElementById("supriseDiv").style.display = "block";
+              suprise_timesClicked = 0;
+            }
+          }
+        </script>
+
+        <p>
+          <span onclick="supriseClick();">އެހެނިހެން: </span>
+          <a href="../books/hisnulMuslim.html#hisnulMuslimTable=l1:p74"
+            >ކިޔަންވީ ޒިކުރުތައް</a
+          >
+          | <a href="../notes/info/text-editor.html">ޓެކްސްޓު އެޑިޓަރ</a> |
+          <a href="../notes/info/umrah-travel.html">އުމްރާއާއި ދަތުރު</a> |
+          <a href="../notes/info/madina-info.html">މަދީނާގެ މައުލޫމާތު</a> |
+          <a href="../notes/info/khutba.html">ޚުޠުބަތުލް ޙާޖާ</a> |
+          <a href="../notes/info/mirror-backups.html">ބެކްއަޕް ސައިޓުތައް</a> |
+          <a href="https://birrumv.com">އަގީގާއާއި ވަޅުހެދުން</a>
+        </p>
+      </div>
     </div>
     <!-- <div id="page"> -->
 
