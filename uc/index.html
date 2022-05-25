@@ -1264,138 +1264,46 @@
       </div>
       <!--  class="tabcontent"> -->
 
-      <!-- -->
-      <style>
+      <script>
         /*
+                document.addEventListener("DOMContentLoaded", function () {
+                  //....
+                  document.getElementById("footer").classList.remove("hidden");
+                });
+                */
+        /*
+                function unfade(document.getElementById("footer")) {
+            var op = 0.1;  // initial opacity
+            element.style.display = 'block';
+            var timer = setInterval(function () {
+                if (op >= 1){
+                    clearInterval(timer);
+                }
+                element.style.opacity = op;
+                element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                op += op * 0.1;
+            }, 10);
 
-      <div class="row">
-        <div class="column">
-          <a href="../books/quran.html">
-            <!-- added this anchor to make it a link -->
-            <div class="card quranCard">
-              <p class="dv">ކީރިތި ޤުރްއާން</p>
-              <p class="ar">القرآن الكريم</p>
-            </div>
-          </a>
-        </div>
+        }*/
+      </script>
+      <style>
+        /* code for animation taken from .tabcontent */
 
-        <div class="column">
-          <a href="../books/allHadith.html">
-            <div class="card ahCard">
-              <p class="dv">އެއްކުރަމުންދާ ޙަދީޘްތައް</p>
-              <p class="ar">جامع الأحاديث</p>
-            </div>
-          </a>
-        </div>
+        #footer {
+          /*display: none;*/
+          /*padding: 6px 12px;*/
+          animation: fadeEffect 0.7s;
+          animation: fadeEffect 0.7s;
+          animation-timing-function: ease-out;
+        }
 
-        <div class="column">
-          <a href="../books/hisnulMuslim.html">
-            <div class="card hmCard">
-              <p class="dv">މުސްލިމުންގެ ކިއްލާ</p>
-              <p class="ar">حصن المسلم</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../books/40nawawi.html">
-            <div class="card fnCard">
-              <p class="dv">ނަވަވީގެ 40 ޙަދީޘް</p>
-              <p class="ar">الأربعون النووية</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../books/umdah.html">
-            <div class="card uaCard">
-              <p class="dv">ޢުމްދަތުލް އަޙްކާމް</p>
-              <p class="ar">عمدة الأحكام</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <div class="card disabled dCard">
-            <p class="dv">ބުލޫޣުލް މަރާމް</p>
-            <p
-              class="dv"
-              style="padding-top: 5px; padding-bottom: 5px; margin-top: 0"
-            >
-              ( ނިމިފަ، މުރާޖާކުރަނީ )
-            </p>
-          </div>
-        </div>
-
-        <div class="column">
-          <a href="../books/barbahari.html">
-            <div class="card aqidaCard">
-              <p class="dv">ބަރްބަހާރީ ލިޔުއްވި ސުންނަތުގެ ޝަރަހަ</p>
-              <p class="ar">شرح السنة للبربهاري</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../books/nawaqidulislam.html">
-            <div class="card aqidaCard">
-              <p class="dv">އިސްލާމްކަން ގެއްލޭ ކަންކަން</p>
-              <p class="ar">نواقض الإسلام</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../books/radheef.html">
-            <div class="card langCard">
-              <p class="dv">ޙަދީޘްއެމްވީ އަރަބި ދިވެހި އިނގިރޭސި ރަދީފު</p>
-              <p class="ar">قاموس عربي ديفهي إنجليزي</p>
-            </div>
-          </a>
-        </div>
-
-        <div class="column">
-          <a href="../books/eegaal.html">
-            <div class="card langCard">
-              <p class="dv">އަލްއީޤާޡް އަރަބި ދިވެހި ރަދީފު</p>
-              <p class="ar">قاموس الإيقاظ</p>
-            </div>
-          </a>
-        </div>
-
-        <!--
-        <div class="column">
-          <a href="https://hadithmv.github.io/shop">
-            <div class="card shCard">
-              <p class="dv">އީ - ފިހާރަ</p>
-              <p class="ar">التسوق الإلكتروني</p>
-            </div>
-          </a>
-        </div>
-        -->
-
-        <div class="column">
-          <!--<a href="">-->
-          <div class="card disabled dCard">
-            <p class="dv">9 ޙަދީޘް ފޮތް ތައްޔާރުވަނީ…</p>
-            <p class="ar">
-              <a
-                href="https://hadithmv.github.io/books/hadithmv-sitee.pdf"
-                style="font-size: 80%; color: #00598b"
-                >މިކަމުގައި ބައިވެރިވެލައްވާ</a
-              >
-            </p>
-            <!--<p class="ar">قريبا إن شاء الله...</p>-->
-          </div>
-          <!--</a>-->
-        </div>
-      </div>
-      <!-- <div class="row"> -->
-      */
+        /* https://stackoverflow.com/questions/11679567/using-css-for-a-fade-in-effect-on-page-load/11681331#11681331
+        also explains how this works, but code was taken from tabs */
       </style>
 
       <div class="mid" id="footer">
         <!-- previously class had "hidden"-->
+
         <p>
           ކުށެއް ރަނގަޅުކުރުމަށް، ނުވަތަ ތަރުޖަމާ މަސައްކަތުގައި ބައިވެރިވުމަށް،
           ނުވަތަ މި މަޝްރޫއަށް އެހީވެދިނުމަށް
