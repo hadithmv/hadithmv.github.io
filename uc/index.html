@@ -1285,23 +1285,51 @@
             }, 10);
 
         }*/
+
+        // https://stackoverflow.com/questions/807878/how-to-make-javascript-execute-after-page-load/36096571#36096571
+
+        document.addEventListener("DOMContentLoaded", function () {
+          //...
+          // https://www.geeksforgeeks.org/how-to-add-fade-in-effect-using-pure-javascript/#:~:text=The%20fade%20effect%20is%20described,as%20the%20fade%2Din%20effect.
+          var opacity = 0;
+          var intervalID = 0;
+          window.onload = fadeIn;
+
+          function fadeIn() {
+            setInterval(show, 75);
+          }
+
+          function show() {
+            var body = document.getElementById("footer");
+            opacity = Number(
+              window.getComputedStyle(body).getPropertyValue("opacity")
+            );
+            if (opacity < 1) {
+              opacity = opacity + 0.3;
+              body.style.opacity = opacity;
+            } else {
+              clearInterval(intervalID);
+            }
+          }
+          //...
+        });
       </script>
       <style>
         /* code for animation taken from .tabcontent */
-
-        #footer {
-          /*display: none;*/
-          /*padding: 6px 12px;*/
+        /*
+        #footer {*/
+        /*display: none;*/
+        /*padding: 6px 12px;*/
+        /*
           animation: fadeEffect 0.7s;
           animation: fadeEffect 0.7s;
           animation-timing-function: ease-out;
-        }
-
+        }*/
         /* https://stackoverflow.com/questions/11679567/using-css-for-a-fade-in-effect-on-page-load/11681331#11681331
         also explains how this works, but code was taken from tabs */
       </style>
 
-      <div class="mid" id="footer">
+      <div class="mid" id="footer" style="opacity: 0">
         <!-- previously class had "hidden"-->
 
         <p>
