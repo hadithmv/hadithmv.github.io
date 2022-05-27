@@ -839,7 +839,7 @@
             class="ttClass"
             data-tooltip="Generate a random number from 1-10, or based on your minimum and maximum input next to this button after you click it"
           >
-            🔟 .Random No
+            🔟 RandomNum
           </button>
 
           <input
@@ -879,7 +879,7 @@
             data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
             id="listNumbers"
           >
-            🔢 Add LineNos
+            🔢 NumbrdLines
           </button>
           <button
             onclick="replaceFili();triggerTheCounts();"
@@ -913,20 +913,11 @@
           <!--<button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>-->
 
           <button
-            onclick="numToBracket();"
-            id="bracketedNumber"
-            class="ttClass"
-            data-tooltip="Places round brackets around numbers on the first click, then square brackets around them on the second, then removes those brackets on the third"
-          >
-            1 ↔ (1)
-          </button>
-
-          <button
             onclick="linesOfNumbers();"
             class="ttClass"
             data-tooltip="Generate a list of numbers, each on a new line from 1-10, or based on your minimum and maximum input next to this button after you click it"
           >
-            #️⃣ List of Nos
+            #️⃣ Gen NumList
           </button>
 
           <input
@@ -944,6 +935,15 @@
             id="minNline"
             style="color: red; display: none"
           />
+
+          <button
+            onclick="numToBracket();"
+            id="bracketedNumber"
+            class="ttClass"
+            data-tooltip="Places round brackets around numbers on the first click, then square brackets around them on the second, then removes those brackets on the third"
+          >
+            1 ↔ (1)
+          </button>
 
           <button
             onclick="numToSuperScript();"
@@ -2592,7 +2592,7 @@
               var newText = text.replace(/^\d+\.\s/gm, "");
               document.getElementById("textMainArea").value = newText;
               document.getElementById("listNumbers").innerHTML =
-                "🔢 Add LineNos";
+                "🔢 NumbrdLines";
               return false;
             } else {
               //run first function
@@ -2603,7 +2603,7 @@
                 .map((line, index) => `${index + 1}. ${line}`)
                 .join("\n");
               document.getElementById("textMainArea").value = numbered;
-              document.getElementById("listNumbers").innerHTML = "Rem LineNos";
+              document.getElementById("listNumbers").innerHTML = "Rem LineNums";
             }
           }
 
