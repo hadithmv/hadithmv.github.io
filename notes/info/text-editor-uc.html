@@ -677,14 +677,14 @@
             class="ttClass"
             data-tooltip="Copies above text into the clipboard for pasting"
           >
-            📋 ލިޔުން ކޮޕީކުރޭ
+            📋 ކޮޕީ Copy
           </button>
           <button
             onclick="clearTextArea();triggerTheCounts();"
             class="ttClass"
             data-tooltip="Erases everything above"
           >
-            ❌ ލިޔުން ފޮހެލާ
+            ❌ ފޮހެލާ Erase
           </button>
 
           <button
@@ -692,7 +692,7 @@
             class="ttClass"
             data-tooltip="Saves and downloads the text above as a .txt file to your device"
           >
-            📩 ލިޔުން ޑައުންލޯޑު
+            📩 ޑައުންލޯޑު DwnL
           </button>
 
           <script>
@@ -740,7 +740,7 @@
             class="ttClass"
             data-tooltip="Uploads the text of a file that you choose on your device"
           >
-            📁 ލިޔުން އަޕްލޯޑު
+            📁 އަޕްލޯޑު Upload
           </button>
 
           <script>
@@ -839,14 +839,14 @@
             class="ttClass"
             data-tooltip="Generate a random number from 1-10, or based on your minimum and maximum input next to this button after you click it"
           >
-            #️⃣ .Random No
+            🔟 .Random No
           </button>
 
           <input
             class="findRepClass"
             placeholder="Max eg. 10"
             type="text"
-            id="maximumNumber"
+            id="maxNrand"
             style="color: blue; display: none"
           />
 
@@ -854,7 +854,7 @@
             class="findRepClass"
             placeholder=".Enter Min No"
             type="text"
-            id="minimumNumber"
+            id="minNrand"
             style="color: red; display: none"
           />
 
@@ -863,7 +863,7 @@
             class="ttClass"
             data-tooltip="Fits everything in the text into one single line"
           >
-            ↲ އެއްފޮޅުވަތަށް ފައްތާ
+            ↲އެއްފޮޅުވަތް Wrdwrp
           </button>
           <button
             onclick="sortLines();"
@@ -871,7 +871,7 @@
             class="ttClass"
             data-tooltip="Sorts the lines of text alphabetically on the first click, and in reverse on the second"
           >
-            ↕️ މަތިންތިރި ތަރުތީބު
+            ↕️ މަތިންތިރި Order
           </button>
           <button
             onclick="numberedList();triggerTheCounts();"
@@ -879,7 +879,7 @@
             data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
             id="listNumbers"
           >
-            🔢 ފޮޅުވަތް ނަމްބަރުލާ
+            🔢 Add LineNos
           </button>
           <button
             onclick="replaceFili();triggerTheCounts();"
@@ -913,12 +913,46 @@
           <!--<button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>-->
 
           <button
+            onclick="numToBracket();"
+            id="bracketedNumber"
+            class="ttClass"
+            data-tooltip="Places round brackets around numbers on the first click, then square brackets around them on the second, then removes those brackets on the third"
+          >
+            1 ↔ (1)
+          </button>
+
+          <button
+            onclick="linesOfNumbers();"
+            class="ttClass"
+            data-tooltip="Generate a list of numbers, each on a new line from 1-10, or based on your minimum and maximum input next to this button after you click it"
+          >
+            #️⃣ List of Nos
+          </button>
+
+          <input
+            class="findRepClass"
+            placeholder="Max eg. 10"
+            type="text"
+            id="maxNline"
+            style="color: blue; display: none"
+          />
+
+          <input
+            class="findRepClass"
+            placeholder=".Enter Min No"
+            type="text"
+            id="minNline"
+            style="color: red; display: none"
+          />
+
+          <button
             onclick="numToSuperScript();"
             class="ttClass"
             data-tooltip="Changes numbers and round brackets to superscript, like footnotes on the first click, and reverts them on the second"
           >
             (1) ↔ ⁽¹⁾
           </button>
+
           <button
             onclick="replaceFootNos();triggerTheCounts();"
             class="ttClass"
@@ -1410,6 +1444,7 @@
             } else {
             }
           }
+          //
 
           /*function triggerTheReplace() {
             setTimeout(function () {
@@ -1843,6 +1878,7 @@
             document.getElementById("textMainArea").value = newText;
             return false;
           }
+          //
 
           // better switch like click function
           // https://stackoverflow.com/questions/30266496/event-on-second-and-third-click
@@ -1885,9 +1921,11 @@
 
               document.getElementById("caseChange").innerHTML = "🔠 Title Case";
 
+              // reset click
               toTitleCase_timesClicked = 0;
             }
           }
+          //
 
           //https://stackoverflow.com/questions/44572859/a-function-that-runs-on-the-second-click
           var numToAr_timesClicked = 0;
@@ -1927,6 +1965,7 @@
               return false;
             }
           }
+          //
 
           var shortenSalla_timesClicked = 0;
           function shortenSalla() {
@@ -1971,6 +2010,7 @@
             document.getElementById("textMainArea").value = newText;
             return false;
           }
+          //
 
           var numToSansSerif_timesClicked = 0;
           function numToSansSerif() {
@@ -2009,6 +2049,7 @@
               return false;
             }
           }
+          //
 
           function dotsToEllipsis() {
             var text = document.getElementById("textMainArea").value;
@@ -2016,6 +2057,7 @@
             document.getElementById("textMainArea").value = newText;
             return false;
           }
+          //
 
           var hyphenToEnEmDash_timesClicked = 0;
           function hyphenToEnEmDash() {
@@ -2034,6 +2076,47 @@
               return false;
             }
           }
+          //
+
+          // https://stackoverflow.com/questions/30992998/add-brackets-around-digits/30993206#30993206
+          var numToBracket_timesClicked = 0;
+          function numToBracket() {
+            numToBracket_timesClicked++;
+            if (numToBracket_timesClicked == 1) {
+              //run first function
+
+              var text = document.getElementById("textMainArea").value;
+              var newText = text.replace(/\b(\d+)\b/g, "($1)");
+
+              document.getElementById("textMainArea").value = newText;
+
+              document.getElementById("bracketedNumber").innerHTML =
+                "(1) ↔ [1]";
+            } else if (numToBracket_timesClicked == 2) {
+              //run second function
+
+              var text = document.getElementById("textMainArea").value;
+              var newText = text.replace(/\(\b(\d+)\b\)/g, "[$1]");
+
+              document.getElementById("textMainArea").value = newText;
+
+              document.getElementById("bracketedNumber").innerHTML = "(1) ↔ 1";
+            } else if (numToBracket_timesClicked == 3) {
+              $(".test").text("third");
+              //run third function
+
+              var text = document.getElementById("textMainArea").value;
+              var newText = text.replace(/\[\b(\d+)\b\]/g, "$1");
+
+              document.getElementById("textMainArea").value = newText;
+
+              document.getElementById("bracketedNumber").innerHTML = "1 ↔ [1]";
+
+              // reset click
+              numToBracket_timesClicked = 0;
+            }
+          }
+          //
 
           var numToSuperScript_timesClicked = 0;
           function numToSuperScript() {
@@ -2349,20 +2432,20 @@
 
             /* doesnt copy very long text */
             /*
-            // Get the text field 
+            // Get the text field
             var copyText = document.getElementById("textMainArea");
 
             // Select the text field
             //copyText.select();
             //copyText.setSelectionRange(0, 99999);
-            // For mobile devices 
+            // For mobile devices
 
             // Copy the text inside the text field
             //navigator.clipboard.writeText(copyText.value);
 
             copyText.select();
             copyText.setSelectionRange(0, 99999);
-            // For mobile devices 
+            // For mobile devices
 
             document.execCommand("copy");
 
@@ -2428,7 +2511,7 @@
                 .reverse()
                 .join("\n");
               document.getElementById("lineSort").innerHTML =
-                "↕️ މަތިންތިރި ތަރުތީބު";
+                "↕️ މަތިންތިރި Order";
             } else {
               //run first function
               document.getElementById("textMainArea").value = document
@@ -2437,9 +2520,10 @@
                 .sort()
                 .join("\n");
               document.getElementById("lineSort").innerHTML =
-                "↕️ ތިރިންމަތި ތަރުތީބު";
+                "↕️ ތިރިންމަތި Revers";
             }
           }
+          //
 
           var leftToRight_timesClicked = 0;
           // https://stackoverflow.com/questions/38346671/direction-rtl-to-all-page/38346971#38346971
@@ -2477,6 +2561,7 @@
                 "2 Replace This";
             }
           }
+          //
 
           var numberedList_timesClicked = 0;
           // https://stackoverflow.com/questions/27030758/how-to-remove-line-numbers-with-a-dot-at-the-end-of-number/27030855#27030855
@@ -2490,7 +2575,7 @@
               var newText = text.replace(/^\d+\.\s/gm, "");
               document.getElementById("textMainArea").value = newText;
               document.getElementById("listNumbers").innerHTML =
-                "🔢 ފޮޅުވަތް ނަމްބަރުލާ";
+                "🔢 Add LineNos";
               return false;
             } else {
               //run first function
@@ -2501,8 +2586,7 @@
                 .map((line, index) => `${index + 1}. ${line}`)
                 .join("\n");
               document.getElementById("textMainArea").value = numbered;
-              document.getElementById("listNumbers").innerHTML =
-                "ފޮޅުވަތް ނަމްބަރު ފޮހެލާ";
+              document.getElementById("listNumbers").innerHTML = "Rem LineNos";
             }
           }
 
@@ -2537,27 +2621,64 @@
           // https://www.w3schools.com/js/js_random.asp
 
           function randomNumber() {
-            document.getElementById("minimumNumber").style.display =
-              "inline-block";
-            document.getElementById("maximumNumber").style.display =
-              "inline-block";
+            document.getElementById("minNrand").style.display = "inline-block";
+            document.getElementById("maxNrand").style.display = "inline-block";
 
-            min = document.getElementById("minimumNumber").value;
+            minR = document.getElementById("minNrand").value;
 
-            if (min == "") {
+            if (minR == "") {
               document.getElementById("textMainArea").value =
                 Math.floor(Math.random() * 10) + 1;
             } else {
               //document.getElementById("textMainArea").value = "0";
-              min = document.getElementById("minimumNumber").value;
-              max = document.getElementById("maximumNumber").value;
+              minR = document.getElementById("minNrand").value;
+              maxR = document.getElementById("maxNrand").value;
               //return Math.floor(Math.random() * (max - min + 1)) + min;
               // https://stackoverflow.com/questions/14496531/adding-two-numbers-concatenates-them-instead-of-calculating-the-sum/14496556#14496556
               minMaxRange =
-                Math.floor(Math.random() * (+max - +min + 1)) + +min;
+                Math.floor(Math.random() * (+maxR - +minR + 1)) + +minR;
               document.getElementById("textMainArea").value = minMaxRange;
             }
           }
+          //
+
+          // https://stackoverflow.com/questions/8069315/create-array-of-all-integers-between-two-numbers-inclusive-in-javascript-jquer/33457557#33457557
+          function linesOfNumbers() {
+            // code for range input
+            document.getElementById("minNline").style.display = "inline-block";
+            document.getElementById("maxNline").style.display = "inline-block";
+            minL = document.getElementById("minNline").value;
+
+            if (minL == "") {
+              //
+              var minL = 1;
+              var maxL = 10;
+              //
+            } else {
+              //document.getElementById("textMainArea").value = "0";
+              minL = document.getElementById("minNline").value;
+              maxL = document.getElementById("maxNline").value;
+              //
+            }
+            function range(start, end) {
+              return Array(end - start + 1)
+                .fill()
+                .map((_, idx) => +start + +idx);
+            } // added plus signs here
+            // https://stackoverflow.com/questions/14496531/adding-two-numbers-concatenates-them-instead-of-calculating-the-sum/14496556#14496556
+            //
+            var result = range(minL, maxL); // [9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+            //console.log(result);
+            document.getElementById("textMainArea").value = result;
+
+            // added below to turn commas into new lines
+            result2 = document
+              .getElementById("textMainArea")
+              .value.replace(/\,/g, "\n");
+
+            document.getElementById("textMainArea").value = result2;
+          }
+          //
 
           // https://coderszine.com/convert-csv-to-json-using-javascript/
 
