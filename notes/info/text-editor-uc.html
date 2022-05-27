@@ -994,7 +994,7 @@
             class="arButton ttClass"
             data-tooltip="Converts curly braces and asterisks to quranic brackets and ayah stops"
           >
-            {*} ← ﴿۝﴾
+            {*} ↔ ﴿۝﴾
           </button>
           <button
             onclick="shaddaB4Haraka();"
@@ -2312,16 +2312,33 @@
               return false;
             }
           }
+          //
 
+          var replaceQbracket_timesClicked = 0;
           function replaceQbracket() {
-            var text = document.getElementById("textMainArea").value;
-            //var newText = text.replace(/\{/g, "﴾").replace(/\}/g, "﴿");
-            var newText = text.replace(/\{/g, "﴾");
-            var newText = text.replace(/\}/g, "﴿");
-            var newText = text.replace(/\*/g, "۝");
-            document.getElementById("textMainArea").value = newText;
-            return false;
+            replaceQbracket_timesClicked++;
+            if (replaceQbracket_timesClicked % 2 == 0) {
+              //run second function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text
+                .replace(/\﴾/g, "{")
+                .replace(/\﴿/g, "}")
+                .replace(/\۝/g, "*");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            } else {
+              //run first function
+              var text = document.getElementById("textMainArea").value;
+              //var newText = text.replace(/\{/g, "﴾").replace(/\}/g, "﴿");
+              var newText = text
+                .replace(/\{/g, "﴾")
+                .replace(/\}/g, "﴿")
+                .replace(/\*/g, "۝");
+              document.getElementById("textMainArea").value = newText;
+              return false;
+            }
           }
+          //
 
           function shaddaB4Haraka() {
             var text = document.getElementById("textMainArea").value;
