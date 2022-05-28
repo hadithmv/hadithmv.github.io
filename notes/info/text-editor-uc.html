@@ -863,7 +863,7 @@
             class="ttClass"
             data-tooltip="Fits everything in the text into one single line"
           >
-            ↲އެއްފޮޅުވަތް Wrdwrp
+            ↲ 1 ފޮޅުވަތް Wrdwrp
           </button>
           <button
             onclick="sortLines();"
@@ -881,14 +881,14 @@
           >
             🔢 NumbrdLines
           </button>
-          <button
+          <!--<button
             onclick="htmlOList();triggerTheCounts();"
             class="ttClass"
             data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
             id="htmlNList"
           >
             • htmlOList
-          </button>
+          </button>-->
           <button
             onclick="replaceFili();triggerTheCounts();"
             class="ttClass"
@@ -2457,27 +2457,27 @@
 
             /* doesnt copy very long text */
             /*
-                    // Get the text field
-                    var copyText = document.getElementById("textMainArea");
+                              // Get the text field
+                              var copyText = document.getElementById("textMainArea");
 
-                    // Select the text field
-                    //copyText.select();
-                    //copyText.setSelectionRange(0, 99999);
-                    // For mobile devices
+                              // Select the text field
+                              //copyText.select();
+                              //copyText.setSelectionRange(0, 99999);
+                              // For mobile devices
 
-                    // Copy the text inside the text field
-                    //navigator.clipboard.writeText(copyText.value);
+                              // Copy the text inside the text field
+                              //navigator.clipboard.writeText(copyText.value);
 
-                    copyText.select();
-                    copyText.setSelectionRange(0, 99999);
-                    // For mobile devices
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999);
+                              // For mobile devices
 
-                    document.execCommand("copy");
+                              document.execCommand("copy");
 
-                    // Alert the copied text
-                    // alert("ކޮޕީވީ: " + copyText.value);
-                    //return false;
-                    */
+                              // Alert the copied text
+                              // alert("ކޮޕީވީ: " + copyText.value);
+                              //return false;
+                              */
           }
 
           function copyDate() {
@@ -2616,13 +2616,13 @@
           }
 
           /*
-                                var numbered = document
-                        .getElementById("textMainArea")
-                        .value.split("\n")
-                        .map((line, index) => `${index + 1}. ${line}`)
-                        .join("\n");
-                      document.getElementById("textMainArea").value = numbered;
-                      */
+                                          var numbered = document
+                                  .getElementById("textMainArea")
+                                  .value.split("\n")
+                                  .map((line, index) => `${index + 1}. ${line}`)
+                                  .join("\n");
+                                document.getElementById("textMainArea").value = numbered;
+                                */
 
           //
 
@@ -2634,49 +2634,7 @@
 
               //var text = document.getElementById("textMainArea").value;
 
-              function makeList() {
-                // let listData = document.getElementById("textMainArea").value;
-
-                // Establish the array which acts as a data source for the list
-                let listData = [
-                    "Blue",
-                    "Red",
-                    "White",
-                    "Green",
-                    "Black",
-                    "Orange",
-                  ],
-                  // Make a container element for the list
-                  listContainer = document.createElement("div"),
-                  // Make the list
-                  listElement = document.createElement("ul"),
-                  // Set up a loop that goes through the items in listItems one at a time
-                  numberOfListItems = listData.length,
-                  listItem,
-                  i;
-
-                // Add it to the page
-                document
-                  .getElementById("textMainArea")[0]
-                  .appendChild(listContainer);
-                listContainer.appendChild(listElement);
-
-                for (i = 0; i < numberOfListItems; ++i) {
-                  // Create an item for each one
-                  listItem = document.createElement("li");
-
-                  // Add the item text
-                  listItem.innerHTML = listData[i];
-
-                  // Add listItem to the listElement
-                  listElement.appendChild(listItem);
-                }
-              }
-
-              // Usage
-              makeList();
-
-              document.getElementById("htmlOList").innerHTML = "(1) ↔ [1]";
+              document.getElementById("htmlOList").innerHTML = "aasdasd";
             } else if (htmlOList_timesClicked == 2) {
               //run second function
 
@@ -2843,23 +2801,23 @@
           // not working, shows something but not what i want
 
           /*function csvToJson() {
-                    exampleCSV = document.getElementById("textMainArea").value;
-                    const CSVToJSON = (csv) => {
-                      const lines = csv.split("\n");
-                      const keys = lines[0].split(",");
-                      return lines.slice(1).map((line) => {
-                        return line.split(",").reduce((acc, cur, i) => {
-                          const toAdd = {};
-                          toAdd[keys[i]] = cur;
-                          return { ...acc, ...toAdd };
-                        }, {});
-                      });
-                    };
+                              exampleCSV = document.getElementById("textMainArea").value;
+                              const CSVToJSON = (csv) => {
+                                const lines = csv.split("\n");
+                                const keys = lines[0].split(",");
+                                return lines.slice(1).map((line) => {
+                                  return line.split(",").reduce((acc, cur, i) => {
+                                    const toAdd = {};
+                                    toAdd[keys[i]] = cur;
+                                    return { ...acc, ...toAdd };
+                                  }, {});
+                                });
+                              };
 
-                    console.log(CSVToJSON(exampleCSV));
-                    document.getElementById("textMainArea").value =
-                      CSVToJSON(exampleCSV);
-                  }*/
+                              console.log(CSVToJSON(exampleCSV));
+                              document.getElementById("textMainArea").value =
+                                CSVToJSON(exampleCSV);
+                            }*/
 
           /* end of above */
         </script>
