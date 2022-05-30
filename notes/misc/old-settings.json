@@ -1,0 +1,72 @@
+{
+  "telemetry.enableTelemetry": false,
+  "telemetry.enableCrashReporter": false,
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  /*
+    "[css]": {
+        "editor.defaultFormatter": "stylelint.vscode-stylelint",
+    },
+    */
+
+  "standard.enableGlobally": true,
+
+  "[javascript]": {
+    // this is only to stop prettier overwriting standardjs's format
+    "editor.defaultFormatter": "standard.vscode-standard" //ignore the cannot format error it will give
+  },
+
+  "sync.gist": "2199f3bc7a155947a1e27a09545e4de0",
+
+  "editor.defaultFormatter": "esbenp.prettier-vscode", //esbenp.prettier-vscode
+  "editor.formatOnSave": true, //formats with prettifier on save first
+
+  "editor.rulers": [
+    {
+      "column": 80,
+      "color": "#ffffff15"
+    }
+  ],
+
+  "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+  "editor.bracketPairColorization.enabled": true,
+
+  "stylelint.enable": true,
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true,
+    "source.fixAll.markdownlint": true
+  },
+
+  "javascript.validate.enable": false, // needed for standardjs
+  "standard.autoFixOnSave": true, // fixes with standardjs on save
+
+  "htmlhint.enable": true, // default is true, turn off to test
+
+  "better-comments.multilineComments": true,
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "editor.rename.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "workbench.editor.enablePreview": false,
+  "editor.renameOnType": true,
+  "editor.accessibilitySupport": "off",
+  "powershell.promptToUpdatePowerShell": false,
+  "workbench.iconTheme": "vscode-icons",
+  "editor.fontSize": 16,
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.fontFamily": "'Fira Code Retina', Consolas, 'Courier New', monospace",
+  "vsicons.dontShowNewVersionMessage": true,
+  "window.zoomLevel": 1,
+  "editor.linkedEditing": true,
+  "java.imports.gradle.wrapper.checksums": [
+    {
+      "sha256": "e2b82129ab64751fd40437007bd2f7f2afb3c6e41a9198e628650b22d5824a14",
+      "allowed": true
+    }
+  ],
+  "editor.unicodeHighlight.ambiguousCharacters": false
+}
