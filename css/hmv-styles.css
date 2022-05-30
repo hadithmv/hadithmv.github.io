@@ -702,8 +702,9 @@ table.dataTable.display > tbody > tr.odd.selected > *:not(.qCol1),
 table.dataTable.stripe > tbody > tr.odd.selected > *:not(.qCol1) {
   box-shadow: none !important;
 
-  /* removes the fff white text color that comes with that too */
-  color: inherit !important;
+  /* removes the fff white text color that comes with that too,
+  initial and inherit have issues, this seems to work without !important however */
+  color: currentcolor;
 }
 
 /* Keytable - Desktop only MQ */
