@@ -79,25 +79,32 @@ make list of extensions in vscode:
 	code --list-extensions
 
 EXTENSIONS LIST:
+
 cwan.native-ascii-converter
-DavidAnson.vscode-markdownlint
 esbenp.prettier-vscode
 GitHub.remotehub
 GitHub.vscode-pull-request-github
 lacroixdavid1.vscode-format-context-menu
 mkaufman.HTMLHint
+ms-python.python
+ms-toolsai.jupyter
 ms-vscode.powershell
-shd101wyy.markdown-preview-enhanced
-standard.vscode-standard
+ms-vscode.remote-repositories
 stylelint.vscode-stylelint
 techer.open-in-browser
+VisualStudioExptTeam.vscodeintellicode
 vscode-icons-team.vscode-icons
-Wattenberger.footsteps
 zh9528.file-size
 
 ---
 
 NOT NEEDED RN:
+
+DavidAnson.vscode-markdownlint
+shd101wyy.markdown-preview-enhanced
+standard.vscode-standard
+Wattenberger.footsteps
+
 GitHub.vscode-pull-request-github
 alefragnani.project-manager
 christian-kohler.path-intellisense
@@ -105,7 +112,6 @@ ryu1kn.partial-diff
 aaron-bond.better-comments
 CodeStream.codestream
 eamodio.gitlens
-
 DavidAnson.vscode-markdownlint
 bierner.github-markdown-preview
 ms-python.python
@@ -122,42 +128,30 @@ L13RARY.l13-diff
 xabikos.JavaScriptSnippets
 pranaygp.vscode-css-peek
 streetsidesoftware.code-spell-checker
-
 HookyQR.minify
 Aneryu.csso
-
-CHECK IN FUTURE:
 ms-vscode.js-debug-nightly
 ms-vscode-remote.vscode-remote-extensionpack
 ms-vscode.vscode-github-issue-notebooks
 ----------------------
 
-NPM PACKAGES TO INSTALL:
-npm i htmlhint -g
-npm i stylelint -g
-npm i stylelint-config-standard -g
-npm i prettier -g
-npm i stylelint-config-prettier stylelint-prettier -g
-npm i standard -g
+CURRENT LIST:
 
-npm i uglify-js -g
-npm i csso-cli -g
-npm i google-closure-compiler -g
-npm i html-minifier -g
-
-CURRENT LIST
-C:\Users...\AppData\Roaming\npm    
 ├── csso-cli@3.0.0
-├── google-closure-compiler@20211006.0.0
+├── google-closure-compiler@20220502.0.0
 ├── html-minifier@4.0.0
-├── htmlhint@0.15.2
+├── htmlhint@1.1.4
+├── npm@8.11.0
+├── prettier@2.6.2
+└── uglify-js@3.15.5
+
+OLD LIST:
+   
 ├── standard@16.0.4
 ├── stylelint-config-prettier@8.0.2
 ├── stylelint-config-standard@22.0.0
 └── stylelint-prettier@1.2.0
 
-
-+-- uglify-js@3.12.1??
 
 ----------------------------------------
 
