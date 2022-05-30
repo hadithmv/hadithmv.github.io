@@ -623,12 +623,42 @@ $(document).ready(() => {
   })
 
   // adds doubleclick select go to page search was on, with rowshowjs
-  $('tbody').on('dblclick', 'tr', function () {
+
+  // old code
+  /*
+    $('tbody').on('dblclick', 'tr', function () {
     if (table.search() !== '') {
       table.search('').draw()
     }
-    table.row(this).show().select().draw(false)
+    table.row(this).draw().show().select().draw(false)
   })
+  */
+
+  // https://stackoverflow.com/questions/27560653/jquery-on-double-click-event-dblclick-for-mobile/27561006#27561006
+  // for some reason, dblclick stopped working for table.row(this).draw().show().select().draw(false) on mobile view, which was previously table.row(this).show().select().draw(false)
+  // all this was changed due to an update with searchpanes causing a bug https://datatables.net/forums/discussion/comment/208672/#Comment_208672
+  var touchtime = 0;
+  $("tbody").on("click", "tr", function () {
+    if (touchtime == 0) {
+      // set first click
+      touchtime = new Date().getTime();
+    } else {
+      // compare first click to this click and see if they occurred within double click threshold
+      if (new Date().getTime() - touchtime < 800) {
+        // double click occurred
+        //alert("double clicked");
+        if (table.search() !== "") {
+          table.search("").draw();
+        }
+        table.row(this).draw().show().select().draw(false);
+        //
+        touchtime = 0;
+      } else {
+        // not a double click so set as a new first click
+        touchtime = new Date().getTime();
+      }
+    }
+  });
 
   // removes diacritics and punctuation on key up for search
   $('.dataTables_filter input').off().on('keyup', function () {
