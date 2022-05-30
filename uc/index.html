@@ -63,7 +63,7 @@
         margin-left: 8px;
         margin-right: 8px;
       }
-      /* @mixin for-tablet-portrait or smaller 
+      /* @mixin for-tablet-portrait or smaller
       @media screen and (max-width: 600px) {
         .mm-ocd-opened {
           margin-left: 8px;
@@ -132,6 +132,8 @@
 
         /* contains the size */
         max-width: 260px;
+        min-height: 150px;
+        /*width: 60px !important;*/
       }
 
       /* Responsive columns */
@@ -260,6 +262,13 @@
 
           /* make it 2 cards on mobile */
           flex-basis: 50%;
+
+          /* */
+          min-height: 100px;
+
+          /*.backC {
+          height: 100px !important;
+          width: 200px;*/
         }
         p.dv {
           font-size: 14px;
@@ -317,6 +326,11 @@
       #tab5 .card {
         border-top: 5px solid #006e46;
         border-bottom: 5px solid #006e46;
+      }
+
+      #tab6 .card {
+        border-top: 5px solid #5647b8;
+        border-bottom: 5px solid #5647b8;
       }
 
       /*.shCard {
@@ -762,6 +776,11 @@
             min-height: 360px;
           }
         }
+
+        /*.backC {
+          width: 200px;
+          *height: 200px;
+        }*/
       </style>
 
       <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs_fade -->
@@ -863,7 +882,7 @@
               onclick="openTab(event, 'tab1');"
               id="defaultOpen"
             >
-              <div class="card">
+              <div class="card backC">
                 <!--<p class="dv">ފަހަތަށް</p>
                 <p class="ar">🔙</p>-->
                 <p><span style="font-size: 30px">🔙</span></p>
@@ -957,7 +976,7 @@
               onclick="openTab(event, 'tab1');"
               id="defaultOpen"
             >
-              <div class="card">
+              <div class="card backC">
                 <p><span style="font-size: 30px">🔙</span></p>
               </div>
             </a>
@@ -967,7 +986,7 @@
           <p class="quoteHere">
             ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”ތިމަން ނަބިއްޔާގެ ބަސްފުޅު
             އަޑުއަހައި، އެ ރަނގަޅަށް ވިސްނި، ދެން އެ ބަސްފުޅު އަޑުއެހި ގޮތަށް
-            (އެހެން މީހަކަށް  ) ފޯރުކޮށްދީފި މީހާގެ މޫނު އުޖާލާ ކުރައްވާށިއެވެ.“
+            (އެހެން މީހަކަށް) ފޯރުކޮށްދީފި މީހާގެ މޫނު އުޖާލާ ކުރައްވާށިއެވެ.“
             [ޙިލްޔަތުލް އައުލިޔާ 105]
           </p>
           <!-- -->
@@ -1141,7 +1160,7 @@
               onclick="openTab(event, 'tab1');"
               id="defaultOpen"
             >
-              <div class="card">
+              <div class="card backC">
                 <p><span style="font-size: 30px">🔙</span></p>
               </div>
             </a>
@@ -1221,7 +1240,7 @@
               onclick="openTab(event, 'tab1');"
               id="defaultOpen"
             >
-              <div class="card">
+              <div class="card backC">
                 <p><span style="font-size: 30px">🔙</span></p>
               </div>
             </a>
@@ -1264,7 +1283,7 @@
               onclick="openTab(event, 'tab1');"
               id="defaultOpen"
             >
-              <div class="card">
+              <div class="card backC">
                 <p><span style="font-size: 30px">🔙</span></p>
               </div>
             </a>
