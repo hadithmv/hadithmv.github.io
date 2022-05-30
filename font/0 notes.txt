@@ -9,7 +9,7 @@ Created / Modified: Tuesday, July 6, 2021
 
 UthmanicHafs1-Ver14:
 
-don't delete glyph: arabicindiczero-arab and those numbers, because they show the arabic number text as ayah circled number
+don’t delete glyph: arabicindiczero-arab and those numbers, because they show the arabic number text as ayah circled number
 
 /* UPDATE - NOW FIXED IT SEEMS
 chromium webview has an issue with thaana rendering, letters get mashed together,

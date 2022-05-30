@@ -386,7 +386,7 @@ maybe use searchpanes?
 check if unused css/js in DT stuff
 make things like hammer js loadable on media query?
 					
-"those who don't automate are doomed to repeat themselves"
+"those who don’t automate are doomed to repeat themselves"
 check out winget when stable
 
 later add 40n no 41 to allh:
