@@ -64,8 +64,8 @@ Copy-Item ../js/hisnulMuslim-script.min.js -Destination ../app/webview-master/ap
 # COPY JS RESOURCE FILES
 # - - -
 
-Copy-Item ../js/resc/COMB-Crit.js -Destination ../app/webview-master/app/src/main/assets/js/resc/COMB-Crit.js
-Copy-Item ../js/resc/COMB-nonCrit.js -Destination ../app/webview-master/app/src/main/assets/js/resc/COMB-nonCrit.js
+Copy-Item ../js/resc/COMB-Crit.min.js -Destination ../app/webview-master/app/src/main/assets/js/resc/COMB-Crit.min.js
+Copy-Item ../js/resc/COMB-nonCrit.min.js -Destination ../app/webview-master/app/src/main/assets/js/resc/COMB-nonCrit.min.js
 
 # - - -
 # COPY JSON
