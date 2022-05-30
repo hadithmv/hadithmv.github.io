@@ -74,8 +74,8 @@ Copy-Item ../js/umdah-script.min.js -Destination ../app/webview-master/app/src/m
 # - - -
 # COPY JS RESOURCE FILES
 # - - -
-Copy-Item ../js/resc/COMB-Crit.js -Destination ../app/webview-master/app/src/main/assets/js/resc/COMB-Crit.js -Recurse -Force
-Copy-Item ../js/resc/COMB-nonCrit.js -Destination ../app/webview-master/app/src/main/assets/js/resc/COMB-nonCrit.js -Recurse -Force
+Copy-Item ../js/resc/COMB-Crit.min.js -Destination ../app/webview-master/app/src/main/assets/js/resc/COMB-Crit.min.js -Recurse -Force
+Copy-Item ../js/resc/COMB-nonCrit.min.js -Destination ../app/webview-master/app/src/main/assets/js/resc/COMB-nonCrit.min.js -Recurse -Force
 
 # - - -
 # COPY JSON
