@@ -684,7 +684,7 @@ div#datatables_buttons_info.dt-button-info {
 
 /* hides table headers only on mobile, prev nth-child(2)
 - Mobile only MQ
-looks like we don't need this code anymore, use the hide below this */
+looks like we don’t need this code anymore, use the hide below this */
 
 /*
 @media screen and (max-width: 900px) {
