@@ -27,9 +27,10 @@ If you are using Hadithmv from the website, the place where you were reading sta
 
 [Tab] = Tab Navigation
 [Arrow Keys] = Keyboard Navigation
-[Shift + s] = Show Additional Columns
-[Shift + c] = Copy
-[Shift + f] = Filter
+[Shift + S] = Show Additional Columns
+[Shift + C] = Copy text to clipboard
+[Shift + F] = Open Filter
+[Shift + L] = Copy web URL to clipboard
 
 Cursor starts already inside the search box on desktop
 (So to use desktop keyboard shortcuts, you must click outside the search box first)
