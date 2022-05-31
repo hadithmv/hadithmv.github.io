@@ -814,11 +814,25 @@ $(document).ready(() => {
     .on("keyup", function () {
       let str = $(this).val();
       /* modded below for quran, to let search match properly */
+      str = str
+        .replace(
+          "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
+          'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+        )
+        .replace(
+          "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
+          'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+        )
+        .replace(/ـ/g, "")
+        .replace(/[^\u0621-\u064A|^\u0780-\u07B1|\s|<br class="br">]/g, "")
+        .replace(/\s\s/g, " ");
+      // u0621 is where hamza starts in arabic unicode block, while u064A is where yaa ends. ^ everything apart from the letters in this range is removed in regex search
+      /* \u0780-\u07B1 is the range of dhivehi letters in the thaana unicode block
       /*str = str.replace('﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace('﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace(/ـ/g, '').replace(/[^\u0621-\u064A|\s|<br class="br">]/g, '').replace(/\s\s/g, ' ')*/
-      str = str.replace(
+      /*str = str.replace(
         /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
         ""
-      );
+      );*/
       table.search(str).draw();
     });
   //
