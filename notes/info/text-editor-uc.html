@@ -903,14 +903,7 @@
           >
             🔢 NumbrdLines
           </button>
-          <!--<button
-            onclick="htmlOList();triggerTheCounts();"
-            class="ttClass"
-            data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
-            id="htmlNList"
-          >
-            • htmlOList
-          </button>-->
+
           <button
             onclick="replaceFili();triggerTheCounts();"
             class="ttClass"
@@ -1090,6 +1083,15 @@
             data-tooltip="Converts CSV data in the text into JSON"
           >
             CSV → JSON
+          </button>
+
+          <button
+            onclick="htmlOList();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
+            id="htmlNList"
+          >
+            HTML O List
           </button>
 
           <button
@@ -2656,34 +2658,42 @@
 
           //
 
+          // https://stackoverflow.com/questions/41937076/javascript-append-text-at-beginning-and-end-of-each-string-in-a-textarea/41937427#41937427
+
           var htmlOList_timesClicked = 0;
           function htmlOList() {
             htmlOList_timesClicked++;
             if (htmlOList_timesClicked == 1) {
               //run first function
 
-              //var text = document.getElementById("textMainArea").value;
+              var str = document.getElementById("textMainArea").value;
+              var lines = str.split("\n");
+              for (var i = 0; i < lines.length; i++) {
+                lines[i] = "<li>" + lines[i] + "</li>";
+              }
 
-              document.getElementById("htmlOList").innerHTML = "aasdasd";
+              linesFinal = "<ol>" + lines.join("\n") + "</ol>";
+              document.getElementById("textMainArea").value = linesFinal;
+
+              document.getElementById("htmlNList").innerHTML = "HTML U List";
             } else if (htmlOList_timesClicked == 2) {
               //run second function
 
-              var text = document.getElementById("textMainArea").value;
-              var newText = text.replace(/\(\b(\d+)\b\)/g, "[$1]");
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\<ol\>/g, "<ul>")
+                .replace(/\<\/ol\>/g, "</ul>");
 
-              document.getElementById("textMainArea").value = newText;
-
-              document.getElementById("htmlOList").innerHTML = "(1) ↔ 1";
+              document.getElementById("htmlNList").innerHTML = "No List";
             } else if (htmlOList_timesClicked == 3) {
               $(".test").text("third");
               //run third function
 
-              var text = document.getElementById("textMainArea").value;
-              var newText = text.replace(/\[\b(\d+)\b\]/g, "$1");
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\<ul\>|\<\/ul\>|\<\li\>|\<\/li\>/g, "");
 
-              document.getElementById("textMainArea").value = newText;
-
-              document.getElementById("htmlOList").innerHTML = "1 ↔ [1]";
+              document.getElementById("htmlNList").innerHTML = "HTML O List";
 
               // reset click
               htmlOList_timesClicked = 0;
