@@ -283,7 +283,7 @@
           <span
             class="hideMobile"
             style="font-family: dvFont, sans-serif; font-size: 18px"
-            >⚙️ އިސްދާރު: 2.73</span
+            >⚙️ vއިސްދާރު: 2.74</span
           >
           <span class="hideMobile">&nbsp; &nbsp; &nbsp;</span>
           <span class="hideMobile" style="font-size: 17px"
@@ -330,24 +330,24 @@
           onclick="openTab(event, 'tabOne'); focusEditor();"
         >
           <!--   -->
-          Edit - އެޑިޓް
+          1 Edit އެޑިޓް
         </button>
         <button class="tablinks" onclick="openTab(event, 'tabTwo')">
-          Copy - ކޮޕީ
+          2 Copy ކޮޕީ
         </button>
         <button
           class="tablinks"
           onclick="openTab(event, 'tabThree'); focusAdder();"
         >
           <!--   -->
-          Calc - ހިސާބު
+          3 Calc ހިސާބު
         </button>
         <button
           class="tablinks"
           onclick="openTab(event, 'tabFour')"
           id="defaultOpen"
         >
-          Diff - ތަފާތު</button
+          4 Diff ތަފާތު</button
         ><!-- &nbsp;&nbsp; previously put before diff-->
       </div>
 
@@ -358,6 +358,47 @@
 
         function focusAdder() {
           document.getElementById("textSumArea").focus();
+        }
+      </script>
+
+      <script>
+        // keyboard shortcuts
+        // http://gcctech.org/csc/javascript/javascript_keycodes.htm
+        // https://melwinalm.medium.com/crcreating-keyboard-shortcuts-in-javascripteating-keyboard-shortcuts-in-javascript-763ca19beb9e
+        // https://stackoverflow.com/questions/31392863/load-external-javascript-on-desktop-only/31392945#31392945
+        if (window.innerWidth > 600) {
+          //
+          document.onkeyup = function (e) {
+            if (e.altKey && e.which == 49) {
+              // 49 is number 1
+              //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
+              //openTab(event, "tabOne");
+              //focusEditor();
+              // https://bobbyhadz.com/blog/javascript-get-nth-child-of-element#:~:text=Use%20the%20querySelector()%20method,that%20matches%20the%20provided%20position.
+              // https://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box/155263#155263
+              document.querySelector(".tab :nth-child(1)").click();
+            }
+            if (e.altKey && e.which == 50) {
+              // is number 2
+              //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
+              //openTab(event, "tabTwo");
+              document.querySelector(".tab :nth-child(2)").click();
+            }
+            if (e.altKey && e.which == 51) {
+              // is number 3
+              //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
+              //openTab(event, "tabThree");
+              //focusAdder();
+              document.querySelector(".tab :nth-child(3)").click();
+            }
+            if (e.altKey && e.which == 52) {
+              // is number 4
+              //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
+              //openTab(event, "tabFour");
+              document.querySelector(".tab :nth-child(4)").click();
+            }
+          };
+          //
         }
       </script>
 
@@ -1068,6 +1109,14 @@
             data-tooltip="Converts CSV data in the text into JSON"
           >
             CSV → JSON
+          </button>
+
+          <button
+            onclick="htmlRmv();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Removes html tags from the text, but leaves the text as is"
+          >
+            Rmv HTML
           </button>
 
           <!--
@@ -2611,7 +2660,7 @@
                 .map((line, index) => `${index + 1}. ${line}`)
                 .join("\n");
               document.getElementById("textMainArea").value = numbered;
-              document.getElementById("listNumbers").innerHTML = "Rem LineNums";
+              document.getElementById("listNumbers").innerHTML = "Rmv LineNums";
             }
           }
 
@@ -2818,6 +2867,15 @@
                               document.getElementById("textMainArea").value =
                                 CSVToJSON(exampleCSV);
                             }*/
+
+          //
+
+          // https://stackoverflow.com/questions/1499889/remove-html-tags-in-javascript-with-regex/1499916#1499916
+          function htmlRmv() {
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/(<([^>]+)>)/gi, "");
+          }
 
           /* end of above */
         </script>
@@ -4172,27 +4230,6 @@ cols="60"-->
           </div>
         </div>
 
-        <br />
-
-        <div id="log"></div>
-
-        <br />
-
-        <div class="dv">
-          <p>
-            މަތީގައިވާ ލިޔާ ދެ ތަންކޮޅުގައި އެއްޗެއް ލިޔުމުން، އެ ދެ ލިޔުމުގެ
-            ދެމެދުގައިވާ ތަފާތު ދައްކާނެ.
-          </p>
-          <p>
-            ކަނާތު ފަޅީގައިވާ ބަދަލުތައް، ވާތު ފަޅިއަށް ލުމަށް '>' އަށް
-            ފިތާލައްވާ.
-          </p>
-          <p>
-            ވާތު ފަޅީގައިވާ ބަދަލުތައް، ކަނާތު ފަޅިއަށް ލުމަށް '&lt;' އަށް
-            ފިތާލައްވާ.
-          </p>
-        </div>
-
         <script defer>
           $(document).ready(function () {
             // set editor content
@@ -4415,6 +4452,29 @@ cols="60"-->
           
         </script>
         -->
+
+        <br />
+
+        <div id="log"></div>
+
+        <br />
+
+        <!-- not directly related below -->
+
+        <div class="dv">
+          <p>
+            މަތީގައިވާ ލިޔާ ދެ ތަންކޮޅުގައި އެއްޗެއް ލިޔުމުން، އެ ދެ ލިޔުމުގެ
+            ދެމެދުގައިވާ ތަފާތު ދައްކާނެ.
+          </p>
+          <p>
+            ކަނާތު ފަޅީގައިވާ ބަދަލުތައް، ވާތު ފަޅިއަށް ލުމަށް '>' އަށް
+            ފިތާލައްވާ.
+          </p>
+          <p>
+            ވާތު ފަޅީގައިވާ ބަދަލުތައް، ކަނާތު ފަޅިއަށް ލުމަށް '&lt;' އަށް
+            ފިތާލައްވާ.
+          </p>
+        </div>
       </div>
 
       <!-- <div id="tabFour" class="tabcontent"> -->
@@ -4448,6 +4508,14 @@ cols="60"-->
           ކުރެވިދާނެއެވެ. އެގޭ ފަހުން އަދާހަމަކުރަން އެދޭނަމަ އަލުން އެގޮތަށް
           ސޭވް ކުރާނީއެވެ.
         </p>
+        <p>ޑެސްކްޓޮޕް ޝޯޓްކަޓްތައް</p>
+        <ul>
+          <li>އެޑިޓް: Alt + 1</li>
+          <li>ކޮޕީ: Alt + 2</li>
+          <li>ހިސާބު: Alt + 3</li>
+          <li>ތަފާތު: Alt + 3</li>
+        </ul>
+
         <p>އިތުރަށް ފައިދާކޮށްފާނެ ލިންކުތައް:</p>
         <ul>
           <li>
