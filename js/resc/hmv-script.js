@@ -36,8 +36,8 @@ function copyURLToClipB() {
 
 // same code above is below triggered on keypress
 
-// https://melwinalm.medium.com/crcreating-keyboard-shortcuts-in-javascripteating-keyboard-shortcuts-in-javascript-763ca19beb9e
 // http://gcctech.org/csc/javascript/javascript_keycodes.htm
+// https://melwinalm.medium.com/crcreating-keyboard-shortcuts-in-javascripteating-keyboard-shortcuts-in-javascript-763ca19beb9e
 // https://stackoverflow.com/questions/31392863/load-external-javascript-on-desktop-only/31392945#31392945
 if (window.innerWidth > 600) {
   //
