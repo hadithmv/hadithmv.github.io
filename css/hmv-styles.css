@@ -75,6 +75,11 @@ To move forward, just start with the first sub directory and keep moving forward
   }
 }
 
+.hmvVer {
+  direction: ltr;
+  font-family: "dvFont", sans-serif;
+}
+
 html {
   scroll-behavior: smooth;
 }
