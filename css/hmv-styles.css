@@ -21,6 +21,60 @@ To move forward, just start with the first sub directory and keep moving forward
 }
 */
 
+.hideInitially {
+  display: none;
+}
+
+/* @mixin for-phone-only */
+@media (max-width: 599px) {
+  .showOnPhoneOnly {
+    display: initial;
+  }
+  .hideOnPhoneOnly {
+    display: none;
+  }
+}
+
+/* @mixin for-tablet-portrait-up */
+@media (min-width: 600px) {
+  .showOnTabAndUp {
+    display: initial;
+  }
+  .hideOnTabAndUp {
+    display: none;
+  }
+}
+
+/* @mixin for-tablet-landscape-up */
+@media (min-width: 900px) {
+  .showOnTabLandAndUp {
+    display: initial;
+  }
+  .hideOnTabLandAndUp {
+    display: none;
+  }
+}
+
+/* @mixin for-desktop-up */
+@media (min-width: 1200px) {
+  .showOnDesktopAndUp {
+    display: initial;
+  }
+  .hideOnDesktopAndUp {
+    display: none;
+  }
+}
+
+/* @mixin for-big-desktop-up */
+@media (min-width: 1800px) {
+  .showOnBigDesktopAndUp {
+    display: initial;
+  }
+  .hideOnBigDesktopAndUp {
+    display: none;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }

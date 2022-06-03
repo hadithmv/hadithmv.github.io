@@ -278,15 +278,15 @@
           style="margin-top: 4px; margin-bottom: 5px; font-size: 20px"
         >
           <b><a href="../../books/index.html">Hadithmv</a></b> Text Editor
-          <span class="spaceShow">&nbsp; &nbsp; &nbsp;</span>
-          <br class="breakHide" />
+          <span class="hideOnPhoneOnly">&nbsp; &nbsp; &nbsp;</span>
+          <br class="hideOnTabAndUp" />
           <span
-            class="hideMobile"
+            class="hideOnPhoneOnly"
             style="font-family: dvFont, sans-serif; font-size: 18px"
             >⚙️ vއިސްދާރު: 2.74</span
           >
-          <span class="hideMobile">&nbsp; &nbsp; &nbsp;</span>
-          <span class="hideMobile" style="font-size: 17px"
+          <span class="hideOnPhoneOnly">&nbsp; &nbsp; &nbsp;</span>
+          <span class="hideOnPhoneOnly" style="font-size: 17px"
             >— A Tool for Maldivian Writers —</span
           >
         </h2>
@@ -465,10 +465,10 @@
           </span>
           -->
 
-          <span class="spaceShow"
+          <span class="hideOnPhoneOnly"
             >&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span
           >
-          <br class="breakHide" />
+          <br class="hideOnTabAndUp" />
 
           <!-- https://jsfiddle.net/Meline222/fgpedL0z/1/ 
         https://codepen.io/alexandercastillo/pen/YXrmPE
@@ -499,23 +499,6 @@
         </div>
 
         <style>
-          /*@mixin for-ABOVEphone-only*/
-          @media (min-width: 599px) {
-            .breakHide {
-              display: none;
-            }
-          }
-
-          /*@mixin for-phone-only*/
-          @media (max-width: 599px) {
-            .spaceShow {
-              display: none;
-            }
-            .hideMobile {
-              display: none;
-            }
-          }
-
           .small-letter {
             font-size: 14px;
             margin-bottom: 5px; /* 8 */
