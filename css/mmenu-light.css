@@ -418,7 +418,7 @@ CUSTOM EDITS
 
 /* undoes highlight on none links as well as makes the cursor normal over them */
 #menu > ul > li.madani a:hover,
-#menu > ul > li.HmvVer a:hover {
+#menu > ul > li.hmvVer a:hover {
   color: #eee;
   cursor: default;
 }
