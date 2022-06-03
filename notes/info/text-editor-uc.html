@@ -916,7 +916,7 @@
             class="ttClass"
             data-tooltip="Replaces most thikijehi thaana letters to those without thiki"
           >
-            ⊙ ތާނަތިކި ފޮހެލާ
+            • ތާނަތިކި ފޮހެލާ
           </button>
           <button
             id="extraSpaces"
@@ -924,14 +924,14 @@
             class="ttClass"
             data-tooltip="Removes unneccessary extra spaces and more than one empty line on the first click, and all empty lines on the second"
           >
-            އިތުރު ސްޕޭސް ފޮހެލާ
+            Rmv Xtra Space
           </button>
           <button
             onclick="replacePunct();triggerTheCounts();"
             class="ttClass"
             data-tooltip="Removes most punctuation marks from the text"
           >
-            ޕަންކްޗުއޭޝަން ފޮހެލާ!
+            !Rmv PuncMarks
           </button>
           <!--<button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>-->
 
@@ -981,7 +981,7 @@
             class="ttClass"
             data-tooltip="Erases all numbers inside any brackets"
           >
-            ⁽¹⁾ / (1) ފޮހެލާ
+            ⁽¹⁾ / (1) Rmv
           </button>
           <button
             onclick="numToAr();"
@@ -1067,14 +1067,14 @@
             class="arButton ttClass"
             data-tooltip="Converts three dots to proper a ellipsis"
           >
-            . . . ← …
+            . . . ↔ …
           </button>
           <button
             onclick="hyphenToEnEmDash();"
             class="arButton ttClass"
             data-tooltip="Converts a hyphen to an en dash on the first click, then to an em dash on the second"
           >
-            - ← – / —
+            - ← – ← —
           </button>
 
           <button
@@ -2091,31 +2091,48 @@
           }
           //
 
+          var dotsToEllipsis_timesClicked = 0;
           function dotsToEllipsis() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text.replace(/\.{3}/g, "…");
-            document.getElementById("textMainArea").value = newText;
-            return false;
+            dotsToEllipsis_timesClicked++;
+            if (dotsToEllipsis_timesClicked % 2 == 0) {
+              //run second function
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\…/g, "...");
+            } else {
+              //run first function
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\.{3}/g, "…");
+            }
           }
           //
 
           var hyphenToEnEmDash_timesClicked = 0;
           function hyphenToEnEmDash() {
             hyphenToEnEmDash_timesClicked++;
-            if (hyphenToEnEmDash_timesClicked % 2 == 0) {
-              //run second function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text.replace(/\-/g, "—").replace(/\–/g, "—");
-              document.getElementById("textMainArea").value = newText;
-              return false;
-            } else {
+            if (hyphenToEnEmDash_timesClicked == 1) {
               //run first function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text.replace(/\-/g, "–").replace(/\—/g, "–");
-              document.getElementById("textMainArea").value = newText;
-              return false;
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\-/g, "–");
+            } else if (hyphenToEnEmDash_timesClicked == 2) {
+              //run second function
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\–/g, "—");
+            } else if (hyphenToEnEmDash_timesClicked == 3) {
+              $(".test").text("third");
+              //run third function
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\—/g, "-");
+
+              // reset click
+              hyphenToEnEmDash_timesClicked = 0;
             }
           }
+
           //
 
           // https://stackoverflow.com/questions/30992998/add-brackets-around-digits/30993206#30993206
@@ -2240,7 +2257,7 @@
               document.getElementById("textMainArea").value = newText;
 
               document.getElementById("extraSpaces").innerHTML =
-                "އިތުރު ސްޕޭސް ފޮހެލާ";
+                "Rmv Xtra Space";
               return false;
             } else {
               //run first function
@@ -2281,7 +2298,7 @@
               document.getElementById("textMainArea").value = newText;
 
               document.getElementById("extraSpaces").innerHTML =
-                "އަދިވެސް ސްޕޭސް ފޮހެލާ";
+                "Rmv More Space";
               return false;
             }
           }
@@ -4039,7 +4056,7 @@ cols="60"-->
             flex-grow: 1;
           }
 
-          header: {
+          header {
             display: flex;
           }
 
@@ -4118,9 +4135,9 @@ cols="60"-->
             height: 500px;
           }
 
-          .mergely-canvas {
-            /*width: 10px;*/ /* middle space */
-          }
+          /*.mergely-canvas {
+            width: 10px;*/ /* middle space 
+          }*/
 
           .mergely.ch.d.lhs {
             text-decoration: none;
