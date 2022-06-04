@@ -368,7 +368,7 @@
           //
           document.onkeyup = function (e) {
             if (e.altKey && e.which == 49) {
-              // 49 is number 1
+              // is c
               //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
               //openTab(event, "tabOne");
               //focusEditor();
@@ -377,23 +377,50 @@
               document.querySelector(".tab :nth-child(1)").click();
             }
             if (e.altKey && e.which == 50) {
-              // is number 2
+              // is 2
               //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
               //openTab(event, "tabTwo");
               document.querySelector(".tab :nth-child(2)").click();
             }
             if (e.altKey && e.which == 51) {
-              // is number 3
+              // is 3
               //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
               //openTab(event, "tabThree");
               //focusAdder();
               document.querySelector(".tab :nth-child(3)").click();
             }
             if (e.altKey && e.which == 52) {
-              // is number 4
+              // is 4
               //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
               //openTab(event, "tabFour");
               document.querySelector(".tab :nth-child(4)").click();
+            }
+          };
+          //
+        }
+
+        //
+
+        if (window.innerWidth > 600) {
+          //
+          document.onkeyup = function (e) {
+            if (e.altKey && e.which == 67) {
+              // is c
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(1)"
+                )
+                .click();
+              //const mouseoverEvent = new Event("mouseover");
+              //whateverElement.dispatchEvent(mouseoverEvent);
+            }
+            if (e.altKey && e.which == 50) {
+              // is 2
+            }
+            if (e.altKey && e.which == 51) {
+            }
+            if (e.altKey && e.which == 52) {
+              // is 4
             }
           };
           //
@@ -4056,7 +4083,8 @@ cols="60"-->
             flex-grow: 1;
           }
 
-          header {
+          /* dont remove the colon from this, otherwise wont align in the middle */
+          header: {
             display: flex;
           }
 
