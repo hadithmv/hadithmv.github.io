@@ -258,6 +258,12 @@
       box-shadow: inset 0px 0px 5px #c1c1c1;
       /*outline: none;*/
     }
+
+    /* replaced with <u>
+    .uLined {
+      text-decoration: underline;
+    }
+    */
   </style>
 
   <body class="notranslate">
@@ -328,24 +334,24 @@
           onclick="openTab(event, 'tabOne'); focusEditor();"
         >
           <!--   -->
-          <span class="hideOnPhoneOnly">1 </span>Edit އެޑިޓް
+          <span class="hideOnPhoneOnly"><u>1</u> </span>Edit އެޑިޓް
         </button>
         <button class="tablinks" onclick="openTab(event, 'tabTwo')">
-          <span class="hideOnPhoneOnly">2 </span>Copy ކޮޕީ
+          <span class="hideOnPhoneOnly"><u>2</u> </span>Copy ކޮޕީ
         </button>
         <button
           class="tablinks"
           onclick="openTab(event, 'tabThree'); focusAdder();"
         >
           <!--   -->
-          <span class="hideOnPhoneOnly">3 </span>Calc ހިސާބު
+          <span class="hideOnPhoneOnly"><u>3</u> </span>Calc ހިސާބު
         </button>
         <button
           class="tablinks"
           onclick="openTab(event, 'tabFour')"
           id="defaultOpen"
         >
-          <span class="hideOnPhoneOnly">4 </span>Diff ތަފާތު</button
+          <span class="hideOnPhoneOnly"><u>4</u> </span>Diff ތަފާތު</button
         ><!-- &nbsp;&nbsp; previously put before diff-->
       </div>
 
@@ -366,9 +372,11 @@
         // https://stackoverflow.com/questions/31392863/load-external-javascript-on-desktop-only/31392945#31392945
         if (window.innerWidth > 600) {
           //
+          // tab number shortcuts
+          //
           document.onkeyup = function (e) {
             if (e.altKey && e.which == 49) {
-              // is c
+              // is 1
               //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
               //openTab(event, "tabOne");
               //focusEditor();
@@ -395,15 +403,11 @@
               //openTab(event, "tabFour");
               document.querySelector(".tab :nth-child(4)").click();
             }
-          };
-          //
-        }
 
-        //
+            //
+            // editor button shortcuts
+            //
 
-        if (window.innerWidth > 600) {
-          //
-          document.onkeyup = function (e) {
             if (e.altKey && e.which == 67) {
               // is c
               document
@@ -414,16 +418,117 @@
               //const mouseoverEvent = new Event("mouseover");
               //whateverElement.dispatchEvent(mouseoverEvent);
             }
-            if (e.altKey && e.which == 50) {
-              // is 2
+            if (e.altKey && e.which == 69) {
+              // is e
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(2)"
+                )
+                .click();
             }
-            if (e.altKey && e.which == 51) {
+            if (e.altKey && e.which == 68) {
+              // is d
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(3)"
+                )
+                .click();
             }
-            if (e.altKey && e.which == 52) {
-              // is 4
+            if (e.altKey && e.which == 85) {
+              // is u
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(6)"
+                )
+                .click();
             }
+            if (e.altKey && e.which == 76) {
+              // is l
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(8)"
+                )
+                .click();
+            }
+            if (e.altKey && e.which == 84) {
+              // is t
+              document.querySelector("#caseChange").click();
+            }
+            if (e.altKey && e.which == 86) {
+              // is s
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(10)"
+                )
+                .click();
+            }
+            if (e.altKey && e.which == 82) {
+              // is r
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(11)"
+                )
+                .click();
+            }
+            if (e.altKey && e.which == 87) {
+              // is w
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(12)"
+                )
+                .click();
+            }
+            if (e.altKey && e.which == 79) {
+              // is o
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(13)"
+                )
+                .click();
+            }
+            if (e.altKey && e.which == 78) {
+              // is n
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(14)"
+                )
+                .click();
+            }
+            if (e.altKey && e.which == 65) {
+              // is a
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(15)"
+                )
+                .click();
+            }
+            if (e.altKey && e.which == 83) {
+              // is s
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(16)"
+                )
+                .click();
+            }
+            if (e.altKey && e.which == 80) {
+              // is p
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(17)"
+                )
+                .click();
+            }
+            if (e.altKey && e.which == 71) {
+              // is g
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(18)"
+                )
+                .click();
+            }
+            //
           };
-          //
+          // end of function and media query
         }
       </script>
 
@@ -726,14 +831,14 @@
             class="ttClass"
             data-tooltip="Copies above text into the clipboard for pasting"
           >
-            📋 ކޮޕީ Copy
+            📋 ކޮޕީ <u>C</u>opy
           </button>
           <button
             onclick="clearTextArea();triggerTheCounts();"
             class="ttClass"
             data-tooltip="Erases everything above"
           >
-            ❌ ފޮހެލާ Erase
+            ❌ ފޮހެލާ <u>E</u>rase
           </button>
 
           <button
@@ -741,7 +846,7 @@
             class="ttClass"
             data-tooltip="Saves and downloads the text above as a .txt file to your device"
           >
-            📩 ޑައުންލޯޑު DwnL
+            📩 ޑައުންލޯޑު <u>D</u>wnL
           </button>
 
           <script>
@@ -789,7 +894,7 @@
             class="ttClass"
             data-tooltip="Uploads the text of a file that you choose on your device"
           >
-            📁 އަޕްލޯޑު Upload
+            📁 އަޕްލޯޑު <u>U</u>pload
           </button>
 
           <script>
@@ -862,7 +967,7 @@
             class="ttClass"
             data-tooltip="Changes text direction from right to left and left to right"
           >
-            LTR ↔️ RTL
+            <u>L</u>TR ↔️ RTL
           </button>
 
           <button
@@ -871,7 +976,7 @@
             class="ttClass"
             data-tooltip="Changes english text to title case, then lower case, then sentence case"
           >
-            🔠 Title Case
+            🔠 <u>T</u>itle Case
           </button>
 
           <button
@@ -879,7 +984,7 @@
             class="ttClass"
             data-tooltip="Randomizes the order of the lines in the text"
           >
-            🔀 Shuffle Lines
+            🔀 <u>S</u>huffle Lines
           </button>
           <!-- ބޭތަރުތީބު؟ -->
 
@@ -888,7 +993,7 @@
             class="ttClass"
             data-tooltip="Generate a random number from 1-10, or based on your minimum and maximum input next to this button after you click it"
           >
-            🔟 RandomNum
+            🔟 <u>R</u>andomNum
           </button>
 
           <input
@@ -912,7 +1017,7 @@
             class="ttClass"
             data-tooltip="Fits everything in the text into one single line"
           >
-            ↲ 1 ފޮޅުވަތް Wrdwrp
+            ↲ 1 ފޮޅުވަތް <u>W</u>rdwrp
           </button>
           <button
             onclick="sortLines();"
@@ -920,7 +1025,7 @@
             class="ttClass"
             data-tooltip="Sorts the lines of text alphabetically on the first click, and in reverse on the second"
           >
-            ↕️ މަތިންތިރި Order
+            ↕️ މަތިންތިރި <u>O</u>rder
           </button>
           <button
             onclick="numberedList();triggerTheCounts();"
@@ -928,7 +1033,7 @@
             data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
             id="listNumbers"
           >
-            🔢 NumbrdLines
+            🔢 <u>N</u>umbrdLines
           </button>
 
           <button
@@ -936,14 +1041,14 @@
             class="ttClass"
             data-tooltip="Removes all diacritical marks / tashkeel / haraka of arabic letters"
           >
-            عربي ފިލި ފޮހެލާ
+            عربي ފިލި ފޮހެލާ <u>A</u>
           </button>
           <button
             onclick="remThiki();"
             class="ttClass"
             data-tooltip="Replaces most thikijehi thaana letters to those without thiki"
           >
-            • ތާނަތިކި ފޮހެލާ
+            • ތާނަތިކި ފޮހެލާ <u>T</u>
           </button>
           <button
             id="extraSpaces"
@@ -951,14 +1056,14 @@
             class="ttClass"
             data-tooltip="Removes unneccessary extra spaces and more than one empty line on the first click, and all empty lines on the second"
           >
-            Rmv Xtra Space
+            Rmv Xtra <u>S</u>pace
           </button>
           <button
             onclick="replacePunct();triggerTheCounts();"
             class="ttClass"
             data-tooltip="Removes most punctuation marks from the text"
           >
-            !Rmv PuncMarks
+            !Rmv <u>P</u>uncMarks
           </button>
           <!--<button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>-->
 
@@ -967,7 +1072,7 @@
             class="ttClass"
             data-tooltip="Generate a list of numbers, each on a new line from 1-10, or based on your minimum and maximum input next to this button after you click it"
           >
-            #️⃣ Gen NumList
+            #️⃣ <u>G</u>en NumList
           </button>
 
           <input
@@ -4544,13 +4649,11 @@ cols="60"-->
           ކުރެވިދާނެއެވެ. އެގޭ ފަހުން އަދާހަމަކުރަން އެދޭނަމަ އަލުން އެގޮތަށް
           ސޭވް ކުރާނީއެވެ.
         </p>
-        <p>ޑެސްކްޓޮޕް ޝޯޓްކަޓްތައް:</p>
-        <ul>
-          <li>އެޑިޓް: Alt + 1</li>
-          <li>ކޮޕީ: Alt + 2</li>
-          <li>ހިސާބު: Alt + 3</li>
-          <li>ތަފާތު: Alt + 3</li>
-        </ul>
+        <p>
+          ޑެސްކްޓޮޕުގައި ވަނިކޮށް، ބަޓަނެއްގެ ތެރޭގައި ތިރީގައި ރޮނގެއް
+          ދަމާފައިވާ އަކުރެއްގެ ކީއާއެކު Alt ކީއަށް ފިތައިފި ނަމަ، އެ ބަޓަނަކަށް
+          ފިތޭނެއެވެ.
+        </p>
 
         <p>އިތުރަށް ފައިދާކޮށްފާނެ ލިންކުތައް:</p>
         <ul>
