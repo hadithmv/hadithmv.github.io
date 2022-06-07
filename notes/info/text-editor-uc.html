@@ -502,11 +502,19 @@
                 )
                 .click();
             }
+            if (e.altKey && e.which == 72) {
+              // is h
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(16)"
+                )
+                .click();
+            }
             if (e.altKey && e.which == 88) {
               // is x
               document
                 .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(16)"
+                  "#tabOne > div.mid.editorButtons > button:nth-child(17)"
                 )
                 .click();
             }
@@ -514,7 +522,7 @@
               // is p
               document
                 .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(17)"
+                  "#tabOne > div.mid.editorButtons > button:nth-child(18)"
                 )
                 .click();
             }
@@ -522,7 +530,7 @@
               // is g
               document
                 .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(18)"
+                  "#tabOne > div.mid.editorButtons > button:nth-child(19)"
                 )
                 .click();
             }
@@ -1042,6 +1050,13 @@
             data-tooltip="Removes all diacritical marks / tashkeel / haraka of arabic letters"
           >
             عربي ފިލި ފޮހެލާ <u>A</u>
+          </button>
+          <button
+            onclick="replaceThaanaFili();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Removes all diacritical marks / tashkeel / haraka of dhivehi letters"
+          >
+            ތާނަ ފިލި ފޮހެލާ <u>H</u>
           </button>
           <button
             onclick="remThiki();"
@@ -2049,6 +2064,13 @@
               .replace(/ٱ|ٲ|ٳ/g, "ا");
             document.getElementById("textMainArea").value = newText;
             return false;
+          }
+          //
+
+          function replaceThaanaFili() {
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/[\u07A6-\u07B0]/g, "");
           }
           //
 
