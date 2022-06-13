@@ -1249,6 +1249,14 @@
             Rmv HTML
           </button>
 
+          <button
+            onclick="encSvg();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="encodes SVG as background-image url for css"
+          >
+            Encode SVG
+          </button>
+
           <!--
 
           <button
@@ -3034,6 +3042,13 @@
 
           // https://stackoverflow.com/questions/1499889/remove-html-tags-in-javascript-with-regex/1499916#1499916
           function htmlRmv() {
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/(<([^>]+)>)/gi, "");
+          }
+          //
+
+          function encSvg() {
             document.getElementById("textMainArea").value = document
               .getElementById("textMainArea")
               .value.replace(/(<([^>]+)>)/gi, "");
