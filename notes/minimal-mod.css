@@ -477,7 +477,8 @@ p {
 .hmv {
   width: 200px;
   height: 200px;
-  transition: transform 0.3s ease-in-out;
+  /*transition: transform 0.3s ease-in-out;*/
+  transition: transform 0.25s ease-out;
 
   /* background: url("../img/logo/logo.svg") no-repeat; */
 
@@ -1301,3 +1302,112 @@ h3 {
             background: #000;
           } */
 }
+
+/* ====================
+         SOCIAL BUTTONS
+ ======================= */
+
+/* https://sharingbuttons.io */
+/* added icons from https://iconmonstr.com and optimized them, or otherwise took them from their official sources and then optimized them */
+.resp-sharing-button__link,
+.resp-sharing-button__icon {
+  display: inline-block;
+}
+
+.resp-sharing-button__link {
+  text-decoration: none;
+  color: #fff;
+  margin: 0.5em;
+}
+
+.resp-sharing-button {
+  border-radius: 5px;
+  /*transition: 25ms ease-out;*/
+  padding: 0.5em 0.75em;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  /* added */
+  transition: transform 0.25s ease-out;
+}
+
+/* changed .resp-sharing-button--icon/small svg to img before */
+
+.resp-sharing-button__icon svg {
+  /*width: 1em;
+            height: 1em;*/
+  margin-right: 0.4em;
+  vertical-align: top;
+  /* edit */
+  width: 1.25em;
+  height: 1.25em;
+}
+
+/* this also had --small after button before */
+.resp-sharing-button svg {
+  margin: 0;
+  vertical-align: middle;
+}
+
+/* Non solid icons get a stroke */
+.resp-sharing-button__icon {
+  /*stroke: #fff;
+            fill: none;*/
+  /* edit */
+  fill: #fff;
+}
+
+/* Solid icons get a fill
+          .resp-sharing-button__icon--solid,
+          .resp-sharing-button__icon--solidcircle {
+            fill: #fff;
+            stroke: none;
+          } */
+
+.fbBtn {
+  background-color: #1877f2;
+}
+
+.twitterBtn {
+  background-color: #1d9bf0;
+}
+
+.tgBtn {
+  background-color: #229ed9;
+}
+
+/* added */
+
+.vbBtn {
+  background-color: #7360f2;
+}
+
+.ytBtn {
+  background-color: #ff0000;
+}
+
+.igBtn {
+  /*background-color: #e60000;*/
+  /* https://stackoverflow.com/questions/37751375/instagram-new-logo-css-background/37751377#37751377 */
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+}
+
+/* */
+
+/* darken on hover and enlarge */
+
+.resp-sharing-button:hover,
+.resp-sharing-button:active {
+  filter: brightness(90%);
+  transform: scale(1.25);
+}
+
+/* makes svgs white
+          .resp-sharing-button img {
+            filter: invert(100%);
+          }*/
