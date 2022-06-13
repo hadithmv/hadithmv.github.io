@@ -899,7 +899,7 @@
           ދެއެވެ.‘ [އަލްއިސްރާ 9]
         </p>
       </div>
-      <!--  class="tabcontent"> -->
+      <!-- class="tabcontent"> -->
 
       <div id="tab3" class="tabcontent">
         <div class="row">
@@ -992,7 +992,7 @@
           <!-- -->
         </div>
       </div>
-      <!--  class="tabcontent"> -->
+      <!-- class="tabcontent"> -->
 
       <div id="tab1" class="tabcontent">
         <div class="row">
@@ -1113,7 +1113,7 @@
         </div>
       </div>
 
-      <!--  class="tabcontent"> -->
+      <!-- class="tabcontent"> -->
 
       <div id="tab4" class="tabcontent">
         <div class="row">
@@ -1175,7 +1175,7 @@
           މެނުވީ ގާއިމެއް ނުކުރެވޭނެއެވެ.‘ [ސުންނަތުގެ ޝަރަހަ 1]
         </p>
       </div>
-      <!--  class="tabcontent"> -->
+      <!-- class="tabcontent"> -->
 
       <div id="tab6" class="tabcontent">
         <div class="row">
@@ -1254,7 +1254,7 @@
           2199]
         </p>
       </div>
-      <!--  class="tabcontent"> -->
+      <!-- class="tabcontent"> -->
 
       <div id="tab5" class="tabcontent">
         <div class="row">
@@ -1299,7 +1299,7 @@
           އިބްނު އަބީ ޝައިބާ 29914]
         </p>
       </div>
-      <!--  class="tabcontent"> -->
+      <!-- class="tabcontent"> -->
 
       <script>
         /*
@@ -1405,11 +1405,18 @@
             margin-top: -10px;
           }
 
+          /*
           .appButtons svg {
             opacity: 0.95;
           }
+          */
+
+          .appButtons .resp-sharing-button__link > div > div > div {
+            opacity: 0.95;
+          }
+
           .btnText {
-            opacity: 0.85;
+            opacity: 0.84;
           }
 
           @media (prefers-color-scheme: light) {
@@ -1437,12 +1444,10 @@
                 class="resp-sharing-button__icon resp-sharing-button__icon--normal"
               >
                 <!--<img src="windows.svg" alt="windows logo" />-->
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M0 12V3.354l10-1.355V12H0zm11 0h13V0L11 1.807V12zm-1 1H0v7.646l10 1.355V13zm1 0v9.194L24 24V13H11z"
-                  />
-                </svg>
-                <div class="btnText">Win</div>
+                <div class="encodedwinBtn"></div>
+
+                <br />
+                <span class="btnText">Win</span>
               </div>
             </div>
           </a>
@@ -1461,14 +1466,10 @@
                 class="resp-sharing-button__icon resp-sharing-button__icon--normal"
               >
                 <!--<img src="android.svg" alt="android logo" />-->
-                <svg viewBox="0 0 24 24">
-                  <path
-                    fill-rule="evenodd"
-                    d="M18 8v9.4a1.58 1.58 0 0 1-1.6 1.6H16v3.5a1.54 1.54 0 0 1-1.5 1.5 1.54 1.54 0 0 1-1.5-1.5V19h-2v3.5A1.54 1.54 0 0 1 9.5 24 1.54 1.54 0 0 1 8 22.5V19h-.4A1.58 1.58 0 0 1 6 17.4V8zm4 7.6c0 .8-.7 1.4-1.5 1.4s-1.5-.6-1.5-1.4V9.5A1.54 1.54 0 0 1 20.5 8 1.54 1.54 0 0 1 22 9.5zm-17 0c0 .8-.7 1.4-1.5 1.4S2 16.4 2 15.6V9.5A1.54 1.54 0 0 1 3.5 8 1.54 1.54 0 0 1 5 9.5zM18 7H6c0-2.3 1.2-3.8 3-4.9L8.1.3c-.1-.1 0-.3.2-.3q.1 0 .1.1l1 1.9c1.7-.8 3.7-.8 5.2 0l1-1.9q0-.1.1-.1c.2 0 .3.2.2.3L15 2.1c1.8 1.1 3 2.6 3 4.9zm-8-2.5a.47.47 0 0 0-.5-.5.47.47 0 0 0-.5.5.47.47 0 0 0 .5.5.47.47 0 0 0 .5-.5zm5 0a.47.47 0 0 0-.5-.5.47.47 0 0 0-.5.5.47.47 0 0 0 .5.5.47.47 0 0 0 .5-.5z"
-                  />
-                  <path d="M9 4h1v1H9zm5 0h1v1h-1z" />
-                </svg>
-                <div class="btnText">Android</div>
+                <div class="encodedandBtn"></div>
+
+                <br />
+                <span class="btnText">Android</span>
               </div>
             </div>
           </a>
@@ -1487,12 +1488,10 @@
                 class="resp-sharing-button__icon resp-sharing-button__icon--normal"
               >
                 <!--<img src="web.svg" alt="web logo" />-->
-                <svg fill-rule="evenodd" viewBox="0 0 24 24">
-                  <path
-                    d="M12 0a12.01 12.01 0 0 1 12 12 12.01 12.01 0 0 1-12 12A12.01 12.01 0 0 1 0 12 12.01 12.01 0 0 1 12 0m2.557 16H9.442c.546 2.46 1.441 4.114 2.558 5.744 1.194-1.741 2.041-3.41 2.557-5.744M7.4 16H2.833c1.236 2.825 3.704 4.972 6.755 5.716C8.54 19.983 7.805 18.058 7.4 16m13.767 0H16.6c-.391 1.988-1.095 3.887-2.175 5.694 3.012-.763 5.517-2.895 6.742-5.694M7.162 10H2.2a10.09 10.09 0 0 0 0 4h4.915a20.03 20.03 0 0 1 .047-4m7.661 0H9.176c-.165 1.326-.185 2.672-.053 4h5.753c.133-1.328.111-2.673-.053-4m6.977 0h-4.963c.148 1.328.166 2.671.048 4H21.8c.26-1.285.273-2.648 0-4M9.644 2.271C6.567 3.003 4.077 5.157 2.833 8h4.653c.435-2.042 1.178-3.985 2.158-5.729m2.355-.048C10.91 3.993 10.089 5.676 9.536 8h4.927c-.534-2.246-1.337-3.948-2.464-5.777m2.368.069A20.45 20.45 0 0 1 16.513 8h4.654c-1.232-2.816-3.762-4.958-6.8-5.708"
-                  />
-                </svg>
-                <div class="btnText">Web</div>
+                <div class="encodedwebBtn"></div>
+
+                <br />
+                <span class="btnText">Web</span>
               </div>
             </div>
           </a>
@@ -1500,6 +1499,19 @@
           <!-- div END -->
         </div>
         <!-- SOCIAL BUTTONS END -->
+
+        <style>
+          /*           #footer > a:nth-child(6) > div > div > div {
+ */
+          .resp-sharing-button__link > div > div > div {
+            filter: invert(100%);
+            height: 24px;
+            width: 24px;
+            /* centered svg with https://stackoverflow.com/questions/41822510/center-an-svg-inside-a-div/41822867#41822867 */
+            display: inline-block;
+            vertical-align: middle;
+          }
+        </style>
 
         <!--
         <p>
@@ -1519,117 +1531,6 @@
         <span>މީސްމީޑިއާގައި ތަބާވުމަށް:</span>
         <br />
 
-        <style>
-          /* ====================
-         SOCIAL BUTTONS
- ======================= */
-
-          /* https://sharingbuttons.io */
-          /* added icons from https://iconmonstr.com and optimized them, or otherwise took them from their official sources and then optimized them */
-          .resp-sharing-button__link,
-          .resp-sharing-button__icon {
-            display: inline-block;
-          }
-
-          .resp-sharing-button__link {
-            text-decoration: none;
-            color: #fff;
-            margin: 0.5em;
-          }
-
-          .resp-sharing-button {
-            border-radius: 5px;
-            /*transition: 25ms ease-out;*/
-            padding: 0.5em 0.75em;
-            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-            /* added */
-            transition: transform 0.25s ease-out;
-          }
-
-          /* changed .resp-sharing-button--icon/small svg to img before */
-
-          .resp-sharing-button__icon svg {
-            /*width: 1em;
-            height: 1em;*/
-            margin-right: 0.4em;
-            vertical-align: top;
-            /* edit */
-            width: 1.25em;
-            height: 1.25em;
-          }
-
-          /* this also had --small after button before */
-          .resp-sharing-button svg {
-            margin: 0;
-            vertical-align: middle;
-          }
-
-          /* Non solid icons get a stroke */
-          .resp-sharing-button__icon {
-            /*stroke: #fff;
-            fill: none;*/
-            /* edit */
-            fill: #fff;
-          }
-
-          /* Solid icons get a fill
-          .resp-sharing-button__icon--solid,
-          .resp-sharing-button__icon--solidcircle {
-            fill: #fff;
-            stroke: none;
-          } */
-
-          .fbBtn {
-            background-color: #1877f2;
-          }
-
-          .twitterBtn {
-            background-color: #1d9bf0;
-          }
-
-          .tgBtn {
-            background-color: #229ed9;
-          }
-
-          /* added */
-
-          .vbBtn {
-            background-color: #7360f2;
-          }
-
-          .ytBtn {
-            background-color: #ff0000;
-          }
-
-          .igBtn {
-            /*background-color: #e60000;*/
-            /* https://stackoverflow.com/questions/37751375/instagram-new-logo-css-background/37751377#37751377 */
-            background: linear-gradient(
-              45deg,
-              #f09433 0%,
-              #e6683c 25%,
-              #dc2743 50%,
-              #cc2366 75%,
-              #bc1888 100%
-            );
-          }
-
-          /* */
-
-          /* darken on hover and enlarge */
-
-          .resp-sharing-button:hover,
-          .resp-sharing-button:active {
-            filter: brightness(90%);
-            transform: scale(1.25);
-          }
-
-          /* makes svgs white
-          .resp-sharing-button img {
-            filter: invert(100%);
-          }*/
-        </style>
-
         <!-- SOCIAL BUTTONS -->
 
         <div style="direction: ltr">
@@ -1647,17 +1548,17 @@
                 class="resp-sharing-button__icon resp-sharing-button__icon--normal"
               >
                 <!--<img src="facebook.svg" alt="facebook logo" />-->
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
-                  />
-                </svg>
+                <!--<svg viewBox="0 0 24 24">
+              <path
+                d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
+              />
+            </svg>-->
+                <div class="encodedfbBtn"></div>
               </div>
             </div>
           </a>
 
           <!-- viber -->
-
           <a
             class="resp-sharing-button__link noLine"
             href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX/ZVrvGtq/bJboZzADy3OssLND4H1TFWklNmNQZC"
@@ -1670,17 +1571,18 @@
                 aria-hidden="true"
                 class="resp-sharing-button__icon resp-sharing-button__icon--normal"
               >
-                <!--<img src="viber.svg" alt="viber logo" />-->
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M12.892 13.745s.427.038.656-.247l.448-.563c.216-.28.738-.458 1.249-.174.676.382 1.55.982 2.149 1.541.33.278.407.688.182 1.121l-.002.009a4.71 4.71 0 0 1-.932 1.148l-.009.006c-.44.367-.946.58-1.487.404l-.01-.014c-.972-.275-3.304-1.464-4.79-2.649-2.431-1.918-4.159-5.082-4.637-6.778l-.015-.01c-.176-.543.039-1.049.404-1.488l.007-.008c.357-.391.739-.701 1.148-.932l.009-.002c.432-.225.842-.149 1.121.182.367.379 1.056 1.291 1.54 2.149.284.51.106 1.033-.173 1.248l-.564.448c-.284.23-.247.657-.247.657s.834 3.156 3.953 3.952zm4.907-2.616c-.167 0-.303-.135-.304-.302-.014-1.83-.564-3.288-1.634-4.332s-2.427-1.581-4.027-1.592c-.168-.001-.303-.138-.301-.306s.136-.301.303-.301h.002c1.762.012 3.258.606 4.447 1.764s1.802 2.765 1.817 4.763c.001.167-.133.304-.301.306h-.002zm-1.595-.624h-.007c-.168-.004-.301-.143-.297-.31.024-1.038-.273-1.878-.906-2.569s-1.495-1.065-2.645-1.149c-.167-.013-.293-.158-.281-.325s.158-.293.325-.281c1.294.095 2.32.548 3.049 1.345s1.092 1.807 1.065 2.992c-.004.165-.139.297-.303.297zm-1.558-.522c-.161 0-.295-.126-.303-.289-.051-1.03-.537-1.534-1.527-1.588-.168-.009-.296-.152-.287-.319s.151-.296.319-.287c1.308.07 2.034.819 2.101 2.164.009.167-.12.31-.288.318l-.015.001zm6.817 3.469c-.605 4.877-4.172 5.185-4.83 5.396-.28.09-2.882.737-6.152.524l-3.199 3.705c-.119.119-.258.167-.352.145-.131-.032-.167-.188-.165-.414l.02-4.016v-.001C2.023 17.468 2.3 12.496 2.354 9.893s.543-4.736 1.996-6.17c2.61-2.364 7.987-2.011 7.987-2.011 4.541.02 6.717 1.387 7.222 1.845 1.675 1.434 2.528 4.867 1.904 9.895zm-.652-11.113c-.597-.548-3.007-2.298-8.375-2.322 0 0-6.33-.382-9.416 2.45C1.302 4.185.698 6.698.634 9.815s-.146 8.958 5.484 10.542l.006.002-.004 2.416s-.035.979.609 1.179c.779.241 1.236-.502 1.981-1.304.408-.44.971-1.086 1.397-1.58 3.851.322 6.812-.417 7.149-.526.777-.253 5.177-.816 5.893-6.657.738-6.022-.358-9.83-2.338-11.548z"
-                  />
-                </svg>
+                <!--<img src="facebook.svg" alt="facebook logo" />-->
+                <!--<svg viewBox="0 0 24 24">
+                    <path
+                      d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
+                    />
+                  </svg>-->
+                <div class="encodedvbBtn"></div>
               </div>
             </div>
           </a>
 
-          <!-- Sharingbutton Twitter -->
+          <!-- twitter -->
           <a
             class="resp-sharing-button__link noLine"
             href="https://twitter.com/hadithmv"
@@ -1688,17 +1590,18 @@
             rel="noopener"
             aria-label=""
           >
-            <div class="resp-sharing-button twitterBtn">
+            <div class="resp-sharing-button twBtn">
               <div
                 aria-hidden="true"
                 class="resp-sharing-button__icon resp-sharing-button__icon--normal"
               >
-                <!--<img src="twitter.svg" alt="twitter logo" />-->
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M23.4 4.83c-.8.37-1.5.38-2.22.02.94-.56.98-.96 1.32-2.02-.88.52-1.85.9-2.9 1.1-.8-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.04.7.12 1.04-3.78-.2-7.12-2-9.37-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.73-.03-1.43-.23-2.05-.57v.06c0 2.2 1.57 4.03 3.65 4.44-.67.18-1.37.2-2.05.08.57 1.8 2.25 3.12 4.24 3.16-1.95 1.52-4.36 2.16-6.74 1.88 2 1.3 4.4 2.04 6.97 2.04 8.36 0 12.93-6.92 12.93-12.93l-.02-.6c.9-.63 1.96-1.22 2.57-2.14z"
-                  />
-                </svg>
+                <!--<img src="facebook.svg" alt="facebook logo" />-->
+                <!--<svg viewBox="0 0 24 24">
+                          <path
+                            d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
+                          />
+                        </svg>-->
+                <div class="encodedtwBtn"></div>
               </div>
             </div>
           </a>
@@ -1716,17 +1619,18 @@
                 aria-hidden="true"
                 class="resp-sharing-button__icon resp-sharing-button__icon--normal"
               >
-                <!--<img src="instagram.svg" alt="instagram logo" />-->
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="m12 2.163 4.85.07c3.252.148 4.771 1.691 4.919 4.919l.069 4.849-.069 4.849c-.149 3.225-1.664 4.771-4.919 4.919l-4.85.07c-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92L2.162 12l.07-4.849c.149-3.227 1.664-4.771 4.919-4.919L12 2.163zM12 0 7.053.072C2.695.272.273 2.69.073 7.052L0 12l.072 4.948c.2 4.358 2.618 6.78 6.98 6.98L12 24l4.948-.072c4.354-.2 6.782-2.618 6.979-6.98L24 12l-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98L12 0zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162S8.597 18.163 12 18.163s6.162-2.759 6.162-6.163S15.403 5.838 12 5.838zM12 16a4 4 0 1 1 0-8 4 4 0 1 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"
-                  />
-                </svg>
+                <!--<img src="facebook.svg" alt="facebook logo" />-->
+                <!--<svg viewBox="0 0 24 24">
+                          <path
+                            d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
+                          />
+                        </svg>-->
+                <div class="encodedigBtn"></div>
               </div>
             </div>
           </a>
 
-          <!-- Sharingbutton Telegram -->
+          <!-- telegram -->
           <a
             class="resp-sharing-button__link noLine"
             href="http://t.me/hadithmv"
@@ -1739,12 +1643,13 @@
                 aria-hidden="true"
                 class="resp-sharing-button__icon resp-sharing-button__icon--normal"
               >
-                <!--<img src="telegram.svg" alt="telegram logo" />-->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path
-                    d="M16.114 9.291c.552-.552 1.1-1.84-1.2-.276l-6.489 4.372a2.7 2.7 0 0 1-2.117.046l-2.991-.966s-1.1-.691.783-1.427l10.722-4.418 4.647-1.932s1.657-.645 1.519.92c-.046.644-.414 2.9-.782 5.338l-1.151 7.225s-.092 1.058-.874 1.242a3.787 3.787 0 0 1-2.3-.828l-4.648-3.221a.872.872 0 0 1 .046-1.473 169.31 169.31 0 0 0 4.835-4.602z"
-                  />
-                </svg>
+                <!--<img src="facebook.svg" alt="facebook logo" />-->
+                <!--<svg viewBox="0 0 24 24">
+                                <path
+                                  d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
+                                />
+                              </svg>-->
+                <div class="encodedtgBtn"></div>
               </div>
             </div>
           </a>
