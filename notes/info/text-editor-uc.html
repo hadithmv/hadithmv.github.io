@@ -2668,27 +2668,27 @@
 
             /* doesnt copy very long text */
             /*
-                              // Get the text field
-                              var copyText = document.getElementById("textMainArea");
+                                        // Get the text field
+                                        var copyText = document.getElementById("textMainArea");
 
-                              // Select the text field
-                              //copyText.select();
-                              //copyText.setSelectionRange(0, 99999);
-                              // For mobile devices
+                                        // Select the text field
+                                        //copyText.select();
+                                        //copyText.setSelectionRange(0, 99999);
+                                        // For mobile devices
 
-                              // Copy the text inside the text field
-                              //navigator.clipboard.writeText(copyText.value);
+                                        // Copy the text inside the text field
+                                        //navigator.clipboard.writeText(copyText.value);
 
-                              copyText.select();
-                              copyText.setSelectionRange(0, 99999);
-                              // For mobile devices
+                                        copyText.select();
+                                        copyText.setSelectionRange(0, 99999);
+                                        // For mobile devices
 
-                              document.execCommand("copy");
+                                        document.execCommand("copy");
 
-                              // Alert the copied text
-                              // alert("ކޮޕީވީ: " + copyText.value);
-                              //return false;
-                              */
+                                        // Alert the copied text
+                                        // alert("ކޮޕީވީ: " + copyText.value);
+                                        //return false;
+                                        */
           }
 
           function copyDate() {
@@ -2827,13 +2827,13 @@
           }
 
           /*
-                                          var numbered = document
-                                  .getElementById("textMainArea")
-                                  .value.split("\n")
-                                  .map((line, index) => `${index + 1}. ${line}`)
-                                  .join("\n");
-                                document.getElementById("textMainArea").value = numbered;
-                                */
+                                                    var numbered = document
+                                            .getElementById("textMainArea")
+                                            .value.split("\n")
+                                            .map((line, index) => `${index + 1}. ${line}`)
+                                            .join("\n");
+                                          document.getElementById("textMainArea").value = numbered;
+                                          */
 
           //
 
@@ -3020,23 +3020,23 @@
           // not working, shows something but not what i want
 
           /*function csvToJson() {
-                              exampleCSV = document.getElementById("textMainArea").value;
-                              const CSVToJSON = (csv) => {
-                                const lines = csv.split("\n");
-                                const keys = lines[0].split(",");
-                                return lines.slice(1).map((line) => {
-                                  return line.split(",").reduce((acc, cur, i) => {
-                                    const toAdd = {};
-                                    toAdd[keys[i]] = cur;
-                                    return { ...acc, ...toAdd };
-                                  }, {});
-                                });
-                              };
+                                        exampleCSV = document.getElementById("textMainArea").value;
+                                        const CSVToJSON = (csv) => {
+                                          const lines = csv.split("\n");
+                                          const keys = lines[0].split(",");
+                                          return lines.slice(1).map((line) => {
+                                            return line.split(",").reduce((acc, cur, i) => {
+                                              const toAdd = {};
+                                              toAdd[keys[i]] = cur;
+                                              return { ...acc, ...toAdd };
+                                            }, {});
+                                          });
+                                        };
 
-                              console.log(CSVToJSON(exampleCSV));
-                              document.getElementById("textMainArea").value =
-                                CSVToJSON(exampleCSV);
-                            }*/
+                                        console.log(CSVToJSON(exampleCSV));
+                                        document.getElementById("textMainArea").value =
+                                          CSVToJSON(exampleCSV);
+                                      }*/
 
           //
 
@@ -3049,9 +3049,16 @@
           //
 
           function encSvg() {
-            document.getElementById("textMainArea").value = document
-              .getElementById("textMainArea")
-              .value.replace(/(<([^>]+)>)/gi, "");
+            /*document.getElementById("textMainArea").value = document
+                        .getElementById("textMainArea")
+                        .value.replace(/(<([^>]+)>)/gi, "");*/
+
+            var s = new XMLSerializer().serializeToString(
+              document.getElementById("textMainArea")
+            );
+            var encodedData = window.btoa(s);
+
+            document.getElementById("textMainArea").value = s;
           }
 
           /* end of above */
