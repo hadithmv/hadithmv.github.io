@@ -1670,6 +1670,15 @@ this makes a faint white outline around card  */
 
 /* #footer > a:nth-child(6) > div > div > div { */
 
+.resp-sharing-button__link > div > div > div {
+  filter: invert(100%);
+  height: 24px;
+  width: 24px;
+  /* centered svg with https://stackoverflow.com/questions/41822510/center-an-svg-inside-a-div/41822867#41822867 */
+  display: inline-block;
+  vertical-align: middle;
+}
+
 /* https://sharingbuttons.io */
 
 .resp-sharing-button__link,
