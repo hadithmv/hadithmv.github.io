@@ -1303,8 +1303,16 @@ h3 {
           } */
 }
 
+/* lessens line height since i added social buttons */
 #myModal > div > div > h3 {
   line-height: 1;
+}
+
+/* adds indent to text before icon */
+.contactTexts {
+  padding-left: 14px;
+  /* vertical-align: middle;*/
+  font-family: "Quicksand", sans-serif;
 }
 
 /* ====================
