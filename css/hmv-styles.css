@@ -1691,7 +1691,7 @@ this makes a faint white outline around card  */
 
   /* changes text from white to blue */
   .resp-sharing-button__link {
-    color: #00598b;
+    color: #00598b !important;
   }
   /* matching filter color for the icons as the text */
   #myModal > div > div > h3 > a > div > div > div {
