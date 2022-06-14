@@ -1315,7 +1315,7 @@ h3 {
 
 /* lessens line height since i added social buttons */
 #myModal > div > div > h3 {
-  line-height: 1;
+  line-height: 1 !important;
 }
 
 /* adds indent to text before icon */
