@@ -1716,6 +1716,11 @@ this makes a faint white outline around card  */
 #myModal > div > div > h3 > a > div {
   margin-left: -15px;
 }
+
+/* makes the colored line less long */
+#myModal > div > div > hr {
+  width: 90%;
+}
 /* ====================
          SOCIAL BUTTONS --REPEATED IN MINIMAL-MOD AND HMV-STYLES
  ======================= */
