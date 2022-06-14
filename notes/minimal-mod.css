@@ -705,7 +705,7 @@ thaana mish mash render fix - END
 }
 
 /* ====================
-   shared css code --REPEATED IN HMV-STYLES
+   shared css code --REPEATED IN MINIMAL-MOD AND HMV-STYLES
 ======================= */
 
 .hidden {
@@ -793,7 +793,7 @@ thaana mish mash render fix - END
 }
 
 /* ====================
-       HOVER LINK UNDERLINE --REPEATED IN HMV-STYLES
+       HOVER LINK UNDERLINE --REPEATED IN MINIMAL-MOD AND HMV-STYLES
 ======================= */
 
 /*  http://jsfiddle.net/Markus_Steiger/wch6ara7/ */
@@ -1301,6 +1301,16 @@ h3 {
   /* hr {
             background: #000;
           } */
+
+  /* changes text from white to blue */
+  .resp-sharing-button__link {
+    color: #00598b;
+  }
+  /* matching filter color for the icons as the text */
+  #myModal > div > div > h3 > a > div > div > div {
+    filter: invert(25%) sepia(97%) saturate(880%) hue-rotate(170deg)
+      brightness(92%) contrast(104%);
+  }
 }
 
 /* lessens line height since i added social buttons */
@@ -1315,8 +1325,12 @@ h3 {
   font-family: "Quicksand", sans-serif;
 }
 
+/* moves modal items with icons a bit to the left, since icons make the text seem a little to the right */
+#myModal > div > div > h3 > a > div {
+  margin-left: -15px;
+}
 /* ====================
-         SOCIAL BUTTONS --REPEATED IN MINIMAL-MOD
+         SOCIAL BUTTONS --REPEATED IN MINIMAL-MOD AND HMV-STYLES
  ======================= */
 
 /* added icons from https://iconmonstr.com and optimized them, or otherwise took them from their official sources and then optimized them */
