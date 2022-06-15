@@ -1200,9 +1200,10 @@ h3 {
 }
 
 /* ====================
-         Modal
+         Modal --REPEATED IN MINIMAL-MOD AND HMV-STYLES
  ======================= */
 
+/* https://www.w3schools.com/howto/howto_css_modals.asp */
 /* The Modal (background) */
 .modal {
   display: none;
@@ -1317,6 +1318,8 @@ h3 {
 /* lessens line height since i added social buttons */
 #myModal > div > div > h3 {
   line-height: 0.8 !important;
+  margin: 0;
+  font-weight: 500;
 }
 
 /* adds indent to text before icon */
@@ -1331,10 +1334,24 @@ h3 {
   margin-left: -15px;
 }
 
-/* makes the colored line less long */
+/* modal horizontal line styles */
 #myModal > div > div > hr {
   width: 90%;
+  /**/
+  border: 0;
+  border-radius: 15px;
+  height: 3px;
+  background-image: linear-gradient(to right, #f33939, #4f39f3);
 }
+
+/* modal header style */
+#myModal > div > div > h2 {
+  color: rgb(255 255 255/84.7%);
+  font-family: Quicksand, sans-serif, serif;
+  font-weight: 500;
+  line-height: 1.9;
+}
+
 /* ====================
          SOCIAL BUTTONS --REPEATED IN MINIMAL-MOD AND HMV-STYLES
  ======================= */
