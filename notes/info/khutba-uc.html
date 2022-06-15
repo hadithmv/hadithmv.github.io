@@ -51,37 +51,6 @@
         </h2>
       </div>
 
-      <style>
-        /* https://www.encodedna.com/css-tutorials/how-to-tilt-a-span-element-using-css.htm */
-        .rotateEmoji {
-          transform: rotate(270deg);
-          -ms-transform: rotate(270deg);
-          /*  for IE  */
-
-          /* 	for browsers supporting webkit (such as chrome, firefox, safari etc.). */
-          -webkit-transform: rotate(270deg);
-          display: inline-block;
-
-          font-weight: normal;
-          /* otherwise card is whitened */
-        }
-      </style>
-
-      <!-- https://codepen.io/moonphase/pen/vEGMRg -->
-      <div
-        class="btn-chat"
-        id="livechat-compact-container"
-        style="visibility: visible; opacity: 1"
-      >
-        <div class="btn-holder">
-          <a onclick="openModal()"
-            ><span class="rotateEmoji">💬</span>&nbsp;&nbsp;Contact Us</a
-          >
-          <!-- <a onclick="parent.LC_API.open_chat_window();return false;" href="tel:+9607583166"
-          class="link">Chat with us</a> -->
-        </div>
-      </div>
-
       <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs_fade 
       <div class="tab">
         <button
@@ -285,123 +254,11 @@
 
       <!-- <div id="tabTwo" class="tabcontent"> -->
 
-      <script>
-        /*document.body.classList.add("changeBack");*/
-
-        // Get the element with id="defaultOpen" and click on it
-        document.getElementById("defaultOpen").click();
-
-        function openTab(evt, tabName) {
-          var i, tabcontent, tablinks;
-          tabcontent = document.getElementsByClassName("tabcontent");
-          for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-          }
-          tablinks = document.getElementsByClassName("tablinks");
-          for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(
-              " active",
-              ""
-            );
-          }
-          document.getElementById(tabName).style.display = "block";
-          evt.currentTarget.className += " active";
-        }
-      </script>
-
-      <!-- Trigger/Open The Modal 
-<button id="myBtn">Open Modal</button>-->
-
-      <!-- The Modal 
-https://www.w3schools.com/howto/howto_css_modals.asp -->
-      <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <div class="en mid">
-            <h2>How would you like to contact us?</h2>
-            <hr />
-            <br />
-            <h3><a href="http://m.me/hadithmvOfficial">Messenger</a></h3>
-            <br />
-            <h3><a href="https://wa.me/qr/FJFBCPFQXUBKJ1">WhatsApp</a></h3>
-            <br />
-            <h3><a href="https://t.me/ashraafmv">Telegram</a></h3>
-            <br />
-            <h3><a href="mailto:hadithmv@gmail.com">Email</a></h3>
-            <br />
-            <h3><a href="tel:+9607583166">Viber</a></h3>
-            <br />
-          </div>
-        </div>
-      </div>
-
-      <script>
-        // Get the modal
-        var modal = document.getElementById("myModal");
-
-        // Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
-
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
-
-        // When the user clicks the button, open the modal
-        /*btn.onclick = function() {*/
-        function openModal() {
-          modal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-          modal.style.display = "none";
-        };
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
-        };
-      </script>
-
       <br />
       <hr />
       <br />
 
       <div class="en mid">
-        <p>
-          If you find a mistake, or want to join this translation platform, or
-          want to support this project, please let us know.
-        </p>
-        <p>
-          Contact us: <a href="http://m.me/hadithmvOfficial">Messenger</a> |
-          <a href="tel:+9607583166">Viber</a> |
-          <a href="https://t.me/ashraafmv">Telegram</a> |
-          <a href="https://wa.me/qr/FJFBCPFQXUBKJ1">WhatsApp</a> |
-          <a href="mailto:hadithmv@gmail.com">Email</a>
-        </p>
-        <p>
-          Subscribe: <a href="http://fb.me/hadithmvOfficial">Facebook</a> |
-          <a
-            href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX/ZVrvGtq/bJboZzADy3OssLND4H1TFWklNmNQZC"
-            >Viber</a
-          >
-          | <a href="http://t.me/hadithmv">Telegram</a> |
-          <a href="https://instagram.com/hadithmv">Instagram</a> |
-          <a href="https://twitter.com/hadithmv">Twitter</a>
-        </p>
-        <p>
-          Get the Hadithmv app: <a href="https://hadithmv.github.io">Web</a> |
-          <a
-            href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
-            >Android</a
-          >
-          |
-          <a href="https://github.com/hadithmv/hadithmv.github.io/releases"
-            >Windows</a
-          >
-        </p>
         <p>
           - Back to the
           <b><a href="../../books/index.html">Main Page</a></b> -
