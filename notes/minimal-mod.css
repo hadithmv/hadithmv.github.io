@@ -1200,7 +1200,7 @@ h3 {
 }
 
 /* ====================
-         Modal --REPEATED IN MINIMAL-MOD AND HMV-STYLES
+         Modal --REPEATED IN MINIMAL-MOD AND Embedded  HMV INDEX.HTML STYLES 
  ======================= */
 
 /* https://www.w3schools.com/howto/howto_css_modals.asp */
@@ -1452,7 +1452,7 @@ h3 {
   );
 }
 
-.mesBtn {
+/*.mesBtn {
   background-color: radial-gradient(
     circle at center,
     #3f97d2 0%,
@@ -1460,17 +1460,7 @@ h3 {
     #ff5485 93%,
     #ff6b5f 100%
   );
-}
-
-.mesBtn {
-  background: linear-gradient(
-    to right top,
-    rgb(87, 70, 239),
-    rgb(87, 70, 239),
-    rgb(220, 38, 38),
-    rgb(251, 146, 60)
-  );
-}
+}*/
 
 .waBtn {
   background: linear-gradient(0deg, #20b038 0%, #67d670 100%);
