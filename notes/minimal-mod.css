@@ -545,6 +545,7 @@ h1.ar {
 
 .basmala {
   padding-bottom: 10px !important;
+  font-size: 28px !important;
 }
 
 .en {
@@ -1315,7 +1316,7 @@ h3 {
 
 /* lessens line height since i added social buttons */
 #myModal > div > div > h3 {
-  line-height: 0.9 !important;
+  line-height: 0.8 !important;
 }
 
 /* adds indent to text before icon */
