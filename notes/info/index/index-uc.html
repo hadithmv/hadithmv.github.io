@@ -2846,20 +2846,12 @@
       document.querySelector("#copyRyear").innerText = new Date().getFullYear();
     </script>
 
-    <!-- https://minimalanalytics.com/ -->
-
-    <!-- decided not to use boilerplate analytics setup as it has two requests
-    added async then changed to defer on my own https://developers.google.com/analytics/devguides/collection/analyticsjs
-    https://daan.dev/wordpress/difference-analyics-gtag-ga-js/ supports analytics js over gtag
-    -->
-    <!-- Global site tag (gtag.js) - Google Analytics - inlined part placed in ext script -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
-      defer
+      async
       src="https://www.googletagmanager.com/gtag/js?id=G-DV5KGF0T2Q"
     ></script>
-
     <script>
-      /*
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
@@ -2867,7 +2859,6 @@
       gtag("js", new Date());
 
       gtag("config", "G-DV5KGF0T2Q");
-      */
     </script>
     <!-- End Google Analytics -->
   </body>
