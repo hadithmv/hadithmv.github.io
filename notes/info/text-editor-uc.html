@@ -374,7 +374,9 @@
           //
           // tab number shortcuts
           //
-          document.onkeyup = function (e) {
+          //document.onkeyup = function (e) {
+          // https://stackoverflow.com/questions/38989559/jquery-keyup-event-for-mobile-device/49029711#49029711
+          document.on("keyup touchend", function () {
             if (e.altKey && e.which == 49) {
               // is 1
               //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
@@ -535,7 +537,7 @@
                 .click();
             }
             //
-          };
+          }); // added this last circular bracket later for touchevent
           // end of function and media query
         }
       </script>
