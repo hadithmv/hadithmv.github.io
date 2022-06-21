@@ -36,8 +36,8 @@
     -->
 
     <script src="../../js/resc/COMB-nonCrit.min.js"></script>
-    <link rel="stylesheet" href="../editor.css" />
-    <script defer src="../editor.js"></script>
+    <link rel="stylesheet" href="../editorResc.min.css" />
+    <script defer src="../editorResc.min.js"></script>
   </head>
 
   <style>
@@ -374,9 +374,8 @@
           //
           // tab number shortcuts
           //
-          //document.onkeyup = function (e) {
-          // https://stackoverflow.com/questions/38989559/jquery-keyup-event-for-mobile-device/49029711#49029711
-          document.on("keyup", function () {
+
+          document.onkeyup = function (e) {
             if (e.altKey && e.which == 49) {
               // is 1
               //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
@@ -472,11 +471,19 @@
                 )
                 .click();
             }
+            if (e.altKey && e.which == 81) {
+              // is q
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(12)"
+                )
+                .click();
+            }
             if (e.altKey && e.which == 87) {
               // is w
               document
                 .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(12)"
+                  "#tabOne > div.mid.editorButtons > button:nth-child(13)"
                 )
                 .click();
             }
@@ -484,7 +491,7 @@
               // is o
               document
                 .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(13)"
+                  "#tabOne > div.mid.editorButtons > button:nth-child(14)"
                 )
                 .click();
             }
@@ -492,7 +499,15 @@
               // is n
               document
                 .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(14)"
+                  "#tabOne > div.mid.editorButtons > button:nth-child(15)"
+                )
+                .click();
+            }
+            if (e.altKey && e.which == 87) {
+              // is w
+              document
+                .querySelector(
+                  "#tabOne > div.mid.editorButtons > button:nth-child(16)"
                 )
                 .click();
             }
@@ -500,7 +515,7 @@
               // is a
               document
                 .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(15)"
+                  "#tabOne > div.mid.editorButtons > button:nth-child(17)"
                 )
                 .click();
             }
@@ -508,7 +523,7 @@
               // is h
               document
                 .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(16)"
+                  "#tabOne > div.mid.editorButtons > button:nth-child(18)"
                 )
                 .click();
             }
@@ -516,7 +531,7 @@
               // is x
               document
                 .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(17)"
+                  "#tabOne > div.mid.editorButtons > button:nth-child(19)"
                 )
                 .click();
             }
@@ -524,7 +539,7 @@
               // is p
               document
                 .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(18)"
+                  "#tabOne > div.mid.editorButtons > button:nth-child(20)"
                 )
                 .click();
             }
@@ -532,12 +547,12 @@
               // is g
               document
                 .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(19)"
+                  "#tabOne > div.mid.editorButtons > button:nth-child(21)"
                 )
                 .click();
             }
             //
-          }); // added this last circular bracket later for touchevent
+          };
           // end of function and media query
         }
       </script>
@@ -831,6 +846,16 @@
                   */
         </script>
 
+        <div id="qrcode"></div>
+        <style>
+          /* centers qr */
+          #qrcode img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border: 4px solid #fff;
+          }
+        </style>
         <p class="buttonHeader" style="margin: 0">
           މަތީގައި ލިޔުމަށްފަހު އެލިޔުން ބަދަލުކުރުމަށް:
         </p>
@@ -1004,6 +1029,14 @@
             data-tooltip="Generate a random number from 1-10, or based on your minimum and maximum input next to this button after you click it"
           >
             🔟 <u>R</u>andm Num
+          </button>
+
+          <button
+            onclick="genQr();"
+            class="ttClass"
+            data-tooltip="Generate a QR code of the text above"
+          >
+            🏁 <u>Q</u>R code
           </button>
 
           <input
@@ -2912,6 +2945,54 @@
             return (document.getElementById("textMainArea").value =
               lines.join("\n"));
           }
+
+          //
+
+          // https://davidshimjs.github.io/qrcodejs/
+          // https://codepen.io/davidshimjs/pen/NdBYrg
+          function genQr() {
+            // sets cursor back in textarea after button click
+            // https://stackoverflow.com/questions/10158190/how-to-set-cursor-at-the-end-in-a-textarea/10158291#10158291
+            if (window.innerWidth > 600) {
+              document.getElementById("textMainArea").focus();
+            }
+
+            var qrcode = new QRCode("qrcode");
+            /*var qrcode = new QRCode("qrcode", {
+              text: "http://jindo.dev.naver.com/collie",
+              width: 128,
+              height: 128,
+              colorDark: "#000000",
+              colorLight: "#ffffff",
+              correctLevel: QRCode.CorrectLevel.H,
+            });*/
+
+            function makeCode() {
+              var elText = document.getElementById("textMainArea");
+
+              /*if (!elText.value) {
+                alert("Input a text");
+                elText.focus();
+                return;
+              }*/
+
+              qrcode.makeCode(elText.value);
+            }
+
+            makeCode();
+
+            $("#textMainArea")
+              .on("blur", function () {
+                makeCode();
+              })
+              .on("keyup", function (e) {
+                // changed keydown to keyup, and commented out to make it run on any keypress
+                //if (e.keyCode == 13) {
+                makeCode();
+                //}
+              });
+          }
+          //
 
           // https://www.w3schools.com/js/js_random.asp
 
