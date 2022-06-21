@@ -376,7 +376,7 @@
           //
           //document.onkeyup = function (e) {
           // https://stackoverflow.com/questions/38989559/jquery-keyup-event-for-mobile-device/49029711#49029711
-          document.on("keyup touchend", function () {
+          document.on("keyup", function () {
             if (e.altKey && e.which == 49) {
               // is 1
               //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
@@ -2005,63 +2005,64 @@
               area.selectionEnd = end + lengthDiff;
             }
           };
-
-          area.addEventListener("keypress", function (e) {
+          /*
+          //document.onkeyup = function (e) {
+          // https://stackoverflow.com/questions/38989559/jquery-keyup-event-for-mobile-device/49029711#49029711
+          document.on("keyup touchend", function () {
+*/
+          // area.addEventListener("keypress", function (e) {
+          area.addEventListener("input", function (e) {
             //
-            if (toggleCandRState == 1) {
-              //
-              setTimeout(function () {
-                //replaceText("==", "+");
-                //replaceText("ރއ-", "رَضِيَ اللَّهُ عَنْهُ");
-                replaceText("ސސ-", "ﷺ");
-                replaceText("صص-", "ﷺ");
-                replaceText("ss-", "ﷺ");
-                replaceText('"-', "”");
-                replaceText('-"', "“");
-                replaceText("ރއ-", "رَضِيَ اللَّهُ عَنْهُ");
-                replaceText("رض-", "رَضِيَ اللَّهُ عَنْهُ");
-                replaceText("ra-", "رَضِيَ اللَّهُ عَنْهُ");
-                replaceText("ރއހ-", "رَضِيَ اللَّهُ عَنْهَا");
-                replaceText("رضه-", "رَضِيَ اللَّهُ عَنْهَا");
-                replaceText("rah-", "رَضِيَ اللَّهُ عَنْهَا");
-                replaceText("ރއ2-", "رَضِيَ اللَّهُ عَنْهُمَا");
-                replaceText("رض2-", "رَضِيَ اللَّهُ عَنْهُمَا");
-                replaceText("ra2-", "رَضِيَ اللَّهُ عَنْهُمَا");
-                replaceText("ރއ3-", "رَضِيَ اللَّهُ عَنْهُمْ");
-                replaceText("رض3-", "رَضِيَ اللَّهُ عَنْهُمْ");
-                replaceText("ra3-", "رَضِيَ اللَّهُ عَنْهُمْ");
-                replaceText("ވދ-", "ވިދާޅުވިއެވެ:");
-                replaceText("ދނ-", "ދެންނެވިއެވެ:");
-                replaceText("ރވ-", "ރިވާވެގެންވެއެވެ:");
-                replaceText("ރކ-", "ރިވާ ކުރެއްވީ");
-                replaceText("ރކއ-", "ރިވާ ކުރެއްވިއެވެ: ");
-                replaceText("ނރ-", "ނެރުއްވީ");
-                replaceText("މހ-", "މި ޙަދީޘް");
-                replaceText("ވރ-", "ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ:");
-                replaceText("ގރ-", "ގެ އަރިހުން ރިވާވެގެންވެއެވެ:");
-                replaceText("އއރ-", "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ:");
-                replaceText("ރސ-", "ރަސޫލު ﷲ ﷺ");
-                replaceText("ނސ-", "ނަބިއްޔާ ﷺ");
-                replaceText("ހދ-", "ޙަދީޘް");
-                replaceText("ރހކ-", "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
-                replaceText("ނހކ-", "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
-                replaceText("ހކ-", "ޙަދީޘް ކުރެއްވިއެވެ: ”");
-                replaceText("ހމ-", "ހަމަކަށަވަރުން: ”");
-                replaceText("އކ-", "އެކަލޭގެފާނު: ”");
-                replaceText("ކލ-", "ކަލޭގެފާނު: ”");
-                replaceText(
-                  "ރއޑ-",
-                  "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
-                );
-                replaceText(
-                  "ނއޑ-",
-                  "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
-                );
-                //replaceText("mmm", "mmm");
-              }, 850);
+            setTimeout(function () {
+              //replaceText("==", "+");
+              //replaceText("ރއ-", "رَضِيَ اللَّهُ عَنْهُ");
+              replaceText("ސސ-", "ﷺ");
+              replaceText("صص-", "ﷺ");
+              replaceText("ss-", "ﷺ");
+              replaceText('"-', "”");
+              replaceText('-"', "“");
+              replaceText("ރއ-", "رَضِيَ اللَّهُ عَنْهُ");
+              replaceText("رض-", "رَضِيَ اللَّهُ عَنْهُ");
+              replaceText("ra-", "رَضِيَ اللَّهُ عَنْهُ");
+              replaceText("ރއހ-", "رَضِيَ اللَّهُ عَنْهَا");
+              replaceText("رضه-", "رَضِيَ اللَّهُ عَنْهَا");
+              replaceText("rah-", "رَضِيَ اللَّهُ عَنْهَا");
+              replaceText("ރއ2-", "رَضِيَ اللَّهُ عَنْهُمَا");
+              replaceText("رض2-", "رَضِيَ اللَّهُ عَنْهُمَا");
+              replaceText("ra2-", "رَضِيَ اللَّهُ عَنْهُمَا");
+              replaceText("ރއ3-", "رَضِيَ اللَّهُ عَنْهُمْ");
+              replaceText("رض3-", "رَضِيَ اللَّهُ عَنْهُمْ");
+              replaceText("ra3-", "رَضِيَ اللَّهُ عَنْهُمْ");
+              replaceText("ވދ-", "ވިދާޅުވިއެވެ:");
+              replaceText("ދނ-", "ދެންނެވިއެވެ:");
+              replaceText("ރވ-", "ރިވާވެގެންވެއެވެ:");
+              replaceText("ރކ-", "ރިވާ ކުރެއްވީ");
+              replaceText("ރކއ-", "ރިވާ ކުރެއްވިއެވެ: ");
+              replaceText("ނރ-", "ނެރުއްވީ");
+              replaceText("މހ-", "މި ޙަދީޘް");
+              replaceText("ވރ-", "ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ:");
+              replaceText("ގރ-", "ގެ އަރިހުން ރިވާވެގެންވެއެވެ:");
+              replaceText("އއރ-", "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ:");
+              replaceText("ރސ-", "ރަސޫލު ﷲ ﷺ");
+              replaceText("ނސ-", "ނަބިއްޔާ ﷺ");
+              replaceText("ހދ-", "ޙަދީޘް");
+              replaceText("ރހކ-", "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
+              replaceText("ނހކ-", "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
+              replaceText("ހކ-", "ޙަދީޘް ކުރެއްވިއެވެ: ”");
+              replaceText("ހމ-", "ހަމަކަށަވަރުން: ”");
+              replaceText("އކ-", "އެކަލޭގެފާނު: ”");
+              replaceText("ކލ-", "ކަލޭގެފާނު: ”");
+              replaceText(
+                "ރއޑ-",
+                "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+              );
+              replaceText(
+                "ނއޑ-",
+                "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+              );
+              //replaceText("mmm", "mmm");
+            }, 850);
 
-              // for toggle this one
-            }
             //
           });
           //
