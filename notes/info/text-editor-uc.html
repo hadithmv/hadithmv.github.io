@@ -3932,32 +3932,36 @@
         <!-- rows="10"
 cols="60"-->
 
+        <p
+          class="mid"
+          style="font-size: 115%; margin: 0px"
+          data-tooltip="Shows the sum total of the numbers above"
+        >
+          Sum Total:
+          <span id="sumTotal">0.00</span>
+        </p>
+
         <textarea
           autocomplete="off"
           autocorrect="off"
           autocapitalize="off"
           spellcheck="false"
           id="textSumArea"
-          placeholder="Any numbers written here will be added together, even with text. Use this to calculate the total cost for a list of items. Eg: &#10;50 books &#10;5 print &#10;-10 refund &#10;..."
+          placeholder="Any numbers written here will be added together, or if preceded by a minus then subtracted, even within text. Use this to calculate the total cost for a list of items, or add up kilos when packing luggage. Eg: &#10;50 books &#10;5 print &#10;-10 refund &#10;..."
           oninput="outputSum();"
-          style="margin-top: 15px"
         ></textarea>
 
-        <p
-          class="mid"
-          style="font-size: 115%; margin-top: 4px; margin-bottom: 0px"
-          data-tooltip="Shows the sum total of the numbers above"
+        <div
+          class="mid editorButtons"
+          style="font-family: sans-serif; margin-top: 7px"
         >
-          Sum Total:
-          <span id="sumTotal">0.00</span>
-        </p>
-        <div class="mid editorButtons" style="font-family: sans-serif">
           <button
             onclick="copyAdd();"
             data-tooltip="Copies the calculated total into your clipboard to paste"
           >
-            📋 Copy
+            📋 Copy Total
           </button>
+          &nbsp;
           <button onclick="clearAdd();" data-tooltip="Erases everything above">
             ❌ Clear
           </button>
@@ -3968,7 +3972,7 @@ cols="60"-->
             <span
               data-tooltip="Shows the calculated Zakat due on the total amount, which is 1/40th or 0.25%"
             >
-              The Zakat for this total would be: <span id="sumZakat">0.00</span>
+              The Zakat for the total would be: <span id="sumZakat">0.00</span>
             </span>
           </p>
         </div>
