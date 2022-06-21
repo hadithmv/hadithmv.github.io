@@ -846,7 +846,7 @@
                   */
         </script>
 
-        <div id="qrcode"></div>
+        <!--<div id="qrcode"></div>
         <style>
           /* centers qr and adds whitespace for darkmode*/
           #qrcode img {
@@ -862,7 +862,8 @@
             margin-right: auto;*/
             text-align: center;
           }
-        </style>
+        </style>-->
+
         <p class="buttonHeader" style="margin: 0">
           މަތީގައި ލިޔުމަށްފަހު އެލިޔުން ބަދަލުކުރުމަށް:
         </p>
@@ -1038,13 +1039,13 @@
             🔟 <u>R</u>andm Num
           </button>
 
-          <button
+          <!--<button
             onclick="genQr();"
             class="ttClass"
             data-tooltip="Generate a QR code of the text above"
           >
             🏁 <u>Q</u>R code
-          </button>
+          </button>-->
 
           <input
             class="findRepClass"
@@ -1300,16 +1301,6 @@
             Encode SVG
           </button>
           -->
-
-          <!--
-          <button
-            onclick="genQR();triggerTheCounts();"
-            class="ttClass"
-            data-tooltip="generates a QR code from the text"
-          >
-            QR Code
-          </button>
-        -->
 
           <!--
 
@@ -2880,6 +2871,7 @@
               document.getElementById("listNumbers").innerHTML = "Rmv LineNums";
             }
           }
+          //
 
           /*
                                                     var numbered = document
@@ -2952,53 +2944,64 @@
             return (document.getElementById("textMainArea").value =
               lines.join("\n"));
           }
-
           //
 
+          /*var genQr_timesClicked = 0;
           // https://davidshimjs.github.io/qrcodejs/
           // https://codepen.io/davidshimjs/pen/NdBYrg
+          // script url was https://raw.githubusercontent.com/davidshimjs/qrcodejs/master/qrcode.min.js
           function genQr() {
-            // sets cursor back in textarea after button click
-            // https://stackoverflow.com/questions/10158190/how-to-set-cursor-at-the-end-in-a-textarea/10158291#10158291
-            if (window.innerWidth > 600) {
-              document.getElementById("textMainArea").focus();
+            genQr_timesClicked++;
+            if (genQr_timesClicked % 2 == 0) {
+              //run second function
+              //qrcode.clear(); // clear the code.
+              //document.getElementById("qrcode").remove();
+              document.querySelector("#qrcode > img").remove();
+            } else {
+              //run first function
+
+              // sets cursor back in textarea after button click
+              // https://stackoverflow.com/questions/10158190/how-to-set-cursor-at-the-end-in-a-textarea/10158291#10158291
+              if (window.innerWidth > 600) {
+                document.getElementById("textMainArea").focus();
+              }
+
+              var qrcode = new QRCode("qrcode");
+            //var qrcode = new QRCode("qrcode", {
+            //  text: "http://jindo.dev.naver.com/collie",
+            //  width: 128,
+            //  height: 128,
+            //  colorDark: "#000000",
+            //  colorLight: "#ffffff",
+            //  correctLevel: QRCode.CorrectLevel.H,
+            //});
+
+              function makeCode() {
+                var elText = document.getElementById("textMainArea");
+
+              //if (!elText.value) {
+              //  alert("Input a text");
+              //  elText.focus();
+              //  return;
+              //}
+
+                qrcode.makeCode(elText.value);
+              }
+
+              makeCode();
+
+              $("#textMainArea")
+                .on("blur", function () {
+                  makeCode();
+                })
+                .on("keyup", function (e) {
+                  // changed keydown to keyup, and commented out to make it run on any keypress
+                  //if (e.keyCode == 13) {
+                  makeCode();
+                  //}
+                });
             }
-
-            var qrcode = new QRCode("qrcode");
-            /*var qrcode = new QRCode("qrcode", {
-              text: "http://jindo.dev.naver.com/collie",
-              width: 128,
-              height: 128,
-              colorDark: "#000000",
-              colorLight: "#ffffff",
-              correctLevel: QRCode.CorrectLevel.H,
-            });*/
-
-            function makeCode() {
-              var elText = document.getElementById("textMainArea");
-
-              /*if (!elText.value) {
-                alert("Input a text");
-                elText.focus();
-                return;
-              }*/
-
-              qrcode.makeCode(elText.value);
-            }
-
-            makeCode();
-
-            $("#textMainArea")
-              .on("blur", function () {
-                makeCode();
-              })
-              .on("keyup", function (e) {
-                // changed keydown to keyup, and commented out to make it run on any keypress
-                //if (e.keyCode == 13) {
-                makeCode();
-                //}
-              });
-          }
+          }*/
           //
 
           // https://www.w3schools.com/js/js_random.asp
@@ -3153,11 +3156,6 @@
 
           /*
           function encSvg() {
-          }
-          */
-
-          /*
-          function genQR() {
           }
           */
 
@@ -4035,7 +4033,303 @@ cols="60"-->
           }
         </script>
 
+        <hr />
+
+        <div class="en mid">
+          <h2 style="font-size: 23px">
+            <a
+              data-tooltip="Calculates the first, second and last thirds of the night, as well as half, when you have set the time for Maghrib and Isha"
+              style="font-weight: normal"
+              ><b>QR Code Generator 🏁</b></a
+            >
+          </h2>
+
+          <style type="text/css">
+            article section#contents li ul {
+              margin-top: 0em;
+              margin-bottom: 0em;
+              font-size: 80%;
+            }
+            article section#contents li li {
+              margin-top: 0.2em;
+              margin-bottom: 0.2em;
+            }
+            @media (min-width: 55em) {
+              article section#contents {
+                float: right;
+                margin-left: 2em;
+              }
+              article section#contents h2 {
+                margin-top: 0em;
+              }
+            }
+            article input[type="radio"] + label,
+            article input[type="checkbox"] + label {
+              margin-right: 0.8em;
+              padding-left: 0.2em;
+            }
+            article canvas,
+            article svg {
+              padding: 1em;
+              background-color: #e8e8e8;
+            }
+            article form table td:first-child {
+              white-space: pre;
+            }
+          </style>
+
+          <div class="vert-main">
+            <div class="horz-main">
+              <article>
+                <form onsubmit="event.preventDefault();">
+                  <div id="loading" style="display: none"></div>
+                  <div id="loaded"></div>
+                  <table class="noborder" style="width: 100%">
+                    <tbody>
+                      <tr>
+                        <td></td>
+                        <td style="width: 100%">
+                          <textarea
+                            placeholder="Whatever you write here will be turned into the QR code below"
+                            id="text-input"
+                            style="
+                              width: 100%;
+                              /*max-width: 30em;*/
+                              height: 5em;
+                              /*font-family: inherit;*/
+                              /*added*/
+                              font-size: 20px;
+                              /*height: 300px;*/
+                              padding: 10px;
+                              line-height: 1.5;
+                              max-width: 650px;
+                            "
+                          ></textarea>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>
+                          <canvas
+                            id="qrcode-canvas"
+                            style=""
+                            width="232"
+                            height="232"
+                          ></canvas>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            id="qrcode-svg"
+                            style="width: 30em; height: 30em; display: none"
+                            stroke="none"
+                          >
+                            <rect
+                              width="100%"
+                              height="100%"
+                              fill="#FFFFFF"
+                            ></rect>
+                            <path d="" fill="#000000"></path>
+                          </svg>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>
+                          <strong>Error correction:</strong>
+                          &nbsp; &nbsp;
+                          <input
+                            type="radio"
+                            name="errcorlvl"
+                            id="errcorlvl-low"
+                            checked="checked"
+                          /><label for="errcorlvl-low">Low</label>
+                          <input
+                            type="radio"
+                            name="errcorlvl"
+                            id="errcorlvl-medium"
+                          /><label for="errcorlvl-medium">Medium</label>
+                          <input
+                            type="radio"
+                            name="errcorlvl"
+                            id="errcorlvl-quartile"
+                          /><label for="errcorlvl-quartile">Quartile</label>
+                          <input
+                            type="radio"
+                            name="errcorlvl"
+                            id="errcorlvl-high"
+                          /><label for="errcorlvl-high">High</label>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>
+                          <strong>Output format:</strong>
+                          &nbsp; &nbsp;
+                          <input
+                            type="radio"
+                            name="output-format"
+                            id="output-format-bitmap"
+                            checked="checked"
+                          /><label for="output-format-bitmap">Bitmap</label>
+                          <input
+                            type="radio"
+                            name="output-format"
+                            id="output-format-vector"
+                          /><label for="output-format-vector">Vector</label>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>
+                          <strong>Border:</strong>
+                          &nbsp; &nbsp;
+                          <input
+                            type="number"
+                            min="0"
+                            max="100"
+                            step="1"
+                            value="4"
+                            id="border-input"
+                            style="width: 4em"
+                          />
+                          modules
+                        </td>
+                      </tr>
+                      <tr id="scale-row">
+                        <td></td>
+                        <td>
+                          <label for="scale-input"
+                            ><strong>Scale:</strong></label
+                          >
+                          &nbsp; &nbsp;
+                          <input
+                            type="number"
+                            min="1"
+                            max="30"
+                            step="1"
+                            value="8"
+                            id="scale-input"
+                            style="width: 4em"
+                          />
+                          pixels per module
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>
+                          <strong>Colors:</strong>
+                          &nbsp; &nbsp; Light =
+                          <input
+                            type="text"
+                            value="#FFFFFF"
+                            id="light-color-input"
+                            style="width: 6em"
+                          />, dark =
+                          <input
+                            type="text"
+                            value="#000000"
+                            id="dark-color-input"
+                            style="width: 6em"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>
+                          <strong>Version range:</strong>
+                          &nbsp; &nbsp; Minimum =
+                          <input
+                            type="number"
+                            min="1"
+                            max="40"
+                            step="1"
+                            value="1"
+                            id="version-min-input"
+                            style="width: 4em"
+                            oninput="app.handleVersionMinMax('min');"
+                          />, maximum =
+                          <input
+                            type="number"
+                            min="1"
+                            max="40"
+                            step="1"
+                            value="40"
+                            id="version-max-input"
+                            style="width: 4em"
+                            oninput="app.handleVersionMinMax('max');"
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>
+                          <label for="mask-input"
+                            ><strong>Mask pattern</strong></label
+                          >
+                          &nbsp; &nbsp; Minimum =
+                          <input
+                            type="number"
+                            min="-1"
+                            max="7"
+                            step="1"
+                            value="-1"
+                            id="mask-input"
+                            style="width: 4em"
+                          />
+                          (−1 for automatic, 0 to 7 for manual)
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td>
+                          <strong>Boost ECC:</strong>
+                          &nbsp; &nbsp;
+                          <input
+                            type="checkbox"
+                            checked="checked"
+                            id="boost-ecc-input"
+                          /><label for="boost-ecc-input"
+                            >Increase
+                            <abbr title="error correction code">ECC</abbr> level
+                            within same version</label
+                          >
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td id="statistics-output" style="white-space: pre">
+                          <strong>Statistics:</strong>
+                          &nbsp; &nbsp; QR Code version = 1, mask pattern = 7,
+                          character count = 5, encoding mode = byte, error
+                          correction = level H, data bits = 52.
+                        </td>
+                      </tr>
+                      <tr id="svg-xml-row" style="display: none">
+                        <td>SVG XML code:</td>
+                        <td>
+                          <textarea
+                            id="svg-xml-output"
+                            readonly="readonly"
+                            style="
+                              width: 100%;
+                              height: 15em;
+                              font-family: 'Courier 10 Pitch BT', monospace;
+                              font-size: 80%;
+                            "
+                          ></textarea>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+                <!--<script src="qrcodegen.js"></script>
+                <script src="qrcodegen-input-demo.js"></script>-->
+              </article>
+            </div>
+          </div>
+        </div>
+
         <br />
+
         <hr />
 
         <style>
@@ -4099,8 +4393,7 @@ cols="60"-->
         </style>
 
         <div class="en mid">
-          <br />
-          <h2 style="font-size: 23px; line-height: 1.5">
+          <h2 style="font-size: 23px">
             <a
               data-tooltip="Calculates the first, second and last thirds of the night, as well as half, when you have set the time for Maghrib and Isha"
               style="font-weight: normal"
