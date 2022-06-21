@@ -4084,7 +4084,11 @@ cols="60"-->
                 <form onsubmit="event.preventDefault();">
                   <div id="loading" style="display: none"></div>
                   <div id="loaded"></div>
-                  <table class="noborder" style="width: 100%">
+                  <table
+                    class="noborder"
+                    style="width: 100%; table-layout: fixed"
+                  >
+                    <!-- added table-layout:fixed to make the table fit the screen on mobile-->
                     <tbody>
                       <tr>
                         <td></td>
@@ -4101,6 +4105,7 @@ cols="60"-->
                               font-size: 20px;
                               /*height: 300px;*/
                               padding: 10px;
+
                               line-height: 1.5;
                               max-width: 650px;
                             "
@@ -4147,6 +4152,8 @@ cols="60"-->
                             name="errcorlvl"
                             id="errcorlvl-medium"
                           /><label for="errcorlvl-medium">Medium</label>
+                          <!-- added -->
+                          <br class="hideOnTabAndUp" />
                           <input
                             type="radio"
                             name="errcorlvl"
@@ -4223,7 +4230,10 @@ cols="60"-->
                             value="#FFFFFF"
                             id="light-color-input"
                             style="width: 6em"
-                          />, dark =
+                          />,
+                          <!-- added -->
+                          <br class="hideOnTabAndUp" />
+                          dark =
                           <input
                             type="text"
                             value="#000000"
@@ -4275,6 +4285,8 @@ cols="60"-->
                             id="mask-input"
                             style="width: 4em"
                           />
+                          <!-- added -->
+                          <br class="hideOnTabAndUp" />
                           (−1 for automatic, 0 to 7 for manual)
                         </td>
                       </tr>
@@ -4296,7 +4308,8 @@ cols="60"-->
                       </tr>
                       <tr>
                         <td></td>
-                        <td id="statistics-output" style="white-space: pre">
+                        <td id="statistics-output" style="">
+                          <!-- removed white-space: pre from style above to make it wordwrap -->
                           <strong>Statistics:</strong>
                           &nbsp; &nbsp; QR Code version = 1, mask pattern = 7,
                           character count = 5, encoding mode = byte, error
