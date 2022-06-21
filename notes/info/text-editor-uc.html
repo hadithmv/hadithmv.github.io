@@ -3945,7 +3945,7 @@ cols="60"-->
           autocapitalize="off"
           spellcheck="false"
           id="textSumArea"
-          placeholder="Any numbers written here will be added together, or if preceded by a minus then subtracted, even within text. Use this to calculate the total cost for a list of items, or add up kilos when packing luggage. Eg: &#10;50 books &#10;5 print &#10;-10 refund &#10;..."
+          placeholder="Any numbers written here will be added together, or if a number has a minus it will be subtracted, even within text. Use this to calculate the total cost for a list of items, or add up kilos when packing luggage. Eg: &#10;50 books &#10;5 print &#10;-10 refund &#10;..."
           oninput="outputSum();"
         ></textarea>
 
@@ -4102,6 +4102,7 @@ cols="60"-->
                               height: 5em;
                               /*font-family: inherit;*/
                               /*added*/
+                              font-family: sans-serif;
                               font-size: 20px;
                               /*height: 300px;*/
                               padding: 10px;
@@ -4115,6 +4116,13 @@ cols="60"-->
                       <tr>
                         <td></td>
                         <td>
+                          <style>
+                            article canvas
+                            /*,
+                            article svg*/ {
+                              max-width: 85vw;
+                            }
+                          </style>
                           <canvas
                             id="qrcode-canvas"
                             style=""
