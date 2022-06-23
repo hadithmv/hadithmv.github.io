@@ -301,7 +301,6 @@
         <button
           class="tablinks"
           onclick="openTab(event, 'tabOne'); focusEditor();"
-          id="secondaryOpen"
         >
           <!--   -->
           <span class="hideOnPhoneOnly"><u>1</u> </span>Edit އެޑިޓް
@@ -4554,410 +4553,131 @@ cols="60"-->
       <!-- <div id="tabThree" class="tabcontent"> -->
 
       <div id="tabFour" class="tabcontent">
-        <!--
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/highlight-within-textarea@2.0.5/jquery.highlight-within-textarea.css"
-        />
-        <script src="https://cdn.jsdelivr.net/npm/highlight-within-textarea@2.0.5/jquery.highlight-within-textarea.min.js"></script>
-      -->
+        <div class="container">
 
-        <!-- replaced internal links with external local ones -->
-        <!--<link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.css"
-        />
+          <div class="diffs">
+              <header>
+                  <h1>Visualized Diffs</h1>
+                  <button id="prev" title="Previous diff">▲</button>
+                  <button id="next" title="Next diff">▼</button>
+                  <button id="wrap" title="Toggle line wrapping">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 10 10"><path d="M1 2h8M1 4.5h6A1 1 0 0 1 7 7H5v-.3l-.3.3.3.3V7M1 7h1.5" stroke-width="1.1" fill="none" stroke="#000"/></svg>
+                  </button>
+              </header>
+              <div class="compare-wrapper">
+                  <div id="compare">
+                  </div>
+              </div>
+          </div>
+      
+          <div class="sources">
+              <h1>Source files</h1>
+              <ul>
+                  <li><a id="file1" href="https://gist.githubusercontent.com/quotient/c426a69bfa550d1a43a0/raw/645d996d8d23e48dc9b691a10238d690df845f4f/gistfile1.txt">File 1</a></li>
+                  <li><a id="file2" href="https://gist.githubusercontent.com/quotient/a9baf2c58972aa22c621/raw/c8f6caf22d330cb34fc6f70ece44699312b2b7b4/gistfile1.txt">File 2</a></li>
+              </ul>
+          </div>
+      
+      </div>
+      
+      </div>
 
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/mergely/4.3.8/mergely.min.css"
-        />-->
 
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
-        <!-- slim doesnt work -->
-
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.js"></script>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mergely/4.3.8/mergely.min.js"></script> -->
-
-        <!-- older links below -->
-        <!--
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/codemirror.min.css"
-/>
-
-<link
-  rel="stylesheet"
-  href="https://cdn.rawgit.com/wickedest/Mergely/3.4.0/lib/mergely.css"
-/>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/codemirror.min.js"></script>
-
-<script src="https://cdn.rawgit.com/wickedest/Mergely/3.4.1/lib/mergely.js"></script>
--->
         <style>
-          /* CONVERTED FROM SCSS TO CSS */
-
-          /*html,
-  body {
-    margin: 0;
-    padding: 0;
-  }*/
-          .demo-editor {
-            font-family: sans-serif;
-            display: flex;
-            min-height: 100vh;
-          }
-          h1 {
-            margin: 4px;
+          h1,
+          ul {
+            margin: 0.3em 0;
           }
 
-          .diffs {
+          .container {
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
+            height: 100vh;
+            margin: 0 0.5em;
           }
-
-          /* dont remove the colon from this, otherwise wont align in the middle */
-          header: {
+          .diffs {
+            flex: 1 1 auto;
             display: flex;
+            flex-direction: column;
+
+            header * {
+              display: inline-block;
+              vertical-align: middle;
+            }
+
+            .compare-wrapper {
+              flex: 1 1 auto;
+              position: relative;
+
+              #compare {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+              }
+            }
           }
 
-          .compare-container {
-            width: auto;
-            display: flex;
-            flex-grow: 1;
-            position: relative;
-            /* full screen */
-            /*position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;*/
-          }
-
-          #mergely {
-            position: absolute;
-            bottom: 0;
-            top: 0;
+          /* Auto-height fix */
+          .mergely-column .CodeMirror {
             height: 100%;
-          }
-
-          /*footer {
-        display: flex;
-      }*/
-
-          /* EDITS */
-
-          /* resizeable mergely resizer classes (for container not resizer) */
-          .mergely-resizer {
-            width: 100%;
-            height: 100%;
-          }
-          .mergely-full-screen-0 {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            overflow: hidden;
-          }
-          .mergely-full-screen-8 {
-            position: absolute;
-            top: 8px;
-            bottom: 8px;
-            left: 8px;
-            right: 8px;
-            overflow: hidden;
-          }
-
-          #mergely-splash {
-            display: none; /* removes splash div popup */
-          }
-
-          .CodeMirror-code {
-            font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-            font-size: 18px;
-            /*direction: rtl;*/ /* makes arrows disappear */
-          }
-
-          .CodeMirror-code {
-            direction: rtl; /* makes text rtl, but merge arrows too */
-          }
-
-          .merge-button {
-            direction: ltr; /* makes merge arrows ltr again */
-          }
-
-          #compare .CodeMirror-lines pre,
-          #compare .CodeMirror-gutter-text pre {
-            line-height: 30px;
-          }
-
-          .CodeMirror {
-            height: 500px;
-          }
-
-          /*.mergely-canvas {
-            width: 10px;*/ /* middle space 
-          }*/
-
-          .mergely.ch.d.lhs {
-            text-decoration: none;
-          }
-
-          #prev,
-          #next {
-            font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
           }
         </style>
 
-        <div class="demo-editor">
-          <div class="diffs">
-            <header>
-              <!--<h1>Mergely Visualized Diff</h1>-->
-              <p
-                class="mid editorButtons dv"
-                style="margin-bottom: -3px; margin-top: 5px"
-              >
-                <button
-                  id="prev"
-                  data-tooltip="Jump to the previous difference"
-                >
-                  ▲ ކުރީގެ ބަދަލަށް
-                </button>
-                <button id="next" data-tooltip="Jump to the next difference">
-                  ▼ ޖެހިގެންވާ ބަދަލަށް
-                </button>
-                <button id="wrap" data-tooltip="Turn wordwrap on or off">
-                  ↲ އެއްފޮޅުވަތަށް ފައްތާ
-                </button>
-                <!--<button id="fullScreen" title="Toggle fullscreen">
-                  ފުލްސްކްރީން 🖥️
-                </button>-->
-              </p>
-
-              <!--<div id="log">
-                ޖުމްލަ ހުރިހާ ގޮތަކުން ބަދަލުވި ފޮޅުވަތްތައް: 2 &nbsp;|&nbsp;
-                ވާތު ފަޅީގައިވާ ކެރެކްޓާތައް: 180 &nbsp;|&nbsp; ކަނާތު
-                ފަޅީގައިވާ ކެރެކްޓާތައް: 193 &nbsp;|&nbsp; ބަދަލުވި
-                ފޮޅުވަތްތައް: 2 &nbsp;|&nbsp; އިތުރުވި ފޮޅުވަތްތައް: 0
-                &nbsp;|&nbsp; ކަނޑާލެވުނު ފޮޅުވަތްތައް: 0<br />
-              </div> -->
-
-              <style>
-                #log {
-                  font-family: "dvFont", "arFont", "Quicksand", sans-serif,
-                    "faruma";
-                  font-size: 16px;
-                  line-height: 2.1;
-                  text-align: center;
-                }
-              </style>
-
-              <!--
-              <p class="mid dv">
-                އިތުރުވި ފޮޅުވަތްތައް: <span id="addedLines">0</span>&nbsp; |
-                &nbsp;ބަދަލުވި ފޮޅުވަތްތައް:
-                <span id="changedLines">0</span>&nbsp; | &nbsp;ކަނޑާލެވުނު
-                ފޮޅުވަތްތައް: <span id="deletedCharacters">0</span>&nbsp; |
-                &nbsp;ވާތު ފަޅީގައިވާ އަކުރުތައް: ފޮޅުވަތްތައް:
-                <span id="leftSideCharacters">0</span>&nbsp; | &nbsp;ކަނާތު
-                ފަޅީގައިވާ އަކުރުތައް:
-                <span id="rightSideCharacters">0</span>&nbsp; | &nbsp;ޖުމްލަ
-                ބަދަލުވި ފޮޅުވަތްތައް: <span id="totalChangedLines">0</span>
-              </p>-->
-            </header>
-
-            <br />
-
-            <div class="compare-container">
-              <!-- add the mergely resizer classes here? on container not resizer -->
-              <div class="mergely-resizer">
-                <div id="mergely" oninput="doSummary();"></div>
-                <!-- added oninput -->
-              </div>
-            </div>
-
-            <!--<footer>
-      <h1>Source files</h1>
-      <ul>
-        <li>
-          <a
-            id="file1"
-            href="https://gist.githubusercontent.com/quotient/c426a69bfa550d1a43a0/raw/645d996d8d23e48dc9b691a10238d690df845f4f/gistfile1.txt"
-            >File 1</a
-          >
-        </li>
-        <li>
-          <a
-            id="file2"
-            href="https://gist.githubusercontent.com/quotient/a9baf2c58972aa22c621/raw/c8f6caf22d330cb34fc6f70ece44699312b2b7b4/gistfile1.txt"
-            >File 2</a
-          >
-        </li>
-      </ul>
-    </footer>-->
-          </div>
-        </div>
-
         <script defer>
           $(document).ready(function () {
-            // set editor content
-            $("#mergely").mergely({
+            var comp = $("#compare");
+
+            function downloadJSON(url, callback) {
+              $.get(url, function (data) {
+                var json = JSON.parse(data);
+                var formattedText = JSON.stringify(json, null, 2);
+                callback(formattedText);
+              });
+            }
+
+            comp.mergely({
+              cmsettings: {
+                readOnly: false,
+                lineWrapping: true,
+              },
+              wrap_lines: true,
+
+              //Doesn't do anything?
+              //autoresize: true,
+
+              editor_width: "calc(50% - 25px)",
+              editor_height: "100%",
+
               lhs: function (setValue) {
-                setValue(
-                  "عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُ:\nقَالَ رَسُولُ اللَّهِ ﷺ:\n\nޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ގެ އަރިހުން ރިވާވެގެންވެއެވެ:\nރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
-                );
+                downloadJSON($("#file1").attr("href"), setValue);
               },
               rhs: function (setValue) {
-                setValue(
-                  "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ:\nسَمِعْتُ النَّبِيَّ ﷺ يَقُولُ:\n\nއިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ:\nނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:"
-                );
+                downloadJSON($("#file2").attr("href"), setValue);
               },
             });
 
-            $("#mergely").mergely("options", { wrap_lines: true });
-          });
+            function changeOptions(changer) {
+              var options = comp.mergely("options");
+              changer(options);
 
-          $("#prev").click(function () {
-            $("#mergely").mergely("scrollToDiff", "prev"); // changed comp.mergely to $("#mergely").mergely
-          });
-          $("#next").click(function () {
-            $("#mergely").mergely("scrollToDiff", "next");
-          });
+              comp.mergely("options", options);
+              //comp.mergely('update');
+            }
 
-          $("#wrap").click(function () {
-            changeOptions(function (x) {
-              x.wrap_lines = !x.wrap_lines;
+            $("#prev").click(function () {
+              comp.mergely("scrollToDiff", "prev");
+            });
+            $("#next").click(function () {
+              comp.mergely("scrollToDiff", "next");
+            });
+            $("#wrap").click(function () {
+              changeOptions(function (x) {
+                x.wrap_lines = !x.wrap_lines;
+              });
             });
           });
-
-          /*$("#fullScreen").click(function () {
-            //var element = document.getElementsByClassName("compare-container");
-            //console.log(5);
-            var all = document.getElementsByClassName("compare-container");
-            for (var i = 0; i < all.length; i++) {
-              //all[i].style.color = "red";
-              all[i].style.position = "absolute";
-              all[i].style.top = "8px";
-              all[i].style.bottom = "30px";
-              all[i].style.left = "8px";
-              all[i].style.right = "30px";
-              all[i].style.overflow = "hidden";
-            }
-          });*/
-
-          // needed to toggle line wrap
-          function changeOptions(changer) {
-            var options = $("#mergely").mergely("options");
-            changer(options);
-            $("#mergely").mergely("options", options);
-          }
-
-          //$(window).on("load", function () {
-          window.addEventListener("load", function () {
-            // $( document ).ready(function() { doesnt work for summary
-            console.log($("#mergely").mergely("summary"));
-            // { a: 0, c: 1, d: 0, lhsLength: 44, numChanges: 1, rhsLength: 45 }
-            /* a	The number of added lines.
-            c	The number of changed lines.
-            d	The number of deleted lines.
-            lhsLength	The number of characters in the lhs text.
-            rhsLength	The number of characters in the rhs text.
-            numChanges	The total number of changed lines. */
-
-            // https://github.com/wickedest/Mergely/blob/master/src/diff-view.js
-
-            // ADDITIONAL CODE BELOW
-            //document.getElementById("leftSideCharacters").innerHTML = 10;
-            /*document.getElementById("leftSideCharacters").innerHTML =
-              $("#mergely").mergely("summary");*/
-
-            /* https://stackoverflow.com/questions/20256760/javascript-console-log-to-html/20256785 */
-            (function () {
-              if (!console) {
-                console = {};
-              }
-              var old = console.log;
-              var logger = document.getElementById("log");
-              console.log = function (message) {
-                if (typeof message == "object") {
-                  logger.innerHTML +=
-                    (JSON && JSON.stringify
-                      ? JSON.stringify(message)
-                      : String(message)) + "<br />";
-                } else {
-                  logger.innerHTML += message + "<br />";
-                }
-              };
-            })();
-
-            //console.log("test");
-            console.log($("#mergely").mergely("summary"));
-
-            //var txt=elm.innerHTML;
-            //document.getElementById("log").innerHTML = 10;
-
-            var strMessage1 = document.getElementById("log");
-            strMessage1.innerHTML = strMessage1.innerHTML
-              .replace(/\{\"/g, "")
-              .replace(
-                /\,\"rhsLength\":/g,
-                " &nbsp;|&nbsp; ކަނާތު ފަޅީގައިވާ ކެރެކްޓާތައް: "
-              )
-              .replace(
-                /numChanges\":/g,
-                "ޖުމްލަ ހުރިހާ ގޮތަކުން ބަދަލުވި ފޮޅުވަތްތައް: "
-              )
-              .replace(
-                /\,\"lhsLength\":/g,
-                " &nbsp;|&nbsp; ވާތު ފަޅީގައިވާ ކެރެކްޓާތައް: "
-              )
-              .replace(/\,\"a"\:/g, " &nbsp;|&nbsp; އިތުރުވި ފޮޅުވަތްތައް: ")
-              .replace(/\,\"c"\:/g, " &nbsp;|&nbsp; ބަދަލުވި ފޮޅުވަތްތައް: ")
-              .replace(/\,\"d"\:/g, " &nbsp;|&nbsp; ކަނޑާލެވުނު ފޮޅުވަތްތައް: ")
-              .replace(/\}/g, "");
-
-            /*.replace(/numChanges/g, "aaa")
-              .replace(/lhsLength/g, '/world">Helloworld</a>');*/
-
-            // {"numChanges":2,"lhsLength":180,"rhsLength":193,"c":2,"a":0,"d":0}
-            /* a	The number of added lines.
-            c	The number of changed lines.
-            d	The number of deleted lines.
-            lhsLength	The number of characters in the lhs text.
-            rhsLength	The number of characters in the rhs text.
-            numChanges	The total number of changed lines. */
-          }); // $(window).on("load", function () {
-
-          function doSummary() {
-            // remove content of log to add content again, otherwise content repeats
-            document.getElementById("log").innerHTML = "";
-
-            // repeated code before so as to add new strings when console is updated oninput
-            console.log($("#mergely").mergely("summary"));
-
-            var strMessage1 = document.getElementById("log");
-            strMessage1.innerHTML = strMessage1.innerHTML
-              .replace(/\{\"/g, "")
-              .replace(
-                /\,\"rhsLength\":/g,
-                " &nbsp;|&nbsp; ކަނާތު ފަޅީގައިވާ ކެރެކްޓާތައް: "
-              )
-              .replace(/numChanges\":/g, "ޖުމްލަ ތަފާތު ފޮޅުވަތްތައް: ")
-              .replace(
-                /\,\"lhsLength\":/g,
-                " &nbsp;|&nbsp; ވާތު ފަޅީގައިވާ ކެރެކްޓާތައް: "
-              )
-              .replace(/\,\"a"\:/g, " &nbsp;|&nbsp; އިތުރުވި ފޮޅުވަތްތައް: ")
-              .replace(/\,\"c"\:/g, " &nbsp;|&nbsp; ބަދަލުވި ފޮޅުވަތްތައް: ")
-              .replace(/\,\"d"\:/g, " &nbsp;|&nbsp; ކަނޑާލެވުނު ފޮޅުވަތްތައް: ")
-              .replace(/\}/g, "");
-          }
         </script>
 
         <!-- old code mergely
@@ -5379,12 +5099,6 @@ cols="60"-->
 
       // Get the element with id="defaultOpen" and click on it
       document.getElementById("defaultOpen").click();
-
-      // needed timeout delay otherwise mergley diff wouldnt show
-
-      setTimeout(function () {
-        document.getElementById("secondaryOpen").click();
-      }, 1);
 
       function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
