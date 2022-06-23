@@ -1748,159 +1748,6 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
 
     <style>
       /* ====================
-         Modal --REPEATED IN MINIMAL-MOD AND Embedded  HMV INDEX.HTML STYLES 
- ======================= */
-
-      /* https://www.w3schools.com/howto/howto_css_modals.asp */
-      /* The Modal (background) */
-      .modal {
-        display: none;
-
-        /* Hidden by default */
-        position: fixed;
-
-        /* Stay in place */
-
-        /* z-index: 1; */
-        z-index: 999;
-
-        /* Sit on top */
-
-        /* padding-top: 100px;  Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%;
-
-        /* Full width */
-        height: 100%;
-
-        /* Full height */
-        overflow: auto;
-
-        /* Enable scroll if needed */
-        background-color: rgb(0 0 0);
-
-        /* Fallback color */
-        background-color: rgb(0 0 0 / 40%);
-
-        /* Black w/ opacity */
-      }
-
-      /* Modal Content */
-      .modal-content {
-        /* background-color: #fefefe; */
-        background-color: #0e1621;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-
-        /* added */
-        border-radius: 20px; /* 5px; */
-        max-width: 500px;
-        box-shadow: 0 1px 2.5px rgb(0 0 0 / 20%);
-
-        /* centers */
-        position: relative;
-        top: 50%;
-        transform: translateY(-50%);
-        transform: translateY(-50%);
-
-        /* .w3-animate-top */
-
-        /* position: relative; */
-        animation: animatetop 0.4s;
-      }
-
-      @keyframes animatetop {
-        from {
-          top: -500px;
-          opacity: 0;
-        }
-
-        to {
-          top: default;
-
-          /* changed from 0 */
-          opacity: 1;
-        }
-      }
-
-      /* The Close Button */
-      .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-      }
-
-      .close:hover,
-      .close:focus {
-        /* color: #000; */
-        text-decoration: none;
-        cursor: pointer;
-      }
-
-      /* added */
-      @media (prefers-color-scheme: light) {
-        .modal-content {
-          /* background-color: #fefefe; */
-          background-color: #eee;
-        }
-
-        /* hr {
-            background: #000;
-          } */
-
-        /* changes text from white to blue */
-        .resp-sharing-button__link {
-          color: #00598b !important;
-        }
-        /* matching filter color for the icons as the text */
-        #myModal > div > div > h3 > a > div > div > div {
-          filter: invert(25%) sepia(97%) saturate(880%) hue-rotate(170deg)
-            brightness(92%) contrast(104%);
-        }
-      }
-
-      /* lessens line height since i added social buttons */
-      #myModal > div > div > h3 {
-        line-height: 0.8 !important;
-        margin: 0;
-        font-weight: 500;
-      }
-
-      /* adds indent to text before icon */
-      .contactTexts {
-        padding-left: 14px;
-        /* vertical-align: middle;*/
-        font-family: "Quicksand", sans-serif;
-      }
-
-      /* moves modal items with icons a bit to the left, since icons make the text seem a little to the right */
-      #myModal > div > div > h3 > a > div {
-        margin-left: -15px;
-      }
-
-      /* modal horizontal line styles */
-      #myModal > div > div > hr {
-        width: 90%;
-        /**/
-        border: 0;
-        border-radius: 15px;
-        height: 3px;
-        background-image: linear-gradient(to right, #f33939, #4f39f3);
-      }
-
-      /* modal header style */
-      #myModal > div > div > h2 {
-        color: rgb(255 255 255/84.7%);
-        font-family: Quicksand, sans-serif, serif;
-        font-weight: 500;
-        line-height: 1.9;
-      }
-
-      /* ====================
          SOCIAL BUTTONS --REPEATED IN MINIMAL-MOD AND HMV-STYLES
  ======================= */
 
@@ -2115,6 +1962,162 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
             filter: invert(100%);
           }*/
     </style>
+
+    <style>
+      /* ====================
+   Modal --REPEATED in birrumv index as well as hadithmv index html embedded STYLES 
+======================= */
+
+      /* https://www.w3schools.com/howto/howto_css_modals.asp */
+      /* The Modal (background) */
+      .modal {
+        display: none;
+
+        /* Hidden by default */
+        position: fixed;
+
+        /* Stay in place */
+
+        /* z-index: 1; */
+        z-index: 999;
+
+        /* Sit on top */
+
+        /* padding-top: 100px;  Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%;
+
+        /* Full width */
+        height: 100%;
+
+        /* Full height */
+        overflow: auto;
+
+        /* Enable scroll if needed */
+        background-color: rgb(0 0 0);
+
+        /* Fallback color */
+        background-color: rgb(0 0 0 / 40%);
+
+        /* Black w/ opacity */
+      }
+
+      /* Modal Content */
+      .modal-content {
+        /* background-color: #fefefe; */
+        background-color: #0e1621;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+
+        /* added */
+        border-radius: 20px; /* 5px; */
+        max-width: 500px;
+        box-shadow: 0 1px 2.5px rgb(0 0 0 / 20%);
+
+        /* centers */
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        transform: translateY(-50%);
+
+        /* .w3-animate-top */
+
+        /* position: relative; */
+        animation: animatetop 0.4s;
+      }
+
+      @keyframes animatetop {
+        from {
+          top: -500px;
+          opacity: 0;
+        }
+
+        to {
+          top: default;
+
+          /* changed from 0 */
+          opacity: 1;
+        }
+      }
+
+      /* The Close Button */
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        /* color: #000; */
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      /* added */
+      @media (prefers-color-scheme: light) {
+        .modal-content {
+          /* background-color: #fefefe; */
+          background-color: #eee;
+        }
+
+        /* hr {
+      background: #000;
+    } */
+
+        /* changes text from white to blue */
+        .resp-sharing-button__link {
+          color: #00598b !important;
+        }
+        /* matching filter color for the icons as the text */
+        #myModal > div > div > h3 > a > div > div > div {
+          filter: invert(25%) sepia(97%) saturate(880%) hue-rotate(170deg)
+            brightness(92%) contrast(104%);
+        }
+      }
+
+      /* lessens line height since i added social buttons */
+      #myModal > div > div > h3 {
+        line-height: 0.8 !important;
+        margin: 0;
+        font-weight: 500;
+      }
+
+      /* adds indent to text before icon */
+      .contactTexts {
+        padding-left: 14px;
+        /* vertical-align: middle;*/
+        font-family: "Quicksand", sans-serif;
+      }
+
+      /* moves modal items with icons a bit to the left, since icons make the text seem a little to the right */
+      #myModal > div > div > h3 > a > div {
+        margin-left: -15px;
+      }
+
+      /* modal horizontal line styles */
+      #myModal > div > div > hr {
+        width: 90%;
+        /**/
+        border: 0;
+        border-radius: 15px;
+        height: 3px;
+        background-image: linear-gradient(to right, #f33939, #4f39f3);
+      }
+
+      /* modal header style */
+      #myModal > div > div > h2 {
+        color: rgb(255 255 255/84.7%);
+        font-family: Quicksand, sans-serif, serif;
+        font-weight: 500;
+        line-height: 1.9;
+      }
+    </style>
+
     <!-- Trigger/Open The Modal 
 <button id="myBtn">Open Modal</button>-->
 

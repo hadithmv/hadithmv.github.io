@@ -559,6 +559,9 @@
 
           font-weight: normal;
           /* otherwise card is whitened */
+
+          /* makes emoji white */
+          filter: brightness(0) invert(1);
         }
       </style>
 
@@ -1193,7 +1196,9 @@
             <p>
               * If you don’t know the date of your child’s Aqeeqah, you can
               scroll down to use our
-              <a onclick="jumpCalcF()">date calculator</a>.
+              <a onclick="jumpCalcF()" style="cursor: pointer"
+                >date calculator</a
+              >.
             </p>
           </div>
         </div>
@@ -1223,8 +1228,10 @@
             <p>
               * ދަރިފުޅުގެ އަގީގާ ކަތިލަންވީ ތާރީޚު އެނގިނުއްލަވާ ނަމަ، ތިރިއަށް
               ގޮސް އަޅުގަނޑުމެންގެ
-              <a onclick="jumpCalcF()">ތާރީޚު ކެލްކިއުލޭޓަރ</a> ބޭނުން
-              ކުރެވިދާނެ.
+              <a onclick="jumpCalcF()" style="cursor: pointer"
+                >ތާރީޚު ކެލްކިއުލޭޓަރ</a
+              >
+              ބޭނުން ކުރެވިދާނެ.
             </p>
           </div>
         </div>
@@ -1253,6 +1260,7 @@
 
         <div class="en Pr">
           <a
+            style="font-size: 135%"
             href="https://www.facebook.com/106296038696015/posts/pfbid02hHBqMq6PDFYaq8YSmwLmCL2URzDVUXrmLu3Zqf8NxxdoD2MLnUziEHR4M2ZJ1fNvl"
             >Click here for more info</a
           >
@@ -2236,16 +2244,26 @@
             <a><b>Ageega Date Calculator</b></a>
           </h2>
 
-          <table
-            style="
+          <style>
+            .aqiqaCalc {
               margin-left: auto;
               margin-right: auto;
               font-size: 110%;
               margin-bottom: 20px;
-            "
-          >
+              display: inline-block;
+            }
+
+            /* gives space between rows https://stackoverflow.com/questions/3656615/padding-a-table-row/3656844#3656844 */
+
+            .aqiqaCalc td {
+              padding-top: 10px;
+              padding-bottom: 10px;
+            }
+          </style>
+
+          <table class="aqiqaCalc">
             <tr>
-              <td>Select the date on which your child was born:</td>
+              <td>When was your child born?</td>
               <td>
                 <input
                   type="date"
@@ -2257,7 +2275,7 @@
               </td>
             </tr>
             <tr>
-              <td>Select the number of days you want to count after birth:</td>
+              <td>How many days to count after birth?</td>
               <td>
                 <select id="select" onchange="setSecondDate();">
                   <option value="6">7 days</option>
@@ -2267,14 +2285,16 @@
               </td>
             </tr>
             <tr>
-              <td>If child born BEFORE maghrib, Aqeeqah is on:</td>
+              <td>If birth was BEFORE maghrib, Aqiqa is due on:</td>
               <td>
+                &nbsp;
                 <span id="b4Maghrib">0</span>
               </td>
             </tr>
             <tr>
-              <td>If child born AFTER maghrib, Aqeeqah is on:</td>
+              <td>If birth was AFTER maghrib, Aqiqa is due on:</td>
               <td>
+                &nbsp;
                 <span id="afterMaghrib">0</span>
               </td>
             </tr>
@@ -2541,6 +2561,159 @@
 
       <h2 class="en mid testimonials">– &nbsp;Testimonials&nbsp; –</h2>
 
+      <style>
+        /* ====================
+      Quotes Carousel
+======================= */
+        .quotes {
+          position: relative;
+          max-width: 25em;
+          list-style-type: none;
+
+          /* text-align: center; */
+          margin: 0 auto;
+          padding: 0;
+
+          /* added */
+          direction: ltr;
+        }
+
+        .quotes li {
+          position: absolute;
+          left: 0;
+          right: 0;
+          background: #136296;
+
+          /* added #ddd */
+          text-align: center;
+          padding: 1em;
+          border-radius: 15px /*0.25em;*/;
+          opacity: 0;
+
+          /* added */
+          padding-top: 25px;
+          color: #fff;
+        }
+
+        .quotes li:last-child {
+          position: relative;
+        }
+
+        .quotes li::after {
+          /* quote triangle */
+          position: absolute;
+          content: "";
+          display: block;
+          width: 0;
+          height: 0;
+          top: 1.75em;
+          left: -0.75em;
+          border-top: 0.75em solid transparent;
+          border-bottom: 0.75em solid transparent;
+          border-right: 0.75em solid #136296;
+
+          /* changed ddd */
+        }
+
+        .quotes span {
+          display: block;
+          text-align: right;
+          margin-right: 5%;
+          font-size: 85%;
+
+          /* 75% */
+          font-style: italic;
+          color: #d6d6d6;
+
+          /* added */
+          padding-top: 10px;
+        }
+
+        /* animation timing  =  animation:quote [total duration in secs] [increment by duration of each animation] infinite; */
+        .quotes li:nth-child(1) {
+          animation: quote 30s 0s infinite;
+          animation: quote 30s 0s infinite;
+        }
+
+        .quotes li:nth-child(2) {
+          animation: quote 30s 5s infinite;
+          animation: quote 30s 5s infinite;
+        }
+
+        .quotes li:nth-child(3) {
+          animation: quote 30s 10s infinite;
+          animation: quote 30s 10s infinite;
+        }
+
+        .quotes li:nth-child(4) {
+          animation: quote 30s 15s infinite;
+          animation: quote 30s 15s infinite;
+        }
+
+        .quotes li:nth-child(5) {
+          animation: quote 30s 20s infinite;
+          animation: quote 30s 20s infinite;
+        }
+
+        .quotes li:nth-child(6) {
+          animation: quote 30s 25s infinite;
+          animation: quote 30s 25s infinite;
+        }
+
+        @keyframes quote {
+          /* whole numbers only - round steps to nearest % */
+          0% {
+            opacity: 0;
+          }
+
+          /* (step 2 % = 100% / total quotes x .25) */
+          4% {
+            opacity: 1;
+          }
+
+          /* (step 3 % = 100% / total quotes x .75) */
+          13% {
+            opacity: 1;
+          }
+
+          /* (step 4 % = 100% / total quotes) */
+          17% {
+            opacity: 0;
+          }
+        }
+
+        @keyframes quote {
+          /* whole numbers only - round steps to nearest % */
+          0% {
+            opacity: 0;
+          }
+
+          /* (step 2 % = 100% / total quotes x .25) */
+          4% {
+            opacity: 1;
+          }
+
+          /* (step 3 % = 100% / total quotes x .75) */
+          13% {
+            opacity: 1;
+          }
+
+          /* (step 4 % = 100% / total quotes) */
+          17% {
+            opacity: 0;
+          }
+        }
+
+        /* added */
+        .stars {
+          padding-top: 15px;
+        }
+
+        .testimonials {
+          padding-top: 15px;
+        }
+      </style>
+
       <!-- http://fofwebdesign.co.uk/template/_testing/quotes-css.htm -->
       <ul id="quotes" class="quotes">
         <li class="show">
@@ -2577,6 +2750,161 @@
       </ul>
 
       <br />
+
+      <style>
+        /* ====================
+         Modal --REPEATED in birrumv index as well as hadithmv index html embedded STYLES 
+ ======================= */
+
+        /* https://www.w3schools.com/howto/howto_css_modals.asp */
+        /* The Modal (background) */
+        .modal {
+          display: none;
+
+          /* Hidden by default */
+          position: fixed;
+
+          /* Stay in place */
+
+          /* z-index: 1; */
+          z-index: 999;
+
+          /* Sit on top */
+
+          /* padding-top: 100px;  Location of the box */
+          left: 0;
+          top: 0;
+          width: 100%;
+
+          /* Full width */
+          height: 100%;
+
+          /* Full height */
+          overflow: auto;
+
+          /* Enable scroll if needed */
+          background-color: rgb(0 0 0);
+
+          /* Fallback color */
+          background-color: rgb(0 0 0 / 40%);
+
+          /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+          /* background-color: #fefefe; */
+          background-color: #0e1621;
+          margin: auto;
+          padding: 20px;
+          border: 1px solid #888;
+          width: 80%;
+
+          /* added */
+          border-radius: 20px; /* 5px; */
+          max-width: 500px;
+          box-shadow: 0 1px 2.5px rgb(0 0 0 / 20%);
+
+          /* centers */
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+          transform: translateY(-50%);
+
+          /* .w3-animate-top */
+
+          /* position: relative; */
+          animation: animatetop 0.4s;
+        }
+
+        @keyframes animatetop {
+          from {
+            top: -500px;
+            opacity: 0;
+          }
+
+          to {
+            top: default;
+
+            /* changed from 0 */
+            opacity: 1;
+          }
+        }
+
+        /* The Close Button */
+        .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+          /* color: #000; */
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        /* added */
+        @media (prefers-color-scheme: light) {
+          .modal-content {
+            /* background-color: #fefefe; */
+            background-color: #eee;
+          }
+
+          /* hr {
+            background: #000;
+          } */
+
+          /* changes text from white to blue */
+          .resp-sharing-button__link {
+            color: #00598b !important;
+          }
+          /* matching filter color for the icons as the text */
+          #myModal > div > div > h3 > a > div > div > div {
+            filter: invert(25%) sepia(97%) saturate(880%) hue-rotate(170deg)
+              brightness(92%) contrast(104%);
+          }
+        }
+
+        /* lessens line height since i added social buttons */
+        #myModal > div > div > h3 {
+          line-height: 0.8 !important;
+          margin: 0;
+          font-weight: 500;
+        }
+
+        /* adds indent to text before icon */
+        .contactTexts {
+          padding-left: 14px;
+          /* vertical-align: middle;*/
+          font-family: "Quicksand", sans-serif;
+        }
+
+        /* moves modal items with icons a bit to the left, since icons make the text seem a little to the right */
+        #myModal > div > div > h3 > a > div {
+          margin-left: -15px;
+        }
+
+        /* modal horizontal line styles */
+        #myModal > div > div > hr {
+          width: 90%;
+          /**/
+          border: 0;
+          border-radius: 15px;
+          height: 3px;
+          background-image: linear-gradient(to right, #f33939, #4f39f3);
+        }
+
+        /* modal header style */
+        #myModal > div > div > h2 {
+          color: rgb(255 255 255/84.7%);
+          font-family: Quicksand, sans-serif, serif;
+          font-weight: 500;
+          line-height: 1.9;
+        }
+      </style>
 
       <!-- Trigger/Open The Modal 
 <button id="myBtn">Open Modal</button>-->
