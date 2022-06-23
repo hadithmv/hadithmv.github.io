@@ -3915,7 +3915,7 @@ cols="60"-->
           autocapitalize="off"
           spellcheck="false"
           id="textSumArea"
-          placeholder="Any numbers written here will be added together, or if a number has a minus it will be subtracted, even within text. Use this to calculate the total cost for a list of items, or add up kilos when packing luggage. Eg: &#10;50 books &#10;5 print &#10;-10 refund &#10;..."
+          placeholder="Any numbers written here will be added together, or if a number has a minus it will be subtracted, even within text. Use this to calculate the total cost for a list of items, or add up kilos when packing luggage. Eg: &#10;50 books &#10;-10 gifts..."
           oninput="outputSum();"
         ></textarea>
 
@@ -4069,12 +4069,12 @@ cols="60"-->
                             style="
                               width: 100%;
                               /*max-width: 30em;*/
-                              height: 5em;
+                              /*height: 5em;*/
                               /*font-family: inherit;*/
                               /*added*/
                               font-family: sans-serif;
                               font-size: 20px;
-                              /*height: 300px;*/
+                              height: 80px;
                               padding: 10px;
 
                               line-height: 1.5;
@@ -5381,10 +5381,9 @@ cols="60"-->
       document.getElementById("defaultOpen").click();
 
       // needed timeout delay otherwise mergley diff wouldnt show
-
       setTimeout(function () {
         document.getElementById("secondaryOpen").click();
-      }, 1);
+      }, 120);
 
       function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
