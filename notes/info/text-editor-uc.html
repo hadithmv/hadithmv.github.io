@@ -5136,6 +5136,159 @@ cols="60"-->
       <br />
       <hr />
 
+      <style>
+        /* ====================
+      Quotes Carousel
+======================= */
+        .quotes {
+          position: relative;
+          max-width: 25em;
+          list-style-type: none;
+
+          /* text-align: center; */
+          margin: 0 auto;
+          padding: 0;
+
+          /* added */
+          direction: ltr;
+        }
+
+        .quotes li {
+          position: absolute;
+          left: 0;
+          right: 0;
+          background: #136296;
+
+          /* added #ddd */
+          text-align: center;
+          padding: 1em;
+          border-radius: 15px /*0.25em;*/;
+          opacity: 0;
+
+          /* added */
+          padding-top: 25px;
+          color: #fff;
+        }
+
+        .quotes li:last-child {
+          position: relative;
+        }
+
+        .quotes li::after {
+          /* quote triangle */
+          position: absolute;
+          content: "";
+          display: block;
+          width: 0;
+          height: 0;
+          top: 1.75em;
+          left: -0.75em;
+          border-top: 0.75em solid transparent;
+          border-bottom: 0.75em solid transparent;
+          border-right: 0.75em solid #136296;
+
+          /* changed ddd */
+        }
+
+        .quotes span {
+          display: block;
+          text-align: right;
+          margin-right: 5%;
+          font-size: 85%;
+
+          /* 75% */
+          font-style: italic;
+          color: #d6d6d6;
+
+          /* added */
+          padding-top: 10px;
+        }
+
+        /* animation timing  =  animation:quote [total duration in secs] [increment by duration of each animation] infinite; */
+        .quotes li:nth-child(1) {
+          animation: quote 30s 0s infinite;
+          animation: quote 30s 0s infinite;
+        }
+
+        .quotes li:nth-child(2) {
+          animation: quote 30s 5s infinite;
+          animation: quote 30s 5s infinite;
+        }
+
+        .quotes li:nth-child(3) {
+          animation: quote 30s 10s infinite;
+          animation: quote 30s 10s infinite;
+        }
+
+        .quotes li:nth-child(4) {
+          animation: quote 30s 15s infinite;
+          animation: quote 30s 15s infinite;
+        }
+
+        .quotes li:nth-child(5) {
+          animation: quote 30s 20s infinite;
+          animation: quote 30s 20s infinite;
+        }
+
+        .quotes li:nth-child(6) {
+          animation: quote 30s 25s infinite;
+          animation: quote 30s 25s infinite;
+        }
+
+        @keyframes quote {
+          /* whole numbers only - round steps to nearest % */
+          0% {
+            opacity: 0;
+          }
+
+          /* (step 2 % = 100% / total quotes x .25) */
+          4% {
+            opacity: 1;
+          }
+
+          /* (step 3 % = 100% / total quotes x .75) */
+          13% {
+            opacity: 1;
+          }
+
+          /* (step 4 % = 100% / total quotes) */
+          17% {
+            opacity: 0;
+          }
+        }
+
+        @keyframes quote {
+          /* whole numbers only - round steps to nearest % */
+          0% {
+            opacity: 0;
+          }
+
+          /* (step 2 % = 100% / total quotes x .25) */
+          4% {
+            opacity: 1;
+          }
+
+          /* (step 3 % = 100% / total quotes x .75) */
+          13% {
+            opacity: 1;
+          }
+
+          /* (step 4 % = 100% / total quotes) */
+          17% {
+            opacity: 0;
+          }
+        }
+
+        /* added */
+        .stars {
+          padding-top: 15px;
+        }
+
+        .testimonials {
+          padding-top: 15px;
+        }
+      </style>
+
       <h2 class="en mid testimonials">– &nbsp;Feedback&nbsp; –</h2>
 
       <!-- http://fofwebdesign.co.uk/template/_testing/quotes-css.htm -->
