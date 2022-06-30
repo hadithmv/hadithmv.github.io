@@ -1,4 +1,6 @@
-<#C:\Users\ashraaf\Downloads\libwebp-1.2.0-windows-x64\bin\cwebp.exe C:\Users\ashraaf\Downloads\libwebp-1.2.0-windows-x64\bin\img.png -o C:\Users\ashraaf\Downloads\libwebp-1.2.0-windows-x64\bin\img.webp
+<#
+https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html
+C:\Users\ashraaf\Downloads\libwebp-1.2.0-windows-x64\bin\cwebp.exe C:\Users\ashraaf\Downloads\libwebp-1.2.0-windows-x64\bin\img.png -o C:\Users\ashraaf\Downloads\libwebp-1.2.0-windows-x64\bin\img.webp
 #>
 
 # https://www.mindfulmodeler.com/snips/png-to-webp/
