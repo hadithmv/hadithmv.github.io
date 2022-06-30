@@ -2892,6 +2892,11 @@
           font-family: "Quicksand", sans-serif;
         }
 
+        /* moves the encodedmesBtn like icons a little to the left as well, like an indent */
+        #myModal > div > div > h3 > a > div > div > div {
+          margin-left: 20px;
+        }
+
         /* moves modal items with icons a bit to the left, since icons make the text seem a little to the right */
         #myModal > div > div > h3 > a > div {
           margin-left: -15px;
@@ -2913,6 +2918,13 @@
           font-family: Quicksand, sans-serif, serif;
           font-weight: 500;
           line-height: 1.9;
+        }
+
+        /* colors modal heading text black in light mode */
+        @media (prefers-color-scheme: light) {
+          #myModal > div > div > h2 {
+            color: black;
+          }
         }
       </style>
 
