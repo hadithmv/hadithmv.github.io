@@ -757,13 +757,22 @@ looks like we don’t need this code anymore, use the hide below this */
 /* removes blue box that shows up when double clicking a cell in the new DT update */
 
 /* not qCol1 prevents ayahbox box from disappearing */
+/* removed stripes later, so commented out */
+/*
 table.dataTable.display > tbody > tr.odd.selected > *:not(.qCol1),
 table.dataTable.stripe > tbody > tr.odd.selected > *:not(.qCol1) {
   box-shadow: none !important;
+  */
+/*table.dataTable tbody tr.selected > * */
+/* added :not(.qCol1) to prevent the round surah box from disapeparing */
+table.dataTable tbody tr.selected > *:not(.qCol1) {
+  box-shadow: none !important;
+}
 
-  /* removes the fff white text color that comes with that too,
-  initial and inherit have issues, this seems to work without !important however */
-  color: currentcolor;
+/* removes the fff white text color that comes with that too,
+  initial and inherit have issues, including round surah box text */
+table.dataTable tbody tr.selected > * {
+  color: currentcolor !important;
 }
 
 /* Keytable - Desktop only MQ */

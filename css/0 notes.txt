@@ -12,7 +12,7 @@ Load priority in COMB:
 -even more non Critical Ext
 **jquery.dataTables.min.css	1.12.1	(minify w cssnano)
 **buttons.dataTables.min.css	2.2.3	(minify w cssnano)
-**searchPanes.dataTables.min.css	2.0.1	(use MOD, minify w cssnano)
+**searchPanes.dataTables.min.css	2.0.2	(use MOD, minify w cssnano)
 fonts.css	(minify w cssnano)
 
 ...html boilerplate in hmv styles is v8.0
