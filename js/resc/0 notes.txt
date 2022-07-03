@@ -11,7 +11,7 @@ jquery.min.js		3.6.0 (mergely and hammer breaks with jquery slim, zepto and cash
 dataTables.buttons.min.js	2.2.3
 buttons.colVis.min.js		2.2.3
 buttons.html5.min.js		2.2.3
-dataTables.searchPanes.min.js	2.0.1
+dataTables.searchPanes.min.js	2.0.2
 dataTables.select.min.js	1.4.0
 **row().show().js		1.0 (minify w closure) 
 https://github.com/DataTables/Plugins/blob/master/api/row().show().js
