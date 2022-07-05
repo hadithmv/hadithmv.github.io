@@ -184,13 +184,13 @@ $(document).ready(() => {
         className: "bulCol6", // Ar Text
         targets: [5],
         visible: true,
-        searchable: true,
+        searchable: false,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "bulCol7", // Ar Text no fili
+        className: "bulCol7", // Ar Text Plain
         targets: [6],
         visible: false,
         searchable: true,

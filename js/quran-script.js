@@ -246,7 +246,7 @@ $(document).ready(() => {
         className: "qCol4", // quran tanzil
         targets: [3],
         visible: true,
-        searchable: true,
+        searchable: false,
         searchPanes: {
           show: false,
         },
@@ -264,7 +264,7 @@ $(document).ready(() => {
         className: "qCol6", // quran mujamma
         targets: [5],
         visible: false,
-        searchable: true,
+        searchable: false,
         searchPanes: {
           show: false,
         },
@@ -832,6 +832,8 @@ $(document).ready(() => {
   });
 
   // removes diacritics and punctuation on key up for search
+  /*     .on("keyup", function () {
+   */
   $(".dataTables_filter input")
     .off()
     .on("keyup", function () {
@@ -857,6 +859,9 @@ $(document).ready(() => {
         ""
       );*/
       table.search(str).draw();
+      //
     });
+  //     });
+
   //
 }); // ==================== END OF $(document).ready( function () {

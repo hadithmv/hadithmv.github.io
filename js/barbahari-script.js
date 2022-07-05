@@ -165,13 +165,13 @@ $(document).ready(() => {
         searchable: false,
       },
       {
-        className: "barbaCol5", // arTxt
+        className: "barbaCol5", // Ar Text
         targets: [4],
         visible: true,
-        searchable: true,
+        searchable: false,
       },
       {
-        className: "barbaCol6", // arPlain
+        className: "barbaCol6", // Ar Text Plain
         targets: [5],
         visible: false,
         searchable: true,

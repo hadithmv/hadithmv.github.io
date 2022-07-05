@@ -179,7 +179,7 @@ $(document).ready(() => {
         className: "nwqCol2", // Ar Text
         targets: [1],
         visible: true,
-        searchable: true,
+        searchable: false,
         searchPanes: {
           show: false,
         },
