@@ -204,13 +204,13 @@ $(document).ready(() => {
         className: "umdCol6", // Ar Text
         targets: [5],
         visible: true,
-        searchable: true,
+        searchable: false,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "umdCol7", // Ar Text no fili
+        className: "umdCol7", // Ar Text Plain
         targets: [6],
         visible: false,
         searchable: true,

@@ -186,7 +186,7 @@ $(document).ready(() => {
         className: "hisnCol5", // Ar Text
         targets: [4],
         visible: true,
-        searchable: true,
+        searchable: false,
         searchPanes: {
           show: false,
         },

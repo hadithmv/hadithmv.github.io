@@ -183,7 +183,7 @@ $(document).ready(() => {
         className: "fnCol4", // Ar Text
         targets: [3],
         visible: true,
-        searchable: true,
+        searchable: false,
         searchPanes: {
           show: false,
         },

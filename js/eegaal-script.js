@@ -124,13 +124,13 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "eegCol1", // ar word
+        className: "eegCol1", // Ar Text
         targets: [0],
         visible: true,
-        searchable: true,
+        searchable: true, // cuz it includes dhivehi text as well
       },
       {
-        className: "eegCol2", // ar word w/o fili
+        className: "eegCol2" // Ar Text Plain
         targets: [1],
         visible: false,
         searchable: true,

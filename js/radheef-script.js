@@ -122,13 +122,13 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "rCol1", // ar word
+        className: "rCol1", // Ar Text
         targets: [0],
         visible: true,
-        searchable: true,
+        searchable: false,
       },
       {
-        className: "rCol2", // ar word w/o fili
+        className: "rCol2", // Ar Text Plain
         targets: [1],
         visible: false,
         searchable: true,
