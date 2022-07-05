@@ -230,7 +230,7 @@ $(document).ready(() => {
         className: "qCol4", // quran tanzil
         targets: [3],
         visible: true,
-        searchable: true,
+        searchable: false,
         searchPanes: {
           show: false,
         },
