@@ -751,16 +751,18 @@ $(document).ready(() => {
       }
     }
   });
+
   // removes diacritics and punctuation on key up for search
-  $(".dataTables_filter input")
-    .off()
-    .on("keyup", function () {
-      let str = $(this).val();
-      str = str.replace(
-        /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
-        ""
-      );
-      table.search(str).draw();
-    });
+  $(".dataTables_filter input").on("keyup click", function () {
+    var str = $(this).val();
+    str = str.replace(
+      /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
+      ""
+    );
+    $(this).val(str);
+    //table.search(str).draw();
+    // commenting above out allows searchdelay to work with stringreplace
+  });
+
   //
 }); // ==================== END OF $(document).ready( function () {

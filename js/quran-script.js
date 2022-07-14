@@ -389,7 +389,7 @@ $(document).ready(() => {
     // search will instantly search table on every keypress -clientside proc mode
     // and reduce search call frequency to 400mS in serverside processing mode
     // processing load can be reduced by reducing the search frequency
-    searchDelay: 1000,
+    searchDelay: 2000,
 
     // Change options in page length select list.
     // It can be either: 1D array for both displayed option/display length value,
@@ -670,10 +670,6 @@ $(document).ready(() => {
   }); // $("#fortyNawawi").DataTable( { - END
   // from here to END OF $(document).ready( function () { used to be empty
 
-  /*const search = $.fn.dataTable.util.throttle(function (val) {
-    table.search(val).draw();
-  }, 10000);*/
-
   // ====================
   //        SWIPE
   // ====================
@@ -835,6 +831,7 @@ $(document).ready(() => {
     }
   });
 
+  /*
   // https://stackoverflow.com/questions/5548893/jquery-datatables-delay-search-until-3-characters-been-typed-or-a-button-clicke/23897722#23897722
 
   // Grab the datatables input box and alter how it is bound to events
@@ -856,44 +853,55 @@ $(document).ready(() => {
       }
       return;
     });
+    */
 
-  /*
-  // removes diacritics and punctuation on key up for search
-  //     .on("keyup", function () {
-  $(".dataTables_filter input")
+  /* OLD SEARCH REPLACE BELOW
+    $(".dataTables_filter input")
     .off()
     .on("keyup", function () {
-      //
-      if (this.value.length >= 5 || e.keyCode == 13) {
-        //
-        let str = $(this).val();
-        ///modded below for quran, to let search match properly
-        str = str
-          .replace(
-            "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
-            'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
-          )
-          .replace(
-            "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
-            'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
-          )
-          .replace(/ـ/g, "")
-          .replace(/[^\u0621-\u064A|^\u0780-\u07B1|\s|<br class="br">]/g, "")
-          .replace(/\s\s/g, " ");
-        // u0621 is where hamza starts in arabic unicode block, while u064A is where yaa ends. ^ everything apart from the letters in this range is removed in regex search
-        // \u0780-\u07B1 is the range of dhivehi letters in the thaana unicode block
-      //str = str.replace('﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace('﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace(/ـ/g, '').replace(/[^\u0621-\u064A|\s|<br class="br">]/g, '').replace(/\s\s/g, ' ')
-        //str = str.replace(
-        ///[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
-        //""
-      //);
-        table.search(str).draw();
-        //
-      }
-      //
+      let str = $(this).val();
+      // modded below for quran, to let search match properly
+      str = str
+        .replace(
+          "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
+          'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+        )
+        .replace(
+          "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
+          'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+        )
+        .replace(/ـ/g, "")
+        .replace(/[^\u0621-\u064A|^\u0780-\u07B1|\s|<br class="br">]/g, "")
+        .replace(/\s\s/g, " ");
+      // u0621 is where hamza starts in arabic unicode block, while u064A is where yaa ends. ^ everything apart from the letters in this range is removed in regex search
+      // \u0780-\u07B1 is the range of dhivehi letters in the thaana unicode block
+      // str = str.replace('﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace('﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace(/ـ/g, '').replace(/[^\u0621-\u064A|\s|<br class="br">]/g, '').replace(/\s\s/g, ' ')
+      // str = str.replace(
+      // /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g, "";
+      // );
+      table.search(str).draw();
     });
-  //     });
-*/
+    */
+
+  // removes diacritics and punctuation on key up for search
+  $(".dataTables_filter input").on("keyup click", function () {
+    var str = $(this).val();
+    str = str
+      .replace(
+        "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
+        'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+      )
+      .replace(
+        "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
+        'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+      )
+      .replace(/ـ/g, "")
+      .replace(/[^\u0621-\u064A|^\u0780-\u07B1|\s|<br class="br">]/g, "")
+      .replace(/\s\s/g, " ");
+    $(this).val(str);
+    //table.search(str).draw();
+    // commenting above out allows searchdelay to work with stringreplace
+  });
 
   //
 }); // ==================== END OF $(document).ready( function () {

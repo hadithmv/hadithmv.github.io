@@ -364,18 +364,19 @@ $(document).ready(() => {
     // search will instantly search table on every keypress -clientside proc mode
     // and reduce search call frequency to 400mS in serverside processing mode
     // processing load can be reduced by reducing the search frequency
-    searchDelay: 1000,
+    searchDelay: 2000,
 
     // Change options in page length select list.
     // It can be either: 1D array for both displayed option/display length value,
     // or 2Darray where 1st inner array=page length values, 2nd displayed options
     // -1 is used as a value this tells DataTables to disable pagination
     // Default [ 10, 25, 50, 100 ],
-    //lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50, 100, 200, 300], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, 50, 100, 200, '300']],
+
     lengthMenu: [
-      [1, 2, 3, 5, 7, 10],
-      ["1 ދައްކާ", 2, 3, 5, 7, 10, ""],
+      [1, 2, 3, 5, 10, 20, 30, 50, 100, 200, 300],
+      ["1 ދައްކާ", 2, 3, 5, 10, 20, 30, 50, 100, 200, "300"],
     ],
+    // lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހާ']],
     // lengthMenu: [ [5, 10, 20, 30, 40, -1, 1], ["Show 5", 10, 20, 30, 40,
     // "All", 1] ],
 
@@ -809,31 +810,24 @@ $(document).ready(() => {
   });
 
   // removes diacritics and punctuation on key up for search
-  $(".dataTables_filter input")
-    .off()
-    .on("keyup", function () {
-      let str = $(this).val();
-      /* modded below for quran, to let search match properly */
-      str = str
-        .replace(
-          "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
-          'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
-        )
-        .replace(
-          "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
-          'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
-        )
-        .replace(/ـ/g, "")
-        .replace(/[^\u0621-\u064A|^\u0780-\u07B1|\s|<br class="br">]/g, "")
-        .replace(/\s\s/g, " ");
-      // u0621 is where hamza starts in arabic unicode block, while u064A is where yaa ends. ^ everything apart from the letters in this range is removed in regex search
-      /* \u0780-\u07B1 is the range of dhivehi letters in the thaana unicode block
-      /*str = str.replace('﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace('﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace(/ـ/g, '').replace(/[^\u0621-\u064A|\s|<br class="br">]/g, '').replace(/\s\s/g, ' ')*/
-      /*str = str.replace(
-        /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
-        ""
-      );*/
-      table.search(str).draw();
-    });
+  $(".dataTables_filter input").on("keyup click", function () {
+    var str = $(this).val();
+    str = str
+      .replace(
+        "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
+        'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+      )
+      .replace(
+        "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
+        'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+      )
+      .replace(/ـ/g, "")
+      .replace(/[^\u0621-\u064A|^\u0780-\u07B1|\s|<br class="br">]/g, "")
+      .replace(/\s\s/g, " ");
+    $(this).val(str);
+    //table.search(str).draw();
+    // commenting above out allows searchdelay to work with stringreplace
+  });
+
   //
 }); // ==================== END OF $(document).ready( function () {
