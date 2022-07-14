@@ -130,7 +130,7 @@ $(document).ready(() => {
       /*{ targets: [8,9],
         render: function (data, type, row) {
           data = '‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>' + data
-          return data.replace(/\n/g, ' <br class="br">') // without this line breaks not preserved
+          return data.replace(/\n/g, '\t<br class="br">') // without this line breaks not preserved
           } 
         },*/
 
@@ -139,9 +139,9 @@ $(document).ready(() => {
       {
         targets: "_all",
         render: function (data, type, row) {
-          return data.replace(/\n/g, ' <br class="br">');
+          return data.replace(/\n/g, '\t<br class="br">');
         }, // added space before br, otherwise clipboard copy export has no space
-      },
+      }, // later changed that blank space into a \t, so that single new lines could work on clipboard copy
 
       // classes columns for css in nweb view, but not print.
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
@@ -483,7 +483,7 @@ $(document).ready(() => {
           data = data.replace(/\t\t/g, "\t"); //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, "\n\n"); // creates line breaks between cell data
           data = data.replace(/\s\s/g, "\n\n"); // turns two spaces into new lines, for multi line text
-          data = data.replace(/\n\n\n\n/g, "\n\n"); // turns 4 new lines spaces into 2
+          data = data.replace(/\n\n\n/g, "\n\n"); // turns 3 new lines spaces into 2
           data = data.replace(/\n\n\n\n/g, "\n\n"); // turns 4 new lines spaces into 2
 
           /*
