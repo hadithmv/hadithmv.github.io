@@ -389,7 +389,7 @@ $(document).ready(() => {
     // search will instantly search table on every keypress -clientside proc mode
     // and reduce search call frequency to 400mS in serverside processing mode
     // processing load can be reduced by reducing the search frequency
-    searchDelay: 2000,
+    searchDelay: 1500,
 
     // Change options in page length select list.
     // It can be either: 1D array for both displayed option/display length value,
