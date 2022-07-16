@@ -432,6 +432,10 @@
               // is n
               document.querySelector("#numListButton").click();
             }
+            if (e.altKey && e.which == 77) {
+              // is m
+              document.querySelector("#oListButton").click();
+            }
             if (e.altKey && e.which == 65) {
               // is a
               document.querySelector("#repFiliButton").click();
@@ -985,6 +989,16 @@
           </button>
 
           <button
+            onclick="htmlOList();triggerTheCounts();"
+            id="oListButton"
+            class="ttClass"
+            data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
+            id="htmlNList"
+          >
+            HT<u>M</u>L O List
+          </button>
+
+          <button
             onclick="replaceFili();triggerTheCounts();"
             id="repFiliButton"
             class="ttClass"
@@ -1175,15 +1189,6 @@
             data-tooltip="Converts CSV data in the text into JSON"
           >
             CSV → JSON
-          </button>
-
-          <button
-            onclick="htmlOList();triggerTheCounts();"
-            class="ttClass"
-            data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
-            id="htmlNList"
-          >
-            HTML O List
           </button>
 
           <button
