@@ -300,9 +300,10 @@
       <div class="tab" style="max-width: 1000px; margin: 0 auto">
         <button
           class="tablinks"
-          onclick="openTab(event, 'tabOne'); focusEditor();"
+          onclick="openTab(event, 'tabOne');"
           id="secondaryOpen"
         >
+          <!--  focusEditor(); -->
           <!--   -->
           <span class="hideOnPhoneOnly"><u>1</u> </span>Edit އެޑިޓް
         </button>
@@ -315,9 +316,10 @@
         </button>
         <button
           class="tablinks"
-          onclick="openTab(event, 'tabThree'); focusAdder();"
+          onclick="openTab(event, 'tabThree');"
           id="thirdButton"
         >
+          <!--  focusAdder(); -->
           <!--   -->
           <span class="hideOnPhoneOnly"><u>3</u> </span>Calc ހިސާބު
         </button>
@@ -4774,10 +4776,16 @@ cols="60"-->
               /*justify-content: space-around;*/
               justify-content: flex-start;
               align-content: flex-start;
+              row-gap: 20px;
             }
 
             .w3-row-padding > .w3-half {
               padding-right: 10px;
+              /*white-space: nowrap;*/
+            }
+
+            .w3-input {
+              width: 100px;
             }
           </style>
 
@@ -4962,6 +4970,7 @@ cols="60"-->
           </script>
 
           <!---->
+          <br />
           <br />
 
           <div class="w3-row-padding" style="margin: 0 -16px">
