@@ -749,24 +749,6 @@
                   */
         </script>
 
-        <!--<div id="qrcode"></div>
-        <style>
-          /* centers qr and adds whitespace for darkmode*/
-          #qrcode img {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            border: 4px solid #fff;
-            text-align: center;
-          }
-          #qrcode {
-            /*display: block;
-            margin-left: auto;
-            margin-right: auto;*/
-            text-align: center;
-          }
-        </style>-->
-
         <p class="buttonHeader" style="margin: 0">
           މަތީގައި ލިޔުމަށްފަހު އެލިޔުން ބަދަލުކުރުމަށް:
         </p>
@@ -2864,64 +2846,6 @@
           }
           //
 
-          /*var genQr_timesClicked = 0;
-          // https://davidshimjs.github.io/qrcodejs/
-          // https://codepen.io/davidshimjs/pen/NdBYrg
-          // script url was https://raw.githubusercontent.com/davidshimjs/qrcodejs/master/qrcode.min.js
-          function genQr() {
-            genQr_timesClicked++;
-            if (genQr_timesClicked % 2 == 0) {
-              //run second function
-              //qrcode.clear(); // clear the code.
-              //document.getElementById("qrcode").remove();
-              document.querySelector("#qrcode > img").remove();
-            } else {
-              //run first function
-
-              // sets cursor back in textarea after button click
-              // https://stackoverflow.com/questions/10158190/how-to-set-cursor-at-the-end-in-a-textarea/10158291#10158291
-              if (window.innerWidth > 600) {
-                document.getElementById("textMainArea").focus();
-              }
-
-              var qrcode = new QRCode("qrcode");
-            //var qrcode = new QRCode("qrcode", {
-            //  text: "http://jindo.dev.naver.com/collie",
-            //  width: 128,
-            //  height: 128,
-            //  colorDark: "#000000",
-            //  colorLight: "#ffffff",
-            //  correctLevel: QRCode.CorrectLevel.H,
-            //});
-
-              function makeCode() {
-                var elText = document.getElementById("textMainArea");
-
-              //if (!elText.value) {
-              //  alert("Input a text");
-              //  elText.focus();
-              //  return;
-              //}
-
-                qrcode.makeCode(elText.value);
-              }
-
-              makeCode();
-
-              $("#textMainArea")
-                .on("blur", function () {
-                  makeCode();
-                })
-                .on("keyup", function (e) {
-                  // changed keydown to keyup, and commented out to make it run on any keypress
-                  //if (e.keyCode == 13) {
-                  makeCode();
-                  //}
-                });
-            }
-          }*/
-          //
-
           // https://www.w3schools.com/js/js_random.asp
 
           function randomNumber() {
@@ -3081,6 +3005,8 @@
         </script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.5.0/papaparse.min.js"></script>
+
+        <!-- -->
       </div>
       <!-- <div id="tabOne" class="tabcontent"> -->
 
@@ -3841,6 +3767,8 @@
             return result;
           }
         </script>
+
+        <!-- -->
       </div>
       <!-- <div id="tabTwo" class="tabcontent"> -->
 
@@ -4042,12 +3970,48 @@ cols="60"-->
                               max-width: 85vw;
                             }
                           </style>
-                          <canvas
-                            id="qrcode-canvas"
-                            style=""
-                            width="232"
-                            height="232"
-                          ></canvas>
+
+                          <!-- added <a> tags, as well as custom style to it -->
+                          <a style="background: none; cursor: pointer">
+                            <canvas
+                              id="qrcode-canvas"
+                              style=""
+                              width="232"
+                              height="232"
+                            ></canvas>
+                          </a>
+
+                          <!-- 
+                          <a>
+                            <canvas
+                              width="300"
+                              height="300"
+                              id="canvas"
+                            ></canvas>
+                          </a>
+                          -->
+
+                          <script>
+                            // https://stackoverflow.com/questions/26050668/how-to-download-a-image-thats-on-html5-canvas/26050821#26050821
+                            /*
+                            var canvas = document.getElementById("canvas");
+                            var ctx = canvas.getContext("2d");
+                            ctx.fillStyle = "#ff5";
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                            */
+                            $("#qrcode-canvas").click(function () {
+                              $(this)
+                                .parent()
+                                .attr(
+                                  "href",
+                                  document
+                                    .getElementById("qrcode-canvas")
+                                    .toDataURL()
+                                );
+                              $(this).parent().attr("download", "QrCode.png");
+                            });
+                          </script>
+
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             id="qrcode-svg"
@@ -4136,6 +4100,19 @@ cols="60"-->
                           >
                           &nbsp; &nbsp;
                           <input
+                            type="range"
+                            min="1"
+                            max="30"
+                            step="1"
+                            value="8"
+                            id="scale-input"
+                            onchange="this.nextElementSibling.value = this.value"
+                            style="padding: 0"
+                          />
+                          <!-- https://stackoverflow.com/questions/10004723/html5-input-type-range-show-range-value/18936328#18936328 -->
+                          <output> 8</output>
+                          <!--
+                          <input
                             type="number"
                             min="1"
                             max="30"
@@ -4143,7 +4120,7 @@ cols="60"-->
                             value="8"
                             id="scale-input"
                             style="width: 4em"
-                          />
+                          />-->
                           pixels per module
                         </td>
                       </tr>
@@ -4152,22 +4129,39 @@ cols="60"-->
                         <td>
                           <strong>Colors:</strong>
                           &nbsp; &nbsp; Light =
+
+                          <!-- added this and replaced below -->
                           <input
+                            id="light-color-input"
+                            type="color"
+                            value="#FFFFFF"
+                            style="padding: 0"
+                          />
+
+                          <!--<input
                             type="text"
                             value="#FFFFFF"
                             id="light-color-input"
                             style="width: 6em"
-                          />
+                          />-->
                           ,
                           <!-- added -->
                           <br class="hideOnTabAndUp" />
                           dark =
+
+                          <!-- added this and replaced below -->
                           <input
+                            id="dark-color-input"
+                            type="color"
+                            value="#000000"
+                            style="padding: 0"
+                          />
+                          <!--<input
                             type="text"
                             value="#000000"
                             id="dark-color-input"
                             style="width: 6em"
-                          />
+                          />-->
                         </td>
                       </tr>
                       <tr>
@@ -4287,16 +4281,26 @@ cols="60"-->
               // previously testContainer was document. changed to get child by class, so as not to affect all general inputs and textareas. * CHANGE THIS CODE ON EVERY UPDATE *
               // for some reason doing that hides the initial qr code shown
 
-              var elems = testContainer.querySelectorAll(
-                "input[type=number], input[type=text], textarea"
+              // added , input[type=color]
+
+              var elems = document.querySelectorAll(
+                "input[type=number], input[type=text], textarea, input[type=color], input[type=range]"
               );
+              /*var elems = testContainer.querySelectorAll(
+                "input[type=number], input[type=text], textarea, input[type=color], input[type=range]"
+              );*/
+
               for (var _i = 0, elems_1 = elems; _i < elems_1.length; _i++) {
                 var el = elems_1[_i];
                 if (el.id.indexOf("version-") != 0) el.oninput = redrawQrCode;
               }
-              elems = testContainer.querySelectorAll(
+
+              elems = document.querySelectorAll(
                 "input[type=radio], input[type=checkbox]"
               );
+              /*elems = testContainer.querySelectorAll(
+                "input[type=radio], input[type=checkbox]"
+              );*/
               for (var _a = 0, elems_2 = elems; _a < elems_2.length; _a++) {
                 var el = elems_2[_a];
                 el.onchange = redrawQrCode;
@@ -4319,7 +4323,10 @@ cols="60"-->
               svgXml.value = "";
               // Reset output images in case of early termination
               var canvas = getElem("qrcode-canvas");
+
+              // var svg = testContainer.getElementById("qrcode-svg");
               var svg = document.getElementById("qrcode-svg");
+
               canvas.style.display = "none";
               svg.style.display = "none";
               // Returns a QrCode.Ecc object based on the radio buttons in the HTML form.
@@ -4496,6 +4503,8 @@ cols="60"-->
             app.handleVersionMinMax = handleVersionMinMax;
             function getElem(id) {
               var result = document.getElementById(id);
+              // var result = testContainer.getElementById(id);
+
               if (result instanceof HTMLElement) return result;
               throw new Error("Assertion error");
             }
@@ -4729,15 +4738,336 @@ cols="60"-->
 
         <br />
         <hr />
+        <br />
 
         <div class="en mid">
-          <br />
-
           <p style="font-size: 20px; line-height: 1.5">
             If you don’t know the date of your child’s Aqiqah, you can use our
             <a href="https://birrumv.com">Aqiqah date calculator</a>.
           </p>
         </div>
+
+        <br />
+        <hr />
+
+        <div class="en mid">
+          <h2 style="font-size: 23px">
+            <a
+              data-tooltip="Calculates the first, second and last thirds of the night, as well as half, when you have set the time for Maghrib and Isha"
+              style="font-weight: normal"
+              ><b>Unit Converter 🧮</b></a
+            >
+          </h2>
+
+          <!-- https://www.w3schools.com/howto/howto_js_length_converter.asp
+            <p style="font-size: 20px; line-height: 1.5">
+            Type a value in any of the fields to convert between them.
+          </p>-->
+
+          <style>
+            /* https://stackoverflow.com/questions/7245018/how-to-evenly-distribute-elements-in-a-div-next-to-each-other/33239116#33239116 */
+            .w3-row-padding {
+              display: flex;
+              /*flex-flow: row wrap;*/
+              flex-direction: row;
+              flex-wrap: wrap;
+              /*justify-content: space-around;*/
+              justify-content: flex-start;
+              align-content: flex-start;
+            }
+
+            .w3-row-padding > .w3-half {
+              padding-right: 10px;
+            }
+          </style>
+
+          <div class="w3-row-padding" style="margin: 0 -16px">
+            <!--<p style="margin-left: 8px; margin-bottom: 4px">
+              Type a value in any of the fields to convert between Length
+              measurements:
+            </p>-->
+            <div class="w3-half">
+              <label>Meters: </label>
+              <input
+                id="inputMeters"
+                class="w3-input"
+                type="number"
+                placeholder="Meters"
+                oninput="lengthConverter(this.id,this.value)"
+                onchange="lengthConverter(this.id,this.value)"
+              />
+            </div>
+            <div class="w3-half">
+              <label>Feet: </label>
+              <input
+                id="inputFeet"
+                class="w3-input"
+                type="number"
+                placeholder="Feet"
+                oninput="lengthConverter(this.id,this.value)"
+                onchange="lengthConverter(this.id,this.value)"
+              />
+            </div>
+            <div class="w3-half">
+              <label>cm: </label>
+              <input
+                id="inputcm"
+                class="w3-input"
+                type="number"
+                placeholder="cm"
+                oninput="lengthConverter(this.id,this.value)"
+                onchange="lengthConverter(this.id,this.value)"
+              />
+            </div>
+            <div class="w3-half">
+              <label>Inches: </label>
+              <input
+                id="inputInches"
+                class="w3-input"
+                type="number"
+                placeholder="Inches"
+                oninput="lengthConverter(this.id,this.value)"
+                onchange="lengthConverter(this.id,this.value)"
+              />
+            </div>
+            <div class="w3-half">
+              <label>Yards: </label>
+              <input
+                id="inputYards"
+                class="w3-input"
+                type="number"
+                placeholder="Yards"
+                oninput="lengthConverter(this.id,this.value)"
+                onchange="lengthConverter(this.id,this.value)"
+              />
+            </div>
+            <div class="w3-half">
+              <label>Kilometers: </label>
+              <input
+                id="inputKilometers"
+                class="w3-input"
+                type="number"
+                placeholder="Kilometers"
+                oninput="lengthConverter(this.id,this.value)"
+                onchange="lengthConverter(this.id,this.value)"
+              />
+            </div>
+            <div class="w3-half">
+              <label>Miles: </label>
+              <input
+                id="inputMiles"
+                class="w3-input"
+                type="number"
+                placeholder="Miles"
+                oninput="lengthConverter(this.id,this.value)"
+                onchange="lengthConverter(this.id,this.value)"
+              />
+            </div>
+          </div>
+          <script>
+            function lengthConverter(source, valNum) {
+              valNum = parseFloat(valNum);
+              var inputFeet = document.getElementById("inputFeet");
+              var inputMeters = document.getElementById("inputMeters");
+              var inputInches = document.getElementById("inputInches");
+              var inputcm = document.getElementById("inputcm");
+              var inputYards = document.getElementById("inputYards");
+              var inputKilometers = document.getElementById("inputKilometers");
+              var inputMiles = document.getElementById("inputMiles");
+              if (source == "inputFeet") {
+                inputMeters.value = (valNum / 3.2808).toFixed(2);
+                inputInches.value = (valNum * 12).toFixed(2);
+                inputcm.value = (valNum / 0.032808).toFixed();
+                inputYards.value = (valNum * 0.33333).toFixed(2);
+                inputKilometers.value = (valNum / 3280.8).toFixed(5);
+                inputMiles.value = (valNum * 0.00018939).toFixed(5);
+              }
+              if (source == "inputMeters") {
+                inputFeet.value = (valNum * 3.2808).toFixed(2);
+                inputInches.value = (valNum * 39.37).toFixed(2);
+                inputcm.value = (valNum / 0.01).toFixed();
+                inputYards.value = (valNum * 1.0936).toFixed(2);
+                inputKilometers.value = (valNum / 1000).toFixed(5);
+                inputMiles.value = (valNum * 0.00062137).toFixed(5);
+              }
+              if (source == "inputInches") {
+                inputFeet.value = (valNum * 0.083333).toFixed(3);
+                inputMeters.value = (valNum / 39.37).toFixed(3);
+                inputcm.value = (valNum / 0.3937).toFixed(2);
+                inputYards.value = (valNum * 0.027778).toFixed(3);
+                inputKilometers.value = (valNum / 39370).toFixed(6);
+                inputMiles.value = (valNum * 0.000015783).toFixed(6);
+              }
+              if (source == "inputcm") {
+                inputFeet.value = (valNum * 0.032808).toFixed(3);
+                inputMeters.value = (valNum / 100).toFixed(3);
+                inputInches.value = (valNum * 0.3937).toFixed(2);
+                inputYards.value = (valNum * 0.010936).toFixed(3);
+                inputKilometers.value = (valNum / 100000).toFixed(6);
+                inputMiles.value = (valNum * 0.0000062137).toFixed(6);
+              }
+              if (source == "inputYards") {
+                inputFeet.value = (valNum * 3).toFixed();
+                inputMeters.value = (valNum / 1.0936).toFixed(2);
+                inputInches.value = (valNum * 36).toFixed();
+                inputcm.value = (valNum / 0.010936).toFixed();
+                inputKilometers.value = (valNum / 1093.6).toFixed(5);
+                inputMiles.value = (valNum * 0.00056818).toFixed(5);
+              }
+              if (source == "inputKilometers") {
+                inputFeet.value = (valNum * 3280.8).toFixed();
+                inputMeters.value = (valNum * 1000).toFixed();
+                inputInches.value = (valNum * 39370).toFixed();
+                inputcm.value = (valNum * 100000).toFixed();
+                inputYards.value = (valNum * 1093.6).toFixed();
+                inputMiles.value = (valNum * 0.62137).toFixed(2);
+              }
+              if (source == "inputMiles") {
+                inputFeet.value = (valNum * 5280).toFixed();
+                inputMeters.value = (valNum / 0.00062137).toFixed();
+                inputInches.value = (valNum * 63360).toFixed();
+                inputcm.value = (valNum / 0.0000062137).toFixed();
+                inputYards.value = (valNum * 1760).toFixed();
+                inputKilometers.value = (valNum / 0.62137).toFixed(2);
+              }
+            }
+          </script>
+
+          <!---->
+          <br />
+
+          <div class="w3-row-padding" style="margin: 0 -16px">
+            <!--<p style="margin-left: 8px; margin-bottom: 4px">
+              Type a value in any of the fields to convert between Length
+              measurements:
+            </p>-->
+            <div class="w3-half">
+              <label>Grams: </label>
+              <input
+                id="inputGrams"
+                class="w3-input"
+                type="number"
+                placeholder="Grams"
+                oninput="massConverter(this.id,this.value)"
+                onchange="massConverter(this.id,this.value)"
+              />
+            </div>
+            <div class="w3-half">
+              <label>Kilograms: </label>
+              <input
+                id="inputKilograms"
+                class="w3-input"
+                type="number"
+                placeholder="Kilograms"
+                oninput="massConverter(this.id,this.value)"
+                onchange="massConverter(this.id,this.value)"
+              />
+            </div>
+            <div class="w3-half">
+              <label>milligrams: </label>
+              <input
+                id="inputmilligrams"
+                class="w3-input"
+                type="number"
+                placeholder="milligrams"
+                oninput="massConverter(this.id,this.value)"
+                onchange="massConverter(this.id,this.value)"
+              />
+            </div>
+            <div class="w3-half">
+              <label>Metric Tonnes: </label>
+              <input
+                id="inputMetricTonnes"
+                class="w3-input"
+                type="number"
+                placeholder="Metric Tonnes"
+                oninput="massConverter(this.id,this.value)"
+                onchange="massConverter(this.id,this.value)"
+              />
+            </div>
+            <div class="w3-half">
+              <label>Ounces: </label>
+              <input
+                id="inputOunces"
+                class="w3-input"
+                type="number"
+                placeholder="Ounces"
+                oninput="massConverter(this.id,this.value)"
+                onchange="massConverter(this.id,this.value)"
+              />
+            </div>
+            <div class="w3-half">
+              <label>Pounds: </label>
+              <input
+                id="inputPounds"
+                class="w3-input"
+                type="number"
+                placeholder="Pounds"
+                oninput="massConverter(this.id,this.value)"
+                onchange="massConverter(this.id,this.value)"
+              />
+            </div>
+          </div>
+          <script>
+            function massConverter(source, valNum) {
+              valNum = parseFloat(valNum);
+              var inputGrams = document.getElementById("inputGrams");
+              var inputKilograms = document.getElementById("inputKilograms");
+              var inputmilligrams = document.getElementById("inputmilligrams");
+              var inputMetricTonnes =
+                document.getElementById("inputMetricTonnes");
+              var inputOunces = document.getElementById("inputOunces");
+              var inputPounds = document.getElementById("inputPounds");
+              if (source == "inputGrams") {
+                inputKilograms.value = (valNum / 1000).toFixed(4);
+                inputmilligrams.value = (valNum * 1000).toFixed(2);
+                inputMetricTonnes.value = (valNum / 1000000).toFixed(4);
+                inputOunces.value = (valNum / 28.34952).toFixed(3);
+                inputPounds.value = (valNum / 453.59237).toFixed(4);
+              }
+              if (source == "inputKilograms") {
+                inputGrams.value = (valNum * 1000).toFixed(2);
+                inputmilligrams.value = (valNum * 1000000).toFixed(2);
+                inputMetricTonnes.value = (valNum / 1000).toFixed(4);
+                inputOunces.value = (valNum / 35.27396195).toFixed(3);
+                inputPounds.value = (valNum / 2.20462262185).toFixed(4);
+              }
+              if (source == "inputmilligrams") {
+                inputGrams.value = (valNum / 1000).toFixed(2);
+                inputKilograms.value = (valNum / 1000000).toFixed(4);
+                inputMetricTonnes.value = (valNum / 1000000000).toFixed(4);
+                inputOunces.value = (valNum / 28349.5).toFixed(3);
+                inputPounds.value = (valNum / 453.59237).toFixed(4);
+              }
+              if (source == "inputMetricTonnes") {
+                inputGrams.value = (valNum * 1000000).toFixed(2);
+                inputKilograms.value = (valNum / 1000).toFixed(4);
+                inputmilligrams.value = (valNum * 1000000000).toFixed(2);
+                inputOunces.value = (valNum * 35273.96194958).toFixed(3);
+                inputPounds.value = (valNum * 2204.6226218488).toFixed(4);
+              }
+              if (source == "inputOunces") {
+                inputGrams.value = (valNum * 28.349523125).toFixed(2);
+                inputKilograms.value = (valNum / 35.27396).toFixed(4);
+                inputmilligrams.value = (valNum * 28349.523125).toFixed(2);
+                inputMetricTonnes.value = (valNum / 35273.96195).toFixed(4);
+                inputPounds.value = (valNum / 16).toFixed(4);
+              }
+              if (source == "inputPounds") {
+                inputGrams.value = (valNum * 453.59237).toFixed(2);
+                inputKilograms.value = (valNum / 2.2046226218488).toFixed(4);
+                inputmilligrams.value = (valNum * 453592.37).toFixed(2);
+                inputMetricTonnes.value = (valNum / 2204.62).toFixed(4);
+                inputOunces.value = (valNum * 16).toFixed(3);
+              }
+            }
+          </script>
+
+          <!---->
+          <br />
+        </div>
+
+        <!-- -->
       </div>
       <!-- <div id="tabThree" class="tabcontent"> -->
 
@@ -5237,8 +5567,9 @@ cols="60"-->
             ފިތާލައްވާ.
           </p>
         </div>
-      </div>
 
+        <!-- -->
+      </div>
       <!-- <div id="tabFour" class="tabcontent"> -->
 
       <br />
