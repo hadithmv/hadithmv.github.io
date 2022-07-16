@@ -306,12 +306,17 @@
           <!--   -->
           <span class="hideOnPhoneOnly"><u>1</u> </span>Edit އެޑިޓް
         </button>
-        <button class="tablinks" onclick="openTab(event, 'tabTwo')">
+        <button
+          class="tablinks"
+          onclick="openTab(event, 'tabTwo')"
+          id="secondButton"
+        >
           <span class="hideOnPhoneOnly"><u>2</u> </span>Copy ކޮޕީ
         </button>
         <button
           class="tablinks"
           onclick="openTab(event, 'tabThree'); focusAdder();"
+          id="thirdButton"
         >
           <!--   -->
           <span class="hideOnPhoneOnly"><u>3</u> </span>Calc ހިސާބު
@@ -353,26 +358,26 @@
               //focusEditor();
               // https://bobbyhadz.com/blog/javascript-get-nth-child-of-element#:~:text=Use%20the%20querySelector()%20method,that%20matches%20the%20provided%20position.
               // https://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box/155263#155263
-              document.querySelector(".tab :nth-child(1)").click();
+              document.querySelector("#secondaryOpen").click();
             }
             if (e.altKey && e.which == 50) {
               // is 2
               //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
               //openTab(event, "tabTwo");
-              document.querySelector(".tab :nth-child(2)").click();
+              document.querySelector("#secondButton").click();
             }
             if (e.altKey && e.which == 51) {
               // is 3
               //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
               //openTab(event, "tabThree");
               //focusAdder();
-              document.querySelector(".tab :nth-child(3)").click();
+              document.querySelector("#thirdButton").click();
             }
             if (e.altKey && e.which == 52) {
               // is 4
               //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
               //openTab(event, "tabFour");
-              document.querySelector(".tab :nth-child(4)").click();
+              document.querySelector("#defaultOpen").click();
             }
 
             //
@@ -381,45 +386,25 @@
 
             if (e.altKey && e.which == 67) {
               // is c
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(1)"
-                )
-                .click();
+              document.querySelector("#copyButton").click();
               //const mouseoverEvent = new Event("mouseover");
               //whateverElement.dispatchEvent(mouseoverEvent);
             }
             if (e.altKey && e.which == 69) {
               // is e
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(2)"
-                )
-                .click();
+              document.querySelector("#eraseButton").click();
             }
             if (e.altKey && e.which == 68) {
               // is d
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(3)"
-                )
-                .click();
+              document.querySelector("#downButton").click();
             }
             if (e.altKey && e.which == 85) {
               // is u
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(6)"
-                )
-                .click();
+              document.querySelector("#upButton").click();
             }
             if (e.altKey && e.which == 76) {
               // is l
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(8)"
-                )
-                .click();
+              document.querySelector("#ltrButton").click();
             }
             if (e.altKey && e.which == 73) {
               // is i
@@ -427,99 +412,47 @@
             }
             if (e.altKey && e.which == 86) {
               // is s
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(10)"
-                )
-                .click();
+              document.querySelector("#shuffleButton").click();
             }
             if (e.altKey && e.which == 82) {
               // is r
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(11)"
-                )
-                .click();
-            }
-            if (e.altKey && e.which == 81) {
-              // is q
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(12)"
-                )
-                .click();
+              document.querySelector("#randNoButton").click();
             }
             if (e.altKey && e.which == 87) {
               // is w
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(13)"
-                )
-                .click();
+              document.querySelector("#wrapButton").click();
             }
             if (e.altKey && e.which == 79) {
               // is o
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(14)"
-                )
-                .click();
+              document.querySelector("#lineSort").click();
             }
             if (e.altKey && e.which == 78) {
               // is n
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(15)"
-                )
-                .click();
-            }
-            if (e.altKey && e.which == 87) {
-              // is w
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(16)"
-                )
-                .click();
+              document.querySelector("#numListButton").click();
             }
             if (e.altKey && e.which == 65) {
               // is a
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(17)"
-                )
-                .click();
+              document.querySelector("#repFiliButton").click();
             }
             if (e.altKey && e.which == 72) {
               // is h
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(18)"
-                )
-                .click();
+              document.querySelector("#repArFiliButton").click();
+            }
+            if (e.altKey && e.which == 84) {
+              // is t
+              document.querySelector("#remFiliButton").click();
             }
             if (e.altKey && e.which == 88) {
               // is x
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(19)"
-                )
-                .click();
+              document.querySelector("#extraSpaces").click();
             }
             if (e.altKey && e.which == 80) {
               // is p
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(20)"
-                )
-                .click();
+              document.querySelector("#repPuncButton").click();
             }
             if (e.altKey && e.which == 71) {
               // is g
-              document
-                .querySelector(
-                  "#tabOne > div.mid.editorButtons > button:nth-child(21)"
-                )
-                .click();
+              document.querySelector("#lineNumButton").click();
             }
             //
           };
@@ -841,13 +774,16 @@
         <div class="mid editorButtons">
           <button
             onclick="copyToClipB();"
+            id="copyButton"
             class="ttClass"
             data-tooltip="Copies above text into the clipboard for pasting"
           >
             📋 ކޮޕީ <u>C</u>opy
           </button>
           <button
-            onclick="clearTextArea();triggerTheCounts();"
+            onclick="clearTextArea();
+            triggerTheCounts();"
+            id="eraseButton"
             class="ttClass"
             data-tooltip="Erases everything above"
           >
@@ -856,6 +792,7 @@
 
           <button
             onclick="saveTextAsFile();"
+            id="downButton"
             class="ttClass"
             data-tooltip="Saves and downloads the text above as a .txt file to your device"
           >
@@ -904,6 +841,7 @@
             type="button"
             value="Browse..."
             onclick="document.getElementById('inputfile').click();"
+            id="downButton"
             class="ttClass"
             data-tooltip="Uploads the text of a file that you choose on your device"
           >
@@ -977,6 +915,7 @@
 
           <button
             onclick="leftToRight();"
+            id="ltrButton"
             class="ttClass"
             data-tooltip="Changes text direction from right to left and left to right"
           >
@@ -994,6 +933,7 @@
 
           <button
             onclick="shuffleText();"
+            id="shuffleButton"
             class="ttClass"
             data-tooltip="Randomizes the order of the lines in the text"
           >
@@ -1003,6 +943,7 @@
 
           <button
             onclick="randomNumber();"
+            id="randNoButton"
             class="ttClass"
             data-tooltip="Generate a random number from 1-10, or based on your minimum and maximum input next to this button after you click it"
           >
@@ -1035,6 +976,7 @@
 
           <button
             onclick="wrapToOneLine();triggerTheCounts();"
+            id="wrapButton"
             class="ttClass"
             data-tooltip="Fits everything in the text into one single line"
           >
@@ -1051,6 +993,7 @@
           <button
             onclick="numberedList();triggerTheCounts();"
             class="ttClass"
+            id="numListButton"
             data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
             id="listNumbers"
           >
@@ -1059,6 +1002,7 @@
 
           <button
             onclick="replaceFili();triggerTheCounts();"
+            id="repFiliButton"
             class="ttClass"
             data-tooltip="Removes all diacritical marks / tashkeel / haraka of arabic letters"
           >
@@ -1066,6 +1010,7 @@
           </button>
           <button
             onclick="replaceThaanaFili();triggerTheCounts();"
+            id="repArFiliButton"
             class="ttClass"
             data-tooltip="Removes all diacritical marks / tashkeel / haraka of dhivehi letters"
           >
@@ -1073,6 +1018,7 @@
           </button>
           <button
             onclick="remThiki();"
+            id="remFiliButton"
             class="ttClass"
             data-tooltip="Replaces most thikijehi thaana letters to those without thiki"
           >
@@ -1088,6 +1034,7 @@
           </button>
           <button
             onclick="replacePunct();triggerTheCounts();"
+            id="repPuncButton"
             class="ttClass"
             data-tooltip="Removes most punctuation marks from the text"
           >
@@ -1097,6 +1044,7 @@
 
           <button
             onclick="linesOfNumbers();"
+            id="lineNumButton"
             class="ttClass"
             data-tooltip="Generate a list of numbers, each on a new line from 1-10, or based on your minimum and maximum input next to this button after you click it"
           >
