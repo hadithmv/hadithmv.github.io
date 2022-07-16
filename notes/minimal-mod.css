@@ -815,7 +815,7 @@ a:hover {
   background-size: 100% 0.1em;
 }
 
-/* added remove to from things like img */
+/* added remove link hover underline from things like img */
 .noLine {
   background: none;
 }
