@@ -4863,6 +4863,17 @@ cols="60"-->
                 onchange="lengthConverter(this.id,this.value)"
               />
             </div>
+            <div class="w3-half">
+              <label>Pixels: </label>
+              <input
+                id="inputPixels"
+                class="w3-input"
+                type="number"
+                placeholder="Pixels"
+                oninput="lengthConverter(this.id,this.value)"
+                onchange="lengthConverter(this.id,this.value)"
+              />
+            </div>
           </div>
           <script>
             function lengthConverter(source, valNum) {
@@ -4874,6 +4885,7 @@ cols="60"-->
               var inputYards = document.getElementById("inputYards");
               var inputKilometers = document.getElementById("inputKilometers");
               var inputMiles = document.getElementById("inputMiles");
+              var inputPixels = document.getElementById("inputPixels");
               if (source == "inputFeet") {
                 inputMeters.value = (valNum / 3.2808).toFixed(2);
                 inputInches.value = (valNum * 12).toFixed(2);
@@ -4881,6 +4893,7 @@ cols="60"-->
                 inputYards.value = (valNum * 0.33333).toFixed(2);
                 inputKilometers.value = (valNum / 3280.8).toFixed(5);
                 inputMiles.value = (valNum * 0.00018939).toFixed(5);
+                inputPixels.value = (valNum * 1152.0001451339).toFixed(2);
               }
               if (source == "inputMeters") {
                 inputFeet.value = (valNum * 3.2808).toFixed(2);
@@ -4889,6 +4902,7 @@ cols="60"-->
                 inputYards.value = (valNum * 1.0936).toFixed(2);
                 inputKilometers.value = (valNum / 1000).toFixed(5);
                 inputMiles.value = (valNum * 0.00062137).toFixed(5);
+                inputPixels.value = (valNum * 3779.5275593333).toFixed(2);
               }
               if (source == "inputInches") {
                 inputFeet.value = (valNum * 0.083333).toFixed(3);
@@ -4897,6 +4911,7 @@ cols="60"-->
                 inputYards.value = (valNum * 0.027778).toFixed(3);
                 inputKilometers.value = (valNum / 39370).toFixed(6);
                 inputMiles.value = (valNum * 0.000015783).toFixed(6);
+                inputPixels.value = (valNum * 96).toFixed(2);
               }
               if (source == "inputcm") {
                 inputFeet.value = (valNum * 0.032808).toFixed(3);
@@ -4905,6 +4920,7 @@ cols="60"-->
                 inputYards.value = (valNum * 0.010936).toFixed(3);
                 inputKilometers.value = (valNum / 100000).toFixed(6);
                 inputMiles.value = (valNum * 0.0000062137).toFixed(6);
+                inputPixels.value = (valNum * 37.79).toFixed(2);
               }
               if (source == "inputYards") {
                 inputFeet.value = (valNum * 3).toFixed();
@@ -4913,6 +4929,7 @@ cols="60"-->
                 inputcm.value = (valNum / 0.010936).toFixed();
                 inputKilometers.value = (valNum / 1093.6).toFixed(5);
                 inputMiles.value = (valNum * 0.00056818).toFixed(5);
+                inputPixels.value = (valNum * 3456.043540706).toFixed(2);
               }
               if (source == "inputKilometers") {
                 inputFeet.value = (valNum * 3280.8).toFixed();
@@ -4921,6 +4938,7 @@ cols="60"-->
                 inputcm.value = (valNum * 100000).toFixed();
                 inputYards.value = (valNum * 1093.6).toFixed();
                 inputMiles.value = (valNum * 0.62137).toFixed(2);
+                inputPixels.value = (valNum / 2.6458335e-7).toFixed(2);
               }
               if (source == "inputMiles") {
                 inputFeet.value = (valNum * 5280).toFixed();
@@ -4929,6 +4947,16 @@ cols="60"-->
                 inputcm.value = (valNum / 0.0000062137).toFixed();
                 inputYards.value = (valNum * 1760).toFixed();
                 inputKilometers.value = (valNum / 0.62137).toFixed(2);
+                inputPixels.value = (valNum * 6082560.7663069).toFixed(2);
+              }
+              if (source == "inputPixels") {
+                inputFeet.value = (valNum / 1152.0001451339).toFixed();
+                inputMeters.value = (valNum / 3779.5275593333).toFixed();
+                inputInches.value = (valNum / 96).toFixed();
+                inputcm.value = (valNum / 37.79).toFixed();
+                inputYards.value = (valNum / 3456.043540706).toFixed();
+                inputKilometers.value = (valNum * 2.6458335e-7).toFixed(2);
+                inputMiles.value = (valNum / 6082560.7663069).toFixed(2);
               }
             }
           </script>
