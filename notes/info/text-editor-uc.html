@@ -434,7 +434,7 @@
             }
             if (e.altKey && e.which == 77) {
               // is m
-              document.querySelector("#oListButton").click();
+              document.querySelector("#htmlNList").click();
             }
             if (e.altKey && e.which == 65) {
               // is a
@@ -829,7 +829,7 @@
             type="button"
             value="Browse..."
             onclick="document.getElementById('inputfile').click();"
-            id="downButton"
+            id="upButton"
             class="ttClass"
             data-tooltip="Uploads the text of a file that you choose on your device"
           >
@@ -981,19 +981,17 @@
           <button
             onclick="numberedList();triggerTheCounts();"
             class="ttClass"
-            id="numListButton"
-            data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
             id="listNumbers"
+            data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
           >
             🔢 <u>N</u>umbrdLines
           </button>
 
           <button
             onclick="htmlOList();triggerTheCounts();"
-            id="oListButton"
+            id="htmlNList"
             class="ttClass"
             data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
-            id="htmlNList"
           >
             HT<u>M</u>L O List
           </button>
@@ -3984,7 +3982,6 @@ cols="60"-->
                           <a style="background: none; cursor: pointer">
                             <canvas
                               id="qrcode-canvas"
-                              style=""
                               width="232"
                               height="232"
                             ></canvas>
@@ -4241,7 +4238,7 @@ cols="60"-->
                       </tr>
                       <tr>
                         <td></td>
-                        <td id="statistics-output" style="">
+                        <td id="statistics-output">
                           <!-- removed white-space: pre from style above to make it wordwrap -->
                           <strong>Statistics:</strong>
                           &nbsp; &nbsp; QR Code version = 1, mask pattern = 7,
@@ -5104,6 +5101,104 @@ cols="60"-->
                 inputmilligrams.value = (valNum * 453592.37).toFixed(2);
                 inputMetricTonnes.value = (valNum / 2204.62).toFixed(4);
                 inputOunces.value = (valNum * 16).toFixed(3);
+              }
+            }
+          </script>
+
+          <br />
+          <br />
+
+          <div class="w3-row-padding" style="margin: 0 -16px">
+            <div class="w3-half">
+              <label>If </label>
+              <input
+                id="inputMultiA"
+                class="w3-input"
+                type="number"
+                value="1000"
+                oninput="unitCost(this.id,this.value)"
+                onchange="unitCost(this.id,this.value)"
+              />
+            </div>
+            <div class="w3-half">
+              <label>A, = </label>
+              <input
+                id="inputMultiB"
+                class="w3-input"
+                type="number"
+                value="2000"
+                oninput="unitCost(this.id,this.value)"
+                onchange="unitCost(this.id,this.value)"
+              />
+              <label> B, then </label>
+            </div>
+          </div>
+
+          <div class="w3-row-padding" style="margin: 0 -16px">
+            <div class="w3-half">
+              <label> &nbsp;&nbsp; </label>
+              <input
+                id="input1A"
+                class="w3-input"
+                type="number"
+                value="1"
+                oninput="unitCost(this.id,this.value)"
+                onchange="unitCost(this.id,this.value)"
+              />
+            </div>
+
+            <div class="w3-half">
+              <label> A = </label>
+              <input
+                id="input1B"
+                class="w3-input"
+                type="number"
+                oninput="unitCost(this.id,this.value)"
+                onchange="unitCost(this.id,this.value)"
+              />
+              <label> B </label>
+            </div>
+          </div>
+
+          <script>
+            function unitCost(source, valNum) {
+              valNum = parseFloat(valNum);
+              var inputMultiA = document.getElementById("inputMultiA");
+              var inputMultiB = document.getElementById("inputMultiB");
+              var input1A = document.getElementById("input1A");
+              var input1B = document.getElementById("input1B");
+
+              if (source == "inputMultiA") {
+                input1B.value = (
+                  (input1A.value * inputMultiB.value) /
+                  valNum
+                ).toFixed(2);
+                /*input1A.value = (
+                  (valNum * input1B.value) /
+                  inputMultiB
+                ).toFixed(2);*/
+              }
+              if (source == "inputMultiB") {
+                input1B.value = (
+                  (input1A.value * valNum) /
+                  inputMultiA.value
+                ).toFixed(2);
+                /*input1A.value = (
+                  (inputMultiA.value * input1B.value) /
+                  inputMultiB
+                ).toFixed(2);*/
+              }
+              if (source == "input1A") {
+                input1B.value = (
+                  (valNum * inputMultiB.value) /
+                  inputMultiA.value
+                ).toFixed(2);
+              }
+              if (source == "input1B") {
+                input1A.value = (
+                  (valNum * inputMultiA.value) /
+                  inputMultiB.value
+                ).toFixed(2);
               }
             }
           </script>
