@@ -3947,7 +3947,7 @@ cols="60"-->
                         <td></td>
                         <td style="width: 100%">
                           <textarea
-                            placeholder="Whatever you write here will be turned into a QR code below"
+                            placeholder="Write here to generate QR code. Click on the QR code to save it."
                             id="text-input"
                             style="
                               width: 100%;
@@ -3958,11 +3958,13 @@ cols="60"-->
                               font-family: sans-serif;
                               font-size: 20px;
                               height: 80px;
-                              padding: 10px;
 
                               line-height: 1.5;
                               max-width: 650px;
                               border-radius: 4px;
+                              /* box sizing lets me add padding without losing the centering */
+                              padding: 10px;
+                              box-sizing: border-box;
                             "
                           ></textarea>
                         </td>
@@ -4034,6 +4036,39 @@ cols="60"-->
                           </svg>
                         </td>
                       </tr>
+                      <tr id="scale-row">
+                        <td></td>
+                        <td>
+                          <label for="scale-input"
+                            ><strong>Scale:</strong></label
+                          >
+                          &nbsp; &nbsp;
+                          <input
+                            type="range"
+                            min="1"
+                            max="30"
+                            step="1"
+                            value="8"
+                            id="scale-input"
+                            onchange="this.nextElementSibling.value = this.value"
+                            style="padding: 0"
+                          />
+                          <!-- https://stackoverflow.com/questions/10004723/html5-input-type-range-show-range-value/18936328#18936328 -->
+                          <output> 8</output>
+                          <!--
+                          <input
+                            type="number"
+                            min="1"
+                            max="30"
+                            step="1"
+                            value="8"
+                            id="scale-input"
+                            style="width: 4em"
+                          />-->
+                          pixels per module
+                        </td>
+                      </tr>
+                      <!-- moved what is above, above -->
                       <tr>
                         <td></td>
                         <td>
@@ -4097,38 +4132,6 @@ cols="60"-->
                             style="width: 4em"
                           />
                           modules
-                        </td>
-                      </tr>
-                      <tr id="scale-row">
-                        <td></td>
-                        <td>
-                          <label for="scale-input"
-                            ><strong>Scale:</strong></label
-                          >
-                          &nbsp; &nbsp;
-                          <input
-                            type="range"
-                            min="1"
-                            max="30"
-                            step="1"
-                            value="8"
-                            id="scale-input"
-                            onchange="this.nextElementSibling.value = this.value"
-                            style="padding: 0"
-                          />
-                          <!-- https://stackoverflow.com/questions/10004723/html5-input-type-range-show-range-value/18936328#18936328 -->
-                          <output> 8</output>
-                          <!--
-                          <input
-                            type="number"
-                            min="1"
-                            max="30"
-                            step="1"
-                            value="8"
-                            id="scale-input"
-                            style="width: 4em"
-                          />-->
-                          pixels per module
                         </td>
                       </tr>
                       <tr>
@@ -4805,7 +4808,7 @@ cols="60"-->
                 id="inputMeters"
                 class="w3-input"
                 type="number"
-                placeholder="Meters"
+                placeholder="m"
                 oninput="lengthConverter(this.id,this.value)"
                 onchange="lengthConverter(this.id,this.value)"
               />
@@ -4816,7 +4819,7 @@ cols="60"-->
                 id="inputFeet"
                 class="w3-input"
                 type="number"
-                placeholder="Feet"
+                placeholder="ft"
                 oninput="lengthConverter(this.id,this.value)"
                 onchange="lengthConverter(this.id,this.value)"
               />
@@ -4838,7 +4841,7 @@ cols="60"-->
                 id="inputInches"
                 class="w3-input"
                 type="number"
-                placeholder="Inches"
+                placeholder="in"
                 oninput="lengthConverter(this.id,this.value)"
                 onchange="lengthConverter(this.id,this.value)"
               />
@@ -4849,7 +4852,7 @@ cols="60"-->
                 id="inputYards"
                 class="w3-input"
                 type="number"
-                placeholder="Yards"
+                placeholder="yd"
                 oninput="lengthConverter(this.id,this.value)"
                 onchange="lengthConverter(this.id,this.value)"
               />
@@ -4860,7 +4863,7 @@ cols="60"-->
                 id="inputKilometers"
                 class="w3-input"
                 type="number"
-                placeholder="Kilometers"
+                placeholder="km"
                 oninput="lengthConverter(this.id,this.value)"
                 onchange="lengthConverter(this.id,this.value)"
               />
@@ -4871,7 +4874,7 @@ cols="60"-->
                 id="inputMiles"
                 class="w3-input"
                 type="number"
-                placeholder="Miles"
+                placeholder="mi"
                 oninput="lengthConverter(this.id,this.value)"
                 onchange="lengthConverter(this.id,this.value)"
               />
@@ -4882,7 +4885,7 @@ cols="60"-->
                 id="inputPixels"
                 class="w3-input"
                 type="number"
-                placeholder="Pixels"
+                placeholder="px"
                 oninput="lengthConverter(this.id,this.value)"
                 onchange="lengthConverter(this.id,this.value)"
               />
@@ -4989,7 +4992,7 @@ cols="60"-->
                 id="inputGrams"
                 class="w3-input"
                 type="number"
-                placeholder="Grams"
+                placeholder="g"
                 oninput="massConverter(this.id,this.value)"
                 onchange="massConverter(this.id,this.value)"
               />
@@ -5000,7 +5003,7 @@ cols="60"-->
                 id="inputKilograms"
                 class="w3-input"
                 type="number"
-                placeholder="Kilograms"
+                placeholder="kg"
                 oninput="massConverter(this.id,this.value)"
                 onchange="massConverter(this.id,this.value)"
               />
@@ -5011,7 +5014,7 @@ cols="60"-->
                 id="inputmilligrams"
                 class="w3-input"
                 type="number"
-                placeholder="milligrams"
+                placeholder="mg"
                 oninput="massConverter(this.id,this.value)"
                 onchange="massConverter(this.id,this.value)"
               />
@@ -5022,7 +5025,7 @@ cols="60"-->
                 id="inputMetricTonnes"
                 class="w3-input"
                 type="number"
-                placeholder="Metric Tonnes"
+                placeholder="t"
                 oninput="massConverter(this.id,this.value)"
                 onchange="massConverter(this.id,this.value)"
               />
@@ -5033,7 +5036,7 @@ cols="60"-->
                 id="inputOunces"
                 class="w3-input"
                 type="number"
-                placeholder="Ounces"
+                placeholder="oz"
                 oninput="massConverter(this.id,this.value)"
                 onchange="massConverter(this.id,this.value)"
               />
@@ -5044,7 +5047,7 @@ cols="60"-->
                 id="inputPounds"
                 class="w3-input"
                 type="number"
-                placeholder="Pounds"
+                placeholder="lb"
                 oninput="massConverter(this.id,this.value)"
                 onchange="massConverter(this.id,this.value)"
               />
@@ -5607,6 +5610,10 @@ cols="60"-->
           <p>
             ވާތު ފަޅީގައިވާ ބަދަލުތައް، ކަނާތު ފަޅިއަށް ލުމަށް '&lt;' އަށް
             ފިތާލައްވާ.
+          </p>
+          <p>
+            މި ސަފުހާ ރަނގަޅަށް ލޯޑު ނުވާ ނަމަ، އަލުން ރީލޯޑު ކޮށްލުމުން
+            ރަނގަޅުވާނެ.
           </p>
         </div>
 
