@@ -291,7 +291,7 @@
           >
           <span class="hideOnPhoneOnly">&nbsp; &nbsp; &nbsp;</span>
           <span class="hideOnPhoneOnly" style="font-size: 17px"
-            >— A Tool for Maldivian Writers —</span
+            >— A Collection of Tools —</span
           >
         </h2>
       </div>
@@ -4823,7 +4823,7 @@ cols="60"-->
               />
             </div>
             <div class="w3-half">
-              <label>cm: </label>
+              <label>Centimeters: </label>
               <input
                 id="inputcm"
                 class="w3-input"
@@ -5007,7 +5007,7 @@ cols="60"-->
               />
             </div>
             <div class="w3-half">
-              <label>milligrams: </label>
+              <label>Milligrams: </label>
               <input
                 id="inputmilligrams"
                 class="w3-input"
@@ -5106,6 +5106,8 @@ cols="60"-->
             }
           </script>
 
+          <!---->
+
           <br />
           <br />
 
@@ -5202,6 +5204,109 @@ cols="60"-->
                 input1A.value = (
                   (valNum * inputMultiA.value) /
                   inputMultiB.value
+                ).toFixed(2);
+              }
+            }
+          </script>
+
+          <!---->
+
+          <br />
+          <br />
+
+          <div class="w3-row-padding" style="margin: 0 -16px">
+            <div class="w3-half">
+              <label>If </label>
+              <input
+                id="inputMultiA2"
+                class="w3-input"
+                type="number"
+                placeholder="10"
+                oninput="unitCost2(this.id,this.value)"
+                onchange="unitCost2(this.id,this.value)"
+              />
+              <label>g, = </label>
+            </div>
+            <div class="w3-half">
+              <input
+                id="inputMultiB2"
+                class="w3-input"
+                type="number"
+                placeholder="20"
+                oninput="unitCost2(this.id,this.value)"
+                onchange="unitCost2(this.id,this.value)"
+              />
+              <label> $, then </label>
+            </div>
+          </div>
+
+          <div class="w3-row-padding" style="margin: 0 -16px">
+            <div class="w3-half">
+              <label> &nbsp;</label><label>&nbsp;</label>
+              <input
+                id="input1A2"
+                class="w3-input"
+                type="number"
+                value="1"
+                style="color: blue"
+                oninput="unitCost2(this.id,this.value)"
+                onchange="unitCost2(this.id,this.value)"
+              />
+              <label>g&nbsp; = </label>
+            </div>
+
+            <div class="w3-half">
+              <input
+                id="input1B2"
+                class="w3-input"
+                type="number"
+                placeholder="2"
+                style="color: red"
+                oninput="unitCost2(this.id,this.value)"
+                onchange="unitCost2(this.id,this.value)"
+              />
+              <label> $ </label>
+            </div>
+          </div>
+
+          <script>
+            function unitCost2(source, valNum) {
+              valNum = parseFloat(valNum);
+              var inputMultiA2 = document.getElementById("inputMultiA2");
+              var inputMultiB2 = document.getElementById("inputMultiB2");
+              var input1A2 = document.getElementById("input1A2");
+              var input1B2 = document.getElementById("input1B2");
+
+              if (source == "inputMultiA2") {
+                input1B2.value = (
+                  (input1A2.value * inputMultiB2.value) /
+                  valNum
+                ).toFixed(2);
+                /*input1A2.value = (
+                  (valNum * input1B2.value) /
+                  inputMultiB2
+                ).toFixed(2);*/
+              }
+              if (source == "inputMultiB2") {
+                input1B2.value = (
+                  (input1A2.value * valNum) /
+                  inputMultiA2.value
+                ).toFixed(2);
+                /*input1A2.value = (
+                  (inputMultiA2.value * input1B2.value) /
+                  inputMultiB2
+                ).toFixed(2);*/
+              }
+              if (source == "input1A2") {
+                input1B2.value = (
+                  (valNum * inputMultiB2.value) /
+                  inputMultiA2.value
+                ).toFixed(2);
+              }
+              if (source == "input1B2") {
+                input1A2.value = (
+                  (valNum * inputMultiA2.value) /
+                  inputMultiB2.value
                 ).toFixed(2);
               }
             }
@@ -5725,86 +5830,106 @@ cols="60"-->
       <br />
 
       <div class="dv">
-        <h3 class="mid"><a>–&nbsp; އިތުރު މައުލޫމާތު&nbsp; –</a></h3>
-        <p>
-          މިއީ މައިގަނޑު ގޮތެއްގައި ދިވެހި ބަހާއި އަރަބި ބަހުގެ ލިޔުންތެރިން
-          ބޭނުން ހިފުމަށް ހަދާފައިވާ ޓެކްސްޓު އެޑިޓަރެކެވެ.
-        </p>
-        <p>
-          ބައެއް ބަޓަންތަކުގައި އެއް ފަހަރަށްވުރެ ގިނަ ފަހަރު ފިތާލީމާ އެހެން
-          ގޮތެއް ވެދާނެއެވެ.
-        </p>
-        <p>
-          ޑެސްކްޓޮޕްގައި ބޭނުމިއްޔާ އެންމެ މަތީގައިވާ ލިޔާ ތަންކޮޅުގެ ޖާގަ
-          ޑްރޭގްކޮށްގެން ބޮޑުކުރެވިދާނެއެވެ.
-        </p>
-        <p>
-          ވެބްސައިޓު ބޭނުން ކުރާނަމަ، މި ސަފުހާ ބަންދު ކުރިޔަސް، އެންމެ މަތީގައި
-          ލިޔާ އެއްޗެއް ސޭވްވެފައި ހުންނާނެއެވެ.
-        </p>
-        <p>
-          ޑެސްކްޓޮޕްގައި އޮފްލައިންކޮށް މި ސަފުހާ ބޭނުންކުރަން އެދޭނަމަ،
-          ބަރައުސަރގައި ހުންނަވާއިރު ކީބޯޑުގައި ctrl+s އަށް ފިތާލުމަށްފަހު،
-          ކޮމްޕްލީޓް ވެބްޕޭޖް html. ފައިލެއްހެން ސޭވްކޮށްގެން ބޭނުން
-          ކުރެވިދާނެއެވެ. އެގޭ ފަހުން އަދާހަމަކުރަން އެދޭނަމަ އަލުން އެގޮތަށް
-          ސޭވް ކުރާނީއެވެ.
-        </p>
-        <p>
-          ޑެސްކްޓޮޕުގައި ވަނިކޮށް، ބަޓަންއެއްގެ ތެރޭގައި ތިރީގައި ރޮނގެއް
-          ދަމާފައިވާ އަކުރެއްގެ ކީއާއެކު Alt ކީއަށް ފިތައިފި ނަމަ، ކީބޯޑުން އެ
-          ބަޓަނަކަށް ފިތޭ ގޮތް ވާނެއެވެ.
-        </p>
+        <h3 class="mid">
+          —&nbsp; އިތުރު މައުލޫމާތު ހޯދުމަށް
+          <a onclick="showhide()" style="cursor: pointer">މިތަނަށް</a>
+          ފިތާލައްވާ&nbsp; —
+        </h3>
 
-        <p>އިތުރަށް ފައިދާކޮށްފާނެ ލިންކުތައް:</p>
-        <ul>
-          <li>
-            ތާނަ ލިޔުން ރަނގަޅުތޯ ބެލުމަށް:
-            <a href="http://behi.alinashath.com">ސައިޓު</a>
-          </li>
-          <li>
-            އެހެން ބަހަކުން ދިވެހި ބަހަށް ތަރުޖަމާ ކުރުމަށް
-            <a href="https://translate.google.com/?sl=dv&tl=en&op=translate"
-              >ސައިޓު 1</a
-            >
-            |
-            <a href="https://www.bing.com/translator?ref=TThis&from=ar&to=dv"
-              >ސައިޓު 2</a
-            >
-          </li>
-          <li>
-            ލެޓިން އަކުރުން ލިޔެފަ ތާނަ އަކުރަށް ޓްރާންސްލިޓަރޭޓް ކުރުމަށް:
-            <a
-              href="https://play.google.com/store/apps/details?id=com.touchtype.swiftkey"
-              >ސައިޓު</a
-            >
-          </li>
-          <li>
-            ފޮޓޯއަކުން ނުވަތަ ކެމެރާއިން ލިޔުމެއް ޑިޖިޓަލައިޒް ކުރުމަށް:
-            <a
-              href="https://play.google.com/store/apps/details?id=com.google.ar.lens"
-              >ސައިޓު</a
-            >
-          </li>
-          <li>
-            އަރަބި ބަސްތަކުގައި ފިލިޖެހުމަށް
-            <a href="http://www.7koko.com/apps/tashkil/index.php">ސައިޓު 1</a> |
-            <a
-              href="https://learning.aljazeera.net/ar/pages/%D8%AA%D8%B4%D9%83%D9%8A%D9%84-vocalization"
-              >ސައިޓު 2</a
-            >
-            |
-            <a href="https://tashkeel.alsharekh.org/">ސައިޓު 3</a>
-          </li>
-          <li>
-            އަރަބި ޓެކްސްޓު ރަނގަޅު ކުރުމަށް:
-            <a href="https://nuqayah.com/tools/text.html">ސައިޓު</a>
-          </li>
-        </ul>
+        <style>
+          .showOnClick {
+            display: none;
+          }
+        </style>
+        <script>
+          function showhide() {
+            var div = document.getElementById("hiddenPost");
+            div.classList.toggle("showOnClick");
+          }
+        </script>
+        <div id="hiddenPost" class="showOnClick">
+          <p>
+            މިއީ މައިގަނޑު ގޮތެއްގައި ދިވެހި ބަހާއި އަރަބި ބަހުގެ ލިޔުންތެރިން
+            ބޭނުން ހިފުމަށް ހަދާފައިވާ ޓެކްސްޓު އެޑިޓަރެކެވެ.
+          </p>
+          <p>
+            ބައެއް ބަޓަންތަކުގައި އެއް ފަހަރަށްވުރެ ގިނަ ފަހަރު ފިތާލީމާ އެހެން
+            ގޮތެއް ވެދާނެއެވެ.
+          </p>
+          <p>
+            ޑެސްކްޓޮޕްގައި ބޭނުމިއްޔާ އެންމެ މަތީގައިވާ ލިޔާ ތަންކޮޅުގެ ޖާގަ
+            ޑްރޭގްކޮށްގެން ބޮޑުކުރެވިދާނެއެވެ.
+          </p>
+          <p>
+            ވެބްސައިޓު ބޭނުން ކުރާނަމަ، މި ސަފުހާ ބަންދު ކުރިޔަސް، އެންމެ
+            މަތީގައި ލިޔާ އެއްޗެއް ސޭވްވެފައި ހުންނާނެއެވެ.
+          </p>
+          <p>
+            ޑެސްކްޓޮޕްގައި އޮފްލައިންކޮށް މި ސަފުހާ ބޭނުންކުރަން އެދޭނަމަ،
+            ބަރައުސަރގައި ހުންނަވާއިރު ކީބޯޑުގައި ctrl+s އަށް ފިތާލުމަށްފަހު،
+            ކޮމްޕްލީޓް ވެބްޕޭޖް html. ފައިލެއްހެން ސޭވްކޮށްގެން ބޭނުން
+            ކުރެވިދާނެއެވެ. އެގޭ ފަހުން އަދާހަމަކުރަން އެދޭނަމަ އަލުން އެގޮތަށް
+            ސޭވް ކުރާނީއެވެ.
+          </p>
+          <p>
+            ޑެސްކްޓޮޕުގައި ވަނިކޮށް، ބަޓަންއެއްގެ ތެރޭގައި ތިރީގައި ރޮނގެއް
+            ދަމާފައިވާ އަކުރެއްގެ ކީއާއެކު Alt ކީއަށް ފިތައިފި ނަމަ، ކީބޯޑުން އެ
+            ބަޓަނަކަށް ފިތޭ ގޮތް ވާނެއެވެ.
+          </p>
+
+          <p>އިތުރަށް ފައިދާކޮށްފާނެ ލިންކުތައް:</p>
+          <ul>
+            <li>
+              ތާނަ ލިޔުން ރަނގަޅުތޯ ބެލުމަށް:
+              <a href="http://behi.alinashath.com">ސައިޓު</a>
+            </li>
+            <li>
+              އެހެން ބަހަކުން ދިވެހި ބަހަށް ތަރުޖަމާ ކުރުމަށް
+              <a href="https://translate.google.com/?sl=dv&tl=en&op=translate"
+                >ސައިޓު 1</a
+              >
+              |
+              <a href="https://www.bing.com/translator?ref=TThis&from=ar&to=dv"
+                >ސައިޓު 2</a
+              >
+            </li>
+            <li>
+              ލެޓިން އަކުރުން ލިޔެފަ ތާނަ އަކުރަށް ޓްރާންސްލިޓަރޭޓް ކުރުމަށް:
+              <a
+                href="https://play.google.com/store/apps/details?id=com.touchtype.swiftkey"
+                >ސައިޓު</a
+              >
+            </li>
+            <li>
+              ފޮޓޯއަކުން ނުވަތަ ކެމެރާއިން ލިޔުމެއް ޑިޖިޓަލައިޒް ކުރުމަށް:
+              <a
+                href="https://play.google.com/store/apps/details?id=com.google.ar.lens"
+                >ސައިޓު</a
+              >
+            </li>
+            <li>
+              އަރަބި ބަސްތަކުގައި ފިލިޖެހުމަށް
+              <a href="http://www.7koko.com/apps/tashkil/index.php">ސައިޓު 1</a>
+              |
+              <a
+                href="https://learning.aljazeera.net/ar/pages/%D8%AA%D8%B4%D9%83%D9%8A%D9%84-vocalization"
+                >ސައިޓު 2</a
+              >
+              |
+              <a href="https://tashkeel.alsharekh.org/">ސައިޓު 3</a>
+            </li>
+            <li>
+              އަރަބި ޓެކްސްޓު ރަނގަޅު ކުރުމަށް:
+              <a href="https://nuqayah.com/tools/text.html">ސައިޓު</a>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <br />
       <hr />
 
+      <!--
       <style>
         /* ====================
       Quotes Carousel
@@ -5956,11 +6081,12 @@ cols="60"-->
         .testimonials {
           padding-top: 15px;
         }
+
+        /* http://fofwebdesign.co.uk/template/_testing/quotes-css.htm */
       </style>
 
       <h2 class="en mid testimonials">– &nbsp;Feedback&nbsp; –</h2>
 
-      <!-- http://fofwebdesign.co.uk/template/_testing/quotes-css.htm -->
       <ul id="quotes" class="quotes">
         <li class="show">
           ⭐⭐⭐⭐⭐<span class="stars"></span>“This is a very needed app for
@@ -5992,8 +6118,9 @@ cols="60"-->
           تعالى bless you and your work.. آمین 🤲”<span>-Marie S.</span>
         </li>
       </ul>
-
       <br />
+     
+            -->
       <br />
 
       <div class="en mid">
