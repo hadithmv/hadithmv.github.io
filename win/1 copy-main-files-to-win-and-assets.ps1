@@ -16,10 +16,12 @@ Copy-Item ../books/eegaal.html -Destination ../app/webview-master/app/src/main/a
 Copy-Item ../books/hisnulMuslim.html -Destination ../app/webview-master/app/src/main/assets/books/hisnulMuslim.html -Recurse -Force
 Copy-Item ../books/index.html -Destination ../app/webview-master/app/src/main/assets/books/index.html -Recurse -Force
 Copy-Item ../books/nawaqidulislam.html -Destination ../app/webview-master/app/src/main/assets/books/nawaqidulislam.html -Recurse -Force
+Copy-Item ../books/qawaidulArbau.html -Destination ../app/webview-master/app/src/main/assets/books/qawaidulArbau.html -Recurse -Force
 Copy-Item ../books/quran.html -Destination ../app/webview-master/app/src/main/assets/books/quran.html -Recurse -Force
 Copy-Item ../books/quranBakurube.html -Destination ../app/webview-master/app/src/main/assets/books/quranBakurube.html -Recurse -Force
 Copy-Item ../books/radheef.html -Destination ../app/webview-master/app/src/main/assets/books/radheef.html -Recurse -Force
 Copy-Item ../books/umdah.html -Destination ../app/webview-master/app/src/main/assets/books/umdah.html -Recurse -Force
+Copy-Item ../books/usooluThalaatha.html -Destination ../app/webview-master/app/src/main/assets/books/usooluThalaatha.html -Recurse -Force
 # copies minified asset book folder contents to win book folder
 Copy-Item ../app/webview-master/app/src/main/assets/books/* -Destination hmv/books -Recurse -Force
 # copies index from win book to win root
@@ -64,12 +66,14 @@ Copy-Item ../js/barbahari-script.min.js -Destination ../app/webview-master/app/s
 Copy-Item ../js/eegaal-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/eegaal-script.min.js -Recurse -Force
 Copy-Item ../js/hisnulMuslim-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/hisnulMuslim-script.min.js -Recurse -Force
 Copy-Item ../js/nawaqid-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/nawaqid-script.min.js -Recurse -Force
+Copy-Item ../js/qawaid-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/qawaid-script.min.js -Recurse -Force
 Copy-Item ../js/nawawi-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/nawawi-script.min.js -Recurse -Force
 Copy-Item ../js/quran-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/quran-script.min.js -Recurse -Force
 Copy-Item ../js/quranBakurube-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/quranBakurube-script.min.js -Recurse -Force
 Copy-Item ../js/radheef-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/radheef-script.min.js -Recurse -Force
 Copy-Item ../js/raziyain-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/raziyain-script.min.js -Recurse -Force
 Copy-Item ../js/umdah-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/umdah-script.min.js -Recurse -Force
+Copy-Item ../js/usool-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/usool-script.min.js -Recurse -Force
 
 # - - -
 # COPY JS RESOURCE FILES
@@ -85,13 +89,14 @@ Copy-Item ../js/json/barbahari.js -Destination ../app/webview-master/app/src/mai
 Copy-Item ../js/json/eegaal.js -Destination ../app/webview-master/app/src/main/assets/js/json/eegaal.js -Recurse -Force
 Copy-Item ../js/json/hisnulMuslim.js -Destination ../app/webview-master/app/src/main/assets/js/json/hisnulMuslim.js -Recurse -Force
 Copy-Item ../js/json/nawaqid.js -Destination ../app/webview-master/app/src/main/assets/js/json/nawaqid.js -Recurse -Force
+Copy-Item ../js/json/qawaid.js -Destination ../app/webview-master/app/src/main/assets/js/json/qawaid.js -Recurse -Force
 Copy-Item ../js/json/nawawi.js -Destination ../app/webview-master/app/src/main/assets/js/json/nawawi.js -Recurse -Force
 Copy-Item ../js/json/quran.js -Destination ../app/webview-master/app/src/main/assets/js/json/quran.js -Recurse -Force
 Copy-Item ../js/json/quranBakurube.js -Destination ../app/webview-master/app/src/main/assets/js/json/quranBakurube.js -Recurse -Force
-
 Copy-Item ../js/json/radheef.js -Destination ../app/webview-master/app/src/main/assets/js/json/radheef.js -Recurse -Force
 Copy-Item ../js/json/raziyain.js -Destination ../app/webview-master/app/src/main/assets/js/json/raziyain.js -Recurse -Force
 Copy-Item ../js/json/umdah.js -Destination ../app/webview-master/app/src/main/assets/js/json/umdah.js -Recurse -Force
+Copy-Item ../js/json/usool.js -Destination ../app/webview-master/app/src/main/assets/js/json/usool.js -Recurse -Force
 
 # copies previous JS AND JSON AND RESC folder contents to win js folder
 Copy-Item ../app/webview-master/app/src/main/assets/js/* -Destination hmv/js -Recurse -Force
