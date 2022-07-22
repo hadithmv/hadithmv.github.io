@@ -36,8 +36,8 @@ Copy-Item ../notes/minimal-mod.min.css -Destination ../app/webview-master/app/sr
 Copy-Item ../notes/third-party-libs-and-tools.txt -Destination ../app/webview-master/app/src/main/assets/notes/third-party-libs-and-tools.txt -Recurse -Force
 Copy-Item ../LICENSE.txt -Destination ../app/webview-master/app/src/main/assets/LICENSE.txt -Recurse -Force
 Copy-Item ../notes/how-to-use-hmv.txt -Destination ../app/webview-master/app/src/main/assets/notes/how-to-use-hmv.txt -Recurse -Force
-Copy-Item ../notes/editorResc.css -Destination ../app/webview-master/app/src/main/assets/notes/editorResc.css -Recurse -Force
-Copy-Item ../notes/editorResc.js -Destination ../app/webview-master/app/src/main/assets/notes/editorResc.js -Recurse -Force
+Copy-Item ../notes/editorResc.min.css -Destination ../app/webview-master/app/src/main/assets/notes/editorResc.min.css -Recurse -Force
+Copy-Item ../notes/editorResc.min.js -Destination ../app/webview-master/app/src/main/assets/notes/editorResc.min.js -Recurse -Force
 
 # - - -
 # COPY INFO
