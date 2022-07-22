@@ -34,6 +34,7 @@ https://github.com/Lexikos/AutoHotkey_L -GNU GPLv2
 https://github.com/federico-terzi/espanso -GNU GPLv3
 https://github.com/wickedest/Mergely -GPL/LGPL/MPL
 https://github.com/codemirror/CodeMirror -MIT
+https://github.com/nayuki/QR-Code-generator -MIT
 
 https://github.com/photopea/photopea
 https://github.com/yoksel/url-encoder
