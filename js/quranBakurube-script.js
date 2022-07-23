@@ -158,20 +158,20 @@ $(document).ready(() => {
       }*/,
       /* {
         data: 7,
-        title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
+        title: 'ބަކުރުބޭގެ ލަފްޒީ ތަރުޖަމާ*',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return '[ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ:] ' + data
+          return '[ބަކުރުބޭގެ ލަފްޒީ ތަރުޖަމާ:] ' + data
         }
       },
       {
         data: 8,
-        title: 'ބަކުރުބެގެ އިޖްމާލީ މާނަ*',
+        title: 'ބަކުރުބޭގެ އިޖްމާލީ މާނަ*',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return '[ބަކުރުބެގެ އިޖްމާލީ މާނަ:] ' + data
+          return '[ބަކުރުބޭގެ އިޖްމާލީ މާނަ:] ' + data
         }
       } */
     ],
@@ -486,7 +486,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "ބަކުރުބެގެ ޤުރްއާން ތަރުޖަމާ", // CHANGE123 clipboard message
+        messageTop: "ބަކުރުބޭގެ ޤުރްއާން ތަރުޖަމާ", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================

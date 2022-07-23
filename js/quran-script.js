@@ -183,20 +183,20 @@ $(document).ready(() => {
       },
       /* {
         data: 7,
-        title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
+        title: 'ބަކުރުބޭގެ ލަފްޒީ ތަރުޖަމާ*',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return '[ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ:] ' + data
+          return '[ބަކުރުބޭގެ ލަފްޒީ ތަރުޖަމާ:] ' + data
         }
       },
       {
         data: 8,
-        title: 'ބަކުރުބެގެ އިޖްމާލީ މާނަ*',
+        title: 'ބަކުރުބޭގެ އިޖްމާލީ މާނަ*',
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return '[ބަކުރުބެގެ އިޖްމާލީ މާނަ:] ' + data
+          return '[ބަކުރުބޭގެ އިޖްމާލީ މާނަ:] ' + data
         }
       } */
     ],
@@ -549,8 +549,8 @@ $(document).ready(() => {
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/تفسير السعدي*\t/g, "");
           data = data.replace(/ތަފްސީރު އައްސަޢްދީ*\t/g, "");
-          data = data.replace(/ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*\t/g, "");
-          data = data.replace(/ބަކުރުބެގެ އިޖްމާލީ މާނަ*\t/g, "");
+          data = data.replace(/ބަކުރުބޭގެ ލަފްޒީ ތަރުޖަމާ*\t/g, "");
+          data = data.replace(/ބަކުރުބޭގެ އިޖްމާލީ މާނަ*\t/g, "");
 
           data = data.replace(/\t\t/g, "\t"); //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, "\n\n"); // creates line breaks between cell data
