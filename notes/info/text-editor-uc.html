@@ -92,8 +92,7 @@
 
       */
 
-    /* fixes tab button border overlap */
-    /*@mixin for-ab0ve-phone-only*/
+    /* fixes bottom border line of tab showing */
 
     .tab {
       /*border-bottom: 0.5px !important;*/
@@ -104,6 +103,9 @@
       border-top: none;
       border-bottom: 1px solid #ccc;
     }
+
+    /* fixes tab button border overlap */
+    /*@mixin for-ab0ve-phone-only*/
 
     .tab button {
       /*border: 0.25px solid rgba(0, 0, 0, 0.25);*/
@@ -305,7 +307,7 @@
             class="hideOnPhoneOnly hmvVer"
             style="font-size: 17px; direction: rtl"
             dir="rtl"
-            >އިސްދާރު: v2.81 ⚙️</span
+            >އިސްދާރު: v2.82 ⚙️</span
           >
           <span class="hideOnPhoneOnly">&nbsp; &nbsp; &nbsp;</span>
           <span class="hideOnPhoneOnly" style="font-size: 17px"
@@ -849,7 +851,7 @@
             onclick="document.getElementById('inputfile').click();"
             id="upButton"
             class="ttClass"
-            data-tooltip="Uploads the text of a file that you choose on your device"
+            data-tooltip="Uploads the text of a file that you choose on your device, except when using the Android app"
           >
             📁 އަޕްލޯޑު <u>U</u>pld
           </button>
@@ -3965,7 +3967,7 @@ cols="60"-->
                         <td></td>
                         <td style="width: 100%">
                           <textarea
-                            placeholder="Write here to generate QR. You can save by clicking it when not using the Android app."
+                            placeholder="Write here to generate QR. You can save by clicking it, except when using the Android app."
                             id="text-input"
                             style="
                               width: 100%;
