@@ -983,6 +983,15 @@
           />
 
           <button
+            id="extraSpaces"
+            onclick="replaceSpacesLines();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Removes unneccessary extra spaces and more than one empty line on the first click, and all empty lines on the second"
+          >
+            Rmv <u>X</u>tra Space
+          </button>
+
+          <button
             onclick="sortLines();"
             id="lineSort"
             class="ttClass"
@@ -990,6 +999,16 @@
           >
             ↕️ މަތިންތިރި <u>O</u>rder
           </button>
+
+          <button
+            onclick="htmlOList();triggerTheCounts();"
+            id="htmlNList"
+            class="ttClass"
+            data-tooltip="Adds ordered list tags to the lines of text on the first click, and unordered tags on the second, and removes them all on the third"
+          >
+            HT<u>M</u>L O List
+          </button>
+
           <button
             onclick="numberedList();triggerTheCounts();"
             class="ttClass"
@@ -997,15 +1016,6 @@
             data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
           >
             🔢 <u>N</u>umbrdLines
-          </button>
-
-          <button
-            onclick="htmlOList();triggerTheCounts();"
-            id="htmlNList"
-            class="ttClass"
-            data-tooltip="Adds numbers to the lines of text on the first click, and removes them on the second"
-          >
-            HT<u>M</u>L O List
           </button>
 
           <button
@@ -1041,14 +1051,7 @@
           >
             • ތާނަތިކި ފޮހެލާ <u>T</u>
           </button>
-          <button
-            id="extraSpaces"
-            onclick="replaceSpacesLines();triggerTheCounts();"
-            class="ttClass"
-            data-tooltip="Removes unneccessary extra spaces and more than one empty line on the first click, and all empty lines on the second"
-          >
-            Rmv <u>X</u>tra Space
-          </button>
+
           <button
             onclick="replacePunct();triggerTheCounts();"
             id="repPuncButton"
