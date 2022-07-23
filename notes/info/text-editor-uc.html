@@ -95,6 +95,21 @@
     /* fixes tab button border overlap */
     /*@mixin for-ab0ve-phone-only*/
 
+    .tab {
+      /*border-bottom: 0.5px !important;*/
+      /*border: 0.25px solid rgba(0, 0, 0, 0.25);*/
+      /*border-bottom: 0.25px solid rgba(0, 0, 0, 0.25);*/
+      /*border: none;*/
+      /*border-top: 0.25px solid rgba(0, 0, 0, 0.25);*/
+      border-top: none;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .tab button {
+      /*border: 0.25px solid rgba(0, 0, 0, 0.25);*/
+      /*border-bottom: none;*/
+    }
+
     @media (min-width: 599px) {
       .tab button:nth-child(2) {
         border-right: none;
@@ -286,8 +301,11 @@
           <b><a href="../../books/index.html">Hadithmv</a></b> Text Editor
           <span class="hideOnPhoneOnly">&nbsp; &nbsp; &nbsp;</span>
           <br class="hideOnTabAndUp" />
-          <span class="hideOnPhoneOnly hmvVer" style="font-size: 17px"
-            >vއިސްދާރު: 2.81 ⚙️</span
+          <span
+            class="hideOnPhoneOnly hmvVer"
+            style="font-size: 17px; direction: rtl"
+            dir="rtl"
+            >އިސްދާރު: v2.81 ⚙️</span
           >
           <span class="hideOnPhoneOnly">&nbsp; &nbsp; &nbsp;</span>
           <span class="hideOnPhoneOnly" style="font-size: 17px"
@@ -3947,7 +3965,7 @@ cols="60"-->
                         <td></td>
                         <td style="width: 100%">
                           <textarea
-                            placeholder="Write here to generate QR. You can save by clicking it if not using the Android app."
+                            placeholder="Write here to generate QR. You can save by clicking it when not using the Android app."
                             id="text-input"
                             style="
                               width: 100%;
@@ -4287,29 +4305,29 @@ cols="60"-->
               var testContainer = document.querySelector(".qrClass");
               //var fourChildNode = testContainer.querySelector('.four');
 
-              // previously testContainer was document. changed to get child by class, so as not to affect all general inputs and textareas. * CHANGE THIS CODE ON EVERY UPDATE *
+              // previously testContainer was document. changed to get child by class, so as not to affect all general inputs and textareas. it also made oninput not work on textareas. there's another instance of this below * CHANGE THIS CODE ON EVERY UPDATE *
               // for some reason doing that hides the initial qr code shown
 
               // added , input[type=color]
 
-              var elems = document.querySelectorAll(
-                "input[type=number], input[type=text], textarea, input[type=color], input[type=range]"
-              );
-              /*var elems = testContainer.querySelectorAll(
+              /*var elems = document.querySelectorAll(
                 "input[type=number], input[type=text], textarea, input[type=color], input[type=range]"
               );*/
+              var elems = testContainer.querySelectorAll(
+                "input[type=number], input[type=text], textarea, input[type=color], input[type=range]"
+              );
 
               for (var _i = 0, elems_1 = elems; _i < elems_1.length; _i++) {
                 var el = elems_1[_i];
                 if (el.id.indexOf("version-") != 0) el.oninput = redrawQrCode;
               }
 
-              elems = document.querySelectorAll(
-                "input[type=radio], input[type=checkbox]"
-              );
-              /*elems = testContainer.querySelectorAll(
+              /*elems = document.querySelectorAll(
                 "input[type=radio], input[type=checkbox]"
               );*/
+              elems = testContainer.querySelectorAll(
+                "input[type=radio], input[type=checkbox]"
+              );
               for (var _a = 0, elems_2 = elems; _a < elems_2.length; _a++) {
                 var el = elems_2[_a];
                 el.onchange = redrawQrCode;

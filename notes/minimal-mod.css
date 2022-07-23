@@ -950,7 +950,9 @@ h3 {
   min-width: 20%;
   transition: 0.25s ease-out;
 
-  /* fix odd four unaligned buttons */
+  /* fix odd four unaligned buttons
+  width: 170px;
+  but auto below to accomodate long third buttons*/
   width: 150px;
 }
 
