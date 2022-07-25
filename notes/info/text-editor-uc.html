@@ -23,7 +23,7 @@
     <meta property="og:type" content="website" />
     <meta
       property="og:url"
-      content="hadithmv.github.io/notes/info/text-editor.html"
+      content="https://hadithmv.github.io/notes/info/text-editor.html"
     />
     <meta
       property="og:image"
@@ -3897,9 +3897,7 @@ cols="60"-->
               <tbody>
                 <tr>
                   <td class="hideOnPhoneOnly">
-                    <label for="text-input"
-                      ><strong>Text string:</strong></label
-                    >
+                    <label for="text-input">Text string:</label>
                   </td>
                   <td style="width: 100%">
                     <textarea
@@ -3938,7 +3936,7 @@ cols="60"-->
                       step="1"
                       value="8"
                       id="scale-input"
-                      oninput="this.nextElementSibling.value = this.value"
+                      onchange="this.nextElementSibling.value = this.value"
                       style="
                         padding: 0;
                         display: inline-block;
@@ -3946,7 +3944,7 @@ cols="60"-->
                       "
                     />
                     <!-- https://stackoverflow.com/questions/10004723/html5-input-type-range-show-range-value/18936328#18936328 
-                    change onchange to oninput to show changes as it is dragged -->
+                    changing onchange to oninput would show changes as it is dragged, but this clashes with queryselectorall below-->
                     <output> &nbsp; 8</output>
                     <!--
                           <input
@@ -3963,7 +3961,7 @@ cols="60"-->
                 </tr>
 
                 <tr>
-                  <td class="hideOnPhoneOnly"><strong>QR Code:</strong></td>
+                  <td class="hideOnPhoneOnly">QR Code:</td>
                   <td>
                     <style>
                       /* prevents overscaling the image */
@@ -4060,9 +4058,7 @@ cols="60"-->
                 </tr>
 
                 <tr>
-                  <td class="hideOnPhoneOnly">
-                    <strong>Error correction:</strong>
-                  </td>
+                  <td class="hideOnPhoneOnly">Error correction:</td>
                   <td>
                     <input
                       type="radio"
