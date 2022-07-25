@@ -37,7 +37,7 @@
 
     <script src="../../js/resc/COMB-nonCrit.min.js"></script>
     <link rel="stylesheet" href="../editorResc.min.css" />
-    <script defer src="../editorResc.min.js"></script>
+    <script async src="../editorResc.min.js"></script>
   </head>
 
   <style>
@@ -1600,6 +1600,8 @@
           var toggleCandRState = 1;
 
           /* toggle help on */
+
+          // https://stackoverflow.com/questions/7184562/how-to-get-elements-with-multiple-classes/59406548#59406548
 
           const els = document.getElementsByClassName("ttClass");
           for (const el of [...els]) {
@@ -3925,12 +3927,12 @@ cols="60"-->
 
         <div class="en mid qrClass">
           <h2 style="font-size: 23px">
-            <a
-              data-tooltip="Calculates the first, second and last thirds of the night, as well as half, when you have set the time for Maghrib and Isha"
-              style="font-weight: normal"
+            <a data-tooltip="Generates a QR Code as you write"
               ><b>QR Code Generator 🏁</b></a
             >
           </h2>
+
+          <!-- https://www.nayuki.io/page/qr-code-generator-library -->
 
           <style type="text/css">
             article section#contents li ul {
@@ -3966,65 +3968,102 @@ cols="60"-->
             }
           </style>
 
-          <div class="vert-main">
-            <div class="horz-main">
-              <article>
-                <form onsubmit="event.preventDefault();">
-                  <div id="loading" style="display: none"></div>
-                  <div id="loaded"></div>
-                  <table
-                    class="noborder"
-                    style="width: 100%; table-layout: fixed"
-                  >
-                    <!-- added table-layout:fixed to make the table fit the screen on mobile-->
-                    <tbody>
-                      <tr>
-                        <td></td>
-                        <td style="width: 100%">
-                          <textarea
-                            placeholder="Write here to generate QR. You can save it by clicking it, except when using the Android app."
-                            id="text-input"
-                            style="
-                              width: 100%;
-                              /*max-width: 30em;*/
-                              /*height: 5em;*/
-                              /*font-family: inherit;*/
-                              /*added*/
-                              font-family: sans-serif;
-                              font-size: 20px;
-                              height: 85px;
+          <form onsubmit="event.preventDefault();">
+            <div id="loading" style="display: none"></div>
+            <div id="loaded"></div>
+            <table class="noborder" style="width: 100%; table-layout: fixed">
+              <!-- added table-layout:fixed to make the table fit the screen on mobile-->
+              <tbody>
+                <tr>
+                  <td class="hideOnPhoneOnly">
+                    <label for="text-input"
+                      ><strong>Text string:</strong></label
+                    >
+                  </td>
+                  <td style="width: 100%">
+                    <textarea
+                      placeholder="Write here to generate QR. You can save it by clicking it, except when using the Android app."
+                      id="text-input"
+                      style="
+                        width: 100%;
+                        /*max-width: 30em;*/
+                        /*height: 5em;*/
+                        /*font-family: inherit;*/
+                        /*added*/
+                        font-family: sans-serif;
+                        font-size: 20px;
+                        height: 85px;
 
-                              line-height: 1.5;
-                              max-width: 650px;
-                              border-radius: 4px;
-                              /* box sizing lets me add padding without losing the centering */
-                              padding: 10px;
-                              box-sizing: border-box;
-                            "
-                          ></textarea>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>
-                          <style>
-                            article canvas
-                            /*,
-                            article svg*/ {
-                              max-width: 85vw;
-                            }
-                          </style>
+                        line-height: 1.5;
+                        max-width: 650px;
+                        border-radius: 4px;
+                        /* box sizing lets me add padding without losing the centering */
+                        padding: 10px;
+                        box-sizing: border-box;
+                      "
+                    ></textarea>
+                  </td>
+                </tr>
 
-                          <!-- added <a> tags, as well as custom style to it -->
-                          <a style="background: none; cursor: pointer">
-                            <canvas
-                              id="qrcode-canvas"
-                              width="232"
-                              height="232"
-                            ></canvas>
-                          </a>
+                <tr id="scale-row">
+                  <td class="hideOnPhoneOnly">
+                    <label for="scale-input">Scale:</label>
+                  </td>
+                  <td style="padding-bottom: 7px">
+                    <input
+                      type="range"
+                      min="1"
+                      max="30"
+                      step="1"
+                      value="8"
+                      id="scale-input"
+                      oninput="this.nextElementSibling.value = this.value"
+                      style="
+                        padding: 0;
+                        display: inline-block;
+                        margin-bottom: 0 !important;
+                      "
+                    />
+                    <!-- https://stackoverflow.com/questions/10004723/html5-input-type-range-show-range-value/18936328#18936328 
+                    change onchange to oninput to show changes as it is dragged -->
+                    <output> &nbsp; 8</output>
+                    <!--
+                          <input
+                            type="number"
+                            min="1"
+                            max="30"
+                            step="1"
+                            value="8"
+                            id="scale-input"
+                            style="width: 4em"
+                          />-->
+                    &nbsp;pixels per module
+                  </td>
+                </tr>
 
-                          <!-- 
+                <tr>
+                  <td class="hideOnPhoneOnly"><strong>QR Code:</strong></td>
+                  <td>
+                    <style>
+                      /* prevents overscaling the image */
+
+                      article canvas
+                      /*,
+                      article svg*/ {
+                        max-width: 85vw;
+                      }
+                    </style>
+
+                    <!-- added <a> tags, as well as custom style to it -->
+
+                    <a style="background: none; cursor: pointer">
+                      <canvas
+                        id="qrcode-canvas"
+                        width="232"
+                        height="232"
+                      ></canvas>
+                    </a>
+                    <!-- old pre anchor canvas
                           <a>
                             <canvas
                               width="300"
@@ -4034,535 +4073,463 @@ cols="60"-->
                           </a>
                           -->
 
-                          <script>
-                            // https://stackoverflow.com/questions/26050668/how-to-download-a-image-thats-on-html5-canvas/26050821#26050821
-                            /*
-                            var canvas = document.getElementById("canvas");
-                            var ctx = canvas.getContext("2d");
-                            ctx.fillStyle = "#ff5";
-                            ctx.fillRect(0, 0, canvas.width, canvas.height);
-                            */
-                            $("#qrcode-canvas").click(function () {
-                              $(this)
-                                .parent()
-                                .attr(
-                                  "href",
-                                  document
-                                    .getElementById("qrcode-canvas")
-                                    .toDataURL()
-                                );
-                              $(this).parent().attr("download", "QrCode.png");
-                            });
-                          </script>
+                    <script>
+                      // https://stackoverflow.com/questions/26050668/how-to-download-a-image-thats-on-html5-canvas/26050821#26050821
+                      /*
+                      var canvas = document.getElementById("canvas");
+                      var ctx = canvas.getContext("2d");
+                      ctx.fillStyle = "#ff5";
+                      ctx.fillRect(0, 0, canvas.width, canvas.height);
+                      */
+                      $("#qrcode-canvas").click(function () {
+                        $(this)
+                          .parent()
+                          .attr(
+                            "href",
+                            document.getElementById("qrcode-canvas").toDataURL()
+                          );
+                        $(this).parent().attr("download", "QrCode.png");
+                      });
+                    </script>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      id="qrcode-svg"
+                      style="width: 30em; height: 30em; display: none"
+                      stroke="none"
+                    >
+                      <rect width="100%" height="100%" fill="#FFFFFF"></rect>
+                      <path d="" fill="#000000"></path>
+                    </svg>
+                  </td>
+                </tr>
 
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            id="qrcode-svg"
-                            style="width: 30em; height: 30em; display: none"
-                            stroke="none"
-                          >
-                            <rect
-                              width="100%"
-                              height="100%"
-                              fill="#FFFFFF"
-                            ></rect>
-                            <path d="" fill="#000000"></path>
-                          </svg>
-                        </td>
-                      </tr>
-                      <tr id="scale-row">
-                        <td></td>
-                        <td>
-                          <label for="scale-input"
-                            ><strong>Scale:</strong></label
-                          >
-                          &nbsp; &nbsp;
-                          <input
-                            type="range"
-                            min="1"
-                            max="30"
-                            step="1"
-                            value="8"
-                            id="scale-input"
-                            onchange="this.nextElementSibling.value = this.value"
-                            style="padding: 0"
-                          />
-                          <!-- https://stackoverflow.com/questions/10004723/html5-input-type-range-show-range-value/18936328#18936328 -->
-                          <output> &nbsp;8</output>
-                          <!--
-                          <input
-                            type="number"
-                            min="1"
-                            max="30"
-                            step="1"
-                            value="8"
-                            id="scale-input"
-                            style="width: 4em"
-                          />-->
-                          &nbsp;pixels per module
-                        </td>
-                      </tr>
-                      <!-- moved what is above, above -->
-                      <tr>
-                        <td></td>
-                        <td>
-                          <strong>Error correction:</strong>
-                          &nbsp; &nbsp;
-                          <input
-                            type="radio"
-                            name="errcorlvl"
-                            id="errcorlvl-low"
-                            checked="checked"
-                          /><label for="errcorlvl-low">Low</label>
-                          <input
-                            type="radio"
-                            name="errcorlvl"
-                            id="errcorlvl-medium"
-                          /><label for="errcorlvl-medium">Medium</label>
-                          <!-- added -->
-                          <br class="hideOnTabAndUp" />
-                          <input
-                            type="radio"
-                            name="errcorlvl"
-                            id="errcorlvl-quartile"
-                          /><label for="errcorlvl-quartile">Quartile</label>
-                          <input
-                            type="radio"
-                            name="errcorlvl"
-                            id="errcorlvl-high"
-                          /><label for="errcorlvl-high">High</label>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>
-                          <strong>Output format:</strong>
-                          &nbsp; &nbsp;
-                          <input
-                            type="radio"
-                            name="output-format"
-                            id="output-format-bitmap"
-                            checked="checked"
-                          /><label for="output-format-bitmap">Bitmap</label>
-                          <input
-                            type="radio"
-                            name="output-format"
-                            id="output-format-vector"
-                          /><label for="output-format-vector">Vector</label>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>
-                          <strong>Border:</strong>
-                          &nbsp; &nbsp;
-                          <input
-                            type="number"
-                            min="0"
-                            max="100"
-                            step="1"
-                            value="4"
-                            id="border-input"
-                            style="width: 4em"
-                          />
-                          modules
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>
-                          <strong>Colors:</strong>
-                          &nbsp; &nbsp; Light =
+                <tr>
+                  <td class="hideOnPhoneOnly">Colors:</td>
+                  <td>
+                    Light =
+                    <!-- added this and replaced below -->
+                    <input
+                      id="light-color-input"
+                      type="color"
+                      value="#FFFFFF"
+                      style="padding: 0"
+                    />
 
-                          <!-- added this and replaced below -->
-                          <input
-                            id="light-color-input"
-                            type="color"
-                            value="#FFFFFF"
-                            style="padding: 0"
-                          />
+                    <!--<input
+                    type="text"
+                    value="#FFFFFF"
+                    id="light-color-input"
+                    style="width: 6em"
+                  />-->
+                    , dark =
+                    <!-- added this and replaced below -->
+                    <input
+                      id="dark-color-input"
+                      type="color"
+                      value="#000000"
+                      style="padding: 0"
+                    />
+                    <!--<input
+                    type="text"
+                    value="#000000"
+                    id="dark-color-input"
+                    style="width: 6em"
+                  />-->
+                  </td>
+                </tr>
 
-                          <!--<input
-                            type="text"
-                            value="#FFFFFF"
-                            id="light-color-input"
-                            style="width: 6em"
-                          />-->
-                          ,
-                          <!-- added -->
-                          <br class="hideOnTabAndUp" />
-                          dark =
+                <tr>
+                  <td class="hideOnPhoneOnly">
+                    <strong>Error correction:</strong>
+                  </td>
+                  <td>
+                    <input
+                      type="radio"
+                      name="errcorlvl"
+                      id="errcorlvl-low"
+                      checked="checked"
+                    /><label for="errcorlvl-low">Low</label>
+                    <input
+                      type="radio"
+                      name="errcorlvl"
+                      id="errcorlvl-medium"
+                    /><label for="errcorlvl-medium">Medium</label>
+                    <input
+                      type="radio"
+                      name="errcorlvl"
+                      id="errcorlvl-quartile"
+                    /><label for="errcorlvl-quartile">Quartile</label>
+                    <input
+                      type="radio"
+                      name="errcorlvl"
+                      id="errcorlvl-high"
+                    /><label for="errcorlvl-high">High</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="hideOnPhoneOnly">Output format:</td>
+                  <td>
+                    <input
+                      type="radio"
+                      name="output-format"
+                      id="output-format-bitmap"
+                      checked="checked"
+                    /><label for="output-format-bitmap">Bitmap</label>
+                    <input
+                      type="radio"
+                      name="output-format"
+                      id="output-format-vector"
+                    /><label for="output-format-vector">Vector</label>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="hideOnPhoneOnly">
+                    <label for="border-input">Border:</label>
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      min="0"
+                      max="100"
+                      step="1"
+                      value="4"
+                      id="border-input"
+                      style="width: 4em"
+                    />
+                    modules
+                  </td>
+                </tr>
 
-                          <!-- added this and replaced below -->
-                          <input
-                            id="dark-color-input"
-                            type="color"
-                            value="#000000"
-                            style="padding: 0"
-                          />
-                          <!--<input
-                            type="text"
-                            value="#000000"
-                            id="dark-color-input"
-                            style="width: 6em"
-                          />-->
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>
-                          <strong>Version range:</strong>
-                          &nbsp; &nbsp; Minimum =
-                          <input
-                            type="number"
-                            min="1"
-                            max="40"
-                            step="1"
-                            value="1"
-                            id="version-min-input"
-                            style="width: 4em"
-                            oninput="app.handleVersionMinMax('min');"
-                          />
-                          , maximum =
-                          <input
-                            type="number"
-                            min="1"
-                            max="40"
-                            step="1"
-                            value="40"
-                            id="version-max-input"
-                            style="width: 4em"
-                            oninput="app.handleVersionMinMax('max');"
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>
-                          <label for="mask-input"
-                            ><strong>Mask pattern</strong></label
-                          >
-                          &nbsp; &nbsp; Minimum =
-                          <input
-                            type="number"
-                            min="-1"
-                            max="7"
-                            step="1"
-                            value="-1"
-                            id="mask-input"
-                            style="width: 4em"
-                          />
-                          <!-- added -->
-                          <br class="hideOnTabAndUp" />
-                          (−1 for automatic, 0 to 7 for manual)
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td>
-                          <strong>Boost ECC:</strong>
-                          &nbsp; &nbsp;
-                          <input
-                            type="checkbox"
-                            checked="checked"
-                            id="boost-ecc-input"
-                          /><label for="boost-ecc-input"
-                            >Increase
-                            <abbr title="error correction code">ECC</abbr> level
-                            within same version</label
-                          >
-                        </td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td id="statistics-output">
-                          <!-- removed white-space: pre from style above to make it wordwrap -->
-                          <strong>Statistics:</strong>
-                          &nbsp; &nbsp; QR Code version = 1, mask pattern = 7,
-                          character count = 5, encoding mode = byte, error
-                          correction = level H, data bits = 52.
-                        </td>
-                      </tr>
-                      <tr id="svg-xml-row" style="display: none">
-                        <td>SVG XML code:</td>
-                        <td>
-                          <textarea
-                            id="svg-xml-output"
-                            readonly="readonly"
-                            style="
-                              width: 100%;
-                              height: 15em;
-                              font-family: 'Courier 10 Pitch BT', monospace;
-                              font-size: 80%;
-                            "
-                          ></textarea>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </form>
-                <!--<script src="qrcodegen.js"></script>
-                <script src="qrcodegen-input-demo.js"></script>-->
-              </article>
-            </div>
-          </div>
+                <tr>
+                  <td class="hideOnPhoneOnly">Version range:</td>
+                  <td>
+                    Min =
+                    <input
+                      type="number"
+                      min="1"
+                      max="40"
+                      step="1"
+                      value="1"
+                      id="version-min-input"
+                      style="width: 4em"
+                      oninput="app.handleVersionMinMax('min');"
+                    />, Max =
+                    <input
+                      type="number"
+                      min="1"
+                      max="40"
+                      step="1"
+                      value="40"
+                      id="version-max-input"
+                      style="width: 4em"
+                      oninput="app.handleVersionMinMax('max');"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td class="hideOnPhoneOnly">
+                    <label for="mask-input">Mask pattern:</label>
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      min="-1"
+                      max="7"
+                      step="1"
+                      value="-1"
+                      id="mask-input"
+                      style="width: 4em"
+                    />
+                    (−1 for automatic, 0 to 7 for manual)
+                  </td>
+                </tr>
+                <tr>
+                  <td class="hideOnPhoneOnly">Boost ECC:</td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked="checked"
+                      id="boost-ecc-input"
+                    /><label for="boost-ecc-input"
+                      >Increase
+                      <abbr title="error correction code">ECC</abbr> level
+                      within same version</label
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <td class="hideOnPhoneOnly">Statistics:</td>
+                  <td
+                    id="statistics-output"
+                    style="/*white-space: pre; REMOVED TO MAKE IT WORDWRAP*/"
+                  >
+                    QR Code version = 1, mask pattern = 6, character count = 0,
+                    encoding mode = none, error correction = level H, data bits
+                    = 0.
+                  </td>
+                </tr>
+                <tr id="svg-xml-row" style="display: none">
+                  <td class="hideOnPhoneOnly">SVG XML code:</td>
+                  <td>
+                    <textarea
+                      id="svg-xml-output"
+                      readonly="readonly"
+                      style="
+                        width: 100%;
+                        height: 15em;
+                        font-family: 'Courier 10 Pitch BT', monospace;
+                        font-size: 80%;
+                      "
+                    ></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+
+          <!--<script src="https://www.nayuki.io/res/qr-code-generator-library/qrcodegen.js"></script>-->
+          <script>
+            //     https://www.nayuki.io/res/qr-code-generator-library/qrcodegen-input-demo.js">
+            var app;
+            (function (app) {
+              function initialize() {
+                getElem("loading").style.display = "none";
+                getElem("loaded").style.removeProperty("display");
+
+                var elems = document.querySelectorAll(
+                  "input[type=number], input[type=text], textarea, input[type=color], input[type=range]"
+                );
+
+                // added , input[type=color]
+
+                /* var elems = document.querySelectorAll(
+                  "input[type=number], input[type=text], textarea"
+                ); */
+
+                for (var _i = 0, elems_1 = elems; _i < elems_1.length; _i++) {
+                  var el = elems_1[_i];
+                  if (el.id.indexOf("version-") != 0) el.oninput = redrawQrCode;
+                }
+                elems = document.querySelectorAll(
+                  "input[type=radio], input[type=checkbox]"
+                );
+                for (var _a = 0, elems_2 = elems; _a < elems_2.length; _a++) {
+                  var el = elems_2[_a];
+                  el.onchange = redrawQrCode;
+                }
+                redrawQrCode();
+              }
+              function redrawQrCode() {
+                // Show/hide rows based on bitmap/vector image output
+                var bitmapOutput = getInput("output-format-bitmap").checked;
+                var scaleRow = getElem("scale-row");
+                var svgXmlRow = getElem("svg-xml-row");
+                if (bitmapOutput) {
+                  scaleRow.style.removeProperty("display");
+                  svgXmlRow.style.display = "none";
+                } else {
+                  scaleRow.style.display = "none";
+                  svgXmlRow.style.removeProperty("display");
+                }
+                var svgXml = getElem("svg-xml-output");
+                svgXml.value = "";
+                // Reset output images in case of early termination
+                var canvas = getElem("qrcode-canvas");
+                var svg = document.getElementById("qrcode-svg");
+                canvas.style.display = "none";
+                svg.style.display = "none";
+                // Returns a QrCode.Ecc object based on the radio buttons in the HTML form.
+                function getInputErrorCorrectionLevel() {
+                  if (getInput("errcorlvl-medium").checked)
+                    return qrcodegen.QrCode.Ecc.MEDIUM;
+                  else if (getInput("errcorlvl-quartile").checked)
+                    return qrcodegen.QrCode.Ecc.QUARTILE;
+                  else if (getInput("errcorlvl-high").checked)
+                    return qrcodegen.QrCode.Ecc.HIGH;
+                  // In case no radio button is depressed
+                  else return qrcodegen.QrCode.Ecc.LOW;
+                }
+                // Get form inputs and compute QR Code
+                var ecl = getInputErrorCorrectionLevel();
+                var text = getElem("text-input").value;
+                var segs = qrcodegen.QrSegment.makeSegments(text);
+                var minVer = parseInt(getInput("version-min-input").value, 10);
+                var maxVer = parseInt(getInput("version-max-input").value, 10);
+                var mask = parseInt(getInput("mask-input").value, 10);
+                var boostEcc = getInput("boost-ecc-input").checked;
+                var qr = qrcodegen.QrCode.encodeSegments(
+                  segs,
+                  ecl,
+                  minVer,
+                  maxVer,
+                  mask,
+                  boostEcc
+                );
+                // Draw image output
+                var border = parseInt(getInput("border-input").value, 10);
+                var lightColor = getInput("light-color-input").value;
+                var darkColor = getInput("dark-color-input").value;
+                if (border < 0 || border > 100) return;
+                if (bitmapOutput) {
+                  var scale = parseInt(getInput("scale-input").value, 10);
+                  if (scale <= 0 || scale > 30) return;
+                  drawCanvas(qr, scale, border, lightColor, darkColor, canvas);
+                  canvas.style.removeProperty("display");
+                } else {
+                  var code = toSvgString(qr, border, lightColor, darkColor);
+                  var viewBox = / viewBox="([^"]*)"/.exec(code)[1];
+                  var pathD = / d="([^"]*)"/.exec(code)[1];
+                  svg.setAttribute("viewBox", viewBox);
+                  svg.querySelector("path").setAttribute("d", pathD);
+                  svg.querySelector("rect").setAttribute("fill", lightColor);
+                  svg.querySelector("path").setAttribute("fill", darkColor);
+                  svg.style.removeProperty("display");
+                  svgXml.value = code;
+                }
+                // Returns a string to describe the given list of segments.
+                function describeSegments(segs) {
+                  if (segs.length == 0) return "none";
+                  else if (segs.length == 1) {
+                    var mode = segs[0].mode;
+                    var Mode = qrcodegen.QrSegment.Mode;
+                    if (mode == Mode.NUMERIC) return "numeric";
+                    if (mode == Mode.ALPHANUMERIC) return "alphanumeric";
+                    if (mode == Mode.BYTE) return "byte";
+                    if (mode == Mode.KANJI) return "kanji";
+                    return "unknown";
+                  } else return "multiple";
+                }
+                // Returns the number of Unicode code points in the given UTF-16 string.
+                function countUnicodeChars(str) {
+                  var result = 0;
+                  for (var i = 0; i < str.length; i++, result++) {
+                    var c = str.charCodeAt(i);
+                    if (c < 0xd800 || c >= 0xe000) continue;
+                    else if (0xd800 <= c && c < 0xdc00 && i + 1 < str.length) {
+                      // High surrogate
+                      i++;
+                      var d = str.charCodeAt(i);
+                      if (0xdc00 <= d && d < 0xe000)
+                        // Low surrogate
+                        continue;
+                    }
+                    throw new RangeError("Invalid UTF-16 string");
+                  }
+                  return result;
+                }
+                // Show the QR Code symbol's statistics as a string
+                getElem("statistics-output").textContent =
+                  "QR Code version = " +
+                  qr.version +
+                  ", " +
+                  ("mask pattern = " + qr.mask + ", ") +
+                  ("character count = " + countUnicodeChars(text) + ",\n") +
+                  ("encoding mode = " + describeSegments(segs) + ", ") +
+                  ("error correction = level " +
+                    "LMQH".charAt(qr.errorCorrectionLevel.ordinal) +
+                    ", ") +
+                  ("data bits = " +
+                    qrcodegen.QrSegment.getTotalBits(segs, qr.version) +
+                    ".");
+              }
+              // Draws the given QR Code, with the given module scale and border modules, onto the given HTML
+              // canvas element. The canvas's width and height is resized to (qr.size + border * 2) * scale.
+              // The drawn image is purely dark and light, and fully opaque.
+              // The scale must be a positive integer and the border must be a non-negative integer.
+              function drawCanvas(
+                qr,
+                scale,
+                border,
+                lightColor,
+                darkColor,
+                canvas
+              ) {
+                if (scale <= 0 || border < 0)
+                  throw new RangeError("Value out of range");
+                var width = (qr.size + border * 2) * scale;
+                canvas.width = width;
+                canvas.height = width;
+                var ctx = canvas.getContext("2d");
+                for (var y = -border; y < qr.size + border; y++) {
+                  for (var x = -border; x < qr.size + border; x++) {
+                    ctx.fillStyle = qr.getModule(x, y) ? darkColor : lightColor;
+                    ctx.fillRect(
+                      (x + border) * scale,
+                      (y + border) * scale,
+                      scale,
+                      scale
+                    );
+                  }
+                }
+              }
+              // Returns a string of SVG code for an image depicting the given QR Code, with the given number
+              // of border modules. The string always uses Unix newlines (\n), regardless of the platform.
+              function toSvgString(qr, border, lightColor, darkColor) {
+                if (border < 0)
+                  throw new RangeError("Border must be non-negative");
+                var parts = [];
+                for (var y = 0; y < qr.size; y++) {
+                  for (var x = 0; x < qr.size; x++) {
+                    if (qr.getModule(x, y))
+                      parts.push(
+                        "M" + (x + border) + "," + (y + border) + "h1v1h-1z"
+                      );
+                  }
+                }
+                return (
+                  '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ' +
+                  (qr.size + border * 2) +
+                  " " +
+                  (qr.size + border * 2) +
+                  '" stroke="none">\n\t<rect width="100%" height="100%" fill="' +
+                  lightColor +
+                  '"/>\n\t<path d="' +
+                  parts.join(" ") +
+                  '" fill="' +
+                  darkColor +
+                  '"/>\n</svg>\n'
+                );
+              }
+              function handleVersionMinMax(which) {
+                var minElem = getInput("version-min-input");
+                var maxElem = getInput("version-max-input");
+                var minVal = parseInt(minElem.value, 10);
+                var maxVal = parseInt(maxElem.value, 10);
+                minVal = Math.max(
+                  Math.min(minVal, qrcodegen.QrCode.MAX_VERSION),
+                  qrcodegen.QrCode.MIN_VERSION
+                );
+                maxVal = Math.max(
+                  Math.min(maxVal, qrcodegen.QrCode.MAX_VERSION),
+                  qrcodegen.QrCode.MIN_VERSION
+                );
+                if (which == "min" && minVal > maxVal) maxVal = minVal;
+                else if (which == "max" && maxVal < minVal) minVal = maxVal;
+                minElem.value = minVal.toString();
+                maxElem.value = maxVal.toString();
+                redrawQrCode();
+              }
+              app.handleVersionMinMax = handleVersionMinMax;
+              function getElem(id) {
+                var result = document.getElementById(id);
+                if (result instanceof HTMLElement) return result;
+                throw new Error("Assertion error");
+              }
+              function getInput(id) {
+                var result = getElem(id);
+                if (result instanceof HTMLInputElement) return result;
+                throw new Error("Assertion error");
+              }
+              initialize();
+            })(app || (app = {}));
+          </script>
+
+          <!-- <div class="en mid"> -->
         </div>
 
-        <script>
-          // https://www.nayuki.io/res/qr-code-generator-library/qrcodegen-input-demo.js 1.8.0
-
-          "use strict";
-          var app;
-          (function (app) {
-            function initialize() {
-              getElem("loading").style.display = "none";
-              getElem("loaded").style.removeProperty("display");
-
-              // https://stackoverflow.com/questions/12166753/how-to-get-child-element-by-class-name/49297824#49297824
-              var testContainer = document.querySelector(".qrClass");
-              //var fourChildNode = testContainer.querySelector('.four');
-
-              // previously testContainer was document. changed to get child by class, so as not to affect all general inputs and textareas. it also made oninput not work on textareas. there's another instance of this below * CHANGE THIS CODE ON EVERY UPDATE *
-              // for some reason doing that hides the initial qr code shown
-
-              // added , input[type=color]
-
-              /*var elems = document.querySelectorAll(
-                "input[type=number], input[type=text], textarea, input[type=color], input[type=range]"
-              );*/
-              var elems = testContainer.querySelectorAll(
-                "input[type=number], input[type=text], textarea, input[type=color], input[type=range]"
-              );
-
-              for (var _i = 0, elems_1 = elems; _i < elems_1.length; _i++) {
-                var el = elems_1[_i];
-                if (el.id.indexOf("version-") != 0) el.oninput = redrawQrCode;
-              }
-
-              /*elems = document.querySelectorAll(
-                "input[type=radio], input[type=checkbox]"
-              );*/
-              elems = testContainer.querySelectorAll(
-                "input[type=radio], input[type=checkbox]"
-              );
-              for (var _a = 0, elems_2 = elems; _a < elems_2.length; _a++) {
-                var el = elems_2[_a];
-                el.onchange = redrawQrCode;
-              }
-              redrawQrCode();
-            }
-            function redrawQrCode() {
-              // Show/hide rows based on bitmap/vector image output
-              var bitmapOutput = getInput("output-format-bitmap").checked;
-              var scaleRow = getElem("scale-row");
-              var svgXmlRow = getElem("svg-xml-row");
-              if (bitmapOutput) {
-                scaleRow.style.removeProperty("display");
-                svgXmlRow.style.display = "none";
-              } else {
-                scaleRow.style.display = "none";
-                svgXmlRow.style.removeProperty("display");
-              }
-              var svgXml = getElem("svg-xml-output");
-              svgXml.value = "";
-              // Reset output images in case of early termination
-              var canvas = getElem("qrcode-canvas");
-
-              // var svg = testContainer.getElementById("qrcode-svg");
-              var svg = document.getElementById("qrcode-svg");
-
-              canvas.style.display = "none";
-              svg.style.display = "none";
-              // Returns a QrCode.Ecc object based on the radio buttons in the HTML form.
-              function getInputErrorCorrectionLevel() {
-                if (getInput("errcorlvl-medium").checked)
-                  return qrcodegen.QrCode.Ecc.MEDIUM;
-                else if (getInput("errcorlvl-quartile").checked)
-                  return qrcodegen.QrCode.Ecc.QUARTILE;
-                else if (getInput("errcorlvl-high").checked)
-                  return qrcodegen.QrCode.Ecc.HIGH;
-                // In case no radio button is depressed
-                else return qrcodegen.QrCode.Ecc.LOW;
-              }
-              // Get form inputs and compute QR Code
-              var ecl = getInputErrorCorrectionLevel();
-              var text = getElem("text-input").value;
-              var segs = qrcodegen.QrSegment.makeSegments(text);
-              var minVer = parseInt(getInput("version-min-input").value, 10);
-              var maxVer = parseInt(getInput("version-max-input").value, 10);
-              var mask = parseInt(getInput("mask-input").value, 10);
-              var boostEcc = getInput("boost-ecc-input").checked;
-              var qr = qrcodegen.QrCode.encodeSegments(
-                segs,
-                ecl,
-                minVer,
-                maxVer,
-                mask,
-                boostEcc
-              );
-              // Draw image output
-              var border = parseInt(getInput("border-input").value, 10);
-              var lightColor = getInput("light-color-input").value;
-              var darkColor = getInput("dark-color-input").value;
-              if (border < 0 || border > 100) return;
-              if (bitmapOutput) {
-                var scale = parseInt(getInput("scale-input").value, 10);
-                if (scale <= 0 || scale > 30) return;
-                drawCanvas(qr, scale, border, lightColor, darkColor, canvas);
-                canvas.style.removeProperty("display");
-              } else {
-                var code = toSvgString(qr, border, lightColor, darkColor);
-                var viewBox = / viewBox="([^"]*)"/.exec(code)[1];
-                var pathD = / d="([^"]*)"/.exec(code)[1];
-                svg.setAttribute("viewBox", viewBox);
-                svg.querySelector("path").setAttribute("d", pathD);
-                svg.querySelector("rect").setAttribute("fill", lightColor);
-                svg.querySelector("path").setAttribute("fill", darkColor);
-                svg.style.removeProperty("display");
-                svgXml.value = code;
-              }
-              // Returns a string to describe the given list of segments.
-              function describeSegments(segs) {
-                if (segs.length == 0) return "none";
-                else if (segs.length == 1) {
-                  var mode = segs[0].mode;
-                  var Mode = qrcodegen.QrSegment.Mode;
-                  if (mode == Mode.NUMERIC) return "numeric";
-                  if (mode == Mode.ALPHANUMERIC) return "alphanumeric";
-                  if (mode == Mode.BYTE) return "byte";
-                  if (mode == Mode.KANJI) return "kanji";
-                  return "unknown";
-                } else return "multiple";
-              }
-              // Returns the number of Unicode code points in the given UTF-16 string.
-              function countUnicodeChars(str) {
-                var result = 0;
-                for (var i = 0; i < str.length; i++, result++) {
-                  var c = str.charCodeAt(i);
-                  if (c < 0xd800 || c >= 0xe000) continue;
-                  else if (0xd800 <= c && c < 0xdc00 && i + 1 < str.length) {
-                    // High surrogate
-                    i++;
-                    var d = str.charCodeAt(i);
-                    if (0xdc00 <= d && d < 0xe000)
-                      // Low surrogate
-                      continue;
-                  }
-                  throw new RangeError("Invalid UTF-16 string");
-                }
-                return result;
-              }
-              // Show the QR Code symbol's statistics as a string
-              getElem("statistics-output").textContent =
-                "QR Code version = " +
-                qr.version +
-                ", " +
-                ("mask pattern = " + qr.mask + ", ") +
-                ("character count = " + countUnicodeChars(text) + ",\n") +
-                ("encoding mode = " + describeSegments(segs) + ", ") +
-                ("error correction = level " +
-                  "LMQH".charAt(qr.errorCorrectionLevel.ordinal) +
-                  ", ") +
-                ("data bits = " +
-                  qrcodegen.QrSegment.getTotalBits(segs, qr.version) +
-                  ".");
-            }
-            // Draws the given QR Code, with the given module scale and border modules, onto the given HTML
-            // canvas element. The canvas's width and height is resized to (qr.size + border * 2) * scale.
-            // The drawn image is purely dark and light, and fully opaque.
-            // The scale must be a positive integer and the border must be a non-negative integer.
-            function drawCanvas(
-              qr,
-              scale,
-              border,
-              lightColor,
-              darkColor,
-              canvas
-            ) {
-              if (scale <= 0 || border < 0)
-                throw new RangeError("Value out of range");
-              var width = (qr.size + border * 2) * scale;
-              canvas.width = width;
-              canvas.height = width;
-              var ctx = canvas.getContext("2d");
-              for (var y = -border; y < qr.size + border; y++) {
-                for (var x = -border; x < qr.size + border; x++) {
-                  ctx.fillStyle = qr.getModule(x, y) ? darkColor : lightColor;
-                  ctx.fillRect(
-                    (x + border) * scale,
-                    (y + border) * scale,
-                    scale,
-                    scale
-                  );
-                }
-              }
-            }
-            // Returns a string of SVG code for an image depicting the given QR Code, with the given number
-            // of border modules. The string always uses Unix newlines (\n), regardless of the platform.
-            function toSvgString(qr, border, lightColor, darkColor) {
-              if (border < 0)
-                throw new RangeError("Border must be non-negative");
-              var parts = [];
-              for (var y = 0; y < qr.size; y++) {
-                for (var x = 0; x < qr.size; x++) {
-                  if (qr.getModule(x, y))
-                    parts.push(
-                      "M" + (x + border) + "," + (y + border) + "h1v1h-1z"
-                    );
-                }
-              }
-              return (
-                '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ' +
-                (qr.size + border * 2) +
-                " " +
-                (qr.size + border * 2) +
-                '" stroke="none">\n\t<rect width="100%" height="100%" fill="' +
-                lightColor +
-                '"/>\n\t<path d="' +
-                parts.join(" ") +
-                '" fill="' +
-                darkColor +
-                '"/>\n</svg>\n'
-              );
-            }
-            function handleVersionMinMax(which) {
-              var minElem = getInput("version-min-input");
-              var maxElem = getInput("version-max-input");
-              var minVal = parseInt(minElem.value, 10);
-              var maxVal = parseInt(maxElem.value, 10);
-              minVal = Math.max(
-                Math.min(minVal, qrcodegen.QrCode.MAX_VERSION),
-                qrcodegen.QrCode.MIN_VERSION
-              );
-              maxVal = Math.max(
-                Math.min(maxVal, qrcodegen.QrCode.MAX_VERSION),
-                qrcodegen.QrCode.MIN_VERSION
-              );
-              if (which == "min" && minVal > maxVal) maxVal = minVal;
-              else if (which == "max" && maxVal < minVal) minVal = maxVal;
-              minElem.value = minVal.toString();
-              maxElem.value = maxVal.toString();
-              redrawQrCode();
-            }
-            app.handleVersionMinMax = handleVersionMinMax;
-            function getElem(id) {
-              var result = document.getElementById(id);
-              // var result = testContainer.getElementById(id);
-
-              if (result instanceof HTMLElement) return result;
-              throw new Error("Assertion error");
-            }
-            function getInput(id) {
-              var result = getElem(id);
-              if (result instanceof HTMLInputElement) return result;
-              throw new Error("Assertion error");
-            }
-            initialize();
-          })(app || (app = {}));
-        </script>
+        <!-- Third and Half of Night Calculator -->
 
         <br />
-
         <hr />
 
         <style>
@@ -4797,7 +4764,7 @@ cols="60"-->
         <div class="en mid">
           <h2 style="font-size: 23px">
             <a
-              data-tooltip="Calculates the first, second and last thirds of the night, as well as half, when you have set the time for Maghrib and Isha"
+              data-tooltip="Converts any unit to all other units"
               style="font-weight: normal"
               ><b>Unit Converter 🧮</b></a
             >
