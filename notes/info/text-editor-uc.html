@@ -808,15 +808,29 @@
           </button>
 
           <script>
-            // https://stackoverflow.com/questions/21479107/saving-html5-textarea-contents-to-file/30740104#30740104
-
+            // https://stackoverflow.com/questions/65137434/how-can-i-save-a-txt-file-from-the-value-of-a-textarea/65137650#65137650
             function saveTextAsFile() {
+              var textcontent = document.getElementById("textMainArea").value;
+
+              var downloadableLink = document.createElement("a");
+              downloadableLink.setAttribute(
+                "href",
+                "data:text/plain;charset=utf-8," +
+                  encodeURIComponent(textcontent)
+              );
+              downloadableLink.download = "file" + ".txt";
+              document.body.appendChild(downloadableLink);
+              downloadableLink.click();
+              document.body.removeChild(downloadableLink);
+            }
+            /* OLD CODE BELOW
+            // https://stackoverflow.com/questions/21479107/saving-html5-textarea-contents-to-file/30740104#30740104
+            function ssaveTextAsFile() {
               var textToWrite = document.getElementById("textMainArea").value;
               var textFileAsBlob = new Blob([textToWrite], {
                 type: "text/plain",
               });
               var fileNameToSaveAs = "file.txt"; //filename.extension
-
               var downloadLink = document.createElement("a");
               downloadLink.download = fileNameToSaveAs;
               downloadLink.innerHTML = "Download File";
@@ -831,17 +845,15 @@
                 downloadLink.style.display = "none";
                 document.body.appendChild(downloadLink);
               }
-
               downloadLink.click();
             }
-
             var button = document.getElementById("save");
             button.addEventListener("click", saveTextAsFile);
-
             function destroyClickedElement(event) {
               // remove the link from the DOM
               document.body.removeChild(event.target);
             }
+            */
           </script>
 
           <input type="file" id="inputfile" style="display: none" />
