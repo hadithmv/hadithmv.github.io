@@ -40,6 +40,7 @@
     <script defer src="../editorResc.min.js"></script>
   </head>
 
+  <!--
   <style>
     /* https://www.webtips.dev/webtips/html/native-html-tooltips */
 
@@ -87,11 +88,10 @@
         border-radius: 4px;
         */
     }
+  </style>
+    -->
 
-    /*
-
-      */
-
+  <style>
     /* fixes bottom border line of tab showing */
 
     .tab {
@@ -779,12 +779,42 @@
           މަތީގައި ލިޔުމަށްފަހު އެލިޔުން ބަދަލުކުރުމަށް:
         </p>
 
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.7.0/hint.min.css"
+          integrity="sha512-gnj0WGxmbeTgYXck9CyFjrdkEFcZE4xwnJb/nG3bcl5OlWHJ9ixRkJK0MDPtCytnO3IBIh0Omqawv0UPpl0LoA=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+        />
+
+        <span class="hint--bottom" aria-label="Thank you!">hover me.</span>
+        <button
+          onclick="clearTextArea();
+        triggerTheCounts();"
+          id="eraseButton"
+          class="hint--bottom"
+          aria-label="Thank you!"
+        >
+          hover me.
+        </button>
+
         <div class="mid editorButtons">
+          <button
+            onclick="clearTextArea();
+        triggerTheCounts();"
+            id="eraseButton"
+            class="hint--bottom"
+            aria-label="Thank you!"
+          >
+            hover me.
+          </button>
+
           <button
             onclick="copyToClipB();"
             id="copyButton"
             class="ttClass"
             data-tooltip="Copies above text into the clipboard for pasting"
+            aria-label="Thank you!"
           >
             📋 ކޮޕީ <u>C</u>opy
           </button>
@@ -792,7 +822,7 @@
             onclick="clearTextArea();
             triggerTheCounts();"
             id="eraseButton"
-            class="ttClass"
+            class="ttClass hint--bottom"
             data-tooltip="Erases everything above"
           >
             ❌ ފޮހެލާ <u>E</u>rase
@@ -1589,7 +1619,7 @@
 
           /* toggle help on */
 
-          const els = document.getElementsByClassName("ttClass");
+          const els = document.querySelectorAll(".ttClass");
           for (const el of [...els]) {
             el.className = "ttClassDisabled";
           }
@@ -1699,7 +1729,7 @@
             if (toggleHelpTips_timesClicked % 2 == 0) {
               //run second function
 
-              const els = document.getElementsByClassName("ttClass");
+              const els = document.querySelectorAll(".ttClass");
               for (const el of [...els]) {
                 el.className = "ttClassDisabled";
               }
@@ -1730,7 +1760,7 @@
             } else {
               //run first function
 
-              const els = document.getElementsByClassName("ttClassDisabled");
+              const els = document.querySelectorAll(".ttClassDisabled");
               for (const el of [...els]) {
                 el.className = "ttClass";
               }
