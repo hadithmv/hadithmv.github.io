@@ -4296,11 +4296,22 @@ cols="60"-->
                 getElem("loading").style.display = "none";
                 getElem("loaded").style.removeProperty("display");
 
+                /* OLD FIX
+
+                // https://stackoverflow.com/questions/12166753/how-to-get-child-element-by-class-name/49297824#49297824
+              var testContainer = document.querySelector(".qrClass");
+              //var fourChildNode = testContainer.querySelector('.four');
+
+              // previously testContainer was document. changed to get child by class, so as not to affect all general inputs and textareas. it also made oninput not work on textareas. there's another instance of this below * CHANGE THIS CODE ON EVERY UPDATE *
+              // for some reason doing that hides the initial qr code shown
+              */
+
                 var elems = document.querySelectorAll(
-                  "input[type=number], input[type=text], textarea, input[type=color], input[type=range]"
+                  ".qrClass input[type=number], .qrClass input[type=text], .qrClass textarea, .qrClass input[type=color], .qrClass input[type=range]"
                 );
 
-                // added , input[type=color]
+                //added .qrClass before selected, otherwise oninputs dont work
+                // added , input[type=color], input[type=range
 
                 /* var elems = document.querySelectorAll(
                   "input[type=number], input[type=text], textarea"
