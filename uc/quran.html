@@ -1214,7 +1214,8 @@
               </ul>
             </li>
 
-            <!-- https://stackoverflow.com/questions/4664707/how-to-replace-part-of-the-url-with-javascript/4664716#4664716 -->
+            <!-- https://stackoverflow.com/questions/4664707/how-to-replace-part-of-the-url-with-javascript/4664716#4664716
+            https://stackoverflow.com/questions/19367373/regex-for-remove-everything-after-with/19367430#19367430 -->
 
             <li>
               <a onclick="redirectAnchor()">ބަކުރުބޭގެ ތަރުޖަމާ</a>
@@ -1224,7 +1225,8 @@
                 var url = window.location.toString();
                 window.location = url
                   .replace(/quran.html/, "quranBakurube.html")
-                  .replace(/quranTable/, "quranBakurubeTable");
+                  .replace(/quranTable/, "quranBakurubeTable")
+                  .replace(/\:v.*$/, "");
               }
             </script>
 
@@ -1334,9 +1336,19 @@
               ހަމައެކަނި ތަރުޖަމާއެވެ. ولله الحمد.
             </p>
 
-            <p class="justi">
+            <p>
               ރައީސުލް ޖުމްހޫރިއްޔާގެ އޮފީހުގެ ތަރުޖަމާގެ
               <a href="https://presidency.gov.mv/quran">ޕީޑީއެފް</a>.
+            </p>
+
+            <br />
+            <hr />
+            <br />
+
+            <p class="justi">
+              ތަރުޖަމާ ބަދަލު ކުރުމަށް، މެނިއޫއަށް ގޮސް އެހެން ތަރުޖަމާއެއް
+              ޚިޔާރު ކުރެއްވާ. ހަމަ ކުރިންވެސް ކުރިން ކިޔަން ހުރި އާޔަތަށް
+              ދެވޭނެ.
             </p>
 
             <p class="justi">
