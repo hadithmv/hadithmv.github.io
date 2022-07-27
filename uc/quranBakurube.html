@@ -1217,9 +1217,23 @@
               </ul>
             </li>
 
+            <!-- https://stackoverflow.com/questions/4664707/how-to-replace-part-of-the-url-with-javascript/4664716#4664716 -->
+
             <li>
-              <a href="../books/quran.html">ޙަދީޘްއެމްވީ ތަރުޖަމާ</a>
+              <a onclick="redirectAnchor()">ޙަދީޘްއެމްވީ ތަރުޖަމާ</a>
             </li>
+            <script type="text/javascript">
+              function redirectAnchor() {
+                var url = window.location.toString();
+                window.location = url
+                  .replace(/quranBakurube.html/, "quran.html")
+                  .replace(/quranBakurubeTable/, "quranTable");
+              }
+            </script>
+
+            <!-- <li>
+              <a href="../books/quran.html">ޙަދީޘްއެމްވީ ތަރުޖަމާ</a>
+            </li> -->
 
             <li>
               <a href="../books/index.html">މައި ސަފުހާ</a>
