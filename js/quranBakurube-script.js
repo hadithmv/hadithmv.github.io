@@ -822,7 +822,10 @@ $(document).ready(() => {
         'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
       )
       .replace(/ـ/g, "")
-      .replace(/[^\u0621-\u064A|^\u0780-\u07B1|\s|<br class="br">]/g, "")
+      .replace(
+        /[^\u0621-\u064A|^\u0780-\u07B1|^\d|^𝟣||^𝟣|^𝟤|^𝟥|^𝟦|^𝟧|^𝟨|^𝟩|^𝟪|^𝟫|^𝟢|\s|<br class="br">]/g,
+        ""
+      )
       .replace(/\s\s/g, " ");
     $(this).val(str);
     //table.search(str).draw();
