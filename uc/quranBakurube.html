@@ -1359,17 +1359,32 @@
               }
 
               /*
-                  function scrollHere() {
-                    if (window.matchMedia("(max-width: 599px)").matches) {
-                      $("html, body").animate(
-                        {
-                          scrollTop: 550, //prev 0
-                        },
-                        "fast"
-                      );
-                    }
-                  }
-                  */
+              function scrollHere() {
+                if (window.matchMedia("(max-width: 599px)").matches) {
+                  $("html, body").animate(
+                    {
+                      scrollTop: 550, //prev 0
+                    },
+                    "fast"
+                  );
+                }
+              }
+              */
+
+              function changeDigits() {
+                document.getElementById("surahNameID").value = document
+                  .getElementById("surahNameID")
+                  .value.replace(/0/g, "٠")
+                  .replace(/1/g, "𝟣")
+                  .replace(/2/g, "𝟤")
+                  .replace(/3/g, "𝟥")
+                  .replace(/4/g, "𝟦")
+                  .replace(/5/g, "𝟧")
+                  .replace(/6/g, "𝟨")
+                  .replace(/7/g, "𝟩")
+                  .replace(/8/g, "𝟪")
+                  .replace(/9/g, "𝟫");
+              }
             </script>
             <style>
               #surahNameID,
@@ -1383,7 +1398,7 @@
                 /*font-size: 20px;*/
                 font-size: 16px;
                 /*width: 200px;*/
-                width: 120px;
+                width: 140px;
                 /*color: #b8c4cc;*/
                 /*height: 40px;*/
                 /*position: absolute;*/
@@ -1399,7 +1414,7 @@
                 }
               }
 
-              /* hhttps://stackoverflow.com/questions/20937475/remove-datalist-dropdown-arrow-in-chrome/54997118#54997118 */
+              /* https://stackoverflow.com/questions/20937475/remove-datalist-dropdown-arrow-in-chrome/54997118#54997118 */
               [list]::-webkit-calendar-picker-indicator {
                 /*display: none !important;*/
                 padding-left: 12px !important;
@@ -1411,8 +1426,10 @@
                 list="surahName"
                 placeholder="ސޫރަތް"
                 onfocus="this.value='';"
-                onchange="this.blur();"
+                onchange="this.blur();jumpTo();"
                 style="display: block; float: right"
+                oninput="changeDigits();"
+                onselect="jumpTo()"
               />
               <!-- https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
               <datalist id="surahName">
