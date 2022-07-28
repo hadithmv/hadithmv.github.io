@@ -841,6 +841,7 @@ $(document).ready(() => {
     var z = document
       .getElementsByClassName("qCol4")[1]
       .innerText.replace(/[^١|٢|٣|٤|٥|٦|٧|٨|٩|٠]/g, "")
+      .replace(/سورة /g, "")
       .replace(/٠/g, "0")
       .replace(/١/g, "1")
       .replace(/٢/g, "2")
