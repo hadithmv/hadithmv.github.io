@@ -1355,6 +1355,22 @@
                   ".dataTables_filter input[type=search]"
                 ).value = combinedVals;*/
               }
+
+              //
+              function scrollHere() {
+                //
+                if (window.matchMedia("(max-width: 599px)").matches) {
+                  //
+                  $("html, body").animate(
+                    {
+                      scrollTop: 550, //prev 0
+                    },
+                    "fast"
+                  );
+                  //
+                }
+                //
+              }
             </script>
             <style>
               #surahNameID,
@@ -1380,10 +1396,9 @@
                 id="surahNameID"
                 list="surahName"
                 placeholder="ސޫރަތް"
-                onfocus="this.value=''"
+                onfocus="this.value='';scrollHere();"
                 onchange="this.blur();"
                 style="display: block; float: right"
-                onselect="jumpTo()"
               />
               <!-- https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
               <datalist id="surahName">
@@ -1509,9 +1524,10 @@
                 id="ayahNoID"
                 list="ayahNo"
                 placeholder="އާޔަތް"
-                onfocus="this.value=''"
+                onfocus="this.value='';scrollHere();"
                 onchange="this.blur();jumpTo();"
                 style="display: block; float: right"
+                onselect="jumpTo()"
               />
               <!-- https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
               <datalist id="ayahNo">
