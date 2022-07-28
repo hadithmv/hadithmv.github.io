@@ -659,9 +659,10 @@
           i.addEventListener(
             "input",
             function () {
-              var o = document.getElementById("textMainArea");
-              var val = i.value;
-              o.style.fontSize = val + "px";
+              //var o = document.getElementById("textMainArea");
+              //o.style.fontSize = val + "px";
+              document.getElementById("textMainArea").style.fontSize =
+                i.value + "px";
 
               // added below
               document.getElementById("fontSlider").innerHTML = val;
@@ -879,8 +880,9 @@
               function (event) {
                 var reader = new FileReader();
                 reader.onload = function (event) {
-                  var contents = event.target.result;
-                  document.getElementById("textMainArea").value = contents;
+                  document.getElementById("textMainArea").value =
+                    event.target.result;
+                  //document.getElementById("textMainArea").value = contents;
 
                   // added below to do the counts after file loads
                   triggerTheCounts();
@@ -1471,9 +1473,7 @@
             document.getElementById("hiddenFindCount").style.display = "inline";
 
             var str = document.getElementById("textMainArea").value;
-
             searchText = document.getElementById("findThis").value;
-
             ans = 0;
 
             // https://stackoverflow.com/questions/5280287/count-regular-expression-matches-in-jquery/5280308#5280308
@@ -1792,11 +1792,12 @@
           // http://talkerscode.com/webtricks/demo/demo_live-character-count-using-javascript.php
 
           function countChar() {
-            var total = document.getElementById("textMainArea").value;
+            //var total = document.getElementById("textMainArea").value;
             /* this does not count spaces */
             //total = total.replace(/\s/g, "");
-
-            document.getElementById("characterC").innerHTML = total.length;
+            //document.getElementById("characterC").innerHTML = total.length;
+            document.getElementById("characterC").innerHTML =
+              document.getElementById("textMainArea").value.length;
             //"ކެރެކްޓާތައް: " + total.length;
             // removed the added string and just kept the total length instead
 
@@ -1809,7 +1810,7 @@
 
           function countWord() {
             // Get the input text value
-            var words = document.getElementById("textMainArea").value;
+            //var words = document.getElementById("textMainArea").value;
 
             /* doesnt include new lines https://stackoverflow.com/questions/18679576/counting-words-in-string */
             //count = words.split(" ").length;
@@ -1817,8 +1818,9 @@
             /* https://www.reddit.com/r/javascript/comments/57uzul/javascript_word_count_with_line_breaks/ */
 
             //count = words.split(/\s+/).length;
-            count = words
-              .replace(/\n/gm, " ")
+            document.getElementById("wordC").innerHTML = document
+              .getElementById("textMainArea")
+              .value.replace(/\n/gm, " ")
               .split(" ")
               .filter((el) => el !== "").length;
 
@@ -1835,7 +1837,7 @@
                       */
 
             // Display it as output
-            document.getElementById("wordC").innerHTML = count;
+            //document.getElementById("wordC").innerHTML = count;
           }
 
           // https://stackoverflow.com/questions/8488729/how-to-count-the-number-of-lines-of-a-string-in-javascript/43820645#43820645
@@ -2067,9 +2069,9 @@
           // https://stackoverflow.com/questions/39925761/replace-word-user-wrote-in-text-box-with-javascript/39925901#39925901
 
           function replaceFili() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/[ًٌٍَُِّْ]/g, "")
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/[ًٌٍَُِّْ]/g, "")
               .replace(/[\u06d4-\u06dc]/g, "")
               .replace(/[\u06df-\u06ed]/g, "")
               .replace(/[\u064b-\u066d]/g, "")
@@ -2078,8 +2080,6 @@
               .replace(/\u0674/g, "")
               .replace(/ـ/g, "")
               .replace(/ٱ|ٲ|ٳ/g, "ا");
-            document.getElementById("textMainArea").value = newText;
-            return false;
           }
           //
 
@@ -2101,13 +2101,13 @@
 
               // https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
 
-              var text = document.getElementById("textMainArea").value;
-              var newText = text.replace(/\w\S*/g, function (txt) {
-                return (
-                  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-                );
-              });
-              document.getElementById("textMainArea").value = newText;
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\w\S*/g, function (txt) {
+                  return (
+                    txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                  );
+                });
 
               document.getElementById("caseChange").innerHTML = "🔠 lower case";
             } else if (toTitleCase_timesClicked == 2) {
@@ -2143,9 +2143,10 @@
             numToAr_timesClicked++;
             if (numToAr_timesClicked % 2 == 0) {
               //run second function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text
-                .replace(/٠/g, "0")
+
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/٠/g, "0")
                 .replace(/١/g, "1")
                 .replace(/٢/g, "2")
                 .replace(/٣/g, "3")
@@ -2155,13 +2156,12 @@
                 .replace(/٧/g, "7")
                 .replace(/٨/g, "8")
                 .replace(/٩/g, "9");
-              document.getElementById("textMainArea").value = newText;
-              return false;
             } else {
               //run first function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text
-                .replace(/0/g, "٠")
+
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/0/g, "٠")
                 .replace(/1/g, "١")
                 .replace(/2/g, "٢")
                 .replace(/3/g, "٣")
@@ -2171,8 +2171,6 @@
                 .replace(/7/g, "٧")
                 .replace(/8/g, "٨")
                 .replace(/9/g, "٩");
-              document.getElementById("textMainArea").value = newText;
-              return false;
             }
           }
           //
@@ -2182,32 +2180,28 @@
             shortenSalla_timesClicked++;
             if (shortenSalla_timesClicked % 2 == 0) {
               //run second function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text.replace(
-                /ﷺ/g,
-                "صَلَّى اللَّهُ عَلَيهِ وَسَلَّم"
-              );
-              document.getElementById("textMainArea").value = newText;
-              return false;
+
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/ﷺ/g, "صَلَّى اللَّهُ عَلَيهِ وَسَلَّم");
             } else {
               //run first function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text
-                .replace(/صلى الله عليه وسلم/g, "ﷺ")
+
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/صلى الله عليه وسلم/g, "ﷺ")
                 .replace(/صَلَّى اللَّهُ عَلَيهِ وَسَلَّم/g, "ﷺ")
                 .replace(/صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمْ/g, "ﷺ")
                 .replace(/صَلَّى اللَّهُ عَلَيهِ وَسَلَّم/g, "ﷺ")
                 .replace(/صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمْ/g, "ﷺ")
                 .replace(/صَلَّى الله عَلَيهِ وَسَلَّم/g, "ﷺ");
-              document.getElementById("textMainArea").value = newText;
-              return false;
             }
           }
 
           function arToNum() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/٠/g, "0")
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/٠/g, "0")
               .replace(/١/g, "1")
               .replace(/٢/g, "2")
               .replace(/٣/g, "3")
@@ -2217,8 +2211,6 @@
               .replace(/٧/g, "7")
               .replace(/٨/g, "8")
               .replace(/٩/g, "9");
-            document.getElementById("textMainArea").value = newText;
-            return false;
           }
           //
 
@@ -2227,9 +2219,9 @@
             numToSansSerif_timesClicked++;
             if (numToSansSerif_timesClicked % 2 == 0) {
               //run second function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text
-                .replace(/𝟢/g, "0")
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/𝟢/g, "0")
                 .replace(/𝟣/g, "1")
                 .replace(/𝟤/g, "2")
                 .replace(/𝟥/g, "3")
@@ -2239,13 +2231,11 @@
                 .replace(/𝟩/g, "7")
                 .replace(/𝟪/g, "8")
                 .replace(/𝟫/g, "9");
-              document.getElementById("textMainArea").value = newText;
-              return false;
             } else {
               //run first function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text
-                .replace(/0/g, "𝟢")
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/0/g, "𝟢")
                 .replace(/1/g, "𝟣")
                 .replace(/2/g, "𝟤")
                 .replace(/3/g, "𝟥")
@@ -2255,8 +2245,6 @@
                 .replace(/7/g, "𝟩")
                 .replace(/8/g, "𝟪")
                 .replace(/9/g, "𝟫");
-              document.getElementById("textMainArea").value = newText;
-              return false;
             }
           }
           //
@@ -2312,30 +2300,27 @@
             if (numToBracket_timesClicked == 1) {
               //run first function
 
-              var text = document.getElementById("textMainArea").value;
-              var newText = text.replace(/\b(\d+)\b/g, "($1)");
-
-              document.getElementById("textMainArea").value = newText;
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\b(\d+)\b/g, "($1)");
 
               document.getElementById("bracketedNumber").innerHTML =
                 "(1) ↔ [1]";
             } else if (numToBracket_timesClicked == 2) {
               //run second function
 
-              var text = document.getElementById("textMainArea").value;
-              var newText = text.replace(/\(\b(\d+)\b\)/g, "[$1]");
-
-              document.getElementById("textMainArea").value = newText;
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\(\b(\d+)\b\)/g, "[$1]");
 
               document.getElementById("bracketedNumber").innerHTML = "(1) ↔ 1";
             } else if (numToBracket_timesClicked == 3) {
               $(".test").text("third");
               //run third function
 
-              var text = document.getElementById("textMainArea").value;
-              var newText = text.replace(/\[\b(\d+)\b\]/g, "$1");
-
-              document.getElementById("textMainArea").value = newText;
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\[\b(\d+)\b\]/g, "$1");
 
               document.getElementById("bracketedNumber").innerHTML = "1 ↔ [1]";
 
@@ -2350,9 +2335,9 @@
             numToSuperScript_timesClicked++;
             if (numToSuperScript_timesClicked % 2 == 0) {
               //run second function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text
-                .replace(/⁽/g, "\(")
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/⁽/g, "\(")
                 .replace(/⁾/g, "\)")
                 .replace(/⁰/g, "0")
                 .replace(/¹/g, "1")
@@ -2364,13 +2349,11 @@
                 .replace(/⁷/g, "7")
                 .replace(/⁸/g, "8")
                 .replace(/⁹/g, "9");
-              document.getElementById("textMainArea").value = newText;
-              return false;
             } else {
               //run first function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text
-                .replace(/\(/g, "⁽")
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\(/g, "⁽")
                 .replace(/\)/g, "⁾")
                 .replace(/\[/g, "⁽")
                 .replace(/\]/g, "⁾")
@@ -2384,26 +2367,22 @@
                 .replace(/7/g, "⁷")
                 .replace(/8/g, "⁸")
                 .replace(/9/g, "⁹");
-              document.getElementById("textMainArea").value = newText;
-              return false;
             }
           }
 
           // https://stackoverflow.com/questions/13807207/regex-find-a-number-between-parentheses/13807294#13807294
           function replaceFootNos() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/^.*?\([^\d]*(\d+)[^\d]*\).*$/g, "")
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/^.*?\([^\d]*(\d+)[^\d]*\).*$/g, "")
               .replace(/^.*?\[[^\d]*(\d+)[^\d]*\].*$/g, "")
               .replace(/⁽(.*)⁾/g, "");
-            document.getElementById("textMainArea").value = newText;
-            return false;
           }
 
           function remThiki() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/ޘ/g, "ސ")
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/ޘ/g, "ސ")
               .replace(/ޙ/g, "ހ")
               .replace(/ޛ/g, "ޒ")
               .replace(/ޜ/g, "ޒ")
@@ -2413,8 +2392,6 @@
               .replace(/ޢ/g, "އ")
               .replace(/ޤ/g, "ގ")
               .replace(/ޥ/g, "ވ");
-            document.getElementById("textMainArea").value = newText;
-            return false;
           }
 
           var replaceSpacesLines_timesClicked = 0;
@@ -2422,18 +2399,18 @@
             replaceSpacesLines_timesClicked++;
             if (replaceSpacesLines_timesClicked % 2 == 0) {
               //run second function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text.replace(/[\r\n]+/g, "\n");
-              document.getElementById("textMainArea").value = newText;
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/[\r\n]+/g, "\n");
 
               document.getElementById("extraSpaces").innerHTML =
                 "Rmv Xtra Space";
               return false;
             } else {
               //run first function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text
-                .replace(/^[ \s]+|[ \s]+$/g, "")
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/^[ \s]+|[ \s]+$/g, "")
                 // https://stackoverflow.com/questions/22962220/remove-multiple-line-breaks-n-in-javascript/22962255#22962255
                 .replace(/(\r\n|\r|\n){3,}/g, "$1\n")
                 .replace(/\u0009 /g, " ")
@@ -2465,18 +2442,16 @@
                 .replace(/\" /g, '"') //starting quotation mark
                 .replace(/(\s|^)\"([^\"]+) \"/g, '$1"$2"') //ending quotation mark
                 .replace(/\- \./g, "-.");
-              document.getElementById("textMainArea").value = newText;
 
               document.getElementById("extraSpaces").innerHTML =
                 "Rmv More Space";
-              return false;
             }
           }
 
           function replacePunct() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/\!/g, ".")
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/\!/g, ".")
               .replace(/\@/g, "")
               .replace(/\#/g, "")
               .replace(/\$/g, "")
@@ -2512,8 +2487,6 @@
               .replace(/\“/g, "")
               .replace(/\.\./g, ".")
               .replace(/\.\./g, ".");
-            document.getElementById("textMainArea").value = newText;
-            return false;
           }
 
           var replaceCommaScolonQ_timesClicked = 0;
@@ -2521,22 +2494,18 @@
             replaceCommaScolonQ_timesClicked++;
             if (replaceCommaScolonQ_timesClicked % 2 == 0) {
               //run second function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text
-                .replace(/،/g, "\,")
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/،/g, "\,")
                 .replace(/؛/g, "\;")
                 .replace(/؟/g, "\?");
-              document.getElementById("textMainArea").value = newText;
-              return false;
             } else {
               //run first function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text
-                .replace(/\,/g, "،")
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\,/g, "،")
                 .replace(/\;/g, "؛")
                 .replace(/\?/g, "؟");
-              document.getElementById("textMainArea").value = newText;
-              return false;
             }
           }
           //
@@ -2546,53 +2515,44 @@
             replaceQbracket_timesClicked++;
             if (replaceQbracket_timesClicked % 2 == 0) {
               //run second function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text
-                .replace(/\﴾/g, "{")
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\﴾/g, "{")
                 .replace(/\﴿/g, "}")
                 .replace(/\۝/g, "*");
-              document.getElementById("textMainArea").value = newText;
-              return false;
             } else {
               //run first function
-              var text = document.getElementById("textMainArea").value;
-              //var newText = text.replace(/\{/g, "﴾").replace(/\}/g, "﴿");
-              var newText = text
-                .replace(/\{/g, "﴾")
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\{/g, "﴾")
                 .replace(/\}/g, "﴿")
                 .replace(/\*/g, "۝");
-              document.getElementById("textMainArea").value = newText;
-              return false;
             }
           }
           //
 
           function shaddaB4Haraka() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/ُّ/g, "ُّ")
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/ُّ/g, "ُّ")
               .replace(/َّ/g, "َّ")
               .replace(/ِّ/g, "ِّ")
 
               .replace(/ٌّ/g, "ٌّ")
               .replace(/ًّ/g, "ًّ")
               .replace(/ٍّ/g, "ٍّ");
-            document.getElementById("textMainArea").value = newText;
-            return false;
           }
 
           function replaceColon() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text.replace(/:/g, ".");
-            document.getElementById("textMainArea").value = newText;
-            return false;
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/:/g, ".");
           }
 
           function replaceKashida() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text.replace(/ـ/g, "");
-            document.getElementById("textMainArea").value = newText;
-            return false;
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/ـ/g, "");
           }
 
           var replaceQuotes_timesClicked = 0;
@@ -2600,24 +2560,20 @@
             replaceQuotes_timesClicked++;
             if (replaceQuotes_timesClicked % 2 == 0) {
               //run second function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text
-                .replace(/\u201D|\u201C/g, '"')
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\u201D|\u201C/g, '"')
                 .replace(/\u2019|\u2018/g, "'");
-              document.getElementById("textMainArea").value = newText;
-              return false;
             } else {
               //run first function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text
-                .replace(/\'\'/g, "’‘")
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\'\'/g, "’‘")
                 .replace(/\"\"/g, "”“")
                 .replace(/(|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C") //without spaces
                 .replace(/(\s|^)\"([^\"]+)\"/g, "$1\u201D$2\u201C")
                 .replace(/(|^)\'([^\']+)\'/g, "$1\u2019$2\u2018") //without spaces
                 .replace(/(\s|^)\'([^\']+)\'/g, "$1\u2019$2\u2018");
-              document.getElementById("textMainArea").value = newText;
-              return false;
             }
           }
 
@@ -2626,35 +2582,30 @@
             replaceQtoDoubleAngBrackets_timesClicked++;
             if (replaceQtoDoubleAngBrackets_timesClicked % 2 == 0) {
               //run second function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text.replace(/\«|\»/g, '"');
-              document.getElementById("textMainArea").value = newText;
-              return false;
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\«|\»/g, '"');
             } else {
               //run first function
-              var text = document.getElementById("textMainArea").value;
-              var newText = text
-                .replace(/\"\"/g, "\»\«")
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.replace(/\"\"/g, "\»\«")
                 .replace(/\)\)/g, "\»")
                 .replace(/\(\(/g, "\«")
                 .replace(/(|^)\"([^\"]+)\"/g, "$1\«$2\»") //without spaces
                 .replace(/(\s|^)\"([^\"]+)\"/g, "$1\«$2\»");
-              document.getElementById("textMainArea").value = newText;
-              return false;
             }
           }
 
           function replaceDoubleBrackets() {
-            var text = document.getElementById("textMainArea").value;
-            var newText = text
-              .replace(/\(\(/g, "(")
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/\(\(/g, "(")
               .replace(/\)\)/g, ")")
               .replace(/\[\[/g, "[")
               .replace(/\]\]/g, "]")
               .replace(/\{\{/g, "{")
               .replace(/\}\}/g, "}");
-            document.getElementById("textMainArea").value = newText;
-            return false;
           }
         </script>
 
@@ -2854,14 +2805,15 @@
             if (htmlOList_timesClicked == 1) {
               //run first function
 
-              var str = document.getElementById("textMainArea").value;
-              var lines = str.split("\n");
+              var lines = document
+                .getElementById("textMainArea")
+                .value.split("\n");
               for (var i = 0; i < lines.length; i++) {
                 lines[i] = "<li>" + lines[i] + "</li>";
               }
 
-              linesFinal = "<ol>" + lines.join("\n") + "</ol>";
-              document.getElementById("textMainArea").value = linesFinal;
+              document.getElementById("textMainArea").value =
+                "<ol>" + lines.join("\n") + "</ol>";
 
               document.getElementById("htmlNList").innerHTML = "HTML U List";
             } else if (htmlOList_timesClicked == 2) {
@@ -2955,16 +2907,13 @@
             } // added plus signs here
             // https://stackoverflow.com/questions/14496531/adding-two-numbers-concatenates-them-instead-of-calculating-the-sum/14496556#14496556
             //
-            var result = range(minL, maxL); // [9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+            document.getElementById("textMainArea").value = range(minL, maxL); // [9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
             //console.log(result);
-            document.getElementById("textMainArea").value = result;
 
             // added below to turn commas into new lines
-            result2 = document
+            document.getElementById("textMainArea").value = document
               .getElementById("textMainArea")
               .value.replace(/\,/g, "\n");
-
-            document.getElementById("textMainArea").value = result2;
           }
           //
 
@@ -2977,14 +2926,14 @@
             prefixVal = document.getElementById("prefixVal").value;
             suffixVal = document.getElementById("suffixVal").value;
 
-            var str = document.getElementById("textMainArea").value;
-            var lines = str.split("\n");
+            var lines = document
+              .getElementById("textMainArea")
+              .value.split("\n");
             for (var i = 0; i < lines.length; i++) {
               lines[i] = prefixVal + lines[i] + suffixVal;
             }
 
-            linesFinal = lines.join("\n");
-            document.getElementById("textMainArea").value = linesFinal;
+            document.getElementById("textMainArea").value = lines.join("\n");
           }
           //
 
@@ -3826,14 +3775,16 @@ cols="60"-->
           // https://stackoverflow.com/questions/39236731/how-to-find-sum-of-integers-in-a-string-using-javascript
 
           function outputSum() {
-            var str = document.getElementById("textSumArea").value;
             //var str = "12sf0as9d";
             //var pattern = /\d+/g;    // \d should be fine for matching any nonnegative integer, \d is equivalent to [0-9]
             //var pattern = /\-?\d+/g; // https://stackoverflow.com/questions/6508043/regular-expression-to-find-any-number-in-a-string
             var pattern = /[+-]?\d+(?:\.\d+)?/g;
-            var totalSum = str.match(pattern).reduce(function (prev, num) {
-              return prev + +num;
-            }, 0);
+            var totalSum = document
+              .getElementById("textSumArea")
+              .value.match(pattern)
+              .reduce(function (prev, num) {
+                return prev + +num;
+              }, 0);
 
             //console.log(str.match(pattern)); // ["12", "0", "9"]
             //console.log(total); // 21
