@@ -204,7 +204,7 @@
       border: 0.25px solid rgba(0, 0, 0, 0.25);
     }
 
-    .editorButtons .findRepClass {
+    .editorButtons .inputFieldClass {
       font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
       font-size: 16px;
       width: 150px;
@@ -216,7 +216,7 @@
       /* add ease in transition for hover */
       transition: transform 0.2s ease-out;
     }
-    .findRepClass {
+    .inputFieldClass {
       /* add border to button*/
       border: 0.25px solid rgba(0, 0, 0, 0.25) !important;
     }
@@ -235,7 +235,7 @@
         margin-left: 0px;
       }
 
-      .editorButtons .findRepClass {
+      .editorButtons .inputFieldClass {
         font-size: 13.5px;
         width: 130px;
         height: 50px;
@@ -979,15 +979,14 @@
           </button>-->
 
           <input
-            class="findRepClass"
+            class="inputFieldClass"
             placeholder="Max eg. 10"
             type="text"
             id="maxNrand"
             style="color: blue; display: none"
           />
-
           <input
-            class="findRepClass"
+            class="inputFieldClass"
             placeholder=".Enter Min No"
             type="text"
             id="minNrand"
@@ -1075,24 +1074,22 @@
           <!--<button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>-->
 
           <button
-            onclick="linesOfNumbers();"
+            onclick="linesOfNumbers();triggerTheCounts();"
             id="lineNumButton"
             class="ttClass"
             data-tooltip="Generate a list of numbers, each on a new line from 1-10, or based on your minimum and maximum input next to this button after you click it"
           >
             #️⃣ <u>G</u>en NumList
           </button>
-
           <input
-            class="findRepClass"
+            class="inputFieldClass"
             placeholder="Max eg. 10"
             type="text"
             id="maxNline"
             style="color: blue; display: none"
           />
-
           <input
-            class="findRepClass"
+            class="inputFieldClass"
             placeholder=".Enter Min No"
             type="text"
             id="minNline"
@@ -1100,7 +1097,30 @@
           />
 
           <button
-            onclick="numToBracket();"
+            onclick="prefixSuffixLine();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Add a prefix or suffix before and after every line of text"
+          >
+            ➕ Prefix/Suffix
+          </button>
+
+          <input
+            class="inputFieldClass"
+            placeholder="Enter Suffix"
+            type="text"
+            id="suffixVal"
+            style="color: red; display: none"
+          />
+          <input
+            class="inputFieldClass"
+            placeholder="Enter Prefix"
+            type="text"
+            id="prefixVal"
+            style="color: blue; display: none"
+          />
+
+          <button
+            onclick="numToBracket();triggerTheCounts();"
             id="bracketedNumber"
             class="ttClass"
             data-tooltip="Places round brackets around numbers on the first click, then square brackets around them on the second, then removes those brackets on the third"
@@ -1303,13 +1323,12 @@
           <br />
 
           <input
-            class="findRepClass"
+            class="inputFieldClass"
             placeholder="2 މިއަށް ބަދަލުކުރޭ"
             type="text"
             id="replaceWith"
             style="color: blue"
           />
-
           <span
             id="hiddenFindCount"
             style="display: none"
@@ -1317,9 +1336,8 @@
             data-tooltip="Shows the number of instances the search has matched in the text"
             >(<span id="findCounted">0</span>)</span
           >
-
           <input
-            class="findRepClass"
+            class="inputFieldClass"
             placeholder="1 މިލަފްޒު ހޯދާފާ"
             type="text"
             id="findThis"
@@ -2902,7 +2920,6 @@
               document.getElementById("textMainArea").value =
                 Math.floor(Math.random() * 10) + 1;
             } else {
-              //document.getElementById("textMainArea").value = "0";
               minR = document.getElementById("minNrand").value;
               maxR = document.getElementById("maxNrand").value;
               //return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -2927,7 +2944,6 @@
               var maxL = 10;
               //
             } else {
-              //document.getElementById("textMainArea").value = "0";
               minL = document.getElementById("minNline").value;
               maxL = document.getElementById("maxNline").value;
               //
@@ -2949,6 +2965,26 @@
               .value.replace(/\,/g, "\n");
 
             document.getElementById("textMainArea").value = result2;
+          }
+          //
+
+          // made this by changing the function of linesOfNumbers
+          function prefixSuffixLine() {
+            // code for range input
+            document.getElementById("prefixVal").style.display = "inline-block";
+            document.getElementById("suffixVal").style.display = "inline-block";
+
+            prefixVal = document.getElementById("prefixVal").value;
+            suffixVal = document.getElementById("suffixVal").value;
+
+            var str = document.getElementById("textMainArea").value;
+            var lines = str.split("\n");
+            for (var i = 0; i < lines.length; i++) {
+              lines[i] = prefixVal + lines[i] + suffixVal;
+            }
+
+            linesFinal = lines.join("\n");
+            document.getElementById("textMainArea").value = linesFinal;
           }
           //
 
