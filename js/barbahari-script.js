@@ -332,7 +332,7 @@ $(document).ready(() => {
         },
       },
 
-      info: "_TOTAL_ ނުކުތާގެ ތެރެއިން _START_ އަކުން _END_ އަކަށް",
+      info: "_TOTAL_ ނުކުތާގެ ތެރެއިން _START_ އިން_END_ އަކަށް",
       infoFiltered: "(ޖުމްލަ ބެލެވުނީ _MAX_)",
       infoEmpty: "— ނުފެނުނު —",
       lengthMenu: "_MENU_",
