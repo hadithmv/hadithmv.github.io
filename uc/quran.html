@@ -1359,7 +1359,7 @@
                 border-radius: 3px;
                 background-color: transparent;
                 text-indent: 10px;
-                font-size: 20px;
+                font-size: 18px;
                 width: 130px;
                 color: #b8c4cc;
                 /*height: 40px;*/
@@ -1369,8 +1369,16 @@
                 display: none; /* remove default arrow */
               }
             </style>
-            <form>
-              <input id="surahNameID" list="surahName" placeholder="ސޫރަތް" />
+            <form style="text-align: center; display: inline-block">
+              <input
+                id="surahNameID"
+                list="surahName"
+                placeholder="ސޫރަތް"
+                onfocus="this.value=''"
+                onchange="this.blur();"
+                style="display: block; float: right"
+              />
+              <!-- https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
               <datalist id="surahName">
                 <option value="𝟣 الفاتحة"></option>
                 <option value="𝟤 البقرة"></option>
@@ -1487,17 +1495,18 @@
                 <option value="𝟣𝟣𝟥 الفلق"></option>
                 <option value="𝟣𝟣𝟦 الناس"></option>
               </datalist>
-            </form>
 
-            <span>&nbsp;</span>
+              <span style="display: block; float: right"> &nbsp; &nbsp; </span>
 
-            <form>
               <input
                 id="ayahNoID"
                 list="ayahNo"
                 placeholder="އާޔަތް"
-                onchange="jumpTo()"
+                onfocus="this.value=''"
+                onchange="this.blur();jumpTo();"
+                style="display: block; float: right"
               />
+              <!-- https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
               <datalist id="ayahNo">
                 <option value="1"></option>
                 <option value="2"></option>
@@ -1847,7 +1856,9 @@
               ޤުރްއާން‘ ޖަހާފައިވާ މެނިއޫއަށް ފިތާލުމަށް ފަހު، ’ސޫރަތްތަކަށް‘
               ގޮސް ސޫރަތެއް އިޚްތިޔާރު ކުރައްވާށެވެ. އަނެއް ގޮތަކީ ’ފިލްޓާތައް‘
               މި ބަޓަންއަށް ފިތާލެއްވުމަށް ފަހު، ސޫރަތެއް އިޚްތިޔާރު ކުރުއްމެވެ.
-              <br />
+            </p>
+
+            <p class="justi">
               ވަކި އާޔަތަކަށް ދިޔުމަށް: ތަރުޖަމާގެ ތިރީގައިވާ ދެ ގޮޅީގައި،
               ސޫރަތުގެ ނަމާއި، އާޔަތުގެ ނަމްބަރު ލިޔުއްވާށެވެ. ނޫނީ އާޔަތް
               އަރަބިން ފިލިނުޖަހައި ސާޗުގައި ލިޔުއްވާ (މިސާލަކަށް: ومن يشاقق
