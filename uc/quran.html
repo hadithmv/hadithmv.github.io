@@ -1324,10 +1324,6 @@
             <script>
               // https://stackoverflow.com/questions/18249758/i-cant-get-the-value-of-a-input-within-a-datalist/18250028#18250028
               function jumpTo() {
-                //var surahNameVal = document.getElementById("surahNameID").value;
-                //var ayahNoVal = document.getElementById("ayahNoID").value;
-                //console.log(surahNameVal + " " + ayahNoVal);
-
                 var combinedVals =
                   document.getElementById("surahNameID").value +
                   " " +
@@ -1377,7 +1373,7 @@
               list="surahName"
               placeholder="ސޫރަތް"
             />
-            <datalist id="surahName">
+            <datalist id="surahName" style="overflow-anchor: none">
               <option value="𝟣 الفاتحة"></option>
               <option value="𝟤 البقرة"></option>
               <option value="𝟥 آل عمران"></option>
