@@ -908,14 +908,14 @@ $(document).ready(() => {
 
   // https://stackoverflow.com/questions/7407111/detect-page-change-on-datatable/34995105#34995105
   $("#quranTable").on("draw.dt", function () {
-    document.getElementById("surahNameID").value =
-      document.getElementsByClassName("qCol1")[1].innerText;
+    document.getElementById("surahNameID").value = document
+      .getElementsByClassName("qCol1")[1]
+      .innerText.replace(/سورة /g, "");
     /*document.getElementById("ayahNoID").value =
       document.getElementsByClassName("qCol4")[1].innerText;*/
     var z = document
       .getElementsByClassName("qCol4")[1]
       .innerText.replace(/[^١|٢|٣|٤|٥|٦|٧|٨|٩|٠]/g, "")
-      .replace(/سورة /g, "")
       .replace(/٠/g, "0")
       .replace(/١/g, "1")
       .replace(/٢/g, "2")
