@@ -750,7 +750,7 @@ $(document).ready(() => {
     $(".dataTable").on("page.dt", () => {
       $("html, body").animate(
         {
-          scrollTop: 148, //prev 0
+          scrollTop: 178, //prev 0 // 148
         },
         "fast"
       );
@@ -904,6 +904,29 @@ $(document).ready(() => {
     $(this).val(str);
     //table.search(str).draw();
     // commenting above out allows searchdelay to work with stringreplace
+  });
+
+  // https://stackoverflow.com/questions/7407111/detect-page-change-on-datatable/34995105#34995105
+  $("#quranTable").on("draw.dt", function () {
+    document.getElementById("surahNameID").value =
+      document.getElementsByClassName("qCol1")[1].innerText;
+    /*document.getElementById("ayahNoID").value =
+      document.getElementsByClassName("qCol4")[1].innerText;*/
+    var z = document
+      .getElementsByClassName("qCol4")[1]
+      .innerText.replace(/[^١|٢|٣|٤|٥|٦|٧|٨|٩|٠]/g, "")
+      .replace(/٠/g, "0")
+      .replace(/١/g, "1")
+      .replace(/٢/g, "2")
+      .replace(/٣/g, "3")
+      .replace(/٤/g, "4")
+      .replace(/٥/g, "5")
+      .replace(/٦/g, "6")
+      .replace(/٧/g, "7")
+      .replace(/٨/g, "8")
+      .replace(/٩/g, "9");
+    //console.log(z);
+    document.getElementById("ayahNoID").value = z;
   });
 
   //

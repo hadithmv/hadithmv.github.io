@@ -1227,8 +1227,8 @@
               function redirectAnchor() {
                 var url = window.location.toString();
                 window.location = url
-                  .replace(/quranBakurube.html/, "quran.html")
-                  .replace(/quranBakurubeTable/, "quranTable")
+                  .replace(/quran.html/, "quranBakurube.html")
+                  .replace(/quranTable/, "quranBakurubeTable")
                   .replace(/\:v.*$/, "");
               }
             </script>
@@ -1312,19 +1312,21 @@
 
       <div class="content">
         <main>
-          <!-- class="w3-animate-right" -->
-          <!-- --- TABLE --- -->
-          <!-- JEKYLL {{ content }} -->
-          <!-- cards js adds card classes to table ID -->
-          <!-- change123 TABLE - card view set as default here -->
-          <!-- class="stripe table cards"> -->
-          <table id="quranBakurubeTable" class="table cards"></table>
-          <!-- --- TABLE - END --- -->
-
-          <div class="hidden" id="footer">
-            <!--
+          <!--
               -->
+          <div class="hidden" id="footer2">
             <script>
+              //
+              // makes footer visible after script finishes rendering
+              window.onload = function () {
+                document.getElementById("footer2").classList.remove("hidden");
+                //
+                /*document.getElementById("ayahNoID").value = 1;
+                    document.getElementById("surahNameID").value =
+                      document.getElementsByClassName("buttons-copy")[0].innerText;
+                      */
+              };
+              //
               // https://stackoverflow.com/questions/18249758/i-cant-get-the-value-of-a-input-within-a-datalist/18250028#18250028
               function jumpTo() {
                 var combinedVals =
@@ -1352,25 +1354,22 @@
                 //}, 1510);
 
                 /*document.querySelectorAll(
-                  ".dataTables_filter input[type=search]"
-                ).value = combinedVals;*/
+                        ".dataTables_filter input[type=search]"
+                      ).value = combinedVals;*/
               }
 
-              //
-              function scrollHere() {
-                //
-                if (window.matchMedia("(max-width: 599px)").matches) {
-                  //
-                  $("html, body").animate(
-                    {
-                      scrollTop: 550, //prev 0
-                    },
-                    "fast"
-                  );
-                  //
-                }
-                //
-              }
+              /*
+                  function scrollHere() {
+                    if (window.matchMedia("(max-width: 599px)").matches) {
+                      $("html, body").animate(
+                        {
+                          scrollTop: 550, //prev 0
+                        },
+                        "fast"
+                      );
+                    }
+                  }
+                  */
             </script>
             <style>
               #surahNameID,
@@ -1379,16 +1378,17 @@
                 font-family: dvFont, arFont, Quicksand, sans-serif, faruma;
                 border: 1px solid #aaa;
                 border-radius: 3px;
-                background-color: transparent;
+                /*background-color: transparent;*/
                 text-indent: 10px;
-                font-size: 18px;
-                width: 130px;
-                color: #b8c4cc;
+                /*font-size: 20px;*/
+                font-size: 16px;
+                /*width: 200px;*/
+                width: 120px;
+                /*color: #b8c4cc;*/
                 /*height: 40px;*/
                 /*position: absolute;*/
-              }
-              input::-webkit-calendar-picker-indicator {
-                display: none; /* remove default arrow */
+                background-color: #1a232d !important;
+                color: rgb(255 255 255/84.7%) !important;
               }
             </style>
             <form style="text-align: center; display: inline-block">
@@ -1396,7 +1396,7 @@
                 id="surahNameID"
                 list="surahName"
                 placeholder="ސޫރަތް"
-                onfocus="this.value='';scrollHere();"
+                onfocus="this.value='';"
                 onchange="this.blur();"
                 style="display: block; float: right"
               />
@@ -1524,7 +1524,7 @@
                 id="ayahNoID"
                 list="ayahNo"
                 placeholder="އާޔަތް"
-                onfocus="this.value='';scrollHere();"
+                onfocus="this.value='';"
                 onchange="this.blur();jumpTo();"
                 style="display: block; float: right"
                 onselect="jumpTo()"
@@ -1819,11 +1819,20 @@
                 <option value="286"></option>
               </datalist>
             </form>
+            <!-- <div class="hidden"> -->
+          </div>
 
-            <br />
+          <!-- -->
+          <!-- class="w3-animate-right" -->
+          <!-- --- TABLE --- -->
+          <!-- JEKYLL {{ content }} -->
+          <!-- cards js adds card classes to table ID -->
+          <!-- change123 TABLE - card view set as default here -->
+          <!-- class="stripe table cards"> -->
+          <table id="quranBakurubeTable" class="table cards"></table>
+          <!-- --- TABLE - END --- -->
 
-            <!-- -->
-
+          <div class="hidden" id="footer">
             <p class="">
               ⚠️&nbsp; ބަކުރުބޭގެ ތަރުޖަމާ މިތާ އެކުލަވާ ނުއެއް ނިމޭ. މި
               ޑޭޓާބޭސް ފުރިހަމަ ކުރުމުގައި ބައިވެރިވާން އެދޭ ނަމަ،
