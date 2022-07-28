@@ -1326,12 +1326,15 @@
               -->
             <script>
               // https://stackoverflow.com/questions/18249758/i-cant-get-the-value-of-a-input-within-a-datalist/18250028#18250028
-              function validate() {
-                var surahNameVal = document.getElementById("surahNameID").value;
-                var ayahNoVal = document.getElementById("ayahNoID").value;
+              function jumpTo() {
+                //var surahNameVal = document.getElementById("surahNameID").value;
+                //var ayahNoVal = document.getElementById("ayahNoID").value;
                 //console.log(surahNameVal + " " + ayahNoVal);
 
-                var combinedVals = surahNameVal + " " + ayahNoVal;
+                var combinedVals =
+                  document.getElementById("surahNameID").value +
+                  " " +
+                  document.getElementById("ayahNoID").value;
 
                 // https://stackoverflow.com/questions/33371038/programmatically-search-a-table-with-jquery-datatables/33371324#33371324
                 //$("#quranTable").dataTable().fnFilter(combinedVals);
@@ -1340,17 +1343,17 @@
                   .search(combinedVals)
                   .draw();
 
-                setTimeout(function () {
-                  //$("#quranTable").DataTable().destroy();
-                  //#quranTable > tbody > tr > td.qCol4
+                //setTimeout(function () {
 
-                  // https://stackoverflow.com/questions/38089625/programatically-click-on-button-using-javascript/38089731#38089731
-                  document.getElementsByClassName("odd")[0].click();
-                  document.getElementsByClassName("odd")[0].click();
-                  //document.getElementsByClassName("copyURL")[0].click();
+                //$("#quranTable").DataTable().destroy();
+                //#quranTable > tbody > tr > td.qCol4
 
-                  //
-                }, 1510);
+                // https://stackoverflow.com/questions/38089625/programatically-click-on-button-using-javascript/38089731#38089731
+                document.getElementsByClassName("odd")[0].click();
+                document.getElementsByClassName("odd")[0].click();
+                //document.getElementsByClassName("copyURL")[0].click();
+
+                //}, 1510);
 
                 /*document.querySelectorAll(
                   ".dataTables_filter input[type=search]"
@@ -1505,7 +1508,7 @@
               name="ayah"
               list="ayahNo"
               placeholder="އާޔަތް"
-              onchange="validate()"
+              onchange="jumpTo()"
             />
             <datalist id="ayahNo">
               <option value="1"></option>
