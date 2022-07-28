@@ -1392,6 +1392,12 @@
                   color: #333;
                 }
               }
+
+              /* hhttps://stackoverflow.com/questions/20937475/remove-datalist-dropdown-arrow-in-chrome/54997118#54997118 */
+              [list]::-webkit-calendar-picker-indicator {
+                /*display: none !important;*/
+                padding-left: 12px !important;
+              }
             </style>
             <form style="text-align: center; display: inline-block">
               <input
