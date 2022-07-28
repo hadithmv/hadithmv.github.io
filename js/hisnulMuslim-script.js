@@ -389,7 +389,7 @@ $(document).ready(() => {
       lengthMenu: "_MENU_",
       search: "", // Originally "Search:" leave this blank in production
       searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"',
-      zeroRecords: "<br><br><br><br>— ނުފެނުނު —<br><br><br><br><br><br>",
+      zeroRecords: "<br><br><br><br>— ނުފެނުނު —<br><br><br><br><br>",
       searchPanes: {
         emptyMessage: "— ވަކި ނަމެއް ނެތް —",
         clearMessage: "ހުރިހާ ފިލްޓާއެއް ދުއްވާލާ",
