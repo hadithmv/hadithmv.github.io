@@ -906,6 +906,7 @@ $(document).ready(() => {
     // commenting above out allows searchdelay to work with stringreplace
   });
 
+  // every time page draws, surah and ayah box update to extract surah and ayah values, the word surah is removed, and arabic numbers are turned into regular digits
   // https://stackoverflow.com/questions/7407111/detect-page-change-on-datatable/34995105#34995105
   $("#quranTable").on("draw.dt", function () {
     document.getElementById("surahNameID").value = document
@@ -913,7 +914,7 @@ $(document).ready(() => {
       .innerText.replace(/سورة /g, "");
     /*document.getElementById("ayahNoID").value =
       document.getElementsByClassName("qCol4")[1].innerText;*/
-    var z = document
+    document.getElementById("ayahNoID").value = document
       .getElementsByClassName("qCol4")[1]
       .innerText.replace(/[^١|٢|٣|٤|٥|٦|٧|٨|٩|٠]/g, "")
       .replace(/٠/g, "0")
@@ -926,8 +927,6 @@ $(document).ready(() => {
       .replace(/٧/g, "7")
       .replace(/٨/g, "8")
       .replace(/٩/g, "9");
-    //console.log(z);
-    document.getElementById("ayahNoID").value = z;
   });
 
   //
