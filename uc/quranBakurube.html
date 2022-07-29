@@ -26,7 +26,7 @@
     />
 
     <!-- change123 html -->
-    <title>Hadithmv - Bakurube Quran Translation</title>
+    <title>Hadithmv - Bakurube Quran</title>
     <meta
       name="description"
       content="The Maldivian Hadith Translation Platform | ދިވެހިންގެ ޙަދީޘް ތަރުޖަމާ މަންސަ"
@@ -61,6 +61,7 @@
     <!-- Critical CSS - END -->
 
     <style>
+      /* footnote line after bakurube lafzee tharujama */
       .Qbr {
         display: block; /* makes it have a width */
         content: ""; /* clears default height */
@@ -373,7 +374,11 @@
       /* Chrome DevTools (Three dots > More tools > Rendering > Emulate CSS media feature prefers-color-scheme */
 
       @media (prefers-color-scheme: dark) {
+        /* The :not(X) property in CSS is a negation pseudo class and accepts a simple selector1 as an argument.
+  otherwise border : 1px overwrites the quran frame and white outline gets larger */
+
         /* ayahbox */
+
         #quranBakurubeTable > tbody > tr > td.qCol1 {
           /* font-weight: normal;*/
           background: #212d39;
@@ -1217,19 +1222,29 @@
               </ul>
             </li>
 
-            <!-- https://stackoverflow.com/questions/4664707/how-to-replace-part-of-the-url-with-javascript/4664716#4664716
+            <!-- takes the url and replaces the page and table before reloading, while removing modifier :v and what comes after it
+            https://stackoverflow.com/questions/4664707/how-to-replace-part-of-the-url-with-javascript/4664716#4664716
             https://stackoverflow.com/questions/19367373/regex-for-remove-everything-after-with/19367430#19367430 -->
-
             <li>
               <a onclick="redirectAnchor()">ޙަދީޘްއެމްވީ ތަރުޖަމާ</a>
             </li>
             <script type="text/javascript">
+              // https://stackoverflow.com/questions/6629728/check-if-a-string-has-a-certain-piece-of-text/6629743#6629743
               function redirectAnchor() {
-                var url = window.location.toString();
-                window.location = url
-                  .replace(/quranBakurube.html/, "quran.html")
-                  .replace(/quranTableBakurube/, "quranTable")
-                  .replace(/\:v.*$/, "");
+                //var url = window.location.toString();
+                if (window.location.toString().includes("quranBakurube.html")) {
+                  window.location = window.location
+                    .toString()
+                    .replace(/quranBakurube.html/, "quran.html")
+                    .replace(/quranBakurubeTable/, "quranTable")
+                    .replace(/\:v.*$/, "");
+                } else if (window.location.toString().includes("quran.html")) {
+                  window.location = window.location
+                    .toString()
+                    .replace(/quran.html/, "quranBakurube.html")
+                    .replace(/quranTable/, "quranBakurubeTable")
+                    .replace(/\:v.*$/, "");
+                }
               }
             </script>
 
@@ -1312,7 +1327,10 @@
 
       <div class="content">
         <main>
-          <!--
+          <!-- creates two input boxes, which are datalist, for surahs and ayahs.
+            hides them until page loads.
+            boxes take extracted values for surah and ayah before combining them, running search on them, and executing a double click on the first row to jump to that page.
+            // every time page draws, surah and ayah box update to extract surah and ayah values, the word surah is removed, and arabic numbers are turned into regular digits
               -->
           <div class="hidden" id="footer2">
             <script>
@@ -1327,13 +1345,13 @@
                       */
               };
               //
+              // combines surah and ayah value in search then searches it
               // https://stackoverflow.com/questions/18249758/i-cant-get-the-value-of-a-input-within-a-datalist/18250028#18250028
               function jumpTo() {
                 var combinedVals =
                   document.getElementById("surahNameID").value +
                   " " +
                   document.getElementById("ayahNoID").value;
-
                 // https://stackoverflow.com/questions/33371038/programmatically-search-a-table-with-jquery-datatables/33371324#33371324
                 //$("#quranTable").dataTable().fnFilter(combinedVals);
                 $("#quranBakurubeTable")
@@ -1346,6 +1364,7 @@
                 //$("#quranTable").DataTable().destroy();
                 //#quranTable > tbody > tr > td.qCol4
 
+                // double clicks on first td
                 // https://stackoverflow.com/questions/38089625/programatically-click-on-button-using-javascript/38089731#38089731
                 document.getElementsByClassName("odd")[0].click();
                 document.getElementsByClassName("odd")[0].click();
@@ -1371,6 +1390,7 @@
               }
               */
 
+              // replaces regular digits when typed into sans digits
               function changeDigits() {
                 document.getElementById("surahNameID").value = document
                   .getElementById("surahNameID")
@@ -1406,6 +1426,7 @@
                 color: rgb(255 255 255/84.7%);
               }
 
+              /* light box for light mode */
               @media (prefers-color-scheme: light) {
                 #surahNameID,
                 #ayahNoID {
@@ -1414,11 +1435,13 @@
                 }
               }
 
-              /* https://stackoverflow.com/questions/20937475/remove-datalist-dropdown-arrow-in-chrome/54997118#54997118 */
+              /* moves datalist arrow to the right
+              https://stackoverflow.com/questions/20937475/remove-datalist-dropdown-arrow-in-chrome/54997118#54997118 */
               [list]::-webkit-calendar-picker-indicator {
                 /*display: none !important;*/
                 padding-left: 12px !important;
               }
+              /* below document.getElementById('ayahNoID').value = 1 sets place to first ayah when surah changed */
             </style>
             <form style="text-align: center; display: inline-block">
               <input
@@ -1426,7 +1449,7 @@
                 list="surahName"
                 placeholder="ސޫރަތް"
                 onfocus="this.value='';"
-                onchange="this.blur();jumpTo();"
+                onchange="this.blur();jumpTo();document.getElementById('ayahNoID').value = 1;"
                 style="display: block; float: right"
                 oninput="changeDigits();"
                 onselect="jumpTo()"
