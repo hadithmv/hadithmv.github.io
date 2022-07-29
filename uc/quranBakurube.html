@@ -1347,10 +1347,7 @@
               //
               // combines surah and ayah value in search then searches it
               // https://stackoverflow.com/questions/18249758/i-cant-get-the-value-of-a-input-within-a-datalist/18250028#18250028
-              function jumpToItsPage() {
-                //
-                // makes default ayah 1 on input change
-                document.getElementById("ayahNoID").value = 1;
+              function jumpToPage() {
                 //
                 var combinedVals =
                   document.getElementById("surahNameID").value +
@@ -1409,6 +1406,10 @@
                   .replace(/8/g, "𝟪")
                   .replace(/9/g, "𝟫");
               }
+              function setAyahToOne() {
+                // makes default ayah 1 on surah change
+                document.getElementById("ayahNoID").value = 1;
+              }
             </script>
             <style>
               #surahNameID,
@@ -1452,10 +1453,10 @@
                 list="surahName"
                 placeholder="ސޫރަތް"
                 onfocus="this.value='';"
-                onchange="this.blur();jumpTo();"
+                onchange="this.blur();jumpToPage();setAyahToOne()"
                 style="display: block; float: right"
-                oninput="changeDigits();"
-                onselect="jumpTo()"
+                oninput="changeDigitsOnInput();setAyahToOne()"
+                onselect="jumpToPage();setAyahToOne()"
               />
               <!-- https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
               <datalist id="surahName">
@@ -1582,9 +1583,9 @@
                 list="ayahNo"
                 placeholder="އާޔަތް"
                 onfocus="this.value='';"
-                onchange="this.blur();jumpTo();"
+                onchange="this.blur();jumpToPage();"
                 style="display: block; float: right"
-                onselect="jumpTo()"
+                onselect="jumpToPage()"
               />
               <!-- https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
               <datalist id="ayahNo">
