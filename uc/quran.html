@@ -408,12 +408,11 @@
         <nav id="menu">
           <ul>
             <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
-
+            <!--
             <li>
               <span>ސޫރަތްތައް</span>
               <ul>
                 <li>
-                  <!-- to make these js url click jumps work, url has to match, uc and non uc, currently works on non uc -->
                   <a
                     href="javascript:void(0)"
                     onclick="window.location='../books/quran.html'; location.reload();"
@@ -1213,6 +1212,7 @@
                 </li>
               </ul>
             </li>
+            -->
 
             <!-- takes the url and replaces the page and table before reloading, while removing modifier :v and what comes after it
             https://stackoverflow.com/questions/4664707/how-to-replace-part-of-the-url-with-javascript/4664716#4664716
@@ -1440,7 +1440,7 @@
               }
             </style>
             <form style="text-align: center; display: inline-block">
-              <input
+              <!--<input
                 id="surahNameID"
                 list="surahName"
                 placeholder="ސޫރަތް"
@@ -1449,128 +1449,144 @@
                 style="display: block; float: right"
                 oninput="changeDigitsOnInput();setAyahToOne()"
                 onselect="jumpToItsPage();setAyahToOne()"
-              />
+              />-->
               <!-- clear and blur above https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
-              <datalist id="surahName">
-                <option value="𝟣 الفاتحة"></option>
-                <option value="𝟤 البقرة"></option>
-                <option value="𝟥 آل عمران"></option>
-                <option value="𝟦 النساء"></option>
-                <option value="𝟧 المائدة"></option>
-                <option value="𝟨 الأنعام"></option>
-                <option value="𝟩 الأعراف"></option>
-                <option value="𝟪 الأنفال"></option>
-                <option value="𝟫 التوبة"></option>
-                <option value="𝟣𝟢 يونس"></option>
-                <option value="𝟣𝟣 هود"></option>
-                <option value="𝟣𝟤 يوسف"></option>
-                <option value="𝟣𝟥 الرعد"></option>
-                <option value="𝟣𝟦 إبراهيم"></option>
-                <option value="𝟣𝟧 الحجر"></option>
-                <option value="𝟣𝟨 النحل"></option>
-                <option value="𝟣𝟩 الإسراء"></option>
-                <option value="𝟣𝟪 الكهف"></option>
-                <option value="𝟣𝟫 مريم"></option>
-                <option value="𝟤𝟢 طه"></option>
-                <option value="𝟤𝟣 الأنبياء"></option>
-                <option value="𝟤𝟤 الحج"></option>
-                <option value="𝟤𝟥 المؤمنون"></option>
-                <option value="𝟤𝟦 النور"></option>
-                <option value="𝟤𝟧 الفرقان"></option>
-                <option value="𝟤𝟨 الشعراء"></option>
-                <option value="𝟤𝟩 النمل"></option>
-                <option value="𝟤𝟪 القصص"></option>
-                <option value="𝟤𝟫 العنكبوت"></option>
-                <option value="𝟥𝟢 الروم"></option>
-                <option value="𝟥𝟣 لقمان"></option>
-                <option value="𝟥𝟤 السجدة"></option>
-                <option value="𝟥𝟥 الأحزاب"></option>
-                <option value="𝟥𝟦 سبإ"></option>
-                <option value="𝟥𝟧 فاطر"></option>
-                <option value="𝟥𝟨 يس"></option>
-                <option value="𝟥𝟩 الصافات"></option>
-                <option value="𝟥𝟪 ص"></option>
-                <option value="𝟥𝟫 الزمر"></option>
-                <option value="𝟦𝟢 غافر"></option>
-                <option value="𝟦𝟣 فصلت"></option>
-                <option value="𝟦𝟤 الشورى"></option>
-                <option value="𝟦𝟥 الزخرف"></option>
-                <option value="𝟦𝟦 الدخان"></option>
-                <option value="𝟦𝟧 الجاثية"></option>
-                <option value="𝟦𝟨 الأحقاف"></option>
-                <option value="𝟦𝟩 محمد"></option>
-                <option value="𝟦𝟪 الفتح"></option>
-                <option value="𝟦𝟫 الحجرات"></option>
-                <option value="𝟧𝟢 ق"></option>
-                <option value="𝟧𝟣 الذاريات"></option>
-                <option value="𝟧𝟤 الطور"></option>
-                <option value="𝟧𝟥 النجم"></option>
-                <option value="𝟧𝟦 القمر"></option>
-                <option value="𝟧𝟧 الرحمن"></option>
-                <option value="𝟧𝟨 الواقعة"></option>
-                <option value="𝟧𝟩 الحديد"></option>
-                <option value="𝟧𝟪 المجادلة"></option>
-                <option value="𝟧𝟫 الحشر"></option>
-                <option value="𝟨𝟢 الممتحنة"></option>
-                <option value="𝟨𝟣 الصف"></option>
-                <option value="𝟨𝟤 الجمعة"></option>
-                <option value="𝟨𝟥 المنافقون"></option>
-                <option value="𝟨𝟦 التغابن"></option>
-                <option value="𝟨𝟧 الطلاق"></option>
-                <option value="𝟨𝟨 التحريم"></option>
-                <option value="𝟨𝟩 الملك"></option>
-                <option value="𝟨𝟪 القلم"></option>
-                <option value="𝟨𝟫 الحاقة"></option>
-                <option value="𝟩𝟢 المعارج"></option>
-                <option value="𝟩𝟣 نوح"></option>
-                <option value="𝟩𝟤 الجن"></option>
-                <option value="𝟩𝟥 المزمل"></option>
-                <option value="𝟩𝟦 المدثر"></option>
-                <option value="𝟩𝟧 القيامة"></option>
-                <option value="𝟩𝟨 الإنسان"></option>
-                <option value="𝟩𝟩 المرسلات"></option>
-                <option value="𝟩𝟪 النبإ"></option>
-                <option value="𝟩𝟫 النازعات"></option>
-                <option value="𝟪𝟢 عبس"></option>
-                <option value="𝟪𝟣 التكوير"></option>
-                <option value="𝟪𝟤 الانفطار"></option>
-                <option value="𝟪𝟥 المطففين"></option>
-                <option value="𝟪𝟦 الانشقاق"></option>
-                <option value="𝟪𝟧 البروج"></option>
-                <option value="𝟪𝟨 الطارق"></option>
-                <option value="𝟪𝟩 الأعلى"></option>
-                <option value="𝟪𝟪 الغاشية"></option>
-                <option value="𝟪𝟫 الفجر"></option>
-                <option value="𝟫𝟢 البلد"></option>
-                <option value="𝟫𝟣 الشمس"></option>
-                <option value="𝟫𝟤 الليل"></option>
-                <option value="𝟫𝟥 الضحى"></option>
-                <option value="𝟫𝟦 الشرح"></option>
-                <option value="𝟫𝟧 التين"></option>
-                <option value="𝟫𝟨 العلق"></option>
-                <option value="𝟫𝟩 القدر"></option>
-                <option value="𝟫𝟪 البينة"></option>
-                <option value="𝟫𝟫 الزلزلة"></option>
-                <option value="𝟣𝟢𝟢 العاديات"></option>
-                <option value="𝟣𝟢𝟣 القارعة"></option>
-                <option value="𝟣𝟢𝟤 التكاثر"></option>
-                <option value="𝟣𝟢𝟥 العصر"></option>
-                <option value="𝟣𝟢𝟦 الهمزة"></option>
-                <option value="𝟣𝟢𝟧 الفيل"></option>
-                <option value="𝟣𝟢𝟨 قريش"></option>
-                <option value="𝟣𝟢𝟩 الماعون"></option>
-                <option value="𝟣𝟢𝟪 الكوثر"></option>
-                <option value="𝟣𝟢𝟫 الكافرون"></option>
-                <option value="𝟣𝟣𝟢 النصر"></option>
-                <option value="𝟣𝟣𝟣 المسد"></option>
-                <option value="𝟣𝟣𝟤 الإخلاص"></option>
-                <option value="𝟣𝟣𝟥 الفلق"></option>
-                <option value="𝟣𝟣𝟦 الناس"></option>
-              </datalist>
+              <!-- datalist not supported properly yet, mobile chrome has overlaying the keyboard issue, and firefox doesnt show the list at all
+                <select id="surahName">
+                <datalist id="surahName">
+                  <option value="𝟣 الفاتحة"></option>
+                  id="surahName"
+                list="surahName"
+                -->
+              <select
+                id="surahNameID"
+                placeholder="ސޫރަތް"
+                onfocus="this.value='';"
+                onchange="this.blur();jumpToItsPage();setAyahToOne()"
+                style="display: block; float: right"
+                oninput="changeDigitsOnInput();setAyahToOne()"
+                onselect="jumpToItsPage();setAyahToOne()"
+              >
+                <option value="" disabled selected>ސޫރަތް</option>
+                <option value="𝟣 الفاتحة">𝟣 الفاتحة</option>
+                <option value="𝟤 البقرة">𝟤 البقرة</option>
+                <option value="𝟥 آل عمران">𝟥 آل عمران</option>
+                <option value="𝟦 النساء">𝟦 النساء</option>
+                <option value="𝟧 المائدة">𝟧 المائدة</option>
+                <option value="𝟨 الأنعام">𝟨 الأنعام</option>
+                <option value="𝟩 الأعراف">𝟩 الأعراف</option>
+                <option value="𝟪 الأنفال">𝟪 الأنفال</option>
+                <option value="𝟫 التوبة">𝟫 التوبة</option>
+                <option value="𝟣𝟢 يونس">𝟣𝟢 يونس</option>
+                <option value="𝟣𝟣 هود">𝟣𝟣 هود</option>
+                <option value="𝟣𝟤 يوسف">𝟣𝟤 يوسف</option>
+                <option value="𝟣𝟥 الرعد">𝟣𝟥 الرعد</option>
+                <option value="𝟣𝟦 إبراهيم">𝟣𝟦 إبراهيم</option>
+                <option value="𝟣𝟧 الحجر">𝟣𝟧 الحجر</option>
+                <option value="𝟣𝟨 النحل">𝟣𝟨 النحل</option>
+                <option value="𝟣𝟩 الإسراء">𝟣𝟩 الإسراء</option>
+                <option value="𝟣𝟪 الكهف">𝟣𝟪 الكهف</option>
+                <option value="𝟣𝟫 مريم">𝟣𝟫 مريم</option>
+                <option value="𝟤𝟢 طه">𝟤𝟢 طه</option>
+                <option value="𝟤𝟣 الأنبياء">𝟤𝟣 الأنبياء</option>
+                <option value="𝟤𝟤 الحج">𝟤𝟤 الحج</option>
+                <option value="𝟤𝟥 المؤمنون">𝟤𝟥 المؤمنون</option>
+                <option value="𝟤𝟦 النور">𝟤𝟦 النور</option>
+                <option value="𝟤𝟧 الفرقان">𝟤𝟧 الفرقان</option>
+                <option value="𝟤𝟨 الشعراء">𝟤𝟨 الشعراء</option>
+                <option value="𝟤𝟩 النمل">𝟤𝟩 النمل</option>
+                <option value="𝟤𝟪 القصص">𝟤𝟪 القصص</option>
+                <option value="𝟤𝟫 العنكبوت">𝟤𝟫 العنكبوت</option>
+                <option value="𝟥𝟢 الروم">𝟥𝟢 الروم</option>
+                <option value="𝟥𝟣 لقمان">𝟥𝟣 لقمان</option>
+                <option value="𝟥𝟤 السجدة">𝟥𝟤 السجدة</option>
+                <option value="𝟥𝟥 الأحزاب">𝟥𝟥 الأحزاب</option>
+                <option value="𝟥𝟦 سبإ">𝟥𝟦 سبإ</option>
+                <option value="𝟥𝟧 فاطر">𝟥𝟧 فاطر</option>
+                <option value="𝟥𝟨 يس">𝟥𝟨 يس</option>
+                <option value="𝟥𝟩 الصافات">𝟥𝟩 الصافات</option>
+                <option value="𝟥𝟪 ص">𝟥𝟪 ص</option>
+                <option value="𝟥𝟫 الزمر">𝟥𝟫 الزمر</option>
+                <option value="𝟦𝟢 غافر">𝟦𝟢 غافر</option>
+                <option value="𝟦𝟣 فصلت">𝟦𝟣 فصلت</option>
+                <option value="𝟦𝟤 الشورى">𝟦𝟤 الشورى</option>
+                <option value="𝟦𝟥 الزخرف">𝟦𝟥 الزخرف</option>
+                <option value="𝟦𝟦 الدخان">𝟦𝟦 الدخان</option>
+                <option value="𝟦𝟧 الجاثية">𝟦𝟧 الجاثية</option>
+                <option value="𝟦𝟨 الأحقاف">𝟦𝟨 الأحقاف</option>
+                <option value="𝟦𝟩 محمد">𝟦𝟩 محمد</option>
+                <option value="𝟦𝟪 الفتح">𝟦𝟪 الفتح</option>
+                <option value="𝟦𝟫 الحجرات">𝟦𝟫 الحجرات</option>
+                <option value="𝟧𝟢 ق">𝟧𝟢 ق</option>
+                <option value="𝟧𝟣 الذاريات">𝟧𝟣 الذاريات</option>
+                <option value="𝟧𝟤 الطور">𝟧𝟤 الطور</option>
+                <option value="𝟧𝟥 النجم">𝟧𝟥 النجم</option>
+                <option value="𝟧𝟦 القمر">𝟧𝟦 القمر</option>
+                <option value="𝟧𝟧 الرحمن">𝟧𝟧 الرحمن</option>
+                <option value="𝟧𝟨 الواقعة">𝟧𝟨 الواقعة</option>
+                <option value="𝟧𝟩 الحديد">𝟧𝟩 الحديد</option>
+                <option value="𝟧𝟪 المجادلة">𝟧𝟪 المجادلة</option>
+                <option value="𝟧𝟫 الحشر">𝟧𝟫 الحشر</option>
+                <option value="𝟨𝟢 الممتحنة">𝟨𝟢 الممتحنة</option>
+                <option value="𝟨𝟣 الصف">𝟨𝟣 الصف</option>
+                <option value="𝟨𝟤 الجمعة">𝟨𝟤 الجمعة</option>
+                <option value="𝟨𝟥 المنافقون">𝟨𝟥 المنافقون</option>
+                <option value="𝟨𝟦 التغابن">𝟨𝟦 التغابن</option>
+                <option value="𝟨𝟧 الطلاق">𝟨𝟧 الطلاق</option>
+                <option value="𝟨𝟨 التحريم">𝟨𝟨 التحريم</option>
+                <option value="𝟨𝟩 الملك">𝟨𝟩 الملك</option>
+                <option value="𝟨𝟪 القلم">𝟨𝟪 القلم</option>
+                <option value="𝟨𝟫 الحاقة">𝟨𝟫 الحاقة</option>
+                <option value="𝟩𝟢 المعارج">𝟩𝟢 المعارج</option>
+                <option value="𝟩𝟣 نوح">𝟩𝟣 نوح</option>
+                <option value="𝟩𝟤 الجن">𝟩𝟤 الجن</option>
+                <option value="𝟩𝟥 المزمل">𝟩𝟥 المزمل</option>
+                <option value="𝟩𝟦 المدثر">𝟩𝟦 المدثر</option>
+                <option value="𝟩𝟧 القيامة">𝟩𝟧 القيامة</option>
+                <option value="𝟩𝟨 الإنسان">𝟩𝟨 الإنسان</option>
+                <option value="𝟩𝟩 المرسلات">𝟩𝟩 المرسلات</option>
+                <option value="𝟩𝟪 النبإ">𝟩𝟪 النبإ</option>
+                <option value="𝟩𝟫 النازعات">𝟩𝟫 النازعات</option>
+                <option value="𝟪𝟢 عبس">𝟪𝟢 عبس</option>
+                <option value="𝟪𝟣 التكوير">𝟪𝟣 التكوير</option>
+                <option value="𝟪𝟤 الانفطار">𝟪𝟤 الانفطار</option>
+                <option value="𝟪𝟥 المطففين">𝟪𝟥 المطففين</option>
+                <option value="𝟪𝟦 الانشقاق">𝟪𝟦 الانشقاق</option>
+                <option value="𝟪𝟧 البروج">𝟪𝟧 البروج</option>
+                <option value="𝟪𝟨 الطارق">𝟪𝟨 الطارق</option>
+                <option value="𝟪𝟩 الأعلى">𝟪𝟩 الأعلى</option>
+                <option value="𝟪𝟪 الغاشية">𝟪𝟪 الغاشية</option>
+                <option value="𝟪𝟫 الفجر">𝟪𝟫 الفجر</option>
+                <option value="𝟫𝟢 البلد">𝟫𝟢 البلد</option>
+                <option value="𝟫𝟣 الشمس">𝟫𝟣 الشمس</option>
+                <option value="𝟫𝟤 الليل">𝟫𝟤 الليل</option>
+                <option value="𝟫𝟥 الضحى">𝟫𝟥 الضحى</option>
+                <option value="𝟫𝟦 الشرح">𝟫𝟦 الشرح</option>
+                <option value="𝟫𝟧 التين">𝟫𝟧 التين</option>
+                <option value="𝟫𝟨 العلق">𝟫𝟨 العلق</option>
+                <option value="𝟫𝟩 القدر">𝟫𝟩 القدر</option>
+                <option value="𝟫𝟪 البينة">𝟫𝟪 البينة</option>
+                <option value="𝟫𝟫 الزلزلة">𝟫𝟫 الزلزلة</option>
+                <option value="𝟣𝟢𝟢 العاديات">𝟣𝟢𝟢 العاديات</option>
+                <option value="𝟣𝟢𝟣 القارعة">𝟣𝟢𝟣 القارعة</option>
+                <option value="𝟣𝟢𝟤 التكاثر">𝟣𝟢𝟤 التكاثر</option>
+                <option value="𝟣𝟢𝟥 العصر">𝟣𝟢𝟥 العصر</option>
+                <option value="𝟣𝟢𝟦 الهمزة">𝟣𝟢𝟦 الهمزة</option>
+                <option value="𝟣𝟢𝟧 الفيل">𝟣𝟢𝟧 الفيل</option>
+                <option value="𝟣𝟢𝟨 قريش">𝟣𝟢𝟨 قريش</option>
+                <option value="𝟣𝟢𝟩 الماعون">𝟣𝟢𝟩 الماعون</option>
+                <option value="𝟣𝟢𝟪 الكوثر">𝟣𝟢𝟪 الكوثر</option>
+                <option value="𝟣𝟢𝟫 الكافرون">𝟣𝟢𝟫 الكافرون</option>
+                <option value="𝟣𝟣𝟢 النصر">𝟣𝟣𝟢 النصر</option>
+                <option value="𝟣𝟣𝟣 المسد">𝟣𝟣𝟣 المسد</option>
+                <option value="𝟣𝟣𝟤 الإخلاص">𝟣𝟣𝟤 الإخلاص</option>
+                <option value="𝟣𝟣𝟥 الفلق">𝟣𝟣𝟥 الفلق</option>
+                <option value="𝟣𝟣𝟦 الناس">𝟣𝟣𝟦 الناس</option>
+              </select>
 
               <span style="display: block; float: right"> &nbsp; &nbsp; </span>
 
-              <input
+              <!--<input
                 id="ayahNoID"
                 list="ayahNo"
                 placeholder="އާޔަތް"
@@ -1578,295 +1594,309 @@
                 onchange="this.blur();jumpToItsPage();"
                 style="display: block; float: right"
                 onselect="jumpToItsPage()"
+                 id="ayahNo"
+              list="ayahNo"
               />
-              <datalist id="ayahNo">
-                <option value="1"></option>
-                <option value="2"></option>
-                <option value="3"></option>
-                <option value="4"></option>
-                <option value="5"></option>
-                <option value="6"></option>
-                <option value="7"></option>
-                <option value="8"></option>
-                <option value="9"></option>
-                <option value="10"></option>
-                <option value="11"></option>
-                <option value="12"></option>
-                <option value="13"></option>
-                <option value="14"></option>
-                <option value="15"></option>
-                <option value="16"></option>
-                <option value="17"></option>
-                <option value="18"></option>
-                <option value="19"></option>
-                <option value="20"></option>
-                <option value="21"></option>
-                <option value="22"></option>
-                <option value="23"></option>
-                <option value="24"></option>
-                <option value="25"></option>
-                <option value="26"></option>
-                <option value="27"></option>
-                <option value="28"></option>
-                <option value="29"></option>
-                <option value="30"></option>
-                <option value="31"></option>
-                <option value="32"></option>
-                <option value="33"></option>
-                <option value="34"></option>
-                <option value="35"></option>
-                <option value="36"></option>
-                <option value="37"></option>
-                <option value="38"></option>
-                <option value="39"></option>
-                <option value="40"></option>
-                <option value="41"></option>
-                <option value="42"></option>
-                <option value="43"></option>
-                <option value="44"></option>
-                <option value="45"></option>
-                <option value="46"></option>
-                <option value="47"></option>
-                <option value="48"></option>
-                <option value="49"></option>
-                <option value="50"></option>
-                <option value="51"></option>
-                <option value="52"></option>
-                <option value="53"></option>
-                <option value="54"></option>
-                <option value="55"></option>
-                <option value="56"></option>
-                <option value="57"></option>
-                <option value="58"></option>
-                <option value="59"></option>
-                <option value="60"></option>
-                <option value="61"></option>
-                <option value="62"></option>
-                <option value="63"></option>
-                <option value="64"></option>
-                <option value="65"></option>
-                <option value="66"></option>
-                <option value="67"></option>
-                <option value="68"></option>
-                <option value="69"></option>
-                <option value="70"></option>
-                <option value="71"></option>
-                <option value="72"></option>
-                <option value="73"></option>
-                <option value="74"></option>
-                <option value="75"></option>
-                <option value="76"></option>
-                <option value="77"></option>
-                <option value="78"></option>
-                <option value="79"></option>
-                <option value="80"></option>
-                <option value="81"></option>
-                <option value="82"></option>
-                <option value="83"></option>
-                <option value="84"></option>
-                <option value="85"></option>
-                <option value="86"></option>
-                <option value="87"></option>
-                <option value="88"></option>
-                <option value="89"></option>
-                <option value="90"></option>
-                <option value="91"></option>
-                <option value="92"></option>
-                <option value="93"></option>
-                <option value="94"></option>
-                <option value="95"></option>
-                <option value="96"></option>
-                <option value="97"></option>
-                <option value="98"></option>
-                <option value="99"></option>
-                <option value="100"></option>
-                <option value="101"></option>
-                <option value="102"></option>
-                <option value="103"></option>
-                <option value="104"></option>
-                <option value="105"></option>
-                <option value="106"></option>
-                <option value="107"></option>
-                <option value="108"></option>
-                <option value="109"></option>
-                <option value="110"></option>
-                <option value="111"></option>
-                <option value="112"></option>
-                <option value="113"></option>
-                <option value="114"></option>
-                <option value="115"></option>
-                <option value="116"></option>
-                <option value="117"></option>
-                <option value="118"></option>
-                <option value="119"></option>
-                <option value="120"></option>
-                <option value="121"></option>
-                <option value="122"></option>
-                <option value="123"></option>
-                <option value="124"></option>
-                <option value="125"></option>
-                <option value="126"></option>
-                <option value="127"></option>
-                <option value="128"></option>
-                <option value="129"></option>
-                <option value="130"></option>
-                <option value="131"></option>
-                <option value="132"></option>
-                <option value="133"></option>
-                <option value="134"></option>
-                <option value="135"></option>
-                <option value="136"></option>
-                <option value="137"></option>
-                <option value="138"></option>
-                <option value="139"></option>
-                <option value="140"></option>
-                <option value="141"></option>
-                <option value="142"></option>
-                <option value="143"></option>
-                <option value="144"></option>
-                <option value="145"></option>
-                <option value="146"></option>
-                <option value="147"></option>
-                <option value="148"></option>
-                <option value="149"></option>
-                <option value="150"></option>
-                <option value="151"></option>
-                <option value="152"></option>
-                <option value="153"></option>
-                <option value="154"></option>
-                <option value="155"></option>
-                <option value="156"></option>
-                <option value="157"></option>
-                <option value="158"></option>
-                <option value="159"></option>
-                <option value="160"></option>
-                <option value="161"></option>
-                <option value="162"></option>
-                <option value="163"></option>
-                <option value="164"></option>
-                <option value="165"></option>
-                <option value="166"></option>
-                <option value="167"></option>
-                <option value="168"></option>
-                <option value="169"></option>
-                <option value="170"></option>
-                <option value="171"></option>
-                <option value="172"></option>
-                <option value="173"></option>
-                <option value="174"></option>
-                <option value="175"></option>
-                <option value="176"></option>
-                <option value="177"></option>
-                <option value="178"></option>
-                <option value="179"></option>
-                <option value="180"></option>
-                <option value="181"></option>
-                <option value="182"></option>
-                <option value="183"></option>
-                <option value="184"></option>
-                <option value="185"></option>
-                <option value="186"></option>
-                <option value="187"></option>
-                <option value="188"></option>
-                <option value="189"></option>
-                <option value="190"></option>
-                <option value="191"></option>
-                <option value="192"></option>
-                <option value="193"></option>
-                <option value="194"></option>
-                <option value="195"></option>
-                <option value="196"></option>
-                <option value="197"></option>
-                <option value="198"></option>
-                <option value="199"></option>
-                <option value="200"></option>
-                <option value="201"></option>
-                <option value="202"></option>
-                <option value="203"></option>
-                <option value="204"></option>
-                <option value="205"></option>
-                <option value="206"></option>
-                <option value="207"></option>
-                <option value="208"></option>
-                <option value="209"></option>
-                <option value="210"></option>
-                <option value="211"></option>
-                <option value="212"></option>
-                <option value="213"></option>
-                <option value="214"></option>
-                <option value="215"></option>
-                <option value="216"></option>
-                <option value="217"></option>
-                <option value="218"></option>
-                <option value="219"></option>
-                <option value="220"></option>
-                <option value="221"></option>
-                <option value="222"></option>
-                <option value="223"></option>
-                <option value="224"></option>
-                <option value="225"></option>
-                <option value="226"></option>
-                <option value="227"></option>
-                <option value="228"></option>
-                <option value="229"></option>
-                <option value="230"></option>
-                <option value="231"></option>
-                <option value="232"></option>
-                <option value="233"></option>
-                <option value="234"></option>
-                <option value="235"></option>
-                <option value="236"></option>
-                <option value="237"></option>
-                <option value="238"></option>
-                <option value="239"></option>
-                <option value="240"></option>
-                <option value="241"></option>
-                <option value="242"></option>
-                <option value="243"></option>
-                <option value="244"></option>
-                <option value="245"></option>
-                <option value="246"></option>
-                <option value="247"></option>
-                <option value="248"></option>
-                <option value="249"></option>
-                <option value="250"></option>
-                <option value="251"></option>
-                <option value="252"></option>
-                <option value="253"></option>
-                <option value="254"></option>
-                <option value="255"></option>
-                <option value="256"></option>
-                <option value="257"></option>
-                <option value="258"></option>
-                <option value="259"></option>
-                <option value="260"></option>
-                <option value="261"></option>
-                <option value="262"></option>
-                <option value="263"></option>
-                <option value="264"></option>
-                <option value="265"></option>
-                <option value="266"></option>
-                <option value="267"></option>
-                <option value="268"></option>
-                <option value="269"></option>
-                <option value="270"></option>
-                <option value="271"></option>
-                <option value="272"></option>
-                <option value="273"></option>
-                <option value="274"></option>
-                <option value="275"></option>
-                <option value="276"></option>
-                <option value="277"></option>
-                <option value="278"></option>
-                <option value="279"></option>
-                <option value="280"></option>
-                <option value="281"></option>
-                <option value="282"></option>
-                <option value="283"></option>
-                <option value="284"></option>
-                <option value="285"></option>
-                <option value="286"></option>
-              </datalist>
+            <datalist id="ayahNo">
+              <option value="1"></option>
+              https://stackoverflow.com/questions/5805059/how-do-i-make-a-placeholder-for-a-select-box/5859221#5859221
+            -->
+              <select
+                id="ayahNoID"
+                placeholder="އާޔަތް"
+                onfocus="this.value='';"
+                onchange="this.blur();jumpToItsPage();"
+                style="display: block; float: right"
+                onselect="jumpToItsPage()"
+              >
+                <option value="" disabled selected>އާޔަތް</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+                <option value="37">37</option>
+                <option value="38">38</option>
+                <option value="39">39</option>
+                <option value="40">40</option>
+                <option value="41">41</option>
+                <option value="42">42</option>
+                <option value="43">43</option>
+                <option value="44">44</option>
+                <option value="45">45</option>
+                <option value="46">46</option>
+                <option value="47">47</option>
+                <option value="48">48</option>
+                <option value="49">49</option>
+                <option value="50">50</option>
+                <option value="51">51</option>
+                <option value="52">52</option>
+                <option value="53">53</option>
+                <option value="54">54</option>
+                <option value="55">55</option>
+                <option value="56">56</option>
+                <option value="57">57</option>
+                <option value="58">58</option>
+                <option value="59">59</option>
+                <option value="60">60</option>
+                <option value="61">61</option>
+                <option value="62">62</option>
+                <option value="63">63</option>
+                <option value="64">64</option>
+                <option value="65">65</option>
+                <option value="66">66</option>
+                <option value="67">67</option>
+                <option value="68">68</option>
+                <option value="69">69</option>
+                <option value="70">70</option>
+                <option value="71">71</option>
+                <option value="72">72</option>
+                <option value="73">73</option>
+                <option value="74">74</option>
+                <option value="75">75</option>
+                <option value="76">76</option>
+                <option value="77">77</option>
+                <option value="78">78</option>
+                <option value="79">79</option>
+                <option value="80">80</option>
+                <option value="81">81</option>
+                <option value="82">82</option>
+                <option value="83">83</option>
+                <option value="84">84</option>
+                <option value="85">85</option>
+                <option value="86">86</option>
+                <option value="87">87</option>
+                <option value="88">88</option>
+                <option value="89">89</option>
+                <option value="90">90</option>
+                <option value="91">91</option>
+                <option value="92">92</option>
+                <option value="93">93</option>
+                <option value="94">94</option>
+                <option value="95">95</option>
+                <option value="96">96</option>
+                <option value="97">97</option>
+                <option value="98">98</option>
+                <option value="99">99</option>
+                <option value="100">100</option>
+                <option value="101">101</option>
+                <option value="102">102</option>
+                <option value="103">103</option>
+                <option value="104">104</option>
+                <option value="105">105</option>
+                <option value="106">106</option>
+                <option value="107">107</option>
+                <option value="108">108</option>
+                <option value="109">109</option>
+                <option value="110">110</option>
+                <option value="111">111</option>
+                <option value="112">112</option>
+                <option value="113">113</option>
+                <option value="114">114</option>
+                <option value="115">115</option>
+                <option value="116">116</option>
+                <option value="117">117</option>
+                <option value="118">118</option>
+                <option value="119">119</option>
+                <option value="120">120</option>
+                <option value="121">121</option>
+                <option value="122">122</option>
+                <option value="123">123</option>
+                <option value="124">124</option>
+                <option value="125">125</option>
+                <option value="126">126</option>
+                <option value="127">127</option>
+                <option value="128">128</option>
+                <option value="129">129</option>
+                <option value="130">130</option>
+                <option value="131">131</option>
+                <option value="132">132</option>
+                <option value="133">133</option>
+                <option value="134">134</option>
+                <option value="135">135</option>
+                <option value="136">136</option>
+                <option value="137">137</option>
+                <option value="138">138</option>
+                <option value="139">139</option>
+                <option value="140">140</option>
+                <option value="141">141</option>
+                <option value="142">142</option>
+                <option value="143">143</option>
+                <option value="144">144</option>
+                <option value="145">145</option>
+                <option value="146">146</option>
+                <option value="147">147</option>
+                <option value="148">148</option>
+                <option value="149">149</option>
+                <option value="150">150</option>
+                <option value="151">151</option>
+                <option value="152">152</option>
+                <option value="153">153</option>
+                <option value="154">154</option>
+                <option value="155">155</option>
+                <option value="156">156</option>
+                <option value="157">157</option>
+                <option value="158">158</option>
+                <option value="159">159</option>
+                <option value="160">160</option>
+                <option value="161">161</option>
+                <option value="162">162</option>
+                <option value="163">163</option>
+                <option value="164">164</option>
+                <option value="165">165</option>
+                <option value="166">166</option>
+                <option value="167">167</option>
+                <option value="168">168</option>
+                <option value="169">169</option>
+                <option value="170">170</option>
+                <option value="171">171</option>
+                <option value="172">172</option>
+                <option value="173">173</option>
+                <option value="174">174</option>
+                <option value="175">175</option>
+                <option value="176">176</option>
+                <option value="177">177</option>
+                <option value="178">178</option>
+                <option value="179">179</option>
+                <option value="180">180</option>
+                <option value="181">181</option>
+                <option value="182">182</option>
+                <option value="183">183</option>
+                <option value="184">184</option>
+                <option value="185">185</option>
+                <option value="186">186</option>
+                <option value="187">187</option>
+                <option value="188">188</option>
+                <option value="189">189</option>
+                <option value="190">190</option>
+                <option value="191">191</option>
+                <option value="192">192</option>
+                <option value="193">193</option>
+                <option value="194">194</option>
+                <option value="195">195</option>
+                <option value="196">196</option>
+                <option value="197">197</option>
+                <option value="198">198</option>
+                <option value="199">199</option>
+                <option value="200">200</option>
+                <option value="201">201</option>
+                <option value="202">202</option>
+                <option value="203">203</option>
+                <option value="204">204</option>
+                <option value="205">205</option>
+                <option value="206">206</option>
+                <option value="207">207</option>
+                <option value="208">208</option>
+                <option value="209">209</option>
+                <option value="210">210</option>
+                <option value="211">211</option>
+                <option value="212">212</option>
+                <option value="213">213</option>
+                <option value="214">214</option>
+                <option value="215">215</option>
+                <option value="216">216</option>
+                <option value="217">217</option>
+                <option value="218">218</option>
+                <option value="219">219</option>
+                <option value="220">220</option>
+                <option value="221">221</option>
+                <option value="222">222</option>
+                <option value="223">223</option>
+                <option value="224">224</option>
+                <option value="225">225</option>
+                <option value="226">226</option>
+                <option value="227">227</option>
+                <option value="228">228</option>
+                <option value="229">229</option>
+                <option value="230">230</option>
+                <option value="231">231</option>
+                <option value="232">232</option>
+                <option value="233">233</option>
+                <option value="234">234</option>
+                <option value="235">235</option>
+                <option value="236">236</option>
+                <option value="237">237</option>
+                <option value="238">238</option>
+                <option value="239">239</option>
+                <option value="240">240</option>
+                <option value="241">241</option>
+                <option value="242">242</option>
+                <option value="243">243</option>
+                <option value="244">244</option>
+                <option value="245">245</option>
+                <option value="246">246</option>
+                <option value="247">247</option>
+                <option value="248">248</option>
+                <option value="249">249</option>
+                <option value="250">250</option>
+                <option value="251">251</option>
+                <option value="252">252</option>
+                <option value="253">253</option>
+                <option value="254">254</option>
+                <option value="255">255</option>
+                <option value="256">256</option>
+                <option value="257">257</option>
+                <option value="258">258</option>
+                <option value="259">259</option>
+                <option value="260">260</option>
+                <option value="261">261</option>
+                <option value="262">262</option>
+                <option value="263">263</option>
+                <option value="264">264</option>
+                <option value="265">265</option>
+                <option value="266">266</option>
+                <option value="267">267</option>
+                <option value="268">268</option>
+                <option value="269">269</option>
+                <option value="270">270</option>
+                <option value="271">271</option>
+                <option value="272">272</option>
+                <option value="273">273</option>
+                <option value="274">274</option>
+                <option value="275">275</option>
+                <option value="276">276</option>
+                <option value="277">277</option>
+                <option value="278">278</option>
+                <option value="279">279</option>
+                <option value="280">280</option>
+                <option value="281">281</option>
+                <option value="282">282</option>
+                <option value="283">283</option>
+                <option value="284">284</option>
+                <option value="285">285</option>
+                <option value="286">286</option>
+              </select>
             </form>
             <!-- <div class="hidden"> -->
           </div>
