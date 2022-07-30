@@ -1337,12 +1337,9 @@
                     */
               };
               //
-              var myFuncCalls = 0;
               // combines surah and ayah value in search then searches it
               // https://stackoverflow.com/questions/18249758/i-cant-get-the-value-of-a-input-within-a-datalist/18250028#18250028
               function jumpToItsPage() {
-                myFuncCalls++;
-                console.log("I have been called " + myFuncCalls + " times");
                 //
                 var combinedVals =
                   document.getElementById("surahNameID").value +
@@ -1453,7 +1450,7 @@
                 oninput="changeDigitsOnInput();setAyahToOne()"
                 onselect="jumpToItsPage();setAyahToOne()"
               />
-              <!-- https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
+              <!-- clear and blur above https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
               <datalist id="surahName">
                 <option value="𝟣 الفاتحة"></option>
                 <option value="𝟤 البقرة"></option>
@@ -1582,7 +1579,6 @@
                 style="display: block; float: right"
                 onselect="jumpToItsPage()"
               />
-              <!-- https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
               <datalist id="ayahNo">
                 <option value="1"></option>
                 <option value="2"></option>
