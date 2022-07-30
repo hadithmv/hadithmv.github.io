@@ -1339,7 +1339,7 @@
               //
               // combines surah and ayah value in search then searches it
               // https://stackoverflow.com/questions/18249758/i-cant-get-the-value-of-a-input-within-a-datalist/18250028#18250028
-              function jumpToPage() {
+              function jumpToItsPage() {
                 //
                 var combinedVals =
                   document.getElementById("surahNameID").value +
@@ -1445,10 +1445,10 @@
                 list="surahName"
                 placeholder="ސޫރަތް"
                 onfocus="this.value='';"
-                onchange="this.blur();jumpToPage();setAyahToOne()"
+                onchange="this.blur();jumpToItsPage();setAyahToOne()"
                 style="display: block; float: right"
                 oninput="changeDigitsOnInput();setAyahToOne()"
-                onselect="jumpToPage();setAyahToOne()"
+                onselect="jumpToItsPage();setAyahToOne()"
               />
               <!-- https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
               <datalist id="surahName">
@@ -1575,9 +1575,9 @@
                 list="ayahNo"
                 placeholder="އާޔަތް"
                 onfocus="this.value='';"
-                onchange="this.blur();jumpToPageItsPage();"
+                onchange="this.blur();jumpToItsPage();"
                 style="display: block; float: right"
-                onselect="jumpToPageItsPage()"
+                onselect="jumpToItsPage()"
               />
               <!-- https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
               <datalist id="ayahNo">
