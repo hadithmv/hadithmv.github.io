@@ -557,11 +557,34 @@
           <!-- https://jsfiddle.net/Meline222/fgpedL0z/1/ 
         https://codepen.io/alexandercastillo/pen/YXrmPE
       -->
+
+          <!--   -->
+
+          <script>
+            /*
+            let i = document.getElementById("slider");
+            i.addEventListener(
+              "input",
+              function () {
+                //var o = document.getElementById("textMainArea");
+                //o.style.fontSize = val + "px";
+                */
+
+            function fontChange() {
+              document.getElementById("textMainArea").style.fontSize =
+                document.getElementById("slider").value + "px";
+
+              // added below
+              document.getElementById("sliderValue").innerHTML =
+                document.getElementById("slider").value;
+            }
+          </script>
+
           <div style="display: inline-block; top: -50px !important">
             <table style="display: inline-block; margin-bottom: -10px">
               <tr>
                 <td width="25px">
-                  <span id="fontSlider">20</span>
+                  <span id="sliderValue">20</span>
                 </td>
               </tr>
             </table>
@@ -575,6 +598,7 @@
               style="padding: 0"
               class="ttClass"
               data-tooltip="Changes the font size of the text"
+              oninput="fontChange()"
             />&nbsp;
             <span class="big-letter">A</span>
           </div>
@@ -646,134 +670,6 @@
           function a() {
             localStorage.setItem("data", taid.value);
           }
-        </script>
-
-        <!-- http://jsfiddle.net/Mottie/sodofkcs/44/ 
-        
-        https://codepen.io/MySecondLife/pen/QQjLgN 
-      
-      https://embed.plnkr.co/plunk/2O40L2 -->
-
-        <script>
-          let i = document.getElementById("slider");
-          i.addEventListener(
-            "input",
-            function () {
-              //var o = document.getElementById("textMainArea");
-              //o.style.fontSize = val + "px";
-              document.getElementById("textMainArea").style.fontSize =
-                i.value + "px";
-
-              // added below
-              document.getElementById("fontSlider").innerHTML = val;
-            },
-            false
-          );
-        </script>
-
-        <style>
-          /*
-          .screenshot {
-            width: 3000px !important;
-            height: 3000px !important;
-            color: #000;
-            background-color: red;
-          }
-          */
-        </style>
-
-        <script>
-          /*
-          function takeScreenShot() {
-            document.querySelector(".screenshot") &&
-              document.querySelector(".screenshot").remove();
-
-            var textarea = document.getElementById("textMainArea");
-            textarea.style.height = textarea.scrollHeight + "px";
-
-            html2canvas(document.querySelector("#textMainArea"), {
-              //height: 1200,
-            }).then((canvas) => {
-              document.getElementById("img-out").appendChild(canvas).className =
-                "screenshot";
-            });
-          }
-          */
-          /*
-                  function takeScreenShot() {
-                    document.querySelector("#screenshot") &&
-                      document.querySelector("#screenshot").remove();
-                    //document.getElementById("img-out").remove(img);
-                    var node = document.getElementById("textMainArea");*/
-
-          /*
-                    var options = {
-                      quality: 0.99,
-                      width: 2000,
-                      height: 2000,
-                    };
-
-
-                    const scale = 3;
-                    const style = {
-                      transform: "scale(" + scale + ")",
-                      transformOrigin: "top left",
-                      width: node.offsetWidth + "px",
-                      height: node.offsetHeight + "px",
-                    };
-
-                    const options = {
-                      height: node.offsetHeight * scale,
-                      width: node.offsetWidth * scale,
-                      quality: 1,
-                      style,
-                    };*/
-
-          /*domtoimage
-                      //.toPng(node, options)
-                      //.toPng(node)
-                      .toPng(node, {
-                        //height: 1304,
-                        //width: 665,
-                        scale: 2,
-                        fontFamily: ["arFont"],
-
-                        style: {
-                          backgroundColor: "white",
-                          width: "820px",
-                          height: "665px",
-                          margin: "unset",
-                          //marginRight: "50px",
-                          top: "0px",
-                          fontFamily: "arFont",
-                        },
-                      })
-                      .then(function (dataUrl) {
-                        var img = new Image();
-                        img.id = "screenshot";
-                        (img.src = dataUrl), { width: 200, height: 200 };
-                        document.getElementById("img-out").appendChild(img);
-                      })
-                      .catch(function (error) {
-                        console.error("oops, something went wrong!", error);
-                      });
-                  }*/
-
-          /*
-                  function takeScreenShot() {
-                    document.querySelector(".createdImg") &&
-                      document.querySelector(".createdImg").remove();
-
-                    html2canvas(document.querySelector("#textMainArea"), {
-                      width: 500,
-                      height: 500,
-                      allowTaint: true,
-                    }).then((canvas) => {
-                      document.getElementById("img-out").appendChild(canvas).className =
-                        "createdImg";
-                    });
-                  }
-                  */
         </script>
 
         <p class="buttonHeader" style="margin: 0">
