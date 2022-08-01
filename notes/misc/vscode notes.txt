@@ -74,6 +74,9 @@ install the msi from the official site, updates npm too
 choco list -lo
 choco outdated
 ----------------------
+winget upgrade
+winget upgrade --all
+----------------------
 
 make list of extensions in vscode:
 	code --list-extensions
