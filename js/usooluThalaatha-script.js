@@ -58,12 +58,12 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  const table = $("#usoolTable").DataTable({
+  const table = $("#usooluThalaathaTable").DataTable({
     // var table = $("#fortynawaqid").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: usool_dataSet, // https://datatables.net/manual/ajax
+    data: usooluThalaatha_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
       {

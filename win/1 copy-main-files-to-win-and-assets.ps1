@@ -74,7 +74,7 @@ Copy-Item ../js/quranBakurube-script.min.js -Destination ../app/webview-master/a
 Copy-Item ../js/radheef-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/radheef-script.min.js -Recurse -Force
 Copy-Item ../js/raziyain-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/raziyain-script.min.js -Recurse -Force
 Copy-Item ../js/umdah-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/umdah-script.min.js -Recurse -Force
-Copy-Item ../js/usool-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/usool-script.min.js -Recurse -Force
+Copy-Item ../js/usooluThalaatha-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/usooluThalaatha-script.min.js -Recurse -Force
 
 # - - -
 # COPY JS RESOURCE FILES
@@ -97,7 +97,7 @@ Copy-Item ../js/json/quranBakurube.js -Destination ../app/webview-master/app/src
 Copy-Item ../js/json/radheef.js -Destination ../app/webview-master/app/src/main/assets/js/json/radheef.js -Recurse -Force
 Copy-Item ../js/json/raziyain.js -Destination ../app/webview-master/app/src/main/assets/js/json/raziyain.js -Recurse -Force
 Copy-Item ../js/json/umdah.js -Destination ../app/webview-master/app/src/main/assets/js/json/umdah.js -Recurse -Force
-Copy-Item ../js/json/usool.js -Destination ../app/webview-master/app/src/main/assets/js/json/usool.js -Recurse -Force
+Copy-Item ../js/json/usooluThalaatha.js -Destination ../app/webview-master/app/src/main/assets/js/json/usooluThalaatha.js -Recurse -Force
 
 # copies previous JS AND JSON AND RESC folder contents to win js folder
 Copy-Item ../app/webview-master/app/src/main/assets/js/* -Destination hmv/js -Recurse -Force
