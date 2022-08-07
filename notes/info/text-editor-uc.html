@@ -995,29 +995,6 @@
           />
 
           <button
-            onclick="prefixSuffixLine();triggerTheCounts();"
-            class="ttClass"
-            data-tooltip="Add a prefix or suffix before and after every line of text"
-          >
-            ➕ Prefix/Suffix
-          </button>
-
-          <input
-            class="inputFieldClass"
-            placeholder="Enter Suffix"
-            type="text"
-            id="suffixVal"
-            style="color: red; display: none"
-          />
-          <input
-            class="inputFieldClass"
-            placeholder="Enter Prefix"
-            type="text"
-            id="prefixVal"
-            style="color: blue; display: none"
-          />
-
-          <button
             onclick="numToBracket();triggerTheCounts();"
             id="bracketedNumber"
             class="ttClass"
@@ -1059,6 +1036,29 @@
             <!-- 1/𝟣/１/𝟭/①/❶ -->
             1/𝟣/１/𝟭/①/❶
           </button>
+
+          <button
+            onclick="prefixSuffixLine();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Add a prefix or suffix before and after every line of text"
+          >
+            ➕ Prefix/Suffix
+          </button>
+
+          <input
+            class="inputFieldClass"
+            placeholder="Enter Suffix"
+            type="text"
+            id="suffixVal"
+            style="color: red; display: none"
+          />
+          <input
+            class="inputFieldClass"
+            placeholder="Enter Prefix"
+            type="text"
+            id="prefixVal"
+            style="color: blue; display: none"
+          />
 
           <button
             onclick="shortenSalla();triggerTheCounts();"
