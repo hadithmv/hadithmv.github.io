@@ -1239,6 +1239,7 @@
                     .replace(/quranBakurube.html/, "quran.html")
                     .replace(/quranBakurubeTable/, "quranTable")
                     .replace(/\:v.*$/, "");
+                  //repeat so dont have to change code on another page
                 } else if (window.location.toString().includes("quran.html")) {
                   window.location = window.location
                     .toString()
@@ -1357,6 +1358,7 @@
                 // https://stackoverflow.com/questions/33371038/programmatically-search-a-table-with-jquery-datatables/33371324#33371324
                 //$("#quranTable").dataTable().fnFilter(combinedVals);
                 $("#quranTable").DataTable().search(combinedVals).draw();
+                //repeat so dont have to change code on another page
                 $("#quranBakurubeTable")
                   .DataTable()
                   .search(combinedVals)
