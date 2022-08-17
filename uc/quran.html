@@ -1230,6 +1230,7 @@
                     .replace(/quranBakurube.html/, "quran.html")
                     .replace(/quranBakurubeTable/, "quranTable")
                     .replace(/\:v.*$/, "");
+                  //repeat so dont have to change code on another page
                 } else if (window.location.toString().includes("quran.html")) {
                   window.location = window.location
                     .toString()
@@ -1348,6 +1349,7 @@
                 // https://stackoverflow.com/questions/33371038/programmatically-search-a-table-with-jquery-datatables/33371324#33371324
                 //$("#quranTable").dataTable().fnFilter(combinedVals);
                 $("#quranTable").DataTable().search(combinedVals).draw();
+                //repeat so dont have to change code on another page
                 $("#quranBakurubeTable")
                   .DataTable()
                   .search(combinedVals)
@@ -1460,15 +1462,13 @@
                 -->
               <select
                 id="surahNameID"
+                placeholder="ސޫރަތް"
                 onfocus="this.value='';"
+                onchange="this.blur();jumpToItsPage();setAyahToOne()"
                 style="display: block; float: right"
-                onchange="this.blur()"
+                oninput="changeDigitsOnInput();setAyahToOne()"
                 onselect="jumpToItsPage();setAyahToOne()"
               >
-                <!--
-                placeholder="އާޔަތް"
-                onchange="this.blur();jumpToItsPage();setAyahToOne()"
-                oninput="changeDigitsOnInput();setAyahToOne()" -->
                 <option value="" disabled selected>ސޫރަތް</option>
                 <option value="𝟣 الفاتحة">𝟣 الفاتحة</option>
                 <option value="𝟤 البقرة">𝟤 البقرة</option>
@@ -1605,15 +1605,12 @@
             -->
               <select
                 id="ayahNoID"
-                onfocus="this.value='';"
-                style="display: block; float: right"
-                onchange="this.blur()"
-                onselect="jumpToItsPage();setAyahToOne()"
-              >
-                <!--
                 placeholder="އާޔަތް"
-                onchange="this.blur();jumpToItsPage();setAyahToOne()"
-                oninput="changeDigitsOnInput();setAyahToOne()" -->
+                onfocus="this.value='';"
+                onchange="this.blur();jumpToItsPage();"
+                style="display: block; float: right"
+                onselect="jumpToItsPage()"
+              >
                 <option value="" disabled selected>އާޔަތް</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
