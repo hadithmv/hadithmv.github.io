@@ -39,7 +39,7 @@ $(document).ready(() => {
     $.extend(true, $.fn.dataTable.defaults, {
       // mobile //'<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rt <"bottom"ip>',
       dom: '<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rtip', // moved to js MQ; dom: '<"dTop"pBfl>rtip',
-      pageLength: 3,
+      pageLength: 1,
       // lengthMenu: [
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
       //   ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހާ']

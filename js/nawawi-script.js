@@ -277,7 +277,7 @@ $(document).ready(() => {
     ], // end of columnDefs, previously without visible and searchable options.
 
     //= ====================
-    //  DT CUSTOM SETTINGS
+    // DT CUSTOM SETTINGS
     // ====================
 
     // Automatic column width calculation. Default: true
@@ -563,7 +563,7 @@ $(document).ready(() => {
                data = data.replace( /\r/g, "" ); //rids windows platform newline
                data = data.replace( /\t/g, "\n\n" ); */
 
-          console.log(JSON.stringify(data)); // json stringify to console
+          //console.log(JSON.stringify(data)); // json stringify to console
 
           return data;
         },
