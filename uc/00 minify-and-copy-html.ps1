@@ -40,5 +40,5 @@ html-minifier --collapse-boolean-attributes --collapse-whitespace --decode-entit
 
 
 
-# copies nawawi over to layout index
+# copies index page over to layout index dir
 Copy-Item ../books/index.html -Destination ../_layouts/index.html
