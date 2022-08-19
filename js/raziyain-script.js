@@ -255,7 +255,7 @@ $(document).ready(() => {
     ], // end of columnDefs, previously without visible and searchable options.
 
     //= ====================
-    //  DT CUSTOM SETTINGS
+    // DT CUSTOM SETTINGS
     // ====================
 
     // Automatic column width calculation. Default: true
