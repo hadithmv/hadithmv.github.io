@@ -53,6 +53,7 @@ Copy-Item ../notes/info/mirror-backups.html -Destination ../app/webview-master/a
 Copy-Item ../notes/info/privacy.html -Destination ../app/webview-master/app/src/main/assets/notes/info/privacy.html -Recurse -Force
 Copy-Item ../notes/info/text-editor.html -Destination ../app/webview-master/app/src/main/assets/notes/info/text-editor.html -Recurse -Force
 Copy-Item ../notes/info/umrah-travel.html -Destination ../app/webview-master/app/src/main/assets/notes/info/umrah-travel.html -Recurse -Force
+Copy-Item ../notes/info/contact.html -Destination ../app/webview-master/app/src/main/assets/notes/info/contact.html -Recurse -Force
 
 # copies previous NOTES INCLUDING INFO folder contents to win notes folder
 Copy-Item ../app/webview-master/app/src/main/assets/notes/* -Destination hmv/notes -Recurse -Force

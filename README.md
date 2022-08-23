@@ -191,21 +191,10 @@ The **Hadithmv** project is a collaborated effort in making the sayings and teac
 <p>For more queries, read our
           <a href="http://hadithmv.github.io/notes/info/FAQ.html">FAQ</a> section | For a list of participants, get to know our <a href="http://hadithmv.github.io/notes/info/contributors.html">contributors</a>
         </p>
-        <p>
-          If you would like to know more, consider reading the
-          <a href="http://hadithmv.github.io/notes/info/FAQ.html">FAQ</a>.
+
+<p>If you find a mistake, or have a suggestion, or want to help with this
+        project, feel free to<a href="http://hadithmv.github.io/notes/info/contact.html">contact us</a>.
         </p>
-
-<p>If you find a mistake, or want to join this translation platform, or want to support this project, please
-let us know.
-
-  <p>
-    Contact us: <a href="http://m.me/hadithmvOfficial">Messenger</a> |
-    <a href="http://+9607727960">Viber</a> |
-    <a href="https://t.me/ashraafmv">Telegram</a> |
-    <a href="https://wa.me/qr/FJFBCPFQXUBKJ1">WhatsApp</a> |
-    <a href="http://hadithmv@gmail.com">Email</a>
-  </p>
 
   <p>
     Subscribe: <a href="http://fb.me/hadithmvOfficial">Facebook</a> |
