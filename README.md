@@ -11,11 +11,11 @@ hadithmv
 </b></h3>
 
 <p align="center">
-The Maldivian Hadith Translation Platform
+The Sunnah Platform for Maldivian Translations
 </p>
 
 <p align="center">
-ދިވެހިންގެ ޙަދީޘް ތަރުޖަމާ މަންސަ
+ސުންނަތުގެ ތަރުޖަމާ މަންސަ
 </p>
 
 <!---
