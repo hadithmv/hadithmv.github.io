@@ -398,7 +398,7 @@ $(document).ready(() => {
         },
       },
 
-      info: "_TOTAL_ ޙަދީޘްގެ ތެރެއިން _START_ އިން_END_ އަށް",
+      info: "_TOTAL_ ޙަދީޘްގެ ތެރެއިން _START_ އިން _END_ އަށް",
       infoFiltered: "(ޖުމްލަ ބެލެވުނީ _MAX_)",
       infoEmpty: "— ނުފެނުނު —",
       lengthMenu: "_MENU_",
