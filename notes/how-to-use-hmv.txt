@@ -26,13 +26,13 @@ If you are using Hadithmv from the website, the place where you were reading sta
 * Desktop Keyboard Shortcuts:
 
 [Tab] = Tab Navigation
-[Arrow Keys] = Keyboard Navigation
-[Shift + S] = Show Additional Columns
-[Shift + C] = Copy shown text to clipboard
-[Shift + F] = Open Filter
-[Shift + L] = Copy current page as web URL to clipboard
+[Arrow keys] = Keyboard Navigation
+[Shift + s] = Show Additional Columns
+[Shift + c] = Copy shown text to clipboard
+[Shift + f] = Open Filter
+[Shift + l] = Copy current page as web URL to clipboard
 
 Cursor starts already inside the search box on desktop
 (So to use desktop keyboard shortcuts, you must click outside the search box first)
 
-You can save a complete webpage (ctrl+s) for offline use
+You can save a complete webpage (ctrl + s) for offline use
