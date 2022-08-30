@@ -130,3 +130,21 @@ matches:
     replace: take care
   - trigger: cc-
     replace: 'git add . && git commit -m "u" && git push'
+  - trigger: 1--
+    replace: "⁽¹⁾"
+  - trigger: 2--
+    replace: "⁽²⁾"
+  - trigger: 3--
+    replace: "⁽³⁾"
+  - trigger: 4--
+    replace: "⁽⁴⁾"
+  - trigger: 5--
+    replace: "⁽⁵⁾"
+  - trigger: 6--
+    replace: "⁽⁶⁾"
+  - trigger: 7--
+    replace: "⁽⁷⁾"
+  - trigger: 8--
+    replace: "⁽⁸⁾"
+  - trigger: 9--
+    replace: "⁽⁹⁾"
