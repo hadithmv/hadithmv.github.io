@@ -148,3 +148,5 @@ matches:
     replace: "⁽⁸⁾"
   - trigger: 9--
     replace: "⁽⁹⁾"
+  - trigger: 0--
+    replace: "⁰"
