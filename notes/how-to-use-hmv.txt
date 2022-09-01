@@ -24,7 +24,7 @@ If you are using Hadithmv from the website, the place where you were reading sta
 ---------------------
 
 * Desktop Keyboard Shortcuts:
-
+(These work after you have clicked somewhere on the text first)
 [Tab] = Tab Navigation
 [Arrow keys] = Keyboard Navigation
 [Shift + s] = Show Additional Columns
