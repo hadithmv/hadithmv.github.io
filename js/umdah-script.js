@@ -129,17 +129,17 @@ $(document).ready(() => {
         data: 7,
         title: "ތަޚްރީޖު",
       },
-      // add takhrij and stuff later {
-      //   data: 3,
-      //   title: 'ތަޚްރީޖު'
-      // }
+      {
+        data: 8,
+        title: "شرح البسام",
+      },
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: 8,
+        targets: [8, 9],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\n/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -236,6 +236,15 @@ $(document).ready(() => {
           show: false,
         },
       },
+      {
+        className: "umdCol10", // Sharh
+        targets: [9],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
 
       // below strips html tags off keystable copy, second part with keys on
       {
@@ -318,8 +327,10 @@ $(document).ready(() => {
     // or 2Darray where 1st inner array=page length values, 2nd displayed options
     // -1 is used as a value this tells DataTables to disable pagination
     // Default [ 10, 25, 50, 100 ],
-    lengthMenu: [1],
-    //lengthMenu: [[1, 2, 3, 4, 5], ['1 ދައްކާ', 2, 3, 4, 5]],
+    lengthMenu: [
+      [1, 2, 3, 4, 5],
+      ["1 ދައްކާ", 2, 3, 4, 5],
+    ],
     // change to below later
     // lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, '50']],
     // lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހާ']],
@@ -464,6 +475,8 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
+          data = data.replace(/شرح البسام\t/g, "");
+
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
             "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
