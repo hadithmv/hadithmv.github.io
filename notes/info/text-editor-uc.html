@@ -1224,6 +1224,23 @@
           </p>
           <br />
 
+          <button
+            onclick="findLetterWithoutFilis();"
+            class="ttClass"
+            data-tooltip="Checks whether your text has letters without filis in dhivehi, except for hus nuunu"
+          >
+            ފިލި/އަކުރު މަދުތޯ
+          </button>
+          <p
+            class="letterWithoutFiliHolder"
+            style="direction: rtl; display: none; margin-bottom: 0"
+          >
+            އަކުރެއް ނެތް ފިލި / ފިއްޔެއް ނެތް އަކުރު: &nbsp;
+            <span id="letterWithoutFilis"></span><br />
+            <span id="letterWithoutFilis2"></span>
+          </p>
+          <br />
+
           <input
             class="inputFieldClass"
             placeholder="2 މިއަށް ބަދަލުކުރޭ"
@@ -1349,9 +1366,9 @@
             console.log(matches);
             */
 
-            /* arabic half */
-
             document.getElementById("doubleFilis").innerHTML = matches;
+
+            /* arabic half */
 
             let reg2 =
               /(\b[\u0600-\u06FF]|ًَ|َُ|ٌَ|َِ|ٍَ|َْ|َ~|َّ|ًَ|ًً|ًُ|ًٌ|ًِ|ًٍ|ًْ|ً~|ًّ|َُ|ًُ|ُُ|ٌُ|ُِ|ٍُ|ُْ|ُ~|ُّ|ٌَ|ًٌ|ٌُ|ٌٌ|ٌِ|ٌٍ|ٌْ|ٌ~|ٌّ|َِ|ًِ|ُِ|ٌِ|ِِ|ٍِ|ِْ|ِ~|ِّ|ٍَ|ًٍ|ٍُ|ٌٍ|ٍِ|ٍٍ|ٍْ|ٍ~|ٍّ|َْ|ًْ|ُْ|ٌْ|ِْ|ٍْ|ْْ|ْ~|ّْ|~َ|~ً|~ُ|~ٌ|~ِ|~ٍ|~ْ|~~|~ّ|ّْ|ّ~|ّّ\b)/gim;
@@ -1366,6 +1383,45 @@
 
             document.getElementById("doubleFilis2").innerHTML = matches2;
           }
+          //
+
+          function findLetterWithoutFilis() {
+            document.getElementsByClassName(
+              "letterWithoutFiliHolder"
+            )[0].style.display = "block";
+
+            //let reg3 = /(?!ނ)[\u0780-\u07A5](?![\u07A6-\u07B0]|$)/gim;
+            // https://stackoverflow.com/questions/54688769/javascript-regex-find-words-containing-only-one-dot/54688962#54688962how-to-match-a-whole-word-if-a-specific-character-exists-in-the-word/63155061#63155061
+            let reg3 =
+              /(?:^|\s)([^.\s]*(?!ނ)[\u0780-\u07A5](?![\u07A6-\u07B0]|$)[^.\s]*)(?!\S)/gim;
+
+            let string = document.getElementById("textMainArea").value;
+
+            let matches3 = (string.match(reg3) || []).map((e) =>
+              e.replace(reg3, " $1")
+            );
+
+            document.getElementById("letterWithoutFilis").innerHTML = matches3;
+
+            /* other half */
+
+            //let reg4 = /(?<![\u0780-\u07A5])[\u07A6-\u07B0]/gim;
+            // https://stackoverflow.com/questions/57993609/regex-find-match-one-word-before-and-after-the-string-encapsulated-with/57993731#57993731
+
+            let reg4 =
+              /(?:(\S+)\s+)?((?<![\u0780-\u07A5])[\u07A6-\u07B0])(?=(?:\s+(\S+))?)/gim;
+
+            let string4 = document.getElementById("textMainArea").value;
+
+            // $& This will return a string with the complete match result from the regex.
+
+            let matches4 = (string4.match(reg4) || []).map((e) =>
+              e.replace(reg4, " $&")
+            );
+
+            document.getElementById("letterWithoutFilis2").innerHTML = matches4;
+          }
+          //
 
           // https://stackoverflow.com/questions/4009756/how-to-count-string-occurrence-in-string/4009768#4009768
 
