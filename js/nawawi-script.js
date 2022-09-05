@@ -127,13 +127,17 @@ $(document).ready(() => {
         data: 10,
         title: "شرح الخضير",
       },
+      {
+        data: 11,
+        title: "شرح الدرر",
+      },
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: [10, 11],
+        targets: [10, 11, 12],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\n/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -252,8 +256,17 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol12", // Sharh
+        className: "fnCol12", // Sharh2
         targets: [11],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "fnCol13", // Sharh2
+        targets: [12],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -499,6 +512,8 @@ $(document).ready(() => {
           data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, "");
           data = data.replace(/شرح العباد\t/g, "");
           data = data.replace(/شرح الخضير\t/g, "");
+          data = data.replace(/شرح الدرر\t/g, "");
+
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
             "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
