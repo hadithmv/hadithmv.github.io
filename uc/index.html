@@ -510,7 +510,9 @@
               >
             </li>
 
-            <li class="hmvVer"><a href="#">⚙️ އިސްދާރު: v2.86</a></li>
+            <li class="hmvVer" onclick="supriseClick();">
+              <a href="#">⚙️ އިސްދާރު: v2.86</a>
+            </li>
             <li>
               <a href="https://t.me/ashraafmv"
                 >ފަރުމާ ކުރީ: (އަބޫ ޔަޙްޔާ) މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
@@ -1595,7 +1597,7 @@
         -->
 
         <!-- taken hr styles from that in notes -->
-        <hr class="homeHR" onclick="supriseClick();" />
+        <hr class="homeHR" />
         <style>
           .homeHR {
             font-size: 20px;
@@ -1683,9 +1685,17 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
               //run first function
             } else if (suprise_timesClicked == 2) {
               //run second function
-            } else */ if (suprise_timesClicked == 4) {
+            } else */ if (suprise_timesClicked == 5) {
               document.getElementById("supriseDiv").style.display = "block";
               suprise_timesClicked = 0;
+
+              //
+
+              /*document
+                .querySelector("body > div.mm-ocd.mm-ocd--right.mm-ocd--open")
+                .remove("mm-ocd--open");*/
+
+              drawer.close();
             }
           }
         </script>
