@@ -1290,12 +1290,12 @@ div.dtsp-panesContainer
   opacity: 0.75;
 
   /* makes icon larger */
-  font-size: 20px;
+  font-size: 25px;
 }
 
 /* adds space to left and right of rtl titles of searchpane */
 .dtsp-panesContainer > .dtsp-titleRow > button {
-  margin-right: 40px;
+  margin-right: 10px;
 }
 
 .dtsp-panesContainer > .dtsp-titleRow > div {
