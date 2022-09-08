@@ -193,7 +193,7 @@ The **Hadithmv** project is a collaborated effort in making the sayings and teac
         </p>
 
 <p>If you find a mistake, or have a suggestion, or want to help with this
-        project, feel free to<a href="http://hadithmv.github.io/notes/info/contact.html">contact us</a>.
+        project, feel free to <a href="http://hadithmv.github.io/notes/info/contact.html">contact us</a>.
         </p>
 
   <p>
