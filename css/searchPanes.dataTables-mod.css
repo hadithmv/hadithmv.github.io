@@ -460,7 +460,14 @@ div.dtsp-panesContainer button.dtsp-showAll:hover {
 
 div.dtsp-panesContainer button.dtsp-disabledButton {
   cursor: default !important;
-  color: #7c7c7c;
+  /* color: #7c7c7c; */
+  color: none;
+}
+
+@media (prefers-color-scheme: light) {
+  div.dtsp-panesContainer button.dtsp-disabledButton {
+    color: #000;
+  }
 }
 
 div.dtsp-panesContainer button.dtsp-disabledButton:hover {
