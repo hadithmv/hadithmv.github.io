@@ -212,7 +212,7 @@ $(document).ready(() => {
         className: "qCol2", // juz #
         targets: [1],
         visible: false,
-        searchable: true,
+        searchable: false,
         searchPanes: {
           show: true,
         },
