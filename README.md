@@ -11,7 +11,7 @@ hadithmv
 </b></h3>
 
 <p align="center">
-The Sunnah Platform for Maldivian Translations
+The Maldivian Platform for Translations of the Sunnah
 </p>
 
 <p align="center">
