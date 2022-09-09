@@ -7,7 +7,7 @@
 </p>
 
 <h2 align="center"><b>
-hadithmv
+Hadithmv
 </b></h3>
 
 <p align="center">
