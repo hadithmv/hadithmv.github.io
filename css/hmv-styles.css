@@ -1313,13 +1313,19 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   border: 1.5px solid #136296 !important;
 }
 
+/* changed #DataTables_Table_0 to .dtsp-panesContainer so as to cover other tables within searchpanes */
+.dtsp-panesContainer tbody tr.selected td {
+  background-color: #b8c4cc99; /* #0d4266 */
+  color: #000;
+}
+
 @media (prefers-color-scheme: dark) {
   /* changes pane list selected highlight color to something that matches dark theme */
 
-  #DataTables_Table_0 tbody tr.selected td {
-    background-color: #b8c4cc99; /* #0d4266 */
+  /*#DataTables_Table_0 tbody tr.selected td {
+    background-color: #b8c4cc99; 
     color: #000;
-  }
+  }*/ /* background-color: #0d4266 */
 
   .dtsp-paneInputButton,
   .dtsp-search {
