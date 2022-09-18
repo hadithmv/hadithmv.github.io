@@ -107,10 +107,12 @@
     /* fixes tab button border overlap */
     /*@mixin for-ab0ve-phone-only*/
 
+    /*
     .tab button {
-      /*border: 0.25px solid rgba(0, 0, 0, 0.25);*/
-      /*border-bottom: none;*/
+      border: 0.25px solid rgba(0, 0, 0, 0.25);
+      border-bottom: none;
     }
+    */
 
     @media (min-width: 599px) {
       .tab button:nth-child(2) {
@@ -4174,10 +4176,8 @@ cols="60"-->
                 </tr>
                 <tr>
                   <td class="hideOnPhoneOnly">Statistics:</td>
-                  <td
-                    id="statistics-output"
-                    style="/*white-space: pre; REMOVED TO MAKE IT WORDWRAP*/"
-                  >
+                  <td id="statistics-output">
+                    <!-- style="/*white-space: pre; REMOVED TO MAKE IT WORDWRAP*/"-->
                     QR Code version = 1, mask pattern = 6, character count = 0,
                     encoding mode = none, error correction = level H, data bits
                     = 0.
@@ -5318,9 +5318,9 @@ cols="60"-->
             flex-grow: 1;
           }
 
-          /* dont remove the colon from this, otherwise wont align in the middle */
-          header: {
+          header {
             display: flex;
+            justify-content: center;
           }
 
           .compare-container {
