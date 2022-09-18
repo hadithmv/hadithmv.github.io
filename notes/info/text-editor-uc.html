@@ -5474,8 +5474,8 @@ cols="60"-->
             <div class="compare-container">
               <!-- add the mergely resizer classes here? on container not resizer -->
               <div class="mergely-resizer">
-                <div id="mergely" oninput="doSummary();"></div>
-                <!-- added oninput -->
+                <div id="mergely"></div>
+                <!-- oninput="doSummary();"-->
               </div>
             </div>
 
@@ -5554,7 +5554,10 @@ cols="60"-->
             changer(options);
             $("#mergely").mergely("options", options);
           }
+        </script>
 
+        <!--
+        <script>
           //$(window).on("load", function () {
           window.addEventListener("load", function () {
             // $( document ).ready(function() { doesnt work for summary
@@ -5656,6 +5659,7 @@ cols="60"-->
               .replace(/\}/g, "");
           }
         </script>
+        -->
 
         <!-- old code mergely
         <script>
