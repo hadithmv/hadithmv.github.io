@@ -556,40 +556,23 @@
           >
           <br class="hideOnTabAndUp" />
 
+          <!--   -->
+
           <!-- https://jsfiddle.net/Meline222/fgpedL0z/1/ 
         https://codepen.io/alexandercastillo/pen/YXrmPE
       -->
 
-          <!--   -->
-
-          <script>
-            /*
-            let i = document.getElementById("slider");
-            i.addEventListener(
-              "input",
-              function () {
-                //var o = document.getElementById("textMainArea");
-                //o.style.fontSize = val + "px";
-                */
-
-            function fontChange() {
-              document.getElementById("textMainArea").style.fontSize =
-                document.getElementById("slider").value + "px";
-
-              // added below
-              document.getElementById("sliderValue").innerHTML =
-                document.getElementById("slider").value;
-            }
-          </script>
-
           <div style="display: inline-block; top: -50px !important">
-            <table style="display: inline-block; margin-bottom: -10px">
-              <tr>
-                <td width="25px">
-                  <span id="sliderValue">20</span>
-                </td>
-              </tr>
-            </table>
+            <span
+              id="sliderValue"
+              style="
+                display: inline-block;
+                width: 25px;
+                position: relative;
+                top: -2px;
+              "
+              >20</span
+            >
 
             <span class="small-letter">A</span>&nbsp;
             <input
@@ -625,6 +608,26 @@
             display: inline;
           }*/
         </style>
+
+        <script>
+          /*
+  let i = document.getElementById("slider");
+  i.addEventListener(
+    "input",
+    function () {
+      //var o = document.getElementById("textMainArea");
+      //o.style.fontSize = val + "px";
+      */
+
+          function fontChange() {
+            document.getElementById("textMainArea").style.fontSize =
+              document.getElementById("slider").value + "px";
+
+            // added below
+            document.getElementById("sliderValue").innerHTML =
+              document.getElementById("slider").value;
+          }
+        </script>
 
         <!-- 
         <div class="sliderLetter mid"></div>
@@ -5294,6 +5297,11 @@ cols="60"-->
         release file has a higher version number 4.3.9, codepen uses 4.3.5, but code is the exact same
         <link type="text/css" rel="stylesheet" href="mergely.css" /> -->
 
+        <!-- NEEDED, <script
+          type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/addon/selection/mark-selection.js"
+        ></script>  -->
+
         <script>
           $(document).ready(function () {
             $("#mergely").mergely({
@@ -5305,9 +5313,13 @@ cols="60"-->
               //license: "lgpl-separate-notice",
 
               // code mirror settings below
-              /*cmsettings: {
+              cmsettings: {
                 //readOnly: true,
-              },*/
+                direction: "rtl",
+                //rtlMoveVisually: true,
+                /* lets select go over change highlights https://github.com/wickedest/Mergely/issues/104 */
+                styleSelectedText: true,
+              },
               lhs: function (setValue) {
                 setValue(
                   "عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُ:\nقَالَ رَسُولُ اللَّهِ ﷺ:\n\nޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ގެ އަރިހުން ރިވާވެގެންވެއެވެ:\nރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
@@ -5332,6 +5344,10 @@ cols="60"-->
             });
             $("#next").click(function () {
               $("#mergely").mergely("scrollToDiff", "next");
+            });
+            $("#clearM").click(function () {
+              $("#mergely").mergely("clear", "lhs");
+              $("#mergely").mergely("clear", "rhs");
             });
 
             $("#wrap").click(function () {
@@ -5400,24 +5416,91 @@ cols="60"-->
           /* set font css */
           .CodeMirror {
             font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-            font-size: 16px;
-            /*direction: rtl;*/ /* makes text rtl, but merge arrows too */
+            font-size: 20px;
+            /*direction: rtl;*/ /* makes text rtl, but merge arrows too, dont do this, instead use cmsettings */
+          }
+
+          /* makes merge arrow buttons show up fuller than even before it got smaller after rtl */
+          .merge-button {
+            height: 32px !important;
+          }
+
+          /* changes select color?
+          .CodeMirror-selected {
+            background-color: #cccccc !important;
           }
         </style>
 
         <p class="mid editorButtons dv" style="margin-top: 15px">
+          <button id="clearM" data-tooltip="clears the texts above">
+            ❌ ލިޔުން ފޮހެލާ
+          </button>
+
           <button id="prev" data-tooltip="Jump to the previous difference">
-            ▲ ކުރީގެ ބަދަލަށް
+            ▲ ކުރީގެ ބަދަލު
           </button>
           <button id="next" data-tooltip="Jump to the next difference">
-            ▼ ޖެހިގެންވާ ބަދަލަށް
+            ▼ ދެން އަންނަ
           </button>
           <button id="wrap" data-tooltip="Turn wordwrap on or off">
-            ↲ އެއްފޮޅުވަތަށް ފައްތާ
+            ↲ އެއް ފޮޅުވަތަށް
           </button>
+
           <!--<button id="fullScreen" title="Toggle fullscreen">
   ފުލްސްކްރީން 🖥️
 </button>-->
+
+          &nbsp;
+
+          <span
+            id="sliderValue2"
+            style="
+              display: inline-block;
+              width: 25px;
+              position: relative;
+              top: -2px;
+            "
+            >20</span
+          >
+
+          <span class="small-letter2">A</span>&nbsp;
+          <input
+            id="slider2"
+            type="range"
+            min="10"
+            max="100"
+            style="padding: 0"
+            class="ttClass"
+            oninput="fontChange2()"
+          />&nbsp;
+          <span class="big-letter2">A</span>
+
+          <style>
+            .small-letter2 {
+              font-size: 14px;
+              margin-bottom: 5px; /* 8 */
+              display: inline-block;
+              vertical-align: middle;
+            }
+
+            .big-letter2 {
+              font-size: 24px;
+            }
+          </style>
+
+          <script>
+            function fontChange2() {
+              document.getElementsByClassName("CodeMirror")[0].style.fontSize =
+                document.getElementById("slider2").value + "px";
+
+              document.getElementsByClassName("CodeMirror")[1].style.fontSize =
+                document.getElementById("slider2").value + "px";
+
+              // added below
+              document.getElementById("sliderValue2").innerHTML =
+                document.getElementById("slider2").value;
+            }
+          </script>
         </p>
 
         <!-- not directly related below, seperate from mergely -->
