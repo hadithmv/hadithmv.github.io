@@ -5251,63 +5251,260 @@ cols="60"-->
       <!-- <div id="tabThree" class="tabcontent"> -->
 
       <div id="tabFour" class="tabcontent">
-        <!-- code taken from simple.html, https://github.com/wickedest/Mergely/tree/master/examples (downloaded zipped release)-->
-
-        <!-- NEEDED, JQUERY
-        <script
-          type="text/javascript"
-          src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"
-        ></script>-->
-
-        <!-- Requires CodeMirror -->
-
-        <!-- original js version, old? <script
-    type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.js"
-  ></script>-->
-
-        <!-- NEEDED, updated codemirror js, originally 5.32.0 in release file, 5.63.3 in codepen demo
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.js"></script> -->
-
-        <!-- doesnt seem to be needed at all, seems to have been used for in-editor search, which doesnt work in simple anyway <script
-    type="text/javascript,"
-    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/addon/search/searchcursor.min.js"
-  ></script>-->
-
-        <!-- original css version, old? <link
-    type="text/css"
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.css"
-  />-->
-        <!-- NEEDED, updated codemirror js, originally 5.32.0 in release file, 5.63.3 in codepen demo
-          <link
+        <!--
+        <link
           rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.css"
-        /> -->
+          href="https://cdn.jsdelivr.net/npm/highlight-within-textarea@2.0.5/jquery.highlight-within-textarea.css"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/highlight-within-textarea@2.0.5/jquery.highlight-within-textarea.min.js"></script>
+      -->
 
-        <!-- Requires Mergely -->
+        <!-- replaced internal links with external local ones -->
+        <!--<link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.css"
+        />
 
-        <!-- NEEDED, there isnt a single file for this in the repo, rather seems to be compiled from a bunch of seperate files. release file has a higher version number 4.3.9, codepen uses 4.3.5
-        <script type="text/javascript" src="mergely.js"></script> -->
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/mergely/4.3.8/mergely.min.css"
+        />-->
 
-        <!-- NEEDED, the css looks to be the exact same as found here, https://github.com/wickedest/Mergely/tree/master/src
-        release file has a higher version number 4.3.9, codepen uses 4.3.5, but code is the exact same
-        <link type="text/css" rel="stylesheet" href="mergely.css" /> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+        <!-- slim doesnt work -->
 
-        <script>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.3/codemirror.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mergely/4.3.8/mergely.min.js"></script> -->
+
+        <!-- older links below -->
+        <!--
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/codemirror.min.css"
+/>
+
+<link
+  rel="stylesheet"
+  href="https://cdn.rawgit.com/wickedest/Mergely/3.4.0/lib/mergely.css"
+/>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.11.0/codemirror.min.js"></script>
+
+<script src="https://cdn.rawgit.com/wickedest/Mergely/3.4.1/lib/mergely.js"></script>
+-->
+        <style>
+          /* CONVERTED FROM SCSS TO CSS */
+
+          /*html,
+  body {
+    margin: 0;
+    padding: 0;
+  }*/
+          .demo-editor {
+            font-family: sans-serif;
+            display: flex;
+            min-height: 100vh;
+          }
+          h1 {
+            margin: 4px;
+          }
+
+          .diffs {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+          }
+
+          header {
+            display: flex;
+            justify-content: center;
+          }
+
+          .compare-container {
+            width: auto;
+            display: flex;
+            flex-grow: 1;
+            position: relative;
+            /* full screen */
+            /*position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;*/
+          }
+
+          #mergely {
+            position: absolute;
+            bottom: 0;
+            top: 0;
+            height: 100%;
+          }
+
+          /*footer {
+        display: flex;
+      }*/
+
+          /* EDITS */
+
+          /* resizeable mergely resizer classes (for container not resizer) */
+          .mergely-resizer {
+            width: 100%;
+            height: 100%;
+          }
+          .mergely-full-screen-0 {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            overflow: hidden;
+          }
+          .mergely-full-screen-8 {
+            position: absolute;
+            top: 8px;
+            bottom: 8px;
+            left: 8px;
+            right: 8px;
+            overflow: hidden;
+          }
+
+          #mergely-splash {
+            display: none; /* removes splash div popup */
+          }
+
+          .CodeMirror-code {
+            font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
+            font-size: 18px;
+            /*direction: rtl;*/ /* makes arrows disappear */
+          }
+
+          .CodeMirror-code {
+            direction: rtl; /* makes text rtl, but merge arrows too */
+          }
+
+          .merge-button {
+            direction: ltr; /* makes merge arrows ltr again */
+          }
+
+          #compare .CodeMirror-lines pre,
+          #compare .CodeMirror-gutter-text pre {
+            line-height: 30px;
+          }
+
+          .CodeMirror {
+            height: 500px;
+          }
+
+          /*.mergely-canvas {
+            width: 10px;*/ /* middle space 
+          }*/
+
+          .mergely.ch.d.lhs {
+            text-decoration: none;
+          }
+
+          #prev,
+          #next {
+            font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
+          }
+        </style>
+
+        <div class="demo-editor">
+          <div class="diffs">
+            <header>
+              <!--<h1>Mergely Visualized Diff</h1>-->
+              <p
+                class="mid editorButtons dv"
+                style="margin-bottom: -3px; margin-top: 5px"
+              >
+                <button
+                  id="prev"
+                  data-tooltip="Jump to the previous difference"
+                >
+                  ▲ ކުރީގެ ބަދަލަށް
+                </button>
+                <button id="next" data-tooltip="Jump to the next difference">
+                  ▼ ޖެހިގެންވާ ބަދަލަށް
+                </button>
+                <button id="wrap" data-tooltip="Turn wordwrap on or off">
+                  ↲ އެއްފޮޅުވަތަށް ފައްތާ
+                </button>
+                <!--<button id="fullScreen" title="Toggle fullscreen">
+                  ފުލްސްކްރީން 🖥️
+                </button>-->
+              </p>
+
+              <!--<div id="log">
+                ޖުމްލަ ހުރިހާ ގޮތަކުން ބަދަލުވި ފޮޅުވަތްތައް: 2 &nbsp;|&nbsp;
+                ވާތު ފަޅީގައިވާ ކެރެކްޓާތައް: 180 &nbsp;|&nbsp; ކަނާތު
+                ފަޅީގައިވާ ކެރެކްޓާތައް: 193 &nbsp;|&nbsp; ބަދަލުވި
+                ފޮޅުވަތްތައް: 2 &nbsp;|&nbsp; އިތުރުވި ފޮޅުވަތްތައް: 0
+                &nbsp;|&nbsp; ކަނޑާލެވުނު ފޮޅުވަތްތައް: 0<br />
+              </div> -->
+
+              <style>
+                #log {
+                  font-family: "dvFont", "arFont", "Quicksand", sans-serif,
+                    "faruma";
+                  font-size: 16px;
+                  line-height: 2.1;
+                  text-align: center;
+                }
+              </style>
+
+              <!--
+              <p class="mid dv">
+                އިތުރުވި ފޮޅުވަތްތައް: <span id="addedLines">0</span>&nbsp; |
+                &nbsp;ބަދަލުވި ފޮޅުވަތްތައް:
+                <span id="changedLines">0</span>&nbsp; | &nbsp;ކަނޑާލެވުނު
+                ފޮޅުވަތްތައް: <span id="deletedCharacters">0</span>&nbsp; |
+                &nbsp;ވާތު ފަޅީގައިވާ އަކުރުތައް: ފޮޅުވަތްތައް:
+                <span id="leftSideCharacters">0</span>&nbsp; | &nbsp;ކަނާތު
+                ފަޅީގައިވާ އަކުރުތައް:
+                <span id="rightSideCharacters">0</span>&nbsp; | &nbsp;ޖުމްލަ
+                ބަދަލުވި ފޮޅުވަތްތައް: <span id="totalChangedLines">0</span>
+              </p>-->
+            </header>
+
+            <br />
+
+            <div class="compare-container">
+              <!-- add the mergely resizer classes here? on container not resizer -->
+              <div class="mergely-resizer">
+                <div id="mergely"></div>
+                <!-- oninput="doSummary();"-->
+              </div>
+            </div>
+
+            <!--<footer>
+      <h1>Source files</h1>
+      <ul>
+        <li>
+          <a
+            id="file1"
+            href="https://gist.githubusercontent.com/quotient/c426a69bfa550d1a43a0/raw/645d996d8d23e48dc9b691a10238d690df845f4f/gistfile1.txt"
+            >File 1</a
+          >
+        </li>
+        <li>
+          <a
+            id="file2"
+            href="https://gist.githubusercontent.com/quotient/a9baf2c58972aa22c621/raw/c8f6caf22d330cb34fc6f70ece44699312b2b7b4/gistfile1.txt"
+            >File 2</a
+          >
+        </li>
+      </ul>
+    </footer>-->
+          </div>
+        </div>
+
+        <script defer>
           $(document).ready(function () {
+            // set editor content
             $("#mergely").mergely({
-              //
-              // containing div must be given a height (not width) to make the textareas exist, if not here, then in styles. actually here as well seperately might affect something else?
-              width: "auto",
-              height: "auto",
-
-              //license: "lgpl-separate-notice",
-
-              // code mirror settings below
-              /*cmsettings: {
-                //readOnly: true,
-              },*/
               lhs: function (setValue) {
                 setValue(
                   "عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُ:\nقَالَ رَسُولُ اللَّهِ ﷺ:\n\nޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ގެ އަރިހުން ރިވާވެގެންވެއެވެ:\nރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
@@ -5318,120 +5515,236 @@ cols="60"-->
                   "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ:\nسَمِعْتُ النَّبِيَّ ﷺ يَقُولُ:\n\nއިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ:\nނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:"
                 );
               },
-              /**/
             });
 
-            /**/
-
-            // ADDED below
-            //$("#mergely").mergely("options");
             $("#mergely").mergely("options", { wrap_lines: true });
+          });
+
+          $("#prev").click(function () {
+            $("#mergely").mergely("scrollToDiff", "prev"); // changed comp.mergely to $("#mergely").mergely
+          });
+          $("#next").click(function () {
+            $("#mergely").mergely("scrollToDiff", "next");
+          });
+
+          $("#wrap").click(function () {
+            changeOptions(function (x) {
+              x.wrap_lines = !x.wrap_lines;
+            });
+          });
+
+          /*$("#fullScreen").click(function () {
+            //var element = document.getElementsByClassName("compare-container");
+            //console.log(5);
+            var all = document.getElementsByClassName("compare-container");
+            for (var i = 0; i < all.length; i++) {
+              //all[i].style.color = "red";
+              all[i].style.position = "absolute";
+              all[i].style.top = "8px";
+              all[i].style.bottom = "30px";
+              all[i].style.left = "8px";
+              all[i].style.right = "30px";
+              all[i].style.overflow = "hidden";
+            }
+          });*/
+
+          // needed to toggle line wrap
+          function changeOptions(changer) {
+            var options = $("#mergely").mergely("options");
+            changer(options);
+            $("#mergely").mergely("options", options);
+          }
+        </script>
+
+        <!--
+        <script>
+          //$(window).on("load", function () {
+          window.addEventListener("load", function () {
+            // $( document ).ready(function() { doesnt work for summary
+            console.log($("#mergely").mergely("summary"));
+            // { a: 0, c: 1, d: 0, lhsLength: 44, numChanges: 1, rhsLength: 45 }
+            /* a	The number of added lines.
+            c	The number of changed lines.
+            d	The number of deleted lines.
+            lhsLength	The number of characters in the lhs text.
+            rhsLength	The number of characters in the rhs text.
+            numChanges	The total number of changed lines. */
+
+            // https://github.com/wickedest/Mergely/blob/master/src/diff-view.js
+
+            // ADDITIONAL CODE BELOW
+            //document.getElementById("leftSideCharacters").innerHTML = 10;
+            /*document.getElementById("leftSideCharacters").innerHTML =
+              $("#mergely").mergely("summary");*/
+
+            /* https://stackoverflow.com/questions/20256760/javascript-console-log-to-html/20256785 */
+            (function () {
+              if (!console) {
+                console = {};
+              }
+              var old = console.log;
+              var logger = document.getElementById("log");
+              console.log = function (message) {
+                if (typeof message == "object") {
+                  logger.innerHTML +=
+                    (JSON && JSON.stringify
+                      ? JSON.stringify(message)
+                      : String(message)) + "<br />";
+                } else {
+                  logger.innerHTML += message + "<br />";
+                }
+              };
+            })();
+
+            //console.log("test");
+            console.log($("#mergely").mergely("summary"));
+
+            //var txt=elm.innerHTML;
+            //document.getElementById("log").innerHTML = 10;
+
+            var strMessage1 = document.getElementById("log");
+            strMessage1.innerHTML = strMessage1.innerHTML
+              .replace(/\{\"/g, "")
+              .replace(
+                /\,\"rhsLength\":/g,
+                " &nbsp;|&nbsp; ކަނާތު ފަޅީގައިވާ ކެރެކްޓާތައް: "
+              )
+              .replace(
+                /numChanges\":/g,
+                "ޖުމްލަ ހުރިހާ ގޮތަކުން ބަދަލުވި ފޮޅުވަތްތައް: "
+              )
+              .replace(
+                /\,\"lhsLength\":/g,
+                " &nbsp;|&nbsp; ވާތު ފަޅީގައިވާ ކެރެކްޓާތައް: "
+              )
+              .replace(/\,\"a"\:/g, " &nbsp;|&nbsp; އިތުރުވި ފޮޅުވަތްތައް: ")
+              .replace(/\,\"c"\:/g, " &nbsp;|&nbsp; ބަދަލުވި ފޮޅުވަތްތައް: ")
+              .replace(/\,\"d"\:/g, " &nbsp;|&nbsp; ކަނޑާލެވުނު ފޮޅުވަތްތައް: ")
+              .replace(/\}/g, "");
+
+            /*.replace(/numChanges/g, "aaa")
+              .replace(/lhsLength/g, '/world">Helloworld</a>');*/
+
+            // {"numChanges":2,"lhsLength":180,"rhsLength":193,"c":2,"a":0,"d":0}
+            /* a	The number of added lines.
+            c	The number of changed lines.
+            d	The number of deleted lines.
+            lhsLength	The number of characters in the lhs text.
+            rhsLength	The number of characters in the rhs text.
+            numChanges	The total number of changed lines. */
+          }); // $(window).on("load", function () {
+
+          function doSummary() {
+            // remove content of log to add content again, otherwise content repeats
+            document.getElementById("log").innerHTML = "";
+
+            // repeated code before so as to add new strings when console is updated oninput
+            console.log($("#mergely").mergely("summary"));
+
+            var strMessage1 = document.getElementById("log");
+            strMessage1.innerHTML = strMessage1.innerHTML
+              .replace(/\{\"/g, "")
+              .replace(
+                /\,\"rhsLength\":/g,
+                " &nbsp;|&nbsp; ކަނާތު ފަޅީގައިވާ ކެރެކްޓާތައް: "
+              )
+              .replace(/numChanges\":/g, "ޖުމްލަ ތަފާތު ފޮޅުވަތްތައް: ")
+              .replace(
+                /\,\"lhsLength\":/g,
+                " &nbsp;|&nbsp; ވާތު ފަޅީގައިވާ ކެރެކްޓާތައް: "
+              )
+              .replace(/\,\"a"\:/g, " &nbsp;|&nbsp; އިތުރުވި ފޮޅުވަތްތައް: ")
+              .replace(/\,\"c"\:/g, " &nbsp;|&nbsp; ބަދަލުވި ފޮޅުވަތްތައް: ")
+              .replace(/\,\"d"\:/g, " &nbsp;|&nbsp; ކަނޑާލެވުނު ފޮޅުވަތްތައް: ")
+              .replace(/\}/g, "");
+          }
+        </script>
+        -->
+
+        <!-- old code mergely
+        <script>
+          $(document).ready(function () {
+            var comp = $("#mergely");
+
+            function fetchJSON(url, callback) {
+              $.get(url, function (data) {
+                var json = JSON.parse(data);
+                var formattedText = JSON.stringify(json, null, 2);
+                callback(formattedText);
+              });
+            }
+
+            comp.mergely({
+              cmsettings: {
+                readOnly: false, //default
+                lineWrapping: true,
+              },
+              wrap_lines: true,
+              width: "auto",
+              height: "auto",
+              autoresize: true, //default
+
+              /*lhs: function (setValue) {
+        fetchJSON($("#file1").attr("href"), setValue);
+      },
+      rhs: function (setValue) {
+        fetchJSON($("#file2").attr("href"), setValue);
+      },*/
+              lhs: function (setValue) {
+                setValue(
+                  "عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُ قَالَ:\nقَالَ رَسُولُ اللَّهِ ﷺ:\n\nޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ރިވާ ކުރެއްވިއެވެ:\nރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
+                );
+              },
+              rhs: function (setValue) {
+                setValue(
+                  "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ:\nسَمِعْتُ النَّبِيَّ ﷺ يَقُولُ:\n\nއިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ރިވާ ކުރެއްވިއެވެ:\nނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:"
+                );
+              },
+            });
+            window.addEventListener("resize", () => {
+              comp.mergely("resize");
+              console.log("resize");
+            });
+
+            function changeOptions(changer) {
+              var options = comp.mergely("options");
+              changer(options);
+              comp.mergely("options", options);
+            }
 
             $("#prev").click(function () {
-              $("#mergely").mergely("scrollToDiff", "prev"); // changed comp.mergely to $("#mergely").mergely?
+              comp.mergely("scrollToDiff", "prev");
             });
             $("#next").click(function () {
-              $("#mergely").mergely("scrollToDiff", "next");
+              comp.mergely("scrollToDiff", "next");
             });
-
             $("#wrap").click(function () {
               changeOptions(function (x) {
                 x.wrap_lines = !x.wrap_lines;
               });
             });
-            function changeOptions(changer) {
-              var options = $("#mergely").mergely("options");
-              changer(options);
-              $("#mergely").mergely("options", options);
-            }
-            /**/
           });
-
-          /*function changeOptions(changer) {
-            var options = comp.mergely("options");
-            changer(options);
-            comp.mergely("options", options);
-          }*/
+          
         </script>
+        -->
 
-        <!-- old code, just took out the part needed below and styled
-        <div class="mergely-full-screen-8">
-          <div class="mergely-resizer">
-            <div id="mergely"></div>
-          </div>
-        </div> -->
-        <div class="mergely-full-screen-8">
-          <div class="mergely-resizer">
-            <div id="mergely"></div>
-          </div>
-        </div>
+        <br />
 
-        <style>
-          /* see https://github.com/wickedest/Mergely/blob/master/src/mergely.css to know defaults */
+        <div id="log"></div>
 
-          /* if not setting height and width here in styles, has to be done via js, otherwise diff text area wont show at all, unless it is contained in an absolute div */
-          .mergely-full-screen-8 {
-            /*position: absolute;*/
-            position: relative;
-            top: 8px;
-            bottom: 8px;
-            left: 8px;
-            right: 8px;
-            overflow: hidden;
+        <br />
 
-            /* added below */
-            /*height: 450px;*/
-            width: 100%;
-            height: 80vh;
-          }
-
-          /* ADDED below */
-
-          /* removes splash div popup */
-          #mergely-splash {
-            display: none;
-          }
-
-          /* removes strikethrough on left hand side */
-          .mergely.ch.d.lhs {
-            text-decoration: none;
-          }
-
-          /* set font css */
-          .CodeMirror {
-            font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-            font-size: 16px;
-            /*direction: rtl;*/ /* makes text rtl, but merge arrows too */
-          }
-        </style>
-
-        <p class="mid editorButtons dv" style="margin-top: 15px">
-          <button id="prev" data-tooltip="Jump to the previous difference">
-            ▲ ކުރީގެ ބަދަލަށް
-          </button>
-          <button id="next" data-tooltip="Jump to the next difference">
-            ▼ ޖެހިގެންވާ ބަދަލަށް
-          </button>
-          <button id="wrap" data-tooltip="Turn wordwrap on or off">
-            ↲ އެއްފޮޅުވަތަށް ފައްތާ
-          </button>
-          <!--<button id="fullScreen" title="Toggle fullscreen">
-  ފުލްސްކްރީން 🖥️
-</button>-->
-        </p>
-
-        <!-- not directly related below, seperate from mergely -->
+        <!-- not directly related below -->
 
         <div class="dv">
-          <p>
-            މަތީގައިވާ ލިޔާ ދެ ތަންކޮޅުގައި އެއްޗެއް ލިޔުމުން، އެ ދެ ލިޔުމުގެ
-            ދެމެދުގައިވާ ތަފާތު ދައްކާނެ. ފަސޭހަވާނީ ޑެސްކްޓޮޕުން ބޭނުން ކުރަން.
-          </p>
           <p>
             މި ސަފުހާ ރަނގަޅަށް ލޯޑު ނުވާ ނަމަ، އަލުން ރީލޯޑު ކޮށްލުމުން
             ރަނގަޅުވާނެ.
           </p>
-
+          <p>
+            މަތީގައިވާ ލިޔާ ދެ ތަންކޮޅުގައި އެއްޗެއް ލިޔުމުން، އެ ދެ ލިޔުމުގެ
+            ދެމެދުގައިވާ ތަފާތު ދައްކާނެ.
+          </p>
           <p>
             ކަނާތު ފަޅީގައިވާ ބަދަލުތައް، ވާތު ފަޅިއަށް ލުމަށް '>' އަށް
             ފިތާލައްވާ.
