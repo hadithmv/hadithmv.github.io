@@ -1228,6 +1228,30 @@
             ފިލ/އަކު ު މަދުތޯ
           </button>
 
+          <button
+            id="fullScreen"
+            class="ttClass"
+            data-tooltip="Go fullscreen. Press escape to undo"
+          >
+            ފުލްސްކްރީން 🖥️
+          </button>
+
+          <script>
+            $("#fullScreen").click(function () {
+              $("#textMainArea").css({
+                height: "100vh",
+                position: "absolute",
+                top: "0",
+                right: "0",
+                padding: "50px",
+              });
+              // for some reason help buttons show if they have relative position, so changed
+              $(".ttClass[data-tooltip]").css({
+                position: "static",
+              });
+            });
+          </script>
+
           <p
             class="doubleFiliHolder"
             style="direction: rtl; display: none; margin-bottom: 0"
@@ -1483,11 +1507,7 @@
           //
         </script>
 
-        <div
-          id="lineThruForToggle"
-          class="ttClass"
-          data-tooltip="Replaces most thikijehi thaana letters to those without thiki"
-        >
+        <div id="lineThruForToggle">
           <p class="buttonHeader">
             ތިރީގައި މިވާ އަކުރުތައް، މަތީގައިވާ ހުސްޖާގައިގައި ލިޔުމާއެކީ
             ވަގުތުން ދެންނެވިފައިވާ ބަސްތަކަށް ބަދަލުވެގެންދާނެއެވެ:
@@ -1534,6 +1554,7 @@
               ނހއ- ← ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”
             </li>
             <li>1-- ← ⁽¹⁾ / 9-- ← ⁽⁹⁾</li>
+            <li>...- ← …</li>
           </ul>
         </div>
 
@@ -2031,6 +2052,7 @@
                 "ނއޑ-",
                 "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
               );
+              replaceText("...-", "…");
               //replaceText("mmm", "mmm");
             }, 850);
 
@@ -5302,7 +5324,7 @@ cols="60"-->
           src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/addon/selection/mark-selection.js"
         ></script>  -->
 
-        <script>
+        <script defer>
           $(document).ready(function () {
             $("#mergely").mergely({
               //
@@ -5316,7 +5338,7 @@ cols="60"-->
               cmsettings: {
                 //readOnly: true,
                 direction: "rtl",
-                //rtlMoveVisually: true,
+                rtlMoveVisually: true,
                 /* lets select go over change highlights https://github.com/wickedest/Mergely/issues/104 */
                 styleSelectedText: true,
               },
@@ -5345,10 +5367,45 @@ cols="60"-->
             $("#next").click(function () {
               $("#mergely").mergely("scrollToDiff", "next");
             });
+
             $("#clearM").click(function () {
               $("#mergely").mergely("clear", "lhs");
               $("#mergely").mergely("clear", "rhs");
             });
+
+            $("#fullScreen2").click(function () {
+              $(".mergely-full-screen-8").css({
+                height: "100vh",
+                width: "100vw",
+                position: "absolute",
+              });
+              $("#mergely").mergely("resize");
+              // for some reason help buttons show if they have relative position, so changed
+              $(".ttClass[data-tooltip]").css({
+                position: "static",
+              });
+            });
+
+            // ESCAPE KEYBIND for both fullscreen events, editor and diff
+            document.onkeydown = function (evt) {
+              evt = evt || window.event;
+              if (evt.keyCode == 27) {
+                // is esc
+                //alert("Esc key pressed.");
+                $(".mergely-full-screen-8").css({
+                  height: "80vh",
+                  width: "100%",
+                  position: "relative",
+                });
+                $("#mergely").mergely("resize");
+                // below for editor stuff
+                $("#textMainArea").css({
+                  height: "300px",
+                  position: "relative",
+                  padding: "10px",
+                });
+              }
+            };
 
             $("#wrap").click(function () {
               changeOptions(function (x) {
@@ -5428,27 +5485,47 @@ cols="60"-->
           /* changes select color?
           .CodeMirror-selected {
             background-color: #cccccc !important;
-          }
+          }*/
         </style>
 
         <p class="mid editorButtons dv" style="margin-top: 15px">
-          <button id="clearM" data-tooltip="clears the texts above">
+          <button
+            id="clearM"
+            class="ttClass"
+            data-tooltip="clears both texts above"
+          >
             ❌ ލިޔުން ފޮހެލާ
           </button>
 
-          <button id="prev" data-tooltip="Jump to the previous difference">
+          <button
+            id="prev"
+            class="ttClass"
+            data-tooltip="Jump to the previous difference"
+          >
             ▲ ކުރީގެ ބަދަލު
           </button>
-          <button id="next" data-tooltip="Jump to the next difference">
+          <button
+            id="next"
+            class="ttClass"
+            data-tooltip="Jump to the next difference"
+          >
             ▼ ދެން އަންނަ
           </button>
-          <button id="wrap" data-tooltip="Turn wordwrap on or off">
+          <button
+            id="wrap"
+            class="ttClass"
+            data-tooltip="Turn wordwrap on or off"
+          >
             ↲ އެއް ފޮޅުވަތަށް
           </button>
 
-          <!--<button id="fullScreen" title="Toggle fullscreen">
-  ފުލްސްކްރީން 🖥️
-</button>-->
+          <button
+            id="fullScreen2"
+            class="ttClass"
+            data-tooltip="Go fullscreen. Press escape to undo"
+          >
+            ފުލްސްކްރީން 🖥️
+          </button>
 
           &nbsp;
 
