@@ -175,7 +175,7 @@
       border-radius: 4px;
       direction: rtl;
 
-      /* box sizing lets me add padding without losing the centering */
+      /* box sizing lets me add padding without losing the centering, better than indents or padding on its own */
       padding: 10px;
       box-sizing: border-box;
     }
@@ -481,6 +481,10 @@
             if (e.altKey && e.which == 71) {
               // is g
               document.querySelector("#lineNumButton").click();
+            }
+            if (e.altKey && e.which == 83) {
+              // is s
+              document.querySelector("#fullScreen").click();
             }
             //
           };
@@ -1230,27 +1234,38 @@
 
           <button
             id="fullScreen"
+            onclick="fullScreen();"
             class="ttClass"
             data-tooltip="Go fullscreen. Press escape to undo"
           >
-            ފުލްސްކްރީން 🖥️
+            🖥️ ފުލް <u>S</u>creen
           </button>
 
           <script>
             $("#fullScreen").click(function () {
               $("#textMainArea").css({
-                height: "100vh",
-                position: "absolute",
+                height: "100%",
+                position: "fixed",
                 top: "0",
                 right: "0",
-                padding: "50px",
+                width: "100%",
+                borderWidth: "100px",
+                borderColor: "white",
+                fontSize: "26px",
               });
+              // padding causes textarea to autoresize on content full scroll, so used borderwidth
               // for some reason help buttons show if they have relative position, so changed
               $(".ttClass[data-tooltip]").css({
                 position: "static",
               });
             });
           </script>
+
+          <style>
+            html {
+              height: 100%;
+            }
+          </style>
 
           <p
             class="doubleFiliHolder"
@@ -5379,6 +5394,7 @@ cols="60"-->
                 width: "100vw",
                 position: "absolute",
               });
+              $(".CodeMirror").css({ fontSize: "26px" });
               $("#mergely").mergely("resize");
               // for some reason help buttons show if they have relative position, so changed
               $(".ttClass[data-tooltip]").css({
@@ -5403,6 +5419,7 @@ cols="60"-->
                   height: "300px",
                   position: "relative",
                   padding: "10px",
+                  borderWidth: "0",
                 });
               }
             };
@@ -5486,6 +5503,11 @@ cols="60"-->
           .CodeMirror-selected {
             background-color: #cccccc !important;
           }*/
+
+          /* turns the middle part of mergely white, otherwise see through */
+          .mergely-canvas {
+            background-color: white;
+          }
         </style>
 
         <p class="mid editorButtons dv" style="margin-top: 15px">
@@ -5524,7 +5546,7 @@ cols="60"-->
             class="ttClass"
             data-tooltip="Go fullscreen. Press escape to undo"
           >
-            ފުލްސްކްރީން 🖥️
+            🖥️ ފުލްސްކްރީން
           </button>
 
           &nbsp;
