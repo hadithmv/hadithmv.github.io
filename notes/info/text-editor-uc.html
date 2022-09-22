@@ -1253,6 +1253,25 @@
                 borderColor: "white",
                 fontSize: "26px",
               });
+
+              if (window.matchMedia("(max-width: 599px)").matches) {
+                //alert("This is a mobile device.");
+                $("#textMainArea").css({
+                  borderWidth: "15px",
+                  borderColor: "white",
+                  fontSize: "23px",
+                });
+                //
+              }
+
+              window.addEventListener("click", function (evt) {
+                if (evt.detail === 4) {
+                  alert("triple click!");
+                  var esc = $.Event("keydown", { keyCode: 27 });
+                  $("body").trigger(esc); // change body to the element where you'd like to execute the escape key press.
+                }
+              });
+
               // padding causes textarea to autoresize on content full scroll, so used borderwidth
               // for some reason help buttons show if they have relative position, so changed
               $(".ttClass[data-tooltip]").css({
