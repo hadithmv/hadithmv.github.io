@@ -1280,12 +1280,12 @@
           </style>
 
           <script>
-             $("#fullScreenB").on("click", function () {
-               $("#textMainArea").addClass("fullScreenClass");
-             });
-             //$("#textMainArea").removeClass("fullScreenClass");
+            $("#fullScreenB").on("click", function () {
+              $("#textMainArea").addClass("fullScreenClass");
 
-            /* $("#fullScreenB").click(function () {
+              //$("#textMainArea").removeClass("fullScreenClass");
+
+              /* $("#fullScreenB").click(function () {
                // listen for multiple clicks
                window.addEventListener("click", function (evt) {
                  if (evt.detail === 4) {
@@ -1296,14 +1296,14 @@
                  }
                });*/
 
-               // for some reason help buttons show if they have relative position, so changed to static
-               $(".ttClass[data-tooltip]").css({
-                 position: "static",
-               });
-             });
+              // for some reason help buttons show if they have relative position, so changed to static
+              $(".ttClass[data-tooltip]").css({
+                position: "static",
+              });
+            });
 
-             // old onclick js code turned into css later
-             /*$("#textMainArea").css({
+            // old onclick js code turned into css later
+            /*$("#textMainArea").css({
                  height: "100%",
                  position: "fixed",
                  top: "0",
