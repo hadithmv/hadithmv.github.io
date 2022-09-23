@@ -178,6 +178,15 @@
       /* box sizing lets me add padding without losing the centering, better than indents or padding on its own */
       padding: 10px;
       box-sizing: border-box;
+
+      /* added for fullscreen animation, otherwise starts off as grey */
+      border-color: white;
+
+      /* needed for deanimate effect */
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease;
+      transition: all 0.5s ease;
     }
 
     #textSumArea {
@@ -484,7 +493,7 @@
             }
             if (e.altKey && e.which == 83) {
               // is s
-              document.querySelector("#fullScreen").click();
+              document.querySelector("#fullScreenB").click();
             }
             //
           };
@@ -1233,17 +1242,66 @@
           </button>
 
           <button
-            id="fullScreen"
-            onclick="fullScreen();"
+            id="fullScreenB"
             class="ttClass"
             data-tooltip="Go fullscreen. Press escape to undo"
           >
             🖥️ ފުލް <u>S</u>creen
           </button>
 
+          <style>
+            .fullScreenClass {
+              /* 100% height causes jump on remove class deanimate */
+              height: 100vh !important;
+              position: fixed;
+              top: 0;
+              right: 0;
+              /*width: 100%;*/
+              /* padding causes textarea to autoresize on content full scroll, so used borderwidth */
+              border-width: 100px;
+              border-color: white;
+              font-size: 26px !important;
+              /* animation effect below */
+              -webkit-transition: all 0.5s ease;
+              -moz-transition: all 0.5s ease;
+              -o-transition: all 0.5s ease;
+              transition: all 0.5s ease;
+            }
+
+            @media (max-width: 599px) {
+              .fullScreenClass {
+                border-width: 15px;
+                border-color: white;
+                font-size: 23px;
+              }
+            }
+          </style>
+
           <script>
-            $("#fullScreen").click(function () {
-              $("#textMainArea").css({
+            $("#fullScreenB").on("click", function () {
+              $("#textMainArea").addClass("fullScreenClass");
+            });
+            //$("#textMainArea").removeClass("fullScreenClass");
+
+            $("#fullScreenB").click(function () {
+              // listen for multiple clicks
+              window.addEventListener("click", function (evt) {
+                if (evt.detail === 4) {
+                  alert("triple click!");
+                  //var esc = $.Event("keydown", { keyCode: 27 });
+                  //$("body").trigger(esc); // change body to the element where you'd like to execute the escape key press.
+                  $("#textMainArea").removeClass("fullScreenClass");
+                }
+              });
+
+              // for some reason help buttons show if they have relative position, so changed to static
+              $(".ttClass[data-tooltip]").css({
+                position: "static",
+              });
+            });
+
+            // old onclick js code turned into css later
+            /*$("#textMainArea").css({
                 height: "100%",
                 position: "fixed",
                 top: "0",
@@ -1263,28 +1321,8 @@
                 });
                 //
               }
-
-              window.addEventListener("click", function (evt) {
-                if (evt.detail === 4) {
-                  alert("triple click!");
-                  var esc = $.Event("keydown", { keyCode: 27 });
-                  $("body").trigger(esc); // change body to the element where you'd like to execute the escape key press.
-                }
-              });
-
-              // padding causes textarea to autoresize on content full scroll, so used borderwidth
-              // for some reason help buttons show if they have relative position, so changed
-              $(".ttClass[data-tooltip]").css({
-                position: "static",
-              });
-            });
+              */
           </script>
-
-          <style>
-            html {
-              height: 100%;
-            }
-          </style>
 
           <p
             class="doubleFiliHolder"
@@ -5407,42 +5445,6 @@ cols="60"-->
               $("#mergely").mergely("clear", "rhs");
             });
 
-            $("#fullScreen2").click(function () {
-              $(".mergely-full-screen-8").css({
-                height: "100vh",
-                width: "100vw",
-                position: "absolute",
-              });
-              $(".CodeMirror").css({ fontSize: "26px" });
-              $("#mergely").mergely("resize");
-              // for some reason help buttons show if they have relative position, so changed
-              $(".ttClass[data-tooltip]").css({
-                position: "static",
-              });
-            });
-
-            // ESCAPE KEYBIND for both fullscreen events, editor and diff
-            document.onkeydown = function (evt) {
-              evt = evt || window.event;
-              if (evt.keyCode == 27) {
-                // is esc
-                //alert("Esc key pressed.");
-                $(".mergely-full-screen-8").css({
-                  height: "80vh",
-                  width: "100%",
-                  position: "relative",
-                });
-                $("#mergely").mergely("resize");
-                // below for editor stuff
-                $("#textMainArea").css({
-                  height: "300px",
-                  position: "relative",
-                  padding: "10px",
-                  borderWidth: "0",
-                });
-              }
-            };
-
             $("#wrap").click(function () {
               changeOptions(function (x) {
                 x.wrap_lines = !x.wrap_lines;
@@ -5561,12 +5563,74 @@ cols="60"-->
           </button>
 
           <button
-            id="fullScreen2"
+            id="fullScreenB2"
             class="ttClass"
             data-tooltip="Go fullscreen. Press escape to undo"
           >
             🖥️ ފުލްސްކްރީން
           </button>
+
+          <script>
+            $("#fullScreenB2").click(function () {
+              $(".mergely-full-screen-8").addClass("fullScreenClass2");
+              /*$(".mergely-full-screen-8").css({
+              height: "100vh",
+              width: "100vw",
+              position: "absolute",
+            });*/
+
+              $(".CodeMirror").css({ fontSize: "26px" });
+              $("#mergely").mergely("resize");
+
+              // for some reason help buttons show if they have relative position, so changed
+              $(".ttClass[data-tooltip]").css({
+                position: "static",
+              });
+            });
+
+            //
+            // ESCAPE KEYBIND for both fullscreen events, EDITOR and DIFF
+            //
+            document.onkeydown = function (evt) {
+              evt = evt || window.event;
+              if (evt.keyCode == 27) {
+                // is esc
+                //alert("Esc key pressed.");
+                $(".mergely-full-screen-8").removeClass("fullScreenClass2");
+                /*$(".mergely-full-screen-8").css({
+                height: "80vh",
+                width: "100%",
+                position: "relative",
+              });*/
+                $("#mergely").mergely("resize");
+                //
+                // EDITOR only code below
+                //
+                $("#textMainArea").removeClass("fullScreenClass");
+                /*$("#textMainArea").css({
+                height: "300px",
+                position: "relative",
+                padding: "10px",
+                borderWidth: "0",
+              });*/
+              }
+            };
+          </script>
+
+          <style>
+            .fullScreenClass2 {
+              /* 100% height causes jump on remove class deanimate */
+              height: 100vh;
+              width: 100vw;
+              position: fixed; /*absolute? */
+
+              /* animation effect below, but this messes up height for some unknown reason? */
+              /*-webkit-transition: all 0.5s ease;
+              -moz-transition: all 0.5s ease;
+              -o-transition: all 0.5s ease;
+              transition: all 0.5s ease;*/
+            }
+          </style>
 
           &nbsp;
 
