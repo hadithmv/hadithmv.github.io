@@ -5272,7 +5272,7 @@ cols="60"-->
       </div>
       <!-- <div id="tabThree" class="tabcontent"> -->
 
-      <div id="tabFour" class="tabcontent">
+      <div id="tabFour" class="tabcontent" style="margin-top: 10px">
         <!-- code taken from simple.html, https://github.com/wickedest/Mergely/tree/master/examples (downloaded zipped release)-->
 
         <!-- NEEDED, JQUERY
@@ -5466,7 +5466,7 @@ cols="60"-->
           }
         </style>
 
-        <p class="mid editorButtons dv" style="margin-top: 15px">
+        <div class="mid editorButtons dv" style="margin-top: 15px">
           <button
             id="clearM"
             class="ttClass"
@@ -5581,56 +5581,58 @@ cols="60"-->
           <span class="hideOnPhoneOnly">&nbsp; </span>
           <br class="hideOnTabAndUp" />
 
-          <span
-            id="sliderValue2"
-            style="
-              display: inline-block;
-              width: 25px;
-              position: relative;
-              top: -2px;
-            "
-            >20</span
-          >
+          <div style="display: inline-block; top: -50px !important">
+            <span
+              id="sliderValue2"
+              style="
+                display: inline-block;
+                width: 25px;
+                position: relative;
+                top: -2px;
+              "
+              >20</span
+            >
 
-          <span class="small-letter2">A</span>&nbsp;
-          <input
-            id="slider2"
-            type="range"
-            min="10"
-            max="100"
-            style="padding: 0"
-            class="ttClass"
-            oninput="fontChange2()"
-          />&nbsp;
-          <span class="big-letter2">A</span>
+            <span class="small-letter2">A</span>&nbsp;
+            <input
+              id="slider2"
+              type="range"
+              min="10"
+              max="100"
+              style="padding: 0"
+              class="ttClass"
+              oninput="fontChange2()"
+            />&nbsp;
+            <span class="big-letter2">A</span>
+          </div>
+        </div>
 
-          <style>
-            .small-letter2 {
-              font-size: 14px;
-              margin-bottom: 5px; /* 8 */
-              display: inline-block;
-              vertical-align: middle;
-            }
+        <style>
+          .small-letter2 {
+            font-size: 14px;
+            margin-bottom: 5px; /* 8 */
+            display: inline-block;
+            vertical-align: middle;
+          }
 
-            .big-letter2 {
-              font-size: 24px;
-            }
-          </style>
+          .big-letter2 {
+            font-size: 24px;
+          }
+        </style>
 
-          <script>
-            function fontChange2() {
-              document.getElementsByClassName("CodeMirror")[0].style.fontSize =
-                document.getElementById("slider2").value + "px";
+        <script>
+          function fontChange2() {
+            document.getElementsByClassName("CodeMirror")[0].style.fontSize =
+              document.getElementById("slider2").value + "px";
 
-              document.getElementsByClassName("CodeMirror")[1].style.fontSize =
-                document.getElementById("slider2").value + "px";
+            document.getElementsByClassName("CodeMirror")[1].style.fontSize =
+              document.getElementById("slider2").value + "px";
 
-              // added below
-              document.getElementById("sliderValue2").innerHTML =
-                document.getElementById("slider2").value;
-            }
-          </script>
-        </p>
+            // added below
+            document.getElementById("sliderValue2").innerHTML =
+              document.getElementById("slider2").value;
+          }
+        </script>
 
         <!-- not directly related below, seperate from mergely -->
 
