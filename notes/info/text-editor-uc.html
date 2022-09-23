@@ -1273,55 +1273,57 @@
                 border-width: 15px;
                 border-color: white;
                 font-size: 23px;
+                /* for typing on mobile? */
+                position: absolute;
               }
             }
           </style>
 
           <script>
-            $("#fullScreenB").on("click", function () {
-              $("#textMainArea").addClass("fullScreenClass");
-            });
-            //$("#textMainArea").removeClass("fullScreenClass");
+             $("#fullScreenB").on("click", function () {
+               $("#textMainArea").addClass("fullScreenClass");
+             });
+             //$("#textMainArea").removeClass("fullScreenClass");
 
-            $("#fullScreenB").click(function () {
-              // listen for multiple clicks
-              window.addEventListener("click", function (evt) {
-                if (evt.detail === 4) {
-                  alert("triple click!");
-                  //var esc = $.Event("keydown", { keyCode: 27 });
-                  //$("body").trigger(esc); // change body to the element where you'd like to execute the escape key press.
-                  $("#textMainArea").removeClass("fullScreenClass");
-                }
-              });
+            /* $("#fullScreenB").click(function () {
+               // listen for multiple clicks
+               window.addEventListener("click", function (evt) {
+                 if (evt.detail === 4) {
+                   alert("triple click!");
+                   //var esc = $.Event("keydown", { keyCode: 27 });
+                   //$("body").trigger(esc); // change body to the element where you'd like to execute the escape key press.
+                   $("#textMainArea").removeClass("fullScreenClass");
+                 }
+               });*/
 
-              // for some reason help buttons show if they have relative position, so changed to static
-              $(".ttClass[data-tooltip]").css({
-                position: "static",
-              });
-            });
+               // for some reason help buttons show if they have relative position, so changed to static
+               $(".ttClass[data-tooltip]").css({
+                 position: "static",
+               });
+             });
 
-            // old onclick js code turned into css later
-            /*$("#textMainArea").css({
-                height: "100%",
-                position: "fixed",
-                top: "0",
-                right: "0",
-                width: "100%",
-                borderWidth: "100px",
-                borderColor: "white",
-                fontSize: "26px",
-              });
+             // old onclick js code turned into css later
+             /*$("#textMainArea").css({
+                 height: "100%",
+                 position: "fixed",
+                 top: "0",
+                 right: "0",
+                 width: "100%",
+                 borderWidth: "100px",
+                 borderColor: "white",
+                 fontSize: "26px",
+               });
 
-              if (window.matchMedia("(max-width: 599px)").matches) {
-                //alert("This is a mobile device.");
-                $("#textMainArea").css({
-                  borderWidth: "15px",
-                  borderColor: "white",
-                  fontSize: "23px",
-                });
-                //
-              }
-              */
+               if (window.matchMedia("(max-width: 599px)").matches) {
+                 //alert("This is a mobile device.");
+                 $("#textMainArea").css({
+                   borderWidth: "15px",
+                   borderColor: "white",
+                   fontSize: "23px",
+                 });
+                 //
+               }
+               */
           </script>
 
           <p
@@ -1677,21 +1679,6 @@
 
           var toggleCandRState = 1;
 
-          /* toggle help on */
-
-          // https://stackoverflow.com/questions/7184562/how-to-get-elements-with-multiple-classes/59406548#59406548
-
-          const els = document.getElementsByClassName("ttClass");
-          for (const el of [...els]) {
-            el.className = "ttClassDisabled";
-          }
-
-          document.getElementById("toggleHandT").className = "ttClass";
-
-          //
-          //
-          //
-
           // https://stackoverflow.com/questions/8752541/jquery-delay-after-click/8752555#8752555
 
           function triggerTheCounts() {
@@ -1776,73 +1763,6 @@
 
               document.getElementById("toggleCandR").style.boxShadow =
                 "inset 0px 0px 5px #c1c1c1";
-
-              return false;
-            }
-          }
-
-          //
-          //  HELP TIPS
-          //
-
-          var toggleHelpTips_timesClicked = 0;
-          function toggleHelpTips() {
-            toggleHelpTips_timesClicked++;
-            if (toggleHelpTips_timesClicked % 2 == 0) {
-              //run second function
-
-              const els = document.getElementsByClassName("ttClass");
-              for (const el of [...els]) {
-                el.className = "ttClassDisabled";
-              }
-
-              document.getElementById("toggleHandT").innerHTML = "Help is OFF";
-
-              //
-
-              if (
-                window.matchMedia &&
-                window.matchMedia("(prefers-color-scheme: dark)").matches
-              ) {
-                // dark mode
-                document.getElementById("toggleHandT").style.backgroundColor =
-                  "#fff";
-              } else {
-                document.getElementById("toggleHandT").style.backgroundColor =
-                  "#efefef";
-              }
-
-              document.getElementById("toggleHandT").style.color = "initial";
-              document.getElementById("toggleHandT").style.boxShadow =
-                "initial";
-
-              //document.getElementById("toggleHandT").className = "ttClass";
-
-              return false;
-            } else {
-              //run first function
-
-              const els = document.getElementsByClassName("ttClassDisabled");
-              for (const el of [...els]) {
-                el.className = "ttClass";
-              }
-
-              document.getElementById("toggleHandT").className =
-                "ttClassDisabled";
-
-              document.getElementById("toggleHandT").innerHTML = "Help is ON";
-
-              //
-
-              document.getElementById("toggleHandT").style.backgroundColor =
-                "#136296";
-              document.getElementById("toggleHandT").style.color = "#fff";
-              document.getElementById("toggleHandT").style.boxShadow =
-                "inset 0px 0px 5px #c1c1c1";
-
-              // https://thewebdev.info/2022/01/17/how-to-get-all-elements-by-class-name-and-the-change-class-name-for-each-with-javascript/
-
-              // The problem is that the NodeList returned to you is "live" - it changes as you alter the class name. That is, when you change the class on the first element, the list is immediately one element shorter than it was.
 
               return false;
             }
@@ -5580,6 +5500,11 @@ cols="60"-->
             });*/
 
               $(".CodeMirror").css({ fontSize: "26px" });
+              /*/ js mobile only mediaquery */
+              if (window.matchMedia("(max-width: 599px)").matches) {
+                $(".CodeMirror").css({ fontSize: "20px" });
+              }
+
               $("#mergely").mergely("resize");
 
               // for some reason help buttons show if they have relative position, so changed
@@ -6120,6 +6045,89 @@ cols="60"-->
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
       }
+    </script>
+
+    <script>
+      //
+      //  HELP TIPS
+      //
+      // having it not at the end causes some to toggle on and others off
+
+      var toggleHelpTips_timesClicked = 0;
+      function toggleHelpTips() {
+        toggleHelpTips_timesClicked++;
+        if (toggleHelpTips_timesClicked % 2 == 0) {
+          //run second function
+
+          const els = document.getElementsByClassName("ttClass");
+          for (const el of [...els]) {
+            el.className = "ttClassDisabled";
+          }
+
+          document.getElementById("toggleHandT").innerHTML = "Help is OFF";
+
+          //
+
+          if (
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+          ) {
+            // dark mode
+            document.getElementById("toggleHandT").style.backgroundColor =
+              "#fff";
+          } else {
+            document.getElementById("toggleHandT").style.backgroundColor =
+              "#efefef";
+          }
+
+          document.getElementById("toggleHandT").style.color = "initial";
+          document.getElementById("toggleHandT").style.boxShadow = "initial";
+
+          //document.getElementById("toggleHandT").className = "ttClass";
+
+          return false;
+        } else {
+          //run first function
+
+          const els = document.getElementsByClassName("ttClassDisabled");
+          for (const el of [...els]) {
+            el.className = "ttClass";
+          }
+
+          document.getElementById("toggleHandT").className = "ttClassDisabled";
+
+          document.getElementById("toggleHandT").innerHTML = "Help is ON";
+
+          //
+
+          document.getElementById("toggleHandT").style.backgroundColor =
+            "#136296";
+          document.getElementById("toggleHandT").style.color = "#fff";
+          document.getElementById("toggleHandT").style.boxShadow =
+            "inset 0px 0px 5px #c1c1c1";
+
+          // https://thewebdev.info/2022/01/17/how-to-get-all-elements-by-class-name-and-the-change-class-name-for-each-with-javascript/
+
+          // The problem is that the NodeList returned to you is "live" - it changes as you alter the class name. That is, when you change the class on the first element, the list is immediately one element shorter than it was.
+
+          return false;
+        }
+      }
+
+      /* toggle help on */
+
+      // https://stackoverflow.com/questions/7184562/how-to-get-elements-with-multiple-classes/59406548#59406548
+
+      const els = document.getElementsByClassName("ttClass");
+      for (const el of [...els]) {
+        el.className = "ttClassDisabled";
+      }
+
+      document.getElementById("toggleHandT").className = "ttClass";
+
+      //
+      //
+      //
     </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
