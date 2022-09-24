@@ -5545,6 +5545,40 @@ cols="60"-->
           </button>
 
           <button
+            onclick="leftToRight2();"
+            id="ltrButton2"
+            class="ttClass"
+            data-tooltip="Changes text direction from right to left and left to right"
+          >
+            LTR ↔️ RTL
+          </button>
+
+          <script>
+            var leftToRight2_timesClicked = 0;
+            // https://stackoverflow.com/questions/38346671/direction-rtl-to-all-page/38346971#38346971
+
+            function leftToRight2() {
+              leftToRight2_timesClicked++;
+              if (leftToRight2_timesClicked % 2 == 0) {
+                //run second function
+                $(".CodeMirror").addClass("CodeMirror-rtl");
+                /*$(".CodeMirror").removeClass("CodeMirror"); adding this breaks it for some reason */
+                //
+              } else {
+                //run first function
+                /*document
+                  .querySelector(".CodeMirror-rtl")
+                  .classList.add("CodeMirror");
+                document
+                  .querySelector(".CodeMirror-rtl")*/
+                //
+                $(".CodeMirror-rtl").addClass("CodeMirror");
+                $(".CodeMirror-rtl").removeClass("CodeMirror-rtl");
+              }
+            }
+          </script>
+
+          <button
             id="fullScreenB2"
             class="ttClass"
             data-tooltip="Go fullscreen. Press escape to undo"
