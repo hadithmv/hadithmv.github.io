@@ -496,6 +496,33 @@
               document.querySelector("#fullScreenB").click();
             }
             //
+            //
+            //
+            //if (evt.keyCode == 27) {
+            if (e.which == 27) {
+              // is esc
+              //alert("Esc key pressed.");
+              $(".mergely-full-screen-8").removeClass("fullScreenClass2");
+              //$(".mergely-full-screen-8").css({
+              //height: "80vh",
+              //width: "100%",
+              //position: "relative",
+              //});
+              $("#mergely").mergely("resize");
+              //
+              // EDITOR only code below
+              //
+              $("#textMainArea").removeClass("fullScreenClass");
+              //$("#textMainArea").css({
+              //height: "300px",
+              //position: "relative",
+              //padding: "10px",
+              //borderWidth: "0",
+              //});
+            }
+            //
+            //
+            //
           };
           // end of function and media query
         }
@@ -1990,7 +2017,12 @@
                     document.on("keyup touchend", function () {
           */
           // area.addEventListener("keypress", function (e) {
+          // BELOW WAS MOST RECENT REPLACE CODE, before assigned to detect - press
           area.addEventListener("input", function (e) {
+            //
+            if (e.keyCode === 229) {
+            }
+
             //
             setTimeout(function () {
               //replaceText("==", "+");
@@ -2052,7 +2084,6 @@
               replaceText("...-", "…");
               //replaceText("mmm", "mmm");
             }, 850);
-
             //
           });
           //
@@ -5535,31 +5566,31 @@ cols="60"-->
 
             //
             // ESCAPE KEYBIND for both fullscreen events, EDITOR and DIFF
-            //
-            document.onkeydown = function (evt) {
+            // can online bind once, so moved to where the rest of the keypresses are bound
+            /*document.onkeyup = function (evt) {
               evt = evt || window.event;
               if (evt.keyCode == 27) {
                 // is esc
                 //alert("Esc key pressed.");
                 $(".mergely-full-screen-8").removeClass("fullScreenClass2");
-                /*$(".mergely-full-screen-8").css({
-                height: "80vh",
-                width: "100%",
-                position: "relative",
-              });*/
+                //$(".mergely-full-screen-8").css({
+                //height: "80vh",
+                //width: "100%",
+                //position: "relative",
+                //});
                 $("#mergely").mergely("resize");
                 //
                 // EDITOR only code below
                 //
                 $("#textMainArea").removeClass("fullScreenClass");
-                /*$("#textMainArea").css({
-                height: "300px",
-                position: "relative",
-                padding: "10px",
-                borderWidth: "0",
-              });*/
+                //$("#textMainArea").css({
+                //height: "300px",
+                //position: "relative",
+                //padding: "10px",
+                //borderWidth: "0",
+                //});
               }
-            };
+            };*/
           </script>
 
           <style>
