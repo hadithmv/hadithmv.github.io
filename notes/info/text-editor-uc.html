@@ -375,6 +375,7 @@
 
       <script>
         // keyboard shortcuts
+        // https://www.toptal.com/developers/keycode
         // http://gcctech.org/csc/javascript/javascript_keycodes.htm
         // https://melwinalm.medium.com/crcreating-keyboard-shortcuts-in-javascripteating-keyboard-shortcuts-in-javascript-763ca19beb9e
         // https://stackoverflow.com/questions/31392863/load-external-javascript-on-desktop-only/31392945#31392945
@@ -2018,72 +2019,87 @@
           */
           // area.addEventListener("keypress", function (e) {
           // BELOW WAS MOST RECENT REPLACE CODE, before assigned to detect - press
-          area.addEventListener("input", function (e) {
-            //
-            if (e.keyCode === 229) {
-            }
+          // document can be area / document.addEventListener
+          // e can be evt / (e) / e.keyCode
 
-            //
-            setTimeout(function () {
-              //replaceText("==", "+");
-              //replaceText("ރއ-", "رَضِيَ اللَّهُ عَنْهُ");
-              replaceText("1--", "⁽¹⁾");
-              replaceText("2--", "⁽²⁾");
-              replaceText("3--", "⁽³⁾");
-              replaceText("4--", "⁽⁴⁾");
-              replaceText("5--", "⁽⁵⁾");
-              replaceText("6--", "⁽⁶⁾");
-              replaceText("7--", "⁽⁷⁾");
-              replaceText("8--", "⁽⁸⁾");
-              replaceText("9--", "⁽⁹⁾");
-              replaceText("0--", "⁰");
-              replaceText("ސސ-", "ﷺ");
-              replaceText("صص-", "ﷺ");
-              replaceText("ss-", "ﷺ");
-              replaceText('"-', "”");
-              replaceText('-"', "“");
-              replaceText("ރއ-", "رَضِيَ اللَّهُ عَنْهُ");
-              replaceText("رض-", "رَضِيَ اللَّهُ عَنْهُ");
-              replaceText("ra-", "رَضِيَ اللَّهُ عَنْهُ");
-              replaceText("ރއހ-", "رَضِيَ اللَّهُ عَنْهَا");
-              replaceText("رضه-", "رَضِيَ اللَّهُ عَنْهَا");
-              replaceText("rah-", "رَضِيَ اللَّهُ عَنْهَا");
-              replaceText("ރއ2-", "رَضِيَ اللَّهُ عَنْهُمَا");
-              replaceText("رض2-", "رَضِيَ اللَّهُ عَنْهُمَا");
-              replaceText("ra2-", "رَضِيَ اللَّهُ عَنْهُمَا");
-              replaceText("ރއ3-", "رَضِيَ اللَّهُ عَنْهُمْ");
-              replaceText("رض3-", "رَضِيَ اللَّهُ عَنْهُمْ");
-              replaceText("ra3-", "رَضِيَ اللَّهُ عَنْهُمْ");
-              replaceText("ވދ-", "ވިދާޅުވިއެވެ:");
-              replaceText("ދނ-", "ދެންނެވިއެވެ:");
-              replaceText("ރވ-", "ރިވާވެގެންވެއެވެ:");
-              replaceText("ރކ-", "ރިވާ ކުރެއްވީ");
-              replaceText("ރކއ-", "ރިވާ ކުރެއްވިއެވެ: ");
-              replaceText("ނރ-", "ނެރުއްވީ");
-              replaceText("މހ-", "މި ޙަދީޘް");
-              replaceText("ވރ-", "ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ:");
-              replaceText("ގރ-", "ގެ އަރިހުން ރިވާވެގެންވެއެވެ:");
-              replaceText("އއރ-", "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ:");
-              replaceText("ރސ-", "ރަސޫލު ﷲ ﷺ");
-              replaceText("ނސ-", "ނަބިއްޔާ ﷺ");
-              replaceText("ހދ-", "ޙަދީޘް");
-              replaceText("ރހކ-", "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
-              replaceText("ނހކ-", "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
-              replaceText("ހކ-", "ޙަދީޘް ކުރެއްވިއެވެ: ”");
-              replaceText("ހމ-", "ހަމަކަށަވަރުން: ”");
-              replaceText("އކ-", "އެކަލޭގެފާނު: ”");
-              replaceText("ކލ-", "ކަލޭގެފާނު: ”");
-              replaceText(
-                "ރއޑ-",
-                "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
-              );
-              replaceText(
-                "ނއޑ-",
-                "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
-              );
-              replaceText("...-", "…");
-              //replaceText("mmm", "mmm");
-            }, 850);
+          /*area.addEventListener("keydown", function (e) {
+            if (e.keyCode === 81) {
+              console.log('The "Q" key is being held down...?');
+            }
+          });*/
+
+          // BELOW WAS PREVIOUS
+          // area.addEventListener("input", function (e) {
+          //
+
+          area.addEventListener("keydown", function (e) {
+            if (e.keyCode === 109) {
+              // is - subtract
+              //console.log("subtract pressed");
+
+              //
+              setTimeout(function () {
+                //replaceText("==", "+");
+                //replaceText("ރއ-", "رَضِيَ اللَّهُ عَنْهُ");
+                replaceText("1--", "⁽¹⁾");
+                replaceText("2--", "⁽²⁾");
+                replaceText("3--", "⁽³⁾");
+                replaceText("4--", "⁽⁴⁾");
+                replaceText("5--", "⁽⁵⁾");
+                replaceText("6--", "⁽⁶⁾");
+                replaceText("7--", "⁽⁷⁾");
+                replaceText("8--", "⁽⁸⁾");
+                replaceText("9--", "⁽⁹⁾");
+                replaceText("0--", "⁰");
+                replaceText("ސސ-", "ﷺ");
+                replaceText("صص-", "ﷺ");
+                replaceText("ss-", "ﷺ");
+                replaceText('"-', "”");
+                replaceText('-"', "“");
+                replaceText("ރއ-", "رَضِيَ اللَّهُ عَنْهُ");
+                replaceText("رض-", "رَضِيَ اللَّهُ عَنْهُ");
+                replaceText("ra-", "رَضِيَ اللَّهُ عَنْهُ");
+                replaceText("ރއހ-", "رَضِيَ اللَّهُ عَنْهَا");
+                replaceText("رضه-", "رَضِيَ اللَّهُ عَنْهَا");
+                replaceText("rah-", "رَضِيَ اللَّهُ عَنْهَا");
+                replaceText("ރއ2-", "رَضِيَ اللَّهُ عَنْهُمَا");
+                replaceText("رض2-", "رَضِيَ اللَّهُ عَنْهُمَا");
+                replaceText("ra2-", "رَضِيَ اللَّهُ عَنْهُمَا");
+                replaceText("ރއ3-", "رَضِيَ اللَّهُ عَنْهُمْ");
+                replaceText("رض3-", "رَضِيَ اللَّهُ عَنْهُمْ");
+                replaceText("ra3-", "رَضِيَ اللَّهُ عَنْهُمْ");
+                replaceText("ވދ-", "ވިދާޅުވިއެވެ:");
+                replaceText("ދނ-", "ދެންނެވިއެވެ:");
+                replaceText("ރވ-", "ރިވާވެގެންވެއެވެ:");
+                replaceText("ރކ-", "ރިވާ ކުރެއްވީ");
+                replaceText("ރކއ-", "ރިވާ ކުރެއްވިއެވެ: ");
+                replaceText("ނރ-", "ނެރުއްވީ");
+                replaceText("މހ-", "މި ޙަދީޘް");
+                replaceText("ވރ-", "ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ:");
+                replaceText("ގރ-", "ގެ އަރިހުން ރިވާވެގެންވެއެވެ:");
+                replaceText("އއރ-", "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ:");
+                replaceText("ރސ-", "ރަސޫލު ﷲ ﷺ");
+                replaceText("ނސ-", "ނަބިއްޔާ ﷺ");
+                replaceText("ހދ-", "ޙަދީޘް");
+                replaceText("ރހކ-", "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
+                replaceText("ނހކ-", "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
+                replaceText("ހކ-", "ޙަދީޘް ކުރެއްވިއެވެ: ”");
+                replaceText("ހމ-", "ހަމަކަށަވަރުން: ”");
+                replaceText("އކ-", "އެކަލޭގެފާނު: ”");
+                replaceText("ކލ-", "ކަލޭގެފާނު: ”");
+                replaceText(
+                  "ރއޑ-",
+                  "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+                );
+                replaceText(
+                  "ނއޑ-",
+                  "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+                );
+                replaceText("...-", "…");
+                //replaceText("mmm", "mmm");
+              }, 500); //850
+              //
+            }
             //
           });
           //
