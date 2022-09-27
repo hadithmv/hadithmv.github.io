@@ -1286,7 +1286,7 @@
               right: 0;
               /*width: 100%;*/
               /* padding causes textarea to autoresize on content full scroll, so used borderwidth */
-              border-width: 100px;
+              border-width: 5rem; /*100px;*/
               border-color: white;
               font-size: 26px !important;
               /* animation effect below */
@@ -1310,6 +1310,8 @@
           <script>
             $("#fullScreenB").on("click", function () {
               $("#textMainArea").addClass("fullScreenClass");
+              //
+              $("#textMainArea").focus();
 
               //$("#textMainArea").removeClass("fullScreenClass");
 
