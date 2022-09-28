@@ -69,11 +69,11 @@ $(document).ready(() => {
       {
         data: 0,
         title: "ސޫރަތުގެ ނަން",
-        render: function (data, type, row) {
+        /*render: function (data, type, row) {
           // removes everything except arabic letters (excludes diacritics), and Mathematical Sans-Serif Digits, and space
           //return data.replace(/[^\u0621-\u064A|\u1d7e2-\u1d7eb|\s]/g, '')
           return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~]/g, "");
-        },
+        },*/
       },
       {
         data: 1,
