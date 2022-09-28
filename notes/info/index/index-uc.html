@@ -262,7 +262,7 @@
       /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 
       /* box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24); */
-      box-shadow: 0 5px 15px 0 rgb(0 0 0 / 24%);
+      box-shadow: 0 2px 3px 0 rgb(0 0 0 / 20%);
 
       /* width: 19.75em; */
 
@@ -1838,6 +1838,47 @@
 
         <div class="en Pr">
           <h3 class="price" onclick="openModal()">
+            <b><span id="aqiqaPrice">795</span></b>
+          </h3>
+
+          <br />
+
+          <select id="selectAqiqa" onchange="changeAqiqaPrice();">
+            <option value="795">Regular Aqiqa / Sadaqah / Kaffaarah</option>
+            <option value="698">
+              1st Baby’s / Adult’s Aqiqa special offer for 1st goat
+            </option>
+          </select>
+
+          <style>
+            #selectAqiqa {
+              font-size: 1.17em;
+              color: rgb(255 255 255/84.7%);
+              background-color: #0e1621;
+            }
+
+            @media (prefers-color-scheme: light) {
+              #selectAqiqa {
+                color: #222;
+                background-color: #fff;
+              }
+            }
+          </style>
+
+          <script>
+            /*window.onload = function () {
+              document.getElementById("aqiqaPrice").innerHTML =
+                document.getElementById("selectAqiqa").value;
+            };*/
+            function changeAqiqaPrice() {
+              document.querySelector("#aqiqaPrice").innerHTML =
+                document.getElementById("selectAqiqa").value;
+            }
+          </script>
+        </div>
+
+        <!--<div class="en Pr">
+          <h3 class="price" onclick="openModal()">
             <b>795/- MVR</b>
           </h3>
           <h4>*&#160;Regular Aqiqa / Sadaqah / Kaffaarah &#160;*</h4>
@@ -1850,10 +1891,10 @@
           <h4>
             *&#160;First baby’s / Adult’s Aqiqa special offer for first
             goat&#160;*
-            <!-- *&#160;First goat price, if Aqiqa is on the 7th day of your first
-            child’s birth (one time discount for one goat)&#160;* -->
+             *&#160;First goat price, if Aqiqa is on the 7th day of your first
+            child’s birth (one time discount for one goat)&#160;*
           </h4>
-        </div>
+        </div>-->
         <!-- TEXT ITEM - END --->
 
         <!-- https://stackoverflow.com/questions/47655563/hide-and-show-text-by-click-on-div/47655699#47655699 -->
@@ -2352,7 +2393,7 @@
             <tr>
               <td>How many days to count after birth?</td>
               <td>
-                <select id="select" onchange="setSecondDate();">
+                <select id="selectDays" onchange="setSecondDate();">
                   <option value="6">7 days</option>
                   <option value="13">14 days</option>
                   <option value="20">21 days</option>
@@ -2409,7 +2450,7 @@
           /* https://stackoverflow.com/questions/46266352/how-to-add-days-in-input-type-date */
           document.getElementById("date1").valueAsDate = new Date();
 
-          var days = document.getElementById("select").value;
+          var days = document.getElementById("selectDays").value;
           var date = new Date(document.getElementById("date1").value);
           date.setDate(date.getDate() + parseInt(days));
           document.getElementById("date2").valueAsDate = date;
@@ -2438,7 +2479,7 @@
       }*/
 
           function setSecondDate() {
-            var days = document.getElementById("select").value;
+            var days = document.getElementById("selectDays").value;
             var date = new Date(document.getElementById("date1").value);
             date.setDate(date.getDate() + parseInt(days));
             document.getElementById("date2").valueAsDate = date;
