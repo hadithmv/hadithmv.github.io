@@ -378,7 +378,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "ޙަދީޘްއެމްވީ – ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަޙަ", // CHANGE123 clipboard message
+        messageTop: "ޙަދީޘްއެމްވީ – ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
@@ -414,6 +414,10 @@ $(document).ready(() => {
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/English\t/g, "");
           data = data.replace(/شرح النجمي\t/g, "");
+          data = data.replace(
+            /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
+            "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
+          ); // adds a line break after takhrij line, use two for a new line
 
           data = data.replace(/\t\t/g, "\t"); //  This prevents a double or more line breaks when columns are hidden
           data = data.replace(/\t/g, "\n\n"); // creates line breaks between cell data
