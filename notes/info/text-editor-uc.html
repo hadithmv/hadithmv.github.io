@@ -179,9 +179,6 @@
       padding: 10px;
       box-sizing: border-box;
 
-      /* added for fullscreen animation, otherwise starts off as grey */
-      border-color: white;
-
       /* needed for deanimate effect */
       -webkit-transition: all 0.5s ease;
       -moz-transition: all 0.5s ease;
@@ -1297,8 +1294,10 @@
               /* padding causes textarea to autoresize on content full scroll, so used borderwidth */
               border-width: 5rem; /*100px;*/
               border-bottom-width: 15rem;
-              border-color: white;
               font-size: 26px !important;
+
+              /* added for fullscreen animation, otherwise starts off as grey */
+              border-color: white;
               /* animation effect below */
               -webkit-transition: all 0.5s ease;
               -moz-transition: all 0.5s ease;
@@ -1309,7 +1308,6 @@
             @media (max-width: 599px) {
               .fullScreenClass {
                 border-width: 0px;
-                border-color: white;
                 font-size: 23px;
                 /* for typing on mobile? */
                 position: absolute;
@@ -5595,7 +5593,7 @@ cols="60"-->
             class="ttClass"
             data-tooltip="Go fullscreen. Press escape to undo"
           >
-            🖥️ ފުލްސްކްރީން
+            ފުލް 🖥️
           </button>
 
           <script>
