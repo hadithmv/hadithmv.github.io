@@ -193,6 +193,17 @@ from what i see makes them smaller */
     -webkit-appearance: none;
 } */
 
+hr {
+  background: none;
+  border: 0;
+  border-radius: 15px; /* 20px; */
+  height: 3px;
+  background-image: linear-gradient(to right, #f33939, #4f39f3);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* ====================
      scroll bar
 ======================= */
@@ -1315,7 +1326,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 
 /* changed #DataTables_Table_0 to .dtsp-panesContainer so as to cover other tables within searchpanes */
 .dtsp-panesContainer tbody tr.selected td {
-  background-color: #b8c4cc99; /* #0d4266 */
+  background-color: #c5cfd699; /* #0d4266 */
   color: #000;
 }
 
@@ -1323,7 +1334,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   /* changes pane list selected highlight color to something that matches dark theme */
 
   /*#DataTables_Table_0 tbody tr.selected td {
-    background-color: #b8c4cc99; 
+    background-color: #c5cfd699; 
     color: #000;
   }*/ /* background-color: #0d4266 */
 
@@ -1359,12 +1370,12 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   input.dtsp-search,
   input.dtsp-search::placeholder {
     /* changes color of searchpanes title placeholder where input is */
-    color: #b8c4cc !important;
+    color: #c5cfd6 !important;
   }
 
   div.dtsp-panesContainer button.dtsp-clearAll:hover:not([disabled]) {
     /* text color when not disabled, ie active, not disabled is for preventing disabled being overwritten */
-    background-color: #b8c4cc99; /* #0d4266 */
+    background-color: #c5cfd699; /* #0d4266 */
   }
 
   div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
@@ -1447,7 +1458,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #0e1621;
-    color: #b8c4cc;
+    color: #c5cfd6;
   }
 
   ::placeholder {
@@ -1549,21 +1560,21 @@ this makes a faint white outline around card  */
 
   /* pagination buttons */
   .dataTables_wrapper .dataTables_paginate.paging_input .paginate_button {
-    color: #b8c4cc !important;
+    color: #c5cfd6 !important;
   }
 
   /* info text out of how many */
   .dataTables_wrapper .dataTables_info {
-    color: #b8c4cc !important;
+    color: #c5cfd6 !important;
   }
 
   /* border lines on top and bottom */
   table.dataTable.no-footer {
-    border-color: #b8c4cc !important;
+    border-color: #c5cfd6 !important;
   }
 
   table.dataTable thead th {
-    border-color: #b8c4cc !important;
+    border-color: #c5cfd6 !important;
   }
 
   /* changes clipboard copied color, */
