@@ -1015,7 +1015,7 @@
           <!--<button onclick="takeScreenShot();">ލިޔުން ފޮޓޯއަކަށް</button>-->
 
           <button
-            onclick="linesOfNumbers();triggerTheCounts();"
+            onclick="listOfNumbers();triggerTheCounts();"
             id="lineNumButton"
             class="ttClass"
             data-tooltip="Generate a list of numbers, each on a new line from 1-10, or based on your minimum and maximum input next to this button after you click it"
@@ -1035,6 +1035,22 @@
             type="text"
             id="minNline"
             style="color: red; display: none"
+          />
+
+          <button
+            onclick="repeatText();triggerTheCounts();"
+            id="repeatTextButton"
+            class="ttClass"
+            data-tooltip="Repeats the text in the box as many times as you want, default is 10 times"
+          >
+            🔁 RepeatTxt
+          </button>
+          <input
+            class="inputFieldClass"
+            placeholder="?How many"
+            type="text"
+            id="noOfRepeat"
+            style="color: blue; display: none"
           />
 
           <button
@@ -2976,7 +2992,7 @@
           //
 
           // https://stackoverflow.com/questions/8069315/create-array-of-all-integers-between-two-numbers-inclusive-in-javascript-jquer/33457557#33457557
-          function linesOfNumbers() {
+          function listOfNumbers() {
             // code for range input
             document.getElementById("minNline").style.display = "inline-block";
             document.getElementById("maxNline").style.display = "inline-block";
@@ -3009,7 +3025,36 @@
           }
           //
 
-          // made this by changing the function of linesOfNumbers
+          //
+          function repeatText() {
+            console.log("asdsad");
+            document.getElementById("noOfRepeat").style.display =
+              "inline-block";
+            repNo = document.getElementById("noOfRepeat").value;
+
+            if (repNo == "") {
+              //var repNo = 10;
+              //console.log("empty");
+            } else {
+              repNo = document.getElementById("noOfRepeat").value;
+              //console.log("full");
+
+              var text2repeat = document.getElementById("textMainArea").value;
+              // adds newline to every new line
+              text2repeat = text2repeat + "\n";
+
+              // repeats as inputted
+              text2repeat = text2repeat.repeat(repNo);
+
+              // removes last newline at end of line as well as brings repeated text to textarea
+              document.getElementById("textMainArea").value =
+                text2repeat.trim();
+            }
+            //
+          }
+          //
+
+          // made this by changing the function of listOfNumbers
           function prefixSuffixLine() {
             // code for range input
             document.getElementById("prefixVal").style.display = "inline-block";
