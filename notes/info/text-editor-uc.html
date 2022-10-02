@@ -683,8 +683,9 @@
           id="textMainArea"
           placeholder="އަބޫ ހުރައިރާގެ އަރިހުން ރިވާވެގެންވެއެވެ: ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”..."
           oninput="triggerTheCounts();"
-          autofocus="autofocus"
-        ></textarea>
+        >
+        </textarea>
+        <!-- autofocus="autofocus" -->
         <!-- oninput="triggerTheCounts();triggerTheReplace();" -->
         <!-- autofocus wont work if hidden by another tab -->
         <div id="img-out"></div>
@@ -5525,12 +5526,14 @@ cols="60"-->
               //license: "lgpl-separate-notice",
 
               // code mirror settings below
+              // https://codemirror.net/5/doc/manual.html
               cmsettings: {
                 //readOnly: true,
                 direction: "rtl",
                 rtlMoveVisually: true,
                 /* lets select go over change highlights https://github.com/wickedest/Mergely/issues/104 */
                 styleSelectedText: true,
+                autofocus: false,
               },
               lhs: function (setValue) {
                 setValue(
