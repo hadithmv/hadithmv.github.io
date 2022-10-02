@@ -1039,9 +1039,8 @@
 
           <button
             onclick="repeatText();triggerTheCounts();"
-            id="repeatTextButton"
             class="ttClass"
-            data-tooltip="Repeats the text in the box as many times as you want, default is 10 times"
+            data-tooltip="Repeats the text as many times as you set"
           >
             🔁 RepeatTxt
           </button>
@@ -1052,6 +1051,22 @@
             id="noOfRepeat"
             style="color: blue; display: none"
           />
+
+          <button
+            onclick="splitWords();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Splits the text into individual words line by line"
+          >
+            ✂️ Split Words
+          </button>
+
+          <button
+            onclick="removeDuplicates();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Removes duplicate lines of text"
+          >
+            🔂 DuplicateRmv
+          </button>
 
           <button
             onclick="numToBracket();triggerTheCounts();"
@@ -3025,7 +3040,7 @@
           }
           //
 
-          //
+          // https://stackoverflow.com/questions/1877475/repeat-a-string-in-javascript-a-number-of-times/1877479#1877479
           function repeatText() {
             console.log("asdsad");
             document.getElementById("noOfRepeat").style.display =
@@ -3039,19 +3054,95 @@
               repNo = document.getElementById("noOfRepeat").value;
               //console.log("full");
 
-              var text2repeat = document.getElementById("textMainArea").value;
               // adds newline to every new line
-              text2repeat = text2repeat + "\n";
+              var text2repeat =
+                document.getElementById("textMainArea").value + "\n";
 
               // repeats as inputted
               text2repeat = text2repeat.repeat(repNo);
 
-              // removes last newline at end of line as well as brings repeated text to textarea
+              // trim() removes only last newline at end of line, not more than one newline, but this wont have any
+              // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/trim
               document.getElementById("textMainArea").value =
                 text2repeat.trim();
             }
             //
           }
+          //
+
+          // https://stackoverflow.com/questions/18473326/javascript-break-sentence-by-words/18473347#18473347
+          // https://stackoverflow.com/questions/11018422/replacing-commas-in-resultset-with-new-line-in-jquery/11018506#11018506
+          function splitWords() {
+            var text2split = (document.getElementById("textMainArea").value =
+              document
+                .getElementById("textMainArea")
+                .value.split(" ")
+                .join("\n"));
+            /*document.getElementById("textMainArea").value = text2split.replace(
+              /[\r\n]+/g,
+              "\n"
+            );*/
+
+            // below first makes multiple newlines only one newline, then removes punctuation (taken from removepunc code and edited)
+            document.getElementById("textMainArea").value = text2split
+              .replace(/[\r\n]+/g, "\n")
+              //
+              .replace(/\./g, "")
+              //
+              .replace(/\!/g, "")
+              .replace(/\@/g, "")
+              .replace(/\#/g, "")
+              .replace(/\$/g, "")
+              .replace(/\%/g, "")
+              .replace(/\^/g, "")
+              .replace(/\&/g, "")
+              .replace(/\*/g, "")
+              .replace(/\(/g, "")
+              .replace(/\)/g, "")
+              .replace(/\-/g, "")
+              .replace(/\_/g, "")
+              .replace(/\=/g, "")
+              .replace(/\+/g, "")
+              .replace(/\[/g, "")
+              .replace(/\]/g, "")
+              .replace(/\{/g, "")
+              .replace(/\}/g, "")
+              .replace(/\|/g, "")
+              .replace(/\;/g, "")
+              .replace(/\:/g, "")
+              .replace(/\'/g, "")
+              .replace(/\"/g, "")
+              .replace(/\</g, "")
+              .replace(/\>/g, "")
+              .replace(/\?/g, "")
+              .replace(/\,/g, "")
+              .replace(/\،/g, "")
+              .replace(/\؟/g, "")
+              .replace(/\؛/g, "")
+              .replace(/\‘/g, "")
+              .replace(/\’/g, "")
+              .replace(/\”/g, "")
+              .replace(/\“/g, "")
+              .trim();
+            // trim removes ending extra space or newline
+          }
+          //
+
+          // https://txtfiddle.com/~ykf5b5b/remove-duplicate-lines
+          function removeDuplicates() {
+            // Split input text into an array of lines
+            const linesWithDuplicates = document
+              .getElementById("textMainArea")
+              .value.split(/\r?\n/);
+
+            // Convert line array into a set (thus removing any duplicate values) and back to an array
+            const uniqueLines = Array.from(new Set(linesWithDuplicates));
+
+            // Join line array into a string and return it to the output editor
+            document.getElementById("textMainArea").value =
+              uniqueLines.join("\n");
+          }
+
           //
 
           // made this by changing the function of listOfNumbers
@@ -5638,7 +5729,7 @@ cols="60"-->
             class="ttClass"
             data-tooltip="Go fullscreen. Press escape to undo"
           >
-            ފުލް 🖥️
+            ފުލްސްކްރީން 🖥️
           </button>
 
           <script>
@@ -5668,34 +5759,6 @@ cols="60"-->
                 transform: "none",
               });
             });
-
-            //
-            // ESCAPE KEYBIND for both fullscreen events, EDITOR and DIFF
-            // can online bind once, so moved to where the rest of the keypresses are bound
-            /*document.onkeyup = function (evt) {
-              evt = evt || window.event;
-              if (evt.keyCode == 27) {
-                // is esc
-                //alert("Esc key pressed.");
-                $(".mergely-full-screen-8").removeClass("fullScreenClass2");
-                //$(".mergely-full-screen-8").css({
-                //height: "80vh",
-                //width: "100%",
-                //position: "relative",
-                //});
-                $("#mergely").mergely("resize");
-                //
-                // EDITOR only code below
-                //
-                $("#textMainArea").removeClass("fullScreenClass");
-                //$("#textMainArea").css({
-                //height: "300px",
-                //position: "relative",
-                //padding: "10px",
-                //borderWidth: "0",
-                //});
-              }
-            };*/
           </script>
 
           <style>
@@ -5714,8 +5777,11 @@ cols="60"-->
             }
           </style>
 
-          <span class="hideOnPhoneOnly">&nbsp; </span>
-          <br class="hideOnTabAndUp" />
+          <!--<span class="hideOnPhoneOnly">&nbsp; </span>
+          
+          <br class="hideOnTabAndUp" /> -->
+
+          <br />
 
           <div style="display: inline-block; top: -50px !important">
             <span
