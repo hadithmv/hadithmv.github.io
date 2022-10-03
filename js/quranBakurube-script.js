@@ -837,7 +837,8 @@ $(document).ready(() => {
   $("#quranBakurubeTable").on("draw.dt", function () {
     document.getElementById("surahNameID").value = document
       .getElementsByClassName("qCol1")[1]
-      .innerText.replace(/سورة /g, "");
+      .innerText.replace(/سُورَةُ /g, "");
+    // previously /سورة /g // but that broke surah name from showing in jump box
     /*document.getElementById("ayahNoID").value =
       document.getElementsByClassName("qCol4")[1].innerText;*/
     document.getElementById("ayahNoID").value = document
