@@ -2069,89 +2069,92 @@
             }
           });*/
 
-          // BELOW WAS PREVIOUS
+          //
           // area.addEventListener("input", function (e) {
 
-          //area.addEventListener("keydown", function (e) {
-          //if (e.keyCode === 109) { //keycode doesnt work on mobile? so for the moment using keyboardEvent.keyCode instead
+          // android fix
+          // https://codepen.io/ashconnolly/pen/WyWgPG
+          var input_field = document.getElementById("textMainArea");
+          input_field.addEventListener("textInput", function (e) {
+            var char = e.data;
+            // If you want the keyCode..
+            var keyCode = char.charCodeAt(0);
+            if (keyCode == 45) {
+              //alert("The enter key was pressed");
+              setTimeout(replacesText, 650);
+            }
+          });
+          //
 
-          // https://andy-carter.com/blog/how-to-close-the-mobile-keyboard-on-return
-          // https://www.toptal.com/developers/keycode
-          /*area.addEventListener("keyup", (keyboardEvent) => {
-            const key = keyboardEvent.keyCode || keyboardEvent.keyCode;
-            if (key === 189 || key === 109) {*/
-
+          // all other os browsers except android
           $("#textMainArea").on("keydown", function (event) {
             if (event.keyCode === 189 || event.keyCode === 109) {
-              //if (e.which === 109) {
               // 189 is Minus || 109 is NumpadSubtract, they are not the same, need both
-              //console.log("subtract pressed");
-
-              //
-              setTimeout(function () {
-                //replaceText("==", "+");
-                //replaceText("ރއ-", "رَضِيَ اللَّهُ عَنْهُ");
-                replaceText("1--", "⁽¹⁾");
-                replaceText("2--", "⁽²⁾");
-                replaceText("3--", "⁽³⁾");
-                replaceText("4--", "⁽⁴⁾");
-                replaceText("5--", "⁽⁵⁾");
-                replaceText("6--", "⁽⁶⁾");
-                replaceText("7--", "⁽⁷⁾");
-                replaceText("8--", "⁽⁸⁾");
-                replaceText("9--", "⁽⁹⁾");
-                replaceText("0--", "⁰");
-                replaceText("ސސ-", "ﷺ");
-                replaceText("صص-", "ﷺ");
-                replaceText("ss-", "ﷺ");
-                replaceText('"-', "”");
-                replaceText('-"', "“");
-                replaceText("ރއ-", "رَضِيَ اللَّهُ عَنْهُ");
-                replaceText("رض-", "رَضِيَ اللَّهُ عَنْهُ");
-                replaceText("ra-", "رَضِيَ اللَّهُ عَنْهُ");
-                replaceText("ރއހ-", "رَضِيَ اللَّهُ عَنْهَا");
-                replaceText("رضه-", "رَضِيَ اللَّهُ عَنْهَا");
-                replaceText("rah-", "رَضِيَ اللَّهُ عَنْهَا");
-                replaceText("ރއ2-", "رَضِيَ اللَّهُ عَنْهُمَا");
-                replaceText("رض2-", "رَضِيَ اللَّهُ عَنْهُمَا");
-                replaceText("ra2-", "رَضِيَ اللَّهُ عَنْهُمَا");
-                replaceText("ރއ3-", "رَضِيَ اللَّهُ عَنْهُمْ");
-                replaceText("رض3-", "رَضِيَ اللَّهُ عَنْهُمْ");
-                replaceText("ra3-", "رَضِيَ اللَّهُ عَنْهُمْ");
-                replaceText("ވދ-", "ވިދާޅުވިއެވެ:");
-                replaceText("ދނ-", "ދެންނެވިއެވެ:");
-                replaceText("ރވ-", "ރިވާވެގެންވެއެވެ:");
-                replaceText("ރކ-", "ރިވާ ކުރެއްވީ");
-                replaceText("ރކއ-", "ރިވާ ކުރެއްވިއެވެ: ");
-                replaceText("ނރ-", "ނެރުއްވީ");
-                replaceText("މހ-", "މި ޙަދީޘް");
-                replaceText("ވރ-", "ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ:");
-                replaceText("ގރ-", "ގެ އަރިހުން ރިވާވެގެންވެއެވެ:");
-                replaceText("އއރ-", "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ:");
-                replaceText("ރސ-", "ރަސޫލު ﷲ ﷺ");
-                replaceText("ނސ-", "ނަބިއްޔާ ﷺ");
-                replaceText("ހދ-", "ޙަދީޘް");
-                replaceText("ރހކ-", "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
-                replaceText("ނހކ-", "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
-                replaceText("ހކ-", "ޙަދީޘް ކުރެއްވިއެވެ: ”");
-                replaceText("ހމ-", "ހަމަކަށަވަރުން: ”");
-                replaceText("އކ-", "އެކަލޭގެފާނު: ”");
-                replaceText("ކލ-", "ކަލޭގެފާނު: ”");
-                replaceText(
-                  "ރއޑ-",
-                  "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
-                );
-                replaceText(
-                  "ނއޑ-",
-                  "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
-                );
-                replaceText("...-", "…");
-                //replaceText("mmm", "mmm");
-              }, 650); //850
-              //
+              setTimeout(replacesText, 650);
             }
             //
           });
+          //
+
+          // https://www.freecodecamp.org/news/javascript-settimeout-how-to-set-a-timer-in-javascript-or-sleep-for-n-seconds/#:~:text=The%20JavaScript%20setTimeout()%20method,to%20pass%20one%20thousand%20milliseconds%20.
+          function replacesText() {
+            replaceText("1--", "⁽¹⁾");
+            replaceText("2--", "⁽²⁾");
+            replaceText("3--", "⁽³⁾");
+            replaceText("4--", "⁽⁴⁾");
+            replaceText("5--", "⁽⁵⁾");
+            replaceText("6--", "⁽⁶⁾");
+            replaceText("7--", "⁽⁷⁾");
+            replaceText("8--", "⁽⁸⁾");
+            replaceText("9--", "⁽⁹⁾");
+            replaceText("0--", "⁰");
+            replaceText("ސސ-", "ﷺ");
+            replaceText("صص-", "ﷺ");
+            replaceText("ss-", "ﷺ");
+            replaceText('"-', "”");
+            replaceText('-"', "“");
+            replaceText("ރއ-", "رَضِيَ اللَّهُ عَنْهُ");
+            replaceText("رض-", "رَضِيَ اللَّهُ عَنْهُ");
+            replaceText("ra-", "رَضِيَ اللَّهُ عَنْهُ");
+            replaceText("ރއހ-", "رَضِيَ اللَّهُ عَنْهَا");
+            replaceText("رضه-", "رَضِيَ اللَّهُ عَنْهَا");
+            replaceText("rah-", "رَضِيَ اللَّهُ عَنْهَا");
+            replaceText("ރއ2-", "رَضِيَ اللَّهُ عَنْهُمَا");
+            replaceText("رض2-", "رَضِيَ اللَّهُ عَنْهُمَا");
+            replaceText("ra2-", "رَضِيَ اللَّهُ عَنْهُمَا");
+            replaceText("ރއ3-", "رَضِيَ اللَّهُ عَنْهُمْ");
+            replaceText("رض3-", "رَضِيَ اللَّهُ عَنْهُمْ");
+            replaceText("ra3-", "رَضِيَ اللَّهُ عَنْهُمْ");
+            replaceText("ވދ-", "ވިދާޅުވިއެވެ:");
+            replaceText("ދނ-", "ދެންނެވިއެވެ:");
+            replaceText("ރވ-", "ރިވާވެގެންވެއެވެ:");
+            replaceText("ރކ-", "ރިވާ ކުރެއްވީ");
+            replaceText("ރކއ-", "ރިވާ ކުރެއްވިއެވެ: ");
+            replaceText("ނރ-", "ނެރުއްވީ");
+            replaceText("މހ-", "މި ޙަދީޘް");
+            replaceText("ވރ-", "ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ:");
+            replaceText("ގރ-", "ގެ އަރިހުން ރިވާވެގެންވެއެވެ:");
+            replaceText("އއރ-", "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ:");
+            replaceText("ރސ-", "ރަސޫލު ﷲ ﷺ");
+            replaceText("ނސ-", "ނަބިއްޔާ ﷺ");
+            replaceText("ހދ-", "ޙަދީޘް");
+            replaceText("ރހކ-", "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
+            replaceText("ނހކ-", "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
+            replaceText("ހކ-", "ޙަދީޘް ކުރެއްވިއެވެ: ”");
+            replaceText("ހމ-", "ހަމަކަށަވަރުން: ”");
+            replaceText("އކ-", "އެކަލޭގެފާނު: ”");
+            replaceText("ކލ-", "ކަލޭގެފާނު: ”");
+            replaceText(
+              "ރއޑ-",
+              "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+            );
+            replaceText(
+              "ނއޑ-",
+              "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+            );
+            replaceText("...-", "…");
+            //replaceText("mmm", "mmm");
+          }
           //
 
           //
