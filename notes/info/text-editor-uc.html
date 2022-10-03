@@ -2071,12 +2071,17 @@
 
           // BELOW WAS PREVIOUS
           // area.addEventListener("input", function (e) {
-          //
 
-          area.addEventListener("keydown", function (e) {
-            //if (e.keyCode === 109) { //keycode doesnt work on mobile?
-            if (e.which === 109) {
-              // is - subtract
+          //area.addEventListener("keydown", function (e) {
+          //if (e.keyCode === 109) { //keycode doesnt work on mobile? so for the moment using keyboardEvent.keyCode instead
+
+          // https://andy-carter.com/blog/how-to-close-the-mobile-keyboard-on-return
+          // https://www.toptal.com/developers/keycode
+          area.addEventListener("keyup", (keyboardEvent) => {
+            const key = keyboardEvent.keyCode || keyboardEvent.keyCode;
+            if (key === 189 || key === 109) {
+              //if (e.which === 109) {
+              // 189 is Minus || 109 is NumpadSubtract, they are not the same, need both
               //console.log("subtract pressed");
 
               //
