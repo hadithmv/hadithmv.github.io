@@ -683,8 +683,7 @@
           id="textMainArea"
           placeholder="އަބޫ ހުރައިރާގެ އަރިހުން ރިވާވެގެންވެއެވެ: ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”..."
           oninput="triggerTheCounts();"
-        >
-        </textarea>
+        ></textarea>
         <!-- autofocus="autofocus" -->
         <!-- oninput="triggerTheCounts();triggerTheReplace();" -->
         <!-- autofocus wont work if hidden by another tab -->
@@ -2075,7 +2074,8 @@
           //
 
           area.addEventListener("keydown", function (e) {
-            if (e.keyCode === 109) {
+            //if (e.keyCode === 109) { //keycode doesnt work on mobile?
+            if (e.which === 109) {
               // is - subtract
               //console.log("subtract pressed");
 
@@ -5533,7 +5533,7 @@ cols="60"-->
                 rtlMoveVisually: true,
                 /* lets select go over change highlights https://github.com/wickedest/Mergely/issues/104 */
                 styleSelectedText: true,
-                autofocus: false,
+                autofocus: false, //does it do anything?
               },
               lhs: function (setValue) {
                 setValue(
