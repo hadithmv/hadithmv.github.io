@@ -2072,6 +2072,15 @@
           //
           // area.addEventListener("input", function (e) {
 
+          // all other os browsers except android
+          $("#textMainArea").on("keydown", function (event) {
+            if (event.keyCode === 189 || event.keyCode === 109) {
+              // 189 is Minus || 109 is NumpadSubtract, they are not the same, need both
+              setTimeout(replacesText, 600);
+            }
+          });
+          //
+
           // android fix
           // https://codepen.io/ashconnolly/pen/WyWgPG
           var input_field = document.getElementById("textMainArea");
@@ -2081,18 +2090,8 @@
             var keyCode = char.charCodeAt(0);
             if (keyCode == 45) {
               //alert("The enter key was pressed");
-              setTimeout(replacesText, 650);
+              setTimeout(replacesText, 600);
             }
-          });
-          //
-
-          // all other os browsers except android
-          $("#textMainArea").on("keydown", function (event) {
-            if (event.keyCode === 189 || event.keyCode === 109) {
-              // 189 is Minus || 109 is NumpadSubtract, they are not the same, need both
-              setTimeout(replacesText, 650);
-            }
-            //
           });
           //
 
