@@ -2537,7 +2537,7 @@
               //run second function
               document.getElementById("textMainArea").value = document
                 .getElementById("textMainArea")
-                .value.replace(/[\r\n]+/g, "\n");
+                .value.replace(/[\r\n]+|[\n]+/g, "\n");
 
               document.getElementById("extraSpaces").innerHTML =
                 "Rmv Xtra Space";
@@ -2825,7 +2825,7 @@
           function wrapToOneLine() {
             document.getElementById("textMainArea").value = document
               .getElementById("textMainArea")
-              .value.replace(/[\n\r]+/g, "")
+              .value.replace(/[\r\n]+|[\n]+/g, "")
               .replace(/\s\s+/g, " ");
           }
 
