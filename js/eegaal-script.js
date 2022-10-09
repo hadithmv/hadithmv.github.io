@@ -16,7 +16,11 @@ $(document).ready(() => {
     $.extend(true, $.fn.dataTable.defaults, {
       // desktop, goes rtl --> //'<"dTop"pBfl>rt<"bottom"ip>',
       dom: '<"dTop"pBfl>rtip',
-      pageLength: 3, // # rows to display on single page when using pagination
+      pageLength: 10, // # rows to display on single page when using pagination
+      lengthMenu: [
+        [10, 1, 2, 3, 5, 10, 20, 30, 50],
+        ["10 ދައްކާ", 1, 2, 3, 5, 10, 20, 30, 50],
+      ],
       // lengthMenu: [
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
       //   [1, 2, '3 ދައްކާ', 5, 7, 10, 15, 20, 'ހުރިހާ']
@@ -39,7 +43,11 @@ $(document).ready(() => {
     $.extend(true, $.fn.dataTable.defaults, {
       // mobile //'<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rt <"bottom"ip>',
       dom: '<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rtip', // moved to js MQ; dom: '<"dTop"pBfl>rtip',
-      pageLength: 1,
+      pageLength: 4,
+      lengthMenu: [
+        [4, 5, 7, 10, 15, 20, 1, 2, 3],
+        ["4 ދައްކާ", 5, 7, 10, 15, 20, 1, 2, 3],
+      ], // display range of pages
       // lengthMenu: [
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
       //   ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހާ']
@@ -104,7 +112,7 @@ $(document).ready(() => {
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return "[ސަފުހާ " + data + "]";
+          return "[ސ. " + data + "]"; // prev ސަފުހާ
         },
       },
     ],
@@ -229,10 +237,10 @@ $(document).ready(() => {
     // or 2Darray where 1st inner array=page length values, 2nd displayed options
     // -1 is used as a value this tells DataTables to disable pagination
     // Default [ 10, 25, 50, 100 ],
-    lengthMenu: [
-      [10, 1, 2, 3, 5, 10, 20, 30, 50],
-      ["10 ދައްކާ", 1, 2, 3, 5, 10, 20, 30, "50"],
-    ],
+    //lengthMenu: [
+    //  [1, 2, 3, 4, 5, 10, 20, 30, 50],
+    //  [1, 2, "4 ދައްކާ", 3, 5, "10 ދައްކާ", 20, 30, 50],
+    //],
     // lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, '50']],
     // lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހާ']],
     // lengthMenu: [ [5, 10, 20, 30, 40, -1, 1], ["Show 5", 10, 20, 30, 40,
