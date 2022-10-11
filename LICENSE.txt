@@ -9,12 +9,14 @@ You are not allowed to use Hadithmv to spread what goes against the methodology 
 Permission is hereby granted, free of charge, to any party obtaining a copy of this software and associated documentation files, to deal in the Software and to use, copy, modify, merge, publish, distribute the texts of the Hadithmv, without seeking permission or giving credits (attribution), subject to the following two conditions:
 1 - The texts used from Hadithmv are less than 250 words.
 2 - The use is not for commercial purposes.
-Otherwise, permission is to be sought from the Developer first (if the Developer is alive) before use.
+Otherwise, permission is to be sought from the Developer first before use, if the Developer is alive.
 
 Derivative works can only be distributed under terms and conditions that are identical to or not more restrictive than these original terms and conditions.
 
 These terms and conditions apply to all contributions to Hadithmv by anyone other than the Developer, whether relating to software or text.
 
 The Developer may revoke or change these terms and conditions at any time as they see fit.
+
+When the Developer is not alive, Hadithmv should immediately be considered to be fully open source under the MIT license, disregarding the prior licensing it had.
 
 The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
