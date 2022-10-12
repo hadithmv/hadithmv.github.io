@@ -5,7 +5,7 @@
     <meta name="google" value="notranslate" />
 
     <title>Hadithmv - Text Editor</title>
-    <meta name="description" content="Text Editor" />
+    <meta name="description" content="Hmv Text Editor" />
     <meta name="viewport" content="width=device-width" />
 
     <link
@@ -955,7 +955,7 @@
           <button
             onclick="sortFreq();"
             class="ttClass"
-            data-tooltip="Sorts the lines of text by highest frequency on the first click, and in reverse on the second"
+            data-tooltip="Splits the text into words and then sorts them by highest frequency of occurance"
           >
             📉 Sortby Freq
           </button>
@@ -966,6 +966,14 @@
             data-tooltip="Removes all kinds of numbers"
           >
             ✖️ Rmv Numbrs
+          </button>
+
+          <button
+            onclick="onlyNumbers();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Keeps only numbers and removes everything else"
+          >
+            ➖ Only Numbrs
           </button>
 
           <button
@@ -3149,6 +3157,17 @@
               .replace(/❼/g, "")
               .replace(/❽/g, "")
               .replace(/❾/g, "");
+          }
+          //
+
+          // https://stackoverflow.com/questions/4572194/regex-to-replace-everything-except-numbers-and-a-decimal-point
+          function onlyNumbers() {
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(
+                /[^0-9|٠-٩|𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫|０１２３４５６７８９|𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵|⓪①②③④⑤⑥⑦⑧⑨|⓿❶❷❸❹❺❻❼❽❾]/g,
+                ""
+              );
           }
           //
 
