@@ -5,7 +5,7 @@ If any party uses Hadithmv in any way, then they are agreeing to the terms and c
 
 If there are any disputes regarding the meaning of these terms and conditions, then the conflict will be resolved in accordance to the Developer’s interpretation.
 
-It is not allowed to use Hadithmv to spread what goes against the methodology of Ahlu-Sunnah-wal-Jamaa’ah, except to refute Ahlul-Bid’ah.
+It is not allowed to use Hadithmv to spread what goes against the methodology of Ahlu-Sunnah-wal-Jamaa’ah (Ahlul Hadith), except to refute Ahlul-Bid’ah (the Jahmiyya, Ashaa’irah, Murjiah, Khawarij, Rawafid, Sufiyyah, Mu’tazilah, Maatureedhiyyah, Qadariyyah, etc.)
 
 Permission is hereby granted, free of charge, to any party obtaining a copy of this software and associated documentation files, to deal in the Software and to use, copy, modify, merge, publish, distribute the texts of the Hadithmv, without seeking permission or giving credits (attribution), subject to the following two conditions:
 1 - The texts used from Hadithmv are less than 300 words.
