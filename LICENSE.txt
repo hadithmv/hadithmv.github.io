@@ -1,3 +1,4 @@
+
 Hadithmv, Mohamed Ashraaf Ibrahim
 
 If any party uses Hadithmv in any way, then they are agreeing to the terms and conditions below:
@@ -7,11 +8,11 @@ If there are any disputes regarding the meaning of these terms and conditions, t
 It is not allowed to use Hadithmv to spread what goes against the methodology of Ahlu-Sunnah-wal-Jamaa’ah, except to refute Ahlul-Bid’ah.
 
 Permission is hereby granted, free of charge, to any party obtaining a copy of this software and associated documentation files, to deal in the Software and to use, copy, modify, merge, publish, distribute the texts of the Hadithmv, without seeking permission or giving credits (attribution), subject to the following two conditions:
-1 - The texts used from Hadithmv are less than 250 words.
+1 - The texts used from Hadithmv are less than 300 words.
 2 - The use is not for commercial purposes.
 Otherwise, permission is to be sought from the Developer first before use, if the Developer is alive.
 
-Derivative works from Hadithmv can only be distributed under terms and conditions that are identical to, or not more restrictive, than these original terms and conditions.
+If derivative works are made from Hadithmv, they can only be distributed under terms and conditions that are identical to, or not more restrictive, than these original terms and conditions.
 
 If anyone other than the Developer contributes code or text to Hadithmv, then what is submitted comes under this license and these terms and conditions are applicable to it.
 
