@@ -953,6 +953,14 @@
           </button>
 
           <button
+            onclick="reverseText();"
+            class="ttClass"
+            data-tooltip="Reverse text characters"
+          >
+            ⏪ ReverseTxt
+          </button>
+
+          <button
             onclick="sortFreq();"
             class="ttClass"
             data-tooltip="Splits the text into words and then sorts them by highest frequency of occurance"
@@ -2865,6 +2873,16 @@
               .getElementById("textMainArea")
               .value.replace(/[\r\n]+|[\n]+/g, "")
               .replace(/\s\s+/g, " ");
+          }
+          //
+
+          // https://www.geeksforgeeks.org/reverse-a-string-in-javascript/
+          function reverseText() {
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.split("")
+              .reverse()
+              .join("");
           }
           //
 
