@@ -1,0 +1,81 @@
+^[\u0621-\u064A]+$
+
+find all arabic except lafzul jalaalah
+
+(?![الله])[\u0621-\u064A]+
+
+-------
+
+unicode range for arabic numbers
+U+0660 - U+0669
+
+regex of that range
+[\u0660-\u0669]
+
+regex whitespace
+\s
+
+regex space-range-space (but only for single digits)
+\s[\u0660-\u0669]\s
+
+two instances {2}
+\s[\u0660-\u0669]{1,3}\s
+
+[\u0660-\u0669]{1,3}\s
+
+To find and replace in VS 2012 and VS 2015 you do the following:
+Surround with (), display capture with $1, $2, $n
+
+([\u0660-\u0669]{1,3}\s)
+$1
+
+https://docs.google.com/spreadsheets/d/e/2PACX-1vTSlhkwb6ftQIrxS6j7E5kJHaLox9l8aFI0rLq2XqFx9TOHBTUIUdb37q0blHFIg7qiThgt-wbfK7O-/pub?output=csv
+
+بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ
+
+بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِِ
+بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ
+is there an extra ibifili?
+
+بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ
+<br><br>
+
+!!!-------------------------
+([\u0660-\u0669]{1,3}\s)
+$1BREAK
+
+\sBREAKHERE	or
+ BREAKHERE
+control + enter
+
+new line:
+In the local searchbox (ctrl + f) you can insert newlines by pressing ctrl + enter.
+
+remember to delete opening and closing brackets, add those with js on render
+also delete ayah from ayah surah range at end
+
+
+...
+
+run hassaan's python code and transliterate arabic letters to thaana in the master dv file
+
+first remember to remove the tab spaces so as not to break the notes into new lines
+ 	 tab
+ space
+
+
+
+2|23|
+
+\d{1,3}\|\d{1,3}\|
+
+remember to delete stuff at the bottom of the master text file
+
+
+...
+
+hassaan
+<span class="qr">
+  {{ $content2 := .Inner }}
+  {{ replaceRE `۝*([٠-٩]+)` "<span class=ayahnum>&#8238;$1</span>" $content2 | safeHTML }}
+</span>

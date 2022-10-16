@@ -1,0 +1,78 @@
+Regex Match all characters between two strings (single line, use it on unformatted docs)
+
+Scenario 2: Multiline input
+cow ([\s\S]*?) milk
+
+&#8204;<span class='title'>&#8204;بَابُ([\s\S]*?)</span>
+
+
+
+# Leading and trailing whitespace
+^[ \s]+|[ \s]+$
+ 
+replace multiple spaces with one
+Given that you also want to cover tabs, newlines, etc, just replace \s\s+ with ' ':
+
+string = string.replace(/\s\s+/g, ' ');
+If you really want to cover only spaces (and thus not tabs, newlines, etc), do so:
+string = string.replace(/  +/g, ' ');
+
+replace multiple new lines with one
+(/[\n]+/, "\n");
+
+# Blank line
+^$
+
+match any unicode numeric digit.
+\p{N}
+
+---
+
+https://stackoverflow.com/questions/1181271/regex-to-match-a-single-character-that-is-anything-but-a-space/1181273#1181273
+[^ ]
+
+
+https://stackoverflow.com/questions/3926451/how-to-match-but-not-capture-part-of-a-regex/3926546#3926546
+
+The only way not to capture something is using look-around assertions:
+
+(?<=123-)((apple|banana)(?=-456)|(?=456))
+
+(?<=[^ ])=
+=(?=[^ ])
+
+[^ ]
+ =
+= 
+
+(?<=[^ ])/
+*(?=[^ ])
+
+https://stackoverflow.com/questions/2706745/how-to-match-the-character-not-followed-by-a-or-em-or-strong/2706748#2706748
+ـ(?!ٰ)
+
+https://stackoverflow.com/questions/58940303/regex-finding-fullstops-periods-that-arent-followed-by-a-space/58940328#58940328
+\.(?!\s|$)
+
+https://stackoverflow.com/questions/16398471/regex-for-string-not-ending-with-given-suffix/16398813#16398813
+أعلم(?<!\.)$
+
+arabic letters without fili on them
+(?!ا|ى|ال|اللَّه|آ|فِي)[\u0621-\u064A](?![\u064B-\u0652]|$)
+
+اَ
+أً
+
+dhivehi letters without fili on them
+(?!ނ)[\u0780-\u07A5](?![\u07A6-\u07B0]|$)
+
+https://stackoverflow.com/questions/39219532/regex-matching-a-letter-not-preceded-by-another-letter/39219598#39219598
+fili without dhivehi letters under them
+(?<![\u0780-\u07A5])[\u07A6-\u07B0]
+
+[\u0600-\u06FF](?!\s|$)
+regex match word with no space before and after  it
+
+
+
+
