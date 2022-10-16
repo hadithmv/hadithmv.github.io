@@ -1,0 +1,116 @@
+find everything between two strings (excluding those strings)
+(?<=STRING)(.*)(?=STRING)
+(?<=<\/span>)(.*)(?=<span class="footnote-hr">)
+(?<=<\/span>)(.*)(?=<span class="footnote-hr">) | (?<=<\/span>)(.*)(?=<hr class="calibre1" \/>)
+
+negative that, not quite right, works somewhat
+^(?!.*(?<=<\/span>)(.*)(?=<span class="footnote-hr">)).*$
+
+match all between 2 strings except those strings
+(?<=STRING)(.*)(?=STRING)
+
+match all between 2 strings including those strings (same line)
+STRING(.*)STRING
+
+To match a substring between the first [ and last ], you may use
+\[.*\]            # Including open/close brackets
+\[(.*)\]          # Excluding open/close brackets (using a capturing group)
+(?<=\[).*(?=\])   # Excluding open/close brackets (using lookarounds)
+
+\n (space)
+\n
+
+\n\n
+\n
+
+
+(?s)(?<=STRING).*?(?=STRING)
+(?s)(?<=بخلاف).*?(?=الموقوف)
+([\S\s]*?)
+
+
+...
+<(.*?)>
+<span class="footnote">(.*?)<\/span>
+بَابُ الْحَيْضِ
+
+
+---
+
+removes trailing spaces and tabs:
+[ \t]+$
+
+last blank newlines:
+\n$
+
+Leading whitespace:
+^\s+
+
+---
+!!!! only this part really matters
+epub to html (online converter works)
+https://www.onlineconverter.com/epub-to-html
+
+replace \n with nothing to remove all newlines
+
+study the patterns and replace using MM(.*?)MM while looking at a non-no-newline copy
+
+that should be enough
+
+leave the hadith numbers, you'll need them to catch overflowed hadith later
+
+---
+find ibifili less lower hamza alifs
+
+إ[^إِ]
+
+---
+
+find all arabic except lafzul jalaalah
+(?![الله])[\u0621-\u064A]+
+
+all arabic characters (no fili)
+[\u0621-\u064A]
+
+all arabic diacritics
+[\u064b-\u065f]
+
+including fili
+[\u0600-\u06FF]
+
+exclude all arabic numbers
+[^\u0660-\u0669]
+
+all dhivehi
+[\u0780-\u07BF]
+..
+
+all english
+[a-zA-Z]
+
+---
+
+thikijehi thaana
+(ޘ|ޙ|ޚ|ޛ|ޜ|ޞ|ޟ|ޠ|ޡ|ޢ|ޣ|ޤ|ޥ)
+ޝޕޣ
+
+---
+
+find numbers and insert a hyphen after the last of them
+(\d+)(\D.*)$
+$1-$2
+
+---
+
+You can search for all non-digits using:
+\D+
+OR
+[^0-9]+
+
+find all square brackets that come after a new line (this happens in ref sometimes)
+\n\]s
+
+
+scrambled characters that come from the now obsolete mushaf madina software font:
+[\ue000-\uf8ff]
+Block:	Private Use Area, U+E000 - U+F8FF
