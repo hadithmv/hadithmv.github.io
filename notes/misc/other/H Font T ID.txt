@@ -1,0 +1,19 @@
+Renamed to Tharujamaanu ID
+Removed locl feature. Thaana glyphs are used.
+
+"regular" recommended from here, a little bit lighter than Faruma, better for light text on dark.
+
+both have merged arabic
+
+Both have same glyphs. But localized variants doesn't work for Thaana on ID.
+
+See FDF2 glyph, punctuations, etc. Also, look at colon, lower period position, narrower space, different quotation marks, etc., on the bottom image.
+
+It's using glyphs set for Latin script.
+So OpenType feature that does it has been disabled for use.
+For ID, a regular weight between light and bold was added.
+In Word, light version cannot be chosen?
+
+ID version might have issues with Arabic and Latin, but Thaana would work perfectly as intended.
+
+Install to ID fonts folder then
