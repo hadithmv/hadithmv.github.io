@@ -954,6 +954,7 @@
 
           <button
             onclick="reverseText();"
+            id="reversedTxt"
             class="ttClass"
             data-tooltip="Reverses text characters of the text horizontally on the first click, then reverses the order vertically on the second"
           >
@@ -2887,6 +2888,9 @@
                 .value.split(/\r?\n/)
                 .reverse()
                 .join("\n");
+
+              document.getElementById("reversedTxt").innerHTML =
+                "⏪ ReverseTxt";
             } else {
               //run first function
               // https://www.geeksforgeeks.org/reverse-a-string-in-javascript/
@@ -2895,6 +2899,9 @@
                 .value.split("")
                 .reverse()
                 .join("");
+
+              document.getElementById("reversedTxt").innerHTML =
+                "↕️ ReverseTxt";
             }
           }
           //
