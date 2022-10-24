@@ -181,7 +181,7 @@ $(document).ready(() => {
       {
         className: "umdCol3", // Book Dv
         targets: [2],
-        visible: false,
+        visible: true,
         searchable: false,
       },
       {
@@ -196,7 +196,7 @@ $(document).ready(() => {
       {
         className: "umdCol5", // Baab Dv
         targets: [4],
-        visible: false,
+        visible: true,
         searchable: false,
         searchPanes: {
           show: false,
