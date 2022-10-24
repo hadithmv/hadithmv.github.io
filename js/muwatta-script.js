@@ -172,7 +172,7 @@ $(document).ready(() => {
       {
         className: "muwCol3", // Book Dv
         targets: [2],
-        visible: true,
+        visible: false,
         searchable: false,
         searchPanes: {
           show: false,
@@ -190,7 +190,7 @@ $(document).ready(() => {
       {
         className: "muwCol5", // Baab Dv
         targets: [4],
-        visible: true,
+        visible: false,
         searchable: false,
         searchPanes: {
           show: false,
