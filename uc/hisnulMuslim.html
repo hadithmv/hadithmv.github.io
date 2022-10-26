@@ -108,6 +108,7 @@
         .dataTable tr td.hisnCol1,
         .dataTable tr td.hisnCol2,
         .dataTable tr td.hisnCol3,
+        .dataTable tr td.hisnCol4,
         .dataTable tr td.hisnCol10,
         .dataTable tr td.hisnCol11 {
           text-align: center;
@@ -147,6 +148,16 @@
         font-size: 21px;
       } */
 
+      /* mobile Umdah only kitab bab top bottom padding removal */
+      @media screen and (max-width: 900px) {
+        .dataTable tr td.hisnCol2,
+        .dataTable tr td.hisnCol3,
+        .dataTable tr td.hisnCol4 {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+      }
+
       /* english */
       .dataTable tr td.hisnCol9 {
         font-family: sans-serif;
@@ -161,7 +172,7 @@
         font-family: sans-serif;
         font-size: 20px;
         direction: ltr;
-        text-align: justify;
+        /*text-align: justify;*/
         line-height: 1.4;
       }
 
