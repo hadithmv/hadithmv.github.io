@@ -204,6 +204,11 @@ hr {
   margin-right: auto;
 }
 
+.lineVerticalSpace {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
 /* ====================
      scroll bar
 ======================= */
