@@ -113,6 +113,10 @@ $(document).ready(() => {
       },
       {
         data: 7,
+        title: "ތަޚްރީޖު އަރަބިން",
+      },
+      {
+        data: 8,
         title: "شرح النجمي",
       },
     ],
@@ -121,7 +125,7 @@ $(document).ready(() => {
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: 8,
+        targets: [8, 9],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\n/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -145,54 +149,90 @@ $(document).ready(() => {
         targets: [0],
         visible: true,
         searchable: true,
+        searchPanes: {
+          show: false,
+        },
       },
       {
         className: "barbaCol2", // # burbank
         targets: [1],
         visible: false,
         searchable: false,
+        searchPanes: {
+          show: false,
+        },
       },
       {
         className: "barbaCol3", // # fauzan
         targets: [2],
         visible: false,
         searchable: false,
+        searchPanes: {
+          show: false,
+        },
       },
       {
         className: "barbaCol4", // # rabee
         targets: [3],
         visible: false,
         searchable: false,
+        searchPanes: {
+          show: false,
+        },
       },
       {
         className: "barbaCol5", // Ar Text
         targets: [4],
         visible: true,
         searchable: false,
+        searchPanes: {
+          show: false,
+        },
       },
       {
         className: "barbaCol6", // Ar Text Plain
         targets: [5],
         visible: false,
         searchable: true,
+        searchPanes: {
+          show: false,
+        },
       },
       {
         className: "barbaCol7", // dv
         targets: [6],
         visible: true,
         searchable: true,
+        searchPanes: {
+          show: false,
+        },
       },
       {
         className: "barbaCol8", // en
         targets: [7],
         visible: false,
         searchable: true,
+        searchPanes: {
+          show: false,
+        },
       },
       {
-        className: "barbaCol9", // sharh
+        className: "barbaCol9", // ar ref
         targets: [8],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "barbaCol10", // sharh
+        targets: [9],
         visible: false,
         searchable: false,
+        searchPanes: {
+          show: false,
+        },
       },
 
       // below strips html tags off keystable copy, second part with keys on
@@ -413,6 +453,7 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/English\t/g, "");
+          data = data.replace(/ތަޚްރީޖު އަރަބިން\t/g, "");
           data = data.replace(/شرح النجمي\t/g, "");
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,

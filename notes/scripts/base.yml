@@ -150,3 +150,5 @@ matches:
     replace: "⁽⁹⁾"
   - trigger: 0--
     replace: "⁰"
+  - trigger: ...-
+    replace: "…"
