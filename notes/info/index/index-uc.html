@@ -1855,7 +1855,11 @@
               font-size: 1.17em;
               color: rgb(255 255 255/84.7%);
               background-color: #0e1621;
+              /* https://stackoverflow.com/questions/41710536/dynamically-truncate-option-text-to-fit-select-list/41710670#41710670 */
               max-width: 80vw !important;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
             }
 
             @media (prefers-color-scheme: light) {
