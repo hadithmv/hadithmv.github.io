@@ -884,7 +884,7 @@
           </button>
 
           <button
-            onclick="toTitleCase();"
+            onclick="changeCase();"
             id="caseChange"
             class="ttClass"
             data-tooltip="Changes english text to title case, then lower case, then sentence case"
@@ -2221,10 +2221,10 @@
           // better switch like click function
           // https://stackoverflow.com/questions/30266496/event-on-second-and-third-click
 
-          var toTitleCase_timesClicked = 0;
-          function toTitleCase() {
-            toTitleCase_timesClicked++;
-            if (toTitleCase_timesClicked == 1) {
+          var changeCase_timesClicked = 0;
+          function changeCase() {
+            changeCase_timesClicked++;
+            if (changeCase_timesClicked == 1) {
               //run first function
 
               // https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
@@ -2237,29 +2237,66 @@
                   );
                 });
 
-              document.getElementById("caseChange").innerHTML = "🔠 lower case";
-            } else if (toTitleCase_timesClicked == 2) {
+              document.getElementById("caseChange").innerHTML = "🔠 Sent. case";
+            } else if (changeCase_timesClicked == 2) {
               //run second function
 
-              var text = document.getElementById("textMainArea").value;
-              var newText = text.toLowerCase();
-              document.getElementById("textMainArea").value = newText;
-
-              document.getElementById("caseChange").innerHTML = "🔠 Sent. case";
-            } else if (toTitleCase_timesClicked == 3) {
-              //run third function
               // https://stackoverflow.com/questions/19089442/convert-string-to-sentence-case-in-javascript
-              var text = document.getElementById("textMainArea").value;
+
+              /*var text = document.getElementById("textMainArea").value;
               var rg = /(^\w{1}|\.\s*\w{1})/gi;
               var newText = text.replace(rg, function (toReplace) {
                 return toReplace.toUpperCase();
               });
+              document.getElementById("textMainArea").value = newText;*/
+
+              // https://stackoverflow.com/questions/19089442/convert-string-to-sentence-case-in-javascript/56793122#56793122
+
+              var str = document.getElementById("textMainArea").value;
+              function toTitleCase(str) {
+                return str
+                  .toLowerCase()
+                  .replace(/\.\s*([a-z])|^[a-z]/gm, (s) => s.toUpperCase());
+              }
+
+              // Add your own names here to override to lower case
+              function toLowerCaseNames(str) {
+                return str.replace(
+                  /\b(lower case example 1|lower case example 2)\b/gim,
+                  (s) => s.toLowerCase()
+                );
+              }
+
+              // Add your own names here to override to UPPER CASE
+              function toUpperCaseNames(str) {
+                return str.replace(/\b(hello|string)\b/gim, (s) =>
+                  s.toUpperCase()
+                );
+              }
+
+              document.getElementById("textMainArea").value = toLowerCaseNames(
+                toUpperCaseNames(toTitleCase(str))
+              );
+
+              document.getElementById("caseChange").innerHTML = "🔠 lower case";
+            } else if (changeCase_timesClicked == 3) {
+              //run third function
+
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.toLowerCase();
+
+              document.getElementById("caseChange").innerHTML = "🔠 UPPER CASE";
+            } else if (changeCase_timesClicked == 4) {
+              //run third function
+              var text = document.getElementById("textMainArea").value;
+              var newText = text.toUpperCase();
               document.getElementById("textMainArea").value = newText;
 
               document.getElementById("caseChange").innerHTML = "🔠 Title Case";
 
               // reset click
-              toTitleCase_timesClicked = 0;
+              changeCase_timesClicked = 0;
             }
           }
           //
