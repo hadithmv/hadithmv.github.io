@@ -165,7 +165,7 @@ $(document).ready(() => {
       {
         className: "nwqCol3", // Dv Title
         targets: [2],
-        visible: true,
+        visible: false,
         searchable: false,
         searchPanes: {
           show: false,

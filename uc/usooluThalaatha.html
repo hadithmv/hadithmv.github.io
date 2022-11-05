@@ -239,9 +239,37 @@
           <table id="usooluThalaathaTable" class="table cards"></table>
           <!-- --- TABLE - END --- -->
           <div class="hidden" id="footer">
-            <button class="copyURL" onclick="copyURLToClipB();">
+            <button class="lowerButtons" onclick="copyURLToClipB();">
               &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
             </button>
+
+            <button class="lowerButtons" onclick="toggleFili();">
+              &nbsp; އަރަބި ފިލިތައް ދައްކާ &nbsp;
+            </button>
+
+            <script>
+              function toggleFili() {
+                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+
+                var isVisible = $("#usooluThalaathaTable")
+                  .DataTable()
+                  .column(3)
+                  .visible();
+                $("#usooluThalaathaTable")
+                  .DataTable()
+                  .column(3)
+                  .visible(!isVisible);
+
+                var isVisible = $("#usooluThalaathaTable")
+                  .DataTable()
+                  .column(4)
+                  .visible();
+                $("#usooluThalaathaTable")
+                  .DataTable()
+                  .column(4)
+                  .visible(!isVisible);
+              }
+            </script>
 
             <p class="arMasdar">
               مصدر النص: ‌‌الأصول الثلاثة وأدلتها | لمحمد بن عبد الوهاب بن
