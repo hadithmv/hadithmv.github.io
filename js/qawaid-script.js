@@ -92,10 +92,13 @@ $(document).ready(() => {
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
-          return data.replace(
-            /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
-            ""
-          );
+          return data
+            .replace(
+              /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|\{|\}|\(|\)|\[|\]|«|»|۝|⁽|⁾|\-|¹²³⁴⁵⁶⁷⁸⁹⁰]/g,
+              ""
+            )
+            .replace(/(\n\n)/g, "<br>");
+          // the latter preserves newlines for fililess column
           //return data.replace(/[ًٌٍَُِّْ]/g, '')
         },
       },
