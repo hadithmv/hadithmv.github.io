@@ -347,9 +347,31 @@ so right align to prevent gaps in text
           <table id="eegaalTable" class="stripe table"></table>
           <!-- --- TABLE - END --- -->
           <div class="hidden" id="footer">
-            <button class="copyURL" onclick="copyURLToClipB();">
+            <button class="lowerButtons" onclick="copyURLToClipB();">
               &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
             </button>
+
+            <button class="lowerButtons" onclick="toggleFili();">
+              &nbsp; އަރަބި ފިލިތައް ދައްކާ &nbsp;
+            </button>
+
+            <script>
+              function toggleFili() {
+                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+
+                var isVisible = $("#eegaalTable")
+                  .DataTable()
+                  .column(0)
+                  .visible();
+                $("#eegaalTable").DataTable().column(0).visible(!isVisible);
+
+                var isVisible = $("#eegaalTable")
+                  .DataTable()
+                  .column(1)
+                  .visible();
+                $("#eegaalTable").DataTable().column(1).visible(!isVisible);
+              }
+            </script>
 
             <p class="arMasdar">
               مصدر النص: الأيقاظ في تعليم الألفاظ | لموسى ملم كليكفان (ت ١٣٩٠

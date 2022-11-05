@@ -1410,9 +1410,9 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 }
 
 /* ====================
-       copyURL button
+       lowerButtons
 ======================= */
-.copyURL {
+.lowerButtons {
   direction: rtl;
   font-family: dvFont, arFont, Quicksand, sans-serif, faruma;
   font-size: 16px;
@@ -1433,7 +1433,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   border: 0.25px solid rgb(0 0 0 / 25%);
 }
 
-.copyURL:hover {
+.lowerButtons:hover {
   cursor: pointer;
   color: #fff;
   transform: scale(1.15);
