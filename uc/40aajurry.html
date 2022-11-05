@@ -219,6 +219,28 @@
               &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
             </button>
 
+            <button class="lowerButtons" onclick="toggleFili();">
+              &nbsp; ފިލި ދައްކާ/ފޮރުވާ &nbsp;
+            </button>
+
+            <script>
+              function toggleFili() {
+                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+
+                var isVisible = $("#aajurryTable")
+                  .DataTable()
+                  .column(3)
+                  .visible();
+                $("#aajurryTable").DataTable().column(3).visible(!isVisible);
+
+                var isVisible = $("#aajurryTable")
+                  .DataTable()
+                  .column(4)
+                  .visible();
+                $("#aajurryTable").DataTable().column(4).visible(!isVisible);
+              }
+            </script>
+
             <p class="arMasdar">
               مصدر النص: الأربعون حديثا للآجري | لأبي بكر محمد بن الحسين
               الآجُرِّيُّ البغدادي (ت ٣٦٠هـ)
