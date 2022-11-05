@@ -246,9 +246,36 @@
           <table id="allHadithTable" class="table cards"></table>
           <!-- --- TABLE - END --- -->
           <div class="hidden" id="footer">
-            <button class="copyURL" onclick="copyURLToClipB();">
+            <button class="lowerButtons" onclick="copyURLToClipB();">
               &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
             </button>
+
+            <button class="lowerButtons" onclick="toggleFili();">
+              &nbsp; އަރަބި ފިލިތައް ދައްކާ &nbsp;
+            </button>
+
+            <script>
+              function toggleFili() {
+                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+                // http://live.datatables.net/jayoragi/1/edit
+
+                var isVisible = $("#allHadithTable")
+                  .DataTable()
+                  .column(3)
+                  .visible();
+                $("#allHadithTable").DataTable().column(3).visible(!isVisible);
+
+                var isVisible = $("#allHadithTable")
+                  .DataTable()
+                  .column(4)
+                  .visible();
+                $("#allHadithTable").DataTable().column(4).visible(!isVisible);
+
+                // also related: https://stackoverflow.com/questions/45234347/jquery-datatables-how-hide-specified-column-dynamically/45234355#45234355
+                /*$("#allHadithTable").DataTable().column(3).visible(true);
+                $("#allHadithTable").DataTable().column(4).visible(false);*/
+              }
+            </script>
 
             <p class="justi">
               ފިލި ޖަހާފަހުރި އަރަބި ލިޔުން ބެލުމަށް، ’އިތުރު ބަރިތަކަށް‘

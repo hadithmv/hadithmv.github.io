@@ -1894,9 +1894,31 @@
           <!-- --- TABLE - END --- -->
 
           <div class="hidden" id="footer">
-            <button class="copyURL" onclick="copyURLToClipB();">
+            <button class="lowerButtons" onclick="copyURLToClipB();">
               &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
             </button>
+
+            <button class="lowerButtons" onclick="toggleFili();">
+              &nbsp; އަރަބި ފިލިތައް ދައްކާ &nbsp;
+            </button>
+
+            <script>
+              function toggleFili() {
+                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+
+                var isVisible = $("#quranTable")
+                  .DataTable()
+                  .column(3)
+                  .visible();
+                $("#quranTable").DataTable().column(3).visible(!isVisible);
+
+                var isVisible = $("#quranTable")
+                  .DataTable()
+                  .column(4)
+                  .visible();
+                $("#quranTable").DataTable().column(4).visible(!isVisible);
+              }
+            </script>
 
             <p class="justi">
               މި ތަރުޖަމާ ނެރެން ޖެހުނު މައިގަނޑު ސަބަބަކީ، މީގެ ކުރިން
