@@ -465,8 +465,8 @@ $(document).ready(() => {
           // fixes multiple row's lack of line break on desktop
           //     data = data.replace( /\t\r\n/g, "\n\n\n" );
 
-          data = data.replace(/\r\n\r\n/g, " "); //  ONLY FOR 40N, because it has an inserted title
-          data = data.replace(/\n\n/g, " "); //  ONLY FOR 40N, because it has an inserted title, the two lines below arent needed for 40n i think
+          data = data.replace(/\r\n\r\n/g, " "); //  What these two lines do is, they bring the hadith number right after the inserted title text.
+          data = data.replace(/\n\n/g, " "); //  so these two are ok for hadith or point numbered books, but not for others like qurad radheef etc.
 
           data = data.replace(/\r\n/g, "\t"); //  prevents first header showing up unneeded (windows)
           data = data.replace(/\n/g, "\t"); //  prevents first header showing up unneeded (linux) this needs to go below windows rn

@@ -208,7 +208,7 @@ datatables with sqlite?
 Change p keytable tags to new line on copy
 google click links counter
 debug android webview with phone
-google analytics seperate ext script works?
+google analytics separate ext script works?
 save state webview
 See if i can make scripts in one file
 Add rawaahu to umdah takhrij??
@@ -574,7 +574,7 @@ add a card border to one side
 hiding scroll is bad, make it show on hover??
 csv button?
 year versioning
-Keep jQuery out seperate cdn as everyone does it?
+Keep jQuery out separate cdn as everyone does it?
 Full stop headings?
 get travis or circleci working???
 get github badges on readme???
