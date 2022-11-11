@@ -5,6 +5,7 @@ Set-Location -Path $PSScriptRoot
 uglifyjs allHadith.js -c -m -o allHadith.js
 uglifyjs barbahari.js -c -m -o barbahari.js
 uglifyjs bulugh.js -c -m -o bulugh.js
+uglifyjs bulugh-full.js -c -m -o bulugh-full.js
 uglifyjs eegaal.js -c -m -o eegaal.js
 uglifyjs hisnulMuslim.js -c -m -o hisnulMuslim.js
 uglifyjs muwatta.js -c -m -o muwatta.js
