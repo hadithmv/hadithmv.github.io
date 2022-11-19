@@ -739,6 +739,14 @@
           </button>
 
           <button
+            onclick="changeNumsAr();"
+            class="arButton ttClass"
+            data-tooltip="Converts regular numbers to Arabic numbers on the first click, and does the reverse on the second"
+          >
+            1️⃣ 123 ↔ ١٢٣
+          </button>
+
+          <button
             onclick="saveTextAsFile();"
             id="downButton"
             class="ttClass"
@@ -1124,14 +1132,6 @@
             data-tooltip="Erases all numbers inside any brackets"
           >
             ⁽¹⁾ / (1) Rmv
-          </button>
-
-          <button
-            onclick="changeNumsAr();"
-            class="arButton ttClass"
-            data-tooltip="Converts regular numbers to Arabic numbers on the first click, and does the reverse on the second"
-          >
-            1️⃣ 123 ↔ ١٢٣
           </button>
 
           <button
@@ -2204,13 +2204,15 @@
             document.getElementById("textMainArea").value = document
               .getElementById("textMainArea")
               .value.replace(/[ًٌٍَُِّْ]/g, "")
-              .replace(/[\u06d4-\u06dc]/g, "")
-              .replace(/[\u06df-\u06ed]/g, "")
-              .replace(/[\u064b-\u066d]/g, "")
-              .replace(/[\u0610-\u061e]/g, "")
-              .replace(/\u0670/g, "")
-              .replace(/\u0674/g, "")
-              .replace(/ـ/g, "")
+              .replace(/[\u0610-\u061e]/g, "") // ؐ  ARABIC SIGN SALLALLAHOU ALAYHE WASSALLAM - ؞ ARABIC TRIPLE DOT PUNCTUATION MARK
+              .replace(/\u0640/g, "") // ـ ARABIC TATWEEL {kashida}
+              //.replace(/[\u064b-\u066d]/g, "") //  ً ARABIC FATHATAN - ٭ ARABIC FIVE POINTED STAR
+              // commented out above because u0660-u0669 are arabic numbers, and they get erased
+              .replace(/[\u064b-\u065F]/g, "") //  ً ARABIC FATHATAN - ٟ 	ARABIC WAVY HAMZA BELOW
+              .replace(/[\u06d4-\u06dc]/g, "") // ۔ ARABIC FULL STOP - ۜ  ARABIC SMALL HIGH SEEN
+              .replace(/[\u06df-\u06ed]/g, "") //  ۟ ARABIC SMALL HIGH ROUNDED ZERO - ۭ  ARABIC SMALL LOW MEEM
+              .replace(/\u0670/g, "") //  ٰ ARABIC LETTER SUPERSCRIPT ALEF
+              .replace(/\u0674/g, "") // ٴ  ARABIC LETTER HIGH HAMZA
               .replace(/ٱ|ٲ|ٳ/g, "ا");
           }
           //
