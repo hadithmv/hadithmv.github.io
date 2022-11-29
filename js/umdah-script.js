@@ -147,8 +147,9 @@ $(document).ready(() => {
         targets: [8, 9],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
-          return data.replace(/\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
+          return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
         },
+        e,
       },
 
       /* replace \n newlines from json to <br> in table
@@ -156,9 +157,10 @@ $(document).ready(() => {
       {
         targets: "_all",
         render: function (data, type, row) {
-          return data.replace(/\n|\r/g, '\t<br class="br">');
+          return data.replace(/\r\n|\n|\r/g, '\t<br class="br">');
         }, // added space before br, otherwise clipboard copy export has no space
       }, // later changed that blank space into a \t, so that single new lines could work on clipboard copy
+      // previously just \n. added \r\n and \r to make lines break on mobile
 
       // classes columns for css in nweb view, but not print.
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
@@ -465,11 +467,12 @@ $(document).ready(() => {
           // fixes multiple row's lack of line break on desktop
           //     data = data.replace( /\t\r\n/g, "\n\n\n" );
 
-          data = data.replace(/\r\n\r\n/g, " "); //  What these two lines do is, they bring the hadith number right after the inserted title text.
-          data = data.replace(/\n\n/g, " "); //  so these two are ok for hadith or point numbered books, but not for others like qurad radheef etc.
+          data = data.replace(/\r\n\r\n|\n\n/g, " ");
+          //  What these two lines do is, they bring the hadith number right after the inserted title text. So these two are ok for hadith or point numbered books, but not for others like quran, radheef etc.
 
-          data = data.replace(/\r\n/g, "\t"); //  prevents first header showing up unneeded (windows)
-          data = data.replace(/\n/g, "\t"); //  prevents first header showing up unneeded (linux) this needs to go below windows rn
+          data = data.replace(/\r\n|\n/g, "\t");
+          // \r\n prevents first header showing up unneeded (windows)
+          // \n prevents first header showing up unneeded (linux) this needs to go below windows rn
 
           data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
           data = data.replace(/ފޮތް އަރަބިން\t/g, "");
