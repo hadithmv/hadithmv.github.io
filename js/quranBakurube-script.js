@@ -532,11 +532,14 @@ $(document).ready(() => {
             "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
           );
 
-          data = data.replace(/\t\t/g, "\t"); //  This prevents a double or more line breaks when columns are hidden
-          data = data.replace(/\t/g, "\n\n"); // creates line breaks between cell data
-          data = data.replace(/\s\s/g, "\n\n"); // turns two spaces into new lines, for multi line text
-          data = data.replace(/\n\n\n\n/g, "\n\n"); // turns 4 new lines spaces into 2
-          data = data.replace(/\n\n\n/g, "\n\n"); // turns 3 new lines spaces into 2
+          data = data.replace(/\t\t/g, "\t");
+          // This prevents a double or more line breaks when columns are hidden
+
+          data = data.replace(/\n\n\n\n|\n\n\n|\t|\s\s/g, "\n\n");
+          // using \n\n\n\n turns 4 new lines spaces into 2
+          // \n\n\n turns 3 new lines spaces into 2
+          // using \t creates line breaks between cell data
+          // \s\s turns two spaces into new lines, for multi line text
 
           data = data.replace(/𝟢 |𝟣 |𝟤 |𝟥 |𝟦 |𝟧 |𝟨 |𝟩 |𝟪 |𝟫 /g, ""); // removes these alt numbers from surah name
           data = data.replace(/𝟢|𝟣|𝟤|𝟥|𝟦|𝟧|𝟨|𝟩|𝟪|𝟫/g, ""); // removes these alt numbers from surah name
