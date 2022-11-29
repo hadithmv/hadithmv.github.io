@@ -147,7 +147,7 @@ $(document).ready(() => {
         targets: [8, 9],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
-          return data.replace(/\n/g, '\t<br class="br">'); // without this line breaks not preserved
+          return data.replace(/\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
         },
       },
 
@@ -156,7 +156,7 @@ $(document).ready(() => {
       {
         targets: "_all",
         render: function (data, type, row) {
-          return data.replace(/\n/g, '\t<br class="br">');
+          return data.replace(/\n|\r/g, '\t<br class="br">');
         }, // added space before br, otherwise clipboard copy export has no space
       }, // later changed that blank space into a \t, so that single new lines could work on clipboard copy
 
