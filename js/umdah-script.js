@@ -149,7 +149,6 @@ $(document).ready(() => {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
         },
-        e,
       },
 
       /* replace \n newlines from json to <br> in table
