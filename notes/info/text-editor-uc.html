@@ -742,9 +742,9 @@
             onclick="changeNumsAr();"
             class="arButton ttClass"
             data-tooltip="Converts regular numbers to Arabic numbers on the first click, and does the reverse on the second"
-            style="font-size: 110%"
           >
-            1231️⃣ ↔ ١٢٣
+            1️⃣
+            <span style="font-size: 120%">123 ↔ ١٢٣</span>
           </button>
 
           <button
@@ -1116,7 +1116,7 @@
             id="bracketedNumber"
             class="ttClass"
             data-tooltip="Places round brackets around numbers on the first click, then square brackets around them on the second, then removes those brackets on the third"
-            style="font-size: 120%"
+            style="font-size: 115%"
           >
             1 ↔ (1)
           </button>
@@ -1125,18 +1125,16 @@
             onclick="numToSuperScript();"
             class="ttClass"
             data-tooltip="Changes numbers and round brackets to superscript, like footnotes on the first click, and reverts them on the second"
-            style="font-size: 120%"
           >
-            (1) ↔ ⁽¹⁾
+            (1) ↔ <span style="font-size: 120%">⁽¹⁾</span>
           </button>
 
           <button
             onclick="replaceFootNos();triggerTheCounts();"
             class="ttClass"
             data-tooltip="Erases all numbers inside any brackets"
-            style="font-size: 120%"
           >
-            ⁽¹⁾ / (1) Rmv
+            <span style="font-size: 120%">⁽¹⁾</span> / (1) Rmv
           </button>
 
           <button
@@ -1192,10 +1190,19 @@
             onclick="replaceQbracket();"
             class="arButton ttClass"
             data-tooltip="Converts curly braces and asterisks to quranic brackets and ayah stops"
-            style="font-size: 130%"
+            style="font-size: 120%"
           >
             {*} ↔ ﴿۝﴾
           </button>
+
+          <button
+            onclick="removeWaqfStuff();"
+            class="arButton ttClass"
+            data-tooltip="Removes the following: ۖ	ۗ	ۘ	ۙ	ۚ	ۛ	ۜ	 ۝ ﴿ ﴾ ۞	۟	۠	ۡ	ۢ	ۣ	ۤ	ۥ	ۦ	ۧ	ۨ	۩	۪	۫	۬	ۭ"
+          >
+            <span style="font-size: 150%"> ۗ&nbsp; ۘ&nbsp; ۚ&nbsp;</span>۝ ﴾ Rmv
+          </button>
+
           <button
             onclick="shaddaB4Haraka();"
             class="arButton ttClass"
@@ -1231,9 +1238,9 @@
             onclick="replaceQtoDoubleAngBrackets();"
             class="arButton ttClass"
             data-tooltip="Replaces all doubles straight quotes or double brackets with angular arabic quotes, and does the reverse on the second"
-            style="font-size: 130%"
+            style="font-size: 140%"
           >
-            " " ↔ « »
+            " " ↔ <span style="font-size: 150%">« »</span>
           </button>
           <button
             onclick="replaceDoubleBrackets();triggerTheCounts();"
@@ -1248,9 +1255,9 @@
             onclick="dotsToEllipsis();triggerTheCounts();"
             class="arButton ttClass"
             data-tooltip="Converts three dots to proper a ellipsis"
-            style="font-size: 130%"
+            style="font-size: 120%"
           >
-            . . . ↔ …&nbsp;
+            . . . ↔ <span style="font-size: 160%">…</span>&nbsp;
           </button>
           <button
             onclick="hyphenToEnEmDash();"
@@ -2769,6 +2776,19 @@
           }
           //
 
+          function removeWaqfStuff() {
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(
+                /ۖ|ۗ|ۘ|ۙ|ۚ|ۛ|ۜ||\۝||\۞|۟|۠|ۡ|ۢ|ۣ|ۤ|ۥ|ۦ|ۧ|ۨ|\۩|۪|۫|۬|ۭ/g,
+                ""
+              )
+              .replace(/\﴾/g, "")
+              .replace(/\﴿/g, "")
+              .replace(/  /g, " ");
+          }
+          //
+
           function shaddaB4Haraka() {
             document.getElementById("textMainArea").value = document
               .getElementById("textMainArea")
@@ -2780,18 +2800,21 @@
               .replace(/ًّ/g, "ًّ")
               .replace(/ٍّ/g, "ٍّ");
           }
+          //
 
           function replaceColon() {
             document.getElementById("textMainArea").value = document
               .getElementById("textMainArea")
               .value.replace(/:/g, ".");
           }
+          //
 
           function replaceKashida() {
             document.getElementById("textMainArea").value = document
               .getElementById("textMainArea")
               .value.replace(/ـ/g, "");
           }
+          //
 
           var replaceQuotes_timesClicked = 0;
           function replaceQuotes() {
@@ -2814,6 +2837,7 @@
                 .replace(/(\s|^)\'([^\']+)\'/g, "$1\u2019$2\u2018");
             }
           }
+          //
 
           var replaceQtoDoubleAngBrackets_timesClicked = 0;
           function replaceQtoDoubleAngBrackets() {
@@ -2834,6 +2858,7 @@
                 .replace(/(\s|^)\"([^\"]+)\"/g, "$1\«$2\»");
             }
           }
+          //
 
           function replaceDoubleBrackets() {
             document.getElementById("textMainArea").value = document
@@ -6285,7 +6310,7 @@ cols="60"-->
           </p>
           <p>
             ޑެސްކްޓޮޕްގައި އޮފްލައިންކޮށް މި ސަފުހާ ބޭނުންކުރަން އެދޭނަމަ،
-            ބަރައުސަރގައި ހުންނަވާއިރު ކީބޯޑުގައި ctrl+s އަށް ފިތާލުމަށްފަހު،
+            ބްރައުސަރގައި ހުންނަވާއިރު ކީބޯޑުގައި ctrl+s އަށް ފިތާލުމަށްފަހު،
             ކޮމްޕްލީޓް ވެބްޕޭޖް html. ފައިލެއްހެން ސޭވްކޮށްގެން ބޭނުން
             ކުރެވިދާނެއެވެ. އޭގެ ފަހުން އަދާހަމަކުރަން އެދޭނަމަ އަލުން އެގޮތަށް
             ސޭވް ކުރާނީއެވެ.
