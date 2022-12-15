@@ -136,7 +136,7 @@ $(document).ready(() => {
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: [5, 9, 10, 11],
+        targets: [7, 8, 9, 10, 11],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -230,7 +230,7 @@ $(document).ready(() => {
       },
       {
         className: "fnCol9", // Rs Ref
-        targets: [9],
+        targets: [8],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -239,7 +239,7 @@ $(document).ready(() => {
       },
       {
         className: "fnCol10", // Sharh
-        targets: [10],
+        targets: [9],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -248,7 +248,7 @@ $(document).ready(() => {
       },
       {
         className: "fnCol11", // Sharh2
-        targets: [11],
+        targets: [10],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -257,7 +257,7 @@ $(document).ready(() => {
       },
       {
         className: "fnCol12", // Sharh2
-        targets: [12],
+        targets: [11],
         visible: false,
         searchable: false,
         searchPanes: {
