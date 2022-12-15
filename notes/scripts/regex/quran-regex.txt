@@ -74,7 +74,7 @@ remember to delete stuff at the bottom of the master text file
 
 ...
 
-hassaan
+hs:
 <span class="qr">
   {{ $content2 := .Inner }}
   {{ replaceRE `۝*([٠-٩]+)` "<span class=ayahnum>&#8238;$1</span>" $content2 | safeHTML }}

@@ -66,8 +66,10 @@ arabic letters without fili on them
 dhivehi letters without fili on them
 (?!ނ)[\u0780-\u07A5](?![\u07A6-\u07B0]|$)
 
+
 https://stackoverflow.com/questions/39219532/regex-matching-a-letter-not-preceded-by-another-letter/39219598#39219598
-fili without dhivehi letters under them
+
+dhivehi fili without dhivehi letters under them
 (?<![\u0780-\u07A5])[\u07A6-\u07B0]
 
 [\u0600-\u06FF](?!\s|$)
