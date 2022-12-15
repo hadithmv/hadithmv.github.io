@@ -116,22 +116,18 @@ $(document).ready(() => {
       },
       {
         data: 7,
-        title: "ތަޚްރީޖު ދިވެހިން",
-      },
-      {
-        data: 8,
         title: "ރިޔާޟުއްޞާލިޙީނުން",
       },
       {
-        data: 9,
+        data: 8,
         title: "شرح العباد",
       },
       {
-        data: 10,
+        data: 9,
         title: "شرح الخضير",
       },
       {
-        data: 11,
+        data: 10,
         title: "شرح الدرر",
       },
     ],
@@ -140,7 +136,7 @@ $(document).ready(() => {
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: [10, 11, 12],
+        targets: [5, 9, 10, 11],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -233,16 +229,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol9", // Dv Ref
-        targets: [8],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "fnCol10", // Rs Ref
+        className: "fnCol9", // Rs Ref
         targets: [9],
         visible: false,
         searchable: false,
@@ -251,7 +238,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol11", // Sharh
+        className: "fnCol10", // Sharh
         targets: [10],
         visible: false,
         searchable: false,
@@ -260,7 +247,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol12", // Sharh2
+        className: "fnCol11", // Sharh2
         targets: [11],
         visible: false,
         searchable: false,
@@ -269,7 +256,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol13", // Sharh2
+        className: "fnCol12", // Sharh2
         targets: [12],
         visible: false,
         searchable: false,
@@ -512,7 +499,6 @@ $(document).ready(() => {
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/English\t/g, "");
           data = data.replace(/ތަޚްރީޖު އަރަބިން\t/g, "");
-          data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, "");
           data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, "");
           data = data.replace(/شرح العباد\t/g, "");
           data = data.replace(/شرح الخضير\t/g, "");
