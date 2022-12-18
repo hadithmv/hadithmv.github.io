@@ -12,6 +12,7 @@ Copy-Item ../books/40nawawi.html -Destination ../app/webview-master/app/src/main
 Copy-Item ../books/allHadith.html -Destination ../app/webview-master/app/src/main/assets/books/allHadith.html -Recurse -Force
 Copy-Item ../books/aqidatuRaziyain.html -Destination ../app/webview-master/app/src/main/assets/books/aqidatuRaziyain.html -Recurse -Force
 Copy-Item ../books/barbahari.html -Destination ../app/webview-master/app/src/main/assets/books/barbahari.html -Recurse -Force
+Copy-Item ../books/bulugh.html -Destination ../app/webview-master/app/src/main/assets/books/bulugh.html -Recurse -Force
 Copy-Item ../books/eegaal.html -Destination ../app/webview-master/app/src/main/assets/books/eegaal.html -Recurse -Force
 Copy-Item ../books/hisnulMuslim.html -Destination ../app/webview-master/app/src/main/assets/books/hisnulMuslim.html -Recurse -Force
 Copy-Item ../books/index.html -Destination ../app/webview-master/app/src/main/assets/books/index.html -Recurse -Force
@@ -65,6 +66,7 @@ Copy-Item ../app/webview-master/app/src/main/assets/notes/* -Destination hmv/not
 # Remove-Item "../app/webview-master/app/src/main/assets/js" -Recurse -Force
 Copy-Item ../js/allHadith-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/allHadith-script.min.js -Recurse -Force
 Copy-Item ../js/barbahari-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/barbahari-script.min.js -Recurse -Force
+Copy-Item ../js/bulugh.min.js -Destination ../app/webview-master/app/src/main/assets/js/bulugh.min.js -Recurse -Force
 Copy-Item ../js/eegaal-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/eegaal-script.min.js -Recurse -Force
 Copy-Item ../js/hisnulMuslim-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/hisnulMuslim-script.min.js -Recurse -Force
 Copy-Item ../js/nawaqid-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/nawaqid-script.min.js -Recurse -Force
@@ -88,6 +90,7 @@ Copy-Item ../js/resc/COMB-nonCrit.min.js -Destination ../app/webview-master/app/
 # - - -
 Copy-Item ../js/json/allHadith.js -Destination ../app/webview-master/app/src/main/assets/js/json/allHadith.js -Recurse -Force
 Copy-Item ../js/json/barbahari.js -Destination ../app/webview-master/app/src/main/assets/js/json/barbahari.js -Recurse -Force
+Copy-Item ../js/json/bulugh.js -Destination ../app/webview-master/app/src/main/assets/js/json/bulugh.js -Recurse -Force
 Copy-Item ../js/json/eegaal.js -Destination ../app/webview-master/app/src/main/assets/js/json/eegaal.js -Recurse -Force
 Copy-Item ../js/json/hisnulMuslim.js -Destination ../app/webview-master/app/src/main/assets/js/json/hisnulMuslim.js -Recurse -Force
 Copy-Item ../js/json/nawaqid.js -Destination ../app/webview-master/app/src/main/assets/js/json/nawaqid.js -Recurse -Force
