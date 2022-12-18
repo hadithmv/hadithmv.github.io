@@ -1,5 +1,26 @@
+
 Hadithmv, Mohamed Ashraaf Ibrahim
 
-If any person or party wishes to use Hadithmv and its content in software/programs/apps/bots, or in websites and books at a medium to large scale (25 hadith or more), then they may do so after asking for and receiving the developer’s permission (if alive).
+If any party uses Hadithmv in any way, then they are agreeing to the terms and conditions below:
+
+If there are any disputes regarding the meaning of these terms and conditions, then the conflict will be resolved in accordance to the Developer’s interpretation.
+
+It is not allowed to use Hadithmv to spread what goes against the methodology of Ahlu-Sunnah-wal-Jamaa’ah (Ahlul Hadith), except to refute Ahlul-Bid’ah (the Jahmiyya, Ashaa’irah, Murjiah, Khawarij, Rawafid, Sufiyyah, Mu’tazilah, Maatureedhiyyah, Qadariyyah, etc.)
+
+Permission is hereby granted, free of charge, to any party obtaining a copy of this software and associated documentation files, to deal in the Software and to use, copy, modify, merge, publish, distribute the texts of the Hadithmv, without seeking permission or giving credits (attribution), subject to the following two conditions:
+    1 - The texts used from Hadithmv are less than 300 words.
+    2 - The use is not for commercial purposes.
+Otherwise, permission is to be sought from the Developer first before use, if the Developer is alive.
+
+    If derivative works are made from Hadithmv, they are subject to the following three conditions:
+        1 - They can only be distributed under terms and conditions that are identical to, or not more restrictive, than these original terms and conditions.
+        2 - A reference to Hadithmv should be given in the derivative work, preferably with a hyperlink to the site.
+        3 - They should show the version number of Hadithmv from which the data was taken at that time. And if the derivative work updates it data from Hadithmv later, the version number shown should likewise be updated.
+
+If anyone other than the Developer contributes code or text to Hadithmv, then what is submitted comes under this license and these terms and conditions apply to it.
+
+The Developer may revoke or change these terms and conditions at any time.
+
+In the case that the Developer is not alive, Hadithmv should immediately be considered to be a Waqf as well as fully open source under the MIT license, disregarding the prior licensing it had.
 
 The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
