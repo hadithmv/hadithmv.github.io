@@ -66,7 +66,7 @@ Copy-Item ../app/webview-master/app/src/main/assets/notes/* -Destination hmv/not
 # Remove-Item "../app/webview-master/app/src/main/assets/js" -Recurse -Force
 Copy-Item ../js/allHadith-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/allHadith-script.min.js -Recurse -Force
 Copy-Item ../js/barbahari-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/barbahari-script.min.js -Recurse -Force
-Copy-Item ../js/bulugh-script.js -Destination ../app/webview-master/app/src/main/assets/js/bulugh-script.js -Recurse -Force
+Copy-Item ../js/bulugh-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/bulugh-script.min.js -Recurse -Force
 Copy-Item ../js/eegaal-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/eegaal-script.min.js -Recurse -Force
 Copy-Item ../js/hisnulMuslim-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/hisnulMuslim-script.min.js -Recurse -Force
 Copy-Item ../js/nawaqid-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/nawaqid-script.min.js -Recurse -Force
