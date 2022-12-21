@@ -28,6 +28,8 @@ https://textmechanic.com/text-tools/combination-permutation-tools/combination-ge
 arabic letters without fili on them
 (?!ا|ى|ال|اللَّه|آ|فِي)[\u0621-\u064A](?![\u064B-\u0652]|$)
 
+arabic fili without dhivehi letters under them
+
 dhivehi letters without fili on them
 (?!ނ)[\u0780-\u07A5](?![\u07A6-\u07B0]|$)
 
