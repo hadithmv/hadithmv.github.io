@@ -78,7 +78,7 @@ matches:
     replace: "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ: "
   - trigger: ގއ-
     replace: "ގެ އަރިހުން"
-  - trigger: އކ-
+  - trigger: އހކ-
     replace: "އަހަރެންނަށް ކިޔައިދެއްވިއެވެ."
   - trigger: އމކ-
     replace: "އަހަރުމެންނަށް ކިޔައިދެއްވިއެވެ."
@@ -96,6 +96,8 @@ matches:
     replace: ހަމަކަށަވަރުން
   - trigger: ކލ-
     replace: ކަލޭގެފާނު
+  - trigger: އކ-
+    replace: އެކަލޭގެފާނު
   - trigger: ހދ-
     replace: ޙަދީޘް
   - trigger: ރސ-
