@@ -1211,6 +1211,7 @@
           >
             ـَ ـّ ← ـّ ـَ
           </button>
+
           <button
             onclick="replaceColon();"
             class="arButton ttClass"
@@ -1219,6 +1220,7 @@
           >
             : ← .
           </button>
+
           <button
             onclick="replaceKashida();triggerTheCounts();"
             class="arButton ttClass"
@@ -1226,6 +1228,7 @@
           >
             ســلاــم ← سلام
           </button>
+
           <button
             onclick="replaceQuotes();"
             class="arButton ttClass"
@@ -1234,6 +1237,7 @@
           >
             ' " ↔ ’ “
           </button>
+
           <button
             onclick="replaceQtoDoubleAngBrackets();"
             class="arButton ttClass"
@@ -1242,6 +1246,7 @@
           >
             " " ↔ <span style="font-size: 150%">« »</span>
           </button>
+
           <button
             onclick="replaceDoubleBrackets();triggerTheCounts();"
             class="arButton ttClass"
@@ -1249,6 +1254,15 @@
             style="font-size: 120%"
           >
             (( )) ← ( )
+          </button>
+
+          <button
+            onclick="replaceQuineCorners();triggerTheCounts();"
+            class="arButton ttClass"
+            data-tooltip="Replaces all brackets to Quine Corners"
+            style="font-size: 120%"
+          >
+            ( ) ← ⌝ ⌜
           </button>
 
           <button
@@ -2872,6 +2886,15 @@
               .replace(/\{\{/g, "{")
               .replace(/\}\}/g, "}");
           }
+          //
+
+          function replaceQuineCorners() {
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/\)/g, "⌜")
+              .replace(/\(/g, "⌝");
+          }
+          //
         </script>
 
         <script>
