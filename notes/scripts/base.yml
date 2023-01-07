@@ -94,6 +94,8 @@ matches:
     replace: "ޙަދީޘް ކުރެއްވިއެވެ: ”"
   - trigger: ހމ-
     replace: ހަމަކަށަވަރުން
+  - trigger: އހ-
+    replace: އެހެނީ ހަމަކަށަވަރުން
   - trigger: ކލ-
     replace: ކަލޭގެފާނު
   - trigger: އކ-
