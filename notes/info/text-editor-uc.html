@@ -1009,7 +1009,7 @@
             class="ttClass"
             data-tooltip="Adds ordered list tags to the lines of text on the first click, and unordered tags on the second, and removes them all on the third"
           >
-            HT<u>M</u>L O List
+            &lt;HT<u>M</u>L O List&gt;
           </button>
 
           <button
@@ -1296,7 +1296,7 @@
             class="ttClass"
             data-tooltip="Removes html tags from the text, but leaves the text as is"
           >
-            Rmv HTML
+            &lt;Rmv HTML&gt;
           </button>
 
           <!--
@@ -1767,6 +1767,7 @@
             <li>ނހކ- ← ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”</li>
             <li>ހކ- ← ޙަދީޘް ކުރެއްވިއެވެ: ”</li>
             <li>ހމ- ← ހަމަކަށަވަރުން</li>
+            <li>އހ- ← އެހެނީ ހަމަކަށަވަރުން</li>
             <li>ކލ- ← ކަލޭގެފާނު</li>
             <li>އކ- ← އެކަލޭގެފާނު</li>
             <li>ހކއ- ← ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ: ”</li>
@@ -2216,8 +2217,9 @@
             replaceText("ނހކ-", "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”");
             replaceText("ހކއ-", "ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ: ”");
             replaceText("ހކ-", "ޙަދީޘް ކުރެއްވިއެވެ: ”");
-            replaceText("ހމ-", "ހަމަކަށަވަރުން: ”");
-            replaceText("ކލ-", "ކަލޭގެފާނު: ”");
+            replaceText("ހމ-", "ހަމަކަށަވަރުން");
+            replaceText("އހ-", "އެހެނީ ހަމަކަށަވަރުން");
+            replaceText("ކލ-", "ކަލޭގެފާނު");
             replaceText("އކ-", "އެކަލޭގެފާނު");
             replaceText(
               "ރއޑ-",
