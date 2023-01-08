@@ -108,6 +108,18 @@ $(document).ready(() => {
         data: 2,
         title: "އިނގިރޭސި ލަފްޒު",
       },
+      {
+        data: 3,
+        title: "އަރަބި މާނަ",
+      },
+      {
+        data: 4,
+        title: "ދިވެހި މާނަ",
+      },
+      {
+        data: 5,
+        title: "އިނގިރޭސި މާނަ",
+      },
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
@@ -158,6 +170,24 @@ $(document).ready(() => {
       {
         className: "rCol4", // en word
         targets: [3],
+        visible: true,
+        searchable: true,
+      },
+      {
+        className: "rCol5", // ar meaning
+        targets: [4],
+        visible: true,
+        searchable: true,
+      },
+      {
+        className: "rCol6", // dv meaning
+        targets: [5],
+        visible: true,
+        searchable: true,
+      },
+      {
+        className: "rCol7", // en meaning
+        targets: [6],
         visible: true,
         searchable: true,
       },
@@ -395,6 +425,10 @@ $(document).ready(() => {
           data = data.replace(/ދިވެހި ލަފްޒު\t/g, "");
           /* data = data.replace(/ދިވެހި މާނަ\t/g, '') */
           data = data.replace(/އިނގިރޭސި ލަފްޒު\t/g, "");
+
+          data = data.replace(/އަރަބި މާނަ\t/g, "");
+          data = data.replace(/ދިވެހި މާނަ\t/g, "");
+          data = data.replace(/އިނގިރޭސި މާނަ\t/g, "");
 
           data = data.replace(/\t\t/g, "\t");
           // This prevents a double or more line breaks when columns are hidden
