@@ -108,6 +108,25 @@ $(document).ready(() => {
         data: 1,
         title: "ދިވެހި ލަފްޒު",
       },
+      {
+        /* instead of repeating this part of the array within the external json,
+         we can strip diacritics using regex within the table itself, this makes
+         the array file much smaller in the long run */
+        data: 1,
+        title: "އަރަބި ފިލިނުޖަހައި 2",
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '')
+          // below code is shorter, no replace repeat, uses OR instead
+          return data
+            .replace(
+              /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|\{|\}|\(|\)|\[|\]|«|»|۝|⁽|⁾|\-|﴾|﴿|¹²³⁴⁵⁶⁷⁸⁹⁰]/g,
+              ""
+            )
+            .replace(/(\n\n)/g, "<br>");
+          // the latter preserves newlines for fililess column
+          //return data.replace(/[ًٌٍَُِّْ]/g, '')
+        },
+      },
 
       {
         /* add sofhaa string to page no */ data: 2,
@@ -154,8 +173,14 @@ $(document).ready(() => {
         searchable: true,
       },
       {
-        className: "eegCol4", // page no
+        className: "eegCol4", // dv word (ar plain 2)
         targets: [3],
+        visible: false,
+        searchable: true,
+      },
+      {
+        className: "eegCol5", // page no
+        targets: [4],
         visible: true,
         searchable: true,
       },
@@ -391,6 +416,7 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           /* data = data.replace(/އަރަބި މާނަ\t/g, '') */
           data = data.replace(/ދިވެހި ލަފްޒު\t/g, "");
+          data = data.replace(/އަރަބި ފިލިނުޖަހައި 2\t/g, "");
           /* data = data.replace(/ދިވެހި މާނަ\t/g, '') */
           data = data.replace(/ސަފުހާ #\t/g, "");
 
