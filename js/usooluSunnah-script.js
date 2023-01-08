@@ -58,12 +58,12 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  const table = $("#barbahariTable").DataTable({
+  const table = $("#usooluSunnahTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: barbahari_dataSet, // https://datatables.net/manual/ajax
+    data: usooluSunnah_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
       {
@@ -72,18 +72,6 @@ $(document).ready(() => {
       },
       {
         data: 1,
-        title: "# ބަރބޭންކް",
-      },
-      {
-        data: 2,
-        title: "# ފައުޒާން",
-      },
-      {
-        data: 3,
-        title: "# ރަބީޢު",
-      },
-      {
-        data: 4,
         title: "އަރަބި ލިޔުން",
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
@@ -91,7 +79,7 @@ $(document).ready(() => {
         /* instead of repeating this part of the array within the external json,
         we can strip diacritics using regex within the table itself, this makes
         the array file much smaller in the long run */
-        data: 4,
+        data: 1,
         title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -107,19 +95,19 @@ $(document).ready(() => {
         },
       },
       {
-        data: 5,
+        data: 2,
         title: "ދިވެހި ތަރުޖަމާ",
       },
       {
-        data: 6,
+        data: 3,
         title: "English",
       },
       {
-        data: 7,
+        data: 4,
         title: "ތަޚްރީޖު އަރަބިން",
       },
       {
-        data: 8,
+        data: 5,
         title: "شرح النجمي",
       },
     ],
@@ -128,7 +116,7 @@ $(document).ready(() => {
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: [8, 9],
+        targets: [5, 6],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -149,7 +137,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "barbaCol1", // #
+        className: "uSunnahCol1", // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -158,80 +146,53 @@ $(document).ready(() => {
         },
       },
       {
-        className: "barbaCol2", // # burbank
+        className: "uSunnahCol2", // Ar Text
         targets: [1],
-        visible: false,
+        visible: true,
         searchable: false,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "barbaCol3", // # fauzan
+        className: "uSunnahCol3", // Ar Text Plain
         targets: [2],
         visible: false,
-        searchable: false,
+        searchable: true,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "barbaCol4", // # rabee
+        className: "uSunnahCol4", // dv
         targets: [3],
-        visible: false,
-        searchable: false,
+        visible: true,
+        searchable: true,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "barbaCol5", // Ar Text
+        className: "uSunnahCol5", // en
         targets: [4],
-        visible: true,
-        searchable: false,
+        visible: false,
+        searchable: true,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "barbaCol6", // Ar Text Plain
+        className: "uSunnahCol6", // ar ref
         targets: [5],
-        visible: false,
+        visible: true,
         searchable: true,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "barbaCol7", // dv
+        className: "uSunnahCol7", // sharh
         targets: [6],
-        visible: true,
-        searchable: true,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "barbaCol8", // en
-        targets: [7],
-        visible: false,
-        searchable: true,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "barbaCol9", // ar ref
-        targets: [8],
-        visible: true,
-        searchable: true,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "barbaCol10", // sharh
-        targets: [9],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -422,7 +383,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "ޙަދީޘްއެމްވީ – ބަރްބަހާރީ ލިޔުއްވި ސުންނަތުގެ ޝަރަހަ", // CHANGE123 clipboard message
+        messageTop: "ޙަދީޘްއެމްވީ – އަޙްމަދު ލިޔުއްވި ސުންނަތުގެ އުސޫލުތައް", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
@@ -454,11 +415,6 @@ $(document).ready(() => {
           // \n prevents first header showing up unneeded (linux) this needs come after windows rn
 
           data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
-
-          data = data.replace(/# ބަރބޭންކް\t/g, "");
-          data = data.replace(/# ފައުޒާން\t/g, "");
-          data = data.replace(/# ރަބީޢު\t/g, "");
-
           data = data.replace(/އަރަބި ލިޔުން\t/g, "");
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
