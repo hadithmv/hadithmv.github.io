@@ -104,8 +104,7 @@ $(document).ready(() => {
         data: 4,
         title: "ޒިކުރު ފިލިނުޖަހައި",
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
+          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
           return data.replace(
             /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
             ""
