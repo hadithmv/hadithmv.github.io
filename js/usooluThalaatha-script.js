@@ -74,8 +74,7 @@ $(document).ready(() => {
         /* add sofhaa string to page no */ data: 0,
         title: "ސަފުހާ #",
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
+          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
           return "[ސ. " + data + "]"; // prev ސަފުހާ
         },
       },
@@ -99,8 +98,6 @@ $(document).ready(() => {
         data: 3,
         title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
           return data
             .replace(
               /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|\{|\}|\(|\)|\[|\]|«|»|۝|⁽|⁾|\-|﴾|﴿|¹²³⁴⁵⁶⁷⁸⁹⁰]/g,

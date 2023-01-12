@@ -70,12 +70,12 @@ $(document).ready(() => {
         data: 0,
         title: "ފޮތް އަރަބިން",
       },
+      /* add brackets string to hukum */
       {
-        /* add brackets string to hukum */ data: 0,
+        data: 0,
         title: "ފޮތް ދިވެހިން",
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
+          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
           data = data.replace("صحيح البخاري", "ޞަޙީޙު ބުޚާރީ");
           data = data.replace("صحيح مسلم", "ޞަޙީޙު މުސްލިމް");
           data = data.replace("سنن أبي داود", "ސުނަން އަބޫ ދާވޫދު");
@@ -114,10 +114,16 @@ $(document).ready(() => {
           return data;
         },
       },
-      {
-        data: 1,
-        title: "#",
-      },
+      columns: [
+        /* add # string to hadith no */
+        {
+          data: 1,
+          title: "#",
+          render: function (data, type, row) {
+            // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
+            return "# " + data;
+          },
+        },
       {
         data: 2,
         title: "އަރަބި ޙަދީޘް",
@@ -130,8 +136,6 @@ $(document).ready(() => {
         data: 2,
         title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
           return data
             .replace(
               /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|\{|\}|\(|\)|\[|\]|«|»|۝|⁽|⁾|\-|﴾|﴿|¹²³⁴⁵⁶⁷⁸⁹⁰]/g,
@@ -155,8 +159,6 @@ $(document).ready(() => {
          data: 4,
         title: "ސައްހަކަމުގެ ހުކުމް",
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
           data = "[" + data + "]";
           return data.replace("[]", "");
         },

@@ -66,9 +66,14 @@ $(document).ready(() => {
     data: barbahari_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
+      /* add # string to hadith no */
       {
         data: 0,
         title: "#",
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
+          return "# " + data;
+        },
       },
       {
         data: 1,
@@ -94,8 +99,7 @@ $(document).ready(() => {
         data: 4,
         title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
+          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
           return data
             .replace(
               /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|\{|\}|\(|\)|\[|\]|«|»|۝|⁽|⁾|\-|﴾|﴿|¹²³⁴⁵⁶⁷⁸⁹⁰]/g,
