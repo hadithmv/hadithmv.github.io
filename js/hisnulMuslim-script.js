@@ -79,12 +79,12 @@ $(document).ready(() => {
         data: 1,
         title: "އަރަބި ބާބު",
         render: function (data, type, row) {
-          return data
-            .replace(
-              /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|\{|\}|\(|\)|\[|\]|«|»|۝|⁽|⁾|\-|﴾|﴿|¹²³⁴⁵⁶⁷⁸⁹⁰]/g,
-              ""
-            )
-            .replace(/(\n\n)/g, "<br>");
+          return (
+            data
+              .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
+              // previously [َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|\{|\}|\(|\)|\[|\]|«|»|۝|⁽|⁾|\-|﴾|﴿|¹²³⁴⁵⁶⁷⁸⁹⁰]
+              .replace(/(\n\n)/g, "<br>")
+          );
           // the latter preserves newlines for fililess column
           //return data.replace(/[ًٌٍَُِّْ]/g, '')
         },
