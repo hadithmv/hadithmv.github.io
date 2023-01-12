@@ -142,8 +142,6 @@ $(document).ready(() => {
         data: 6,
         title: 'تفسير السعدي*',
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
           return '[تفسير السعدي:] ' + data
         }
       },
@@ -151,8 +149,6 @@ $(document).ready(() => {
         data: 7,
         title: 'ތަފްސީރު އައްސަޢްދީ*',
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
           return '[ތަފްސީރު އައްސަޢްދީ:] ' + data
         }
       }*/,
@@ -160,8 +156,6 @@ $(document).ready(() => {
         data: 7,
         title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
           return '[ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ:] ' + data
         }
       },
@@ -169,8 +163,6 @@ $(document).ready(() => {
         data: 8,
         title: 'ބަކުރުބެގެ އިޖްމާލީ މާނަ*',
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
           return '[ބަކުރުބެގެ އިޖްމާލީ މާނަ:] ' + data
         }
       } */
