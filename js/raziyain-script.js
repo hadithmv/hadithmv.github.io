@@ -66,9 +66,14 @@ $(document).ready(() => {
     data: raziyain_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
+      /* add # string to hadith no */
       {
         data: 0,
         title: "#",
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
+          return "# " + data;
+        },
       },
       /*
       {
