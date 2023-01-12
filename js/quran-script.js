@@ -135,7 +135,6 @@ $(document).ready(() => {
         title: "ރަސްމު އުޘްމާނީ",
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
           /* UPDATE: rtl override undoes it now? so removed.
         reverse ayah numbers because font wont display them properly otherwise,
         this control solution is better than replace reverse, because it carries on to clipboard
@@ -166,8 +165,6 @@ $(document).ready(() => {
         data: 6,
         title: "تفسير السعدي*",
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
           return "[تفسير السعدي:] " + data;
         },
       },
@@ -176,8 +173,6 @@ $(document).ready(() => {
         data: 7,
         title: "ތަފްސީރު އައްސަޢްދީ*",
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
           return "[ތަފްސީރު އައްސަޢްދީ:] " + data;
         },
       },
@@ -185,8 +180,6 @@ $(document).ready(() => {
         data: 7,
         title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
           return '[ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ:] ' + data
         }
       },
@@ -194,8 +187,6 @@ $(document).ready(() => {
         data: 8,
         title: 'ބަކުރުބެގެ އިޖްމާލީ މާނަ*',
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '')
-          // below code is shorter, no replace repeat, uses OR instead
           return '[ބަކުރުބެގެ އިޖްމާލީ މާނަ:] ' + data
         }
       } */
