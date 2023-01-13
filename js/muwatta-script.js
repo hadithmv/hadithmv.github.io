@@ -63,7 +63,7 @@ $(document).ready(() => {
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: muwatta_dataSet, // https://datatables.net/manual/ajax
+    data: muwatta_DB, // https://datatables.net/manual/ajax
 
     columns: [
       {

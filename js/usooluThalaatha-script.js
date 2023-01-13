@@ -5,7 +5,7 @@
 // ====================
 $(document).ready(() => {
   // $(document).ready( function () { ===== ===== //
-  // from here to var table = $("#fortynawaqid").DataTable({ used to be empty
+  // from here to var table = $("#fortyNawawi").DataTable({ used to be empty
 
   $.extend(true, $.fn.dataTable.defaults, {
     // "keys": "true", /* KeyTable extension, old */
@@ -59,11 +59,11 @@ $(document).ready(() => {
   } //= =================== end if else
 
   const table = $("#usooluThalaathaTable").DataTable({
-    // var table = $("#fortynawaqid").DataTable({
+    // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: usooluThalaatha_dataSet, // https://datatables.net/manual/ajax
+    data: usooluThalaatha_DB, // https://datatables.net/manual/ajax
 
     columns: [
       /*{
@@ -607,7 +607,7 @@ $(document).ready(() => {
       */
       // cards code END
     ],
-  }); // $("#fortynawaqid").DataTable( { - END
+  }); // $("#fortyNawawi").DataTable( { - END
   // from here to END OF $(document).ready( function () { used to be empty
 
   // ====================
@@ -704,7 +704,7 @@ $(document).ready(() => {
   // ====================
   /*
     function myFunction() {
-        var element = document.getElementById("fortynawaqid");
+        var element = document.getElementById("fortyNawawi");
         element.classList.add("cards");
       }
 */
