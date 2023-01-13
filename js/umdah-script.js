@@ -63,7 +63,7 @@ $(document).ready(() => {
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: umdah_dataSet, // https://datatables.net/manual/ajax
+    data: umdah_DB, // https://datatables.net/manual/ajax
 
     columns: [
       /* add # string to hadith no */

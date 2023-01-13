@@ -5,7 +5,7 @@
 // ====================
 $(document).ready(() => {
   // $(document).ready( function () { ===== ===== //
-  // from here to var table = $("#fortynawaqid").DataTable({ used to be empty
+  // from here to var table = $("#fortyNawawi").DataTable({ used to be empty
 
   $.extend(true, $.fn.dataTable.defaults, {
     // "keys": "true", /* KeyTable extension, old */
@@ -59,11 +59,11 @@ $(document).ready(() => {
   } //= =================== end if else
 
   const table = $("#aqidatuRaziyainTable").DataTable({
-    // var table = $("#fortynawaqid").DataTable({
+    // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: aqidatuRaziyain_dataSet, // https://datatables.net/manual/ajax
+    data: aqidatuRaziyain_DB, // https://datatables.net/manual/ajax
 
     columns: [
       /* add # string to hadith no */
@@ -586,7 +586,7 @@ $(document).ready(() => {
       */
       // cards code END
     ],
-  }); // $("#fortynawaqid").DataTable( { - END
+  }); // $("#fortyNawawi").DataTable( { - END
   // from here to END OF $(document).ready( function () { used to be empty
 
   // ====================
@@ -683,7 +683,7 @@ $(document).ready(() => {
   // ====================
   /*
     function myFunction() {
-        var element = document.getElementById("fortynawaqid");
+        var element = document.getElementById("fortyNawawi");
         element.classList.add("cards");
       }
 */
