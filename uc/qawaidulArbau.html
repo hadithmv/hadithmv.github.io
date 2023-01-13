@@ -46,8 +46,8 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/qawaid.js"></script>
-    <script defer src="../js/qawaid-script.min.js"></script>
+    <script defer src="../js/json/qawaidulArbau.js"></script>
+    <script defer src="../js/qawaidulArbau-script.min.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -236,7 +236,7 @@
           <!-- cards js adds card classes to table ID -->
           <!-- change123 TABLE - card view set as default here -->
           <!-- class="stripe table cards"> -->
-          <table id="qawaidTable" class="table cards"></table>
+          <table id="qawaidulArbauTable" class="table cards"></table>
           <!-- --- TABLE - END --- -->
           <div class="hidden" id="footer">
             <button class="lowerButtons" onclick="copyURLToClipB();">
@@ -251,17 +251,23 @@
               function toggleFili() {
                 // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
 
-                var isVisible = $("#qawaidTable")
+                var isVisible = $("#qawaidulArbauTable")
                   .DataTable()
                   .column(3)
                   .visible();
-                $("#qawaidTable").DataTable().column(3).visible(!isVisible);
+                $("#qawaidulArbauTable")
+                  .DataTable()
+                  .column(3)
+                  .visible(!isVisible);
 
-                var isVisible = $("#qawaidTable")
+                var isVisible = $("#qawaidulArbauTable")
                   .DataTable()
                   .column(4)
                   .visible();
-                $("#qawaidTable").DataTable().column(4).visible(!isVisible);
+                $("#qawaidulArbauTable")
+                  .DataTable()
+                  .column(4)
+                  .visible(!isVisible);
               }
             </script>
 

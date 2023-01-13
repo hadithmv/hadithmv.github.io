@@ -1,0 +1,1 @@
+const quranBakurube_DB=
