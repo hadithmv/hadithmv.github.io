@@ -63,7 +63,7 @@ $(document).ready(() => {
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: barbahari_dataSet, // https://datatables.net/manual/ajax
+    data: barbahari_DB, // https://datatables.net/manual/ajax
 
     columns: [
       /* add # string to hadith no */

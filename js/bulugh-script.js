@@ -63,7 +63,7 @@ $(document).ready(() => {
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: bulugh_dataSet, // https://datatables.net/manual/ajax
+    data: bulugh_DB, // https://datatables.net/manual/ajax
 
     columns: [
       /* add # string to hadith no */

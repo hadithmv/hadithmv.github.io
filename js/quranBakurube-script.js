@@ -63,7 +63,7 @@ $(document).ready(() => {
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: quranBakurube_dataSet, // https://datatables.net/manual/ajax
+    data: quranBakurube_DB, // https://datatables.net/manual/ajax
 
     columns: [
       {

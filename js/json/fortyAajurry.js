@@ -1,4 +1,5 @@
-const fortyAajurry_dataSet = [
+const fortyAajurry_DB=
+[
   [
     "01",
     "[مَنْ يُرِدِ اللَّهُ بِهِ خَيْرًا يُفَقِّهْهُ فِي الدِّينِ]",

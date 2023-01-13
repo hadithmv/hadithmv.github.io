@@ -1,0 +1,1 @@
+const allHadith_DB=
