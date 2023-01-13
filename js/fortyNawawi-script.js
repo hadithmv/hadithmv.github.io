@@ -58,12 +58,12 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  const table = $("#nawawiTable").DataTable({
+  const table = $("#fortyNawawiTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: nawawi_dataSet, // https://datatables.net/manual/ajax
+    data: fortyNawawi_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
       /* add # string to hadith no */

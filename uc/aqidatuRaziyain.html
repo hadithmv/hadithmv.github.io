@@ -46,8 +46,8 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/raziyain.js"></script>
-    <script defer src="../js/raziyain-script.min.js"></script>
+    <script defer src="../js/json/aqidatuRaziyain.js"></script>
+    <script defer src="../js/aqidatuRaziyain-script.min.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -237,7 +237,7 @@
           <!-- cards js adds card classes to table ID -->
           <!-- change123 TABLE - card view set as default here -->
           <!-- class="stripe table cards"> -->
-          <table id="raziyainTable" class="table cards"></table>
+          <table id="aqidatuRaziyainTable" class="table cards"></table>
           <!-- --- TABLE - END --- -->
           <div class="hidden" id="footer">
             <button class="lowerButtons" onclick="copyURLToClipB();">
@@ -252,17 +252,23 @@
               function toggleFili() {
                 // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
 
-                var isVisible = $("#raziyainTable")
+                var isVisible = $("#aqidatuRaziyainTable")
                   .DataTable()
                   .column(1)
                   .visible();
-                $("#raziyainTable").DataTable().column(1).visible(!isVisible);
+                $("#aqidatuRaziyainTable")
+                  .DataTable()
+                  .column(1)
+                  .visible(!isVisible);
 
-                var isVisible = $("#raziyainTable")
+                var isVisible = $("#aqidatuRaziyainTable")
                   .DataTable()
                   .column(2)
                   .visible();
-                $("#raziyainTable").DataTable().column(2).visible(!isVisible);
+                $("#aqidatuRaziyainTable")
+                  .DataTable()
+                  .column(2)
+                  .visible(!isVisible);
               }
             </script>
 

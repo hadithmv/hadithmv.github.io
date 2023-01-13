@@ -58,12 +58,12 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  const table = $("#raziyainTable").DataTable({
+  const table = $("#aqidatuRaziyainTable").DataTable({
     // var table = $("#fortynawaqid").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: raziyain_dataSet, // https://datatables.net/manual/ajax
+    data: aqidatuRaziyain_dataSet, // https://datatables.net/manual/ajax
 
     columns: [
       /* add # string to hadith no */
