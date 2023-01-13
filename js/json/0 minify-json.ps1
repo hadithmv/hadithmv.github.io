@@ -10,12 +10,12 @@ uglifyjs eegaal.js -c -m -o eegaal.js
 uglifyjs hisnulMuslim.js -c -m -o hisnulMuslim.js
 uglifyjs muwatta.js -c -m -o muwatta.js
 uglifyjs nawaqid.js -c -m -o nawaqid.js
-uglifyjs nawawi.js -c -m -o nawawi.js
+uglifyjs fortyNawawi.js -c -m -o fortyNawawi.js
 uglifyjs qawaid.js -c -m -o qawaid.js
 uglifyjs quran.js -c -m -o quran.js
 uglifyjs quranBakurube.js -c -m -o quranBakurube.js
 uglifyjs radheef.js -c -m -o radheef.js
-uglifyjs raziyain.js -c -m -o raziyain.js
+uglifyjs aqidatuRaziyain.js -c -m -o aqidatuRaziyain.js
 uglifyjs umdah.js -c -m -o umdah.js
 uglifyjs usooluSunnah.js -c -m -o usooluSunnah.js
 uglifyjs usooluThalaatha.js -c -m -o usooluThalaatha.js

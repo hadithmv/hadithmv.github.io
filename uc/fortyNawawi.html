@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="canonical"
-      href="https://hadithmv.github.io/books/40nawawi.html"
+      href="https://hadithmv.github.io/books/fortyNawawi.html"
     />
     <meta name="google" content="notranslate" />
 
@@ -18,7 +18,7 @@
     <meta property="og:type" content="website" />
     <meta
       property="og:url"
-      content="https://hadithmv.github.io/books/40nawawi.html"
+      content="https://hadithmv.github.io/books/fortyNawawi.html"
     />
     <meta
       property="og:image"
@@ -46,8 +46,8 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/nawawi.js"></script>
-    <script defer src="../js/nawawi-script.min.js"></script>
+    <script defer src="../js/json/fortyNawawi.js"></script>
+    <script defer src="../js/fortyNawawi-script.min.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -244,7 +244,7 @@
           <!-- cards js adds card classes to table ID -->
           <!-- change123 TABLE - card view set as default here -->
           <!-- class="stripe table cards"> -->
-          <table id="nawawiTable" class="table cards">
+          <table id="fortyNawawiTable" class="table cards">
             <!-- dont seem to need this anymore
             <thead>
               <tr>
@@ -277,17 +277,23 @@
               function toggleFili() {
                 // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
 
-                var isVisible = $("#nawawiTable")
+                var isVisible = $("#fortyNawawiTable")
                   .DataTable()
                   .column(3)
                   .visible();
-                $("#nawawiTable").DataTable().column(3).visible(!isVisible);
+                $("#fortyNawawiTable")
+                  .DataTable()
+                  .column(3)
+                  .visible(!isVisible);
 
-                var isVisible = $("#nawawiTable")
+                var isVisible = $("#fortyNawawiTable")
                   .DataTable()
                   .column(4)
                   .visible();
-                $("#nawawiTable").DataTable().column(4).visible(!isVisible);
+                $("#fortyNawawiTable")
+                  .DataTable()
+                  .column(4)
+                  .visible(!isVisible);
               }
             </script>
 
