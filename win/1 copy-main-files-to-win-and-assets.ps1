@@ -8,7 +8,7 @@ Set-Location -Path $PSScriptRoot
 # delete old folder in asset
 # Remove-Item "../app/webview-master/app/src/main/assets/books" -Recurse -Force
 # copies site minified book files to asset book files one by one
-Copy-Item ../books/40nawawi.html -Destination ../app/webview-master/app/src/main/assets/books/40nawawi.html -Recurse -Force
+Copy-Item ../books/fortyNawawi.html -Destination ../app/webview-master/app/src/main/assets/books/fortyNawawi.html -Recurse -Force
 Copy-Item ../books/allHadith.html -Destination ../app/webview-master/app/src/main/assets/books/allHadith.html -Recurse -Force
 Copy-Item ../books/aqidatuRaziyain.html -Destination ../app/webview-master/app/src/main/assets/books/aqidatuRaziyain.html -Recurse -Force
 Copy-Item ../books/barbahari.html -Destination ../app/webview-master/app/src/main/assets/books/barbahari.html -Recurse -Force
@@ -71,11 +71,11 @@ Copy-Item ../js/eegaal-script.min.js -Destination ../app/webview-master/app/src/
 Copy-Item ../js/hisnulMuslim-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/hisnulMuslim-script.min.js -Recurse -Force
 Copy-Item ../js/nawaqid-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/nawaqid-script.min.js -Recurse -Force
 Copy-Item ../js/qawaid-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/qawaid-script.min.js -Recurse -Force
-Copy-Item ../js/nawawi-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/nawawi-script.min.js -Recurse -Force
+Copy-Item ../js/fortyNawawi-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/fortyNawawi-script.min.js -Recurse -Force
 Copy-Item ../js/quran-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/quran-script.min.js -Recurse -Force
 Copy-Item ../js/quranBakurube-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/quranBakurube-script.min.js -Recurse -Force
 Copy-Item ../js/radheef-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/radheef-script.min.js -Recurse -Force
-Copy-Item ../js/raziyain-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/raziyain-script.min.js -Recurse -Force
+Copy-Item ../js/aqidatuRaziyain-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/aqidatuRaziyain-script.min.js -Recurse -Force
 Copy-Item ../js/umdah-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/umdah-script.min.js -Recurse -Force
 Copy-Item ../js/usooluThalaatha-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/usooluThalaatha-script.min.js -Recurse -Force
 
@@ -95,11 +95,11 @@ Copy-Item ../js/json/eegaal.js -Destination ../app/webview-master/app/src/main/a
 Copy-Item ../js/json/hisnulMuslim.js -Destination ../app/webview-master/app/src/main/assets/js/json/hisnulMuslim.js -Recurse -Force
 Copy-Item ../js/json/nawaqid.js -Destination ../app/webview-master/app/src/main/assets/js/json/nawaqid.js -Recurse -Force
 Copy-Item ../js/json/qawaid.js -Destination ../app/webview-master/app/src/main/assets/js/json/qawaid.js -Recurse -Force
-Copy-Item ../js/json/nawawi.js -Destination ../app/webview-master/app/src/main/assets/js/json/nawawi.js -Recurse -Force
+Copy-Item ../js/json/fortyNawawi.js -Destination ../app/webview-master/app/src/main/assets/js/json/fortyNawawi.js -Recurse -Force
 Copy-Item ../js/json/quran.js -Destination ../app/webview-master/app/src/main/assets/js/json/quran.js -Recurse -Force
 Copy-Item ../js/json/quranBakurube.js -Destination ../app/webview-master/app/src/main/assets/js/json/quranBakurube.js -Recurse -Force
 Copy-Item ../js/json/radheef.js -Destination ../app/webview-master/app/src/main/assets/js/json/radheef.js -Recurse -Force
-Copy-Item ../js/json/raziyain.js -Destination ../app/webview-master/app/src/main/assets/js/json/raziyain.js -Recurse -Force
+Copy-Item ../js/json/aqidatuRaziyain.js -Destination ../app/webview-master/app/src/main/assets/js/json/aqidatuRaziyain.js -Recurse -Force
 Copy-Item ../js/json/umdah.js -Destination ../app/webview-master/app/src/main/assets/js/json/umdah.js -Recurse -Force
 Copy-Item ../js/json/usooluThalaatha.js -Destination ../app/webview-master/app/src/main/assets/js/json/usooluThalaatha.js -Recurse -Force
 

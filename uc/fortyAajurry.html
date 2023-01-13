@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="canonical"
-      href="https://hadithmv.github.io/books/40aajurry.html"
+      href="https://hadithmv.github.io/books/fortyAajurry.html"
     />
     <meta name="google" content="notranslate" />
 
@@ -18,7 +18,7 @@
     <meta property="og:type" content="website" />
     <meta
       property="og:url"
-      content="https://hadithmv.github.io/books/40aajurry.html"
+      content="https://hadithmv.github.io/books/fortyAajurry.html"
     />
     <meta
       property="og:image"
@@ -46,8 +46,8 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/aajurry.js"></script>
-    <script defer src="../js/aajurry-script.min.js"></script>
+    <script defer src="../js/json/fortyAajurry.js"></script>
+    <script defer src="../js/fortyAajurry-script.min.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -212,7 +212,7 @@
           <!-- cards js adds card classes to table ID -->
           <!-- change123 TABLE -->
           <!-- class="stripe table cards"> -->
-          <table id="aajurryTable" class="table cards"></table>
+          <table id="fortyAajurryTable" class="table cards"></table>
           <!-- --- TABLE - END --- -->
           <div class="hidden" id="footer">
             <button class="lowerButtons" onclick="copyURLToClipB();">
@@ -227,17 +227,23 @@
               function toggleFili() {
                 // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
 
-                var isVisible = $("#aajurryTable")
+                var isVisible = $("#fortyAajurryTable")
                   .DataTable()
                   .column(3)
                   .visible();
-                $("#aajurryTable").DataTable().column(3).visible(!isVisible);
+                $("#fortyAajurryTable")
+                  .DataTable()
+                  .column(3)
+                  .visible(!isVisible);
 
-                var isVisible = $("#aajurryTable")
+                var isVisible = $("#fortyAajurryTable")
                   .DataTable()
                   .column(4)
                   .visible();
-                $("#aajurryTable").DataTable().column(4).visible(!isVisible);
+                $("#fortyAajurryTable")
+                  .DataTable()
+                  .column(4)
+                  .visible(!isVisible);
               }
             </script>
 
