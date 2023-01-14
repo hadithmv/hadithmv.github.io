@@ -1,9 +1,3 @@
-### old stuff
-## removes first array
-#((Get-Content -path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\raw\test.js" -Raw) -replace '(\[(?:\[??[^\[]*?\]))','') | Set-Content -Path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\raw\rawtest.js"
-## cleans up spaces and comma
-#((Get-Content -path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\raw\rawtest.js" -Raw) -replace '\[\s\s+,','[') | Set-Content -Path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\raw\rawtest.js"
-
 Set-Location -Path $PSScriptRoot
 
 # https://learn.microsoft.com/en-us/powershell/module/Microsoft.PowerShell.Management/Set-Content?view=powershell-7.3
@@ -18,11 +12,12 @@ Get-Content aqidatuRaziyain.json | Add-Content ../aqidatuRaziyain.js
 Set-Content ../barbahari.js -Value 'const barbahari_DB='
 Get-Content barbahari.json | Add-Content ../barbahari.js
 
-Set-Content ../bulugh-full.js -Value 'const bulugh-full_DB='
-Get-Content bulugh-full.json | Add-Content ../bulugh-full.js
-
 Set-Content ../bulugh.js -Value 'const bulugh_DB='
 Get-Content bulugh.json | Add-Content ../bulugh.js
+
+# dont write 'const bulughFull_DB=' here
+Set-Content ../bulughFull.js -Value 'const bulugh_DB='
+Get-Content bulughFull.json | Add-Content ../bulughFull.js
 
 Set-Content ../eegaal.js -Value 'const eegaal_DB='
 Get-Content eegaal.json | Add-Content ../eegaal.js
@@ -62,3 +57,13 @@ Get-Content usooluSunnah.json | Add-Content ../usooluSunnah.js
 
 Set-Content ../usooluThalaatha.js -Value 'const usooluThalaatha_DB='
 Get-Content usooluThalaatha.json | Add-Content ../usooluThalaatha.js
+
+
+
+
+<# OLD
+# removes first array
+((Get-Content -path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\raw\test.js" -Raw) -replace '(\[(?:\[??[^\[]*?\]))','') | Set-Content -Path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\raw\rawtest.js"
+# cleans up spaces and comma
+((Get-Content -path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\raw\rawtest.js" -Raw) -replace '\[\s\s+,','[') | Set-Content -Path "C:\Users\ashraaf\Downloads\VScode\hadithmv.github.io\js\json\raw\rawtest.js"
+#>
