@@ -66,9 +66,14 @@ $(document).ready(() => {
     data: allHadith_DB, // https://datatables.net/manual/ajax
 
     columns: [
+      /* add # string to hadith no */
       {
-        data: 0,
-        title: "ފޮތް އަރަބިން",
+        data: 1,
+        title: "#",
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
+          return "# " + data;
+        },
       },
       /* add brackets string to hukum */
       {
@@ -114,16 +119,6 @@ $(document).ready(() => {
           return data;
         },
       },
-      columns: [
-        /* add # string to hadith no */
-        {
-          data: 1,
-          title: "#",
-          render: function (data, type, row) {
-            // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
-            return "# " + data;
-          },
-        },
       {
         data: 2,
         title: "އަރަބި ޙަދީޘް",
@@ -136,10 +131,12 @@ $(document).ready(() => {
         data: 2,
         title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
-          return data
-          .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
-          // previously [َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|\{|\}|\(|\)|\[|\]|«|»|۝|⁽|⁾|\-|﴾|﴿|¹²³⁴⁵⁶⁷⁸⁹⁰]
-            .replace(/(\n\n)/g, "<br>");
+          return (
+            data
+              .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
+              // previously [َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|\{|\}|\(|\)|\[|\]|«|»|۝|⁽|⁾|\-|﴾|﴿|¹²³⁴⁵⁶⁷⁸⁹⁰]
+              .replace(/(\n\n)/g, "<br>")
+          );
           // the latter preserves newlines for fililess column
           //return data.replace(/[ًٌٍَُِّْ]/g, '')
         },
