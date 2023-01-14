@@ -119,22 +119,18 @@ $(document).ready(() => {
       },
       {
         data: 5,
-        title: "ޓްރާންސްލިޓަރޭޝަން",
-      },
-      {
-        data: 6,
         title: "ދިވެހި ތަރުޖަމާ",
       },
       {
-        data: 7,
+        data: 6,
         title: "English",
       },
       {
-        data: 8,
+        data: 7,
         title: "ތަޚްރީޖު",
       },
       {
-        data: 9,
+        data: 8,
         title: "ތަޚްރީޖު ދިވެހިން",
       },
     ],
@@ -209,17 +205,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "hisnCol7", // transliterate
+        className: "hisnCol7", // Dv Text
         targets: [6],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "hisnCol8", // Dv Text
-        targets: [7],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -227,8 +214,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "hisnCol9", // En Text
-        targets: [8],
+        className: "hisnCol8", // En Text
+        targets: [7],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -236,8 +223,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "hisnCol10", // Ar Ref
-        targets: [9],
+        className: "hisnCol9", // Ar Ref
+        targets: [8],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -245,8 +232,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "hisnCol11", // Dv Ref
-        targets: [10],
+        className: "hisnCol10", // Dv Ref
+        targets: [9],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -487,7 +474,6 @@ $(document).ready(() => {
           data = data.replace(/Eng Chapter\t/g, "");
           data = data.replace(/އަރަބި ޒިކުރު\t/g, "");
           data = data.replace(/ޒިކުރު ފިލިނުޖަހައި\t/g, "");
-          data = data.replace(/ޓްރާންސްލިޓަރޭޝަން\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/English\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
