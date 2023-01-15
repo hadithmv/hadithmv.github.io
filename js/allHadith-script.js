@@ -72,7 +72,7 @@ $(document).ready(() => {
         title: "#",
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
-          return "# " + data;
+          return "#" + data;
         },
       },
       /* add brackets string to hukum */
