@@ -32,6 +32,10 @@ matches:
     replace: ’
   - trigger: "-'"
     replace: ‘
+  - trigger: "<<-"
+    replace: «
+  - trigger: ">>-"
+    replace: »
   - trigger: رض-
     replace: رَضِيَ اللَّهُ عَنْهُ
   - trigger: ރއ-
