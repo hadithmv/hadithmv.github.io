@@ -3178,7 +3178,8 @@
                 .value.replace(/\<ol\>/g, "<ul>")
                 .replace(/\<\/ol\>/g, "</ul>");
 
-              document.getElementById("htmlNList").innerHTML = "No List";
+              document.getElementById("htmlNList").innerHTML =
+                "&lt;No List&gt;";
             } else if (htmlOList_timesClicked == 3) {
               //run third function
 
@@ -3186,7 +3187,8 @@
                 .getElementById("textMainArea")
                 .value.replace(/\<ul\>|\<\/ul\>|\<\li\>|\<\/li\>/g, "");
 
-              document.getElementById("htmlNList").innerHTML = "HTML O List";
+              document.getElementById("htmlNList").innerHTML =
+                "&lt;HTML O List&gt;";
 
               // reset click
               htmlOList_timesClicked = 0;
