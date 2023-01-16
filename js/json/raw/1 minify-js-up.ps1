@@ -17,6 +17,7 @@ uglifyjs quran.js -c -m -o quran.js
 uglifyjs quranBakurube.js -c -m -o quranBakurube.js
 uglifyjs radheef.js -c -m -o radheef.js
 uglifyjs aqidatuRaziyain.js -c -m -o aqidatuRaziyain.js
+uglifyjs riyadusaliheen.js -c -m -o riyadusaliheen.js
 uglifyjs umdah.js -c -m -o umdah.js
 uglifyjs usooluSunnah.js -c -m -o usooluSunnah.js
 uglifyjs usooluThalaatha.js -c -m -o usooluThalaatha.js
