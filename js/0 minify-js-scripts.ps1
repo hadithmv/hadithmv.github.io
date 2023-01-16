@@ -15,6 +15,7 @@ google-closure-compiler --charset=UTF-8 --js=quran-script.js --js_output_file=qu
 google-closure-compiler --charset=UTF-8 --js=quranBakurube-script.js --js_output_file=quranBakurube-script.min.js
 google-closure-compiler --charset=UTF-8 --js=radheef-script.js --js_output_file=radheef-script.min.js
 google-closure-compiler --charset=UTF-8 --js=aqidatuRaziyain-script.js --js_output_file=aqidatuRaziyain-script.min.js
+google-closure-compiler --charset=UTF-8 --js=riyadusaliheen-script.js --js_output_file=riyadusaliheen-script.min.js
 google-closure-compiler --charset=UTF-8 --js=umdah-script.js --js_output_file=umdah-script.min.js
 google-closure-compiler --charset=UTF-8 --js=usooluThalaatha-script.js --js_output_file=usooluThalaatha-script.min.js
 google-closure-compiler --charset=UTF-8 --js=usooluSunnah-script.js --js_output_file=usooluSunnah-script.min.js
