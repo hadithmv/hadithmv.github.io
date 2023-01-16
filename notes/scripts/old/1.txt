@@ -1,0 +1,12 @@
+https://stackoverflow.com/a/830887
+
+</div><font color=#ff0000>٣ <font color=#be0000>-</font></font> وعن عائِشةَ رضيَ اللهُ عنها<font color=#be0000>،</font> قَالَتْ<font color=#be0000>:</font> قَالَ النبي <font color=#be0000>-</font> صلى الله عليه وسلم<font color=#be0000>:</font> <font color=#be0000>«</font>لا هِجْرَةَ بَعْدَ الفَتْحِ<font color=#be0000>،</font> وَلَكِنْ جِهَادٌ وَنِيَّةٌ<font color=#be0000>،</font> وَإِذَا اسْتُنْفِرْتُمْ <font color=#be0000>(</font>١<font color=#be0000>)</font> فانْفِرُوا<font color=#be0000>».</font> مُتَّفَقٌ عَلَيْهِ<font color=#be0000>.</font> <font color=#be0000>(</font>٢<font color=#be0000>)</font></p>وَمَعناهُ<font color=#be0000>:</font> لا هِجْرَةَ مِنْ مَكّةَ لأَنَّهَا صَارَتْ دَارَ إسلَامٍ<font color=#be0000>.
+</font><hr width='95' align='right'><div class='footnote'><font color=#be0000>(</font>١<font color=#be0000>)</font> الاستنفار<font color=#be0000>:</font> الاستنجاد والاستنصار<font color=#be0000>:</font> أي إذا طلب منكم النصرة فأجيبوا وانفروا خارجين إلى الإعانة<font color=#be0000>.</font> النهاية ٥<font color=#be0000>/</font> ٩٥<font color=#be0000>.</font></p><font color=#ff0000><font color=#be0000>(</font>٢<font color=#be0000>)</font></font> أخرجه<font color=#be0000>:</font> البخاري ٥<font color=#be0000>/</font> ٧٢ <font color=#be0000>(</font>٣٩٠٠<font color=#be0000>)،</font> ومسلم ٦<font color=#be0000>/</font> ٢٨ <font color=#be0000>(</font>١٨٦٤<font color=#be0000>).</font></div></div>
+
+<hr width='95' align='right'>
+
+(before that, find </font></div></div> and replace with two new lines)
+
+<hr width='95' align='right'>.*
+
+<div class='footnote'>.*
