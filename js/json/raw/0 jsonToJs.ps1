@@ -49,6 +49,9 @@ Get-Content quranBakurube.json | Add-Content ../quranBakurube.js
 Set-Content ../radheef.js -Value 'const radheef_DB='
 Get-Content radheef.json | Add-Content ../radheef.js
 
+Set-Content ../riyadusaliheen.js -Value 'const riyadusaliheen_DB='
+Get-Content riyadusaliheen.json | Add-Content ../riyadusaliheen.js
+
 Set-Content ../umdah.js -Value 'const umdah_DB='
 Get-Content umdah.json | Add-Content ../umdah.js
 
