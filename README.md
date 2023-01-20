@@ -43,7 +43,9 @@ The Maldivian Platform for Translations of the Sunnah
 
 ### **Developing a hadith platform for Maldivians**
 
-The **Hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a hadith collection in their native Dhivehi language, in sha Allah. We are also working on making other Islamic works available, as well as beneficial tools and content for those who wish to make use of them.
+The **Hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Maldivian community. Once this work is complete, they will have a hadith collection in their native Dhivehi language, in sha Allah. We are also working on making other Islamic works available, as well as beneficial tools and content for those who wish to make use of them.
+
+> It is Allah Who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. Hadithmv is designed to be mobile-first with minimal bloat. Currently available on the Web, Android and Windows.
 
 ## Aims of starting this project
 
@@ -54,10 +56,6 @@ The **Hadithmv** project is a collaborated effort in making the sayings and teac
 ### **Education**
 
 > The cause of most of our society’s problems is due to people being uneducated about Islam. To solve this redundant issue, they need a way to access Islamic material they can look up for themselves. Also, teachers and students alike can benefit from these references, without having to repeat the translation process every time. One database, multiple platforms. Write once, look up anytime.
-
-### **Progressiveness**
-
-> It is Allah Who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. Hadithmv is designed to be mobile-first with minimal bloat. Currently available on the Web, Android and Windows.
 
 <br />
 
