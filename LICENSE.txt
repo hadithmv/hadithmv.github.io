@@ -7,7 +7,7 @@ If there are any disputes regarding the meaning of these terms and conditions, t
 
 It is not allowed to use Hadithmv to spread what goes against the methodology of Ahlu-Sunnah-wal-Jamaa’ah (Ahlul Hadith), except to refute Ahlul-Bid’ah (the Jahmiyya, Ashaa’irah, Murjiah, Khawarij, Rawafid, Sufiyyah, Mu’tazilah, Maatureedhiyyah, Qadariyyah, etc.)
 
-Permission is hereby granted, free of charge, to any party obtaining a copy of this software and associated documentation files, to deal in the Software and to use, copy, modify, merge, publish, distribute the texts of the Hadithmv, without seeking permission or giving credits (attribution), subject to the following two conditions:
+Permission is hereby granted, free of charge, to any party obtaining a copy of this resource and associated documentation files, to deal in the resource and to use, copy, modify, merge, publish, distribute the texts of the Hadithmv, without seeking permission or giving credits (attribution), subject to the following two conditions:
     1 - The texts used from Hadithmv are less than 300 words.
     2 - The use is not for commercial purposes.
 Otherwise, permission is to be sought from the Developer first before use, if the Developer is alive.
@@ -22,4 +22,4 @@ The Developer may revoke or change these terms and conditions at any time.
 
 In the case that the Developer is not alive, Hadithmv should immediately be considered to be a Waqf as well as fully open source under the MIT license, disregarding the prior licensing it had.
 
-The software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
+This resource is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the resource or the use or other dealings in the resource.
