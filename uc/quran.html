@@ -95,14 +95,15 @@
       .dataTable tr td.qCol3,
       .dataTable tr td.qCol4,
       .dataTable tr td.qCol5,
-      .dataTable tr td.qCol6 {
+      .dataTable tr td.qCol6,
+      .dataTable tr td.qCol7 {
         text-align: center;
       }
       /* .dataTable tr td.qCol7 */
 
       /* mobile only left rags */
       @media screen and (max-width: 900px) {
-        .dataTable tr td.qCol7 {
+        .dataTable tr td.qCol8 {
           text-align: right;
         }
       }
@@ -117,7 +118,8 @@
       .dataTable tr td.qCol3,
       .dataTable tr td.qCol4,
       .dataTable tr td.qCol5,
-      .dataTable tr td.qCol6 {
+      .dataTable tr td.qCol6,
+      .dataTable tr td.qCol7 {
         font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
         font-size: 21px;
         line-height: 2;
@@ -129,14 +131,10 @@
 
       /* .dataTable tr td.fnCol1, need this bigger */
 
-      .dataTable tr td.qCol7 {
+      .dataTable tr td.qCol8 {
         font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
         font-size: 17px;
         line-height: 2.2;
-      }
-      @media screen and (max-width: 599px) {
-        .dataTable tr td.qCol7 {
-        }
       }
 
       /* columns with ar numbers
@@ -154,13 +152,13 @@
 
       /* quran only tafsir sa'di font and line height smaller */
 
-      .dataTable tr td.qCol8 {
+      .dataTable tr td.qCol9 {
         font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
         font-size: 20px;
         line-height: 1.6;
       }
 
-      .dataTable tr td.qCol9 {
+      .dataTable tr td.qCol10 {
         font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
         font-size: 16px;
         line-height: 1.9;
@@ -345,7 +343,7 @@
 
         /* TRULY effects first and last space above and below quran table */
         #quranTable > tbody > tr > td:nth-child(2) {
-          margin-top: 30px;
+          margin-top: 20px;
         }
         #quranTable > tbody > tr > td:nth-last-child(1) {
           margin-bottom: 30px;
@@ -392,6 +390,12 @@
           background-color: #1a232d !important;
         }
         /* without important, double click go to jumping changes some of the inner background color */
+      }
+
+      /* basmala padding remove */
+      .dataTable tr td.qCol4 {
+        padding-top: 0;
+        padding-bottom: 0;
       }
     </style>
     <!-- === INT CSS - END === -->
