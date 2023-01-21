@@ -72,6 +72,10 @@ $(document).ready(() => {
       },
       {
         data: 1,
+        title: "ބިސްމި",
+      },
+      {
+        data: 2,
         title: "ފޮތް އަރަބިން",
         /*
         render: function (data, type, row) {
@@ -83,11 +87,11 @@ $(document).ready(() => {
         },*/
       },
       {
-        data: 2,
+        data: 3,
         title: "ފޮތް ދިވެހިން",
       },
       {
-        data: 3,
+        data: 4,
         title: "ބާބު އަރަބިން",
         /*
         render: function (data, type, row) {
@@ -99,11 +103,11 @@ $(document).ready(() => {
         },*/
       },
       {
-        data: 4,
+        data: 5,
         title: "ބާބު ދިވެހިން",
       },
       {
-        data: 5,
+        data: 6,
         title: "އަރަބި ޙަދީޘް",
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
@@ -111,7 +115,7 @@ $(document).ready(() => {
         /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 5,
+        data: 6,
         title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
@@ -126,11 +130,11 @@ $(document).ready(() => {
         },
       },
       {
-        data: 6,
+        data: 7,
         title: "ދިވެހި ތަރުޖަމާ",
       },
       {
-        data: 7,
+        data: 8,
         title: "ތަޚްރީޖު",
       },
       // add takhrij and stuff later {
@@ -164,26 +168,17 @@ $(document).ready(() => {
         },
       },
       {
-        className: "muwCol2", // Book
+        className: "muwCol2", // basmala
         targets: [1],
         visible: true,
-        searchable: true,
+        searchable: false,
         searchPanes: {
-          show: true,
+          show: false,
         },
       },
       {
-        className: "muwCol3", // Book Dv
+        className: "muwCol3", // Book
         targets: [2],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "muwCol4", // Baab
-        targets: [3],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -191,17 +186,35 @@ $(document).ready(() => {
         },
       },
       {
-        className: "muwCol5", // Baab Dv
+        className: "muwCol4", // Book Dv
+        targets: [3],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "muwCol5", // Baab
         targets: [4],
-        visible: false,
-        searchable: false,
+        visible: true,
+        searchable: true,
         searchPanes: {
-          show: false,
+          show: true,
         },
       },
       {
-        className: "muwCol6", // Ar Text
+        className: "muwCol6", // Baab Dv
         targets: [5],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "muwCol7", // Ar Text
+        targets: [6],
         visible: true,
         searchable: false,
         searchPanes: {
@@ -209,8 +222,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "muwCol7", // Ar Text Plain
-        targets: [6],
+        className: "muwCol8", // Ar Text Plain
+        targets: [7],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -218,8 +231,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "muwCol8", // Dv Text
-        targets: [7],
+        className: "muwCol9", // Dv Text
+        targets: [8],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -227,8 +240,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "muwCol9", // Takhrij
-        targets: [8],
+        className: "muwCol10", // Takhrij
+        targets: [9],
         visible: true,
         searchable: false,
         searchPanes: {
@@ -457,6 +470,7 @@ $(document).ready(() => {
 
           data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
           data = data.replace(/ފޮތް އަރަބިން\t/g, "");
+          data = data.replace(/ބިސްމި\t/g, "");
           data = data.replace(/ފޮތް ދިވެހިން\t/g, "");
           data = data.replace(/ބާބު އަރަބިން\t/g, "");
           data = data.replace(/ބާބު ދިވެހިން\t/g, "");
