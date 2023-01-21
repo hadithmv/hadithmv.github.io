@@ -85,29 +85,38 @@ $(document).ready(() => {
       },
       {
         data: 3,
+        title: "ބިސްމި",
+      },
+      /* add brackets to quran */
+      {
+        data: 4,
         title: "ޤުރްއާން އަރަބިން",
         render: function (data, type, row) {
           data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
           data = "﴿" + data + "﴾";
-          return data
-            .replace(
+          return data;
+          // previously used to add br after basmala
+          /*.replace(
               "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
               'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
             )
             .replace(
               "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
               'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
-            );
+            );*/
         },
       },
       {
-        data: 3,
+        data: 4,
         title: "ޤުރްއާން ފިލިނުޖަހާ",
         render: function (data, type, row) {
           data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
           data = "﴿" + data + "﴾";
           // replaces basmalas opening closing brackets non breaks, then kashida, then arabic numbers, then space, then br tag, then makes two spaces into one
-          return data
+          return (
+            data
+              // previously used to add br after basmala
+              /*
             .replace(
               "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
               'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
@@ -116,9 +125,11 @@ $(document).ready(() => {
               "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
               'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
             )
-            .replace(/ـ/g, "")
-            .replace(/[^\u0621-\u064A|\s|<br class="br">]/g, "")
-            .replace(/\s\s/g, " ");
+            */
+              .replace(/ـ/g, "")
+              .replace(/[^\u0621-\u064A|\s|<br class="br">]/g, "")
+              .replace(/\s\s/g, " ")
+          );
 
           //
           /* old code */
@@ -131,7 +142,8 @@ $(document).ready(() => {
         },
       },
       {
-        /* add brackets to quran */ data: 4,
+        /* add brackets to quran */
+        data: 5,
         title: "ރަސްމު އުޘްމާނީ",
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -150,27 +162,31 @@ $(document).ready(() => {
           //data = '﴿' + data + '﴾'
           data = "﴿" + data + "﴾";
           /* move the bracket in surah start basmalas to the actual first ayah */
-          return data.replace(
+          return data;
+          // previously used to add br after basmala
+          /*
+          .replace(
             "﴿بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n",
             'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
           );
+          */
         },
       },
       {
-        data: 5,
+        data: 6,
         title: "ދިވެހި ތަރުޖަމާ",
       },
       {
         // add tafsir asa'di in arabic
-        data: 6,
+        data: 7,
         title: "تفسير السعدي*",
         render: function (data, type, row) {
           return "[تفسير السعدي:] " + data;
         },
       },
       {
-        // add tafsir asa'di in dhivehi
-        data: 7,
+        // add tafsir sa'di in dhivehi
+        data: 8,
         title: "ތަފްސީރު އައްސަޢްދީ*",
         render: function (data, type, row) {
           return "[ތަފްސީރު އައްސަޢްދީ:] " + data;
@@ -235,17 +251,26 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol4", // quran tanzil
+        className: "qCol4", // basmala
         targets: [3],
         visible: true,
+        searchable: true,
+        searchPanes: {
+          show: true,
+        },
+      },
+      {
+        className: "qCol5", // quran tanzil
+        targets: [4],
+        visible: true,
         searchable: false,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "qCol5", // quran plain
-        targets: [4],
+        className: "qCol6", // quran plain
+        targets: [5],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -253,8 +278,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol6", // quran mujamma
-        targets: [5],
+        className: "qCol7", // quran mujamma
+        targets: [6],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -262,8 +287,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol7", // dv tarjama
-        targets: [6],
+        className: "qCol8", // dv tarjama
+        targets: [7],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -271,8 +296,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol8", // tafsir sadi ar
-        targets: [7],
+        className: "qCol9", // tafsir sadi ar
+        targets: [8],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -280,8 +305,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol9", // tafsir sadi dv
-        targets: [8],
+        className: "qCol10", // tafsir sadi dv
+        targets: [9],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -536,6 +561,7 @@ $(document).ready(() => {
           data = data.replace(/ސޫރަތުގެ ނަން\t/g, ""); // should be this way instead of /\tފޮތް/
           data = data.replace(/ޖުޒް #\t/g, "");
           data = data.replace(/އާޔަތް #\t/g, "");
+          data = data.replace(/ބިސްމި\t/g, "");
           data = data.replace(/ޤުރްއާން އަރަބިން\t/g, "");
           data = data.replace(/ޤުރްއާން ފިލިނުޖަހާ\t/g, "");
           data = data.replace(/ރަސްމު އުޘްމާނީ\t/g, "");
