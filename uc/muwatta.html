@@ -79,18 +79,18 @@
 
       /* kitab baab and takhrij colors */
       .dataTable > tbody > tr > td.muwCol1,
-      .dataTable > tbody > tr > td.muwCol2,
       .dataTable > tbody > tr > td.muwCol3,
       .dataTable > tbody > tr > td.muwCol4,
-      .dataTable > tbody > tr > td.muwCol5 {
+      .dataTable > tbody > tr > td.muwCol5,
+      .dataTable > tbody > tr > td.muwCol6 {
         color: #0f4c75 !important;
       }
       @media (prefers-color-scheme: dark) {
         .dataTable > tbody > tr > td.muwCol1,
-        .dataTable > tbody > tr > td.muwCol2,
         .dataTable > tbody > tr > td.muwCol3,
         .dataTable > tbody > tr > td.muwCol4,
-        .dataTable > tbody > tr > td.muwCol5 {
+        .dataTable > tbody > tr > td.muwCol5,
+        .dataTable > tbody > tr > td.muwCol6 {
           color: #66bce6 !important;
         }
       }
@@ -100,11 +100,11 @@ justify doesnt look good on short cells like surukhi, masdars.
 so right align to prevent gaps in text */
 
       .dataTable tr td.muwCol1,
-      .dataTable tr td.muwCol2,
       .dataTable tr td.muwCol3,
       .dataTable tr td.muwCol4,
       .dataTable tr td.muwCol5,
-      .dataTable tr td.muwCol9 {
+      .dataTable tr td.muwCol6,
+      .dataTable tr td.muwCol10 {
         text-align: right;
       }
 
@@ -116,7 +116,8 @@ so right align to prevent gaps in text */
         .dataTable tr td.muwCol3,
         .dataTable tr td.muwCol4,
         .dataTable tr td.muwCol5,
-        .dataTable tr td.muwCol9 {
+        .dataTable tr td.muwCol6,
+        .dataTable tr td.muwCol10 {
           text-align: center;
         }
       }
@@ -126,10 +127,11 @@ so right align to prevent gaps in text */
       /* tbody tr td.fnCol1, */
 
       .dataTable tr td.muwCol2,
-      .dataTable tr td.muwCol4,
-      .dataTable tr td.muwCol6,
+      .dataTable tr td.muwCol3,
+      .dataTable tr td.muwCol5,
       .dataTable tr td.muwCol7,
-      .dataTable tr td.muwCol9 {
+      .dataTable tr td.muwCol8,
+      .dataTable tr td.muwCol10 {
         font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
         font-size: 23px;
         line-height: 1.7;
@@ -142,9 +144,9 @@ so right align to prevent gaps in text */
       /* .dataTable tr td.fnCol1, need this bigger */
 
       .dataTable tr td.muwCol1,
-      .dataTable tr td.muwCol3,
-      .dataTable tr td.muwCol5,
-      .dataTable tr td.muwCol8 {
+      .dataTable tr td.muwCol4,
+      .dataTable tr td.muwCol6,
+      .dataTable tr td.muwCol9 {
         font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
         font-size: 17px;
         line-height: 1.9;
@@ -158,18 +160,24 @@ so right align to prevent gaps in text */
 
       /* mobile only kitab bab top bottom padding removal */
       @media screen and (max-width: 900px) {
-        .dataTable tr td.muwCol2,
         .dataTable tr td.muwCol3,
         .dataTable tr td.muwCol4,
-        .dataTable tr td.muwCol5 {
+        .dataTable tr td.muwCol5,
+        .dataTable tr td.muwCol6 {
           padding-top: 0;
           padding-bottom: 0;
         }
       }
 
       /* takhrij font size */
-      .dataTable tr td.muwCol9 {
+      .dataTable tr td.muwCol10 {
         font-size: 21px;
+      }
+
+      /* basmala padding remove */
+      .dataTable tr td.muwCol2 {
+        padding-top: 0;
+        padding-bottom: 0;
       }
     </style>
     <!-- === INT CSS - END === -->
