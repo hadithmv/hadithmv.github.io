@@ -85,29 +85,38 @@ $(document).ready(() => {
       },
       {
         data: 3,
+        title: "ބިސްމި",
+      },
+      /* add brackets to quran */
+      {
+        data: 4,
         title: "ޤުރްއާން އަރަބިން",
         render: function (data, type, row) {
           data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
           data = "﴿" + data + "﴾";
-          return data
-            .replace(
+          return data;
+          // previously used to add br after basmala
+          /*.replace(
               "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
               'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
             )
             .replace(
               "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
               'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
-            );
+            );*/
         },
       },
       {
-        data: 3,
+        data: 4,
         title: "ޤުރްއާން ފިލިނުޖަހާ",
         render: function (data, type, row) {
           data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
           data = "﴿" + data + "﴾";
           // replaces basmalas opening closing brackets non breaks, then kashida, then arabic numbers, then space, then br tag, then makes two spaces into one
-          return data
+          return (
+            data
+              // previously used to add br after basmala
+              /*
             .replace(
               "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
               'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
@@ -116,9 +125,11 @@ $(document).ready(() => {
               "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
               'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
             )
-            .replace(/ـ/g, "")
-            .replace(/[^\u0621-\u064A|\s|<br class="br">]/g, "")
-            .replace(/\s\s/g, " ");
+            */
+              .replace(/ـ/g, "")
+              .replace(/[^\u0621-\u064A|\s|<br class="br">]/g, "")
+              .replace(/\s\s/g, " ")
+          );
 
           //
           /* old code */
@@ -131,11 +142,11 @@ $(document).ready(() => {
         },
       },
       {
-        data: 4,
+        data: 5,
         title: "ލަފްޒީ ތަރުޖަމާ",
       },
       {
-        data: 5,
+        data: 6,
         title: "އިޖްމާލީ މާނަ",
       } /*,
       { // add tafsir asa'di in arabic 
@@ -172,7 +183,7 @@ $(document).ready(() => {
     columnDefs: [
       //  /* footnote line after bakurube lafzee tharujama */
       {
-        targets: 5,
+        targets: 6,
         render: function (data, type, row) {
           data = data + '<br class="Qbr">‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br class="LQbr">';
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -205,7 +216,7 @@ $(document).ready(() => {
         className: "qCol2", // juz #
         targets: [1],
         visible: false,
-        searchable: false,
+        searchable: true,
         searchPanes: {
           show: true,
         },
@@ -220,8 +231,17 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol4", // quran tanzil
+        className: "qCol4", // basmala
         targets: [3],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: true,
+        },
+      },
+      {
+        className: "qCol5", // quran tanzil
+        targets: [4],
         visible: true,
         searchable: false,
         searchPanes: {
@@ -229,8 +249,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol5", // quran plain
-        targets: [4],
+        className: "qCol6", // quran plain
+        targets: [5],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -239,7 +259,7 @@ $(document).ready(() => {
       },
       {
         className: "qCol7", // dv tarjama
-        targets: [5],
+        targets: [6],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -248,7 +268,7 @@ $(document).ready(() => {
       },
       {
         className: "qCol8", // dv tarjama ijmali
-        targets: [6],
+        targets: [7],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -364,7 +384,6 @@ $(document).ready(() => {
     // or 2Darray where 1st inner array=page length values, 2nd displayed options
     // -1 is used as a value this tells DataTables to disable pagination
     // Default [ 10, 25, 50, 100 ],
-
     lengthMenu: [
       [1, 2, 3, 5, 10, 20, 30, 50, 100, 200, 300],
       ["1 ދައްކާ", 2, 3, 5, 10, 20, 30, 50, 100, 200, "300"],
@@ -513,6 +532,7 @@ $(document).ready(() => {
           data = data.replace(/ސޫރަތުގެ ނަން\t/g, ""); // should be this way instead of /\tފޮތް/
           data = data.replace(/ޖުޒް #\t/g, "");
           data = data.replace(/އާޔަތް #\t/g, "");
+          data = data.replace(/ބިސްމި\t/g, "");
           data = data.replace(/ޤުރްއާން އަރަބިން\t/g, "");
           data = data.replace(/ޤުރްއާން ފިލިނުޖަހާ\t/g, "");
           data = data.replace(/ރަސްމު އުޘްމާނީ\t/g, "");

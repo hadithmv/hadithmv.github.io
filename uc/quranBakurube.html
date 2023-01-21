@@ -153,10 +153,6 @@
         font-size: 17px;
         line-height: 2.2;
       }
-      @media screen and (max-width: 599px) {
-        .dataTable tr td.qCol7 {
-        }
-      }
 
       /* columns with ar numbers
         .dataTable tr td.qCol2 {
@@ -173,13 +169,13 @@
 
       /* quran only tafsir sa'di font and line height smaller
 
-      .dataTable tr td.qCol8 {
+      .dataTable tr td.qCol9 {
         font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
         font-size: 20px;
         line-height: 1.6;
       }
 
-      .dataTable tr td.qCol9 {
+      .dataTable tr td.qCol10 {
         font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
         font-size: 16px;
         line-height: 1.9;
@@ -402,6 +398,12 @@
           background-color: #1a232d !important;
         }
         /* without important, double click go to jumping changes some of the inner background color */
+      }
+
+      /* basmala padding remove */
+      .dataTable tr td.qCol4 {
+        padding-top: 0;
+        padding-bottom: 0;
       }
     </style>
     <!-- === INT CSS - END === -->
