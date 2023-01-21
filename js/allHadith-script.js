@@ -66,16 +66,10 @@ $(document).ready(() => {
     data: allHadith_DB, // https://datatables.net/manual/ajax
 
     columns: [
-      /* add # string to hadith no */
       {
-        data: 1,
-        title: "#",
-        render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
-          return "#" + data;
-        },
+        data: 0,
+        title: "ފޮތް އަރަބިން",
       },
-      /* add brackets string to hukum */
       {
         data: 0,
         title: "ފޮތް ދިވެހިން",
@@ -117,6 +111,15 @@ $(document).ready(() => {
           data = data.replace("بلوغ المرام", "ބުލޫޣުލް މަރާމް");
           data = data.replace("رياض الصالحين", "ރިޔާޟުއްޞާލިޙީން");
           return data;
+        },
+      },
+      /* add # string to hadith no */
+      {
+        data: 1,
+        title: "#",
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
+          return "#" + data;
         },
       },
       {
@@ -172,7 +175,7 @@ $(document).ready(() => {
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: [6, 7],
+        targets: [5, 6],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -186,7 +189,7 @@ $(document).ready(() => {
         render: function (data, type, row) {
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">');
         }, // added space before br, otherwise clipboard copy export has no space
-      }, // later changed that blank space into a \t, so that single new lines could work on clipboard copy // later changed that blank space into a \t, so that single new lines could work on clipboard copy
+      }, // later changed that blank space into a \t, so that single new lines could work on clipboard copy
       // previously just \n. added \r\n and \r to make lines break on mobile
 
       // classes columns for css in nweb view, but not print.
