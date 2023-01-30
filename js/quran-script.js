@@ -66,49 +66,222 @@ $(document).ready(() => {
     data: quran_DB, // https://datatables.net/manual/ajax
 
     columns: [
-      {
+      /*{
         data: 0,
-        title: "ސޫރަތުގެ ނަން",
-        /*render: function (data, type, row) {
+        title: "ސޫރަތުގެ #",
+        // https://www.datatables.net/examples/advanced_init/column_render.html
+        render: function (data, type, row) {
+          // makes surah numbers into MATHEMATICAL SANS-SERIF DIGIT
+          data = data
+            .replace("1", "𝟣")
+            .replace("2", "𝟤")
+            .replace("3", "𝟥")
+            .replace("4", "𝟦")
+            .replace("5", "𝟧")
+            .replace("6", "𝟨")
+            .replace("7", "𝟩")
+            .replace("8", "𝟪")
+            .replace("9", "𝟫")
+            .replace("0", "𝟢");
+        },
+      },
+      */
+      /*render: function (data, type, row) {
           // removes everything except arabic letters (excludes diacritics), and Mathematical Sans-Serif Digits, and space
           //return data.replace(/[^\u0621-\u064A|\u1d7e2-\u1d7eb|\s]/g, '')
           return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~]/g, "");
         },*/
-        // https://www.datatables.net/examples/advanced_init/column_render.html
-        // combines surah and number columns together
+      {
+        data: 0,
+        title: "ސޫރަތުގެ ނަން",
         render: function (data, type, row) {
-          return row[1] + " " + data;
+          // makes surah numbers into names
+          data = data
+            .replace("1", "1 سُورَةُ الفَاتِحَة")
+            .replace("2", "2 سُورَةُ البَقَرَة")
+            .replace("3", "3 سُورَةُ آل عِمرَان")
+            .replace("4", "4 سُورَةُ النِّسَاء")
+            .replace("5", "5 سُورَةُ المَائِدَة")
+            .replace("6", "6 سُورَةُ الأَنعَام")
+            .replace("7", "7 سُورَةُ الأَعرَاف")
+            .replace("8", "8 سُورَةُ الأَنفَال")
+            .replace("9", "9 سُورَةُ التَّوبَة")
+            .replace("10", "10 سُورَةُ يُونُس")
+            .replace("11", "11 سُورَةُ هُود")
+            .replace("12", "12 سُورَةُ يُوسُف")
+            .replace("13", "13 سُورَةُ الرَّعد")
+            .replace("14", "14 سُورَةُ إِبرَاهِيم")
+            .replace("15", "15 سُورَةُ الحِجر")
+            .replace("16", "16 سُورَةُ النَّحل")
+            .replace("17", "17 سُورَةُ الإِسرَاء")
+            .replace("18", "18 سُورَةُ الكَهف")
+            .replace("19", "19 سُورَةُ مَريَم")
+            .replace("20", "20 سُورَةُ طه")
+            .replace("21", "21 سُورَةُ الأَنبِيَاء")
+            .replace("22", "22 سُورَةُ الحَجّ")
+            .replace("23", "23 سُورَةُ المُؤمِنُون")
+            .replace("24", "24 سُورَةُ النُّور")
+            .replace("25", "25 سُورَةُ الفُرقَان")
+            .replace("26", "26 سُورَةُ الشُّعَرَاء")
+            .replace("27", "27 سُورَةُ النَّمل")
+            .replace("28", "28 سُورَةُ القَصَص")
+            .replace("29", "29 سُورَةُ العَنكَبُوت")
+            .replace("30", "30 سُورَةُ الرُّوم")
+            .replace("31", "31 سُورَةُ لُقمَان")
+            .replace("32", "32 سُورَةُ السَّجدَة")
+            .replace("33", "33 سُورَةُ الأَحزَاب")
+            .replace("34", "34 سُورَةُ سَبَإ")
+            .replace("35", "35 سُورَةُ فَاطِر")
+            .replace("36", "36 سُورَةُ يسٓ")
+            .replace("37", "37 سُورَةُ الصَّافَّات")
+            .replace("38", "38 سُورَةُ صٓ")
+            .replace("39", "39 سُورَةُ الزُّمَر")
+            .replace("40", "40 سُورَةُ غَافِر")
+            .replace("41", "41 سُورَةُ فُصِّلَت")
+            .replace("42", "42 سُورَةُ الشُّورَى")
+            .replace("43", "43 سُورَةُ الزُّخرُف")
+            .replace("44", "44 سُورَةُ الدُّخَان")
+            .replace("45", "45 سُورَةُ الجَاثِيَة")
+            .replace("46", "46 سُورَةُ الأَحقَاف")
+            .replace("47", "47 سُورَةُ مُحَمَّد")
+            .replace("48", "48 سُورَةُ الفَتح")
+            .replace("49", "49 سُورَةُ الحُجُرَات")
+            .replace("50", "50 سُورَةُ قٓ")
+            .replace("51", "51 سُورَةُ الذَّارِيَات")
+            .replace("52", "52 سُورَةُ الطُّور")
+            .replace("53", "53 سُورَةُ النَّجم")
+            .replace("54", "54 سُورَةُ القَمَر")
+            .replace("55", "55 سُورَةُ الرَّحمٰن")
+            .replace("56", "56 سُورَةُ الوَاقِعَة")
+            .replace("57", "57 سُورَةُ الحَدِيد")
+            .replace("58", "58 سُورَةُ المُجَادِلَة")
+            .replace("59", "59 سُورَةُ الحَشر")
+            .replace("60", "60 سُورَةُ المُمتَحَنَة")
+            .replace("61", "61 سُورَةُ الصَّفّ")
+            .replace("62", "62 سُورَةُ الجُمعَة")
+            .replace("63", "63 سُورَةُ المُنَافِقُون")
+            .replace("64", "64 سُورَةُ التَّغَابُن")
+            .replace("65", "65 سُورَةُ الطَّلَاق")
+            .replace("66", "66 سُورَةُ التَّحرِيم")
+            .replace("67", "67 سُورَةُ المُلك")
+            .replace("68", "68 سُورَةُ القَلَم")
+            .replace("69", "69 سُورَةُ الحَاقَّة")
+            .replace("70", "70 سُورَةُ المَعَارِج")
+            .replace("71", "71 سُورَةُ نُوح")
+            .replace("72", "72 سُورَةُ الجِنّ")
+            .replace("73", "73 سُورَةُ المُزَّمِّل")
+            .replace("74", "74 سُورَةُ المُدَّثِّر")
+            .replace("75", "75 سُورَةُ القِيَامَة")
+            .replace("76", "76 سُورَةُ الإِنسَان")
+            .replace("77", "77 سُورَةُ المُرسَلَات")
+            .replace("78", "78 سُورَةُ النَّبَإ")
+            .replace("79", "79 سُورَةُ النَّازِعَات")
+            .replace("80", "80 سُورَةُ عَبَس")
+            .replace("81", "81 سُورَةُ التَّكوِير")
+            .replace("82", "82 سُورَةُ الانفِطَار")
+            .replace("83", "83 سُورَةُ المُطَفِّفِين")
+            .replace("84", "84 سُورَةُ الانشِقَاق")
+            .replace("85", "85 سُورَةُ البُرُوج")
+            .replace("86", "86 سُورَةُ الطَّارِق")
+            .replace("87", "87 سُورَةُ الأَعلَى")
+            .replace("88", "88 سُورَةُ الغَاشِيَة")
+            .replace("89", "89 سُورَةُ الفَجر")
+            .replace("90", "90 سُورَةُ البَلَد")
+            .replace("91", "91 سُورَةُ الشَّمس")
+            .replace("92", "92 سُورَةُ اللَّيل")
+            .replace("93", "93 سُورَةُ الضُّحَى")
+            .replace("94", "94 سُورَةُ الشَّرح")
+            .replace("95", "95 سُورَةُ التِّين")
+            .replace("96", "96 سُورَةُ العَلَق")
+            .replace("97", "97 سُورَةُ القَدر")
+            .replace("98", "98 سُورَةُ البَيِّنَة")
+            .replace("99", "99 سُورَةُ الزَّلزَلَة")
+            .replace("100", "100 سُورَةُ العَادِيَات")
+            .replace("101", "101 سُورَةُ القَارِعَة")
+            .replace("102", "102 سُورَةُ التَّكَاثُر")
+            .replace("103", "103 سُورَةُ العَصر")
+            .replace("104", "104 سُورَةُ الهُمَزَة")
+            .replace("105", "105 سُورَةُ الفِيل")
+            .replace("106", "106 سُورَةُ قُرَيش")
+            .replace("107", "107 سُورَةُ المَاعُون")
+            .replace("108", "108 سُورَةُ الكَوثَر")
+            .replace("109", "109 سُورَةُ الكَافِرُون")
+            .replace("110", "110 سُورَةُ النَّصر")
+            .replace("111", "111 سُورَةُ المَسَد")
+            .replace("112", "112 سُورَةُ الإِخلَاص")
+            .replace("113", "113 سُورَةُ الفَلَق")
+            .replace("114", "114 سُورَةُ النَّاس");
+          //
+          // combines surah and number columns together
+          //data = row[1] + " " + data;
+          //
+          // makes surah numbers into MATHEMATICAL SANS-SERIF DIGIT
+          data = data
+            .replace("1", "𝟣")
+            .replace("2", "𝟤")
+            .replace("3", "𝟥")
+            .replace("4", "𝟦")
+            .replace("5", "𝟧")
+            .replace("6", "𝟨")
+            .replace("7", "𝟩")
+            .replace("8", "𝟪")
+            .replace("9", "𝟫")
+            .replace("0", "𝟢");
+          return data;
         },
       },
-      /*{
-        data: 1,
-        title: "ސޫރަތުގެ #",
-      },*/
       {
-        data: 2,
+        data: 1,
         title: "ޖުޒް #",
+        render: function (data, type, row) {
+          // makes juz numbers into MATHEMATICAL SANS-SERIF BOLD DIGIT
+          data = data
+            .replace("1", "𝟭")
+            .replace("2", "𝟮")
+            .replace("3", "𝟯")
+            .replace("4", "𝟰")
+            .replace("5", "𝟱")
+            .replace("6", "𝟲")
+            .replace("7", "𝟳")
+            .replace("8", "𝟴")
+            .replace("9", "𝟵")
+            .replace("0", "𝟬");
+          return data;
+        },
       },
       {
-        data: 3,
+        data: 2,
         title: "އާޔަތް #",
       },
       {
-        data: 4,
+        data: 3,
         title: "ބިސްމި",
       },
-      /* add brackets to quran */
       /*{
         data: 5,
         title: "އާޔަތް # އަރަބިން",
       },*/
       {
-        data: 6,
+        data: 4,
         title: "ޤުރްއާން އަރަބިން",
         render: function (data, type, row) {
           data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
+          /* add brackets to ayah */
           //data = "﴿" + data + "﴾";
           // combines ayah and number columns together
-          data = "﴿" + data + " " + row[5] + "﴾";
+          data = "﴿" + data + " " + row[2] + "﴾";
+          // makes ayah numbers arabic
+          data = data
+            .replace("1", "١")
+            .replace("2", "٢")
+            .replace("3", "٣")
+            .replace("4", "٤")
+            .replace("5", "٥")
+            .replace("6", "٦")
+            .replace("7", "٧")
+            .replace("8", "٨")
+            .replace("9", "٩")
+            .replace("0", "٠");
           return data;
         },
         // goes above the bracket above,
@@ -123,7 +296,7 @@ $(document).ready(() => {
             );*/
       },
       {
-        data: 6,
+        data: 4,
         title: "ޤުރްއާން ފިލިނުޖަހާ",
         render: function (data, type, row) {
           data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
@@ -156,7 +329,7 @@ $(document).ready(() => {
       },
       {
         /* add brackets to quran */
-        data: 7,
+        data: 5,
         title: "ރަސްމު އުޘްމާނީ",
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -172,8 +345,20 @@ $(document).ready(() => {
           data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
           /* reverse brackets because thats how the font file needs it */
           // combines ayah and number columns together
-          data = "﴿" + data + " " + row[5] + "﴾";
+          data = "﴿" + data + " " + row[2] + "﴾";
           //data = "﴿" + data + "﴾";
+          // makes ayah numbers arabic
+          data = data
+            .replace("1", "١")
+            .replace("2", "٢")
+            .replace("3", "٣")
+            .replace("4", "٤")
+            .replace("5", "٥")
+            .replace("6", "٦")
+            .replace("7", "٧")
+            .replace("8", "٨")
+            .replace("9", "٩")
+            .replace("0", "٠");
           /* move the bracket in surah start basmalas to the actual first ayah */
           return data;
           // previously used to add br after basmala
@@ -186,10 +371,10 @@ $(document).ready(() => {
         },
       },
       {
-        data: 8,
+        data: 6,
         title: "ދިވެހި ތަރުޖަމާ",
       },
-      {
+      /*{
         // add tafsir asa'di in arabic
         data: 9,
         title: "تفسير السعدي*",
@@ -204,7 +389,7 @@ $(document).ready(() => {
         render: function (data, type, row) {
           return "[ތަފްސީރު އައްސަޢްދީ:] " + data;
         },
-      },
+      },*/
       /* {
         data: 7,
         title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
@@ -308,6 +493,7 @@ $(document).ready(() => {
           show: false,
         },
       },
+      /*
       {
         className: "qCol9", // tafsir sadi ar
         targets: [8],
@@ -326,6 +512,7 @@ $(document).ready(() => {
           show: false,
         },
       },
+      */
       /* {
         className: 'qCol8', // bakurube lafzi
         targets: [7],
@@ -579,10 +766,8 @@ $(document).ready(() => {
           data = data.replace(/ޤުރްއާން ފިލިނުޖަހާ\t/g, "");
           data = data.replace(/ރަސްމު އުޘްމާނީ\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
-          data = data.replace(/تفسير السعدي*\t/g, "");
-          data = data.replace(/ތަފްސީރު އައްސަޢްދީ*\t/g, "");
-          data = data.replace(/ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*\t/g, "");
-          data = data.replace(/ބަކުރުބެގެ އިޖްމާލީ މާނަ*\t/g, "");
+          //data = data.replace(/تفسير السعدي*\t/g, "");
+          //data = data.replace(/ތަފްސީރު އައްސަޢްދީ*\t/g, "");\
 
           data = data.replace(/\t\t/g, "\t");
           // This prevents a double or more line breaks when columns are hidden
