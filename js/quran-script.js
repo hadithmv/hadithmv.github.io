@@ -77,7 +77,7 @@ $(document).ready(() => {
         // https://www.datatables.net/examples/advanced_init/column_render.html
         // combines surah and number columns together
         render: function (data, type, row) {
-          return row[1] + data;
+          return row[1] + " " + data;
         },
       },
       /*{
