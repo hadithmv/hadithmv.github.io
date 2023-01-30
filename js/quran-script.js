@@ -74,29 +74,46 @@ $(document).ready(() => {
           //return data.replace(/[^\u0621-\u064A|\u1d7e2-\u1d7eb|\s]/g, '')
           return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~]/g, "");
         },*/
+        // https://www.datatables.net/examples/advanced_init/column_render.html
+        // combines surah and number columns together
+        render: function (data, type, row) {
+          return row[1] + data;
+        },
       },
-      {
+      /*{
         data: 1,
+        title: "ސޫރަތުގެ #",
+      },*/
+      {
+        data: 2,
         title: "ޖުޒް #",
       },
       {
-        data: 2,
+        data: 3,
         title: "އާޔަތް #",
       },
       {
-        data: 3,
+        data: 4,
         title: "ބިސްމި",
       },
       /* add brackets to quran */
+      /*{
+        data: 5,
+        title: "އާޔަތް # އަރަބިން",
+      },*/
       {
-        data: 4,
+        data: 6,
         title: "ޤުރްއާން އަރަބިން",
         render: function (data, type, row) {
           data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
-          data = "﴿" + data + "﴾";
+          //data = "﴿" + data + "﴾";
+          // combines ayah and number columns together
+          data = "﴿" + data + " " + row[5] + "﴾";
           return data;
-          // previously used to add br after basmala
-          /*.replace(
+        },
+        // goes above the bracket above,
+        // previously used to add br after basmala
+        /*.replace(
               "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
               'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
             )
@@ -104,19 +121,21 @@ $(document).ready(() => {
               "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
               'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
             );*/
-        },
       },
       {
-        data: 4,
+        data: 6,
         title: "ޤުރްއާން ފިލިނުޖަހާ",
         render: function (data, type, row) {
           data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
-          data = "﴿" + data + "﴾";
+          //data = "﴿" + data + "﴾";
           // replaces basmalas opening closing brackets non breaks, then kashida, then arabic numbers, then space, then br tag, then makes two spaces into one
-          return (
-            data
-              // previously used to add br after basmala
-              /*
+          return data
+            .replace(/ـ/g, "")
+            .replace(/[^\u0621-\u064A|\s|<br class="br">]/g, "")
+            .replace(/\s\s/g, " ");
+        },
+        // previously used to add br after basmala
+        /*
             .replace(
               "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
               'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
@@ -126,24 +145,18 @@ $(document).ready(() => {
               'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
             )
             */
-              .replace(/ـ/g, "")
-              .replace(/[^\u0621-\u064A|\s|<br class="br">]/g, "")
-              .replace(/\s\s/g, " ")
-          );
-
-          //
-          /* old code */
-          /*
+        //
+        /* old code */
+        /*
                   /* render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
           // below code is shorter, no replace repeat, uses OR instead
           return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ|ۡ|ٰ/g, '').replace(/ٱ/g, 'ا')
         } */
-        },
       },
       {
         /* add brackets to quran */
-        data: 5,
+        data: 7,
         title: "ރަސްމު އުޘްމާނީ",
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '')
@@ -157,10 +170,10 @@ $(document).ready(() => {
 
           // this places a non break character before the numbers, also replaces a space before the numbers
           data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
-
           /* reverse brackets because thats how the font file needs it */
-          //data = '﴿' + data + '﴾'
-          data = "﴿" + data + "﴾";
+          // combines ayah and number columns together
+          data = "﴿" + data + " " + row[5] + "﴾";
+          //data = "﴿" + data + "﴾";
           /* move the bracket in surah start basmalas to the actual first ayah */
           return data;
           // previously used to add br after basmala
@@ -173,12 +186,12 @@ $(document).ready(() => {
         },
       },
       {
-        data: 6,
+        data: 8,
         title: "ދިވެހި ތަރުޖަމާ",
       },
       {
         // add tafsir asa'di in arabic
-        data: 7,
+        data: 9,
         title: "تفسير السعدي*",
         render: function (data, type, row) {
           return "[تفسير السعدي:] " + data;
@@ -186,7 +199,7 @@ $(document).ready(() => {
       },
       {
         // add tafsir sa'di in dhivehi
-        data: 8,
+        data: 10,
         title: "ތަފްސީރު އައްސަޢްދީ*",
         render: function (data, type, row) {
           return "[ތަފްސީރު އައްސަޢްދީ:] " + data;
