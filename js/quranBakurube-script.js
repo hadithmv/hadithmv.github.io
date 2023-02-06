@@ -329,7 +329,6 @@ $(document).ready(() => {
               return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ|ۡ|ٰ/g, '').replace(/ٱ/g, 'ا')
             } */
       },
-
       {
         data: 5,
         title: "ލަފްޒީ ތަރުޖަމާ",
@@ -447,7 +446,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol7", // dv tarjama
+        className: "qCol7", // dv tarjama lafzi
         targets: [6],
         visible: true,
         searchable: true,
