@@ -85,21 +85,22 @@ EXTENSIONS LIST:
 
 cwan.native-ascii-converter
 esbenp.prettier-vscode
-GitHub.remotehub
-GitHub.vscode-pull-request-github
 lacroixdavid1.vscode-format-context-menu
 mkaufman.HTMLHint
-ms-python.python
-ms-toolsai.jupyter
 ms-vscode.powershell
-ms-vscode.remote-repositories
-stylelint.vscode-stylelint
 techer.open-in-browser
 VisualStudioExptTeam.vscodeintellicode
 vscode-icons-team.vscode-icons
 zh9528.file-size
 
 ---
+
+GitHub.vscode-pull-request-github
+GitHub.remotehub
+ms-vscode.remote-repositories
+ms-python.python
+ms-toolsai.jupyter
+stylelint.vscode-stylelint
 
 NOT NEEDED RN:
 
