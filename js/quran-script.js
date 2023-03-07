@@ -273,17 +273,18 @@ $(document).ready(() => {
           // combines ayah and number columns together
           data = "﴿" + data + " " + row[2] + "﴾";
           // makes ayah numbers arabic
+          // previously used just .replace and where the number was double of the same digit like 66, it would only replace the first time
           data = data
-            .replace("1", "١")
-            .replace("2", "٢")
-            .replace("3", "٣")
-            .replace("4", "٤")
-            .replace("5", "٥")
-            .replace("6", "٦")
-            .replace("7", "٧")
-            .replace("8", "٨")
-            .replace("9", "٩")
-            .replace("0", "٠");
+            .replaceAll("1", "١")
+            .replaceAll("2", "٢")
+            .replaceAll("3", "٣")
+            .replaceAll("4", "٤")
+            .replaceAll("5", "٥")
+            .replaceAll("6", "٦")
+            .replaceAll("7", "٧")
+            .replaceAll("8", "٨")
+            .replaceAll("9", "٩")
+            .replaceAll("0", "٠");
           return data;
         },
         // goes above the bracket above,
