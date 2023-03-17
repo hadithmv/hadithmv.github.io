@@ -228,7 +228,7 @@ $(document).ready(() => {
         className: "barbaCol9", // ar ref
         targets: [8],
         visible: true,
-        searchable: true,
+        searchable: false,
         searchPanes: {
           show: false,
         },
