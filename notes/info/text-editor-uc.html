@@ -1004,6 +1004,14 @@
           </button>
 
           <button
+            onclick="remPrecZeros();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Removes preceding zeros in numbers and text"
+          >
+            0️⃣ Rmv Prec 0s
+          </button>
+
+          <button
             onclick="htmlOList();triggerTheCounts();"
             id="htmlNList"
             class="ttClass"
@@ -3328,6 +3336,16 @@
                 /[^0-9|٠-٩|𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫|０１２３４５６７８９|𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵|⓪①②③④⑤⑥⑦⑧⑨|⓿❶❷❸❹❺❻❼❽❾]/g,
                 ""
               );
+          }
+          //
+
+          // https://stackoverflow.com/questions/29658654/regex-to-strip-leading-zeros-treated-as-string/29658664#29658664
+          // https://stackoverflow.com/questions/70074474/regex-to-remove-leading-zero-except-for-first/70080497#70080497
+          function remPrecZeros() {
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/^0+\B/gm, "");
+            //^0+
           }
           //
 
