@@ -46,6 +46,9 @@ Get-Content quran.json | Add-Content ../quran.js
 Set-Content ../quranBakurube.js -Value 'const quranBakurube_DB='
 Get-Content quranBakurube.json | Add-Content ../quranBakurube.js
 
+Set-Content ../quranJaufar.js -Value 'const quranJaufar_DB='
+Get-Content quranJaufar.json | Add-Content ../quranJaufar.js
+
 Set-Content ../radheef.js -Value 'const radheef_DB='
 Get-Content radheef.json | Add-Content ../radheef.js
 
