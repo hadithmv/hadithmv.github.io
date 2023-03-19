@@ -15,6 +15,7 @@ uglifyjs fortyNawawi.js -c -m -o fortyNawawi.js
 uglifyjs qawaidulArbau.js -c -m -o qawaidulArbau.js
 uglifyjs quran.js -c -m -o quran.js
 uglifyjs quranBakurube.js -c -m -o quranBakurube.js
+uglifyjs quranJaufar.js -c -m -o quranJaufar.js
 uglifyjs radheef.js -c -m -o radheef.js
 uglifyjs aqidatuRaziyain.js -c -m -o aqidatuRaziyain.js
 uglifyjs riyadusaliheen.js -c -m -o riyadusaliheen.js
