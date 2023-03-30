@@ -38,7 +38,7 @@
     <script src="../../js/resc/COMB-nonCrit.min.js"></script>
     <link rel="stylesheet" href="../editorResc.min.css" />
     <script async src="../editorResc.min.js"></script>
-  </head>
+
 
   <style>
     /* https://www.webtips.dev/webtips/html/native-html-tooltips */
@@ -646,6 +646,8 @@
             display: inline;
           }*/
         </style>
+
+</head>
 
         <script>
           /*
@@ -1749,7 +1751,7 @@
             <li>ސސ- / صص- / -ss ← ﷺ</li>
             <li>"- ← ” / -" ← “</li>
             <li>'- ← ’ / -' ← ‘</li>
-            <li>>>- ← » / <<- ← «</li>
+            <li>>>- ← » / &lt;&lt;- ← «</li>
             <li>)-- ← ﴾ / (-- ← ﴿</li>
             <li>ރއ- / رض- / -ra ← رَضِيَ اللَّهُ عَنْهُ</li>
             <li>ރއހ- / رضه- / -rah ← رَضِيَ اللَّهُ عَنْهَا</li>
@@ -4404,6 +4406,42 @@ cols="60"-->
 
         <hr />
 
+         <!-- https://www.nayuki.io/page/qr-code-generator-library -->
+
+         <style type="text/css">
+          article section#contents li ul {
+            margin-top: 0em;
+            margin-bottom: 0em;
+            font-size: 80%;
+          }
+          article section#contents li li {
+            margin-top: 0.2em;
+            margin-bottom: 0.2em;
+          }
+          @media (min-width: 55em) {
+            article section#contents {
+              float: right;
+              margin-left: 2em;
+            }
+            article section#contents h2 {
+              margin-top: 0em;
+            }
+          }
+          article input[type="radio"] + label,
+          article input[type="checkbox"] + label {
+            margin-right: 0.8em;
+            padding-left: 0.2em;
+          }
+          article canvas,
+          article svg {
+            padding: 1em;
+            background-color: #e8e8e8;
+          }
+          article form table td:first-child {
+            white-space: pre;
+          }
+        </style>
+
         <div class="en mid qrClass">
           <h2 style="font-size: 23px">
             <a data-tooltip="Generates a QR Code as you write"
@@ -4411,41 +4449,7 @@ cols="60"-->
             >
           </h2>
 
-          <!-- https://www.nayuki.io/page/qr-code-generator-library -->
-
-          <style type="text/css">
-            article section#contents li ul {
-              margin-top: 0em;
-              margin-bottom: 0em;
-              font-size: 80%;
-            }
-            article section#contents li li {
-              margin-top: 0.2em;
-              margin-bottom: 0.2em;
-            }
-            @media (min-width: 55em) {
-              article section#contents {
-                float: right;
-                margin-left: 2em;
-              }
-              article section#contents h2 {
-                margin-top: 0em;
-              }
-            }
-            article input[type="radio"] + label,
-            article input[type="checkbox"] + label {
-              margin-right: 0.8em;
-              padding-left: 0.2em;
-            }
-            article canvas,
-            article svg {
-              padding: 1em;
-              background-color: #e8e8e8;
-            }
-            article form table td:first-child {
-              white-space: pre;
-            }
-          </style>
+         
 
           <form onsubmit="event.preventDefault();">
             <div id="loading" style="display: none"></div>
@@ -6213,6 +6217,7 @@ cols="60"-->
 
       <p>އިތުރަށް ފައިދާކޮށްފާނެ ލިންކުތައް:</p>
       <ul>
+        <!--
         <li>
           ލަފްޒާއި އޭގެ މާނައިގެ ތެރެއިންވެސް ސާރޗް ކުރެވޭ ރަދީފު:
           <a
@@ -6222,10 +6227,11 @@ cols="60"-->
             >ސައިޓު</a
           >
         </li>
+        -->
         <li>
           ރަސްމީ ރަދީފު:
           <a
-            href="https://www.radheef.mv/"
+            href="https://www.radheef.mv"
             rel="noopener noreferrer"
             target="_blank"
             >ސައިޓު</a
