@@ -1233,15 +1233,22 @@
                   <a>1 ޙަދީޘްއެމްވީ ތަރުޖަމާ</a>
                 </li>
                 <li>
-                  <a onclick="redirectAnchor()">2 ބަކުރުބެގެ ތަރުޖަމާ</a>
+                  <a value="quranBakurube" onclick="redirectAnchor()"
+                    >2 ބަކުރުބެގެ ތަރުޖަމާ</a
+                  >
                 </li>
                 <li>
-                  <a style="color: #b8b8b8; cursor: auto; !important"
+                  <a value="quranJaufar" onclick="redirectAnchor()"
                     >3 ޖަޢުފަރުގެ ތަފްސީރު</a
                   >
                 </li>
+                <!--  style="color: #b8b8b8; cursor: auto; !important" -->
               </ul>
             </li>
+
+            <script>
+              document.getElementById("message").innerHTML = val;
+            </script>
 
             <!-- takes the url and replaces the page and table before reloading, while removing modifier :v and what comes after it
             https://stackoverflow.com/questions/4664707/how-to-replace-part-of-the-url-with-javascript/4664716#4664716
