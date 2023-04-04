@@ -1487,11 +1487,11 @@ this makes a faint white outline around card  */
 
   /* The :not(X) property in CSS is a negation pseudo class and accepts a simple selector1 as an argument.
   otherwise border : 1px overwrites the quran frame and white outline gets larger */
-
-  /* https://css-tricks.com/css-not-with-multiple-classes/ */
-  :not(#quranBakurubeTable):not(#quranTable).cards tbody tr {
+  /* https://css-tricks.com/css-not-with-multiple-classes/ 
+  :not(#quranTable):not(#quranBakurubeTable):not(#quranJaufarTable).cards tbody tr {
     border: 1px;
   }
+  dont know why i had this before, removed because not exceptions were needed for every quran table*/
 
   /* makes bold tabler headers normal */
   .dataTable > thead > tr > th {
