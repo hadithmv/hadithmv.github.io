@@ -6,12 +6,10 @@ https://github.com/julmot/mark.js -MIT
 https://github.com/orderedlist/minimal -CC BY-SA 3.0
 https://github.com/FrDH/mmenu-light -CC BY 4.0
 
-https://github.com/chromium/chromium -BSD-3-Clause
 https://github.com/microsoft/vscode -MIT
 https://github.com/notepad-plus-plus/notepad-plus-plus -GNU GPLv2
 https://developer.android.com/studio -Apache 2.0
 https://r8.googlesource.com/r8
-https://github.com/GoogleChrome/lighthouse -Apache 2.0
 
 https://github.com/kangax/html-minifier -MIT
 https://github.com/google/closure-compiler -Apache 2.0
@@ -20,10 +18,9 @@ https://github.com/cssnano/cssnano -MIT
 https://github.com/mholt/PapaParse -MIT
 https://github.com/mishoo/UglifyJS -BSD-2-Clause
 
+https://github.com/GoogleChrome/lighthouse -Apache 2.0
 https://github.com/htmlhint/HTMLHint -MIT
 https://github.com/prettier/prettier -MIT
-https://github.com/stylelint/stylelint -MIT
-https://github.com/standard/standard -MIT
 
 https://docs.google.com/spreadsheets
 https://github.com/pawelsalawa/sqlitestudio -GNU GPLv3
@@ -33,8 +30,7 @@ https://gitlab.gnome.org/GNOME/meld -GNU GPLv2
 https://github.com/Lexikos/AutoHotkey_L -GNU GPLv2
 https://github.com/federico-terzi/espanso -GNU GPLv3
 https://github.com/wickedest/Mergely -GPL/LGPL/MPL
-https://github.com/codemirror/CodeMirror -MIT
-https://github.com/nayuki/QR-Code-generator -MIT
+https://github.com/tonsky/FiraCode 6.2 -OFL-1.1
 
 https://github.com/photopea/photopea
 https://github.com/yoksel/url-encoder
@@ -42,22 +38,21 @@ https://compressor.io
 https://vecta.io/nano
 https://github.com/svg/svgo -MIT
 https://chromium.googlesource.com/webm/libwebp -BSD
+https://github.com/codemirror/CodeMirror -MIT
+https://github.com/nayuki/QR-Code-generator -MIT
 
 https://github.com/maaldheefee/mushaf-page-border
-https://github.com/tonsky/FiraCode 5.2 -OFL-1.1
-http://hassanhameed.com/?page_id=154 2.0
 https://fonts.qurancomplex.gov.sa/wp02 0.14
+http://hassanhameed.com/?page_id=154 2.0
 https://fonts.hassaanmv.com/tharujamaanu
 
-https://40-nawawi.hassaanmv.com
-https://sunnah.alifta.gov.sa
 https://shamela.ws
+https://sunnah.alifta.gov.sa
+https://40-nawawi.hassaanmv.com
+https://qurancomplex.gov.sa/en/techquran/dev 12.0
+https://tanzil.net/download 1.1 -CC BY 3.0
 https://github.com/kudanai/Quran-Translation
-https://nashrmaktabi.qurancomplex.gov.sa 2.5
-https://tanzil.net 1.1 -CC BY 3.0
-https://archive.org/details/BakurubeTranslationDhivehi/1-15%20%2825%20April%202011%29
 https://github.com/maaldheefee/Quran-Translation/blob/master/utils/gen_alternate.py
-
 http://radheef.mv
 http://dhivehiacademy.edu.mv/beta/thoora
 https://dsal.uchicago.edu/dictionaries/maniku
