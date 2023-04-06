@@ -891,7 +891,7 @@ mark {
   border-color: #dadce0;
   /*border-color: transparent !important;*/
   /* removing the last attribute above removes the white outline issue on dark mode card, while showing the quran frames.
-  Commenting it out, changing it to none here, doesnt work. but transparent does */
+  Commenting it out, changing it to none here, doesnt work. but transparent seemed to fix it, but it actually removes the top and bottom borders in light mode card. */
 
   /* #00000020 */
   border-radius: 5px;
