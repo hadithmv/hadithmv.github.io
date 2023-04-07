@@ -1018,20 +1018,21 @@ $(document).ready(() => {
 
   // adds doubleclick select go to page search was on, with rowshowjs
 
-  // old code
-  /*
-    $('tbody').on('dblclick', 'tr', function () {
-    if (table.search() !== '') {
-      table.search('').draw()
-    }
-    table.row(this).draw().show().select().draw(false)
-  })
-  */
+  // * The code below now works, previously some update to searchpanes js broke it, and the code below the code below was a workaround, but now we can use the initial one
+  // no longer old code
 
+  $("tbody").on("dblclick", "tr", function () {
+    if (table.search() !== "") {
+      table.search("").draw();
+    }
+    table.row(this).draw().show().select().draw(false);
+  });
+
+  // below not needed now, above suffices
   // https://stackoverflow.com/questions/27560653/jquery-on-double-click-event-dblclick-for-mobile/27561006#27561006
   // for some reason, dblclick stopped working for table.row(this).draw().show().select().draw(false) on mobile view, which was previously table.row(this).show().select().draw(false)
   // all this was changed due to an update with searchpanes causing a bug https://datatables.net/forums/discussion/comment/208672/#Comment_208672
-  var touchtime = 0;
+  /*var touchtime = 0;
   $("tbody").on("click", "tr", function () {
     if (touchtime == 0) {
       // set first click
@@ -1052,7 +1053,7 @@ $(document).ready(() => {
         touchtime = new Date().getTime();
       }
     }
-  });
+  });*/
 
   /*
   // https://stackoverflow.com/questions/5548893/jquery-datatables-delay-search-until-3-characters-been-typed-or-a-button-clicke/23897722#23897722
@@ -1078,7 +1079,7 @@ $(document).ready(() => {
     });
     */
 
-  /* OLD SEARCH REPLACE BELOW
+  /* OLD SEARCH REPLACE
     $(".dataTables_filter input")
     .off()
     .on("keyup", function () {
