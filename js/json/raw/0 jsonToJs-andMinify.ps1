@@ -94,6 +94,11 @@ Get-Content umdah.json | Add-Content ../umdah.js
 # minify below
 uglifyjs ../umdah.js -c -m -o ../umdah.js
 
+Set-Content ../ushrulAkheer.js -Value 'const ushrulAkheer_DB='
+Get-Content ushrulAkheer.json | Add-Content ../ushrulAkheer.js
+# minify below
+uglifyjs ../usooluSunnah.js -c -m -o ../usooluSunnah.js
+
 Set-Content ../usooluSunnah.js -Value 'const usooluSunnah_DB='
 Get-Content usooluSunnah.json | Add-Content ../usooluSunnah.js
 # minify below
