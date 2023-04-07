@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="canonical"
-      href="https://hadithmv.github.io/books/fortyAajurry.html"
+      href="https://hadithmv.github.io/books/ushrulAkheer.html"
     />
     <meta name="google" content="notranslate" />
 
@@ -18,7 +18,7 @@
     <meta property="og:type" content="website" />
     <meta
       property="og:url"
-      content="https://hadithmv.github.io/books/fortyAajurry.html"
+      content="https://hadithmv.github.io/books/ushrulAkheer.html"
     />
     <meta
       property="og:image"
@@ -26,7 +26,7 @@
     />
 
     <!-- change123 html -->
-    <title>Hadithmv - 40 Aajurry</title>
+    <title>Hadithmv - Tafsir Ushrul Akheer</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
@@ -46,8 +46,8 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/fortyAajurry.js"></script>
-    <script defer src="../js/fortyAajurry-script.min.js"></script>
+    <script defer src="../js/json/ushrulAkheer.js"></script>
+    <script defer src="../js/ushrulAkheer-script.min.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -57,7 +57,7 @@
     <style>
 .header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:57px;padding-left:2px;padding-right:2px}@media (max-width: 599px){.content{padding-top:50px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme: dark){body{background-color:#0e1621;color:#c5cfd6}}
 
-  </style>
+    </style>
     <!-- Critical CSS - END -->
 
     <style>
@@ -69,7 +69,7 @@
 
       /* css for first column, number column
       cuz it has hashtag and digits */
-      .dataTable tr td.fnCol1 {
+      .dataTable tr td.uAkheerCol1 {
         font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
         font-size: 21px;
         /* bold headers for first number at top */
@@ -77,25 +77,31 @@
         /*text-align: center;*/
       }
 
-      /* removes justify from ar dv (titles and refs) + rs.
-         justify doesnt look good on short cells like surukhi, masdars.
-         so right align to prevent gaps in text */
-      .dataTable tr td.fnCol2,
-      .dataTable tr td.fnCol3,
-      .dataTable tr td.fnCol7,
-      .dataTable tr td.fnCol8,
-      .dataTable tr td.fnCol9 {
-        text-align: right;
+      /* kitab baab and takhrij colors */
+      .dataTable > tbody > tr > td.uAkheerCol1 {
+        color: #0f4c75 !important;
+      }
+      @media (prefers-color-scheme: dark) {
+        .dataTable > tbody > tr > td.uAkheerCol1 {
+          color: #66bce6 !important;
+        }
       }
 
+      /* removes justify from ar dv (titles and refs) + rs.
+justify doesnt look good on short cells like surukhi, masdars.
+so right align to prevent gaps in text 
+.dataTable tr td.uAkheerCol2,
+.dataTable tr td.uAkheerCol3,
+.dataTable tr td.uAkheerCol7,
+.dataTable tr td.uAkheerCol8,
+.dataTable tr td.uAkheerCol9 {
+  text-align: right;
+} */
+
       /* mobile only row centering, for rows with strings that are not long */
+
       @media screen and (max-width: 900px) {
-        .dataTable tr td.fnCol1,
-        .dataTable tr td.fnCol2,
-        .dataTable tr td.fnCol3,
-        .dataTable tr td.fnCol7,
-        .dataTable tr td.fnCol8,
-        .dataTable tr td.fnCol9 {
+        .dataTable tr td.uAkheerCol1 {
           text-align: center;
         }
       }
@@ -103,11 +109,9 @@
       /* --- AR FONTS FOR TABLE --- */
 
       /* tbody tr td.fnCol1, */
-      .dataTable tr td.fnCol2,
-      .dataTable tr td.fnCol4,
-      .dataTable tr td.fnCol5,
-      .dataTable tr td.fnCol7,
-      .dataTable tr td.fnCol9 {
+
+      .dataTable tr td.uAkheerCol2,
+      .dataTable tr td.uAkheerCol3 {
         font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
         font-size: 23px;
         line-height: 1.7;
@@ -118,24 +122,25 @@
       /* --- DV FONTS FOR TABLE --- */
 
       /* .dataTable tr td.fnCol1, need this bigger */
-      .dataTable tr td.fnCol3,
-      .dataTable tr td.fnCol6,
-      .dataTable tr td.fnCol8 {
+
+      .dataTable tr td.uAkheerCol4 {
         font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
         font-size: 17px;
         line-height: 1.9;
       }
 
-      /* columns with ar numbers */
-      /*.dataTable tr td.fnCol7,
-      .dataTable tr td.fnCol9 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-      }*/
+      /* columns with ar numbers 
+.dataTable tr td.uAkheerCol7,
+.dataTable tr td.uAkheerCol9 {
+  font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
+  font-size: 21px;
+} */
 
-      /* takhrij font size */
-      .dataTable tr td.fnCol7 {
+      /* takhrij */
+      .dataTable tr td.uAkheerCol5 {
         font-size: 21px;
+        line-height: 1.7;
+        padding-bottom: 25px;
       }
     </style>
     <!-- === INT CSS - END === -->
@@ -154,8 +159,8 @@
           loading="lazy"
           src="../img/logo/logo.svg"
         />
-        <span class="hideOnPhoneOnly arMasdar">الأربعون حديثا للآجري – </span
-        >އާޖުއްރީގެ 40 ޙަދީޘް
+        <span class="hideOnPhoneOnly arMasdar"> تفسير العشر الأخير – </span>ފަހު
+        ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -213,7 +218,7 @@
           <!-- cards js adds card classes to table ID -->
           <!-- change123 TABLE -->
           <!-- class="stripe table cards"> -->
-          <table id="fortyAajurryTable" class="table cards"></table>
+          <table id="ushrulAkheerTable" class="table cards"></table>
           <!-- --- TABLE - END --- -->
           <div class="hidden" id="footer">
             <button class="lowerButtons" onclick="copyURLToClipB();">
@@ -228,68 +233,91 @@
               function toggleFili() {
                 // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
 
-                var isVisible = $("#fortyAajurryTable")
+                var isVisible = $("#ushrulAkheerTable")
                   .DataTable()
-                  .column(3)
+                  .column(4)
                   .visible();
-                $("#fortyAajurryTable")
+                $("#ushrulAkheerTable")
                   .DataTable()
-                  .column(3)
+                  .column(4)
                   .visible(!isVisible);
 
-                var isVisible = $("#fortyAajurryTable")
+                var isVisible = $("#ushrulAkheerTable")
                   .DataTable()
-                  .column(4)
+                  .column(5)
                   .visible();
-                $("#fortyAajurryTable")
+                $("#ushrulAkheerTable")
                   .DataTable()
-                  .column(4)
+                  .column(5)
                   .visible(!isVisible);
               }
             </script>
 
             <p class="arMasdar">
-              مصدر النص: الأربعون حديثا للآجري - لأبي بكر محمد بن الحسين بن عبد
-              الله الآجري البغدادي (ت ٣٦٠هـ)
-              <br />
-              تحقيق: بدر بن عبد الله البدر | الناشر: أضواء السلف | الطبعة
-              الثانية، ١٤٢٠ هـ - ٢٠٠٠ م.
+              مصدر النص: تفسير العشر الأخير - من القرآن الكريم (من كتاب زبدة
+              التفسير) ويليه أحكام تهم المسلم - لجماعة من العلماء (منهم: محمد
+              سليمان الأشقر - ت ١٤٣٠ هـ)<br />
+              الناشر: المكتب التعاوني للدعوة والإرشاد وتوعية الجاليات | الطبعة
+              السابعة عشر ١٤٣٤ هـ - ٢٠١٣ م.
+            </p>
+
+            <p class="arMasdar">
+              (فأما مادة التفسير في هذا الكتاب فهي مقتبسة من كتاب زبدة التفسير
+              للدكتور محمد الأشقر، وهو اختصار لكتاب فتح القدير للشوكاني، وأما ما
+              يليها من عقائد وفضائل وأحكام، فقد جمعه بعض طلبة العلم، وراجعه
+              وزكاه جماعة من العلماء. | كانت له أراء وأقوال تفرد بها لا يوافق
+              عليها، ومن أبرز شذوذاته: كلامه في الصحابي الجليل أبي بكرة رضي الله
+              عنه، وقد رد عليه أهل العلم في هذا.)
             </p>
 
             <p>
-              އަސްލު ފޮތުގެ މަސްދަރު: އާޖުއްރީގެ 40 ޙަދީޘް | ލިޔުއްވީ: އަބޫ
-              ބަކުރު މުޙައްމަދު ބިން އަލްޙުސައިން ބިން ޢަބްދު ﷲ އަލްއާޖުއްރީ
-              އަލްބަޣްދާދީ (360 ހ.)
+              އަސްލު ފޮތުގެ މަސްދަރު: ކީރިތި ގުރްއާނުގެ ފަހު ދިހަބައި ކުޅަ
+              އެއްބައިގެ ތަފްސީރު - އަދި އެ ބަޔަށް ފަހު މުސްލިމަކަށް މުހިންމުވާ
+              ހުކުމްތައް | ލިޔުއްވީ: އިލްމުވެރިންގެ ޖަމާއަތެއް - (ތަފްސީރު ބައި
+              ލިޔުއްވީ: ސުލައިމާން އަލްއަޝްގަރު - 1430 ހ.) - (އަގީދާއާއި
+              ފަޟްލުތަކާއި ހުކުމްތަކުގެ ބައި ލިޔުނީ: އިލްމު އުނގެނޭ ދަރިވަރުންގެ
+              ޖަމާއަތެއް)
               <br />
-              ތަހްގީގު ކުރެއްވީ: ބަދްރު ބިން ޢަބްދު ﷲ އަލްބަދްރު | ޗާޕު ކުރީ:
-              އަޟްވާ އައްސަލަފް | ދެވަނަ ޗާޕު 1420 ހ. - 2000 މ.
+              ޗާޕު ކުރީ: އަލްމަކްތަބު އައްތަޢާވުނީ | ދެވަނަ (ދިވެހި) ޗާޕު 1438
+              ހ. - 2016 މ.
             </p>
 
+            <!--
+              
+            -->
+
             <p>
-              އަރަބި
               <a
-                href="https://shamela.ws/book/8204"
+                href="https://archive.org/details/quran-ge-fahu-dhihabai-kulha-ehbaige-tafsir"
                 rel="noopener noreferrer"
                 target="_blank"
-                >އީ-ފޮތް</a
+                >ދިވެހި</a
               >
               |
               <a
-                href="https://archive.org/details/arbaoon-aajurry-badr"
+                href="https://archive.org/details/quran-ge-fahu-dhihabai-kulha-ehbaige-tafsir"
                 rel="noopener noreferrer"
                 target="_blank"
-                >ޕީޑީއެފް</a
+                >އަރަބި</a
               >
+              |
+              <a
+                href="https://archive.org/details/quran-ge-fahu-dhihabai-kulha-ehbaige-tafsir"
+                rel="noopener noreferrer"
+                target="_blank"
+                >އިނގިރޭސި</a
+              >
+              ޕީޑީއެފް
             </p>
 
-            <p>
-              އިނގިރޭސި ތަރުޖަމާގެ
+            <p class="arMasdar">
               <a
-                href="https://archive.org/details/forty-aajurry-en"
+                href="https://archive.org/details/quran-ge-fahu-dhihabai-kulha-ehbaige-tafsir"
                 rel="noopener noreferrer"
                 target="_blank"
-                >ޕީޑީއެފް</a
+                >الطبعة التاسعة عشر</a
               >
+              (من كتاب المختصر في تفسير القرآن الكريم)
             </p>
 
             <hr class="lineVerticalSpace" />
@@ -302,40 +330,6 @@
             </p>
 
             <hr class="lineVerticalSpace" />
-
-            <p class="arMasdar justi">
-              قال المحقق: توفرت لدي صورتان لنسختين خطيتين من الكتاب:
-              <br />
-              الأولى: نسخة برلين بألمانيا الغربية، وهي تقع في ٣٣ ورقة، كل ورقة
-              فيها صفحتان، والصفحة فيها ١٧ سطرا، وهي ناقصة من الأول بمقدار ورقة.
-              ومنها صورة في قسم المخطوطات في المكتبة المركزية في الجامعة
-              الإسلامية بالمدينة النبوية، تحت رقم (۱۱۹۲ - ميكروفيلم)، وتتميز هذه
-              المخطوطة بخطها الجيد، وقلة الأخطاء في نصوصها.
-              <br />
-              النسخة الثانية: نسخة المكتبة الظاهرية بدمشق، وهي تقع في ٣٣ ورقة،
-              كل ورقة فيها، صفحتان كل صفحة فيها ۲۰ سطرا تقريبا، وخطها لا بأس به
-              وأخطاؤها كثيرة، وفي أولها سماعات للنسخة المذكورة، ومنها صورة في
-              قسم المخطوطات بجامعة الكويت تحت رقم (٨٢٤ مكروفيلم مجموع ٤).
-              <br />
-              <br />
-              منهج التحقيق:
-              <br />
-              أ - قمت بمقابلة النسختين المذكورتين مع استكمال نقص الأولى من
-              النسخة الثانية، وأثبت في الهامش الفروق بينهما. وما كان زائداً في
-              نسخة الظاهرية على نسخة برلين وضعته بين معقوفتين هكذا [ ]، وما كان
-              في نسخة برلين وغير موجود في نسخة الظاهرية وضعته بين قوسين هكذا (
-              )، وذلك لتقليل ذكر ذلك في الهوامش.
-              <br />
-              ب - قمت بتصويب الأخطاء الواقعة في أسماء الرواة وذلك بالرجوع إلى
-              كتب الرجال بيان وجهة التصحيح في ذلك في مع بعضها.
-              <br />
-              ج - خرجت أحاديث الكتاب وعزوتها إلى مظانها من كتب السنة مع بيان
-              درجةٍ كلّ حديث إن لم يكن في أحد «الصحيحين» أو كليهما، مع العلم أن
-              العزو لأحدهما يستلزم الصحة كما هو معروف، مع الاستئناس بأقوال أهل
-              العلم في التصحيح أو التضعيف.
-              <br />
-              د - صنعت بعض الفهارس المساعدة، مثل فهرس الأحاديث وأسماء الرواة.
-            </p>
           </div>
         </main>
         <!-- <main> -->
