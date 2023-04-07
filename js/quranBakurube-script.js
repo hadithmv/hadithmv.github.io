@@ -979,20 +979,21 @@ $(document).ready(() => {
 
   // adds doubleclick select go to page search was on, with rowshowjs
 
-  // old code
-  /*
-    $('tbody').on('dblclick', 'tr', function () {
-    if (table.search() !== '') {
-      table.search('').draw()
-    }
-    table.row(this).draw().show().select().draw(false)
-  })
-  */
+  // * The code below now works, previously some update to searchpanes js broke it, and the code below the code below was a workaround, but now we can use the initial one
+  // no longer old code
 
+  $("tbody").on("dblclick", "tr", function () {
+    if (table.search() !== "") {
+      table.search("").draw();
+    }
+    table.row(this).draw().show().select().draw(false);
+  });
+
+  // below not needed now, above suffices
   // https://stackoverflow.com/questions/27560653/jquery-on-double-click-event-dblclick-for-mobile/27561006#27561006
   // for some reason, dblclick stopped working for table.row(this).draw().show().select().draw(false) on mobile view, which was previously table.row(this).show().select().draw(false)
   // all this was changed due to an update with searchpanes causing a bug https://datatables.net/forums/discussion/comment/208672/#Comment_208672
-  var touchtime = 0;
+  /*var touchtime = 0;
   $("tbody").on("click", "tr", function () {
     if (touchtime == 0) {
       // set first click
@@ -1013,7 +1014,59 @@ $(document).ready(() => {
         touchtime = new Date().getTime();
       }
     }
-  });
+  });*/
+
+  /*
+  // https://stackoverflow.com/questions/5548893/jquery-datatables-delay-search-until-3-characters-been-typed-or-a-button-clicke/23897722#23897722
+
+  // Grab the datatables input box and alter how it is bound to events
+  $(".dataTables_filter input")
+    .unbind() // Unbind previous default bindings
+    //.bind("input", function (e) {
+    .bind("keyup touchend", function (e) {
+      // Bind our desired behavior
+      // If the length is 3 or more characters, or the user pressed ENTER, search
+      if (this.value.length >= 2 || e.keyCode == 13) {
+        // Call the API search function
+        //dtable
+        table.search(this.value).draw();
+      }
+      // Ensure we clear the search if they backspace far enough
+      if (this.value == "") {
+        //dtable
+        table.search("").draw();
+      }
+      return;
+    });
+    */
+
+  /* OLD SEARCH REPLACE
+    $(".dataTables_filter input")
+    .off()
+    .on("keyup", function () {
+      let str = $(this).val();
+      // modded below for quran, to let search match properly
+      str = str
+        .replace(
+          "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
+          'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+        )
+        .replace(
+          "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
+          'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+        )
+        .replace(/ـ/g, "")
+        .replace(/[^\u0621-\u064A|^\u0780-\u07B1|\s|<br class="br">]/g, "")
+        .replace(/\s\s/g, " ");
+      // u0621 is where hamza starts in arabic unicode block, while u064A is where yaa ends. ^ everything apart from the letters in this range is removed in regex search
+      // \u0780-\u07B1 is the range of dhivehi letters in the thaana unicode block
+      // str = str.replace('﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace('﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace(/ـ/g, '').replace(/[^\u0621-\u064A|\s|<br class="br">]/g, '').replace(/\s\s/g, ' ')
+      // str = str.replace(
+      // /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g, "";
+      // );
+      table.search(str).draw();
+    });
+    */
 
   // removes diacritics and punctuation on key up for search
   $(".dataTables_filter input").on("keyup click", function () {
