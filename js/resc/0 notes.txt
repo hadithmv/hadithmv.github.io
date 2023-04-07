@@ -15,7 +15,7 @@ dataTables.keyTable.min.js	2.8.2
 dataTables.searchPanes.min.js	2.1.2
 dataTables.select.min.js	1.6.2
 
-**row().show().js		(minify w closure) 
+**row().show().js		(add .min to end of url, dont use closure, dbl click breaks otherwise)
 https://cdn.datatables.net/plug-ins/1.13.4/pagination/input.js
 
 **input.min.js			(minify w closure) https://cdn.datatables.net/plug-ins/1.13.4/pagination/input.js
