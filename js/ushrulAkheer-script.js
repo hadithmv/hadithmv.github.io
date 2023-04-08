@@ -66,18 +66,16 @@ $(document).ready(() => {
     data: ushrulAkheer_DB, // https://datatables.net/manual/ajax
 
     columns: [
-      /*{
-        data: 0,
-        title: "#",
-      },*/
+      /* add # string to hadith no */
       {
-        /* add sofhaa string to page no */ data: 0,
+        data: 0,
         title: "ސަފުހާ #",
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
           return "[ސ. " + data + "]"; // prev ސަފުހާ
         },
       },
+
       {
         data: 1,
         title: "އަރަބި ލިޔުން",
@@ -164,7 +162,7 @@ $(document).ready(() => {
       },
       {
         className: "uAkheerCol4", // dv
-        targets: [3],
+        targets: [4],
         visible: true,
         searchable: true,
         searchPanes: {
