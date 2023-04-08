@@ -1257,21 +1257,24 @@
                 window.location = window.location
                   .toString()
                   .replace(/quranBakurube.html|quranJaufar.html/, "quran.html")
-                  .replace(/quranBakurube|quranJaufarTable/, "quranTable")
+                  .replace(/quranBakurubeTable|quranJaufarTable/, "quranTable")
                   .replace(/\:v.*$/, "");
               }
               function qClick2() {
                 window.location = window.location
                   .toString()
                   .replace(/quran.html|quranJaufar.html/, "quranBakurube.html")
-                  .replace(/quranTable|quranJaufarTable/, "quranBakurubeTable")
+                  .replace(
+                    /quranTableTable|quranJaufarTable/,
+                    "quranBakurubeTable"
+                  )
                   .replace(/\:v.*$/, "");
               }
               function qClick3() {
                 window.location = window.location
                   .toString()
                   .replace(/quran.html|quranBakurube.html/, "quranJaufar.html")
-                  .replace(/quranTable|quranBakurube/, "quranJaufarTable")
+                  .replace(/quranTable|quranBakurubeTable/, "quranJaufarTable")
                   .replace(/\:v.*$/, "");
               }
             </script>
