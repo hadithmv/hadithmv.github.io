@@ -4352,10 +4352,12 @@ cols="60"-->
             var pattern = /[+-]?\d+(?:\.\d+)?/g;
             var totalSum = document
               .getElementById("textSumArea")
-              .value.match(pattern)
+              .value.replace(/\,/g, "")
+              .match(pattern)
               .reduce(function (prev, num) {
                 return prev + +num;
               }, 0);
+            // added .replace(/\,/g, "") this gets rid of commas in the number values
 
             //console.log(str.match(pattern)); // ["12", "0", "9"]
             //console.log(total); // 21
