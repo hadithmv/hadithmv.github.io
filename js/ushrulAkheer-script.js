@@ -113,7 +113,7 @@ $(document).ready(() => {
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: [5],
+        targets: [4],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -162,7 +162,7 @@ $(document).ready(() => {
       },
       {
         className: "uAkheerCol4", // dv
-        targets: [4],
+        targets: [3],
         visible: true,
         searchable: true,
         searchPanes: {
