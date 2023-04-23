@@ -106,7 +106,7 @@ $(document).ready(() => {
       {
         data: 2,
         title: "އިނގިރޭސި ލަފްޒު",
-      },
+      } /*
       {
         data: 3,
         title: "އަރަބި މާނަ",
@@ -118,7 +118,7 @@ $(document).ready(() => {
       {
         data: 5,
         title: "އިނގިރޭސި މާނަ",
-      },
+      },*/,
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
@@ -148,30 +148,18 @@ $(document).ready(() => {
         visible: false,
         searchable: true,
       },
-      /* {
-        className: 'rCol3', // ar mean
-        targets: [2],
-        visible: false,
-        searchable: false
-      }, */
       {
         className: "rCol3", // dv word
         targets: [2],
         visible: true,
         searchable: true,
       },
-      /* {
-        className: 'rCol4', // dv mean
-        targets: [5],
-        visible: false,
-        searchable: false
-      }, */
       {
         className: "rCol4", // en word
         targets: [3],
         visible: true,
         searchable: true,
-      },
+      } /*
       {
         className: "rCol5", // ar meaning
         targets: [4],
@@ -189,7 +177,7 @@ $(document).ready(() => {
         targets: [6],
         visible: true,
         searchable: true,
-      },
+      },*/,
 
       // below strips html tags off keystable copy, second part with keys on
       {
