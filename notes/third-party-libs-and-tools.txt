@@ -10,6 +10,7 @@ https://github.com/microsoft/vscode -MIT
 https://github.com/notepad-plus-plus/notepad-plus-plus -GNU GPLv2
 https://developer.android.com/studio -Apache 2.0
 https://r8.googlesource.com/r8
+https://ldplayer.net
 
 https://github.com/kangax/html-minifier -MIT
 https://github.com/google/closure-compiler -Apache 2.0
