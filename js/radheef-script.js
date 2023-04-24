@@ -91,22 +91,14 @@ $(document).ready(() => {
           //return data.replace(/[ًٌٍَُِّْ]/g, '')
         },
       },
-      /* {
-        data: 1,
-        title: 'އަރަބި މާނަ'
-      }, */
       {
         data: 1,
         title: "ދިވެހި ލަފްޒު",
       },
-      /* {
-        data: 3,
-        title: 'ދިވެހި މާނަ'
-      }, */
       {
         data: 2,
         title: "އިނގިރޭސި ލަފްޒު",
-      } /*
+      },
       {
         data: 3,
         title: "އަރަބި މާނަ",
@@ -118,7 +110,7 @@ $(document).ready(() => {
       {
         data: 5,
         title: "އިނގިރޭސި މާނަ",
-      },*/,
+      },
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
@@ -159,7 +151,7 @@ $(document).ready(() => {
         targets: [3],
         visible: true,
         searchable: true,
-      } /*
+      },
       {
         className: "rCol5", // ar meaning
         targets: [4],
@@ -177,7 +169,7 @@ $(document).ready(() => {
         targets: [6],
         visible: true,
         searchable: true,
-      },*/,
+      },
 
       // below strips html tags off keystable copy, second part with keys on
       {
