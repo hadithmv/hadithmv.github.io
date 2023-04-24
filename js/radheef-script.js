@@ -207,7 +207,7 @@ $(document).ready(() => {
     processing: true,
 
     // ordering of columns - by default, allows to click on column head to order
-    ordering: true, // CHANGE 123 - FOR RADHEEF ONLY
+    ordering: false, // CHANGE 123 - FOR RADHEEF ONLY (previously true)
 
     // stateSave: true // Breaks table, use the one below
     // Restore table state on page reload. When enabled aDataTables will store
