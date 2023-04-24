@@ -953,6 +953,14 @@
           />
 
           <button
+            onclick="oneLine();triggerTheCounts();"
+            class="ttClass"
+            data-tooltip="Removes newlines in text, making it one line"
+          >
+            One Single Line
+          </button>
+
+          <button
             id="extraSpaces"
             onclick="replaceSpacesLines();triggerTheCounts();"
             class="ttClass"
@@ -2637,6 +2645,7 @@
                 .replace(/9/g, "⁹");
             }
           }
+          //
 
           // https://stackoverflow.com/questions/13807207/regex-find-a-number-between-parentheses/13807294#13807294
           function replaceFootNos() {
@@ -2646,6 +2655,7 @@
               .replace(/^.*?\[[^\d]*(\d+)[^\d]*\].*$/g, "")
               .replace(/⁽(.*)⁾/g, "");
           }
+          //
 
           function remThiki() {
             document.getElementById("textMainArea").value = document
@@ -2661,6 +2671,14 @@
               .replace(/ޤ/g, "ގ")
               .replace(/ޥ/g, "ވ");
           }
+          //
+
+          function oneLine() {
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/\n/g, "");
+          }
+          //
 
           var replaceSpacesLines_timesClicked = 0;
           function replaceSpacesLines() {
@@ -2726,6 +2744,7 @@
                 "Rmv More Space";
             }
           }
+          //
 
           function replacePunct() {
             document.getElementById("textMainArea").value = document
@@ -2767,6 +2786,7 @@
               .replace(/\.\./g, ".")
               .replace(/\.\./g, ".");
           }
+          //
 
           var replaceCommaScolonQ_timesClicked = 0;
           function replaceCommaScolonQ() {
