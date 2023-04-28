@@ -80,13 +80,19 @@ $(document).ready(() => {
         data: 1,
         title: "އަރަބި ލިޔުން",
       },
+
+      {
+        data: 2,
+        title: "ދިވެހި ތަރުޖަމާ",
+      },
+
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
       {
         /* instead of repeating this part of the array within the external json,
         we can strip diacritics using regex within the table itself, this makes
         the array file much smaller in the long run */
-        data: 1,
-        title: "އަރަބި ފިލިނުޖަހައި",
+        data: 2,
+        title: "ފިލިނުޖަހާ ދ ތަރުޖަމާ",
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
           return (
@@ -99,26 +105,22 @@ $(document).ready(() => {
           //return data.replace(/[ًٌٍَُِّْ]/g, '')
         },
       },
-      {
-        data: 2,
-        title: "ދިވެހި ތަރުޖަމާ",
-      },
-      {
+      /*{
         data: 3,
         title: "ތަޚްރީޖު އަރަބިން",
-      },
+      },*/
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
       // adds footnote line for shurooh
-      {
+      /*{
         targets: [4],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
         },
-      },
+      },*/
 
       /* replace \n newlines from json to <br> in table
       https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
@@ -152,17 +154,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "uAkheerCol3", // Ar Text Plain
+        className: "uAkheerCol3", // dv
         targets: [2],
-        visible: false,
-        searchable: true,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "uAkheerCol4", // dv
-        targets: [3],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -171,6 +164,16 @@ $(document).ready(() => {
       },
 
       {
+        className: "uAkheerCol4", // Dv Text Plain
+        targets: [3],
+        visible: false,
+        searchable: true,
+        searchPanes: {
+          show: false,
+        },
+      },
+
+      /*{
         className: "uAkheerCol5", // ar ref
         targets: [4],
         visible: true,
@@ -178,7 +181,7 @@ $(document).ready(() => {
         searchPanes: {
           show: false,
         },
-      },
+      },*/
 
       // below strips html tags off keystable copy, second part with keys on
       {
@@ -394,13 +397,10 @@ $(document).ready(() => {
           // \r\n prevents first header showing up unneeded (windows)
           // \n prevents first header showing up unneeded (linux) this needs come after windows rn
 
-          data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
+          data = data.replace(/ސަފުހާ #\t/g, ""); // should be this way instead of /\tފޮތް/
           data = data.replace(/އަރަބި ލިޔުން\t/g, "");
-          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
-          data = data.replace(/English\t/g, "");
-          data = data.replace(/ތަޚްރީޖު އަރަބިން\t/g, "");
-          data = data.replace(/شرح النجمي\t/g, "");
+          data = data.replace(/ފިލިނުޖަހާ ދ ތަރުޖަމާ\t/g, "");
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
             "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
