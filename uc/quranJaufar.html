@@ -55,7 +55,7 @@
     <!-- mmenu-demo -->
     <!-- prettier-ignore -->
     <style>
-.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:57px;padding-left:2px;padding-right:2px}@media (max-width: 599px){.content{padding-top:50px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme: dark){body{background-color:#0e1621;color:#c5cfd6}}
+.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media (max-width:599px){.content{padding-top:45px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme:dark){body{background-color:#0e1621;color:#c5cfd6}}
 
     </style>
     <!-- Critical CSS - END -->
@@ -75,13 +75,13 @@
 
       /* change123 html */
 
-      @font-face {
-        font-family: "arFont";
+      /*@font-face {
+        font-family:"mergedFont";
         src: url(../font/UthmanicHafs1-Ver18-mod.woff2) format("woff2"),
           url(../font/UthmanicHafs1-Ver18-mod.woff) format("woff"),
           url(../font/UthmanicHafs1-Ver18.ttf) format("truetype");
-        font-display: block; /* previously swap */
-      }
+        font-display: block;
+      }*/
 
       /* === --- === --- ====
          CUSTOM COLUMN CLASSES
@@ -136,7 +136,7 @@
       .dataTable tr td.qCol4,
       .dataTable tr td.qCol5,
       .dataTable tr td.qCol6 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
+        font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
         font-size: 21px;
         line-height: 2;
 
@@ -149,34 +149,34 @@
 
       .dataTable tr td.qCol7,
       .dataTable tr td.qCol8 {
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
+        font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
         font-size: 17px;
         line-height: 2.2;
       }
 
       /* columns with ar numbers
         .dataTable tr td.qCol2 {
-          font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
+          font-family:"mergedFont", "Quicksand", sans-serif, "faruma";
           font-size: 21px;
         } */
 
       /* css for first column
         # number column cuz it has hashtag and digits
         .dataTable tr td.qCol1 {
-          font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
+          font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
           font-size: 21px;
         } */
 
       /* quran only tafsir sa'di font and line height smaller
 
       .dataTable tr td.qCol9 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
+        font-family:"mergedFont", "Quicksand", sans-serif, "faruma";
         font-size: 20px;
         line-height: 1.6;
       }
 
       .dataTable tr td.qCol10 {
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
+        font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
         font-size: 16px;
         line-height: 1.9;
       }*/
@@ -422,8 +422,8 @@
           loading="lazy"
           src="../img/logo/logo.svg"
         />
-        <span class="hideOnPhoneOnly arMasdar">تفسير القرآن لجعفر – </span
-        >ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު
+        <span class="hideOnPhoneOnly">تفسير القرآن لجعفر – </span>ޖަޢުފަރުގެ
+        ގުރްއާން ތަފްސީރު
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -2028,7 +2028,7 @@
               ހައްލުކޮށް، ދެން ހުރި ފޮތްތައް ވެސް ހިމެނިގެން ދާނެއެވެ. &nbsp;⚠️
             </p>
 
-            <p class="arMasdar">مصدر النص: تفسير القرآن الكريم - لجعفر فائز</p>
+            <p>مصدر النص: تفسير القرآن الكريم - لجعفر فائز</p>
 
             <p>Dhivehi | Explanation of the Noble Quran - Jaufar Faiz</p>
 
@@ -2064,7 +2064,7 @@
               ފޮތް ޑޭޓާބޭސްއަށް ޑިޖިޓައިޒު ކުރާ ސްކްރިޕްޓް ހެދީ
               <a href="https://twitter.com/mohamedxylam">މުޙައްމަދު ޖައިލަމް</a
               >.
-              <span class="arMasdar">جزاه الله خيرا.</span>
+              <span>جزاه الله خيرا.</span>
             </p>
 
             <hr class="lineVerticalSpace" />
@@ -2110,7 +2110,7 @@
             <div class="justi">
               <h2 class="mid"><a>މުޤައްދިމާ</a></h2>
 
-              <p class="arMasdar mid">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</p>
+              <p class="mid">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</p>
 
               <h3 class="mid"><a>މުއައްލިފުގެ ތަޢާރަފެއް </a></h3>
 
@@ -2189,11 +2189,11 @@
 
               <hr class="lineVerticalSpace" />
 
-              <p class="arMasdar mid">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</p>
+              <p class="mid">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</p>
 
               <h3 class="mid"><a>އިސްބަސް</a></h3>
 
-              <p class="arMasdar">
+              <p>
                 إنَّ الْحَمْدَ لِلَّهِ نَحْمَدُهُ وَنَسْـتَعِينُهُ
                 وَنَسْتَغْفرُهُ وَنَـعُوْذُ بِاللهِ مِنْ شُرُورِ أَنْـفُسِنَا
                 وَمِنْ سَيِّئَاتِ أَعْمَالِنَا، مَنْ يَـهْدِهِ اللهُ فَلاَ
@@ -2290,7 +2290,7 @@
 
               <hr class="lineVerticalSpace" />
 
-              <p class="arMasdar mid">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</p>
+              <p class="mid">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</p>
 
               <h3 class="mid"><a>ޝުކްރުގެ ބަހެއް </a></h3>
 
@@ -2342,11 +2342,11 @@
 
               <hr class="lineVerticalSpace" />
 
-              <p class="arMasdar mid">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</p>
+              <p class="mid">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</p>
 
               <h3 class="mid"><a>ތަފްސީރުގެ މުޤައްދިމާ </a></h3>
 
-              <p class="arMasdar">
+              <p>
                 إنَّ الْـحَمْدَ لِلَّهِ نَحْمَدُهُ وَنَسْتَعِينُهُ
                 وَنَسْتَـغْفِرُهُ وَنَـعُوْذُ بِاللهِ مِنْ شُرُورِ أَنْـفُسِنَا
                 وَمِنْ سَيِّئَاتِ أَعْمَالِنَا، مَنْ يَهْدِهِ اللهُ فَلاَ
@@ -2936,7 +2936,7 @@
                 ހަނދުމަނައްތައިލި މީހަކު ކަމުގައި އަދި ޤުރްއާނަށް ފުރަގަސްދިން
                 މީހަކު ކަމުގައި ތިބާ ވެވަޑައިނުގަންނަވާށެވެ!
               </p>
-              <p class="arMasdar">
+              <p>
                 فَـنَسْأَلُ اللهَ أَنْ يُـوَفِّقَنَا لِتَـوْبَةٍ نَصُوحٍ وَأَنْ
                 يَـتَـقَبَّلَ مِنَّا صَالِحَ اْلأَعْمَالِ وَأَنْ يَـتَجَاوَزَ
                 عَمَّا فِيهَا مِنْ نَـقْصِ وَزَلَلٍ، وَأَنْ يَجْعَلَ خَيْـرَ
