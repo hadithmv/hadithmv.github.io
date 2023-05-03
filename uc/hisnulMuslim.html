@@ -55,94 +55,8 @@
     <!-- mmenu-demo -->
     <!-- prettier-ignore -->
     <style>
-    .header nav {
-      display: none
-    }
+    .header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media (max-width:599px){.content{padding-top:45px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme:dark){body{background-color:#0e1621;color:#c5cfd6}}
 
-    .content,
-    .header {
-      text-align: center
-    }
-
-    .header {
-      background: #0f4c75;
-      color: #fff;
-      line-height: 50px;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
-      width: 100%;
-      height: 50px;
-      padding: 0 50px;
-      z-index: 999;
-      box-shadow: 0 1px 2.5px rgb(0 0 0/20%)
-    }
-
-    .header.fixed {
-      position: fixed;
-      top: 0;
-      left: 0
-    }
-
-    .header a {
-      display: block;
-      width: 28px;
-      height: 18px;
-      padding: 11px;
-      margin: 5px;
-      position: absolute;
-      top: 0;
-      right: 0
-    }
-
-    .header a::after,
-    .header a::before {
-      content: "";
-      display: block;
-      background: #fff;
-      height: 2px
-    }
-
-    .header a span {
-      background: #fff;
-      display: block;
-      height: 2px;
-      margin: 6px 0
-    }
-
-    .content {
-      padding-top: 57px;
-      padding-left: 2px;
-      padding-right: 2px
-    }
-
-    @media (max-width: 599px) {
-      .content {
-        padding-top: 50px
-      }
-    }
-
-    #page>div.header:hover {
-      background-color: #0d4266;
-      cursor: pointer
-    }
-
-    .hmvLogo1 {
-      top: 0;
-      left: 0;
-      display: block;
-      height: 40px;
-      width: 40px;
-      position: absolute;
-      margin-left: 11px;
-      margin-top: 4.7px
-    }
-
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #0e1621;
-        color: #c5cfd6
-      }
-    }
   </style>
     <!-- Critical CSS - END -->
 
@@ -152,33 +66,6 @@
       /* === --- === --- ====
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
-
-      /* css for first column, number column
-      cuz it has hashtag and digits */
-      .dataTable tr td.hisnCol1 {
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-        /* bold headers for first number at top */
-        font-weight: bold;
-        /*text-align: center;*/
-      }
-
-      /* kitab baab and takhrij colors */
-      .dataTable > tbody > tr > td.hisnCol1,
-      .dataTable > tbody > tr > td.hisnCol2,
-      .dataTable > tbody > tr > td.hisnCol3,
-      .dataTable > tbody > tr > td.hisnCol4 {
-        color: #0f4c75 !important;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        .dataTable > tbody > tr > td.hisnCol1,
-        .dataTable > tbody > tr > td.hisnCol2,
-        .dataTable > tbody > tr > td.hisnCol3,
-        .dataTable > tbody > tr > td.hisnCol4 {
-          color: #66bce6 !important;
-        }
-      }
 
       /* removes justify from ar dv (titles and refs) + rs.
          justify doesnt look good on short cells like surukhi, masdars.
@@ -202,57 +89,6 @@
         }
       }
 
-      /* --- AR FONTS FOR TABLE --- */
-
-      /* tbody tr td.hisnCol1, */
-      .dataTable tr td.hisnCol2,
-      .dataTable tr td.hisnCol5,
-      .dataTable tr td.hisnCol6,
-      .dataTable tr td.hisnCol9 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 23px;
-        line-height: 1.7;
-
-        /* font-size-adjust: 0.1; this breaks firefox font size */
-      }
-
-      /* --- DV FONTS FOR TABLE --- */
-
-      /* .dataTable tr td.hisnCol1, need this bigger */
-      .dataTable tr td.hisnCol3,
-      .dataTable tr td.hisnCol7,
-      .dataTable tr td.hisnCol10 {
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-        font-size: 17px;
-        line-height: 1.9;
-      }
-
-      /* columns with ar numbers 
-      .dataTable tr td.hisnCol7,
-      .dataTable tr td.hisnCol9 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-      } */
-
-      /* mobile Umdah only kitab bab top bottom padding removal */
-      @media screen and (max-width: 900px) {
-        .dataTable tr td.hisnCol2,
-        .dataTable tr td.hisnCol3,
-        .dataTable tr td.hisnCol4 {
-          padding-top: 0;
-          padding-bottom: 0;
-        }
-      }
-
-      /* english */
-      .dataTable tr td.hisnCol8 {
-        font-family: sans-serif;
-        font-size: 17px;
-        direction: ltr;
-        text-align: justify;
-        line-height: 1.4;
-      }
-
       /* en chapter */
       .dataTable tr td.hisnCol4 {
         font-family: sans-serif;
@@ -260,6 +96,16 @@
         direction: ltr;
         /*text-align: justify;*/
         line-height: 1.4;
+      }
+
+      /* # Eng kitab colors */
+      .dataTable tr td.hisnCol4 {
+        color: #0f4c75 !important;
+      }
+      @media (prefers-color-scheme: dark) {
+        .dataTable tr td.hisnCol4 {
+          color: #66bce6 !important;
+        }
       }
 
       /* SEARCH PANE MODS FOR ENGLISH */
@@ -275,13 +121,6 @@
 
       #DataTables_Table_2 > tbody > tr > td > div > span.dtsp-name:before {
         content: "\00a0";
-      }
-
-      /* takhrij font size */
-      .dataTable tr td.hisnCol9 {
-        font-size: 21px;
-        line-height: 1.7;
-        padding-bottom: 25px;
       }
     </style>
     <!-- === INT CSS - END === -->
@@ -300,8 +139,7 @@
           loading="lazy"
           src="../img/logo/logo.svg"
         />
-        <span class="hideOnPhoneOnly arMasdar">حصن المسلم – </span>މުސްލިމުންގެ
-        ކިއްލާ
+        <span class="hideOnPhoneOnly">حصن المسلم – </span>މުސްލިމުންގެ ކިއްލާ
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -587,7 +425,7 @@
 
             <hr class="lineVerticalSpace" />
 
-            <p class="arMasdar">
+            <p>
               مصدر النص: حصن المسلم من أذكار الكتاب والسنة - لسعيد بن على بن وهف
               القحطاني (ت ١٤٤٠ هـ) <br />
               الناشر: مؤسسة الجريسي للتوزيع والإعلان
@@ -638,10 +476,8 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                شرح حصن المسلم - لمجدي بن عبد الوهاب الأحمد
-              </span>
-              | މަޖްދީ އަލްއަޙްމަދުގެ ޝަރަހައިގެ އަރަބި
+              شرح حصن المسلم - لمجدي بن عبد الوهاب الأحمد | މަޖްދީ
+              އަލްއަޙްމަދުގެ ޝަރަހައިގެ އަރަބި
 
               <a
                 href="https://shamela.ws/book/96495"
@@ -659,10 +495,8 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                إتحاف المسلم بشرح حصن المسلم - لسعيد بن علي بن وهف القحطاني
-              </span>
-              | ގަޙްޠާނީގެ ޝަރަހައިގެ އަރަބި
+              إتحاف المسلم بشرح حصن المسلم - لسعيد بن علي بن وهف القحطاني |
+              ގަޙްޠާނީގެ ޝަރަހައިގެ އަރަބި
               <a
                 href="https://archive.org/details/ithaful-muslim-sharh-hisnul-muslim"
                 rel="noopener noreferrer"
@@ -673,7 +507,7 @@
 
             <hr class="lineVerticalSpace" />
 
-            <p class="arMasdar justi">
+            <p class="justi">
               بسم الله الرحمن الرحيم
               <br />
               ‌‌المقدمة
@@ -716,7 +550,7 @@
 
             <hr class="lineVerticalSpace" />
 
-            <p class="arMasdar justi">
+            <p class="justi">
               ‌‌فَضْلُ الذِّكِر
               <br />
               قَالَ اللَّهُ تَعَالَى: {فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُواْ

@@ -150,6 +150,15 @@ $(document).ready(() => {
 
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
+      // adds footnote line for shurooh
+      {
+        targets: [9],
+        render: function (data, type, row) {
+          data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
+          return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
+        },
+      },
+
       /* replace \n newlines from json to <br> in table
       https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
       {
@@ -164,7 +173,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "muwCol1", // #
+        className: "Col1", // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -182,7 +191,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "muwCol3", // Book
+        className: "ColKitab", // Book
         targets: [2],
         visible: true,
         searchable: true,
@@ -191,7 +200,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "muwCol4", // Book Dv
+        className: "ColKitab2", // Book Dv
         targets: [3],
         visible: false,
         searchable: false,
@@ -200,7 +209,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "muwCol5", // Baab
+        className: "ColBaab", // Baab
         targets: [4],
         visible: true,
         searchable: true,
@@ -209,7 +218,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "muwCol6", // Baab Dv
+        className: "ColBaab2", // Baab Dv
         targets: [5],
         visible: false,
         searchable: false,
@@ -245,7 +254,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "muwCol10", // Takhrij
+        className: "ColTakhrij", // Takhrij
         targets: [9],
         visible: true,
         searchable: false,
@@ -635,7 +644,7 @@ $(document).ready(() => {
     $(".dataTable").on("page.dt", () => {
       $("html, body").animate(
         {
-          scrollTop: 148, //prev 0
+          scrollTop: 190, //prev 0
         },
         "fast"
       );

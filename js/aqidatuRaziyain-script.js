@@ -156,7 +156,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "nwqCol1", // #
+        className: "Col1", // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -212,7 +212,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "nwqCol5", // Eng Text
+        className: "ColEng", // Eng Text
         targets: [4],
         visible: false,
         searchable: true,
@@ -669,7 +669,7 @@ $(document).ready(() => {
     $(".dataTable").on("page.dt", () => {
       $("html, body").animate(
         {
-          scrollTop: 148, //prev 0
+          scrollTop: 190, //prev 0
         },
         "fast"
       );

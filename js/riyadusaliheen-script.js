@@ -165,7 +165,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "riyadCol1", // #
+        className: "Col1", // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -174,7 +174,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "riyadCol2", // Book
+        className: "ColKitab", // Book
         targets: [1],
         visible: true,
         searchable: true,
@@ -183,13 +183,13 @@ $(document).ready(() => {
         },
       },
       {
-        className: "riyadCol3", // Book Dv
+        className: "ColKitab2", // Book Dv
         targets: [2],
         visible: false,
         searchable: false,
       },
       {
-        className: "riyadCol4", // Baab
+        className: "ColBaab", // Baab
         targets: [3],
         visible: true,
         searchable: true,
@@ -198,7 +198,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "riyadCol5", // Baab Dv
+        className: "ColBaab2", // Baab Dv
         targets: [4],
         visible: false,
         searchable: false,
@@ -234,7 +234,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "riyadCol9", // Takhrij
+        className: "ColTakhrij", // Takhrij
         targets: [8],
         visible: true,
         searchable: false,
@@ -631,7 +631,7 @@ $(document).ready(() => {
     $(".dataTable").on("page.dt", () => {
       $("html, body").animate(
         {
-          scrollTop: 148, //prev 0
+          scrollTop: 190, //prev 0
         },
         "fast"
       );

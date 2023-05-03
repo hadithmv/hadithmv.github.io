@@ -137,6 +137,15 @@ $(document).ready(() => {
 
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
+      // adds footnote line for shurooh
+      {
+        targets: [8, 9],
+        render: function (data, type, row) {
+          data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
+          return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
+        },
+      },
+
       /* replace \n newlines from json to <br> in table
       https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
       {
@@ -151,7 +160,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "hisnCol1", // #
+        className: "Col1", // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -160,7 +169,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "hisnCol2", // Ar Title
+        className: "ColKitab", // Ar Title
         targets: [1],
         visible: true,
         searchable: true,
@@ -169,7 +178,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "hisnCol3", // Dv Title
+        className: "ColKitab2", // Dv Title
         targets: [2],
         visible: true,
         searchable: true,
@@ -214,7 +223,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "hisnCol8", // En Text
+        className: "ColEng", // En Text
         targets: [7],
         visible: false,
         searchable: true,
@@ -223,7 +232,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "hisnCol9", // Ar Ref
+        className: "ColTakhrij", // Ar Ref
         targets: [8],
         visible: false,
         searchable: false,
@@ -232,7 +241,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "hisnCol10", // Dv Ref
+        className: "ColTakhrij2", // Dv Ref
         targets: [9],
         visible: false,
         searchable: false,
@@ -677,7 +686,7 @@ $(document).ready(() => {
     $(".dataTable").on("page.dt", () => {
       $("html, body").animate(
         {
-          scrollTop: 148, //prev 0
+          scrollTop: 190, //prev 0
         },
         "fast"
       );

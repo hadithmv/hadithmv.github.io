@@ -160,7 +160,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "fnCol1", // #
+        className: "Col1", // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -169,7 +169,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol2", // Ar Title
+        className: "ColKitab", // Ar Title
         targets: [1],
         visible: true,
         searchable: false,
@@ -178,7 +178,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol3", // Dv Title
+        className: "ColKitab2", // Dv Title
         targets: [2],
         visible: false,
         searchable: false,
@@ -214,7 +214,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol7", // Eng Text
+        className: "ColEng", // Eng Text
         targets: [6],
         visible: false,
         searchable: true,
@@ -223,7 +223,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol8", // Ar Ref
+        className: "ColTakhrij", // Ar Ref
         targets: [7],
         visible: true,
         searchable: false,
@@ -232,7 +232,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol9", // Rs Ref
+        className: "ColTakhrij2", // Rs Ref
         targets: [8],
         visible: false,
         searchable: false,
@@ -241,7 +241,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol10", // Sharh
+        className: "ColSharh", // Sharh
         targets: [9],
         visible: false,
         searchable: false,
@@ -250,7 +250,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol11", // Sharh2
+        className: "ColSharh2", // Sharh2
         targets: [10],
         visible: false,
         searchable: false,
@@ -259,7 +259,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol12", // Sharh2
+        className: "ColSharh3", // Sharh2
         targets: [11],
         visible: false,
         searchable: false,
@@ -710,7 +710,7 @@ $(document).ready(() => {
     $(".dataTable").on("page.dt", () => {
       $("html, body").animate(
         {
-          scrollTop: 148, //prev 0
+          scrollTop: 190, //prev 0
         },
         "fast"
       );
