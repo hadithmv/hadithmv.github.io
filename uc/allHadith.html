@@ -56,7 +56,7 @@
     <!-- mmenu-demo -->
     <!-- prettier-ignore -->
     <style>
-.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:57px;padding-left:2px;padding-right:2px}@media (max-width: 599px){.content{padding-top:50px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme: dark){body{background-color:#0e1621;color:#c5cfd6}}
+.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media (max-width:599px){.content{padding-top:45px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme:dark){body{background-color:#0e1621;color:#c5cfd6}}
 
     </style>
     <!-- Critical CSS - END -->
@@ -67,30 +67,6 @@
       /* === --- === --- ====
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
-
-      /* css for first column, number column
-      cuz it has hashtag and digits */
-      .dataTable tr td.allHCol1 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-        /* bold headers for first number at top */
-        /*font-weight: bold;*/
-        /*text-align: center;*/
-      }
-
-      /* kitab baab and takhrij colors */
-      .dataTable > tbody > tr > td.allHCol1,
-      .dataTable > tbody > tr > td.allHCol2,
-      .dataTable > tbody > tr > td.allHCol3 {
-        color: #0f4c75 !important;
-      }
-      @media (prefers-color-scheme: dark) {
-        .dataTable > tbody > tr > td.allHCol1,
-        .dataTable > tbody > tr > td.allHCol2,
-        .dataTable > tbody > tr > td.allHCol3 {
-          color: #66bce6 !important;
-        }
-      }
 
       /* removes justify from ar dv (titles and refs) + rs.
       justify doesnt look good on short cells like surukhi, masdars.
@@ -111,65 +87,7 @@
         }
       }
 
-      /* adds padding to top on mobile */
-      @media screen and (max-width: 900px) {
-        .allHCol1 {
-          padding-top: 10px !important;
-        }
-
-        /* removes padding below number on mobile */
-        .allHCol3 {
-          padding: 0px !important;
-        }
-      }
-
-      /* --- AR FONTS FOR TABLE --- */
-
-      /* tbody tr td.allHCol1, */
-
-      .dataTable tr td.allHCol1,
-      .dataTable tr td.allHCol3,
-      .dataTable tr td.allHCol4,
-      .dataTable tr td.allHCol5,
-      .dataTable tr td.allHCol7,
-      .dataTable tr td.allHCol8 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 23px;
-        line-height: 1.7;
-      }
-
-      /* --- DV FONTS FOR TABLE --- */
-
-      /* .dataTable tr td.fnCol1, need this bigger */
-
-      .dataTable tr td.allHCol2,
-      .dataTable tr td.allHCol6 {
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-        font-size: 17px;
-        line-height: 1.9;
-      }
-
-      /* takhrij font size */
-      .dataTable tr td.allHCol7,
-      .dataTable tr td.allHCol8 {
-        font-size: 21px;
-      }
-
-      /* columns with ar numbers
-      .dataTable tr td.allHCol7,
-      .dataTable tr td.allHCol9 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-      } */
-
-      /* extra changes from fnCols */
-
-      /* .dataTable tr td.allHCol5 {
-              text-align: center; */
-
-      /* font-size: 18px; */
-
-      /* } */
+      /* f
     </style>
     <!-- === INT CSS - END === -->
   </head>
@@ -187,8 +105,8 @@
           loading="lazy"
           src="../img/logo/logo.svg"
         />
-        <span class="hideOnPhoneOnly arMasdar">جامع الأحاديث – </span
-        >އެއްކުރަމުންދާ ޙަދީޘްތައް
+        <span class="hideOnPhoneOnly">جامع الأحاديث – </span>އެއްކުރަމުންދާ
+        ޙަދީޘްތައް
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>

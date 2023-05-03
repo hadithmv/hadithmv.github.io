@@ -55,7 +55,7 @@
     <!-- mmenu-demo -->
     <!-- prettier-ignore -->
     <style>
-.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:57px;padding-left:2px;padding-right:2px}@media (max-width: 599px){.content{padding-top:50px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme: dark){body{background-color:#0e1621;color:#c5cfd6}}
+.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media (max-width:599px){.content{padding-top:45px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme:dark){body{background-color:#0e1621;color:#c5cfd6}}
 
     </style>
     <!-- Critical CSS - END -->
@@ -75,13 +75,13 @@
 
       /* change123 html */
 
-      @font-face {
-        font-family: "arFont";
+      /*@font-face {
+        font-family:"mergedFont";
         src: url(../font/UthmanicHafs1-Ver18-mod.woff2) format("woff2"),
           url(../font/UthmanicHafs1-Ver18-mod.woff) format("woff"),
           url(../font/UthmanicHafs1-Ver18.ttf) format("truetype");
-        font-display: block; /* previously swap */
-      }
+        font-display: block;
+      }*/
 
       /* === --- === --- ====
          CUSTOM COLUMN CLASSES
@@ -136,7 +136,7 @@
       .dataTable tr td.qCol4,
       .dataTable tr td.qCol5,
       .dataTable tr td.qCol6 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
+        font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
         font-size: 21px;
         line-height: 2;
 
@@ -149,34 +149,34 @@
 
       .dataTable tr td.qCol7,
       .dataTable tr td.qCol8 {
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
+        font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
         font-size: 17px;
         line-height: 2.2;
       }
 
       /* columns with ar numbers
         .dataTable tr td.qCol2 {
-          font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
+          font-family:"mergedFont", "Quicksand", sans-serif, "faruma";
           font-size: 21px;
         } */
 
       /* css for first column
         # number column cuz it has hashtag and digits
         .dataTable tr td.qCol1 {
-          font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
+          font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
           font-size: 21px;
         } */
 
       /* quran only tafsir sa'di font and line height smaller
 
       .dataTable tr td.qCol9 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
+        font-family:"mergedFont", "Quicksand", sans-serif, "faruma";
         font-size: 20px;
         line-height: 1.6;
       }
 
       .dataTable tr td.qCol10 {
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
+        font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
         font-size: 16px;
         line-height: 1.9;
       }*/
@@ -423,8 +423,8 @@
           src="../img/logo/logo.svg"
         />
 
-        <span class="hideOnPhoneOnly arMasdar">ترجمة بكر بي – </span>ބަކުރުބެގެ
-        ގުރްއާން ތަރުޖަމާ
+        <span class="hideOnPhoneOnly">ترجمة بكر بي – </span>ބަކުރުބެގެ ގުރްއާން
+        ތަރުޖަމާ
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -2026,9 +2026,7 @@
               }
             </script>
 
-            <p class="arMasdar">
-              مصدر النص: ترجمة معاني القرآن الكريم - لأبي بكر إبراهيم علي
-            </p>
+            <p>مصدر النص: ترجمة معاني القرآن الكريم - لأبي بكر إبراهيم علي</p>
 
             <p>
               Dhivehi | Translation of the Meanings of the Noble Quran -
@@ -2181,9 +2179,9 @@
             <hr class="lineVerticalSpace" />
 
             <div class="justi">
-              <p class="arMasdar mid">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</p>
+              <p class="mid">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</p>
               <h2 class="mid"><a>مقدمة</a></h2>
-              <p class="arMasdar">
+              <p>
                 الحَمْدُ لِلَّهِ الَّذِى لَهُ مَا فِى السَّمواتِ وَمَا فِى
                 الأَرْضِ وَلَهُ الحَمْدُ فِى الآخِرَةِ وَهُوَ الحَكِيمُ الخَبِير
                 وَأَشْهَدُ أَنْ لاَ إلَهَ إلاّ اللَّهُ وَحْدَهُ لاَ شَرِيْكَ
@@ -2231,32 +2229,28 @@
               <div style="text-align: right; display: inline-block">
               </div>
               -->
-              <p class="arMasdar">
+              <p>
                 (1) جَامِعُ البَيان عَن تَأْوِيل آى القُرْآن = لأبِى جَعْفَر
                 مُحَمَّد بن جَرِير الطَّبَرى
               </p>
-              <p class="arMasdar">
+              <p>
                 (2) تَفْسِير القُرْآن العَظِيم = لِلحَافِظ عِمَاد الدِّين أبى
                 الفِداء إسماعيل ابن كَثِير القُرَشِى
               </p>
-              <p class="arMasdar">
+              <p>
                 (3) الجامِعُ لأِحْكَامِ القُرْآن = لأبِى عَبْداللَّه مُحَمَّد بن
                 أحْمَدُ لأنْصَارِى القُرْطُبى
               </p>
-              <p class="arMasdar">
+              <p>
                 (4) فَتْحُ القَدِير (بَنين فَنىء الرِّوايَة والدِّرايَة) =
                 لِمُحَمَّدُ بن عَلِى بن مُحَمَّد الشَّوكانِى
               </p>
-              <p class="arMasdar">
-                (5) أيْسَرُ التَّفاسِير = لأبِى بَكْربن جابِر الجَزائِرِى
-              </p>
-              <p class="arMasdar">
+              <p>(5) أيْسَرُ التَّفاسِير = لأبِى بَكْربن جابِر الجَزائِرِى</p>
+              <p>
                 (6) زُبْدَةُ التَّفْسِير = د. مُحَمَّد سُلَيْمَان عَبْد اللَّه
                 الأشْقَر
               </p>
-              <p class="arMasdar">
-                (7) النَّفْسِيْرُ المُيَسّر = نُخْبَة مِنَ العُلَمَاء
-              </p>
+              <p>(7) النَّفْسِيْرُ المُيَسّر = نُخْبَة مِنَ العُلَمَاء</p>
 
               <p>މިފޮތްތަކާއި، އަދި މިނޫންވެސް ބައެއް ފޮތް ހިމެނެއެވެ.</p>
               <p>
@@ -2320,18 +2314,16 @@
                 اللّه އެވެ. ހަމަކަށަވަރުން އިބަރަސްކަލާނގެއީ ކޮންމެކަމެއްގެ
                 މައްޗަށް ކުޅަދުންވަންތަވެ ވޮޑިގެންވާ ކަލާނގެކަން يقين އެވެ.
               </p>
-              <p class="arMasdar">
+              <p>
                 إنَّهُ جَوَادٌ كَرِيم – وَصَلَّى اللَّهُ وَسَلَّمَ عَلَى
                 مُحَمَّدٍ وَعَلَى آلِهِ وَأَصْحَابِهِ أجْمَعِين وَسَلاَمٌ عَلَى
                 المُرْسَلِين وَالْحَمْدُ لِلَّهِ رَبِّ العالَمِين وَبِاللَّهِ
                 التَّوفِيق
               </p>
-              <p class="arMasdar">27 رَجَب 1427 هـ</p>
+              <p>27 رَجَب 1427 هـ</p>
               <p>21 އޯގަސްޓް 2006 މ</p>
-              <p class="arMasdar" style="text-align: left">
-                أبُو بكْر إبْراهِيم عَلِى
-              </p>
-              <p class="arMasdar" style="text-align: left">
+              <p style="text-align: left">أبُو بكْر إبْراهِيم عَلِى</p>
+              <p style="text-align: left">
                 هِنَّوَرِى&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
               </p>
 

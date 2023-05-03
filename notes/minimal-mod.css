@@ -77,7 +77,7 @@ To move forward, just start with the first sub directory and keep moving forward
 
 .hmvVer {
   direction: ltr;
-  font-family: "dvFont", sans-serif;
+  font-family: "mergedFont", sans-serif;
 }
 
 /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page */
@@ -92,30 +92,31 @@ http://github.com/orderedlist/minimal
 */
 
 /* ====================
-   Fonts - REMEBER TO CHANGE THESE FOR fonts.css AS WELL
+   Fonts - REMEMBER TO CHANGE THESE FOR minimal-mod.css // fonts.css AS WELL
 ======================= */
 
-/* arabic */
+/* ====================
+   Fonts - REMEMBER TO CHANGE THESE FOR minimal-mod.css // fonts.css AS WELL
+======================= */
+
+/* Change the default font family in all browsers. */
+html {
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+  -webkit-font-smoothing: antialiased;
+  text-align: right;
+  direction: rtl;
+}
+
+/* MERGED */
 @font-face {
-  font-family: arFont;
-  src: url(../font/Yakout-mod.woff2) format("woff2"),
-    url(../font/Yakout-mod.woff) format("woff"),
-    url(../font/Yakout-Linotype-W20-Light.ttf) format("truetype");
+  font-family: "mergedFont";
+  src: url(../font/merged-light.woff2) format("woff2"),
+    url(../font/merged-light.woff) format("woff"),
+    url(../font/merged-light.otf) format("opentype");
   font-display: block; /* previously swap */
 }
 
-/* UPDATE - THIS SEEMS TO BE FIXED UNIVERSALLY AS OF 10/12/21
-chromium webview has an issue with thaana rendering, letters get mashed together,
-only seems to happen for woff and woff2, use original unmodified otf or ttf to get it fixed */
-
-/* dhivehi */
-@font-face {
-  font-family: dvFont;
-  src: url(../font/mvtyper-mod.woff2) format("woff2"),
-    url(../font/mvtyper-mod.woff) format("woff"),
-    url(../font/mvtyper.ttf) format("truetype");
-  font-display: block; /* previously swap */
-}
+/* */
 
 /* ../ is parent dir
   
@@ -136,7 +137,7 @@ body {
   padding: 30px; /* padding: 50px; */
   padding-top: 10px; /* added this */
   font-size: 16px;
-  font-family: dvFont, arFont, Quicksand, sans-serif, faruma;
+  font-family: mergedFont, Quicksand, sans-serif, faruma;
 
   /* -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, */
@@ -528,17 +529,17 @@ p {
 }
 
 .dv {
-  font-family: dvFont, arFont, Quicksand, sans-serif, faruma;
+  font-family: mergedFont, Quicksand, sans-serif, faruma;
   line-height: 2.1;
 }
 
 h1.ar {
-  font-family: arFont, dvFont, Quicksand, sans-serif, faruma;
+  font-family: mergedFont, Quicksand, sans-serif, faruma;
   font-size: 32px;
 }
 
 .ar {
-  font-family: arFont, dvFont, Quicksand, sans-serif, faruma;
+  font-family: mergedFont, Quicksand, sans-serif, faruma;
   line-height: 1.8;
   font-size: 21px;
 }
@@ -696,9 +697,8 @@ thaana mish mash render fix - END
 #Footer {
   text-align: justify;
   text-align-last: center;
-  font-family: dvFont, arFont, Quicksand, sans-serif, faruma;
-  font-size: 17px;
-  line-height: 1.9;
+  font-family: mergedFont, Quicksand, sans-serif, faruma;
+  font-size: 20px;7;
   direction: rtl;
   padding: 15px;
   padding-top: 30px;
@@ -944,7 +944,7 @@ h3 {
   font-size: 17px;
 
   /* added */
-  font-family: dvFont, arFont, Quicksand, sans-serif, faruma;
+  font-family: mergedFont, Quicksand, sans-serif, faruma;
   color: #eee;
   flex-grow: 1;
   min-width: 20%;

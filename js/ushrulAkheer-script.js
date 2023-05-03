@@ -136,7 +136,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "uAkheerCol1", // #
+        className: "Col1", // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -583,7 +583,7 @@ $(document).ready(() => {
     $(".dataTable").on("page.dt", () => {
       $("html, body").animate(
         {
-          scrollTop: 148, //prev 0
+          scrollTop: 190, //prev 0
         },
         "fast"
       );
