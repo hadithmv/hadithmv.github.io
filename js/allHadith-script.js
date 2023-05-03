@@ -196,7 +196,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "allHCol1", // book
+        className: "ColKitab", // book
         targets: [0],
         visible: true,
         searchable: true,
@@ -205,7 +205,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "allHCol2", // book dv
+        className: "ColKitab2", // book dv
         targets: [1],
         visible: false,
         searchable: true,
@@ -214,7 +214,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "allHCol3", // #
+        className: "Col1", // #
         targets: [2],
         visible: true,
         searchable: true,
@@ -247,7 +247,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "allHCol7", // hukum
+        className: "ColTakhrij", // hukum
         targets: [6],
         visible: true,
         searchable: false,
@@ -256,7 +256,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "allHCol8", // takhrij
+        className: "ColTakhrij2", // takhrij
         targets: [7],
         visible: false,
         searchable: false,
@@ -646,7 +646,7 @@ $(document).ready(() => {
     $(".dataTable").on("page.dt", () => {
       $("html, body").animate(
         {
-          scrollTop: 148, //prev 0
+          scrollTop: 190, //prev 0 / 148
         },
         "fast"
       );

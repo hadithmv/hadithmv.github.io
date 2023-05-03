@@ -52,7 +52,7 @@
     <!-- mmenu-demo -->
     <!-- prettier-ignore -->
     <style>
-.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:57px;padding-left:2px;padding-right:2px}@media (max-width: 599px){.content{padding-top:50px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme: dark){body{background-color:#0e1621;color:#c5cfd6}}
+.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media (max-width:599px){.content{padding-top:45px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme:dark){body{background-color:#0e1621;color:#c5cfd6}}
 
   </style>
     <!-- Critical CSS - END -->
@@ -63,21 +63,6 @@
       /* === --- === --- ====
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
-
-      /* bold headers for first number at top
-      .fnCol1 {
-        font-weight: bold;
-      } */
-
-      /* kitab baab and takhrij colors */
-      .dataTable > tbody > tr > td.eegCol5 {
-        color: #0f4c75 !important;
-      }
-      @media (prefers-color-scheme: dark) {
-        .dataTable > tbody > tr > td.eegCol5 {
-          color: #66bce6 !important;
-        }
-      }
 
       /* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells like surukhi, masdars.
@@ -106,68 +91,6 @@ so right align to prevent gaps in text
         }
 
         /* center-justify the last line of text */
-      }
-
-      /* --- AR FONTS FOR TABLE --- */
-
-      /* tbody tr td.fnCol1, */
-
-      .dataTable tr td.eegCol1,
-    .dataTable tr td.eegCol2
-
-    /*.dataTable tr td.eegCol3*/ {
-        /* ar */
-
-        /* ar */
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-        line-height: 1.7;
-
-        /* font-size-adjust: 0.1; this breaks firefox font size */
-      }
-
-      /* --- DV FONTS FOR TABLE --- */
-
-      /* .dataTable tr td.fnCol1, need this bigger */
-
-      .dataTable tr td.eegCol3,
-    .dataTable tr td.eegCol5
-
-    /*.dataTable tr td.eegCol5*/ {
-        /* dv */
-
-        /* dv */
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-        font-size: 17px;
-        line-height: 1.9;
-      }
-
-      /* columns with ar numbers 
-.dataTable tr td.eegCol9 {
-  font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-  font-size: 21px;
-} */
-
-      /* css for first column
-# number column cuz it has hashtag and digits 
-.dataTable tr td.eegCol1 {
-  font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-  font-size: 21px;
-} */
-
-      /* --- EN FOR TABLE --- */
-      .dataTable tr td.eegCol5 {
-        /* en */
-
-        /* ar 
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-        line-height: 1.7; */
-
-        /* direction: ltr; */
-        white-space: nowrap;
-
-        /* prevents word break on sofhaa */
       }
 
       /* desktop radheef only eng word left align */
@@ -210,6 +133,11 @@ so right align to prevent gaps in text
         /* box-shadow: 0 12px 15px 0 rgb(0 0 0 / 24%); */
         box-shadow: 0 1px 1.5px 0 rgba(0, 0, 0, 0.2);
       }
+
+      /* makes sofha number not break into two lines */
+      .dataTable tr td.eegCol5 {
+        white-space: nowrap;
+      }
     </style>
     <!-- === INT CSS - END === -->
   </head>
@@ -228,7 +156,7 @@ so right align to prevent gaps in text
           src="../img/logo/logo.svg"
         />
 
-        <span class="hideOnPhoneOnly arMasdar">الإيقاظ – </span>އަލްއީޤާޡް
+        <span class="hideOnPhoneOnly">الإيقاظ – </span>އަލްއީޤާޡް
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -388,7 +316,7 @@ so right align to prevent gaps in text
               }
             </script>
 
-            <p class="arMasdar">
+            <p>
               مصدر النص: الإيقاظ في تعليم الألفاظ - لموسى ملم كليكفان (ت ١٣٩٠
               هـ)<br />
               الناشر: مطبع ستاره هند لمطید بكلكته | الطبعة الأولى، ١٣٥٧ هـ -
@@ -572,7 +500,7 @@ so right align to prevent gaps in text
 
             <hr class="lineVerticalSpace" />
 
-            <p class="arMasdar justi">
+            <p class="justi">
               قال محمد قباد أبو بكر: نبذة تعريفية عن كتاب الإيقاظ في تعليم
               الألفاظ
               <br />

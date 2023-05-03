@@ -141,7 +141,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "uSunnahCol1", // #
+        className: "Col1", // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -186,7 +186,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "uSunnahCol6", // ar ref
+        className: "ColTakhrij", // ar ref
         targets: [5],
         visible: true,
         searchable: true,
@@ -195,7 +195,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "uSunnahCol7", // sharh
+        className: "ColSharh", // sharh
         targets: [6],
         visible: false,
         searchable: false,
@@ -607,7 +607,7 @@ $(document).ready(() => {
     $(".dataTable").on("page.dt", () => {
       $("html, body").animate(
         {
-          scrollTop: 148, //prev 0
+          scrollTop: 190, //prev 0
         },
         "fast"
       );

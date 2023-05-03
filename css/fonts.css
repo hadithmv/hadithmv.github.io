@@ -1,25 +1,50 @@
 /* ====================
-   Fonts - REMEBER TO CHANGE THESE FOR minimal-mod.css AS WELL
+   Fonts - REMEMBER TO CHANGE THESE FOR minimal-mod.css // fonts.css AS WELL
 ======================= */
 
-/* arabic */
+/* Change the default font family in all browsers. */
+
+html {
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+  -webkit-font-smoothing: antialiased;
+  text-align: right;
+  direction: rtl;
+  font-size: 120%; /* for tharujamaanu */
+}
+
+/* MERGED */
 @font-face {
+  font-family: "mergedFont";
+  src: url(../font/merged-light.woff2) format("woff2"),
+    url(../font/merged-light.woff) format("woff"),
+    url(../font/merged-light.otf) format("opentype");
+  font-display: block; /* previously swap */
+}
+
+/* */
+/* OLD */
+/* */
+
+/* arabic */
+/*@font-face {
   font-family: "arFont";
   src: url(../font/Yakout-mod.woff2) format("woff2"),
     url(../font/Yakout-mod.woff) format("woff"),
     url(../font/Yakout-Linotype-W20-Light.ttf) format("truetype");
-  font-display: block; /* previously swap */
-}
-
-/* UPDATE - THIS SEEMS TO BE FIXED UNIVERSALLY AS OF 10/12/21
-chromium webview has an issue with thaana rendering, letters get mashed together,
-only seems to happen for woff and woff2, use original unmodified otf or ttf to get it fixed */
+  font-display: block;
+}*/
 
 /* dhivehi */
-@font-face {
+/*@font-face {
   font-family: "dvFont";
   src: url(../font/mvtyper-mod.woff2) format("woff2"),
     url(../font/mvtyper-mod.woff) format("woff"),
     url(../font/mvtyper.ttf) format("truetype");
-  font-display: block; /* previously swap */
-}
+  font-display: block; 
+}*/
+
+/* font-display: block; was previously swap */
+
+/* UPDATE - THIS SEEMS TO BE FIXED UNIVERSALLY AS OF 10/12/21
+chromium webview has an issue with thaana rendering, letters get mashed together,
+only seems to happen for woff and woff2, use original unmodified otf or ttf to get it fixed */

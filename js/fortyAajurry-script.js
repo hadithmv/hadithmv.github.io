@@ -140,7 +140,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "fnCol1", // #
+        className: "Col1", // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -149,7 +149,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol2", // Ar Title
+        className: "ColKitab", // Ar Title
         targets: [1],
         visible: true,
         searchable: false,
@@ -158,7 +158,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol3", // Dv Title
+        className: "ColKitab2", // Dv Title
         targets: [2],
         visible: false,
         searchable: false,
@@ -194,7 +194,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol7", // Ar Ref
+        className: "ColTakhrij", // Ar Ref
         targets: [6],
         visible: true,
         searchable: false,
@@ -203,7 +203,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "fnCol8", // Dv Ref
+        className: "ColTakhrij2", // Dv Ref
         targets: [7],
         visible: false,
         searchable: false,
@@ -656,7 +656,7 @@ $(document).ready(() => {
     $(".dataTable").on("page.dt", () => {
       $("html, body").animate(
         {
-          scrollTop: 148, //prev 0
+          scrollTop: 190, //prev 0
         },
         "fast"
       );

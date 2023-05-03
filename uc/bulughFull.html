@@ -52,7 +52,7 @@
     <!-- mmenu-demo -->
     <!-- prettier-ignore -->
     <style>
-.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:57px;padding-left:2px;padding-right:2px}@media (max-width: 599px){.content{padding-top:50px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme: dark){body{background-color:#0e1621;color:#c5cfd6}}
+.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media (max-width:599px){.content{padding-top:45px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme:dark){body{background-color:#0e1621;color:#c5cfd6}}
 
   </style>
     <!-- Critical CSS - END -->
@@ -63,33 +63,6 @@
       /* === --- === --- ====
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
-
-      /* css for first column, number column
-      cuz it has hashtag and digits */
-      .dataTable tr td.bulCol1 {
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-        /* bold headers for first number at top */
-        font-weight: bold;
-        /*text-align: center;*/
-      }
-      /* kitab baab and takhrij colors */
-      .dataTable > tbody > tr > td.bulCol1,
-      .dataTable > tbody > tr > td.bulCol2,
-      .dataTable > tbody > tr > td.bulCol3,
-      .dataTable > tbody > tr > td.bulCol4,
-      .dataTable > tbody > tr > td.bulCol5 {
-        color: #0f4c75 !important;
-      }
-      @media (prefers-color-scheme: dark) {
-        .dataTable > tbody > tr > td.bulCol1,
-        .dataTable > tbody > tr > td.bulCol2,
-        .dataTable > tbody > tr > td.bulCol3,
-        .dataTable > tbody > tr > td.bulCol4,
-        .dataTable > tbody > tr > td.bulCol5 {
-          color: #66bce6 !important;
-        }
-      }
 
       /* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells like surukhi, masdars.
@@ -115,57 +88,6 @@ so right align to prevent gaps in text */
           text-align: center;
         }
       }
-
-      /* --- AR FONTS FOR TABLE --- */
-
-      /* tbody tr td.fnCol1, */
-
-      .dataTable tr td.bulCol2,
-      .dataTable tr td.bulCol4,
-      .dataTable tr td.bulCol6,
-      .dataTable tr td.bulCol7,
-      .dataTable tr td.bulCol9 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 23px;
-        line-height: 1.7;
-
-        /* font-size-adjust: 0.1; this breaks firefox font size */
-      }
-
-      /* --- DV FONTS FOR TABLE --- */
-
-      /* .dataTable tr td.fnCol1, need this bigger */
-
-      .dataTable tr td.bulCol1,
-      .dataTable tr td.bulCol3,
-      .dataTable tr td.bulCol5,
-      .dataTable tr td.bulCol8 {
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-        font-size: 17px;
-        line-height: 1.9;
-      }
-
-      /* columns with ar numbers */
-      /*.dataTable tr td.bulCol9 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-      }*/
-
-      /* mobile only kitab bab top bottom padding removal */
-      @media screen and (max-width: 900px) {
-        .dataTable tr td.bulCol2,
-        .dataTable tr td.bulCol3,
-        .dataTable tr td.bulCol4,
-        .dataTable tr td.bulCol5 {
-          padding-top: 0;
-          padding-bottom: 0;
-        }
-      }
-
-      /* takhrij font size */
-      .dataTable tr td.bulCol9 {
-        font-size: 21px;
-      }
     </style>
     <!-- === INT CSS - END === -->
   </head>
@@ -183,8 +105,7 @@ so right align to prevent gaps in text */
           loading="lazy"
           src="../img/logo/logo.svg"
         />
-        <span class="hideOnPhoneOnly arMasdar">بلوغ المرام – </span>ބުލޫޣުލް
-        މަރާމް
+        <span class="hideOnPhoneOnly">بلوغ المرام – </span>ބުލޫޣުލް މަރާމް
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -286,7 +207,7 @@ so right align to prevent gaps in text */
               އިތުރަށް ހިމެނުމަށްޓަކައެވެ. &nbsp;⚠️
             </p>
 
-            <p class="arMasdar justi">
+            <p class="justi">
               قَالَ المُؤَلِّفُ: فَالمُرَادُ بِالسَّبْعَةِ: أَحْمَدُ،
               وَالبُخَارِيُّ، وَمُسْلِمٌ، وَأَبُو دَاوُدَ، وَالنَّسَائِيُّ،
               وَالتِّرْمِذِيُّ، وَابْنُ مَاجَهْ. وَبِالسِّتَّةِ: مَنْ عَدَا
@@ -300,7 +221,7 @@ so right align to prevent gaps in text */
 
             <hr class="lineVerticalSpace" />
 
-            <p class="arMasdar">
+            <p>
               مصدر النص: بلوغ المرام من أدلة الأحكام - لأبي الفضل أحمد بن علي بن
               محمد بن أحمد بن حجر العسقلاني الشافعي (ت ٨٥٢ هـ)
               <br />
@@ -362,10 +283,8 @@ so right align to prevent gaps in text */
             </p>
 
             <p>
-              <span class="arMasdar">
-                منحة العلام في شرح بلوغ المرام - لعبد الله بن صالح الفوزان
-              </span>
-              | ޢަބްދު ﷲ އަލްފައުޒާނުގެ ޝަރަހައިގެ އަރަބި
+              منحة العلام في شرح بلوغ المرام - لعبد الله بن صالح الفوزان |
+              ޢަބްދު ﷲ އަލްފައުޒާނުގެ ޝަރަހައިގެ އަރަބި
 
               <a
                 href="https://shamela.ws/book/690"
@@ -383,10 +302,8 @@ so right align to prevent gaps in text */
             </p>
 
             <p>
-              <span class="arMasdar">
-                توضيح الأحكام من بلوغ المرام - لعبد الله بن عبد الرحمن البسام
-              </span>
-              | ބައްސާމުގެ ޝަރަހައިގެ އަރަބި
+              توضيح الأحكام من بلوغ المرام - لعبد الله بن عبد الرحمن البسام |
+              ބައްސާމުގެ ޝަރަހައިގެ އަރަބި
 
               <a
                 href="https://shamela.ws/book/13604"
@@ -404,10 +321,8 @@ so right align to prevent gaps in text */
             </p>
 
             <p>
-              <span class="arMasdar">
-                شرح بلوغ المرام - لعبد الكريم الخضير
-              </span>
-              | ޚުޟައިރުގެ ޝަރަހައިގެ އަރަބި
+              شرح بلوغ المرام - لعبد الكريم الخضير | ޚުޟައިރުގެ ޝަރަހައިގެ
+              އަރަބި
 
               <a
                 href="https://shamela.ws/book/22644"
@@ -418,10 +333,8 @@ so right align to prevent gaps in text */
             </p>
 
             <p>
-              <span class="arMasdar">
-                فتح ذي الجلال والإكرام بشرح بلوغ المرام - لمحمد بن صالح العثيمين
-              </span>
-              | ޢުޘައިމީންގެ ޝަރަހައިގެ އަރަބި
+              فتح ذي الجلال والإكرام بشرح بلوغ المرام - لمحمد بن صالح العثيمين |
+              ޢުޘައިމީންގެ ޝަރަހައިގެ އަރަބި
               <a
                 href="https://shamela.ws/book/29558"
                 rel="noopener noreferrer"
@@ -438,10 +351,8 @@ so right align to prevent gaps in text */
             </p>
 
             <p>
-              <span class="arMasdar">
-                الشرح المختصر على بلوغ المرام - لمحمد بن صالح العثيمين
-              </span>
-              | ޢުޘައިމީންގެ ކުރު ޝަރަހައިގެ އަރަބި
+              الشرح المختصر على بلوغ المرام - لمحمد بن صالح العثيمين |
+              ޢުޘައިމީންގެ ކުރު ޝަރަހައިގެ އަރަބި
               <a
                 href="https://archive.org/details/sharh-mukhtasar-bulughul-maram-uthaymeen"
                 rel="noopener noreferrer"
@@ -451,10 +362,8 @@ so right align to prevent gaps in text */
             </p>
 
             <p>
-              <span class="arMasdar">
-                سبل السلام شرح بلوغ المرام - لمحمد بن إسماعيل الأمير الصنعاني
-              </span>
-              | ޞަންޢާނީގެ ޝަރަހައިގެ އަރަބި
+              سبل السلام شرح بلوغ المرام - لمحمد بن إسماعيل الأمير الصنعاني |
+              ޞަންޢާނީގެ ޝަރަހައިގެ އަރަބި
               <a
                 href="https://shamela.ws/book/1082"
                 rel="noopener noreferrer"
@@ -495,7 +404,7 @@ so right align to prevent gaps in text */
 
             <hr class="lineVerticalSpace" />
 
-            <p class="arMasdar justi">
+            <p class="justi">
               قال المحقق: وصف النسخ المعتمدة في تحقيق المتن:
               <br />
               اعتمدت في تحقيق المتن على أربع نسخ خطية هي من أقدم ما خط في المتن،
