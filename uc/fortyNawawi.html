@@ -55,7 +55,7 @@
     <!-- mmenu-demo -->
     <!-- prettier-ignore -->
     <style>
-.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:57px;padding-left:2px;padding-right:2px}@media (max-width: 599px){.content{padding-top:50px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme: dark){body{background-color:#0e1621;color:#c5cfd6}}
+.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media (max-width:599px){.content{padding-top:45px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme:dark){body{background-color:#0e1621;color:#c5cfd6}}
 
   </style>
     <!-- Critical CSS - END -->
@@ -66,31 +66,6 @@
       /* === --- === --- ====
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
-
-      /* css for first column, number column
-      cuz it has hashtag and digits */
-      .dataTable tr td.fnCol1 {
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-        /* bold headers for first number at top */
-        font-weight: bold;
-        /*text-align: center;*/
-      }
-
-      /* kitab baab and takhrij colors */
-      .dataTable > tbody > tr > td.fnCol1,
-      .dataTable > tbody > tr > td.fnCol2,
-      .dataTable > tbody > tr > td.fnCol3 {
-        color: #0f4c75 !important;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        .dataTable > tbody > tr > td.fnCol1,
-        .dataTable > tbody > tr > td.fnCol2,
-        .dataTable > tbody > tr > td.fnCol3 {
-          color: #66bce6 !important;
-        }
-      }
 
       /* removes justify from ar dv (titles and refs) + rs.
          justify doesnt look good on short cells like surukhi, masdars.
@@ -110,63 +85,6 @@
           text-align: center;
         }
       }
-
-      /* --- AR FONTS FOR TABLE --- */
-
-      /* tbody tr td.fnCol1, */
-      .dataTable tr td.fnCol2,
-      .dataTable tr td.fnCol4,
-      .dataTable tr td.fnCol5,
-      .dataTable tr td.fnCol8,
-      .dataTable tr td.fnCol9 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 23px;
-        line-height: 1.7;
-
-        /* font-size-adjust: 0.1; this breaks firefox font size */
-      }
-
-      /* --- DV FONTS FOR TABLE --- */
-
-      /* .dataTable tr td.fnCol1, need this bigger */
-      .dataTable tr td.fnCol3,
-      .dataTable tr td.fnCol6 {
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-        font-size: 17px;
-        line-height: 1.9;
-      }
-
-      /* columns with ar numbers */
-      /*.dataTable tr td.fnCol8,
-      .dataTable tr td.fnCol10 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-      }*/
-
-      /* english */
-      .dataTable tr td.fnCol7 {
-        font-family: sans-serif;
-        font-size: 17px;
-        direction: ltr;
-        text-align: justify;
-        line-height: 1.4;
-      }
-
-      /* sharhs */
-      .dataTable tr td.fnCol10,
-      .dataTable tr td.fnCol11,
-      .dataTable tr td.fnCol12 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-      }
-
-      /* takhrij */
-      .dataTable tr td.fnCol8,
-      .dataTable tr td.fnCol9 {
-        font-size: 21px;
-        line-height: 1.7;
-        padding-bottom: 25px;
-      }
     </style>
     <!-- === INT CSS - END === -->
   </head>
@@ -185,8 +103,8 @@
           src="../img/logo/logo.svg"
         />
         <!--<span class="navText">ޙަދީޘްއެމްވީ – ނަވަވީގެ 40 ޙަދީޘް</span>-->
-        <span class="hideOnPhoneOnly arMasdar">الأربعون النووية – </span
-        >ނަވަވީގެ ސާޅީސް ޙަދީޘް
+        <span class="hideOnPhoneOnly">الأربعون النووية – </span>ނަވަވީގެ ސާޅީސް
+        ޙަދީޘް
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -333,7 +251,7 @@
 
             <hr class="lineVerticalSpace" />
 
-            <p class="arMasdar">
+            <p>
               مصدر النص: ‌‌الأربعون في مباني الإسلام وقواعد الأحكام (الأربعون
               النووية) - لأبي زكريا محيي الدين يحيى بن شرف النووي الشافعي (ت ٦٧٦
               هـ)
@@ -377,14 +295,12 @@
             <hr class="lineVerticalSpace" />
 
             <p>
-              <span class="arMasdar">
-                مصدر الشرح في هذه الصفحة ١: فتح القوي المتين في شرح الأربعين
-                وتتمة الخمسين للنووي وابن رجب - لعبد عبد المحسن بن حمد العباد
-                البدر
-                <br />
-                طبعة دار ابن القيم، الدمام المملكة العربية السعودية | الطبعة
-                الأولى، ١٤٢٤ هـ - ٢٠٠٣ م.
-              </span>
+              مصدر الشرح في هذه الصفحة ١: فتح القوي المتين في شرح الأربعين وتتمة
+              الخمسين للنووي وابن رجب - لعبد عبد المحسن بن حمد العباد البدر
+              <br />
+              طبعة دار ابن القيم، الدمام المملكة العربية السعودية | الطبعة
+              الأولى، ١٤٢٤ هـ - ٢٠٠٣ م.
+
               <br />
               މި ސަފުހައިގައިވާ ޝަރަހަ 1: ޢައްބާދުގެ ޝަރަހައިގެ އަރަބި
               <a
@@ -403,12 +319,11 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                مصدر الشرح في هذه الصفحة ٢: شرح الأربعين النووية - لعبد الكريم
-                بن عبد الله الخضير
-                <br />
-                دروس مفرغة من موقع الشيخ الخضير، ١٤٣٥ هـ.
-              </span>
+              مصدر الشرح في هذه الصفحة ٢: شرح الأربعين النووية - لعبد الكريم بن
+              عبد الله الخضير
+              <br />
+              دروس مفرغة من موقع الشيخ الخضير، ١٤٣٥ هـ.
+
               <br />
               މި ސަފުހައިގައިވާ ޝަރަހަ 2: ޚުޟައިރުގެ ޝަރަހަ
               <br />
@@ -428,9 +343,8 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                مصدر الشرح في هذه الصفحة ٣: شروح الأحاديث من موقع الدرر السنية
-              </span>
+              مصدر الشرح في هذه الصفحة ٣: شروح الأحاديث من موقع الدرر السنية
+
               <br />
               މި ސަފުހައިގައިވާ ޝަރަހަ 3: ދުރަރުއްސަނިއްޔާގެ ޝަރަހައިގެ
               <br />
@@ -499,10 +413,8 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                شرح الأربعين النووية - لعبد المحسن بن محمد القاسم
-              </span>
-              | އަލްގާސިމްގެ ޝަރަހައިގެ އަރަބި
+              شرح الأربعين النووية - لعبد المحسن بن محمد القاسم | އަލްގާސިމްގެ
+              ޝަރަހައިގެ އަރަބި
               <a
                 href="https://archive.org/details/sharh-arbaoon-nawawi-alqasim"
                 rel="noopener noreferrer"
@@ -512,10 +424,8 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                شرح الأربعين النووية - لمحمد بن صالح العثيمين
-              </span>
-              | ޢުޘައިމީންގެ ޝަރަހައިގެ އަރަބި
+              شرح الأربعين النووية - لمحمد بن صالح العثيمين | ޢުޘައިމީންގެ
+              ޝަރަހައިގެ އަރަބި
               <a
                 href="https://shamela.ws/book/21812"
                 rel="noopener noreferrer"
@@ -532,10 +442,8 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                المنحة الربانية - لصالح بن فوزان عبد الله الفوزان
-              </span>
-              ފައުޒާނުގެ ޝަރަހައިގެ އަރަބި
+              المنحة الربانية - لصالح بن فوزان عبد الله الفوزان ފައުޒާނުގެ
+              ޝަރަހައިގެ އަރަބި
               <a
                 href="https://archive.org/details/minhatu-rabbaniyya-fawzan"
                 rel="noopener noreferrer"
@@ -545,10 +453,8 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                التحفة الربانية - لإسماعيل بن محمد السعدي الأنصاري
-              </span>
-              | އިސްމާޢީލު އަލްއަންޞާރީގެ ޝަރަހައިގެ އަރަބި
+              التحفة الربانية - لإسماعيل بن محمد السعدي الأنصاري | އިސްމާޢީލު
+              އަލްއަންޞާރީގެ ޝަރަހައިގެ އަރަބި
               <a
                 href="https://shamela.ws/book/4469"
                 rel="noopener noreferrer"
@@ -565,8 +471,7 @@
             </p>
 
             <p>
-              <span class="arMasdar"> شرح الأربعين النووية - لابن باز </span>
-              | ބިން ބާޒުގެ ޝަރަހައިގެ އަރަބި
+              شرح الأربعين النووية - لابن باز | ބިން ބާޒުގެ ޝަރަހައިގެ އަރަބި
               <a
                 href="https://archive.org/details/sharh-arbaoon-nawawi-baz"
                 rel="noopener noreferrer"
@@ -576,10 +481,8 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                شرح الأربعين النووية - لصالح العصيمي
-              </span>
-              | ޢުޞައިމީގެ ޝަރަހައިގެ އަރަބި
+              شرح الأربعين النووية - لصالح العصيمي | ޢުޞައިމީގެ ޝަރަހައިގެ
+              އަރަބި
               <a
                 href="https://archive.org/details/sharh-arbaoon-nawawi-usaimy"
                 rel="noopener noreferrer"
@@ -589,10 +492,8 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                شرح الأربعين النووية - لصالح آل الشيخ
-              </span>
-              | ޞާލިޙު އާލްޝައިޚުގެ ޝަރަހައިގެ އަރަބި
+              شرح الأربعين النووية - لصالح آل الشيخ | ޞާލިޙު އާލްޝައިޚުގެ
+              ޝަރަހައިގެ އަރަބި
               <a
                 href="https://archive.org/details/sharh-arbaoon-nawawi-salih-aalsheikh"
                 rel="noopener noreferrer"
@@ -602,10 +503,8 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                إعراب الأربعين حديثا النووية - لحسني عبد الجليل يوسف
-              </span>
-              | ޙުސްނީގެ އިޢުރާބުގެ އަރަބި
+              إعراب الأربعين حديثا النووية - لحسني عبد الجليل يوسف | ޙުސްނީގެ
+              އިޢުރާބުގެ އަރަބި
               <a
                 href="https://archive.org/details/iurab-arbaoon-nawawi-husnee"
                 rel="noopener noreferrer"
@@ -615,10 +514,8 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                إعراب الأربعين النووية - لعمر بن عبد الله العمري
-              </span>
-              | ޢުމަރީގެ އިޢުރާބުގެ އަރަބި
+              إعراب الأربعين النووية - لعمر بن عبد الله العمري | ޢުމަރީގެ
+              އިޢުރާބުގެ އަރަބި
 
               <a
                 href="https://ketabonline.com/ar/books/12753/read?part=1&page=1&index=2438233"
@@ -636,8 +533,7 @@
             </p>
 
             <p>
-              <span class="arMasdar"> جامع العلوم والحكم - لابن رجب </span>
-              | އިބްނު ރަޖަބުގެ ޝަރަހައިގެ އަރަބި
+              جامع العلوم والحكم - لابن رجب | އިބްނު ރަޖަބުގެ ޝަރަހައިގެ އަރަބި
               <a
                 href="https://shamela.ws/book/949"
                 rel="noopener noreferrer"
@@ -655,7 +551,7 @@
 
             <hr class="lineVerticalSpace" />
 
-            <p class="arMasdar justi">
+            <p class="justi">
               قال المحقق: النسخ المعتمدة في تحقيق هذا المثن:
               <br />
               - نسخة خطية بمكتبة نظام يعقوبي الخاصة - البحرين -، تاريح نسخها:

@@ -55,7 +55,7 @@
     <!-- mmenu-demo -->
     <!-- prettier-ignore -->
     <style>
-.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 2px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:57px;padding-left:2px;padding-right:2px}@media (max-width: 599px){.content{padding-top:50px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.5px}@media (prefers-color-scheme: dark){body{background-color:#0e1621;color:#c5cfd6}}
+.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media (max-width:599px){.content{padding-top:45px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme:dark){body{background-color:#0e1621;color:#c5cfd6}}
 
   </style>
     <!-- Critical CSS - END -->
@@ -66,11 +66,6 @@
       /* === --- === --- ====
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
-
-      /* bold headers for first number at top
-      .fnCol1 {
-        font-weight: bold;
-      } */
 
       /* removes justify from ar dv (titles and refs) + rs.
 justify doesnt look good on short cells like surukhi, masdars.
@@ -88,7 +83,6 @@ so right align to prevent gaps in text
       .dataTable tr td.rCol2,
       .dataTable tr td.rCol3,
       .dataTable tr td.rCol4
-
       /*
         .dataTable tr td.rCol5,
         .dataTable tr td.rCol6 */ {
@@ -96,61 +90,13 @@ so right align to prevent gaps in text
         }
       }
 
-      /* --- AR FONTS FOR TABLE --- */
-
-      /* tbody tr td.fnCol1, */
-
-      .dataTable tr td.rCol1,
-    .dataTable tr td.rCol2,
-    .dataTable tr td.rCol5
-
-    /*.dataTable tr td.rCol3*/ {
-        /* ar */
-
-        /* ar */
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-        line-height: 1.7;
-
-        /* font-size-adjust: 0.1; this breaks firefox font size */
-      }
-
-      /* --- DV FONTS FOR TABLE --- */
-
-      /* .dataTable tr td.fnCol1, need this bigger */
-
-      .dataTable tr td.rCol3,
-      .dataTable tr td.rCol6
-
-    /*.dataTable tr td.rCol5*/ {
-        /* dv */
-
-        /* dv */
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-        font-size: 17px;
-        line-height: 1.9;
-      }
-
-      /* columns with ar numbers 
-.dataTable tr td.rCol9 {
-  font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-  font-size: 21px;
-} */
-
-      /* css for first column
-# number column cuz it has hashtag and digits 
-.dataTable tr td.rCol1 {
-  font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-  font-size: 21px;
-} */
-
       /* --- EN FOR TABLE --- */
       .dataTable tr td.rCol4,
       .dataTable tr td.rCol7 {
         /* en */
 
         /* ar 
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
+        font-family:"mergedFont", "Quicksand", sans-serif, "faruma";
         font-size: 21px;
         line-height: 1.7; */
         direction: ltr;
@@ -210,7 +156,7 @@ so right align to prevent gaps in text
           loading="lazy"
           src="../img/logo/logo.svg"
         />
-        <span class="hideOnPhoneOnly arMasdar"
+        <span class="hideOnPhoneOnly"
           >القاموس الجامع (عربي ديفهي إنجليزي) – </span
         >އެއްކުރަމުންދާ ރަދީފު
         <span class="hideOnPhoneOnly"> (އަރަބި ދިވެހި އިނގިރޭސި) </span>

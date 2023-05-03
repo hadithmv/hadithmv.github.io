@@ -55,7 +55,7 @@
     <!-- mmenu-demo -->
     <!-- prettier-ignore -->
     <style>
-.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;-moz-box-sizing:border-box;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:57px;padding-left:2px;padding-right:2px}@media (max-width: 599px){.content{padding-top:50px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme: dark){body{background-color:#0e1621;color:#c5cfd6}}
+.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media (max-width:599px){.content{padding-top:45px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme:dark){body{background-color:#0e1621;color:#c5cfd6}}
 
   </style>
     <!-- Critical CSS - END -->
@@ -66,30 +66,6 @@
       /* === --- === --- ====
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
-
-      /* css for first column, number column
-      cuz it has hashtag and digits */
-      .dataTable tr td.nwqCol1 {
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-        /* bold headers for first number at top */
-        font-weight: bold;
-        /*text-align: center;*/
-      }
-
-      /* kitab baab and takhrij colors */
-      .dataTable > tbody > tr > td.nwqCol1,
-      .dataTable > tbody > tr > td.nwqCol2,
-      .dataTable > tbody > tr > td.nwqCol3 {
-        color: #0f4c75 !important;
-      }
-      @media (prefers-color-scheme: dark) {
-        .dataTable > tbody > tr > td.nwqCol1,
-        .dataTable > tbody > tr > td.nwqCol2,
-        .dataTable > tbody > tr > td.nwqCol3 {
-          color: #66bce6 !important;
-        }
-      }
 
       /* removes justify from ar dv (titles and refs) + rs.
          justify doesnt look good on short cells like surukhi, masdars.
@@ -108,59 +84,6 @@
           text-align: center;
         }
       }
-
-      /* --- AR FONTS FOR TABLE --- */
-
-      /* tbody tr td.nwqCol1, */
-      .dataTable tr td.nwqCol2,
-      .dataTable tr td.nwqCol4,
-      .dataTable tr td.nwqCol5,
-      .dataTable tr td.nwqCol8 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 23px;
-        line-height: 1.7;
-
-        /* font-size-adjust: 0.1; this breaks firefox font size */
-      }
-
-      /* --- DV FONTS FOR TABLE --- */
-
-      /* .dataTable tr td.nwqCol1, need this bigger */
-      .dataTable tr td.nwqCol3,
-      .dataTable tr td.nwqCol6 {
-        font-family: "dvFont", "arFont", "Quicksand", sans-serif, "faruma";
-        font-size: 17px;
-        line-height: 1.9;
-      }
-
-      /* columns with ar numbers */
-      /*.dataTable tr td.nwqCol8 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-      }*/
-
-      /* english */
-      .dataTable tr td.nwqCol7 {
-        font-family: sans-serif;
-        font-size: 17px;
-        direction: ltr;
-        text-align: justify;
-        line-height: 1.4;
-      }
-
-      /* sharhs */
-      .dataTable tr td.nwqCol9,
-      .dataTable tr td.nwqCol10 {
-        font-family: "arFont", "dvFont", "Quicksand", sans-serif, "faruma";
-        font-size: 21px;
-      }
-
-      /* takhrij */
-      .dataTable tr td.nwqCol8 {
-        font-size: 21px;
-        line-height: 1.7;
-        padding-bottom: 25px;
-      }
     </style>
     <!-- === INT CSS - END === -->
   </head>
@@ -178,8 +101,7 @@
           loading="lazy"
           src="../img/logo/logo.svg"
         />
-        <span class="hideOnPhoneOnly arMasdar">القواعد الأربع – </span>ހަތަރު
-        ގަވާއިދު
+        <span class="hideOnPhoneOnly">القواعد الأربع – </span>ހަތަރު ގަވާއިދު
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -280,7 +202,7 @@
               }
             </script>
 
-            <p class="arMasdar">
+            <p>
               مصدر النص: ‌‌القواعد الأربع - لمحمد بن عبد الوهاب بن سليمان
               التميمي النجدي (ت ١٢٠٦ هـ)
               <br />
@@ -318,12 +240,11 @@
             <hr class="lineVerticalSpace" />
 
             <p>
-              <span class="arMasdar">
-                مصدر الشرح في هذه الصفحة ١: شرح القواعد الأربع - لصالح بن فوزان
-                الفوزان
-                <br />
-                طبعة مؤسسة الرسالة، بيروت | الطبعة الأولى، ١٤٢٤ هـ - ٢٠٠٣ م.
-              </span>
+              مصدر الشرح في هذه الصفحة ١: شرح القواعد الأربع - لصالح بن فوزان
+              الفوزان
+              <br />
+              طبعة مؤسسة الرسالة، بيروت | الطبعة الأولى، ١٤٢٤ هـ - ٢٠٠٣ م.
+
               <br />
               މި ސަފުހައިގައިވާ ޝަރަހަ 1: ފައުޒާނުގެ ޝަރަހަ
               <br />
@@ -344,7 +265,7 @@
             </p>
 
             <p>
-              <span class="arMasdar">
+              <span>
                 مصدر الشرح في هذه الصفحة ٢: شرح القواعد الأربع - لصالح بن عبد
                 العزيز آل الشيخ
                 <br />
@@ -382,9 +303,7 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                شرح القواعد الأربع - لعبد المحسن بن محمد القاسم
-              </span>
+              <span> شرح القواعد الأربع - لعبد المحسن بن محمد القاسم </span>
               | އަލްގާސިމްގެ ޝަރަހައިގެ އަރަބި
               <a
                 href="https://archive.org/details/sharh-qawaidul-arbau-alqasim"
@@ -395,9 +314,7 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                شرح القواعد الأربع - لعبد العزيز ابن باز
-              </span>
+              <span> شرح القواعد الأربع - لعبد العزيز ابن باز </span>
               | ބިން ބާޒްގެ ޝަރަހައިގެ އަރަބި
               <a
                 href="https://archive.org/details/sharh-qawaidul-arbau-bin-baz"
@@ -408,7 +325,7 @@
             </p>
 
             <p>
-              <span class="arMasdar"> شرح قواعد الأربع - لصالح سندي </span>
+              <span> شرح قواعد الأربع - لصالح سندي </span>
               | ސިންދީގެ ޝަރަހައިގެ އަރަބި
               <a
                 href="https://archive.org/details/sharh-qawaidul-arbau-sindi"
@@ -419,7 +336,7 @@
             </p>
 
             <p>
-              <span class="arMasdar"> شرح قواعد الأربع - لصالح السحيمي </span>
+              <span> شرح قواعد الأربع - لصالح السحيمي </span>
               | ސުޙައިމީގެ ޝަރަހައިގެ އަރަބި
               <a
                 href="https://archive.org/details/sharh-qawaidul-arbau-suhaimy"
@@ -430,7 +347,7 @@
             </p>
 
             <p>
-              <span class="arMasdar"> شرح القواعد الأربع - لعبيد الجابري </span>
+              <span> شرح القواعد الأربع - لعبيد الجابري </span>
               | ޖާބިރީގެ ޝަރަހައިގެ އަރަބި
               <a
                 href="https://archive.org/details/sharh-qawaidul-arbau-jabiri"
@@ -441,9 +358,7 @@
             </p>
 
             <p>
-              <span class="arMasdar">
-                شرح القواعد الأربع - لعبد الرزاق البدر
-              </span>
+              <span> شرح القواعد الأربع - لعبد الرزاق البدر </span>
               | ޢަބްދުއްރައްޒާގުގެ ޝަރަހައިގެ އަރަބި
               <a
                 href="https://archive.org/details/sharh-qawaidul-arbau-badr"
@@ -454,7 +369,7 @@
             </p>
 
             <p>
-              <span class="arMasdar"> شرح القواعد الأربع - لصالح العصيمي </span>
+              <span> شرح القواعد الأربع - لصالح العصيمي </span>
               | އަލްޢުޞައިމީގެ ޝަރަހައިގެ އަރަބި
               <a
                 href="https://archive.org/details/sharh-qawaidul-arbau-usaimy"
@@ -466,7 +381,7 @@
 
             <hr class="lineVerticalSpace" />
 
-            <p class="arMasdar justi">
+            <p class="justi">
               قال المحقق: النسخ المعتمدة في تحقيق هذا المثن:
               <br />
               - نسخة خطية بمركز الملك فيصل - السعودية -، برقم (٥٢٥٨)، تاريخ
