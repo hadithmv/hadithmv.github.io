@@ -1,3 +1,11 @@
+html {
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+  -webkit-font-smoothing: antialiased;
+  text-align: right;
+  direction: rtl;
+  font-size: 120%; /* for tharujamaanu */
+}
+
 /*
 Starting with / returns to the root directory and starts there
 Starting with ../ moves one directory backward and starts there
