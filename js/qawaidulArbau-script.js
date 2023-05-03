@@ -153,7 +153,7 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "nwqCol1", // #
+        className: "Col1", // #
         targets: [0],
         visible: true,
         searchable: true,
@@ -162,7 +162,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "nwqCol2", // Ar Title
+        className: "ColKitab", // Ar Title
         targets: [1],
         visible: true,
         searchable: false,
@@ -171,7 +171,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "nwqCol3", // Dv Title
+        className: "ColKitab2", // Dv Title
         targets: [2],
         visible: false,
         searchable: false,
@@ -207,7 +207,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "nwqCol7", // Eng Text
+        className: "ColEng", // Eng Text
         targets: [6],
         visible: false,
         searchable: true,
@@ -216,7 +216,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "nwqCol8", // Ar Ref
+        className: "ColTakhrij", // Ar Ref
         targets: [7],
         visible: true,
         searchable: false,
@@ -225,7 +225,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "nwqCol9", // Sharh
+        className: "ColSharh", // Sharh
         targets: [8],
         visible: false,
         searchable: false,
@@ -234,7 +234,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "nwqCol10", // Sharh
+        className: "ColSharh2", // Sharh
         targets: [9],
         visible: false,
         searchable: false,
@@ -683,7 +683,7 @@ $(document).ready(() => {
     $(".dataTable").on("page.dt", () => {
       $("html, body").animate(
         {
-          scrollTop: 148, //prev 0
+          scrollTop: 190, //prev 0
         },
         "fast"
       );
