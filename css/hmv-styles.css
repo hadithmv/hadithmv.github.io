@@ -377,7 +377,7 @@ li,
 .header,
 /* for mmenu light nav horizontal bar */
 .mm-spn.mm-spn--navbar::after {
-  font-family: mergedFont, Quicksand, sans-serif, faruma;
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
 
   /* CHANGE123 FONT
               text-align: justify;
@@ -1385,7 +1385,7 @@ div.dtsp-searchPane div.dataTables_scrollBody {
 #footer {
   /* text-align: justify;
   text-align-last: center; */
-  font-family: mergedFont, Quicksand, sans-serif, faruma;
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
   font-size: 20px;
   line-height: 1.7;
   direction: rtl;
@@ -1399,7 +1399,7 @@ div.dtsp-searchPane div.dataTables_scrollBody {
 }
 
 /*.arMasdar {
-  font-family: mergedFont, Quicksand, sans-serif, faruma;
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
   font-size: 20px;
   line-height: 1.7;
   word-spacing: 2px;
@@ -1548,7 +1548,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 ======================= */
 .lowerButtons {
   direction: rtl;
-  font-family: mergedFont, Quicksand, sans-serif, faruma;
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
   font-size: 20px;
 
   /* width: 150px; */
