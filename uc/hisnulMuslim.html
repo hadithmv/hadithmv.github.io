@@ -67,35 +67,20 @@
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
 
-      /* removes justify from ar dv (titles and refs) + rs.
-         justify doesnt look good on short cells like surukhi, masdars.
-         so right align to prevent gaps in text */
-      .dataTable tr td.hisnCol2,
-      .dataTable tr td.hisnCol3,
-      .dataTable tr td.hisnCol9,
-      .dataTable tr td.hisnCol10 {
-        text-align: right;
-      }
-
-      /* mobile only row centering, for rows with strings that are not long */
-      @media screen and (max-width: 900px) {
-        .dataTable tr td.hisnCol1,
-        .dataTable tr td.hisnCol2,
-        .dataTable tr td.hisnCol3,
-        .dataTable tr td.hisnCol4,
-        .dataTable tr td.hisnCol9,
-        .dataTable tr td.hisnCol10 {
-          text-align: center;
-        }
-      }
-
-      /* en chapter */
+      /* en kitab */
       .dataTable tr td.hisnCol4 {
         font-family: sans-serif;
         font-size: 20px;
         direction: ltr;
-        /*text-align: justify;*/
+        text-align: left;
         line-height: 1.4;
+      }
+
+      /* mobile only row centering, for rows with strings that are not long */
+      @media screen and (max-width: 900px) {
+        .dataTable tr td.hisnCol4 {
+          text-align: center;
+        }
       }
 
       /* # Eng kitab colors */
@@ -146,18 +131,6 @@
             <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
             <li>
               <a href="../books/index.html">⛊ މައި ސަފުހާ</a>
-            </li>
-
-            <li>
-              <span>ޑައުންލޯޑުތައް</span>
-              <ul>
-                <li>
-                  <a
-                    href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf"
-                    >ނަވަވީގެ 40 ޙަދީޘް (ޕީޑީއެފް)</a
-                  >
-                </li>
-              </ul>
             </li>
 
             <li>
