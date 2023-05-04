@@ -973,7 +973,7 @@ $(document).ready(() => {
     $(".dataTable").on("page.dt", () => {
       $("html, body").animate(
         {
-          scrollTop: 178, //prev 0 // 148
+          scrollTop: 245, //prev 0 // 148 // 178
         },
         "fast"
       );

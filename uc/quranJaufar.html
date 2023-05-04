@@ -102,8 +102,15 @@
       /* @media screen and (max-width: 900px) { */
 
       /* minimum height for frame */
-      #quranJaufarTable > tbody > tr {
+      #quranTable > tbody > tr {
         min-height: 45vh; /* 300px */
+      }
+
+      /* on mobile */
+      @media screen and (max-width: 900px) {
+        #quranTable > tbody > tr {
+          min-height: 70vh; /* 300px */
+        }
       }
 
       #quranJaufarTable>tbody>tr
@@ -135,7 +142,7 @@
 
         /* spaces out above and below quran table */
         margin-top: 1.6rem;
-        margin-bottom: 2.4rem;
+        /*margin-bottom: 2.4rem;*/
       }
 
       /* reduces margin last item at end of page, NOT WITHIN TABLE BOX, OUTSIDE IT */
@@ -1353,7 +1360,7 @@
                 padding: 5px !important;
                 /**/
                 direction: rtl;
-                font-family: dvFont, arFont, Quicksand, sans-serif, faruma;
+                font-family: mergedFont, Quicksand, sans-serif, faruma;
                 border: 1px solid #aaa;
                 border-radius: 3px;
                 /*background-color: transparent;*/
@@ -1994,9 +2001,9 @@
 
             <p class="justi">
               މި ސަފުހާގައިވާ އާޔަތްތައް ކޮޕީކުރުމަށް ފަހު، ޑެސްކްޓޮޕް ވޯޑުގައި
-              ހަމަ އެ އިންގޮތަށް ދެއްކުމަށްޓަކައި
+              ރީތިކޮށް ދެއްކުމަށްޓަކައި، އުޘްމާން ޠާހާ
               <a href="https://hadithmv.github.io/font/UthmanicHafs_V20.ttf"
-                >މި ފޮންޓު</a
+                >ފޮންޓު</a
               >
               ބޭނުން ކުރެވިދާނެއެވެ.
             </p>
