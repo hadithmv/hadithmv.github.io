@@ -98,7 +98,7 @@ The **Hadithmv** project is a collaborated effort in making the sayings and teac
 
 <br>
 
-<div class="dv">
+<div >
 
 <p align="center">
 - ރަޙްމާންވަންތަ ރަޙީމްވަންތަ ﷲ ގެ އިސްމުފުޅުން ފަށައިގަންނަމެވެ -
@@ -187,7 +187,7 @@ The **Hadithmv** project is a collaborated effort in making the sayings and teac
 
 </div>
 
-<div class="en mid" align="center">
+<div class="mid" align="center">
 <p>For more queries, read our
           <a href="http://hadithmv.github.io/notes/info/FAQ.html">FAQ</a> section | For a list of participants, get to know our <a href="http://hadithmv.github.io/notes/info/contributors.html">contributors</a>
         </p>
