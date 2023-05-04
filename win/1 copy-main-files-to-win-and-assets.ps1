@@ -3,7 +3,7 @@ Set-Location -Path $PSScriptRoot
 # dont delete the folders
 
 # - - -
-# COPY BOOKS
+# COPY BOOKS to android
 # - - -
 # delete old folder in asset
 # Remove-Item "../app/webview-master/app/src/main/assets/books" -Recurse -Force
@@ -25,13 +25,14 @@ Copy-Item ../books/quranJaufar.html -Destination ../app/webview-master/app/src/m
 Copy-Item ../books/radheef.html -Destination ../app/webview-master/app/src/main/assets/books/radheef.html -Recurse -Force
 Copy-Item ../books/umdah.html -Destination ../app/webview-master/app/src/main/assets/books/umdah.html -Recurse -Force
 Copy-Item ../books/usooluThalaatha.html -Destination ../app/webview-master/app/src/main/assets/books/usooluThalaatha.html -Recurse -Force
-# copies minified asset book folder contents to win book folder
+
+# copies minified asset book folder contents to WIN book folder
 Copy-Item ../app/webview-master/app/src/main/assets/books/* -Destination hmv/books -Recurse -Force
-# copies index from win book to win root
+# copies index from WIN book to WIN root
 Copy-Item hmv/books/index.html -Destination hmv/index.html -Recurse -Force
 
 # - - -
-# COPY NOTES
+# COPY NOTES to android
 # - - -
 # delete old folder in asset
 # Remove-Item "../app/webview-master/app/src/main/assets/notes" -Recurse -Force
@@ -43,7 +44,7 @@ Copy-Item ../notes/editorResc.min.css -Destination ../app/webview-master/app/src
 Copy-Item ../notes/editorResc.min.js -Destination ../app/webview-master/app/src/main/assets/notes/editorResc.min.js -Recurse -Force
 
 # - - -
-# COPY INFO
+# COPY INFO to android
 # - - -
 Copy-Item ../notes/info/contributors.html -Destination ../app/webview-master/app/src/main/assets/notes/info/contributors.html -Recurse -Force
 Copy-Item ../notes/info/FAQ.html -Destination ../app/webview-master/app/src/main/assets/notes/info/FAQ.html -Recurse -Force
@@ -59,11 +60,32 @@ Copy-Item ../notes/info/text-editor.html -Destination ../app/webview-master/app/
 Copy-Item ../notes/info/umrah-travel.html -Destination ../app/webview-master/app/src/main/assets/notes/info/umrah-travel.html -Recurse -Force
 Copy-Item ../notes/info/contact.html -Destination ../app/webview-master/app/src/main/assets/notes/info/contact.html -Recurse -Force
 
-# copies previous NOTES INCLUDING INFO folder contents to win notes folder
+# copies previous NOTES INCLUDING INFO folder contents to WIN notes folder
 Copy-Item ../app/webview-master/app/src/main/assets/notes/* -Destination hmv/notes -Recurse -Force
 
 # - - -
-# COPY MINIFIED JS SCRIPTS
+# COPY font to android
+# - - -
+Copy-Item ../font/merged-light.woff2 -Destination ../app/webview-master/app/src/main/assets/font/merged-light.woff2 -Recurse -Force
+
+# copies previous font to WIN font folder
+Copy-Item  ../app/webview-master/app/src/main/assets/font/* -Destination hmv/font -Recurse -Force
+
+
+# - - -
+# COPY imgs to android
+# - - -
+Copy-Item ../img/logo/logo.svg -Destination ../app/webview-master/app/src/main/assets/img/logo/logo.svg -Recurse -Force
+
+# copies previous imgs to WIN font folder
+Copy-Item  ../app/webview-master/app/src/main/assets/img/* -Destination hmv/img -Recurse -Force
+
+#
+#
+#
+
+# - - -
+# COPY MINIFIED JS SCRIPTS to android
 # - - -
 # delete old folder in asset
 # Remove-Item "../app/webview-master/app/src/main/assets/js" -Recurse -Force
@@ -85,13 +107,13 @@ Copy-Item ../js/umdah-script.min.js -Destination ../app/webview-master/app/src/m
 Copy-Item ../js/usooluThalaatha-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/usooluThalaatha-script.min.js -Recurse -Force
 
 # - - -
-# COPY JS RESOURCE FILES
+# COPY JS RESOURCE FILES to android
 # - - -
 Copy-Item ../js/resc/COMB-Crit.min.js -Destination ../app/webview-master/app/src/main/assets/js/resc/COMB-Crit.min.js -Recurse -Force
 Copy-Item ../js/resc/COMB-nonCrit.min.js -Destination ../app/webview-master/app/src/main/assets/js/resc/COMB-nonCrit.min.js -Recurse -Force
 
 # - - -
-# COPY JSON
+# COPY JSON to android
 # - - -
 Copy-Item ../js/json/allHadith.js -Destination ../app/webview-master/app/src/main/assets/js/json/allHadith.js -Recurse -Force
 Copy-Item ../js/json/barbahari.js -Destination ../app/webview-master/app/src/main/assets/js/json/barbahari.js -Recurse -Force
@@ -110,17 +132,22 @@ Copy-Item ../js/json/aqidatuRaziyain.js -Destination ../app/webview-master/app/s
 Copy-Item ../js/json/umdah.js -Destination ../app/webview-master/app/src/main/assets/js/json/umdah.js -Recurse -Force
 Copy-Item ../js/json/usooluThalaatha.js -Destination ../app/webview-master/app/src/main/assets/js/json/usooluThalaatha.js -Recurse -Force
 
-# copies previous JS AND JSON AND RESC folder contents to win js folder
+# copies previous JS AND JSON AND RESC folder contents to WIN js folder
 Copy-Item ../app/webview-master/app/src/main/assets/js/* -Destination hmv/js -Recurse -Force
 
 # - - -
-# COPY MINIFIED CSS
+# COPY MINIFIED CSS to android
 # - - -
 # delete old folder in asset
 # Remove-Item "../app/webview-master/app/src/main/assets/css" -Recurse -Force
 Copy-Item ../css/COMB-nonCrit.min.css -Destination ../app/webview-master/app/src/main/assets/css/COMB-nonCrit.min.css -Recurse -Force
-# copies previous css folder contents to win css folder
+
+# copies previous css folder contents to WIN css folder
 Copy-Item ../app/webview-master/app/src/main/assets/css/* -Destination hmv/css -Recurse -Force
+
+#
+#
+#
 
 #
 # WIN COMPILE

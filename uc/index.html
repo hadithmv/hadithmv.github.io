@@ -235,7 +235,7 @@
       a > .card {
         font-size: 22px;
         color: #0e1621;
-        line-height: 1.5;
+        line-height: 1.5; /* 1.5 */
       }
 
       /*p.dv {
@@ -360,6 +360,19 @@
         /* 47% darken of #ffe3a5 */
         border-top: 5px solid #cc8d00;
         border-bottom: 5px solid #cc8d00;
+      }
+
+      #tab8 .card {
+        border-top: 5px solid #1ec71e;
+        border-bottom: 5px solid #1ec71e;
+      }
+
+      /* reduceds margin spaces around card text, first dhiv, then arabic */
+      .tabcontent > div > div > a > div > p:nth-child(1) {
+        margin-bottom: 8px;
+      }
+      .tabcontent > div > div > a > div > p:nth-child(2) {
+        margin-top: 8px;
       }
 
       /*.shCard {
@@ -508,7 +521,7 @@
             </li>
             -->
 
-            <li>
+            <!--<li>
               <span>ޑައުންލޯޑުތައް</span>
               <ul>
                 <li>
@@ -518,7 +531,7 @@
                   >
                 </li>
               </ul>
-            </li>
+            </li>-->
 
             <li>
               <a href="../notes/info/contact.html"
@@ -1201,6 +1214,15 @@
           </div>
 
           <div class="column">
+            <a class="tablinks" onclick="openTab(event, 'tab8');">
+              <div class="card">
+                <p>📥 ޑައުންލޯޑުތައް</p>
+                <p>تحميلات</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="column">
             <a
               href="https://birrumv.com"
               rel="noopener noreferrer"
@@ -1399,6 +1421,75 @@
           >
         </p>
       </div>
+
+      <!-- class="tabcontent"> -->
+
+      <div id="tab8" class="tabcontent">
+        <div class="row">
+          <div class="column">
+            <a href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf">
+              <div class="card">
+                <p>ނަވަވީގެ ސާޅީސް ޙަދީޘް</p>
+                <p>الأربعون النووية</p>
+              </div>
+            </a>
+          </div>
+
+          <!-- -->
+          <div class="column">
+            <a
+              class="tablinks"
+              onclick="openTab(event, 'tab1');"
+              id="defaultOpen"
+            >
+              <div class="card backC">
+                <!-- icon -->
+                <div class="resp-sharing-button andBtn">
+                  <div
+                    aria-hidden="true"
+                    class="resp-sharing-button__icon resp-sharing-button__icon--normal"
+                  >
+                    <div
+                      class="encodedbackBtn"
+                      style="filter: none; height: 50px; width: 50px"
+                    ></div>
+                  </div>
+                </div>
+                <!-- icon -->
+              </div>
+            </a>
+          </div>
+          <!-- -->
+        </div>
+
+        <p class="quoteHere">
+          ﷲ ވަހީ ކުރެއްވިއެވެ: ’ހަމަކަށަވަރުން އުޑުތަކާއި، ބިމުގައި ވާހާ
+          ތަކެއްޗެއް ﷲ ތިޔަބައިމީހުންނަށްޓަކައި ޚިދުމަތްތެރި ކުރެއްވިކަން،
+          ތިޔަބައިމީހުންނަށް ނޭނގޭހެއްޔެވެ؟ އަދި އެ އިލާހުގެ ނިއުމަތްތައް
+          ފާޅުވެގެންވާ ގޮތުގައްޔާއި، ފޮރުވިގެންވާ ގޮތުގައި ތިޔަބައިމީހުންގެ
+          މައްޗަށް ފުރިހަމަކޮށްދެއްވިއެވެ. އަދި އެއްވެސް އިލްމަކާ ނުލާ، ނުވަތަ
+          ތެދުމަގަކާ ނުލާ، ނުވަތަ އަލިކަން ދެނިވި ފޮތަކާ ނުލާ، ﷲ އާމެދު
+          ޖަދަލުކުރާ ބަޔަކު، މީސްތަކުންގެ ތެރެއިން ވެއެވެ.‘ [<span class="ar"
+            >لقمان</span
+          >
+          164]
+        </p>
+
+        <p class="quoteHere">
+          ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”….“ [<span class="ar"
+            >جامع الترمذي
+          </span>
+          2641]
+        </p>
+
+        <p class="quoteHere">
+          އިމާމު ބަރްބަހާރީ [329 ހ.] ވިދާޅުވިއެވެ: .
+          <a href="../books/barbahari.html"
+            >[<span class="ar">شرح السنة للبربهاري</span> 1]</a
+          >
+        </p>
+      </div>
+
       <!-- class="tabcontent"> -->
 
       <div id="tab6" class="tabcontent">
@@ -1987,6 +2078,7 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
 
           .btnText {
             opacity: 0.84;
+            font-size: 18px;
           }
 
           @media (prefers-color-scheme: light) {
@@ -2095,6 +2187,17 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
         <br />
 
         <!-- SOCIAL BUTTONS -->
+
+        <style>
+          /* mobile only row  */
+          @media screen and (max-width: 900px) {
+            .resp-sharing-button__link {
+              margin: 5px !important;
+              margin-top: 15px !important;
+              font-size: 18px;
+            }
+          }
+        </style>
 
         <div style="direction: ltr">
           <!-- Sharingbutton Facebook -->
