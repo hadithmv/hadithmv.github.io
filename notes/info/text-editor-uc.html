@@ -151,9 +151,9 @@
       margin-bottom: 10px;
     }
 
-    .editorButtons button.arButton {
+    /*.editorButtons button.arButton {
       font-size: 17px;
-    }
+    }*/
 
     /*p {
               margin-top: 7px;
@@ -198,7 +198,8 @@
     }
 
     .editorButtons button {
-      font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+      font-family: sans-serif, "mergedFont", "Quicksand", "faruma";
+      /*font-family: "mergedFont", sans-serif, "Quicksand", "faruma";*/
       font-size: 16px;
       width: 150px;
       height: 47px;
@@ -213,8 +214,9 @@
     }
 
     .editorButtons .inputFieldClass {
-      font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
-      font-size: 16px;
+      /*font-family: "mergedFont", "Quicksand", sans-serif, "faruma";*/
+      direction: ltr;
+      font-size: 17px;
       width: 150px;
       height: 47px;
       margin: 5px;
@@ -245,6 +247,7 @@
 
       .editorButtons .inputFieldClass {
         font-size: 13.5px;
+        /**/
         width: 130px;
         height: 50px;
         /*padding: 20px;*/
@@ -255,9 +258,9 @@
         margin-left: 0px;
       }
 
-      .editorButtons button .arButton {
+      /*.editorButtons button .arButton {
         font-size: 15px;
-      }
+      }*/
 
       /*textarea {
                 font-size: 17px;
@@ -295,7 +298,7 @@
     <div class="wrapper">
       <div class="mid">
         <!--
-        <h1 class="ar basmala">بِسمِ اللهِ الرَّحمَنِ الرَّحِيمِ</h1>
+        <h1 class="basmala">بِسمِ اللهِ الرَّحمَنِ الرَّحِيمِ</h1>
         <a href="https://hadithmv.github.io" class="noLine"
           ><img
             class="hmv"
@@ -304,23 +307,17 @@
         /></a>-->
 
         <!--<br /><br />-->
-        <h2
-          class="en"
-          style="margin-top: 4px; margin-bottom: 5px; font-size: 20px"
-        >
+        <h2 style="margin-top: 4px; margin-bottom: 5px; font-size: 20px">
           <b><a href="../../books/index.html">Hadithmv</a></b> Text Editor
           <span class="hideOnPhoneOnly">&nbsp; &nbsp; &nbsp;</span>
           <br class="hideOnTabAndUp" />
-          <span
-            class="hideOnPhoneOnly hmvVer"
-            style="font-size: 17px; direction: rtl"
-            dir="rtl"
+          <span class="hideOnPhoneOnly hmvVer" style="font-size: 19px" dir="rtl"
             >⚙️ އިސްދާރު: v2.97</span
           >
           <span class="hideOnPhoneOnly">&nbsp; &nbsp; &nbsp;</span>
-          <span class="hideOnPhoneOnly" style="font-size: 17px"
-            >— A Collection of Tools —</span
-          >
+          <span class="hideOnPhoneOnly en" style="font-size: 18px">
+            (A Collection of Tools)
+          </span>
         </h2>
       </div>
 
@@ -465,18 +462,7 @@
               // is m
               document.querySelector("#htmlNList").click();
             }
-            if (e.altKey && e.which == 65) {
-              // is a
-              document.querySelector("#repFiliButton").click();
-            }
-            if (e.altKey && e.which == 72) {
-              // is h
-              document.querySelector("#repArFiliButton").click();
-            }
-            if (e.altKey && e.which == 84) {
-              // is t
-              document.querySelector("#remFiliButton").click();
-            }
+
             if (e.altKey && e.which == 88) {
               // is x
               document.querySelector("#extraSpaces").click();
@@ -715,7 +701,7 @@
           }
         </script>
 
-        <p class="buttonHeader" style="margin: 0">
+        <p class="buttonHeader dv" style="margin: 0">
           މަތީގައި ލިޔުމަށްފަހު އެލިޔުން ބަދަލުކުރުމަށް:
         </p>
 
@@ -726,7 +712,7 @@
             class="ttClass"
             data-tooltip="Copies above text into the clipboard for pasting"
           >
-            📋 ކޮޕީ <u>C</u>opy
+            📋 <u>C</u>opy
           </button>
           <button
             onclick="clearTextArea();
@@ -735,25 +721,27 @@
             class="ttClass"
             data-tooltip="Erases everything above"
           >
-            ❌ ފޮހެލާ <u>E</u>rase
+            ❌ <u>E</u>rase
           </button>
 
           <button
             onclick="changeNumsAr();"
-            class="arButton ttClass"
+            class="ttClass"
             data-tooltip="Converts regular numbers to Arabic numbers on the first click, and does the reverse on the second"
+            style="font-weight: bold"
           >
             1️⃣
-            <span style="font-size: 120%">123 ↔ ١٢٣</span>
+            <span style="font-size: 105%">123 ↔ ١٢٣</span>
           </button>
 
           <button
             onclick="replaceArabicFili();triggerTheCounts();"
-            id="repFiliButton"
             class="ttClass"
             data-tooltip="Removes all diacritical marks / tashkeel / haraka of arabic letters"
+            style="font-size: 101%"
+            style="font-weight: bold"
           >
-            عربي ފިލި ފޮހެލާ <u>A</u>
+            عربي ފިލި ފޮހެލާ
           </button>
 
           <button
@@ -762,7 +750,7 @@
             class="ttClass"
             data-tooltip="Saves and downloads the text above as a .txt file to your device, except when using the Android app"
           >
-            📩 ޑައުންލޯޑު <u>D</u>wnL
+            📩 <u>D</u>ownload
           </button>
 
           <script>
@@ -823,7 +811,7 @@
             class="ttClass"
             data-tooltip="Uploads the text of a file that you choose on your device, except when using the Android app"
           >
-            📁 އަޕްލޯޑު <u>U</u>pld
+            📁 <u>U</u>pload
           </button>
 
           <script>
@@ -1043,24 +1031,24 @@
             class="ttClass"
             data-tooltip="Fits everything in the text into one single line"
           >
-            ↲ 1 ފޮޅުވަތް <u>W</u>rdwrp
+            ↲ <u>W</u>ordwrap
           </button>
 
           <button
             onclick="replaceThaanaFili();triggerTheCounts();"
-            id="repArFiliButton"
             class="ttClass"
             data-tooltip="Removes all diacritical marks / tashkeel / haraka of dhivehi letters"
+            style="font-size: 105%"
           >
-            ތނ ފލ ފހލ <u>H</u>
+            ތނ ފލ ފހލ
           </button>
           <button
             onclick="remThiki();"
-            id="remFiliButton"
             class="ttClass"
             data-tooltip="Replaces most thikijehi thaana letters to those without thiki"
+            style="font-size: 105%"
           >
-            • ތާނަތިކި ފޮހެލާ <u>T</u>
+            • ތާނަތިކި ފޮހެލާ
           </button>
 
           <button
@@ -1132,7 +1120,6 @@
             id="bracketedNumber"
             class="ttClass"
             data-tooltip="Places round brackets around numbers on the first click, then square brackets around them on the second, then removes those brackets on the third"
-            style="font-size: 115%"
           >
             1 ↔ (1)
           </button>
@@ -1142,7 +1129,7 @@
             class="ttClass"
             data-tooltip="Changes numbers and round brackets to superscript, like footnotes on the first click, and reverts them on the second"
           >
-            (1) ↔ <span style="font-size: 120%">⁽¹⁾</span>
+            (1) ↔ <span style="font-size: 110%">⁽¹⁾</span>
           </button>
 
           <button
@@ -1150,7 +1137,7 @@
             class="ttClass"
             data-tooltip="Erases all numbers inside any brackets"
           >
-            <span style="font-size: 120%">⁽¹⁾</span> / (1) Rmv
+            <span style="font-size: 110%">⁽¹⁾</span> / (1) Rmv
           </button>
 
           <button
@@ -1188,112 +1175,112 @@
 
           <button
             onclick="shortenSalla();triggerTheCounts();"
-            class="arButton ttClass"
+            class="ttClass"
             data-tooltip="Converts the long form of the words صَلَّى اللَّهُ عَلَيهِ وَسَلَّم to the short character ﷺ on the first click, and does the reverse on the second"
-            style="font-size: 130%"
+            style="font-size: 105%"
           >
             صلى… ↔ ﷺ
           </button>
           <button
             onclick="replaceCommaScolonQ();"
-            class="arButton ttClass"
+            class="ttClass"
             data-tooltip="Converts left facing commas, semicolons and questions marks to the right on the first click, and does the reverse on the second"
-            style="font-size: 120%"
+            style="font-size: 110%"
           >
             , ; ? ↔ ، ؛ ؟
           </button>
           <button
             onclick="replaceQbracket();"
-            class="arButton ttClass"
+            class="ttClass"
             data-tooltip="Converts curly braces and asterisks to quranic brackets and ayah stops"
-            style="font-size: 120%"
           >
             {*} ↔ ﴿۝﴾
           </button>
 
           <button
             onclick="removeWaqfStuff();"
-            class="arButton ttClass"
+            class="ttClass"
             data-tooltip="Removes the following: ۖ	ۗ	ۘ	ۙ	ۚ	ۛ	ۜ	 ۝ ﴿ ﴾ ۞	۟	۠	ۡ	ۢ	ۣ	ۤ	ۥ	ۦ	ۧ	ۨ	۩	۪	۫	۬	ۭ"
           >
-            <span style="font-size: 150%"> ۗ&nbsp; ۘ&nbsp; ۚ&nbsp;</span>۝ ﴾ Rmv
+            <span style="font-size: 110%"> ۗ&nbsp; ۘ&nbsp; ۚ&nbsp;</span>۝ ﴾ Rmv
           </button>
 
           <button
             onclick="shaddaB4Haraka();"
-            class="arButton ttClass"
+            class="ttClass"
             data-tooltip="Makes all the arabic diacritics / tashkeel / harakas come after the tanweed / shadda and not before it"
-            style="font-size: 130%"
+            style="font-size: 105%"
           >
             ـَ ـّ ← ـّ ـَ
           </button>
 
           <button
             onclick="replaceColon();"
-            class="arButton ttClass"
+            class="ttClass"
             data-tooltip="Replaces all colons with fullstops"
-            style="font-size: 130%"
+            style="font-size: 105%"
+            style="font-weight: bold"
           >
             : ← .
           </button>
 
           <button
             onclick="replaceKashida();triggerTheCounts();"
-            class="arButton ttClass"
+            class="ttClass"
             data-tooltip="Removes all kashidas, which elongate arabic letters"
+            style="font-size: 105%"
+            style="font-weight: bold"
           >
             ســلاــم ← سلام
           </button>
 
           <button
             onclick="replaceQuotes();"
-            class="arButton ttClass"
+            class="ttClass"
             data-tooltip="Replaces all &#39;dumb&#39; &#34;straight&#34; quotes with ‘curly’ “smart” quotes on the first click, and does the reverse on the second"
-            style="font-size: 130%"
+            style="font-size: 110%"
           >
             ' " ↔ ’ “
           </button>
 
           <button
             onclick="replaceQtoDoubleAngBrackets();"
-            class="arButton ttClass"
+            class="ttClass"
             data-tooltip="Replaces all doubles straight quotes or double brackets with angular arabic quotes, and does the reverse on the second"
-            style="font-size: 140%"
+            style="font-size: 110%"
           >
-            " " ↔ <span style="font-size: 150%">« »</span>
+            " " ↔ « »
           </button>
 
           <button
             onclick="replaceDoubleBrackets();triggerTheCounts();"
-            class="arButton ttClass"
+            class="ttClass"
             data-tooltip="Replaces all doubles brackets to single ones"
-            style="font-size: 120%"
           >
             (( )) ← ( )
           </button>
 
           <button
             onclick="replaceHalfBrackets();triggerTheCounts();"
-            class="arButton ttClass"
+            class="ttClass"
             data-tooltip="Replaces all brackets to half brackets"
-            style="font-size: 120%"
+            style="font-size: 110%"
           >
             []() ← ⌝⌜
           </button>
 
           <button
             onclick="dotsToEllipsis();triggerTheCounts();"
-            class="arButton ttClass"
+            class="ttClass"
             data-tooltip="Converts three dots to proper a ellipsis"
-            style="font-size: 120%"
+            style="font-size: 110%"
           >
-            . . . ↔ <span style="font-size: 160%">…</span>&nbsp;
+            . . . ↔ …&nbsp;
           </button>
           <button
             onclick="hyphenToEnEmDash();"
-            class="arButton ttClass"
+            class="ttClass"
             data-tooltip="Converts a hyphen to an en dash on the first click, then to an em dash on the second"
-            style="font-size: 120%"
           >
             - ← – ← —
           </button>
@@ -1370,6 +1357,7 @@
             onclick="findDoubleFilis();"
             class="ttClass"
             data-tooltip="Checks whether your text has repeat fili / diacritics / tashkeel / harakas in arabic or dhivehi"
+            style="font-size: 101%"
           >
             ފިލިި ި އިތުރުތޯ
           </button>
@@ -1378,6 +1366,7 @@
             onclick="findLetterWithoutFilis();"
             class="ttClass"
             data-tooltip="Checks whether your text has letters without filis in dhivehi, except for hus nuunu. It also checks for filis without letters"
+            style="font-size: 101%"
           >
             ފިލ/އަކު ު މަދުތޯ
           </button>
@@ -1396,7 +1385,7 @@
             class="ttClass"
             data-tooltip="Go fullscreen. Press escape to undo"
           >
-            🖥️ ފުލް <u>S</u>creen
+            🖥️ Full <u>S</u>creen
           </button>
 
           <style>
@@ -1509,7 +1498,7 @@
 
           <input
             class="inputFieldClass"
-            placeholder="2 މިއަށް ބަދަލުކުރޭ"
+            placeholder="2 To this"
             type="text"
             id="replaceWith"
             style="color: blue"
@@ -1523,7 +1512,7 @@
           >
           <input
             class="inputFieldClass"
-            placeholder="1 މިލަފްޒު ހޯދާފާ"
+            placeholder="1 Change this"
             type="text"
             id="findThis"
             style="color: red"
@@ -1536,7 +1525,7 @@
             class="ttClass"
             data-tooltip="Searches your text and replaces based on your input. Turn on LTR to make Regex searches"
           >
-            ލަފްޒު ބަދަލު ކުރޭ
+            Replace Txt
           </button>
 
           <!--<button onclick="regexFindReplace();triggerTheCounts();">
@@ -3122,14 +3111,14 @@
                 "އަބޫ ހުރައިރާގެ އަރިހުން ރިވާވެގެންވެއެވެ: ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”...";
               //
               // other stuff below
-              document.getElementById("findReplaceButton").innerHTML =
+              /*document.getElementById("findReplaceButton").innerHTML =
                 "ލަފްޒު ބަދަލު ކުރޭ";
               document.getElementById("findThis").style.direction = "rtl";
               document.getElementById("replaceWith").style.direction = "rtl";
               document.getElementById("findThis").placeholder =
                 "1 މިލަފްޒު ހޯދާފާ";
               document.getElementById("replaceWith").placeholder =
-                "2 މިއަށް ބަދަލުކުރޭ";
+                "2 މިއަށް ބަދަލުކުރޭ";*/
             } else {
               //run first function
               document.getElementById("textMainArea").style.direction = "ltr";
@@ -3137,13 +3126,14 @@
                 "Abu Hurairah narrated that the Prophet ﷺ said: “...";
               //
               // other stuff below
-              document.getElementById("findReplaceButton").innerHTML =
+              /*document.getElementById("findReplaceButton").innerHTML =
                 "Regex/Replace";
               document.getElementById("findThis").style.direction = "ltr";
               document.getElementById("replaceWith").style.direction = "ltr";
               document.getElementById("findThis").placeholder = "1 Find This";
               document.getElementById("replaceWith").placeholder =
                 "2 Replace This";
+                */
             }
           }
           //
@@ -3550,64 +3540,47 @@
       </div>
       <!-- <div id="tabOne" class="tabcontent"> -->
 
+      <style>
+        /* make the button text here a bit bigger */
+        #tabTwo .editorButtons button {
+          font-size: 101%;
+        }
+      </style>
+
       <div id="tabTwo" class="tabcontent">
         <p class="buttonHeader">
           ތިރީގައިވާ ލަފްޒުތައް ކްލިޕްބޯޑަށް ކޮޕީކުރުމަށް:
         </p>
         <div class="mid editorButtons">
-          <button onclick="copySalla();" class="arButton">ﷺ</button>
-          <button onclick="copyRadiya1();" class="arButton">
-            رَضِيَ اللَّهُ عَنْهُ
-          </button>
-          <button onclick="copyRadiyaHaa();" class="arButton">
-            رَضِيَ اللَّهُ عَنْهَا
-          </button>
-          <button onclick="copyRadiya2();" class="arButton">
-            رَضِيَ اللَّهُ عَنْهُمَا
-          </button>
-          <button onclick="copyRadiyaHum();" class="arButton">
-            رَضِيَ اللَّهُ عَنْهُمْ
-          </button>
+          <button onclick="copySalla();">ﷺ</button>
+          <button onclick="copyRadiya1();">رَضِيَ اللَّهُ عَنْهُ</button>
+          <button onclick="copyRadiyaHaa();">رَضِيَ اللَّهُ عَنْهَا</button>
+          <button onclick="copyRadiya2();">رَضِيَ اللَّهُ عَنْهُمَا</button>
+          <button onclick="copyRadiyaHum();">رَضِيَ اللَّهُ عَنْهُمْ</button>
 
           <button onclick="copyRiwa();">ރިވާ ކުރެއްވި</button>
           <button onclick="copyRhadithK();">ރަސޫލާ ޙަދީޘްކުރެއްވި</button>
           <button onclick="copyNhadithK();">ނަބިއްޔާ ޙަދީޘްކުރެއްވި</button>
           <button onclick="copyhadithAdu();">ޙަދީޘް އަޑުއެހީމޭ</button>
-          <button onclick="copyHaa();" class="arButton">هـ</button>
+          <button onclick="copyHaa();">هـ</button>
           <button onclick="copyDate();">މި ތާރީޚާއި ވަގުތު</button>
           <br /><br />
 
-          <button onclick="copySalam();" class="arButton">السلام عليكم</button>
-          <button onclick="copyWassalam();" class="arButton">
-            وعليكم السلام
-          </button>
-          <button onclick="copyJazak();" class="arButton">جزاك الله</button>
-          <button onclick="copyBarak();" class="arButton">بارك الله</button>
-          <button onclick="copyBismi();" class="arButton">بسم الله</button>
+          <button onclick="copySalam();">السلام عليكم</button>
+          <button onclick="copyWassalam();">وعليكم السلام</button>
+          <button onclick="copyJazak();">جزاك الله</button>
+          <button onclick="copyBarak();">بارك الله</button>
+          <button onclick="copyBismi();">بسم الله</button>
 
-          <button onclick="copyInshaAllah();" class="arButton">
-            إن شاء الله
-          </button>
-          <button onclick="copyMashaAllah();" class="arButton">
-            ما شاء الله
-          </button>
-          <button onclick="copyHamd();" class="arButton">الحمد لله</button>
-          <button onclick="copyLaIlaha();" class="arButton">
-            لا إله إلا الله
-          </button>
-          <button onclick="copySubhanAllah();" class="arButton">
-            سبحان الله
-          </button>
-          <button onclick="copyAllahAkbar();" class="arButton">
-            الله أكبر
-          </button>
-          <button onclick="copyInnaLillah();" class="arButton">إنا لله</button>
-          <button onclick="copyKhutbatulHaja();" class="arButton">
-            إن الحمد لله
-          </button>
-          <button onclick="copyKaffaratulMajlis();" class="arButton">
-            سبحانك اللهم
-          </button>
+          <button onclick="copyInshaAllah();">إن شاء الله</button>
+          <button onclick="copyMashaAllah();">ما شاء الله</button>
+          <button onclick="copyHamd();">الحمد لله</button>
+          <button onclick="copyLaIlaha();">لا إله إلا الله</button>
+          <button onclick="copySubhanAllah();">سبحان الله</button>
+          <button onclick="copyAllahAkbar();">الله أكبر</button>
+          <button onclick="copyInnaLillah();">إنا لله</button>
+          <button onclick="copyKhutbatulHaja();">إن الحمد لله</button>
+          <button onclick="copyKaffaratulMajlis();">سبحانك اللهم</button>
         </div>
         <!-- <div class="mid"> -->
 
@@ -3617,83 +3590,33 @@
           ފަހުގައެވެ:
         </p>
         <div class="mid editorButtons">
-          <button onclick="copyArSymBismi1();" class="arButton">
-            بسم الله 1
-          </button>
-          <button onclick="copyArSymBismi2();" class="arButton">
-            بسم الله 2
-          </button>
-          <button onclick="copyArSymSalla();" class="arButton">
-            صلى الله عليه
-          </button>
-          <button onclick="copyArSymRadiya1();" class="arButton">
-            رضي الله عنه
-          </button>
-          <button onclick="copyArSymRadiyaHaa();" class="arButton">
-            رضي الله عنها
-          </button>
-          <button onclick="copyArSymRadiya2();" class="arButton">
-            رضي الله عنهما
-          </button>
-          <button onclick="copyArSymRadiyaHum();" class="arButton">
-            رضي الله عنهم
-          </button>
-          <button onclick="copyArSymRadiyaHunna();" class="arButton">
-            رضي الله عنهن
-          </button>
-          <button onclick="copyArSymSubhana();" class="arButton">
-            سبحانه وتعالى
-          </button>
-          <button onclick="copyArSymTabaraka();" class="arButton">
-            تبارك وتعالى
-          </button>
-          <button onclick="copyArSymAzzaWajal();" class="arButton">
-            عز وجل
-          </button>
-          <button onclick="copyArSymJallaWaAla();" class="arButton">
-            جل وعلا
-          </button>
-          <button onclick="copyArSymJallaJalaluh();" class="arButton">
-            جل جلاله
-          </button>
-          <button onclick="copyArSymAllah();" class="arButton">الله</button>
-          <button onclick="copyArSymMuhammad();" class="arButton">محمد</button>
-          <button onclick="copyArSymTakbir();" class="arButton">
-            الله أكبر
-          </button>
-          <button onclick="copyArSymAlaihiSalam();" class="arButton">
-            عليه السلام
-          </button>
-          <button onclick="copyArSymAlaihiSalam2();" class="arButton">
-            عليه الصلاة السلام
-          </button>
-          <button onclick="copyArSymAlaihaSalam();" class="arButton">
-            عليها السلام
-          </button>
-          <button onclick="copyArSymAlaihimaSalam();" class="arButton">
-            عليهما السلام
-          </button>
-          <button onclick="copyArSymAlaihimSalam();" class="arButton">
-            عليهم السلام
-          </button>
-          <button onclick="copyArSymAlaihiWaAla();" class="arButton">
-            عليه وعلى عاله
-          </button>
-          <button onclick="copyArSymRahimaHu();" class="arButton">
-            رحمه الله
-          </button>
-          <button onclick="copyArSymRahimaHa();" class="arButton">
-            رحمها الله
-          </button>
-          <button onclick="copyArSymRahimaHuma();" class="arButton">
-            رحمهما الله
-          </button>
-          <button onclick="copyArSymRahimaHum();" class="arButton">
-            رحمهم الله
-          </button>
-          <button onclick="copyArSymRahimaHun();" class="arButton">
-            رحمهن الله
-          </button>
+          <button onclick="copyArSymBismi1();">بسم الله 1</button>
+          <button onclick="copyArSymBismi2();">بسم الله 2</button>
+          <button onclick="copyArSymSalla();">صلى الله عليه</button>
+          <button onclick="copyArSymRadiya1();">رضي الله عنه</button>
+          <button onclick="copyArSymRadiyaHaa();">رضي الله عنها</button>
+          <button onclick="copyArSymRadiya2();">رضي الله عنهما</button>
+          <button onclick="copyArSymRadiyaHum();">رضي الله عنهم</button>
+          <button onclick="copyArSymRadiyaHunna();">رضي الله عنهن</button>
+          <button onclick="copyArSymSubhana();">سبحانه وتعالى</button>
+          <button onclick="copyArSymTabaraka();">تبارك وتعالى</button>
+          <button onclick="copyArSymAzzaWajal();">عز وجل</button>
+          <button onclick="copyArSymJallaWaAla();">جل وعلا</button>
+          <button onclick="copyArSymJallaJalaluh();">جل جلاله</button>
+          <button onclick="copyArSymAllah();">الله</button>
+          <button onclick="copyArSymMuhammad();">محمد</button>
+          <button onclick="copyArSymTakbir();">الله أكبر</button>
+          <button onclick="copyArSymAlaihiSalam();">عليه السلام</button>
+          <button onclick="copyArSymAlaihiSalam2();">عليه الصلاة السلام</button>
+          <button onclick="copyArSymAlaihaSalam();">عليها السلام</button>
+          <button onclick="copyArSymAlaihimaSalam();">عليهما السلام</button>
+          <button onclick="copyArSymAlaihimSalam();">عليهم السلام</button>
+          <button onclick="copyArSymAlaihiWaAla();">عليه وعلى عاله</button>
+          <button onclick="copyArSymRahimaHu();">رحمه الله</button>
+          <button onclick="copyArSymRahimaHa();">رحمها الله</button>
+          <button onclick="copyArSymRahimaHuma();">رحمهما الله</button>
+          <button onclick="copyArSymRahimaHum();">رحمهم الله</button>
+          <button onclick="copyArSymRahimaHun();">رحمهن الله</button>
         </div>
         <!-- <div class="mid"> -->
 
@@ -4312,7 +4235,7 @@
       </div>
       <!-- <div id="tabTwo" class="tabcontent"> -->
 
-      <div id="tabThree" class="tabcontent">
+      <div id="tabThree" class="tabcontent eng">
         <!-- rows="10"
 cols="60"-->
 
@@ -4462,7 +4385,7 @@ cols="60"-->
           }
         </style>
 
-        <div class="en mid qrClass">
+        <div class="mid qrClass">
           <h2 style="font-size: 23px">
             <a data-tooltip="Generates a QR Code as you write"
               ><b>QR Code Generator 🏁</b></a
@@ -5030,7 +4953,7 @@ cols="60"-->
             })(app || (app = {}));
           </script>
 
-          <!-- <div class="en mid"> -->
+          <!-- <div class="mid"> -->
         </div>
 
         <!-- Third and Half of Night Calculator -->
@@ -5098,7 +5021,7 @@ cols="60"-->
           }
         </style>
 
-        <div class="en mid">
+        <div class="mid">
           <h2 style="font-size: 23px">
             <a
               data-tooltip="Calculates the first, second and last thirds of the night, as well as half, when you have set the time for Maghrib and Isha"
@@ -5257,7 +5180,7 @@ cols="60"-->
         <hr />
         <br />
 
-        <div class="en mid">
+        <div class="mid">
           <p style="font-size: 20px; line-height: 1.5">
             If you don’t know the date of your child’s Aqiqah, you can use our
             <a href="https://birrumv.com">Aqiqah date calculator</a>.
@@ -5267,7 +5190,7 @@ cols="60"-->
         <br />
         <hr />
 
-        <div class="en mid">
+        <div class="mid">
           <h2 style="font-size: 23px">
             <a
               data-tooltip="Converts any unit to all other units"
@@ -6026,13 +5949,16 @@ cols="60"-->
           }
         </style>
 
-        <div class="mid editorButtons dv" style="margin-top: 15px">
+        <div
+          class="mid editorButtons"
+          style="margin-top: 15px; margin-bottom: 10px"
+        >
           <button
             id="clearM"
             class="ttClass"
             data-tooltip="clears both texts above"
           >
-            ❌ ލިޔުން ފޮހެލާ
+            ❌ Clear
           </button>
 
           <button
@@ -6040,21 +5966,21 @@ cols="60"-->
             class="ttClass"
             data-tooltip="Jump to the previous difference"
           >
-            ▲ ކުރީގެ ބަދަލު
+            ▲ Prv Chnge
           </button>
           <button
             id="next"
             class="ttClass"
             data-tooltip="Jump to the next difference"
           >
-            ▼ ދެން އަންނަ
+            ▼ Nxt Chnge
           </button>
           <button
             id="wrap"
             class="ttClass"
             data-tooltip="Turn wordwrap on or off"
           >
-            ↲ އެއް ފޮޅުވަތަށް
+            ↲ Wordwrap
           </button>
 
           <button
@@ -6096,7 +6022,7 @@ cols="60"-->
             class="ttClass"
             data-tooltip="Go fullscreen. Press escape to undo"
           >
-            ފުލްސްކްރީން 🖥️
+            Fullscreen 🖥️
           </button>
 
           <script>
@@ -6205,7 +6131,7 @@ cols="60"-->
 
         <!-- not directly related below, separate from mergely -->
 
-        <div class="dv">
+        <div>
           <p>
             މަތީގައިވާ ލިޔާ ދެ ތަންކޮޅުގައި އެއްޗެއް ލިޔުމުން، އެ ދެ ލިޔުމުގެ
             ދެމެދުގައިވާ ތަފާތު ދައްކާނެ. ފަސޭހަވާނީ ޑެސްކްޓޮޕުން ބޭނުން ކުރަން.
@@ -6225,7 +6151,7 @@ cols="60"-->
           </p>
         </div>
 
-        <!-- -->
+        <!-- end of dv -->
       </div>
       <!-- <div id="tabFour" class="tabcontent"> -->
 
@@ -6368,7 +6294,7 @@ cols="60"-->
       <hr />
       <br />
 
-      <div class="dv">
+      <div>
         <h3 class="mid">
           —&nbsp; އިތުރު މައުލޫމާތު ހޯދުމަށް
           <a onclick="showhide()" style="cursor: pointer">މިތަނަށް</a>
@@ -6577,7 +6503,7 @@ cols="60"-->
         /* http://fofwebdesign.co.uk/template/_testing/quotes-css.htm */
       </style>
 
-      <h2 class="en mid testimonials">– &nbsp;Feedback&nbsp; –</h2>
+      <h2 class="mid testimonials">– &nbsp;Feedback&nbsp; –</h2>
 
       <ul id="quotes" class="quotes">
         <li class="show">
@@ -6616,7 +6542,7 @@ cols="60"-->
       <br />
 
       <!--
-      <div class="en mid">
+      <div class="mid">
         <p>
           If you find a mistake, or have suggestions, or want to support this
           project, please let us know.
