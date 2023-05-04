@@ -64,36 +64,20 @@
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
 
-      /* removes justify from ar dv (titles and refs) + rs.
-justify doesnt look good on short cells like surukhi, masdars.
-so right align to prevent gaps in text 
-.dataTable tr td.eegCol1,
-.dataTable tr td.eegCol2,
-.dataTable tr td.eegCol9 {
-  text-align: right;
-} */
-
       /* mobile only row centering, for rows with strings that are not long */
-
+      /* center-justify the last line of text */
       @media screen and (max-width: 900px) {
         .dataTable tr td.eegCol1,
-      .dataTable tr td.eegCol2,
-      .dataTable tr td.eegCol3,
-      .dataTable tr td.eegCol4,
-      .dataTable tr td.eegCol5
-
-      /*
-        .dataTable tr td.eegCol5,
-        .dataTable tr td.eegCol6 */ {
-          /* text-align: center; */
+        .dataTable tr td.eegCol2,
+        .dataTable tr td.eegCol3,
+        .dataTable tr td.eegCol4,
+        .dataTable tr td.eegCol5 {
           text-align: justify;
           text-align-last: center;
         }
-
-        /* center-justify the last line of text */
       }
 
-      /* desktop radheef only eng word left align */
+      /* desktop radheef ENG only word left align */
 
       @media screen and (min-width: 900px) {
         .dataTable tr td.eegCol1,
@@ -113,7 +97,7 @@ so right align to prevent gaps in text
         }
 
         .dataTable tr td.eegCol5 {
-          /* eng */
+          /* page no */
           text-align: left;
         }
       }
@@ -123,7 +107,7 @@ so right align to prevent gaps in text
       }
 
       .dataTable > thead > tr > th.eegCol5 {
-        /* eng */
+        /* page no */
         text-align: left !important;
       }
 
@@ -163,7 +147,7 @@ so right align to prevent gaps in text
             <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
 
             <li>
-              <span>އަލްއީގާޡްގެ ބައިތައް</span>
+              <span>ފިހުރިސްތު</span>
               <ul>
                 <li>
                   <a href="../books/eegaal.html">كِتَابُ الأَسمَاءِ</a>
@@ -228,18 +212,6 @@ so right align to prevent gaps in text
 
             <li>
               <a href="../books/index.html">⛊ މައި ސަފުހާ</a>
-            </li>
-
-            <li>
-              <span>ޑައުންލޯޑުތައް</span>
-              <ul>
-                <li>
-                  <a
-                    href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf"
-                    >ނަވަވީގެ 40 ޙަދީޘް (ޕީޑީއެފް)</a
-                  >
-                </li>
-              </ul>
             </li>
 
             <li>

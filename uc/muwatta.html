@@ -67,37 +67,17 @@
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
 
-      /* removes justify from ar dv (titles and refs) + rs.
-justify doesnt look good on short cells like surukhi, masdars.
-so right align to prevent gaps in text */
-
-      .dataTable tr td.muwCol1,
-      .dataTable tr td.muwCol3,
-      .dataTable tr td.muwCol4,
-      .dataTable tr td.muwCol5,
-      .dataTable tr td.muwCol6,
-      .dataTable tr td.muwCol10 {
-        text-align: right;
-      }
-
-      /* mobile only row centering, for rows with strings that are not long */
-
-      @media screen and (max-width: 900px) {
-        .dataTable tr td.muwCol1,
-        .dataTable tr td.muwCol2,
-        .dataTable tr td.muwCol3,
-        .dataTable tr td.muwCol4,
-        .dataTable tr td.muwCol5,
-        .dataTable tr td.muwCol6,
-        .dataTable tr td.muwCol10 {
-          text-align: center;
-        }
-      }
-
       /* basmala padding remove */
       .dataTable tr td.muwCol2 {
         padding-top: 0;
         padding-bottom: 0;
+      }
+
+      /* mobile only row centering, for rows with strings that are not long */
+      @media screen and (max-width: 900px) {
+        .dataTable tr td.muwCol2 {
+          text-align: center;
+        }
       }
     </style>
     <!-- === INT CSS - END === -->
@@ -123,18 +103,6 @@ so right align to prevent gaps in text */
             <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
             <li>
               <a href="../books/index.html">⛊ މައި ސަފުހާ</a>
-            </li>
-
-            <li>
-              <span>ޑައުންލޯޑުތައް</span>
-              <ul>
-                <li>
-                  <a
-                    href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf"
-                    >ނަވަވީގެ 40 ޙަދީޘް (ޕީޑީއެފް)</a
-                  >
-                </li>
-              </ul>
             </li>
 
             <li>
