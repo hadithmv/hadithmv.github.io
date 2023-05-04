@@ -701,12 +701,13 @@ table.dataTable tbody td {
 /* Top Col css */
 .dataTable > tbody > tr > td.Col1 {
   font-size: 24px;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
 .dataTable > tbody > tr > td.ColEng {
   font-family: sans-serif;
   direction: ltr;
+  text-align: left;
   font-size: 20px;
   line-height: 1.6;
 }
@@ -725,12 +726,13 @@ table.dataTable tbody td {
   line-height: 1.5;
 }
 
-/* # kitab baab colors */
+/* # kitab baab colors and alignment */
 .dataTable > tbody > tr > td.Col1,
 .dataTable > tbody > tr > td.ColKitab,
 .dataTable > tbody > tr > td.ColKitab2,
 .dataTable > tbody > tr > td.ColKitab3,
-.dataTable > tbody > tr > td.ColBaab {
+.dataTable > tbody > tr > td.ColBaab,
+.dataTable > tbody > tr > td.ColBaab2 {
   color: #0f4c75 !important;
 }
 @media (prefers-color-scheme: dark) {
@@ -738,8 +740,21 @@ table.dataTable tbody td {
   .dataTable > tbody > tr > td.ColKitab,
   .dataTable > tbody > tr > td.ColKitab2,
   .dataTable > tbody > tr > td.ColKitab3,
-  .dataTable > tbody > tr > td.ColBaab {
+  .dataTable > tbody > tr > td.ColBaab,
+  .dataTable > tbody > tr > td.ColBaab2 {
     color: #66bce6 !important;
+  }
+}
+
+/* mobile only row centering, for rows with strings that are not long */
+@media screen and (max-width: 900px) {
+  .dataTable > tbody > tr > td.Col1,
+  .dataTable > tbody > tr > td.ColKitab,
+  .dataTable > tbody > tr > td.ColKitab2,
+  .dataTable > tbody > tr > td.ColKitab3,
+  .dataTable > tbody > tr > td.ColBaab,
+  .dataTable > tbody > tr > td.ColBaab2 {
+    text-align: center;
   }
 }
 
@@ -1371,7 +1386,7 @@ div.dtsp-searchPane div.dataTables_scrollBody {
   line-height: 1.7;
   direction: rtl;
   padding: 15px;
-  padding-top: 30px;
+  padding-top: 20px; /* 30 */
   padding-bottom: 20px;
 
   /* set max width for text, needs margin 0 auto otherwise text align gets messed up */

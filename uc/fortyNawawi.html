@@ -66,25 +66,6 @@
       /* === --- === --- ====
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
-
-      /* removes justify from ar dv (titles and refs) + rs.
-         justify doesnt look good on short cells like surukhi, masdars.
-         so right align to prevent gaps in text */
-      .dataTable tr td.fnCol2,
-      .dataTable tr td.fnCol3,
-      .dataTable tr td.fnCol8,
-      .dataTable tr td.fnCol9 {
-        text-align: right;
-      }
-
-      /* mobile only row centering, for rows with strings that are not long */
-      @media screen and (max-width: 900px) {
-        .dataTable tr td.fnCol1,
-        .dataTable tr td.fnCol2,
-        .dataTable tr td.fnCol3 {
-          text-align: center;
-        }
-      }
     </style>
     <!-- === INT CSS - END === -->
   </head>
@@ -111,18 +92,6 @@
             <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
             <li>
               <a href="../books/index.html">⛊ މައި ސަފުހާ</a>
-            </li>
-
-            <li>
-              <span>ޑައުންލޯޑުތައް</span>
-              <ul>
-                <li>
-                  <a
-                    href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf"
-                    >ނަވަވީގެ ސާޅީސް ޙަދީޘް (ޕީޑީއެފް)</a
-                  >
-                </li>
-              </ul>
             </li>
 
             <li>
