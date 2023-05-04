@@ -144,8 +144,8 @@ body {
   background-color: #fff;
   padding: 30px; /* padding: 50px; */
   padding-top: 10px; /* added this */
-  font-size: 16px;
-  font-family: mergedFont, Quicksand, sans-serif, faruma;
+  /*font-size: 16px;
+  font-family: mergedFont, Quicksand, sans-serif, faruma;*/
 
   /* -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, */
@@ -479,8 +479,10 @@ body {
 }
 
 p {
-  line-height: 2.1;
+  /*line-height: 2.1;*/
   text-align: justify;
+  font-size: 22px;
+  line-height: 1.7;
 }
 
 .hmv {
@@ -532,36 +534,53 @@ p {
 }
 
 .mid,
-.mid p {
+.mid p,
+p .mid {
   text-align: center;
 }
 
 .dv {
   font-family: mergedFont, Quicksand, sans-serif, faruma;
-  line-height: 2.1;
+  text-align: right;
+  direction: rtl;
+  font-size: 22px;
+  line-height: 1.7;
 }
 
-h1.ar {
+/*h1.ar {
   font-family: mergedFont, Quicksand, sans-serif, faruma;
   font-size: 32px;
-}
+}*/
 
-.ar {
+/*.ar {
   font-family: mergedFont, Quicksand, sans-serif, faruma;
   line-height: 1.8;
   font-size: 21px;
-}
+}*/
 
 .basmala {
   padding-bottom: 10px !important;
   font-size: 28px !important;
+  font-family: mergedFont, Quicksand, sans-serif, faruma;
 }
 
-.en {
+/*.en {
   font-family: Quicksand, sans-serif, serif;
   direction: ltr;
   line-height: 1.5;
+}*/
+
+.eng {
+  font-family: Quicksand, sans-serif, serif;
+  text-align: left;
+  direction: ltr;
+  font-size: 18px;
+  line-height: 1.5;
 }
+
+/*.eng .mid {
+  text-align: center;
+}*/
 
 /* moves letter end name to make it look better */
 .leftAlign {
@@ -584,7 +603,7 @@ h1.ar {
 
 h2,
 h3 {
-  line-height: 1.9;
+  line-height: 1.8;
 }
 
 .dv blockquote {
@@ -686,13 +705,13 @@ this would select 7 and everything past that */
 
 /* THIS FIX ONLY WORKS FOR NOTES/INFO HTMLS, and setting the root html font to 17px
 doesnt fix it, but that does work for the table htmls for some reason */
-body > div > div.dv > p:nth-child(n + 7) {
+/*body > div > div.dv > p:nth-child(n + 7) {
   font-size: 17px;
-}
+}*/
 
-body > div > div.dv > p.ar {
+/*body > div > div.dv > p.ar {
   font-size: 21px;
-}
+}*/
 
 /* ==================
 thaana mish mash render fix - END
@@ -706,7 +725,7 @@ thaana mish mash render fix - END
   text-align: justify;
   text-align-last: center;
   font-family: mergedFont, Quicksand, sans-serif, faruma;
-  font-size: 20px;7;
+  font-size: 20px; /*7*/
   direction: rtl;
   padding: 15px;
   padding-top: 30px;
@@ -945,11 +964,12 @@ h3 {
   border: 0.5px solid black;
   outline: none;
   cursor: pointer;
-  padding: 12px 14px;
+  padding: 8px 10px; /* 12px 14px; */
 
   /* padding: 14px 16px; */
   transition: 0.3s;
-  font-size: 17px;
+  /*font-size: 17px;*/
+  font-size: 18px;
 
   /* added */
   font-family: mergedFont, Quicksand, sans-serif, faruma;

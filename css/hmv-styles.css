@@ -484,7 +484,7 @@ input[type="search"]::-webkit-search-cancel-button {
 a little off to the right because of the search cancel button */
 
 .paging_input input[type="search"] {
-  width: 60px;
+  width: 70px;
 
   /* text-align: center; */
 }
@@ -806,7 +806,11 @@ input.dt-button {
 
 /* space around pagination buttons */
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-  padding: 10px !important;
+  padding: 11px !important;
+}
+
+button.dt-button.buttons-copy.buttons-html5 {
+  width: 95px;
 }
 
 /* ====================
