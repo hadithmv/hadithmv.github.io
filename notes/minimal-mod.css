@@ -145,7 +145,7 @@ body {
   padding: 30px; /* padding: 50px; */
   padding-top: 10px; /* added this */
   /*font-size: 16px;
-  font-family: mergedFont, Quicksand, sans-serif, faruma;*/
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";*/
 
   /* -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, */
@@ -481,8 +481,8 @@ body {
 p {
   /*line-height: 2.1;*/
   text-align: justify;
-  font-size: 22px;
-  line-height: 1.7;
+  font-size: 21px;
+  line-height: 1.6;
 }
 
 .hmv {
@@ -533,54 +533,68 @@ p {
   padding-top: 10px;
 }
 
-.mid,
-.mid p,
-p .mid {
-  text-align: center;
+/*.en {
+  font-family: "Quicksand", sans-serif, serif;
+  direction: ltr;
+  line-height: 1.5;
+}*/
+
+.eng,
+.eng p {
+  font-family: "Quicksand", sans-serif, "mergedFont", serif;
+  text-align: left;
+  direction: ltr;
+  font-size: 19px;
+  line-height: 1.6;
 }
 
-.dv {
-  font-family: mergedFont, Quicksand, sans-serif, faruma;
+.eng p {
+  text-align: justify;
+}
+
+/*.eng .mid {
+  text-align: center;
+}*/
+
+.dv,
+.dv p,
+.eng.dv,
+.eng p .dv {
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
   text-align: right;
   direction: rtl;
   font-size: 22px;
   line-height: 1.7;
 }
 
+.dv p {
+  text-align: justify;
+}
+
 /*h1.ar {
-  font-family: mergedFont, Quicksand, sans-serif, faruma;
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
   font-size: 32px;
 }*/
 
 /*.ar {
-  font-family: mergedFont, Quicksand, sans-serif, faruma;
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
   line-height: 1.8;
   font-size: 21px;
 }*/
 
+.mid,
+.mid p,
+p.mid,
+.mid.dv,
+.dv.mid {
+  text-align: center;
+}
+
 .basmala {
   padding-bottom: 10px !important;
   font-size: 28px !important;
-  font-family: mergedFont, Quicksand, sans-serif, faruma;
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
 }
-
-/*.en {
-  font-family: Quicksand, sans-serif, serif;
-  direction: ltr;
-  line-height: 1.5;
-}*/
-
-.eng {
-  font-family: Quicksand, sans-serif, serif;
-  text-align: left;
-  direction: ltr;
-  font-size: 18px;
-  line-height: 1.5;
-}
-
-/*.eng .mid {
-  text-align: center;
-}*/
 
 /* moves letter end name to make it look better */
 .leftAlign {
@@ -724,7 +738,7 @@ thaana mish mash render fix - END
 #Footer {
   text-align: justify;
   text-align-last: center;
-  font-family: mergedFont, Quicksand, sans-serif, faruma;
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
   font-size: 20px; /*7*/
   direction: rtl;
   padding: 15px;
@@ -894,7 +908,7 @@ h3 {
 }
 
 .btn-chat a {
-  font-family: Quicksand, sans-serif, serif; /* arial; */
+  font-family: "Quicksand", sans-serif, serif; /* arial; */
   color: #fff;
   text-decoration: none;
   background: #0d619c;
@@ -972,7 +986,7 @@ h3 {
   font-size: 18px;
 
   /* added */
-  font-family: mergedFont, Quicksand, sans-serif, faruma;
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
   color: #eee;
   flex-grow: 1;
   min-width: 20%;
