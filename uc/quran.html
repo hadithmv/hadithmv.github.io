@@ -1167,25 +1167,23 @@
             </li>
 
             <script>
+              // change url to change to another book while staying at the same row page place
               function qClick1() {
                 window.location = window.location
                   .toString()
                   .replace(/quranBakurube.html|quranJaufar.html/, "quran.html")
-                  .replace(/quranBakurubeTable|quranJaufarTable/, "quranTable")
                   .replace(/\:v.*$/, "");
               }
               function qClick2() {
                 window.location = window.location
                   .toString()
                   .replace(/quran.html|quranJaufar.html/, "quranBakurube.html")
-                  .replace(/quranTable|quranJaufarTable/, "quranBakurubeTable")
                   .replace(/\:v.*$/, "");
               }
               function qClick3() {
                 window.location = window.location
                   .toString()
                   .replace(/quran.html|quranBakurube.html/, "quranJaufar.html")
-                  .replace(/quranTable|quranBakurubeTable/, "quranJaufarTable")
                   .replace(/\:v.*$/, "");
               }
             </script>
@@ -1286,6 +1284,7 @@
               //
               // combines surah and ayah value in search then searches it
               // https://stackoverflow.com/questions/18249758/i-cant-get-the-value-of-a-input-within-a-datalist/18250028#18250028
+
               function jumpToItsPage() {
                 //
                 var combinedVals =
@@ -1294,30 +1293,51 @@
                   document.getElementById("ayahNoID").value;
                 // https://stackoverflow.com/questions/33371038/programmatically-search-a-table-with-jquery-datatables/33371324#33371324
                 //$("#quranTable").dataTable().fnFilter(combinedVals);
+
                 $("#quranTable").DataTable().search(combinedVals).draw();
-                //repeat so dont have to change code on another page
-                $("#quranBakurubeTable")
-                  .DataTable()
-                  .search(combinedVals)
-                  .draw();
                 //setTimeout(function () {
 
                 //$("#quranTable").DataTable().destroy();
                 //#quranTable > tbody > tr > td.qCol4
 
-                // double clicks on first td
+                // double clicks on first td (NOT WORKING NOW)
                 // https://stackoverflow.com/questions/38089625/programatically-click-on-button-using-javascript/38089731#38089731
-                document.getElementsByClassName("odd")[0].click();
-                document.getElementsByClassName("odd")[0].click();
-                /*window.alert("Hello world!");*/
 
-                //document.getElementsByClassName("copyURL")[0].click();
+                /*document.getElementsByClassName("odd")[0].click();
+                document.getElementsByClassName("odd")[0].click();*/
+                // above used to work, dont anymore, so commented out
+
+                // -- ALTERNATIVE code for jumping to surah ayah row page
+
+                /*console.log(
+                  $("#quranTable").DataTable().row("tbody tr").index()
+                );*/
+
+                // gets index of row
+                var QrowToJumpTo = $("#quranTable")
+                  .DataTable()
+                  .row("tbody tr")
+                  .index();
+
+                //table.page(table.page() + 10).draw("page")
+                //$("#quranTable").DataTable().page(10).draw("page");
+
+                // after searching and jumping to row page, clears the search entry, otherwise searches again and page will change
+                if ($("#quranTable").DataTable().search() !== "") {
+                  $("#quranTable").DataTable().search("").draw();
+                }
+
+                // changes page to row index value
+                $("#quranTable").DataTable().page(QrowToJumpTo).draw("page");
+                // alert("Row index: " + table.row("tbody tr").index())
+
+                // -- END OF ALTERNATIVE CODE
 
                 //}, 1510);
 
                 /*document.querySelectorAll(
-                      ".dataTables_filter input[type=search]"
-                    ).value = combinedVals;*/
+                          ".dataTables_filter input[type=search]"
+                        ).value = combinedVals;*/
               }
 
               /*
@@ -1897,6 +1917,10 @@
                 $("#quranTable").DataTable().column(5).visible(!isVisible);
               }
             </script>
+
+            <h3 class="mid">
+              <a>ނޯޓު</a>
+            </h3>
 
             <p class="justi">
               މި ތަރުޖަމާ ނެރެން ޖެހުނު މައިގަނޑު ސަބަބަކީ، މީގެ ކުރިން
