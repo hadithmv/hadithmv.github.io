@@ -1002,7 +1002,7 @@ $(document).ready(() => {
     //console.log("01010101");
     //console.log(this);
     //console.log(table.page());
-    // alert("Row index: " + table.row("this").index());
+    // alert("Row index: " + table.row(this).index());
     //alert("Row index: " + table.row("tbody tr").index());
     //table.page(table.page() + 10).draw("page");
   });

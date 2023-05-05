@@ -57,6 +57,26 @@
     </style>
     <!-- Critical CSS - END -->
 
+    <script defer>
+      var pageNoLength = document
+        .querySelector("#quranTable_length > label > select > option")
+        .val();
+
+      if (pageNoLength == 1) {
+        alert("Row index: ");
+        console.log("heyheyhey");
+        console.log(pageNoLength);
+      }
+
+      /*$(".dataTable").on("dblclick", "tr", function () {
+      if (table.search() !== "") {
+        table.search("").draw();
+        // this clears the search after code below runs to draw the page, otherwise searches again and doesnt go to that page.
+      }
+      table.row(this).draw().show().select().draw(false);
+      */
+    </script>
+
     <style>
       /* change123 html */
 
@@ -1308,12 +1328,14 @@
                 // above used to work, dont anymore, so commented out
 
                 // -- ALTERNATIVE code for jumping to surah ayah row page
+                // https://datatables.net/reference/api/row().index()
 
                 /*console.log(
                   $("#quranTable").DataTable().row("tbody tr").index()
                 );*/
 
                 // gets index of row
+                // table.row("this").index()
                 var QrowToJumpTo = $("#quranTable")
                   .DataTable()
                   .row("tbody tr")
