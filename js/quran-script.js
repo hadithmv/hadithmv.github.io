@@ -1021,12 +1021,38 @@ $(document).ready(() => {
   // * The code below now works, previously some update to searchpanes js broke it, and the code below the code below was a workaround, but now we can use the initial one
   // no longer old code
 
-  $("tbody").on("dblclick", "tr", function () {
+  /* $("tbody").on("dblclick", "tr", function () {
     if (table.search() !== "") {
       table.search("").draw();
     }
     table.row(this).draw().show().select().draw(false);
+  });*/
+
+  // $(selector).on(event, childSelector, data, function, map)
+
+  $(".dataTable").on("dblclick", "tr", function () {
+    if (table.search() !== "") {
+      table.search("").draw();
+      // this clears the search after code below runs to draw the page, otherwise searches again and doesnt go to that page.
+    }
+    table.row(this).draw().show().select().draw(false);
+
+    //table.row("tbody tr").draw().show().select().draw(false); //page 1 reset
+    //console.log("01010101");
+    //console.log(this);
+    //console.log(table.page());
+    // alert("Row index: " + table.row("this").index());
+    //alert("Row index: " + table.row("tbody tr").index());
+    //table.page(table.page() + 10).draw("page");
   });
+
+  /*$("tbody").on("click", "tr", function () {
+    // table.search(this.value).draw();
+    //table.search("بقرة").draw();
+    table.search("بقرة").draw().show().select().draw(false);
+  });*/
+
+  //console.log("01010101");
 
   // below not needed now, above suffices
   // https://stackoverflow.com/questions/27560653/jquery-on-double-click-event-dblclick-for-mobile/27561006#27561006
