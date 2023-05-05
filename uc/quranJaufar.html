@@ -1305,12 +1305,14 @@
                 // above used to work, dont anymore, so commented out
 
                 // -- ALTERNATIVE code for jumping to surah ayah row page
+                // https://datatables.net/reference/api/row().index()
 
                 /*console.log(
                   $("#quranTable").DataTable().row("tbody tr").index()
                 );*/
 
                 // gets index of row
+                // table.row("this").index();
                 var QrowToJumpTo = $("#quranTable")
                   .DataTable()
                   .row("tbody tr")
@@ -1895,10 +1897,6 @@
 
             <button class="lowerButtons" onclick="toggleFili();">
               &nbsp; ފިލި ދައްކާ/ފޮރުވާ &nbsp;
-            </button>
-
-            <button class="lowerButtons" onclick="copyIjmalyOnly();">
-              &nbsp; އިޖްމާލީ އެކަނި ކޮޕީ &nbsp;
             </button>
 
             <script>
