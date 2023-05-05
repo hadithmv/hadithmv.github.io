@@ -481,8 +481,9 @@ body {
 p {
   /*line-height: 2.1;*/
   text-align: justify;
-  font-size: 21px;
-  line-height: 1.6;
+  word-spacing: -0.05em;
+  font-size: 22px;
+  line-height: 1.7;
 }
 
 .hmv {
@@ -550,6 +551,7 @@ p {
 
 .eng p {
   text-align: justify;
+  word-spacing: -0.05em;
 }
 
 /*.eng .mid {
@@ -569,6 +571,7 @@ p {
 
 .dv p {
   text-align: justify;
+  word-spacing: -0.05em;
 }
 
 /*h1.ar {
@@ -760,6 +763,7 @@ thaana mish mash render fix - END
 
 .justi {
   text-align: justify;
+  word-spacing: -0.05em;
 }
 
 .inde {

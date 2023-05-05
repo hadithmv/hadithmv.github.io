@@ -673,12 +673,16 @@ table.dataTable tbody td {
 /* base font size for table row data, prev in book html files */
 
 .dataTable > tbody > tr > td {
-  font-size: 22px; /* 100% */
+  font-size: 22px; /* 100% 22 */
   color: #24292e;
   line-height: 1.7; /* 1.5 */
   word-wrap: break-word;
-  text-align: right;
+  /*text-align: right;*/
   direction: rtl;
+
+  text-align: justify;
+  word-spacing: -0.05em;
+  -webkit-font-smoothing: antialiased;
 
   /*text-align: justify;*/
   /* word-spacing: -10px; */
@@ -707,9 +711,11 @@ table.dataTable tbody td {
 .dataTable > tbody > tr > td.ColEng {
   font-family: sans-serif;
   direction: ltr;
-  text-align: left;
   font-size: 20px;
   line-height: 1.6;
+  /*text-align: left;*/
+  text-align: justify;
+  /*word-break: normal;*/
 }
 
 .dataTable > tbody > tr > td.ColSharh,
