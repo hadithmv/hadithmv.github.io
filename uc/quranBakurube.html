@@ -125,7 +125,7 @@
         }
       }
 
-      #quranBakurubeTable>tbody>tr
+      #quranTable>tbody>tr
       /*, table*/ {
         /* font-family: hafs;
           font-size: 20pt;
@@ -159,7 +159,7 @@
 
       /* reduces margin last item at end of page, NOT WITHIN TABLE BOX, OUTSIDE IT */
 
-      /*#quranBakurubeTable > tbody > tr:last-child {
+      /*#quranTable > tbody > tr:last-child {
         margin-bottom: 50px;
       }*/ /*30*/
 
@@ -169,7 +169,7 @@
 
       /* ayah box */
 
-      #quranBakurubeTable > tbody > tr > td.qCol1 {
+      #quranTable > tbody > tr > td.qCol1 {
         /* makes it independant of the other rows */
         position: absolute;
         /* centers below */
@@ -206,21 +206,21 @@
       }
 
       /* TRULY effects first and last space above and below quran table */
-      #quranBakurubeTable > tbody > tr > td:nth-child(2) {
+      #quranTable > tbody > tr > td:nth-child(2) {
         margin-top: 40px !important;
       }
-      /*#quranBakurubeTable > tbody > tr > td:nth-last-child(1) {
+      /*#quranTable > tbody > tr > td:nth-last-child(1) {
           margin-bottom: 30px !important;
         }*/
 
       /* MOBILE only quran border frame svg */
 
       @media screen and (max-width: 599px) {
-        #quranBakurubeTable > tbody > tr {
+        #quranTable > tbody > tr {
           border-image-width: 2.5em;
         }
         /* ayah box MOBILE ONLY */
-        #quranBakurubeTable > tbody > tr > td.qCol1 {
+        #quranTable > tbody > tr > td.qCol1 {
           top: 15px !important; /* top: -32px 35 */
           font-size: 0.9em; /* 0.9 */
           width: 6rem; /* 7.5 */
@@ -229,18 +229,18 @@
 
       /* gives space to the top and bottom of cells */
 
-      /* #quranBakurubeTable > tbody */
-      #quranBakurubeTable > tbody > tr > td.qCol1 {
+      /* #quranTable > tbody */
+      #quranTable > tbody > tr > td.qCol1 {
         margin-bottom: 5px !important;
       }
-      #quranBakurubeTable > tbody > tr {
+      #quranTable > tbody > tr {
         padding-bottom: 50px !important;
       }
 
       /* gives space above the empty no results row */
       /* table.dataTable td.dataTables_empty
       margin-top: 30px  !important; */
-      #quranBakurubeTable > tbody > tr > td:nth-child(2) {
+      #quranTable > tbody > tr > td:nth-child(2) {
         margin-top: 0;
       }
 
@@ -249,8 +249,8 @@
       /* custom quran css for Keytable - Desktop only MQ */
 
       @media screen and (min-width: 900px) {
-        /* #quranBakurubeTable tbody th.focus, */
-        #quranBakurubeTable tbody td.focus {
+        /* #quranTable tbody th.focus, */
+        #quranTable tbody td.focus {
           box-shadow: inset 0 0 1px 2px #337ab7;
 
           /* inset: Changes the shadow from an outer shadow (outset) to an inner shadow
@@ -266,16 +266,16 @@
         /* gives space to the top and bottom of cells */
 
         /*
-        #quranBakurubeTable > tbody > tr > td.qCol1 {
+        #quranTable > tbody > tr > td.qCol1 {
           margin-bottom: 5px !important;
         }
-        #quranBakurubeTable > tbody > tr > td.qCol5 {
+        #quranTable > tbody > tr > td.qCol5 {
           margin-bottom: 35px !important;
         }
         */
 
         /* gives even more space around table wrapper in desktop view, and then centers */
-        #quranBakurubeTable > tbody > tr {
+        #quranTable > tbody > tr {
           max-width: 700px;
           margin-left: auto;
           margin-right: auto;
@@ -284,7 +284,7 @@
         }
 
         /* gives space to the left and right sides of words */
-        #quranBakurubeTable > tbody > tr > td:not(:first-of-type) {
+        #quranTable > tbody > tr > td:not(:first-of-type) {
           /* min-height: 200px !important; */
           margin-left: 50px !important;
           margin-right: 50px !important;
@@ -310,7 +310,7 @@
   otherwise border : 1px overwrites the quran frame and white outline gets larger */
 
         /* ayahbox */
-        #quranBakurubeTable > tbody > tr > td.qCol1 {
+        #quranTable > tbody > tr > td.qCol1 {
           /* font-weight: normal;*/
           background: #212d39;
           color: rgba(255, 255, 255, 0.847);
@@ -320,7 +320,7 @@
         }
 
         /* this colors the square border around the frame in quran, otherwise white */
-        #quranBakurubeTable > tbody > tr {
+        #quranTable > tbody > tr {
           background-color: #1a232d !important;
         }
         /* without important, double click go to jumping changes some of the inner background color */
@@ -1184,28 +1184,23 @@
             </li>
 
             <script>
+              // change url to change to another book while staying at the same row page place
               function qClick1() {
                 window.location = window.location
                   .toString()
                   .replace(/quranBakurube.html|quranJaufar.html/, "quran.html")
-                  .replace(/quranBakurubeTable|quranJaufarTable/, "quranTable")
                   .replace(/\:v.*$/, "");
               }
               function qClick2() {
                 window.location = window.location
                   .toString()
                   .replace(/quran.html|quranJaufar.html/, "quranBakurube.html")
-                  .replace(
-                    /quranTableTable|quranJaufarTable/,
-                    "quranBakurubeTable"
-                  )
                   .replace(/\:v.*$/, "");
               }
               function qClick3() {
                 window.location = window.location
                   .toString()
                   .replace(/quran.html|quranBakurube.html/, "quranJaufar.html")
-                  .replace(/quranTable|quranBakurubeTable/, "quranJaufarTable")
                   .replace(/\:v.*$/, "");
               }
             </script>
@@ -1223,14 +1218,14 @@
                   window.location = window.location
                     .toString()
                     .replace(/quranBakurube.html/, "quran.html")
-                    .replace(/quranBakurubeTable/, "quranTable")
+                    .replace(/quranTable/, "quranTable")
                     .replace(/\:v.*$/, "");
                   //repeat so dont have to change code on another page
                 } else if (window.location.toString().includes("quran.html")) {
                   window.location = window.location
                     .toString()
                     .replace(/quran.html/, "quranBakurube.html")
-                    .replace(/quranTable/, "quranBakurubeTable")
+                    .replace(/quranTable/, "quranTable")
                     .replace(/\:v.*$/, "");
                 }
               }
@@ -1308,22 +1303,45 @@
                   document.getElementById("ayahNoID").value;
                 // https://stackoverflow.com/questions/33371038/programmatically-search-a-table-with-jquery-datatables/33371324#33371324
                 //$("#quranTable").dataTable().fnFilter(combinedVals);
+
                 $("#quranTable").DataTable().search(combinedVals).draw();
-                //repeat so dont have to change code on another page
-                $("#quranBakurubeTable")
-                  .DataTable()
-                  .search(combinedVals)
-                  .draw();
                 //setTimeout(function () {
 
                 //$("#quranTable").DataTable().destroy();
                 //#quranTable > tbody > tr > td.qCol4
 
-                // double clicks on first td
+                // double clicks on first td (NOT WORKING NOW)
                 // https://stackoverflow.com/questions/38089625/programatically-click-on-button-using-javascript/38089731#38089731
-                document.getElementsByClassName("odd")[0].click();
-                document.getElementsByClassName("odd")[0].click();
-                //document.getElementsByClassName("copyURL")[0].click();
+
+                /*document.getElementsByClassName("odd")[0].click();
+                document.getElementsByClassName("odd")[0].click();*/
+                // above used to work, dont anymore, so commented out
+
+                // -- ALTERNATIVE code for jumping to surah ayah row page
+
+                /*console.log(
+                  $("#quranTable").DataTable().row("tbody tr").index()
+                );*/
+
+                // gets index of row
+                var QrowToJumpTo = $("#quranTable")
+                  .DataTable()
+                  .row("tbody tr")
+                  .index();
+
+                //table.page(table.page() + 10).draw("page")
+                //$("#quranTable").DataTable().page(10).draw("page");
+
+                // after searching and jumping to row page, clears the search entry, otherwise searches again and page will change
+                if ($("#quranTable").DataTable().search() !== "") {
+                  $("#quranTable").DataTable().search("").draw();
+                }
+
+                // changes page to row index value
+                $("#quranTable").DataTable().page(QrowToJumpTo).draw("page");
+                // alert("Row index: " + table.row("tbody tr").index())
+
+                // -- END OF ALTERNATIVE CODE
 
                 //}, 1510);
 
@@ -1880,7 +1898,7 @@
           <!-- cards js adds card classes to table ID -->
           <!-- change123 TABLE - card view set as default here -->
           <!-- class="stripe table cards"> -->
-          <table id="quranBakurubeTable" class="table cards"></table>
+          <table id="quranTable" class="table cards"></table>
           <!-- --- TABLE - END --- -->
 
           <div class="hidden" id="footer">
@@ -1900,52 +1918,40 @@
               function toggleFili() {
                 // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
 
-                var isVisible = $("#quranBakurubeTable")
+                var isVisible = $("#quranTable")
                   .DataTable()
                   .column(4)
                   .visible();
-                $("#quranBakurubeTable")
-                  .DataTable()
-                  .column(4)
-                  .visible(!isVisible);
+                $("#quranTable").DataTable().column(4).visible(!isVisible);
 
-                var isVisible = $("#quranBakurubeTable")
+                var isVisible = $("#quranTable")
                   .DataTable()
                   .column(5)
                   .visible();
-                $("#quranBakurubeTable")
-                  .DataTable()
-                  .column(5)
-                  .visible(!isVisible);
+                $("#quranTable").DataTable().column(5).visible(!isVisible);
               }
             </script>
 
             <script>
               function copyIjmalyOnly() {
-                var isVisible = $("#quranBakurubeTable")
+                var isVisible = $("#quranTable")
                   .DataTable()
                   .column(6)
                   .visible();
-                $("#quranBakurubeTable")
-                  .DataTable()
-                  .column(6)
-                  .visible(!isVisible);
+                $("#quranTable").DataTable().column(6).visible(!isVisible);
 
                 // https://stackoverflow.com/questions/56629325/programatically-invoke-jquery-datatable-cell-click-event/56629794#56629794
                 document
                   .querySelector(
-                    "#quranBakurubeTable_wrapper > div.dTop > div.dt-buttons > button.dt-button.buttons-copy.buttons-html5"
+                    "#quranTable_wrapper > div.dTop > div.dt-buttons > button.dt-button.buttons-copy.buttons-html5"
                   )
                   .click();
 
-                var isVisible = $("#quranBakurubeTable")
+                var isVisible = $("#quranTable")
                   .DataTable()
                   .column(6)
                   .visible();
-                $("#quranBakurubeTable")
-                  .DataTable()
-                  .column(6)
-                  .visible(!isVisible);
+                $("#quranTable").DataTable().column(6).visible(!isVisible);
               }
             </script>
 
@@ -1983,15 +1989,18 @@
 
             <hr class="lineVerticalSpace" />
 
+            <h3 class="mid">
+              <a>ޙަދީޘްއެމްވީގެ ނޯޓު</a>
+            </h3>
+
             <p class="justi">
-              ޙަދީޘްއެމްވީގެ ނޯޓު: މި ތަރުޖަމާ ޑިޖިޓައިޒު ކުރުމުގެ ތެރޭގައި
-              ކުށްތަކެއް ވަނީ ފެނިފައެވެ. ފިލިތަކެއް ނުވަތަ އަކުރުތަކެއް
-              ރަނގަޅުނުވުން ފަދަ ސާފު ކުދި ކަންކަން ވާނީ އިތުރު ބަޔާނެއް ނެތި
-              އިސްލާހު ކުރެވިފައެވެ. އެފަދަ އެތައް ސަތޭކަ ތަނެއް ވާނީ
-              ރަނގަޅުކޮށްފައެވެ. އެއަށް ވުރެ ބޮޑެތި ކުށްތައް ވާނީ ގޮޅި
-              ބްރެކެޓެއް ތެރޭގައި އިސްލާހު ކުރެވިފައެވެ. އަދިވެސް
-              ކިޔުންތެރިންނަށް ކުށްތައް ފާހަގަވާ ވަރަކަށް އަޅުގަނޑުމެން ނޯޓު
-              ކުރަމުން ދާނަމެވެ.
+              މި ތަރުޖަމާ ޑިޖިޓައިޒު ކުރުމުގެ ތެރޭގައި ކުށްތަކެއް ވަނީ
+              ފެނިފައެވެ. ފިލިތަކެއް ނުވަތަ އަކުރުތަކެއް ރަނގަޅުނުވުން ފަދަ ސާފު
+              ކުދި ކަންކަން ވާނީ އިތުރު ބަޔާނެއް ނެތި އިސްލާހު ކުރެވިފައެވެ.
+              އެފަދަ އެތައް ސަތޭކަ ތަނެއް ވާނީ ރަނގަޅުކޮށްފައެވެ. އެއަށް ވުރެ
+              ބޮޑެތި ކުށްތައް ވާނީ ގޮޅި ބްރެކެޓެއް ތެރޭގައި އިސްލާހު
+              ކުރެވިފައެވެ. އަދިވެސް ކިޔުންތެރިންނަށް ކުށްތައް ފާހަގަވާ ވަރަކަށް
+              އަޅުގަނޑުމެން ނޯޓު ކުރަމުން ދާނަމެވެ.
             </p>
 
             <p class="justi">
@@ -2058,11 +2067,12 @@
 
             <hr class="lineVerticalSpace" />
 
-            <p style="font-size: 19px">
+            <h3 class="mid">
               <a>
-                ބަކުރުބެގެ ތަރުޖަމާ ޑިޖިޓައިޒު ކުރުމުގައި އެހީތެރިވި ފަރާތްތައް:
+                ބަކުރުބެގެ ތަރުޖަމާ ޑިޖިޓައިޒު ކުރުމުގައި އެހީތެރިވި ފަރާތްތައް
               </a>
-            </p>
+            </h3>
+
             <p class="justi">
               މުޙައްމަދު އަޝްރާފު އިބްރާހީމް، އސ. އިބްރާހީމް ދީދީ، ބބ.، އަޝްފާ
               މ.، މޫސާ ޢަބްދުލް ޣަނީ، ނިހާން ޢަލީ، ޢަބްދު ﷲ އަޙްސަން ސަޢީދު،

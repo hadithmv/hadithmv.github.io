@@ -58,7 +58,7 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  const table = $("#quranBakurubeTable").DataTable({
+  const table = $("#quranTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
@@ -977,17 +977,43 @@ $(document).ready(() => {
     $("#footer").removeClass("hidden");
   });
 
-  // adds doubleclick select go to page search was on, with rowshowjs
+  /// adds doubleclick select go to page search was on, with rowshowjs
 
   // * The code below now works, previously some update to searchpanes js broke it, and the code below the code below was a workaround, but now we can use the initial one
   // no longer old code
 
-  $("tbody").on("dblclick", "tr", function () {
+  /* $("tbody").on("dblclick", "tr", function () {
     if (table.search() !== "") {
       table.search("").draw();
     }
     table.row(this).draw().show().select().draw(false);
+  });*/
+
+  // $(selector).on(event, childSelector, data, function, map)
+
+  $(".dataTable").on("dblclick", "tr", function () {
+    if (table.search() !== "") {
+      table.search("").draw();
+      // this clears the search after code below runs to draw the page, otherwise searches again and doesnt go to that page.
+    }
+    table.row(this).draw().show().select().draw(false);
+
+    //table.row("tbody tr").draw().show().select().draw(false); //page 1 reset
+    //console.log("01010101");
+    //console.log(this);
+    //console.log(table.page());
+    // alert("Row index: " + table.row("this").index());
+    //alert("Row index: " + table.row("tbody tr").index());
+    //table.page(table.page() + 10).draw("page");
   });
+
+  /*$("tbody").on("click", "tr", function () {
+    // table.search(this.value).draw();
+    //table.search("بقرة").draw();
+    table.search("بقرة").draw().show().select().draw(false);
+  });*/
+
+  //console.log("01010101");
 
   // below not needed now, above suffices
   // https://stackoverflow.com/questions/27560653/jquery-on-double-click-event-dblclick-for-mobile/27561006#27561006
@@ -1093,7 +1119,7 @@ $(document).ready(() => {
 
   // every time page draws, surah and ayah box update to extract surah and ayah values, the word surah is removed, and arabic numbers are turned into regular digits
   // https://stackoverflow.com/questions/7407111/detect-page-change-on-datatable/34995105#34995105
-  $("#quranBakurubeTable").on("draw.dt", function () {
+  $("#quranTable").on("draw.dt", function () {
     document.getElementById("surahNameID").value = document
       .getElementsByClassName("qCol1")[1]
       .innerText.replace(/سُورَةُ /g, "");
