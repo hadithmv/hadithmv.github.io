@@ -732,7 +732,7 @@ table.dataTable tbody td {
   line-height: 1.5;
 }
 
-/* # kitab baab colors and alignment */
+/* # kitab baab colors */
 .dataTable > tbody > tr > td.Col1,
 .dataTable > tbody > tr > td.ColKitab,
 .dataTable > tbody > tr > td.ColKitab2,
@@ -740,6 +740,8 @@ table.dataTable tbody td {
 .dataTable > tbody > tr > td.ColBaab,
 .dataTable > tbody > tr > td.ColBaab2 {
   color: #0f4c75 !important;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 @media (prefers-color-scheme: dark) {
   .dataTable > tbody > tr > td.Col1,
