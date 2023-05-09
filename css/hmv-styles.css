@@ -692,19 +692,19 @@ table.dataTable tbody td {
 
 /* space above first table data */
 .dataTable > tbody > tr > td:nth-child(1) {
-  padding-top: 15px; /* 10px !important*/
+  padding-top: 15px !important; /* 10px !important*/
 }
 
 /* space below last table data */
 .dataTable > tbody > tr > td:nth-last-child(1) {
-  padding-bottom: 20px; /* 25px */
+  padding-bottom: 20px !important; /* 25px */
 }
 
 /* CUSTOM CSS FOR TABLE COLUM DATA, NO NEED TO COPY BELOW TO minimal-mod.css */
 
 /* Top Col css */
 .dataTable > tbody > tr > td.Col1 {
-  font-size: 24px;
+  /*font-size: 24px;*/
   /*font-weight: bold;*/
 }
 
@@ -732,7 +732,7 @@ table.dataTable tbody td {
   line-height: 1.5;
 }
 
-/* # kitab baab colors */
+/* # number kitab baab colors */
 .dataTable > tbody > tr > td.Col1,
 .dataTable > tbody > tr > td.ColKitab,
 .dataTable > tbody > tr > td.ColKitab2,
