@@ -412,7 +412,7 @@ $(document).ready(() => {
       searchPanes: {
         emptyMessage: "— ވަކި ނަމެއް ނެތް —",
         clearMessage: "ހުރިހާ ފިލްޓާއެއް ދުއްވާލާ",
-        collapse: { 0: "ފިލްޓާތައް", _: "ފިލްޓާތައް (%d)" },
+        collapse: { 0: "ފިލްޓަރ", _: "ފިލްޓަރ (%d)" },
         title: {
           _: "%d ފިލްޓާ ކުރެވިފާ",
           0: "0 ފިލްޓާ ކުރެވިފާ",
@@ -493,6 +493,10 @@ $(document).ready(() => {
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
           data = data.replace(/ސައްހަކަމުގެ ހުކުމް\t/g, "");
+          data = data.replace(
+            /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
+            "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
+          ); // adds a line break after takhrij line, use two for a new line
 
           data = data.replace(/\t\t/g, "\t");
           // This prevents a double or more line breaks when columns are hidden
