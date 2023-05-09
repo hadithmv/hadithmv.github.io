@@ -1163,7 +1163,11 @@
             -->
 
             <li>
-              <span>ތަރުޖަމާ ބަދަލުކުރުމަށް</span>
+              <a href="../books/index.html">⛊ މައި ސަފުހާ</a>
+            </li>
+
+            <li>
+              <span>● ތަރުޖަމާ ބަދަލުކުރުމަށް</span>
               <ul>
                 <li>
                   <a onClick="qClick1()">1 ޙަދީޘްއެމްވީ ތަރުޖަމާ</a>
@@ -1218,23 +1222,19 @@
                   window.location = window.location
                     .toString()
                     .replace(/quranBakurube.html/, "quran.html")
-                    .replace(/quranTable/, "quranTable")
+                    .replace(/quranBakurubeTable/, "quranTable")
                     .replace(/\:v.*$/, "");
                   //repeat so dont have to change code on another page
                 } else if (window.location.toString().includes("quran.html")) {
                   window.location = window.location
                     .toString()
                     .replace(/quran.html/, "quranBakurube.html")
-                    .replace(/quranTable/, "quranTable")
+                    .replace(/quranTable/, "quranBakurubeTable")
                     .replace(/\:v.*$/, "");
                 }
               }
             </script>
             -->
-
-            <li>
-              <a href="../books/index.html">⛊ މައި ސަފުހާ</a>
-            </li>
 
             <li>
               <a href="../notes/info/contact.html"
