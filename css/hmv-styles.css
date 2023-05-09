@@ -691,12 +691,12 @@ table.dataTable tbody td {
 }
 
 /* space above first table data */
-.dataTable > tbody > tr > td:nth-child(1) {
+.table.dataTable > tbody > tr > td:nth-child(1) {
   padding-top: 15px !important; /* 10px !important*/
-}
+} /* .table prevents it from affecting searchpanes */
 
 /* space below last table data */
-.dataTable > tbody > tr > td:nth-last-child(1) {
+.table.dataTable > tbody > tr > td:nth-last-child(1) {
   padding-bottom: 20px !important; /* 25px */
 }
 
@@ -857,6 +857,7 @@ div.dt-button-info {
 /* changes clipboard copied color, */
 
 #datatables_buttons_info.dt-button-info h2 {
+  font-size: 1.3em;
   background: #136296;
   /* add1f2 */
 
@@ -873,7 +874,7 @@ div.dt-button-info {
 div#datatables_buttons_info.dt-button-info {
   /* fits screen on mobile, is 400 on desktop */
   width: auto;
-  max-width: 350px;
+  max-width: 300px; /* 350 */
 
   /* centers */
   right: 0;
