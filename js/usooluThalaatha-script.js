@@ -118,7 +118,7 @@ $(document).ready(() => {
       },
       {
         data: 6,
-        title: "ތަޚްރީޖު އަރަބިން",
+        title: "ތަޚްރީޖު",
       },
       {
         data: 7,
@@ -483,7 +483,7 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/English\t/g, "");
-          data = data.replace(/ތަޚްރީޖު އަރަބިން\t/g, "");
+          data = data.replace(/ތަޚްރީޖު\t/g, "");
           data = data.replace(/شرح آل الشيخ\t/g, "");
           data = data.replace(/شرح الأسمري\t/g, "");
 
