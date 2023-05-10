@@ -574,6 +574,17 @@ p {
   word-spacing: -0.05em;
 }
 
+/* header dv sizes */
+h1 .dv {
+  font-size: 2em;
+}
+h2 .dv {
+  font-size: 1.5em;
+}
+h3 .dv {
+  font-size: 1.17em;
+}
+
 /*h1.ar {
   font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
   font-size: 32px;
