@@ -1386,6 +1386,37 @@ div.dtsp-searchPane div.dataTables_scrollBody {
   cursor: pointer;
 }
 
+/* ====== */
+
+/* clear all filters button */
+div.dtsp-titleRow > button {
+  font-size: 19.2px !important;
+  margin-right: 20px !important;
+}
+
+/* X close searchpanes pane */
+div.dtb-popover-close {
+  font-size: 19.2px !important;
+  top: 20px !important;
+  height: 30px !important;
+  line-height: 30px !important;
+  width: 30px !important;
+}
+
+/* X clear button on searchpane input */
+div.dtsp-subRowsContainer > div > div > button {
+  font-size: 19.2px !important;
+  top: 20px !important;
+  height: 30px !important;
+  line-height: 30px !important;
+}
+
+/*  searchpane input */
+div.dtsp-topRow.dtsp-subRowsContainer > div > div > input {
+  font-size: 19.2px !important;
+  height: 40px !important;
+}
+
 /* ====================
        Footer STYLES
 ======================= */
