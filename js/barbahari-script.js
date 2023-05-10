@@ -120,7 +120,7 @@ $(document).ready(() => {
       },
       {
         data: 7,
-        title: "ތަޚްރީޖު އަރަބިން",
+        title: "ތަޚްރީޖު",
       },
       {
         data: 8,
@@ -467,7 +467,7 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/English\t/g, "");
-          data = data.replace(/ތަޚްރީޖު އަރަބިން\t/g, "");
+          data = data.replace(/ތަޚްރީޖު\t/g, "");
           data = data.replace(/شرح النجمي\t/g, "");
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
