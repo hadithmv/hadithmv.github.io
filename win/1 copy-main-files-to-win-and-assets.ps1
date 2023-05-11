@@ -24,6 +24,7 @@ Copy-Item ../books/quranJaufar.html -Destination ../app/webview-master/app/src/m
 Copy-Item ../books/quranJaufar.html -Destination ../app/webview-master/app/src/main/assets/books/quranJaufar.html -Recurse -Force
 Copy-Item ../books/radheef.html -Destination ../app/webview-master/app/src/main/assets/books/radheef.html -Recurse -Force
 Copy-Item ../books/umdah.html -Destination ../app/webview-master/app/src/main/assets/books/umdah.html -Recurse -Force
+Copy-Item ../books/ushrulAkheer.html -Destination ../app/webview-master/app/src/main/assets/books/ushrulAkheer.html -Recurse -Force
 Copy-Item ../books/usooluThalaatha.html -Destination ../app/webview-master/app/src/main/assets/books/usooluThalaatha.html -Recurse -Force
 
 # copies minified asset book folder contents to WIN book folder
@@ -104,6 +105,7 @@ Copy-Item ../js/quranJaufar-script.min.js -Destination ../app/webview-master/app
 Copy-Item ../js/radheef-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/radheef-script.min.js -Recurse -Force
 Copy-Item ../js/aqidatuRaziyain-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/aqidatuRaziyain-script.min.js -Recurse -Force
 Copy-Item ../js/umdah-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/umdah-script.min.js -Recurse -Force
+Copy-Item ../js/ushrulAkheer-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/ushrulAkheer-script.min.js -Recurse -Force
 Copy-Item ../js/usooluThalaatha-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/usooluThalaatha-script.min.js -Recurse -Force
 
 # - - -
@@ -130,6 +132,7 @@ Copy-Item ../js/json/quranJaufar.js -Destination ../app/webview-master/app/src/m
 Copy-Item ../js/json/radheef.js -Destination ../app/webview-master/app/src/main/assets/js/json/radheef.js -Recurse -Force
 Copy-Item ../js/json/aqidatuRaziyain.js -Destination ../app/webview-master/app/src/main/assets/js/json/aqidatuRaziyain.js -Recurse -Force
 Copy-Item ../js/json/umdah.js -Destination ../app/webview-master/app/src/main/assets/js/json/umdah.js -Recurse -Force
+Copy-Item ../js/json/ushrulAkheer.js -Destination ../app/webview-master/app/src/main/assets/js/json/ushrulAkheer.js -Recurse -Force
 Copy-Item ../js/json/usooluThalaatha.js -Destination ../app/webview-master/app/src/main/assets/js/json/usooluThalaatha.js -Recurse -Force
 
 # copies previous JS AND JSON AND RESC folder contents to WIN js folder
