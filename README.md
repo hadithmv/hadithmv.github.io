@@ -43,7 +43,7 @@ The Maldivian Platform for Translations of the Sunnah
 
 ### **Developing a hadith platform for Maldivians**
 
-The **Hadithmv** project is a collaborated effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Maldivian community. Once this work is complete, they will have a hadith collection in their native Dhivehi language, in sha Allah. We are also working on making other Islamic works available, as well as beneficial tools and content for those who wish to make use of them.
+The **Hadithmv** project is a collaborative effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Maldivian community. Once this work is complete, they will have a hadith collection in their native Dhivehi language, in sha Allah. We are also working on making other Islamic works available, as well as beneficial tools and content for those who wish to make use of them.
 
 > It is Allah Who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. Hadithmv is designed to be mobile-first with minimal bloat. Currently available on the Web, Android and Windows.
 
