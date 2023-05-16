@@ -67,7 +67,7 @@ Copy-Item ../app/webview-master/app/src/main/assets/notes/* -Destination hmv/not
 # - - -
 # COPY font to android
 # - - -
-Copy-Item ../font/merged-light.woff2 -Destination ../app/webview-master/app/src/main/assets/font/merged-light.woff2 -Recurse -Force
+Copy-Item ../font/merged-light-mod.woff2 -Destination ../app/webview-master/app/src/main/assets/font/merged-light-mod.woff2 -Recurse -Force
 
 # copies previous font to WIN font folder
 Copy-Item  ../app/webview-master/app/src/main/assets/font/* -Destination hmv/font -Recurse -Force
