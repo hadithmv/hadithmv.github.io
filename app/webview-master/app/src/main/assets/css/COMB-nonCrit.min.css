@@ -29,4 +29,4 @@ div.dtsp-topRow{align-content:flex-start;align-items:flex-start;border:2px solid
 
 
 /* fonts.css */
-html{font-family:"mergedFont","Quicksand",sans-serif,"faruma";-webkit-font-smoothing:antialiased;text-align:right;direction:rtl;font-size:120%}@font-face{font-family:"mergedFont";src:url(../font/merged-light.woff2)format("woff2"),url(../font/merged-light.woff)format("woff"),url(../font/merged-light.otf)format("opentype");font-display:block}
+html{font-family:"mergedFont","Quicksand",sans-serif,"faruma";-webkit-font-smoothing:antialiased;text-align:right;direction:rtl;font-size:120%}@font-face{font-family:"mergedFont";src:url(../font/merged-light-mod.woff2)format("woff2"),url(../font/merged-light-mod.woff)format("woff"),url(../font/merged-light-mod.otf)format("opentype");font-display:block}
