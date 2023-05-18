@@ -37,7 +37,7 @@ The Maldivian Platform for Translations of the Sunnah
 <br>
 
 <p align="center"><i>
-  - In the Name of Allah, the Entirely Merciful, the Especially Merciful -</i>
+  - In the Name of Allah, Ar-Rahman, Ar-Raheem -</i>
 </p>
 <br>
 
@@ -101,7 +101,7 @@ The **Hadithmv** project is a collaborative effort in making the sayings and tea
 <div >
 
 <p align="center">
-- ރަޙްމާންވަންތަ ރަޙީމްވަންތަ ﷲ ގެ އިސްމުފުޅުން ފަށައިގަންނަމެވެ -
+- ﷲ، އައްރަޙްމާން، އައްރަޙީމުގެ އިސްމުފުޅުން ފަށައިގަންނަމެވެ -
 </p>
 <br>
 
