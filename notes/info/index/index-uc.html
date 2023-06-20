@@ -335,6 +335,28 @@
     }
   </style>
 
+  <style>
+    /* style for select droptdown, script would be near the html code for it */
+
+    #selectAqiqa {
+      font-size: 1.17em;
+      color: rgb(255 255 255/84.7%);
+      background-color: #0e1621;
+      /* https://stackoverflow.com/questions/41710536/dynamically-truncate-option-text-to-fit-select-list/41710670#41710670 */
+      max-width: 80vw !important;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    @media (prefers-color-scheme: light) {
+      #selectAqiqa {
+        color: #222;
+        background-color: #fff;
+      }
+    }
+  </style>
+
   <body class="notranslate">
     <div class="wrapper eng">
       <div class="mid">
@@ -1281,7 +1303,7 @@
 
         <div class="Pr">
           <h3 class="price" onclick="openModal()">
-            <b>949/- MVR</b>
+            <b>995/- MVR</b>
           </h3>
         </div>
 
@@ -1314,7 +1336,7 @@
 
         <div class="Pr">
           <h3 class="price" onclick="openModal()">
-            <b>1095/- MVR</b>
+            <b>1195/- MVR</b>
           </h3>
         </div>
 
@@ -1347,14 +1369,14 @@
 
         <div class="Pr">
           <h3 class="price" onclick="openModal()">
-            <b>1200/- MVR</b>
+            <b>1295/- MVR</b>
           </h3>
           <h4>*&#160;1/7th Share&#160;*</h4>
 
           <br />
 
           <h3 class="price" onclick="openModal()">
-            <b>7995/- MVR</b>
+            <b>8450/- MVR</b>
           </h3>
           <h4>*&#160;Full Cow&#160;*</h4>
         </div>
@@ -1660,277 +1682,263 @@
         <hr />
         <br />
 
-        <h2 class="mid">– &nbsp;Aqiqa Offers (Outside of Eid)&nbsp; –</h2>
-        <br />
-
-        <!-- IMG ITEM -->
-        <div class="flexRow">
-          <img
-            loading="lazy"
-            width="500"
-            class="flexItem"
-            alt="sadaqah"
-            src="img/goat-africa-7-500px.webp"
-          />
-          <img
-            loading="lazy"
-            width="500"
-            class="flexItem"
-            alt="sadaqa"
-            src="img/birrumv-aqiqa-art-500px.webp"
-          />
-          <img
-            loading="lazy"
-            width="500"
-            class="flexItem"
-            alt="sadaqah"
-            src="img/goat-africa-5-500px.webp"
-          />
-          <img
-            loading="lazy"
-            width="500"
-            class="flexItem"
-            alt="sadaqah"
-            src="img/goat-africa-6-500px.webp"
-          />
-        </div>
-        <!-- IMG ITEM - END -->
-
-        <!-- TEXT ITEM -->
-        <br />
-        <div class="flexRow">
-          <div class="flexItem">
-            <h3 class="iTitle">Africa Goat</h3>
-          </div>
-
-          <div class="flexItem dv">
-            <h3 class="iTitle">އެފްރިކާ ބަކަރި</h3>
-          </div>
-        </div>
-
-        <br />
-
-        <div class="Pr">
-          <h3 class="price" onclick="openModal()">
-            <b><span id="aqiqaPrice">849/- &nbsp;(Non-Eid)</span></b>
-          </h3>
-          <!--
-            749
-          -->
-          <br />
-          <!--
-          <div class="Pr">
-            <h3 class="price" onclick="openModal()">
-              <b><span id="aqiqaPrice">895/- &nbsp;(Eid Udhiya)</span></b>
-            </h3>
-          <br />
-        -->
-
-          <!--
-          <select id="selectAqiqa" onchange="changeAqiqaPrice();">
-            <option value="748">Regular Aqiqa / Sadaqah etc.</option>
-            <option value="698">
-              1st Baby / Adult Aqiqa special offer for 1st goat
-            </option>
-          </select>
-          -->
-
-          <style>
-            #selectAqiqa {
-              font-size: 1.17em;
-              color: rgb(255 255 255/84.7%);
-              background-color: #0e1621;
-              /* https://stackoverflow.com/questions/41710536/dynamically-truncate-option-text-to-fit-select-list/41710670#41710670 */
-              max-width: 80vw !important;
-              overflow: hidden;
-              white-space: nowrap;
-              text-overflow: ellipsis;
-            }
-
-            @media (prefers-color-scheme: light) {
-              #selectAqiqa {
-                color: #222;
-                background-color: #fff;
-              }
-            }
-          </style>
-
-          <script>
-            /*window.onload = function () {
-              document.getElementById("aqiqaPrice").innerHTML =
-                document.getElementById("selectAqiqa").value;
-            };*/
-            function changeAqiqaPrice() {
-              document.querySelector("#aqiqaPrice").innerHTML =
-                document.getElementById("selectAqiqa").value;
-            }
-          </script>
-        </div>
-
-        <!--<div class="Pr">
-          <h3 class="price" onclick="openModal()">
-            <b>795/- MVR</b>
-          </h3>
-          <h4>*&#160;Regular Aqiqa / Sadaqah / Kaffaarah &#160;*</h4>
-
-          <br />
-
-          <h3 class="price" onclick="openModal()">
-            <b>698/- MVR</b>
-          </h3>
-          <h4>
-            *&#160;First baby’s / Adult’s Aqiqa special offer for first
-            goat&#160;*
-             *&#160;First goat price, if Aqiqa is on the 7th day of your first
-            child’s birth (one time discount for one goat)&#160;*
-          </h4>
-        </div>-->
-        <!-- TEXT ITEM - END --->
-
-        <!-- https://stackoverflow.com/questions/47655563/hide-and-show-text-by-click-on-div/47655699#47655699 -->
-
-        <br />
-        <hr />
-        <br />
-
-        <!-- IMG ITEM -->
-        <div class="flexRow">
-          <img
-            loading="lazy"
-            width="500"
-            class="flexItem"
-            alt="sadagah"
-            src="img/sheep-africa-6-500px.webp"
-          />
-          <img
-            loading="lazy"
-            width="500"
-            class="flexItem"
-            alt="sadaga"
-            src="img/sheep-africa-4-500px.webp"
-          />
-        </div>
-        <!-- IMG ITEM - END -->
-
-        <!-- TEXT ITEM -->
-        <br />
-        <div class="flexRow">
-          <div class="flexItem">
-            <h3 class="iTitle">Africa Sheep</h3>
-          </div>
-          <div class="flexItem dv">
-            <h3 class="iTitle">އެފްރިކާ ކަންބަޅި</h3>
-          </div>
-        </div>
-
-        <br />
-
-        <div class="Pr">
-          <h3 class="price" onclick="openModal()">
-            <b>995/- &nbsp;(Non-Eid)</b>
-          </h3>
-        </div>
-
-        <br />
-        <!--
-        <div class="Pr">
-          <h3 class="price" onclick="openModal()">
-            <b>1195/- &nbsp;(Eid Udhiya)</b>
-          </h3>
-        </div>
-        <br />
-      -->
-
-        <!-- TEXT ITEM - END --->
-
         <style>
-          /*
+          /* non eid is within here*/ /*
 
-           <br />
-        <hr />
-        <br />
+                  <h2 class="mid">– &nbsp;Aqiqa Offers (Outside of Eid)&nbsp; –</h2>
+                  <br />
+
+                  <!-- IMG ITEM -->
+                  <div class="flexRow">
+                    <img
+                      loading="lazy"
+                      width="500"
+                      class="flexItem"
+                      alt="sadaqah"
+                      src="img/goat-africa-7-500px.webp"
+                    />
+                    <img
+                      loading="lazy"
+                      width="500"
+                      class="flexItem"
+                      alt="sadaqa"
+                      src="img/birrumv-aqiqa-art-500px.webp"
+                    />
+                    <img
+                      loading="lazy"
+                      width="500"
+                      class="flexItem"
+                      alt="sadaqah"
+                      src="img/goat-africa-5-500px.webp"
+                    />
+                    <img
+                      loading="lazy"
+                      width="500"
+                      class="flexItem"
+                      alt="sadaqah"
+                      src="img/goat-africa-6-500px.webp"
+                    />
+                  </div>
+                  <!-- IMG ITEM - END -->
+
+                  <!-- TEXT ITEM -->
+                  <br />
+                  <div class="flexRow">
+                    <div class="flexItem">
+                      <h3 class="iTitle">Africa Goat</h3>
+                    </div>
+
+                    <div class="flexItem dv">
+                      <h3 class="iTitle">އެފްރިކާ ބަކަރި</h3>
+                    </div>
+                  </div>
+
+                  <br />
+
+                  <div class="Pr">
+                    <h3 class="price" onclick="openModal()">
+                      <b><span id="aqiqaPrice">899/- &nbsp;(Non-Eid)</span></b>
+                    </h3>
+                    <!--
+                      749
+                      849
+                    -->
+                    <br />
+                    <!--
+                    <div class="Pr">
+                      <h3 class="price" onclick="openModal()">
+                        <b><span id="aqiqaPrice">895/- &nbsp;(Eid Udhiya)</span></b>
+                      </h3>
+                    <br />
+                  -->
+
+                    <!--
+                    <select id="selectAqiqa" onchange="changeAqiqaPrice();">
+                      <option value="748">Regular Aqiqa / Sadaqah etc.</option>
+                      <option value="698">
+                        1st Baby / Adult Aqiqa special offer for 1st goat
+                      </option>
+                    </select>
+                    -->
 
 
-<!-- IMG ITEM -->
-        <div class="flexRow">
-          <img
-            loading="lazy"
-            width="500"
-            class="flexItem"
-            alt="ulhiya"
-            src="img/goat-egypt-500px.webp"
-          />
-        </div>
-        <!-- IMG ITEM - END -->
 
-        <!-- TEXT ITEM -->
-        <br />
-        <div class="flexRow">
-          <div class="flexItem dv">
-            <h3 class="iTitle">މިސްރު ބަކަރި</h3>
-          </div>
+                    <script>
+                      /*window.onload = function () {
+                        document.getElementById("aqiqaPrice").innerHTML =
+                          document.getElementById("selectAqiqa").value;
+                      };*/
+                      function changeAqiqaPrice() {
+                        document.querySelector("#aqiqaPrice").innerHTML =
+                          document.getElementById("selectAqiqa").value;
+                      }
+                    </script>
+                  </div>
 
-          <div class="flexItem">
-            <h3 class="iTitle">Egypt Goat</h3>
-          </div>
-        </div>
+                  <!--<div class="Pr">
+                    <h3 class="price" onclick="openModal()">
+                      <b>795/- MVR</b>
+                    </h3>
+                    <h4>*&#160;Regular Aqiqa / Sadaqah / Kaffaarah &#160;*</h4>
 
-        <br />
+                    <br />
 
-        <div class="Pr" onclick="openModal()">
-          <h3 class="price"><b>1195/- MVR</b></h3>
-        </div>
+                    <h3 class="price" onclick="openModal()">
+                      <b>698/- MVR</b>
+                    </h3>
+                    <h4>
+                      *&#160;First baby’s / Adult’s Aqiqa special offer for first
+                      goat&#160;*
+                       *&#160;First goat price, if Aqiqa is on the 7th day of your first
+                      child’s birth (one time discount for one goat)&#160;*
+                    </h4>
+                  </div>-->
+                  <!-- TEXT ITEM - END --->
 
-        <br />
-        <hr />
-        <br />
+                  <!-- https://stackoverflow.com/questions/47655563/hide-and-show-text-by-click-on-div/47655699#47655699 -->
 
-        */
-          /*
+                  <br />
+                  <hr />
+                  <br />
 
-        <!-- IMG ITEM -->
-        <div class="flexRow">
-          <img
-            loading="lazy"
-            width="500"
-            class="flexItem"
-            alt="madeenah"
-            src="img/sheep-madina-3-500px.webp"
-          />
-          <img
-            loading="lazy"
-            width="500"
-            class="flexItem"
-            alt="qurbani"
-            src="img/goat-madina-500px.webp"
-          />
-        </div>
-        <!-- IMG ITEM - END -->
+                  <!-- IMG ITEM -->
+                  <div class="flexRow">
+                    <img
+                      loading="lazy"
+                      width="500"
+                      class="flexItem"
+                      alt="sadagah"
+                      src="img/sheep-africa-6-500px.webp"
+                    />
+                    <img
+                      loading="lazy"
+                      width="500"
+                      class="flexItem"
+                      alt="sadaga"
+                      src="img/sheep-africa-4-500px.webp"
+                    />
+                  </div>
+                  <!-- IMG ITEM - END -->
 
-        <!-- TEXT ITEM -->
-        <br />
-        <div class="flexRow">
-          <div class="flexItem dv">
-            <h3 class="iTitle">މަދީނާ ބަކަރި/ކަންބަޅި</h3>
-          </div>
+                  <!-- TEXT ITEM -->
+                  <br />
+                  <div class="flexRow">
+                    <div class="flexItem">
+                      <h3 class="iTitle">Africa Sheep</h3>
+                    </div>
+                    <div class="flexItem dv">
+                      <h3 class="iTitle">އެފްރިކާ ކަންބަޅި</h3>
+                    </div>
+                  </div>
 
-          <div class="flexItem">
-            <h3 class="iTitle">Medina Sheep/Goat</h3>
-          </div>
-        </div>
+                  <br />
 
-        <br />
+                  <div class="Pr">
+                    <h3 class="price" onclick="openModal()">
+                      <b>995/- &nbsp;(Non-Eid)</b>
+                    </h3>
+                  </div>
 
-        <div class="Pr">
-          <h3 class="price" onclick="openModal()">
-            <b>2450/- MVR</b>
-          </h3>
+                  <br />
+                  <!--
+                  <div class="Pr">
+                    <h3 class="price" onclick="openModal()">
+                      <b>1195/- &nbsp;(Eid Udhiya)</b>
+                    </h3>
+                  </div>
+                  <br />
+                -->
 
-          <h4>
-            *&#160;Sometimes goats are available, at other times sheep&#160;*
-          </h4>
-        </div>
-      */
+                  <!-- TEXT ITEM - END --->
+
+                  <style>
+                    /*
+
+                     <br />
+                  <hr />
+                  <br />
+
+
+          <!-- IMG ITEM -->
+                  <div class="flexRow">
+                    <img
+                      loading="lazy"
+                      width="500"
+                      class="flexItem"
+                      alt="ulhiya"
+                      src="img/goat-egypt-500px.webp"
+                    />
+                  </div>
+                  <!-- IMG ITEM - END -->
+
+                  <!-- TEXT ITEM -->
+                  <br />
+                  <div class="flexRow">
+                    <div class="flexItem dv">
+                      <h3 class="iTitle">މިސްރު ބަކަރި</h3>
+                    </div>
+
+                    <div class="flexItem">
+                      <h3 class="iTitle">Egypt Goat</h3>
+                    </div>
+                  </div>
+
+                  <br />
+
+                  <div class="Pr" onclick="openModal()">
+                    <h3 class="price"><b>1195/- MVR</b></h3>
+                  </div>
+
+                  <br />
+                  <hr />
+                  <br />
+
+                  */
+                    /*
+
+                  <!-- IMG ITEM -->
+                  <div class="flexRow">
+                    <img
+                      loading="lazy"
+                      width="500"
+                      class="flexItem"
+                      alt="madeenah"
+                      src="img/sheep-madina-3-500px.webp"
+                    />
+                    <img
+                      loading="lazy"
+                      width="500"
+                      class="flexItem"
+                      alt="qurbani"
+                      src="img/goat-madina-500px.webp"
+                    />
+                  </div>
+                  <!-- IMG ITEM - END -->
+
+                  <!-- TEXT ITEM -->
+                  <br />
+                  <div class="flexRow">
+                    <div class="flexItem dv">
+                      <h3 class="iTitle">މަދީނާ ބަކަރި/ކަންބަޅި</h3>
+                    </div>
+
+                    <div class="flexItem">
+                      <h3 class="iTitle">Medina Sheep/Goat</h3>
+                    </div>
+                  </div>
+
+                  <br />
+
+                  <div class="Pr">
+                    <h3 class="price" onclick="openModal()">
+                      <b>2450/- MVR</b>
+                    </h3>
+
+                    <h4>
+                      *&#160;Sometimes goats are available, at other times sheep&#160;*
+                    </h4>
+                  </div>
+                */
         </style>
 
         <style>
@@ -1975,8 +1983,7 @@
         </div>
 
         <br />
-      */ /* cow hide end */
-        </style>
+     
 
         <!--
         <div class="Pr">
@@ -2030,6 +2037,9 @@
         <br />
         <hr />
         <br />
+
+         */ /* cow hide end */
+        </style>
 
         <style>
           .showOnClick {
