@@ -1108,11 +1108,14 @@ $(document).ready(() => {
       )
       .replace(/ـ/g, "")
       .replace(
-        /[^\u0621-\u064A|^\u0780-\u07B1|^\d|^𝟣||^𝟣|^𝟤|^𝟥|^𝟦|^𝟧|^𝟨|^𝟩|^𝟪|^𝟫|^𝟢|\s|<br class="br">]/g,
+        /[^\u0621-\u064A|^\u0780-\u07B1|^\uFDF2|^\uFDFA|^\d|^𝟣||^𝟣|^𝟤|^𝟥|^𝟦|^𝟧|^𝟨|^𝟩|^𝟪|^𝟫|^𝟢|\s|<br class="br">]/g,
         ""
       )
       .replace(/\s\s/g, " ");
     $(this).val(str);
+    // ^\u0621-\u064A is except for arabic normal letters
+    // ^\u0780-\u07B1 is except for thaana letters
+    // ^\uFDF2|^\uFDFA is ﷲ and ﷺ
     //table.search(str).draw();
     // commenting above out allows searchdelay to work with stringreplace
   });
