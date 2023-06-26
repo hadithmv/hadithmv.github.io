@@ -674,21 +674,23 @@ table.dataTable tbody td {
 
 .dataTable > tbody > tr > td {
   font-size: 22px; /* 100% 22 */
-  color: #24292e;
+  color: #24292e !important;
   line-height: 1.7; /* 1.5 */
   word-wrap: break-word;
   /*text-align: right;*/
   direction: rtl;
-
   text-align: justify;
   word-spacing: -0.05em;
   -webkit-font-smoothing: antialiased;
-
   /*text-align: justify;*/
   /* word-spacing: -10px; */
   /* -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%; */
 }
+
+/* to prevent losing color when selected/double clicked. might be able to use !important instead. but those might conflict with each other
+table.dataTable tbody tr.selected > * {
+  color: #24292e ! */
 
 /* space above first table data */
 .table.dataTable > tbody > tr > td:nth-child(1) {
@@ -703,10 +705,11 @@ table.dataTable tbody td {
 /* CUSTOM CSS FOR TABLE COLUM DATA, NO NEED TO COPY BELOW TO minimal-mod.css */
 
 /* Top Col css */
+/*
 .dataTable > tbody > tr > td.Col1 {
-  /*font-size: 24px;*/
-  /*font-weight: bold;*/
-}
+  font-size: 24px;
+  font-weight: bold;
+}*/
 
 .dataTable > tbody > tr > td.ColEng {
   font-family: sans-serif;
@@ -911,16 +914,18 @@ table.dataTable.stripe > tbody > tr.odd.selected > *:not(.qCol1) {
   box-shadow: none !important;
   */
 /*table.dataTable tbody tr.selected > * */
-/* added :not(.qCol1) to prevent the round surah box from disapeparing */
+/* added :not(.qCol1) to prevent the round surah box from disappearing */
 table.dataTable tbody tr.selected > *:not(.qCol1) {
   box-shadow: none !important;
 }
 
-/* removes the fff white text color that comes with that too,
+/* when double clicking a card to jumpt to it, this selects the card, and changes the text color for some reason.
+Removes the fff white text color that comes with that too,
   initial and inherit have issues, including round surah box text */
-table.dataTable tbody tr.selected > * {
+/*table.dataTable tbody tr.selected > * {
   color: currentcolor !important;
-}
+}*/
+/* this removed the colkitab colbaab colors, so commented it out, but then it changed the text colors to be whiter again */
 
 /* Keytable - Desktop only MQ */
 
@@ -1649,11 +1654,15 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
 
   /* this is inner table on desktop */
   .dataTable > tbody > tr > td {
+    color: rgb(255 255 255 / 84.7%) !important;
     background-color: #1a232d;
-    color: rgb(255 255 255 / 84.7%);
-
     /* border: none; removes card border ?? */
   }
+
+  /* to prevent losing color when selected/double clicked. might be able to use !important instead. but those might conflict with each other
+  table.dataTable tbody tr.selected > * {
+    color: rgb(255 255 255 / 84.7%) !important;
+  } */
 
   /* this is inner table on mobile
 this makes a faint white outline around card  */
