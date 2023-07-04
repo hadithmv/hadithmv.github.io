@@ -292,26 +292,48 @@
       text-decoration: underline;
     }
     */
+
+    .topContainer {
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: row-reverse;
+      -ms-flex-direction: row-reverse;
+      flex-direction: row-reverse;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      /* to spread evenly in the middle */
+      justify-content: space-around;
+    }
   </style>
 
   <body class="notranslate">
     <div class="wrapper">
+      <div
+        class="topContainer"
+        style="margin-top: 4px; margin-bottom: 5px; font-size: 20px"
+      >
+        <span class="hideOnPhoneOnly"></span>
+        <span class="hideOnPhoneOnly"></span>
+        <span>
+          <b><a href="../../books/index.html">Hadithmv</a></b> Text Editor</span
+        >
+        <span class="hideOnPhoneOnly" dir="rtl">⚙️ އިސްދާރު: v2.99</span>
+        <span class="hideOnPhoneOnly">(A Collection of Tools)</span>
+        <span class="hideOnPhoneOnly"></span>
+        <span class="hideOnPhoneOnly"></span>
+      </div>
+      <!-- OLD
       <div class="mid">
-        <!--
-        <h1 class="basmala">بِسمِ اللهِ الرَّحمَنِ الرَّحِيمِ</h1>
-        <a href="https://hadithmv.github.io" class="noLine"
-          ><img
-            class="hmv"
-            alt="hadith mv"
-            src="https://hadithmv.github.io/img/logo/logo.svg"
-        /></a>-->
-
-        <!--<br /><br />-->
         <h2 style="margin-top: 4px; margin-bottom: 5px; font-size: 20px">
           <b><a href="../../books/index.html">Hadithmv</a></b> Text Editor
-          <span class="hideOnPhoneOnly">&nbsp; &nbsp; &nbsp;</span>
+
           <br class="hideOnTabAndUp" />
-          <span class="hideOnPhoneOnly hmvVer" style="font-size: 19px" dir="rtl"
+          <span
+            class="hideOnPhoneOnly hmvVer"
+            style="font-size: 19px; display: inline-flex"
+            dir="rtl"
             >⚙️ އިސްދާރު: v2.99</span
           >
           <span class="hideOnPhoneOnly">&nbsp; &nbsp; &nbsp;</span>
@@ -320,6 +342,7 @@
           </span>
         </h2>
       </div>
+      -->
 
       <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs_fade -->
       <div class="tab" style="max-width: 1000px; margin: 0 auto">
