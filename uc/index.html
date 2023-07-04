@@ -50,11 +50,10 @@
     <!-- Critical CSS -->
     <!-- mmenu-demo -->
     <!-- prettier-ignore -->
-    <style>
-.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media (max-width:599px){.content{padding-top:45px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}@media (prefers-color-scheme:dark){body{background-color:#0e1621;color:#c5cfd6}}
-
+    <!-- <style>
+.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media (max-width:599px){.content{padding-top:45px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}.menuLeftIcon{left:0;right:auto!important;margin:0!important;width:0!important;background:0 0}@media (prefers-color-scheme:dark){body{background-color:#0e1621;color:#c5cfd6}}
   </style>
-    <!-- Critical CSS - END -->
+  Critical CSS - END -->
 
     <style>
       html {
@@ -295,10 +294,6 @@
 
           /* */
           min-height: 100px;
-
-          /*.backC {
-          height: 100px !important;
-          width: 200px;*/
         }
         /*p.dv {
           font-size: 14px;
@@ -451,12 +446,23 @@
       <div class="header fixed" onclick="drawer.open();">
         <!-- hamburger -->
         <a href="#menu"><span></span></a>
+        <a class="menuLeftIcon" href="index.html"
+          ><img
+            class="hmvLogo1"
+            alt="hadith mv"
+            loading="lazy"
+            src="../img/logo/logo.svg"
+        /></a>
+
+        <!--
         <img
           class="hmvLogo1"
           alt="hadith mv"
           loading="lazy"
           src="../img/logo/logo.svg"
         />
+        -->
+
         <span class="hideOnPhoneOnly">ޙަދީޘްއެމްވީ – </span>ސުންނަތުގެ ތަރުޖަމާ
         މަންސަ
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
@@ -834,11 +840,15 @@
           }
         }
 
+        .backArrow {
+          border-color: transparent !important;
+        }
+
+        /*
         .backC {
           border-color: transparent !important;
-          /*width: 200px;
-          height: 200px;*/
         }
+        */
       </style>
 
       <script>
@@ -967,7 +977,19 @@
           </div>
           -->
 
-          <!-- -->
+          <div class="column">
+            <a
+              class="tablinks"
+              onclick="openTab(event, 'tab1'); scrollBack2Top();"
+              id="defaultOpen"
+            >
+              <div class="card backArrow">
+                <p><span style="font-size: 65px">⮨</span></p>
+              </div>
+            </a>
+          </div>
+
+          <!-- old back button
           <div class="column">
             <a
               class="tablinks"
@@ -975,7 +997,6 @@
               id="defaultOpen"
             >
               <div class="card backC">
-                <!-- icon -->
                 <div class="resp-sharing-button andBtn">
                   <div
                     aria-hidden="true"
@@ -987,13 +1008,12 @@
                     ></div>
                   </div>
                 </div>
-                <!-- icon -->
               </div>
             </a>
           </div>
-          <!-- -->
+        -->
 
-          <!--
+          <!-- older back button
           <div class="column">
             <a
               class="tablinks"
@@ -1005,12 +1025,14 @@
               </div>
             </a>
           </div> -->
+
+          <!-- -->
         </div>
 
         <p class="quoteHere">
           ⚠️&nbsp; ނޯޓު: މިތާ އަދި އިތުރު ތަރުޖަމާތަކެއް ހުރުމުގެ މާނައަކީ،
           އޭގައިވާ ހުރިހާ އެއްޗެއް ރަނގަޅު ވާހަކައެއް ނޫނެވެ. އެ
-          ތަރުޖަމާތަކުގައި މައްސަލަ އުޅެއެވެ. ހާޖަތައްޓަކައި އެ އިން ގޮތަށް
+          ތަރުޖަމާތަކުގައި މައްސަލަ އުޅެއެވެ. ހާޖަތަށްޓަކައި އެ އިން ގޮތަށް
           ގެނެސްފައި ވިޔަސް، އޭގައިވާ ކުށްތަކަކަށް އަޅުގަނޑުމެން އިގުރާރެއް
           ނުވަމެވެ. &nbsp;⚠️
         </p>
@@ -1094,7 +1116,7 @@
           <div class="column">
             <a href="../books/fortyNawawi.html">
               <div class="card">
-                <p>📘 ނަވަވީގެ ސާޅީސް ޙަދީޘް</p>
+                <p>ނަވަވީގެ ސާޅީސް ޙަދީޘް</p>
                 <p>الأربعون النووية</p>
               </div>
             </a>
@@ -1120,31 +1142,17 @@
             </a>
           </div>
 
-          <!-- -->
           <div class="column">
             <a
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
               id="defaultOpen"
             >
-              <div class="card backC">
-                <!-- icon -->
-                <div class="resp-sharing-button andBtn">
-                  <div
-                    aria-hidden="true"
-                    class="resp-sharing-button__icon resp-sharing-button__icon--normal"
-                  >
-                    <div
-                      class="encodedbackBtn"
-                      style="filter: none; height: 50px; width: 50px"
-                    ></div>
-                  </div>
-                </div>
-                <!-- icon -->
+              <div class="card backArrow">
+                <p><span style="font-size: 65px">⮨</span></p>
               </div>
             </a>
           </div>
-          <!-- -->
 
           <p class="quoteHere">
             ﷲ ވަހީ ކުރެއްވިއެވެ: ’އަދި އެކަލޭގެފާނު އަމިއްލަ އެދުންފުޅަކަށް
@@ -1418,27 +1426,14 @@
             </a>
           </div>
 
-          <!-- -->
           <div class="column">
             <a
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
               id="defaultOpen"
             >
-              <div class="card backC">
-                <!-- icon -->
-                <div class="resp-sharing-button andBtn">
-                  <div
-                    aria-hidden="true"
-                    class="resp-sharing-button__icon resp-sharing-button__icon--normal"
-                  >
-                    <div
-                      class="encodedbackBtn"
-                      style="filter: none; height: 50px; width: 50px"
-                    ></div>
-                  </div>
-                </div>
-                <!-- icon -->
+              <div class="card backArrow">
+                <p><span style="font-size: 65px">⮨</span></p>
               </div>
             </a>
           </div>
@@ -1488,27 +1483,14 @@
             </a>
           </div>
 
-          <!-- -->
           <div class="column">
             <a
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
               id="defaultOpen"
             >
-              <div class="card backC">
-                <!-- icon -->
-                <div class="resp-sharing-button andBtn">
-                  <div
-                    aria-hidden="true"
-                    class="resp-sharing-button__icon resp-sharing-button__icon--normal"
-                  >
-                    <div
-                      class="encodedbackBtn"
-                      style="filter: none; height: 50px; width: 50px"
-                    ></div>
-                  </div>
-                </div>
-                <!-- icon -->
+              <div class="card backArrow">
+                <p><span style="font-size: 65px">⮨</span></p>
               </div>
             </a>
           </div>
@@ -1668,27 +1650,14 @@
             </a>
           </div>
 
-          <!-- -->
           <div class="column">
             <a
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
               id="defaultOpen"
             >
-              <div class="card backC">
-                <!-- icon -->
-                <div class="resp-sharing-button andBtn">
-                  <div
-                    aria-hidden="true"
-                    class="resp-sharing-button__icon resp-sharing-button__icon--normal"
-                  >
-                    <div
-                      class="encodedbackBtn"
-                      style="filter: none; height: 50px; width: 50px"
-                    ></div>
-                  </div>
-                </div>
-                <!-- icon -->
+              <div class="card backArrow">
+                <p><span style="font-size: 65px">⮨</span></p>
               </div>
             </a>
           </div>
@@ -1768,27 +1737,14 @@
             </a>
           </div>
 
-          <!-- -->
           <div class="column">
             <a
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
               id="defaultOpen"
             >
-              <div class="card backC">
-                <!-- icon -->
-                <div class="resp-sharing-button andBtn">
-                  <div
-                    aria-hidden="true"
-                    class="resp-sharing-button__icon resp-sharing-button__icon--normal"
-                  >
-                    <div
-                      class="encodedbackBtn"
-                      style="filter: none; height: 50px; width: 50px"
-                    ></div>
-                  </div>
-                </div>
-                <!-- icon -->
+              <div class="card backArrow">
+                <p><span style="font-size: 65px">⮨</span></p>
               </div>
             </a>
           </div>
@@ -1862,27 +1818,14 @@
             </a>
           </div>
 
-          <!-- -->
           <div class="column">
             <a
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
               id="defaultOpen"
             >
-              <div class="card backC">
-                <!-- icon -->
-                <div class="resp-sharing-button andBtn">
-                  <div
-                    aria-hidden="true"
-                    class="resp-sharing-button__icon resp-sharing-button__icon--normal"
-                  >
-                    <div
-                      class="encodedbackBtn"
-                      style="filter: none; height: 50px; width: 50px"
-                    ></div>
-                  </div>
-                </div>
-                <!-- icon -->
+              <div class="card backArrow">
+                <p><span style="font-size: 65px">⮨</span></p>
               </div>
             </a>
           </div>
@@ -1902,27 +1845,14 @@
             </a>
           </div>
 
-          <!-- -->
           <div class="column">
             <a
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
               id="defaultOpen"
             >
-              <div class="card backC">
-                <!-- icon -->
-                <div class="resp-sharing-button andBtn">
-                  <div
-                    aria-hidden="true"
-                    class="resp-sharing-button__icon resp-sharing-button__icon--normal"
-                  >
-                    <div
-                      class="encodedbackBtn"
-                      style="filter: none; height: 50px; width: 50px"
-                    ></div>
-                  </div>
-                </div>
-                <!-- icon -->
+              <div class="card backArrow">
+                <p><span style="font-size: 65px">⮨</span></p>
               </div>
             </a>
           </div>
@@ -1942,27 +1872,14 @@
             </a>
           </div>
 
-          <!-- -->
           <div class="column">
             <a
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
               id="defaultOpen"
             >
-              <div class="card backC">
-                <!-- icon -->
-                <div class="resp-sharing-button andBtn">
-                  <div
-                    aria-hidden="true"
-                    class="resp-sharing-button__icon resp-sharing-button__icon--normal"
-                  >
-                    <div
-                      class="encodedbackBtn"
-                      style="filter: none; height: 50px; width: 50px"
-                    ></div>
-                  </div>
-                </div>
-                <!-- icon -->
+              <div class="card backArrow">
+                <p><span style="font-size: 65px">⮨</span></p>
               </div>
             </a>
           </div>
@@ -1995,27 +1912,14 @@
             </a>
           </div>
 
-          <!-- -->
           <div class="column">
             <a
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
               id="defaultOpen"
             >
-              <div class="card backC">
-                <!-- icon -->
-                <div class="resp-sharing-button andBtn">
-                  <div
-                    aria-hidden="true"
-                    class="resp-sharing-button__icon resp-sharing-button__icon--normal"
-                  >
-                    <div
-                      class="encodedbackBtn"
-                      style="filter: none; height: 50px; width: 50px"
-                    ></div>
-                  </div>
-                </div>
-                <!-- icon -->
+              <div class="card backArrow">
+                <p><span style="font-size: 65px">⮨</span></p>
               </div>
             </a>
           </div>
@@ -2539,6 +2443,13 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
       /* https://yoksel.github.io/url-encoder/ */
 
       /**/
+
+      /*
+      .encodedbackBtn {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10S2 17.514 2 12 6.486 2 12 2zm0-2C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm3.222 18.917c5.666-5.905-.629-10.828-5.011-7.706L12 13H6V7l1.832 1.832c7.846-6.07 16.212 4.479 7.39 10.085z'/%3E%3C/svg%3E%0A");
+      }
+      */
+
       .encodedfbBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z' /%3E%3C/svg%3E");
       }
@@ -2561,10 +2472,6 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
 
       .encodedytBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.488 3.45.029 5.804 0 12c.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z' /%3E%3C/svg%3E");
-      }
-
-      .encodedbackBtn {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10S2 17.514 2 12 6.486 2 12 2zm0-2C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm3.222 18.917c5.666-5.905-.629-10.828-5.011-7.706L12 13H6V7l1.832 1.832c7.846-6.07 16.212 4.479 7.39 10.085z'/%3E%3C/svg%3E%0A");
       }
 
       .encodedandBtn {
