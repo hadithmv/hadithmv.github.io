@@ -680,7 +680,8 @@ table.dataTable tbody td {
   /*text-align: right;*/
   direction: rtl;
   text-align: justify;
-  word-spacing: -0.05em;
+  /* turned off word spacing to see if that stops weird spaces showing up in thaana */
+  /*word-spacing: -0.05em;*/
   -webkit-font-smoothing: antialiased;
   /*text-align: justify;*/
   /* word-spacing: -10px; */
