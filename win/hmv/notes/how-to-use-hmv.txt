@@ -6,7 +6,7 @@ Hadithmv is available online as a website, as well as an offline application on 
 
 * General Usage:
 
-Click on the top navbar to open the menu.
+Click on the top navbar or right hamburger button to open the menu.
 Open a book to begin browsing.
 Use the search box to look up words.
 Use the show 1 box to select how many items to show. (We recommend this not be changed for the best reading experience, unless you wish to copy multiple items at once)
@@ -15,6 +15,8 @@ Write in the page box to jump to a page. (Can also use arrow keys once inside th
 Use the Options button to filter data.
 Use the Copy button to copy all visible data.
 Use the Extra Columns button to show or hide specific data.
+
+In the top menu, click on the Hadithmv logo at the left to go back to the homepage.
 
 After searching, you can double click on a search result to jump to the page where that result comes from.
 For exact matches only, write your search term within quotes "like this"
