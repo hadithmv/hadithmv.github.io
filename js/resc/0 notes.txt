@@ -5,15 +5,15 @@ mmenu-light.js	3.10
 mmenu-inlineJs.js
 
 -Non critical
-jquery.min.js		3.6.4 (mergely and hammer breaks with jquery slim, zepto and cash doesnt work)
-**jquery.dataTables.min.js	1.13.4	(requires jq)
+jquery.min.js		3.7.0 (mergely and hammer breaks with jquery slim, zepto and cash doesnt work)
+**jquery.dataTables.min.js	1.13.5	(requires jq)
 
-dataTables.buttons.min.js	2.3.6
-buttons.colVis.min.js		2.3.6
-buttons.html5.min.js		2.3.6
-dataTables.keyTable.min.js	2.8.2
-dataTables.searchPanes.min.js	2.1.2
-dataTables.select.min.js	1.6.2
+dataTables.buttons.min.js	2.4.1
+buttons.colVis.min.js		2.4.1
+buttons.html5.min.js		2.4.1
+dataTables.keyTable.min.js	2.10.0
+dataTables.searchPanes.min.js	2.2.0
+dataTables.select.min.js	1.7.0
 
 **row().show().js		(add .min to end of url, dont use closure, dbl click breaks otherwise)
 https://cdn.datatables.net/plug-ins/1.13.4/pagination/input.js
