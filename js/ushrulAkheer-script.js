@@ -114,13 +114,13 @@ $(document).ready(() => {
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
       // adds footnote line for shurooh
-      /*{
-        targets: [4],
+      {
+        targets: [2],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
         },
-      },*/
+      },
 
       /* replace \n newlines from json to <br> in table
       https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
