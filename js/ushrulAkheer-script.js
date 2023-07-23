@@ -115,9 +115,9 @@ $(document).ready(() => {
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: [2],
+        targets: [1],
         render: function (data, type, row) {
-          data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
+          data = data + "<br>‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾";
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
         },
       },
@@ -468,7 +468,7 @@ $(document).ready(() => {
                data = data.replace( /\r/g, "" ); //rids windows platform newline
                data = data.replace( /\t/g, "\n\n" ); */
 
-          //  console.log(JSON.stringify(data)) // json stringify to console
+          console.log(JSON.stringify(data)); // json stringify to console
 
           return data;
         },
