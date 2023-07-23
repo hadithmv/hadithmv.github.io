@@ -117,7 +117,9 @@ $(document).ready(() => {
       {
         targets: [1],
         render: function (data, type, row) {
-          data = data + "<br>‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾";
+          // data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
+          data = data + "<br><br>‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾";
+          // brings line at end of data, instead of at beginning
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
         },
       },
@@ -415,6 +417,12 @@ $(document).ready(() => {
           // using \t creates line breaks between cell data
           // \s\s turns two spaces into new lines, for multi line text
 
+          /* added this to leave a line after this line coming at the end */
+          data = data.replace(
+            /‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n\n/g,
+            "\n\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n\n"
+          );
+
           /*
           data = data.replace(/\n\n/g, '\t') // prevents # showing up unneeded (linux)
           data = data.replace(/\r\n\r\n/g, '\t') //  prevents # showing up unneeded (windows)
@@ -468,7 +476,7 @@ $(document).ready(() => {
                data = data.replace( /\r/g, "" ); //rids windows platform newline
                data = data.replace( /\t/g, "\n\n" ); */
 
-          console.log(JSON.stringify(data)); // json stringify to console
+          // console.log(JSON.stringify(data)); // json stringify to console
 
           return data;
         },
