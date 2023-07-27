@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="canonical"
-      href="https://hadithmv.github.io/books/allHadith.html"
+      href="https://hadithmv.github.io/books/allAthar.html"
     />
     <meta name="google" content="notranslate" />
 
@@ -18,7 +18,7 @@
     <meta property="og:type" content="website" />
     <meta
       property="og:url"
-      content="https://hadithmv.github.io/books/allHadith.html"
+      content="https://hadithmv.github.io/books/allAthar.html"
     />
     <meta
       property="og:image"
@@ -47,8 +47,8 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/allHadith.js"></script>
-    <script defer src="../js/allHadith-script.min.js"></script>
+    <script defer src="../js/json/allAthar.js"></script>
+    <script defer src="../js/allAthar-script.min.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -69,8 +69,8 @@
             loading="lazy"
             src="../img/logo/logo.svg"
         /></a>
-        <span class="hideOnPhoneOnly">جامع الأحاديث – </span>އެއްކުރަމުންދާ
-        ޙަދީޘްތައް
+        <span class="hideOnPhoneOnly">جامع الأثار – </span>އެއްކުރަމުންދާ
+        އަޘަރުތައް
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -124,7 +124,7 @@
           <!-- cards js adds card classes to table ID -->
           <!-- change123 TABLE -->
           <!-- class="stripe table cards"> -->
-          <table id="allHadithTable" class="table cards"></table>
+          <table id="allAtharTable" class="table cards"></table>
           <!-- --- TABLE - END --- -->
           <div class="hidden" id="footer">
             <button class="lowerButtons" onclick="copyURLToClipB();">
@@ -140,21 +140,21 @@
                 // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
                 // http://live.datatables.net/jayoragi/1/edit
 
-                var isVisible = $("#allHadithTable")
+                var isVisible = $("#allAtharTable")
                   .DataTable()
                   .column(3)
                   .visible();
-                $("#allHadithTable").DataTable().column(3).visible(!isVisible);
+                $("#allAtharTable").DataTable().column(3).visible(!isVisible);
 
-                var isVisible = $("#allHadithTable")
+                var isVisible = $("#allAtharTable")
                   .DataTable()
                   .column(4)
                   .visible();
-                $("#allHadithTable").DataTable().column(4).visible(!isVisible);
+                $("#allAtharTable").DataTable().column(4).visible(!isVisible);
 
                 // also related: https://stackoverflow.com/questions/45234347/jquery-datatables-how-hide-specified-column-dynamically/45234355#45234355
-                /*$("#allHadithTable").DataTable().column(3).visible(true);
-                $("#allHadithTable").DataTable().column(4).visible(false);*/
+                /*$("#allAtharTable").DataTable().column(3).visible(true);
+                $("#allAtharTable").DataTable().column(4).visible(false);*/
               }
             </script>
 

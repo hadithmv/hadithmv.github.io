@@ -58,12 +58,12 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  const table = $("#allHadithTable").DataTable({
-    // var table = $("#allHadith").DataTable({
+  const table = $("#allAtharTable").DataTable({
+    // var table = $("#allAthar").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: allHadith_DB, // https://datatables.net/manual/ajax
+    data: allAthar_DB, // https://datatables.net/manual/ajax
 
     columns: [
       {
