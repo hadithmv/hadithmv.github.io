@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="dv">
+  <!-- prevent translate popup -->
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="canonical"
+      href="https://hadithmv.github.io/books/allAthar.html"
+    />
+    <meta name="google" content="notranslate" />
+
+    <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
+    <meta name="theme-color" content="#29434e" />
+    <!-- og metadata sm link previews -->
+    <meta property="og:title" content="hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://hadithmv.github.io/books/allAthar.html"
+    />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+
+    <!-- change123 html -->
+
+    <title>Hadithmv - All Hadith</title>
+    <meta
+      name="description"
+      content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
+    />
+    <!-- META TAGS - END -->
+
+    <!-- === EXT CSS === -->
+    <!-- non critical -->
+    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
+    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
+    <!-- === EXT CSS - END === -->
+
+    <!-- === EXT JS === -->
+    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
+    <!-- critical -->
+    <script defer src="../js/resc/COMB-Crit.min.js"></script>
+    <!-- non critical -->
+    <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
+    <!-- change123 js -->
+    <script defer src="../js/json/allAthar.js"></script>
+    <script defer src="../js/allAthar-script.min.js"></script>
+    <!-- === EXT JS - END === -->
+
+    <!-- === INT CSS === -->
+    <!-- === INT CSS - END === -->
+  </head>
+
+  <body translate="no">
+    <div id="page">
+      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
+      <!-- adding fixed or custom writing z index breaks on mobile -->
+      <div class="header fixed" onclick="drawer.open();">
+        <!-- hamburger -->
+        <a href="#menu"><span></span></a>
+        <a class="menuLeftIcon" href="index.html"
+          ><img
+            class="hmvLogo1"
+            alt="hadith mv"
+            loading="lazy"
+            src="../img/logo/logo.svg"
+        /></a>
+        <span class="hideOnPhoneOnly">جامع الأثار – </span>އެއްކުރަމުންދާ
+        އަޘަރުތައް
+        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
+        <nav id="menu">
+          <ul>
+            <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
+            <li>
+              <a href="../books/index.html">⛊ މައި ސަފުހާ</a>
+            </li>
+
+            <li>
+              <a href="../notes/info/contact.html"
+                >ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a
+              >
+            </li>
+
+            <li>
+              <a href="../notes/info/helpTranslate.html"
+                >ތަރުޖަމާގައި އެހީވެދިނުމަށް</a
+              >
+            </li>
+
+            <li>
+              <a href="../notes/info/FAQ.html"
+                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
+              >
+            </li>
+
+            <li>
+              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
+            </li>
+
+            <li class="hmvVer"><a href="#">⚙️ އިސްދާރު: v3.00</a></li>
+            <li>
+              <a href="https://t.me/ashraafmv"
+                >ފަރުމާ ކުރީ: (އަބޫ ޔަޙްޔާ) މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
+              >
+            </li>
+            <li class="madani">
+              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
+            </li>
+          </ul>
+        </nav>
+        <!-- <nav id="menu"> -->
+      </div>
+      <!-- <div class="header fixed" onclick="drawer.open();"> -->
+
+      <div class="content">
+        <main>
+          <!-- class="w3-animate-right" -->
+          <!-- --- TABLE --- -->
+          <!-- JEKYLL {{ content }} -->
+          <!-- cards js adds card classes to table ID -->
+          <!-- change123 TABLE -->
+          <!-- class="stripe table cards"> -->
+          <table id="allAtharTable" class="table cards"></table>
+          <!-- --- TABLE - END --- -->
+          <div class="hidden" id="footer">
+            <button class="lowerButtons" onclick="copyURLToClipB();">
+              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+            </button>
+
+            <button class="lowerButtons" onclick="toggleFili();">
+              &nbsp; ފިލި ދައްކާ/ފޮރުވާ &nbsp;
+            </button>
+
+            <script>
+              function toggleFili() {
+                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+                // http://live.datatables.net/jayoragi/1/edit
+
+                var isVisible = $("#allAtharTable")
+                  .DataTable()
+                  .column(3)
+                  .visible();
+                $("#allAtharTable").DataTable().column(3).visible(!isVisible);
+
+                var isVisible = $("#allAtharTable")
+                  .DataTable()
+                  .column(4)
+                  .visible();
+                $("#allAtharTable").DataTable().column(4).visible(!isVisible);
+
+                // also related: https://stackoverflow.com/questions/45234347/jquery-datatables-how-hide-specified-column-dynamically/45234355#45234355
+                /*$("#allAtharTable").DataTable().column(3).visible(true);
+                $("#allAtharTable").DataTable().column(4).visible(false);*/
+              }
+            </script>
+
+            <p class="justi">
+              ⚠️&nbsp; قَمِّش ثُمَّ فَتِّش. ސަމާލުކަމަށް: މި ސަފުހާގައި ކުށްހުރި
+              ވާހަކަ ބުނުމުގެ ކުރިން އެނގެން ޖެހޭ މުހިންމު ނުކުތާއެއް
+              ދަންނަވާލާނަމެވެ. މިތާ ވަނީ ޑްރާފްޓު ލިޔުންތަކެކެވެ. އަދި ގިނަވާނީ
+              އަޅުގަނޑުމެންގެ ތަރުޖަމާތަކެއް ނޫނެވެ. އެކި މީހުން، އެކި
+              ތަންތަނުން، އެކި ގޮތްގޮތަށް ލިޔެފައިވާ ތަރުޖަމާތަކެކެވެ. ވީމާ ކުށް
+              ހުންނާނެއެވެ. އަދި ކިއެއް، ގިނަވެސް ވާނެއެވެ. އަދި މިތާ ހުރި
+              ނައްސުތަކާއި އޭގެ ތަރުޖަމާއާ ދިމާ ނުވެދާނެއެވެ. އަދި ރިވާޔަތާއި
+              ތަޚްރީޖްވެސް ހަމަ އެފަދައިންނެވެ. ދެން އޮތް ސުވާލަކީ،
+              އަޅުގަނޑުމެން ނުލިޔާ، ބަލާ ނުނިމި ހުރި ލިޔުންތަކެއް މިތާ މި
+              އެއްކުރީ ކީއްވެގެންހެއްޔެވެ؟ އެއީ ތަފާތު އެތައް ބައިވަރު
+              ތަރުޖަމާތަކެއް، އެއް ތަނަކުން ސާރޗުކުރެވޭ ގޮތް ހެދުމަށެވެ. އެ ހުރި
+              ކުށްތަކާ އެކުވެސް އެއިން ފައިދާ ހާސިލު ކުރުމުގެ ފުރުސަތު
+              ދިނުމަށެވެ. މުޅިން ދިމާ ނުވިޔަސް ކޮންމެވެސް ވަރަކަށް
+              ގާތްވާނެތީއެވެ. އަޅުގަނޑުމެންގެ ނިސްބަތުން، މި އެއްކޮށްފައިވާ
+              ޑްރާފްޓު ތަރުޖަމާތަކުން ވަކިވަކި ފޮތްތައް ޙަދީޘްއެމްވީއިން
+              ނެރޭއިރު، ކުށްތައް އިސްލާހު ކުރަމުން ގެންދާނަމެވެ. އަދި އެހެނިހެން
+              ބޭފުޅުންގެ ނިސްބަތުން ވެސް، މި ސަފުހާގެ ބޭނުން ހެޔޮ ގޮތުގައި
+              ހިފޭނީ އަހުލުވެރިކަން ހުރި ބަޔަކަށެވެ. އެ ފަރާތްތަކަކީ މި
+              ސަފުހައިގެ މަގުސަދު ފަހުމްވެ، މި ލިޔުންތަކުގައި ހުރި ކުށްތަކާއެކީ
+              ވެސް ކުރިއަށް ދާންވީ ގޮތް ދަންނާނެ ބަޔެކެވެ. އެއާ ޚިލާފަށް މިކަން
+              ނުދަންނަ މީހަކަށް ހީވާނީ އަޅުގަނޑުމެންގެ ކުށްތައް މިތާ ވަރަށް
+              ގިނަކަމަށެވެ. ކޮންމެއަކަސް، އަރަބި ނައްސަކާ ދިވެހި ތަރުޖަމާއެއް
+              ދިމާ ނުވިޔަސް، އެ ދިމާވާ އެހެން ރިވާޔަތެއް ހުރެދާނެއެވެ. ހަވާލާ
+              ދެވިފައިވާ ފޮތުގައި އެހެން ގޮތަކަށް ލިޔުން ހުއްޓަސް، އެއާ ގުޅުމެއް
+              ހުރެދާނެއެވެ. ގާބިލިއްޔަތުކަން ހުރި މީހަކަށް އެ ގުޅުން ނުވަތަ
+              ރިވާޔަތް ހޯދޭނެއެވެ. މީހަކަށް އެ ނޭނގުން ނުވަތަ ނުފެނުމަކީ އަދި
+              ލިޔުން މުޅިން ގޯސްވެ، އޭގެ ބޭނުން އެހެން މީހުންނަށް ނުހިފޭންވީ
+              ސަބަބެއް ނޫނެވެ. މިތާ މިވާ ލިޔުންތައް ނަގުލު ކުރާއިރު އިތުރަށް
+              ބަލާ ރަނގަޅުތޯ ކަށަވަރު ކުރުމަކީ ވަރަށް މުހިއްމު ކަމެކެވެ. ނުވަތަ
+              އެންމެ ކުޑަމިނުން އެ ކަން ކުރެވޭނެ ވަރުގެ ފެންވަރު ހުރި ބަޔަކު
+              ގާތު އަހާލަން ޖެހޭނެއެވެ. ފަހުމެއް ނެތި، ހަމައެކަނި ކުށް ހުއްޓޭ
+              ބުންޏަސް ވާނެ ކަމެއް ނެތެވެ.&nbsp;⚠️
+            </p>
+
+            <!--
+               މި ސަފުހާ ބޭނުން ކުރަންވީ ގޮތް ނޭނގި، 
+               ހަމައެކަނި ކުށް ހުއްޓޭ ބުންޏަސް ވާނެ ހަމަ އެއްވެސް ކަމެއް ނެތެވެ
+
+               <p class="justi">
+              ⚠️&nbsp; قَمِّش ثُمَّ فَتِّش. މި ސަފުހާގައިވާ ގިނަ ލިޔުންތަކަކީ
+              ފުރަތަމަ އެއްކުރުމަށް ފަހު، ދެވަނައަށް ބަލަމުންދާ ލިޔުންތަކެކެވެ.
+              ވީމާ ދެކެންވާނީ މިތާ ހުރީ ޑްރާފްޓުތަކެއް ކަމުގައެވެ. އަދި ކުށްވެސް
+              ހުންނާނެ ކަމަށެވެ. އެއީ އަޅުގަނޑުމެން އަމިއްލައަށް ލިޔެ، ބަލާ
+              ނިމުނު ލިޔުމަކަށް ނުވެދާނެތީއެވެ. އެކިއެކި މީސްމީޑިއާތަކާއި
+              މަންސަތަކުން ވަރަށް ގިނައިން ޙަދީޘްތަކާއި އަޘަރުތައް ލިޔެ ޝާއިއު
+              ކުރެވިގެންދެއެވެ. ނަމަވެސް ގިނަ ފަހަރު އޭގެ ތަޚްރީޖާއި އަރަބި
+              ނައްސު ވަނީ އިހްމާލު ކުރެވިފައެވެ. މި ސަފުހާގައި އެ ލިޔުންތައް
+              ވާނީ އެއްކުރެވިފައެވެ. އަދި އެ ތަރުޖަމާތަކުގެ ނުވަތަ އެއާ ގާތްކުރާ
+              ތަޚްރީޖާއި އަރަބި ނައްސުވެސް ވާނީ މިތާ ހިމަނަން މަސައްކަތް
+              ކުރެވިފައެވެ. ނަމަވެސް އެ ތަރުޖަމާތައް އެ އިން ގޮތަށް
+              ގެނެސްފައިވާތީ، ކުށްތަކާއި އިބާރާތުގެ މައްސަލަތައް އުޅޭނެއެވެ.
+              އަދި ތަޚްރީޖާއި އަރަބި ނައްސާ އެއްގޮތަށް ހުރިހާ ލަފްޒުތައް ދިމާ
+              ނުވެދާނެއެވެ. އޭގެ އިތުރުން އެކި ލިޔުތެރިންގެ ތަރުޖަމާކުރާ
+              އުސްލޫބު ތަފާތުވާތީ، އިބާރާތްކުރުން އެއްގޮތް ނުވެދާނެއެވެ.
+              އެއާއެކުވެސް މިހާރު އެއިން ލިބެން ހުރި ފައިދާއެއް ހާސިލުކޮށް،
+              ފަހުން މުރާޖާކޮށް ރަނގަޅު ކުރުމުގެ މަގްސަދުގައި، އެއް ތާކުން
+              ފަސޭހައިން ހޯދާ ބެލޭ ގޮތަށް އެ ހުރިހާ ލިޔުމެއްވެސް ވާނީ މިތާ
+              އެއްކުރެވި ހިމަނާފައެވެ. އެއީ އޭގެ އަހުލުވެރިން ނުވަތަ ކަމުގެ
+              ޚާއްސަ ފަރާތްތައް މި ލިޔުންތަކުން ބޭނުން ހިފުމަށްޓަކައެވެ. އެ
+              ފަރާތްތަކަކީ، މި ދެންނެވި ކުށްތަކާއި އިބާރާތުގެ މައްސަލަތައް
+              އަމިއްލައަށް ދެނެގަނެވި ހައްލުކުރެވޭނެ، އަދި ތަޚްރީޖާއި އަރަބި
+              ނައްސު އިތުރަށް ބަލާ ދިމާ ކުރުމުގެ ފެންވަރާއި ގާބިލިއްޔަތު
+              ހުންނާނޭ ފަރާތްތަކެކެވެ. އެއާ ޚިލާފަށް އާންމު މީހަކަށް އެފަދަ
+              ކަންކަމެއް ނޭނގޭނެއެވެ. ވީމާ މިއީ އަދި ކުރިއަށް ގެންދަމުން
+              ތަރައްގީ ކުރަމުންދާ މަސައްކަތަކަށް ވާތީ، މި ލިޔުންތައް ނަގުލު
+              ކުރާއިރު އިތުރަށް ބަލާ ރަނގަޅުތޯ ކަށަވަރު ކުރުމަކީ ކޮންމެހެންވެސް
+              ކުރަން ޖެހޭނެ ކަމެކެވެ. ނުވަތަ އެންމެ ކުޑަމިނުން އެ ކަން ކުރެވޭނެ
+              ވަރުގެ ބަޔަކު ގާތު އަހާލަން ޖެހޭނެއެވެ.&nbsp;⚠️
+            </p>
+            -->
+
+            <hr class="lineVerticalSpace" />
+
+            <p>
+              ޙަދީޘެއް ސައްހަތޯ ބެލުމަށް، އޮންލައިންކޮށް ހުރެގެން، ތިރީގައި
+              އަރަބި ލަފްޒުތައް ޖަހާލައިގެން ބަލާލެވިދާނެއެވެ.
+              <span style="background-color: #c2d288; color: #333"
+                >ފެހިކުލައިގެ</span
+              >
+              މާނައަކީ ސައްހައެވެ. އަދި
+              <span style="background-color: #f7c7c9; color: #333"
+                >ރަތްކުލައިގެ</span
+              >
+              މާނައަކީ ޟަޢީފެވެ.
+            </p>
+            <!--<iframe
+              src="http://hdith.com/iframe.php?width=400&prefill=&newwindow=yes&summary=no"
+              style="
+                overflow: hidden;
+                margin: 0;
+                padding: 0;
+                width: 300px;
+                height: 60px;
+              "
+              frameborder="0"
+            ></iframe>-->
+            <!--
+          took the form element out of the above, pasted below, removed style of 400px width,
+          and previously input type was text not search, that adds clear button inside
+        -->
+            <form
+              id="search_form_homepage"
+              class="no-menu"
+              name="x"
+              action="http://hdith.com"
+              target="_blank"
+              style=""
+            >
+              <div id="sxd"></div>
+
+              <input
+                type="search"
+                autocomplete="off"
+                name="s"
+                id="search_form_input_homepage"
+                onfocus="if ('rc' in window) {
+                          nua('nro', rc)
+                      }
+                      ;
+                      fq = 1;"
+                onblur="fq = 0"
+                onclick="if (this.value == 'تأكد من صحة الحديث') {
+                          this.value = '';
+                          this.style.color = '#000000';
+                      }"
+                value=""
+                placeholder="تأكد من صحة الحديث"
+              />
+              <div id="search_wrapper_homepage">
+                <input id="search_button_homepage" type="submit" value="" />
+              </div>
+            </form>
+
+            <style>
+              /* removes search button */
+              #search_button_homepage {
+                display: none;
+              }
+
+              /* makes box larger */
+              #search_form_input_homepage {
+                font-size: 20px;
+                width: 200px;
+              }
+
+              /* changes color from black for dark mode */
+              @media (prefers-color-scheme: dark) {
+                #search_form_input_homepage {
+                  color: #c5cfd6;
+                }
+              }
+            </style>
+            <br />
+          </div>
+        </main>
+        <!-- <main> -->
+      </div>
+      <!-- <div class="content"> -->
+    </div>
+    <!-- <div id="page"> -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-HL24Q9NN24");
+    </script>
+    <!-- End Google Analytics -->
+
+    <!-- === INT JS - END === -->
+  </body>
+</html>
