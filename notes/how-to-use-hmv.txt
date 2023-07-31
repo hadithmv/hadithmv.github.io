@@ -9,7 +9,7 @@ Hadithmv is available online as a website, as well as an offline application on 
 Click on the top navbar or right hamburger button to open the menu.
 Open a book to begin browsing.
 Use the search box to look up words.
-Use the show 1 box to select how many items to show. (We recommend this not be changed for the best reading experience, unless you wish to copy multiple items at once)
+Use the show 1 box to select how many items to show. For example you can multiple hadith or ayat on the same page by changing this option.
 Use the page buttons to move forward or backward. (Can also swipe to change pages on mobile, which is much easier)
 Write in the page box to jump to a page. (Can also use arrow keys once inside the box)
 Use the Options button to filter data.
