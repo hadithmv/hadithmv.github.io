@@ -23,7 +23,7 @@ If you are using Hadithmv from the website, the place where you were reading sta
 
 Most pages have a top menu where you can click on the Hadithmv logo at the left to go back to the homepage. Other pages have hyperlinked text where it says "Hadithmv" at the top.
 
-Hadithmv does not make use of the back button on either Android phones or browsers. That will likely close the app. Instead use the Menu to navigate.
+On some Android phones, the back button of the phone closes the app. If this happens, use the above method instead.
 
 ---------------------
 
