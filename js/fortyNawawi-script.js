@@ -77,14 +77,18 @@ $(document).ready(() => {
       },
       {
         data: 1,
-        title: "އަރަބި ސުރުހީ",
+        title: "އަރަބި ނަމްބަރ",
       },
       {
         data: 2,
-        title: "ދިވެހި ސުރުހީ",
+        title: "އަރަބި ސުރުހީ",
       },
       {
         data: 3,
+        title: "ދިވެހި ސުރުހީ",
+      },
+      {
+        data: 4,
         title: "އަރަބި ޙަދީޘް",
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
@@ -92,7 +96,7 @@ $(document).ready(() => {
         /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 3,
+        data: 4,
         title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
           return (
@@ -106,31 +110,31 @@ $(document).ready(() => {
         },
       },
       {
-        data: 4,
+        data: 5,
         title: "ދިވެހި ތަރުޖަމާ",
       },
       {
-        data: 5,
+        data: 6,
         title: "English",
       },
       {
-        data: 6,
+        data: 7,
         title: "ތަޚްރީޖު",
       },
       {
-        data: 7,
+        data: 8,
         title: "ރިޔާޟުއްޞާލިޙީނުން",
       },
       {
-        data: 8,
+        data: 9,
         title: "شرح العباد",
       },
       {
-        data: 9,
+        data: 10,
         title: "شرح الخضير",
       },
       {
-        data: 10,
+        data: 11,
         title: "شرح الدرر",
       },
     ],
@@ -139,7 +143,7 @@ $(document).ready(() => {
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: [7, 8, 9, 10, 11],
+        targets: [8, 9, 10, 11, 12],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -169,8 +173,17 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColKitab", // Ar Title
+        className: "ColKitab", // Ar No
         targets: [1],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: true,
+        },
+      },
+      {
+        className: "ColKitab2", // Ar Title
+        targets: [2],
         visible: true,
         searchable: false,
         searchPanes: {
@@ -178,8 +191,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColKitab2", // Dv Title
-        targets: [2],
+        className: "ColKitab3", // Dv Title
+        targets: [3],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -188,7 +201,7 @@ $(document).ready(() => {
       },
       {
         className: "fnCol4", // Ar Text
-        targets: [3],
+        targets: [4],
         visible: true,
         searchable: false,
         searchPanes: {
@@ -197,7 +210,7 @@ $(document).ready(() => {
       },
       {
         className: "fnCol5", // Ar Plain
-        targets: [4],
+        targets: [5],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -206,7 +219,7 @@ $(document).ready(() => {
       },
       {
         className: "fnCol6", // Dv Text
-        targets: [5],
+        targets: [6],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -215,7 +228,7 @@ $(document).ready(() => {
       },
       {
         className: "ColEng", // Eng Text
-        targets: [6],
+        targets: [7],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -224,7 +237,7 @@ $(document).ready(() => {
       },
       {
         className: "ColTakhrij", // Ar Ref
-        targets: [7],
+        targets: [8],
         visible: true,
         searchable: false,
         searchPanes: {
@@ -233,15 +246,6 @@ $(document).ready(() => {
       },
       {
         className: "ColTakhrij2", // Rs Ref
-        targets: [8],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "ColSharh", // Sharh
         targets: [9],
         visible: false,
         searchable: false,
@@ -250,7 +254,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColSharh2", // Sharh2
+        className: "ColSharh", // Sharh
         targets: [10],
         visible: false,
         searchable: false,
@@ -259,8 +263,17 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColSharh3", // Sharh2
+        className: "ColSharh2", // Sharh2
         targets: [11],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "ColSharh3", // Sharh2
+        targets: [12],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -495,6 +508,7 @@ $(document).ready(() => {
           data = data.replace(/\n/g, "\t"); //  prevents first header showing up unneeded (linux) this needs to go below windows rn
 
           data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
+          data = data.replace(/އަރަބި ނަމްބަރ\t/g, "");
           data = data.replace(/އަރަބި ސުރުހީ\t/g, "");
           data = data.replace(/ދިވެހި ސުރުހީ\t/g, "");
           data = data.replace(/އަރަބި ޙަދީޘް\t/g, "");
