@@ -32,13 +32,13 @@ matches:
     replace: ’
   - trigger: "-'"
     replace: ‘
-  - trigger: "<<-"
+  - trigger: "((-"
     replace: «
-  - trigger: ">>-"
+  - trigger: "))-"
     replace: »
-  - trigger: ")--"
+  - trigger: "}-"
     replace: ﴿
-  - trigger: "(--"
+  - trigger: "{--"
     replace: ﴾
   - trigger: رض-
     replace: رَضِيَ اللَّهُ عَنْهُ
