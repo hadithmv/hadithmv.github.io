@@ -123,18 +123,14 @@ $(document).ready(() => {
       },
       {
         data: 8,
-        title: "ރިޔާޟުއްޞާލިޙީނުން",
-      },
-      {
-        data: 9,
         title: "شرح العباد",
       },
       {
-        data: 10,
+        data: 9,
         title: "شرح الخضير",
       },
       {
-        data: 11,
+        data: 10,
         title: "شرح الدرر",
       },
     ],
@@ -143,7 +139,7 @@ $(document).ready(() => {
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: [8, 9, 10, 11, 12],
+        targets: [8, 9, 10, 11],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -245,7 +241,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColTakhrij2", // Rs Ref
+        className: "ColSharh", // Sharh
         targets: [9],
         visible: false,
         searchable: false,
@@ -254,7 +250,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColSharh", // Sharh
+        className: "ColSharh2", // Sharh2
         targets: [10],
         visible: false,
         searchable: false,
@@ -263,17 +259,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColSharh2", // Sharh2
-        targets: [11],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
         className: "ColSharh3", // Sharh2
-        targets: [12],
+        targets: [11],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -516,7 +503,6 @@ $(document).ready(() => {
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/English\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
-          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, "");
           data = data.replace(/شرح العباد\t/g, "");
           data = data.replace(/شرح الخضير\t/g, "");
           data = data.replace(/شرح الدرر\t/g, "");
