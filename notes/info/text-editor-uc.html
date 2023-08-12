@@ -2689,7 +2689,11 @@
           function oneLine() {
             document.getElementById("textMainArea").value = document
               .getElementById("textMainArea")
-              .value.replace(/\n/g, "");
+              //.value.replace(/\n/g, "");
+              // leaves a space at end of line break instead of just joining them
+              .value.trim()
+              .replace(/\s+/g, " ");
+            // https://stackoverflow.com/questions/19020079/removing-leading-trailing-and-multiple-spaces-within-a-string/38382243#38382243
           }
           //
 
