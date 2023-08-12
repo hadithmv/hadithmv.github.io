@@ -3609,9 +3609,9 @@
         <!-- <div class="mid"> -->
 
         <p class="buttonHeader">
-          ތިރީގައިވާ ލަފްޒުތައް ކޮޕީކުރުމަށްފަހު ވޯރޑު ޑޮކިޔުމެންޓެއްގައި
-          ދައްކާނީ ”KFGQPC Arabic Symbols 01“ މި ފޮންޓު އެޕްލައި ކުރުމަށް
-          ފަހުގައެވެ:
+          ތިރީގައިވާ ލަފްޒުތައް ކޮޕީކުރުމަށް ފަހު، ވޯރޑު ޑޮކިޔުމެންޓެއްގައި
+          ސިމްބޮލުތަކެއްގެ ގޮތުގައި ދައްކާނީ ”KFGQPC Arabic Symbols 01“ މި
+          ފޮންޓު އެޕްލައި ކުރުމަށް ފަހުގައެވެ:
         </p>
         <div class="mid editorButtons">
           <button onclick="copyArSymBismi1();">بسم الله 1</button>
@@ -3641,6 +3641,20 @@
           <button onclick="copyArSymRahimaHuma();">رحمهما الله</button>
           <button onclick="copyArSymRahimaHum();">رحمهم الله</button>
           <button onclick="copyArSymRahimaHun();">رحمهن الله</button>
+        </div>
+
+        <p class="buttonHeader">
+          ތިރީގައިވާ ލަފްޒުތައް ކޮޕީކުރުމަށް ފަހު، ވޯރޑު ޑޮކިޔުމެންޓެއްގައި
+          ސިމްބޮލުތަކެއްގެ ގޮތުގައި ދައްކާނީ ”AGA Arabesque Regular“ މި ފޮންޓު
+          އެޕްލައި ކުރުމަށް ފަހުގައެވެ:
+        </p>
+        <div class="mid editorButtons">
+          <button onclick="copyAgaSubhanah();">سبحانه وتعالى</button>
+          <button onclick="copyAgaSalla();">ﷺ</button>
+          <button onclick="copyAgaRadiya1();">رضي الله عنه</button>
+          <button onclick="copyAgaRadiyaHum();">رضي الله عنهم</button>
+          <button onclick="copyAgaAlaihiSalam();">عليه السلام</button>
+          <button onclick="copyAgaAzzaWajal();">عز وجل</button>
         </div>
         <!-- <div class="mid"> -->
 
@@ -4245,6 +4259,61 @@
           function copyArSymRahimaHun() {
             //avigator.clipboard.writeText("");
             //return false;
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          //
+          function copyAgaSubhanah() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyAgaSalla() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyAgaRadiya1() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyAgaRadiyaHum() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyAgaAlaihiSalam() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyAgaAzzaWajal() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
