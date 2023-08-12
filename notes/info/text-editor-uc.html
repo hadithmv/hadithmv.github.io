@@ -4389,7 +4389,10 @@ cols="60"-->
             //var str = "12sf0as9d";
             //var pattern = /\d+/g;    // \d should be fine for matching any nonnegative integer, \d is equivalent to [0-9]
             //var pattern = /\-?\d+/g; // https://stackoverflow.com/questions/6508043/regular-expression-to-find-any-number-in-a-string
-            var pattern = /[+-]?\d+(?:\.\d+)?/g;
+            //var pattern = /[+-]?\d+(?:\.\d+)?/g;
+            var pattern = /[+-]?((\d+(\.\d*)?)|(\.\d+))/g;
+            // above matches numbers starting with just decimal points and no zeros, unlike the one above it
+            // https://stackoverflow.com/questions/12117024/decimal-number-regular-expression-where-digit-after-decimal-is-optional/23872060#23872060
             var totalSum = document
               .getElementById("textSumArea")
               .value.replace(/\,/g, "")
