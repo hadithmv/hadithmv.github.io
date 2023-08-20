@@ -3577,12 +3577,12 @@
 
       <div id="tabTwo" class="tabcontent">
         <p class="buttonHeader">
-          ތިރީގައިވާ ލަފްޒުތައް ކްލިޕްބޯޑަށް ކޮޕީކުރުމަށް:
+          ތިރީގައިވާ ލަފްޒެއް ކްލިޕްބޯޑަށް ކުރުމަށް އޭގެ ބަޓަންއަށް ފިތާލާށެވެ.:
         </p>
         <div class="mid editorButtons">
           <button onclick="copySalla();">ﷺ</button>
           <button onclick="copyRadiya1();">رَضِيَ اللَّهُ عَنْهُ</button>
-          <button onclick="copyRadiyaHaa();">رَضِيَ اللَّهُ عَنْهَا</button>
+          <button onclick="copyRadiyaHa();">رَضِيَ اللَّهُ عَنْهَا</button>
           <button onclick="copyRadiya2();">رَضِيَ اللَّهُ عَنْهُمَا</button>
           <button onclick="copyRadiyaHum();">رَضِيَ اللَّهُ عَنْهُمْ</button>
 
@@ -3613,51 +3613,111 @@
         <!-- <div class="mid"> -->
 
         <p class="buttonHeader">
-          ތިރީގައިވާ ލަފްޒުތައް ކޮޕީކުރުމަށް ފަހު، ވޯރޑު ޑޮކިޔުމެންޓެއްގައި
-          ސިމްބޮލުތަކެއްގެ ގޮތުގައި ދައްކާނީ ”KFGQPC Arabic Symbols 01“ މި
-          ފޮންޓު އެޕްލައި ކުރުމަށް ފަހުގައެވެ:
+          ތިރީގައި ވަނީ ”KFGQPC Arabic Symbols 01“ ގެ ދިގު ސިމްބޮލްތަކެވެ.
+          ފޮންޓު އެޕްލައި ކުރުމަށް ފަހު ވޯރޑުގައި ޕޭސްޓު ކުރާށެވެ.
         </p>
         <div class="mid editorButtons">
-          <button onclick="copyArSymBismi1();">بسم الله 1</button>
-          <button onclick="copyArSymBismi2();">بسم الله 2</button>
-          <button onclick="copyArSymSalla();">صلى الله عليه</button>
-          <button onclick="copyArSymRadiya1();">رضي الله عنه</button>
-          <button onclick="copyArSymRadiyaHaa();">رضي الله عنها</button>
-          <button onclick="copyArSymRadiya2();">رضي الله عنهما</button>
-          <button onclick="copyArSymRadiyaHum();">رضي الله عنهم</button>
-          <button onclick="copyArSymRadiyaHunna();">رضي الله عنهن</button>
-          <button onclick="copyArSymSubhana();">سبحانه وتعالى</button>
-          <button onclick="copyArSymTabaraka();">تبارك وتعالى</button>
-          <button onclick="copyArSymAzzaWajal();">عز وجل</button>
-          <button onclick="copyArSymJallaWaAla();">جل وعلا</button>
-          <button onclick="copyArSymJallaJalaluh();">جل جلاله</button>
-          <button onclick="copyArSymAllah();">الله</button>
-          <button onclick="copyArSymMuhammad();">محمد</button>
-          <button onclick="copyArSymTakbir();">الله أكبر</button>
-          <button onclick="copyArSymAlaihiSalam();">عليه السلام</button>
-          <button onclick="copyArSymAlaihiSalam2();">عليه الصلاة السلام</button>
-          <button onclick="copyArSymAlaihaSalam();">عليها السلام</button>
-          <button onclick="copyArSymAlaihimaSalam();">عليهما السلام</button>
-          <button onclick="copyArSymAlaihimSalam();">عليهم السلام</button>
-          <button onclick="copyArSymAlaihiWaAla();">عليه وعلى عاله</button>
-          <button onclick="copyArSymRahimaHu();">رحمه الله</button>
-          <button onclick="copyArSymRahimaHa();">رحمها الله</button>
-          <button onclick="copyArSymRahimaHuma();">رحمهما الله</button>
-          <button onclick="copyArSymRahimaHum();">رحمهم الله</button>
-          <button onclick="copyArSymRahimaHun();">رحمهن الله</button>
+          <button onclick="copyArSymKFGQPCBismi1();">بسم الله 1</button>
+          <button onclick="copyArSymKFGQPCBismi2();">بسم الله 2</button>
+          <button onclick="copyArSymKFGQPCSalla();">صلى الله عليه</button>
+          <button onclick="copyArSymKFGQPCRadiya1();">رضي الله عنه</button>
+          <button onclick="copyArSymKFGQPCRadiyaHa();">رضي الله عنها</button>
+          <button onclick="copyArSymKFGQPCRadiya2();">رضي الله عنهما</button>
+          <button onclick="copyArSymKFGQPCRadiyaHum();">رضي الله عنهم</button>
+          <button onclick="copyArSymKFGQPCRadiyaHun();">رضي الله عنهن</button>
+          <button onclick="copyArSymKFGQPCSubhana();">سبحانه وتعالى</button>
+          <button onclick="copyArSymKFGQPCTabaraka();">تبارك وتعالى</button>
+          <button onclick="copyArSymKFGQPCAzzaWajal();">عز وجل</button>
+          <button onclick="copyArSymKFGQPCJallaWaAla();">جل وعلا</button>
+          <button onclick="copyArSymKFGQPCJallaJalaluh();">جل جلاله</button>
+          <button onclick="copyArSymKFGQPCAllah();">الله</button>
+          <button onclick="copyArSymKFGQPCMuhammad();">محمد</button>
+          <button onclick="copyArSymKFGQPCTakbir();">الله أكبر</button>
+          <button onclick="copyArSymKFGQPCAlaiHiSalam();">عليه السلام</button>
+          <button onclick="copyArSymKFGQPCAlaiHiSalam2();">
+            عليه الصلاة والسلام
+          </button>
+          <button onclick="copyArSymKFGQPCAlaiHaSalam();">عليها السلام</button>
+          <button onclick="copyArSymKFGQPCAlaiHimaSalam();">
+            عليهما السلام
+          </button>
+          <button onclick="copyArSymKFGQPCAlaiHimuSalam();">
+            عليهم السلام
+          </button>
+          <button onclick="copyArSymKFGQPCAlaihiWaAlaAalihi();">
+            عليه وعلى عاله
+          </button>
+          <button onclick="copyArSymKFGQPCRahimaHu();">رحمه الله</button>
+          <button onclick="copyArSymKFGQPCRahimaHa();">رحمها الله</button>
+          <button onclick="copyArSymKFGQPCRahimaHuma();">رحمهما الله</button>
+          <button onclick="copyArSymKFGQPCRahimaHum();">رحمهم الله</button>
+          <button onclick="copyArSymKFGQPCRahimaHun();">رحمهن الله</button>
         </div>
 
         <p class="buttonHeader">
-          ތިރީގައިވާ ލަފްޒުތައް ކޮޕީކުރުމަށް ފަހު، ވޯރޑު ޑޮކިޔުމެންޓެއްގައި
-          ސިމްބޮލުތަކެއްގެ ގޮތުގައި ދައްކާނީ ”AGA Arabesque Regular“ މި ފޮންޓު
-          އެޕްލައި ކުރުމަށް ފަހުގައެވެ:
+          ތިރީގައި ވަނީ ”KFGQPC Arabic Symbols 01“ ގެ ކުރު ސިމްބޮލްތަކެވެ.
+          ފޮންޓު އެޕްލައި ކުރުމަށް ފަހު ވޯރޑުގައި ޕޭސްޓު ކުރާށެވެ.
+        </p>
+        <div class="mid editorButtons">
+          <button onclick="copyArSymKFGQPCshortAzzaWajal();">عز وجل</button>
+          <button onclick="copyArSymKFGQPCshortSubhana();">
+            سبحانه وتعالى
+          </button>
+          <button onclick="copyArSymKFGQPCshortJallaJalaluh();">
+            جل جلاله
+          </button>
+          <button onclick="copyArSymKFGQPCshortJallaWaAla();">جل وعلا</button>
+          <button onclick="copyArSymKFGQPCshortTabaraka();">
+            تبارك وتعالى
+          </button>
+          <button onclick="copyArSymKFGQPCshortSalla();">صلى الله عليه</button>
+          <button onclick="copyArSymKFGQPCshortRadiya1();">رضي الله عنه</button>
+          <button onclick="copyArSymKFGQPCshortRadiyaHa();">
+            رضي الله عنها
+          </button>
+          <button onclick="copyArSymKFGQPCshortRadiyaHum();">
+            رضي الله عنهم
+          </button>
+          <button onclick="copyArSymKFGQPCshortRadiya2();">
+            رضي الله عنهما
+          </button>
+          <button onclick="copyArSymKFGQPCshortRadiyaHun();">
+            رضي الله عنهن
+          </button>
+          <button onclick="copyArSymKFGQPCshortSalam2();">
+            عليه الصلاة والسلام
+          </button>
+          <button onclick="copyArSymKFGQPCshortAlaiHiSalam();">
+            عليه السلام
+          </button>
+          <button onclick="copyArSymKFGQPCshortAlaiHaSalam();">
+            عليها السلام
+          </button>
+          <button onclick="copyArSymKFGQPCshortAlaiHimuSalam();">
+            عليهم السلام
+          </button>
+          <button onclick="copyArSymKFGQPCshortAlaiHimaSalam();">
+            عليهما السلام
+          </button>
+          <button onclick="copyArSymKFGQPCshortRahimaHu();">رحمه الله</button>
+          <button onclick="copyArSymKFGQPCshortRahimaHum();">رحمهم الله</button>
+          <button onclick="copyArSymKFGQPCshortRahimaHuma();">
+            رحمهما الله
+          </button>
+          <button onclick="copyArSymKFGQPCshortRahimaHa();">رحمها الله</button>
+          <button onclick="copyArSymKFGQPCshortRahimaHun();">رحمهن الله</button>
+        </div>
+
+        <p class="buttonHeader">
+          ތިރީގައި ވަނީ ”AGA Arabesque Regular“ ގެ ސިމްބޮލްތަކެވެ. ފޮންޓު
+          އެޕްލައި ކުރުމަށް ފަހު ވޯރޑުގައި ޕޭސްޓު ކުރާށެވެ.
         </p>
         <div class="mid editorButtons">
           <button onclick="copyAgaSubhanah();">سبحانه وتعالى</button>
           <button onclick="copyAgaSalla();">ﷺ</button>
           <button onclick="copyAgaRadiya1();">رضي الله عنه</button>
           <button onclick="copyAgaRadiyaHum();">رضي الله عنهم</button>
-          <button onclick="copyAgaAlaihiSalam();">عليه السلام</button>
+          <button onclick="copyAgaAlaiHiSalam();">عليه السلام</button>
           <button onclick="copyAgaAzzaWajal();">عز وجل</button>
         </div>
         <!-- <div class="mid"> -->
@@ -3698,9 +3758,7 @@
             return result;
           }
 
-          function copyRadiyaHaa() {
-            //navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهَا");
-            //return false;
+          function copyRadiyaHa() {
             var input = document.createElement("textarea");
             input.innerHTML = "رَضِيَ اللَّهُ عَنْهَا";
             document.body.appendChild(input);
@@ -3711,8 +3769,6 @@
           }
 
           function copyRadiya2() {
-            //navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهُمَا");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "رَضِيَ اللَّهُ عَنْهُمَا";
             document.body.appendChild(input);
@@ -3723,8 +3779,6 @@
           }
 
           function copyRadiyaHum() {
-            //navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهُمْ");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "رَضِيَ اللَّهُ عَنْهُمْ";
             document.body.appendChild(input);
@@ -3735,8 +3789,6 @@
           }
 
           function copyRiwa() {
-            //navigator.clipboard.writeText("ރިވާ ކުރެއްވިއެވެ: ");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "ރިވާ ކުރެއްވިއެވެ: ";
             document.body.appendChild(input);
@@ -3747,8 +3799,6 @@
           }
 
           function copyRhadithK() {
-            //navigator.clipboard.writeText("ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ";
             document.body.appendChild(input);
@@ -3759,8 +3809,6 @@
           }
 
           function copyNhadithK() {
-            //navigator.clipboard.writeText("ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ";
             document.body.appendChild(input);
@@ -3771,9 +3819,6 @@
           }
 
           function copyhadithAdu() {
-            //navigator.clipboard.writeText(
-            //  "ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: "
-            //);
             var input = document.createElement("textarea");
             input.innerHTML = "ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ: ";
             document.body.appendChild(input);
@@ -3784,8 +3829,6 @@
           }
 
           function copyBismi() {
-            //navigator.clipboard.writeText("بسم الله الرحمن الرحيم");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "بسم الله الرحمن الرحيم";
             document.body.appendChild(input);
@@ -3796,8 +3839,6 @@
           }
 
           function copySalam() {
-            //navigator.clipboard.writeText("السلام عليكم ورحمة الله وبركاته");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "السلام عليكم ورحمة الله وبركاته";
             document.body.appendChild(input);
@@ -3808,8 +3849,6 @@
           }
 
           function copyWassalam() {
-            //navigator.clipboard.writeText("وعليكم السلام ورحمة الله وبركاته");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "وعليكم السلام ورحمة الله وبركاته";
             document.body.appendChild(input);
@@ -3820,8 +3859,6 @@
           }
 
           function copyJazak() {
-            //navigator.clipboard.writeText("جزاك الله خيرا");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "جزاك الله خيرا";
             document.body.appendChild(input);
@@ -3832,8 +3869,6 @@
           }
 
           function copyBarak() {
-            //navigator.clipboard.writeText("بارك الله فيك");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "بارك الله فيك";
             document.body.appendChild(input);
@@ -3844,8 +3879,6 @@
           }
 
           function copyHamd() {
-            //navigator.clipboard.writeText("الحمد لله");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "الحمد لله";
             document.body.appendChild(input);
@@ -3856,8 +3889,6 @@
           }
 
           function copyInshaAllah() {
-            //navigator.clipboard.writeText("إن شاء الله");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "إن شاء الله";
             document.body.appendChild(input);
@@ -3868,8 +3899,6 @@
           }
 
           function copyMashaAllah() {
-            //navigator.clipboard.writeText("ما شاء الله تبارك الله");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "ما شاء الله تبارك الله";
             document.body.appendChild(input);
@@ -3880,8 +3909,6 @@
           }
 
           function copySubhanAllah() {
-            //navigator.clipboard.writeText("سبحان الله");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "سبحان الله";
             document.body.appendChild(input);
@@ -3892,8 +3919,6 @@
           }
 
           function copyAllahAkbar() {
-            //navigator.clipboard.writeText("الله أكبر");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "الله أكبر";
             document.body.appendChild(input);
@@ -3904,8 +3929,6 @@
           }
 
           function copyInnaLillah() {
-            //navigator.clipboard.writeText("إنا لله وإنا إليه راجعون");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "إنا لله وإنا إليه راجعون";
             document.body.appendChild(input);
@@ -3916,8 +3939,6 @@
           }
 
           function copyLaIlaha() {
-            //navigator.clipboard.writeText("لا إله إلا الله");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "لا إله إلا الله";
             document.body.appendChild(input);
@@ -3928,10 +3949,6 @@
           }
 
           function copyKhutbatulHaja() {
-            /*navigator.clipboard.writeText(
-              "إنَّ الْحَمْدَ لِلهِ نَحْمَدُهُ وَنَسْتَعِينُهُ وَنَسْتَغْفِرُهُ، وَنَعُوذُ بِاللهِ مِنْ شُرُورِ أَنْفُسِنَا وَمِنْ سَيِّئَاتِ أَعْمَالِنَا، مَنْ يَهْدِهِ اللهُ فَلاَ مُضِلَّ لَهُ، وَمَنْ يُضْلِلْ فَلاَ هَادِىَ لَهُ، وَأَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ\n\n{يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ حَقَّ تُقَاتِهِ وَلَا تَمُوتُنَّ إِلَّا وَأَنْتُمْ مُسْلِمُونَ} (آل عمران:102)\n\n{يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمُ الَّذِي خَلَقَكُمْ مِنْ نَفْسٍ وَاحِدَةٍ وَخَلَقَ مِنْهَا زَوْجَهَا وَبَثَّ مِنْهُمَا رِجَالًا كَثِيرًا وَنِسَاءً وَاتَّقُوا اللَّهَ الَّذِي تَسَاءَلُونَ بِهِ وَالْأَرْحَامَ إِنَّ اللَّهَ كَانَ عَلَيْكُمْ رَقِيبًا} (النساء:1)\n\n{يَاأَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللهَ وَقُولُوا قَوْلاً سَدِيدًا * يُصْلِحْ لَكُمْ أَعْمَالَكُمْ وَيَغْفِرْ لَكُمْ ذُنُوبَكُمْ وَمَنْ يُطِعِ اللهَ وَرَسُولَهُ فَقَدْ فَازَ فَوْزًا عَظِيمًا} (الأحزاب: 70، 71)\n\nأَمَّا بَعْدُ"
-            );
-            return false;*/
             var input = document.createElement("textarea");
             input.innerHTML =
               "إنَّ الْحَمْدَ لِلهِ نَحْمَدُهُ وَنَسْتَعِينُهُ وَنَسْتَغْفِرُهُ، وَنَعُوذُ بِاللهِ مِنْ شُرُورِ أَنْفُسِنَا وَمِنْ سَيِّئَاتِ أَعْمَالِنَا، مَنْ يَهْدِهِ اللهُ فَلاَ مُضِلَّ لَهُ، وَمَنْ يُضْلِلْ فَلاَ هَادِىَ لَهُ، وَأَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ\n\n{يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ حَقَّ تُقَاتِهِ وَلَا تَمُوتُنَّ إِلَّا وَأَنْتُمْ مُسْلِمُونَ} (آل عمران:102)\n\n{يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمُ الَّذِي خَلَقَكُمْ مِنْ نَفْسٍ وَاحِدَةٍ وَخَلَقَ مِنْهَا زَوْجَهَا وَبَثَّ مِنْهُمَا رِجَالًا كَثِيرًا وَنِسَاءً وَاتَّقُوا اللَّهَ الَّذِي تَسَاءَلُونَ بِهِ وَالْأَرْحَامَ إِنَّ اللَّهَ كَانَ عَلَيْكُمْ رَقِيبًا} (النساء:1)\n\n{يَاأَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللهَ وَقُولُوا قَوْلاً سَدِيدًا * يُصْلِحْ لَكُمْ أَعْمَالَكُمْ وَيَغْفِرْ لَكُمْ ذُنُوبَكُمْ وَمَنْ يُطِعِ اللهَ وَرَسُولَهُ فَقَدْ فَازَ فَوْزًا عَظِيمًا} (الأحزاب: 70، 71)\n\nأَمَّا بَعْدُ";
@@ -3943,10 +3960,6 @@
           }
 
           function copyKaffaratulMajlis() {
-            /*navigator.clipboard.writeText(
-              "سبحانك اللهم وبحمدك، أشهد أن لا إله إلا أنت، أستغفرك وأتوب إليك"
-            );
-            return false;*/
             var input = document.createElement("textarea");
             input.innerHTML =
               "سبحانك اللهم وبحمدك، أشهد أن لا إله إلا أنت، أستغفرك وأتوب إليك";
@@ -3958,8 +3971,6 @@
           }
 
           function copyHaa() {
-            //navigator.clipboard.writeText("هـ");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "هـ";
             document.body.appendChild(input);
@@ -3969,9 +3980,7 @@
             return result;
           }
 
-          function copyArSymBismi1() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCBismi1() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -3980,9 +3989,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymBismi2() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCBismi2() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -3991,9 +3998,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymSalla() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCSalla() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4003,9 +4008,7 @@
             return result;
           }
 
-          function copyArSymRadiya1() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCRadiya1() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4015,9 +4018,7 @@
             return result;
           }
 
-          function copyArSymRadiyaHaa() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCRadiyaHa() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4027,9 +4028,7 @@
             return result;
           }
 
-          function copyArSymRadiya2() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCRadiya2() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4039,9 +4038,7 @@
             return result;
           }
 
-          function copyArSymRadiyaHum() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCRadiyaHum() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4050,9 +4047,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymRadiyaHunna() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCRadiyaHun() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4061,9 +4056,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymSubhana() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCSubhana() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4072,9 +4065,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymTabaraka() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCTabaraka() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4083,9 +4074,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymAzzaWajal() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCAzzaWajal() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4094,9 +4083,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymJallaWaAla() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCJallaWaAla() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4105,9 +4092,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymJallaJalaluh() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCJallaJalaluh() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4116,9 +4101,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymAllah() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCAllah() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4127,9 +4110,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymMuhammad() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCMuhammad() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4138,9 +4119,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymTakbir() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCTakbir() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4149,9 +4128,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymAlaihiSalam() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCAlaiHiSalam() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4160,9 +4137,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymAlaihiSalam2() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCAlaiHiSalam2() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4171,9 +4146,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymAlaihaSalam() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCAlaiHaSalam() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4182,9 +4155,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymAlaihimaSalam() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCAlaiHimaSalam() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4193,9 +4164,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymAlaihimSalam() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCAlaiHimuSalam() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4204,9 +4173,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymAlaihiWaAla() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCAlaihiWaAlaAalihi() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4216,9 +4183,7 @@
             return result;
           }
 
-          function copyArSymRahimaHu() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCRahimaHu() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4227,9 +4192,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymRahimaHa() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCRahimaHa() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4238,9 +4201,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymRahimaHuma() {
-            //navigator.clipboard.writeText("");
-            //return false;
+          function copyArSymKFGQPCRahimaHuma() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
@@ -4249,8 +4210,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymRahimaHum() {
-            //navigator.clipboard.writeText("");
+          function copyArSymKFGQPCRahimaHum() {
             //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "";
@@ -4260,8 +4220,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyArSymRahimaHun() {
-            //avigator.clipboard.writeText("");
+          function copyArSymKFGQPCRahimaHun() {
             //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "";
@@ -4271,6 +4230,198 @@
             document.body.removeChild(input);
             return result;
           }
+          //
+
+          function copyArSymKFGQPCshortAzzaWajal() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortSubhana() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortJallaJalaluh() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortJallaWaAla() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortTabaraka() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortSalla() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortRadiya1() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortRadiyaHa() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortRadiyaHum() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortRadiya2() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortRadiyaHun() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortSalam2() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortAlaiHiSalam() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortAlaiHaSalam() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortAlaiHimuSalam() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortAlaiHimaSalam() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortRahimaHu() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortRahimaHum() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortRahimaHuma() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortRahimaHa() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+          function copyArSymKFGQPCshortRahimaHun() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
           //
           function copyAgaSubhanah() {
             var input = document.createElement("textarea");
@@ -4308,7 +4459,7 @@
             document.body.removeChild(input);
             return result;
           }
-          function copyAgaAlaihiSalam() {
+          function copyAgaAlaiHiSalam() {
             var input = document.createElement("textarea");
             input.innerHTML = "";
             document.body.appendChild(input);
