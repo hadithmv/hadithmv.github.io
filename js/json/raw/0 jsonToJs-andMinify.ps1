@@ -37,9 +37,9 @@ Set-Content ../fortyNawawi.js -Value 'const fortyNawawi_DB='
 Get-Content fortyNawawi.json | Add-Content ../fortyNawawi.js
 uglifyjs ../fortyNawawi.js -c -m -o ../fortyNawawi.js
 
-Set-Content ../muharrar.js -Value 'const muharrar_DB='
-Get-Content muharrar.json | Add-Content ../muharrar.js
-uglifyjs ../muharrar.js -c -m -o ../muharrar.js
+Set-Content ../hisnulMuslim.js -Value 'const hisnulMuslim_DB='
+Get-Content hisnulMuslim.json | Add-Content ../hisnulMuslim.js
+uglifyjs ../hisnulMuslim.js -c -m -o ../hisnulMuslim.js
 
 Set-Content ../muwatta.js -Value 'const muwatta_DB='
 Get-Content muwatta.json | Add-Content ../muwatta.js
