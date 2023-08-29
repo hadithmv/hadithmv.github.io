@@ -44,7 +44,8 @@ https://github.com/codemirror/CodeMirror -MIT
 https://github.com/nayuki/QR-Code-generator -MIT
 
 https://github.com/maaldheefee/mushaf-page-border
-https://fonts.qurancomplex.gov.sa/wp02 0.14
+https://fonts.qurancomplex.gov.sa/wp02 0.18
+https://qurancomplex.gov.sa/en/techquran/dev
 http://hassanhameed.com/?page_id=154 2.0
 https://fonts.hassaanmv.com/tharujamaanu
 
