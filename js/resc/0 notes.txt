@@ -6,7 +6,7 @@ mmenu-inlineJs.js
 
 -Non critical
 jquery.min.js		3.7.0 (mergely and hammer breaks with jquery slim, zepto and cash doesnt work)
-**jquery.dataTables.min.js	1.13.5	(requires jq)
+**jquery.dataTables.min.js	1.13.6	(requires jq)
 
 dataTables.buttons.min.js	2.4.1
 buttons.colVis.min.js		2.4.1
