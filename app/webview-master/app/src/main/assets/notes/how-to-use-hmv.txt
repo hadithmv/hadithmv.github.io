@@ -9,19 +9,21 @@ Hadithmv is available online as a website, as well as an offline application on 
 Click on the top navbar or right hamburger button to open the menu.
 Open a book to begin browsing.
 Use the search box to look up words.
-Use the show 1 box to select how many items to show. (We recommend this not be changed for the best reading experience, unless you wish to copy multiple items at once)
+Use the show 1 box to select how many items to show. For example you can multiple hadith or ayat on the same page by changing this option.
 Use the page buttons to move forward or backward. (Can also swipe to change pages on mobile, which is much easier)
 Write in the page box to jump to a page. (Can also use arrow keys once inside the box)
 Use the Options button to filter data.
 Use the Copy button to copy all visible data.
 Use the Extra Columns button to show or hide specific data.
 
-In the top menu, click on the Hadithmv logo at the left to go back to the homepage.
-
 After searching, you can double click on a search result to jump to the page where that result comes from.
 For exact matches only, write your search term within quotes "like this"
 
 If you are using Hadithmv from the website, the place where you were reading stays saved even if you close the browser. As for the app, you can click the "copy current page link" button at the bottom of a page and save that link to continue from there later on.
+
+Most pages have a top menu where you can click on the Hadithmv logo at the left to go back to the homepage. Other pages have hyperlinked text where it says "Hadithmv" at the top.
+
+On some Android phones, the back button of the phone closes the app. If this happens, use the above method instead.
 
 ---------------------
 
