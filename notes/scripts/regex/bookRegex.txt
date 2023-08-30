@@ -114,3 +114,11 @@ find all square brackets that come after a new line (this happens in ref sometim
 scrambled characters that come from the now obsolete mushaf madina software font:
 [\ue000-\uf8ff]
 Block:	Private Use Area, U+E000 - U+F8FF
+
+https://stackoverflow.com/questions/10768924/match-sequence-using-regex-after-a-specified-character
+
+(?<=:)[\w+.-]+
+[\u0780-\u07BF]
+
+(?<=\!|؟|،|\.|\:|؛)[\u0780-\u07BF]
+finds dhivehi characters immediately after exclamation mark, can use question mark, commas and full stops there too.
