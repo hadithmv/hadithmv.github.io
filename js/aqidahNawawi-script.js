@@ -84,6 +84,10 @@ $(document).ready(() => {
       },
       {
         data: 2,
+        title: "ދިވެހި ސުރުހީ",
+      },
+      {
+        data: 3,
         title: "އަރަބި ނައްސު",
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
@@ -91,7 +95,7 @@ $(document).ready(() => {
         /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 2,
+        data: 3,
         title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
           return (
@@ -105,15 +109,15 @@ $(document).ready(() => {
         },
       },
       {
-        data: 3,
+        data: 4,
         title: "ދިވެހި ތަރުޖަމާ",
       },
       {
-        data: 4,
+        data: 5,
         title: "English",
       },
       {
-        data: 5,
+        data: 6,
         title: "ތަޚްރީޖު",
       },
     ],
@@ -122,7 +126,7 @@ $(document).ready(() => {
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: [5],
+        targets: [7],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -161,8 +165,17 @@ $(document).ready(() => {
         },
       },
       {
-        className: "nwqCol3", // Ar Text
+        className: "ColKitab2", // Dv Title
         targets: [2],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "nwqCol4", // Ar Text
+        targets: [3],
         visible: true,
         searchable: false,
         searchPanes: {
@@ -170,8 +183,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "nwqCol4", // Ar Plain
-        targets: [3],
+        className: "nwqCol5", // Ar Plain
+        targets: [4],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -179,8 +192,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "nwqCol5", // Dv Text
-        targets: [4],
+        className: "nwqCol6", // Dv Text
+        targets: [5],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -189,7 +202,7 @@ $(document).ready(() => {
       },
       {
         className: "ColEng", // Eng Text
-        targets: [5],
+        targets: [6],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -198,7 +211,7 @@ $(document).ready(() => {
       },
       {
         className: "ColTakhrij", // Ar Ref
-        targets: [6],
+        targets: [7],
         visible: true,
         searchable: false,
         searchPanes: {
@@ -338,18 +351,31 @@ $(document).ready(() => {
       buttons: {
         copyTitle: "ކޮޕީ",
         copySuccess: {
-          1: "ކޮޕީ ވީ 1 ނުކުތާ",
-          _: "ކޮޕީ ވީ %d ބަސް",
+          1: "ކޮޕީ ވީ 1 ސަފުހާ",
+          _: "ކޮޕީ ވީ %d ސަފުހާ",
         },
       },
 
-      info: "_TOTAL_ ނުކުތާގެ ތެރެއިން _START_ އިން _END_ އަށް",
+      info: "_TOTAL_ ސަފުހާގެ ތެރެއިން _START_ އިން _END_ އަށް",
       infoFiltered: "(ޖުމްލަ ބެލެވުނީ _MAX_)",
       infoEmpty: "— ނުފެނުނު —",
       lengthMenu: "_MENU_",
       search: "", // Originally "Search:" leave this blank in production
       searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"',
       zeroRecords: "<br><br><br><br>— ނުފެނުނު —<br><br><br><br><br>",
+      searchPanes: {
+        emptyMessage: "— ވަކި ނަމެއް ނެތް —",
+        clearMessage: "ފިލްޓަރތައް ދުއްވާލާ",
+        collapse: { 0: "ފިލްޓަރ", _: "ފިލްޓަރ (%d)" },
+        title: {
+          _: "%d ފިލްޓަރ ކުރެވިފާ",
+          0: "0 ފިލްޓަރ ކުރެވިފާ",
+          1: "1 ފިލްޓަރ ކުރެވިފާ",
+        },
+        /* i18n: {
+          emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
+        } */
+      },
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
 
@@ -389,7 +415,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "ޙަދީޘްއެމްވީ – ބަރްބަހާރީ ލިޔުއްވި ސުންނަތުގެ ޝަރަހަ", // CHANGE123 clipboard message
+        messageTop: "ޙަދީޘްއެމްވީ – އިސްލާމްކަން ގެއްލޭ ކަންކަން", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
@@ -413,22 +439,26 @@ $(document).ready(() => {
           // data = data.replace(/r\n]/g, '') // needed to make rnr work
           // data = data.replace(/\r\n|\n|\t/gm, '')
 
-          data = data.replace(/\r\n\r\n|\n\n/g, " ");
+          //data = data.replace(/\r\n\r\n/g, " "); //  What these two lines do is, they bring the hadith number right after the inserted title text.
+          //data = data.replace(/\n\n/g, " "); //  so these two are ok for hadith or point numbered books, but not for others like qurad radheef etc.
+
+          // data = data.replace(/\r\n\r\n|\n\n/g, " ");
           //  What these two lines do is, they bring the hadith number right after the inserted title text. So these two are ok for hadith or point numbered books, but not for others like quran, radheef etc.
 
           data = data.replace(/\r\n|\n/g, "\t");
           // \r\n prevents first header showing up unneeded (windows)
           // \n prevents first header showing up unneeded (linux) this needs come after windows rn
 
-          data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
-
+          //data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
           data = data.replace(/ސަފުހާ #\t/g, "");
           data = data.replace(/އަރަބި ސުރުހީ\t/g, "");
+          data = data.replace(/ދިވެހި ސުރުހީ\t/g, "");
           data = data.replace(/އަރަބި ނައްސު\t/g, "");
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/English\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
+
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
             "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
@@ -450,7 +480,7 @@ $(document).ready(() => {
           data = data.replace(/\t#/g, '')
           data = data.replace(/\tއަރަބި ސުރުހީ/g, '')
           data = data.replace(/\tދިވެހި ސުރުހީ/g, '')
-          data = data.replace(/\tއަރަބި ޙަދީޘް/g, '')
+          data = data.replace(/\tއަރަބި ނައްސު/g, '')
           data = data.replace(/\tއަރަބި ފިލިނުޖަހައި/g, '')
           data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
           data = data.replace(/\tތަޚްރީޖު/g, '')
@@ -464,7 +494,7 @@ $(document).ready(() => {
           data = data.replace(/#\t/g, '')
           data = data.replace(/އަރަބި ސުރުހީ\t/g, '')
           data = data.replace(/ދިވެހި ސުރުހީ\t/g, '')
-          data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
+          data = data.replace(/އަރަބި ނައްސު\t/g, '')
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/ތަޚްރީޖު\t/g, '')
@@ -480,7 +510,7 @@ $(document).ready(() => {
           data = data.replace(/#\n/g, '')
           data = data.replace(/އަރަބި ސުރުހީ\n/g, '')
           data = data.replace(/ދިވެހި ސުރުހީ\n/g, '')
-          data = data.replace(/އަރަބި ޙަދީޘް\n/g, '')
+          data = data.replace(/އަރަބި ނައްސު\n/g, '')
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\n/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\n/g, '')
           data = data.replace(/ތަޚްރީޖު\n/g, '')
@@ -509,6 +539,27 @@ $(document).ready(() => {
         // "exportOptions: { modifier:{columns:[":visible"], rows: [":visible"]}"
         // needs .cards thead { visibility: hidden; } to work
       }, // end of copy customization
+
+      {
+        extend: "searchPanes",
+        key: { key: "f", shiftKey: true },
+        /* Multiselect on clicking only works with Pfrtip Dom not for Bfrtip Dom how can we use it with bfrtip Dom ?
+        need to put the SearchPanes configuration into the buttons config option.
+        https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
+        config: {
+          collapse: false,
+          orderable: false,
+          columns: [0, 1],
+          cascadePanes: true,
+          dtOpts: {
+            select: {
+              style: "multi",
+            },
+            ordering: false,
+            /* order: [[1, 'desc']] */
+          },
+        },
+      },
 
       {
         extend: "colvis",
