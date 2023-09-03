@@ -12,6 +12,10 @@ Set-Content ../aqidatuRaziyain.js -Value 'const aqidatuRaziyain_DB='
 Get-Content aqidatuRaziyain.json | Add-Content ../aqidatuRaziyain.js
 uglifyjs ../aqidatuRaziyain.js -c -m -o ../aqidatuRaziyain.js
 
+Set-Content ../aqidahNawawi.js -Value 'const aqidahNawawi_DB='
+Get-Content aqidahNawawi.json | Add-Content ../aqidahNawawi.js
+uglifyjs ../aqidahNawawi.js -c -m -o ../aqidahNawawi.js
+
 Set-Content ../barbahari.js -Value 'const barbahari_DB='
 Get-Content barbahari.json | Add-Content ../barbahari.js
 uglifyjs ../barbahari.js -c -m -o ../barbahari.js
