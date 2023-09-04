@@ -25,10 +25,10 @@ $(document).ready(() => {
       language: {
         paginate: {
           // &nbsp; prevents line breaks
-          first: "<<&nbsp;ފުރަތަމަ",
-          previous: "<&nbsp;ފަހަތަށް",
-          next: "ކުރިއަށް&nbsp;>",
-          last: "ފަހު&nbsp;>>",
+          first: "<<&nbsp;الأول",
+          previous: "<&nbsp;قبل",
+          next: "بعد&nbsp;>",
+          last: "الأخير&nbsp;>>",
 
           info: "_INPUT_", // taken from input plugin, "Page _INPUT_ of _TOTAL_"
         },
@@ -72,15 +72,15 @@ $(document).ready(() => {
       },*/
       {
         /* add sofhaa string to page no */ data: 0,
-        title: "ސަފުހާ #",
+        title: "ص #",
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
-          return "[ސ. " + data + "]"; // prev ސަފުހާ
+          return "[ص. " + data + "]"; // prev ސަފުހާ
         },
       },
       {
         data: 1,
-        title: "އަރަބި ސުރުހީ",
+        title: "العنوان بالعربي",
       },
       {
         data: 2,
@@ -88,7 +88,7 @@ $(document).ready(() => {
       },
       {
         data: 3,
-        title: "އަރަބި ނައްސު",
+        title: "النص بالعربي",
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
       {
@@ -96,7 +96,7 @@ $(document).ready(() => {
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
         data: 3,
-        title: "އަރަބި ފިލިނުޖަހައި",
+        title: "بدون تشكيل",
         render: function (data, type, row) {
           return (
             data
@@ -118,7 +118,7 @@ $(document).ready(() => {
       },
       {
         data: 6,
-        title: "ތަޚްރީޖު",
+        title: "الحاشية بالعربي",
       },
     ],
 
@@ -349,20 +349,20 @@ $(document).ready(() => {
 },
 */
       buttons: {
-        copyTitle: "ކޮޕީ",
+        copyTitle: "نسخ",
         copySuccess: {
-          1: "ކޮޕީ ވީ 1 ސަފުހާ",
-          _: "ކޮޕީ ވީ %d ސަފުހާ",
+          1: "نسخ 1 صفحة",
+          _: "نسخ %d صفحة",
         },
       },
 
-      info: "_TOTAL_ ސަފުހާގެ ތެރެއިން _START_ އިން _END_ އަށް",
+      info: "_TOTAL_ صفحة _START_ من _END_ إلى",
       infoFiltered: "(ޖުމްލަ ބެލެވުނީ _MAX_)",
-      infoEmpty: "— ނުފެނުނު —",
+      infoEmpty: "— ما وجد —",
       lengthMenu: "_MENU_",
       search: "", // Originally "Search:" leave this blank in production
-      searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"',
-      zeroRecords: "<br><br><br><br>— ނުފެނުނު —<br><br><br><br><br>",
+      searchPlaceholder: "بحث",
+      zeroRecords: "<br><br><br><br>— ما وجد —<br><br><br><br><br>",
       searchPanes: {
         emptyMessage: "— ވަކި ނަމެއް ނެތް —",
         clearMessage: "ފިލްޓަރތައް ދުއްވާލާ",
@@ -414,8 +414,8 @@ $(document).ready(() => {
       {
         extend: "copy",
         key: { key: "c", shiftKey: true },
-        text: "ކޮޕީ",
-        messageTop: "ޙަދީޘްއެމްވީ – އިސްލާމްކަން ގެއްލޭ ކަންކަން", // CHANGE123 clipboard message
+        text: "نسخ",
+        messageTop: "حديث أم وي – عقيدة النووي", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
@@ -450,14 +450,14 @@ $(document).ready(() => {
           // \n prevents first header showing up unneeded (linux) this needs come after windows rn
 
           //data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
-          data = data.replace(/ސަފުހާ #\t/g, "");
-          data = data.replace(/އަރަބި ސުރުހީ\t/g, "");
+          data = data.replace(/ص #\t/g, "");
+          data = data.replace(/العنوان بالعربي\t/g, "");
           data = data.replace(/ދިވެހި ސުރުހީ\t/g, "");
-          data = data.replace(/އަރަބި ނައްސު\t/g, "");
-          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
+          data = data.replace(/النص بالعربي\t/g, "");
+          data = data.replace(/بدون تشكيل\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/English\t/g, "");
-          data = data.replace(/ތަޚްރީޖު\t/g, "");
+          data = data.replace(/الحاشية بالعربي\t/g, "");
 
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
