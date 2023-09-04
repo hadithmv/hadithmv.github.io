@@ -26,8 +26,8 @@ $(document).ready(() => {
         paginate: {
           // &nbsp; prevents line breaks
           first: "<<&nbsp;الأول",
-          previous: "<&nbsp;قبل",
-          next: "بعد&nbsp;>",
+          previous: "<&nbsp;السابق",
+          next: "التالي&nbsp;>",
           last: "الأخير&nbsp;>>",
 
           info: "_INPUT_", // taken from input plugin, "Page _INPUT_ of _TOTAL_"
@@ -302,7 +302,7 @@ $(document).ready(() => {
     // Default [ 10, 25, 50, 100 ],
     lengthMenu: [
       [1, 2, 3, 5, 10, 20, 30, 50],
-      ["1 ދައްކާ", 2, 3, 5, 10, 20, 30, "50"],
+      ["1 إظهار", 2, 3, 5, 10, 20, 30, "50"],
     ],
     // lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, '50']],
     // lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހާ']],
@@ -351,13 +351,13 @@ $(document).ready(() => {
       buttons: {
         copyTitle: "نسخ",
         copySuccess: {
-          1: "نسخ 1 صفحة",
-          _: "نسخ %d صفحة",
+          1: "تم نسخ 1 صفحة",
+          _: "نسخ %d تم نسخ",
         },
       },
 
       info: "_TOTAL_ صفحة _START_ من _END_ إلى",
-      infoFiltered: "(ޖުމްލަ ބެލެވުނީ _MAX_)",
+      infoFiltered: "(مرشحة من مجموع _MAX_)",
       infoEmpty: "— ما وجد —",
       lengthMenu: "_MENU_",
       search: "", // Originally "Search:" leave this blank in production
@@ -365,12 +365,12 @@ $(document).ready(() => {
       zeroRecords: "<br><br><br><br>— ما وجد —<br><br><br><br><br>",
       searchPanes: {
         emptyMessage: "— ވަކި ނަމެއް ނެތް —",
-        clearMessage: "ފިލްޓަރތައް ދުއްވާލާ",
-        collapse: { 0: "ފިލްޓަރ", _: "ފިލްޓަރ (%d)" },
+        clearMessage: "ازالة الكل",
+        collapse: { 0: "فلاتر البحث", _: "فلاتر البحث (%d)" },
         title: {
-          _: "%d ފިލްޓަރ ކުރެވިފާ",
-          0: "0 ފިލްޓަރ ކުރެވިފާ",
-          1: "1 ފިލްޓަރ ކުރެވިފާ",
+          _: "%d فلاتر البحث",
+          0: "0 فلاتر البحث",
+          1: "1 فلاتر البحث",
         },
         /* i18n: {
           emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
@@ -564,7 +564,7 @@ $(document).ready(() => {
       {
         extend: "colvis",
         key: { key: "s", shiftKey: true },
-        text: "އިތުރު ބަރިތައް",
+        text: "الأعمدة",
         background: false /* removes background fade animation for collection */,
       }, // end of colvis
 
