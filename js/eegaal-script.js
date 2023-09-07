@@ -93,7 +93,7 @@ $(document).ready(() => {
             data
               .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
               // previously [َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|\{|\}|\(|\)|\[|\]|«|»|۝|⁽|⁾|\-|﴾|﴿|¹²³⁴⁵⁶⁷⁸⁹⁰]
-              .replace(/(\n\n)/g, "<br>")
+              .replace(/(\n)/g, "<br>")
           );
           // the latter preserves newlines for fililess column
           //return data.replace(/[ًٌٍَُِّْ]/g, '')
@@ -118,7 +118,7 @@ $(document).ready(() => {
             data
               .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
               // previously [َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|\{|\}|\(|\)|\[|\]|«|»|۝|⁽|⁾|\-|﴾|﴿|¹²³⁴⁵⁶⁷⁸⁹⁰]
-              .replace(/(\n\n)/g, "<br>")
+              .replace(/(\n)/g, "<br>")
           );
           // the latter preserves newlines for fililess column
           //return data.replace(/[ًٌٍَُِّْ]/g, '')
