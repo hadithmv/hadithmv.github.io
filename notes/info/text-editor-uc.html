@@ -1325,6 +1325,15 @@
             &lt;Rmv HTML&gt;
           </button>
 
+          <button
+            onclick="decodeURL();triggerTheCounts();"
+            class="ttClass"
+            id="encodeURL"
+            data-tooltip="Decodes a URL from percent-encoding on the first button click, and encodes it on the next"
+          >
+            Decode URL
+          </button>
+
           <!--
           <button
             onclick="encSvg();triggerTheCounts();"
@@ -3552,6 +3561,28 @@
               .getElementById("textMainArea")
               .value.replace(/(<([^>]+)>)/gi, "");
           }
+          //
+
+          // https://en.wikipedia.org/wiki/Percent-encoding
+          // https://www.geeksforgeeks.org/how-to-encode-and-decode-a-url-in-javascript/
+          var decodeURL_timesClicked = 0;
+          function decodeURL() {
+            decodeURL_timesClicked++;
+            if (decodeURL_timesClicked % 2 == 0) {
+              //run second function
+              document.getElementById("textMainArea").value = encodeURI(
+                document.getElementById("textMainArea").value
+              );
+              document.getElementById("encodeURL").innerHTML = "Decode URL";
+            } else {
+              //run first function
+              document.getElementById("textMainArea").value = decodeURI(
+                document.getElementById("textMainArea").value
+              );
+              document.getElementById("encodeURL").innerHTML = "Encode URL";
+            }
+          }
+          //
           //
 
           /*
