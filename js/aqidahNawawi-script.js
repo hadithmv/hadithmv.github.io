@@ -159,7 +159,7 @@ $(document).ready(() => {
         className: "ColKitab", // Ar Title
         targets: [1],
         visible: true,
-        searchable: false,
+        searchable: true,
         searchPanes: {
           show: true,
         },
