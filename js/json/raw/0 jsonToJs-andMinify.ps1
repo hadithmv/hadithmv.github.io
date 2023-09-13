@@ -69,6 +69,10 @@ Set-Content ../quranJaufar.js -Value 'const quranJaufar_DB='
 Get-Content quranJaufar.json | Add-Content ../quranJaufar.js
 uglifyjs ../quranJaufar.js -c -m -o ../quranJaufar.js
 
+Set-Content ../quranSoabuni.js -Value 'const quranSoabuni_DB='
+Get-Content quranSoabuni.json | Add-Content ../quranSoabuni.js
+uglifyjs ../quranSoabuni.js -c -m -o ../quranSoabuni.js
+
 Set-Content ../radheef.js -Value 'const radheef_DB='
 Get-Content radheef.json | Add-Content ../radheef.js
 uglifyjs ../radheef.js -c -m -o ../radheef.js
