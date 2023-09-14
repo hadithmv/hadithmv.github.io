@@ -660,7 +660,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "ޞާބޫނީގެ ބަޔާންވެގެންވާ ފަސޭހާ ތަފްސީރު", // CHANGE123 clipboard message
+        messageTop: "ޞާބޫނީގެ ބަޔާންވެގެންވާ ފަސޭހަ ތަފްސީރު", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
