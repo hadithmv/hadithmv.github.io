@@ -1,0 +1,28 @@
+in command prompt, NOT powershell:
+
+go to where adb is and open a terminal there, change path to there
+cd C:\Users\hadit\AppData\Local\Android\Sdk\platform-tools
+
+check with:
+adb devices
+
+list apps:
+adb shell pm list packages
+
+find path:
+adb shell pm path com.example.someapp
+adb shell pm path mv.edu.dhivehiacademy.radheef
+
+this is the full path: (without the 'package:')
+/data/app/~~Fma010ard44kRdLuzqS2aA==/mv.edu.dhivehiacademy.radheef-sPBL-9xCHBu0igx1wWLjgA==/base.apk
+
+pull it out and copy it elsewhere:
+adb pull /data/app/com.example.someapp-2.apk path/to/desired/destination
+adb pull /data/app/~~Fma010ard44kRdLuzqS2aA==/mv.edu.dhivehiacademy.radheef-sPBL-9xCHBu0igx1wWLjgA==/base.apk
+(if you dont give a destination, it will have it copied to the adm destination from the beginning)
+
+if getting the below error
+adb: error: failed to get feature set: more than one device/emulator
+write
+adb -s (specify which device using the code given when you ran 'adb devices')
+adb -s 9P4PHQ4PNFKZ8H75 pull /data/app/~~Fma010ard44kRdLuzqS2aA==/mv.edu.dhivehiacademy.radheef-sPBL-9xCHBu0igx1wWLjgA==/base.apk
