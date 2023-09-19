@@ -63,7 +63,7 @@ $(document).ready(() => {
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: quran_DB, // https://datatables.net/manual/ajax
+    data: quranHmv_DB, // https://datatables.net/manual/ajax
 
     columns: [
       /*{
