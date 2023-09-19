@@ -13,8 +13,8 @@ google-closure-compiler --charset=UTF-8 --js=nawaqidulislam-script.js --js_outpu
 google-closure-compiler --charset=UTF-8 --js=fortyNawawi-script.js --js_output_file=fortyNawawi-script.min.js
 google-closure-compiler --charset=UTF-8 --js=fortyAajurry-script.js --js_output_file=fortyAajurry-script.min.js
 google-closure-compiler --charset=UTF-8 --js=qawaidulArbau-script.js --js_output_file=qawaidulArbau-script.min.js
-google-closure-compiler --charset=UTF-8 --js=quran-script.js --js_output_file=quran-script.min.js
 google-closure-compiler --charset=UTF-8 --js=quranBakurube-script.js --js_output_file=quranBakurube-script.min.js
+google-closure-compiler --charset=UTF-8 --js=quranHmv-script.js --js_output_file=quranHmv-script.min.js
 google-closure-compiler --charset=UTF-8 --js=quranJaufar-script.js --js_output_file=quranJaufar-script.min.js
 google-closure-compiler --charset=UTF-8 --js=quranSoabuni-script.js --js_output_file=quranSoabuni-script.min.js
 google-closure-compiler --charset=UTF-8 --js=radheef-script.js --js_output_file=radheef-script.min.js
