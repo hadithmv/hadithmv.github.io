@@ -1171,7 +1171,10 @@
                   <a onClick="qClick3()">3 ޖަޢުފަރުގެ ތަފްސީރު</a>
                 </li>
                 <li>
-                  <a href="ushrulAkheer.html">4 ފަހު ދިހަބައިކުޅަ އެއްބައި</a>
+                  <a onClick="qClick4()"> </a>
+                </li>
+                <li>
+                  <a href="ushrulAkheer.html">5 ފަހު ދިހަބައިކުޅަ އެއްބައި</a>
                 </li>
                 <!--  style="color: #b8b8b8; cursor: auto; !important" -->
               </ul>
@@ -1182,19 +1185,25 @@
               function qClick1() {
                 window.location = window.location
                   .toString()
-                  .replace(/quranBakurube.html|quranJaufar.html/, "quran.html")
+                  .replace(/quranBakurube|quranJaufar|quranSoabuni/, "quranHmv")
                   .replace(/\:v.*$/, "");
               }
               function qClick2() {
                 window.location = window.location
                   .toString()
-                  .replace(/quran.html|quranJaufar.html/, "quranBakurube.html")
+                  .replace(/quranHmv|quranJaufar|quranSoabuni/, "quranBakurube")
                   .replace(/\:v.*$/, "");
               }
               function qClick3() {
                 window.location = window.location
                   .toString()
-                  .replace(/quran.html|quranBakurube.html/, "quranJaufar.html")
+                  .replace(/quranHmv|quranBakurube|quranSoabuni/, "quranJaufar")
+                  .replace(/\:v.*$/, "");
+              }
+              function qClick4() {
+                window.location = window.location
+                  .toString()
+                  .replace(/quranHmv|quranBakurube|quranJaufar/, "quranSoabuni")
                   .replace(/\:v.*$/, "");
               }
             </script>
