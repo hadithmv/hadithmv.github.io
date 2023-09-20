@@ -441,14 +441,14 @@
               //const mouseoverEvent = new Event("mouseover");
               //whateverElement.dispatchEvent(mouseoverEvent);
             }
-            if (e.altKey && e.which == 69) {
-              // is e
+            /*if (e.altKey && e.which == 69) {
+              // is e (which opens settings in edge, so leave it)
               document.querySelector("#eraseButton").click();
-            }
-            if (e.altKey && e.which == 68) {
-              // is d
-              document.querySelector("#downButton").click();
-            }
+            }*/
+            /*if (e.altKey && e.which == 68) {
+              // is d (which selects url in edge, so leave it)
+              document.querySelector("#toggleDark").click();
+            }*/
             if (e.altKey && e.which == 85) {
               // is u
               document.querySelector("#upButton").click();
@@ -479,11 +479,11 @@
             }
             if (e.altKey && e.which == 78) {
               // is n
-              document.querySelector("#numListButton").click();
+              document.querySelector("#downButton").click();
             }
             if (e.altKey && e.which == 77) {
               // is m
-              document.querySelector("#htmlNList").click();
+              document.querySelector("#toggleDark").click();
             }
 
             if (e.altKey && e.which == 88) {
@@ -497,6 +497,10 @@
             if (e.altKey && e.which == 71) {
               // is g
               document.querySelector("#lineNumButton").click();
+            }
+            if (e.altKey && e.which == 82) {
+              // is r
+              document.querySelector("#eraseButton").click();
             }
             if (e.altKey && e.which == 83) {
               // is s
@@ -744,7 +748,7 @@
             class="ttClass"
             data-tooltip="Erases everything above"
           >
-            ❌ <u>E</u>rase
+            ❌ E<u>r</u>ase
           </button>
 
           <button
@@ -773,7 +777,7 @@
             class="ttClass"
             data-tooltip="Saves and downloads the text above as a .txt file to your device, except when using the Android app"
           >
-            📩 <u>D</u>ownload
+            📩 Dow<u>n</u>load
           </button>
 
           <script>
@@ -1411,6 +1415,15 @@
           >
           ބަނދުވާ ) އިންތޯ
         </button>-->
+
+          <button
+            onclick="darkModeTog()"
+            id="toggleDark"
+            class="ttClass"
+            data-tooltip="Toggles between dark and light mode"
+          >
+            🌓 Dark <u>M</u>ode
+          </button>
 
           <button
             id="fullScreenB"
@@ -3583,6 +3596,34 @@
             }
           }
           //
+
+          var darkModeTog_timesClicked = 0;
+          function darkModeTog() {
+            console.log("Hello world!");
+            darkModeTog_timesClicked++;
+            if (darkModeTog_timesClicked % 2 == 0) {
+              //run second function
+              document.getElementById("textMainArea").style.color = "";
+
+              document.getElementById("textMainArea").style.backgroundColor =
+                "";
+
+              document.getElementById("textMainArea").style.borderColor = "";
+
+              document.getElementById("toggleDark").innerHTML = "🌓 Dark Mode";
+            } else {
+              //run first function
+              document.getElementById("textMainArea").style.color = "#f6f6f6";
+
+              document.getElementById("textMainArea").style.backgroundColor =
+                "#262626";
+
+              document.getElementById("textMainArea").style.borderColor =
+                "#262626";
+
+              document.getElementById("toggleDark").innerHTML = "🌓 Light Mode";
+            }
+          }
           //
 
           /*
@@ -3592,6 +3633,13 @@
 
           /* end of above */
         </script>
+
+        <style>
+          /*input[type="text"],*/
+          /*#textMainArea {
+            background-color: red;
+          }*/
+        </style>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.5.0/papaparse.min.js"></script>
 
