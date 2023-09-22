@@ -415,7 +415,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "نسخ",
-        messageTop: "حديث أم وي – عقيدة النووي", // CHANGE123 clipboard message
+        messageTop: "حديث أم وي – دراسة عقيدة النووي", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
