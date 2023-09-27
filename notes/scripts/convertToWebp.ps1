@@ -5,7 +5,10 @@ C:\Users\ashraaf\Downloads\libwebp-1.2.0-windows-x64\bin\cwebp.exe C:\Users\ashr
 
 # https://www.mindfulmodeler.com/snips/png-to-webp/
 
-$loc = "C:\Users\hadit\Desktop\webConvert"
+# $env:APPDATA = C:\Users\user\AppData\Roaming
+
+# $loc = "C:\Users\hadit\Desktop\webConvert"
+$loc = & $env:USERPROFILE\OneDrive\Desktop\webConvert
 
 # get all files in the loc directory
 $images = Get-ChildItem $loc
@@ -15,9 +18,13 @@ foreach ($img in $images) {
   # output file will have .webp extension instead of old extension
   $outputName = $img.DirectoryName + "\" + $img.BaseName + ".webp"
 
-  # copy-paste the path to where you extracted the cwebp program 
-  C:\Users\hadit\Downloads\libwebp-1.2.2-windows-x64\bin\cwebp.exe $img.FullName -o $outputName
+  # copy-paste the path to where you extracted the cwebp program
+  # C:\Users\ashra\Downloads\libwebp... 
+  # https://stackoverflow.com/questions/72802320/running-exe-file-with-environment-variable-in-path-powershell
+  & $env:USERPROFILE\Downloads\libwebp-1.3.2-windows-x64\bin\cwebp.exe $img.FullName -o $outputName
 }
 
 # Use the Invoke-Item cmdlet, or its alias: ii to open a folder or file
-ii C:\Users\hadit\Desktop\webConvert # open the directory in windows explorer
+# open the directory in windows explorer
+# C:\Users\hadit\Desktop\webConvert
+ii $env:USERPROFILE\OneDrive\Desktop\webConvert
