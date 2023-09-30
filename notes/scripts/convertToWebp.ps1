@@ -8,7 +8,7 @@ C:\Users\ashraaf\Downloads\libwebp-1.2.0-windows-x64\bin\cwebp.exe C:\Users\ashr
 # $env:APPDATA = C:\Users\user\AppData\Roaming
 
 # $loc = "C:\Users\hadit\Desktop\webConvert"
-$loc = & $env:USERPROFILE\OneDrive\Desktop\webConvert
+$loc = "$env:USERPROFILE\OneDrive\Desktop\webConvert"
 
 # get all files in the loc directory
 $images = Get-ChildItem $loc
@@ -27,4 +27,4 @@ foreach ($img in $images) {
 # Use the Invoke-Item cmdlet, or its alias: ii to open a folder or file
 # open the directory in windows explorer
 # C:\Users\hadit\Desktop\webConvert
-ii $env:USERPROFILE\OneDrive\Desktop\webConvert
+ii "$env:USERPROFILE\OneDrive\Desktop\webConvert"
