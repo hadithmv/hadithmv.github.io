@@ -944,14 +944,6 @@
             🔟 <u>R</u>andm Num
           </button>
 
-          <!--<button
-            onclick="genQr();"
-            class="ttClass"
-            data-tooltip="Generate a QR code of the text above"
-          >
-            🏁 <u>Q</u>R code
-          </button>-->
-
           <input
             class="inputFieldClass"
             placeholder="Max eg. 10"
@@ -965,6 +957,29 @@
             type="text"
             id="minNrand"
             style="color: red; display: none"
+          />
+
+          <button
+            onclick="removeNoOfChars();"
+            class="ttClass"
+            data-tooltip="Removes a number of characters either from beginning or end of each line of text"
+          >
+            🔟 Rem N Chars
+          </button>
+
+          <input
+            class="inputFieldClass"
+            placeholder="Rem from end"
+            type="text"
+            id="remFromEnd"
+            style="color: red; display: none"
+          />
+          <input
+            class="inputFieldClass"
+            placeholder="Rem from begin"
+            type="text"
+            id="remFromBegin"
+            style="color: blue; display: none"
           />
 
           <button
@@ -2994,27 +3009,27 @@
 
             /* doesnt copy very long text */
             /*
-                                        // Get the text field
-                                        var copyText = document.getElementById("textMainArea");
+                                                            // Get the text field
+                                                            var copyText = document.getElementById("textMainArea");
 
-                                        // Select the text field
-                                        //copyText.select();
-                                        //copyText.setSelectionRange(0, 99999);
-                                        // For mobile devices
+                                                            // Select the text field
+                                                            //copyText.select();
+                                                            //copyText.setSelectionRange(0, 99999);
+                                                            // For mobile devices
 
-                                        // Copy the text inside the text field
-                                        //navigator.clipboard.writeText(copyText.value);
+                                                            // Copy the text inside the text field
+                                                            //navigator.clipboard.writeText(copyText.value);
 
-                                        copyText.select();
-                                        copyText.setSelectionRange(0, 99999);
-                                        // For mobile devices
+                                                            copyText.select();
+                                                            copyText.setSelectionRange(0, 99999);
+                                                            // For mobile devices
 
-                                        document.execCommand("copy");
+                                                            document.execCommand("copy");
 
-                                        // Alert the copied text
-                                        // alert("ކޮޕީވީ: " + copyText.value);
-                                        //return false;
-                                        */
+                                                            // Alert the copied text
+                                                            // alert("ކޮޕީވީ: " + copyText.value);
+                                                            //return false;
+                                                            */
           }
           //
 
@@ -3162,13 +3177,13 @@
               //
               // other stuff below
               /*document.getElementById("findReplaceButton").innerHTML =
-                "ލަފްޒު ބަދަލު ކުރޭ";
-              document.getElementById("findThis").style.direction = "rtl";
-              document.getElementById("replaceWith").style.direction = "rtl";
-              document.getElementById("findThis").placeholder =
-                "1 މިލަފްޒު ހޯދާފާ";
-              document.getElementById("replaceWith").placeholder =
-                "2 މިއަށް ބަދަލުކުރޭ";*/
+                                    "ލަފްޒު ބަދަލު ކުރޭ";
+                                  document.getElementById("findThis").style.direction = "rtl";
+                                  document.getElementById("replaceWith").style.direction = "rtl";
+                                  document.getElementById("findThis").placeholder =
+                                    "1 މިލަފްޒު ހޯދާފާ";
+                                  document.getElementById("replaceWith").placeholder =
+                                    "2 މިއަށް ބަދަލުކުރޭ";*/
             } else {
               //run first function
               document.getElementById("textMainArea").style.direction = "ltr";
@@ -3177,13 +3192,13 @@
               //
               // other stuff below
               /*document.getElementById("findReplaceButton").innerHTML =
-                "Regex/Replace";
-              document.getElementById("findThis").style.direction = "ltr";
-              document.getElementById("replaceWith").style.direction = "ltr";
-              document.getElementById("findThis").placeholder = "1 Find This";
-              document.getElementById("replaceWith").placeholder =
-                "2 Replace This";
-                */
+                                    "Regex/Replace";
+                                  document.getElementById("findThis").style.direction = "ltr";
+                                  document.getElementById("replaceWith").style.direction = "ltr";
+                                  document.getElementById("findThis").placeholder = "1 Find This";
+                                  document.getElementById("replaceWith").placeholder =
+                                    "2 Replace This";
+                                    */
             }
           }
           //
@@ -3217,13 +3232,13 @@
           //
 
           /*
-                                                    var numbered = document
-                                            .getElementById("textMainArea")
-                                            .value.split("\n")
-                                            .map((line, index) => `${index + 1}. ${line}`)
-                                            .join("\n");
-                                          document.getElementById("textMainArea").value = numbered;
-                                          */
+                                                                        var numbered = document
+                                                                .getElementById("textMainArea")
+                                                                .value.split("\n")
+                                                                .map((line, index) => `${index + 1}. ${line}`)
+                                                                .join("\n");
+                                                              document.getElementById("textMainArea").value = numbered;
+                                                              */
 
           //
 
@@ -3312,6 +3327,57 @@
                 Math.floor(Math.random() * (+maxR - +minR + 1)) + +minR;
               document.getElementById("textMainArea").value = minMaxRange;
             }
+          }
+          //
+
+          function removeNoOfChars() {
+            document.getElementById("remFromBegin").style.display =
+              "inline-block";
+            document.getElementById("remFromEnd").style.display =
+              "inline-block";
+
+            // https://stackoverflow.com/questions/15454869/how-to-remove-the-last-13-or-n-characters-of-every-line-using-notepad
+
+            // https://stackoverflow.com/questions/58371608/regex-to-remove-the-first-two-characters-of-a-string
+
+            /*
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/.{2}$/gm, "");
+
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/^.{2}/gm, "");
+              */
+
+            // https://stackoverflow.com/questions/4029109/javascript-regex-how-to-put-a-variable-inside-a-regular-expression
+
+            // https://stackoverflow.com/questions/17885855/use-dynamic-variable-string-as-regex-pattern-in-javascript
+
+            //var input = "Hello this is #abc# some #abc# stuff";
+            var input = document.getElementById("textMainArea").value;
+
+            var firstStringForRegex =
+              document.getElementById("remFromBegin").value;
+
+            var LastStringForRegex =
+              document.getElementById("remFromEnd").value;
+
+            // first
+            var regexFirst = new RegExp(
+              "^.{" + firstStringForRegex + "}",
+              "gm"
+            );
+            // last
+            var regexLast = new RegExp(".{" + LastStringForRegex + "}$", "gm");
+
+            // at this point, the line above is the same as: var regex = /#abc#/g;
+
+            document.getElementById("textMainArea").value = input;
+
+            var output = input.replace(regexFirst, "").replace(regexLast, "");
+
+            document.getElementById("textMainArea").value = output;
           }
           //
 
@@ -3482,9 +3548,9 @@
                 .value.split(" ")
                 .join("\n"));
             /*document.getElementById("textMainArea").value = text2split.replace(
-              /[\r\n]+/g,
-              "\n"
-            );*/
+                                  /[\r\n]+/g,
+                                  "\n"
+                                );*/
 
             // below first makes multiple newlines only one newline, then removes punctuation (taken from removepunc code and edited)
             document.getElementById("textMainArea").value = text2split
@@ -3627,9 +3693,9 @@
           //
 
           /*
-          function encSvg() {
-          }
-          */
+                              function encSvg() {
+                              }
+                              */
 
           /* end of above */
         </script>
