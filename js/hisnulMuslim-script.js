@@ -382,12 +382,12 @@ $(document).ready(() => {
       buttons: {
         copyTitle: "ކޮޕީ",
         copySuccess: {
-          1: "ކޮޕީ ވީ 1 ޒިކުރު",
-          _: "ކޮޕީ ވީ %d ޒިކުރު",
+          1: "ކޮޕީ ވީ 1",
+          _: "ކޮޕީ ވީ %d",
         },
       },
 
-      info: "_TOTAL_ ޒިކުރުގެ ތެރެއިން _START_ އިން _END_ އަށް",
+      info: "_TOTAL_ ގެ ތެރެއިން _START_ އިން _END_ އަށް",
       infoFiltered: "(ޖުމްލަ ބެލެވުނީ _MAX_)",
       infoEmpty: "— ނުފެނުނު —",
       lengthMenu: "_MENU_",
