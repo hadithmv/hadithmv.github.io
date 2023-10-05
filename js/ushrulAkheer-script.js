@@ -317,12 +317,12 @@ $(document).ready(() => {
       buttons: {
         copyTitle: "ކޮޕީ",
         copySuccess: {
-          1: "ކޮޕީ ވީ 1 ސަފުހާ",
-          _: "ކޮޕީ ވީ %d ބަސް",
+          1: "ކޮޕީ ވީ 1",
+          _: "ކޮޕީ ވީ %d",
         },
       },
 
-      info: "_TOTAL_ ނުކުތާގެ ތެރެއިން _START_ އިން _END_ އަށް",
+      info: "_TOTAL_ ގެ ތެރެއިން _START_ އިން _END_ އަށް",
       infoFiltered: "(ޖުމްލަ ބެލެވުނީ _MAX_)",
       infoEmpty: "— ނުފެނުނު —",
       lengthMenu: "_MENU_",
