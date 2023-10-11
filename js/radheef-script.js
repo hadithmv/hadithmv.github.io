@@ -58,12 +58,84 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
+  // PART 1
+  // cgpt code, this takes a split 2 2d nested arrays and joins them together rowwise, then generates empty values where needed, then flattens them, so now the db can be broken down and reused
+
+  // remove rows from begining
+  function removeFirstRows(array, numRowsToRemove) {
+    if (numRowsToRemove >= array.length) {
+      // If you want to remove more rows than the array has, return an empty array.
+      return [];
+    }
+
+    return array.slice(numRowsToRemove);
+  }
+
+  //const result = removeFirstRows(eegaal_DB, 4);
+  var resultEegaal = removeFirstRows(eegaal_DB, 4);
+  //console.log(result);
+  //
+
+  // remove rows from end (take into account what you removed before this)
+  function removeLastRows(array, numRowsToRemove) {
+    if (numRowsToRemove >= array.length) {
+      // If you want to remove more rows than the array has, return an empty array.
+      return [];
+    }
+
+    array.splice(-numRowsToRemove, numRowsToRemove);
+    return array;
+  }
+
+  //const result = removeLastRows(eegaal_DB, 34);
+  resultEegaal = removeLastRows(resultEegaal, 34);
+  //console.log(result);
+
+  // remove last column from 2d array, by replacing with empty values, not null
+  function replaceLastColumnWithEmptyValues(array) {
+    for (let i = 0; i < array.length; i++) {
+      if (Array.isArray(array[i]) && array[i].length > 0) {
+        array[i][array[i].length - 1] = ""; // Set the last element (column) to an empty value.
+      }
+    }
+    return array;
+  }
+
+  //const result = replaceLastColumnWithEmptyValues(twoDNestedArray);
+  resultEegaal = replaceLastColumnWithEmptyValues(resultEegaal);
+
+  //
+  //
+  //
+
+  // PART 2
+  // cgpt code, appends a 2d array to the end of another 2d array, even if their columns/rows differ, and generates empty values
+  // In this code, the appendRowsWithEmptyValues function calculates the maximum number of columns from both arrays and pads each row in arr2 with empty values (empty strings) as needed to match the number of columns in the merged array. This ensures that the resulting array has consistent dimensions with empty values where needed.
+  function appendRowsWithEmptyValues(arr1, arr2) {
+    // Find the maximum number of columns from both arrays.
+    const maxColumns = Math.max(arr1[0]?.length || 0, arr2[0]?.length || 0);
+
+    // Iterate through the rows of arr2 and append them to arr1, padding with empty values.
+    for (let i = 0; i < arr2.length; i++) {
+      const newRow = arr2[i].concat(
+        Array(maxColumns - arr2[i].length).fill("")
+      );
+      arr1.push(newRow);
+    }
+
+    return arr1;
+  }
+
+  // const result = appendRowsWithEmptyValues(radheef_DB, eegaal_DB);
+  const result = appendRowsWithEmptyValues(radheef_DB, resultEegaal);
+  //console.log(result);
+
   const table = $("#radheefTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: radheef_DB, // https://datatables.net/manual/ajax
+    data: result, // https://datatables.net/manual/ajax
 
     //order: [[0, 'asc']], // CHANGE 123 - FOR RADHEEF ONLY
 
