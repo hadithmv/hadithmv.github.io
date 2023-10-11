@@ -58,6 +58,9 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
+  // cgpt code, this takes a split 2 2d nested arrays and joins them together rowwise, then generates empty values where needed, not null, then flattens them, so now the db can be broken down and reused
+  // This code will create empty values when merging, ensuring that the resulting 2D array has consistent dimensions, and it will then flatten the result into a single flat array.
+
   function fullJoinRowWise2DFlattenWithEmptyValues(arr1, arr2) {
     const maxLength = Math.max(arr1.length, arr2.length);
 
@@ -77,7 +80,7 @@ $(document).ready(() => {
     surah_juz_basmalah_ayah,
     quran_DB
   );
-  console.log(mergedData);
+  //console.log(mergedData);
   // merge ends here
 
   const table = $("#quranTable").DataTable({
