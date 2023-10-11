@@ -1,1 +1,0 @@
-const quranSoabuni_DB=
