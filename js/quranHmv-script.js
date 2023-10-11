@@ -58,12 +58,53 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
+  // cgpt code, this takes a split 2 2d nested arrays and joins them together rowwise, then flattens them, so now the db can be broken down and reused
+  /*
+  function fullJoinRowWise2DFlattenWithEmptyValues(arr1, arr2) {
+      const maxLength = Math.max(arr1.length, arr2.length);
+      return Array.from({length: maxLength}, (_, index) =>
+      [].concat(
+      Array.isArray(arr1[index])? arr1[index]: Array(arr2[index].length).fill(''),
+      Array.isArray(arr2[index])? arr2[index]: Array(arr1[index].length).fill('')
+      )
+      );
+      }
+      // Example usage:
+      const array1 = [[1, 2], [3, 4], [5, 6]];
+      const array2 = [[7, 8], [9, 10], [11, 12], [13, 14]];
+      const result = fullJoinRowWise2DFlattenWithEmptyValues(array1, array2);
+      console.log(result);
+    */
+
+  function fullJoinRowWise2DFlattenWithEmptyValues(arr1, arr2) {
+    const maxLength = Math.max(arr1.length, arr2.length);
+
+    return Array.from({ length: maxLength }, (_, index) =>
+      [].concat(
+        Array.isArray(arr1[index])
+          ? arr1[index]
+          : Array(arr2[index].length).fill(""),
+        Array.isArray(arr2[index])
+          ? arr2[index]
+          : Array(arr1[index].length).fill("")
+      )
+    );
+  }
+
+  const mergedData = fullJoinRowWise2DFlattenWithEmptyValues(
+    surah_juz_basmalah_ayah,
+    quran_DB
+  );
+  console.log(mergedData);
+  // merge ends here
+
   const table = $("#quranTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: quranHmv_DB, // https://datatables.net/manual/ajax
+    //data: quranHmv_DB, // https://datatables.net/manual/ajax
+    data: mergedData,
 
     columns: [
       /*{

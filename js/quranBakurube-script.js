@@ -58,12 +58,35 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
+  function fullJoinRowWise2DFlattenWithEmptyValues(arr1, arr2) {
+    const maxLength = Math.max(arr1.length, arr2.length);
+
+    return Array.from({ length: maxLength }, (_, index) =>
+      [].concat(
+        Array.isArray(arr1[index])
+          ? arr1[index]
+          : Array(arr2[index].length).fill(""),
+        Array.isArray(arr2[index])
+          ? arr2[index]
+          : Array(arr1[index].length).fill("")
+      )
+    );
+  }
+
+  const mergedData = fullJoinRowWise2DFlattenWithEmptyValues(
+    surah_juz_basmalah_ayah,
+    quran_DB
+  );
+  console.log(mergedData);
+  // merge ends here
+
   const table = $("#quranTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: quranBakurube_DB, // https://datatables.net/manual/ajax
+    //data: quranHmv_DB, // https://datatables.net/manual/ajax
+    data: mergedData,
 
     columns: [
       /*{

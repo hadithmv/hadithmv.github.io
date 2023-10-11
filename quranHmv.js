@@ -1,1 +1,0 @@
-const quranHmv_DB=

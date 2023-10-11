@@ -58,35 +58,12 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  function fullJoinRowWise2DFlattenWithEmptyValues(arr1, arr2) {
-    const maxLength = Math.max(arr1.length, arr2.length);
-
-    return Array.from({ length: maxLength }, (_, index) =>
-      [].concat(
-        Array.isArray(arr1[index])
-          ? arr1[index]
-          : Array(arr2[index].length).fill(""),
-        Array.isArray(arr2[index])
-          ? arr2[index]
-          : Array(arr1[index].length).fill("")
-      )
-    );
-  }
-
-  const mergedData = fullJoinRowWise2DFlattenWithEmptyValues(
-    surah_juz_basmalah_ayah,
-    quran_DB
-  );
-  console.log(mergedData);
-  // merge ends here
-
   const table = $("#quranTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    //data: quranHmv_DB, // https://datatables.net/manual/ajax
-    data: mergedData,
+    data: quranHmv_DB, // https://datatables.net/manual/ajax
 
     columns: [
       /*{
@@ -181,7 +158,7 @@ $(document).ready(() => {
             .replace("058", "𝟧𝟪 سُورَةُ المُجَادِلَة")
             .replace("059", "𝟧𝟫 سُورَةُ الحَشر")
             .replace("060", "𝟨𝟢 سُورَةُ المُمتَحَنَة")
-            .replace("061", "𝟨𝟣 سُورَةُ الصَّفّ")
+            .replace("061", "𝟨𝟣 سُورَةُ الصَّف")
             .replace("062", "𝟨𝟤 سُورَةُ الجُمعَة")
             .replace("063", "𝟨𝟥 سُورَةُ المُنَافِقُون")
             .replace("064", "𝟨𝟦 سُورَةُ التَّغَابُن")
@@ -335,46 +312,87 @@ $(document).ready(() => {
         },
         // previously used to add br after basmala
         /*
-                .replace(
-                  "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
-                  'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
-                )
-                .replace(
-                  "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
-                  'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
-                )
-                */
+            .replace(
+              "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
+              'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
+            )
+            .replace(
+              "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
+              'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
+            )
+            */
         //
         /* old code */
         /*
-                      /* render: function (data, type, row) {
-              // return data.replace(/َ/g, '').replace(/ِ/g, '')
-              // below code is shorter, no replace repeat, uses OR instead
-              return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ|ۡ|ٰ/g, '').replace(/ٱ/g, 'ا')
-            } */
+                  /* render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '')
+          // below code is shorter, no replace repeat, uses OR instead
+          return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ|ۡ|ٰ/g, '').replace(/ٱ/g, 'ا')
+        } */
       },
       {
+        /* add brackets to quran */
         data: 5,
-        title: "ލަފްޒީ ތަރުޖަމާ",
+        title: "ރަސްމު އުޘްމާނީ",
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '')
+          /* UPDATE: rtl override undoes it now? so removed.
+        reverse ayah numbers because font wont display them properly otherwise,
+        this control solution is better than replace reverse, because it carries on to clipboard
+        https://stackoverflow.com/questions/2939766/regex-to-reverse-order-of-list
+        https://www.fileformat.info/info/unicode/char/202e/index.htm */
+          // data = data.replace(/([\u0660-\u0669]+)([\u0660-\u0669]+)([\u0660-\u0669]+)/, '$3$2$1')
+          //data = data.replace(/([\u0660-\u0669]+)/, '\u202E$1')
+
+          // this places a non break character before the numbers, also replaces a space before the numbers
+          data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
+          /* reverse brackets because thats how the font file needs it */
+          // combines ayah and number columns together
+          data = "﴿" + data + " " + row[2] + "﴾";
+          //data = "﴿" + data + "﴾";
+          // makes ayah numbers arabic
+          data = data
+            .replace("1", "١")
+            .replace("2", "٢")
+            .replace("3", "٣")
+            .replace("4", "٤")
+            .replace("5", "٥")
+            .replace("6", "٦")
+            .replace("7", "٧")
+            .replace("8", "٨")
+            .replace("9", "٩")
+            .replace("0", "٠");
+          /* move the bracket in surah start basmalas to the actual first ayah */
+          return data;
+          // previously used to add br after basmala
+          /*
+          .replace(
+            "﴿بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n",
+            'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+          );
+          */
+        },
       },
       {
         data: 6,
-        title: "އިޖްމާލީ މާނަ",
-      } /*,
-      { // add tafsir asa'di in arabic 
-        data: 6,
-        title: 'تفسير السعدي*',
-        render: function (data, type, row) {
-          return '[تفسير السعدي:] ' + data
-        }
+        title: "ދިވެހި ތަރުޖަމާ",
       },
-      { // add tafsir asa'di in dhivehi 
-        data: 7,
-        title: 'ތަފްސީރު އައްސަޢްދީ*',
+      /*{
+        // add tafsir asa'di in arabic
+        data: 9,
+        title: "تفسير السعدي*",
         render: function (data, type, row) {
-          return '[ތަފްސީރު އައްސަޢްދީ:] ' + data
-        }
-      }*/,
+          return "[تفسير السعدي:] " + data;
+        },
+      },
+      {
+        // add tafsir sa'di in dhivehi
+        data: 10,
+        title: "ތަފްސީރު އައްސަޢްދީ*",
+        render: function (data, type, row) {
+          return "[ތަފްސީރު އައްސަޢްދީ:] " + data;
+        },
+      },*/
       /* {
         data: 7,
         title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
@@ -393,21 +411,12 @@ $(document).ready(() => {
 
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
-      //  /* footnote line after bakurube lafzee tharujama */
-      {
-        targets: 6,
-        render: function (data, type, row) {
-          data = data + '<br class="Qbr">‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br class="LQbr">';
-          return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
-        },
-      },
-
       /* replace \n newlines from json to <br> in table
       https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
       {
         targets: "_all",
         render: function (data, type, row) {
-          return data.replace(/\n/g, '\t<br class="br">');
+          return data.replace(/\r\n|\n|\r/g, '\t<br class="br">');
         }, // added space before br, otherwise clipboard copy export has no space
       }, // later changed that blank space into a \t, so that single new lines could work on clipboard copy
       // previously just \n. added \r\n and \r to make lines break on mobile
@@ -470,32 +479,43 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol7", // dv tarjama lafzi
+        className: "qCol7", // quran mujamma
         targets: [6],
-        visible: true,
-        searchable: true,
+        visible: false,
+        searchable: false,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "qCol8", // dv tarjama ijmali
+        className: "qCol8", // dv tarjama
         targets: [7],
         visible: true,
         searchable: true,
         searchPanes: {
           show: false,
         },
-      } /*
+      },
+      /*
       {
-        className: 'qCol9', // tafsir sadi dv
+        className: "qCol9", // tafsir sadi ar
         targets: [8],
         visible: false,
         searchable: false,
         searchPanes: {
-          show: false
-        }
-      },*/,
+          show: false,
+        },
+      },
+      {
+        className: "qCol10", // tafsir sadi dv
+        targets: [9],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      */
       /* {
         className: 'qCol8', // bakurube lafzi
         targets: [7],
@@ -710,7 +730,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "ޖަޢުފަރު ފާއިޒުގެ ތަފްސީރު", // CHANGE123 clipboard message
+        messageTop: "ޙަދީޘްއެމްވީ – ގުރްއާނުގެ ތަރުޖަމާ", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
@@ -748,13 +768,9 @@ $(document).ready(() => {
           data = data.replace(/ޤުރްއާން އަރަބިން\t/g, "");
           data = data.replace(/ޤުރްއާން ފިލިނުޖަހާ\t/g, "");
           data = data.replace(/ރަސްމު އުޘްމާނީ\t/g, "");
-          data = data.replace(/ލަފްޒީ ތަރުޖަމާ\t/g, "");
-          data = data.replace(/އިޖްމާލީ މާނަ\t/g, "");
-          //data = data.replace(/\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g, '\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n') // adds a line break after takhrij line, use two for a new line
-          data = data.replace(
-            /‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\t/g,
-            "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
-          );
+          data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
+          //data = data.replace(/تفسير السعدي*\t/g, "");
+          //data = data.replace(/ތަފްސީރު އައްސަޢްދީ*\t/g, "");\
 
           data = data.replace(/\t\t/g, "\t");
           // This prevents a double or more line breaks when columns are hidden
