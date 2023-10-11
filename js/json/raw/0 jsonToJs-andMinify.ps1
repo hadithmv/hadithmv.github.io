@@ -57,19 +57,19 @@ Set-Content ../qawaidulArbau.js -Value 'const qawaidulArbau_DB='
 Get-Content qawaidulArbau.json | Add-Content ../qawaidulArbau.js
 uglifyjs ../qawaidulArbau.js -c -m -o ../qawaidulArbau.js
 
-Set-Content ../quranBakurube.js -Value 'const quranBakurube_DB='
+Set-Content ../quranBakurube.js -Value 'const quran_DB='
 Get-Content quranBakurube.json | Add-Content ../quranBakurube.js
 uglifyjs ../quranBakurube.js -c -m -o ../quranBakurube.js
 
-Set-Content ../quranHmv.js -Value 'const quranHmv_DB='
+Set-Content ../quranHmv.js -Value 'const quran_DB='
 Get-Content quranHmv.json | Add-Content ../quranHmv.js
 uglifyjs ../quranHmv.js -c -m -o ../quranHmv.js
 
-Set-Content ../quranJaufar.js -Value 'const quranJaufar_DB='
+Set-Content ../quranJaufar.js -Value 'const quran_DB='
 Get-Content quranJaufar.json | Add-Content ../quranJaufar.js
 uglifyjs ../quranJaufar.js -c -m -o ../quranJaufar.js
 
-Set-Content ../quranSoabuni.js -Value 'const quranSoabuni_DB='
+Set-Content ../quranSoabuni.js -Value 'const quran_DB='
 Get-Content quranSoabuni.json | Add-Content ../quranSoabuni.js
 uglifyjs ../quranSoabuni.js -c -m -o ../quranSoabuni.js
 
