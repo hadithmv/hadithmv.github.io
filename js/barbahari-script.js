@@ -116,11 +116,11 @@ $(document).ready(() => {
       },
       {
         data: 6,
-        title: "English",
+        title: "ތަޚްރީޖު",
       },
       {
         data: 7,
-        title: "ތަޚްރީޖު",
+        title: "English",
       },
       {
         data: 8,
@@ -132,7 +132,7 @@ $(document).ready(() => {
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: [8, 9],
+        targets: [7, 9],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -216,19 +216,19 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColEng", // en
+        className: "ColTakhrij", // ar ref
         targets: [7],
-        visible: false,
-        searchable: true,
+        visible: true,
+        searchable: false,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "ColTakhrij", // ar ref
+        className: "ColEng", // en
         targets: [8],
-        visible: true,
-        searchable: false,
+        visible: false,
+        searchable: true,
         searchPanes: {
           show: false,
         },
@@ -466,8 +466,8 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ލިޔުން\t/g, "");
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
-          data = data.replace(/English\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
+          data = data.replace(/English\t/g, "");
           data = data.replace(/شرح النجمي\t/g, "");
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
