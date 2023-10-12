@@ -58,114 +58,82 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  // PART 1
-  // cgpt code, this takes a split 2 2d nested arrays and joins them together rowwise, then generates empty values where needed, then flattens them, so now the db can be broken down and reused
-
-  // remove rows from begining
-  function removeFirstRows(array, numRowsToRemove) {
-    if (numRowsToRemove >= array.length) {
-      // If you want to remove more rows than the array has, return an empty array.
-      return [];
-    }
-
-    return array.slice(numRowsToRemove);
-  }
-
-  //const result = removeFirstRows(eegaal_DB, 4);
-  var resultEegaal = removeFirstRows(eegaal_DB, 4);
-  //console.log(result);
-  //
-
-  // remove rows from end (take into account what you removed before this)
-  function removeLastRows(array, numRowsToRemove) {
-    if (numRowsToRemove >= array.length) {
-      // If you want to remove more rows than the array has, return an empty array.
-      return [];
-    }
-
-    array.splice(-numRowsToRemove, numRowsToRemove);
-    return array;
-  }
-
-  //const result = removeLastRows(eegaal_DB, 34);
-  resultEegaal = removeLastRows(resultEegaal, 34);
-  //console.log(result);
-
-  /* old method
-  // remove last column from 2d array, by replacing with empty values, not null
-  function replaceLastColumnWithEmptyValues(array) {
-    for (let i = 0; i < array.length; i++) {
-      if (Array.isArray(array[i]) && array[i].length > 0) {
-        array[i][array[i].length - 1] = ""; // Set the last element (column) to an empty value.
-      }
-    }
-    return array;
-  }
-  //const result = replaceLastColumnWithEmptyValues(twoDNestedArray);
-  resultEegaal = replaceLastColumnWithEmptyValues(resultEegaal);*/
-
-  // NEW method, that specifically chooses which columns to remove using the map method
-  function replaceColumnsWithEmptyValues(arr, columnIndices) {
-    return arr.map((row) => {
-      return row.map((value, index) => {
-        return columnIndices.includes(index) ? "" : value;
-      });
-    });
-  }
-  //const result = replaceColumnsWithEmptyValues(twoDArray, [0, 3]);
-  resultEegaal = replaceColumnsWithEmptyValues(resultEegaal, [2]);
-  //console.log(result);
-
-  //
-  //
-  //
-
-  // PART 2
-  // cgpt code, appends a 2d array to the end of another 2d array, even if their columns/rows differ, and generates empty values
-  // In this code, the appendRowsWithEmptyValues function calculates the maximum number of columns from both arrays and pads each row in arr2 with empty values (empty strings) as needed to match the number of columns in the merged array. This ensures that the resulting array has consistent dimensions with empty values where needed.
-  function appendRowsWithEmptyValues(arr1, arr2) {
-    // Find the maximum number of columns from both arrays.
-    const maxColumns = Math.max(arr1[0]?.length || 0, arr2[0]?.length || 0);
-
-    // Iterate through the rows of arr2 and append them to arr1, padding with empty values.
-    for (let i = 0; i < arr2.length; i++) {
-      const newRow = arr2[i].concat(
-        Array(maxColumns - arr2[i].length).fill("")
-      );
-      arr1.push(newRow);
-    }
-
-    return arr1;
-  }
-
-  // const result = appendRowsWithEmptyValues(radheef_DB, eegaal_DB);
-  const result = appendRowsWithEmptyValues(radheef_DB, resultEegaal);
-  //console.log(result);
-  // end merge
-
-  const table = $("#radheefTable").DataTable({
-    // var table = $("#fortyNawawi").DataTable({
+  const table = $("#allAtharTable").DataTable({
+    // var table = $("#allAthar").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: result, // https://datatables.net/manual/ajax
-
-    //order: [[0, 'asc']], // CHANGE 123 - FOR RADHEEF ONLY
+    data: allAthar_DB, // https://datatables.net/manual/ajax
 
     columns: [
       {
         data: 0,
-        title: "އަރަބި ލަފްޒު",
+        title: "ފޮތް އަރަބިން",
+      },
+      {
+        data: 0,
+        title: "ފޮތް ދިވެހިން",
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
+          data = data.replace("صحيح البخاري", "ޞަޙީޙު ބުޚާރީ");
+          data = data.replace("صحيح مسلم", "ޞަޙީޙު މުސްލިމް");
+          data = data.replace("سنن أبي داود", "ސުނަން އަބޫ ދާވޫދު");
+          data = data.replace("المستدرك للحاكم", "ޙާކިމްގެ މުސްތަދްރަކު");
+          data = data.replace("الأدب المفرد", "އަދަބުލް މުފްރަދު");
+          data = data.replace("منتقى ابن جارود", "އިބްނު ޖާރޫދުގެ މުންތަގާ");
+          data = data.replace("صحيح ابن خزيمة", "ޞަޙީޙު އިބްނު ޚުޒައިމާ");
+          data = data.replace("صحيح ابن حبان", "ޞަޙީޙު އިބްނު ޙިއްބާން");
+          data = data.replace("سنن النسائي", "ސުނަން އައްނަސާއީ");
+          data = data.replace("سنن الترمذي", "ސުނަން އައްތިރުމިޛީ");
+          data = data.replace("سنن ابن ماجه", "ސުނަން އިބްނު މާޖާ");
+          data = data.replace("مسند أحمد", "މުސްނަދު އަޙްމަދު");
+          data = data.replace("سنن الدارقطني", "ސުނަން އައްދާރަގުޠުނީ");
+          data = data.replace("سنن البيهقي", "ސުނަން އަލްބައިހަގީ");
+          data = data.replace(
+            "السنن الكبرى للنسائي",
+            "ނަސާއީގެ ސުނަން އަލްކުބްރާ"
+          );
+          data = data.replace("موطأ مالك", "މުވައްޠައު މާލިކު");
+          data = data.replace("الأحاديث المختارة", "އަޙާދީޘް އަލްމުޚްތާރާ");
+          data = data.replace(
+            "السنن الكبرى للبيهقي",
+            "ބައިހަގީގެ ސުނަން އަލްކުބްރާ"
+          );
+          data = data.replace("مصنف عبد الرزاق", "މުޞައްނަފު ޢަބްދުއްރައްޒާގު");
+          data = data.replace("مسند الدارمي", "މުސްނަދު އައްދާރިމީ");
+          data = data.replace(
+            "مصنف ابن أبي شيبة",
+            "މުޞައްނަފު އިބްނު އަބީ ޝައިބާ"
+          );
+          data = data.replace("حصن المسلم", "މުސްލިމުންގެ ކިއްލާ");
+          data = data.replace("الأربعون النووية", "ނަވަވީގެ 40 ޙަދީޘް");
+          data = data.replace("عمدة الأحكام", "ޢުމްދަތުލް އަޙްކާމް");
+          data = data.replace("بلوغ المرام", "ބުލޫޣުލް މަރާމް");
+          data = data.replace("رياض الصالحين", "ރިޔާޟުއްޞާލިޙީން");
+          return data;
+        },
+      },
+      /* add # string to hadith no */
+      {
+        data: 1,
+        title: "#",
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
+          return "#" + data;
+        },
+      },
+      {
+        data: 2,
+        title: "އަރަބި ޙަދީޘް",
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
       {
         /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 0,
+        data: 2,
         title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
           return (
             data
               .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
@@ -177,29 +145,43 @@ $(document).ready(() => {
         },
       },
       {
-        data: 1,
-        title: "ދިވެހި ލަފްޒު",
-      },
-      {
-        data: 2,
-        title: "އިނގިރޭސި ލަފްޒު",
-      },
-      {
         data: 3,
-        title: "އަރަބި މާނަ",
+        title: "ދިވެހި ތަރުޖަމާ",
       },
       {
         data: 4,
-        title: "ދިވެހި މާނަ",
+        title: "ސައްހަކަމުގެ ހުކުމް",
       },
+      /* add brackets string to hukum */
+      /*{
+         data: 4,
+        title: "ސައްހަކަމުގެ ހުކުމް",
+        render: function (data, type, row) {
+          data = "[" + data + "]";
+          return data.replace("[]", "");
+        },
+      },*/
       {
         data: 5,
-        title: "އިނގިރޭސި މާނަ",
+        title: "ތަޚްރީޖު",
       },
+      // add takhrij and stuff later {
+      //   data: 3,
+      //   title: 'ތަޚްރީޖު'
+      // }
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
+      // adds footnote line for shurooh
+      {
+        targets: [6, 7],
+        render: function (data, type, row) {
+          data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
+          return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
+        },
+      },
+
       /* replace \n newlines from json to <br> in table
       https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
       {
@@ -214,46 +196,73 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "rCol1", // Ar Text
+        className: "ColKitab", // book
         targets: [0],
         visible: true,
-        searchable: false,
+        searchable: true,
+        searchPanes: {
+          show: true,
+        },
       },
       {
-        className: "rCol2", // Ar Text Plain
+        className: "ColKitab2", // book dv
         targets: [1],
         visible: false,
         searchable: true,
+        searchPanes: {
+          show: true,
+        },
       },
       {
-        className: "rCol3", // dv word
+        className: "Col1", // #
         targets: [2],
         visible: true,
         searchable: true,
+        searchPanes: {
+          show: false,
+        },
       },
       {
-        className: "rCol4", // en word
+        className: "allHCol4", // Ar Text
         targets: [3],
-        visible: true,
-        searchable: true,
+        visible: false,
+        searchable: false,
       },
       {
-        className: "rCol5", // ar meaning
+        className: "allHCol5", // Ar Text Plain
         targets: [4],
         visible: true,
         searchable: true,
+        searchPanes: {
+          show: false,
+        },
       },
       {
-        className: "rCol6", // dv meaning
+        className: "allHCol6", // Dv Text
         targets: [5],
         visible: true,
         searchable: true,
+        searchPanes: {
+          show: false,
+        },
       },
       {
-        className: "rCol7", // en meaning
+        className: "ColTakhrij", // hukum
         targets: [6],
         visible: true,
-        searchable: true,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "ColTakhrij2", // takhrij
+        targets: [7],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
       },
 
       // below strips html tags off keystable copy, second part with keys on
@@ -292,7 +301,7 @@ $(document).ready(() => {
     processing: true,
 
     // ordering of columns - by default, allows to click on column head to order
-    ordering: false, // CHANGE 123 - FOR RADHEEF ONLY (previously true)
+    ordering: false,
 
     // stateSave: true // Breaks table, use the one below
     // Restore table state on page reload. When enabled aDataTables will store
@@ -338,10 +347,10 @@ $(document).ready(() => {
     // -1 is used as a value this tells DataTables to disable pagination
     // Default [ 10, 25, 50, 100 ],
     lengthMenu: [
-      [10, 1, 2, 3, 5, 10, 20, 30, 50],
-      ["10 ދައްކާ", 1, 2, 3, 5, 10, 20, 30, "50"],
+      [1, 2, 3, 5],
+      ["1 ދައްކާ", 2, 3, 5],
     ],
-    // lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, '50']],
+    //lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, '50']],
     // lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހާ']],
     // lengthMenu: [ [5, 10, 20, 30, 40, -1, 1], ["Show 5", 10, 20, 30, 40,
     // "All", 1] ],
@@ -452,7 +461,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "ޙަދީޘްއެމްވީ – އަރަބި ދިވެހި އިނގިރޭސި ރަދީފު", // CHANGE123 clipboard message
+        messageTop: "ޙަދީޘްއެމްވީ - އެއްކުރަމުންދާ އަޘަރުތައް", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
@@ -469,13 +478,6 @@ $(document).ready(() => {
           // fixes multiple row's lack of line break on desktop
           //     data = data.replace( /\t\r\n/g, "\n\n\n" );
 
-          //  \t = literal tab
-          //  \n = LF (Line Feed) → Used as a new line character in Unix/Mac OS X
-          //  \r\n = CR + LF → Used as a new line character in Windows
-
-          // data = data.replace(/r\n]/g, '') // needed to make rnr work
-          // data = data.replace(/\r\n|\n|\t/gm, '')
-
           // data = data.replace(/\r\n\r\n|\n\n/g, " ");
           //  What these two lines do is, they bring the hadith number right after the inserted title text. So these two are ok for hadith or point numbered books, but not for others like quran, radheef etc.
 
@@ -483,16 +485,18 @@ $(document).ready(() => {
           // \r\n prevents first header showing up unneeded (windows)
           // \n prevents first header showing up unneeded (linux) this needs come after windows rn
 
-          data = data.replace(/އަރަބި ލަފްޒު\t/g, ""); // should be this way instead of /\tފޮތް/
+          data = data.replace(/ފޮތް އަރަބިން\t/g, ""); // should be this way instead of /\tފޮތް/
+          data = data.replace(/ފޮތް ދިވެހިން\t/g, "");
+          data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
+          data = data.replace(/އަރަބި ޙަދީޘް\t/g, "");
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
-          /* data = data.replace(/އަރަބި މާނަ\t/g, '') */
-          data = data.replace(/ދިވެހި ލަފްޒު\t/g, "");
-          /* data = data.replace(/ދިވެހި މާނަ\t/g, '') */
-          data = data.replace(/އިނގިރޭސި ލަފްޒު\t/g, "");
-
-          data = data.replace(/އަރަބި މާނަ\t/g, "");
-          data = data.replace(/ދިވެހި މާނަ\t/g, "");
-          data = data.replace(/އިނގިރޭސި މާނަ\t/g, "");
+          data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
+          data = data.replace(/ތަޚްރީޖު\t/g, "");
+          data = data.replace(/ސައްހަކަމުގެ ހުކުމް\t/g, "");
+          data = data.replace(
+            /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
+            "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
+          ); // adds a line break after takhrij line, use two for a new line
 
           data = data.replace(/\t\t/g, "\t");
           // This prevents a double or more line breaks when columns are hidden
@@ -503,60 +507,13 @@ $(document).ready(() => {
           // using \t creates line breaks between cell data
           // \s\s turns two spaces into new lines, for multi line text
 
-          /*
-          data = data.replace(/\n\n/g, '\t') // prevents # showing up unneeded (linux)
-          data = data.replace(/\r\n\r\n/g, '\t') //  prevents # showing up unneeded (windows)
-
-          data = data.replace(/\t#/g, '')
-          data = data.replace(/\tއަރަބި ސުރުހީ/g, '')
-          data = data.replace(/\tދިވެހި ސުރުހީ/g, '')
-          data = data.replace(/\tއަރަބި ޙަދީޘް/g, '')
-          data = data.replace(/\tއަރަބި ފިލިނުޖަހައި/g, '')
-          data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
-          data = data.replace(/\tތަޚްރީޖު/g, '')
-          data = data.replace(/\tތަޚްރީޖު ދިވެހިން/g, '')
-          data = data.replace(/\tރިޔާޟުއްޞާލިޙީނުން/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
-          // data = data.replace(/\tތަޚްރީޖު\t/g, '')
-          /*
-          data = data.replace(/#\t/g, '')
-          data = data.replace(/އަރަބި ސުރުހީ\t/g, '')
-          data = data.replace(/ދިވެހި ސުރުހީ\t/g, '')
-          data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
-          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
-          data = data.replace(/ތަޚްރީޖު\t/g, '')
-          data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
-          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
-
-          //          data = data.replace(/\n\n/g, '')
-          //         data = data.replace(/\r\n\r\n/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
-          /*
-          data = data.replace(/#\n/g, '')
-          data = data.replace(/އަރަބި ސުރުހީ\n/g, '')
-          data = data.replace(/ދިވެހި ސުރުހީ\n/g, '')
-          data = data.replace(/އަރަބި ޙަދީޘް\n/g, '')
-          data = data.replace(/އަރަބި ފިލިނުޖަހައި\n/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\n/g, '')
-          data = data.replace(/ތަޚްރީޖު\n/g, '')
-          data = data.replace(/ތަޚްރީޖު ދިވެހިން\n/g, '')
-          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\n/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
-
           /* data = data.replace( /hadithmv.com\n/g, "hadithmv.com\n\n" );
            //adds new line on android */
           /*
                data = data.replace( /\r/g, "" ); //rids windows platform newline
                data = data.replace( /\t/g, "\n\n" ); */
 
-          //  console.log(JSON.stringify(data)) // json stringify to console
+          // console.log(JSON.stringify(data)) // json stringify to console
 
           return data;
         },
@@ -569,6 +526,28 @@ $(document).ready(() => {
         // "exportOptions: { modifier:{columns:[":visible"], rows: [":visible"]}"
         // needs .cards thead { visibility: hidden; } to work
       }, // end of copy customization
+
+      {
+        extend: "searchPanes",
+        key: { key: "f", shiftKey: true },
+        /* Multiselect on clicking only works with Pfrtip Dom not for Bfrtip Dom how can we use it with bfrtip Dom ?
+        need to put the SearchPanes configuration into the buttons config option.
+        https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
+        config: {
+          collapse: false,
+          orderable: false,
+          //order: ['صحيح البخاري', 'صحيح مسلم', 'سنن أبي داود', 'سنن الترمذي', 'سنن النسائي', 'سنن ابن ماجه', 'موطأ مالك', 'مسند الدارمي', 'مسند أحمد', ]
+          columns: [0, 1],
+          cascadePanes: true,
+          dtOpts: {
+            select: {
+              style: "multi",
+            },
+            ordering: false,
+            /* order: [[1, 'desc']] */
+          },
+        },
+      },
 
       {
         extend: "colvis",
@@ -671,7 +650,7 @@ $(document).ready(() => {
     $(".dataTable").on("page.dt", () => {
       $("html, body").animate(
         {
-          scrollTop: 195, //prev 0
+          scrollTop: 195, //prev 0 / 148
         },
         "fast"
       );
@@ -691,8 +670,6 @@ $(document).ready(() => {
 */
   if (window.matchMedia("(min-width: 900px)").matches) {
     // js media query on desktop
-    /* previously $('fnClass').addClass('row-border')
-    $('fnClass').addClass('cards') */
     $(".dataTable").addClass("row-border"), // adds rowborder class
       $("div.dataTables_filter input", table.table().container()).focus(); // autofocus search input on page load
   } else {
