@@ -95,10 +95,6 @@ $(document).ready(() => {
       },
       {
         data: 3,
-        title: "Eng Chapter",
-      },
-      {
-        data: 4,
         title: "އަރަބި ޒިކުރު",
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
@@ -106,7 +102,7 @@ $(document).ready(() => {
         /* instead of repeating this part of the array within the external json,
          we can strip diacritics using regex within the table itself, this makes
          the array file much smaller in the long run */
-        data: 4,
+        data: 3,
         title: "ޒިކުރު ފިލިނުޖަހައި",
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
@@ -118,20 +114,24 @@ $(document).ready(() => {
         },
       },
       {
-        data: 5,
+        data: 4,
         title: "ދިވެހި ތަރުޖަމާ",
       },
       {
-        data: 6,
-        title: "English",
-      },
-      {
-        data: 7,
+        data: 5,
         title: "ތަޚްރީޖު",
       },
       {
-        data: 8,
+        data: 6,
         title: "ތަޚްރީޖު ދިވެހިން",
+      },
+      {
+        data: 7,
+        title: "Eng Chapter",
+      },
+      {
+        data: 8,
+        title: "English",
       },
     ],
 
@@ -139,7 +139,7 @@ $(document).ready(() => {
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: [8, 9],
+        targets: [6, 7],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -187,17 +187,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "hisnCol4", // En Title
+        className: "hisnCol4", // Ar Text
         targets: [3],
-        visible: false,
-        searchable: true,
-        searchPanes: {
-          show: true,
-        },
-      },
-      {
-        className: "hisnCol5", // Ar Text
-        targets: [4],
         visible: true,
         searchable: false,
         searchPanes: {
@@ -205,8 +196,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "hisnCol6", // Ar Plain
-        targets: [5],
+        className: "hisnCol5", // Ar Plain
+        targets: [4],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -214,8 +205,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "hisnCol7", // Dv Text
-        targets: [6],
+        className: "hisnCol6", // Dv Text
+        targets: [5],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -223,17 +214,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColEng", // En Text
-        targets: [7],
-        visible: false,
-        searchable: true,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
         className: "ColTakhrij", // Ar Ref
-        targets: [8],
+        targets: [6],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -242,9 +224,27 @@ $(document).ready(() => {
       },
       {
         className: "ColTakhrij2", // Dv Ref
-        targets: [9],
+        targets: [7],
         visible: false,
         searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "hisnCol7", // En Title
+        targets: [8],
+        visible: false,
+        searchable: true,
+        searchPanes: {
+          show: true,
+        },
+      },
+      {
+        className: "ColEng", // En Text
+        targets: [9],
+        visible: false,
+        searchable: true,
         searchPanes: {
           show: false,
         },
@@ -480,13 +480,13 @@ $(document).ready(() => {
           data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
           data = data.replace(/އަރަބި ބާބު\t/g, "");
           data = data.replace(/ދިވެހި ބާބު\t/g, "");
-          data = data.replace(/Eng Chapter\t/g, "");
           data = data.replace(/އަރަބި ޒިކުރު\t/g, "");
           data = data.replace(/ޒިކުރު ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
-          data = data.replace(/English\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
           data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, "");
+          data = data.replace(/Eng Chapter\t/g, "");
+          data = data.replace(/English\t/g, "");
 
           data = data.replace(/\t\t/g, "\t");
           // This prevents a double or more line breaks when columns are hidden
