@@ -91,6 +91,7 @@ $(document).ready(() => {
   resultEegaal = removeLastRows(resultEegaal, 34);
   //console.log(result);
 
+  /* old method
   // remove last column from 2d array, by replacing with empty values, not null
   function replaceLastColumnWithEmptyValues(array) {
     for (let i = 0; i < array.length; i++) {
@@ -100,9 +101,20 @@ $(document).ready(() => {
     }
     return array;
   }
-
   //const result = replaceLastColumnWithEmptyValues(twoDNestedArray);
-  resultEegaal = replaceLastColumnWithEmptyValues(resultEegaal);
+  resultEegaal = replaceLastColumnWithEmptyValues(resultEegaal);*/
+
+  // NEW method, that specifically chooses which columns to remove using the map method
+  function replaceColumnsWithEmptyValues(arr, columnIndices) {
+    return arr.map((row) => {
+      return row.map((value, index) => {
+        return columnIndices.includes(index) ? "" : value;
+      });
+    });
+  }
+  //const result = replaceColumnsWithEmptyValues(twoDArray, [0, 3]);
+  resultEegaal = replaceColumnsWithEmptyValues(resultEegaal, [2]);
+  //console.log(result);
 
   //
   //
@@ -129,6 +141,7 @@ $(document).ready(() => {
   // const result = appendRowsWithEmptyValues(radheef_DB, eegaal_DB);
   const result = appendRowsWithEmptyValues(radheef_DB, resultEegaal);
   //console.log(result);
+  // end merge
 
   const table = $("#radheefTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({

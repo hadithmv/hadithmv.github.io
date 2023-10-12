@@ -58,12 +58,77 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
+  // PART 1
+  // cgpt code, this part removes the specified columns entirely
+  // In this modified code, you can specify the columnsToRemove array at the end of the code, allowing you to easily change which columns you want to remove without modifying the function itself. This provides more flexibility when working with different 2D arrays and column selections.
+
+  function removeColumns(arr, columnIndices) {
+    return arr.map((row) => {
+      return row.filter((_, index) => !columnIndices.includes(index));
+    });
+  }
+
+  //const result = removeColumns(twoDArray, columnsToRemove); // [1, 3];
+  resultNawawi = removeColumns(fortyNawawi_DB, [1, 2, 3]);
+  resultUmdah = removeColumns(umdah_DB, [1, 2, 3, 4]);
+  resultBulugh = removeColumns(bulugh_DB, [1, 2, 3, 4]);
+  resultHisnul = removeColumns(hisnulMuslim_DB, [1, 2, 5, 6, 7, 8]);
+
+  //console.log(result);
+  //
+
+  // cgpt code, this part inserts a specific value into the first column
+  // In this code, the insertValueInFirstColumn function uses the map method to iterate through each row of the 2D array. For each row, it adds the specified valueToInsert ('hey') to the beginning of the row, effectively inserting a new column with the same value in the first column position of each row.
+
+  function insertValueInFirstColumn(arr, valueToInsert) {
+    return arr.map((row) => [valueToInsert, ...row]);
+  }
+
+  //const result = insertValueInFirstColumn(twoDArray, 'hey');
+  resultNawawi = insertValueInFirstColumn(resultNawawi, "الأربعون النووية");
+  resultUmdah = insertValueInFirstColumn(resultUmdah, "عمدة الأحكام");
+  resultBulugh = insertValueInFirstColumn(resultBulugh, "بلوغ المرام");
+  resultHisnul = insertValueInFirstColumn(resultHisnul, "حصن المسلم");
+
+  //console.log(result);
+  // END BOOK
+
+  //
+  //
+  //
+
+  // PART 2
+  // cgpt code, appends a 2d array to the end of another 2d array, even if their columns/rows differ, and generates empty values
+  // In this code, the appendRowsWithEmptyValues function calculates the maximum number of columns from both arrays and pads each row in arr2 with empty values (empty strings) as needed to match the number of columns in the merged array. This ensures that the resulting array has consistent dimensions with empty values where needed.
+  function appendRowsWithEmptyValues(arr1, arr2) {
+    // Find the maximum number of columns from both arrays.
+    const maxColumns = Math.max(arr1[0]?.length || 0, arr2[0]?.length || 0);
+
+    // Iterate through the rows of arr2 and append them to arr1, padding with empty values.
+    for (let i = 0; i < arr2.length; i++) {
+      const newRow = arr2[i].concat(
+        Array(maxColumns - arr2[i].length).fill("")
+      );
+      arr1.push(newRow);
+    }
+
+    return arr1;
+  }
+
+  // const result = appendRowsWithEmptyValues(radheef_DB, eegaal_DB);
+  allResult = appendRowsWithEmptyValues(allAthar_DB, resultNawawi);
+  allResult = appendRowsWithEmptyValues(allResult, resultUmdah);
+  allResult = appendRowsWithEmptyValues(allResult, resultBulugh);
+  allResult = appendRowsWithEmptyValues(allResult, resultHisnul);
+  //console.log(result);
+  // end merge
+
   const table = $("#allAtharTable").DataTable({
     // var table = $("#allAthar").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: allAthar_DB, // https://datatables.net/manual/ajax
+    data: allResult, // https://datatables.net/manual/ajax
 
     columns: [
       {
