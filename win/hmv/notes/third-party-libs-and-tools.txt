@@ -52,7 +52,7 @@ https://fonts.hassaanmv.com/tharujamaanu
 https://shamela.ws
 https://sunnah.alifta.gov.sa
 https://40-nawawi.hassaanmv.com
-https://qurancomplex.gov.sa/en/techquran/dev 12.0
+https://qurancomplex.gov.sa/en/techquran/dev 13.0
 https://tanzil.net/download 1.1 -CC BY 3.0
 https://github.com/kudanai/Quran-Translation
 https://github.com/maaldheefee/Quran-Translation/blob/master/utils/gen_alternate.py
