@@ -9,8 +9,8 @@ android {
         applicationId "com.hadithmv.hmv"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 70
-        versionName "3.00"
+        versionCode 71
+        versionName "3.01"
     }
     buildTypes {
         release {
