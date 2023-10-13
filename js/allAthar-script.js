@@ -72,6 +72,7 @@ $(document).ready(() => {
   resultNawawi = removeColumns(fortyNawawi_DB, [1, 2, 3]);
   resultUmdah = removeColumns(umdah_DB, [1, 2, 3, 4]);
   resultBulugh = removeColumns(bulugh_DB, [1, 2, 3, 4]);
+  resultMuwatta = removeColumns(muwatta_DB, [1, 2, 3, 4]);
   resultHisnul = removeColumns(hisnulMuslim_DB, [1, 2, 5, 6, 7, 8]);
 
   //console.log(result);
@@ -88,6 +89,7 @@ $(document).ready(() => {
   resultNawawi = insertValueInFirstColumn(resultNawawi, "الأربعون النووية");
   resultUmdah = insertValueInFirstColumn(resultUmdah, "عمدة الأحكام");
   resultBulugh = insertValueInFirstColumn(resultBulugh, "بلوغ المرام");
+  resultMuwatta = insertValueInFirstColumn(resultMuwatta, "موطأ مالك");
   resultHisnul = insertValueInFirstColumn(resultHisnul, "حصن المسلم");
 
   //console.log(result);
@@ -119,6 +121,7 @@ $(document).ready(() => {
   allResult = appendRowsWithEmptyValues(allAthar_DB, resultNawawi);
   allResult = appendRowsWithEmptyValues(allResult, resultUmdah);
   allResult = appendRowsWithEmptyValues(allResult, resultBulugh);
+  allResult = appendRowsWithEmptyValues(allResult, resultMuwatta);
   allResult = appendRowsWithEmptyValues(allResult, resultHisnul);
   //console.log(result);
   // end merge
