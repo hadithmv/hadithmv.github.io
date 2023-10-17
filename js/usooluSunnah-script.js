@@ -104,11 +104,11 @@ $(document).ready(() => {
       },
       {
         data: 3,
-        title: "English",
+        title: "ތަޚްރީޖު",
       },
       {
         data: 4,
-        title: "ތަޚްރީޖު",
+        title: "English",
       },
       {
         data: 5,
@@ -120,7 +120,7 @@ $(document).ready(() => {
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: [5, 6],
+        targets: [4, 6],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -177,18 +177,18 @@ $(document).ready(() => {
         },
       },
       {
-        className: "uSunnahCol5", // en
+        className: "ColTakhrij", // ar ref
         targets: [4],
-        visible: false,
+        visible: true,
         searchable: true,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "ColTakhrij", // ar ref
+        className: "uSunnahCol5", // en
         targets: [5],
-        visible: true,
+        visible: false,
         searchable: true,
         searchPanes: {
           show: false,
