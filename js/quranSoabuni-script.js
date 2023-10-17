@@ -358,52 +358,32 @@ $(document).ready(() => {
       },
       {
         data: 5,
-        title: "ލަފްޒީ ތަރުޖަމާ",
+        title: "ރ އޮފީސް ތަރުޖަމާ",
       },
       {
         data: 6,
-        title: "އިޖްމާލީ މާނަ",
-      } /*,
-      { // add tafsir asa'di in arabic 
-        data: 6,
-        title: 'تفسير السعدي*',
-        render: function (data, type, row) {
-          return '[تفسير السعدي:] ' + data
-        }
+        title: "ތަފުސީރު",
       },
-      { // add tafsir asa'di in dhivehi 
+      {
         data: 7,
-        title: 'ތަފްސީރު އައްސަޢްދީ*',
-        render: function (data, type, row) {
-          return '[ތަފްސީރު އައްސަޢްދީ:] ' + data
-        }
-      }*/,
-      /* {
-        data: 7,
-        title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
-        render: function (data, type, row) {
-          return '[ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ:] ' + data
-        }
+        title: "ނޯޓު ނަން",
       },
       {
         data: 8,
-        title: 'ބަކުރުބެގެ އިޖްމާލީ މާނަ*',
-        render: function (data, type, row) {
-          return '[ބަކުރުބެގެ އިޖްމާލީ މާނަ:] ' + data
-        }
-      } */
+        title: "ނޯޓު",
+      },
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
-      //  /* footnote line after Soabuni lafzee tharujama */
-      {
-        targets: 6,
+      // footnote line after tharujama
+      /*{
+        targets: 8,
         render: function (data, type, row) {
           data = data + '<br class="Qbr">‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br class="LQbr">';
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
         },
-      },
+      },*/
 
       /* replace \n newlines from json to <br> in table
       https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
@@ -473,7 +453,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol7", // dv tarjama lafzi
+        className: "qCol7", // dv tarjama raees office
         targets: [6],
         visible: true,
         searchable: true,
@@ -482,8 +462,26 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol8", // dv tarjama ijmali
+        className: "qCol8", // dv tafsir soabuni
         targets: [7],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "qCol9", // dv note title
+        targets: [8],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "qCol10", // dv note
+        targets: [9],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -723,9 +721,10 @@ $(document).ready(() => {
           data = data.replace(/ބިސްމި\t/g, "");
           data = data.replace(/ޤުރްއާން އަރަބިން\t/g, "");
           data = data.replace(/ޤުރްއާން ފިލިނުޖަހާ\t/g, "");
-          data = data.replace(/ރަސްމު އުޘްމާނީ\t/g, "");
-          data = data.replace(/ލަފްޒީ ތަރުޖަމާ\t/g, "");
-          data = data.replace(/އިޖްމާލީ މާނަ\t/g, "");
+          data = data.replace(/ރ އޮފީސް ތަރުޖަމާ\t/g, "");
+          data = data.replace(/ތަފުސީރުt/g, "");
+          data = data.replace(/ނޯޓު ނަން\t/g, "");
+          data = data.replace(/ނޯޓު\t/g, "");
           //data = data.replace(/\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g, '\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n') // adds a line break after takhrij line, use two for a new line
           data = data.replace(
             /‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\t/g,
