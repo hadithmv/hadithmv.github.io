@@ -363,40 +363,12 @@ $(document).ready(() => {
       {
         data: 6,
         title: "އިޖްމާލީ މާނަ",
-      } /*,
-      { // add tafsir asa'di in arabic 
-        data: 6,
-        title: 'تفسير السعدي*',
-        render: function (data, type, row) {
-          return '[تفسير السعدي:] ' + data
-        }
       },
-      { // add tafsir asa'di in dhivehi 
-        data: 7,
-        title: 'ތަފްސީރު އައްސަޢްދީ*',
-        render: function (data, type, row) {
-          return '[ތަފްސީރު އައްސަޢްދީ:] ' + data
-        }
-      }*/,
-      /* {
-        data: 7,
-        title: 'ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ*',
-        render: function (data, type, row) {
-          return '[ބަކުރުބެގެ ލަފްޒީ ތަރުޖަމާ:] ' + data
-        }
-      },
-      {
-        data: 8,
-        title: 'ބަކުރުބެގެ އިޖްމާލީ މާނަ*',
-        render: function (data, type, row) {
-          return '[ބަކުރުބެގެ އިޖްމާލީ މާނަ:] ' + data
-        }
-      } */
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
-      //  /* footnote line after bakurube lafzee tharujama */
+      // footnote line after tharujama
       {
         targets: 6,
         render: function (data, type, row) {
