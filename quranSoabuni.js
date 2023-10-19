@@ -1,0 +1,1 @@
+const quran_DB=
