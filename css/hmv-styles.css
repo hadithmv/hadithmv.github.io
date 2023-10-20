@@ -987,16 +987,16 @@ mark {
        CARDS CODE
 ======================= */
 
-/* provides padding aroud the carded row datas */
+/* provides padding around the carded row datas */
 
-/* @mixin for-ABOVEphone-only */
+/* @mixin for-ABOVE phone-only */
 @media (min-width: 599px) {
   table.cards.dataTable > tbody > tr > td {
     padding-right: 50px;
     padding-left: 50px;
   }
 
-  /* if changed from padding to margin, non quran cards will seem to not have enough sapce */
+  /* if changed from padding to margin, non quran cards will seem to not have enough space */
   table.cards.dataTable > tbody > tr > td:nth-child(1) {
     padding-top: 40px;
   }
@@ -1681,6 +1681,20 @@ this makes a faint white outline around card  */
     border: 1px;
   }
   dont know why i had this before, removed because not exceptions were needed for every quran table*/
+
+  /* footnote line after Quran tharujama */
+  .Qbr {
+    display: block; /* makes it have a width */
+    content: ""; /* clears default height */
+    margin-bottom: 15px;
+    /* 10px, change this to whatever height you want it */
+  }
+  .LQbr {
+    display: block; /* makes it have a width */
+    content: ""; /* clears default height */
+    margin-bottom: -15px;
+    /* -10px, change this to whatever height you want it */
+  }
 
   /* makes bold tabler headers normal */
   .dataTable > thead > tr > th {
