@@ -257,9 +257,49 @@
               >
             </h3>
 
-            <a onclick="hideShow()" style="cursor: pointer"
-              >(ފޮރުވުމަށް މިތާ އޮބާލައްވާ)</a
-            >
+            <!--<a onclick="hideShow()" style="cursor: pointer"
+              >ނަވަވީގެ އަގީދާ ފޮރުވުމަށް ފިތާލައްވާ</a
+            >-->
+
+            <p class="quoteHere">
+              <button
+                class="lowerButtons"
+                id="hideAqidaButton"
+                onclick="hideShow();hideAqida();"
+                title="hide aqida"
+              >
+                &nbsp; &nbsp; &nbsp; &nbsp; ނަވަވީގެ އަގީދާ ފޮރުވުމަށް
+                ފިތާލައްވާ &nbsp; &nbsp;&nbsp; &nbsp;
+              </button>
+            </p>
+
+            <style>
+              #sallaButton {
+                background-color: #fff;
+                /*width: 69px;*/
+                /*style="margin: 0; height: 20px"*/
+              }
+              #sallaButton:hover {
+                background-color: #136296;
+              }
+            </style>
+            <script>
+              var hideAqida_timesClicked = 0;
+              function hideAqida() {
+                hideAqida_timesClicked++;
+                if (hideAqida_timesClicked % 2 == 0) {
+                  //run second function
+                  document.getElementById("hideAqidaButton").innerHTML =
+                    "&nbsp; &nbsp; &nbsp; &nbsp; ނަވަވީގެ އަގީދާ ފޮރުވުމަށް ފިތާލައްވާ &nbsp; &nbsp; &nbsp; &nbsp;";
+                } else {
+                  //run first function
+                  document.getElementById("hideAqidaButton").innerHTML =
+                    "العلم ذكر، لا يحبه إلا ذكران من الرجال، ولا يزهد فيه إلا إناثها";
+                }
+                return result;
+              }
+              //
+            </script>
 
             <script>
               // https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp
