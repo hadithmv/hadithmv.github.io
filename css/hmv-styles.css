@@ -113,6 +113,8 @@ html {
   /* line-height: 1.15; */
 
   /* -webkit-text-size-adjust: 100%; */
+
+  text-wrap: balance;
 }
 
 /* Remove the margin in all browsers. - normalize */
@@ -677,6 +679,7 @@ table.dataTable tbody td {
   color: #24292e !important;
   line-height: 1.7; /* 1.5 */
   word-wrap: break-word;
+  /*text-wrap: balance;*/
   /*text-align: right;*/
   direction: rtl;
   /*text-align: justify;*/
