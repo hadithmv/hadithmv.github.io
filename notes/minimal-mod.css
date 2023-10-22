@@ -4,6 +4,7 @@ html {
   text-align: right;
   direction: rtl;
   font-size: 120%; /* for tharujamaanu */
+  text-wrap: balance;
 }
 
 /*
