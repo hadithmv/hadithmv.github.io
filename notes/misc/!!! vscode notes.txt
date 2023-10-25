@@ -93,13 +93,25 @@ make list of extensions in vscode:
 
 EXTENSIONS LIST:
 
+Chukwuamaka.csvtojson-converter
 cwan.native-ascii-converter
 esbenp.prettier-vscode
+formulahendry.code-runner
+GitHub.remotehub
+GitHub.vscode-pull-request-github
+HTMLHint.vscode-htmlhint
+JannisX11.batch-rename-extension
 lacroixdavid1.vscode-format-context-menu
-mkaufman.HTMLHint
+mechatroner.rainbow-csv
+ms-python.isort
+ms-python.python
 ms-vscode.powershell
+ms-vscode.remote-repositories
+ritwickdey.LiveServer
+shd101wyy.markdown-preview-enhanced
 techer.open-in-browser
-VisualStudioExptTeam.vscodeintellicode
+Tyriar.vscode-terminal-here
+VisualStudioExptTeam.intellicode-api-usage-examples
 vscode-icons-team.vscode-icons
 zh9528.file-size
 
