@@ -67,7 +67,7 @@ ctrl + shift + ' = push
 BETTER COMMENTS:
 !, ? //, todo, *
 
-pip install openpyxl
+sudo -H pip install openpyxl
 
 NPM COMMANDS:
 npm install -g <package_name> (global install)
