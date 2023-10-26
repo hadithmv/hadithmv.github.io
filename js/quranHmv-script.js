@@ -94,7 +94,7 @@ $(document).ready(() => {
   }
 
   const mergedData = fullJoinRowWise2DFlattenWithEmptyValues(
-    surah_juz_basmalah_ayah,
+    surah_juz_basmalah_ayah_DB,
     quran_DB
   );
   //console.log(mergedData);
