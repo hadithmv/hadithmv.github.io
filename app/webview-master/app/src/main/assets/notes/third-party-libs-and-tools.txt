@@ -46,11 +46,10 @@ https://github.com/nayuki/QR-Code-generator -MIT
 https://github.com/maaldheefee/mushaf-page-border
 https://fonts.qurancomplex.gov.sa/wp02 0.18
 https://qurancomplex.gov.sa/en/techquran/dev
-http://hassanhameed.com/?page_id=154 2.0
 https://fonts.hassaanmv.com/tharujamaanu
 
 https://shamela.ws
-https://sunnah.alifta.gov.sa
+https://www.alifta.net
 https://40-nawawi.hassaanmv.com
 https://qurancomplex.gov.sa/en/techquran/dev 13.0
 https://tanzil.net/download 1.1 -CC BY 3.0
