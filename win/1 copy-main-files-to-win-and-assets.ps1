@@ -131,6 +131,7 @@ Copy-Item ../js/json/allAthar.js -Destination ../app/webview-master/app/src/main
 Copy-Item ../js/json/aqidahNawawi.js -Destination ../app/webview-master/app/src/main/assets/js/json/aqidahNawawi.js -Recurse -Force
 Copy-Item ../js/json/barbahari.js -Destination ../app/webview-master/app/src/main/assets/js/json/barbahari.js -Recurse -Force
 Copy-Item ../js/json/bulugh.js -Destination ../app/webview-master/app/src/main/assets/js/json/bulugh.js -Recurse -Force
+Copy-Item ../js/json/bulughFull.js -Destination ../app/webview-master/app/src/main/assets/js/json/bulughFull.js -Recurse -Force
 Copy-Item ../js/json/eegaal.js -Destination ../app/webview-master/app/src/main/assets/js/json/eegaal.js -Recurse -Force
 Copy-Item ../js/json/hisnulMuslim.js -Destination ../app/webview-master/app/src/main/assets/js/json/hisnulMuslim.js -Recurse -Force
 Copy-Item ../js/json/muwatta.js -Destination ../app/webview-master/app/src/main/assets/js/json/muwatta.js -Recurse -Force
