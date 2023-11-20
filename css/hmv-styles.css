@@ -1642,6 +1642,25 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   /* change this to whatever height you want it */
 }
 
+/* footnote line after Quran tharujama */
+.Qbr {
+  display: block; /* makes it have a width */
+  content: ""; /* clears default height */
+  margin-bottom: 15px;
+  /* 10px, change this to whatever height you want it */
+}
+.LQbr {
+  display: block; /* makes it have a width */
+  content: ""; /* clears default height */
+  margin-bottom: -15px;
+  /* -10px, change this to whatever height you want it */
+}
+
+/* makes bold tabler headers normal */
+.dataTable > thead > tr > th {
+  font-weight: normal !important;
+}
+
 /* ====================
        DARK MODE
 ======================= */
@@ -1684,25 +1703,6 @@ this makes a faint white outline around card  */
     border: 1px;
   }
   dont know why i had this before, removed because not exceptions were needed for every quran table*/
-
-  /* footnote line after Quran tharujama */
-  .Qbr {
-    display: block; /* makes it have a width */
-    content: ""; /* clears default height */
-    margin-bottom: 15px;
-    /* 10px, change this to whatever height you want it */
-  }
-  .LQbr {
-    display: block; /* makes it have a width */
-    content: ""; /* clears default height */
-    margin-bottom: -15px;
-    /* -10px, change this to whatever height you want it */
-  }
-
-  /* makes bold tabler headers normal */
-  .dataTable > thead > tr > th {
-    font-weight: normal !important;
-  }
 
   /* hover and active pagination buttons */
   .dataTables_wrapper .dataTables_paginate .paginate_button:active,
