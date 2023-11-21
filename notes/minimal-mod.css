@@ -481,8 +481,8 @@ body {
 
 p {
   /*line-height: 2.1;*/
-  text-align: justify;
-  word-spacing: -0.05em;
+  /*text-align: justify;
+  word-spacing: -0.05em;*/
   font-size: 22px;
   line-height: 1.7;
 }
@@ -550,10 +550,10 @@ p {
   line-height: 1.6;
 }
 
-.eng p {
+/*.eng p {
   text-align: justify;
   word-spacing: -0.05em;
-}
+}*/
 
 /*.eng .mid {
   text-align: center;
@@ -570,10 +570,10 @@ p {
   line-height: 1.7;
 }
 
-.dv p {
+/*.dv p {
   text-align: justify;
   word-spacing: -0.05em;
-}
+}*/
 
 /* header dv sizes */
 h1 .dv {
