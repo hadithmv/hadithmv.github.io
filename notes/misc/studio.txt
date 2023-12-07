@@ -1,4 +1,12 @@
-slymax webview
+https://github.com/slymax/webview
+
+https://stackoverflow.com/questions/18276872/change-project-name-on-android-studio
+
+https://icon.kitchen/
+
+
+
+old below:
 
 https://stackoverflow.com/questions/16804093/rename-package-in-android-studio
 
