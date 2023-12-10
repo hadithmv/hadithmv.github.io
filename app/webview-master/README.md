@@ -14,7 +14,7 @@ If you want to create an app that shows the content of a remote website
 mWebView.loadUrl("https://example.com");
 ```
 
-2. open the `MyWebViewClient.java` file and replace `example.com` on line **15** with your hostname
+2 . open the `MyWebViewClient.java` file and replace `example.com` on line **15** with your hostname
 
 ```java
 hostname = "example.com";
