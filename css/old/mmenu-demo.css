@@ -1,17 +1,22 @@
 /* this is the inlined css */
-/*html, body {
-	padding: 0;
-	margin: 0;
+
+/* html,
+body {
+  padding: 0;
+  margin: 0;
 }
 body {
-	background-color: #fff;
-	font-family: Arial, Helvetica, Verdana;
-	font-size: 14px;
-	line-height: 22px;
-	color: #666; 
-	position: relative;
-	-webkit-text-size-adjust: none;
+  background-color: #fff;
+  font-family: Arial, Helvetica, Verdana;
+  font-size: 14px;
+  line-height: 22px;
+  color: #808080;
+  position: relative;
+  -webkit-text-size-adjust: none;
 }
+*/
+
+/*
 h1, h2, h3, h4, h5, h6 {
 	line-height: 1;
 	font-weight: bold;
@@ -26,61 +31,71 @@ h4, h5, h6 {
 p {
 	margin: 0 0 10px 0;
 }
+*/ /*
+a,
+a:link,
+a:active,
+a:visited,
+a:hover {
+  color: inherit;
+  text-decoration: underline;
+}
+*/
 
-a, a:link, a:active, a:visited, a:hover {
-	color: inherit;
-	text-decoration: underline;
-}*/
-/* commenting this one below out causes FOUT, so left it */
+/* commenting this out causes FOUT */
 .header nav {
   display: none;
 }
 
 .header,
-.content
-/*,.footer*/ {
+.content/*,
+.footer*/ {
   text-align: center;
 }
-.header
-/*,.footer*/ {
-  background: #0f4c75; /*#bba6a2;*/
-  /* this below wasnt there before 3.1? */
-  /*#4bb5ef - top horizontal long navbar color ? */
-  /*font-size: 16px;
-	font-weight: bold;*/
+
+.header/*,
+.footer*/ {
+  background: #0f4c75 /*#254e61;*/
+    /* #4bb5ef - top horizontal long navbar color */ /* font-size: 16px; */
+    /* font-weight: bold; */;
   color: #fff;
   line-height: 50px;
-  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
   height: 50px;
   padding: 0 50px;
-  /* added z index below to prevent table coming above it */
+
+  /* added z index to prevent table coming above it */
   z-index: 999;
+
   /* added this shadow */
   box-shadow: 0 1px 2.5px rgb(0 0 0 / 20%);
+
   /* box-shadow: 0 2px 4px rgb(0 0 0 / 50%); */
+
   /* added font because navbar top text is unstyled 
   font-family: "mergedFont", "Quicksand", sans-serif, "faruma"; */
+
   /* added abosulte css because fixed class and fixed position didnt work on mobile
   top right left needed to keep it from moving along with the animation */
-  /* above adds ends */
 
   /* position: fixed;
   top: 0 !important;
   right: 0 !important;
   left: 0 !important; */
 }
+
 .header.fixed {
   position: fixed;
   top: 0;
   left: 0;
-}
-/*.footer.fixed {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-}*/
+} /*
+.footer.fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+} */
 .header a {
   /* this is the hamburger */
   display: block;
@@ -90,26 +105,31 @@ a, a:link, a:active, a:visited, a:hover {
   margin: 5px;
   position: absolute;
   top: 0;
+
   /* left: 0; */
+
   /* changed from left to bring hamburger to the right */
   right: 0;
 }
-.header a:before,
-.header a:after {
+
+.header a::before,
+.header a::after {
   content: "";
   display: block;
   background: #fff;
   height: 2px;
 }
+
 .header a span {
   background: #fff;
   display: block;
   height: 2px;
   margin: 6px 0;
 }
+
 .content {
-  /*padding: 150px 50px 50px 50px;*/
-  /* this below wasnt there before 3.1? */
+  /* padding: 150px 50px 50px 50px; */
+
   /* padding: 50px 10px 10px 10px; */
 
   /* first is space below navbar, this leaves room before clicking search, margin room */
@@ -126,7 +146,7 @@ a, a:link, a:active, a:visited, a:hover {
 }
 
 /* === --- === --- ====
-ABOVE ENDED - CUSTOM EDITS BELOW
+ABOVE ENDS - CUSTOM EDITS BELOW
 === --- === --- ==== */
 
 /* darkens nav and changes cursor on mouseover so users know its somewhat clickable */

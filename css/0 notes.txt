@@ -1,12 +1,12 @@
 Load priority in COMB:
 
 -Critical Inline
-**mmenu-demo.css	(minify w cssnano)
+**mmenu-demo.css	3.2.2	(minify w cssnano)
 
 ---preload these:
 
 -non Critical Ext
-**mmenu-light.css	3.10	(format then minify w cssnano)
+**mmenu-light.css	3.2.2	(needs updating) (format then minify w cssnano)
 **hmv-styles.css	(minify w csso)	min file not kept as seperate
 
 -even more non Critical Ext
