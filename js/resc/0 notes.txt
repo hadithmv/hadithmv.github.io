@@ -5,12 +5,12 @@ mmenu-light.js	3.10
 mmenu-inlineJs.js
 
 -Non critical
-jquery.min.js		3.7.0 (mergely and hammer breaks with jquery slim, zepto and cash doesnt work)
-**jquery.dataTables.min.js	1.13.6	(requires jq)
+jquery.min.js		3.7.1 (mergely and hammer breaks with jquery slim, zepto and cash doesnt work)
+**jquery.dataTables.min.js	1.13.8	(requires jq)
 
-dataTables.buttons.min.js	2.4.1
-buttons.colVis.min.js		2.4.1
-buttons.html5.min.js		2.4.1
+dataTables.buttons.min.js	2.4.2
+buttons.colVis.min.js		2.4.2
+buttons.html5.min.js		2.4.2
 dataTables.keyTable.min.js	2.10.0
 dataTables.searchPanes.min.js	2.2.0
 dataTables.select.min.js	1.7.0
@@ -20,8 +20,7 @@ https://cdn.datatables.net/plug-ins/1.13.4/pagination/input.js
 
 **input.min.js			(minify w closure) https://cdn.datatables.net/plug-ins/1.13.4/pagination/input.js
 
-**jquery.mark.min.js		9.0.0	(remove comments, otherwise ok) https://github.com/julmot/mark.js/blob/master/dist/jquer
-y.mark.min.js
+**jquery.mark.min.js		9.0.0	(remove comments, otherwise ok) https://github.com/julmot/mark.js/blob/master/dist/jquery.mark.min.js
 datatables.mark.min.js		2.1.0 https://github.com/julmot/datatables.mark.js/blob/master/dist/datatables.mark.min.js
 dataTables.keepConditions.min.js	1.2.0 https://github.com/jhyland87/DataTables-Keep-Conditions/blob/master/dist/dataTbles.keepConditions.min.js
 
