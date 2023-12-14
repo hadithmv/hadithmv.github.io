@@ -1094,8 +1094,8 @@
               &nbsp; ފިލި ފޮރުވާ/ދައްކާ &nbsp;
             </button>
 
-            <button class="lowerButtons" onclick="copyIjmalyOnly();">
-              &nbsp; އިޖްމާލީ އެކަނި ކޮޕީ &nbsp;
+            <button class="lowerButtons" onclick="toggleThaana();">
+              &nbsp; ތަރުޖަމާގެ ތާނަ އަރަބިކުރޭ &nbsp;
             </button>
 
             <script>
@@ -1117,25 +1117,18 @@
             </script>
 
             <script>
-              function copyIjmalyOnly() {
+              function toggleThaana() {
                 var isVisible = $("#quranTable")
                   .DataTable()
                   .column(6)
                   .visible();
                 $("#quranTable").DataTable().column(6).visible(!isVisible);
 
-                // https://stackoverflow.com/questions/56629325/programatically-invoke-jquery-datatable-cell-click-event/56629794#56629794
-                document
-                  .querySelector(
-                    "#quranTable_wrapper > div.dTop > div.dt-buttons > button.dt-button.buttons-copy.buttons-html5"
-                  )
-                  .click();
-
                 var isVisible = $("#quranTable")
                   .DataTable()
-                  .column(6)
+                  .column(7)
                   .visible();
-                $("#quranTable").DataTable().column(6).visible(!isVisible);
+                $("#quranTable").DataTable().column(7).visible(!isVisible);
               }
             </script>
 
