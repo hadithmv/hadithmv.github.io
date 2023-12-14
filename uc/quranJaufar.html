@@ -357,6 +357,11 @@
                 <li>
                   <a href="ushrulAkheer.html">5 ފަހު ދިހަބައިކުޅަ އެއްބައި</a>
                 </li>
+                <li>
+                  <a onClick="qClick5()"
+                    >6 ރައީސުލްޖުމްހޫރިއްޔާގެ އޮފީސް ތަރުޖަމާ</a
+                  >
+                </li>
                 <!--  style="color: #b8b8b8; cursor: auto; !important" -->
               </ul>
             </li>
@@ -366,25 +371,46 @@
               function qClick1() {
                 window.location = window.location
                   .toString()
-                  .replace(/quranBakurube|quranJaufar|quranSoabuni/, "quranHmv")
+                  .replace(
+                    /quranBakurube|quranJaufar|quranSoabuni|quranRasmee/,
+                    "quranHmv"
+                  )
                   .replace(/\:v.*$/, "");
               }
               function qClick2() {
                 window.location = window.location
                   .toString()
-                  .replace(/quranHmv|quranJaufar|quranSoabuni/, "quranBakurube")
+                  .replace(
+                    /quranHmv|quranJaufar|quranSoabuni|quranRasmee/,
+                    "quranBakurube"
+                  )
                   .replace(/\:v.*$/, "");
               }
               function qClick3() {
                 window.location = window.location
                   .toString()
-                  .replace(/quranHmv|quranBakurube|quranSoabuni/, "quranJaufar")
+                  .replace(
+                    /quranHmv|quranBakurube|quranSoabuni|quranRasmee/,
+                    "quranJaufar"
+                  )
                   .replace(/\:v.*$/, "");
               }
               function qClick4() {
                 window.location = window.location
                   .toString()
-                  .replace(/quranHmv|quranBakurube|quranJaufar/, "quranSoabuni")
+                  .replace(
+                    /quranHmv|quranBakurube|quranJaufar|quranRasmee/,
+                    "quranSoabuni"
+                  )
+                  .replace(/\:v.*$/, "");
+              }
+              function qClick5() {
+                window.location = window.location
+                  .toString()
+                  .replace(
+                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni/,
+                    "quranRasmee"
+                  )
                   .replace(/\:v.*$/, "");
               }
             </script>
