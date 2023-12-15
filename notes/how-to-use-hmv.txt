@@ -34,7 +34,6 @@ On some Android phones, the back button of the phone closes the app. If this hap
 [Shift + s] = Show Additional Columns
 [Shift + c] = Copy shown text to clipboard
 [Shift + f] = Open Filter
-[Shift + L] = Copy current page as web URL to clipboard
 
 Cursor starts already inside the search box on desktop
 (So to use desktop keyboard shortcuts, you must click outside the search box first)
