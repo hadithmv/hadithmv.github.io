@@ -59,6 +59,7 @@ Copy-Item ../notes/info/introFortyN.html -Destination ../app/webview-master/app/
 Copy-Item ../notes/info/introHmv.html -Destination ../app/webview-master/app/src/main/assets/notes/info/introHmv.html -Recurse -Force
 Copy-Item ../notes/info/introUmdah.html -Destination ../app/webview-master/app/src/main/assets/notes/info/introUmdah.html -Recurse -Force
 Copy-Item ../notes/info/khutba.html -Destination ../app/webview-master/app/src/main/assets/notes/info/khutba.html -Recurse -Force
+Copy-Item ../notes/info/lafuzuVakikurumugeQawaid.html -Destination ../app/webview-master/app/src/main/assets/notes/info/lafuzuVakikurumugeQawaid.html -Recurse -Force
 Copy-Item ../notes/info/madina-info.html -Destination ../app/webview-master/app/src/main/assets/notes/info/madina-info.html -Recurse -Force
 Copy-Item ../notes/info/mirror-backups.html -Destination ../app/webview-master/app/src/main/assets/notes/info/mirror-backups.html -Recurse -Force
 Copy-Item ../notes/info/nawawiSiyar.html -Destination ../app/webview-master/app/src/main/assets/notes/info/nawawiSiyar.html -Recurse -Force
