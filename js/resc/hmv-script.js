@@ -23,17 +23,24 @@ function myHelp() {
 /* copyURL button */
 // https://stackoverflow.com/questions/33855641/copy-output-of-a-javascript-variable-to-the-clipboard/48542290#48542290
 // https://stackoverflow.com/questions/10568815/replace-all-text-before-a-certain-point
-function copyURLToClipB() {
+function copyURLToClipButton2() {
   var dummy = document.createElement("textarea");
   document.body.appendChild(dummy);
-  dummy.value = window.location;
-  // added line below
-  dummy.value = dummy.value.replace(/^.+hadithmv\./, "https://hadithmv.");
+  dummy.value = window.location.href;
+
+  // Replace text preceding "/books/"
+  dummy.value = dummy.value
+    .replace(/^.*\/books\//, "https://hadithmv.github.io/books/")
+    .replace(/^.*\/uc\//, "https://hadithmv.github.io/books/");
+
+  // Replace text preceding "/uc/"
+
   dummy.select();
   document.execCommand("copy");
   document.body.removeChild(dummy);
 }
 
+/* not using this anymore, and changed above code using cgpt cuz it didnt work
 // same code above is below triggered on keypress
 
 // http://gcctech.org/csc/javascript/javascript_keycodes.htm
@@ -57,3 +64,4 @@ if (window.innerWidth > 600) {
   };
   //
 }
+*/
