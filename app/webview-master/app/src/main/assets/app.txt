@@ -40,7 +40,7 @@ this is to try an reduce having to edit dir redirects while editing
 
 for other than index file change	<a href="https://hadithmv.github.io/"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 >ނަވަވީގެ 40 ޙަދީޘް</a>
 
 to this		<a href="index.html">ނަވަވީގެ 40 ޙަދީޘް</a>
@@ -51,8 +51,8 @@ to this		<a href="index.html">ނަވަވީގެ 40 ޙަދީޘް</a>
 
 href="../books/umdah.html"
 href="../books/umdah.html"
-<a href="../books/sahihain.html" target="_blank" rel="noopener"
-<a href="../books/sahihain.html" target="_blank" rel="noopener"
+<a href="../books/sahihain.html" target="_blank" rel="noopener noreferrer"
+<a href="../books/sahihain.html" target="_blank" rel="noopener noreferrer"
 href="../books/otherHadith.html"
 href="../books/otherHadith.html"
 
