@@ -45,6 +45,10 @@ Set-Content ../hisnulMuslim.js -Value 'const hisnulMuslim_DB='
 Get-Content hisnulMuslim.json | Add-Content ../hisnulMuslim.js
 uglifyjs ../hisnulMuslim.js -c -m -o ../hisnulMuslim.js
 
+Set-Content ../kuruLiyunthah.js -Value 'const kuruLiyunthah_DB='
+Get-Content kuruLiyunthah.json | Add-Content ../kuruLiyunthah.js
+uglifyjs ../kuruLiyunthah.js -c -m -o ../kuruLiyunthah.js
+
 Set-Content ../muwatta.js -Value 'const muwatta_DB='
 Get-Content muwatta.json | Add-Content ../muwatta.js
 uglifyjs ../muwatta.js -c -m -o ../muwatta.js
