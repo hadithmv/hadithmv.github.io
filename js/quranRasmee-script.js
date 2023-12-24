@@ -92,31 +92,6 @@ $(document).ready(() => {
     data: mergedData,
 
     columns: [
-      /*{
-          data: 0,
-          title: "ސޫރަތުގެ #",
-          // https://www.datatables.net/examples/advanced_init/column_render.html
-          render: function (data, type, row) {
-            // makes surah numbers into MATHEMATICAL SANS-SERIF DIGIT
-            data = data
-              .replace("1", "𝟣")
-              .replace("2", "𝟤")
-              .replace("3", "𝟥")
-              .replace("4", "𝟦")
-              .replace("5", "𝟧")
-              .replace("6", "𝟨")
-              .replace("7", "𝟩")
-              .replace("8", "𝟪")
-              .replace("9", "𝟫")
-              .replace("0", "𝟢");
-          },
-        },
-        */
-      /*render: function (data, type, row) {
-            // removes everything except arabic letters (excludes diacritics), and Mathematical Sans-Serif Digits, and space
-            //return data.replace(/[^\u0621-\u064A|\u1d7e2-\u1d7eb|\s]/g, '')
-            return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~]/g, "");
-          },*/
       {
         data: 0,
         title: "ސޫރަތުގެ ނަން",
@@ -238,23 +213,6 @@ $(document).ready(() => {
             .replace("112", "𝟣𝟣𝟤 سُورَةُ الإِخلَاص")
             .replace("113", "𝟣𝟣𝟥 سُورَةُ الفَلَق")
             .replace("114", "𝟣𝟣𝟦 سُورَةُ النَّاس");
-          //
-          // combines surah and number columns together
-          //data = row[1] + " " + data;
-          //
-          // makes surah numbers into MATHEMATICAL SANS-SERIF DIGIT
-          // commented out when the sans serif digits were put into the above instead of regular numbers
-          /*data = data
-              .replaceAll("1", "𝟣")
-              .replaceAll("2", "𝟤")
-              .replaceAll("3", "𝟥")
-              .replaceAll("4", "𝟦")
-              .replaceAll("5", "𝟧")
-              .replaceAll("6", "𝟨")
-              .replaceAll("7", "𝟩")
-              .replaceAll("8", "𝟪")
-              .replaceAll("9", "𝟫")
-              .replaceAll("0", "𝟢");*/
           return data;
         },
       },
@@ -309,16 +267,6 @@ $(document).ready(() => {
             .replaceAll("0", "٠");
           return data;
         },
-        // goes above the bracket above,
-        // previously used to add br after basmala
-        /*.replace(
-                "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
-                'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
-              )
-              .replace(
-                "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
-                'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
-              );*/
       },
       {
         data: 4,
@@ -332,25 +280,6 @@ $(document).ready(() => {
             .replace(/[^\u0621-\u064A|\s|<br class="br">]/g, "")
             .replace(/\s\s/g, " ");
         },
-        // previously used to add br after basmala
-        /*
-                  .replace(
-                    "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
-                    'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
-                  )
-                  .replace(
-                    "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
-                    'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
-                  )
-                  */
-        //
-        /* old code */
-        /*
-                        /* render: function (data, type, row) {
-                // return data.replace(/َ/g, '').replace(/ِ/g, '')
-                // below code is shorter, no replace repeat, uses OR instead
-                return data.replace(/ّ|َ|ً|ُ|ٌ|ِ|ٍ|ْ|ۡ|ٰ/g, '').replace(/ٱ/g, 'ا')
-              } */
       },
       {
         data: 5,
