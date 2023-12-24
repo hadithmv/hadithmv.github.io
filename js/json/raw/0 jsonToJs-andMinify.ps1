@@ -101,6 +101,10 @@ Set-Content ../ushrulAkheer.js -Value 'const ushrulAkheer_DB='
 Get-Content ushrulAkheer.json | Add-Content ../ushrulAkheer.js
 uglifyjs ../ushrulAkheer.js -c -m -o ../ushrulAkheer.js
 
+Set-Content ../usooluSiththa.js -Value 'const usooluSiththa_DB='
+Get-Content usooluSiththa.json | Add-Content ../usooluSiththa.js
+uglifyjs ../usooluSiththa.js -c -m -o ../usooluSiththa.js
+
 Set-Content ../usooluSunnah.js -Value 'const usooluSunnah_DB='
 Get-Content usooluSunnah.json | Add-Content ../usooluSunnah.js
 uglifyjs ../usooluSunnah.js -c -m -o ../usooluSunnah.js
