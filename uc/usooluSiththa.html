@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="dv">
+  <!-- prevent translate popup -->
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="canonical"
+      href="https://hadithmv.github.io/books/usooluSiththa.html"
+    />
+    <meta name="google" content="notranslate" />
+
+    <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
+    <meta name="theme-color" content="#29434e" />
+    <!-- og metadata sm link previews -->
+    <meta property="og:title" content="hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://hadithmv.github.io/books/usooluSiththa.html"
+    />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+
+    <!-- change123 html -->
+    <title>Hadithmv - Usoolu Thalaatha</title>
+    <meta
+      name="description"
+      content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
+    />
+    <!-- META TAGS - END -->
+
+    <!-- === EXT CSS === -->
+    <!-- non critical -->
+    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
+    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
+    <!-- === EXT CSS - END === -->
+
+    <!-- === EXT JS === -->
+    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
+    <!-- critical -->
+    <script defer src="../js/resc/COMB-Crit.min.js"></script>
+    <!-- non critical -->
+    <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
+    <!-- change123 js -->
+    <script defer src="../js/json/usooluSiththa.js"></script>
+    <script defer src="../js/usooluSiththa-script.js"></script>
+    <!-- === EXT JS - END === -->
+
+    <!-- === INT CSS === -->
+    <!-- === INT CSS - END === -->
+  </head>
+
+  <body translate="no">
+    <div id="page">
+      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
+      <!-- adding fixed or custom writing z index breaks on mobile -->
+      <div class="header fixed" onclick="drawer.open();">
+        <!-- hamburger -->
+        <a href="#menu"><span></span></a>
+        <a class="menuLeftIcon" href="index.html"
+          ><img
+            class="hmvLogo1"
+            alt="hadith mv"
+            loading="lazy"
+            src="../img/logo/logo.svg"
+        /></a>
+        <span class="hideOnPhoneOnly"> ‌‌الأصول الستة – </span>ހަ އުސޫލު
+        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
+        <nav id="menu">
+          <ul>
+            <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
+            <li>
+              <a href="../books/index.html">⛊ މައި ސަފުހާ</a>
+            </li>
+
+            <li>
+              <a href="../notes/info/contact.html"
+                >ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a
+              >
+            </li>
+
+            <li>
+              <a href="../notes/info/helpTranslate.html"
+                >ތަރުޖަމާގައި އެހީވެދިނުމަށް</a
+              >
+            </li>
+
+            <li>
+              <a href="../notes/info/FAQ.html"
+                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
+              >
+            </li>
+
+            <li>
+              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
+            </li>
+
+            <li class="hmvVer"><a href="#">⚙️ އިސްދާރު: v3.04</a></li>
+            <li>
+              <a href="https://t.me/ashraafmv"
+                >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ އަލްމާލްދީފީ</a
+              >
+            </li>
+            <li class="madani">
+              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
+            </li>
+          </ul>
+        </nav>
+        <!-- <nav id="menu"> -->
+      </div>
+      <!-- <div class="header fixed" onclick="drawer.open();"> -->
+
+      <div class="content">
+        <main>
+          <!-- class="w3-animate-right" -->
+          <!-- --- TABLE --- -->
+          <!-- JEKYLL {{ content }} -->
+          <!-- cards js adds card classes to table ID -->
+          <!-- change123 TABLE - card view set as default here -->
+          <!-- class="stripe table cards"> -->
+          <table id="usooluSiththaTable" class="table cards"></table>
+          <!-- --- TABLE - END --- -->
+          <div class="hidden" id="footer">
+            <button class="lowerButtons" onclick="copyURLToClipButton();">
+              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+            </button>
+
+            <button class="lowerButtons" onclick="toggleFili();">
+              &nbsp; ފިލި ފޮރުވާ/ދައްކާ &nbsp;
+            </button>
+
+            <script>
+              function toggleFili() {
+                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+
+                var isVisible = $("#usooluSiththaTable")
+                  .DataTable()
+                  .column(3)
+                  .visible();
+                $("#usooluSiththaTable")
+                  .DataTable()
+                  .column(3)
+                  .visible(!isVisible);
+
+                var isVisible = $("#usooluSiththaTable")
+                  .DataTable()
+                  .column(4)
+                  .visible();
+                $("#usooluSiththaTable")
+                  .DataTable()
+                  .column(4)
+                  .visible(!isVisible);
+              }
+            </script>
+
+            <p>
+              مصدر النص: الأصول الستة - لمحمد بن عبد الوهاب بن سليمان التميمي
+              النجدي (ت ١٢٠٦ هـ)
+            </p>
+
+            <p>
+              ފޮތުގެ މަތުނު: ހަ އުސޫލު | ލިޔުނީ: މުޙައްމަދު ބިން ޢަބްދުލް
+              ވައްހާބް ބިން ސުލައިމާން އައްތަމީމީ އައްނަޖްދީ (1206 ހ.)
+            </p>
+
+            <hr class="lineVerticalSpace" />
+
+            <p>
+              نص الكتاب أخذ من مصدر: التقعيد النضيد في شرح الأصول الستة في
+              التوحيد - لعبد العزيز بن ريس الريس
+              <br />
+              | الطبعة: ١٤٤٣ هـ - ٢٠٢١ م.
+            </p>
+
+            <p>
+              ފޮތުގެ ނައްސު ނެގިފައިވާ މަސްދަރު: ތައުހީދުގެ ހަ އުސޫލުގެ ޝަރަހަ |
+              ލިޔުނީ: ޢަބްދުލ ޢަޒީޒު އައްރައިސް
+              <br />
+              ޗާޕު: 1443 ހ. - 2021 މ.
+            </p>
+
+            <p>
+              އަރަބި
+              <a
+                href="https://archive.org/details/sharh-usoolu-siththa-raees"
+                rel="noopener noreferrer"
+                target="_blank"
+                >ޕީޑީއެފް</a
+              >
+            </p>
+
+            <hr class="lineVerticalSpace" />
+
+            <h3 class="mid">
+              <a>ތަހްގީގު ކުރެވުނު ފޮތުގެ ނުސްޚާއާ ބެހޭ މައުލޫމާތު</a>
+            </h3>
+
+            <p class="justi">
+              قال المحقق: النسخ المعتمدة في تحقيق هذا المثن:
+              <br />
+              - نسخة خطية بمركز الملك فيصل - السعودية -، برقم (٥٢٥٨)، تاريخ
+              نسخها: ١٣٠٧ هـ، ورمزت لها بـ (أ).
+              <br />
+              - نسخة خطية بمركز الملك فيصل - السعودية -، برقم (٥٢٦٥)، تاريخ
+              نسخها: ۱۳۳۸ هـ، ورمزت لها بـ (ب).
+              <br />
+              - نسخة خطية بجامعة الملك سعود - السعودية -، برقم (۲۳۲۸)، ورمزت لها
+              بـ (ج).
+              <br />
+              - نسخة خطية بجامعة الملك سعود - السعودية -، برقم (۳۹۷۹)، ورمزت لها
+              بـ (د).
+              <br />
+              - نسخة خطية بمكتبة الشيخ عبد الرحمن بن ناصر السعدي بالقصيم -
+              السعودية -، ورمزت لها بـ (هـ).
+            </p>
+          </div>
+        </main>
+        <!-- <main> -->
+      </div>
+      <!-- <div class="content"> -->
+    </div>
+    <!-- <div id="page"> -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-HL24Q9NN24");
+    </script>
+    <!-- End Google Analytics -->
+
+    <!-- === INT JS - END === -->
+  </body>
+</html>
