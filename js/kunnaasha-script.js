@@ -58,12 +58,12 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  const table = $("#kuruLiyunthahTable").DataTable({
+  const table = $("#kunnaashaTable").DataTable({
     // var table = $("#allHadith").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: kuruLiyunthah_DB, // https://datatables.net/manual/ajax
+    data: kunnaasha_DB, // https://datatables.net/manual/ajax
 
     columns: [
       /* add # string to hadith no */
@@ -75,17 +75,17 @@ $(document).ready(() => {
           return "#" + data;
         },
       },
+      //
       {
         data: 1,
-        title: "މަސްދަރު",
-      },
-      // swapped order of below!!
-      {
-        data: 3,
         title: "ސުރުހީ",
       },
       {
         data: 2,
+        title: "ލިޔުންތެރިޔާ",
+      },
+      {
+        data: 3,
         title: "ތާރީޚު",
       },
       {
@@ -93,7 +93,20 @@ $(document).ready(() => {
         title: "ލިޔުން",
       },
       {
+        data: 4,
+        title: "އަރަބި ފިލިނުޖަހައި",
+        render: function (data, type, row) {
+          return data
+            .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
+            .replace(/(\n)/g, "<br>");
+        },
+      },
+      {
         data: 5,
+        title: "މަސްދަރު",
+      },
+      {
+        data: 6,
         title: "ލިންކު",
       },
     ],
@@ -112,7 +125,7 @@ $(document).ready(() => {
       // Hyperlink https://datatables.net/forums/discussion/comment/202022/#Comment_202022
 
       {
-        targets: [5],
+        targets: [7],
         data: "download_link",
         render: function (data, type, row, meta) {
           var links = data.split(" ");
@@ -159,17 +172,15 @@ $(document).ready(() => {
           show: false,
         },
       },
+
       {
-        className: "kuruCol2", // source ColKitab
+        className: "ColKitab", // title
         targets: [1],
-        visible: false,
+        visible: true,
         searchable: true,
-        searchPanes: {
-          show: true,
-        },
       },
       {
-        className: "ColBaab", // title
+        className: "kuruCol3", // author
         targets: [2],
         visible: true,
         searchable: true,
@@ -178,10 +189,13 @@ $(document).ready(() => {
         },
       },
       {
-        className: "kuruCol3", // date ColKitab2
+        className: "kuruCol4", // date
         targets: [3],
         visible: true,
         searchable: true,
+        searchPanes: {
+          show: true,
+        },
       },
       {
         className: "kuruCol5", // writing
@@ -193,8 +207,26 @@ $(document).ready(() => {
         },
       },
       {
-        className: "kuruCol6", // link
+        className: "kuruCol6", // writing no arabic fili
         targets: [5],
+        visible: false,
+        searchable: true,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "kuruCol7", // source
+        targets: [6],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "kuruCol8", // link
+        targets: [7],
         visible: true,
         searchable: false,
         searchPanes: {
@@ -238,7 +270,11 @@ $(document).ready(() => {
     processing: true,
 
     // ordering of columns - by default, allows to click on column head to order
-    ordering: false,
+    ordering: true, //false,
+
+    // https://datatables.net/reference/option/order
+    // above needs to be true in order for this to work
+    order: [0, "desc"],
 
     // stateSave: true // Breaks table, use the one below
     // Restore table state on page reload. When enabled aDataTables will store
@@ -424,10 +460,11 @@ $(document).ready(() => {
           // \n prevents first header showing up unneeded (linux) this needs to go below windows rn
 
           data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
-          data = data.replace(/މަސްދަރު\t/g, "");
+          data = data.replace(/ލިޔުންތެރިޔާ\t/g, "");
           data = data.replace(/ތާރީޚު\t/g, "");
           data = data.replace(/ސުރުހީ\t/g, "");
           data = data.replace(/ލިޔުން\t/g, "");
+          data = data.replace(/މަސްދަރު\t/g, "");
           data = data.replace(/ލިންކު\t/g, "");
 
           data = data.replace(
