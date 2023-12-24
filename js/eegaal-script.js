@@ -80,56 +80,35 @@ $(document).ready(() => {
         data: 0,
         title: "އަރަބި ލަފްޒު",
       },
-      // { title: 'އަރަބި ފިލިނުޖަހައި' },
       {
-        /* instead of repeating this part of the array within the external json,
-         we can strip diacritics using regex within the table itself, this makes
-         the array file much smaller in the long run */
         data: 0,
         title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
-          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
-          return (
-            data
-              .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
-              // previously [َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|\{|\}|\(|\)|\[|\]|«|»|۝|⁽|⁾|\-|﴾|﴿|¹²³⁴⁵⁶⁷⁸⁹⁰]
-              .replace(/(\n)/g, "<br>")
-          );
-          // the latter preserves newlines for fililess column
-          //return data.replace(/[ًٌٍَُِّْ]/g, '')
+          return data
+            .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
+            .replace(/(\n)/g, "<br>");
         },
       },
-      /* {
-        data: 1,
-        title: 'އަރަބި މާނަ'
-      }, */
       {
         data: 1,
         title: "ދިވެހި ލަފްޒު",
       },
       {
-        /* instead of repeating this part of the array within the external json,
-         we can strip diacritics using regex within the table itself, this makes
-         the array file much smaller in the long run */
         data: 1,
         title: "އަރަބި ފިލިނުޖަހައި 2",
         render: function (data, type, row) {
-          return (
-            data
-              .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
-              // previously [َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|\{|\}|\(|\)|\[|\]|«|»|۝|⁽|⁾|\-|﴾|﴿|¹²³⁴⁵⁶⁷⁸⁹⁰]
-              .replace(/(\n)/g, "<br>")
-          );
-          // the latter preserves newlines for fililess column
-          //return data.replace(/[ًٌٍَُِّْ]/g, '')
+          return data
+            .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
+            .replace(/(\n)/g, "<br>");
         },
       },
 
       {
-        /* add sofhaa string to page no */ data: 2,
+        /* add sofhaa string to page no */
+        data: 2,
         title: "ސަފުހާ #",
         render: function (data, type, row) {
-          return "[ސ. " + data + "]"; // prev ސަފުހާ
+          return "[ސ. " + data + "]";
         },
       },
     ],

@@ -11,7 +11,7 @@ google-closure-compiler --charset=UTF-8 --js=eegaal-script.js --js_output_file=e
 google-closure-compiler --charset=UTF-8 --js=fortyAajurry-script.js --js_output_file=fortyAajurry-script.min.js
 google-closure-compiler --charset=UTF-8 --js=fortyNawawi-script.js --js_output_file=fortyNawawi-script.min.js
 google-closure-compiler --charset=UTF-8 --js=hisnulMuslim-script.js --js_output_file=hisnulMuslim-script.min.js
-google-closure-compiler --charset=UTF-8 --js=kuruLiyunthah-script.js --js_output_file=kuruLiyunthah-script.min.js
+google-closure-compiler --charset=UTF-8 --js=kunnaasha-script.js --js_output_file=kunnaasha-script.min.js
 google-closure-compiler --charset=UTF-8 --js=muwatta-script.js --js_output_file=muwatta-script.min.js
 google-closure-compiler --charset=UTF-8 --js=nawaqidulislam-script.js --js_output_file=nawaqidulislam-script.min.js
 google-closure-compiler --charset=UTF-8 --js=qawaidulArbau-script.js --js_output_file=qawaidulArbau-script.min.js
