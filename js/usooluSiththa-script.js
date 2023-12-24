@@ -109,11 +109,11 @@ $(document).ready(() => {
       },
       {
         data: 7,
-        title: "شرح آل الشيخ",
+        title: "شرح خالد المصلح",
       },
       {
         data: 8,
-        title: "شرح الأسمري",
+        title: "شرح العثيمين",
       },
     ],
 
@@ -471,8 +471,8 @@ $(document).ready(() => {
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/English\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
-          data = data.replace(/شرح آل الشيخ\t/g, "");
-          data = data.replace(/شرح الأسمري\t/g, "");
+          data = data.replace(/شرح خالد المصلح\t/g, "");
+          data = data.replace(/شرح العثيمين\t/g, "");
 
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
