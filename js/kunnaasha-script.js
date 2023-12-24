@@ -435,7 +435,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "ޙަދީޘްއެމްވީ – ޢުމްދަތުލް އަޙްކާމް", // CHANGE123 clipboard message
+        messageTop: "ޙަދީޘްއެމްވީ – ނޯޓުފޮތް", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
@@ -460,10 +460,11 @@ $(document).ready(() => {
           // \n prevents first header showing up unneeded (linux) this needs to go below windows rn
 
           data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
+          data = data.replace(/ސުރުހީ\t/g, "");
           data = data.replace(/ލިޔުންތެރިޔާ\t/g, "");
           data = data.replace(/ތާރީޚު\t/g, "");
-          data = data.replace(/ސުރުހީ\t/g, "");
           data = data.replace(/ލިޔުން\t/g, "");
+          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/މަސްދަރު\t/g, "");
           data = data.replace(/ލިންކު\t/g, "");
 
