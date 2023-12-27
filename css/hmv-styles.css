@@ -1339,16 +1339,25 @@ div.dtsp-panesContainer
   text-align: right !important;
 }
 
+/* colvis button container css
+This is the CSS which defines the default width. https://github.com/DataTables/Buttons/blob/366d91729863213694cd853ed8316cc723a3d021/css/buttons.dataTables.scss#L85
+current jq dt css code is:
 div.dt-button-collection {
+    width: 200px;
+*/
+
+div.dt-button-collection {
+  /* it seems this fits a bit way too much, but the alternative is using fixed values, which is not a better solution */
+
   /* fits searchpanes as well as buttom collection as much as content */
   width: fit-content !important;
-  width: fit-content !important;
-  /* otherwise doesnt center on firefox */
+  /*width: fit-content !important;*/
+  /* otherwise doesnt center on firefox? dont know what this does now */
 
-  /* centers */
-  margin: auto !important;
+  /* centers, but now this seems to move it all the way to the rightmost side, so commented out */
+  /*margin: auto !important;
   top: 0 !important;
-  left: 0 !important;
+  left: 0 !important;*/
 }
 
 input {
