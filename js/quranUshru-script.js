@@ -58,12 +58,12 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  const table = $("#ushrulAkheerTable").DataTable({
+  const table = $("#quranUshruTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: ushrulAkheer_DB, // https://datatables.net/manual/ajax
+    data: quranUshru_DB, // https://datatables.net/manual/ajax
 
     columns: [
       /* add # string to hadith no */
