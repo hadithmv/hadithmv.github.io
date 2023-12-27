@@ -281,16 +281,16 @@ $(document).ready(() => {
         render: function (data, type, row) {
           // makes juz numbers into MATHEMATICAL SANS-SERIF BOLD DIGIT
           data = data
-            .replace("1", "𝟭")
-            .replace("2", "𝟮")
-            .replace("3", "𝟯")
-            .replace("4", "𝟰")
-            .replace("5", "𝟱")
-            .replace("6", "𝟲")
-            .replace("7", "𝟳")
-            .replace("8", "𝟴")
-            .replace("9", "𝟵")
-            .replace("0", "𝟬");
+            .replaceAll("1", "𝟭")
+            .replaceAll("2", "𝟮")
+            .replaceAll("3", "𝟯")
+            .replaceAll("4", "𝟰")
+            .replaceAll("5", "𝟱")
+            .replaceAll("6", "𝟲")
+            .replaceAll("7", "𝟳")
+            .replaceAll("8", "𝟴")
+            .replaceAll("9", "𝟵")
+            .replaceAll("0", "𝟬");
           return data;
         },
       },
