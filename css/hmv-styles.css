@@ -722,7 +722,7 @@ table.dataTable tbody tr.selected > * {
   font-size: 20px;
   line-height: 1.6;
   /*text-align: left;*/
-  text-align: justify;
+  /*text-align: justify;*/
   /*word-break: normal;*/
 }
 
