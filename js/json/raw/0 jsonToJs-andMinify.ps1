@@ -98,9 +98,9 @@ Set-Content ../umdah.js -Value 'const umdah_DB='
 Get-Content umdah.json | Add-Content ../umdah.js
 uglifyjs ../umdah.js -c -m -o ../umdah.js
 
-Set-Content ../ushrulAkheer.js -Value 'const ushrulAkheer_DB='
-Get-Content ushrulAkheer.json | Add-Content ../ushrulAkheer.js
-uglifyjs ../ushrulAkheer.js -c -m -o ../ushrulAkheer.js
+Set-Content ../quranUshru.js -Value 'const quranUshru_DB='
+Get-Content quranUshru.json | Add-Content ../quranUshru.js
+uglifyjs ../quranUshru.js -c -m -o ../quranUshru.js
 
 Set-Content ../usooluSiththa.js -Value 'const usooluSiththa_DB='
 Get-Content usooluSiththa.json | Add-Content ../usooluSiththa.js
