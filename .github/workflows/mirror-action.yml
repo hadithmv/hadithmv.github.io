@@ -1,0 +1,11 @@
+on: [push]
+  ...
+      steps:
+        - uses: actions/checkout@v3
+          with:
+            fetch-depth: 0
+        - uses: yesolutions/mirror-action@master
+          with:
+            REMOTE: 'https://gitlab.com/hadithmv/hadithmv.github.io.git'
+            GIT_USERNAME: hadithmv
+            GIT_PASSWORD:
