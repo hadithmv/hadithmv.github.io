@@ -1,0 +1,28 @@
+name: "Gitlab Sync"
+author: "action-pack"
+description: "Action to mirror a repository to GitLab."
+
+branding:
+  icon: "copy"
+  color: "gray-dark"
+
+inputs:
+  url:
+    description: "GitLab repo URL"
+    required: true
+  username:
+    description: "GitLab username"
+    required: true
+  token:
+    description: "GitLab token"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/entrypoint.sh
+      shell: bash
+      env:
+        INPUT_TARGET_URL: ${{ inputs.url }}
+        INPUT_TARGET_TOKEN: ${{ inputs.token }}
+        INPUT_TARGET_USERNAME: ${{ inputs.username }}
+        GITHUB_EVENT_REF: ${{ github.event.ref }}
