@@ -1,14 +1,5 @@
 name: Mirror example
-on:
-  push:
-    branches: "main"
-    paths: .github/workflows/mirror-example.yml
-  schedule:
-    - cron: "36 */6 * * *"
-  workflow_dispatch:
-concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: true
+on: [push]
 jobs:
   mirror:
     runs-on: ubuntu-latest
