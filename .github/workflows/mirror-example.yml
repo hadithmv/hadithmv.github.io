@@ -1,0 +1,19 @@
+name: Mirror example
+on:
+  push:
+    branches: "main"
+    paths: .github/workflows/mirror-example.yml
+  schedule:
+    - cron: "36 */6 * * *"
+  workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - run: git clone --mirror https://github.com/hadithmv/hadithmv.github.io .
+      - run: git push --mirror "https://gitlab.com/hadithmv/hadithmv.github.io.git"
+        env:
+          TOKEN: ${{ secrets.MIRROR_TRY_ME_TOKEN }}
