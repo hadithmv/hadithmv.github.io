@@ -1,3 +1,4 @@
+# https://docs.github.com/en/actions/quickstart
 # https://github.com/SvanBoxel/gitlab-mirror-and-ci-action
 name: Mirror and run GitLab CI
 
@@ -25,7 +26,7 @@ jobs:
         GITLAB_PROJECT_ID: "https://gitlab.com/hadithmv/hadithmv.github.io/edit"
         # https://gitlab.com/<namespace>/<repository>/edit
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # dont need to change anything here it seems
+        # dont need to change anything here it seems, token taken care of by github itself
         # https://docs.github.com/en/actions/reference/authentication-in-a-workflow#about-the-github_token-secret
 
         #
