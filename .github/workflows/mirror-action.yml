@@ -1,4 +1,5 @@
 # This is a basic workflow to help you get started with Actions
+# i've chosen to use mirror-action ci over gitlab-mirror-and-ci-action, because this ssh key does not expire, while the person token used in the other one does
 # https://github.com/yesolutions/mirror-action
 
 name: mirror-action
@@ -32,3 +33,10 @@ jobs:
         # secrets.GIT_SSH_KEY
         GIT_SSH_NO_VERIFY_HOST: "true"
         DEBUG: "true"
+
+        # some setup instructions from a different action that im not using:
+        # https://github.com/pixta-dev/repository-mirroring-action
+        
+        # How to generate an SSH key pair. Recommended encryption would be at least 2048-bit RSA.
+        # Add the public key to your gitlab account
+        # Add the private key as a secret to your workflow. More information on creating and using secrets.

@@ -1,4 +1,6 @@
 # changed format of this .yml file to .txt, to disable it
+# not gonna use this, cuz
+# i've chosen to use mirror-action ci over gitlab-mirror-and-ci-action, because this ssh key does not expire, while the person token used in the other one does
 
 # https://docs.github.com/en/actions/quickstart
 # https://github.com/SvanBoxel/gitlab-mirror-and-ci-action
