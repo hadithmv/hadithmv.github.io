@@ -1,10 +1,18 @@
-name: Mirror example
-on: [push]
+name: Gitlab Sync
+
+on: [push, pull_request, create, delete]
+
 jobs:
-  mirror:
+  sync:
+    name: Gitlab Sync
     runs-on: ubuntu-latest
     steps:
-      - run: git clone --mirror https://github.com/hadithmv/hadithmv.github.io .
-      - run: git push --mirror "https://gitlab.com/hadithmv/hadithmv.github.io.git"
-        env:
-          TOKEN: ${{ secrets.MIRROR_TRY_ME_TOKEN }}
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: action-pack/gitlab-sync@v3
+        with:
+          username: ${{ github.actor }}
+          url: https://gitlab.com/${{ github.repository }}.git
+          # Personal access token from gitlab.com 
+          token: ${{ secrets.MIRROR_TRY_ME_TOKEN }}
