@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Page Not Found</title>
+    <title>Page Not Found / Mirror Backups</title>
     <!-- REMEMBER that 404 page and mirror page are shared -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
@@ -57,126 +57,231 @@
   </head>
 
   <body>
-    <br />
-
-    <a href="https://hadithmv.github.io" class="noLine"
+    <a href="../../books/index.html" class="noLine"
       ><img
         width="200px"
         height="200px"
         class="hmv"
         alt="hadith mv"
-        src="https://hadithmv.github.io/img/logo/logo.svg"
+        src="../../img/logo/logo.svg"
+        onerror="this.onerror=null; this.src='https://hadithmv.github.io/img/logo/logo.svg'"
     /></a>
+    <!-- https://blog.sentry.io/fallbacks-for-http-404-images-in-html-and-javascript/ 
+    event.onerror = null. The relevance of that line is, if for any reasons the newly assigned image link is broken or the image not fetched, the onerror event will be triggered again. And if the image doesn't load again, another trigger. And there you have an infinite loooooooop.-->
     <br /><br />
-    <h1>404 Page Not Found</h1>
-
-    <br />
-    <br />
-
-    <p>Sorry, but the page you were trying to view does not exist.</p>
-
-    <br />
-
-    <p>
-      You might have typed the URL address incorrectly, or it maybe that the
-      page you were looking for has moved.
-    </p>
-
-    <br />
-
-    <h3>
-      <a href="https://hadithmv.github.io">Click here</a> to return to the Main
-      Site.
-    </h3>
+    <h1>
+      <a href="../../books/index.html" style="text-decoration: none"
+        >Hadithmv</a
+      >
+      - Mirror Backups
+    </h1>
 
     <br />
     <br />
 
     <p style="">
-      In case the Main Site is down, try one of these website mirror links:
+      In case the
+      <a
+        href="https://hadithmv.github.io"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Main Site</a
+      >
+      is down, try one of these website mirror links:
     </p>
 
     <br />
 
     <p>
-      <a href="https://hadithmv.gitlab.io">Mirror 1</a> |
-      <a href="https://hadithmv.onrender.com">Mirror 2</a> |
-      <a href="https://hadithmv.pages.dev">Mirror 3</a>
-    </p>
-
-    <br />
-    <!--<a
+      <a
+        href="https://hadithmv.onrender.com"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Mirror 1</a
+      >
+      |
+      <!-- Cloudflare Pages -->
+      <a
+        href="https://hadithmv.pages.dev"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Mirror 2</a
+      >
+      |
+      <!-- Rawgit - dead -->
+      <!--<a
       href="https://ghcdn.rawgit.org/hadithmv/hadithmv.github.io/master/books/index.html"
       >Mirror 4</a
     >-->
-    <a
-      href="https://raw.githack.com/hadithmv/hadithmv.github.io/master/books/index.html"
-      >Mirror 4</a
-    >
-    |
-    <!--<a
+      <a
+        href="https://raw.githack.com/hadithmv/hadithmv.github.io/master/books/index.html"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Mirror 3</a
+      >
+      |
+      <!-- Combinatronics - dead -->
+      <!--<a
       href="https://combinatronics.com/hadithmv/hadithmv.github.io/master/books/index.html"
       >Mirror 5</a
     > | -->
-    <a href="https://hadithmv.netlify.app">Mirror 5</a>
+
+      <!-- Netlify - disabled automatic deployment, otherwise it automatically switches to paid tier when free is used up, and the only way oyt of that is to make another account?  -->
+      <a
+        href="https://hadithmv.netlify.app"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Mirror 4</a
+      >
+      |
+      <!-- Gitlab, this doesnt automatically update? i think they made it a paid feature -->
+      <a
+        href="https://hadithmv.gitlab.io"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Mirror 5</a
+      >
+    </p>
 
     <br />
     <br />
-    <br />
 
-    <p style="padding-bottom: 15px">
+    <p>
       Windows and Android Application
-      <a href="https://github.com/hadithmv/hadithmv.github.io/releases"
+      <a
+        href="https://github.com/hadithmv/hadithmv.github.io/releases"
+        rel="noopener noreferrer"
+        target="_blank"
         >Files</a
       >
       <br />
+      <br />
       (Hadithmv_Win64.exe and app-release.apk)
+
+      <br />
+      <br />
+
+      <!-- this only syncs release files, if i want to sync the code files, i will have to import them every time
+          https://sourceforge.net/p/import_project/github -->
+      <a
+        href="https://sourceforge.net/projects/hadithmv-github-io/files"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Mirror</a
+      >
+      |
+      <a
+        href="https://next.forgejo.org/hadithmv/hadithmv.github.io/tags"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Mirror 2</a
+      >
+      |
+      <a
+        href="https://archive.softwareheritage.org/browse/origin/directory/?origin_url=https://github.com/hadithmv/hadithmv.github.io"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Mirror 3</a
+      >
+      (click "Branches")
     </p>
 
     <br />
+    <br />
 
-    <p style="padding-bottom: 15px">
+    <p>
       Main Code
-      <a href="https://github.com/hadithmv/hadithmv.github.io">Repository</a>
-      | Mirror
-      <a href="https://gitlab.com/hadithmv/hadithmv.gitlab.io">Link</a>
-      <!--
-      <a href="https://try.gitea.io/hadithmv/hadithmv.github.io">Link 2</a>-->
+      <a
+        href="https://github.com/hadithmv/hadithmv.github.io"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Repository</a
+      >
+      <br /><br />
+
+      <!-- not uptodate? but it shows: Set up your repository to automatically synchronize commits, tags and branches with another repository. How do I mirror repositories?
+        To set up a pull mirror, please consult: the "Pulling from a remote repository" section of the documentation. -->
+      <a
+        href="https://next.forgejo.org/hadithmv/hadithmv.github.io"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Mirror</a
+      >
+      |
+      <a
+        href="https://archive.softwareheritage.org/browse/origin/directory/?origin_url=https://github.com/hadithmv/hadithmv.github.io"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Mirror 2</a
+      >
+      |
+      <!-- using this as a workaround, but i need to recreate a token yearly:
+        https://github.com/SvanBoxel/gitlab-mirror-and-ci-action
+        Pull mirroring turned into a paid feature, need to find some other task automation in it to get this working 
+      other possible way would be to apply for open source license plan -->
+      <a
+        href="https://gitlab.com/hadithmv/hadithmv.gitlab.io"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Mirror 3</a
+      >
     </p>
+    <!-- not uptodate? it shows: Repository mirrorings Time limit Repository mirroring supports automatic synchronization of Git data between Gitee and other platforms, including git commits, branches, and tags. Currently only supports GitHub.com. Before use, you need to bind your mobile phone number (Click here to bind) and authorize your GitHub account. Git LFS is not supported for now; The maximum timeout time for a single synchronization is 30 minutes. Large repository synchronizing is not recommended. Click here to learn more. At present, this feature is open for a limited time until December 31, 2023. We will update our product strategy before the end of the limited-time open period. -->
+    <!--<a
+        href="https://gitee.com/hadithmv/hadithmv.github.io"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Mirror 3</a
+      >
+      |-->
+    <!-- i think this used to be commented out because it wouldnt update or something
+      previously used a different url with try https://try.gitea.io/hadithmv/hadithmv.github.io -->
+    <!--<a
+        href="https://gitea.com/hadithmv/hadithmv.github.io"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Mirror 4</a
+      >
+      |-->
+    <!--<a
+        href="https://gitflic.ru/project/hadithmv/hadithmv"
+        rel="noopener noreferrer"
+        target="_blank"
+        >Mirror 5</a
+      >|-->
+
+    <!-- cant seem to figure out bitbucket, vercel or cyclic  -->
 
     <br />
 
     <p style="padding-bottom: 15px">
       To contact us,
-      <a href="https://hadithmv.github.io/notes/info/contact.html">click here</a
+      <a
+        href="https://hadithmv.github.io/notes/info/contact.html"
+        rel="noopener noreferrer"
+        target="_blank"
+        >click here</a
       >.
     </p>
 
     <br />
     <br />
 
-    <!-- https://minimalanalytics.com/ -->
+    <!-- google cloud services, npm, unpkg-->
 
-    <!-- decided not to use boilerplate analytics setup as it has two requests
-    added async then changed to defer on my own https://developers.google.com/analytics/devguides/collection/analyticsjs
-    https://daan.dev/wordpress/difference-analyics-gtag-ga-js/ supports analytics js over gtag
-    -->
-    <!-- Global site tag (gtag.js) - Google Analytics - inlined part placed in ext script -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
-      defer
+      async
       src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
     ></script>
-
     <script>
-      /*
-window.dataLayer = window.dataLayer || [];
+      window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
 
       gtag("config", "G-HL24Q9NN24");
-*/
     </script>
     <!-- End Google Analytics -->
   </body>
