@@ -139,7 +139,11 @@ not the other way around -->
       bundle install
       bundle exec jekyll serve --watch --port $PORT
 
-      sometimes the domains under deployment show one main link, sometimes they show an addition two branching links?
+      sometimes the domains under deployment show one main link, sometimes they show an addition two branching links? 
+
+      ..
+
+      i think i found the problem, it is the "package.json" file at the root dir that was interfering, i had added that to try making a mirror out of cyclic, which did not succeed
     -->
       <a
         href="https://hadithmv-github-io.vercel.app/"
