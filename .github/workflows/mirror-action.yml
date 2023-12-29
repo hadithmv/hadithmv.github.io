@@ -34,6 +34,11 @@ jobs:
         GIT_SSH_NO_VERIFY_HOST: "true"
         DEBUG: "true"
 
+        # can get this error if you change something on the mirror end itself:
+          # remote: GitLab: You are not allowed to force push code to a protected branch on this project.
+          # solution:
+          # turn off branch protection in gitlab settings
+
         # some setup instructions from a different action that im not using:
         # https://github.com/pixta-dev/repository-mirroring-action
         
