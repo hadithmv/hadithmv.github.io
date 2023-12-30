@@ -5,6 +5,9 @@ html {
   direction: rtl;
   font-size: 120%; /* for tharujamaanu */
   text-wrap: balance;
+
+  /* from scroll to top */
+  scroll-behavior: smooth;
 }
 
 /*
@@ -1330,3 +1333,47 @@ h3 {
           .resp-sharing-button img {
             filter: invert(100%);
           }*/
+
+/* ====================
+         SCROLL TO TOP BUTTON --https://github.com/engrasel/Scroll-To-Top-Button
+ ======================= */
+
+.toTop {
+  text-decoration: none;
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s;
+
+  /* from * */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: 0;
+
+  /* added */
+  border: 2px solid;
+  /*border-color: initial;*/
+  /* color of darkmode background color for arrow and outline */
+  color: #0e1621;
+}
+.active_toTop {
+  opacity: 1;
+  pointer-events: auto;
+  bottom: 15px;
+
+  /* from * */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: 0;
+}
