@@ -333,6 +333,20 @@
 
     <!-- END OF WRAPPER -->
 
+    <!-- https://github.com/engrasel/Scroll-To-Top-Button -->
+    <a href="#" class="toTop noLine"> ⮝ </a>
+    <script>
+      let toTop = document.querySelector(".toTop");
+      window.addEventListener("scroll", function () {
+        if (window.pageYOffset > 100) {
+          toTop.classList.add("active_toTop");
+        } else {
+          toTop.classList.remove("active_toTop");
+        }
+      });
+    </script>
+    <!-- end scroll to top -->
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async

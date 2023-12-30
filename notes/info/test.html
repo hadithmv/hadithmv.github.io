@@ -37,7 +37,7 @@
   </head>
 
   <body class="notranslate">
-    <div class="wrapper">
+    <div class="wrapper eng">
       <div class="mid">
         <h1 class="basmala">بِسمِ اللهِ الرَّحمَنِ الرَّحِيمِ</h1>
         <a href="../../books/index.html" class="noLine"
@@ -51,26 +51,14 @@
       </div>
       <br />
 
-      <style>
-        /* dv */
-        p.inde {
-          font-size: 110%;
-          line-height: 220%;
-        }
-        p.en.inde {
-          /*font-size: 110%;*/
-          line-height: 170%;
-        }
-      </style>
-
-      <h3 class="mid" style="font-weight: normal; font-size: 125%">
+      <h3 class="mid" style="font-weight: normal">
         If you find a mistake, or have a suggestion
         <a style="cursor: pointer" onclick="openModal()">click here </a> to
         contact us.
       </h3>
       <br />
 
-      <h3 class="mid" style="font-weight: normal">
+      <h3 class="mid dv" style="font-weight: normal; font-size: 120%">
         ކުށެއް ރަނގަޅުކުރުމަށް، ނުވަތަ ހިޔާލެއް ހުށަހެޅުމަށް،
         <a style="cursor: pointer" onclick="openModal()"
           >މިތަނަށް ފިތާލައްވައިގެން</a
@@ -85,44 +73,50 @@
 
       <h3>Note:</h3>
 
-      <p style="font-size: 110%">
+      <p>
         • Sisters should only use the one-way anonymous form. Some of the Salaf
         said: “Don’t ever be alone with a woman, even if it is for teaching her
         the Quran.” - [Tuhfatul Mujeeb P.252, Muqbil bin Haadi]
       </p>
 
-      <p style="font-size: 110%">
-        • Before sending us mistakes found in other apps not directly developed
-        by Hadithmv, first check whether those errors are present on our online
+      <p>
+        • Before sending us mistakes, first of all, if these errors are in other
+        apps that are not Hadithmv, then check whether they are still present on
+        our online
         <a href="https://hadithmv.github.io/books/index.html">website</a>. If it
         looks okay here, then there’s nothing for us to fix. It is the
         responsibility of third party app developers to update their data from
         Hadithmv.
       </p>
 
-      <p style="font-size: 110%">
+      <p>
+        • And secondly, check whether the page you found the error in has a note
+        or disclaimer regarding why it might have them, such as currently being
+        in draft status that will be completed later on, etc.
+      </p>
+
+      <p>
         • Note that when you send typos, don’t just send screenshots, rather
         also copy the plain text as is and send that. This makes it easier for
         us to find those errors and fix them sooner.
       </p>
 
-      <p style="font-size: 110%">
+      <p>
         • In case your question/suggestion has already been addressed,
         <a href="FAQ.html">click here </a> to read the FAQ first.
       </p>
 
-      <p style="font-size: 110%">
+      <p>
         • If you would like to help translate Arabic texts, click
         <a href="https://hadithmv.github.io/notes/info/helpTranslate.html"
           >here</a
         >.
       </p>
 
-      <p style="font-size: 110%">• There is a chance that emails go to spam.</p>
+      <p>• There is a chance that emails go to spam.</p>
 
-      <p style="font-size: 110%">
-        • This page is not for asking Fatwas and completing
-        homework/assignments.
+      <p>
+        • This page is not for asking Fatwas or completing homework/assignments.
       </p>
 
       <style>
@@ -223,8 +217,8 @@
         /* added */
         @media (prefers-color-scheme: light) {
           .modal-content {
-            /* background-color: #fefefe; */
-            background-color: #eee;
+            /* background-color: #fefefe; #eee; */
+            background-color: #fff;
           }
 
           /* hr {
@@ -244,6 +238,7 @@
 
         /* lessens line height since i added social buttons */
         #myModal > div > div > h3 {
+          line-height: 1;
           /*line-height: 0.5 !important;*/
           margin: 0;
           font-weight: 500;
@@ -306,7 +301,7 @@
         }
 
         #myModal > div > div > h2 {
-          font-size: 20px;
+          font-size: 22px;
         }
       </style>
 
@@ -539,6 +534,20 @@
     </div>
     <!-- <div class="wrapper"> -->
 
+    <!-- https://github.com/engrasel/Scroll-To-Top-Button -->
+    <a href="#" class="toTop noLine"> ⮝ </a>
+    <script>
+      let toTop = document.querySelector(".toTop");
+      window.addEventListener("scroll", function () {
+        if (window.pageYOffset > 100) {
+          toTop.classList.add("active_toTop");
+        } else {
+          toTop.classList.remove("active_toTop");
+        }
+      });
+    </script>
+    <!-- end scroll to top -->
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async
@@ -555,4 +564,6 @@
     </script>
     <!-- End Google Analytics -->
   </body>
+  <!-- css file link -->
+  <style></style>
 </html>
