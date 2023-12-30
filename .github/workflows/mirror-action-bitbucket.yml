@@ -2,7 +2,7 @@
 # i've chosen to use mirror-action ci over gitlab-mirror-and-ci-action, because this ssh key does not expire, while the person token used in the other one does
 # https://github.com/yesolutions/mirror-action
 
-name: mirror-action
+name: mirror-action-bitbucket
 # CI
 
 # Controls when the action will run. Triggers the workflow on push or pull request
