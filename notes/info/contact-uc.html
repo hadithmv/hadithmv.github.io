@@ -295,14 +295,14 @@
 
       <style>
         /* for dhivehi fonts in modal */
-        #myModal > div > div > h2,
+        /*#myModal > div > div > h2,
         #myModal > div > div > h3 > a > div > span {
           font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
         }
 
         #myModal > div > div > h2 {
           font-size: 22px;
-        }
+        }*/
       </style>
 
       <!-- The Modal -->
@@ -311,7 +311,8 @@
         <div class="modal-content">
           <span class="close">&times;</span>
           <div class="mid">
-            <h2>ގުޅުއްވަން ބޭނުންވަނީ ކޮން ގޮތަކަށްތޯ؟</h2>
+            <h2>How would you like to contact us?</h2>
+            <!-- ގުޅުއްވަން ބޭނުންވަނީ ކޮން ގޮތަކަށްތޯ؟ -->
             <hr />
             <br />
 
@@ -337,7 +338,8 @@
   </svg>-->
                     <div class="encodedformBtn"></div>
                   </div>
-                  <span class="contactTexts">އެނޮނިމަސް ފޯމް</span>
+                  <span class="contactTexts">Anonymous Form</span>
+                  <!-- އެނޮނިމަސް ފޯމް -->
                 </div>
               </a>
               <!---->
@@ -366,7 +368,8 @@
   </svg>-->
                     <div class="encodedmesBtn"></div>
                   </div>
-                  <span class="contactTexts">މެސެންޖަރ</span>
+                  <span class="contactTexts">Messenger</span>
+                  <!-- މެސެންޖަރ -->
                 </div>
               </a>
               <!---->
@@ -394,7 +397,8 @@
   </svg>-->
                     <div class="encodedwaBtn"></div>
                   </div>
-                  <span class="contactTexts">ވަޓްސްއެޕް</span>
+                  <span class="contactTexts">Whatsapp</span>
+                  <!-- ވަޓްސްއެޕް -->
                 </div>
               </a>
               <!---->
@@ -422,7 +426,8 @@
         </svg>-->
                     <div class="encodedtgBtn"></div>
                   </div>
-                  <span class="contactTexts">ޓެލެގްރާމް</span>
+                  <span class="contactTexts">Telegram</span>
+                  <!-- ޓެލެގްރާމް -->
                 </div>
               </a>
               <!---->
@@ -473,7 +478,8 @@
                     </svg>-->
                     <div class="encodedemBtn"></div>
                   </div>
-                  <span class="contactTexts">އީމެއިލް</span>
+                  <span class="contactTexts">Email</span>
+                  <!-- އީމެއިލް -->
                 </div>
               </a>
               <!---->
@@ -533,6 +539,20 @@
       <br />
     </div>
     <!-- <div class="wrapper"> -->
+
+    <!-- https://github.com/engrasel/Scroll-To-Top-Button -->
+    <a href="#" class="toTop noLine"> ⮝ </a>
+    <script>
+      let toTop = document.querySelector(".toTop");
+      window.addEventListener("scroll", function () {
+        if (window.pageYOffset > 100) {
+          toTop.classList.add("active_toTop");
+        } else {
+          toTop.classList.remove("active_toTop");
+        }
+      });
+    </script>
+    <!-- end scroll to top -->
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
