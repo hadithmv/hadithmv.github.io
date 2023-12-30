@@ -1365,7 +1365,23 @@ h3 {
   /*border-color: initial;*/
   /* color of darkmode background color for arrow and outline */
   color: #0e1621;
+
+  /* centering it properly */
+
+  /* bottom since rotated */
+  padding-left: 2px !important;
+  /* right since rotated */
+  padding-top: 2px !important;
+
+  /* rotate */
+
+  transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  /*  for IE  */
+  /* 	for browsers supporting webkit (such as chrome, firefox, safari etc.). */
+  -webkit-transform: rotate(270deg);
 }
+
 .active_toTop {
   opacity: 1;
   pointer-events: auto;
