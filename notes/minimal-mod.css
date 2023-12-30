@@ -1369,9 +1369,9 @@ h3 {
   /* centering it properly */
 
   /* bottom since rotated */
-  padding-left: 2px !important;
+  padding-left: 1.5px !important;
   /* right since rotated */
-  padding-top: 2px !important;
+  padding-top: 1.5px !important;
 
   /* rotate */
 
