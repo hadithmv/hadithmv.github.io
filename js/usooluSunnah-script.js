@@ -175,7 +175,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "uSunnahCol5", // en
+        className: "ColEng", // en
         targets: [5],
         visible: false,
         searchable: true,
