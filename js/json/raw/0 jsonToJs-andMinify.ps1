@@ -86,6 +86,10 @@ Set-Content ../radheef.js -Value 'const radheef_DB='
 Get-Content radheef.json | Add-Content ../radheef.js
 uglifyjs ../radheef.js -c -m -o ../radheef.js
 
+Set-Content ../radheefManiku.js -Value 'const radheefManiku_DB='
+Get-Content radheefManiku.json | Add-Content ../radheefManiku.js
+uglifyjs ../radheefManiku.js -c -m -o ../radheefManiku.js
+
 Set-Content ../riyadusaliheen.js -Value 'const riyadusaliheen_DB='
 Get-Content riyadusaliheen.json | Add-Content ../riyadusaliheen.js
 uglifyjs ../riyadusaliheen.js -c -m -o ../riyadusaliheen.js
