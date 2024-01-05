@@ -28,6 +28,7 @@ Copy-Item ../books/quranJaufar.html -Destination ../app/webview-master/app/src/m
 Copy-Item ../books/quranRasmee.html -Destination ../app/webview-master/app/src/main/assets/books/quranRasmee.html -Recurse -Force
 Copy-Item ../books/quranSoabuni.html -Destination ../app/webview-master/app/src/main/assets/books/quranSoabuni.html -Recurse -Force
 Copy-Item ../books/radheef.html -Destination ../app/webview-master/app/src/main/assets/books/radheef.html -Recurse -Force
+Copy-Item ../books/radheefManiku.html -Destination ../app/webview-master/app/src/main/assets/books/radheefManiku.html -Recurse -Force
 Copy-Item ../books/umdah.html -Destination ../app/webview-master/app/src/main/assets/books/umdah.html -Recurse -Force
 Copy-Item ../books/quranUshru.html -Destination ../app/webview-master/app/src/main/assets/books/quranUshru.html -Recurse -Force
 Copy-Item ../books/usooluSiththa.html -Destination ../app/webview-master/app/src/main/assets/books/usooluSiththa.html -Recurse -Force
@@ -121,6 +122,7 @@ Copy-Item ../js/quranJaufar-script.min.js -Destination ../app/webview-master/app
 Copy-Item ../js/quranRasmee-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/quranRasmee-script.min.js -Recurse -Force
 Copy-Item ../js/quranSoabuni-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/quranSoabuni-script.min.js -Recurse -Force
 Copy-Item ../js/radheef-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/radheef-script.min.js -Recurse -Force
+Copy-Item ../js/radheefCol-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/radheefCol-script.min.js -Recurse -Force
 Copy-Item ../js/aqidatuRaziyain-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/aqidatuRaziyain-script.min.js -Recurse -Force
 Copy-Item ../js/umdah-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/umdah-script.min.js -Recurse -Force
 Copy-Item ../js/quranUshru-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/quranUshru-script.min.js -Recurse -Force
@@ -157,6 +159,7 @@ Copy-Item ../js/json/quranRasmee.js -Destination ../app/webview-master/app/src/m
 Copy-Item ../js/json/quranRasmee.js -Destination ../app/webview-master/app/src/main/assets/js/json/quranRasmee.js -Recurse -Force
 Copy-Item ../js/json/quranSoabuni.js -Destination ../app/webview-master/app/src/main/assets/js/json/quranSoabuni.js -Recurse -Force
 Copy-Item ../js/json/radheef.js -Destination ../app/webview-master/app/src/main/assets/js/json/radheef.js -Recurse -Force
+Copy-Item ../js/json/radheefCol.js -Destination ../app/webview-master/app/src/main/assets/js/json/radheefCol.js -Recurse -Force
 Copy-Item ../js/json/aqidatuRaziyain.js -Destination ../app/webview-master/app/src/main/assets/js/json/aqidatuRaziyain.js -Recurse -Force
 Copy-Item ../js/json/surah-juz-basmalah-ayah.js -Destination ../app/webview-master/app/src/main/assets/js/json/surah-juz-basmalah-ayah.js -Recurse -Force
 Copy-Item ../js/json/umdah.js -Destination ../app/webview-master/app/src/main/assets/js/json/umdah.js -Recurse -Force
