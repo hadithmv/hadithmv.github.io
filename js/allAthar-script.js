@@ -118,11 +118,11 @@ $(document).ready(() => {
   }
 
   // const result = appendRowsWithEmptyValues(radheef_DB, eegaal_DB);
-  allResult = appendRowsWithEmptyValues(allAthar_DB, resultNawawi);
-  allResult = appendRowsWithEmptyValues(allResult, resultUmdah);
-  allResult = appendRowsWithEmptyValues(allResult, resultBulugh);
-  allResult = appendRowsWithEmptyValues(allResult, resultMuwatta);
-  allResult = appendRowsWithEmptyValues(allResult, resultHisnul);
+  combResult = appendRowsWithEmptyValues(allAthar_DB, resultNawawi);
+  combResult = appendRowsWithEmptyValues(combResult, resultUmdah);
+  combResult = appendRowsWithEmptyValues(combResult, resultBulugh);
+  combResult = appendRowsWithEmptyValues(combResult, resultMuwatta);
+  combResult = appendRowsWithEmptyValues(combResult, resultHisnul);
   //console.log(result);
   // end merge
 
@@ -131,7 +131,7 @@ $(document).ready(() => {
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: allResult, // https://datatables.net/manual/ajax
+    data: combResult, // https://datatables.net/manual/ajax
 
     columns: [
       {

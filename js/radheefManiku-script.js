@@ -361,13 +361,11 @@ $(document).ready(() => {
           // \r\n prevents first header showing up unneeded (windows)
           // \n prevents first header showing up unneeded (linux) this needs come after windows rn
 
-          data = data.replace(/އަރަބި ލަފްޒު\t/g, ""); // should be this way instead of /\tފޮތް/
-          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
-          /* data = data.replace(/އަރަބި މާނަ\t/g, '') */
+          data = data.replace(/ދިވެހި ލަފްޒު\t/g, ""); // should be this way instead of /\tފޮތް/
+          data = data.replace(/އިނގިރޭސިން ތާނަ\t/g, "");
           data = data.replace(/ދިވެހި ލަފްޒު\t/g, "");
-          data = data.replace(/އަރަބި ފިލިނުޖަހައި 2\t/g, "");
-          /* data = data.replace(/ދިވެހި މާނަ\t/g, '') */
-          data = data.replace(/ސަފުހާ #\t/g, "");
+          data = data.replace(/އިނގިރޭސިން ބާވަތް\t/g, "");
+          data = data.replace(/އިނގިރޭސި މާނަ\t/g, "");
 
           data = data.replace(/\t\t/g, "\t");
           // This prevents a double or more line breaks when columns are hidden
