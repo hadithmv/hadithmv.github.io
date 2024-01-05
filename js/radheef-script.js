@@ -58,7 +58,45 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  // PART 1
+  // PART 1 remove cols from maniku
+  // cgpt code, this part removes the specified columns entirely
+  // In this modified code, you can specify the columnsToRemove array at the end of the code, allowing you to easily change which columns you want to remove without modifying the function itself. This provides more flexibility when working with different 2D arrays and column selections.
+
+  function removeColumns(arr, columnIndices) {
+    return arr.map((row) => {
+      return row.filter((_, index) => !columnIndices.includes(index));
+    });
+  }
+
+  //const result = removeColumns(twoDArray, columnsToRemove); // [1, 3];
+  resultradheefManiku = removeColumns(radheefManiku_DB, [0, 2]);
+
+  // PART 2 move second column to the sixth column
+  // Step 1: Add an empty column before the first column
+  // jsonArray.forEach
+  resultradheefManiku.forEach(function (row) {
+    row.unshift("");
+  });
+
+  // Step 2: Add 3 more columns after the third column
+  resultradheefManiku.forEach(function (row) {
+    for (var i = 0; i < 3; i++) {
+      row.push("");
+    }
+  });
+
+  // Step 3: Switch the places of the third and last columns
+  resultradheefManiku.forEach(function (row) {
+    var thirdColumnValue = row[2];
+    var lastColumnValue = row[row.length - 1];
+
+    row[2] = lastColumnValue;
+    row[row.length - 1] = thirdColumnValue;
+  });
+
+  // ...
+
+  // PART 1 EEGAL
   // cgpt code, this takes a split 2 2d nested arrays and joins them together rowwise, then generates empty values where needed, then flattens them, so now the db can be broken down and reused
 
   // remove rows from begining
@@ -139,7 +177,8 @@ $(document).ready(() => {
   }
 
   // const result = appendRowsWithEmptyValues(radheef_DB, eegaal_DB);
-  const result = appendRowsWithEmptyValues(radheef_DB, resultEegaal);
+  combResult = appendRowsWithEmptyValues(radheef_DB, resultEegaal);
+  combResult = appendRowsWithEmptyValues(combResult, resultradheefManiku);
   //console.log(result);
   // end merge
 
@@ -148,7 +187,7 @@ $(document).ready(() => {
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: result, // https://datatables.net/manual/ajax
+    data: combResult, // https://datatables.net/manual/ajax
 
     //order: [[0, 'asc']], // CHANGE 123 - FOR RADHEEF ONLY
 
