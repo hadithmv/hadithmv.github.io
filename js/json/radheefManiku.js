@@ -1,5 +1,4 @@
 const radheefManiku_DB = [
-  ["EN TRANSLITERATION", "DV", "EN TYPE", "EN MEANING"],
   [
     "A",
     "އަ",
