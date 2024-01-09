@@ -7,7 +7,6 @@ google-closure-compiler --charset=UTF-8 --js=aqidahNawawi-script.js --js_output_
 google-closure-compiler --charset=UTF-8 --js=aqidatuRaziyain-script.js --js_output_file=aqidatuRaziyain-script.min.js
 google-closure-compiler --charset=UTF-8 --js=barbahari-script.js --js_output_file=barbahari-script.min.js
 google-closure-compiler --charset=UTF-8 --js=bulugh-script.js --js_output_file=bulugh-script.min.js
-google-closure-compiler --charset=UTF-8 --js=eegaal-script.js --js_output_file=eegaal-script.min.js
 google-closure-compiler --charset=UTF-8 --js=fortyAajurry-script.js --js_output_file=fortyAajurry-script.min.js
 google-closure-compiler --charset=UTF-8 --js=fortyNawawi-script.js --js_output_file=fortyNawawi-script.min.js
 google-closure-compiler --charset=UTF-8 --js=hisnulMuslim-script.js --js_output_file=hisnulMuslim-script.min.js
@@ -20,7 +19,8 @@ google-closure-compiler --charset=UTF-8 --js=quranHmv-script.js --js_output_file
 google-closure-compiler --charset=UTF-8 --js=quranJaufar-script.js --js_output_file=quranJaufar-script.min.js
 google-closure-compiler --charset=UTF-8 --js=quranRasmee-script.js --js_output_file=quranRasmee-script.min.js
 google-closure-compiler --charset=UTF-8 --js=quranSoabuni-script.js --js_output_file=quranSoabuni-script.min.js
-google-closure-compiler --charset=UTF-8 --js=radheef-script.js --js_output_file=radheef-script.min.js
+google-closure-compiler --charset=UTF-8 --js=radheefAll-script.js --js_output_file=radheefAll-script.min.js
+google-closure-compiler --charset=UTF-8 --js=radheefEegaal-script.js --js_output_file=radheefEegaal-script.min.js
 google-closure-compiler --charset=UTF-8 --js=radheefManiku-script.js --js_output_file=radheefManiku-script.min.js
 google-closure-compiler --charset=UTF-8 --js=radheefRasmee-script.js --js_output_file=radheefRasmee-script.min.js
 google-closure-compiler --charset=UTF-8 --js=riyadusaliheen-script.js --js_output_file=riyadusaliheen-script.min.js
