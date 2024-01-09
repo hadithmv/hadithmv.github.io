@@ -554,13 +554,16 @@ $(document).ready(() => {
 
           data = data.replace(/ދިވެހި ލަފްޒު\t/g, ""); // should be this way instead of /\tފޮތް/
           data = data.replace(/އިނގިރޭސިން ތާނަ\t/g, "");
-          data = data.replace(/ދިވެހި މާނަ",\t/g, "");
+          data = data.replace(/އިނގިރޭސި މާނަ\t/g, "");
+          data = data.replace(/ދިވެހި މާނަ\t/g, "");
           data = data.replace(/މައި ގިންތި\t/g, "");
           data = data.replace(/ޒަމާން\t/g, "");
           data = data.replace(/އަދަބީ ގިންތި\t/g, "");
           data = data.replace(/ބަހުރުވަ\t/g, "");
+          data = data.replace(/ދަރަޖަ\t/g, "");
           data = data.replace(/ދާއިރާ\t/g, "");
           data = data.replace(/އަތޮޅު\t/g, "");
+          data = data.replace(/މިސާލު\t/g, "");
           data = data.replace(/ބާވަތް އިނގިރޭސިން\t/g, "");
 
           data = data.replace(/\t\t/g, "\t");
