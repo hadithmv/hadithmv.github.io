@@ -66,12 +66,12 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  const table = $("#eegaalTable").DataTable({
+  const table = $("#radheefEegaalTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: eegaal_DB, // https://datatables.net/manual/ajax
+    data: radheefEegaal_DB, // https://datatables.net/manual/ajax
 
     // order: [[0, 'asc']], // CHANGE 123 - FOR RADHEEF ONLY
 

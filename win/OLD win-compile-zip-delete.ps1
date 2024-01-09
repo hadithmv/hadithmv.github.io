@@ -7,7 +7,7 @@ Set-Location -Path $PSScriptRoot
 # copies site minified book files to asset book files one by one
 Copy-Item ../books/fortyNawawi.html -Destination ../app/webview-master/app/src/main/assets/books/fortyNawawi.html
 Copy-Item ../books/barbahari.html -Destination ../app/webview-master/app/src/main/assets/books/barbahari.html
-Copy-Item ../books/eegaal.html -Destination ../app/webview-master/app/src/main/assets/books/eegaal.html
+Copy-Item ../books/radheefEegaal.html -Destination ../app/webview-master/app/src/main/assets/books/radheefEegaal.html
 Copy-Item ../books/index.html -Destination ../app/webview-master/app/src/main/assets/books/index.html
 Copy-Item ../books/quran.html -Destination ../app/webview-master/app/src/main/assets/books/quran.html
 Copy-Item ../books/radheef.html -Destination ../app/webview-master/app/src/main/assets/books/radheef.html
@@ -56,7 +56,7 @@ Copy-Item ../js/fortyNawawi-script.min.js -Destination ../app/webview-master/app
 Copy-Item ../js/quran-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/quran-script.min.js
 Copy-Item ../js/umdah-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/umdah-script.min.js
 Copy-Item ../js/radheef-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/radheef-script.min.js
-Copy-Item ../js/eegaal-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/eegaal-script.min.js
+Copy-Item ../js/radheefEegaal-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/radheefEegaal-script.min.js
 Copy-Item ../js/allHadith-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/allHadith-script.min.js
 Copy-Item ../js/hisnulMuslim-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/hisnulMuslim-script.min.js
 
@@ -76,7 +76,7 @@ Copy-Item ../js/json/fortyNawawi.js -Destination ../app/webview-master/app/src/m
 Copy-Item ../js/json/quran.js -Destination ../app/webview-master/app/src/main/assets/js/json/quran.js
 Copy-Item ../js/json/umdah.js -Destination ../app/webview-master/app/src/main/assets/js/json/umdah.js
 Copy-Item ../js/json/radheef.js -Destination ../app/webview-master/app/src/main/assets/js/json/radheef.js
-Copy-Item ../js/json/eegaal.js -Destination ../app/webview-master/app/src/main/assets/js/json/eegaal.js
+Copy-Item ../js/json/radheefEegaal.js -Destination ../app/webview-master/app/src/main/assets/js/json/radheefEegaal.js
 Copy-Item ../js/json/allHadith.js -Destination ../app/webview-master/app/src/main/assets/js/json/allHadith.js
 Copy-Item ../js/json/hisnulMuslim.js -Destination ../app/webview-master/app/src/main/assets/js/json/hisnulMuslim.js
 

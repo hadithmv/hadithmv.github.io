@@ -29,9 +29,9 @@ Set-Content ../bulughFull.js -Value 'const bulugh_DB='
 Get-Content bulughFull.json | Add-Content ../bulughFull.js
 uglifyjs ../bulughFull.js -c -m -o ../bulughFull.js
 
-Set-Content ../eegaal.js -Value 'const eegaal_DB='
-Get-Content eegaal.json | Add-Content ../eegaal.js
-uglifyjs ../eegaal.js -c -m -o ../eegaal.js
+Set-Content ../radheefEegaal.js -Value 'const radheefEegaal_DB='
+Get-Content radheefEegaal.json | Add-Content ../radheefEegaal.js
+uglifyjs ../radheefEegaal.js -c -m -o ../radheefEegaal.js
 
 Set-Content ../fortyAajurry.js -Value 'const fortyAajurry_DB='
 Get-Content fortyAajurry.json | Add-Content ../fortyAajurry.js
@@ -82,9 +82,9 @@ Set-Content ../quranSoabuni.js -Value 'const quran_DB='
 Get-Content quranSoabuni.json | Add-Content ../quranSoabuni.js
 uglifyjs ../quranSoabuni.js -c -m -o ../quranSoabuni.js
 
-Set-Content ../radheef.js -Value 'const radheef_DB='
-Get-Content radheef.json | Add-Content ../radheef.js
-uglifyjs ../radheef.js -c -m -o ../radheef.js
+Set-Content ../radheefAll.js -Value 'const radheefAll_DB='
+Get-Content radheefAll.json | Add-Content ../radheefAll.js
+uglifyjs ../radheefAll.js -c -m -o ../radheefAll.js
 
 Set-Content ../radheefManiku.js -Value 'const radheefManiku_DB='
 Get-Content radheefManiku.json | Add-Content ../radheefManiku.js

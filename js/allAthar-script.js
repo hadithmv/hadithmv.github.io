@@ -117,7 +117,7 @@ $(document).ready(() => {
     return arr1;
   }
 
-  // const result = appendRowsWithEmptyValues(radheef_DB, eegaal_DB);
+  // const result = appendRowsWithEmptyValues(radheef_DB, radheefEegaal_DB);
   combResult = appendRowsWithEmptyValues(allAthar_DB, resultNawawi);
   combResult = appendRowsWithEmptyValues(combResult, resultUmdah);
   combResult = appendRowsWithEmptyValues(combResult, resultBulugh);
