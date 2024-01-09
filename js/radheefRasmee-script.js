@@ -187,6 +187,7 @@ $(document).ready(() => {
         title: "އަތޮޅު",
         render: function (data, type, row) {
           return data
+            .replace(/\,/g, "، ")
             .replace(/20/g, "ސ")
             .replace(/1/g, "ހއ")
             .replace(/2/g, "ހދ")
