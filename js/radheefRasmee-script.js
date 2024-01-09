@@ -97,15 +97,15 @@ $(document).ready(() => {
         title: "މައި ގިންތި",
         render: function (data, type, row) {
           return data
-            .replace(/100/g, "މަސްދަރު")
-            .replace(/103/g, "ނަން")
-            .replace(/104/g, "ނަންއިތުރު")
-            .replace(/105/g, "ނަންއިތުރުގެނަން")
-            .replace(/102/g, "ކަންއިތުރު")
+            .replace(/155/g, "އަދަބީ ބަސް")
             .replace(/107/g, "އަކުރު")
-            .replace(/101/g, "ކަން")
             .replace(/106/g, "އިތުރު")
-            .replace(/155/g, "އަދަބީ ބަސް");
+            .replace(/105/g, "ނަންއިތުރުގެނަން")
+            .replace(/104/g, "ނަންއިތުރު")
+            .replace(/103/g, "ނަން")
+            .replace(/102/g, "ކަންއިތުރު")
+            .replace(/101/g, "ކަން")
+            .replace(/100/g, "މަސްދަރު");
         },
       },
       {
@@ -113,13 +113,13 @@ $(document).ready(() => {
         title: "ޒަމާން",
         render: function (data, type, row) {
           return data
-            .replace(/0/g, "")
-            .replace(/110/g, "ވާކަން")
-            .replace(/112/g, "ވާނޭކަން")
+            .replace(/115/g, "ވެދާނެކަން")
             .replace(/114/g, "ނިމިނިމުނުކަން")
             .replace(/113/g, "ނިމިނިމުނުކަން")
+            .replace(/112/g, "ވާނޭކަން")
             .replace(/111/g, "ވޭވޭހުރިކަން")
-            .replace(/115/g, "ވެދާނެކަން");
+            .replace(/110/g, "ވާކަން")
+            .replace(/0/g, "");
         },
       },
       {
@@ -127,13 +127,13 @@ $(document).ready(() => {
         title: "އަދަބީ ގިންތި",
         render: function (data, type, row) {
           return data
-            .replace(/0/g, "")
-            .replace(/116/g, "މަޖާޒު")
+            .replace(/121/g, "އޮޅިބަސް")
             .replace(/120/g, "މުސްކުޅިބަސް")
-            .replace(/118/g, "މިސާލުބަސް")
             .replace(/119/g, "ހަރުބަސް")
+            .replace(/118/g, "މިސާލުބަސް")
             .replace(/117/g, "މަޖާޒީ މިސާލު")
-            .replace(/121/g, "އޮޅިބަސް");
+            .replace(/116/g, "މަޖާޒު")
+            .replace(/0/g, "");
         },
       },
       {
@@ -141,15 +141,15 @@ $(document).ready(() => {
         title: "ބަހުރުވަ",
         render: function (data, type, row) {
           return data
-            .replace(/0/g, "")
-            .replace(/126/g, "އާންމު")
-            .replace(/149/g, "ބޯދާ")
             .replace(/154/g, "ސަރަހައްދީ")
+            .replace(/149/g, "ބޯދާ")
             .replace(/131/g, "މަލިކު")
             .replace(/130/g, "ހުވަދޫ")
             .replace(/129/g, "ހައްދުންމަތި")
+            .replace(/128/g, "ފުވައްމުލަކު")
             .replace(/127/g, "އައްޑޫ")
-            .replace(/128/g, "ފުވައްމުލަކު");
+            .replace(/126/g, "އާންމު")
+            .replace(/0/g, "");
         },
       },
       {
@@ -157,11 +157,11 @@ $(document).ready(() => {
         title: "ދަރަޖަ",
         render: function (data, type, row) {
           return data
-            .replace(/0/g, "")
-            .replace(/122/g, "އާންމު")
+            .replace(/125/g, "ހުތުރު / ބާޒާރީ")
             .replace(/124/g, "އެންމެ މާތް")
             .replace(/123/g, "މާތް")
-            .replace(/125/g, "ހުތުރ / ބާޒާރީ");
+            .replace(/122/g, "އާންމު")
+            .replace(/0/g, "");
         },
       },
       {
@@ -169,17 +169,17 @@ $(document).ready(() => {
         title: "ދާއިރާ",
         render: function (data, type, row) {
           return data
-            .replace(/0/g, "")
-            .replace(/137/g, "ކަނބުރުވެރިކަން")
-            .replace(/135/g, "ނަކަތްތެރިކަން")
-            .replace(/132/g, "މަސްވެރިކަން")
-            .replace(/140/g, "މަސައްކަތްތެރިކަން")
-            .replace(/134/g, "ބޭސްވެރިކަން")
-            .replace(/136/g, "ނިޔަމިކަން")
-            .replace(/133/g, "ދަނޑުވެރިކަން")
-            .replace(/138/g, "ފަންޑިތަވެރިކަން")
+            .replace(/150/g, "އިންފޮމޭޝަން ޓެކްނޮލޮޖީ")
             .replace(/141/g, "މިއުޒިކު")
-            .replace(/150/g, "އިންފޮމޭޝަން ޓެކްނޮލޮޖީ");
+            .replace(/140/g, "މަސައްކަތްތެރިކަން")
+            .replace(/138/g, "ފަންޑިތަވެރިކަން")
+            .replace(/137/g, "ކަނބުރުވެރިކަން")
+            .replace(/136/g, "ނިޔަމިކަން")
+            .replace(/135/g, "ނަކަތްތެރިކަން")
+            .replace(/134/g, "ބޭސްވެރިކަން")
+            .replace(/133/g, "ދަނޑުވެރިކަން")
+            .replace(/132/g, "މަސްވެރިކަން")
+            .replace(/0/g, "");
         },
       },
       {
@@ -188,30 +188,30 @@ $(document).ready(() => {
         render: function (data, type, row) {
           return data
             .replace(/\,/g, "، ")
-            .replace(/20/g, "ސ")
-            .replace(/1/g, "ހއ")
-            .replace(/2/g, "ހދ")
-            .replace(/19/g, "ޏ")
-            .replace(/16/g, "ލ")
-            .replace(/17/g, "ގއ")
-            .replace(/18/g, "ގދ")
-            .replace(/12/g, "މ")
-            .replace(/13/g, "ފ")
-            .replace(/9/g, "އއ")
-            .replace(/6/g, "ބ")
             .replace(/23/g, "ގ")
-            .replace(/7/g, "ޅ")
-            .replace(/8/g, "ކ")
-            .replace(/10/g, "އދ")
-            .replace(/11/g, "ވ")
-            .replace(/5/g, "ރ")
-            .replace(/3/g, "ށ")
-            .replace(/4/g, "ނ")
-            .replace(/21/g, "ހ")
-            .replace(/15/g, "ތ")
             .replace(/22/g, "އ")
-            .replace(/14/g, "ދ");
-        },
+            .replace(/21/g, "ހ")
+            .replace(/20/g, "ސ")
+            .replace(/19/g, "ޏ")
+            .replace(/18/g, "ގދ")
+            .replace(/17/g, "ގއ")
+            .replace(/16/g, "ލ")
+            .replace(/15/g, "ތ")
+            .replace(/14/g, "ދ")
+            .replace(/13/g, "ފ")
+            .replace(/12/g, "މ")
+            .replace(/11/g, "ވ")
+            .replace(/10/g, "އދ")
+            .replace(/9/g, "އއ")
+            .replace(/8/g, "ކ")
+            .replace(/7/g, "ޅ")
+            .replace(/6/g, "ބ")
+            .replace(/5/g, "ރ")
+            .replace(/4/g, "ނ")
+            .replace(/3/g, "ށ")
+            .replace(/2/g, "ހދ")
+            .replace(/1/g, "ހއ");
+        }, // https://www.gillmeister-software.com/online-tools/text/sort-list.aspx
       },
       {
         data: 11,
@@ -222,11 +222,11 @@ $(document).ready(() => {
         title: "ބާވަތް އިނގިރޭސިން",
         render: function (data, type, row) {
           return data
-            .replace(/0/g, "")
-            .replace(/1/g, "noun")
-            .replace(/3/g, "adjective")
+            .replace(/5/g, "adverb")
             .replace(/4/g, "verb")
-            .replace(/5/g, "adverb");
+            .replace(/3/g, "adjective")
+            .replace(/1/g, "noun")
+            .replace(/0/g, "");
         },
       },
     ],

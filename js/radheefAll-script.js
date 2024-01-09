@@ -58,7 +58,51 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  // PART 1 remove cols from maniku
+  //
+  // INCLUDING VARIOUS PARTS OF OTHER DICTIONARIES
+  //
+
+  // PART 1 RASMEE
+
+  /* write js code for
+there is a 2d json array object with 13 columns, the name of the object is a variable called radheefRasmee_DB
+remove all other columns completely except for columns 1, 3 and 4
+now there should be only 3 columns
+at this point, create a column with empty strings before the first column at this point,
+create another column with empty strings between the last two columns
+there should be 5 columns 
+now create one last column with empty strings at the end of those columns
+the result should be put into a variable called resultradheefRasmee
+//
+"create another column with empty strings between the last two columns"
+this is not there
+*/
+
+  // Remove all columns except for 1, 3, and 4
+  let trimmedArray = radheefRasmee_DB.map((row) => [row[0], row[2], row[3]]);
+
+  // Add empty strings before the first column
+  let resultArray = trimmedArray.map((row) => ["", ...row]);
+
+  // Add empty strings between the last two columns
+  resultArray = resultArray.map((row) => [
+    ...row.slice(0, 3),
+    "",
+    ...row.slice(3),
+  ]);
+
+  // Add one last column with empty strings at the end
+  resultArray = resultArray.map((row) => [...row, ""]);
+
+  // Store the result in a variable called resultradheefRasmee
+  let resultradheefRasmee = resultArray;
+
+  // Log the result to the console for testing
+  //console.log(resultradheefRasmee);
+
+  //
+
+  // PART 1 MANIKU - remove cols
   // cgpt code, this part removes the specified columns entirely
   // In this modified code, you can specify the columnsToRemove array at the end of the code, allowing you to easily change which columns you want to remove without modifying the function itself. This provides more flexibility when working with different 2D arrays and column selections.
 
@@ -158,7 +202,7 @@ $(document).ready(() => {
   //
   //
 
-  // PART 2
+  // PART 2 EEGAAL
   // cgpt code, appends a 2d array to the end of another 2d array, even if their columns/rows differ, and generates empty values
   // In this code, the appendRowsWithEmptyValues function calculates the maximum number of columns from both arrays and pads each row in arr2 with empty values (empty strings) as needed to match the number of columns in the merged array. This ensures that the resulting array has consistent dimensions with empty values where needed.
   function appendRowsWithEmptyValues(arr1, arr2) {
@@ -177,7 +221,8 @@ $(document).ready(() => {
   }
 
   // const result = appendRowsWithEmptyValues(radheef_DB, radheefEegaal_DB);
-  combResult = appendRowsWithEmptyValues(radheefAll_DB, resultradheefEegaal);
+  combResult = appendRowsWithEmptyValues(radheefAll_DB, resultradheefRasmee);
+  combResult = appendRowsWithEmptyValues(combResult, resultradheefEegaal);
   combResult = appendRowsWithEmptyValues(combResult, resultradheefManiku);
   //console.log(result);
   // end merge
