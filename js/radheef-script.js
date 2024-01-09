@@ -261,7 +261,7 @@ $(document).ready(() => {
         searchable: true,
       },
       {
-        className: "rCol4", // en word
+        className: "ColEng", // en word
         targets: [3],
         visible: true,
         searchable: true,
@@ -279,7 +279,7 @@ $(document).ready(() => {
         searchable: true,
       },
       {
-        className: "rCol7", // en meaning
+        className: "ColEng", // en meaning
         targets: [6],
         visible: true,
         searchable: true,

@@ -49,7 +49,7 @@
     <script defer src="../js/json/radheef.js"></script>
     <script defer src="../js/json/eegaal.js"></script>
     <script defer src="../js/json/radheefManiku.js"></script>
-    <script defer src="../js/radheef-script.min.js"></script>
+    <script defer src="../js/radheef-script.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -69,6 +69,7 @@
       .dataTable tr td.rCol3,
       .dataTable tr td.rCol4,
       .dataTable tr td.rCol7
+
       /*
         .dataTable tr td.rCol5,
         .dataTable tr td.rCol6 */ {
@@ -77,31 +78,14 @@
       }
 
       /* --- EN FOR TABLE --- */
-      .dataTable tr td.rCol4,
-      .dataTable tr td.rCol7 {
-        /* en */
-        direction: ltr;
-      }
 
-      /* desktop radheef only eng word left align */
-
-      @media screen and (min-width: 900px) {
-        .dataTable tr td.rCol1,
-        .dataTable tr td.rCol5 {
-          /* ar */
-          text-align: right;
-        }
-
-        .dataTable tr td.rCol3,
-        .dataTable tr td.rCol6 {
-          /* dv */
-          text-align: right;
-        }
-
-        .dataTable tr td.rCol4,
-        .dataTable tr td.rCol7 {
-          /* eng */
-          text-align: left;
+      /* eng */
+      /* this used to be @mixin for-phone-only {
+  @media (max-width: 599px)
+  changed it to 900px to fit up to tablet) */
+      @media (max-width: 900px) {
+        .dataTable tr td.ColEng {
+          text-align: center !important;
         }
       }
 
@@ -109,10 +93,11 @@
         text-align: right !important;
       }
 
-      .dataTable > thead > tr > th.rCol4 {
-        /* eng */
-        text-align: left !important;
-      }
+      /* eng 
+      .dataTable > thead > tr > th.ColEng {
+        text-align: center !important;
+      }*/
+      /* text-align: left !important; */
 
       /* reduce card box shadows since 10 items per view */
       #datatables_buttons_info,
@@ -243,6 +228,7 @@
 
             -->
           </div>
+          <!-- <div class="hidden" id="footer"> -->
         </main>
         <!-- <main> -->
       </div>
