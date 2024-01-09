@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="canonical"
-      href="https://hadithmv.github.io/books/radheef.html"
+      href="https://hadithmv.github.io/books/radheefRasmee.html"
     />
     <meta name="google" content="notranslate" />
 
@@ -18,7 +18,7 @@
     <meta property="og:type" content="website" />
     <meta
       property="og:url"
-      content="https://hadithmv.github.io/books/radheef.html"
+      content="https://hadithmv.github.io/books/radheefRasmee.html"
     />
     <meta
       property="og:image"
@@ -26,7 +26,7 @@
     />
 
     <!-- change123 html -->
-    <title>Hadithmv - Dhivehi, Arabic & English Dictionary Compilation</title>
+    <title>The Dictionary of Dhivehi Language</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
@@ -46,10 +46,8 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/radheef.js"></script>
-    <script defer src="../js/json/eegaal.js"></script>
-    <script defer src="../js/json/radheefManiku.js"></script>
-    <script defer src="../js/radheef-script.js"></script>
+    <script defer src="../js/json/radheefRasmee.js"></script>
+    <script defer src="../js/radheefRasmee-script.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -62,26 +60,18 @@
          === --- === --- ==== */
 
       /* mobile only row centering, for rows with strings that are not long */
-
+      /* center-justify the last line of text */
       @media screen and (max-width: 900px) {
-        .dataTable tr td.rCol1,
-      .dataTable tr td.rCol2,
-      .dataTable tr td.rCol3,
-      .dataTable tr td.rCol4,
-      .dataTable tr td.rCol7
-
-      /*
-        .dataTable tr td.rCol5,
-        .dataTable tr td.rCol6 */ {
-          text-align: center;
+        .dataTable tr td {
+          /*text-align: justify;*/
+          text-align-last: center;
         }
       }
-
-      /* --- EN FOR TABLE --- */
 
       /* eng */
       /* this used to be @mixin for-phone-only {
   @media (max-width: 599px)
+
   changed it to 900px to fit up to tablet) */
       @media (max-width: 900px) {
         .dataTable tr td.ColEng {
@@ -93,17 +83,11 @@
         text-align: right !important;
       }
 
-      /* eng 
-      .dataTable > thead > tr > th.ColEng {
-        text-align: center !important;
-      }*/
-      /* text-align: left !important; */
-
       /* reduce card box shadows since 10 items per view */
       #datatables_buttons_info,
       .cards tbody tr {
         /* box-shadow: 0 12px 15px 0 rgb(0 0 0 / 24%); */
-        box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.24);
+        box-shadow: 0 1px 1.5px 0 rgba(0, 0, 0, 0.2);
       }
     </style>
     <!-- === INT CSS - END === -->
@@ -123,9 +107,8 @@
             loading="lazy"
             src="../img/logo/logo.svg"
         /></a>
-        <span class="hideOnPhoneOnly">المعجم الجامع – </span>އެއްކުރަމުންދާ
-        ރަދީފު
-
+        <span class="hideOnPhoneOnly">معجم اللغة الدفهية – </span>
+        ދިވެހިބަހުގެ ރަދީފު
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -136,7 +119,7 @@
             </li>
 
             <li>
-              <a href="../books/eegaal.html">● އަލްއީޤާޡް ރަދީފު</a>
+              <a href="../books/radheef.html">● އެއްކުރަމުންދާ ރަދީފު</a>
             </li>
 
             <li>
@@ -162,14 +145,6 @@
             </li>
 
             <li class="hmvVer"><a href="#">⚙️ އިސްދާރު: v3.06</a></li>
-            <li>
-              <a href="https://t.me/ashraafmv"
-                >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-              >
-            </li>
-            <li class="madani">
-              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
-            </li>
           </ul>
         </nav>
         <!-- <nav id="menu"> -->
@@ -184,49 +159,92 @@
           <!-- cards js adds card classes to table ID -->
           <!-- change123 TABLE -->
           <!-- class="stripe table cards"> -->
-          <table id="radheefTable" class="stripe table"></table>
+          <table id="radheefRasmeeTable" class="stripe table"></table>
           <!-- --- TABLE - END --- -->
           <div class="hidden" id="footer">
             <button class="lowerButtons" onclick="copyURLToClipButton();">
               &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
             </button>
 
-            <button class="lowerButtons" onclick="toggleFili();">
-              &nbsp; ފިލި ފޮރުވާ/ދައްކާ &nbsp;
-            </button>
-
-            <script>
-              function toggleFili() {
-                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
-
-                var isVisible = $("#radheefTable")
-                  .DataTable()
-                  .column(0)
-                  .visible();
-                $("#radheefTable").DataTable().column(0).visible(!isVisible);
-
-                var isVisible = $("#radheefTable")
-                  .DataTable()
-                  .column(1)
-                  .visible();
-                $("#radheefTable").DataTable().column(1).visible(!isVisible);
-              }
-            </script>
-
             <p>
-              ⚠️ މި ރަދީފުގައި ލައްކައެއްހައި ލަފްޒު ހިމެނުނަކަސް، އަދި މުޅިން
-              ފުރިހަމައަށް އެކުލަވާލެވި މުރާޖާކޮށް ނުއެއް ނިމެއެވެ. އަދި ބައެއް
-              ލަފްޒުތަކުގައި މައްސަލަވެސް އުޅޭނެއެވެ.
+              ⚠️ މި އެކުލަވާލެވިފައިވާ ރަދީފުގެ ބައެއް އިނގިރޭސި މާނަތަކުގައި
+              މައްސަލަ އުޅޭނެއެވެ.
             </p>
 
-            <!--<p>
-              އަލިފުބާ ތަރުތީބަށް ހެދުމަށް ޑެސްކްޓޮޕުގައި އެންމެ މަތީގައިވާ
-              އަރަބި / ދިވެހި / އިނގިރޭސި ލަފްޒު އިން ތަނަށް ފިތާލައްވާ
-            </p>-->
+            <hr class="lineVerticalSpace" />
 
-            <!--
+            <p>
+              The Dictionary of Dhivehi Language
+              <br />
+              Last Updated: 9/12/23
+            </p>
 
-            -->
+            <p>ދިވެހިބަހުގެ ރަދީފު</p>
+
+            <p>
+              ރަސްމީ ރަދީފުގެ
+              <a
+                href="https://www.radheef.mv"
+                rel="noopener noreferrer"
+                target="_blank"
+                >ވެބްސައިޓު</a
+              >
+              |
+              <a
+                href="https://play.google.com/store/apps/details?id=mv.edu.dhivehiacademy.radheef"
+                rel="noopener noreferrer"
+                target="_blank"
+                >އެޕް</a
+              >
+            </p>
+
+            <hr class="lineVerticalSpace" />
+
+            <div class="justi">
+              <h3 class="mid">
+                <a>މައުލޫމާތު: ރަދީފުގައިވާ ލަފުޒުތަކުގެ މައި ގިންތިތައް</a>
+              </h3>
+
+              <p>މައި ގިންތި</p>
+              <ul>
+                <li>ނަން</li>
+                <li>މަސްދަރު (ކަމުގެ ނަން)</li>
+                <li>ނަންއިތުރު</li>
+                <li>ކަން</li>
+                <li>ކަންއިތުރު</li>
+                <li>އިތުރު</li>
+                <li>އަކުރު</li>
+                <li>ނަންއިތުރުގެ ނަން</li>
+                <li>އަދަބީ ބަސް</li>
+              </ul>
+
+              <p>އަދަބީ ގިންތި</p>
+              <ul>
+                <li>މަޖާޒު</li>
+                <li>މަޖާޒީ މިސާލު</li>
+                <li>މިސާލުބަސް</li>
+                <li>ހަރުބަސް</li>
+                <li>މުސްކުޅިބަސް</li>
+              </ul>
+
+              <hr class="lineVerticalSpace" />
+
+              <h3 class="mid">
+                <a>ތަޢާރަފު</a>
+              </h3>
+
+              <p>
+                މިއީ 2000ވަނަ އަހަރާއި 2006ވަނަ އަހަރު ދިވެހިބަހާއި ތާރީޚަށް
+                ޚިދުމަތްކުރާ ޤައުމީ މަރުކަޒުގެ ފަރާތުން ނެރުނު ބަސް ސީޑީއާއި
+                2011ވަނަ އަހަރު ޤައުމީ ޔުނިވަރސިޓީގެ ދަށުގައި ބަހާއި ތާރީޚުގެ
+                ބައި އޮތް އިރު ނެރުއްވި ދިވެހި ބަސްފޮތުގައި ހިމެނޭ ލަފުޒުތައް
+                ހިމަނައިގެން 2019 ވަނަ އަހަރު "ބަސްދާރު"ގެ ނަމުގައި ޑޭޓާބޭހެއް
+                އުފައްދައި އެ ޑޭޓާބޭހުގެ އެހީތެރިކަމާއެކު، ކުރިން ނެރެފައިވާ
+                ބަސްފޮތަށް ބޮޑެތި ބަދަލުތައް ގެނެސް އައު އިސްލާހުތަކާއެކު
+                ނެރެފައިވާ "ދިވެހިބަހުގެ ރަދީފު"އެވެ".
+              </p>
+            </div>
+            <!-- <div class="justi"> -->
           </div>
           <!-- <div class="hidden" id="footer"> -->
         </main>
