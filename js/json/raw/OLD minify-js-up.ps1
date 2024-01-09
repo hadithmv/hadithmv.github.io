@@ -7,7 +7,7 @@ uglifyjs allHadith.js -c -m -o allHadith.js
 uglifyjs barbahari.js -c -m -o barbahari.js
 uglifyjs bulugh.js -c -m -o bulugh.js
 uglifyjs bulughFull.js -c -m -o bulughFull.js
-uglifyjs eegaal.js -c -m -o eegaal.js
+uglifyjs radheefEegaal.js -c -m -o radheefEegaal.js
 uglifyjs hisnulMuslim.js -c -m -o hisnulMuslim.js
 uglifyjs muwatta.js -c -m -o muwatta.js
 uglifyjs nawaqidulislam.js -c -m -o nawaqidulislam.js

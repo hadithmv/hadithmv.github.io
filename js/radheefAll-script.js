@@ -109,8 +109,8 @@ $(document).ready(() => {
     return array.slice(numRowsToRemove);
   }
 
-  //const result = removeFirstRows(eegaal_DB, 4);
-  var resultEegaal = removeFirstRows(eegaal_DB, 4);
+  //const result = removeFirstRows(radheefEegaal_DB, 4);
+  var resultradheefEegaal = removeFirstRows(radheefEegaal_DB, 4);
   //console.log(result);
   //
 
@@ -125,8 +125,8 @@ $(document).ready(() => {
     return array;
   }
 
-  //const result = removeLastRows(eegaal_DB, 34);
-  resultEegaal = removeLastRows(resultEegaal, 34);
+  //const result = removeLastRows(radheefEegaal_DB, 34);
+  resultradheefEegaal = removeLastRows(resultradheefEegaal, 34);
   //console.log(result);
 
   /* old method
@@ -140,7 +140,7 @@ $(document).ready(() => {
     return array;
   }
   //const result = replaceLastColumnWithEmptyValues(twoDNestedArray);
-  resultEegaal = replaceLastColumnWithEmptyValues(resultEegaal);*/
+  resultradheefEegaal = replaceLastColumnWithEmptyValues(resultradheefEegaal);*/
 
   // NEW method, that specifically chooses which columns to remove using the map method
   function replaceColumnsWithEmptyValues(arr, columnIndices) {
@@ -151,7 +151,7 @@ $(document).ready(() => {
     });
   }
   //const result = replaceColumnsWithEmptyValues(twoDArray, [0, 3]);
-  resultEegaal = replaceColumnsWithEmptyValues(resultEegaal, [2]);
+  resultradheefEegaal = replaceColumnsWithEmptyValues(resultradheefEegaal, [2]);
   //console.log(result);
 
   //
@@ -176,13 +176,13 @@ $(document).ready(() => {
     return arr1;
   }
 
-  // const result = appendRowsWithEmptyValues(radheef_DB, eegaal_DB);
-  combResult = appendRowsWithEmptyValues(radheef_DB, resultEegaal);
+  // const result = appendRowsWithEmptyValues(radheef_DB, radheefEegaal_DB);
+  combResult = appendRowsWithEmptyValues(radheefAll_DB, resultradheefEegaal);
   combResult = appendRowsWithEmptyValues(combResult, resultradheefManiku);
   //console.log(result);
   // end merge
 
-  const table = $("#radheefTable").DataTable({
+  const table = $("#radheefAllTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
