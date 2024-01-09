@@ -22,6 +22,7 @@ google-closure-compiler --charset=UTF-8 --js=quranRasmee-script.js --js_output_f
 google-closure-compiler --charset=UTF-8 --js=quranSoabuni-script.js --js_output_file=quranSoabuni-script.min.js
 google-closure-compiler --charset=UTF-8 --js=radheef-script.js --js_output_file=radheef-script.min.js
 google-closure-compiler --charset=UTF-8 --js=radheefManiku-script.js --js_output_file=radheefManiku-script.min.js
+google-closure-compiler --charset=UTF-8 --js=radheefRasmee-script.js --js_output_file=radheefRasmee-script.min.js
 google-closure-compiler --charset=UTF-8 --js=riyadusaliheen-script.js --js_output_file=riyadusaliheen-script.min.js
 google-closure-compiler --charset=UTF-8 --js=umdah-script.js --js_output_file=umdah-script.min.js
 google-closure-compiler --charset=UTF-8 --js=quranUshru-script.js --js_output_file=quranUshru-script.min.js

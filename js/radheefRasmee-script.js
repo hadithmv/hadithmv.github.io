@@ -16,7 +16,11 @@ $(document).ready(() => {
     $.extend(true, $.fn.dataTable.defaults, {
       // desktop, goes rtl --> //'<"dTop"pBfl>rt<"bottom"ip>',
       dom: '<"dTop"pBfl>rtip',
-      pageLength: 3, // # rows to display on single page when using pagination
+      pageLength: 10, // # rows to display on single page when using pagination
+      lengthMenu: [
+        [10, 1, 2, 3, 5, 10, 20, 30, 50],
+        ["10 ދައްކާ", 1, 2, 3, 5, 10, 20, 30, 50],
+      ],
       // lengthMenu: [
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
       //   [1, 2, '3 ދައްކާ', 5, 7, 10, 15, 20, 'ހުރިހާ']
@@ -39,7 +43,11 @@ $(document).ready(() => {
     $.extend(true, $.fn.dataTable.defaults, {
       // mobile //'<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rt <"bottom"ip>',
       dom: '<"mTop"fl> + <"mTop2"p> + <"mTop3"B> rtip', // moved to js MQ; dom: '<"dTop"pBfl>rtip',
-      pageLength: 1,
+      pageLength: 4,
+      lengthMenu: [
+        [4, 5, 7, 10, 15, 20, 1, 2, 3],
+        ["4 ދައްކާ", 5, 7, 10, 15, 20, 1, 2, 3],
+      ], // display range of pages
       // lengthMenu: [
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
       //   ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހާ']
@@ -58,172 +66,167 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  // PART 1 remove cols from maniku
-  // cgpt code, this part removes the specified columns entirely
-  // In this modified code, you can specify the columnsToRemove array at the end of the code, allowing you to easily change which columns you want to remove without modifying the function itself. This provides more flexibility when working with different 2D arrays and column selections.
-
-  function removeColumns(arr, columnIndices) {
-    return arr.map((row) => {
-      return row.filter((_, index) => !columnIndices.includes(index));
-    });
-  }
-
-  //const result = removeColumns(twoDArray, columnsToRemove); // [1, 3];
-  resultradheefManiku = removeColumns(radheefManiku_DB, [0, 2]);
-
-  // PART 2 move second column to the sixth column
-  // Step 1: Add an empty column before the first column
-  // jsonArray.forEach
-  resultradheefManiku.forEach(function (row) {
-    row.unshift("");
-  });
-
-  // Step 2: Add 3 more columns after the third column
-  resultradheefManiku.forEach(function (row) {
-    for (var i = 0; i < 3; i++) {
-      row.push("");
-    }
-  });
-
-  // Step 3: Switch the places of the third and last columns
-  resultradheefManiku.forEach(function (row) {
-    var thirdColumnValue = row[2];
-    var lastColumnValue = row[row.length - 1];
-
-    row[2] = lastColumnValue;
-    row[row.length - 1] = thirdColumnValue;
-  });
-
-  // ...
-
-  // PART 1 EEGAL
-  // cgpt code, this takes a split 2 2d nested arrays and joins them together rowwise, then generates empty values where needed, then flattens them, so now the db can be broken down and reused
-
-  // remove rows from begining
-  function removeFirstRows(array, numRowsToRemove) {
-    if (numRowsToRemove >= array.length) {
-      // If you want to remove more rows than the array has, return an empty array.
-      return [];
-    }
-
-    return array.slice(numRowsToRemove);
-  }
-
-  //const result = removeFirstRows(eegaal_DB, 4);
-  var resultEegaal = removeFirstRows(eegaal_DB, 4);
-  //console.log(result);
-  //
-
-  // remove rows from end (take into account what you removed before this)
-  function removeLastRows(array, numRowsToRemove) {
-    if (numRowsToRemove >= array.length) {
-      // If you want to remove more rows than the array has, return an empty array.
-      return [];
-    }
-
-    array.splice(-numRowsToRemove, numRowsToRemove);
-    return array;
-  }
-
-  //const result = removeLastRows(eegaal_DB, 34);
-  resultEegaal = removeLastRows(resultEegaal, 34);
-  //console.log(result);
-
-  /* old method
-  // remove last column from 2d array, by replacing with empty values, not null
-  function replaceLastColumnWithEmptyValues(array) {
-    for (let i = 0; i < array.length; i++) {
-      if (Array.isArray(array[i]) && array[i].length > 0) {
-        array[i][array[i].length - 1] = ""; // Set the last element (column) to an empty value.
-      }
-    }
-    return array;
-  }
-  //const result = replaceLastColumnWithEmptyValues(twoDNestedArray);
-  resultEegaal = replaceLastColumnWithEmptyValues(resultEegaal);*/
-
-  // NEW method, that specifically chooses which columns to remove using the map method
-  function replaceColumnsWithEmptyValues(arr, columnIndices) {
-    return arr.map((row) => {
-      return row.map((value, index) => {
-        return columnIndices.includes(index) ? "" : value;
-      });
-    });
-  }
-  //const result = replaceColumnsWithEmptyValues(twoDArray, [0, 3]);
-  resultEegaal = replaceColumnsWithEmptyValues(resultEegaal, [2]);
-  //console.log(result);
-
-  //
-  //
-  //
-
-  // PART 2
-  // cgpt code, appends a 2d array to the end of another 2d array, even if their columns/rows differ, and generates empty values
-  // In this code, the appendRowsWithEmptyValues function calculates the maximum number of columns from both arrays and pads each row in arr2 with empty values (empty strings) as needed to match the number of columns in the merged array. This ensures that the resulting array has consistent dimensions with empty values where needed.
-  function appendRowsWithEmptyValues(arr1, arr2) {
-    // Find the maximum number of columns from both arrays.
-    const maxColumns = Math.max(arr1[0]?.length || 0, arr2[0]?.length || 0);
-
-    // Iterate through the rows of arr2 and append them to arr1, padding with empty values.
-    for (let i = 0; i < arr2.length; i++) {
-      const newRow = arr2[i].concat(
-        Array(maxColumns - arr2[i].length).fill("")
-      );
-      arr1.push(newRow);
-    }
-
-    return arr1;
-  }
-
-  // const result = appendRowsWithEmptyValues(radheef_DB, eegaal_DB);
-  combResult = appendRowsWithEmptyValues(radheef_DB, resultEegaal);
-  combResult = appendRowsWithEmptyValues(combResult, resultradheefManiku);
-  //console.log(result);
-  // end merge
-
-  const table = $("#radheefTable").DataTable({
+  const table = $("#radheefRasmeeTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: combResult, // https://datatables.net/manual/ajax
+    data: radheefRasmee_DB, // https://datatables.net/manual/ajax
 
-    //order: [[0, 'asc']], // CHANGE 123 - FOR RADHEEF ONLY
+    // order: [[0, 'asc']], // CHANGE 123 - FOR RADHEEF ONLY
 
     columns: [
       {
         data: 0,
-        title: "އަރަބި ލަފްޒު",
-      },
-      {
-        data: 0,
-        title: "އަރަބި ފިލިނުޖަހައި",
-        render: function (data, type, row) {
-          return data
-            .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
-            .replace(/(\n)/g, "<br>");
-        },
-      },
-      {
-        data: 1,
         title: "ދިވެހި ލަފްޒު",
       },
       {
+        data: 1,
+        title: "އިނގިރޭސިން ތާނަ",
+      },
+      {
         data: 2,
-        title: "އިނގިރޭސި ލަފްޒު",
+        title: "އިނގިރޭސި މާނަ",
       },
       {
         data: 3,
-        title: "އަރަބި މާނަ",
-      },
-      {
-        data: 4,
         title: "ދިވެހި މާނަ",
       },
       {
+        data: 4,
+        title: "މައި ގިންތި",
+        render: function (data, type, row) {
+          return data
+            .replace(/100/g, "މަސްދަރު")
+            .replace(/103/g, "ނަން")
+            .replace(/104/g, "ނަންއިތުރު")
+            .replace(/105/g, "ނަންއިތުރުގެނަން")
+            .replace(/102/g, "ކަންއިތުރު")
+            .replace(/107/g, "އަކުރު")
+            .replace(/101/g, "ކަން")
+            .replace(/106/g, "އިތުރު")
+            .replace(/155/g, "އަދަބީ ބަސް");
+        },
+      },
+      {
         data: 5,
-        title: "އިނގިރޭސި މާނަ",
+        title: "ޒަމާން",
+        render: function (data, type, row) {
+          return data
+            .replace(/0/g, "")
+            .replace(/110/g, "ވާކަން")
+            .replace(/112/g, "ވާނޭކަން")
+            .replace(/114/g, "ނިމިނިމުނުކަން")
+            .replace(/113/g, "ނިމިނިމުނުކަން")
+            .replace(/111/g, "ވޭވޭހުރިކަން")
+            .replace(/115/g, "ވެދާނެކަން");
+        },
+      },
+      {
+        data: 6,
+        title: "އަދަބީ ގިންތި",
+        render: function (data, type, row) {
+          return data
+            .replace(/0/g, "")
+            .replace(/116/g, "މަޖާޒު")
+            .replace(/120/g, "މުސްކުޅިބަސް")
+            .replace(/118/g, "މިސާލުބަސް")
+            .replace(/119/g, "ހަރުބަސް")
+            .replace(/117/g, "މަޖާޒީ މިސާލު")
+            .replace(/121/g, "އޮޅިބަސް");
+        },
+      },
+      {
+        data: 7,
+        title: "ބަހުރުވަ",
+        render: function (data, type, row) {
+          return data
+            .replace(/0/g, "")
+            .replace(/126/g, "އާންމު")
+            .replace(/149/g, "ބޯދާ")
+            .replace(/154/g, "ސަރަހައްދީ")
+            .replace(/131/g, "މަލިކު")
+            .replace(/130/g, "ހުވަދޫ")
+            .replace(/129/g, "ހައްދުންމަތި")
+            .replace(/127/g, "އައްޑޫ")
+            .replace(/128/g, "ފުވައްމުލަކު");
+        },
+      },
+      {
+        data: 8,
+        title: "ދަރަޖަ",
+        render: function (data, type, row) {
+          return data
+            .replace(/0/g, "")
+            .replace(/122/g, "އާންމު")
+            .replace(/124/g, "އެންމެ މާތް")
+            .replace(/123/g, "މާތް")
+            .replace(/125/g, "ހުތުރ / ބާޒާރީ");
+        },
+      },
+      {
+        data: 9,
+        title: "ދާއިރާ",
+        render: function (data, type, row) {
+          return data
+            .replace(/0/g, "")
+            .replace(/137/g, "ކަނބުރުވެރިކަން")
+            .replace(/135/g, "ނަކަތްތެރިކަން")
+            .replace(/132/g, "މަސްވެރިކަން")
+            .replace(/140/g, "މަސައްކަތްތެރިކަން")
+            .replace(/134/g, "ބޭސްވެރިކަން")
+            .replace(/136/g, "ނިޔަމިކަން")
+            .replace(/133/g, "ދަނޑުވެރިކަން")
+            .replace(/138/g, "ފަންޑިތަވެރިކަން")
+            .replace(/141/g, "މިއުޒިކު")
+            .replace(/150/g, "އިންފޮމޭޝަން ޓެކްނޮލޮޖީ");
+        },
+      },
+      {
+        data: 10,
+        title: "އަތޮޅު",
+        render: function (data, type, row) {
+          return data
+            .replace(/20/g, "ސ")
+            .replace(/1/g, "ހއ")
+            .replace(/2/g, "ހދ")
+            .replace(/19/g, "ޏ")
+            .replace(/16/g, "ލ")
+            .replace(/17/g, "ގއ")
+            .replace(/18/g, "ގދ")
+            .replace(/12/g, "މ")
+            .replace(/13/g, "ފ")
+            .replace(/9/g, "އއ")
+            .replace(/6/g, "ބ")
+            .replace(/23/g, "ގ")
+            .replace(/7/g, "ޅ")
+            .replace(/8/g, "ކ")
+            .replace(/10/g, "އދ")
+            .replace(/11/g, "ވ")
+            .replace(/5/g, "ރ")
+            .replace(/3/g, "ށ")
+            .replace(/4/g, "ނ")
+            .replace(/21/g, "ހ")
+            .replace(/15/g, "ތ")
+            .replace(/22/g, "އ")
+            .replace(/14/g, "ދ");
+        },
+      },
+      {
+        data: 11,
+        title: "މިސާލު",
+      },
+      {
+        data: 12,
+        title: "ބާވަތް އިނގިރޭސިން",
+        render: function (data, type, row) {
+          return data
+            .replace(/0/g, "")
+            .replace(/1/g, "noun")
+            .replace(/3/g, "adjective")
+            .replace(/4/g, "verb")
+            .replace(/5/g, "adverb");
+        },
       },
     ],
 
@@ -231,58 +234,94 @@ $(document).ready(() => {
     columnDefs: [
       /* replace \n newlines from json to <br> in table
       https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
-      {
+      /*{
         targets: "_all",
         render: function (data, type, row) {
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">');
         }, // added space before br, otherwise clipboard copy export has no space
-      }, // later changed that blank space into a \t, so that single new lines could work on clipboard copy
+      },*/ // later changed that blank space into a \t, so that single new lines could work on clipboard copy
       // previously just \n. added \r\n and \r to make lines break on mobile
 
       // classes columns for css in nweb view, but not print.
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "rCol1", // Ar Text
+        className: "radheefCol1", // dv word
         targets: [0],
+        visible: true,
+        searchable: true,
+      },
+      {
+        className: "radheefCol2", // Eng transliteration
+        targets: [1],
         visible: true,
         searchable: false,
       },
       {
-        className: "rCol2", // Ar Text Plain
-        targets: [1],
-        visible: false,
-        searchable: true,
-      },
-      {
-        className: "rCol3", // dv word
+        className: "ColEng", // Eng meaning
         targets: [2],
         visible: true,
         searchable: true,
       },
       {
-        className: "ColEng", // en word
+        className: "radheefCol4", // dv meaning
         targets: [3],
         visible: true,
         searchable: true,
       },
       {
-        className: "rCol5", // ar meaning
+        className: "radheefCol5", // dv mai class
         targets: [4],
         visible: true,
-        searchable: true,
+        searchable: false,
       },
       {
-        className: "rCol6", // dv meaning
+        className: "radheefCol6", // dv tense
         targets: [5],
         visible: true,
+        searchable: false,
+      },
+      {
+        className: "radheefCol7", // adabi class
+        targets: [6],
+        visible: true,
+        searchable: false,
+      },
+      {
+        className: "radheefCol8", //  dv dialect
+        targets: [7],
+        visible: true,
+        searchable: false,
+      },
+      {
+        className: "radheefCol9", // dv level
+        targets: [8],
+        visible: true,
+        searchable: false,
+      },
+      {
+        className: "radheefCol10", // dv field
+        targets: [9],
+        visible: true,
+        searchable: false,
+      },
+      {
+        className: "radheefCol11", // dv atoll
+        targets: [10],
+        visible: true,
+        searchable: false,
+      },
+      {
+        className: "radheefCol12", // dv example
+        targets: [11],
+        visible: true,
         searchable: true,
       },
       {
-        className: "ColEng", // en meaning
-        targets: [6],
+        className: "ColEng", // eng type
+        targets: [12],
         visible: true,
-        searchable: true,
+        searchable: false,
       },
 
       // below strips html tags off keystable copy, second part with keys on
@@ -321,7 +360,7 @@ $(document).ready(() => {
     processing: true,
 
     // ordering of columns - by default, allows to click on column head to order
-    ordering: false, // CHANGE 123 - FOR RADHEEF ONLY (previously true)
+    ordering: false, // CHANGE 123 - FOR RADHEEF ONLY
 
     // stateSave: true // Breaks table, use the one below
     // Restore table state on page reload. When enabled aDataTables will store
@@ -359,17 +398,17 @@ $(document).ready(() => {
     // search will instantly search table on every keypress -clientside proc mode
     // and reduce search call frequency to 400mS in serverside processing mode
     // processing load can be reduced by reducing the search frequency
-    searchDelay: 1300,
+    searchDelay: 1000,
 
     // Change options in page length select list.
     // It can be either: 1D array for both displayed option/display length value,
     // or 2Darray where 1st inner array=page length values, 2nd displayed options
     // -1 is used as a value this tells DataTables to disable pagination
     // Default [ 10, 25, 50, 100 ],
-    lengthMenu: [
-      [10, 1, 2, 3, 5, 10, 20, 30, 50],
-      ["10 ދައްކާ", 1, 2, 3, 5, 10, 20, 30, "50"],
-    ],
+    //lengthMenu: [
+    //  [1, 2, 3, 4, 5, 10, 20, 30, 50],
+    //  [1, 2, "4 ދައްކާ", 3, 5, "10 ދައްކާ", 20, 30, 50],
+    //],
     // lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, '50']],
     // lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހާ']],
     // lengthMenu: [ [5, 10, 20, 30, 40, -1, 1], ["Show 5", 10, 20, 30, 40,
@@ -481,7 +520,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "ޙަދީޘްއެމްވީ – އަރަބި ދިވެހި އިނގިރޭސި ރަދީފު", // CHANGE123 clipboard message
+        messageTop: "ދިވެހިބަހުގެ ރަދީފު", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
@@ -512,16 +551,16 @@ $(document).ready(() => {
           // \r\n prevents first header showing up unneeded (windows)
           // \n prevents first header showing up unneeded (linux) this needs come after windows rn
 
-          data = data.replace(/އަރަބި ލަފްޒު\t/g, ""); // should be this way instead of /\tފޮތް/
-          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
-          /* data = data.replace(/އަރަބި މާނަ\t/g, '') */
-          data = data.replace(/ދިވެހި ލަފްޒު\t/g, "");
-          /* data = data.replace(/ދިވެހި މާނަ\t/g, '') */
-          data = data.replace(/އިނގިރޭސި ލަފްޒު\t/g, "");
-
-          data = data.replace(/އަރަބި މާނަ\t/g, "");
-          data = data.replace(/ދިވެހި މާނަ\t/g, "");
-          data = data.replace(/އިނގިރޭސި މާނަ\t/g, "");
+          data = data.replace(/ދިވެހި ލަފްޒު\t/g, ""); // should be this way instead of /\tފޮތް/
+          data = data.replace(/އިނގިރޭސިން ތާނަ\t/g, "");
+          data = data.replace(/ދިވެހި މާނަ",\t/g, "");
+          data = data.replace(/މައި ގިންތި\t/g, "");
+          data = data.replace(/ޒަމާން\t/g, "");
+          data = data.replace(/އަދަބީ ގިންތި\t/g, "");
+          data = data.replace(/ބަހުރުވަ\t/g, "");
+          data = data.replace(/ދާއިރާ\t/g, "");
+          data = data.replace(/އަތޮޅު\t/g, "");
+          data = data.replace(/ބާވަތް އިނގިރޭސިން\t/g, "");
 
           data = data.replace(/\t\t/g, "\t");
           // This prevents a double or more line breaks when columns are hidden
@@ -537,9 +576,9 @@ $(document).ready(() => {
           data = data.replace(/\r\n\r\n/g, '\t') //  prevents # showing up unneeded (windows)
 
           data = data.replace(/\t#/g, '')
-          data = data.replace(/\tއަރަބި ސުރުހީ/g, '')
+          data = data.replace(/\އަރަބި ސުރުހީ/g, '')
           data = data.replace(/\tދިވެހި ސުރުހީ/g, '')
-          data = data.replace(/\tއަރަބި ޙަދީޘް/g, '')
+          data = data.replace(/\އަރަބި ޙަދީޘް/g, '')
           data = data.replace(/\tއަރަބި ފިލިނުޖަހައި/g, '')
           data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
           data = data.replace(/\tތަޚްރީޖު/g, '')
@@ -741,6 +780,8 @@ $(document).ready(() => {
   $(document).ready(function () {
     $("#footer").removeClass("hidden");
   });
+
+  // adds doubleclick select go to page search was on, with rowshowjs
 
   // adds doubleclick select go to page search was on, with rowshowjs
 
