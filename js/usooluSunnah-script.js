@@ -101,7 +101,7 @@ $(document).ready(() => {
       },
       {
         data: 5,
-        title: "شرح النجمي",
+        title: "شرح الجبرين",
       },
     ],
 
@@ -413,7 +413,7 @@ $(document).ready(() => {
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/English\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
-          data = data.replace(/شرح النجمي\t/g, "");
+          data = data.replace(/شرح الجبرين\t/g, "");
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
             "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
