@@ -2215,7 +2215,10 @@
             <p class="justi">
               މި ސަފުހާގައިވާ އާޔަތްތައް ކޮޕީކުރުމަށް ފަހު، ޑެސްކްޓޮޕް ވޯޑުގައި
               ރީތިކޮށް ދެއްކުމަށްޓަކައި، އުޘްމާން ޠާހާ
-              <a href="https://hadithmv.github.io/font/uthmanic_hafs_v20.ttf"
+              <a
+                href="https://hadithmv.github.io/font/uthmanic_hafs_v20.ttf"
+                rel="noopener noreferrer"
+                target="_blank"
                 >ފޮންޓު</a
               >
               ބޭނުން ކުރެވިދާނެއެވެ.
@@ -2230,16 +2233,110 @@
             </p>
 
             <p class="justi">
-              <a href="https://hassaanmv.com/post/waleed-and-quran"
+              <a
+                href="https://hassaanmv.com/post/waleed-and-quran"
+                rel="noopener noreferrer"
+                target="_blank"
                 >މުސްހަފުގެ ފްރޭމް</a
               >
               އަދި
               <a
                 href="https://github.com/maaldheefee/Quran-Translation/blob/master/utils/gen_alternate.py"
+                rel="noopener noreferrer"
+                target="_blank"
                 >އަރަބި ތާނަކުރާ ސްކްރިޕްޓް</a
               >
               ހެދީ ޙައްސާން ޢަބްދުއްރައްޒާޤް. جَزَاهُ اللَّهُ خَيرًا.
             </p>
+
+            <hr class="lineVerticalSpace" />
+
+            <div style="text-align: left; direction: ltr">
+              <h3 class="mid">
+                <a>Technical notes regarding the database text</a>
+              </h3>
+
+              <p>
+                In the json db, first column is surah number, written as
+                sans-serif digits.
+                <br />
+                Second column is juz number, written as sans-serif bold digits.
+                (these non-normal numbers were placed so as not to conflict with
+                the normal ones used elsewhere, and the non-normal numbers are
+                made normal in scripting instances where needed.)
+                <br />
+                Third column is ayah number, written as normal numbers.
+                <br />
+                Fourth column is basmalah, it only shows in the row at the
+                beginning of a new surah, with the exception of fatiha.
+                <br />
+                Fifth column is Quran Arabic Text, taken from
+                <a
+                  href="https://tanzil.net/download"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  >Tanzil</a
+                >.
+                <br />
+                A sixth, fililess arabic column is created when the page is
+                generated, using scripts to remove all taskheels.
+                <br />
+                <br />
+                Details about the Tanzil text:
+                <br />
+                (Version: 1.1, 12 February 2021)
+                <br />
+                (Quran text type: Simple) also included ۞ and the space that
+                comes with it before it.
+                <br />
+                Harmonized بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ and بِّسْمِ
+                اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ where they occur. Only the one
+                without shadda on the first baa is used.
+                <br />
+                This arabic text was meant to be used as a normal plain quran
+                text, which would be easy to write, and easy to search. This
+                text is used as the primary arabic column in all
+                translations/tafsirs on this site.
+                <br />
+                <br />
+                As for the Rasm Uthmani column with fancy and complex unicode
+                characters, it is a more beautiful script that matches the
+                physical mushaf more closely than the Tanzil one, but it is not
+                easy to write or search according to that, due to the differing
+                unicode used. So this column is only used as a togglable extra
+                column in the Hmv translation, and not other books on this site.
+                <br />
+                This was taken from
+                <a
+                  href="https://qurancomplex.gov.sa/en/techquran/dev"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  >Qurancomplex</a
+                >.
+                <br />
+
+                Details about the Qurancomplex text:
+                <br />
+
+                Glorious Qur'an Platform for Developers, Unicode Uthmanic Font
+                (Hafs Narration) [not for smart devices],
+                <br />
+                (Version: 12.0, 7 September 2022)
+                <br />
+                Files, UthmanicHafs_v2-0.zip, data, hafsData_v2-0.[any format],
+                aya_text [column]
+                <br />
+                I removed the arabic numbers and the space that comes before
+                that.
+                <br />
+                (It seems that version 13.0 just introduces an additional space
+                right before: <br />
+                إِنَّ ٱلَّذِينَ كَفَرُواْ سَوَآءٌ عَلَيۡهِمۡ ءَأَنذَرۡتَهُمۡ
+                أَمۡ لَمۡ تُنذِرۡهُمۡ لَا يُؤۡمِنُونَ ﰅ <br />
+                which is of no consequence, so I kept using 12.0)
+              </p>
+            </div>
+            <!-- <div style="text-align: left; direction: ltr;"> -->
 
             <!-- 
             <p class="justi">
