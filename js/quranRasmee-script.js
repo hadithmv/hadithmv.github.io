@@ -245,7 +245,7 @@ $(document).ready(() => {
       },
       {
         data: 4,
-        title: "ޤުރްއާން އަރަބިން",
+        title: "ގުރްއާން އަރަބިން",
         render: function (data, type, row) {
           data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
           /* add brackets to ayah */
@@ -270,7 +270,7 @@ $(document).ready(() => {
       },
       {
         data: 4,
-        title: "ޤުރްއާން ފިލިނުޖަހާ",
+        title: "ގުރްއާން ފިލިނުޖަހާ",
         render: function (data, type, row) {
           data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
           //data = "﴿" + data + "﴾";
@@ -618,8 +618,8 @@ $(document).ready(() => {
           data = data.replace(/ޖުޒް #\t/g, "");
           data = data.replace(/އާޔަތް #\t/g, "");
           data = data.replace(/ބިސްމި\t/g, "");
-          data = data.replace(/ޤުރްއާން އަރަބިން\t/g, "");
-          data = data.replace(/ޤުރްއާން ފިލިނުޖަހާ\t/g, "");
+          data = data.replace(/ގުރްއާން އަރަބިން\t/g, "");
+          data = data.replace(/ގުރްއާން ފިލިނުޖަހާ\t/g, "");
           data = data.replace(/ތަރުޖަމާ ތާނައެކަނި\t/g, "");
           //data = data.replace(/\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g, '\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n') // adds a line break after takhrij line, use two for a new line
           /*data = data.replace(

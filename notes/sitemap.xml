@@ -9,232 +9,267 @@
 
 <url>
   <loc>https://hadithmv.github.io/</loc>
-  <lastmod>2023-11-10T15:32:28+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/index.html</loc>
-  <lastmod>2023-11-10T15:32:28+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/index.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/contact.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/helpTranslate.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/FAQ.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/contributors.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/quranHmv.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/quranBakurube.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/quranJaufar.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/quranUshru.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/books/quranRasmee.html</loc>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/allAthar.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/muwatta.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/umdah.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/hisnulMuslim.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/fortyAajurry.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/bulugh.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/fortyNawawi.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/misc/hadithmv-sitee.pdf</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/text-editor.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/books/kunnaasha.html</loc>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/usooluSunnah.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/barbahari.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/aqidatuRaziyain.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/nawaqidulislam.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/qawaidulArbau.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/books/usooluSiththa.html</loc>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/usooluThalaatha.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/umrah-travel.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/madina-info.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/khutba.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/introHmv.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/mirror-backups.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/how-to-use-hmv.txt</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/third-party-libs-and-tools.txt</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/privacy.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/LICENSE.txt</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/other-links.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://hadithmv.github.io/books/radheef.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <loc>https://hadithmv.github.io/books/radheefAll.html</loc>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/books/radheefRasmee.html</loc>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/radheefEegaal.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/books/radheefManiku.html</loc>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/notes/info/lafzuVakikurumugeQawaid.html</loc>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/linked/haaziruvevodigathun.txt</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/books/quranSoabuni.html</loc>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/introUmdah.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/introFortyN.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/aqidahNawawi.html</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/notes/info/nawawiSiyar.html</loc>
-  <lastmod>2023-11-10T15:32:22+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/bulugh</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
   <loc>https://hadithmv.github.io/books/fortyNawawi</loc>
-  <lastmod>2023-11-10T15:32:21+00:00</lastmod>
+  <lastmod>2024-01-10T16:50:23+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 
