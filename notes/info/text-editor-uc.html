@@ -1448,6 +1448,41 @@
             🖥️ Full <u>S</u>creen
           </button>
 
+          <button
+            onClick="window.location.reload()"
+            class="ttClass"
+            data-tooltip="Soft reloads the page"
+          >
+            🔄 Soft Reload
+          </button>
+
+          <button
+            onclick="reloadUpToHtml()"
+            class="ttClass"
+            data-tooltip="Hard reloads the page"
+          >
+            Hard Reload
+          </button>
+
+          <script>
+            function reloadUpToHtml() {
+              // Get the current URL
+              var currentUrl = window.location.href;
+
+              // Find the index of ".html" in the URL
+              var htmlIndex = currentUrl.indexOf(".html");
+
+              // If ".html" is found, reload the page up to that point
+              //if (htmlIndex !== -1) {
+              var newUrl = currentUrl.substring(0, htmlIndex + 5); // Add 5 to include ".html"
+              window.location.href = newUrl;
+              //} else {
+              // ".html" not found, simply reload the page
+              //location.reload();
+              //}
+            }
+          </script>
+
           <style>
             .fullScreenClass {
               /* 100% height causes jump on remove class deanimate */
@@ -1769,6 +1804,24 @@
             //document.getElementById("findCounted").innerHTML = count;
           }
 
+          // i want to the find and replace to work even when the user types in input without escaping regex
+          function findAndReplace() {
+            var input = document.getElementById("textMainArea").value;
+            var replaceWith = document.getElementById("replaceWith").value;
+
+            // Escape special characters in the search string
+            var find = document
+              .getElementById("findThis")
+              .value.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+
+            var regex = new RegExp(find, "g");
+
+            document.getElementById("textMainArea").value = input.replace(
+              regex,
+              replaceWith
+            );
+          }
+          /* OLD
           // https://stackoverflow.com/questions/50951625/use-html-input-to-replace-information-from-string-using-javascript/50951734#50951734
           function findAndReplace() {
             var input = document.getElementById("textMainArea").value;
@@ -1783,7 +1836,7 @@
               find,
               replaceWith
             );
-          }
+          }*/
 
           //
           //
