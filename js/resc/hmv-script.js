@@ -18,6 +18,26 @@ function copyURLToClipButton2() {
   document.body.removeChild(dummy);
 }
 
+// scrapped this in favor of inline onclick function, prompt:
+// write an inline js onclick function, to reload the window, upto and including ".html" in the url, removing the rest of the url that comes after that
+
+// HARD RELOAD BUTTON
+/*function reloadUpToHtml() {
+  // Get the current URL
+  var currentUrl = window.location.href;
+  // Find the index of ".html" in the URL
+  var htmlIndex = currentUrl.indexOf(".html");
+  // If ".html" is found, reload the page up to that point
+  //if (htmlIndex !== -1) {
+  var newUrl = currentUrl.substring(0, htmlIndex + 5); // Add 5 to include ".html"
+  window.location.href = newUrl;
+  //} else {
+  // ".html" not found, simply reload the page
+  //location.reload();
+  //}
+}-*
+
+
 /* not using below code anymore, and changed above code using cgpt cuz it didnt work
 // same code above is below triggered on keypress
 
@@ -43,25 +63,6 @@ if (window.innerWidth > 600) {
   //
 }
 */
-
-// HARD RELOAD BUTTON
-
-function reloadUpToHtml() {
-  // Get the current URL
-  var currentUrl = window.location.href;
-
-  // Find the index of ".html" in the URL
-  var htmlIndex = currentUrl.indexOf(".html");
-
-  // If ".html" is found, reload the page up to that point
-  //if (htmlIndex !== -1) {
-  var newUrl = currentUrl.substring(0, htmlIndex + 5); // Add 5 to include ".html"
-  window.location.href = newUrl;
-  //} else {
-  // ".html" not found, simply reload the page
-  //location.reload();
-  //}
-}
 
 // DATE UPDATE SCRIPT?
 

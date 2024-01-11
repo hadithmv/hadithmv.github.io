@@ -1457,31 +1457,12 @@
           </button>
 
           <button
-            onclick="reloadUpToHtml()"
             class="ttClass"
             data-tooltip="Hard reloads the page"
+            onclick="window.location.href = window.location.href.split('.html')[0] + '.html';"
           >
             Hard Reload
           </button>
-
-          <script>
-            function reloadUpToHtml() {
-              // Get the current URL
-              var currentUrl = window.location.href;
-
-              // Find the index of ".html" in the URL
-              var htmlIndex = currentUrl.indexOf(".html");
-
-              // If ".html" is found, reload the page up to that point
-              //if (htmlIndex !== -1) {
-              var newUrl = currentUrl.substring(0, htmlIndex + 5); // Add 5 to include ".html"
-              window.location.href = newUrl;
-              //} else {
-              // ".html" not found, simply reload the page
-              //location.reload();
-              //}
-            }
-          </script>
 
           <style>
             .fullScreenClass {
