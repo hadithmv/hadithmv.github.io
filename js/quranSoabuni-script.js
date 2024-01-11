@@ -291,7 +291,7 @@ $(document).ready(() => {
       },
       {
         data: 6,
-        title: "ތަފުސީރު",
+        title: "ތަފުސީރު", // ubufili on faafu, otherwise interferes with clipboard tite copy
       },
       {
         data: 7,
