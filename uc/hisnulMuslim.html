@@ -161,7 +161,10 @@
               <a onClick="window.location.reload()">🔄 މަޑު ރީލޯޑު</a>
             </li>
             <li>
-              <a onclick="reloadUpToHtml()">ހަރު ރީލޯޑު</a>
+              <a
+                onclick="window.location.href = window.location.href.split('.html')[0] + '.html';"
+                >ހަރު ރީލޯޑު</a
+              >
             </li>
           </ul>
         </nav>
