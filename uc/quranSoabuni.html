@@ -1095,14 +1095,18 @@
               &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
             </button>
 
-            <button class="lowerButtons" onclick="toggleFili();">
-              &nbsp; ފިލި ފޮރުވާ/ދައްކާ &nbsp;
+            <button
+              id="toggleFiliButton"
+              class="lowerButtons"
+              onclick="toggleFili();filiString();scrollUpTop()"
+            >
+              &nbsp; އަރަބި ފިލިތައް ފޮރުވާ &nbsp;
             </button>
 
             <button
               id="toggleShowButton"
               class="lowerButtons"
-              onclick="toggleShowOne();"
+              onclick="toggleShowOne();scrollUpTop()"
             >
               &nbsp; ތަފްސީރު އެކަނި ދައްކާ &nbsp;
             </button>
@@ -1148,12 +1152,6 @@
                 } else {
                   button.innerHTML = "&nbsp; ތަފްސީރު އެކަނި ދައްކާ &nbsp;";
                 }
-
-                // scroll to top
-                window.scrollTo({
-                  top: 0,
-                  behavior: "smooth",
-                });
               }
             </script>
 

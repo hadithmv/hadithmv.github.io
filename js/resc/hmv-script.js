@@ -1,3 +1,7 @@
+/*
+google-closure-compiler --charset=UTF-8 --js=hmv-script.js --js_output_file=hmv-script.min.js
+*/
+
 /* copyURL BUTTON */
 // https://stackoverflow.com/questions/33855641/copy-output-of-a-javascript-variable-to-the-clipboard/48542290#48542290
 // https://stackoverflow.com/questions/10568815/replace-all-text-before-a-certain-point
@@ -18,7 +22,32 @@ function copyURLToClipButton() {
   document.body.removeChild(dummy);
 }
 
-// dont really need this in books right now
+//
+
+// SCROLL TO TOP
+
+function scrollUpTop() {
+  // scroll to top
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}
+
+//
+
+// CHANGE FILI BUTTON STRING
+
+function filiString() {
+  var button = document.getElementById("toggleFiliButton");
+  if (button.innerHTML.trim() === "&nbsp; އަރަބި ފިލިތައް ފޮރުވާ &nbsp;") {
+    button.innerHTML = "&nbsp; އަރަބި ފިލިތައް ދައްކާ &nbsp;";
+  } else {
+    button.innerHTML = "&nbsp; އަރަބި ފިލިތައް ފޮރުވާ &nbsp;";
+  }
+}
+
+// dont really need this in books right now, it was only meant for editor or notes content that didnt go back a page after having scrolled down or something
 /* https://stackoverflow.com/questions/3664381/force-page-scroll-position-to-top-at-page-refresh-in-html/60994204#60994204
 function scrollToTopFully() {
   history.scrollRestoration = "manual";
