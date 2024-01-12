@@ -244,6 +244,11 @@
     <a href="#" class="toTop noLine"> ➤ </a>
     <script>
       let toTop = document.querySelector(".toTop");
+      toTop.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent the default behavior of the anchor link
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
       window.addEventListener("scroll", function () {
         if (window.pageYOffset > 100) {
           toTop.classList.add("active_toTop");
