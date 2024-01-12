@@ -543,7 +543,13 @@
     <!-- https://github.com/engrasel/Scroll-To-Top-Button -->
     <a href="#" class="toTop noLine"> ➤ </a>
     <script>
+      // after scrolling down, and clicking on the anchor, it takes me back to the top. but if i click the back button on the browser, it takes me back to the place where i had previously scrolled down, it should take me to the previous page instead
       let toTop = document.querySelector(".toTop");
+      toTop.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent the default behavior of the anchor link
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
       window.addEventListener("scroll", function () {
         if (window.pageYOffset > 100) {
           toTop.classList.add("active_toTop");
@@ -551,6 +557,15 @@
           toTop.classList.remove("active_toTop");
         }
       });
+      /* OLD CODE
+      let toTop = document.querySelector(".toTop");
+      window.addEventListener("scroll", function () {
+        if (window.pageYOffset > 100) {
+          toTop.classList.add("active_toTop");
+        } else {
+          toTop.classList.remove("active_toTop");
+        }
+      });*/
     </script>
     <!-- end scroll to top -->
 

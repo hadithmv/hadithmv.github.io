@@ -176,26 +176,24 @@
       <hr />
       <br />
 
-        <h2 class="mid">
-          <a><b>ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު</b></a>
-        </h2>
+      <h2 class="mid">
+        <a><b>ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު</b></a>
+      </h2>
 
-        <h3>
-          <a><b>ތަޢާރަފު</b></a>
-        </h3>
+      <h3>
+        <a><b>ތަޢާރަފު</b></a>
+      </h3>
 
-        <p>
-          ދިވެހިބަހުން ލިޔުމުގައި ލަފުޒުތައް ވަކިކޮށް ލިޔުމަކީ ޖުމުލައިގެ މާނަ
-          ދޭހަވާން ފަސޭހަކޮށްދޭ ކަމެކެވެ. އަދި މިއީ ލިޔެފައި ހުންނަ ލިޔުން
-          ކިޔާން ފަސޭހަވާ ކަމެއް ވެސް މެއެވެ. ތިރީގައި މި ވަނީ ލަފުޒުތައް
-          ވަކިކޮށް ލިޔުމާ ބެހޭ ގޮތުން ދިވެހި ބަހުގެ އެކެޑަމީން ކަނޑައަޅައިފައިވާ
-          ގަވާއިދެވެ.
-        </p>
+      <p>
+        ދިވެހިބަހުން ލިޔުމުގައި ލަފުޒުތައް ވަކިކޮށް ލިޔުމަކީ ޖުމުލައިގެ މާނަ
+        ދޭހަވާން ފަސޭހަކޮށްދޭ ކަމެކެވެ. އަދި މިއީ ލިޔެފައި ހުންނަ ލިޔުން ކިޔާން
+        ފަސޭހަވާ ކަމެއް ވެސް މެއެވެ. ތިރީގައި މި ވަނީ ލަފުޒުތައް ވަކިކޮށް ލިޔުމާ
+        ބެހޭ ގޮތުން ދިވެހި ބަހުގެ އެކެޑަމީން ކަނޑައަޅައިފައިވާ ގަވާއިދެވެ.
+      </p>
 
-        <br />
+      <br />
 
-        <div id="jump_to_main"></div>
-
+      <div id="jump_to_main">
         <h3>
           <a
             ><b>
@@ -557,6 +555,11 @@
     <a href="#" class="toTop noLine"> ➤ </a>
     <script>
       let toTop = document.querySelector(".toTop");
+      toTop.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent the default behavior of the anchor link
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
       window.addEventListener("scroll", function () {
         if (window.pageYOffset > 100) {
           toTop.classList.add("active_toTop");
