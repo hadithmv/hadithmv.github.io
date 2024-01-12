@@ -1126,11 +1126,15 @@
               &nbsp; ފިލި ފޮރުވާ/ދައްކާ &nbsp;
             </button>
 
-            <button class="lowerButtons" onclick="toggleGenTharjama();">
+            <button
+              id="toggleShowButton"
+              class="lowerButtons"
+              onclick="toggleShowOne();"
+            >
               &nbsp; އިޖްމާލީ އެކަނި ދައްކާ &nbsp;
             </button>
 
-            <button class="lowerButtons" onclick="copyGenTharjamaOnly();">
+            <button class="lowerButtons" onclick="copyOneOnly();">
               &nbsp; އިޖްމާލީ އެކަނި ކޮޕީ &nbsp;
             </button>
 
@@ -1153,18 +1157,36 @@
             </script>
 
             <script>
-              function toggleGenTharjama() {
+              function toggleShowOne() {
                 var isVisible = $("#quranTable")
                   .DataTable()
                   .column(6)
                   .visible();
                 $("#quranTable").DataTable().column(6).visible(!isVisible);
+
+                // change string
+
+                var button = document.getElementById("toggleShowButton");
+                if (
+                  button.innerHTML.trim() ===
+                  "&nbsp; އިޖްމާލީ އެކަނި ދައްކާ &nbsp;"
+                ) {
+                  button.innerHTML = "&nbsp; ލަފްޒީވެސް ދައްކާ &nbsp;";
+                } else {
+                  button.innerHTML = "&nbsp; އިޖްމާލީ އެކަނި ދައްކާ &nbsp;";
+                }
+
+                // scroll to top
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                });
               }
             </script>
 
             <script>
               // should only execute if visible(!isVisible) is already visible
-              function copyGenTharjamaOnly() {
+              function copyOneOnly() {
                 var isVisible = $("#quranTable")
                   .DataTable()
                   .column(6)
@@ -1189,7 +1211,7 @@
               }
 
               /*OLD CODE BELOW:
-              function copyGenTharjamaOnly() {
+              function copyOneOnly() {
                 var isVisible = $("#quranTable")
                   .DataTable()
                   .column(6)
