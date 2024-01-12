@@ -130,9 +130,14 @@
               &nbsp; نسخ رابط الصفحة &nbsp;
             </button>
 
-            <button class="lowerButtons" onclick="toggleFili();">
-              &nbsp; إظهار/إخفاء التشكيل &nbsp;
+            <button
+              id="toggleFiliButton2"
+              class="lowerButtons"
+              onclick="toggleFili();filiString2();scrollUpTop()"
+            >
+              &nbsp; إخفاء التشكيل &nbsp;
             </button>
+            <!-- this one is different from the others -->
 
             <script>
               function toggleFili() {
@@ -155,6 +160,17 @@
                   .DataTable()
                   .column(4)
                   .visible(!isVisible);
+              }
+            </script>
+
+            <script>
+              function filiString2() {
+                var button = document.getElementById("toggleFiliButton2");
+                if (button.innerHTML.trim() === "&nbsp; إخفاء التشكيل &nbsp;") {
+                  button.innerHTML = "&nbsp; إظهار التشكيل &nbsp;";
+                } else {
+                  button.innerHTML = "&nbsp; إخفاء التشكيل &nbsp;";
+                }
               }
             </script>
 

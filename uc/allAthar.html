@@ -145,9 +145,14 @@
               &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
             </button>
 
-            <button class="lowerButtons" onclick="toggleFili();">
-              &nbsp; ފިލި ފޮރުވާ/ދައްކާ &nbsp;
+            <button
+              id="toggleFiliButton2"
+              class="lowerButtons"
+              onclick="toggleFili();filiString2();scrollUpTop()"
+            >
+              &nbsp; އަރަބި ފިލިތައް ދައްކާ &nbsp;
             </button>
+            <!-- this one is different from the others -->
 
             <script>
               function toggleFili() {
@@ -169,6 +174,22 @@
                 // also related: https://stackoverflow.com/questions/45234347/jquery-datatables-how-hide-specified-column-dynamically/45234355#45234355
                 /*$("#allAtharTable").DataTable().column(3).visible(true);
                 $("#allAtharTable").DataTable().column(4).visible(false);*/
+
+                // CHANGE FILI BUTTON STRING - only for all athar, because it is hidden by default
+              }
+            </script>
+
+            <script>
+              function filiString2() {
+                var button = document.getElementById("toggleFiliButton2");
+                if (
+                  button.innerHTML.trim() ===
+                  "&nbsp; އަރަބި ފިލިތައް ދައްކާ &nbsp;"
+                ) {
+                  button.innerHTML = "&nbsp; އަރަބި ފިލިތައް ފޮރުވާ &nbsp;";
+                } else {
+                  button.innerHTML = "&nbsp; އަރަބި ފިލިތައް ދައްކާ &nbsp;";
+                }
               }
             </script>
 
