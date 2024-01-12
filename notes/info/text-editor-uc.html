@@ -446,13 +446,13 @@
               //whateverElement.dispatchEvent(mouseoverEvent);
             }
             /*if (e.altKey && e.which == 69) {
-          // is e (which opens settings in edge, so leave it)
-          document.querySelector("#eraseButton").click();
-        }*/
+        // is e (which opens settings in edge, so leave it)
+        document.querySelector("#eraseButton").click();
+      }*/
             /*if (e.altKey && e.which == 68) {
-          // is d (which selects url in edge, so leave it)
-          document.querySelector("#toggleDark").click();
-        }*/
+        // is d (which selects url in edge, so leave it)
+        document.querySelector("#toggleDark").click();
+      }*/
             if (e.altKey && e.which == 85) {
               // is u
               document.querySelector("#upButton").click();
@@ -672,9 +672,9 @@ let i = document.getElementById("slider");
 i.addEventListener(
 "input",
 function () {
-  //var o = document.getElementById("textMainArea");
-  //o.style.fontSize = val + "px";
-  */
+//var o = document.getElementById("textMainArea");
+//o.style.fontSize = val + "px";
+*/
 
           function fontChange() {
             document.getElementById("textMainArea").style.fontSize =
@@ -710,7 +710,7 @@ function () {
 
         <script>
           /* localstorage cache of textarea
-      https://stackoverflow.com/questions/54897890/how-to-cache-text-area/54897926#54897926 */
+    https://stackoverflow.com/questions/54897890/how-to-cache-text-area/54897926#54897926 */
 
           var data;
           window.onload = function () {
@@ -803,36 +803,36 @@ function () {
               document.body.removeChild(downloadableLink);
             }
             /* OLD CODE BELOW
-        // https://stackoverflow.com/questions/21479107/saving-html5-textarea-contents-to-file/30740104#30740104
-        function ssaveTextAsFile() {
-          var textToWrite = document.getElementById("textMainArea").value;
-          var textFileAsBlob = new Blob([textToWrite], {
-            type: "text/plain",
-          });
-          var fileNameToSaveAs = "file.txt"; //filename.extension
-          var downloadLink = document.createElement("a");
-          downloadLink.download = fileNameToSaveAs;
-          downloadLink.innerHTML = "Download File";
-          if (window.webkitURL != null) {
-            // Chrome allows the link to be clicked without actually adding it to the DOM.
-            downloadLink.href =
-              window.webkitURL.createObjectURL(textFileAsBlob);
-          } else {
-            // Firefox requires the link to be added to the DOM before it can be clicked.
-            downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-            downloadLink.onclick = destroyClickedElement;
-            downloadLink.style.display = "none";
-            document.body.appendChild(downloadLink);
-          }
-          downloadLink.click();
+      // https://stackoverflow.com/questions/21479107/saving-html5-textarea-contents-to-file/30740104#30740104
+      function ssaveTextAsFile() {
+        var textToWrite = document.getElementById("textMainArea").value;
+        var textFileAsBlob = new Blob([textToWrite], {
+          type: "text/plain",
+        });
+        var fileNameToSaveAs = "file.txt"; //filename.extension
+        var downloadLink = document.createElement("a");
+        downloadLink.download = fileNameToSaveAs;
+        downloadLink.innerHTML = "Download File";
+        if (window.webkitURL != null) {
+          // Chrome allows the link to be clicked without actually adding it to the DOM.
+          downloadLink.href =
+            window.webkitURL.createObjectURL(textFileAsBlob);
+        } else {
+          // Firefox requires the link to be added to the DOM before it can be clicked.
+          downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+          downloadLink.onclick = destroyClickedElement;
+          downloadLink.style.display = "none";
+          document.body.appendChild(downloadLink);
         }
-        var button = document.getElementById("save");
-        button.addEventListener("click", saveTextAsFile);
-        function destroyClickedElement(event) {
-          // remove the link from the DOM
-          document.body.removeChild(event.target);
-        }
-        */
+        downloadLink.click();
+      }
+      var button = document.getElementById("save");
+      button.addEventListener("click", saveTextAsFile);
+      function destroyClickedElement(event) {
+        // remove the link from the DOM
+        document.body.removeChild(event.target);
+      }
+      */
           </script>
 
           <input type="file" id="inputfile" style="display: none" />
@@ -899,18 +899,18 @@ function () {
 
             // calc textarea | NOT WORKING
             /*function dropfile2(file2) {
-        var reader2 = new FileReader();
-        reader2.onload = function (e) {
-          textSumArea.value = e.target.result;
-        };
-        reader2.readAsText(file2, "UTF-8");
-      }
+      var reader2 = new FileReader();
+      reader2.onload = function (e) {
+        textSumArea.value = e.target.result;
+      };
+      reader2.readAsText(file2, "UTF-8");
+    }
 
-      textSumArea.ondrop = function (e) {
-        e.preventDefault();
-        var file2 = e.dataTransfer.files[0];
-        dropfile2(file2);
-      };*/
+    textSumArea.ondrop = function (e) {
+      e.preventDefault();
+      var file2 = e.dataTransfer.files[0];
+      dropfile2(file2);
+    };*/
           </script>
 
           <button
@@ -1527,15 +1527,15 @@ function () {
               //$("#textMainArea").removeClass("fullScreenClass");
 
               /* $("#fullScreenB").click(function () {
-           // listen for multiple clicks
-           window.addEventListener("click", function (evt) {
-             if (evt.detail === 4) {
-               alert("triple click!");
-               //var esc = $.Event("keydown", { keyCode: 27 });
-               //$("body").trigger(esc); // change body to the element where you'd like to execute the escape key press.
-               $("#textMainArea").removeClass("fullScreenClass");
-             }
-           });*/
+         // listen for multiple clicks
+         window.addEventListener("click", function (evt) {
+           if (evt.detail === 4) {
+             alert("triple click!");
+             //var esc = $.Event("keydown", { keyCode: 27 });
+             //$("body").trigger(esc); // change body to the element where you'd like to execute the escape key press.
+             $("#textMainArea").removeClass("fullScreenClass");
+           }
+         });*/
 
               // for some reason help buttons show if they have relative position, so changed to static
               $(".ttClass[data-tooltip]").css({
@@ -1550,26 +1550,26 @@ function () {
 
             // old onclick js code turned into css later
             /*$("#textMainArea").css({
-             height: "100%",
-             position: "fixed",
-             top: "0",
-             right: "0",
-             width: "100%",
-             borderWidth: "100px",
-             borderColor: "white",
-             fontSize: "26px",
-           });
+           height: "100%",
+           position: "fixed",
+           top: "0",
+           right: "0",
+           width: "100%",
+           borderWidth: "100px",
+           borderColor: "white",
+           fontSize: "26px",
+         });
 
-           if (window.matchMedia("(max-width: 599px)").matches) {
-             //alert("This is a mobile device.");
-             $("#textMainArea").css({
-               borderWidth: "15px",
-               borderColor: "white",
-               fontSize: "23px",
-             });
-             //
-           }
-           */
+         if (window.matchMedia("(max-width: 599px)").matches) {
+           //alert("This is a mobile device.");
+           $("#textMainArea").css({
+             borderWidth: "15px",
+             borderColor: "white",
+             fontSize: "23px",
+           });
+           //
+         }
+         */
           </script>
 
           <p
@@ -1694,43 +1694,43 @@ function () {
             //let reg = /(\b\w*oana\w*\b)/gim;
             //let reg = /(\b\W*ަި|na\W*\b)/gim;
             /* let reg =
-          /(\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim; */
+        /(\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim; */
             /*
-        let reg = \b[dog]+\b(?![,])
+      let reg = \b[dog]+\b(?![,])
 
-          /(\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim;
-          */
-
-            /*
-
-        let reg = /#([\S]+)/gim; // Get hashtags.
-
-        let string = document.getElementById("textMainArea").value;
-        let matches = (string.match(reg) || []).map((e) =>
-          e.replace(reg, "$1")
-        );
-        //console.log(matches);
+        /(\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim;
         */
 
             /*
 
-        function getMatches(string, regex, index) {
-          index || (index = 1); // default to the first capturing group
-          var matches = [];
-          var match;
-          while ((match = regex.exec(string))) {
-            matches.push(match[index]);
-          }
-          return matches;
+      let reg = /#([\S]+)/gim; // Get hashtags.
+
+      let string = document.getElementById("textMainArea").value;
+      let matches = (string.match(reg) || []).map((e) =>
+        e.replace(reg, "$1")
+      );
+      //console.log(matches);
+      */
+
+            /*
+
+      function getMatches(string, regex, index) {
+        index || (index = 1); // default to the first capturing group
+        var matches = [];
+        var match;
+        while ((match = regex.exec(string))) {
+          matches.push(match[index]);
         }
+        return matches;
+      }
 
-        // Example :
-        var myString = document.getElementById("textMainArea").value;
-        var myRegEx = /(?:^|\s)format_(.*?)(?:\s|$)/g;
+      // Example :
+      var myString = document.getElementById("textMainArea").value;
+      var myRegEx = /(?:^|\s)format_(.*?)(?:\s|$)/g;
 
-        // Get an array containing the first capturing group for every match
-        var matches = getMatches(myString, myRegEx, 1);
-        */
+      // Get an array containing the first capturing group for every match
+      var matches = getMatches(myString, myRegEx, 1);
+      */
 
             // https://stackoverflow.com/questions/432493/how-do-you-access-the-matched-groups-in-a-javascript-regular-expression/41445988#41445988
 
@@ -1741,7 +1741,7 @@ function () {
               /(\b\w*[\u0787-\u07BF]|ަު|ަެ|ަާ|ަީ|ަޫ|ަޭ|ަް|ަޮ|ަޯ|ިަ|ިި|ިު|ިެ|ިާ|ިީ|ިޫ|ިޭ|ިް|ިޮ|ިޯ|ުަ|ުި|ުު|ުެ|ުާ|ުީ|ުޫ|ުޭ|ުް|ުޮ|ުޯ|ެަ|ެި|ެު|ެެ|ެާ|ެީ|ެޫ|ެޭ|ެް|ެޮ|ެޯ|ާަ|ާި|ާު|ާެ|ާާ|ާީ|ާޫ|ާޭ|ާް|ާޮ|ާޯ|ީަ|ީި|ީު|ީެ|ީާ|ީީ|ީޫ|ީޭ|ީް|ީޮ|ީޯ|ޫަ|ޫި|ޫު|ޫެ|ޫާ|ޫީ|ޫޫ|ޫޭ|ޫް|ޫޮ|ޫޯ|ޭަ|ޭި|ޭު|ޭެ|ޭާ|ޭީ|ޭޫ|ޭޭ|ޭް|ޭޮ|ޭޯ|ްަ|ްި|ްު|ްެ|ްާ|ްީ|ްޫ|ްޭ|ްް|ްޮ|ްޯ|ޮަ|ޮި|ޮު|ޮެ|ޮާ|ޮީ|ޮޫ|ޮޭ|ޮް|ޮޮ|ޮޯ|ޯަ|ޯި|ޯު|ޯެ|ޯާ|ޯީ|ޯޫ|ޯޭ|ޯް|ޯޮ|ޯޯ\w*\b)/gim;
 
             /*let string =
-          " mشi aއިަlegría es އަި total! ✌🙌\n#fiestaشََsde findشََeaño #PadreHijo #buenosއmomentos #franއަިce #parشis";*/
+        " mشi aއިަlegría es އަި total! ✌🙌\n#fiestaشََsde findشََeaño #PadreHijo #buenosއmomentos #franއަިce #parشis";*/
             let string = document.getElementById("textMainArea").value;
 
             let matches = (string.match(reg) || []).map((e) =>
@@ -1751,10 +1751,10 @@ function () {
 
             // Log results
             /*document.write(
-          matches.length + " matches found: " + JSON.stringify(matches)
-        );
-        console.log(matches);
-        */
+        matches.length + " matches found: " + JSON.stringify(matches)
+      );
+      console.log(matches);
+      */
 
             document.getElementById("doubleFilis").innerHTML = matches;
 
@@ -1764,7 +1764,7 @@ function () {
               /(\b[\u0600-\u06FF]|ًَ|َُ|ٌَ|َِ|ٍَ|َْ|َ~|َّ|ًَ|ًً|ًُ|ًٌ|ًِ|ًٍ|ًْ|ً~|ًّ|َُ|ًُ|ُُ|ٌُ|ُِ|ٍُ|ُْ|ُ~|ُّ|ٌَ|ًٌ|ٌُ|ٌٌ|ٌِ|ٌٍ|ٌْ|ٌ~|ٌّ|َِ|ًِ|ُِ|ٌِ|ِِ|ٍِ|ِْ|ِ~|ِّ|ٍَ|ًٍ|ٍُ|ٌٍ|ٍِ|ٍٍ|ٍْ|ٍ~|ٍّ|َْ|ًْ|ُْ|ٌْ|ِْ|ٍْ|ْْ|ْ~|ّْ|~َ|~ً|~ُ|~ٌ|~ِ|~ٍ|~ْ|~~|~ّ|ّْ|ّ~|ّّ\b)/gim;
 
             /*let string2 =
-          " mشi aއިަlegría es އަި total! ✌🙌\n#fiestaشََsde findشََeaño #PadreHijo #buenosއmomentos #franއަިce #parشis";*/
+        " mشi aއިަlegría es އަި total! ✌🙌\n#fiestaشََsde findشََeaño #PadreHijo #buenosއmomentos #franއަިce #parشis";*/
             let string2 = document.getElementById("textMainArea").value;
 
             let matches2 = (string2.match(reg2) || []).map((e) =>
@@ -1863,21 +1863,21 @@ function () {
             );
           }
           /* OLD
-      // https://stackoverflow.com/questions/50951625/use-html-input-to-replace-information-from-string-using-javascript/50951734#50951734
-      function findAndReplace() {
-        var input = document.getElementById("textMainArea").value;
-        var replaceWith = document.getElementById("replaceWith").value;
-        var find = new RegExp(
-          document.getElementById("findThis").value,
-          "g"
-        );
-        //var regex = new RegExp("ReGeX" + find + "ReGeX");
+    // https://stackoverflow.com/questions/50951625/use-html-input-to-replace-information-from-string-using-javascript/50951734#50951734
+    function findAndReplace() {
+      var input = document.getElementById("textMainArea").value;
+      var replaceWith = document.getElementById("replaceWith").value;
+      var find = new RegExp(
+        document.getElementById("findThis").value,
+        "g"
+      );
+      //var regex = new RegExp("ReGeX" + find + "ReGeX");
 
-        document.getElementById("textMainArea").value = input.replace(
-          find,
-          replaceWith
-        );
-      }*/
+      document.getElementById("textMainArea").value = input.replace(
+        find,
+        replaceWith
+      );
+    }*/
 
           //
           //
@@ -1944,40 +1944,40 @@ function () {
           // https://stackoverflow.com/questions/4220126/run-javascript-function-when-user-finishes-typing-instead-of-on-key-up/5926782#5926782
 
           /*
-                //setup before functions
-                let typingTimer; //timer identifier
-                let doneTypingInterval = 500; //time in ms (5 seconds)
-                let myInput = document.getElementById("textMainArea");
+              //setup before functions
+              let typingTimer; //timer identifier
+              let doneTypingInterval = 500; //time in ms (5 seconds)
+              let myInput = document.getElementById("textMainArea");
 
-                //on keyup, start the countdown
-                // CHANGED keyup to input below
-                myInput.addEventListener("input", () => {
-                  clearTimeout(typingTimer);
-                  if (myInput.value) {
-                    typingTimer = setTimeout(doneTyping, doneTypingInterval);
-                  }
-                });
-
-                //user is "finished typing," do something
-                function doneTyping() {
-                  //do something
-                  countChar();
-                  countWord();
-                  countLine();
-                  countSize();
+              //on keyup, start the countdown
+              // CHANGED keyup to input below
+              myInput.addEventListener("input", () => {
+                clearTimeout(typingTimer);
+                if (myInput.value) {
+                  typingTimer = setTimeout(doneTyping, doneTypingInterval);
                 }
+              });
 
-                let taVal = document.getElementById("textMainArea").value;
-                if (taVal == "") {
-                  // alert("This field is required");
-                  countChar();
-                  countWord();
-                  countLine();
-                  countSize();
-                  document.getElementById("textMainArea").value = 5;
-                } else {
-                  console.log("success");
-                }*/
+              //user is "finished typing," do something
+              function doneTyping() {
+                //do something
+                countChar();
+                countWord();
+                countLine();
+                countSize();
+              }
+
+              let taVal = document.getElementById("textMainArea").value;
+              if (taVal == "") {
+                // alert("This field is required");
+                countChar();
+                countWord();
+                countLine();
+                countSize();
+                document.getElementById("textMainArea").value = 5;
+              } else {
+                console.log("success");
+              }*/
 
           //
           //
@@ -2001,10 +2001,10 @@ function () {
           //
 
           /*function triggerTheReplace() {
-                  setTimeout(function () {
-                    replaceType();
-                  }, 1000);
-                }*/
+                setTimeout(function () {
+                  replaceType();
+                }, 1000);
+              }*/
 
           // https://www.w3schools.com/cssref/css3_pr_text-decoration-line.asp
 
@@ -2088,7 +2088,7 @@ function () {
 
             // can add below so that less js calculations would happen rather than starting to count size kbs from scratch
             /*s = total.length;
-                  formatBytes(s);*/
+                formatBytes(s);*/
           }
 
           // https://www.geeksforgeeks.org/how-to-make-a-word-count-in-textarea-using-javascript/
@@ -2110,16 +2110,16 @@ function () {
               .filter((el) => el !== "").length;
 
             /* previous old code, above is much simpler
-                            var count = 0;
+                          var count = 0;
 
-                            var split = words.split(" ");
+                          var split = words.split(" ");
 
-                            for (var i = 0; i < split.length; i++) {
-                              if (split[i] != "") {
-                                count += 1;
-                              }
+                          for (var i = 0; i < split.length; i++) {
+                            if (split[i] != "") {
+                              count += 1;
                             }
-                            */
+                          }
+                          */
 
             // Display it as output
             //document.getElementById("wordC").innerHTML = count;
@@ -2147,27 +2147,27 @@ function () {
             el.value.split(/\r?\n|\r/).length;
 
             /*
-                  count2 = document
-                    .getElementById("textMainArea")
-                    .value.split(/\r\n|\r|\n/).length;
-                    */
-            /*
-                  const text2 = document.getElementById("textMainArea").value;
-                  const lines2 = text2.split("\n");
-                  const count2 = lines2.length;
-                  //console.log(count2);
+                count2 = document
+                  .getElementById("textMainArea")
+                  .value.split(/\r\n|\r|\n/).length;
                   */
+            /*
+                const text2 = document.getElementById("textMainArea").value;
+                const lines2 = text2.split("\n");
+                const count2 = lines2.length;
+                //console.log(count2);
+                */
             document.getElementById("lineC").innerHTML = lineCount;
           }
 
           // https://stackoverflow.com/questions/5515869/string-length-in-bytes-in-javascript/12203648#12203648
 
           /*function countSize() {
-                              stringSize = document.getElementById("textMainArea").value;
-                              document.getElementById("sizeC").innerHTML = new Blob([
-                                stringSize,
-                              ]).size;
-                            }*/
+                            stringSize = document.getElementById("textMainArea").value;
+                            document.getElementById("sizeC").innerHTML = new Blob([
+                              stringSize,
+                            ]).size;
+                          }*/
 
           // https://stackoverflow.com/questions/5515869/string-length-in-bytes-in-javascript/23329386#23329386
 
@@ -2201,7 +2201,7 @@ function () {
 
             //return parseFloat((s / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
             /*s2 =
-                      parseFloat((s / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];*/
+                    parseFloat((s / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];*/
             s2 = parseFloat((s / Math.pow(k, i)).toFixed(dm));
             document.getElementById("sizeC").innerHTML = s2;
             document.getElementById("sizeCletter").innerHTML = sizes[i];
@@ -2214,55 +2214,55 @@ function () {
           // old code for replace below, causes cursor to jump to end upon replace, after moving cursor manually })
 
           /*function replaceType() {
-                            var text = document.getElementById("textMainArea").value;
-                            var newText = text
-                              .replace(/ސސ-/g, "ﷺ")
-                              .replace(/ss-/g, "ﷺ")
-                              .replace(/صص-/g, "ﷺ")
-                              .replace(/\"-/g, "”")
-                              .replace(/-\"/g, "“")
-                              .replace(/\'-/g, "’")
-                              .replace(/-\'/g, "‘")
-                              .replace(/-br/g, "<br><br>")
-                              .replace(/ބރ-/g, "<br><br>")
-                              .replace(/رض-/g, "رَضِيَ اللَّهُ عَنْهُ")
-                              .replace(/ރއ-/g, "رَضِيَ اللَّهُ عَنْهُ")
-                              .replace(/ra-/g, "رَضِيَ اللَّهُ عَنْهُ")
-                              .replace(/رضه-/g, "رَضِيَ اللَّهُ عَنْهَا")
-                              .replace(/ރއހ-/g, "رَضِيَ اللَّهُ عَنْهَا")
-                              .replace(/rah-/g, "رَضِيَ اللَّهُ عَنْهَا")
-                              .replace(/رض2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
-                              .replace(/ރއ2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
-                              .replace(/ra2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
-                              .replace(/رض3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
-                              .replace(/ރއ3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
-                              .replace(/ra3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
-                              .replace(/ވދ-/g, "ވިދާޅުވިއެވެ: ")
-                              .replace(/ދނ-/g, "ދެންނެވިއެވެ: ")
-                              .replace(/ރކ-/g, "ރިވާ ކުރެއްވިއެވެ: ")
-                              .replace(/އއރ-/g, "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ: ")
-                              .replace(/ރސ-/g, "ރަސޫލު ﷲ ﷺ")
-                              .replace(/ނސ--/g, "ނަބިއްޔާ ﷺ")
-                              .replace(/ނހކ-/g, "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”")
-                              .replace(/ރހކ-/g, "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”")
+                          var text = document.getElementById("textMainArea").value;
+                          var newText = text
+                            .replace(/ސސ-/g, "ﷺ")
+                            .replace(/ss-/g, "ﷺ")
+                            .replace(/صص-/g, "ﷺ")
+                            .replace(/\"-/g, "”")
+                            .replace(/-\"/g, "“")
+                            .replace(/\'-/g, "’")
+                            .replace(/-\'/g, "‘")
+                            .replace(/-br/g, "<br><br>")
+                            .replace(/ބރ-/g, "<br><br>")
+                            .replace(/رض-/g, "رَضِيَ اللَّهُ عَنْهُ")
+                            .replace(/ރއ-/g, "رَضِيَ اللَّهُ عَنْهُ")
+                            .replace(/ra-/g, "رَضِيَ اللَّهُ عَنْهُ")
+                            .replace(/رضه-/g, "رَضِيَ اللَّهُ عَنْهَا")
+                            .replace(/ރއހ-/g, "رَضِيَ اللَّهُ عَنْهَا")
+                            .replace(/rah-/g, "رَضِيَ اللَّهُ عَنْهَا")
+                            .replace(/رض2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
+                            .replace(/ރއ2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
+                            .replace(/ra2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
+                            .replace(/رض3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
+                            .replace(/ރއ3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
+                            .replace(/ra3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
+                            .replace(/ވދ-/g, "ވިދާޅުވިއެވެ: ")
+                            .replace(/ދނ-/g, "ދެންނެވިއެވެ: ")
+                            .replace(/ރކ-/g, "ރިވާ ކުރެއްވިއެވެ: ")
+                            .replace(/އއރ-/g, "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ: ")
+                            .replace(/ރސ-/g, "ރަސޫލު ﷲ ﷺ")
+                            .replace(/ނސ--/g, "ނަބިއްޔާ ﷺ")
+                            .replace(/ނހކ-/g, "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”")
+                            .replace(/ރހކ-/g, "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”")
 
-                              .replace(/ހކ-/g, "ޙަދީޘް ކުރެއްވިއެވެ: ”") // this has to come after the previous two, otherwise overrides them
+                            .replace(/ހކ-/g, "ޙަދީޘް ކުރެއްވިއެވެ: ”") // this has to come after the previous two, otherwise overrides them
 
-                              .replace(
-                                /ރއޑ-/g,
-                                "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
-                              )
-                              .replace(
-                                /ނއޑ-/g,
-                                "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
-                              )
-                              .replace(/ސައްހަ-/g, "މި ޙަދީޘް ސައްހަ ކުރެއްވިއެވެ.")
-                              .replace(/ޟ-/g, "މި ޙަދީޘް ޟަޢީފު ކުރެއްވިއެވެ.")
-                              .replace(/މރވ-/g, "މި ޙަދީޘް ރިވާ ކުރެއްވީ");
+                            .replace(
+                              /ރއޑ-/g,
+                              "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+                            )
+                            .replace(
+                              /ނއޑ-/g,
+                              "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+                            )
+                            .replace(/ސައްހަ-/g, "މި ޙަދީޘް ސައްހަ ކުރެއްވިއެވެ.")
+                            .replace(/ޟ-/g, "މި ޙަދީޘް ޟަޢީފު ކުރެއްވިއެވެ.")
+                            .replace(/މރވ-/g, "މި ޙަދީޘް ރިވާ ކުރެއްވީ");
 
-                            document.getElementById("textMainArea").value = newText;
-                            return false;
-                          }*/
+                          document.getElementById("textMainArea").value = newText;
+                          return false;
+                        }*/
 
           /* solution for above code https://stackoverflow.com/questions/40196467/restore-cursor-position-after-replace/40198673#40198673 */
 
@@ -2286,20 +2286,20 @@ function () {
             }
           };
           /*
-                //document.onkeyup = function (e) {
-                // https://stackoverflow.com/questions/38989559/jquery-keyup-event-for-mobile-device/49029711#49029711
-                document.on("keyup touchend", function () {
-      */
+              //document.onkeyup = function (e) {
+              // https://stackoverflow.com/questions/38989559/jquery-keyup-event-for-mobile-device/49029711#49029711
+              document.on("keyup touchend", function () {
+    */
           // area.addEventListener("keypress", function (e) {
           // BELOW WAS MOST RECENT REPLACE CODE, before assigned to detect - press
           // document can be area / document.addEventListener
           // e can be evt / (e) / e.keyCode
 
           /*area.addEventListener("keydown", function (e) {
-        if (e.keyCode === 81) {
-          console.log('The "Q" key is being held down...?');
-        }
-      });*/
+      if (e.keyCode === 81) {
+        console.log('The "Q" key is being held down...?');
+      }
+    });*/
 
           //
           // area.addEventListener("input", function (e) {
@@ -2458,11 +2458,11 @@ function () {
               // https://stackoverflow.com/questions/19089442/convert-string-to-sentence-case-in-javascript
 
               /*var text = document.getElementById("textMainArea").value;
-          var rg = /(^\w{1}|\.\s*\w{1})/gi;
-          var newText = text.replace(rg, function (toReplace) {
-            return toReplace.toUpperCase();
-          });
-          document.getElementById("textMainArea").value = newText;*/
+        var rg = /(^\w{1}|\.\s*\w{1})/gi;
+        var newText = text.replace(rg, function (toReplace) {
+          return toReplace.toUpperCase();
+        });
+        document.getElementById("textMainArea").value = newText;*/
 
               // https://stackoverflow.com/questions/19089442/convert-string-to-sentence-case-in-javascript/56793122#56793122
 
@@ -3103,27 +3103,27 @@ function () {
 
             /* doesnt copy very long text */
             /*
-                                                        // Get the text field
-                                                        var copyText = document.getElementById("textMainArea");
+                                                      // Get the text field
+                                                      var copyText = document.getElementById("textMainArea");
 
-                                                        // Select the text field
-                                                        //copyText.select();
-                                                        //copyText.setSelectionRange(0, 99999);
-                                                        // For mobile devices
+                                                      // Select the text field
+                                                      //copyText.select();
+                                                      //copyText.setSelectionRange(0, 99999);
+                                                      // For mobile devices
 
-                                                        // Copy the text inside the text field
-                                                        //navigator.clipboard.writeText(copyText.value);
+                                                      // Copy the text inside the text field
+                                                      //navigator.clipboard.writeText(copyText.value);
 
-                                                        copyText.select();
-                                                        copyText.setSelectionRange(0, 99999);
-                                                        // For mobile devices
+                                                      copyText.select();
+                                                      copyText.setSelectionRange(0, 99999);
+                                                      // For mobile devices
 
-                                                        document.execCommand("copy");
+                                                      document.execCommand("copy");
 
-                                                        // Alert the copied text
-                                                        // alert("ކޮޕީވީ: " + copyText.value);
-                                                        //return false;
-                                                        */
+                                                      // Alert the copied text
+                                                      // alert("ކޮޕީވީ: " + copyText.value);
+                                                      //return false;
+                                                      */
           }
           //
 
@@ -3271,13 +3271,13 @@ function () {
               //
               // other stuff below
               /*document.getElementById("findReplaceButton").innerHTML =
-                                "ލަފްޒު ބަދަލު ކުރޭ";
-                              document.getElementById("findThis").style.direction = "rtl";
-                              document.getElementById("replaceWith").style.direction = "rtl";
-                              document.getElementById("findThis").placeholder =
-                                "1 މިލަފްޒު ހޯދާފާ";
-                              document.getElementById("replaceWith").placeholder =
-                                "2 މިއަށް ބަދަލުކުރޭ";*/
+                              "ލަފްޒު ބަދަލު ކުރޭ";
+                            document.getElementById("findThis").style.direction = "rtl";
+                            document.getElementById("replaceWith").style.direction = "rtl";
+                            document.getElementById("findThis").placeholder =
+                              "1 މިލަފްޒު ހޯދާފާ";
+                            document.getElementById("replaceWith").placeholder =
+                              "2 މިއަށް ބަދަލުކުރޭ";*/
             } else {
               //run first function
               document.getElementById("textMainArea").style.direction = "ltr";
@@ -3286,13 +3286,13 @@ function () {
               //
               // other stuff below
               /*document.getElementById("findReplaceButton").innerHTML =
-                                "Regex/Replace";
-                              document.getElementById("findThis").style.direction = "ltr";
-                              document.getElementById("replaceWith").style.direction = "ltr";
-                              document.getElementById("findThis").placeholder = "1 Find This";
-                              document.getElementById("replaceWith").placeholder =
-                                "2 Replace This";
-                                */
+                              "Regex/Replace";
+                            document.getElementById("findThis").style.direction = "ltr";
+                            document.getElementById("replaceWith").style.direction = "ltr";
+                            document.getElementById("findThis").placeholder = "1 Find This";
+                            document.getElementById("replaceWith").placeholder =
+                              "2 Replace This";
+                              */
             }
           }
           //
@@ -3326,13 +3326,13 @@ function () {
           //
 
           /*
-                                                                    var numbered = document
-                                                            .getElementById("textMainArea")
-                                                            .value.split("\n")
-                                                            .map((line, index) => `${index + 1}. ${line}`)
-                                                            .join("\n");
-                                                          document.getElementById("textMainArea").value = numbered;
-                                                          */
+                                                                  var numbered = document
+                                                          .getElementById("textMainArea")
+                                                          .value.split("\n")
+                                                          .map((line, index) => `${index + 1}. ${line}`)
+                                                          .join("\n");
+                                                        document.getElementById("textMainArea").value = numbered;
+                                                        */
 
           //
 
@@ -3435,14 +3435,14 @@ function () {
             // https://stackoverflow.com/questions/58371608/regex-to-remove-the-first-two-characters-of-a-string
 
             /*
-        document.getElementById("textMainArea").value = document
-          .getElementById("textMainArea")
-          .value.replace(/.{2}$/gm, "");
+      document.getElementById("textMainArea").value = document
+        .getElementById("textMainArea")
+        .value.replace(/.{2}$/gm, "");
 
-        document.getElementById("textMainArea").value = document
-          .getElementById("textMainArea")
-          .value.replace(/^.{2}/gm, "");
-          */
+      document.getElementById("textMainArea").value = document
+        .getElementById("textMainArea")
+        .value.replace(/^.{2}/gm, "");
+        */
 
             // https://stackoverflow.com/questions/4029109/javascript-regex-how-to-put-a-variable-inside-a-regular-expression
 
@@ -3642,9 +3642,9 @@ function () {
                 .value.split(" ")
                 .join("\n"));
             /*document.getElementById("textMainArea").value = text2split.replace(
-                              /[\r\n]+/g,
-                              "\n"
-                            );*/
+                            /[\r\n]+/g,
+                            "\n"
+                          );*/
 
             // below first makes multiple newlines only one newline, then removes punctuation (taken from removepunc code and edited)
             document.getElementById("textMainArea").value = text2split
@@ -3787,9 +3787,9 @@ function () {
           //
 
           /*
-                          function encSvg() {
-                          }
-                          */
+                        function encSvg() {
+                        }
+                        */
 
           /* end of above */
         </script>
@@ -3979,10 +3979,10 @@ function () {
             /* below doesnt work */
 
             /*var copyText = "ﷺ"; //document.getElementById("dummy");
-        copyText.type = "text";
-        copyText.select();
-        document.execCommand("copy");
-        copyText.type = "hidden";*/
+      copyText.type = "text";
+      copyText.select();
+      document.execCommand("copy");
+      copyText.type = "hidden";*/
           }
 
           function copyRadiya1() {
@@ -4806,15 +4806,15 @@ cols="60"-->
               calcZakat.toFixed(2);
 
             /*document
-          .querySelector("#sumZakat")
-          .text(
-            "The zakat for this total would be: " + calcZakat.toFixed(2)
-          );*/
+        .querySelector("#sumZakat")
+        .text(
+          "The zakat for this total would be: " + calcZakat.toFixed(2)
+        );*/
 
             /*document.getElementById("sumZakat").innerHTML =
-          "<br />The zakat for this total would be: " +
-          calcZakat.toFixed(2);
-        */
+        "<br />The zakat for this total would be: " +
+        calcZakat.toFixed(2);
+      */
           }
 
           function clearAdd() {
@@ -4993,11 +4993,11 @@ cols="60"-->
                     <script>
                       // https://stackoverflow.com/questions/26050668/how-to-download-a-image-thats-on-html5-canvas/26050821#26050821
                       /*
-                  var canvas = document.getElementById("canvas");
-                  var ctx = canvas.getContext("2d");
-                  ctx.fillStyle = "#ff5";
-                  ctx.fillRect(0, 0, canvas.width, canvas.height);
-                  */
+                var canvas = document.getElementById("canvas");
+                var ctx = canvas.getContext("2d");
+                ctx.fillStyle = "#ff5";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                */
                       $("#qrcode-canvas").click(function () {
                         $(this)
                           .parent()
@@ -5212,13 +5212,13 @@ cols="60"-->
 
                 /* OLD FIX
 
-            // https://stackoverflow.com/questions/12166753/how-to-get-child-element-by-class-name/49297824#49297824
-          var testContainer = document.querySelector(".qrClass");
-          //var fourChildNode = testContainer.querySelector('.four');
+          // https://stackoverflow.com/questions/12166753/how-to-get-child-element-by-class-name/49297824#49297824
+        var testContainer = document.querySelector(".qrClass");
+        //var fourChildNode = testContainer.querySelector('.four');
 
-          // previously testContainer was document. changed to get child by class, so as not to affect all general inputs and textareas. it also made oninput not work on textareas. there's another instance of this below * CHANGE THIS CODE ON EVERY UPDATE *
-          // for some reason doing that hides the initial qr code shown
-          */
+        // previously testContainer was document. changed to get child by class, so as not to affect all general inputs and textareas. it also made oninput not work on textareas. there's another instance of this below * CHANGE THIS CODE ON EVERY UPDATE *
+        // for some reason doing that hides the initial qr code shown
+        */
 
                 var elems = document.querySelectorAll(
                   ".qrClass input[type=number], .qrClass input[type=text], .qrClass textarea, .qrClass input[type=color], .qrClass input[type=range]"
@@ -5228,8 +5228,8 @@ cols="60"-->
                 // added , input[type=color], input[type=range
 
                 /* var elems = document.querySelectorAll(
-              "input[type=number], input[type=text], textarea"
-            ); */
+            "input[type=number], input[type=text], textarea"
+          ); */
 
                 for (var _i = 0, elems_1 = elems; _i < elems_1.length; _i++) {
                   var el = elems_1[_i];
@@ -5588,7 +5588,7 @@ cols="60"-->
         <script>
           function calcTime() {
             /*var start = document.getElementById("time1").value;
-          var end = document.getElementById("time2").value;*/
+        var end = document.getElementById("time2").value;*/
 
             /* https://thewebdev.info/2021/05/23/how-to-convert-hhmmss-time-string-to-seconds-only-in-javascript/ */
 
@@ -5603,10 +5603,10 @@ cols="60"-->
             //document.getElementById("seconds2").value = fajrSeconds;
 
             /* https://github.com/proateen/thirdofthenight/blob/main/script.js 
-          
-          alternative: https://fawazahmed0.github.io/last-third-night-calculator/ 
-          
-          they dont match, so obviously one is wrong, first i thought it was the former, now the latter */
+        
+        alternative: https://fawazahmed0.github.io/last-third-night-calculator/ 
+        
+        they dont match, so obviously one is wrong, first i thought it was the former, now the latter */
 
             if (maghribSeconds > fajrSeconds) {
               var diffSeconds = 86400 - (maghribSeconds - fajrSeconds); //subtract 1 day
@@ -5633,8 +5633,8 @@ cols="60"-->
             nightHalfinSeconds;
 
             /*var date = new Date(null);
-          date.setSeconds(nightThirdinSeconds); // specify value for SECONDS here
-          var result = date.toISOString().substr(11, 5);*/
+        date.setSeconds(nightThirdinSeconds); // specify value for SECONDS here
+        var result = date.toISOString().substr(11, 5);*/
 
             var dateThird = new Date(null);
             dateThird.setSeconds(nightThirdinSeconds); // specify value for SECONDS here
@@ -5663,11 +5663,11 @@ cols="60"-->
             // https://stackoverflow.com/questions/13903897/javascript-return-number-of-days-hours-minutes-seconds-between-two-dates/13904621#13904621
             /*var calcNewYear = setInterval(function () {
 
-            // https://stackoverflow.com/questions/3830244/how-to-get-the-current-date-or-and-time-in-seconds/3830279#3830279
-            var timeNow = new Date().toLocaleTimeString(); //new Date().toTimeString().split(" ")[0];
+          // https://stackoverflow.com/questions/3830244/how-to-get-the-current-date-or-and-time-in-seconds/3830279#3830279
+          var timeNow = new Date().toLocaleTimeString(); //new Date().toTimeString().split(" ")[0];
 
-            $("#time").text("Time remaining is\n" + timeNow + " seconds");
-          }, 1000);*/
+          $("#time").text("Time remaining is\n" + timeNow + " seconds");
+        }, 1000);*/
 
             /**/
           }
@@ -5724,11 +5724,538 @@ cols="60"-->
             }
           </style>
 
-          <div class="w3-row-padding" style="margin: 0 -16px">
-            <!--<p style="margin-left: 8px; margin-bottom: 4px">
-              Type a value in any of the fields to convert between Length
-              measurements:
-            </p>-->
+          <!-- in html and js
+i want input boxes, for meter, feet, centimeter, inch, yard, kilometer, miles and pixels
+writing any value in any one of the boxes should calculate the equivalent value with accuracy in the rest of the boxes -->
+
+          <style>
+            .converter-container {
+              display: flex;
+              flex-wrap: wrap;
+              /**/
+              justify-content: center;
+
+              column-gap: 100px;
+              row-gap: 70px;
+            }
+
+            .group-of-units {
+              flex: 1;
+              /*margin-left: 30px;
+              margin-right: 30px;*/
+              /* Adjust the margin as needed */
+              flex-wrap: nowrap; /* Prevent elements from wrapping within the unit group */
+
+              /**/
+              display: flex;
+              flex-direction: column;
+              max-width: 250px;
+            }
+
+            /* Reset margin for smaller screens */
+            /*@media (max-width: 767px) {
+              .length-units,
+              .weight-units {
+                margin-right: 0;
+              }
+            }*/
+          </style>
+
+          <div class="converter-container">
+            <div class="group-of-units">
+              <label>Meter: </label>
+              <input
+                type="number"
+                id="meter"
+                oninput="convert('meter')"
+                placeholder="m"
+              />
+
+              <label>Feet: </label>
+              <input
+                type="number"
+                id="feet"
+                oninput="convert('feet')"
+                placeholder="ft"
+              />
+
+              <label>Centimeter: </label>
+              <input
+                type="number"
+                id="centimeter"
+                oninput="convert('centimeter')"
+                placeholder="cm"
+              />
+
+              <label>Inch: </label>
+              <input
+                type="number"
+                id="inch"
+                oninput="convert('inch')"
+                placeholder="in"
+              />
+
+              <label>Yard: </label>
+              <input
+                type="number"
+                id="yard"
+                oninput="convert('yard')"
+                placeholder="yd"
+              />
+
+              <label>Kilometer: </label>
+              <input
+                type="number"
+                id="kilometer"
+                oninput="convert('kilometer')"
+                placeholder="km"
+              />
+
+              <label>Miles: </label>
+              <input
+                type="number"
+                id="miles"
+                oninput="convert('miles')"
+                placeholder="mi"
+              />
+
+              <label>Pixels: </label>
+              <input
+                type="number"
+                id="pixels"
+                oninput="convert('pixels')"
+                placeholder="px"
+              />
+            </div>
+            <!-- <div class="group-of-units"> -->
+
+            <script>
+              const conversionRatios = {
+                meter: {
+                  feet: 3.28084,
+                  centimeter: 100,
+                  inch: 39.3701,
+                  yard: 1.09361,
+                  kilometer: 0.001,
+                  miles: 0.000621371,
+                  pixels: 3779.527559,
+                },
+                feet: {
+                  meter: 0.3048,
+                  centimeter: 30.48,
+                  inch: 12,
+                  yard: 0.333333,
+                  kilometer: 0.0003048,
+                  miles: 0.000189394,
+                  pixels: 12192,
+                },
+                centimeter: {
+                  meter: 0.01,
+                  feet: 0.0328084,
+                  inch: 0.393701,
+                  yard: 0.0109361,
+                  kilometer: 1e-5,
+                  miles: 6.2137e-6,
+                  pixels: 37.7952756,
+                },
+                inch: {
+                  meter: 0.0254,
+                  feet: 0.0833333,
+                  centimeter: 2.54,
+                  yard: 0.0277778,
+                  kilometer: 2.54e-5,
+                  miles: 1.5783e-5,
+                  pixels: 96,
+                },
+                yard: {
+                  meter: 0.9144,
+                  feet: 3,
+                  centimeter: 91.44,
+                  inch: 36,
+                  kilometer: 9.144e-4,
+                  miles: 5.68182e-4,
+                  pixels: 9144,
+                },
+                kilometer: {
+                  meter: 1000,
+                  feet: 3280.84,
+                  centimeter: 1e5,
+                  inch: 39370.1,
+                  yard: 1093.61,
+                  miles: 0.621371,
+                  pixels: 3.861e7,
+                },
+                miles: {
+                  meter: 1609.34,
+                  feet: 5280,
+                  centimeter: 160934,
+                  inch: 63360,
+                  yard: 1760,
+                  kilometer: 1.60934,
+                  pixels: 2.49e7,
+                },
+                pixels: {
+                  meter: 0.000264583,
+                  feet: 0.000086667,
+                  centimeter: 0.0264583,
+                  inch: 0.0104167,
+                  yard: 0.000289167,
+                  kilometer: 2.6458e-8,
+                  miles: 4.0146e-9,
+                },
+              };
+
+              function convert(sourceUnit) {
+                const sourceValue = parseFloat(
+                  document.getElementById(sourceUnit).value
+                );
+
+                for (const targetUnit in conversionRatios[sourceUnit]) {
+                  const targetValue =
+                    sourceValue * conversionRatios[sourceUnit][targetUnit];
+                  document.getElementById(targetUnit).value =
+                    targetValue.toFixed(6);
+                }
+              }
+            </script>
+
+            <div class="group-of-units">
+              <label>Grams: </label>
+              <input
+                type="number"
+                id="grams"
+                oninput="convertWeight('grams')"
+                placeholder="g"
+              />
+
+              <label>Kilograms: </label>
+              <input
+                type="number"
+                id="kilograms"
+                oninput="convertWeight('kilograms')"
+                placeholder="kg"
+              />
+
+              <label>Milligrams: </label>
+              <input
+                type="number"
+                id="milligrams"
+                oninput="convertWeight('milligrams')"
+                placeholder="mg"
+              />
+
+              <label>Metric Tonnes: </label>
+              <input
+                type="number"
+                id="metricTonnes"
+                oninput="convertWeight('metricTonnes')"
+                placeholder="t"
+              />
+
+              <label>Ounces: </label>
+              <input
+                type="number"
+                id="ounces"
+                oninput="convertWeight('ounces')"
+                placeholder="oz"
+              />
+
+              <label>Pounds: </label>
+              <input
+                type="number"
+                id="pounds"
+                oninput="convertWeight('pounds')"
+                placeholder="lb"
+              />
+            </div>
+            <!-- <div class="group-of-units"> -->
+          </div>
+          <!-- <div class="converter-container"> -->
+
+          <script>
+            const weightConversionRatios = {
+              grams: {
+                kilograms: 0.001,
+                milligrams: 1000,
+                metricTonnes: 1e-6,
+                ounces: 0.03527396,
+                pounds: 0.002204623,
+              },
+              kilograms: {
+                grams: 1000,
+                milligrams: 1e6,
+                metricTonnes: 1e-3,
+                ounces: 35.27396,
+                pounds: 2.204623,
+              },
+              milligrams: {
+                grams: 0.001,
+                kilograms: 1e-6,
+                metricTonnes: 1e-9,
+                ounces: 3.527396e-5,
+                pounds: 2.204623e-6,
+              },
+              metricTonnes: {
+                grams: 1e6,
+                kilograms: 1e3,
+                milligrams: 1e9,
+                ounces: 35273.96,
+                pounds: 2204.623,
+              },
+              ounces: {
+                grams: 28.34952,
+                kilograms: 0.02834952,
+                milligrams: 28349.52,
+                metricTonnes: 2.834952e-5,
+                pounds: 0.0625,
+              },
+              pounds: {
+                grams: 453.5924,
+                kilograms: 0.4535924,
+                milligrams: 453592.4,
+                metricTonnes: 0.0004535924,
+                ounces: 16,
+              },
+            };
+
+            function convertWeight(weightSourceUnit) {
+              const weightSourceValue = parseFloat(
+                document.getElementById(weightSourceUnit).value
+              );
+
+              for (const weightTargetUnit in weightConversionRatios[
+                weightSourceUnit
+              ]) {
+                const weightTargetValue =
+                  weightSourceValue *
+                  weightConversionRatios[weightSourceUnit][weightTargetUnit];
+                document.getElementById(weightTargetUnit).value =
+                  weightTargetValue.toFixed(6);
+              }
+            }
+          </script>
+
+          <br />
+          <br />
+
+          <!-- -->
+
+          <!-- https://stackoverflow.com/questions/66733428/left-align-last-row-of-center-aligned-flexbox/66733693#66733693 -->
+          <div
+            style="
+              display: grid;
+              gap: 10px;
+              grid-template-columns: repeat(auto-fit);
+              justify-content: center;
+            "
+          >
+            <div class="w3-row-padding mid" style="margin: 0 -16px">
+              <div class="w3-half">
+                <label>If </label>
+                <input
+                  id="inputMultiA"
+                  class="w3-input"
+                  type="number"
+                  placeholder="10"
+                  oninput="unitCost(this.id,this.value)"
+                  onchange="unitCost(this.id,this.value)"
+                />
+                <label>g, = </label>
+              </div>
+              <div class="w3-half">
+                <input
+                  id="inputMultiB"
+                  class="w3-input"
+                  type="number"
+                  placeholder="20"
+                  oninput="unitCost(this.id,this.value)"
+                  onchange="unitCost(this.id,this.value)"
+                />
+                <label> $, then </label>
+              </div>
+            </div>
+
+            <div class="w3-row-padding" style="margin: 0 -16px">
+              <div class="w3-half">
+                <label> &nbsp;</label><label>&nbsp;</label>
+                <input
+                  id="input1A"
+                  class="w3-input"
+                  type="number"
+                  value="1"
+                  style="color: blue"
+                  oninput="unitCost(this.id,this.value)"
+                  onchange="unitCost(this.id,this.value)"
+                />
+                <label>g&nbsp; = </label>
+              </div>
+
+              <div class="w3-half">
+                <input
+                  id="input1B"
+                  class="w3-input"
+                  type="number"
+                  placeholder="2"
+                  style="color: red"
+                  oninput="unitCost(this.id,this.value)"
+                  onchange="unitCost(this.id,this.value)"
+                />
+                <label> $ </label>
+              </div>
+            </div>
+
+            <script>
+              function unitCost(source, valNum) {
+                valNum = parseFloat(valNum);
+                var inputMultiA = document.getElementById("inputMultiA");
+                var inputMultiB = document.getElementById("inputMultiB");
+                var input1A = document.getElementById("input1A");
+                var input1B = document.getElementById("input1B");
+
+                if (source == "inputMultiA") {
+                  input1B.value = (
+                    (input1A.value * inputMultiB.value) /
+                    valNum
+                  ).toFixed(2);
+                  /*input1A.value = (
+(valNum * input1B.value) /
+inputMultiB
+).toFixed(2);*/
+                }
+                if (source == "inputMultiB") {
+                  input1B.value = (
+                    (input1A.value * valNum) /
+                    inputMultiA.value
+                  ).toFixed(2);
+                  /*input1A.value = (
+(inputMultiA.value * input1B.value) /
+inputMultiB
+).toFixed(2);*/
+                }
+                if (source == "input1A") {
+                  input1B.value = (
+                    (valNum * inputMultiB.value) /
+                    inputMultiA.value
+                  ).toFixed(2);
+                }
+                if (source == "input1B") {
+                  input1A.value = (
+                    (valNum * inputMultiA.value) /
+                    inputMultiB.value
+                  ).toFixed(2);
+                }
+              }
+            </script>
+
+            <!---->
+
+            <br />
+            <br />
+
+            <div class="w3-row-padding" style="margin: 0 -16px">
+              <div class="w3-half">
+                <label>If </label>
+                <input
+                  id="inputMultiA2"
+                  class="w3-input"
+                  type="number"
+                  placeholder="10"
+                  oninput="unitCost2(this.id,this.value)"
+                  onchange="unitCost2(this.id,this.value)"
+                />
+                <label>g, = </label>
+              </div>
+              <div class="w3-half">
+                <input
+                  id="inputMultiB2"
+                  class="w3-input"
+                  type="number"
+                  placeholder="20"
+                  oninput="unitCost2(this.id,this.value)"
+                  onchange="unitCost2(this.id,this.value)"
+                />
+                <label> $, then </label>
+              </div>
+            </div>
+
+            <div class="w3-row-padding" style="margin: 0 -16px">
+              <div class="w3-half">
+                <label> &nbsp;</label><label>&nbsp;</label>
+                <input
+                  id="input1A2"
+                  class="w3-input"
+                  type="number"
+                  value="1"
+                  style="color: blue"
+                  oninput="unitCost2(this.id,this.value)"
+                  onchange="unitCost2(this.id,this.value)"
+                />
+                <label>g&nbsp; = </label>
+              </div>
+
+              <div class="w3-half">
+                <input
+                  id="input1B2"
+                  class="w3-input"
+                  type="number"
+                  placeholder="2"
+                  style="color: red"
+                  oninput="unitCost2(this.id,this.value)"
+                  onchange="unitCost2(this.id,this.value)"
+                />
+                <label> $ </label>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            function unitCost2(source, valNum) {
+              valNum = parseFloat(valNum);
+              var inputMultiA2 = document.getElementById("inputMultiA2");
+              var inputMultiB2 = document.getElementById("inputMultiB2");
+              var input1A2 = document.getElementById("input1A2");
+              var input1B2 = document.getElementById("input1B2");
+
+              if (source == "inputMultiA2") {
+                input1B2.value = (
+                  (input1A2.value * inputMultiB2.value) /
+                  valNum
+                ).toFixed(2);
+                /*input1A2.value = (
+(valNum * input1B2.value) /
+inputMultiB2
+).toFixed(2);*/
+              }
+              if (source == "inputMultiB2") {
+                input1B2.value = (
+                  (input1A2.value * valNum) /
+                  inputMultiA2.value
+                ).toFixed(2);
+                /*input1A2.value = (
+(inputMultiA2.value * input1B2.value) /
+inputMultiB2
+).toFixed(2);*/
+              }
+              if (source == "input1A2") {
+                input1B2.value = (
+                  (valNum * inputMultiB2.value) /
+                  inputMultiA2.value
+                ).toFixed(2);
+              }
+              if (source == "input1B2") {
+                input1A2.value = (
+                  (valNum * inputMultiA2.value) /
+                  inputMultiB2.value
+                ).toFixed(2);
+              }
+            }
+          </script>
+
+          <!---->
+
+          <!-- OLD UNIT CONVERTER CODE
+ <div class="w3-row-padding" style="margin: 0 -16px">
+
             <div class="w3-half">
               <label>Meters: </label>
               <input
@@ -5818,8 +6345,9 @@ cols="60"-->
               />
             </div>
           </div>
-          <script>
-            function lengthConverter(source, valNum) {
+       
+    <script>
+            /*function lengthConverter(source, valNum) {
               valNum = parseFloat(valNum);
               var inputFeet = document.getElementById("inputFeet");
               var inputMeters = document.getElementById("inputMeters");
@@ -5901,18 +6429,13 @@ cols="60"-->
                 inputKilometers.value = (valNum * 2.6458335e-7).toFixed(2);
                 inputMiles.value = (valNum / 6082560.7663069).toFixed(2);
               }
-            }
+            }*/
           </script>
-
-          <!---->
+          
           <br />
           <br />
 
           <div class="w3-row-padding" style="margin: 0 -16px">
-            <!--<p style="margin-left: 8px; margin-bottom: 4px">
-              Type a value in any of the fields to convert between Length
-              measurements:
-            </p>-->
             <div class="w3-half">
               <label>Grams: </label>
               <input
@@ -6034,216 +6557,7 @@ cols="60"-->
               }
             }
           </script>
-
-          <!---->
-
-          <br />
-          <br />
-
-          <!-- -->
-
-          <div class="w3-row-padding" style="margin: 0 -16px">
-            <div class="w3-half">
-              <label>If </label>
-              <input
-                id="inputMultiA"
-                class="w3-input"
-                type="number"
-                placeholder="10"
-                oninput="unitCost(this.id,this.value)"
-                onchange="unitCost(this.id,this.value)"
-              />
-              <label>g, = </label>
-            </div>
-            <div class="w3-half">
-              <input
-                id="inputMultiB"
-                class="w3-input"
-                type="number"
-                placeholder="20"
-                oninput="unitCost(this.id,this.value)"
-                onchange="unitCost(this.id,this.value)"
-              />
-              <label> $, then </label>
-            </div>
-          </div>
-
-          <div class="w3-row-padding" style="margin: 0 -16px">
-            <div class="w3-half">
-              <label> &nbsp;</label><label>&nbsp;</label>
-              <input
-                id="input1A"
-                class="w3-input"
-                type="number"
-                value="1"
-                style="color: blue"
-                oninput="unitCost(this.id,this.value)"
-                onchange="unitCost(this.id,this.value)"
-              />
-              <label>g&nbsp; = </label>
-            </div>
-
-            <div class="w3-half">
-              <input
-                id="input1B"
-                class="w3-input"
-                type="number"
-                placeholder="2"
-                style="color: red"
-                oninput="unitCost(this.id,this.value)"
-                onchange="unitCost(this.id,this.value)"
-              />
-              <label> $ </label>
-            </div>
-          </div>
-
-          <script>
-            function unitCost(source, valNum) {
-              valNum = parseFloat(valNum);
-              var inputMultiA = document.getElementById("inputMultiA");
-              var inputMultiB = document.getElementById("inputMultiB");
-              var input1A = document.getElementById("input1A");
-              var input1B = document.getElementById("input1B");
-
-              if (source == "inputMultiA") {
-                input1B.value = (
-                  (input1A.value * inputMultiB.value) /
-                  valNum
-                ).toFixed(2);
-                /*input1A.value = (
-            (valNum * input1B.value) /
-            inputMultiB
-          ).toFixed(2);*/
-              }
-              if (source == "inputMultiB") {
-                input1B.value = (
-                  (input1A.value * valNum) /
-                  inputMultiA.value
-                ).toFixed(2);
-                /*input1A.value = (
-            (inputMultiA.value * input1B.value) /
-            inputMultiB
-          ).toFixed(2);*/
-              }
-              if (source == "input1A") {
-                input1B.value = (
-                  (valNum * inputMultiB.value) /
-                  inputMultiA.value
-                ).toFixed(2);
-              }
-              if (source == "input1B") {
-                input1A.value = (
-                  (valNum * inputMultiA.value) /
-                  inputMultiB.value
-                ).toFixed(2);
-              }
-            }
-          </script>
-
-          <!---->
-
-          <br />
-          <br />
-
-          <div class="w3-row-padding" style="margin: 0 -16px">
-            <div class="w3-half">
-              <label>If </label>
-              <input
-                id="inputMultiA2"
-                class="w3-input"
-                type="number"
-                placeholder="10"
-                oninput="unitCost2(this.id,this.value)"
-                onchange="unitCost2(this.id,this.value)"
-              />
-              <label>g, = </label>
-            </div>
-            <div class="w3-half">
-              <input
-                id="inputMultiB2"
-                class="w3-input"
-                type="number"
-                placeholder="20"
-                oninput="unitCost2(this.id,this.value)"
-                onchange="unitCost2(this.id,this.value)"
-              />
-              <label> $, then </label>
-            </div>
-          </div>
-
-          <div class="w3-row-padding" style="margin: 0 -16px">
-            <div class="w3-half">
-              <label> &nbsp;</label><label>&nbsp;</label>
-              <input
-                id="input1A2"
-                class="w3-input"
-                type="number"
-                value="1"
-                style="color: blue"
-                oninput="unitCost2(this.id,this.value)"
-                onchange="unitCost2(this.id,this.value)"
-              />
-              <label>g&nbsp; = </label>
-            </div>
-
-            <div class="w3-half">
-              <input
-                id="input1B2"
-                class="w3-input"
-                type="number"
-                placeholder="2"
-                style="color: red"
-                oninput="unitCost2(this.id,this.value)"
-                onchange="unitCost2(this.id,this.value)"
-              />
-              <label> $ </label>
-            </div>
-          </div>
-
-          <script>
-            function unitCost2(source, valNum) {
-              valNum = parseFloat(valNum);
-              var inputMultiA2 = document.getElementById("inputMultiA2");
-              var inputMultiB2 = document.getElementById("inputMultiB2");
-              var input1A2 = document.getElementById("input1A2");
-              var input1B2 = document.getElementById("input1B2");
-
-              if (source == "inputMultiA2") {
-                input1B2.value = (
-                  (input1A2.value * inputMultiB2.value) /
-                  valNum
-                ).toFixed(2);
-                /*input1A2.value = (
-            (valNum * input1B2.value) /
-            inputMultiB2
-          ).toFixed(2);*/
-              }
-              if (source == "inputMultiB2") {
-                input1B2.value = (
-                  (input1A2.value * valNum) /
-                  inputMultiA2.value
-                ).toFixed(2);
-                /*input1A2.value = (
-            (inputMultiA2.value * input1B2.value) /
-            inputMultiB2
-          ).toFixed(2);*/
-              }
-              if (source == "input1A2") {
-                input1B2.value = (
-                  (valNum * inputMultiB2.value) /
-                  inputMultiA2.value
-                ).toFixed(2);
-              }
-              if (source == "input1B2") {
-                input1A2.value = (
-                  (valNum * inputMultiA2.value) /
-                  inputMultiB2.value
-                ).toFixed(2);
-              }
-            }
-          </script>
-
-          <!---->
+           -->
 
           <br />
         </div>
@@ -6364,10 +6678,10 @@ cols="60"-->
           });
 
           /*function changeOptions(changer) {
-        var options = comp.mergely("options");
-        changer(options);
-        comp.mergely("options", options);
-      }*/
+      var options = comp.mergely("options");
+      changer(options);
+      comp.mergely("options", options);
+    }*/
         </script>
 
         <!-- old code, just took out the part needed below and styled
@@ -6504,10 +6818,10 @@ cols="60"-->
               } else {
                 //run first function
                 /*document
-              .querySelector(".CodeMirror-rtl")
-              .classList.add("CodeMirror");
-            document
-              .querySelector(".CodeMirror-rtl")*/
+            .querySelector(".CodeMirror-rtl")
+            .classList.add("CodeMirror");
+          document
+            .querySelector(".CodeMirror-rtl")*/
                 //
                 $(".CodeMirror-rtl").addClass("CodeMirror");
                 $(".CodeMirror-rtl").removeClass("CodeMirror-rtl");
@@ -6527,10 +6841,10 @@ cols="60"-->
             $("#fullScreenB2").click(function () {
               $(".mergely-full-screen-8").addClass("fullScreenClass2");
               /*$(".mergely-full-screen-8").css({
-          height: "100vh",
-          width: "100vw",
-          position: "absolute",
-        });*/
+        height: "100vh",
+        width: "100vw",
+        position: "absolute",
+      });*/
 
               $(".CodeMirror").css({ fontSize: "26px" });
               /*/ js mobile only mediaquery */
