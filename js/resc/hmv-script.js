@@ -1,7 +1,7 @@
 /* copyURL BUTTON */
 // https://stackoverflow.com/questions/33855641/copy-output-of-a-javascript-variable-to-the-clipboard/48542290#48542290
 // https://stackoverflow.com/questions/10568815/replace-all-text-before-a-certain-point
-function copyURLToClipButton2() {
+function copyURLToClipButton() {
   var dummy = document.createElement("textarea");
   document.body.appendChild(dummy);
   dummy.value = window.location.href;
@@ -18,10 +18,22 @@ function copyURLToClipButton2() {
   document.body.removeChild(dummy);
 }
 
-// scrapped this in favor of inline onclick function, prompt:
+// dont really need this in books right now
+/* https://stackoverflow.com/questions/3664381/force-page-scroll-position-to-top-at-page-refresh-in-html/60994204#60994204
+function scrollToTopFully() {
+  history.scrollRestoration = "manual";
+  window.addEventListener("beforeunload", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+}
+
+// scrapped below this in favor of inline onclick function, prompt:
 // write an inline js onclick function, to reload the window, upto and including ".html" in the url, removing the rest of the url that comes after that
 
-// HARD RELOAD BUTTON
+// HARD RELOAD BUTTON - doesnt work for some reason
 /*function reloadUpToHtml() {
   // Get the current URL
   var currentUrl = window.location.href;
