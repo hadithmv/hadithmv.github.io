@@ -1194,17 +1194,20 @@
                   $("#quranTable").DataTable().column(6).visible(!isVisible);
                 }
 
-                // Simulate copy button click
-                document
-                  .querySelector(
-                    "#quranTable_wrapper > div.dTop > div.dt-buttons > button.dt-button.buttons-copy.buttons-html5"
-                  )
-                  .click();
+                // trigger click on copy button, works on mobile
+                $(".buttons-html5").click();
 
                 // Restore visibility to its original state
                 if (isVisible) {
                   $("#quranTable").DataTable().column(6).visible(true);
                 }
+
+                // old Simulate copy button click, didnt work except on desktop
+                /*document
+                  .querySelector(
+                    "#quranTable_wrapper > div.dTop > div.dt-buttons > button.dt-button.buttons-copy.buttons-html5"
+                  )
+                  .click();*/
               }
 
               /*OLD CODE BELOW:
