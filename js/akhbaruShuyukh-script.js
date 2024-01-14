@@ -93,15 +93,7 @@ $(document).ready(() => {
       },
       {
         data: 3,
-        title: "ތަޚްރީޖު",
-      },
-      {
-        data: 4,
-        title: "English",
-      },
-      {
-        data: 5,
-        title: "شرح الجبرين",
+        title: "ފުޓްނޯޓު",
       },
     ],
 
@@ -109,7 +101,7 @@ $(document).ready(() => {
     columnDefs: [
       // adds footnote line for shurooh
       {
-        targets: [4, 6],
+        targets: [4],
         render: function (data, type, row) {
           data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -166,28 +158,10 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColTakhrij", // ar ref
+        className: "ColTakhrij", // footnote
         targets: [4],
         visible: true,
         searchable: true,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "ColEng", // en
-        targets: [5],
-        visible: false,
-        searchable: true,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "ColSharh", // sharh
-        targets: [6],
-        visible: false,
-        searchable: false,
         searchPanes: {
           show: false,
         },
@@ -376,7 +350,8 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "ޙަދީޘްއެމްވީ – އަޙްމަދު ލިޔުއްވި ސުންނަތުގެ އުސޫލުތައް", // CHANGE123 clipboard message
+        messageTop:
+          "މައްރޫޛީ ލިޔުއްވި ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާޤު", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
@@ -411,9 +386,7 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ލިޔުން\t/g, "");
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
-          data = data.replace(/English\t/g, "");
-          data = data.replace(/ތަޚްރީޖު\t/g, "");
-          data = data.replace(/شرح الجبرين\t/g, "");
+          data = data.replace(/ފުޓްނޯޓު\t/g, "");
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
             "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
