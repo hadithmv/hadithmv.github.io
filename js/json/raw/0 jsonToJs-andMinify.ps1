@@ -3,6 +3,11 @@ Set-Location -Path $PSScriptRoot
 # https://learn.microsoft.com/en-us/powershell/module/Microsoft.PowerShell.Management/Set-Content?view=powershell-7.3
 # https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/add-content?view=powershell-7.3
 
+
+Set-Content ../akhbaruShuyukh.js -Value 'const akhbaruShuyukh_DB='
+Get-Content akhbaruShuyukh.json | Add-Content ../akhbaruShuyukh.js
+uglifyjs ../akhbaruShuyukh.js -c -m -o ../akhbaruShuyukh.js
+
 Set-Content ../allAthar.js -Value 'const allAthar_DB='
 Get-Content allAthar.json | Add-Content ../allAthar.js
 # minify below
