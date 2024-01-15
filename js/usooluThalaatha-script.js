@@ -120,11 +120,16 @@ $(document).ready(() => {
     /* https://datatables.net/reference/option/columnDefs */
     columnDefs: [
       // adds footnote line for shurooh
+      // if (data !== "") { } else { return data; } ONLY applies if string is not empty
       {
-        targets: [8, 9],
+        targets: [7, 8, 9],
         render: function (data, type, row) {
-          data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
-          return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
+          if (data !== "") {
+            data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
+            return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
+          } else {
+            return data; // return empty string if data is empty
+          }
         },
       },
 
