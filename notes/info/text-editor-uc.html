@@ -760,11 +760,35 @@ function () {
           <button
             onclick="changeNumsAr();"
             class="ttClass"
-            data-tooltip="Converts regular numbers to Arabic numbers on the first click, and does the reverse on the second"
+            data-tooltip="Converts all numbers to Arabic numbers"
             style="font-weight: bold"
           >
             1️⃣
-            <span style="font-size: 105%">123 ↔ ١٢٣</span>
+            <span
+              style="
+                font-size: 135%;
+                direction: ltr;
+                unicode-bidi: bidi-override;
+              "
+              >١ ٢ ٣</span
+            >
+          </button>
+          <!-- <span style="font-size: 105%">123 ↔ ١٢٣</span> -->
+
+          <button
+            onclick="changeNumsNormal();"
+            class="ttClass"
+            data-tooltip="Converts all numbers to normal numbers"
+            style="font-weight: bold"
+          >
+            <span
+              style="
+                font-size: 120%;
+                direction: ltr;
+                unicode-bidi: bidi-override;
+              "
+              >1 2 3</span
+            >
           </button>
 
           <button
@@ -2515,6 +2539,39 @@ function () {
           }
           //
 
+          function changeNumsAr() {
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/0/g, "٠")
+              .replace(/1/g, "١")
+              .replace(/2/g, "٢")
+              .replace(/3/g, "٣")
+              .replace(/4/g, "٤")
+              .replace(/5/g, "٥")
+              .replace(/6/g, "٦")
+              .replace(/7/g, "٧")
+              .replace(/8/g, "٨")
+              .replace(/9/g, "٩");
+          }
+          //
+
+          function changeNumsNormal() {
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/٠/g, "0")
+              .replace(/١/g, "1")
+              .replace(/٢/g, "2")
+              .replace(/٣/g, "3")
+              .replace(/٤/g, "4")
+              .replace(/٥/g, "5")
+              .replace(/٦/g, "6")
+              .replace(/٧/g, "7")
+              .replace(/٨/g, "8")
+              .replace(/٩/g, "9");
+          }
+          //
+
+          /* OLD CODE
           var changeNumsAr_timesClicked = 0;
           function changeNumsAr() {
             changeNumsAr_timesClicked++;
@@ -2551,6 +2608,7 @@ function () {
             }
           }
           //
+          */
 
           //https://stackoverflow.com/questions/44572859/a-function-that-runs-on-the-second-click
           var changeNumsOther_timesClicked = 0;

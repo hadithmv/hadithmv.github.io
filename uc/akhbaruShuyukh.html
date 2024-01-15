@@ -350,3 +350,146 @@
     <!-- === INT JS - END === -->
   </body>
 </html>
+
+<!--
+
+open book in ms doc
+
+select text
+
+insert, table, convert text to a table
+
+copy that and paste in excel
+
+save as csv
+
+remove unneeded headers and additional rows
+
+js regex to find a paragraph that does stat with a number, in that case, remove the new line between the paragraph that does not have a number, and the paragraph that does
+
+(?<!\d)\n(?!^\d)
+
+this merges the new lines of two paragraphs
+
+convert to json,
+
+make \"\"\" into \n\n\"
+
+deal with the rest of the dv stuff later.
+
+as for arabic text
+
+export from shamela
+
+open the htm file in vscode
+
+clean it up a bit, get rid of headers as much as possible
+
+\((ص: [\u0660-\u0669]+)\)
+
+captures sofhaa nos
+
+rivayah numbers should be two new lines apart from each other, other sub paragraphs one new line apart
+
+copy from htm table in browser and paste in google sheets
+
+there will be blank cells between the riwayah numbers
+
+save as excel, and go to special, blanks, delete selected cells
+
+this should get rid of all empty cells, and leave only riavayah number cells with their sub paragraphs in the same cell
+
+write js to i have a json file called "convertcsv.json" it is a json array object it has one column in it are rows that start with an arabic digit like so "١" i want you to go through the data, and if you find a row that does not start with an arabic digit, then join it to the row immediately before it, and when you join them, place this string between them "\n" provide the out as a file called "convertcsvResult.json"
+
+const fs = require('fs');
+
+const inputFile = 'convertcsv.json';
+const outputFile = 'convertcsvResult.json';
+
+// Read the input JSON file
+fs.readFile(inputFile, 'utf8', (err, data) => {
+  if (err) {
+    console.error('Error reading file:', err);
+    return;
+  }
+
+  // Parse the JSON data
+  let jsonData;
+  try {
+    jsonData = JSON.parse(data);
+  } catch (parseError) {
+    console.error('Error parsing JSON:', parseError);
+    return;
+  }
+
+  // Process the JSON data
+  const resultData = processData(jsonData);
+
+  // Write the result to the output file
+  fs.writeFile(outputFile, JSON.stringify(resultData, null, 2), 'utf8', (writeErr) => {
+    if (writeErr) {
+      console.error('Error writing to file:', writeErr);
+    } else {
+      console.log(`Result saved to ${outputFile}`);
+    }
+  });
+});
+
+function processData(data) {
+  for (let i = 1; i < data.length; i++) {
+    const currentRow = data[i];
+    const previousRow = data[i - 1];
+
+    // Check if the current row does not start with an Arabic digit
+    if (!startsWithArabicDigit(currentRow)) {
+      // Join the current row to the previous row with a newline
+      data[i - 1] = previousRow + '\n' + currentRow;
+
+      // Remove the current row
+      data.splice(i, 1);
+
+      // Decrement the index as the array length has changed
+      i--;
+    }
+  }
+
+  return data;
+}
+
+function startsWithArabicDigit(str) {
+  const arabicDigitRegex = /^[\u0660-\u0669]/;
+  return arabicDigitRegex.test(str);
+}
+
+it seems trying to do this with the dv is problematic, as https://www.convertcsv.com/csv-to-json.htm turns the google sheets csv into something with more columns and misasigns the data in the cells. so dont download just a single column of dv text, download it as csv with arabic, riwayah number, etc.
+
+then convert to json and edit from there
+
+replace (without regex)
+\"\"\"
+with
+\n\"
+
+\n\""  ]
+\""]
+
+'\"\"
+'\"
+
+]\""  ]
+]"]
+
+]\""
+]"
+
+'\"\"
+'\n
+
+\"\"
+\"
+
+regex look for two riwayahs in one cell:
+(?<!^|[٠-٩])[٠-٩]+ - 
+
+
+-->
