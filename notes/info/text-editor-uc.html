@@ -3894,6 +3894,11 @@ function () {
           <button onclick="copyAlaihiMaSalam();">عَلَيهِمَا السَّلَامُ</button>
           <button onclick="copyAlaihiMuSalam();">عَلَيهِمُ السَّلَامُ</button>
 
+          <button onclick="copyRahimaHullah();">رَحِمَهُ اللَّهُ</button>
+          <button onclick="copyRahimaHallah();">رَحِمَهَا اللَّهُ</button>
+          <button onclick="copyRahimaHumallah();">رَحِمَهُمَا اللَّهُ</button>
+          <button onclick="copyRahimaHumullah();">رَحِمَهُمُ اللَّهُ</button>
+
           <button onclick="copyRiwa();">ރިވާ ކުރެއްވި</button>
           <button onclick="copyRhadithK();">ރަސޫލާ ޙަދީޘްކުރެއްވި</button>
           <button onclick="copyNhadithK();">ނަބިއްޔާ ޙަދީޘްކުރެއްވި</button>
@@ -4169,6 +4174,46 @@ function () {
           function copyAlaihiMuSalam() {
             var input = document.createElement("textarea");
             input.innerHTML = "عَلَيهِمُ السَّلَامُ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyRahimaHullah() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "رَحِمَهُ اللَّهُ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyRahimaHallah() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "رَحِمَهَا اللَّهُ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyRahimaHumallah() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "رَحِمَهُمَا اللَّهُ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyRahimaHumullah() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "رَحِمَهُمُ اللَّهُ";
             document.body.appendChild(input);
             input.select();
             var result = document.execCommand("copy");
