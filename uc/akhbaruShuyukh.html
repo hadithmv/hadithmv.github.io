@@ -361,31 +361,73 @@
 
 <!--
 
-open book in ms doc
+select wanted tharujama text
 
-select text
+copy paste to google sheets
 
-insert, table, convert text to a table
+download as excel
 
-copy that and paste in excel
+go to blank, after selected, delete all blank rows
 
-save as csv
+paste in vscode blank file
 
-remove unneeded headers and additional rows
+(preserve footnotes at bottom elsewhere first)
+replace
+\n^(?!\d+-)(.*)$
+&$1
+(readd footnotes)
 
-js regex to find a paragraph that does stat with a number, in that case, remove the new line between the paragraph that does not have a number, and the paragraph that does
+paste in sheets again
 
-(?<!\d)\n(?!^\d)
+download as TSV
+(csv has issues with " being all over the place)
 
-this merges the new lines of two paragraphs
+next replace
+&
+\n
 
-convert to json,
+convert json to csv
 
-make \"\"\" into \n\n\"
+import csv to sheets
 
-deal with the rest of the dv stuff later.
+match only Latin characters excluding 'n', you can use the following regex pattern:
+\b[^n\s\d\W_]+\b
 
-as for arabic text
+%
+ﷲ
+
+G
+ﷺ
+
+I
+رَضِيَ اللَّهُ عَنْهُ
+
+D
+عَزَّ وَجَلَّ
+
+E
+تَبَارَكَ وَتَعَالَى
+
+J
+رَضِيَ اللَّهُ عَنْهَا
+
+L
+رَضِيَ اللَّهُ عَنْهُمَا
+
+S
+عَلَيهِ السَّلَامُ
+
+r ދެވަނަ ޖުޒްއު q
+
+add basmalas to both juz
+and add first juz
+
+END OF DV TEXT
+
+---
+
+
+NOW AR TEXT
 
 export from shamela
 
@@ -472,46 +514,5 @@ function startsWithArabicDigit(str) {
 it seems trying to do this with the dv is problematic, as https://www.convertcsv.com/csv-to-json.htm turns the google sheets csv into something with more columns and misasigns the data in the cells. so dont download just a single column of dv text, download it as csv with arabic, riwayah number, etc.
 
 then convert to json and edit from there
-
-replace (without regex)
-\"\"\"
-with
-\n\"
-
-\n\""  ]
-\""]
-
-'\"\"
-'\"\n
-
-]\""  ]
-]"]
-
-]\""
-]"
-
-???
-'\"\"
-'\n
-
-use these tenatively:
-
-\"\"
-\"
-
-'\"
-'\"\n
-
-regex look for two riwayahs in one cell:
-(?<!^|[٠-٩])[٠-٩]+ - 
-
-\"'
-\n'
-
-:'
-:\n'
-
-:﴿
-:\n﴿
 
 -->
