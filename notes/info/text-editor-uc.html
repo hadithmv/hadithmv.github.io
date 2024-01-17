@@ -1628,23 +1628,33 @@ function () {
 
                 /* allow wrapping by default */
                 flex-wrap: wrap;
+              }
 
-                /* keep them in one line for screens wider than 600px */
-                @media (min-width: 600px) {
-                  .replace-container {
-                    flex-wrap: nowrap;
-                    padding: 0;
-                  }
-                }
+              #findThis,
+              #replaceWith {
+                padding: 5px;
 
-                /* otherwise no space between them on mobile */
-                #findThis {
-                  margin-right: 5px;
-                }
+                /* https://stackoverflow.com/questions/271067/how-can-i-make-a-textarea-100-width-without-overflowing-when-padding-is-present/4156343#4156343 */
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+              }
 
-                #replaceWith {
-                  margin-right: 5px;
+              /* keep them in one line for screens wider than 600px */
+              @media (min-width: 600px) {
+                .replace-container {
+                  flex-wrap: nowrap;
+                  padding: 0;
                 }
+              }
+
+              /* otherwise no space between them on mobile */
+              #findThis {
+                margin-right: 5px;
+              }
+
+              #replaceWith {
+                margin-left: 5px;
               }
             </style>
             <textarea
@@ -5369,8 +5379,9 @@ cols="60"-->
                 </tr>
                 <tr>
                   <td class="hideOnPhoneOnly">Statistics:</td>
-                  <!-- style="/*white-space: pre; REMOVED TO MAKE IT WORDWRAP*/"-->
-                  <td id="statistics-output" style="white-space: pre">
+                  <!-- <td id="statistics-output" style="white-space: pre">
+                    whitespace pre CHANGED TO MAKE IT WORDWRAP*/"-->
+                  <td id="statistics-output" style="white-space: break-spaces">
                     QR Code version = 1, mask pattern = 6, character count = 0,
                     encoding mode = none, error correction = level H, data bits
                     = 0.
