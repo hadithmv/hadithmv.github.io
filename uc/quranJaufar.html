@@ -343,70 +343,70 @@
               <span>● ތަރުޖަމާ ބަދަލުކުރުމަށް</span>
               <ul>
                 <li>
-                  <a onClick="qClick1()">1 ޙަދީޘްއެމްވީ ތަރުޖަމާ</a>
+                  <a onClick="chngClick1()">1 ޙަދީޘްއެމްވީ ތަރުޖަމާ</a>
                 </li>
                 <li>
-                  <a onClick="qClick2()">2 ބަކުރުބެގެ ތަރުޖަމާ</a>
+                  <a onClick="chngClick2()">2 ބަކުރުބެގެ ތަރުޖަމާ</a>
                 </li>
                 <li>
-                  <a onClick="qClick3()">3 ޖަޢުފަރުގެ ތަފްސީރު</a>
+                  <a onClick="chngClick3()">3 ޖަޢުފަރުގެ ތަފްސީރު</a>
                 </li>
                 <li>
-                  <a onClick="qClick4()"> </a>
+                  <a onClick="chngClick4()"> </a>
                 </li>
                 <li>
                   <a href="quranUshru.html">5 ފަހު ދިހަބައިކުޅަ އެއްބައި</a>
                 </li>
                 <li>
-                  <a onClick="qClick5()">6 ރަސްމީ ތަރުޖަމާ</a>
+                  <a onClick="chngClick5()">6 ރަސްމީ ތަރުޖަމާ</a>
                 </li>
                 <!--  style="color: #b8b8b8; cursor: auto; !important" -->
               </ul>
             </li>
 
             <script>
-              // change url to change to another book while staying at the same row page place
-              function qClick1() {
+              // change url to change to another book while preserving query terms
+              function chngClick1() {
                 window.location = window.location
                   .toString()
                   .replace(
-                    /quranBakurube|quranJaufar|quranSoabuni|quranRasmee/,
+                    /quranBakurube|quranJaufar|quranSoabuni|quranRasmee/g,
                     "quranHmv"
                   )
                   .replace(/\:v.*$/, "");
               }
-              function qClick2() {
+              function chngClick2() {
                 window.location = window.location
                   .toString()
                   .replace(
-                    /quranHmv|quranJaufar|quranSoabuni|quranRasmee/,
+                    /quranHmv|quranJaufar|quranSoabuni|quranRasmee/g,
                     "quranBakurube"
                   )
                   .replace(/\:v.*$/, "");
               }
-              function qClick3() {
+              function chngClick3() {
                 window.location = window.location
                   .toString()
                   .replace(
-                    /quranHmv|quranBakurube|quranSoabuni|quranRasmee/,
+                    /quranHmv|quranBakurube|quranSoabuni|quranRasmee/g,
                     "quranJaufar"
                   )
                   .replace(/\:v.*$/, "");
               }
-              function qClick4() {
+              function chngClick4() {
                 window.location = window.location
                   .toString()
                   .replace(
-                    /quranHmv|quranBakurube|quranJaufar|quranRasmee/,
+                    /quranHmv|quranBakurube|quranJaufar|quranRasmee/g,
                     "quranSoabuni"
                   )
                   .replace(/\:v.*$/, "");
               }
-              function qClick5() {
+              function chngClick5() {
                 window.location = window.location
                   .toString()
                   .replace(
-                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni/,
+                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni/g,
                     "quranRasmee"
                   )
                   .replace(/\:v.*$/, "");

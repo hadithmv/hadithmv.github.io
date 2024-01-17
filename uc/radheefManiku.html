@@ -150,20 +150,59 @@
               <span>● ރަދީފު ބަދަލުކުރުމަށް</span>
               <ul>
                 <li>
-                  <a href="../books/radheefAll.html">1 އެއްކުރަމުންދާ ރަދީފު</a>
+                  <a onClick="chngClick1()">1 އެއްކުރަމުންދާ ރަދީފު</a>
                 </li>
                 <li>
-                  <a href="../books/radheefRasmee.html">2 ރަސްމީ ރަދީފު</a>
+                  <a onClick="chngClick2()">2 ރަސްމީ ރަދީފު</a>
                 </li>
                 <li>
-                  <a href="../books/radheefEegaal.html">3 އަލްއީގާޡް</a>
+                  <a onClick="chngClick3()">3 އަލްއީގާޡް</a>
                 </li>
                 <li>
-                  <a href="../books/radheefManiku.html">4 މަނިކުގެ ރަދީފު</a>
+                  <a onClick="chngClick4()">4 މަނިކުގެ ރަދީފު</a>
                 </li>
-                <!--  style="color: #b8b8b8; cursor: auto; !important" -->
               </ul>
             </li>
+
+            <script>
+              // change url to change to another book while preserving query terms
+              function chngClick1() {
+                window.location = window.location
+                  .toString()
+                  .replace(
+                    /radheefRasmee|radheefEegaal|radheefManiku/g,
+                    "radheefAll"
+                  )
+                  .replace(/\:v.*$/, "");
+              }
+              function chngClick2() {
+                window.location = window.location
+                  .toString()
+                  .replace(
+                    /radheefAll|radheefEegaal|radheefManiku/g,
+                    "radheefRasmee"
+                  )
+                  .replace(/\:v.*$/, "");
+              }
+              function chngClick3() {
+                window.location = window.location
+                  .toString()
+                  .replace(
+                    /radheefAll|radheefRasmee|radheefManiku/g,
+                    "radheefEegaal"
+                  )
+                  .replace(/\:v.*$/, "");
+              }
+              function chngClick4() {
+                window.location = window.location
+                  .toString()
+                  .replace(
+                    /radheefAll|radheefRasmee|radheefEegaal/g,
+                    "radheefManiku"
+                  )
+                  .replace(/\:v.*$/, "");
+              }
+            </script>
 
             <li>
               <a href="../notes/info/contact.html"
