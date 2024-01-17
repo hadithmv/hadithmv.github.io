@@ -8,13 +8,14 @@ Set-Location -Path $PSScriptRoot
 # delete old folder in asset
 # Remove-Item "../app/webview-master/app/src/main/assets/books" -Recurse -Force
 # copies site minified book files to asset book files one by one
-Copy-Item ../books/fortyNawawi.html -Destination ../app/webview-master/app/src/main/assets/books/fortyNawawi.html -Recurse -Force
-Copy-Item ../books/fortyAajurry.html -Destination ../app/webview-master/app/src/main/assets/books/fortyAajurry.html -Recurse -Force
+Copy-Item ../books/akhbaruShuyukh.html -Destination ../app/webview-master/app/src/main/assets/books/akhbaruShuyukh.html -Recurse -Force
 Copy-Item ../books/allAthar.html -Destination ../app/webview-master/app/src/main/assets/books/allAthar.html -Recurse -Force
 Copy-Item ../books/aqidahNawawi.html -Destination ../app/webview-master/app/src/main/assets/books/aqidahNawawi.html -Recurse -Force
 Copy-Item ../books/aqidatuRaziyain.html -Destination ../app/webview-master/app/src/main/assets/books/aqidatuRaziyain.html -Recurse -Force
 Copy-Item ../books/barbahari.html -Destination ../app/webview-master/app/src/main/assets/books/barbahari.html -Recurse -Force
 Copy-Item ../books/bulugh.html -Destination ../app/webview-master/app/src/main/assets/books/bulugh.html -Recurse -Force
+Copy-Item ../books/fortyAajurry.html -Destination ../app/webview-master/app/src/main/assets/books/fortyAajurry.html -Recurse -Force
+Copy-Item ../books/fortyNawawi.html -Destination ../app/webview-master/app/src/main/assets/books/fortyNawawi.html -Recurse -Force
 Copy-Item ../books/hisnulMuslim.html -Destination ../app/webview-master/app/src/main/assets/books/hisnulMuslim.html -Recurse -Force
 Copy-Item ../books/kunnaasha.html -Destination ../app/webview-master/app/src/main/assets/books/kunnaasha.html -Recurse -Force
 Copy-Item ../books/index.html -Destination ../app/webview-master/app/src/main/assets/books/index.html -Recurse -Force
@@ -105,6 +106,7 @@ Copy-Item  ../app/webview-master/app/src/main/assets/img/* -Destination hmv/img 
 # - - -
 # delete old folder in asset
 # Remove-Item "../app/webview-master/app/src/main/assets/js" -Recurse -Force
+Copy-Item ../js/akhbaruShuyukh-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/akhbaruShuyukh-script.min.js -Recurse -Force
 Copy-Item ../js/allAthar-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/allAthar-script.min.js -Recurse -Force
 Copy-Item ../js/aqidahNawawi-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/aqidahNawawi-script.min.js -Recurse -Force
 Copy-Item ../js/barbahari-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/barbahari-script.min.js -Recurse -Force
@@ -141,6 +143,7 @@ Copy-Item ../js/resc/COMB-nonCrit.min.js -Destination ../app/webview-master/app/
 # - - -
 # COPY JSON to android
 # - - -
+Copy-Item ../js/json/akhbaruShuyukh.js -Destination ../app/webview-master/app/src/main/assets/js/json/akhbaruShuyukh.js -Recurse -Force
 Copy-Item ../js/json/allAthar.js -Destination ../app/webview-master/app/src/main/assets/js/json/allAthar.js -Recurse -Force
 Copy-Item ../js/json/aqidahNawawi.js -Destination ../app/webview-master/app/src/main/assets/js/json/aqidahNawawi.js -Recurse -Force
 Copy-Item ../js/json/barbahari.js -Destination ../app/webview-master/app/src/main/assets/js/json/barbahari.js -Recurse -Force
