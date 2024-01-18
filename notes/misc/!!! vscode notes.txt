@@ -95,91 +95,40 @@ make list of extensions in vscode:
 
 EXTENSIONS LIST:
 
-Chukwuamaka.csvtojson-converter
 cwan.native-ascii-converter
+eamodio.gitlens
 esbenp.prettier-vscode
 formulahendry.code-runner
 GitHub.remotehub
+github.vscode-github-actions
 GitHub.vscode-pull-request-github
 HTMLHint.vscode-htmlhint
 JannisX11.batch-rename-extension
 lacroixdavid1.vscode-format-context-menu
+lengmo.json-table-viewer
+lewissteele.vscode-sql-lint
 mechatroner.rainbow-csv
-ms-python.isort
-ms-python.python
 ms-vscode.powershell
 ms-vscode.remote-repositories
+rioj7.vscode-remove-comments
 ritwickdey.LiveServer
 shd101wyy.markdown-preview-enhanced
 techer.open-in-browser
 Tyriar.vscode-terminal-here
-VisualStudioExptTeam.intellicode-api-usage-examples
 vscode-icons-team.vscode-icons
 zh9528.file-size
 
----
-
-GitHub.vscode-pull-request-github
-GitHub.remotehub
-ms-vscode.remote-repositories
-ms-python.python
-ms-toolsai.jupyter
-stylelint.vscode-stylelint
-
-NOT NEEDED RN:
-
-DavidAnson.vscode-markdownlint
-shd101wyy.markdown-preview-enhanced
-standard.vscode-standard
-Wattenberger.footsteps
-
-GitHub.vscode-pull-request-github
-alefragnani.project-manager
-christian-kohler.path-intellisense
-ryu1kn.partial-diff
-aaron-bond.better-comments
-CodeStream.codestream
-eamodio.gitlens
-DavidAnson.vscode-markdownlint
-bierner.github-markdown-preview
-ms-python.python
-ms-vsliveshare.vsliveshare
-ritwickdey.LiveServer
-VisualStudioExptTeam.vscodeintellicode
-ms-vscode-remote.remote-ssh
-msjsdiag.debugger-for-chrome
-formulahendry.code-runner
-arcsine.chronicler
-emilast.LogFileHighlighter
-alefragnani.Bookmarks
-L13RARY.l13-diff
-xabikos.JavaScriptSnippets
-pranaygp.vscode-css-peek
-streetsidesoftware.code-spell-checker
-HookyQR.minify
-Aneryu.csso
-ms-vscode.js-debug-nightly
-ms-vscode-remote.vscode-remote-extensionpack
-ms-vscode.vscode-github-issue-notebooks
 ----------------------
 
 CURRENT LIST:
 
-├── csso-cli@3.0.0
-├── google-closure-compiler@20220502.0.0
+├── csso-cli@4.0.2
+├── google-closure-compiler@20230802.0.0
 ├── html-minifier@4.0.0
 ├── htmlhint@1.1.4
-├── npm@8.11.0
-├── prettier@2.6.2
-└── uglify-js@3.15.5
-
-OLD LIST:
-   
-├── standard@16.0.4
-├── stylelint-config-prettier@8.0.2
-├── stylelint-config-standard@22.0.0
-└── stylelint-prettier@1.2.0
-
+├── npm@10.2.4
+├── prettier@3.1.0
+└── uglify-js@3.17.4
 
 ----------------------------------------
 
