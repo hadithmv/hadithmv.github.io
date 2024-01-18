@@ -25,6 +25,8 @@ Most pages have a top menu where you can click on the Hadithmv logo at the left 
 
 On some Android phones, the back button of the phone closes the app. If this happens, use the above method instead.
 
+If something does not load correctly, open the menu and use soft or hard reload to reset the page.
+
 ---------------------
 
 * Desktop Keyboard Shortcuts:
