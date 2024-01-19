@@ -74,6 +74,7 @@ $(document).ready(() => {
   resultBulugh = removeColumns(bulugh_DB, [1, 2, 3, 4]);
   resultMuwatta = removeColumns(muwatta_DB, [1, 2, 3, 4]);
   resultHisnul = removeColumns(hisnulMuslim_DB, [1, 2, 5, 6, 7, 8]);
+  resultAkhbar = removeColumns(akhbaruShuyukh_DB, [3, 4]);
 
   //console.log(result);
   //
@@ -84,13 +85,15 @@ $(document).ready(() => {
   function insertValueInFirstColumn(arr, valueToInsert) {
     return arr.map((row) => [valueToInsert, ...row]);
   }
-
-  //const result = insertValueInFirstColumn(twoDArray, 'hey');
   resultNawawi = insertValueInFirstColumn(resultNawawi, "الأربعون النووية");
   resultUmdah = insertValueInFirstColumn(resultUmdah, "عمدة الأحكام");
   resultBulugh = insertValueInFirstColumn(resultBulugh, "بلوغ المرام");
   resultMuwatta = insertValueInFirstColumn(resultMuwatta, "موطأ مالك");
   resultHisnul = insertValueInFirstColumn(resultHisnul, "حصن المسلم");
+  resultAkhbar = insertValueInFirstColumn(
+    resultAkhbar,
+    "أخبار الشيوخ وأخلاقهم"
+  );
 
   //console.log(result);
   // END BOOK
@@ -117,12 +120,26 @@ $(document).ready(() => {
     return arr1;
   }
 
-  // const result = appendRowsWithEmptyValues(radheef_DB, radheefEegaal_DB);
-  combResult = appendRowsWithEmptyValues(allAthar_DB, resultNawawi);
+  // improved code for below
+  const resultSets = [
+    resultNawawi,
+    resultUmdah,
+    resultBulugh,
+    resultMuwatta,
+    resultHisnul,
+    resultAkhbar,
+  ];
+
+  let combResult = allAthar_DB;
+
+  resultSets.forEach((resultSet) => {
+    combResult = appendRowsWithEmptyValues(combResult, resultSet);
+  });
+
+  // initially taken from radheef
+  /*combResult = appendRowsWithEmptyValues(allAthar_DB, resultNawawi);
   combResult = appendRowsWithEmptyValues(combResult, resultUmdah);
-  combResult = appendRowsWithEmptyValues(combResult, resultBulugh);
-  combResult = appendRowsWithEmptyValues(combResult, resultMuwatta);
-  combResult = appendRowsWithEmptyValues(combResult, resultHisnul);
+  combResult = appendRowsWithEmptyValues(combResult, resultBulugh);*/
   //console.log(result);
   // end merge
 
