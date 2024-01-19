@@ -95,6 +95,14 @@ $(document).ready(() => {
         data: 3,
         title: "ފުޓްނޯޓު",
       },
+      {
+        /* add sofhaa string to page no */
+        data: 4,
+        title: "ސަފުހާ #",
+        render: function (data, type, row) {
+          return "[ޞ: " + data + "]";
+        },
+      },
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
@@ -167,6 +175,15 @@ $(document).ready(() => {
         targets: [4],
         visible: true,
         searchable: true,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "uSunnahCol5", // page no.
+        targets: [5],
+        visible: true,
+        searchable: false,
         searchPanes: {
           show: false,
         },

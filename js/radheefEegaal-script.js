@@ -102,7 +102,6 @@ $(document).ready(() => {
             .replace(/(\n)/g, "<br>");
         },
       },
-
       {
         /* add sofhaa string to page no */
         data: 2,
