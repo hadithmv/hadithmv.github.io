@@ -285,10 +285,6 @@ $(document).ready(() => {
         data: 5,
         title: "ތަފުސީރު", // ubufili on faafu, otherwise interferes with clipboard tite copy
       },
-      {
-        data: 6,
-        title: "ފުޓްނޯޓު",
-      },
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
@@ -379,7 +375,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol8", // dv footnote
+        className: "qCol8", // dv tarjama ijmali
         targets: [7],
         visible: true,
         searchable: true,
@@ -621,7 +617,6 @@ $(document).ready(() => {
           data = data.replace(/ގުރްއާން އަރަބިން\t/g, "");
           data = data.replace(/ގުރްއާން ފިލިނުޖަހާ\t/g, "");
           data = data.replace(/ތަފުސީރު\t/g, "");
-          data = data.replace(/ފުޓްނޯޓު\t/g, "");
           //data = data.replace(/\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g, '\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n') // adds a line break after takhrij line, use two for a new line
           data = data.replace(
             /‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\t/g,
