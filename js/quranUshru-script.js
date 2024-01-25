@@ -58,7 +58,7 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  const table = $("#quranUshruTable").DataTable({
+  const table = $("#quranTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
@@ -103,7 +103,8 @@ $(document).ready(() => {
         targets: [1],
         render: function (data, type, row) {
           if (data !== "") {
-            data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
+            //data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
+            data = data + "<br>‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾";
             return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
           } else {
             return data; // return empty string if data is empty
