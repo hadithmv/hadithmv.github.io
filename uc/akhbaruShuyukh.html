@@ -606,11 +606,26 @@ go to blank, after selected, delete all blank rows
 
 paste in vscode blank file
 
+js regex to capture any leading whitespace
+^\s+
+
+remove more than one space
+[^\S\r\n]+
+' '
+
+remove more than one new line
+\n\n
+\n
+
+what below regex does is, it finds a line that has number followed by hyphen, then body of text. it will add subsequent bodies of text to the previous closest number followed by hyphen
 (preserve footnotes at bottom elsewhere first)
 replace
 \n^(?!\d+-)(.*)$
 &$1
-(readd footnotes)
+
+now replace & with \n again
+
+(rebring footnotes)
 
 paste in sheets again
 
