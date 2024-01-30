@@ -50,6 +50,10 @@ Set-Content ../hisnulMuslim.js -Value 'const hisnulMuslim_DB='
 Get-Content hisnulMuslim.json | Add-Content ../hisnulMuslim.js
 uglifyjs ../hisnulMuslim.js -c -m -o ../hisnulMuslim.js
 
+Set-Content ../kitabulEman.js -Value 'const kitabulEman_DB='
+Get-Content kitabulEman.json | Add-Content ../kitabulEman.js
+uglifyjs ../kitabulEman.js -c -m -o ../kitabulEman.js
+
 Set-Content ../kunnaasha.js -Value 'const kunnaasha_DB='
 Get-Content kunnaasha.json | Add-Content ../kunnaasha.js
 uglifyjs ../kunnaasha.js -c -m -o ../kunnaasha.js
