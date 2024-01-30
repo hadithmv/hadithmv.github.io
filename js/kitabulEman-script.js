@@ -58,12 +58,12 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  const table = $("#akhbaruShuyukhTable").DataTable({
+  const table = $("#kitabulEmanTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: akhbaruShuyukh_DB, // https://datatables.net/manual/ajax
+    data: kitabulEman_DB, // https://datatables.net/manual/ajax
 
     columns: [
       /* add # string to hadith no */
@@ -76,10 +76,15 @@ $(document).ready(() => {
       },
       {
         data: 1,
-        title: "އަރަބި ލިޔުން",
+        title: "އަރަބި ބާބު",
       },
       {
-        data: 1,
+        data: 2,
+        title: "އަރަބި ލިޔުން",
+      },
+
+      {
+        data: 2,
         title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
           return data
@@ -88,16 +93,24 @@ $(document).ready(() => {
         },
       },
       {
-        data: 2,
+        data: 3,
+        title: "އަރަބި ފުޓްނޯޓު",
+      },
+      {
+        data: 4,
+        title: "ދިވެހި ބާބު",
+      },
+      {
+        data: 5,
         title: "ދިވެހި ތަރުޖަމާ",
       },
       {
-        data: 3,
-        title: "ފުޓްނޯޓު",
+        data: 6,
+        title: "ދިވެހި ފުޓްނޯޓު",
       },
       {
         /* add sofhaa string to page no */
-        data: 4,
+        data: 7,
         title: "ސަފުހާ #",
         render: function (data, type, row) {
           return "[ޞ: " + data + "]";
@@ -110,7 +123,7 @@ $(document).ready(() => {
       // adds footnote line for shurooh
       // if (data !== "") { } else { return data; } ONLY applies if string is not empty
       {
-        targets: [4],
+        targets: [4, 7],
         render: function (data, type, row) {
           if (data !== "") {
             data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
@@ -122,7 +135,7 @@ $(document).ready(() => {
       },
 
       /* replace \n newlines from json to <br> in table
-      https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
+        https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
       {
         targets: "_all",
         render: function (data, type, row) {
@@ -144,7 +157,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "uSunnahCol2", // Ar Text
+        className: "ColKitab", // Ar Bab
         targets: [1],
         visible: true,
         searchable: false,
@@ -153,8 +166,17 @@ $(document).ready(() => {
         },
       },
       {
-        className: "uSunnahCol3", // Ar Text Plain
+        className: "uSunnahCol3", // Ar Text
         targets: [2],
+        visible: true,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "uSunnahCol4", // Ar Text Plain
+        targets: [3],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -162,26 +184,44 @@ $(document).ready(() => {
         },
       },
       {
-        className: "uSunnahCol4", // dv
-        targets: [3],
-        visible: true,
-        searchable: true,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "ColTakhrij", // footnote
+        className: "ColTakhrij", // Ar footnote
         targets: [4],
         visible: true,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "ColBaab", // dv bab
+        targets: [5],
+        visible: true,
         searchable: true,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "uSunnahCol5", // page no.
-        targets: [5],
+        className: "uSunnahCol7", // dv
+        targets: [6],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "ColTakhrij", // dv footnote
+        targets: [7],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "uSunnahCol9", // page no.
+        targets: [8],
         visible: true,
         searchable: false,
         searchPanes: {
@@ -304,20 +344,20 @@ $(document).ready(() => {
     // ====================
     language: {
       /* made these a media query somewhere up
-      paginate: {
-        first: '<<',
-        previous: '<',
-        next: '>',
-        last: '>>',
-
-        first: '<<&nbsp;ފުރަތަމަ',
-        previous: '<&nbsp;ފަހަތަށް',
-        next: 'ކުރިއަށް&nbsp;>',
-        last: 'ފަހު&nbsp;>>',
-
-        info: '_INPUT_'
-},
-*/
+        paginate: {
+          first: '<<',
+          previous: '<',
+          next: '>',
+          last: '>>',
+  
+          first: '<<&nbsp;ފުރަތަމަ',
+          previous: '<&nbsp;ފަހަތަށް',
+          next: 'ކުރިއަށް&nbsp;>',
+          last: 'ފަހު&nbsp;>>',
+  
+          info: '_INPUT_'
+  },
+  */
       buttons: {
         copyTitle: "ކޮޕީ",
         copySuccess: {
@@ -340,20 +380,20 @@ $(document).ready(() => {
     //      DT CUSTOM DOM
     // ====================
     /* DOM options, https://datatables.net/reference/option/dom,
-    https://datatables.net/examples/basic_init/dom.html
-         default: lpfrtip
-        l - length changing input control
-        f - filtering input
-        t - The table
-        i - Table information summary
-        p - pagination control
-        r - processing display element
-        B - Buttons
-
-< and > - div element
-<"class" and > - div with a class
-<"#id" and > - div with an ID
-<"#id.class" and > - div with an ID and a class */
+      https://datatables.net/examples/basic_init/dom.html
+           default: lpfrtip
+          l - length changing input control
+          f - filtering input
+          t - The table
+          i - Table information summary
+          p - pagination control
+          r - processing display element
+          B - Buttons
+  
+  < and > - div element
+  <"class" and > - div with a class
+  <"#id" and > - div with an ID
+  <"#id.class" and > - div with an ID and a class */
     // "lBpfrtip",
 
     // desktop, goes rtl -->
@@ -381,9 +421,9 @@ $(document).ready(() => {
         // ====================
         customize(data) {
           /* https://www.rexegg.com/regex-quickstart.html
-                    \t Tab, \r Carriage return character,
-                    \n Line feed character, \r\n Line separator on Windows
-                    */
+                      \t Tab, \r Carriage return character,
+                      \n Line feed character, \r\n Line separator on Windows
+                      */
           // adds string to hadith
           // data = data.replace( /\b([0-9]|[1-4][0-9]|50)\b/g, "No:" );
 
@@ -405,10 +445,13 @@ $(document).ready(() => {
           // \n prevents first header showing up unneeded (linux) this needs come after windows rn
 
           data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
+          data = data.replace(/އަރަބި ބާބު\t/g, "");
           data = data.replace(/އަރަބި ލިޔުން\t/g, "");
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
+          data = data.replace(/އަރަބި ފުޓްނޯޓު\t/g, "");
+          data = data.replace(/ދިވެހި ބާބު\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
-          data = data.replace(/ފުޓްނޯޓު\t/g, "");
+          data = data.replace(/ދިވެހި ފުޓްނޯޓު\t/g, "");
           data = data.replace(/ސަފުހާ #\t/g, "");
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
@@ -425,57 +468,57 @@ $(document).ready(() => {
           // \s\s turns two spaces into new lines, for multi line text
 
           /*
-          data = data.replace(/\n\n/g, '\t') // prevents # showing up unneeded (linux)
-          data = data.replace(/\r\n\r\n/g, '\t') //  prevents # showing up unneeded (windows)
-
-          data = data.replace(/\t#/g, '')
-          data = data.replace(/\tއަރަބި ސުރުހީ/g, '')
-          data = data.replace(/\tދިވެހި ސުރުހީ/g, '')
-          data = data.replace(/\tއަރަބި ޙަދީޘް/g, '')
-          data = data.replace(/\tއަރަބި ފިލިނުޖަހައި/g, '')
-          data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
-          data = data.replace(/\tތަޚްރީޖު/g, '')
-          data = data.replace(/\tތަޚްރީޖު ދިވެހިން/g, '')
-          data = data.replace(/\tރިޔާޟުއްޞާލިޙީނުން/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
+            data = data.replace(/\n\n/g, '\t') // prevents # showing up unneeded (linux)
+            data = data.replace(/\r\n\r\n/g, '\t') //  prevents # showing up unneeded (windows)
+  
+            data = data.replace(/\t#/g, '')
+            data = data.replace(/\tއަރަބި ސުރުހީ/g, '')
+            data = data.replace(/\tދިވެހި ސުރުހީ/g, '')
+            data = data.replace(/\tއަރަބި ޙަދީޘް/g, '')
+            data = data.replace(/\tއަރަބި ފިލިނުޖަހައި/g, '')
+            data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
+            data = data.replace(/\tތަޚްރީޖު/g, '')
+            data = data.replace(/\tތަޚްރީޖު ދިވެހިން/g, '')
+            data = data.replace(/\tރިޔާޟުއްޞާލިޙީނުން/g, '')
+  
+            data = data.replace(/\t/g, '\n\n') // creates line breaks
+  */
           // data = data.replace(/\tތަޚްރީޖު\t/g, '')
           /*
-          data = data.replace(/#\t/g, '')
-          data = data.replace(/އަރަބި ސުރުހީ\t/g, '')
-          data = data.replace(/ދިވެހި ސުރުހީ\t/g, '')
-          data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
-          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
-          data = data.replace(/ތަޚްރީޖު\t/g, '')
-          data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
-          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
-
-          //          data = data.replace(/\n\n/g, '')
-          //         data = data.replace(/\r\n\r\n/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
+            data = data.replace(/#\t/g, '')
+            data = data.replace(/އަރަބި ސުރުހީ\t/g, '')
+            data = data.replace(/ދިވެހި ސުރުހީ\t/g, '')
+            data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
+            data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
+            data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
+            data = data.replace(/ތަޚްރީޖު\t/g, '')
+            data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
+            data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
+  
+            //          data = data.replace(/\n\n/g, '')
+            //         data = data.replace(/\r\n\r\n/g, '')
+  
+            data = data.replace(/\t/g, '\n\n') // creates line breaks
+  */
           /*
-          data = data.replace(/#\n/g, '')
-          data = data.replace(/އަރަބި ސުރުހީ\n/g, '')
-          data = data.replace(/ދިވެހި ސުރުހީ\n/g, '')
-          data = data.replace(/އަރަބި ޙަދީޘް\n/g, '')
-          data = data.replace(/އަރަބި ފިލިނުޖަހައި\n/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\n/g, '')
-          data = data.replace(/ތަޚްރީޖު\n/g, '')
-          data = data.replace(/ތަޚްރީޖު ދިވެހިން\n/g, '')
-          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\n/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
+            data = data.replace(/#\n/g, '')
+            data = data.replace(/އަރަބި ސުރުހީ\n/g, '')
+            data = data.replace(/ދިވެހި ސުރުހީ\n/g, '')
+            data = data.replace(/އަރަބި ޙަދީޘް\n/g, '')
+            data = data.replace(/އަރަބި ފިލިނުޖަހައި\n/g, '')
+            data = data.replace(/ދިވެހި ތަރުޖަމާ\n/g, '')
+            data = data.replace(/ތަޚްރީޖު\n/g, '')
+            data = data.replace(/ތަޚްރީޖު ދިވެހިން\n/g, '')
+            data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\n/g, '')
+  
+            data = data.replace(/\t/g, '\n\n') // creates line breaks
+  */
 
           /* data = data.replace( /hadithmv.com\n/g, "hadithmv.com\n\n" );
-           //adds new line on android */
+             //adds new line on android */
           /*
-               data = data.replace( /\r/g, "" ); //rids windows platform newline
-               data = data.replace( /\t/g, "\n\n" ); */
+                 data = data.replace( /\r/g, "" ); //rids windows platform newline
+                 data = data.replace( /\t/g, "\n\n" ); */
 
           //  console.log(JSON.stringify(data)) // json stringify to console
 
@@ -500,13 +543,13 @@ $(document).ready(() => {
 
       // cards code
       /*
-              {
-                "text": "cards",
-                "action": function (e, dt, node) {
-                   $(dt.table().node()).toggleClass("cards");
-                },
-             },
-      */
+                {
+                  "text": "cards",
+                  "action": function (e, dt, node) {
+                     $(dt.table().node()).toggleClass("cards");
+                  },
+               },
+        */
       // cards code END
     ],
   }); // $("#fortyNawawi").DataTable( { - END
@@ -559,12 +602,12 @@ $(document).ready(() => {
         table.page("next").draw("page");
       }
     } /* else { // commented out otherwise detected as useless suspicious code
-      if (yDiff > 0) {
-        // up swipe
-      } else {
-        // down swipe
-      }
-    } */
+        if (yDiff > 0) {
+          // up swipe
+        } else {
+          // down swipe
+        }
+      } */
     /* reset values */
     xDown = null;
     yDown = null;
@@ -605,15 +648,15 @@ $(document).ready(() => {
   // Add cards media query class to table ID, as well as row border
   // ====================
   /*
-    function myFunction() {
-        var element = document.getElementById("fortyNawawi");
-        element.classList.add("cards");
-      }
-*/
+      function myFunction() {
+          var element = document.getElementById("fortyNawawi");
+          element.classList.add("cards");
+        }
+  */
   if (window.matchMedia("(min-width: 900px)").matches) {
     // js media query on desktop
     /* previously $('fnClass').addClass('row-border')
-    $('fnClass').addClass('cards') */
+      $('fnClass').addClass('cards') */
     $(".dataTable").addClass("row-border"), // adds rowborder class
       $("div.dataTables_filter input", table.table().container()).focus(); // autofocus search input on page load
   } else {
@@ -651,40 +694,40 @@ $(document).ready(() => {
   // for some reason, dblclick stopped working for table.row(this).draw().show().select().draw(false) on mobile view, which was previously table.row(this).show().select().draw(false)
   // all this was changed due to an update with searchpanes causing a bug https://datatables.net/forums/discussion/comment/208672/#Comment_208672
   /*var touchtime = 0;
-  $("tbody").on("click", "tr", function () {
-    if (touchtime == 0) {
-      // set first click
-      touchtime = new Date().getTime();
-    } else {
-      // compare first click to this click and see if they occurred within double click threshold
-      if (new Date().getTime() - touchtime < 800) {
-        // double click occurred
-        //alert("double clicked");
-        if (table.search() !== "") {
-          table.search("").draw();
-        }
-        table.row(this).draw().show().select().draw(false);
-        //
-        touchtime = 0;
-      } else {
-        // not a double click so set as a new first click
+    $("tbody").on("click", "tr", function () {
+      if (touchtime == 0) {
+        // set first click
         touchtime = new Date().getTime();
+      } else {
+        // compare first click to this click and see if they occurred within double click threshold
+        if (new Date().getTime() - touchtime < 800) {
+          // double click occurred
+          //alert("double clicked");
+          if (table.search() !== "") {
+            table.search("").draw();
+          }
+          table.row(this).draw().show().select().draw(false);
+          //
+          touchtime = 0;
+        } else {
+          // not a double click so set as a new first click
+          touchtime = new Date().getTime();
+        }
       }
-    }
-  });*/
+    });*/
 
   /* OLD SEARCH REPLACE BELOW
-  $(".dataTables_filter input")
-    .off()
-    .on("keyup", function () {
-      let str = $(this).val();
-      str = str.replace(
-        /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
-        ""
-      );
-      table.search(str).draw();
-    });
-    */
+    $(".dataTables_filter input")
+      .off()
+      .on("keyup", function () {
+        let str = $(this).val();
+        str = str.replace(
+          /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
+          ""
+        );
+        table.search(str).draw();
+      });
+      */
 
   // removes diacritics and punctuation on key up for search
   $(".dataTables_filter input").on("keyup click", function () {
