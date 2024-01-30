@@ -46,8 +46,8 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/akhbaruShuyukh.js"></script>
-    <script defer src="../js/akhbaruShuyukh-script.min.js"></script>
+    <script defer src="../js/json/kitabulEman.js"></script>
+    <script defer src="../js/kitabulEman-script.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -68,8 +68,8 @@
             loading="lazy"
             src="../img/logo/logo.svg"
         /></a>
-        <span class="hideOnPhoneOnly"> أخبار الشيوخ وأخلاقهم للمروذي – </span
-        >ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާޤު
+        <span class="hideOnPhoneOnly">كتاب الإيمان للهروي – </span>ހަރަވީގެ
+        އީމާންކަމުގެ ފޮތް
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -245,23 +245,25 @@
             <hr class="lineVerticalSpace" />
 
             <p>
-              من سلسلة الرسائل العلمية لدار فتية الكهف
+              مِن سِلسِلَةِ الرَّسَائِلِ العِلمِيَّةِ لِدَارِ فِتيَةِ الكَهفِ
               <br />
               ދާރު ފިތްޔަތިލް ކަހްފިގެ ޢިލްމީ ލިޔުންތަކުގެ ސިލްސިލާގެ ތެރެއިން
               <br />
               5
               <br />
               <br />
-              أخبار الشيوخ وأخلاقهم
+              كِتَابُ الإِيمَانِ وَمَعَالِمِهِ وَسُنَنِهِ وَاستِكمَالِهِ
+              وَدَرَجَاتِهِ
               <br />
-              للإمام أبي بكر أحمد بن محمد بن الحجاج المروذي
+              لِلإِمَامِ أَبِي عُبَيدِ القَاسِم بنِ سَلَّام الهَرَوِي
               <br />
-              المتوفى سنة ٢٧٥هـ
+              المُتَوَفَّى سَنَة ٢٢٤هـ
               <br />
               <br />
-              ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާޤު
+              އީމާންކަމާއި އަދި އީމާންކަމުގެ ޢަލާމާތްތަކާއި، ސުންނަތްތަކާއި،
+              ފުރިހަމަވުމާއި، ދަރަޖަތައް ބަޔާންކުރެވުނު ފޮތް
               <br />
-              އަލް އިމާމް އަބޫ ޢުބައިދު އަލް ޤާސިމް ބްނު ސައްލާމް ُއަލް ހަރަވީ
+              އަލް އިމާމް އަބޫ ޢުބައިދު އަލް ޤާސިމް ބްނު ސައްލާމް އަލްހަރަވީ
               رَحِمَهُ اللَّهُ
               <br />
               އަވަހާރަވީ (224ހ.)
@@ -315,7 +317,7 @@
             <hr class="lineVerticalSpace" />
 
             <h3 class="mid">
-              <a>ފޮތުގެ ތަޢާރަފެއް</a>
+              <a>މުއައްލިފުގެ ކުރު ތަޢާރަފެއް</a>
             </h3>
 
             <p class="justi">
@@ -532,88 +534,7 @@
 
 <!--
 
-select wanted tharujama text
-
-copy paste to google sheets
-
-download as excel
-
-go to blank, after selected, delete all blank rows
-
-paste in vscode blank file
-
-js regex to capture any leading whitespace
-^\s+
-
-remove more than one space
-[^\S\r\n]+
-' '
-
-remove more than one new line
-\n\n
-\n
-
-what below regex does is, it finds a line that has number followed by hyphen, then body of text. it will add subsequent bodies of text to the previous closest number followed by hyphen
-(preserve footnotes at bottom elsewhere first)
-replace
-\n^(?!\d+-)(.*)$
-&$1
-
-now replace & with \n again
-
-(rebring footnotes)
-
-paste in sheets again
-
-download as TSV
-(csv has issues with " being all over the place)
-
-next replace
-&
-\n
-
-convert json to csv
-
-import csv to sheets
-
-match only Latin characters excluding 'n', you can use the following regex pattern:
-\b[^n\s\d\W_]+\b
-
-%
-ﷲ
-
-G
-ﷺ
-
-I
-رَضِيَ اللَّهُ عَنْهُ
-
-D
-عَزَّ وَجَلَّ
-
-E
-تَبَارَكَ وَتَعَالَى
-
-J
-رَضِيَ اللَّهُ عَنْهَا
-
-L
-رَضِيَ اللَّهُ عَنْهُمَا
-
-S
-عَلَيهِ السَّلَامُ
-
-r ދެވަނަ ޖުޒްއު q
-
-add basmalas to both juz
-and add first juz
-
-END OF DV TEXT
-
----
-
-
-NOW AR TEXT
+  NOW AR TEXT
 
 export from shamela
 
@@ -625,97 +546,6 @@ clean it up a bit, get rid of headers as much as possible
 
 captures sofhaa nos
 
-rivayah numbers should be two new lines apart from each other, other sub paragraphs one new line apart
-
-copy from htm table in browser and paste in google sheets
-
-there will be blank cells between the riwayah numbers
-
-save as excel, and go to special, blanks, delete selected cells
-
-this should get rid of all empty cells, and leave only riavayah number cells with their sub paragraphs in the same cell
-
-write js to i have a json file called "convertcsv.json" it is a json array object it has one column in it are rows that start with an arabic digit like so "١" i want you to go through the data, and if you find a row that does not start with an arabic digit, then join it to the row immediately before it, and when you join them, place this string between them "\n" provide the out as a file called "convertcsvResult.json"
-
-const fs = require('fs');
-
-const inputFile = 'convertcsv.json';
-const outputFile = 'convertcsvResult.json';
-
-// Read the input JSON file
-fs.readFile(inputFile, 'utf8', (err, data) => {
-  if (err) {
-    console.error('Error reading file:', err);
-    return;
-  }
-
-  // Parse the JSON data
-  let jsonData;
-  try {
-    jsonData = JSON.parse(data);
-  } catch (parseError) {
-    console.error('Error parsing JSON:', parseError);
-    return;
-  }
-
-  // Process the JSON data
-  const resultData = processData(jsonData);
-
-  // Write the result to the output file
-  fs.writeFile(outputFile, JSON.stringify(resultData, null, 2), 'utf8', (writeErr) => {
-    if (writeErr) {
-      console.error('Error writing to file:', writeErr);
-    } else {
-      console.log(`Result saved to ${outputFile}`);
-    }
-  });
-});
-
-function processData(data) {
-  for (let i = 1; i < data.length; i++) {
-    const currentRow = data[i];
-    const previousRow = data[i - 1];
-
-    // Check if the current row does not start with an Arabic digit
-    if (!startsWithArabicDigit(currentRow)) {
-      // Join the current row to the previous row with a newline
-      data[i - 1] = previousRow + '\n' + currentRow;
-
-      // Remove the current row
-      data.splice(i, 1);
-
-      // Decrement the index as the array length has changed
-      i--;
-    }
-  }
-
-  return data;
-}
-
-function startsWithArabicDigit(str) {
-  const arabicDigitRegex = /^[\u0660-\u0669]/;
-  return arabicDigitRegex.test(str);
-}
-
-it seems trying to do this with the dv is problematic, as https://www.convertcsv.com/csv-to-json.htm turns the google sheets csv into something with more columns and misasigns the data in the cells. so dont download just a single column of dv text, download it as csv with arabic, riwayah number, etc.
-
-then convert to json and edit from there
-
-
-arabic symbol replace:
-
-؟ !
-؟!
-
-﵀
-رَحِمَهُ اللَّهُ
-
-﷿
-عَزَّ وَجَلَّ
-
-﵇
-عَلَيهِ السَّلَامُ
-
-﵁
-رَضِيَ اللَّهُ عَنْهُ
+<div class='PageText'><div class='PageHead'><span class='PartName'>الإيمان - أبو عبيد - ط مسلم</span><span class='PageNumber'></span>
+replace with nothing
 -->
