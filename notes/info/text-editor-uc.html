@@ -463,7 +463,7 @@
             }
             if (e.altKey && e.which == 73) {
               // is i
-              document.querySelector("#caseChange").click();
+              document.querySelector("#caseChangeTitle").click();
             }
             if (e.altKey && e.which == 86) {
               // is s
@@ -511,8 +511,6 @@
               document.querySelector("#fullScreenB").click();
             }
             //
-            //
-            //
             //if (evt.keyCode == 27) {
             if (e.which == 27) {
               // is esc
@@ -534,6 +532,8 @@
               //padding: "10px",
               //borderWidth: "0",
               //});
+              //$('.toTop').css('opacity', 1);
+              document.querySelector(".toTop").style.opacity = 0.85;
             }
             //
             //
@@ -947,12 +947,21 @@ function () {
           </button>
 
           <button
-            onclick="changeCase();"
-            id="caseChange"
+            onclick="changeToTitleCase();"
+            id="caseChangeTitle"
             class="ttClass"
             data-tooltip="Changes english text to title case, then lower case, then sentence case"
           >
             🔠 T<u>i</u>tle Case
+          </button>
+
+          <button
+            onclick="changeToOtherCases();"
+            id="caseChangeOther"
+            class="ttClass"
+            data-tooltip="Changes english text to title case, then lower case, then sentence case"
+          >
+            Sent. Case
           </button>
 
           <button
@@ -1479,7 +1488,7 @@ function () {
           </button>
 
           <button
-            onClick="window.location.reload();scrollToTop()"
+            onClick="window.location.reload();scrollToTopFully()"
             class="ttClass"
             data-tooltip="Soft reloads the page"
           >
@@ -1547,6 +1556,9 @@ function () {
               $("#textMainArea").addClass("fullScreenClass");
               //
               $("#textMainArea").focus();
+
+              // turns scroll to top arrow invisible
+              $(".toTop").css("opacity", 0);
 
               //$("#textMainArea").removeClass("fullScreenClass");
 
@@ -2466,28 +2478,25 @@ function () {
           }
           //
 
+          function changeToTitleCase() {
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/\w\S*/g, function (txt) {
+                return (
+                  txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                );
+              });
+          }
+          //
+
           // better switch like click function
           // https://stackoverflow.com/questions/30266496/event-on-second-and-third-click
 
-          var changeCase_timesClicked = 0;
-          function changeCase() {
-            changeCase_timesClicked++;
-            if (changeCase_timesClicked == 1) {
+          var changeToOtherCases_timesClicked = 0;
+          function changeToOtherCases() {
+            changeToOtherCases_timesClicked++;
+            if (changeToOtherCases_timesClicked == 1) {
               //run first function
-
-              // https://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
-
-              document.getElementById("textMainArea").value = document
-                .getElementById("textMainArea")
-                .value.replace(/\w\S*/g, function (txt) {
-                  return (
-                    txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-                  );
-                });
-
-              document.getElementById("caseChange").innerHTML = "🔠 Sent. case";
-            } else if (changeCase_timesClicked == 2) {
-              //run second function
 
               // https://stackoverflow.com/questions/19089442/convert-string-to-sentence-case-in-javascript
 
@@ -2526,25 +2535,28 @@ function () {
                 toUpperCaseNames(toTitleCase(str))
               );
 
-              document.getElementById("caseChange").innerHTML = "🔠 lower case";
-            } else if (changeCase_timesClicked == 3) {
+              document.getElementById("caseChangeOther").innerHTML =
+                "lower case";
+            } else if (changeToOtherCases_timesClicked == 2) {
               //run third function
 
               document.getElementById("textMainArea").value = document
                 .getElementById("textMainArea")
                 .value.toLowerCase();
 
-              document.getElementById("caseChange").innerHTML = "🔠 UPPER CASE";
-            } else if (changeCase_timesClicked == 4) {
+              document.getElementById("caseChangeOther").innerHTML =
+                "UPPER CASE";
+            } else if (changeToOtherCases_timesClicked == 3) {
               //run third function
               var text = document.getElementById("textMainArea").value;
               var newText = text.toUpperCase();
               document.getElementById("textMainArea").value = newText;
 
-              document.getElementById("caseChange").innerHTML = "🔠 Title Case";
+              document.getElementById("caseChangeOther").innerHTML =
+                "Sent. Case";
 
               // reset click
-              changeCase_timesClicked = 0;
+              changeToOtherCases_timesClicked = 0;
             }
           }
           //
@@ -7045,6 +7057,9 @@ inputMultiB2
           <script>
             $("#fullScreenB2").click(function () {
               $(".mergely-full-screen-8").addClass("fullScreenClass2");
+              //
+              // turns scroll to top arrow invisible
+              $(".toTop").css("opacity", 0);
               /*$(".mergely-full-screen-8").css({
         height: "100vh",
         width: "100vw",
@@ -7093,6 +7108,24 @@ inputMultiB2
           <br class="hideOnTabAndUp" /> -->
 
           <br />
+
+          <button
+            onClick="window.location.reload();scrollToTopFully();"
+            class="ttClass"
+            data-tooltip="Soft reloads the page"
+          >
+            🔄 Soft Reload
+          </button>
+
+          <!-- other, not truly force reload method?:
+            onclick="window.location.href = window.location.href.split('.html')[0] + '.html';" -->
+          <button
+            class="ttClass"
+            data-tooltip="Hard reloads the page"
+            onclick="location.reload(true);scrollToTopFully();"
+          >
+            Hard Reload
+          </button>
 
           <div style="display: inline-block; top: -50px !important">
             <span
