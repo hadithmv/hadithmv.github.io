@@ -381,7 +381,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "ޙަދީޘްއެމްވީ – އަޙްމަދު ލިޔުއްވި ސުންނަތުގެ އުސޫލުތައް", // CHANGE123 clipboard message
+        messageTop: "ޙަދީޘްއެމްވީ – އަޙްމަދު ލިޔުނު ސުންނަތުގެ އުސޫލުތައް", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
