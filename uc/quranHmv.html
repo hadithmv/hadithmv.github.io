@@ -1195,6 +1195,11 @@
                 <li>
                   <a onclick="changeBook('quranMuyassar')">7 التفسير الميسر</a>
                 </li>
+                <li>
+                  <a onclick="changeBook('quranMukhtasar')"
+                    >8 المختصر في تفسير</a
+                  >
+                </li>
               </ul>
             </li>
 
@@ -1203,7 +1208,7 @@
                 window.location = window.location
                   .toString()
                   .replace(
-                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassar/g,
+                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMukhtasar|quranMuyassar/g,
                     newBook
                   )
                   .replace(/\:v.*$/, "");

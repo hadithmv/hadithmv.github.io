@@ -367,10 +367,27 @@
                   <a onclick="changeBook('quranRasmee')">6 ރަސްމީ ތަރުޖަމާ</a>
                 </li>
                 <li>
-                  <a onclick="changeBook('quranTafsir')">7 التفسير الميسر</a>
+                  <a onclick="changeBook('quranMuyassar')">7 التفسير الميسر</a>
+                </li>
+                <li>
+                  <a onclick="changeBook('quranMukhtasar')"
+                    >8 المختصر في تفسير</a
+                  >
                 </li>
               </ul>
             </li>
+
+            <script>
+              function changeBook(newBook) {
+                window.location = window.location
+                  .toString()
+                  .replace(
+                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMukhtasar|quranMuyassar/g,
+                    newBook
+                  )
+                  .replace(/\:v.*$/, "");
+              }
+            </script>
 
             <script>
               function changeBook(newBook) {
