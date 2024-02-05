@@ -2909,25 +2909,27 @@ function () {
           //
 
           var replaceSpacesLines_timesClicked = 0;
+
           function replaceSpacesLines() {
             replaceSpacesLines_timesClicked++;
+            var text2rmvSpace = document.getElementById("textMainArea").value;
+
             if (replaceSpacesLines_timesClicked % 2 == 0) {
-              //run second function
-              text2rmvSpace = document.getElementById("textMainArea").value;
+              // Run the second function
               text2rmvSpace = text2rmvSpace.replace(/[\r\n]+|[\n]+/g, "\n");
               text2rmvSpace = text2rmvSpace.trim();
               document.getElementById("textMainArea").value = text2rmvSpace;
-
               document.getElementById("extraSpaces").innerHTML =
                 "Rmv Xtra Space";
-              return false;
             } else {
-              //run first function
+              // Run the first function
+              // https://stackoverflow.com/questions/22962220/remove-multiple-line-breaks-n-in-javascript/22962255#22962255
+
               var text2rmvSpace = document.getElementById("textMainArea").value;
 
               text2rmvSpace = text2rmvSpace
                 .replace(/^[ \s]+|[ \s]+$/g, "")
-                // https://stackoverflow.com/questions/22962220/remove-multiple-line-breaks-n-in-javascript/22962255#22962255
+
                 .replace(/(\r\n|\r|\n){3,}/g, "$1\n")
                 .replace(/\u0009 /g, " ")
                 .replace(/  /g, " ")
@@ -2955,8 +2957,9 @@ function () {
                 .replace(/ \»/g, "»")
                 .replace(/ \!/g, "!")
                 .replace(/ \./g, ".")
-                .replace(/\" /g, '"') //starting quotation mark
-                .replace(/(\s|^)\"([^\"]+) \"/g, '$1"$2"') //ending quotation mark
+                /*.replace(/\" /g, '"') //starting quotation mark
+                .replace(/(\s|^)\"([^\"]+) \"/g, '$1"$2"') //ending quotation mark*/
+                // commented above out as it was interfearing with rtl " like with: الجديد "المختصر في تفسير القرآن الكريم" بدل "المختصر في التفسير"؛ بناءً على مقترحات
                 .replace(/\- \./g, "-.");
 
               // trim leading and trailing spaces multiline
