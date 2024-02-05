@@ -1171,6 +1171,50 @@
               <span>● ތަރުޖަމާ ބަދަލުކުރުމަށް</span>
               <ul>
                 <li>
+                  <a onclick="changeBook('quranHmv')"
+                    >1 ޙަދީޘްއެމްވީ ތަރުޖަމާ</a
+                  >
+                </li>
+                <li>
+                  <a onclick="changeBook('quranBakurube')"
+                    >2 ބަކުރުބެގެ ތަރުޖަމާ</a
+                  >
+                </li>
+                <li>
+                  <a onclick="changeBook('quranJaufar')"
+                    >3 ޖަޢުފަރުގެ ތަފްސީރު</a
+                  >
+                </li>
+                <li><a onclick="changeBook('quranSoabuni')"></a></li>
+                <li>
+                  <a href="quranUshru.html">5 ފަހު ދިހަބައިކުޅަ އެއްބައި</a>
+                </li>
+                <li>
+                  <a onclick="changeBook('quranRasmee')">6 ރަސްމީ ތަރުޖަމާ</a>
+                </li>
+                <li>
+                  <a onclick="changeBook('quranMuyassar')">7 التفسير الميسر</a>
+                </li>
+              </ul>
+            </li>
+
+            <script>
+              function changeBook(newBook) {
+                window.location = window.location
+                  .toString()
+                  .replace(
+                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassar/g,
+                    newBook
+                  )
+                  .replace(/\:v.*$/, "");
+              }
+            </script>
+
+            <!-- OLD CODE BELOW
+              <li>
+              <span>● ތަރުޖަމާ ބަދަލުކުރުމަށް</span>
+              <ul>
+                <li>
                   <a onClick="chngClick1()">1 ޙަދީޘްއެމްވީ ތަރުޖަމާ</a>
                 </li>
                 <li>
@@ -1188,7 +1232,9 @@
                 <li>
                   <a onClick="chngClick5()">6 ރަސްމީ ތަރުޖަމާ</a>
                 </li>
-                <!--  style="color: #b8b8b8; cursor: auto; !important" -->
+                <li>
+                  <a onClick="chngClick6()">7 التفسير الميسر</a>
+                </li>
               </ul>
             </li>
 
@@ -1240,8 +1286,9 @@
                   .replace(/\:v.*$/, "");
               }
             </script>
+          -->
 
-            <!-- OLD CODE BELOW
+            <!-- OLDER CODE BELOW
             takes the url and replaces the page and table before reloading, while removing modifier :v and what comes after it
             https://stackoverflow.com/questions/4664707/how-to-replace-part-of-the-url-with-javascript/4664716#4664716
             https://stackoverflow.com/questions/19367373/regex-for-remove-everything-after-with/19367430#19367430 
