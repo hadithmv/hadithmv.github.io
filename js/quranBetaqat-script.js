@@ -303,6 +303,15 @@ $(document).ready(() => {
         data: 5,
         title: "ތަފުސީރު", // ubufili on faafu, otherwise interferes with clipboard tite copy
       },
+      {
+        data: 5,
+        title: "ތަފުސީރު ފިލިނުޖަހާ",
+        render: function (data, type, row) {
+          return data
+            .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
+            .replace(/(\n)/g, "<br>");
+        },
+      },
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
@@ -387,6 +396,15 @@ $(document).ready(() => {
         className: "qCol7", // tafsir
         targets: [6],
         visible: true,
+        searchable: true,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "qCol8", // tafsir no fili
+        targets: [7],
+        visible: false,
         searchable: true,
         searchPanes: {
           show: false,
@@ -626,6 +644,7 @@ $(document).ready(() => {
           data = data.replace(/ގުރްއާން އަރަބިން\t/g, "");
           data = data.replace(/ގުރްއާން ފިލިނުޖަހާ\t/g, "");
           data = data.replace(/ތަފުސީރު\t/g, "");
+          data = data.replace(/ތަފުސީރު ފިލިނުޖަހާ\t/g, "");
           //data = data.replace(/\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g, '\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n') // adds a line break after takhrij line, use two for a new line
           data = data.replace(
             /‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\t/g,
