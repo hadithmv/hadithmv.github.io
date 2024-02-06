@@ -137,58 +137,33 @@
             </li>
 
             <li>
-              <span>● ރަދީފު ބަދަލުކުރުމަށް</span>
+              <span>● ފޮތް ބަދަލުކުރުމަށް</span>
               <ul>
                 <li>
-                  <a onClick="chngClick1()">1 އެއްކުރަމުންދާ ރަދީފު</a>
+                  <a onclick="changeBook('radheefAll')"
+                    >1 އެއްކުރަމުންދާ ރަދީފު</a
+                  >
                 </li>
                 <li>
-                  <a onClick="chngClick2()">2 ރަސްމީ ރަދީފު</a>
+                  <a onclick="changeBook('radheefRasmee')">2 ރަސްމީ ރަދީފު</a>
                 </li>
                 <li>
-                  <a onClick="chngClick3()">3 އަލްއީގާޡް</a>
+                  <a onclick="changeBook('radheefEegaal')">3 އަލްއީގާޡް</a>
                 </li>
                 <li>
-                  <a onClick="chngClick4()">4 މަނިކުގެ ރަދީފު</a>
+                  <a onclick="changeBook('radheefManiku')">4 މަނިކުގެ ރަދީފު</a>
                 </li>
               </ul>
             </li>
 
             <script>
               // change url to change to another book while preserving query terms
-              function chngClick1() {
+              function changeBook(newBook) {
                 window.location = window.location
                   .toString()
                   .replace(
-                    /radheefRasmee|radheefEegaal|radheefManiku/g,
-                    "radheefAll"
-                  )
-                  .replace(/\:v.*$/, "");
-              }
-              function chngClick2() {
-                window.location = window.location
-                  .toString()
-                  .replace(
-                    /radheefAll|radheefEegaal|radheefManiku/g,
-                    "radheefRasmee"
-                  )
-                  .replace(/\:v.*$/, "");
-              }
-              function chngClick3() {
-                window.location = window.location
-                  .toString()
-                  .replace(
-                    /radheefAll|radheefRasmee|radheefManiku/g,
-                    "radheefEegaal"
-                  )
-                  .replace(/\:v.*$/, "");
-              }
-              function chngClick4() {
-                window.location = window.location
-                  .toString()
-                  .replace(
-                    /radheefAll|radheefRasmee|radheefEegaal/g,
-                    "radheefManiku"
+                    /radheefAll|radheefRasmee|radheefEegaal|radheefManiku/g,
+                    newBook
                   )
                   .replace(/\:v.*$/, "");
               }
