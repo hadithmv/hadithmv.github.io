@@ -1093,6 +1093,32 @@
               &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
             </button>
 
+            <button
+              id="toggleFiliButton"
+              class="lowerButtons"
+              onclick="toggleFili();filiString();scrollUpTop()"
+            >
+              &nbsp; އަރަބި ފިލިތައް ފޮރުވާ &nbsp;
+            </button>
+
+            <script>
+              function toggleFili() {
+                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+
+                var isVisible = $("#quranTable")
+                  .DataTable()
+                  .column(6)
+                  .visible();
+                $("#quranTable").DataTable().column(6).visible(!isVisible);
+
+                var isVisible = $("#quranTable")
+                  .DataTable()
+                  .column(7)
+                  .visible();
+                $("#quranTable").DataTable().column(7).visible(!isVisible);
+              }
+            </script>
+
             <p>
               مصدر النص: البطاقات - 114 بطاقة تعريف بسور القران الكريم - لياسر
               بن إسماعيل راضي
