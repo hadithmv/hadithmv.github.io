@@ -98,6 +98,10 @@ Set-Content ../quranMuyassar.js -Value 'const quran_DB='
 Get-Content quranMuyassar.json | Add-Content ../quranMuyassar.js
 uglifyjs ../quranMuyassar.js -c -m -o ../quranMuyassar.js
 
+Set-Content ../quranQiraaath.js -Value 'const quran_DB='
+Get-Content quranQiraaath.json | Add-Content ../quranQiraaath.js
+uglifyjs ../quranQiraaath.js -c -m -o ../quranQiraaath.js
+
 Set-Content ../quranRasmee.js -Value 'const quran_DB='
 Get-Content quranRasmee.json | Add-Content ../quranRasmee.js
 uglifyjs ../quranRasmee.js -c -m -o ../quranRasmee.js
