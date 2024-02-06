@@ -18,7 +18,7 @@
     <meta property="og:type" content="website" />
     <meta
       property="og:url"
-      content="https://hadithmv.github.io/books/quranMukhtasar.html"
+      content="https://hadithmv.github.io/books/quranBetaqat.html"
     />
     <meta
       property="og:image"
@@ -26,7 +26,7 @@
     />
 
     <!-- change123 html -->
-    <title>Tafseer Muyassar</title>
+    <title>Betaqat Suwar al Quran</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
@@ -48,7 +48,7 @@
     <!-- change123 js -->
     <script defer src="../js/json/surah-juz-basmalah-ayah.js"></script>
     <script defer src="../js/json/quranBetaqat.js"></script>
-    <script defer src="../js/quranBetaqat-script.js"></script>
+    <script defer src="../js/quranBetaqat-script.min.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -397,20 +397,13 @@
                     >9 بطاقات تعريف بسور القران</a
                   >
                 </li>
+                <li>
+                  <a onclick="changeBook('quranQiraaath')"
+                    >10 موسوعة القراءات</a
+                  >
+                </li>
               </ul>
             </li>
-
-            <script>
-              function changeBook(newBook) {
-                window.location = window.location
-                  .toString()
-                  .replace(
-                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassar|quranMukhtasar|quranBetaqat/g,
-                    newBook
-                  )
-                  .replace(/\:v.*$/, "");
-              }
-            </script>
 
             <li>
               <a href="../notes/info/contact.html"
@@ -1128,7 +1121,7 @@
 
             <p style="direction: ltr">
               Arabic | Al-Bitaqat - Chapters of the Noble Quran Explored in 114
-              Cards - Yasir Bin Ismail Radi - Darul Maiymanah - 2nd Edition,
+              Cards - Yasir Bin Ismail Radi | Darul Maiymanah - 2nd Edition,
               1444 h. - 2022 m.
             </p>
 
@@ -1495,14 +1488,14 @@
                 <br />
                 (by Quran.com, which in turn most likely took it from
                 albitaqat.com, although which edition is not entirely clear,
-                whether 1441 or 1444),
+                whether 1441 or 1444)
                 <br />
-                Files, / data / data / com.quran.labs.androidquran / files /
-                quran_android / databases / quran.ar.betaqat.db
+                Directory: Files, / data / data / com.quran.labs.androidquran /
+                files / quran_android / databases / quran.ar.betaqat.db
                 <br />
                 table: verses, column: text
                 <br />
-                Extracted the database on 6/2/24
+                Extracted the database on 6/2/24.
                 <br />
                 (Used this regex:
                 <br />

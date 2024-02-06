@@ -23,6 +23,7 @@ google-closure-compiler --charset=UTF-8 --js=quranJaufar-script.js --js_output_f
 google-closure-compiler --charset=UTF-8 --js=quranMuhammad-script.js --js_output_file=quranMuhammad-script.min.js
 google-closure-compiler --charset=UTF-8 --js=quranMukhtasar-script.js --js_output_file=quranMukhtasar-script.min.js
 google-closure-compiler --charset=UTF-8 --js=quranMuyassar-script.js --js_output_file=quranMuyassar-script.min.js
+google-closure-compiler --charset=UTF-8 --js=quranQiraaath-script.js --js_output_file=quranQiraaath-script.min.js
 google-closure-compiler --charset=UTF-8 --js=quranRasmee-script.js --js_output_file=quranRasmee-script.min.js
 google-closure-compiler --charset=UTF-8 --js=quranSoabuni-script.js --js_output_file=quranSoabuni-script.min.js
 google-closure-compiler --charset=UTF-8 --js=radheefAll-script.js --js_output_file=radheefAll-script.min.js
