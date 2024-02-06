@@ -570,7 +570,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "ތަފްސީރުލް މުޚްތަޞަރު", // CHANGE123 clipboard message
+        messageTop: "المختصر في تفسير القرآن الكريم", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================

@@ -392,6 +392,11 @@
                     >8 المختصر في تفسير</a
                   >
                 </li>
+                <li>
+                  <a onclick="changeBook('quranBetaqat')"
+                    >9 بطاقات تعريف بسور القران</a
+                  >
+                </li>
               </ul>
             </li>
 
@@ -400,7 +405,7 @@
                 window.location = window.location
                   .toString()
                   .replace(
-                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMukhtasar|quranMuyassar/g,
+                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassar|quranMukhtasar|quranBetaqat/g,
                     newBook
                   )
                   .replace(/\:v.*$/, "");
@@ -1452,6 +1457,8 @@
                 <br />
                 Files, hafs_tafseerMouaser_v3.zip, hafs_tafseerMouaser_v3_data,
                 tafseerMouaser_v03.csv
+                <br />
+                column: aya_tafseer
                 <br />
                 It had tags like this:
                 <br />
