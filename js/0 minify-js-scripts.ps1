@@ -17,6 +17,7 @@ google-closure-compiler --charset=UTF-8 --js=muwatta-script.js --js_output_file=
 google-closure-compiler --charset=UTF-8 --js=nawaqidulislam-script.js --js_output_file=nawaqidulislam-script.min.js
 google-closure-compiler --charset=UTF-8 --js=qawaidulArbau-script.js --js_output_file=qawaidulArbau-script.min.js
 google-closure-compiler --charset=UTF-8 --js=quranBakurube-script.js --js_output_file=quranBakurube-script.min.js
+google-closure-compiler --charset=UTF-8 --js=quranBetaqat-script.js --js_output_file=quranBetaqat-script.min.js
 google-closure-compiler --charset=UTF-8 --js=quranHmv-script.js --js_output_file=quranHmv-script.min.js
 google-closure-compiler --charset=UTF-8 --js=quranJaufar-script.js --js_output_file=quranJaufar-script.min.js
 google-closure-compiler --charset=UTF-8 --js=quranMuhammad-script.js --js_output_file=quranMuhammad-script.min.js

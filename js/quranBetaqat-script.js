@@ -58,6 +58,24 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
+  // cgpt code, FOR BETAQAT ONLY
+  // using js, write code to take a 2d jspn array that has an object named quran_DB, in it are rows, some rows are empty, others have strings if a row does not have a value, give it the closest string that is not empty before it
+  for (let i = 1; i < quran_DB.length; i++) {
+    if (quran_DB[i][0] === "") {
+      // Find the closest non-empty row above
+      let j = i - 1;
+      while (j >= 0 && quran_DB[j][0] === "") {
+        j--;
+      }
+      // If a non-empty row is found, assign its value
+      if (j >= 0) {
+        quran_DB[i][0] = quran_DB[j][0];
+      }
+    }
+  }
+  //console.log(quran_DB);
+  //
+
   // cgpt code, this takes a split 2 2d nested arrays and joins them together rowwise, then generates empty values where needed, not null, then flattens them, so now the db can be broken down and reused
   // This code will create empty values when merging, ensuring that the resulting 2D array has consistent dimensions, and it will then flatten the result into a single flat array.
 
@@ -291,15 +309,15 @@ $(document).ready(() => {
     columnDefs: [
       // footnote line after tharujama
       /*{
-        targets: 7,
-        render: function (data, type, row) {
-          data = data + '<br class="Qbr">‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br class="LQbr">';
-          return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
-        },
-      },*/
+            targets: 7,
+            render: function (data, type, row) {
+              data = data + '<br class="Qbr">‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br class="LQbr">';
+              return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
+            },
+          },*/
 
       /* replace \n newlines from json to <br> in table
-      https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
+          https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
       {
         targets: "_all",
         render: function (data, type, row) {
@@ -489,20 +507,20 @@ $(document).ready(() => {
     // ====================
     language: {
       /* made these a media query somewhere up
-      paginate: {
-        first: '<<',
-        previous: '<',
-        next: '>',
-        last: '>>',
-
-        first: '<<&nbsp;ފުރަތަމަ',
-        previous: '<&nbsp;ފަހަތަށް',
-        next: 'ކުރިއަށް&nbsp;>',
-        last: 'ފަހު&nbsp;>>',
-
-        info: '_INPUT_'
-},
-*/
+          paginate: {
+            first: '<<',
+            previous: '<',
+            next: '>',
+            last: '>>',
+    
+            first: '<<&nbsp;ފުރަތަމަ',
+            previous: '<&nbsp;ފަހަތަށް',
+            next: 'ކުރިއަށް&nbsp;>',
+            last: 'ފަހު&nbsp;>>',
+    
+            info: '_INPUT_'
+    },
+    */
       buttons: {
         copyTitle: "ކޮޕީ",
         copySuccess: {
@@ -528,8 +546,8 @@ $(document).ready(() => {
           1: "1 ފިލްޓަރ ކުރެވިފާ",
         },
         /* i18n: {
-          emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
-        } */
+              emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
+            } */
       },
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
@@ -538,20 +556,20 @@ $(document).ready(() => {
     //      DT CUSTOM DOM
     // ====================
     /* DOM options, https://datatables.net/reference/option/dom,
-    https://datatables.net/examples/basic_init/dom.html
-         default: lpfrtip
-        l - length changing input control
-        f - filtering input
-        t - The table
-        i - Table information summary
-        p - pagination control
-        r - processing display element
-        B - Buttons
-
-< and > - div element
-<"class" and > - div with a class
-<"#id" and > - div with an ID
-<"#id.class" and > - div with an ID and a class */
+        https://datatables.net/examples/basic_init/dom.html
+             default: lpfrtip
+            l - length changing input control
+            f - filtering input
+            t - The table
+            i - Table information summary
+            p - pagination control
+            r - processing display element
+            B - Buttons
+    
+    < and > - div element
+    <"class" and > - div with a class
+    <"#id" and > - div with an ID
+    <"#id.class" and > - div with an ID and a class */
     // "lBpfrtip",
 
     // desktop, goes rtl -->
@@ -570,7 +588,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "التفسير الميسر للقرآن الكريم", // CHANGE123 clipboard message
+        messageTop: "البطاقات - 114 بطاقة تعريف بسور القران الكريم", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
@@ -578,9 +596,9 @@ $(document).ready(() => {
         // ====================
         customize(data) {
           /* https://www.rexegg.com/regex-quickstart.html
-                    \t Tab, \r Carriage return character,
-                    \n Line feed character, \r\n Line separator on Windows
-                    */
+                        \t Tab, \r Carriage return character,
+                        \n Line feed character, \r\n Line separator on Windows
+                        */
           // adds string to hadith
           // data = data.replace( /\b([0-9]|[1-4][0-9]|50)\b/g, "No:" );
 
@@ -627,57 +645,57 @@ $(document).ready(() => {
           data = data.replace(/𝟢|𝟣|𝟤|𝟥|𝟦|𝟧|𝟨|𝟩|𝟪|𝟫/g, ""); // removes these alt numbers from surah name
 
           /*
-          data = data.replace(/\n\n/g, '\t') // prevents # showing up unneeded (linux)
-          data = data.replace(/\r\n\r\n/g, '\t') //  prevents # showing up unneeded (windows)
-
-          data = data.replace(/\t#/g, '')
-          data = data.replace(/\tއަރަބި ސުރުހީ/g, '')
-          data = data.replace(/\tދިވެހި ސުރުހީ/g, '')
-          data = data.replace(/\tއަރަބި ޙަދީޘް/g, '')
-          data = data.replace(/\tއަރަބި ފިލިނުޖަހައި/g, '')
-          data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
-          data = data.replace(/\tތަޚްރީޖު/g, '')
-          data = data.replace(/\tތަޚްރީޖު ދިވެހިން/g, '')
-          data = data.replace(/\tރިޔާޟުއްޞާލިޙީނުން/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
+              data = data.replace(/\n\n/g, '\t') // prevents # showing up unneeded (linux)
+              data = data.replace(/\r\n\r\n/g, '\t') //  prevents # showing up unneeded (windows)
+    
+              data = data.replace(/\t#/g, '')
+              data = data.replace(/\tއަރަބި ސުރުހީ/g, '')
+              data = data.replace(/\tދިވެހި ސުރުހީ/g, '')
+              data = data.replace(/\tއަރަބި ޙަދީޘް/g, '')
+              data = data.replace(/\tއަރަބި ފިލިނުޖަހައި/g, '')
+              data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
+              data = data.replace(/\tތަޚްރީޖު/g, '')
+              data = data.replace(/\tތަޚްރީޖު ދިވެހިން/g, '')
+              data = data.replace(/\tރިޔާޟުއްޞާލިޙީނުން/g, '')
+    
+              data = data.replace(/\t/g, '\n\n') // creates line breaks
+    */
           // data = data.replace(/\tތަޚްރީޖު\t/g, '')
           /*
-          data = data.replace(/#\t/g, '')
-          data = data.replace(/އަރަބި ސުރުހީ\t/g, '')
-          data = data.replace(/ދިވެހި ސުރުހީ\t/g, '')
-          data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
-          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
-          data = data.replace(/ތަޚްރީޖު\t/g, '')
-          data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
-          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
-
-          //          data = data.replace(/\n\n/g, '')
-          //         data = data.replace(/\r\n\r\n/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
+              data = data.replace(/#\t/g, '')
+              data = data.replace(/އަރަބި ސުރުހީ\t/g, '')
+              data = data.replace(/ދިވެހި ސުރުހީ\t/g, '')
+              data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
+              data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
+              data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
+              data = data.replace(/ތަޚްރީޖު\t/g, '')
+              data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
+              data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
+    
+              //          data = data.replace(/\n\n/g, '')
+              //         data = data.replace(/\r\n\r\n/g, '')
+    
+              data = data.replace(/\t/g, '\n\n') // creates line breaks
+    */
           /*
-          data = data.replace(/#\n/g, '')
-          data = data.replace(/އަރަބި ސުރުހީ\n/g, '')
-          data = data.replace(/ދިވެހި ސުރުހީ\n/g, '')
-          data = data.replace(/އަރަބި ޙަދީޘް\n/g, '')
-          data = data.replace(/އަރަބި ފިލިނުޖަހައި\n/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\n/g, '')
-          data = data.replace(/ތަޚްރީޖު\n/g, '')
-          data = data.replace(/ތަޚްރީޖު ދިވެހިން\n/g, '')
-          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\n/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
+              data = data.replace(/#\n/g, '')
+              data = data.replace(/އަރަބި ސުރުހީ\n/g, '')
+              data = data.replace(/ދިވެހި ސުރުހީ\n/g, '')
+              data = data.replace(/އަރަބި ޙަދީޘް\n/g, '')
+              data = data.replace(/އަރަބި ފިލިނުޖަހައި\n/g, '')
+              data = data.replace(/ދިވެހި ތަރުޖަމާ\n/g, '')
+              data = data.replace(/ތަޚްރީޖު\n/g, '')
+              data = data.replace(/ތަޚްރީޖު ދިވެހިން\n/g, '')
+              data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\n/g, '')
+    
+              data = data.replace(/\t/g, '\n\n') // creates line breaks
+    */
 
           /* data = data.replace( /hadithmv.com\n/g, "hadithmv.com\n\n" );
-           //adds new line on android */
+               //adds new line on android */
           /*
-               data = data.replace( /\r/g, "" ); //rids windows platform newline
-               data = data.replace( /\t/g, "\n\n" ); */
+                   data = data.replace( /\r/g, "" ); //rids windows platform newline
+                   data = data.replace( /\t/g, "\n\n" ); */
 
           //console.log(JSON.stringify(data)) // json stringify to console
 
@@ -697,8 +715,8 @@ $(document).ready(() => {
         extend: "searchPanes",
         key: { key: "f", shiftKey: true },
         /* Multiselect on clicking only works with Pfrtip Dom not for Bfrtip Dom how can we use it with bfrtip Dom ?
-        need to put the SearchPanes configuration into the buttons config option.
-        https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
+            need to put the SearchPanes configuration into the buttons config option.
+            https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
         config: {
           collapse: false,
           orderable: false,
@@ -723,13 +741,13 @@ $(document).ready(() => {
 
       // cards code
       /*
-              {
-                "text": "cards",
-                "action": function (e, dt, node) {
-                   $(dt.table().node()).toggleClass("cards");
-                },
-             },
-      */
+                  {
+                    "text": "cards",
+                    "action": function (e, dt, node) {
+                       $(dt.table().node()).toggleClass("cards");
+                    },
+                 },
+          */
       // cards code END
     ],
   }); // $("#fortyNawawi").DataTable( { - END
@@ -782,12 +800,12 @@ $(document).ready(() => {
         table.page("next").draw("page");
       }
     } /* else { // commented out otherwise detected as useless suspicious code
-      if (yDiff > 0) {
-        // up swipe
-      } else {
-        // down swipe
-      }
-    } */
+          if (yDiff > 0) {
+            // up swipe
+          } else {
+            // down swipe
+          }
+        } */
     /* reset values */
     xDown = null;
     yDown = null;
@@ -828,15 +846,15 @@ $(document).ready(() => {
   // Add cards media query class to table ID, as well as row border
   // ====================
   /*
-    function myFunction() {
-        var element = document.getElementById("fortyNawawi");
-        element.classList.add("cards");
-      }
-*/
+        function myFunction() {
+            var element = document.getElementById("fortyNawawi");
+            element.classList.add("cards");
+          }
+    */
   if (window.matchMedia("(min-width: 900px)").matches) {
     // js media query on desktop
     /* previously $('fnClass').addClass('row-border')
-    $('fnClass').addClass('cards') */
+        $('fnClass').addClass('cards') */
     // CUT FOR QURAN $('.dataTable').addClass('row-border'), // adds rowborder class
     $("div.dataTables_filter input", table.table().container()).focus(); // autofocus search input on page load
     // $('.dataTable').addClass('cards') // ADDED FOR QURAN
@@ -864,11 +882,11 @@ $(document).ready(() => {
   // no longer old code
 
   /* $("tbody").on("dblclick", "tr", function () {
-    if (table.search() !== "") {
-      table.search("").draw();
-    }
-    table.row(this).draw().show().select().draw(false);
-  });*/
+        if (table.search() !== "") {
+          table.search("").draw();
+        }
+        table.row(this).draw().show().select().draw(false);
+      });*/
 
   // $(selector).on(event, childSelector, data, function, map)
 
@@ -889,10 +907,10 @@ $(document).ready(() => {
   });
 
   /*$("tbody").on("click", "tr", function () {
-    // table.search(this.value).draw();
-    //table.search("بقرة").draw();
-    table.search("بقرة").draw().show().select().draw(false);
-  });*/
+        // table.search(this.value).draw();
+        //table.search("بقرة").draw();
+        table.search("بقرة").draw().show().select().draw(false);
+      });*/
 
   //console.log("01010101");
 
@@ -901,79 +919,79 @@ $(document).ready(() => {
   // for some reason, dblclick stopped working for table.row(this).draw().show().select().draw(false) on mobile view, which was previously table.row(this).show().select().draw(false)
   // all this was changed due to an update with searchpanes causing a bug https://datatables.net/forums/discussion/comment/208672/#Comment_208672
   /*var touchtime = 0;
-  $("tbody").on("click", "tr", function () {
-    if (touchtime == 0) {
-      // set first click
-      touchtime = new Date().getTime();
-    } else {
-      // compare first click to this click and see if they occurred within double click threshold
-      if (new Date().getTime() - touchtime < 800) {
-        // double click occurred
-        //alert("double clicked");
-        if (table.search() !== "") {
-          table.search("").draw();
+      $("tbody").on("click", "tr", function () {
+        if (touchtime == 0) {
+          // set first click
+          touchtime = new Date().getTime();
+        } else {
+          // compare first click to this click and see if they occurred within double click threshold
+          if (new Date().getTime() - touchtime < 800) {
+            // double click occurred
+            //alert("double clicked");
+            if (table.search() !== "") {
+              table.search("").draw();
+            }
+            table.row(this).draw().show().select().draw(false);
+            //
+            touchtime = 0;
+          } else {
+            // not a double click so set as a new first click
+            touchtime = new Date().getTime();
+          }
         }
-        table.row(this).draw().show().select().draw(false);
-        //
-        touchtime = 0;
-      } else {
-        // not a double click so set as a new first click
-        touchtime = new Date().getTime();
-      }
-    }
-  });*/
+      });*/
 
   /*
-  // https://stackoverflow.com/questions/5548893/jquery-datatables-delay-search-until-3-characters-been-typed-or-a-button-clicke/23897722#23897722
-
-  // Grab the datatables input box and alter how it is bound to events
-  $(".dataTables_filter input")
-    .unbind() // Unbind previous default bindings
-    //.bind("input", function (e) {
-    .bind("keyup touchend", function (e) {
-      // Bind our desired behavior
-      // If the length is 3 or more characters, or the user pressed ENTER, search
-      if (this.value.length >= 2 || e.keyCode == 13) {
-        // Call the API search function
-        //dtable
-        table.search(this.value).draw();
-      }
-      // Ensure we clear the search if they backspace far enough
-      if (this.value == "") {
-        //dtable
-        table.search("").draw();
-      }
-      return;
-    });
-    */
+      // https://stackoverflow.com/questions/5548893/jquery-datatables-delay-search-until-3-characters-been-typed-or-a-button-clicke/23897722#23897722
+    
+      // Grab the datatables input box and alter how it is bound to events
+      $(".dataTables_filter input")
+        .unbind() // Unbind previous default bindings
+        //.bind("input", function (e) {
+        .bind("keyup touchend", function (e) {
+          // Bind our desired behavior
+          // If the length is 3 or more characters, or the user pressed ENTER, search
+          if (this.value.length >= 2 || e.keyCode == 13) {
+            // Call the API search function
+            //dtable
+            table.search(this.value).draw();
+          }
+          // Ensure we clear the search if they backspace far enough
+          if (this.value == "") {
+            //dtable
+            table.search("").draw();
+          }
+          return;
+        });
+        */
 
   /* OLD SEARCH REPLACE
-    $(".dataTables_filter input")
-    .off()
-    .on("keyup", function () {
-      let str = $(this).val();
-      // modded below for quran, to let search match properly
-      str = str
-        .replace(
-          "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
-          'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
-        )
-        .replace(
-          "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
-          'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
-        )
-        .replace(/ـ/g, "")
-        .replace(/[^\u0621-\u064A|^\u0780-\u07B1|\s|<br class="br">]/g, "")
-        .replace(/\s\s/g, " ");
-      // u0621 is where hamza starts in arabic unicode block, while u064A is where yaa ends. ^ everything apart from the letters in this range is removed in regex search
-      // \u0780-\u07B1 is the range of dhivehi letters in the thaana unicode block
-      // str = str.replace('﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace('﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace(/ـ/g, '').replace(/[^\u0621-\u064A|\s|<br class="br">]/g, '').replace(/\s\s/g, ' ')
-      // str = str.replace(
-      // /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g, "";
-      // );
-      table.search(str).draw();
-    });
-    */
+        $(".dataTables_filter input")
+        .off()
+        .on("keyup", function () {
+          let str = $(this).val();
+          // modded below for quran, to let search match properly
+          str = str
+            .replace(
+              "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
+              'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+            )
+            .replace(
+              "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
+              'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+            )
+            .replace(/ـ/g, "")
+            .replace(/[^\u0621-\u064A|^\u0780-\u07B1|\s|<br class="br">]/g, "")
+            .replace(/\s\s/g, " ");
+          // u0621 is where hamza starts in arabic unicode block, while u064A is where yaa ends. ^ everything apart from the letters in this range is removed in regex search
+          // \u0780-\u07B1 is the range of dhivehi letters in the thaana unicode block
+          // str = str.replace('﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace('﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace(/ـ/g, '').replace(/[^\u0621-\u064A|\s|<br class="br">]/g, '').replace(/\s\s/g, ' ')
+          // str = str.replace(
+          // /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g, "";
+          // );
+          table.search(str).draw();
+        });
+        */
 
   // removes diacritics and punctuation on key up for search
   $(".dataTables_filter input").on("keyup click", function () {
@@ -1009,7 +1027,7 @@ $(document).ready(() => {
       .innerText.replace(/سُورَةُ /g, "");
     // previously /سورة /g // but that broke surah name from showing in jump box
     /*document.getElementById("ayahNoID").value =
-      document.getElementsByClassName("qCol4")[1].innerText;*/
+          document.getElementsByClassName("qCol4")[1].innerText;*/
     document.getElementById("ayahNoID").value = document
       .getElementsByClassName("qCol5")[1]
       .innerText.replace(/[^١|٢|٣|٤|٥|٦|٧|٨|٩|٠]/g, "")

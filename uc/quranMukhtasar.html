@@ -392,6 +392,11 @@
                     >8 المختصر في تفسير</a
                   >
                 </li>
+                <li>
+                  <a onclick="changeBook('quranBetaqat')"
+                    >9 بطاقات تعريف بسور القران</a
+                  >
+                </li>
               </ul>
             </li>
 
@@ -400,7 +405,7 @@
                 window.location = window.location
                   .toString()
                   .replace(
-                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMukhtasar|quranMuyassar/g,
+                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassar|quranMukhtasar|quranBetaqat/g,
                     newBook
                   )
                   .replace(/\:v.*$/, "");
@@ -1320,8 +1325,8 @@
                 Shamela.org, they probably have the matching edition 3 of the
                 book released in 1436),
                 <br />
-                Files, /data/data/ com.quran.labs.androidquran/files/
-                quran_android/databases/quran.ar.mukhtasar.db
+                Files, / data / data / com.quran.labs.androidquran / files /
+                quran_android / databases / quran.ar.mukhtasar.db
                 <br />
                 Extracted the database on 6/2/24
                 <br />
@@ -1362,32 +1367,5 @@
 </html>
 
 <!--
-
-regex to capture every new line that starts with
-\n^ﭽ.*$
-\n^ﮉ.*$
-
-js regex to capture any leading whitespace
-^\s+
-
-js regex to check if a line starts with a number between parenthesis, and if the line before that also starts with the same exact number between parenthesis, then capture the second line only, leaving the first line uncaptured
-
-...?
-
-
-js regex to capture any leading whitespace
-^\s+
-' '
-
-remove more than one space
-[^\S\r\n]+
-
-remove more than one new line
-\n\n
-\n
-find and replace in word:
-find any character: ^?
-replace: format, font, font color, green and red
-
 
 -->

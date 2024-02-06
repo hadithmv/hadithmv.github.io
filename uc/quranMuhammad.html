@@ -392,6 +392,11 @@
                     >8 المختصر في تفسير</a
                   >
                 </li>
+                <li>
+                  <a onclick="changeBook('quranBetaqat')"
+                    >9 بطاقات تعريف بسور القران</a
+                  >
+                </li>
               </ul>
             </li>
 
@@ -400,7 +405,7 @@
                 window.location = window.location
                   .toString()
                   .replace(
-                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMukhtasar|quranMuyassar/g,
+                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassar|quranMukhtasar|quranBetaqat/g,
                     newBook
                   )
                   .replace(/\:v.*$/, "");
