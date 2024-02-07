@@ -46,7 +46,7 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/surah-juz-basmalah-ayah.js"></script>
+    <script defer src="../js/json/surah-juz-ayahNo-basmalah-ayah.js"></script>
     <script defer src="../js/json/quranBakurube.js"></script>
     <script defer src="../js/quranBakurube-script.min.js"></script>
     <!-- === EXT JS - END === -->
@@ -374,13 +374,18 @@
                   >
                 </li>
                 <li>
+                  <a onclick="changeBook('quranMuyassarGhareeb')"
+                    >9 الميسر غريب القرآن</a
+                  >
+                </li>
+                <li>
                   <a onclick="changeBook('quranBetaqat')"
-                    >9 بطاقات تعريف بسور القران</a
+                    >10 بطاقات تعريف بسور</a
                   >
                 </li>
                 <li>
                   <a onclick="changeBook('quranQiraaath')"
-                    >10 موسوعة القراءات</a
+                    >11 موسوعة القراءات</a
                   >
                 </li>
               </ul>
@@ -391,7 +396,7 @@
                 window.location = window.location
                   .toString()
                   .replace(
-                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassar|quranMukhtasar|quranBetaqat|quranQiraaath/g,
+                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassarGhareeb|quranMukhtasar|quranMuyassar|quranBetaqat|quranQiraaath/g,
                     newBook
                   )
                   .replace(/\:v.*$/, "");
