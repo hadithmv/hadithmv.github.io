@@ -98,6 +98,10 @@ Set-Content ../quranMuyassar.js -Value 'const quran_DB='
 Get-Content quranMuyassar.json | Add-Content ../quranMuyassar.js
 uglifyjs ../quranMuyassar.js -c -m -o ../quranMuyassar.js
 
+Set-Content ../quranMuyassarGhareeb.js -Value 'const quran_DB='
+Get-Content quranMuyassarGhareeb.json | Add-Content ../quranMuyassarGhareeb.js
+uglifyjs ../quranMuyassarGhareeb.js -c -m -o ../quranMuyassarGhareeb.js
+
 Set-Content ../quranQiraaath.js -Value 'const quran_DB='
 Get-Content quranQiraaath.json | Add-Content ../quranQiraaath.js
 uglifyjs ../quranQiraaath.js -c -m -o ../quranQiraaath.js
@@ -126,9 +130,9 @@ Set-Content ../riyadusaliheen.js -Value 'const riyadusaliheen_DB='
 Get-Content riyadusaliheen.json | Add-Content ../riyadusaliheen.js
 uglifyjs ../riyadusaliheen.js -c -m -o ../riyadusaliheen.js
 
-Set-Content ../surah-juz-basmalah-ayah.js -Value 'const surah_juz_basmalah_ayah_DB='
-Get-Content surah-juz-basmalah-ayah.json | Add-Content ../surah-juz-basmalah-ayah.js
-uglifyjs ../surah-juz-basmalah-ayah.js -c -m -o ../surah-juz-basmalah-ayah.js
+Set-Content ../surah-juz-ayahNo-basmalah-ayah.js -Value 'const surah_juz_basmalah_ayah_DB='
+Get-Content surah-juz-ayahNo-basmalah-ayah.json | Add-Content ../surah-juz-ayahNo-basmalah-ayah.js
+uglifyjs ../surah-juz-ayahNo-basmalah-ayah.js -c -m -o ../surah-juz-ayahNo-basmalah-ayah.js
 
 Set-Content ../umdah.js -Value 'const umdah_DB='
 Get-Content umdah.json | Add-Content ../umdah.js
