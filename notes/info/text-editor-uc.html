@@ -1384,6 +1384,15 @@ function () {
           </button>
 
           <button
+            onclick="text2Html();triggerTheCounts();"
+            class="ttClass"
+            id="txt2Html"
+            data-tooltip="Converts plain text to html, uses line break tags on the first click, and wraps paragraph tags on the second"
+          >
+            &lt;txt2Html&gt;
+          </button>
+
+          <button
             onclick="decodeURL();triggerTheCounts();"
             class="ttClass"
             id="encodeURL"
@@ -3186,27 +3195,27 @@ function () {
 
             /* doesnt copy very long text */
             /*
-                                                      // Get the text field
-                                                      var copyText = document.getElementById("textMainArea");
+                                                            // Get the text field
+                                                            var copyText = document.getElementById("textMainArea");
 
-                                                      // Select the text field
-                                                      //copyText.select();
-                                                      //copyText.setSelectionRange(0, 99999);
-                                                      // For mobile devices
+                                                            // Select the text field
+                                                            //copyText.select();
+                                                            //copyText.setSelectionRange(0, 99999);
+                                                            // For mobile devices
 
-                                                      // Copy the text inside the text field
-                                                      //navigator.clipboard.writeText(copyText.value);
+                                                            // Copy the text inside the text field
+                                                            //navigator.clipboard.writeText(copyText.value);
 
-                                                      copyText.select();
-                                                      copyText.setSelectionRange(0, 99999);
-                                                      // For mobile devices
+                                                            copyText.select();
+                                                            copyText.setSelectionRange(0, 99999);
+                                                            // For mobile devices
 
-                                                      document.execCommand("copy");
+                                                            document.execCommand("copy");
 
-                                                      // Alert the copied text
-                                                      // alert("ކޮޕީވީ: " + copyText.value);
-                                                      //return false;
-                                                      */
+                                                            // Alert the copied text
+                                                            // alert("ކޮޕީވީ: " + copyText.value);
+                                                            //return false;
+                                                            */
           }
           //
 
@@ -3354,13 +3363,13 @@ function () {
               //
               // other stuff below
               /*document.getElementById("findReplaceButton").innerHTML =
-                              "ލަފްޒު ބަދަލު ކުރޭ";
-                            document.getElementById("findThis").style.direction = "rtl";
-                            document.getElementById("replaceWith").style.direction = "rtl";
-                            document.getElementById("findThis").placeholder =
-                              "1 މިލަފްޒު ހޯދާފާ";
-                            document.getElementById("replaceWith").placeholder =
-                              "2 މިއަށް ބަދަލުކުރޭ";*/
+                                    "ލަފްޒު ބަދަލު ކުރޭ";
+                                  document.getElementById("findThis").style.direction = "rtl";
+                                  document.getElementById("replaceWith").style.direction = "rtl";
+                                  document.getElementById("findThis").placeholder =
+                                    "1 މިލަފްޒު ހޯދާފާ";
+                                  document.getElementById("replaceWith").placeholder =
+                                    "2 މިއަށް ބަދަލުކުރޭ";*/
             } else {
               //run first function
               document.getElementById("textMainArea").style.direction = "ltr";
@@ -3369,13 +3378,13 @@ function () {
               //
               // other stuff below
               /*document.getElementById("findReplaceButton").innerHTML =
-                              "Regex/Replace";
-                            document.getElementById("findThis").style.direction = "ltr";
-                            document.getElementById("replaceWith").style.direction = "ltr";
-                            document.getElementById("findThis").placeholder = "1 Find This";
-                            document.getElementById("replaceWith").placeholder =
-                              "2 Replace This";
-                              */
+                                    "Regex/Replace";
+                                  document.getElementById("findThis").style.direction = "ltr";
+                                  document.getElementById("replaceWith").style.direction = "ltr";
+                                  document.getElementById("findThis").placeholder = "1 Find This";
+                                  document.getElementById("replaceWith").placeholder =
+                                    "2 Replace This";
+                                    */
             }
           }
           //
@@ -3409,13 +3418,13 @@ function () {
           //
 
           /*
-                                                                  var numbered = document
-                                                          .getElementById("textMainArea")
-                                                          .value.split("\n")
-                                                          .map((line, index) => `${index + 1}. ${line}`)
-                                                          .join("\n");
-                                                        document.getElementById("textMainArea").value = numbered;
-                                                        */
+                                                                        var numbered = document
+                                                                .getElementById("textMainArea")
+                                                                .value.split("\n")
+                                                                .map((line, index) => `${index + 1}. ${line}`)
+                                                                .join("\n");
+                                                              document.getElementById("textMainArea").value = numbered;
+                                                              */
 
           //
 
@@ -3518,14 +3527,14 @@ function () {
             // https://stackoverflow.com/questions/58371608/regex-to-remove-the-first-two-characters-of-a-string
 
             /*
-      document.getElementById("textMainArea").value = document
-        .getElementById("textMainArea")
-        .value.replace(/.{2}$/gm, "");
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/.{2}$/gm, "");
 
-      document.getElementById("textMainArea").value = document
-        .getElementById("textMainArea")
-        .value.replace(/^.{2}/gm, "");
-        */
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/^.{2}/gm, "");
+              */
 
             // https://stackoverflow.com/questions/4029109/javascript-regex-how-to-put-a-variable-inside-a-regular-expression
 
@@ -3725,9 +3734,9 @@ function () {
                 .value.split(" ")
                 .join("\n"));
             /*document.getElementById("textMainArea").value = text2split.replace(
-                            /[\r\n]+/g,
-                            "\n"
-                          );*/
+                                  /[\r\n]+/g,
+                                  "\n"
+                                );*/
 
             // below first makes multiple newlines only one newline, then removes punctuation (taken from removepunc code and edited)
             document.getElementById("textMainArea").value = text2split
@@ -3819,6 +3828,61 @@ function () {
           }
           //
 
+          //
+          var text2Html_timesClicked = 0;
+          function text2Html() {
+            text2Html_timesClicked++;
+            if (text2Html_timesClicked == 1) {
+              //run first function
+              // cgpt, write using js, code that takes lines of text, and adds a <br> tag at the end of each line, the output should also preserve the new lines. It should also remove any <p> and </p> tags the input may have as well
+
+              inputText = document.getElementById("textMainArea").value;
+
+              // Remove any existing <p> and </p> tags
+              var cleanedText = inputText.replace(/<p>|<\/p>/g, "");
+
+              // Split the cleaned text into an array of lines
+              var lines = cleanedText.split("\n");
+
+              // Iterate over each line and add a <br> tag at the end
+              for (var i = 0; i < lines.length; i++) {
+                lines[i] += "<br>";
+              }
+
+              // Join the lines back together with newline characters
+              var resultText = lines.join("\n");
+
+              //return resultText;
+
+              document.getElementById("textMainArea").value = resultText;
+
+              document.getElementById("txt2Html").innerHTML = "&lt;br2p&gt;";
+            } else if (text2Html_timesClicked == 2) {
+              //run second function
+              // Now with that output, i want to wrap each line in a paragraph, without the <br> there, and the output should also preserve the new lines. the input might have <br> tags. it might also not. in any case there should be none in the end result
+
+              // Remove any existing <br> tags
+              var cleanedText = inputText.replace(/<br>/g, "");
+
+              // Split the cleaned text into an array of lines
+              var lines = cleanedText.split("\n");
+
+              // Join the lines back together with paragraph tags
+              var resultText = lines.map((line) => `<p>${line}</p>`).join("\n");
+
+              //return resultText;
+
+              document.getElementById("textMainArea").value = resultText;
+
+              document.getElementById("txt2Html").innerHTML =
+                "&lt;text2Html&gt;";
+
+              // reset click
+              text2Html_timesClicked = 0;
+            }
+          }
+          //
+
           // https://en.wikipedia.org/wiki/Percent-encoding
           // https://www.geeksforgeeks.org/how-to-encode-and-decode-a-url-in-javascript/
           var decodeURL_timesClicked = 0;
@@ -3870,9 +3934,9 @@ function () {
           //
 
           /*
-                        function encSvg() {
-                        }
-                        */
+                              function encSvg() {
+                              }
+                              */
 
           /* end of above */
         </script>
