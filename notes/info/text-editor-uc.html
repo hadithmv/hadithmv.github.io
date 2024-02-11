@@ -980,6 +980,14 @@ function () {
           <!-- ބޭތަރުތީބު؟ -->
 
           <button
+            onclick="generateRandomPassword();"
+            class="ttClass"
+            data-tooltip="Generate a random password"
+          >
+            Randm Pswrd
+          </button>
+
+          <button
             onclick="randomNumber();"
             id="randNoButton"
             class="ttClass"
@@ -3498,8 +3506,27 @@ function () {
           }
           //
 
-          // https://www.w3schools.com/js/js_random.asp
+          // cgpt: js code to generate random password. without using a  predefined set of characters. the length should also be random
+          // This code generates a random password by randomly selecting ASCII characters that are printable (i.e., characters from 33 to 126). You can adjust the range
+          // passwordLength is generated randomly between 8 and 16 (you can adjust these numbers as needed).
 
+          function generateRandomPassword() {
+            var passwordLength = Math.floor(Math.random() * (16 - 8 + 1)) + 8; // Random length between 8 and 16
+            var password = "";
+            for (var i = 0; i < passwordLength; i++) {
+              var randomCharCode = Math.floor(Math.random() * (127 - 33) + 33); // ASCII characters from 33 to 126 are printable
+              password += String.fromCharCode(randomCharCode);
+            }
+            //return password;
+            document.getElementById("textMainArea").value = password;
+          }
+
+          // Example usage: generate a random password
+          //var randomPassword = generateRandomPassword();
+          //console.log(randomPassword);
+          //
+
+          // https://www.w3schools.com/js/js_random.asp
           function randomNumber() {
             document.getElementById("minNrand").style.display = "inline-block";
             document.getElementById("maxNrand").style.display = "inline-block";
