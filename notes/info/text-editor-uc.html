@@ -1149,6 +1149,15 @@ function () {
           </button>
 
           <button
+            onclick="kahfBas();"
+            class="ttClass"
+            id="kahfBas"
+            data-tooltip="Converts Arabic to Kahf Speak Dhivehi"
+          >
+            🏔️ Kahf Bas
+          </button>
+
+          <button
             onclick="replacePunct();triggerTheCounts();"
             id="repPuncButton"
             class="ttClass"
@@ -1417,7 +1426,7 @@ function () {
           </button>
 
           <button
-            onclick="decodeURL();triggerTheCounts();"
+            onclick="decodeURL();"
             class="ttClass"
             id="encodeURL"
             data-tooltip="Decodes a URL from percent-encoding on the first button click, and encodes it on the next"
@@ -3219,27 +3228,27 @@ function () {
 
             /* doesnt copy very long text */
             /*
-                                                                                          // Get the text field
-                                                                                          var copyText = document.getElementById("textMainArea");
+                                                                                                          // Get the text field
+                                                                                                          var copyText = document.getElementById("textMainArea");
 
-                                                                                          // Select the text field
-                                                                                          //copyText.select();
-                                                                                          //copyText.setSelectionRange(0, 99999);
-                                                                                          // For mobile devices
+                                                                                                          // Select the text field
+                                                                                                          //copyText.select();
+                                                                                                          //copyText.setSelectionRange(0, 99999);
+                                                                                                          // For mobile devices
 
-                                                                                          // Copy the text inside the text field
-                                                                                          //navigator.clipboard.writeText(copyText.value);
+                                                                                                          // Copy the text inside the text field
+                                                                                                          //navigator.clipboard.writeText(copyText.value);
 
-                                                                                          copyText.select();
-                                                                                          copyText.setSelectionRange(0, 99999);
-                                                                                          // For mobile devices
+                                                                                                          copyText.select();
+                                                                                                          copyText.setSelectionRange(0, 99999);
+                                                                                                          // For mobile devices
 
-                                                                                          document.execCommand("copy");
+                                                                                                          document.execCommand("copy");
 
-                                                                                          // Alert the copied text
-                                                                                          // alert("ކޮޕީވީ: " + copyText.value);
-                                                                                          //return false;
-                                                                                          */
+                                                                                                          // Alert the copied text
+                                                                                                          // alert("ކޮޕީވީ: " + copyText.value);
+                                                                                                          //return false;
+                                                                                                          */
           }
           //
 
@@ -3387,13 +3396,13 @@ function () {
               //
               // other stuff below
               /*document.getElementById("findReplaceButton").innerHTML =
-                                                                  "ލަފްޒު ބަދަލު ކުރޭ";
-                                                                document.getElementById("findThis").style.direction = "rtl";
-                                                                document.getElementById("replaceWith").style.direction = "rtl";
-                                                                document.getElementById("findThis").placeholder =
-                                                                  "1 މިލަފްޒު ހޯދާފާ";
-                                                                document.getElementById("replaceWith").placeholder =
-                                                                  "2 މިއަށް ބަދަލުކުރޭ";*/
+                                                                                  "ލަފްޒު ބަދަލު ކުރޭ";
+                                                                                document.getElementById("findThis").style.direction = "rtl";
+                                                                                document.getElementById("replaceWith").style.direction = "rtl";
+                                                                                document.getElementById("findThis").placeholder =
+                                                                                  "1 މިލަފްޒު ހޯދާފާ";
+                                                                                document.getElementById("replaceWith").placeholder =
+                                                                                  "2 މިއަށް ބަދަލުކުރޭ";*/
             } else {
               //run first function
               document.getElementById("textMainArea").style.direction = "ltr";
@@ -3402,13 +3411,13 @@ function () {
               //
               // other stuff below
               /*document.getElementById("findReplaceButton").innerHTML =
-                                                                  "Regex/Replace";
-                                                                document.getElementById("findThis").style.direction = "ltr";
-                                                                document.getElementById("replaceWith").style.direction = "ltr";
-                                                                document.getElementById("findThis").placeholder = "1 Find This";
-                                                                document.getElementById("replaceWith").placeholder =
-                                                                  "2 Replace This";
-                                                                  */
+                                                                                  "Regex/Replace";
+                                                                                document.getElementById("findThis").style.direction = "ltr";
+                                                                                document.getElementById("replaceWith").style.direction = "ltr";
+                                                                                document.getElementById("findThis").placeholder = "1 Find This";
+                                                                                document.getElementById("replaceWith").placeholder =
+                                                                                  "2 Replace This";
+                                                                                  */
             }
           }
           //
@@ -3442,13 +3451,13 @@ function () {
           //
 
           /*
-                                                                                                      var numbered = document
-                                                                                              .getElementById("textMainArea")
-                                                                                              .value.split("\n")
-                                                                                              .map((line, index) => `${index + 1}. ${line}`)
-                                                                                              .join("\n");
-                                                                                            document.getElementById("textMainArea").value = numbered;
-                                                                                            */
+                                                                                                                      var numbered = document
+                                                                                                              .getElementById("textMainArea")
+                                                                                                              .value.split("\n")
+                                                                                                              .map((line, index) => `${index + 1}. ${line}`)
+                                                                                                              .join("\n");
+                                                                                                            document.getElementById("textMainArea").value = numbered;
+                                                                                                            */
 
           //
 
@@ -3570,14 +3579,14 @@ function () {
             // https://stackoverflow.com/questions/58371608/regex-to-remove-the-first-two-characters-of-a-string
 
             /*
-                                          document.getElementById("textMainArea").value = document
-                                            .getElementById("textMainArea")
-                                            .value.replace(/.{2}$/gm, "");
+                                                          document.getElementById("textMainArea").value = document
+                                                            .getElementById("textMainArea")
+                                                            .value.replace(/.{2}$/gm, "");
 
-                                          document.getElementById("textMainArea").value = document
-                                            .getElementById("textMainArea")
-                                            .value.replace(/^.{2}/gm, "");
-                                            */
+                                                          document.getElementById("textMainArea").value = document
+                                                            .getElementById("textMainArea")
+                                                            .value.replace(/^.{2}/gm, "");
+                                                            */
 
             // https://stackoverflow.com/questions/4029109/javascript-regex-how-to-put-a-variable-inside-a-regular-expression
 
@@ -3777,9 +3786,9 @@ function () {
                 .value.split(" ")
                 .join("\n"));
             /*document.getElementById("textMainArea").value = text2split.replace(
-                                                                /[\r\n]+/g,
-                                                                "\n"
-                                                              );*/
+                                                                                /[\r\n]+/g,
+                                                                                "\n"
+                                                                              );*/
 
             // below first makes multiple newlines only one newline, then removes punctuation (taken from removepunc code and edited)
             document.getElementById("textMainArea").value = text2split
@@ -3917,8 +3926,7 @@ function () {
 
               document.getElementById("textMainArea").value = resultText;
 
-              document.getElementById("txt2Html").innerHTML =
-                "&lt;text2Html&gt;";
+              document.getElementById("txt2Html").innerHTML = "&lt;p2br&gt;";
 
               // reset click
               text2Html_timesClicked = 0;
@@ -3928,19 +3936,19 @@ function () {
 
           // cgpt: write js code that takes text and outputs which unicode character codepoints they are, starting with code point, followed by the letter, with " : ".  ensure that the zeros are included in the code points. seperating them all. also include a link to unicode points site.
           /*
-                    example if i give this input:
-                    "he 12 عر"
+                                    example if i give this input:
+                                    "he 12 عر"
 
-                    it should give the output like this:
-                    U+0068 : h : https://codepoints.net/U+0068
-                    U+0065 : e : https://codepoints.net/U+0065
-                    U+0020 :  : https://codepoints.net/U+0020
-                    U+0031 : 1 : https://codepoints.net/U+0031
-                    U+0032 : 2 : https://codepoints.net/U+0032
-                    U+0020 :  : https://codepoints.net/U+0020
-                    U+0639 : ع : https://codepoints.net/U+0639
-                    U+0631 : ر : https://codepoints.net/U+0631
-                    */
+                                    it should give the output like this:
+                                    U+0068 : h : https://codepoints.net/U+0068
+                                    U+0065 : e : https://codepoints.net/U+0065
+                                    U+0020 :  : https://codepoints.net/U+0020
+                                    U+0031 : 1 : https://codepoints.net/U+0031
+                                    U+0032 : 2 : https://codepoints.net/U+0032
+                                    U+0020 :  : https://codepoints.net/U+0020
+                                    U+0639 : ع : https://codepoints.net/U+0639
+                                    U+0631 : ر : https://codepoints.net/U+0631
+                                    */
 
           function outputCodePoints() {
             // ltr switch
@@ -3962,6 +3970,126 @@ function () {
             }
             document.getElementById("textMainArea").value = output;
           }
+          //
+
+          // using js, when a function called "kahfBas" is run, take input as "document.getElementById("textMainArea").value", and also giving out the output as "document.getElementById("textMainArea").value", replace the character on the left with the character on the right, make it ignore: ﷲ
+          // ء	އ
+          // آ	އާ
+          // after mapping, it should replace ލލަހު  with ﷲ
+          //
+          function kahfBas() {
+            var inputText = document.getElementById("textMainArea").value;
+            var outputText = "";
+
+            var characterMap = {
+              ـ: "",
+              "ً": "",
+              "ٌ": "",
+              "ٍ": "",
+              "ّ": "",
+              "ٓ": "",
+              "ٔ": "",
+              "ٕ": "",
+              با: "ބާ",
+              تا: "ތާ",
+              ثا: "ޘާ",
+              جا: "ޖާ",
+              حا: "ޙާ",
+              خا: "ޚާ",
+              دا: "ދާ",
+              ذا: "ޛާ",
+              را: "ރާ",
+              زا: "ޒާ",
+              سا: "ސާ",
+              شا: "ޝާ",
+              صا: "ޞާ",
+              ضا: "ޟާ",
+              طا: "ޠާ",
+              ظا: "ޡާ",
+              عا: "ޢާ",
+              غا: "ޣާ",
+              فا: "ފާ",
+              قا: "ޤާ",
+              كا: "ކާ",
+              لا: "ލާ",
+              ما: "މާ",
+              نا: "ނާ",
+              ها: "ހާ",
+              وا: "ޥާ",
+              يا: "ޔާ",
+              ء: "އ",
+              آ: "އާ",
+              أ: "އ",
+              ؤ: "އ",
+              إ: "އ",
+              ئ: "އ",
+              ب: "ބ",
+              ة: "ތ",
+              ت: "ތ",
+              ث: "ޘ",
+              ج: "ޖ",
+              ح: "ޙ",
+              خ: "ޚ",
+              د: "ދ",
+              ذ: "ޛ",
+              ر: "ރ",
+              ز: "ޒ",
+              س: "ސ",
+              ش: "ޝ",
+              ص: "ޞ",
+              ض: "ޟ",
+              ط: "ޠ",
+              ظ: "ޡ",
+              ع: "ޢ",
+              غ: "ޣ",
+              ف: "ފ",
+              ق: "ޤ",
+              ك: "ކ",
+              ل: "ލ",
+              م: "މ",
+              ن: "ނ",
+              ه: "ހ",
+              و: "ޥ",
+              ى: "އ",
+              ي: "ޔ",
+              "َ": "ަ",
+              "ُ": "ު",
+              "ِ": "ި",
+              "ْ": "ް",
+              "٠": "0",
+              "١": "1",
+              "٢": "2",
+              "٣": "3",
+              "٤": "4",
+              "٥": "5",
+              "٦": "6",
+              "٧": "7",
+              "٨": "8",
+              "٩": "9",
+            };
+
+            for (var i = 0; i < inputText.length; i++) {
+              var currentChar = inputText[i];
+              if (currentChar in characterMap) {
+                outputText += characterMap[currentChar];
+              } else {
+                outputText += currentChar;
+              }
+            }
+
+            // Replace "ލލަހު" with "ﷲ" in the output text
+            outputText = outputText
+              // lafzul jalaalah
+              .replace(/ލލަހު|ލލަހަ|ލލަހި|ލލަހ/g, "ﷲ")
+
+              .replace(/ަا/g, "ާ")
+              // al maurifah, also replaces qaala without aabaafili if not for above
+              .replace(/اލ/g, "ލ");
+
+            document.getElementById("textMainArea").value = outputText;
+          }
+
+          //
           //
 
           // https://en.wikipedia.org/wiki/Percent-encoding
@@ -4018,9 +4146,9 @@ function () {
           //
 
           /*
-                                                            function encSvg() {
-                                                            }
-                                                            */
+                                                                            function encSvg() {
+                                                                            }
+                                                                            */
 
           /* end of above */
         </script>
