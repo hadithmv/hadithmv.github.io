@@ -3227,27 +3227,27 @@ function () {
 
             /* doesnt copy very long text */
             /*
-                                                                                                          // Get the text field
-                                                                                                          var copyText = document.getElementById("textMainArea");
+                                                                                                                    // Get the text field
+                                                                                                                    var copyText = document.getElementById("textMainArea");
 
-                                                                                                          // Select the text field
-                                                                                                          //copyText.select();
-                                                                                                          //copyText.setSelectionRange(0, 99999);
-                                                                                                          // For mobile devices
+                                                                                                                    // Select the text field
+                                                                                                                    //copyText.select();
+                                                                                                                    //copyText.setSelectionRange(0, 99999);
+                                                                                                                    // For mobile devices
 
-                                                                                                          // Copy the text inside the text field
-                                                                                                          //navigator.clipboard.writeText(copyText.value);
+                                                                                                                    // Copy the text inside the text field
+                                                                                                                    //navigator.clipboard.writeText(copyText.value);
 
-                                                                                                          copyText.select();
-                                                                                                          copyText.setSelectionRange(0, 99999);
-                                                                                                          // For mobile devices
+                                                                                                                    copyText.select();
+                                                                                                                    copyText.setSelectionRange(0, 99999);
+                                                                                                                    // For mobile devices
 
-                                                                                                          document.execCommand("copy");
+                                                                                                                    document.execCommand("copy");
 
-                                                                                                          // Alert the copied text
-                                                                                                          // alert("ކޮޕީވީ: " + copyText.value);
-                                                                                                          //return false;
-                                                                                                          */
+                                                                                                                    // Alert the copied text
+                                                                                                                    // alert("ކޮޕީވީ: " + copyText.value);
+                                                                                                                    //return false;
+                                                                                                                    */
           }
           //
 
@@ -3395,13 +3395,13 @@ function () {
               //
               // other stuff below
               /*document.getElementById("findReplaceButton").innerHTML =
-                                                                                  "ލަފްޒު ބަދަލު ކުރޭ";
-                                                                                document.getElementById("findThis").style.direction = "rtl";
-                                                                                document.getElementById("replaceWith").style.direction = "rtl";
-                                                                                document.getElementById("findThis").placeholder =
-                                                                                  "1 މިލަފްޒު ހޯދާފާ";
-                                                                                document.getElementById("replaceWith").placeholder =
-                                                                                  "2 މިއަށް ބަދަލުކުރޭ";*/
+                                                                                            "ލަފްޒު ބަދަލު ކުރޭ";
+                                                                                          document.getElementById("findThis").style.direction = "rtl";
+                                                                                          document.getElementById("replaceWith").style.direction = "rtl";
+                                                                                          document.getElementById("findThis").placeholder =
+                                                                                            "1 މިލަފްޒު ހޯދާފާ";
+                                                                                          document.getElementById("replaceWith").placeholder =
+                                                                                            "2 މިއަށް ބަދަލުކުރޭ";*/
             } else {
               //run first function
               document.getElementById("textMainArea").style.direction = "ltr";
@@ -3410,13 +3410,13 @@ function () {
               //
               // other stuff below
               /*document.getElementById("findReplaceButton").innerHTML =
-                                                                                  "Regex/Replace";
-                                                                                document.getElementById("findThis").style.direction = "ltr";
-                                                                                document.getElementById("replaceWith").style.direction = "ltr";
-                                                                                document.getElementById("findThis").placeholder = "1 Find This";
-                                                                                document.getElementById("replaceWith").placeholder =
-                                                                                  "2 Replace This";
-                                                                                  */
+                                                                                            "Regex/Replace";
+                                                                                          document.getElementById("findThis").style.direction = "ltr";
+                                                                                          document.getElementById("replaceWith").style.direction = "ltr";
+                                                                                          document.getElementById("findThis").placeholder = "1 Find This";
+                                                                                          document.getElementById("replaceWith").placeholder =
+                                                                                            "2 Replace This";
+                                                                                            */
             }
           }
           //
@@ -3450,13 +3450,13 @@ function () {
           //
 
           /*
-                                                                                                                      var numbered = document
-                                                                                                              .getElementById("textMainArea")
-                                                                                                              .value.split("\n")
-                                                                                                              .map((line, index) => `${index + 1}. ${line}`)
-                                                                                                              .join("\n");
-                                                                                                            document.getElementById("textMainArea").value = numbered;
-                                                                                                            */
+                                                                                                                                var numbered = document
+                                                                                                                        .getElementById("textMainArea")
+                                                                                                                        .value.split("\n")
+                                                                                                                        .map((line, index) => `${index + 1}. ${line}`)
+                                                                                                                        .join("\n");
+                                                                                                                      document.getElementById("textMainArea").value = numbered;
+                                                                                                                      */
 
           //
 
@@ -3578,14 +3578,14 @@ function () {
             // https://stackoverflow.com/questions/58371608/regex-to-remove-the-first-two-characters-of-a-string
 
             /*
-                                                          document.getElementById("textMainArea").value = document
-                                                            .getElementById("textMainArea")
-                                                            .value.replace(/.{2}$/gm, "");
+                                                                    document.getElementById("textMainArea").value = document
+                                                                      .getElementById("textMainArea")
+                                                                      .value.replace(/.{2}$/gm, "");
 
-                                                          document.getElementById("textMainArea").value = document
-                                                            .getElementById("textMainArea")
-                                                            .value.replace(/^.{2}/gm, "");
-                                                            */
+                                                                    document.getElementById("textMainArea").value = document
+                                                                      .getElementById("textMainArea")
+                                                                      .value.replace(/^.{2}/gm, "");
+                                                                      */
 
             // https://stackoverflow.com/questions/4029109/javascript-regex-how-to-put-a-variable-inside-a-regular-expression
 
@@ -3785,9 +3785,9 @@ function () {
                 .value.split(" ")
                 .join("\n"));
             /*document.getElementById("textMainArea").value = text2split.replace(
-                                                                                /[\r\n]+/g,
-                                                                                "\n"
-                                                                              );*/
+                                                                                          /[\r\n]+/g,
+                                                                                          "\n"
+                                                                                        );*/
 
             // below first makes multiple newlines only one newline, then removes punctuation (taken from removepunc code and edited)
             document.getElementById("textMainArea").value = text2split
@@ -3935,19 +3935,19 @@ function () {
 
           // cgpt: write js code that takes text and outputs which unicode character codepoints they are, starting with code point, followed by the letter, with " : ".  ensure that the zeros are included in the code points. seperating them all. also include a link to unicode points site.
           /*
-                                    example if i give this input:
-                                    "he 12 عر"
+                                              example if i give this input:
+                                              "he 12 عر"
 
-                                    it should give the output like this:
-                                    U+0068 : h : https://codepoints.net/U+0068
-                                    U+0065 : e : https://codepoints.net/U+0065
-                                    U+0020 :  : https://codepoints.net/U+0020
-                                    U+0031 : 1 : https://codepoints.net/U+0031
-                                    U+0032 : 2 : https://codepoints.net/U+0032
-                                    U+0020 :  : https://codepoints.net/U+0020
-                                    U+0639 : ع : https://codepoints.net/U+0639
-                                    U+0631 : ر : https://codepoints.net/U+0631
-                                    */
+                                              it should give the output like this:
+                                              U+0068 : h : https://codepoints.net/U+0068
+                                              U+0065 : e : https://codepoints.net/U+0065
+                                              U+0020 :  : https://codepoints.net/U+0020
+                                              U+0031 : 1 : https://codepoints.net/U+0031
+                                              U+0032 : 2 : https://codepoints.net/U+0032
+                                              U+0020 :  : https://codepoints.net/U+0020
+                                              U+0639 : ع : https://codepoints.net/U+0639
+                                              U+0631 : ر : https://codepoints.net/U+0631
+                                              */
 
           function outputCodePoints() {
             // ltr switch
@@ -3971,17 +3971,20 @@ function () {
           }
           //
 
-          // using js, when a function called "kahfBas" is run, take input as "document.getElementById("textMainArea").value", and also giving out the output as "document.getElementById("textMainArea").value", replace the character on the left with the character on the right, make it ignore: ﷲ
-          // ء	އ
-          // آ	އާ
-          // after mapping, it should replace ލލަހު  with ﷲ
-          // how can i change it, so when there is a ّ  character that comes after an arabic character, the output should provide a އް character before the mapped converted character that comes before it, so the outputs for the following inputs should be:
-          // خَطَّا;
-          // ޚައްޠާ;
-          // خَطِّي;
-          // ޚައްޠީ;
-          // خَطُّوبِ;
-          // ޚައްޠޫ;
+          //
+          /* using js, when a function called "kahfBas" is run, take input as "document.getElementById("textMainArea").value", and also giving out the output as "document.getElementById("textMainArea").value", replace the character on the left with the character on the right, make it ignore: ﷲ
+                     ء	އ
+                     آ	އާ
+                     after mapping, it should replace ލލަހު  with ﷲ
+                     how can i change it, so when there is a ّ  character that comes after an arabic character, the output should provide a އް character before the mapped converted character that comes before it, so the outputs for the following inputs should be:
+                     خَطَّا;
+                     ޚައްޠާ;
+                     خَطِّي;
+                     ޚައްޠީ;
+                     خَطُّوبِ;
+                     ޚައްޠޫ;
+                     i want you to do this for this character in the code: ة if any arabic diactric apart from ْ  comes after that ة, then that ة should be replaced with a ތ, else it should be replaced by a ހ
+                     */
           function kahfBas() {
             var inputText = document.getElementById("textMainArea").value;
             var outputText = "";
@@ -3995,7 +3998,7 @@ function () {
               إ: "އ",
               ئ: "އ",
               ب: "ބ",
-              ة: "ތ",
+              ة: "", // Modified: Replaced with empty string, will be replaced later based on conditions
               ت: "ތ",
               ث: "ޘ",
               ج: "ޖ",
@@ -4043,13 +4046,22 @@ function () {
 
             for (var i = 0; i < inputText.length; i++) {
               var currentChar = inputText[i];
+              var nextChar = inputText[i + 1]; // Get the next character
 
-              if (currentChar === "ّ") {
+              if (currentChar === "ة" && nextChar && nextChar !== "ْ") {
+                // If the current character is "ة" and the next character is not "ْ"
+                // Replace "ة" with "ތ"
+                outputText += "ތ";
+              } else if (currentChar === "ة") {
+                // If the current character is "ة" and the next character is "ْ"
+                // Replace "ة" with "ހ"
+                outputText += "ހ";
+              } else if (currentChar === "ّ") {
                 // If the current character is Shadda, add the appropriate character before the mapped converted character
                 outputText =
                   outputText.slice(0, -1) + "އް" + characterMap[previousChar];
               } else {
-                // If the current character is not Shadda, proceed with normal mapping
+                // If the current character is not Shadda or "ة", proceed with normal mapping
                 if (currentChar in characterMap) {
                   outputText += characterMap[currentChar];
                 } else {
@@ -4066,40 +4078,73 @@ function () {
               // al maurifah, also replaces qaala without aabaafili if not for above
               .replace(/اލ/g, "ލ")
 
-              // އަބިޔ
+              // أَبِي އަބިޔ
+              // this has issues, interferes with other words
               //.replace(/ިޔ/g, "ީ")
 
-              // ރަސުޥލަ
-              //.replace(/ުޥ/g, "ޫ")
+              // رَسُولَ ރަސުޥލަ
+              .replace(/ުޥ/g, "ޫ")
+
+              // وَأَبُو الحُسَيْنِ ޥައަބޫ ލޙުސަޔްނި
+              .replace(/ޫ ލ/g, "ު ލް")
+
+              // نَوَى ނަޥައ
+              // this has issues, interferes with other words
+              //.replace(/ައ/g, "ާ")
 
               // lafzul jalaalah
               //.replace(/ލލަހު|ލލަހަ|ލލަހި|ލލަހ/g, "ﷲ")
 
-              /*.replace(/ލލަހު/g, "ﷲ ު") //added space
-              .replace(/ލލަހަ/g, "ﷲަ")
-              .replace(/ލލަހި/g, "ﷲި")
-              .replace(/ލލަހ/g, "ﷲ")*/
-              .replace(/ލއްލަހު/g, "ﷲ ު") // these are after tashdeed checks
-              .replace(/ލއްލަހަ/g, "ﷲަ")
-              .replace(/ލއްލަހި /g, "ﷲި")
+              /*.replace(/ލލަހު/g, "ﷲ ު") //all fili jehi lafzul jalaalas in dhivehi need a space after then, otherwise next letter will be too close
+          .replace(/ލލަހަ/g, "ﷲަ ")
+          .replace(/ލލަހި/g, "ﷲި ")
+          .replace(/ލލަހ/g, "ﷲ")*/
+              .replace(/ލއްލަހު/g, "ﷲ ު") // changed thaana part because thanween logic prior changes them
+              .replace(/ލއްލަހަ/g, "ﷲަ ")
+              .replace(/ލއްލަހި /g, "ﷲި ")
               .replace(/ލއްލަހ/g, "ﷲ")
 
-              // އިއްނަމާ ލއަޢްމާލު
+              // إِلَى اللَّهِ އިލައ ﷲި
+              .replace(/ައ ﷲ/g, "ަ ﷲ")
+              .replace(/ައ /g, "ާ ")
+
+              //  إِنَّمَا الأَعْمَالُ އިއްނަމާ ލއަޢްމާލު
               //.replace(/ާ ލ/g, "ަ ލް")
               // .replace(/ާ ލ/g, "ަ ލް") but not if the input is any of these: ާ ލި ާ ލަ ާ ލު
               .replace(/ާ ލ(?!ި|ަ|ު)/g, "ަ ލް")
 
-              // އަމިޔރި ލމުއްމިނިޔނަ
+              // أَمِيرِ المُؤْمِنِينَ އަމިޔރި ލމުއްމިނިޔނަ
               .replace(/ި ލ/g, "ި ލް")
 
-              // ބިލއްނިއްޔާތި
+              // بِالنِّيَّاتِ ބިލއްނިއްޔާތި
               .replace(/ިލއް/g, "ިއް")
+
+              // دُرُوسُ اللُّغَةِ ދުރުޥސު ލއްލުޣަތި
+              .replace(/ލއްލ/g, "ލްލ")
 
               // User look at this: اމްރިއިން if any ް comes after a thaana character, with a ا coming vefore the thaana character, then remove the ا use js regex replace. any thaana character, not just މ
               .replace(/ا(?=ް*[\u0780-\u07B1])/g, "")
 
               // حَفْصٍ ޙަފްޞٍ
-              .replace(/ٍ/g, "ިން");
+              .replace(/ٍ/g, "ިން")
+
+              // بَرْدِزْبَهْ البُخَارِيُّ ބަރްދިޒްބަހް ލބުޚާރިއްޔު
+              .replace(/ް ލ/g, "ް އަލް")
+
+              // بْنُ الحَجَّاجِ ބްނު ލޙައްޖާޖި
+              .replace(/ު ލ/g, "ު ލް")
+
+              // مُسْلِمٍ القُشَيْرِيُّ މުސްލިމިން އަލްޤުޝަޔްރިއްޔު
+              // التنوين في ( أحد ) عند وصلها ب ( الله الصمد )
+              // «أحدن الله الصمد» بأن يكسر نون التنوين.
+              //  بضم الدال وكسر النون
+              .replace(/ިން އަލް/g, "ިނި ލް")
+
+              // القُشَيْرِيُّ النَّيْسَابُورِيُّ ލްޤުޝަޔްރިއްޔު ލްއްނަޔްސާބޫރިއްޔު
+              .replace(/ލްއް/g, "އް")
+
+              // الَّلذَيْنِ އްލަލޛަޔްނި
+              .replace(/އްލަލ/g, "އލް");
 
             document.getElementById("textMainArea").value = outputText;
           }
@@ -4161,9 +4206,9 @@ function () {
           //
 
           /*
-                                                                            function encSvg() {
-                                                                            }
-                                                                            */
+                                                                                      function encSvg() {
+                                                                                      }
+                                                                                      */
 
           /* end of above */
         </script>
