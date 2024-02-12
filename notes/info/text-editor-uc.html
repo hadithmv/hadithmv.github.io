@@ -1151,7 +1151,6 @@ function () {
           <button
             onclick="kahfBas();"
             class="ttClass"
-            id="kahfBas"
             data-tooltip="Converts Arabic to Kahf Speak Dhivehi"
           >
             🏔️ Kahf Bas
@@ -3976,47 +3975,19 @@ function () {
           // ء	އ
           // آ	އާ
           // after mapping, it should replace ލލަހު  with ﷲ
-          //
+          // how can i change it, so when there is a ّ  character that comes after an arabic character, the output should provide a އް character before the mapped converted character that comes before it, so the outputs for the following inputs should be:
+          // خَطَّا;
+          // ޚައްޠާ;
+          // خَطِّي;
+          // ޚައްޠީ;
+          // خَطُّوبِ;
+          // ޚައްޠޫ;
           function kahfBas() {
             var inputText = document.getElementById("textMainArea").value;
             var outputText = "";
 
             var characterMap = {
               ـ: "",
-              "ً": "",
-              "ٌ": "",
-              "ٍ": "",
-              "ّ": "",
-              "ٓ": "",
-              "ٔ": "",
-              "ٕ": "",
-              با: "ބާ",
-              تا: "ތާ",
-              ثا: "ޘާ",
-              جا: "ޖާ",
-              حا: "ޙާ",
-              خا: "ޚާ",
-              دا: "ދާ",
-              ذا: "ޛާ",
-              را: "ރާ",
-              زا: "ޒާ",
-              سا: "ސާ",
-              شا: "ޝާ",
-              صا: "ޞާ",
-              ضا: "ޟާ",
-              طا: "ޠާ",
-              ظا: "ޡާ",
-              عا: "ޢާ",
-              غا: "ޣާ",
-              فا: "ފާ",
-              قا: "ޤާ",
-              كا: "ކާ",
-              لا: "ލާ",
-              ما: "މާ",
-              نا: "ނާ",
-              ها: "ހާ",
-              وا: "ޥާ",
-              يا: "ޔާ",
               ء: "އ",
               آ: "އާ",
               أ: "އ",
@@ -4068,23 +4039,67 @@ function () {
               "٩": "9",
             };
 
+            var previousChar = ""; // Keep track of the previous character
+
             for (var i = 0; i < inputText.length; i++) {
               var currentChar = inputText[i];
-              if (currentChar in characterMap) {
-                outputText += characterMap[currentChar];
+
+              if (currentChar === "ّ") {
+                // If the current character is Shadda, add the appropriate character before the mapped converted character
+                outputText =
+                  outputText.slice(0, -1) + "އް" + characterMap[previousChar];
               } else {
-                outputText += currentChar;
+                // If the current character is not Shadda, proceed with normal mapping
+                if (currentChar in characterMap) {
+                  outputText += characterMap[currentChar];
+                } else {
+                  outputText += currentChar;
+                }
+                previousChar = currentChar;
               }
             }
 
             // Replace "ލލަހު" with "ﷲ" in the output text
             outputText = outputText
-              // lafzul jalaalah
-              .replace(/ލލަހު|ލލަހަ|ލލަހި|ލލަހ/g, "ﷲ")
 
               .replace(/ަا/g, "ާ")
               // al maurifah, also replaces qaala without aabaafili if not for above
-              .replace(/اލ/g, "ލ");
+              .replace(/اލ/g, "ލ")
+
+              // އަބިޔ
+              //.replace(/ިޔ/g, "ީ")
+
+              // ރަސުޥލަ
+              //.replace(/ުޥ/g, "ޫ")
+
+              // lafzul jalaalah
+              //.replace(/ލލަހު|ލލަހަ|ލލަހި|ލލަހ/g, "ﷲ")
+
+              /*.replace(/ލލަހު/g, "ﷲ ު") //added space
+              .replace(/ލލަހަ/g, "ﷲަ")
+              .replace(/ލލަހި/g, "ﷲި")
+              .replace(/ލލަހ/g, "ﷲ")*/
+              .replace(/ލއްލަހު/g, "ﷲ ު") // these are after tashdeed checks
+              .replace(/ލއްލަހަ/g, "ﷲަ")
+              .replace(/ލއްލަހި /g, "ﷲި")
+              .replace(/ލއްލަހ/g, "ﷲ")
+
+              // އިއްނަމާ ލއަޢްމާލު
+              //.replace(/ާ ލ/g, "ަ ލް")
+              // .replace(/ާ ލ/g, "ަ ލް") but not if the input is any of these: ާ ލި ާ ލަ ާ ލު
+              .replace(/ާ ލ(?!ި|ަ|ު)/g, "ަ ލް")
+
+              // އަމިޔރި ލމުއްމިނިޔނަ
+              .replace(/ި ލ/g, "ި ލް")
+
+              // ބިލއްނިއްޔާތި
+              .replace(/ިލއް/g, "ިއް")
+
+              // User look at this: اމްރިއިން if any ް comes after a thaana character, with a ا coming vefore the thaana character, then remove the ا use js regex replace. any thaana character, not just މ
+              .replace(/ا(?=ް*[\u0780-\u07B1])/g, "")
+
+              // حَفْصٍ ޙަފްޞٍ
+              .replace(/ٍ/g, "ިން");
 
             document.getElementById("textMainArea").value = outputText;
           }
