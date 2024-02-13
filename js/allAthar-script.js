@@ -68,13 +68,14 @@ $(document).ready(() => {
     });
   }
 
+  // THESE REMOVE COLUMNS, NOT ADD!!
   //const result = removeColumns(twoDArray, columnsToRemove); // [1, 3];
-  resultNawawi = removeColumns(fortyNawawi_DB, [1, 2, 3]);
-  resultUmdah = removeColumns(umdah_DB, [1, 2, 3, 4]);
-  resultBulugh = removeColumns(bulugh_DB, [1, 2, 3, 4]);
-  resultMuwatta = removeColumns(muwatta_DB, [1, 2, 3, 4]);
-  resultHisnul = removeColumns(hisnulMuslim_DB, [1, 2, 5, 6, 7, 8]);
-  resultAkhbar = removeColumns(akhbaruShuyukh_DB, [3, 4]);
+  resultfortyNawawi = removeColumns(fortyNawawi_DB, [1, 2, 3]);
+  resultumdah = removeColumns(umdah_DB, [1, 2, 3, 4]);
+  resultbulugh = removeColumns(bulugh_DB, [1, 2, 3, 4]);
+  resultmuwatta = removeColumns(muwatta_DB, [1, 2, 3, 4]);
+  resulthisnulMuslim = removeColumns(hisnulMuslim_DB, [1, 2, 5, 6, 7, 8]);
+  resultakhbarShuyukh = removeColumns(akhbaruShuyukh_DB, [3, 4]);
 
   //console.log(result);
   //
@@ -85,13 +86,19 @@ $(document).ready(() => {
   function insertValueInFirstColumn(arr, valueToInsert) {
     return arr.map((row) => [valueToInsert, ...row]);
   }
-  resultNawawi = insertValueInFirstColumn(resultNawawi, "الأربعون النووية");
-  resultUmdah = insertValueInFirstColumn(resultUmdah, "عمدة الأحكام");
-  resultBulugh = insertValueInFirstColumn(resultBulugh, "بلوغ المرام");
-  resultMuwatta = insertValueInFirstColumn(resultMuwatta, "موطأ مالك");
-  resultHisnul = insertValueInFirstColumn(resultHisnul, "حصن المسلم");
-  resultAkhbar = insertValueInFirstColumn(
-    resultAkhbar,
+  resultfortyNawawi = insertValueInFirstColumn(
+    resultfortyNawawi,
+    "الأربعون النووية"
+  );
+  resultumdah = insertValueInFirstColumn(resultumdah, "عمدة الأحكام");
+  resultbulugh = insertValueInFirstColumn(resultbulugh, "بلوغ المرام");
+  resultmuwatta = insertValueInFirstColumn(resultmuwatta, "موطأ مالك");
+  resulthisnulMuslim = insertValueInFirstColumn(
+    resulthisnulMuslim,
+    "حصن المسلم"
+  );
+  resultakhbarShuyukh = insertValueInFirstColumn(
+    resultakhbarShuyukh,
     "أخبار الشيوخ وأخلاقهم"
   );
 
@@ -122,12 +129,12 @@ $(document).ready(() => {
 
   // improved code for below
   const resultSets = [
-    resultNawawi,
-    resultUmdah,
-    resultBulugh,
-    resultMuwatta,
-    resultHisnul,
-    resultAkhbar,
+    resultfortyNawawi,
+    resultumdah,
+    resultbulugh,
+    resultmuwatta,
+    resulthisnulMuslim,
+    resultakhbarShuyukh,
   ];
 
   let combResult = allAthar_DB;
@@ -137,9 +144,9 @@ $(document).ready(() => {
   });
 
   // initially taken from radheef
-  /*combResult = appendRowsWithEmptyValues(allAthar_DB, resultNawawi);
-  combResult = appendRowsWithEmptyValues(combResult, resultUmdah);
-  combResult = appendRowsWithEmptyValues(combResult, resultBulugh);*/
+  /*combResult = appendRowsWithEmptyValues(allAthar_DB, resultfortyNawawi);
+  combResult = appendRowsWithEmptyValues(combResult, resultumdah);
+  combResult = appendRowsWithEmptyValues(combResult, resultbulugh);*/
   //console.log(result);
   // end merge
 
@@ -226,25 +233,8 @@ $(document).ready(() => {
       },
       {
         data: 4,
-        title: "ސައްހަކަމުގެ ހުކުމް",
-      },
-      /* add brackets string to hukum */
-      /*{
-         data: 4,
-        title: "ސައްހަކަމުގެ ހުކުމް",
-        render: function (data, type, row) {
-          data = "[" + data + "]";
-          return data.replace("[]", "");
-        },
-      },*/
-      {
-        data: 5,
         title: "ތަޚްރީޖު",
       },
-      // add takhrij and stuff later {
-      //   data: 3,
-      //   title: 'ތަޚްރީޖު'
-      // }
     ],
 
     /* https://datatables.net/reference/option/columnDefs */
@@ -252,7 +242,7 @@ $(document).ready(() => {
       // adds footnote line for shurooh
       // if (data !== "") { } else { return data; } ONLY applies if string is not empty
       {
-        targets: [6, 7],
+        targets: [6],
         render: function (data, type, row) {
           if (data !== "") {
             data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
@@ -328,18 +318,9 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColTakhrij", // hukum
+        className: "ColTakhrij", // takhrij
         targets: [6],
         visible: true,
-        searchable: false,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "ColTakhrij2", // takhrij
-        targets: [7],
-        visible: false,
         searchable: false,
         searchPanes: {
           show: false,
@@ -573,7 +554,6 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
-          data = data.replace(/ސައްހަކަމުގެ ހުކުމް\t/g, "");
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
             "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"

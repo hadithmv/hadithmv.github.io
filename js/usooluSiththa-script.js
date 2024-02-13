@@ -101,11 +101,11 @@ $(document).ready(() => {
       },
       {
         data: 5,
-        title: "English",
+        title: "ތަޚްރީޖު",
       },
       {
         data: 6,
-        title: "ތަޚްރީޖު",
+        title: "English",
       },
       {
         data: 7,
@@ -201,19 +201,19 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColEng", // Eng Text
+        className: "ColTakhrij", // Ar Ref
         targets: [6],
-        visible: false,
-        searchable: true,
+        visible: true,
+        searchable: false,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "ColTakhrij", // Ar Ref
+        className: "ColEng", // Eng Text
         targets: [7],
-        visible: true,
-        searchable: false,
+        visible: false,
+        searchable: true,
         searchPanes: {
           show: false,
         },
