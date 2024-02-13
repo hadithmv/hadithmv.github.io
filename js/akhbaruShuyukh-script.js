@@ -140,7 +140,7 @@ $(document).ready(() => {
         visible: true,
         searchable: true,
         searchPanes: {
-          show: false,
+          show: true,
         },
       },
       {
@@ -185,7 +185,7 @@ $(document).ready(() => {
         visible: true,
         searchable: false,
         searchPanes: {
-          show: false,
+          show: true,
         },
       },
 
@@ -333,6 +333,19 @@ $(document).ready(() => {
       search: "", // Originally "Search:" leave this blank in production
       searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"',
       zeroRecords: "<br><br><br><br>— ނުފެނުނު —<br><br><br><br><br>",
+      searchPanes: {
+        emptyMessage: "— ވަކި ނަމެއް ނެތް —",
+        clearMessage: "ފިލްޓަރތައް ދުއްވާލާ",
+        collapse: { 0: "ފިލްޓަރ", _: "ފިލްޓަރ (%d)" },
+        title: {
+          _: "%d ފިލްޓަރ ކުރެވިފާ",
+          0: "0 ފިލްޓަރ ކުރެވިފާ",
+          1: "1 ފިލްޓަރ ކުރެވިފާ",
+        },
+        /* i18n: {
+          emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
+        } */
+      },
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
 
@@ -490,6 +503,28 @@ $(document).ready(() => {
         // "exportOptions: { modifier:{columns:[":visible"], rows: [":visible"]}"
         // needs .cards thead { visibility: hidden; } to work
       }, // end of copy customization
+
+      {
+        extend: "searchPanes",
+        key: { key: "f", shiftKey: true },
+        /* Multiselect on clicking only works with Pfrtip Dom not for Bfrtip Dom how can we use it with bfrtip Dom ?
+        need to put the SearchPanes configuration into the buttons config option.
+        https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
+        config: {
+          collapse: false,
+          orderable: false,
+          //order: ['صحيح البخاري', 'صحيح مسلم', 'سنن أبي داود', 'سنن الترمذي', 'سنن النسائي', 'سنن ابن ماجه', 'موطأ مالك', 'مسند الدارمي', 'مسند أحمد', ]
+          columns: [0, 5],
+          cascadePanes: true,
+          dtOpts: {
+            select: {
+              style: "multi",
+            },
+            ordering: false,
+            /* order: [[1, 'desc']] */
+          },
+        },
+      },
 
       {
         extend: "colvis",

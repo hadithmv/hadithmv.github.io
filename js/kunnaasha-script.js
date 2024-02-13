@@ -178,6 +178,9 @@ $(document).ready(() => {
         targets: [1],
         visible: true,
         searchable: true,
+        searchPanes: {
+          show: true,
+        },
       },
       {
         className: "kuruCol3", // author
@@ -511,7 +514,7 @@ $(document).ready(() => {
         config: {
           collapse: false,
           orderable: false,
-          columns: [1, 3],
+          columns: [1, 2, 3],
           cascadePanes: true,
           dtOpts: {
             select: {
