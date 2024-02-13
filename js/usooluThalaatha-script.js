@@ -152,7 +152,7 @@ $(document).ready(() => {
         visible: true,
         searchable: true,
         searchPanes: {
-          show: true,
+          show: false,
         },
       },
       {

@@ -544,7 +544,27 @@ $(document).ready(() => {
         // needs .cards thead { visibility: hidden; } to work
       }, // end of copy customization
 
-      // search panes stuff was here
+      {
+        extend: "searchPanes",
+        key: { key: "f", shiftKey: true },
+        /* Multiselect on clicking only works with Pfrtip Dom not for Bfrtip Dom how can we use it with bfrtip Dom ?
+        need to put the SearchPanes configuration into the buttons config option.
+        https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
+        config: {
+          collapse: false,
+          orderable: false,
+          //order: ['صحيح البخاري', 'صحيح مسلم', 'سنن أبي داود', 'سنن الترمذي', 'سنن النسائي', 'سنن ابن ماجه', 'موطأ مالك', 'مسند الدارمي', 'مسند أحمد', ]
+          columns: [0],
+          cascadePanes: true,
+          dtOpts: {
+            select: {
+              style: "multi",
+            },
+            ordering: false,
+            /* order: [[1, 'desc']] */
+          },
+        },
+      },
 
       {
         extend: "colvis",
