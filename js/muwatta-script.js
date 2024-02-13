@@ -509,7 +509,7 @@ $(document).ready(() => {
         config: {
           collapse: false,
           orderable: false,
-          columns: [1, 3],
+          columns: [2, 4],
           cascadePanes: true,
           dtOpts: {
             select: {
