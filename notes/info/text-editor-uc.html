@@ -1089,7 +1089,7 @@ function () {
           </button>
 
           <button
-            onclick="onlyNumbers();triggerTheCounts();"
+            onclick="onlyNumbers();triggerTheCounts();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Keeps only numbers and removes everything else"
           >
@@ -1097,7 +1097,7 @@ function () {
           </button>
 
           <button
-            onclick="remPrecZeros();triggerTheCounts();"
+            onclick="remPrecZeros();triggerTheCounts();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Removes preceding zeros in numbers and text"
           >
@@ -1105,7 +1105,7 @@ function () {
           </button>
 
           <button
-            onclick="htmlOList();triggerTheCounts();"
+            onclick="htmlOList();"
             id="htmlNList"
             class="ttClass"
             data-tooltip="Adds ordered list tags to the lines of text on the first click, and unordered tags on the second, and removes them all on the third"
@@ -1123,7 +1123,7 @@ function () {
           </button>
 
           <button
-            onclick="wrapToOneLine();triggerTheCounts();"
+            onclick="wrapToOneLine();triggerTheCounts();scrollToTopFully();"
             id="wrapButton"
             class="ttClass"
             data-tooltip="Fits everything in the text into one single line"
@@ -1132,15 +1132,15 @@ function () {
           </button>
 
           <button
-            onclick="replaceThaanaFili();triggerTheCounts();"
+            onclick="replaceThaanaFili();triggerTheCounts();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Removes all diacritical marks / tashkeel / haraka of dhivehi letters"
             style="font-size: 105%"
           >
-            ތނ ފލ ފހލ
+            ތާނަފލ ފހލ
           </button>
           <button
-            onclick="remThiki();"
+            onclick="remThiki();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Replaces most thikijehi thaana letters to those without thiki"
             style="font-size: 105%"
@@ -1149,7 +1149,7 @@ function () {
           </button>
 
           <button
-            onclick="kahfBas();"
+            onclick="kahfBas();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Transliterates Arabic to Thaana. Note that it is not allowed to transliterate the quran."
           >
@@ -1157,7 +1157,7 @@ function () {
           </button>
 
           <button
-            onclick="replacePunct();triggerTheCounts();"
+            onclick="replacePunct();triggerTheCounts();scrollToTopFully();"
             id="repPuncButton"
             class="ttClass"
             data-tooltip="Removes most punctuation marks from the text"
@@ -1205,7 +1205,7 @@ function () {
           />
 
           <button
-            onclick="splitWords();triggerTheCounts();"
+            onclick="splitWords();triggerTheCounts();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Splits the text into individual words line by line"
           >
@@ -1213,7 +1213,7 @@ function () {
           </button>
 
           <button
-            onclick="removeDuplicates();triggerTheCounts();"
+            onclick="removeDuplicates();triggerTheCounts();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Removes duplicate lines of text"
           >
@@ -1230,7 +1230,7 @@ function () {
           </button>
 
           <button
-            onclick="numToSuperScript();"
+            onclick="numToSuperScript();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Changes numbers and round brackets to superscript, like footnotes on the first click, and reverts them on the second"
           >
@@ -1238,7 +1238,7 @@ function () {
           </button>
 
           <button
-            onclick="replaceFootNos();triggerTheCounts();"
+            onclick="replaceFootNos();triggerTheCounts();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Erases all numbers inside any brackets"
           >
@@ -1303,7 +1303,7 @@ function () {
           </button>
 
           <button
-            onclick="removeWaqfStuff();"
+            onclick="removeWaqfStuff();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Removes the following: ۖ	ۗ	ۘ	ۙ	ۚ	ۛ	ۜ	 ۝ ﴿ ﴾ ۞	۟	۠	ۡ	ۢ	ۣ	ۤ	ۥ	ۦ	ۧ	ۨ	۩	۪	۫	۬	ۭ"
           >
@@ -1311,7 +1311,7 @@ function () {
           </button>
 
           <button
-            onclick="shaddaB4Haraka();"
+            onclick="shaddaB4Haraka();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Makes all the arabic diacritics / tashkeel / harakas come after the tanweed / shadda and not before it"
             style="font-size: 105%"
@@ -1320,7 +1320,7 @@ function () {
           </button>
 
           <button
-            onclick="replaceColon();"
+            onclick="replaceColon();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Replaces all colons with fullstops"
             style="font-size: 105%"
@@ -1330,7 +1330,7 @@ function () {
           </button>
 
           <button
-            onclick="replaceKashida();triggerTheCounts();"
+            onclick="replaceKashida();triggerTheCounts();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Removes all kashidas, which elongate arabic letters"
             style="font-size: 105%"
@@ -1358,7 +1358,7 @@ function () {
           </button>
 
           <button
-            onclick="replaceDoubleBrackets();triggerTheCounts();"
+            onclick="replaceDoubleBrackets();triggerTheCounts();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Replaces all doubles brackets to single ones"
           >
@@ -1366,7 +1366,7 @@ function () {
           </button>
 
           <button
-            onclick="replaceHalfBrackets();triggerTheCounts();"
+            onclick="replaceHalfBrackets();triggerTheCounts();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Replaces all brackets to half brackets"
             style="font-size: 110%"
@@ -1377,7 +1377,7 @@ function () {
           <button
             onclick="dotsToEllipsis();triggerTheCounts();"
             class="ttClass"
-            data-tooltip="Converts three dots to proper a ellipsis"
+            data-tooltip="Converts three dots to proper a ellipsis on first click, and does the reverse on second."
             style="font-size: 110%"
           >
             . . . ↔ …&nbsp;
@@ -1400,7 +1400,7 @@ function () {
           </button>-->
 
           <button
-            onclick="htmlRmv();triggerTheCounts();"
+            onclick="htmlRmv();triggerTheCounts();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Removes html tags from the text, but leaves the text as is"
           >
@@ -1408,7 +1408,7 @@ function () {
           </button>
 
           <button
-            onclick="text2Html();triggerTheCounts();"
+            onclick="text2Html();"
             class="ttClass"
             id="txt2Html"
             data-tooltip="Converts plain text to html, uses line break tags on the first click, and wraps paragraph tags on the second"
@@ -1417,7 +1417,7 @@ function () {
           </button>
 
           <button
-            onclick="outputCodePoints();"
+            onclick="outputCodePoints();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Tells you which unicode character codepoints the text is made of"
           >
@@ -1512,7 +1512,7 @@ function () {
         </button>-->
 
           <button
-            onclick="darkModeTog()"
+            onclick="darkModeTog();scrollToTopFully();"
             id="toggleDark"
             class="ttClass"
             data-tooltip="Toggles between dark and light mode"

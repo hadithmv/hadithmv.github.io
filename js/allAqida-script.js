@@ -58,36 +58,187 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  const table = $("#usooluThalaathaTable").DataTable({
-    // var table = $("#fortyNawawi").DataTable({
+  // PART 1
+  // cgpt code, this part removes the specified columns entirely
+  // In this modified code, you can specify the columnsToRemove array at the end of the code, allowing you to easily change which columns you want to remove without modifying the function itself. This provides more flexibility when working with different 2D arrays and column selections.
+
+  function removeColumns(arr, columnIndices) {
+    return arr.map((row) => {
+      return row.filter((_, index) => !columnIndices.includes(index));
+    });
+  }
+
+  // THESE REMOVE COLUMNS, NOT ADD!!
+  //const result = removeColumns(twoDArray, columnsToRemove); // [1, 3];
+
+  resultusooluSunnah = removeColumns(usooluSunnah_DB, [4, 5]);
+  resultbarbahari = removeColumns(barbahari_DB, [1, 2, 3, 7, 8]);
+  resultaqidatuRaziyain = removeColumns(aqidatuRaziyain_DB, [3]);
+  resultkitabulEman = removeColumns(kitabulEman_DB, [3, 6, 7]);
+  /* this actually has 8 columns, yet it forces me to choose 4 and subtract 4 of them for some reason
+  0 no, 1 ar baab, 2 ar, 3 ar foot, 4 dv bab, 5 dv, 6 dv foot, 7 page no
+  currently subtracted: ar baab, ar foot, dv foot, page no
+  so i added an extra data input, and a columnName, for harawi. this should let me get 5 columns in now */
+  resultnawaqidulislam = removeColumns(nawaqidulislam_DB, [2, 6, 7, 8]);
+  resultqawaidulArbau = removeColumns(qawaidulArbau_DB, [2, 6, 7, 8]);
+  resultusooluSiththa = removeColumns(usooluSiththa_DB, [2, 6, 7, 8]);
+  resultusooluThalaatha = removeColumns(usooluThalaatha_DB, [2, 6, 7, 8]);
+
+  //console.log(result);
+  //
+
+  // cgpt code, this part inserts a specific value into the first column
+  // In this code, the insertValueInFirstColumn function uses the map method to iterate through each row of the 2D array. For each row, it adds the specified valueToInsert ('hey') to the beginning of the row, effectively inserting a new column with the same value in the first column position of each row.
+
+  function insertValueInFirstColumn(arr, valueToInsert) {
+    return arr.map((row) => [valueToInsert, ...row]);
+  }
+  resultusooluSunnah = insertValueInFirstColumn(
+    resultusooluSunnah,
+    "أصول السنة لأحمد"
+  );
+  resultbarbahari = insertValueInFirstColumn(
+    resultbarbahari,
+    "شرح السنة للبربهاري"
+  );
+  resultaqidatuRaziyain = insertValueInFirstColumn(
+    resultaqidatuRaziyain,
+    "عقيدة الرازيين"
+  );
+  resultkitabulEman = insertValueInFirstColumn(
+    resultkitabulEman,
+    "كتاب الإيمان لأبي عبيد"
+  );
+  resultnawaqidulislam = insertValueInFirstColumn(
+    resultnawaqidulislam,
+    "نواقض الإسلام"
+  );
+  resultqawaidulArbau = insertValueInFirstColumn(
+    resultqawaidulArbau,
+    "القواعد الأربع"
+  );
+  resultusooluSiththa = insertValueInFirstColumn(
+    resultusooluSiththa,
+    "الأصول الستة"
+  );
+  resultusooluThalaatha = insertValueInFirstColumn(
+    resultusooluThalaatha,
+    "الأصول الثلاثة"
+  );
+  //console.log(result);
+  // END BOOK
+
+  //
+  //
+  //
+
+  // PART 2
+  // cgpt code, appends a 2d array to the end of another 2d array, even if their columns/rows differ, and generates empty values
+  // In this code, the appendRowsWithEmptyValues function calculates the maximum number of columns from both arrays and pads each row in arr2 with empty values (empty strings) as needed to match the number of columns in the merged array. This ensures that the resulting array has consistent dimensions with empty values where needed.
+  function appendRowsWithEmptyValues(arr1, arr2) {
+    // Find the maximum number of columns from both arrays.
+    const maxColumns = Math.max(arr1[0]?.length || 0, arr2[0]?.length || 0);
+
+    // Iterate through the rows of arr2 and append them to arr1, padding with empty values.
+    for (let i = 0; i < arr2.length; i++) {
+      const newRow = arr2[i].concat(
+        Array(maxColumns - arr2[i].length).fill("")
+      );
+      arr1.push(newRow);
+    }
+
+    return arr1;
+  }
+
+  // improved code for below
+  const resultSets = [
+    resultusooluSunnah,
+    resultbarbahari,
+    resultaqidatuRaziyain,
+    resultkitabulEman,
+    resultnawaqidulislam,
+    resultqawaidulArbau,
+    resultusooluSiththa,
+    resultusooluThalaatha,
+  ];
+
+  // ADDED a json object with 6 rows to make this part work for allAqida as it did for allAthar. I dont think 6 is a necessity for it to work, as increasing in doesnt change the data entry.
+  const allAthar_DB = [
+    [
+      "شرح السنة للبربهاري",
+      "1",
+      "اعْلَمُوا أَنَّ الْإِسْلَامَ هُوَ السُّنَّةُ، وَالسُّنَةَ هِيَ الْإِسْلَامُ، وَلَا يَقُومُ أَحَدُهُمَا إِلَّا بِالْآخَرِ.",
+      "ތިޔަބައިމީހުން ދަންނާށެވެ. އިސްލާމް ދީނަކީ ސުންނަތެވެ. އަދި ސުންނަތަކީ އިސްލާމް ދީނެވެ. އަދި އެ ދޭތިން ކުރެ އެއް ކަމެއް، އަނެއް ކަމަކާ ލައިގެން މެނުވީ ގާއިމު ނުވާހުއްޓެވެ.",
+      "",
+      "",
+    ],
+  ];
+
+  let combResult = allAthar_DB;
+
+  resultSets.forEach((resultSet) => {
+    combResult = appendRowsWithEmptyValues(combResult, resultSet);
+  });
+
+  // initially taken from radheef
+  /*combResult = appendRowsWithEmptyValues(allAthar_DB, resultNawawi);
+    combResult = appendRowsWithEmptyValues(combResult, resultUmdah);
+    combResult = appendRowsWithEmptyValues(combResult, resultBulugh);*/
+  //console.log(result);
+  // end merge
+
+  const table = $("#allAqidaTable").DataTable({
+    // var table = $("#allAthar").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: usooluThalaatha_DB, // https://datatables.net/manual/ajax
+    data: combResult, // https://datatables.net/manual/ajax
 
     columns: [
       {
-        /* add sofhaa string to page no */ data: 0,
-
-        title: "ސަފުހާ #",
+        data: 0,
+        title: "ފޮތް އަރަބިން",
+      },
+      {
+        data: 0,
+        title: "ފޮތް ދިވެހިން",
         render: function (data, type, row) {
-          return "[ސ. " + data + "]";
+          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
+          data = data.replace(
+            "أصول السنة لأحمد",
+            "އަޙްމަދު ލިޔުނު ސުންނަތުގެ އުސޫލުތައް"
+          );
+          data = data.replace(
+            "شرح السنة للبربهاري",
+            "ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ"
+          );
+          data = data.replace("عقيدة الرازيين", "ދެ ރާޒީންގެ އަގީދާ");
+          data = data.replace(
+            "كتاب الإيمان لأبي عبيد",
+            "އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް"
+          );
+          data = data.replace("نواقض الإسلام", "އިސްލާމްކަން ގެއްލޭ ކަންތައް");
+          data = data.replace("القواعد الأربع", "ހަތަރު ގަވާއިދު");
+          data = data.replace("الأصول الستة", "ހަ އުސޫލު");
+          data = data.replace("الأصول الثلاثة", "ތިން އުސޫލު");
+          return data;
+        },
+      },
+      /* add # string to hadith no */
+      {
+        data: 1,
+        title: "#",
+        render: function (data, type, row) {
+          // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
+          return "#" + data;
         },
       },
       {
-        data: 1,
-        title: "އަރަބި ސުރުހީ",
+        data: 2,
+        title: "އަރަބި ޙަދީޘް",
       },
       {
         data: 2,
-        title: "ދިވެހި ސުރުހީ",
-      },
-      {
-        data: 3,
-        title: "އަރަބި ނައްސު",
-      },
-      {
-        data: 3,
         title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
           return data
@@ -96,24 +247,16 @@ $(document).ready(() => {
         },
       },
       {
-        data: 4,
+        data: 3,
         title: "ދިވެހި ތަރުޖަމާ",
       },
       {
-        data: 5,
+        data: 4,
         title: "ތަޚްރީޖު",
       },
       {
-        data: 6,
-        title: "English",
-      },
-      {
-        data: 7,
-        title: "شرح آل الشيخ",
-      },
-      {
-        data: 8,
-        title: "شرح الأسمري",
+        data: 5,
+        title: "އިތުރު ބަރި", // extra column i need for harawi
       },
     ],
 
@@ -122,7 +265,7 @@ $(document).ready(() => {
       // adds footnote line for shurooh
       // if (data !== "") { } else { return data; } ONLY applies if string is not empty
       {
-        targets: [6, 8, 9],
+        targets: [], // 6, but non takhrij texts are there in this, unlike allAthar
         render: function (data, type, row) {
           if (data !== "") {
             data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
@@ -134,7 +277,7 @@ $(document).ready(() => {
       },
 
       /* replace \n newlines from json to <br> in table
-      https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
+        https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
       {
         targets: "_all",
         render: function (data, type, row) {
@@ -147,52 +290,49 @@ $(document).ready(() => {
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "Col1", // #
+        className: "ColKitab", // book
         targets: [0],
         visible: true,
         searchable: true,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "ColKitab", // Ar Title
-        targets: [1],
-        visible: true,
-        searchable: false,
         searchPanes: {
           show: true,
         },
       },
       {
-        className: "ColKitab2", // Dv Title
+        className: "ColKitab2", // book dv
+        targets: [1],
+        visible: false,
+        searchable: true,
+        searchPanes: {
+          show: true,
+        },
+      },
+      {
+        className: "Col1", // #
         targets: [2],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "nwqCol4", // Ar Text
-        targets: [3],
         visible: true,
-        searchable: false,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "nwqCol5", // Ar Plain
-        targets: [4],
-        visible: false,
         searchable: true,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "nwqCol6", // Dv Text
+        className: "allHCol4", // Ar Text
+        targets: [3],
+        visible: false,
+        searchable: false,
+      },
+      {
+        className: "allHCol5", // Ar Text Plain
+        targets: [4],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "allHCol6", // Dv Text
         targets: [5],
         visible: true,
         searchable: true,
@@ -201,37 +341,21 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColTakhrij", // Ar Ref
+        //className: "ColTakhrij", // takhrij
+        className: "allHCol7", // because non takhrij texts are there too, unlik allAthar
         targets: [6],
         visible: true,
-        searchable: false,
+        searchable: true, //false previously, as it was for actually only takhrij in allAthar
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "ColEng", // Eng Text
-        targets: [7],
-        visible: false,
+        // extra column for harawi
+        className: "allHCol8",
+        targets: [6],
+        visible: true,
         searchable: true,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "ColSharh", // Sharh
-        targets: [8],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "ColSharh2", // Sharh
-        targets: [9],
-        visible: false,
-        searchable: false,
         searchPanes: {
           show: false,
         },
@@ -311,7 +435,7 @@ $(document).ready(() => {
     // search will instantly search table on every keypress -clientside proc mode
     // and reduce search call frequency to 400mS in serverside processing mode
     // processing load can be reduced by reducing the search frequency
-    searchDelay: 1000,
+    searchDelay: 1300,
 
     // Change options in page length select list.
     // It can be either: 1D array for both displayed option/display length value,
@@ -319,10 +443,10 @@ $(document).ready(() => {
     // -1 is used as a value this tells DataTables to disable pagination
     // Default [ 10, 25, 50, 100 ],
     lengthMenu: [
-      [1, 2, 3, 5, 10, 20, 30, 50],
-      ["1 ދައްކާ", 2, 3, 5, 10, 20, 30, "50"],
+      [1, 2, 3, 5],
+      ["1 ދައްކާ", 2, 3, 5],
     ],
-    // lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, '50']],
+    //lengthMenu: [[1, 2, 3, 5, 10, 20, 30, 50], ['1 ދައްކާ', 2, 3, 5, 10, 20, 30, '50']],
     // lengthMenu: [[1, 2, 3, 5, 7, 10, 15, 20, -1], ['1 ދައްކާ', 2, 3, 5, 7, 10, 15, 20, 'ހުރިހާ']],
     // lengthMenu: [ [5, 10, 20, 30, 40, -1, 1], ["Show 5", 10, 20, 30, 40,
     // "All", 1] ],
@@ -352,20 +476,20 @@ $(document).ready(() => {
     // ====================
     language: {
       /* made these a media query somewhere up
-      paginate: {
-        first: '<<',
-        previous: '<',
-        next: '>',
-        last: '>>',
-
-        first: '<<&nbsp;ފުރަތަމަ',
-        previous: '<&nbsp;ފަހަތަށް',
-        next: 'ކުރިއަށް&nbsp;>',
-        last: 'ފަހު&nbsp;>>',
-
-        info: '_INPUT_'
-},
-*/
+        paginate: {
+          first: '<<',
+          previous: '<',
+          next: '>',
+          last: '>>',
+  
+          first: '<<&nbsp;ފުރަތަމަ',
+          previous: '<&nbsp;ފަހަތަށް',
+          next: 'ކުރިއަށް&nbsp;>',
+          last: 'ފަހު&nbsp;>>',
+  
+          info: '_INPUT_'
+  },
+  */
       buttons: {
         copyTitle: "ކޮޕީ",
         copySuccess: {
@@ -391,8 +515,8 @@ $(document).ready(() => {
           1: "1 ފިލްޓަރ ކުރެވިފާ",
         },
         /* i18n: {
-          emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
-        } */
+            emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
+          } */
       },
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
@@ -401,20 +525,20 @@ $(document).ready(() => {
     //      DT CUSTOM DOM
     // ====================
     /* DOM options, https://datatables.net/reference/option/dom,
-    https://datatables.net/examples/basic_init/dom.html
-         default: lpfrtip
-        l - length changing input control
-        f - filtering input
-        t - The table
-        i - Table information summary
-        p - pagination control
-        r - processing display element
-        B - Buttons
-
-< and > - div element
-<"class" and > - div with a class
-<"#id" and > - div with an ID
-<"#id.class" and > - div with an ID and a class */
+      https://datatables.net/examples/basic_init/dom.html
+           default: lpfrtip
+          l - length changing input control
+          f - filtering input
+          t - The table
+          i - Table information summary
+          p - pagination control
+          r - processing display element
+          B - Buttons
+  
+  < and > - div element
+  <"class" and > - div with a class
+  <"#id" and > - div with an ID
+  <"#id.class" and > - div with an ID and a class */
     // "lBpfrtip",
 
     // desktop, goes rtl -->
@@ -433,7 +557,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "ޙަދީޘްއެމްވީ – އިސްލާމްކަން ގެއްލޭ ކަންކަން", // CHANGE123 clipboard message
+        messageTop: "ޙަދީޘްއެމްވީ - އެއްކުރަމުންދާ އަޘަރުތައް", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
@@ -441,24 +565,14 @@ $(document).ready(() => {
         // ====================
         customize(data) {
           /* https://www.rexegg.com/regex-quickstart.html
-                    \t Tab, \r Carriage return character,
-                    \n Line feed character, \r\n Line separator on Windows
-                    */
+                      \t Tab, \r Carriage return character,
+                      \n Line feed character, \r\n Line separator on Windows
+                      */
           // adds string to hadith
           // data = data.replace( /\b([0-9]|[1-4][0-9]|50)\b/g, "No:" );
 
           // fixes multiple row's lack of line break on desktop
           //     data = data.replace( /\t\r\n/g, "\n\n\n" );
-
-          //  \t = literal tab
-          //  \n = LF (Line Feed) → Used as a new line character in Unix/Mac OS X
-          //  \r\n = CR + LF → Used as a new line character in Windows
-
-          // data = data.replace(/r\n]/g, '') // needed to make rnr work
-          // data = data.replace(/\r\n|\n|\t/gm, '')
-
-          //data = data.replace(/\r\n\r\n/g, " "); //  What these two lines do is, they bring the hadith number right after the inserted title text.
-          //data = data.replace(/\n\n/g, " "); //  so these two are ok for hadith or point numbered books, but not for others like qurad radheef etc.
 
           // data = data.replace(/\r\n\r\n|\n\n/g, " ");
           //  What these two lines do is, they bring the hadith number right after the inserted title text. So these two are ok for hadith or point numbered books, but not for others like quran, radheef etc.
@@ -467,18 +581,14 @@ $(document).ready(() => {
           // \r\n prevents first header showing up unneeded (windows)
           // \n prevents first header showing up unneeded (linux) this needs come after windows rn
 
-          //data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
-          data = data.replace(/ސަފުހާ #\t/g, "");
-          data = data.replace(/އަރަބި ސުރުހީ\t/g, "");
-          data = data.replace(/ދިވެހި ސުރުހީ\t/g, "");
-          data = data.replace(/އަރަބި ނައްސު\t/g, "");
+          data = data.replace(/ފޮތް އަރަބިން\t/g, ""); // should be this way instead of /\tފޮތް/
+          data = data.replace(/ފޮތް ދިވެހިން\t/g, "");
+          data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
+          data = data.replace(/އަރަބި ޙަދީޘް\t/g, "");
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
-          data = data.replace(/English\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
-          data = data.replace(/شرح آل الشيخ\t/g, "");
-          data = data.replace(/شرح الأسمري\t/g, "");
-
+          data = data.replace(/އިތުރު ބަރި\t/g, ""); // extra for harawi
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
             "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
@@ -493,60 +603,13 @@ $(document).ready(() => {
           // using \t creates line breaks between cell data
           // \s\s turns two spaces into new lines, for multi line text
 
-          /*
-          data = data.replace(/\n\n/g, '\t') // prevents # showing up unneeded (linux)
-          data = data.replace(/\r\n\r\n/g, '\t') //  prevents # showing up unneeded (windows)
-
-          data = data.replace(/\t#/g, '')
-          data = data.replace(/\tއަރަބި ސުރުހީ/g, '')
-          data = data.replace(/\tދިވެހި ސުރުހީ/g, '')
-          data = data.replace(/\tއަރަބި ނައްސު/g, '')
-          data = data.replace(/\tއަރަބި ފިލިނުޖަހައި/g, '')
-          data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
-          data = data.replace(/\tތަޚްރީޖު/g, '')
-          data = data.replace(/\tތަޚްރީޖު ދިވެހިން/g, '')
-          data = data.replace(/\tރިޔާޟުއްޞާލިޙީނުން/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
-          // data = data.replace(/\tތަޚްރީޖު\t/g, '')
-          /*
-          data = data.replace(/#\t/g, '')
-          data = data.replace(/އަރަބި ސުރުހީ\t/g, '')
-          data = data.replace(/ދިވެހި ސުރުހީ\t/g, '')
-          data = data.replace(/އަރަބި ނައްސު\t/g, '')
-          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
-          data = data.replace(/ތަޚްރީޖު\t/g, '')
-          data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
-          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
-
-          //          data = data.replace(/\n\n/g, '')
-          //         data = data.replace(/\r\n\r\n/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
-          /*
-          data = data.replace(/#\n/g, '')
-          data = data.replace(/އަރަބި ސުރުހީ\n/g, '')
-          data = data.replace(/ދިވެހި ސުރުހީ\n/g, '')
-          data = data.replace(/އަރަބި ނައްސު\n/g, '')
-          data = data.replace(/އަރަބި ފިލިނުޖަހައި\n/g, '')
-          data = data.replace(/ދިވެހި ތަރުޖަމާ\n/g, '')
-          data = data.replace(/ތަޚްރީޖު\n/g, '')
-          data = data.replace(/ތަޚްރީޖު ދިވެހިން\n/g, '')
-          data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\n/g, '')
-
-          data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
-
           /* data = data.replace( /hadithmv.com\n/g, "hadithmv.com\n\n" );
-           //adds new line on android */
+             //adds new line on android */
           /*
-               data = data.replace( /\r/g, "" ); //rids windows platform newline
-               data = data.replace( /\t/g, "\n\n" ); */
+                 data = data.replace( /\r/g, "" ); //rids windows platform newline
+                 data = data.replace( /\t/g, "\n\n" ); */
 
-          //  console.log(JSON.stringify(data)) // json stringify to console
+          // console.log(JSON.stringify(data)) // json stringify to console
 
           return data;
         },
@@ -564,11 +627,12 @@ $(document).ready(() => {
         extend: "searchPanes",
         key: { key: "f", shiftKey: true },
         /* Multiselect on clicking only works with Pfrtip Dom not for Bfrtip Dom how can we use it with bfrtip Dom ?
-        need to put the SearchPanes configuration into the buttons config option.
-        https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
+          need to put the SearchPanes configuration into the buttons config option.
+          https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
         config: {
           collapse: false,
           orderable: false,
+          //order: ['صحيح البخاري', 'صحيح مسلم', 'سنن أبي داود', 'سنن الترمذي', 'سنن النسائي', 'سنن ابن ماجه', 'موطأ مالك', 'مسند الدارمي', 'مسند أحمد', ]
           columns: [0, 1],
           cascadePanes: true,
           dtOpts: {
@@ -590,13 +654,13 @@ $(document).ready(() => {
 
       // cards code
       /*
-              {
-                "text": "cards",
-                "action": function (e, dt, node) {
-                   $(dt.table().node()).toggleClass("cards");
-                },
-             },
-      */
+                {
+                  "text": "cards",
+                  "action": function (e, dt, node) {
+                     $(dt.table().node()).toggleClass("cards");
+                  },
+               },
+        */
       // cards code END
     ],
   }); // $("#fortyNawawi").DataTable( { - END
@@ -649,12 +713,12 @@ $(document).ready(() => {
         table.page("next").draw("page");
       }
     } /* else { // commented out otherwise detected as useless suspicious code
-      if (yDiff > 0) {
-        // up swipe
-      } else {
-        // down swipe
-      }
-    } */
+        if (yDiff > 0) {
+          // up swipe
+        } else {
+          // down swipe
+        }
+      } */
     /* reset values */
     xDown = null;
     yDown = null;
@@ -682,7 +746,7 @@ $(document).ready(() => {
     $(".dataTable").on("page.dt", () => {
       $("html, body").animate(
         {
-          scrollTop: 195, //prev 0
+          scrollTop: 195, //prev 0 / 148
         },
         "fast"
       );
@@ -695,15 +759,13 @@ $(document).ready(() => {
   // Add cards media query class to table ID, as well as row border
   // ====================
   /*
-    function myFunction() {
-        var element = document.getElementById("fortyNawawi");
-        element.classList.add("cards");
-      }
-*/
+      function myFunction() {
+          var element = document.getElementById("fortyNawawi");
+          element.classList.add("cards");
+        }
+  */
   if (window.matchMedia("(min-width: 900px)").matches) {
     // js media query on desktop
-    /* previously $('fnClass').addClass('row-border')
-    $('fnClass').addClass('cards') */
     $(".dataTable").addClass("row-border"), // adds rowborder class
       $("div.dataTables_filter input", table.table().container()).focus(); // autofocus search input on page load
   } else {
@@ -741,40 +803,40 @@ $(document).ready(() => {
   // for some reason, dblclick stopped working for table.row(this).draw().show().select().draw(false) on mobile view, which was previously table.row(this).show().select().draw(false)
   // all this was changed due to an update with searchpanes causing a bug https://datatables.net/forums/discussion/comment/208672/#Comment_208672
   /*var touchtime = 0;
-  $("tbody").on("click", "tr", function () {
-    if (touchtime == 0) {
-      // set first click
-      touchtime = new Date().getTime();
-    } else {
-      // compare first click to this click and see if they occurred within double click threshold
-      if (new Date().getTime() - touchtime < 800) {
-        // double click occurred
-        //alert("double clicked");
-        if (table.search() !== "") {
-          table.search("").draw();
-        }
-        table.row(this).draw().show().select().draw(false);
-        //
-        touchtime = 0;
-      } else {
-        // not a double click so set as a new first click
+    $("tbody").on("click", "tr", function () {
+      if (touchtime == 0) {
+        // set first click
         touchtime = new Date().getTime();
+      } else {
+        // compare first click to this click and see if they occurred within double click threshold
+        if (new Date().getTime() - touchtime < 800) {
+          // double click occurred
+          //alert("double clicked");
+          if (table.search() !== "") {
+            table.search("").draw();
+          }
+          table.row(this).draw().show().select().draw(false);
+          //
+          touchtime = 0;
+        } else {
+          // not a double click so set as a new first click
+          touchtime = new Date().getTime();
+        }
       }
-    }
-  });*/
+    });*/
 
   /* OLD SEARCH REPLACE BELOW
-  $(".dataTables_filter input")
-    .off()
-    .on("keyup", function () {
-      let str = $(this).val();
-      str = str.replace(
-        /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
-        ""
-      );
-      table.search(str).draw();
-    });
-    */
+    $(".dataTables_filter input")
+      .off()
+      .on("keyup", function () {
+        let str = $(this).val();
+        str = str.replace(
+          /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
+          ""
+        );
+        table.search(str).draw();
+      });
+      */
 
   // removes diacritics and punctuation on key up for search
   $(".dataTables_filter input").on("keyup click", function () {
