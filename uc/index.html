@@ -401,6 +401,25 @@
         margin-top: 5px;
       }
 
+      /* DARK MODE for card buttons and salla button */
+      @media (prefers-color-scheme: dark) {
+        .card {
+          background-color: rgb(24, 26, 27);
+          border-color: rgb(23, 118, 181) rgb(58, 62, 65);
+        }
+        .card p {
+          color: rgb(217, 214, 209);
+        }
+        #sallaButton {
+          background-color: rgb(24, 26, 27) !important;
+          border-color: rgba(140, 130, 115, 0.25);
+          color: rgb(255, 255, 255);
+        }
+        #sallaButton:hover {
+          background-color: #136296 !important;
+        }
+      }
+
       /*.shCard {
         border-top: 5px solid #5647b8;
         border-bottom: 5px solid #5647b8;
@@ -2600,7 +2619,8 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
           }
 
           #footer > div.appButtons > a:hover {
-            color: #66bce6 !important;
+            /*color: #66bce6 !important;*/
+            color: #299bdc !important;
           }
         </style>
 
