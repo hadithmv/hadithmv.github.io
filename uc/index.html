@@ -1438,6 +1438,15 @@
             </a>
           </div>
 
+          <div class="column" id="kahfReminder" style="display: none">
+            <a href="../books/quranHmv.html#quranTable=p2140:vf1.2.5.6">
+              <div class="card">
+                <p>⚠️ ކަހްފު ސޫރަތް ކިޔަވާ</p>
+                <p>اقرأ سورة الكهف</p>
+              </div>
+            </a>
+          </div>
+
           <div class="column">
             <a href="../books/hisnulMuslim.html#hisnulMuslimTable=l1:p74">
               <div class="card">
@@ -3081,6 +3090,50 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
             filter: invert(100%);
           }*/
     </style>
+
+    <script>
+      // KAHF REMINDER
+      /* claude:
+            html: ...
+              <span class="hideOnPhoneOnly">ޙަދީޘްއެމްވީ – </span>
+              <span>ސުންނަތުގެ ތަރުޖަމާ މަންސަ</span>
+      this shows the following text: ޙަދީޘްއެމްވީ – ސުންނަތުގެ ތަރުޖަމާ މަންސަ
+      and it shows this text on mobile: ސުންނަތުގެ ތަރުޖަމާ މަންސަ
+       using js, i want to change the text "ޙަދީޘްއެމްވީ – " to "hey man 1"
+      and i want to i want to change the text "ސުންނަތުގެ ތަރުޖަމާ މަންސަ" to "hey man 2"
+      //
+      only change it from 5 am to 6 pm on a friday
+      also in the order of position, bring span 2 first, with span 1 second
+      also during that time, also get a hidden element with id "kahfReminder" and show it it
+      */
+      // Get the current day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+      const currentDay = new Date().getDay();
+
+      // Check if the current day is Friday (5)
+      if (currentDay === 5) {
+        // Get the current time
+        const currentTime = new Date().getHours();
+
+        // Check if the current time is between 5 AM and 6 PM (inclusive)
+        if (currentTime >= 5 && currentTime <= 18) {
+          // Get the span elements
+          const span1 = document.querySelector(".hideOnPhoneOnly");
+          const span2 = document.querySelector(".hideOnPhoneOnly + span");
+
+          // Change the text content and order
+          span2.textContent = "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ";
+          span1.textContent =
+            "، وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيتَ عَلَى إِبْرَاهِيمَ، وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ";
+
+          // Reorder the spans
+          const parent = span1.parentNode;
+          parent.insertBefore(span2, span1);
+
+          // Get the element with the ID "kahfReminder" and show it
+          document.querySelector("#kahfReminder").style.display = "block";
+        }
+      }
+    </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
