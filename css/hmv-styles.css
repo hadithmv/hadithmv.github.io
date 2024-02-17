@@ -942,23 +942,39 @@ Removes the fff white text color that comes with that too,
     /* outline: 2px solid #3366ff; */
     outline: 2.5px solid #337ab7;
     outline-offset: -2px;
-    /* ? */
 
     /* added, makes box rounder */
     border-radius: 5px;
   }
+
+  /*table.dataTable tbody tr.selected th.focus,
+  table.dataTable tbody tr.selected td.focus {
+    outline-color: #0033cc;
+  }*/
 
   div.dtk-focus-alt table.dataTable tbody th.focus,
   div.dtk-focus-alt table.dataTable tbody td.focus {
     /* outline: 2px solid #ff8b33; */
     outline: 2.5px solid #337ab7;
     outline-offset: -2px;
-    /* ? */
 
     /* added, makes box rounder */
     border-radius: 5px;
 
-    /* old code */
+    /*html.dark table.dataTable tbody th.focus,
+    html.dark table.dataTable tbody td.focus {
+      outline-color: rgb(13, 110, 253);
+    }
+    html.dark table.dataTable tbody tr.selected th.focus,
+    html.dark table.dataTable tbody tr.selected td.focus {
+      outline-color: #0143a3;
+    }
+    html.dark div.dtk-focus-alt table.dataTable tbody th.focus,
+    html.dark div.dtk-focus-alt table.dataTable tbody td.focus {
+      outline-color: #ff8b33;
+    }*/
+
+    /* OLD CODE */
 
     /*
   table.dataTable tbody td.focus {
