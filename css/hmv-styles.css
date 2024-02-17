@@ -444,6 +444,15 @@ button.dt-button {
   padding: 0;
 }
 
+.dataTables_wrapper
+  > div
+  > div
+  > button.dt-button.buttons-collection.buttons-colvis
+  > span.dt-button-down-arrow {
+  padding-left: 0px; /*  10px; */
+  padding-right: 10px;
+}
+
 /* hover buttons */
 
 button.dt-button:hover:not(.disabled) {
