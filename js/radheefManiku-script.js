@@ -330,7 +330,8 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "A Concise Etymological Vocabulary of Dhivehi Language", // CHANGE123 clipboard message
+        messageTop:
+          "A Concise Etymological Vocabulary of Dhivehi Language - Maniku ", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
