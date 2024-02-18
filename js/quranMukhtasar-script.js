@@ -618,66 +618,9 @@ $(document).ready(() => {
           // This prevents a double or more line breaks when columns are hidden
 
           data = data.replace(/\n\n\n\n|\n\n\n|\t|\s\s/g, "\n\n");
-          // using \n\n\n\n turns 4 new lines spaces into 2
-          // \n\n\n turns 3 new lines spaces into 2
-          // using \t creates line breaks between cell data
-          // \s\s turns two spaces into new lines, for multi line text
 
           data = data.replace(/𝟢 |𝟣 |𝟤 |𝟥 |𝟦 |𝟧 |𝟨 |𝟩 |𝟪 |𝟫 /g, ""); // removes these alt numbers from surah name
           data = data.replace(/𝟢|𝟣|𝟤|𝟥|𝟦|𝟧|𝟨|𝟩|𝟪|𝟫/g, ""); // removes these alt numbers from surah name
-
-          /*
-            data = data.replace(/\n\n/g, '\t') // prevents # showing up unneeded (linux)
-            data = data.replace(/\r\n\r\n/g, '\t') //  prevents # showing up unneeded (windows)
-  
-            data = data.replace(/\t#/g, '')
-            data = data.replace(/\tއަރަބި ސުރުހީ/g, '')
-            data = data.replace(/\tދިވެހި ސުރުހީ/g, '')
-            data = data.replace(/\tއަރަބި ޙަދީޘް/g, '')
-            data = data.replace(/\tއަރަބި ފިލިނުޖަހައި/g, '')
-            data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
-            data = data.replace(/\tތަޚްރީޖު/g, '')
-            data = data.replace(/\tތަޚްރީޖު ދިވެހިން/g, '')
-            data = data.replace(/\tރިޔާޟުއްޞާލިޙީނުން/g, '')
-  
-            data = data.replace(/\t/g, '\n\n') // creates line breaks
-  */
-          // data = data.replace(/\tތަޚްރީޖު\t/g, '')
-          /*
-            data = data.replace(/#\t/g, '')
-            data = data.replace(/އަރަބި ސުރުހީ\t/g, '')
-            data = data.replace(/ދިވެހި ސުރުހީ\t/g, '')
-            data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
-            data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
-            data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
-            data = data.replace(/ތަޚްރީޖު\t/g, '')
-            data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, '')
-            data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\t/g, '')
-  
-            //          data = data.replace(/\n\n/g, '')
-            //         data = data.replace(/\r\n\r\n/g, '')
-  
-            data = data.replace(/\t/g, '\n\n') // creates line breaks
-  */
-          /*
-            data = data.replace(/#\n/g, '')
-            data = data.replace(/އަރަބި ސުރުހީ\n/g, '')
-            data = data.replace(/ދިވެހި ސުރުހީ\n/g, '')
-            data = data.replace(/އަރަބި ޙަދީޘް\n/g, '')
-            data = data.replace(/އަރަބި ފިލިނުޖަހައި\n/g, '')
-            data = data.replace(/ދިވެހި ތަރުޖަމާ\n/g, '')
-            data = data.replace(/ތަޚްރީޖު\n/g, '')
-            data = data.replace(/ތަޚްރީޖު ދިވެހިން\n/g, '')
-            data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\n/g, '')
-  
-            data = data.replace(/\t/g, '\n\n') // creates line breaks
-  */
-
-          /* data = data.replace( /hadithmv.com\n/g, "hadithmv.com\n\n" );
-             //adds new line on android */
-          /*
-                 data = data.replace( /\r/g, "" ); //rids windows platform newline
-                 data = data.replace( /\t/g, "\n\n" ); */
 
           //console.log(JSON.stringify(data)) // json stringify to console
 
