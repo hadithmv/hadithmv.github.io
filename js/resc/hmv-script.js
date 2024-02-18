@@ -47,6 +47,22 @@ function filiString() {
   }
 }
 
+//
+
+// QURAN CHANGE BOOK
+
+function changeBook(newBook) {
+  window.location = window.location
+    .toString()
+    .replace(
+      /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassarGhareeb|quranMukhtasar|quranMuyassar|quranSadi|quranBetaqat|quranQiraaath/g,
+      newBook
+    )
+    .replace(/\:v.*$/, "");
+}
+
+//
+
 // dont really need this in books right now, it was only meant for editor or notes content that didnt go back a page after having scrolled down or something
 /* https://stackoverflow.com/questions/3664381/force-page-scroll-position-to-top-at-page-refresh-in-html/60994204#60994204
 function scrollToTopFully() {

@@ -1279,7 +1279,7 @@ function () {
           />
 
           <button
-            onclick="shortenSalla();triggerTheCounts();"
+            onclick="shortenSalla();triggerTheCounts();scrollToTopFully()"
             class="ttClass"
             data-tooltip="Converts the long form of the words صَلَّى اللَّهُ عَلَيهِ وَسَلَّم to the short character ﷺ on the first click, and does the reverse on the second"
             style="font-size: 105%"
@@ -1287,7 +1287,7 @@ function () {
             صلى… ↔ ﷺ
           </button>
           <button
-            onclick="replaceCommaScolonQ();"
+            onclick="replaceCommaScolonQ();scrollToTopFully()"
             class="ttClass"
             data-tooltip="Converts left facing commas, semicolons and questions marks to the right on the first click, and does the reverse on the second"
             style="font-size: 110%"
@@ -1295,7 +1295,7 @@ function () {
             , ; ? ↔ ، ؛ ؟
           </button>
           <button
-            onclick="replaceQbracket();"
+            onclick="replaceQbracket();scrollToTopFully()"
             class="ttClass"
             data-tooltip="Converts curly braces and asterisks to quranic brackets and ayah stops"
           >
@@ -1340,7 +1340,7 @@ function () {
           </button>
 
           <button
-            onclick="replaceQuotes();"
+            onclick="replaceQuotes();scrollToTopFully()"
             class="ttClass"
             data-tooltip="Replaces all &#39;dumb&#39; &#34;straight&#34; quotes with ‘curly’ “smart” quotes on the first click, and does the reverse on the second"
             style="font-size: 110%"
@@ -1375,7 +1375,7 @@ function () {
           </button>
 
           <button
-            onclick="dotsToEllipsis();triggerTheCounts();"
+            onclick="dotsToEllipsis();triggerTheCounts();scrollToTopFully()"
             class="ttClass"
             data-tooltip="Converts three dots to proper a ellipsis on first click, and does the reverse on second."
             style="font-size: 110%"
@@ -1408,7 +1408,7 @@ function () {
           </button>
 
           <button
-            onclick="text2Html();"
+            onclick="text2Html();scrollToTopFully()"
             class="ttClass"
             id="txt2Html"
             data-tooltip="Converts plain text to html, uses line break tags on the first click, and wraps paragraph tags on the second"
@@ -1425,7 +1425,16 @@ function () {
           </button>
 
           <button
-            onclick="decodeURL();"
+            onclick="decodeUnicode();scrollToTopFully()"
+            class="ttClass"
+            id="decodeUnicode"
+            data-tooltip="Decodes uncode 4-digit hexadecimal code point like \u0061 into readable characters on the first button click, and encodes it on the next"
+          >
+            Decode Unicode
+          </button>
+
+          <button
+            onclick="decodeURL();scrollToTopFully()"
             class="ttClass"
             id="encodeURL"
             data-tooltip="Decodes a URL from percent-encoding on the first button click, and encodes it on the next"
@@ -4156,6 +4165,42 @@ function () {
           }
 
           //
+
+          // in js, write code that takes input from "document.getElementById("textMainArea").value" and decodes unicode to readable characters, and outputs it back into "document.getElementById("textMainArea").value"
+          // now write code to encode the input as unicode and output it, without curly brackets, the way it is in js typical escape sequence
+
+          var decodeUnicode_timesClicked = 0;
+          function decodeUnicode() {
+            decodeUnicode_timesClicked++;
+            if (decodeUnicode_timesClicked % 2 == 0) {
+              //run second function
+
+              /*
+              insert encoding code here
+              */
+
+              document.getElementById("decodeUnicode").innerHTML =
+                "Decode Unicode";
+            } else {
+              //run first function
+
+              // Get the input value
+              let input = document.getElementById("textMainArea").value;
+
+              /*let input =
+                "\u0789\u07a6\u078c\u07a9\u078e\u07a6\u0787\u07a8 \u078d\u07a8\u0794\u07aa\u0789\u07a6\u0781\u07b0\u078a\u07a6\u0780\u07aa \u0787\u07ac\u078d\u07a8\u0794\u07aa\u0782\u07b0 \u0784\u07a6\u078b\u07a6\u078d\u07aa\u0786\u07aa\u0783\u07aa\u0789\u07a6\u0781\u07b0";*/
+
+              // Decode unicode to readable characters
+              let decodedValue = decodeURIComponent(JSON.parse(`"${input}"`));
+
+              // Output the decoded value back into the textarea
+              document.getElementById("textMainArea").value = decodedValue;
+              //console.log(decodedValue);
+
+              document.getElementById("decodeUnicode").innerHTML =
+                "Encode Unicode";
+            }
+          }
           //
 
           // https://en.wikipedia.org/wiki/Percent-encoding
