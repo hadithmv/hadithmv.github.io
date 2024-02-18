@@ -4166,8 +4166,8 @@ function () {
 
           //
 
-          // in js, write code that takes input from "document.getElementById("textMainArea").value" and decodes unicode to readable characters, and outputs it back into "document.getElementById("textMainArea").value"
-          // now write code to encode the input as unicode and output it, without curly brackets, the way it is in js typical escape sequence
+          // cgpt: in js, write code that takes input from "document.getElementById("textMainArea").value" and decodes unicode to readable characters, and outputs it back into "document.getElementById("textMainArea").value". ...still doesnt work with new lines
+          // claud: write js code, to take input from and convert it to unicode escape sequences 4 point js notation. input should come from "document.getElementById("textMainArea").value" output should be to console
 
           var decodeUnicode_timesClicked = 0;
           function decodeUnicode() {
@@ -4179,6 +4179,20 @@ function () {
               insert encoding code here
               */
 
+              const input = document.getElementById("textMainArea").value;
+              let output = "";
+
+              for (let i = 0; i < input.length; i++) {
+                const charCode = input.charCodeAt(i);
+                output += "\\u" + charCode.toString(16).padStart(4, "0");
+              }
+
+              console.log(output);
+
+              document.getElementById("textMainArea").value = output;
+
+              //
+
               document.getElementById("decodeUnicode").innerHTML =
                 "Decode Unicode";
             } else {
@@ -4187,15 +4201,26 @@ function () {
               // Get the input value
               let input = document.getElementById("textMainArea").value;
 
+              // Convert Unicode escape sequences to their corresponding characters
+              let decodedValue = input.replace(/\\u[\dA-F]{4}/gi, (match) => {
+                return String.fromCharCode(
+                  parseInt(match.replace(/\\u/g, ""), 16)
+                );
+              });
+
+              document.getElementById("textMainArea").value = decodedValue;
+
               /*let input =
                 "\u0789\u07a6\u078c\u07a9\u078e\u07a6\u0787\u07a8 \u078d\u07a8\u0794\u07aa\u0789\u07a6\u0781\u07b0\u078a\u07a6\u0780\u07aa \u0787\u07ac\u078d\u07a8\u0794\u07aa\u0782\u07b0 \u0784\u07a6\u078b\u07a6\u078d\u07aa\u0786\u07aa\u0783\u07aa\u0789\u07a6\u0781\u07b0";*/
 
-              // Decode unicode to readable characters
+              /*// Decode unicode to readable characters
               let decodedValue = decodeURIComponent(JSON.parse(`"${input}"`));
 
               // Output the decoded value back into the textarea
               document.getElementById("textMainArea").value = decodedValue;
-              //console.log(decodedValue);
+              //console.log(decodedValue);*/
+
+              //
 
               document.getElementById("decodeUnicode").innerHTML =
                 "Encode Unicode";
