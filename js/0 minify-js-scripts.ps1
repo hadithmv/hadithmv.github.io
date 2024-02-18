@@ -52,6 +52,8 @@ google-closure-compiler --charset=UTF-8 --js=quranQiraaath-script.js --js_output
 
 google-closure-compiler --charset=UTF-8 --js=quranRasmee-script.js --js_output_file=quranRasmee-script.min.js
 
+google-closure-compiler --charset=UTF-8 --js=quranSadi-script.js --js_output_file=quranSadi-script.min.js
+
 google-closure-compiler --charset=UTF-8 --js=quranSoabuni-script.js --js_output_file=quranSoabuni-script.min.js
 
 google-closure-compiler --charset=UTF-8 --js=radheefAll-script.js --js_output_file=radheefAll-script.min.js

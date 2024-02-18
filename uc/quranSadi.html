@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="canonical"
-      href="https://hadithmv.github.io/books/quranMuyassar.html"
+      href="https://hadithmv.github.io/books/quranSadi.html"
     />
     <meta name="google" content="notranslate" />
 
@@ -18,7 +18,7 @@
     <meta property="og:type" content="website" />
     <meta
       property="og:url"
-      content="https://hadithmv.github.io/books/quranMuyassar.html"
+      content="https://hadithmv.github.io/books/quranSadi.html"
     />
     <meta
       property="og:image"
@@ -26,7 +26,7 @@
     />
 
     <!-- change123 html -->
-    <title>Tafseer Muyassar</title>
+    <title>Tafsir Sa'di</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
@@ -47,8 +47,8 @@
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
     <script defer src="../js/json/surah-juz-ayahNo-basmalah-ayah.js"></script>
-    <script defer src="../js/json/quranMuyassar.js"></script>
-    <script defer src="../js/quranMuyassar-script.min.js"></script>
+    <script defer src="../js/json/quranSadi.js"></script>
+    <script defer src="../js/quranSadi-script.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -1098,7 +1098,12 @@
           <table id="quranTable" class="table cards"></table>
           <!-- --- TABLE - END --- -->
 
-          <button
+          <div class="hidden" id="footer">
+            <button class="lowerButtons" onclick="copyURLToClipButton();">
+              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+            </button>
+
+            <button
               id="toggleFiliButton"
               class="lowerButtons"
               onclick="toggleFili();filiString();scrollUpTop()"
@@ -1125,42 +1130,41 @@
             </script>
 
             <p>
-              مصدر النص: التفسير الميسر للقرآن الكريم - لنخبة من العلماء
+              مصدر النص: (تفسير السعدي) تيسير الكريم الرحمن في تفسير كلام المنان
+              - لعبد الرحمن بن ناصر السعدي
               <br />
-              الناشر: مجمع الملك فهد لطباعة المصحف الشريف | الطبعة الثالثة ١٤٤٠
-              هـ - ٢٠١٩ م.
+              الناشر: مؤسسة الرسالة | الطبعة الأولى ١٤٢٠ هـ - ٢٠٠٠ م.
             </p>
 
             <p style="direction: ltr">
-              Arabic | (Simple Explanation of the Quran) Tafseer Muyassar -
-              Elite Group of Scholars | King Fahd Glorious Qur'an Printing
-              Complex - 6th Edition, 1440 h. - 2019 m.
+              Arabic | (Tafseer as-Sa’di) Taysir al-Karim ar-Rahman fi Tafsir
+              Kalam al-Minan - ‘Abd al-Rahman bin Nasir al-Sa’di | Resalah
+              Publishers - 1st Edition, 1420 h. - 2000 m.
             </p>
 
             <p>
-              އަސްލު ފޮތުގެ މަސްދަރު: ކީރިތި ގުރްއާނުގެ ތަފްސީރުލް މުޔައްސަރު
-              (ފަސޭހަ ތަފްސީރު) - ލިޔުނީ: ޚާއްސަ އިލްމުވެރިންގެ ޖަމާއަތެއް
+              އަސްލު ފޮތުގެ މަސްދަރު: (ތަފްސީރު އައްޞަޢްދީ) ތައިސީރުލް ކަރީމިއް
+              ރަޙްމާނި ފީ ތަފްސީރިލް ކަލާމިލް މަންނާނި - ލިޔުނީ:
+              ޢަބްދުއްރަޙްމާން ބިން ނާޞިރު އައްޞަޢްދީ
               <br />
-              ޗާޕު ކުރީ: ޝަރަފުވެރި މުސްހަފު ޗާޕުކުރާ ފަހްދު ރަސްގެފާނުގެ
-              މުޖައްމާ | ހަވަނަ ޗާޕު 1440 ހ. - 2019 މ.
+              ޗާޕު ކުރީ: ރިސާލާ މުއައްސަސާ | ފުރަތަމަ ޗާޕު 1420 ހ. - 2000 މ.
             </p>
 
             <p>
               ފޮތުގެ އަރަބި
               <a
-                href="https://shamela.ws/book/1407"
+                href="https://shamela.ws/book/42"
                 rel="noopener noreferrer"
                 target="_blank"
                 >އީ-ފޮތް</a
               >
-              (ދެވަނަ ޗާޕު) |
+              |
               <a
-                href="https://archive.org/details/tafseerMuyassar"
+                href="https://archive.org/details/tafsirMukhtasar"
                 rel="noopener noreferrer"
                 target="_blank"
                 >ޕީޑީއެފް</a
               >
-              (ހަވަނަ ޗާޕު)
             </p>
 
             <hr class="lineVerticalSpace" />
@@ -1485,38 +1489,32 @@
               <p>
                 Text was taken from
                 <a
-                  href="https://qurancomplex.gov.sa/en/techquran/dev"
+                  href="https://play.google.com/store/apps/details?id=com.quran.labs.androidquran&utm_source=quran-com&utm_campaign=download"
                   rel="noopener noreferrer"
                   target="_blank"
-                  >Qurancomplex</a
+                  >Quran for Android</a
                 >.
                 <br />
-                Glorious Qur'an Platform for Developers, Tafseer Muyassar,
+                (by Quran.com, which in turn most likely took it from the ebook
+                on Shamela.org, which is the 1st edition by Resalah Publishers.
+                This seems to be the only electronic text of of this book out
+                there.)
                 <br />
-                (Version: 3.0, 08-01-2023)
+                Directory: Files, / data / data / com.quran.labs.androidquran /
+                files / quran_android / databases / quran.ar.sa3dy.db
                 <br />
-                Files, hafs_tafseerMouaser_v3.zip, hafs_tafseerMouaser_v3_data,
-                tafseerMouaser_v03.csv
+                table: verses, column: text
                 <br />
-                column: aya_tafseer
+                Extracted the database on 18/2/24.
                 <br />
-                It had tags like this:
-                <br />
-                &lt;span class='aya'&gt;ﵡ ٱللَّهِﵠ&lt;/span&gt;
-                <br />
-                I replaced '&lt;span class='aya'&gt;ﵡ '
-                <br />
-                with:
-                <br />
-                ﴿
-                <br />
-                and
-                <br />
-                ﵠ&lt;/span&gt;
+                It had rows with just a number, even multiple such rows, which
+                were supposed to be repeated I think, as the tafsir wasnt
+                exactly on a per ayah basis, as it sometimes covered multiple
+                ayahs in the same block of tafsir. So I replaced those numbers
+                to be blank, then replaced the empty row or rows with the next
+                closest row with text.
                 <br />
                 with:
-                <br />
-                ﴾
               </p>
             </div>
 
@@ -1550,32 +1548,6 @@
 </html>
 
 <!--
-
-regex to capture every new line that starts with
-\n^ﭽ.*$
-\n^ﮉ.*$
-
-js regex to capture any leading whitespace
-^\s+
-
-js regex to check if a line starts with a number between parenthesis, and if the line before that also starts with the same exact number between parenthesis, then capture the second line only, leaving the first line uncaptured
-
-...?
-
-
-js regex to capture any leading whitespace
-^\s+
-' '
-
-remove more than one space
-[^\S\r\n]+
-
-remove more than one new line
-\n\n
-\n
-find and replace in word:
-find any character: ^?
-replace: format, font, font color, green and red
-
-
+cgpt: js regex to find any number or numbers
+\d+
 -->
