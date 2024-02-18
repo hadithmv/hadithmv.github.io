@@ -1637,7 +1637,7 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   font-size: 20px;
 
   /* width: 150px; */
-  height: 47px;
+  /*height: 47px;*/
   margin: 5px;
   border-radius: 5px;
   border-width: 0;
@@ -1659,6 +1659,11 @@ div.dtsp-panesContainer button.dtsp-clearAll:not([disabled]) {
   z-index: 9999;
   background-color: #136296;
   -webkit-font-smoothing: antialiased;
+
+  /* cgpt: the button changes upon click as you can see. but on mobile the text is longer than the button, so the text overflows to the next line, but not the button. how can i expand the button vertically to make room for the text, if there is not enough room horizontally
+A: To ensure that the button expands vertically to accommodate longer text on mobile devices, you can set the button's display property to inline-block and remove the fixed height property. This will allow the button to grow vertically based on its content. Here's the updated CSS for your .lowerButtons class:
+ */
+  display: inline-block;
 }
 
 /* ====================
