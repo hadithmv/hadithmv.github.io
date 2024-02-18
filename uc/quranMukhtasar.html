@@ -1102,6 +1102,32 @@
               &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
             </button>
 
+            <button
+              id="toggleFiliButton"
+              class="lowerButtons"
+              onclick="toggleFili();filiString();scrollUpTop()"
+            >
+              &nbsp; އަރަބި ފިލިތައް ފޮރުވާ &nbsp;
+            </button>
+
+            <script>
+              function toggleFili() {
+                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+
+                var isVisible = $("#quranTable")
+                  .DataTable()
+                  .column(6)
+                  .visible();
+                $("#quranTable").DataTable().column(6).visible(!isVisible);
+
+                var isVisible = $("#quranTable")
+                  .DataTable()
+                  .column(7)
+                  .visible();
+                $("#quranTable").DataTable().column(7).visible(!isVisible);
+              }
+            </script>
+
             <p>
               مصدر النص: المختصر في تفسير القرآن الكريم - لجماعة من علماء
               التفسير
@@ -1110,8 +1136,9 @@
             </p>
 
             <p style="direction: ltr">
-              Arabic | Mukhtasar fi Tafsir - Group of Tafsir Scholars | Tafsir
-              Center for Qur'anic Studies - 3rd Edition, 1436 h.
+              Arabic | (Abridged Explanation of the Quran) Mukhtasar fi Tafsir -
+              Group of Tafsir Scholars | Tafsir Center for Qur'anic Studies -
+              3rd Edition, 1436 h.
             </p>
 
             <p>
@@ -1337,6 +1364,8 @@
                 <br />
                 Directory: Files, / data / data / com.quran.labs.androidquran /
                 files / quran_android / databases / quran.ar.mukhtasar.db
+                <br />
+                table: data, column: text
                 <br />
                 Extracted the database on 6/2/24.
                 <br />

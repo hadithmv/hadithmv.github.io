@@ -1098,10 +1098,31 @@
           <table id="quranTable" class="table cards"></table>
           <!-- --- TABLE - END --- -->
 
-          <div class="hidden" id="footer">
-            <button class="lowerButtons" onclick="copyURLToClipButton();">
-              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          <button
+              id="toggleFiliButton"
+              class="lowerButtons"
+              onclick="toggleFili();filiString();scrollUpTop()"
+            >
+              &nbsp; އަރަބި ފިލިތައް ފޮރުވާ &nbsp;
             </button>
+
+            <script>
+              function toggleFili() {
+                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+
+                var isVisible = $("#quranTable")
+                  .DataTable()
+                  .column(6)
+                  .visible();
+                $("#quranTable").DataTable().column(6).visible(!isVisible);
+
+                var isVisible = $("#quranTable")
+                  .DataTable()
+                  .column(7)
+                  .visible();
+                $("#quranTable").DataTable().column(7).visible(!isVisible);
+              }
+            </script>
 
             <p>
               مصدر النص: التفسير الميسر للقرآن الكريم - لنخبة من العلماء
@@ -1111,8 +1132,9 @@
             </p>
 
             <p style="direction: ltr">
-              Arabic | Tafseer Muyassar - Elite Group of Scholars | King Fahd
-              Glorious Qur'an Printing Complex - 6th Edition, 1440 h. - 2019 m.
+              Arabic | (Simple Explanation of the Quran) Tafseer Muyassar -
+              Elite Group of Scholars | King Fahd Glorious Qur'an Printing
+              Complex - 6th Edition, 1440 h. - 2019 m.
             </p>
 
             <p>
@@ -1126,11 +1148,19 @@
             <p>
               ފޮތުގެ އަރަބި
               <a
+                href="https://shamela.ws/book/1407"
+                rel="noopener noreferrer"
+                target="_blank"
+                >އީ-ފޮތް</a
+              >
+              (ދެވަނަ ޗާޕު) |
+              <a
                 href="https://archive.org/details/tafseerMuyassar"
                 rel="noopener noreferrer"
                 target="_blank"
                 >ޕީޑީއެފް</a
               >
+              (ހަވަނަ ޗާޕު)
             </p>
 
             <hr class="lineVerticalSpace" />

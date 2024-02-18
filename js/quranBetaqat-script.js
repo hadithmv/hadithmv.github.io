@@ -59,7 +59,7 @@ $(document).ready(() => {
   } //= =================== end if else
 
   // cgpt code, FOR BETAQAT ONLY
-  // using js, write code to take a 2d jspn array that has an object named quran_DB, in it are rows, some rows are empty, others have strings if a row does not have a value, give it the closest string that is not empty before it
+  // using js, write code to take a 2d json array that has an object named quran_DB, in it are rows, some rows are empty, others have strings, if a row does not have a value, give it the closest string that is not empty before it
   for (let i = 1; i < quran_DB.length; i++) {
     if (quran_DB[i][0] === "") {
       // Find the closest non-empty row above
