@@ -86,7 +86,7 @@ $(document).ready(() => {
         render: function (data, type, row) {
           return data
             .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
-            .replace(/(\n)/g, "<br>");
+            .replace(/(\n)/g, '<br class="br">'); // prev just "<br>", but that eliminated the custom space i gave to the br class
         },
       },
       {
@@ -99,7 +99,7 @@ $(document).ready(() => {
         render: function (data, type, row) {
           return data
             .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
-            .replace(/(\n)/g, "<br>");
+            .replace(/(\n)/g, '<br class="br">'); // prev just "<br>", but that eliminated the custom space i gave to the br class
         },
       },
       {
