@@ -393,34 +393,25 @@
                   >
                 </li>
                 <li>
+                  <a onclick="changeBook('quranSadi')">9 تفسير السعدي</a>
+                </li>
+                <li>
                   <a onclick="changeBook('quranMuyassarGhareeb')"
-                    >9 الميسر غريب القرآن</a
+                    >10 الميسر غريب القرآن</a
                   >
                 </li>
                 <li>
                   <a onclick="changeBook('quranBetaqat')"
-                    >10 بطاقات تعريف بسور</a
+                    >11 بطاقات تعريف بسور</a
                   >
                 </li>
                 <li>
                   <a onclick="changeBook('quranQiraaath')"
-                    >11 موسوعة القراءات</a
+                    >12 موسوعة القراءات</a
                   >
                 </li>
               </ul>
             </li>
-
-            <script>
-              function changeBook(newBook) {
-                window.location = window.location
-                  .toString()
-                  .replace(
-                    /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassarGhareeb|quranMukhtasar|quranMuyassar|quranBetaqat|quranQiraaath/g,
-                    newBook
-                  )
-                  .replace(/\:v.*$/, "");
-              }
-            </script>
 
             <li>
               <a href="../notes/info/contact.html"
