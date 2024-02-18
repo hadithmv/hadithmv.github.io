@@ -111,6 +111,10 @@ Set-Content ../quranRasmee.js -Value 'const quran_DB='
 Get-Content quranRasmee.json | Add-Content ../quranRasmee.js
 uglifyjs ../quranRasmee.js -c -m -o ../quranRasmee.js
 
+Set-Content ../quranSadi.js -Value 'const quran_DB='
+Get-Content quranSadi.json | Add-Content ../quranSadi.js
+uglifyjs ../quranSadi.js -c -m -o ../quranSadi.js
+
 Set-Content ../quranSoabuni.js -Value 'const quran_DB='
 Get-Content quranSoabuni.json | Add-Content ../quranSoabuni.js
 uglifyjs ../quranSoabuni.js -c -m -o ../quranSoabuni.js
