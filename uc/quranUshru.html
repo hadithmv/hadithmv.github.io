@@ -829,19 +829,19 @@
             </button>
 
             <button
-              id="toggleFiliButton"
-              class="lowerButtons"
-              onclick="toggleFili();filiString();scrollUpTop()"
-            >
-              &nbsp; އަރަބި ފިލިތައް ފޮރުވާ &nbsp;
-            </button>
-
-            <button
               id="toggleShowButton"
               class="lowerButtons"
               onclick="toggleShowOne();scrollUpTop()"
             >
               &nbsp; އަސްލު އަރަބި ދައްކާ &nbsp;
+            </button>
+
+            <button
+              id="toggleFiliButton"
+              class="lowerButtons"
+              onclick="toggleFili();filiString();scrollUpTop()"
+            >
+              &nbsp; އަރަބި ފިލިތައް ފޮރުވާ &nbsp;
             </button>
 
             <script>
@@ -850,15 +850,15 @@
 
                 var isVisible = $("#quranTable")
                   .DataTable()
-                  .column(4)
+                  .column(1)
                   .visible();
-                $("#quranTable").DataTable().column(4).visible(!isVisible);
+                $("#quranTable").DataTable().column(1).visible(!isVisible);
 
                 var isVisible = $("#quranTable")
                   .DataTable()
-                  .column(5)
+                  .column(2)
                   .visible();
-                $("#quranTable").DataTable().column(5).visible(!isVisible);
+                $("#quranTable").DataTable().column(2).visible(!isVisible);
               }
             </script>
 
@@ -889,8 +889,9 @@
               އެޕްލިކޭޝަންއިން އައިސްފައިވާ ކުށްތަކެކެވެ. އެ ފަދަ ކުށެއް
               ފެނިއްޖެ ނަމަ އަހަރުމެންނަށް ފޮނުވުން އެދެން، އަދި އެ ފެންނަމުންދާ
               ވަރަކަށް ރަނގަޅު ކުރަމުން ގެންދާނަން އިން ޝާއަ ﷲ. ކުށްތައް ފޮނުވާ
-              އިރު، ސްކްރީންޝޮޓުގެ ބަދަލުގައި ލިޔުން ކޮޕީކޮށްފައި ޕޭސްޓު
-              ކުރިއްޔާ، ރަނގަޅު ކުރަން ފަސޭހަވާނީ.
+              އިރު، ހަމައެކަނި ސްކްރީންޝޮޓު ފޮނުވުމުގެ ބަދަލުގައި، އޭގެ އިތުރަށް
+              ލިޔުން ވެސް ކޮޕީކޮށްފައި ޕޭސްޓު ކުރިއްޔާ، ރަނގަޅު ކުރަން
+              ފަސޭހަވާނީ.
             </p>
 
             <p>

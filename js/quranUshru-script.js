@@ -79,19 +79,18 @@ $(document).ready(() => {
         data: 1,
         title: "އަރަބި ލިޔުން",
       },
-
       {
-        data: 2,
-        title: "ދިވެހި ތަރުޖަމާ",
-      },
-      {
-        data: 2,
-        title: "ފިލިނުޖަހާ ދ ތަރުޖަމާ",
+        data: 1,
+        title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
           return data
             .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
-            .replace(/(\n)/g, "<br>");
+            .replace(/(\n)/g, '<br class="br">'); // prev just "<br>", but that eliminated the custom space i gave to the br class
         },
+      },
+      {
+        data: 2,
+        title: "ދިވެހި ތަރުޖަމާ",
       },
     ],
 
@@ -104,7 +103,7 @@ $(document).ready(() => {
         render: function (data, type, row) {
           if (data !== "") {
             //data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
-            data = data + "<br>‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾";
+            data = data + "<br><br>‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾";
             return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
           } else {
             return data; // return empty string if data is empty
@@ -144,7 +143,16 @@ $(document).ready(() => {
         },
       },
       {
-        className: "uAkheerCol3", // dv
+        className: "uAkheerCol3", // Ar Text Plain
+        targets: [2],
+        visible: false,
+        searchable: true,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "uAkheerCol4", // dv
         targets: [2],
         visible: true,
         searchable: true,
@@ -153,15 +161,7 @@ $(document).ready(() => {
         },
       },
 
-      {
-        className: "uAkheerCol4", // Dv Text Plain
-        targets: [3],
-        visible: false,
-        searchable: true,
-        searchPanes: {
-          show: false,
-        },
-      },
+      // footnotes are in the ar and dv body texts themselves, no need to add them seperately
 
       /*{
         className: "uAkheerCol5", // ar ref
@@ -389,8 +389,8 @@ $(document).ready(() => {
 
           data = data.replace(/ސަފުހާ #\t/g, ""); // should be this way instead of /\tފޮތް/
           data = data.replace(/އަރަބި ލިޔުން\t/g, "");
+          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
-          data = data.replace(/ފިލިނުޖަހާ ދ ތަރުޖަމާ\t/g, "");
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
             "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
