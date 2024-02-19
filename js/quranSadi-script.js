@@ -607,7 +607,7 @@ $(document).ready(() => {
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "التفسير الميسر للقرآن الكريم", // CHANGE123 clipboard message
+        messageTop: "تفسير السعدي - تيسير الكريم الرحمن في تفسير كلام المنان", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================

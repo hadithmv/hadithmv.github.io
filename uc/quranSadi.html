@@ -48,7 +48,7 @@
     <!-- change123 js -->
     <script defer src="../js/json/surah-juz-ayahNo-basmalah-ayah.js"></script>
     <script defer src="../js/json/quranSadi.js"></script>
-    <script defer src="../js/quranSadi-script.js"></script>
+    <script defer src="../js/quranSadi-script.min.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -350,8 +350,8 @@
             loading="lazy"
             src="../img/logo/logo.svg"
         /></a>
-        <span>التفسير الميسر</span>
-        <span class="hideOnPhoneOnly">- ތަފްސީރުލް މުޔައްސަރު</span>
+        <span>تفسير السعدي</span>
+        <span class="hideOnPhoneOnly">- ތަފްސީރު އައްޞަޢްދީ</span>
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -1161,12 +1161,22 @@
             <hr class="lineVerticalSpace" />
 
             <p>
-              ފޮތުގެ އިނގިރޭސި ތަރުޖަމާގެ
+              އައި.އައި.ޕީ.އެޗްގެ އިނގިރޭސި ތަރުޖަމާގެ
               <a
                 href="https://archive.org/details/tafseer-as-sadi-10-volumes"
                 rel="noopener noreferrer"
                 target="_blank"
                 >ޕީޑީއެފް</a
+              >
+            </p>
+
+            <p>
+              އަބޫ ޔަމާން ޚަލީލުގެ އިނގިރޭސި ތަރުޖަމާގެ
+              <a
+                href="https://tulayhah.wordpress.com/tafsir-al-sadi-translation-index/"
+                rel="noopener noreferrer"
+                target="_blank"
+                >އީ-ފޮތް</a
               >
             </p>
 
@@ -1198,7 +1208,7 @@
 
             <p class="mid">بِسمِ ٱللَّهِ ٱلرَّحمَٰنِ ٱلرَّحِيمِ</p>
 
-            <p class="mid">
+            <p class="justi">
               الحمد لله وحده، والصلاة والسلام على من لا نبي بعده أما بعد:<br />
               فإن من نعم الله عز وجل ما منَّ به على والدنا الشيخ: عبد الرحمن بن
               ناصر السعدي من تأليف تفسيره المعروف بـ (تيسير الكريم الرحمن في
@@ -2344,10 +2354,14 @@
                 were supposed to be repeated I think, as the tafsir wasnt
                 exactly on a per ayah basis, as it sometimes covered multiple
                 ayahs in the same block of tafsir. So I replaced those numbers
-                to be blank, then replaced the empty row or rows with the next
-                closest row with text.
+                to be blank, I then replaced the empty row/rows with the closest
+                row that had text, that came after.
                 <br />
-                with:
+                (Used this regex:
+                <br />
+                \d+
+                <br />
+                to remove all numbers matching entire cell contents.)
               </p>
             </div>
 
@@ -2381,6 +2395,5 @@
 </html>
 
 <!--
-cgpt: js regex to find any number or numbers
-\d+
+
 -->
