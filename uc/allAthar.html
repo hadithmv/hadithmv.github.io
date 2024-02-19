@@ -155,7 +155,7 @@
             >
               &nbsp; އަރަބި ފިލިތައް ދައްކާ &nbsp;
             </button>
-            <!-- this one is different from the others -->
+            <!-- this one is different from the others, as no fili is default, so dhakka is the option  -->
 
             <script>
               function toggleFili() {
@@ -177,9 +177,8 @@
                 // also related: https://stackoverflow.com/questions/45234347/jquery-datatables-how-hide-specified-column-dynamically/45234355#45234355
                 /*$("#allAtharTable").DataTable().column(3).visible(true);
                 $("#allAtharTable").DataTable().column(4).visible(false);*/
-
-                // CHANGE FILI BUTTON STRING - only for all athar, because it is hidden by default
               }
+              // CHANGE FILI BUTTON STRING - only for all athar, because it is hidden by default
             </script>
 
             <script>
@@ -192,6 +191,50 @@
                   button.innerHTML = "&nbsp; އަރަބި ފިލިތައް ފޮރުވާ &nbsp;";
                 } else {
                   button.innerHTML = "&nbsp; އަރަބި ފިލިތައް ދައްކާ &nbsp;";
+                }
+              }
+            </script>
+
+            <button class="lowerButtons" onclick="copyOneOnly();">
+              &nbsp; ފިއްޔާއެކު ކޮޕީ &nbsp;
+            </button>
+
+            <script>
+              // If column 3 is hidden, make it visible and hide column 4. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 3 is visible and column 4 is hidden, trigger a click on .buttons-html5 without changing any column visibility.
+              function copyOneOnly() {
+                // Get the current visibility status of columns 3 and 4
+                var isVisible3 = $("#allAtharTable")
+                  .DataTable()
+                  .column(3)
+                  .visible();
+                var isVisible4 = $("#allAtharTable")
+                  .DataTable()
+                  .column(4)
+                  .visible();
+
+                // If column 3 is hidden, make it visible and hide column 4
+                if (!isVisible3) {
+                  $("#allAtharTable").DataTable().column(3).visible(true);
+                  $("#allAtharTable").DataTable().column(4).visible(false);
+                  // Trigger a click on the ".buttons-html5" element
+                  $(".buttons-html5").click();
+                  // Restore the original visibility states of columns 3 and 4
+                  $("#allAtharTable").DataTable().column(3).visible(false);
+                  $("#allAtharTable").DataTable().column(4).visible(true);
+                }
+                // If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible
+                else if (isVisible4 && !isVisible3) {
+                  $("#allAtharTable").DataTable().column(3).visible(true);
+                  $("#allAtharTable").DataTable().column(4).visible(false);
+                  // Trigger a click on the ".buttons-html5" element
+                  $(".buttons-html5").click();
+                  // Restore the original visibility states of columns 3 and 4
+                  $("#allAtharTable").DataTable().column(3).visible(false);
+                  $("#allAtharTable").DataTable().column(4).visible(true);
+                }
+                // If column 3 is visible and column 4 is hidden, trigger a click on the ".buttons-html5" element
+                else if (isVisible3 && !isVisible4) {
+                  $(".buttons-html5").click();
                 }
               }
             </script>

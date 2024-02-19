@@ -1138,31 +1138,35 @@
             <script>
               // should only execute if visible(!isVisible) is already visible
               function copyOneOnly() {
+                // This line gets the visibility status of the 6th column in the DataTable with the id "quranTable".
                 var isVisible = $("#quranTable")
                   .DataTable()
                   .column(6)
                   .visible();
 
                 // Toggle visibility only if the column is already visible
+                // If the column is currently visible (isVisible is true), it hides the column; otherwise, it shows the column. This line effectively toggles the visibility of the 6th column.
                 if (isVisible) {
                   $("#quranTable").DataTable().column(6).visible(!isVisible);
                 }
 
                 // trigger click on copy button, works on mobile
+                // This line triggers a click event on all elements with the class "buttons-html5". This could be used to simulate a click on a button
                 $(".buttons-html5").click();
 
                 // Restore visibility to its original state
+                // If the column was originally visible (before step 2), it ensures that the column is set to be visible again. This step restores the original visibility state of the 6th column.
                 if (isVisible) {
                   $("#quranTable").DataTable().column(6).visible(true);
                 }
+              }
 
-                // old Simulate copy button click, didnt work except on desktop
-                /*document
+              // old Simulate copy button click, didnt work except on desktop
+              /*document
                   .querySelector(
                     "#quranTable_wrapper > div.dTop > div.dt-buttons > button.dt-button.buttons-copy.buttons-html5"
                   )
                   .click();*/
-              }
 
               /*OLD CODE BELOW:
               function copyOneOnly() {
