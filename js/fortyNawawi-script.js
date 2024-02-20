@@ -89,7 +89,7 @@ $(document).ready(() => {
       },
       {
         data: 4,
-        title: "އަރަބި ޙަދީޘް",
+        title: "އަރަބި ލިޔުން",
       },
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
       {
@@ -501,7 +501,7 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ނަމްބަރ\t/g, "");
           data = data.replace(/އަރަބި ސުރުހީ\t/g, "");
           data = data.replace(/ދިވެހި ސުރުހީ\t/g, "");
-          data = data.replace(/އަރަބި ޙަދީޘް\t/g, "");
+          data = data.replace(/އަރަބި ލިޔުން\t/g, "");
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
@@ -531,7 +531,7 @@ $(document).ready(() => {
           data = data.replace(/\t#/g, '')
           data = data.replace(/\tއަރަބި ސުރުހީ/g, '')
           data = data.replace(/\tދިވެހި ސުރުހީ/g, '')
-          data = data.replace(/\tއަރަބި ޙަދީޘް/g, '')
+          data = data.replace(/\tއަރަބި ލިޔުން/g, '')
           data = data.replace(/\tއަރަބި ފިލިނުޖަހައި/g, '')
           data = data.replace(/\tދިވެހި ތަރުޖަމާ/g, '')
           data = data.replace(/\tތަޚްރީޖު/g, '')
@@ -545,7 +545,7 @@ $(document).ready(() => {
           data = data.replace(/#\t/g, '')
           data = data.replace(/އަރަބި ސުރުހީ\t/g, '')
           data = data.replace(/ދިވެހި ސުރުހީ\t/g, '')
-          data = data.replace(/އަރަބި ޙަދީޘް\t/g, '')
+          data = data.replace(/އަރަބި ލިޔުން\t/g, '')
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, '')
           data = data.replace(/ތަޚްރީޖު\t/g, '')
@@ -561,7 +561,7 @@ $(document).ready(() => {
           data = data.replace(/#\n/g, '')
           data = data.replace(/އަރަބި ސުރުހީ\n/g, '')
           data = data.replace(/ދިވެހި ސުރުހީ\n/g, '')
-          data = data.replace(/އަރަބި ޙަދީޘް\n/g, '')
+          data = data.replace(/އަރަބި ލިޔުން\n/g, '')
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\n/g, '')
           data = data.replace(/ދިވެހި ތަރުޖަމާ\n/g, '')
           data = data.replace(/ތަޚްރީޖު\n/g, '')

@@ -84,7 +84,7 @@ $(document).ready(() => {
       },
       {
         data: 3,
-        title: "އަރަބި ޙަދީޘް",
+        title: "އަރަބި ލިޔުން",
       },
       {
         data: 3,
@@ -370,33 +370,6 @@ $(document).ready(() => {
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
 
-    //= ====================
-    //      DT CUSTOM DOM
-    // ====================
-    /* DOM options, https://datatables.net/reference/option/dom,
-    https://datatables.net/examples/basic_init/dom.html
-         default: lpfrtip
-        l - length changing input control
-        f - filtering input
-        t - The table
-        i - Table information summary
-        p - pagination control
-        r - processing display element
-        B - Buttons
-
-< and > - div element
-<"class" and > - div with a class
-<"#id" and > - div with an ID
-<"#id.class" and > - div with an ID and a class */
-    // "lBpfrtip",
-
-    // desktop, goes rtl -->
-    // dom: '<"top"pBfl>rt<"bottom"ip>',
-    // mobile
-    // dom: '<"top"fl> + <"top2"p> + <"top3"B> rt <"bottom"ip>',
-    // MOVED TO if (window.matchMedia("(min-width: 1200px)").matches) {
-    // $.extend(true, $.fn.dataTable.defaults, { ABOVE
-
     buttons: [
       // datatables.net/extensions/buttons/examples/initialisation/multiple
       // used to use a container before, now 2 buttons
@@ -413,23 +386,6 @@ $(document).ready(() => {
         // edits clipboard regex, code to manipulate the data string as desired
         // ====================
         customize(data) {
-          /* https://www.rexegg.com/regex-quickstart.html
-                    \t Tab, \r Carriage return character,
-                    \n Line feed character, \r\n Line separator on Windows
-                    */
-          // adds string to hadith
-          // data = data.replace( /\b([0-9]|[1-4][0-9]|50)\b/g, "No:" );
-
-          // fixes multiple row's lack of line break on desktop
-          //     data = data.replace( /\t\r\n/g, "\n\n\n" );
-
-          //  \t = literal tab
-          //  \n = LF (Line Feed) → Used as a new line character in Unix/Mac OS X
-          //  \r\n = CR + LF → Used as a new line character in Windows
-
-          // data = data.replace(/r\n]/g, '') // needed to make rnr work
-          // data = data.replace(/\r\n|\n|\t/gm, '')
-
           data = data.replace(/\r\n\r\n|\n\n/g, " ");
           //  What these two lines do is, they bring the hadith number right after the inserted title text. So these two are ok for hadith or point numbered books, but not for others like quran, radheef etc.
 
@@ -440,7 +396,7 @@ $(document).ready(() => {
           data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
           data = data.replace(/އަރަބި ސުރުހީ\t/g, "");
           data = data.replace(/ދިވެހި ސުރުހީ\t/g, "");
-          data = data.replace(/އަރަބި ޙަދީޘް\t/g, "");
+          data = data.replace(/އަރަބި ލިޔުން\t/g, "");
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
@@ -600,12 +556,7 @@ $(document).ready(() => {
   //= ====================
   // Add cards media query class to table ID, as well as row border
   // ====================
-  /*
-    function myFunction() {
-        var element = document.getElementById("fortyNawawi");
-        element.classList.add("cards");
-      }
-*/
+
   if (window.matchMedia("(min-width: 900px)").matches) {
     // js media query on desktop
     /* previously $('fnClass').addClass('row-border')
@@ -641,46 +592,6 @@ $(document).ready(() => {
     }
     table.row(this).draw().show().select().draw(false);
   });
-
-  // below not needed now, above suffices
-  // https://stackoverflow.com/questions/27560653/jquery-on-double-click-event-dblclick-for-mobile/27561006#27561006
-  // for some reason, dblclick stopped working for table.row(this).draw().show().select().draw(false) on mobile view, which was previously table.row(this).show().select().draw(false)
-  // all this was changed due to an update with searchpanes causing a bug https://datatables.net/forums/discussion/comment/208672/#Comment_208672
-  /*var touchtime = 0;
-  $("tbody").on("click", "tr", function () {
-    if (touchtime == 0) {
-      // set first click
-      touchtime = new Date().getTime();
-    } else {
-      // compare first click to this click and see if they occurred within double click threshold
-      if (new Date().getTime() - touchtime < 800) {
-        // double click occurred
-        //alert("double clicked");
-        if (table.search() !== "") {
-          table.search("").draw();
-        }
-        table.row(this).draw().show().select().draw(false);
-        //
-        touchtime = 0;
-      } else {
-        // not a double click so set as a new first click
-        touchtime = new Date().getTime();
-      }
-    }
-  });*/
-
-  /* OLD SEARCH REPLACE BELOW
-  $(".dataTables_filter input")
-    .off()
-    .on("keyup", function () {
-      let str = $(this).val();
-      str = str.replace(
-        /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
-        ""
-      );
-      table.search(str).draw();
-    });
-    */
 
   // removes diacritics and punctuation on key up for search
   $(".dataTables_filter input").on("keyup click", function () {
