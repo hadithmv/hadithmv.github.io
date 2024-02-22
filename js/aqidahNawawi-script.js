@@ -106,7 +106,7 @@ $(document).ready(() => {
       // adds footnote line for shurooh
       // if (data !== "") { } else { return data; } ONLY applies if string is not empty
       {
-        targets: [4],
+        targets: [5],
         render: function (data, type, row) {
           if (data !== "") {
             data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
