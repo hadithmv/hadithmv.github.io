@@ -150,34 +150,27 @@
               <span>● ފޮތް ބަދަލުކުރުމަށް</span>
               <ul>
                 <li>
-                  <a onclick="changeBook('radheefAll')"
+                  <a onclick="changeBookRadheef('radheefAll')"
                     >1 އެއްކުރަމުންދާ ރަދީފުތައް</a
                   >
                 </li>
                 <li>
-                  <a onclick="changeBook('radheefRasmee')">2 ރަސްމީ ރަދީފު</a>
+                  <a onclick="changeBookRadheef('radheefRasmee')"
+                    >2 ރަސްމީ ރަދީފު</a
+                  >
                 </li>
                 <li>
-                  <a onclick="changeBook('radheefEegaal')">3 އަލްއީގާޡް</a>
+                  <a onclick="changeBookRadheef('radheefEegaal')"
+                    >3 އަލްއީގާޡް</a
+                  >
                 </li>
                 <li>
-                  <a onclick="changeBook('radheefManiku')">4 މަނިކުގެ ރަދީފު</a>
+                  <a onclick="changeBookRadheef('radheefManiku')"
+                    >4 މަނިކުގެ ރަދީފު</a
+                  >
                 </li>
               </ul>
             </li>
-
-            <script>
-              // change url to change to another book while preserving query terms
-              function changeBook(newBook) {
-                window.location = window.location
-                  .toString()
-                  .replace(
-                    /radheefAll|radheefRasmee|radheefEegaal|radheefManiku/g,
-                    newBook
-                  )
-                  .replace(/\:v.*$/, "");
-              }
-            </script>
 
             <li>
               <a href="../notes/info/contact.html"

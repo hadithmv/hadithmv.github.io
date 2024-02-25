@@ -1,5 +1,7 @@
 /*
+
 google-closure-compiler --charset=UTF-8 --js=hmv-script.js --js_output_file=hmv-script.min.js
+
 */
 
 /* copyURL BUTTON */
@@ -51,13 +53,25 @@ function filiString() {
 
 // QURAN CHANGE BOOK
 
-function changeBook(newBook) {
+function changeBookQuran(newBook) {
   window.location = window.location
     .toString()
     .replace(
       /quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassarGhareeb|quranMukhtasar|quranMuyassar|quranSadi|quranBetaqat|quranQiraaath/g,
       newBook
     )
+    .replace(/\:v.*$/, "");
+}
+
+//
+
+// Radheef CHANGE BOOK
+
+// change url to change to another book while preserving query terms
+function changeBookRadheef(newBook) {
+  window.location = window.location
+    .toString()
+    .replace(/radheefAll|radheefRasmee|radheefEegaal|radheefManiku/g, newBook)
     .replace(/\:v.*$/, "");
 }
 
