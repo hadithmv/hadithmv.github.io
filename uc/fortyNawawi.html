@@ -273,13 +273,6 @@
               <a>التنبيه المختصر عن العقيدة - އަގީދާއާ ބެހޭ ކުރު ނޯޓެއް</a>
             </h3>
 
-            <h3>
-              <a
-                >(الأربعون في عقيدة النووي - ނަވަވީގެ އަގީދާއާ ބެހޭ ސާޅީހަކަށް
-                ގައުލު)</a
-              >
-            </h3>
-
             <!--<a onclick="hideShow()" style="cursor: pointer"
               >ނަވަވީގެ އަގީދާ ފޮރުވުމަށް ފިތާލައްވާ</a
             >-->
@@ -288,10 +281,10 @@
               <button
                 class="lowerButtons"
                 id="hideAqidaButton"
-                onclick="hideShow();hideAqida();"
+                onclick="hideShow();hideAqidaB();"
                 title="hide aqida"
               >
-                &nbsp; &nbsp; &nbsp; ނަވަވީގެ އަގީދާ ފޮރުވުމަށް ފިތާލާ &nbsp;
+                &nbsp; &nbsp; &nbsp; ނަވަވީގެ އަގީދާ ބެލުމަށް ފިތާލާ &nbsp;
                 &nbsp; &nbsp;
               </button>
             </p>
@@ -306,11 +299,12 @@
                 background-color: #136296;
               }
             </style>
+
             <script>
-              var hideAqida_timesClicked = 0;
-              function hideAqida() {
-                hideAqida_timesClicked++;
-                if (hideAqida_timesClicked % 2 == 0) {
+              var hideAqidaB_timesClicked = 0;
+              function hideAqidaB() {
+                hideAqidaB_timesClicked++;
+                if (hideAqidaB_timesClicked % 2 == 0) {
                   //run second function
                   document.getElementById("hideAqidaButton").innerHTML =
                     "&nbsp; &nbsp; &nbsp; ނަވަވީގެ އަގީދާ ފޮރުވުމަށް ފިތާލާ &nbsp; &nbsp; &nbsp;";
@@ -336,7 +330,14 @@
               }
             </script>
 
-            <div id="shownPost">
+            <div id="shownPost" style="display: none">
+              <h3>
+                <a
+                  >(الأربعون في عقيدة النووي - ނަވަވީގެ އަގީދާއާ ބެހޭ ސާޅީހަކަށް
+                  ގައުލު)</a
+                >
+              </h3>
+
               <p class="justi">
                 قال حمد بن عتيق: واعلم أرشدك الله أن الذي جرينا عليه، أنه إذا
                 وصل إلينا شيء من المصنفات في التفسير، وشرح الحديث، اختبرنا
@@ -997,6 +998,17 @@
                 ولا يثبت إليه نسبة "جزء فيه ذكر اعتقاد السلف في الحروف والأصوات"
                 كما لا يثبت له شرحا في الأربعين.
               </p>
+
+              <h3>
+                <a
+                  href="aqidahNawawi.html"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  class="mid"
+                  >(المئوية في العقيدة النووية - ނަވަވީގެ އަގީދާއާ ބެހޭ
+                  ސަތޭކައަށް ވުރެ ގިނަ އަރަބި ގައުލު)</a
+                >
+              </h3>
             </div>
 
             <h3 class="mid">
@@ -1008,16 +1020,6 @@
                 >للتفاصيل والبراهين مع المصادر — މަސްދަރުތަކާއެކީ ތަފްސީލާއި
                 ހެކި ބެލުމަށް ފިތާލާ
               </a>
-            </h3>
-            <h3>
-              <a
-                href="aqidahNawawi.html"
-                rel="noopener noreferrer"
-                target="_blank"
-                class="mid"
-                >(المئوية في العقيدة النووية - ނަވަވީގެ އަގީދާއާ ބެހޭ ސަތޭކައަށް
-                ވުރެ ގިނަ އަރަބި ގައުލު)</a
-              >
             </h3>
 
             <hr class="lineVerticalSpace" />
@@ -1132,9 +1134,19 @@
 
             <p>
               نسخة الحواشي - لعبد المحسن القاسم | އަލްގާސިމުގެ ފުޓުނޯޓު ހުންނަ
-              ނުސްޚާ
+              އަރަބި ނުސްޚާ
               <a
                 href="https://archive.org/details/mutoon-talibul-ilm-hawaashee-01-02-03-04-alqasim/page/n61/mode/2up"
+                rel="noopener noreferrer"
+                target="_blank"
+                >ޕީޑީއެފް</a
+              >
+            </p>
+
+            <p>
+              نسخة صالح العصيمي | ޢުޞައިމީގެ އަރަބި ނުސްޚާ
+              <a
+                href="https://archive.org/details/40-nawawi-usaimy-with-ziyada-ibn-rajab"
                 rel="noopener noreferrer"
                 target="_blank"
                 >ޕީޑީއެފް</a
