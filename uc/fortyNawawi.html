@@ -290,9 +290,9 @@
             <p class="quoteHere">
               <button
                 class="lowerButtons"
-                id="hideAqidaButton"
-                onclick="hideShow();hideAqidaB();"
-                title="hide aqida"
+                id="showAqidaButton"
+                onclick="hideShow();changeShowAqidaText();"
+                title="show aqida"
               >
                 &nbsp; &nbsp; &nbsp; ނަވަވީގެ އަގީދާ ބެލުމަށް ފިތާލާ &nbsp;
                 &nbsp; &nbsp;
@@ -311,17 +311,35 @@
             </style>
 
             <script>
-              var hideAqidaB_timesClicked = 0;
-              function hideAqidaB() {
-                hideAqidaB_timesClicked++;
-                if (hideAqidaB_timesClicked % 2 == 0) {
+              var changeShowAqidaText_timesClicked = 0;
+              function changeShowAqidaText() {
+                changeShowAqidaText_timesClicked++;
+                if (changeShowAqidaText_timesClicked % 2 == 0) {
+                  //run second function
+                  document.getElementById("showAqidaButton").innerHTML =
+                    "&nbsp; &nbsp; &nbsp; އަގީދާ އަނެއްކާވެސް ބަލާލުމަށް ފިތާލާ &nbsp; &nbsp; &nbsp;";
+                } else {
+                  //run first function
+                  document.getElementById("showAqidaButton").innerHTML =
+                    "”علم الحديث ذكر، لا يحبه إلا ذكران الرجال، ولا يكرهه إلا مؤنثوهم“.";
+                }
+                return result;
+              }
+              //
+            </script>
+
+            <script>
+              var changeHideAqidaText_timesClicked = 0;
+              function changeHideAqidaText() {
+                changeHideAqidaText_timesClicked++;
+                if (changeHideAqidaText_timesClicked % 2 == 0) {
                   //run second function
                   document.getElementById("hideAqidaButton").innerHTML =
                     "&nbsp; &nbsp; &nbsp; ނަވަވީގެ އަގީދާ ފޮރުވުމަށް ފިތާލާ &nbsp; &nbsp; &nbsp;";
                 } else {
                   //run first function
-                  document.getElementById("hideAqidaButton").innerHTML =
-                    "علم الحديث ذكر، لا يحبه إلا ذكران الرجال، ولا يكرهه إلا مؤنثوهم";
+                  document.getElementById("showAqidaButton").innerHTML =
+                    "”ޙަދީޘްގެ އިލްމަކީ ފިރިހެން އެއްޗެކެވެ. ފިރިހެނުންގެ ތެރެއިން ވެސް އެންމެ ފިރިހެންވަންތަ މީހުން ނޫނީ އެ އިލްމަށް ލޯތްބެއް ނުކުރާނެއެވެ. އަދި އޭގެ ތެރެއިން އަންހެންދުޅާ މީހުން ނޫނީ އެއަށް ނަފުރަތެއް ނުކުރާނެއެވެ.“";
                 }
                 return result;
               }
@@ -1145,6 +1163,16 @@
                 ولا يثبت إليه نسبة "جزء فيه ذكر اعتقاد السلف في الحروف والأصوات"
                 كما لا يثبت له شرحا في الأربعين.
               </p>
+
+              <button
+                class="lowerButtons"
+                id="hideAqidaButton"
+                onclick="hideShow();changeHideAqidaText();"
+                title="hide aqida"
+              >
+                &nbsp; &nbsp; &nbsp; ނަވަވީގެ އަގީދާ އަވަހަށް ފޮރުވުމަށް ފިތާލާ
+                &nbsp; &nbsp; &nbsp;
+              </button>
 
               <h3>
                 <a
