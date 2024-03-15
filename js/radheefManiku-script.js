@@ -170,7 +170,11 @@ $(document).ready(() => {
     processing: true,
 
     // ordering of columns - by default, allows to click on column head to order
-    ordering: false, // CHANGE 123 - FOR RADHEEF ONLY
+    ordering: true, // CHANGE 123 - FOR RADHEEF ONLY (previously true)
+
+    // If ordering is enabled (ordering), then DataTables will perform a first pass order during initialisation. Using this parameter you can define which column(s) the order is performed upon, and the ordering direction. The order can be defined in a number of different ways as defined by DataTables.Order.
+    order: [],
+    // No ordering applied by DataTables during initialisation. The rows are shown in the order they are read by DataTables (i.e. the original order from the DOM if DOM sourced, or the array of data if Ajax / data sourced):
 
     // stateSave: true // Breaks table, use the one below
     // Restore table state on page reload. When enabled aDataTables will store
