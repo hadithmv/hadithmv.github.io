@@ -117,18 +117,22 @@ $(document).ready(() => {
       },
       {
         data: 7,
-        title: "English",
+        title: "ބާބު ތަރުޖަމާ",
       },
       {
         data: 8,
-        title: "شرح العباد",
+        title: "English",
       },
       {
         data: 9,
-        title: "شرح الخضير",
+        title: "شرح العباد",
       },
       {
         data: 10,
+        title: "شرح الخضير",
+      },
+      {
+        data: 11,
         title: "شرح الدرر",
       },
     ],
@@ -138,7 +142,7 @@ $(document).ready(() => {
       // adds footnote line for shurooh
       // if (data !== "") { } else { return data; } ONLY applies if string is not empty
       {
-        targets: [7, 9, 10, 11],
+        targets: [7, 8, 10, 11, 12],
         render: function (data, type, row) {
           if (data !== "") {
             data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
@@ -235,8 +239,17 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColEng", // Eng Text
+        className: "ColTakhrij2", // Dv Bab Translation
         targets: [8],
+        visible: true,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "ColEng", // Eng Text
+        targets: [9],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -245,15 +258,6 @@ $(document).ready(() => {
       },
       {
         className: "ColSharh", // Sharh
-        targets: [9],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "ColSharh2", // Sharh2
         targets: [10],
         visible: false,
         searchable: false,
@@ -262,8 +266,17 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColSharh3", // Sharh2
+        className: "ColSharh2", // Sharh2
         targets: [11],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "ColSharh3", // Sharh2
+        targets: [12],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -505,6 +518,7 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
+          data = data.replace(/ބާބު ތަރުޖަމާ\t/g, "");
           data = data.replace(/English\t/g, "");
           data = data.replace(/شرح العباد\t/g, "");
           data = data.replace(/شرح الخضير\t/g, "");
