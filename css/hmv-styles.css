@@ -87,11 +87,13 @@ To move forward, just start with the first sub directory and keep moving forward
 
 html {
   scroll-behavior: smooth;
-}
 
-/* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page */
-html {
+  /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page */
   overflow-y: scroll;
+
+  word-wrap: break-word; /* Allow long words to be able to break and wrap onto the next line. Prevents long url addresses from breaking page content when it doesnt fit the width
+
+  Internet Explorer 5.5+ */
 }
 
 /* ====================
