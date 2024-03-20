@@ -46,11 +46,9 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/radheefAll.js"></script>
-    <script defer src="../js/json/radheefRasmee.js"></script>
-    <script defer src="../js/json/radheefEegaal.js"></script>
-    <script defer src="../js/json/radheefManiku.js"></script>
-    <script defer src="../js/radheefAll-script.min.js"></script>
+    <script defer src="../js/json/nanfoiy.js"></script>
+
+    <script defer src="../js/nanfoiy-script.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -124,8 +122,8 @@
             loading="lazy"
             src="../img/logo/logo.svg"
         /></a>
-        <span class="hideOnPhoneOnly">الجامع في المعاجم – </span>
-        <span>އެއްކުރަމުންދާ ރަދީފުތައް</span>
+        <span class="hideOnPhoneOnly">معجم الأسماء – </span>
+        <span>ޙަދީޘްއެމްވީ ނަންފޮތް</span>
 
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
@@ -135,46 +133,6 @@
             <li>
               <a href="../books/index.html">● މައި ސަފުހާ</a>
             </li>
-
-            <li>
-              <span>● ފޮތް ބަދަލުކުރުމަށް</span>
-              <ul>
-                <li>
-                  <a onclick="changeBookRadheef('radheefAll')"
-                    >1 އެއްކުރަމުންދާ ރަދީފުތައް</a
-                  >
-                </li>
-                <li>
-                  <a onclick="changeBookRadheef('radheefRasmee')"
-                    >2 ރަސްމީ ރަދީފު</a
-                  >
-                </li>
-                <li>
-                  <a onclick="changeBookRadheef('radheefEegaal')"
-                    >3 އަލްއީގާޡް</a
-                  >
-                </li>
-                <li>
-                  <a onclick="changeBookRadheef('radheefManiku')"
-                    >4 މަނިކުގެ ރަދީފު</a
-                  >
-                </li>
-              </ul>
-            </li>
-
-            <!-- moved to hmv-script, and from there to COMB-nonCrit.min
-            <script>
-              // change url to change to another book while preserving query terms
-              function changeBookRadheef(newBook) {
-                window.location = window.location
-                  .toString()
-                  .replace(
-                    /radheefAll|radheefRasmee|radheefEegaal|radheefManiku/g,
-                    newBook
-                  )
-                  .replace(/\:v.*$/, "");
-              }
-            </script>-->
 
             <li>
               <a href="../notes/info/contact.html"
@@ -230,7 +188,7 @@
           <!-- cards js adds card classes to table ID -->
           <!-- change123 TABLE -->
           <!-- class="stripe table cards"> -->
-          <table id="radheefAllTable" class="stripe table"></table>
+          <table id="nanfoiyTable" class="stripe table"></table>
           <!-- --- TABLE - END --- -->
           <div class="hidden" id="footer">
             <button class="lowerButtons" onclick="copyURLToClipButton();">
@@ -264,9 +222,27 @@
             </script>
 
             <p>
-              ⚠️ މި ރަދީފުގައި ލައްކައެއްހައި ލަފްޒު ހިމެނުނަކަސް، އަދި މުޅިން
-              ފުރިހަމައަށް އެކުލަވާލެވި މުރާޖާކޮށް ނުއެއް ނިމެއެވެ. އަދި ބައެއް
-              ލަފްޒުތަކުގައި މައްސަލަވެސް އުޅޭނެއެވެ.
+              ⚠️ މި ނަންފޮތުގައި ދިހަ ހާސް ވަރަކަށް ނަން ހިމެނުނަކަސް، އަދި
+              މުޅިން ފުރިހަމައަށް އެކުލަވާލެވި މުރާޖާކޮށް ނުއެއް ނިމެއެވެ. އަދި
+              ބައެއް ނަންތަކުގައި މައްސަލަ ވެސް އުޅޭނެއެވެ. އެއީ ކަމާ ބެހޭ
+              އިދާރާއިން ފާސްވެފައި އޮތްކަމުގައި ވިޔަސް މެއެވެ. އެއަށް ވުރެ
+              ބޮޑަށް މައިންބަފައިން ބަލަން އެބަ ޖެހެއެވެ. ހަމައެކަނި އެ ކަމަށް
+              ބަރޯސާވެލައިގެން އަތްހޫރާލައިގެން ތިބެގެން ނުވާނެއެވެ. އަދި
+              ޖާހިލުން ހަދާހެން، ތާކުންތާކު ނުޖެހޭ ފަރަންޖީ ނަންތަކާއި،
+              މައިންބަފައިންގެ ނަންތައް އެއްކޮށްގެން ނަމެއް ހަދަންވެސް އުޅޭނެ
+              ކަމެއް ނެތެވެ. ސަބަބަކީ ދަރިންނަކީ އަމާނާތެކެވެ. ﷲ ގެ ފަރާތުން
+              ދެއްވި ދެއްވުމެކެވެ. އެހެންކަމުން ލޮބުވެތި ދަރިފުޅަށް ނަންކިޔާ
+              އިރު، އެ ނަމަކީ ރަނގަޅު، މާނަ ސަހަލު، އަދި ކިޔަން ކަމުދާނެ ކަހަލަ
+              ނަމެއްތޯ ކަށަވަރުކުރަން ކޮންމެހެންވެސް ޖެހެއެވެ. ރީތި ނަންތައް
+              ބައިވަރެވެ. ސަހާބީންނާއި ތާބިއީންނާއި އެއަށްފަހު ވަޑައިގެންނެވި
+              ސާލިހު މީހުންގެ ނަންތައް ހާހުން ހާހުން އެހުރީއެވެ. އެކަމު އެހާ
+              ފަސޭހައިން ލިބެން ހުރި، އެހާމެ ހިތްގައިމު ނަންތަކެއް ބޭނުމެއް
+              ނުވެއެވެ. ބޭނުންވަނީ ގޮތަކަށް މޮޑެލައިގެން ހަދާފައިވާ ހަމަނުޖެހޭ
+              ނަމެކެވެ. ނުވަތަ ކޮންމެވެސް ކާފިރެއްގެ ނަމެކެވެ. ބަލާނުލާ ހުއްޓާ،
+              އެހެންމީހުން ހަދާ ގޮތަށް ހަދައިގެން، ނުވަތަ އައިސް ގޮސް އުޅޭ
+              ޓްރެންޑަކަށް ފޮލޯކުރަން ހަދައިގެން، ދަރިފުޅަށް ސަކަރާތް ނަމެއް
+              ދީގެން ޒިންމާ ނަގަން ޖެހޭނީ ހަމަ މައިންބަފައިންނެވެ. އެހެންވީމާ
+              ވިސްނާލުން ހުއްޓެވެ.
             </p>
 
             <!--<p>
