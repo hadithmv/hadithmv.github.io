@@ -185,7 +185,7 @@ $(document).ready(() => {
         className: "ColEng", // en
         targets: [3],
         visible: true,
-        searchable: false,
+        searchable: true,
       },
       {
         className: "Col5", // ar meaning
