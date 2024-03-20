@@ -63,6 +63,10 @@ Set-Content ../muwatta.js -Value 'const muwatta_DB='
 Get-Content muwatta.json | Add-Content ../muwatta.js
 uglifyjs ../muwatta.js -c -m -o ../muwatta.js
 
+Set-Content ../nanfoiy.js -Value 'const nanfoiy_DB='
+Get-Content nanfoiy.json | Add-Content ../nanfoiy.js
+uglifyjs ../nanfoiy.js -c -m -o ../nanfoiy.js
+
 Set-Content ../nawaqidulislam.js -Value 'const nawaqidulislam_DB='
 Get-Content nawaqidulislam.json | Add-Content ../nawaqidulislam.js
 uglifyjs ../nawaqidulislam.js -c -m -o ../nawaqidulislam.js
