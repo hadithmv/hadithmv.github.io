@@ -110,6 +110,9 @@ $(document).ready(() => {
       {
         data: 4,
         title: "ދިވެހި މާނަ",
+        render: function (data, type, row) {
+          return data.replace(/(N\/A)/g, "");
+        },
       },
       {
         data: 5,
@@ -121,7 +124,9 @@ $(document).ready(() => {
         render: function (data, type, row) {
           return data
             .replace(/(Female)/g, "އަންހެން")
-            .replace(/(Male)/g, "ފިރިހެން");
+            .replace(/(Male)/g, "ފިރިހެން")
+            .replace(/(	Unisex)/g, "ދެޖިންސު")
+            .replace(/(N\/A)/g, "");
         },
       },
       {
