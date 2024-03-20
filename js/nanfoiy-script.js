@@ -118,15 +118,28 @@ $(document).ready(() => {
       {
         data: 6,
         title: "ޖިންސު",
+        render: function (data, type, row) {
+          return data
+            .replace(/(Female)/g, "އަންހެން")
+            .replace(/(Male)/g, "ފިރިހެން");
+        },
       },
       {
         data: 7,
         title: "މަސްދަރު",
+        render: function (data, type, row) {
+          return data
+            .replace(/(Ministry of Islamic Affairs)/g, "އިސްލާމިކް މިނިސްޓްރީ")
+            .replace(/(Male' City Council)/g, "މާލެ ސިޓީ ކައުންސިލް");
+        },
       },
-
       {
         data: 8,
         title: "އަސްލު",
+        render: function (data, type, row) {
+          return data.replace(/(N \/ A)/g, "");
+          /*.replace(/(Arabic)/g, "އަރަބި").replace(/(Latin)/g, "ލެޓިން")*/
+        },
       },
     ],
 
@@ -200,7 +213,7 @@ $(document).ready(() => {
         searchable: true,
       },
       {
-        className: "Col10", // origin
+        className: "ColEng", // origin
         targets: [9],
         visible: true,
         searchable: false,
