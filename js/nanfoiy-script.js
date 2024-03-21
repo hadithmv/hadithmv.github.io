@@ -163,13 +163,17 @@ $(document).ready(() => {
 
       //
 
-      // (using a default dt jsbin) in a jquery datatables table, where it is initialized using: var table = new DataTable('#example'); if document.querySelector("#example > colgroup > col:nth-child(3)") has the text "London" then i want to make document.querySelector("#example > colgroup > col:nth-child(1)") color to be blue
+      // (using a default dt jsbin) in a jquery datatables table, where it is initialized using: var table = new DataTable('#example'); if document.querySelector("#example > colgroup > col:nth-child(6)") has the text "ފިރިހެން" then i want to make document.querySelector("#example > colgroup > col:nth-child(1)") color to be blue
 
       {
         targets: 0, // Column index of the header you want to change (starts from 0)
         render: function (data, type, row) {
-          if (row[2] === "London") {
-            // Check if the third column (index 2) has the text 'London'
+          console.log(row); // Log the entire row data
+
+          if (row[7] === "ފިރިހެން") {
+            console.log(row); // Log the entire row data
+
+            // Check if the seventh column (index 6) has the text 'London'
             return '<span style="color: blue;">' + data + "</span>"; // Return the data with blue color
           }
           return data; // Return the original data
