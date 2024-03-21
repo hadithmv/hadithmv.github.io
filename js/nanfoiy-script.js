@@ -126,6 +126,7 @@ $(document).ready(() => {
             .replace(/(Female)/g, "އަންހެން")
             .replace(/(Male)/g, "ފިރިހެން")
             .replace(/(Unisex)/g, "ދެޖިންސު")
+            .replace(/(Male \/ Female)/g, "ދެޖިންސު")
             .replace(/(N\/A)/g, "")
             .replace(/(\-)/g, "");
         },
