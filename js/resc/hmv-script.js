@@ -71,7 +71,10 @@ function changeBookQuran(newBook) {
 function changeBookRadheef(newBook) {
   window.location = window.location
     .toString()
-    .replace(/radheefAll|radheefRasmee|radheefEegaal|radheefManiku/g, newBook)
+    .replace(
+      /radheefAll|radheefRasmee|radheefEegaal|radheefManiku|nanfoiy/g,
+      newBook
+    )
     .replace(/\:v.*$/, "");
 }
 
