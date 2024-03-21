@@ -110,27 +110,14 @@
     </style>
 
     <script>
-      // Get the reference to the td element with class "Col8"
-      const col8Element = document.querySelector(
+      const td = document.querySelector(
         "#nanfoiyTable > tbody > tr:nth-child(1) > td.Col8"
       );
-
-      // Check if the text content of the td element is "ފިރިހެން"
-      if (col8Element && col8Element.textContent.trim() === "ފިރިހެން") {
-        // Get the reference to the td element with class "Col1"
-        const col1Element = document.querySelector(
-          "#nanfoiyTable > tbody > tr:nth-child(1) > td.rCol1"
+      if (td.textContent.trim() === "ފިރިހެން") {
+        const targetTd = document.querySelector(
+          "#nanfoiyTable > tbody > tr:nth-child(1) > td.Col1"
         );
-
-        // Change the color of the td element
-        if (col1Element) {
-          col1Element.style.color = "rgb(104, 189, 230)";
-          col1Element.style.setProperty(
-            "color",
-            "rgb(104, 189, 230)",
-            "important"
-          );
-        }
+        targetTd.classList.add("highlighted");
       }
     </script>
     <!-- === INT CSS - END === -->
