@@ -97,11 +97,11 @@ $(document).ready(() => {
       },
       {
         data: 1,
-        title: "ދިވެހިން",
+        title: "ދިވެހި ނަން",
       },
       {
         data: 2,
-        title: "އިނގިރޭސިން",
+        title: "އިނގިރޭސި ނަން",
       },
       {
         data: 3,
@@ -140,7 +140,7 @@ $(document).ready(() => {
       },
       {
         data: 8,
-        title: "އަސްލު",
+        title: "ބަހުގެ އަސްލު",
         render: function (data, type, row) {
           return data.replace(/(N \/ A)/g, "");
           /*.replace(/(Arabic)/g, "އަރަބި").replace(/(Latin)/g, "ލެޓިން")*/
@@ -160,11 +160,28 @@ $(document).ready(() => {
       }, // later changed that blank space into a \t, so that single new lines could work on clipboard copy
       // previously just \n. added \r\n and \r to make lines break on mobile
 
+      //
+
+      // (using a default dt jsbin) in a jquery datatables table, where it is initialized using: var table = new DataTable('#example'); if document.querySelector("#example > colgroup > col:nth-child(3)") has the text "London" then i want to make document.querySelector("#example > colgroup > col:nth-child(1)") color to be blue
+
+      {
+        targets: 0, // Column index of the header you want to change (starts from 0)
+        render: function (data, type, row) {
+          if (row[2] === "London") {
+            // Check if the third column (index 2) has the text 'London'
+            return '<span style="color: blue;">' + data + "</span>"; // Return the data with blue color
+          }
+          return data; // Return the original data
+        },
+      },
+
+      //
+
       // classes columns for css in nweb view, but not print.
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
       {
-        className: "Col1", // ar name
+        className: "rCol1", // ar name
         targets: [0],
         visible: true,
         searchable: true,
@@ -410,14 +427,14 @@ $(document).ready(() => {
 
           data = data.replace(/އަރަބި ނަން\t/g, ""); // should be this way instead of /\tފޮތް/
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
-          data = data.replace(/ދިވެހިން\t/g, "");
-          data = data.replace(/އިނގިރޭސިން\t/g, "");
+          data = data.replace(/ދިވެހި ނަން\t/g, "");
+          data = data.replace(/އިނގިރޭސި ނަން\t/g, "");
           data = data.replace(/އަރަބި މާނަ\t/g, "");
           data = data.replace(/ދިވެހި މާނަ\t/g, "");
           data = data.replace(/އިނގިރޭސި މާނަ\t/g, "");
           data = data.replace(/ޖިންސު\t/g, "");
           data = data.replace(/މަސްދަރު\t/g, "");
-          data = data.replace(/އަސްލު\t/g, "");
+          data = data.replace(/ބަހުގެ އަސްލު\t/g, "");
 
           data = data.replace(/\t\t/g, "\t");
           // This prevents a double or more line breaks when columns are hidden
