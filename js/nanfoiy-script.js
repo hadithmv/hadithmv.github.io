@@ -143,8 +143,7 @@ $(document).ready(() => {
         data: 8,
         title: "ބަހުގެ އަސްލު",
         render: function (data, type, row) {
-          return data.replace(/(N \/ A)/g, "");
-          /*.replace(/(Arabic)/g, "އަރަބި").replace(/(Latin)/g, "ލެޓިން")*/
+          return data.replace(/(N \/ A)/g, "").replace(/(Arabic)/g, "އަރަބި");
         },
       },
     ],

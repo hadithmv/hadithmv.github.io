@@ -1,13 +1,18 @@
-in command prompt, NOT powershell:
+1) extracting apk
+
+!!!in COMMAND PROMPT, not powershell:
 
 go to where adb is and open a terminal there, change path to there
-cd C:\Users\hadit\AppData\Local\Android\Sdk\platform-tools
+cd C:\Users\ashra\AppData\Local\Android\Sdk\platform-tools
 
 check with:
 adb devices
 
 list apps:
 adb shell pm list packages
+
+find the app package name you are looking for first, maybe ctrl + a, then paste in word and search:
+mv.edu.dhivehiacademy.radheef
 
 find path:
 adb shell pm path com.example.someapp
@@ -21,8 +26,44 @@ adb pull /data/app/com.example.someapp-2.apk path/to/desired/destination
 adb pull /data/app/~~Fma010ard44kRdLuzqS2aA==/mv.edu.dhivehiacademy.radheef-sPBL-9xCHBu0igx1wWLjgA==/base.apk
 (if you dont give a destination, it will have it copied to the adm destination from the beginning)
 
-if getting the below error
+...
+
+* if getting the below error
 adb: error: failed to get feature set: more than one device/emulator
 write
 adb -s (specify which device using the code given when you ran 'adb devices')
 adb -s 9P4PHQ4PNFKZ8H75 pull /data/app/~~Fma010ard44kRdLuzqS2aA==/mv.edu.dhivehiacademy.radheef-sPBL-9xCHBu0igx1wWLjgA==/base.apk
+
+...
+
+2) getting db file in data/data/... directory
+
+https://stackoverflow.com/questions/13006315/how-to-access-data-data-folder-in-android-device
+
+ adb backup -noapk com.your.packagename
+ adb backup -noapk mv.edu.dhivehiacademy.radheef
+
+ WARNING: adb backup is deprecated and may be removed in a future release
+Now unlock your device and confirm the backup operation...
+
+should be saved in adb dir as: backup.ab
+
+The resulting 'backup.ab' file on your computer contains all application data in android backup format. Basically it's a compressed tar file.
+
+...
+
+https://xdaforums.com/t/guide-how-to-extract-create-or-edit-android-adb-backups.2011811/
+
+https://sourceforge.net/projects/android-backup-processor/
+(probably can just get Files/abp.jar instead of the 100mb+ android-backup-tookit-20221220)
+
+https://stackoverflow.com/questions/18533567/how-to-extract-or-unpack-an-ab-file-android-backup-file
+
+
+cd to where abp.jar is
+java -jar path/to/abe.jar unpack path_to/backup.ab path_for_generated/backup.tar
+java -jar abp.jar unpack backup.ab backup.tar
+
+then unpack tar file with 7zip. thats all
+
+
