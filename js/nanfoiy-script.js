@@ -126,6 +126,7 @@ $(document).ready(() => {
             .replace(/(ފ)/g, "ފިރިހެން")
             .replace(/(އ)/g, "އަންހެން")
             .replace(/(2)/g, "ދެ ޖިންސު");
+          // no overlap here
 
           /*.replace(/(Female)/g, "އަންހެން")
             .replace(/(Male)/g, "ފިރިހެން")
@@ -139,14 +140,24 @@ $(document).ready(() => {
         data: 7,
         title: "މަސްދަރު",
         render: function (data, type, row) {
-          return data
-            .replace(/(މ)/g, "އިސްލާމިކް މިނިސްޓްރީ")
-            .replace(/(ކ)/g, "މާލެ ސިޓީ ކައުންސިލް")
-            .replace(/(ބ)/g, "");
-          /*.replace(/(Ministry of Islamic Affairs)/g, "އިސްލާމިކް މިނިސްޓްރީ")
-            .replace(/(Male' City Council)/g, "މާލެ ސިޓީ ކައުންސިލް")*/
+          return data.replace(/(މ|ކ|ބ)/g, function (match) {
+            if (match === "މ") {
+              return "އިސްލާމިކް މިނިސްޓްރީ";
+            } else if (match === "ކ") {
+              return "މާލެ ސިޓީ ކައުންސިލް";
+            } else if (match === "ބ") {
+              return "";
+            }
+          });
         },
       },
+      // above prevents overlap during replace, old code:
+      /*.replace(/(މ)/g, "އިސްލާމިކް މިނިސްޓްރީ")
+            .replace(/(ކ)/g, "މާލެ ސިޓީ ކައުންސިލް")
+            .replace(/(ބ)/g, "");*/
+      /*.replace(/(Ministry of Islamic Affairs)/g, "އިސްލާމިކް މިނިސްޓްރީ")
+            .replace(/(Male' City Council)/g, "މާލެ ސިޓީ ކައުންސިލް")*/
+
       {
         data: 8,
         title: "ބަހުގެ އަސްލު",
