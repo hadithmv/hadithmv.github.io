@@ -337,7 +337,7 @@
               >
               (10/3/22) (169 ސ، 4141 ނަން)
             </p>
-            <p>ޕީޑީއެފްތަކުގައިވާ ޖުމްލަ ނަމުގެ އަދަދު: 8542</p>
+            <p>ޕީޑީއެފްތަކުގައިވާ ޖުމްލަ ނަމުގެ އަދަދު: 8541</p>
             <p>އެންމެ ފަހުން ޕީޑީއެފްތައް ބެލި ތާރީޚު: 23/3/24</p>
 
             <hr class="lineVerticalSpace" />
@@ -421,21 +421,239 @@
 </html>
 
 <!--
+    current progress:
+    first did Comparison of APP DATA where - looth as base, kept his lack of spaces as is, removed kashidas, sorted, took fazloons asma.
 
-  bmv db ver: 2023-06-14
-  dl json: 20.3.24
-  (4290 boys, 4059 girls, 96 unisex, 42 unknown)
-  8490 entries
-  removed and rearranged columns, removed blank rows, trim white space, ( يعيش), removed last name row, changed bmv to Other, data > sort sheet by column, data has header row, ar, add thaana and en
+    Then compared that with bmv, it has richer data, even if missing 9 names from the pdfs.
 
-  [all 4 apps below have "عَبْدُالله رَافِعُ	ޢަބްދުﷲރާފިޢު	މަތިވެރިވެގެންވާ ﷲ ގެ އަޅާ	ފިރިހެން" as a seperate entry for no apparent reason. its not in any of the pdf lists. so should remove it
+    So current methods is: bmv as base, add missing names from the prev compare, and thats it.
+
+
   إِبْرِيز	އިބްރީޖް	ޚާލިޞް ރަން	ފިރިހެން
 "آدَم	އާދަމް	އެންމެހައި އިންސާނުންގެ ބައްޕަ، އެންމެފުރަތަމަ ޚަލްޤުކުރެއްވުނު އިންސާނާ	ފިރިހެން", add an entry for this
 
 عَبْدُ العَلِىّ	ޢަބްދުލްޢަލިއްޔު	އަޅުތަކުންނަށް ވުރެ މަތިވެރި ސިފަފުޅުތަކެއް ލިބިވޮޑިގެންވާ ރަސްކަލާނގެ އަޅާ	ފިރިހެން
 they made tauweel of his being above here, fix it. check others too.
-  
-  current progress: MERGING APP DATA - looth as base, kept his lack of spaces as is, removed kashidas, sorted, took fazloons asma,
+
+عَبْدُالمُقِيْتُ instead of عَبْدُالمُقِيْتُ 
+راَجِحْ vs رَاجِح
+نُور الْهُدى vs نُورالْهُدى
+مكركة	މަކްރުމާ 
+أَنُوْف	އަނޫފް	ނަފުސުގެ ޢިއްޒަތްތެރި / މީރުވަސްދުވާ އަންހެނާ	ފިރިހެން ??
+طَه	ޠާޙާ	ރަސޫލާ (ޞ)ގެ ނަންފުޅުތަކުގެތެރެއިން ނަންފުޅެއް (fake)
+نظيف	ނަޡީފް	އަޚްލާޤު ރީތި މީހާ
+كُلْثُوْم	ކުސޫމް	Kusoom		ބުރަމަސައްކަތް ކުރުން
+هِنْدُ (أُمُّ سَلَمَة)	ހިންދު (އުއްމު ސަލަމާ)	އުއްމުހާތުލްމުއުމިނީންގެ ނަންފުޅުތަކާއި، ކީރިތި 
+
+---
+
+  bmv db ver: 2023-06-14
+  dl json: 20.3.24
+  (4290 boys, 4059 girls, 96 unisex, 42 unknown)
+  8490 entries
+  removed and rearranged columns, removed blank rows, trim white space, removed kashidas, ( يعيش), removed last name row, changed bmv to Other, data > sort sheet by column, data has header row, ar, add thaana and en
+
+  [
+  bmv has spaced added removed for "أَحْمَدُالله"instead of "أَحْمَدُ اللَّه" like in pdf, just here
+  it also changes some words like it has "أَحاسِيْن" instead of "أَحاسِن" (maybe both are correct)
+  it also has kashidas
+  it has عَبْدُ المُقِيْتُ instead of عَبْدُالمُقِيْتُ as in pdf, which is the opposite of before, also ރަޙްމަތު ﷲ, 
+  has  نُورالْهُدى instead of نُور الْهُدى  as in pdf
+  it has ޢަބްދުﷲ / ޢަބްދު الله* (arabic lafzul jalala)
+  has hyphens in weird places like އަގުބޮޑު މުދާ / ދޫނިފިޔަ-
+
+  usually it changes the last fili for abdu + names from a sukun to an ubufili, 
+  ޢަބްދުލްޙަކީމް / ޢަބްދުލްޙަކީމު
+ޢަބްދުލްޙަލީމް / ޢަބްދުލްޙަލީމު...
+
+or sometimes vice versa:
+ޢަބްދުލްއައްވަލު / ޢަބްދުލްއައްވަލް
+ޢަބްދުލްބާޢިޘު / ޢަބްދުލްބާޢިޘް...
+
+sometimes has other changes like:
+ޢަބްދުލްބާރީ / ޢަބްދުލްބާރިއު
+ޢަބްދުލްވަލީ / ޢަބްދުލްވަލިއްޔު...
+
+it has the amathu + asmaul husna version added, like the way we have abdu + asma:
+އަމަތުއްޟާއްރު
+އަމަތުއްދައްޔާން...
+
+it has SPACES removed sometimes before after slashes like:
+އަންބާއު / އަންބާ // އަންބާއު/ އަންބާ 
+ބަޠްޙާއު / ބަޠްޙާ // ބަޠްޙާއު/ ބަޠްޙާ...
+
+it has the following CHANGES (may not be consequential?):
+ އަނާ/އަނާ(ތު) / އަނާ/އަނާ- ތު 
+ ދަމްޘާ(އު) / ދަމްޘާ- އު 
+ ރަމްސާ(އު) / ރަމްސާ- އު 
+ ރަވާ(އު) / ރަވާ- އު 
+ ރައިޝާ(އު) / ރައިޝާ- އު 
+ ރިވާ(އު) / ރިވާ- އު 
+ mean:
+ އިންޝާ(އު) / ކަމެއްގެ ފެށުން // އިންޝާ- އު / ކަމެއްގެ ފެށުން 
+
+
+ meanings:
+ރަސޫލާ (ޞ)ގެ ނަންފުޅުތަކުގެތެރެއިން ނަންފުޅެއް // طَه	ޠާޙާ ރަސޫލާ ޞގެ ނަންފުޅުތަކުގެތެރެއިން ނަންފުޅެއް
+
+ it has the following names MISSING from the original ministry pdfs:
+  إِزْيَان
+أَحاسِن* (they replaced it with أَحاسِيْن)
+زميت
+عَبْدُ الرَّزَّاقُ
+عَبْدُالله رَافِعُ*
+ناول
+
+المعيّة
+كُسُوم
+نورالعين
+
+شَفان	ޝައްފާނު	ވާރެއާއެކު އަންނަ މަޑުވައިރޯޅި
+كميل	ކުމައިލް	ފުރިހަމަ
+ނަޡީފް
+އަލްމަޢިއްޔާ
+مَكْرُمَة	މަކްރުމާ
+نورالعين	ނޫރަލްޢައިން
+-meanings:
+أَدِيْم	އަދީމް	ފާޅުކަންބޮޑު،އަލިގަދަކަން/ދޮންކަންކުޑަމީހާ
+أعصم	އަޢުޞަމް	މޮޅު / ރައްކާތެރިކުރެވިފައިވާ މީހާ
+إمتثال	އިމްތިޘާލް	ބަރާބަރު / ފުރިހަމައަށް ކިޔަމަންތެރި
+أثال	އަޘާލް	ޟަރަފާ މަތިވެރިކަން
+رفهة	ރަފާހަތު	ތަނަވަސް ދިރިއުޅުން / ފަސޭހަ (ar word needs an alif inserted)
+ريعة	ރީޢަތު	ޞާލިޙު އަންހެނާ
+أُمَامَة	އުމާމާ(އުމާމަތު)	ކުޑަމަންމަ/ ކީރިތިރަސޫލާގެ ކާފަދަރިކަލެއްގެނަންފުޅު
+سُمَيَّة	ސުމައްޔާ	އުޑު/ މަތިވެރިކަން / މަތިވެރި ދަރަޖަ
+سانحة	ސާނިޙާ	ރަނގަޅު ފުރުސަތު
+سجحة	ސަޖްޙާ	ޙުލްޤުހެޔޮ / ޠަބީޢަތް / ޚުލްޤު
+غَايَة	ޣާޔާ	މަޤްޞަދު / ލަނޑުދަނޑި
+كُلْثُوْم	ކުލްޘޫމް	ކޯތާފަތުގައި މަސްޖަހާފައިވުން
+هِبَة	ހިބާ	ހަދިޔާކުރުން / ހިބަކުރުން
+
+it has the following MISTAKES:
+ޢަބްދުލްއާޚިރު / ޢަބްދުލްޢާޚިރު*
+ޢަބްދުލްމުޤައްދިމް / ޢަބްދުލްމުތަޤައްދިމު*
+نظيف	ނަޡްމީން
+مَآب	މައިހާ
+مَكْرُمَة	މައާބު
+مَيْهَة	މައިމަނާ
+مَيْمَنَة	މައިމޫނާ
+
+brackets
+ބުއްދިވެރިޔާ / އަހުގައި ކަމަރު ބަންނަމީހާ )ލަގަން އަޅުވާމީހާ( 
+އާޚިރަތަށްޓަކައި މަސައްކަތްކުރާމީހާ(ޒާހިދުމީހާ)
+ގަހުގެ ވައްތަރެއް (ކުކުން(
+ޒީނަތްތެރި (ފާރިސީނަމެއް(
+މިޔަ (ވަޅި، ކަނޑި ފަދަ ތަކެތި(
+ކައިވެނިކުރާ އަންހެންކުއްޖާ (ބްރައިޑް(
+ވިސްނުންތެރި (އިންޓަލިޖަންސް(
+ރީތި/ސަމާސާ މިޒާޖު (ފާރިސީ(
+
+إزديان	އިޒްޔާން	Izyaan (also missing އިޒްދިޔާން as a ministry entry, altho its there in council but with no arabic)
+
+meanings:
+ ذهان	ޛިހާން	ވިސްނުންތޫނު (އަންހެން، ފިރިހެން) // ވިސްނުންތޫނު އަންހެން، ފިރިހެން
+ ފައިދާ ލިބިގަންނަމީހާ // ފައިދާ ލިބިގަންނަމީހާ (ربح ) ރިބުޙް- މިލަފުޒުންނެގިފައި
+ދީލަތި (ކުޑަ) // ދީލަތި ކުޑަ
+ޚަލްޤު ފުރިހަމަވުން / ފެންދޭ މީހާ // ޚަލްޤު ފުރިހަމަވުން
+ރަސްގެފާނު (ކިންގް) // ރަސްގެފާނު ކިންގް
+ﷲ ތަޢާލާ އަންގަވާ އެންގެވުމުގައި އަވަސްވެގަންނަ މީހާ // ﷲ ތަޢާލާ އަންގަވާ އެންގެވުމަށް އަވަސްވެގަންނަ މީހާ
+ލޮލުން ދުށުން/ ކަމެއް ބެލެހެއްޓުން (inspect) // ލޮލުން ދުށުން/ ކަމެއް ބެލެހެއްޓުން (inv)ކަޅިރަވަރީތި މީހާ ( ދެޖިންސަށް ކިޔޭނެ) // ކަޅިރަވަރީތި މީހާ ދެޖިންސަށް ކިޔޭނެ- (inv)
+ލޯ // ލޯ / ފެންގަނޑު- (inv)
+އުސް / މަތިވެރި މީހާ // އުސް / ބުރުސޫރަ ރީތި
+ޢަރަބި ޤަބީލާއެއް، މަސްހޫރު ޢަރަބިދަރިކޮޅެއް، // ޢަރަބި ޤަބީލާއެއް / މަޝްހޫރު ޢަރަބިދަރިކޮޅެއް
+ހިނިތުންވާ ތަން (އަނގަ) // ޢަރަބި ޤަބީލާއެއް / ހިނިތުންވާ ތަން އަނގަ
+ދިރިއުޅޭތަން (ދެމާނަ-ޢާޠިފް) // ޢަރަބި ޤަބީލާއެއް / ދިރިއުޅޭތަން ދެމާނަ-ޢާޠިފް
+ﷲގެ ފަޟްލްވަންތަކަން (އުރުދޫ ނަމެއް) // ﷲގެ ފަޟްލްވަންތަކަން އުރުދޫ ނަމެއް
+ހިންގުވުން (ކުޑަކުދިން)ހިނގާބިނގާއުޅުމުގެ މާނައިގާ) // ހިންގުވުން
+ޤުރްއާނުގެ ދަލީލުތައް (ޢަލާމާތްތައް) // ޤުރްއާނުގެ ދަލީލުތައް - ޢަލާމާތްތައް
+ثرى	ޘަރާ	މުދާގިނަ / މުއްސަނދި // ޘަރިއްޔު މުދާވެރިޔާ / ތަނަވަސްމީހާ
+ޝަރަފުވެރިޔާ (އެމީހެއްގެރީތި އަޚްލާޤާ އުޅުމަށްޓަކައި) މީސްތަކުންގެ މެދުގައި ޝަރަފުލިބިގެންވާ މީހާ // ޝަރަފުވެރިޔާ - އެމީހެއްގެރީތި އަޚްލާޤާ އުޅުމަށްޓަކައި މީސްތަކުންގެ މެދުގައި ޝަރަފުލިބިގެންވާ މީހާ
+ޢާއިޝަތުގެފާނުގެ ނަންފުޅެއް (ހުދުސާފު،ރަތް) // ޢާއިޝަތުގެފާނުގެ ނަންފުޅެއް - ހުދުސާފު،ރަތް
+حنون އޯގާތެރި /ލޯބި // އޯގާވެރި
+ވަށައިގެންވާތަން/އަސަރު (ތަނެއްގެ) // ވަށައިގެންވާތަން / ތަނެއްގެ އަސަރު
+ނޭފަތްކުޑަ(ރީތި)އަންހެނާ // ނޭފަތްކުޑަ ރީތި އަންހެނާ
+މީރުވަސް / ފެހިފަތްކޯޅި // މީރުވަސް / ފެހިފަތްކޯޅު
+ޒީނަތްތެރި މީހާ ( އަންހެން) // ޒީނަތްތެރި މީހާ އަންހެން- (inv)
+ތޫނުފިލި ހިތްސާފު މީހާ (ވިސްނުންތޫނު) // ތޫނުފިލި ހިތްސާފު މީހާ ވިސްނުންތޫނު- (inv)
+ހެޔޮ،ރަނގަޅު (ރަށަކަށްކިޔާނަމެއް) // ހެޔޮ،ރަނގަޅު ރަށަކަށްކިޔާނަމެއް- (inv)
+ފަރުވާތެރިވެ ހުންނަމީހާ/ ވިސްނުންތޫނު (ތައުފީޤް) // ފަރުވާތެރިވެ ހުންނަމީހާ/ ވިސްނުންތޫނު
+ދެއަލިކަން (ދެނޫރު) // ދެއަލިކަން - ދެނޫރު
+މަޢްދަނެއް (އަޔަޑިން) // މަޢްދަނެއް އަޔަޑިން- (inv)
+
+combined these two into one:
+(ޢަޒުމްވަރުގަދަ ޣީރަތްތެރި މީހާ /މީރުވަސްދުވާ ގަހެއް)
+شَيْحَان	ޝައިޙާން	ޢަޒުމްވަރުގަދަ ޣީރަތްތެރި މީހާ
+شَيْحَان	ޝައިޙާން	މީރުވަސްދުވާ ގަހެއް
+
+(wrote ޞަޙާބީބޭކަލެއް in place of both below for عَمْرُو)
+عَمُرو	ޢަމްރޫ	އަޞްޙާބު ބޭކަލުންގެ ނަންފުޅުތައް
+عَمْرُو	ޢަމްރު	ޞަހާބީއަކަށް ކިޔާނަމެއް
+
+it has the following CORRECTIONS:
+ޢަބްދުޛުލްޖަލާލިވަލްއިކްރާމް / ޢަބްދު ޛިލްޖަލާލިވަލްއިކްރާމް*
+ޢަބްދުލްމާލިކުލްމުލްކި / ޢަބްދުމާލިކިލްމުލްކު*
+ މަލީކާތު // މަލީކަތު / މަލީކާ
+meanings:
+ ބޯހަދާމީހާ (އަޞްޙާބުބޭކަލަކަށްކިޔާނަމެއް) // ޞަޙާބީބޭކަލެއް حُذَيْفَة	ޙުޛައިފާ 
+ދުރުވިސްނުން / ޝައްޔާން // شَيَّان	ޝައްޔާން ދުރުވިސްނުން
+ޢުމަރުގެފާނުގެޤައުމުގެމީހުން/ ދަރިލޮޅު/އަވަސްކޮށްދުވާމީހާ // ޢުމަރުގެފާނުގެ ޤައުމުގެ މީހުން/ ދަރިކޮޅު/ އަވަސްކޮށްދުވާމީހާ
+އުއްމުހާތުލްމުއުމިނީންގެ ނަންފުޅުތަކާއި، ކީރިތި ރަސޫލާ ޞައްލަﷲ ޢަލައިހި ވަސައްލަމަގެ ދަރިކަނބަލުންގެ ނަންފުޅުތައް // هِنْدُ (أُمُّ سَلَمَة)
+ރަސޫލާ ﷺގެ އަނބިކަނބަލެއްގެ ނަންފުޅު -- (should change to ކީރިތިރަސޫލާގެއަނބިކަނބަލެއް(އުއްމުސަލަމާގެނަންފުޅު))
+ގޭތެރޭގައި އޮންނަ ހުސްތަން (ފެންޑާ) / ގޭތެރޭގައި އޮންނަ ހުސްތަން ފެންޑާ
+
+more detailed dv word differences list:
+asmaul husna:
+ޢަބްދުލްއައްވަލު / ޢަބްދުލްއައްވަލް
+ޢަބްދުލްއާޚިރު / ޢަބްދުލްޢާޚިރު*
+ޢަބްދުލްބާރީ / ޢަބްދުލްބާރިއު
+ޢަބްދުލްބާޢިޘު / ޢަބްދުލްބާޢިޘް
+ޢަބްދުއްތައްވާބު / ޢަބްދުއްތައްވާބް
+ޢަބްދުލްޖަލީލި	 / ޢަބްދުލްޖަލީލް
+ޢަބްދުލްޙަސީބު / ޢަބްދުލްޙަސީބް
+ޢަބްދުލްޙަފީޡު / ޢަބްދުލްޙަފީޡް
+ޢަބްދުލްޙަކީމް / ޢަބްދުލްޙަކީމު
+ޢަބްދުލްޙަލީމް / ޢަބްދުލްޙަލީމު
+ޢަބްދުލްޚާފިޟް / ޢަބްދުލްޚާފިޟު
+ޢަބްދުލްޚާލިޤް / ޢަބްދުލް ޚާލިޤު 
+ޢަބްދުއްރައޫފް / ޢަބްދުއްރައޫފު
+- / ޢަބްދުއްރައްޒާޤު*
+ޢަބްދުއްރަޤީބް / ޢަބްދުއްރަޤީބު
+ޢަބްދުލްޢަޡީމް / ޢަބްދުލްޢަޡީމު
+ޢަބްދުލްޢަލީމް / ޢަބްދުލްޢަލީމު
+ޢަބްދުލްފައްތާޙް / ޢަބްދުލްފައްތާހު
+ޢަބްދުލްޤާބިޟް / ޢަބްދުލްޤާބިޟު
+ޢަބްދުލްޤައްޔޫމް / ޢަބްދުލްޤައްޔޫމު
+ޢަބްދުލްކަރީމް / ޢަބްދުލްކަރީމު
+ޢަބްދުލްލަޠީފު / ޢަބްދުއްލަޠީފު*
+ޢަބްދުﷲ / ޢަބްދު الله* (arabic lafzul jalala)
+ޢަބްދުލްމަތީން / ޢަބްދުލްމަތީނު
+ޢަބްދުލްމުތަކައްބިރް / ޢަބްދުލް މުތަކައްބިރު
+ޢަބްދުލްމުޖީބް / ޢަބްދުލްމުޖީބު
+ޢަބްދުލްމުޤައްދިމް / ޢަބްދުލްމުތަޤައްދިމު*
+ޢަބްދުލްމުޤީތް / ޢަބްދުލްމުޤީތު
+ޢަބްދުލްމުންތަޤިމް / ޢަބްދުލްމުންތަޤިމު
+ޢަބްދުލްވާރިޘް / ޢަބްދުލްވާރިޘު
+ޢަބްދުލްވަކީލް / ޢަބްދުލްވަކީލު
+ޢަބްދުލްވަލީ / ޢަބްދުލްވަލިއްޔު
+ޢަބްދުލްވައްހާބް / ޢަބްދުލްވައްހާބު
+ޢަބްދުޛުލްޖަލާލިވަލްއިކްރާމް / ޢަބްދު ޛިލްޖަލާލިވަލްއިކްރާމް*
+ޢަބްދުލްމާލިކުލްމުލްކި / ޢަބްދުމާލިކިލްމުލްކު*
+
+ހައިމްﷲ / ހައިމުﷲ
+non asmaul husna:
+ޢަލާއު (ޢަލާ) / ޢަލާއު)ޢަލާ(*
+ކުމައިލް*
+ނަْޡްމީން* (misplaced as nazeef)
+ނަޡީފް
+އަލްމަޢިއްޔާ
+رفهة ރަފަހާ / رفهة ރަފާހަތު
+މަލީކާތު // މަލީކަތު / މަލީކާ
+މަކްރަމާ
+ނޫރަލްޢައިން
+  ]
+
+  [
+  all 4 apps below have "عَبْدُالله رَافِعُ	ޢަބްދުﷲރާފިޢު	މަތިވެރިވެގެންވާ ﷲ ގެ އަޅާ	ފިރިހެން" as a seperate entry for no apparent reason. its not in any of the pdf lists. so should I remove it?
   ]
 
   Thuthukudheenge Nan
@@ -458,7 +676,8 @@ they made tauweel of his being above here, fix it. check others too.
   Shaairukurevifainuvaa nanthah faaskohdhinun,
   Islamic names for newborn.
 
-  [fazloon's has published by icon column for ministry and council. but no need really, as all are publish, and all entries have the icon
+  [
+  fazloon's has published by icon column for ministry and council. but no need really, as all are publish, and all entries have the icon
   same thing with origin of name column, all of them are arabic.
   his db gets rid of the repeat names with have the same arabic lafz repeated, with more than one entry for meanings, like "آدَم	އާދަމް	އެންމެހައި އިންސާނުންގެ ބައްޕަ، އެންމެފުރަތަމަ ޚަލްޤުކުރެއްވުނު އިންސާނާ" while other 3 apps have repeats like "آدَم	އާދަމް	ރަސޫލުބޭކަލުންނާއި ނަބީބޭކަލުންގެ ނަންފުޅުތައް	ފިރިހެން آدَمُ	އާދަމް	އޮޅަލި ކުލަ	ފިރިހެން"
   while some repeats were indeed merged into one entry like "އިޙްސާންތެރިކަން / މަތިވެރި", others were just removed keeping only one entry. dont know how carefully that was done. maybe some of them were removed first come first go. so safe side would be not to use his data.
@@ -469,7 +688,6 @@ they made tauweel of his being above here, fix it. check others too.
   he also changes all abdu + asmaul husna entries from "(ނިކަމެތި ކުރައްވާ ރަސްކަލާނގެ)" to "ނިކަމެތި ކުރައްވާ ރަސްކަލާނގެ އަޅާ" this is good. !!!Correct: use it that way, instead of the other apps' way. maybe could use for asmaul husna db later on its own too.
   other apps had this blunder in the first asmaul husna entry: "عَبْدُ اللهُ	ޢަބްދުﷲ	(މިއީ މާތްރަސްކަލާނގެ މަތިވެރި ޛާތުފުޅުގެ ޚާއްޞަ ނަމެވެ.)	ފިރިހެން" while he changed it to "މާތް ﷲ ގެ އަޅާ" !!!Correct: use it that way too. probably wont have any use of this meaning entry even if i did make an asmul husna db, as most such asmaul husna names are khaassa nan for Allah.
   he also places the female name "anas" from the ministry/other apps, and places it in the boys db, albeit still with "female" written in the gender column for some reason.
-
   ]
 
   Nan Foiy
@@ -489,7 +707,8 @@ they made tauweel of his being above here, fix it. check others too.
   27/4/2020
   All the names provided in this app are taken from the name book provided in the website of Ministry of Islamic Affairs, Maldives.
 
-  [comparison between the 2 lists above and below:
+  [
+  comparison between the 2 lists above and below:
   ahsam has firihen anhen in one db, while looth has in two separate html list.
   ahsam's app was released earlier, while looth's was later.
   ahsam db: " يعيش" has a space in front of it for some reason, looth doesnt. !!!Correct: looth.
@@ -547,7 +766,9 @@ they made tauweel of his being above here, fix it. check others too.
   * Favorite names and create a list of your favorite names.
   - Names retrieved from Ministry of Islamic Affairs 2019 website.
 
-  [this has no  entries that the other 3 app dbs dont have. so can ignore it entirely
-  has spaces between abdu and asmul husna]
+  [
+  this has no  entries that the other 3 app dbs dont have. so can ignore it entirely
+  has spaces between abdu and asmul husna
+  ]
 
 -->
