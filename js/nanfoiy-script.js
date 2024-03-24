@@ -111,7 +111,7 @@ $(document).ready(() => {
         data: 4,
         title: "ދިވެހި މާނަ",
         render: function (data, type, row) {
-          return data.replace(/(N\/A)/g, "");
+          return data /*.replace(/(N\/A)/g, "")*/;
         },
       },
       {
@@ -123,12 +123,16 @@ $(document).ready(() => {
         title: "ޖިންސު",
         render: function (data, type, row) {
           return data
-            .replace(/(Female)/g, "އަންހެން")
+            .replace(/(ފ)/g, "ފިރިހެން")
+            .replace(/(އ)/g, "އަންހެން")
+            .replace(/(2)/g, "ދެ ޖިންސު");
+
+          /*.replace(/(Female)/g, "އަންހެން")
             .replace(/(Male)/g, "ފިރިހެން")
             .replace(/(Unisex)/g, "ދެޖިންސު")
             .replace(/(Male \/ Female)/g, "ދެޖިންސު")
             .replace(/(N\/A)/g, "")
-            .replace(/(\-)/g, "");
+            .replace(/(\-)/g, "")*/
         },
       },
       {
@@ -136,15 +140,19 @@ $(document).ready(() => {
         title: "މަސްދަރު",
         render: function (data, type, row) {
           return data
-            .replace(/(Ministry of Islamic Affairs)/g, "އިސްލާމިކް މިނިސްޓްރީ")
-            .replace(/(Male' City Council)/g, "މާލެ ސިޓީ ކައުންސިލް");
+            .replace(/(މ)/g, "އިސްލާމިކް މިނިސްޓްރީ")
+            .replace(/(ކ)/g, "މާލެ ސިޓީ ކައުންސިލް")
+            .replace(/(ބ)/g, "");
+          /*.replace(/(Ministry of Islamic Affairs)/g, "އިސްލާމިކް މިނިސްޓްރީ")
+            .replace(/(Male' City Council)/g, "މާލެ ސިޓީ ކައުންސިލް")*/
         },
       },
       {
         data: 8,
         title: "ބަހުގެ އަސްލު",
         render: function (data, type, row) {
-          return data.replace(/(N \/ A)/g, "").replace(/(Arabic)/g, "އަރަބި");
+          return data;
+          /*.replace(/(N \/ A)/g, "").replace(/(Arabic)/g, "އަރަބި")*/
         },
       },
     ],
