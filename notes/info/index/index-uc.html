@@ -333,6 +333,84 @@
         display: none;
       }
     }
+
+    /* ====================
+       Chat Button
+======================= */
+
+    /* fix for not being able to click things on mobile view because some chat button container divs overlay them */
+    #livechat-compact-container {
+      height: 1px !important;
+    }
+
+    /* body {
+          background: #202020;
+        } */
+    #livechat-compact-container {
+      height: 153px;
+      position: fixed;
+      right: 0;
+      top: 200px;
+      top: 75vh;
+
+      /* 30vh */
+
+      /* z-index: 10000; */
+      z-index: 2;
+    }
+
+    .btn-chat a {
+      font-family: "Quicksand", sans-serif, serif; /* arial; */
+      color: #fff;
+      text-decoration: none;
+      background: #0d619c;
+
+      /* 1798F7 */
+      padding: 24px 20px 9px;
+
+      /* padding: 24px 20px 8px; */
+      display: block;
+      font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 0 0 1px #1d80c7 inset;
+      border: 1px solid #144866;
+
+      /* border-radius: 2px; */
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      transform: rotate(90deg) translate(0, -20px);
+      transform: rotate(90deg) translate(0, -20px);
+      transform: rotate(90deg) translate(0, -20px);
+      position: relative;
+      right: -35px;
+
+      /* -27px; */
+      transition: background 0.2s, right 0.2s ease-out;
+    }
+
+    .btn-chat a:hover {
+      background: #2d85c4;
+
+      /* #47B6F5; */
+      right: -25px;
+
+      /* -20px; */
+      transition: background 0.2s, right 0.2s ease-out;
+
+      /* added */
+      cursor: pointer;
+    }
+
+    .btn-holder {
+      height: 1px !important;
+    }
+
+    /* fixing movement on scroll on mobile */
+    .btn-chat {
+      /* Your other styles */
+      position: fixed; /* Change from absolute to fixed */
+      /*bottom: 0;*/ /* Adjust as needed */
+    }
   </style>
 
   <style>
@@ -821,9 +899,10 @@
 
         <br />
 
+        <!-- DHIV FONT CHANGE123 -->
+        <!--
         <div class="dv">
           <h3><a>ފެންވަޅު ކޮނެދިނުން</a></h3>
-          <!-- DHIV FONT CHANGE123 -->
           <ul>
             <li>
               ވަޅު ކޮނުން ކުރިއަށްދާ އިރު މަސައްކަތުގެ
@@ -865,6 +944,7 @@
             </li>
           </ul>
         </div>
+      -->
 
         <br />
         <hr />
@@ -1018,9 +1098,10 @@
 
         <br />
 
+        <!-- DHIV FONT CHANGE123 -->
+        <!--
         <div class="dv">
           <h3><a>އިތުރު މައުލޫމާތު</a></h3>
-          <!-- DHIV FONT CHANGE123 -->
           <ul>
             <li>
               އާންމު ފެންވަޅުތައް އަޅުގަނޑުމެން ކޮންނަން ފަށަނީ 65 - 80 ފޫޓު
@@ -1049,14 +1130,15 @@
             <li>
               އަދި މީގެ އިތުރުން ބޭނުންވެއްޖެ ނަމަ، ވަޅުގައި މުށި ޖެހުމާއި، އަތު
               ޕަންޕުގެ ބަދަލުގައި މޯޓަރު ލުމާއި، އިތުރު ފެން އިސްކޫރު ޖެހުމާއި،
-              އާޓެޝަން ފެންވަޅު ހެދުމާއި، ވުޟޫ ކުރާ ތަންތަން ހެދުމާއި، ފާހާނާ
-              ކުރާ ތަންތަން ހެދުމާއި، ފެން ރައްކާކުރާ ހަން ބެހެއްޓުން ފަދަ
-              ކަންކަމަށް އިތުރަށް ހަރަދު ކުރެވިދާނެއެވެ. އަދި ބޭނުންވާ ކުލައެއް
-              ވެސް ވަޅުގައި ލެވިދާނެއެވެ. ނޯޓު: މި ކަންކަން ކުރެވޭނީ، ވަޅު
-              ހެދުމުގެ ކުރިން އަންގާލެވުމުންނެވެ.
+              އާޓެޝަން ފެންވަޅު ބެހެއްޓުމާއި، ވުޟޫ ކުރާ ތަންތަން ހެދުމާއި،
+              ފާހާނާ ކުރާ ތަންތަން ހެދުމާއި، ފެން ރައްކާކުރާ ހަން ބެހެއްޓުން
+              ފަދަ ކަންކަމަށް އިތުރަށް ހަރަދު ކުރެވިދާނެއެވެ. އަދި ބޭނުންވާ
+              ކުލައެއް ވެސް ވަޅުގައި ލެވިދާނެއެވެ. ނޯޓު: މި ކަންކަން ކުރެވޭނީ،
+              ވަޅު ހަދަން ފެށުމުގެ ކުރިން އަންގާލެވުމުންނެވެ.
             </li>
           </ul>
         </div>
+        -->
 
         <!-- TEXT ITEM - END -->
 
@@ -1091,7 +1173,7 @@
                   >އެފްރިކާގައި</a
                 ></b
               >
-              ވެސް ފެންވަޅު ހަދައިދެމެވެ.
+              ވެސް ފެންވަޅު ބަހައްޓައިދެމެވެ.
             </h3>
           </div>
         </div>
@@ -1135,6 +1217,13 @@
             class="flexItem"
             alt="water well"
             src="img/well-africa-4-500px.webp"
+          />
+          <img
+            loading="lazy"
+            width="500"
+            class="flexItem"
+            alt="water well"
+            src="img/well-africa-9-500px.webp"
           />
         </div>
         <br />
@@ -1195,6 +1284,14 @@
             class="flexItem"
             alt="water well"
             src="img/well-africa-7-500px.webp"
+          />
+
+          <img
+            loading="lazy"
+            width="500"
+            class="flexItem"
+            alt="water well"
+            src="img/well-africa-8-500px.webp"
           />
         </div>
 
@@ -1323,11 +1420,11 @@
 
       <style>
         #tabThree > div.steps > div > p {
-          line-height: 1.4;
+          line-height: 1.2;
           text-align: left;
         }
         #tabThree > div.dv.steps > div > p {
-          line-height: 1.7;
+          /*line-height: 1.7;*/
           text-align: right;
         }
       </style>
@@ -1978,11 +2075,9 @@
 
 
 
+
                     <script>
-                      /*window.onload = function () {
-                        document.getElementById("aqiqaPrice").innerHTML =
-                          document.getElementById("selectAqiqa").value;
-                      };*/
+                      // window.onload = function () { document.getElementById("aqiqaPrice").innerHTML = document.getElementById("selectAqiqa").value; };
                       function changeAqiqaPrice() {
                         document.querySelector("#aqiqaPrice").innerHTML =
                           document.getElementById("selectAqiqa").value;
@@ -2063,11 +2158,13 @@
                   </div>
                   <br />
                 -->
+                */
+        </style>
 
-                  <!-- TEXT ITEM - END --->
+        <!-- TEXT ITEM - END --->
 
-                  <style>
-                    /*
+        <style>
+          /*
 
                      <br />
                   <hr />
@@ -2109,7 +2206,7 @@
                   <br />
 
                   */
-                    /*
+          /*
 
                   <!-- IMG ITEM -->
                   <div class="flexRow">
@@ -2765,9 +2862,10 @@
 
         <br />
 
+        <!-- DHIV FONT CHANGE123 -->
+        <!--
         <div class="dv">
           <h3><a>އިތުރު މައުލޫމާތު</a></h3>
-          <!-- DHIV FONT CHANGE123 -->
           <ul>
             <li>
               ޖަނާވަރުތަކާއި އެ ތަކެތީގެ ކަތިލުން ވާނީ އިން ޝާއަ ﷲ އިސްލާމީ އަދި
@@ -2827,14 +2925,17 @@
               އޯޑަރު ކުރެއްވުމަށް އަގު ޖަހާފަ ހުރި ރަތް ބަޓަންއަށް ފިތާލައްވާ،
               ނުވަތަ ކަނާތުގައިވާ ނޫ ’އޯޑަރ ނައު‘ ބަޓަންއަށް ފިތާލައްވާށެވެ.
             </li>
-            <!-- <li>
+          </ul>
+        </div>
+        
+            -->
+
+        <!-- <li>
             ކުއްލި ގޮތަކަށް އެ ދުވަހުން ދުވަހަށް ޖަނަވާރެއް ކޮންމެހެންވެސް
             ކަތިލަންޖެހިއްޖެ ނަމަ، -/965 ރުފިޔާއަށް، ރާއްޖޭ ގަޑިން ހެނދުނު 11ގެ
             ކުރިން އޯޑަރު ދިނުމުން އެ ކަން ކޮށްދެވޭނެ (ކަތިލެވޭނީ ނޭޕާލު
             ބަކަރިއެއް.)
           </li> -->
-          </ul>
-        </div>
 
         <br />
         <hr />
