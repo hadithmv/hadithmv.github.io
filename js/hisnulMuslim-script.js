@@ -93,7 +93,7 @@ $(document).ready(() => {
       },
       {
         data: 3,
-        title: "ޒިކުރު ފިލިނުޖަހައި",
+        title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
           return data.replace(
             /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
@@ -427,7 +427,7 @@ $(document).ready(() => {
           data = data.replace(/އަރަބި ބާބު\t/g, "");
           data = data.replace(/ދިވެހި ބާބު\t/g, "");
           data = data.replace(/އަރަބި ލިޔުން\t/g, "");
-          data = data.replace(/ޒިކުރު ފިލިނުޖަހައި\t/g, "");
+          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/ތަޚްރީޖު\t/g, "");
           data = data.replace(/ތަޚްރީޖު ދިވެހިން\t/g, "");
