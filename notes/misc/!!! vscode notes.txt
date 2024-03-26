@@ -74,7 +74,7 @@ npm install -g <package_name> (global install)
 npm uninstall -g <package_name>
 npm list -g --depth 0 (list installed packages)
 npm outdated -g --depth=0
-npm update -g
+npm update -g (updates all)
 node -v
 npm -v
 git --version
@@ -86,7 +86,7 @@ install the msi from the official site, updates npm too
 choco list -lo
 choco outdated
 ----------------------
-winget upgrade
+winget upgrade (check)
 winget upgrade --all
 ----------------------
 
