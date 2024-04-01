@@ -58,12 +58,12 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  const table = $("#akhbaruShuyukhTable").DataTable({
+  const table = $("#barbahariDFKTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: akhbaruShuyukh_DB, // https://datatables.net/manual/ajax
+    data: barbahariDFK_DB, // https://datatables.net/manual/ajax
 
     columns: [
       /* add # string to hadith no */
@@ -87,21 +87,18 @@ $(document).ready(() => {
             .replace(/(\n)/g, '<br class="br">'); // prev just "<br>", but that eliminated the custom space i gave to the br class
         },
       },
+
       {
         data: 2,
-        title: "ދިވެހި ތަރުޖަމާ",
+        title: "އަރަބި ފުޓްނޯޓު",
       },
       {
         data: 3,
-        title: "ދިވެހި ފުޓްނޯޓު",
+        title: "ދިވެހި ތަރުޖަމާ",
       },
       {
-        /* add sofhaa string to page no */
         data: 4,
-        title: "ސަފުހާ #",
-        render: function (data, type, row) {
-          return "[ޞ: " + data + "]";
-        },
+        title: "ދިވެހި ފުޓްނޯޓު",
       },
     ],
 
@@ -376,9 +373,9 @@ $(document).ready(() => {
           data = data.replace(/#\t/g, ""); // should be this way instead of /\tފޮތް/
           data = data.replace(/އަރަބި ލިޔުން\t/g, "");
           data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
+          data = data.replace(/އަރަބި ފުޓްނޯޓު\t/g, "");
           data = data.replace(/ދިވެހި ތަރުޖަމާ\t/g, "");
           data = data.replace(/ދިވެހި ފުޓްނޯޓު\t/g, "");
-          data = data.replace(/ސަފުހާ #\t/g, "");
           data = data.replace(
             /\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g,
             "\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n"
