@@ -26,6 +26,10 @@ Set-Content ../barbahari.js -Value 'const barbahari_DB='
 Get-Content barbahari.json | Add-Content ../barbahari.js
 uglifyjs ../barbahari.js -c -m -o ../barbahari.js
 
+Set-Content ../barbahariDFK.js -Value 'const barbahariDFK_DB='
+Get-Content barbahariDFK.json | Add-Content ../barbahariDFK.js
+uglifyjs ../barbahariDFK.js -c -m -o ../barbahariDFK.js
+
 Set-Content ../bulugh.js -Value 'const bulugh_DB='
 Get-Content bulugh.json | Add-Content ../bulugh.js
 uglifyjs ../bulugh.js -c -m -o ../bulugh.js
