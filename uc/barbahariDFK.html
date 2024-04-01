@@ -46,8 +46,8 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/kitabulEman.js"></script>
-    <script defer src="../js/kitabulEman-script.min.js"></script>
+    <script defer src="../js/json/barbahariDFK.js"></script>
+    <script defer src="../js/barbahariDFK-script.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -75,7 +75,7 @@
             src="../img/logo/logo.svg"
         /></a>
         <span class="hideOnPhoneOnly">شرح السنة للبربهاري – </span>
-        <span>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</span>
+        <span>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ (DFK)</span>
 
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
@@ -269,7 +269,7 @@
           <!-- cards js adds card classes to table ID -->
           <!-- change123 TABLE -->
           <!-- class="stripe table cards"> -->
-          <table id="kitabulEmanTable" class="table cards"></table>
+          <table id="barbahariDFKTable" class="table cards"></table>
           <!-- --- TABLE - END --- -->
           <div class="hidden" id="footer">
             <button class="lowerButtons" onclick="copyURLToClipButton();">
@@ -288,20 +288,20 @@
               function toggleFili() {
                 // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
 
-                var isVisible = $("#kitabulEmanTable")
+                var isVisible = $("#barbahariDFKTable")
                   .DataTable()
                   .column(2)
                   .visible();
-                $("#kitabulEmanTable")
+                $("#barbahariDFKTable")
                   .DataTable()
                   .column(2)
                   .visible(!isVisible);
 
-                var isVisible = $("#kitabulEmanTable")
+                var isVisible = $("#barbahariDFKTable")
                   .DataTable()
                   .column(3)
                   .visible();
-                $("#kitabulEmanTable")
+                $("#barbahariDFKTable")
                   .DataTable()
                   .column(3)
                   .visible(!isVisible);

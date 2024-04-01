@@ -14,6 +14,8 @@ google-closure-compiler --charset=UTF-8 --js=aqidatuRaziyain-script.js --js_outp
 
 google-closure-compiler --charset=UTF-8 --js=barbahari-script.js --js_output_file=barbahari-script.min.js
 
+google-closure-compiler --charset=UTF-8 --js=barbahariDFK-script.js --js_output_file=barbahariDFK-script.min.js
+
 google-closure-compiler --charset=UTF-8 --js=bulugh-script.js --js_output_file=bulugh-script.min.js
 
 google-closure-compiler --charset=UTF-8 --js=fortyAajurry-script.js --js_output_file=fortyAajurry-script.min.js
