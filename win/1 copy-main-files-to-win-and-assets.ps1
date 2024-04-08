@@ -23,7 +23,7 @@ Copy-Item ../books/kitabulEman.html -Destination ../app/webview-master/app/src/m
 Copy-Item ../books/kunnaasha.html -Destination ../app/webview-master/app/src/main/assets/books/kunnaasha.html -Recurse -Force
 Copy-Item ../books/index.html -Destination ../app/webview-master/app/src/main/assets/books/index.html -Recurse -Force
 Copy-Item ../books/muwatta.html -Destination ../app/webview-master/app/src/main/assets/books/muwatta.html -Recurse -Force
-Copy-Item ../books/nanfoiy.html -Destination ../app/webview-master/app/src/main/assets/books/nanfoiy.html -Recurse -Force
+Copy-Item ../books/radheefNanfoiy.html -Destination ../app/webview-master/app/src/main/assets/books/radheefNanfoiy.html -Recurse -Force
 Copy-Item ../books/nawaqidulislam.html -Destination ../app/webview-master/app/src/main/assets/books/nawaqidulislam.html -Recurse -Force
 Copy-Item ../books/qawaidulArbau.html -Destination ../app/webview-master/app/src/main/assets/books/qawaidulArbau.html -Recurse -Force
 Copy-Item ../books/quranBakurube.html -Destination ../app/webview-master/app/src/main/assets/books/quranBakurube.html -Recurse -Force
@@ -127,7 +127,7 @@ Copy-Item ../js/hisnulMuslim-script.min.js -Destination ../app/webview-master/ap
 Copy-Item ../js/kitabulEman-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/kitabulEman-script.min.js -Recurse -Force
 Copy-Item ../js/kunnaasha-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/kunnaasha-script.min.js -Recurse -Force
 Copy-Item ../js/muwatta-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/muwatta-script.min.js -Recurse -Force
-Copy-Item ../js/nanfoiy-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/nanfoiy-script.min.js -Recurse -Force
+Copy-Item ../js/radheefNanfoiy-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/radheefNanfoiy-script.min.js -Recurse -Force
 Copy-Item ../js/nawaqidulislam-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/nawaqidulislam-script.min.js -Recurse -Force
 Copy-Item ../js/qawaidulArbau-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/qawaidulArbau-script.min.js -Recurse -Force
 Copy-Item ../js/fortyNawawi-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/fortyNawawi-script.min.js -Recurse -Force
@@ -173,7 +173,7 @@ Copy-Item ../js/json/hisnulMuslim.js -Destination ../app/webview-master/app/src/
 Copy-Item ../js/json/kitabulEman.js -Destination ../app/webview-master/app/src/main/assets/js/json/kitabulEman.js -Recurse -Force
 Copy-Item ../js/json/kunnaasha.js -Destination ../app/webview-master/app/src/main/assets/js/json/kunnaasha.js -Recurse -Force
 Copy-Item ../js/json/muwatta.js -Destination ../app/webview-master/app/src/main/assets/js/json/muwatta.js -Recurse -Force
-Copy-Item ../js/json/nanfoiy.js -Destination ../app/webview-master/app/src/main/assets/js/json/nanfoiy.js -Recurse -Force
+Copy-Item ../js/json/radheefNanfoiy.js -Destination ../app/webview-master/app/src/main/assets/js/json/radheefNanfoiy.js -Recurse -Force
 Copy-Item ../js/json/nawaqidulislam.js -Destination ../app/webview-master/app/src/main/assets/js/json/nawaqidulislam.js -Recurse -Force
 Copy-Item ../js/json/qawaidulArbau.js -Destination ../app/webview-master/app/src/main/assets/js/json/qawaidulArbau.js -Recurse -Force
 Copy-Item ../js/json/fortyNawawi.js -Destination ../app/webview-master/app/src/main/assets/js/json/fortyNawawi.js -Recurse -Force

@@ -224,7 +224,7 @@ this is not there
   combResult = appendRowsWithEmptyValues(radheefAll_DB, resultradheefRasmee);
   combResult = appendRowsWithEmptyValues(combResult, resultradheefEegaal);
   combResult = appendRowsWithEmptyValues(combResult, resultradheefManiku);
-  combResult = appendRowsWithEmptyValues(combResult, nanfoiy_DB);
+  combResult = appendRowsWithEmptyValues(combResult, radheefNanfoiy_DB);
   //console.log(result);
   // end merge
 

@@ -66,12 +66,12 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
-  const table = $("#nanfoiyTable").DataTable({
+  const table = $("#radheefNanfoiyTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: nanfoiy_DB, // https://datatables.net/manual/ajax
+    data: radheefNanfoiy_DB, // https://datatables.net/manual/ajax
 
     // order: [[0, 'asc']], // CHANGE 123 - FOR RADHEEF ONLY
 
