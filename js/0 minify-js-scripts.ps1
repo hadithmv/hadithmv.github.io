@@ -30,7 +30,7 @@ google-closure-compiler --charset=UTF-8 --js=kunnaasha-script.js --js_output_fil
 
 google-closure-compiler --charset=UTF-8 --js=muwatta-script.js --js_output_file=muwatta-script.min.js
 
-google-closure-compiler --charset=UTF-8 --js=nanfoiy-script.js --js_output_file=nanfoiy-script.min.js
+google-closure-compiler --charset=UTF-8 --js=radheefNanfoiy-script.js --js_output_file=radheefNanfoiy-script.min.js
 
 google-closure-compiler --charset=UTF-8 --js=nawaqidulislam-script.js --js_output_file=nawaqidulislam-script.min.js
 

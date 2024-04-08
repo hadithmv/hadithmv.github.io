@@ -72,7 +72,7 @@ function changeBookRadheef(newBook) {
   window.location = window.location
     .toString()
     .replace(
-      /radheefAll|radheefRasmee|radheefEegaal|radheefManiku|nanfoiy/g,
+      /radheefAll|radheefRasmee|radheefEegaal|radheefManiku|radheefNanfoiy/g,
       newBook
     )
     .replace(/\:v.*$/, "");

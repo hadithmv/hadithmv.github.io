@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="canonical"
-      href="https://hadithmv.github.io/books/nanfoiy.html"
+      href="https://hadithmv.github.io/books/radheefNanfoiy.html"
     />
     <meta name="google" content="notranslate" />
 
@@ -18,7 +18,7 @@
     <meta property="og:type" content="website" />
     <meta
       property="og:url"
-      content="https://hadithmv.github.io/books/nanfoiy.html"
+      content="https://hadithmv.github.io/books/radheefNanfoiy.html"
     />
     <meta
       property="og:image"
@@ -46,9 +46,9 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/nanfoiy.js"></script>
+    <script defer src="../js/json/radheefNanfoiy.js"></script>
 
-    <script defer src="../js/nanfoiy-script.min.js"></script>
+    <script defer src="../js/radheefNanfoiy-script.min.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -60,11 +60,11 @@
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
 
-      #nanfoiyTable > tbody > tr > td.Col1 {
+      #radheefNanfoiyTable > tbody > tr > td.Col1 {
         color: revert !important;
       }
 
-      #nanfoiyTable > tbody > tr td.ColEng {
+      #radheefNanfoiyTable > tbody > tr td.ColEng {
         font-family: "mergedFont", sans-serif;
       }
 
@@ -115,11 +115,11 @@
 
     <script>
       const td = document.querySelector(
-        "#nanfoiyTable > tbody > tr:nth-child(1) > td.Col8"
+        "#radheefNanfoiyTable > tbody > tr:nth-child(1) > td.Col8"
       );
       if (td.textContent.trim() === "ފިރިހެން") {
         const targetTd = document.querySelector(
-          "#nanfoiyTable > tbody > tr:nth-child(1) > td.Col1"
+          "#radheefNanfoiyTable > tbody > tr:nth-child(1) > td.Col1"
         );
         targetTd.classList.add("highlighted");
       }
@@ -177,7 +177,9 @@
                   >
                 </li>
                 <li>
-                  <a onclick="changeBookRadheef('nanfoiy')">5 ނަންފޮތް</a>
+                  <a onclick="changeBookRadheef('radheefNanfoiy')"
+                    >5 ނަންފޮތް</a
+                  >
                 </li>
               </ul>
             </li>
@@ -250,7 +252,7 @@
           <!-- cards js adds card classes to table ID -->
           <!-- change123 TABLE -->
           <!-- class="stripe table cards"> -->
-          <table id="nanfoiyTable" class="stripe table"></table>
+          <table id="radheefNanfoiyTable" class="stripe table"></table>
           <!-- --- TABLE - END --- -->
           <div class="hidden" id="footer">
             <button class="lowerButtons" onclick="copyURLToClipButton();">
@@ -269,17 +271,23 @@
               function toggleFili() {
                 // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
 
-                var isVisible = $("#nanfoiyTable")
+                var isVisible = $("#radheefNanfoiyTable")
                   .DataTable()
                   .column(0)
                   .visible();
-                $("#nanfoiyTable").DataTable().column(0).visible(!isVisible);
+                $("#radheefNanfoiyTable")
+                  .DataTable()
+                  .column(0)
+                  .visible(!isVisible);
 
-                var isVisible = $("#nanfoiyTable")
+                var isVisible = $("#radheefNanfoiyTable")
                   .DataTable()
                   .column(1)
                   .visible();
-                $("#nanfoiyTable").DataTable().column(1).visible(!isVisible);
+                $("#radheefNanfoiyTable")
+                  .DataTable()
+                  .column(1)
+                  .visible(!isVisible);
               }
             </script>
 
