@@ -449,6 +449,8 @@
 شَيْحَان	ޝައިޙާން
 مَلِيْكَة	މުލައިކާ
 ހައިބަތާއި މަތިވެރިވަންތަކން ލިބިވޮޑިގެންވާ ރަސްކަލާނގެ އަޅާ
+أَوْفَى އައުފާ // أَوْفَي އައުފާ
+ޙަންޡަލާ // ޙަންޟަލާ
 ---
 
   bmv db ver: 2023-06-14
@@ -458,6 +460,10 @@
   removed and rearranged columns, removed blank rows, trim white space, removed kashidas, ( يعيش), removed last name row, changed bmv to Other, data > sort sheet by column, data has header row, ar, add thaana and en
 
   [
+  
+!!!FIX LATER
+should check where origin language is missing and fix them
+
   bmv has spaced added removed for "أَحْمَدُالله"instead of "أَحْمَدُ اللَّه" like in pdf, just here
   it also changes some words like it has "أَحاسِيْن" instead of "أَحاسِن" (perhaps both are correct)
   it also has kashidas, remove them
@@ -493,8 +499,12 @@ it has the following CHANGES (not consequential, but can change i guess):
  ރަވާ(އު) / ރަވާ- އު 
  ރައިޝާ(އު) / ރައިޝާ- އު 
  ރިވާ(އު) / ރިވާ- އު 
+
+ سعد	ސަޢުދު // سعد	ސަޢްދު
+
  mean:
  އިންޝާ(އު) / ކަމެއްގެ ފެށުން // އިންޝާ- އު / ކަމެއްގެ ފެށުން 
+
 
  meanings:
 ރަސޫލާ (ޞ)ގެ ނަންފުޅުތަކުގެތެރެއިން ނަންފުޅެއް // طَه	ޠާޙާ ރަސޫލާ ޞގެ ނަންފުޅުތަކުގެތެރެއިން ނަންފުޅެއް (just note the change in saadu letter, whole meaning needts to be fixed also)
@@ -534,11 +544,11 @@ it has the following MISTAKES:
 ޢަބްދުލްއާޚިރު / ޢަބްދުލްޢާޚިރު*
 ޢަބްދުލްމުޤައްދިމް / ޢަބްދުލްމުތަޤައްދިމު*
 
-!!!FIX LATER
+أَخْضَرُ	އަޚްޟަރު // أَخْضَرُ އަޚްޞަރު 
+
 these are rampant. do diffcompare with other app data to find them all
 نَهْج	ނަޙްލާ
 نَهْزَان	ނަހްޖު
-نُهْزَة	ނުހްޒާ
 نَهْضَة	ނަހްޒާން
 نَهْلاَن	ނަހްޟާ
 نَهْلَة	ނަހްލާން
@@ -557,11 +567,75 @@ these are rampant. do diffcompare with other app data to find them all
 كُلْثُوْم	ކުސޫމް	Kusoom		ބުރަމަސައްކަތް ކުރުން (kusoom ar was changed to kulsoom mistakenly by them)
 حَنْوَاء	ޙަންޡަލާ
 حنون	ޙަންވާ
+...
 
-!!!FIX LATER
 should probably run a diff compare with ar + dv vs the other apps data to be sure
-!!!FIX LATER
-should also check where origin language is missing
+
+Diff Compare Results (49 entries total, others have been fixed before this compare, also note that all of the immediate above are included below and more): (abdu/amatu + asmaullah removed, false postives removed, entries without ar removed)
+حَنْوَاء	ޙަންޡަލާ
+حنون	ޙަންވާ
+
+يُنَال ޔާސްމީން
+يَاسْمِيْن ޔާސީން
+يعين ޔުނާލް
+
+يَاقُوْت ޔާފިޢު
+يَافِعُ ޔާފިޢާ
+يَافِعَة ޔާމީން
+
+نَهْوَة ނަހްލާ*
+نَهْلَة ނަހްލާން*
+نَهْلاَن ނަހްޟާ*
+نَهْضَة ނަހްޒާން*
+نَهْزَان ނަހްޖު*
+نَهْج ނަޙްލާ*
+نَهِيْل ނަހީސް*
+نَهِيْك ނަހީލް*
+نَهِيْس ނަހުވާ*
+نَهِيْرُ ނަހީކު*
+نَهَار ނަހީރު
+نَظْمِيْن ނަހާރު
+نَرْجِس ނަބާހާ
+نَخْوَة ނަރްޖިސް
+نَخِيْلَة ނަޚްވާ
+نَحْلَة ނަޚީލާ
+نظيف ނަޡްމީން
+
+مَيْهَة މައިމަނާ
+مَيْمَنَة މައިމޫނާ
+مَآب މައިހާ
+مَكْرُمَة މައާބު
+
+لُبَابَة ލުބާނާ
+كُلْثُوْم ކުސޫމް
+
+عَيْن ޢައިފާ
+
+عَوَّام ޢައްމާރު
+عَبَّار ޢައްވާމް
+عيش ޢައްބާރު
+
+شَيْحَان ޝައިޚާން
+شَفْعَة ޝަފްޤާ
+شفعة ޝަފްޤާ
+سعد ސަޢްދު
+رِيْعَة ރީމާ
+ريعة ރީޢާ
+
+جَهْزاء ޖަހީޒާ
+جَهِيْزَة ޖަހީރު
+جَهِيرُ ޔޫޝަޢު
+
+جَنَّة ޖަނާން
+
+جَنَى ޖަޙްވާ
+جَنَان ޖަނާޙް
+جَنَاح ޖަނާ
+جَحْوَة ޖަހްޒާއު/ޖަހްޒާ
+
+need to do diff compare for entries without ar removed?
+
+probably need to remove the many duplicate entries that are not approved from the same place too
 
 writes all name + allah instance in english as is:
 އަސަދުﷲ	Asadhuﷲ...
@@ -606,7 +680,7 @@ meanings:
 ﷲގެ ފަޟްލްވަންތަކަން (އުރުދޫ ނަމެއް) // ﷲގެ ފަޟްލްވަންތަކަން އުރުދޫ ނަމެއް
 ހިންގުވުން (ކުޑަކުދިން)ހިނގާބިނގާއުޅުމުގެ މާނައިގާ) // ހިންގުވުން
 ޤުރްއާނުގެ ދަލީލުތައް (ޢަލާމާތްތައް) // ޤުރްއާނުގެ ދަލީލުތައް - ޢަލާމާތްތައް
-ثرى	ޘަރާ	މުދާގިނަ / މުއްސަނދި // ޘަރިއްޔު މުދާވެރިޔާ / ތަނަވަސްމީހާ
+ޘަރިއްޔު މުދާގިނަ / މުއްސަނދި // ޘަރާ މުދާގިނަ / މުއްސަނދި  ثرى އަންހެން
 ޝަރަފުވެރިޔާ (އެމީހެއްގެރީތި އަޚްލާޤާ އުޅުމަށްޓަކައި) މީސްތަކުންގެ މެދުގައި ޝަރަފުލިބިގެންވާ މީހާ // ޝަރަފުވެރިޔާ - އެމީހެއްގެރީތި އަޚްލާޤާ އުޅުމަށްޓަކައި މީސްތަކުންގެ މެދުގައި ޝަރަފުލިބިގެންވާ މީހާ
 ޢާއިޝަތުގެފާނުގެ ނަންފުޅެއް (ހުދުސާފު،ރަތް) // ޢާއިޝަތުގެފާނުގެ ނަންފުޅެއް - ހުދުސާފު،ރަތް
 ވަށައިގެންވާތަން/އަސަރު (ތަނެއްގެ) // ވަށައިގެންވާތަން / ތަނެއްގެ އަސަރު
