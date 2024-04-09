@@ -1060,7 +1060,7 @@ function () {
             class="ttClass"
             data-tooltip="Sorts the lines of text in order of ascending on the first click, and in reverse on the second"
           >
-            ↕️ <u>O</u>rder Desc
+            ↕️ <u>O</u>rder Asc
           </button>
 
           <button
@@ -3376,17 +3376,17 @@ function () {
               document.getElementById("textMainArea").value = document
                 .getElementById("textMainArea")
                 .value.split("\n")
-                .sort()
+                .reverse()
                 .join("\n");
-              document.getElementById("lineSort").innerHTML = "↕️ Order Desc";
+              document.getElementById("lineSort").innerHTML = "↕️ Order Asc";
             } else {
               //run first function
               document.getElementById("textMainArea").value = document
                 .getElementById("textMainArea")
                 .value.split("\n")
-                .reverse()
+                .sort()
                 .join("\n");
-              document.getElementById("lineSort").innerHTML = "↕️ Order Asc";
+              document.getElementById("lineSort").innerHTML = "↕️ Order Desc";
             }
           }
           //
