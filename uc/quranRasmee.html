@@ -1620,11 +1620,15 @@
                   >kudanai/Quran-Translation</a
                 >
                 <br />
-                Extracted the database on 24/3/23 (latest, dev branch, which is
-                usually ahead of master)
+                latest, dev branch, which is usually ahead of master
                 <br />
-                (This is the official repository for the digitized version of
-                the Dhivehi Quran translation, by the President's office. Latest
+                (The release versioning "0.123..." is only updated when an
+                update is sent to tanzil, so dont look to that)
+                <br />
+                Extracted the database on 13/4/24
+                <br />
+                This is the official repository for the digitized version of the
+                Dhivehi Quran translation, by the President's office. Latest
                 updates and fixes will always be available in this repo, which
                 is the original source for the text of all other apps and sites
                 that show a Dhivehi translation.
@@ -1659,6 +1663,45 @@
                 generated alternate thikijehi thaanafied version are both
                 available here, taken straight from the source repository
                 itself.)
+                <!--
+                  1) To get arabic words embedded original translation text:
+                  download "https://github.com/kudanai/Quran-Translation/blob/dev/master_dv.divehi.txt", open in vscode, replace tabs with spaces: "	" " "
+                  then replace double spaces with single spaces:
+                  "  " " "
+                  it has surah and ayah numbers in the format of "1|1|, 1|2|, 1|3|",
+                  To remove surah ayah formatting: Find everything that precedes the character "|" (pipe), including the "|" character itself, replace with this regex:
+                  .*\|
+                  
+                  copy the text and paste in the column needed in the sheet.
+
+                  2) To generate thikithaana transliterated file:
+                  Download the full repo as is "https://github.com/kudanai/Quran-Translation"
+                  Open that base directory in powershell
+                  run: 
+                  python utils/transliterator/generate_alt_text_with_thikithaana.py
+                  (might get an invalid escape error, nothing to worry about says hassaan)
+                  this creates the following file:
+                  alt_dv.divehi
+                  replace surah ayah formatting with same regex as before:
+                  .*\|
+
+                  thats it
+
+                  remember to remove the last 11 lines from the end of both texts:
+
+#=====================================================================
+#
+# Quran Translation
+# Name: ދިވެހި
+# Translator: Office of the President of Maldives
+# Language: Divehi
+# ID: dv.divehi
+# Last Update: April 13, 2024
+# Source: Tanzil.net
+#
+#====================================================================
+
+                -->
                 <br />
                 •
                 <a
@@ -1667,8 +1710,9 @@
                   target="_blank"
                   >Al Quran</a
                 >
-                (Very up to date as well, as the developers are responsive and
-                quick to apply the fixes we send them.)
+                (Easy to get them to update, as the developers are responsive
+                and quick to apply changes when needed. Last time we asked them
+                to update from our main repo was on 11/12/22)
                 <br />
 
                 <!-- https://play.google.com/store/apps/details?id=com.quranly.app gave them the dhivehi text on 13/2/24, and they hadnt used a dhivehi translation before that. Yet we dont want to recommend them, as they engage in questionable muamalath when it comes to their app -->
