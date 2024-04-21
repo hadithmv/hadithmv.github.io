@@ -504,7 +504,7 @@ this is not there
         extend: "copy",
         key: { key: "c", shiftKey: true },
         text: "ކޮޕީ",
-        messageTop: "ޙަދީޘްއެމްވީ – އަރަބި ދިވެހި އިނގިރޭސި ރަދީފު", // CHANGE123 clipboard message
+        messageTop: "ޙަދީޘްއެމްވީ – އެއްކުރަމުންދާ ރަދީފުތައް", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
 
         //= ====================
