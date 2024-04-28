@@ -146,34 +146,43 @@
               <a href="../books/index.html">● މައި ސަފުހާ</a>
             </li>
 
-            <li>
-              <span>● ފޮތް ބަދަލުކުރުމަށް</span>
-              <ul>
-                <li>
-                  <a onclick="changeBookRadheef('radheefAll')"
-                    >1 އެއްކުރަމުންދާ ރަދީފުތައް</a
-                  >
-                </li>
-                <li>
-                  <a onclick="changeBookRadheef('radheefRasmee')"
-                    >2 ރަސްމީ ރަދީފު</a
-                  >
-                </li>
-                <li>
-                  <a onclick="changeBookRadheef('radheefEegaal')"
-                    >3 އަލްއީގާޡް</a
-                  >
-                </li>
+            <style>
+              /* hides arrow spinner */
+              .menuListInList li:before {
+                /* content: none; */
+                /* this is the exact arrow */
+                border: none;
+                /* cancels the rotation */
+                transform: none;
+                /* sorts out the height */
+                top: 13px;
+                content: "◆";
+                /*■ ◆  */
+              }
+            </style>
+            <div class="menuListInList">
+              <li>
+                <a onclick="changeBookRadheef('radheefAll')"
+                  >1 އެއްކުރަމުންދާ ރަދީފުތައް</a
+                >
+              </li>
+              <li>
+                <a onclick="changeBookRadheef('radheefRasmee')"
+                  >2 ރަސްމީ ރަދީފު</a
+                >
+              </li>
+              <li>
+                <a onclick="changeBookRadheef('radheefEegaal')">3 އަލްއީގާޡް</a>
+              </li>
+              <li>
                 <a onclick="changeBookRadheef('radheefManiku')"
                   >4 މަނިކުގެ ރަދީފު</a
                 >
-                <li>
-                  <a onclick="changeBookRadheef('radheefNanfoiy')"
-                    >5 ނަންފޮތް</a
-                  >
-                </li>
-              </ul>
-            </li>
+              </li>
+              <li>
+                <a onclick="changeBookRadheef('radheefNanfoiy')">5 ނަންފޮތް</a>
+              </li>
+            </div>
 
             <li>
               <a href="../notes/info/contact.html"
