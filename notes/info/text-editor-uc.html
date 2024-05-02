@@ -4314,17 +4314,41 @@ function () {
           ތިރީގައިވާ ލަފްޒެއް ކްލިޕްބޯޑަށް ކުރުމަށް އޭގެ ބަޓަންއަށް ފިތާލާށެވެ.
         </p>
         <div class="mid editorButtons">
-          <button onclick="copySalla();">ﷺ</button>
+          <button onclick="copyShortSalla();">ﷺ</button>
+          <button onclick="copyMidSalla();">﵆</button>
+          <button onclick="copyShortAlaihiSalataatuWa();">﵊</button>
+
+          <button onclick="copyShortRadiya1();">﵁</button>
+          <button onclick="copyShortRadiyaHa();">﵂</button>
+          <button onclick="copyShortRadiyaHum();">﵃</button>
+          <button onclick="copyShortRadiya2();">﵄</button>
+          <button onclick="copyShortRadiyaHun();">﵅</button>
+
+          <button onclick="copyShortAlaihiSalam();">﵇</button>
+          <button onclick="copyShortAlaihiHaSalam();">﵍</button>
+          <button onclick="copyShortAlaihiMaSalam();">﵉</button>
+          <button onclick="copyShortAlaihiMuSalam();">﵈</button>
+
           <button onclick="copyRadiya1();">رَضِيَ اللَّهُ عَنْهُ</button>
           <button onclick="copyRadiyaHa();">رَضِيَ اللَّهُ عَنْهَا</button>
           <button onclick="copyRadiya2();">رَضِيَ اللَّهُ عَنْهُمَا</button>
           <button onclick="copyRadiyaHum();">رَضِيَ اللَّهُ عَنْهُمْ</button>
 
+          <button onclick="copyShortRahimahullah();">﵀</button>
+          <button onclick="copyShortRahimaHum();">﵏</button>
+
+          <button onclick="copyShortAzzaWaJalla();">﷿</button>
           <button onclick="copyAzzaWaJalla();">عَزَّ وَجَلَّ</button>
+
+          <button onclick="copyShortSubhanahuWaTaala();">﷾</button>
           <button onclick="copySubhanahuWaTaala();">
             سُبحَانَهُ وَتَعَالَى
           </button>
+
+          <button onclick="copyShortTabarakaWaTaala();">﵎</button>
           <button onclick="copyTabarakaWaTaala();">تَبَارَكَ وَتَعَالَى</button>
+
+          <button onclick="copyBasmalah();">﷽</button>
           <button onclick="copyTaala();">تَعَالَى</button>
           <button onclick="copyAlaihiSalam();">عَلَيهِ السَّلَامُ</button>
           <button onclick="copyAlaihiHaSalam();">عَلَيهَا السَّلَامُ</button>
@@ -4473,7 +4497,7 @@ function () {
         <!-- <div class="mid"> -->
 
         <script>
-          function copySalla() {
+          function copyShortSalla() {
             //navigator.clipboard.writeText("ﷺ");
             //return false;
 
@@ -4496,9 +4520,77 @@ function () {
       copyText.type = "hidden";*/
           }
 
+          function copyMidSalla() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﵆";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyShortAlaihiSalataatuWa() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﵊";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyShortRadiya1() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﵁";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyShortRadiyaHa() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﵂";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyShortRadiyaHum() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﵃";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyShortRadiya2() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﵄";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyShortRadiyaHun() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﵅";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
           function copyRadiya1() {
-            //navigator.clipboard.writeText("رَضِيَ اللَّهُ عَنْهُ");
-            //return false;
             var input = document.createElement("textarea");
             input.innerHTML = "رَضِيَ اللَّهُ عَنْهُ";
             document.body.appendChild(input);
@@ -4538,6 +4630,26 @@ function () {
             return result;
           }
 
+          function copyShortAzzaWaJalla() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﷿";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyShortAzzaWaJalla() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﷿";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
           function copyAzzaWaJalla() {
             var input = document.createElement("textarea");
             input.innerHTML = "عَزَّ وَجَلَّ";
@@ -4548,9 +4660,29 @@ function () {
             return result;
           }
 
+          function copyShortSubhanahuWaTaala() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﷾";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
           function copySubhanahuWaTaala() {
             var input = document.createElement("textarea");
-            input.innerHTML = "تَبَارَكَ وَتَعَالَى";
+            input.innerHTML = "سُبحَانَهُ وَتَعَالَى";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyShortTabarakaWaTaala() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﵎";
             document.body.appendChild(input);
             input.select();
             var result = document.execCommand("copy");
@@ -4571,6 +4703,56 @@ function () {
           function copyTaala() {
             var input = document.createElement("textarea");
             input.innerHTML = "تَعَالَى";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyShortAlaihiSalam() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﵇";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyShortAlaihiHaSalam() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﵍";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyShortAlaihiMaSalam() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﵉";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyShortAlaihiMuSalam() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﵈";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyBasmalah() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﷽";
             document.body.appendChild(input);
             input.select();
             var result = document.execCommand("copy");
@@ -4611,6 +4793,26 @@ function () {
           function copyAlaihiMuSalam() {
             var input = document.createElement("textarea");
             input.innerHTML = "عَلَيهِمُ السَّلَامُ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyShortRahimahullah() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﵀";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyShortRahimaHum() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "﵏";
             document.body.appendChild(input);
             input.select();
             var result = document.execCommand("copy");
