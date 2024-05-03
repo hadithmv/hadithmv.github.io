@@ -4316,6 +4316,9 @@ function () {
         <div class="mid editorButtons">
           <button onclick="copyShortSalla();">ﷺ</button>
           <button onclick="copyMidSalla();">﵆</button>
+          <button onclick="copySalla();" style="font-size: 85%">
+            صَلَّى اللَّهُ عَلَيهِ وَسَلَّم
+          </button>
           <button onclick="copyShortAlaihiSalataatuWa();">﵊</button>
 
           <button onclick="copyShortRadiya1();">﵁</button>
@@ -4324,41 +4327,46 @@ function () {
           <button onclick="copyShortRadiya2();">﵄</button>
           <button onclick="copyShortRadiyaHun();">﵅</button>
 
-          <button onclick="copyShortAlaihiSalam();">﵇</button>
-          <button onclick="copyShortAlaihiHaSalam();">﵍</button>
-          <button onclick="copyShortAlaihiMaSalam();">﵉</button>
-          <button onclick="copyShortAlaihiMuSalam();">﵈</button>
-
           <button onclick="copyRadiya1();">رَضِيَ اللَّهُ عَنْهُ</button>
           <button onclick="copyRadiyaHa();">رَضِيَ اللَّهُ عَنْهَا</button>
           <button onclick="copyRadiya2();">رَضِيَ اللَّهُ عَنْهُمَا</button>
           <button onclick="copyRadiyaHum();">رَضِيَ اللَّهُ عَنْهُمْ</button>
 
-          <button onclick="copyShortRahimahullah();">﵀</button>
-          <button onclick="copyShortRahimaHum();">﵏</button>
+          <button onclick="copyShortAlaihiSalam();">﵇</button>
+          <button onclick="copyShortAlaihiHaSalam();">﵍</button>
+          <button onclick="copyShortAlaihiMaSalam();">﵉</button>
+          <button onclick="copyShortAlaihiMuSalam();">﵈</button>
 
-          <button onclick="copyShortAzzaWaJalla();">﷿</button>
-          <button onclick="copyAzzaWaJalla();">عَزَّ وَجَلَّ</button>
-
-          <button onclick="copyShortSubhanahuWaTaala();">﷾</button>
-          <button onclick="copySubhanahuWaTaala();">
-            سُبحَانَهُ وَتَعَالَى
-          </button>
-
-          <button onclick="copyShortTabarakaWaTaala();">﵎</button>
-          <button onclick="copyTabarakaWaTaala();">تَبَارَكَ وَتَعَالَى</button>
-
-          <button onclick="copyBasmalah();">﷽</button>
-          <button onclick="copyTaala();">تَعَالَى</button>
           <button onclick="copyAlaihiSalam();">عَلَيهِ السَّلَامُ</button>
           <button onclick="copyAlaihiHaSalam();">عَلَيهَا السَّلَامُ</button>
           <button onclick="copyAlaihiMaSalam();">عَلَيهِمَا السَّلَامُ</button>
           <button onclick="copyAlaihiMuSalam();">عَلَيهِمُ السَّلَامُ</button>
 
+          <button onclick="copyShortRahimahullah();">﵀</button>
+          <button onclick="copyShortRahimaHum();">﵏</button>
+
           <button onclick="copyRahimaHullah();">رَحِمَهُ اللَّهُ</button>
           <button onclick="copyRahimaHallah();">رَحِمَهَا اللَّهُ</button>
           <button onclick="copyRahimaHumallah();">رَحِمَهُمَا اللَّهُ</button>
           <button onclick="copyRahimaHumullah();">رَحِمَهُمُ اللَّهُ</button>
+
+          <button onclick="copyShortAzzaWaJalla();">﷿</button>
+          <button onclick="copyShortSubhanahuWaTaala();">﷾</button>
+          <button onclick="copyShortTabarakaWaTaala();">﵎</button>
+
+          <button onclick="copyAzzaWaJalla();">عَزَّ وَجَلَّ</button>
+          <button onclick="copySubhanahuWaTaala();">
+            سُبحَانَهُ وَتَعَالَى
+          </button>
+          <button onclick="copyTabarakaWaTaala();">تَبَارَكَ وَتَعَالَى</button>
+          <button onclick="copyTaala();">تَعَالَى</button>
+
+          <button onclick="copyShortBasmalah();" style="font-size: 85%">
+            ﷽
+          </button>
+          <button onclick="copyBasmalah();" style="font-size: 85%">
+            بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+          </button>
 
           <button onclick="copyRiwa();">ރިވާ ކުރެއްވި</button>
           <button onclick="copyRhadithK();">ރަސޫލާ ޙަދީޘްކުރެއްވި</button>
@@ -4523,6 +4531,16 @@ function () {
           function copyMidSalla() {
             var input = document.createElement("textarea");
             input.innerHTML = "﵆";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copySalla() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "صَلَّى اللَّهُ عَلَيهِ وَسَلَّم";
             document.body.appendChild(input);
             input.select();
             var result = document.execCommand("copy");
@@ -4750,9 +4768,19 @@ function () {
             return result;
           }
 
-          function copyBasmalah() {
+          function copyShortBasmalah() {
             var input = document.createElement("textarea");
             input.innerHTML = "﷽";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
+            return result;
+          }
+
+          function copyBasmalah() {
+            var input = document.createElement("textarea");
+            input.innerHTML = "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ";
             document.body.appendChild(input);
             input.select();
             var result = document.execCommand("copy");

@@ -436,6 +436,8 @@ div.dataTables_wrapper {
 .menuListInList {
   /* small indent */
   /* margin-right: 25px; */
+  /* makes list items a bit further apart */
+  line-height: 1.1;
 }
 
 /* ====================
