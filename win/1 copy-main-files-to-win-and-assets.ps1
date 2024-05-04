@@ -74,7 +74,7 @@ Copy-Item ../notes/info/introFortyN.html -Destination ../app/webview-master/app/
 Copy-Item ../notes/info/introHmv.html -Destination ../app/webview-master/app/src/main/assets/notes/info/introHmv.html -Recurse -Force
 Copy-Item ../notes/info/introUmdah.html -Destination ../app/webview-master/app/src/main/assets/notes/info/introUmdah.html -Recurse -Force
 Copy-Item ../notes/info/khutba.html -Destination ../app/webview-master/app/src/main/assets/notes/info/khutba.html -Recurse -Force
-Copy-Item ../notes/info/lafzuVakikurumugeQawaid.html -Destination ../app/webview-master/app/src/main/assets/notes/info/lafzuVakikurumugeQawaid.html -Recurse -Force
+Copy-Item ../notes/info/lafzuVakikohLiyumugeQawaid.html -Destination ../app/webview-master/app/src/main/assets/notes/info/lafzuVakikohLiyumugeQawaid.html -Recurse -Force
 Copy-Item ../notes/info/madina-info.html -Destination ../app/webview-master/app/src/main/assets/notes/info/madina-info.html -Recurse -Force
 Copy-Item ../notes/info/mirror-backups.html -Destination ../app/webview-master/app/src/main/assets/notes/info/mirror-backups.html -Recurse -Force
 # below copies the mirror html to where 404 is and overwrites/renames it
