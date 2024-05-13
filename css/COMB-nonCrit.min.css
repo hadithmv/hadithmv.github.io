@@ -34,4 +34,4 @@ div.dtsp-topRow{display:flex;flex-direction:row;flex-wrap:nowrap;border:2px soli
 
 
 /* fonts.css */
-html{font-family:"mergedFont","Quicksand",sans-serif,"faruma";-webkit-font-smoothing:antialiased;text-align:right;direction:rtl;font-size:120%}@font-face{font-family:"mergedFont";src:url(../font/merged-light-mod.woff2)format("woff2"),url(../font/merged-light-mod.woff)format("woff"),url(../font/merged-light-mod.otf)format("opentype");font-display:block}
+html{font-family:"mergedFont","Quicksand",sans-serif,"faruma";-webkit-font-smoothing:antialiased;text-align:right;direction:rtl;font-size:120%}@font-face{font-family:"mergedFont";src:url(../font/merged-300.woff2)format("woff2"),url(../font/merged-300.woff)format("woff");font-display:block}
