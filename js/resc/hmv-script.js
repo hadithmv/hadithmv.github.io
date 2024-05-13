@@ -36,16 +36,49 @@ function scrollUpTop() {
   });
 }
 
-//
+// SHOW OR HIDE AYAT FILI
+
+function toggleFili() {
+  // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+
+  var isVisible = $(".dataTable").DataTable().column(4).visible();
+  $(".dataTable").DataTable().column(4).visible(!isVisible);
+
+  var isVisible = $(".dataTable").DataTable().column(5).visible();
+  $(".dataTable").DataTable().column(5).visible(!isVisible);
+}
+
+// SWITCH BETWEEN IMLAI AND UTHMANI TEXT FOR AYAT
+
+function uthmaniImlai() {
+  // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+
+  var isVisible = $(".dataTable").DataTable().column(4).visible();
+  $(".dataTable").DataTable().column(4).visible(!isVisible);
+
+  var isVisible = $(".dataTable").DataTable().column(6).visible();
+  $(".dataTable").DataTable().column(6).visible(!isVisible);
+}
 
 // CHANGE FILI BUTTON STRING
 
 function filiString() {
   var button = document.getElementById("toggleFiliButton");
-  if (button.innerHTML.trim() === "&nbsp; އަރަބި ފިލިތައް ފޮރުވާ &nbsp;") {
-    button.innerHTML = "&nbsp; އަރަބި ފިލިތައް ދައްކާ &nbsp;";
+  if (button.innerHTML.trim() === "&nbsp; ފިލިތައް ފޮރުވާ &nbsp;") {
+    button.innerHTML = "&nbsp; ފިލިތައް ދައްކާ &nbsp;";
   } else {
-    button.innerHTML = "&nbsp; އަރަބި ފިލިތައް ފޮރުވާ &nbsp;";
+    button.innerHTML = "&nbsp; ފިލިތައް ފޮރުވާ &nbsp;";
+  }
+}
+
+// CHANGE RASM UTHMANI IMLAI STRING
+
+function rasmString() {
+  var button = document.getElementById("toggleUthmaniImlai");
+  if (button.innerHTML.trim() === "&nbsp; ރަސްމު އުޘްމާނީ &nbsp;") {
+    button.innerHTML = "&nbsp; ރަސްމު އިމްލާއީ &nbsp;";
+  } else {
+    button.innerHTML = "&nbsp; ރަސްމު އުޘްމާނީ &nbsp;";
   }
 }
 

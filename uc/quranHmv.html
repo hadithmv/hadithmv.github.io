@@ -46,7 +46,10 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/surah-juz-ayahNo-basmalah-ayah.js"></script>
+    <script
+      defer
+      src="../js/json/surah-juz-ayahNo-basmalah-ayah-uthmani.js"
+    ></script>
     <script defer src="../js/json/quranHmv.js"></script>
     <script defer src="../js/quranHmv-script.min.js"></script>
     <!-- === EXT JS - END === -->
@@ -80,259 +83,6 @@
       /* === --- === --- ====
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
-
-      /* mobile only row centering, for rows with strings that are not long */
-
-      /* @media screen and (max-width: 900px) { */
-
-      .dataTable tr td.qCol1,
-      .dataTable tr td.qCol2,
-      .dataTable tr td.qCol3,
-      .dataTable tr td.qCol4,
-      .dataTable tr td.qCol5,
-      .dataTable tr td.qCol6,
-      .dataTable tr td.qCol7 {
-        text-align: center;
-      }
-      /* .dataTable tr td.qCol7 */
-
-      /* ===================
-          FOR Quran border frame and ayahbox
-      ===================== */
-
-      /* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Backgrounds_and_Borders/Border-image_generator 
-      The trick is to use the "round" option. PNG might have to be manually optimized. By carefully limiting the color pallete, etc.*/
-      /*
-        border-image-slice: 27 27 27 27;
-        border-image-width: 20px 20px 20px 20px;
-        border-image-outset: 0px 0px 0px 0px;
-        border-image-repeat: round round;
-        border-image-source: url("https://hadithmv.github.io/img/frame/ayahbox-mod-Opt.svg");
-        border-style: solid;
-        */
-
-      /* mobile only quran border frame svg */
-
-      /* @media screen and (max-width: 900px) { */
-
-      /* minimum height for frame */
-      #quranTable > tbody > tr {
-        min-height: 45vh; /* 300px */
-      }
-
-      /* on mobile */
-      @media screen and (max-width: 900px) {
-        #quranTable > tbody > tr {
-          min-height: 70vh; /* 300px */
-        }
-      }
-
-      #quranTable>tbody>tr
-      /*, table*/ {
-        /* font-family: hafs;
-          font-size: 20pt;
-          text-align: justify;
-            border-style: solid; */
-
-        /* for chromium */
-
-        /* margin: 0.5em; */
-
-        /* to allow for background color by extending border transparent parts */
-        padding: 1.15rem;
-
-        /* padding: 1em 2.2em; */
-        border-image-slice: 30% 30.5%;
-        border-image-width: 3em; /* 3em; */
-        border-image-repeat: round round;
-
-        /* can move inside html to eliminate 1 network request, https://yoksel.github.io/ */
-        border-image-source: url("../img/frame/ayahbox-mod-Opt.svg");
-        border-image-outset: 0.6em;
-
-        /* margin + .1em for optical alignment */
-
-        /* background-color: beige; */
-
-        /* spaces out above and below quran table */
-        margin-top: 1.6rem;
-        /*margin-bottom: 2.4rem;*/
-      }
-
-      /* reduces margin last item at end of page, NOT WITHIN TABLE BOX, OUTSIDE IT */
-
-      /*#quranTable > tbody > tr:last-child {
-        margin-bottom: 50px;
-      }*/ /*30*/
-
-      /* } */
-
-      /* ===== quran frame border - END ===== */
-
-      /* ayah box */
-
-      #quranTable > tbody > tr > td.qCol1 {
-        /* makes it independant of the other rows */
-        position: absolute;
-        /* centers below */
-        left: 0;
-        right: 0;
-        margin-left: auto;
-        margin-right: auto;
-
-        /* float: left; */
-        /*position: relative;*/
-
-        /* top: .8em; */
-        font-size: 1em; /* 0.9 */
-        line-height: 1.6em;
-        padding-top: 0.2em !important; /*2px;*/
-        padding-bottom: 0.1em !important; /*0;*/
-        padding-left: 0.5em;
-        padding-right: 0.5em;
-
-        /* padding: 0 .5em; */
-        background: #c1d1c3;
-        border-radius: 0.2em;
-        border: 1px solid #40455c;
-        box-shadow: inset 0 0 2px 0 #693, 0 0 0 2px #fff, 0 0 0 3px #40455c;
-
-        /* centers ayahbox */
-        top: 15px; /* -30 */
-        width: 7rem; /* 7.5 */
-        margin: auto;
-        text-align: center;
-
-        /* removes margin below ayahbox to lessen space above ayah */
-        /*margin-bottom: -15px;*/
-      }
-
-      /* TRULY effects first and last space above and below quran table */
-      #quranTable > tbody > tr > td:nth-child(2) {
-        margin-top: 40px !important;
-      }
-      /*#quranTable > tbody > tr > td:nth-last-child(1) {
-          margin-bottom: 30px !important;
-        }*/
-
-      /* MOBILE only quran border frame svg */
-
-      @media screen and (max-width: 599px) {
-        #quranTable > tbody > tr {
-          border-image-width: 2.5em;
-        }
-        /* ayah box MOBILE ONLY */
-        #quranTable > tbody > tr > td.qCol1 {
-          top: 15px !important; /* top: -32px 35 */
-          font-size: 0.9em; /* 0.9 */
-          width: 6rem; /* 7.5 */
-        }
-      }
-
-      /* gives space to the top and bottom of cells */
-
-      /* #quranTable > tbody */
-      #quranTable > tbody > tr > td.qCol1 {
-        margin-bottom: 5px !important;
-      }
-      #quranTable > tbody > tr {
-        padding-bottom: 50px !important;
-      }
-
-      /* gives space above the empty no results row */
-      /* table.dataTable td.dataTables_empty
-      margin-top: 30px  !important; */
-      #quranTable > tbody > tr > td:nth-child(2) {
-        margin-top: 0;
-      }
-
-      /* ===== quran ayahbox - END ===== */
-
-      /* custom quran css for Keytable - Desktop only MQ */
-
-      @media screen and (min-width: 900px) {
-        /* #quranTable tbody th.focus, */
-        #quranTable tbody td.focus {
-          box-shadow: inset 0 0 1px 2px #337ab7;
-
-          /* inset: Changes the shadow from an outer shadow (outset) to an inner shadow
-      next 4 numbers: offset-x | offset-y | blur-radius | spread-radius
-      last is color */
-
-          /* last px makes box thicker */
-        }
-      }
-
-      /*@mixin for-ABOVEphone and tablet-only*/
-      @media screen and (min-width: 900px) {
-        /* gives space to the top and bottom of cells */
-
-        /*
-        #quranTable > tbody > tr > td.qCol1 {
-          margin-bottom: 5px !important;
-        }
-        #quranTable > tbody > tr > td.qCol5 {
-          margin-bottom: 35px !important;
-        }
-        */
-
-        /* gives even more space around table wrapper in desktop view, and then centers */
-        #quranTable > tbody > tr {
-          max-width: 700px;
-          margin-left: auto;
-          margin-right: auto;
-          margin-top: 30px;
-          margin-bottom: 50px;
-        }
-
-        /* gives space to the left and right sides of words */
-        #quranTable > tbody > tr > td:not(:first-of-type) {
-          /* min-height: 200px !important; */
-          margin-left: 50px !important;
-          margin-right: 50px !important;
-        }
-      }
-
-      /* UNDOES unproportionate padding brought on by general card code */
-      table.cards.dataTable > tbody > tr > td:nth-child(1) {
-        padding-top: 0px;
-      }
-      table.cards.dataTable > tbody > tr > td:nth-last-child(1) {
-        padding-bottom: 0px;
-      }
-
-      /* ====================
-             DARK MODE
-      ======================= */
-
-      /* Chrome DevTools (Three dots > More tools > Rendering > Emulate CSS media feature prefers-color-scheme */
-
-      @media (prefers-color-scheme: dark) {
-        /* The :not(X) property in CSS is a negation pseudo class and accepts a simple selector1 as an argument.
-  otherwise border : 1px overwrites the quran frame and white outline gets larger */
-
-        /* ayahbox */
-        #quranTable > tbody > tr > td.qCol1 {
-          /* font-weight: normal;*/
-          background: #212d39;
-          color: rgba(255, 255, 255, 0.847);
-          border-color: #212d39;
-          box-shadow: inset 0 0 2px 0 /*#693*/,
-            0 0 0 1.75px rgba(255, 255, 255, 0.847), 0 0 0 2.75px #40455c;
-        }
-
-        /* this colors the square border around the frame in quran, otherwise white */
-        #quranTable > tbody > tr {
-          background-color: #1a232d !important;
-        }
-        /* without important, double click go to jumping changes some of the inner background color */
-      }
-
-      /* basmala padding remove */
-      .dataTable tr td.qCol4 {
-        padding-top: 0;
-        padding-bottom: 0;
-      }
     </style>
     <!-- === INT CSS - END === -->
   </head>
@@ -2041,26 +1791,16 @@
               class="lowerButtons"
               onclick="toggleFili();filiString();scrollUpTop()"
             >
-              &nbsp; އަރަބި ފިލިތައް ފޮރުވާ &nbsp;
+              &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
             </button>
 
-            <script>
-              function toggleFili() {
-                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
-
-                var isVisible = $("#quranTable")
-                  .DataTable()
-                  .column(4)
-                  .visible();
-                $("#quranTable").DataTable().column(4).visible(!isVisible);
-
-                var isVisible = $("#quranTable")
-                  .DataTable()
-                  .column(5)
-                  .visible();
-                $("#quranTable").DataTable().column(5).visible(!isVisible);
-              }
-            </script>
+            <button
+              id="toggleUthmaniImlai"
+              class="lowerButtons"
+              onclick="uthmaniImlai();rasmString();scrollUpTop()"
+            >
+              &nbsp; ރަސްމު އުޘްމާނީ &nbsp;
+            </button>
 
             <h3 class="mid">
               <a>تنبيه عن ترجمة القرآن - ގުރްއާން ތަރުޖަމާއާ ބެހޭ ނޯޓެއް</a>

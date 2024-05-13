@@ -77,7 +77,7 @@ $(document).ready(() => {
   }
 
   const mergedData = fullJoinRowWise2DFlattenWithEmptyValues(
-    surah_juz_basmalah_ayah_DB,
+    surah_juz_basmalah_ayah_uthmani_DB,
     quran_DB
   );
   //console.log(mergedData);
@@ -287,18 +287,38 @@ $(document).ready(() => {
       },
       {
         data: 5,
-        title: "ރ އޮފީސް ތަރުޖަމާ",
+        title: "ރަސްމު އުޘްމާނީ",
+        render: function (data, type, row) {
+          data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
+          data = "﴿" + data + " " + row[2] + "﴾";
+          data = data
+            .replace("1", "١")
+            .replace("2", "٢")
+            .replace("3", "٣")
+            .replace("4", "٤")
+            .replace("5", "٥")
+            .replace("6", "٦")
+            .replace("7", "٧")
+            .replace("8", "٨")
+            .replace("9", "٩")
+            .replace("0", "٠");
+          return data;
+        },
       },
       {
         data: 6,
-        title: "ތަފުސީރު", // ubufili on faafu, otherwise interferes with clipboard tite copy
+        title: "ރ އޮފީސް ތަރުޖަމާ",
       },
       {
         data: 7,
-        title: "ނޯޓު ނަން",
+        title: "ތަފުސީރު", // ubufili on faafu, otherwise interferes with clipboard tite copy
       },
       {
         data: 8,
+        title: "ނޯޓު ނަން",
+      },
+      {
+        data: 9,
         title: "ނޯޓު",
       },
     ],
@@ -307,7 +327,7 @@ $(document).ready(() => {
     columnDefs: [
       // footnote line after tharujama
       {
-        targets: 6,
+        targets: 7,
         render: function (data, type, row) {
           data = data + '<br class="Qbr">‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br class="LQbr">';
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -382,16 +402,16 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol7", // dv tarjama raees office
+        className: "qCol7", // quran uthmani
         targets: [6],
-        visible: true,
-        searchable: true,
+        visible: false,
+        searchable: false,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "qCol8", // dv tafsir soabuni
+        className: "qCol8", // dv tarjama raees office
         targets: [7],
         visible: true,
         searchable: true,
@@ -400,7 +420,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol9", // dv note title
+        className: "qCol9", // dv tafsir soabuni
         targets: [8],
         visible: true,
         searchable: true,
@@ -409,8 +429,17 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol10", // dv note
+        className: "qCol10", // dv note title
         targets: [9],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "qCol11", // dv note
+        targets: [10],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -603,6 +632,7 @@ $(document).ready(() => {
           data = data.replace(/ބިސްމި\t/g, "");
           data = data.replace(/ގުރްއާން އަރަބިން\t/g, "");
           data = data.replace(/ގުރްއާން ފިލިނުޖަހާ\t/g, "");
+          data = data.replace(/ރަސްމު އުޘްމާނީ\t/g, "");
           data = data.replace(/ރ އޮފީސް ތަރުޖަމާ\t/g, "");
           data = data.replace(/ތަފުސީރު\t/g, "");
           data = data.replace(/ނޯޓު ނަން\t/g, "");

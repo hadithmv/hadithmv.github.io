@@ -143,9 +143,9 @@ Set-Content ../riyadusaliheen.js -Value 'const riyadusaliheen_DB='
 Get-Content riyadusaliheen.json | Add-Content ../riyadusaliheen.js
 uglifyjs ../riyadusaliheen.js -c -m -o ../riyadusaliheen.js
 
-Set-Content ../surah-juz-ayahNo-basmalah-ayah.js -Value 'const surah_juz_basmalah_ayah_DB='
-Get-Content surah-juz-ayahNo-basmalah-ayah.json | Add-Content ../surah-juz-ayahNo-basmalah-ayah.js
-uglifyjs ../surah-juz-ayahNo-basmalah-ayah.js -c -m -o ../surah-juz-ayahNo-basmalah-ayah.js
+Set-Content ../surah-juz-ayahNo-basmalah-ayah-uthmani.js -Value 'const surah_juz_basmalah_ayah_uthmani_DB='
+Get-Content surah-juz-ayahNo-basmalah-ayah-uthmani.json | Add-Content ../surah-juz-ayahNo-basmalah-ayah-uthmani.js
+uglifyjs ../surah-juz-ayahNo-basmalah-ayah-uthmani.js -c -m -o ../surah-juz-ayahNo-basmalah-ayah-uthmani.js
 
 Set-Content ../umdah.js -Value 'const umdah_DB='
 Get-Content umdah.json | Add-Content ../umdah.js
