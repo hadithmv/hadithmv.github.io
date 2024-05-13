@@ -15,8 +15,8 @@ html {
 /* MERGED */
 @font-face {
   font-family: "mergedFont";
-  src: url(../font/hafs-400.woff2) format("woff2"),
-    url(../font/hafs-400.woff) format("woff");
+  src: url(../font/merged-300.woff2) format("woff2"),
+    url(../font/merged-300.woff) format("woff");
   font-display: block; /* previously swap */
 }
 
