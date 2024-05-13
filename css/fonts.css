@@ -15,15 +15,23 @@ html {
 /* MERGED */
 @font-face {
   font-family: "mergedFont";
-  src: url(../font/merged-light-mod.woff2) format("woff2"),
-    url(../font/merged-light-mod.woff) format("woff"),
-    url(../font/merged-light-mod.otf) format("opentype");
+  src: url(../font/hafs-400.woff2) format("woff2"),
+    url(../font/hafs-400.woff) format("woff");
   font-display: block; /* previously swap */
 }
 
 /* */
 /* OLD */
 /* */
+
+/*
+@font-face {
+  font-family: "mergedFont";
+  src: url(../font/merged-light-mod.woff2) format("woff2"),
+    url(../font/merged-light-mod.woff) format("woff"),
+    url(../font/merged-light-mod.otf) format("opentype");
+}
+*/
 
 /* arabic */
 /*@font-face {
