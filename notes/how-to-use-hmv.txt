@@ -37,7 +37,7 @@ If something does not load correctly, open the menu and use soft or hard reload 
 [Shift + c] = Copy shown text to clipboard
 [Shift + f] = Open Filter
 
-Cursor starts already inside the search box on desktop
+The cursor starts already inside the search box on desktop
 (So to use desktop keyboard shortcuts, you must click outside the search box first)
 
 You can save a complete webpage (ctrl + s) for offline use
