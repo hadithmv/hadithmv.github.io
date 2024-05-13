@@ -539,44 +539,6 @@ $(document).ready(() => {
           show: false,
         },
       },
-      /*
-      {
-        className: "qCol9", // tafsir sadi ar
-        targets: [8],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false,
-        },
-      },
-      {
-        className: "qCol10", // tafsir sadi dv
-        targets: [9],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false,
-        },
-      },
-      */
-      /* {
-        className: 'qCol8', // bakurube lafzi
-        targets: [7],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false
-        }
-      },
-      {
-        className: 'qCol9', // bakurube ijmali
-        targets: [8],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false
-        }
-      }, */
 
       // below strips html tags off keystable copy, second part with keys on
       {

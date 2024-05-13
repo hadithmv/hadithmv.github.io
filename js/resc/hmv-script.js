@@ -82,7 +82,25 @@ function rasmString() {
   }
 }
 
-//
+// LOAD UTHMANI FONT FOR QURAN ONLY ON BUTTON CLICK
+
+// Dynamically Load And Apply Fonts With JavaScript
+// https://awik.io/dynamically-load-apply-fonts-javascript/
+// Your font goes here
+const bangersFont = new FontFace("mergedFont", "url(../font/hafs-400.woff)");
+// Function which loads the font and applies it
+function loadFont() {
+  //console.log("Loading font...");
+  bangersFont
+    .load()
+    .then(function (loadedFont) {
+      document.fonts.add(loadedFont);
+      //html.style.fontFamily = '"mergedFont"';
+    })
+    .catch(function (error) {
+      console.log("Failed to load font: " + error);
+    });
+}
 
 // QURAN CHANGE BOOK
 

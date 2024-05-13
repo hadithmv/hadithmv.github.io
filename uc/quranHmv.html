@@ -63,7 +63,27 @@
          CUSTOM COLUMN CLASSES
          === --- === --- ==== */
 
+      /* below renders thaana and rasm uthmanee correctly. placing "hafs-400" first with "merged-300" coming later, shortens the gaps between thaana words. as if that gives precedence to hafs, when it doesnt come first? while doing the revers provides proper spaces between thaana words. reverse does the reverse? its different when both are in the external css, both are in internal css, and one is here while other is there
+      UPDATE: made this font dynamically load with js, code is in external */
       /*
+      @font-face {
+        font-family: "mergedFont";
+        src: url(../font/hafs-400.woff2) format("woff2"),
+          url(../font/hafs-400.woff) format("woff");
+        font-display: block;
+        
+      }
+      */
+
+      /*
+      html {
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+  -webkit-font-smoothing: antialiased;
+  text-align: right;
+  direction: rtl;
+  font-size: 120%; 
+}
+
       @font-face {
         font-family: "mergedFont";
         src: url(https://fonts.hassaanmv.com/fonts/merged-300.woff2);
@@ -73,7 +93,7 @@ https://www.amirifont.org/fonts/Amiri-Regular.ttf
 https://fonts.hassaanmv.com/fonts/complete.woff2
 https://fonts.hassaanmv.com/fonts/hafs-400.woff2
 https://fonts.hassaanmv.com/fonts/merged-regular.woff2
-https://fonts.hassaanmv.com/fonts/Tharujamaanu-Light.woff2
+https://fonts.hassaanmv.com/fonts/Tharujamaanu-Light.otf
 https://fonts.hassaanmv.com/fonts/merged-300.woff2
       */
 
@@ -1812,7 +1832,7 @@ https://fonts.hassaanmv.com/fonts/merged-300.woff2
             <button
               id="toggleUthmaniImlai"
               class="lowerButtons"
-              onclick="uthmaniImlai();rasmString();scrollUpTop()"
+              onclick="uthmaniImlai();rasmString();scrollUpTop();loadFont()"
             >
               &nbsp; ރަސްމު އުޘްމާނީ &nbsp;
             </button>
