@@ -77,7 +77,7 @@ $(document).ready(() => {
   }
 
   const mergedData = fullJoinRowWise2DFlattenWithEmptyValues(
-    surah_juz_basmalah_ayah_DB,
+    surah_juz_basmalah_ayah_uthmani_DB,
     quran_DB
   );
   //console.log(mergedData);
@@ -294,10 +294,30 @@ $(document).ready(() => {
       },
       {
         data: 5,
-        title: "ލަފްޒީ ތަރުޖަމާ",
+        title: "ރަސްމު އުޘްމާނީ",
+        render: function (data, type, row) {
+          data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
+          data = "﴿" + data + " " + row[2] + "﴾";
+          data = data
+            .replace("1", "١")
+            .replace("2", "٢")
+            .replace("3", "٣")
+            .replace("4", "٤")
+            .replace("5", "٥")
+            .replace("6", "٦")
+            .replace("7", "٧")
+            .replace("8", "٨")
+            .replace("9", "٩")
+            .replace("0", "٠");
+          return data;
+        },
       },
       {
         data: 6,
+        title: "ލަފްޒީ ތަރުޖަމާ",
+      },
+      {
+        data: 7,
         title: "އިޖްމާލީ މާނަ",
       },
     ],
@@ -306,7 +326,7 @@ $(document).ready(() => {
     columnDefs: [
       // footnote line after tharujama
       {
-        targets: 6,
+        targets: 7,
         render: function (data, type, row) {
           data = data + '<br class="Qbr">‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br class="LQbr">';
           return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
@@ -381,8 +401,17 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol7", // dv tarjama lafzi
+        className: "qCol7", // quran uthmani
         targets: [6],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "qCol8", // dv tarjama lafzi
+        targets: [7],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -390,41 +419,14 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol8", // dv tarjama ijmali
-        targets: [7],
+        className: "qCol9", // dv tarjama ijmali
+        targets: [8],
         visible: true,
         searchable: true,
         searchPanes: {
           show: false,
         },
-      } /*
-      {
-        className: 'qCol9', // tafsir sadi dv
-        targets: [8],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false
-        }
-      },*/,
-      /* {
-        className: 'qCol8', // bakurube lafzi
-        targets: [7],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false
-        }
       },
-      {
-        className: 'qCol9', // bakurube ijmali
-        targets: [8],
-        visible: false,
-        searchable: false,
-        searchPanes: {
-          show: false
-        }
-      }, */
 
       // below strips html tags off keystable copy, second part with keys on
       {

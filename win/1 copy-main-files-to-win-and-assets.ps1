@@ -193,7 +193,7 @@ Copy-Item ../js/json/radheefEegaal.js -Destination ../app/webview-master/app/src
 Copy-Item ../js/json/radheefManiku.js -Destination ../app/webview-master/app/src/main/assets/js/json/radheefManiku.js -Recurse -Force
 Copy-Item ../js/json/radheefRasmee.js -Destination ../app/webview-master/app/src/main/assets/js/json/radheefRasmee.js -Recurse -Force
 Copy-Item ../js/json/aqidatuRaziyain.js -Destination ../app/webview-master/app/src/main/assets/js/json/aqidatuRaziyain.js -Recurse -Force
-Copy-Item ../js/json/surah-juz-ayahNo-basmalah-ayah.js -Destination ../app/webview-master/app/src/main/assets/js/json/surah-juz-ayahNo-basmalah-ayah.js -Recurse -Force
+Copy-Item ../js/json/surah-juz-ayahNo-basmalah-ayah-uthmani.js -Destination ../app/webview-master/app/src/main/assets/js/json/surah-juz-ayahNo-basmalah-ayah-uthmani.js -Recurse -Force
 Copy-Item ../js/json/umdah.js -Destination ../app/webview-master/app/src/main/assets/js/json/umdah.js -Recurse -Force
 Copy-Item ../js/json/quranUshru.js -Destination ../app/webview-master/app/src/main/assets/js/json/quranUshru.js -Recurse -Force
 Copy-Item ../js/json/usooluSiththa.js -Destination ../app/webview-master/app/src/main/assets/js/json/usooluSiththa.js -Recurse -Force
