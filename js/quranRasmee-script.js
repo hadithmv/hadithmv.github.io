@@ -77,7 +77,7 @@ $(document).ready(() => {
   }
 
   const mergedData = fullJoinRowWise2DFlattenWithEmptyValues(
-    surah_juz_basmalah_ayah_DB,
+    surah_juz_basmalah_ayah_uthmani_DB,
     quran_DB
   );
   //console.log(mergedData);
@@ -283,10 +283,30 @@ $(document).ready(() => {
       },
       {
         data: 5,
-        title: "ތަރުޖަމާ އަރަބިއާއެކު",
+        title: "ރަސްމު އުޘްމާނީ",
+        render: function (data, type, row) {
+          data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
+          data = "﴿" + data + " " + row[2] + "﴾";
+          data = data
+            .replace("1", "١")
+            .replace("2", "٢")
+            .replace("3", "٣")
+            .replace("4", "٤")
+            .replace("5", "٥")
+            .replace("6", "٦")
+            .replace("7", "٧")
+            .replace("8", "٨")
+            .replace("9", "٩")
+            .replace("0", "٠");
+          return data;
+        },
       },
       {
         data: 6,
+        title: "ތަރުޖަމާ އަރަބިއާއެކު",
+      },
+      {
+        data: 7,
         title: "ތަރުޖަމާ ތާނައެކަނި",
       },
     ],
@@ -370,8 +390,17 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol7", // tharujama w arabic words
+        className: "qCol7", // quran uthmani
         targets: [6],
+        visible: false,
+        searchable: false,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "qCol8", // tharujama w arabic words
+        targets: [7],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -379,8 +408,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "qCol8", // tharujama only dhivehi
-        targets: [7],
+        className: "qCol9", // tharujama only dhivehi
+        targets: [8],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -573,6 +602,8 @@ $(document).ready(() => {
           data = data.replace(/ބިސްމި\t/g, "");
           data = data.replace(/ގުރްއާން އަރަބިން\t/g, "");
           data = data.replace(/ގުރްއާން ފިލިނުޖަހާ\t/g, "");
+          data = data.replace(/ރަސްމު އުޘްމާނީ\t/g, "");
+          data = data.replace(/ތަރުޖަމާ އަރަބިއާއެކު\t/g, "");
           data = data.replace(/ތަރުޖަމާ ތާނައެކަނި\t/g, "");
           //data = data.replace(/\t‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾/g, '\n\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\n') // adds a line break after takhrij line, use two for a new line
           /*data = data.replace(

@@ -46,7 +46,10 @@
     <!-- non critical -->
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
-    <script defer src="../js/json/surah-juz-ayahNo-basmalah-ayah.js"></script>
+    <script
+      defer
+      src="../js/json/surah-juz-ayahNo-basmalah-ayah-uthmani.js"
+    ></script>
     <script defer src="../js/json/quranJaufar.js"></script>
     <script defer src="../js/quranJaufar-script.min.js"></script>
     <!-- === EXT JS - END === -->
@@ -1081,26 +1084,16 @@
               class="lowerButtons"
               onclick="toggleFili();filiString();scrollUpTop()"
             >
-              &nbsp; އަރަބި ފިލިތައް ފޮރުވާ &nbsp;
+              &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
             </button>
 
-            <script>
-              function toggleFili() {
-                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
-
-                var isVisible = $("#quranTable")
-                  .DataTable()
-                  .column(4)
-                  .visible();
-                $("#quranTable").DataTable().column(4).visible(!isVisible);
-
-                var isVisible = $("#quranTable")
-                  .DataTable()
-                  .column(5)
-                  .visible();
-                $("#quranTable").DataTable().column(5).visible(!isVisible);
-              }
-            </script>
+            <button
+              id="toggleUthmaniImlai"
+              class="lowerButtons"
+              onclick="uthmaniImlai();rasmString();scrollUpTop()"
+            >
+              &nbsp; ރަސްމު އުޘްމާނީ &nbsp;
+            </button>
 
             <script>
               function copyIjmalyOnly() {
