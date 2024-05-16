@@ -1469,7 +1469,7 @@
             border: none;
             border-radius: 4px;
             /*background-color: #007bff;*/
-            background-color: #1776b5;
+            background-color: #136296;
             color: white;
             font-size: 16px;
             cursor: pointer;
@@ -1478,15 +1478,28 @@
             font-size: 100%;
           }
           .goToButton:hover {
-            background-color: #0056b3;
+            /*background-color: #0056b3;*/
+            background-color: #0f4c75;
           }
           /**/
           /*input[type="text"]*/
           #urlInput {
-            /*background-color: red;*/
-            color: #c5cfd6;
-            max-width: 49vw;
+            background-color: #ffffff;
+            color: #0e1621;
+            max-width: 50vw;
             font-size: 95%;
+          }
+          #urlInput::placeholder {
+            color: #757575;
+          }
+          @media (prefers-color-scheme: dark) {
+            #urlInput {
+              color: #c5cfd6;
+              background-color: initial;
+            }
+            #urlInput::placeholder {
+              color: #c5cfd6;
+            }
           }
         </style>
 
@@ -1494,7 +1507,7 @@
           <input
             type="text"
             id="urlInput"
-            placeholder="ސަފުހާއެއްގައި ހުރި ތަނެއްގެ ލިންކެއް ޕޭސްޓްކުރޭ
+            placeholder="ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ
           "
           />
           <button class="goToButton" onclick="redirectToUrl()">ސ އަށްދޭ</button>
