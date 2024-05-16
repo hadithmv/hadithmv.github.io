@@ -1,0 +1,49 @@
+do the highlight duplicate values for adults kids things on the newest recieved stock list spreadsheet
+
+sort them to remove zero stock
+
+copy the excel file and name it "this:
+
+custom sort them again in the order where, 
+
+sort by item description, cell color (yellow, pink) on top
+(twice for each color)
+
+then add level, sort by, displ., cell values, largest to smallest
+
+open powershell as admin,
+pip install pandas
+
+copy over the 00 CURRENT TO.. folders to google drive shared folder sync, share from there to tg as needed, delete from gdrive after shared.
+
+...
+
+
+using python, write code:
+
+i have an excel file called "this.xlsx" in the directory "C:\Users\ashra\Downloads\00 transfer to desktop\Art\Rameezbe\0 Stock"
+
+there is another directory elsewhere called "C:\Users\ashra\Downloads\00 transfer to desktop\Art\Rameezbe\1.5 Message English Kids Books" which has sub folders
+
+look whether if the text string in a row of the C column in the excel sheet matches a folder name text in the "C:\Users\ashra\Downloads\00 transfer to desktop\Art\Rameezbe\1.5 Message English Kids Books" directory, if so, then
+
+copy over those folders from "1.5 Message English Kids Books" which have the same name text as the text in C olumn to the directory  "C:\Users\ashra\Downloads\00 transfer to desktop\Art\Rameezbe\1.5 Message English Kids Books\00 CURRENT TO SEND"  
+
+by C i meant the 3rd column
+
+...
+
+The error you encountered, KeyError: 'C', indicates that the column 'C' does not exist in your Excel sheet. This could be due to a number of reasons, such as the column header not being named 'C', or the column not existing in the Excel file.
+
+...
+
+in the folders after they've been copied over, delete everything inside  that is not .txt or .jpg
+
+...
+
+the same way, i want you to do the same for this directory, "C:\Users\ashra\Downloads\00 transfer to desktop\Art\Rameezbe\1 Message English Adult Books", matching up the folder names with what is in the excel file, and then copying over the matches from this different directory, over to "C:\Users\ashra\Downloads\00 transfer to desktop\Art\Rameezbe\1 Message English Adult Books\00 CURRENT TO SEND ADULTS"
+
+...
+
+before running the script, first make the 00 CURRENT TO SEND KIDS and 00 CURRENT TO SEND ADULTS folders empty
+
