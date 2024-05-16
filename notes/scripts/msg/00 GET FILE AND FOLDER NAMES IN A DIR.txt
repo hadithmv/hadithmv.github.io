@@ -1,0 +1,19 @@
+(Get-ChildItem).Name | clip
+
+https://stackoverflow.com/questions/72097924/how-to-list-file-and-folder-names-in-powershell/72098866#72098866
+
+to generate output file: Out-File folderAndFileNames.txt
+otherwise to clipboard: clip
+
+---
+
+https://stackoverflow.com/questions/71280624/output-filenames-in-a-folder-to-a-text-file/71280640#71280640
+
+(Get-ChildItem -Directory).BaseName | Out-File folderNames.txt
+
+https://finance.uw.edu/recmgt/resources/list-your-folder-structure-windows
+
+
+
+
+
