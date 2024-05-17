@@ -1099,13 +1099,13 @@
 
           <div class="column">
             <a
-              href="https://archive.org/details/tajwid-mushaf-darul-marifa"
+              href="https://archive.org/details/mushaf-tajwid-darul-marifa"
               rel="noopener noreferrer"
               target="_blank"
             >
               <!-- added this anchor to make it a link -->
               <div class="card">
-                <p>ތަޖްވީދު މުސްޙަފު (ޕީޑީއެފް)</p>
+                <p>ތަޖްވީދު މުސްހަފު (ޕީޑީއެފް)</p>
                 <p></p>
               </div>
             </a>
@@ -1438,68 +1438,73 @@
         <!--
           in html, write code for a user to paste a url in an input box, upon which the user will be taken to that url, on that same page. otherwise, the user can write an address themselves and pressing enter should take them to that page. it should be nice looking
           it doesnt have to be or check for https. rather what it should do is, it should take the input, then it should replace the text that comes after: "/books/" or "/uc/" from that input, with "/books/" of the current page url, along with whatever comes before "/books/" of that current page.
-          -then i showed in example results and errors til it was fixed
+          if neither /uc/ or /books/ are there, it should not change to that page, and the placeholder text should say "incorrect link" and be in red color, border color should also be red
         -->
         <style>
           .goToButtonContainer {
             text-align: center;
-            /**/
             margin-bottom: -14px;
           }
-          /*input[type="text"]*/
+
           #urlInput {
-            /*width: 300px;*/
             width: auto;
-            /*padding: 10px;*/
             padding: 5px;
-            /*margin: 20px 0;*/
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 16px;
             outline: none;
             transition: border-color 0.3s;
-          }
-          /*input[type="text"]:focus*/
-          #urlInput:focus {
-            border-color: #007bff;
-          }
-          .goToButton {
-            /*padding: 10px 20px;*/
-            padding: 5px 20px;
-            border: none;
-            border-radius: 4px;
-            /*background-color: #007bff;*/
-            background-color: #136296;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            /**/
-            font-size: 100%;
-          }
-          .goToButton:hover {
-            /*background-color: #0056b3;*/
-            background-color: #0f4c75;
-          }
-          /**/
-          /*input[type="text"]*/
-          #urlInput {
             background-color: #ffffff;
             color: #0e1621;
             max-width: 50vw;
             font-size: 95%;
           }
-          #urlInput::placeholder {
-            color: #757575;
+
+          #urlInput:focus {
+            border-color: #007bff;
           }
+
+          .goToButton {
+            padding: 5px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #136296;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 100%;
+          }
+
+          .goToButton:hover {
+            background-color: #0f4c75;
+          }
+
+          #urlInput::placeholder {
+            color: var(--placeholder-color, #757575);
+          }
+
           @media (prefers-color-scheme: dark) {
             #urlInput {
               color: #c5cfd6;
               background-color: initial;
             }
+
             #urlInput::placeholder {
               color: #c5cfd6;
             }
+          }
+
+          .incorrect {
+            border-color: red !important;
+          }
+
+          .incorrect::placeholder {
+            color: red;
+          }
+
+          #urlInput::placeholder {
+            color: var(--placeholder-color, #757575);
           }
         </style>
 
@@ -1515,38 +1520,55 @@
 
         <script>
           function redirectToUrl() {
-            const input = document.getElementById("urlInput").value;
-            if (input) {
-              const currentUrl = window.location.href;
-              let newUrl = "";
+            const inputElement = document.getElementById("urlInput");
+            const input = inputElement.value;
+            const currentUrl = window.location.href;
+            let newUrl = "";
 
-              if (input.includes("/books/")) {
-                const inputAfterBooks = input.split("/books/")[1];
-                const currentBase = currentUrl
-                  .split("/uc/")[0]
-                  .split("/books/")[0];
-                newUrl = currentBase + "/books/" + inputAfterBooks;
-              } else if (input.includes("/uc/")) {
-                const inputAfterUc = input.split("/uc/")[1];
-                const currentBase = currentUrl
-                  .split("/books/")[0]
-                  .split("/uc/")[0];
-                newUrl = currentBase + "/uc/" + inputAfterUc;
-              } else {
-                newUrl = input;
-              }
-
-              window.location.href = newUrl;
+            if (input.includes("/books/")) {
+              const inputAfterBooks = input.split("/books/")[1];
+              const currentBase = currentUrl
+                .split("/uc/")[0]
+                .split("/books/")[0];
+              newUrl = currentBase + "/books/" + inputAfterBooks;
+            } else if (input.includes("/uc/")) {
+              const inputAfterUc = input.split("/uc/")[1];
+              const currentBase = currentUrl
+                .split("/books/")[0]
+                .split("/uc/")[0];
+              newUrl = currentBase + "/uc/" + inputAfterUc;
+            } else {
+              inputElement.value = "";
+              inputElement.classList.add("incorrect");
+              inputElement.setAttribute("placeholder", "ލިންކު ރަނގަޅެއް ނޫން");
+              inputElement.style.setProperty("--placeholder-color", "red");
+              inputElement.style.setProperty("--border-color", "red");
+              return;
             }
+
+            window.location.href = newUrl;
           }
 
-          // Add event listener for Enter key
           document
             .getElementById("urlInput")
             .addEventListener("keypress", function (event) {
               if (event.key === "Enter") {
                 redirectToUrl();
               }
+            });
+
+          // Remove incorrect class on focus
+          document
+            .getElementById("urlInput")
+            .addEventListener("focus", function () {
+              const inputElement = document.getElementById("urlInput");
+              inputElement.classList.remove("incorrect");
+              inputElement.setAttribute(
+                "placeholder",
+                "ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ"
+              );
+              inputElement.style.removeProperty("--placeholder-color");
+              inputElement.style.removeProperty("--border-color");
             });
         </script>
 
