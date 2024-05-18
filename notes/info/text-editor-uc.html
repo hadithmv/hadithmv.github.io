@@ -1400,6 +1400,115 @@ function () {
           </button>-->
 
           <button
+            onclick="daysSince();scrollToTopFully();"
+            class="ttClass"
+            data-tooltip="Counts days or time since the date written in the text area (numbers only, format should be: 8/8/24 or can use 08 and 2024 and . instead of /)"
+          >
+            📅 Days Since
+          </button>
+
+          <script>
+            function daysSince() {
+              // ltr switch
+              document.getElementById("textMainArea").style.direction = "ltr";
+              //
+              const textMainArea = document.getElementById("textMainArea");
+              const dateInput = textMainArea.value.trim();
+              const currentDate = new Date();
+
+              // Define regex patterns for the various date formats
+              const datePatterns = [
+                /^\d{1,2}\/\d{1,2}\/\d{2,4}$/, // DD/MM/YY or DD/MM/YYYY
+                /^\d{1,2}\.\d{1,2}\.\d{2,4}$/, // DD.MM.YY or DD.MM.YYYY
+              ];
+
+              let parsedDate;
+
+              for (let pattern of datePatterns) {
+                if (pattern.test(dateInput)) {
+                  parsedDate = parseDate(dateInput);
+                  break;
+                }
+              }
+
+              if (!parsedDate) {
+                textMainArea.value = "Invalid date format";
+                return;
+              }
+
+              const dateDifference = getTimeDifference(currentDate, parsedDate);
+
+              textMainArea.value = `Between: ${formatDate(currentDate)}
+To: ${formatDate(parsedDate)}
+
+There were:
+${dateDifference}`;
+
+              function parseDate(dateString) {
+                const parts = dateString.split(/[\/\.]/);
+                let day, month, year;
+
+                if (parts[2].length === 2) {
+                  year = "19" + parts[2]; // Assuming 1900s for two-digit years
+                } else {
+                  year = parts[2];
+                }
+                month = parts[1] - 1; // JavaScript months are 0-based
+                day = parts[0];
+
+                return new Date(year, month, day);
+              }
+
+              function formatDate(date) {
+                return date.toLocaleDateString("en-GB"); // Use en-GB for DD/MM/YYYY format
+              }
+
+              function getTimeDifference(date1, date2) {
+                let diff = Math.abs(date1 - date2);
+                let seconds = Math.floor(diff / 1000);
+                let minutes = Math.floor(seconds / 60);
+                let hours = Math.floor(minutes / 60);
+                let days = Math.floor(hours / 24);
+                let weeks = Math.floor(days / 7);
+                let months = Math.floor(days / 30.44); // Approximate month length
+                let years = Math.floor(days / 365.25); // Approximate year length
+
+                let remainingDays = (days % 365.25) % 30.44;
+                let remainingHours = hours % 24;
+                let remainingMinutes = minutes % 60;
+                let remainingSeconds = seconds % 60;
+
+                if (years > 0) {
+                  const remainingMonths = Math.floor((days % 365.25) / 30.44);
+                  return `${years} years, ${remainingMonths} months, and ${remainingDays} days\nOR ${months} months, ${remainingDays} days\nOR ${weeks} weeks, ${
+                    days % 7
+                  } days\nOR ${days} days, ${remainingHours} hours\nOR ${hours} hours, ${remainingMinutes} minutes\nOR ${minutes} minutes, ${remainingSeconds} seconds\nOR ${seconds} seconds`;
+                }
+                if (months > 0) {
+                  return `${months} months and ${remainingDays} days\nOR ${weeks} weeks, ${
+                    days % 7
+                  } days\nOR ${days} days, ${remainingHours} hours\nOR ${hours} hours, ${remainingMinutes} minutes\nOR ${minutes} minutes, ${remainingSeconds} seconds\nOR ${seconds} seconds`;
+                }
+                if (weeks > 0) {
+                  return `${weeks} weeks and ${
+                    days % 7
+                  } days\nOR ${days} days, ${remainingHours} hours\nOR ${hours} hours, ${remainingMinutes} minutes\nOR ${minutes} minutes, ${remainingSeconds} seconds\nOR ${seconds} seconds`;
+                }
+                if (days > 0) {
+                  return `${days} days, ${remainingHours} hours\nOR ${hours} hours, ${remainingMinutes} minutes\nOR ${minutes} minutes, ${remainingSeconds} seconds\nOR ${seconds} seconds`;
+                }
+                if (hours > 0) {
+                  return `${hours} hours, ${remainingMinutes} minutes\nOR ${minutes} minutes, ${remainingSeconds} seconds\nOR ${seconds} seconds`;
+                }
+                if (minutes > 0) {
+                  return `${minutes} minutes, ${remainingSeconds} seconds\nOR ${seconds} seconds`;
+                }
+                return `${seconds} seconds`;
+              }
+            }
+          </script>
+
+          <button
             onclick="htmlRmv();triggerTheCounts();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Removes html tags from the text, but leaves the text as is"
@@ -1490,7 +1599,7 @@ function () {
             class="ttClass"
             data-tooltip="Turns on tooltip help, which explains what these buttons do when you point at them"
           >
-            Help is OFF
+            ❓Help is OFF
           </button>
 
           <button
@@ -3882,6 +3991,9 @@ function () {
 
           // https://stackoverflow.com/questions/1499889/remove-html-tags-in-javascript-with-regex/1499916#1499916
           function htmlRmv() {
+            // ltr switch
+            document.getElementById("textMainArea").style.direction = "ltr";
+            //
             document.getElementById("textMainArea").value = document
               .getElementById("textMainArea")
               .value.replace(/(<([^>]+)>)/gi, "");
@@ -3891,6 +4003,9 @@ function () {
           //
           var text2Html_timesClicked = 0;
           function text2Html() {
+            // ltr switch
+            document.getElementById("textMainArea").style.direction = "ltr";
+            //
             text2Html_timesClicked++;
             if (text2Html_timesClicked == 1) {
               //run first function
@@ -4171,6 +4286,9 @@ function () {
 
           var decodeUnicode_timesClicked = 0;
           function decodeUnicode() {
+            // ltr switch
+            document.getElementById("textMainArea").style.direction = "ltr";
+            //
             decodeUnicode_timesClicked++;
             if (decodeUnicode_timesClicked % 2 == 0) {
               //run second function
@@ -8346,7 +8464,7 @@ inputMultiB2
             el.className = "ttClassDisabled";
           }
 
-          document.getElementById("toggleHandT").innerHTML = "Help is OFF";
+          document.getElementById("toggleHandT").innerHTML = "❓Help is OFF";
 
           //
 
@@ -8378,7 +8496,7 @@ inputMultiB2
 
           document.getElementById("toggleHandT").className = "ttClassDisabled";
 
-          document.getElementById("toggleHandT").innerHTML = "Help is ON";
+          document.getElementById("toggleHandT").innerHTML = "❓Help is ON";
 
           //
 
