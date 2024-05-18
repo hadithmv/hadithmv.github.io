@@ -926,7 +926,7 @@ h3 {
   border: 0.5px solid black;
   outline: none;
   cursor: pointer;
-  padding: 8px 10px; /* 12px 14px; */
+  padding: 2px 4px; /*8px 10px;*/ /* 12px 14px; */
 
   /* padding: 14px 16px; */
   transition: 0.3s;
