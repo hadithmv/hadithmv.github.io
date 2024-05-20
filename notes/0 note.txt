@@ -1,4 +1,16 @@
 minimal-mod.css		csso
+mergely			5.1.4
+https://github.com/wickedest/Mergely/releases
 
-markdown is very much line by line, but the least broken converter seems to be:
-https://www.browserling.com/tools/html-to-markdown
+qrcodegen		1.8.0 (closure + wwrap)
+https://www.nayuki.io/res/qr-code-generator-library/qrcodegen.js
+
+-----
+
+NO LONGER NEEDED:
+codemirror		5.65.9 (latest is 6.7.1)
+https://codemirror.net/docs/changelog/
+
+previously mergely was 4.3.9
+
+codemirror/5.65.9/addon/selection/mark-selection.js
