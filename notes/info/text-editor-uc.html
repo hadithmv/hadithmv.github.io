@@ -203,7 +203,19 @@
       margin-right: auto;
     }
 
+    /* fixes button placing evenness */
+    .editorButtons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      /* do i need below? */
+      align-items: center;
+    }
+
     .editorButtons button {
+      flex: 0 1 150px;
+      /* part of above, Allow buttons to shrink and grow to the specified width */
+
       font-family: sans-serif, "mergedFont", "Quicksand", "faruma";
       /*font-family: "mergedFont", sans-serif, "Quicksand", "faruma";*/
       font-size: 16px;
@@ -868,6 +880,12 @@ function () {
       }
       */
           </script>
+
+          <input
+            type="file"
+            id="uploadInputFile"
+            style="display: none; width: 0; height: 0"
+          />
 
           <button
             type="button"
@@ -1876,11 +1894,6 @@ ${dateDifference}`;
               Replace Txt
             </button>
 
-            <input
-              type="file"
-              id="uploadInputFile"
-              style="display: none; width: 0; height: 0"
-            />
             <!--<button onclick="regexFindReplace();triggerTheCounts();">
             Regex Replace
           </button>-->
@@ -5753,17 +5766,15 @@ cols="60"-->
           <button onclick="clearAdd();" data-tooltip="Erases everything above">
             ❌ Clear
           </button>
-
-          <br />
-
-          <p>
-            <span
-              data-tooltip="Shows the calculated Zakat due on the total amount, which is 1/40th or 0.25%"
-            >
-              The Zakat for the total would be: <span id="sumZakat">0.00</span>
-            </span>
-          </p>
         </div>
+
+        <p style="text-align: center">
+          <span
+            data-tooltip="Shows the calculated Zakat due on the total amount, which is 1/40th or 0.25%"
+          >
+            The Zakat for the total would be: <span id="sumZakat">0.00</span>
+          </span>
+        </p>
 
         <script>
           // https://stackoverflow.com/questions/39236731/how-to-find-sum-of-integers-in-a-string-using-javascript
@@ -7884,12 +7895,15 @@ inputMultiB2
           
           <br class="hideOnTabAndUp" /> -->
 
-          <br />
+          <!-- 
+            <br />
+           -->
 
           <button
             onClick="window.location.reload();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Soft reloads the page"
+            style=""
           >
             🔄 Soft Reload
           </button>
@@ -7978,6 +7992,11 @@ inputMultiB2
             ވާތު ފަޅީގައިވާ ބަދަލުތައް، ކަނާތު ފަޅިއަށް ލުމަށް '&lt;' އަށް
             ފިތާލައްވާ.
           </p>
+          <p>
+            މި ސަފުހާ ރަނގަޅަށް ލޯޑުނުވެ ހުރެދާނެއެވެ. އެ ހާލަތުގައި މަޑު ނުވަތަ
+            ހަރު ރީލޯޑު ކުރާށެވެ.
+          </p>
+          <p>ފިލިތަކުގައި ހުރި ތަފާތުތައް ނުދައްކަފާނެ.</p>
         </div>
 
         <!-- end of dv -->
