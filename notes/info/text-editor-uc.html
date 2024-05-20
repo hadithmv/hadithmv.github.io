@@ -869,22 +869,10 @@ function () {
       */
           </script>
 
-          <input
-            type="file"
-            id="inputfile"
-            style="
-              display: none;
-              width: 0;
-              height: 0;
-              top: -9999px;
-              left: -9999px;
-            "
-          />
-
           <button
             type="button"
             value="Browse..."
-            onclick="document.getElementById('inputfile').click();"
+            onclick="document.getElementById('uploadInputFile').click();"
             id="upButton"
             class="ttClass"
             data-tooltip="Uploads the text of a file that you choose on your device, except when using the Android app"
@@ -897,7 +885,7 @@ function () {
             // https://stackoverflow.com/questions/1084925/input-type-file-show-only-button/14806776#14806776
 
             //External data file handling starts here
-            var control = document.getElementById("inputfile");
+            var control = document.getElementById("uploadInputFile");
             control.addEventListener(
               "change",
               function (event) {
@@ -1887,6 +1875,12 @@ ${dateDifference}`;
             >
               Replace Txt
             </button>
+
+            <input
+              type="file"
+              id="uploadInputFile"
+              style="display: none; width: 0; height: 0"
+            />
             <!--<button onclick="regexFindReplace();triggerTheCounts();">
             Regex Replace
           </button>-->
