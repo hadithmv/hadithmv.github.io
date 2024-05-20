@@ -212,6 +212,13 @@
       align-items: center;
     }
 
+    /* provides a gap between lines of buttons, on phones only */
+    @media (max-width: 599px) {
+      .editorButtons {
+        column-gap: 1.5%;
+      }
+    }
+
     .editorButtons button {
       flex: 0 1 150px;
       /* part of above, Allow buttons to shrink and grow to the specified width */
