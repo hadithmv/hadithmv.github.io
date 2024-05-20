@@ -317,10 +317,7 @@
 
   <body class="notranslate">
     <div class="wrapper">
-      <div
-        class="topContainer"
-        style="margin-top: 4px; margin-bottom: 5px; font-size: 20px"
-      >
+      <div class="topContainer" style="margin-top: 3px; font-size: 19px">
         <span class="hideOnPhoneOnly"></span>
         <span class="hideOnPhoneOnly"></span>
         <span>
@@ -577,7 +574,11 @@
           </style>
           <table
             class="textInfos"
-            style="display: inline-block; margin-bottom: -10px"
+            style="
+              display: inline-block;
+              margin-bottom: -15px;
+              margin-top: -15px;
+            "
             id="lineThruForToggle2"
           >
             <tr
@@ -621,7 +622,13 @@
         https://codepen.io/alexandercastillo/pen/YXrmPE
       -->
 
-          <div style="display: inline-block; top: -50px !important">
+          <div
+            style="
+              display: inline-block;
+              top: -50px !important;
+              margin-top: -10px;
+            "
+          >
             <span
               id="sliderValue"
               style="
@@ -865,7 +872,13 @@ function () {
           <input
             type="file"
             id="inputfile"
-            style="display: none; width: 0; height: 0"
+            style="
+              display: none;
+              width: 0;
+              height: 0;
+              top: -9999px;
+              left: -9999px;
+            "
           />
 
           <button
@@ -1666,7 +1679,13 @@ ${dateDifference}`;
           </button>
 
           <script>
-            // https://stackoverflow.com/questions/3664381/force-page-scroll-position-to-top-at-page-refresh-in-html/60994204#60994204
+            function scrollToTopFully() {
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth", // Smooth scroll
+              });
+            }
+            /*// https://stackoverflow.com/questions/3664381/force-page-scroll-position-to-top-at-page-refresh-in-html/60994204#60994204
             function scrollToTopFully() {
               history.scrollRestoration = "manual";
               window.addEventListener("beforeunload", () => {
@@ -1675,7 +1694,7 @@ ${dateDifference}`;
                   behavior: "smooth",
                 });
               });
-            }
+            }*/
           </script>
 
           <style>
@@ -4373,7 +4392,7 @@ ${dateDifference}`;
 
           var darkModeTog_timesClicked = 0;
           function darkModeTog() {
-            console.log("Hello world!");
+            //console.log("Hello world!");
             darkModeTog_timesClicked++;
             if (darkModeTog_timesClicked % 2 == 0) {
               //run second function
