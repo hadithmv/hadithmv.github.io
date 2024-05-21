@@ -7949,12 +7949,13 @@ onclick="window.location.href = window.location.href.split('.html')[0] + '.html'
 
         <!-- MERGELY ID CODE STARTS HERE -->
         <script>
-          let doc; // Define doc in a higher scope
+          let doc; // Define doc in a higher scope, so that buttons will work
 
           function initializeMergely() {
             //
             // const doc = new Mergely("#compare", {
             doc = new Mergely("#compare", {
+              //
               // Asynchronous initialization
               /*const mergely = new Mergely("#compare");
           mergely.once("updated", () => {
