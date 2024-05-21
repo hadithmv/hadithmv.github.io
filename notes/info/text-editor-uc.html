@@ -35,7 +35,8 @@
     https://github.com/orderedlist/minimal
     -->
 
-    <script src="../../js/resc/COMB-nonCrit.min.js"></script>
+    <!-- no $ jquery dependencies anymore, so i think its safe to not use this
+    <script src="../../js/resc/COMB-nonCrit.min.js"></script> -->
     <link rel="stylesheet" href="../editorResc.min.css" />
     <script async src="../editorResc.min.js"></script>
   </head>
@@ -336,7 +337,7 @@
 
   <body class="notranslate">
     <div class="wrapper">
-      <div class="topContainer" style="margin-top: 3px; font-size: 19px">
+      <div class="topContainer" style="font-size: 19px">
         <span class="hideOnPhoneOnly"></span>
         <span class="hideOnPhoneOnly"></span>
         <span>
@@ -372,8 +373,9 @@
         <button
           class="tablinks"
           onclick="openTab(event, 'tabOne');"
-          id="secondaryOpen"
+          id="defaultOpen"
         >
+          <!-- id="secondaryOpen"-->
           <!--  focusEditor(); -->
           <!--   -->
           <span class="hideOnPhoneOnly"><u>1</u> </span>Edit އެޑިޓް
@@ -397,8 +399,9 @@
         <button
           class="tablinks"
           onclick="openTab(event, 'tabFour')"
-          id="defaultOpen"
+          id="fourthButton"
         >
+          <!-- id="defaultOpen" -->
           <span class="hideOnPhoneOnly"><u>4</u> </span>Diff ތަފާތު</button
         ><!-- &nbsp;&nbsp; previously put before diff-->
       </div>
@@ -432,7 +435,8 @@
               //focusEditor();
               // https://bobbyhadz.com/blog/javascript-get-nth-child-of-element#:~:text=Use%20the%20querySelector()%20method,that%20matches%20the%20provided%20position.
               // https://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box/155263#155263
-              document.querySelector("#secondaryOpen").click();
+              document.querySelector("#defaultOpen").click();
+              //document.querySelector("#secondaryOpen").click();
             }
             if (e.altKey && e.which == 50) {
               // is 2
@@ -451,7 +455,8 @@
               // is 4
               //alert("Ctrl + Alt + Shift + U shortcut combination was pressed");
               //openTab(event, "tabFour");
-              document.querySelector("#defaultOpen").click();
+              document.querySelector("#fourthButton").click();
+              //document.querySelector("#defaultOpen").click();
             }
 
             //
@@ -534,17 +539,25 @@
             if (e.which == 27) {
               // is esc
               //alert("Esc key pressed.");
-              $(".mergely-full-screen-8").removeClass("fullScreenClass2");
+              document
+                .getElementById("compare")
+                .classList.remove("fullScreenClass2");
+              // Function to show the scrollbar
+              document.documentElement.style.overflowY = "auto";
+              document.body.style.overflowY = "auto";
+
               //$(".mergely-full-screen-8").css({
               //height: "80vh",
               //width: "100%",
               //position: "relative",
               //});
-              $("#mergely").mergely("resize");
+              /*$("#mergely").mergely("resize");*/
               //
               // EDITOR only code below
               //
-              $("#textMainArea").removeClass("fullScreenClass");
+              document
+                .getElementById("textMainArea")
+                .classList.remove("fullScreenClass");
               //$("#textMainArea").css({
               //height: "300px",
               //position: "relative",
@@ -824,8 +837,7 @@ function () {
             onclick="replaceArabicFili();triggerTheCounts();"
             class="ttClass"
             data-tooltip="Removes all diacritical marks / tashkeel / haraka of arabic letters"
-            style="font-size: 101%"
-            style="font-weight: bold"
+            style="font-size: 101%; font-weight: bold"
           >
             عربي ފިލި ފޮހެލާ
           </button>
@@ -1349,8 +1361,7 @@ function () {
             onclick="replaceColon();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Replaces all colons with fullstops"
-            style="font-size: 105%"
-            style="font-weight: bold"
+            style="font-size: 105%; font-weight: bold"
           >
             : ← .
           </button>
@@ -1359,8 +1370,7 @@ function () {
             onclick="replaceKashida();triggerTheCounts();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Removes all kashidas, which elongate arabic letters"
-            style="font-size: 105%"
-            style="font-weight: bold"
+            style="font-size: 105%; font-weight: bold"
           >
             ســلاــم ← سلام
           </button>
@@ -1744,17 +1754,22 @@ ${dateDifference}`;
           </style>
 
           <script>
-            $("#fullScreenB").on("click", function () {
-              $("#textMainArea").addClass("fullScreenClass");
-              //
-              $("#textMainArea").focus();
+            document
+              .getElementById("fullScreenB")
+              .addEventListener("click", function () {
+                document
+                  .getElementById("textMainArea")
+                  .classList.add("fullScreenClass");
+                //
+                document.getElementById("textMainArea").focus();
 
-              // turns scroll to top arrow invisible
-              $(".toTop").css("opacity", 0);
+                // turns scroll to top arrow invisible
+                document.querySelectorAll(".toTop").forEach(function (element) {
+                  element.style.opacity = "0";
+                });
+                //$("#textMainArea").removeClass("fullScreenClass");
 
-              //$("#textMainArea").removeClass("fullScreenClass");
-
-              /* $("#fullScreenB").click(function () {
+                /* $("#fullScreenB").click(function () {
          // listen for multiple clicks
          window.addEventListener("click", function (evt) {
            if (evt.detail === 4) {
@@ -1765,16 +1780,20 @@ ${dateDifference}`;
            }
          });*/
 
-              // for some reason help buttons show if they have relative position, so changed to static
-              $(".ttClass[data-tooltip]").css({
-                position: "static",
-              });
+                // for some reason help buttons show if they have relative position, so changed to static
+                document
+                  .querySelectorAll(".ttClass[data-tooltip]")
+                  .forEach(function (element) {
+                    element.style.position = "static";
+                  });
 
-              // prevents buttons from enlargening on hover for a bit even as full screen shows
-              $(".editorButtons button").css({
-                transform: "none",
+                // prevents buttons from enlargening on hover for a bit even as full screen shows
+                document
+                  .querySelectorAll(".editorButtons button")
+                  .forEach(function (element) {
+                    element.style.transition = "none";
+                  });
               });
-            });
 
             // old onclick js code turned into css later
             /*$("#textMainArea").css({
@@ -2544,12 +2563,14 @@ ${dateDifference}`;
           // area.addEventListener("input", function (e) {
 
           // all other os browsers except android
-          $("#textMainArea").on("keydown", function (event) {
-            if (event.keyCode === 189 || event.keyCode === 109) {
-              // 189 is Minus || 109 is NumpadSubtract, they are not the same, need both
-              setTimeout(replacesText, 600);
-            }
-          });
+          document
+            .getElementById("textMainArea")
+            .addEventListener("keydown", function (event) {
+              if (event.keyCode === 189 || event.keyCode === 109) {
+                // 189 is Minus || 109 is NumpadSubtract, they are not the same, need both
+                setTimeout(replacesText, 600);
+              }
+            });
           //
 
           // android fix
@@ -6009,15 +6030,13 @@ cols="60"-->
                 ctx.fillStyle = "#ff5";
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 */
-                      $("#qrcode-canvas").click(function () {
-                        $(this)
-                          .parent()
-                          .attr(
-                            "href",
-                            document.getElementById("qrcode-canvas").toDataURL()
-                          );
-                        $(this).parent().attr("download", "QrCode.png");
-                      });
+                      document
+                        .getElementById("qrcode-canvas")
+                        .addEventListener("click", function () {
+                          var parentElement = this.parentElement;
+                          parentElement.setAttribute("href", this.toDataURL());
+                          parentElement.setAttribute("download", "QrCode.png");
+                        });
                     </script>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -7574,145 +7593,25 @@ inputMultiB2
           <br />
         </div>
       </div>
+
       <!-- <div id="tabThree" class="tabcontent"> -->
 
+      <!-- Mergely 
+      <script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mergely/5.0.0/mergely.min.js"
+      ></script>
+      <link
+        type="text/css"
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/mergely/5.0.0/mergely.css"
+      /> -->
+
       <div id="tabFour" class="tabcontent" style="margin-top: 10px">
-        <!-- code taken from simple.html, https://github.com/wickedest/Mergely/tree/master/examples (downloaded zipped release)-->
-
-        <!-- NEEDED, JQUERY
-        <script
-          type="text/javascript"
-          src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"
-        ></script>-->
-
-        <!-- Requires CodeMirror -->
-
-        <!-- original js version, old? <script
-    type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.js"
-  ></script>-->
-
-        <!-- NEEDED, updated codemirror js, originally 5.32.0 in release file, 5.63.3 in codepen demo
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.js"></script> -->
-
-        <!-- doesnt seem to be needed at all, seems to have been used for in-editor search, which doesnt work in simple anyway <script
-    type="text/javascript,"
-    src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/addon/search/searchcursor.min.js"
-  ></script>-->
-
-        <!-- original css version, old? <link
-    type="text/css"
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.css"
-  />-->
-        <!-- NEEDED, updated codemirror js, originally 5.32.0 in release file, 5.63.3 in codepen demo
-          <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.css"
-        /> -->
-
-        <!-- Requires Mergely -->
-
-        <!-- NEEDED, there isnt a single file for this in the repo, rather seems to be compiled from a bunch of separate files. release file has a higher version number 4.3.9, codepen uses 4.3.5
-        <script type="text/javascript" src="mergely.js"></script> -->
-
-        <!-- NEEDED, the css looks to be the exact same as found here, https://github.com/wickedest/Mergely/tree/master/src
-        release file has a higher version number 4.3.9, codepen uses 4.3.5, but code is the exact same
-        <link type="text/css" rel="stylesheet" href="mergely.css" /> -->
-
-        <!-- NEEDED, <script
-          type="text/javascript"
-          src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/addon/selection/mark-selection.js"
-        ></script>  -->
-
-        <script defer>
-          $(document).ready(function () {
-            $("#mergely").mergely({
-              //
-              // containing div must be given a height (not width) to make the textareas exist, if not here, then in styles. actually here as well separately might affect something else?
-              width: "auto",
-              height: "auto",
-
-              //license: "lgpl-separate-notice",
-
-              // code mirror settings below
-              // https://codemirror.net/5/doc/manual.html
-              cmsettings: {
-                //readOnly: true,
-                direction: "rtl",
-                rtlMoveVisually: true,
-                /* lets select go over change highlights https://github.com/wickedest/Mergely/issues/104 */
-                styleSelectedText: true,
-                autofocus: false, //does it do anything?
-              },
-              lhs: function (setValue) {
-                setValue(
-                  "عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُ:\nقَالَ رَسُولُ اللَّهِ ﷺ:\n\nޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ގެ އަރިހުން ރިވާވެގެންވެއެވެ:\nރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:"
-                );
-              },
-              rhs: function (setValue) {
-                setValue(
-                  "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ:\nسَمِعْتُ النَّبِيَّ ﷺ يَقُولُ:\n\nއިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ:\nނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:"
-                );
-              },
-              /**/
-            });
-
-            /**/
-
-            // ADDED below
-            //$("#mergely").mergely("options");
-            $("#mergely").mergely("options", { wrap_lines: true });
-
-            $("#prev").click(function () {
-              $("#mergely").mergely("scrollToDiff", "prev"); // changed comp.mergely to $("#mergely").mergely?
-            });
-            $("#next").click(function () {
-              $("#mergely").mergely("scrollToDiff", "next");
-            });
-
-            $("#clearM").click(function () {
-              $("#mergely").mergely("clear", "lhs");
-              $("#mergely").mergely("clear", "rhs");
-            });
-
-            $("#wrap").click(function () {
-              changeOptions(function (x) {
-                x.wrap_lines = !x.wrap_lines;
-              });
-            });
-            function changeOptions(changer) {
-              var options = $("#mergely").mergely("options");
-              changer(options);
-              $("#mergely").mergely("options", options);
-            }
-            /**/
-          });
-
-          /*function changeOptions(changer) {
-      var options = comp.mergely("options");
-      changer(options);
-      comp.mergely("options", options);
-    }*/
-        </script>
-
-        <!-- old code, just took out the part needed below and styled
-        <div class="mergely-full-screen-8">
-          <div class="mergely-resizer">
-            <div id="mergely"></div>
-          </div>
-        </div> -->
-        <div class="mergely-full-screen-8">
-          <div class="mergely-resizer">
-            <div id="mergely"></div>
-          </div>
-        </div>
-
-        <style>
-          /* see https://github.com/wickedest/Mergely/blob/master/src/mergely.css to know defaults */
-
-          /* if not setting height and width here in styles, has to be done via js, otherwise diff text area wont show at all, unless it is contained in an absolute div */
-          .mergely-full-screen-8 {
+        <!-- 
+            /* if not setting height and width here in styles, has to be done via js, otherwise diff text area wont show at all, unless it is contained in an absolute div. below was the name of the mergely container, remember that its changed now */
+            
+            .mergely-full-screen-8 {
             /*position: absolute;*/
             position: relative;
             /*top: 8px;
@@ -7736,49 +7635,92 @@ inputMultiB2
             /* tries to make mergely more in the middle */
             /*margin-right: -8px !important;*/
           }
+        -->
+        <style type="text/css">
+          /* see https://github.com/wickedest/Mergely/blob/master/src/mergely.css to know defaults */
 
-          /* ADDED below */
+          /* SOME DEFAULT MERGELY CSS */
+          /*html,
+          body {
+            height: 100%;
+            margin: 0;
+          }
+          #compare {
+            height: calc(
+              100% - 40px
+            ); 
+          }*/
+          /* Adjust height to accommodate the button */
 
-          /* removes splash div popup */
-          #mergely-splash {
+          /* CUSTOM MERGELY CSS BELOW */
+
+          /* removes license splash div popup */
+          .mergely-splash {
             display: none;
           }
 
           /* removes strikethrough on left hand side */
-          .mergely.ch.d.lhs {
+          .mergely-editor .mergely.ch.ind.lhs {
             text-decoration: none;
           }
 
           /* set font css */
-          .CodeMirror {
+          .mergely-editor .CodeMirror {
             font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
-            font-size: 20px;
+            font-size: 26px;
             /*direction: rtl;*/
             /* makes text rtl, but merge arrows too, dont do this, instead use cmsettings */
+            line-height: 36px;
           }
 
-          /* makes merge arrow buttons show up fuller than even before it got smaller after rtl */
+          /* mobile only */
+          @media (max-width: 599px) {
+            .mergely-editor .CodeMirror {
+              font-size: 20px;
+              line-height: 30px;
+            }
+          }
+
+          /* is this needed now? !!!still facing direction is wrong, as well as tooltip
+          makes merge arrow buttons show up fuller than even before it got smaller after rtl 
           .merge-button {
             height: 32px !important;
-          }
-
-          /* changes select color?
-          .CodeMirror-selected {
-            background-color: #cccccc !important;
-          }*/
+          } */
 
           /* turns the middle part of mergely white, otherwise see through */
           .mergely-canvas {
             background-color: white;
           }
+          /*#clear-rhs-btn {
+            margin: 10px;
+          }*/
+
+          /* hides purple margine, display none cause diff compare colors to not show */
+          .mergely-margin {
+            width: 0.1px;
+          }
         </style>
 
+        <!-- <button id="clear-rhs-btn">Clear RHS</button> -->
+
+        <!-- MERGELY ID STARTS HERE -->
+        <div id="compare" style="height: 500px"></div>
+        <!-- Mergely is appended to the DOM element that you identify with an id, and the element requires an explicit height assigned to it. Mergely will automatically expand to take the full height and width of the container in which it is contained.
+        
+        Mergely div must be given a height (width not needed?) to make the textareas exist, if not here, then in styles. using auto in js like below might affect something else? dunno.
+               $(document).ready(function () {
+            $("#compare").mergely({
+                width: "auto",
+              height: "auto", 
+            -->
+
+        <!-- -->
         <div
           class="mid editorButtons"
           style="margin-top: 15px; margin-bottom: 10px"
         >
           <button
-            id="clearM"
+            id="clear-rhs-btn"
             class="ttClass"
             data-tooltip="clears both texts above"
           >
@@ -7786,21 +7728,22 @@ inputMultiB2
           </button>
 
           <button
-            id="prev"
-            class="ttClass"
-            data-tooltip="Jump to the previous difference"
-          >
-            ▲ Prv Chnge
-          </button>
-          <button
-            id="next"
+            id="scroll-to-next-diff"
             class="ttClass"
             data-tooltip="Jump to the next difference"
           >
             ▼ Nxt Chnge
           </button>
           <button
-            id="wrap"
+            id="scroll-to-prev-diff"
+            class="ttClass"
+            data-tooltip="Jump to the previous difference"
+          >
+            ▲ Prv Chnge
+          </button>
+
+          <button
+            id="wrap-lines-btn"
             class="ttClass"
             data-tooltip="Turn wordwrap on or off"
           >
@@ -7817,6 +7760,11 @@ inputMultiB2
           </button>
 
           <script>
+            document.querySelectorAll(".CodeMirror").forEach((element) => {
+              element.style.direction = "rtl";
+              element.style.textAlign = "right";
+            });
+
             var leftToRight2_timesClicked = 0;
             // https://stackoverflow.com/questions/38346671/direction-rtl-to-all-page/38346971#38346971
 
@@ -7824,21 +7772,34 @@ inputMultiB2
               leftToRight2_timesClicked++;
               if (leftToRight2_timesClicked % 2 == 0) {
                 //run second function
-                $(".CodeMirror").addClass("CodeMirror-rtl");
-                /*$(".CodeMirror").removeClass("CodeMirror"); adding this breaks it for some reason */
-                //
+                document.querySelectorAll(".CodeMirror").forEach((element) => {
+                  element.style.direction = "rtl";
+                  element.style.textAlign = "right";
+                });
               } else {
                 //run first function
-                /*document
-            .querySelector(".CodeMirror-rtl")
-            .classList.add("CodeMirror");
-          document
-            .querySelector(".CodeMirror-rtl")*/
+                document.querySelectorAll(".CodeMirror").forEach((element) => {
+                  element.style.direction = "ltr";
+                  element.style.textAlign = "left";
+                });
                 //
+              }
+            }
+            //
+
+            /*below no longer working
+            var leftToRight2_timesClicked = 0;
+            function leftToRight22() {
+              leftToRight2_timesClicked++;
+              if (leftToRight2_timesClicked % 2 == 0) {
+                //run second function
+                $(".CodeMirror").addClass("CodeMirror-rtl");
+              } else {
+                //run first function
                 $(".CodeMirror-rtl").addClass("CodeMirror");
                 $(".CodeMirror-rtl").removeClass("CodeMirror-rtl");
               }
-            }
+            }*/
           </script>
 
           <button
@@ -7849,48 +7810,80 @@ inputMultiB2
             Fullscreen 🖥️
           </button>
 
+          <style>
+            /* prevents buttons from enlargening on hover for a bit even as full screen shows */
+            #fullScreenB2:active {
+              transition: none;
+              transform: none;
+            }
+          </style>
+
           <script>
-            $("#fullScreenB2").click(function () {
-              $(".mergely-full-screen-8").addClass("fullScreenClass2");
-              //
-              // turns scroll to top arrow invisible
-              $(".toTop").css("opacity", 0);
-              /*$(".mergely-full-screen-8").css({
-        height: "100vh",
-        width: "100vw",
-        position: "absolute",
-      });*/
+            document
+              .getElementById("fullScreenB2")
+              .addEventListener("click", function () {
+                //console.log("Hello world!");
+                document
+                  .getElementById("compare")
+                  .classList.add("fullScreenClass2");
+                //
+                // turns scroll to top arrow invisible
+                document.querySelector(".toTop").style.opacity = 0;
 
-              $(".CodeMirror").css({ fontSize: "26px" });
-              /*/ js mobile only mediaquery */
-              if (window.matchMedia("(max-width: 599px)").matches) {
-                $(".CodeMirror").css({ fontSize: "20px" });
-              }
+                // Hide the scrollbar of the page
+                document.documentElement.style.overflowY = "hidden";
+                document.body.style.overflowY = "hidden";
 
-              $("#mergely").mergely("resize");
+                // doesnt work
+                // document.body.style.overflow = "hidden";
 
-              // for some reason help buttons show if they have relative position, so changed
-              $(".ttClass[data-tooltip]").css({
-                position: "static",
+                /*$(".mergely-full-screen-8").css({
+height: "100vh",
+width: "100vw",
+position: "absolute",
+});*/
+
+                // Adjusts font size for CodeMirror
+                document
+                  .querySelectorAll(".CodeMirror")
+                  .forEach(function (element) {
+                    element.style.fontSize = "26px";
+                  });
+                // js mobile only mediaquery
+                if (window.matchMedia("(max-width: 599px)").matches) {
+                  document
+                    .querySelectorAll(".CodeMirror")
+                    .forEach(function (element) {
+                      element.style.fontSize = "20px";
+                    });
+                }
+
+                // for some reason help buttons show if they have relative position, so changed
+                document
+                  .querySelectorAll(".ttClass[data-tooltip]")
+                  .forEach(function (element) {
+                    element.style.position = "static";
+                  });
               });
-
-              // prevents buttons from enlargening on hover for a bit even as full screen shows
-              $(".editorButtons button").css({
-                transform: "none",
-              });
-            });
           </script>
 
           <style>
             .fullScreenClass2 {
               /* 100% height causes jump on remove class deanimate */
-              height: 100vh;
+              /* height: 100vh */
+              height: 100vh !important;
               width: 100vw;
               position: fixed;
               /*absolute? */
               /*top: 0; was needed when all sides were 8px */
+              /* added these two below again */
+              top: 0;
+              right: 0;
 
-              /* animation effect below, but this messes up height for some unknown reason? */
+              /* animation effect below, but not as expected for some unknown reason? */
+              /* added for fullscreen animation, otherwise starts off as grey */
+              /*border-color: white;*/
+              /* animation effect below */
               /*-webkit-transition: all 0.5s ease;
               -moz-transition: all 0.5s ease;
               -o-transition: all 0.5s ease;
@@ -7898,25 +7891,16 @@ inputMultiB2
             }
           </style>
 
-          <!--<span class="hideOnPhoneOnly">&nbsp; </span>
-          
-          <br class="hideOnTabAndUp" /> -->
-
-          <!-- 
-            <br />
-           -->
-
           <button
             onClick="window.location.reload();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Soft reloads the page"
-            style=""
           >
             🔄 Soft Reload
           </button>
 
           <!-- other, not truly force reload method?:
-            onclick="window.location.href = window.location.href.split('.html')[0] + '.html';" -->
+onclick="window.location.href = window.location.href.split('.html')[0] + '.html';" -->
           <button
             class="ttClass"
             data-tooltip="Hard reloads the page"
@@ -7924,6 +7908,17 @@ inputMultiB2
           >
             Hard Reload
           </button>
+
+          <!-- some space to move away the text scaler -->
+          <style>
+            /* on phones only */
+            @media (max-width: 599px) {
+              .textScalerSpace {
+                display: none;
+              }
+            }
+          </style>
+          <span class="textScalerSpace">&nbsp; &nbsp;</span>
 
           <div style="display: inline-block; top: -50px !important">
             <span
@@ -7949,7 +7944,93 @@ inputMultiB2
             />&nbsp;
             <span class="big-letter2">A</span>
           </div>
+          <!-- class="mid editorButtons" -->
         </div>
+
+        <!-- MERGELY ID CODE STARTS HERE -->
+        <script>
+          let doc; // Define doc in a higher scope
+
+          function initializeMergely() {
+            //
+            // const doc = new Mergely("#compare", {
+            doc = new Mergely("#compare", {
+              // Asynchronous initialization
+              /*const mergely = new Mergely("#compare");
+          mergely.once("updated", () => {
+            mergely.lhs("the quick red fox\njumped over the hairy dog");
+            mergely.rhs("the quick brown fox\njumped over the lazy dog");
+          });*/
+
+              lhs: "عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُ:\nقَالَ رَسُولُ اللَّهِ ﷺ:\n\nޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ގެ އަރިހުން ރިވާވެގެންވެއެވެ:\nރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:",
+              rhs: "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ:\nسَمِعْتُ النَّبِيَّ ﷺ يَقُولُ:\n\nއިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ:\nނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:",
+              wrap_lines: true,
+              // https://codemirror.net/docs/ref
+              // https://codemirror.net/5/doc/manual.html#addon_mark-selection
+              cmsettings: {
+                // Flips overall layout and selects base paragraph direction
+                /* tried changed this from rtl to ltr, using css instead to do its job, so i can use a toggle button, but other problems came up */
+                direction: "rtl",
+                // Determines whether horizontal cursor movement through right-to-left
+                rtlMoveVisually: true,
+                //readOnly: true,
+                /* lets select go over change highlights https://github.com/wickedest/Mergely/issues/104 */
+                //styleSelectedText: true,
+                //autofocus: false,
+              },
+            });
+
+            // END OF BASE MERGELY CODE
+            //
+            document
+              .getElementById("compare")
+              .classList.add("mergely-initialized");
+          }
+          // CUSTOM JS ADDITIONS BELOW
+
+          document
+            .getElementById("clear-rhs-btn")
+            .addEventListener("click", () => {
+              doc.clear("lhs");
+              doc.clear("rhs");
+            });
+
+          document
+            .getElementById("scroll-to-next-diff")
+            .addEventListener("click", () => {
+              doc.scrollToDiff("next");
+            });
+
+          document
+            .getElementById("scroll-to-prev-diff")
+            .addEventListener("click", () => {
+              doc.scrollToDiff("prev");
+            });
+
+          let wrapLines = true; // Initial state
+          document
+            .getElementById("wrap-lines-btn")
+            .addEventListener("click", () => {
+              wrapLines = !wrapLines; // Toggle the state
+              doc.options({ wrap_lines: wrapLines }); // Set the option
+            });
+
+          // Add event listener for the Escape key
+          document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+              doc.resize();
+              // Reset font size and line height
+              document
+                .querySelectorAll(".mergely-editor .CodeMirror")
+                .forEach((element) => {
+                  element.style.fontSize = "20px";
+                  element.style.lineHeight = "30px";
+                });
+            }
+          });
+        </script>
+
+        <!-- NOT DIRECTLY RELATED TO MERGELY CSS AND JS BELOW -->
 
         <style>
           .small-letter2 {
@@ -7967,19 +8048,29 @@ inputMultiB2
 
         <script>
           function fontChange2() {
-            document.getElementsByClassName("CodeMirror")[0].style.fontSize =
-              document.getElementById("slider2").value + "px";
+            document
+              .querySelectorAll(".mergely-editor .CodeMirror")
+              .forEach((element) => {
+                element.style.fontSize =
+                  document.getElementById("slider2").value + "px";
+                /*element.style.lineHeight =
+                  document.getElementById("slider2").value + 1 + "px";*/
+                element.style.lineHeight =
+                  parseInt(document.getElementById("slider2").value) +
+                  20 +
+                  "px";
+              });
 
-            document.getElementsByClassName("CodeMirror")[1].style.fontSize =
+            /*document.getElementsByClassName("CodeMirror")[0].style.fontSize =
               document.getElementById("slider2").value + "px";
+            document.getElementsByClassName("CodeMirror")[1].style.fontSize =
+              document.getElementById("slider2").value + "px";*/
 
             // added below
             document.getElementById("sliderValue2").innerHTML =
               document.getElementById("slider2").value;
           }
         </script>
-
-        <!-- not directly related below, separate from mergely -->
 
         <div>
           <p>
@@ -8015,16 +8106,16 @@ inputMultiB2
       <br />
 
       <!--
-                <li>
-          ލަފްޒާއި އޭގެ މާނައިގެ ތެރެއިންވެސް ސާރޗް ކުރެވޭ ރަދީފު:
-          <a
-            href="https://www.radheef.net"
-            rel="noopener noreferrer"
-            target="_blank"
-            >ސައިޓު</a
-          >
-        </li>
-      -->
+              <li>
+        ލަފްޒާއި އޭގެ މާނައިގެ ތެރެއިންވެސް ސާރޗް ކުރެވޭ ރަދީފު:
+        <a
+          href="https://www.radheef.net"
+          rel="noopener noreferrer"
+          target="_blank"
+          >ސައިޓު</a
+        >
+      </li>
+    -->
 
       <p>އިތުރަށް ފައިދާކޮށްފާނެ ލިންކުތައް:</p>
       <ul>
@@ -8222,237 +8313,237 @@ inputMultiB2
       <hr />
 
       <!--
-      <style>
-        /* ====================
-      Quotes Carousel
+    <style>
+      /* ====================
+    Quotes Carousel
 ======================= */
-        .quotes {
-          position: relative;
-          max-width: 25em;
-          list-style-type: none;
+      .quotes {
+        position: relative;
+        max-width: 25em;
+        list-style-type: none;
 
-          /* text-align: center; */
-          margin: 0 auto;
-          padding: 0;
-
-          /* added */
-          direction: ltr;
-        }
-
-        .quotes li {
-          position: absolute;
-          left: 0;
-          right: 0;
-          background: #136296;
-
-          /* added #ddd */
-          text-align: center;
-          padding: 1em;
-          border-radius: 15px /*0.25em;*/;
-          opacity: 0;
-
-          /* added */
-          padding-top: 25px;
-          color: #fff;
-        }
-
-        .quotes li:last-child {
-          position: relative;
-        }
-
-        .quotes li::after {
-          /* quote triangle */
-          position: absolute;
-          content: "";
-          display: block;
-          width: 0;
-          height: 0;
-          top: 1.75em;
-          left: -0.75em;
-          border-top: 0.75em solid transparent;
-          border-bottom: 0.75em solid transparent;
-          border-right: 0.75em solid #136296;
-
-          /* changed ddd */
-        }
-
-        .quotes span {
-          display: block;
-          text-align: right;
-          margin-right: 5%;
-          font-size: 85%;
-
-          /* 75% */
-          font-style: italic;
-          color: #d6d6d6;
-
-          /* added */
-          padding-top: 10px;
-        }
-
-        /* animation timing  =  animation:quote [total duration in secs] [increment by duration of each animation] infinite; */
-        .quotes li:nth-child(1) {
-          animation: quote 30s 0s infinite;
-          animation: quote 30s 0s infinite;
-        }
-
-        .quotes li:nth-child(2) {
-          animation: quote 30s 5s infinite;
-          animation: quote 30s 5s infinite;
-        }
-
-        .quotes li:nth-child(3) {
-          animation: quote 30s 10s infinite;
-          animation: quote 30s 10s infinite;
-        }
-
-        .quotes li:nth-child(4) {
-          animation: quote 30s 15s infinite;
-          animation: quote 30s 15s infinite;
-        }
-
-        .quotes li:nth-child(5) {
-          animation: quote 30s 20s infinite;
-          animation: quote 30s 20s infinite;
-        }
-
-        .quotes li:nth-child(6) {
-          animation: quote 30s 25s infinite;
-          animation: quote 30s 25s infinite;
-        }
-
-        @keyframes quote {
-          /* whole numbers only - round steps to nearest % */
-          0% {
-            opacity: 0;
-          }
-
-          /* (step 2 % = 100% / total quotes x .25) */
-          4% {
-            opacity: 1;
-          }
-
-          /* (step 3 % = 100% / total quotes x .75) */
-          13% {
-            opacity: 1;
-          }
-
-          /* (step 4 % = 100% / total quotes) */
-          17% {
-            opacity: 0;
-          }
-        }
-
-        @keyframes quote {
-          /* whole numbers only - round steps to nearest % */
-          0% {
-            opacity: 0;
-          }
-
-          /* (step 2 % = 100% / total quotes x .25) */
-          4% {
-            opacity: 1;
-          }
-
-          /* (step 3 % = 100% / total quotes x .75) */
-          13% {
-            opacity: 1;
-          }
-
-          /* (step 4 % = 100% / total quotes) */
-          17% {
-            opacity: 0;
-          }
-        }
+        /* text-align: center; */
+        margin: 0 auto;
+        padding: 0;
 
         /* added */
-        .stars {
-          padding-top: 15px;
+        direction: ltr;
+      }
+
+      .quotes li {
+        position: absolute;
+        left: 0;
+        right: 0;
+        background: #136296;
+
+        /* added #ddd */
+        text-align: center;
+        padding: 1em;
+        border-radius: 15px /*0.25em;*/;
+        opacity: 0;
+
+        /* added */
+        padding-top: 25px;
+        color: #fff;
+      }
+
+      .quotes li:last-child {
+        position: relative;
+      }
+
+      .quotes li::after {
+        /* quote triangle */
+        position: absolute;
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        top: 1.75em;
+        left: -0.75em;
+        border-top: 0.75em solid transparent;
+        border-bottom: 0.75em solid transparent;
+        border-right: 0.75em solid #136296;
+
+        /* changed ddd */
+      }
+
+      .quotes span {
+        display: block;
+        text-align: right;
+        margin-right: 5%;
+        font-size: 85%;
+
+        /* 75% */
+        font-style: italic;
+        color: #d6d6d6;
+
+        /* added */
+        padding-top: 10px;
+      }
+
+      /* animation timing  =  animation:quote [total duration in secs] [increment by duration of each animation] infinite; */
+      .quotes li:nth-child(1) {
+        animation: quote 30s 0s infinite;
+        animation: quote 30s 0s infinite;
+      }
+
+      .quotes li:nth-child(2) {
+        animation: quote 30s 5s infinite;
+        animation: quote 30s 5s infinite;
+      }
+
+      .quotes li:nth-child(3) {
+        animation: quote 30s 10s infinite;
+        animation: quote 30s 10s infinite;
+      }
+
+      .quotes li:nth-child(4) {
+        animation: quote 30s 15s infinite;
+        animation: quote 30s 15s infinite;
+      }
+
+      .quotes li:nth-child(5) {
+        animation: quote 30s 20s infinite;
+        animation: quote 30s 20s infinite;
+      }
+
+      .quotes li:nth-child(6) {
+        animation: quote 30s 25s infinite;
+        animation: quote 30s 25s infinite;
+      }
+
+      @keyframes quote {
+        /* whole numbers only - round steps to nearest % */
+        0% {
+          opacity: 0;
         }
 
-        .testimonials {
-          padding-top: 15px;
+        /* (step 2 % = 100% / total quotes x .25) */
+        4% {
+          opacity: 1;
         }
 
-        /* http://fofwebdesign.co.uk/template/_testing/quotes-css.htm */
-      </style>
+        /* (step 3 % = 100% / total quotes x .75) */
+        13% {
+          opacity: 1;
+        }
 
-      <h2 class="mid testimonials">– &nbsp;Feedback&nbsp; –</h2>
+        /* (step 4 % = 100% / total quotes) */
+        17% {
+          opacity: 0;
+        }
+      }
 
-      <ul id="quotes" class="quotes">
-        <li class="show">
-          ⭐⭐⭐⭐⭐<span class="stars"></span>“This is a very needed app for
-          the maldivian community. Hope to see this app grow in the future.
-          Would recommend this to all Maldivians.”<span>-Ismail G.</span>
-        </li>
-        <li>
-          ⭐⭐⭐⭐⭐<span class="stars"></span>“Maa sha Allah. بارك الله فيك. A
-          very important work and step in bringing our ummah closer to the
-          sunnah and making it more accessible”<span>-Mohamed H.</span>
-        </li>
-        <li>
-          ⭐⭐⭐⭐⭐<span class="stars"></span>“It’s a relief to finally see
-          someone made a hadith app with dhivehi translations... Absolutely love
-          it... ❤️❤️❤️”<span>-A. A.</span>
-        </li>
-        <li>
-          ⭐⭐⭐⭐⭐<span class="stars"></span>“Alhamdhulillah, Keep it up well
-          done great work hope your next work will be Bukhari and Muslim. In sha
-          Allaah.”<span>-Usha N.</span>
-        </li>
-        <li>
-          ⭐⭐⭐⭐⭐<span class="stars"></span>“Very impressive. First
-          impression, easy to use, good looks, fast... So far really good. مَا
-          شَاءَ ٱللَّهُ.”<span>-M. Nazim.</span>
-        </li>
-        <li>
-          ⭐⭐⭐⭐⭐<span class="stars"></span>“Great app الحمد لله May الله
-          تعالى bless you and your work.. آمین 🤲”<span>-Marie S.</span>
-        </li>
-      </ul>
-      <br />
-     
-            -->
+      @keyframes quote {
+        /* whole numbers only - round steps to nearest % */
+        0% {
+          opacity: 0;
+        }
+
+        /* (step 2 % = 100% / total quotes x .25) */
+        4% {
+          opacity: 1;
+        }
+
+        /* (step 3 % = 100% / total quotes x .75) */
+        13% {
+          opacity: 1;
+        }
+
+        /* (step 4 % = 100% / total quotes) */
+        17% {
+          opacity: 0;
+        }
+      }
+
+      /* added */
+      .stars {
+        padding-top: 15px;
+      }
+
+      .testimonials {
+        padding-top: 15px;
+      }
+
+      /* http://fofwebdesign.co.uk/template/_testing/quotes-css.htm */
+    </style>
+
+    <h2 class="mid testimonials">– &nbsp;Feedback&nbsp; –</h2>
+
+    <ul id="quotes" class="quotes">
+      <li class="show">
+        ⭐⭐⭐⭐⭐<span class="stars"></span>“This is a very needed app for
+        the maldivian community. Hope to see this app grow in the future.
+        Would recommend this to all Maldivians.”<span>-Ismail G.</span>
+      </li>
+      <li>
+        ⭐⭐⭐⭐⭐<span class="stars"></span>“Maa sha Allah. بارك الله فيك. A
+        very important work and step in bringing our ummah closer to the
+        sunnah and making it more accessible”<span>-Mohamed H.</span>
+      </li>
+      <li>
+        ⭐⭐⭐⭐⭐<span class="stars"></span>“It’s a relief to finally see
+        someone made a hadith app with dhivehi translations... Absolutely love
+        it... ❤️❤️❤️”<span>-A. A.</span>
+      </li>
+      <li>
+        ⭐⭐⭐⭐⭐<span class="stars"></span>“Alhamdhulillah, Keep it up well
+        done great work hope your next work will be Bukhari and Muslim. In sha
+        Allaah.”<span>-Usha N.</span>
+      </li>
+      <li>
+        ⭐⭐⭐⭐⭐<span class="stars"></span>“Very impressive. First
+        impression, easy to use, good looks, fast... So far really good. مَا
+        شَاءَ ٱللَّهُ.”<span>-M. Nazim.</span>
+      </li>
+      <li>
+        ⭐⭐⭐⭐⭐<span class="stars"></span>“Great app الحمد لله May الله
+        تعالى bless you and your work.. آمین 🤲”<span>-Marie S.</span>
+      </li>
+    </ul>
+    <br />
+   
+          -->
       <br />
 
       <!--
-      <div class="mid">
-        <p>
-          If you find a mistake, or have suggestions, or want to support this
-          project, please let us know.
-        </p>
-        <p>
-          Contact us: <a href="http://m.me/hadithmvOfficial">Messenger</a> |
-          <a href="tel:+9607583166">Viber</a> |
-          <a href="https://t.me/ashraafmv">Telegram</a> |
-          <a href="https://wa.me/qr/FJFBCPFQXUBKJ1">WhatsApp</a> |
-          <a href="mailto:hadithmv@gmail.com">Email</a>
-        </p>
+    <div class="mid">
+      <p>
+        If you find a mistake, or have suggestions, or want to support this
+        project, please let us know.
+      </p>
+      <p>
+        Contact us: <a href="http://m.me/hadithmvOfficial">Messenger</a> |
+        <a href="tel:+9607583166">Viber</a> |
+        <a href="https://t.me/ashraafmv">Telegram</a> |
+        <a href="https://wa.me/qr/FJFBCPFQXUBKJ1">WhatsApp</a> |
+        <a href="mailto:hadithmv@gmail.com">Email</a>
+      </p>
 
-        <p>
-          Subscribe: <a href="http://fb.me/hadithmvOfficial">Facebook</a> |
-          <a
-            href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX/ZVrvGtq/bJboZzADy3OssLND4H1TFWklNmNQZC"
-            >Viber</a
-          >
-          | <a href="http://t.me/hadithmv">Telegram</a> |
-          <a href="https://instagram.com/hadithmv">Instagram</a> |
-          <a href="https://twitter.com/hadithmv">Twitter</a>
-        </p>
+      <p>
+        Subscribe: <a href="http://fb.me/hadithmvOfficial">Facebook</a> |
+        <a
+          href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX/ZVrvGtq/bJboZzADy3OssLND4H1TFWklNmNQZC"
+          >Viber</a
+        >
+        | <a href="http://t.me/hadithmv">Telegram</a> |
+        <a href="https://instagram.com/hadithmv">Instagram</a> |
+        <a href="https://twitter.com/hadithmv">Twitter</a>
+      </p>
 
-        <p>
-          Get the Hadithmv app: <a href="https://hadithmv.github.io">Web</a> |
-          <a
-            href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
-            >Android</a
-          >
-          |
-          <a href="https://github.com/hadithmv/hadithmv.github.io/releases"
-            >Windows</a
-          >
-        </p>
-        </div>
-        -->
+      <p>
+        Get the Hadithmv app: <a href="https://hadithmv.github.io">Web</a> |
+        <a
+          href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
+          >Android</a
+        >
+        |
+        <a href="https://github.com/hadithmv/hadithmv.github.io/releases"
+          >Windows</a
+        >
+      </p>
+      </div>
+      -->
 
       <p class="mid">
         <a href="../../books/index.html">މައި ސަފުހާ</a> އަށް އެނބުރި ދިޔުމަށް
@@ -8467,10 +8558,10 @@ inputMultiB2
       // Get the element with id="defaultOpen" and click on it
       document.getElementById("defaultOpen").click();
 
-      // needed timeout delay otherwise mergley diff wouldnt show
-      setTimeout(function () {
+      // dont need this anymore - needed timeout delay otherwise mergley diff wouldnt show
+      /*setTimeout(function () {
         document.getElementById("secondaryOpen").click();
-      }, 130);
+      }, 130);*/
 
       function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
@@ -8484,6 +8575,16 @@ inputMultiB2
         }
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
+
+        // initalizes mergely on tabfour click
+        if (
+          tabName === "tabFour" &&
+          !document
+            .getElementById("compare")
+            .classList.contains("mergely-initialized")
+        ) {
+          initializeMergely();
+        }
       }
     </script>
 
