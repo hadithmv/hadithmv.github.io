@@ -7772,16 +7772,30 @@ inputMultiB2
               leftToRight2_timesClicked++;
               if (leftToRight2_timesClicked % 2 == 0) {
                 //run second function
-                document.querySelectorAll(".CodeMirror").forEach((element) => {
+                document
+                  .querySelectorAll(".CodeMirror-code:not(.CodeMirror-rtl)")
+                  .forEach((element) => {
+                    element.classList.add("CodeMirror-rtl");
+                    element.style.direction = "rtl";
+                    element.style.textAlign = "right";
+                  });
+                /*document.querySelectorAll(".CodeMirror").forEach((element) => {
                   element.style.direction = "rtl";
                   element.style.textAlign = "right";
-                });
+                });*/
               } else {
                 //run first function
-                document.querySelectorAll(".CodeMirror").forEach((element) => {
+                document
+                  .querySelectorAll(".CodeMirror-code.CodeMirror-rtl")
+                  .forEach((element) => {
+                    element.classList.remove("CodeMirror-rtl");
+                    element.style.direction = "ltr";
+                    element.style.textAlign = "left";
+                  });
+                /*document.querySelectorAll(".CodeMirror").forEach((element) => {
                   element.style.direction = "ltr";
                   element.style.textAlign = "left";
-                });
+                });*/
                 //
               }
             }
