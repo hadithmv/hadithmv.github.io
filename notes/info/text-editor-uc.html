@@ -470,13 +470,13 @@
               //whateverElement.dispatchEvent(mouseoverEvent);
             }
             /*if (e.altKey && e.which == 69) {
-        // is e (which opens settings in edge, so leave it)
-        document.querySelector("#eraseButton").click();
-      }*/
+      // is e (which opens settings in edge, so leave it)
+      document.querySelector("#eraseButton").click();
+    }*/
             /*if (e.altKey && e.which == 68) {
-        // is d (which selects url in edge, so leave it)
-        document.querySelector("#toggleDark").click();
-      }*/
+      // is d (which selects url in edge, so leave it)
+      document.querySelector("#toggleDark").click();
+    }*/
             if (e.altKey && e.which == 85) {
               // is u
               document.querySelector("#upButton").click();
@@ -752,7 +752,7 @@ function () {
 
         <script>
           /* localstorage cache of textarea
-    https://stackoverflow.com/questions/54897890/how-to-cache-text-area/54897926#54897926 */
+  https://stackoverflow.com/questions/54897890/how-to-cache-text-area/54897926#54897926 */
 
           var data;
           window.onload = function () {
@@ -868,36 +868,36 @@ function () {
               document.body.removeChild(downloadableLink);
             }
             /* OLD CODE BELOW
-      // https://stackoverflow.com/questions/21479107/saving-html5-textarea-contents-to-file/30740104#30740104
-      function ssaveTextAsFile() {
-        var textToWrite = document.getElementById("textMainArea").value;
-        var textFileAsBlob = new Blob([textToWrite], {
-          type: "text/plain",
-        });
-        var fileNameToSaveAs = "file.txt"; //filename.extension
-        var downloadLink = document.createElement("a");
-        downloadLink.download = fileNameToSaveAs;
-        downloadLink.innerHTML = "Download File";
-        if (window.webkitURL != null) {
-          // Chrome allows the link to be clicked without actually adding it to the DOM.
-          downloadLink.href =
-            window.webkitURL.createObjectURL(textFileAsBlob);
-        } else {
-          // Firefox requires the link to be added to the DOM before it can be clicked.
-          downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-          downloadLink.onclick = destroyClickedElement;
-          downloadLink.style.display = "none";
-          document.body.appendChild(downloadLink);
-        }
-        downloadLink.click();
+    // https://stackoverflow.com/questions/21479107/saving-html5-textarea-contents-to-file/30740104#30740104
+    function ssaveTextAsFile() {
+      var textToWrite = document.getElementById("textMainArea").value;
+      var textFileAsBlob = new Blob([textToWrite], {
+        type: "text/plain",
+      });
+      var fileNameToSaveAs = "file.txt"; //filename.extension
+      var downloadLink = document.createElement("a");
+      downloadLink.download = fileNameToSaveAs;
+      downloadLink.innerHTML = "Download File";
+      if (window.webkitURL != null) {
+        // Chrome allows the link to be clicked without actually adding it to the DOM.
+        downloadLink.href =
+          window.webkitURL.createObjectURL(textFileAsBlob);
+      } else {
+        // Firefox requires the link to be added to the DOM before it can be clicked.
+        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+        downloadLink.onclick = destroyClickedElement;
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
       }
-      var button = document.getElementById("save");
-      button.addEventListener("click", saveTextAsFile);
-      function destroyClickedElement(event) {
-        // remove the link from the DOM
-        document.body.removeChild(event.target);
-      }
-      */
+      downloadLink.click();
+    }
+    var button = document.getElementById("save");
+    button.addEventListener("click", saveTextAsFile);
+    function destroyClickedElement(event) {
+      // remove the link from the DOM
+      document.body.removeChild(event.target);
+    }
+    */
           </script>
 
           <input
@@ -969,18 +969,18 @@ function () {
 
             // calc textarea | NOT WORKING
             /*function dropfile2(file2) {
-      var reader2 = new FileReader();
-      reader2.onload = function (e) {
-        textSumArea.value = e.target.result;
-      };
-      reader2.readAsText(file2, "UTF-8");
-    }
+    var reader2 = new FileReader();
+    reader2.onload = function (e) {
+      textSumArea.value = e.target.result;
+    };
+    reader2.readAsText(file2, "UTF-8");
+  }
 
-    textSumArea.ondrop = function (e) {
-      e.preventDefault();
-      var file2 = e.dataTransfer.files[0];
-      dropfile2(file2);
-    };*/
+  textSumArea.ondrop = function (e) {
+    e.preventDefault();
+    var file2 = e.dataTransfer.files[0];
+    dropfile2(file2);
+  };*/
           </script>
 
           <button
@@ -1546,6 +1546,146 @@ ${dateDifference}`;
           </script>
 
           <button
+            onclick="encrypt();scrollToTopFully();"
+            class="ttClass"
+            data-tooltip="Enter text to encrypt, click Encrypt, then enter a password when
+            prompted. A base64 representation of the encrypted data will be
+            displayed."
+          >
+            🔒 EncryptTxt
+          </button>
+
+          <button
+            onclick="decrypt();scrollToTopFully();"
+            class="ttClass"
+            data-tooltip="Enter text to decrypt, click Decrypt and then when
+            prompted, enter the same password as used for
+            encrypting."
+          >
+            🔓 DecryptTxt
+          </button>
+
+          <script>
+            // https://github.com/bradyjoslin/webcrypto-example
+
+            // for large strings, use this from https://stackoverflow.com/a/49124600
+            const buff_to_base64 = (buff) =>
+              btoa(
+                new Uint8Array(buff).reduce(
+                  (data, byte) => data + String.fromCharCode(byte),
+                  ""
+                )
+              );
+
+            const base64_to_buf = (b64) =>
+              Uint8Array.from(atob(b64), (c) => c.charCodeAt(null));
+
+            const enc = new TextEncoder();
+            const dec = new TextDecoder();
+
+            async function encrypt() {
+              // const data = window.document.getElementById("data").value;
+              const data = document.getElementById("textMainArea").value;
+              // let encryptedDataOut = window.document.getElementById("encryptedData");
+              let encryptedDataOut =
+                window.document.getElementById("textMainArea");
+              const password = window.prompt("Password");
+              const encryptedData = await encryptData(data, password);
+              encryptedDataOut.value = encryptedData;
+            }
+
+            async function decrypt() {
+              const password = window.prompt("Password");
+              // const encryptedData = window.document.getElementById("encryptedData").value;
+              const encryptedData =
+                window.document.getElementById("textMainArea").value;
+              // let decryptedDataOut = window.document.getElementById("decrypted");
+              let decryptedDataOut =
+                window.document.getElementById("textMainArea");
+              const decryptedData = await decryptData(encryptedData, password);
+              decryptedDataOut.value = decryptedData || "Decryption failed.";
+            }
+
+            const getPasswordKey = (password) =>
+              window.crypto.subtle.importKey(
+                "raw",
+                enc.encode(password),
+                "PBKDF2",
+                false,
+                ["deriveKey"]
+              );
+
+            const deriveKey = (passwordKey, salt, keyUsage) =>
+              window.crypto.subtle.deriveKey(
+                {
+                  name: "PBKDF2",
+                  salt: salt,
+                  iterations: 250000,
+                  hash: "SHA-256",
+                },
+                passwordKey,
+                { name: "AES-GCM", length: 256 },
+                false,
+                keyUsage
+              );
+
+            async function encryptData(secretData, password) {
+              try {
+                const salt = window.crypto.getRandomValues(new Uint8Array(16));
+                const iv = window.crypto.getRandomValues(new Uint8Array(12));
+                const passwordKey = await getPasswordKey(password);
+                const aesKey = await deriveKey(passwordKey, salt, ["encrypt"]);
+                const encryptedContent = await window.crypto.subtle.encrypt(
+                  {
+                    name: "AES-GCM",
+                    iv: iv,
+                  },
+                  aesKey,
+                  enc.encode(secretData)
+                );
+
+                const encryptedContentArr = new Uint8Array(encryptedContent);
+                let buff = new Uint8Array(
+                  salt.byteLength +
+                    iv.byteLength +
+                    encryptedContentArr.byteLength
+                );
+                buff.set(salt, 0);
+                buff.set(iv, salt.byteLength);
+                buff.set(encryptedContentArr, salt.byteLength + iv.byteLength);
+                const base64Buff = buff_to_base64(buff);
+                return base64Buff;
+              } catch (e) {
+                console.log(`Error - ${e}`);
+                return "";
+              }
+            }
+
+            async function decryptData(encryptedData, password) {
+              try {
+                const encryptedDataBuff = base64_to_buf(encryptedData);
+                const salt = encryptedDataBuff.slice(0, 16);
+                const iv = encryptedDataBuff.slice(16, 16 + 12);
+                const data = encryptedDataBuff.slice(16 + 12);
+                const passwordKey = await getPasswordKey(password);
+                const aesKey = await deriveKey(passwordKey, salt, ["decrypt"]);
+                const decryptedContent = await window.crypto.subtle.decrypt(
+                  {
+                    name: "AES-GCM",
+                    iv: iv,
+                  },
+                  aesKey,
+                  data
+                );
+                return dec.decode(decryptedContent);
+              } catch (e) {
+                console.log(`Error - ${e}`);
+                return "";
+              }
+            }
+          </script>
+
+          <button
             onclick="htmlRmv();triggerTheCounts();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Removes html tags from the text, but leaves the text as is"
@@ -1709,15 +1849,15 @@ ${dateDifference}`;
               });
             }
             /*// https://stackoverflow.com/questions/3664381/force-page-scroll-position-to-top-at-page-refresh-in-html/60994204#60994204
-            function scrollToTopFully() {
-              history.scrollRestoration = "manual";
-              window.addEventListener("beforeunload", () => {
-                window.scrollTo({
-                  top: 0,
-                  behavior: "smooth",
-                });
+          function scrollToTopFully() {
+            history.scrollRestoration = "manual";
+            window.addEventListener("beforeunload", () => {
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
               });
-            }*/
+            });
+          }*/
           </script>
 
           <style>
@@ -1770,15 +1910,15 @@ ${dateDifference}`;
                 //$("#textMainArea").removeClass("fullScreenClass");
 
                 /* $("#fullScreenB").click(function () {
-         // listen for multiple clicks
-         window.addEventListener("click", function (evt) {
-           if (evt.detail === 4) {
-             alert("triple click!");
-             //var esc = $.Event("keydown", { keyCode: 27 });
-             //$("body").trigger(esc); // change body to the element where you'd like to execute the escape key press.
-             $("#textMainArea").removeClass("fullScreenClass");
-           }
-         });*/
+       // listen for multiple clicks
+       window.addEventListener("click", function (evt) {
+         if (evt.detail === 4) {
+           alert("triple click!");
+           //var esc = $.Event("keydown", { keyCode: 27 });
+           //$("body").trigger(esc); // change body to the element where you'd like to execute the escape key press.
+           $("#textMainArea").removeClass("fullScreenClass");
+         }
+       });*/
 
                 // for some reason help buttons show if they have relative position, so changed to static
                 document
@@ -1797,26 +1937,26 @@ ${dateDifference}`;
 
             // old onclick js code turned into css later
             /*$("#textMainArea").css({
-           height: "100%",
-           position: "fixed",
-           top: "0",
-           right: "0",
-           width: "100%",
-           borderWidth: "100px",
-           borderColor: "white",
-           fontSize: "26px",
-         });
+         height: "100%",
+         position: "fixed",
+         top: "0",
+         right: "0",
+         width: "100%",
+         borderWidth: "100px",
+         borderColor: "white",
+         fontSize: "26px",
+       });
 
-         if (window.matchMedia("(max-width: 599px)").matches) {
-           //alert("This is a mobile device.");
-           $("#textMainArea").css({
-             borderWidth: "15px",
-             borderColor: "white",
-             fontSize: "23px",
-           });
-           //
-         }
-         */
+       if (window.matchMedia("(max-width: 599px)").matches) {
+         //alert("This is a mobile device.");
+         $("#textMainArea").css({
+           borderWidth: "15px",
+           borderColor: "white",
+           fontSize: "23px",
+         });
+         //
+       }
+       */
           </script>
 
           <p
@@ -1952,43 +2092,43 @@ ${dateDifference}`;
             //let reg = /(\b\w*oana\w*\b)/gim;
             //let reg = /(\b\W*ަި|na\W*\b)/gim;
             /* let reg =
-        /(\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim; */
+      /(\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim; */
             /*
-      let reg = \b[dog]+\b(?![,])
+    let reg = \b[dog]+\b(?![,])
 
-        /(\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim;
-        */
-
-            /*
-
-      let reg = /#([\S]+)/gim; // Get hashtags.
-
-      let string = document.getElementById("textMainArea").value;
-      let matches = (string.match(reg) || []).map((e) =>
-        e.replace(reg, "$1")
-      );
-      //console.log(matches);
+      /(\b\[^\u0000-\u007F]|\w*ަި|na\[^\u0000-\u007F]|\w*\b)/gim;
       */
 
             /*
 
-      function getMatches(string, regex, index) {
-        index || (index = 1); // default to the first capturing group
-        var matches = [];
-        var match;
-        while ((match = regex.exec(string))) {
-          matches.push(match[index]);
-        }
-        return matches;
+    let reg = /#([\S]+)/gim; // Get hashtags.
+
+    let string = document.getElementById("textMainArea").value;
+    let matches = (string.match(reg) || []).map((e) =>
+      e.replace(reg, "$1")
+    );
+    //console.log(matches);
+    */
+
+            /*
+
+    function getMatches(string, regex, index) {
+      index || (index = 1); // default to the first capturing group
+      var matches = [];
+      var match;
+      while ((match = regex.exec(string))) {
+        matches.push(match[index]);
       }
+      return matches;
+    }
 
-      // Example :
-      var myString = document.getElementById("textMainArea").value;
-      var myRegEx = /(?:^|\s)format_(.*?)(?:\s|$)/g;
+    // Example :
+    var myString = document.getElementById("textMainArea").value;
+    var myRegEx = /(?:^|\s)format_(.*?)(?:\s|$)/g;
 
-      // Get an array containing the first capturing group for every match
-      var matches = getMatches(myString, myRegEx, 1);
-      */
+    // Get an array containing the first capturing group for every match
+    var matches = getMatches(myString, myRegEx, 1);
+    */
 
             // https://stackoverflow.com/questions/432493/how-do-you-access-the-matched-groups-in-a-javascript-regular-expression/41445988#41445988
 
@@ -1999,7 +2139,7 @@ ${dateDifference}`;
               /(\b\w*[\u0787-\u07BF]|ަު|ަެ|ަާ|ަީ|ަޫ|ަޭ|ަް|ަޮ|ަޯ|ިަ|ިި|ިު|ިެ|ިާ|ިީ|ިޫ|ިޭ|ިް|ިޮ|ިޯ|ުަ|ުި|ުު|ުެ|ުާ|ުީ|ުޫ|ުޭ|ުް|ުޮ|ުޯ|ެަ|ެި|ެު|ެެ|ެާ|ެީ|ެޫ|ެޭ|ެް|ެޮ|ެޯ|ާަ|ާި|ާު|ާެ|ާާ|ާީ|ާޫ|ާޭ|ާް|ާޮ|ާޯ|ީަ|ީި|ީު|ީެ|ީާ|ީީ|ީޫ|ީޭ|ީް|ީޮ|ީޯ|ޫަ|ޫި|ޫު|ޫެ|ޫާ|ޫީ|ޫޫ|ޫޭ|ޫް|ޫޮ|ޫޯ|ޭަ|ޭި|ޭު|ޭެ|ޭާ|ޭީ|ޭޫ|ޭޭ|ޭް|ޭޮ|ޭޯ|ްަ|ްި|ްު|ްެ|ްާ|ްީ|ްޫ|ްޭ|ްް|ްޮ|ްޯ|ޮަ|ޮި|ޮު|ޮެ|ޮާ|ޮީ|ޮޫ|ޮޭ|ޮް|ޮޮ|ޮޯ|ޯަ|ޯި|ޯު|ޯެ|ޯާ|ޯީ|ޯޫ|ޯޭ|ޯް|ޯޮ|ޯޯ\w*\b)/gim;
 
             /*let string =
-        " mشi aއިަlegría es އަި total! ✌🙌\n#fiestaشََsde findشََeaño #PadreHijo #buenosއmomentos #franއަިce #parشis";*/
+      " mشi aއިަlegría es އަި total! ✌🙌\n#fiestaشََsde findشََeaño #PadreHijo #buenosއmomentos #franއަިce #parشis";*/
             let string = document.getElementById("textMainArea").value;
 
             let matches = (string.match(reg) || []).map((e) =>
@@ -2009,10 +2149,10 @@ ${dateDifference}`;
 
             // Log results
             /*document.write(
-        matches.length + " matches found: " + JSON.stringify(matches)
-      );
-      console.log(matches);
-      */
+      matches.length + " matches found: " + JSON.stringify(matches)
+    );
+    console.log(matches);
+    */
 
             document.getElementById("doubleFilis").innerHTML = matches;
 
@@ -2022,7 +2162,7 @@ ${dateDifference}`;
               /(\b[\u0600-\u06FF]|ًَ|َُ|ٌَ|َِ|ٍَ|َْ|َ~|َّ|ًَ|ًً|ًُ|ًٌ|ًِ|ًٍ|ًْ|ً~|ًّ|َُ|ًُ|ُُ|ٌُ|ُِ|ٍُ|ُْ|ُ~|ُّ|ٌَ|ًٌ|ٌُ|ٌٌ|ٌِ|ٌٍ|ٌْ|ٌ~|ٌّ|َِ|ًِ|ُِ|ٌِ|ِِ|ٍِ|ِْ|ِ~|ِّ|ٍَ|ًٍ|ٍُ|ٌٍ|ٍِ|ٍٍ|ٍْ|ٍ~|ٍّ|َْ|ًْ|ُْ|ٌْ|ِْ|ٍْ|ْْ|ْ~|ّْ|~َ|~ً|~ُ|~ٌ|~ِ|~ٍ|~ْ|~~|~ّ|ّْ|ّ~|ّّ\b)/gim;
 
             /*let string2 =
-        " mشi aއިަlegría es އަި total! ✌🙌\n#fiestaشََsde findشََeaño #PadreHijo #buenosއmomentos #franއަިce #parشis";*/
+      " mشi aއިަlegría es އަި total! ✌🙌\n#fiestaشََsde findشََeaño #PadreHijo #buenosއmomentos #franއަިce #parشis";*/
             let string2 = document.getElementById("textMainArea").value;
 
             let matches2 = (string2.match(reg2) || []).map((e) =>
@@ -2121,21 +2261,21 @@ ${dateDifference}`;
             );
           }
           /* OLD
-    // https://stackoverflow.com/questions/50951625/use-html-input-to-replace-information-from-string-using-javascript/50951734#50951734
-    function findAndReplace() {
-      var input = document.getElementById("textMainArea").value;
-      var replaceWith = document.getElementById("replaceWith").value;
-      var find = new RegExp(
-        document.getElementById("findThis").value,
-        "g"
-      );
-      //var regex = new RegExp("ReGeX" + find + "ReGeX");
+  // https://stackoverflow.com/questions/50951625/use-html-input-to-replace-information-from-string-using-javascript/50951734#50951734
+  function findAndReplace() {
+    var input = document.getElementById("textMainArea").value;
+    var replaceWith = document.getElementById("replaceWith").value;
+    var find = new RegExp(
+      document.getElementById("findThis").value,
+      "g"
+    );
+    //var regex = new RegExp("ReGeX" + find + "ReGeX");
 
-      document.getElementById("textMainArea").value = input.replace(
-        find,
-        replaceWith
-      );
-    }*/
+    document.getElementById("textMainArea").value = input.replace(
+      find,
+      replaceWith
+    );
+  }*/
 
           //
           //
@@ -2202,40 +2342,40 @@ ${dateDifference}`;
           // https://stackoverflow.com/questions/4220126/run-javascript-function-when-user-finishes-typing-instead-of-on-key-up/5926782#5926782
 
           /*
-              //setup before functions
-              let typingTimer; //timer identifier
-              let doneTypingInterval = 500; //time in ms (5 seconds)
-              let myInput = document.getElementById("textMainArea");
+            //setup before functions
+            let typingTimer; //timer identifier
+            let doneTypingInterval = 500; //time in ms (5 seconds)
+            let myInput = document.getElementById("textMainArea");
 
-              //on keyup, start the countdown
-              // CHANGED keyup to input below
-              myInput.addEventListener("input", () => {
-                clearTimeout(typingTimer);
-                if (myInput.value) {
-                  typingTimer = setTimeout(doneTyping, doneTypingInterval);
-                }
-              });
-
-              //user is "finished typing," do something
-              function doneTyping() {
-                //do something
-                countChar();
-                countWord();
-                countLine();
-                countSize();
+            //on keyup, start the countdown
+            // CHANGED keyup to input below
+            myInput.addEventListener("input", () => {
+              clearTimeout(typingTimer);
+              if (myInput.value) {
+                typingTimer = setTimeout(doneTyping, doneTypingInterval);
               }
+            });
 
-              let taVal = document.getElementById("textMainArea").value;
-              if (taVal == "") {
-                // alert("This field is required");
-                countChar();
-                countWord();
-                countLine();
-                countSize();
-                document.getElementById("textMainArea").value = 5;
-              } else {
-                console.log("success");
-              }*/
+            //user is "finished typing," do something
+            function doneTyping() {
+              //do something
+              countChar();
+              countWord();
+              countLine();
+              countSize();
+            }
+
+            let taVal = document.getElementById("textMainArea").value;
+            if (taVal == "") {
+              // alert("This field is required");
+              countChar();
+              countWord();
+              countLine();
+              countSize();
+              document.getElementById("textMainArea").value = 5;
+            } else {
+              console.log("success");
+            }*/
 
           //
           //
@@ -2259,10 +2399,10 @@ ${dateDifference}`;
           //
 
           /*function triggerTheReplace() {
-                setTimeout(function () {
-                  replaceType();
-                }, 1000);
-              }*/
+              setTimeout(function () {
+                replaceType();
+              }, 1000);
+            }*/
 
           // https://www.w3schools.com/cssref/css3_pr_text-decoration-line.asp
 
@@ -2346,7 +2486,7 @@ ${dateDifference}`;
 
             // can add below so that less js calculations would happen rather than starting to count size kbs from scratch
             /*s = total.length;
-                formatBytes(s);*/
+              formatBytes(s);*/
           }
 
           // https://www.geeksforgeeks.org/how-to-make-a-word-count-in-textarea-using-javascript/
@@ -2368,16 +2508,16 @@ ${dateDifference}`;
               .filter((el) => el !== "").length;
 
             /* previous old code, above is much simpler
-                          var count = 0;
+                        var count = 0;
 
-                          var split = words.split(" ");
+                        var split = words.split(" ");
 
-                          for (var i = 0; i < split.length; i++) {
-                            if (split[i] != "") {
-                              count += 1;
-                            }
+                        for (var i = 0; i < split.length; i++) {
+                          if (split[i] != "") {
+                            count += 1;
                           }
-                          */
+                        }
+                        */
 
             // Display it as output
             //document.getElementById("wordC").innerHTML = count;
@@ -2405,27 +2545,27 @@ ${dateDifference}`;
             el.value.split(/\r?\n|\r/).length;
 
             /*
-                count2 = document
-                  .getElementById("textMainArea")
-                  .value.split(/\r\n|\r|\n/).length;
-                  */
-            /*
-                const text2 = document.getElementById("textMainArea").value;
-                const lines2 = text2.split("\n");
-                const count2 = lines2.length;
-                //console.log(count2);
+              count2 = document
+                .getElementById("textMainArea")
+                .value.split(/\r\n|\r|\n/).length;
                 */
+            /*
+              const text2 = document.getElementById("textMainArea").value;
+              const lines2 = text2.split("\n");
+              const count2 = lines2.length;
+              //console.log(count2);
+              */
             document.getElementById("lineC").innerHTML = lineCount;
           }
 
           // https://stackoverflow.com/questions/5515869/string-length-in-bytes-in-javascript/12203648#12203648
 
           /*function countSize() {
-                            stringSize = document.getElementById("textMainArea").value;
-                            document.getElementById("sizeC").innerHTML = new Blob([
-                              stringSize,
-                            ]).size;
-                          }*/
+                          stringSize = document.getElementById("textMainArea").value;
+                          document.getElementById("sizeC").innerHTML = new Blob([
+                            stringSize,
+                          ]).size;
+                        }*/
 
           // https://stackoverflow.com/questions/5515869/string-length-in-bytes-in-javascript/23329386#23329386
 
@@ -2459,7 +2599,7 @@ ${dateDifference}`;
 
             //return parseFloat((s / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
             /*s2 =
-                    parseFloat((s / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];*/
+                  parseFloat((s / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];*/
             s2 = parseFloat((s / Math.pow(k, i)).toFixed(dm));
             document.getElementById("sizeC").innerHTML = s2;
             document.getElementById("sizeCletter").innerHTML = sizes[i];
@@ -2472,55 +2612,55 @@ ${dateDifference}`;
           // old code for replace below, causes cursor to jump to end upon replace, after moving cursor manually })
 
           /*function replaceType() {
-                          var text = document.getElementById("textMainArea").value;
-                          var newText = text
-                            .replace(/ސސ-/g, "ﷺ")
-                            .replace(/ss-/g, "ﷺ")
-                            .replace(/صص-/g, "ﷺ")
-                            .replace(/\"-/g, "”")
-                            .replace(/-\"/g, "“")
-                            .replace(/\'-/g, "’")
-                            .replace(/-\'/g, "‘")
-                            .replace(/-br/g, "<br><br>")
-                            .replace(/ބރ-/g, "<br><br>")
-                            .replace(/رض-/g, "رَضِيَ اللَّهُ عَنْهُ")
-                            .replace(/ރއ-/g, "رَضِيَ اللَّهُ عَنْهُ")
-                            .replace(/ra-/g, "رَضِيَ اللَّهُ عَنْهُ")
-                            .replace(/رضه-/g, "رَضِيَ اللَّهُ عَنْهَا")
-                            .replace(/ރއހ-/g, "رَضِيَ اللَّهُ عَنْهَا")
-                            .replace(/rah-/g, "رَضِيَ اللَّهُ عَنْهَا")
-                            .replace(/رض2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
-                            .replace(/ރއ2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
-                            .replace(/ra2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
-                            .replace(/رض3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
-                            .replace(/ރއ3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
-                            .replace(/ra3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
-                            .replace(/ވދ-/g, "ވިދާޅުވިއެވެ: ")
-                            .replace(/ދނ-/g, "ދެންނެވިއެވެ: ")
-                            .replace(/ރކ-/g, "ރިވާ ކުރެއްވިއެވެ: ")
-                            .replace(/އއރ-/g, "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ: ")
-                            .replace(/ރސ-/g, "ރަސޫލު ﷲ ﷺ")
-                            .replace(/ނސ--/g, "ނަބިއްޔާ ﷺ")
-                            .replace(/ނހކ-/g, "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”")
-                            .replace(/ރހކ-/g, "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”")
+                        var text = document.getElementById("textMainArea").value;
+                        var newText = text
+                          .replace(/ސސ-/g, "ﷺ")
+                          .replace(/ss-/g, "ﷺ")
+                          .replace(/صص-/g, "ﷺ")
+                          .replace(/\"-/g, "”")
+                          .replace(/-\"/g, "“")
+                          .replace(/\'-/g, "’")
+                          .replace(/-\'/g, "‘")
+                          .replace(/-br/g, "<br><br>")
+                          .replace(/ބރ-/g, "<br><br>")
+                          .replace(/رض-/g, "رَضِيَ اللَّهُ عَنْهُ")
+                          .replace(/ރއ-/g, "رَضِيَ اللَّهُ عَنْهُ")
+                          .replace(/ra-/g, "رَضِيَ اللَّهُ عَنْهُ")
+                          .replace(/رضه-/g, "رَضِيَ اللَّهُ عَنْهَا")
+                          .replace(/ރއހ-/g, "رَضِيَ اللَّهُ عَنْهَا")
+                          .replace(/rah-/g, "رَضِيَ اللَّهُ عَنْهَا")
+                          .replace(/رض2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
+                          .replace(/ރއ2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
+                          .replace(/ra2-/g, "رَضِيَ اللَّهُ عَنْهُمَا")
+                          .replace(/رض3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
+                          .replace(/ރއ3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
+                          .replace(/ra3-/g, "رَضِيَ اللَّهُ عَنْهُمْ")
+                          .replace(/ވދ-/g, "ވިދާޅުވިއެވެ: ")
+                          .replace(/ދނ-/g, "ދެންނެވިއެވެ: ")
+                          .replace(/ރކ-/g, "ރިވާ ކުރެއްވިއެވެ: ")
+                          .replace(/އއރ-/g, "އަދި އެހެން ރިވާޔަތެއްގައި ވެއެވެ: ")
+                          .replace(/ރސ-/g, "ރަސޫލު ﷲ ﷺ")
+                          .replace(/ނސ--/g, "ނަބިއްޔާ ﷺ")
+                          .replace(/ނހކ-/g, "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”")
+                          .replace(/ރހކ-/g, "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”")
 
-                            .replace(/ހކ-/g, "ޙަދީޘް ކުރެއްވިއެވެ: ”") // this has to come after the previous two, otherwise overrides them
+                          .replace(/ހކ-/g, "ޙަދީޘް ކުރެއްވިއެވެ: ”") // this has to come after the previous two, otherwise overrides them
 
-                            .replace(
-                              /ރއޑ-/g,
-                              "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
-                            )
-                            .replace(
-                              /ނއޑ-/g,
-                              "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
-                            )
-                            .replace(/ސައްހަ-/g, "މި ޙަދީޘް ސައްހަ ކުރެއްވިއެވެ.")
-                            .replace(/ޟ-/g, "މި ޙަދީޘް ޟަޢީފު ކުރެއްވިއެވެ.")
-                            .replace(/މރވ-/g, "މި ޙަދީޘް ރިވާ ކުރެއްވީ");
+                          .replace(
+                            /ރއޑ-/g,
+                            "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+                          )
+                          .replace(
+                            /ނއޑ-/g,
+                            "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑު އެހީމެވެ: ”"
+                          )
+                          .replace(/ސައްހަ-/g, "މި ޙަދީޘް ސައްހަ ކުރެއްވިއެވެ.")
+                          .replace(/ޟ-/g, "މި ޙަދީޘް ޟަޢީފު ކުރެއްވިއެވެ.")
+                          .replace(/މރވ-/g, "މި ޙަދީޘް ރިވާ ކުރެއްވީ");
 
-                          document.getElementById("textMainArea").value = newText;
-                          return false;
-                        }*/
+                        document.getElementById("textMainArea").value = newText;
+                        return false;
+                      }*/
 
           /* solution for above code https://stackoverflow.com/questions/40196467/restore-cursor-position-after-replace/40198673#40198673 */
 
@@ -2544,20 +2684,20 @@ ${dateDifference}`;
             }
           };
           /*
-              //document.onkeyup = function (e) {
-              // https://stackoverflow.com/questions/38989559/jquery-keyup-event-for-mobile-device/49029711#49029711
-              document.on("keyup touchend", function () {
-    */
+            //document.onkeyup = function (e) {
+            // https://stackoverflow.com/questions/38989559/jquery-keyup-event-for-mobile-device/49029711#49029711
+            document.on("keyup touchend", function () {
+  */
           // area.addEventListener("keypress", function (e) {
           // BELOW WAS MOST RECENT REPLACE CODE, before assigned to detect - press
           // document can be area / document.addEventListener
           // e can be evt / (e) / e.keyCode
 
           /*area.addEventListener("keydown", function (e) {
-      if (e.keyCode === 81) {
-        console.log('The "Q" key is being held down...?');
-      }
-    });*/
+    if (e.keyCode === 81) {
+      console.log('The "Q" key is being held down...?');
+    }
+  });*/
 
           //
           // area.addEventListener("input", function (e) {
@@ -2715,11 +2855,11 @@ ${dateDifference}`;
               // https://stackoverflow.com/questions/19089442/convert-string-to-sentence-case-in-javascript
 
               /*var text = document.getElementById("textMainArea").value;
-        var rg = /(^\w{1}|\.\s*\w{1})/gi;
-        var newText = text.replace(rg, function (toReplace) {
-          return toReplace.toUpperCase();
-        });
-        document.getElementById("textMainArea").value = newText;*/
+      var rg = /(^\w{1}|\.\s*\w{1})/gi;
+      var newText = text.replace(rg, function (toReplace) {
+        return toReplace.toUpperCase();
+      });
+      document.getElementById("textMainArea").value = newText;*/
 
               // https://stackoverflow.com/questions/19089442/convert-string-to-sentence-case-in-javascript/56793122#56793122
 
@@ -2808,43 +2948,43 @@ ${dateDifference}`;
           //
 
           /* OLD CODE
-          var changeNumsAr_timesClicked = 0;
-          function changeNumsAr() {
-            changeNumsAr_timesClicked++;
-            if (changeNumsAr_timesClicked % 2 == 0) {
-              //run second function
-              // to DIGIT ONE
-              document.getElementById("textMainArea").value = document
-                .getElementById("textMainArea")
-                .value.replace(/٠/g, "0")
-                .replace(/١/g, "1")
-                .replace(/٢/g, "2")
-                .replace(/٣/g, "3")
-                .replace(/٤/g, "4")
-                .replace(/٥/g, "5")
-                .replace(/٦/g, "6")
-                .replace(/٧/g, "7")
-                .replace(/٨/g, "8")
-                .replace(/٩/g, "9");
-            } else {
-              //run first function
-              // to ARABIC-INDIC DIGIT ZERO
-              document.getElementById("textMainArea").value = document
-                .getElementById("textMainArea")
-                .value.replace(/0/g, "٠")
-                .replace(/1/g, "١")
-                .replace(/2/g, "٢")
-                .replace(/3/g, "٣")
-                .replace(/4/g, "٤")
-                .replace(/5/g, "٥")
-                .replace(/6/g, "٦")
-                .replace(/7/g, "٧")
-                .replace(/8/g, "٨")
-                .replace(/9/g, "٩");
-            }
+        var changeNumsAr_timesClicked = 0;
+        function changeNumsAr() {
+          changeNumsAr_timesClicked++;
+          if (changeNumsAr_timesClicked % 2 == 0) {
+            //run second function
+            // to DIGIT ONE
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/٠/g, "0")
+              .replace(/١/g, "1")
+              .replace(/٢/g, "2")
+              .replace(/٣/g, "3")
+              .replace(/٤/g, "4")
+              .replace(/٥/g, "5")
+              .replace(/٦/g, "6")
+              .replace(/٧/g, "7")
+              .replace(/٨/g, "8")
+              .replace(/٩/g, "9");
+          } else {
+            //run first function
+            // to ARABIC-INDIC DIGIT ZERO
+            document.getElementById("textMainArea").value = document
+              .getElementById("textMainArea")
+              .value.replace(/0/g, "٠")
+              .replace(/1/g, "١")
+              .replace(/2/g, "٢")
+              .replace(/3/g, "٣")
+              .replace(/4/g, "٤")
+              .replace(/5/g, "٥")
+              .replace(/6/g, "٦")
+              .replace(/7/g, "٧")
+              .replace(/8/g, "٨")
+              .replace(/9/g, "٩");
           }
-          //
-          */
+        }
+        //
+        */
 
           //https://stackoverflow.com/questions/44572859/a-function-that-runs-on-the-second-click
           var changeNumsOther_timesClicked = 0;
@@ -3172,7 +3312,7 @@ ${dateDifference}`;
                 .replace(/ \!/g, "!")
                 .replace(/ \./g, ".")
                 /*.replace(/\" /g, '"') //starting quotation mark
-                .replace(/(\s|^)\"([^\"]+) \"/g, '$1"$2"') //ending quotation mark*/
+              .replace(/(\s|^)\"([^\"]+) \"/g, '$1"$2"') //ending quotation mark*/
                 // commented above out as it was interfearing with rtl " like with: الجديد "المختصر في تفسير القرآن الكريم" بدل "المختصر في التفسير"؛ بناءً على مقترحات
                 .replace(/\- \./g, "-.");
 
@@ -3400,27 +3540,27 @@ ${dateDifference}`;
 
             /* doesnt copy very long text */
             /*
-                                                                                                                    // Get the text field
-                                                                                                                    var copyText = document.getElementById("textMainArea");
+                                                                                                                  // Get the text field
+                                                                                                                  var copyText = document.getElementById("textMainArea");
 
-                                                                                                                    // Select the text field
-                                                                                                                    //copyText.select();
-                                                                                                                    //copyText.setSelectionRange(0, 99999);
-                                                                                                                    // For mobile devices
+                                                                                                                  // Select the text field
+                                                                                                                  //copyText.select();
+                                                                                                                  //copyText.setSelectionRange(0, 99999);
+                                                                                                                  // For mobile devices
 
-                                                                                                                    // Copy the text inside the text field
-                                                                                                                    //navigator.clipboard.writeText(copyText.value);
+                                                                                                                  // Copy the text inside the text field
+                                                                                                                  //navigator.clipboard.writeText(copyText.value);
 
-                                                                                                                    copyText.select();
-                                                                                                                    copyText.setSelectionRange(0, 99999);
-                                                                                                                    // For mobile devices
+                                                                                                                  copyText.select();
+                                                                                                                  copyText.setSelectionRange(0, 99999);
+                                                                                                                  // For mobile devices
 
-                                                                                                                    document.execCommand("copy");
+                                                                                                                  document.execCommand("copy");
 
-                                                                                                                    // Alert the copied text
-                                                                                                                    // alert("ކޮޕީވީ: " + copyText.value);
-                                                                                                                    //return false;
-                                                                                                                    */
+                                                                                                                  // Alert the copied text
+                                                                                                                  // alert("ކޮޕީވީ: " + copyText.value);
+                                                                                                                  //return false;
+                                                                                                                  */
           }
           //
 
@@ -3568,13 +3708,13 @@ ${dateDifference}`;
               //
               // other stuff below
               /*document.getElementById("findReplaceButton").innerHTML =
-                                                                                            "ލަފްޒު ބަދަލު ކުރޭ";
-                                                                                          document.getElementById("findThis").style.direction = "rtl";
-                                                                                          document.getElementById("replaceWith").style.direction = "rtl";
-                                                                                          document.getElementById("findThis").placeholder =
-                                                                                            "1 މިލަފްޒު ހޯދާފާ";
-                                                                                          document.getElementById("replaceWith").placeholder =
-                                                                                            "2 މިއަށް ބަދަލުކުރޭ";*/
+                                                                                          "ލަފްޒު ބަދަލު ކުރޭ";
+                                                                                        document.getElementById("findThis").style.direction = "rtl";
+                                                                                        document.getElementById("replaceWith").style.direction = "rtl";
+                                                                                        document.getElementById("findThis").placeholder =
+                                                                                          "1 މިލަފްޒު ހޯދާފާ";
+                                                                                        document.getElementById("replaceWith").placeholder =
+                                                                                          "2 މިއަށް ބަދަލުކުރޭ";*/
             } else {
               //run first function
               document.getElementById("textMainArea").style.direction = "ltr";
@@ -3583,13 +3723,13 @@ ${dateDifference}`;
               //
               // other stuff below
               /*document.getElementById("findReplaceButton").innerHTML =
-                                                                                            "Regex/Replace";
-                                                                                          document.getElementById("findThis").style.direction = "ltr";
-                                                                                          document.getElementById("replaceWith").style.direction = "ltr";
-                                                                                          document.getElementById("findThis").placeholder = "1 Find This";
-                                                                                          document.getElementById("replaceWith").placeholder =
-                                                                                            "2 Replace This";
-                                                                                            */
+                                                                                          "Regex/Replace";
+                                                                                        document.getElementById("findThis").style.direction = "ltr";
+                                                                                        document.getElementById("replaceWith").style.direction = "ltr";
+                                                                                        document.getElementById("findThis").placeholder = "1 Find This";
+                                                                                        document.getElementById("replaceWith").placeholder =
+                                                                                          "2 Replace This";
+                                                                                          */
             }
           }
           //
@@ -3623,13 +3763,13 @@ ${dateDifference}`;
           //
 
           /*
-                                                                                                                                var numbered = document
-                                                                                                                        .getElementById("textMainArea")
-                                                                                                                        .value.split("\n")
-                                                                                                                        .map((line, index) => `${index + 1}. ${line}`)
-                                                                                                                        .join("\n");
-                                                                                                                      document.getElementById("textMainArea").value = numbered;
-                                                                                                                      */
+                                                                                                                              var numbered = document
+                                                                                                                      .getElementById("textMainArea")
+                                                                                                                      .value.split("\n")
+                                                                                                                      .map((line, index) => `${index + 1}. ${line}`)
+                                                                                                                      .join("\n");
+                                                                                                                    document.getElementById("textMainArea").value = numbered;
+                                                                                                                    */
 
           //
 
@@ -3751,14 +3891,14 @@ ${dateDifference}`;
             // https://stackoverflow.com/questions/58371608/regex-to-remove-the-first-two-characters-of-a-string
 
             /*
-                                                                    document.getElementById("textMainArea").value = document
-                                                                      .getElementById("textMainArea")
-                                                                      .value.replace(/.{2}$/gm, "");
+                                                                  document.getElementById("textMainArea").value = document
+                                                                    .getElementById("textMainArea")
+                                                                    .value.replace(/.{2}$/gm, "");
 
-                                                                    document.getElementById("textMainArea").value = document
-                                                                      .getElementById("textMainArea")
-                                                                      .value.replace(/^.{2}/gm, "");
-                                                                      */
+                                                                  document.getElementById("textMainArea").value = document
+                                                                    .getElementById("textMainArea")
+                                                                    .value.replace(/^.{2}/gm, "");
+                                                                    */
 
             // https://stackoverflow.com/questions/4029109/javascript-regex-how-to-put-a-variable-inside-a-regular-expression
 
@@ -3958,9 +4098,9 @@ ${dateDifference}`;
                 .value.split(" ")
                 .join("\n"));
             /*document.getElementById("textMainArea").value = text2split.replace(
-                                                                                          /[\r\n]+/g,
-                                                                                          "\n"
-                                                                                        );*/
+                                                                                        /[\r\n]+/g,
+                                                                                        "\n"
+                                                                                      );*/
 
             // below first makes multiple newlines only one newline, then removes punctuation (taken from removepunc code and edited)
             document.getElementById("textMainArea").value = text2split
@@ -4114,19 +4254,19 @@ ${dateDifference}`;
 
           // cgpt: write js code that takes text and outputs which unicode character codepoints they are, starting with code point, followed by the letter, with " : ".  ensure that the zeros are included in the code points. seperating them all. also include a link to unicode points site.
           /*
-                                              example if i give this input:
-                                              "he 12 عر"
+                                            example if i give this input:
+                                            "he 12 عر"
 
-                                              it should give the output like this:
-                                              U+0068 : h : https://codepoints.net/U+0068
-                                              U+0065 : e : https://codepoints.net/U+0065
-                                              U+0020 :  : https://codepoints.net/U+0020
-                                              U+0031 : 1 : https://codepoints.net/U+0031
-                                              U+0032 : 2 : https://codepoints.net/U+0032
-                                              U+0020 :  : https://codepoints.net/U+0020
-                                              U+0639 : ع : https://codepoints.net/U+0639
-                                              U+0631 : ر : https://codepoints.net/U+0631
-                                              */
+                                            it should give the output like this:
+                                            U+0068 : h : https://codepoints.net/U+0068
+                                            U+0065 : e : https://codepoints.net/U+0065
+                                            U+0020 :  : https://codepoints.net/U+0020
+                                            U+0031 : 1 : https://codepoints.net/U+0031
+                                            U+0032 : 2 : https://codepoints.net/U+0032
+                                            U+0020 :  : https://codepoints.net/U+0020
+                                            U+0639 : ع : https://codepoints.net/U+0639
+                                            U+0631 : ر : https://codepoints.net/U+0631
+                                            */
 
           function outputCodePoints() {
             // ltr switch
@@ -4152,18 +4292,18 @@ ${dateDifference}`;
 
           //
           /* using js, when a function called "kahfBas" is run, take input as "document.getElementById("textMainArea").value", and also giving out the output as "document.getElementById("textMainArea").value", replace the character on the left with the character on the right, make it ignore: ﷲ
-                     ء	އ
-                     آ	އާ
-                     after mapping, it should replace ލލަހު  with ﷲ
-                     how can i change it, so when there is a ّ  character that comes after an arabic character, the output should provide a އް character before the mapped converted character that comes before it, so the outputs for the following inputs should be:
-                     خَطَّا;
-                     ޚައްޠާ;
-                     خَطِّي;
-                     ޚައްޠީ;
-                     خَطُّوبِ;
-                     ޚައްޠޫ;
-                     i want you to do this for this character in the code: ة if any arabic diactric apart from ْ  comes after that ة, then that ة should be replaced with a ތ, else it should be replaced by a ހ
-                     */
+                   ء	އ
+                   آ	އާ
+                   after mapping, it should replace ލލަހު  with ﷲ
+                   how can i change it, so when there is a ّ  character that comes after an arabic character, the output should provide a އް character before the mapped converted character that comes before it, so the outputs for the following inputs should be:
+                   خَطَّا;
+                   ޚައްޠާ;
+                   خَطِّي;
+                   ޚައްޠީ;
+                   خَطُّوبِ;
+                   ޚައްޠޫ;
+                   i want you to do this for this character in the code: ة if any arabic diactric apart from ْ  comes after that ة, then that ة should be replaced with a ތ, else it should be replaced by a ހ
+                   */
           function kahfBas() {
             var inputText = document.getElementById("textMainArea").value;
             var outputText = "";
@@ -4275,9 +4415,9 @@ ${dateDifference}`;
               //.replace(/ލލަހު|ލލަހަ|ލލަހި|ލލަހ/g, "ﷲ")
 
               /*.replace(/ލލަހު/g, "ﷲ ު") //all fili jehi lafzul jalaalas in dhivehi need a space after then, otherwise next letter will be too close
-          .replace(/ލލަހަ/g, "ﷲަ ")
-          .replace(/ލލަހި/g, "ﷲި ")
-          .replace(/ލލަހ/g, "ﷲ")*/
+        .replace(/ލލަހަ/g, "ﷲަ ")
+        .replace(/ލލަހި/g, "ﷲި ")
+        .replace(/ލލަހ/g, "ﷲ")*/
               .replace(/ލއްލަހު/g, "ﷲ ު") // changed thaana part because thanween logic prior changes them
               .replace(/ލއްލަހަ/g, "ﷲަ ")
               .replace(/ލއްލަހި /g, "ﷲި ")
@@ -4349,8 +4489,8 @@ ${dateDifference}`;
               //run second function
 
               /*
-              insert encoding code here
-              */
+            insert encoding code here
+            */
 
               const input = document.getElementById("textMainArea").value;
               let output = "";
@@ -4384,14 +4524,14 @@ ${dateDifference}`;
               document.getElementById("textMainArea").value = decodedValue;
 
               /*let input =
-                "\u0789\u07a6\u078c\u07a9\u078e\u07a6\u0787\u07a8 \u078d\u07a8\u0794\u07aa\u0789\u07a6\u0781\u07b0\u078a\u07a6\u0780\u07aa \u0787\u07ac\u078d\u07a8\u0794\u07aa\u0782\u07b0 \u0784\u07a6\u078b\u07a6\u078d\u07aa\u0786\u07aa\u0783\u07aa\u0789\u07a6\u0781\u07b0";*/
+              "\u0789\u07a6\u078c\u07a9\u078e\u07a6\u0787\u07a8 \u078d\u07a8\u0794\u07aa\u0789\u07a6\u0781\u07b0\u078a\u07a6\u0780\u07aa \u0787\u07ac\u078d\u07a8\u0794\u07aa\u0782\u07b0 \u0784\u07a6\u078b\u07a6\u078d\u07aa\u0786\u07aa\u0783\u07aa\u0789\u07a6\u0781\u07b0";*/
 
               /*// Decode unicode to readable characters
-              let decodedValue = decodeURIComponent(JSON.parse(`"${input}"`));
+            let decodedValue = decodeURIComponent(JSON.parse(`"${input}"`));
 
-              // Output the decoded value back into the textarea
-              document.getElementById("textMainArea").value = decodedValue;
-              //console.log(decodedValue);*/
+            // Output the decoded value back into the textarea
+            document.getElementById("textMainArea").value = decodedValue;
+            //console.log(decodedValue);*/
 
               //
 
@@ -4455,9 +4595,9 @@ ${dateDifference}`;
           //
 
           /*
-                                                                                      function encSvg() {
-                                                                                      }
-                                                                                      */
+                                                                                    function encSvg() {
+                                                                                    }
+                                                                                    */
 
           /* end of above */
         </script>
@@ -4695,10 +4835,10 @@ ${dateDifference}`;
             /* below doesnt work */
 
             /*var copyText = "ﷺ"; //document.getElementById("dummy");
-      copyText.type = "text";
-      copyText.select();
-      document.execCommand("copy");
-      copyText.type = "hidden";*/
+    copyText.type = "text";
+    copyText.select();
+    document.execCommand("copy");
+    copyText.type = "hidden";*/
           }
 
           function copyMidSalla() {
@@ -5838,15 +5978,15 @@ cols="60"-->
               calcZakat.toFixed(2);
 
             /*document
-        .querySelector("#sumZakat")
-        .text(
-          "The zakat for this total would be: " + calcZakat.toFixed(2)
-        );*/
+      .querySelector("#sumZakat")
+      .text(
+        "The zakat for this total would be: " + calcZakat.toFixed(2)
+      );*/
 
             /*document.getElementById("sumZakat").innerHTML =
-        "<br />The zakat for this total would be: " +
-        calcZakat.toFixed(2);
-      */
+      "<br />The zakat for this total would be: " +
+      calcZakat.toFixed(2);
+    */
           }
 
           function clearAdd() {
@@ -6025,11 +6165,11 @@ cols="60"-->
                     <script>
                       // https://stackoverflow.com/questions/26050668/how-to-download-a-image-thats-on-html5-canvas/26050821#26050821
                       /*
-                var canvas = document.getElementById("canvas");
-                var ctx = canvas.getContext("2d");
-                ctx.fillStyle = "#ff5";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                */
+              var canvas = document.getElementById("canvas");
+              var ctx = canvas.getContext("2d");
+              ctx.fillStyle = "#ff5";
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+              */
                       document
                         .getElementById("qrcode-canvas")
                         .addEventListener("click", function () {
@@ -6243,13 +6383,13 @@ cols="60"-->
 
                 /* OLD FIX
 
-          // https://stackoverflow.com/questions/12166753/how-to-get-child-element-by-class-name/49297824#49297824
-        var testContainer = document.querySelector(".qrClass");
-        //var fourChildNode = testContainer.querySelector('.four');
+        // https://stackoverflow.com/questions/12166753/how-to-get-child-element-by-class-name/49297824#49297824
+      var testContainer = document.querySelector(".qrClass");
+      //var fourChildNode = testContainer.querySelector('.four');
 
-        // previously testContainer was document. changed to get child by class, so as not to affect all general inputs and textareas. it also made oninput not work on textareas. there's another instance of this below * CHANGE THIS CODE ON EVERY UPDATE *
-        // for some reason doing that hides the initial qr code shown
-        */
+      // previously testContainer was document. changed to get child by class, so as not to affect all general inputs and textareas. it also made oninput not work on textareas. there's another instance of this below * CHANGE THIS CODE ON EVERY UPDATE *
+      // for some reason doing that hides the initial qr code shown
+      */
 
                 var elems = document.querySelectorAll(
                   ".qrClass input[type=number], .qrClass input[type=text], .qrClass textarea, .qrClass input[type=color], .qrClass input[type=range]"
@@ -6259,8 +6399,8 @@ cols="60"-->
                 // added , input[type=color], input[type=range
 
                 /* var elems = document.querySelectorAll(
-            "input[type=number], input[type=text], textarea"
-          ); */
+          "input[type=number], input[type=text], textarea"
+        ); */
 
                 for (var _i = 0, elems_1 = elems; _i < elems_1.length; _i++) {
                   var el = elems_1[_i];
@@ -6619,7 +6759,7 @@ cols="60"-->
         <script>
           function calcTime() {
             /*var start = document.getElementById("time1").value;
-        var end = document.getElementById("time2").value;*/
+      var end = document.getElementById("time2").value;*/
 
             /* https://thewebdev.info/2021/05/23/how-to-convert-hhmmss-time-string-to-seconds-only-in-javascript/ */
 
@@ -6634,10 +6774,10 @@ cols="60"-->
             //document.getElementById("seconds2").value = fajrSeconds;
 
             /* https://github.com/proateen/thirdofthenight/blob/main/script.js 
-        
-        alternative: https://fawazahmed0.github.io/last-third-night-calculator/ 
-        
-        they dont match, so obviously one is wrong, first i thought it was the former, now the latter */
+      
+      alternative: https://fawazahmed0.github.io/last-third-night-calculator/ 
+      
+      they dont match, so obviously one is wrong, first i thought it was the former, now the latter */
 
             if (maghribSeconds > fajrSeconds) {
               var diffSeconds = 86400 - (maghribSeconds - fajrSeconds); //subtract 1 day
@@ -6664,8 +6804,8 @@ cols="60"-->
             nightHalfinSeconds;
 
             /*var date = new Date(null);
-        date.setSeconds(nightThirdinSeconds); // specify value for SECONDS here
-        var result = date.toISOString().substr(11, 5);*/
+      date.setSeconds(nightThirdinSeconds); // specify value for SECONDS here
+      var result = date.toISOString().substr(11, 5);*/
 
             var dateThird = new Date(null);
             dateThird.setSeconds(nightThirdinSeconds); // specify value for SECONDS here
@@ -6694,11 +6834,11 @@ cols="60"-->
             // https://stackoverflow.com/questions/13903897/javascript-return-number-of-days-hours-minutes-seconds-between-two-dates/13904621#13904621
             /*var calcNewYear = setInterval(function () {
 
-          // https://stackoverflow.com/questions/3830244/how-to-get-the-current-date-or-and-time-in-seconds/3830279#3830279
-          var timeNow = new Date().toLocaleTimeString(); //new Date().toTimeString().split(" ")[0];
+        // https://stackoverflow.com/questions/3830244/how-to-get-the-current-date-or-and-time-in-seconds/3830279#3830279
+        var timeNow = new Date().toLocaleTimeString(); //new Date().toTimeString().split(" ")[0];
 
-          $("#time").text("Time remaining is\n" + timeNow + " seconds");
-        }, 1000);*/
+        $("#time").text("Time remaining is\n" + timeNow + " seconds");
+      }, 1000);*/
 
             /**/
           }
@@ -6775,7 +6915,8 @@ writing any value in any one of the boxes should calculate the equivalent value 
               /*margin-left: 30px;
               margin-right: 30px;*/
               /* Adjust the margin as needed */
-              flex-wrap: nowrap; /* Prevent elements from wrapping within the unit group */
+              flex-wrap: nowrap;
+              /* Prevent elements from wrapping within the unit group */
 
               /**/
               display: flex;
@@ -7691,6 +7832,7 @@ inputMultiB2
           .mergely-canvas {
             background-color: white;
           }
+
           /*#clear-rhs-btn {
             margin: 10px;
           }*/
@@ -7780,9 +7922,9 @@ inputMultiB2
                     element.style.textAlign = "right";
                   });
                 /*document.querySelectorAll(".CodeMirror").forEach((element) => {
-                  element.style.direction = "rtl";
-                  element.style.textAlign = "right";
-                });*/
+                element.style.direction = "rtl";
+                element.style.textAlign = "right";
+              });*/
               } else {
                 //run first function
                 document
@@ -7793,27 +7935,27 @@ inputMultiB2
                     element.style.textAlign = "left";
                   });
                 /*document.querySelectorAll(".CodeMirror").forEach((element) => {
-                  element.style.direction = "ltr";
-                  element.style.textAlign = "left";
-                });*/
+                element.style.direction = "ltr";
+                element.style.textAlign = "left";
+              });*/
                 //
               }
             }
             //
 
             /*below no longer working
-            var leftToRight2_timesClicked = 0;
-            function leftToRight22() {
-              leftToRight2_timesClicked++;
-              if (leftToRight2_timesClicked % 2 == 0) {
-                //run second function
-                $(".CodeMirror").addClass("CodeMirror-rtl");
-              } else {
-                //run first function
-                $(".CodeMirror-rtl").addClass("CodeMirror");
-                $(".CodeMirror-rtl").removeClass("CodeMirror-rtl");
-              }
-            }*/
+          var leftToRight2_timesClicked = 0;
+          function leftToRight22() {
+            leftToRight2_timesClicked++;
+            if (leftToRight2_timesClicked % 2 == 0) {
+              //run second function
+              $(".CodeMirror").addClass("CodeMirror-rtl");
+            } else {
+              //run first function
+              $(".CodeMirror-rtl").addClass("CodeMirror");
+              $(".CodeMirror-rtl").removeClass("CodeMirror-rtl");
+            }
+          }*/
           </script>
 
           <button
@@ -7972,10 +8114,10 @@ onclick="window.location.href = window.location.href.split('.html')[0] + '.html'
               //
               // Asynchronous initialization
               /*const mergely = new Mergely("#compare");
-          mergely.once("updated", () => {
-            mergely.lhs("the quick red fox\njumped over the hairy dog");
-            mergely.rhs("the quick brown fox\njumped over the lazy dog");
-          });*/
+        mergely.once("updated", () => {
+          mergely.lhs("the quick red fox\njumped over the hairy dog");
+          mergely.rhs("the quick brown fox\njumped over the lazy dog");
+        });*/
 
               lhs: "عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُ:\nقَالَ رَسُولُ اللَّهِ ﷺ:\n\nޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ގެ އަރިހުން ރިވާވެގެންވެއެވެ:\nރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:",
               rhs: "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ:\nسَمِعْتُ النَّبِيَّ ﷺ يَقُولُ:\n\nއިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ:\nނަބިއްޔާ ﷺ ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:",
@@ -8069,7 +8211,7 @@ onclick="window.location.href = window.location.href.split('.html')[0] + '.html'
                 element.style.fontSize =
                   document.getElementById("slider2").value + "px";
                 /*element.style.lineHeight =
-                  document.getElementById("slider2").value + 1 + "px";*/
+                document.getElementById("slider2").value + 1 + "px";*/
                 element.style.lineHeight =
                   parseInt(document.getElementById("slider2").value) +
                   20 +
@@ -8077,9 +8219,9 @@ onclick="window.location.href = window.location.href.split('.html')[0] + '.html'
               });
 
             /*document.getElementsByClassName("CodeMirror")[0].style.fontSize =
-              document.getElementById("slider2").value + "px";
-            document.getElementsByClassName("CodeMirror")[1].style.fontSize =
-              document.getElementById("slider2").value + "px";*/
+            document.getElementById("slider2").value + "px";
+          document.getElementsByClassName("CodeMirror")[1].style.fontSize =
+            document.getElementById("slider2").value + "px";*/
 
             // added below
             document.getElementById("sliderValue2").innerHTML =
@@ -8575,8 +8717,8 @@ onclick="window.location.href = window.location.href.split('.html')[0] + '.html'
 
       // dont need this anymore - needed timeout delay otherwise mergley diff wouldnt show
       /*setTimeout(function () {
-        document.getElementById("secondaryOpen").click();
-      }, 130);*/
+      document.getElementById("secondaryOpen").click();
+    }, 130);*/
 
       function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
