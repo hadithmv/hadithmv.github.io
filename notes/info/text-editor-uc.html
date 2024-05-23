@@ -5028,15 +5028,47 @@ encrypting."
               document.getElementById("toggleDark").innerHTML = "🌓 Dark Mode";
             } else {
               //run first function
-              document.getElementById("textMainArea").style.color = "#f6f6f6";
 
+              // Select all elements with the specified selectors
+              var elements = document.querySelectorAll(
+                "textarea, input, .inputFieldClass, .class2, .class3"
+              );
+              // Loop through each element and set the style properties
+              elements.forEach(function (element) {
+                element.style.color = "#f6f6f6"; // Set the text color to #f6f6f6
+              });
+
+              //
+              // Select all elements with the specified selectors
+              var elements = document.querySelectorAll(
+                "textarea, input, .inputFieldClass, .class2, .class3"
+              );
+              // Loop through each element and set the style properties
+              elements.forEach(function (element) {
+                element.style.backgroundColor = "#262626"; // Set the text color to #f6f6f6
+              });
+
+              /*document.getElementById("textMainArea").style.color = "#f6f6f6";
               document.getElementById("textMainArea").style.backgroundColor =
                 "#262626";
-
               document.getElementById("textMainArea").style.borderColor =
-                "#262626";
+                "#262626"; */
 
               document.getElementById("toggleDark").innerHTML = "🌓 Light Mode";
+
+              //
+              const buttons = document.querySelectorAll(
+                ".mid.editorButtons button"
+              );
+              // Loop through each button and set the color and background color
+              buttons.forEach((button) => {
+                button.style.backgroundColor = "#6b6b6b";
+                button.style.color = "#fff";
+              });
+
+              document.getElementById("findThis").style.backgroundColor =
+                "#262626";
+              document.getElementById("findThis").style.color = "#757575";
             }
           }
           //
