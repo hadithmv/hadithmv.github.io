@@ -1,5 +1,6 @@
 minimal-mod.css		csso
-mergely			5.1.4
+
+mergely	css & js	5.1.4 (prev used 4.3.9)
 https://github.com/wickedest/Mergely/releases
 
 qrcodegen		1.8.0 (closure + wwrap)
@@ -8,9 +9,5 @@ https://www.nayuki.io/res/qr-code-generator-library/qrcodegen.js
 -----
 
 NO LONGER NEEDED:
-codemirror		5.65.9 (latest is 6.7.1)
-https://codemirror.net/docs/changelog/
-
-previously mergely was 4.3.9
-
+codemirror css & js		5.65.9 (latest is 6.7.1)
 codemirror/5.65.9/addon/selection/mark-selection.js
