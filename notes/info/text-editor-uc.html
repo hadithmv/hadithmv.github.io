@@ -1817,6 +1817,51 @@ encrypting."
             // added this - Global variable to hold the password
             let mainPassword;
 
+            // Add the event listener once
+            var control = document.getElementById("selectFile");
+            control.addEventListener("change", handleFileChange, false);
+
+            function handleFileChange(event) {
+              var reader = new FileReader();
+              reader.onload = function (event) {};
+              reader.onerror = function (event) {
+                console.error(
+                  "File could not be read! Code " + event.target.error.code
+                );
+              };
+
+              // Prompt for the password
+              mainPassword = window.prompt("Password");
+
+              /* In this modified code, the handleFileChange function is called whenever a file is selected, and it handles the common logic for both encryption and decryption. The encryptFileStart() and decryptFileStart() functions simply trigger the file upload dialog and let the handleFileChange function handle the rest. By moving the event listener setup outside of the start functions, you ensure that only one event listener is attached to the file input element, resolving the issue you were experiencing. */
+
+              // Call the appropriate function based on the button clicked
+              if (event.currentTarget === control) {
+                encryptFile();
+              } else {
+                decryptFile();
+              }
+
+              reader.readAsText(control.files[0]);
+
+              // added this to scroll back up, but only after prompt has been given, needed for mobile
+              scrollToTopFully();
+            }
+
+            function encryptFileStart() {
+              // Trigger file upload on button click
+              document.getElementById("selectFile").click();
+            }
+
+            function decryptFileStart() {
+              // Trigger file upload on button click
+              document.getElementById("selectFile").click();
+            }
+
+            /* The issue you're experiencing is due to the way the event listener is set up for the file input element. The event listener is added each time the encryptFileStart() or decryptFileStart() function is called, which means that after the first call, multiple event listeners are attached to the same element.
+When you try to upload a file for the second time, multiple event listeners are triggered, leading to potential conflicts or unexpected behavior. To fix this issue, you can modify the code to remove the existing event listener before adding a new one, or move the event listener setup outside of the encryptFileStart() and decryptFileStart() functions. */
+
+            /* OLD CODE
             // added this
             function encryptFileStart() {
               // trigger file upload of button click
@@ -1830,14 +1875,10 @@ encrypting."
                   var reader = new FileReader();
                   reader.onload = function (event) {};
                   // do this after upload
-                  // call the actual encryption
 
                   // Prompt for the password
                   // change all mainPassword.value to just mainPassword
                   mainPassword = window.prompt("Password");
-
-                  // added this to scroll back up, but only after prompt has been given, needed for mobile
-                  scrollToTopFully();
 
                   //encryptFile();
                   // Call the actual encryption with mainPassword as argument
@@ -1855,6 +1896,7 @@ encrypting."
               );
               // closes start function
             }
+            */
 
             async function encryptFile() {
               //selectFileHint.classList.remove("greenspan");
@@ -1913,6 +1955,7 @@ encrypting."
                   //log.textContent += "\r\n✅ FINISHED.";
                 } catch (error) {
                   console.error(error);
+
                   //log.textContent += "\r\n⛔ EXCEPTION\r\n" + error;
                   /*}
 		} else {*/
@@ -1923,6 +1966,7 @@ encrypting."
               }
             }
 
+            /* OLD CODE
             // added this
             function decryptFileStart() {
               // trigger file upload of button click
@@ -1942,9 +1986,6 @@ encrypting."
                   // change all mainPassword.value to just mainPassword
                   mainPassword = window.prompt("Password");
 
-                  // added this to scroll back up, but only after prompt has been given, needed for mobile
-                  scrollToTopFully();
-
                   //encryptFile();
                   // Call the actual encryption with mainPassword as argument
                   decryptFile();
@@ -1961,6 +2002,7 @@ encrypting."
               );
               // closes start function
             }
+            */
 
             async function decryptFile() {
               //selectFileHint.classList.remove("greenspan");
@@ -2021,6 +2063,10 @@ encrypting."
                   //log.textContent += "\r\n✅ FINISHED.";
                 } catch (error) {
                   console.error(error);
+
+                  //added this
+                  document.getElementById("textMainArea").value =
+                    "Decryption failed";
                   //log.textContent += "\r\n⛔ EXCEPTION\r\n" + error;
                   /*}
 		} else {*/
@@ -2031,9 +2077,9 @@ encrypting."
               }
             }
 
-            var modus = "";
+            //var modus = "";
 
-            function showEncrypt() {
+            /*function showEncrypt() {
               operationModeContainer.classList.add("hidden");
               btnDecrypt.classList.add("hidden");
               cypherContainer.classList.remove("hidden");
@@ -2046,10 +2092,10 @@ encrypting."
               btnEncrypt.classList.add("hidden");
               cypherContainer.classList.remove("hidden");
               modus = "decrypt";
-            }
+            }*/
 
-            function bodyOnLoad() {
-              /*
+            //function bodyOnLoad() {
+            /*
 		If URL is http://www.example.com/account/search?filter=a#top
 
 		window.location.pathname // /account/search
@@ -2061,7 +2107,7 @@ encrypting."
 		window.location.protocol // http:
 		window.location.search   // ?filter=a
 	*/
-              let hash = window.location.hash;
+            /*let hash = window.location.hash;
               if (hash === "#encrypt") {
                 showEncrypt();
               } else if (hash === "#decrypt") {
@@ -2083,7 +2129,7 @@ encrypting."
               if (event.key === "Enter") {
                 encryptFile();
               }
-            });
+            });*/
           </script>
 
           <button
