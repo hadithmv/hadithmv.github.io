@@ -1543,7 +1543,7 @@ ${dateDifference}`;
           </script>
 
           <button
-            onclick="encryptText();scrollToTopFully();"
+            onclick="encryptText();"
             class="ttClass"
             data-tooltip="(Web Crypto API, AES-GCM) Enter text to encrypt, click Encrypt, then enter a password when
             prompted. A base64 representation of the encrypted data will be
@@ -1553,7 +1553,7 @@ ${dateDifference}`;
           </button>
 
           <button
-            onclick="decryptText();scrollToTopFully();"
+            onclick="decryptText();"
             class="ttClass"
             data-tooltip="Enter text to decrypt, click Decrypt and then when
             prompted, enter the same password as used for
@@ -1588,12 +1588,16 @@ ${dateDifference}`;
               // let encryptedDataOut = window.document.getElementById("encryptedData");
               let encryptedDataOut =
                 window.document.getElementById("textMainArea");
+              // Prompt for the password
+
               const password = window.prompt("Password");
               const encryptedData = await encryptData(data, password);
               encryptedDataOut.value = encryptedData;
             }
 
             async function decryptText() {
+              // Prompt for the password
+
               const password = window.prompt("Password");
               // const encryptedData = window.document.getElementById("encryptedData").value;
               const encryptedData =
@@ -1603,6 +1607,9 @@ ${dateDifference}`;
                 window.document.getElementById("textMainArea");
               const decryptedData = await decryptData(encryptedData, password);
               decryptedDataOut.value = decryptedData || "Decryption failed";
+
+              // added this to scroll back up, but only after prompt has been given, needed for mobile
+              scrollToTopFully();
             }
 
             const getPasswordKey = (password) =>
@@ -1685,7 +1692,7 @@ ${dateDifference}`;
           </script>
 
           <button
-            onclick="encryptFileStart();scrollToTopFully();"
+            onclick="encryptFileStart();"
             class="ttClass"
             data-tooltip="(Web Crypto API, AES-GCM) Select the File to process. Click Encrypt, then enter a password when
 prompted. An encrypted file of the original will be downloaded. Note: Doesn't work on the Android app."
@@ -1701,7 +1708,7 @@ prompted. An encrypted file of the original will be downloaded. Note: Doesn't wo
           -->
 
           <button
-            onclick="decryptFileStart();scrollToTopFully();"
+            onclick="decryptFileStart();"
             class="ttClass"
             data-tooltip="Enter text to decrypt, click Decrypt and then when
 prompted, enter the same password as used for
@@ -1711,82 +1718,6 @@ encrypting."
           </button>
 
           <!-- -->
-
-          <div id="operationModeContainer">
-            <button
-              class="clickbutton"
-              id="selectEncrypt"
-              type="button"
-              onclick="showEncrypt();"
-            >
-              Encrypt a File
-            </button>
-            <button
-              class="clickbutton"
-              id="selectDncrypt"
-              type="button"
-              onclick="showDecrypt();"
-            >
-              Decrypt a File
-            </button>
-          </div>
-
-          <div id="cypherContainer" class="hidden">
-            <table>
-              <!--<tr><td>Select File</td><td><input id="selectFile" type="file" aria-label="Select a file"></td><td id="selectFileHint">Select the File you'd like to process.</td></tr>-->
-              <tr>
-                <td>Password</td>
-                <td>
-                  <input
-                    id="mainPassword"
-                    type="password"
-                    aria-label="Enter password"
-                  />
-                </td>
-                <td id="mainPasswordHint">
-                  Strong password, minumum length is 8 characters.
-                </td>
-              </tr>
-              <tr id="trConfirmPassword">
-                <td>Retype Password</td>
-                <td>
-                  <input
-                    id="confirmPassword"
-                    type="password"
-                    aria-label="Confirm password"
-                  />
-                </td>
-                <td id="confirmPasswordHint">
-                  Retype your password from above to ensure you didn't mistype
-                  it.
-                </td>
-              </tr>
-            </table>
-            <button
-              id="btnEncrypt"
-              class="clickbutton green"
-              type="button"
-              onclick="encryptFile();"
-            >
-              Encrypt
-            </button>
-            <button
-              id="btnDecrypt"
-              class="clickbutton green"
-              type="button"
-              onclick="decryptFile();"
-            >
-              Decrypt
-            </button>
-            <button
-              id="btnReload"
-              class="clickbutton orange"
-              type="button"
-              onclick="javascript:location.reload();"
-            >
-              Reload Page
-            </button>
-          </div>
 
           <script>
             // https://github.com/hazelfazel/Web-Browser-Based-AES-GCM-File-Encryption-Decryption
@@ -1883,6 +1814,9 @@ encrypting."
               );
             }
 
+            // added this - Global variable to hold the password
+            let mainPassword;
+
             // added this
             function encryptFileStart() {
               // trigger file upload of button click
@@ -1897,6 +1831,16 @@ encrypting."
                   reader.onload = function (event) {};
                   // do this after upload
                   // call the actual encryption
+
+                  // Prompt for the password
+                  // change all mainPassword.value to just mainPassword
+                  mainPassword = window.prompt("Password");
+
+                  // added this to scroll back up, but only after prompt has been given, needed for mobile
+                  scrollToTopFully();
+
+                  //encryptFile();
+                  // Call the actual encryption with mainPassword as argument
                   encryptFile();
 
                   reader.onerror = function (event) {
@@ -1921,8 +1865,7 @@ encrypting."
                 //confirmPasswordHint.classList.remove("greenspan");
                 //confirmPasswordHint.classList.remove("redspan");
                 /*if ( ( mainPassword.value === confirmPassword.value) && ( mainPassword.value !== "" ) && ( mainPassword.value.length >= 8 ) ) {*/
-                // added this below, commented out surrounding if clause around this as well as } } else {, had to do this for both encrypt and decrypt
-                mainPassword.value = window.prompt("Password");
+                // commented out surrounding if clause around this as well as } } else {, had to do this for both encrypt and decrypt
                 //confirmPasswordHint.classList.add("greenspan");
                 //logContainer.classList.remove("hidden");
                 try {
@@ -1939,7 +1882,8 @@ encrypting."
                   );
                   //log.textContent += "\r\nsha-256 hash of plaintext file: " + arr2Hex(hashPlaintext);
                   //log.textContent += "\r\nderiving key from password and random salt ...";
-                  let keyIv = await deriveKeyIv(mainPassword.value, pbkdf2salt);
+                  //let keyIv = await deriveKeyIv(mainPassword.value, pbkdf2salt);
+                  let keyIv = await deriveKeyIv(mainPassword, pbkdf2salt);
                   //console.log ( "pbkdf2salt: " + btoa(String.fromCharCode.apply(null, pbkdf2salt)) );
                   //log.textContent += "\r\npbkdf2salt: " + btoa(String.fromCharCode.apply(null, pbkdf2salt));
                   //log.textContent += "\r\nstarting to encrypt ...";
@@ -1993,6 +1937,16 @@ encrypting."
                   reader.onload = function (event) {};
                   // do this after upload
                   // call the actual encryption
+
+                  // Prompt for the password
+                  // change all mainPassword.value to just mainPassword
+                  mainPassword = window.prompt("Password");
+
+                  // added this to scroll back up, but only after prompt has been given, needed for mobile
+                  scrollToTopFully();
+
+                  //encryptFile();
+                  // Call the actual encryption with mainPassword as argument
                   decryptFile();
 
                   reader.onerror = function (event) {
@@ -2017,8 +1971,7 @@ encrypting."
                 //mainPasswordHint.classList.remove("greenspan");
                 //mainPasswordHint.classList.remove("redspan");
                 /*if ( ( mainPassword.value !== "") && ( mainPassword.value.length >= 8 ) ) { */
-                // added this below, commented out surrounding if clause around this as well as } } else {, had to do this for both encrypt and decrypt
-                mainPassword.value = window.prompt("Password");
+                // commented out surrounding if clause around this as well as } } else {, had to do this for both encrypt and decrypt
                 //mainPasswordHint.classList.add("greenspan");
                 //logContainer.classList.remove("hidden");
                 try {
@@ -2037,7 +1990,8 @@ encrypting."
                   //log.textContent += "\r\nderiving key from password and salt provided in encrypted file ...";
                   pbkdf2salt = new Uint8Array(file.slice(0, 16));
                   let cipher = file.slice(16);
-                  let keyIv = await deriveKeyIv(mainPassword.value, pbkdf2salt);
+                  //let keyIv = await deriveKeyIv(mainPassword.value, pbkdf2salt);
+                  let keyIv = await deriveKeyIv(mainPassword, pbkdf2salt);
                   //console.log ( "pbkdf2salt: " + btoa(String.fromCharCode.apply(null, pbkdf2salt)) );
                   //log.textContent += "\r\npbkdf2salt: " + btoa(String.fromCharCode.apply(null, pbkdf2salt));
                   //log.textContent += "\r\nstarting to decrypt ...";
