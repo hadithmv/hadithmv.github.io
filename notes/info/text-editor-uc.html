@@ -900,12 +900,6 @@ function () {
     */
           </script>
 
-          <input
-            type="file"
-            id="uploadInputFile"
-            style="display: none; width: 0; height: 0"
-          />
-
           <button
             type="button"
             value="Browse..."
@@ -917,17 +911,20 @@ function () {
             📁 <u>U</u>pload
           </button>
 
+          <input type="file" id="uploadInputFile" style="display: none" />
+
           <script>
             // https://community.splunk.com/t5/Splunk-Search/fill-textarea-from-a-file/td-p/176570
             // https://stackoverflow.com/questions/1084925/input-type-file-show-only-button/14806776#14806776
 
-            //External data file handling starts here
+            //External data file handling starts here, listen for upload completion
             var control = document.getElementById("uploadInputFile");
             control.addEventListener(
               "change",
               function (event) {
                 var reader = new FileReader();
                 reader.onload = function (event) {
+                  // do this after upload
                   document.getElementById("textMainArea").value =
                     event.target.result;
                   //document.getElementById("textMainArea").value = contents;
@@ -1546,9 +1543,9 @@ ${dateDifference}`;
           </script>
 
           <button
-            onclick="encrypt();scrollToTopFully();"
+            onclick="encryptText();scrollToTopFully();"
             class="ttClass"
-            data-tooltip="Enter text to encrypt, click Encrypt, then enter a password when
+            data-tooltip="(Web Crypto API, AES-GCM) Enter text to encrypt, click Encrypt, then enter a password when
             prompted. A base64 representation of the encrypted data will be
             displayed."
           >
@@ -1556,7 +1553,7 @@ ${dateDifference}`;
           </button>
 
           <button
-            onclick="decrypt();scrollToTopFully();"
+            onclick="decryptText();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Enter text to decrypt, click Decrypt and then when
             prompted, enter the same password as used for
@@ -1567,6 +1564,8 @@ ${dateDifference}`;
 
           <script>
             // https://github.com/bradyjoslin/webcrypto-example
+
+            // possible alternative?: https://github.com/paulgreg/crypttool
 
             // for large strings, use this from https://stackoverflow.com/a/49124600
             const buff_to_base64 = (buff) =>
@@ -1583,7 +1582,7 @@ ${dateDifference}`;
             const enc = new TextEncoder();
             const dec = new TextDecoder();
 
-            async function encrypt() {
+            async function encryptText() {
               // const data = window.document.getElementById("data").value;
               const data = document.getElementById("textMainArea").value;
               // let encryptedDataOut = window.document.getElementById("encryptedData");
@@ -1594,7 +1593,7 @@ ${dateDifference}`;
               encryptedDataOut.value = encryptedData;
             }
 
-            async function decrypt() {
+            async function decryptText() {
               const password = window.prompt("Password");
               // const encryptedData = window.document.getElementById("encryptedData").value;
               const encryptedData =
@@ -1603,7 +1602,7 @@ ${dateDifference}`;
               let decryptedDataOut =
                 window.document.getElementById("textMainArea");
               const decryptedData = await decryptData(encryptedData, password);
-              decryptedDataOut.value = decryptedData || "Decryption failed.";
+              decryptedDataOut.value = decryptedData || "Decryption failed";
             }
 
             const getPasswordKey = (password) =>
@@ -1683,6 +1682,454 @@ ${dateDifference}`;
                 return "";
               }
             }
+          </script>
+
+          <button
+            onclick="encryptFileStart();scrollToTopFully();"
+            class="ttClass"
+            data-tooltip="(Web Crypto API, AES-GCM) Select the File to process. Click Encrypt, then enter a password when
+prompted. An encrypted file of the original will be downloaded. Note: Doesn't work on the Android app."
+          >
+            🗃️ FileEncrypt
+          </button>
+
+          <!-- there can be only one of this, otherwise password prompt does not show?" -->
+          <input id="selectFile" type="file" style="display: none" />
+
+          <!-- 
+            <tr><td>Select File</td><td><input id="selectFile" type="file" aria-label="Select a file"></td><td id="selectFileHint">Select the File you'd like to process.</td></tr>
+          -->
+
+          <button
+            onclick="decryptFileStart();scrollToTopFully();"
+            class="ttClass"
+            data-tooltip="Enter text to decrypt, click Decrypt and then when
+prompted, enter the same password as used for
+encrypting."
+          >
+            🔑 FileDecrypt
+          </button>
+
+          <!-- -->
+
+          <div id="operationModeContainer">
+            <button
+              class="clickbutton"
+              id="selectEncrypt"
+              type="button"
+              onclick="showEncrypt();"
+            >
+              Encrypt a File
+            </button>
+            <button
+              class="clickbutton"
+              id="selectDncrypt"
+              type="button"
+              onclick="showDecrypt();"
+            >
+              Decrypt a File
+            </button>
+          </div>
+
+          <div id="cypherContainer" class="hidden">
+            <table>
+              <!--<tr><td>Select File</td><td><input id="selectFile" type="file" aria-label="Select a file"></td><td id="selectFileHint">Select the File you'd like to process.</td></tr>-->
+              <tr>
+                <td>Password</td>
+                <td>
+                  <input
+                    id="mainPassword"
+                    type="password"
+                    aria-label="Enter password"
+                  />
+                </td>
+                <td id="mainPasswordHint">
+                  Strong password, minumum length is 8 characters.
+                </td>
+              </tr>
+              <tr id="trConfirmPassword">
+                <td>Retype Password</td>
+                <td>
+                  <input
+                    id="confirmPassword"
+                    type="password"
+                    aria-label="Confirm password"
+                  />
+                </td>
+                <td id="confirmPasswordHint">
+                  Retype your password from above to ensure you didn't mistype
+                  it.
+                </td>
+              </tr>
+            </table>
+            <button
+              id="btnEncrypt"
+              class="clickbutton green"
+              type="button"
+              onclick="encryptFile();"
+            >
+              Encrypt
+            </button>
+            <button
+              id="btnDecrypt"
+              class="clickbutton green"
+              type="button"
+              onclick="decryptFile();"
+            >
+              Decrypt
+            </button>
+            <button
+              id="btnReload"
+              class="clickbutton orange"
+              type="button"
+              onclick="javascript:location.reload();"
+            >
+              Reload Page
+            </button>
+          </div>
+
+          <script>
+            // https://github.com/hazelfazel/Web-Browser-Based-AES-GCM-File-Encryption-Decryption
+
+            // possible alternative?, but uses cbc, not gcm: https://github.com/meixler/web-browser-based-file-encryption-decryption
+
+            // for large strings, use this from https://stackoverflow.com/a/49124600
+            function readfile(file) {
+              return new Promise((resolve, reject) => {
+                let f = new FileReader();
+                f.onload = () => {
+                  resolve(f.result);
+                };
+                f.readAsArrayBuffer(file);
+              });
+            }
+
+            function arr2Hex(buf) {
+              let bufArray = Array.from(new Uint8Array(buf));
+              return bufArray
+                .map((b) => b.toString(16).padStart(2, "0"))
+                .join("");
+            }
+
+            function foldHash(bufA, bufB) {
+              let hash1 = Array.from(new Uint8Array(bufA));
+              let hash2 = Array.from(new Uint8Array(bufB));
+              if (hash1.length === hash2.length && hash1.length % 8 === 0) {
+                for (let i = 0; i < hash1.length; i++) {
+                  hash1[i] = hash1[i] ^ hash2[i];
+                }
+                while (hash1.length > 6) {
+                  for (let i = 0; i < hash1.length / 2; i++) {
+                    hash1[i] = hash1[i] ^ hash1[hash1.length / 2 + i];
+                  }
+                  hash1 = hash1.slice(0, hash1.length / 2);
+                }
+                return hash1;
+              }
+            }
+
+            async function deriveKeyIv(password, salt, iterations = 1000000) {
+              let encodedPassword = new TextEncoder("utf-8").encode(password);
+              let pbkdf2Key = await window.crypto.subtle.importKey(
+                "raw",
+                encodedPassword,
+                { name: "PBKDF2" },
+                false,
+                ["deriveBits", "deriveKey"]
+              );
+
+              let pbkdf2bytes = await window.crypto.subtle.deriveBits(
+                {
+                  name: "PBKDF2",
+                  salt: salt,
+                  iterations: iterations,
+                  hash: "SHA-256",
+                },
+                pbkdf2Key,
+                384 // first 32 bytes = 256 bit AES-GCM key, second 16 bytes = 128 bit IV
+              );
+
+              let key = await window.crypto.subtle.importKey(
+                "raw",
+                pbkdf2bytes.slice(0, 32),
+                { name: "AES-GCM", length: 256 },
+                false,
+                ["encrypt", "decrypt"]
+              );
+              let iv = pbkdf2bytes.slice(32);
+
+              return { key: key, iv: iv };
+            }
+
+            async function encrypt(data, key, iv = null) {
+              if (iv === null) {
+                iv = crypto.getRandomValues(new Uint8Array(16));
+              }
+              // tagLength can be 32, 64, 96, 104, 112, 120 or 128 (default)
+              let cipher = await crypto.subtle.encrypt(
+                { name: "AES-GCM", iv: iv, tagLength: 128 },
+                key,
+                data
+              );
+              return { cipher: cipher, iv: iv };
+            }
+
+            async function decrypt(data, iv, key) {
+              // tagLength can be 32, 64, 96, 104, 112, 120 or 128 (default)
+              return await crypto.subtle.decrypt(
+                { name: "AES-GCM", iv: iv, tagLength: 128 },
+                key,
+                data
+              );
+            }
+
+            // added this
+            function encryptFileStart() {
+              // trigger file upload of button click
+              document.getElementById("selectFile").click();
+
+              //External data file handling starts here, listen for upload completion
+              var control = document.getElementById("selectFile");
+              control.addEventListener(
+                "change",
+                function (event) {
+                  var reader = new FileReader();
+                  reader.onload = function (event) {};
+                  // do this after upload
+                  // call the actual encryption
+                  encryptFile();
+
+                  reader.onerror = function (event) {
+                    console.error(
+                      "File could not be read! Code " + event.target.error.code
+                    );
+                  };
+                  //console.log("Filename: " + control.files[0].name);
+                  reader.readAsText(control.files[0]);
+                },
+                false
+              );
+              // closes start function
+            }
+
+            async function encryptFile() {
+              //selectFileHint.classList.remove("greenspan");
+              //selectFileHint.classList.remove("redspan");
+
+              if (selectFile.files.length > 0) {
+                //selectFileHint.classList.add("greenspan");
+                //confirmPasswordHint.classList.remove("greenspan");
+                //confirmPasswordHint.classList.remove("redspan");
+                /*if ( ( mainPassword.value === confirmPassword.value) && ( mainPassword.value !== "" ) && ( mainPassword.value.length >= 8 ) ) {*/
+                // added this below, commented out surrounding if clause around this as well as } } else {, had to do this for both encrypt and decrypt
+                mainPassword.value = window.prompt("Password");
+                //confirmPasswordHint.classList.add("greenspan");
+                //logContainer.classList.remove("hidden");
+                try {
+                  let pbkdf2salt = window.crypto.getRandomValues(
+                    new Uint8Array(16)
+                  );
+                  let filename = selectFile.files[0].name;
+                  //console.log ( "reading: " + filename );
+                  //log.textContent += "\r\nreading: " + filename;
+                  let file = await readfile(selectFile.files[0]);
+                  let hashPlaintext = await crypto.subtle.digest(
+                    "SHA-256",
+                    file
+                  );
+                  //log.textContent += "\r\nsha-256 hash of plaintext file: " + arr2Hex(hashPlaintext);
+                  //log.textContent += "\r\nderiving key from password and random salt ...";
+                  let keyIv = await deriveKeyIv(mainPassword.value, pbkdf2salt);
+                  //console.log ( "pbkdf2salt: " + btoa(String.fromCharCode.apply(null, pbkdf2salt)) );
+                  //log.textContent += "\r\npbkdf2salt: " + btoa(String.fromCharCode.apply(null, pbkdf2salt));
+                  //log.textContent += "\r\nstarting to encrypt ...";
+                  let someEncryptedData = await encrypt(
+                    file,
+                    keyIv.key,
+                    keyIv.iv
+                  );
+                  //log.textContent += "\r\nencryption done, now preparing to save the file ...";
+                  let concat = await new Blob([
+                    pbkdf2salt,
+                    someEncryptedData.cipher,
+                  ]).arrayBuffer();
+                  file = new Blob([concat], { type: "application/download" });
+                  let hashCiphertext = await crypto.subtle.digest(
+                    "SHA-256",
+                    concat
+                  );
+                  //log.textContent += "\r\nsha-256 hash of encrypted file: " + arr2Hex(hashCiphertext);
+                  let hashMagic = foldHash(hashPlaintext, hashCiphertext);
+                  //log.textContent += "\r\nfolded hash magic: " + arr2Hex(hashMagic);
+                  let blobUrl = URL.createObjectURL(file);
+                  let element = document.createElement("a");
+                  element.href = blobUrl;
+                  element.download = filename + ".enc";
+                  element.click();
+                  //log.textContent += "\r\n✅ FINISHED.";
+                } catch (error) {
+                  console.error(error);
+                  //log.textContent += "\r\n⛔ EXCEPTION\r\n" + error;
+                  /*}
+		} else {*/
+                  //confirmPasswordHint.classList.add("redspan");
+                }
+              } else {
+                //selectFileHint.classList.add("redspan");
+              }
+            }
+
+            // added this
+            function decryptFileStart() {
+              // trigger file upload of button click
+              document.getElementById("selectFile").click();
+
+              //External data file handling starts here, listen for upload completion
+              var control = document.getElementById("selectFile");
+              control.addEventListener(
+                "change",
+                function (event) {
+                  var reader = new FileReader();
+                  reader.onload = function (event) {};
+                  // do this after upload
+                  // call the actual encryption
+                  decryptFile();
+
+                  reader.onerror = function (event) {
+                    console.error(
+                      "File could not be read! Code " + event.target.error.code
+                    );
+                  };
+                  //console.log("Filename: " + control.files[0].name);
+                  reader.readAsText(control.files[0]);
+                },
+                false
+              );
+              // closes start function
+            }
+
+            async function decryptFile() {
+              //selectFileHint.classList.remove("greenspan");
+              //selectFileHint.classList.remove("redspan");
+
+              if (selectFile.files.length > 0) {
+                //selectFileHint.classList.add("greenspan");
+                //mainPasswordHint.classList.remove("greenspan");
+                //mainPasswordHint.classList.remove("redspan");
+                /*if ( ( mainPassword.value !== "") && ( mainPassword.value.length >= 8 ) ) { */
+                // added this below, commented out surrounding if clause around this as well as } } else {, had to do this for both encrypt and decrypt
+                mainPassword.value = window.prompt("Password");
+                //mainPasswordHint.classList.add("greenspan");
+                //logContainer.classList.remove("hidden");
+                try {
+                  let pbkdf2salt;
+                  let filename = selectFile.files[0].name;
+                  //console.log ( "loading: " + filename );
+                  //log.textContent += "\r\nreading: " + filename;
+                  let file = new Uint8Array(
+                    await readfile(selectFile.files[0])
+                  );
+                  let hashCiphertext = await crypto.subtle.digest(
+                    "SHA-256",
+                    file
+                  );
+                  //log.textContent += "\r\nsha-256 hash of encrypted file: " + arr2Hex(hashCiphertext);
+                  //log.textContent += "\r\nderiving key from password and salt provided in encrypted file ...";
+                  pbkdf2salt = new Uint8Array(file.slice(0, 16));
+                  let cipher = file.slice(16);
+                  let keyIv = await deriveKeyIv(mainPassword.value, pbkdf2salt);
+                  //console.log ( "pbkdf2salt: " + btoa(String.fromCharCode.apply(null, pbkdf2salt)) );
+                  //log.textContent += "\r\npbkdf2salt: " + btoa(String.fromCharCode.apply(null, pbkdf2salt));
+                  //log.textContent += "\r\nstarting to decrypt ...";
+                  let someDecryptedData = await decrypt(
+                    cipher,
+                    keyIv.iv,
+                    keyIv.key
+                  );
+                  //log.textContent += "\r\ndecryption done, now preparing to save the file ...";
+                  file = new Blob([someDecryptedData], {
+                    type: "application/download",
+                  });
+                  let hashPlaintext = await crypto.subtle.digest(
+                    "SHA-256",
+                    someDecryptedData
+                  );
+                  //log.textContent += "\r\nsha-256 hash of decrypted file: " + arr2Hex(hashPlaintext);
+                  let hashMagic = foldHash(hashPlaintext, hashCiphertext);
+                  //log.textContent += "\r\nfolded hash magic: " + arr2Hex(hashMagic);
+                  let blobUrl = URL.createObjectURL(file);
+                  let element = document.createElement("a");
+                  element.href = blobUrl;
+                  element.download =
+                    filename.substring(0, filename.lastIndexOf(".")) ||
+                    filename;
+                  element.click();
+                  //log.textContent += "\r\n✅ FINISHED.";
+                } catch (error) {
+                  console.error(error);
+                  //log.textContent += "\r\n⛔ EXCEPTION\r\n" + error;
+                  /*}
+		} else {*/
+                  //mainPasswordHint.classList.add("redspan");
+                }
+              } else {
+                //selectFileHint.classList.add("redspan");
+              }
+            }
+
+            var modus = "";
+
+            function showEncrypt() {
+              operationModeContainer.classList.add("hidden");
+              btnDecrypt.classList.add("hidden");
+              cypherContainer.classList.remove("hidden");
+              modus = "encrypt";
+            }
+
+            function showDecrypt() {
+              operationModeContainer.classList.add("hidden");
+              trConfirmPassword.classList.add("hidden");
+              btnEncrypt.classList.add("hidden");
+              cypherContainer.classList.remove("hidden");
+              modus = "decrypt";
+            }
+
+            function bodyOnLoad() {
+              /*
+		If URL is http://www.example.com/account/search?filter=a#top
+
+		window.location.pathname // /account/search
+		window.location.host     // www.example.com (includes the port if there is one)
+		window.location.hostname // www.example.com
+		window.location.hash     // #top
+		window.location.href     // http://www.example.com/account/search?filter=a#top
+		window.location.port     // (empty string)
+		window.location.protocol // http:
+		window.location.search   // ?filter=a
+	*/
+              let hash = window.location.hash;
+              if (hash === "#encrypt") {
+                showEncrypt();
+              } else if (hash === "#decrypt") {
+                showDecrypt();
+              }
+            }
+
+            pageBody.addEventListener("load", bodyOnLoad());
+
+            mainPassword.addEventListener("keyup", function (event) {
+              if (event.key === "Enter") {
+                if (modus === "encrypt") {
+                  confirmPassword.focus();
+                } else decryptFile();
+              }
+            });
+
+            confirmPassword.addEventListener("keyup", function (event) {
+              if (event.key === "Enter") {
+                encryptFile();
+              }
+            });
           </script>
 
           <button
