@@ -90,11 +90,16 @@ $(document).ready(() => {
       },
       {
         data: 4,
+        title: "އަރަބި ލިޔުން",
+      },
+
+      {
+        data: 5,
         title: "ލިޔުން",
       },
       {
-        data: 4,
-        title: "އަރަބި ފިލިނުޖަހައި",
+        data: 6,
+        title: "ލިޔުން ފިލިނުޖަހައި",
         render: function (data, type, row) {
           return data
             .replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "")
@@ -102,11 +107,11 @@ $(document).ready(() => {
         },
       },
       {
-        data: 5,
+        data: 7,
         title: "މަސްދަރު",
       },
       {
-        data: 6,
+        data: 8,
         title: "ލިންކު",
       },
     ],
@@ -201,7 +206,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "kuruCol5", // writing
+        className: "kuruCol5", // ar writing
         targets: [4],
         visible: true,
         searchable: true,
@@ -210,8 +215,17 @@ $(document).ready(() => {
         },
       },
       {
-        className: "kuruCol6", // writing no arabic fili
+        className: "kuruCol6", // writing
         targets: [5],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: false,
+        },
+      },
+      {
+        className: "kuruCol7", // writing no arabic fili
+        targets: [6],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -219,8 +233,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "kuruCol7", // source
-        targets: [6],
+        className: "kuruCol8", // source
+        targets: [7],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -228,8 +242,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "kuruCol8", // link
-        targets: [7],
+        className: "kuruCol10", // link
+        targets: [9],
         visible: true,
         searchable: false,
         searchPanes: {
@@ -429,8 +443,9 @@ $(document).ready(() => {
           data = data.replace(/ސުރުހީ\t/g, "");
           data = data.replace(/ލިޔުންތެރިޔާ\t/g, "");
           data = data.replace(/ތާރީޚު\t/g, "");
+          data = data.replace(/އަރަބި ލިޔުން\t/g, "");
           data = data.replace(/ލިޔުން\t/g, "");
-          data = data.replace(/އަރަބި ފިލިނުޖަހައި\t/g, "");
+          data = data.replace(/ލިޔުން ފިލިނުޖަހައި\t/g, "");
           data = data.replace(/މަސްދަރު\t/g, "");
           data = data.replace(/ލިންކު\t/g, "");
 
