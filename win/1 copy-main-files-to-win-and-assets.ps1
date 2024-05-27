@@ -38,7 +38,7 @@ Copy-Item "../LICENSE.txt" -Destination "../app/webview-master/app/src/main/asse
 # Copy notes info files
 $infoFiles = @("contributors.html", "FAQ.html", "helpTranslate.html", "introFortyN.html",
                "introHmv.html", "introUmdah.html", "khutba.html", "lafzuVakikohLiyumugeQawaid.html",
-               "madina-info.html", "mirror-backups.html", "nawawiSiyar.html", "other-links.html",
+               "madina-info.html", "mirror-backups.html", "nawawiSiyar.html","NukuthaajehiAkuruthahBeynunkuraaneHama.html", "other-links.html",
                "privacy.html", "text-editor.html", "umrah-travel.html", "contact.html")
 
 foreach ($file in $infoFiles) {
