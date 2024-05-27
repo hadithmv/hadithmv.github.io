@@ -92,13 +92,12 @@ $(document).ready(() => {
         data: 4,
         title: "އަރަބި ލިޔުން",
       },
-
       {
         data: 5,
         title: "ލިޔުން",
       },
       {
-        data: 6,
+        data: 5,
         title: "ލިޔުން ފިލިނުޖަހައި",
         render: function (data, type, row) {
           return data
@@ -107,11 +106,11 @@ $(document).ready(() => {
         },
       },
       {
-        data: 7,
+        data: 6,
         title: "މަސްދަރު",
       },
       {
-        data: 8,
+        data: 7,
         title: "ލިންކު",
       },
     ],
@@ -130,7 +129,7 @@ $(document).ready(() => {
       // Hyperlink https://datatables.net/forums/discussion/comment/202022/#Comment_202022
 
       {
-        targets: [7],
+        targets: [8],
         data: "download_link",
         render: function (data, type, row, meta) {
           var links = data.split(" ");
@@ -208,10 +207,10 @@ $(document).ready(() => {
       {
         className: "kuruCol5", // ar writing
         targets: [4],
-        visible: true,
+        visible: false,
         searchable: true,
         searchPanes: {
-          show: false,
+          show: true,
         },
       },
       {
@@ -242,8 +241,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "kuruCol10", // link
-        targets: [9],
+        className: "kuruCol9", // link
+        targets: [8],
         visible: true,
         searchable: false,
         searchPanes: {
