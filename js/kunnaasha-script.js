@@ -67,37 +67,37 @@ $(document).ready(() => {
 
     columns: [
       /* add # string to hadith no */
-      {
+      /*{
         data: 0,
         title: "#",
         render: function (data, type, row) {
           // return data.replace(/َ/g, '').replace(/ِ/g, '') below code is shorter, no replace repeat, uses OR instead
           return "#" + data;
         },
-      },
+      },*/
       //
       {
-        data: 1,
+        data: 0,
         title: "ސުރުހީ",
       },
       {
-        data: 2,
+        data: 1,
         title: "ލިޔުންތެރިޔާ",
       },
       {
-        data: 3,
+        data: 2,
         title: "ތާރީޚު",
       },
       {
-        data: 4,
+        data: 3,
         title: "އަރަބި ލިޔުން",
       },
       {
-        data: 5,
+        data: 4,
         title: "ލިޔުން",
       },
       {
-        data: 5,
+        data: 4,
         title: "ލިޔުން ފިލިނުޖަހައި",
         render: function (data, type, row) {
           return data
@@ -106,11 +106,11 @@ $(document).ready(() => {
         },
       },
       {
-        data: 6,
+        data: 5,
         title: "މަސްދަރު",
       },
       {
-        data: 7,
+        data: 6,
         title: "ލިންކު",
       },
     ],
@@ -129,7 +129,7 @@ $(document).ready(() => {
       // Hyperlink https://datatables.net/forums/discussion/comment/202022/#Comment_202022
 
       {
-        targets: [8],
+        targets: [7],
         data: "download_link",
         render: function (data, type, row, meta) {
           var links = data.split(" ");
@@ -167,7 +167,7 @@ $(document).ready(() => {
       // classes columns for css in nweb view, but not print.
       // CHANGE123 COL CLASSES AND VISIBILITY/SEARCHABLE
 
-      {
+      /*{
         className: "Col1", // #
         targets: [0],
         visible: true,
@@ -175,10 +175,19 @@ $(document).ready(() => {
         searchPanes: {
           show: false,
         },
-      },
+      },*/
 
       {
         className: "ColKitab", // title
+        targets: [0],
+        visible: true,
+        searchable: true,
+        searchPanes: {
+          show: true,
+        },
+      },
+      {
+        className: "ColKitab2", // author
         targets: [1],
         visible: true,
         searchable: true,
@@ -187,7 +196,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "kuruCol3", // author
+        className: "Col3", // date
         targets: [2],
         visible: true,
         searchable: true,
@@ -196,26 +205,17 @@ $(document).ready(() => {
         },
       },
       {
-        className: "kuruCol4", // date
+        className: "Col4", // ar writing
         targets: [3],
-        visible: true,
+        visible: false,
         searchable: true,
         searchPanes: {
           show: true,
         },
       },
       {
-        className: "kuruCol5", // ar writing
+        className: "Col5", // writing
         targets: [4],
-        visible: false,
-        searchable: true,
-        searchPanes: {
-          show: true,
-        },
-      },
-      {
-        className: "kuruCol6", // writing
-        targets: [5],
         visible: true,
         searchable: true,
         searchPanes: {
@@ -223,8 +223,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "kuruCol7", // writing no arabic fili
-        targets: [6],
+        className: "Col6", // writing no arabic fili
+        targets: [5],
         visible: false,
         searchable: true,
         searchPanes: {
@@ -232,8 +232,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "kuruCol8", // source
-        targets: [7],
+        className: "Col7", // source
+        targets: [6],
         visible: false,
         searchable: false,
         searchPanes: {
@@ -241,8 +241,8 @@ $(document).ready(() => {
         },
       },
       {
-        className: "kuruCol9", // link
-        targets: [8],
+        className: "Col8", // link
+        targets: [7],
         visible: true,
         searchable: false,
         searchPanes: {
