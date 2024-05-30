@@ -474,7 +474,7 @@ $(document).ready(() => {
       searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"',
       zeroRecords: "<br><br><br><br>— ނުފެނުނު —<br><br><br><br><br>",
       searchPanes: {
-        emptyMessage: "— ވަކި ނަމެއް ނެތް —",
+        emptyMessage: "— ވަކި އެއްޗެއް ނުޖަހާ —",
         clearMessage: "ފިލްޓަރތައް ދުއްވާލާ",
         collapse: { 0: "ފިލްޓަރ", _: "ފިލްޓަރ (%d)" },
         title: {

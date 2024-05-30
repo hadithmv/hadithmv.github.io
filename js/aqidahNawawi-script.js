@@ -330,7 +330,7 @@ $(document).ready(() => {
       searchPlaceholder: "بحث",
       zeroRecords: "<br><br><br><br>— ما وجد —<br><br><br><br><br>",
       searchPanes: {
-        emptyMessage: "— ވަކި ނަމެއް ނެތް —",
+        emptyMessage: "— ވަކި އެއްޗެއް ނުޖަހާ —",
         clearMessage: "ازالة الكل",
         collapse: { 0: "فلاتر البحث", _: "فلاتر البحث (%d)" },
         title: {
