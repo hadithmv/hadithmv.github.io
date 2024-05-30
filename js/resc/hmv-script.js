@@ -38,7 +38,8 @@ function scrollUpTop() {
 
 // SHOW OR HIDE AYAT FILI
 
-function toggleFili() {
+// better to have this bit embedded in individual html files, as column differs every time
+/*function toggleFili() {
   // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
 
   var isVisible = $(".dataTable").DataTable().column(4).visible();
@@ -46,7 +47,7 @@ function toggleFili() {
 
   var isVisible = $(".dataTable").DataTable().column(5).visible();
   $(".dataTable").DataTable().column(5).visible(!isVisible);
-}
+}*/
 
 // SWITCH BETWEEN IMLAI AND UTHMANI TEXT FOR AYAT
 
