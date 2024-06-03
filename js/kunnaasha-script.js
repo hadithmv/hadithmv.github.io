@@ -76,28 +76,49 @@ $(document).ready(() => {
         },
       },*/
       //
-      {
+      /*{
         data: 0,
         title: "ސުރުހީ",
+      },*/
+      {
+        data: null, // Using null because we will define the render function
+        title: "ސުރުހީ",
+        render: function (data, type, row) {
+          // Get the first line of data[3]
+          let firstLine = row[3].split("\n")[0];
+          return firstLine;
+        },
       },
       {
-        data: 1,
+        data: 0,
         title: "ލިޔުންތެރިޔާ",
       },
       {
-        data: 2,
+        data: 1,
         title: "ތާރީޚު",
       },
       {
-        data: 3,
+        data: 2,
         title: "އަރަބި ލިޔުން",
       },
-      {
-        data: 4,
+      /*{
+        data: 3,
         title: "ލިޔުން",
+      },*/
+      {
+        data: null, // Using null because we will define the render function
+        title: "ލިޔުން",
+        render: function (data, type, row) {
+          // Get the data[3] without the first line
+          let lines = row[3].split("\n");
+          lines.shift(); // Remove the first line
+          let remainingText = lines.join("\n");
+          //return remainingText;
+          return remainingText.replace(/\r\n|\n|\r/g, '\t<br class="br">');
+        },
       },
       {
-        data: 4,
+        data: 3,
         title: "ލިޔުން ފިލިނުޖަހައި",
         render: function (data, type, row) {
           return data
@@ -106,11 +127,11 @@ $(document).ready(() => {
         },
       },
       {
-        data: 5,
+        data: 4,
         title: "މަސްދަރު",
       },
       {
-        data: 6,
+        data: 5,
         title: "ލިންކު",
       },
     ],
@@ -129,7 +150,7 @@ $(document).ready(() => {
       // Hyperlink https://datatables.net/forums/discussion/comment/202022/#Comment_202022
 
       {
-        targets: [7],
+        targets: [6],
         data: "download_link",
         render: function (data, type, row, meta) {
           var links = data.split(" ");
@@ -286,11 +307,13 @@ $(document).ready(() => {
     processing: true,
 
     // ordering of columns - by default, allows to click on column head to order
-    ordering: true, //false,
+    ordering: false, //true, //false,
 
     // https://datatables.net/reference/option/order
     // above needs to be true in order for this to work
-    order: [0, "desc"],
+    // update: this only works if you have a column with numbers, so use the code below this code
+    // order: [0, "desc"],
+    orderSequence: ["desc", "asc"],
 
     // stateSave: true // Breaks table, use the one below
     // Restore table state on page reload. When enabled aDataTables will store
@@ -431,7 +454,7 @@ $(document).ready(() => {
         // edits clipboard regex, code to manipulate the data string as desired
         // ====================
         customize(data) {
-          data = data.replace(/\r\n\r\n|\n\n/g, " ");
+          // data = data.replace(/\r\n\r\n|\n\n/g, " ");
           //  What these two lines do is, they bring the hadith number right after the inserted title text. So these two are ok for hadith or point numbered books, but not for others like quran, radheef etc.
 
           data = data.replace(/\r\n|\n/g, "\t");
@@ -458,7 +481,7 @@ $(document).ready(() => {
 
           data = data.replace(/\n\n\n\n|\n\n\n|\t|\s\s/g, "\n\n");
 
-          //console.log(JSON.stringify(data)) // json stringify to console
+          console.log(JSON.stringify(data)); // json stringify to console
 
           return data;
         },
