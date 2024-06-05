@@ -1554,21 +1554,80 @@ ${dateDifference}`;
           <script>
             var leetspeak_timesClicked = 0;
 
-            function leetSpeak() {
-              const textArea = document.getElementById("textMainArea");
-              let text = textArea.value.toLowerCase();
+            // https://gist.github.com/sbolel/3780e43f0c15679d67ef9974bfaa9746
+            // https://github.com/savioxavier/leetspeak/blob/main/src/leetspeak.js
+            // https://github.com/floft/leetspeak/blob/master/LeetSpeak.py
+            // https://gist.github.com/hinzundcode/1073530
 
-              const leetMap = {
-                a: "4",
+            const leetMap = {
+              /*a: "4",
                 e: "3",
                 l: "1",
                 o: "0",
                 s: "5",
-                t: "7",
-                // Add more mappings for lowercase letters here
-              };
+                t: "7",*/
+              a: "@",
+              // 4 λ ∂ α æ Λ
+              b: "8",
+              // ß
+              c: "€",
+              // ( ¢ ζ
+              d: "∂",
+              // ð Ð đ δ
+              e: "3",
+              // £ € ə ε ξ ℇ
+              f: "ƒ",
+              // ʃ
+              g: "9",
+              // ℊ
+              h: "#",
+              i: "!",
+              // ι
+              j: "ʝ",
+              // ĵ ¿
+              k: "ɮ",
+              // ₭
+              l: "ʅ",
+              // £ ℓ
+              m: "ണ",
+              // Պ സ ന ൩ ന ണ
+              n: "π",
+              // ₪ η
+              o: "0",
+              // ¤ Ω ø θ σ
+              p: "ρ",
+              // ? ₱ þ ¶
+              q: "ℚ",
+              //
+              r: "₹",
+              // Я
+              s: "$",
+              // §
+              t: "†",
+              // 7 + λ τ
+              u: "µ",
+              // Ü
+              v: "√",
+              // ▼ ѵ υ
+              w: "ω",
+              // Ш ɰ
+              x: "×",
+              // * Ж % χ א
+              y: "γ",
+              // Ψ ¥  Ч ψ
+              z: "2",
+            };
 
-              const leetText = text.replace(/[a-z]/g, function (char) {
+            const reverseLeetMap = {};
+            for (const [key, value] of Object.entries(leetMap)) {
+              reverseLeetMap[value] = key;
+            }
+
+            function leetSpeak() {
+              const textArea = document.getElementById("textMainArea");
+              let text = textArea.value.toLowerCase();
+
+              const leetText = text.replace(/./g, function (char) {
                 return leetMap[char] || char;
               });
 
@@ -1579,19 +1638,12 @@ ${dateDifference}`;
               const textArea = document.getElementById("textMainArea");
               let text = textArea.value;
 
-              const leetMap = {
-                4: "a",
-                3: "e",
-                1: "l",
-                0: "o",
-                5: "s",
-                7: "t",
-                // Add more mappings for leetspeak to English here
-              };
-
-              const englishText = text.replace(/[0-9]/g, function (char) {
-                return leetMap[char] || char;
-              });
+              const englishText = text.replace(
+                /[@8€∂3ƒ9#!ʝɮʅ^^π0¶ℚ₹$+µ√ω×Ч2]/g,
+                function (char) {
+                  return reverseLeetMap[char] || char;
+                }
+              );
 
               textArea.value = englishText;
             }
@@ -1600,17 +1652,13 @@ ${dateDifference}`;
               leetspeak_timesClicked++;
               if (leetspeak_timesClicked % 2 == 0) {
                 englishText();
-                //
                 document.getElementById("leetSwitch").innerHTML = "📔 1337";
-                //
               } else {
                 leetSpeak();
-                //
                 document.getElementById("leetSwitch").innerHTML = "unleet";
+
                 // ltr switch
                 document.getElementById("textMainArea").style.direction = "ltr";
-                //
-                //
               }
             }
           </script>
