@@ -793,7 +793,7 @@ $(document).ready(() => {
     $("#footer").removeClass("hidden");
   });
 
-  /// adds doubleclick select go to page search was on, with rowshowjs
+  // adds doubleclick select go to page search was on, with rowshowjs
 
   // * The code below now works, previously some update to searchpanes js broke it, and the code below the code below was a workaround, but now we can use the initial one
   // no longer old code

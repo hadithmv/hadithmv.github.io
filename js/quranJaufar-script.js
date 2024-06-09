@@ -269,6 +269,19 @@ $(document).ready(() => {
         },
       },
       {
+        data: 4,
+        title: "ގުރްއާން ފިލިނުޖަހާ",
+        render: function (data, type, row) {
+          data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
+          //data = "﴿" + data + "﴾";
+          // replaces basmalas opening closing brackets non breaks, then kashida, then arabic numbers, then space, then br tag, then makes two spaces into one
+          return data
+            .replace(/ـ/g, "")
+            .replace(/[^\u0621-\u064A|\s|<br class="br">]/g, "")
+            .replace(/\s\s/g, " ");
+        },
+      },
+      {
         data: 5,
         title: "ރަސްމު އުޘްމާނީ",
         render: function (data, type, row) {
@@ -290,23 +303,10 @@ $(document).ready(() => {
       },
       {
         data: 6,
-        title: "ގުރްއާން ފިލިނުޖަހާ",
-        render: function (data, type, row) {
-          data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
-          //data = "﴿" + data + "﴾";
-          // replaces basmalas opening closing brackets non breaks, then kashida, then arabic numbers, then space, then br tag, then makes two spaces into one
-          return data
-            .replace(/ـ/g, "")
-            .replace(/[^\u0621-\u064A|\s|<br class="br">]/g, "")
-            .replace(/\s\s/g, " ");
-        },
-      },
-      {
-        data: 7,
         title: "ތަފުސީރު", // ubufili on faafu, otherwise interferes with clipboard tite copy
       },
       {
-        data: 8,
+        data: 7,
         title: "ފުޓްނޯޓު",
       },
     ],
