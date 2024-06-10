@@ -1108,11 +1108,19 @@ function () {
           </button>
 
           <button
-            onclick="sortFreq();"
+            onclick="sortLineFreq();"
+            class="ttClass"
+            data-tooltip="Sorts the text lines by highest frequency of occurance"
+          >
+            📉 SortLineFreq
+          </button>
+
+          <button
+            onclick="sortWordFreq();"
             class="ttClass"
             data-tooltip="Splits the text into words and then sorts them by highest frequency of occurance"
           >
-            📉 Sortby Freq
+            SortWordFreq
           </button>
 
           <button
@@ -1939,6 +1947,9 @@ encrypting."
             // added this - Global variable to hold the password
             let mainPassword;
 
+            // Variable to track action type
+            let actionType;
+
             // Add the event listener once
             var control = document.getElementById("selectFile");
             control.addEventListener("change", handleFileChange, false);
@@ -1955,12 +1966,10 @@ encrypting."
               // Prompt for the password
               mainPassword = window.prompt("Password");
 
-              /* In this modified code, the handleFileChange function is called whenever a file is selected, and it handles the common logic for both encryption and decryption. The encryptFileStart() and decryptFileStart() functions simply trigger the file upload dialog and let the handleFileChange function handle the rest. By moving the event listener setup outside of the start functions, you ensure that only one event listener is attached to the file input element, resolving the issue you were experiencing. */
-
-              // Call the appropriate function based on the button clicked
-              if (event.currentTarget === control) {
+              // Call the appropriate function based on the action type
+              if (actionType === "encrypt") {
                 encryptFile();
-              } else {
+              } else if (actionType === "decrypt") {
                 decryptFile();
               }
 
@@ -1968,92 +1977,41 @@ encrypting."
             }
 
             function encryptFileStart() {
+              // Set action type
+              actionType = "encrypt";
+              // Clear file input value to ensure change event is triggered every time
+              document.getElementById("selectFile").value = "";
               // Trigger file upload on button click
               document.getElementById("selectFile").click();
             }
 
             function decryptFileStart() {
+              // Set action type
+              actionType = "decrypt";
+              // Clear file input value to ensure change event is triggered every time
+              document.getElementById("selectFile").value = "";
               // Trigger file upload on button click
               document.getElementById("selectFile").click();
             }
 
-            /* The issue you're experiencing is due to the way the event listener is set up for the file input element. The event listener is added each time the encryptFileStart() or decryptFileStart() function is called, which means that after the first call, multiple event listeners are attached to the same element.
-When you try to upload a file for the second time, multiple event listeners are triggered, leading to potential conflicts or unexpected behavior. To fix this issue, you can modify the code to remove the existing event listener before adding a new one, or move the event listener setup outside of the encryptFileStart() and decryptFileStart() functions. */
-
-            /* OLD CODE
-            // added this
-            function encryptFileStart() {
-              // trigger file upload of button click
-              document.getElementById("selectFile").click();
-
-              //External data file handling starts here, listen for upload completion
-              var control = document.getElementById("selectFile");
-              control.addEventListener(
-                "change",
-                function (event) {
-                  var reader = new FileReader();
-                  reader.onload = function (event) {};
-                  // do this after upload
-
-                  // Prompt for the password
-                  // change all mainPassword.value to just mainPassword
-                  mainPassword = window.prompt("Password");
-
-                  //encryptFile();
-                  // Call the actual encryption with mainPassword as argument
-                  encryptFile();
-
-                  reader.onerror = function (event) {
-                    console.error(
-                      "File could not be read! Code " + event.target.error.code
-                    );
-                  };
-                  //console.log("Filename: " + control.files[0].name);
-                  reader.readAsText(control.files[0]);
-                },
-                false
-              );
-              // closes start function
-            }
-            */
-
             async function encryptFile() {
-              //selectFileHint.classList.remove("greenspan");
-              //selectFileHint.classList.remove("redspan");
-
               if (selectFile.files.length > 0) {
-                //selectFileHint.classList.add("greenspan");
-                //confirmPasswordHint.classList.remove("greenspan");
-                //confirmPasswordHint.classList.remove("redspan");
-                /*if ( ( mainPassword.value === confirmPassword.value) && ( mainPassword.value !== "" ) && ( mainPassword.value.length >= 8 ) ) {*/
-                // commented out surrounding if clause around this as well as } } else {, had to do this for both encrypt and decrypt
-                //confirmPasswordHint.classList.add("greenspan");
-                //logContainer.classList.remove("hidden");
                 try {
                   let pbkdf2salt = window.crypto.getRandomValues(
                     new Uint8Array(16)
                   );
                   let filename = selectFile.files[0].name;
-                  //console.log ( "reading: " + filename );
-                  //log.textContent += "\r\nreading: " + filename;
                   let file = await readfile(selectFile.files[0]);
                   let hashPlaintext = await crypto.subtle.digest(
                     "SHA-256",
                     file
                   );
-                  //log.textContent += "\r\nsha-256 hash of plaintext file: " + arr2Hex(hashPlaintext);
-                  //log.textContent += "\r\nderiving key from password and random salt ...";
-                  //let keyIv = await deriveKeyIv(mainPassword.value, pbkdf2salt);
                   let keyIv = await deriveKeyIv(mainPassword, pbkdf2salt);
-                  //console.log ( "pbkdf2salt: " + btoa(String.fromCharCode.apply(null, pbkdf2salt)) );
-                  //log.textContent += "\r\npbkdf2salt: " + btoa(String.fromCharCode.apply(null, pbkdf2salt));
-                  //log.textContent += "\r\nstarting to encrypt ...";
                   let someEncryptedData = await encrypt(
                     file,
                     keyIv.key,
                     keyIv.iv
                   );
-                  //log.textContent += "\r\nencryption done, now preparing to save the file ...";
                   let concat = await new Blob([
                     pbkdf2salt,
                     someEncryptedData.cipher,
@@ -2063,84 +2021,24 @@ When you try to upload a file for the second time, multiple event listeners are 
                     "SHA-256",
                     concat
                   );
-                  //log.textContent += "\r\nsha-256 hash of encrypted file: " + arr2Hex(hashCiphertext);
                   let hashMagic = foldHash(hashPlaintext, hashCiphertext);
-                  //log.textContent += "\r\nfolded hash magic: " + arr2Hex(hashMagic);
                   let blobUrl = URL.createObjectURL(file);
                   let element = document.createElement("a");
                   element.href = blobUrl;
                   element.download = filename + ".enc";
                   element.click();
-                  //log.textContent += "\r\n✅ FINISHED.";
                   scrollToTopFully(); // Scroll to top after en/decryption is finished
                 } catch (error) {
                   console.error(error);
-
-                  //log.textContent += "\r\n⛔ EXCEPTION\r\n" + error;
-                  /*}
-		} else {*/
-                  //confirmPasswordHint.classList.add("redspan");
                 }
-              } else {
-                //selectFileHint.classList.add("redspan");
               }
             }
 
-            /* OLD CODE
-            // added this
-            function decryptFileStart() {
-              // trigger file upload of button click
-              document.getElementById("selectFile").click();
-
-              //External data file handling starts here, listen for upload completion
-              var control = document.getElementById("selectFile");
-              control.addEventListener(
-                "change",
-                function (event) {
-                  var reader = new FileReader();
-                  reader.onload = function (event) {};
-                  // do this after upload
-                  // call the actual encryption
-
-                  // Prompt for the password
-                  // change all mainPassword.value to just mainPassword
-                  mainPassword = window.prompt("Password");
-
-                  //encryptFile();
-                  // Call the actual encryption with mainPassword as argument
-                  decryptFile();
-
-                  reader.onerror = function (event) {
-                    console.error(
-                      "File could not be read! Code " + event.target.error.code
-                    );
-                  };
-                  //console.log("Filename: " + control.files[0].name);
-                  reader.readAsText(control.files[0]);
-                },
-                false
-              );
-              // closes start function
-            }
-            */
-
             async function decryptFile() {
-              //selectFileHint.classList.remove("greenspan");
-              //selectFileHint.classList.remove("redspan");
-
               if (selectFile.files.length > 0) {
-                //selectFileHint.classList.add("greenspan");
-                //mainPasswordHint.classList.remove("greenspan");
-                //mainPasswordHint.classList.remove("redspan");
-                /*if ( ( mainPassword.value !== "") && ( mainPassword.value.length >= 8 ) ) { */
-                // commented out surrounding if clause around this as well as } } else {, had to do this for both encrypt and decrypt
-                //mainPasswordHint.classList.add("greenspan");
-                //logContainer.classList.remove("hidden");
                 try {
                   let pbkdf2salt;
                   let filename = selectFile.files[0].name;
-                  //console.log ( "loading: " + filename );
-                  //log.textContent += "\r\nreading: " + filename;
                   let file = new Uint8Array(
                     await readfile(selectFile.files[0])
                   );
@@ -2148,21 +2046,14 @@ When you try to upload a file for the second time, multiple event listeners are 
                     "SHA-256",
                     file
                   );
-                  //log.textContent += "\r\nsha-256 hash of encrypted file: " + arr2Hex(hashCiphertext);
-                  //log.textContent += "\r\nderiving key from password and salt provided in encrypted file ...";
                   pbkdf2salt = new Uint8Array(file.slice(0, 16));
                   let cipher = file.slice(16);
-                  //let keyIv = await deriveKeyIv(mainPassword.value, pbkdf2salt);
                   let keyIv = await deriveKeyIv(mainPassword, pbkdf2salt);
-                  //console.log ( "pbkdf2salt: " + btoa(String.fromCharCode.apply(null, pbkdf2salt)) );
-                  //log.textContent += "\r\npbkdf2salt: " + btoa(String.fromCharCode.apply(null, pbkdf2salt));
-                  //log.textContent += "\r\nstarting to decrypt ...";
                   let someDecryptedData = await decrypt(
                     cipher,
                     keyIv.iv,
                     keyIv.key
                   );
-                  //log.textContent += "\r\ndecryption done, now preparing to save the file ...";
                   file = new Blob([someDecryptedData], {
                     type: "application/download",
                   });
@@ -2170,9 +2061,7 @@ When you try to upload a file for the second time, multiple event listeners are 
                     "SHA-256",
                     someDecryptedData
                   );
-                  //log.textContent += "\r\nsha-256 hash of decrypted file: " + arr2Hex(hashPlaintext);
                   let hashMagic = foldHash(hashPlaintext, hashCiphertext);
-                  //log.textContent += "\r\nfolded hash magic: " + arr2Hex(hashMagic);
                   let blobUrl = URL.createObjectURL(file);
                   let element = document.createElement("a");
                   element.href = blobUrl;
@@ -2180,77 +2069,14 @@ When you try to upload a file for the second time, multiple event listeners are 
                     filename.substring(0, filename.lastIndexOf(".")) ||
                     filename;
                   element.click();
-                  //log.textContent += "\r\n✅ FINISHED.";
                   scrollToTopFully(); // Scroll to top after en/decryption is finished
                 } catch (error) {
                   console.error(error);
-
-                  //added this
                   document.getElementById("textMainArea").value =
                     "Decryption failed";
-                  //log.textContent += "\r\n⛔ EXCEPTION\r\n" + error;
-                  /*}
-		} else {*/
-                  //mainPasswordHint.classList.add("redspan");
                 }
-              } else {
-                //selectFileHint.classList.add("redspan");
               }
             }
-
-            //var modus = "";
-
-            /*function showEncrypt() {
-              operationModeContainer.classList.add("hidden");
-              btnDecrypt.classList.add("hidden");
-              cypherContainer.classList.remove("hidden");
-              modus = "encrypt";
-            }
-
-            function showDecrypt() {
-              operationModeContainer.classList.add("hidden");
-              trConfirmPassword.classList.add("hidden");
-              btnEncrypt.classList.add("hidden");
-              cypherContainer.classList.remove("hidden");
-              modus = "decrypt";
-            }*/
-
-            //function bodyOnLoad() {
-            /*
-		If URL is http://www.example.com/account/search?filter=a#top
-
-		window.location.pathname // /account/search
-		window.location.host     // www.example.com (includes the port if there is one)
-		window.location.hostname // www.example.com
-		window.location.hash     // #top
-		window.location.href     // http://www.example.com/account/search?filter=a#top
-		window.location.port     // (empty string)
-		window.location.protocol // http:
-		window.location.search   // ?filter=a
-	*/
-            /*let hash = window.location.hash;
-              if (hash === "#encrypt") {
-                showEncrypt();
-              } else if (hash === "#decrypt") {
-                showDecrypt();
-              }
-            }
-
-            pageBody.addEventListener("load", bodyOnLoad());
-
-            mainPassword.addEventListener("keyup", function (event) {
-              if (event.key === "Enter") {
-                if (modus === "encrypt") {
-                  confirmPassword.focus();
-                } else decryptFile();
-              }
-            });
-
-            confirmPassword.addEventListener("keyup", function (event) {
-              if (event.key === "Enter") {
-                encryptFile();
-              }
-            });*/
           </script>
 
           <button
@@ -4207,8 +4033,97 @@ When you try to upload a file for the second time, multiple event listeners are 
           }
           //
 
+          function sortWordFreq() {
+            // Split text into an array of words
+            const words = document
+              .getElementById("textMainArea")
+              .value.split(/\s+/g)
+              .map((word) =>
+                word
+                  .replace(/(^\p{Punctuation}+)|(\p{Punctuation}+$)/gu, "")
+                  .toLowerCase()
+              )
+              .filter((word) => word !== "");
+
+            // Reduce the array to a map while counting the occurrences of each word
+            const frequenciesByWord = words.reduce(
+              (map, word) => map.set(word, (map.get(word) || 0) + 1),
+              new Map()
+            );
+
+            // Turn the map entries into an array, sorted by the word frequencies in descending order
+            const sortedArray = [...frequenciesByWord.entries()].sort(
+              (a, b) => b[1] - a[1]
+            );
+
+            // Format and return the result to the "Output" editor
+            document.getElementById("textMainArea").value = sortedArray
+              .map((entry) => `${entry[1]} ${entry[0]}`)
+              .join("\n");
+          }
+
+          function sortLineFreq() {
+            // Split text into an array of lines
+            const lines = document
+              .getElementById("textMainArea")
+              .value.split(/\n/g)
+              .map((line) => line.trim())
+              .filter((line) => line !== "");
+
+            // Reduce the array to a map while counting the occurrences of each line
+            const frequenciesByLine = lines.reduce(
+              (map, line) => map.set(line, (map.get(line) || 0) + 1),
+              new Map()
+            );
+
+            // Turn the map entries into an array, sorted by the line frequencies in descending order
+            const sortedArray = [...frequenciesByLine.entries()].sort(
+              (a, b) => b[1] - a[1]
+            );
+
+            // Format and return the result to the "Output" editor
+            document.getElementById("textMainArea").value = sortedArray
+              .map((entry) => `${entry[1]} ${entry[0]}`)
+              .join("\n");
+          }
+
+          var orderLines_timesClicked = 0;
+          function orderLines() {
+            orderLines_timesClicked++;
+            if (orderLines_timesClicked % 2 == 0) {
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.split("\n")
+                .reverse()
+                .join("\n");
+              document.getElementById("lineSort").innerHTML = "↕️ Order Asc";
+            } else {
+              document.getElementById("textMainArea").value = document
+                .getElementById("textMainArea")
+                .value.split("\n")
+                .sort()
+                .join("\n");
+              document.getElementById("lineSort").innerHTML = "↕️ Order Desc";
+            }
+          }
+
+          var leftToRight_timesClicked = 0;
+          function leftToRight() {
+            leftToRight_timesClicked++;
+            if (leftToRight_timesClicked % 2 == 0) {
+              document.getElementById("textMainArea").style.direction = "rtl";
+              document.getElementById("textMainArea").placeholder =
+                "އަބޫ ހުރައިރާގެ އަރިހުން ރިވާވެގެންވެއެވެ: ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”...";
+            } else {
+              document.getElementById("textMainArea").style.direction = "ltr";
+              document.getElementById("textMainArea").placeholder =
+                "Abu Hurairah narrated that the Prophet ﷺ said: “...";
+            }
+          }
+          //
+
           // https://txtfiddle.com/~fvlfqnc/count-word-frequencies
-          function sortFreq() {
+          function sortWordFreq() {
             // Split text into an array of words
             const words = document
               .getElementById("textMainArea")
