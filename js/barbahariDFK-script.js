@@ -107,7 +107,7 @@ $(document).ready(() => {
       // adds footnote line for shurooh
       // if (data !== "") { } else { return data; } ONLY applies if string is not empty
       {
-        targets: [4],
+        targets: [5],
         render: function (data, type, row) {
           if (data !== "") {
             data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
@@ -159,16 +159,16 @@ $(document).ready(() => {
         },
       },
       {
-        className: "uSunnahCol4", // dv
+        className: "ColTakhrij", // ar footnote
         targets: [3],
         visible: true,
-        searchable: true,
+        searchable: false,
         searchPanes: {
           show: false,
         },
       },
       {
-        className: "ColTakhrij", // footnote
+        className: "uSunnahCol4", // dv text
         targets: [4],
         visible: true,
         searchable: true,
@@ -177,12 +177,12 @@ $(document).ready(() => {
         },
       },
       {
-        className: "uSunnahCol5", // page no.
+        className: "ColTakhrij", // dv footnote
         targets: [5],
         visible: true,
-        searchable: false,
+        searchable: true,
         searchPanes: {
-          show: true,
+          show: false,
         },
       },
 
