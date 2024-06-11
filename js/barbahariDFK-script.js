@@ -60,7 +60,9 @@ $(document).ready(() => {
 
   // cgpt code
 
-  /*
+  // DFK BARBARI ONLY TEXT MERGE
+
+  /* 
 i have a 2d json nested array, one of them is an object called 
 const barbahari_DB=[[...
 it has 9 columns
@@ -75,7 +77,7 @@ using js, i want to take the 1st, 5th and 7th column of barbahari_DB, and join t
 
   // Ensure both arrays have the same number of rows
   const numRows = Math.max(barbahari_DB.length, barbahariDFK_DB.length);
-  const result = [];
+  const resultbarbahariDFK = [];
 
   for (let i = 0; i < numRows; i++) {
     const row1 = barbahari_DB[i] || [];
@@ -86,12 +88,12 @@ using js, i want to take the 1st, 5th and 7th column of barbahari_DB, and join t
     const col7 = row1[6] || "";
 
     const combinedRow = [col1, col5, col7, ...row2];
-    result.push(combinedRow);
+    resultbarbahariDFK.push(combinedRow);
   }
 
-  console.log(result);
+  //console.log(resultbarbahariDFK);
 
-  // end
+  // end barbahari text merge
 
   const table = $("#barbahariDFKTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
@@ -99,7 +101,7 @@ using js, i want to take the 1st, 5th and 7th column of barbahari_DB, and join t
 
     // CHANGE123 JSON
     //data: barbahariDFK_DB, // https://datatables.net/manual/ajax
-    data: result,
+    data: resultbarbahariDFK,
 
     columns: [
       /* add # string to hadith no */
