@@ -58,6 +58,25 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
+  // PART 0
+  // DFK BARBARI ONLY TEXT MERGE
+  // Ensure both arrays have the same number of rows
+  const numRows = Math.max(barbahari_DB.length, barbahariDFK_DB.length);
+  //const resultbarbahariDFK = [];
+  resultbarbahariDFK = [];
+  for (let i = 0; i < numRows; i++) {
+    const row1 = barbahari_DB[i] || [];
+    const row2 = barbahariDFK_DB[i] || [];
+    const col1 = row1[0] || "";
+    const col5 = row1[4] || "";
+    const col7 = row1[6] || "";
+    const combinedRow = [col1, col5, col7, ...row2];
+    resultbarbahariDFK.push(combinedRow);
+  }
+  // end barbahari text merge
+
+  //
+
   // PART 1
   // cgpt code, this part removes the specified columns entirely
   // In this modified code, you can specify the columnsToRemove array at the end of the code, allowing you to easily change which columns you want to remove without modifying the function itself. This provides more flexibility when working with different 2D arrays and column selections.
@@ -73,6 +92,8 @@ $(document).ready(() => {
 
   resultusooluSunnah = removeColumns(usooluSunnah_DB, [4, 5]);
   resultbarbahari = removeColumns(barbahari_DB, [1, 2, 3, 7, 8]);
+  //resultbarbahariDFK = removeColumns(barbahariDFK_DB, []);
+
   resultaqidatuRaziyain = removeColumns(aqidatuRaziyain_DB, [3]);
   resultkitabulEman = removeColumns(kitabulEman_DB, [3, 6, 7]);
   /* this actually has 8 columns, yet it forces me to choose 4 and subtract 4 of them for some reason
@@ -85,8 +106,10 @@ $(document).ready(() => {
   resultusooluThalaatha = removeColumns(usooluThalaatha_DB, [2, 6, 7, 8]);
 
   //console.log(result);
+
   //
 
+  // PART 2
   // cgpt code, this part inserts a specific value into the first column
   // In this code, the insertValueInFirstColumn function uses the map method to iterate through each row of the 2D array. For each row, it adds the specified valueToInsert ('hey') to the beginning of the row, effectively inserting a new column with the same value in the first column position of each row.
 
@@ -100,6 +123,11 @@ $(document).ready(() => {
   resultbarbahari = insertValueInFirstColumn(
     resultbarbahari,
     "شرح السنة للبربهاري"
+  );
+
+  resultbarbahariDFK = insertValueInFirstColumn(
+    resultbarbahariDFK,
+    "شرح السنة للبربهاري DFK"
   );
   resultaqidatuRaziyain = insertValueInFirstColumn(
     resultaqidatuRaziyain,
@@ -129,10 +157,8 @@ $(document).ready(() => {
   // END BOOK
 
   //
-  //
-  //
 
-  // PART 2
+  // PART 3
   // cgpt code, appends a 2d array to the end of another 2d array, even if their columns/rows differ, and generates empty values
   // In this code, the appendRowsWithEmptyValues function calculates the maximum number of columns from both arrays and pads each row in arr2 with empty values (empty strings) as needed to match the number of columns in the merged array. This ensures that the resulting array has consistent dimensions with empty values where needed.
   function appendRowsWithEmptyValues(arr1, arr2) {
@@ -160,6 +186,8 @@ $(document).ready(() => {
     resultqawaidulArbau,
     resultusooluSiththa,
     resultusooluThalaatha,
+    // below should always be last
+    resultbarbahariDFK,
   ];
 
   // ADDED a json object with 6 rows to make this part work for allAqida as it did for allAthar. I dont think 6 is a necessity for it to work, as increasing in doesnt change the data entry.
@@ -256,7 +284,7 @@ $(document).ready(() => {
       },
       {
         data: 5,
-        title: "އިތުރު ބަރި", // extra column i need for harawi
+        title: "އިތުރު ބަރި", // extra column i need for harawi, dv footnotes?
       },
     ],
 
@@ -265,6 +293,7 @@ $(document).ready(() => {
       // adds footnote line for shurooh
       // if (data !== "") { } else { return data; } ONLY applies if string is not empty
       {
+        // havent quite figured out how to get this right yet, so many different books have different layouts now
         targets: [], // 6, but non takhrij texts are there in this, unlike allAthar
         render: function (data, type, row) {
           if (data !== "") {
