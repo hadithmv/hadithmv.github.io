@@ -58,12 +58,48 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
+  // cgpt code
+
+  /*
+i have a 2d json nested array, one of them is an object called 
+const barbahari_DB=[[...
+it has 9 columns
+
+the other is an object called
+const barbahariDFK_DB=[[
+it has 2 columns
+
+using js, i want to take the 1st, 5th and 7th column of barbahari_DB, and join them rowwise with barbahariDFK_DB, and flatten them. generating empty values where needed for 5th column. result should also be 2d json
+
+*/
+
+  // Ensure both arrays have the same number of rows
+  const numRows = Math.max(barbahari_DB.length, barbahariDFK_DB.length);
+  const result = [];
+
+  for (let i = 0; i < numRows; i++) {
+    const row1 = barbahari_DB[i] || [];
+    const row2 = barbahariDFK_DB[i] || [];
+
+    const col1 = row1[0] || "";
+    const col5 = row1[4] || "";
+    const col7 = row1[6] || "";
+
+    const combinedRow = [col1, col5, col7, ...row2];
+    result.push(combinedRow);
+  }
+
+  console.log(result);
+
+  // end
+
   const table = $("#barbahariDFKTable").DataTable({
     // var table = $("#fortyNawawi").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: barbahariDFK_DB, // https://datatables.net/manual/ajax
+    //data: barbahariDFK_DB, // https://datatables.net/manual/ajax
+    data: result,
 
     columns: [
       /* add # string to hadith no */
@@ -161,7 +197,7 @@ $(document).ready(() => {
       {
         className: "ColTakhrij", // ar footnote
         targets: [3],
-        visible: true,
+        visible: false,
         searchable: false,
         searchPanes: {
           show: false,
