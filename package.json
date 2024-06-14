@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "prettier": "3.3.1"
+  },
+  "dependencies": {
+    "papa": "^0.0.0"
   }
 }

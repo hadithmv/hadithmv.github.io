@@ -1,47 +1,44 @@
-get base apk, unzip
-assets\flutter_assets\assets\data
-unzip words and meanings to json
-convert words json online using 
+...SPECULATIVE INFO, and how the script processes the base files
+
+first, convert words json to csv online using 
 https://www.convertcsv.com/json-to-csv.htm
-other converters introduces errors it seems
-wait until it converts, may look like its freezing
-delete extra columns?
+(other converters introduces errors it seems,
+wait until it converts, may look like its freezing, especially for meanings, might need some local tool or extension to get that done)
 
-remove empty cols from each
-now match by word_id and merge
+... columns to be removed
 
-dont need the following cols at all:
+WORDS TABLE - removable:
+2 letter
+6 pronounciation
+7 morphemes
 
-meaning_id
-dictionaries
-sub_class (for now)
-variant_template (for now)
-photo_adv
-item_order
-word_en_meaning_not_applicable
-tag_groups
+MEANINGS TABLE - removable:
+1 meaning_id
+4 dictionaries
+6 sub_class (for now)
+14 variant_template (for now)
+16 photo_adv
+17 item_order (?)
+20 word_en_meaning_not_applicable (?)
+21 tag_groups
 
-...
+--- speculation
 
 in words json, each word id is unique, meaning only on entry of one word
 but is meanings json, more than one meaning can apply to the same word, and also its id
 
-!meaning_id
+in meanings table, word id 1, has this entry for meaning_text column: ޓެސްޓު މާނައެއް
 
-word id
-has this entry: ޓެސްޓު މާނައެއް
+(some info about the needed/unneeded cols here:)
 
-meaning_text
-
-!dictionaries
+COL: dictionaries
 only unique values for this:
 142,143,144
 142
 142,143
 (dont think these are of any consequence)
 
-
-main_class (mai ginthi)
+COL: main_class (mai ginthi)
 100
 103
 104
@@ -63,12 +60,12 @@ corresponds to:
 އިތުރު
 އަދަބީ ބަސް
 
-!sub_class
+COL: sub_class
 0 (equals blank)
 108 (has only one entry, but no wordid, so no way to know what it equals as of yet)
 109 (has 5 entries w wordid, and equals the value of "ގިނަހެރި")
 
-tense (zamaan)
+COL: tense (zamaan)
 0
 110
 112
@@ -78,7 +75,6 @@ tense (zamaan)
 115
 
 corresponds to:
-
 ވާކަން
 ވާނޭކަން
 ނިމިނިމުނުކަން
@@ -86,7 +82,7 @@ corresponds to:
 ވޭވޭހުރިކަން
 ވެދާނެކަން
 
-literary_class (adabi ginthi)
+COL: literary_class (adabi ginthi)
 0
 116
 120
@@ -96,7 +92,6 @@ literary_class (adabi ginthi)
 121
 
 corresponds to:
-
 މަޖާޒު
 މުސްކުޅިބަސް
 މިސާލުބަސް
@@ -104,7 +99,7 @@ corresponds to:
 މަޖާޒީ މިސާލު
 އޮޅިބަސް
 
-dialect (bahuruva)
+COL: dialect (bahuruva)
 126
 149
 154
@@ -126,7 +121,7 @@ corresponds to:
 އައްޑޫ
 ފުވައްމުލަކު
 
-diction_level (dharaja)
+COL: diction_level (dharaja)
 122
 124
 123
@@ -140,7 +135,7 @@ corresponds to:
 0
 ހުތުރ / ބާޒާރީ
 
-subject_area (dhaaira)
+COL: subject_area (dhaaira)
 0
 137
 135
@@ -165,7 +160,7 @@ corresponds to:
 މިއުޒިކު
 އިންފޮމޭޝަން ޓެކްނޮލޮޖީ
 
-specific_usage_atolls (atoll)
+COL: specific_usage_atolls (atoll)
 (has 92 unique values w commas, and 23 without)
 specific_usage_atolls
 20
@@ -217,27 +212,27 @@ corresponds to:
 އ
 ދ
 
-usage_example
+COL: usage_example
 (has 1397 unique values, bring them as is, no need to match)
 
-!variant_template
+COL: variant_template
 (just this one entry below, so dont think its needed)
 ދޫމެއް ދޫމަކާއި ދޫމުގެ ދޫމުތައް ދޫމަކީ
 
-!regions
+COL: regions
 (empty)
 
-!photo_adv
+COL: photo_adv
 (no need for it)
 uploads/2020/07/30826_2_dhoomu_adv.png
 uploads/2020/12/32900_1928_kelavaki_adv.jpg
 
-!item_order
+COL: item_order
 (has 23 unique values, dont think its of consequence, might have been used to order for words where wordid is same perhaps)
 
-word_en_meaning
+COL: word_en_meaning
 
-word_en_pos
+COL: word_en_pos
 0
 1
 3
@@ -246,35 +241,34 @@ word_en_pos
 7
 
 corresponds to:
- 
 noun
 adjective
 verb
 adverb
 7 (no match exists in wordid)
 
-!word_en_meaning_not_applicable
+COL: word_en_meaning_not_applicable
 (this probably tells the app whether to show the english pos)
 0
 1
 
-!tag_groups
+COL: tag_groups
 (empty)
 
-... ... ...
+--- older process notes
 
 PART 2
 
-words.json headers look like this:
+words table headers look like this:
 1 word_id
 2 letter (not needed)
 3 word_en
 4 approved_word_dv
 5 transliteration
-6 pronounciation  (not needed, empty)
-7 morphemes  (not needed, empty)
+6 pronounciation (not needed, empty)
+7 morphemes (not needed, empty)
 
-remove columns 2, 6, 7 from words.json
+remove columns: 2 letter, 6 pronounciation, 7 morphemes
 
 that leaves:
 1 word_id
@@ -282,7 +276,7 @@ that leaves:
 3 approved_word_dv
 4 transliteration
 
-meanings.json headers look like this:
+meanings table headers look like this:
 1 meaning_id (remove)
 2 word_id
 3 meaning_text
@@ -321,10 +315,11 @@ that leaves:
 11 word_en_meaning
 12 word_en_pos
 
-4 cols of word and 12 of meanings need to join
-=16 cols
 
-= 14
+4 cols from word, and 12 of meanings, need to join together in a new table
+resulting in 16 cols
+
+getting rid of double word id cols, and worden/word_en_meaning will result in 14 cols at the end
 
 1 word_id
 2 word_en
@@ -345,7 +340,7 @@ that leaves:
 16 word_en_pos
 
 
-
+following is removed word id:
 4 meaning_text
 5 main_class
 6 tense
@@ -362,6 +357,8 @@ that leaves:
 2 approved_word_dv
 3 transliteration
 
+---
+
 now use
 https://www.convertcsv.com/json-to-csv.htm
 
@@ -369,4 +366,4 @@ to convert the merged json back to csv
 
 upload to g docs
 
-delete extra empty 2 cols at the end
+delete extra empty 2 cols at the end (??)

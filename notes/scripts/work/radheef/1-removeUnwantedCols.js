@@ -5,7 +5,7 @@ the output file should be called "words-noEmptyCols.json"
 //
 Error parsing JSON data: TypeError: row.splice is not a function
 //
-in addition to that there is also another json file called meanings.json the following columns need to be removed from it: 1, 4, 6, 14, 16, 17, 20, 21 the output of that needs to be meanings-colsRemoved.json so now we are inputting two files, and outputting two files
+in addition to that there is also another json file called meanings.json, the following columns need to be removed from it: 1, 4, 6, 14, 16, 17, 20, 21 the output of that needs to be meanings-colsRemoved.json so now we are inputting two files, and outputting two files
 //
 during this code, when it is processing the words.json into words-colsRemoved.json, it should replace the string "none" with ""
 //
@@ -21,7 +21,9 @@ const removeColumns = (row, columnsToRemove) => {
     const columnIndex = columnsToRemove[i];
     row.splice(columnIndex, 1);
   }
-  return row;
+  // return row;
+  // Replace null values with empty strings
+  return row.map((value) => (value === null ? "" : value));
 };
 
 // Function to replace "none" with ""
