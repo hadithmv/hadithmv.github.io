@@ -1,0 +1,369 @@
+...SPECULATIVE INFO, and how the script processes the base files
+
+first, convert words json to csv online using 
+https://www.convertcsv.com/json-to-csv.htm
+(other converters introduces errors it seems,
+wait until it converts, may look like its freezing, especially for meanings, might need some local tool or extension to get that done)
+
+... columns to be removed
+
+WORDS TABLE - removable:
+2 letter
+6 pronounciation
+7 morphemes
+
+MEANINGS TABLE - removable:
+1 meaning_id
+4 dictionaries
+6 sub_class (for now)
+14 variant_template (for now)
+16 photo_adv
+17 item_order (?)
+20 word_en_meaning_not_applicable (?)
+21 tag_groups
+
+--- speculation
+
+in words json, each word id is unique, meaning only on entry of one word
+but is meanings json, more than one meaning can apply to the same word, and also its id
+
+in meanings table, word id 1, has this entry for meaning_text column: ޓެސްޓު މާނައެއް
+
+(some info about the needed/unneeded cols here:)
+
+COL: dictionaries
+only unique values for this:
+142,143,144
+142
+142,143
+(dont think these are of any consequence)
+
+COL: main_class (mai ginthi)
+100
+103
+104
+105
+102
+107
+101
+106
+155
+
+corresponds to:
+މަސްދަރު
+ނަން
+ނަންއިތުރު
+ނަންއިތުރުގެނަން
+ކަންއިތުރު
+އަކުރު
+ކަން
+އިތުރު
+އަދަބީ ބަސް
+
+COL: sub_class
+0 (equals blank)
+108 (has only one entry, but no wordid, so no way to know what it equals as of yet)
+109 (has 5 entries w wordid, and equals the value of "ގިނަހެރި")
+
+COL: tense (zamaan)
+0
+110
+112
+114
+113
+111
+115
+
+corresponds to:
+ވާކަން
+ވާނޭކަން
+ނިމިނިމުނުކަން
+ނިމުނުކަން
+ވޭވޭހުރިކަން
+ވެދާނެކަން
+
+COL: literary_class (adabi ginthi)
+0
+116
+120
+118
+119
+117
+121
+
+corresponds to:
+މަޖާޒު
+މުސްކުޅިބަސް
+މިސާލުބަސް
+ހަރުބަސް
+މަޖާޒީ މިސާލު
+އޮޅިބަސް
+
+COL: dialect (bahuruva)
+126
+149
+154
+131
+0
+130
+129
+127
+128
+
+corresponds to:
+އާންމު
+ބޯދާ
+ސަރަހައްދީ 154 
+މަލިކު
+-
+ހުވަދޫ
+ހައްދުންމަތި
+އައްޑޫ
+ފުވައްމުލަކު
+
+COL: diction_level (dharaja)
+122
+124
+123
+0
+125
+
+corresponds to:
+އާންމު
+އެންމެ މާތް
+މާތް
+0
+ހުތުރ / ބާޒާރީ
+
+COL: subject_area (dhaaira)
+0
+137
+135
+132
+140
+134
+136
+133
+138
+141
+150
+
+corresponds to:
+ކަނބުރުވެރިކަން
+ނަކަތްތެރިކަން
+މަސްވެރިކަން
+މަސައްކަތްތެރިކަން
+ބޭސްވެރިކަން
+ނިޔަމިކަން
+ދަނޑުވެރިކަން
+ފަންޑިތަވެރިކަން
+މިއުޒިކު
+އިންފޮމޭޝަން ޓެކްނޮލޮޖީ
+
+COL: specific_usage_atolls (atoll)
+(has 92 unique values w commas, and 23 without)
+specific_usage_atolls
+20
+1
+2
+19
+16
+17
+18
+12
+13
+9
+6
+23
+7
+8
+10
+11
+5
+3
+4
+21
+15
+22
+14
+
+corresponds to:
+ސ
+ހއ
+ހދ
+ޏ
+ލ
+ގއ
+ގދ
+މ
+ފ
+އއ
+ބ
+ގ
+ޅ
+ކ
+އދ
+ވ
+ރ
+ށ
+ނ
+ހ
+ތ
+އ
+ދ
+
+COL: usage_example
+(has 1397 unique values, bring them as is, no need to match)
+
+COL: variant_template
+(just this one entry below, so dont think its needed)
+ދޫމެއް ދޫމަކާއި ދޫމުގެ ދޫމުތައް ދޫމަކީ
+
+COL: regions
+(empty)
+
+COL: photo_adv
+(no need for it)
+uploads/2020/07/30826_2_dhoomu_adv.png
+uploads/2020/12/32900_1928_kelavaki_adv.jpg
+
+COL: item_order
+(has 23 unique values, dont think its of consequence, might have been used to order for words where wordid is same perhaps)
+
+COL: word_en_meaning
+
+COL: word_en_pos
+0
+1
+3
+4
+5
+7
+
+corresponds to:
+noun
+adjective
+verb
+adverb
+7 (no match exists in wordid)
+
+COL: word_en_meaning_not_applicable
+(this probably tells the app whether to show the english pos)
+0
+1
+
+COL: tag_groups
+(empty)
+
+--- older process notes
+
+PART 2
+
+words table headers look like this:
+1 word_id
+2 letter (not needed)
+3 word_en
+4 approved_word_dv
+5 transliteration
+6 pronounciation (not needed, empty)
+7 morphemes (not needed, empty)
+
+remove columns: 2 letter, 6 pronounciation, 7 morphemes
+
+that leaves:
+1 word_id
+2 word_en
+3 approved_word_dv
+4 transliteration
+
+meanings table headers look like this:
+1 meaning_id (remove)
+2 word_id
+3 meaning_text
+4 dictionaries (remove)
+5 main_class
+6 sub_class (remove)
+7 tense
+8 literary_class
+9 dialect
+10 diction_level
+11 subject_area
+12 specific_usage_atolls
+13 usage_example
+14 variant_template (remove)
+15 regions
+16 photo_adv (remove)
+17 item_order (remove)
+18 word_en_meaning
+19 word_en_pos
+20 word_en_meaning_not_applicable (remove)
+21 tag_groups (remove)
+
+remove columns 1, 4, 6, 14, 15, 16, 17, 20, 21 from meanings.json
+
+that leaves:
+1 word_id
+2 meaning_text
+3 main_class
+4 tense
+5 literary_class
+6 dialect
+7 diction_level
+8 subject_area
+9 specific_usage_atolls
+10 usage_example
+11 word_en_meaning
+12 word_en_pos
+
+
+4 cols from word, and 12 of meanings, need to join together in a new table
+resulting in 16 cols
+
+getting rid of double word id cols, and worden/word_en_meaning will result in 14 cols at the end
+
+1 word_id
+2 word_en
+3 approved_word_dv
+4 transliteration
+
+5 word_id
+6 meaning_text
+7 main_class
+8 tense
+9 literary_class
+10 dialect
+11 diction_level
+12 subject_area
+13 specific_usage_atolls
+14 usage_example
+15 word_en_meaning
+16 word_en_pos
+
+
+following is removed word id:
+4 meaning_text
+5 main_class
+6 tense
+7 literary_class
+8 dialect
+9 diction_level
+10 subject_area
+11 specific_usage_atolls
+12 usage_example
+13 word_en_meaning
+14 word_en_pos
+
+1 word_en
+2 approved_word_dv
+3 transliteration
+
+---
+
+now use
+https://www.convertcsv.com/json-to-csv.htm
+
+to convert the merged json back to csv
+
+upload to g docs
+
+delete extra empty 2 cols at the end (??)

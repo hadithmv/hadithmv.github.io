@@ -67,10 +67,6 @@ Set-Content ../muwatta.js -Value 'const muwatta_DB='
 Get-Content muwatta.json | Add-Content ../muwatta.js
 uglifyjs ../muwatta.js -c -m -o ../muwatta.js
 
-Set-Content ../radheefNanfoiy.js -Value 'const radheefNanfoiy_DB='
-Get-Content radheefNanfoiy.json | Add-Content ../radheefNanfoiy.js
-uglifyjs ../radheefNanfoiy.js -c -m -o ../radheefNanfoiy.js
-
 Set-Content ../nawaqidulislam.js -Value 'const nawaqidulislam_DB='
 Get-Content nawaqidulislam.json | Add-Content ../nawaqidulislam.js
 uglifyjs ../nawaqidulislam.js -c -m -o ../nawaqidulislam.js
@@ -134,6 +130,10 @@ uglifyjs ../radheefAll.js -c -m -o ../radheefAll.js
 Set-Content ../radheefManiku.js -Value 'const radheefManiku_DB='
 Get-Content radheefManiku.json | Add-Content ../radheefManiku.js
 uglifyjs ../radheefManiku.js -c -m -o ../radheefManiku.js
+
+Set-Content ../radheefNanfoiy.js -Value 'const radheefNanfoiy_DB='
+Get-Content radheefNanfoiy.json | Add-Content ../radheefNanfoiy.js
+uglifyjs ../radheefNanfoiy.js -c -m -o ../radheefNanfoiy.js
 
 Set-Content ../radheefRasmee.js -Value 'const radheefRasmee_DB='
 Get-Content radheefRasmee.json | Add-Content ../radheefRasmee.js
