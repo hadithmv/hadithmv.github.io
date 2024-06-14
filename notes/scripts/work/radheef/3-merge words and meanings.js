@@ -5,7 +5,7 @@ one of them is called  "meanings-colsRemoved.json" and has 12 columns, this is t
 
 the other json to be appended is called "words-colsRemoved-processed.json" and has 4 columns
 
-merge the rows of words-colsRemoved-processed.json, to the rows of meanings-colsRemoved.json, by appending each row of words-colsRemoved-processed.json that has a matching first column with meanings-colsRemoved, to the each row of meanings-colsRemoved. the same row of words-colsRemoved-processed.json can match more than once with the rows of meanings-colsRemoved, even if that happens, still append them again more than once if need be
+merge the rows of words-colsRemoved-processed.json, to the rows of meanings-colsRemoved.json, by appending each row of words-colsRemoved-processed.json that has a matching first column with meanings-colsRemoved, to each row of meanings-colsRemoved. the same row of words-colsRemoved-processed.json can match more than once with the rows of meanings-colsRemoved, even if that happens, still append them again more than once if need be
 
 after that, any rows of meanings-colsRemoved.json that do not match with words-colsRemoved-processed.json, should have "" values where otherwise words-colsRemoved-processed values would have been, so as not to lose any date from meanings-colsRemoved.json
 
