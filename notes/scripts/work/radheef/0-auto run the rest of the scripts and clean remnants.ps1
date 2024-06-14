@@ -1,16 +1,6 @@
 <# info first:
 
 mv.edu.dhivehiacademy.radheef
-2.2.7
-
-9/12/23 prev app db
-18/2/24 latest app db
-11/5/24 last app v update
-19/2/24 json file dates
-14/6/24 latest new word on online site
-
-words table rows: 36,272
-meanings table rows: 53,843
 
 radheefRasmee isnt kept as a google sheet, because its built with date from the source instead
 
@@ -27,6 +17,7 @@ NOW RUN THIS FILE
 
 next, just copy over "radheefRasmee.json" to where you need it
 and remove "words.json" "meanings.json"
+update version no, and db dates on radheef page.
 
 that is all.
 
