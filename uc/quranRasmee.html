@@ -1650,48 +1650,12 @@
                 <a>President's Office Translation data browsable on Hadithmv</a>
                 (This current page. The latest versions of the original arabic
                 word embedded translation, as well as the (utils/transliterator)
-                generated alternate thikijehi thaanafied version are both
+                generated alternate thikijehi thaanafied version, are both
                 available here, taken straight from the source repository
-                itself.)
-                <!--
-                  1) To get arabic words embedded original translation text:
-                  download "https://github.com/kudanai/Quran-Translation/blob/dev/master_dv.divehi.txt", open in vscode, replace tabs with spaces: "	" " "
-                  then replace double spaces with single spaces:
-                  "  " " "
-                  it has surah and ayah numbers in the format of "1|1|, 1|2|, 1|3|",
-                  To remove surah ayah formatting: Find everything that precedes the character "|" (pipe), including the "|" character itself, replace with this regex:
-                  .*\|
-                  
-                  copy the text and paste in the column needed in the sheet.
+                itself. Sometimes the text here may be even more up to date than
+                the repo's main branch, as in the srouce repo, fixes can take
+                time to be merged from the dev branch to the main branch.)
 
-                  2) To generate thikithaana transliterated file:
-                  Download the full repo as is "https://github.com/kudanai/Quran-Translation"
-                  Open that base directory in powershell
-                  run: 
-                  python utils/transliterator/generate_alt_text_with_thikithaana.py
-                  (might get an invalid escape error, nothing to worry about says hassaan)
-                  this creates the following file:
-                  alt_dv.divehi
-                  replace surah ayah formatting with same regex as before:
-                  .*\|
-
-                  thats it
-
-                  remember to remove the last 11 lines from the end of both texts:
-
-#=====================================================================
-#
-# Quran Translation
-# Name: ދިވެހި
-# Translator: Office of the President of Maldives
-# Language: Divehi
-# ID: dv.divehi
-# Last Update: April 13, 2024
-# Source: Tanzil.net
-#
-#====================================================================
-
-                -->
                 <br />
                 •
                 <a
@@ -1705,7 +1669,7 @@
                 to update from our main repo was on 11/12/22)
                 <br />
 
-                <!-- https://play.google.com/store/apps/details?id=com.quranly.app gave them the dhivehi text on 13/2/24, and they hadnt used a dhivehi translation before that. Yet we dont want to recommend them, as they engage in questionable muamalath when it comes to their app -->
+                <!-- https://play.google.com/store/apps/details?id=com.quranly.app gave them the dhivehi text on 13/2/24, and they hadnt used a dhivehi translation before that. Yet we dont want to recommend them, as they engage in questionable muamalath and have dubious akhlaq when it comes to their app -->
 
                 <br />
                 The following platforms have older versions of the text which
@@ -1779,8 +1743,10 @@
                 • Dhivehi Quran (20/9/23, 1.0.0, dhivehi.mv - mv.dhivehi.quran)
                 <!-- Yoo, u426316054, dhivehi.mv guy -->
                 <br />
+                <!--
                 • Quran Translations: Dhivehi (17/9/23, 1.0.3, Techomic -
-                com.techomic.quran_translations)
+                com.techomic.quran_translations) 
+                above one has since updated the text, but still doesnt work online -->
                 <!-- Mohamed Usman, emyu10, old tanzil text, app doesnt work offline, but dev sent me a message, so i directed him to the official repo -->
 
                 <!--
@@ -1818,3 +1784,60 @@
     <!-- === INT JS - END === -->
   </body>
 </html>
+
+<!--
+                  1) To get arabic words embedded original translation text:
+                  download "https://github.com/kudanai/Quran-Translation/blob/dev/master_dv.divehi.txt"
+                  open in vscode
+                  [replace tabs with spaces: "	" " ",
+                  then replace double spaces with single spaces:
+                  "  " " "]
+                  (nvm above step, i've removed tabs now)
+                  it has surah and ayah numbers in the format of "1|1|, 1|2|, 1|3|",
+                  To remove surah ayah formatting: Find everything that precedes the character "|" (pipe), including the "|" character itself, replace with empty string,
+                  use regex:
+                  .*\|
+
+                  remember to remove the last 11 lines from the end:
+#=====================================================================
+#
+# Quran Translation
+# Name: ދިވެހި
+# Translator: Office of the President of Maldives
+# Language: Divehi
+# ID: dv.divehi
+# Last Update: April 13, 2024
+# Source: Tanzil.net
+#
+#====================================================================
+upload to g sheets, convert to json
+                  
+                  copy the text and paste in the column needed in the sheet.
+
+                  ---
+
+                  2) To generate thikithaana transliterated file:
+                  Download the full repo as is "https://github.com/kudanai/Quran-Translation" downlaod as zip (if not using kudanai's repo, you can use a fork instead)
+                  Open that base directory in powershell
+                  run: 
+                  python utils/transliterator/generate_alt_text_with_thikithaana.py
+                  (might get an invalid escape error, nothing to worry about says hassaan)
+                  this creates the following file:
+                  alt_dv.divehi
+                  empty replace surah ayah formatting,
+                  use regex:
+                  .*\|
+                  remember to remove the last 11 lines from the end:
+#=====================================================================
+#
+# Quran Translation
+# Name: ދިވެހި
+# Translator: Office of the President of Maldives
+# Language: Divehi
+# ID: dv.divehi
+# Last Update: April 13, 2024
+# Source: Tanzil.net
+#
+#====================================================================
+copy the text and paste in the column needed in the sheet.
+                -->
