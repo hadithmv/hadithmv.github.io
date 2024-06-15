@@ -1094,8 +1094,12 @@
               &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
             </button>
 
-            <button class="lowerButtons" onclick="toggleThaana();">
-              &nbsp; ތަރުޖަމާގެ ތާނަ އަރަބިކުރޭ &nbsp;
+            <button
+              id="toggleThaanaArabi"
+              class="lowerButtons"
+              onclick="toggleThaana();"
+            >
+              &nbsp; އަސްލު އަރަބިތާނަ &nbsp;
             </button>
 
             <button
@@ -1110,15 +1114,25 @@
               function toggleThaana() {
                 var isVisible = $("#quranTable")
                   .DataTable()
-                  .column(6)
-                  .visible();
-                $("#quranTable").DataTable().column(6).visible(!isVisible);
-
-                var isVisible = $("#quranTable")
-                  .DataTable()
                   .column(7)
                   .visible();
                 $("#quranTable").DataTable().column(7).visible(!isVisible);
+
+                var isVisible = $("#quranTable")
+                  .DataTable()
+                  .column(8)
+                  .visible();
+                $("#quranTable").DataTable().column(8).visible(!isVisible);
+
+                // change string
+                var button = document.getElementById("toggleThaanaArabi");
+                if (
+                  button.innerHTML.trim() === "&nbsp; އަސްލު އަރަބިތާނަ &nbsp;"
+                ) {
+                  button.innerHTML = "&nbsp; ހުސްއެކަނި ތާނަ &nbsp;";
+                } else {
+                  button.innerHTML = "&nbsp; އަސްލު އަރަބިތާނަ &nbsp;";
+                }
               }
             </script>
 
