@@ -81,6 +81,7 @@ Copy-Item ../notes/info/mirror-backups.html -Destination ../app/webview-master/a
 Copy-Item ../notes/info/mirror-backups.html -Destination ../404.html -Recurse -Force
 #
 Copy-Item ../notes/info/nawawiSiyar.html -Destination ../app/webview-master/app/src/main/assets/notes/info/nawawiSiyar.html -Recurse -Force
+Copy-Item ../notes/info/NukuthaajehiAkuruthahBeynunkuraaneHama.html -Destination ../app/webview-master/app/src/main/assets/notes/info/NukuthaajehiAkuruthahBeynunkuraaneHama.html -Recurse -Force
 Copy-Item ../notes/info/other-links.html -Destination ../app/webview-master/app/src/main/assets/notes/info/other-links.html -Recurse -Force
 Copy-Item ../notes/info/privacy.html -Destination ../app/webview-master/app/src/main/assets/notes/info/privacy.html -Recurse -Force
 Copy-Item ../notes/info/text-editor.html -Destination ../app/webview-master/app/src/main/assets/notes/info/text-editor.html -Recurse -Force
