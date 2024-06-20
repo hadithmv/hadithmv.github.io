@@ -1,5 +1,5 @@
 /* ====================
-   Fonts - REMEMBER TO CHANGE THESE FOR minimal-mod.css // fonts.css AS WELL
+   Fonts
 ======================= */
 
 /* Change the default font family in all browsers. */
@@ -12,10 +12,13 @@ html {
   font-size: 120%; /* for tharujamaanu */
 }
 
+/*  !!! REMEMBER TO CHANGE THESE FOR minimal-mod.css // fonts.css AS WELL */
+
 /* MERGED */
 @font-face {
   font-family: "mergedFont";
-  src: url(../font/merged-300.woff2) format("woff2"),
+  src:
+    url(../font/merged-300.woff2) format("woff2"),
     url(../font/merged-300.woff) format("woff");
   font-display: block; /* previously swap */
 }
