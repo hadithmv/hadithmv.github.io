@@ -8,6 +8,10 @@ Set-Content ../akhbaruShuyukh.js -Value 'const akhbaruShuyukh_DB='
 Get-Content akhbaruShuyukh.json | Add-Content ../akhbaruShuyukh.js
 uglifyjs ../akhbaruShuyukh.js -c -m -o ../akhbaruShuyukh.js
 
+Set-Content ../akhlaqHamalathulQuran.js -Value 'const akhlaqHamalathulQuran_DB='
+Get-Content akhlaqHamalathulQuran.json | Add-Content ../akhlaqHamalathulQuran.js
+uglifyjs ../akhlaqHamalathulQuran.js -c -m -o ../akhlaqHamalathulQuran.js
+
 # no actual allAqida.json or js exists
 
 Set-Content ../allAthar.js -Value 'const allAthar_DB='
