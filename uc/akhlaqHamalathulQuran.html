@@ -47,7 +47,7 @@
     <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
     <!-- change123 js -->
     <script defer src="../js/json/akhlaqHamalathulQuran.js"></script>
-    <script defer src="../js/akhlaqHamalathulQuran-script.js"></script>
+    <script defer src="../js/akhlaqHamalathulQuran-script.min.js"></script>
     <!-- === EXT JS - END === -->
 
     <!-- === INT CSS === -->
@@ -314,6 +314,9 @@
               <br />
               تحقيق: أحمد شحاته الألفي السكندري | الناشر: دار الصفا والمروة
               بالإسكندرية | الطبعة الأولى ١٤٢٦ هـ - ٢٠٠٥ م.
+              <br />
+              (الترقيم والترجمة الموجود في هذه الصفحة مبني على تحقيق عادل آل
+              حمدان)
             </p>
 
             <p>
@@ -324,6 +327,9 @@
               ތަހްގީގު ކުރީ: އަޙްމަދު ޝިޙާތަހ އަލްއަލްފީ އައްސަކަންދަރީ | ޗާޕު
               ކުރީ: ދާރުއް ޞަފާ ވަލް މަރްވާ، އިސްކަންދަރުގައި | ފުރަތަމަ ޗާޕު
               1426 ހ. - 2005 މ.
+              <br />
+              (މި ސަފުހާގައިވާ މައި ނަމްބަރ ދިނުމާއި ދިވެހި ތަރުޖަމާ ބިނާވެފައި
+              ވަނީ ޢާދިލު އާލްޙަމްދާނުގެ ތަހްގީގުގެ މައްޗަށެވެ.)
             </p>
 
             <p>
@@ -724,5 +730,103 @@
 </html>
 
 <!--
+with numbered dfk texts, such as athar number
+
+...
+
+in order to have square brackets around footnotes, (directly saving as plaintext loses footnote brackets)
+
+convert doc text to excel spreadsheet
+
+copy table and paste in a g sheet (doing in in ms excel is slow and introduces unwanted stuff in the table,)
+
+trim whitespace
+download as excel
+
+remove blank rows
+
+import to g sheet again
+
+download as csv
+convert to json
+save json
+
+...
+
+i have a 2d nested json file called "input"
+
+in it are rows that start with a number (or numbers) followed by a hyphen, like so "1-"
+
+before every such occurence, place this string "$$"
+
+output the file as "output"
+
+use js or python
+
+utf 8
+
+...
+
+const fs = require('fs');
+
+// Read the input JSON file
+fs.readFile('input.json', 'utf8', (err, data) => {
+  if (err) {
+    console.error('Error reading input file:', err);
+    return;
+  }
+
+  try {
+    // Parse the JSON data
+    let jsonData = JSON.parse(data);
+
+    // Modify rows that start with a number followed by a hyphen
+    jsonData.forEach(row => {
+      for (let key in row) {
+        if (row.hasOwnProperty(key) && /^[0-9]+-/.test(row[key])) {
+          row[key] = '$$' + row[key]; // Prepend "$$"
+        }
+      }
+    });
+
+    // Write the modified JSON to the output file
+    fs.writeFile('output.json', JSON.stringify(jsonData, null, 2), 'utf8', (err) => {
+      if (err) {
+        console.error('Error writing output file:', err);
+        return;
+      }
+      console.log('Output file "output.json" has been successfully created.');
+    });
+
+  } catch (error) {
+    console.error('Error parsing input JSON:', error);
+  }
+});
+
+
+
+...
+
+replace
+"
+  ],
+  [
+    "
+with
+\n
+
+then replace
+$$
+with
+"
+  ],
+  [
+    "
+
+convert json to csv
+import to g sheets
+remove unneeded blanks if any
+trim whitespace
+
 
 -->
