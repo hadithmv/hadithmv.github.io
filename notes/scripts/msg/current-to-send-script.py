@@ -10,6 +10,13 @@ destination_directory_kids = r'C:\Users\ashra\Downloads\00 transfer to desktop\A
 source_directory_adults = r'C:\Users\ashra\Downloads\00 transfer to desktop\Art\Rameezbe\1 Message English Adult Books'
 destination_directory_adults = r'C:\Users\ashra\Downloads\00 transfer to desktop\Art\Rameezbe\1 Message English Adult Books\00 CURRENT TO SEND ADULTS'
 
+# Folders to avoid
+folders_to_avoid = [
+    "ABDUL HAY'S TOMATO RED TILES",
+    "THE BORROWER AND LENDER BY BUSHRA JIBALI",
+    "STRAIGHTENING THE LINES FOR PRAYER - ACCORDING TO THE SUNNAH"
+]
+
 # Remove all files and folders within the destination directories for kids and adults
 for directory in [destination_directory_kids, destination_directory_adults]:
     for root, dirs, files in os.walk(directory, topdown=False):
@@ -26,6 +33,11 @@ df = pd.read_excel(excel_path)
 # Iterate over the rows in the third column for kids books
 for folder_name in df.iloc[:, 2]:  # Using index 2 for the third column (0-based index)
     folder_name_str = str(folder_name)  # Convert to string if not already
+
+    # Skip folders in the avoid list
+    if folder_name_str in folders_to_avoid:
+        print(f'Skipping folder for kids books: {folder_name_str}')
+        continue
 
     # Check if the folder exists in the source directory for kids books
     source_folder_path = os.path.join(source_directory_kids, folder_name_str)
@@ -48,6 +60,11 @@ for folder_name in df.iloc[:, 2]:  # Using index 2 for the third column (0-based
 # Iterate over the rows in the third column for adult books
 for folder_name in df.iloc[:, 2]:  # Using index 2 for the third column (0-based index)
     folder_name_str = str(folder_name)  # Convert to string if not already
+
+    # Skip folders in the avoid list
+    if folder_name_str in folders_to_avoid:
+        print(f'Skipping folder for adult books: {folder_name_str}')
+        continue
 
     # Check if the folder exists in the source directory for adult books
     source_folder_path = os.path.join(source_directory_adults, folder_name_str)
