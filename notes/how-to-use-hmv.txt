@@ -2,6 +2,8 @@ Thank you for choosing Hadithmv, The Maldivian Platform for Translations of the 
 
 Hadithmv is available online as a website, as well as an offline application on both Android and Windows.
 
+It is recommended to go through the following instructions first in order to get a basic grasp of how to use Hadithmv.
+
 ---------------------
 
 * General Usage:
@@ -9,7 +11,7 @@ Hadithmv is available online as a website, as well as an offline application on 
 Click on the top navbar or right hamburger button to open the menu.
 Open a book to begin browsing.
 Use the search box to look up words.
-Use the show 1 box to select how many items to show. For example you can multiple hadith or ayat on the same page by changing this option.
+Use the show 1 box to select how many items to show. For example you can display multiple Hadith or Ayat on the same page by changing value. (Note that this may cause other functions to not work as expected.)
 Use the page buttons to move forward or backward. (Can also swipe to change pages on mobile, which is much easier)
 Write in the page box to jump to a page. (Can also use arrow keys once inside the box)
 Use the Options button to filter data.
@@ -17,6 +19,8 @@ Use the Copy button to copy all visible data.
 Use the Extra Columns button to show or hide specific data.
 
 After searching, you can double click on a search result to jump to the page where that result comes from. (Sometimes this may not work, if so, refresh the page.)
+Note that because double clicking on the text has a specific function, triple clicking like you normally would to select a body of text will not work on Hadithmv. Instead, select then copy, or press the copy button.
+
 For exact matches only, write your search term within quotes "like this"
 
 If you are using Hadithmv from the website, the place where you were reading stays saved even if you close the browser. As for the app, you can click the "copy current page link" button at the bottom of a page, save that link somewhere, then paste in in the link box on the homepage to continue from there.
@@ -30,7 +34,7 @@ If something does not load correctly, open the menu and use soft or hard reload 
 ---------------------
 
 * Desktop Keyboard Shortcuts:
-(These work after you have clicked somewhere on the text first)
+(These work on a PC, after you have clicked somewhere on the text first)
 [Tab] = Tab Navigation
 [Arrow keys] = Keyboard Navigation
 [Shift + s] = Show Additional Columns
