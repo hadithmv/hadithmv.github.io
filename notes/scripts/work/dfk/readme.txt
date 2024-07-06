@@ -63,7 +63,7 @@ replace "\n" with "#"
 
 ...
 
-i have a json file 2d array file called "addfootnotes.json"
+i have a json file 2d array file called "input.json"
 
 it looks somewhat like this:
 
@@ -86,7 +86,7 @@ it has data similar to the following:
 
 [1] تاريخ بغداد: 13/534 [2] البداية والنهاية: 11/227 [3] طبقات الحنابلة: 2/44-45، المنتظم: 14/14 [4] المنتظم: 14/15
 
-now what i want you to do is, using js, check the first row of the first column in addfootnotes.json, if it has a number like so "[4]" then look for that same number within the same brackets in the footnotes.txt, and copy all the text (from that number in the footnotes.txt to right before start of the next such number in footnotes.txt) to the  second column of the corresponding row in addfootnotes.json.
+now what i want you to do is, using js, check the first row of the first column in addfootnotestothis.json, if it has a number like so "[4]" then look for that same number within the same brackets in the footnotes.txt, and copy all the text (from that number in the footnotes.txt to right before start of the next such number in footnotes.txt) to the  second column of the corresponding row in addfootnotes.json.
 
 note that a row in the first column can have multiple such numbers. in which case, copy over the first instance of that number and its text from footnotes.txt, and after that, copy the next such number to the same row in the second column, but after the previous copied over number, seperating them with a new line
 

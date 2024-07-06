@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 // Read the JSON file
-fs.readFile("addfootnotes.json", "utf8", (err, data) => {
+fs.readFile("addfootnotestothis.json", "utf8", (err, data) => {
   if (err) {
     console.error(err);
     return;
