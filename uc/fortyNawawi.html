@@ -332,8 +332,8 @@
                 onclick="hideShow();changeShowAqidaText();"
                 title="show aqida"
               >
-                &nbsp; &nbsp; &nbsp; ނަވަވީގެ އަގީދާ ބެލުމަށް ފިތާލާ &nbsp;
-                &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; ނަވަވީގެ އަގީދާ ބަލާލަން ބޭނުމިއްޔާ
+                ފިތާލާ... &nbsp; &nbsp; &nbsp;
               </button>
             </p>
 
@@ -359,26 +359,11 @@
                 } else {
                   //run first function
                   document.getElementById("showAqidaButton").innerHTML =
-                    "”علم الحديث ذكر، لا يحبه إلا ذكران الرجال، ولا يكرهه إلا مؤنثوهم“.";
+                    "&nbsp; &nbsp; &nbsp;  އަގީދާ ނުބަލާ އަވަހަށް ފޮރުވުމަށް  ފިތާލާ! &nbsp; &nbsp; &nbsp;";
                 }
-                return result;
-              }
-              //
-            </script>
 
-            <script>
-              var changeHideAqidaText_timesClicked = 0;
-              function changeHideAqidaText() {
-                changeHideAqidaText_timesClicked++;
-                if (changeHideAqidaText_timesClicked % 2 == 0) {
-                  //run second function
-                  document.getElementById("hideAqidaButton").innerHTML =
-                    "&nbsp; &nbsp; &nbsp; ނަވަވީގެ އަގީދާ ފޮރުވުމަށް ފިތާލާ &nbsp; &nbsp; &nbsp;";
-                } else {
-                  //run first function
-                  document.getElementById("showAqidaButton").innerHTML =
-                    "”ޙަދީޘްގެ އިލްމަކީ ފިރިހެން އެއްޗެކެވެ. ފިރިހެނުންގެ ތެރެއިން ވެސް އެންމެ ފިރިހެންވަންތަ މީހުން ނޫނީ އެ އިލްމަށް ލޯތްބެއް ނުކުރާނެއެވެ. އަދި އޭގެ ތެރެއިން އަންހެންދުޅާ މީހުން ނޫނީ އެއަށް ނަފުރަތެއް ނުކުރާނެއެވެ.“";
-                }
+                hideShow2(changeShowAqidaText_timesClicked);
+
                 return result;
               }
               //
@@ -395,6 +380,40 @@
                 }
               }
             </script>
+
+            <script>
+              function hideShow2(clickCount) {
+                var x = document.getElementById("shownPost2");
+                if (clickCount % 2 == 0) {
+                  x.style.display = "block";
+                } else {
+                  x.style.display = "none";
+                }
+              }
+              /*function hideShow2() {
+                if (
+                  document.getElementById("shownPost2").style.display === "none"
+                ) {
+                  document.getElementById("shownPost2").style.display = "block";
+                } else {
+                  document.getElementById("shownPost2").style.display = "none";
+                }
+              }*/
+            </script>
+
+            <div id="shownPost2" style="display: none">
+              <p class="mid">
+                ”علم الحديث ذكر، لا يحبه إلا ذكران الرجال، ولا يكرهه إلا
+                مؤنثوهم“.
+              </p>
+
+              <p class="mid">
+                ”ޙަދީޘްގެ އިލްމަކީ ފިރިހެން އެއްޗެކެވެ. ފިރިހެނުންގެ ތެރެއިން
+                ވެސް އެންމެ ފިރިހެންވަންތަ މީހުން ނޫނީ އެ އިލްމަށް ލޯތްބެއް
+                ނުކުރާނެއެވެ. އަދި އޭގެ ތެރެއިން އަންހެންދުޅާ މީހުން ނޫނީ އެއަށް
+                ނަފުރަތެއް ނުކުރާނެއެވެ.“
+              </p>
+            </div>
 
             <div id="shownPost" style="display: none">
               <h3>
@@ -1206,10 +1225,10 @@
               <button
                 class="lowerButtons"
                 id="hideAqidaButton"
-                onclick="hideShow();changeHideAqidaText();"
+                onclick="hideShow();changeShowAqidaText();"
                 title="hide aqida"
               >
-                &nbsp; &nbsp; &nbsp; ނަވަވީގެ އަގީދާ އަވަހަށް ފޮރުވުމަށް ފިތާލާ
+                &nbsp; &nbsp; &nbsp; އަގީދާ އެނގުމަށް ފަހު ވަންހަނާކުރަން ފިތާލާ
                 &nbsp; &nbsp; &nbsp;
               </button>
 
