@@ -91,16 +91,15 @@ html {
   /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page */
   overflow-y: scroll;
 
-  word-wrap: break-word; /* Allow long words to be able to break and wrap onto the next line. Prevents long url addresses from breaking page content when it doesnt fit the width
+  /* Allow long words to be able to break and wrap onto the next line. Prevents long url addresses from breaking page content when it doesnt fit the width. use this instead of text-wrap or break-word */
+  overflow-wrap: anywhere;
 
-  Internet Explorer 5.5+ */
-}
+  /*Internet Explorer 5.5+ */
 
-/* ====================
+  /* ====================
    BOILERPLATE 8.0.0 CODE - from normalize 8.0.1 and main css
 ======================= */
 
-html {
   /* main */
 
   /* color: #222; */
@@ -711,7 +710,7 @@ table.dataTable tbody td {
   font-size: 22px; /* 100% 22 */
   color: #24292e !important;
   line-height: 1.7; /* 1.5 */
-  word-wrap: break-word;
+  /*word-wrap: break-word;*/
   /*text-wrap: balance;*/
   /*text-align: right;*/
   direction: rtl;
@@ -2045,7 +2044,10 @@ this makes a faint white outline around card  */
   background: #c1d1c3;
   border-radius: 0.2em;
   border: 1px solid #40455c;
-  box-shadow: inset 0 0 2px 0 #693, 0 0 0 2px #fff, 0 0 0 3px #40455c;
+  box-shadow:
+    inset 0 0 2px 0 #693,
+    0 0 0 2px #fff,
+    0 0 0 3px #40455c;
 
   /* centers ayahbox */
   top: 15px; /* -30 */
@@ -2166,8 +2168,10 @@ this makes a faint white outline around card  */
     background: #212d39;
     color: rgba(255, 255, 255, 0.847);
     border-color: #212d39;
-    box-shadow: inset 0 0 2px 0 /*#693*/,
-      0 0 0 1.75px rgba(255, 255, 255, 0.847), 0 0 0 2.75px #40455c;
+    box-shadow:
+      inset 0 0 2px 0 /*#693*/,
+      0 0 0 1.75px rgba(255, 255, 255, 0.847),
+      0 0 0 2.75px #40455c;
   }
 
   /* this colors the square border around the frame in quran, otherwise white */

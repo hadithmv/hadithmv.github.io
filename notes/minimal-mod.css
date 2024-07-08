@@ -8,6 +8,9 @@ html {
 
   /* from scroll to top */
   scroll-behavior: smooth;
+
+  /* Allow long words to be able to break and wrap onto the next line. Prevents long url addresses from breaking page content when it doesnt fit the width. use this instead of text-wrap or word-break */
+  overflow-wrap: anywhere;
 }
 
 /*
