@@ -1,8 +1,8 @@
-Thank you for choosing Hadithmv, The Maldivian Platform for Translations of the Sunnah.
+Welcome to Hadithmv, The Maldivian Platform for Translations of the Sunnah.
 
 Hadithmv is available online as a website, as well as an offline application on both Android and Windows.
 
-It is recommended to go through the following instructions first in order to get a basic grasp of how to use Hadithmv.
+It is recommended to go through these instructions first in order to get a basic grasp of how to use Hadithmv. Those who skip this will be at a disadvantage compared to those who go through it, when it comes to making the most of Hadithmv.
 
 ---------------------
 
