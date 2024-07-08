@@ -1,16 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 35
 
     namespace "com.hadithmv.hmv"
 
     defaultConfig {
         applicationId "com.hadithmv.hmv"
         minSdkVersion 21
-        targetSdkVersion 34
-        versionCode 81
-        versionName "3.11"
+        targetSdkVersion 35
+        versionCode 82
+        versionName "3.12"
     }
     buildTypes {
         release {
