@@ -58,12 +58,19 @@ $(document).ready(() => {
     });
   } //= =================== end if else
 
+  // cgpt prompt: how do i reverse the default order of jquery datatables. i dont want it for just the first column, and i dont want it in alphabetical order either, i just want to reverse the default order of datatable table as is. this is my currect code:
+
+  // Reverse the data array
+  // const reversedData = kunnaasha_DB.slice().reverse();
+
   const table = $("#kunnaashaTable").DataTable({
     // var table = $("#allHadith").DataTable({
     // NOT DataTable();
 
     // CHANGE123 JSON
-    data: kunnaasha_DB, // https://datatables.net/manual/ajax
+    //data: kunnaasha_DB, // https://datatables.net/manual/ajax
+    // data: reversedData,
+    data: kunnaasha_DB.slice().reverse(),
 
     columns: [
       /* add # string to hadith no */
@@ -89,9 +96,17 @@ $(document).ready(() => {
           return firstLine;
         },
       },
-      {
+      /*{
         data: 0,
         title: "ލިޔުންތެރިޔާ",
+      },*/
+      {
+        /* add text string */
+        data: 0,
+        title: "ލިޔުންތެރިޔާ",
+        render: function (data, type, row) {
+          return "- " + data;
+        },
       },
       {
         data: 1,
