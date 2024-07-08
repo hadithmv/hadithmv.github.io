@@ -1,60 +1,58 @@
-Welcome to Hadithmv, The Maldivian Platform for Translations of the Sunnah.
+Welcome to Hadithmv: The Maldivian Platform for Sunnah Translations
 
-Hadithmv is available online as a website, as well as an offline application on both Android and Windows.
+Hadithmv is available both online as a website and offline as an application for Android and Windows.
 
-It is recommended to go through these instructions first in order to get a basic grasp of how to use Hadithmv. Those who skip this will be at a disadvantage compared to those who go through it, when it comes to making the most of Hadithmv.
+To make the most of Hadithmv and avoid getting stuck, it is recommended to go through these instructions first.
 
----------------------
-
+----------------
 * General Usage:
+----------------
 
-At the very top, click on the "Navbar" to open the Menu.
+1. NAVIGATION:
+  • Click on the "Navbar" at the very top to access the Menu.
+  • Below that is "Paste Page Link Here" box. It is not a search box, more on that later.
 
-Below that is "Paste Page Link Here" box. It is not a search box, more on that later.
+2. READING BOOKS:
+  • From the home page, select a category (e.g., Hadith) and open a book (e.g., Muwatta Malik).
+  • Change pages using the "Page Buttons", or by swiping on mobile.
+  • Jump to specific pages using the "Page Number" box.
 
-On the home page, go to a book and open it to begin reading. (For example, go to Hadith category, then open Muwatta Malik.)
+3. READING CONTROLS:
+  • "Show 1" adjusts the number of entries displayed per page. (note: doing so may cause other functions to not work as expected).
+  • "Filter" can be used to filter content (e.g., by Chapter or Heading).
+  • "Extra Columns" allows you to show/hide specific parts of the book (e.g., Arabic, Dhivehi, Footnotes, Heading).
 
-After opening a book, you can do the following:
+4. COPYING TEXT:
+  • "Copy" lets you copy all visible text. (note: hidden text won't be copied).
+  • You can also select text with the cursor and then right click to copy.
+  • Double clicking text performs a specific action on Hadithmv, as stated below. As such, triple clicking to select a paragraph will not work.
 
-Use the "Show 1" box to select how many entries to show at once on the page. (For example if you can change it from 1 to 10 in a Hadith book, it will show ten Hadith at once, instead of just one. *Note that showing more than one entry may cause other functions to not work as expected.)
+5. SEARCHING
+  • Use the "Search Box" to find specific text within the current book.
+  • Double-click a search result to view it in its original context. (note: this ends the search).
+  • Use double quotes when searching for exact matches (e.g., "like this").
+  • Results appear instantly. Change the page to go to the next set of results.
+  • You can choose how many results appear at once using "Show 1".
 
-Use the "Page Buttons" to move forward or backward. In mobile you can simply swipe with your finger instead.
-Type a page number in the "Page Box" to jump to that page. (On desktop, once you have the cursor in that box, you can use arrow keys to change the page.)
+6. CONTINUING WHERE YOU LAST READ:
+  • When using the online website: Your reading position is automatically saved in the browser.
+  • As for the offline app: At the bottom of a book, click "Copy Current Page Link" and paste it somewhere on your device. To resume reading, open the home page, and paste it in the "Paste Page Link Here" box at the top.
 
-Use the "Filter" button to filter the test shown on the page. (For example, you can filter by Chapter or Heading.)
+7. RETURN TO HOME PAGE:
+  • On book pages with the Navbar, click the "Hadithmv Logo" at the top left.
+  • On other pages, there will be a hyperlinked text saying "Hadithmv" at the top, or "Back to Main Page" at the bottom.
+  • On some Android phones, the back button exits the app. If this happens, use the above methods.
 
-Use the "Copy" button to copy all visible text currently shown on screen.
+8. TROUBLESHOOTING:
+  • If something malfunctions on a book page, open the Navbar menu, and refresh the page using "Soft Reload" or "Hard Reload" found at the bottom.
+  • If that doesn't work, report it to us using the Contact page.
 
-Use the "Extra Columns" button to show or hide parts of text (For example, you can choose whether to hide any of the following; Arabic text, Dhivehi translation, Footnotes, Headings, etc. *Note that parts of text hidden this way will not be copied when using the Copy button.)
-
-Use the "Search Box" to find text within the current book.
-For exact matches only, write your search term within quotes "like this".
-After typing your search, results that match will automatically be shown below, in place of the regular sequence of text.
-If one entry is shown by default, one result will be shown at a time. To see the next result, go to the next page, or swipe on mobile.
-To show more than one result at once, change the value of the "Show 1" box.
-After finding the entry you searched for, if you want to go to the page where that entry is originally found in the book,
-you can double click on that entry while it is shown in the search results. (*Note that the search results will be gone, and you will only see the entry you double clicked, in its original page.)
-Because double clicking the text has a specific function on Hadithmv, triple clicking like you normally would to select a paragraph of text, will not work. Instead, drag select the text you want then right click to copy, or press the copy button.
-
-If you are using Hadithmv online from the website, the place where you were reading stays saved even if you close the browser.
-As for the app, you can click the "Copy Current Page Link" button at the bottom of book's page, then save that link somewhere, such as a note on your phone. When you want to continue from there, go to the home page of Hadithmv, right below the Navbar is a "Paste Page Link Here" box,  then paste it there to continue where you left off.
-
-In book pages, where the navbar is shown, you can click on the "Hadithmv Logo" at the top left to go back to the home page. Other pages without the navbar will have hyperlinked text that does this, saying "Hadithmv" at the top, or "Back to Main Page" at the bottom.
-On some Android phones, the back button of the phone closes the app for some reason. If this happens, use the above method to go to the home page.
-
-If something seems to stop working correctly on Hadithmv for whatever reason, open the Navbar menu and try using "Soft Reload" or "Hard Reload" to reset the page. This will usually fix things.
-
----------------------
-
-* Desktop Keyboard Shortcuts:
-
-(These work on a PC, after you have clicked somewhere on the book page text first.)
-[Tab] = Tab Navigation
-[Arrow keys] = Keyboard Navigation
-[Shift + s] = Show Additional Columns
-[Shift + c] = Copy shown text to clipboard
-[Shift + f] = Open Filter
-
-The cursor starts already inside the Search Box on desktop. (So to use the desktop keyboard shortcuts above, you must click outside the search box first.)
-
-You can save a complete webpage (ctrl + s) for offline use.
+9. DESKTOP KEYBOARD SHORTCUTS:
+  • [Tab] = Tab Navigation
+  • [Arrow keys] = Keyboard Navigation
+  • [Shift + s] = Show Additional Columns
+  • [Shift + c] = Copy shown text to clipboard
+  • [Shift + f] = Open Filter
+  • The cursor starts inside the Search box on desktop for easy typing. To use the keyboard shortcuts above, click outside the search box first.
+  • You can click inside the "Page Number" box, then use the arrow keys to change pages.
+  • You can save a complete webpage (ctrl + s) for offline use.
