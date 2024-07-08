@@ -8,40 +8,53 @@ It is recommended to go through the following instructions first in order to get
 
 * General Usage:
 
-Click on the top navbar or right hamburger button to open the menu.
-Open a book to begin browsing.
-Use the search box to look up words.
-Use the show 1 box to select how many items to show. For example you can display multiple Hadith or Ayat on the same page by changing value. (Note that this may cause other functions to not work as expected.)
-Use the page buttons to move forward or backward. (Can also swipe to change pages on mobile, which is much easier)
-Write in the page box to jump to a page. (Can also use arrow keys once inside the box)
-Use the Options button to filter data.
-Use the Copy button to copy all visible data.
-Use the Extra Columns button to show or hide specific data.
+At the very top, click on the "Navbar" to open the Menu.
 
-After searching, you can double click on a search result to jump to the page where that result comes from. (Sometimes this may not work, if so, refresh the page.)
-Note that because double clicking on the text has a specific function, triple clicking like you normally would to select a body of text will not work on Hadithmv. Instead, select then copy, or press the copy button.
+Below that is "Paste Page Link Here" box. It is not a search box, more on that later.
 
-For exact matches only, write your search term within quotes "like this"
+On the home page, go to a book and open it to begin reading. (For example, go to Hadith category, then open Muwatta Malik.)
 
-If you are using Hadithmv from the website, the place where you were reading stays saved even if you close the browser. As for the app, you can click the "copy current page link" button at the bottom of a page, save that link somewhere, then paste in in the link box on the homepage to continue from there.
+After opening a book, you can do the following:
 
-Most pages have a top menu where you can click on the Hadithmv logo at the left to go back to the homepage. Other pages have hyperlinked text where it says "Hadithmv" at the top.
+Use the "Show 1" box to select how many entries to show at once on the page. (For example if you can change it from 1 to 10 in a Hadith book, it will show ten Hadith at once, instead of just one. *Note that showing more than one entry may cause other functions to not work as expected.)
 
-On some Android phones, the back button of the phone closes the app. If this happens, use the above method instead.
+Use the "Page Buttons" to move forward or backward. In mobile you can simply swipe with your finger instead.
+Type a page number in the "Page Box" to jump to that page. (On desktop, once you have the cursor in that box, you can use arrow keys to change the page.)
 
-If something does not load correctly, open the menu and use soft or hard reload to reset the page.
+Use the "Filter" button to filter the test shown on the page. (For example, you can filter by Chapter or Heading.)
+
+Use the "Copy" button to copy all visible text currently shown on screen.
+
+Use the "Extra Columns" button to show or hide parts of text (For example, you can choose whether to hide any of the following; Arabic text, Dhivehi translation, Footnotes, Headings, etc. *Note that parts of text hidden this way will not be copied when using the Copy button.)
+
+Use the "Search Box" to find text within the current book.
+For exact matches only, write your search term within quotes "like this".
+After typing your search, results that match will automatically be shown below, in place of the regular sequence of text.
+If one entry is shown by default, one result will be shown at a time. To see the next result, go to the next page, or swipe on mobile.
+To show more than one result at once, change the value of the "Show 1" box.
+After finding the entry you searched for, if you want to go to the page where that entry is originally found in the book,
+you can double click on that entry while it is shown in the search results. (*Note that the search results will be gone, and you will only see the entry you double clicked, in its original page.)
+Because double clicking the text has a specific function on Hadithmv, triple clicking like you normally would to select a paragraph of text, will not work. Instead, drag select the text you want then right click to copy, or press the copy button.
+
+If you are using Hadithmv online from the website, the place where you were reading stays saved even if you close the browser.
+As for the app, you can click the "Copy Current Page Link" button at the bottom of book's page, then save that link somewhere, such as a note on your phone. When you want to continue from there, go to the home page of Hadithmv, right below the Navbar is a "Paste Page Link Here" box,  then paste it there to continue where you left off.
+
+In book pages, where the navbar is shown, you can click on the "Hadithmv Logo" at the top left to go back to the home page. Other pages without the navbar will have hyperlinked text that does this, saying "Hadithmv" at the top, or "Back to Main Page" at the bottom.
+On some Android phones, the back button of the phone closes the app for some reason. If this happens, use the above method to go to the home page.
+
+If something seems to stop working correctly on Hadithmv for whatever reason, open the Navbar menu and try using "Soft Reload" or "Hard Reload" to reset the page. This will usually fix things.
 
 ---------------------
 
 * Desktop Keyboard Shortcuts:
-(These work on a PC, after you have clicked somewhere on the text first)
+
+(These work on a PC, after you have clicked somewhere on the book page text first.)
 [Tab] = Tab Navigation
 [Arrow keys] = Keyboard Navigation
 [Shift + s] = Show Additional Columns
 [Shift + c] = Copy shown text to clipboard
 [Shift + f] = Open Filter
 
-The cursor starts already inside the search box on desktop
-(So to use desktop keyboard shortcuts, you must click outside the search box first)
+The cursor starts already inside the Search Box on desktop. (So to use the desktop keyboard shortcuts above, you must click outside the search box first.)
 
-You can save a complete webpage (ctrl + s) for offline use
+You can save a complete webpage (ctrl + s) for offline use.

@@ -61,7 +61,8 @@
         -webkit-font-smoothing: antialiased;
         text-align: right;
         direction: rtl;
-        font-size: 120%; /* for tharujamaanu */
+        font-size: 120%;
+        /* for tharujamaanu */
       }
 
       /* removes margin around opened menu background shadow thing, otherwise causes content to shift or jump down in index */
@@ -72,6 +73,7 @@
         margin-left: 8px;
         margin-right: 8px;
       }
+
       /* @mixin for-tablet-portrait or smaller
       @media screen and (max-width: 600px) {
         .mm-ocd-opened {
@@ -105,7 +107,8 @@
         flex-wrap: wrap;
 
         /* adds space above */
-        margin-top: 30px; /* 70px*/
+        margin-top: 30px;
+        /* 70px*/
 
         /* gives space around in desktop view, and then centers */
         max-width: 1080px;
@@ -218,6 +221,7 @@
 
         cursor: pointer;
       }
+
       .card:hover p {
         color: #fff;
       }
@@ -227,6 +231,7 @@
         border: none !important;
         background-color: rgba(255, 255, 255, 0.93);
       }
+
       .card.disabled p {
         color: rgba(0, 0, 0, 0.75);
       }
@@ -234,13 +239,15 @@
       a > .card {
         font-size: 22px;
         color: #0e1621;
-        line-height: 1.8; /* 1.5 */
+        line-height: 1.8;
+        /* 1.5 */
       }
 
       @media screen and (max-width: 900px) {
         a > .card {
           font-size: 19px;
-          line-height: 1.5; /* 1.5 */
+          line-height: 1.5;
+          /* 1.5 */
         }
       }
 
@@ -271,8 +278,10 @@
       /* @mixin for-tablet-portrait or smaller */
       @media screen and (max-width: 600px) {
         .row {
-          margin-top: 22px; /* 56 */
+          margin-top: 22px;
+          /* 56 */
         }
+
         .column {
           /* width: 25%; */
           display: block;
@@ -295,6 +304,7 @@
           /* */
           min-height: 100px;
         }
+
         /*p.dv {
           font-size: 14px;
           line-height: 1.6;
@@ -403,6 +413,7 @@
       .tabcontent > div > div > a > div > p:nth-child(1) {
         margin-bottom: 5px;
       }
+
       .tabcontent > div > div > a > div > p:nth-child(2) {
         margin-top: 5px;
       }
@@ -413,15 +424,18 @@
           background-color: rgb(24, 26, 27);
           border-color: rgb(23, 118, 181) rgb(58, 62, 65);
         }
+
         .card p {
           /*color: rgb(217, 214, 209);*/
           color: #c5cfd6;
         }
+
         #sallaButton {
           background-color: rgb(24, 26, 27) !important;
           border-color: rgba(140, 130, 115, 0.25);
           color: rgb(255, 255, 255);
         }
+
         #sallaButton:hover {
           background-color: #136296 !important;
         }
@@ -433,7 +447,8 @@
       }*/
 
       .quoteHere {
-        font-size: 22px; /* 17 */
+        font-size: 22px;
+        /* 17 */
         line-height: 1.7;
         text-align: center;
         /*font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
@@ -812,12 +827,15 @@
         button.tablinks {
           font-size: 21px;
         }
+
         .tab button.active {
           font-size: 21px;
         }
+
         .arSpan {
           font-size: 26px;
         }
+
         .tab button {
           width: 180px;
         }
@@ -827,12 +845,15 @@
           button.tablinks {
             font-size: 15px;
           }
+
           .tab button.active {
             font-size: 15px;
           }
+
           .arSpan {
             font-size: 20px;
           }
+
           .tab button {
             width: 150px;
           }
@@ -1520,6 +1541,11 @@
 
           .incorrect::placeholder {
             color: red;
+            transition: opacity 0.5s ease-in-out;
+          }
+
+          .incorrect-fade::placeholder {
+            opacity: 0;
           }
 
           #urlInput::placeholder {
@@ -1562,6 +1588,36 @@
               inputElement.setAttribute("placeholder", "ލިންކު ރަނގަޅެއް ނޫން");
               inputElement.style.setProperty("--placeholder-color", "red");
               inputElement.style.setProperty("--border-color", "red");
+
+              /* write html code for a input that has a placeholder too long for its width, so it slides across animating
+the placeholder should disappear when text is typed in the input, reappear when no text is typed in the input
+after the second red placeholder text shown, the initial placeholder text should show, just not in red, when cursor is placed, but typing hasnt happened. right now the initial placeholder text is gone as well
+*/
+              setTimeout(() => {
+                inputElement.classList.add("incorrect-fade");
+                setTimeout(() => {
+                  inputElement.setAttribute(
+                    "placeholder",
+                    "ބޭނުންކުރަން ދަސްކުރެވޭނެ އެންމެ ތިރިން"
+                  );
+                  inputElement.classList.remove("incorrect-fade");
+                }, 500); // Match this duration to the CSS transition duration, this is transition: opacity 0.5s ease-in-out; time
+              }, 1000); // new text appears after this time
+
+              // Add focus event listener to reset styles
+              inputElement.addEventListener(
+                "focus",
+                () => {
+                  inputElement.classList.remove("incorrect");
+                  inputElement.classList.remove("incorrect-fade");
+                  inputElement.removeAttribute("style");
+                  inputElement.setAttribute(
+                    "placeholder",
+                    "ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ"
+                  ); // Set to default or new placeholder text if needed
+                },
+                { once: true }
+              );
               return;
             }
 
@@ -1650,11 +1706,13 @@
             .hiddenCard {
               display: none;
             }
+
             #kahfReminder > a > .card {
               /* background-color: invert(100%); */
               /* filter: hue-rotate(3.142rad); */
               filter: hue-rotate(280deg);
             }
+
             #kahfReminder > a > .card > p {
               filter: hue-rotate(-280deg);
             }
@@ -1825,9 +1883,11 @@
               width: 69px;
               /*style="margin: 0; height: 20px"*/
             }
+
             #sallaButton:hover {
               background-color: #136296;
             }
+
             /*
             @media (prefers-color-scheme: light) {
               #sallaButton {
@@ -2940,25 +3000,25 @@
 
       <script>
         /*
-                document.addEventListener("DOMContentLoaded", function () {
-                  //....
-                  document.getElementById("footer").classList.remove("hidden");
-                });
-                */
+              document.addEventListener("DOMContentLoaded", function () {
+                //....
+                document.getElementById("footer").classList.remove("hidden");
+              });
+              */
         /*
-                function unfade(document.getElementById("footer")) {
-            var op = 0.1;  // initial opacity
-            element.style.display = 'block';
-            var timer = setInterval(function () {
-                if (op >= 1){
-                    clearInterval(timer);
-                }
-                element.style.opacity = op;
-                element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-                op += op * 0.1;
-            }, 10);
+              function unfade(document.getElementById("footer")) {
+          var op = 0.1;  // initial opacity
+          element.style.display = 'block';
+          var timer = setInterval(function () {
+              if (op >= 1){
+                  clearInterval(timer);
+              }
+              element.style.opacity = op;
+              element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+              op += op * 0.1;
+          }, 10);
 
-        }*/
+      }*/
 
         // https://stackoverflow.com/questions/807878/how-to-make-javascript-execute-after-page-load/36096571#36096571
 
@@ -3054,6 +3114,7 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
             padding-top: 35px;
             padding-bottom: 35px;
           }
+
           /*body {
   background: #333;
   color: #fff;
@@ -3076,9 +3137,11 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
             0% {
               transform: scale(1);
             }
+
             50% {
               transform: scale(1.3);
             }
+
             100% {
               transform: scale(1);
             }
@@ -3100,8 +3163,8 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
               //
 
               /*document
-                .querySelector("body > div.mm-ocd.mm-ocd--right.mm-ocd--open")
-                .remove("mm-ocd--open");*/
+              .querySelector("body > div.mm-ocd.mm-ocd--right.mm-ocd--open")
+              .remove("mm-ocd--open");*/
 
               drawer.close();
             }
@@ -3109,17 +3172,17 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
         </script>
 
         <p>
-          ކުށެއް ހުރިކަން އެންގެވުމަށް ނުވަތަ ހިޔާލެއް
-          <a href="../notes/info/contact.html">ހުށަހެޅުއްވުމަށް</a> | ތަރުޖަމާ
-          ކުރުމުގައި މި މަޝްރޫއަށް
-          <br />
+          ކުށެއް ހުރިކަން އެންގުމަށް ނުވަތަ ހިޔާލެއް
+          <a href="../notes/info/contact.html">ހުށަހެޅުމަށް</a>
+        </p>
+        <p>
+          ތަރުޖަމާކުރުމުގައި މަޝްރޫއަށް
           <a href="../notes/info/helpTranslate.html">އެހީވެދިނުމަށް</a>
         </p>
 
         <p>
-          ޙަދީޘްއެމްވީ ބޭނުން ކުރާނެ ގޮތް
-          <a href="../notes/how-to-use-hmv.txt">ދަސްކުރުމަށް</a> | ތަކުރާރުކޮށް
-          ކުރެވޭ ސުވާލުތައް <a href="../notes/info/FAQ.html">ކިޔުމަށް</a>
+          ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް
+          <a href="../notes/info/FAQ.html">ކިޔުމަށް</a>
         </p>
 
         <!--
@@ -3165,6 +3228,7 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
             .appButtons > a > div > div > div {
               filter: invert(0%);
             }
+
             .btnText {
               color: black;
             }
@@ -3402,6 +3466,12 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
           <!-- div END -->
         </div>
         <!-- SOCIAL BUTTONS END -->
+
+        <br />
+        <p>
+          ޙަދީޘްއެމްވީ ބޭނުންކުރާނެ ގޮތް
+          <a href="../notes/how-to-use-hmv.txt">ދަސްކުރުމަށް</a>
+        </p>
       </div>
 
       <br />
@@ -3640,18 +3710,18 @@ c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"
       // KAHF REMINDER
       // https://dhivehi.mv/prayer-times
       /* claude:
-            html: ...
-              <span class="hideOnPhoneOnly">ޙަދީޘްއެމްވީ – </span>
-              <span>ސުންނަތުގެ ތަރުޖަމާ މަންސަ</span>
-      this shows the following text: ޙަދީޘްއެމްވީ – ސުންނަތުގެ ތަރުޖަމާ މަންސަ
-      and it shows this text on mobile: ސުންނަތުގެ ތަރުޖަމާ މަންސަ
-       using js, i want to change the text "ޙަދީޘްއެމްވީ – " to "hey man 1"
-      and i want to i want to change the text "ސުންނަތުގެ ތަރުޖަމާ މަންސަ" to "hey man 2"
-      //
-      only change it from 5 am to 6 pm on a friday
-      also in the order of position, bring span 2 first, with span 1 second
-      also during that time, also get a hidden element with id "kahfReminder" and show it it
-      */
+          html: ...
+            <span class="hideOnPhoneOnly">ޙަދީޘްއެމްވީ – </span>
+            <span>ސުންނަތުގެ ތަރުޖަމާ މަންސަ</span>
+    this shows the following text: ޙަދީޘްއެމްވީ – ސުންނަތުގެ ތަރުޖަމާ މަންސަ
+    and it shows this text on mobile: ސުންނަތުގެ ތަރުޖަމާ މަންސަ
+     using js, i want to change the text "ޙަދީޘްއެމްވީ – " to "hey man 1"
+    and i want to i want to change the text "ސުންނަތުގެ ތަރުޖަމާ މަންސަ" to "hey man 2"
+    //
+    only change it from 5 am to 6 pm on a friday
+    also in the order of position, bring span 2 first, with span 1 second
+    also during that time, also get a hidden element with id "kahfReminder" and show it it
+    */
       // Get the current day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
       const currentDay = new Date().getDay();
 
