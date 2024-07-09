@@ -8,9 +8,9 @@ Set-Content ../akhbaruShuyukh.js -Value 'const akhbaruShuyukh_DB='
 Get-Content akhbaruShuyukh.json | Add-Content ../akhbaruShuyukh.js
 uglifyjs ../akhbaruShuyukh.js -c -m -o ../akhbaruShuyukh.js
 
-Set-Content ../akhlaqHamalathulQuran.js -Value 'const akhlaqHamalathulQuran_DB='
-Get-Content akhlaqHamalathulQuran.json | Add-Content ../akhlaqHamalathulQuran.js
-uglifyjs ../akhlaqHamalathulQuran.js -c -m -o ../akhlaqHamalathulQuran.js
+Set-Content ../akhlaqHamalathilQuran.js -Value 'const akhlaqHamalathilQuran_DB='
+Get-Content akhlaqHamalathilQuran.json | Add-Content ../akhlaqHamalathilQuran.js
+uglifyjs ../akhlaqHamalathilQuran.js -c -m -o ../akhlaqHamalathilQuran.js
 
 # no actual allAqida.json or js exists
 

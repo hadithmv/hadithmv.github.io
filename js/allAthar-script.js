@@ -76,7 +76,7 @@ $(document).ready(() => {
   resultmuwatta = removeColumns(muwatta_DB, [1, 2, 3, 4]);
   resulthisnulMuslim = removeColumns(hisnulMuslim_DB, [1, 2, 5, 6, 7, 8]);
   resultakhbarShuyukh = removeColumns(akhbaruShuyukh_DB, [4]);
-  resultakhlaqHamalathulQuran = removeColumns(akhlaqHamalathulQuran_DB, [1, 4]);
+  resultakhlaqHamalathilQuran = removeColumns(akhlaqHamalathilQuran_DB, [1, 4]);
   resultfortyAajurry = removeColumns(fortyAajurry_DB, [1, 2]);
 
   //console.log(result);
@@ -103,8 +103,8 @@ $(document).ready(() => {
     resultakhbarShuyukh,
     "أخبار الشيوخ وأخلاقهم"
   );
-  resultakhlaqHamalathulQuran = insertValueInFirstColumn(
-    resultakhlaqHamalathulQuran,
+  resultakhlaqHamalathilQuran = insertValueInFirstColumn(
+    resultakhlaqHamalathilQuran,
     "أخلاق حملة القرآن للآجري"
   );
   resultfortyAajurry = insertValueInFirstColumn(
@@ -145,7 +145,7 @@ $(document).ready(() => {
     resultmuwatta,
     resulthisnulMuslim,
     resultakhbarShuyukh,
-    resultakhlaqHamalathulQuran,
+    resultakhlaqHamalathilQuran,
     resultfortyAajurry,
   ];
 
