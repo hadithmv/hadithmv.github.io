@@ -9,7 +9,7 @@ Set-Location -Path $PSScriptRoot
 # Remove-Item "../app/webview-master/app/src/main/assets/books" -Recurse -Force
 # copies site minified book files to asset book files one by one
 Copy-Item ../books/akhbaruShuyukh.html -Destination ../app/webview-master/app/src/main/assets/books/akhbaruShuyukh.html -Recurse -Force
-Copy-Item ../books/akhlaqHamalathulQuran.html -Destination ../app/webview-master/app/src/main/assets/books/akhlaqHamalathulQuran.html -Recurse -Force
+Copy-Item ../books/akhlaqHamalathilQuran.html -Destination ../app/webview-master/app/src/main/assets/books/akhlaqHamalathilQuran.html -Recurse -Force
 Copy-Item ../books/allAqida.html -Destination ../app/webview-master/app/src/main/assets/books/allAqida.html -Recurse -Force
 Copy-Item ../books/allAthar.html -Destination ../app/webview-master/app/src/main/assets/books/allAthar.html -Recurse -Force
 Copy-Item ../books/aqidahNawawi.html -Destination ../app/webview-master/app/src/main/assets/books/aqidahNawawi.html -Recurse -Force
@@ -120,7 +120,7 @@ Copy-Item  ../app/webview-master/app/src/main/assets/img/* -Destination hmv/img 
 # delete old folder in asset
 # Remove-Item "../app/webview-master/app/src/main/assets/js" -Recurse -Force
 Copy-Item ../js/akhbaruShuyukh-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/akhbaruShuyukh-script.min.js -Recurse -Force
-Copy-Item ../js/akhlaqHamalathulQuran-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/akhlaqHamalathulQuran-script.min.js -Recurse -Force
+Copy-Item ../js/akhlaqHamalathilQuran-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/akhlaqHamalathilQuran-script.min.js -Recurse -Force
 Copy-Item ../js/allAqida-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/allAqida-script.min.js -Recurse -Force
 Copy-Item ../js/allAthar-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/allAthar-script.min.js -Recurse -Force
 Copy-Item ../js/aqidahNawawi-script.min.js -Destination ../app/webview-master/app/src/main/assets/js/aqidahNawawi-script.min.js -Recurse -Force
@@ -167,7 +167,7 @@ Copy-Item ../js/resc/COMB-nonCrit.min.js -Destination ../app/webview-master/app/
 # COPY JSON to android
 # - - -
 Copy-Item ../js/json/akhbaruShuyukh.js -Destination ../app/webview-master/app/src/main/assets/js/json/akhbaruShuyukh.js -Recurse -Force
-Copy-Item ../js/json/akhlaqHamalathulQuran.js -Destination ../app/webview-master/app/src/main/assets/js/json/akhlaqHamalathulQuran.js -Recurse -Force
+Copy-Item ../js/json/akhlaqHamalathilQuran.js -Destination ../app/webview-master/app/src/main/assets/js/json/akhlaqHamalathilQuran.js -Recurse -Force
 Copy-Item ../js/json/allAthar.js -Destination ../app/webview-master/app/src/main/assets/js/json/allAthar.js -Recurse -Force
 Copy-Item ../js/json/aqidahNawawi.js -Destination ../app/webview-master/app/src/main/assets/js/json/aqidahNawawi.js -Recurse -Force
 Copy-Item ../js/json/barbahari.js -Destination ../app/webview-master/app/src/main/assets/js/json/barbahari.js -Recurse -Force

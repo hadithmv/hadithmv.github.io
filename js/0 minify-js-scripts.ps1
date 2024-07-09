@@ -4,7 +4,7 @@ Set-Location -Path $PSScriptRoot #C:/Users/ashraaf/Downloads/VScode/hadithmv.git
 
 google-closure-compiler --charset=UTF-8 --js=akhbaruShuyukh-script.js --js_output_file=akhbaruShuyukh-script.min.js
 
-google-closure-compiler --charset=UTF-8 --js=akhlaqHamalathulQuran-script.js --js_output_file=akhlaqHamalathulQuran-script.min.js
+google-closure-compiler --charset=UTF-8 --js=akhlaqHamalathilQuran-script.js --js_output_file=akhlaqHamalathilQuran-script.min.js
 
 google-closure-compiler --charset=UTF-8 --js=allAqida-script.js --js_output_file=allAqida-script.min.js
 
