@@ -5,7 +5,7 @@ function MinifyHTML($inputFile, $outputFile) {
 Set-Location -Path $PSScriptRoot
 
 MinifyHTML "akhbaruShuyukh.html" "../books/akhbaruShuyukh.html"
-MinifyHTML "akhlaqHamalathulQuran.html" "../books/akhlaqHamalathulQuran.html"
+MinifyHTML "akhlaqHamalathilQuran.html" "../books/akhlaqHamalathilQuran.html"
 MinifyHTML "allAqida.html" "../books/allAqida.html"
 MinifyHTML "allAthar.html" "../books/allAthar.html"
 MinifyHTML "aqidatuRaziyain.html" "../books/aqidatuRaziyain.html"
