@@ -1737,7 +1737,12 @@ ${dateDifference}`;
               let decryptedDataOut =
                 window.document.getElementById("textMainArea");
               const decryptedData = await decryptData(encryptedData, password);
-              decryptedDataOut.value = decryptedData || "Decryption failed";
+              //decryptedDataOut.value = decryptedData || "Decryption failed";
+              if (decryptedData) {
+                decryptedDataOut.value = decryptedData;
+              } else {
+                alert("Decryption failed");
+              }
 
               scrollToTopFully(); // Scroll to top after en/decryption is finished
             }
@@ -2072,8 +2077,9 @@ encrypting."
                   scrollToTopFully(); // Scroll to top after en/decryption is finished
                 } catch (error) {
                   console.error(error);
-                  document.getElementById("textMainArea").value =
-                    "Decryption failed";
+                  /*document.getElementById("textMainArea").value =
+                    "Decryption failed";*/
+                  alert("Decryption failed.");
                 }
               }
             }
