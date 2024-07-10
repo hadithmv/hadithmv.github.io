@@ -165,7 +165,7 @@ $(document).ready(() => {
       // Hyperlink https://datatables.net/forums/discussion/comment/202022/#Comment_202022
 
       {
-        targets: [6],
+        targets: [7],
         data: "download_link",
         render: function (data, type, row, meta) {
           var links = data.split(" ");
