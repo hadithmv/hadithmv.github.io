@@ -1,41 +1,34 @@
 <#
-write powershell script:
+write a powershell script:
 
-the file in this directory:
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\css\COMB-nonCrit.min.css
+for the file in this directory: ..\css\COMB-nonCrit.min.css
 
-has a line of code the top when opened, which says
-
-.versionNo::after{content:"3.15"}
+at the very top is a single line of code which says  .versionNo::after{content:"3.15"}
 
 every time this script is run, i want to increment that by 0.01
-
 #>
 
-# Define the path to the CSS file
+Set-Location -Path $PSScriptRoot
+
 $filePath = "..\css\COMB-nonCrit.min.css"
 
-# Read the contents of the file
-$fileContent = Get-Content -Path $filePath
-
-# Define the regex pattern to find the version number
-$pattern = '(?<=\.versionNo::after{content:").*?(?="})'
+# Read the content of the file
+$content = Get-Content $filePath -Raw
 
 # Extract the current version number
-$currentVersion = [regex]::Match($fileContent, $pattern).Value
-
-if ($currentVersion) {
-    # Convert the current version to a float and increment by 0.01
-    $newVersion = [math]::Round([float]$currentVersion + 0.01, 2)
-    $newVersionString = "{0:F2}" -f $newVersion
-
-    # Replace the current version number with the new version number in the file content
-    $updatedContent = [regex]::Replace($fileContent, $pattern, $newVersionString)
-
+if ($content -match '\.versionNo::after\{content:"(\d+\.\d+)"\}') {
+    $currentVersion = [double]$matches[1]
+    
+    # Increment the version by 0.01
+    $newVersion = [math]::Round($currentVersion + 0.01, 2)
+    
+    # Replace the old version with the new one
+    $newContent = $content -replace '\.versionNo::after\{content:"\d+\.\d+"\}', ".versionNo::after{content:`"$newVersion`"}"
+    
     # Write the updated content back to the file
-    Set-Content -Path $filePath -Value $updatedContent
-
-    Write-Output "Version number updated from $currentVersion to $newVersionString"
+    $newContent | Set-Content $filePath -NoNewline
+    
+    Write-Output "Version updated from $currentVersion to $newVersion"
 } else {
-    Write-Output "Version number pattern not found in the file."
+    Write-Output "Version number not found in the expected format."
 }
