@@ -1,4 +1,4 @@
-.versionNo::before{content:"⚙️ އިސްދާރު: v3.15"}
+.versionNo::after{content:"3.15"}
 
 /* === ===
 MORE CRITICAL - previously inline minified in every book page
