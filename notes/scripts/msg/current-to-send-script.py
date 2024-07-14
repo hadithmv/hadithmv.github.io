@@ -17,21 +17,34 @@ folders_to_avoid = [
     "STRAIGHTENING THE LINES FOR PRAYER - ACCORDING TO THE SUNNAH"
 ]
 
-# Remove all files and folders within the destination directories for kids and adults
-for directory in [destination_directory_kids, destination_directory_adults]:
+# Function to empty a directory
+def empty_directory(directory):
     for root, dirs, files in os.walk(directory, topdown=False):
         for name in files:
-            os.remove(os.path.join(root, name))
+            try:
+                os.remove(os.path.join(root, name))
+            except PermissionError as e:
+                print(f"PermissionError: {e}")
         for name in dirs:
-            os.rmdir(os.path.join(root, name))
+            try:
+                shutil.rmtree(os.path.join(root, name))
+            except PermissionError as e:
+                print(f"PermissionError: {e}")
+
+# Empty the destination directories for kids and adults
+empty_directory(destination_directory_kids)
+empty_directory(destination_directory_adults)
 
 print("Emptied destination directories.")
 
 # Load the Excel file
 df = pd.read_excel(excel_path)
 
-# Iterate over the rows in the third column for kids books
-for folder_name in df.iloc[:, 2]:  # Using index 2 for the third column (0-based index)
+# Find the column index for "Item Description"
+item_description_col_index = df.columns.get_loc("Item Description")
+
+# Iterate over the rows in the "Item Description" column for kids books
+for folder_name in df.iloc[:, item_description_col_index]:  
     folder_name_str = str(folder_name)  # Convert to string if not already
 
     # Skip folders in the avoid list
@@ -57,8 +70,8 @@ for folder_name in df.iloc[:, 2]:  # Using index 2 for the third column (0-based
     else:
         print(f'Folder not found for kids books: {folder_name_str}')
 
-# Iterate over the rows in the third column for adult books
-for folder_name in df.iloc[:, 2]:  # Using index 2 for the third column (0-based index)
+# Iterate over the rows in the "Item Description" column for adult books
+for folder_name in df.iloc[:, item_description_col_index]:  
     folder_name_str = str(folder_name)  # Convert to string if not already
 
     # Skip folders in the avoid list
