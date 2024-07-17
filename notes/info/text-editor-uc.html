@@ -1733,6 +1733,7 @@ ${dateDifference}`;
                 textArea.placeholder = "Write password and press button again";
                 encryptionStage = "password";
                 scrollToTopFully(); // scrolls to top
+                textArea.focus(); // Focus on textarea to write password
               } else if (encryptionStage === "password") {
                 const password = textArea.value;
                 const encryptedData = await encryptData(storedData, password);
@@ -1751,6 +1752,7 @@ ${dateDifference}`;
                 textArea.placeholder = "Write password and press button again";
                 decryptionStage = "password";
                 scrollToTopFully(); // scrolls to top
+                textArea.focus(); // Focus on textarea to write password
               } else if (decryptionStage === "password") {
                 const password = textArea.value;
                 const decryptedData = await decryptData(storedData, password);
