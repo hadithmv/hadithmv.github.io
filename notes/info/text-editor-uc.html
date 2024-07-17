@@ -1673,6 +1673,14 @@ ${dateDifference}`;
             }
           </script>
 
+          <input
+            class="inputEncryptionKey"
+            placeholder="Password"
+            type="text"
+            id="minNline"
+            style="color: red; display: none"
+          />
+
           <button
             onclick="encryptText();"
             class="ttClass"
@@ -1713,40 +1721,46 @@ ${dateDifference}`;
             const enc = new TextEncoder();
             const dec = new TextDecoder();
 
+            let encryptionStage = "data"; // Tracks the stage of the encryption process
+            let decryptionStage = "data"; // Tracks the stage of the decryption process
+            let storedData = ""; // Stores the data temporarily during the process
+
             async function encryptText() {
-              // const data = window.document.getElementById("data").value;
-              const data = document.getElementById("textMainArea").value;
-              // let encryptedDataOut = window.document.getElementById("encryptedData");
-              let encryptedDataOut =
-                window.document.getElementById("textMainArea");
-              // Prompt for the password
-
-              const password = window.prompt("Password");
-              const encryptedData = await encryptData(data, password);
-              encryptedDataOut.value = encryptedData;
-
-              scrollToTopFully(); // Scroll to top after en/decryption is finished
+              const textArea = document.getElementById("textMainArea");
+              if (encryptionStage === "data") {
+                storedData = textArea.value;
+                textArea.value = "";
+                textArea.placeholder = "Write password and press button again";
+                encryptionStage = "password";
+                scrollToTopFully(); // scrolls to top
+              } else if (encryptionStage === "password") {
+                const password = textArea.value;
+                const encryptedData = await encryptData(storedData, password);
+                textArea.value = encryptedData;
+                textArea.placeholder = "";
+                encryptionStage = "data";
+                scrollToTopFully(); // Scroll to top after en/decryption is finished
+              }
             }
 
             async function decryptText() {
-              // Prompt for the password
-
-              const password = window.prompt("Password");
-              // const encryptedData = window.document.getElementById("encryptedData").value;
-              const encryptedData =
-                window.document.getElementById("textMainArea").value;
-              // let decryptedDataOut = window.document.getElementById("decrypted");
-              let decryptedDataOut =
-                window.document.getElementById("textMainArea");
-              const decryptedData = await decryptData(encryptedData, password);
-              //decryptedDataOut.value = decryptedData || "Decryption failed";
-              if (decryptedData) {
-                decryptedDataOut.value = decryptedData;
-              } else {
-                alert("Decryption failed");
+              const textArea = document.getElementById("textMainArea");
+              if (decryptionStage === "data") {
+                storedData = textArea.value;
+                textArea.value = "";
+                textArea.placeholder = "Write password and press button again";
+                decryptionStage = "password";
+                scrollToTopFully(); // scrolls to top
+              } else if (decryptionStage === "password") {
+                const password = textArea.value;
+                const decryptedData = await decryptData(storedData, password);
+                textArea.value = decryptedData
+                  ? decryptedData
+                  : `Decryption failed\n${storedData}`;
+                textArea.placeholder = "";
+                decryptionStage = "data";
+                scrollToTopFully(); // Scroll to top after en/decryption is finished
               }
-
-              scrollToTopFully(); // Scroll to top after en/decryption is finished
             }
 
             const getPasswordKey = (password) =>
@@ -1862,6 +1876,7 @@ encrypting."
             // possible alternative?, but uses cbc, not gcm: https://github.com/meixler/web-browser-based-file-encryption-decryption
 
             // for large strings, use this from https://stackoverflow.com/a/49124600
+
             function readfile(file) {
               return new Promise((resolve, reject) => {
                 let f = new FileReader();
@@ -2079,9 +2094,8 @@ encrypting."
                   scrollToTopFully(); // Scroll to top after en/decryption is finished
                 } catch (error) {
                   console.error(error);
-                  /*document.getElementById("textMainArea").value =
-                    "Decryption failed";*/
-                  alert("Decryption failed.");
+                  document.getElementById("textMainArea").value =
+                    "Decryption failed";
                 }
               }
             }
