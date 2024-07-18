@@ -21,7 +21,7 @@ foreach ($img in $images) {
   # copy-paste the path to where you extracted the cwebp program
   # C:\Users\ashra\Downloads\libwebp... 
   # https://stackoverflow.com/questions/72802320/running-exe-file-with-environment-variable-in-path-powershell
-  & $env:USERPROFILE\Downloads\libwebp-1.3.2-windows-x64\bin\cwebp.exe $img.FullName -o $outputName
+  & $env:USERPROFILE\Downloads\libwebp-1.4.0-windows-x64\bin\cwebp.exe $img.FullName -o $outputName
 }
 
 # Use the Invoke-Item cmdlet, or its alias: ii to open a folder or file
