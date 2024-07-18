@@ -69,9 +69,10 @@
         /*width: auto;*/ /* 500px; */
         border-radius: 10px;
         /* added */
-        width: 100%; /* Full width for responsiveness */
+        width: 100%; /* 100%; / Full width for responsiveness */
         max-width: 500px;
         margin-bottom: 20px;
+        padding-bottom: 10px;
       }
 
       th,
@@ -79,7 +80,24 @@
         font-family: "Motnserrat", sans-serif;
         text-align: left;
         font-size: 16px; /* 12px; */
-        padding: 10px;
+        /*padding: 10px;*/
+
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+
+      /*@mixin for-phone-only*/
+      @media (max-width: 599px) {
+        th,
+        td {
+          padding: 10px;
+        }
+      }
+
+      table tr:last-child td:last-child {
+        padding-bottom: 30px;
       }
 
       th {
@@ -95,6 +113,11 @@
       table td:nth-child(2) {
         /*direction: rtl;*/
         text-align: right;
+      }
+
+      table td:nth-child(3) {
+        /*direction: rtl;*/
+        text-align: center;
       }
     </style>
   </head>
