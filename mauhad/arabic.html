@@ -7,45 +7,45 @@
     <title>Arabic Language Learning Institute Curriculum</title>
     <style>
       /*html {
-            color: #000;
-            margin: 0;
-            padding: 0;
-            background-color: #fbfbfb;
-          }
+                color: #000;
+                margin: 0;
+                padding: 0;
+                background-color: #fbfbfb;
+              }
 
 
-          body {
-            color: #FFF;
-            margin: 0;
-            padding: 20;
-            width: 640px;
-            font-family: sans-serif, Arial;
-          }
+              body {
+                color: #FFF;
+                margin: 0;
+                padding: 20;
+                width: 640px;
+                font-family: sans-serif, Arial;
+              }
 
-          table {
-            border: 3px solid;
-          width: 100%;
-          }
+              table {
+                border: 3px solid;
+              width: 100%;
+              }
 
-          th {
-            background-color: #ccd;
-          }
+              th {
+                background-color: #ccd;
+              }
 
-          .odd {
-            background-color: #dde;
-          }*/
+              .odd {
+                background-color: #dde;
+              }*/
 
       /* #start { padding-left: 300px; height: 200px; }  */
       /* p,li  { margin-left: 2em; }
-      td  { border: 1px solid; }
-      p,li  { font-weight: bold; }
-      p { background-color: #DDF; }
-      i  { margin-left: 3em; }
-      a { color: #F00; }
-      ul { margin: 0px; padding: 0px; margin: 0px 0px; margin-left: 20px; }
-      h3 { margin-left: 1em; padding: 0; text-align: left; }
-      /* li { margin: 0px; padding: 0px; }
-       p { font-weight: bold; } */
+          td  { border: 1px solid; }
+          p,li  { font-weight: bold; }
+          p { background-color: #DDF; }
+          i  { margin-left: 3em; }
+          a { color: #F00; }
+          ul { margin: 0px; padding: 0px; margin: 0px 0px; margin-left: 20px; }
+          h3 { margin-left: 1em; padding: 0; text-align: left; }
+          /* li { margin: 0px; padding: 0px; }
+           p { font-weight: bold; } */
 
       /* ADDED BELOW */
 
@@ -123,7 +123,64 @@
         /*direction: rtl;*/
         text-align: center;
       }
+
+      /* animate table */
+
+      /*@keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+
+          table {
+            animation: fadeIn 0.5s ease-in-out;
+          }*/
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-table {
+        opacity: 0; /* Start hidden */
+        transform: translateY(50px); /* Start below */
+        transition:
+          opacity 0.5s ease-in-out,
+          transform 0.5s ease-in-out;
+      }
+
+      .animate-table.visible {
+        opacity: 1;
+        transform: translateY(0); /* Move to original position */
+      }
     </style>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const tables = document.querySelectorAll(".animate-table");
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target); // Optional: stop observing after animation
+            }
+          });
+        });
+
+        tables.forEach((table) => {
+          observer.observe(table);
+        });
+      });
+    </script>
   </head>
 
   <body>
@@ -151,7 +208,7 @@
 
     <br />
 
-    <table>
+    <table class="animate-table">
       <tr>
         <th colspan="3">Semester 1 - المستوى الأول</th>
       </tr>
@@ -182,8 +239,10 @@
         <td><a href="madeenah-arabic/processed_ki1_all.htm">Book</a></td>
       </tr>
     </table>
+
     <br />
-    <table>
+
+    <table class="animate-table">
       <tr>
         <th colspan="3">Semester 2 - المستوى الثاني</th>
       </tr>
@@ -234,8 +293,10 @@
         <td><a href="madeenah-arabic/processed_qis2_all.htm">Book</a></td>
       </tr>
     </table>
+
     <br />
-    <table>
+
+    <table class="animate-table">
       <tr>
         <th colspan="3">Semester 3 - المستوى الثالث</th>
       </tr>
@@ -297,7 +358,7 @@
       </tr>
     </table>
     <br />
-    <table>
+    <table class="animate-table">
       <tr>
         <th colspan="3">Semester 4 - المستوى الرابع</th>
       </tr>
