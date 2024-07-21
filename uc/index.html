@@ -1,13 +1,11 @@
 <!doctype html>
 <html lang="dv">
   <!-- prevent translate popup -->
-
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="canonical" href="https://hadithmv.github.io/" />
     <meta name="google" content="notranslate" />
-
     <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
     <meta name="theme-color" content="#29434e" />
     <!-- og metadata sm link previews -->
@@ -18,7 +16,6 @@
       property="og:image"
       content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
     />
-
     <!-- change123 html -->
     <title>
       Hadithmv - The Maldivian Platform for Translations of the Sunnah
@@ -28,33 +25,29 @@
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
     />
     <!-- META TAGS - END -->
-
     <!-- === EXT CSS === -->
     <!-- non critical -->
     <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
     <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
     <!-- === EXT CSS - END === -->
-
     <!-- === EXT JS === -->
     <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
     <!-- critical -->
     <script defer src="../js/resc/COMB-Crit.min.js"></script>
     <!-- non critical 
-    <script defer src="../js/resc/COMB-nonCrit.min.js"></script>-->
+         <script defer src="../js/resc/COMB-nonCrit.min.js"></script>-->
     <!-- change123 js 
-    <script defer src="../js/json/fortyNawawi.js"></script>
-    <script defer src="../js/fortyNawawi-script.min.js"></script>-->
+         <script defer src="../js/json/fortyNawawi.js"></script>
+         <script defer src="../js/fortyNawawi-script.min.js"></script>-->
     <!-- === EXT JS - END === -->
-
     <!-- === INT CSS === -->
     <!-- Critical CSS -->
     <!-- mmenu-demo -->
     <!-- prettier-ignore -->
     <!-- <style>
-.header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media (max-width:599px){.content{padding-top:45px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}.menuLeftIcon{left:0;right:auto!important;margin:0!important;width:0!important;background:0 0}@media (prefers-color-scheme:dark){body{background-color:#0e1621;color:#c5cfd6}}
-  </style>
-  Critical CSS - END -->
-
+         .header nav{display:none}.content,.header{text-align:center}.header{background:#0f4c75;color:#fff;line-height:50px;box-sizing:border-box;width:100%;height:50px;padding:0 50px;z-index:999;box-shadow:0 1px 2.5px rgb(0 0 0/20%)}.header.fixed{position:fixed;top:0;left:0}.header a{display:block;width:28px;height:18px;padding:11px;margin:5px;position:absolute;top:0;right:0}.header a::after,.header a::before{content:"";display:block;background:#fff;height:2px}.header a span{background:#fff;display:block;height:2px;margin:6px 0}.content{padding-top:45px;padding-left:2px;padding-right:2px}@media (max-width:599px){.content{padding-top:45px}}#page>div.header:hover{background-color:#0d4266;cursor:pointer}.hmvLogo1{top:0;left:0;display:block;height:40px;width:40px;position:absolute;margin-left:11px;margin-top:4.7px}.menuLeftIcon{left:0;right:auto!important;margin:0!important;width:0!important;background:0 0}@media (prefers-color-scheme:dark){body{background-color:#0e1621;color:#c5cfd6}}
+           </style>
+           Critical CSS - END -->
     <style>
       html {
         font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
@@ -64,100 +57,78 @@
         font-size: 120%;
         /* for tharujamaanu */
       }
-
       /* removes margin around opened menu background shadow thing, otherwise causes content to shift or jump down in index */
-
       .mm-ocd-opened {
         margin-top: 0px;
         margin-bottom: 0px;
         margin-left: 8px;
         margin-right: 8px;
       }
-
       /* @mixin for-tablet-portrait or smaller
-      @media screen and (max-width: 600px) {
-        .mm-ocd-opened {
-          margin-left: 8px;
-          margin-right: 8px;
-        }
-      }
-      */
-
+         @media screen and (max-width: 600px) {
+         .mm-ocd-opened {
+         margin-left: 8px;
+         margin-right: 8px;
+         }
+         }
+         */
       /* rows and columns and cards */
-
       .row,
       .column,
       .card {
         box-sizing: border-box;
       }
-
       /* body {
-        font-family: Arial, Helvetica, sans-serif;
-      } */
-
+         font-family: Arial, Helvetica, sans-serif;
+         } */
       /* Remove extra left and right margins, due to padding */
       .row {
         /* margin: 0 -5px; */
-
         /* add for rtl */
         display: flex;
         /*flex-direction: row-reverse;*/
-
         /* wraps onto next line */
         flex-wrap: wrap;
-
         /* adds space above */
         margin-top: 30px;
         /* 70px*/
-
         /* gives space around in desktop view, and then centers */
         max-width: 1080px;
         margin-left: auto;
         margin-right: auto;
-
         /* https://www.freecodecamp.org/news/how-to-center-anything-with-css-align-a-div-text-and-more/ */
         justify-content: center;
       }
-
       /* Clear floats after the columns */
-
       /* .row::after {
-        content: "";
-        display: table;
-        clear: both;
-      } */
-
+         content: "";
+         display: table;
+         clear: both;
+         } */
       /* Float four columns side by side */
       .column {
         /* float: right; */
-
         /* left */
         padding: 0 10px;
-
         /* add flex */
         flex-grow: 1;
         flex-shrink: 0;
         flex-basis: 21%;
-
         /* add space below column */
         margin-bottom: 20px;
-
         /* contains the size */
         max-width: 260px;
         min-height: 150px;
         /*width: 60px !important;*/
       }
-
       /* Responsive columns */
-
       /* @media screen and (max-width: 600px) {
-        .column {
-          width: 100%;
-          display: block;
-          margin-bottom: 20px;
-        }
-      } */
-
+         .column {
+         width: 100%;
+         display: block;
+         margin-bottom: 20px;
+         }
+         } */
       /* Style the counter cards */
       .card {
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -166,83 +137,63 @@
         padding-left: 8px;
         text-align: center;
         background-color: #fff;
-
         /* add height to cards to fill up space */
         height: 100%;
-
         /* add font styles */
-
         /* font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
-              font-size: 17px;
-              line-height: 1.9;
-              color: #0e1621;
-              color: #0e1621;
-              direction: rtl; */
-
+         font-size: 17px;
+         line-height: 1.9;
+         color: #0e1621;
+         color: #0e1621;
+         direction: rtl; */
         /* add borders */
-
         border-style: solid;
         border-width: 1px;
         border-color: #dadce0;
         border-radius: 10px;
-
         /* box-shadow: 0 3px 10px 0 rgb(0 0 0 / 20%); */
         border-top: 5px solid #136296;
         border-bottom: 5px solid #136296;
-
         /* add ease in transition for hover */
         transition: transform 0.2s ease-out;
-
         /* vertically centers */
         display: flex;
         justify-content: center;
         flex-direction: column;
       }
-
       /* add hover effect */
       .card:hover {
         transform: scale(1.15);
         z-index: 9999;
-
         /* border: 3px solid #106bae;
-              color: #00598b; */
-
+         color: #00598b; */
         /* color: #f1f1f1; */
         background-color: #136296;
-
         /* border-top: 5px solid #f1f1f1;
-              border-bottom: 5px solid #f1f1f1; */
+         border-bottom: 5px solid #f1f1f1; */
         border-color: transparent !important;
-
         /* this makes border invisible but present, to avoid content being pushed away
-              none makes the cards smaller, moving what is around it */
-
+         none makes the cards smaller, moving what is around it */
         -webkit-font-smoothing: antialiased;
-
         cursor: pointer;
       }
-
       .card:hover p {
         color: #fff;
       }
-
       .card.disabled {
         transform: none;
         border: none !important;
         background-color: rgba(255, 255, 255, 0.93);
       }
-
       .card.disabled p {
         color: rgba(0, 0, 0, 0.75);
       }
-
       a > .card {
         font-size: 22px;
         color: #0e1621;
         line-height: 1.8;
         /* 1.5 */
       }
-
       @media screen and (max-width: 900px) {
         a > .card {
           font-size: 19px;
@@ -250,47 +201,39 @@
           /* 1.5 */
         }
       }
-
       /*p.dv {
-        font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
-        font-size: 19px;
-        line-height: 1.9;
-        margin-bottom: 10px;
-        color: #0e1621;
-        direction: rtl;
-      }*/
-
+         font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+         font-size: 19px;
+         line-height: 1.9;
+         margin-bottom: 10px;
+         color: #0e1621;
+         direction: rtl;
+         }*/
       /*p.ar {
-        font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
-        font-size: 23px;
-        line-height: 1.5;
-        margin-top: 10px;
-        color: #0e1621;
-        direction: rtl;
-      }*/
-
+         font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+         font-size: 23px;
+         line-height: 1.5;
+         margin-top: 10px;
+         color: #0e1621;
+         direction: rtl;
+         }*/
       /* h3 {
-              font-size: 1.12em;
-            } */
-
+         font-size: 1.12em;
+         } */
       /* 1.17 */
-
       /* @mixin for-tablet-portrait or smaller */
       @media screen and (max-width: 600px) {
         .row {
           margin-top: 22px;
           /* 56 */
         }
-
         .column {
           /* width: 25%; */
           display: block;
           margin-bottom: 0;
           padding: 6px;
-
           /* padding-top: 6px;
-                padding-bottom: 6px; */
-
+         padding-bottom: 6px; */
           /* make it 2 cards on mobile */
           /*flex-basis: 50%;*/
           /*flex-basis: 125px;*/
@@ -300,33 +243,28 @@
           flex-grow: 0;
           flex-shrink: 0;
           flex-basis: 170px;
-
           /* */
           min-height: 100px;
         }
-
         /*p.dv {
-          font-size: 14px;
-          line-height: 1.6;
-          margin-bottom: 5px;
-        }*/
+         font-size: 14px;
+         line-height: 1.6;
+         margin-bottom: 5px;
+         }*/
         /*p.ar {
-          font-size: 19px;
-          line-height: 1.3;
-          margin-top: 5px;
-        }*/
-
+         font-size: 19px;
+         line-height: 1.3;
+         margin-top: 5px;
+         }*/
         /* .card {
-                padding: 1px;
-              } */
+         padding: 1px;
+         } */
       }
-
       @media (prefers-color-scheme: light) {
         body {
           background-color: #f1f5fb;
         }
       }
-
       @media (prefers-color-scheme: light) {
         .card {
           background-color: #fff;
@@ -334,130 +272,105 @@
         }
       }
     </style>
-
     <style>
       /* card colors
-      https://mycolor.space/?hex=%231a5a9a&sub=1
-
-      https://colors.muz.li/palette/ef972c/a77a1f/efd62c/ef892c/a7601f
-
-      https://coolors.co/f9c80e-f86624-ea3546-662e9b-43bccd
-
-      https://paletton.com/#uid=13r0u0kmhrTcNFZi5vxqGomtEjn */
+         https://mycolor.space/?hex=%231a5a9a&sub=1
+         https://colors.muz.li/palette/ef972c/a77a1f/efd62c/ef892c/a7601f
+         https://coolors.co/f9c80e-f86624-ea3546-662e9b-43bccd
+         https://paletton.com/#uid=13r0u0kmhrTcNFZi5vxqGomtEjn */
       /*#tab2 > div > div > a > div*/
       #tab2 .card {
         border-top: 5px solid #ad0e1c;
         border-bottom: 5px solid #ad0e1c;
       }
-
       #tab3 .card {
       }
-
       #tab4 .card {
         border-top: 5px solid #c05602;
         border-bottom: 5px solid #c05602;
       }
-
       #tab5 .card {
         border-top: 5px solid #006e46;
         border-bottom: 5px solid #006e46;
       }
-
       #tab6 .card {
         border-top: 5px solid #5647b8;
         border-bottom: 5px solid #5647b8;
       }
-
       #tab7 .card {
         /* 47% darken of #ffe3a5 */
         border-top: 5px solid #969696;
         border-bottom: 5px solid #969696;
       }
-
       #tab9 .card {
         border-top: 5px solid #faa900;
         border-bottom: 5px solid #faa900;
       }
-
       /*#tab10 .card {
-        border-top: 5px solid #738564;
-        border-bottom: 5px solid #738564;
-      }*/
-
+         border-top: 5px solid #738564;
+         border-bottom: 5px solid #738564;
+         }*/
       #tab11 .card {
         border-top: 5px solid #35a4a5;
         border-bottom: 5px solid #35a4a5;
       }
-
       #tab8 .card {
         border-top: 5px solid #1ec71e;
         border-bottom: 5px solid #1ec71e;
       }
-
       /*#tab12 .card {
-        border-top: 5px solid #e9cd3e;
-        border-bottom: 5px solid #e9cd3e;
-      }*/
-
+         border-top: 5px solid #e9cd3e;
+         border-bottom: 5px solid #e9cd3e;
+         }*/
       #tab13 .card {
         border-top: 5px solid #ad0e1c;
         border-bottom: 5px solid #ad0e1c;
       }
-
       #tab14 .card {
         border-top: 5px solid #ed8a28;
         border-bottom: 5px solid #ed8a28;
       }
-
       .redCard {
         border-top: 5px solid #ad0e1c !important;
         border-bottom: 5px solid #ad0e1c !important;
       }
-
       /* reduces margin spaces around card text, first dhiv, then arabic */
       .tabcontent > div > div > a > div > p:nth-child(1) {
         margin-bottom: 5px;
       }
-
       .tabcontent > div > div > a > div > p:nth-child(2) {
         margin-top: 5px;
       }
-
       /* DARK MODE for card buttons and salla button */
       @media (prefers-color-scheme: dark) {
         .card {
           background-color: rgb(24, 26, 27);
           border-color: rgb(23, 118, 181) rgb(58, 62, 65);
         }
-
         .card p {
           /*color: rgb(217, 214, 209);*/
           color: #c5cfd6;
         }
-
         #sallaButton {
           background-color: rgb(24, 26, 27) !important;
           border-color: rgba(140, 130, 115, 0.25);
           color: rgb(255, 255, 255);
         }
-
         #sallaButton:hover {
           background-color: #136296 !important;
         }
       }
-
       /*.shCard {
-        border-top: 5px solid #5647b8;
-        border-bottom: 5px solid #5647b8;
-      }*/
-
+         border-top: 5px solid #5647b8;
+         border-bottom: 5px solid #5647b8;
+         }*/
       .quoteHere {
         font-size: 22px;
         /* 17 */
         line-height: 1.7;
         text-align: center;
         /*font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
-        direction: rtl;*/
+         direction: rtl;*/
         /**/
         /*font-size: 110% !important;*/
         max-width: 900px;
@@ -467,30 +380,25 @@
         margin-left: auto;
         margin-right: auto;
       }
-
       #footer {
         font-size: 22px;
         /*position: absolute;
-        top: 720px !important;*/
+         top: 720px !important;*/
         /* center */
         /*left: 0;
-        right: 0;
-        margin-left: auto;
-        margin-right: auto;*/
+         right: 0;
+         margin-left: auto;
+         margin-right: auto;*/
         /* Need a specific value to work */
         /*width: 95%;*/
       }
-
       /* */
-
       /*.ar {
-        font-size: 115%;
-      }*/
+         font-size: 115%;
+         }*/
     </style>
-
     <!-- === INT CSS - END === -->
   </head>
-
   <body translate="no">
     <div id="page">
       <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
@@ -505,19 +413,16 @@
             loading="lazy"
             src="../img/logo/logo.svg"
         /></a>
-
         <!--
-        <img
-          class="hmvLogo1"
-          alt="hadith mv"
-          loading="lazy"
-          src="../img/logo/logo.svg"
-        />
-        -->
-
+               <img
+                 class="hmvLogo1"
+                 alt="hadith mv"
+                 loading="lazy"
+                 src="../img/logo/logo.svg"
+               />
+               -->
         <span class="hideOnPhoneOnly">ޙަދީޘްއެމްވީ – </span>
         <span>ސުންނަތުގެ ތަރުޖަމާ މަންސަ</span>
-
         <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
         <nav id="menu">
           <ul>
@@ -525,130 +430,120 @@
             <li>
               <a href="../books/index.html">● މައި ސަފުހާ</a>
             </li>
-
             <!--
-            <li>
-              <span>މަންސަތައް</span>
-              <ul>
-                <li>
-                  <a href="https://hadithmv.github.io">ވެބް</a>
-                </li>
-                <li>
-                  <a
-                    href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
-                    >އެންޑްރޮއިޑް</a
-                  >
-                </li>
-                <li>
-                  <span>ވިންޑޯސް</span>
-                  <ul>
-                    <li>
-                      <a
-                        href="https://github.com/hadithmv/hadithmv.github.io/releases"
-                        >ޑައުންލޯޑް</a
-                      >
-                    </li>
-                    <li>
-                      <a
-                        href="https://www.virustotal.com/gui/url/559cb24958860c16114e38f9cb2a4b4dac409bd87304f8b2aa45b1ac3743b469/detection"
-                        >(ވައިރަސް ޗެކް)</a
-                      >
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            -->
-
+                     <li>
+                       <span>މަންސަތައް</span>
+                       <ul>
+                         <li>
+                           <a href="https://hadithmv.github.io">ވެބް</a>
+                         </li>
+                         <li>
+                           <a
+                             href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
+                             >އެންޑްރޮއިޑް</a
+                           >
+                         </li>
+                         <li>
+                           <span>ވިންޑޯސް</span>
+                           <ul>
+                             <li>
+                               <a
+                                 href="https://github.com/hadithmv/hadithmv.github.io/releases"
+                                 >ޑައުންލޯޑް</a
+                               >
+                             </li>
+                             <li>
+                               <a
+                                 href="https://www.virustotal.com/gui/url/559cb24958860c16114e38f9cb2a4b4dac409bd87304f8b2aa45b1ac3743b469/detection"
+                                 >(ވައިރަސް ޗެކް)</a
+                               >
+                             </li>
+                           </ul>
+                         </li>
+                       </ul>
+                     </li>
+                     -->
             <!--
-            <li>
-              <span>އީ - ފިހާރަ</span>
-              <ul>
-                <li>
-                  <a href="https://t.me/ashraafmv"
-                    >ޙަދީޘްއެމްވީ މަޝްރޫއަށް އެހީވެދިނުމަށް</a
-                  >
-                </li>
-                <li>
-                  <a href="https://hadithmv.github.io/shop"
-                    >ފޮތް ގަތުމާއި، އަގީގާ ކަތިލުމާއި، ފެންވަޅު ކޮނުމަށް</a
-                  >
-                </li>
-                <li>
-                  <span>އެހެނިހެން ހިދުމަތްތައް</span>
-                  <ul>
-                    <li>
-                      <a href="https://t.me/ashraafmv"
-                        >ގްރެފިކްސް ޑިޒައިންކުރުމާއި، ކެޕްޝަން ހެދުމާއި،
-                        އިސްތިހާރު ތައްޔާރުކުރުމަށް</a
-                      >
-                    </li>
-                    <li>
-                      <a href="https://t.me/ashraafmv"
-                        >ލިޔުމެއް ތައްޔާރުކުރުމާއި، ތަރުޖަމާކުރުމާއި، ރަނގަޅުތޯ
-                        ބެލުމަށް</a
-                      >
-                    </li>
-                    <li>
-                      <a href="https://t.me/ashraafmv"
-                        >ސޮފްޓްވެއަރ މައްސަލައެއް ހައްލުކުރުމަށް</a
-                      >
-                    </li>
-                    <li>
-                      <a href="https://t.me/ashraafmv"
-                        >ވެބްސައިޓު ހެދުމާއި، އިތުރަށް ރަނގަޅުކުރުމަށް</a
-                      >
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            -->
-
+                     <li>
+                       <span>އީ - ފިހާރަ</span>
+                       <ul>
+                         <li>
+                           <a href="https://t.me/ashraafmv"
+                             >ޙަދީޘްއެމްވީ މަޝްރޫއަށް އެހީވެދިނުމަށް</a
+                           >
+                         </li>
+                         <li>
+                           <a href="https://hadithmv.github.io/shop"
+                             >ފޮތް ގަތުމާއި، އަގީގާ ކަތިލުމާއި، ފެންވަޅު ކޮނުމަށް</a
+                           >
+                         </li>
+                         <li>
+                           <span>އެހެނިހެން ހިދުމަތްތައް</span>
+                           <ul>
+                             <li>
+                               <a href="https://t.me/ashraafmv"
+                                 >ގްރެފިކްސް ޑިޒައިންކުރުމާއި، ކެޕްޝަން ހެދުމާއި،
+                                 އިސްތިހާރު ތައްޔާރުކުރުމަށް</a
+                               >
+                             </li>
+                             <li>
+                               <a href="https://t.me/ashraafmv"
+                                 >ލިޔުމެއް ތައްޔާރުކުރުމާއި، ތަރުޖަމާކުރުމާއި، ރަނގަޅުތޯ
+                                 ބެލުމަށް</a
+                               >
+                             </li>
+                             <li>
+                               <a href="https://t.me/ashraafmv"
+                                 >ސޮފްޓްވެއަރ މައްސަލައެއް ހައްލުކުރުމަށް</a
+                               >
+                             </li>
+                             <li>
+                               <a href="https://t.me/ashraafmv"
+                                 >ވެބްސައިޓު ހެދުމާއި، އިތުރަށް ރަނގަޅުކުރުމަށް</a
+                               >
+                             </li>
+                           </ul>
+                         </li>
+                       </ul>
+                     </li>
+                     -->
             <!--<li>
-              <span>ޑައުންލޯޑުތައް</span>
-              <ul>
-                <li>
-                  <a
-                    href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf"
-                    >ނަވަވީގެ ސާޅީސް ޙަދީޘް (PDF)</a
-                  >
-                </li>
-              </ul>
-            </li>-->
-
+                     <span>ޑައުންލޯޑުތައް</span>
+                     <ul>
+                       <li>
+                         <a
+                           href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf"
+                           >ނަވަވީގެ ސާޅީސް ޙަދީޘް (PDF)</a
+                         >
+                       </li>
+                     </ul>
+                     </li>-->
             <li>
               <a href="../notes/info/contact.html"
                 >ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a
               >
             </li>
-
             <li>
               <a href="../notes/info/helpTranslate.html"
                 >ތަރުޖަމާގައި އެހީވެދިނުމަށް</a
               >
             </li>
-
             <li>
               <a href="../notes/info/FAQ.html"
                 >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
               >
             </li>
-
             <li>
               <a href="../notes/info/contributors.html">އެހީތެރިން</a>
             </li>
-
             <li class="hmvVer" onclick="openDiv();">
               <a class="versionNo">⚙️ އިސްދާރު: v</a>
             </li>
-
             <!--
-            <li class="hmvVer" onclick="openDiv();">
-              <a href="#">⚙️ އިސްދާރު: v3.15</a>
-            </li>
-            -->
-
+                     <li class="hmvVer" onclick="openDiv();">
+                       <a href="#">⚙️ އިސްދާރު: v3.15</a>
+                     </li>
+                     -->
             <li>
               <a href="https://t.me/ashraafmv"
                 >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
@@ -671,20 +566,16 @@
         <!-- <nav id="menu"> -->
       </div>
       <!-- <div class="header fixed" onclick="drawer.open();"> -->
-
       <style>
         /* ====================
-          Tabs
-======================= */
-
+            Tabs
+            ======================= */
         /* Style the tab */
         .tab {
           overflow: hidden;
           border: 1px solid #ccc;
           background: #136296;
-
           /* #f1f1f1 */
-
           /* added */
           border-radius: 5px;
           text-align: center;
@@ -693,51 +584,41 @@
           justify-content: space-around;
           flex-wrap: wrap;
         }
-
         /* Style the buttons inside the tab */
         .tab button {
           background-color: inherit;
-
           /* float: left; disabled for centering */
           border: 1px solid black;
           outline: none;
           cursor: pointer;
           padding: 8px 12px;
-
           /* padding: 14px 16px; */
           transition: 0.3s;
           font-size: 17px;
-
           /* added */
           font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
           color: #eee;
           flex-grow: 1;
           min-width: 20%;
           transition: 0.25s ease-out;
-
           /* fix odd four unaligned buttons */
           width: 150px;
         }
-
         /*@media (prefers-color-scheme: light) {
-          .tab button {
+            .tab button {
             background-color: #eee;
             color: #000;
-          }
-
-          .tab button:hover {
+            }
+            .tab button:hover {
             background-color: #0f4c75 !important;
             color: #eee !important;
-          }
-
-          .tab button.active {
+            }
+            .tab button.active {
             background-color: #0f4c75 !important;
             color: #eee !important;
-          }
-        }*/
-
+            }
+            }*/
         /* Change background color of buttons on hover */
-
         /* above mobile, tablet-portrait-up */
         @media (min-width: 600px) {
           .tab button:hover {
@@ -745,29 +626,23 @@
             letter-spacing: 1.5px;
             -webkit-font-smoothing: antialiased;
           }
-
           .tab button.active {
             font-size: 110%;
           }
         }
-
         .tab button:hover {
           background-color: #eee;
-
           /* added */
           color: #000;
         }
-
         /* Create an active/current tablink class */
         .tab button.active {
           background-color: #eee;
-
           /* added */
           color: #000;
           letter-spacing: 0;
           cursor: default;
         }
-
         /* Style the tab content */
         .tabcontent {
           display: none;
@@ -776,29 +651,24 @@
           animation: fadeEffect 0.7s;
           animation-timing-function: ease-out;
         }
-
         /* Fade in tabs */
         @keyframes fadeEffect {
           from {
             opacity: 0;
           }
-
           to {
             opacity: 1;
           }
         }
-
         @keyframes fadeEffect {
           from {
             opacity: 0;
           }
-
           to {
             opacity: 1;
           }
         }
       </style>
-
       <script>
         // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs_fade
         /*document.body.classList.add("changeBack");*/
@@ -831,121 +701,103 @@
         }
 
         /* OLD CODE BELOW, cgpt prompt used to change below code to above:
-        this code first hides a div then shows it, then when clicking buttons, switches to other divs .i want the main div to be shown by default, and then when buttons are clicked, to switch to other divs. i dont want there to be defaultOpen on an element
-        
-        document.addEventListener("DOMContentLoaded", function () {
-          document.getElementById("defaultOpen").click();
-        });
-
-        function openTab(evt, tabName) {
-          var i, tabcontent, tablinks;
-          tabcontent = document.getElementsByClassName("tabcontent");
-          for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-          }
-          tablinks = document.getElementsByClassName("tablinks");
-          for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(
-              " active",
-              ""
-            );
-          }
-          document.getElementById(tabName).style.display = "block";
-          evt.currentTarget.className += " active";
-        }
-        */
+            this code first hides a div then shows it, then when clicking buttons, switches to other divs .i want the main div to be shown by default, and then when buttons are clicked, to switch to other divs. i dont want there to be defaultOpen on an element
+            
+            document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("defaultOpen").click();
+            });
+            
+            function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+              tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+              tablinks[i].className = tablinks[i].className.replace(
+                " active",
+                ""
+              );
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+            }
+            */
       </script>
-
       <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_column_cards -->
       <!--<h2>Responsive Column Cards</h2>
-<p>Resize the browser window to see the effect.</p>-->
-
+            <p>Resize the browser window to see the effect.</p>-->
       <style>
         /* custom tab stuff here */
         button.tablinks {
           font-size: 21px;
         }
-
         .tab button.active {
           font-size: 21px;
         }
-
         .arSpan {
           font-size: 26px;
         }
-
         .tab button {
           width: 180px;
         }
-
         /* mobile, tablet-portrait-up */
         @media (max-width: 600px) {
           button.tablinks {
             font-size: 15px;
           }
-
           .tab button.active {
             font-size: 15px;
           }
-
           .arSpan {
             font-size: 20px;
           }
-
           .tab button {
             width: 150px;
           }
         }
-
         /*.tabQuran {
-          background-color: #ad0e1c !important;
-        }
-        .tabAqida {
-          background-color: #c05602 !important;
-        }
-        .tabLang {
-          background-color: #006e46 !important;
-        }
-
-        .tabQuran,
-        .tabAqida,
-        .tabLang {
-          color: #eee !important;
-        }
-
-        .tabQuran:hover,
-        .tabAqida:hover,
-        .tabLang:hover {
-          background-color: #eee !important;
-          color: #000 !important;
-        }
-
-        .tabQuran.active,
-        .tabAqida.active,
-        .tabLang.active {
-          background-color: #eee !important;
-          color: #000 !important;
-        }*/
-
+            background-color: #ad0e1c !important;
+            }
+            .tabAqida {
+            background-color: #c05602 !important;
+            }
+            .tabLang {
+            background-color: #006e46 !important;
+            }
+            .tabQuran,
+            .tabAqida,
+            .tabLang {
+            color: #eee !important;
+            }
+            .tabQuran:hover,
+            .tabAqida:hover,
+            .tabLang:hover {
+            background-color: #eee !important;
+            color: #000 !important;
+            }
+            .tabQuran.active,
+            .tabAqida.active,
+            .tabLang.active {
+            background-color: #eee !important;
+            color: #000 !important;
+            }*/
         /* space and height for below cards stuff */
-
         .tabcontent {
           min-height: 400px;
           margin-bottom: -27px;
         }
-
         /* @mixin for-tablet-portrait or smaller */
         @media screen and (max-width: 600px) {
           .tabcontent {
             min-height: 360px;
           }
         }
-
         .backArrow {
           border-color: transparent !important;
           /**/
           /*line-height: 0.01 !important;*/
-
           /**/
           transform: scale(-1, -1) !important;
           -moz-transform: scale(-1, -1) !important;
@@ -953,84 +805,76 @@
           -o-transform: scale(-1, -1) !important;
           -ms-transform: scale(-1, -1) !important;
         }
-
         .backArrow p span {
           font-size: 55px;
         }
-
         .backArrow p {
           margin-top: 2px !important;
           margin-bottom: -2px !important;
         }
-
         /*
-        .backC {
-          border-color: transparent !important;
-        }
-        */
+            .backC {
+            border-color: transparent !important;
+            }
+            */
       </style>
-
       <script>
         function scrollBack2Top() {
           window.scrollTo(0, 0);
         }
       </script>
-
       <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs_fade -->
-
       <!--
-      <div class="row" style="margin-top: 65px; margin-bottom: -10px">
-         
-        <div
-          class="tab"
-          style="max-width: 1000px; margin: 0 auto; flex-direction: row-reverse"
-        >
-          
-          <button class="tablink" onclick="openTab(event, 'tab2');">
+            <div class="row" style="margin-top: 65px; margin-bottom: -10px">
+               
+              <div
+                class="tab"
+                style="max-width: 1000px; margin: 0 auto; flex-direction: row-reverse"
+              >
+                
+                <button class="tablink" onclick="openTab(event, 'tab2');">
+                    
+                  ޤުރްއާން <br />
+                  <span class="arSpan">القرآن</span>
+                </button>
+                <button
+                  class="tablinks"
+                  onclick="openTab(event, 'tab1'); focusEditor();"
+                  id="defaultOpen"
+                >
+                  ޙަދީޘް <br />
+                  <span class="arSpan">الحديث</span>
+                </button>
+                <button
+                  class="tablinks tabAqida"
+                  onclick="openTab(event, 'tab3'); focusAdder();"
+                >
+            
+                  އަގީދާ <br />
+                  <span class="arSpan">العقيدة</span>
+                </button>
+                <button class="tablinks tabLang" onclick="openTab(event, 'tab4')">
+                  ބަސް <br />
+                  <span class="arSpan">اللغة</span></button
+                >
               
-            ޤުރްއާން <br />
-            <span class="arSpan">القرآن</span>
-          </button>
-          <button
-            class="tablinks"
-            onclick="openTab(event, 'tab1'); focusEditor();"
-            id="defaultOpen"
-          >
-            ޙަދީޘް <br />
-            <span class="arSpan">الحديث</span>
-          </button>
-          <button
-            class="tablinks tabAqida"
-            onclick="openTab(event, 'tab3'); focusAdder();"
-          >
-  
-            އަގީދާ <br />
-            <span class="arSpan">العقيدة</span>
-          </button>
-          <button class="tablinks tabLang" onclick="openTab(event, 'tab4')">
-            ބަސް <br />
-            <span class="arSpan">اللغة</span></button
-          >
-        
-      </div>
-    </div>-->
-
-      <!--
-        <div class="row">
-        <div class="column">
-          <a
-        class="tablinks"
-        onclick="openTab(event, 'tab2');
-         focusEditor();">
-            <div class="card quranCard">
-              <p>ގުރްއާން</p>
-              <p>القرآن الكريم</p>
             </div>
-          </a>
-        </div>
-      </div>
-    -->
-
+            </div>-->
+      <!--
+            <div class="row">
+            <div class="column">
+              <a
+            class="tablinks"
+            onclick="openTab(event, 'tab2');
+             focusEditor();">
+                <div class="card quranCard">
+                  <p>ގުރްއާން</p>
+                  <p>القرآن الكريم</p>
+                </div>
+              </a>
+            </div>
+            </div>
+            -->
       <style>
         /*@mixin for-phone-only {*/
         @media (max-width: 599px) {
@@ -1039,9 +883,7 @@
           }
         }
       </style>
-
       <!-- TABLE CSS BELOW -->
-
       <style>
         /* DARK MODE  */
         @media (prefers-color-scheme: dark) {
@@ -1049,16 +891,13 @@
             background-color: #181a1b;
             color: #c5cfd6;
           }
-
           tr:hover {
             background-color: #136296;
           }
-
           th {
             background-color: #2596be;
           }
         }
-
         body {
           display: flex;
           justify-content: center;
@@ -1070,7 +909,6 @@
           /*padding: 15px;*/
           /*margin: 0;*/
         }
-
         table {
           border-collapse: collapse;
           /*background-color: white;*/
@@ -1090,23 +928,19 @@
           margin: auto;
           /* For right-to-left text direction */
           direction: rtl;
-
           margin-bottom: 50px;
-
           /* shadow */
           box-shadow:
             0 1px 3px rgba(0, 0, 0, 0.12),
             0 1px 2px rgba(0, 0, 0, 0.24);
           transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-
         th,
         td {
           /*text-align: left;*/
           font-size: 24px;
           /* 16px; 12px; */
           /*padding: 10px;*/
-
           /*padding-top: 10px;
             padding-bottom: 10px;*/
           /*padding-left: 30px;
@@ -1115,15 +949,11 @@
           padding-bottom: 10px;
           padding-left: 15px;
           padding-right: 15px;
-
           font-weight: normal;
-
           /* vertical-align: baseline; */
           vertical-align: baseline;
-
           line-height: 1.7;
         }
-
         /*@mixin for-phone-only*/
         @media (max-width: 599px) {
           th,
@@ -1131,34 +961,30 @@
             padding: 10px;
           }
         }
-
         /* Ensure the padding applies only to the cells of that row */
         table tr:first-child td {
           padding-top: 20px;
           /* Set your desired padding */
         }
-
         table tr:last-child td {
           padding-bottom: 20px;
           /* Set your desired padding */
         }
-
-        /* Selects the first <td> of each row in the table */
+        /* Selects the first 
+            <td>
+               of each row in the table */
         table tr td:first-child {
           overflow-wrap: break-word;
         }
-
         /* Hide the fourth column
-          table td:nth-child(4),
-          table th:nth-child(4) {
-            display: none;
-          } */
-
+               table td:nth-child(4),
+               table th:nth-child(4) {
+               display: none;
+               } */
         /* Light grey background for odd rows */
         /*tr:nth-child(odd) {
-            background-color: #f2f2f2;
-          }*/
-
+               background-color: #f2f2f2;
+               }*/
         th {
           /*background-color: #7691ab;*/
           background-color: #b03b45;
@@ -1169,62 +995,50 @@
           /*font-size: 18px;*/
           /* 12px; */
         }
-
         /* This selector targets the first th element only */
         tr:first-child > th {
           background-color: #1670ac !important;
         }
-
         /* DARK MODE  */
         @media (prefers-color-scheme: dark) {
         }
-
         /* ADDED */
-
         table td:nth-child(2) {
           /*direction: rtl;*/
           text-align: right;
         }
-
         /*table td:nth-child(3) {
-            direction: rtl;
-            text-align: center;
-          }*/
-
+               direction: rtl;
+               text-align: center;
+               }*/
         tr:hover {
           background-color: #136296;
           /* #f5f5f5 */
           color: #fff;
           cursor: pointer;
         }
-
         /* animate table */
-
         /*@keyframes fadeIn {
-            from {
-              opacity: 0;
-            }
-            to {
-              opacity: 1;
-            }
-          }
-
-          table {
-            animation: fadeIn 0.5s ease-in-out;
-          }*/
-
+               from {
+               opacity: 0;
+               }
+               to {
+               opacity: 1;
+               }
+               }
+               table {
+               animation: fadeIn 0.5s ease-in-out;
+               }*/
         @keyframes slideUp {
           from {
             opacity: 0;
             transform: translateY(50px);
           }
-
           to {
             opacity: 1;
             transform: translateY(0);
           }
         }
-
         .animate-table {
           opacity: 0;
           /* Start hidden */
@@ -1234,14 +1048,12 @@
             opacity 0.5s ease-in-out,
             transform 0.5s ease-in-out;
         }
-
         .animate-table.visible {
           opacity: 1;
           transform: translateY(0);
           /* Move to original position */
         }
       </style>
-
       <script>
         document.addEventListener("DOMContentLoaded", function () {
           const tables = document.querySelectorAll(".animate-table");
@@ -1260,15 +1072,13 @@
           });
         });
       </script>
-
       <div class="mobileTopSpace" style="margin-top: 70px"></div>
-
       <div id="tab2" class="tabcontent">
         <!-- -->
         <table class="animate-table">
           <tr>
             <th
-              colspan="4"
+              colspan="3"
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
             >
@@ -1400,7 +1210,6 @@
           </tr>
         </table>
         <!-- -->
-
         <p class="quoteHere">
           ނޯޓު: މިއީ އެންމެ ގިނަ ގުރްއާނުގެ ދިވެހި ތަރުޖަމާއާއި ތަފްސީރު އެއް
           މަންސައަކުން ލިބެން ހުރި ތަނެވެ.
@@ -1411,31 +1220,27 @@
           ކުށްތަކަކަށް އަހަރުމެން އިގުރާރެއް ނުވަމެވެ. ކުށެއް ވާނީ ހަމަ
           ކުށަކަށެވެ. ނަމަކުން ޚިދުމަތަކުން އެއެއް ބަދަލެއް ނުވާނެއެވެ.
         </p>
-
         <!--<p class="quoteHere">
-          ގުރްއާން ތަރުޖަމާކޮށް ތަފްސީރު ކުރުމުގައި ދިވެހި އިލްމުވެރިން ކުރެއްވި
-          މަސައްކަތް - އަރަބި
-          <a
-            href="https://archive.org/details/juhud-ulama-al-maldif-fi-tarjamati-maanil-quran-wa-tafsirihi"
-            rel="noopener noreferrer"
-            target="_blank"
-            >ޕީޑީއެފް</a
-          >
-        </p>-->
-
+            ގުރްއާން ތަރުޖަމާކޮށް ތަފްސީރު ކުރުމުގައި ދިވެހި އިލްމުވެރިން ކުރެއްވި
+            މަސައްކަތް - އަރަބި
+            <a
+              href="https://archive.org/details/juhud-ulama-al-maldif-fi-tarjamati-maanil-quran-wa-tafsirihi"
+              rel="noopener noreferrer"
+              target="_blank"
+              >ޕީޑީއެފް</a
+            >
+            </p>-->
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ’ހަމަކަށަވަރުން މި ގުރްއާން އެންމެ ސީދާ މަގަށް
           މަގުދައްކައެވެ. އަދި ހަމަކަށަވަރުން ސާލިހު އަމަލުތައް ކުރާ
           މުއުމިނުންނަށް ބޮޑުވެގެންވާ ދަރުމައެއް ހުރިކަމުގެ އުފާވެރި ޚަބަރު
           ދެއެވެ.‘ [الإسراء 9]
         </p>
-
         <p class="quoteHere">
           ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”ތިމަން ކަލޭގެފާނުގެ އުއްމަތުގެ
           ތެރެއިން، އެބައިމީހުން ކިރު ބޯ ފަދައިން، ގުރްއާން ބޯލާނެ ބަޔަކު
           ނުކުމެގެން އަންނާނެއެވެ.“ [المعجم الكبير 821]
         </p>
-
         <p class="quoteHere">
           ސަލަފުންގެ ބައެއް ބޭކަލުން ވިދާޅުވިއެވެ: ގުރްއާނުގައި (ޖެއްސެވޭ)
           މިސާލުތައް ތިމަންނައަށް އަޑުއިވޭ ހިނދު، ތިމަންނައަށް އެ ފަހުމް
@@ -1446,13 +1251,12 @@
         </p>
       </div>
       <!-- class="tabcontent"> -->
-
       <div id="tab3" class="tabcontent">
         <!-- -->
         <table class="animate-table">
           <tr>
             <th
-              colspan="4"
+              colspan="3"
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
             >
@@ -1526,9 +1330,7 @@
             <td>ޙަދީޘް މުސްޠަލަޙު ފަސޭހަކުރުން (PDF)</td>
           </tr>
         </table>
-
         <!---->
-
         <p class="quoteHere">
           ނޯޓު: މިއީ އެންމެ ގިނަ ޙަދީޘްގެ ދިވެހި ތަރުޖަމާ އެއް މަންސައަކުން
           ލިބެން ހުރި ތަނެވެ. މިހާރު މި ތަރުޖަމާ ކުރަމުން ގެންދާ ޙަދީޘް ފޮތް
@@ -1537,20 +1339,17 @@
           އެދޭ ނަމަ
           <a href="../notes/info/contact.html">އަންގާލަދެއްވާށެވެ</a>.
         </p>
-
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ’އަދި އެކަލޭގެފާނު އަމިއްލަ އެދުންފުޅަކަށް
           ވާހަކަފުޅެއް ނުދައްކަވައެވެ. އެއީ އެކަލޭގެފާނަށް އިއްވަވާ ވަހީއެއް
           ކަމުގައި މެނުވީ ނުވެއެވެ.‘ [النجم 4]
         </p>
-
         <p class="quoteHere">
           ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”ތިމަން ކަލޭގެފާނުގެ ބަސްފުޅު
           އަޑުއަހައި، އެ ރަނގަޅަށް ވިސްނި، ދެން އެ ބަސްފުޅު އަޑުއެހި ގޮތަށް
           (އެހެން މީހަކަށް) ފޯރުކޮށްދީފި މީހާގެ މޫނު ﷲ އުޖާލާ ކުރައްވާށިއެވެ.“
           [حلية الأولياء 105]
         </p>
-
         <p class="quoteHere">
           އިމާމު އަޙްމަދު [241 ހ.] ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ: ނަބީ ﷺ ގެ
           ޙަދީޘްފުޅެއް ރައްދުކޮށްފި މީހާ ވަނީ ހަލާކުގެ ތުންފަތް މަތީގައެވެ.
@@ -1559,19 +1358,141 @@
         <!-- -->
       </div>
       <!-- class="tabcontent"> -->
-
+      <!-- HIDDENCARD CSS -->
+      <style>
+        /* hides by default, until friday 4am-6pm for kahf, or everyday 7pm-2am for night quran */
+        .hiddenCard {
+          display: none;
+        }
+        #kahfReminder > a > .card {
+          /* background-color: invert(100%); */
+          /* filter: hue-rotate(3.142rad); */
+          filter: hue-rotate(280deg);
+        }
+        #kahfReminder > a > .card > p {
+          filter: hue-rotate(-280deg);
+        }
+        #nightQuranReminder > a > .card,
+        #morningQuranReminder > a > .card {
+          filter: hue-rotate(145deg);
+        }
+        /*#nightQuranReminder > a > .card > p {
+         filter: hue-rotate(145deg);
+         }*/
+        #morningQuranReminder > a > .card > p {
+          filter: hue-rotate(-145deg);
+        }
+      </style>
+      <!-- HIDDENCARD CSS END -->
       <div id="tab1" class="tabcontent">
+        <!-- -->
+        <table class="animate-table">
+          <tr
+            onclick="window.location.href='../books/quranHmv.html#quranTable=p482';"
+            class="hiddenCard"
+            id="morningQuranReminder"
+          >
+            <td></td>
+            <td>قراءة آخر عشر آيات من آل عمران بعد الإستيقاظ</td>
+            <td>🌅 ހޭލައިގެން سورة آل عمران ގެ ފަހު ދިހަ އާޔަތް ކިޔެވުން</td>
+          </tr>
+          <!--
+            فروى البخاري (992) ، ومسلم (763) عَنْ كُرَيْبٍ ، أَنَّ ابْنَ عَبَّاسٍ رضي الله عنهما أَخْبَرَهُ : ( أَنَّهُ بَاتَ عِنْدَ مَيْمُونَةَ وَهِيَ خَالَتُهُ : فَاضْطَجَعْتُ فِي عَرْضِ وِسَادَةٍ ، وَاضْطَجَعَ رَسُولُ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ وَأَهْلُهُ فِي طُولِهَا، فَنَامَ حَتَّى انْتَصَفَ اللَّيْلُ - أَوْ قَرِيبًا مِنْهُ - فَاسْتَيْقَظَ يَمْسَحُ النَّوْمَ عَنْ وَجْهِهِ ، ثُمَّ قَرَأَ عَشْرَ آيَاتٍ مِنْ آلِ عِمْرَانَ ، ثُمَّ قَامَ رَسُولُ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ إِلَى شَنٍّ مُعَلَّقَةٍ، فَتَوَضَّأَ، فَأَحْسَنَ الوُضُوءَ ، ثُمَّ قَامَ يُصَلِّي ) .
+            -->
+          <tr
+            onclick="window.location.href='../books/quranHmv.html#quranTable=p2140';"
+            class="hiddenCard"
+            id="kahfReminder"
+          >
+            <td></td>
+            <td>
+              من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين
+            </td>
+            <td>
+              🌄 ”ހުކުރު ދުވަހު سورة الكهف ކިޔަވައިފި މީހާއަށް، ޖެހިގެން އަންނަ
+              ހުކުރާ ހަމައަށް ނޫރަކުން އަލިކޮށްދެއްވާނެއެވެ.“
+            </td>
+          </tr>
+          <!--
+            1 - «مَنْ قَرَأَ سورة الكهفِ يومَ الجمعةِ أَضاءَ له مِنَ النُّورِ ما بيْنَ الجُمعتينِ». الراوي : أبو سعيد الخدري | المحدث : الحاكم | المصدر : المستدرك على الصحيحين الصفحة أو الرقم : 3436 | خلاصة حكم المحدث : صحيح الإسناد
+             -->
+          <tr
+            onclick="openTab(event, 'tab13'); scrollBack2Top();"
+            class="hiddenCard"
+            id="nightQuranReminder"
+          >
+            <td></td>
+            <td>قراءة القرآن قبل النوم</td>
+            <td>🛏️ ނިދުމުގެ ކުރިން ގުރްއާން ކިޔެވުން</td>
+          </tr>
+          <!--
+            1 - «مَنْ قَرَأَ سورة الكهفِ يومَ الجمعةِ أَضاءَ له مِنَ النُّورِ ما بيْنَ الجُمعتينِ». الراوي : أبو سعيد الخدري | المحدث : الحاكم | المصدر : المستدرك على الصحيحين الصفحة أو الرقم : 3436 | خلاصة حكم المحدث : صحيح الإسناد
+            -->
+          <tr onclick="openTab(event, 'tab2'); scrollBack2Top();">
+            <td>1</td>
+            <td>القرآن والتفسير</td>
+            <td>📖 ގުރްއާނާއި ތަފްސީރު</td>
+          </tr>
+          <tr onclick="openTab(event, 'tab3'); scrollBack2Top();">
+            <td>2</td>
+            <td>الحديث والأثر</td>
+            <td>📘 ޙަދީޘާއި އަޘަރު</td>
+          </tr>
+          <tr onclick="openTab(event, 'tab4'); scrollBack2Top();">
+            <td>3</td>
+            <td>لعقيدة والمنهج</td>
+            <td>📙 އަގީދާއާއި މަންހަޖު</td>
+          </tr>
+          <tr onclick="openTab(event, 'tab5'); scrollBack2Top();">
+            <td>4</td>
+            <td>اللغة والكتابة</td>
+            <td>🌐 ބަހާއި ލިޔުންތެރިކަން</td>
+          </tr>
+          <tr
+            onclick="window.location.href='../books/hisnulMuslim.html#hisnulMuslimTable=p74';"
+          >
+            <td>5</td>
+            <td>أذكار الصباح والمساء</td>
+            <td>🤲 ހެނދުނާއި ހަވީރުގެ ޒިކުރުތައް</td>
+          </tr>
+          <tr onclick="window.location.href='../notes/info/text-editor.html';">
+            <td>5</td>
+            <td>محرر النصوص</td>
+            <td>📝 ޓެކްސްޓު އެޑިޓަރ</td>
+          </tr>
+          <tr onclick="openTab(event, 'tab14'); scrollBack2Top();">
+            <td>6</td>
+            <td>أكاديمية حديث أم وي</td>
+            <td>📜 ޙަދީޘްއެމްވީ އެކެޑެމީ</td>
+          </tr>
+          <tr onclick="openTab(event, 'tab6'); scrollBack2Top();">
+            <td>7</td>
+            <td>المتنوعات</td>
+            <td>📓 އެހެނިހެން</td>
+          </tr>
+          <tr onclick="openTab(event, 'tab10'); scrollBack2Top();">
+            <td>8</td>
+            <td>دار فتية الكهف</td>
+            <td>⛰️ ދާރު ފިތްޔަތިލް ކަހްފި</td>
+          </tr>
+          <tr onclick="window.open('https://birrumv.com', '_blank');">
+            <td></td>
+            <td>العقيقة والآبار</td>
+            <td>💧 އަގީގާއާއި ވަޅުހެދުން</td>
+          </tr>
+        </table>
+        <!-- -->
         <!--
-          in html, write code for a user to paste a url in an input box, upon which the user will be taken to that url, on that same page. otherwise, the user can write an address themselves and pressing enter should take them to that page. it should be nice looking
-          it doesnt have to be or check for https. rather what it should do is, it should take the input, then it should replace the text that comes after: "/books/" or "/uc/" from that input, with "/books/" of the current page url, along with whatever comes before "/books/" of that current page.
-          if neither /uc/ or /books/ are there, it should not change to that page, and the placeholder text should say "incorrect link" and be in red color, border color should also be red
-        -->
+            in html, write code for a user to paste a url in an input box, upon which the user will be taken to that url, on that same page. otherwise, the user can write an address themselves and pressing enter should take them to that page. it should be nice looking
+            it doesnt have to be or check for https. rather what it should do is, it should take the input, then it should replace the text that comes after: "/books/" or "/uc/" from that input, with "/books/" of the current page url, along with whatever comes before "/books/" of that current page.
+            if neither /uc/ or /books/ are there, it should not change to that page, and the placeholder text should say "incorrect link" and be in red color, border color should also be red
+            -->
         <style>
           .goToButtonContainer {
             text-align: center;
-            margin-bottom: -14px;
+            /*margin-bottom: -14px;*/
+            margin-top: -15px;
           }
-
           #urlInput {
             width: auto;
             padding: 1px;
@@ -1585,11 +1506,9 @@
             max-width: 50vw;
             font-size: 85%;
           }
-
           #urlInput:focus {
             border-color: #007bff;
           }
-
           .goToButton {
             padding: 1px 20px;
             border: none;
@@ -1601,54 +1520,43 @@
             transition: background-color 0.3s;
             font-size: 90%;
           }
-
           .goToButton:hover {
             background-color: #0f4c75;
           }
-
           #urlInput::placeholder {
             color: var(--placeholder-color, #757575);
           }
-
           @media (prefers-color-scheme: dark) {
             #urlInput {
               color: #c5cfd6;
               background-color: initial;
             }
-
             #urlInput::placeholder {
               color: #c5cfd6;
             }
           }
-
           .incorrect {
             border-color: red !important;
           }
-
           .incorrect::placeholder {
             color: red;
             transition: opacity 0.5s ease-in-out;
           }
-
           .incorrect-fade::placeholder {
             opacity: 0;
           }
-
           #urlInput::placeholder {
             color: var(--placeholder-color, #757575);
           }
         </style>
-
         <div class="goToButtonContainer">
           <input
             type="text"
             id="urlInput"
-            placeholder="ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ
-          "
+            placeholder="ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ"
           />
           <button class="goToButton" onclick="redirectToUrl()">ސ އަށްދޭ</button>
         </div>
-
         <script>
           function redirectToUrl() {
             const inputElement = document.getElementById("urlInput");
@@ -1676,9 +1584,9 @@
               inputElement.style.setProperty("--border-color", "red");
 
               /* write html code for a input that has a placeholder too long for its width, so it slides across animating
-the placeholder should disappear when text is typed in the input, reappear when no text is typed in the input
-after the second red placeholder text shown, the initial placeholder text should show, just not in red, when cursor is placed, but typing hasnt happened. right now the initial placeholder text is gone as well
-*/
+            the placeholder should disappear when text is typed in the input, reappear when no text is typed in the input
+            after the second red placeholder text shown, the initial placeholder text should show, just not in red, when cursor is placed, but typing hasnt happened. right now the initial placeholder text is gone as well
+            */
               setTimeout(() => {
                 inputElement.classList.add("incorrect-fade");
                 setTimeout(() => {
@@ -1732,342 +1640,95 @@ after the second red placeholder text shown, the initial placeholder text should
               inputElement.style.removeProperty("--border-color");
             });
         </script>
-
+        <!-- -->
+        <p class="quoteHere">
+          ﷲ ވަހީކުރެއްވިއެވެ: ’ހަމަކަށަވަރުން ކަލޭގެފާނު ލޯބިފުޅުވާ މީހަކަށް
+          ކަލޭގެފާނަކަށް ތެދުމަގެއް ނުދެއްކެވޭނެއެވެ. އެހެނެއްކަމަކު ﷲ
+          އިރާދަކުރެއްވި މީހަކަށް އެ އިލާހު ތެދުމަގު ދައްކަވައެވެ. އަދި ތެދުމަގު
+          ލިބެނިވި މީހުން އެ އިލާހު މޮޅަށް ދެނެވޮޑިގެންވެއެވެ.‘ [القصص 56]
+        </p>
+        <p class="quoteHere">
+          ރަސޫލު ﷲ
+          <button
+            class="lowerButtons"
+            id="sallaButton"
+            onclick="copySalla();"
+            title="ﷺ Copy"
+          >
+            &nbsp; ﷺ &nbsp;
+          </button>
+          ޙަދީޘްކުރެއްވިއެވެ: ”ފަހުން އަންނަ ކޮންމެ ބަޔެއްގެ ތެރެއިންވެސް
+          އެބައިމީހުންގެ އަދުލުވެރިން މި އިލްމު އުފުލާނެއެވެ. ޖާހިލުންގެ ބަދަލު
+          ކުރުންތަކާއި، ބާތިލު ކުރާ މީހުންގެ ދައުވާތަކާއި، ފަހަނައަޅައިދާ
+          މީހުންގެ އޮޅުވާލުންތައް އެބައިމީހުން އެ އިލްމުން ނަފީ ކުރާނެއެވެ.“
+          [تاريخ دمشق 7/39]
+        </p>
         <!--
-        -->
-
-        <!-- -->
-        <table class="animate-table">
-          <tr>
-            <th
-              colspan="4"
-              class="tablinks"
-              onclick="openTab(event, 'tab1'); scrollBack2Top();"
-            >
-              أكاديمية حديث أم وي - ޙަދީޘްއެމްވީ އެކެޑެމީ
-              <a
-                ><span
-                  style="
-                    float: left;
-                    cursor: pointer;
-                    color: #fff;
-                    font-size: 20px;
-                  "
-                >
-                  &nbsp;&nbsp;✖</span
-                ></a
-              >
-            </th>
-          </tr>
-          <tr onclick="window.location.href='../mauhad/arabic.html';">
-            <td>1</td>
-            <td>مناهج معهد تعليم اللغة العربية</td>
-            <td>📙 މަދީނާ އަރަބި ފޮތްތައް</td>
-          </tr>
-          <tr onclick="openTab(event, 'tab7'); scrollBack2Top();">
-            <td>2</td>
-            <td>متون طالب العلم</td>
-            <td>📚 އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް</td>
-          </tr>
-          <tr onclick="">
-            <td>3</td>
-            <td>المواد والمقررات الإضافية</td>
-            <td>އިތުރު މާއްދާތަކާއި މުގައްރަރުތައް ތައްޔާރުވަނީ...</td>
-          </tr>
-        </table>
-        <!-- -->
-
-        <div class="row">
-          <!-- -->
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab2'); scrollBack2Top();"
-            >
-              <div class="card">
-                <p>📖 ގުރްއާނާއި ތަފްސީރު</p>
-                <p>القرآن والتفسير</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab3'); scrollBack2Top();"
-            >
-              <div class="card">
-                <p>📘 ޙަދީޘާއި އަޘަރު</p>
-                <p>الحديث والأثر</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab4'); scrollBack2Top();"
-            >
-              <div class="card">
-                <p>📙 އަގީދާއާއި މަންހަޖު</p>
-                <p>العقيدة والمنهج</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab5'); scrollBack2Top();"
-            >
-              <div class="card">
-                <p>🌐 ބަހާއި ލިޔުންތެރިކަން</p>
-                <p>اللغة والكتابة</p>
-              </div>
-            </a>
-          </div>
-
-          <style>
-            /* hides by default, until friday 4am-6pm for kahf, or everyday 7pm-2am for night quran */
-            .hiddenCard {
-              display: none;
-            }
-
-            #kahfReminder > a > .card {
-              /* background-color: invert(100%); */
-              /* filter: hue-rotate(3.142rad); */
-              filter: hue-rotate(280deg);
-            }
-
-            #kahfReminder > a > .card > p {
-              filter: hue-rotate(-280deg);
-            }
-
-            #nightQuranReminder > a > .card,
-            #morningQuranReminder > a > .card {
-              filter: hue-rotate(145deg);
-            }
-
-            /*#nightQuranReminder > a > .card > p {
-              filter: hue-rotate(145deg);
-            }*/
-
-            #morningQuranReminder > a > .card > p {
-              filter: hue-rotate(-145deg);
-            }
-          </style>
-
-          <div class="column hiddenCard" id="morningQuranReminder">
-            <a href="../books/quranHmv.html#quranTable=p482">
-              <div class="card">
-                <p>🌅 ހޭލައިގެން سورة آل عمران ގެ ފަހު ދިހަ އާޔަތް ކިޔެވުން</p>
-                <p></p>
-              </div>
-            </a>
-          </div>
-          <!--
-            فروى البخاري (992) ، ومسلم (763) عَنْ كُرَيْبٍ ، أَنَّ ابْنَ عَبَّاسٍ رضي الله عنهما أَخْبَرَهُ : ( أَنَّهُ بَاتَ عِنْدَ مَيْمُونَةَ وَهِيَ خَالَتُهُ : فَاضْطَجَعْتُ فِي عَرْضِ وِسَادَةٍ ، وَاضْطَجَعَ رَسُولُ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ وَأَهْلُهُ فِي طُولِهَا، فَنَامَ حَتَّى انْتَصَفَ اللَّيْلُ - أَوْ قَرِيبًا مِنْهُ - فَاسْتَيْقَظَ يَمْسَحُ النَّوْمَ عَنْ وَجْهِهِ ، ثُمَّ قَرَأَ عَشْرَ آيَاتٍ مِنْ آلِ عِمْرَانَ ، ثُمَّ قَامَ رَسُولُ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ إِلَى شَنٍّ مُعَلَّقَةٍ، فَتَوَضَّأَ، فَأَحْسَنَ الوُضُوءَ ، ثُمَّ قَامَ يُصَلِّي ) .
-          -->
-
-          <div class="column hiddenCard" id="kahfReminder">
-            <a href="../books/quranHmv.html#quranTable=p2140">
-              <div class="card">
-                <p>
-                  🌄 ”ހުކުރު ދުވަހު سورة الكهف ކިޔަވައިފި މީހާއަށް، ޖެހިގެން
-                  އަންނަ ހުކުރާ ހަމައަށް ނޫރަކުން އަލިކޮށްދެއްވާނެއެވެ.“
-                </p>
-                <p></p>
-              </div>
-            </a>
-          </div>
-
-          <!--
-                  1 - «مَنْ قَرَأَ سورة الكهفِ يومَ الجمعةِ أَضاءَ له مِنَ النُّورِ ما بيْنَ الجُمعتينِ». الراوي : أبو سعيد الخدري | المحدث : الحاكم | المصدر : المستدرك على الصحيحين الصفحة أو الرقم : 3436 | خلاصة حكم المحدث : صحيح الإسناد
-                -->
-          <!--
-                <p>⚠️ ކަހްފު ސޫރަތް ކިޔަވާ</p>
-                <p>اقرأ سورة الكهف</p>
-                -->
-
-          <div class="column hiddenCard" id="nightQuranReminder">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab13'); scrollBack2Top();"
-            >
-              <div class="card">
-                <p>🛏️ ނިދުމުގެ ކުރިން ގުރްއާން ކިޔެވުން</p>
-                <p>قراءة القرآن قبل النوم</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/hisnulMuslim.html#hisnulMuslimTable=p74">
-              <div class="card">
-                <p>🤲 ހެނދުނާއި ހަވީރުގެ ޒިކުރުތައް</p>
-                <p>أذكار الصباح والمساء</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../notes/info/text-editor.html">
-              <div class="card">
-                <p>📝 ޓެކްސްޓު އެޑިޓަރ</p>
-                <p>محرر النصوص</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab14'); scrollBack2Top();"
-            >
-              <div class="card">
-                <p>📜 ޙަދީޘްއެމްވީ އެކެޑެމީ</p>
-                <p>أكاديمية حديث أم وي</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab6'); scrollBack2Top();"
-            >
-              <div class="card">
-                <p>📓 އެހެނިހެން</p>
-                <p>المتنوعات</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              href="https://birrumv.com"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <div class="card">
-                <p>💧 އަގީގާއާއި ވަޅުހެދުން</p>
-                <p>العقيقة والآبار</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab10'); scrollBack2Top();"
-            >
-              <div class="card">
-                <p>⛰️ ދާރު ފިތްޔަތިލް ކަހްފި</p>
-                <p>دار فتية الكهف</p>
-              </div>
-            </a>
-          </div>
-
-          <p class="quoteHere">
-            ﷲ ވަހީކުރެއްވިއެވެ: ’ހަމަކަށަވަރުން ކަލޭގެފާނު ލޯބިފުޅުވާ މީހަކަށް
-            ކަލޭގެފާނަކަށް ތެދުމަގެއް ނުދެއްކެވޭނެއެވެ. އެހެނެއްކަމަކު ﷲ
-            އިރާދަކުރެއްވި މީހަކަށް އެ އިލާހު ތެދުމަގު ދައްކަވައެވެ. އަދި
-            ތެދުމަގު ލިބެނިވި މީހުން އެ އިލާހު މޮޅަށް ދެނެވޮޑިގެންވެއެވެ.‘
-            [القصص 56]
-          </p>
-
-          <p class="quoteHere">
-            ރަސޫލު ﷲ
-            <button
-              class="lowerButtons"
-              id="sallaButton"
-              onclick="copySalla();"
-              title="ﷺ Copy"
-            >
-              &nbsp; ﷺ &nbsp;
-            </button>
-            ޙަދީޘްކުރެއްވިއެވެ: ”ފަހުން އަންނަ ކޮންމެ ބަޔެއްގެ ތެރެއިންވެސް
-            އެބައިމީހުންގެ އަދުލުވެރިން މި އިލްމު އުފުލާނެއެވެ. ޖާހިލުންގެ
-            ބަދަލު ކުރުންތަކާއި، ބާތިލު ކުރާ މީހުންގެ ދައުވާތަކާއި،
-            ފަހަނައަޅައިދާ މީހުންގެ އޮޅުވާލުންތައް އެބައިމީހުން އެ އިލްމުން ނަފީ
-            ކުރާނެއެވެ.“ [تاريخ دمشق 7/39]
-          </p>
-
-          <!--
             </button>
             ޙަދީޘް ކުރެއްވިއެވެ: ”ހެޔޮކަމަކަށް މަގުދައްކައިފި މީހަކަށް، އެ
             ހެޔޮކަން ކުރި މީހަކާ އެއްފަދަ އަޖުރެއް ލިބޭނެއެވެ.“ [<span
               >صحيح مسلم</span
             >
             1893]
-          </p>
-          -->
+            </p>
+            -->
+        <style>
+          #sallaButton {
+            background-color: #fff;
+            width: 69px;
+            /*style="margin: 0; height: 20px"*/
+          }
+          #sallaButton:hover {
+            background-color: #136296;
+          }
+          /*
+         @media (prefers-color-scheme: light) {
+         #sallaButton {
+         background-color: #fff;
+         }
+         }*/
+        </style>
+        <script>
+          // https://stackoverflow.com/questions/8252638/executing-javascript-after-x-seconds
+          function copySalla() {
+            document.getElementById("sallaButton").innerHTML =
+              "&nbsp; ކޮޕީ &nbsp;";
+            /**/
+            var input = document.createElement("textarea");
+            input.innerHTML = "ﷺ";
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand("copy");
+            document.body.removeChild(input);
 
-          <style>
-            #sallaButton {
-              background-color: #fff;
-              width: 69px;
-              /*style="margin: 0; height: 20px"*/
-            }
-
-            #sallaButton:hover {
-              background-color: #136296;
-            }
-
-            /*
-            @media (prefers-color-scheme: light) {
-              #sallaButton {
-                background-color: #fff;
-              }
-            }*/
-          </style>
-          <script>
-            // https://stackoverflow.com/questions/8252638/executing-javascript-after-x-seconds
-            function copySalla() {
+            /**/
+            setTimeout(function () {
               document.getElementById("sallaButton").innerHTML =
-                "&nbsp; ކޮޕީ &nbsp;";
-              /**/
-              var input = document.createElement("textarea");
-              input.innerHTML = "ﷺ";
-              document.body.appendChild(input);
-              input.select();
-              var result = document.execCommand("copy");
-              document.body.removeChild(input);
+                "&nbsp; ﷺ &nbsp;";
+              document.getElementById("div2").style.display = "none";
+            }, 1500);
 
-              /**/
-              setTimeout(function () {
-                document.getElementById("sallaButton").innerHTML =
-                  "&nbsp; ﷺ &nbsp;";
-                document.getElementById("div2").style.display = "none";
-              }, 1500);
-
-              /**/
-              return result;
-            }
-          </script>
-
-          <p class="quoteHere">
-            ފުޟައިލު ބިން ޢިޔާޟު [187 ހ.] ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ:
-            ހިދާޔަތުގެ މަގުތަކަށް ތަބާވާށެވެ. އަދި (އެ މަގުތަކުގައި) ހިނގައި
-            އުޅޭ މީހުންގެ މަދުކަމުން ތިބާއަކަށް ގެއްލުމެއް ނުކުރާނެއެވެ. އަދި
-            މަގުފުރެދުމުގެ މަގުތަކުން ސަމާލުވެ ރައްކާތެރިވާށެވެ. އަދި (އެ
-            މަގުތަކުގައި ގެއްލި) ހަލާކުވެދާ މީހުންގެ ގިނަކަމުން ތިބާ
-            ހެއްލުންތެރި ނުވާށެވެ. [الاعتصام للشاطبي 1/112]
-          </p>
-
-          <!-- -->
-        </div>
+            /**/
+            return result;
+          }
+        </script>
+        <p class="quoteHere">
+          ފުޟައިލު ބިން ޢިޔާޟު [187 ހ.] ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ:
+          ހިދާޔަތުގެ މަގުތަކަށް ތަބާވާށެވެ. އަދި (އެ މަގުތަކުގައި) ހިނގައި އުޅޭ
+          މީހުންގެ މަދުކަމުން ތިބާއަކަށް ގެއްލުމެއް ނުކުރާނެއެވެ. އަދި
+          މަގުފުރެދުމުގެ މަގުތަކުން ސަމާލުވެ ރައްކާތެރިވާށެވެ. އަދި (އެ
+          މަގުތަކުގައި ގެއްލި) ހަލާކުވެދާ މީހުންގެ ގިނަކަމުން ތިބާ ހެއްލުންތެރި
+          ނުވާށެވެ. [الاعتصام للشاطبي 1/112]
+        </p>
+        <!-- -->
       </div>
-
       <!-- class="tabcontent"> -->
-
       <div id="tab4" class="tabcontent">
         <!-- -->
         <table class="animate-table">
           <tr>
             <th
-              colspan="4"
+              colspan="3"
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
             >
@@ -2135,7 +1796,6 @@ after the second red placeholder text shown, the initial placeholder text should
           </tr>
         </table>
         <!-- -->
-
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ’ފަހެ ތިޔަބައިމީހުން އެ ކަންކަމަށް އީމާންވެގެން
           ތިބި ފަދައިން އެބައިމީހުން ވެސް އީމާންވާ ނަމަ، ފަހެ އެބައިމީހުންނަށް
@@ -2145,7 +1805,6 @@ after the second red placeholder text shown, the initial placeholder text should
           ދެއްވާނެއެވެ. އަދި އެ އިލާހީ މޮޅަށް އައްސަވާވޮޑިގެންވާ، މޮޅަށް
           ދެނެވޮޑިގެންވާ އިލާހެވެ.‘ [البقرة 137]
         </p>
-
         <p class="quoteHere">
           ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”އަދި ތިމަން ކަލޭގެފާނުގެ އުއްމަތް،
           ހަތްދިހަ ތިން ބަޔަށް ބައިބައިވެގެން ދާނެއެވެ. އެ ހުރިހާ ބަޔެއް ވެސް
@@ -2155,7 +1814,6 @@ after the second red placeholder text shown, the initial placeholder text should
           ކަލޭގެފާނުގެ ސަހާބީން މި ތިއްބެވި ގޮތެއްގެ މަތީގައި ތިބި ބަޔެކެވެ.“
           [جامع الترمذي 2641]
         </p>
-
         <p class="quoteHere">
           އިމާމު ބަރްބަހާރީ [329 ހ.] ވިދާޅުވިއެވެ: ތިޔަބައިމީހުން ދަންނާށެވެ.
           އިސްލާމް ދީނަކީ ސުންނަތެވެ. އަދި ސުންނަތަކީ އިސްލާމް ދީނެވެ. އަދި އެ
@@ -2164,15 +1822,13 @@ after the second red placeholder text shown, the initial placeholder text should
           <a href="../books/barbahari.html">[شرح السنة للبربهاري 1]</a>
         </p>
       </div>
-
       <!-- class="tabcontent"> -->
-
       <div id="tab8" class="tabcontent">
         <!-- -->
         <table class="animate-table">
           <tr>
             <th
-              colspan="4"
+              colspan="3"
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
             >
@@ -2200,7 +1856,6 @@ after the second red placeholder text shown, the initial placeholder text should
           </tr>
         </table>
         <!-- -->
-
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ’ހަމަކަށަވަރުން އުޑުތަކާއި، ބިމުގައި ވާހާ
           ތަކެއްޗެއް ﷲ ތިޔަބައިމީހުންނަށްޓަކައި ޚިދުމަތްތެރި ކުރެއްވިކަން،
@@ -2210,7 +1865,6 @@ after the second red placeholder text shown, the initial placeholder text should
           ތެދުމަގަކާ ނުލާ، ނުވަތަ އަލިކަން ދެނިވި ފޮތަކާ ނުލާ، ﷲ އާމެދު
           ޖަދަލުކުރާ ބަޔަކު، މީސްތަކުންގެ ތެރެއިން ވެއެވެ.‘ [لقمان 164]
         </p>
-
         <p class="quoteHere">
           ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”ތިޔަބައިމީހުންގެ ގާތަށް އިލްމު ހޯދާ
           ބަޔަކު އަންނާނެއެވެ. ފަހެ ތިޔަބައިމީހުންނަށް އެބައިމީހުން ފެނިއްޖެ
@@ -2218,7 +1872,6 @@ after the second red placeholder text shown, the initial placeholder text should
           ވަސިއްޔަތައިގެން މަރުހަބާއެވެ. އަދި އެބައިމީހުންނަށް
           އުނގަންނައިދޭށެވެ.“ [سنن ابن ماجه 247]
         </p>
-
         <p class="quoteHere">
           ޢަބްދު ﷲ ބިން އަލްމުބާރު [181 ހ.] އަށް ދެންނެވުނެވެ: އޭ އަބޫ
           ޢަބްދުއްރަޙްމާނެވެ. ގޭގައި އެކަނި އިނުން ގިނަކުރަނީހެއްޔެވެ؟
@@ -2227,15 +1880,13 @@ after the second red placeholder text shown, the initial placeholder text should
           ބަލާ (ކިޔާ ހެދުމުގައެވެ.) [الجامع لأخلاق الراوي وآداب السامع 1752]
         </p>
       </div>
-
       <!-- class="tabcontent"> -->
-
       <div id="tab6" class="tabcontent">
         <!-- -->
         <table class="animate-table">
           <tr>
             <th
-              colspan="4"
+              colspan="3"
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
             >
@@ -2332,7 +1983,6 @@ after the second red placeholder text shown, the initial placeholder text should
           </tr>
         </table>
         <!-- -->
-
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ’އޭ އީމާންވެއްޖެ މީސްތަކުންނޭވެ. ތިޔަބައިމީހުން
           ރުކޫ ކުރާށެވެ. އަދި ސަޖިދަ ކުރާށެވެ. އަދި ތިޔަބައިމީހުންގެ ވެރި
@@ -2340,13 +1990,11 @@ after the second red placeholder text shown, the initial placeholder text should
           ކުރާށެވެ. (އެއީ) ތިޔަބައިމީހުން ދިންނަވައި ކާމިޔާބުވޭތޯއެވެ.‘ [الحج
           77]
         </p>
-
         <p class="quoteHere">
           ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”ތިޔަބައިމީހުންގެ ތެރެއިން މީހަކު
           އޭނާގެ އަޚާއަށް މަންފާ ކޮށްދެވެން ހުރި ނަމަ، ފަހެ އޭނާ އެކަން
           ކުރާށެވެ.“ [صحيح مسلم 2199]
         </p>
-
         <p class="quoteHere">
           އިމާމު މާލިކު [179 ހ.]، އިމާމު ޝާފިޢީއަށް ވަސިއްޔަތްކުރެއްވި ކަމުގައި
           ވެއެވެ: ރަށްފުށުގައި ދިރިނޫޅޭށެވެ. އެ ހިނދު ތިބާގެ އިލްމު
@@ -2362,13 +2010,12 @@ after the second red placeholder text shown, the initial placeholder text should
         </p>
       </div>
       <!-- class="tabcontent"> -->
-
       <div id="tab7" class="tabcontent">
         <!-- -->
         <table class="animate-table">
           <tr>
             <th
-              colspan="4"
+              colspan="3"
               class="tablinks"
               onclick="openTab(event, 'tab14'); scrollBack2Top();"
             >
@@ -2435,22 +2082,18 @@ after the second red placeholder text shown, the initial placeholder text should
             <td>ހަ އުސޫލު</td>
           </tr>
         </table>
-
         <!-- -->
-
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ’ތިޔަބައިމީހުންގެ ތެރެއިން އީމާންވި މީހުންނާއި
           އިލްމު ދެވިގެންވާ މީހުން، ﷲ ދަރަޖަތަކަކަށް އުފުއްލަވައެވެ. އަދި
           ތިޔަބައިމީހުން ކުރާ ކަންތައް ﷲ މޮޅަށް ދެނެވޮޑިގެންވެއެވެ.‘ [المجادلة
           11]
         </p>
-
         <p class="quoteHere">
           ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”އަދި އިލްމު ހޯދުމަށް ޓަކައި މަގަކުން
           ހިނގައިފި މީހަކަށް، އެ ކަމުގެ ސަބަބުން ސުވަރުގެއަށް ދާނެ މަގެއް ﷲ
           އޭނާއަށް ފަސޭހަ ކޮށްދެއްވާނެއެވެ.“ [صحيح مسلم 2699a]
         </p>
-
         <p class="quoteHere">
           އިމާމު ޝާފިޢީ [204 ހ.] (ޅެންބައިތެއްގައި) ވިދާޅުވިކަމަށް
           އައިސްފައިވެއެވެ: (އަހަރެންގެ ޝައިޚު) ވަކީޢު ގާތު، އަހަރެންގެ ހިތުދަސް
@@ -2462,13 +2105,12 @@ after the second red placeholder text shown, the initial placeholder text should
         </p>
       </div>
       <!-- class="tabcontent"> -->
-
       <div id="tab5" class="tabcontent">
         <!-- -->
         <table class="animate-table">
           <tr>
             <th
-              colspan="4"
+              colspan="3"
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
             >
@@ -2556,13 +2198,11 @@ after the second red placeholder text shown, the initial placeholder text should
           </tr>
         </table>
         <!-- -->
-
         <p class="quoteHere">
           ނޯޓު: މިއީ އެންމެ ގިނަ ދިވެހި ލަފްޒުތަކާއި މާނަތައް އެއް މަންސައަކުން
           ލިބެން ހުރި ތަނެވެ. އަދި ދިވެހި ބަހުގެ އިތުރުން، އަރަބިންނާއި
           އިނގިރޭސިން ވެސް ލިބޭނެއެވެ.
         </p>
-
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ’އަދި އެފަދައިން އަރަބި ބަހުންވާ، ހުކުމް
           ކުރުވަނިވި (ފޮތެއް) ގޮތުގައި، ތިމަން އިލާހު އެ (ގުރްއާން)
@@ -2571,7 +2211,6 @@ after the second red placeholder text shown, the initial placeholder text should
           ވަޑައިގެންފިނަމަ، ﷲ އާ ދެކޮޅަށް ނަސްރު ދޭނެ ފަރާތަކުވެސް އަދި
           ރައްކާތެރި ކުރާނެ ފަރާތަކުވެސް ކަލޭގެފާނަކަށް ނުވާނެއެވެ.‘ [الرعد 37]
         </p>
-
         <p class="quoteHere">
           ޒައިދު ބިން ޘާބިތު ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ: ރަސޫލު ﷲ
           އަށްޓަކައި، ތިމަންނަ ޔަހޫދީން ލިޔާ ބަސްތައް އުނގެނުމަށް، އެކަލޭގެފާނު
@@ -2582,7 +2221,6 @@ after the second red placeholder text shown, the initial placeholder text should
           ނުވަނީސް، އެކަލޭގެފާނަށްޓަކައި ތިމަންނަ އެ ބަސް ދަސްކޮށްފީމެވެ.“ [جامع
           الترمذي 2715]
         </p>
-
         <p class="quoteHere">
           ޢުމަރުގެފާނު ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ: ތިޔަބައިމީހުން
           ސުންނަތުގައި ފިގުހުވެރި ވާށެވެ. އަދި އަރަބި ބަހުގައި ވެސް ފިގުހުވެރި
@@ -2592,13 +2230,12 @@ after the second red placeholder text shown, the initial placeholder text should
         </p>
       </div>
       <!-- class="tabcontent"> -->
-
       <div id="tab10" class="tabcontent">
         <!-- -->
         <table class="animate-table">
           <tr>
             <th
-              colspan="4"
+              colspan="3"
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
             >
@@ -2641,14 +2278,12 @@ after the second red placeholder text shown, the initial placeholder text should
           </tr>
         </table>
         <!-- -->
-
         <p class="quoteHere">
           دَارُ فِتْيَةِ الكَهْف | ދާރު ފިތްޔަތިލް ކަހްފިގެ މަޤްޞަދަކީ: އެންމެ
           މާތްވެގެންވާ ޤަރްނުތަކުގެ ބޭކަލުންނާއި އެބޭކަލުންގެ މަގަށް ތަބަޢަވި
           ސުންނަތް ޖަމާޢަތުގެ އިމާމުންގެ މަންހަޖު ބަޔާންކޮށްދީ އެބޭކަލުންގެ
           ފޮތްތަކާއި އަޘަރުތައް ފެތުރުމެވެ.
         </p>
-
         <p class="quoteHere">
           ﷲ ވަޙީކުރެއްވިއެވެ: ’އެ ޒުވާނުން، އެ ހޮހަޅަޔަށް ވަންހިނދު،
           ހަނދުމަކުރާށެވެ! ފަހެ އެ ޒުވާނުން ދެންނެވިއެވެ: އަޅަމެންގެ ރައްބެވެ!
@@ -2656,7 +2291,6 @@ after the second red placeholder text shown, the initial placeholder text should
           އަޅަމެންގެ ކަންތަކަށް ސީދާގޮތެއް އަޅަމެންނަށް ފަހިކޮށްދެއްވާނދޭވެ!‘
           [الكهف 10]
         </p>
-
         <p class="quoteHere">
           ނަބިއްޔު ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”ﷲގެ ޢަރުޝީގެ ހިޔާވަހިކަން މެނުވީ
           އެހެން ހިޔަލެއްނުވާ ދުވަހު ހަތްމީހަކަށް އެއިލާހުގެ ޢަރުޝިކޮޅުގެ
@@ -2669,7 +2303,6 @@ after the second red placeholder text shown, the initial placeholder text should
           ވާތަށްވެސް ނޭނގޭހާ ސިއްރުން ޞަދަޤާތްކުރާ މީހާޔާ އަދި އެކަނިހުރެ ﷲ
           ހަނދުމަކޮށް އެމީހެއްގެ ލޮލުން ކަރުނަ އޮހޮރުވާ މީހާއެވެ.“ [متفق عليه]
         </p>
-
         <p class="quoteHere">
           އިބްނު ޢައްބާސްގެ އަރިހުން ރިވާވެގެންވެއެވެ: ޒުވާނެއް ކަމުގައި މެނުވީ
           ﷲ ނަބިއްޔަކު ނުފޮނުއްވަތެވެ. އަދި ޒުވާނެއް ކަމުގައި މެނުވީ
@@ -2682,13 +2315,12 @@ after the second red placeholder text shown, the initial placeholder text should
         </p>
       </div>
       <!-- class="tabcontent"> -->
-
       <div id="tab13" class="tabcontent">
         <!-- -->
         <table class="animate-table">
           <tr>
             <th
-              colspan="4"
+              colspan="3"
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
             >
@@ -2716,7 +2348,7 @@ after the second red placeholder text shown, the initial placeholder text should
           </tr>
           <!--
             فروى الترمذي (2892) عَنْ جَابِرٍ رَضِيَ اللَّهُ عَنْهُ : " أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ كَانَ لا يَنَامُ حَتَّى يَقْرَأَ الم تَنْزِيلُ ، وَتَبَارَكَ الَّذِي بِيَدِهِ الْمُلْكُ " ، وصححه الألباني في " صحيح سنن الترمذي " .
-          -->
+            -->
           <tr
             onclick="window.location.href='../books/quranHmv.html#quranTable=p5241';"
           >
@@ -2733,7 +2365,7 @@ after the second red placeholder text shown, the initial placeholder text should
           </tr>
           <!--
             - كانَ النَّبيُّ صلَّى اللَّهُ عليهِ وسلَّمَ لا ينامُ علَى فِراشِه حتَّى يقرأ بَني إسرائيلَ ، والزُّمَرِ الراوي : عائشة أم المؤمنين | المحدث : الألباني | المصدر : صحيح الترمذي | الصفحة أو الرقم : 2920 | خلاصة حكم المحدث : صحيح | التخريج : أخرجه الترمذي (2920) واللفظ له، والنسائي في ((السنن الكبرى)) (10548)، وأحمد (24388) مطولاً
-          -->
+            -->
           <tr
             onclick="window.location.href='../books/quranHmv.html#quranTable=p4058';"
           >
@@ -2750,7 +2382,7 @@ after the second red placeholder text shown, the initial placeholder text should
           </tr>
           <!--
             فروى البخاري (5017) عَنْ عَائِشَةَ رضي الله عنها : " أَنَّ النَّبِيَّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ كَانَ إِذَا أَوَى إِلَى فِرَاشِهِ كُلَّ لَيْلَةٍ جَمَعَ كَفَّيْهِ ، ثُمَّ نَفَثَ فِيهِمَا فَقَرَأَ فِيهِمَا : قُلْ هُوَ اللَّهُ أَحَدٌ وَقُلْ أَعُوذُ بِرَبِّ الفَلَقِ وَقُلْ أَعُوذُ بِرَبِّ النَّاسِ ، ثُمَّ يَمْسَحُ بِهِمَا مَا اسْتَطَاعَ مِنْ جَسَدِهِ ، يَبْدَأُ بِهِمَا عَلَى رَأْسِهِ وَوَجْهِهِ وَمَا أَقْبَلَ مِنْ جَسَدِهِ يَفْعَلُ ذَلِكَ ثَلاَثَ مَرَّاتٍ " .
-          -->
+            -->
           <tr
             onclick="window.location.href='../books/quranHmv.html#quranTable=p6207';"
           >
@@ -2760,7 +2392,7 @@ after the second red placeholder text shown, the initial placeholder text should
           </tr>
           <!--
             فروى أبو داود (5055) عن فروة بن نوفل عن أبيه أن النبي صلى الله عليه وسلم قال لنوفل : ( اقرأ " قل يا أيها الكافرون " ثم نم على خاتمتها ، فإنها براءة من الشرك ) ، وصححه الألباني في " صحيح سنن أبي داود " .
-          -->
+            -->
           <tr
             onclick="window.location.href='../books/quranHmv.html#quranTable=p261';"
           >
@@ -2770,7 +2402,7 @@ after the second red placeholder text shown, the initial placeholder text should
           </tr>
           <!--
             فروى البخاري (3275) عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ ، قَالَ : " وَكَّلَنِي رَسُولُ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ بِحِفْظِ زَكَاةِ رَمَضَانَ فَأَتَانِي آتٍ فَجَعَلَ يَحْثُو مِنَ الطَّعَامِ فَأَخَذْتُهُ ، فَقُلْتُ لَأَرْفَعَنَّكَ إِلَى رَسُولِ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ - فَذَكَرَ الحَدِيثَ - ، فَقَالَ : إِذَا أَوَيْتَ إِلَى فِرَاشِكَ فَاقْرَأْ آيَةَ الكُرْسِيِّ ، لَنْ يَزَالَ عَلَيْكَ مِنَ اللَّهِ حَافِظٌ ، وَلاَ يَقْرَبُكَ شَيْطَانٌ حَتَّى تُصْبِحَ ، فَقَالَ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ : ( صَدَقَكَ وَهُوَ كَذُوبٌ ذَاكَ شَيْطَانٌ ) .
-          -->
+            -->
           <tr
             onclick="window.location.href='../books/quranHmv.html#quranTable=p291';"
           >
@@ -2779,8 +2411,8 @@ after the second red placeholder text shown, the initial placeholder text should
             <td>ބަގަރާގެ ފަހު ދެ އާޔަތް</td>
           </tr>
           <!--
-           فروى البخاري (4008) ، ومسلم (807) عَنْ أَبِي مَسْعُودٍ البَدْرِيِّ رَضِيَ اللَّهُ عَنْهُ ، قَالَ : قَالَ رَسُولُ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ : ( الآيَتَانِ مِنْ آخِرِ سُورَةِ البَقَرَةِ ، مَنْ قَرَأَهُمَا فِي لَيْلَةٍ كَفَتَاهُ ) .
-          -->
+            فروى البخاري (4008) ، ومسلم (807) عَنْ أَبِي مَسْعُودٍ البَدْرِيِّ رَضِيَ اللَّهُ عَنْهُ ، قَالَ : قَالَ رَسُولُ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ : ( الآيَتَانِ مِنْ آخِرِ سُورَةِ البَقَرَةِ ، مَنْ قَرَأَهُمَا فِي لَيْلَةٍ كَفَتَاهُ ) .
+            -->
           <tr
             onclick="window.location.href='../books/quranHmv.html#quranTable=p5075';"
           >
@@ -2789,10 +2421,10 @@ after the second red placeholder text shown, the initial placeholder text should
             <td>ޙަދީދު ސޫރަތް</td>
           </tr>
           <!--
-           فروى الترمذي (5057) عَنْ عِرْبَاضِ بْنِ سَارِيَةَ رضي الله عنه : أَنَّ رَسُولَ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ كَانَ يَقْرَأُ الْمُسَبِّحَاتِ قَبْلَ أَنْ يَرْقُدَ ، وَقَالَ : ( إِنَّ فِيهِنَّ آيَةً أَفْضَلُ مِنْ أَلْفِ آيَةٍ ) ، وهذا حديث ضعيف ، ضعفه الألباني في " ضعيف الترمذي " . ويَعْنِي بِالْمُسَبِّحَاتِ : (الْحَدِيدَ) وَ (الْحَشْرَ) وَ (الصَّفَّ) وَ (الْجُمُعَةَ) وَ (التغابن) . " تفسير القرطبي " (17/235) .
-
-           عن العرباض بن سارية رضي الله عنه أن النبي صلى الله عليه وسلم : ( كان لا ينام حتى يقرأ المسبحات ويقول فيها آية خير من ألف آية ) [ رواه الترمذي وصححه الألباني / 2712 ] .. * المسبحات : هي السور التي تفتتح بقوله تعالى " سبح " أو " يسبح " .. وهن سور الإسراء ، الحديد ، الحشر ، الصف ، الجمعة ، التغابن ، والأعلى .
-          -->
+            فروى الترمذي (5057) عَنْ عِرْبَاضِ بْنِ سَارِيَةَ رضي الله عنه : أَنَّ رَسُولَ اللَّهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ كَانَ يَقْرَأُ الْمُسَبِّحَاتِ قَبْلَ أَنْ يَرْقُدَ ، وَقَالَ : ( إِنَّ فِيهِنَّ آيَةً أَفْضَلُ مِنْ أَلْفِ آيَةٍ ) ، وهذا حديث ضعيف ، ضعفه الألباني في " ضعيف الترمذي " . ويَعْنِي بِالْمُسَبِّحَاتِ : (الْحَدِيدَ) وَ (الْحَشْرَ) وَ (الصَّفَّ) وَ (الْجُمُعَةَ) وَ (التغابن) . " تفسير القرطبي " (17/235) .
+            
+            عن العرباض بن سارية رضي الله عنه أن النبي صلى الله عليه وسلم : ( كان لا ينام حتى يقرأ المسبحات ويقول فيها آية خير من ألف آية ) [ رواه الترمذي وصححه الألباني / 2712 ] .. * المسبحات : هي السور التي تفتتح بقوله تعالى " سبح " أو " يسبح " .. وهن سور الإسراء ، الحديد ، الحشر ، الصف ، الجمعة ، التغابن ، والأعلى .
+            -->
           <tr
             onclick="window.location.href='../books/quranHmv.html#quranTable=p5126';"
           >
@@ -2837,18 +2469,15 @@ after the second red placeholder text shown, the initial placeholder text should
           </tr>
         </table>
         <!-- -->
-
         <p class="quoteHere">
           ހަމަކަށަވަރުން ނަބީ ﷺ، الۤمۤ تَنْزِيلُ (ސަޖިދަ ސޫރަތް) އަދި تَبَارَكَ
           الَّذِي بِيَدِهِ الْمُلْكُ (މުލްކު ސޫރަތް) ކިޔަވާ ވިދާޅުވުމަށް
           ދާންދެން އަވަހާރަފުޅު ނުލައްޕަވައެވެ. [الترمذي 2892]
         </p>
-
         <p class="quoteHere">
           ނަބީ ﷺ، ޒުމަރު (ސޫރަތް) އަދި بَنِي إِسْرَائِيلَ (އިސްރާ ސޫރަތް) ކިޔަވާ
           ވިދާޅުވުމަށް ދާންދެން އަވަހާރަފުޅު ނުލައްޕަވައެވެ. [الترمذي 3405]
         </p>
-
         <p class="quoteHere">
           ހަމަކަށަވަރުން ނަބިއްޔާ ﷺ ކޮންމެ ރެއަކު އެކަލޭގެފާނުގެ
           ދާންމަތިކޮޅުގައި އޮށޯވެވަޑައިގަންނަވާ ހިނދު، އެކަލޭގެފާނުގެ ދެ
@@ -2861,27 +2490,23 @@ after the second red placeholder text shown, the initial placeholder text should
           ކުރިމައްޗާ ވާ ބައެވެ. އެފަދައިން ތިން ފަހަރު އެކަލޭގެފާނު
           ހައްދަވައެވެ. [البخاري 5017]
         </p>
-
         <p class="quoteHere">
           ނަބިއްޔާ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”ތިބާ، قُلْ يَا أَيُّهَا الْكَافِرُونَ
           (ކާފިރޫން ސޫރަތް) ކިޔަވާށެވެ. އެއަށްފަހު އެ ސޫރަތް (ކިޔަވާ) ނިމުމުން
           ނިދާށެވެ. އެހެނީ ހަމަކަށަވަރުން އެ ސޫރަތަކީ ޝިރްކުން ބަރީއަވުމެވެ.“
           [أبو داود 5055]
         </p>
-
         <p class="quoteHere">
           ތިބާ ނިދަން އޮށޯންނަ ހިނދު، އާޔަތުލް ކުރްސި ކިޔަވާށެވެ. ﷲގެ ހަޒްރަތުން
           ތިބާގެ މައްޗަށް ރައްކާތެރިކޮށްދޭނެ (މަލާއިކަތަކު) މެދުނުކެނޑި
           ވާނެއެވެ. އަދި ތިބާއަށް ހެނދުނުވަންދެން ޝައިތާނު ތިބާއާ ކައިރި
           ނުވާނެއެވެ. [البخاري 3275]
         </p>
-
         <p class="quoteHere">
           ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”ބަގަރާ ސޫރަތުގެ ފަހު ދެ އާޔަތް، އެ ދެ
           އާޔަތް ރޭގަނޑެއްގައި ކިޔަވައިފި މީހަކަށް، އެ ދެ އާޔަތް ފުދޭނެއެވެ.“
           [البخاري 4008]
         </p>
-
         <p class="quoteHere">
           ނަބިއްޔާ ﷺ އަވަހާރަފުޅުލެއްޕެވުމުގެ ކުރިން، މުސައްބަޙާތު (އެބަހީ:
           އިސްރާ، ޙަދީދު، ޙަޝްރު، ޞައްފު، ޖުމްޢާ، ތަޣާބުން، އަޢުލާ، މި
@@ -2891,13 +2516,12 @@ after the second red placeholder text shown, the initial placeholder text should
         </p>
       </div>
       <!-- class="tabcontent"> -->
-
       <div id="tab14" class="tabcontent">
         <!-- -->
         <table class="animate-table">
           <tr>
             <th
-              colspan="4"
+              colspan="3"
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
             >
@@ -2933,7 +2557,6 @@ after the second red placeholder text shown, the initial placeholder text should
           </tr>
         </table>
         <!-- -->
-
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ”އަދި ﷲ އަށް މެނުވީ އެ އާޔަތްތަކުގެ މާނަ
           ދެނެވޮޑިގެން ނުވެއެވެ. އަދި އިލްމުގެ (އަހުލުވެރިން ތެރެއިން އަރާހުރި)
@@ -2942,13 +2565,11 @@ after the second red placeholder text shown, the initial placeholder text should
           އާޔަތްތަކަށް އީމާން ވެގެންނެވެ. ހުރިހާ އާޔަތްތަކެއްވެސް ވަނީ،
           ތިމަންމެންގެ ރައްބުގެ ހަޒްރަތުންނެވެ.“ [آل عمران 7]
         </p>
-
         <p class="quoteHere">
           ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”ﷲ މީހަކަށް ހެޔޮ ގޮތް
           އިރާދަކުރައްވައިފި ނަމަ، އެ އިލާހު އެ މީހަކަށް ދީން
           ފަހުމްކޮށްދެއްވައެވެ.“ [صحيح البخاري 71]
         </p>
-
         <p class="quoteHere">
           ބުޚާރީ ވިދާޅުވިއެވެ: އިބްނު ޢައްބާސް ވިދާޅުވިއެވެ: ”’ތިޔަބައިމީހުން
           ރައްބާނީން ކަމުގައި ވާށެވެ.‘ (މި އާޔަތުގެ) މާނައީ، ހިލްމުވެރި
@@ -2959,7 +2580,6 @@ after the second red placeholder text shown, the initial placeholder text should
         </p>
       </div>
       <!-- class="tabcontent"> -->
-
       <script>
         /*
             document.addEventListener("DOMContentLoaded", function () {
@@ -2969,18 +2589,18 @@ after the second red placeholder text shown, the initial placeholder text should
             */
         /*
             function unfade(document.getElementById("footer")) {
-        var op = 0.1;  // initial opacity
-        element.style.display = 'block';
-        var timer = setInterval(function () {
+            var op = 0.1;  // initial opacity
+            element.style.display = 'block';
+            var timer = setInterval(function () {
             if (op >= 1){
                 clearInterval(timer);
             }
             element.style.opacity = op;
             element.style.filter = 'alpha(opacity=' + op * 100 + ")";
             op += op * 0.1;
-        }, 10);
-
-    }*/
+            }, 10);
+            
+            }*/
 
         // https://stackoverflow.com/questions/807878/how-to-make-javascript-execute-after-page-load/36096571#36096571
 
@@ -3013,39 +2633,34 @@ after the second red placeholder text shown, the initial placeholder text should
       <style>
         /* code for animation taken from .tabcontent */
         /*
-        #footer {*/
+         #footer {*/
         /*display: none;*/
         /*padding: 6px 12px;*/
         /*
-          animation: fadeEffect 0.7s;
-          animation: fadeEffect 0.7s;
-          animation-timing-function: ease-out;
-        }*/
+         animation: fadeEffect 0.7s;
+         animation: fadeEffect 0.7s;
+         animation-timing-function: ease-out;
+         }*/
         /* https://stackoverflow.com/questions/11679567/using-css-for-a-fade-in-effect-on-page-load/11681331#11681331
-        also explains how this works, but code was taken from tabs */
+         also explains how this works, but code was taken from tabs */
       </style>
-
       <div class="mid" id="footer" style="opacity: 0">
         <!-- previously class had "hidden"-->
-
         <!--
-                      <p>
-              ކުށެއް ރަނގަޅުކުރުމަށް، ނުވަތަ ތަރުޖަމާ މަސައްކަތުގައި
-              ބައިވެރިވުމަށް، ނުވަތަ މި މަޝްރޫއަށް އެހީވެދިނުމަށް
-              <br />
-              އަޅުގަނޑުމެންނާ ގުޅުއްވާ:
-              <a href="http://m.me/hadithmvOfficial">މެސެންޖަރ</a> |
-              <a href="tel:+9607583166">ވައިބަރ</a> |
-              <a href="https://t.me/ashraafmv">ޓެލެގްރާމް</a> |
-              <a href="https://wa.me/qr/FJFBCPFQXUBKJ1">ވަޓްސްއެޕް</a> |
-              <a href="mailto:hadithmv@gmail.com">އީމެއިލް</a>
+            <p>
+            ކުށެއް ރަނގަޅުކުރުމަށް، ނުވަތަ ތަރުޖަމާ މަސައްކަތުގައި
+            ބައިވެރިވުމަށް، ނުވަތަ މި މަޝްރޫއަށް އެހީވެދިނުމަށް
+            <br />
+            އަޅުގަނޑުމެންނާ ގުޅުއްވާ:
+            <a href="http://m.me/hadithmvOfficial">މެސެންޖަރ</a> |
+            <a href="tel:+9607583166">ވައިބަރ</a> |
+            <a href="https://t.me/ashraafmv">ޓެލެގްރާމް</a> |
+            <a href="https://wa.me/qr/FJFBCPFQXUBKJ1">ވަޓްސްއެޕް</a> |
+            <a href="mailto:hadithmv@gmail.com">އީމެއިލް</a>
             </p>
-        -->
-
+            -->
         <!-- taken hr styles from that in notes -->
-
         <hr class="lineVerticalSpace" style="margin-top: 15px" />
-
         <div id="supriseDiv" style="display: none" class="justi">
           In the name of Allah, Ar-Rahman, Ar-Raheem.<br />
           <br />
@@ -3194,7 +2809,6 @@ after the second red placeholder text shown, the initial placeholder text should
           Mohamed Ashraaf Ibrahim<br />
           13/7/2024<br />
         </div>
-
         <style>
           #supriseDiv {
             background: #333;
@@ -3211,32 +2825,29 @@ after the second red placeholder text shown, the initial placeholder text should
             padding: 20px;
             padding-top: 35px;
             padding-bottom: 35px;
-
             /* eng */
             direction: ltr;
             text-align: justify;
           }
-
           /*body {
-  background: #333;
-  color: #fff;
-  font-family: "Archivo Black", sans-serif;
-  font-size: 3em;
-  margin-top: 1em;
-  text-align: center;
-  text-transform: uppercase;
-}*/
+         background: #333;
+         color: #fff;
+         font-family: "Archivo Black", sans-serif;
+         font-size: 3em;
+         margin-top: 1em;
+         text-align: center;
+         text-transform: uppercase;
+         }*/
         </style>
-
         <script>
           var openDiv_Clicks = 0;
           function openDiv() {
             openDiv_Clicks++;
             /*if (openDiv_Clicks == 1) {
-              //run first function
-            } else if (openDiv_Clicks == 2) {
-              //run second function
-            } else */ if (openDiv_Clicks == 5) {
+                //run first function
+              } else if (openDiv_Clicks == 2) {
+                //run second function
+              } else */ if (openDiv_Clicks == 5) {
               document.getElementById("supriseDiv").style.display = "block";
               openDiv_Clicks = 0;
 
@@ -3262,7 +2873,6 @@ after the second red placeholder text shown, the initial placeholder text should
             }
           }
         </script>
-
         <p>
           ކުށެއް ހުރިކަން އެންގުމަށް، ނުވަތަ ހިޔާލެއް ހުށަހެޅުމަށް، ނުވަތަ
           ތަރުޖަމާގެ މަސައްކަތެއް ކޮމިޝަން
@@ -3272,67 +2882,56 @@ after the second red placeholder text shown, the initial placeholder text should
           ތަރުޖަމާކުރުމުގައި މަޝްރޫއަށް
           <a href="../notes/info/helpTranslate.html">އެހީވެދިނުމަށް</a>
         </p>
-
         <p>
           ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް
           <a href="../notes/info/FAQ.html">ކިޔުމަށް</a>
         </p>
-
         <!--
-        <p>
-          <span onclick="openDiv();">ޙަދީޘްއެމްވީ</span> އެޕް ހޯދުމަށް:
-          <a href="https://hadithmv.github.io">ވެބް</a> |
-          <a
-            href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
-            >އޭންޑްރޮއިޑް</a
-          >
-          |
-          <a href="https://github.com/hadithmv/hadithmv.github.io/releases"
-            >ވިންޑޯސް</a
-          >
-        </p>
-        -->
-
+            <p>
+              <span onclick="openDiv();">ޙަދީޘްއެމްވީ</span> އެޕް ހޯދުމަށް:
+              <a href="https://hadithmv.github.io">ވެބް</a> |
+              <a
+                href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
+                >އޭންޑްރޮއިޑް</a
+              >
+              |
+              <a href="https://github.com/hadithmv/hadithmv.github.io/releases"
+                >ވިންޑޯސް</a
+              >
+            </p>
+            -->
         <span>ޙަދީޘްއެމްވީ އެޕް ހޯދުމަށް:</span>
         <br />
-
         <style>
           .appButtons {
             direction: ltr;
             margin-top: -10px;
           }
-
           /*
-          .appButtons svg {
-            opacity: 0.95;
-          }
-          */
-
+         .appButtons svg {
+         opacity: 0.95;
+         }
+         */
           .appButtons .resp-sharing-button__link > div > div > div {
             opacity: 0.95;
           }
-
           .btnText {
             opacity: 0.84;
             font-size: 18px;
           }
-
           @media (prefers-color-scheme: light) {
             .appButtons > a > div > div > div {
               filter: invert(0%);
             }
-
             .btnText {
               color: black;
             }
           }
-
           #footer > div.appButtons > a:hover {
             /*color: #66bce6 !important;*/
             color: #299bdc !important;
           }
         </style>
-
         <div class="appButtons">
           <!-- windows -->
           <a
@@ -3349,13 +2948,11 @@ after the second red placeholder text shown, the initial placeholder text should
               >
                 <!--<img src="windows.svg" alt="windows logo" />-->
                 <div class="encodedwinBtn"></div>
-
                 <br />
                 <span class="btnText">Win</span>
               </div>
             </div>
           </a>
-
           <!-- android -->
           <a
             class="resp-sharing-button__link noLine"
@@ -3371,13 +2968,11 @@ after the second red placeholder text shown, the initial placeholder text should
               >
                 <!--<img src="android.svg" alt="android logo" />-->
                 <div class="encodedandBtn"></div>
-
                 <br />
                 <span class="btnText">Android</span>
               </div>
             </div>
           </a>
-
           <!-- web -->
           <a
             class="resp-sharing-button__link noLine"
@@ -3393,37 +2988,31 @@ after the second red placeholder text shown, the initial placeholder text should
               >
                 <!--<img src="web.svg" alt="web logo" />-->
                 <div class="encodedwebBtn"></div>
-
                 <br />
                 <span class="btnText">Web</span>
               </div>
             </div>
           </a>
-
           <!-- div END -->
         </div>
         <!-- SOCIAL BUTTONS END -->
-
         <!--
-        <p>
-          މީސްމީޑިއާގައި ތަބާވުމަށް:
-
-          <a href="http://fb.me/hadithmvOfficial">ފޭސްބުކް</a> |
-          <a
-            href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX/ZVrvGtq/bJboZzADy3OssLND4H1TFWklNmNQZC"
-            >ވައިބަރ</a
-          >
-          | <a href="http://t.me/hadithmv">ޓެލެގްރާމް</a> |
-          <a href="https://instagram.com/hadithmv">އިންސްޓަގްރާމް</a> |
-          <a href="https://twitter.com/hadithmv">ޓްވިޓަރ</a>
-
-        </p> -->
-
+            <p>
+              މީސްމީޑިއާގައި ތަބާވުމަށް:
+            
+              <a href="http://fb.me/hadithmvOfficial">ފޭސްބުކް</a> |
+              <a
+                href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX/ZVrvGtq/bJboZzADy3OssLND4H1TFWklNmNQZC"
+                >ވައިބަރ</a
+              >
+              | <a href="http://t.me/hadithmv">ޓެލެގްރާމް</a> |
+              <a href="https://instagram.com/hadithmv">އިންސްޓަގްރާމް</a> |
+              <a href="https://twitter.com/hadithmv">ޓްވިޓަރ</a>
+            
+            </p> -->
         <span>މީސްމީޑިއާގައި ތަބާވުމަށް:</span>
         <br />
-
         <!-- SOCIAL BUTTONS -->
-
         <style>
           /* mobile only row  */
           @media screen and (max-width: 900px) {
@@ -3434,7 +3023,6 @@ after the second red placeholder text shown, the initial placeholder text should
             }
           }
         </style>
-
         <div style="direction: ltr">
           <!-- Sharingbutton Facebook -->
           <a
@@ -3451,15 +3039,14 @@ after the second red placeholder text shown, the initial placeholder text should
               >
                 <!--<img src="facebook.svg" alt="facebook logo" />-->
                 <!--<svg viewBox="0 0 24 24">
-              <path
-                d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
-              />
+            <path
+              d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
+            />
             </svg>-->
                 <div class="encodedfbBtn"></div>
               </div>
             </div>
           </a>
-
           <!-- viber -->
           <a
             class="resp-sharing-button__link noLine"
@@ -3475,15 +3062,14 @@ after the second red placeholder text shown, the initial placeholder text should
               >
                 <!--<img src="facebook.svg" alt="facebook logo" />-->
                 <!--<svg viewBox="0 0 24 24">
-                    <path
-                      d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
-                    />
-                  </svg>-->
+            <path
+              d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
+            />
+            </svg>-->
                 <div class="encodedvbBtn"></div>
               </div>
             </div>
           </a>
-
           <!-- twitter -->
           <a
             class="resp-sharing-button__link noLine"
@@ -3499,15 +3085,14 @@ after the second red placeholder text shown, the initial placeholder text should
               >
                 <!--<img src="facebook.svg" alt="facebook logo" />-->
                 <!--<svg viewBox="0 0 24 24">
-                          <path
-                            d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
-                          />
-                        </svg>-->
+            <path
+              d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
+            />
+            </svg>-->
                 <div class="encodedtwBtn"></div>
               </div>
             </div>
           </a>
-
           <!-- instagram -->
           <a
             class="resp-sharing-button__link noLine"
@@ -3523,15 +3108,14 @@ after the second red placeholder text shown, the initial placeholder text should
               >
                 <!--<img src="facebook.svg" alt="facebook logo" />-->
                 <!--<svg viewBox="0 0 24 24">
-                          <path
-                            d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
-                          />
-                        </svg>-->
+            <path
+              d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
+            />
+            </svg>-->
                 <div class="encodedigBtn"></div>
               </div>
             </div>
           </a>
-
           <!-- telegram -->
           <a
             class="resp-sharing-button__link noLine"
@@ -3547,125 +3131,96 @@ after the second red placeholder text shown, the initial placeholder text should
               >
                 <!--<img src="facebook.svg" alt="facebook logo" />-->
                 <!--<svg viewBox="0 0 24 24">
-                                <path
-                                  d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
-                                />
-                              </svg>-->
+            <path
+              d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"
+            />
+            </svg>-->
                 <div class="encodedtgBtn"></div>
               </div>
             </div>
           </a>
-
           <!-- div END -->
         </div>
         <!-- SOCIAL BUTTONS END -->
-
         <br />
         <p>
           ޙަދީޘްއެމްވީ ބޭނުންކުރާނެ ގޮތް
           <a href="../notes/how-to-use-hmv.txt">ދަސްކުރުމަށް</a>
         </p>
       </div>
-
       <br />
     </div>
     <!-- <div id="page"> -->
-
     <style>
       /* ====================
-         SOCIAL BUTTONS --REPEATED IN MINIMAL-MOD AND INDEX HTML
- ======================= */
-
+      SOCIAL BUTTONS --REPEATED IN MINIMAL-MOD AND INDEX HTML
+      ======================= */
       /* added icons from https://iconmonstr.com and optimized them, or otherwise took them from their official sources and then optimized them */
-
       /* https://yoksel.github.io/url-encoder/ */
-
       /**/
-
       /*
       .encodedbackBtn {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10S2 17.514 2 12 6.486 2 12 2zm0-2C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm3.222 18.917c5.666-5.905-.629-10.828-5.011-7.706L12 13H6V7l1.832 1.832c7.846-6.07 16.212 4.479 7.39 10.085z'/%3E%3C/svg%3E%0A");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10S2 17.514 2 12 6.486 2 12 2zm0-2C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm3.222 18.917c5.666-5.905-.629-10.828-5.011-7.706L12 13H6V7l1.832 1.832c7.846-6.07 16.212 4.479 7.39 10.085z'/%3E%3C/svg%3E%0A");
       }
       */
-
       .encodedfbBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.378 14.192 5 15.115 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z' /%3E%3C/svg%3E");
       }
-
       .encodedvbBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' d='M7.8 23q-.1 0-.2-.1c-.4-.1-.6-.4-.6-.7v-2.5c-1.1-.3-2.2-.8-2.9-1.5C2.7 16.8 2 14.8 2 12v-1.7c0-2.8.7-4.8 2-6.2C6.4 2 10.6 2 12 2s5.6 0 7.9 2.1c1.4 1.4 2.1 3.4 2.1 6.2V12c0 2.8-.7 4.8-2 6.2-2.4 2.1-6.6 2.1-8 2.1h-1.3l-2.3 2.4q-.2.3-.6.3zm8.4-8.1c-.5-.4-.8-.6-1.6-1-.3-.2-.8-.4-1-.4a.55.55 0 0 0-.5.3c-.4.3-.5.7-1 .7-.6 0-1.6-.6-2.3-1.3s-1.3-1.7-1.3-2.3c0-.5.4-.7.7-1a.55.55 0 0 0 .3-.5c0-.2-.2-.7-.4-1-.4-.8-.6-1.1-1-1.6q-.3-.3-.6-.3c-.3 0-.7.2-1 .4-.4.3-.9.7-1 1.3v.2c0 .5.2 1.1.4 1.6.6 1.1 1.3 2.2 2.1 3.2q.4.5.9.9.4.5.9.9c1 .8 2.1 1.5 3.2 2.1.5.2 1 .4 1.6.4h.2c.6-.1 1-.6 1.3-1 .2-.3.4-.7.4-1q0-.3-.3-.6zM18 11v-.5c0-3-2.5-5.5-5.5-5.5a.47.47 0 0 0-.5.5.47.47 0 0 0 .5.5 4.48 4.48 0 0 1 4.5 4.5v.5a.47.47 0 0 0 .5.5.47.47 0 0 0 .5-.5zm-1.5-.5c0-2.1-1.7-3.9-3.8-4a.47.47 0 0 0-.5.5.47.47 0 0 0 .5.5 2.97 2.97 0 0 1 2.8 3 .47.47 0 0 0 .5.5.47.47 0 0 0 .5-.5zm-1.9 0c.2-.1.4-.4.3-.6a2.37 2.37 0 0 0-1.8-1.8c-.2-.1-.5.1-.6.3-.1.3.1.6.4.7.5.1.9.5 1 1 .1.3.3.4.5.4h.2z'/%3E%3C/svg%3E");
       }
-
       .encodedtwBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M23.4 4.83c-.8.37-1.5.38-2.22.02.94-.56.98-.96 1.32-2.02-.88.52-1.85.9-2.9 1.1-.8-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.04.7.12 1.04-3.78-.2-7.12-2-9.37-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.73-.03-1.43-.23-2.05-.57v.06c0 2.2 1.57 4.03 3.65 4.44-.67.18-1.37.2-2.05.08.57 1.8 2.25 3.12 4.24 3.16-1.95 1.52-4.36 2.16-6.74 1.88 2 1.3 4.4 2.04 6.97 2.04 8.36 0 12.93-6.92 12.93-12.93l-.02-.6c.9-.63 1.96-1.22 2.57-2.14z' /%3E%3C/svg%3E");
       }
-
       .encodedigBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 3a5 5 0 0 0-5 5v8a5 5 0 0 0 5 5h8a5 5 0 0 0 5-5V8a5 5 0 0 0-5-5H8zm10 2a1 1 0 1 1 0 2 1 1 0 1 1 0-2zm-6 2a5 5 0 1 1 0 10 5 5 0 1 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 1 0 0-6z'/%3E%3C/svg%3E");
       }
-
       .encodedtgBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16.114 9.291c.552-.552 1.1-1.84-1.2-.276l-6.489 4.372a2.7 2.7 0 0 1-2.117.046l-2.991-.966s-1.1-.691.783-1.427l10.722-4.418 4.647-1.932s1.657-.645 1.519.92c-.046.644-.414 2.9-.782 5.338l-1.151 7.225s-.092 1.058-.874 1.242a3.787 3.787 0 0 1-2.3-.828l-4.648-3.221a.872.872 0 0 1 .046-1.473 169.31 169.31 0 0 0 4.835-4.602z' /%3E%3C/svg%3E");
       }
-
       .encodedytBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.488 3.45.029 5.804 0 12c.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z' /%3E%3C/svg%3E");
       }
-
       .encodedandBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill-rule='evenodd' d='M18 8v9.4a1.58 1.58 0 0 1-1.6 1.6H16v3.5a1.54 1.54 0 0 1-1.5 1.5 1.54 1.54 0 0 1-1.5-1.5V19h-2v3.5A1.54 1.54 0 0 1 9.5 24 1.54 1.54 0 0 1 8 22.5V19h-.4A1.58 1.58 0 0 1 6 17.4V8zm4 7.6c0 .8-.7 1.4-1.5 1.4s-1.5-.6-1.5-1.4V9.5A1.54 1.54 0 0 1 20.5 8 1.54 1.54 0 0 1 22 9.5zm-17 0c0 .8-.7 1.4-1.5 1.4S2 16.4 2 15.6V9.5A1.54 1.54 0 0 1 3.5 8 1.54 1.54 0 0 1 5 9.5zM18 7H6c0-2.3 1.2-3.8 3-4.9L8.1.3c-.1-.1 0-.3.2-.3q.1 0 .1.1l1 1.9c1.7-.8 3.7-.8 5.2 0l1-1.9q0-.1.1-.1c.2 0 .3.2.2.3L15 2.1c1.8 1.1 3 2.6 3 4.9zm-8-2.5a.47.47 0 0 0-.5-.5.47.47 0 0 0-.5.5.47.47 0 0 0 .5.5.47.47 0 0 0 .5-.5zm5 0a.47.47 0 0 0-.5-.5.47.47 0 0 0-.5.5.47.47 0 0 0 .5.5.47.47 0 0 0 .5-.5z' /%3E%3Cpath d='M9 4h1v1H9zm5 0h1v1h-1z' /%3E%3C/svg%3E");
       }
-
       .encodedwinBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M0 12V3.354l10-1.355V12H0zm11 0h13V0L11 1.807V12zm-1 1H0v7.646l10 1.355V13zm1 0v9.194L24 24V13H11z' /%3E%3C/svg%3E");
       }
-
       .encodedwebBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' viewBox='0 0 24 24'%3E%3Cpath d='M15.246 17c-.927 3.701-2.547 6-3.246 7-.699-1-2.32-3.298-3.246-7h6.492zm7.664 0c-1.558 3.391-4.65 5.933-8.386 6.733 1.315-2.068 2.242-4.362 2.777-6.733h5.609zM1.09 17h5.609c.539 2.386 1.47 4.678 2.777 6.733-3.736-.8-6.828-3.342-8.386-6.733zm14.55-2H8.36a20.8 20.8 0 0 1 0-6h7.281c.288 1.986.288 4.015-.001 6zm-9.299 0H.379A11.96 11.96 0 0 1 0 12c0-1.036.131-2.041.379-3h5.962a22.91 22.91 0 0 0 0 6zm17.28 0h-5.963c.265-1.988.265-4.012.001-6h5.962c.247.959.379 1.964.379 3s-.132 2.042-.379 3zm-8.375-8H8.754C9.679 3.298 11.3 1 12 0c1.194 1.708 2.444 3.799 3.246 7zm-8.548-.001H1.089C2.648 3.609 5.74 1.067 9.476.266c-1.237 1.94-2.214 4.237-2.778 6.733zm16.212 0h-5.609c-.557-2.462-1.513-4.75-2.778-6.733 3.736.801 6.829 3.343 8.387 6.733z'/%3E%3C/svg%3E");
       }
-
       .encodedmesBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' viewBox='0 0 24 24'%3E%3Cpath d='M12 0C5.373 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.627 0 12-4.974 12-11.111S18.627 0 12 0zm1.193 14.963-3.056-3.259-5.963 3.259L10.733 8l3.13 3.259L19.752 8l-6.559 6.963z'/%3E%3C/svg%3E%0A");
       }
-
       .encodedmesBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' viewBox='0 0 24 24'%3E%3Cpath d='M12 0C5.373 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.627 0 12-4.974 12-11.111S18.627 0 12 0zm1.193 14.963-3.056-3.259-5.963 3.259L10.733 8l3.13 3.259L19.752 8l-6.559 6.963z'/%3E%3C/svg%3E%0A");
       }
-
       .encodedwaBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19.077 4.928c-2.082-2.083-4.922-3.134-7.904-2.894-4.009.322-7.523 3.11-8.699 6.956-.84 2.748-.487 5.617.881 7.987L2.059 21.28a.55.55 0 0 0 .67.691l4.504-1.207a9.98 9.98 0 0 0 4.773 1.216h.004c4.195 0 8.071-2.566 9.412-6.541 1.306-3.876.34-7.823-2.345-10.511zm-2.179 10.626c-.208.583-1.227 1.145-1.685 1.186s-.887.207-2.995-.624c-2.537-1-4.139-3.601-4.263-3.767s-1.019-1.353-1.019-2.581.645-1.832.874-2.081.499-.312.666-.312l.478.006c.178.007.375.016.562.431.222.494.707 1.728.769 1.853s.104.271.021.437-.125.27-.249.416-.262.325-.374.437c-.125.124-.255.26-.11.509a7.51 7.51 0 0 0 1.388 1.728c.954.85 1.757 1.113 2.007 1.239s.395.104.541-.063.624-.728.79-.978.333-.208.562-.125 1.456.687 1.705.812.416.187.478.291.062.603-.146 1.186z'/%3E%3C/svg%3E");
       }
-
       .encodedemBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 12.713.015 3h23.97L12 12.713zm0 2.574L0 5.562V21h24V5.562l-12 9.725z'/%3E%3C/svg%3E");
       }
-
       .encodedcallBtn {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3.59 1.322 6.434 0l4.041 7.89L7.75 9.231c-.538 1.259 2.159 6.289 3.297 6.372.09-.058 2.671-1.328 2.671-1.328l4.11 7.932-2.854 1.396C7.113 27.194-4.127 5.345 3.59 1.322zm1.93 1.274L4.497 3.1c-5.294 2.762 4.177 21.185 9.648 18.686l.971-.474-2.271-4.383-1.026.5C8.656 18.976 3.557 9.21 6.764 7.491l1.007-.497L5.52 2.596zm7.832 7.649 2.917.87a3.03 3.03 0 0 0-.24-2.317c-.399-.739-1.062-1.247-1.808-1.469l-.869 2.916zm1.804-6.059a6.3 6.3 0 0 1 3.756 3.051 6.3 6.3 0 0 1 .498 4.813l-1.795-.535c.325-1.091.233-2.306-.352-3.387a4.42 4.42 0 0 0-2.643-2.146l.536-1.796zM16.106 1a9.61 9.61 0 0 1 5.729 4.656A9.61 9.61 0 0 1 22.596 13l-1.84-.548a7.71 7.71 0 0 0-.608-5.882c-1.016-1.877-2.696-3.165-4.591-3.729L16.106 1z'/%3E%3C/svg%3E%0A");
       }
-
       .fbBtn {
         background-color: #1877f2;
       }
-
       .twBtn {
         background-color: #1d9bf0;
       }
-
       .tgBtn {
         background-color: #229ed9;
       }
-
       /* added */
-
       .vbBtn {
         background-color: #7360f2;
       }
-
       .ytBtn {
         background-color: #ff0000;
       }
-
       .igBtn {
         /*background-color: #e60000;*/
         /* https://stackoverflow.com/questions/37751375/instagram-new-logo-css-background/37751377#37751377 */
@@ -3678,43 +3233,37 @@ after the second red placeholder text shown, the initial placeholder text should
           #bc1888 100%
         );
       }
-
       /*.mesBtn {
-  background-color: radial-gradient(
-    circle at center,
-    #3f97d2 0%,
-    #6c53ab 61%,
-    #ff5485 93%,
-    #ff6b5f 100%
-  );
-}*/
-
+      background-color: radial-gradient(
+      circle at center,
+      #3f97d2 0%,
+      #6c53ab 61%,
+      #ff5485 93%,
+      #ff6b5f 100%
+      );
+      }*/
       .waBtn {
         background: linear-gradient(0deg, #20b038 0%, #67d670 100%);
       }
-
       /*
-.emBtn {
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 20%,
-    rgba(9, 9, 121, 1) 70%
-  );
-}
-*/
-
+      .emBtn {
+      background: linear-gradient(
+      90deg,
+      rgba(2, 0, 36, 1) 20%,
+      rgba(9, 9, 121, 1) 70%
+      );
+      }
+      */
       /*
-.callBtn {
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 20%,
-    rgba(9, 9, 121, 1) 70%
-  );
-}
-*/
-
+      .callBtn {
+      background: linear-gradient(
+      90deg,
+      rgba(2, 0, 36, 1) 20%,
+      rgba(9, 9, 121, 1) 70%
+      );
+      }
+      */
       /* #footer > a:nth-child(6) > div > div > div { */
-
       .resp-sharing-button__link > div > div > div {
         filter: invert(100%);
         height: 24px;
@@ -3723,20 +3272,16 @@ after the second red placeholder text shown, the initial placeholder text should
         display: inline-block;
         vertical-align: middle;
       }
-
       /* https://sharingbuttons.io */
-
       .resp-sharing-button__link,
       .resp-sharing-button__icon {
         display: inline-block;
       }
-
       .resp-sharing-button__link {
         text-decoration: none;
         color: #fff;
         margin: 0.5em;
       }
-
       .resp-sharing-button {
         border-radius: 5px;
         /*transition: 25ms ease-out;*/
@@ -3749,72 +3294,63 @@ after the second red placeholder text shown, the initial placeholder text should
         /* added */
         transition: transform 0.25s ease-out;
       }
-
       /* changed .resp-sharing-button--icon/small svg to img before */
-
       .resp-sharing-button__icon svg {
         /*width: 1em;
-            height: 1em;*/
+      height: 1em;*/
         margin-right: 0.4em;
         vertical-align: top;
         /* edit */
         width: 1.25em;
         height: 1.25em;
       }
-
       /* this also had --small after button before */
       .resp-sharing-button svg {
         margin: 0;
         vertical-align: middle;
       }
-
       /* Non solid icons get a stroke */
       .resp-sharing-button__icon {
         /*stroke: #fff;
-            fill: none;*/
+      fill: none;*/
         /* edit */
         fill: #fff;
       }
-
       /* Solid icons get a fill
-          .resp-sharing-button__icon--solid,
-          .resp-sharing-button__icon--solidcircle {
-            fill: #fff;
-            stroke: none;
-          } */
-
+      .resp-sharing-button__icon--solid,
+      .resp-sharing-button__icon--solidcircle {
+      fill: #fff;
+      stroke: none;
+      } */
       /* */
-
       /* darken on hover and enlarge */
-
       .resp-sharing-button:hover,
       .resp-sharing-button:active {
         filter: brightness(90%);
         transform: scale(1.25);
       }
-
       /* makes svgs white
-          .resp-sharing-button img {
-            filter: invert(100%);
-          }*/
+      .resp-sharing-button img {
+      filter: invert(100%);
+      }*/
     </style>
-
+    <!-- HIDDENCARD JS -->
     <script>
-      // KAHF REMINDER
+      // kahfReminder
       // https://dhivehi.mv/prayer-times
       /* claude:
-        html: ...
-          <span class="hideOnPhoneOnly">ޙަދީޘްއެމްވީ – </span>
-          <span>ސުންނަތުގެ ތަރުޖަމާ މަންސަ</span>
-  this shows the following text: ޙަދީޘްއެމްވީ – ސުންނަތުގެ ތަރުޖަމާ މަންސަ
-  and it shows this text on mobile: ސުންނަތުގެ ތަރުޖަމާ މަންސަ
-   using js, i want to change the text "ޙަދީޘްއެމްވީ – " to "hey man 1"
-  and i want to i want to change the text "ސުންނަތުގެ ތަރުޖަމާ މަންސަ" to "hey man 2"
-  //
-  only change it from 5 am to 6 pm on a friday
-  also in the order of position, bring span 2 first, with span 1 second
-  also during that time, also get a hidden element with id "kahfReminder" and show it it
-  */
+           html: ...
+             <span class="hideOnPhoneOnly">ޙަދީޘްއެމްވީ – </span>
+             <span>ސުންނަތުގެ ތަރުޖަމާ މަންސަ</span>
+         this shows the following text: ޙަދީޘްއެމްވީ – ސުންނަތުގެ ތަރުޖަމާ މަންސަ
+         and it shows this text on mobile: ސުންނަތުގެ ތަރުޖަމާ މަންސަ
+         using js, i want to change the text "ޙަދީޘްއެމްވީ – " to "hey man 1"
+         and i want to i want to change the text "ސުންނަތުގެ ތަރުޖަމާ މަންސަ" to "hey man 2"
+         //
+         only change it from 5 am to 6 pm on a friday
+         also in the order of position, bring span 2 first, with span 1 second
+         also during that time, also get a hidden element with id "kahfReminder" and show it it
+         */
       // Get the current day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
       const currentDay = new Date().getDay();
 
@@ -3841,14 +3377,15 @@ after the second red placeholder text shown, the initial placeholder text should
           parent.insertBefore(span2, span1);
 
           // Get the element with the ID and show it
-          document.querySelector("#kahfReminder").style.display = "block";
+          document.querySelector("#kahfReminder").style.display = "table-row";
+          // style.display = "block";
         }
       }
 
       //
       //
 
-      // nightQuranReminder night Quran REMINDER
+      // nightQuranReminder
       // https://dhivehi.mv/prayer-times
       /* claude: see the code above, it executes changes to the elements, but only from 5 am to 6 pm on a friday. i want you to make it so it changes the elements from 7pm to 2am, everyday */
       // Get the current hour
@@ -3869,13 +3406,15 @@ after the second red placeholder text shown, the initial placeholder text should
         parent.insertBefore(span2, span1);
 
         // Get the element with the ID and show it
-        document.querySelector("#nightQuranReminder").style.display = "block";
+        document.querySelector("#nightQuranReminder").style.display =
+          "table-row";
+        // style.display = "block";
       }
 
       //
       //
 
-      // nightQuranReminder night Quran REMINDER
+      // morningQuranReminder
       // https://dhivehi.mv/prayer-times
       /* claude: see the code above, it executes changes to the elements, but only from 5 am to 6 pm on a friday. i want you to make it so it changes the elements from 7pm to 2am, everyday */
       // Get the current hour
@@ -3896,10 +3435,12 @@ after the second red placeholder text shown, the initial placeholder text should
         parent.insertBefore(span2, span1);
 
         // Get the element with the ID and show it
-        document.querySelector("#morningQuranReminder").style.display = "block";
+        document.querySelector("#morningQuranReminder").style.display =
+          "table-row";
+        // style.display = "block";
       }
     </script>
-
+    <!-- HIDDENCARD JS END -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async
@@ -3915,7 +3456,6 @@ after the second red placeholder text shown, the initial placeholder text should
       gtag("config", "G-HL24Q9NN24");
     </script>
     <!-- End Google Analytics -->
-
     <!-- === INT JS - END === -->
   </body>
 </html>
