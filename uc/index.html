@@ -611,7 +611,7 @@
                 <li>
                   <a
                     href="https://hadithmv.github.io/books/40-Nawawi-hadithmv.pdf"
-                    >ނަވަވީގެ ސާޅީސް ޙަދީޘް (ޕީޑީއެފް)</a
+                    >ނަވަވީގެ ސާޅީސް ޙަދީޘް (PDF)</a
                   >
                 </li>
               </ul>
@@ -1014,6 +1014,194 @@
         }
       </style>
 
+      <!-- TABLE CSS BELOW -->
+
+      <style>
+        /* DARK MODE  */
+        @media (prefers-color-scheme: dark) {
+          table {
+            background-color: #181a1b;
+            color: #c5cfd6;
+          }
+
+          tr:hover {
+            background-color: #136296;
+          }
+          th {
+            background-color: #2596be;
+          }
+        }
+
+        body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          /*background-color: #ccd7e8;*/
+          /* added */
+          flex-direction: column;
+          /*padding: 15px;*/
+          /*margin: 0;*/
+        }
+
+        table {
+          border-collapse: collapse;
+          /*background-color: white;*/
+          overflow: hidden;
+          /*width: auto;*/ /* 500px; */
+          border-radius: 10px;
+          /* added */
+          /*width: 100%;*/ /* 100%; / Full width for responsiveness */
+          /*max-width: 500px;*/
+          max-width: 700px;
+          margin-bottom: 20px;
+          padding-bottom: 10px;
+          /* added hmv main */
+          margin: auto; /* Center the table horizontally */
+          direction: rtl; /* For right-to-left text direction */
+        }
+
+        th,
+        td {
+          /*text-align: left;*/
+          font-size: 24px; /* 16px; 12px; */
+          /*padding: 10px;*/
+
+          /*padding-top: 10px;
+            padding-bottom: 10px;*/
+          /*padding-left: 30px;
+            padding-right: 30px;*/
+          padding-top: 15px;
+          padding-bottom: 10px;
+          padding-left: 15px;
+          padding-right: 15px;
+
+          font-weight: normal;
+
+          /* vertical-align: baseline; */
+          vertical-align: baseline;
+
+          line-height: 1.7;
+        }
+
+        /*@mixin for-phone-only*/
+        @media (max-width: 599px) {
+          th,
+          td {
+            padding: 10px;
+          }
+        }
+
+        /* Ensure the padding applies only to the cells of that row */
+        table tr:first-child td {
+          padding-top: 20px; /* Set your desired padding */
+        }
+        table tr:last-child td {
+          padding-bottom: 20px; /* Set your desired padding */
+        }
+
+        /* Selects the first <td> of each row in the table */
+        table tr td:first-child {
+          overflow-wrap: break-word;
+        }
+
+        /* Hide the fourth column 
+          table td:nth-child(4),
+          table th:nth-child(4) {
+            display: none;
+          } */
+
+        /* Light grey background for odd rows */
+        /*tr:nth-child(odd) {
+            background-color: #f2f2f2; 
+          }*/
+
+        th {
+          /*background-color: #7691ab;*/
+          background-color: #1670ac; /*#1670ac*/
+          color: white;
+          /* added */
+          text-align: center;
+          /*font-size: 18px;*/ /* 12px; */
+        }
+
+        /* ADDED */
+
+        table td:nth-child(2) {
+          /*direction: rtl;*/
+          text-align: right;
+        }
+
+        /*table td:nth-child(3) {
+            direction: rtl;
+            text-align: center;
+          }*/
+
+        tr:hover {
+          background-color: #136296; /* #f5f5f5 */
+          color: #fff;
+          cursor: pointer;
+        }
+
+        /* animate table */
+
+        /*@keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+
+          table {
+            animation: fadeIn 0.5s ease-in-out;
+          }*/
+
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-table {
+          opacity: 0; /* Start hidden */
+          transform: translateY(50px); /* Start below */
+          transition:
+            opacity 0.5s ease-in-out,
+            transform 0.5s ease-in-out;
+        }
+
+        .animate-table.visible {
+          opacity: 1;
+          transform: translateY(0); /* Move to original position */
+        }
+      </style>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const tables = document.querySelectorAll(".animate-table");
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+              } else {
+                entry.target.classList.remove("visible");
+              }
+            });
+          });
+
+          tables.forEach((table) => {
+            observer.observe(table);
+          });
+        });
+      </script>
+
       <div class="mobileTopSpace" style="margin-top: 70px"></div>
 
       <div id="tab2" class="tabcontent">
@@ -1091,7 +1279,7 @@
           >
             <td>9</td>
             <td>مصحف التجويد</td>
-            <td>ތަޖްވީދު މުސްހަފު (ޕީޑީއެފް)</td>
+            <td>ތަޖްވީދު މުސްހަފު (PDF)</td>
           </tr>
           <tr onclick="window.location.href='../books/quranMuyassar.html';">
             <td>10</td>
@@ -1137,7 +1325,12 @@
           >
             <td>17</td>
             <td>القرآن في صفحة واحدة</td>
-            <td>މުޅި ގުރްއާން އެއް ސަފުހާއެއްގައި (ޕީޑީއެފް)</td>
+            <td>މުޅި ގުރްއާން އެއް ސަފުހާއެއްގައި (PDF)</td>
+          </tr>
+          <tr>
+            <td>18</td>
+            <td>مقدمة في أصول التفسير</td>
+            <td>ތަފްސީރުގެ އުސޫލުތަކުގެ މުގައްދިމާ (ނިމެން ކައިރިވަނީ)</td>
           </tr>
         </table>
         <!-- -->
@@ -1254,179 +1447,14 @@
             <td>رياض الصالحين</td>
             <td>ރިޔާޟުއްޞާލިޙީން (އެކުލަވާލަނީ)</td>
           </tr>
+          <tr
+            onclick="window.open('https://archive.org/details/entire-quran-on-one-page', '_blank');"
+          >
+            <td>10</td>
+            <td>تيسير مصطلح الحديث</td>
+            <td>ޙަދީޘް މުސްޠަލަޙު ފަސޭހަކުރުން (PDF)</td>
+          </tr>
         </table>
-        <!-- -->
-
-        <style>
-          body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            /*background-color: #ccd7e8;*/
-            /* added */
-            flex-direction: column;
-            /*padding: 15px;*/
-            /*margin: 0;*/
-          }
-
-          table {
-            border-collapse: collapse;
-            background-color: white;
-            overflow: hidden;
-            /*width: auto;*/ /* 500px; */
-            border-radius: 10px;
-            /* added */
-            /*width: 100%;*/ /* 100%; / Full width for responsiveness */
-            /*max-width: 500px;*/
-            max-width: 700px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            /* added hmv main */
-            margin: auto; /* Center the table horizontally */
-            direction: rtl; /* For right-to-left text direction */
-          }
-
-          th,
-          td {
-            /*text-align: left;*/
-            font-size: 24px; /* 16px; 12px; */
-            /*padding: 10px;*/
-
-            /*padding-top: 10px;
-            padding-bottom: 10px;*/
-            /*padding-left: 30px;
-            padding-right: 30px;*/
-            padding-top: 15px;
-            padding-bottom: 10px;
-            padding-left: 15px;
-            padding-right: 15px;
-
-            font-weight: normal;
-
-            /* vertical-align: baseline; */
-            vertical-align: baseline;
-
-            line-height: 1.7;
-          }
-
-          /*@mixin for-phone-only*/
-          @media (max-width: 599px) {
-            th,
-            td {
-              padding: 10px;
-            }
-          }
-
-          /* Ensure the padding applies only to the cells of that row */
-          table tr:first-child td {
-            padding-top: 20px; /* Set your desired padding */
-          }
-          table tr:last-child td {
-            padding-bottom: 20px; /* Set your desired padding */
-          }
-
-          /* Selects the first <td> of each row in the table */
-          table tr td:first-child {
-            overflow-wrap: break-word;
-          }
-
-          /* Hide the fourth column 
-          table td:nth-child(4),
-          table th:nth-child(4) {
-            display: none;
-          } */
-
-          /* Light grey background for odd rows */
-          /*tr:nth-child(odd) {
-            background-color: #f2f2f2; 
-          }*/
-
-          th {
-            /*background-color: #7691ab;*/
-            background-color: #1670ac; /*#1670ac*/
-            color: white;
-            /* added */
-            text-align: center;
-            /*font-size: 18px;*/ /* 12px; */
-          }
-
-          /* ADDED */
-
-          table td:nth-child(2) {
-            /*direction: rtl;*/
-            text-align: right;
-          }
-
-          /*table td:nth-child(3) {
-            direction: rtl;
-            text-align: center;
-          }*/
-
-          tr:hover {
-            background-color: #136296; /* #f5f5f5 */
-            color: #fff;
-            cursor: pointer;
-          }
-
-          /* animate table */
-
-          /*@keyframes fadeIn {
-            from {
-              opacity: 0;
-            }
-            to {
-              opacity: 1;
-            }
-          }
-
-          table {
-            animation: fadeIn 0.5s ease-in-out;
-          }*/
-
-          @keyframes slideUp {
-            from {
-              opacity: 0;
-              transform: translateY(50px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-
-          .animate-table {
-            opacity: 0; /* Start hidden */
-            transform: translateY(50px); /* Start below */
-            transition:
-              opacity 0.5s ease-in-out,
-              transform 0.5s ease-in-out;
-          }
-
-          .animate-table.visible {
-            opacity: 1;
-            transform: translateY(0); /* Move to original position */
-          }
-        </style>
-
-        <script>
-          document.addEventListener("DOMContentLoaded", function () {
-            const tables = document.querySelectorAll(".animate-table");
-            const observer = new IntersectionObserver((entries) => {
-              entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                  entry.target.classList.add("visible");
-                } else {
-                  entry.target.classList.remove("visible");
-                }
-              });
-            });
-
-            tables.forEach((table) => {
-              observer.observe(table);
-            });
-          });
-        </script>
 
         <!---->
 
@@ -1925,116 +1953,73 @@ after the second red placeholder text shown, the initial placeholder text should
       <!-- class="tabcontent"> -->
 
       <div id="tab4" class="tabcontent">
-        <div class="row">
-          <div class="column">
-            <a href="../books/allAqida.html">
-              <div class="card redCard">
-                <p>📚 އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</p>
-                <p>الجامع في العقائد</p>
-              </div>
-            </a>
-          </div>
+        <!-- -->
+        <table class="animate-table">
+          <tr>
+            <th colspan="4">
+              العقيدة والمنهج - އަގީދާއާއި މަންހަޖު
+              <a
+                ><span
+                  class="tablinks"
+                  onclick="openTab(event, 'tab1'); scrollBack2Top();"
+                  id="defaultOpen"
+                  style="float: left; cursor: pointer; color: #fff"
+                  >X</span
+                ></a
+              >
+            </th>
+          </tr>
+          <tr onclick="window.location.href='../books/allAqida.html';">
+            <td>1</td>
+            <td>الجامع في العقائد</td>
+            <td>އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</td>
+          </tr>
+          <tr onclick="window.location.href='../books/usooluSunnah.html';">
+            <td>2</td>
+            <td>أصول السنة لأحمد</td>
+            <td>އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް (މުރާޖާކުރަނީ)</td>
+          </tr>
+          <tr onclick="window.location.href='../books/barbahari.html';">
+            <td>3</td>
+            <td>شرح السنة للبربهاري</td>
+            <td>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</td>
+          </tr>
+          <tr onclick="window.location.href='../books/aqidatuRaziyain.html';">
+            <td>5</td>
+            <td>عقيدة الرازيين</td>
+            <td>ދެ ރާޒީންގެ އަގީދާ</td>
+          </tr>
+          <tr onclick="window.location.href='../books/kitabulEman.html';">
+            <td>6</td>
+            <td>كتاب الإيمان لأبي عبيد</td>
+            <td>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</td>
+          </tr>
+          <tr onclick="window.location.href='../books/nawaqidulislam.html';">
+            <td>7</td>
+            <td>نواقض الإسلام</td>
+            <td>އިސްލާމްކަން ގެއްލޭ ކަންކަން</td>
+          </tr>
+          <tr onclick="window.location.href='../books/qawaidulArbau.html';">
+            <td>8</td>
+            <td>القواعد الأربع</td>
+            <td>ހަތަރު ގަވާއިދު</td>
+          </tr>
+          <tr onclick="window.location.href='../books/usooluThalaatha.html';">
+            <td>9</td>
+            <td>الأصول الثلاثة</td>
+            <td>ތިން އުސޫލު</td>
+          </tr>
+          <tr
+            onclick="window.location.href='../books/quranUshru.html#quranTable=:p69';"
+          >
+            <td>10</td>
+            <td>أحكام تهم المسلم (من العشر الأخير)</td>
+            <td>މުސްލިމަކަށް މުހިންމުވާ ހުކުމްތައް</td>
+          </tr>
+        </table>
+        <!-- -->
 
-          <div class="column">
-            <a href="../books/usooluSunnah.html">
-              <div class="card">
-                <p>އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް</p>
-                <p style="font-size: 90%">(އެކުލަވާ ނުނިމޭ...)</p>
-                <!--
-                <p>أصول السنة لأحمد</p>
-                -->
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/barbahari.html">
-              <div class="card">
-                <p>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</p>
-                <p>شرح السنة للبربهاري</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/aqidatuRaziyain.html">
-              <div class="card">
-                <p>ދެ ރާޒީންގެ އަގީދާ</p>
-                <p>عقيدة الرازيين</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/kitabulEman.html">
-              <div class="card">
-                <p>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</p>
-                <p>كتاب الإيمان لأبي عبيد</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/nawaqidulislam.html">
-              <div class="card">
-                <p>އިސްލާމްކަން ގެއްލޭ ކަންކަން</p>
-                <p>نواقض الإسلام</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/qawaidulArbau.html">
-              <div class="card">
-                <p>ހަތަރު ގަވާއިދު</p>
-                <p>‌‌القواعد الأربع</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/usooluSiththa.html">
-              <div class="card">
-                <p>ހަ އުސޫލު</p>
-                <p style="font-size: 90%">(އެކުލަވާ ނުނިމޭ...)</p>
-                <!--
-                <p>الأصول الستة</p>
-                -->
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/usooluThalaatha.html">
-              <div class="card">
-                <p>ތިން އުސޫލު</p>
-                <p>الأصول الثلاثة</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/quranUshru.html#quranTable=:p69">
-              <div class="card">
-                <p>މުސްލިމަކަށް މުހިންމުވާ ހުކުމްތައް</p>
-                <p>أحكام تهم المسلم (من العشر الأخير)</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab1'); scrollBack2Top();"
-              id="defaultOpen"
-            >
-              <div class="card backArrow">
-                <p><span>➦</span></p>
-              </div>
-            </a>
-          </div>
-          <!-- -->
-        </div>
+        <br />
 
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ’ފަހެ ތިޔަބައިމީހުން އެ ކަންކަމަށް އީމާންވެގެން
@@ -2509,152 +2494,127 @@ after the second red placeholder text shown, the initial placeholder text should
       <!-- class="tabcontent"> -->
 
       <div id="tab5" class="tabcontent">
-        <div class="row">
-          <div class="column">
-            <a href="../books/radheefAll.html">
-              <div class="card redCard">
-                <p>📚 އެއްކުރަމުންދާ ރަދީފުތައް</p>
-                <p>الجامع في المعاجم</p>
-                <!--
-                <p>
-                  <span style="font-size: 80%">(އެކުލަވާ ނުނިމޭ)</span>
-                </p>-->
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../mauhad/arabic.html">
-              <div
-                class="card"
-                style="border-top-color: #ed8a28; border-bottom-color: #ed8a28"
+        <!-- -->
+        <table class="animate-table">
+          <tr>
+            <th colspan="4">
+              اللغة والكتابة - ބަހާއި ލިޔުންތެރިކަން
+              <a
+                ><span
+                  class="tablinks"
+                  onclick="openTab(event, 'tab1'); scrollBack2Top();"
+                  id="defaultOpen"
+                  style="float: left; cursor: pointer; color: #fff"
+                  >X</span
+                ></a
               >
-                <p>📙 މަދީނާ އަރަބި ފޮތްތައް</p>
-                <p>مناهج معهد تعليم اللغة العربية</p>
-              </div>
-            </a>
-          </div>
+            </th>
+          </tr>
+          <tr onclick="window.location.href='../books/radheefAll.html';">
+            <td>1</td>
+            <td>الجامع في المعاجم</td>
+            <td>އެއްކުރަމުންދާ ރަދީފުތައް</td>
+          </tr>
+          <tr onclick="window.location.href='../mauhad/arabic.html';">
+            <td>2</td>
+            <td>مناهج معهد تعليم اللغة العربية</td>
+            <td>މަދީނާ އަރަބި ފޮތްތައް</td>
+          </tr>
+          <tr onclick="window.location.href='../books/radheefNanfoiy.html';">
+            <td>3</td>
+            <td>معجم الأسماء</td>
+            <td>ނަންފޮތް</td>
+          </tr>
+          <tr onclick="window.location.href='../books/radheefRasmee.html';">
+            <td>5</td>
+            <td>ދިވެހިބަހުގެ ރަދީފު (ރަސްމީ)</td>
+            <td>معجم اللغة الديفهية</td>
+          </tr>
+          <tr onclick="window.location.href='../books/radheefEegaal.html';">
+            <td>6</td>
+            <td>(معجم) الإيقاظ</td>
+            <td>އަލްއީގާޡް (އަރަބި ދިވެހި ރަދީފު)</td>
+          </tr>
+          <tr onclick="window.location.href='../books/radheefManiku.html';">
+            <td>7</td>
+            <td>Manik’s Concise Etymological Vocabulary</td>
+            <td>މަނިކުގެ ދިވެހި އިނގިރޭސި ރަދީފު</td>
+          </tr>
+          <tr
+            onclick="window.open('../notes/info/lafzuVakikohLiyumugeQawaid.html', '_blank');"
+          >
+            <td>8</td>
+            <td>ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު</td>
+            <td>قواعد فصل الكلمات</td>
+          </tr>
+          <tr
+            onclick="window.open('https://archive.org/details/dhifihuristhu', '_blank');"
+          >
+            <td>9</td>
+            <td>دي فهرست</td>
+            <td>ދިފިހުރިސްތު (ދިނީ ލިޔުންތަކަގެ މައުލޫމާތު، ޕީޑީއެފް)</td>
+          </tr>
+          <tr
+            onclick="window.location.href='../notes/info/NukuthaajehiAkuruthahBeynunkuraaneHama.html';"
+          >
+            <td>10</td>
+            <td>أصول استخدام النقت في الديفهية</td>
+            <td>ތާނައިގައި ހުރި ނުކުތާޖެހި އަކުރުތައް ބޭނުންކުރާނެ ހަމަ</td>
+          </tr>
+          <tr
+            onclick="window.open('https://archive.org/details/dhivehi_bahuge_qawaidhu', '_blank');"
+          >
+            <td>11</td>
+            <td>قواعد اللغة الديفهية</td>
+            <td>ދިވެހިބަހުގެ ގަވާއިދު (PDF)</td>
+          </tr>
+          <tr
+            onclick="window.open('https://archive.org/details/latin_akurun_liyumuge_qawaidhu', '_blank');"
+          >
+            <td>12</td>
+            <td>قواعد كتابة التانا</td>
+            <td>ލެޓިން އަކުރުން ލިޔުމުގެ ގަވާއިދު (PDF)</td>
+          </tr>
+          <tr
+            onclick="window.location.href='../books/quranMuyassarGhareeb.html';"
+          >
+            <td>13</td>
+            <td>الميسر في غريب القرآن</td>
+            <td></td>
+          </tr>
+          <tr onclick="window.location.href='../books/quranBetaqat.html';">
+            <td>14</td>
+            <td>بطاقات تعريف السور</td>
+            <td></td>
+          </tr>
+          <tr onclick="window.location.href='../books/quranQiraaath.html';">
+            <td>15</td>
+            <td>موسوعة القراءات</td>
+            <td></td>
+          </tr>
+          <tr
+            onclick="window.open('https://tafsir.app/iraab-graphs/1/1', '_blank');"
+          >
+            <td>16</td>
+            <td>الإعراب المرسوم</td>
+            <td></td>
+          </tr>
+          <tr
+            onclick="window.open('https://archive.org/details/entire-quran-on-one-page', '_blank');"
+          >
+            <td>17</td>
+            <td>القرآن في صفحة واحدة</td>
+            <td>މުޅި ގުރްއާން އެއް ސަފުހާއެއްގައި (PDF)</td>
+          </tr>
+          <tr>
+            <td>18</td>
+            <td>مقدمة في أصول التفسير</td>
+            <td>ތަފްސީރުގެ އުސޫލުތަކުގެ މުގައްދިމާ (ނިމެން ކައިރިވަނީ)</td>
+          </tr>
+        </table>
+        <!-- -->
 
-          <div class="column">
-            <a href="../books/radheefNanfoiy.html">
-              <div
-                class="card"
-                style="border-top-color: #136296; border-bottom-color: #136296"
-              >
-                <p>🔤 ނަންފޮތް</p>
-                <p>معجم الأسماء</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/radheefRasmee.html">
-              <div class="card">
-                <p>ދިވެހިބަހުގެ ރަދީފު</p>
-                <p>معجم اللغة الديفهية</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/radheefEegaal.html">
-              <div class="card">
-                <p>އަލްއީގާޡް (އަރަބި ދިވެހި ރަދީފު)</p>
-                <p>(معجم) الإيقاظ</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/radheefManiku.html">
-              <div class="card">
-                <p>މަނިކުގެ ދިވެހި އިނގިރޭސި ރަދީފު</p>
-                <p style="font-size: 80%">Concise Etymological Vocabulary</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../notes/info/lafzuVakikohLiyumugeQawaid.html">
-              <div class="card">
-                <p>ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު</p>
-                <p>قواعد فصل الكلمات</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="https://archive.org/details/dhifihuristhu">
-              <div class="card">
-                <p>ދިފިހުރިސްތު</p>
-                <p>ދިނީ ލިޔުންތަކަގެ މައުލޫމާތު (ޕީޑީއެފް)</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../notes/info/NukuthaajehiAkuruthahBeynunkuraaneHama.html">
-              <div class="card">
-                <p style="font-size: 80%">
-                  ތާނައިގައި ހުރި ނުކުތާޖެހި އަކުރުތައް ބޭނުންކުރާނެ ހަމަ
-                </p>
-                <p style="font-size: 80%">أصول استخدام النقت في الديفهية</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              href="https://archive.org/details/dhivehi_bahuge_qawaidhu"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div class="card">
-                <p>ދިވެހިބަހުގެ ގަވާއިދު (ޕީޑީއެފް)</p>
-                <p>قواعد اللغة الديفهية</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              href="https://archive.org/details/thaana_liyumuge_qawaidhu"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div class="card">
-                <p>ތާނަލިޔުމުގެ ގަވާއިދު (ޕީޑީއެފް)</p>
-                <p>قواعد كتابة التانا</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              href="https://archive.org/details/latin_akurun_liyumuge_qawaidhu"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div class="card">
-                <p>ލެޓިން އަކުރުން ލިޔުމުގެ ގަވާއިދު (ޕީޑީއެފް)</p>
-                <p>قواعد كتابة الحروف اللاتينية</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab1'); scrollBack2Top();"
-              id="defaultOpen"
-            >
-              <div class="card backArrow">
-                <p><span>➦</span></p>
-              </div>
-            </a>
-          </div>
-          <!-- -->
-        </div>
+        <br />
 
         <p class="quoteHere">
           ނޯޓު: މިއީ އެންމެ ގިނަ ދިވެހި ލަފްޒުތަކާއި މާނަތައް އެއް މަންސައަކުން
