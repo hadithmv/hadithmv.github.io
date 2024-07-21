@@ -379,10 +379,10 @@
         border-bottom: 5px solid #faa900;
       }
 
-      #tab10 .card {
+      /*#tab10 .card {
         border-top: 5px solid #738564;
         border-bottom: 5px solid #738564;
-      }
+      }*/
 
       #tab11 .card {
         border-top: 5px solid #35a4a5;
@@ -394,10 +394,10 @@
         border-bottom: 5px solid #1ec71e;
       }
 
-      #tab12 .card {
+      /*#tab12 .card {
         border-top: 5px solid #e9cd3e;
         border-bottom: 5px solid #e9cd3e;
-      }
+      }*/
 
       #tab13 .card {
         border-top: 5px solid #ad0e1c;
@@ -808,6 +808,31 @@
         // https://stackoverflow.com/a/56105556
         // fix "Uncaught TypeError: Cannot read property 'click' of null"
         // if getting executed before the dom is ready. Try by putting it inside DOMContentLoaded event
+
+        document.addEventListener("DOMContentLoaded", function () {
+          document.getElementById("tab1").style.display = "block";
+        });
+
+        function openTab(evt, tabName) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(
+              " active",
+              ""
+            );
+          }
+          document.getElementById(tabName).style.display = "block";
+          evt.currentTarget.className += " active";
+        }
+
+        /* OLD CODE BELOW, cgpt prompt used to change below code to above:
+        this code first hides a div then shows it, then when clicking buttons, switches to other divs .i want the main div to be shown by default, and then when buttons are clicked, to switch to other divs. i dont want there to be defaultOpen on an element
+        
         document.addEventListener("DOMContentLoaded", function () {
           document.getElementById("defaultOpen").click();
         });
@@ -828,6 +853,7 @@
           document.getElementById(tabName).style.display = "block";
           evt.currentTarget.className += " active";
         }
+        */
       </script>
 
       <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_column_cards -->
@@ -1027,6 +1053,7 @@
           tr:hover {
             background-color: #136296;
           }
+
           th {
             background-color: #2596be;
           }
@@ -1048,23 +1075,36 @@
           border-collapse: collapse;
           /*background-color: white;*/
           overflow: hidden;
-          /*width: auto;*/ /* 500px; */
+          /*width: auto;*/
+          /* 500px; */
           border-radius: 10px;
           /* added */
-          /*width: 100%;*/ /* 100%; / Full width for responsiveness */
+          /*width: 100%;*/
+          /* 100%; / Full width for responsiveness */
           /*max-width: 500px;*/
           max-width: 700px;
           margin-bottom: 20px;
           padding-bottom: 10px;
-          /* added hmv main */
-          margin: auto; /* Center the table horizontally */
-          direction: rtl; /* For right-to-left text direction */
+          /* added more below */
+          /* Center the table horizontally */
+          margin: auto;
+          /* For right-to-left text direction */
+          direction: rtl;
+
+          margin-bottom: 50px;
+
+          /* shadow */
+          box-shadow:
+            0 1px 3px rgba(0, 0, 0, 0.12),
+            0 1px 2px rgba(0, 0, 0, 0.24);
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         th,
         td {
           /*text-align: left;*/
-          font-size: 24px; /* 16px; 12px; */
+          font-size: 24px;
+          /* 16px; 12px; */
           /*padding: 10px;*/
 
           /*padding-top: 10px;
@@ -1094,10 +1134,13 @@
 
         /* Ensure the padding applies only to the cells of that row */
         table tr:first-child td {
-          padding-top: 20px; /* Set your desired padding */
+          padding-top: 20px;
+          /* Set your desired padding */
         }
+
         table tr:last-child td {
-          padding-bottom: 20px; /* Set your desired padding */
+          padding-bottom: 20px;
+          /* Set your desired padding */
         }
 
         /* Selects the first <td> of each row in the table */
@@ -1105,7 +1148,7 @@
           overflow-wrap: break-word;
         }
 
-        /* Hide the fourth column 
+        /* Hide the fourth column
           table td:nth-child(4),
           table th:nth-child(4) {
             display: none;
@@ -1113,16 +1156,27 @@
 
         /* Light grey background for odd rows */
         /*tr:nth-child(odd) {
-            background-color: #f2f2f2; 
+            background-color: #f2f2f2;
           }*/
 
         th {
           /*background-color: #7691ab;*/
-          background-color: #1670ac; /*#1670ac*/
+          background-color: #b03b45;
+          /*#1670ac*/
           color: white;
           /* added */
           text-align: center;
-          /*font-size: 18px;*/ /* 12px; */
+          /*font-size: 18px;*/
+          /* 12px; */
+        }
+
+        /* This selector targets the first th element only */
+        tr:first-child > th {
+          background-color: #1670ac !important;
+        }
+
+        /* DARK MODE  */
+        @media (prefers-color-scheme: dark) {
         }
 
         /* ADDED */
@@ -1138,7 +1192,8 @@
           }*/
 
         tr:hover {
-          background-color: #136296; /* #f5f5f5 */
+          background-color: #136296;
+          /* #f5f5f5 */
           color: #fff;
           cursor: pointer;
         }
@@ -1163,6 +1218,7 @@
             opacity: 0;
             transform: translateY(50px);
           }
+
           to {
             opacity: 1;
             transform: translateY(0);
@@ -1170,8 +1226,10 @@
         }
 
         .animate-table {
-          opacity: 0; /* Start hidden */
-          transform: translateY(50px); /* Start below */
+          opacity: 0;
+          /* Start hidden */
+          transform: translateY(50px);
+          /* Start below */
           transition:
             opacity 0.5s ease-in-out,
             transform 0.5s ease-in-out;
@@ -1179,7 +1237,8 @@
 
         .animate-table.visible {
           opacity: 1;
-          transform: translateY(0); /* Move to original position */
+          transform: translateY(0);
+          /* Move to original position */
         }
       </style>
 
@@ -1208,15 +1267,22 @@
         <!-- -->
         <table class="animate-table">
           <tr>
-            <th colspan="4">
+            <th
+              colspan="4"
+              class="tablinks"
+              onclick="openTab(event, 'tab1'); scrollBack2Top();"
+            >
               القرآن والتفسير - ގުރްއާނާއި ތަފްސީރު
               <a
                 ><span
-                  class="tablinks"
-                  onclick="openTab(event, 'tab1'); scrollBack2Top();"
-                  id="defaultOpen"
-                  style="float: left; cursor: pointer; color: #fff"
-                  >X</span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
                 ></a
               >
             </th>
@@ -1335,8 +1401,6 @@
         </table>
         <!-- -->
 
-        <br />
-
         <p class="quoteHere">
           ނޯޓު: މިއީ އެންމެ ގިނަ ގުރްއާނުގެ ދިވެހި ތަރުޖަމާއާއި ތަފްސީރު އެއް
           މަންސައަކުން ލިބެން ހުރި ތަނެވެ.
@@ -1387,15 +1451,22 @@
         <!-- -->
         <table class="animate-table">
           <tr>
-            <th colspan="4">
+            <th
+              colspan="4"
+              class="tablinks"
+              onclick="openTab(event, 'tab1'); scrollBack2Top();"
+            >
               الحديث والأثر - ޙަދީޘާއި އަޘަރު
               <a
                 ><span
-                  class="tablinks"
-                  onclick="openTab(event, 'tab1'); scrollBack2Top();"
-                  id="defaultOpen"
-                  style="float: left; cursor: pointer; color: #fff"
-                  >X</span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
                 ></a
               >
             </th>
@@ -1457,8 +1528,6 @@
         </table>
 
         <!---->
-
-        <br />
 
         <p class="quoteHere">
           ނޯޓު: މިއީ އެންމެ ގިނަ ޙަދީޘްގެ ދިވެހި ތަރުޖަމާ އެއް މަންސައަކުން
@@ -1850,7 +1919,7 @@ after the second red placeholder text shown, the initial placeholder text should
           <div class="column">
             <a
               class="tablinks"
-              onclick="openTab(event, 'tab12'); scrollBack2Top();"
+              onclick="openTab(event, 'tab10'); scrollBack2Top();"
             >
               <div class="card">
                 <p>⛰️ ދާރު ފިތްޔަތިލް ކަހްފި</p>
@@ -1956,15 +2025,22 @@ after the second red placeholder text shown, the initial placeholder text should
         <!-- -->
         <table class="animate-table">
           <tr>
-            <th colspan="4">
+            <th
+              colspan="4"
+              class="tablinks"
+              onclick="openTab(event, 'tab1'); scrollBack2Top();"
+            >
               العقيدة والمنهج - އަގީދާއާއި މަންހަޖު
               <a
                 ><span
-                  class="tablinks"
-                  onclick="openTab(event, 'tab1'); scrollBack2Top();"
-                  id="defaultOpen"
-                  style="float: left; cursor: pointer; color: #fff"
-                  >X</span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
                 ></a
               >
             </th>
@@ -2019,8 +2095,6 @@ after the second red placeholder text shown, the initial placeholder text should
         </table>
         <!-- -->
 
-        <br />
-
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ’ފަހެ ތިޔަބައިމީހުން އެ ކަންކަމަށް އީމާންވެގެން
           ތިބި ފަދައިން އެބައިމީހުން ވެސް އީމާންވާ ނަމަ، ފަހެ އެބައިމީހުންނަށް
@@ -2053,29 +2127,38 @@ after the second red placeholder text shown, the initial placeholder text should
       <!-- class="tabcontent"> -->
 
       <div id="tab8" class="tabcontent">
-        <div class="row">
-          <div class="column">
-            <a href="https:hadithmv.github.io/pdfs/40-Nawawi-hadithmv.pdf">
-              <div class="card">
-                <p>ނަވަވީގެ ސާޅީސް ޙަދީޘް (ކުރީގެ)</p>
-                <p>الأربعون النووية</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
+        <!-- -->
+        <table class="animate-table">
+          <tr>
+            <th
+              colspan="4"
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
-              id="defaultOpen"
             >
-              <div class="card backArrow">
-                <p><span>➦</span></p>
-              </div>
-            </a>
-          </div>
-          <!-- -->
-        </div>
+              العقيدة والمنهج - އަގީދާއާއި މަންހަޖު
+              <a
+                ><span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
+                ></a
+              >
+            </th>
+          </tr>
+          <tr
+            onclick="window.open('https:hadithmv.github.io/pdfs/40-Nawawi-hadithmv.pdf', '_blank');"
+          >
+            <td>1</td>
+            <td>الأربعون النووية</td>
+            <td>ނަވަވީގެ ސާޅީސް ޙަދީޘް (ކުރީގެ)</td>
+          </tr>
+        </table>
+        <!-- -->
 
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ’ހަމަކަށަވަރުން އުޑުތަކާއި، ބިމުގައި ވާހާ
@@ -2110,15 +2193,22 @@ after the second red placeholder text shown, the initial placeholder text should
         <!-- -->
         <table class="animate-table">
           <tr>
-            <th colspan="4">
+            <th
+              colspan="4"
+              class="tablinks"
+              onclick="openTab(event, 'tab1'); scrollBack2Top();"
+            >
               المتنوعات - އެހެނިހެން
               <a
                 ><span
-                  class="tablinks"
-                  onclick="openTab(event, 'tab1'); scrollBack2Top();"
-                  id="defaultOpen"
-                  style="float: left; cursor: pointer; color: #fff"
-                  >X</span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
                 ></a
               >
             </th>
@@ -2145,7 +2235,7 @@ after the second red placeholder text shown, the initial placeholder text should
             <td>✍️ ނޯޓުފޮތް</td>
             <td>الكناشة</td>
           </tr>
-          <tr onclick="window.location.href='';">
+          <tr onclick="openTab(event, 'tab8')">
             <td>6</td>
             <td>تحميلات</td>
             <td>📥 ޑައުންލޯޑުތައް</td>
@@ -2168,30 +2258,39 @@ after the second red placeholder text shown, the initial placeholder text should
             <td>ℹ️ ޙަދީޘްއެމްވީ އަކީ ކޮބާ؟</td>
           </tr>
           <tr
-            onclick="window.location.href='../notes/info/NukuthaajehiAkuruthahBeynunkuraaneHama.html';"
+            onclick="window.location.href='../notes/info/mirror-backups.html';"
           >
             <td>10</td>
-            <td>أصول استخدام النقت في الديفهية</td>
-            <td>ތާނައިގައި ހުރި ނުކުތާޖެހި އަކުރުތައް ބޭނުންކުރާނެ ހަމަ</td>
+            <td>المواقع الإحتياطية</td>
+            <td>💾 ބެކްއަޕް ސައިޓުތައް</td>
           </tr>
-          <tr
-            onclick="window.open('https://archive.org/details/dhivehi_bahuge_qawaidhu', '_blank');"
-          >
+          <tr onclick="window.location.href='../notes/info/contributors.html';">
             <td>11</td>
-            <td>قواعد اللغة الديفهية</td>
-            <td>ދިވެހިބަހުގެ ގަވާއިދު (PDF)</td>
+            <td>المساعدون</td>
+            <td>🤝 އެހީތެރިން</td>
           </tr>
-          <tr
-            onclick="window.open('https://archive.org/details/latin_akurun_liyumuge_qawaidhu', '_blank');"
-          >
+          <tr onclick="window.location.href='../notes/how-to-use-hmv.txt';">
             <td>12</td>
-            <td>قواعد كتابة التانا</td>
-            <td>ލެޓިން އަކުރުން ލިޔުމުގެ ގަވާއިދު (PDF)</td>
+            <td>كيفية استخدام</td>
+            <td>📒 ޙަދީޘްއެމްވީ ބޭނުންކުރާ ގޮތް</td>
+          </tr>
+          <tr onclick="window.location.href='../notes/info/privacy.html';">
+            <td>13</td>
+            <td>سياسة الخصوصية</td>
+            <td>🔒 ޕްރައިވެސީ ޕޮލިސީ</td>
+          </tr>
+          <tr onclick="window.location.href='../LICENSE.txt';">
+            <td>14</td>
+            <td>رخصة البرمجية</td>
+            <td>📄 ލައިސެންސް</td>
+          </tr>
+          <tr onclick="window.location.href='../notes/info/other-links.html';">
+            <td>15</td>
+            <td>روابط أخرى</td>
+            <td>🔗 އެހެނިހެން ލިންކުތައް</td>
           </tr>
         </table>
         <!-- -->
-
-        <br />
 
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ’އޭ އީމާންވެއްޖެ މީސްތަކުންނޭވެ. ތިޔަބައިމީހުން
@@ -2224,56 +2323,79 @@ after the second red placeholder text shown, the initial placeholder text should
       <!-- class="tabcontent"> -->
 
       <div id="tab7" class="tabcontent">
-        <div class="row">
-          <div class="column">
-            <a
+        <!-- -->
+        <table class="animate-table">
+          <tr>
+            <th
+              colspan="4"
               class="tablinks"
-              onclick="openTab(event, 'tab9'); scrollBack2Top();"
+              onclick="openTab(event, 'tab14'); scrollBack2Top();"
             >
-              <div class="card">
-                <p>ފުރަތަމަ މުސްތަވާ</p>
-                <p>المستوى الأول</p>
-              </div>
-            </a>
-          </div>
+              متون طالب العلم - އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް
+              <a
+                ><span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
+                ></a
+              >
+            </th>
+          </tr>
+          <!---->
+          <tr>
+            <th colspan="3">المستوى الأول - ފުރަތަމަ ފިޔަވަހި</th>
+          </tr>
+          <tr onclick="window.location.href='../books/nawaqidulislam.html';">
+            <td>1</td>
+            <td>نواقض الإسلام</td>
+            <td>އިސްލާމްކަން ގެއްލޭ ކަންކަން</td>
+          </tr>
+          <tr onclick="window.location.href='../books/qawaidulArbau.html';">
+            <td>2</td>
+            <td>‌‌القواعد الأربع</td>
+            <td>ހަތަރު ގަވާއިދު</td>
+          </tr>
+          <tr onclick="window.location.href='../books/usooluThalaatha.html';">
+            <td>3</td>
+            <td>الأصول الثلاثة</td>
+            <td>ތިން އުސޫލު</td>
+          </tr>
+          <tr onclick="window.location.href='../books/fortyNawawi.html';">
+            <td>4</td>
+            <td>الأربعون النووية</td>
+            <td>ނަވަވީގެ ސާޅީސް ޙަދީޘް</td>
+          </tr>
+          <!---->
+          <tr>
+            <th colspan="3">المستوى الخامس - ފަސްވަނަ ފިޔަވަހި</th>
+          </tr>
+          <tr onclick="window.location.href='../books/bulugh.html';">
+            <td>1</td>
+            <td>بلوغ المرام</td>
+            <td>ބުލޫޣުލް މަރާމް</td>
+          </tr>
+          <!---->
+          <tr>
+            <th colspan="3">المتون الإضافية - އިތުރު މަތުނުތައް</th>
+          </tr>
+          <tr onclick="window.location.href='../books/umdah.html';">
+            <td>1</td>
+            <td>عمدة الأحكام</td>
+            <td>ޢުމްދަތުލް އަޙްކާމް</td>
+          </tr>
+          <tr onclick="window.location.href='../books/usooluSiththa.html';">
+            <td>2</td>
+            <td>الأصول الستة</td>
+            <td>ހަ އުސޫލު</td>
+          </tr>
+        </table>
 
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab10'); scrollBack2Top();"
-            >
-              <div class="card">
-                <p>ފަސްވަނަ މުސްތަވާ</p>
-                <p>المستوى الخامس</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab11'); scrollBack2Top();"
-            >
-              <div class="card">
-                <p>އިތުރު މަތުނުތައް</p>
-                <p>المتون الإضافية</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab1'); scrollBack2Top();"
-              id="defaultOpen"
-            >
-              <div class="card backArrow">
-                <p><span>➦</span></p>
-              </div>
-            </a>
-          </div>
-          <!-- -->
-        </div>
+        <!-- -->
 
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ’ތިޔަބައިމީހުންގެ ތެރެއިން އީމާންވި މީހުންނާއި
@@ -2300,136 +2422,26 @@ after the second red placeholder text shown, the initial placeholder text should
       </div>
       <!-- class="tabcontent"> -->
 
-      <div id="tab9" class="tabcontent">
-        <div class="row">
-          <div class="column">
-            <a href="../books/nawaqidulislam.html">
-              <div class="card">
-                <p>އިސްލާމްކަން ގެއްލޭ ކަންކަން</p>
-                <p>نواقض الإسلام</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/qawaidulArbau.html">
-              <div class="card">
-                <p>ހަތަރު ގަވާއިދު</p>
-                <p>‌‌القواعد الأربع</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/usooluThalaatha.html">
-              <div class="card">
-                <p>ތިން އުސޫލު</p>
-                <p>الأصول الثلاثة</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/fortyNawawi.html">
-              <div class="card">
-                <p>ނަވަވީގެ ސާޅީސް ޙަދީޘް</p>
-                <p>الأربعون النووية</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab7'); scrollBack2Top();"
-              id="defaultOpen"
-            >
-              <div class="card backArrow">
-                <p><span>➦</span></p>
-              </div>
-            </a>
-          </div>
-          <!-- -->
-        </div>
-      </div>
-      <!-- class="tabcontent"> -->
-
-      <div id="tab10" class="tabcontent">
-        <div class="row">
-          <div class="column">
-            <a href="../books/bulugh.html">
-              <div class="card">
-                <p>ބުލޫޣުލް މަރާމް</p>
-                <p style="font-size: 90%">(ނިމިފަ، މުރާޖާކުރަނީ)</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab7'); scrollBack2Top();"
-              id="defaultOpen"
-            >
-              <div class="card backArrow">
-                <p><span>➦</span></p>
-              </div>
-            </a>
-          </div>
-          <!-- -->
-        </div>
-      </div>
-      <!-- class="tabcontent"> -->
-
-      <div id="tab11" class="tabcontent">
-        <div class="row">
-          <div class="column">
-            <a href="../books/umdah.html">
-              <div class="card">
-                <p>ޢުމްދަތުލް އަޙްކާމް</p>
-                <p>عمدة الأحكام</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/usooluSiththa.html">
-              <div class="card">
-                <p>ހަ އުސޫލު</p>
-                <p>الأصول الستة</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab7'); scrollBack2Top();"
-              id="defaultOpen"
-            >
-              <div class="card backArrow">
-                <p><span>➦</span></p>
-              </div>
-            </a>
-          </div>
-          <!-- -->
-        </div>
-      </div>
-      <!-- class="tabcontent"> -->
-
       <div id="tab5" class="tabcontent">
         <!-- -->
         <table class="animate-table">
           <tr>
-            <th colspan="4">
+            <th
+              colspan="4"
+              class="tablinks"
+              onclick="openTab(event, 'tab1'); scrollBack2Top();"
+            >
               اللغة والكتابة - ބަހާއި ލިޔުންތެރިކަން
               <a
                 ><span
-                  class="tablinks"
-                  onclick="openTab(event, 'tab1'); scrollBack2Top();"
-                  id="defaultOpen"
-                  style="float: left; cursor: pointer; color: #fff"
-                  >X</span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
                 ></a
               >
             </th>
@@ -2461,7 +2473,9 @@ after the second red placeholder text shown, the initial placeholder text should
           </tr>
           <tr onclick="window.location.href='../books/radheefManiku.html';">
             <td>7</td>
-            <td>Manik’s Concise Etymological Vocabulary</td>
+            <td style="font-size: 99%">
+              Manik’s Concise Etymological Vocabulary
+            </td>
             <td>މަނިކުގެ ދިވެހި އިނގިރޭސި ރަދީފު</td>
           </tr>
           <tr
@@ -2502,8 +2516,6 @@ after the second red placeholder text shown, the initial placeholder text should
         </table>
         <!-- -->
 
-        <br />
-
         <p class="quoteHere">
           ނޯޓު: މިއީ އެންމެ ގިނަ ދިވެހި ލަފްޒުތަކާއި މާނަތައް އެއް މަންސައަކުން
           ލިބެން ހުރި ތަނެވެ. އަދި ދިވެހި ބަހުގެ އިތުރުން، އަރަބިންނާއި
@@ -2540,57 +2552,54 @@ after the second red placeholder text shown, the initial placeholder text should
       </div>
       <!-- class="tabcontent"> -->
 
-      <div id="tab12" class="tabcontent">
-        <div class="row">
-          <div class="column">
-            <a href="../books/barbahariDFK.html">
-              <div class="card">
-                <p>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</p>
-                <p>شرح السنة للبربهاري</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/kitabulEman.html">
-              <div class="card">
-                <p>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</p>
-                <p>كتاب الإيمان لأبي عبيد</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/akhbaruShuyukh.html">
-              <div class="card">
-                <p>ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާޤު</p>
-                <p>أخبار الشيوخ وأخلاقهم للمروذي</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a href="../books/akhlaqHamalathilQuran.html">
-              <div class="card">
-                <p>ޤުރްއާން އުފުލާ މީހުންގެ އަޚްލާޤު</p>
-                <p>أخلاق حملة القرآن للآجري</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
+      <div id="tab10" class="tabcontent">
+        <!-- -->
+        <table class="animate-table">
+          <tr>
+            <th
+              colspan="4"
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
-              id="defaultOpen"
             >
-              <div class="card backArrow">
-                <p><span>➦</span></p>
-              </div>
-            </a>
-          </div>
-          <!-- -->
-        </div>
+              دار فتية الكهف - ދާރު ފިތްޔަތިލް ކަހްފި
+              <a
+                ><span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
+                ></a
+              >
+            </th>
+          </tr>
+          <tr onclick="window.location.href='../books/barbahariDFK.html';">
+            <td>1</td>
+            <td>شرح السنة للبربهاري</td>
+            <td>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</td>
+          </tr>
+          <tr onclick="window.location.href='../books/kitabulEman.html';">
+            <td>2</td>
+            <td>كتاب الإيمان لأبي عبيد</td>
+            <td>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</td>
+          </tr>
+          <tr onclick="window.location.href='../books/akhbaruShuyukh.html';">
+            <td>5</td>
+            <td>أخبار الشيوخ وأخلاقهم للمروذي</td>
+            <td>ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާޤު</td>
+          </tr>
+          <tr
+            onclick="window.location.href='../books/akhlaqHamalathilQuran.html';"
+          >
+            <td>6</td>
+            <td>أخلاق حملة القرآن للآجري</td>
+            <td>ޤުރްއާން އުފުލާ މީހުންގެ އަޚްލާޤު</td>
+          </tr>
+        </table>
+        <!-- -->
 
         <p class="quoteHere">
           دَارُ فِتْيَةِ الكَهْف | ދާރު ފިތްޔަތިލް ކަހްފިގެ މަޤްޞަދަކީ: އެންމެ
@@ -2788,7 +2797,6 @@ after the second red placeholder text shown, the initial placeholder text should
             <a
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
-              id="defaultOpen"
             >
               <div class="card backArrow">
                 <p><span>➦</span></p>
@@ -2853,56 +2861,46 @@ after the second red placeholder text shown, the initial placeholder text should
       <!-- class="tabcontent"> -->
 
       <div id="tab14" class="tabcontent">
-        <div class="row">
-          <div class="column">
-            <a href="../mauhad/arabic.html">
-              <div class="card">
-                <p>📙 މަދީނާ އަރަބި ފޮތްތައް</p>
-                <p>مناهج معهد تعليم اللغة العربية</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
-              class="tablinks"
-              onclick="openTab(event, 'tab7'); scrollBack2Top();"
-            >
-              <div
-                class="card"
-                style="
-                  border-top: 5px solid #969696;
-                  border-bottom: 5px solid #969696;
-                "
-              >
-                <p>📚 އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް</p>
-                <p>متون طالب العلم</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a>
-              <div class="card">
-                <p>އިތުރު މާއްދާތަކާއި މުގައްރަރުތައް</p>
-                <p>قريبا إن شاء الله...</p>
-              </div>
-            </a>
-          </div>
-
-          <div class="column">
-            <a
+        <!-- -->
+        <table class="animate-table">
+          <tr>
+            <th
+              colspan="4"
               class="tablinks"
               onclick="openTab(event, 'tab1'); scrollBack2Top();"
-              id="defaultOpen"
             >
-              <div class="card backArrow">
-                <p><span>➦</span></p>
-              </div>
-            </a>
-          </div>
-          <!-- -->
-        </div>
+              أكاديمية حديث أم وي - ޙަދީޘްއެމްވީ އެކެޑެމީ
+              <a
+                ><span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
+                ></a
+              >
+            </th>
+          </tr>
+          <tr onclick="window.location.href='../mauhad/arabic.html';">
+            <td>1</td>
+            <td>مناهج معهد تعليم اللغة العربية</td>
+            <td>📙 މަދީނާ އަރަބި ފޮތްތައް</td>
+          </tr>
+          <tr onclick="openTab(event, 'tab7'); scrollBack2Top();">
+            <td>2</td>
+            <td>متون طالب العلم</td>
+            <td>📚 އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް</td>
+          </tr>
+          <tr onclick="">
+            <td>3</td>
+            <td>المواد والمقررات الإضافية</td>
+            <td>އިތުރު މާއްދާތަކާއި މުގައްރަރުތައް ތައްޔާރުވަނީ...</td>
+          </tr>
+        </table>
+        <!-- -->
 
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ”އަދި ﷲ އަށް މެނުވީ އެ އާޔަތްތަކުގެ މާނަ
@@ -2932,25 +2930,25 @@ after the second red placeholder text shown, the initial placeholder text should
 
       <script>
         /*
-              document.addEventListener("DOMContentLoaded", function () {
-                //....
-                document.getElementById("footer").classList.remove("hidden");
-              });
-              */
+            document.addEventListener("DOMContentLoaded", function () {
+              //....
+              document.getElementById("footer").classList.remove("hidden");
+            });
+            */
         /*
-              function unfade(document.getElementById("footer")) {
-          var op = 0.1;  // initial opacity
-          element.style.display = 'block';
-          var timer = setInterval(function () {
-              if (op >= 1){
-                  clearInterval(timer);
-              }
-              element.style.opacity = op;
-              element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-              op += op * 0.1;
-          }, 10);
+            function unfade(document.getElementById("footer")) {
+        var op = 0.1;  // initial opacity
+        element.style.display = 'block';
+        var timer = setInterval(function () {
+            if (op >= 1){
+                clearInterval(timer);
+            }
+            element.style.opacity = op;
+            element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+            op += op * 0.1;
+        }, 10);
 
-      }*/
+    }*/
 
         // https://stackoverflow.com/questions/807878/how-to-make-javascript-execute-after-page-load/36096571#36096571
 
@@ -3212,8 +3210,8 @@ after the second red placeholder text shown, the initial placeholder text should
 
               //
               /*document
-              .querySelector("body > div.mm-ocd.mm-ocd--right.mm-ocd--open")
-              .remove("mm-ocd--open");*/
+            .querySelector("body > div.mm-ocd.mm-ocd--right.mm-ocd--open")
+            .remove("mm-ocd--open");*/
 
               // closes side menu
               drawer.close();
@@ -3773,18 +3771,18 @@ after the second red placeholder text shown, the initial placeholder text should
       // KAHF REMINDER
       // https://dhivehi.mv/prayer-times
       /* claude:
-          html: ...
-            <span class="hideOnPhoneOnly">ޙަދީޘްއެމްވީ – </span>
-            <span>ސުންނަތުގެ ތަރުޖަމާ މަންސަ</span>
-    this shows the following text: ޙަދީޘްއެމްވީ – ސުންނަތުގެ ތަރުޖަމާ މަންސަ
-    and it shows this text on mobile: ސުންނަތުގެ ތަރުޖަމާ މަންސަ
-     using js, i want to change the text "ޙަދީޘްއެމްވީ – " to "hey man 1"
-    and i want to i want to change the text "ސުންނަތުގެ ތަރުޖަމާ މަންސަ" to "hey man 2"
-    //
-    only change it from 5 am to 6 pm on a friday
-    also in the order of position, bring span 2 first, with span 1 second
-    also during that time, also get a hidden element with id "kahfReminder" and show it it
-    */
+        html: ...
+          <span class="hideOnPhoneOnly">ޙަދީޘްއެމްވީ – </span>
+          <span>ސުންނަތުގެ ތަރުޖަމާ މަންސަ</span>
+  this shows the following text: ޙަދީޘްއެމްވީ – ސުންނަތުގެ ތަރުޖަމާ މަންސަ
+  and it shows this text on mobile: ސުންނަތުގެ ތަރުޖަމާ މަންސަ
+   using js, i want to change the text "ޙަދީޘްއެމްވީ – " to "hey man 1"
+  and i want to i want to change the text "ސުންނަތުގެ ތަރުޖަމާ މަންސަ" to "hey man 2"
+  //
+  only change it from 5 am to 6 pm on a friday
+  also in the order of position, bring span 2 first, with span 1 second
+  also during that time, also get a hidden element with id "kahfReminder" and show it it
+  */
       // Get the current day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
       const currentDay = new Date().getDay();
 
