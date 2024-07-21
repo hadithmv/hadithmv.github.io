@@ -1000,8 +1000,8 @@
           background-color: #1670ac !important;
         }
         /* DARK MODE  */
-        @media (prefers-color-scheme: dark) {
-        }
+        /*@media (prefers-color-scheme: dark) {
+        }*/
         /* ADDED */
         table td:nth-child(2) {
           /*direction: rtl;*/
@@ -1358,15 +1358,16 @@
         <!-- -->
       </div>
       <!-- class="tabcontent"> -->
-      <!-- HIDDENCARD CSS -->
+
+      <!-- hiddenDiv CSS -->
       <style>
         /* hides by default, until friday 4am-6pm for kahf, or everyday 7pm-2am for night quran */
-        .hiddenCard {
+        .hiddenDiv {
           display: none;
         }
+
+        /*OLD CARD HIDDEN COLORS
         #kahfReminder > a > .card {
-          /* background-color: invert(100%); */
-          /* filter: hue-rotate(3.142rad); */
           filter: hue-rotate(280deg);
         }
         #kahfReminder > a > .card > p {
@@ -1376,20 +1377,40 @@
         #morningQuranReminder > a > .card {
           filter: hue-rotate(145deg);
         }
-        /*#nightQuranReminder > a > .card > p {
-         filter: hue-rotate(145deg);
-         }*/
         #morningQuranReminder > a > .card > p {
           filter: hue-rotate(-145deg);
+        }*/
+
+        /* */
+
+        #nightQuranReminder {
+          background-color: #b03b45;
+        }
+        #nightQuranReminder > td {
+          filter: hue-rotate(145deg);
+        }
+
+        #morningQuranReminder {
+          background-color: #b03b45;
+        }
+        #morningQuranReminder > td {
+          /*filter: hue-rotate(-145deg);*/
+        }
+
+        #kahfReminder {
+          background-color: #b03b45;
+        }
+        #kahfReminder > td {
+          /*filter: hue-rotate(-280deg);*/
         }
       </style>
-      <!-- HIDDENCARD CSS END -->
+      <!-- hiddenDiv CSS END -->
       <div id="tab1" class="tabcontent">
         <!-- -->
         <table class="animate-table">
           <tr
             onclick="window.location.href='../books/quranHmv.html#quranTable=p482';"
-            class="hiddenCard"
+            class="hiddenDiv"
             id="morningQuranReminder"
           >
             <td></td>
@@ -1401,7 +1422,7 @@
             -->
           <tr
             onclick="window.location.href='../books/quranHmv.html#quranTable=p2140';"
-            class="hiddenCard"
+            class="hiddenDiv"
             id="kahfReminder"
           >
             <td></td>
@@ -1418,7 +1439,7 @@
              -->
           <tr
             onclick="openTab(event, 'tab13'); scrollBack2Top();"
-            class="hiddenCard"
+            class="hiddenDiv"
             id="nightQuranReminder"
           >
             <td></td>
@@ -3334,7 +3355,7 @@
       filter: invert(100%);
       }*/
     </style>
-    <!-- HIDDENCARD JS -->
+    <!-- hiddenDiv JS -->
     <script>
       // kahfReminder
       // https://dhivehi.mv/prayer-times
@@ -3440,7 +3461,7 @@
         // style.display = "block";
       }
     </script>
-    <!-- HIDDENCARD JS END -->
+    <!-- hiddenDiv JS END -->
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async
