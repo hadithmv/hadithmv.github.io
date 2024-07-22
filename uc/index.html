@@ -938,7 +938,7 @@
         th,
         td {
           /*text-align: left;*/
-          font-size: 24px;
+          font-size: 23px;
           /* 16px; 12px; */
           /*padding: 10px;*/
           /*padding-top: 10px;
@@ -959,6 +959,7 @@
           th,
           td {
             padding: 10px;
+            font-size: 20px;
           }
         }
         /* Ensure the padding applies only to the cells of that row */
@@ -997,11 +998,14 @@
         }
         /* This selector targets the first th element only */
         tr:first-child > th {
-          background-color: #1670ac !important;
+          background-color: #1670ac;
         }
         /* DARK MODE  */
-        /*@media (prefers-color-scheme: dark) {
-        }*/
+        @media (prefers-color-scheme: dark) {
+          tr:first-child > th {
+            background-color: #0f4c75;
+          }
+        }
         /* ADDED */
         table td:nth-child(2) {
           /*direction: rtl;*/
@@ -1322,8 +1326,13 @@
             <td>رياض الصالحين</td>
             <td>ރިޔާޟުއްޞާލިޙީން (އެކުލަވާލަނީ)</td>
           </tr>
-          <tr onclick="window.open('', '_blank');">
+          <tr onclick="window.location.href='../books/fortyNawawi.html';">
             <td>10</td>
+            <td>الأربعون النووية</td>
+            <td>ނަވަވީގެ ސާޅީސް ޙަދީޘް</td>
+          </tr>
+          <tr onclick="window.open('', '_blank');">
+            <td>11</td>
             <td>تيسير مصطلح الحديث</td>
             <td>ޙަދީޘް މުސްޠަލަޙު ފަސޭހަކުރުން (PDF)</td>
           </tr>
