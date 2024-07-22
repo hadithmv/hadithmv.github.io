@@ -983,9 +983,15 @@
                display: none;
                } */
         /* Light grey background for odd rows */
-        /*tr:nth-child(odd) {
-               background-color: #f2f2f2;
-               }*/
+        tr:nth-child(odd) {
+          background-color: #e7edf1;
+        }
+        /* DARK MODE  */
+        @media (prefers-color-scheme: dark) {
+          tr:nth-child(odd) {
+            background-color: #2f3031;
+          }
+        }
         th {
           /*background-color: #7691ab;*/
           background-color: #b03b45;
@@ -1395,7 +1401,7 @@
         #nightQuranReminder {
           background-color: #b03b45;
         }
-        #nightQuranReminder > td {
+        #nightQuranReminder > td:not(:first-child) {
           filter: hue-rotate(145deg);
         }
 
@@ -1412,6 +1418,33 @@
         #kahfReminder > td {
           /*filter: hue-rotate(-280deg);*/
         }
+
+        #nightQuranReminder > td,
+        #morningQuranReminder > td,
+        #kahfReminder > td {
+          color: white;
+        }
+
+        /* animation */
+
+        /* Apply the animation to the first td of each row */
+        #nightQuranReminder > td:first-child,
+        #morningQuranReminder > td:first-child,
+        #kahfReminder > td:first-child {
+          display: inline-block; /* Ensure only the text scales */
+          animation: pulsate 1s infinite;
+          white-space: nowrap; /* Prevent line breaks in the td */
+        }
+        /* Define the pulsating animation */
+        @keyframes pulsate {
+          0%,
+          100% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.2);
+          }
+        }
       </style>
       <!-- hiddenDiv CSS END -->
       <div id="tab1" class="tabcontent">
@@ -1422,7 +1455,7 @@
             class="hiddenDiv"
             id="morningQuranReminder"
           >
-            <td></td>
+            <td>⚠️</td>
             <td>قراءة آخر عشر آيات من آل عمران بعد الإستيقاظ</td>
             <td>🌅 ހޭލައިގެން سورة آل عمران ގެ ފަހު ދިހަ އާޔަތް ކިޔެވުން</td>
           </tr>
@@ -1434,7 +1467,7 @@
             class="hiddenDiv"
             id="kahfReminder"
           >
-            <td></td>
+            <td>⚠️</td>
             <td>
               من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين
             </td>
@@ -1451,7 +1484,7 @@
             class="hiddenDiv"
             id="nightQuranReminder"
           >
-            <td></td>
+            <td>⚠️</td>
             <td>قراءة القرآن قبل النوم</td>
             <td>🛏️ ނިދުމުގެ ކުރިން ގުރްއާން ކިޔެވުން</td>
           </tr>
@@ -3398,7 +3431,7 @@
           const span2 = document.querySelector(".hideOnPhoneOnly + span");
 
           // Change the text content and order
-          span2.textContent = "⚠️ اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ";
+          span2.textContent = "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ";
           span1.textContent =
             "، وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيتَ عَلَى إِبْرَاهِيمَ، وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ";
 
@@ -3428,7 +3461,7 @@
         const span2 = document.querySelector(".hideOnPhoneOnly + span");
 
         // Change the text content and order
-        span2.textContent = "⚠️ ނިދުމުގެ ކުރިން ގުރްއާން ކިޔަވާ";
+        span2.textContent = "ނިދުމުގެ ކުރިން ގުރްއާން ކިޔަވާ";
         span1.textContent = " - ސުންނަތުގައި ހިފައިގެން ރައްކާތެރިކަން ހޯދާ";
 
         // Reorder the spans
@@ -3457,7 +3490,7 @@
         const span2 = document.querySelector(".hideOnPhoneOnly + span");
 
         // Change the text content and order
-        span2.textContent = "⚠️ ހޭލައިގެން ގުރްއާން ކިޔަވާ";
+        span2.textContent = "ހޭލައިގެން ގުރްއާން ކިޔަވާ";
         span1.textContent = " - ހެނދުނުގެ ޒިކުރުތައްވެސް ކިޔާ";
 
         // Reorder the spans
