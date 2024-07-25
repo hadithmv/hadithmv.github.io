@@ -1087,408 +1087,140 @@
           });
         });
       </script>
-
-      <!-- new grid styling here-->
-
-      <style>
-        /* * {
-                  box-sizing: border-box;
-                  margin: 0;
-                  padding: 0;
-                }*/
-
-        body {
-          /*font-family: Arial, sans-serif;*/
-          background-color: #f4f4f4;
-          color: #333;
-          transition:
-            background-color 0.3s,
-            color 0.3s;
-        }
-
-        body.dark-mode {
-          background-color: #121212;
-          color: #e0e0e0;
-        }
-
-        .bookContainer {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-          gap: 20px;
-          /*padding: 20px;*/
-          padding: 10px;
-          max-width: 1200px;
-          margin: auto;
-          transition: all 0.3s;
-
-          /* animation */
-
-          animation: fadeIn 0.4s ease-in-out; /* 1s */
-        }
-
-        /* animation keyframe */
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .bookContainer.list-view {
-          display: block;
-        }
-
-        .book {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          background-color: #fff;
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          padding: 10px; /* 20px */
-          text-align: center;
-          transition:
-            transform 0.2s,
-            box-shadow 0.2s,
-            background-color 0.3s,
-            color 0.3s;
-          text-decoration: none;
-          color: inherit;
-          /* added */
-          cursor: pointer;
-        }
-
-        .book.list-item {
-          display: block;
-          text-align: right;
-          margin-bottom: 20px; /* Adds space between list items */
-        }
-
-        .book:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /*.book h3 {
-                  font-size: 18px;
-                  color: #333;
-                  margin-bottom: 10px;
-                }
-        .book p {
-                  font-size: 14px;
-                  color: #666;
-                }*/
-
-        .book p {
-          font-size: 21px;
-          /* added */
-          margin-top: 10px;
-          margin-bottom: 10px;
-        }
-
-        .book p.smallerText {
-          font-size: 18px;
-          line-height: 1.6;
-        }
-
-        .book.headerBook {
-          background-color: #0f4c75;
-        }
-        .book.headerBook:hover {
-          transform: none;
-          cursor: auto;
-        }
-        .book.headerBook.list-item {
-          text-align: center;
-        }
-
-        @media (prefers-color-scheme: dark) {
-          body {
-            background-color: #121212;
-            color: #e0e0e0;
-          }
-          .book {
-            background-color: #1e1e1e;
-            border-color: #333;
-          }
-          /*.book h3 {
-                    color: #e0e0e0;
-                  }*/
-          /* first two p tags, prev h3 */
-          .book p {
-            color: #e0e0e0;
-          }
-          .book p.smallerText {
-            color: #aaa;
-          }
-        }
-
-        /* top box */
-
-        .top-container {
-          display: flex;
-          justify-content: space-between;
-          padding: 10px 20px;
-          background-color: #ddd;
-          margin-bottom: 10px; /* 20px */
-          /* added */
-          margin-right: 10px;
-          margin-left: 10px;
-        }
-
-        .top-box {
-          flex: 1;
-          text-align: center;
-          padding: 10px;
-          border-radius: 8px;
-          margin: 0 5px;
-          cursor: pointer;
-          min-height: 50px; /* Adjust height as needed */
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition:
-            background-color 0.3s,
-            border-color 0.3s;
-          /* added */
-          flex-wrap: wrap;
-        }
-
-        /* make title smaller */
-        @media (max-width: 599px) {
-          .top-box:nth-child(2)
-        /*.top-box :nth-child(2)*/ {
-            font-size: 80%;
-          }
-        }
-        /* make title smaller */
-        @media (max-width: 599px) {
-          .top-box:nth-child(2) {
-          }
-        }
-        .top-box:hover {
-          background-color: #eee;
-        }
-
-        @media (prefers-color-scheme: dark) {
-          .top-container {
-            background-color: #1e1e1e;
-          }
-          .top-box {
-            background-color: #2c2c2c;
-            border: 1px solid #333;
-            color: #e0e0e0;
-          }
-          .top-box:hover {
-            background-color: #3c3c3c;
-          }
-        }
-
-        /* responsive */
-
-        @media (max-width: 599px) {
-          .bookContainer {
-            /* one column */
-            /*grid-template-columns: 1fr;*/
-            /* 2 columns */
-            grid-template-columns: 1fr 1fr;
-            /* added */
-            gap: 15px;
-          }
-
-          .top-container {
-            /*flex-direction: column;*/
-            /*padding: 10px;*/
-            /*margin-bottom: 10px;*/ /* Adjust as needed */
-            /* added */
-            padding: 0;
-            line-height: 1.5;
-          }
-
-          .top-box {
-            /*margin-bottom: 10px;*/
-            /*min-height: auto;*/ /* Adjust based on content */
-            /*padding: 15px;*/
-            /*font-size: 14px;*/ /* Adjust as needed */
-          }
-
-          .book {
-            /*margin: 10px 0;*/ /* Adjust as needed */
-            /* added */
-            line-height: 1.7;
-          }
-
-          .book p {
-            /*font-size: 16px;*/ /* Adjust as needed */
-            font-size: 18px;
-            /* added */
-            margin: 0;
-          }
-        }
-
-        @media (max-width: 599px) {
-          .book p {
-            /* font-size: 16px;*/ /* Adjust as needed */
-          }
-        }
-
-        /* END */
-
-        /* added */
-
-        /* removes blue underline under link */
-        a:hover {
-          background: none;
-        }
-
-        #toggleView {
-          /* display: block;
-                  margin: 20px auto;
-                  padding: 10px 20px;
-                  font-size: 16px;
-                  cursor: pointer;*/
-        }
-
-        /* @mixin for-phone-only */
-        @media (max-width: 599px) {
-          .hiddenOnMobile {
-            display: none;
-          }
-        }
-      </style>
-
       <div class="mobileTopSpace" style="margin-top: 70px"></div>
       <div id="tab2" class="tabcontent">
         <!-- -->
-
-        <div class="top-container">
-          <div class="top-box toggleView">
-            ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
-          </div>
-          <div class="top-box toggleView">
-            <span class="hiddenOnMobile">القرآن والتفسير -&nbsp;</span
-            >ގުރްއާނާއި ތަފްސީރު
-          </div>
-          <div
-            class="top-box"
-            onclick="openTab(event, 'tab1'); scrollBack2Top();"
+        <table class="animate-table">
+          <tr>
+            <th
+              colspan="3"
+              class="tablinks"
+              onclick="openTab(event, 'tab1'); scrollBack2Top();"
+            >
+              القرآن والتفسير - ގުރްއާނާއި ތަފްސީރު
+              <a
+                ><span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
+                ></a
+              >
+            </th>
+          </tr>
+          <tr onclick="window.location.href='../books/quranHmv.html';">
+            <td>1</td>
+            <td>ترجمة حديث أم وي</td>
+            <td>ޙަދީޘްއެމްވީގެ ތަރުޖަމާ</td>
+          </tr>
+          <tr onclick="window.location.href='../books/quranBakurube.html';">
+            <td>2</td>
+            <td>ترجمة بكر بي</td>
+            <td>ترجمة بكر بي</td>
+          </tr>
+          <tr onclick="window.location.href='../books/quranJaufar.html';">
+            <td>3</td>
+            <td>تفسير القرآن لجعفر</td>
+            <td>ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td>(އިތުރު ތަފްސީރެއް ތައްޔާރުވަނީ...)</td>
+          </tr>
+          <tr onclick="window.location.href='../books/quranRasmee.html';">
+            <td>5</td>
+            <td>الترجمة الرسمية</td>
+            <td>ރަސްމީ ތަރުޖަމާ (ރައީސުލްޖުމްހޫރިއްޔާގެ އޮފީސް)</td>
+          </tr>
+          <tr
+            onclick="window.open('https://archive.org/details/malinge-hussain-didi-quran-tharujamaa-aai-thafseer', '_blank');"
           >
-            ⬅️<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
-          </div>
-        </div>
-
-        <!-- -->
-        <div class="bookContainer">
-          <a class="book" href="../books/quranHmv.html">
-            <p>1 ترجمة حديث أم وي</p>
-            <p>ޙަދީޘްއެމްވީގެ ތަރުޖަމާ</p>
-          </a>
-          <a class="book" href="../books/quranBakurube.html">
-            <p>2 ترجمة بكر بي</p>
-            <p>ބަކުރުބެގެ ތަރުޖަމާ</p>
-          </a>
-          <a class="book" href="../books/quranJaufar.html">
-            <p>3 تفسير القرآن لجعفر</p>
-            <p>ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު</p>
-          </a>
-          <a class="book" href="">
-            <p class="smallerText">(އިތުރު ތަފްސީރެއް ތައްޔާރުވަނީ...)</p>
-          </a>
-          <a class="book" href="../books/quranUshru.html">
-            <p>5 تفسير العشر الأخير</p>
-            <p>ގުރްއާނުގެ ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު</p>
-          </a>
-          <a class="book" href="../books/quranRasmee.html">
-            <p>6 الترجمة الرسمية</p>
-            <p>ރަސްމީ ތަރުޖަމާ</p>
-            <p class="smallerText">(ރައީސުލްޖުމްހޫރިއްޔާގެ އޮފީސް)</p>
-          </a>
-          <a
-            class="book"
-            href="https://archive.org/details/malinge-hussain-didi-quran-tharujamaa-aai-thafseer"
-            target="_blank"
+            <td>6</td>
+            <td>ترجمة ملنجي حسين ديدي</td>
+            <td>(1، 2، 3 އިސްރާއިން އަންކަބޫތަށް، ޕީޑީއެފް)</td>
+          </tr>
+          <tr
+            onclick="window.open('https://archive.org/details/juhud-ulama-al-maldif-fi-tarjamati-maanil-quran-wa-tafsirihi', '_blank');"
           >
-            <p class="hiddenOnMobile">7 ترجمة ملنجي حسين ديدي</p>
-            <p>މަލިންގޭ ޙުސައިންދީދީގެ ތަރުޖަމާއާއި ތަފްސީރު</p>
-            <p class="smallerText">(1، 2، 3 އިސްރާއިން އަންކަބޫތަށް، PDF)</p>
-          </a>
-          <a
-            class="book"
-            href="https://archive.org/details/malinge-hussain-didi-quran-tharujamaa-aai-thafseer"
-            target="_blank"
-          >
-            <p>8 جهود علماء المالديف في ترجمة معاني القرآن الكريم وتفسيره</p>
-            <p class="smallerText hiddenOnMobile">
-              ( ގުރްއާން ތަރުޖަމާކޮށް ތަފްސީރު ކުރުމުގައި ދިވެހި އިލްމުވެރިން
-              ކުރި މަސައްކަތް، އަރަބި PDF)
-            </p>
-            <!-- 
-                ގުރްއާން ތަރުޖަމާކޮށް ތަފްސީރުކުރުމުގައިދިވެހި އިލްމުވެރިން ކުރި
-                މަސައްކަތް -->
-          </a>
-          <a class="book" href="https://shamela.ws/book/7447" target="_blank">
-            <p>9 الروايات التفسيرية في فتح الباري</p>
-            <p class="smallerText hiddenOnMobile">
-              (ފަތްޙުލް ބާރީގައި ހުރި ތަފްސީރީ ރިވާޔަތްތައް، އަރަބި އީ-ފޮތް
+            <td>7</td>
+            <td>جهود علماء المالديف في ترجمةمعاني القرآن الكريم وتفسيره</td>
+            <td>
+              ގުރްއާން ތަރުޖަމާކޮށް ތަފްސީރުކުރުމުގައިދިވެހި އިލްމުވެރިން ކުރި
+              މަސައްކަތް (އަރަބި ޕީޑީއެފް)
+            </td>
+          </tr>
+          <tr onclick="window.open('https://shamela.ws/book/7447', '_blank');">
+            <td>8</td>
+            <td>كتاب الروايات التفسيرية في فتح الباري</td>
+            <td>
+              ފަތްޙުލް ބާރީގައި ހުރި ތަފްސީރީ ރިވާޔަތްތައް (އަރަބި އީ-ފޮތް
               ލިންކު)
-            </p>
-          </a>
-          <a
-            class="book"
-            href="https://archive.org/details/mushaf-tajwid-darul-marifa"
-            target="_blank"
+            </td>
+          </tr>
+          <tr
+            onclick="window.open('https://archive.org/details/mushaf-tajwid-darul-marifa', '_blank');"
           >
-            <p>10 مصحف التجويد</p>
-            <p>ތަޖްވީދު މުސްހަފު</p>
-            <p class="smallerText">(PDF)</p>
-          </a>
-          <a class="book" href="../books/quranMuyassar.html">
-            <p>11 التفسير الميسر</p>
-          </a>
-          <a class="book" href="../books/quranMukhtasar.html">
-            <p>12 المختصر في تفسير</p>
-          </a>
-          <a class="book" href="../books/quranSadi.html">
-            <p>13 المختصر السعدي</p>
-          </a>
-          <a class="book" href="../books/quranMuyassarGhareeb.html">
-            <p>14 الميسر في غريب القرآن</p>
-          </a>
-          <a class="book" href="../books/quranBetaqat.html">
-            <p>15 بطاقات تعريف السور</p>
-          </a>
-          <a class="book" href="../books/quranQiraaath.html">
-            <p>16 موسوعة القراءات</p>
-          </a>
-          <a
-            class="book"
-            href="https://tafsir.app/iraab-graphs/1/1"
-            target="_blank"
+            <td>9</td>
+            <td>مصحف التجويد</td>
+            <td>ތަޖްވީދު މުސްހަފު (PDF)</td>
+          </tr>
+          <tr onclick="window.location.href='../books/quranMuyassar.html';">
+            <td>10</td>
+            <td>التفسير الميسر</td>
+            <td></td>
+          </tr>
+          <tr onclick="window.location.href='../books/quranMukhtasar.html';">
+            <td>11</td>
+            <td>المختصر في تفسير</td>
+            <td></td>
+          </tr>
+          <tr onclick="window.location.href='../books/quranSadi.html';">
+            <td>12</td>
+            <td>تفسير السعدي</td>
+            <td></td>
+          </tr>
+          <tr
+            onclick="window.location.href='../books/quranMuyassarGhareeb.html';"
           >
-            <p>17 الإعراب المرسوم</p>
-          </a>
-          <a
-            class="book"
-            href="https://archive.org/details/entire-quran-on-one-page"
-            target="_blank"
+            <td>13</td>
+            <td>الميسر في غريب القرآن</td>
+            <td></td>
+          </tr>
+          <tr onclick="window.location.href='../books/quranBetaqat.html';">
+            <td>14</td>
+            <td>بطاقات تعريف السور</td>
+            <td></td>
+          </tr>
+          <tr onclick="window.location.href='../books/quranQiraaath.html';">
+            <td>15</td>
+            <td>موسوعة القراءات</td>
+            <td></td>
+          </tr>
+          <tr
+            onclick="window.open('https://tafsir.app/iraab-graphs/1/1', '_blank');"
           >
-            <p>18 القرآن في صفحة واحدة</p>
-            <p>މުޅި ގުރްއާން އެއް ސަފުހާއެއްގައި</p>
-            <p class="smallerText">(PDF)</p>
-          </a>
-          <a class="book" href="../books/quranRasmee.html">
-            <p>19 مقدمة في أصول التفسير</p>
-            <p>ތަފްސީރުގެ އުސޫލުތަކުގެ މުގައްދިމާ</p>
-            <p class="smallerText">(ނިމެން ކައިރިވަނީ)</p>
-          </a>
-          <!-- bookContainer-->
-        </div>
-
+            <td>16</td>
+            <td>الإعراب المرسوم</td>
+            <td></td>
+          </tr>
+          <tr
+            onclick="window.open('https://archive.org/details/entire-quran-on-one-page', '_blank');"
+          >
+            <td>17</td>
+            <td>القرآن في صفحة واحدة</td>
+            <td>މުޅި ގުރްއާން އެއް ސަފުހާއެއްގައި (PDF)</td>
+          </tr>
+          <tr>
+            <td>18</td>
+            <td>مقدمة في أصول التفسير</td>
+            <td>ތަފްސީރުގެ އުސޫލުތަކުގެ މުގައްދިމާ (ނިމެން ކައިރިވަނީ)</td>
+          </tr>
+        </table>
         <!-- -->
         <p class="quoteHere">
           ނޯޓު: މިއީ އެންމެ ގިނަ ގުރްއާނުގެ ދިވެހި ތަރުޖަމާއާއި ތަފްސީރު އެއް
@@ -1533,85 +1265,88 @@
       <!-- class="tabcontent"> -->
       <div id="tab3" class="tabcontent">
         <!-- -->
-
-        <div class="top-container">
-          <div class="top-box toggleView">
-            ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
-          </div>
-          <div class="top-box">
-            <span class="hiddenOnMobile">الحديث والأثر -&nbsp;</span>ޙަދީޘާއި
-            އަޘަރު
-          </div>
-          <div
-            class="top-box"
-            onclick="openTab(event, 'tab1'); scrollBack2Top();"
+        <table class="animate-table">
+          <tr>
+            <th
+              colspan="3"
+              class="tablinks"
+              onclick="openTab(event, 'tab1'); scrollBack2Top();"
+            >
+              الحديث والأثر - ޙަދީޘާއި އަޘަރު
+              <a
+                ><span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
+                ></a
+              >
+            </th>
+          </tr>
+          <tr onclick="window.location.href='../books/allAthar.html';">
+            <td>1</td>
+            <td>الجامع في الأحاديث والآثار</td>
+            <td>📚 އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު</td>
+          </tr>
+          <tr onclick="window.location.href='../books/muwatta.html';">
+            <td>2</td>
+            <td>موطأ مالك</td>
+            <td>މުވައްޠައު މާލިކު (ނިމެން ކައިރިވަނީ)</td>
+          </tr>
+          <tr onclick="window.location.href='../books/umdah.html';">
+            <td>3</td>
+            <td>عمدة الأحكام</td>
+            <td>ޢުމްދަތުލް އަޙްކާމް</td>
+          </tr>
+          <tr onclick="window.location.href='../books/hisnulMuslim.html';">
+            <td>4</td>
+            <td>حصن المسلم</td>
+            <td>🤲🏼 މުސްލިމުންގެ ކިއްލާ</td>
+          </tr>
+          <tr onclick="window.location.href='../books/fortyAajurry.html';">
+            <td>5</td>
+            <td>الأربعون للآجري</td>
+            <td>އާޖުއްރީގެ ސާޅީސް ޙަދީޘް (އެކުލަވާ ނުނިމޭ)</td>
+          </tr>
+          <tr onclick="window.location.href='../books/akhbaruShuyukh.html';">
+            <td>6</td>
+            <td>أخبار الشيوخ وأخلاقهم للمروذي</td>
+            <td>ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާޤު</td>
+          </tr>
+          <tr
+            onclick="window.location.href='../books/akhlaqHamalathilQuran.html';"
           >
-            ⬅️<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
-          </div>
-        </div>
-
-        <!-- -->
-        <div class="bookContainer">
-          <a class="book" href="../books/allAthar.html">
-            <p>1 الجامع في الأحاديث والآثار</p>
-            <p>📚 އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު</p>
-          </a>
-          <a class="book" href="../books/muwatta.html">
-            <p>2 موطأ مالك</p>
-            <p>މުވައްޠައު މާލިކު</p>
-            <p class="smallerText">(ނިމެން ކައިރިވަނީ)</p>
-          </a>
-          <a class="book" href="../books/umdah.html">
-            <p>3 عمدة الأحكام</p>
-            <p>ޢުމްދަތުލް އަޙްކާމް</p>
-          </a>
-          <a class="book" href="../books/hisnulMuslim">
-            <p>4 حصن المسلم</p>
-            <p>🤲🏼 މުސްލިމުންގެ ކިއްލާ</p>
-          </a>
-          <a class="book" href="../books/fortyAajurry.html">
-            <p>5 الأربعون للآجري</p>
-            <p>އާޖުއްރީގެ ސާޅީސް ޙަދީޘް</p>
-            <p class="smallerText">(އެކުލަވާ ނުނިމޭ)</p>
-          </a>
-          <a class="book" href="../books/akhbaruShuyukh.html">
-            <p>6 أخبار الشيوخ وأخلاقهم للمروذي</p>
-            <p>ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާޤު</p>
-          </a>
-          <a class="book" href="../books/akhlaqHamalathilQuran.html">
-            <p>7 أخلاق حملة القرآن للآجري</p>
-            <p>ޤުރްއާން އުފުލާ މީހުންގެ އަޚްލާޤު</p>
-          </a>
-          <a class="book" href="../books/bulugh.html">
-            <p>8 بلوغ المرام</p>
-            <p>ބުލޫޣުލް މަރާމް</p>
-            <p class="smallerText">(އެކުލަވާލާ ނިމިފަ، މުރާޖާކުރަނީ)</p>
-          </a>
-          <a class="book" href="../books/riyadusaliheen.html">
-            <p>9 رياض الصالحين</p>
-            <p>ރިޔާޟުއްޞާލިޙީން</p>
-            <p class="smallerText">(އެކުލަވާލަނީ)</p>
-          </a>
-          <a class="book" href="../books/fortyNawawi.html">
-            <p>10 الأربعون النووية</p>
-            <p>ނަވަވީގެ ސާޅީސް ޙަދީޘް</p>
-          </a>
-          <a
-            class="book"
-            href="https://archive.org/details/uloomul-hadith-dv-ahmed-faruq-mohamed"
-            target="_blank"
+            <td>7</td>
+            <td>أخلاق حملة القرآن للآجري</td>
+            <td>ޤުރްއާން އުފުލާ މީހުންގެ އަޚްލާޤު</td>
+          </tr>
+          <tr onclick="window.location.href='../books/bulugh.html';">
+            <td>8</td>
+            <td>بلوغ المرام</td>
+            <td>ބުލޫޣުލް މަރާމް (ނިމިފަ، މުރާޖާކުރަނީ)</td>
+          </tr>
+          <tr onclick="window.location.href='../books/riyadusaliheen.html';">
+            <td>9</td>
+            <td>رياض الصالحين</td>
+            <td>ރިޔާޟުއްޞާލިޙީން (އެކުލަވާލަނީ)</td>
+          </tr>
+          <tr onclick="window.location.href='../books/fortyNawawi.html';">
+            <td>10</td>
+            <td>الأربعون النووية</td>
+            <td>ނަވަވީގެ ސާޅީސް ޙަދީޘް</td>
+          </tr>
+          <tr
+            onclick="window.open('https://archive.org/details/uloomul-hadith-dv-ahmed-faruq-mohamed', '_blank');"
           >
-            <p>11 تيسير مصطلح الحديث</p>
-            <p>ޙަދީޘް މުސްޠަލަޙު ފަސޭހަކުރުން</p>
-            <p class="smallerText">(PDF)</p>
-          </a>
-          <a class="book">
-            <p class="smallerText">
-              (މައި 9 ޙަދީޘް ފޮތް ތައްޔާރުވަނީ، ބައިވެރިވުމަށް މެސެޖުކޮށްލާ)
-            </p>
-          </a>
-          <!-- bookContainer-->
-        </div>
+            <td>11</td>
+            <td>تيسير مصطلح الحديث</td>
+            <td>ޙަދީޘް މުސްޠަލަޙު ފަސޭހަކުރުން (PDF)</td>
+          </tr>
+        </table>
         <!---->
         <p class="quoteHere">
           ނޯޓު: މިއީ އެންމެ ގިނަ ޙަދީޘްގެ ދިވެހި ތަރުޖަމާ އެއް މަންސައަކުން
@@ -2055,68 +1790,82 @@
       <!-- class="tabcontent"> -->
       <div id="tab4" class="tabcontent">
         <!-- -->
-        <div class="top-container">
-          <div class="top-box toggleView">
-            ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
-          </div>
-          <div class="top-box">
-            <span class="hiddenOnMobile">العقيدة والمنهج -&nbsp;</span
-            >އަގީދާއާއި މަންހަޖު
-          </div>
-          <div
-            class="top-box"
-            onclick="openTab(event, 'tab1'); scrollBack2Top();"
+        <table class="animate-table">
+          <tr>
+            <th
+              colspan="3"
+              class="tablinks"
+              onclick="openTab(event, 'tab1'); scrollBack2Top();"
+            >
+              العقيدة والمنهج - އަގީދާއާއި މަންހަޖު
+              <a
+                ><span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
+                ></a
+              >
+            </th>
+          </tr>
+          <tr onclick="window.location.href='../books/allAqida.html';">
+            <td>1</td>
+            <td>الجامع في العقائد</td>
+            <td>އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</td>
+          </tr>
+          <tr onclick="window.location.href='../books/usooluSunnah.html';">
+            <td>2</td>
+            <td>أصول السنة لأحمد</td>
+            <td>އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް (މުރާޖާކުރަނީ)</td>
+          </tr>
+          <tr onclick="window.location.href='../books/barbahari.html';">
+            <td>3</td>
+            <td>شرح السنة للبربهاري</td>
+            <td>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</td>
+          </tr>
+          <tr onclick="window.location.href='../books/aqidatuRaziyain.html';">
+            <td>5</td>
+            <td>عقيدة الرازيين</td>
+            <td>ދެ ރާޒީންގެ އަގީދާ</td>
+          </tr>
+          <tr onclick="window.location.href='../books/kitabulEman.html';">
+            <td>6</td>
+            <td>كتاب الإيمان لأبي عبيد</td>
+            <td>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</td>
+          </tr>
+          <tr onclick="window.location.href='../books/nawaqidulislam.html';">
+            <td>7</td>
+            <td>نواقض الإسلام</td>
+            <td>އިސްލާމްކަން ގެއްލޭ ކަންކަން</td>
+          </tr>
+          <tr onclick="window.location.href='../books/qawaidulArbau.html';">
+            <td>8</td>
+            <td>القواعد الأربع</td>
+            <td>ހަތަރު ގަވާއިދު</td>
+          </tr>
+          <tr onclick="window.location.href='../books/usooluSiththa.html';">
+            <td>9</td>
+            <td>الأصول الستة</td>
+            <td>ހަ އުސޫލު</td>
+          </tr>
+          <tr onclick="window.location.href='../books/usooluThalaatha.html';">
+            <td>10</td>
+            <td>الأصول الثلاثة</td>
+            <td>ތިން އުސޫލު</td>
+          </tr>
+          <tr
+            onclick="window.location.href='../books/quranUshru.html#quranTable=:p69';"
           >
-            ⬅️<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
-          </div>
-        </div>
+            <td>10</td>
+            <td>أحكام تهم المسلم (من العشر الأخير)</td>
+            <td>މުސްލިމަކަށް މުހިންމުވާ ހުކުމްތައް</td>
+          </tr>
+        </table>
         <!-- -->
-        <div class="bookContainer">
-          <a class="book" href="../books/allAqida.html">
-            <p>1 الجامع في العقائد</p>
-            <p>📚 އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</p>
-          </a>
-          <a class="book" href="../books/usooluSunnah.html">
-            <p>2 أصول السنة لأحمد</p>
-            <p>އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް</p>
-            <p class="smallerText">(މުރާޖާކުރަނީ)</p>
-          </a>
-          <a class="book" href="../books/barbahari.html">
-            <p>3 شرح السنة للبربهاري</p>
-            <p>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</p>
-          </a>
-          <a class="book" href="../books/aqidatuRaziyain.html">
-            <p>4 عقيدة الرازيين</p>
-            <p>ދެ ރާޒީންގެ އަގީދާ</p>
-          </a>
-          <a class="book" href="../books/kitabulEman.html">
-            <p>5 كتاب الإيمان لأبي عبيد</p>
-            <p>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</p>
-            <p class="smallerText">(އެކުލަވާ ނުނިމޭ)</p>
-          </a>
-          <a class="book" href="../books/nawaqidulislam.html">
-            <p>6 نواقض الإسلام</p>
-            <p>އިސްލާމްކަން ގެއްލޭ ކަންކަން</p>
-          </a>
-          <a class="book" href="../books/qawaidulArbau.html">
-            <p>7 ‌‌القواعد الأربع</p>
-            <p>ހަތަރު ގަވާއިދު</p>
-          </a>
-          <a class="book" href="../books/usooluSiththa.html">
-            <p>8 الأصول الستة</p>
-            <p>ހަ އުސޫލު</p>
-          </a>
-          <a class="book" href="../books/usooluThalaatha.html">
-            <p>9 الأصول الثلاثة</p>
-            <p>ތިން އުސޫލު</p>
-          </a>
-          <a class="book" href="../books/quranUshru.html#quranTable=:p69">
-            <p>10 أحكام تهم المسلم (من العشر الأخير)</p>
-            <p>މުސްލިމަކަށް މުހިންމުވާ ހުކުމްތައް</p>
-          </a>
-          <!-- bookContainer-->
-        </div>
-        <!---->
         <p class="quoteHere">
           ﷲ ވަހީކުރެއްވިއެވެ: ’ފަހެ ތިޔަބައިމީހުން އެ ކަންކަމަށް އީމާންވެގެން
           ތިބި ފަދައިން އެބައިމީހުން ވެސް އީމާންވާ ނަމަ، ފަހެ އެބައިމީހުންނަށް
@@ -2144,101 +1893,381 @@
         </p>
       </div>
       <!-- class="tabcontent"> -->
-
+      <div id="tab8" class="tabcontent">
+        <!-- -->
+        <table class="animate-table">
+          <tr>
+            <th
+              colspan="3"
+              class="tablinks"
+              onclick="openTab(event, 'tab6'); scrollBack2Top();"
+            >
+              تحميلات - ޑައުންލޯޑުތައް
+              <a
+                ><span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
+                ></a
+              >
+            </th>
+          </tr>
+          <tr
+            onclick="window.open('https:hadithmv.github.io/pdfs/40-Nawawi-hadithmv.pdf', '_blank');"
+          >
+            <td>1</td>
+            <td>الأربعون النووية</td>
+            <td>ނަވަވީގެ ސާޅީސް ޙަދީޘް (ކުރީގެ)</td>
+          </tr>
+        </table>
+        <!-- -->
+        <p class="quoteHere">
+          ﷲ ވަހީކުރެއްވިއެވެ: ’ހަމަކަށަވަރުން އުޑުތަކާއި، ބިމުގައި ވާހާ
+          ތަކެއްޗެއް ﷲ ތިޔަބައިމީހުންނަށްޓަކައި ޚިދުމަތްތެރި ކުރެއްވިކަން،
+          ތިޔަބައިމީހުންނަށް ނޭނގޭހެއްޔެވެ؟ އަދި އެ އިލާހުގެ ނިއުމަތްތައް
+          ފާޅުވެގެންވާ ގޮތުގައްޔާއި، ފޮރުވިގެންވާ ގޮތުގައި ތިޔަބައިމީހުންގެ
+          މައްޗަށް ފުރިހަމަކޮށްދެއްވިއެވެ. އަދި އެއްވެސް އިލްމަކާ ނުލާ، ނުވަތަ
+          ތެދުމަގަކާ ނުލާ، ނުވަތަ އަލިކަން ދެނިވި ފޮތަކާ ނުލާ، ﷲ އާމެދު
+          ޖަދަލުކުރާ ބަޔަކު، މީސްތަކުންގެ ތެރެއިން ވެއެވެ.‘ [لقمان 164]
+        </p>
+        <p class="quoteHere">
+          ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”ތިޔަބައިމީހުންގެ ގާތަށް އިލްމު ހޯދާ
+          ބަޔަކު އަންނާނެއެވެ. ފަހެ ތިޔަބައިމީހުންނަށް އެބައިމީހުން ފެނިއްޖެ
+          ނަމަ، ފަހެ އެބައިމީހުންނަށް ބުނާށެވެ: މަރުހަބާއެވެ. ރަސޫލު ﷲ ﷺ ގެ
+          ވަސިއްޔަތައިގެން މަރުހަބާއެވެ. އަދި އެބައިމީހުންނަށް
+          އުނގަންނައިދޭށެވެ.“ [سنن ابن ماجه 247]
+        </p>
+        <p class="quoteHere">
+          ޢަބްދު ﷲ ބިން އަލްމުބާރު [181 ހ.] އަށް ދެންނެވުނެވެ: އޭ އަބޫ
+          ޢަބްދުއްރަޙްމާނެވެ. ގޭގައި އެކަނި އިނުން ގިނަކުރަނީހެއްޔެވެ؟
+          އެކަލޭގެފާނު ވިދާޅުވިއެވެ: ތިމަންނަ ވަނީ އެކަންޏެއް ނޫނެވެ. ތިމަންނަ
+          ވަނީ ނަބީ ﷺ އަދި އެކަލޭގެފާނުގެ ސަހާބީންގެ ތެރޭގައެވެ. އެބަހީ: ފޮތް
+          ބަލާ (ކިޔާ ހެދުމުގައެވެ.) [الجامع لأخلاق الراوي وآداب السامع 1752]
+        </p>
+      </div>
+      <!-- class="tabcontent"> -->
+      <div id="tab6" class="tabcontent">
+        <!-- -->
+        <table class="animate-table">
+          <tr>
+            <th
+              colspan="3"
+              class="tablinks"
+              onclick="openTab(event, 'tab1'); scrollBack2Top();"
+            >
+              المتنوعات - އެހެނިހެން
+              <a
+                ><span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
+                ></a
+              >
+            </th>
+          </tr>
+          <tr onclick="window.location.href='../notes/info/contact.html';">
+            <td>1</td>
+            <td>إرسال الملاحظات والآراء</td>
+            <td>✉️ ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</td>
+          </tr>
+          <tr
+            onclick="window.location.href='../notes/info/helpTranslate.html';"
+          >
+            <td>2</td>
+            <td>ساعدنا في الترجمة</td>
+            <td>✋ ތަރުޖަމާގައި އެހީވެދިނުމަށް</td>
+          </tr>
+          <tr onclick="window.location.href='../notes/info/FAQ.html';">
+            <td>3</td>
+            <td>الأسئلة المتكررة</td>
+            <td>❓ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</td>
+          </tr>
+          <tr onclick="window.location.href='../books/kunnaasha.html';">
+            <td>5</td>
+            <td>الكناشة</td>
+            <td>✍️ ނޯޓުފޮތް</td>
+          </tr>
+          <tr onclick="openTab(event, 'tab8')">
+            <td>6</td>
+            <td>تحميلات</td>
+            <td>📥 ޑައުންލޯޑުތައް</td>
+          </tr>
+          <tr onclick="window.location.href='../notes/info/umrah-travel.html';">
+            <td>7</td>
+            <td>العمرة والسفر</td>
+            <td>🕋 އުމްރާއާއި ދަތުރު ✈️</td>
+          </tr>
+          <tr
+            onclick="window.open('../notes/info/madina-info.html', '_blank');"
+          >
+            <td>8</td>
+            <td>فضائل المدينة</td>
+            <td>🕌 މަދީނާގެ މައުލޫމާތު</td>
+          </tr>
+          <tr onclick="window.open('../notes/info/introHmv.html', '_blank');">
+            <td>9</td>
+            <td>ما هو حديث أم وي؟</td>
+            <td>ℹ️ ޙަދީޘްއެމްވީ އަކީ ކޮބާ؟</td>
+          </tr>
+          <tr
+            onclick="window.location.href='../notes/info/mirror-backups.html';"
+          >
+            <td>10</td>
+            <td>المواقع الإحتياطية</td>
+            <td>💾 ބެކްއަޕް ސައިޓުތައް</td>
+          </tr>
+          <tr onclick="window.location.href='../notes/info/contributors.html';">
+            <td>11</td>
+            <td>المساعدون</td>
+            <td>🤝 އެހީތެރިން</td>
+          </tr>
+          <tr onclick="window.location.href='../notes/how-to-use-hmv.txt';">
+            <td>12</td>
+            <td>كيفية استخدام</td>
+            <td>📒 ޙަދީޘްއެމްވީ ބޭނުންކުރާ ގޮތް</td>
+          </tr>
+          <tr onclick="window.location.href='../notes/info/privacy.html';">
+            <td>13</td>
+            <td>سياسة الخصوصية</td>
+            <td>🔒 ޕްރައިވެސީ ޕޮލިސީ</td>
+          </tr>
+          <tr onclick="window.location.href='../LICENSE.txt';">
+            <td>14</td>
+            <td>رخصة البرمجية</td>
+            <td>📄 ލައިސެންސް</td>
+          </tr>
+          <tr onclick="window.location.href='../notes/info/other-links.html';">
+            <td>15</td>
+            <td>روابط أخرى</td>
+            <td>🔗 އެހެނިހެން ލިންކުތައް</td>
+          </tr>
+        </table>
+        <!-- -->
+        <p class="quoteHere">
+          ﷲ ވަހީކުރެއްވިއެވެ: ’އޭ އީމާންވެއްޖެ މީސްތަކުންނޭވެ. ތިޔަބައިމީހުން
+          ރުކޫ ކުރާށެވެ. އަދި ސަޖިދަ ކުރާށެވެ. އަދި ތިޔަބައިމީހުންގެ ވެރި
+          ރައްބަށް އަޅުކަން ކުރާށެވެ. އަދި ތިޔަބައިމީހުން ހެޔޮ ކަންތައް
+          ކުރާށެވެ. (އެއީ) ތިޔަބައިމީހުން ދިންނަވައި ކާމިޔާބުވޭތޯއެވެ.‘ [الحج
+          77]
+        </p>
+        <p class="quoteHere">
+          ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”ތިޔަބައިމީހުންގެ ތެރެއިން މީހަކު
+          އޭނާގެ އަޚާއަށް މަންފާ ކޮށްދެވެން ހުރި ނަމަ، ފަހެ އޭނާ އެކަން
+          ކުރާށެވެ.“ [صحيح مسلم 2199]
+        </p>
+        <p class="quoteHere">
+          އިމާމު މާލިކު [179 ހ.]، އިމާމު ޝާފިޢީއަށް ވަސިއްޔަތްކުރެއްވި ކަމުގައި
+          ވެއެވެ: ރަށްފުށުގައި ދިރިނޫޅޭށެވެ. އެ ހިނދު ތިބާގެ އިލްމު
+          ގެއްލެނިވެގެން ހިނގައިދާނެއެވެ. އަދި ދިރުހަމް ހޯދަން މަސައްކަތް
+          ކުރާށެވެ. އަދި މީސްތަކުންގެ މައްޗަށް ބޭނުން ޖެހިފައިވާ މީހަކަށް
+          ނުވާށެވެ. އަދި ޖާހު ހުރި މީހަކު އެހީތެރިއެއްގެ ގޮތުގައި ނަގާށެވެ. އެއީ
+          އާންމު މީސްތަކުން ތިބާ ކުޑައިމީސް ނުކުރުމަށްޓަކައެވެ. އަދި ވެރިއެއްގެ
+          ގާތުގައި ތިބާ ދަންނަ މީހަކުވާ ހާލު މެނުވީ، އޭނާގެ ގާތަށް ތިބާ
+          ނުވަންނާށެވެ. އަދި ބޮޑު މީހަކާއެކު ތިބާ އިށީންނަ ނަމަ، އޭނާއާ ތިބާއާ
+          މެދުގައި ހުސް ޖާގައެއް ބަހައްޓާށެވެ. އެއީ ތިބާއަށް ވުރެ ގާތް މީހަކު
+          އޭނާ ގާތަށް އައުމުން، އޭނާ އެ މީހާ ގާތްކޮށް، ތިބާ ދުރުކޮށްގެން، ދެން
+          ތިބާގެ ހިތުގައި އެއްޗެއް ހީވިޔަ ނުދިނުމަށް ޓަކައެވެ. [شرح الخرشي 1/35]
+        </p>
+      </div>
+      <!-- class="tabcontent"> -->
+      <div id="tab7" class="tabcontent">
+        <!-- -->
+        <table class="animate-table">
+          <tr>
+            <th
+              colspan="3"
+              class="tablinks"
+              onclick="openTab(event, 'tab14'); scrollBack2Top();"
+            >
+              متون طالب العلم - އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް
+              <a
+                ><span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
+                ></a
+              >
+            </th>
+          </tr>
+          <!---->
+          <tr>
+            <th colspan="3">المستوى الأول - ފުރަތަމަ ފިޔަވަހި</th>
+          </tr>
+          <tr onclick="window.location.href='../books/nawaqidulislam.html';">
+            <td>1</td>
+            <td>نواقض الإسلام</td>
+            <td>އިސްލާމްކަން ގެއްލޭ ކަންކަން</td>
+          </tr>
+          <tr onclick="window.location.href='../books/qawaidulArbau.html';">
+            <td>2</td>
+            <td>‌‌القواعد الأربع</td>
+            <td>ހަތަރު ގަވާއިދު</td>
+          </tr>
+          <tr onclick="window.location.href='../books/usooluThalaatha.html';">
+            <td>3</td>
+            <td>الأصول الثلاثة</td>
+            <td>ތިން އުސޫލު</td>
+          </tr>
+          <tr onclick="window.location.href='../books/fortyNawawi.html';">
+            <td>4</td>
+            <td>الأربعون النووية</td>
+            <td>ނަވަވީގެ ސާޅީސް ޙަދީޘް</td>
+          </tr>
+          <!---->
+          <tr>
+            <th colspan="3">المستوى الخامس - ފަސްވަނަ ފިޔަވަހި</th>
+          </tr>
+          <tr onclick="window.location.href='../books/bulugh.html';">
+            <td>1</td>
+            <td>بلوغ المرام</td>
+            <td>ބުލޫޣުލް މަރާމް</td>
+          </tr>
+          <!---->
+          <tr>
+            <th colspan="3">المتون الإضافية - އިތުރު މަތުނުތައް</th>
+          </tr>
+          <tr onclick="window.location.href='../books/umdah.html';">
+            <td>1</td>
+            <td>عمدة الأحكام</td>
+            <td>ޢުމްދަތުލް އަޙްކާމް</td>
+          </tr>
+          <tr onclick="window.location.href='../books/usooluSiththa.html';">
+            <td>2</td>
+            <td>الأصول الستة</td>
+            <td>ހަ އުސޫލު</td>
+          </tr>
+        </table>
+        <!-- -->
+        <p class="quoteHere">
+          ﷲ ވަހީކުރެއްވިއެވެ: ’ތިޔަބައިމީހުންގެ ތެރެއިން އީމާންވި މީހުންނާއި
+          އިލްމު ދެވިގެންވާ މީހުން، ﷲ ދަރަޖަތަކަކަށް އުފުއްލަވައެވެ. އަދި
+          ތިޔަބައިމީހުން ކުރާ ކަންތައް ﷲ މޮޅަށް ދެނެވޮޑިގެންވެއެވެ.‘ [المجادلة
+          11]
+        </p>
+        <p class="quoteHere">
+          ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”އަދި އިލްމު ހޯދުމަށް ޓަކައި މަގަކުން
+          ހިނގައިފި މީހަކަށް، އެ ކަމުގެ ސަބަބުން ސުވަރުގެއަށް ދާނެ މަގެއް ﷲ
+          އޭނާއަށް ފަސޭހަ ކޮށްދެއްވާނެއެވެ.“ [صحيح مسلم 2699a]
+        </p>
+        <p class="quoteHere">
+          އިމާމު ޝާފިޢީ [204 ހ.] (ޅެންބައިތެއްގައި) ވިދާޅުވިކަމަށް
+          އައިސްފައިވެއެވެ: (އަހަރެންގެ ޝައިޚު) ވަކީޢު ގާތު، އަހަރެންގެ ހިތުދަސް
+          ކުރުމުގެ ބާރު ދެރަކަމުގެ ޝަކުވާ ދެންނެވީމެވެ. ފަހެ ފާފަތައް ދޫކުރުމަށް
+          އެކަލޭގެފާނު އަހަރެންނަށް އިރުޝާދު ދެއްވިއެވެ. އަދި ވިދާޅުވިއެވެ:
+          ހަމަކަށަވަރުން އިލްމަކީ ފަޟްލެއްކަން ދަންނާށެވެ. އަދި ﷲ ގެ ފަޟްލު،
+          (ނުކިޔަމަންތެރި) ފާފަވެރިއަކަށް ދެއްވިގެން ނުވެއެވެ. [الداء والدواء
+          52]
+        </p>
+      </div>
+      <!-- class="tabcontent"> -->
       <div id="tab5" class="tabcontent">
         <!-- -->
-        <div class="top-container">
-          <div class="top-box toggleView">
-            ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
-          </div>
-          <div class="top-box">
-            <span class="hiddenOnMobile">اللغة والكتابة -&nbsp;</span>ބަހާއި
-            ލިޔުންތެރިކަން
-          </div>
-          <div
-            class="top-box"
-            onclick="openTab(event, 'tab1'); scrollBack2Top();"
+        <table class="animate-table">
+          <tr>
+            <th
+              colspan="3"
+              class="tablinks"
+              onclick="openTab(event, 'tab1'); scrollBack2Top();"
+            >
+              اللغة والكتابة - ބަހާއި ލިޔުންތެރިކަން
+              <a
+                ><span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
+                ></a
+              >
+            </th>
+          </tr>
+          <tr onclick="window.location.href='../books/radheefAll.html';">
+            <td>1</td>
+            <td>الجامع في المعاجم</td>
+            <td>އެއްކުރަމުންދާ ރަދީފުތައް</td>
+          </tr>
+          <tr onclick="window.location.href='../mauhad/arabic.html';">
+            <td>2</td>
+            <td>مناهج معهد تعليم اللغة العربية</td>
+            <td>މަދީނާ އަރަބި ފޮތްތައް</td>
+          </tr>
+          <tr onclick="window.location.href='../books/radheefNanfoiy.html';">
+            <td>3</td>
+            <td>معجم الأسماء</td>
+            <td>ނަންފޮތް</td>
+          </tr>
+          <tr onclick="window.location.href='../books/radheefRasmee.html';">
+            <td>5</td>
+            <td>ދިވެހިބަހުގެ ރަދީފު (ރަސްމީ)</td>
+            <td>معجم اللغة الديفهية</td>
+          </tr>
+          <tr onclick="window.location.href='../books/radheefEegaal.html';">
+            <td>6</td>
+            <td>(معجم) الإيقاظ</td>
+            <td>އަލްއީގާޡް (އަރަބި ދިވެހި ރަދީފު)</td>
+          </tr>
+          <tr onclick="window.location.href='../books/radheefManiku.html';">
+            <td>7</td>
+            <td style="font-size: 99%">
+              Manik’s Concise Etymological Vocabulary
+            </td>
+            <td>މަނިކުގެ ދިވެހި އިނގިރޭސި ރަދީފު</td>
+          </tr>
+          <tr
+            onclick="window.open('../notes/info/lafzuVakikohLiyumugeQawaid.html', '_blank');"
           >
-            ⬅️<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
-          </div>
-        </div>
+            <td>8</td>
+            <td>ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު</td>
+            <td>قواعد فصل الكلمات</td>
+          </tr>
+          <tr
+            onclick="window.open('https://archive.org/details/dhifihuristhu', '_blank');"
+          >
+            <td>9</td>
+            <td>دي فهرست</td>
+            <td>ދިފިހުރިސްތު (ދިނީ ލިޔުންތަކަގެ މައުލޫމާތު، ޕީޑީއެފް)</td>
+          </tr>
+          <tr
+            onclick="window.location.href='../notes/info/NukuthaajehiAkuruthahBeynunkuraaneHama.html';"
+          >
+            <td>10</td>
+            <td>أصول استخدام النقت في الديفهية</td>
+            <td>ތާނައިގައި ހުރި ނުކުތާޖެހި އަކުރުތައް ބޭނުންކުރާނެ ހަމަ</td>
+          </tr>
+          <tr
+            onclick="window.open('https://archive.org/details/dhivehi_bahuge_qawaidhu', '_blank');"
+          >
+            <td>11</td>
+            <td>قواعد اللغة الديفهية</td>
+            <td>ދިވެހިބަހުގެ ގަވާއިދު (PDF)</td>
+          </tr>
+          <tr
+            onclick="window.open('https://archive.org/details/latin_akurun_liyumuge_qawaidhu', '_blank');"
+          >
+            <td>12</td>
+            <td>قواعد كتابة التانا</td>
+            <td>ލެޓިން އަކުރުން ލިޔުމުގެ ގަވާއިދު (PDF)</td>
+          </tr>
+        </table>
         <!-- -->
-        <div class="bookContainer">
-          <a class="book" href="../books/radheefAll.html">
-            <p>1 الجامع في المعاجم</p>
-            <p>📚 އެއްކުރަމުންދާ ރަދީފުތައް</p>
-          </a>
-          <a class="book" href="../mauhad/arabic.html">
-            <p>2 مناهج معهد تعليم اللغة العربية</p>
-            <p>މަދީނާ އަރަބި ފޮތްތައް</p>
-          </a>
-          <a class="book" href="../books/radheefNanfoiy.html">
-            <p>3 معجم الأسماء</p>
-            <p>ނަންފޮތް</p>
-          </a>
-          <a class="book" href="../books/radheefRasmee.html">
-            <p>4 معجم اللغة الديفهية</p>
-            <p>ދިވެހިބަހުގެ ރަދީފު (ރަސްމީ)</p>
-          </a>
-          <a class="book" href="../books/radheefEegaal.html">
-            <p>5 (معجم) الإيقاظ</p>
-            <p>އަލްއީގާޡް</p>
-            <p class="smallerText">(އަރަބި ދިވެހި ރަދީފު)</p>
-          </a>
-          <a class="book" href="../books/radheefManiku.html">
-            <p>6 Manik’s Concise Etymological Vocabulary</p>
-            <p>މަނިކުގެ ދިވެހި އިނގިރޭސި ރަދީފު</p>
-          </a>
-          <a class="book" href="../notes/info/lafzuVakikohLiyumugeQawaid.html">
-            <p>7 دي فهرست</p>
-            <p>قواعد فصل الكلمات</p>
-          </a>
-          <a
-            class="book"
-            href="https://archive.org/details/dhifihuristhu"
-            target="_blank"
-          >
-            <p>8 دي فهرست</p>
-            <p>ދިފިހުރިސްތު</p>
-            <p class="smallerText">(ދީނީ ލިޔުންތަކަގެ މައުލޫމާތު PDF)</p>
-          </a>
-          <a
-            class="book"
-            href="../notes/info/NukuthaajehiAkuruthahBeynunkuraaneHama.html"
-          >
-            <p>9 أصول استخدام النقت في الديفهية</p>
-            <p>ތާނައިގައި ހުރި ނުކުތާޖެހި އަކުރުތައް ބޭނުންކުރާނެ ހަމަ</p>
-          </a>
-          <a
-            class="book"
-            href="https://archive.org/details/dhivehi_bahuge_qawaidhu"
-            target="_blank"
-          >
-            <p>10 قواعد اللغة الديفهية</p>
-            <p>ދިވެހިބަހުގެ ގަވާއިދު</p>
-            <p class="smallerText">(PDF)</p>
-          </a>
-          <a
-            class="book"
-            href="https://archive.org/details/latin_akurun_liyumuge_qawaidhu"
-            target="_blank"
-          >
-            <p>11 قواعد كتابة التانا</p>
-            <p>ތާނަލިޔުމުގެ ގަވާއިދު</p>
-            <p class="smallerText">(PDF)</p>
-          </a>
-          <a
-            class="book"
-            href="https://archive.org/details/latin_akurun_liyumuge_qawaidhu"
-            target="_blank"
-          >
-            <p>12 قواعد كتابة الحروف اللاتينية</p>
-            <p>ލެޓިން އަކުރުން ލިޔުމުގެ ގަވާއިދު</p>
-            <p class="smallerText">(PDF)</p>
-          </a>
-          <!-- bookContainer-->
-        </div>
-        <!---->
         <p class="quoteHere">
           ނޯޓު: މިއީ އެންމެ ގިނަ ދިވެހި ލަފްޒުތަކާއި މާނަތައް އެއް މަންސައަކުން
           ލިބެން ހުރި ތަނެވެ. އަދި ދިވެހި ބަހުގެ އިތުރުން، އަރަބިންނާއި
@@ -2271,365 +2300,54 @@
         </p>
       </div>
       <!-- class="tabcontent"> -->
-
-      <div id="tab14" class="tabcontent">
-        <!-- -->
-        <div class="top-container">
-          <div class="top-box toggleView">
-            ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
-          </div>
-          <div class="top-box">
-            <span class="hiddenOnMobile">أكاديمية حديث أم وي -&nbsp;</span
-            >ޙަދީޘްއެމްވީ އެކެޑެމީ
-          </div>
-          <div
-            class="top-box"
-            onclick="openTab(event, 'tab1'); scrollBack2Top();"
-          >
-            ⬅️<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
-          </div>
-        </div>
-        <!-- -->
-        <div class="bookContainer">
-          <a class="book" href="../mauhad/arabic.html">
-            <p>1 مناهج معهد تعليم اللغة العربية</p>
-            <p>📙 މަދީނާ އަރަބި ފޮތްތައް</p>
-          </a>
-          <a class="book" onclick="openTab(event, 'tab7'); scrollBack2Top();">
-            <p>2 متون طالب العلم</p>
-            <p>އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް 📚</p>
-          </a>
-          <a class="book">
-            <p>3 المواد والمقررات الإضافية</p>
-            <p class="smallerText">
-              (އިތުރު މާއްދާތަކާއި މުގައްރަރުތައް ތައްޔާރުވަނީ...)
-            </p>
-          </a>
-          <!-- bookContainer-->
-        </div>
-        <!---->
-        <p class="quoteHere">
-          ﷲ ވަހީކުރެއްވިއެވެ: ”އަދި ﷲ އަށް މެނުވީ އެ އާޔަތްތަކުގެ މާނަ
-          ދެނެވޮޑިގެން ނުވެއެވެ. އަދި އިލްމުގެ (އަހުލުވެރިން ތެރެއިން އަރާހުރި)
-          ސާބިތުކަން ލިބިފައިވާ މީހުންނަށް ވެސް (އެ އާޔަތްތަކުގެ މާނާ
-          އެނގިގެންވެއެވެ.) އަދި އެ މީހުން ބުނެއެވެ: ތިމަންމެން މި ތިބީ އެ
-          އާޔަތްތަކަށް އީމާން ވެގެންނެވެ. ހުރިހާ އާޔަތްތަކެއްވެސް ވަނީ،
-          ތިމަންމެންގެ ރައްބުގެ ހަޒްރަތުންނެވެ.“ [آل عمران 7]
-        </p>
-        <p class="quoteHere">
-          ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”ﷲ މީހަކަށް ހެޔޮ ގޮތް
-          އިރާދަކުރައްވައިފި ނަމަ، އެ އިލާހު އެ މީހަކަށް ދީން
-          ފަހުމްކޮށްދެއްވައެވެ.“ [صحيح البخاري 71]
-        </p>
-        <p class="quoteHere">
-          ބުޚާރީ ވިދާޅުވިއެވެ: އިބްނު ޢައްބާސް ވިދާޅުވިއެވެ: ”’ތިޔަބައިމީހުން
-          ރައްބާނީން ކަމުގައި ވާށެވެ.‘ (މި އާޔަތުގެ) މާނައީ، ހިލްމުވެރި
-          ފިގްހުވެރިން (ކަމުގައި ވާށެވެ.) އަދި ބުނެވުނެވެ: ރައްބާނީއަކީ،
-          އިލްމުގެ ބޮޑެތި ކަންކަމުގެ ކުރިން، އޭގެ ކުދި ކަންކަމުން މީސްތަކުން
-          ތަރުބިއްޔަތުކުރާ މީހާއެވެ.“ [صحيح البخاري، باب ‌‌10 العلم قبل القول
-          والعمل]
-        </p>
-      </div>
-      <!-- class="tabcontent"> -->
-
-      <div id="tab7" class="tabcontent">
-        <!-- -->
-        <div class="top-container">
-          <div class="top-box toggleView">
-            ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
-          </div>
-          <div class="top-box">
-            <span class="hiddenOnMobile">متون طالب العلم -&nbsp;</span>އިލްމު
-            އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް
-          </div>
-          <div
-            class="top-box"
-            onclick="openTab(event, 'tab14'); scrollBack2Top();"
-          >
-            ⬅️<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
-          </div>
-        </div>
-        <!-- -->
-        <div class="bookContainer">
-          <a class="book headerBook">
-            <p>المستوى الأول:</p>
-            <p>ފުރަތަމަ ފިޔަވަހި:</p>
-          </a>
-          <a class="book" href="../books/nawaqidulislam.html">
-            <p>1 نواقض الإسلام</p>
-            <p>އިސްލާމްކަން ގެއްލޭ ކަންކަން</p>
-          </a>
-          <a class="book" href="../books/qawaidulArbau.html">
-            <p>2 ‌‌القواعد الأربع</p>
-            <p>ހަތަރު ގަވާއިދު</p>
-          </a>
-          <a class="book" href="../books/usooluThalaatha.html">
-            <p>3 الأصول الثلاثة</p>
-            <p>ތިން އުސޫލު</p>
-          </a>
-          <a class="book" href="../books/fortyNawawi.html">
-            <p>4 الأربعون النووية</p>
-            <p>ނަވަވީގެ ސާޅީސް ޙަދީޘް</p>
-          </a>
-          <!-- bookContainer-->
-        </div>
-        <div class="bookContainer">
-          <a class="book headerBook">
-            <p>المستوى الخامس:</p>
-            <p>ފަސްވަނަ ފިޔަވަހި:</p>
-          </a>
-          <a class="book" href="../books/bulugh.html">
-            <p>1 بلوغ المرام</p>
-            <p>ބުލޫޣުލް މަރާމް</p>
-          </a>
-          <!-- bookContainer-->
-        </div>
-        <div class="bookContainer">
-          <a class="book headerBook">
-            <p>المتون الإضافية:</p>
-            <p>އިތުރު މަތުނުތައް:</p>
-          </a>
-          <a class="book" href="../books/umdah.html">
-            <p>1 عمدة الأحكام</p>
-            <p>ޢުމްދަތުލް އަޙްކާމް</p>
-          </a>
-          <a class="book" href="../books/usooluSiththa.html">
-            <p>2 الأصول الستة</p>
-            <p>ހަ އުސޫލު</p>
-          </a>
-          <!-- bookContainer-->
-        </div>
-        <!---->
-        <p class="quoteHere">
-          ﷲ ވަހީކުރެއްވިއެވެ: ’ތިޔަބައިމީހުންގެ ތެރެއިން އީމާންވި މީހުންނާއި
-          އިލްމު ދެވިގެންވާ މީހުން، ﷲ ދަރަޖަތަކަކަށް އުފުއްލަވައެވެ. އަދި
-          ތިޔަބައިމީހުން ކުރާ ކަންތައް ﷲ މޮޅަށް ދެނެވޮޑިގެންވެއެވެ.‘ [المجادلة
-          11]
-        </p>
-        <p class="quoteHere">
-          ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”އަދި އިލްމު ހޯދުމަށް ޓަކައި މަގަކުން
-          ހިނގައިފި މީހަކަށް، އެ ކަމުގެ ސަބަބުން ސުވަރުގެއަށް ދާނެ މަގެއް ﷲ
-          އޭނާއަށް ފަސޭހަ ކޮށްދެއްވާނެއެވެ.“ [صحيح مسلم 2699a]
-        </p>
-        <p class="quoteHere">
-          އިމާމު ޝާފިޢީ [204 ހ.] (ޅެންބައިތެއްގައި) ވިދާޅުވިކަމަށް
-          އައިސްފައިވެއެވެ: (އަހަރެންގެ ޝައިޚު) ވަކީޢު ގާތު، އަހަރެންގެ ހިތުދަސް
-          ކުރުމުގެ ބާރު ދެރަކަމުގެ ޝަކުވާ ދެންނެވީމެވެ. ފަހެ ފާފަތައް ދޫކުރުމަށް
-          އެކަލޭގެފާނު އަހަރެންނަށް އިރުޝާދު ދެއްވިއެވެ. އަދި ވިދާޅުވިއެވެ:
-          ހަމަކަށަވަރުން އިލްމަކީ ފަޟްލެއްކަން ދަންނާށެވެ. އަދި ﷲ ގެ ފަޟްލު،
-          (ނުކިޔަމަންތެރި) ފާފަވެރިއަކަށް ދެއްވިގެން ނުވެއެވެ. [الداء والدواء
-          52]
-        </p>
-      </div>
-      <!-- class="tabcontent"> -->
-
-      <div id="tab6" class="tabcontent">
-        <!-- -->
-        <div class="top-container">
-          <div class="top-box toggleView">
-            ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
-          </div>
-          <div class="top-box">
-            <span class="hiddenOnMobile">المتنوعات -&nbsp;</span>އެހެނިހެން
-          </div>
-          <div
-            class="top-box"
-            onclick="openTab(event, 'tab1'); scrollBack2Top();"
-          >
-            ⬅️<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
-          </div>
-        </div>
-        <!-- -->
-        <div class="bookContainer">
-          <a class="book" href="../notes/info/contact.html">
-            <p>1 إرسال الملاحظات والآراء</p>
-            <p>✉️ ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</p>
-          </a>
-          <a class="book" href="../notes/info/helpTranslate.html">
-            <p>2 ساعدنا في الترجمة</p>
-            <p>✋ ތަރުޖަމާގައި އެހީވެދިނުމަށް</p>
-          </a>
-          <a class="book" href="../notes/info/FAQ.html">
-            <p>3 الأسئلة المتكررة</p>
-            <p>❓ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</p>
-          </a>
-          <a class="book" href="../notes/info/kunnaasha.html">
-            <p>4 الكناشة</p>
-            <p>✍️ ނޯޓުފޮތް</p>
-          </a>
-          <a class="book" onclick="openTab(event, 'tab8')">
-            <p>5 تحميلات</p>
-            <p>📥 ޑައުންލޯޑުތައް</p>
-          </a>
-          <a class="book" href="../notes/info/umrah-travel.html">
-            <p>6 العمرة والسفر</p>
-            <p>🕋 އުމްރާއާއި ދަތުރު ✈️</p>
-          </a>
-          <a class="book" href="../notes/info/madina-info.html">
-            <p>7 فضائل المدينة</p>
-            <p>🕌 މަދީނާގެ މައުލޫމާތު</p>
-          </a>
-          <a class="book" href="../notes/info/khutba.html">
-            <p>8 خطبة الحاجة</p>
-            <p>📜 ޚުޠުބަތުލް ޙާޖާ</p>
-          </a>
-          <a class="book" href="../notes/info/introHmv.html">
-            <p>9 ما هو حديث أم وي؟</p>
-            <p>ℹ️ ޙަދީޘްއެމްވީ އަކީ ކޮބާ؟</p>
-          </a>
-          <a class="book" href="../notes/info/mirror-backups.html">
-            <p>10 المواقع الإحتياطية</p>
-            <p>💾 ބެކްއަޕް ސައިޓުތައް</p>
-          </a>
-          <a class="book" href="../notes/info/contributors.html">
-            <p>11 المساعدون</p>
-            <p>🤝 އެހީތެރިން</p>
-          </a>
-          <a class="book" href="../notes/info/how-to-use-hmv.txt">
-            <p>12 كيفية استخدام</p>
-            <p>📒 ޙަދީޘްއެމްވީ ބޭނުންކުރާ ގޮތް</p>
-          </a>
-          <a class="book" href="../notes/info/how-to-use-hmv.txt">
-            <p>13 مصادر الأدوات</p>
-            <p>🔧 ހަދަން ބޭނުންކުރި ތަކެތި</p>
-          </a>
-          <a class="book" href="../notes/info/privacy.html">
-            <p>14 سياسة الخصوصية</p>
-            <p>🔒 ޕްރައިވެސީ ޕޮލިސީ</p>
-          </a>
-          <a class="book" href="../LICENSE.txt">
-            <p>15 رخصة البرمجية</p>
-            <p>📄 ލައިސެންސް</p>
-          </a>
-          <a class="book" href="../notes/info/other-links.html">
-            <p>16 روابط أخرى</p>
-            <p>🔗 އެހެނިހެން ލިންކުތައް</p>
-          </a>
-          <!-- bookContainer-->
-        </div>
-        <!---->
-        <p class="quoteHere">
-          ﷲ ވަހީކުރެއްވިއެވެ: ’އޭ އީމާންވެއްޖެ މީސްތަކުންނޭވެ. ތިޔަބައިމީހުން
-          ރުކޫ ކުރާށެވެ. އަދި ސަޖިދަ ކުރާށެވެ. އަދި ތިޔަބައިމީހުންގެ ވެރި
-          ރައްބަށް އަޅުކަން ކުރާށެވެ. އަދި ތިޔަބައިމީހުން ހެޔޮ ކަންތައް
-          ކުރާށެވެ. (އެއީ) ތިޔަބައިމީހުން ދިންނަވައި ކާމިޔާބުވޭތޯއެވެ.‘ [الحج
-          77]
-        </p>
-        <p class="quoteHere">
-          ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”ތިޔަބައިމީހުންގެ ތެރެއިން މީހަކު
-          އޭނާގެ އަޚާއަށް މަންފާ ކޮށްދެވެން ހުރި ނަމަ، ފަހެ އޭނާ އެކަން
-          ކުރާށެވެ.“ [صحيح مسلم 2199]
-        </p>
-        <p class="quoteHere">
-          އިމާމު މާލިކު [179 ހ.]، އިމާމު ޝާފިޢީއަށް ވަސިއްޔަތްކުރެއްވި ކަމުގައި
-          ވެއެވެ: ރަށްފުށުގައި ދިރިނޫޅޭށެވެ. އެ ހިނދު ތިބާގެ އިލްމު
-          ގެއްލެނިވެގެން ހިނގައިދާނެއެވެ. އަދި ދިރުހަމް ހޯދަން މަސައްކަތް
-          ކުރާށެވެ. އަދި މީސްތަކުންގެ މައްޗަށް ބޭނުން ޖެހިފައިވާ މީހަކަށް
-          ނުވާށެވެ. އަދި ޖާހު ހުރި މީހަކު އެހީތެރިއެއްގެ ގޮތުގައި ނަގާށެވެ. އެއީ
-          އާންމު މީސްތަކުން ތިބާ ކުޑައިމީސް ނުކުރުމަށްޓަކައެވެ. އަދި ވެރިއެއްގެ
-          ގާތުގައި ތިބާ ދަންނަ މީހަކުވާ ހާލު މެނުވީ، އޭނާގެ ގާތަށް ތިބާ
-          ނުވަންނާށެވެ. އަދި ބޮޑު މީހަކާއެކު ތިބާ އިށީންނަ ނަމަ، އޭނާއާ ތިބާއާ
-          މެދުގައި ހުސް ޖާގައެއް ބަހައްޓާށެވެ. އެއީ ތިބާއަށް ވުރެ ގާތް މީހަކު
-          އޭނާ ގާތަށް އައުމުން، އޭނާ އެ މީހާ ގާތްކޮށް، ތިބާ ދުރުކޮށްގެން، ދެން
-          ތިބާގެ ހިތުގައި އެއްޗެއް ހީވިޔަ ނުދިނުމަށް ޓަކައެވެ. [شرح الخرشي 1/35]
-        </p>
-      </div>
-      <!-- class="tabcontent"> -->
-
-      <div id="tab8" class="tabcontent">
-        <!-- -->
-        <div class="top-container">
-          <div class="top-box toggleView">
-            ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
-          </div>
-          <div class="top-box">
-            <span class="hiddenOnMobile">تحميلات -&nbsp;</span>ޑައުންލޯޑުތައް
-          </div>
-          <div
-            class="top-box"
-            onclick="openTab(event, 'tab6'); scrollBack2Top();"
-          >
-            ⬅️<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
-          </div>
-        </div>
-        <!-- -->
-        <div class="bookContainer">
-          <a
-            class="book"
-            href="https:hadithmv.github.io/pdfs/40-Nawawi-hadithmv.pdf"
-            target="_blank"
-          >
-            <p>1 الأربعون النووية</p>
-            <p>ނަވަވީގެ ސާޅީސް ޙަދީޘް</p>
-            <p class="smallerText">(ކުރީގެ)</p>
-          </a>
-          <!-- bookContainer-->
-        </div>
-        <!---->
-        <p class="quoteHere">
-          ﷲ ވަހީކުރެއްވިއެވެ: ’ހަމަކަށަވަރުން އުޑުތަކާއި، ބިމުގައި ވާހާ
-          ތަކެއްޗެއް ﷲ ތިޔަބައިމީހުންނަށްޓަކައި ޚިދުމަތްތެރި ކުރެއްވިކަން،
-          ތިޔަބައިމީހުންނަށް ނޭނގޭހެއްޔެވެ؟ އަދި އެ އިލާހުގެ ނިއުމަތްތައް
-          ފާޅުވެގެންވާ ގޮތުގައްޔާއި، ފޮރުވިގެންވާ ގޮތުގައި ތިޔަބައިމީހުންގެ
-          މައްޗަށް ފުރިހަމަކޮށްދެއްވިއެވެ. އަދި އެއްވެސް އިލްމަކާ ނުލާ، ނުވަތަ
-          ތެދުމަގަކާ ނުލާ، ނުވަތަ އަލިކަން ދެނިވި ފޮތަކާ ނުލާ، ﷲ އާމެދު
-          ޖަދަލުކުރާ ބަޔަކު، މީސްތަކުންގެ ތެރެއިން ވެއެވެ.‘ [لقمان 164]
-        </p>
-        <p class="quoteHere">
-          ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”ތިޔަބައިމީހުންގެ ގާތަށް އިލްމު ހޯދާ
-          ބަޔަކު އަންނާނެއެވެ. ފަހެ ތިޔަބައިމީހުންނަށް އެބައިމީހުން ފެނިއްޖެ
-          ނަމަ، ފަހެ އެބައިމީހުންނަށް ބުނާށެވެ: މަރުހަބާއެވެ. ރަސޫލު ﷲ ﷺ ގެ
-          ވަސިއްޔަތައިގެން މަރުހަބާއެވެ. އަދި އެބައިމީހުންނަށް
-          އުނގަންނައިދޭށެވެ.“ [سنن ابن ماجه 247]
-        </p>
-        <p class="quoteHere">
-          ޢަބްދު ﷲ ބިން އަލްމުބާރު [181 ހ.] އަށް ދެންނެވުނެވެ: އޭ އަބޫ
-          ޢަބްދުއްރަޙްމާނެވެ. ގޭގައި އެކަނި އިނުން ގިނަކުރަނީހެއްޔެވެ؟
-          އެކަލޭގެފާނު ވިދާޅުވިއެވެ: ތިމަންނަ ވަނީ އެކަންޏެއް ނޫނެވެ. ތިމަންނަ
-          ވަނީ ނަބީ ﷺ އަދި އެކަލޭގެފާނުގެ ސަހާބީންގެ ތެރޭގައެވެ. އެބަހީ: ފޮތް
-          ބަލާ (ކިޔާ ހެދުމުގައެވެ.) [الجامع لأخلاق الراوي وآداب السامع 1752]
-        </p>
-      </div>
-      <!-- class="tabcontent"> -->
-
       <div id="tab10" class="tabcontent">
         <!-- -->
-        <div class="top-container">
-          <div class="top-box toggleView">
-            ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
-          </div>
-          <div class="top-box">
-            <span class="hiddenOnMobile">دار فتية الكهف -&nbsp;</span>ދާރު
-            ފިތްޔަތިލް ކަހްފި
-          </div>
-          <div
-            class="top-box"
-            onclick="openTab(event, 'tab1'); scrollBack2Top();"
+        <table class="animate-table">
+          <tr>
+            <th
+              colspan="3"
+              class="tablinks"
+              onclick="openTab(event, 'tab1'); scrollBack2Top();"
+            >
+              دار فتية الكهف - ދާރު ފިތްޔަތިލް ކަހްފި
+              <a
+                ><span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
+                ></a
+              >
+            </th>
+          </tr>
+          <tr onclick="window.location.href='../books/barbahariDFK.html';">
+            <td>1</td>
+            <td>شرح السنة للبربهاري</td>
+            <td>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</td>
+          </tr>
+          <tr onclick="window.location.href='../books/kitabulEman.html';">
+            <td>2</td>
+            <td>كتاب الإيمان لأبي عبيد</td>
+            <td>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</td>
+          </tr>
+          <tr onclick="window.location.href='../books/akhbaruShuyukh.html';">
+            <td>5</td>
+            <td>أخبار الشيوخ وأخلاقهم للمروذي</td>
+            <td>ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާޤު</td>
+          </tr>
+          <tr
+            onclick="window.location.href='../books/akhlaqHamalathilQuran.html';"
           >
-            ⬅️<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
-          </div>
-        </div>
+            <td>6</td>
+            <td>أخلاق حملة القرآن للآجري</td>
+            <td>ޤުރްއާން އުފުލާ މީހުންގެ އަޚްލާޤު</td>
+          </tr>
+        </table>
         <!-- -->
-        <div class="bookContainer">
-          <a class="book" href="../books/barbahariDFK.html">
-            <p>1 شرح السنة للبربهاري</p>
-            <p>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ</p>
-          </a>
-          <a class="book" href="../books/kitabulEman.html">
-            <p>2 كتاب الإيمان لأبي عبيد</p>
-            <p>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</p>
-          </a>
-          <a class="book" href="../books/akhbaruShuyukh.html">
-            <p>5 أخبار الشيوخ وأخلاقهم للمروذي</p>
-            <p>ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާޤު</p>
-          </a>
-          <a class="book" href="../books/akhlaqHamalathilQuran.html">
-            <p>6 ޤުރްއާން އުފުލާ މީހުންގެ އަޚްލާޤު</p>
-            <p>ދެ ރާޒީންގެ އަގީދާ</p>
-          </a>
-          <!-- bookContainer-->
-        </div>
-        <!---->
         <p class="quoteHere">
           دَارُ فِتْيَةِ الكَهْف | ދާރު ފިތްޔަތިލް ކަހްފިގެ މަޤްޞަދަކީ: އެންމެ
           މާތްވެގެންވާ ޤަރްނުތަކުގެ ބޭކަލުންނާއި އެބޭކަލުންގެ މަގަށް ތަބަޢަވި
@@ -2667,7 +2385,6 @@
         </p>
       </div>
       <!-- class="tabcontent"> -->
-
       <div id="tab13" class="tabcontent">
         <!-- -->
         <table class="animate-table">
@@ -2869,7 +2586,70 @@
         </p>
       </div>
       <!-- class="tabcontent"> -->
-
+      <div id="tab14" class="tabcontent">
+        <!-- -->
+        <table class="animate-table">
+          <tr>
+            <th
+              colspan="3"
+              class="tablinks"
+              onclick="openTab(event, 'tab1'); scrollBack2Top();"
+            >
+              أكاديمية حديث أم وي - ޙަދީޘްއެމްވީ އެކެޑެމީ
+              <a
+                ><span
+                  style="
+                    float: left;
+                    cursor: pointer;
+                    color: #fff;
+                    font-size: 20px;
+                  "
+                >
+                  &nbsp;&nbsp;✖</span
+                ></a
+              >
+            </th>
+          </tr>
+          <tr onclick="window.location.href='../mauhad/arabic.html';">
+            <td>1</td>
+            <td>مناهج معهد تعليم اللغة العربية</td>
+            <td>📙 މަދީނާ އަރަބި ފޮތްތައް</td>
+          </tr>
+          <tr onclick="openTab(event, 'tab7'); scrollBack2Top();">
+            <td>2</td>
+            <td>متون طالب العلم</td>
+            <td>📚 އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް</td>
+          </tr>
+          <tr onclick="">
+            <td>3</td>
+            <td>المواد والمقررات الإضافية</td>
+            <td>އިތުރު މާއްދާތަކާއި މުގައްރަރުތައް ތައްޔާރުވަނީ...</td>
+          </tr>
+        </table>
+        <!-- -->
+        <p class="quoteHere">
+          ﷲ ވަހީކުރެއްވިއެވެ: ”އަދި ﷲ އަށް މެނުވީ އެ އާޔަތްތަކުގެ މާނަ
+          ދެނެވޮޑިގެން ނުވެއެވެ. އަދި އިލްމުގެ (އަހުލުވެރިން ތެރެއިން އަރާހުރި)
+          ސާބިތުކަން ލިބިފައިވާ މީހުންނަށް ވެސް (އެ އާޔަތްތަކުގެ މާނާ
+          އެނގިގެންވެއެވެ.) އަދި އެ މީހުން ބުނެއެވެ: ތިމަންމެން މި ތިބީ އެ
+          އާޔަތްތަކަށް އީމާން ވެގެންނެވެ. ހުރިހާ އާޔަތްތަކެއްވެސް ވަނީ،
+          ތިމަންމެންގެ ރައްބުގެ ހަޒްރަތުންނެވެ.“ [آل عمران 7]
+        </p>
+        <p class="quoteHere">
+          ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”ﷲ މީހަކަށް ހެޔޮ ގޮތް
+          އިރާދަކުރައްވައިފި ނަމަ، އެ އިލާހު އެ މީހަކަށް ދީން
+          ފަހުމްކޮށްދެއްވައެވެ.“ [صحيح البخاري 71]
+        </p>
+        <p class="quoteHere">
+          ބުޚާރީ ވިދާޅުވިއެވެ: އިބްނު ޢައްބާސް ވިދާޅުވިއެވެ: ”’ތިޔަބައިމީހުން
+          ރައްބާނީން ކަމުގައި ވާށެވެ.‘ (މި އާޔަތުގެ) މާނައީ، ހިލްމުވެރި
+          ފިގްހުވެރިން (ކަމުގައި ވާށެވެ.) އަދި ބުނެވުނެވެ: ރައްބާނީއަކީ،
+          އިލްމުގެ ބޮޑެތި ކަންކަމުގެ ކުރިން، އޭގެ ކުދި ކަންކަމުން މީސްތަކުން
+          ތަރުބިއްޔަތުކުރާ މީހާއެވެ.“ [صحيح البخاري، باب ‌‌10 العلم قبل القول
+          والعمل]
+        </p>
+      </div>
+      <!-- class="tabcontent"> -->
       <script>
         /*
             document.addEventListener("DOMContentLoaded", function () {
@@ -3731,47 +3511,6 @@
       }
     </script>
     <!-- hiddenDiv JS END -->
-
-    <!-- new -->
-    <script>
-      // Select all elements with the class "toggleView"
-      const toggleButtons = document.querySelectorAll(".toggleView");
-
-      // Add click event listener to each toggle button
-      toggleButtons.forEach((button) => {
-        button.addEventListener("click", function () {
-          // Find the closest parent with class "tabcontent"
-          const tabContent = this.closest(".tabcontent");
-
-          // Find all bookContainers within this tabContent
-          const containers = tabContent.querySelectorAll(".bookContainer");
-
-          // Toggle between grid and list view for all containers
-          containers.forEach((container) => {
-            container.classList.toggle("list-view");
-
-            // Toggle list-item class on all books in this container
-            const books = container.querySelectorAll(".book");
-            books.forEach((book) => {
-              book.classList.toggle("list-item");
-            });
-          });
-
-          // Change the text of the toggle box
-          if (window.innerWidth <= 599) {
-            // Mobile view
-            this.innerHTML = container.classList.contains("list-view")
-              ? "≡<span class='hiddenOnMobile'>&nbsp;ލިސްޓު</span>"
-              : "⊞<span class='hiddenOnMobile'>&nbsp;ގްރިޑް</span>";
-          } else {
-            // Desktop view
-            this.innerHTML = container.classList.contains("list-view")
-              ? "≡<span class='hiddenOnMobile'>&nbsp;ލިސްޓު</span>"
-              : "⊞<span class='hiddenOnMobile'>&nbsp;ގްރިޑް</span>";
-          }
-        });
-      });
-    </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async
