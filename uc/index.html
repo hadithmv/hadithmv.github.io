@@ -1431,7 +1431,8 @@
             class="top-box"
             onclick="openTab(event, 'tab1'); scrollBack2Top();"
           >
-            ←<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
+            <span class="goBack">➔</span
+            ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
           </div>
         </div>
         <!-- -->
@@ -1597,7 +1598,8 @@
             class="top-box"
             onclick="openTab(event, 'tab1'); scrollBack2Top();"
           >
-            ←<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
+            <span class="goBack">➔</span
+            ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
           </div>
         </div>
 
@@ -1723,6 +1725,11 @@
           display: inline-block; /* Ensure that the span takes up space and can be animated */
           animation: pulsate 1s infinite;
         }
+
+        /* go back arrow */
+        .goBack {
+          transform: rotate(180deg);
+        }
       </style>
       <!-- hiddenDiv CSS END -->
       <div id="tab1" class="tabcontent">
@@ -1744,7 +1751,7 @@
               ><span class="hiddenOnMobile">⚙️ އިސްދާރު:</span> v</span
             >
             <!--
-            ←<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
+            <span class="goBack">➔</span><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
             -->
           </div>
         </div>
@@ -1852,7 +1859,7 @@
             <p>🌐 ބަހާއި ލިޔުންތެރިކަން</p>
           </a>
           <a
-            class="book"
+            class="book azkarBook"
             href="../books/hisnulMuslim.html#hisnulMuslimTable=p74"
           >
             <p>5 أذكار الصباح والمساء</p>
@@ -1988,7 +1995,8 @@
             class="top-box"
             onclick="openTab(event, 'tab1'); scrollBack2Top();"
           >
-            ←<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
+            <span class="goBack">➔</span
+            ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
           </div>
         </div>
         <!-- -->
@@ -2080,7 +2088,8 @@
             class="top-box"
             onclick="openTab(event, 'tab1'); scrollBack2Top();"
           >
-            ←<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
+            <span class="goBack">➔</span
+            ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
           </div>
         </div>
         <!-- -->
@@ -2207,7 +2216,8 @@
             class="top-box"
             onclick="openTab(event, 'tab1'); scrollBack2Top();"
           >
-            ←<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
+            <span class="goBack">➔</span
+            ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
           </div>
         </div>
         <!-- -->
@@ -2267,7 +2277,8 @@
             class="top-box"
             onclick="openTab(event, 'tab14'); scrollBack2Top();"
           >
-            ←<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
+            <span class="goBack">➔</span
+            ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
           </div>
         </div>
         <!-- -->
@@ -2359,7 +2370,8 @@
             class="top-box"
             onclick="openTab(event, 'tab1'); scrollBack2Top();"
           >
-            ←<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
+            <span class="goBack">➔</span
+            ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
           </div>
         </div>
         <!-- -->
@@ -2472,7 +2484,8 @@
             class="top-box"
             onclick="openTab(event, 'tab6'); scrollBack2Top();"
           >
-            ←<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
+            <span class="goBack">➔</span
+            ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
           </div>
         </div>
         <!-- -->
@@ -2529,7 +2542,8 @@
             class="top-box"
             onclick="openTab(event, 'tab1'); scrollBack2Top();"
           >
-            ←<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
+            <span class="goBack">➔</span
+            ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
           </div>
         </div>
         <!-- -->
@@ -2605,7 +2619,7 @@
             class="top-box"
             onclick="openTab(event, 'tab1'); scrollBack2Top();"
           >
-            ←<span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
+            <span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
           </div>
         </div>
         <!-- -->
@@ -3551,7 +3565,7 @@
 
       // Check if the current time is between 7 PM and 2 AM (inclusive)
       if (currentTime >= 19 || currentTime <= 2) {
-        // Get the span elements
+        /*// Get the span elements
         const span1 = document.querySelector(".hideOnPhoneOnly");
         const span2 = document.querySelector(".hideOnPhoneOnly + span");
 
@@ -3561,7 +3575,7 @@
 
         // Reorder the spans
         const parent = span1.parentNode;
-        parent.insertBefore(span2, span1);
+        parent.insertBefore(span2, span1);*/
 
         // Get the element with the ID and show it
         document.querySelector("#nightQuranReminder").style.display = "flex";
@@ -3579,7 +3593,7 @@
 
       // Check if the current time is between 4 AM and 8 AM (inclusive)
       if (currentTime >= 4 && currentTime <= 8) {
-        // Get the span elements
+        /*// Get the span elements
         const span1 = document.querySelector(".hideOnPhoneOnly");
         const span2 = document.querySelector(".hideOnPhoneOnly + span");
 
@@ -3589,7 +3603,17 @@
 
         // Reorder the spans
         const parent = span1.parentNode;
-        parent.insertBefore(span2, span1);
+        parent.insertBefore(span2, span1);*/
+
+        // Change background color and content of .azkarBook element
+        const azkarBook = document.querySelector(".azkarBook");
+        if (azkarBook) {
+          azkarBook.style.backgroundColor = "#b03b45"; // Change this to your desired color
+          azkarBook.innerHTML = `
+        <p><span class="pulsateThis">⚠️</span> أذكار الصباح والمساء</p>
+        <p>🤲 ހެނދުނާއި ހަވީރުގެ ޒިކުރުތައް</p>
+      `;
+        }
 
         // Get the element with the ID and show it
         document.querySelector("#morningQuranReminder").style.display = "flex";
