@@ -1143,15 +1143,25 @@
           /*text-indent: 30px;*/
         }
 
-        .bookContainer.list-view p {
-          padding-right: 30px;
+        /*@mixin for-tablet-landscape-up {*/
+        @media (min-width: 900px) {
+          .bookContainer.list-view p {
+            padding-right: 30px;
+          }
         }
 
         .bookContainer.list-view .book {
           display: flex;
           flex-direction: row;
-          justify-content: flex-start; /* space-evenly;*/
+          justify-content: flex-start; /* flex-start space-evenly;*/
           /*flex-wrap: wrap;*/
+        }
+
+        @media (max-width: 599px) {
+          .bookContainer.list-view .book {
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+          }
         }
 
         .book {
