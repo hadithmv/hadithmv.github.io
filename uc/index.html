@@ -1749,8 +1749,42 @@
           </div>
         </div>
         <!-- -->
+        <style>
+          .top-container .top-box {
+            padding-top: 5px;
+            padding-bottom: 5px;
+          }
+          .bookContainer .book.hiddenDiv {
+            padding-top: 5px;
+            padding-bottom: 5px;
+          }
+
+          .alertContainer {
+            display: flex;
+            align-items: stretch;
+            padding-bottom: 6px;
+            padding-top: 6px;
+          }
+
+          /*@mixin for-phone-only*/
+          @media (max-width: 599px) {
+            .alertContainer {
+              padding-bottom: 4px;
+              padding-top: 4px;
+            }
+
+            .top-container .top-box {
+              padding-top: 4px;
+              padding-bottom: 4px;
+            }
+            .bookContainer .book.hiddenDiv {
+              padding-top: 4px;
+              padding-bottom: 4px;
+            }
+          }
+        </style>
         <!-- https://stackoverflow.com/questions/53189666/how-to-horizontally-stretch-elements-when-using-flex-box/53189785#53189785 -->
-        <div class="bookContainer" style="display: flex; align-items: stretch">
+        <div class="bookContainer alertContainer">
           <a
             class="book hiddenDiv"
             href="../books/quranHmv.html#quranTable=p482"
