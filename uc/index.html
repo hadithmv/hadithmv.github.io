@@ -1161,6 +1161,7 @@
           .bookContainer.list-view .book {
             justify-content: space-evenly;
             flex-wrap: wrap;
+            margin-bottom: 10px;
           }
         }
 
@@ -1169,7 +1170,7 @@
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          padding: 10px; /* 20px */
+          padding: 5px; /* 10  */
           text-align: center;
           text-decoration: none;
           color: inherit;
@@ -1313,6 +1314,7 @@
         /* make top container top box hover change background color, except middle title */
         .top-box:not(:nth-of-type(2)):hover {
           background-color: #0f4c75;
+          color: #eee;
         }
 
         /* make top container top box middle title cursor normal, not pointer */
@@ -1716,6 +1718,7 @@
         #kahfReminder,
         #nightQuranReminder {
           background-color: #b03b45;
+          color: #eee;
         }
 
         /* animation of pulsatThis icon */
@@ -1768,36 +1771,38 @@
         <!-- -->
         <style>
           .top-container .top-box {
-            padding-top: 5px;
-            padding-bottom: 5px;
+            /*padding-top: 5px;
+            padding-bottom: 5px;*/
+            padding-top: 4px;
+            padding-bottom: 4px;
           }
           .bookContainer .book.hiddenDiv {
             padding-top: 5px;
             padding-bottom: 5px;
           }
 
-          .alertContainer {
-            display: flex;
+          .bookContainer.alertContainer {
+            display: none;
+            /*display: flex;*/
             align-items: stretch;
-            padding-bottom: 6px;
-            padding-top: 6px;
+            /*padding-bottom: 6px;
+            padding-top: 6px;*/
+            padding-bottom: 4px;
+            padding-top: 4px;
+            /*padding: 0;*/ /*doing this makes sides come out unevenly */
+            /*margin-top: 10px;*/
           }
 
           /*@mixin for-phone-only*/
           @media (max-width: 599px) {
-            .alertContainer {
-              padding-bottom: 4px;
-              padding-top: 4px;
-            }
-
-            .top-container .top-box {
-              padding-top: 4px;
-              padding-bottom: 4px;
-            }
             .bookContainer .book.hiddenDiv {
               padding-top: 4px;
               padding-bottom: 4px;
             }
+
+            /*.top-container {
+              margin-bottom: 4px;
+            }*/
           }
         </style>
         <!-- https://stackoverflow.com/questions/53189666/how-to-horizontally-stretch-elements-when-using-flex-box/53189785#53189785 -->
@@ -3561,6 +3566,14 @@
           // Get the element with the ID and show it
           document.querySelector("#kahfReminder").style.display = "flex";
           // block, table-row
+
+          // increase top margin of top container
+          document
+            .querySelectorAll(".alertContainer")
+            .forEach(function (container) {
+              container.style.marginTop = "10px";
+            });
+          //
         }
       }
 
@@ -3588,8 +3601,16 @@
         parent.insertBefore(span2, span1);*/
 
         // Get the element with the ID and show it
-        document.querySelector("#nightQuranReminder").style.display = "flex";
+        document.querySelector("#nightQuranReminder").style.display = "flex"
         // block, table-row
+
+        // make alert container visible        
+        document
+          .querySelectorAll(".alertContainer")
+          .forEach(function (element) {
+            element.style.display = "flex";
+          });
+        //
       }
 
       //
@@ -3619,6 +3640,7 @@
         const azkarBook = document.querySelector(".azkarBook");
         if (azkarBook) {
           azkarBook.style.backgroundColor = "#b03b45"; // Change this to your desired color
+          azkarBook.style.color = "#eee";
           azkarBook.innerHTML = `
         <p><span class="pulsateThis">⚠️</span> أذكار الصباح والمساء</p>
         <p>🤲 ހެނދުނާއި ހަވީރުގެ ޒިކުރުތައް</p>
@@ -3626,9 +3648,19 @@
         }
 
         // Get the element with the ID and show it
-        document.querySelector("#morningQuranReminder").style.display = "flex";
+        document.querySelector("#morningQuranReminder").style.display = "flex"
         // block, table-row
+
+        // make alert container visible        
+        document
+          .querySelectorAll(".alertContainer")
+          .forEach(function (element) {
+            element.style.display = "flex";
+          });
+        //
       }
+    </script>
+    </script>
     </script>
     <!-- hiddenDiv JS END -->
 
