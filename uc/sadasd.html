@@ -42,6 +42,23 @@
     <script src="https://cdn.datatables.net/buttons/3.1.0/js/buttons.colVis.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.1.0/js/buttons.html5.min.js"></script>
     <!-- -->
+    <link
+      href="https://cdn.datatables.net/searchbuilder/1.7.1/css/searchBuilder.dataTables.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.datatables.net/searchbuilder/1.7.1/js/dataTables.searchBuilder.min.js"></script>
+    <!-- searchpanes requires select too -->
+    <link
+      href="https://cdn.datatables.net/searchpanes/2.3.1/css/searchPanes.dataTables.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/dataTables.searchPanes.min.js"></script>
+    <link
+      href="https://cdn.datatables.net/select/2.0.3/css/select.dataTables.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.min.js"></script>
+    <!-- -->
 
     <meta charset="utf-8" />
     <title>DataTables</title>
@@ -55,12 +72,12 @@
       //
 
       /* The default layout used by DataTables is:
-    layout: {
-    topStart: 'pageLength',
-    topEnd: 'search',
-    bottomStart: 'info',
-    bottomEnd: 'paging'
-    } */
+      layout: {
+      topStart: 'pageLength',
+      topEnd: 'search',
+      bottomStart: 'info',
+      bottomEnd: 'paging'
+      } */
 
       // Remove the defaults
       DataTable.defaults.layout = {
@@ -87,13 +104,16 @@
           top: [
             "inputPaging",
             "search",
+
             {
-              // https://datatables.net/reference/button/copy
               //buttons: ["copy", "colvis"],
+              // https://datatables.net/reference/button/copy
               buttons: [
                 {
                   extend: "copy",
-                  text: "ކޮޕީ",
+                  // https://datatables.net/reference/option/buttons.buttons.titleAttr
+                  titleAttr: "copy",
+                  text: "⧉ ކޮޕީ",
                   exportOptions: {
                     // https://datatables.net/extensions/buttons/examples/html5/columns.html // this on its own selects all data on all pages
                     columns: ":visible",
@@ -112,18 +132,70 @@
                   //messageBottom: "ސައިޓު",
                   messageTop: "ޙަދީޘްއެމްވީ – This Book", // CHANGE123
                 },
+                // https://datatables.net/reference/button/colvis
                 {
                   extend: "colvis",
-                  text: "ބަރިތައް",
-                  // https://datatables.net/extensions/buttons/examples/initialisation/keys.html
+                  titleAttr: "toggle columns",
+                  text: "☰ ބަރިތައް",
                   key: {
                     shiftKey: true,
                     key: "s",
                   },
                   // https://datatables.net/extensions/buttons/examples/column_visibility/restore.html
                   postfixButtons: [
-                    { extend: "colvisRestore", text: "ރީސެޓްކުރޭ" },
+                    {
+                      extend: "colvisRestore",
+                      text: "↺ ރީސެޓްކުރޭ",
+                      titleAttr: "reset toggle",
+                    },
                   ],
+                },
+                // https://datatables.net/extensions/searchbuilder/
+                // will not work with dates without another plugin
+                {
+                  extend: "searchBuilder",
+                  titleAttr: "custom search",
+                  // wont work here, need to set in language it seems
+                  //text: "🔍 ކަސްޓަމް ސާރޗް",
+                  key: {
+                    shiftKey: true,
+                    key: "b",
+                  },
+                },
+                // https://datatables.net/reference/feature/searchPanes
+                {
+                  extend: "searchPanes",
+                  text: "⧩ ފިލްޓާ",
+                  titleAttr: "filter",
+                  key: {
+                    shiftKey: true,
+                    key: "p",
+                  },
+                  config: {
+                    // https://datatables.net/reference/feature/searchPanes.cascadePanes
+                    cascadePanes: true,
+                    // https://datatables.net/reference/feature/searchPanes.viewTotal
+                    viewTotal: true,
+                    // https://datatables.net/reference/feature/searchPanes.collapse
+                    collapse: false,
+                    //orderable: false,
+                    // https://datatables.net/extensions/searchpanes/examples/initialisation/speedTest.html
+                    //columns: [0, 1],
+                    //controls: false,
+                    // https://datatables.net/reference/feature/searchPanes.initCollapsed
+                    //initCollapsed: true,
+                    // https://datatables.net/reference/feature/searchPanes.order
+                    // order: [[1, 'desc']]
+                    //searching: false,
+                    //paging: true,
+                    dtOpts: {
+                      // https://datatables.net/extensions/select/examples/initialisation/multi.html
+                      select: {
+                        //style: "multi",
+                        style: "multi+shift",
+                      },
+                    },
+                  },
                 },
               ],
             },
@@ -140,13 +212,14 @@
           info: "_TOTAL_ ގެ ތެރެއިން _START_ އިން _END_ އަށް",
           //"infoFiltered":   "(filtered from _MAX_ total entries)",
           infoFiltered: "(ޖުމްލަ ބެލުނީ _MAX_)",
-          infoEmpty: "ނުފެނުނު",
+          infoEmpty: "— ނުފެނުނު —",
           //"lengthMenu":     "Show _MENU_ entries",
           lengthMenu: "އެއްފަހަރާ _MENU_ ދައްކާ",
+          loadingRecords: "ތައްޔާރުވަނީ...",
           //"search":         "Search:",
           search: "",
           searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"، !މިލަފްޒު ނުލާ ހޯދާ',
-          zeroRecords: "ނުފެނުނު",
+          zeroRecords: "— ނުފެނުނު —",
           paginate: {
             first: "<< ފުރަތަމަ",
             last: "ފަހު >>",
@@ -169,7 +242,21 @@
             },
             copyTitle: "ކޮޕީ",
           },
-        },
+          searchBuilder: {
+            button: "🔍 ކަސްޓަމް ސާޗު",
+          },
+          searchPanes: {
+            title: {
+              _: "%d ފިލްޓަރ ކުރެވިފާ",
+              0: "0 ފިލްޓަރ ކުރެވިފާ",
+              1: "1 ފިލްޓަރ ކުރެވިފާ",
+            },
+            count: "{total}",
+            countFiltered: "{shown} ({total})",
+            emptyMessage: "— ވަކި އެއްޗެއް ނުޖަހާ —",
+            clearMessage: "ފިލްޓާތައް ދުއްވާލާ",
+          },
+        }, // language END
         //
         // https://datatables.net/examples/advanced_init/length_menu.html
         lengthMenu: [
@@ -183,25 +270,37 @@
         // https://datatables.net/reference/option/ordering
         ordering: false,
         //
-        // https://datatables.net/reference/feature/paging
-        //paging: false
+        columnDefs: [
+          {
+            // https://datatables.net/reference/option/columns.searchPanes.show
+            // force all cols to show searchpanes by default
+            searchPanes: {
+              show: true,
+              //controls: false,
+            },
+            //targets: [0]
+            targets: "_all",
+          },
+        ],
         //
-        //
-        // https://datatables.net/plug-ins/pagination/input
-        //pagingType: "input",
+        // https://datatables.net/examples/basic_init/scroll_y_dynamic.html
+        /*paging: false,
+          scrollCollapse: true,
+          scrollY: "50vh",*/
+        // also consider https://datatables.net/extensions/scroller/
 
         // https://datatables.net/examples/basic_init/hidden_columns.html
         /*columnDefs: [
-        {
-            target: 2,
-            visible: false,
-            searchable: false
-        },
-        {
-            target: 3,
-            visible: false
-        }
-    ]*/
+          {
+              target: 2,
+              visible: false,
+              searchable: false
+          },
+          {
+              target: 3,
+              visible: false
+          }
+      ]*/
 
         // https://datatables.net/examples/advanced_init/column_render.html
 
@@ -218,7 +317,6 @@
           { title: "Position" },
           { title: "Office" },
           { title: "Extn." },
-          { title: "Start date" },
           { title: "Salary" },
         ],
 
