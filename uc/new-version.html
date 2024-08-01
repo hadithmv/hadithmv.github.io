@@ -13,8 +13,6 @@
     />
     <script src="https://nightly.datatables.net/js/dataTables.js"></script>
     <!-- -->
-    <script src="arrays.js"></script>
-    <!-- -->
     <link
       href="https://cdn.datatables.net/plug-ins/2.1.2/features/inputPaging/dist/dataTables.inputPaging.min.css"
       rel="stylesheet"
@@ -53,13 +51,18 @@
     />
     <script src="https://cdn.datatables.net/keytable/2.12.1/js/dataTables.keyTable.min.js"></script>
     <!-- -->
+    <!--
+    <script src="arrays.js"></script> -->
+    <script src="json/fortyNawawi.js"></script>
+    <!-- -->
+    <!-- -->
     <!-- card styles
          https://datatables.net/forums/discussion/comment/228301/#Comment_228301 -->
     <style>
       /* ORIGINAL CARDS CSS */
       .cards tbody tr {
         /* float: left; removing this used to center, now using flexbox instead */
-        width: 20rem;
+        /*width: 20rem; this narrows the columns too much*/
         margin: 0.5rem;
         border: 0.0625rem solid rgba(0, 0, 0, 0.125);
         border-radius: 0.25rem;
@@ -120,12 +123,12 @@
       Object.assign(DataTable.defaults, {
         // https://datatables.net/reference/option/layout
 
-        layout: {
+        /* layout: {
           // https://datatables.net/extensions/buttons/
           // 'buttons',
           // paging, inputPaging
           //top: ["inputPaging", "search", "buttons", "pageLength"],
-          /* top: [
+           top: [
             "inputPaging",
             "search",
 
@@ -235,10 +238,10 @@
                 ],
               },
             },
-          ], // top: [ END */
+          ], // top: [ END 
           bottom: ["inputPaging", "info"],
         }, // layout: { END
-        //
+        //*/
 
         // https://datatables.net/reference/option/language
         // LANGUAGE SET DEFAULTS
@@ -636,16 +639,20 @@
           // Add any additional options here
           //
           columns: [
-            { title: "Name" },
-            { title: "Position" },
-            { title: "Office" },
-            { title: "Extn." },
-            { title: "Salary" },
+            { title: "#" },
+            { title: "އަރަބި ނަމްބަރ" },
+            { title: "އަރަބި ސުރުހީ" },
+            { title: "ދިވެހި ސުރުހީ." },
+            { title: "އަރަބި ލިޔުން" },
+            { title: "އަރަބި ފިލިނުޖަހާ" },
+            { title: "ތަޚްރީޖު" },
+            { title: "ދިވެހި ތަޚްރީޖު" },
           ],
           //
 
           //
-          data: dataSet,
+          //data: dataSet,
+          data: data,
           //
         }); // new DataTable("#example", { END
 
