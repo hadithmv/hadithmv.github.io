@@ -2,6 +2,10 @@
 <!-- <html dir="rtl"> -->
 <html>
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>DataTables</title>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <link
@@ -11,19 +15,7 @@
     />
     <script src="https://nightly.datatables.net/js/dataTables.js"></script>
     <!-- -->
-    <script src="arrays.js">
-      // Arrays
-      /*var dataSet = [
-        [
-          "Tiger Nixon",
-          "System Architect",
-          "Edinburgh",
-          "5421",
-          "2011/04/25",
-          "$320,800",
-        ],
-      ];*/
-    </script>
+    <script src="arrays.js"></script>
     <!-- -->
     <link
       href="https://cdn.datatables.net/plug-ins/2.1.2/features/inputPaging/dist/dataTables.inputPaging.min.css"
@@ -69,6 +61,7 @@
     <!-- card styles
        https://datatables.net/forums/discussion/comment/228301/#Comment_228301 -->
     <style>
+      /* ORIGINAL CARDS CSS */
       .cards tbody tr {
         /* float: left; removing this used to center, now using flexbox instead */
         width: 20rem;
@@ -80,29 +73,18 @@
       .cards tbody td {
         display: block;
       }
+      /* ORIGINAL CARDS CSS  END */
+
+      /* */
+
+      /* */
+
       /* added this to make it one column and centered, it was already centered after colspans were removed */
       .cards tbody {
         display: flex;
         flex-direction: column;
         align-items: center;
       }
-      /*table.dataTable {
-        width: 100%;
-        margin: 0 auto;
-        clear: both;
-        border-collapse: separate;
-        border-spacing: 0;
-      }
-      .dataTables_wrapper {
-        margin: 0 auto;
-        width: 50%;
-      }.dataTables_wrapper {
-        display: flex;
-        justify-content: center;
-      }
-      table.dataTable {
-        margin: auto;
-      }*/
       /* removes th table header above columns, for card view */
       thead {
         display: none;
@@ -115,27 +97,21 @@
       #example > tbody > tr > td {
         border: none;
       }
-    </style>
 
-    <meta charset="utf-8" />
-    <title>DataTables</title>
+      /* */
+      .dt-container {
+        direction: rtl;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
-      <!-- cards class -->
-      <table id="example" class="display cards" width="100%" dir="rtl"></table>
+      <!-- cards class,  dir="rtl" -->
+      <table id="example" class="display cards" width="100%"></table>
     </div>
 
     <script type="text/javascript" class="init">
       //
-
-      /* The default layout used by DataTables is:
-      layout: {
-      topStart: 'pageLength',
-      topEnd: 'search',
-      bottomStart: 'info',
-      bottomEnd: 'paging'
-      } */
 
       // Remove the defaults
       DataTable.defaults.layout = {
@@ -147,7 +123,6 @@
       //
 
       // DataTable.defaults.layout = { };
-
       // DataTable.defaults.language = { };
 
       //
@@ -415,6 +390,26 @@
 
 <!-- 
 
+
+      // Arrays
+      /*var dataSet = [
+        [
+          "Tiger Nixon",
+          "System Architect",
+          "Edinburgh",
+          "5421",
+          "2011/04/25",
+          "$320,800",
+        ],
+      ];*/
+
+      /* The default layout used by DataTables is:
+      layout: {
+      topStart: 'pageLength',
+      topEnd: 'search',
+      bottomStart: 'info',
+      bottomEnd: 'paging'
+      } */
 
         // https://datatables.net/examples/advanced_init/length_menu.html
         /*lengthMenu: [
