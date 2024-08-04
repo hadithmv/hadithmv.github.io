@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>DataTables</title>
+    <title>ނަވަވީގެ ސާޅީސް ޙަދީޘް</title>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link
       href="https://nightly.datatables.net/css/dataTables.dataTables.css"
@@ -280,11 +280,11 @@
             },
             //colvis: "ބަރިތައް",
             // https://datatables.net/reference/button/copyHtml5
+            copyTitle: "ކޮޕީ",
             copySuccess: {
               1: "ކޮޕީވެއްޖެ 1",
               _: "ކޮޕީވެއްޖެ %d",
             },
-            copyTitle: "ކޮޕީ",
           },
           searchBuilder: {
             button: "🔍 ކަސްޓަމް ސާޗު",
@@ -305,6 +305,9 @@
             valueJoiner: "އަދި",
           },
           searchPanes: {
+            // https://datatables.net/reference/option/language.searchPanes.collapse
+            // looks like i wont need text: "⧩ ފިލްޓާ" with this
+            collapse: { 0: "⧩ ފިލްޓާ", _: "⧩ ފިލްޓާ (%d)" },
             title: {
               _: "%d ފިލްޓަރ ކުރެވިފާ",
               0: "0 ފިލްޓަރ ކުރެވިފާ",
@@ -322,14 +325,23 @@
         // https://datatables.net/examples/basic_init/state_save.html
         stateSave: true,
         //
+        // https://datatables.net/reference/option/stateDuration
+        // default is 2 hours, now set to 1 day
+        stateDuration: 86400,
+        //
         // https://datatables.net/reference/option/ordering
         ordering: false,
+        //
+        // https://datatables.net/reference/option/orderClasses
+        orderClasses: false,
         //
         // https://datatables.net/reference/option/searchDelay
         searchDelay: 350,
         //
+        // https://datatables.net/reference/option/autoWidth
+        autoWidth: false,
         //
-        columnDefs: [
+        /*columnDefs: [
           {
             // https://datatables.net/reference/option/columns.searchPanes.show
             // force all cols to show searchpanes by default
@@ -340,7 +352,7 @@
             //targets: [0]
             targets: "_all",
           },
-        ],
+        ],*/
         //
         // https://datatables.net/examples/basic_init/scroll_y_dynamic.html
         /*paging: false,
@@ -407,8 +419,11 @@
                       key: "c",
                     },
                     //https://datatables.net/reference/api/buttons.exportInfo()
-                    //messageBottom: "ސައިޓު",
-                    messageTop: "ޙަދީޘްއެމްވީ – This Book", // CHANGE123
+                    messageBottom: "- ޙަދީޘްއެމްވީ -",
+                    //messageTop: "- ޙަދީޘްއެމްވީ -",
+                    //title: "" /* title: "hadithmv.com", */,
+                    // https://datatables.net/reference/button/copy
+                    header: false,
                   },
                   // https://datatables.net/reference/button/colvis
                   {
@@ -443,7 +458,7 @@
                   // https://datatables.net/reference/feature/searchPanes
                   {
                     extend: "searchPanes",
-                    text: "⧩ ފިލްޓާ",
+                    //text: "⧩ ފިލްޓާ",
                     titleAttr: "filter",
                     key: {
                       shiftKey: true,
@@ -556,7 +571,7 @@
                       },
                       {
                         extend: "searchPanes",
-                        text: "⧩ ފިލްޓާ",
+                        //text: "⧩ ފިލްޓާ",
                         config: {
                           // https://datatables.net/reference/feature/searchPanes.cascadePanes
                           cascadePanes: true,
@@ -647,11 +662,74 @@
             { title: "އަރަބި ސުރުހީ" },
             { title: "ދިވެހި ސުރުހީ." },
             { title: "އަރަބި ލިޔުން" },
-            { title: "އަރަބި ފިލިނުޖަހާ" },
-            { title: "ތަޚްރީޖު" },
-            { title: "ދިވެހި ތަޚްރީޖު" },
+            {
+              title: "އަރަބި ފިލިނުޖަހާ",
+              // without tashkeel
+              data: 4,
+              render: (data) =>
+                data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
+            },
+            {
+              title: "ދިވެހި ލިޔުން",
+              data: 5,
+            },
+            { title: "ތަޚްރީޖު", data: 6 },
+            { title: "ދިވެހި ތަޚްރީޖު", data: 7 },
           ],
+
+          // https://datatables.net/reference/option/columns
+          // could use just the plain line below too, but that would turn colvis and panes and searchbuilder, title-less
+          // columns: [ null, null, null, null, null, null, null, { searchable: false }, ],
           //
+
+          // https://datatables.net/reference/option/columnDefs
+          //
+          columnDefs: [
+            {
+              // https://datatables.net/examples/advanced_init/column_render.html
+              targets: [0],
+              render: (data) => "#" + data,
+            },
+            {
+              // check if data is not empty string and append a line of kashidas and a line break if true; otherwise, return unchanged data, empty string.
+              targets: [7, 8],
+              render: (data) =>
+                data !== "" ? "ـــــــــــــــــــــــــــ<br>" + data : data,
+            },
+            {
+              // turns \n new line from the data, into breaks in the html
+              // this has to come after footnote line above
+              targets: "_all",
+              render: (data) => data.replace(/(\r\n|\n|\r)/g, "<br>"),
+            },
+            {
+              // https://datatables.net/reference/option/columns.searchPanes.show
+              // force all cols to show searchpanes by default
+              searchPanes: {
+                show: true,
+                //controls: false,
+              },
+              targets: [0, 1, 2, 3],
+            },
+            {
+              // hides panes for all other columns
+              searchPanes: {
+                show: false,
+              },
+              targets: "_all",
+            },
+            /*{
+              targets: [5],
+              render: function (data, type, row) {
+                if (data !== "") {
+                  data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
+                  return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
+                } else {
+                  return data; // return empty string if data is empty
+                }
+              },
+            },*/
+          ],
 
           //
           //data: dataSet,
