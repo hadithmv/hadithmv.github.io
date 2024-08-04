@@ -66,7 +66,7 @@
         margin: 0.5rem;
         border: 0.0625rem solid rgba(0, 0, 0, 0.125);
         border-radius: 0.25rem;
-        box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+        /*box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);*/
       }
       .cards tbody td {
         display: block;
@@ -328,8 +328,6 @@
         // https://datatables.net/reference/option/searchDelay
         searchDelay: 350,
         //
-        // https://datatables.net/extensions/keytable/
-        keys: true,
         //
         columnDefs: [
           {
@@ -393,7 +391,7 @@
                     extend: "copy",
                     // https://datatables.net/reference/option/buttons.buttons.titleAttr
                     titleAttr: "copy",
-                    text: "⧉ ކޮޕީ",
+                    text: "⧉ &nbsp; ކޮޕީ",
                     exportOptions: {
                       // https://datatables.net/extensions/buttons/examples/html5/columns.html // this on its own selects all data on all pages
                       columns: ":visible",
@@ -490,12 +488,16 @@
               },
             ],
             //bottom: "inputPaging",
+            bottom: ["inputPaging", "info"],
           }, // DESKTOP layout: {
 
           // DESKTOP LANGUAGE
           language: {
             searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"، !މިލަފްޒު ނުލާ ހޯދާ',
           }, // desktop language END
+
+          // https://datatables.net/extensions/keytable/
+          keys: true,
         }; // const desktopConfig  = { END
         //
 
@@ -517,7 +519,7 @@
                     extend: "copy",
                     // https://datatables.net/reference/option/buttons.buttons.titleAttr
                     titleAttr: "copy",
-                    text: "⧉ ކޮޕީ",
+                    text: "⧉ &nbsp; ކޮޕީ",
                     exportOptions: {
                       // https://datatables.net/extensions/buttons/examples/html5/columns.html // this on its own selects all data on all pages
                       columns: ":visible",
@@ -533,7 +535,7 @@
                   },
                   {
                     extend: "collection",
-                    text: "އިތުރު",
+                    text: "⌥ އިތުރު",
                     buttons: [
                       {
                         //popoverTitle: "column visibility",
@@ -591,6 +593,7 @@
             ], // top: [ END
             /*top: ["search"],
           bottom: ["paging", "pageLength"],*/
+            bottom: ["inputPaging", "info"],
           }, // layout: { END
           //
           // MOBILE LANGUAGE
