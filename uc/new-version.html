@@ -155,9 +155,6 @@
                     shiftKey: true,
                     key: "c",
                   },
-                  //https://datatables.net/reference/api/buttons.exportInfo()
-                  //messageBottom: "ސައިޓު",
-                  messageTop: "ޙަދީޘްއެމްވީ – This Book", // CHANGE123
                 },
                 // https://datatables.net/reference/button/colvis
                 {
@@ -424,6 +421,17 @@
                     //title: "" /* title: "hadithmv.com", */,
                     // https://datatables.net/reference/button/copy
                     header: false,
+                    //newline: "\n",
+
+                    customize: function (data) {
+                      // <br>
+                      data = data.replace(/\t/g, "\n\n");
+                      // data = data.replace(/\n/g, "<br>");
+                      //
+                      console.log(JSON.stringify(data));
+                      //
+                      return data; // without this, custom data wont be in clipboard
+                    },
                   },
                   // https://datatables.net/reference/button/colvis
                   {
@@ -694,13 +702,21 @@
               // check if data is not empty string and append a line of kashidas and a line break if true; otherwise, return unchanged data, empty string.
               targets: [7, 8],
               render: (data) =>
-                data !== "" ? "ـــــــــــــــــــــــــــ<br>" + data : data,
+                //data !== "" ? "ـــــــــــــــــــــــــــ<br>" + data : data,
+                // above does not preserve the \n new lines in the data, below does
+                data !== ""
+                  ? "ـــــــــــــــــــــــــــ\t<br>" +
+                    data.replace(/\n/g, "\t<br>")
+                  : data,
             },
             {
               // turns \n new line from the data, into breaks in the html
               // this has to come after footnote line above
               targets: "_all",
-              render: (data) => data.replace(/(\r\n|\n|\r)/g, "<br>"),
+              render: (data) => data.replace(/(\r\n|\n|\r)/g, "\t<br>"),
+              // for some reason, unless the above \n is replaced with a \t, there is no way see any separation of a single new line between same text paragraphs.
+              // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, "\t<br>")) in order for the clipboard to get it right
+              // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
             },
             {
               // https://datatables.net/reference/option/columns.searchPanes.show
@@ -718,17 +734,13 @@
               },
               targets: "_all",
             },
-            /*{
-              targets: [5],
-              render: function (data, type, row) {
-                if (data !== "") {
-                  data = "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾<br>" + data;
-                  return data.replace(/\r\n|\n|\r/g, '\t<br class="br">'); // without this line breaks not preserved
-                } else {
-                  return data; // return empty string if data is empty
-                }
-              },
-            },*/
+            {
+              targets: "_all",
+              render: function (data) {
+                return data.replace(/\r\n|\n|\r/g, "\t<br>");
+              }, // for some reason, without the \n replaced above, the single new lines in between same language paragraphs show in console as a single space, and therefore clipboard cannot be customized to show it
+              // added space before br, otherwise clipboard copy export has no space
+            },
           ],
 
           //
