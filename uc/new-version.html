@@ -827,6 +827,20 @@
         });
         //
 
+        // https://datatables.net/reference/api/search()
+        // removes diacritics and punctuation on key up for search
+        $(".dt-search .dt-input").on("keyup click", function () {
+          var str = $(this).val();
+          str = str.replace(
+            /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
+            ""
+          );
+          $(this).val(str);
+          //table.search(str).draw();
+          // commenting above out allows searchdelay to work with stringreplace
+        });
+        //
+
         //
       } // function initializeDataTable() {END
       //
