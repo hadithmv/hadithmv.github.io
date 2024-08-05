@@ -107,6 +107,9 @@
     <script type="text/javascript" class="init">
       //
 
+      let table; // Declare table variable in the outer scope
+      let isSwipeHandlerInitialized = false; // Track whether swipe handler is active
+
       // Remove the defaults
       DataTable.defaults.layout = {
         topStart: null,
@@ -338,6 +341,10 @@
         //
         // https://datatables.net/reference/option/autoWidth
         autoWidth: false,
+        //
+
+        //
+
         //
         lengthMenu: [
           [1, 3, 5, 10, 25, 50, -1],
@@ -674,7 +681,9 @@
 
         const config = isMobile ? mobileConfig : desktopConfig;
 
-        new DataTable("#example", {
+        //new DataTable("#example", {
+        table = new DataTable("#example", {
+          //
           ...config,
 
           // Add any additional options here
@@ -772,7 +781,23 @@
           //data: dataSet,
           data: data,
           //
+
+          // first part of scroll to top
+          drawCallback: handleDrawCallback,
+
+          //
         }); // new DataTable("#example", { END
+        //
+
+        // FIRST PART OF SWIPE CODE
+        if (isMobile && !isSwipeHandlerInitialized) {
+          initializeSwipeHandler();
+          isSwipeHandlerInitialized = true;
+        } else if (!isMobile && isSwipeHandlerInitialized) {
+          removeSwipeHandler();
+          isSwipeHandlerInitialized = false;
+        }
+        //
 
         //
       } // function initializeDataTable() {END
@@ -784,9 +809,69 @@
 
       // Re-initialize the DataTable on window resize
       window.addEventListener("resize", function () {
-        const table = DataTable.tables({ visible: true, api: true }).destroy();
+        table.destroy();
         initializeDataTable();
       }); // window.addEventListener END
+      //
+
+      // SECOND PART OF SWIPE CODE
+      function initializeSwipeHandler() {
+        let startX;
+        const tableElement = document.getElementById("example");
+
+        tableElement.addEventListener("touchstart", onTouchStart, {
+          passive: true,
+        });
+        tableElement.addEventListener("touchend", onTouchEnd, {
+          passive: true,
+        });
+      }
+
+      function removeSwipeHandler() {
+        const tableElement = document.getElementById("example");
+
+        tableElement.removeEventListener("touchstart", onTouchStart);
+        tableElement.removeEventListener("touchend", onTouchEnd);
+      }
+
+      function onTouchStart(e) {
+        startX = e.touches[0].clientX;
+      }
+
+      function onTouchEnd(e) {
+        const endX = e.changedTouches[0].clientX;
+        const diffX = startX - endX;
+
+        if (Math.abs(diffX) > 50) {
+          // Threshold for swipe detection
+          if (diffX > 0) {
+            // Swipe right - previous page
+            table.page("previous").draw("page");
+          } else {
+            // Swipe left - next page
+            table.page("next").draw("page");
+          }
+        }
+      }
+      //
+
+      // second part of scroll to top
+      function handleDrawCallback() {
+        const isMobile = window.innerWidth <= 800;
+        const tableElement = document.querySelector("#example_wrapper");
+
+        if (isMobile) {
+          // Scroll to the first row of the table on mobile
+          const firstRow = tableElement.querySelector("tbody tr");
+          if (firstRow) {
+            firstRow.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        } else {
+          // Scroll to the top of the table on desktop
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
+
       //
       // BOTTOM
     </script>
