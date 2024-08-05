@@ -346,44 +346,38 @@
         //
         buttons: [
           {
+            // HAS TO BE COPIED TWICE, FOR BOTH DESKTOP AND MOBILE BUTTONS
             // https://datatables.net/reference/button/copy
             extend: "copy",
             // https://datatables.net/reference/option/buttons.buttons.titleAttr
             titleAttr: "copy",
             text: "⧉ &nbsp; ކޮޕީ",
-
-            // https://datatables.net/extensions/buttons/examples/initialisation/keys.html
-            key: {
-              shiftKey: true,
-              key: "c",
-            },
             //https://datatables.net/reference/api/buttons.exportInfo()
-            messageBottom: "- ޙަދީޘްއެމްވީ -",
-            //messageTop: "- ޙަދީޘްއެމްވީ -",
-            //title: "" /* title: "hadithmv.com", */,
+            messageBottom: "- ޙަދީޘްއެމްވީ -", //messageTop: "- ޙަދީޘްއެމްވީ -",
+            //title: "" /* default: html page title, prev was: "hadithmv.com", */,
             // https://datatables.net/reference/button/copy
             footer: false, // if not set to false, leaves an empty blank line
             header: false,
             //newline: "\n",
             // fieldBoundary: "\n", // this creates extra blank lines even where footer and header are set to false
             fieldSeparator: "\n\n", // \t
-
             exportOptions: {
-              // https://datatables.net/extensions/buttons/examples/html5/columns.html // this on its own selects all data on all pages
+              // https://datatables.net/extensions/buttons/examples/html5/columns.html this on its own selects all data on all pages
               columns: ":visible",
-              // https://datatables.net/reference/button/copy
-              // this on its own selects even column hidden data
+              // https://datatables.net/reference/button/copy this on its own selects even column hidden data
               modifier: {
                 page: "current",
               },
+              // FOR DESKTOP - https://datatables.net/extensions/buttons/examples/initialisation/keys.html
+              key: {
+                shiftKey: true,
+                key: "c",
+              },
             },
-
             customize: function (data) {
               // <br>
               data = data.replace(/\t/g, "\n"); // \n\n
-              //
               console.log(JSON.stringify(data));
-              //
               return data; // without this, custom data wont be in clipboard
             },
           },
@@ -543,7 +537,43 @@
               {
                 buttons: [
                   //"copy",
-                  { extend: "copy", text: "⧉ &nbsp; ކޮޕީ" },
+                  // { extend: "copy", text: "⧉ &nbsp; ކޮޕީ" },
+                  {
+                    // HAS TO BE COPIED TWICE, FOR BOTH DESKTOP AND MOBILE BUTTONS
+                    // https://datatables.net/reference/button/copy
+                    extend: "copy",
+                    // https://datatables.net/reference/option/buttons.buttons.titleAttr
+                    titleAttr: "copy",
+                    text: "⧉ &nbsp; ކޮޕީ",
+                    //https://datatables.net/reference/api/buttons.exportInfo()
+                    messageBottom: "- ޙަދީޘްއެމްވީ -", //messageTop: "- ޙަދީޘްއެމްވީ -",
+                    //title: "" /* default: html page title, prev was: "hadithmv.com", */,
+                    // https://datatables.net/reference/button/copy
+                    footer: false, // if not set to false, leaves an empty blank line
+                    header: false,
+                    //newline: "\n",
+                    // fieldBoundary: "\n", // this creates extra blank lines even where footer and header are set to false
+                    fieldSeparator: "\n\n", // \t
+                    exportOptions: {
+                      // https://datatables.net/extensions/buttons/examples/html5/columns.html this on its own selects all data on all pages
+                      columns: ":visible",
+                      // https://datatables.net/reference/button/copy this on its own selects even column hidden data
+                      modifier: {
+                        page: "current",
+                      },
+                      // FOR DESKTOP - https://datatables.net/extensions/buttons/examples/initialisation/keys.html
+                      key: {
+                        shiftKey: true,
+                        key: "c",
+                      },
+                    },
+                    customize: function (data) {
+                      // <br>
+                      data = data.replace(/\t/g, "\n"); // \n\n
+                      console.log(JSON.stringify(data));
+                      return data; // without this, custom data wont be in clipboard
+                    },
+                  },
                   // https://datatables.net/extensions/buttons/examples/initialisation/collections.html
                   {
                     extend: "collection",
