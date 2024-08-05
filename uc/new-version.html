@@ -51,6 +51,9 @@
     />
     <script src="https://cdn.datatables.net/keytable/2.12.1/js/dataTables.keyTable.min.js"></script>
     <!-- -->
+    <script src="https://cdn.datatables.net/plug-ins/2.1.3/api/row().show().min.js"></script>
+    <!-- -->
+
     <!--
     <script src="arrays.js"></script> -->
     <script src="json/fortyNawawi.js"></script>
@@ -799,6 +802,29 @@
           removeSwipeHandler();
           isSwipeHandlerInitialized = false;
         }
+        //
+
+        // Focus on search input if it's desktop
+        if (!isMobile) {
+          // https://datatables.net/forums/discussion/comment/124081/#Comment_124081
+          $("div.dt-search .dt-input", table.table().container()).focus();
+        }
+        //
+        // changes <input type="text"> type to search type, so that delete icon appears
+        // adds a placeholder to the input
+        $(".dt-paging-input input")
+          .prop("type", "search")
+          .attr("placeholder", "ސަފުހާ");
+        // add more width, or make text smaller later?
+        //
+
+        // upon double click, jump to the page the double clicked entry was on and select it, with rowshowjs
+        $("tbody").on("dblclick", "tr", function () {
+          if (table.search() !== "") {
+            table.search("").draw();
+          }
+          table.row(this).draw().show().select().draw(false);
+        });
         //
 
         //
