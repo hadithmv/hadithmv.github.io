@@ -396,6 +396,8 @@
             extend: "colvis",
             titleAttr: "toggle columns",
             text: "☰ ބަރިތައް",
+            // https://datatables.net/reference/button/collection
+            background: false,
             key: {
               shiftKey: true,
               key: "s",
@@ -588,12 +590,14 @@
                   {
                     extend: "collection",
                     text: "⌥ އިތުރު",
+                    background: false,
                     buttons: [
                       {
                         //popoverTitle: "column visibility",
                         extend: "colvis",
                         //collectionLayout: "two-column",
                         text: "☰ ބަރިތައް",
+                        background: false,
                         postfixButtons: [
                           {
                             extend: "colvisRestore",
@@ -631,6 +635,7 @@
                   {
                     extend: "pageLength",
                     //text: "custom text",
+                    background: false,
                   },
                   /*{
                     pageLength: {
@@ -702,6 +707,7 @@
               title: "އަރަބި ފިލިނުޖަހާ",
               // without tashkeel
               data: 4,
+              visible: false,
               render: (data) =>
                 data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
             },
