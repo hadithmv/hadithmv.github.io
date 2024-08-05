@@ -78,7 +78,7 @@
       .cards tbody {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: stretch; /* center */
       }
       /* removes th table header above columns, for card view */
       thead {
@@ -784,6 +784,7 @@
 
           // first part of scroll to top
           drawCallback: handleDrawCallback,
+          //
 
           //
         }); // new DataTable("#example", { END
@@ -871,6 +872,7 @@
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
       }
+      //
 
       //
       // BOTTOM
