@@ -21,14 +21,16 @@ $(document).ready(() => {
       //   [1, 2, 3, 5, 7, 10, 15, 20, -1],
       //   [1, 2, '3 ދައްކާ', 5, 7, 10, 15, 20, 'ހުރިހާ']
       // ], // display range of pages
-      keys: { clipboardOrthogonal: "export" }, // strip htmltags off keys copy
+      keys: {
+        clipboardOrthogonal: "export",
+      }, // strip htmltags off keys copy
       language: {
         paginate: {
-          // &nbsp; prevents line breaks
-          first: "<<&nbsp;ފުރަތަމަ",
-          previous: "<&nbsp;ފަހަތަށް",
-          next: "ކުރިއަށް&nbsp;>",
-          last: "ފަހު&nbsp;>>",
+          //   prevents line breaks
+          first: "<< ފުރަތަމަ",
+          previous: "< ފަހަތަށް",
+          next: "ކުރިއަށް >",
+          last: "ފަހު >>",
 
           info: "_INPUT_", // taken from input plugin, "Page _INPUT_ of _TOTAL_"
         },
@@ -46,7 +48,7 @@ $(document).ready(() => {
       // ], // display range of pages
       language: {
         paginate: {
-          // &nbsp; prevents line breaks
+          //   prevents line breaks
           first: "<<",
           previous: "<",
           next: ">",
@@ -94,8 +96,8 @@ $(document).ready(() => {
       // { title: 'އަރަބި ފިލިނުޖަހައި' },
       {
         /* instead of repeating this part of the array within the external json,
-         we can strip diacritics using regex within the table itself, this makes
-         the array file much smaller in the long run */
+             we can strip diacritics using regex within the table itself, this makes
+             the array file much smaller in the long run */
         data: 4,
         title: "އަރަބި ފިލިނުޖަހައި",
         render: function (data, type, row) {
@@ -154,7 +156,7 @@ $(document).ready(() => {
       },
 
       /* replace \n newlines from json to <br> in table
-      https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
+         https://datatables.net/forums/discussion/44399/how-can-i-show-multiple-lines-in-cell */
       {
         targets: "_all",
         render: function (data, type, row) {
@@ -405,14 +407,14 @@ $(document).ready(() => {
         next: '>',
         last: '>>',
 
-        first: '<<&nbsp;ފުރަތަމަ',
-        previous: '<&nbsp;ފަހަތަށް',
-        next: 'ކުރިއަށް&nbsp;>',
-        last: 'ފަހު&nbsp;>>',
+        first: '<< ފުރަތަމަ',
+        previous: '< ފަހަތަށް',
+        next: 'ކުރިއަށް >',
+        last: 'ފަހު >>',
 
         info: '_INPUT_'
-},
-*/
+    },
+    */
       buttons: {
         copyTitle: "ކޮޕީ",
         copySuccess: {
@@ -431,15 +433,18 @@ $(document).ready(() => {
       searchPanes: {
         emptyMessage: "— ވަކި އެއްޗެއް ނުޖަހާ —",
         clearMessage: "ފިލްޓަރތައް ދުއްވާލާ",
-        collapse: { 0: "ފިލްޓަރ", _: "ފިލްޓަރ (%d)" },
+        collapse: {
+          0: "ފިލްޓަރ",
+          _: "ފިލްޓަރ (%d)",
+        },
         title: {
           _: "%d ފިލްޓަރ ކުރެވިފާ",
           0: "0 ފިލްޓަރ ކުރެވިފާ",
           1: "1 ފިލްޓަރ ކުރެވިފާ",
         },
         /* i18n: {
-          emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
-        } */
+              emptyMessage: '</i></b>ހުސްކޮށް</b></i>'
+            } */
       },
       /* processing: '- ތައްޔާރުވަނީ -' */ // clashes with zeroRecords on serverside/ajax?
     }, //= =================== End of Internationalisation
@@ -458,10 +463,10 @@ $(document).ready(() => {
         r - processing display element
         B - Buttons
 
-< and > - div element
-<"class" and > - div with a class
-<"#id" and > - div with an ID
-<"#id.class" and > - div with an ID and a class */
+    < and > - div element
+    <"class" and > - div with a class
+    <"#id" and > - div with an ID
+    <"#id.class" and > - div with an ID and a class */
     // "lBpfrtip",
 
     // desktop, goes rtl -->
@@ -478,7 +483,10 @@ $(document).ready(() => {
       // { alert( "Button 2 clicked on" ); } },
       {
         extend: "copy",
-        key: { key: "c", shiftKey: true },
+        key: {
+          key: "c",
+          shiftKey: true,
+        },
         text: "ކޮޕީ",
         messageTop: "ޙަދީޘްއެމްވީ – ނަވަވީގެ 40 ޙަދީޘް", // CHANGE123 clipboard message
         title: "" /* title: "hadithmv.com", */,
@@ -488,9 +496,9 @@ $(document).ready(() => {
         // ====================
         customize(data) {
           /* https://www.rexegg.com/regex-quickstart.html
-                    \t Tab, \r Carriage return character,
-                    \n Line feed character, \r\n Line separator on Windows
-                    */
+                         \t Tab, \r Carriage return character,
+                         \n Line feed character, \r\n Line separator on Windows
+                         */
           // adds string to hadith
           // data = data.replace( /\b([0-9]|[1-4][0-9]|50)\b/g, "No:" );
 
@@ -553,7 +561,7 @@ $(document).ready(() => {
           data = data.replace(/\tރިޔާޟުއްޞާލިޙީނުން/g, '')
 
           data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
+          */
           // data = data.replace(/\tތަޚްރީޖު\t/g, '')
           /*
           data = data.replace(/#\t/g, '')
@@ -570,7 +578,7 @@ $(document).ready(() => {
           //         data = data.replace(/\r\n\r\n/g, '')
 
           data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
+          */
           /*
           data = data.replace(/#\n/g, '')
           data = data.replace(/އަރަބި ސުރުހީ\n/g, '')
@@ -583,13 +591,13 @@ $(document).ready(() => {
           data = data.replace(/ރިޔާޟުއްޞާލިޙީނުން\n/g, '')
 
           data = data.replace(/\t/g, '\n\n') // creates line breaks
-*/
+          */
 
           /* data = data.replace( /hadithmv.com\n/g, "hadithmv.com\n\n" );
-           //adds new line on android */
+                //adds new line on android */
           /*
-               data = data.replace( /\r/g, "" ); //rids windows platform newline
-               data = data.replace( /\t/g, "\n\n" ); */
+                    data = data.replace( /\r/g, "" ); //rids windows platform newline
+                    data = data.replace( /\t/g, "\n\n" ); */
 
           //console.log(JSON.stringify(data)); // json stringify to console
 
@@ -598,7 +606,10 @@ $(document).ready(() => {
         //= ============== edits clipboard regex end, customize: function(data) {
 
         // copies currently displayed and rows
-        exportOptions: { columns: [":visible"], rows: [":visible"] },
+        exportOptions: {
+          columns: [":visible"],
+          rows: [":visible"],
+        },
 
         // copies currently displayed columns and rows,
         // "exportOptions: { modifier:{columns:[":visible"], rows: [":visible"]}"
@@ -607,10 +618,13 @@ $(document).ready(() => {
 
       {
         extend: "searchPanes",
-        key: { key: "f", shiftKey: true },
+        key: {
+          key: "f",
+          shiftKey: true,
+        },
         /* Multiselect on clicking only works with Pfrtip Dom not for Bfrtip Dom how can we use it with bfrtip Dom ?
-        need to put the SearchPanes configuration into the buttons config option.
-        https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
+            need to put the SearchPanes configuration into the buttons config option.
+            https://datatables.net/extensions/searchpanes/examples/customisation/buttonConfig.html */
         config: {
           collapse: false,
           orderable: false,
@@ -628,20 +642,23 @@ $(document).ready(() => {
 
       {
         extend: "colvis",
-        key: { key: "s", shiftKey: true },
+        key: {
+          key: "s",
+          shiftKey: true,
+        },
         text: "އިތުރު ބަރިތައް",
         background: false /* removes background fade animation for collection */,
       }, // end of colvis
 
       // cards code
       /*
-              {
-                "text": "cards",
-                "action": function (e, dt, node) {
-                   $(dt.table().node()).toggleClass("cards");
+                 {
+                   "text": "cards",
+                   "action": function (e, dt, node) {
+                      $(dt.table().node()).toggleClass("cards");
+                   },
                 },
-             },
-      */
+         */
       // cards code END
     ],
   }); // $("#fortyNawawi").DataTable( { - END
@@ -693,13 +710,14 @@ $(document).ready(() => {
         // right swipe */
         table.page("next").draw("page");
       }
-    } /* else { // commented out otherwise detected as useless suspicious code
-      if (yDiff > 0) {
-        // up swipe
-      } else {
-        // down swipe
-      }
-    } */
+    }
+    /* else { // commented out otherwise detected as useless suspicious code
+           if (yDiff > 0) {
+             // up swipe
+           } else {
+             // down swipe
+           }
+         } */
     /* reset values */
     xDown = null;
     yDown = null;
@@ -748,7 +766,7 @@ $(document).ready(() => {
   if (window.matchMedia("(min-width: 900px)").matches) {
     // js media query on desktop
     /* previously $('fnClass').addClass('row-border')
-    $('fnClass').addClass('cards') */
+      $('fnClass').addClass('cards') */
     $(".dataTable").addClass("row-border"), // adds rowborder class
       $("div.dataTables_filter input", table.table().container()).focus(); // autofocus search input on page load
   } else {
@@ -786,40 +804,40 @@ $(document).ready(() => {
   // for some reason, dblclick stopped working for table.row(this).draw().show().select().draw(false) on mobile view, which was previously table.row(this).show().select().draw(false)
   // all this was changed due to an update with searchpanes causing a bug https://datatables.net/forums/discussion/comment/208672/#Comment_208672
   /*var touchtime = 0;
-  $("tbody").on("click", "tr", function () {
-    if (touchtime == 0) {
-      // set first click
-      touchtime = new Date().getTime();
-    } else {
-      // compare first click to this click and see if they occurred within double click threshold
-      if (new Date().getTime() - touchtime < 800) {
-        // double click occurred
-        //alert("double clicked");
-        if (table.search() !== "") {
-          table.search("").draw();
-        }
-        table.row(this).draw().show().select().draw(false);
-        //
-        touchtime = 0;
-      } else {
-        // not a double click so set as a new first click
-        touchtime = new Date().getTime();
-      }
-    }
-  });*/
+   $("tbody").on("click", "tr", function () {
+     if (touchtime == 0) {
+       // set first click
+       touchtime = new Date().getTime();
+     } else {
+       // compare first click to this click and see if they occurred within double click threshold
+       if (new Date().getTime() - touchtime < 800) {
+         // double click occurred
+         //alert("double clicked");
+         if (table.search() !== "") {
+           table.search("").draw();
+         }
+         table.row(this).draw().show().select().draw(false);
+         //
+         touchtime = 0;
+       } else {
+         // not a double click so set as a new first click
+         touchtime = new Date().getTime();
+       }
+     }
+   });*/
 
   /* OLD SEARCH REPLACE BELOW
-  $(".dataTables_filter input")
-    .off()
-    .on("keyup", function () {
-      let str = $(this).val();
-      str = str.replace(
-        /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
-        ""
-      );
-      table.search(str).draw();
-    });
-    */
+   $(".dataTables_filter input")
+     .off()
+     .on("keyup", function () {
+       let str = $(this).val();
+       str = str.replace(
+         /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
+         ""
+       );
+       table.search(str).draw();
+     });
+     */
 
   // removes diacritics and punctuation on key up for search
   $(".dataTables_filter input").on("keyup click", function () {
