@@ -111,9 +111,12 @@
       <table id="example" class="display cards" width="100%"></table>
     </div>
     <script type="text/javascript">
-      // Define variables for table and mobile detection
-      var table;
-      var isMobile = window.innerWidth <= 800;
+      //
+      var table; // Variable to store the DataTable instance
+      var isMobile = window.innerWidth <= 800; // Boolean to check if the current view is mobile
+      //
+      var touchStartX = null; // Variable to store the starting X coordinate of a touch event
+      var touchEndX = null; // Variable to store the ending X coordinate of a touch event
 
       // Remove the defaults
       DataTable.defaults.layout = {
@@ -497,7 +500,7 @@
       }); // Object.assign(DataTable.defaults, { END
       //
 
-      // DESKTOP CONFIG
+      // Desktop configuration
       var desktopConfig = {
         // DESKTOP LAYOUT
         layout: {
@@ -533,7 +536,7 @@
       }; // const desktopConfig  = { END
       //
 
-      // MOBILE CONFIG
+      // Mobile configuration
       var mobileConfig = {
         // MOBILE LAYOUT
         layout: {
@@ -697,7 +700,32 @@
           ...config,
 
           // Add any additional options here
+
+          // Data source for the table //data: dataSet,
+          data: data,
           //
+
+          // Callback function after each draw (including pagination)
+          drawCallback: function () {
+            if (!isMobile) {
+              // Scroll to top on page change in desktop view
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+              // Scroll to the first row on page change in mobile view
+              //var firstRow = this.api().row(0).node();
+              //const firstRow = table.querySelector("tbody tr");
+              /* if (firstRow) {
+                firstRow.scrollIntoView({ behavior: "smooth", block: "start" });
+              }*/
+              $("html, body").animate(
+                { scrollTop: $("#example").offset().top },
+                "smooth"
+              );
+            }
+          },
+          //
+
+          // Specify the columns configuration here
           // columns: [null, null, null, null, null, null, null]
           columns: [
             { title: "#" },
@@ -790,31 +818,6 @@
           ],
 
           //
-          //data: dataSet,
-          data: data,
-          //
-
-          // Callback function after each draw (including pagination)
-          drawCallback: function () {
-            if (!isMobile) {
-              // Scroll to top on desktop
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            } else {
-              // Scroll to first row on mobile
-              //var firstRow = this.api().row(0).node();
-              //const firstRow = table.querySelector("tbody tr");
-              /* if (firstRow) {
-                firstRow.scrollIntoView({ behavior: "smooth", block: "start" });
-              }*/
-              $("html, body").animate(
-                { scrollTop: $("#example").offset().top },
-                "smooth"
-              );
-            }
-          },
-          //
-
-          //
         }); // new DataTable("#example", { END
         //
 
@@ -822,6 +825,14 @@
         if (!isMobile) {
           // https://datatables.net/forums/discussion/comment/124081/#Comment_124081
           $("div.dt-search .dt-input", table.table().container()).focus();
+        }
+        //
+
+        // SWIPE CODE part 1
+        if (isMobile) {
+          enableSwipe(); // Enable swipe functionality in mobile view
+        } else {
+          disableSwipe(); // Disable swipe functionality in desktop view
         }
         //
 
@@ -873,20 +884,55 @@
         };
       }
 
-      // Function to handle window resize events
+      // Resize event handler function to reinitialize DataTable on viewport size change events
       function handleResize() {
         var newIsMobile = window.innerWidth <= 800;
         // Check if we've crossed the mobile/desktop threshold
         if (newIsMobile !== isMobile) {
           isMobile = newIsMobile;
-          // Destroy existing table and reinitialize
-          table.destroy();
-          initializeDataTable();
+          table.destroy(); // Destroy the existing DataTable
+          initializeDataTable(); // Reinitialize DataTable with the new configuration
         }
       }
 
       // Add event listener for window resize, using debounce to optimize performance
       window.addEventListener("resize", debounce(handleResize, 250));
+
+      // SWIPE CODE part 2
+      // Enable swipe functionality by adding touch event listeners
+      function enableSwipe() {
+        const tableElement = document.querySelector("#example");
+        tableElement.addEventListener("touchstart", handleTouchStart, false);
+        tableElement.addEventListener("touchend", handleTouchEnd, false);
+      }
+
+      // Disable swipe functionality by removing touch event listeners
+      function disableSwipe() {
+        const tableElement = document.querySelector("#example");
+        tableElement.removeEventListener("touchstart", handleTouchStart, false);
+        tableElement.removeEventListener("touchend", handleTouchEnd, false);
+      }
+
+      // Handle touch start event
+      function handleTouchStart(event) {
+        touchStartX = event.changedTouches[0].screenX; // Get the X coordinate of touch start
+      }
+
+      // Handle touch end event
+      function handleTouchEnd(event) {
+        touchEndX = event.changedTouches[0].screenX; // Get the X coordinate of touch end
+        handleSwipeGesture(); // Determine the swipe direction and act accordingly
+      }
+
+      // Determine the swipe direction and change the page in DataTable
+      function handleSwipeGesture() {
+        if (touchEndX < touchStartX) {
+          table.page("previous").draw("page"); // Swipe right to go to the previous page
+        }
+        if (touchEndX > touchStartX) {
+          table.page("next").draw("page"); // Swipe left to go to the next page
+        }
+      }
 
       // Initial table setup
       initializeDataTable();
