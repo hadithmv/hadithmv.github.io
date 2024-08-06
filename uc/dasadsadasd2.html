@@ -65,8 +65,31 @@
   <body>
     <table id="example" class="display cards" width="100%"></table>
     <script type="text/javascript">
+      /*
+        this is my datatables js code
+
+what i want is
+
+by default desktopConfig should be applied under
+table = new DataTable("#example", {
+        // config goes here
+
+if screen is mobile, it should be mobileConfig applied instead.
+resizing the screen should also apply the correct config
+
+also on desktop view, when a page change occurs, should scroll to the top of the page
+on mobile view, a page change should scroll to the first row in the table
+resizing the screen should also have it work the way its supposed to be
+
+also on desktop view, should focus on the search input when it starts, but no need to do so on resize, and the code would be something like:
+$("div.dt-search .dt-input", table.table().container()).focus();
+
+as to be efficient and avoid overloads and crashes, there should be debouncing used for the resize related stuff
+*/
       var table;
       var isMobile = window.innerWidth <= 800;
+      var touchStartX = null;
+      var touchEndX = null;
 
       var desktopConfig = {
         layout: {
@@ -122,6 +145,12 @@
         if (!isMobile) {
           $("div.dt-search .dt-input", table.table().container()).focus();
         }
+
+        if (isMobile) {
+          enableSwipe();
+        } else {
+          disableSwipe();
+        }
       }
 
       function debounce(func, wait) {
@@ -142,6 +171,36 @@
           isMobile = newIsMobile;
           table.destroy();
           initializeDataTable();
+        }
+      }
+
+      function enableSwipe() {
+        const tableElement = document.querySelector("#example");
+        tableElement.addEventListener("touchstart", handleTouchStart, false);
+        tableElement.addEventListener("touchend", handleTouchEnd, false);
+      }
+
+      function disableSwipe() {
+        const tableElement = document.querySelector("#example");
+        tableElement.removeEventListener("touchstart", handleTouchStart, false);
+        tableElement.removeEventListener("touchend", handleTouchEnd, false);
+      }
+
+      function handleTouchStart(event) {
+        touchStartX = event.changedTouches[0].screenX;
+      }
+
+      function handleTouchEnd(event) {
+        touchEndX = event.changedTouches[0].screenX;
+        handleSwipeGesture();
+      }
+
+      function handleSwipeGesture() {
+        if (touchEndX < touchStartX) {
+          table.page("next").draw("page");
+        }
+        if (touchEndX > touchStartX) {
+          table.page("previous").draw("page");
         }
       }
 
