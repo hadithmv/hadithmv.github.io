@@ -103,6 +103,14 @@
       div.dt-container div.dt-layout-row div.dt-layout-cell {
         align-items: start;
       }
+      /* jump to row select color  */
+      /*tr.selected*/
+      .dataTable > tbody > tr.selected {
+        --dt-row-selected: initial;
+        --dt-row-selected-text: initial;
+        border-top: 5px solid #136296;
+        border-bottom: 5px solid #136296;
+      }
     </style>
   </head>
   <body>
@@ -745,8 +753,8 @@
               title: "ދިވެހި ލިޔުން",
               data: 5,
             },
-            { title: "ތަޚްރީޖު", data: 6 },
-            { title: "ދިވެހި ތަޚްރީޖު", data: 7 },
+            { title: "ތަޚްރީޖު", data: 6, searchable: false },
+            { title: "ދިވެހި ތަޚްރީޖު", data: 7, searchable: false },
           ],
 
           // https://datatables.net/reference/option/columns
