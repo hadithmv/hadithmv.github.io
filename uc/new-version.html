@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ނަވަވީގެ ސާޅީސް ޙަދީޘް</title>
 
-    <!-- DO THESE LATER -->
+    <!-- DO THESE LATER !!! -->
     <meta name="description" content="" />
 
     <meta property="og:title" content="" />
@@ -101,7 +101,7 @@
          */
       /* */
       /* ====================
-         ORIGINAL CARDS CSS
+         ORIGINAL DT CARDS CSS
          ==================== */
       .cards tbody tr {
         /* float: left; removing this used to center, now using flexbox instead */
@@ -132,14 +132,6 @@
       #example > colgroup > col:not(:nth-child(0)) {
         display: none;
       }
-      /* remove thin border lines above and below rows of td */
-      #example > tbody > tr > td {
-        border: none;
-      }
-      /* right to left https://datatables.net/examples/i18n/rtl.html */
-      .dt-container {
-        direction: rtl;
-      }
       /* aligns row of elements to top rather than center, like buttons etc */
       div.dt-container div.dt-layout-row div.dt-layout-cell {
         align-items: start;
@@ -155,6 +147,18 @@
       /* ensure search bar doesnt overflow the width on mobile */
       .dt-input {
         max-width: 90vw;
+      }
+      /* right to left https://datatables.net/examples/i18n/rtl.html */
+      .dt-container {
+        direction: rtl;
+      }
+      /* need to fix the rtl to ltr on other elements !!! */
+
+      /* remove thin border lines above and below rows of td (or rather, last td?)
+      not enough to just remove "display" class from table */
+      /* #example > tbody > tr > td */
+      div.dt-container.dt-empty-footer tbody > tr:last-child > * {
+        border: none;
       }
       /* */
       /* ====================
@@ -178,9 +182,20 @@
       /* ====================
          DT FONTS CSS
          ==================== */
+      /* paging buttons,
+          search box,
+           functional buttons,
+           searchpanes column title,
+           searchpanes clear button
+           searchbuilder buttons
+           searchbuilder dropdowns */
       .dt-paging-button,
       .dt-input,
-      .dt-button {
+      .dt-button,
+      .dtsp-search,
+      .dtsp-clearAll,
+      .dtsb-button,
+      .dtsb-dropDown {
         font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
         -webkit-font-smoothing: antialiased;
         text-align: right;
@@ -217,7 +232,7 @@
         text-shadow: none;
       }
       /* A better looking default horizontal rule
-         IS IT NEEDED??? */
+         IS IT NEEDED !!! */
       hr {
         display: block;
         height: 1px;
@@ -227,12 +242,12 @@
         padding: 0;
       }
       /* Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers */
-      audio,
+      /*audio,
       canvas,
       iframe,
-      img,
       svg,
-      video {
+      video*/
+      img {
         vertical-align: middle;
       }
       /* fieldset styles, textarea resize */
@@ -264,8 +279,8 @@
   </head>
   <body>
     <div class="container">
-      <!-- cards class,  dir="rtl" -->
-      <table id="example" class="display cards" width="100%"></table>
+      <!-- display cards class,  dir="rtl" -->
+      <table id="example" class="cards" width="100%"></table>
     </div>
     <script type="text/javascript">
       //
@@ -889,7 +904,7 @@
             { title: "#" },
             { title: "އަރަބި ނަމްބަރ" },
             { title: "އަރަބި ސުރުހީ" },
-            { title: "ދިވެހި ސުރުހީ." },
+            { title: "ދިވެހި ސުރުހީ" },
             { title: "އަރަބި ލިޔުން" },
             {
               title: "އަރަބި ފިލިނުޖަހާ",
