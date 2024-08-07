@@ -73,6 +73,8 @@
     <!-- -->
     <script src="https://cdn.datatables.net/plug-ins/2.1.3/api/row().show().min.js"></script>
     <!-- -->
+
+    <!-- -->
     <!--
          <script src="arrays.js"></script> -->
     <script src="json/fortyNawawi.js"></script>
@@ -392,6 +394,42 @@
         /* custom colors */
         color: white;
         background-color: #1f6cb9; /* #136296 #2185d0; */
+      }
+      @media (max-width: 599px) {
+        /* makes search input smaller on mobile */
+        div.dt-container .dt-search input {
+          padding: 0;
+          padding-bottom: 2px;
+          font-size: 90%;
+        }
+        /* makes paginginput total page number smaller on mobile */
+        div.dt-container
+          > div
+          > div
+          > div.dt-inputpaging.dt-paging
+          > div
+          > span {
+          font-size: 80%;
+        }
+        /* removes margin space between rows of dt elements on mobile  */
+        div.dt-container
+          div.dt-layout-row:not(.dt-layout-table)
+          div.dt-layout-cell
+          > * {
+          margin: 0;
+        }
+        /* more of that, especially around the table */
+        div.dt-container div.dt-layout-row {
+          margin: 0;
+        }
+        /* searchbuilders value box on mobile is moved to the left, into the and range, removing its right margin seems to bring it back where it should be */
+        div.dtsb-searchBuilder
+          div.dtsb-group
+          div.dtsb-criteria
+          div.dtsb-inputCont
+          select {
+          margin-right: 0;
+        }
       }
 
       /* pagination buttons - although this cant be seen, it must be set otherwise hover makes an abrupt visual shift */
@@ -782,6 +820,10 @@
         autoWidth: false,
         //
 
+        // https://datatables.net/blog/2019/scroll-to-top
+        // instead of getting the external file, just have the code directly in here
+        // scrollToTop: true,
+
         //
 
         //
@@ -1139,26 +1181,6 @@
           data: data,
           //
 
-          // Callback function after each draw (including pagination)
-          drawCallback: function () {
-            if (!isMobile) {
-              // Scroll to top on page change in desktop view
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            } else {
-              // Scroll to the first row on page change in mobile view
-              //var firstRow = this.api().row(0).node();
-              //const firstRow = table.querySelector("tbody tr");
-              /* if (firstRow) {
-                      firstRow.scrollIntoView({ behavior: "smooth", block: "start" });
-                    }*/
-              $("html, body").animate(
-                { scrollTop: $("#example").offset().top },
-                "smooth"
-              );
-            }
-          },
-          //
-
           // Specify the columns configuration here
           // columns: [null, null, null, null, null, null, null]
           columns: [
@@ -1259,9 +1281,34 @@
         if (!isMobile) {
           // https://datatables.net/forums/discussion/comment/124081/#Comment_124081
           $("div.dt-search .dt-input", table.table().container()).focus();
+
+          // scroll to top on desktop https://datatables.net/blog/2019/scroll-to-top
+          // instead of using the plugin externally, place the code here directly
+          table.on("page", function () {
+            window.scrollTo({
+              top: $(table.table().container()).offset().top,
+              behavior: "smooth",
+            });
+            /*setTimeout(function () {
+              $(document).scrollTop($(table.table().container()).offset().top);
+            }, 10);*/
+          });
+          //
         } else {
+          // SWIPE CODE part 1
           enableSwipe(); // Enable swipe functionality in mobile view
-        } // SWIPE CODE part 1
+          // scroll to top of table row on mobile
+          table.on("page", function () {
+            setTimeout(function () {
+              // https://datatables.net/forums/discussion/comment/175697/#Comment_175697
+              document
+                .querySelector("tbody tr")
+                .scrollIntoView({ behavior: "smooth" });
+              //$(document).scrollTop($(table.table().container()).offset().top);
+              //$(table.querySelector("tbody tr")).offset().top; // not quite working as is, but the selecters with scrollintoview does work
+            }, 10);
+          });
+        }
 
         //
         // changes <input type="text"> type to search type, so that delete icon appears
@@ -1436,4 +1483,25 @@
           $("#example thead").remove();
         },
         //
+
+         /* instead of the below code, just using the code from scroll to top plugin, but not the external plugin, instead
+          // Callback function after each draw (including pagination)
+          drawCallback: function () {
+            if (!isMobile) {
+              // Scroll to top on page change in desktop view
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+              // Scroll to the first row on page change in mobile view
+              //var firstRow = this.api().row(0).node();
+              //const firstRow = table.querySelector("tbody tr");
+              // if (firstRow) {
+              //        firstRow.scrollIntoView({ behavior: "smooth", block: "start" });
+              //      }
+              $("html, body").animate(
+                { scrollTop: $("#example").offset().top },
+                "smooth"
+              );
+            }
+          },
+          //*/
       -->
