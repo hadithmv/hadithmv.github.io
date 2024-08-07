@@ -194,6 +194,22 @@
       div.dt-container > div > div > div.dt-inputpaging.dt-paging {
         white-space: nowrap;
       }
+      /* lessens the gap between colvis menu list, and makes text a littler smaller */
+      .dt-container
+        > div
+        > div
+        > div.dt-buttons
+        > div
+        > div
+        > .buttons-columnVisibility {
+        padding-top: 1px;
+        padding-bottom: 1px;
+        font-size: 90%;
+      }
+      /* brings the tick marks in colvis closer to center */
+      div.dt-button-collection .dt-button-active:after {
+        top: 35%;
+      }
 
       /* ====================
          DT BUTTONS CSS
@@ -240,7 +256,7 @@
         background-color: #1f6cb9; /* #136296 #2185d0; */
       }
 
-      /* pagination buttons hover */
+      /* pagination buttons - although this cant be seen, it must be set otherwise hover makes an abrupt visual shift */
       .dt-container > div > div > div.dt-inputpaging.dt-paging > button {
         border: none;
         border-radius: 0.28571429rem;
@@ -251,7 +267,7 @@
           box-shadow 0.1s ease,
           background 0.1s ease;
       }
-      /* */
+      /* pagination buttons hover */
       .dt-container > div > div > div.dt-inputpaging.dt-paging > button:hover {
         background-image: none; /* otherwise doesnt remove gradient */
         /* cancel out default dt hover styles */
