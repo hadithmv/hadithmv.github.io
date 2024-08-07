@@ -194,14 +194,21 @@
       div.dt-container > div > div > div.dt-inputpaging.dt-paging {
         white-space: nowrap;
       }
-      /* lessens the gap between colvis menu list, and makes text a littler smaller */
+      /* lessens the gap between colvis menu list, as well as pagelength button (mobile) and makes text a littler smaller */
       .dt-container
         > div
         > div
         > div.dt-buttons
         > div
         > div
-        > .buttons-columnVisibility {
+        > .buttons-columnVisibility,
+      .dt-container
+        > div
+        > div
+        > div.dt-buttons
+        > div
+        > div
+        > button.dt-button.button-page-length {
         padding-top: 1px;
         padding-bottom: 1px;
         font-size: 90%;
@@ -209,6 +216,21 @@
       /* brings the tick marks in colvis closer to center */
       div.dt-button-collection .dt-button-active:after {
         top: 35%;
+      }
+      /* same for pagelength button (mobile) */
+      div.dt-button-collection .dt-button-active:after {
+        top: 23%;
+      }
+      /* on mobile, where collection buttons are, lessens font size, centers the dropdown */
+      .dt-container
+        > div
+        > div
+        > div.dt-buttons
+        > div.dt-button-collection.dtb-b3
+        > div
+        > button.dt-button {
+        font-size: 90%;
+        text-align: center;
       }
       /* sets color of colvis list items on hover */
       div.dt-button-collection .dt-button:hover:not(.disabled) {
@@ -288,6 +310,10 @@
         > button.dtsb-logic.dtsb-button
         > div {
         transform: rotate(-180deg);
+      }
+      /* makes copy alert number of rows copied, rtl */
+      #datatables_buttons_info > div {
+        direction: rtl;
       }
       /* changes the clear filters button to match the others, but only when not in disabled state */
       .dtsp-panesContainer
@@ -696,8 +722,8 @@
             // https://datatables.net/reference/button/copyHtml5
             copyTitle: "ކޮޕީ",
             copySuccess: {
-              1: "ކޮޕީވެއްޖެ 1",
-              _: "ކޮޕީވެއްޖެ %d",
+              1: "1 ކޮޕީވެއްޖެ",
+              _: "%d ކޮޕީވެއްޖެ",
             },
           },
           searchBuilder: {
@@ -997,6 +1023,8 @@
                   extend: "collection",
                   text: "⌥ އިތުރު",
                   background: false,
+                  // https://datatables.net/reference/button/collection
+                  //align: "dt-container",
                   buttons: [
                     {
                       //popoverTitle: "column visibility",
