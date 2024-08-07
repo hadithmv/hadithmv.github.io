@@ -210,6 +210,32 @@
       div.dt-button-collection .dt-button-active:after {
         top: 35%;
       }
+      /* sets color of colvis list items on hover */
+      div.dt-button-collection .dt-button:hover:not(.disabled) {
+        color: white;
+        background: #337ab7;
+      }
+      /* since we turned off the colors for select in the regular dt table, its invisible on the selected searchpanes data too, this makes it show again on searchpanes */
+      div.dt-scroll
+        > div.dt-scroll-body
+        > table.dataTable
+        > tbody
+        > tr.selected {
+        color: white;
+        background: #337ab7;
+      }
+      /* lowers the number pill box in searchpanes a little bit, needed to change static position to do it */
+      div.dt-scroll
+        > div.dt-scroll-body
+        > table.dataTable
+        > tbody
+        > tr
+        > td
+        > div
+        > span.dtsp-pill {
+        position: relative;
+        top: 1.5px;
+      }
       /* gets rid of dt background in searchpanes and searchbuilder with css, which cant be removed in config */
       div.dt-button-background {
         background: none; /* hidden interferes with reopening searchpanes and builder */
@@ -238,7 +264,7 @@
         > span.dtsp-name {
         text-align: right;
       }
-      /* makes the value dropdown of searchbuild, right aligned instead of left */
+      /* makes the value dropdown box of searchbuild, right aligned instead of left */
       .dtsb-inputCont {
         text-align: right;
       }
@@ -280,6 +306,12 @@
           color 0.1s ease,
           box-shadow 0.1s ease,
           background 0.1s ease;
+      }
+      /* customizes the keytables focus box */
+      table.dataTable tbody td.focus {
+        outline: 2.5px solid #337ab7;
+        outline-offset: -2px;
+        border-radius: 5px;
       }
 
       /* ====================
