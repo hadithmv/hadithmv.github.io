@@ -1,10 +1,30 @@
 <!doctype html>
 <!-- <html dir="rtl"> -->
 <html>
+  <!-- <html lang=""> -->
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ނަވަވީގެ ސާޅީސް ޙަދީޘް</title>
+
+    <!-- DO THESE LATER -->
+    <meta name="description" content="" />
+
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:image:alt" content="" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.png" />
+
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#fafafa" />
+    <!-- -->
+
+    <!-- EXTERNAL SCRIPTS AND STYLES -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link
       href="https://nightly.datatables.net/css/dataTables.dataTables.css"
@@ -181,7 +201,8 @@
       /* ====================
          HTML BOILER PLATE - Base styles: opinionated defaults
          ==================== */
-      /* updated with hassaan's css */
+      /* https://github.com/h5bp/html5-boilerplate
+      updated with hassaan's css */
       html {
         font-size: 22px; /* 1em */
         line-height: 1.8; /* 1.4 */
@@ -224,6 +245,19 @@
         display: none !important;
       }
       /* clearfix, media queries, print styles */
+      /* ====================
+         OTHER CSS
+         ==================== */
+      html {
+        /* https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior */
+        scroll-behavior: smooth;
+        /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page */
+        overflow-y: scroll;
+        /* Allow long words to be able to break and wrap onto the next line. Prevents long url addresses from breaking page content when it doesnt fit the width. use this instead of text-wrap or break-word where it is needed. */
+        /* overflow-wrap: anywhere; */
+        /* https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap */
+        text-wrap: balance; /*  pretty */
+      }
       /* */
       /* */
     </style>
