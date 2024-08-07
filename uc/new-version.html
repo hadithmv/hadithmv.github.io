@@ -108,7 +108,8 @@
         /*width: 20rem; this narrows the columns too much*/
         margin: 0.5rem;
         border: 0.0625rem solid rgba(0, 0, 0, 0.125);
-        border-radius: 0.25rem;
+        /*border-radius: 0.25rem;*/
+        border-radius: 0.28571429rem;
         /*box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);*/
       }
       .cards tbody td {
@@ -147,6 +148,8 @@
       /* ensure search bar doesnt overflow the width on mobile */
       .dt-input {
         max-width: 90vw;
+        /* indent the text in the search a little, otherwise character cuts off */
+        text-indent: 7px;
       }
       /* right to left https://datatables.net/examples/i18n/rtl.html */
       .dt-container {
@@ -160,12 +163,76 @@
       div.dt-container.dt-empty-footer tbody > tr:last-child > * {
         border: none;
       }
+      /* ensures pagination buttons dont overflow into the next row on mobile */
+      div.dt-container > div > div > div.dt-inputpaging.dt-paging {
+        white-space: nowrap;
+      }
 
       /* ====================
          DT BUTTONS CSS
          ==================== */
-      /* */
+      /* from fomantic ui */
+      /* basic button buttons */
+      .dt-container > div > div > div.dt-buttons > button.dt-button {
+        border: none;
+        background: #e0e1e2 none;
+        /*color: rgba(0, 0, 0, 0.6);*/
+        /*margin: 0 0.25em 0 0;*/ /* commenting this out makes them not stick to each other when stacked */
+        /*line-height: 1em;*/
+        border-radius: 0.28571429rem;
+        /* ? */
+        box-shadow:
+          0 0 0 1px transparent inset,
+          0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+        transition:
+          opacity 0.1s ease,
+          background-color 0.1s ease,
+          color 0.1s ease,
+          box-shadow 0.1s ease,
+          background 0.1s ease;
+        /*font-size: 1rem;*/
+      }
+      /* button buttons fomantic padding for tablet size and up */
+      @media (min-width: 600px) {
+        .dt-container > div > div > div.dt-buttons > button.dt-button {
+          padding: 0.78571429em 1.5em 0.78571429em;
+        }
+      }
+      /* hover button buttons */
+      .dt-container > div > div > div.dt-buttons > button.dt-button:hover {
+        /*background-color: #cacbcd;*/
+        background-image: none; /* otherwise doesnt remove gradient */
+        box-shadow:
+          0 0 0 1px transparent inset,
+          0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+        color: rgba(0, 0, 0, 0.8);
+        /* cancel out default dt hover styles */
+        border: none;
+        /* custom colors */
+        color: white;
+        background-color: #1f6cb9; /* #136296 #2185d0; */
+      }
 
+      /* pagination buttons hover */
+      .dt-container > div > div > div.dt-inputpaging.dt-paging > button {
+        border: none;
+        border-radius: 0.28571429rem;
+        transition:
+          opacity 0.1s ease,
+          background-color 0.1s ease,
+          color 0.1s ease,
+          box-shadow 0.1s ease,
+          background 0.1s ease;
+      }
+      /* */
+      .dt-container > div > div > div.dt-inputpaging.dt-paging > button:hover {
+        background-image: none; /* otherwise doesnt remove gradient */
+        /* cancel out default dt hover styles */
+        border: none;
+        /* custom colors */
+        color: white;
+        background-color: #1f6cb9; /* #136296 #2185d0; */
+      }
       /* ====================
          FONTS CSS
          ==================== */
