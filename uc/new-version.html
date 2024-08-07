@@ -134,9 +134,15 @@
         display: none;
       }
       /* aligns row of elements to top rather than center, like buttons etc */
-      div.dt-container div.dt-layout-row div.dt-layout-cell {
-        align-items: start;
-      }
+      /*div.dt-container div.dt-layout-row div.dt-layout-cell {
+        align-items: center;
+      }*/
+      /* above moves paging info up too, so this moves it back to middle */
+      /*div.dt-container
+        div.dt-layout-row:nth-child(3)
+        div.dt-layout-cell.dt-layout-full {
+        align-items: center;
+      }*/
       /* jump to row select color  */
       /*tr.selected*/
       .dataTable > tbody > tr.selected {
@@ -151,7 +157,7 @@
         /* indent the text in the search a little, otherwise character cuts off */
         text-indent: 7px;
       }
-      /* makes the inputpaging box a little bigger */
+      /* makes the inputpaging box bigger */
       .dt-container
         > div
         > div
@@ -159,7 +165,18 @@
         > div
         > input[type="search"] {
         /*width: 110%;*/
-        font-size: 65%;
+        font-size: 90%;
+      }
+      /* mobile only size */
+      @media (max-width: 599px) {
+        .dt-container
+          > div
+          > div
+          > div.dt-inputpaging.dt-paging
+          > div
+          > input[type="search"] {
+          font-size: 70%;
+        }
       }
       /* right to left https://datatables.net/examples/i18n/rtl.html */
       .dt-container {
