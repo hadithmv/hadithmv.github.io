@@ -160,10 +160,12 @@
       .dt-button {
         font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
         -webkit-font-smoothing: antialiased;
-        /*  text-align: right;
-        direction: rtl; */
+        text-align: right;
+        direction: rtl;
         /*font-size: 100%;*/
       }
+
+      /* */
 
       /* to hide stuff */
       .hiddenClass {
@@ -725,7 +727,8 @@
         // MOBILE LANGUAGE
         language: {
           lengthMenu: "_MENU_",
-          searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"',
+          //searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"',
+          searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"، !މިލަފްޒު ނުލާ ހޯދާ',
           paginate: {
             first: "<< ",
             last: " >>",
@@ -920,7 +923,7 @@
         $(".dt-search .dt-input").on("keyup click", function () {
           var str = $(this).val();
           str = str.replace(
-            /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
+            /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
             ""
           );
           $(this).val(str);
