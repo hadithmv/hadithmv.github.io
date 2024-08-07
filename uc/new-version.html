@@ -162,7 +162,23 @@
         -webkit-font-smoothing: antialiased;
         text-align: right;
         direction: rtl;
-        /*font-size: 100%;*/
+        font-size: 100%;
+      }
+
+      /* font size on dt buttons, as above font size doesnt work without span */
+      .dt-button span {
+        font-size: 120%;
+      } /* avoids oversized buttons overflowing to next row on mobile
+      for-phone-only */
+      @media (max-width: 599px) {
+        .dt-button span {
+          font-size: 100%;
+        }
+      }
+
+      /* ensure search bar doesnt overflow the width on mobile */
+      .dt-input {
+        max-width: 90vw;
       }
 
       /* */
@@ -627,7 +643,7 @@
                   extend: "copy",
                   // https://datatables.net/reference/option/buttons.buttons.titleAttr
                   titleAttr: "copy",
-                  text: "⧉ &nbsp; ކޮޕީ",
+                  text: "⧉ ކޮޕީ",
                   //https://datatables.net/reference/api/buttons.exportInfo()
                   messageBottom: "- ޙަދީޘްއެމްވީ -", //messageTop: "- ޙަދީޘްއެމްވީ -",
                   //title: "" /* default: html page title, prev was: "hadithmv.com", */,
