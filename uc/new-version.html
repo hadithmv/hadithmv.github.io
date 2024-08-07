@@ -210,13 +210,93 @@
       div.dt-button-collection .dt-button-active:after {
         top: 35%;
       }
+      /* gets rid of dt background in searchpanes and searchbuilder with css, which cant be removed in config */
+      div.dt-button-background {
+        background: none; /* hidden interferes with reopening searchpanes and builder */
+        /*visibility: hidden;*/
+        /*display: none !important;*/
+        /*position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        background: radial-gradient(
+          ellipse farthest-corner at center,
+          rgba(0, 0, 0, 0.3) 0%,
+          rgba(0, 0, 0, 0.7) 100%
+        );
+        z-index: 2001;*/
+      }
+      /* makes search pane list content right aligned instead of left  */
+      div.dt-scroll-body
+        > table.dataTable
+        > tbody
+        > tr
+        > td.dtsp-nameColumn
+        > div.dtsp-nameCont
+        > span.dtsp-name {
+        text-align: right;
+      }
+      /* makes the value dropdown of searchbuild, right aligned instead of left */
+      .dtsb-inputCont {
+        text-align: right;
+      }
+      /* indents the searchbuilder data and condition dropdowns a little,
+      followed by value */
+      .dtsb-searchBuilder
+        > div.dtsb-group
+        > div.dtsb-criteria
+        > select.dtsb-dropDown,
+      .dtsb-searchBuilder
+        > div.dtsb-group
+        > div.dtsb-criteria
+        > div.dtsb-inputCont
+        > select {
+        text-indent: 7px;
+      }
+      /* rotates the AND button of searchbuilder to match rtl */
+      .dtsb-searchBuilder
+        > div.dtsb-group
+        > div.dtsb-logicContainer
+        > button.dtsb-logic.dtsb-button
+        > div {
+        transform: rotate(-180deg);
+      }
+      /* changes the clear filters button to match the others, but only when not in disabled state */
+      .dtsp-panesContainer
+        > div.dtsp-titleRow
+        > button.dtsp-clearAll:not(.dtsp-disabledButton) {
+        border: none;
+        background: #e0e1e2 none;
+        border-radius: 0.28571429rem;
+        /* ? */
+        box-shadow:
+          0 0 0 1px transparent inset,
+          0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+        transition:
+          opacity 0.1s ease,
+          background-color 0.1s ease,
+          color 0.1s ease,
+          box-shadow 0.1s ease,
+          background 0.1s ease;
+      }
 
       /* ====================
          DT BUTTONS CSS
          ==================== */
       /* from fomantic ui */
-      /* basic button buttons */
-      .dt-container > div > div > div.dt-buttons > button.dt-button {
+      /* first one is basic button buttons,
+      the rest are searchbuilder buttons */
+      .dt-container > div > div > div.dt-buttons > button.dt-button,
+      .dtsb-searchBuilder > div.dtsb-group > button,
+      .dtsb-searchBuilder > div.dtsb-titleRow > button,
+      .dtsb-searchBuilder
+        > div.dtsb-group
+        > div.dtsb-criteria
+        > div.dtsb-buttonContainer
+        > button,
+      .dtsb-searchBuilder > div.dtsb-group > div.dtsb-logicContainer {
         border: none;
         background: #e0e1e2 none;
         /*color: rgba(0, 0, 0, 0.6);*/
@@ -374,6 +454,10 @@
       .hidden,
       [hidden] {
         display: none !important;
+      }
+      /* Hide visually and from screen readers, but maintain layout  */
+      .invisible {
+        visibility: hidden;
       }
       /* clearfix, media queries, print styles */
       /* ====================
@@ -586,7 +670,7 @@
           },
           searchBuilder: {
             button: "🔍 ކަސްޓަމް ސާޗު",
-            add: "އިތުރުކުރޭ +",
+            add: "+ އިތުރުކުރޭ",
             condition: "ޝަރުތު",
             clearAll: "ރީސެޓް",
             //delete: "Delete",
