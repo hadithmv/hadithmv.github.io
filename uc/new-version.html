@@ -183,8 +183,8 @@
       var table; // Variable to store the DataTable instance
       var isMobile = window.innerWidth <= 800; // Boolean to check if the current view is mobile
       //
-      var touchStartX = null; // Variable to store the starting X coordinate of a touch event
-      var touchEndX = null; // Variable to store the ending X coordinate of a touch event
+      var touchStartX = 0; // Variable to store the starting X coordinate of a touch event
+      var touchEndX = 0; // Variable to store the ending X coordinate of a touch event
 
       // Remove the defaults
       DataTable.defaults.layout = {
@@ -893,16 +893,9 @@
         if (!isMobile) {
           // https://datatables.net/forums/discussion/comment/124081/#Comment_124081
           $("div.dt-search .dt-input", table.table().container()).focus();
-        }
-        //
-
-        // SWIPE CODE part 1
-        if (isMobile) {
-          enableSwipe(); // Enable swipe functionality in mobile view
         } else {
-          disableSwipe(); // Disable swipe functionality in desktop view
-        }
-        //
+          enableSwipe(); // Enable swipe functionality in mobile view
+        } // SWIPE CODE part 1
 
         //
         // changes <input type="text"> type to search type, so that delete icon appears
@@ -939,7 +932,46 @@
         //
       } // function initializeDataTable() { END
 
-      // Debounce function to limit how often a function can fire
+      // Function to add swipe event listeners
+      function enableSwipe() {
+        var tableElement = document.querySelector("#example");
+        tableElement.addEventListener("touchstart", handleTouchStart, false);
+        tableElement.addEventListener("touchend", handleTouchEnd, false);
+      }
+
+      // Function to remove swipe event listeners
+      function disableSwipe() {
+        var tableElement = document.querySelector("#example");
+        tableElement.removeEventListener("touchstart", handleTouchStart, false);
+        tableElement.removeEventListener("touchend", handleTouchEnd, false);
+      }
+
+      // Handle the start of a touch event
+      function handleTouchStart(e) {
+        touchStartX = e.changedTouches[0].screenX;
+      }
+
+      // Handle the end of a touch event
+      function handleTouchEnd(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }
+
+      // Process the swipe gesture
+      function handleSwipe() {
+        var swipeThreshold = 50; // Minimum distance traveled to be considered a swipe
+        var swipeDistance = touchEndX - touchStartX;
+
+        if (swipeDistance > swipeThreshold) {
+          table.page("next").draw("page");
+        } else if (swipeDistance < -swipeThreshold) {
+          // Swipe right: go to previous page
+          table.page("previous").draw("page");
+          // Swipe left: go to next page
+        }
+      }
+
+      // Debounce function to limit the rate at which a function can fire
       function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -952,57 +984,25 @@
         };
       }
 
-      // Resize event handler function to reinitialize DataTable on viewport size change events
+      // Handle window resize events
       function handleResize() {
         var newIsMobile = window.innerWidth <= 800;
-        // Check if we've crossed the mobile/desktop threshold
         if (newIsMobile !== isMobile) {
           isMobile = newIsMobile;
-          table.destroy(); // Destroy the existing DataTable
-          initializeDataTable(); // Reinitialize DataTable with the new configuration
+          if (isMobile) {
+            enableSwipe(); // Enable swipe for mobile view
+          } else {
+            disableSwipe(); // Disable swipe for desktop view
+          }
+          table.destroy(); // Destroy existing table
+          initializeDataTable(); // Reinitialize table with new configuration
         }
       }
 
-      // Add event listener for window resize, using debounce to optimize performance
+      // Add event listener for window resize, using debounce for performance
       window.addEventListener("resize", debounce(handleResize, 250));
 
-      // SWIPE CODE part 2
-      // Enable swipe functionality by adding touch event listeners
-      function enableSwipe() {
-        const tableElement = document.querySelector("#example");
-        tableElement.addEventListener("touchstart", handleTouchStart, false);
-        tableElement.addEventListener("touchend", handleTouchEnd, false);
-      }
-
-      // Disable swipe functionality by removing touch event listeners
-      function disableSwipe() {
-        const tableElement = document.querySelector("#example");
-        tableElement.removeEventListener("touchstart", handleTouchStart, false);
-        tableElement.removeEventListener("touchend", handleTouchEnd, false);
-      }
-
-      // Handle touch start event
-      function handleTouchStart(event) {
-        touchStartX = event.changedTouches[0].screenX; // Get the X coordinate of touch start
-      }
-
-      // Handle touch end event
-      function handleTouchEnd(event) {
-        touchEndX = event.changedTouches[0].screenX; // Get the X coordinate of touch end
-        handleSwipeGesture(); // Determine the swipe direction and act accordingly
-      }
-
-      // Determine the swipe direction and change the page in DataTable
-      function handleSwipeGesture() {
-        if (touchEndX < touchStartX) {
-          table.page("previous").draw("page"); // Swipe right to go to the previous page
-        }
-        if (touchEndX > touchStartX) {
-          table.page("next").draw("page"); // Swipe left to go to the next page
-        }
-      }
-
-      // Initial table setup
+      // Initialize the DataTable
       initializeDataTable();
       //
 
