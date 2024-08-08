@@ -108,11 +108,11 @@
       .cards tbody tr {
         /* float: left; removing this used to center, now using flexbox instead */
         /*width: 20rem; this narrows the columns too much*/
-        margin: 0.5rem;
-        border: 0.0625rem solid rgba(0, 0, 0, 0.125);
-        /*border-radius: 0.25rem;*/
-        border-radius: 0.28571429rem;
         /*box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);*/
+        margin: 0.5rem;
+        /* turned these below off recently to make it more modern */
+        border: 0.0625rem solid rgba(0, 0, 0, 0.125);
+        border-radius: 24px; /* 1em 0.28571429rem 0.25rem; */
       }
       .cards tbody td {
         display: block;
@@ -120,6 +120,27 @@
       /* ====================
          DT CUSTOM CSS
          ==================== */
+      /* on mobile, removes border, radius, padding, and leaves a clean edgeless looks, with only a border bottom double line separator/divider between pages*/
+      /* mobile only size */
+      @media (max-width: 599px) {
+        .dt-container .cards tbody tr {
+          border: none;
+          border-radius: 0;
+          padding: 0;
+          padding-bottom: 52px;
+          border-bottom: 10px double #333;
+        }
+      }
+
+      .cards tbody tr {
+        /* gives some padding around tr, in desktop */
+        padding: 20px;
+        /* border box shadow from fomantic ui, ui message*/
+        /* 0 0 0 1px */
+        box-shadow:
+          0 0 0 0.7px rgba(34, 36, 38, 0.22) inset,
+          0 0 0 0 transparent;
+      }
       /* */
       /* added this to make it one column and centered, it was already centered after colspans were removed */
       .cards tbody {
@@ -132,7 +153,7 @@
         display: none;
       }
       /* removes colgroup cols except the first one, for card view */
-      #example > colgroup > col:not(:nth-child(0)) {
+      .dt-container > colgroup > col:not(:nth-child(0)) {
         display: none;
       }
       /* aligns row of elements to top rather than center, like buttons etc */
@@ -194,7 +215,7 @@
       }
       /* ensures pagination buttons dont overflow into the next row on mobile */
       div.dt-container > div > div > div.dt-inputpaging.dt-paging {
-        white-space: nowrap;
+        /*white-space: nowrap;*/
       }
       /* lessens the gap between colvis menu list, as well as pagelength button (mobile) and makes text a littler smaller */
       .dt-container
@@ -492,18 +513,18 @@
         -webkit-font-smoothing: antialiased;
         text-align: right;
         direction: rtl;
-        font-size: 100%;
+        font-size: 90%; /* 100%; */
       }
       /* font size on dt buttons, as above font size doesnt work without span */
       .dt-button span {
-        font-size: 120%;
+        font-size: 100%; /* 120%; */
       } /* avoids oversized buttons overflowing to next row on mobile
          for-phone-only */
-      @media (max-width: 599px) {
+      /*@media (max-width: 599px) {
         .dt-button span {
           font-size: 100%;
         }
-      }
+      }*/
       /* */
       /* ====================
          HTML BOILER PLATE - Base styles: opinionated defaults
@@ -765,7 +786,7 @@
             },
           },
           searchBuilder: {
-            button: "🔍 ކަސްޓަމް ސާޗު",
+            button: "ކަސްޓަމް 🔍",
             add: "+ އިތުރުކުރޭ",
             condition: "ޝަރުތު",
             clearAll: "ރީސެޓް",
@@ -1141,7 +1162,7 @@
             previous: "< ",
           },
           searchBuilder: {
-            button: "🔍 ކަސްޓަމް",
+            button: "ކަސްޓަމް 🔍",
             add: "އިތުރުކުރޭ +",
             logicAnd: "އަދި &",
             logicOr: "ނޫނީ |",
@@ -1425,6 +1446,52 @@
   </body>
 </html>
 <!-- 
+
+
+      /* unused divider css */
+      /*.cards tbody tr {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.01 13"><polyline fill="none" stroke="%23000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" points="40.01 11.5 30.01 1.5 20.01 11.5 10.01 1.5 0.01 11.5"/></svg>');
+        width: 80%;
+        background-position: center bottom;
+        background-size: 2.64vw auto;
+        background-repeat: repeat-x;
+        display: inline-block;
+        padding-bottom: 2vw;
+        padding: 50px;
+        background-color: red;*/
+        /* */
+        /*border-bottom: 4px double #333;
+        border-bottom: 4px inset #333;
+
+        border-bottom: 2px solid #ccc;
+
+        border-bottom: 4px solid #000;
+        box-shadow:
+          0 2px 0 0 #fff,
+          0 3px 0 0 #000;
+        
+      }*/
+      /*
+      .cards tbody tr td:last-child {
+        position: relative;
+      } .cards tbody tr td:last-child::after {
+        background: #2c3e50;
+        height: 50vh;
+        border-bottom-left-radius: 50% 20%;
+        border-bottom-right-radius: 50% 20%;
+      }*/
+
+
+      -
+      -
+      -
+      -
+      -
+
+
+
+
+
    // https://datatables.net/examples/data_sources/js_array.html
    
          //new DataTable('#example', {
