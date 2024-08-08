@@ -194,7 +194,7 @@
         > div
         > input[type="search"] {
         /*width: 110%;*/
-        font-size: 90%;
+        font-size: 90%; /* 80 */
       }
       /* mobile only size */
       @media (max-width: 599px) {
@@ -204,8 +204,19 @@
           > div.dt-inputpaging.dt-paging
           > div
           > input[type="search"] {
-          font-size: 70%;
+          font-size: 80%; /* 70*/
         }
+      }
+      /* sets font for searchbox placeholder */
+      .dt-container
+        > div
+        > div
+        > div.dt-inputpaging.dt-paging
+        > div
+        > input[type="search"]::placeholder {
+        font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+        text-indent: 5px;
+        font-size: 90%;
       }
       /* right to left https://datatables.net/examples/i18n/rtl.html */
       .dt-container {
@@ -524,7 +535,8 @@
                  searchpanes column title,
                  searchpanes clear button
                  searchbuilder buttons
-                 searchbuilder dropdowns */
+                 searchbuilder dropdowns,
+                 */
       .dt-paging-button,
       .dt-input,
       .dt-button,
