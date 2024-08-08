@@ -85,26 +85,26 @@
     <style>
       /* */
       /*
-         @mixin for-phone-only {
-         @media (max-width: 599px) { @content; }
-         }
-         @mixin for-tablet-portrait-up {
-         @media (min-width: 600px) { @content; }
-         }
-         @mixin for-tablet-landscape-up {
-         @media (min-width: 900px) { @content; }
-         }
-         @mixin for-desktop-up {
-         @media (min-width: 1200px) { @content; }
-         }
-         @mixin for-big-desktop-up {
-         @media (min-width: 1800px) { @content; }
-         }
-         */
+               @mixin for-phone-only {
+               @media (max-width: 599px) { @content; }
+               }
+               @mixin for-tablet-portrait-up {
+               @media (min-width: 600px) { @content; }
+               }
+               @mixin for-tablet-landscape-up {
+               @media (min-width: 900px) { @content; }
+               }
+               @mixin for-desktop-up {
+               @media (min-width: 1200px) { @content; }
+               }
+               @mixin for-big-desktop-up {
+               @media (min-width: 1800px) { @content; }
+               }
+               */
       /* */
       /* ====================
-         ORIGINAL DT CARDS CSS
-         ==================== */
+               ORIGINAL DT CARDS CSS
+               ==================== */
       .cards tbody tr {
         /* float: left; removing this used to center, now using flexbox instead */
         /*width: 20rem; this narrows the columns too much*/
@@ -118,17 +118,23 @@
         display: block;
       }
       /* ====================
-         DT CUSTOM CSS
-         ==================== */
+               DT CUSTOM CSS
+               ==================== */
       /* on mobile, removes border, radius, padding, and leaves a clean edgeless looks, with only a border bottom double line separator/divider between pages*/
       /* mobile only size */
       @media (max-width: 599px) {
         .dt-container .cards tbody tr {
           border: none;
           border-radius: 0;
+          box-shadow: none;
           padding: 0;
-          padding-bottom: 52px;
-          border-bottom: 10px double #333;
+          padding-bottom: 20px;
+          border-bottom: 10px double #333; /* 10px #333 */
+        }
+        /* adds a little space at the top and bottom of the tbody in mobile */
+        .dt-container {
+          margin-top: 15px;
+          margin-bottom: 15px;
         }
       }
 
@@ -158,14 +164,14 @@
       }
       /* aligns row of elements to top rather than center, like buttons etc */
       /*div.dt-container div.dt-layout-row div.dt-layout-cell {
-        align-items: center;
-      }*/
+              align-items: center;
+            }*/
       /* above moves paging info up too, so this moves it back to middle */
       /*div.dt-container
-        div.dt-layout-row:nth-child(3)
-        div.dt-layout-cell.dt-layout-full {
-        align-items: center;
-      }*/
+              div.dt-layout-row:nth-child(3)
+              div.dt-layout-cell.dt-layout-full {
+              align-items: center;
+            }*/
       /* jump to row select color  */
       /*tr.selected*/
       .dataTable > tbody > tr.selected {
@@ -208,7 +214,7 @@
       /* need to fix the rtl to ltr on other elements !!! */
 
       /* remove thin border lines above and below rows of td (or rather, last td?)
-      not enough to just remove "display" class from table */
+            not enough to just remove "display" class from table */
       /* #example > tbody > tr > td */
       div.dt-container.dt-empty-footer tbody > tr:last-child > * {
         border: none;
@@ -287,17 +293,17 @@
         /*visibility: hidden;*/
         /*display: none !important;*/
         /*position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        background: radial-gradient(
-          ellipse farthest-corner at center,
-          rgba(0, 0, 0, 0.3) 0%,
-          rgba(0, 0, 0, 0.7) 100%
-        );
-        z-index: 2001;*/
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: rgba(0, 0, 0, 0.7);
+              background: radial-gradient(
+                ellipse farthest-corner at center,
+                rgba(0, 0, 0, 0.3) 0%,
+                rgba(0, 0, 0, 0.7) 100%
+              );
+              z-index: 2001;*/
       }
       /* makes search pane list content right aligned instead of left  */
       div.dt-scroll-body
@@ -314,7 +320,7 @@
         text-align: right;
       }
       /* indents the searchbuilder data and condition dropdowns a little,
-      followed by value */
+            followed by value */
       .dtsb-searchBuilder
         > div.dtsb-group
         > div.dtsb-criteria
@@ -360,15 +366,32 @@
       table.dataTable tbody td.focus {
         outline: 2.5px solid #337ab7;
         outline-offset: -2px;
-        border-radius: 5px;
+        border-radius: 0.28571429rem; /* 5px; */
+      }
+
+      /* makes the pagelength dropdown selecter rounder like the others */
+      #dt-length-0,
+      #dt-search-0 {
+        border-radius: 0.28571429rem;
+        -webkit-border-radius: 0.28571429rem;
+        -moz-border-radius: 0.28571429rem;
+      }
+      /* same for paginginput box, but setting border radius makes it thicker for some reason, so need to thin the border width here as well, and color it less dark */
+      .dt-inputpaging.dt-paging > div > input[type="search"] {
+        border-radius: 0.28571429rem;
+        -webkit-border-radius: 0.28571429rem;
+        -moz-border-radius: 0.28571429rem;
+        /**/
+        border-width: 1px;
+        border-color: #aaa;
       }
 
       /* ====================
-         DT BUTTONS CSS
-         ==================== */
+               DT BUTTONS CSS
+               ==================== */
       /* from fomantic ui */
       /* first one is basic button buttons,
-      the rest are searchbuilder buttons */
+            the rest are searchbuilder buttons */
       .dt-container > div > div > div.dt-buttons > button.dt-button,
       .dtsb-searchBuilder > div.dtsb-group > button,
       .dtsb-searchBuilder > div.dtsb-titleRow > button,
@@ -474,13 +497,13 @@
         background-color: #1f6cb9; /* #136296 #2185d0; */
       }
       /* ====================
-         FONTS CSS
-         ==================== */
+               FONTS CSS
+               ==================== */
       html {
         font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
         -webkit-font-smoothing: antialiased;
         /*  text-align: right;
-         direction: rtl; */
+               direction: rtl; */
         /*font-size: 120%;*/ /* for tharujamaanu */
       }
       /* merged font */
@@ -493,15 +516,15 @@
         font-display: block; /* previously swap */
       }
       /* ====================
-         DT FONTS CSS
-         ==================== */
+               DT FONTS CSS
+               ==================== */
       /* paging buttons,
-          search box,
-           functional buttons,
-           searchpanes column title,
-           searchpanes clear button
-           searchbuilder buttons
-           searchbuilder dropdowns */
+                search box,
+                 functional buttons,
+                 searchpanes column title,
+                 searchpanes clear button
+                 searchbuilder buttons
+                 searchbuilder dropdowns */
       .dt-paging-button,
       .dt-input,
       .dt-button,
@@ -519,18 +542,18 @@
       .dt-button span {
         font-size: 100%; /* 120%; */
       } /* avoids oversized buttons overflowing to next row on mobile
-         for-phone-only */
+               for-phone-only */
       /*@media (max-width: 599px) {
-        .dt-button span {
-          font-size: 100%;
-        }
-      }*/
+              .dt-button span {
+                font-size: 100%;
+              }
+            }*/
       /* */
       /* ====================
-         HTML BOILER PLATE - Base styles: opinionated defaults
-         ==================== */
+               HTML BOILER PLATE - Base styles: opinionated defaults
+               ==================== */
       /* https://github.com/h5bp/html5-boilerplate
-      updated with hassaan's css */
+            updated with hassaan's css */
       html {
         font-size: 22px; /* 1em */
         line-height: 1.8; /* 1.4 */
@@ -545,7 +568,7 @@
         text-shadow: none;
       }
       /* A better looking default horizontal rule
-         IS IT NEEDED !!! */
+               IS IT NEEDED !!! */
       hr {
         display: block;
         height: 1px;
@@ -556,17 +579,17 @@
       }
       /* Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers */
       /*audio,
-      canvas,
-      iframe,
-      svg,
-      video*/
+            canvas,
+            iframe,
+            svg,
+            video*/
       img {
         vertical-align: middle;
       }
       /* fieldset styles, textarea resize */
       /* ====================
-         HTML BOILER PLATE - Helper classes
-         ==================== */
+               HTML BOILER PLATE - Helper classes
+               ==================== */
       /*  Hide visually and from screen readers  */
       .hidden,
       [hidden] {
@@ -578,8 +601,8 @@
       }
       /* clearfix, media queries, print styles */
       /* ====================
-         OTHER CSS
-         ==================== */
+               OTHER CSS
+               ==================== */
       html {
         /* https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior */
         scroll-behavior: smooth;
