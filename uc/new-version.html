@@ -90,6 +90,52 @@
     <!-- card styles
          https://datatables.net/forums/discussion/comment/228301/#Comment_228301 -->
     <style>
+      /* this is my code. i want .dt-input to have a responsive width, where it resizes according to the available space around it */
+      .dt-layout-row {
+        display: flex;
+        align-items: center; /* Vertically center the items */
+        justify-content: space-between; /* Distribute space between items */
+        flex-wrap: wrap; /* Allow items to wrap if necessary */
+      }
+
+      .dt-layout-cell {
+        flex: 1;
+        display: flex;
+        align-items: center;
+      }
+
+      .dt-search {
+        flex: 1; /* Allow the search input to take available space */
+        margin-right: 10px; /* Add some spacing between elements */
+        /* added this below to give some space to the left of searchbox */
+        margin-left: 20px;
+      }
+
+      .dt-input {
+        width: 100%; /* Ensure the input takes up the full width of its container */
+        box-sizing: border-box; /* Include padding in the width calculation */
+      }
+
+      .dt-paging {
+        display: flex;
+        align-items: center;
+        /* added this below to make it horizontally centered */
+        justify-content: center;
+      }
+
+      .dt-buttons {
+        display: flex;
+        align-items: center;
+        /* added this below to make it horizontally centered */
+        /*justify-content: center;*/
+        /* not too bunched together */
+        justify-content: space-evenly;
+      }
+      /* added */
+      /* added this to restore what seems to be lost margins on copy button  */
+      div.dt-buttons > .dt-button:first-child {
+        margin-left: 0.167em;
+      }
       /* */
       /*
                @mixin for-phone-only {
