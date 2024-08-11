@@ -89,17 +89,6 @@ window.addEventListener("load", adjustTitleFontSize);
 window.addEventListener("resize", adjustTitleFontSize);
 
 // A problem occurs because the side menu is positioned relative to the viewport, but it doesn't account for the dynamic nature of mobile browsers' address bars. Here's how we can fix this: We'll use JavaScript to dynamically adjust the height of the side menu based on the visible viewport height. We'll also need to listen for resize events to handle orientation changes and address bar appearance/disappearance.
-function adjustSideMenuHeight() {
-  const sideMenu = document.getElementById("sideMenu");
-  sideMenu.style.height = `${window.innerHeight}px`;
-}
-
-// Call the function initially
-adjustSideMenuHeight();
-
-// Add event listeners for resize and orientation change
-window.addEventListener("resize", adjustSideMenuHeight);
-window.addEventListener("orientationchange", adjustSideMenuHeight);
 
 //
 //
