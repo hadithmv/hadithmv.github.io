@@ -134,6 +134,12 @@
         margin-bottom: 0;
       }
 
+      /* puts some margins to left and right of full dt rows, otherwise is basically touching the outside of the page as is*/
+      .dt-container > div.dt-layout-row > div.dt-layout-cell.dt-layout-full {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
       /* */
       /* END OF RESPONSIVE SEARCH BAR CODE  */
       /* */
@@ -703,11 +709,13 @@
   <body>
     <div id="navbar-container"></div>
 
-    <div class="container">
-      <!-- display cards class,  dir="rtl"
+    <!-- do i need an outer container?
+     <div class="container"> -->
+    <!-- display cards class,  dir="rtl"
             https://datatables.net/manual/styling/classes -->
-      <table id="example" class="cards" width="100%"></table>
-    </div>
+    <table id="example" class="cards" width="100%"></table>
+    <!-- </div> -->
+
     <script type="text/javascript">
       //
       var table; // Variable to store the DataTable instance
@@ -1217,10 +1225,11 @@
       // IF DESKTOP, NOT MOBILE
       if (!isMobile) {
         // https://datatables.net/forums/discussion/comment/124081/#Comment_124081
-        $("div.dt-search .dt-input", table.table().container()).focus();
+        $("div.dt-search .dt-input").focus();
 
         // scroll to top on desktop https://datatables.net/blog/2019/scroll-to-top
         // instead of using the plugin externally, place the code here directly
+        // it seems this does the same thing as the mobile version of the scroll
         table.on("page", function () {
           window.scrollTo({
             top: $(table.table().container()).offset().top,
