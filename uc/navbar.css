@@ -38,9 +38,12 @@ body {
   justify-content: space-between;
   align-items: center;
   background-color: #0f4c75; /* #333; */
-  padding: 0 20px;
   color: white;
   height: 60px;
+
+  padding: 0 15px; /* Consistent padding */
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .navbar-left,
@@ -49,15 +52,18 @@ body {
   flex: 1;
   display: flex;
   align-items: center;
+
+  justify-content: center; /* Center all items */
+  height: 100%;
 }
 
 .navbar-left {
   justify-content: flex-start;
 }
 
-.navbar-center {
+/*.navbar-center {
   justify-content: center;
-}
+}*/
 
 .navbar-right {
   justify-content: flex-end;
@@ -67,6 +73,10 @@ body {
   width: 48px;
   height: 48px;
   cursor: pointer;
+
+  display: flex; /* Ensure proper alignment */
+  justify-content: center; /* Center all items */
+  height: 100%;
 }
 
 .page-title {
@@ -76,11 +86,41 @@ body {
   text-overflow: ellipsis; /* Add ellipsis for overflowing text */
   max-width: 60vw; /* Limit width to 60% of viewport width */
   direction: rtl;
+
+  text-align: center; /* Ensure center alignment */
+  width: 100%; /* Take full width of container */
 }
 
 .menu-icon {
   font-size: 24px;
   cursor: pointer;
+
+  display: flex; /* Ensure proper alignment */
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Match the width of the site-icon */
+  height: 40px; /* Match the height of the site-icon */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 480px) {
+  .navbar {
+    padding: 0 10px;
+  }
+
+  .site-icon,
+  .menu-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .page-title {
+    font-size: 16px;
+  }
+
+  .menu-icon {
+    font-size: 22px;
+  }
 }
 
 .side-menu {
