@@ -130,6 +130,7 @@
       div.dt-buttons > .dt-button {
         margin-bottom: 0;
       }
+
       /* */
       /* END OF RESPONSIVE SEARCH BAR CODE  */
       /* */
@@ -260,6 +261,8 @@
         > input[type="search"] {
         /*width: 110%;*/
         font-size: 90%; /* 80 */
+        /* fixes width, so doesnt jump around when numbers increase in no of digits */
+        width: 80px !important;
       }
       /* mobile only size */
       @media (max-width: 599px) {
@@ -270,6 +273,8 @@
           > div
           > input[type="search"] {
           font-size: 80%; /* 70*/
+          /* fixes width, so doesnt jump around when numbers increase in no of digits */
+          width: 50px !important;
         }
       }
       /* sets font for searchbox placeholder */
@@ -459,6 +464,8 @@
         border-width: 1px;
         border-color: #aaa;
       }
+
+      /* */
       /* ====================
          DT BUTTONS CSS
          ==================== */
