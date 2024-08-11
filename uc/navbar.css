@@ -192,6 +192,7 @@ html {
   direction: rtl;
   text-align: right; /* Add this line for right-aligned text */
   border-radius: 20px;
+  text-indent: 15px;
 }
 
 .dropdown-content a {
