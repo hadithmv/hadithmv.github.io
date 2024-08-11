@@ -7,12 +7,14 @@ function createNavbar() {
   const navbarHTML = `
                 <nav class="navbar">
                     <div class="navbar-left">
-                        <img src="../img/logo/logo.svg" alt="Site Icon" class="site-icon" onclick="goToHomePage()">
+                        <img src="../img/logo/logo.svg" 
+     title="back to homepage" alt="Site Icon" class="site-icon" onclick="goToHomePage()">
                     </div>
                     <div class="navbar-center">
                         <span class="page-title">${pageTitle}</span>
                     </div>
-                    <div class="navbar-right">
+                    <div class="navbar-right" 
+     title="menu">
                         <span class="menu-icon">☰</span>
                     </div>
                 </nav>
@@ -66,6 +68,20 @@ document.addEventListener("click", function (event) {
     toggleSideMenu();
   }
 });
+
+//
+
+function adjustSideMenuHeight() {
+  const sideMenu = document.getElementById("sideMenu");
+  sideMenu.style.height = `${window.innerHeight}px`;
+}
+
+// Call the function initially
+adjustSideMenuHeight();
+
+// Add event listeners for resize and orientation change
+window.addEventListener("resize", adjustSideMenuHeight);
+window.addEventListener("orientationchange", adjustSideMenuHeight);
 
 //
 //

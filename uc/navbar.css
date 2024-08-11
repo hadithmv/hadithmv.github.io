@@ -55,6 +55,7 @@ body {
   cursor: pointer;
 }
 
+/* old
 .side-menu {
   position: fixed;
   top: 0;
@@ -65,9 +66,28 @@ body {
   padding: 20px;
   box-sizing: border-box;
   z-index: 1000;
-  background-color: #0f4c75; /* #f1f1f1; */
-  color: #eee; /* added; */
-  text-align: right; /* Add this line for right-aligned text */
+  background-color: #0f4c75;
+  color: #eee;
+  text-align: right;
+  direction: rtl;
+}
+*/
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100vh; /* Changed from 100% to 100vh */
+  max-height: 100%; /* Add this line */
+  overflow-y: auto; /* Add this line to make it scrollable if content exceeds height */
+  transition: right 0.3s ease-in-out;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+  background-color: #0f4c75;
+  color: #eee;
+  text-align: right;
   direction: rtl;
 }
 
@@ -162,6 +182,8 @@ the side menu shows itself behind the other body elements in the html
 i want to make the site icon larger, without making the navbar larger
 
 menu scrolls out of view when scrolling
+
+on mobile chrome, which has its own top navbar, when i scroll down, the top navbar of chrome goes up and disappears. in that moment, the bottom of the side menu is gone, and the body html can be seen
 
 
 
