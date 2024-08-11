@@ -1,3 +1,8 @@
+/* https://stackoverflow.com/questions/52848856/100vh-height-when-address-bar-is-shown-chrome-mobile */
+html {
+  height: 100%;
+}
+
 /* CSS styles for the navbar */
 body {
   margin: 0;
