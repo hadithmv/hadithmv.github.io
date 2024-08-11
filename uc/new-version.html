@@ -205,6 +205,7 @@
       }
       /* ensure search bar doesnt overflow the width on mobile */
       .dt-input {
+        width: 310px;
         max-width: 90vw;
         /* indent the text in the search a little, otherwise character cuts off */
         text-indent: 7px;
@@ -219,7 +220,7 @@
         /*width: 110%;*/
         font-size: 90%; /* 80 */
         /* fixes width, so doesnt jump around when numbers increase in no of digits */
-        width: 80px !important;
+        width: 60px !important;
       }
       /* mobile only size */
       @media (max-width: 599px) {
@@ -234,6 +235,17 @@
           width: 50px !important;
         }
       }
+
+      /* make font size of / [total pages] smaller*/
+      .dt-container
+        > div
+        > div
+        > div.dt-inputpaging.dt-paging
+        > div.dt-paging-input
+        > span {
+        font-size: 90%; /* 70*/
+      }
+
       /* sets font for searchbox placeholder */
       .dt-container
         > div
@@ -464,8 +476,36 @@
       /* button buttons fomantic padding for tablet size and up */
       @media (min-width: 600px) {
         .dt-container > div > div > div.dt-buttons > button.dt-button {
-          padding: 0.78571429em 1.5em 0.78571429em;
+          /* this causes buttons to get too wide, making that row overflow 
+          padding: 0.78571429em 1.5em 0.78571429em; */
+          padding-right: 15px;
+          padding-left: 15px;
+          margin-right: 0;
+          margin-left: 0;
         }
+        /* pad just the copy button a bit more, otherwise too narrow */
+        .dt-container
+          > div
+          > div
+          > div.dt-buttons
+          > button.dt-button.buttons-copy.buttons-html5 {
+          padding-right: 25px;
+          padding-left: 25px;
+        }
+      }
+      /* removes side padding of first and last pagination buttons to make them narrower */
+      .dt-container
+        > div.dt-layout-row
+        > div.dt-layout-cell.dt-layout-full
+        > div.dt-inputpaging.dt-paging
+        > button.dt-paging-button:nth-child(1),
+      .dt-container
+        > div.dt-layout-row
+        > div.dt-layout-cell.dt-layout-full
+        > div.dt-inputpaging.dt-paging
+        > button.dt-paging-button:nth-child(5) {
+        padding-right: 0px;
+        padding-left: 0px;
       }
       /* hover button buttons */
       .dt-container > div > div > div.dt-buttons > button.dt-button:hover {
