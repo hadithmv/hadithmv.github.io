@@ -134,9 +134,9 @@ body {
   padding: 20px;
   box-sizing: border-box;
   z-index: 1000;
-  background-color: #0f4c75; /* #f1f1f1; /
-  color: #eee; / added; /
-  text-align: right; / Add this line for right-aligned text */
+  background-color: #0f4c75; /* #f1f1f1; */
+  color: #eee; /* added; */
+  text-align: right; /* Add this line for right-aligned text */
   direction: rtl;
 }
 
