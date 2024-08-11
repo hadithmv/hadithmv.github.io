@@ -30,6 +30,7 @@ body {
 }
 .centerAlignedText {
   text-align: center;
+  direction: rtl;
 }
 
 /* NAVBAR CODE STARTS FROM BELOW */
