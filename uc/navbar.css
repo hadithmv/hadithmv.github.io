@@ -47,31 +47,18 @@ body {
 }
 
 .page-title {
-  font-size: 20px; /* 18px; */
+  font-size: 20px; /* Default size for larger screens */
+  white-space: nowrap; /* Prevent line breaks */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  max-width: 60vw; /* Limit width to 60% of viewport width */
+  direction: rtl;
 }
 
 .menu-icon {
   font-size: 24px;
   cursor: pointer;
 }
-
-/* old
-.side-menu {
-  position: fixed;
-  top: 0;
-  right: -300px;
-  width: 300px;
-  height: 100%;
-  transition: right 0.3s ease-in-out;
-  padding: 20px;
-  box-sizing: border-box;
-  z-index: 1000;
-  background-color: #0f4c75;
-  color: #eee;
-  text-align: right;
-  direction: rtl;
-}
-*/
 
 .side-menu {
   position: fixed;
@@ -90,6 +77,23 @@ body {
   text-align: right;
   direction: rtl;
 }
+
+/* OLD
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  transition: right 0.3s ease-in-out;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+  background-color: #0f4c75;
+  color: #eee;
+  text-align: right;
+  direction: rtl;
+}*/
 
 .side-menu.open {
   right: 0;
