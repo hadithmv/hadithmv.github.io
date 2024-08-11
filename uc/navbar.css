@@ -117,6 +117,7 @@ body {
   right: 0; /* Add this line to align to the right */
   direction: rtl;
   text-align: right; /* Add this line for right-aligned text */
+  border-radius: 20px;
 }
 
 .dropdown-content a {
