@@ -71,18 +71,18 @@ document.addEventListener("click", function (event) {
 //
 
 // This JavaScript function will gradually reduce the font size until the title fits within its container, with a minimum font size of 10px.
-function adjustTitleFontSize() {
+/*function adjustTitleFontSize() {
   const title = document.querySelector(".page-title");
   const container = document.querySelector(".navbar-center");
-  let fontSize = 20; // Start with the maximum font size
+  let fontSize = 20; // prev 20, Start with the maximum font size, if you change this value in css, make sure to also change it here
 
   title.style.fontSize = `${fontSize}px`;
 
   while (title.offsetWidth > container.offsetWidth && fontSize > 10) {
-    fontSize -= 0.5;
+    fontSize -= 0.5; // prev
     title.style.fontSize = `${fontSize}px`;
   }
-}
+}*/
 
 // Call the function initially and on window resize
 window.addEventListener("load", adjustTitleFontSize);
