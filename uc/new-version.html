@@ -483,14 +483,27 @@
           margin-right: 0;
           margin-left: 0;
         }
-        /* pad just the copy button a bit more, otherwise too narrow */
+      }
+
+      /* pad just the copy button a bit more, otherwise too narrow */
+      .dt-container
+        > div
+        > div
+        > div.dt-buttons
+        > button.dt-button.buttons-copy.buttons-html5 {
+        padding-right: 25px;
+        padding-left: 25px;
+      }
+
+      /* adds some left margin to copy button on mobile, that the other buttons seem to have but this doesnt */
+
+      @media (max-width: 599px) {
         .dt-container
           > div
           > div
           > div.dt-buttons
           > button.dt-button.buttons-copy.buttons-html5 {
-          padding-right: 25px;
-          padding-left: 25px;
+          margin-left: 3px;
         }
       }
       /* removes side padding of first and last pagination buttons to make them narrower */
