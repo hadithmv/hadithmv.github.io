@@ -80,7 +80,7 @@ body {
 }
 
 .page-title {
-  font-size: 20px; /* Default size for larger screens */
+  font-size: 22px; /* Default size for larger screens */
   white-space: nowrap; /* Prevent line breaks */
   overflow: hidden; /* Hide overflow */
   text-overflow: ellipsis; /* Add ellipsis for overflowing text */
@@ -115,7 +115,7 @@ body {
   }
 
   .page-title {
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .menu-icon {
