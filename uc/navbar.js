@@ -32,7 +32,7 @@ function createNavbar() {
                             <a href="#">🔄 ސަފުހާ ރީލޯޑު</a>
                             <div class="dropdown-content">
                                 <a onclick="window.location.reload()" href="#">މަޑު ރީލޯޑު</a>
-                                <a onclick="window.location.href=window.location.href.split(&quot;.html&quot;)[0]+&quot;.html&quot;">ހަރު ރީލޯޑު</a>
+                                <a style="cursor: pointer;" onclick="window.location.href=window.location.href.split(&quot;.html&quot;)[0]+&quot;.html&quot;">ހަރު ރީލޯޑު</a>
                             </div>
                         </li>
                     </ul>
