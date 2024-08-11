@@ -23,7 +23,9 @@
     <link href="navbar.css" rel="stylesheet" type="text/css" />
     <!-- -->
     <!-- EXTERNAL SCRIPTS AND STYLES -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+    <!-- above seems to work without issue, ajax and effects are the only things missing, only thing noticable is the lack of opening closing animations
+     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
     <link
       href="https://nightly.datatables.net/css/dataTables.dataTables.css"
       rel="stylesheet"
@@ -77,6 +79,10 @@
          -->
     <script src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js)"></script>
     <script src="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.js"></script>
+    <!-- -->
+
+    <!-- -->
+    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
     <!-- -->
     <!-- -->
     <!--
@@ -787,14 +793,14 @@
             // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
           },
           /*{
-                       // turns \n new line from the data, into breaks in the html
-                       // this has to come after footnote line above
-                       targets: "_all",
-                       render: (data) => data.replace(/(\r\n|\n|\r)/g, "\t<br>"),
-                       // for some reason, unless the above \n is replaced with a \t, there is no way see any separation of a single new line between same text paragraphs.
-                       // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, "\t<br>")) in order for the clipboard to get it right
-                       // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
-                     },*/
+                         // turns \n new line from the data, into breaks in the html
+                         // this has to come after footnote line above
+                         targets: "_all",
+                         render: (data) => data.replace(/(\r\n|\n|\r)/g, "\t<br>"),
+                         // for some reason, unless the above \n is replaced with a \t, there is no way see any separation of a single new line between same text paragraphs.
+                         // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, "\t<br>")) in order for the clipboard to get it right
+                         // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
+                       },*/
           {
             // https://datatables.net/reference/option/columns.searchPanes.show
             // force all cols to show searchpanes by default
@@ -937,11 +943,11 @@
         // cant have input paging here as default config, otherwise shows up inside searchpanes for some reason
 
         /*
-           layout: {
-             top: [
-              "search",
-               "inputPaging",
-         ] }        */
+             layout: {
+               top: [
+                "search",
+                 "inputPaging",
+           ] }        */
 
         // https://datatables.net/reference/option/language
         // LANGUAGE SET DEFAULTS
@@ -961,12 +967,12 @@
             previous: "< ",
           },
           /*
-             paginate: {
-               first: "<< ފުރަތަމަ",
-               last: "ފަހު >>",
-               next: "ކުރިއަށް >",
-               previous: "< ފަހަތަށް",
-             }, */
+               paginate: {
+                 first: "<< ފުރަތަމަ",
+                 last: "ފަހު >>",
+                 next: "ކުރިއަށް >",
+                 previous: "< ފަހަތަށް",
+               }, */
 
           entries: {
             _: "",
@@ -1164,36 +1170,36 @@
           },
         ], // buttons: [ END
         /*columnDefs: [
-                   {
-                     // https://datatables.net/reference/option/columns.searchPanes.show
-                     // force all cols to show searchpanes by default
-                     searchPanes: {
-                       show: true,
-                       //controls: false,
+                     {
+                       // https://datatables.net/reference/option/columns.searchPanes.show
+                       // force all cols to show searchpanes by default
+                       searchPanes: {
+                         show: true,
+                         //controls: false,
+                       },
+                       //targets: [0]
+                       targets: "_all",
                      },
-                     //targets: [0]
-                     targets: "_all",
-                   },
-                 ],*/
+                   ],*/
         //
         // https://datatables.net/examples/basic_init/scroll_y_dynamic.html
         /*paging: false,
-                      scrollCollapse: true,
-                      scrollY: "50vh",*/
+                        scrollCollapse: true,
+                        scrollY: "50vh",*/
         // also consider https://datatables.net/extensions/scroller/
 
         // https://datatables.net/examples/basic_init/hidden_columns.html
         /*columnDefs: [
-                      {
-                          target: 2,
-                          visible: false,
-                          searchable: false
-                      },
-                      {
-                          target: 3,
-                          visible: false
-                      }
-                  ]*/
+                        {
+                            target: 2,
+                            visible: false,
+                            searchable: false
+                        },
+                        {
+                            target: 3,
+                            visible: false
+                        }
+                    ]*/
 
         // https://datatables.net/examples/advanced_init/column_render.html
       }); // Object.assign(DataTable.defaults, { END
@@ -1201,11 +1207,11 @@
 
       // Desktop configuration
       /*var desktopConfig = {
-           // DESKTOP LAYOUT
-           // https://datatables.net/extensions/keytable/
-           keys: true,
-         }; // const desktopConfig  = { END
-         //*/
+             // DESKTOP LAYOUT
+             // https://datatables.net/extensions/keytable/
+             keys: true,
+           }; // const desktopConfig  = { END
+           //*/
 
       // Function to initialize or reinitialize the DataTable
       // function initializeDataTable() {
@@ -1243,14 +1249,12 @@
             behavior: "smooth",
           });
           /*setTimeout(function () {
-                 $(document).scrollTop($(table.table().container()).offset().top);
-               }, 10);*/
-        });
+                   $(document).scrollTop($(table.table().container()).offset().top);
+                 }, 10);*/
+        }); // table.on("page", function () { END
         //
         // IF MOBILE
       } else {
-        // SWIPE CODE part 1
-        enableSwipe(); // Enable swipe functionality in mobile view
         // scroll to top of table row on mobile
         table.on("page", function () {
           setTimeout(function () {
@@ -1261,11 +1265,25 @@
             //$(document).scrollTop($(table.table().container()).offset().top);
             //$(table.querySelector("tbody tr")).offset().top; // not quite working as is, but the selecters with scrollintoview does work
           }, 10);
+          // OLD SWIPE CODE PART 1
           // moved this swipe enable up here, and disabled it where it was originally from
-          enableSwipe(); // Enable swipe for mobile view
+          //enableSwipe(); // Enable swipe for mobile view
           //
+        }); // table.on("page", function () { END
+
+        // NEW SWIPE CODE
+        Hammer(example).on("swipeleft", function () {
+          table.page("previous").draw("page");
         });
-      }
+        Hammer(document.getElementById("example")).on(
+          "swiperight",
+          function () {
+            table.page("next").draw("page");
+          }
+        );
+
+        //
+      } // if (!isMobile) { } else { END
 
       //
       // changes <input type="text"> type to search type, so that delete icon appears
@@ -1303,68 +1321,68 @@
       //} // function initializeDataTable() { END
 
       // Function to add swipe event listeners
-      function enableSwipe() {
-        var tableElement = document.querySelector("#example");
-        tableElement.addEventListener("touchstart", handleTouchStart, false);
-        tableElement.addEventListener("touchend", handleTouchEnd, false);
-      }
-      // Function to remove swipe event listeners
-      /*function disableSwipe() {
-           var tableElement = document.querySelector("#example");
-           tableElement.removeEventListener("touchstart", handleTouchStart, false);
-           tableElement.removeEventListener("touchend", handleTouchEnd, false);
-         }*/
-      // Handle the start of a touch event
-      function handleTouchStart(e) {
-        touchStartX = e.changedTouches[0].screenX;
-      }
-      // Handle the end of a touch event
-      function handleTouchEnd(e) {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-      }
-
-      // Process the swipe gesture
-      function handleSwipe() {
-        var swipeThreshold = 40; // 50 - Minimum distance traveled to be considered a swipe
-        var swipeDistance = touchEndX - touchStartX;
-
-        if (swipeDistance > swipeThreshold) {
-          table.page("next").draw("page");
-        } else if (swipeDistance < -swipeThreshold) {
-          // Swipe right: go to previous page
-          table.page("previous").draw("page");
-          // Swipe left: go to next page
+      /*function enableSwipe() {
+          var tableElement = document.querySelector("#example");
+          tableElement.addEventListener("touchstart", handleTouchStart, false);
+          tableElement.addEventListener("touchend", handleTouchEnd, false);
         }
-      }
+        // Function to remove swipe event listeners
+        /*function disableSwipe() {
+             var tableElement = document.querySelector("#example");
+             tableElement.removeEventListener("touchstart", handleTouchStart, false);
+             tableElement.removeEventListener("touchend", handleTouchEnd, false);
+           }
+        // Handle the start of a touch event
+        function handleTouchStart(e) {
+          touchStartX = e.changedTouches[0].screenX;
+        }
+        // Handle the end of a touch event
+        function handleTouchEnd(e) {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        }
+
+        // Process the swipe gesture
+        function handleSwipe() {
+          var swipeThreshold = 40; // 50 - Minimum distance traveled to be considered a swipe
+          var swipeDistance = touchEndX - touchStartX;
+
+          if (swipeDistance > swipeThreshold) {
+            table.page("next").draw("page");
+          } else if (swipeDistance < -swipeThreshold) {
+            // Swipe right: go to previous page
+            table.page("previous").draw("page");
+            // Swipe left: go to next page
+          }
+        }*/
 
       // Debounce function to limit the rate at which a function can fire
       /*function debounce(func, wait) {
-           let timeout;
-           return function executedFunction(...args) {
-             const later = () => {
+             let timeout;
+             return function executedFunction(...args) {
+               const later = () => {
+                 clearTimeout(timeout);
+                 func(...args);
+               };
                clearTimeout(timeout);
-               func(...args);
+               timeout = setTimeout(later, wait);
              };
-             clearTimeout(timeout);
-             timeout = setTimeout(later, wait);
-           };
-         }*/
+           }*/
 
       // Handle window resize events
       /*function handleResize() {
-           var newIsMobile = window.innerWidth <= 800;
-           if (newIsMobile !== isMobile) {
-             isMobile = newIsMobile;
-             if (isMobile) {
-               enableSwipe(); // Enable swipe for mobile view
-             } else {
-               disableSwipe(); // Disable swipe for desktop view
+             var newIsMobile = window.innerWidth <= 800;
+             if (newIsMobile !== isMobile) {
+               isMobile = newIsMobile;
+               if (isMobile) {
+                 enableSwipe(); // Enable swipe for mobile view
+               } else {
+                 disableSwipe(); // Disable swipe for desktop view
+               }
+               //table.destroy(); // Destroy existing table
+               //initializeDataTable(); // Reinitialize table with new configuration
              }
-             //table.destroy(); // Destroy existing table
-             //initializeDataTable(); // Reinitialize table with new configuration
-           }
-         }*/
+           }*/
 
       // Add event listener for window resize, using debounce for performance
       //window.addEventListener("resize", debounce(handleResize, 250));
