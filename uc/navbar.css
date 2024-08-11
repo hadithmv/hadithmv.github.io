@@ -16,10 +16,23 @@ body {
 .container {
   /*max-width: 1080px; */ /* 800px,  Adjust the maximum width as needed */
   margin: 0 auto;
-
   min-width: 200px;
   max-width: 980px;
+  /* */
+  text-align: right; /* center */
 }
+
+/* HELPER CLASSES */
+
+.justifiedText {
+  text-align: justify;
+  direction: rtl;
+}
+.centerAlignedText {
+  text-align: center;
+}
+
+/* NAVBAR CODE STARTS FROM BELOW */
 
 /* CSS styles for the navbar */
 body {
