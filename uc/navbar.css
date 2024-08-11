@@ -1,0 +1,168 @@
+/* CSS styles for the navbar */
+body {
+  margin: 0;
+  padding-top: 60px; /* Add this line */
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0f4c75; /* #333; */
+  padding: 0 20px;
+  color: white;
+  height: 60px;
+}
+
+.navbar-left,
+.navbar-center,
+.navbar-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-left {
+  justify-content: flex-start;
+}
+
+.navbar-center {
+  justify-content: center;
+}
+
+.navbar-right {
+  justify-content: flex-end;
+}
+
+.site-icon {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+}
+
+.page-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.menu-icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 300px;
+  height: 100%;
+  transition: right 0.3s ease-in-out;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+  background-color: #0f4c75; /* #f1f1f1; */
+  color: #eee; /* added; */
+  text-align: right; /* Add this line for right-aligned text */
+  direction: rtl;
+}
+
+.side-menu.open {
+  right: 0;
+}
+
+.side-menu-close {
+  font-size: 24px;
+  cursor: pointer;
+  color: #eee; /* added; */
+  text-align: left; /* Add this line for right-aligned text. prev right */
+}
+
+.side-menu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.side-menu ul li {
+  display: block; /* Ensure each li takes full width */
+  margin-bottom: 15px; /* increased from 10 */
+  padding-right: 5px; /* added like a little indent */
+}
+
+.side-menu ul li a {
+  text-decoration: none;
+  color: #eee; /* #333; */
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  text-align: right; /* Add this line */
+  direction: rtl;
+  display: block; /* Make dropdown take full width */
+  width: 100%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #0d4266; /* #f9f9f9; */
+  min-width: 160px;
+  /*box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);*/ /* cleaner without shadows */
+  z-index: 1;
+  right: 0; /* Add this line to align to the right */
+  direction: rtl;
+  text-align: right; /* Add this line for right-aligned text */
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* CLAUDE
+
+code for me a nice modern top navbar
+
+it should be responsive
+
+at the top left should be the site icon
+
+at the middle should be the text of the page, should be same as title of the html
+
+on the left should be something like a hamburger menu icon
+
+on the navbar, clicking on the top left site icon should take me to the home page
+
+clicking anywhere else on the navbar, should open the side menu from the right
+
+it should have lines of text, links etc. right aligned. it should also have dropdowns that when clicked, open a dropdown list.
+
+this navbar should be such that, i can place its js code on a page, and it will create the navbar on that page, using html elements
+
+write me the code, the html, the css, the js, for this
+
+...
+
+clicking the hamburger doesnt open the side menu. it should open the side menu just like clicking anywhere else on the navbar. right now hamburger is clicked like it is something different from navbar. it is a part of navbar and clicking the hamburger icon should behave as if navbar was clicked
+
+the side menu shows itself behind the other body elements in the html
+
+i want to make the site icon larger, without making the navbar larger
+
+menu scrolls out of view when scrolling
+
+
+
+*/

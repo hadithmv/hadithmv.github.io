@@ -19,6 +19,9 @@
     <link rel="manifest" href="site.webmanifest" />
     <meta name="theme-color" content="#fafafa" />
     <!-- -->
+    <script src="navbar.js"></script>
+    <link href="navbar.css" rel="stylesheet" type="text/css" />
+    <!-- -->
     <!-- EXTERNAL SCRIPTS AND STYLES -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link
@@ -698,6 +701,8 @@
     </style>
   </head>
   <body>
+    <div id="navbar-container"></div>
+
     <div class="container">
       <!-- display cards class,  dir="rtl"
             https://datatables.net/manual/styling/classes -->
@@ -1012,7 +1017,7 @@
         stateDuration: 86400,
         //
         // https://datatables.net/reference/option/ordering
-        //ordering: false,
+        ordering: false,
         //
         // https://datatables.net/reference/option/orderClasses
         orderClasses: false,
