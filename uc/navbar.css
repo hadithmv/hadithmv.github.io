@@ -255,7 +255,7 @@ body {
   position: fixed;
   top: 0;
   right: -300px;
-  width: 300px;
+  width: 275px; /* 300 */
   /*height: 100%;*/
   height: 100vh; /* fixes chrome address bar gap issue https://bokand.github.io/demo/urlbarsize.html */
   transition: right 0.3s ease-in-out;
