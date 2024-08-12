@@ -43,7 +43,7 @@ a::after {
   width: 100%;
   height: 2px;
   left: 0;
-  bottom: -2px;
+  bottom: -2px; /* -2px */
   transform: scaleX(0);
   transform-origin: bottom right;
   transition: transform 0.3s ease-out;
@@ -142,7 +142,7 @@ h3 {
 
 .customButtons:hover {
   color: white;
-  background: #337ab7;
+  background: #1f6cb9;
   transform: scale(1.15);
 }
 /*
