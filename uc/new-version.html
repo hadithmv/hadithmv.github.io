@@ -2938,6 +2938,69 @@
   </body>
 </html>
 <!-- 
+
+
+// SCROLL TO TOP BUTTON
+<button id="scrollToTopBtn" title="Go to top">➤</button>
+    <style>
+      #scrollToTopBtn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 100;
+        width: 40px;
+        height: 40px;
+        border: 2px solid black; /* Outline or border */
+        background-color: white; /* White background */
+        color: black; /* Black arrow color */
+        cursor: pointer;
+        border-radius: 50%; /* Make the button circular */
+        font-size: 18px; /* Adjust font size */
+        display: flex;
+        align-items: center; /* Center the arrow vertically */
+        justify-content: center; /* Center the arrow horizontally */
+        transform: rotate(270deg); /* Rotate the arrow to face up */
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+      /* Slight background on hover
+      #scrollToTopBtn:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }  */
+
+      #scrollToTopBtn.show {
+        opacity: 0.8; /* prev 1 */
+      }
+    </style>
+    <script>
+      // Get the button
+      let scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+      // When the user scrolls down a set px from the top of the document, show the button
+      // prev 100px
+      window.onscroll = function () {
+        if (
+          document.body.scrollTop > 1000 ||
+          document.documentElement.scrollTop > 1000
+        ) {
+          scrollToTopBtn.classList.add("show");
+        } else {
+          scrollToTopBtn.classList.remove("show");
+        }
+      };
+
+      // When the user clicks on the button, scroll to the top of the document
+      scrollToTopBtn.addEventListener("click", function () {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+    </script>
+
+    //
+
+    
    // https://datatables.net/examples/layout/grid.html
                {
                  div: {
