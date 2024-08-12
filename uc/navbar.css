@@ -8,10 +8,19 @@ https://github.com/sindresorhus/github-markdown-css/blob/main/index.html */
   padding: 45px;
 }*/
 
+html {
+  font-size: 22px;
+}
 /* resets body and centers container */
 body {
   margin: 0;
   padding: 0;
+  /* */
+
+  -webkit-font-smoothing: antialiased;
+
+  line-height: 1.8;
+  color: #0a0a0a;
 }
 .container {
   /*max-width: 1080px; */ /* 800px,  Adjust the maximum width as needed */
@@ -19,18 +28,41 @@ body {
   min-width: 200px;
   max-width: 980px;
   /* */
+}
+
+.footer {
+  padding: 3em 5em;
   text-align: right; /* center */
+  direction: rtl;
+}
+
+hr.customHR {
+  border: none;
+  border-bottom: 2px solid #d3d3d3;
+}
+
+p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+h3 {
+  font-size: 23px;
+
+  margin-top: 1.5em;
+  /*margin-top: 1em;*/
+  margin-bottom: 1em;
 }
 
 /* HELPER CLASSES */
 
 .justifiedText {
   text-align: justify;
-  direction: rtl;
+  /*direction: rtl;*/
 }
 .centerAlignedText {
   text-align: center;
-  direction: rtl;
+  /*direction: rtl;*/
 }
 
 /* NAVBAR CODE STARTS FROM BELOW */
