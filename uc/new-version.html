@@ -2786,9 +2786,21 @@
         table.on("page", function () {
           setTimeout(function () {
             // https://datatables.net/forums/discussion/comment/175697/#Comment_175697
-            document
+            // other code works, but navbar hides the top of tr
+            const trElement = document.querySelector("tbody tr");
+            const navbarHeight = document.querySelector(".navbar").offsetHeight;
+
+            const trPosition =
+              trElement.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = trPosition - navbarHeight;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+            /*document
               .querySelector("tbody tr")
-              .scrollIntoView({ behavior: "smooth" });
+              .scrollIntoView({ behavior: "smooth" });*/
             //$(document).scrollTop($(table.table().container()).offset().top);
             //$(table.querySelector("tbody tr")).offset().top; // not quite working as is, but the selecters with scrollintoview does work
           }, 10);
