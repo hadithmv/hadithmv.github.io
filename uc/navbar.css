@@ -314,6 +314,7 @@ html {
   position: absolute;
   background-color: #0d4266; /* #f9f9f9; */
   min-width: 160px;
+  /*width: 200px;*/
   /*box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);*/ /* cleaner without shadows */
   z-index: 1;
   right: 0; /* Add this line to align to the right */
@@ -321,13 +322,15 @@ html {
   text-align: right; /* Add this line for right-aligned text */
   border-radius: 20px;
   text-indent: 15px;
+  cursor: pointer;
 }
 
 .dropdown-content a {
   color: black;
   padding: 12px 16px;
   text-decoration: none !important;
-  display: block;
+  display: grid; /* block */
+  cursor: pointer;
 }
 
 .dropdown:hover .dropdown-content {
