@@ -29,9 +29,10 @@ function createNavbar() {
                         <li class="versionNo" onclick="openDiv()">⚙️ އިސްދާރު: v${hmvVersionNo}</li>
                         <li><a href="https://t.me/ashraafmv">ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a></li>
                         <li style="font-size: 90%">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</li>
+                        <li style="cursor: pointer;" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">▲ މައްޗަށް ސްކްރޯލްކުރޭ</li>
 
                         <li class="dropdown">
-                            <a href="#">🔄 ސަފުހާ ރީލޯޑު</a>
+                            <a href="#">↺ ސަފުހާ ރީލޯޑު</a>
                             <div class="dropdown-content">
                                 <a onclick="window.location.reload()" href="#">މަޑު ރީލޯޑު</a>
                                 <a style="cursor: pointer;" onclick="window.location.href=window.location.href.split(&quot;.html&quot;)[0]+&quot;.html&quot;">ހަރު ރީލޯޑު</a>
