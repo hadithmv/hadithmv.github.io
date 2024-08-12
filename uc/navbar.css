@@ -35,6 +35,12 @@ body {
   text-align: right; /* center */
   direction: rtl;
 }
+@media screen and (max-width: 599px) {
+  .footer {
+    padding: 1em;
+    margin: 0 0 2em;
+  }
+}
 
 hr.customHR {
   border: none;
@@ -65,7 +71,9 @@ h3 {
   /*direction: rtl;*/
 }
 
-/* NAVBAR CODE STARTS FROM BELOW */
+/*
+NAVBAR CODE STARTS FROM BELOW
+*/
 
 /* CSS styles for the navbar */
 body {
@@ -85,7 +93,7 @@ body {
   align-items: center;
   background-color: #0f4c75; /* #333; */
   color: white;
-  height: 60px;
+  height: 50px; /* 60 */
 
   padding: 0 15px; /* Consistent padding */
   box-sizing: border-box;
@@ -116,8 +124,8 @@ body {
 }
 
 .site-icon {
-  width: 48px;
-  height: 48px;
+  width: 46px; /* 48 40 */
+  height: 46px;
   cursor: pointer;
 
   display: flex; /* Ensure proper alignment */
