@@ -1,4 +1,8 @@
-/* CSS styles for the navbar */
+/* CSS styles for the navbar
+add <div id="navbar-container"></div>
+to html, and link to the js
+*/
+
 html body {
   padding-top: 47px; /* 60px; */
 }
