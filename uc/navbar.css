@@ -95,6 +95,9 @@ h3 {
   text-align: center;
   /*direction: rtl;*/
 }
+.rightAlignedText {
+  text-align: right;
+}
 
 /* CUSTOM STYLES */
 .customButtons {
