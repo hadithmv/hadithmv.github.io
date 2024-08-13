@@ -3,27 +3,26 @@
 
 -- LOAD PRIORTY IN COMB: --
 
-jquery.js (UGLIFY)	3.7.1	https://code.jquery.com/jquery-3.7.1.slim.min.js
+jquery.js (UGLIFY)	3.7.1	https://code.jquery.com/jquery-3.7.1.slim.js
 
-dataTables.js (CLOSURE+UGLIFY)	2.1.3	https://cdn.datatables.net/2.1.3/js/dataTables.min.js
+dataTables.js (CLOSURE+UGLIFY)	2.1.3	https://cdn.datatables.net/2.1.3/js/dataTables.js
 
 
-dataTables.inputPaging.js (CLOSURE+UGLIFY)	2.1.3	https://cdn.datatables.net/plug-ins/2.1.3/features/inputPaging/dist/dataTables.inputPaging.min.js
+dataTables.inputPaging.js (CLOSURE+UGLIFY)	2.1.3	https://datatables.net/blog/2024/inputPaging
 
-dataTables.buttons.js (CLOSURE+UGLIFY)	3.1.1	https://cdn.datatables.net/buttons/3.1.1/js/buttons.colVis.min.js
+dataTables.buttons.js (CLOSURE+UGLIFY)	3.1.1	https://cdn.datatables.net/buttons/3.1.1/js/buttons.colVis.js
 
-buttons.colVis.js (CLOSURE+UGLIFY)	3.1.1	https://cdn.datatables.net/plug-ins/3.1.1/features/buttons/dist/buttons.colVis.min.js
+buttons.colVis.js (CLOSURE+UGLIFY)	3.1.1	https://cdn.datatables.net/plug-ins/3.1.1/features/buttons/dist/buttons.colVis.js
 
-buttons.html5.js (CLOSURE+UGLIFY)	3.1.1	https://cdn.datatables.net/buttons/3.1.1/js/buttons.html5.min.js
+buttons.html5.js (CLOSURE+UGLIFY)	3.1.1	https://cdn.datatables.net/buttons/3.1.1/js/buttons.html5.js
 
-dataTables.searchbuilder.js (CLOSURE+UGLIFY)	1.7.1	https://cdn.datatables.net/searchbuilder/1.7.1/js/dataTables.searchBuilder.min.js
+dataTables.keyTable.js (CLOSURE+UGLIFY)	2.12.1	https://cdn.datatables.net/keytable/2.12.1/js/dataTables.keyTable.js
 
-dataTables.searchPanes.js (CLOSURE+UGLIFY)	2.3.1	https://cdn.datatables.net/searchbuilder/2.3.1/js/dataTables.searchPanes.min.js
+dataTables.searchbuilder.js (CLOSURE+UGLIFY)	1.7.1	https://cdn.datatables.net/searchbuilder/1.7.1/js/dataTables.searchBuilder.js
 
-dataTables.select.js (CLOSURE+UGLIFY)	2.0.4	https://cdn.datatables.net/select/2.0.4/js/dataTables.select.min.js
-      
-dataTables.keyTable.js (CLOSURE+UGLIFY)	2.12.1	https://cdn.datatables.net/keytable/2.12.1/js/dataTables.keyTable.min.js
+dataTables.searchPanes.js (CLOSURE+UGLIFY)	2.3.1	https://cdn.datatables.net/searchbuilder/2.3.1/js/dataTables.searchPanes.js
 
+dataTables.select.js (CLOSURE+UGLIFY)	2.0.4	https://cdn.datatables.net/select/2.0.4/js/dataTables.select.js
 
 row().show().js (CLOSURE+UGLIFY)	2.1.3	https://datatables.net/plug-ins/api/row().show()
 
@@ -40,9 +39,8 @@ dataTables.searchHighlight.min.js (UGLIFY)	2.1.3	https://github.com/bartaz/sandb
 
 
 --------------------------
-
-
 OLD CODE:
+--------------------------
 
 jquery.mark.js (CLOSURE+UGLIFY)	9.0.0	https://github.com/julkue/mark.js/blob/master/dist/jquery.mark.js
 
@@ -51,24 +49,8 @@ datatables.mark.js (UGLIFY)	3.0.0	https://github.com/DataTables/Plugins/blob/43c
 mark js is 18.48 kb
 while search highlight js is 2.38 kb, so sticking with that one instead
 
-    
-
-
-
-
-
-
 
 -Critical
-
-
 -Non critical
-
-
-dataTables.keyTable.min.js	2.12.0	(not using its css, put it in hmv-styles)
-dataTables.select.min.js	2.0.0	(not using its css, not used at all?)
-
-https://github.com/julkue/mark.js/blob/master/dist/jquery.mark.min.js (prev julmot)
-
 
 **hmv-script.js	(not originally minified, so minify w closure)
