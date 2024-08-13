@@ -268,6 +268,18 @@ body {
   direction: rtl;
 }
 
+/* Hide Scrollbars But Keep Functionality */
+/* Hide scrollbar for Chrome, Safari and Opera */
+.side-menu::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.side-menu {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  overflow-y: scroll; /* Add the ability to scroll */
+}
+
 /* https://stackoverflow.com/questions/52848856/100vh-height-when-address-bar-is-shown-chrome-mobile 
 html {
   height: 100%;
@@ -287,6 +299,8 @@ html {
 .side-menu ul {
   list-style-type: none;
   padding: 0;
+  /* */
+  margin: 0;
 }
 
 .side-menu ul li {
@@ -307,6 +321,11 @@ html {
   direction: rtl;
   display: block; /* Make dropdown take full width */
   width: 100%;
+  /* */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 .dropdown-content {
