@@ -41,16 +41,12 @@
     <meta name="theme-color" content="#29434e" />
     <!-- -->
     <!-- -->
-    <!-- -->
-    <!-- -->
     <script src="navbar.js"></script>
     <link href="navbar.css" rel="stylesheet" type="text/css" />
     <!-- -->
-
     <link rel="stylesheet" href="../css/beta/COMB-DT-CSS.min.css" />
     <!-- defer -->
     <script src="../js/resc/beta/COMB-DT-JS.min.js"></script>
-
     <script src="json/fortyNawawi.js"></script>
     <!-- -->
     <!-- -->
@@ -58,7 +54,6 @@
          https://datatables.net/forums/discussion/comment/228301/#Comment_228301 -->
     <style>
       /* RESPONSIVE SEARCH BAR CODE  */
-
       /* END OF RESPONSIVE SEARCH BAR CODE  */
       /* */
       /*
@@ -99,17 +94,17 @@
          ==================== */
       /* mark js highlight color */
       /*mark {
-        background: #82b8fa;
-        color: black;
-      } prev background: #b3d4fc */
+         background: #82b8fa;
+         color: black;
+         } prev background: #b3d4fc */
       table.dataTable span.highlight {
         background-color: #82b8fa; /* ffff88 */
         border-radius: 0.28571429rem;
       }
       /*table.dataTable span.column_highlight {
-        background-color: #ffcc99;
-        border-radius: 0.28571429rem;
-      }*/
+         background-color: #ffcc99;
+         border-radius: 0.28571429rem;
+         }*/
       /* hide first searchbar on tablet and up */
       @media (min-width: 600px) {
         .dt-search:has(#dt-search-0) {
@@ -213,7 +208,6 @@
           width: 50px !important;
         }
       }
-
       /* make font size of / [total pages] smaller*/
       .dt-container
         > div
@@ -223,7 +217,6 @@
         > span {
         font-size: 90%; /* 70*/
       }
-
       /* sets font for searchbox placeholder */
       .dt-container
         > div
@@ -416,7 +409,6 @@
         margin-left: 10px;
         /*margin-right: 10px;*/ /* removed this otherwise all of it is moved from the right for some reason */
       }
-
       /* */
       /* ====================
          DT BUTTONS CSS
@@ -455,14 +447,13 @@
       @media (min-width: 600px) {
         .dt-container > div > div > div.dt-buttons > button.dt-button {
           /* this causes buttons to get too wide, making that row overflow 
-          padding: 0.78571429em 1.5em 0.78571429em; */
+         padding: 0.78571429em 1.5em 0.78571429em; */
           padding-right: 15px;
           padding-left: 15px;
           margin-right: 0;
           margin-left: 0;
         }
       }
-
       /* pad just the copy button a bit more, otherwise too narrow */
       .dt-container
         > div
@@ -472,9 +463,7 @@
         padding-right: 25px;
         padding-left: 25px;
       }
-
       /* adds some left margin to copy button on mobile, that the other buttons seem to have but this doesnt */
-
       @media (max-width: 599px) {
         .dt-container
           > div
@@ -694,24 +683,20 @@
   </head>
   <body>
     <div id="navbar-container"></div>
-
     <!-- do i need an outer container? its good way for centering and giving margins without directly changing the body css -->
     <!-- CONTAINER START -->
     <div class="container">
       <!-- display cards class,  dir="rtl"
             https://datatables.net/manual/styling/classes -->
-
       <!-- TABLE START -->
       <table id="tableID" class="cards" width="100%"></table>
       <!-- TABLE END -->
-
       <!-- --- TABLE - END --- -->
       <div class="footer">
         <div class="centerAlignedText">
           <button class="customButtons" onclick="copyURLToClipButton();">
             &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
           </button>
-
           <button
             id="toggleFiliButton"
             class="customButtons"
@@ -719,7 +704,6 @@
           >
             &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
           </button>
-
           <button
             id="toggleShowButton"
             class="customButtons"
@@ -727,7 +711,6 @@
           >
             &nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;
           </button>
-
           <script>
             function toggleShowOne() {
               var isVisible = $("#fortyNawawiTable")
@@ -749,7 +732,6 @@
               }
             }
           </script>
-
           <script>
             function toggleFili() {
               // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
@@ -767,14 +749,12 @@
               $("#fortyNawawiTable").DataTable().column(5).visible(!isVisible);
             }
           </script>
-
           <p>
             އިސްލާމިކް މިނިސްޓްރީއިން ”ނަވަވީގެ ސާޅީސް ޙަދީޘް“ ފޮތުގެ ތަރުޖަމާ
             ފާސްކުރިކަމުގެ ކާޑުގައިވާ ރެފް ނަމްބަރު:
             <br />
             <span dir="ltr">(FRM) 142-C1/INDIV/2019/61</span>
           </p>
-
           <p>
             ނަވަވީގެ ސާޅީސް ޙަދީޘްގެ
             <a href="../notes/info/introFortyN.html">ތައާރަފު</a>
@@ -800,9 +780,7 @@
               >ވަނަވަރު</a
             >
           </p>
-
           <hr class="customHR" />
-
           <p>
             مصدر النص: ‌‌الأربعون في مباني الإسلام وقواعد الأحكام (الأربعون
             النووية) - لأبي زكريا محيي الدين يحيى بن شرف النووي الأشعري الشافعي
@@ -813,7 +791,6 @@
             تحقيق: عبد المحسن القاسم | متون طالب العلم - المستوى الأول | الطبعة
             السادسة، ١٤٣٩ هـ - ٢٠١٨ م.
           </p>
-
           <p>
             އަސްލު ފޮތުގެ މަސްދަރު: އިސްލާމް ދީނުގެ އަސާސްތަކާއި ހުކުމްތަކުގެ
             ގަވާއިދުތަކުގައިވާ ސާޅީސް ޙަދީޘް (ނަވަވީގެ ސާޅީސް ޙަދީޘް) | ލިޔުނީ:
@@ -826,7 +803,6 @@
             (އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް) - ފުރަތަމަ މުސްތަވާ | ހަވަނަ
             ޗާޕު 1439 ހ. - 2018 މ.
           </p>
-
           <p>
             އަރަބި
             <a
@@ -843,7 +819,6 @@
               >ޕީޑީއެފް</a
             >
           </p>
-
           <p>
             نسخة الحواشي | ފުޓުނޯޓު ހުންނަ އަރަބި ނުސްޚާގެ
             <a
@@ -853,15 +828,11 @@
               >ޕީޑީއެފް</a
             >
           </p>
-
           <hr class="customHR" />
-
           <h3>التنبيه المختصر عن العقيدة - އަގީދާއާ ބެހޭ ކުރު ނޯޓެއް</h3>
-
           <!--<a onclick="hideShow()" style="cursor: pointer"
-              >ނަވަވީގެ އަގީދާ ފޮރުވުމަށް ފިތާލައްވާ</a
-            >-->
-
+                  >ނަވަވީގެ އަގީދާ ފޮރުވުމަށް ފިތާލައްވާ</a
+                  >-->
           <p class="quoteHere">
             <button
               class="customButtons"
@@ -873,7 +844,6 @@
               &nbsp; &nbsp;
             </button>
           </p>
-
           <style>
             #sallaButton {
               background-color: #fff;
@@ -884,7 +854,6 @@
               background-color: #136296;
             }
           </style>
-
           <script>
             var changeShowAqidaText_timesClicked = 0;
             function changeShowAqidaText() {
@@ -905,7 +874,6 @@
             }
             //
           </script>
-
           <script>
             // https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp
             function hideShow() {
@@ -917,7 +885,6 @@
               }
             }
           </script>
-
           <script>
             function hideShow2(clickCount) {
               var x = document.getElementById("shownPost2");
@@ -928,21 +895,19 @@
               }
             }
             /*function hideShow2() {
-                if (
-                  document.getElementById("shownPost2").style.display === "none"
-                ) {
-                  document.getElementById("shownPost2").style.display = "block";
-                } else {
-                  document.getElementById("shownPost2").style.display = "none";
-                }
-              }*/
+                      if (
+                        document.getElementById("shownPost2").style.display === "none"
+                      ) {
+                        document.getElementById("shownPost2").style.display = "block";
+                      } else {
+                        document.getElementById("shownPost2").style.display = "none";
+                      }
+                    }*/
           </script>
-
           <div id="shownPost2" style="display: none">
             <p>
               ”علم الحديث ذكر، لا يحبه إلا ذكران الرجال، ولا يكرهه إلا مؤنثوهم“.
             </p>
-
             <p>
               ”ޙަދީޘްގެ އިލްމަކީ ފިރިހެން އެއްޗެކެވެ. ފިރިހެނުންގެ ތެރެއިން ވެސް
               އެންމެ ފިރިހެންވަންތަ މީހުން ނޫނީ އެ އިލްމަށް ލޯތްބެއް
@@ -950,13 +915,11 @@
               ނަފުރަތެއް ނުކުރާނެއެވެ.“
             </p>
           </div>
-
           <div id="shownPost" style="display: none" class="rightAlignedText">
             <h3>
               (الأربعون في عقيدة النووي - ނަވަވީގެ އަގީދާއާ ބެހޭ ސާޅީހަކަށް
               ގައުލު)
             </h3>
-
             <p>
               قال حمد بن عتيق: واعلم أرشدك الله أن الذي جرينا عليه، أنه إذا وصل
               إلينا شيء من المصنفات في التفسير، وشرح الحديث، اختبرنا واعتبرنا
@@ -1728,7 +1691,6 @@
               އޭރު އޭނާއަކީ ގާޟީއެވެ.
               <br />
               <br />
-
               وحتى في أصغر كتابه، الذي هو الأربعين، فيه الجبر والإرجاء.
               <br />
               وأما في غيره من الكتب، فبالاختصار؛ كان النووي ‌ينكر أغلب أسماء
@@ -1815,7 +1777,6 @@
               ޙަދީޘްގެ ޝަރަހައެއް އޭނާއަށް ނިސްބަތްވުން ސައްހަ ނުވާ
               ފަދައިންނެވެ.
             </p>
-
             <button
               class="customButtons"
               id="hideAqidaButton"
@@ -1826,7 +1787,6 @@
               &nbsp; &nbsp; &nbsp; އަގީދާ އެނގުމަށް ފަހު ވަންހަނާކުރަން ފިތާލާ
               &nbsp; &nbsp; &nbsp;
             </button>
-
             <h3 class="centerAlignedText">
               <a
                 href="aqidahNawawi.html"
@@ -1837,7 +1797,6 @@
               >
             </h3>
           </div>
-
           <h3>
             <a
               href="aqidahNawawi.html"
@@ -1849,9 +1808,7 @@
           </h3>
         </div>
         <!-- <div class="centerAlignedText"> END -->
-
         <hr class="customHR" />
-
         <p>
           ޙައްސާން ޢަބްދުއްރައްޒާގުގެ ދިވެހި ތަރުޖަމާގެ
           <a
@@ -1862,7 +1819,6 @@
           >
           (ފުރަތަމަ ތިން ޙަދީޘްގައި ފައުޒާނުގެ ޝަރަހައާއެކު)
         </p>
-
         <p>
           މުޙައްމަދު ރިފާދުގެ ދިވެހި ތަރުޖަމާގެ
           <a
@@ -1873,7 +1829,6 @@
           >
           (ފައިދާތަކާއެކު)
         </p>
-
         <p>
           މުޙައްމަދު މަޢޫން ޝަރީފުގެ ދިވެހި ތަރުޖަމާގެ
           <a
@@ -1884,7 +1839,6 @@
           >
           (42 ޙަދީޘް)
         </p>
-
         <p>
           ދިސަލަފިއްޔާ ޓީމު (ޢަބްދުއްރަޙީމް މުޙައްމަދާއި، މަޢޫން ޝަރީފާއި،
           މުޙައްމަދު އަޝްރާފުގެ ކުރީގެ ތަރުޖަމާތަކުން އެކުލަވާލަވާލައިގެން،
@@ -1897,7 +1851,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           ޙުސައިން ޞަލާޙުއްދީންގެ ދިވެހި ތަރުޖަމާގެ
           <a
@@ -1908,7 +1861,6 @@
           >
           (42 ޙަދީޘް)
         </p>
-
         <p>
           އިނގިރޭސި ތަރުޖަމާގެ
           <a
@@ -1925,7 +1877,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           އިނގިރޭސި ޝަރަހައިގެ ޕީޑީއެފް
           <a
@@ -1942,7 +1893,6 @@
             >2</a
           >
         </p>
-
         <p>
           نسخة صالح العصيمي
           <a
@@ -1952,7 +1902,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           متن الأربعين النووية - طبعة دار المنهاج
           <a
@@ -1962,7 +1911,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           فتح القوي المتين في شرح الأربعين وتتمة الخمسين للنووي وابن رجب - لعبد
           عبد المحسن بن حمد العباد البدر
@@ -1980,7 +1928,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           شرح الأربعين النووية - لعبد الكريم بن عبد الله الخضير
           <a
@@ -1997,7 +1944,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           شرح الأربعين النووية - لعبد المحسن بن محمد القاسم
           <a
@@ -2007,7 +1953,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           شرح الأربعين النووية - لمحمد بن صالح العثيمين
           <a
@@ -2024,7 +1969,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           شرح الأربعين النووية - لمحمد بن إبراهيم آل الشيخ
           <a
@@ -2034,7 +1978,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           المنحة الربانية - لصالح بن فوزان عبد الله الفوزان
           <a
@@ -2044,7 +1987,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           التحفة الربانية - لإسماعيل بن محمد السعدي الأنصاري
           <a
@@ -2061,7 +2003,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           شرح الأربعين النووية - لابن باز
           <a
@@ -2071,7 +2012,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           شرح الأربعين النووية - لصالح العصيمي
           <a
@@ -2081,7 +2021,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           شرح الأربعين النووية - لصالح آل الشيخ
           <a
@@ -2091,7 +2030,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           شرح الأربعين النووية - لمحمد صالح المنجد
           <a
@@ -2101,7 +2039,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           شرح الأربعين النووية - لأحمد بن عمر بازمول
           <a
@@ -2111,7 +2048,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           إعراب الأربعين حديثا النووية - لحسني عبد الجليل يوسف
           <a
@@ -2121,10 +2057,8 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           إعراب الأربعين النووية - لعمر بن عبد الله العمري
-
           <a
             href="https://ketabonline.com/ar/books/12753/read?part=1&page=1&index=2438233"
             rel="noopener noreferrer"
@@ -2139,7 +2073,6 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <p>
           جامع العلوم والحكم - لابن رجب
           <a
@@ -2156,11 +2089,8 @@
             >ޕީޑީއެފް</a
           >
         </p>
-
         <hr class="customHR" />
-
         <h3>ތަހްގީގު ކުރެވުނު ފޮތުގެ ނުސްޚާއާ ބެހޭ މައުލޫމާތު އަރަބިން</h3>
-
         <p>
           قَالَ المُحَقِّقُ: النُّسَخُ المُعتَمَدَةُ فِي تَحقِيقِ هَذَا المَتنِ:
           [١٤]
@@ -2227,11 +2157,9 @@
         </p>
       </div>
       <!-- <div id="footer"> END -->
-
       <!-- -->
     </div>
     <!-- <div class="container">  END -->
-
     <script type="text/javascript">
       //
       var table; // Variable to store the DataTable instance
@@ -2296,14 +2224,14 @@
             // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
           },
           /*{
-                         // turns \n new line from the data, into breaks in the html
-                         // this has to come after footnote line above
-                         targets: "_all",
-                         render: (data) => data.replace(/(\r\n|\n|\r)/g, "\t<br>"),
-                         // for some reason, unless the above \n is replaced with a \t, there is no way see any separation of a single new line between same text paragraphs.
-                         // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, "\t<br>")) in order for the clipboard to get it right
-                         // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
-                       },*/
+                            // turns \n new line from the data, into breaks in the html
+                            // this has to come after footnote line above
+                            targets: "_all",
+                            render: (data) => data.replace(/(\r\n|\n|\r)/g, "\t<br>"),
+                            // for some reason, unless the above \n is replaced with a \t, there is no way see any separation of a single new line between same text paragraphs.
+                            // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, "\t<br>")) in order for the clipboard to get it right
+                            // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
+                          },*/
           {
             // https://datatables.net/reference/option/columns.searchPanes.show
             // force all cols to show searchpanes by default
@@ -2442,11 +2370,11 @@
         // cant have input paging here as default config, otherwise shows up inside searchpanes for some reason
 
         /*
-             layout: {
-               top: [
-                "search",
-                 "inputPaging",
-           ] }        */
+                layout: {
+                  top: [
+                   "search",
+                    "inputPaging",
+              ] }        */
 
         // https://datatables.net/reference/option/language
         // LANGUAGE SET DEFAULTS
@@ -2466,12 +2394,12 @@
             previous: "< ",
           },
           /*
-               paginate: {
-                 first: "<< ފުރަތަމަ",
-                 last: "ފަހު >>",
-                 next: "ކުރިއަށް >",
-                 previous: "< ފަހަތަށް",
-               }, */
+                  paginate: {
+                    first: "<< ފުރަތަމަ",
+                    last: "ފަހު >>",
+                    next: "ކުރިއަށް >",
+                    previous: "< ފަހަތަށް",
+                  }, */
 
           entries: {
             _: "",
@@ -2672,36 +2600,36 @@
           },
         ], // buttons: [ END
         /*columnDefs: [
-                     {
-                       // https://datatables.net/reference/option/columns.searchPanes.show
-                       // force all cols to show searchpanes by default
-                       searchPanes: {
-                         show: true,
-                         //controls: false,
-                       },
-                       //targets: [0]
-                       targets: "_all",
-                     },
-                   ],*/
+                        {
+                          // https://datatables.net/reference/option/columns.searchPanes.show
+                          // force all cols to show searchpanes by default
+                          searchPanes: {
+                            show: true,
+                            //controls: false,
+                          },
+                          //targets: [0]
+                          targets: "_all",
+                        },
+                      ],*/
         //
         // https://datatables.net/examples/basic_init/scroll_y_dynamic.html
         /*paging: false,
-                        scrollCollapse: true,
-                        scrollY: "50vh",*/
+                           scrollCollapse: true,
+                           scrollY: "50vh",*/
         // also consider https://datatables.net/extensions/scroller/
 
         // https://datatables.net/examples/basic_init/hidden_columns.html
         /*columnDefs: [
-                        {
-                            target: 2,
-                            visible: false,
-                            searchable: false
-                        },
-                        {
-                            target: 3,
-                            visible: false
-                        }
-                    ]*/
+                           {
+                               target: 2,
+                               visible: false,
+                               searchable: false
+                           },
+                           {
+                               target: 3,
+                               visible: false
+                           }
+                       ]*/
 
         // https://datatables.net/examples/advanced_init/column_render.html
       }); // Object.assign(DataTable.defaults, { END
@@ -2709,11 +2637,11 @@
 
       // Desktop configuration
       /*var desktopConfig = {
-             // DESKTOP LAYOUT
-             // https://datatables.net/extensions/keytable/
-             keys: true,
-           }; // const desktopConfig  = { END
-           //*/
+                // DESKTOP LAYOUT
+                // https://datatables.net/extensions/keytable/
+                keys: true,
+              }; // const desktopConfig  = { END
+              //*/
 
       // Function to initialize or reinitialize the DataTable
       // function initializeDataTable() {
@@ -2753,12 +2681,12 @@
             top: 0,
             behavior: "smooth",
             /*window.scrollTo({
-            top: $(table.table().container()).offset().top,
-            behavior: "smooth",*/
+               top: $(table.table().container()).offset().top,
+               behavior: "smooth",*/
           });
           /*setTimeout(function () {
-                   $(document).scrollTop($(table.table().container()).offset().top);
-                 }, 10);*/
+                      $(document).scrollTop($(table.table().container()).offset().top);
+                    }, 10);*/
         }); // table.on("page", function () { END
         //
         // IF MOBILE
@@ -2844,67 +2772,67 @@
 
       // Function to add swipe event listeners
       /*function enableSwipe() {
-          var tableElement = document.querySelector("#example");
-          tableElement.addEventListener("touchstart", handleTouchStart, false);
-          tableElement.addEventListener("touchend", handleTouchEnd, false);
-        }
-        // Function to remove swipe event listeners
-        /*function disableSwipe() {
              var tableElement = document.querySelector("#example");
-             tableElement.removeEventListener("touchstart", handleTouchStart, false);
-             tableElement.removeEventListener("touchend", handleTouchEnd, false);
+             tableElement.addEventListener("touchstart", handleTouchStart, false);
+             tableElement.addEventListener("touchend", handleTouchEnd, false);
            }
-        // Handle the start of a touch event
-        function handleTouchStart(e) {
-          touchStartX = e.changedTouches[0].screenX;
-        }
-        // Handle the end of a touch event
-        function handleTouchEnd(e) {
-          touchEndX = e.changedTouches[0].screenX;
-          handleSwipe();
-        }
-
-        // Process the swipe gesture
-        function handleSwipe() {
-          var swipeThreshold = 40; // 50 - Minimum distance traveled to be considered a swipe
-          var swipeDistance = touchEndX - touchStartX;
-
-          if (swipeDistance > swipeThreshold) {
-            table.page("next").draw("page");
-          } else if (swipeDistance < -swipeThreshold) {
-            // Swipe right: go to previous page
-            table.page("previous").draw("page");
-            // Swipe left: go to next page
-          }
-        }*/
+           // Function to remove swipe event listeners
+           /*function disableSwipe() {
+                var tableElement = document.querySelector("#example");
+                tableElement.removeEventListener("touchstart", handleTouchStart, false);
+                tableElement.removeEventListener("touchend", handleTouchEnd, false);
+              }
+           // Handle the start of a touch event
+           function handleTouchStart(e) {
+             touchStartX = e.changedTouches[0].screenX;
+           }
+           // Handle the end of a touch event
+           function handleTouchEnd(e) {
+             touchEndX = e.changedTouches[0].screenX;
+             handleSwipe();
+           }
+         
+           // Process the swipe gesture
+           function handleSwipe() {
+             var swipeThreshold = 40; // 50 - Minimum distance traveled to be considered a swipe
+             var swipeDistance = touchEndX - touchStartX;
+         
+             if (swipeDistance > swipeThreshold) {
+               table.page("next").draw("page");
+             } else if (swipeDistance < -swipeThreshold) {
+               // Swipe right: go to previous page
+               table.page("previous").draw("page");
+               // Swipe left: go to next page
+             }
+           }*/
 
       // Debounce function to limit the rate at which a function can fire
       /*function debounce(func, wait) {
-             let timeout;
-             return function executedFunction(...args) {
-               const later = () => {
-                 clearTimeout(timeout);
-                 func(...args);
-               };
-               clearTimeout(timeout);
-               timeout = setTimeout(later, wait);
-             };
-           }*/
+                let timeout;
+                return function executedFunction(...args) {
+                  const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                  };
+                  clearTimeout(timeout);
+                  timeout = setTimeout(later, wait);
+                };
+              }*/
 
       // Handle window resize events
       /*function handleResize() {
-             var newIsMobile = window.innerWidth <= 800;
-             if (newIsMobile !== isMobile) {
-               isMobile = newIsMobile;
-               if (isMobile) {
-                 enableSwipe(); // Enable swipe for mobile view
-               } else {
-                 disableSwipe(); // Disable swipe for desktop view
-               }
-               //table.destroy(); // Destroy existing table
-               //initializeDataTable(); // Reinitialize table with new configuration
-             }
-           }*/
+                var newIsMobile = window.innerWidth <= 800;
+                if (newIsMobile !== isMobile) {
+                  isMobile = newIsMobile;
+                  if (isMobile) {
+                    enableSwipe(); // Enable swipe for mobile view
+                  } else {
+                    disableSwipe(); // Disable swipe for desktop view
+                  }
+                  //table.destroy(); // Destroy existing table
+                  //initializeDataTable(); // Reinitialize table with new configuration
+                }
+              }*/
 
       // Add event listener for window resize, using debounce for performance
       //window.addEventListener("resize", debounce(handleResize, 250));
@@ -2916,511 +2844,505 @@
       //
       // BOTTOM
     </script>
-
     <!-- Global site tag (gtag.js) - Google Analytics -->
   </body>
 </html>
-
 <style>
   /*
-  <!-- EXTERNAL SCRIPTS AND STYLES -->
-    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
-    <!-- above seems to work without issue, ajax and effects are the only things missing, only thing noticable is the lack of opening closing animations
-     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
-    <link
+   <!-- EXTERNAL SCRIPTS AND STYLES -->
+   <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+   <!-- above seems to work without issue, ajax and effects are the only things missing, only thing noticable is the lack of opening closing animations
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
+   <link
       href="https://nightly.datatables.net/css/dataTables.dataTables.css"
       rel="stylesheet"
       type="text/css"
-    />
-    <script src="https://nightly.datatables.net/js/dataTables.min.js"></script>
-    <!-- -->
-    <link
+      />
+   <script src="https://nightly.datatables.net/js/dataTables.min.js"></script>
+   <!-- -->
+   <link
       href="https://cdn.datatables.net/plug-ins/2.1.2/features/inputPaging/dist/dataTables.inputPaging.min.css"
       rel="stylesheet"
       type="text/css"
-    />
-    <script src="https://cdn.datatables.net/plug-ins/2.1.2/features/inputPaging/dist/dataTables.inputPaging.min.js"></script>
-    <!-- -->
-    <link
+      />
+   <script src="https://cdn.datatables.net/plug-ins/2.1.2/features/inputPaging/dist/dataTables.inputPaging.min.js"></script>
+   <!-- -->
+   <link
       href="https://cdn.datatables.net/buttons/3.1.0/css/buttons.dataTables.min.css"
       rel="stylesheet"
-    />
-    <script src="https://cdn.datatables.net/buttons/3.1.0/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.1.0/js/buttons.colVis.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.1.0/js/buttons.html5.min.js"></script>
-    <!-- -->
-    <link
+      />
+   <script src="https://cdn.datatables.net/buttons/3.1.0/js/dataTables.buttons.min.js"></script>
+   <script src="https://cdn.datatables.net/buttons/3.1.0/js/buttons.colVis.min.js"></script>
+   <script src="https://cdn.datatables.net/buttons/3.1.0/js/buttons.html5.min.js"></script>
+   <!-- -->
+   <link
       href="https://cdn.datatables.net/searchbuilder/1.7.1/css/searchBuilder.dataTables.min.css"
       rel="stylesheet"
-    />
-    <script src="https://cdn.datatables.net/searchbuilder/1.7.1/js/dataTables.searchBuilder.min.js"></script>
-    <!-- searchpanes requires select too -->
-    <link
+      />
+   <script src="https://cdn.datatables.net/searchbuilder/1.7.1/js/dataTables.searchBuilder.min.js"></script>
+   <!-- searchpanes requires select too -->
+   <link
       href="https://cdn.datatables.net/searchpanes/2.3.1/css/searchPanes.dataTables.min.css"
       rel="stylesheet"
-    />
-    <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/dataTables.searchPanes.min.js"></script>
-    <link
+      />
+   <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/dataTables.searchPanes.min.js"></script>
+   <link
       href="https://cdn.datatables.net/select/2.0.3/css/select.dataTables.min.css"
       rel="stylesheet"
-    />
-    <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.min.js"></script>
-    <!-- -->
-    <link
+      />
+   <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.min.js"></script>
+   <!-- -->
+   <link
       href="https://cdn.datatables.net/keytable/2.12.1/css/keyTable.dataTables.min.css"
       rel="stylesheet"
-    />
-    <script src="https://cdn.datatables.net/keytable/2.12.1/js/dataTables.keyTable.min.js"></script>
-    <!-- -->
-    <script src="https://cdn.datatables.net/plug-ins/2.1.3/api/row().show().min.js"></script>
-    <!-- -->
-    <!-- need to get latest code manually, as cdns dont have the most recent
-         https://github.com/julkue/mark.js/blob/master/dist/jquery.mark.min.js
-         https://github.com/julkue/datatables.mark.js/blob/master/dist/datatables.mark.min.js
-         -->
-    <script src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js)"></script>
-    <script src="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.js"></script>
-    <!-- -->
-
-    <!-- minify this with closure -->
-    <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
-
-    <!-- https://github.com/jhyland87/DataTables-Keep-Conditions -->
-    <script src="https://cdn.rawgit.com/jhyland87/DataTables-Keep-Conditions/118c5e107f1f603b1b91475dc139df6f53917e38/dist/dataTables.keepConditions.min.js"></script>
-
-    <script src="arrays.js"></script> 
-  */
+      />
+   <script src="https://cdn.datatables.net/keytable/2.12.1/js/dataTables.keyTable.min.js"></script>
+   <!-- -->
+   <script src="https://cdn.datatables.net/plug-ins/2.1.3/api/row().show().min.js"></script>
+   <!-- -->
+   <!-- need to get latest code manually, as cdns dont have the most recent
+      https://github.com/julkue/mark.js/blob/master/dist/jquery.mark.min.js
+      https://github.com/julkue/datatables.mark.js/blob/master/dist/datatables.mark.min.js
+      -->
+   <script src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js)"></script>
+   <script src="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.js"></script>
+   <!-- -->
+   <!-- minify this with closure -->
+   <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+   <!-- https://github.com/jhyland87/DataTables-Keep-Conditions -->
+   <script src="https://cdn.rawgit.com/jhyland87/DataTables-Keep-Conditions/118c5e107f1f603b1b91475dc139df6f53917e38/dist/dataTables.keepConditions.min.js"></script>
+   <script src="arrays.js"></script> 
+   */
 </style>
 <!-- 
-
-// SCROLL TO TOP BUTTON
-<button id="scrollToTopBtn" title="Go to top">➤</button>
-    <style>
-      #scrollToTopBtn {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        z-index: 100;
-        width: 40px;
-        height: 40px;
-        border: 2px solid black; /* Outline or border */
-        background-color: white; /* White background */
-        color: black; /* Black arrow color */
-        cursor: pointer;
-        border-radius: 50%; /* Make the button circular */
-        font-size: 18px; /* Adjust font size */
-        display: flex;
-        align-items: center; /* Center the arrow vertically */
-        justify-content: center; /* Center the arrow horizontally */
-        transform: rotate(270deg); /* Rotate the arrow to face up */
-        opacity: 0;
-        transition: opacity 0.4s;
-      }
-      /* Slight background on hover
-      #scrollToTopBtn:hover {
-        background-color: rgba(0, 0, 0, 0.1);
-      }  */
-
-      #scrollToTopBtn.show {
-        opacity: 0.8; /* prev 1 */
-      }
-    </style>
-    <script>
-      // Get the button
-      let scrollToTopBtn = document.getElementById("scrollToTopBtn");
-
-      // When the user scrolls down a set px from the top of the document, show the button
-      // prev 100px
-      window.onscroll = function () {
-        if (
-          document.body.scrollTop > 1000 ||
-          document.documentElement.scrollTop > 1000
-        ) {
-          scrollToTopBtn.classList.add("show");
-        } else {
-          scrollToTopBtn.classList.remove("show");
-        }
-      };
-
-      // When the user clicks on the button, scroll to the top of the document
-      scrollToTopBtn.addEventListener("click", function () {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      });
-    </script>
-
-    //
-
-    
-   // https://datatables.net/examples/layout/grid.html
-               {
-                 div: {
-                   className: "dt-mobile-searchbar",
-                 },
-                 search: {},
-               },
-               {
-                 div: {
-                   className: "dt-desktop-searchbar",
-                 },
-                 search: {},
-               },
-               /*{
-                 div: {
-                   className: "layout-start",
-                 },
-               },*/
-   
-   
-         /* unused divider css */
-         /*.cards tbody tr {
-           background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.01 13"><polyline fill="none" stroke="%23000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" points="40.01 11.5 30.01 1.5 20.01 11.5 10.01 1.5 0.01 11.5"/></svg>');
-           width: 80%;
-           background-position: center bottom;
-           background-size: 2.64vw auto;
-           background-repeat: repeat-x;
-           display: inline-block;
-           padding-bottom: 2vw;
-           padding: 50px;
-           background-color: red;*/
-           /* */
-           /*border-bottom: 4px double #333;
-           border-bottom: 4px inset #333;
-   
-           border-bottom: 2px solid #ccc;
-   
-           border-bottom: 4px solid #000;
-           box-shadow:
-             0 2px 0 0 #fff,
-             0 3px 0 0 #000;
-           
-         }*/
-         /*
-         .cards tbody tr td:last-child {
-           position: relative;
-         } .cards tbody tr td:last-child::after {
-           background: #2c3e50;
-           height: 50vh;
-           border-bottom-left-radius: 50% 20%;
-           border-bottom-right-radius: 50% 20%;
-         }*/
-   
-   
-         -
-         -
-         -
-         -
-         -
-   
-         // SEPARATE DESKTOP AND MOBILE DEBOUNCE RESIZE CODE
-         //
-         var table; // Variable to store the DataTable instance
-         var isMobile = window.innerWidth <= 800; // Boolean to check if the current view is mobile
-   
-         // Remove the defaults
-         DataTable.defaults.layout = {
-           topStart: null,
-           topEnd: null,
-           bottomStart: null,
-           bottomEnd: null,
-         };
-         //
-   
-         var desktopConfig = {
-           layout: {
-             top: ["buttons", "pageLength"],
-             bottom: ["inputPaging", "info"],
-           },
-         };
-   
-         var mobileConfig = {
-           layout: {
-             top: [
-               "inputPaging",
-               "search",
-               {
-                 buttons: [
-                   { extend: "copy" },
-                   {
-                     extend: "collection",
-                     background: false,
-                     buttons: [
-                       { extend: "colvis", background: false },
-                       { extend: "searchBuilder" },
-                       { extend: "searchPanes" },
-                     ],
-                   },
-                   { extend: "pageLength", background: false },
-                 ],
-               },
-             ],
-             bottom: ["inputPaging", "info"],
-           },
-         };
-   
-         // Function to initialize or reinitialize the DataTable
-         function initializeDataTable() {
-           var config = isMobile ? mobileConfig : desktopConfig;
-   
-           // Initialize DataTable with chosen config
-           table = new DataTable("#example", {
-             //
-   
-             ...config,
-   
-             data: data,
-   
-             columns: [
-               { title: "Name", visible: false }, // removing visible: false makes it work
-               { title: "Position" },
-               { title: "Office" },
-               { title: "Extn." },
-               { title: "Start date" },
-               { title: "Salary" },
-             ],
-   
-             ordering: false, // commenting this out makes it work with visible: false
-           });
+   // SCROLL TO TOP BUTTON
+   <button id="scrollToTopBtn" title="Go to top">➤</button>
+       <style>
+         #scrollToTopBtn {
+           position: fixed;
+           bottom: 30px;
+           right: 30px;
+           z-index: 100;
+           width: 40px;
+           height: 40px;
+           border: 2px solid black; /* Outline or border */
+           background-color: white; /* White background */
+           color: black; /* Black arrow color */
+           cursor: pointer;
+           border-radius: 50%; /* Make the button circular */
+           font-size: 18px; /* Adjust font size */
+           display: flex;
+           align-items: center; /* Center the arrow vertically */
+           justify-content: center; /* Center the arrow horizontally */
+           transform: rotate(270deg); /* Rotate the arrow to face up */
+           opacity: 0;
+           transition: opacity 0.4s;
          }
+         /* Slight background on hover
+         #scrollToTopBtn:hover {
+           background-color: rgba(0, 0, 0, 0.1);
+         }  */
    
-         // Debounce function to limit how often a function can fire
-         function debounce(func, wait) {
-           let timeout;
-           return function executedFunction(...args) {
-             const later = () => {
-               clearTimeout(timeout);
-               func(...args);
-             };
-             clearTimeout(timeout);
-             timeout = setTimeout(later, wait);
-           };
+         #scrollToTopBtn.show {
+           opacity: 0.8; /* prev 1 */
          }
+       </style>
+       <script>
+         // Get the button
+         let scrollToTopBtn = document.getElementById("scrollToTopBtn");
    
-         // Resize event handler function to reinitialize DataTable on viewport size change events
-         function handleResize() {
-           var newIsMobile = window.innerWidth <= 800;
-           // Check if we've crossed the mobile/desktop threshold
-           if (newIsMobile !== isMobile) {
-             isMobile = newIsMobile;
-             table.destroy(); // Destroy the existing DataTable
-             initializeDataTable(); // Reinitialize DataTable with the new configuration
+         // When the user scrolls down a set px from the top of the document, show the button
+         // prev 100px
+         window.onscroll = function () {
+           if (
+             document.body.scrollTop > 1000 ||
+             document.documentElement.scrollTop > 1000
+           ) {
+             scrollToTopBtn.classList.add("show");
+           } else {
+             scrollToTopBtn.classList.remove("show");
            }
-         }
+         };
    
-         // Add event listener for window resize, using debounce to optimize performance
-         window.addEventListener("resize", debounce(handleResize, 250));
+         // When the user clicks on the button, scroll to the top of the document
+         scrollToTopBtn.addEventListener("click", function () {
+           window.scrollTo({
+             top: 0,
+             behavior: "smooth",
+           });
+         });
+       </script>
    
-         // Initial table setup
-         initializeDataTable();
+       //
    
-   
-   
-   
-   
-   
-   
-   
-         // OLD DT DEFAULT CONFIG
-         /* layout: {
-                   // https://datatables.net/extensions/buttons/
-                   // 'buttons',
-                   // paging, inputPaging
-                   //top: ["inputPaging", "search", "buttons", "pageLength"],
-                    top: [
-                     "inputPaging",
-                     "search",
-               
-                     {
-                       //buttons: ["copy", "colvis"],
-                       // https://datatables.net/reference/button/copy
-                       buttons: [
-                         {
-                           extend: "copy",
-                           // https://datatables.net/reference/option/buttons.buttons.titleAttr
-                           titleAttr: "copy",
-                           text: "⧉ ކޮޕީ",
-                           exportOptions: {
-                             // https://datatables.net/extensions/buttons/examples/html5/columns.html // this on its own selects all data on all pages
-                             columns: ":visible",
-                             // https://datatables.net/reference/button/copy
-                             // this on its own selects even column hidden data
-                             modifier: {
-                               page: "current",
-                             },
-                           },
-                           // https://datatables.net/extensions/buttons/examples/initialisation/keys.html
-                           key: {
-                             shiftKey: true,
-                             key: "c",
-                           },
-                         },
-                         // https://datatables.net/reference/button/colvis
-                         {
-                           extend: "colvis",
-                           titleAttr: "toggle columns",
-                           text: "☰ ބަރިތައް",
-                           key: {
-                             shiftKey: true,
-                             key: "s",
-                           },
-                           // https://datatables.net/extensions/buttons/examples/column_visibility/restore.html
-                           postfixButtons: [
-                             {
-                               extend: "colvisRestore",
-                               text: "↺ ރީސެޓްކުރޭ",
-                               titleAttr: "reset toggle",
-                             },
-                           ],
-                         },
-                         // https://datatables.net/extensions/searchbuilder/
-                         // will not work with dates without another plugin
-                         {
-                           extend: "searchBuilder",
-                           titleAttr: "custom search",
-                           // wont work here, need to set in language it seems
-                           //text: "🔍 ކަސްޓަމް ސާރޗް",
-                           key: {
-                             shiftKey: true,
-                             key: "b",
-                           },
-                         },
-                         // https://datatables.net/reference/feature/searchPanes
-                         {
-                           extend: "searchPanes",
-                           text: "⧩ ފިލްޓާ",
-                           titleAttr: "filter",
-                           key: {
-                             shiftKey: true,
-                             key: "p",
-                           },
-                           config: {
-                             // https://datatables.net/reference/feature/searchPanes.cascadePanes
-                             cascadePanes: true,
-                             // https://datatables.net/reference/feature/searchPanes.viewTotal
-                             viewTotal: true,
-                             // https://datatables.net/reference/feature/searchPanes.collapse
-                             collapse: false,
-                             //orderable: false,
-                             // https://datatables.net/extensions/searchpanes/examples/initialisation/speedTest.html
-                             //columns: [0, 1],
-                             //controls: false,
-                             // https://datatables.net/reference/feature/searchPanes.initCollapsed
-                             //initCollapsed: true,
-                             // https://datatables.net/reference/feature/searchPanes.order
-                             // order: [[1, 'desc']]
-                             //searching: false,
-                             //paging: true,
-                             dtOpts: {
-                               // https://datatables.net/extensions/select/examples/initialisation/multi.html
-                               select: {
-                                 //style: "multi",
-                                 style: "multi+shift",
-                               },
-                             },
-                           },
-                         },
-                       ], // buttons: [ END
-                     },
-                     //
-                     // https://datatables.net/reference/feature/pageLength
-                     // "pageLength",
-                     {
-                       pageLength: {
-                         menu: [
-                           // https://datatables.net/reference/button/pageLength
-                           [1, 3, 5, 10, 25, 50, -1],
-                           [1, 3, 5, 10, 25, 50, "ހުރިހާ"],
-                         ],
-                       },
-                     },
-                   ], // top: [ END 
-                   bottom: ["inputPaging", "info"],
-                 }, // layout: { END
-                 //*/
-   
-   
-   
-   
-   
-      // https://datatables.net/examples/data_sources/js_array.html
+       
+      // https://datatables.net/examples/layout/grid.html
+                  {
+                    div: {
+                      className: "dt-mobile-searchbar",
+                    },
+                    search: {},
+                  },
+                  {
+                    div: {
+                      className: "dt-desktop-searchbar",
+                    },
+                    search: {},
+                  },
+                  /*{
+                    div: {
+                      className: "layout-start",
+                    },
+                  },*/
       
-            //new DataTable('#example', {
-            let table = new DataTable("#example", {
-              //
-              columns: [
-                { title: "Name" },
-                { title: "Position" },
-                { title: "Office" },
-                { title: "Extn." },
-                { title: "Salary" },
+      
+            /* unused divider css */
+            /*.cards tbody tr {
+              background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.01 13"><polyline fill="none" stroke="%23000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" points="40.01 11.5 30.01 1.5 20.01 11.5 10.01 1.5 0.01 11.5"/></svg>');
+              width: 80%;
+              background-position: center bottom;
+              background-size: 2.64vw auto;
+              background-repeat: repeat-x;
+              display: inline-block;
+              padding-bottom: 2vw;
+              padding: 50px;
+              background-color: red;*/
+              /* */
+              /*border-bottom: 4px double #333;
+              border-bottom: 4px inset #333;
+      
+              border-bottom: 2px solid #ccc;
+      
+              border-bottom: 4px solid #000;
+              box-shadow:
+                0 2px 0 0 #fff,
+                0 3px 0 0 #000;
+              
+            }*/
+            /*
+            .cards tbody tr td:last-child {
+              position: relative;
+            } .cards tbody tr td:last-child::after {
+              background: #2c3e50;
+              height: 50vh;
+              border-bottom-left-radius: 50% 20%;
+              border-bottom-right-radius: 50% 20%;
+            }*/
+      
+      
+            -
+            -
+            -
+            -
+            -
+      
+            // SEPARATE DESKTOP AND MOBILE DEBOUNCE RESIZE CODE
+            //
+            var table; // Variable to store the DataTable instance
+            var isMobile = window.innerWidth <= 800; // Boolean to check if the current view is mobile
+      
+            // Remove the defaults
+            DataTable.defaults.layout = {
+              topStart: null,
+              topEnd: null,
+              bottomStart: null,
+              bottomEnd: null,
+            };
+            //
+      
+            var desktopConfig = {
+              layout: {
+                top: ["buttons", "pageLength"],
+                bottom: ["inputPaging", "info"],
+              },
+            };
+      
+            var mobileConfig = {
+              layout: {
+                top: [
+                  "inputPaging",
+                  "search",
+                  {
+                    buttons: [
+                      { extend: "copy" },
+                      {
+                        extend: "collection",
+                        background: false,
+                        buttons: [
+                          { extend: "colvis", background: false },
+                          { extend: "searchBuilder" },
+                          { extend: "searchPanes" },
+                        ],
+                      },
+                      { extend: "pageLength", background: false },
+                    ],
+                  },
+                ],
+                bottom: ["inputPaging", "info"],
+              },
+            };
+      
+            // Function to initialize or reinitialize the DataTable
+            function initializeDataTable() {
+              var config = isMobile ? mobileConfig : desktopConfig;
+      
+              // Initialize DataTable with chosen config
+              table = new DataTable("#example", {
+                //
+      
+                ...config,
+      
+                data: data,
+      
+                columns: [
+                  { title: "Name", visible: false }, // removing visible: false makes it work
+                  { title: "Position" },
+                  { title: "Office" },
+                  { title: "Extn." },
+                  { title: "Start date" },
+                  { title: "Salary" },
+                ],
+      
+                ordering: false, // commenting this out makes it work with visible: false
+              });
+            }
+      
+            // Debounce function to limit how often a function can fire
+            function debounce(func, wait) {
+              let timeout;
+              return function executedFunction(...args) {
+                const later = () => {
+                  clearTimeout(timeout);
+                  func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+              };
+            }
+      
+            // Resize event handler function to reinitialize DataTable on viewport size change events
+            function handleResize() {
+              var newIsMobile = window.innerWidth <= 800;
+              // Check if we've crossed the mobile/desktop threshold
+              if (newIsMobile !== isMobile) {
+                isMobile = newIsMobile;
+                table.destroy(); // Destroy the existing DataTable
+                initializeDataTable(); // Reinitialize DataTable with the new configuration
+              }
+            }
+      
+            // Add event listener for window resize, using debounce to optimize performance
+            window.addEventListener("resize", debounce(handleResize, 250));
+      
+            // Initial table setup
+            initializeDataTable();
+      
+      
+      
+      
+      
+      
+      
+      
+            // OLD DT DEFAULT CONFIG
+            /* layout: {
+                      // https://datatables.net/extensions/buttons/
+                      // 'buttons',
+                      // paging, inputPaging
+                      //top: ["inputPaging", "search", "buttons", "pageLength"],
+                       top: [
+                        "inputPaging",
+                        "search",
+                  
+                        {
+                          //buttons: ["copy", "colvis"],
+                          // https://datatables.net/reference/button/copy
+                          buttons: [
+                            {
+                              extend: "copy",
+                              // https://datatables.net/reference/option/buttons.buttons.titleAttr
+                              titleAttr: "copy",
+                              text: "⧉ ކޮޕީ",
+                              exportOptions: {
+                                // https://datatables.net/extensions/buttons/examples/html5/columns.html // this on its own selects all data on all pages
+                                columns: ":visible",
+                                // https://datatables.net/reference/button/copy
+                                // this on its own selects even column hidden data
+                                modifier: {
+                                  page: "current",
+                                },
+                              },
+                              // https://datatables.net/extensions/buttons/examples/initialisation/keys.html
+                              key: {
+                                shiftKey: true,
+                                key: "c",
+                              },
+                            },
+                            // https://datatables.net/reference/button/colvis
+                            {
+                              extend: "colvis",
+                              titleAttr: "toggle columns",
+                              text: "☰ ބަރިތައް",
+                              key: {
+                                shiftKey: true,
+                                key: "s",
+                              },
+                              // https://datatables.net/extensions/buttons/examples/column_visibility/restore.html
+                              postfixButtons: [
+                                {
+                                  extend: "colvisRestore",
+                                  text: "↺ ރީސެޓްކުރޭ",
+                                  titleAttr: "reset toggle",
+                                },
+                              ],
+                            },
+                            // https://datatables.net/extensions/searchbuilder/
+                            // will not work with dates without another plugin
+                            {
+                              extend: "searchBuilder",
+                              titleAttr: "custom search",
+                              // wont work here, need to set in language it seems
+                              //text: "🔍 ކަސްޓަމް ސާރޗް",
+                              key: {
+                                shiftKey: true,
+                                key: "b",
+                              },
+                            },
+                            // https://datatables.net/reference/feature/searchPanes
+                            {
+                              extend: "searchPanes",
+                              text: "⧩ ފިލްޓާ",
+                              titleAttr: "filter",
+                              key: {
+                                shiftKey: true,
+                                key: "p",
+                              },
+                              config: {
+                                // https://datatables.net/reference/feature/searchPanes.cascadePanes
+                                cascadePanes: true,
+                                // https://datatables.net/reference/feature/searchPanes.viewTotal
+                                viewTotal: true,
+                                // https://datatables.net/reference/feature/searchPanes.collapse
+                                collapse: false,
+                                //orderable: false,
+                                // https://datatables.net/extensions/searchpanes/examples/initialisation/speedTest.html
+                                //columns: [0, 1],
+                                //controls: false,
+                                // https://datatables.net/reference/feature/searchPanes.initCollapsed
+                                //initCollapsed: true,
+                                // https://datatables.net/reference/feature/searchPanes.order
+                                // order: [[1, 'desc']]
+                                //searching: false,
+                                //paging: true,
+                                dtOpts: {
+                                  // https://datatables.net/extensions/select/examples/initialisation/multi.html
+                                  select: {
+                                    //style: "multi",
+                                    style: "multi+shift",
+                                  },
+                                },
+                              },
+                            },
+                          ], // buttons: [ END
+                        },
+                        //
+                        // https://datatables.net/reference/feature/pageLength
+                        // "pageLength",
+                        {
+                          pageLength: {
+                            menu: [
+                              // https://datatables.net/reference/button/pageLength
+                              [1, 3, 5, 10, 25, 50, -1],
+                              [1, 3, 5, 10, 25, 50, "ހުރިހާ"],
+                            ],
+                          },
+                        },
+                      ], // top: [ END 
+                      bottom: ["inputPaging", "info"],
+                    }, // layout: { END
+                    //*/
+      
+      
+      
+      
+      
+         // https://datatables.net/examples/data_sources/js_array.html
+         
+               //new DataTable('#example', {
+               let table = new DataTable("#example", {
+                 //
+                 columns: [
+                   { title: "Name" },
+                   { title: "Position" },
+                   { title: "Office" },
+                   { title: "Extn." },
+                   { title: "Salary" },
+                 ],
+         
+                 //
+                 data: dataSet,
+                 //
+         
+         
+            // Arrays
+            /*var dataSet = [
+              [
+                "Tiger Nixon",
+                "System Architect",
+                "Edinburgh",
+                "5421",
+                "2011/04/25",
+                "$320,800",
               ],
-      
+            ];*/
+            
+            /* The default layout used by DataTables is:
+            layout: {
+            topStart: 'pageLength',
+            topEnd: 'search',
+            bottomStart: 'info',
+            bottomEnd: 'paging'
+            } */
+            
+              // https://datatables.net/examples/advanced_init/length_menu.html
+              /*lengthMenu: [
+                [1, 5, 10, 25, 50, -1],
+                [1, 5, 10, 25, 50, "ހުރިހާ"],
+              ],*/
+            
+            // the colgroups in DT2 intefere with the layput of the table, removing them seems to solve that
+              // https://datatables.net/reference/option/initComplete
+              initComplete: function () {
+                var api = this.api();
+                var apiTable = $(api.table().node());
+                $("colgroup", apiTable).detach();
+              }, //
+            
+              // removes the th table headers above each column, to suit for card view
+              // https://datatables.net/forums/discussion/44089/is-it-possible-to-hide-the-row-with-column-headers
+              drawCallback: function (settings) {
+                $("#example thead").remove();
+              },
               //
-              data: dataSet,
-              //
       
-      
-         // Arrays
-         /*var dataSet = [
-           [
-             "Tiger Nixon",
-             "System Architect",
-             "Edinburgh",
-             "5421",
-             "2011/04/25",
-             "$320,800",
-           ],
-         ];*/
-         
-         /* The default layout used by DataTables is:
-         layout: {
-         topStart: 'pageLength',
-         topEnd: 'search',
-         bottomStart: 'info',
-         bottomEnd: 'paging'
-         } */
-         
-           // https://datatables.net/examples/advanced_init/length_menu.html
-           /*lengthMenu: [
-             [1, 5, 10, 25, 50, -1],
-             [1, 5, 10, 25, 50, "ހުރިހާ"],
-           ],*/
-         
-         // the colgroups in DT2 intefere with the layput of the table, removing them seems to solve that
-           // https://datatables.net/reference/option/initComplete
-           initComplete: function () {
-             var api = this.api();
-             var apiTable = $(api.table().node());
-             $("colgroup", apiTable).detach();
-           }, //
-         
-           // removes the th table headers above each column, to suit for card view
-           // https://datatables.net/forums/discussion/44089/is-it-possible-to-hide-the-row-with-column-headers
-           drawCallback: function (settings) {
-             $("#example thead").remove();
-           },
-           //
-   
-            /* instead of the below code, just using the code from scroll to top plugin, but not the external plugin, instead
-             // Callback function after each draw (including pagination)
-             drawCallback: function () {
-               if (!isMobile) {
-                 // Scroll to top on page change in desktop view
-                 window.scrollTo({ top: 0, behavior: "smooth" });
-               } else {
-                 // Scroll to the first row on page change in mobile view
-                 //var firstRow = this.api().row(0).node();
-                 //const firstRow = table.querySelector("tbody tr");
-                 // if (firstRow) {
-                 //        firstRow.scrollIntoView({ behavior: "smooth", block: "start" });
-                 //      }
-                 $("html, body").animate(
-                   { scrollTop: $("#example").offset().top },
-                   "smooth"
-                 );
-               }
-             },
-             //*/
-         -->
+               /* instead of the below code, just using the code from scroll to top plugin, but not the external plugin, instead
+                // Callback function after each draw (including pagination)
+                drawCallback: function () {
+                  if (!isMobile) {
+                    // Scroll to top on page change in desktop view
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  } else {
+                    // Scroll to the first row on page change in mobile view
+                    //var firstRow = this.api().row(0).node();
+                    //const firstRow = table.querySelector("tbody tr");
+                    // if (firstRow) {
+                    //        firstRow.scrollIntoView({ behavior: "smooth", block: "start" });
+                    //      }
+                    $("html, body").animate(
+                      { scrollTop: $("#example").offset().top },
+                      "smooth"
+                    );
+                  }
+                },
+                //*/
+            -->
