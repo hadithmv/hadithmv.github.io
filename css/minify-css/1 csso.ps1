@@ -1,14 +1,14 @@
 # Change the current directory to the script's location
 Set-Location -Path $PSScriptRoot
 
-# Get all .css files in the current directory
+# Get all relevant files in the current directory
 $cssFiles = Get-ChildItem -Filter *.css
-# Loop through each .css file
+# Loop through each relevant file
 foreach ($file in $cssFiles) {
     # Generate the output file name
-    $outputFile = $file.BaseName + "-o.min.css"
+    $outputFile = $file.BaseName + "-csso.min.css"
     
-    # Run CSSO on the file
+    # Minify the file
     & csso $file.Name -o $outputFile
     
     # Output progress
