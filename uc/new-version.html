@@ -2768,6 +2768,8 @@
         }); // table.on("page", function () { END
 
         // NEW SWIPE CODE
+        // “I can’t select my text anymore!” https://hammerjs.github.io/tips/
+        delete Hammer.defaults.cssProps.userSelect;
         Hammer(tableID).on("swipeleft", function () {
           table.page("previous").draw("page");
         });
