@@ -104,10 +104,18 @@
          DT CUSTOM CSS
          ==================== */
       /* mark js highlight color */
-      mark {
-        background: #82b8fa; /* #b3d4fc */
+      /*mark {
+        background: #82b8fa;
         color: black;
+      } prev background: #b3d4fc */
+      table.dataTable span.highlight {
+        background-color: #82b8fa; /* ffff88 */
+        border-radius: 0.28571429rem;
       }
+      /*table.dataTable span.column_highlight {
+        background-color: #ffcc99;
+        border-radius: 0.28571429rem;
+      }*/
       /* hide first searchbar on tablet and up */
       @media (min-width: 600px) {
         .dt-search:has(#dt-search-0) {
@@ -2546,8 +2554,11 @@
         // https://datatables.net/reference/option/autoWidth
         autoWidth: false,
         //
+        //
+        // https://datatables.net/blog/2014/search-highlighting#:~:text=DataTables'%20built%20in%20search%20features,what%20they%20are%20looking%20for
+        searchHighlight: true,
         // https://datatables.net/blog/2017/search-highlighting-with-markjs
-        mark: true,
+        // mark: true,
         //
 
         // https://datatables.net/blog/2019/scroll-to-top
