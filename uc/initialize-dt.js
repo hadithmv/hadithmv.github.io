@@ -527,6 +527,9 @@ Object.assign(DataTable.defaults, {
   //
   // https://datatables.net/examples/basic_init/state_save.html
   stateSave: true,
+  // currently" above works
+  // above seems to break table, use the one below
+  //bstateSave: true,
   //
   // https://datatables.net/reference/option/stateDuration
   // default is 2 hours, now set to 1 day
