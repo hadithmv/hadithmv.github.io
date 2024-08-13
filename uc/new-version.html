@@ -678,7 +678,7 @@
             https://datatables.net/manual/styling/classes -->
 
       <!-- TABLE START -->
-      <table id="example" class="cards" width="100%"></table>
+      <table id="tableID" class="cards" width="100%"></table>
       <!-- TABLE END -->
 
       <!-- --- TABLE - END --- -->
@@ -2695,7 +2695,7 @@
       // function initializeDataTable() {
       // Initialize DataTable with chosen config
       //new DataTable("#example", {
-      table = new DataTable("#example", {
+      table = new DataTable("#tableID", {
         //
         //...config
         ...DTconfig,
@@ -2768,10 +2768,10 @@
         }); // table.on("page", function () { END
 
         // NEW SWIPE CODE
-        Hammer(example).on("swipeleft", function () {
+        Hammer(tableID).on("swipeleft", function () {
           table.page("previous").draw("page");
         });
-        Hammer(document.getElementById("example")).on(
+        Hammer(document.getElementById("tableID")).on(
           "swiperight",
           function () {
             table.page("next").draw("page");
