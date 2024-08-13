@@ -2861,14 +2861,20 @@ https://github.com/sindresorhus/github-markdown-css/blob/main/index.html */
         }); // table.on("page", function () { END
 
         // NEW SWIPE CODE
+        //
+        // Set touch-action: auto for tableID https://hammerjs.github.io/touch-action/
+        document.getElementById("tableID").style.touchAction = "auto";
         // “I can’t select my text anymore!” https://hammerjs.github.io/tips/
         delete Hammer.defaults.cssProps.userSelect;
+        //
         Hammer(tableID).on("swipeleft", function () {
+          event.preventDefault(); // Prevent default behavior
           table.page("previous").draw("page");
         });
         Hammer(document.getElementById("tableID")).on(
           "swiperight",
           function () {
+            event.preventDefault(); // Prevent default behavior
             table.page("next").draw("page");
           }
         );
