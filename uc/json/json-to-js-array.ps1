@@ -11,7 +11,7 @@ Get-ChildItem -Filter "*.json" | ForEach-Object {
         $content = Get-Content $_.FullName -Raw -ErrorAction Stop
 
         # Prepend "var dataSet = " to the JSON content
-        $newContent = "const data = " + $content
+        $newContent = "var data = " + $content
 
         # Create the new filename by changing the extension from .json to .js
         $newFileName = [System.IO.Path]::ChangeExtension($_.FullName, ".js")

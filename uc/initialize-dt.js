@@ -1,6 +1,5 @@
-//
 /* === === ===
- PAGE JS CODE
+DT PAGE JS CODE
 === === === */
 //
 
@@ -230,6 +229,26 @@ var table; // Variable to store the DataTable instance
 var isMobile = window.innerWidth <= 800; // Boolean to check if the current view is mobile
 //
 
+// CUSTOM columnDefs CONFIGURATION
+var columnDefsconfig = [
+  // settings for all book tables
+  {
+    // hides panes for all other columns
+    searchPanes: {
+      show: false,
+    },
+    targets: "_all",
+  },
+  {
+    targets: "_all",
+    render: function (data) {
+      return data.replace(/\r\n|\n|\r/g, "\t<br>");
+    }, // for some reason, without the \n replaced above, the single new lines in between same language paragraphs show in console as a single space, and therefore clipboard cannot be customized to show it
+    // added space before br, otherwise clipboard copy export has no space
+  },
+];
+//
+
 // CUSTOM DT CONFIGURATION
 var DTconfig = {
   data: data,
@@ -242,88 +261,8 @@ var DTconfig = {
 
   // https://datatables.net/reference/option/columns
   // columns: [null, null, null, null, null, null, null],
-  columns: [
-    { title: "#" },
-    { title: "އަރަބި ނަމްބަރ" },
-    { title: "އަރަބި ސުރުހީ" },
-    { title: "ދިވެހި ސުރުހީ" },
-    { title: "އަރަބި ލިޔުން" },
-    {
-      title: "އަރަބި ފިލިނުޖަހާ",
-      // without tashkeel
-      data: 4,
-      visible: false,
-      render: (data) => data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
-    },
-    {
-      title: "ދިވެހި ލިޔުން",
-      data: 5,
-    },
-    { title: "ތަޚްރީޖު", data: 6, searchable: false },
-    { title: "ދިވެހި ތަޚްރީޖު", data: 7, searchable: false },
-  ],
 
-  // https://datatables.net/reference/option/columnDefs
-  //
-  columnDefs: [
-    {
-      // https://datatables.net/examples/advanced_init/column_render.html
-      targets: [0],
-      render: (data) => "#" + data,
-    },
-    {
-      // check if data is not empty string and append a line of kashidas and a line break if true; otherwise, return unchanged data, empty string.
-      targets: [7, 8],
-      render: (data) =>
-        //data !== "" ? "ـــــــــــــــــــــــــــ<br>" + data : data,
-        // above does not preserve the \n new lines in the data, below does
-        data !== ""
-          ? "ـــــــــــــــــــــــــــ\t<br>" + data.replace(/\n/g, "\t<br>")
-          : data,
-    },
-    {
-      // turns \n new line from the data, into breaks in the html
-      // this has to come after footnote line above
-      targets: "_all",
-      //render: (data) => data.replace(/\n/g, "\t<br>"),
-      //render: (data) => data.replace(/\t/g, "\n\n<br>"),
-      // for some reason, unless the above \n is replaced with a \t, there is no way see any separation of a single new line between same text paragraphs.
-      // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, "\t<br>")) in order for the clipboard to get it right
-      // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
-    },
-    /*{
-                      // turns \n new line from the data, into breaks in the html
-                      // this has to come after footnote line above
-                      targets: "_all",
-                      render: (data) => data.replace(/(\r\n|\n|\r)/g, "\t<br>"),
-                      // for some reason, unless the above \n is replaced with a \t, there is no way see any separation of a single new line between same text paragraphs.
-                      // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, "\t<br>")) in order for the clipboard to get it right
-                      // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
-                    },*/
-    {
-      // https://datatables.net/reference/option/columns.searchPanes.show
-      // force all cols to show searchpanes by default
-      searchPanes: {
-        show: true,
-        //controls: false,
-      },
-      targets: [0, 1, 2, 3],
-    },
-    {
-      // hides panes for all other columns
-      searchPanes: {
-        show: false,
-      },
-      targets: "_all",
-    },
-    {
-      targets: "_all",
-      render: function (data) {
-        return data.replace(/\r\n|\n|\r/g, "\t<br>");
-      }, // for some reason, without the \n replaced above, the single new lines in between same language paragraphs show in console as a single space, and therefore clipboard cannot be customized to show it
-      // added space before br, otherwise clipboard copy export has no space
-    },
-  ],
+  //columnDefs: [],
 
   layout: {
     top: [
@@ -562,8 +501,8 @@ Object.assign(DataTable.defaults, {
 
   //
   lengthMenu: [
-    [1, 3, 5, 10, 25, 50, -1],
-    [1, 3, 5, 10, 25, 50, "ހުރިހާ"],
+    [1, 2, 3, 4, 5, 10, 20, 30, 40, 50, -1],
+    [1, 2, 3, 4, 5, 10, 20, 30, 40, 50, "ހުރިހާ"],
   ],
   //
   buttons: [
