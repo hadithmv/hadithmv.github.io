@@ -102,6 +102,7 @@
           </script>-->
 
           <script>
+            // CHANGE !!!
             function toggleShowOne() {
               var isVisible = $("#tableID").DataTable().column(8).visible();
 
@@ -1471,7 +1472,7 @@
           >
         </p>
         <hr />
-        <h3>ތަހްގީގު ކުރެވުނު ފޮތުގެ ނުސްޚާއާ ބެހޭ މައުލޫމާތު އަރަބިން</h3>
+        <h3>ތަހްގީގުކުރެވުނު ފޮތާ ބެހޭ މައުލޫމާތު އަރަބިން</h3>
         <p>
           قَالَ المُحَقِّقُ: النُّسَخُ المُعتَمَدَةُ فِي تَحقِيقِ هَذَا المَتنِ:
           [١٤]
@@ -1545,7 +1546,87 @@
       //new DataTable("#tableID", {
       var table = new DataTable("#tableID", {
         ...DTconfig,
-        /*columns: [
+        // fortyNawawi: #	noAr	arTitle	dvTitle	arab	dhiv	arRef	dvRef
+        columns: [
+          { title: "#" },
+          { title: "އަރަބި ނަމްބަރ" },
+          { title: "އަރަބި ސުރުހީ" },
+          { title: "ދިވެހި ސުރުހީ" },
+          { title: "އަރަބި ލިޔުން" },
+          {
+            title: "އަރަބި ފިލިނުޖަހާ",
+            // CHANGE !!!
+            data: 4,
+            visible: false,
+            render: (data) =>
+              data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
+          },
+          {
+            title: "ދިވެހި ލިޔުން",
+            data: 5,
+          },
+          { title: "ތަޚްރީޖު", data: 6, searchable: false },
+          { title: "ދިވެހި ތަޚްރީޖު", data: 7, searchable: false },
+        ],
+
+        // https://datatables.net/reference/option/columnDefs
+        //
+        columnDefs: [
+          {
+            // https://datatables.net/examples/advanced_init/column_render.html
+            targets: [0],
+            render: (data) => "#" + data,
+          },
+          {
+            // check if data is not empty string and append a line of kashidas and a line break if true; otherwise, return unchanged data, empty string.
+            targets: [7, 8],
+            render: (data) =>
+              //data !== "" ? "ـــــــــــــــــــــــــــ<br>" + data : data,
+              // above does not preserve the \n new lines in the data, below does
+              data !== ""
+                ? "ـــــــــــــــــــــــــــ\t<br>" +
+                  data.replace(/\n/g, "\t<br>")
+                : data,
+          },
+          /*{
+            // turns \n new line from the data, into breaks in the html
+            // this has to come after footnote line above
+            targets: "_all",
+            //render: (data) => data.replace(/\n/g, "\t<br>"),
+            //render: (data) => data.replace(/\t/g, "\n\n<br>"),
+            // for some reason, unless the above \n is replaced with a \t, there is no way see any separation of a single new line between same text paragraphs.
+            // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, "\t<br>")) in order for the clipboard to get it right
+            // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
+          },*/
+          /*{
+                      // turns \n new line from the data, into breaks in the html
+                      // this has to come after footnote line above
+                      targets: "_all",
+                      render: (data) => data.replace(/(\r\n|\n|\r)/g, "\t<br>"),
+                      // for some reason, unless the above \n is replaced with a \t, there is no way see any separation of a single new line between same text paragraphs.
+                      // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, "\t<br>")) in order for the clipboard to get it right
+                      // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
+                    },*/
+          {
+            // https://datatables.net/reference/option/columns.searchPanes.show
+            // force all cols to show searchpanes by default
+            searchPanes: {
+              show: true,
+              //controls: false,
+            },
+            targets: [0, 1, 2, 3],
+          },
+          // above are columnDefs: [ settings for particular book tables
+          // below includes a spread operator to include external settings for all book tables
+          ...columnDefsconfig,
+        ],
+      });
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+  </body>
+</html>
+<style>
+  /*columns: [
           { title: "Name" },
           { title: "Position" },
           { title: "Office" },
@@ -1554,12 +1635,7 @@
           { title: "Salary" },
         ],
         data: data,*/
-      });
-    </script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-  </body>
-</html>
-<style>
+
   /*
    <!-- EXTERNAL SCRIPTS AND STYLES -->
    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
@@ -2057,4 +2133,4 @@
                   }
                 },
                 //*/
-            -->
+            --
