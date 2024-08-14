@@ -354,13 +354,13 @@ thead {
   > input[type="search"] {
   /*width: 110%;
    */
-  font-size: 90%;
+  font-size: 80%;
   /* 80 */
   /* fixes width, so doesnt jump around when numbers increase in no of digits */
-  width: 60px !important;
+  width: 60px !important; /* 50 for mobile? */
 }
 /* mobile only size */
-@media (max-width: 599px) {
+/*@media (max-width: 599px) {
   .dt-container
     > div
     > div
@@ -368,11 +368,9 @@ thead {
     > div
     > input[type="search"] {
     font-size: 80%;
-    /* 70*/
-    /* fixes width, so doesnt jump around when numbers increase in no of digits */
     width: 50px !important;
   }
-}
+}*/
 /* make font size of / [total pages] smaller*/
 .dt-container
   > div
@@ -472,7 +470,7 @@ div.dt-scroll
   top: 1.5px;
 }
 /* gets rid of dt background in searchpanes and searchbuilder with css, which cant be removed in config */
-div.dt-button-background {
+div.dt-layout-cell.dt-layout-full > div.dt-button-background {
   background: none;
   /* hidden interferes with reopening searchpanes and builder */
   /*visibility: hidden;
@@ -585,7 +583,9 @@ table.dataTable tbody td.focus {
   > div.dtsb-criteria
   > div.dtsb-buttonContainer
   > button,
-.dtsb-searchBuilder > div.dtsb-group > div.dtsb-logicContainer {
+.dtsb-searchBuilder > div.dtsb-group > div.dtsb-logicContainer,
+div.dtsb-searchBuilder > div.dtsb-titleRow > button.dtsb-clearAll.dtsb-button,
+div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
   border: none;
   background: #e0e1e2 none;
   /*color: rgba(0, 0, 0, 0.6);
