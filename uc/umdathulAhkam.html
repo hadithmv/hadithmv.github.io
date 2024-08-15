@@ -46,8 +46,518 @@
       <table id="tableID" class="cards" width="100%"></table>
       <div class="footer">
         <div class="centerAlignedText">
+          <!-- CHANGE !!! -->
+          <style>
+            .nested-dropdown {
+              /*background-color: #fff;
+              border-radius: 5px;
+              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
+              width: 300px;
+              /* */
+              padding-inline-start: 0;
+              list-style-type: none;
+              /* center horizontally */
+              margin-left: auto;
+              margin-right: auto;
+              /* buttons style */
+              border: none;
+              background: #e0e1e2 none;
+              border-radius: 0.28571429rem;
+              box-shadow:
+                0 0 0 1px transparent inset,
+                0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+              transition:
+                opacity 0.1s ease,
+                background-color 0.1s ease,
+                color 0.1s ease,
+                box-shadow 0.1s ease,
+                background 0.1s ease;
+            }
+
+            .nested-dropdown ul {
+              display: none;
+              list-style-type: none;
+              padding: 0;
+              background-color: #f9f9f9;
+              /* */
+              text-align: right;
+            }
+
+            .nested-dropdown li {
+              border-bottom: 1px solid #e0e0e0;
+            }
+
+            .nested-dropdown li:last-child {
+              border-bottom: none;
+            }
+
+            .nested-dropdown a {
+              color: #333;
+              display: block;
+              padding: 12px 20px;
+              text-decoration: none;
+              transition: background-color 0.3s;
+              cursor: pointer; /* Added pointer cursor */
+            }
+
+            .nested-dropdown a:hover {
+              background-color: #f5f5f5;
+            }
+
+            .nested-dropdown > li > a::before {
+              content: "◄";
+              float: left;
+              font-size: 0.7em;
+              margin-top: 4px;
+            }
+
+            .nested-dropdown li.active > a::before {
+              content: "▼ ";
+              /* */
+              font-size: 0.7em;
+              /*float: left;*/
+            }
+
+            .nested-dropdown li.active > ul {
+              display: block;
+            }
+
+            .nested-dropdown > li > ul > li > a {
+              padding-right: 40px;
+            }
+
+            .nested-dropdown > li > ul > li > ul > li > a {
+              padding-right: 60px;
+              position: relative;
+            }
+
+            .nested-dropdown > li > ul > li > a::before {
+              content: "\25CF"; /* Black Circle */
+              margin-left: 10px; /* Adjust spacing */
+              color: #000; /* Adjust color */
+            }
+
+            .nested-dropdown > li > ul > li > ul > li > a::before {
+              content: "\2578\00a0"; /* Unicode for a line then a space */
+              /*margin-right: 10px;*/ /* Adjust spacing */
+            }
+
+            .nested-dropdown ul li:first-child {
+              border-top: 1px solid #e0e0e0;
+            }
+          </style>
+
+          <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              const dropdown = document.querySelector(".nested-dropdown");
+
+              dropdown.addEventListener("click", function (e) {
+                e.preventDefault();
+                const target = e.target;
+
+                if (target.tagName === "A") {
+                  const parent = target.parentElement;
+                  if (parent.querySelector("ul")) {
+                    parent.classList.toggle("active");
+
+                    // Close sibling dropdowns
+                    const siblings = parent.parentElement.children;
+                    for (let sibling of siblings) {
+                      if (sibling !== parent) {
+                        sibling.classList.remove("active");
+                      }
+                    }
+                  } else if (target.hasAttribute("data-value")) {
+                    const value = target.getAttribute("data-value");
+                    window.location.hash = "#tableID=l1:p" + value;
+
+                    // Smoothly scroll to the top before reloading
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+
+                    // Delay reload until after the smooth scroll completes
+                    setTimeout(() => {
+                      location.reload();
+                    }, 150); // Adjust the delay as needed, 500
+                  }
+                }
+              });
+
+              // Ensure the page is smoothly scrolled to the top after reload
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+          </script>
+
+          <ul class="nested-dropdown">
+            <li>
+              <a>ފިހުރިސްތު</a>
+              <ul>
+                <li>
+                  <a>كِتَابُ الطَّهَارَةِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="1">كِتَابُ الطَّهَارَةِ</a>
+                    </li>
+                    <li>
+                      <a data-value="10">بَابُ الِاسْتِطَابَةِ</a>
+                    </li>
+                    <li>
+                      <a data-value="16">بَابُ السِّوَاكِ</a>
+                    </li>
+                    <li>
+                      <a data-value="20">بَابُ المَسْحِ عَلَى الخُفَّيْنِ</a>
+                    </li>
+                    <li>
+                      <a data-value="22">بَابٌ فِي المَذْيِ وَغَيْرِهِ</a>
+                    </li>
+                    <li>
+                      <a data-value="28">بَابُ الجَنَابَةِ</a>
+                    </li>
+                    <li>
+                      <a data-value="36">بَابُ التَّيَمُّمِ</a>
+                    </li>
+                    <li>
+                      <a data-value="39">بَابُ الحَيْضِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ الصَّلَاةِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="44">بَابُ المَوَاقِيتِ</a>
+                    </li>
+                    <li>
+                      <a data-value="54"
+                        >بَابُ فَضْلِ صَلَاةِ الجَمَاعَةِ وَوُجُوبِهَا</a
+                      >
+                    </li>
+                    <li>
+                      <a data-value="60">بَابُ الأَذَانِ</a>
+                    </li>
+                    <li>
+                      <a data-value="64">بَابُ اسْتِقْبَالِ القِبْلَةِ</a>
+                    </li>
+                    <li>
+                      <a data-value="67">بَابُ الصُّفُوفِ</a>
+                    </li>
+                    <li>
+                      <a data-value="71">بَابُ الإِمَامَةِ</a>
+                    </li>
+                    <li>
+                      <a data-value="78">بَابُ صِفَةِ صَلَاةِ النَّبِيِّ ﷺ</a>
+                    </li>
+                    <li>
+                      <a data-value="92"
+                        >بَابُ وُجُوبِ الطُّمَأْنِينَةِ فِي الرُّكُوعِ
+                        وَالسُّجُودِ</a
+                      >
+                    </li>
+                    <li>
+                      <a data-value="93">بَابُ القِرَاءَةِ فِي الصَّلَاةِ</a>
+                    </li>
+                    <li>
+                      <a data-value="99"
+                        >بَابُ تَرْكِ الجَهْرِ بِـ {بِسْمِ اللَّهِ الرَّحْمَنِ
+                        الرَّحِيمِ}</a
+                      >
+                    </li>
+                    <li>
+                      <a data-value="100">بَابُ سُجُودِ السَّهْوِ</a>
+                    </li>
+                    <li>
+                      <a data-value="102"
+                        >بَابُ المُرُورِ بَيْنَ يَدَيِ المُصَلِّي</a
+                      >
+                    </li>
+                    <li>
+                      <a data-value="106">بَابٌ جَامِعٌ</a>
+                    </li>
+                    <li>
+                      <a data-value="115">بَابُ التَّشَهُّدِ</a>
+                    </li>
+                    <li>
+                      <a data-value="120">بَابُ الوِتْرِ</a>
+                    </li>
+                    <li>
+                      <a data-value="123">بَابُ الذِّكْرِ عَقِيبَ الصَّلَاةِ</a>
+                    </li>
+                    <li>
+                      <a data-value="127"
+                        >بَابُ الجَمْعِ بَيْنَ الصَّلَاتَيْنِ فِي السَّفَرِ</a
+                      >
+                    </li>
+                    <li>
+                      <a data-value="128"
+                        >بَابُ قَصْرِ الصَّلَاةِ فِي السَّفَرِ</a
+                      >
+                    </li>
+                    <li>
+                      <a data-value="129">بَابُ الجُمُعَةِ</a>
+                    </li>
+                    <li>
+                      <a data-value="137">بَابُ العِيدَيْنِ</a>
+                    </li>
+                    <li>
+                      <a data-value="142">بَابُ صَلَاةِ الكُسُوفِ</a>
+                    </li>
+                    <li>
+                      <a data-value="146">بَابُ الِاسْتِسْقَاءِ</a>
+                    </li>
+                    <li>
+                      <a data-value="148">بَابُ صَلَاةِ الخَوْفِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ الجَنَائِزِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="151">كِتَابُ الجَنَائِزِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ الزَّكَاةِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="165">كِتَابُ الزَّكَاةِ</a>
+                    </li>
+                    <li>
+                      <a data-value="171">باب صدقة الفطر</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>بَابُ صَدَقَةِ الفِطْرِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="173">كِتَابُ الصِّيَامِ</a>
+                    </li>
+                    <li>
+                      <a data-value="180"
+                        >بَابُ الصَّوْمِ فِي السَّفَرِ وَغَيْرِهِ</a
+                      >
+                    </li>
+                    <li>
+                      <a data-value="192"
+                        >بَابُ أَفْضَلِ الصِّيَامِ وَغَيْرِهِ</a
+                      >
+                    </li>
+                    <li>
+                      <a data-value="199">بَابُ لَيْلَةِ القَدْرِ</a>
+                    </li>
+                    <li>
+                      <a data-value="202">بَابُ الِاعْتِكَافِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ الحَجِّ</a>
+                  <ul>
+                    <li>
+                      <a data-value="206">بَابُ المَوَاقِيتِ</a>
+                    </li>
+                    <li>
+                      <a data-value="208"
+                        >بَابُ مَا يَلْبَسُ المُحْرِمُ مِنَ الثِّيَابِ</a
+                      >
+                    </li>
+                    <li>
+                      <a data-value="212">بَابُ الفِدْيَةِ</a>
+                    </li>
+                    <li>
+                      <a data-value="213">بَابُ حُرْمَةِ مَكَّةَ</a>
+                    </li>
+                    <li>
+                      <a data-value="215">بَابُ مَا يَجُوزُ قَتْلُهُ</a>
+                    </li>
+                    <li>
+                      <a data-value="216">بَابُ دُخُولِ مَكَّةَ وَغَيْرِهِ</a>
+                    </li>
+                    <li>
+                      <a data-value="224">بَابُ التَّمَتُّعِ</a>
+                    </li>
+                    <li>
+                      <a data-value="228">بَابُ الهَدْيِ</a>
+                    </li>
+                    <li>
+                      <a data-value="233">بَابُ الغُسْلِ لِلْمُحْرِمِ</a>
+                    </li>
+                    <li>
+                      <a data-value="234"
+                        >بَابُ فَسْخِ الحَجِّ إِلَى العُمْرَةِ</a
+                      >
+                    </li>
+                    <li>
+                      <a data-value="245"
+                        >بَابُ المُحْرِمِ يَأْكُلُ مِنْ صَيْدِ الحَلَالِ</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ البُيُوعِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="247">كِتَابُ البُيُوعِ</a>
+                    </li>
+                    <li>
+                      <a data-value="249"
+                        >بَابُ مَا نُهِيَ عَنْهُ مِنَ البُيُوعِ</a
+                      >
+                    </li>
+                    <li>
+                      <a data-value="259">بَابُ العَرَايَا وَغَيْرِ ذَلِكَ</a>
+                    </li>
+                    <li>
+                      <a data-value="264">بَابُ السَّلَمِ</a>
+                    </li>
+                    <li>
+                      <a data-value="265">بَابُ الشُّرُوطِ فِي البَيْعِ</a>
+                    </li>
+                    <li>
+                      <a data-value="268">بَابُ الرِّبَا وَالصَّرْفِ</a>
+                    </li>
+                    <li>
+                      <a data-value="273">بَابُ الرَّهْنِ وَغَيْرِهِ</a>
+                    </li>
+                    <li>
+                      <a data-value="286">بَابُ اللُّقَطَةِ</a>
+                    </li>
+                    <li>
+                      <a data-value="287">بَابُ الوَصَايَا</a>
+                    </li>
+                    <li>
+                      <a data-value="290">بَابُ الفَرَائِضِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ النِّكَاحِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="294">كِتَابُ النِّكَاحِ</a>
+                    </li>
+                    <li>
+                      <a data-value="307">بَابُ الصَّدَاقِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ الطَّلَاقِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="310">كِتَابُ الطَّلَاقِ</a>
+                    </li>
+                    <li>
+                      <a data-value="312">بَابُ العِدَّةِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ اللِّعَانِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="316">كِتَابُ اللِّعَانِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ الرَّضَاعِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="324">كِتَابُ الرَّضَاعِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ القِصَاصِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="330">كِتَابُ القِصَاصِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ الحُدُودِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="339">كِتَابُ الحُدُودِ</a>
+                    </li>
+                    <li>
+                      <a data-value="345">بَابُ حَدِّ السَّرِقَةِ</a>
+                    </li>
+                    <li>
+                      <a data-value="348">بَابُ حَدِّ الخَمْرِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ الأَيْمَانِ وَالنُّذُورِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="350">كِتَابُ الأَيْمَانِ وَالنُّذُورِ</a>
+                    </li>
+                    <li>
+                      <a data-value="357">بَابُ النَّذْرِ</a>
+                    </li>
+                    <li>
+                      <a data-value="362">بَابُ القَضَاءِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ الأَطْعِمَةِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="368">كِتَابُ الأَطْعِمَةِ</a>
+                    </li>
+                    <li>
+                      <a data-value="378">بَابُ الصَّيْدِ</a>
+                    </li>
+                    <li>
+                      <a data-value="382">بَابُ الأَضَاحِي</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ الأَشْرِبَةِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="383">كِتَابُ الأَشْرِبَةِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ اللِّبَاسِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="386">كِتَابُ اللِّبَاسِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ الجِهَادِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="392">كِتَابُ الجِهَادِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ العِتْقِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="411">كِتَابُ العِتْقِ</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
           <button class="customButtons" onclick="copyURLToClipButton();">
-            &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
           </button>
           <button
             id="toggleFiliButton"
@@ -1850,4 +2360,3 @@
     </script>
   </body>
 </html>
-<style></style>
