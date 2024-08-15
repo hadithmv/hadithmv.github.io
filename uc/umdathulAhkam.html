@@ -108,7 +108,7 @@
               content: "◄";
               float: left;
               font-size: 0.7em;
-              margin-top: 4px;
+              margin-top: 8px; /* 4 */
             }
 
             .nested-dropdown li.active > a::before {
@@ -127,7 +127,7 @@
             }
 
             .nested-dropdown > li > ul > li > ul > li > a {
-              padding-right: 60px;
+              padding-right: 50px; /* 60 */
               position: relative;
             }
 
@@ -159,14 +159,6 @@
                   const parent = target.parentElement;
                   if (parent.querySelector("ul")) {
                     parent.classList.toggle("active");
-
-                    // Close sibling dropdowns
-                    const siblings = parent.parentElement.children;
-                    for (let sibling of siblings) {
-                      if (sibling !== parent) {
-                        sibling.classList.remove("active");
-                      }
-                    }
                   } else if (target.hasAttribute("data-value")) {
                     const value = target.getAttribute("data-value");
                     window.location.hash = "#tableID=l1:p" + value;
@@ -177,7 +169,7 @@
                     // Delay reload until after the smooth scroll completes
                     setTimeout(() => {
                       location.reload();
-                    }, 150); // Adjust the delay as needed, 500
+                    }, 150); // Adjust the delay as needed
                   }
                 }
               });
@@ -552,6 +544,9 @@
                     </li>
                   </ul>
                 </li>
+                <!--<li>
+                  <a class="collapse-all">↺ ރީސެޓްކުރޭ</a>
+                </li>-->
               </ul>
             </li>
           </ul>
