@@ -730,6 +730,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // NEW SWIPE CODE
     //
     // Set touch-action: auto for tableID https://hammerjs.github.io/touch-action/
+    // https://stackoverflow.com/questions/1601933/how-do-i-stop-a-web-page-from-scrolling-to-the-top-when-a-link-is-clicked-that-t
     //document.getElementById("tableID").style.touchAction = "auto";
     // “I can’t select my text anymore!” https://hammerjs.github.io/tips/
     delete Hammer.defaults.cssProps.userSelect;
