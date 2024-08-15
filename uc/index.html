@@ -1200,6 +1200,18 @@
           cursor: pointer;
         }
 
+        /* minimum flex height */
+        .book:not(.list-item) {
+          min-height: 175px;
+        }
+
+        /* for mobile */
+        @media (max-width: 599px) {
+          .book:not(.list-item) {
+            min-height: 125px;
+          }
+        }
+
         .book:hover {
           /* cgpt style */
           /*transform: translateY(-10px);
