@@ -1201,13 +1201,13 @@
         }
 
         /* minimum flex height */
-        .book:not(.list-item) {
+        .book:not(.list-item):not(.hiddenDiv) {
           min-height: 175px;
         }
 
         /* for mobile */
         @media (max-width: 599px) {
-          .book:not(.list-item) {
+          .book:not(.list-item):not(.hiddenDiv) {
             min-height: 125px;
           }
         }
