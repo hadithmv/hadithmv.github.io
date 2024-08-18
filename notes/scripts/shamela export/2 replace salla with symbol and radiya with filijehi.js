@@ -23,6 +23,7 @@ fs.readFile("output.html", "utf8", (err, data) => {
     ["{", "﴿"],
     ["}", "﴾"],
     ["\u200C", ""],
+    // ووي رحمه الله
   ]; // ش
 
   // Perform the replacements
