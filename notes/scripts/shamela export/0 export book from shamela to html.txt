@@ -89,3 +89,5 @@ to
 18 thats it. now you need to connect continuous paragraphs where they were broken off with a new line in the shamela original. expand cell and look manually
 
 remember that kitabs and baabs can have footnote numbers, and these  break the next step of processing footnotes. so footnotes need to be matched manually, and kitabs and baabs need to be added to the table manually.
+
+footnotes will also have \r instead of \n in various places, those too need to be taken care of. script that later
