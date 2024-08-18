@@ -41,6 +41,7 @@ function createNavbar() {
                         <ul class="sub-dropdown-content">
                             <li><a href="muwattaMalik.html">މުވައްޠައު މާލިކު</a></li>
                             <li><a href="umdathulAhkam.html">ޢުމްދަތުލް އަޙްކާމް</a></li>
+                            <li><a href="hisnulMuslim.html">މުސްލިމުންގެ ކިއްލާ</a></li>
                             <li><a href="fortyNawawi.html">ނަވަވީގެ ސާޅީސް ޙަދީޘް</a></li>
                         </ul>
                     </li>
