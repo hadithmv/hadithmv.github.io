@@ -23,6 +23,29 @@ function copyURLToClipButton() {
   dummy.select();
   document.execCommand("copy");
   document.body.removeChild(dummy);
+
+  // change copy page url button text
+  var button = document.getElementById("copyPageLink");
+  var originalText = button.innerHTML;
+  var originalStyle = window.getComputedStyle(button);
+
+  function changeButtonText(newText, duration) {
+    var originalWidth = button.offsetWidth;
+    //var originalTextAlign = originalStyle.textAlign;
+
+    button.style.width = originalWidth + "px";
+    button.style.textAlign = "center"; // originalTextAlign
+    button.innerHTML = newText;
+
+    setTimeout(function () {
+      button.innerHTML = originalText;
+      button.style.width = "";
+      //button.style.textAlign = "";
+    }, duration);
+  }
+
+  // Usage example:
+  changeButtonText("ކޮޕީ ވެއްޖެ", 1000); // ✓
 }
 
 //
