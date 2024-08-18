@@ -1,0 +1,11 @@
+1 export book from shamela to html
+
+2 open html file in editor, go to where the book body starts, remove everything above that
+
+3 keep only kitabs and baabs such as
+<span data-type='title' id=toc-86>&#8204;كِتَابُ الحَجِّ</span></p>&#8204;<span data-type='title' id=toc-87>&#8204;بَابُ المَوَاقِيتِ</span>
+[js regex to remove everything except what is between <span data-type='title' and </span> keep those tags too. i want a br between after every </span>. if there is a <sup><font color=#be0000> .. </sup> that comes after the <span data-type='title'  ... </span> i want to keep that too.
+
+run: 0 keep only kitabs and baabs.js
+
+4 open in browser, copy whats needed as needed
