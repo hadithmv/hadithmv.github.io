@@ -626,9 +626,16 @@
           <script>
             // CHANGE !!!
             function toggleShowOne() {
-              var isVisible = $("#tableID").DataTable().column(8).visible();
+              /*var isVisible = $("#tableID").DataTable().column(8).visible();
+              $("#tableID").DataTable().column(8).visible(!isVisible);*/
 
-              $("#tableID").DataTable().column(8).visible(!isVisible);
+              var isVisible = $("#tableID").DataTable().column(5).visible();
+              $("#tableID").DataTable().column(5).visible(!isVisible);
+              var isVisible = $("#tableID").DataTable().column(7).visible();
+              $("#tableID").DataTable().column(7).visible(!isVisible);
+
+              var isVisible = $("#tableID").DataTable().column(9).visible();
+              $("#tableID").DataTable().column(9).visible(!isVisible);
 
               var button = document.getElementById("toggleShowButton");
               if (button.innerHTML.trim() === "&nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;") {
@@ -2867,7 +2874,7 @@
     <script type="text/javascript">
       var table = new DataTable("#tableID", {
         ...DTconfig,
-        // umdathulAhkam: #	kitab	dvKitab	bab	dvBab	arText	dvText	Takhrij
+        // umdathulAhkam: #	kitab	bab dvKitab	dvBab	arText dvText	Takhrij
         columns: [
           { title: "#" },
           { title: "ފޮތް އަރަބިން" },
@@ -2882,6 +2889,13 @@
             visible: false,
             render: (data) =>
               data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
+          },
+          {
+            title: "އަރަބި ފުޓްނޯޓުނުލާ",
+            data: 5,
+            visible: false,
+            render: (data) => data.replace(/[⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
+            searchable: false,
           },
           {
             title: "ދިވެހި ލިޔުން",

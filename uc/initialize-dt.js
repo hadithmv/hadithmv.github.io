@@ -505,6 +505,8 @@ Object.assign(DataTable.defaults, {
     [1, 2, 3, 4, 5, 10, 20, 30, 40, 50, -1],
     [1, 2, 3, 4, 5, 10, 20, 30, 40, 50, "ހުރިހާ"],
   ],*/
+  // this sets the default value on table load. make sure the value is available above too
+  displayLength: 1,
   //
   buttons: [
     {
