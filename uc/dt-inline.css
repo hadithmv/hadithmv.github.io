@@ -94,6 +94,8 @@ a::after {
 a:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
+  /* this makes sure it is on top of other elements that might come after it */
+  z-index: 5;
 }
 p {
   margin-top: 1em;
