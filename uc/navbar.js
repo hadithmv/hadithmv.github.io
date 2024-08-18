@@ -39,6 +39,7 @@ function createNavbar() {
                     <li class="sub-dropdown" onclick="toggleDropdown(this, event)">
                         <a><span class="dropdown-arrow">◄</span>ޙަދީޘް</a>
                         <ul class="sub-dropdown-content">
+                            <li><a href="muwattaMalik.html">މުވައްޠައު މާލިކު</a></li>
                             <li><a href="umdathulAhkam.html">ޢުމްދަތުލް އަޙްކާމް</a></li>
                             <li><a href="fortyNawawi.html">ނަވަވީގެ ސާޅީސް ޙަދީޘް</a></li>
                         </ul>
@@ -152,7 +153,7 @@ function toggleDropdown(element, event) {
 }
 
 // Close dropdowns when clicking outside
-window.onclick = function (event) {
+/*window.onclick = function (event) {
   if (!event.target.closest(".dropdown, .sub-dropdown, .sub-sub-dropdown")) {
     const dropdowns = document.getElementsByClassName("dropdown-content");
     const arrows = document.getElementsByClassName("dropdown-arrow");
@@ -163,7 +164,7 @@ window.onclick = function (event) {
       arrow.style.transform = "";
     }
   }
-};
+};*/
 
 //
 
