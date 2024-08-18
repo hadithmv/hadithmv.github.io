@@ -338,6 +338,13 @@ var DTconfig = {
                 text: "☰ ބަރިތައް",
                 background: false,
                 postfixButtons: [
+                  // https://datatables.net/forums/discussion/36516
+                  {
+                    extend: "colvisGroup",
+                    text: "ހުރިހާ ދައްކާ",
+                    show: ":hidden",
+                  },
+                  // https://datatables.net/extensions/buttons/examples/column_visibility/restore.html
                   {
                     extend: "colvisRestore",
                     text: "↺ ރީސެޓްކުރޭ",
