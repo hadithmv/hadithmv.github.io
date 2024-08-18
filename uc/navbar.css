@@ -3,17 +3,25 @@ add <div id="navbar-container"></div>
 to html, and link to the js
 */
 
+/* Reset default margins and paddings
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }      */
+
+/* Add top padding to body to account for fixed navbar */
 html body {
   padding-top: 47px; /* 60px; */
 }
 
+/* Navbar styles */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -32,7 +40,6 @@ html body {
   flex: 1;
   display: flex;
   align-items: center;
-
   justify-content: center; /* Center all items */
   height: 100%;
 }
@@ -41,14 +48,11 @@ html body {
   justify-content: flex-start;
 }
 
-/*.navbar-center {
-  justify-content: center;
-}*/
-
 .navbar-right {
   justify-content: flex-end;
 }
 
+/* Site icon styles */
 .site-icon {
   width: 46px; /* 48 40 */
   height: 46px;
@@ -59,6 +63,7 @@ html body {
   height: 100%;
 }
 
+/* Page title styles */
 .page-title {
   font-size: 22px; /* Default size for larger screens */
   white-space: nowrap; /* Prevent line breaks */
@@ -71,6 +76,7 @@ html body {
   width: 100%; /* Take full width of container */
 }
 
+/* Menu icon styles */
 .menu-icon {
   font-size: 24px;
   cursor: pointer;
@@ -82,7 +88,7 @@ html body {
   height: 40px; /* Match the height of the site-icon */
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments for smaller screens */
 @media screen and (max-width: 480px) {
   .navbar {
     padding: 0 10px;
@@ -103,6 +109,7 @@ html body {
   }
 }
 
+/* Side menu styles */
 .side-menu {
   position: fixed;
   top: 0;
@@ -118,10 +125,11 @@ html body {
   color: #eee; /* added; */
   text-align: right; /* Add this line for right-aligned text */
   direction: rtl;
+  overflow-y: scroll; /* Add the ability to scroll */
 }
 
-/* Hide Scrollbars But Keep Functionality */
-/* Hide scrollbar for Chrome, Safari and Opera */
+/* Hide scrollbar but keep functionality */
+/* Chrome, Safari and Opera */
 .side-menu::-webkit-scrollbar {
   display: none;
 }
@@ -129,18 +137,19 @@ html body {
 .side-menu {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-  overflow-y: scroll; /* Add the ability to scroll */
 }
 
 /* https://stackoverflow.com/questions/52848856/100vh-height-when-address-bar-is-shown-chrome-mobile 
-html {
-  height: 100%;
-} */
+      html {
+        height: 100%;
+      } */
 
+/* Side menu open state */
 .side-menu.open {
   right: 0;
 }
 
+/* Side menu close button styles */
 .side-menu-close {
   font-size: 24px;
   cursor: pointer;
@@ -148,6 +157,7 @@ html {
   text-align: left; /* Add this line for right-aligned text. prev right */
 }
 
+/* Side menu list styles */
 .side-menu ul {
   list-style-type: none;
   padding: 0;
@@ -158,7 +168,7 @@ html {
 .side-menu ul li {
   display: block; /* Ensure each li takes full width */
   margin-bottom: 15px; /* increased from 10 */
-  padding-right: 5px; /* added like a little indent */
+  padding-right: 0; /*  prev 5 which added like a little indent */
 }
 
 .side-menu ul li a {
@@ -166,13 +176,18 @@ html {
   color: #eee; /* #333; */
 }
 
-.dropdown {
+/* Dropdown styles */
+.dropdown,
+.sub-dropdown,
+.sub-sub-dropdown {
   position: relative;
-  display: inline-block;
-  text-align: right; /* Add this line */
-  direction: rtl;
   display: block; /* Make dropdown take full width */
   width: 100%;
+
+  text-align: right; /* Add this line */
+  direction: rtl;
+  cursor: pointer;
+
   /* */
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
@@ -180,33 +195,95 @@ html {
   user-select: none; /* Standard */
 }
 
-.dropdown-content {
+.dropdown > a,
+.sub-dropdown > a,
+.sub-sub-dropdown > a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  /*padding: 12px 16px;*/
+  box-sizing: border-box;
+
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 16px;
+  padding-left: 16px;
+}
+
+/* Dropdown arrow styles */
+.dropdown-arrow {
+  display: inline-block;
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+/* Dropdown content styles */
+.dropdown-content,
+.sub-dropdown-content,
+.sub-sub-dropdown-content {
   display: none;
-  position: absolute;
+  position: relative;
   background-color: #0d4266; /* #f9f9f9; */
-  min-width: 160px;
   /*width: 200px;*/
+  min-width: 160px;
   /*box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);*/ /* cleaner without shadows */
   z-index: 1;
-  right: 0; /* Add this line to align to the right */
+  /*  right: 0;  prev added this line to align to the right */
   direction: rtl;
   text-align: right; /* Add this line for right-aligned text */
   border-radius: 20px;
-  text-indent: 15px;
-  cursor: pointer;
+  margin-top: 5px;
+  /*    text-indent: 15px;
+  cursor: pointer; */
 }
 
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none !important;
-  display: grid; /* block */
-  cursor: pointer;
-}
-
-.dropdown:hover .dropdown-content {
+/* Show dropdown content when active */
+.dropdown-content.show,
+.sub-dropdown-content.show,
+.sub-sub-dropdown-content.show {
   display: block;
 }
+
+/* Styles for list items within dropdowns */
+.dropdown-content li,
+.sub-dropdown-content li,
+.sub-sub-dropdown-content li {
+  padding: 0;
+  /* added. this makes the line gaps even. important overrides the parent margin given to this */
+  margin: 0 !important;
+}
+
+.dropdown-content a,
+.sub-dropdown-content a,
+.sub-sub-dropdown-content a {
+  color: #eee;
+  text-decoration: none !important;
+  display: block; /* was grid before, and block before that */
+  padding: 12px 16px;
+}
+
+/* Remove specific styling for sub-dropdown and sub-sub-dropdown */
+.sub-dropdown,
+.sub-sub-dropdown {
+  padding-right: 0;
+}
+
+.sub-dropdown::after,
+.sub-sub-dropdown::after {
+  content: none;
+}
+
+/* */
+
+/* */
+
+/* */
+
+/* */
+
+/* */
+
+/* */
 
 /* CLAUDE
 
@@ -242,6 +319,22 @@ menu scrolls out of view when scrolling
 
 on mobile chrome, which has its own top navbar, when i scroll down, the top navbar of chrome goes up and disappears. in that moment, the bottom of the side menu is gone, and the body html can be seen
 
+...
 
+in addition to dropdowns, i want sub-dropdowns, and sub-sub-dropdowns, in which can be text, or links
 
+feel free to change the code of the dropdowns itself, before making the other changes needed
+
+dropdowns sub dropdowns and sub sub dropdowns should not appear with just hover. they should be clicked on top appear.
+
+and i dont want them appearing to the side. they should appear below.
+
+ބައިތައް
+only opens when i click the text itself, not when i click the area of the li it is in
+
+the a or the li of each nested dropdown moves a little to the left each level. i want them to be in the same space that the top level is in.
+
+also instead of the ▼ that appears before a dropdown or sub  or sub sub dropdown is opened, and disapears after it is opened,
+
+there should be a  ▼ arrow before the dropdown item text with a little space between them, the arrow should initially point towards the left where sub dropdowns are further nested, then when that dropdown is opened, the arrow should rotate to facing down. when a dropdown is closed, the down facing arrow should rotate to facing left again. no matter the level of nesting.
 */
