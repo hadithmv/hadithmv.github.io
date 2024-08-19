@@ -32,6 +32,9 @@ html body {
   padding: 0 15px; /* Consistent padding */
   box-sizing: border-box;
   width: 100%;
+
+  /* hassaans style */
+  /*box-shadow: 0 2px 2px #cacaca;*/
 }
 
 .navbar-left,
