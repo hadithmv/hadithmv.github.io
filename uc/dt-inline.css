@@ -336,7 +336,13 @@ h3 {
 .pageFootnotes {
   /*padding: 10px;*/ /* padding: 0.2em 2em 0.2em 3em; */
   padding: 0 2em 1em 3em; /* .twitter-tweet */
-  background-color: hsla(0, 0%, 71%, 0.1);
+  /* material theme builder, source color C0DAF9 */
+  background-color: #eceef4;
+  /*prev hsla(0, 0%, 71%, 0.1) */
+  /* material theme builder, source color C0DAF9 */
+  border-top: 5px solid #235580;
+  border-bottom: 5px solid #235580;
+  /* prev 136296 */
   /* material theme builder, source color C0DAF9 */
   border-right: 4px solid #c2c7cf;
   /* prev 999 .twitter-tweet */
