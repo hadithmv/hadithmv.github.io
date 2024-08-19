@@ -2097,12 +2097,19 @@ ${dateDifference}`;
           </button>
 
           <button
-            onclick="text2Html()"
+            onclick="text2HtmlP()"
             class="ttClass"
-            id="txt2Html"
             data-tooltip="Converts plain text to html, uses line break tags on the first click, and wraps paragraph tags on the second"
           >
-            &lt;txt2Html&gt;
+            &lt;txt2HtmlP&gt;
+          </button>
+
+          <button
+            onclick="text2HtmlBr()"
+            class="ttClass"
+            data-tooltip="Converts plain text to html, uses line break tags on the first click, and wraps paragraph tags on the second"
+          >
+            &lt;txt2HtmlBr&gt;
           </button>
 
           <button
@@ -4687,14 +4694,63 @@ ${dateDifference}`;
           }
           //
 
+          function text2HtmlBr() {
+            // ltr switch
+            document.getElementById("textMainArea").style.direction = "ltr";
+
+            // Split the input text by line breaks
+
+            let inputText = document.getElementById("textMainArea").value;
+            let lines = inputText.split("\n");
+            let outputText = lines
+              .filter((line) => line.trim() !== "")
+              .join("<br>\n");
+
+            // Optionally, insert the formatted text back into an element
+            document.getElementById("textMainArea").value = outputText;
+
+            //
+            scrollToTopFully();
+          }
           //
-          var text2Html_timesClicked = 0;
-          function text2Html() {
+
+          function text2HtmlP() {
+            // ltr switch
+            document.getElementById("textMainArea").style.direction = "ltr";
+
+            // Split the input text by line breaks
+            let inputText = document.getElementById("textMainArea").value;
+
+            // Split the input text by one or more line breaks
+            let paragraphs = inputText.split(/\n{1,}/);
+
+            // Remove empty paragraphs and trim whitespace
+            paragraphs = paragraphs.filter((p) => p.trim() !== "");
+
+            // Wrap each paragraph with <p> tags and join them
+            let outputText = paragraphs
+              .map((para) => `<p>${para.trim()}</p>`)
+              .join("\n");
+
+            /* Wrap each line with <p> tags and join them back into a single string
+  let formattedText = paragraphs.map(line => `<p>${line.trim()}</p>`).join('');*/
+
+            // Optionally, insert the formatted text back into an element
+            document.getElementById("textMainArea").value = outputText;
+
+            //
+            scrollToTopFully();
+          }
+          //
+
+          //
+          /*var text2HtmlP_timesClicked = 0;
+          function text2HtmlP() {
             // ltr switch
             document.getElementById("textMainArea").style.direction = "ltr";
             //
-            text2Html_timesClicked++;
-            if (text2Html_timesClicked == 1) {
+            text2HtmlP_timesClicked++;
+            if (text2HtmlP_timesClicked == 1) {
               //run first function
               // cgpt, write using js, code that takes lines of text, and adds a <br> tag at the end of each line, the output should also preserve the new lines. It should also remove any <p> and </p> tags the input may have as well
 
@@ -4719,7 +4775,7 @@ ${dateDifference}`;
               document.getElementById("textMainArea").value = resultText;
 
               document.getElementById("txt2Html").innerHTML = "&lt;br2p&gt;";
-            } else if (text2Html_timesClicked == 2) {
+            } else if (text2HtmlP_timesClicked == 2) {
               //run second function
               // Now with that output, i want to wrap each line in a paragraph, without the <br> there, and the output should also preserve the new lines. the input might have <br> tags. it might also not. in any case there should be none in the end result
 
@@ -4739,9 +4795,9 @@ ${dateDifference}`;
               document.getElementById("txt2Html").innerHTML = "&lt;p2br&gt;";
 
               // reset click
-              text2Html_timesClicked = 0;
+              text2HtmlP_timesClicked = 0;
             }
-          }
+          }*/
           //
 
           // cgpt: write js code that takes text and outputs which unicode character codepoints they are, starting with code point, followed by the letter, with " : ".  ensure that the zeros are included in the code points. seperating them all. also include a link to unicode points site.

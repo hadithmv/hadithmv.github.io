@@ -1,3 +1,60 @@
+/* DARKER OUTER WRAPPER, LIGHER INNER WRAPPER, styles of hassaan */
+body {
+  /*  main bg-llight*/
+  background-color: #f2f2f5;
+}
+.dtWrapper {
+  /* white inner */
+  background-color: #fff;
+}
+/* removes the first margin top of the first dt layout row, to make the dtwrapper touch the top, otherwise cant color the outer backgrown if its a margin.
+without important, mobile view gives it back top margin */
+div.dt-container div.dt-layout-row:first-child {
+  margin-top: 0;
+}
+/* mobile */
+@media (max-width: 599px) {
+  div.dt-container
+    div.dt-layout-row:not(.dt-layout-table)
+    div.dt-layout-cell
+    > *:first-child {
+    margin-top: 0;
+  }
+}
+/* instead of a margin, gives it a padding top and colors that */
+.dtWrapper {
+  padding-top: 0.75em;
+}
+/* for mobile */
+@media (max-width: 599px) {
+  .dtWrapper {
+    padding-top: 1.15em;
+  }
+}
+
+/* centers first row of dt elements instead of them being to the right */
+div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
+  justify-content: space-evenly;
+}
+/* if i chang the 3rd child to space evenly as well, it will be bunched together in the middle instead of the ends. so giving it a margin on either side instead. */
+div.dt-container > div.dt-layout-row:nth-child(3) > div.dt-layout-cell {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+/* more margin on either side of the dt container */
+.dt-container {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+/* on mobile, remove tr side margins, because now the dtWrapper ones suffice. used important otherwise these are overidden */
+@media (max-width: 599px) {
+  .cards tbody tr {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
 /* ==================== HTML BOILER PLATE - Base styles: opinionated defaults ==================== */
 /* https://www.cleancss.com/css-beautify/
 https://github.com/h5bp/html5-boilerplate updated with hassaan's css */
@@ -26,7 +83,9 @@ hr {
   /*border: 0;
     border-top: 1px solid #ccc;
    */
-  margin: 1em 0;
+  /*margin: 1em 0;*/
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
   padding: 0;
   /* added */
   border: none;
@@ -59,8 +118,8 @@ html {
   /* overflow-wrap: anywhere;
     */
   /* https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap */
-  text-wrap: balance;
-  /* pretty */
+  text-wrap: pretty;
+  /* pretty balance */
 }
 /* resets body and centers container */
 /* some body code from https://github.com/sindresorhus/github-markdown-css/blob/main/index.html */
@@ -126,7 +185,7 @@ h3 {
   /* */
   padding-top: 0;
 }
-@media screen and (max-width: 599px) {
+@media (max-width: 599px) {
   .footer {
     padding: 1em;
     margin: 0 0 2em;
@@ -161,6 +220,12 @@ h3 {
   margin-top: 1em;
   /*margin-right: 1em;*/
 }
+/* adds line above footnote, In order for the new lines to work properly, you also need to set the white-space property to either pre or pre-wrap. however this isnt selectable or copyable, so added it in the html itself . */
+/*.pageFootnotes::before {
+  content: "_________\a";
+  white-space: pre;
+}*/
+
 /* CUSTOM STYLES */
 .customButtons {
   position: relative;
@@ -304,13 +369,14 @@ table.dataTable span.highlight {
     padding: 0;
     padding-bottom: 20px;
     border-bottom: 10px double #474747;
+    /*border-bottom: 4px solid #999;*/
     /* 10px 3d3d3d 333 */
   }
   /* adds a little space at the top and bottom of the tbody in mobile */
-  .dt-container {
+  /*.dt-container {
     margin-top: 15px;
     margin-bottom: 15px;
-  }
+  }*/
 }
 .cards tbody tr {
   /* gives some padding around tr, in desktop */
@@ -357,7 +423,7 @@ thead {
 }
 /* ensure search bar doesnt overflow the width on mobile */
 .dt-input {
-  width: 310px;
+  width: 307px;
   max-width: 90vw;
   /* indent the text in the search a little, otherwise character cuts off */
   text-indent: 7px;
@@ -581,13 +647,13 @@ table.dataTable tbody td.focus {
   border-width: 1px;
   border-color: #aaa;
 }
-/* puts some margins to left and right of full dt rows, otherwise is basically touching the outside of the page as is*/
+/* puts some margins to left and right of full dt rows, otherwise is basically touching the outside of the page as is
 .dt-container > div.dt-layout-row > div.dt-layout-cell.dt-layout-full {
   margin-left: 10px;
-  /*margin-right: 10px;
-   */
-  /* removed this otherwise all of it is moved from the right for some reason */
-}
+  margin-right: 10px;
+} */
+/* commented out right otherwise  all of it is moved from the right for some reason */
+
 /* */
 /* ==================== DT BUTTONS CSS ==================== */
 /* from fomantic ui */
