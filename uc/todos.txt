@@ -1,7 +1,9 @@
 dynamically generate html with js for individual books
 
-add dropdown kitab baab links to muwatta. add dv baabs.
+add dropdown kitab baab links to muwatta.
+add dv baabs.
 
-update hisnul muslim. find out why onclick="window.location.hash = '#' + 'tableID=l1:p242'; location.reload();" are causing scroll to bottom.
+update hisnul muslim.
+find out why onclick="window.location.hash = '#' + 'tableID=l1:p242'; location.reload();" are causing scroll to bottom.
 
 deal with book page muqaddima footnotes in a better way
