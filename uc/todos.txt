@@ -18,3 +18,6 @@ maybe replace \n with p tags instead of br in the table text?
 add arbaoon Nawawi muqaddima from hawashi version?
 
 add the rest of bulughs muqaddima, khatima, and their footnotes
+
+finish adding riyadusaliheen and jamiul ahadith pages next
+update index color scheme
