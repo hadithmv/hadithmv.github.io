@@ -11,8 +11,10 @@ make that code unrepetitive
 include the rest of the Arabic muqaddima of akhbaruShuyukh
 replace square bracket regular footnotes with smaller ones
 
-add dropdown baab button to arbaoon aajurry and Nawawi
+add dropdown baab button to arbaoon aajurry and Nawawi, and bulugh
 
 maybe replace \n with p tags instead of br in the table text?
 
 add arbaoon Nawawi muqaddima from hawashi version?
+
+add the rest of bulughs muqaddima, khatima, and their footnotes
