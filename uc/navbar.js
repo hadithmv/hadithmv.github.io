@@ -13,6 +13,8 @@ function createNavbar() {
         ...Nested dropdown
         ....Nested sub-dropdown
         */
+  // Define the HTML structure for the navbar and side menu
+
   const navbarHTML = `
              <nav class="navbar">
         <div class="navbar-left">
@@ -24,7 +26,7 @@ function createNavbar() {
         </div>
         <div class="navbar-right" 
              title="menu">
-            <span class="menu-icon" onclick="toggleSideMenu()">☰</span>
+        <span class="menu-icon">☰</span>
         </div>
     </nav>
     
@@ -54,7 +56,7 @@ function createNavbar() {
             <li class="versionNo" onclick="openDiv()">⚙️ އިސްދާރު: v${hmvVersionNo}</li>
             <li><a href="https://t.me/ashraafmv">ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a></li>
             <li style="font-size: 90%">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</li>
-            <li style="cursor: pointer;" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">▲ މައްޗަށް ސްކްރޯލްކުރޭ</li>
+            <li style="cursor: pointer;"  href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">▲ މައްޗަށް ސްކްރޯލްކުރޭ</li>
             <li class="dropdown" onclick="toggleDropdown(this)">
                 <a>↺ ސަފުހާ ރީލޯޑު</a>
                 <ul class="dropdown-content">
@@ -83,32 +85,50 @@ function createNavbar() {
                     </li>
                     */
 
+  // Insert the navbar HTML into the container
   navbarContainer.innerHTML = navbarHTML;
 }
 
-// Function to navigate to home page (to be implemented)
+// Function to navigate to the homepage
 function goToHomePage() {
   window.location.href = "/";
 }
 
-// Function to toggle the side menu
+// Function to toggle the side menu's visibility
 function toggleSideMenu() {
   const sideMenu = document.getElementById("sideMenu");
   sideMenu.classList.toggle("open");
 }
 
+// Ensure the navbar is created once the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", createNavbar);
 
 document.addEventListener("click", function (event) {
   const navbar = document.querySelector(".navbar");
   const sideMenu = document.getElementById("sideMenu");
+
+  // Check if the click is inside the navbar
   const isClickInsideNavbar = navbar.contains(event.target);
+
+  // Check if the click is inside the side menu
   const isClickInsideSideMenu = sideMenu.contains(event.target);
+
+  // Check if the site icon is clicked (prevents the side menu from opening)
   const isSiteIconClicked = event.target.classList.contains("site-icon");
 
-  if (isClickInsideNavbar && !isSiteIconClicked) {
+  // Check if the menu icon is clicked
+  const isMenuIconClicked = event.target.classList.contains("menu-icon");
+
+  // If the menu icon is clicked, toggle the side menu
+  if (isMenuIconClicked) {
     toggleSideMenu();
-  } else if (!isClickInsideSideMenu && sideMenu.classList.contains("open")) {
+  }
+  // If any part of the navbar except the site icon is clicked, toggle the side menu
+  else if (isClickInsideNavbar && !isSiteIconClicked) {
+    toggleSideMenu();
+  }
+  // If a click outside the side menu occurs while it's open, close the side menu
+  else if (!isClickInsideSideMenu && sideMenu.classList.contains("open")) {
     toggleSideMenu();
   }
 });
