@@ -41,11 +41,12 @@ function createNavbar() {
                     <li class="sub-dropdown" onclick="toggleDropdown(this, event)">
                         <a><span class="dropdown-arrow">◄</span>ޙަދީޘް</a>
                         <ul class="sub-dropdown-content">
-                            <li><a href="muwattaMalik.html">މުވައްޠައު މާލިކު</a></li>
+                            <li><a href="muwattaMalik.html">މުވައްޠައު މާލިކު*</a></li>
                             <li><a href="umdathulAhkam.html">ޢުމްދަތުލް އަޙްކާމް</a></li>
                             <li><a href="hisnulMuslim.html">މުސްލިމުންގެ ކިއްލާ</a></li>
                             <li><a href="arbaoonAajurry.html">އާޖުއްރީގެ ސާޅީސް ޙަދީޘް*</a></li>
-                            <li><a href="fortyNawawi.html">ނަވަވީގެ ސާޅީސް ޙަދީޘް</a></li>
+                            <li><a href="akhbaruShuyukh.html">ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާޤު</a></li>
+                            <li><a href="arbaoonNawawi.html">ނަވަވީގެ ސާޅީސް ޙަދީޘް</a></li>
                         </ul>
                     </li>
                 </ul>

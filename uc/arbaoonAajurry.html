@@ -69,6 +69,14 @@
 
               var isVisible = $("#tableID").DataTable().column(4).visible();
               $("#tableID").DataTable().column(4).visible(!isVisible);
+
+              //
+
+              var isVisible = $("#tableID").DataTable().column(7).visible();
+              $("#tableID").DataTable().column(7).visible(!isVisible);
+
+              var isVisible = $("#tableID").DataTable().column(8).visible();
+              $("#tableID").DataTable().column(8).visible(!isVisible);
             }
           </script>
 
@@ -89,6 +97,7 @@
             ތަހްގީގު ކުރީ: ޢާދިލު ބިން ޢަބްދު ﷲ އާލްޙަމްދާން | ޗާޕު ކުރީ: ދާރުލް
             ލުއުލުއާ | ފުރަތަމަ ޗާޕު 1440 ހ. - 2018 މ.
           </p>
+
           <p>
             މަތުނުގެ އެކަނި އަރަބި
             <a
@@ -329,6 +338,13 @@
             data: 5,
           },
           {
+            title: "ޝަރަހަ ފިލިނުޖަހާ",
+            data: 5,
+            visible: false,
+            render: (data) =>
+              data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
+          },
+          {
             title: "ޝަރަހައިގެ ތަރުޖަމާ",
             data: 6,
           },
@@ -341,7 +357,7 @@
         ],
         columnDefs: [
           {
-            targets: [9],
+            targets: [10],
             render: (data) =>
               data !== ""
                 ? "ـــــــــــــــــــــــــــ\t<br>" +

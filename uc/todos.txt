@@ -8,4 +8,5 @@ should i separate English?
 find out why onclick="window.location.hash = '#' + 'tableID=l1:p242'; location.reload();" are causing scroll to bottom.
 make that code unrepetitive
 
-deal with book page muqaddima footnotes in a better way
+include the rest of the Arabic muqaddima of akhbaruShuyukh
+replace square bracket regular footnotes with smaller ones
