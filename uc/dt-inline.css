@@ -562,11 +562,14 @@ thead {
   /* prev 136296 */
 }
 /* ensure search bar doesnt overflow the width on mobile */
-.dt-input {
+div.dt-container .dt-input,
+div.dt-container .dt-search input {
   width: 307px;
   max-width: 90vw;
   /* indent the text in the search a little, otherwise character cuts off */
   text-indent: 7px;
+  /* makes its bg color not see thru */
+  background-color: #fff;
 }
 /* makes the inputpaging box bigger */
 .dt-container
