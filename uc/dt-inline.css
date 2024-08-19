@@ -54,7 +54,9 @@
 }
 
 .nested-dropdownButton a:hover {
-  background-color: #f5f5f5;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #345284;
+  /* prev f5f5f5 */
 }
 
 .nested-dropdownButton > li > a::before {
@@ -112,14 +114,18 @@
 
 /* ==================== DARKER OUTER WRAPPER, LIGHER INNER WRAPPER ==================== */
 
-/* styles of hassaan */
 body {
-  /*  main bg-llight*/
-  background-color: #f2f2f5;
+  /* outer color */
+  /* material theme builder, source color C0DAF9 */
+  background-color: #e7edf6;
+  /*  prev f2f2f5 main bg-llight */
+  /* styles of hassaan */
 }
 .dtWrapper {
-  /* white inner */
-  background-color: #fff;
+  /* material theme builder, source color C0DAF9 */
+  /* inner color */
+  background-color: #f7f9ff;
+  /* prev fff */
 }
 /* removes the first margin top of the first dt layout row, to make the dtwrapper touch the top, otherwise cant color the outer backgrown if its a margin.
 without important, mobile view gives it back top margin */
@@ -203,7 +209,9 @@ hr {
   padding: 0;
   /* added */
   border: none;
-  border-bottom: 2px solid #d3d3d3;
+  /* material theme builder, source color C0DAF9 */
+  border-bottom: 2px solid #c2c7cf;
+  /* prev d3d3d3 */
 }
 /* Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers */
 /*audio, canvas, iframe, svg, video*/
@@ -324,7 +332,9 @@ h3 {
   /*padding: 10px;*/ /* padding: 0.2em 2em 0.2em 3em; */
   padding: 0 2em 1em 3em; /* .twitter-tweet */
   background-color: hsla(0, 0%, 71%, 0.1);
-  border-right: 4px solid #999; /* .twitter-tweet */
+  /* material theme builder, source color C0DAF9 */
+  border-right: 4px solid #c2c7cf;
+  /* prev 999 .twitter-tweet */
   /*border: 1px solid #e1e1e1;
   border-right: solid;*/
   /*margin-top: 3em;*/
@@ -367,7 +377,9 @@ h3 {
     padding-left: 25px;
    */
   border: none;
-  background: #e0e1e2 none;
+  /* material theme builder, source color C0DAF9 */
+  background: #dee3eb none;
+  /* prev e0e1e2 */
   border-radius: 0.28571429rem;
   box-shadow:
     0 0 0 1px transparent inset,
@@ -384,7 +396,9 @@ h3 {
 }
 .customButtons:hover {
   color: white;
-  background: #1f6cb9;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #286294;
+  /* prev 1f6cb9 */
   transform: scale(1.15);
 }
 /* RESPONSIVE SEARCH BAR CODE */
@@ -428,8 +442,11 @@ https://datatables.net/forums/discussion/comment/228301/#Comment_228301 */
   /*box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
    */
   margin: 0.5rem;
-  /* turned these below off recently to make it more modern */
-  border: 0.0625rem solid rgba(0, 0, 0, 0.125);
+  /* turned these below off recently to make it more modern? */
+  /* material theme builder, source color C0DAF9 */
+  border: 0.0911rem solid #c4c6d0;
+  /* prev 0.0625rem solid rgba(0, 0, 0, 0.125) */
+
   border-radius: 24px;
   /* 1em 0.28571429rem 0.25rem;
     */
@@ -482,7 +499,9 @@ table.dataTable span.highlight {
     box-shadow: none;
     padding: 0;
     padding-bottom: 20px;
-    border-bottom: 10px double #474747;
+    /* material theme builder, source color C0DAF9 */
+    border-bottom: 10px double #415f91;
+    /* prev 474747 */
     /*border-bottom: 4px solid #999;*/
     /* 10px 3d3d3d 333 */
   }
@@ -497,9 +516,9 @@ table.dataTable span.highlight {
   padding: 20px;
   /* border box shadow from fomantic ui, ui message*/
   /* 0 0 0 1px */
-  box-shadow:
+  /*box-shadow:
     0 0 0 0.7px rgba(34, 36, 38, 0.22) inset,
-    0 0 0 0 transparent;
+    0 0 0 0 transparent;*/
 }
 /* */
 /* added this to make it one column and centered, it was already centered after colspans were removed */
@@ -532,8 +551,10 @@ thead {
 .dataTable > tbody > tr.selected {
   --dt-row-selected: initial;
   --dt-row-selected-text: initial;
-  border-top: 5px solid #136296;
-  border-bottom: 5px solid #136296;
+  /* material theme builder, source color C0DAF9 */
+  border-top: 5px solid #235580;
+  border-bottom: 5px solid #235580;
+  /* prev 136296 */
 }
 /* ensure search bar doesnt overflow the width on mobile */
 .dt-input {
@@ -647,12 +668,16 @@ div.dt-button-collection .dt-button-active:after {
 div.dt-button-collection .dt-button:hover:not(.disabled) */
 div.dt-button-collection > div > button.dt-button:hover:not(.disabled) {
   color: white;
-  background: #195faa;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #286294;
+  /* prev 195faa */
 }
 /* since we turned off the colors for select in the regular dt table, its invisible on the selected searchpanes data too, this makes it show again on searchpanes */
 div.dt-scroll > div.dt-scroll-body > table.dataTable > tbody > tr.selected {
   color: white;
-  background: #195faa;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #286294;
+  /* prev 195faa */
 }
 /* lowers the number pill box in searchpanes a little bit, needed to change static position to do it */
 div.dt-scroll
@@ -739,7 +764,10 @@ div.dt-scroll-body
 }
 /* customizes the keytables focus box */
 table.dataTable tbody td.focus {
-  outline: 2.5px solid #337ab7;
+  /* material theme builder, source color C0DAF9 */
+  outline: 2.5px solid #235580; /* actually, this was selected by :root, but its derived value was 
+    rgb(51, 122, 183)
+  /* prev 337ab7 */
   outline-offset: -2px;
   border-radius: 0.28571429rem;
   /* 5px;
@@ -784,7 +812,9 @@ table.dataTable tbody td.focus {
 div.dtsb-searchBuilder > div.dtsb-titleRow > button.dtsb-clearAll.dtsb-button,
 div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
   border: none;
-  background: #e0e1e2 none;
+  /* material theme builder, source color C0DAF9 */
+  background: #dee3eb none;
+  /* prev e0e1e2 */
   /*color: rgba(0, 0, 0, 0.6);
    */
   /*margin: 0 0.25em 0 0;
@@ -864,7 +894,9 @@ div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
   border: none;
   /* custom colors */
   color: white;
-  background-color: #1f6cb9;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #286294;
+  /* prev 1f6cb9 */
   /* #136296 #2185d0;
     */
 }
@@ -916,7 +948,9 @@ div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
   border: none;
   /* custom colors */
   color: white;
-  background-color: #1f6cb9;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #286294;
+  /* prev 1f6cb9 */
   /* #136296 #2185d0;
     */
 }

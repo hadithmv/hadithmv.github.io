@@ -25,7 +25,8 @@ html body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #0f4c75; /* #333; */
+  /* material theme builder, source color C0DAF9, primary P-40 */
+  background-color: #235580; /* prev 0f4c75 #333; */
   color: white;
   height: 50px; /* 60 */
 
@@ -124,7 +125,8 @@ html body {
   padding: 20px;
   box-sizing: border-box;
   z-index: 1000;
-  background-color: #0f4c75; /* #f1f1f1; */
+  /* material theme builder, source color C0DAF9, primary P-40 */
+  background-color: #235580; /* prev 0f4c75 f1f1f1; */
   color: #eee; /* added; */
   text-align: right; /* Add this line for right-aligned text */
   direction: rtl;
