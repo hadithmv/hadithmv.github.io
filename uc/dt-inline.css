@@ -13,7 +13,9 @@
   margin-right: auto;
   /* buttons style */
   border: none;
-  background: #e0e1e2 none;
+  /* material theme builder, source color C0DAF9 */
+  background: #dee3eb none;
+  /* prev e0e1e2 */
   border-radius: 0.28571429rem;
   box-shadow:
     0 0 0 1px transparent inset,
@@ -30,7 +32,9 @@
   display: none;
   list-style-type: none;
   padding: 0;
-  background-color: #f9f9f9;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #eceef4;
+  /* prev f9f9f9 */
   /* */
   text-align: right;
 }
@@ -55,8 +59,9 @@
 
 .nested-dropdownButton a:hover {
   /* material theme builder, source color C0DAF9 */
-  background-color: #345284;
+  background-color: #286294;
   /* prev f5f5f5 */
+  color: #fff;
 }
 
 .nested-dropdownButton > li > a::before {
