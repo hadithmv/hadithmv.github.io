@@ -1,4 +1,118 @@
-/* DARKER OUTER WRAPPER, LIGHER INNER WRAPPER, styles of hassaan */
+/* ==================== NESTED DROPDOWN CODE ==================== */
+
+.nested-dropdownButton {
+  /*background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
+  width: 250px;
+  /* */
+  padding-inline-start: 0;
+  list-style-type: none;
+  /* center horizontally */
+  margin-left: auto;
+  margin-right: auto;
+  /* buttons style */
+  border: none;
+  background: #e0e1e2 none;
+  border-radius: 0.28571429rem;
+  box-shadow:
+    0 0 0 1px transparent inset,
+    0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  transition:
+    opacity 0.1s ease,
+    background-color 0.1s ease,
+    color 0.1s ease,
+    box-shadow 0.1s ease,
+    background 0.1s ease;
+}
+
+.nested-dropdownButton ul {
+  display: none;
+  list-style-type: none;
+  padding: 0;
+  background-color: #f9f9f9;
+  /* */
+  text-align: right;
+}
+
+.nested-dropdownButton li {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.nested-dropdownButton li:last-child {
+  border-bottom: none;
+}
+
+.nested-dropdownButton a {
+  color: #333;
+  display: block;
+  /*padding: 12px 20px;*/
+  padding: 10px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  cursor: pointer; /* Added pointer cursor */
+}
+
+.nested-dropdownButton a:hover {
+  background-color: #f5f5f5;
+}
+
+.nested-dropdownButton > li > a::before {
+  content: "◄";
+  float: left;
+  font-size: 0.8em; /* 0.7 */
+  margin-top: 8px; /* 4 */
+}
+
+.nested-dropdownButton li.active > a::before {
+  content: "▼ ";
+  /* */
+  font-size: 0.7em;
+  /*float: left;*/
+}
+
+.nested-dropdownButton li.active > ul {
+  display: block;
+}
+
+.nested-dropdownButton > li > ul > li > a {
+  padding-right: 40px;
+}
+
+.nested-dropdownButton > li > ul > li > ul > li > a {
+  padding-right: 50px; /* 60 */
+  position: relative;
+}
+
+.nested-dropdownButton > li > ul > li > a::before {
+  content: "\25CF"; /* Black Circle */
+  margin-left: 10px; /* Adjust spacing */
+  color: #000; /* Adjust color */
+}
+
+/* Remove the black circle for the last two items */
+.nested-dropdownButton > li > ul > li:nth-last-child(-n + 2) > a::before {
+  content: none; /* Removes the content */
+  margin-left: 0; /* Adjust spacing */
+}
+/* Remove the black circle for the last two items */
+.nested-dropdownButton > li > ul > li:nth-last-child(-n + 2) > a {
+  text-align: left;
+  padding-left: 40px;
+}
+
+.nested-dropdownButton > li > ul > li > ul > li > a::before {
+  content: "\2578\00a0"; /* Unicode for a line then a space */
+  /*margin-right: 10px;*/ /* Adjust spacing */
+}
+
+.nested-dropdownButton ul li:first-child {
+  border-top: 1px solid #e0e0e0;
+}
+
+/* ==================== DARKER OUTER WRAPPER, LIGHER INNER WRAPPER ==================== */
+
+/* styles of hassaan */
 body {
   /*  main bg-llight*/
   background-color: #f2f2f5;
