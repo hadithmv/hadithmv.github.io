@@ -1592,6 +1592,7 @@
             render: (data) =>
               //data !== "" ? "ـــــــــــــــــــــــــــ<br>" + data : data,
               // above does not preserve the \n new lines in the data, below does
+              // by not applying '<br class="dtBr">' here, when the data is rendered with the divider, the target _all giving the br the class is overidden
               data !== ""
                 ? "ـــــــــــــــــــــــــــ\t<br>" +
                   data.replace(/\n/g, "\t<br>")

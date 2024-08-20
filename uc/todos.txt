@@ -21,3 +21,5 @@ add the rest of bulughs muqaddima, khatima, and their footnotes
 
 finish adding riyadusaliheen and jamiul ahadith pages next
 update index color scheme
+
+make uc index, 0 index, and minify without the zero later
