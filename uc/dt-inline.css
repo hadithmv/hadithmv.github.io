@@ -1,5 +1,10 @@
 /* ==================== NESTED DROPDOWN CODE ==================== */
 
+/* font size. parent and all child elements */
+.nested-dropdownButton > * {
+  font-size: 0.88em;
+}
+
 .nested-dropdownButton {
   /*background-color: #fff;
   border-radius: 5px;
@@ -137,35 +142,43 @@ without important, mobile view gives it back top margin */
 div.dt-container div.dt-layout-row:first-child {
   margin-top: 0;
 }
-/* mobile */
+/* mobile 
 @media (max-width: 599px) {
+  div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
+    margin-top: 0;
+  }
+  below targets both top and bottom rows, while above only top
   div.dt-container
     div.dt-layout-row:not(.dt-layout-table)
     div.dt-layout-cell
     > *:first-child {
     margin-top: 0;
   }
-}
+} */
 /* instead of a margin, gives it a padding top and colors that */
 .dtWrapper {
   padding-top: 0.75em;
 }
-/* for mobile */
+/* for mobile
 @media (max-width: 599px) {
   .dtWrapper {
-    padding-top: 1.15em;
+    padding-top: 0.75em;
   }
-}
+}  */
 
 /* centers first row of dt elements instead of them being to the right */
 div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
   justify-content: space-evenly;
 }
 /* if i chang the 3rd child to space evenly as well, it will be bunched together in the middle instead of the ends. so giving it a margin on either side instead. */
-div.dt-container > div.dt-layout-row:nth-child(3) > div.dt-layout-cell {
-  margin-right: 10px;
-  margin-left: 10px;
+/* for-tablet-portrait-up, because on mobile it gets right margin but not left, making it uneven */
+@media (min-width: 600px) {
+  div.dt-container > div.dt-layout-row:nth-child(3) > div.dt-layout-cell {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
 }
+
 /* more margin on either side of the dt container */
 .dt-container {
   margin-right: 10px;
@@ -341,20 +354,17 @@ https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/140
 .rightAlignedText {
   text-align: right;
 }
+
 /* page footnotes, styles from hassaan's .post-copyright, and some from .twitter-tweet  */
 .pageFootnotes {
   /*padding: 10px;*/ /* padding: 0.2em 2em 0.2em 3em; */
   padding: 0 2em 1em 3em; /* .twitter-tweet */
   /* material theme builder, source color C0DAF9 */
   background-color: #eceef4;
-  /*prev hsla(0, 0%, 71%, 0.1) */
-  /* material theme builder, source color C0DAF9 */
-  border-top: 5px solid #235580;
-  border-bottom: 5px solid #235580;
-  /* prev 136296 */
+  /* prev hsla(0, 0%, 71%, 0.1) 136296 */
   /* material theme builder, source color C0DAF9 */
   border-right: 4px solid #c2c7cf;
-  /* prev 999 .twitter-tweet */
+  /* prev c2c7cf 999 235580 .twitter-tweet */
   /*border: 1px solid #e1e1e1;
   border-right: solid;*/
   /*margin-top: 3em;*/
