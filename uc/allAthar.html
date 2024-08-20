@@ -1,429 +1,340 @@
 <!doctype html>
-<html lang="dv">
-  <!-- prevent translate popup -->
-
+<html>
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- CHANGE !!! -->
     <link
       rel="canonical"
       href="https://hadithmv.github.io/books/allAthar.html"
     />
-    <meta name="google" content="notranslate" />
-
-    <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
-    <meta name="theme-color" content="#29434e" />
-    <!-- og metadata sm link previews -->
-    <meta property="og:title" content="Hadithmv" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://hadithmv.github.io/books/allAthar.html"
-    />
-    <meta
-      property="og:image"
-      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
-    />
-
-    <!-- change123 html -->
-
-    <title>Hadithmv - All Athar</title>
+    <title>الجامع في الأحاديث والآثار – އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
     />
-    <!-- META TAGS - END -->
-
-    <!-- === EXT CSS === -->
-    <!-- non critical -->
-    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
-    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
-    <!-- === EXT CSS - END === -->
-
-    <!-- === EXT JS === -->
-    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
-    <!-- critical -->
-    <script defer src="../js/resc/COMB-Crit.min.js"></script>
-    <!-- non critical -->
-    <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
-    <!-- change123 js -->
-    <script defer src="../js/json/fortyNawawi.js"></script>
-    <script defer src="../js/json/umdah.js"></script>
-    <script defer src="../js/json/bulughFull.js"></script>
-    <script defer src="../js/json/muwatta.js"></script>
-    <script defer src="../js/json/hisnulMuslim.js"></script>
-    <script defer src="../js/json/allAthar.js"></script>
-    <script defer src="../js/json/akhbaruShuyukh.js"></script>
-    <script defer src="../js/json/akhlaqHamalathilQuran.js"></script>
-    <script defer src="../js/json/fortyAajurry.js"></script>
-
-    <script defer src="../js/allAthar-script.min.js"></script>
-    <!-- === EXT JS - END === -->
-
-    <!-- === INT CSS === -->
-    <!-- === INT CSS - END === -->
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <script src="navbar.js"></script>
+    <link href="navbar.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../css/beta/COMB-DT-CSS.min.css" />
+    <script src="../js/resc/beta/COMB-DT-JS.min.js"></script>
+    <!-- CHANGE !!! -->
+    <script src="json/allAthar.js"></script>
+    <link href="dt-inline.css" rel="stylesheet" type="text/css" />
+    <script src="initialize-dt.js"></script>
+    <style></style>
   </head>
-
-  <body translate="no">
-    <div id="page">
-      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
-      <!-- adding fixed or custom writing z index breaks on mobile -->
-      <div class="header fixed" onclick="drawer.open();">
-        <!-- hamburger -->
-        <a href="#menu"><span></span></a>
-        <a class="menuLeftIcon" href="index.html"
-          ><img
-            class="hmvLogo1"
-            alt="hadith mv"
-            loading="lazy"
-            src="../img/logo/logo.svg"
-        /></a>
-        <span class="hideOnPhoneOnly">الجامع في الأحاديث والآثار – </span>
-        <span>އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު</span>
-
-        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
-        <nav id="menu">
-          <ul>
-            <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="footer">
+        <div class="centerAlignedText">
+          <!-- LATER !!! 
+          <ul class="nested-dropdownButton">
             <li>
-              <a href="../books/index.html">● މައި ސަފުހާ</a>
-            </li>
+              <a>ފިހުރިސްތު</a>
+              <ul>
+                <li>
+                  <a>كِتَابُ الطَّهَارَةِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="1">كِتَابُ الطَّهَارَةِ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a>كِتَابُ الصَّلَاةِ</a>
+                  <ul>
+                    <li>
+                      <a data-value="44">بَابُ المَوَاقِيتِ</a>
+                    </li>
+                  </ul>
+                </li>
 
-            <li>
-              <a href="../notes/info/contact.html"
-                >ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a
-              >
+                <li>
+                  <a class="open-all">ހުރިހާ ހުޅުވާ &nbsp; ⇕</a>
+                </li>
+                <li>
+                  <a class="collapse-all">ހުރިހާ ލައްޕާ &nbsp; ↺</a>
+                </li>
+              </ul>
             </li>
+          </ul> -->
+          <!-- <ul class="nested-dropdownButton"> END -->
 
-            <li>
-              <a href="../notes/info/helpTranslate.html"
-                >ތަރުޖަމާގައި އެހީވެދިނުމަށް</a
-              >
-            </li>
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
+          <button
+            id="toggleFiliButton"
+            class="customButtons"
+            onclick="toggleFili();filiString();scrollUpTop()"
+          >
+            &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
+          </button>
+          <button
+            id="toggleShowButton"
+            class="customButtons"
+            onclick="toggleShowOne();scrollUpTop()"
+          >
+            &nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;
+          </button>
 
-            <li>
-              <a href="../notes/info/FAQ.html"
-                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
-              >
-            </li>
+          <button class="customButtons" onclick="copyOneOnly();">
+            &nbsp; ފިއްޔާއެކު ކޮޕީ &nbsp;
+          </button>
 
-            <li>
-              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
-            </li>
+          <script>
+            // If column 3 is hidden, make it visible and hide column 4. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 3 is visible and column 4 is hidden, trigger a click on .buttons-html5 without changing any column visibility.
+            function copyOneOnly() {
+              // Get the current visibility status of columns 3 and 4
+              var isVisible3 = $("#tableID").DataTable().column(3).visible();
+              var isVisible4 = $("#tableID").DataTable().column(4).visible();
 
-            <li class="hmvVer" onclick="openDiv();">
-              <a class="versionNo">⚙️ އިސްދާރު: v</a>
-            </li>
+              // If column 3 is hidden, make it visible and hide column 4
+              if (!isVisible3) {
+                $("#tableID").DataTable().column(3).visible(true);
+                $("#tableID").DataTable().column(4).visible(false);
+                // Trigger a click on the ".buttons-html5" element
+                $(".buttons-html5").click();
+                // Restore the original visibility states of columns 3 and 4
+                $("#tableID").DataTable().column(3).visible(false);
+                $("#tableID").DataTable().column(4).visible(true);
+              }
+              // If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible
+              else if (isVisible4 && !isVisible3) {
+                $("#tableID").DataTable().column(3).visible(true);
+                $("#tableID").DataTable().column(4).visible(false);
+                // Trigger a click on the ".buttons-html5" element
+                $(".buttons-html5").click();
+                // Restore the original visibility states of columns 3 and 4
+                $("#tableID").DataTable().column(3).visible(false);
+                $("#tableID").DataTable().column(4).visible(true);
+              }
+              // If column 3 is visible and column 4 is hidden, trigger a click on the ".buttons-html5" element
+              else if (isVisible3 && !isVisible4) {
+                $(".buttons-html5").click();
+              }
+            }
+          </script>
 
-            <li>
-              <a href="https://t.me/ashraafmv"
-                >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-              >
-            </li>
-            <li class="madani">
-              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
-            </li>
-            <li>
-              <a onClick="window.location.reload()">🔄 މަޑު ރީލޯޑު</a>
-            </li>
-            <li>
-              <a
-                onclick="window.location.href = window.location.href.split('.html')[0] + '.html';"
-                >ހަރު ރީލޯޑު</a
-              >
-            </li>
-          </ul>
-        </nav>
-        <!-- <nav id="menu"> -->
-      </div>
-      <!-- <div class="header fixed" onclick="drawer.open();"> -->
+          <script>
+            // CHANGE !!!
+            function toggleShowOne() {
+              /*var isVisible = $("#tableID").DataTable().column(8).visible();
+              $("#tableID").DataTable().column(8).visible(!isVisible);*/
 
-      <div class="content">
-        <main>
-          <!-- class="w3-animate-right" -->
-          <!-- --- TABLE --- -->
-          <!-- JEKYLL {{ content }} -->
-          <!-- cards js adds card classes to table ID -->
-          <!-- change123 TABLE -->
-          <!-- class="stripe table cards"> -->
-          <table id="allAtharTable" class="table cards"></table>
-          <!-- --- TABLE - END --- -->
-          <div class="hidden" id="footer">
-            <button class="lowerButtons" onclick="copyURLToClipButton();">
-              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
-            </button>
+              var isVisible = $("#tableID").DataTable().column(5).visible();
+              $("#tableID").DataTable().column(5).visible(!isVisible);
+              var isVisible = $("#tableID").DataTable().column(7).visible();
+              $("#tableID").DataTable().column(7).visible(!isVisible);
 
-            <button
-              id="toggleFiliButton2"
-              class="lowerButtons"
-              onclick="toggleFili();filiString2();scrollUpTop()"
+              var isVisible = $("#tableID").DataTable().column(9).visible();
+              $("#tableID").DataTable().column(9).visible(!isVisible);
+
+              var button = document.getElementById("toggleShowButton");
+              if (button.innerHTML.trim() === "&nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;") {
+                button.innerHTML = "&nbsp; ފުޓްނޯޓު ދައްކާ &nbsp;";
+              } else {
+                button.innerHTML = "&nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;";
+              }
+            }
+          </script>
+          <script>
+            function toggleFili() {
+              var isVisible = $("#tableID").DataTable().column(3).visible();
+              $("#tableID").DataTable().column(3).visible(!isVisible);
+
+              var isVisible = $("#tableID").DataTable().column(4).visible();
+              $("#tableID").DataTable().column(4).visible(!isVisible);
+            }
+          </script>
+
+          <p class="rightAlignedText">
+            ⚠️ قَمِّش ثُمَّ فَتِّش. މި ސަފުހާގައި އެތައް ހާސް ޙަދީޘާއި އަޘަރު
+            ހިމެނިފައިވާ އިރު، އޭގައި ކުށްހުރި ވާހަކަ ބުނުމުގެ ކުރިން، އެނގެން
+            ޖެހޭ މުހިއްމު ނުކުތާއެއް ދަންނަވާލާނަމެވެ. މިތާ ވަނީ މުސައްވަދާ
+            (އެބަހީ: ޑްރާފްޓު) ލިޔުންތަކެކެވެ. އަދި ގިނަވާނީ އަޅުގަނޑުމެންގެ
+            ތަރުޖަމާތަކެއް ނޫނެވެ. އެކި މީހުން، އެކި ތަންތަނުން، އެކި ގޮތްގޮތަށް
+            ލިޔެފައިވާ ތަރުޖަމާތަކެކެވެ. ވީމާ ކުށް ހުންނާނެއެވެ. އަދި ކިއެއް،
+            ގިނަވެސް ވާނެއެވެ. އަދި މިތާ ހުރި ނައްސުތަކާއި އޭގެ ތަރުޖަމާއާ ދިމާ
+            ނުވެދާނެއެވެ. އަދި ރިވާޔަތާއި ތަޚްރީޖްވެސް ދިމާ ނުވެދާނެއެވެ. ދެން
+            އޮތް ސުވާލަކީ، އަޅުގަނޑުމެން ނުލިޔާ، ބަލާ ނުނިމި ހުރި ލިޔުންތަކެއް
+            މިތާ މި އެއްކުރީ ކީއްވެގެންހެއްޔެވެ؟ އެއީ ތަފާތު އެތައް ބައިވަރު
+            ތަރުޖަމާތަކެއް، އެއް ތަނަކުން ސާޗުކުރެވޭ ގޮތް ހެދުމަށެވެ. އެ ހުރި
+            ކުށްތަކާ އެކުވެސް އެއިން ފައިދާ ހާސިލު ކުރުމުގެ ފުރުސަތު ހޯދުމަށެވެ.
+            މުޅިން ދިމާ ނުވިޔަސް، ކޮންމެވެސް ވަރަކަށް ގާތްކޮށްދޭނެތީވެއެވެ.
+            އަޅުގަނޑުމެންގެ ނިސްބަތުން، މި އެއްކޮށްފައިވާ ޑްރާފްޓު
+            ތަރުޖަމާތަކުން ޙަދީޘްއެމްވީގެ ވަކިވަކި ފޮތްތަކަށް ނެރޭއިރު، ކުށްތައް
+            އިސްލާހު ކުރަމުން ގެންދާނަމެވެ. އަދި އެހެނިހެން ބޭފުޅުންގެ
+            ނިސްބަތުން ވެސް، މި ސަފުހާގެ ބޭނުން ހެޔޮ ގޮތުގައި ހިފޭނީ
+            އަހުލުވެރިކަމެއް ހުރި، މި ބޭނުން ކުރަންވީ ގޮތް އުނގެނެވޭނެ ވަރުގެ
+            ބަޔަކަށެވެ. އެ ފަރާތް ވާންޖެހޭނީ، މި ސަފުހައިގެ މަގުސަދު ފަހުމްވެ،
+            މި ލިޔުންތަކުގައި ހުރި ކުށްތަކާއެކީ ވެސް ކުރިއަށް ދާންވީ ގޮތް
+            ދެނެގަނެވޭނެ ފަދަ ބަޔެކެވެ. އެއާ ޚިލާފަށް މިކަން ނުދަންނަ ބަޔަކަށް
+            ހައްތަހާވެސް ހީވާނީ އަޅުގަނޑުމެންގެ ކުށްތައް މިތާ ވަރަށް
+            ގިނަކަމަށެވެ. ކޮންމެއަކަސް، އަރަބި ނައްސަކާ ދިވެހި ތަރުޖަމާއެއް ދިމާ
+            ނުވިޔަސް، އެ ދިމާވާ އެހެން ރިވާޔަތެއް ހުރެދާނެއެވެ. ހަވާލާ
+            ދެވިފައިވާ ފޮތުގައި އެހެން ގޮތަކަށް ލިޔުން ހުއްޓަސް، އެއާ ގުޅުމެއް
+            ހުރެދާނެއެވެ. ގާބިލިއްޔަތުކަން ހުރި މީހަކަށް އެ ގުޅުން ނުވަތަ
+            ރިވާޔަތް ހޯދޭނެއެވެ. މީހަކަށް އެ ނޭނގުމަކީ ނުވަތަ ނުފެނުމަކީ އަދި
+            ލިޔުން މުޅިން ގޯސްވެ، އޭގެ ބޭނުން ނުހިފޭންވީ ސަބަބެއް ނޫނެވެ. މިތާ
+            މިވާ ލިޔުންތައް ނަގުލު ކުރާއިރު އިތުރަށް ބަލާ ރަނގަޅުތޯ ކަށަވަރު
+            ކުރުމަކީ ވަރަށް މުހިއްމު ކަމެކެވެ. ނުވަތަ އެންމެ ކުޑަމިނުން އެ ކަން
+            ކުރެވޭނެ ވަރުގެ ފެންވަރެއް ހުރި ބަޔަކު ގާތު އަހާލަން ޖެހޭނެއެވެ.
+            ފަހުމެއް ނެތި، ހަމައެކަނި ކުށް ހުއްޓޭ ބުންޏަސް ވާނެ ހަމަ އެއްވެސް
+            ކަމެއް ނެތެވެ. އެހެންވީމާ މި ކަންކަމަށް ސަމާލުވެ، އަހައްމިއްޔަތުކަން
+            ދިނުންހުއްޓެވެ.
+          </p>
+
+          <hr />
+
+          <style>
+            /* removes search button */
+            #search_button_homepage {
+              display: none;
+            }
+
+            /* makes box larger */
+            #search_form_input_homepage {
+              font-size: 20px;
+              width: 200px;
+              height: 50px;
+              padding: 10px;
+            }
+
+            /* changes color from black for dark mode */
+            @media (prefers-color-scheme: dark) {
+              #search_form_input_homepage {
+                color: #c5cfd6;
+              }
+            }
+          </style>
+
+          <p>
+            ޙަދީޘެއް ސައްހަތޯ ބެލުމަށް، އޮންލައިންކޮށް ހުރެގެން، ތިރީގައި އަރަބި
+            ލަފްޒުތައް ޖަހާލައިގެން ބަލާލެވިދާނެއެވެ.
+            <span style="background-color: #c2d288; color: #333"
+              >ފެހިކުލައިގެ</span
             >
-              &nbsp; ފިލިތައް ދައްކާ &nbsp;
-            </button>
-            <!-- this one is different from the others, as no fili is default, so dhakka is the option  -->
-
-            <script>
-              function toggleFili() {
-                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
-                // http://live.datatables.net/jayoragi/1/edit
-
-                var isVisible = $("#allAtharTable")
-                  .DataTable()
-                  .column(3)
-                  .visible();
-                $("#allAtharTable").DataTable().column(3).visible(!isVisible);
-
-                var isVisible = $("#allAtharTable")
-                  .DataTable()
-                  .column(4)
-                  .visible();
-                $("#allAtharTable").DataTable().column(4).visible(!isVisible);
-
-                // also related: https://stackoverflow.com/questions/45234347/jquery-datatables-how-hide-specified-column-dynamically/45234355#45234355
-                /*$("#allAtharTable").DataTable().column(3).visible(true);
-                $("#allAtharTable").DataTable().column(4).visible(false);*/
-              }
-              // CHANGE FILI BUTTON STRING - only for all athar, because it is hidden by default
-            </script>
-
-            <script>
-              function filiString2() {
-                var button = document.getElementById("toggleFiliButton2");
-                if (
-                  button.innerHTML.trim() === "&nbsp; ފިލިތައް ދައްކާ &nbsp;"
-                ) {
-                  button.innerHTML = "&nbsp; ފިލިތައް ފޮރުވާ &nbsp;";
-                } else {
-                  button.innerHTML = "&nbsp; ފިލިތައް ދައްކާ &nbsp;";
-                }
-              }
-            </script>
-
-            <button class="lowerButtons" onclick="copyOneOnly();">
-              &nbsp; ފިއްޔާއެކު ކޮޕީ &nbsp;
-            </button>
-
-            <script>
-              // If column 3 is hidden, make it visible and hide column 4. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 3 is visible and column 4 is hidden, trigger a click on .buttons-html5 without changing any column visibility.
-              function copyOneOnly() {
-                // Get the current visibility status of columns 3 and 4
-                var isVisible3 = $("#allAtharTable")
-                  .DataTable()
-                  .column(3)
-                  .visible();
-                var isVisible4 = $("#allAtharTable")
-                  .DataTable()
-                  .column(4)
-                  .visible();
-
-                // If column 3 is hidden, make it visible and hide column 4
-                if (!isVisible3) {
-                  $("#allAtharTable").DataTable().column(3).visible(true);
-                  $("#allAtharTable").DataTable().column(4).visible(false);
-                  // Trigger a click on the ".buttons-html5" element
-                  $(".buttons-html5").click();
-                  // Restore the original visibility states of columns 3 and 4
-                  $("#allAtharTable").DataTable().column(3).visible(false);
-                  $("#allAtharTable").DataTable().column(4).visible(true);
-                }
-                // If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible
-                else if (isVisible4 && !isVisible3) {
-                  $("#allAtharTable").DataTable().column(3).visible(true);
-                  $("#allAtharTable").DataTable().column(4).visible(false);
-                  // Trigger a click on the ".buttons-html5" element
-                  $(".buttons-html5").click();
-                  // Restore the original visibility states of columns 3 and 4
-                  $("#allAtharTable").DataTable().column(3).visible(false);
-                  $("#allAtharTable").DataTable().column(4).visible(true);
-                }
-                // If column 3 is visible and column 4 is hidden, trigger a click on the ".buttons-html5" element
-                else if (isVisible3 && !isVisible4) {
-                  $(".buttons-html5").click();
-                }
-              }
-            </script>
-
-            <p class="justi">
-              ⚠️ قَمِّش ثُمَّ فَتِّش. މި ސަފުހާގައި އެތައް ހާސް ޙަދީޘާއި އަޘަރު
-              ހިމެނިފައިވާ އިރު، އޭގައި ކުށްހުރި ވާހަކަ ބުނުމުގެ ކުރިން، އެނގެން
-              ޖެހޭ މުހިއްމު ނުކުތާއެއް ދަންނަވާލާނަމެވެ. މިތާ ވަނީ މުސައްވަދާ
-              (އެބަހީ: ޑްރާފްޓު) ލިޔުންތަކެކެވެ. އަދި ގިނަވާނީ އަޅުގަނޑުމެންގެ
-              ތަރުޖަމާތަކެއް ނޫނެވެ. އެކި މީހުން، އެކި ތަންތަނުން، އެކި
-              ގޮތްގޮތަށް ލިޔެފައިވާ ތަރުޖަމާތަކެކެވެ. ވީމާ ކުށް ހުންނާނެއެވެ.
-              އަދި ކިއެއް، ގިނަވެސް ވާނެއެވެ. އަދި މިތާ ހުރި ނައްސުތަކާއި އޭގެ
-              ތަރުޖަމާއާ ދިމާ ނުވެދާނެއެވެ. އަދި ރިވާޔަތާއި ތަޚްރީޖްވެސް ދިމާ
-              ނުވެދާނެއެވެ. ދެން އޮތް ސުވާލަކީ، އަޅުގަނޑުމެން ނުލިޔާ، ބަލާ
-              ނުނިމި ހުރި ލިޔުންތަކެއް މިތާ މި އެއްކުރީ ކީއްވެގެންހެއްޔެވެ؟ އެއީ
-              ތަފާތު އެތައް ބައިވަރު ތަރުޖަމާތަކެއް، އެއް ތަނަކުން ސާޗުކުރެވޭ
-              ގޮތް ހެދުމަށެވެ. އެ ހުރި ކުށްތަކާ އެކުވެސް އެއިން ފައިދާ ހާސިލު
-              ކުރުމުގެ ފުރުސަތު ހޯދުމަށެވެ. މުޅިން ދިމާ ނުވިޔަސް، ކޮންމެވެސް
-              ވަރަކަށް ގާތްކޮށްދޭނެތީވެއެވެ. އަޅުގަނޑުމެންގެ ނިސްބަތުން، މި
-              އެއްކޮށްފައިވާ ޑްރާފްޓު ތަރުޖަމާތަކުން ޙަދީޘްއެމްވީގެ ވަކިވަކި
-              ފޮތްތަކަށް ނެރޭއިރު، ކުށްތައް އިސްލާހު ކުރަމުން ގެންދާނަމެވެ. އަދި
-              އެހެނިހެން ބޭފުޅުންގެ ނިސްބަތުން ވެސް، މި ސަފުހާގެ ބޭނުން ހެޔޮ
-              ގޮތުގައި ހިފޭނީ އަހުލުވެރިކަމެއް ހުރި، މި ބޭނުން ކުރަންވީ ގޮތް
-              އުނގެނެވޭނެ ވަރުގެ ބަޔަކަށެވެ. އެ ފަރާތް ވާންޖެހޭނީ، މި ސަފުހައިގެ
-              މަގުސަދު ފަހުމްވެ، މި ލިޔުންތަކުގައި ހުރި ކުށްތަކާއެކީ ވެސް
-              ކުރިއަށް ދާންވީ ގޮތް ދެނެގަނެވޭނެ ފަދަ ބަޔެކެވެ. އެއާ ޚިލާފަށް
-              މިކަން ނުދަންނަ ބަޔަކަށް ހައްތަހާވެސް ހީވާނީ އަޅުގަނޑުމެންގެ
-              ކުށްތައް މިތާ ވަރަށް ގިނަކަމަށެވެ. ކޮންމެއަކަސް، އަރަބި ނައްސަކާ
-              ދިވެހި ތަރުޖަމާއެއް ދިމާ ނުވިޔަސް، އެ ދިމާވާ އެހެން ރިވާޔަތެއް
-              ހުރެދާނެއެވެ. ހަވާލާ ދެވިފައިވާ ފޮތުގައި އެހެން ގޮތަކަށް ލިޔުން
-              ހުއްޓަސް، އެއާ ގުޅުމެއް ހުރެދާނެއެވެ. ގާބިލިއްޔަތުކަން ހުރި
-              މީހަކަށް އެ ގުޅުން ނުވަތަ ރިވާޔަތް ހޯދޭނެއެވެ. މީހަކަށް އެ
-              ނޭނގުމަކީ ނުވަތަ ނުފެނުމަކީ އަދި ލިޔުން މުޅިން ގޯސްވެ، އޭގެ ބޭނުން
-              ނުހިފޭންވީ ސަބަބެއް ނޫނެވެ. މިތާ މިވާ ލިޔުންތައް ނަގުލު ކުރާއިރު
-              އިތުރަށް ބަލާ ރަނގަޅުތޯ ކަށަވަރު ކުރުމަކީ ވަރަށް މުހިއްމު
-              ކަމެކެވެ. ނުވަތަ އެންމެ ކުޑަމިނުން އެ ކަން ކުރެވޭނެ ވަރުގެ
-              ފެންވަރެއް ހުރި ބަޔަކު ގާތު އަހާލަން ޖެހޭނެއެވެ. ފަހުމެއް ނެތި،
-              ހަމައެކަނި ކުށް ހުއްޓޭ ބުންޏަސް ވާނެ ހަމަ އެއްވެސް ކަމެއް ނެތެވެ.
-              އެހެންވީމާ މި ކަންކަމަށް ސަމާލުވެ، އަހައްމިއްޔަތުކަން
-              ދިނުންހުއްޓެވެ.
-            </p>
-
-            <!--
-               މި ސަފުހާ ބޭނުން ކުރަންވީ ގޮތް ނޭނގި، 
-               ހަމައެކަނި ކުށް ހުއްޓޭ ބުންޏަސް ވާނެ ހަމަ އެއްވެސް ކަމެއް ނެތެވެ
-
-               <p class="justi">
-              ⚠️&nbsp; قَمِّش ثُمَّ فَتِّش. މި ސަފުހާގައިވާ ގިނަ ލިޔުންތަކަކީ
-              ފުރަތަމަ އެއްކުރުމަށް ފަހު، ދެވަނައަށް ބަލަމުންދާ ލިޔުންތަކެކެވެ.
-              ވީމާ ދެކެންވާނީ މިތާ ހުރީ ޑްރާފްޓުތަކެއް ކަމުގައެވެ. އަދި ކުށްވެސް
-              ހުންނާނެ ކަމަށެވެ. އެއީ އަޅުގަނޑުމެން އަމިއްލައަށް ލިޔެ، ބަލާ
-              ނިމުނު ލިޔުމަކަށް ނުވެދާނެތީއެވެ. އެކިއެކި މީސްމީޑިއާތަކާއި
-              މަންސަތަކުން ވަރަށް ގިނައިން ޙަދީޘްތަކާއި އަޘަރުތައް ލިޔެ ޝާއިއު
-              ކުރެވިގެންދެއެވެ. ނަމަވެސް ގިނަ ފަހަރު އޭގެ ތަޚްރީޖާއި އަރަބި
-              ނައްސު ވަނީ އިހްމާލު ކުރެވިފައެވެ. މި ސަފުހާގައި އެ ލިޔުންތައް
-              ވާނީ އެއްކުރެވިފައެވެ. އަދި އެ ތަރުޖަމާތަކުގެ ނުވަތަ އެއާ ގާތްކުރާ
-              ތަޚްރީޖާއި އަރަބި ނައްސުވެސް ވާނީ މިތާ ހިމަނަން މަސައްކަތް
-              ކުރެވިފައެވެ. ނަމަވެސް އެ ތަރުޖަމާތައް އެ އިން ގޮތަށް
-              ގެނެސްފައިވާތީ، ކުށްތަކާއި އިބާރާތުގެ މައްސަލަތައް އުޅޭނެއެވެ.
-              އަދި ތަޚްރީޖާއި އަރަބި ނައްސާ އެއްގޮތަށް ހުރިހާ ލަފްޒުތައް ދިމާ
-              ނުވެދާނެއެވެ. އޭގެ އިތުރުން އެކި ލިޔުތެރިންގެ ތަރުޖަމާކުރާ
-              އުސްލޫބު ތަފާތުވާތީ، އިބާރާތްކުރުން އެއްގޮތް ނުވެދާނެއެވެ.
-              އެއާއެކުވެސް މިހާރު އެއިން ލިބެން ހުރި ފައިދާއެއް ހާސިލުކޮށް،
-              ފަހުން މުރާޖާކޮށް ރަނގަޅު ކުރުމުގެ މަގްސަދުގައި، އެއް ތާކުން
-              ފަސޭހައިން ހޯދާ ބެލޭ ގޮތަށް އެ ހުރިހާ ލިޔުމެއްވެސް ވާނީ މިތާ
-              އެއްކުރެވި ހިމަނާފައެވެ. އެއީ އޭގެ އަހުލުވެރިން ނުވަތަ ކަމުގެ
-              ޚާއްސަ ފަރާތްތައް މި ލިޔުންތަކުން ބޭނުން ހިފުމަށްޓަކައެވެ. އެ
-              ފަރާތްތަކަކީ، މި ދެންނެވި ކުށްތަކާއި އިބާރާތުގެ މައްސަލަތައް
-              އަމިއްލައަށް ދެނެގަނެވި ހައްލުކުރެވޭނެ، އަދި ތަޚްރީޖާއި އަރަބި
-              ނައްސު އިތުރަށް ބަލާ ދިމާ ކުރުމުގެ ފެންވަރާއި ގާބިލިއްޔަތު
-              ހުންނާނޭ ފަރާތްތަކެކެވެ. އެއާ ޚިލާފަށް އާންމު މީހަކަށް އެފަދަ
-              ކަންކަމެއް ނޭނގޭނެއެވެ. ވީމާ މިއީ އަދި ކުރިއަށް ގެންދަމުން
-              ތަރައްގީ ކުރަމުންދާ މަސައްކަތަކަށް ވާތީ، މި ލިޔުންތައް ނަގުލު
-              ކުރާއިރު އިތުރަށް ބަލާ ރަނގަޅުތޯ ކަށަވަރު ކުރުމަކީ ކޮންމެހެންވެސް
-              ކުރަން ޖެހޭނެ ކަމެކެވެ. ނުވަތަ އެންމެ ކުޑަމިނުން އެ ކަން ކުރެވޭނެ
-              ވަރުގެ ބަޔަކު ގާތު އަހާލަން ޖެހޭނެއެވެ.&nbsp;⚠️
-            </p>
-            -->
-
-            <hr class="lineVerticalSpace" />
-
-            <p>
-              ޙަދީޘެއް ސައްހަތޯ ބެލުމަށް، އޮންލައިންކޮށް ހުރެގެން، ތިރީގައި
-              އަރަބި ލަފްޒުތައް ޖަހާލައިގެން ބަލާލެވިދާނެއެވެ.
-              <span style="background-color: #c2d288; color: #333"
-                >ފެހިކުލައިގެ</span
-              >
-              މާނައަކީ ސައްހައެވެ. އަދި
-              <span style="background-color: #f7c7c9; color: #333"
-                >ރަތްކުލައިގެ</span
-              >
-              މާނައަކީ ޟަޢީފެވެ.
-            </p>
-            <!--<iframe
-              src="http://hdith.com/iframe.php?width=400&prefill=&newwindow=yes&summary=no"
-              style="
-                overflow: hidden;
-                margin: 0;
-                padding: 0;
-                width: 300px;
-                height: 60px;
-              "
-              frameborder="0"
-            ></iframe>-->
-            <!--
-          took the form element out of the above, pasted below, removed style of 400px width,
-          and previously input type was text not search, that adds clear button inside
-        -->
-            <form
-              id="search_form_homepage"
-              class="no-menu"
-              name="x"
-              action="http://hdith.com"
-              target="_blank"
-              style=""
+            މާނައަކީ ސައްހައެވެ. އަދި
+            <span style="background-color: #f7c7c9; color: #333"
+              >ރަތްކުލައިގެ</span
             >
-              <div id="sxd"></div>
+            މާނައަކީ ޟަޢީފެވެ.
+          </p>
 
-              <input
-                type="search"
-                autocomplete="off"
-                name="s"
-                id="search_form_input_homepage"
-                onfocus="if ('rc' in window) {
+          <form
+            id="search_form_homepage"
+            class="no-menu"
+            name="x"
+            action="http://hdith.com"
+            target="_blank"
+            style=""
+          >
+            <div id="sxd"></div>
+
+            <input
+              type="search"
+              autocomplete="off"
+              name="s"
+              id="search_form_input_homepage"
+              onfocus="if ('rc' in window) {
                           nua('nro', rc)
                       }
                       ;
                       fq = 1;"
-                onblur="fq = 0"
-                onclick="if (this.value == 'تأكد من صحة الحديث') {
+              onblur="fq = 0"
+              onclick="if (this.value == 'تأكد من صحة الحديث') {
                           this.value = '';
                           this.style.color = '#000000';
                       }"
-                value=""
-                placeholder="تأكد من صحة الحديث"
-              />
-              <div id="search_wrapper_homepage">
-                <input id="search_button_homepage" type="submit" value="" />
-              </div>
-            </form>
-
-            <style>
-              /* removes search button */
-              #search_button_homepage {
-                display: none;
-              }
-
-              /* makes box larger */
-              #search_form_input_homepage {
-                font-size: 20px;
-                width: 200px;
-              }
-
-              /* changes color from black for dark mode */
-              @media (prefers-color-scheme: dark) {
-                #search_form_input_homepage {
-                  color: #c5cfd6;
-                }
-              }
-            </style>
-            <br />
-          </div>
-        </main>
-        <!-- <main> -->
+              value=""
+              placeholder="تأكد من صحة الحديث"
+            />
+            <div id="search_wrapper_homepage">
+              <input id="search_button_homepage" type="submit" value="" />
+            </div>
+          </form>
+        </div>
       </div>
-      <!-- <div class="content"> -->
     </div>
-    <!-- <div id="page"> -->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-HL24Q9NN24");
+    <script type="text/javascript">
+      var table = new DataTable("#tableID", {
+        ...DTconfig,
+        // #	kitab	bab dvKitab	dvBab	arText	dvText	Takhrij
+        columns: [
+          { title: "#" },
+          { title: "ފޮތް އަރަބިން" },
+          { title: "ބާބު އަރަބިން" },
+          { title: "ފޮތް ދިވެހިން" },
+          { title: "ބާބު ދިވެހިން" },
+          { title: "އަރަބި ލިޔުން", searchable: false },
+          {
+            title: "އަރަބި ފިލިނުޖަހާ",
+            // CHANGE !!!
+            data: 5,
+            visible: false,
+            render: (data) =>
+              data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
+          },
+          {
+            title: "އަރަބި ފުޓްނޯޓުނުލާ",
+            data: 5,
+            visible: false,
+            render: (data) => data.replace(/[⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
+            searchable: false,
+          },
+          {
+            title: "ދިވެހި ލިޔުން",
+            data: 6,
+          },
+          { title: "ތަޚްރީޖު", data: 7, searchable: false },
+        ],
+        columnDefs: [
+          {
+            targets: [9],
+            render: (data) =>
+              data !== ""
+                ? "ـــــــــــــــــــــــــــ\t<br>" +
+                  data.replace(/\n/g, "\t<br>")
+                : data,
+          },
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [1, 2, 3, 4],
+          },
+          {
+            targets: [0],
+            render: (data) => "#" + data,
+          },
+          ...columnDefsconfig,
+        ],
+      });
     </script>
-    <!-- End Google Analytics -->
-
-    <!-- === INT JS - END === -->
   </body>
 </html>

@@ -125,23 +125,11 @@
           </script>
           <script>
             function toggleFili() {
-              var isVisible = $("#riyadusaliheenTable")
-                .DataTable()
-                .column(5)
-                .visible();
-              $("#riyadusaliheenTable")
-                .DataTable()
-                .column(5)
-                .visible(!isVisible);
+              var isVisible = $("#tableID").DataTable().column(5).visible();
+              $("#tableID").DataTable().column(5).visible(!isVisible);
 
-              var isVisible = $("#riyadusaliheenTable")
-                .DataTable()
-                .column(6)
-                .visible();
-              $("#riyadusaliheenTable")
-                .DataTable()
-                .column(6)
-                .visible(!isVisible);
+              var isVisible = $("#tableID").DataTable().column(6).visible();
+              $("#tableID").DataTable().column(6).visible(!isVisible);
             }
           </script>
 
