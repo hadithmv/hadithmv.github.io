@@ -9,9 +9,6 @@
       type="text/css"
     />
     <script src="https://nightly.datatables.net/js/dataTables.js"></script>
-
-    <meta charset="utf-8" />
-    <title>DataTables - JS Bin</title>
   </head>
   <body>
     <div class="container">
@@ -24,8 +21,25 @@
         //"https://datatables.net/examples/ajax/data/arrays.txt",
 
         //
-        columns: [null, null, null, null, null, null],
-        processing: true,
+        //columns: [null, null, null, null, null, null],
+
+        /*columns: [
+          { title: "Name" },
+          { title: "Position" },
+          { title: "Office" },
+          { title: "Age" },
+          { title: "Start date" },
+          { title: "Salary" },
+        ],*/
+
+        columns: [
+          { data: 0 },
+          { data: 1 },
+          { data: 2 },
+          { data: 3 },
+          { data: 4 },
+          { data: 5 },
+        ],
       });
     </script>
   </body>
