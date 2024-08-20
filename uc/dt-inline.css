@@ -16,10 +16,13 @@
   /* center horizontally */
   margin-left: auto;
   margin-right: auto;
+  /* remove top margin */
+  margin-top: 0;
   /* buttons style */
   border: none;
   /* material theme builder, source color C0DAF9 */
   background: #dee3eb none;
+  /* https://material-foundation.github.io/material-theme-builder */
   /* prev e0e1e2 */
   border-radius: 0.28571429rem;
   box-shadow:
@@ -132,10 +135,11 @@ body {
   /* styles of hassaan */
 }
 .dtWrapper {
-  /* material theme builder, source color C0DAF9 */
   /* inner color */
-  background-color: #f7f9ff;
-  /* prev fff */
+  /* material theme builder, source color C0DAF9 
+  background-color: #f7f9ff */
+  background-color: #fff;
+  /* prev  f7f9ff */
 }
 /* removes the first margin top of the first dt layout row, to make the dtwrapper touch the top, otherwise cant color the outer backgrown if its a margin.
 without important, mobile view gives it back top margin */
@@ -360,10 +364,11 @@ https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/140
   /*padding: 10px;*/ /* padding: 0.2em 2em 0.2em 3em; */
   padding: 0 2em 1em 3em; /* .twitter-tweet */
   /* material theme builder, source color C0DAF9 */
-  background-color: #eceef4;
-  /* prev hsla(0, 0%, 71%, 0.1) 136296 */
-  /* material theme builder, source color C0DAF9 */
-  border-right: 4px solid #c2c7cf;
+  background-color: #f0f4f9;
+  /* prev e7edf6, hsla(0, 0%, 71%, 0.1) 136296 */
+  /* material theme builder, source color C0DAF9 
+  border-right: 4px solid #c2c7cf; */
+  border-right: 4px solid #8c9199;
   /* prev c2c7cf 999 235580 .twitter-tweet */
   /*border: 1px solid #e1e1e1;
   border-right: solid;*/
@@ -373,6 +378,7 @@ https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/140
   margin-bottom: 1em;
   margin-top: 1em;
   /*margin-right: 1em;*/
+  color: #555;
 }
 /* adds line above footnote, In order for the new lines to work properly, you also need to set the white-space property to either pre or pre-wrap. however this isnt selectable or copyable, so added it in the html itself . */
 /*.pageFootnotes::before {
