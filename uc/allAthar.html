@@ -35,8 +35,8 @@
     <link href="navbar.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="../css/beta/COMB-DT-CSS.min.css" />
     <script src="../js/resc/beta/COMB-DT-JS.min.js"></script>
-    <!-- CHANGE !!! -->
-    <script src="json/allAthar.js"></script>
+    <!-- CHANGE !!! 
+    <script src="json/allAthar.js"></script> -->
     <link href="dt-inline.css" rel="stylesheet" type="text/css" />
     <script src="initialize-dt.js"></script>
     <style></style>
@@ -282,36 +282,97 @@
       </div>
     </div>
     <script type="text/javascript">
+      var dataSets = [];
+      //var datasetFiles = ["data1.js", "data2.js", "data3.js" /* ... */];
+      var datasetFiles = [
+        "json/allAthar.js",
+        //"json/data2.js",
+        //"json/data3.js",
+        // Add more files as needed
+      ];
+
+      function loadDatasets(files, callback) {
+        var loaded = 0;
+        files.forEach(function (file) {
+          var script = document.createElement("script");
+          script.src = file;
+          script.onload = function () {
+            //dataSets.push(dataSet); // Assuming dataSet is a global variable in each JS file
+            dataSets.push(data); // Assuming dataSet is a global variable in each JS file
+            loaded++;
+            if (loaded === files.length) {
+              callback();
+            }
+          };
+          document.head.appendChild(script);
+        });
+      }
+
+      loadDatasets(datasetFiles, function () {
+        var combinedDataSet = [].concat.apply([], dataSets);
+        //
+        //new DataTable("#tableID", {
+        var table = new DataTable("#tableID", {
+          ...DTconfig,
+          //columns: [null, null, null, null, null],
+          data: combinedDataSet,
+          columns: [
+            { title: "ފޮތް އަރަބިން" },
+            { title: "ފޮތް ދިވެހިން", data: 0 },
+            { title: "#", data: 1 },
+            { title: "އަރަބި ލިޔުން", data: 2, searchable: false },
+            {
+              title: "އަރަބި ފިލިނުޖަހާ",
+              // CHANGE !!!
+              data: 2,
+              render: (data) => removeThashkeel(data),
+              visible: false,
+            },
+            {
+              title: "އަރަބި ފުޓްނޯޓުނުލާ",
+              data: 2,
+              render: (data) => removeSmallishFootnotes(data),
+              visible: false,
+              searchable: false,
+            },
+            {
+              title: "ދިވެހި ލިޔުން",
+              data: 3,
+            },
+            { title: "ތަޚްރީޖު", data: 4, searchable: false },
+          ],
+        });
+      });
+      /*
       var table = new DataTable("#tableID", {
         ...DTconfig,
-        // #	kitab	bab dvKitab	dvBab	arText	dvText	Takhrij
+        // book	#	arText	dvText	Takhrij
         columns: [
           { title: "#" },
           { title: "ފޮތް އަރަބިން" },
-          { title: "ބާބު އަރަބިން" },
-          { title: "ފޮތް ދިވެހިން" },
-          { title: "ބާބު ދިވެހިން" },
-          { title: "އަރަބި ލިޔުން", searchable: false },
+          { title: "ފޮތް ދިވެހިން", data: 1 },
+          { title: "ބާބު ދިވެހިން", data: 2 },
+          { title: "އަރަބި ލިޔުން", data: 3, searchable: false },
           {
             title: "އަރަބި ފިލިނުޖަހާ",
             // CHANGE !!!
-            data: 5,
+            data: 3,
             visible: false,
             render: (data) =>
               data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
           },
           {
             title: "އަރަބި ފުޓްނޯޓުނުލާ",
-            data: 5,
+            data: 3,
             visible: false,
             render: (data) => data.replace(/[⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
             searchable: false,
           },
           {
             title: "ދިވެހި ލިޔުން",
-            data: 6,
+            data: 4,
           },
-          { title: "ތަޚްރީޖު", data: 7, searchable: false },
+          { title: "ތަޚްރީޖު", data: 5, searchable: false },
         ],
         columnDefs: [
           {
@@ -335,6 +396,7 @@
           ...columnDefsconfig,
         ],
       });
+      */
     </script>
   </body>
 </html>
