@@ -287,52 +287,109 @@
 
       // Initialize an empty array to hold the datasets
       var dataSets = [];
-      // arry list of dataset files to load data from
-      //var datasetFiles = ["data1.js", "data2.js", "data3.js" /* ... */];
-      var datasetFiles = [
-        "json/allAthar.js",
-        "json/arbaoonNawawi.js",
-        //"json/data2.js",
-        //"json/data3.js",
-        // Add more files as needed
+      // array list of dataset files to load data from
+      var datasetFiles = ["json/allAthar.js", "json/arbaoonNawawi.js"];
+      // Add more files as needed
+
+      // Configuration for each dataset, in order
+      var datasetConfigs = [
+        // Columns to keep (0-based index)
+        // New order (after new column added)
+        // New column with "text"
+        {
+          columnsToKeep: null, // Keep all columns as they are
+          columnOrder: null, // Maintain the existing order of columns
+          newColumns: [], // No new columns to add
+        },
+        {
+          columnsToKeep: [0, 4, 5, 6], // Keep only the 1st, 4th, 5th, and 6th columns (0-based index)
+          columnOrder: [0, 1, 2, 3, 4], // New order for the columns after adding new columns
+          newColumns: [{ value: "الأربعون النووية" }], // Add a new column with the value "text" in each row
+        },
       ];
 
-      // Function to load datasets asynchronously
-      function loadDatasets(files, callback) {
-        var loaded = 0; // counter variable to track the number of files loaded
-        // Loop interation through each file in the files array list
-        files.forEach(function (file) {
-          // Create a new script element for each file
+      // Function to load datasets from specified files asynchronously
+      function loadDatasets(files, configs, callback) {
+        var loaded = 0; // Counter for tracking the number of loaded datasets
+        files.forEach(function (file, index) {
+          // Loop interation through each file in the files array list
           var script = document.createElement("script");
-          script.src = file; // Set the source of the script to the current file
-          // Add an event listener for the 'load' event when the script has finished loading
+          script.src = file; // Set the source of the script to load the dataset of each current file
           script.onload = function () {
-            // Push the global 'data' object from the loaded script into the dataSets array
-            //dataSets.push(dataSet); // Assuming dataSet is a global variable in each JS file
-            dataSets.push(data);
+            // Add an event listener for the 'load' event when the script has finished loading
+            // Process the dataset according to its configuration
+            dataSets[index] = processDataSet(data, configs[index]);
             loaded++; // Increment the number of files loaded
-            // If all files are loaded, execute the callback function
             if (loaded === files.length) {
-              callback(); // Invoke the callback function
+              // If all files are loaded, execute the callback function
+              callback(); // Call the callback function when all datasets are loaded
             }
           };
-          // Append the script element to the document's head to start loading it
-          document.head.appendChild(script);
+          document.head.appendChild(script); // Append the script to the document head to start loading the dataset
         });
       }
 
-      // Load the dataset files and initialize the DataTable once all are loaded
-      loadDatasets(datasetFiles, function () {
-        // Combine all the data sets into a single array
-        var combinedDataSet = [].concat.apply([], dataSets);
-        // Add this line to log the combinedDataSet to the console
-        console.log(combinedDataSet);
-        // Initialize the DataTable with the combined data and specified configuration
-        //new DataTable("#tableID", {
+      // Function to process a dataset according to the given configuration
+      function processDataSet(dataset, config) {
+        let processedData;
+
+        if (config.columnsToKeep === null) {
+          // Case when all columns should be kept as is and do not add new columns
+          processedData = dataset.map((row) =>
+            row.map((cell) => (cell === null ? "" : cell))
+          );
+        } else {
+          // Case when only specific columns should be kept
+          processedData = dataset.map((row) => {
+            let newRow = config.columnsToKeep.map((col) =>
+              row[col] === null ? "" : row[col]
+            );
+            // Add new columns with specified strings
+            config.newColumns.forEach((col) => {
+              newRow.unshift(col.value); // Add the new column value at the beginning of each row
+            });
+            return newRow;
+          });
+
+          // Reorder columns according to the specified order
+          processedData = processedData.map((row) => {
+            let newRow = [];
+            config.columnOrder.forEach((orderIndex) => {
+              newRow.push(row[orderIndex]); // Reorder columns based on the specified order
+            });
+            return newRow;
+          });
+        }
+
+        return processedData; // Return the processed dataset
+      }
+
+      // Load datasets and process them, and initialize the DataTable once all are loaded
+      loadDatasets(datasetFiles, datasetConfigs, function () {
+        var combinedDataSet = dataSets.flat(); // Combine all datasets into one
+
+        // Log the combined dataset to the console. uncomment this to see the object array
+        // console.log(combinedDataSet);
+
+        // Initialize the DataTable with the combined dataset and specified configuration
         var table = new DataTable("#tableID", {
-          ...DTconfig, // spread the configuration from the external file source
+          ...DTconfig, // Existing DataTable configuration spreadd from external file source
+          data: combinedDataSet, // Set the combined dataset as the data for the table
+
           //columns: [null, null, null, null, null],
-          data: combinedDataSet, // Use the combined dataset as the data source for the table
+          /*columns: [
+            { title: "New Column Title" }, // Title for the new column ? added in the second dataset ? or just title
+            { title: "Column 1" },
+            { title: "Column 2" },
+            { title: "Column 3" },
+            { title: "Column 4" },
+          ],*/
+
+          /*});
+      });*/
+
+          //
+
           // book	#	arText	dvText	Takhrij
           columns: [
             { title: "ފޮތް އަރަބިން" },
@@ -776,5 +833,219 @@ what if the data.js files are in a directory like  json/data1.js json/data2.js j
 To load the data.js files from a directory like json/data1.js, json/data2.js, json/data3.js, you need to update the datasetFiles array to include the correct path. Here's how you can modify the code:
 
 var datasetFiles = ['json/data1.js', 'json/data2.js', 'json/data3.js', /* ... */];
+
+...
+
+my issue is
+...DTconfig
+
+is referenced in another external js file
+
+in it is
+table = new DataTable("#tableID", {
+DTconfig
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    $("div.dt-search .dt-input").focus();
+});
+
+yet
+
+    $("div.dt-search .dt-input").focus();
+is not working when because of the first piece of code
+
+...
+
+The issue with $("div.dt-search .dt-input").focus(); not working might be due to the fact that the DataTable initialization is asynchronous, especially since you are dynamically loading the datasets and initializing the table after they are loaded. The focus code is likely running before the table is fully initialized and the search input is available.
+
+Solution
+You need to ensure that the focus code runs only after the DataTable is fully initialized. You can do this by moving the focus code inside the callback that initializes the DataTable, like so:
+
+var dataSets = [];
+
+var datasetFiles = ["json/allAthar.js"];
+
+function loadDatasets(files, callback) {
+  var loaded = 0;
+  files.forEach(function (file) {
+    var script = document.createElement("script");
+    script.src = file;
+    script.onload = function () {
+      dataSets.push(data);
+      loaded++;
+      if (loaded === files.length) {
+        callback();
+      }
+    };
+    document.head.appendChild(script);
+  });
+}
+
+loadDatasets(datasetFiles, function () {
+  var combinedDataSet = [].concat.apply([], dataSets);
+
+  var table = new DataTable("#tableID", {
+    ...DTconfig,
+
+    data: combinedDataSet,
+
+    columns: [
+      { title: "ފޮތް އަރަބިން" },
+      {
+        title: "ފޮތް ދިވެހިން",
+        data: 0,
+        render: (data) => removeThashkeel(data),
+        visible: false,
+      },
+      { title: "#", data: 1 },
+      { title: "އަރަބި ލިޔުން", data: 2, searchable: false },
+      {
+        title: "އަރަބި ފިލިނުޖަހާ",
+        data: 2,
+        render: (data) => removeThashkeel(data),
+        visible: false,
+      },
+      {
+        title: "އަރަބި ފުޓްނޯޓުނުލާ",
+        data: 2,
+        render: (data) => removeSmallishFootnotes(data),
+        visible: false,
+        searchable: false,
+      },
+      {
+        title: "ދިވެހި ލިޔުން",
+        data: 3,
+      },
+      { title: "ތަޚްރީޖު", data: 4, searchable: false },
+    ],
+  });
+
+  // Focus on the search input after the DataTable is initialized
+  $("div.dt-search .dt-input").focus();
+});
+
+...
+
+
+the datasets need to be in the order i add them
+
+also i want to be able to choose which columns of the datasets to keep, or to remove, and be able to choose the order of the columns in a dataset
+
+i also want to be able to create a new column in a dataset if i want, and give it a string that will be in each row of that column
+
+this code only lets me choose which columns to keep, remove, and reorder, and create new colunmn with string, it only lets me choose these things on the combinedDataSet as a whole, not the individual datasets. i dont want to do that for the combined one, but on the individual ones before they are then combined
+
+my datasetFiles are : ["json/allAthar.js", "json/arbaoonNawawi.js"];
+
+for the first dataset, which already has 5 columns, i want to keep the columns as they already are in the datasetfile, in the same order they are in the datasetfile. i also dont want to create any new column for that dataset.
+
+for the second dataset, i only want to keep the 1st, 4th, 5th and 6th column. not any other column. i also want them in that order, without the removed columns. i also want to create a new column at the beginning of this dataset, in each row should be a string of "text".
+
+also there can be no null values in combinedDataSet, only empty strings.
+
+newColumns: [{ title: "New Column Title", value: "text" }]
+
+i dont need to set a title here, just a value
+
+the title used in
+
+columns: [
+            { title: "New Column Title" }, 
+            { title: "Column 1" },
+            { title: "Column 2" },
+            { title: "Column 3" },
+            { title: "Column 4" },
+          ],
+
+is enough. it wont change
+
+...
+
+var dataSets = [];
+var datasetFiles = ["json/allAthar.js", "json/arbaoonNawawi.js"];
+
+// Configuration for each dataset
+var datasetConfigs = [
+    {
+        columnsToKeep: null, // Keep all columns
+        columnOrder: null, // Maintain existing order
+        newColumns: [] // No new columns
+    },
+    {
+        columnsToKeep: [0, 3, 4, 5], // Columns to keep (0-based index)
+        columnOrder: [0, 1, 2, 3], // New order (after new column added)
+        newColumns: [{ value: "text" }] // New column with "text"
+    }
+];
+
+function loadDatasets(files, configs, callback) {
+    var loaded = 0;
+    files.forEach(function (file, index) {
+        var script = document.createElement("script");
+        script.src = file;
+        script.onload = function () {
+            // Process the dataset according to its configuration
+            dataSets[index] = processDataSet(data, configs[index]);
+            loaded++;
+            if (loaded === files.length) {
+                callback();
+            }
+        };
+        document.head.appendChild(script);
+    });
+}
+
+function processDataSet(dataset, config) {
+    let processedData;
+
+    if (config.columnsToKeep === null) {
+        // Keep all columns and do not add new columns
+        processedData = dataset.map(row => row.map(cell => cell === null ? '' : cell));
+    } else {
+        // Keep only specified columns
+        processedData = dataset.map(row => {
+            let newRow = config.columnsToKeep.map(col => row[col] === null ? '' : row[col]);
+            // Add new columns with specified strings
+            config.newColumns.forEach(col => {
+                newRow.unshift(col.value);
+            });
+            return newRow;
+        });
+
+        // Reorder columns
+        processedData = processedData.map(row => {
+            let newRow = [];
+            config.columnOrder.forEach(orderIndex => {
+                newRow.push(row[orderIndex]);
+            });
+            return newRow;
+        });
+    }
+
+    return processedData;
+}
+
+loadDatasets(datasetFiles, datasetConfigs, function () {
+    var combinedDataSet = dataSets.flat();
+
+    // Log the combined dataset to the console
+    console.log(combinedDataSet);
+
+    var table = new DataTable("#tableID", {
+        ...DTconfig,
+        data: combinedDataSet,
+        columns: [
+            { title: "New Column Title" }, // Title for the new column
+            { title: "Column 1" },
+            { title: "Column 2" },
+            { title: "Column 3" },
+            { title: "Column 4" },
+        ],
+    });
+});
+
+...
+
 
 -->
