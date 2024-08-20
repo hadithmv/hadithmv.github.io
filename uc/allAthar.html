@@ -282,6 +282,7 @@
       </div>
     </div>
     <script type="text/javascript">
+      // CHANGE !!!
       var dataSets = [];
       //var datasetFiles = ["data1.js", "data2.js", "data3.js" /* ... */];
       var datasetFiles = [
@@ -316,6 +317,7 @@
           ...DTconfig,
           //columns: [null, null, null, null, null],
           data: combinedDataSet,
+          // book	#	arText	dvText	Takhrij
           columns: [
             { title: "ފޮތް އަރަބިން" },
             {
@@ -382,34 +384,6 @@
       /*
       var table = new DataTable("#tableID", {
         ...DTconfig,
-        // book	#	arText	dvText	Takhrij
-        columns: [
-          { title: "#" },
-          { title: "ފޮތް އަރަބިން" },
-          { title: "ފޮތް ދިވެހިން", data: 1 },
-          { title: "ބާބު ދިވެހިން", data: 2 },
-          { title: "އަރަބި ލިޔުން", data: 3, searchable: false },
-          {
-            title: "އަރަބި ފިލިނުޖަހާ",
-            // CHANGE !!!
-            data: 3,
-            visible: false,
-            render: (data) =>
-              data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
-          },
-          {
-            title: "އަރަބި ފުޓްނޯޓުނުލާ",
-            data: 3,
-            visible: false,
-            render: (data) => data.replace(/[⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
-            searchable: false,
-          },
-          {
-            title: "ދިވެހި ލިޔުން",
-            data: 4,
-          },
-          { title: "ތަޚްރީޖު", data: 5, searchable: false },
-        ],
         columnDefs: [
           {
             targets: [9],
