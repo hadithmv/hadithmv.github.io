@@ -304,6 +304,15 @@ h3 {
   max-width: 980px;
   /* */
 }
+/* after adding a class to dt br in js, can style it to make the gap wider
+https://stackoverflow.com/questions/7614928/change-br-height-using-css/28310011#28310011
+https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/1409742#1409742 */
+.dtBr {
+  content: "";
+  margin: 2em;
+  display: block;
+  font-size: 34%; /* 24 control the spacing with the font size. */
+}
 .footer {
   padding: 3em 5em;
   text-align: right;

@@ -338,18 +338,22 @@ var isMobile = window.innerWidth <= 800; // Boolean to check if the current view
 var columnDefsconfig = [
   // settings for all book tables
   {
+    targets: "_all",
     // hides panes for all other columns
     searchPanes: {
       show: false,
     },
-    targets: "_all",
-  },
+    /*},
   {
-    targets: "_all",
-    render: function (data) {
-      return data.replace(/\r\n|\n|\r/g, "\t<br>");
+    targets: "_all",*/
+    render: function (data, type, row) {
+      return data.replace(/\r\n|\n|\r/g, '<br class="dtBr">');
+      // return data.replace(/\r\n|\n|\r/g, "\t<br>");
+      // return data.replace(/\r\n|\n|\r/g, "\t<br><br>");
+      //return data.replace(/\r\n|\n|\r/g, "\t<p><p>");
     }, // for some reason, without the \n replaced above, the single new lines in between same language paragraphs show in console as a single space, and therefore clipboard cannot be customized to show it
     // added space before br, otherwise clipboard copy export has no space
+    // leave off applying '<br class="dtBr">' in the divider replacements ـــــــــــــــــــــــــــ in order to have footnotes close together
   },
 ];
 //
