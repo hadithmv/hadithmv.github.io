@@ -296,6 +296,14 @@
       var datasetFiles = [
         "allAthar.js",
         "arbaoonNawawi.js",
+        "umdathulAhkam.js",
+        "hisnulMuslim.js",
+        "akhbaruShuyukh.js",
+        "akhlaqHamalathilQuran.js",
+        "muwattaMalik.js",
+        "bulughulMaramFull.js",
+        "riyaduSaliheen.js",
+        "arbaoonAajurry.js",
         // Add other dataset files here
       ].map((file) => `../js/beta/json/${file}`);
 
@@ -305,6 +313,7 @@
         // New order (after new column added)
         // New column with "text"
         {
+          // allAthar
           columnsToKeep: null, // Keep all columns as they are
           columnOrder: null, // Maintain the existing order of columns
           newColumns: [], // No new columns to add
@@ -313,6 +322,46 @@
           columnsToKeep: [0, 4, 5, 6], // Keep only the 1st, 4th, 5th, and 6th columns (0-based index)
           columnOrder: [0, 1, 2, 3, 4], // New order for the columns after adding new columns
           newColumns: [{ value: "الأربعون النووية" }], // Add a new column with the value "text" in each row
+        },
+        {
+          columnsToKeep: [0, 5, 6, 7],
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "عمدة الأحكام" }],
+        },
+        {
+          columnsToKeep: [0, 3, 4, 5],
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "حصن المسلم" }],
+        },
+        {
+          columnsToKeep: [0, 1, 2, 3],
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "أخبار الشيوخ وأخلاقهم للمروذي" }],
+        },
+        {
+          columnsToKeep: [0, 3, 4, 5],
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "أخلاق حملة القرآن للآجري" }],
+        },
+        {
+          columnsToKeep: [0, 6, 7],
+          columnOrder: [0, 1, 2, 3],
+          newColumns: [{ value: "موطأ مالك" }],
+        },
+        {
+          columnsToKeep: [0, 5, 6, 7],
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "بلوغ المرام" }],
+        },
+        {
+          columnsToKeep: [0, 5, 6, 7],
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "رياض الصالحين" }],
+        },
+        {
+          columnsToKeep: [0, 3, 5, 6], // patch this up LATER !!!
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "الأربعون حديثا للآجري" }],
         },
       ];
 
