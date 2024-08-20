@@ -614,7 +614,7 @@ div.dt-container .dt-search input {
   font-size: 80%;
   /* 80 */
   /* fixes width, so doesnt jump around when numbers increase in no of digits */
-  width: 60px !important; /* 50 for mobile? */
+  width: 65px !important; /* 50 for mobile? */
 }
 /* mobile only size */
 /*@media (max-width: 599px) {
