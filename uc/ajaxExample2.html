@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link
+      href="https://nightly.datatables.net/css/dataTables.dataTables.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+
+    <meta charset="utf-8" />
+    <title>DataTables - JS Bin</title>
+  </head>
+  <body>
+    <div class="container">
+      <table id="example" class="display" style="width: 100%"></table>
+    </div>
+    <script>
+      new DataTable("#example", {
+        //ajax: "arrays.txt",
+        url: "arrays.txt",
+        data: data,
+        //"https://datatables.net/examples/ajax/data/arrays.txt",
+        //'../ajax/data/arrays.txt'
+
+        //
+        columns: [
+          { data: "name" },
+          { data: "position" },
+          { data: "office" },
+          { data: "extn" },
+          { data: "start_date" },
+          { data: "salary" },
+        ],
+        processing: true,
+      });
+    </script>
+  </body>
+</html>
