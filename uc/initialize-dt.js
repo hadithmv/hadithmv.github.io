@@ -1,10 +1,26 @@
 /* === === ===
-regular page code
+--- REGULAR PAGE CODE ---
 === === === */
 
+/* --- */
+
+/* === === ===
+FILI AND FOOTNOTE REMOVE CODE
+=== === === */
+
+// define reusable functions for the regular expressions used in the render method. Replace the inline regex replacements with calls to these functions.
+function removeThashkeel(data) {
+  return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "");
+}
+
+function removeSmallishFootnotes(data) {
+  return data.replace(/[⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "");
+}
 //
 
-// NESTED DROPDOWN CODE
+/* === === ===
+NESTED DROPDOWN CODE
+=== === === */
 
 // Wait for the DOM to be fully loaded before executing the script
 document.addEventListener("DOMContentLoaded", function () {
@@ -360,7 +376,8 @@ var columnDefsconfig = [
 
 // CUSTOM DT CONFIGURATION
 var DTconfig = {
-  data: data,
+  // can enable this to use globally via spread, but need to disable it if im going to do things like merging multiple js arrays
+  //data: data,
 
   // keytable option is set to !isMobile, which means that it will be true if the user is not on a mobile device (i.e., isMobile is false), and false if the user is on a mobile device (i.e., isMobile is true).
   keys: !isMobile,

@@ -550,6 +550,7 @@
     <script type="text/javascript">
       var table = new DataTable("#tableID", {
         ...DTconfig,
+        data: data,
         // #	bab arab takhrij babDhiv	dhiv	dvRef
         columns: [
           { title: "#" },
@@ -559,9 +560,8 @@
             title: "އަރަބި ފިލިނުޖަހާ",
             // CHANGE !!!
             data: 2,
+            render: (data) => removeThashkeel(data),
             visible: false,
-            render: (data) =>
-              data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
           },
           {
             title: "ތަޚްރީޖު",
