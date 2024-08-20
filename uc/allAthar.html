@@ -318,7 +318,43 @@
           data: combinedDataSet,
           columns: [
             { title: "ފޮތް އަރަބިން" },
-            { title: "ފޮތް ދިވެހިން", data: 0 },
+            {
+              title: "ފޮތް ދިވެހިން",
+              data: 0,
+              render: (data) =>
+                data
+                  .replace("الأربعون النووية", "")
+                  .replace("صحيح مسلم", "ޞަޙީޙު މުސްލިމް")
+                  .replace("صحيح مسلم", "ޞަޙީޙު މުސްލިމް")
+                  .replace("سنن أبي داود", "ސުނަން އަބޫ ދާވޫދު")
+                  .replace("المستدرك للحاكم", "ޙާކިމްގެ މުސްތަދްރަކު")
+                  .replace("الأدب المفرد", "އަދަބުލް މުފްރަދު")
+                  .replace("منتقى ابن جارود", "އިބްނު ޖާރޫދުގެ މުންތަގާ")
+                  .replace("صحيح ابن خزيمة", "ޞަޙީޙު އިބްނު ޚުޒައިމާ")
+                  .replace("صحيح ابن حبان", "ޞަޙީޙު އިބްނު ޙިއްބާން")
+                  .replace("سنن النسائي", "ސުނަން އައްނަސާއީ")
+                  .replace("سنن الترمذي", "ސުނަން އައްތިރުމިޛީ")
+                  .replace("سنن ابن ماجه", "ސުނަން އިބްނު މާޖާ")
+                  .replace("مسند أحمد", "މުސްނަދު އަޙްމަދު")
+                  .replace("سنن الدارقطني", "ސުނަން އައްދާރަގުޠުނީ")
+                  .replace("سنن البيهقي", "ސުނަން އަލްބައިހަގީ")
+                  .replace("السنن الكبرى للنسائي", "ނަސާއީގެ ސުނަން އަލްކުބްރާ")
+                  .replace("موطأ مالك", "މުވައްޠައު މާލިކު")
+                  .replace("الأحاديث المختارة", "އަޙާދީޘް އަލްމުޚްތާރާ")
+                  .replace(
+                    "السنن الكبرى للبيهقي",
+                    "ބައިހަގީގެ ސުނަން އަލްކުބްރާ"
+                  )
+                  .replace("مصنف عبد الرزاق", "މުޞައްނަފު ޢަބްދުއްރައްޒާގު")
+                  .replace("مسند الدارمي", "މުސްނަދު އައްދާރިމީ")
+                  .replace("مصنف ابن أبي شيبة", "މުޞައްނަފު އިބްނު އަބީ ޝައިބާ")
+                  .replace("حصن المسلم", "މުސްލިމުންގެ ކިއްލާ")
+                  .replace("الأربعون النووية", "ނަވަވީގެ ސާޅީސް ޙަދީޘް")
+                  .replace("عمدة الأحكام", "ޢުމްދަތުލް އަޙްކާމް")
+                  .replace("بلوغ المرام", "ބުލޫޣުލް މަރާމް")
+                  .replace("رياض الصالحين", "ރިޔާޟުއްޞާލިޙީން"),
+              visible: false,
+            },
             { title: "#", data: 1 },
             { title: "އަރަބި ލިޔުން", data: 2, searchable: false },
             {
@@ -400,3 +436,280 @@
     </script>
   </body>
 </html>
+
+<!--
+
+ cgpt: this is my datatables code
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link
+      href="https://nightly.datatables.net/css/dataTables.dataTables.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+
+    <script src="data1.js"></script>
+    <script src="data2.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <table id="example" class="display nowrap" width="100%"></table>
+    </div>
+    <script>
+      new DataTable("#example", {
+        pageLength: 10,
+        columns: [{ title: "Name" }, { title: "Position" }],
+        data: dataSet,
+      });
+    </script>
+  </body>
+</html>
+
+data1.js links to an external js file and its contents are:
+var dataSet = [
+  ["Tiger Nixon", "System Architect"],
+  ["Garrett Winters", "Accountant"],
+  ["Unity Butler", "Marketing Designer"],
+];
+
+data2.js links to an external js file and its contents are:
+var dataSet = [
+  ["Brielle Williamson", "Integration Specialist"],
+  ["Herrod Chandler", "Sales Assistant"],
+  ["Rhona Davidson", "Integration Specialist"],
+];
+
+how do i get both sets of data to show on the datatable, without changing the contents of the js files?
+
+that just repeats the data of the second set, and the first is not there at all
+
+very good. how else could it have been done
+
+...
+
+compare between these codes:
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link
+      href="https://nightly.datatables.net/css/dataTables.dataTables.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+
+    <script src="data1.js"></script>
+    <script>
+      // Store the first dataSet in another variable
+      var dataSet1 = dataSet;
+    </script>
+    <script src="data2.js"></script>
+    <script>
+      // Store the second dataSet in another variable
+      var dataSet2 = dataSet;
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <table id="example" class="display nowrap" width="100%"></table>
+    </div>
+    <script>
+      // Combine both datasets
+      var combinedDataSet = dataSet1.concat(dataSet2);
+
+      new DataTable("#example", {
+        pageLength: 10,
+        columns: [{ title: "Name" }, { title: "Position" }],
+        data: combinedDataSet,
+      });
+    </script>
+  </body>
+</html>
+
+...
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link
+      href="https://nightly.datatables.net/css/dataTables.dataTables.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+
+    <script src="data1.js"></script>
+    <script>
+      var dataSets = [];
+      dataSets.push(dataSet);
+    </script>
+    <script src="data2.js"></script>
+    <script>
+      dataSets.push(dataSet);
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <table id="example" class="display nowrap" width="100%"></table>
+    </div>
+    <script>
+      // Flatten the array of dataSets
+      var combinedDataSet = [].concat.apply([], dataSets);
+
+      new DataTable("#example", {
+        pageLength: 10,
+        columns: [{ title: "Name" }, { title: "Position" }],
+        data: combinedDataSet,
+      });
+    </script>
+  </body>
+</html>
+
+...
+
+cgpt:
+
+1. Variable Management
+First Code:
+
+It uses separate variables (dataSet1 and dataSet2) to store the datasets from data1.js and data2.js, respectively.
+After loading both datasets, the code combines them using concat to form a single combinedDataSet.
+Second Code:
+
+It initializes an array (dataSets) and appends each dataset to this array as it loads them.
+The code then flattens the dataSets array using [].concat.apply([], dataSets) to create a single combinedDataSet.
+2. Array Handling
+First Code:
+The datasets are stored as separate variables and then concatenated. This is a straightforward approach if you have only two datasets.
+Second Code:
+The datasets are stored in an array, allowing for more flexibility and scalability if there are more datasets to combine. The [].concat.apply([], dataSets) method flattens the array of arrays, which is useful if each dataSet is itself an array of rows.
+This method is more generic and can handle any number of datasets.
+3. Scalability
+First Code:
+
+It is more suitable for a fixed number of datasets, as each dataset needs to be manually assigned to a variable and then combined.
+Second Code:
+
+It is more scalable and dynamic, as you can simply push each new dataset into the dataSets array without needing to manage additional variables manually.
+4. Performance Considerations
+First Code:
+With only two datasets, the performance difference is negligible. The code is straightforward and easy to understand.
+Second Code:
+The second method is potentially more performant and flexible if you expect to handle more datasets in the future. The use of an array to store multiple datasets is more maintainable and easier to manage as the number of datasets increases.
+Summary:
+If you only have a fixed, small number of datasets to combine, the first approach is simple and direct.
+If you anticipate needing to combine an unknown or larger number of datasets, the second approach is more robust and flexible, making it easier to maintain and extend in the future.
+
+...
+
+claude:
+
+The main differences between these two code snippets are in how they handle and combine the datasets. Here are the key differences:
+
+Data Storage:
+
+First code: Uses separate variables dataSet1 and dataSet2 to store the datasets.
+Second code: Uses an array dataSets to store multiple datasets.
+
+
+Data Loading:
+
+First code: Assigns each dataset directly to a variable.
+Second code: Pushes each dataset into the dataSets array.
+
+
+Combining Datasets:
+
+First code: Uses concat() method to combine dataSet1 and dataSet2.
+Second code: Uses [].concat.apply([], dataSets) to flatten the array of datasets.
+
+
+Scalability:
+
+First code: Limited to two datasets. Adding more would require additional variables and manual concatenation.
+Second code: More scalable. Can easily accommodate additional datasets by adding more dataSets.push(dataSet) lines.
+
+
+Memory Usage:
+
+First code: Creates separate copies of each dataset.
+Second code: Stores references to datasets, potentially more memory-efficient for large datasets.
+
+
+Readability:
+
+First code: More straightforward for exactly two datasets.
+Second code: More abstract but more flexible for multiple datasets.
+
+
+
+Both approaches achieve the same end result of combining datasets for use in a DataTable, but the second approach is more flexible and scalable if you need to work with an unknown number of datasets.
+
+...
+
+An Even More Scalable Approach:
+
+For handling many datasets, you could use a more dynamic approach:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://nightly.datatables.net/css/dataTables.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+</head>
+<body>
+    <div class="container">
+        <table id="example" class="display nowrap" width="100%"></table>
+    </div>
+    <script>
+        var dataSets = [];
+        var datasetFiles = ['data1.js', 'data2.js', 'data3.js', /* ... */];
+
+        function loadDatasets(files, callback) {
+            var loaded = 0;
+            files.forEach(function(file) {
+                var script = document.createElement('script');
+                script.src = file;
+                script.onload = function() {
+                    dataSets.push(dataSet);
+                    loaded++;
+                    if (loaded === files.length) {
+                        callback();
+                    }
+                };
+                document.head.appendChild(script);
+            });
+        }
+
+        loadDatasets(datasetFiles, function() {
+            var combinedDataSet = [].concat.apply([], dataSets);
+            new DataTable("#example", {
+                pageLength: 10,
+                columns: [{ title: "Name" }, { title: "Position" }],
+                data: combinedDataSet,
+            });
+        });
+    </script>
+</body>
+</html>
+
+...
+
+what if the data.js files are in a directory like  json/data1.js json/data2.js json/data3.js
+
+To load the data.js files from a directory like json/data1.js, json/data2.js, json/data3.js, you need to update the datasetFiles array to include the correct path. Here's how you can modify the code:
+
+var datasetFiles = ['json/data1.js', 'json/data2.js', 'json/data3.js', /* ... */];
+
+-->
