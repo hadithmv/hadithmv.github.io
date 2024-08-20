@@ -31,8 +31,8 @@
     />
     <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#29434e" />
-    <script src="../js/beta/navbar.js"></script>
     <link href="../css/beta/navbar.css" rel="stylesheet" type="text/css" />
+    <script src="../js/beta/navbar.js"></script>
     <link rel="stylesheet" href="../css/beta/COMB-DT-CSS.min.css" />
     <script src="../js/beta/COMB-DT-JS.min.js"></script>
     <!-- CHANGE !!! 
@@ -288,8 +288,16 @@
       // Initialize an empty array to hold the datasets
       var dataSets = [];
       // array list of dataset files to load data from
-      var datasetFiles = ["json/allAthar.js", "json/arbaoonNawawi.js"];
+      /*var datasetFiles = [
+        "../js/beta/json/allAthar.js",
+        "../js/beta/json/arbaoonNawawi.js",
+      ];*/
       // Add more files as needed
+      var datasetFiles = [
+        "allAthar.js",
+        "arbaoonNawawi.js",
+        // Add other dataset files here
+      ].map((file) => `../js/beta/json/${file}`);
 
       // Configuration for each dataset, in order
       var datasetConfigs = [
