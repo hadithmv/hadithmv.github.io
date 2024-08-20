@@ -49,6 +49,7 @@ function createNavbar() {
                             <li><a href="akhlaqHamalathilQuran.html">އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a></li>
                             <li><a href="bulughMaram.html">ބުލޫޣުލް މަރާމް*</a></li>
                             <li><a href="arbaoonNawawi.html">ނަވަވީގެ ސާޅީސް ޙަދީޘް</a></li>
+                            <li><a href="riyaduSaliheen.html">ރިޔާޟުއްޞާލިޙީން*</a></li>
                         </ul>
                     </li>
                 </ul>
