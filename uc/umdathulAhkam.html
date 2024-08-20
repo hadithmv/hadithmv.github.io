@@ -3132,15 +3132,14 @@
             title: "އަރަބި ފިލިނުޖަހާ",
             // CHANGE !!!
             data: 5,
+            render: (data) => removeThashkeel(data),
             visible: false,
-            render: (data) =>
-              data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
           },
           {
             title: "އަރަބި ފުޓްނޯޓުނުލާ",
             data: 5,
+            render: (data) => removeSmallishFootnotes(data),
             visible: false,
-            render: (data) => data.replace(/[⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
             searchable: false,
           },
           {

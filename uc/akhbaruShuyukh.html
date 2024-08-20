@@ -442,6 +442,7 @@
     <script type="text/javascript">
       var table = new DataTable("#tableID", {
         ...DTconfig,
+        data: data,
         // no	arab	dhiv	dvRef	pageNo
         columns: [
           { title: "#" },
@@ -450,9 +451,8 @@
             title: "އަރަބި ފިލިނުޖަހާ",
             // CHANGE !!!
             data: 1,
+            render: (data) => removeThashkeel(data),
             visible: false,
-            render: (data) =>
-              data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
           },
           {
             title: "ދިވެހި ލިޔުން",
