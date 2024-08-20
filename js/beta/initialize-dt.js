@@ -143,7 +143,7 @@ function copyURLToClipButton() {
   }
 
   // Usage example:
-  changeButtonText("ކޮޕީ ވެއްޖެ", 1000); // ✓
+  changeButtonText("📋 ކޮޕީ ވެއްޖެ", 1000); // ✓
 }
 
 //
