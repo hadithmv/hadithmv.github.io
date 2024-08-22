@@ -1,138 +1,14 @@
-/* ==================== NESTED DROPDOWN CODE ==================== */
-
-/* font size. parent and all child elements */
-.nested-dropdownButton > * {
-  font-size: 0.88em;
-}
-
-.nested-dropdownButton {
-  /*background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
-  width: 250px;
-  /* */
-  padding-inline-start: 0;
-  list-style-type: none;
-  /* center horizontally */
-  margin-left: auto;
-  margin-right: auto;
-  /* remove top margin */
-  margin-top: 0;
-  /* buttons style */
-  border: none;
-  /* material theme builder, source color C0DAF9 */
-  background: #dee3eb none;
-  /* https://material-foundation.github.io/material-theme-builder */
-  /* prev e0e1e2 */
-  border-radius: 0.28571429rem;
-  box-shadow:
-    0 0 0 1px transparent inset,
-    0 0 0 0 rgba(34, 36, 38, 0.15) inset;
-  transition:
-    opacity 0.1s ease,
-    background-color 0.1s ease,
-    color 0.1s ease,
-    box-shadow 0.1s ease,
-    background 0.1s ease;
-}
-
-.nested-dropdownButton ul {
-  display: none;
-  list-style-type: none;
-  padding: 0;
-  /* material theme builder, source color C0DAF9 */
-  background-color: #eceef4;
-  /* prev f9f9f9 */
-  /* */
-  text-align: right;
-}
-
-.nested-dropdownButton li {
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.nested-dropdownButton li:last-child {
-  border-bottom: none;
-}
-
-.nested-dropdownButton a {
-  color: #333;
-  display: block;
-  /*padding: 12px 20px;*/
-  padding: 10px;
-  text-decoration: none;
-  transition: background-color 0.3s;
-  cursor: pointer; /* Added pointer cursor */
-}
-
-.nested-dropdownButton a:hover {
-  /* material theme builder, source color C0DAF9 */
-  background-color: #286294;
-  /* prev f5f5f5 */
-  color: #fff;
-}
-
-.nested-dropdownButton > li > a::before {
-  content: "◄";
-  float: left;
-  font-size: 0.8em; /* 0.7 */
-  margin-top: 8px; /* 4 */
-}
-
-.nested-dropdownButton li.active > a::before {
-  content: "▼ ";
-  /* */
-  font-size: 0.7em;
-  /*float: left;*/
-}
-
-.nested-dropdownButton li.active > ul {
-  display: block;
-}
-
-.nested-dropdownButton > li > ul > li > a {
-  padding-right: 40px;
-}
-
-.nested-dropdownButton > li > ul > li > ul > li > a {
-  padding-right: 50px; /* 60 */
-  position: relative;
-}
-
-.nested-dropdownButton > li > ul > li > a::before {
-  content: "\25CF"; /* Black Circle */
-  margin-left: 10px; /* Adjust spacing */
-  color: #000; /* Adjust color */
-}
-
-/* Remove the black circle for the last two items */
-.nested-dropdownButton > li > ul > li:nth-last-child(-n + 2) > a::before {
-  content: none; /* Removes the content */
-  margin-left: 0; /* Adjust spacing */
-}
-/* Remove the black circle for the last two items */
-.nested-dropdownButton > li > ul > li:nth-last-child(-n + 2) > a {
-  text-align: left;
-  padding-left: 40px;
-}
-
-.nested-dropdownButton > li > ul > li > ul > li > a::before {
-  content: "\2578\00a0"; /* Unicode for a line then a space */
-  /*margin-right: 10px;*/ /* Adjust spacing */
-}
-
-.nested-dropdownButton ul li:first-child {
-  border-top: 1px solid #e0e0e0;
-}
-
 /* ==================== DARKER OUTER WRAPPER, LIGHER INNER WRAPPER ==================== */
 
-body {
-  /* outer color */
-  /* material theme builder, source color C0DAF9 */
-  background-color: #e7edf6;
-  /*  prev f2f2f5 main bg-llight */
-  /* styles of hassaan */
+/* making the body background color different like in hassaans, but only on tablet and above, not mobile, otherwise hiding navbar on mobile shows the differently colored body from the wrapper */
+@media (min-width: 600px) {
+  body {
+    /* outer color */
+    /* material theme builder, source color C0DAF9 */
+    background-color: #e7edf6;
+    /*  prev f2f2f5 main bg-llight */
+    /* styles of hassaan */
+  }
 }
 .dtWrapper {
   /* inner color */
@@ -174,7 +50,7 @@ div.dt-container div.dt-layout-row:first-child {
 div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
   justify-content: space-evenly;
 }
-/* if i chang the 3rd child to space evenly as well, it will be bunched together in the middle instead of the ends. so giving it a margin on either side instead. */
+/* if i change the 3rd child to space evenly as well, it will be bunched together in the middle instead of the ends. so giving it a margin on either side instead. */
 /* for-tablet-portrait-up, because on mobile it gets right margin but not left, making it uneven */
 @media (min-width: 600px) {
   div.dt-container > div.dt-layout-row:nth-child(3) > div.dt-layout-cell {

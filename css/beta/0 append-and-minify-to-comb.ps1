@@ -23,6 +23,13 @@ Get-Content -Path "navbar.min.css" | Add-Content -Path "ALL-COMB.min.css"
 Remove-Item -Path "navbar.min.css"
 Write-Output "Minified navbar.css and appended to ALL-COMB.min.css"
 
+# Minify navbar.css using csso and append to ALL-COMB.min.css
+csso "nested-dropdown-button.css" -o "nested-dropdown-button.min.css"
+Add-Content -Path "ALL-COMB.min.css" -Value "`n/* nested-dropdown-button.css */" # `n
+Get-Content -Path "nested-dropdown-button.min.css" | Add-Content -Path "ALL-COMB.min.css"
+Remove-Item -Path "nested-dropdown-button.min.css"
+Write-Output "Minified nested-dropdown-button.css and appended to ALL-COMB.min.css"
+
 Write-Output "All tasks completed successfully"
 
 <# claude:

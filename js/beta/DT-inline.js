@@ -2,6 +2,8 @@
 --- REGULAR PAGE CODE ---
 === === === */
 
+var isMobile = window.innerWidth <= 800; // Boolean to check if the current view is mobile
+
 /* --- */
 
 /* === === ===
@@ -16,89 +18,6 @@ function removeThashkeel(data) {
 function removeSmallishFootnotes(data) {
   return data.replace(/[⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "");
 }
-//
-
-/* === === ===
-NESTED DROPDOWN CODE
-=== === === */
-
-// Wait for the DOM to be fully loaded before executing the script
-document.addEventListener("DOMContentLoaded", function () {
-  // Select the main dropdown container
-  const dropdown = document.querySelector(".nested-dropdownButton");
-
-  // Add a click event listener to the dropdown for event delegation
-  dropdown.addEventListener("click", function (e) {
-    // Prevent the default anchor tag behavior
-    e.preventDefault();
-    // Get the clicked element
-    const target = e.target;
-
-    // Check if the clicked element is an anchor tag
-    if (target.tagName === "A") {
-      // Get the parent list item of the clicked anchor
-      const parent = target.parentElement;
-
-      // Handle different click scenarios
-      if (target.classList.contains("open-all")) {
-        // If "open all" is clicked, open all dropdowns
-        openAllDropdowns(dropdown);
-      } else if (target.classList.contains("collapse-all")) {
-        // If "collapse all" is clicked, collapse only sub-sub-dropdowns
-        collapseSubSubDropdowns(dropdown);
-      } else if (parent.querySelector("ul")) {
-        // If the clicked item has a nested list, toggle its visibility
-        parent.classList.toggle("active");
-      } else if (target.hasAttribute("data-value")) {
-        // If the clicked item has a data-value attribute, update URL and reload
-        const value = target.getAttribute("data-value");
-        // Update the URL hash
-        window.location.hash = "#tableID=l1:p" + value;
-        // Smoothly scroll to the top before reloading
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        // Delay reload until after the smooth scroll completes
-        setTimeout(() => {
-          location.reload();
-        }, 150); // Adjust the delay as needed
-      }
-    }
-  });
-
-  // Ensure the page is smoothly scrolled to the top after reload
-  window.scrollTo({ top: 0, behavior: "smooth" });
-
-  // Function to open all dropdowns
-  function openAllDropdowns(rootElement) {
-    // Select all list items in the dropdown
-    const allItems = rootElement.querySelectorAll("li");
-    allItems.forEach((item) => {
-      // If the item contains a nested list, make it visible
-      if (item.querySelector("ul")) {
-        item.classList.add("active");
-      }
-    });
-  }
-
-  // Function to collapse only sub-sub-dropdowns
-  function collapseSubSubDropdowns(rootElement) {
-    // Select only the active sub-sub-dropdown items
-    const subSubDropdowns = rootElement.querySelectorAll("li > ul > li.active");
-    subSubDropdowns.forEach((item) => {
-      // Remove the active class to collapse the sub-sub-dropdown
-      item.classList.remove("active");
-    });
-  }
-});
-
-//
-
-//
-
-//
-
-/* === === ===
-DT PAGE JS CODE
-=== === === */
 //
 
 /* google-closure-compiler --charset=UTF-8 --js=hmv-script.js --js_output_file=hmv-script.min.js */
@@ -347,7 +266,6 @@ function changeBookRadheef(newBook) {
 
 //
 var table; // Variable to store the DataTable instance
-var isMobile = window.innerWidth <= 800; // Boolean to check if the current view is mobile
 //
 
 // CUSTOM columnDefs CONFIGURATION
@@ -840,8 +758,8 @@ document.addEventListener("DOMContentLoaded", function () {
     table.on("page", function () {
       //setTimeout(function () {
       // https://datatables.net/forums/discussion/comment/175697/#Comment_175697
-      // other code works, but navbar hides the top of tr
-      const trElement = document.querySelector("tbody tr");
+      // other code works, but navbar hides the top of tr, so this code calculates the height of navbar and scrolls to where it ends
+      /*const trElement = document.querySelector("tbody tr");
       const navbarHeight = document.querySelector(".navbar").offsetHeight;
 
       const trPosition =
@@ -851,10 +769,12 @@ document.addEventListener("DOMContentLoaded", function () {
       window.scrollTo({
         top: offsetPosition,
         behavior: "smooth",
-      });
-      //document
-      //    .querySelector("tbody tr")
-      //    .scrollIntoView({ behavior: "smooth" });
+      });*/
+      document.querySelector("tbody tr").scrollIntoView({ behavior: "smooth" });
+      //console.log("Hello world!");
+      // added this to hide navbar if it is at a point where it is shown, otherwise it covers first row. but then again, doing this makes it hard to have the navbar shown when needed like when taking screenshots with title
+      //document.querySelector(".navbar").classList.add("navbar-hidden");
+      //
       //$(document).scrollTop($(table.table().container()).offset().top);
       //$(table.querySelector("tbody tr")).offset().top; // not quite working as is, but the selecters with scrollintoview does work
       //}, 10);
