@@ -7,7 +7,7 @@ $jsFiles = Get-ChildItem -Filter *.js
 # Loop through each relevant file
 foreach ($file in $jsFiles) {
     # Generate the output file name
-    $outputFile = $file.BaseName + "-t.js"
+    $outputFile = $file.BaseName + "-terser.min.js"
     
     # Minify the file
     & terser $file.Name -c -m --comments=false -o $outputFile
