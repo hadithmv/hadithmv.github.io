@@ -1,511 +1,288 @@
 <!doctype html>
-<html lang="dv">
-  <!-- prevent translate popup -->
-
+<html translate="no">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- CHANGE !!! -->
     <link
       rel="canonical"
       href="https://hadithmv.github.io/books/aqidatuRaziyain.html"
     />
-    <meta name="google" content="notranslate" />
-
-    <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
-    <meta name="theme-color" content="#29434e" />
-    <!-- og metadata sm link previews -->
-    <meta property="og:title" content="Hadithmv" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://hadithmv.github.io/books/aqidatuRaziyain.html"
-    />
-    <meta
-      property="og:image"
-      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
-    />
-
-    <!-- change123 html -->
-    <title>Hadithmv - Aqidatu Raziyain</title>
+    <title>عقيدة الرازيين – ދެ ރާޒީންގެ އަގީދާ*</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
     />
-    <!-- META TAGS - END -->
-
-    <!-- === EXT CSS === -->
-    <!-- non critical -->
-    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
-    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
-    <!-- === EXT CSS - END === -->
-
-    <!-- === EXT JS === -->
-    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
-    <!-- critical -->
-    <script defer src="../js/resc/COMB-Crit.min.js"></script>
-    <!-- non critical -->
-    <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
-    <!-- change123 js -->
-    <script defer src="../js/json/aqidatuRaziyain.js"></script>
-    <script defer src="../js/aqidatuRaziyain-script.min.js"></script>
-    <!-- === EXT JS - END === -->
-
-    <!-- === INT CSS === -->
-    <!-- === INT CSS - END === -->
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link
+      href="../css/beta/ALL-COMB.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="../js/beta/ALL-COMB.min.js"></script>
+    <!-- CHANGE !!! -->
+    <script src="../js/beta/json/aqidatuRaziyain.js"></script>
+    <style></style>
   </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="footer">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
+          <button
+            id="toggleFiliButton"
+            class="customButtons"
+            onclick="toggleFili();filiString();scrollUpTop()"
+          >
+            &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
+          </button>
 
-  <body translate="no">
-    <div id="page">
-      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
-      <!-- adding fixed or custom writing z index breaks on mobile -->
-      <div class="header fixed" onclick="drawer.open();">
-        <!-- hamburger -->
-        <a href="#menu"><span></span></a>
-        <a class="menuLeftIcon" href="index.html"
-          ><img
-            class="hmvLogo1"
-            alt="hadith mv"
-            loading="lazy"
-            src="../img/logo/logo.svg"
-        /></a>
-        <span class="hideOnPhoneOnly">عقيدة الرازيين – </span>
-        <span>ދެ ރާޒީންގެ އަގީދާ</span>
+          <script>
+            function toggleFili() {
+              var isVisible = $("#tableID").DataTable().column(1).visible();
+              $("#tableID").DataTable().column(1).visible(!isVisible);
 
-        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
-        <nav id="menu">
-          <ul>
-            <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
-            <li>
-              <a href="../books/index.html">● މައި ސަފުހާ</a>
-            </li>
+              var isVisible = $("#tableID").DataTable().column(2).visible();
+              $("#tableID").DataTable().column(2).visible(!isVisible);
+            }
+          </script>
 
-            <li>
-              <a href="../notes/info/contact.html"
-                >ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a
-              >
-            </li>
+          <p>
+            مصدر النص: عقيدة الرازيين - أصل السنة واعتقاد الدين <br />
+            المتن من الكتاب: الخراسانية في شرح عقيدة الرازيين<br />
+            لأبي زرعة عبيد الله بن عبد الكريم الرازي (ت ٢٧٧ هـ)، وأبي حاتم محمد
+            بن إدريس الرازي (ت ٢٦٤ هـ)<br />
+            تحقيق: عبد العزيز بن مرزوق الطريفي | الناشر: مكتبة دار المنهاج -
+            الرياض | الطبعة الأولى ١٤٣٧ هـ - ٢٠١٦ م.
+          </p>
 
-            <li>
-              <a href="../notes/info/helpTranslate.html"
-                >ތަރުޖަމާގައި އެހީވެދިނުމަށް</a
-              >
-            </li>
+          <p>
+            އަސްލު ފޮތުގެ މަސްދަރު: ދެ ރާޒީންގެ އަގީދާ (ސުންނަތުގެ އަސްލު އަދި
+            ދީނުގެ އަގީދާ)
+            <br />
 
-            <li>
-              <a href="../notes/info/FAQ.html"
-                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
-              >
-            </li>
+            ލިޔުނީ: އަބޫ ޒުރްޢާ ޢުބައިދު ﷲ ބިން ޢަބްދުލް ކަރީމް އައްރާޒީ (277
+            ހ.) އަދި އަބޫ ޙާތިމް މުޙައްމަދު ބިން އިދްރީސް އައްރާޒީ (264 ހ.)
+            <br />
+            މަތުނު ނެގިފައިވާ ފޮތް: ޚުރާސާނިއްޔާ، ދެ ރާޒީންގެ އަގީދާގެ ޝަރަހަ
+            <br />
+            ތަހްގީގުކުރީ: ޢަބްދުލް ޢަޒީޒު ބިން މަރްޒޫގު | ޗާޕުކުރީ: މަކްތަބާ
+            ދާރުލް މިންހާޖު - ރިޔާޟް | ފުރަތަމަ ޗާޕު 1437 ހ. - 2016 މ.
+          </p>
 
-            <li>
-              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
-            </li>
+          <p>
+            ފޮތުގެ ތަރުޖަމާގައި އަލްއަޚް އަބޫ ސުމައްިޔާ ޢަލީގެ ފަރާތުން
+            އިސްތިފާދާ ކުރީމެވެ. جَزَاهُ اللَّهُ خَيرًا.
+          </p>
 
-            <li class="hmvVer" onclick="openDiv();">
-              <a class="versionNo">⚙️ އިސްދާރު: v</a>
-            </li>
+          <hr />
 
-            <li>
-              <a href="https://t.me/ashraafmv"
-                >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-              >
-            </li>
-            <li class="madani">
-              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
-            </li>
-            <li>
-              <a onClick="window.location.reload()">🔄 މަޑު ރީލޯޑު</a>
-            </li>
-            <li>
-              <a
-                onclick="window.location.href = window.location.href.split('.html')[0] + '.html';"
-                >ހަރު ރީލޯޑު</a
-              >
-            </li>
-          </ul>
-        </nav>
-        <!-- <nav id="menu"> -->
-      </div>
-      <!-- <div class="header fixed" onclick="drawer.open();"> -->
-
-      <div class="content">
-        <main>
-          <!-- class="w3-animate-right" -->
-          <!-- --- TABLE --- -->
-          <!-- JEKYLL {{ content }} -->
-          <!-- cards js adds card classes to table ID -->
-          <!-- change123 TABLE - card view set as default here -->
-          <!-- class="stripe table cards"> -->
-          <table id="aqidatuRaziyainTable" class="table cards"></table>
-          <!-- --- TABLE - END --- -->
-          <div class="hidden" id="footer">
-            <button class="lowerButtons" onclick="copyURLToClipButton();">
-              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
-            </button>
-
-            <button
-              id="toggleFiliButton"
-              class="lowerButtons"
-              onclick="toggleFili();filiString();scrollUpTop()"
+          <p>
+            އަރަބި
+            <a
+              href="https://ketabonline.com/ar/books/105418"
+              rel="noopener noreferrer"
+              target="_blank"
+              >އީ-ފޮތް</a
             >
-              &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
-            </button>
+            |
+            <a
+              href="https://archive.org/details/khurasaniyya"
+              rel="noopener noreferrer"
+              target="_blank"
+              >ޕީޑީއެފް</a
+            >
+          </p>
+        </div>
+        <!-- <div class="centerAlignedText"> END -->
 
-            <script>
-              function toggleFili() {
-                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+        <hr />
 
-                var isVisible = $("#aqidatuRaziyainTable")
-                  .DataTable()
-                  .column(1)
-                  .visible();
-                $("#aqidatuRaziyainTable")
-                  .DataTable()
-                  .column(1)
-                  .visible(!isVisible);
+        <p>
+          އަބޫ އަނަސްގެ ދިވެހި ތަރުޖަމާގެ
 
-                var isVisible = $("#aqidatuRaziyainTable")
-                  .DataTable()
-                  .column(2)
-                  .visible();
-                $("#aqidatuRaziyainTable")
-                  .DataTable()
-                  .column(2)
-                  .visible(!isVisible);
-              }
-            </script>
+          <a
+            href="https://archive.org/details/aqidatuRaziyain-abu-anas"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              اسم الكتاب: أصول السنة واعتقاد الدين (عقيدة الرازيين) - لأبي زرعة
-              عبيد الله بن عبد الكريم الرازي (ت ٢٧٧ هـ)، وأبي حاتم محمد بن إدريس
-              الرازي (ت ٢٦٤ هـ)<br />
-            </p>
+        <p>
+          އަބޫ ސުމައްޔާގެ ދިވެހި ތަރުޖަމާގެ
+          <a
+            href="https://archive.org/details/aqidatuRaziyain-abu-sumaiyyah"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              ފޮތުގެ ނަން: ސުންނަތުގެ އަސާސް އަދި ދީނުގެ އަގީދާ (ދެ ރާޒީންގެ
-              އަގީދާ) | ލިޔުނީ: އަބޫ ޒުރްޢާ ޢުބައިދު ﷲ ބިން ޢަބްދުލް ކަރީމް
-              އައްރާޒީ (277 ހ.) އަދި އަބޫ ޙާތިމް މުޙައްމަދު ބިން އިދްރީސް
-              އައްރާޒީ (264 ހ.)
-            </p>
+        <p>
+          އިނގިރޭސި ތަރުޖަމާގެ
+          <a
+            href="https://archive.org/details/aqidatu-raziyain-en"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              ފޮތުގެ ތަރުޖަމާގައި އަލްއަޚް އަބޫ ސުމައްިޔާ ޢަލީގެ ފަރާތުން
-              އަހަރެން އިސްތިފާދާ ކުރީމެވެ.
-              <span>جَزَاهُ اللَّهُ خَيرًا.</span>
-            </p>
+        <hr />
 
-            <hr class="lineVerticalSpace" />
+        <p>
+          تحقيق آدل آل حمدان - من شرح أصول اعتقاد أهل السنة والجماعة (شرح السنة
+          للالكائي)
 
-            <p>
-              نص الكتاب أخذ من مصدر: شرح أصول اعتقاد أهل السنة والجماعة (عقيدة
-              الرازيين) - لأبي القاسم هبة الله بن الحسن بن منصور الطبري الرازي
-              اللالكائي (ت ٤١٨ هـ)
-              <br />
-              تحقيق: أحمد بن سعد بن حمدان الغامدي | الناشر: دار طيبة | الطبعة
-              الثامنة، ١٤٢٣ هـ - ٢٠٠٣ م.
-              <br />
-              مع تصحيحات المتن من الخراسانية.
-            </p>
+          <a
+            href="https://archive.org/details/sharh-usool-itiqad-ahlisunnathi-waljamaah-lalikai"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              ފޮތުގެ ނައްސު ނެގިފައިވާ މަސްދަރު: ސުންނަތުގެ އަހުލުވެރިންގެ
-              ޖަމާއަތުގެ އަގީދާގެ އުސޫލުގެ ޝަރަހަ (ދެ ރާޒީންގެ އަގީދާ) | ލިޔުނީ:
-              އަބުލް ގާސިމް ހިބަތު ﷲ ބިން އަލްޙަސަން ބިން މަންޞޫރު އައްޠަބަރީ
-              އައްރާޒީ އައްލާލަކާއީ (418 ހ.)
-              <br />
-              ތަހްގީގުކުރީ: އަޙްމަދު ބިން ސަޢުދު ބިން ޙަމްދާން އަލްޣާމިދީ |
-              ޗާޕުކުރީ: ދާރު ޠައިބާ | އަށްވަނަ ޗާޕު 1423 ހ. - 2003 މ.
-            </p>
+        <p>
+          تحقيق أحمد بن سعد بن حمدان الغامدي - من شرح أصول اعتقاد أهل السنة
+          والجماعة (شرح السنة للالكائي)
+          <a
+            href="https://shamela.ws/book/9200"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އީ-ފޮތް</a
+          >
+          |
+          <a
+            href="https://archive.org/details/sharhu-sunnah-lalakai--ahmed-sad/sharhu-sunnah-lalakai--01-02-03-04/page/n175"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              އަރަބި
-              <a
-                href="https://shamela.ws/book/9200"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އީ-ފޮތް</a
-              >
-              |
-              <a
-                href="https://archive.org/details/sharhu-sunnah-lalakai--ahmed-sad/sharhu-sunnah-lalakai--01-02-03-04/page/n175"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <hr />
 
-            <p>
-              <a
-                href="https://archive.org/details/khurasaniyya/khurasaniyya-sharh-aqidatu-raziyain-hq/page/n7"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޚުރާސާނިއްޔާ</a
-              >
-              ގައިވާ މަތުނުގެ އިސްލާހުތަކާއެކު
-            </p>
+        <p>
+          شرح عقيدة الرازيين - لعبيد الجابري |
+          <a
+            href="https://archive.org/details/sharh-aqidatu-raziyain-jabiri"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <hr class="lineVerticalSpace" />
+        <p>
+          شرح عقيدة الرازيين - لأحمد النجمي
+          <a
+            href="https://archive.org/details/sharh-aqidatu-raziyain-najmi"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              އަބޫ އަނަސްގެ ދިވެހި ތަރުޖަމާގެ
+        <p>
+          شرح عقيدة الرازيين - لزيد بن محمد
+          <a
+            href="https://archive.org/details/sharh-aqidatu-raziyain-zaid"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-              <a
-                href="https://archive.org/details/aqidatuRaziyain-abu-anas"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح عقيدة الرازيين - لمحمد بن موسى آل نصر |
+          <a
+            href="https://archive.org/details/sharh-aqidatu-raziyain-aalnasr"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              އަބޫ ސުމައްޔާގެ ދިވެހި ތަރުޖަމާގެ
-              <a
-                href="https://archive.org/details/aqidatuRaziyain-abu-sumaiyyah"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <hr />
 
-            <!--
-              https://archive.org/details/khurasaniyya/khurasaniyya-sharh-aqidatu-raziyain-hq/page/n7
-
-            <p>
-              مصدر الشرح في هذه الصفحة: الخراسانية في شرح عقيدة الرازيين (أصل
-              السنة واعتقاد الدين) - لعبد العزيز بن مرزوق
-              <br />
-              طبعة مكتبة دار المنهاج - الرياض | الطبعة الأولى، ١٤٣٧ هـ - ٢٠١٦ م.
-
-              <br />
-              މި ސަފުހައިގައިވާ ޝަރަހަ: އަލްޚުރާސާނިއްޔާގެ އަރަބި
-              <a
-                href="https://ketabonline.com/ar/books/105418"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އީ-ފޮތް</a
-              >
-              |
-              <a
-                href="https://archive.org/details/khurasaniyya"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
-
-            <hr class="lineVerticalSpace" />
-            -->
-
-            <p>
-              އިނގިރޭސި ތަރުޖަމާގެ
-              <a
-                href="https://archive.org/details/aqidatu-raziyain-en"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
-
-            <p>
-              شرح عقيدة الرازيين - لعبيد الجابري | ޖާބިރީގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-aqidatu-raziyain-jabiri"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
-
-            <p>
-              شرح عقيدة الرازيين - لأحمد النجمي | ނަޖްމީގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-aqidatu-raziyain-najmi"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
-
-            <p>
-              شرح عقيدة الرازيين - لزيد بن محمد | ޒައިދު ބިން މުޙައްމަދުގެ
-              ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-aqidatu-raziyain-zaid"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
-
-            <p>
-              شرح عقيدة الرازيين - لمحمد بن موسى آل نصر | މުޙައްމަދު އާލް
-              ނަޞްރުގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-aqidatu-raziyain-aalnasr"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
-
-            <hr class="lineVerticalSpace" />
-
-            <h3 class="mid">
-              <a>ތަހްގީގު ކުރެވުނު ފޮތުގެ ނުސްޚާއާ ބެހޭ މައުލޫމާތު އަރަބިން</a>
-            </h3>
-
-            <p class="justi">
-              قال المحقق: التعريف بالنسخ:
-              <br />
-              …
-              <br />
-              الثانية: بالمكتبة الظاهرية بدمشق ذكرها: فؤاد سركين برقم: ١٢٤/ ١٦
-              (قسم من ٢٥٨ أ - ٢٩٧ ب - ٤٦٥ هـ) وذكرها فهرس المكتبة الظاهرية برقم:
-              ٣٢٥ (ق ١ - ٢٠٤) .
-              <br />
-              …
-              <br />
-              فالمخطوطة هي من وقف الحصني وابن نفيس سمعها بعد وأثبت سماعه ويتبين
-              ذلك مما يأتي في تاريخ النسخ.
-              <br />
-              تاريخ النسخ: (٦٧١ هـ)
-              <br />
-              …
-              <br />
-              ومقاسها: ٢٦ سم × ١٨ سم تقريبا.
-              <br />
-              وخطها: لا بأس به وبه کلمات غامضة.
-              <br />
-              وعدد صفحاتها: ٤٠٦ صفحة.
-              <br />
-              وعدد الأسطر بكل صفحة: ما بين (۲۱) إلى (٢٦).
-              <br />
-              وعدد كلمات كل سطر: ما بين (۱۱) إلى (۱۳) كلمة.
-              <br />
-              والنسخة تحتوي على المجلد الأول فقط وفيه أربعة أجزاء وفي آخرها
-              تقديم وتأخير بين في مكانه .
-              <br />
-              وهذه هي النسخة التي اعتمدت في التحقيق عليها.
-              <br />
-              عيوب النسخ:
-              <br />
-              فيه سقط متكرر ومصحح في الحاشية.
-              <br />
-              في صفحة (۳) و (٥) و (۷) و (۸) و (۱۰) و (۲۱) و (۲۲) … ولا يكاد يمر
-              صفحتان أو ثلاث إلا وبها إصلاح من المصحح.
-              <br />
-              ويبدو أن نسخها كان من ناسخين عدة إذ أنه من أولها إلى صفحة (٤١)
-              استعمل رموز: ثنا ونا وأنا ثم صرح بها بعد فقال: حدثنا وأخبرنا
-              وأنبأنا ثم رجع إلى كتابة الرموز من صفحة (١٢٦).
-              <br />
-              والخط أحيانا يحسن وأحيانا يضعف.
-              <br />
-              <br />
-              الثالثة: بمكتبة رضا برامبور بالهند:
-              <br />
-              ذكرها فوائد سزكين تحت رقم: ١ / ٣٠٥ - قسم ۱۷۸ وقد أطلعت على
-              المخطوطة وصورتها وهي برقم آخر هو: ١٥٣١.
-              <br />
-              وخطها: جميل يدل على قرب نسخها.
-              <br />
-              وعدد الأسطر في كل صفحة: ١٥ سطرا تقريبا.
-              <br />
-              وعدد كلمات كل سطر: ما بين ست إلى ثمان كلمات.
-              <br />
-              وعدد صفحاتها: ٣٥٦ صفحة.
-              <br />
-              وتاريخ نسخها: غير معروف.
-              <br />
-              وكذلك الناسخ: مجهول.
-              <br />
-              …
-              <br />
-              وهذه النسخة ناقص منها ما يقارب (۸۷) صفحة من صفحات الأصل.
-              <br />
-              وكذلك ناقصة من الأخير بما يقارب (١٥٠) صفحة من صفحات الأصل وبذلك
-              يكون مجموع الناقص = ٢٢٤ صفحة وذلك أكثر من نصف المخطوطة.
-              <br />
-              عيوب النسخ:
-              <br />
-              يبدو أن ناسخها لم يكن من أهل العلم وذلك لكثرة الأخطاء الإملائية بل
-              وفي رسم الكلمة نفسه.
-              <br />
-              …
-              <br />
-              <br />
-              السادسة: مختصر المخطوطة:
-              <br />
-              للمخطوطة مختصر بعنوان: «كاشف الغمة في إعتقاد أهل السنة».
-              <br />
-              ومختصره: مجهول
-              <br />
-              وتوجد له عدة نسخ كما ذكر ذلك الشيخ حماد الأنصاري.
-              <br />
-              وأطلعت على صورة لإحدى تلك النسخ بمكتبة الدراسات العليا بجامعة أم
-              القرى بمكة المكرمة في (۸۲) صفحة وخطها غير جيد.
-              <br />
-              ورقمها في فهارس المكتبة: ٤٤٦.
-              <br />
-              …
-              <br />
-              والنسخة الموجودة في جامعة أم القرى قد حذف منها كثير من المتون.
-              <br />
-              …
-              <br />
-              وقد قابلت الأصل بها ورمزت لها بـ (خ).
-              <br />
-              <br />
-              ثالثا: النسخة الأصل وسبب إختيارها:
-              <br />
-              لم أتمكن من إحضار جميع النسخ المذكورة لأسباب متعددة.
-              <br />
-              منها: أن النسخة الكاملة توجد في دولة شيوعية هي: «المانيا الشرقية»
-              في مدينة «ليبزك» وليس بيننا هنا في المملكة وبينها تعامل.
-              <br />
-              ومنها: نسخ المكتبة الظاهرية الأخرى لم تسمح المكتبة لي بتصويرها.
-              <br />
-              وأما النسخة الهندية فقد قمت بإحضارها مصورة ولكنها كانت ناقصة وتكثر
-              بها الأخطاء - كما تقدم -.
-              <br />
-              ولهذا فقد كانت النسخة الظاهرية هي المؤهلة لتكون النسخة الأصل إذا
-              انضم إلى ذلك ما يلي:
-              <br />
-              ۱ - أنها مسلسلة بالسند إلى المؤلف.
-              <br />
-              ٢ - أن تاريخ نسخها كان قديما.
-              <br />
-              ٣ - أنها متميزة بكثرة السماعات من العلماء.
-              <br />
-              ٤ - أنها قليلة الأخطاء.
-              <br />
-              ه - أنها تحتوي على المجلد الأول بكامله.
-              <br />
-              …
-            </p>
-          </div>
-        </main>
-        <!-- <main> -->
+        <h3>ތަހްގީގުކުރެވުނު ފޮތުގެ މުގައްދިމާ އަރަބިން - المقدمة</h3>
+        <h3>المقدمة</h3>
+        <p>[...]</p>
       </div>
-      <!-- <div class="content"> -->
     </div>
-    <!-- <div id="page"> -->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-HL24Q9NN24");
+    <script type="text/javascript">
+      var table = new DataTable("#tableID", {
+        ...DTconfig,
+        data: data,
+        // # arText	dvText takhrij
+        columns: [
+          { title: "#" },
+          { title: "އަރަބި ލިޔުން", searchable: false },
+          {
+            title: "އަރަބި ފިލިނުޖަހާ",
+            // CHANGE !!!
+            data: 1,
+            render: (data) => removeThashkeel(data),
+            visible: false,
+          },
+          {
+            title: "ދިވެހި ލިޔުން",
+            data: 2,
+          },
+          {
+            title: "ތަޚްރީޖު",
+            data: 3,
+            visible: false,
+            searchable: false,
+          },
+        ],
+        columnDefs: [
+          {
+            targets: [4],
+            render: (data) =>
+              data !== ""
+                ? "ـــــــــــــــــــــــــــ\t<br>" +
+                  data.replace(/\n/g, "\t<br>")
+                : data,
+          },
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [1],
+          },
+          {
+            targets: [0],
+            render: (data) => "#" + data,
+          },
+          ...columnDefsconfig,
+        ],
+      });
     </script>
-    <!-- End Google Analytics -->
-
-    <!-- === INT JS - END === -->
   </body>
 </html>
