@@ -1,35 +1,36 @@
 # Set the location to the script's directory
 Set-Location -Path $PSScriptRoot
 
-# Define file paths
-$allCombFile = "ALL-COMB.min.js"
-$combDtFile = "comb-DT.min.js"
-$dtInlineFile = "dt-inline.js"
-$navbarFile = "navbar.js"
-
 # Clear the content of ALL-COMB.min.js
-Clear-Content -Path $allCombFile
-Write-Output "Cleared the content of $allCombFile"
+Clear-Content -Path "ALL-COMB.min.js"
+Write-Output "Cleared the content of ALL-COMB.min.js"
 
 # Copy the content of comb-DT.min.js into ALL-COMB.min.js
-Get-Content -Path $combDtFile | Set-Content -Path $allCombFile
-Write-Output "Copied the content of $combDtFile into $allCombFile"
+Get-Content -Path "comb-DT.min.js" | Set-Content -Path "ALL-COMB.min.js"
+Write-Output "Copied the content of comb-DT.min.js into ALL-COMB.min.js"
 
 # Minify dt-inline.js with Closure Compiler and UglifyJS, then append to ALL-COMB.min.js
-google-closure-compiler --charset=UTF-8 --js $dtInlineFile --js_output_file "temp1.js"
+google-closure-compiler --charset=UTF-8 --js "dt-inline.js" --js_output_file "temp1.js"
 uglifyjs "temp1.js" -c -m -o "temp2.js"
-Add-Content -Path $allCombFile -Value "`n// dt-inline.js"
-Get-Content -Path "temp2.js" | Add-Content -Path $allCombFile
+Add-Content -Path "ALL-COMB.min.js" -Value "`n// dt-inline.js"
+Get-Content -Path "temp2.js" | Add-Content -Path "ALL-COMB.min.js"
 Remove-Item -Path "temp1.js", "temp2.js"
-Write-Output "Minified $dtInlineFile and appended to $allCombFile"
+Write-Output "Minified dt-inline.js and appended to ALL-COMB.min.js"
 
 # Minify navbar.js with Closure Compiler and UglifyJS, then append to ALL-COMB.min.js
-google-closure-compiler --charset=UTF-8 --js $navbarFile --js_output_file "temp1.js"
+google-closure-compiler --charset=UTF-8 --js "navbar.js" --js_output_file "temp1.js"
 uglifyjs "temp1.js" -c -m -o "temp2.js"
-Add-Content -Path $allCombFile -Value "`n// navbar.js"
-Get-Content -Path "temp2.js" | Add-Content -Path $allCombFile
+Add-Content -Path "ALL-COMB.min.js" -Value "`n// navbar.js"
+Get-Content -Path "temp2.js" | Add-Content -Path "ALL-COMB.min.js"
 Remove-Item -Path "temp1.js", "temp2.js"
-Write-Output "Minified $navbarFile and appended to $allCombFile"
+Write-Output "Minified navbar.js and appended to ALL-COMB.min.js"
+
+google-closure-compiler --charset=UTF-8 --js "nested-dropdown-button.js" --js_output_file "temp1.js"
+uglifyjs "temp1.js" -c -m -o "temp2.js"
+Add-Content -Path "ALL-COMB.min.js" -Value "`n// nested-dropdown-button.js"
+Get-Content -Path "temp2.js" | Add-Content -Path "ALL-COMB.min.js"
+Remove-Item -Path "temp1.js", "temp2.js"
+Write-Output "Minified nested-dropdown-button.js and appended to ALL-COMB.min.js"
 
 Write-Output "All tasks completed successfully"
 
