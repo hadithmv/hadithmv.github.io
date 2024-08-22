@@ -3,13 +3,14 @@ Set-Location -Path $PSScriptRoot
 
 # Get all relevant files in the current directory
 $jsFiles = Get-ChildItem -Filter *.js
+
 # Loop through each relevant file
 foreach ($file in $jsFiles) {
     # Generate the output file name
-    $outputFile = $file.BaseName + "-c.min.js"
+    $outputFile = $file.BaseName + "-uglify.min.js"
     
     # Minify the file
-    & google-closure-compiler --charset=UTF-8 --js $file.Name --js_output_file $outputFile
+    & uglifyjs $file.Name -c -m -o $outputFile
     
     # Output progress
     Write-Host "Minified $($file.Name) to $outputFile"
