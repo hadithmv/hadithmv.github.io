@@ -1,6 +1,8 @@
 var hmvVersionNo = 3.16;
 
-//
+// above is version no  var for hmv, shown in sidemenu and maybe main index page
+
+// NAVBAR CODE below
 
 function createNavbar() {
   const navbarContainer = document.getElementById("navbar-container");
@@ -154,8 +156,9 @@ document.addEventListener("click", function (event) {
 });
 //
 
-// DROPDOWNS
-
+//--------------------
+// NAVBAR DROPDOWNS
+//--------------------
 // Function to toggle dropdowns
 
 function toggleDropdown(element, event) {
@@ -192,6 +195,76 @@ function toggleDropdown(element, event) {
     }
   }
 }
+
+//--------------------
+// HIDE NAVBAR ON SCROLL DOWN
+//--------------------
+document.addEventListener("DOMContentLoaded", function () {
+  // Initialize variables
+  let lastScrollTop = 0;
+  const navbar = document.querySelector(".navbar");
+  const topThreshold = 50; // Show navbar when within 50px of the top
+  const scrollThreshold = 200; // Amount to scroll up before showing navbar
+  let scrollUpDistance = 0;
+
+  function handleScroll() {
+    if (!navbar) return; // Exit if navbar doesn't exist
+
+    // Get current scroll position
+    let currentScrollTop =
+      window.pageYOffset || document.documentElement.scrollTop;
+
+    if (currentScrollTop <= topThreshold) {
+      // When scroll is within topThreshold of the top, always show navbar
+      navbar.classList.remove("navbar-hidden");
+      scrollUpDistance = 0; // Reset scroll up distance
+    } else if (currentScrollTop > lastScrollTop) {
+      // Scrolling down and beyond topThreshold
+      navbar.classList.add("navbar-hidden"); // Hide navbar
+      scrollUpDistance = 0; // Reset scroll up distance
+    } else {
+      // Scrolling up and beyond topThreshold
+      scrollUpDistance += lastScrollTop - currentScrollTop; // Accumulate scroll up distance
+      if (scrollUpDistance > scrollThreshold) {
+        // If scrolled up more than the scrollThreshold
+        navbar.classList.remove("navbar-hidden"); // Show navbar
+        scrollUpDistance = 0; // Reset scroll up distance
+      }
+    }
+
+    // Update lastScrollTop for next scroll event
+    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+  }
+
+  // Throttle function to limit how often the scroll event fires
+  function throttle(func, limit) {
+    let inThrottle;
+    return function () {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit);
+      }
+    };
+  }
+
+  // Function to check if the device is mobile
+  function isMobile() {
+    return window.matchMedia("(max-width: 599px)").matches;
+  }
+
+  if (isMobile()) {
+    // Add the scroll event listener only for mobile devices
+    window.addEventListener("scroll", throttle(handleScroll, 100));
+  }
+});
+//
+
+//
+
+//
 
 // Close dropdowns when clicking outside
 /*window.onclick = function (event) {
