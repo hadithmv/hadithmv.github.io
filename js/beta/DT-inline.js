@@ -474,7 +474,7 @@ Object.assign(DataTable.defaults, {
       },
       //colvis: "ބަރިތައް",
       // https://datatables.net/reference/button/copyHtml5
-      copyTitle: "ކޮޕީ",
+      copyTitle: "&nbsp; ކޮޕީ 📋",
       copySuccess: {
         1: "1 ކޮޕީވެއްޖެ",
         _: "%d ކޮޕީވެއްޖެ",
