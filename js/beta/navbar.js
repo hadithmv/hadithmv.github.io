@@ -47,7 +47,7 @@ function createNavbar() {
                <li onclick=toggleDropdown(this,event) class=sub-dropdown>
                <a><span class=dropdown-arrow>◄</span>އަގީދާ</a>
                <ul class=sub-dropdown-content>
-                  <li><a href=usooluSunnahAhmed.html>އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް**</a>
+                  <li><a href=usooluSunnahAhmed.html>އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް*</a>
                   <li><a href=sharhuSunnahBarbahari.html>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ*</a>
                   <li><a href=aqidatuRaziyain.html>ދެ ރާޒީންގެ އަގީދާ*</a>
                   <li><a href=kitabulEmanAbiUbaid.html>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</a>
