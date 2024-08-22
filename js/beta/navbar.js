@@ -17,7 +17,64 @@ function createNavbar() {
         */
   // Define the HTML structure for the navbar and side menu
   // MINIFY THIS HTML WITH KANGAX. if need to edit, format with something else then reminify
-  const navbarHTML = `<nav class=navbar><div class=navbar-left><img alt="Site Icon"class=site-icon onclick=goToHomePage() src=../img/logo/logo.svg title="back to homepage"></div><div class=navbar-center><span class=page-title>${pageTitle}</span></div><div class=navbar-right title=menu><span class=menu-icon>☰</span></div></nav><div class=side-menu id=sideMenu><div class=side-menu-close onclick=toggleSideMenu()>×</div><ul><li><a href=../books/index.html>● މައި ސަފުހާ</a><li onclick=toggleDropdown(this) class=dropdown><a><span class=dropdown-arrow>◄</span>ބައިތައް</a><ul class=dropdown-content><li><a href=#>ގުރްއާން</a><li onclick=toggleDropdown(this,event) class=sub-dropdown><a><span class=dropdown-arrow>◄</span>ޙަދީޘް</a><ul class=sub-dropdown-content><li><a href=allAthar.html>އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</a><li><a href=muwattaMalik.html>މުވައްޠައު މާލިކު*</a><li><a href=umdathulAhkam.html>ޢުމްދަތުލް އަޙްކާމް</a><li><a href=hisnulMuslim.html>މުސްލިމުންގެ ކިއްލާ</a><li><a href=arbaoonAajurry.html>އާޖުއްރީގެ ސާޅީސް ޙަދީޘް*</a><li><a href=akhbaruShuyukh.html>ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާގު</a><li><a href=akhlaqHamalathilQuran.html>އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a><li><a href=bulughulMaram.html>ބުލޫޣުލް މަރާމް*</a><li><a href=arbaoonNawawi.html>ނަވަވީގެ ސާޅީސް ޙަދީޘް</a><li><a href=riyaduSaliheen.html>ރިޔާޟުއްޞާލިޙީން*</a></ul></ul><li><a href=../notes/info/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a><li><a href=../notes/info/helpTranslate.html>ތަރުޖަމާގައި އެހީވެދިނުމަށް</a><li><a href=../notes/info/FAQ.html>ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a><li><a href=../notes/info/contributors.html>އެހީތެރިން</a><li onclick=openDiv() class=versionNo>⚙️ އިސްދާރު: v${hmvVersionNo}<li><a href=https://t.me/ashraafmv>ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a><li style=font-size:90%>މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް<li onclick='window.scrollTo({top:0,behavior:"smooth"})'href=# style=cursor:pointer;user-select:none>▲ މައްޗަށް ސްކްރޯލްކުރޭ<li onclick=toggleDropdown(this) class=dropdown><a>↺ ސަފުހާ ރީލޯޑު</a><ul class=dropdown-content><li><a href=# onclick=window.location.reload()>މަޑު ރީލޯޑު</a><li><a onclick='window.location.href=window.location.href.split(".html")[0]+".html"'>ހަރު ރީލޯޑު</a></ul></ul></div>`;
+  const navbarHTML = `<nav class=navbar>
+   <div class=navbar-left><img alt="Site Icon"class=site-icon onclick=goToHomePage() src=../img/logo/logo.svg title="back to homepage"></div>
+   <div class=navbar-center><span class=page-title>${pageTitle}</span></div>
+   <div class=navbar-right title=menu><span class=menu-icon>☰</span></div>
+</nav>
+<div class=side-menu id=sideMenu>
+   <div class=side-menu-close onclick=toggleSideMenu()>×</div>
+   <ul>
+      <li><a href=../books/index.html>● މައި ސަފުހާ</a>
+      <li onclick=toggleDropdown(this) class=dropdown>
+         <a><span class=dropdown-arrow>◄</span>ބައިތައް</a>
+         <ul class=dropdown-content>
+            <li><a href=#>ގުރްއާން</a>
+            <li onclick=toggleDropdown(this,event) class=sub-dropdown>
+               <a><span class=dropdown-arrow>◄</span>ޙަދީޘް</a>
+               <ul class=sub-dropdown-content>
+                  <li><a href=allAthar.html>އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</a>
+                  <li><a href=muwattaMalik.html>މުވައްޠައު މާލިކު*</a>
+                  <li><a href=umdathulAhkam.html>ޢުމްދަތުލް އަޙްކާމް</a>
+                  <li><a href=hisnulMuslim.html>މުސްލިމުންގެ ކިއްލާ</a>
+                  <li><a href=arbaoonAajurry.html>އާޖުއްރީގެ ސާޅީސް ޙަދީޘް*</a>
+                  <li><a href=akhbaruShuyukh.html>ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާގު</a>
+                  <li><a href=akhlaqHamalathilQuran.html>އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a>
+                  <li><a href=bulughulMaram.html>ބުލޫޣުލް މަރާމް*</a>
+                  <li><a href=arbaoonNawawi.html>ނަވަވީގެ ސާޅީސް ޙަދީޘް</a>
+                  <li><a href=riyaduSaliheen.html>ރިޔާޟުއްޞާލިޙީން*</a>
+               </ul>
+               <li onclick=toggleDropdown(this,event) class=sub-dropdown>
+               <a><span class=dropdown-arrow>◄</span>އަގީދާ</a>
+               <ul class=sub-dropdown-content>
+                  <li><a href=usooluSunnahAhmed.html>އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް**</a>
+                  <li><a href=sharhuSunnahBarbahari.html>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ*</a>
+                  <li><a href=aqidatuRaziyain.html>ދެ ރާޒީންގެ އަގީދާ*</a>
+                  <li><a href=kitabulEmanAbiUbaid.html>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</a>
+                  <li><a href=arbaoonAajurry.html>އާޖުއްރީގެ ސާޅީސް ޙަދީޘް*</a>
+                  <li><a href=akhbaruShuyukh.html>ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާގު</a>
+                  <li><a href=akhlaqHamalathilQuran.html>އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a>
+                  <li><a href=bulughulMaram.html>ބުލޫޣުލް މަރާމް*</a>
+                  <li><a href=arbaoonNawawi.html>ނަވަވީގެ ސާޅީސް ޙަދީޘް</a>
+                  <li><a href=riyaduSaliheen.html>ރިޔާޟުއްޞާލިޙީން*</a>
+               </ul>
+         </ul>
+      <li><a href=../notes/info/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
+      <li><a href=../notes/info/helpTranslate.html>ތަރުޖަމާގައި އެހީވެދިނުމަށް</a>
+      <li><a href=../notes/info/FAQ.html>ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a>
+      <li><a href=../notes/info/contributors.html>އެހީތެރިން</a>
+      <li onclick=openDiv() class=versionNo>⚙️ އިސްދާރު: v${hmvVersionNo}
+      <li><a href=https://t.me/ashraafmv>ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a>
+      <li style=font-size:90%>މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް
+      <li onclick='window.scrollTo({top:0,behavior:"smooth"})'href=# style=cursor:pointer;user-select:none>▲ މައްޗަށް ސްކްރޯލްކުރޭ
+      <li onclick=toggleDropdown(this) class=dropdown>
+         <a>↺ ސަފުހާ ރީލޯޑު</a>
+         <ul class=dropdown-content>
+            <li><a href=# onclick=window.location.reload()>މަޑު ރީލޯޑު</a>
+            <li><a onclick='window.location.href=window.location.href.split(".html")[0]+".html"'>ހަރު ރީލޯޑު</a>
+         </ul>
+   </ul>
+</div>`;
   /*
   
 

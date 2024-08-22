@@ -7,7 +7,7 @@
       href="https://hadithmv.github.io/books/akhlaqHamalathilQuran.html"
     />
     <title>
-      أخلاق حملة القرآن للآجري – އާޖުއްރީގެ ޤުރްއާން އުފުލާ މީހުންގެ އަޚްލާޤު
+      أخلاق حملة القرآن للآجري – އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު
     </title>
     <meta
       name="description"
@@ -361,6 +361,8 @@
           >
         </p>
         <hr />
+
+        <p>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
         <p>މުއައްލިފުގެ ކުރު ތަޢާރަފެއް</p>
         <p>
           އެކަލޭގެފާނުއީ: މުޙައްމަދު ބްނުލް ޙުސައިނު ބްނު ޢަބްދި اللَّهُ
@@ -556,20 +558,28 @@
         columns: [
           { title: "#" },
           { title: "ބާބު އަރަބިން" },
+          { title: "ބާބު ދިވެހިން" },
           { title: "އަރަބި ލިޔުން", searchable: false },
           {
             title: "އަރަބި ފިލިނުޖަހާ",
             // CHANGE !!!
-            data: 2,
+            data: 3,
             render: (data) => removeThashkeel(data),
             visible: false,
           },
           {
             title: "ތަޚްރީޖު",
-            data: 3,
+            data: 4,
             searchable: false,
           },
-          { title: "ބާބު ދިވެހިން", data: 4 },
+          {
+            title: "ހުސް ބަރި",
+            render: function (data) {
+              //return "a";
+              return "";
+            },
+            searchable: false,
+          },
           {
             title: "ދިވެހި ލިޔުން",
             data: 5,
@@ -582,7 +592,7 @@
         ],
         columnDefs: [
           {
-            targets: [4, 7],
+            targets: [5, 8],
             render: (data) =>
               data !== ""
                 ? "ـــــــــــــــــــــــــــ\t<br>" +
@@ -593,7 +603,7 @@
             searchPanes: {
               show: true,
             },
-            targets: [1, 5],
+            targets: [1, 2],
           },
           {
             targets: [0],
