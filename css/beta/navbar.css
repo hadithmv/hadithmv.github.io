@@ -26,9 +26,14 @@ html body {
   justify-content: space-between;
   align-items: center;
   /* material theme builder, source color C0DAF9, primary P-40 */
-  background-color: #235580; /* prev 0f4c75 #333; */
+  background-color: #235580;
   color: white;
+  /* prev 0f4c75 #333; */
   height: 50px; /* 60 */
+  /* hassan */
+  /*background-color: #fefefe;
+  box-shadow: 0 2px 2px #cacaca;*/
+  /* */
 
   padding: 0 15px; /* Consistent padding */
   box-sizing: border-box;

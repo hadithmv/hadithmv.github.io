@@ -363,15 +363,15 @@ https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/140
 .pageFootnotes {
   /*padding: 10px;*/ /* padding: 0.2em 2em 0.2em 3em; */
   padding: 0 2em 1em 3em; /* .twitter-tweet */
-  /* material theme builder, source color C0DAF9 */
-  background-color: #f0f4f9;
+  /* material theme builder, source color C0DAF9 
+  background-color: #f0f4f9; */
+  background-color: #f6f6f6;
   /* prev e7edf6, hsla(0, 0%, 71%, 0.1) 136296 */
+  /* prev c2c7cf 999 235580 .twitter-tweet */
+  border: 1px solid #e1e1e1;
   /* material theme builder, source color C0DAF9 
   border-right: 4px solid #c2c7cf; */
   border-right: 4px solid #8c9199;
-  /* prev c2c7cf 999 235580 .twitter-tweet */
-  /*border: 1px solid #e1e1e1;
-  border-right: solid;*/
   /*margin-top: 3em;*/
   /* added */
   font-size: 20px;
