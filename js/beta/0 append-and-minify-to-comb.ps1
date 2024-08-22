@@ -7,15 +7,15 @@ Write-Output "Cleared the content of ALL-COMB.min.js"
 
 # Copy the content of comb-DT.min.js into ALL-COMB.min.js
 Get-Content -Path "comb-DT.min.js" | Set-Content -Path "ALL-COMB.min.js"
-Write-Output "Copied the content of comb-DT.min.js into ALL-COMB.min.js"
+Write-Output "Copied into ALL-COMB.min.js: comb-DT.min.js"
 
 # Minify dt-inline.js with Closure Compiler and UglifyJS, then append to ALL-COMB.min.js
-google-closure-compiler --charset=UTF-8 --js "dt-inline.js" --js_output_file "temp1.js"
+google-closure-compiler --charset=UTF-8 --js "DT-inline.js" --js_output_file "temp1.js"
 uglifyjs "temp1.js" -c -m -o "temp2.js"
 Add-Content -Path "ALL-COMB.min.js" -Value "`n// dt-inline.js"
 Get-Content -Path "temp2.js" | Add-Content -Path "ALL-COMB.min.js"
 Remove-Item -Path "temp1.js", "temp2.js"
-Write-Output "Minified dt-inline.js and appended to ALL-COMB.min.js"
+Write-Output "Minified and appended to ALL-COMB.min.js: DT-inline.js"
 
 # Minify navbar.js with Closure Compiler and UglifyJS, then append to ALL-COMB.min.js
 google-closure-compiler --charset=UTF-8 --js "navbar.js" --js_output_file "temp1.js"
@@ -23,14 +23,14 @@ uglifyjs "temp1.js" -c -m -o "temp2.js"
 Add-Content -Path "ALL-COMB.min.js" -Value "`n// navbar.js"
 Get-Content -Path "temp2.js" | Add-Content -Path "ALL-COMB.min.js"
 Remove-Item -Path "temp1.js", "temp2.js"
-Write-Output "Minified navbar.js and appended to ALL-COMB.min.js"
+Write-Output "Minified and appended to ALL-COMB.min.js: navbar.js"
 
 google-closure-compiler --charset=UTF-8 --js "nested-dropdown-button.js" --js_output_file "temp1.js"
 uglifyjs "temp1.js" -c -m -o "temp2.js"
 Add-Content -Path "ALL-COMB.min.js" -Value "`n// nested-dropdown-button.js"
 Get-Content -Path "temp2.js" | Add-Content -Path "ALL-COMB.min.js"
 Remove-Item -Path "temp1.js", "temp2.js"
-Write-Output "Minified nested-dropdown-button.js and appended to ALL-COMB.min.js"
+Write-Output "Minified and appended to ALL-COMB.min.js: nested-dropdown-button.js"
 
 Write-Output "All tasks completed successfully"
 

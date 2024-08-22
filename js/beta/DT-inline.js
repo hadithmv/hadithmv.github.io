@@ -362,13 +362,14 @@ var DTconfig = {
                   // https://datatables.net/forums/discussion/36516
                   {
                     extend: "colvisGroup",
-                    text: "ހުރިހާ ދައްކާ",
+                    text: "ހުރިހާ ދައްކާ &nbsp; +",
                     show: ":hidden",
+                    titleAttr: "show all",
                   },
                   // https://datatables.net/extensions/buttons/examples/column_visibility/restore.html
                   {
                     extend: "colvisRestore",
-                    text: "↺ ރީސެޓްކުރޭ",
+                    text: "ރީސެޓްކުރޭ &nbsp; ↺",
                     titleAttr: "reset toggle",
                   },
                 ],
@@ -607,14 +608,6 @@ Object.assign(DataTable.defaults, {
         shiftKey: true,
         key: "s",
       },
-      // https://datatables.net/extensions/buttons/examples/column_visibility/restore.html
-      postfixButtons: [
-        {
-          extend: "colvisRestore",
-          text: "↺ ރީސެޓްކުރޭ",
-          titleAttr: "reset toggle",
-        },
-      ],
     },
     // https://datatables.net/extensions/searchbuilder/
     // will not work with dates without another plugin
