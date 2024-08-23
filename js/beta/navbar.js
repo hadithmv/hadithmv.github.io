@@ -51,12 +51,11 @@ function createNavbar() {
                   <li><a href=sharhuSunnahBarbahari.html>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ*</a>
                   <li><a href=aqidatuRaziyain.html>ދެ ރާޒީންގެ އަގީދާ*</a>
                   <li><a href=kitabulEmanAbiUbaid.html>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</a>
-                  <li><a href=arbaoonAajurry.html>އާޖުއްރީގެ ސާޅީސް ޙަދީޘް*</a>
-                  <li><a href=akhbaruShuyukh.html>ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާގު</a>
-                  <li><a href=akhlaqHamalathilQuran.html>އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a>
-                  <li><a href=bulughulMaram.html>ބުލޫޣުލް މަރާމް*</a>
-                  <li><a href=arbaoonNawawi.html>ނަވަވީގެ ސާޅީސް ޙަދީޘް</a>
-                  <li><a href=riyaduSaliheen.html>ރިޔާޟުއްޞާލިޙީން*</a>
+                  <li><a href=nawaqidulislam.html>އިސްލާމްކަން ގެއްލޭ ކަންތައް</a>
+                  <li><a href=qawaidulArbau.html>ހަތަރު ގަވާއިދު</a>
+                  <li><a href=usooluSiththa.html>الأصول الستة – ހަ އުސޫލު*</a>
+                  <li><a href=usooluThalaatha.html>‌‌الأصول الثلاثة – ތިން އުސޫލު</a>
+                  <li><a href=quranUshru.html#quranTable=:p69.html>މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް</a>
                </ul>
          </ul>
       <li><a href=../notes/info/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
