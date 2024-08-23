@@ -1,279 +1,960 @@
 <!doctype html>
-<html lang="dv">
-  <!-- prevent translate popup -->
-
+<html translate="no">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- CHANGE !!! -->
     <link
       rel="canonical"
       href="https://hadithmv.github.io/books/allAqida.html"
     />
-    <meta name="google" content="notranslate" />
-
-    <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
-    <meta name="theme-color" content="#29434e" />
-    <!-- og metadata sm link previews -->
-    <meta property="og:title" content="Hadithmv" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://hadithmv.github.io/books/allAqida.html"
-    />
-    <meta
-      property="og:image"
-      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
-    />
-
-    <!-- change123 html -->
-
-    <title>Hadithmv - All Aqeedah</title>
+    <title>الجامع في العقائد – އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
     />
-    <!-- META TAGS - END -->
-
-    <!-- === EXT CSS === -->
-    <!-- non critical -->
-    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
-    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
-    <!-- === EXT CSS - END === -->
-
-    <!-- === EXT JS === -->
-    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
-    <!-- critical -->
-    <script defer src="../js/resc/COMB-Crit.min.js"></script>
-    <!-- non critical -->
-    <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
-    <!-- change123 js -->
-    <script defer src="../js/json/usooluSunnah.js"></script>
-    <script defer src="../js/json/barbahari.js"></script>
-    <script defer src="../js/json/aqidatuRaziyain.js"></script>
-    <script defer src="../js/json/kitabulEman.js"></script>
-    <script defer src="../js/json/nawaqidulislam.js"></script>
-    <script defer src="../js/json/qawaidulArbau.js"></script>
-    <script defer src="../js/json/usooluSiththa.js"></script>
-    <script defer src="../js/json/usooluThalaatha.js"></script>
-
-    <script defer src="../js/json/barbahariDFK.js"></script>
-
-    <script defer src="../js/allAqida-script.min.js"></script>
-    <!-- === EXT JS - END === -->
-
-    <!-- === INT CSS === -->
-    <!-- === INT CSS - END === -->
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link
+      href="../css/beta/ALL-COMB.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="../js/beta/ALL-COMB.min.js"></script>
+    <!-- CHANGE !!! 
+    <script src="../js/beta/json/allAqida.js"></script> -->
+    <style></style>
   </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="footer">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
+          <button
+            id="toggleFiliButton"
+            class="customButtons"
+            onclick="toggleFili();filiString();scrollUpTop()"
+          >
+            &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
+          </button>
+          <button
+            id="toggleShowButton"
+            class="customButtons"
+            onclick="toggleShowOne();scrollUpTop()"
+          >
+            &nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;
+          </button>
 
-  <body translate="no">
-    <div id="page">
-      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
-      <!-- adding fixed or custom writing z index breaks on mobile -->
-      <div class="header fixed" onclick="drawer.open();">
-        <!-- hamburger -->
-        <a href="#menu"><span></span></a>
-        <a class="menuLeftIcon" href="index.html"
-          ><img
-            class="hmvLogo1"
-            alt="hadith mv"
-            loading="lazy"
-            src="../img/logo/logo.svg"
-        /></a>
-        <span class="hideOnPhoneOnly">الجامع في العقائد – </span>
-        <span class="hideOnPhoneOnly">އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</span>
+          <button class="customButtons" onclick="copyOneOnly();">
+            &nbsp; ފިއްޔާއެކު ކޮޕީ &nbsp;
+          </button>
 
-        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
-        <nav id="menu">
-          <ul>
-            <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
-            <li>
-              <a href="../books/index.html">● މައި ސަފުހާ</a>
-            </li>
+          <script>
+            // If column 3 is hidden, make it visible and hide column 4. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 3 is visible and column 4 is hidden, trigger a click on .buttons-html5 without changing any column visibility.
+            function copyOneOnly() {
+              // Get the current visibility status of columns 3 and 4
+              var isVisible3 = $("#tableID").DataTable().column(3).visible();
+              var isVisible4 = $("#tableID").DataTable().column(4).visible();
 
-            <li>
-              <a href="../notes/info/contact.html"
-                >ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a
-              >
-            </li>
+              // If column 3 is hidden, make it visible and hide column 4
+              if (!isVisible3) {
+                $("#tableID").DataTable().column(3).visible(true);
+                $("#tableID").DataTable().column(4).visible(false);
+                // Trigger a click on the ".buttons-html5" element
+                $(".buttons-html5").click();
+                // Restore the original visibility states of columns 3 and 4
+                $("#tableID").DataTable().column(3).visible(false);
+                $("#tableID").DataTable().column(4).visible(true);
+              }
+              // If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible
+              else if (isVisible4 && !isVisible3) {
+                $("#tableID").DataTable().column(3).visible(true);
+                $("#tableID").DataTable().column(4).visible(false);
+                // Trigger a click on the ".buttons-html5" element
+                $(".buttons-html5").click();
+                // Restore the original visibility states of columns 3 and 4
+                $("#tableID").DataTable().column(3).visible(false);
+                $("#tableID").DataTable().column(4).visible(true);
+              }
+              // If column 3 is visible and column 4 is hidden, trigger a click on the ".buttons-html5" element
+              else if (isVisible3 && !isVisible4) {
+                $(".buttons-html5").click();
+              }
+            }
+          </script>
 
-            <li>
-              <a href="../notes/info/helpTranslate.html"
-                >ތަރުޖަމާގައި އެހީވެދިނުމަށް</a
-              >
-            </li>
+          <script>
+            // CHANGE !!!
+            function toggleShowOne() {
+              /*var isVisible = $("#tableID").DataTable().column(8).visible();
+              $("#tableID").DataTable().column(8).visible(!isVisible);*/
 
-            <li>
-              <a href="../notes/info/FAQ.html"
-                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
-              >
-            </li>
+              var isVisible = $("#tableID").DataTable().column(6).visible();
+              $("#tableID").DataTable().column(6).visible(!isVisible);
 
-            <li>
-              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
-            </li>
+              var button = document.getElementById("toggleShowButton");
+              if (button.innerHTML.trim() === "&nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;") {
+                button.innerHTML = "&nbsp; ފުޓްނޯޓު ދައްކާ &nbsp;";
+              } else {
+                button.innerHTML = "&nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;";
+              }
+            }
+          </script>
+          <script>
+            function toggleFili() {
+              var isVisible = $("#tableID").DataTable().column(3).visible();
+              $("#tableID").DataTable().column(3).visible(!isVisible);
 
-            <li class="hmvVer" onclick="openDiv();">
-              <a class="versionNo">⚙️ އިސްދާރު: v</a>
-            </li>
+              var isVisible = $("#tableID").DataTable().column(4).visible();
+              $("#tableID").DataTable().column(4).visible(!isVisible);
+            }
+          </script>
 
-            <li>
-              <a href="https://t.me/ashraafmv"
-                >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-              >
-            </li>
-            <li class="madani">
-              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
-            </li>
-            <li>
-              <a onClick="window.location.reload()">🔄 މަޑު ރީލޯޑު</a>
-            </li>
-            <li>
-              <a
-                onclick="window.location.href = window.location.href.split('.html')[0] + '.html';"
-                >ހަރު ރީލޯޑު</a
-              >
-            </li>
-          </ul>
-        </nav>
-        <!-- <nav id="menu"> -->
+          <p class="rightAlignedText">
+            ⚠️ ނޯޓު: މިއީ ޙަދީޘްއެމްވީގައިވާ އަގީދާ ފޮތްތައް އެއް ތަނަކުން ސާރޗް
+            ކުރެވޭ ސަފުހާއެވެ.
+          </p>
+        </div>
       </div>
-      <!-- <div class="header fixed" onclick="drawer.open();"> -->
-
-      <div class="content">
-        <main>
-          <!-- class="w3-animate-right" -->
-          <!-- --- TABLE --- -->
-          <!-- JEKYLL {{ content }} -->
-          <!-- cards js adds card classes to table ID -->
-          <!-- change123 TABLE -->
-          <!-- class="stripe table cards"> -->
-          <table id="allAqidaTable" class="table cards"></table>
-          <!-- --- TABLE - END --- -->
-          <div class="hidden" id="footer">
-            <button class="lowerButtons" onclick="copyURLToClipButton();">
-              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
-            </button>
-
-            <button
-              id="toggleFiliButton2"
-              class="lowerButtons"
-              onclick="toggleFili();filiString2();scrollUpTop()"
-            >
-              &nbsp; ފިލިތައް ދައްކާ &nbsp;
-            </button>
-            <!-- this one is different from the others, as no fili is default, so dhakka is the option  -->
-
-            <script>
-              function toggleFili() {
-                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
-                // http://live.datatables.net/jayoragi/1/edit
-
-                var isVisible = $("#allAqidaTable")
-                  .DataTable()
-                  .column(3)
-                  .visible();
-                $("#allAqidaTable").DataTable().column(3).visible(!isVisible);
-
-                var isVisible = $("#allAqidaTable")
-                  .DataTable()
-                  .column(4)
-                  .visible();
-                $("#allAqidaTable").DataTable().column(4).visible(!isVisible);
-
-                // also related: https://stackoverflow.com/questions/45234347/jquery-datatables-how-hide-specified-column-dynamically/45234355#45234355
-                /*$("#allAqidaTable").DataTable().column(3).visible(true);
-                $("#allAqidaTable").DataTable().column(4).visible(false);*/
-              }
-              // CHANGE FILI BUTTON STRING - only for all athar, because it is hidden by default
-            </script>
-
-            <script>
-              function filiString2() {
-                var button = document.getElementById("toggleFiliButton2");
-                if (
-                  button.innerHTML.trim() === "&nbsp; ފިލިތައް ދައްކާ &nbsp;"
-                ) {
-                  button.innerHTML = "&nbsp; ފިލިތައް ފޮރުވާ &nbsp;";
-                } else {
-                  button.innerHTML = "&nbsp; ފިލިތައް ދައްކާ &nbsp;";
-                }
-              }
-            </script>
-
-            <button class="lowerButtons" onclick="copyOneOnly();">
-              &nbsp; ފިއްޔާއެކު ކޮޕީ &nbsp;
-            </button>
-
-            <script>
-              // If column 3 is hidden, make it visible and hide column 4. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 3 is visible and column 4 is hidden, trigger a click on .buttons-html5 without changing any column visibility.
-              function copyOneOnly() {
-                // Get the current visibility status of columns 3 and 4
-                var isVisible3 = $("#allAqidaTable")
-                  .DataTable()
-                  .column(3)
-                  .visible();
-                var isVisible4 = $("#allAqidaTable")
-                  .DataTable()
-                  .column(4)
-                  .visible();
-
-                // If column 3 is hidden, make it visible and hide column 4
-                if (!isVisible3) {
-                  $("#allAqidaTable").DataTable().column(3).visible(true);
-                  $("#allAqidaTable").DataTable().column(4).visible(false);
-                  // Trigger a click on the ".buttons-html5" element
-                  $(".buttons-html5").click();
-                  // Restore the original visibility states of columns 3 and 4
-                  $("#allAqidaTable").DataTable().column(3).visible(false);
-                  $("#allAqidaTable").DataTable().column(4).visible(true);
-                }
-                // If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible
-                else if (isVisible4 && !isVisible3) {
-                  $("#allAqidaTable").DataTable().column(3).visible(true);
-                  $("#allAqidaTable").DataTable().column(4).visible(false);
-                  // Trigger a click on the ".buttons-html5" element
-                  $(".buttons-html5").click();
-                  // Restore the original visibility states of columns 3 and 4
-                  $("#allAqidaTable").DataTable().column(3).visible(false);
-                  $("#allAqidaTable").DataTable().column(4).visible(true);
-                }
-                // If column 3 is visible and column 4 is hidden, trigger a click on the ".buttons-html5" element
-                else if (isVisible3 && !isVisible4) {
-                  $(".buttons-html5").click();
-                }
-              }
-            </script>
-
-            <p class="justi">
-              ⚠️ ނޯޓު: މިއީ ޙަދީޘްއެމްވީގައިވާ އަގީދާ ފޮތްތައް އެއް ތަނަކުން
-              ސާރޗް ކުރެވޭ ސަފުހާއެވެ.
-            </p>
-
-            <br />
-          </div>
-        </main>
-        <!-- <main> -->
-      </div>
-      <!-- <div class="content"> -->
     </div>
-    <!-- <div id="page"> -->
+    <script type="text/javascript">
+      // CHANGE !!!
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+      // Initialize an empty array to hold the datasets
+      var dataSets = [];
+      // array list of dataset files to load data from
+      /*var datasetFiles = [
+        "../js/beta/json/allAqida.js",
+        "../js/beta/json/arbaoonNawawi.js",
+      ];*/
+      // Add more files as needed
+      var datasetFiles = [
+        "usooluSunnahAhmed.js",
+        "sharhuSunnahBarbahari.js",
+        "aqidatuRaziyain.js",
+        "kitabulEmanAbiUbaid.js",
+        "nawaqidulislam.js",
+        "qawaidulArbau.js",
+        "usooluSiththa.js",
+        "usooluThalaatha.js",
+        //"barbahariDFK.js",
+        // Add other dataset files here
+      ].map((file) => `../js/beta/json/${file}`);
+
+      // Configuration for each dataset, in order
+      var datasetConfigs = [
+        // Columns to keep (0-based index)
+        // New order (after new column added)
+        // New column with "text"
+        /*{
+          // allAthar
+          // book	#	arText	dvText	Takhrij
+          columnsToKeep: null, // Keep all columns as they are
+          columnOrder: null, // Maintain the existing order of columns
+          newColumns: [], // No new columns to add
+        },*/
+        {
+          columnsToKeep: [0, 1, 2, 3],
+          columnOrder: [0, 1, 2, 3, 4], // New order for the columns after adding new columns
+          newColumns: [{ value: "أصول السنة لأحمد" }], // Add a new column with the value "text" in each row
+        },
+        {
+          columnsToKeep: [0, 1, 2, 3],
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "شرح السنة للبربهاري" }],
+        },
+        {
+          columnsToKeep: [0, 1, 2, 3],
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "عقيدة الرازيين" }],
+        },
+        {
+          columnsToKeep: [0, 3, 5, 6],
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "كتاب الإيمان لأبي عبيد" }],
+        },
+        {
+          columnsToKeep: [0, 3, 4, 5],
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "نواقض الإسلام" }],
+        },
+        {
+          columnsToKeep: [0, 3, 4, 5],
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "القواعد الأربع" }],
+        },
+        {
+          columnsToKeep: [0, 3, 4, 5],
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "الأصول الستة" }],
+        },
+        {
+          columnsToKeep: [0, 3, 4, 5],
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "الأصول الثلاثة" }],
+        },
+        /*{
+          columnsToKeep: [0, 5, 6, 7],
+          columnOrder: [0, 1, 2, 3, 4],
+          newColumns: [{ value: "شرح السنة للبربهاري - DFK" }],
+        },*/
+      ];
+
+      // Function to load datasets from specified files asynchronously
+      function loadDatasets(files, configs, callback) {
+        var loaded = 0; // Counter for tracking the number of loaded datasets
+        files.forEach(function (file, index) {
+          // Loop interation through each file in the files array list
+          var script = document.createElement("script");
+          script.src = file; // Set the source of the script to load the dataset of each current file
+          script.onload = function () {
+            // Add an event listener for the 'load' event when the script has finished loading
+            // Process the dataset according to its configuration
+            dataSets[index] = processDataSet(data, configs[index]);
+            loaded++; // Increment the number of files loaded
+            if (loaded === files.length) {
+              // If all files are loaded, execute the callback function
+              callback(); // Call the callback function when all datasets are loaded
+            }
+          };
+          document.head.appendChild(script); // Append the script to the document head to start loading the dataset
+        });
       }
-      gtag("js", new Date());
 
-      gtag("config", "G-HL24Q9NN24");
+      // Function to process a dataset according to the given configuration
+      function processDataSet(dataset, config) {
+        let processedData;
+
+        if (config.columnsToKeep === null) {
+          // Case when all columns should be kept as is and do not add new columns
+          processedData = dataset.map((row) =>
+            row.map((cell) => (cell === null ? "" : cell))
+          );
+        } else {
+          // Case when only specific columns should be kept
+          processedData = dataset.map((row) => {
+            let newRow = config.columnsToKeep.map((col) =>
+              row[col] === null ? "" : row[col]
+            );
+            // Add new columns with specified strings
+            config.newColumns.forEach((col) => {
+              newRow.unshift(col.value); // Add the new column value at the beginning of each row
+            });
+            return newRow;
+          });
+
+          // Reorder columns according to the specified order
+          processedData = processedData.map((row) => {
+            let newRow = [];
+            config.columnOrder.forEach((orderIndex) => {
+              newRow.push(row[orderIndex]); // Reorder columns based on the specified order
+            });
+            return newRow;
+          });
+        }
+
+        return processedData; // Return the processed dataset
+      }
+
+      // Load datasets and process them, and initialize the DataTable once all are loaded
+      loadDatasets(datasetFiles, datasetConfigs, function () {
+        var combinedDataSet = dataSets.flat(); // Combine all datasets into one
+
+        // Log the combined dataset to the console. uncomment this to see the object array
+        // console.log(combinedDataSet);
+
+        // Initialize the DataTable with the combined dataset and specified configuration
+        var table = new DataTable("#tableID", {
+          ...DTconfig, // Existing DataTable configuration spreadd from external file source
+          data: combinedDataSet, // Set the combined dataset as the data for the table
+
+          //columns: [null, null, null, null, null],
+          /*columns: [
+            { title: "New Column Title" }, // Title for the new column ? added in the second dataset ? or just title
+            { title: "Column 1" },
+            { title: "Column 2" },
+            { title: "Column 3" },
+            { title: "Column 4" },
+          ],*/
+
+          /*});
+      });*/
+
+          //
+
+          // book	#	arText	dvText	Takhrij
+          columns: [
+            { title: "ފޮތް އަރަބިން" },
+            {
+              title: "ފޮތް ދިވެހިން",
+              data: 0,
+              render: (data) =>
+                data
+                  .replace("الأربعون النووية", "")
+                  .replace("صحيح مسلم", "ޞަޙީޙު މުސްލިމް")
+                  .replace("صحيح مسلم", "ޞަޙީޙު މުސްލިމް")
+                  .replace("سنن أبي داود", "ސުނަން އަބޫ ދާވޫދު")
+                  .replace("المستدرك للحاكم", "ޙާކިމްގެ މުސްތަދްރަކު")
+                  .replace("الأدب المفرد", "އަދަބުލް މުފްރަދު")
+                  .replace("منتقى ابن جارود", "އިބްނު ޖާރޫދުގެ މުންތަގާ")
+                  .replace("صحيح ابن خزيمة", "ޞަޙީޙު އިބްނު ޚުޒައިމާ")
+                  .replace("صحيح ابن حبان", "ޞަޙީޙު އިބްނު ޙިއްބާން")
+                  .replace("سنن النسائي", "ސުނަން އައްނަސާއީ")
+                  .replace("سنن الترمذي", "ސުނަން އައްތިރުމިޛީ")
+                  .replace("سنن ابن ماجه", "ސުނަން އިބްނު މާޖާ")
+                  .replace("مسند أحمد", "މުސްނަދު އަޙްމަދު")
+                  .replace("سنن الدارقطني", "ސުނަން އައްދާރަގުޠުނީ")
+                  .replace("سنن البيهقي", "ސުނަން އަލްބައިހަގީ")
+                  .replace("السنن الكبرى للنسائي", "ނަސާއީގެ ސުނަން އަލްކުބްރާ")
+                  .replace("موطأ مالك", "މުވައްޠައު މާލިކު")
+                  .replace("الأحاديث المختارة", "އަޙާދީޘް އަލްމުޚްތާރާ")
+                  .replace(
+                    "السنن الكبرى للبيهقي",
+                    "ބައިހަގީގެ ސުނަން އަލްކުބްރާ"
+                  )
+                  .replace("مصنف عبد الرزاق", "މުޞައްނަފު ޢަބްދުއްރައްޒާގު")
+                  .replace("مسند الدارمي", "މުސްނަދު އައްދާރިމީ")
+                  .replace("مصنف ابن أبي شيبة", "މުޞައްނަފު އިބްނު އަބީ ޝައިބާ")
+                  .replace("حصن المسلم", "މުސްލިމުންގެ ކިއްލާ")
+                  .replace("الأربعون النووية", "ނަވަވީގެ ސާޅީސް ޙަދީޘް")
+                  .replace("عمدة الأحكام", "ޢުމްދަތުލް އަޙްކާމް")
+                  .replace("بلوغ المرام", "ބުލޫޣުލް މަރާމް")
+                  .replace("رياض الصالحين", "ރިޔާޟުއްޞާލިޙީން"),
+              visible: false,
+            },
+            { title: "#", data: 1 },
+            { title: "އަރަބި ލިޔުން", data: 2, searchable: false },
+            {
+              title: "އަރަބި ފިލިނުޖަހާ",
+              // CHANGE !!!
+              data: 2,
+              render: (data) => removeThashkeel(data),
+              visible: false,
+            },
+            {
+              title: "ދިވެހި ލިޔުން",
+              data: 3,
+            },
+            { title: "ތަޚްރީޖު", data: 4, searchable: true },
+          ],
+          columnDefs: [
+            {
+              targets: [6],
+              render: (data) =>
+                data !== ""
+                  ? "ـــــــــــــــــــــــــــ\t<br>" +
+                    data.replace(/\n/g, "\t<br>")
+                  : data,
+            },
+            {
+              searchPanes: {
+                show: true,
+              },
+              targets: [0, 1],
+            },
+            {
+              targets: [2],
+              render: (data) => "#" + data,
+            },
+            ...columnDefsconfig,
+          ],
+        });
+        //
+
+        // due to the way multiple js array dataset files are dynamically loaded with datatable initialize being async, the focus code is  running before the table is fully initialized and the search input code or whaterver is available. instead of changing the external config, this can be fixed moving the focus code inside the callback that initializes the DataTable below, ensure it runs after the table is fully initialized and the search input code or whatever is available in the DOM. still currently getting a initialize-dt.js:31  Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')
+
+        /* from the initialize-dt.js, everything from between -
+document.addEventListener("DOMContentLoaded", function () {
+  if (!isMobile) {
+      $("div.dt-search .dt-input").focus();
+  - till the end of that function was copied as is here, and any updates there will need to be brought here */
+
+        // EXECUTE AFTER DATATALE IS INITIALIZED
+        // document.dispatchEvent(new Event("dataTableInitialized"));
+        if (!isMobile) {
+          $("div.dt-search .dt-input").focus();
+
+          table.on("page", function () {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          });
+        } else {
+          table.on("page", function () {
+            const trElement = document.querySelector("tbody tr");
+            const navbarHeight = document.querySelector(".navbar").offsetHeight;
+
+            const trPosition =
+              trElement.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = trPosition - navbarHeight;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          });
+
+          delete Hammer.defaults.cssProps.userSelect;
+
+          Hammer(document.querySelector(".dataTable")).on(
+            "swipeleft",
+            function () {
+              table.page("previous").draw("page");
+            }
+          );
+
+          Hammer(document.querySelector(".dataTable")).on(
+            "swiperight",
+            function () {
+              table.page("next").draw("page");
+            }
+          );
+        }
+
+        $(".dt-paging-input input")
+          .prop("type", "search")
+          .attr("placeholder", "ސަފުހާ");
+
+        $("tbody").on("dblclick", "tr", function () {
+          if (table.search() !== "") {
+            table.search("").draw();
+          }
+          table.row(this).draw().show().select().draw(false);
+        });
+
+        $(".dt-search .dt-input").on("keyup click", function () {
+          var str = $(this).val();
+          str = str.replace(
+            /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
+            ""
+          );
+          $(this).val(str);
+        });
+        // END
+
+        //
+      });
+      /*
+      var table = new DataTable("#tableID", {
+        ...DTconfig,
+      });
+      */
     </script>
-    <!-- End Google Analytics -->
-
-    <!-- === INT JS - END === -->
   </body>
 </html>
+
+<!--
+
+ cgpt: this is my datatables code
+
+<!DOCTYPE html>
+<html translate="no">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link
+      href="https://nightly.datatables.net/css/dataTables.dataTables.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+
+    <script src="data1.js"></script>
+    <script src="data2.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <table id="example" class="display nowrap" width="100%"></table>
+    </div>
+    <script>
+      new DataTable("#example", {
+        pageLength: 10,
+        columns: [{ title: "Name" }, { title: "Position" }],
+        data: dataSet,
+      });
+    </script>
+  </body>
+</html>
+
+data1.js links to an external js file and its contents are:
+var dataSet = [
+  ["Tiger Nixon", "System Architect"],
+  ["Garrett Winters", "Accountant"],
+  ["Unity Butler", "Marketing Designer"],
+];
+
+data2.js links to an external js file and its contents are:
+var dataSet = [
+  ["Brielle Williamson", "Integration Specialist"],
+  ["Herrod Chandler", "Sales Assistant"],
+  ["Rhona Davidson", "Integration Specialist"],
+];
+
+how do i get both sets of data to show on the datatable, without changing the contents of the js files?
+
+that just repeats the data of the second set, and the first is not there at all
+
+very good. how else could it have been done
+
+...
+
+compare between these codes:
+
+<!DOCTYPE html>
+<html translate="no">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link
+      href="https://nightly.datatables.net/css/dataTables.dataTables.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+
+    <script src="data1.js"></script>
+    <script>
+      // Store the first dataSet in another variable
+      var dataSet1 = dataSet;
+    </script>
+    <script src="data2.js"></script>
+    <script>
+      // Store the second dataSet in another variable
+      var dataSet2 = dataSet;
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <table id="example" class="display nowrap" width="100%"></table>
+    </div>
+    <script>
+      // Combine both datasets
+      var combinedDataSet = dataSet1.concat(dataSet2);
+
+      new DataTable("#example", {
+        pageLength: 10,
+        columns: [{ title: "Name" }, { title: "Position" }],
+        data: combinedDataSet,
+      });
+    </script>
+  </body>
+</html>
+
+...
+
+<!DOCTYPE html>
+<html translate="no">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <link
+      href="https://nightly.datatables.net/css/dataTables.dataTables.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+
+    <script src="data1.js"></script>
+    <script>
+      var dataSets = [];
+      dataSets.push(dataSet);
+    </script>
+    <script src="data2.js"></script>
+    <script>
+      dataSets.push(dataSet);
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <table id="example" class="display nowrap" width="100%"></table>
+    </div>
+    <script>
+      // Flatten the array of dataSets
+      var combinedDataSet = [].concat.apply([], dataSets);
+
+      new DataTable("#example", {
+        pageLength: 10,
+        columns: [{ title: "Name" }, { title: "Position" }],
+        data: combinedDataSet,
+      });
+    </script>
+  </body>
+</html>
+
+...
+
+cgpt:
+
+1. Variable Management
+First Code:
+
+It uses separate variables (dataSet1 and dataSet2) to store the datasets from data1.js and data2.js, respectively.
+After loading both datasets, the code combines them using concat to form a single combinedDataSet.
+Second Code:
+
+It initializes an array (dataSets) and appends each dataset to this array as it loads them.
+The code then flattens the dataSets array using [].concat.apply([], dataSets) to create a single combinedDataSet.
+2. Array Handling
+First Code:
+The datasets are stored as separate variables and then concatenated. This is a straightforward approach if you have only two datasets.
+Second Code:
+The datasets are stored in an array, allowing for more flexibility and scalability if there are more datasets to combine. The [].concat.apply([], dataSets) method flattens the array of arrays, which is useful if each dataSet is itself an array of rows.
+This method is more generic and can handle any number of datasets.
+3. Scalability
+First Code:
+
+It is more suitable for a fixed number of datasets, as each dataset needs to be manually assigned to a variable and then combined.
+Second Code:
+
+It is more scalable and dynamic, as you can simply push each new dataset into the dataSets array without needing to manage additional variables manually.
+4. Performance Considerations
+First Code:
+With only two datasets, the performance difference is negligible. The code is straightforward and easy to understand.
+Second Code:
+The second method is potentially more performant and flexible if you expect to handle more datasets in the future. The use of an array to store multiple datasets is more maintainable and easier to manage as the number of datasets increases.
+Summary:
+If you only have a fixed, small number of datasets to combine, the first approach is simple and direct.
+If you anticipate needing to combine an unknown or larger number of datasets, the second approach is more robust and flexible, making it easier to maintain and extend in the future.
+
+...
+
+claude:
+
+The main differences between these two code snippets are in how they handle and combine the datasets. Here are the key differences:
+
+Data Storage:
+
+First code: Uses separate variables dataSet1 and dataSet2 to store the datasets.
+Second code: Uses an array dataSets to store multiple datasets.
+
+
+Data Loading:
+
+First code: Assigns each dataset directly to a variable.
+Second code: Pushes each dataset into the dataSets array.
+
+
+Combining Datasets:
+
+First code: Uses concat() method to combine dataSet1 and dataSet2.
+Second code: Uses [].concat.apply([], dataSets) to flatten the array of datasets.
+
+
+Scalability:
+
+First code: Limited to two datasets. Adding more would require additional variables and manual concatenation.
+Second code: More scalable. Can easily accommodate additional datasets by adding more dataSets.push(dataSet) lines.
+
+
+Memory Usage:
+
+First code: Creates separate copies of each dataset.
+Second code: Stores references to datasets, potentially more memory-efficient for large datasets.
+
+
+Readability:
+
+First code: More straightforward for exactly two datasets.
+Second code: More abstract but more flexible for multiple datasets.
+
+
+
+Both approaches achieve the same end result of combining datasets for use in a DataTable, but the second approach is more flexible and scalable if you need to work with an unknown number of datasets.
+
+...
+
+An Even More Scalable Approach:
+
+For handling many datasets, you could use a more dynamic approach:
+
+<!DOCTYPE html>
+<html translate="no">
+<head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://nightly.datatables.net/css/dataTables.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+</head>
+<body>
+    <div class="container">
+        <table id="example" class="display nowrap" width="100%"></table>
+    </div>
+    <script>
+        var dataSets = [];
+        var datasetFiles = ['data1.js', 'data2.js', 'data3.js', /* ... */];
+
+        function loadDatasets(files, callback) {
+            var loaded = 0;
+            files.forEach(function(file) {
+                var script = document.createElement('script');
+                script.src = file;
+                script.onload = function() {
+                    dataSets.push(dataSet);
+                    loaded++;
+                    if (loaded === files.length) {
+                        callback();
+                    }
+                };
+                document.head.appendChild(script);
+            });
+        }
+
+        loadDatasets(datasetFiles, function() {
+            var combinedDataSet = [].concat.apply([], dataSets);
+            new DataTable("#example", {
+                pageLength: 10,
+                columns: [{ title: "Name" }, { title: "Position" }],
+                data: combinedDataSet,
+            });
+        });
+    </script>
+</body>
+</html>
+
+...
+
+what if the data.js files are in a directory like  json/data1.js json/data2.js json/data3.js
+
+To load the data.js files from a directory like json/data1.js, json/data2.js, json/data3.js, you need to update the datasetFiles array to include the correct path. Here's how you can modify the code:
+
+var datasetFiles = ['json/data1.js', 'json/data2.js', 'json/data3.js', /* ... */];
+
+...
+
+my issue is
+...DTconfig
+
+is referenced in another external js file
+
+in it is
+table = new DataTable("#tableID", {
+DTconfig
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    $("div.dt-search .dt-input").focus();
+});
+
+yet
+
+    $("div.dt-search .dt-input").focus();
+is not working when because of the first piece of code
+
+...
+
+The issue with $("div.dt-search .dt-input").focus(); not working might be due to the fact that the DataTable initialization is asynchronous, especially since you are dynamically loading the datasets and initializing the table after they are loaded. The focus code is likely running before the table is fully initialized and the search input is available.
+
+Solution
+You need to ensure that the focus code runs only after the DataTable is fully initialized. You can do this by moving the focus code inside the callback that initializes the DataTable, like so:
+
+var dataSets = [];
+
+var datasetFiles = ["json/allAqida.js"];
+
+function loadDatasets(files, callback) {
+  var loaded = 0;
+  files.forEach(function (file) {
+    var script = document.createElement("script");
+    script.src = file;
+    script.onload = function () {
+      dataSets.push(data);
+      loaded++;
+      if (loaded === files.length) {
+        callback();
+      }
+    };
+    document.head.appendChild(script);
+  });
+}
+
+loadDatasets(datasetFiles, function () {
+  var combinedDataSet = [].concat.apply([], dataSets);
+
+  var table = new DataTable("#tableID", {
+    ...DTconfig,
+
+    data: combinedDataSet,
+
+    columns: [
+      { title: "ފޮތް އަރަބިން" },
+      {
+        title: "ފޮތް ދިވެހިން",
+        data: 0,
+        render: (data) => removeThashkeel(data),
+        visible: false,
+      },
+      { title: "#", data: 1 },
+      { title: "އަރަބި ލިޔުން", data: 2, searchable: false },
+      {
+        title: "އަރަބި ފިލިނުޖަހާ",
+        data: 2,
+        render: (data) => removeThashkeel(data),
+        visible: false,
+      },
+      {
+        title: "އަރަބި ފުޓްނޯޓުނުލާ",
+        data: 2,
+        render: (data) => removeSmallishFootnotes(data),
+        visible: false,
+        searchable: false,
+      },
+      {
+        title: "ދިވެހި ލިޔުން",
+        data: 3,
+      },
+      { title: "ތަޚްރީޖު", data: 4, searchable: false },
+    ],
+  });
+
+  // Focus on the search input after the DataTable is initialized
+  $("div.dt-search .dt-input").focus();
+});
+
+...
+
+
+the datasets need to be in the order i add them
+
+also i want to be able to choose which columns of the datasets to keep, or to remove, and be able to choose the order of the columns in a dataset
+
+i also want to be able to create a new column in a dataset if i want, and give it a string that will be in each row of that column
+
+this code only lets me choose which columns to keep, remove, and reorder, and create new colunmn with string, it only lets me choose these things on the combinedDataSet as a whole, not the individual datasets. i dont want to do that for the combined one, but on the individual ones before they are then combined
+
+my datasetFiles are : ["json/allAqida.js", "json/arbaoonNawawi.js"];
+
+for the first dataset, which already has 5 columns, i want to keep the columns as they already are in the datasetfile, in the same order they are in the datasetfile. i also dont want to create any new column for that dataset.
+
+for the second dataset, i only want to keep the 1st, 4th, 5th and 6th column. not any other column. i also want them in that order, without the removed columns. i also want to create a new column at the beginning of this dataset, in each row should be a string of "text".
+
+also there can be no null values in combinedDataSet, only empty strings.
+
+newColumns: [{ title: "New Column Title", value: "text" }]
+
+i dont need to set a title here, just a value
+
+the title used in
+
+columns: [
+            { title: "New Column Title" }, 
+            { title: "Column 1" },
+            { title: "Column 2" },
+            { title: "Column 3" },
+            { title: "Column 4" },
+          ],
+
+is enough. it wont change
+
+...
+
+var dataSets = [];
+var datasetFiles = ["json/allAqida.js", "json/arbaoonNawawi.js"];
+
+// Configuration for each dataset
+var datasetConfigs = [
+    {
+        columnsToKeep: null, // Keep all columns
+        columnOrder: null, // Maintain existing order
+        newColumns: [] // No new columns
+    },
+    {
+        columnsToKeep: [0, 3, 4, 5], // Columns to keep (0-based index)
+        columnOrder: [0, 1, 2, 3], // New order (after new column added)
+        newColumns: [{ value: "text" }] // New column with "text"
+    }
+];
+
+function loadDatasets(files, configs, callback) {
+    var loaded = 0;
+    files.forEach(function (file, index) {
+        var script = document.createElement("script");
+        script.src = file;
+        script.onload = function () {
+            // Process the dataset according to its configuration
+            dataSets[index] = processDataSet(data, configs[index]);
+            loaded++;
+            if (loaded === files.length) {
+                callback();
+            }
+        };
+        document.head.appendChild(script);
+    });
+}
+
+function processDataSet(dataset, config) {
+    let processedData;
+
+    if (config.columnsToKeep === null) {
+        // Keep all columns and do not add new columns
+        processedData = dataset.map(row => row.map(cell => cell === null ? '' : cell));
+    } else {
+        // Keep only specified columns
+        processedData = dataset.map(row => {
+            let newRow = config.columnsToKeep.map(col => row[col] === null ? '' : row[col]);
+            // Add new columns with specified strings
+            config.newColumns.forEach(col => {
+                newRow.unshift(col.value);
+            });
+            return newRow;
+        });
+
+        // Reorder columns
+        processedData = processedData.map(row => {
+            let newRow = [];
+            config.columnOrder.forEach(orderIndex => {
+                newRow.push(row[orderIndex]);
+            });
+            return newRow;
+        });
+    }
+
+    return processedData;
+}
+
+loadDatasets(datasetFiles, datasetConfigs, function () {
+    var combinedDataSet = dataSets.flat();
+
+    // Log the combined dataset to the console
+    console.log(combinedDataSet);
+
+    var table = new DataTable("#tableID", {
+        ...DTconfig,
+        data: combinedDataSet,
+        columns: [
+            { title: "New Column Title" }, // Title for the new column
+            { title: "Column 1" },
+            { title: "Column 2" },
+            { title: "Column 3" },
+            { title: "Column 4" },
+        ],
+    });
+});
+
+...
+
+
+-->
