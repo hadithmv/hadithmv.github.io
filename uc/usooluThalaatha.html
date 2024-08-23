@@ -1,596 +1,494 @@
 <!doctype html>
-<html lang="dv">
-  <!-- prevent translate popup -->
-
+<html translate="no">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- CHANGE !!! -->
     <link
       rel="canonical"
       href="https://hadithmv.github.io/books/usooluThalaatha.html"
     />
-    <meta name="google" content="notranslate" />
-
-    <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
-    <meta name="theme-color" content="#29434e" />
-    <!-- og metadata sm link previews -->
-    <meta property="og:title" content="Hadithmv" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://hadithmv.github.io/books/usooluThalaatha.html"
-    />
-    <meta
-      property="og:image"
-      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
-    />
-
-    <!-- change123 html -->
-    <title>Hadithmv - Usoolu Thalaatha</title>
+    <title>‌‌الأصول الثلاثة – ތިން އުސޫލު</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
     />
-    <!-- META TAGS - END -->
-
-    <!-- === EXT CSS === -->
-    <!-- non critical -->
-    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
-    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
-    <!-- === EXT CSS - END === -->
-
-    <!-- === EXT JS === -->
-    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
-    <!-- critical -->
-    <script defer src="../js/resc/COMB-Crit.min.js"></script>
-    <!-- non critical -->
-    <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
-    <!-- change123 js -->
-    <script defer src="../js/json/usooluThalaatha.js"></script>
-    <script defer src="../js/usooluThalaatha-script.min.js"></script>
-    <!-- === EXT JS - END === -->
-
-    <!-- === INT CSS === -->
-    <!-- === INT CSS - END === -->
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link
+      href="../css/beta/ALL-COMB.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="../js/beta/navbar.js"></script>
+    <script src="../js/beta/ALL-COMB.min.js"></script>
+    <!-- CHANGE !!! -->
+    <script src="../js/beta/json/usooluThalaatha.js"></script>
+    <style></style>
   </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="footer">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
+          <button
+            id="toggleFiliButton"
+            class="customButtons"
+            onclick="toggleFili();filiString();scrollUpTop()"
+          >
+            &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
+          </button>
 
-  <body translate="no">
-    <div id="page">
-      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
-      <!-- adding fixed or custom writing z index breaks on mobile -->
-      <div class="header fixed" onclick="drawer.open();">
-        <!-- hamburger -->
-        <a href="#menu"><span></span></a>
-        <a class="menuLeftIcon" href="index.html"
-          ><img
-            class="hmvLogo1"
-            alt="hadith mv"
-            loading="lazy"
-            src="../img/logo/logo.svg"
-        /></a>
-        <span class="hideOnPhoneOnly"> ‌‌الأصول الثلاثة – </span>
-        <span>ތިން އުސޫލު</span>
+          <script>
+            function toggleFili() {
+              var isVisible = $("#tableID").DataTable().column(3).visible();
+              $("#tableID").DataTable().column(3).visible(!isVisible);
 
-        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
-        <nav id="menu">
-          <ul>
-            <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
-            <li>
-              <a href="../books/index.html">● މައި ސަފުހާ</a>
-            </li>
+              var isVisible = $("#tableID").DataTable().column(4).visible();
+              $("#tableID").DataTable().column(4).visible(!isVisible);
+            }
+          </script>
 
-            <li>
-              <a href="../notes/info/contact.html"
-                >ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a
-              >
-            </li>
+          <p>
+            اسم الكتاب: ‌‌الأصول الثلاثة وأدلتها - لمحمد بن عبد الوهاب بن سليمان
+            التميمي النجدي (ت ١٢٠٦ هـ)
+            <br />
+            تحقيق: عبد المحسن القاسم | متون طالب العلم - المستوى الأول | الطبعة
+            السادسة، ١٤٣٩ هـ - ٢٠١٨ م.
+          </p>
 
-            <li>
-              <a href="../notes/info/helpTranslate.html"
-                >ތަރުޖަމާގައި އެހީވެދިނުމަށް</a
-              >
-            </li>
+          <p>
+            ފޮތުގެ ނަން: ތިން އުސޫލާއި އޭގެ ދަލީލުތައް | ލިޔުނީ: މުޙައްމަދު ބިން
+            ޢަބްދުލް ވައްހާބް ބިން ސުލައިމާން އައްތަމީމީ އައްނަޖްދީ (1206 ހ.)
+            <br />
+            ތަހްގީގުކުރީ: ޢަބްދުލް މުޙްސިން އަލްގާސިމް | މުތޫން ޠާލިބިލް ޢިލްމި
+            (އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް) - ފުރަތަމަ މުސްތަވާ | ހަވަނަ
+            ޗާޕު 1439 ހ. - 2018 މ.
+          </p>
 
-            <li>
-              <a href="../notes/info/FAQ.html"
-                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
-              >
-            </li>
-
-            <li>
-              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
-            </li>
-
-            <li class="hmvVer" onclick="openDiv();">
-              <a class="versionNo">⚙️ އިސްދާރު: v</a>
-            </li>
-
-            <li>
-              <a href="https://t.me/ashraafmv"
-                >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-              >
-            </li>
-            <li class="madani">
-              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
-            </li>
-            <li>
-              <a onClick="window.location.reload()">🔄 މަޑު ރީލޯޑު</a>
-            </li>
-            <li>
-              <a
-                onclick="window.location.href = window.location.href.split('.html')[0] + '.html';"
-                >ހަރު ރީލޯޑު</a
-              >
-            </li>
-          </ul>
-        </nav>
-        <!-- <nav id="menu"> -->
-      </div>
-      <!-- <div class="header fixed" onclick="drawer.open();"> -->
-
-      <div class="content">
-        <main>
-          <!-- class="w3-animate-right" -->
-          <!-- --- TABLE --- -->
-          <!-- JEKYLL {{ content }} -->
-          <!-- cards js adds card classes to table ID -->
-          <!-- change123 TABLE - card view set as default here -->
-          <!-- class="stripe table cards"> -->
-          <table id="usooluThalaathaTable" class="table cards"></table>
-          <!-- --- TABLE - END --- -->
-          <div class="hidden" id="footer">
-            <button class="lowerButtons" onclick="copyURLToClipButton();">
-              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
-            </button>
-
-            <button
-              id="toggleFiliButton"
-              class="lowerButtons"
-              onclick="toggleFili();filiString();scrollUpTop()"
+          <p>
+            އަރަބި
+            <a
+              href="https://shamela.ws/book/570/34"
+              rel="noopener noreferrer"
+              target="_blank"
+              >އީ-ފޮތް</a
             >
-              &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
-            </button>
+            |
+            <a
+              href="https://archive.org/details/mutoon-talibul-ilm-01-alqasim/page/n41"
+              rel="noopener noreferrer"
+              target="_blank"
+              >ޕީޑީއެފް</a
+            >
+          </p>
+        </div>
+        <!-- <div class="centerAlignedText"> END -->
 
-            <script>
-              function toggleFili() {
-                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+        <hr />
 
-                var isVisible = $("#usooluThalaathaTable")
-                  .DataTable()
-                  .column(3)
-                  .visible();
-                $("#usooluThalaathaTable")
-                  .DataTable()
-                  .column(3)
-                  .visible(!isVisible);
+        <p>
+          އަބޫ އަނަސްގެ ދިވެހި ތަރުޖަމާގެ
+          <a
+            href="https://archive.org/details/usooluThalaatha-abu-anas"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-                var isVisible = $("#usooluThalaathaTable")
-                  .DataTable()
-                  .column(4)
-                  .visible();
-                $("#usooluThalaathaTable")
-                  .DataTable()
-                  .column(4)
-                  .visible(!isVisible);
-              }
-            </script>
+        <p>
+          މުޙައްމަދު ޝާފިޢުގެ ދިވެހި ތަރުޖަމާގެ
+          <a
+            href="https://shafiu.mv/tag/%de%87%de%aa%de%9e%de%ab%de%8d%de%aa%de%87%de%b0-%de%98%de%a6%de%8d%de%a7%de%98%de%a7/"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އީ-ފޮތް</a
+          >
+          |
+          <a
+            href="https://archive.org/details/usooluThalaatha-mohamed-shafiu"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              مصدر النص: ‌‌الأصول الثلاثة وأدلتها - لمحمد بن عبد الوهاب بن
-              سليمان التميمي النجدي (ت ١٢٠٦ هـ)
-              <br />
-              تحقيق: عبد المحسن القاسم | متون طالب العلم - المستوى الأول |
-              الطبعة السادسة، ١٤٣٩ هـ - ٢٠١٨ م.
-            </p>
+        <p>
+          އިނގިރޭސި ތަރުޖަމާގެ ޕީޑީއެފް
+          <a
+            href="https://archive.org/details/the-three-fundamental-principles-islamhouse"
+            rel="noopener noreferrer"
+            target="_blank"
+            >1</a
+          >
+          |
+          <a
+            href="https://archive.org/details/the-three-fundamental-principles-ak"
+            rel="noopener noreferrer"
+            target="_blank"
+            >2</a
+          >
+          |
+          <a
+            href="https://archive.org/details/the-three-fundamental-principles-ibaanah"
+            rel="noopener noreferrer"
+            target="_blank"
+            >3</a
+          >
+        </p>
 
-            <p>
-              އަސްލު ފޮތުގެ މަސްދަރު: ތިން އުސޫލާއި އޭގެ ދަލީލުތައް | ލިޔުނީ:
-              މުޙައްމަދު ބިން ޢަބްދުލް ވައްހާބް ބިން ސުލައިމާން އައްތަމީމީ
-              އައްނަޖްދީ (1206 ހ.)
-              <br />
-              ތަހްގީގުކުރީ: ޢަބްދުލް މުޙްސިން އަލްގާސިމް | މުތޫން ޠާލިބިލް
-              ޢިލްމި (އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް) - ފުރަތަމަ މުސްތަވާ
-              | ހަވަނަ ޗާޕު 1439 ހ. - 2018 މ.
-            </p>
+        <p>
+          އިނގިރޭސި ޝަރަހައިގެ ޕީޑީއެފް
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-sarhan-en"
+            rel="noopener noreferrer"
+            target="_blank"
+            >1</a
+          >
+          |
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-baz-en"
+            rel="noopener noreferrer"
+            target="_blank"
+            >2</a
+          >
+          |
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-fawzan-en"
+            rel="noopener noreferrer"
+            target="_blank"
+            >3</a
+          >
+          |
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-jabiri-en"
+            rel="noopener noreferrer"
+            target="_blank"
+            >4</a
+          >
+          |
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-uthaymeen-en"
+            rel="noopener noreferrer"
+            target="_blank"
+            >5</a
+          >
+        </p>
 
-            <p>
-              އަރަބި
-              <a
-                href="https://shamela.ws/book/570/34"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އީ-ފޮތް</a
-              >
-              |
-              <a
-                href="https://archive.org/details/mutoon-talibul-ilm-01-alqasim/page/n41"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <hr />
 
-            <hr class="lineVerticalSpace" />
+        <p>
+          شرح ثلاثة الأصول - لصالح بن عبد العزيز آل الشيخ (أشرطة مفرغة)
+          <a
+            href="https://ketabonline.com/ar/books/44629"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އީ-ފޮތް</a
+          >
+          |
+          <a
+            href="https://archive.org/details/sharh-thalaatha-usool-salih-aalsheikh"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              مصدر الشرح في هذه الصفحة ١: شرح ثلاثة الأصول - لصالح بن عبد العزيز
-              آل الشيخ
-              <br />
-              أشرطة مفرغة
+        <p>
+          مفتاح الوصول شرح ثلاثة الأصول - لصالح بن محمد بن حسن الأسمري
+          <a
+            href="https://ketabonline.com/ar/books/7193"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އީ-ފޮތް</a
+          >
+          |
+          <a
+            href="https://archive.org/details/miftaahul-wusool-asmary-img"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-              <br />
-              މި ސަފުހައިގައިވާ ޝަރަހަ 1: ޞާލިޙު އާލްޝައިޚުގެ ޝަރަހަ
-              <br />
-              އަރަބި
-              <a
-                href="https://ketabonline.com/ar/books/44629"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އީ-ފޮތް</a
-              >
-              |
-              <a
-                href="https://archive.org/details/sharh-thalaatha-usool-salih-aalsheikh"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الثلاثة - لهيثم سرحان
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-wa-qawaidul-arbau-wa-nawaqidul-islam-sarhan/page/n1"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              مصدر الشرح في هذه الصفحة ٢: مفتاح الوصول شرح ثلاثة الأصول - لصالح
-              بن محمد بن حسن الأسمري
-              <br />
-              سلسلة دروس العقيدة
+        <p>
+          تيسير الوصول شرح ثلاثة الأصول - لعبد المحسن بن محمد القاسم
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-alqasim"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-              <br />
-              މި ސަފުހައިގައިވާ ޝަރަހަ 2: އަސްމަރީގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://ketabonline.com/ar/books/7193"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އީ-ފޮތް</a
-              >
-              |
-              <a
-                href="https://archive.org/details/miftaahul-wusool-asmary-img"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح ثلاثة الأصول - لعبد العزيز بن عبد الله بن باز
+          <a
+            href="https://shamela.ws/book/11255"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އީ-ފޮތް</a
+          >
+          |
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-bin-baz"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <hr class="lineVerticalSpace" />
+        <p>
+          شرح ثلاثة الأصول - لمحمد بن صالح بن محمد العثيمين
+          <a
+            href="https://shamela.ws/book/11257"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އީ-ފޮތް</a
+          >
+          |
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-uthaymeen"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              އަބޫ އަނަސްގެ ދިވެހި ތަރުޖަމާގެ
-              <a
-                href="https://archive.org/details/usooluThalaatha-abu-anas"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الثلاثة - لصالح بن فوزان بن عبد الله الفوزان
+          <a
+            href="https://shamela.ws/book/8600"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އީ-ފޮތް</a
+          >
+          |
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-fawzan"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              މުޙައްމަދު ޝާފިޢުގެ ދިވެހި ތަރުޖަމާގެ
-              <a
-                href="https://shafiu.mv/tag/%de%87%de%aa%de%9e%de%ab%de%8d%de%aa%de%87%de%b0-%de%98%de%a6%de%8d%de%a7%de%98%de%a7/"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އީ-ފޮތް</a
-              >
-              |
-              <a
-                href="https://archive.org/details/usooluThalaatha-mohamed-shafiu"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح ثلاثة الأصول - لصالح السندي
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-sindi"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              އިނގިރޭސި ތަރުޖަމާގެ ޕީޑީއެފް
-              <a
-                href="https://archive.org/details/the-three-fundamental-principles-islamhouse"
-                rel="noopener noreferrer"
-                target="_blank"
-                >1</a
-              >
-              |
-              <a
-                href="https://archive.org/details/the-three-fundamental-principles-ak"
-                rel="noopener noreferrer"
-                target="_blank"
-                >2</a
-              >
-              |
-              <a
-                href="https://archive.org/details/the-three-fundamental-principles-ibaanah"
-                rel="noopener noreferrer"
-                target="_blank"
-                >3</a
-              >
-            </p>
+        <p>
+          شرح ثلاثة الأصول - لصالح السحيمي
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-suhaimy"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              އިނގިރޭސި ޝަރަހައިގެ ޕީޑީއެފް
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-sarhan-en"
-                rel="noopener noreferrer"
-                target="_blank"
-                >1</a
-              >
-              |
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-baz-en"
-                rel="noopener noreferrer"
-                target="_blank"
-                >2</a
-              >
-              |
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-fawzan-en"
-                rel="noopener noreferrer"
-                target="_blank"
-                >3</a
-              >
-              |
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-jabiri-en"
-                rel="noopener noreferrer"
-                target="_blank"
-                >4</a
-              >
-              |
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-uthaymeen-en"
-                rel="noopener noreferrer"
-                target="_blank"
-                >5</a
-              >
-            </p>
+        <p>
+          شرح ثلاثة الأصول - لعبد الرزاق البدر
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-badr"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الثلاثة - لهيثم سرحان | ސަރްޙާނުގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-wa-qawaidul-arbau-wa-nawaqidul-islam-sarhan/page/n1"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح ثلاثة الأصول وأدلتها - لصالح العصيمي
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-usaimy"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              تيسير الوصول شرح ثلاثة الأصول - لعبد المحسن بن محمد القاسم |
-              އަލްގާސިމްގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-alqasim"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الثلاثة - لسليمان بن سليم الله الرحيلي
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalatha-ruhaily"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح ثلاثة الأصول - لعبد العزيز بن عبد الله بن باز | ބިން ބާޒުގެ
-              ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://shamela.ws/book/11255"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އީ-ފޮތް</a
-              >
-              |
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-bin-baz"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الثلاثة - لصالح آل الشيخ
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-salih-aalsheikh"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح ثلاثة الأصول - لمحمد بن صالح بن محمد العثيمين | ޢުޘައިމީންގެ
-              ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://shamela.ws/book/11257"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އީ-ފޮތް</a
-              >
-              |
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-uthaymeen"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح ثلاثة الأصول - لخالد الغامدي
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-khalid-alghamidi"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الثلاثة - لصالح بن فوزان بن عبد الله الفوزان |
-              ފައުޒާނުގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://shamela.ws/book/8600"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އީ-ފޮތް</a
-              >
-              |
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-fawzan"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          حاشية الأصول الثلاثة - لعبد الرحمن بن محمد القاسم
+          <a
+            href="https://shamela.ws/book/11148"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އީ-ފޮތް</a
+          >
+          |
+          <a
+            href="https://archive.org/details/mutoon-talibul-ilm-01-alqasim/page/n41"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح ثلاثة الأصول - لصالح السندي | ސިންދީގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-sindi"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الثلاثة - لمحمد بن رمزان الهاجري
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-hajiri"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح ثلاثة الأصول - لصالح السحيمي | ސުޙައިމީގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-suhaimy"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الثلاثة - لأحمد بن عمر بازمول
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-bazmul"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح ثلاثة الأصول - لعبد الرزاق البدر | ޢަބްދުއްރައްޒާގުގެ
-              ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-badr"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <hr />
 
-            <p>
-              شرح ثلاثة الأصول وأدلتها - لصالح العصيمي | އަލްޢުޞައިމީގެ
-              ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-usaimy"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
-
-            <!--
-            <p>
-              شرح الأصول الثلاثة - لسليمان بن سليم الله الرحيلي | ސުލައިމާން
-              އައްރުޙައިލީގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalatha-ruhaily"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
-            -->
-
-            <p>
-              شرح الأصول الثلاثة - لصالح آل الشيخ | ޞާލިޙު އާލްޝައިޚުގެ
-              ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-salih-aalsheikh"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
-
-            <p>
-              شرح ثلاثة الأصول - لخالد الغامدي | ޚާލިދު އަލްޣާމިދީގެ ޝަރަހައިގެ
-              އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-khalid-alghamidi"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
-
-            <p>
-              حاشية الأصول الثلاثة - لعبد الرحمن بن محمد القاسم |
-              ޢަބްދުއްރަޙްމާން އަލްގާސިމްގެ ޙާޝިޔާގެ އަރަބި
-              <a
-                href="https://shamela.ws/book/11148"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އީ-ފޮތް</a
-              >
-              |
-              <a
-                href="https://archive.org/details/mutoon-talibul-ilm-01-alqasim/page/n41"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
-
-            <p>
-              شرح الأصول الثلاثة - لمحمد بن رمزان الهاجري | ހާޖިރީގެ ޝަރަހައިގެ
-              އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-hajiri"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
-
-            <p>
-              شرح الأصول الثلاثة - لأحمد بن عمر بازمول | ބާޒްމޫލުގެ ޝަރަހައިގެ
-              އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-bazmul"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
-
-            <hr class="lineVerticalSpace" />
-
-            <h3 class="mid">
-              <a>ތަހްގީގު ކުރެވުނު ފޮތުގެ ނުސްޚާއާ ބެހޭ މައުލޫމާތު އަރަބިން</a>
-            </h3>
-
-            <p class="justi">
-              قال المحقق: النسخ المعتمدة في تحقيق هذا المثن:
-              <br />
-              - نسخة خطية بمركز الملك فيصل - السعودية -، برقم (٥٢٥٨)، تاريخ
-              نسخها: ١٣٠٧ هـ، ورمزت لها بـ (أ).
-              <br />
-              - نسخة خطية بمركز الملك فيصل - السعودية -، برقم (٥٢٦٥)، تاريخ
-              نسخها: ۱۳۳۸ هـ، ورمزت لها بـ (ب).
-              <br />
-              - نسخة خطية بجامعة الملك سعود - السعودية -، برقم (۲۳۲۸)، ورمزت لها
-              بـ (ج).
-              <br />
-              - نسخة خطية بجامعة الملك سعود - السعودية -، برقم (۳۹۷۹)، ورمزت لها
-              بـ (د).
-              <br />
-              - نسخة خطية بمكتبة الشيخ عبد الرحمن بن ناصر السعدي بالقصيم -
-              السعودية -، ورمزت لها بـ (هـ).
-            </p>
-          </div>
-        </main>
-        <!-- <main> -->
+        <h3>ތަހްގީގުކުރެވުނު ފޮތުގެ މުގައްދިމާ އަރަބިން - المقدمة</h3>
+        <p>النسخ المعتمدة في تحقيق هذا المثن:</p>
+        <p>
+          - نسخة خطية بمركز الملك فيصل - السعودية -، برقم (٥٢٥٨)، تاريخ نسخها:
+          ١٣٠٧ هـ، ورمزت لها بـ (أ).
+        </p>
+        <p>
+          - نسخة خطية بمركز الملك فيصل - السعودية -، برقم (٥٢٦٥)، تاريخ نسخها:
+          ۱۳۳۸ هـ، ورمزت لها بـ (ب).
+        </p>
+        <p>
+          - نسخة خطية بجامعة الملك سعود - السعودية -، برقم (۲۳۲۸)، ورمزت لها بـ
+          (ج).
+        </p>
+        <p>
+          - نسخة خطية بجامعة الملك سعود - السعودية -، برقم (۳۹۷۹)، ورمزت لها بـ
+          (د).
+        </p>
+        <p>
+          - نسخة خطية بمكتبة الشيخ عبد الرحمن بن ناصر السعدي بالقصيم - السعودية
+          -، ورمزت لها بـ (هـ).
+        </p>
       </div>
-      <!-- <div class="content"> -->
     </div>
-    <!-- <div id="page"> -->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-HL24Q9NN24");
+    <script type="text/javascript">
+      var table = new DataTable("#tableID", {
+        ...DTconfig,
+        data: data,
+        // #	bab babDhiv arab dhiv takhrij
+        columns: [
+          { title: "#" },
+          { title: "ބާބު އަރަބިން" },
+          { title: "ބާބު ދިވެހިން" },
+          { title: "އަރަބި ލިޔުން", searchable: false },
+          {
+            title: "އަރަބި ފިލިނުޖަހާ",
+            // CHANGE !!!
+            data: 3,
+            render: (data) => removeThashkeel(data),
+            visible: false,
+          },
+          {
+            title: "ދިވެހި ލިޔުން",
+            data: 4,
+          },
+          {
+            title: "ތަޚްރީޖު",
+            data: 5,
+            searchable: false,
+          },
+        ],
+        columnDefs: [
+          {
+            targets: [6],
+            render: (data) =>
+              data !== ""
+                ? "ـــــــــــــــــــــــــــ\t<br>" +
+                  data.replace(/\n/g, "\t<br>")
+                : data,
+          },
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [1, 2],
+          },
+          {
+            targets: [0],
+            render: (data) => "#" + data,
+          },
+          ...columnDefsconfig,
+        ],
+      });
     </script>
-    <!-- End Google Analytics -->
-
-    <!-- === INT JS - END === -->
   </body>
 </html>

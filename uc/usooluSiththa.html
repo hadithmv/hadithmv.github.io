@@ -1,498 +1,551 @@
 <!doctype html>
-<html lang="dv">
-  <!-- prevent translate popup -->
-
+<html translate="no">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- CHANGE !!! -->
     <link
       rel="canonical"
       href="https://hadithmv.github.io/books/usooluSiththa.html"
     />
-    <meta name="google" content="notranslate" />
-
-    <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
-    <meta name="theme-color" content="#29434e" />
-    <!-- og metadata sm link previews -->
-    <meta property="og:title" content="Hadithmv" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://hadithmv.github.io/books/usooluSiththa.html"
-    />
-    <meta
-      property="og:image"
-      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
-    />
-
-    <!-- change123 html -->
-    <title>Hadithmv - Usoolu Thalaatha</title>
+    <title>الأصول الستة – ހަ އުސޫލު*</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
     />
-    <!-- META TAGS - END -->
-
-    <!-- === EXT CSS === -->
-    <!-- non critical -->
-    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
-    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
-    <!-- === EXT CSS - END === -->
-
-    <!-- === EXT JS === -->
-    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
-    <!-- critical -->
-    <script defer src="../js/resc/COMB-Crit.min.js"></script>
-    <!-- non critical -->
-    <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
-    <!-- change123 js -->
-    <script defer src="../js/json/usooluSiththa.js"></script>
-    <script defer src="../js/usooluSiththa-script.min.js"></script>
-    <!-- === EXT JS - END === -->
-
-    <!-- === INT CSS === -->
-    <!-- === INT CSS - END === -->
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link
+      href="../css/beta/ALL-COMB.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="../js/beta/navbar.js"></script>
+    <script src="../js/beta/ALL-COMB.min.js"></script>
+    <!-- CHANGE !!! -->
+    <script src="../js/beta/json/usooluSiththa.js"></script>
+    <style></style>
   </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="footer">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
+          <button
+            id="toggleFiliButton"
+            class="customButtons"
+            onclick="toggleFili();filiString();scrollUpTop()"
+          >
+            &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
+          </button>
 
-  <body translate="no">
-    <div id="page">
-      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
-      <!-- adding fixed or custom writing z index breaks on mobile -->
-      <div class="header fixed" onclick="drawer.open();">
-        <!-- hamburger -->
-        <a href="#menu"><span></span></a>
-        <a class="menuLeftIcon" href="index.html"
-          ><img
-            class="hmvLogo1"
-            alt="hadith mv"
-            loading="lazy"
-            src="../img/logo/logo.svg"
-        /></a>
-        <span class="hideOnPhoneOnly"> ‌‌الأصول الستة – </span>
-        <span>ހަ އުސޫލު</span>
-        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
-        <nav id="menu">
-          <ul>
-            <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
-            <li>
-              <a href="../books/index.html">● މައި ސަފުހާ</a>
-            </li>
+          <script>
+            function toggleFili() {
+              var isVisible = $("#tableID").DataTable().column(3).visible();
+              $("#tableID").DataTable().column(3).visible(!isVisible);
 
-            <li>
-              <a href="../notes/info/contact.html"
-                >ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a
-              >
-            </li>
+              var isVisible = $("#tableID").DataTable().column(4).visible();
+              $("#tableID").DataTable().column(4).visible(!isVisible);
+            }
+          </script>
 
-            <li>
-              <a href="../notes/info/helpTranslate.html"
-                >ތަރުޖަމާގައި އެހީވެދިނުމަށް</a
-              >
-            </li>
+          <p>
+            اسم الكتاب: الأصول الستة <br />
+            المتن من الشرح: التقعيد النضيد في شرح الأصول الستة في التوحيد<br />
+            لمحمد بن عبد الوهاب بن سليمان التميمي النجدي (ت ١٢٠٦ هـ)<br />
+            تحقيق: عبد العزيز بن ريس الريس | الطبعة: ١٤٤٣ هـ - ٢٠٢١ م.
+          </p>
 
-            <li>
-              <a href="../notes/info/FAQ.html"
-                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
-              >
-            </li>
+          <p>
+            ފޮތުގެ ނަން: ހަ އުސޫލު
+            <br />
 
-            <li>
-              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
-            </li>
+            ލިޔުނީ: މުޙައްމަދު ބިން ޢަބްދުލް ވައްހާބް ބިން ސުލައިމާން އައްތަމީމީ
+            އައްނަޖްދީ (1206 ހ.)
+            <br />
+            މަތުނު ނެގިފައިވާ ޝަރަހަ: ތައުހީދުގެ ހަ އުސޫލުގެ ޝަރަހަ
+            <br />
+            ތަހްގީގުކުރީ: ޢަބްދުލ ޢަޒީޒު އައްރައިސް | ޗާޕުކުރީ: ޗާޕު 1443 ހ. -
+            2021 މ.
+          </p>
 
-            <li class="hmvVer" onclick="openDiv();">
-              <a class="versionNo">⚙️ އިސްދާރު: v</a>
-            </li>
+          <p>
+            اسم الكتاب: ‌‌القواعد الأربع - لمحمد بن عبد الوهاب بن سليمان التميمي
+            النجدي (ت ١٢٠٦ هـ)
+            <br />
+            تحقيق: عبد المحسن القاسم | متون طالب العلم - المستوى الأول |
+            السادسة، ١٤٣٩ هـ - ٢٠١٨ م.
+          </p>
 
-            <li>
-              <a href="https://t.me/ashraafmv"
-                >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-              >
-            </li>
-            <li class="madani">
-              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
-            </li>
-            <li>
-              <a onClick="window.location.reload()">🔄 މަޑު ރީލޯޑު</a>
-            </li>
-            <li>
-              <a
-                onclick="window.location.href = window.location.href.split('.html')[0] + '.html';"
-                >ހަރު ރީލޯޑު</a
-              >
-            </li>
-          </ul>
-        </nav>
-        <!-- <nav id="menu"> -->
-      </div>
-      <!-- <div class="header fixed" onclick="drawer.open();"> -->
+          <p>
+            ފޮތުގެ ނަން: ހަތަރު ގަވާއިދު | ލިޔުނީ: މުޙައްމަދު ބިން ޢަބްދުލް
+            ވައްހާބް ބިން ސުލައިމާން އައްތަމީމީ އައްނަޖްދީ (1206 ހ.)
+            <br />
+            ތަހްގީގުކުރީ: ޢަބްދުލް މުޙްސިން އަލްގާސިމް | މުތޫން ޠާލިބިލް ޢިލްމި
+            (އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް) - ފުރަތަމަ މުސްތަވާ | ހަވަނަ
+            ޗާޕު 1439 ހ. - 2018 މ.
+          </p>
 
-      <div class="content">
-        <main>
-          <!-- class="w3-animate-right" -->
-          <!-- --- TABLE --- -->
-          <!-- JEKYLL {{ content }} -->
-          <!-- cards js adds card classes to table ID -->
-          <!-- change123 TABLE - card view set as default here -->
-          <!-- class="stripe table cards"> -->
-          <table id="usooluSiththaTable" class="table cards"></table>
-          <!-- --- TABLE - END --- -->
-          <div class="hidden" id="footer">
-            <button class="lowerButtons" onclick="copyURLToClipButton();">
-              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
-            </button>
-
-            <button
-              id="toggleFiliButton"
-              class="lowerButtons"
-              onclick="toggleFili();filiString();scrollUpTop()"
+          <p>
+            އަރަބި
+            <a
+              href="https://archive.org/details/sharh-usoolu-siththa-raees"
+              rel="noopener noreferrer"
+              target="_blank"
+              >ޕީޑީއެފް</a
             >
-              &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
-            </button>
+          </p>
 
-            <script>
-              function toggleFili() {
-                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
+          <!-- LATER !!! -->
 
-                var isVisible = $("#usooluSiththaTable")
-                  .DataTable()
-                  .column(3)
-                  .visible();
-                $("#usooluSiththaTable")
-                  .DataTable()
-                  .column(3)
-                  .visible(!isVisible);
+          <p>
+            مع بعض الحواشي من الرسالة 12 -
+            <a
+              href="https://archive.org/details/waq50041/01-1_50041/page/n391"
+              rel="noopener noreferrer"
+              target="_blank"
+              >ستة أصول عظيمة مفيدة</a
+            >
+            - من مؤلفات الشيخ الإمام محمد بن عبد الوهاب - القسم الأول، العقيدة
+            والآداب الإسلامية.
+          </p>
+        </div>
+        <!-- <div class="centerAlignedText"> END -->
 
-                var isVisible = $("#usooluSiththaTable")
-                  .DataTable()
-                  .column(4)
-                  .visible();
-                $("#usooluSiththaTable")
-                  .DataTable()
-                  .column(4)
-                  .visible(!isVisible);
-              }
-            </script>
+        <hr />
 
-            <p>
-              اسم الكتاب: الأصول الستة - لمحمد بن عبد الوهاب بن سليمان التميمي
-              النجدي (ت ١٢٠٦ هـ)
-            </p>
+        <p>
+          ޙައްސާން ޢަބްދުއްރައްޒާގުގެ ދިވެހި ތަރުޖަމާގެ
+          <a
+            href="https://hassaanmv.com/post/6-usools"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އީ-ފޮތް</a
+          >
+        </p>
 
-            <p>
-              ފޮތުގެ ނަން: ހަ އުސޫލު | ލިޔުނީ: މުޙައްމަދު ބިން ޢަބްދުލް ވައްހާބް
-              ބިން ސުލައިމާން އައްތަމީމީ އައްނަޖްދީ (1206 ހ.)
-            </p>
+        <p>
+          އަބޫ އަނަސްގެ ދިވެހި ތަރުޖަމާގެ
+          <a
+            href="https://archive.org/details/usooluSiththa-abu-anas"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <hr class="lineVerticalSpace" />
+        <p>
+          އިނގިރޭސި ތަރުޖަމައިގެ ޕީޑީއެފް
+          <a
+            href="https://archive.org/details/usoolu-siththa-english"
+            rel="noopener noreferrer"
+            target="_blank"
+            >1</a
+          >
+          |
+          <a
+            href="https://archive.org/details/usoolu-siththa-english-aq"
+            rel="noopener noreferrer"
+            target="_blank"
+            >2</a
+          >
+        </p>
 
-            <p>
-              نص الكتاب أخذ من مصدر: التقعيد النضيد في شرح الأصول الستة في
-              التوحيد - لعبد العزيز بن ريس الريس
-              <br />
-              | الطبعة: ١٤٤٣ هـ - ٢٠٢١ م.
-            </p>
+        <p>
+          އިނގިރޭސި ޝަރަހައިގެ ޕީޑީއެފް
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-english-abdurrazzaq"
+            rel="noopener noreferrer"
+            target="_blank"
+            >1</a
+          >
+          |
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-english-fawzan"
+            rel="noopener noreferrer"
+            target="_blank"
+            >2</a
+          >
+          |
+          <a
+            href="https://archive.org/details/sharh-kashfu-shubuhat-wa-usoolu-siththa-uthaymeen/page/n105"
+            rel="noopener noreferrer"
+            target="_blank"
+            >3</a
+          >
+        </p>
 
-            <p>
-              ފޮތުގެ ނައްސު ނެގިފައިވާ މަސްދަރު: ތައުހީދުގެ ހަ އުސޫލުގެ ޝަރަހަ |
-              ލިޔުނީ: ޢަބްދުލ ޢަޒީޒު އައްރައިސް
-              <br />
-              ޗާޕު: 1443 ހ. - 2021 މ.
-              <br />
-            </p>
+        <hr />
 
-            <p>
-              އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-raees"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الستة - لخالد بن عبد الله المصلح
+          <a
+            href="https://shamela.ws/book/7731"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އީ-ފޮތް</a
+          >
+        </p>
 
-            <p>
-              مع بعض الحواشي من الرسالة 12 -
-              <a
-                href="https://archive.org/details/waq50041/01-1_50041/page/n391"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ستة أصول عظيمة مفيدة</a
-              >
-              - من مؤلفات الشيخ الإمام محمد بن عبد الوهاب - القسم الأول، العقيدة
-              والآداب الإسلامية.
-            </p>
+        <p>
+          شرح الأصول الستة - لمحمد بن صالح بن محمد العثيمين
+          <a
+            href="https://shamela.ws/book/9923"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އީ-ފޮތް</a
+          >
+          |
+          <a
+            href="https://archive.org/details/sharh-kashfu-shubuhat-wa-usoolu-siththa-uthaymeen/page/n107"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <hr class="lineVerticalSpace" />
+        <p>
+          شرح الأصول الستة - لهيثم سرحان
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-sarhan"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              مصدر الشرح في هذه الصفحة ١: شرح الأصول الستة - لخالد بن عبد الله
-              المصلح
-              <br />
-              މި ސަފުހައިގައިވާ ޝަރަހަ 1: ޚާލިދު އަލްމުޞްލިޙުގެ ޝަރަހައިގެ
-              އަރަބި
-              <a
-                href="https://shamela.ws/book/7731"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އީ-ފޮތް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الستة - لعبد الرزاق البدر
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-abdurrazzaq-albadr"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              مصدر الشرح في هذه الصفحة ٢: شرح الأصول الستة - لمحمد بن صالح بن
-              محمد العثيمين
-              <br />
-              މި ސަފުހައިގައިވާ ޝަރަހަ 2: ޢުޘައިމީންގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://shamela.ws/book/9923"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އީ-ފޮތް</a
-              >
-              |
-              <a
-                href="https://archive.org/details/sharh-kashfu-shubuhat-wa-usoolu-siththa-uthaymeen/page/n107"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الستة - لعبد السلام الشويعر
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-shuwayir"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <hr class="lineVerticalSpace" />
+        <p>
+          شرح الأصول الستة - لصالح بن فوزان بن عبد الله الفوزان
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-fawzan"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              ޙައްސާން ޢަބްދުއްރައްޒާގުގެ ދިވެހި ތަރުޖަމާގެ
-              <a
-                href="https://hassaanmv.com/post/6-usools"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އީ-ފޮތް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الستة - لفلاح المندكار
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-mundakar"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              އަބޫ އަނަސްގެ ދިވެހި ތަރުޖަމާގެ
-              <a
-                href="https://archive.org/details/usooluSiththa-abu-anas"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الستة - لصالح السحيمي
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-suhaimy"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              އިނގިރޭސި ތަރުޖަމައިގެ ޕީޑީއެފް
-              <a
-                href="https://archive.org/details/usoolu-siththa-english"
-                rel="noopener noreferrer"
-                target="_blank"
-                >1</a
-              >
-              |
-              <a
-                href="https://archive.org/details/usoolu-siththa-english-aq"
-                rel="noopener noreferrer"
-                target="_blank"
-                >2</a
-              >
-            </p>
+        <p>
+          شرح الأصول الستة - لمحمد محمدي النورستاني
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-nooristani"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              އިނގިރޭސި ޝަރަހައިގެ ޕީޑީއެފް
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-english-abdurrazzaq"
-                rel="noopener noreferrer"
-                target="_blank"
-                >1</a
-              >
-              |
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-english-fawzan"
-                rel="noopener noreferrer"
-                target="_blank"
-                >2</a
-              >
-              |
-              <a
-                href="https://archive.org/details/sharh-kashfu-shubuhat-wa-usoolu-siththa-uthaymeen/page/n105"
-                rel="noopener noreferrer"
-                target="_blank"
-                >3</a
-              >
-            </p>
+        <p>
+          شرح الأصول الستة - لمصطفى مبرم
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-mabram"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الستة - لهيثم سرحان | ސަރްޙާނުގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-sarhan"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الستة - لعلي الحدادي
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-ali-alhaddadi"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الستة - لعبد الرزاق البدر | ޢަބްދުއްރައްޒާގުގެ
-              ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-abdurrazzaq-albadr"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الستة - لمحمد أمان الجامي
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-jaamee"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الستة - لعبد السلام الشويعر | ޝުވައިޢިރުގެ ޝަރަހައިގެ
-              އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-shuwayir"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الستة - لمحمد بن هادي المدخلي
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-muhammad-bin-hadi"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الستة - لصالح بن فوزان بن عبد الله الفوزان | ފައުޒާނުގެ
-              ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-thalaatha-fawzan"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الستة - لعبد السلام بن برجس
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-burjis"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الستة - لفلاح المندكار | މުންދަކާރުގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-mundakar"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الستة - لأحمد بن عمر بازمول
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-bazmul"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الستة - لصالح السحيمي | ސުޙައިމީގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-suhaimy"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح الأصول الستة - لزيد بن محمد بن هادي المدخلي
+          <a
+            href="https://archive.org/details/sharh-usoolu-siththa-zaid"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الستة - لمحمد محمدي النورستاني | ނޫރިސްތާނީގެ
-              ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-nooristani"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <hr />
 
-            <p>
-              شرح الأصول الستة - لمصطفى مبرم | މަބްރަމުގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-mabram"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح القواعد الأربع - لصالح بن فوزان الفوزان
+          <br />
+          އަރަބި
+          <a
+            href="https://ketabonline.com/ar/books/774"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އީ-ފޮތް</a
+          >
+          |
+          <a
+            href="https://archive.org/details/sharh-qawaidul-arbau-fawzan"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الستة - لعلي الحدادي | މަބްރަމުގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-ali-alhaddadi"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح القواعد الأربع - لصالح بن عبد العزيز آل الشيخ
+          <a
+            href="https://ketabonline.com/ar/books/14678"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އީ-ފޮތް</a
+          >
+          |
+          <a
+            href="https://archive.org/details/sharh-qawaidul-arbau-salih-aalsheikh"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الستة - لمحمد أمان الجامي | ޖާމީގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-jaamee"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح القواعد الأربع - لهيثم سرحان
+          <a
+            href="https://archive.org/details/sharh-usoolu-thalaatha-wa-qawaidul-arbau-wa-nawaqidul-islam-sarhan/page/n55"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الستة - لمحمد بن هادي المدخلي | މުޙައްމަދު ބިން ހާދީގެ
-              ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-muhammad-bin-hadi"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح القواعد الأربع - لعبد المحسن بن محمد القاسم
+          <a
+            href="https://archive.org/details/sharh-qawaidul-arbau-alqasim"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الستة - لعبد السلام بن برجس | ޢަބްދުއްސަލާމް ބިން
-              ބުރްޖިސްގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-burjis"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح القواعد الأربع - لعبد العزيز ابن باز
+          <a
+            href="https://archive.org/details/sharh-qawaidul-arbau-bin-baz"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الستة - لأحمد بن عمر بازمول | ބާޒްމޫލުގެ ޝަރަހައިގެ
-              އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-bazmul"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
+        <p>
+          شرح قواعد الأربع - لصالح سندي
+          <a
+            href="https://archive.org/details/sharh-qawaidul-arbau-sindi"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
 
-            <p>
-              شرح الأصول الستة - لزيد بن محمد بن هادي المدخلي | ޒައިދު ބިން
-              ހާދީގެ ޝަރަހައިގެ އަރަބި
-              <a
-                href="https://archive.org/details/sharh-usoolu-siththa-zaid"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-            </p>
-          </div>
-        </main>
-        <!-- <main> -->
+        <p>
+          شرح قواعد الأربع - لصالح السحيمي
+          <a
+            href="https://archive.org/details/sharh-qawaidul-arbau-suhaimy"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
+
+        <p>
+          شرح القواعد الأربع - لعبيد الجابري
+          <a
+            href="https://archive.org/details/sharh-qawaidul-arbau-jabiri"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
+
+        <p>
+          شرح القواعد الأربع - لعبد الرزاق البدر
+          <a
+            href="https://archive.org/details/sharh-qawaidul-arbau-badr"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
+
+        <p>
+          شرح القواعد الأربع - لصالح العصيمي
+          <a
+            href="https://archive.org/details/sharh-qawaidul-arbau-usaimy"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
+
+        <p>
+          شرح القواعد الأربع - لأحمد بن عمر بازمول
+          <a
+            href="https://archive.org/details/sharh-qawaidul-arbau-bazmul"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ޕީޑީއެފް</a
+          >
+        </p>
       </div>
-      <!-- <div class="content"> -->
     </div>
-    <!-- <div id="page"> -->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-HL24Q9NN24");
+    <script type="text/javascript">
+      var table = new DataTable("#tableID", {
+        ...DTconfig,
+        data: data,
+        // #	bab babDhiv arab dhiv takhrij
+        columns: [
+          { title: "#" },
+          { title: "ބާބު އަރަބިން" },
+          { title: "ބާބު ދިވެހިން" },
+          { title: "އަރަބި ލިޔުން", searchable: false },
+          {
+            title: "އަރަބި ފިލިނުޖަހާ",
+            // CHANGE !!!
+            data: 3,
+            render: (data) => removeThashkeel(data),
+            visible: false,
+          },
+          {
+            title: "ދިވެހި ލިޔުން",
+            data: 4,
+          },
+          {
+            title: "ތަޚްރީޖު",
+            data: 5,
+            searchable: false,
+          },
+        ],
+        columnDefs: [
+          {
+            targets: [6],
+            render: (data) =>
+              data !== ""
+                ? "ـــــــــــــــــــــــــــ\t<br>" +
+                  data.replace(/\n/g, "\t<br>")
+                : data,
+          },
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [1, 2],
+          },
+          {
+            targets: [0],
+            render: (data) => "#" + data,
+          },
+          ...columnDefsconfig,
+        ],
+      });
     </script>
-    <!-- End Google Analytics -->
-
-    <!-- === INT JS - END === -->
   </body>
 </html>
