@@ -47,39 +47,6 @@
       <table id="tableID" class="cards" width="100%"></table>
       <div class="footer">
         <div class="centerAlignedText">
-          <!-- LATER !!! 
-          <ul class="nested-dropdownButton">
-            <li>
-              <a>ފިހުރިސްތު</a>
-              <ul>
-                <li>
-                  <a>كِتَابُ الطَّهَارَةِ</a>
-                  <ul>
-                    <li>
-                      <a data-value="1">كِتَابُ الطَّهَارَةِ</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a>كِتَابُ الصَّلَاةِ</a>
-                  <ul>
-                    <li>
-                      <a data-value="44">بَابُ المَوَاقِيتِ</a>
-                    </li>
-                  </ul>
-                </li>
-
-                <li>
-                  <a class="open-all">ހުރިހާ ހުޅުވާ &nbsp; ⇕</a>
-                </li>
-                <li>
-                  <a class="collapse-all">ހުރިހާ ލައްޕާ &nbsp; ↺</a>
-                </li>
-              </ul>
-            </li>
-          </ul> -->
-          <!-- <ul class="nested-dropdownButton"> END -->
-
           <button
             id="copyPageLink"
             class="customButtons"
@@ -314,12 +281,14 @@
         // New column with "text"
         {
           // allAthar
+          // book	#	arText	dvText	Takhrij
           columnsToKeep: null, // Keep all columns as they are
           columnOrder: null, // Maintain the existing order of columns
           newColumns: [], // No new columns to add
         },
         {
-          columnsToKeep: [0, 4, 5, 6], // Keep only the 1st, 4th, 5th, and 6th columns (0-based index)
+          // Keep only the 1st, 4th, 5th, and 6th columns (0-based index)
+          columnsToKeep: [0, 4, 5, 6],
           columnOrder: [0, 1, 2, 3, 4], // New order for the columns after adding new columns
           newColumns: [{ value: "الأربعون النووية" }], // Add a new column with the value "text" in each row
         },
@@ -345,7 +314,7 @@
         },
         {
           columnsToKeep: [0, 6, 7],
-          columnOrder: [0, 1, 2, 3],
+          columnOrder: [0, 1, 2, 3], // LESS COLUMN TO ORDER HERE
           newColumns: [{ value: "موطأ مالك" }],
         },
         {
@@ -509,6 +478,27 @@
             },
             { title: "ތަޚްރީޖު", data: 4, searchable: false },
           ],
+          columnDefs: [
+            {
+              targets: [7],
+              render: (data) =>
+                data !== ""
+                  ? "ـــــــــــــــــــــــــــ\t<br>" +
+                    data.replace(/\n/g, "\t<br>")
+                  : data,
+            },
+            {
+              searchPanes: {
+                show: true,
+              },
+              targets: [0, 1],
+            },
+            {
+              targets: [2],
+              render: (data) => "#" + data,
+            },
+            ...columnDefsconfig,
+          ],
         });
         //
 
@@ -589,27 +579,6 @@ document.addEventListener("DOMContentLoaded", function () {
       /*
       var table = new DataTable("#tableID", {
         ...DTconfig,
-        columnDefs: [
-          {
-            targets: [9],
-            render: (data) =>
-              data !== ""
-                ? "ـــــــــــــــــــــــــــ\t<br>" +
-                  data.replace(/\n/g, "\t<br>")
-                : data,
-          },
-          {
-            searchPanes: {
-              show: true,
-            },
-            targets: [1, 2, 3, 4],
-          },
-          {
-            targets: [0],
-            render: (data) => "#" + data,
-          },
-          ...columnDefsconfig,
-        ],
       });
       */
     </script>
