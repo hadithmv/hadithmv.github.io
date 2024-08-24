@@ -161,7 +161,7 @@
         "qawaidulArbau.js",
         "usooluSiththa.js",
         "usooluThalaatha.js",
-        //"barbahariDFK.js",
+        "sharhuSunnahBarbahari-DFK.js",
         // Add other dataset files here
       ].map((file) => `../js/beta/json/${file}`);
 
@@ -179,49 +179,51 @@
         },*/
         {
           columnsToKeep: [0, 1, 2, 3],
-          columnOrder: [0, 1, 2, 3, 4], // New order for the columns after adding new columns
+          //columnOrder: [0, 1, 2, 3, 4], // New order for the columns after adding new columns
+          columnOrder: null, // Maintain the existing order of columns
           newColumns: [{ value: "أصول السنة لأحمد" }], // Add a new column with the value "text" in each row
         },
         {
           columnsToKeep: [0, 1, 2, 3],
-          columnOrder: [0, 1, 2, 3, 4],
+          columnOrder: null,
           newColumns: [{ value: "شرح السنة للبربهاري" }],
         },
         {
           columnsToKeep: [0, 1, 2, 3],
-          columnOrder: [0, 1, 2, 3, 4],
+          columnOrder: null,
           newColumns: [{ value: "عقيدة الرازيين" }],
         },
         {
           columnsToKeep: [0, 3, 5, 6],
-          columnOrder: [0, 1, 2, 3, 4],
+          columnOrder: null,
           newColumns: [{ value: "كتاب الإيمان لأبي عبيد" }],
         },
         {
           columnsToKeep: [0, 3, 4, 5],
-          columnOrder: [0, 1, 2, 3, 4],
+          columnOrder: null,
           newColumns: [{ value: "نواقض الإسلام" }],
         },
         {
           columnsToKeep: [0, 3, 4, 5],
-          columnOrder: [0, 1, 2, 3, 4],
+          columnOrder: null,
           newColumns: [{ value: "القواعد الأربع" }],
         },
         {
           columnsToKeep: [0, 3, 4, 5],
-          columnOrder: [0, 1, 2, 3, 4],
+          columnOrder: null,
           newColumns: [{ value: "الأصول الستة" }],
         },
         {
           columnsToKeep: [0, 3, 4, 5],
-          columnOrder: [0, 1, 2, 3, 4],
+          columnOrder: null,
           newColumns: [{ value: "الأصول الثلاثة" }],
         },
-        /*{
-          columnsToKeep: [0, 5, 6, 7],
-          columnOrder: [0, 1, 2, 3, 4],
+        {
+          columnsToKeep: [0, 1, 2], // Only 3 columns to keep
+          // We'll still maintain 5 columns in output
+          columnOrder: null,
           newColumns: [{ value: "شرح السنة للبربهاري - DFK" }],
-        },*/
+        },
       ];
 
       // Function to load datasets from specified files asynchronously
@@ -247,41 +249,55 @@
 
       // Function to process a dataset according to the given configuration
       function processDataSet(dataset, config) {
-        let processedData;
+        let processedData = dataset.map((row) => {
+          // Initialize a new row with empty strings (5 columns)
+          let newRow = ["", "", "", "", ""];
 
-        if (config.columnsToKeep === null) {
-          // Case when all columns should be kept as is and do not add new columns
-          processedData = dataset.map((row) =>
-            row.map((cell) => (cell === null ? "" : cell))
-          );
-        } else {
-          // Case when only specific columns should be kept
-          processedData = dataset.map((row) => {
-            let newRow = config.columnsToKeep.map((col) =>
-              row[col] === null ? "" : row[col]
-            );
-            // Add new columns with specified strings
-            config.newColumns.forEach((col) => {
-              newRow.unshift(col.value); // Add the new column value at the beginning of each row
-            });
-            return newRow;
+          // Fill in the available data
+          config.columnsToKeep.forEach((col, index) => {
+            // Use empty string if the cell is null or undefined, otherwise use the cell value
+            newRow[index + 1] = row[col] == null ? "" : row[col];
           });
 
-          // Reorder columns according to the specified order
+          // Add the new column value at the beginning
+          newRow[0] = config.newColumns[0].value;
+
+          return newRow;
+        });
+
+        // Reorder columns if columnOrder is specified
+        if (config.columnOrder) {
           processedData = processedData.map((row) => {
-            let newRow = [];
-            config.columnOrder.forEach((orderIndex) => {
-              newRow.push(row[orderIndex]); // Reorder columns based on the specified order
-            });
-            return newRow;
+            return config.columnOrder.map(
+              (orderIndex) => row[orderIndex] || ""
+            );
           });
         }
 
-        return processedData; // Return the processed dataset
+        return processedData;
       }
 
-      // Load datasets and process them, and initialize the DataTable once all are loaded
+      function loadDatasets(files, configs, callback) {
+        var loaded = 0;
+        files.forEach(function (file, index) {
+          var script = document.createElement("script");
+          script.src = file;
+          script.onload = function () {
+            // Process the dataset when it's loaded
+            dataSets[index] = processDataSet(data, configs[index]);
+            loaded++;
+            if (loaded === files.length) {
+              // Call the callback when all datasets are loaded
+              callback();
+            }
+          };
+          document.head.appendChild(script);
+        });
+      }
+
+      // Load and process all datasets
       loadDatasets(datasetFiles, datasetConfigs, function () {
+        // Combine all processed datasets
         var combinedDataSet = dataSets.flat(); // Combine all datasets into one
 
         // Log the combined dataset to the console. uncomment this to see the object array
@@ -317,6 +333,10 @@
                   .replace(
                     "أصول السنة لأحمد",
                     "އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް"
+                  )
+                  .replace(
+                    "شرح السنة للبربهاري - DFK",
+                    "ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ - DFK"
                   )
                   .replace(
                     "شرح السنة للبربهاري",
