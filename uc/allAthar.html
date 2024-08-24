@@ -59,7 +59,8 @@
             class="customButtons"
             onclick="toggleFili();filiString();scrollUpTop()"
           >
-            &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
+            &nbsp; ފިލިތައް ދައްކާ &nbsp;
+            <!-- ފޮރުވާ -->
           </button>
           <button
             id="toggleShowButton"
@@ -69,38 +70,51 @@
             &nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;
           </button>
 
-          <button class="customButtons" onclick="copyOneOnly();">
+          <button
+            id="switchDiacriticsAndCopy"
+            class="customButtons"
+            onclick="copyOneOnly();"
+          >
             &nbsp; ފިއްޔާއެކު ކޮޕީ &nbsp;
           </button>
 
           <script>
             // If column 3 is hidden, make it visible and hide column 4. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 3 is visible and column 4 is hidden, trigger a click on .buttons-html5 without changing any column visibility.
             function copyOneOnly() {
+              var table = $("#tableID").DataTable();
+
               // Get the current visibility status of columns 3 and 4
-              var isVisible3 = $("#tableID").DataTable().column(3).visible();
-              var isVisible4 = $("#tableID").DataTable().column(4).visible();
+              var isVisible3 = table.column(3).visible();
+              var isVisible4 = table.column(4).visible();
+
+              // Function to change visibility and trigger export
+              function changeVisibilityAndExport(showCol3, showCol4) {
+                table.column(3).visible(showCol3, false);
+                table.column(4).visible(showCol4, false);
+                table.draw(false); // Redraw the table without resetting the paging
+
+                // Use setTimeout to ensure the visibility changes are applied before exporting
+                setTimeout(function () {
+                  $(".buttons-html5").click();
+
+                  // Restore original visibility after a short delay
+                  setTimeout(function () {
+                    table.column(3).visible(isVisible3, false);
+                    table.column(4).visible(isVisible4, false);
+                    table.draw(false);
+                  }, 100);
+                }, 100);
+              }
 
               // If column 3 is hidden, make it visible and hide column 4
               if (!isVisible3) {
-                $("#tableID").DataTable().column(3).visible(true);
-                $("#tableID").DataTable().column(4).visible(false);
-                // Trigger a click on the ".buttons-html5" element
-                $(".buttons-html5").click();
-                // Restore the original visibility states of columns 3 and 4
-                $("#tableID").DataTable().column(3).visible(false);
-                $("#tableID").DataTable().column(4).visible(true);
+                changeVisibilityAndExport(true, false);
               }
               // If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible
               else if (isVisible4 && !isVisible3) {
-                $("#tableID").DataTable().column(3).visible(true);
-                $("#tableID").DataTable().column(4).visible(false);
-                // Trigger a click on the ".buttons-html5" element
-                $(".buttons-html5").click();
-                // Restore the original visibility states of columns 3 and 4
-                $("#tableID").DataTable().column(3).visible(false);
-                $("#tableID").DataTable().column(4).visible(true);
+                changeVisibilityAndExport(true, false);
               }
-              // If column 3 is visible and column 4 is hidden, trigger a click on the ".buttons-html5" element
+              // If column 3 is visible and column 4 is hidden, just trigger the export
               else if (isVisible3 && !isVisible4) {
                 $(".buttons-html5").click();
               }
