@@ -287,9 +287,14 @@
         {
           // allAthar
           // book	#	arText	dvText	Takhrij
-          columnsToKeep: null, // Keep all columns as they are
+          /*columnsToKeep: null, // Keep all columns as they are
           columnOrder: null, // Maintain the existing order of columns
-          newColumns: [], // No new columns to add
+          newColumns: [], // No new columns to add*/
+          columnsToKeep: [0, 1, 2, 3, 4],
+          columnOrder: [0, 1, 2, 3, 4, 5],
+          // newColumns: [], // No new column for this dataset
+          // newColumns: null,
+          // Remove or set to null: newColumns: null, or [],
         },
         {
           // Keep only the 1st, 4th, 5th, and 6th columns (0-based index)
@@ -339,68 +344,89 @@
         },
       ];
 
-      // Function to load datasets from specified files asynchronously
-      function loadDatasets(files, configs, callback) {
-        var loaded = 0; // Counter for tracking the number of loaded datasets
-        files.forEach(function (file, index) {
-          // Loop interation through each file in the files array list
-          var script = document.createElement("script");
-          script.src = file; // Set the source of the script to load the dataset of each current file
-          script.onload = function () {
-            // Add an event listener for the 'load' event when the script has finished loading
-            // Process the dataset according to its configuration
-            dataSets[index] = processDataSet(data, configs[index]);
-            loaded++; // Increment the number of files loaded
-            if (loaded === files.length) {
-              // If all files are loaded, execute the callback function
-              callback(); // Call the callback function when all datasets are loaded
-            }
-          };
-          document.head.appendChild(script); // Append the script to the document head to start loading the dataset
-        });
-      }
+      // Function to process each dataset
+      function processDataSet(dataset, config, filename) {
+        let processedData = dataset.map((row) => {
+          let newRow = [];
 
-      // Function to process a dataset according to the given configuration
-      function processDataSet(dataset, config) {
-        let processedData;
-
-        if (config.columnsToKeep === null) {
-          // Case when all columns should be kept as is and do not add new columns
-          processedData = dataset.map((row) =>
-            row.map((cell) => (cell === null ? "" : cell))
-          );
-        } else {
-          // Case when only specific columns should be kept
-          processedData = dataset.map((row) => {
-            let newRow = config.columnsToKeep.map((col) =>
-              row[col] === null ? "" : row[col]
-            );
-            // Add new columns with specified strings
-            config.newColumns.forEach((col) => {
-              newRow.unshift(col.value); // Add the new column value at the beginning of each row
-            });
-            return newRow;
+          // Keep only the specified columns from the original data
+          config.columnsToKeep.forEach((col) => {
+            newRow.push(row[col] == null ? "" : row[col]);
           });
 
-          // Reorder columns according to the specified order
+          // Add the dataset name as the first column only if newColumns is specified
+          if (config.newColumns && config.newColumns.length > 0) {
+            newRow.unshift(config.newColumns[0].value);
+          }
+
+          return newRow;
+        });
+
+        // Reorder columns if a specific order is specified in the config
+        if (config.columnOrder) {
           processedData = processedData.map((row) => {
-            let newRow = [];
-            config.columnOrder.forEach((orderIndex) => {
-              newRow.push(row[orderIndex]); // Reorder columns based on the specified order
-            });
-            return newRow;
+            return config.columnOrder.map(
+              (orderIndex) => row[orderIndex] || ""
+            );
           });
         }
 
-        return processedData; // Return the processed dataset
+        // Return processed data along with the filename for identification
+        return { data: processedData, filename: filename };
       }
 
-      // Load datasets and process them, and initialize the DataTable once all are loaded
+      // Function to load all datasets
+      function loadDatasets(files, configs, callback) {
+        var loaded = 0;
+        files.forEach(function (file, index) {
+          // Create a script element to load the dataset file
+          var script = document.createElement("script");
+          script.src = file;
+          script.onload = function () {
+            // Process the loaded data and store it in dataSets array
+            dataSets[index] = processDataSet(data, configs[index], file);
+            loaded++;
+            // If all datasets are loaded, call the callback function
+            if (loaded === files.length) {
+              callback();
+            }
+          };
+          document.head.appendChild(script);
+        });
+      }
+
+      // Load all datasets and then process them
       loadDatasets(datasetFiles, datasetConfigs, function () {
-        var combinedDataSet = dataSets.flat(); // Combine all datasets into one
+        // Find the indices of the two datasets we want to combine
+        /*const barbarahiIndex = dataSets.findIndex((ds) =>
+          ds.filename.includes("sharhuSunnahBarbahari.js")
+        );
+        const barbarahiDFKIndex = dataSets.findIndex((ds) =>
+          ds.filename.includes("sharhuSunnahBarbahari-DFK.js")
+        );
+
+        // If both datasets are found, combine them
+        if (barbarahiIndex !== -1 && barbarahiDFKIndex !== -1) {
+          // Combine the datasets
+          dataSets[barbarahiDFKIndex].data = dataSets[
+            barbarahiDFKIndex
+          ].data.map((row, index) => {
+            const barbarahiRow = dataSets[barbarahiIndex].data[index] || [];
+            return [
+              row[0], // Dataset name
+              barbarahiRow[1] || "", // First column from sharhuSunnahBarbahari
+              barbarahiRow[2] || "", // Second column from sharhuSunnahBarbahari
+              row[1] || "", // First column from sharhuSunnahBarbahari-DFK
+              row[2] || "", // Second column from sharhuSunnahBarbahari-DFK
+            ];
+          });
+        }*/
+
+        // Flatten the dataSets array to get a single array of all rows
+        var combinedDataSet = dataSets.flatMap((ds) => ds.data);
 
         // Log the combined dataset to the console. uncomment this to see the object array
-        // console.log(combinedDataSet);
+        //console.log(combinedDataSet);
 
         // Initialize the DataTable with the combined dataset and specified configuration
         var table = new DataTable("#tableID", {
@@ -895,7 +921,7 @@ You need to ensure that the focus code runs only after the DataTable is fully in
 
 var dataSets = [];
 
-var datasetFiles = ["json/allAthar.js"];
+var datasetFiles = ["json/allAqida.js"];
 
 function loadDatasets(files, callback) {
   var loaded = 0;
@@ -967,7 +993,7 @@ i also want to be able to create a new column in a dataset if i want, and give i
 
 this code only lets me choose which columns to keep, remove, and reorder, and create new colunmn with string, it only lets me choose these things on the combinedDataSet as a whole, not the individual datasets. i dont want to do that for the combined one, but on the individual ones before they are then combined
 
-my datasetFiles are : ["json/allAthar.js", "json/arbaoonNawawi.js"];
+my datasetFiles are : ["json/allAqida.js", "json/arbaoonNawawi.js"];
 
 for the first dataset, which already has 5 columns, i want to keep the columns as they already are in the datasetfile, in the same order they are in the datasetfile. i also dont want to create any new column for that dataset.
 
@@ -994,7 +1020,7 @@ is enough. it wont change
 ...
 
 var dataSets = [];
-var datasetFiles = ["json/allAthar.js", "json/arbaoonNawawi.js"];
+var datasetFiles = ["json/allAqida.js", "json/arbaoonNawawi.js"];
 
 // Configuration for each dataset
 var datasetConfigs = [
@@ -1078,5 +1104,221 @@ loadDatasets(datasetFiles, datasetConfigs, function () {
 
 ...
 
+it doesnt work when a dataset is less than 4 columns. if that is the case, empty string columns should be created
 
+function processDataSet(dataset, config) {
+  let processedData;
+
+  if (config.columnsToKeep === null) {
+    // If no specific columns to keep, just replace nulls with empty strings
+    processedData = dataset.map((row) =>
+      row.map((cell) => (cell === null ? "" : cell))
+    );
+  } else {
+    // Create a new dataset with the specified columns and padding
+    processedData = dataset.map((row) => {
+      let newRow = config.columnsToKeep.map((col) =>
+        row[col] === null ? "" : row[col]
+      );
+
+      // Add new columns at the beginning
+      config.newColumns.forEach((col) => {
+        newRow.unshift(col.value);
+      });
+
+      // Pad the row to ensure it has the correct number of columns
+      const expectedColumnCount = config.columnOrder.length;
+      while (newRow.length < expectedColumnCount) {
+        newRow.push("");
+      }
+
+      return newRow;
+    });
+
+    // Reorder columns according to columnOrder
+    processedData = processedData.map((row) => {
+      let newRow = [];
+      config.columnOrder.forEach((orderIndex) => {
+        newRow.push(row[orderIndex] || ""); // Ensure no undefined values
+      });
+      return newRow;
+    });
+  }
+
+  return processedData;
+}
+
+
+...
+
+what i want to do is combine and modify the resulting data of sharhuSunnahBarbahari-DFK like so:
+
+from sharhuSunnahBarbahari, bring its first 2 columns before the 2 columns of sharhuSunnahBarbahari-DFK
+
+...
+
+using this:
+
+claude:
+
+function processDataSet(dataset, config, filename) {
+        let processedData = dataset.map((row) => {
+          let newRow = ["", "", "", "", ""];
+
+          config.columnsToKeep.forEach((col, index) => {
+            newRow[index + 1] = row[col] == null ? "" : row[col];
+          });
+
+          newRow[0] = config.newColumns[0].value;
+
+          return newRow;
+        });
+
+        if (config.columnOrder) {
+          processedData = processedData.map((row) => {
+            return config.columnOrder.map(
+              (orderIndex) => row[orderIndex] || ""
+            );
+          });
+        }
+
+        return { data: processedData, filename: filename };
+      }
+
+      function loadDatasets(files, configs, callback) {
+        var loaded = 0;
+        files.forEach(function (file, index) {
+          var script = document.createElement("script");
+          script.src = file;
+          script.onload = function () {
+            dataSets[index] = processDataSet(data, configs[index], file);
+            loaded++;
+            if (loaded === files.length) {
+              callback();
+            }
+          };
+          document.head.appendChild(script);
+        });
+      }
+
+      loadDatasets(datasetFiles, datasetConfigs, function () {
+        // Find the indices of the two datasets we want to combine
+        const barbarahiIndex = dataSets.findIndex(ds => ds.filename.includes("sharhuSunnahBarbahari.js"));
+        const barbarahiDFKIndex = dataSets.findIndex(ds => ds.filename.includes("sharhuSunnahBarbahari-DFK.js"));
+
+        if (barbarahiIndex !== -1 && barbarahiDFKIndex !== -1) {
+          // Combine the datasets
+          dataSets[barbarahiDFKIndex].data = dataSets[barbarahiDFKIndex].data.map((row, index) => {
+            const barbarahiRow = dataSets[barbarahiIndex].data[index] || [];
+            return [
+              row[0],
+              barbarahiRow[1] || "",
+              barbarahiRow[2] || "",
+              row[1] || "",
+              row[2] || ""
+            ];
+          });
+        }
+
+        var combinedDataSet = dataSets.flatMap(ds => ds.data);
+
+        ...
+
+        not using this:
+
+        
+cgpt code:
+function loadDatasets(files, configs, callback) {
+  var loaded = 0;
+  files.forEach(function (file, index) {
+    var script = document.createElement("script");
+    script.src = file;
+    script.onload = function () {
+      if (file.includes("sharhuSunnahBarbahari.js")) {
+        // Store the first two columns of sharhuSunnahBarbahari data
+        sharhuSunnahBarbahariData = data.map((row) => [row[0], row[1]]);
+      } else if (file.includes("sharhuSunnahBarbahari-DFK.js")) {
+        // Combine sharhuSunnahBarbahari data with sharhuSunnahBarbahari-DFK data
+        let dfkData = data.map((row, i) => [...sharhuSunnahBarbahariData[i], row[1], row[2]]);
+        dataSets[index] = processDataSet(dfkData, configs[index]);
+      } else {
+        // Process other datasets normally
+        dataSets[index] = processDataSet(data, configs[index]);
+      }
+      loaded++;
+      if (loaded === files.length) {
+        callback(); // When all files are loaded, execute the callback
+      }
+    };
+    document.head.appendChild(script);
+  });
+}
+
+function processDataSet(dataset, config) {
+  let processedData = dataset.map((row) => {
+    let newRow = ["", "", "", "", ""];
+    config.columnsToKeep.forEach((col, index) => {
+      newRow[index + 1] = row[col] == null ? "" : row[col];
+    });
+    newRow[0] = config.newColumns[0].value;
+    return newRow;
+  });
+
+  if (config.columnOrder) {
+    processedData = processedData.map((row) => {
+      return config.columnOrder.map((orderIndex) => row[orderIndex] || "");
+    });
+  }
+
+  return processedData;
+}
+
+loadDatasets(datasetFiles, datasetConfigs, function () {
+  var combinedDataSet = dataSets.flat();
+  var table = new DataTable("#tableID", {
+    ...DTconfig,
+    data: combinedDataSet,
+  });
+});
+
+...
+
+
+what if i dont want to create a new column with string for a particular data set 
+
+for example
+
+newColumns: [{ value: "أصول السنة لأحمد" }],
+
+i dont want a new column with "أصول السنة لأحمد"
+
+...
+
+function processDataSet(dataset, config, filename) {
+  let processedData = dataset.map((row) => {
+    let newRow = [];
+
+    // Keep only the specified columns from the original data
+    config.columnsToKeep.forEach((col) => {
+      newRow.push(row[col] == null ? "" : row[col]);
+    });
+
+    // Add the dataset name as the first column only if newColumns is specified
+    if (config.newColumns && config.newColumns.length > 0) {
+      newRow.unshift(config.newColumns[0].value);
+    }
+
+    return newRow;
+  });
+
+  // Reorder columns if a specific order is specified in the config
+  if (config.columnOrder) {
+    processedData = processedData.map((row) => {
+      return config.columnOrder.map((orderIndex) => row[orderIndex] || "");
+    });
+  }
+
+  // Return processed data along with the filename for identification
+  return { data: processedData, filename: filename };
+}
 -->
