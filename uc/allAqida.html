@@ -180,92 +180,65 @@
         {
           columnsToKeep: [0, 1, 2, 3],
           //columnOrder: [0, 1, 2, 3, 4], // New order for the columns after adding new columns
-          columnOrder: null, // Maintain the existing order of columns
+          //columnOrder: null, // Maintain the existing order of columns
+          // Remove or set to null: columnOrder: null,
           newColumns: [{ value: "أصول السنة لأحمد" }], // Add a new column with the value "text" in each row
         },
         {
           columnsToKeep: [0, 1, 2, 3],
-          columnOrder: null,
           newColumns: [{ value: "شرح السنة للبربهاري" }],
         },
         {
           columnsToKeep: [0, 1, 2, 3],
-          columnOrder: null,
           newColumns: [{ value: "عقيدة الرازيين" }],
         },
         {
           columnsToKeep: [0, 3, 5, 6],
-          columnOrder: null,
           newColumns: [{ value: "كتاب الإيمان لأبي عبيد" }],
         },
         {
           columnsToKeep: [0, 3, 4, 5],
-          columnOrder: null,
           newColumns: [{ value: "نواقض الإسلام" }],
         },
         {
           columnsToKeep: [0, 3, 4, 5],
-          columnOrder: null,
           newColumns: [{ value: "القواعد الأربع" }],
         },
         {
           columnsToKeep: [0, 3, 4, 5],
-          columnOrder: null,
           newColumns: [{ value: "الأصول الستة" }],
         },
         {
           columnsToKeep: [0, 3, 4, 5],
-          columnOrder: null,
           newColumns: [{ value: "الأصول الثلاثة" }],
         },
         {
           columnsToKeep: [0, 1, 2], // Only 3 columns to keep
           // We'll still maintain 5 columns in output
-          columnOrder: null,
           newColumns: [{ value: "شرح السنة للبربهاري - DFK" }],
         },
+        //
       ];
 
-      // Function to load datasets from specified files asynchronously
-      function loadDatasets(files, configs, callback) {
-        var loaded = 0; // Counter for tracking the number of loaded datasets
-        files.forEach(function (file, index) {
-          // Loop interation through each file in the files array list
-          var script = document.createElement("script");
-          script.src = file; // Set the source of the script to load the dataset of each current file
-          script.onload = function () {
-            // Add an event listener for the 'load' event when the script has finished loading
-            // Process the dataset according to its configuration
-            dataSets[index] = processDataSet(data, configs[index]);
-            loaded++; // Increment the number of files loaded
-            if (loaded === files.length) {
-              // If all files are loaded, execute the callback function
-              callback(); // Call the callback function when all datasets are loaded
-            }
-          };
-          document.head.appendChild(script); // Append the script to the document head to start loading the dataset
-        });
-      }
-
-      // Function to process a dataset according to the given configuration
-      function processDataSet(dataset, config) {
+      // Function to process each dataset
+      function processDataSet(dataset, config, filename) {
         let processedData = dataset.map((row) => {
-          // Initialize a new row with empty strings (5 columns)
-          let newRow = ["", "", "", "", ""];
+          let newRow = [];
 
-          // Fill in the available data
-          config.columnsToKeep.forEach((col, index) => {
-            // Use empty string if the cell is null or undefined, otherwise use the cell value
-            newRow[index + 1] = row[col] == null ? "" : row[col];
+          // Keep only the specified columns from the original data
+          config.columnsToKeep.forEach((col) => {
+            newRow.push(row[col] == null ? "" : row[col]);
           });
 
-          // Add the new column value at the beginning
-          newRow[0] = config.newColumns[0].value;
+          // Add the dataset name as the first column only if newColumns is specified
+          if (config.newColumns && config.newColumns.length > 0) {
+            newRow.unshift(config.newColumns[0].value);
+          }
 
           return newRow;
         });
 
-        // Reorder columns if columnOrder is specified
+        // Reorder columns if a specific order is specified in the config
         if (config.columnOrder) {
           processedData = processedData.map((row) => {
             return config.columnOrder.map(
@@ -274,20 +247,23 @@
           });
         }
 
-        return processedData;
+        // Return processed data along with the filename for identification
+        return { data: processedData, filename: filename };
       }
 
+      // Function to load all datasets
       function loadDatasets(files, configs, callback) {
         var loaded = 0;
         files.forEach(function (file, index) {
+          // Create a script element to load the dataset file
           var script = document.createElement("script");
           script.src = file;
           script.onload = function () {
-            // Process the dataset when it's loaded
-            dataSets[index] = processDataSet(data, configs[index]);
+            // Process the loaded data and store it in dataSets array
+            dataSets[index] = processDataSet(data, configs[index], file);
             loaded++;
+            // If all datasets are loaded, call the callback function
             if (loaded === files.length) {
-              // Call the callback when all datasets are loaded
               callback();
             }
           };
@@ -295,10 +271,35 @@
         });
       }
 
-      // Load and process all datasets
+      // Load all datasets and then process them
       loadDatasets(datasetFiles, datasetConfigs, function () {
-        // Combine all processed datasets
-        var combinedDataSet = dataSets.flat(); // Combine all datasets into one
+        // Find the indices of the two datasets we want to combine
+        const barbarahiIndex = dataSets.findIndex((ds) =>
+          ds.filename.includes("sharhuSunnahBarbahari.js")
+        );
+        const barbarahiDFKIndex = dataSets.findIndex((ds) =>
+          ds.filename.includes("sharhuSunnahBarbahari-DFK.js")
+        );
+
+        // If both datasets are found, combine them
+        if (barbarahiIndex !== -1 && barbarahiDFKIndex !== -1) {
+          // Combine the datasets
+          dataSets[barbarahiDFKIndex].data = dataSets[
+            barbarahiDFKIndex
+          ].data.map((row, index) => {
+            const barbarahiRow = dataSets[barbarahiIndex].data[index] || [];
+            return [
+              row[0], // Dataset name
+              barbarahiRow[1] || "", // First column from sharhuSunnahBarbahari
+              barbarahiRow[2] || "", // Second column from sharhuSunnahBarbahari
+              row[1] || "", // First column from sharhuSunnahBarbahari-DFK
+              row[2] || "", // Second column from sharhuSunnahBarbahari-DFK
+            ];
+          });
+        }
+
+        // Flatten the dataSets array to get a single array of all rows
+        var combinedDataSet = dataSets.flatMap((ds) => ds.data);
 
         // Log the combined dataset to the console. uncomment this to see the object array
         // console.log(combinedDataSet);
@@ -1008,5 +1009,176 @@ function processDataSet(dataset, config) {
 }
 
 
+...
 
+what i want to do is combine and modify the resulting data of sharhuSunnahBarbahari-DFK like so:
+
+from sharhuSunnahBarbahari, bring its first 2 columns before the 2 columns of sharhuSunnahBarbahari-DFK
+
+...
+
+using this:
+
+claude:
+
+function processDataSet(dataset, config, filename) {
+        let processedData = dataset.map((row) => {
+          let newRow = ["", "", "", "", ""];
+
+          config.columnsToKeep.forEach((col, index) => {
+            newRow[index + 1] = row[col] == null ? "" : row[col];
+          });
+
+          newRow[0] = config.newColumns[0].value;
+
+          return newRow;
+        });
+
+        if (config.columnOrder) {
+          processedData = processedData.map((row) => {
+            return config.columnOrder.map(
+              (orderIndex) => row[orderIndex] || ""
+            );
+          });
+        }
+
+        return { data: processedData, filename: filename };
+      }
+
+      function loadDatasets(files, configs, callback) {
+        var loaded = 0;
+        files.forEach(function (file, index) {
+          var script = document.createElement("script");
+          script.src = file;
+          script.onload = function () {
+            dataSets[index] = processDataSet(data, configs[index], file);
+            loaded++;
+            if (loaded === files.length) {
+              callback();
+            }
+          };
+          document.head.appendChild(script);
+        });
+      }
+
+      loadDatasets(datasetFiles, datasetConfigs, function () {
+        // Find the indices of the two datasets we want to combine
+        const barbarahiIndex = dataSets.findIndex(ds => ds.filename.includes("sharhuSunnahBarbahari.js"));
+        const barbarahiDFKIndex = dataSets.findIndex(ds => ds.filename.includes("sharhuSunnahBarbahari-DFK.js"));
+
+        if (barbarahiIndex !== -1 && barbarahiDFKIndex !== -1) {
+          // Combine the datasets
+          dataSets[barbarahiDFKIndex].data = dataSets[barbarahiDFKIndex].data.map((row, index) => {
+            const barbarahiRow = dataSets[barbarahiIndex].data[index] || [];
+            return [
+              row[0],
+              barbarahiRow[1] || "",
+              barbarahiRow[2] || "",
+              row[1] || "",
+              row[2] || ""
+            ];
+          });
+        }
+
+        var combinedDataSet = dataSets.flatMap(ds => ds.data);
+
+        ...
+
+        not using this:
+
+        
+cgpt code:
+function loadDatasets(files, configs, callback) {
+  var loaded = 0;
+  files.forEach(function (file, index) {
+    var script = document.createElement("script");
+    script.src = file;
+    script.onload = function () {
+      if (file.includes("sharhuSunnahBarbahari.js")) {
+        // Store the first two columns of sharhuSunnahBarbahari data
+        sharhuSunnahBarbahariData = data.map((row) => [row[0], row[1]]);
+      } else if (file.includes("sharhuSunnahBarbahari-DFK.js")) {
+        // Combine sharhuSunnahBarbahari data with sharhuSunnahBarbahari-DFK data
+        let dfkData = data.map((row, i) => [...sharhuSunnahBarbahariData[i], row[1], row[2]]);
+        dataSets[index] = processDataSet(dfkData, configs[index]);
+      } else {
+        // Process other datasets normally
+        dataSets[index] = processDataSet(data, configs[index]);
+      }
+      loaded++;
+      if (loaded === files.length) {
+        callback(); // When all files are loaded, execute the callback
+      }
+    };
+    document.head.appendChild(script);
+  });
+}
+
+function processDataSet(dataset, config) {
+  let processedData = dataset.map((row) => {
+    let newRow = ["", "", "", "", ""];
+    config.columnsToKeep.forEach((col, index) => {
+      newRow[index + 1] = row[col] == null ? "" : row[col];
+    });
+    newRow[0] = config.newColumns[0].value;
+    return newRow;
+  });
+
+  if (config.columnOrder) {
+    processedData = processedData.map((row) => {
+      return config.columnOrder.map((orderIndex) => row[orderIndex] || "");
+    });
+  }
+
+  return processedData;
+}
+
+loadDatasets(datasetFiles, datasetConfigs, function () {
+  var combinedDataSet = dataSets.flat();
+  var table = new DataTable("#tableID", {
+    ...DTconfig,
+    data: combinedDataSet,
+  });
+});
+
+...
+
+
+what if i dont want to create a new column with string for a particular data set 
+
+for example
+
+newColumns: [{ value: "أصول السنة لأحمد" }],
+
+i dont want a new column with "أصول السنة لأحمد"
+
+...
+
+function processDataSet(dataset, config, filename) {
+  let processedData = dataset.map((row) => {
+    let newRow = [];
+
+    // Keep only the specified columns from the original data
+    config.columnsToKeep.forEach((col) => {
+      newRow.push(row[col] == null ? "" : row[col]);
+    });
+
+    // Add the dataset name as the first column only if newColumns is specified
+    if (config.newColumns && config.newColumns.length > 0) {
+      newRow.unshift(config.newColumns[0].value);
+    }
+
+    return newRow;
+  });
+
+  // Reorder columns if a specific order is specified in the config
+  if (config.columnOrder) {
+    processedData = processedData.map((row) => {
+      return config.columnOrder.map((orderIndex) => row[orderIndex] || "");
+    });
+  }
+
+  // Return processed data along with the filename for identification
+  return { data: processedData, filename: filename };
+}
 -->
