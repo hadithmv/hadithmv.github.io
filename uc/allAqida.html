@@ -963,5 +963,50 @@ loadDatasets(datasetFiles, datasetConfigs, function () {
 
 ...
 
+it doesnt work when a dataset is less than 4 columns. if that is the case, empty string columns should be created
+
+function processDataSet(dataset, config) {
+  let processedData;
+
+  if (config.columnsToKeep === null) {
+    // If no specific columns to keep, just replace nulls with empty strings
+    processedData = dataset.map((row) =>
+      row.map((cell) => (cell === null ? "" : cell))
+    );
+  } else {
+    // Create a new dataset with the specified columns and padding
+    processedData = dataset.map((row) => {
+      let newRow = config.columnsToKeep.map((col) =>
+        row[col] === null ? "" : row[col]
+      );
+
+      // Add new columns at the beginning
+      config.newColumns.forEach((col) => {
+        newRow.unshift(col.value);
+      });
+
+      // Pad the row to ensure it has the correct number of columns
+      const expectedColumnCount = config.columnOrder.length;
+      while (newRow.length < expectedColumnCount) {
+        newRow.push("");
+      }
+
+      return newRow;
+    });
+
+    // Reorder columns according to columnOrder
+    processedData = processedData.map((row) => {
+      let newRow = [];
+      config.columnOrder.forEach((orderIndex) => {
+        newRow.push(row[orderIndex] || ""); // Ensure no undefined values
+      });
+      return newRow;
+    });
+  }
+
+  return processedData;
+}
+
+
 
 -->
