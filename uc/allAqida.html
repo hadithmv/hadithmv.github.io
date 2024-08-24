@@ -148,9 +148,9 @@
       var dataSets = [];
       // array list of dataset files to load data from
       /*var datasetFiles = [
-        "../js/beta/json/allAqida.js",
-        "../js/beta/json/arbaoonNawawi.js",
-      ];*/
+              "../js/beta/json/allAqida.js",
+              "../js/beta/json/arbaoonNawawi.js",
+            ];*/
       // Add more files as needed
       var datasetFiles = [
         "usooluSunnahAhmed.js",
@@ -171,12 +171,12 @@
         // New order (after new column added)
         // New column with "text"
         /*{
-          // allAthar
-          // book	#	arText	dvText	Takhrij
-          columnsToKeep: null, // Keep all columns as they are
-          columnOrder: null, // Maintain the existing order of columns
-          newColumns: [], // No new columns to add
-        },*/
+                // allAthar
+                // book	#	arText	dvText	Takhrij
+                columnsToKeep: null, // Keep all columns as they are
+                columnOrder: null, // Maintain the existing order of columns
+                newColumns: [], // No new columns to add
+              },*/
         {
           columnsToKeep: [0, 1, 2, 3],
           //columnOrder: [0, 1, 2, 3, 4], // New order for the columns after adding new columns
@@ -311,15 +311,15 @@
 
           //columns: [null, null, null, null, null],
           /*columns: [
-            { title: "New Column Title" }, // Title for the new column ? added in the second dataset ? or just title
-            { title: "Column 1" },
-            { title: "Column 2" },
-            { title: "Column 3" },
-            { title: "Column 4" },
-          ],*/
+                  { title: "New Column Title" }, // Title for the new column ? added in the second dataset ? or just title
+                  { title: "Column 1" },
+                  { title: "Column 2" },
+                  { title: "Column 3" },
+                  { title: "Column 4" },
+                ],*/
 
           /*});
-      });*/
+            });*/
 
           //
 
@@ -355,13 +355,17 @@
               visible: false,
             },
             { title: "#", data: 1 },
-            { title: "އަރަބި ލިޔުން", data: 2, searchable: false },
+            {
+              title: "އަރަބި ލިޔުން",
+              data: 2,
+              searchable: false,
+              visible: false, //FOR ALL TABLES
+            },
             {
               title: "އަރަބި ފިލިނުޖަހާ",
               // CHANGE !!!
               data: 2,
               render: (data) => removeThashkeel(data),
-              visible: false,
             },
             {
               title: "ދިވެހި ލިޔުން",
@@ -396,10 +400,10 @@
         // due to the way multiple js array dataset files are dynamically loaded with datatable initialize being async, the focus code is  running before the table is fully initialized and the search input code or whaterver is available. instead of changing the external config, this can be fixed moving the focus code inside the callback that initializes the DataTable below, ensure it runs after the table is fully initialized and the search input code or whatever is available in the DOM. still currently getting a initialize-dt.js:31  Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')
 
         /* from the initialize-dt.js, everything from between -
-document.addEventListener("DOMContentLoaded", function () {
-  if (!isMobile) {
-      $("div.dt-search .dt-input").focus();
-  - till the end of that function was copied as is here, and any updates there will need to be brought here */
+      document.addEventListener("DOMContentLoaded", function () {
+        if (!isMobile) {
+            $("div.dt-search .dt-input").focus();
+        - till the end of that function was copied as is here, and any updates there will need to be brought here */
 
         // EXECUTE AFTER DATATALE IS INITIALIZED
         // document.dispatchEvent(new Event("dataTableInitialized"));
@@ -468,10 +472,10 @@ document.addEventListener("DOMContentLoaded", function () {
         //
       });
       /*
-      var table = new DataTable("#tableID", {
-        ...DTconfig,
-      });
-      */
+            var table = new DataTable("#tableID", {
+              ...DTconfig,
+            });
+            */
     </script>
   </body>
 </html>
