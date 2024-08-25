@@ -369,6 +369,49 @@ https://datatables.net/forums/discussion/comment/228301/#Comment_228301 */
 .cards tbody td {
   display: block;
 }
+
+/* ==================== ADDED CARDS CODE ==================== */
+
+.cards tbody tr {
+  /* gives some padding around tr, in desktop */
+  padding: 20px;
+  /* border box shadow from fomantic ui, ui message*/
+  /* 0 0 0 1px */
+  /*box-shadow:
+    0 0 0 0.7px rgba(34, 36, 38, 0.22) inset,
+    0 0 0 0 transparent;*/
+}
+/* */
+/* added this to make it one column and centered, it was already centered after colspans were removed */
+.cards tbody {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* center */
+}
+
+/* on mobile, removes border, radius, padding, and leaves a clean edgeless looks, with only a border bottom double line separator/divider between pages*/
+/* mobile only size */
+@media (max-width: 599px) {
+  .dt-container .cards tbody tr {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    padding-bottom: 20px;
+    /* material theme builder, source color C0DAF9 */
+    border-bottom: 10px double #415f91;
+    /* prev 474747 */
+    /*border-bottom: 4px solid #999;*/
+    /* 10px 3d3d3d 333 */
+  }
+  /* adds a little space at the top and bottom of the tbody in mobile */
+  /*.dt-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }*/
+}
+
 /* ==================== DT CUSTOM CSS ==================== */
 /* removes space at the top and bottom of the first and last tr of the table*/
 .cards tbody tr:first-child {
@@ -405,44 +448,7 @@ table.dataTable span.highlight {
     display: none;
   }
 }
-/* on mobile, removes border, radius, padding, and leaves a clean edgeless looks, with only a border bottom double line separator/divider between pages*/
-/* mobile only size */
-@media (max-width: 599px) {
-  .dt-container .cards tbody tr {
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-    padding: 0;
-    padding-bottom: 20px;
-    /* material theme builder, source color C0DAF9 */
-    border-bottom: 10px double #415f91;
-    /* prev 474747 */
-    /*border-bottom: 4px solid #999;*/
-    /* 10px 3d3d3d 333 */
-  }
-  /* adds a little space at the top and bottom of the tbody in mobile */
-  /*.dt-container {
-    margin-top: 15px;
-    margin-bottom: 15px;
-  }*/
-}
-.cards tbody tr {
-  /* gives some padding around tr, in desktop */
-  padding: 20px;
-  /* border box shadow from fomantic ui, ui message*/
-  /* 0 0 0 1px */
-  /*box-shadow:
-    0 0 0 0.7px rgba(34, 36, 38, 0.22) inset,
-    0 0 0 0 transparent;*/
-}
-/* */
-/* added this to make it one column and centered, it was already centered after colspans were removed */
-.cards tbody {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  /* center */
-}
+
 /* removes th table header above columns, for card view */
 thead {
   display: none;
