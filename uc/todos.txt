@@ -29,3 +29,7 @@ better styles for buttons, with outlines?
 find a better way for toggleShowOne, make it toggle based on what is already visible or not visible
 
 make alltables ajax on the web?
+
+add some sort of svg ref instead of calling it twice?
+
+for radheef books, sort out ordering arrow appearance
