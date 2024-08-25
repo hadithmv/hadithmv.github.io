@@ -59,6 +59,11 @@ function createNavbar() {
                   <li><a href=../books/quranUshru.html#quranTable=:p69.html>މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް</a>
                   <li><a href=../books/sharhuSunnahBarbahari-DFK.html>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ - DFK</a>
                </ul>
+               <li onclick=toggleDropdown(this,event) class=sub-dropdown>
+               <a><span class=dropdown-arrow>◄</span>ބަސް</a>
+               <ul class=sub-dropdown-content>
+                  <li><a href=../books/radheefNanfoiy.html>ނަންފޮތް</a>
+               </ul>
          </ul>
       <li><a href=../notes/info/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
       <li><a href=../notes/info/helpTranslate.html>ތަރުޖަމާގައި އެހީވެދިނުމަށް</a>

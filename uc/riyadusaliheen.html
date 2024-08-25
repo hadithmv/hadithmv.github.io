@@ -133,7 +133,11 @@
             }
           </script>
 
+          <hr />
+
           <p>⚠️ އެކުލަވާ ނުނިމޭ.</p>
+
+          <hr />
 
           <p>
             اسم الكتاب: رياض الصالحين من كلام سيد المرسلين - لأبي زكريا محيي
@@ -308,15 +312,14 @@
             title: "އަރަބި ފިލިނުޖަހާ",
             // CHANGE !!!
             data: 5,
+            render: (data) => removeThashkeel(data),
             visible: false,
-            render: (data) =>
-              data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
           },
           {
             title: "އަރަބި ފުޓްނޯޓުނުލާ",
             data: 5,
-            visible: false,
             render: (data) => data.replace(/[⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
+            visible: false,
             searchable: false,
           },
           {

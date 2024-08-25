@@ -117,6 +117,7 @@ img {
   vertical-align: middle;
 }
 /* fieldset styles, textarea resize */
+
 /* ==================== HTML BOILER PLATE - Helper classes ==================== */
 /* Hide visually and from screen readers */
 .hidden,
@@ -128,6 +129,7 @@ img {
   visibility: hidden;
 }
 /* clearfix, media queries, print styles */
+
 /* ==================== OTHER MAIN CSS ==================== */
 html {
   /* https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior */
@@ -343,6 +345,7 @@ https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/140
 }
 */
 /* */
+
 /* ==================== ORIGINAL DT CARDS CSS ==================== */
 /* card styles
 https://datatables.net/forums/discussion/comment/228301/#Comment_228301 */
