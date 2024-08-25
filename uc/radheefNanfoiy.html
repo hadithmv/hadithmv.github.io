@@ -241,7 +241,28 @@
           >
           (10/3/22، 169 ސ، 4141 ނަން)
         </p>
-        <p>ޕީޑީއެފްތަކުގައިވާ ޖުމްލަ ނަމުގެ އަދަދު: 8541</p>
+        <p id="pdfNoOfNames">ޕީޑީއެފްތަކުގައިވާ ޖުމްލަ ނަމުގެ އަދަދު: 8541</p>
+        <p id="namesOutsidePdf">
+          ޕީޑީއެފްތަކުގައިވާ ނުވާ މި ތާނގައިވާ ނަންތައް:
+        </p>
+        <script>
+          // Delay execution by 1000ms (1 second) to ensure #tableID_info is available
+          setTimeout(function () {
+            // Get the text content of the element with ID 'tableID_info'
+            let tableInfoText =
+              document.querySelector("#tableID_info").textContent;
+
+            // Parse the number from the text content, removing commas
+            let numberInTableInfo = parseInt(tableInfoText.replace(/,/g, ""));
+
+            // Subtract 8541 from the parsed number
+            let result = numberInTableInfo - 8541;
+
+            // Update the text content of the element with ID 'namesOutsidePdf' to display the result
+            document.querySelector("#namesOutsidePdf").textContent =
+              `ޕީޑީއެފްތަކުގައިވާ ނުވާ މި ތާނގައިވާ ނަންތައް: ${result}`;
+          }, 500); // 1000ms = 1 second delay, adjust if needed
+        </script>
         <p>އެންމެ ފަހުން ޕީޑީއެފްތައް ބެލި ތާރީޚު: 23/3/24</p>
 
         <hr />
@@ -383,3 +404,50 @@
     </script>
   </body>
 </html>
+<!--
+
+take a look at this html:
+
+<div class="dt-info" aria-live="polite" id="tableID_info" role="status">9,073 ގެ ތެރެއިން 1 އިން 10 އަށް</div>
+
+selector for above would be something like: document.querySelector("#tableID_info")
+
+then i have these p tags:
+
+<p id="pdfNoOfNames">ޕީޑީއެފްތަކުގައިވާ ޖުމްލަ ނަމުގެ އަދަދު: 8541</p>
+<p id="namesOutsidePdf">ޕީޑީއެފްތަކުގައިވާ ނުވާ މި ތާނގައިވާ ނަންތައް: [number here]</p>
+
+what i want is to get the number "9,073" or whatever number is in its place, from id tableID_info, then subtract 8541 from it, and place the resulting number in [number here] of 
+p id namesOutsidePdf
+
+the tableID_info is created after the p tags, so maybe add a delay
+
+
+also feel free to change [number here] from:
+
+<p id="namesOutsidePdf"> ޕީޑީއެފްތަކުގައިވާ ނުވާ މި ތާނގައިވާ ނަންތައް: [number here] </p>
+
+to something more suitable
+
+comment the code
+
+...
+
+// Delay execution by 1000ms (1 second) to ensure #tableID_info is available
+setTimeout(function() {
+    // Get the text content of the element with ID 'tableID_info'
+    let tableInfoText = document.querySelector("#tableID_info").textContent;
+    
+    // Parse the number from the text content, removing commas
+    let numberInTableInfo = parseInt(tableInfoText.replace(/,/g, ''));
+    
+    // Subtract 8541 from the parsed number
+    let result = numberInTableInfo - 8541;
+    
+    // Update the text content of the element with ID 'namesOutsidePdf' to display the result
+    document.querySelector("#namesOutsidePdf").textContent = 
+        `ޕީޑީއެފްތަކުގައިވާ ނުވާ މި ތާނގައިވާ ނަންތައް: ${result}`;
+}, 1000); // 1000ms = 1 second delay, adjust if needed
+
+
+-->
