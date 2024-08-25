@@ -1,879 +1,329 @@
 <!doctype html>
-<html lang="dv">
-  <!-- prevent translate popup -->
-
+<html translate="no">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- CHANGE !!! -->
     <link
       rel="canonical"
       href="https://hadithmv.github.io/books/radheefNanfoiy.html"
     />
-    <meta name="google" content="notranslate" />
-
-    <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
-    <meta name="theme-color" content="#29434e" />
-    <!-- og metadata sm link previews -->
-    <meta property="og:title" content="Hadithmv" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://hadithmv.github.io/books/radheefNanfoiy.html"
-    />
-    <meta
-      property="og:image"
-      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
-    />
-
-    <!-- change123 html -->
-    <title>Arabic, Dhivehi & English Names</title>
+    <title>معجم الأسماء – ނަންފޮތް</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
     />
-    <!-- META TAGS - END -->
-
-    <!-- === EXT CSS === -->
-    <!-- non critical -->
-    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
-    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
-    <!-- === EXT CSS - END === -->
-
-    <!-- === EXT JS === -->
-    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
-    <!-- critical -->
-    <script defer src="../js/resc/COMB-Crit.min.js"></script>
-    <!-- non critical -->
-    <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
-    <!-- change123 js -->
-    <script defer src="../js/json/radheefNanfoiy.js"></script>
-
-    <script defer src="../js/radheefNanfoiy-script.min.js"></script>
-    <!-- === EXT JS - END === -->
-
-    <!-- === INT CSS === -->
-
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link
+      href="../css/beta/ALL-COMB.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="../js/beta/ALL-COMB.min.js"></script>
+    <!-- CHANGE !!! -->
+    <script src="../js/beta/json/radheefNanfoiy.js"></script>
     <style>
-      /* change123 html */
-
       /* === --- === --- ====
-         CUSTOM COLUMN CLASSES
-         === --- === --- ==== */
-
-      #radheefNanfoiyTable > tbody > tr > td.Col1 {
-        color: revert !important;
+      CUSTOM CSS
+      === --- === --- ==== */
+      /* brings back the th table header above columns, hidden in card view */
+      thead {
+        display: table-header-group; /* none */
+      }
+      /* brings back colgroup cols removed, for card view. this effects table class hover. however this code isnt working.
+      .dt-container > colgroup > col:not(:nth-child(0)) {
+        display: table-column;
+      } */
+      table.dataTable > thead > tr > th > span.dt-column-title {
+        /* makes table headers not bold */
+        font-weight: normal;
+        font-size: 20px;
+        color: #555;
+      }
+      table.dataTable > thead > tr > th {
+        /* vertically aligns to top */
+        vertical-align: top;
+        /* centers */
+        text-align: center;
+        /* */
+        line-height: 1.5;
+      }
+      /* reduces right and left padding of th, making that row smaller */
+      div.dt-layout-cell.dt-layout-full > table.dataTable > thead > tr > th {
+        padding-right: 20px;
+        padding-left: 0;
+      }
+      /* right align and direction for english columns */
+      .ColEng {
+        text-align: left;
+        direction: ltr;
+        font-size: 20px;
       }
 
-      #radheefNanfoiyTable > tbody > tr td.ColEng {
-        font-family: "mergedFont", sans-serif;
-      }
-
-      /* mobile only row centering, for rows with strings that are not long */
-
-      @media screen and (max-width: 900px) {
-        .dataTable tr td.rCol1,
-        .dataTable tr td.Col2,
-        .dataTable tr td.Col3,
-        .dataTable tr td.ColEng,
-        .dataTable tr td.Col5,
-        .dataTable tr td.Col6,
-        .dataTable tr td.Col8,
-        .dataTable tr td.Col9 {
-          text-align: center;
-        }
-      }
-
-      /* --- EN FOR TABLE --- */
-
-      /* eng */
-      /* this used to be @mixin for-phone-only {
-  @media (max-width: 599px)
-  changed it to 900px to fit up to tablet) */
-      @media (max-width: 900px) {
-        .dataTable tr td.ColEng {
-          text-align: center !important;
-        }
-      }
-
-      .dataTable > thead > tr > th {
-        text-align: right !important;
-      }
-
-      /* eng 
-      .dataTable > thead > tr > th.ColEng {
-        text-align: center !important;
+      /*table.dataTable
+        thead
+        > tr
+        > th.dt-orderable-asc
+        span.dt-column-order::before,
+      table.dataTable
+        thead
+        > tr
+        > th.dt-ordering-asc
+        span.dt-column-order::before {
+        bottom: 0;
+        top: 0;
       }*/
-      /* text-align: left !important; */
-
-      /* reduce card box shadows since 10 items per view */
-      #datatables_buttons_info,
-      .cards tbody tr {
-        /* box-shadow: 0 12px 15px 0 rgb(0 0 0 / 24%); */
-        box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.24);
-      }
     </style>
-
-    <script>
-      const td = document.querySelector(
-        "#radheefNanfoiyTable > tbody > tr:nth-child(1) > td.Col8"
-      );
-      if (td.textContent.trim() === "ފިރިހެން") {
-        const targetTd = document.querySelector(
-          "#radheefNanfoiyTable > tbody > tr:nth-child(1) > td.Col1"
-        );
-        targetTd.classList.add("highlighted");
-      }
-    </script>
-    <!-- === INT CSS - END === -->
   </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <!-- class="cards" display stripe>
+       https://datatables.net/examples/styling/display.html -->
+      <table
+        id="tableID"
+        class="stripe row-border compact"
+        width="100%"
+      ></table>
+      <div class="footer">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
+          <button
+            id="toggleFiliButton"
+            class="customButtons"
+            onclick="toggleFili();filiString();scrollUpTop()"
+          >
+            &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
+          </button>
 
-  <body translate="no">
-    <div id="page">
-      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
-      <!-- adding fixed or custom writing z index breaks on mobile -->
-      <div class="header fixed" onclick="drawer.open();">
-        <!-- hamburger -->
-        <a href="#menu"><span></span></a>
-        <a class="menuLeftIcon" href="index.html"
-          ><img
-            class="hmvLogo1"
-            alt="hadith mv"
-            loading="lazy"
-            src="../img/logo/logo.svg"
-        /></a>
-        <span class="hideOnPhoneOnly">معجم الأسماء – </span>
-        <span>ނަންފޮތް</span>
+          <script>
+            function toggleFili() {
+              var isVisible = $("#tableID").DataTable().column(0).visible();
+              $("#tableID").DataTable().column(0).visible(!isVisible);
 
-        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
-        <nav id="menu">
-          <ul>
-            <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
+              var isVisible = $("#tableID").DataTable().column(1).visible();
+              $("#tableID").DataTable().column(1).visible(!isVisible);
+            }
+          </script>
+        </div>
+        <!-- <div class="centerAlignedText"> END -->
+        <hr />
+        <p>
+          އިސްލާމިކް މިނިސްޓްރީގެ
+          <a
+            href="https://archive.org/details/islamic-ministry-firihen-nanthah"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ފިރިހެން ނަންތައް</a
+          >
+          (24/1/14، 92 ސ، 2040 ނަން)
+        </p>
 
-            <li>
-              <a href="../books/index.html">● މައި ސަފުހާ</a>
-            </li>
+        <p>
+          އިސްލާމިކް މިނިސްޓްރީގެ
+          <a
+            href="https://archive.org/details/islamic-ministry-anhen-nanthah"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އަންހެން ނަންތައް</a
+          >
+          (6/1/14، 93 ސ، 1956 ނަން)
+        </p>
 
-            <div class="menuListInList">
-              <li>
-                <a onclick="changeBookRadheef('radheefAll')"
-                  >1 އެއްކުރަމުންދާ ރަދީފުތައް</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookRadheef('radheefRasmee')"
-                  >2 ރަސްމީ ރަދީފު</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookRadheef('radheefEegaal')">3 އަލްއީގާޡް</a>
-              </li>
-              <li>
-                <a onclick="changeBookRadheef('radheefManiku')"
-                  >4 މަނިކުގެ ރަދީފު</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookRadheef('radheefNanfoiy')">5 ނަންފޮތް</a>
-              </li>
-            </div>
+        <p>
+          އިސްލާމިކް މިނިސްޓްރީގެ ފަހުން ފާސްކޮށްފައިވާ
+          <a
+            href="https://archive.org/details/islamic-ministry-fahun-faaskuri-firihen-nanthah"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ފިރިހެން ނަންތައް</a
+          >
+          (30/12/13، 11 ސ، 239 ނަން)
+        </p>
 
-            <!-- moved to hmv-script, and from there to COMB-nonCrit.min
-            <script>
-              // change url to change to another book while preserving query terms
-              function changeBookRadheef(newBook) {
-                window.location = window.location
-                  .toString()
-                  .replace(
-                    /radheefAll|radheefRasmee|radheefEegaal|radheefManiku/g,
-                    newBook
-                  )
-                  .replace(/\:v.*$/, "");
-              }
-            </script>-->
+        <p>
+          އިސްލާމިކް މިނިސްޓްރީގެ ފަހުން ފާސްކޮށްފައިވާ
+          <a
+            href="https://archive.org/details/islamic-ministry-fahun-faaskuri-anhen-nanthah"
+            rel="noopener noreferrer"
+            target="_blank"
+            >އަންހެން ނަންތައް</a
+          >
+          (22/9/13، 7 ސ، 166 ނަން)
+        </p>
 
-            <li>
-              <a href="../notes/info/contact.html"
-                >ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a
-              >
-            </li>
+        <p>
+          މާލޭ ސިޓީ ކައުންސިލުގެ
+          <a
+            href="https://archive.org/details/male-city-council-name-list"
+            rel="noopener noreferrer"
+            target="_blank"
+            >ނަން ލިސްޓު</a
+          >
+          (10/3/22، 169 ސ، 4141 ނަން)
+        </p>
+        <p>ޕީޑީއެފްތަކުގައިވާ ޖުމްލަ ނަމުގެ އަދަދު: 8541</p>
+        <p>އެންމެ ފަހުން ޕީޑީއެފްތައް ބެލި ތާރީޚު: 23/3/24</p>
 
-            <li>
-              <a href="../notes/info/helpTranslate.html"
-                >ތަރުޖަމާގައި އެހީވެދިނުމަށް</a
-              >
-            </li>
+        <hr />
 
-            <li>
-              <a href="../notes/info/FAQ.html"
-                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
-              >
-            </li>
+        <p>
+          އަލިފުބާ ތަރުތީބަށް ހެދުމަށް، ޑެސްކްޓޮޕުގައި އެންމެ މަތީގައިވާ އަރަބި
+          / ދިވެހި / އިނގިރޭސި... މި ބަރިން ލަފްޒަކަށް ފިތާލާ
+        </p>
 
-            <li>
-              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
-            </li>
+        <p>
+          އަދި ޝިފްޓު ކްލިކްކޮށްގެން އެކަކަށް ވުރެ ގިނަ ކޮލަމްތައް އެ ގޮތަށް
+          ތަރުތީބު ކުރެވޭނެ
+        </p>
 
-            <li class="hmvVer" onclick="openDiv();">
-              <a class="versionNo">⚙️ އިސްދާރު: v</a>
-            </li>
+        <hr />
 
-            <li>
-              <a href="https://t.me/ashraafmv"
-                >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-              >
-            </li>
-            <li class="madani">
-              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
-            </li>
-            <li>
-              <a onClick="window.location.reload()">🔄 މަޑު ރީލޯޑު</a>
-            </li>
-            <li>
-              <a
-                onclick="window.location.href = window.location.href.split('.html')[0] + '.html';"
-                >ހަރު ރީލޯޑު</a
-              >
-            </li>
-          </ul>
-        </nav>
-        <!-- <nav id="menu"> -->
+        <p>
+          ⚠️ މި ނަންފޮތުގައި ނުވަ ހާސް ވަރަކަށް ނަން ހިމެނިފައިވާ އިރު، އަދި
+          މުޅިން ފުރިހަމައަށް އެކުލަވާލެވި މުރާޖާކޮށް ނުއެއް ނިމެއެވެ. ޑޭޓާ
+          އެންޓްރީގެ ސަބަބުން މެދުވެރިވާ ކުށްތައް ހުންނާނެއެވެ. އަދި އޭގެ
+          އިތުރަށް، ރަނގަޅަށް އެންޓަރ ކުރެވުނަސް، އެންޓަރ ކުރެވުނު ބައެއް
+          ނަންތަކުގައި މައްސަލަ އުޅޭނެއެވެ. އެއީ ކަމާ ބެހޭ އިދާރާއިން ފާސްވެފައި
+          އޮތްކަމުގައި ވިޔަސް މެއެވެ. ކުޑަ މިސާލެއް ދަންނަވާ ނަމަ، އަނަސް އަކީ
+          އަންހެން ނަމެއް ކަމަށް އޭގައި އެބަހުއްޓެވެ. މިއަށް ވުރެ ބޮޑަށް މިހާރު
+          މައިންބަފައިން ބަލަން އެބަ ޖެހެއެވެ. ހަމައެކަނި ފާހަށް ބަރޯސާވެގެން
+          އަތްއުރާލައިގެން ތިބެވޭކަށް ނެތެވެ. ފާސްކުރުން ވަނީ މާ ފަސޭހަ ކަމަކަށް
+          ވެފައެވެ. އަދި ދަންނާށެވެ. މިހާރަކަށް އައިސް ޖާހިލުން ހަދާހެން،
+          ތާކުންތާކު ނުޖެހޭ ފަރަންޖީ ނަންތައް ދަރިންނަށް ކިޔުމާއި،
+          މައިންބަފައިންގެ ނަންތައް މޮޅު ގޮތަކަށް އެއްކޮށްގެން ދެކޮޅުނުޖެހޭ
+          ނަމެއް ހަދަން އުޅުމަކީ އެއްގޮތަކަށް ވެސް ކަމުދާ ގޮތެއް ނޫނެވެ. ދީނަށް
+          އިސްކަމެއް ދޭ، ބުއްދީގެ ބޭނުން ހިފާ ބަޔަކު ކުރާނެ ކަމެއް ނޫނެވެ. މި
+          ކަންކަމާ މެދު ފަރުވާލެއް ބަހައްޓަން ޖެހެއެވެ. ސަބަބަކީ، ދަރިންނަކީ
+          ބޮޑު އަމާނާތަކަށް ވުމެވެ. އަދި ﷲ ގެ ފަރާތުން ދެއްވި ދެއްވުމެކަށް
+          ވުމެވެ. އެހެންކަމުން ލޯބިވާ ދަރިފުޅަށް ނަންކިޔާ އިރު އެ ނަމަކީ
+          ރަނގަޅު، މާނަ ސަހަލު، އަދި ކިޔަން ކަމުދާނެ ކަހަލަ ނަމެއްކަން
+          ކަށަވަރުކުރަން ކޮންމެހެންވެސް އެބަ ޖެހެއެވެ. ދަރިއަށް ނަންދިނުމަކީ
+          ކުޅިވަރެއް ނޫނެވެ. ރީތި ނަންތައް ބައިވަރެވެ. ސަހާބީންނާއި ތާބިއީންނާއި
+          އެއަށްފަހު ވަޑައިގެންނެވި ސާލިހު މީހުންގެ ނަންތައް ހާހުން ހާހުން
+          އެބަހުއްޓެވެ. ނިކަން ގޮސް ރިޖާލުންގެ އިލްމު ފޮތެއް ނިކަން
+          ހުޅުވަބަލާށެވެ. މި އުޅެނީ ކިޔާ ނަމެއް ނޭނގިގެން، ނަންތައް
+          ހުސްވެގެންހެއްޔެވެ؟ ނަމަވެސް އެހާ ފަސޭހައިން ލިބެން ހުރި، އެހާމެ
+          ހިތްގައިމު ނަންތައް ކިޔާކަށް މިހާރުގެ މީހުން ބޭނުމެއް ނުވެއެވެ.
+          ބޭނުންވަނީ ނެތްވަރުން ތަކުލީފު ބޮޑުކޮށް، ގޮތްގޮތަށް ނަންތަކެއް ޖަހާ
+          އެއްކޮށްގެން ހަޑިހާވަންށެވެ. ނުވަތަ ކޮންމެވެސް ކާފިރު ނަމެއް މުސްލިމު
+          ދަރިއަކަށް ކިޔަންށެވެ. އެ ގޮތުން ދަރިފުޅަށް ޒިނޭކުރާ މީހާއޭ ކިޔަން
+          ބަޔަކު އުޅެފިއެވެ. އަދި ޖަނަވާރު ގުއިގަނޑޭ ވެސް ކިޔަން އުޅެފިއެވެ.
+          ދެންވެސް ޔަހޫދީންގެ އަޅުކަމުގައި ބޭނުންކުރާ ލަފްޒުތައް ނަމަކަށް ދޭން
+          އުޅެފިއެވެ. އަދި ހިންދީ ކަލާނގެތަކަށް ކިޔާ ނަންތައް ވެސް ދީފައި
+          އެބަހުއްޓެވެ. މިއީ ކޮންފަދަ ކަމެއްހެއްޔެވެ؟ މިއަށް ވުރެ ހިމާރު ކިޔަސް
+          ފިރްއައުނު ކިޔަސް މާ ތާހިރުވީހެވެ. މިހެން ފަރުވާކުޑަކޮށް ބަލާނުލެވި
+          ހުއްޓާ، އެހެން މީހުން ހަދާހާ ގޮތަށް ހަދައިގެން، އައިސް ގޮސް އުޅޭ
+          ޓްރެންޑަކަށް ފޮލޯކުރަން ހަދައިގެން، ދަރިފުޅަށް ހަމަނުޖެހޭ ސަކަރާތް
+          ނަމެއް ދީގެން އާޚިރުގައި ޒިންމާ ނަގަން ޖެހޭނީ ހަމަ މައިންބަފައިންނެވެ.
+          އެހެންވީމާ މި ކަންކަމަށް ސަމާލުވެ، އަހައްމިއްޔަތުކަން ދިނުންހުއްޓެވެ.
+        </p>
       </div>
-      <!-- <div class="header fixed" onclick="drawer.open();"> -->
-
-      <div class="content">
-        <main>
-          <!-- class="w3-animate-right" -->
-          <!-- --- TABLE --- -->
-          <!-- JEKYLL {{ content }} -->
-          <!-- cards js adds card classes to table ID -->
-          <!-- change123 TABLE -->
-          <!-- class="stripe table cards"> -->
-          <table id="radheefNanfoiyTable" class="stripe table"></table>
-          <!-- --- TABLE - END --- -->
-          <div class="hidden" id="footer">
-            <button class="lowerButtons" onclick="copyURLToClipButton();">
-              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
-            </button>
-
-            <button
-              id="toggleFiliButton"
-              class="lowerButtons"
-              onclick="toggleFili();filiString();scrollUpTop()"
-            >
-              &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
-            </button>
-
-            <script>
-              function toggleFili() {
-                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
-
-                var isVisible = $("#radheefNanfoiyTable")
-                  .DataTable()
-                  .column(0)
-                  .visible();
-                $("#radheefNanfoiyTable")
-                  .DataTable()
-                  .column(0)
-                  .visible(!isVisible);
-
-                var isVisible = $("#radheefNanfoiyTable")
-                  .DataTable()
-                  .column(1)
-                  .visible();
-                $("#radheefNanfoiyTable")
-                  .DataTable()
-                  .column(1)
-                  .visible(!isVisible);
-              }
-            </script>
-
-            <p>
-              އިސްލާމިކް މިނިސްޓްރީގެ
-              <a
-                href="https://archive.org/details/islamic-ministry-firihen-nanthah"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ފިރިހެން ނަންތައް</a
-              >
-              (24/1/14، 92 ސ، 2040 ނަން)
-            </p>
-
-            <p>
-              އިސްލާމިކް މިނިސްޓްރީގެ
-              <a
-                href="https://archive.org/details/islamic-ministry-anhen-nanthah"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އަންހެން ނަންތައް</a
-              >
-              (6/1/14، 93 ސ، 1956 ނަން)
-            </p>
-
-            <p>
-              އިސްލާމިކް މިނިސްޓްރީގެ ފަހުން ފާސްކޮށްފައިވާ
-              <a
-                href="https://archive.org/details/islamic-ministry-fahun-faaskuri-firihen-nanthah"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ފިރިހެން ނަންތައް</a
-              >
-              (30/12/13، 11 ސ، 239 ނަން)
-            </p>
-
-            <p>
-              އިސްލާމިކް މިނިސްޓްރީގެ ފަހުން ފާސްކޮށްފައިވާ
-              <a
-                href="https://archive.org/details/islamic-ministry-fahun-faaskuri-anhen-nanthah"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އަންހެން ނަންތައް</a
-              >
-              (22/9/13، 7 ސ، 166 ނަން)
-            </p>
-
-            <p>
-              މާލޭ ސިޓީ ކައުންސިލުގެ
-              <a
-                href="https://archive.org/details/male-city-council-name-list"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ނަން ލިސްޓު</a
-              >
-              (10/3/22، 169 ސ، 4141 ނަން)
-            </p>
-            <p>ޕީޑީއެފްތަކުގައިވާ ޖުމްލަ ނަމުގެ އަދަދު: 8541</p>
-            <p>އެންމެ ފަހުން ޕީޑީއެފްތައް ބެލި ތާރީޚު: 23/3/24</p>
-
-            <hr class="lineVerticalSpace" />
-
-            <p>
-              ⚠️ މި ނަންފޮތުގައި ނުވަ ހާސް ވަރަކަށް ނަން ހިމެނިފައިވާ އިރު، އަދި
-              މުޅިން ފުރިހަމައަށް އެކުލަވާލެވި މުރާޖާކޮށް ނުއެއް ނިމެއެވެ. ޑޭޓާ
-              އެންޓްރީގެ ސަބަބުން މެދުވެރިވާ ކުށްތައް ހުންނާނެއެވެ. އަދި އޭގެ
-              އިތުރަށް، ރަނގަޅަށް އެންޓަރ ކުރެވުނަސް، އެންޓަރ ކުރެވުނު ބައެއް
-              ނަންތަކުގައި މައްސަލަ އުޅޭނެއެވެ. އެއީ ކަމާ ބެހޭ އިދާރާއިން
-              ފާސްވެފައި އޮތްކަމުގައި ވިޔަސް މެއެވެ. ކުޑަ މިސާލެއް ދަންނަވާ
-              ނަމަ، އަނަސް އަކީ އަންހެން ނަމެއް ކަމަށް އޭގައި އެބަހުއްޓެވެ.
-              މިއަށް ވުރެ ބޮޑަށް މިހާރު މައިންބަފައިން ބަލަން އެބަ ޖެހެއެވެ.
-              ހަމައެކަނި ފާހަށް ބަރޯސާވެގެން އަތްއުރާލައިގެން ތިބެވޭކަށް ނެތެވެ.
-              ފާސްކުރުން ވަނީ މާ ފަސޭހަ ކަމަކަށް ވެފައެވެ. އަދި ދަންނާށެވެ.
-              މިހާރަކަށް އައިސް ޖާހިލުން ހަދާހެން، ތާކުންތާކު ނުޖެހޭ ފަރަންޖީ
-              ނަންތައް ދަރިންނަށް ކިޔުމާއި، މައިންބަފައިންގެ ނަންތައް މޮޅު
-              ގޮތަކަށް އެއްކޮށްގެން ދެކޮޅުނުޖެހޭ ނަމެއް ހަދަން އުޅުމަކީ
-              އެއްގޮތަކަށް ވެސް ކަމުދާ ގޮތެއް ނޫނެވެ. ދީނަށް އިސްކަމެއް ދޭ،
-              ބުއްދީގެ ބޭނުން ހިފާ ބަޔަކު ކުރާނެ ކަމެއް ނޫނެވެ. މި ކަންކަމާ މެދު
-              ފަރުވާލެއް ބަހައްޓަން ޖެހެއެވެ. ސަބަބަކީ، ދަރިންނަކީ ބޮޑު
-              އަމާނާތަކަށް ވުމެވެ. އަދި ﷲ ގެ ފަރާތުން ދެއްވި ދެއްވުމެކަށް
-              ވުމެވެ. އެހެންކަމުން ލޯބިވާ ދަރިފުޅަށް ނަންކިޔާ އިރު އެ ނަމަކީ
-              ރަނގަޅު، މާނަ ސަހަލު، އަދި ކިޔަން ކަމުދާނެ ކަހަލަ ނަމެއްކަން
-              ކަށަވަރުކުރަން ކޮންމެހެންވެސް އެބަ ޖެހެއެވެ. ދަރިއަށް ނަންދިނުމަކީ
-              ކުޅިވަރެއް ނޫނެވެ. ރީތި ނަންތައް ބައިވަރެވެ. ސަހާބީންނާއި
-              ތާބިއީންނާއި އެއަށްފަހު ވަޑައިގެންނެވި ސާލިހު މީހުންގެ ނަންތައް
-              ހާހުން ހާހުން އެބަހުއްޓެވެ. ނިކަން ގޮސް ރިޖާލުންގެ އިލްމު ފޮތެއް
-              ނިކަން ހުޅުވަބަލާށެވެ. މި އުޅެނީ ކިޔާ ނަމެއް ނޭނގިގެން، ނަންތައް
-              ހުސްވެގެންހެއްޔެވެ؟ ނަމަވެސް އެހާ ފަސޭހައިން ލިބެން ހުރި، އެހާމެ
-              ހިތްގައިމު ނަންތައް ކިޔާކަށް މިހާރުގެ މީހުން ބޭނުމެއް ނުވެއެވެ.
-              ބޭނުންވަނީ ނެތްވަރުން ތަކުލީފު ބޮޑުކޮށް، ގޮތްގޮތަށް ނަންތަކެއް
-              ޖަހާ އެއްކޮށްގެން ހަޑިހާވަންށެވެ. ނުވަތަ ކޮންމެވެސް ކާފިރު ނަމެއް
-              މުސްލިމު ދަރިއަކަށް ކިޔަންށެވެ. އެ ގޮތުން ދަރިފުޅަށް ޒިނޭކުރާ
-              މީހާއޭ ކިޔަން ބަޔަކު އުޅެފިއެވެ. އަދި ޖަނަވާރު ގުއިގަނޑޭ ވެސް
-              ކިޔަން އުޅެފިއެވެ. ދެންވެސް ޔަހޫދީންގެ އަޅުކަމުގައި ބޭނުންކުރާ
-              ލަފްޒުތައް ނަމަކަށް ދޭން އުޅެފިއެވެ. އަދި ހިންދީ ކަލާނގެތަކަށް
-              ކިޔާ ނަންތައް ވެސް ދީފައި އެބަހުއްޓެވެ. މިއީ ކޮންފަދަ
-              ކަމެއްހެއްޔެވެ؟ މިއަށް ވުރެ ހިމާރު ކިޔަސް ފިރްއައުނު ކިޔަސް މާ
-              ތާހިރުވީހެވެ. މިހެން ފަރުވާކުޑަކޮށް ބަލާނުލެވި ހުއްޓާ، އެހެން
-              މީހުން ހަދާހާ ގޮތަށް ހަދައިގެން، އައިސް ގޮސް އުޅޭ ޓްރެންޑަކަށް
-              ފޮލޯކުރަން ހަދައިގެން، ދަރިފުޅަށް ހަމަނުޖެހޭ ސަކަރާތް ނަމެއް
-              ދީގެން އާޚިރުގައި ޒިންމާ ނަގަން ޖެހޭނީ ހަމަ މައިންބަފައިންނެވެ.
-              އެހެންވީމާ މި ކަންކަމަށް ސަމާލުވެ، އަހައްމިއްޔަތުކަން
-              ދިނުންހުއްޓެވެ.
-            </p>
-
-            <!--<p>
-              އަލިފުބާ ތަރުތީބަށް ހެދުމަށް ޑެސްކްޓޮޕުގައި އެންމެ މަތީގައިވާ
-              އަރަބި / ދިވެހި / އިނގިރޭސި ލަފްޒު އިން ތަނަށް ފިތާލައްވާ
-            </p>-->
-
-            <!--
-
-            -->
-          </div>
-          <!-- <div class="hidden" id="footer"> -->
-        </main>
-        <!-- <main> -->
-      </div>
-      <!-- <div class="content"> -->
     </div>
-    <!-- <div id="page"> -->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-HL24Q9NN24");
+    <script type="text/javascript">
+      var table = new DataTable("#tableID", {
+        ...DTconfig,
+        data: data,
+        // turns ordering columns back on, which was off for cards
+        ordering: true,
+        // https://datatables.net/reference/option/ordering
+        // default [[0, 'asc']], below makes it no ordering, with clickable th for ordering
+        order: [],
+        // this sets the default value on table load.
+        displayLength: 10,
+        // arName arNoFili dvName enName arMean dvMean enMean gender source lang
+        columns: [
+          { title: "އަރަބި ނަން", searchable: false },
+          {
+            title: "އަރަބި ފިލިނުޖަހާ",
+            // CHANGE !!!
+            data: 0,
+            render: (data) => removeThashkeel(data),
+            visible: false,
+          },
+          { title: "ދިވެހި ނަން", data: 1 },
+          { title: "އިނގިރޭސި ނަން", data: 2, className: "ColEng" },
+          { title: "އަރަބި މާނަ", data: 3 },
+          { title: "ދިވެހި މާނަ", data: 4 },
+          { title: "އިނގިރޭސި މާނަ", data: 5, className: "ColEng" },
+          {
+            title: "ޖިންސު",
+            data: 6,
+            render: (data) =>
+              data
+                .replace(/(ފ)/g, '<span style="color: blue">ފިރިހެން</span>')
+                .replace(/(އ)/g, '<span style="color: red">އަންހެން</span>')
+                .replace(
+                  /(2)/g,
+                  '<span style="background: linear-gradient(to left, blue, red); -webkit-background-clip: text; color: transparent;">ދެ ޖިންސު</span>'
+                )
+                .replace(/(2)/g, "ދެ ޖިންސު"),
+            /*.replace(/(ފ)/g, "ފިރިހެން")
+                .replace(/(އ)/g, "އަންހެން")
+                .replace(/(2)/g, "ދެ ޖިންސު"),*/
+            //
+            // no overlap here
+            /*.replace(/(Female)/g, "އަންހެން")
+            .replace(/(Male)/g, "ފިރިހެން")
+            .replace(/(Unisex)/g, "ދެޖިންސު")
+            .replace(/(Male \/ Female)/g, "ދެޖިންސު")
+            .replace(/(N\/A)/g, "")
+            .replace(/(\-)/g, "")*/
+          },
+          {
+            title: "މަސްދަރު",
+            data: 7,
+            render: (data) =>
+              data.replace(/(މ|ކ|ބ)/g, function (match) {
+                if (match === "މ") {
+                  return '<span style="color: green;">އިސްލާމިކް މިނިސްޓްރީ</span>';
+                } else if (match === "ކ") {
+                  return '<span style="color: green;">މާލެ ސިޓީ ކައުންސިލް</span>';
+                } else if (match === "ބ") {
+                  return "";
+                }
+              }),
+            // return "އިސްލާމިކް މިނިސްޓްރީ";
+            // return "މާލެ ސިޓީ ކައުންސިލް";
+          },
+          {
+            title: "ބަހުގެ އަސްލު",
+            data: 8,
+          },
+        ],
+        columnDefs: [
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [7, 8, 9],
+          },
+          ...columnDefsconfig,
+        ],
+      });
     </script>
-    <!-- End Google Analytics -->
-
-    <!-- === INT JS - END === -->
   </body>
 </html>
-
-<!--
-    current progress:
-    first did Comparison of APP DATA where - looth as base, kept his lack of spaces as is, removed kashidas, sorted, took fazloons asma.
-
-    Then compared that with bmv, it has richer data, even if missing 9 names from the pdfs.
-
-    So current methods is: bmv as base, add missing names from the prev compare, and thats it.
-
-
-  إِبْرِيز	އިބްރީޖް	ޚާލިޞް ރަން	ފިރިހެން
-"آدَم	އާދަމް	އެންމެހައި އިންސާނުންގެ ބައްޕަ، އެންމެފުރަތަމަ ޚަލްޤުކުރެއްވުނު އިންސާނާ", add an entry for this
-
-عَبْدُ العَلِىّ	ޢަބްދުލްޢަލިއްޔު	އަޅުތަކުންނަށް ވުރެ މަތިވެރި ސިފަފުޅުތަކެއް ލިބިވޮޑިގެންވާ ރަސްކަލާނގެ އަޅާ	ފިރިހެން they made tauweel of his being above here, fix it. check others too.
-مكركة	މަކްރުމާ (ar word written wrong)
-أَنُوْف	އަނޫފް	ނަފުސުގެ ޢިއްޒަތްތެރި / މީރުވަސްދުވާ އަންހެނާ	ފިރިހެން ??
-طَه	ޠާޙާ	ރަސޫލާ (ޞ)ގެ ނަންފުޅުތަކުގެތެރެއިން ނަންފުޅެއް (fake)
-شَيْحَان	ޝައިޙާން
-مَلِيْكَة	މުލައިކާ
-ހައިބަތާއި މަތިވެރިވަންތަކން ލިބިވޮޑިގެންވާ ރަސްކަލާނގެ އަޅާ
-أَوْفَى އައުފާ // أَوْفَي އައުފާ
-ޙަންޡަލާ // ޙަންޟަލާ
----
-
-  bmv db ver: 2023-06-14
-  dl json: 20.3.24
-  (4290 boys, 4059 girls, 96 unisex, 42 unknown)
-  8490 entries
-  removed and rearranged columns, removed blank rows, trim white space, removed kashidas, ( يعيش), removed last name row, changed bmv to Other, data > sort sheet by column, data has header row, ar, add thaana and en
-
-  [
-  
-!!!FIX LATER
-should check where origin language is missing and fix them
-
-  bmv has spaced added removed for "أَحْمَدُالله"instead of "أَحْمَدُ اللَّه" like in pdf, just here
-  it also changes some words like it has "أَحاسِيْن" instead of "أَحاسِن" (perhaps both are correct)
-  it also has kashidas, remove them
-  it has عَبْدُ المُقِيْتُ instead of عَبْدُالمُقِيْتُ as in pdf, which is the opposite of before (be careful not to repeat twice with and without space), also ރަޙްމަތު ﷲ, 
-  has  نُور الْهُدى instead of نُورالْهُدى  as in pdf
-  it has ޢަބްދުﷲ / ޢަބްދު الله* (arabic lafzul jalala), same with އަމަތުالله
-  has hyphens in weird places like އަގުބޮޑު މުދާ / ދޫނިފިޔަ-
-
-  usually it changes the last fili for abdu + names from a sukun to an ubufili, 
-  ޢަބްދުލްޙަކީމް / ޢަބްދުލްޙަކީމު
-ޢަބްދުލްޙަލީމް / ޢަބްދުލްޙަލީމު...
-
-or sometimes vice versa:
-ޢަބްދުލްއައްވަލު / ޢަބްދުލްއައްވަލް
-ޢަބްދުލްބާޢިޘު / ޢަބްދުލްބާޢިޘް...
-
-sometimes has other changes like:
-ޢަބްދުލްބާރީ / ޢަބްދުލްބާރިއު
-ޢަބްދުލްވަލީ / ޢަބްދުލްވަލިއްޔު...
-
-it has the amathu + asmaul husna version added, like the way we have abdu + asma:
-އަމަތުއްޟާއްރު
-އަމަތުއްދައްޔާން...
-
-it has SPACES removed sometimes before after slashes like (not consequential i think):
-އަންބާއު / އަންބާ // އަންބާއު/ އަންބާ 
-ބަޠްޙާއު / ބަޠްޙާ // ބަޠްޙާއު/ ބަޠްޙާ...
-
-it has the following CHANGES (not consequential, but can change i guess):
- އަނާ/އަނާ(ތު) / އަނާ/އަނާ- ތު 
- ދަމްޘާ(އު) / ދަމްޘާ- އު 
- ރަމްސާ(އު) / ރަމްސާ- އު 
- ރަވާ(އު) / ރަވާ- އު 
- ރައިޝާ(އު) / ރައިޝާ- އު 
- ރިވާ(އު) / ރިވާ- އު 
-
- سعد	ސަޢުދު // سعد	ސަޢްދު
-
- mean:
- އިންޝާ(އު) / ކަމެއްގެ ފެށުން // އިންޝާ- އު / ކަމެއްގެ ފެށުން 
-
-
- meanings:
-ރަސޫލާ (ޞ)ގެ ނަންފުޅުތަކުގެތެރެއިން ނަންފުޅެއް // طَه	ޠާޙާ ރަސޫލާ ޞގެ ނަންފުޅުތަކުގެތެރެއިން ނަންފުޅެއް (just note the change in saadu letter, whole meaning needts to be fixed also)
-
- it has the following names MISSING from the original ministry pdfs:
-إِزْيَان (ar word missing, its dv and en were given to izdiyan, messing that up)
-أَحاسِن* (they replaced it with أَحاسِيْن)
-زميت
-عَبْدُ الرَّزَّاقُ
-عَبْدُالله رَافِعُ*
-ناول
-
-المعيّة
-كُسُوم
-نورالعين
-
-كميل	ކުމައިލް	ފުރިހަމަ
-އަލްމަޢިއްޔާ
-مَكْرُمَة	މަކްރުމާ
-مكركة	މަކްރަމާ	މާތް އަންހެނާ / ގިނައިން ހެޔޮކަންކުރާ އަންހެނާ (ar also written wrong, should be مكرمة)
-نظيف	ނަޡީފް	އަޚްލާޤު ރީތި މީހާ (?)
-
--meanings:
-أعصم	އަޢުޞަމް	މޮޅު / ރައްކާތެރިކުރެވިފައިވާ މީހާ
-إمتثال	އިމްތިޘާލް	ބަރާބަރު / ފުރިހަމައަށް ކިޔަމަންތެރި
-أثال	އަޘާލް	ޟަރަފާ މަތިވެރިކަން
-رفهة	ރަފާހަތު	ތަނަވަސް ދިރިއުޅުން / ފަސޭހަ (ar word needs an alif inserted, missing in pdf)
-ريعة	ރީޢަތު	ޞާލިޙު އަންހެނާ
-أُمَامَة	އުމާމާ(އުމާމަތު)	ކުޑަމަންމަ/ ކީރިތިރަސޫލާގެ ކާފަދަރިކަލެއްގެނަންފުޅު
-سُمَيَّة	ސުމައްޔާ	އުޑު/ މަތިވެރިކަން / މަތިވެރި ދަރަޖަ
-سانحة	ސާނިޙާ	ރަނގަޅު ފުރުސަތު
-سجحة	ސަޖްޙާ	ޙުލްޤުހެޔޮ / ޠަބީޢަތް / ޚުލްޤު
-غَايَة	ޣާޔާ	މަޤްޞަދު / ލަނޑުދަނޑި
-هِبَة	ހިބާ	ހަދިޔާކުރުން / ހިބަކުރުން
-
-it has the following MISTAKES:
-ޢަބްދުލްއާޚިރު / ޢަބްދުލްޢާޚިރު*
-ޢަބްދުލްމުޤައްދިމް / ޢަބްދުލްމުތަޤައްދިމު*
-
-أَخْضَرُ	އަޚްޟަރު // أَخْضَرُ އަޚްޞަރު 
-
-these are rampant. do diffcompare with other app data to find them all
-نَهْج	ނަޙްލާ
-نَهْزَان	ނަހްޖު
-نَهْضَة	ނަހްޒާން
-نَهْلاَن	ނަހްޟާ
-نَهْلَة	ނަހްލާން
-نَهْوَة	ނަހްލާ
-نَهِيْس	ނަހުވާ
-نَهِيْل	ނަހީސް
-نَهِيْك	ނަހީލް
-نَهِيْرُ	ނަހީކު
-نَهَار	ނަހީރު
-نَظْمِيْن	ނަހާރު
-نظيف	ނަޡްމީން
-مَآب	މައިހާ
-مَكْرُمَة	މައާބު
-مَيْهَة	މައިމަނާ
-مَيْمَنَة	މައިމޫނާ
-كُلْثُوْم	ކުސޫމް	Kusoom		ބުރަމަސައްކަތް ކުރުން (kusoom ar was changed to kulsoom mistakenly by them)
-حَنْوَاء	ޙަންޡަލާ
-حنون	ޙަންވާ
-...
-
-should probably run a diff compare with ar + dv vs the other apps data to be sure
-
-Diff Compare Results (49 entries total, others have been fixed before this compare, also note that all of the immediate above are included below and more): (abdu/amatu + asmaullah removed, false postives removed, entries without ar removed)
-حَنْوَاء	ޙަންޡަލާ
-حنون	ޙަންވާ
-
-يُنَال ޔާސްމީން
-يَاسْمِيْن ޔާސީން
-يعين ޔުނާލް
-
-يَاقُوْت ޔާފިޢު
-يَافِعُ ޔާފިޢާ
-يَافِعَة ޔާމީން
-
-نَهْوَة ނަހްލާ*
-نَهْلَة ނަހްލާން*
-نَهْلاَن ނަހްޟާ*
-نَهْضَة ނަހްޒާން*
-نَهْزَان ނަހްޖު*
-نَهْج ނަޙްލާ*
-نَهِيْل ނަހީސް*
-نَهِيْك ނަހީލް*
-نَهِيْس ނަހުވާ*
-نَهِيْرُ ނަހީކު*
-نَهَار ނަހީރު
-نَظْمِيْن ނަހާރު
-نَرْجِس ނަބާހާ
-نَخْوَة ނަރްޖިސް
-نَخِيْلَة ނަޚްވާ
-نَحْلَة ނަޚީލާ
-نظيف ނަޡްމީން
-
-مَيْهَة މައިމަނާ
-مَيْمَنَة މައިމޫނާ
-مَآب މައިހާ
-مَكْرُمَة މައާބު
-
-لُبَابَة ލުބާނާ
-كُلْثُوْم ކުސޫމް
-
-عَيْن ޢައިފާ
-
-عَوَّام ޢައްމާރު
-عَبَّار ޢައްވާމް
-عيش ޢައްބާރު
-
-شَيْحَان ޝައިޚާން
-شَفْعَة ޝަފްޤާ
-شفعة ޝަފްޤާ
-سعد ސަޢްދު
-رِيْعَة ރީމާ
-ريعة ރީޢާ
-
-جَهْزاء ޖަހީޒާ
-جَهِيْزَة ޖަހީރު
-جَهِيرُ ޔޫޝަޢު
-
-جَنَّة ޖަނާން
-
-جَنَى ޖަޙްވާ
-جَنَان ޖަނާޙް
-جَنَاح ޖަނާ
-جَحْوَة ޖަހްޒާއު/ޖަހްޒާ
-
-need to do diff compare for entries without ar removed?
-
-probably need to remove the many duplicate entries that are not approved from the same place too
-
-writes all name + allah instance in english as is:
-އަސަދުﷲ	Asadhuﷲ...
-
-brackets
-ބުއްދިވެރިޔާ / އަހުގައި ކަމަރު ބަންނަމީހާ )ލަގަން އަޅުވާމީހާ( 
-އާޚިރަތަށްޓަކައި މަސައްކަތްކުރާމީހާ )ޒާހިދުމީހާ(
-ގަހުގެ ވައްތަރެއް (ކުކުން(
-ޒީނަތްތެރި (ފާރިސީނަމެއް(
-މިޔަ (ވަޅި، ކަނޑި ފަދަ ތަކެތި(
-ކައިވެނިކުރާ އަންހެންކުއްޖާ (ބްރައިޑް(
-ވިސްނުންތެރި (އިންޓަލިޖަންސް(
-ރީތި/ސަމާސާ މިޒާޖު (ފާރިސީ(
-ޢަލާއު (ޢަލާ) / ޢަލާއު)ޢަލާ(*
-these were those found, there is probably more, check with regex
-using js regex find rtl round brackets that arent opened or closed properly example: (ހޭ މޭން) is correct )ހޭ މޭން( )ހޭ މޭން) (ހޭ މޭން( these are not correct
-regex:
-[\u200F\u0029]+[\s\S]*?[\u200F\u0028]+
-this only matches some, not all
-
-regex: ^[^(]*\)
-catches the last right facing round bracket here
-މޫޞަލްގެ ރަށެއް، މަޝްހޫރު ފިޤުހު ޢިލްމުވެރިއެއް ނިސްބަތްވާ ރަށެއް)
-
-إزديان	އިޒްޔާން	Izyaan (ar says izdiyan, while dv and eng say izyan, also note that bmv db is missing އިޒްދިޔާން as a ministry entry, its data was probably overwritten by izyaans by them mistakenly)
-
-meanings:
- ذهان	ޛިހާން	ވިސްނުންތޫނު (އަންހެން، ފިރިހެން) // ވިސްނުންތޫނު އަންހެން، ފިރިހެން
- ފައިދާ ލިބިގަންނަމީހާ // ފައިދާ ލިބިގަންނަމީހާ (ربح ) ރިބުޙް- މިލަފުޒުންނެގިފައި
-ދީލަތި (ކުޑަ) // ދީލަތި ކުޑަ
-ޚަލްޤު ފުރިހަމަވުން / ފެންދޭ މީހާ // ޚަލްޤު ފުރިހަމަވުން
-ރަސްގެފާނު (ކިންގް) // ރަސްގެފާނު ކިންގް
-ﷲ ތަޢާލާ އަންގަވާ އެންގެވުމުގައި އަވަސްވެގަންނަ މީހާ // ﷲ ތަޢާލާ އަންގަވާ އެންގެވުމަށް އަވަސްވެގަންނަ މީހާ
-ލޮލުން ދުށުން/ ކަމެއް ބެލެހެއްޓުން (inspect) // ލޮލުން ދުށުން/ ކަމެއް ބެލެހެއްޓުން (inv)
-ކަޅިރަވަރީތި މީހާ ( ދެޖިންސަށް ކިޔޭނެ) // ކަޅިރަވަރީތި މީހާ ދެޖިންސަށް ކިޔޭނެ- (inv)
-(for عين ޢައިން) ލޯ // ލޯ / ފެންގަނޑު
-އުސް / މަތިވެރި މީހާ // އުސް / ބުރުސޫރަ ރީތި
-
-ޢަރަބި ޤަބީލާއެއް، މަސްހޫރު ޢަރަބިދަރިކޮޅެއް، // ޢަރަބި ޤަބީލާއެއް / މަޝްހޫރު ޢަރަބިދަރިކޮޅެއް
-ހިނިތުންވާ ތަން (އަނގަ) // ހިނިތުންވާ ތަން އަނގަ
-ދިރިއުޅޭތަން (ދެމާނަ-ޢާޠިފް) // ދިރިއުޅޭތަން ދެމާނަ-ޢާޠިފް
-ﷲގެ ފަޟްލްވަންތަކަން (އުރުދޫ ނަމެއް) // ﷲގެ ފަޟްލްވަންތަކަން އުރުދޫ ނަމެއް
-ހިންގުވުން (ކުޑަކުދިން)ހިނގާބިނގާއުޅުމުގެ މާނައިގާ) // ހިންގުވުން
-ޤުރްއާނުގެ ދަލީލުތައް (ޢަލާމާތްތައް) // ޤުރްއާނުގެ ދަލީލުތައް - ޢަލާމާތްތައް
-ޘަރިއްޔު މުދާގިނަ / މުއްސަނދި // ޘަރާ މުދާގިނަ / މުއްސަނދި  ثرى އަންހެން
-ޝަރަފުވެރިޔާ (އެމީހެއްގެރީތި އަޚްލާޤާ އުޅުމަށްޓަކައި) މީސްތަކުންގެ މެދުގައި ޝަރަފުލިބިގެންވާ މީހާ // ޝަރަފުވެރިޔާ - އެމީހެއްގެރީތި އަޚްލާޤާ އުޅުމަށްޓަކައި މީސްތަކުންގެ މެދުގައި ޝަރަފުލިބިގެންވާ މީހާ
-ޢާއިޝަތުގެފާނުގެ ނަންފުޅެއް (ހުދުސާފު،ރަތް) // ޢާއިޝަތުގެފާނުގެ ނަންފުޅެއް - ހުދުސާފު،ރަތް
-ވަށައިގެންވާތަން/އަސަރު (ތަނެއްގެ) // ވަށައިގެންވާތަން / ތަނެއްގެ އަސަރު
-ނޭފަތްކުޑަ(ރީތި)އަންހެނާ // ނޭފަތްކުޑަ ރީތި އަންހެނާ
-މީރުވަސް / ފެހިފަތްކޯޅި // މީރުވަސް / ފެހިފަތްކޯޅު
-ޒީނަތްތެރި މީހާ ( އަންހެން) // ޒީނަތްތެރި މީހާ އަންހެން- (inv)
-ތޫނުފިލި ހިތްސާފު މީހާ (ވިސްނުންތޫނު) // ތޫނުފިލި ހިތްސާފު މީހާ ވިސްނުންތޫނު- (inv)
-ހެޔޮ،ރަނގަޅު (ރަށަކަށްކިޔާނަމެއް) // ހެޔޮ،ރަނގަޅު ރަށަކަށްކިޔާނަމެއް- (inv)
-ފަރުވާތެރިވެ ހުންނަމީހާ/ ވިސްނުންތޫނު (ތައުފީޤް) // ފަރުވާތެރިވެ ހުންނަމީހާ/ ވިސްނުންތޫނު
-ދެއަލިކަން (ދެނޫރު) // ދެއަލިކަން - ދެނޫރު
-މަޢްދަނެއް (އަޔަޑިން) // މަޢްދަނެއް އަޔަޑިން- (inv)
- شَفَان	ޝައްފާން ވާރެއާއެކު އަންނަ މަޑުވައިރޯޅި // ފިނިވައިރޯޅި (also bmv changed شَفان to شَفَان)
-أَدِيْم	އަދީމް	ފާޅުކަންބޮޑު،އަލިގަދަކަން/ދޮންކަންކުޑަމީހާ // ފާޅުކަންބޮޑު/ އަލިގަދަކަން / އޮޅަލިކުލައިގެ މީހާ
-ގޭތެރޭގައި އޮންނަ ހުސްތަން (ފެންޑާ) / ގޭތެރޭގައި އޮންނަ ހުސްތަން ފެންޑާ
-
-
-combined these two into one:
-(ޢަޒުމްވަރުގަދަ ޣީރަތްތެރި މީހާ /މީރުވަސްދުވާ ގަހެއް)
-شَيْحَان	ޝައިޙާން	ޢަޒުމްވަރުގަދަ ޣީރަތްތެރި މީހާ
-شَيْحَان	ޝައިޙާން	މީރުވަސްދުވާ ގަހެއް
-
-(wrote ޞަޙާބީބޭކަލެއް in place of both below for عَمْرُو)
-عَمُرو	ޢަމްރޫ	އަޞްޙާބު ބޭކަލުންގެ ނަންފުޅުތައް
-عَمْرُو	ޢަމްރު	ޞަހާބީއަކަށް ކިޔާނަމެއް
-
-it has the following CORRECTIONS:
-ޢަބްދުޛުލްޖަލާލިވަލްއިކްރާމް / ޢަބްދު ޛިލްޖަލާލިވަލްއިކްރާމް*
-ޢަބްދުލްމާލިކުލްމުލްކި / ޢަބްދުމާލިކިލްމުލްކު*
- މަލީކާތު // މަލީކަތު / މަލީކާ
-رَاجِح vs راَجِحْ
-ހައިމްﷲ / ހައިމުﷲ
-
-meanings:
- ބޯހަދާމީހާ (އަޞްޙާބުބޭކަލަކަށްކިޔާނަމެއް) // ޞަޙާބީބޭކަލެއް حُذَيْفَة	ޙުޛައިފާ 
-ދުރުވިސްނުން / ޝައްޔާން // شَيَّان	ޝައްޔާން ދުރުވިސްނުން
-ޢުމަރުގެފާނުގެޤައުމުގެމީހުން/ ދަރިލޮޅު/އަވަސްކޮށްދުވާމީހާ // ޢުމަރުގެފާނުގެ ޤައުމުގެ މީހުން/ ދަރިކޮޅު/ އަވަސްކޮށްދުވާމީހާ
-ކޯތާފަތުގައި މަސްޖަހާފައިވުން // كُلْثُوْم	ކުލްޘޫމް	ދެ ކޯތާފަތުގައި މަސްޖަހާފައިވުން
-هِنْدُ (أُمُّ سَلَمَة)	ހިންދު (އުއްމު ސަލަމާ) ރަސޫލާ ﷺގެ އަނބިކަނބަލެއްގެ ނަންފުޅު // هِنْدُ (أُمُّ سَلَمَة) ހިންދު (އުއްމު ސަލަމާ)	އުއްމުހާތުލްމުއުމިނީންގެ ނަންފުޅުތަކާއި، ކީރިތި ރަސޫލާ ޞައްލަﷲ ޢަލައިހި ވަސައްލަމަގެ ދަރިކަނބަލުންގެ ނަންފުޅުތައް
-
-
-more detailed dv word differences list:
-asmaul husna:
-note that practically all ar lafz of abd + asmau husna is marfoo at the last word letter, this is because abdu was added without changing the last fili at the end, so all of that would need to be corrected in arabic
-ޢަބްދުލްއައްވަލު / ޢަބްދުލްއައްވަލް
-ޢަބްދުލްއާޚިރު / ޢަބްދުލްޢާޚިރު*
-ޢަބްދުލްބާރީ / ޢަބްދުލްބާރިއު
-ޢަބްދުލްބާޢިޘު / ޢަބްދުލްބާޢިޘް
-ޢަބްދުއްތައްވާބު / ޢަބްދުއްތައްވާބް
-ޢަބްދުލްޖަލީލި	 / ޢަބްދުލްޖަލީލް
-ޢަބްދުލްޙަސީބު / ޢަބްދުލްޙަސީބް
-ޢަބްދުލްޙަފީޡު / ޢަބްދުލްޙަފީޡް
-ޢަބްދުލްޙަކީމް / ޢަބްދުލްޙަކީމު
-ޢަބްދުލްޙަލީމް / ޢަބްދުލްޙަލީމު
-ޢަބްދުލްޚާފިޟް / ޢަބްދުލްޚާފިޟު
-ޢަބްދުލްޚާލިޤް / ޢަބްދުލް ޚާލިޤު 
-ޢަބްދުއްރައޫފް / ޢަބްދުއްރައޫފު
-- / ޢަބްދުއްރައްޒާޤު*
-ޢަބްދުއްރަޤީބް / ޢަބްދުއްރަޤީބު
-ޢަބްދުލްޢަޡީމް / ޢަބްދުލްޢަޡީމު
-ޢަބްދުލްޢަލީމް / ޢަބްދުލްޢަލީމު
-ޢަބްދުލްފައްތާޙް / ޢަބްދުލްފައްތާހު
-ޢަބްދުލްޤާބިޟް / ޢަބްދުލްޤާބިޟު
-ޢަބްދުލްޤައްޔޫމް / ޢަބްދުލްޤައްޔޫމު
-ޢަބްދުލްކަރީމް / ޢަބްދުލްކަރީމު
-ޢަބްދުލްލަޠީފު / ޢަބްދުއްލަޠީފު*
-ޢަބްދުﷲ / ޢަބްދު الله* (arabic lafzul jalala)
-ޢަބްދުލްމަތީން / ޢަބްދުލްމަތީނު
-ޢަބްދުލްމުތަކައްބިރް / ޢަބްދުލް މުތަކައްބިރު
-ޢަބްދުލްމުޖީބް / ޢަބްދުލްމުޖީބު
-ޢަބްދުލްމުޤައްދިމް / ޢަބްދުލްމުތަޤައްދިމު*
-ޢަބްދުލްމުޤީތް / ޢަބްދުލްމުޤީތު
-ޢަބްދުލްމުންތަޤިމް / ޢަބްދުލްމުންތަޤިމު
-ޢަބްދުލްވާރިޘް / ޢަބްދުލްވާރިޘު
-ޢަބްދުލްވަކީލް / ޢަބްދުލްވަކީލު
-ޢަބްދުލްވަލީ / ޢަބްދުލްވަލިއްޔު
-ޢަބްދުލްވައްހާބް / ޢަބްދުލްވައްހާބު
-ޢަބްދުޛުލްޖަލާލިވަލްއިކްރާމް / ޢަބްދު ޛިލްޖަލާލިވަލްއިކްރާމް*
-ޢަބްދުލްމާލިކުލްމުލްކި / ޢަބްދުމާލިކިލްމުލްކު*
-  ]
-
-  [
-  all 4 apps below have "عَبْدُالله رَافِعُ	ޢަބްދުﷲރާފިޢު	މަތިވެރިވެގެންވާ ﷲ ގެ އަޅާ	ފިރިހެން" as a seperate entry for no apparent reason. its not in any of the pdf lists. so should I remove it?
-  ]
-
-  Thuthukudheenge Nan
-  Ath-Thibyaan
-  com.fzlunx.newborn_names
-  Thuththu_Kudhinge_Nancom.fzlunx.newborn_namesv1.0.2
-  > \assets\flutter_assets\assets\database
-  boysnames.json
-  girlsnames.json
-  2278 boys, 1910 girls (w/o header)
-  4689 total entries (w 1 header each)
-  (which is 69 entries less than both ahsam and looth)
-  Version
-  1.0.2
-  Updated on
-  26/7/2020
-  Released on
-  26/7/2020
-  Thuthukudhinah kiyaa nan dhivehi maanayaa eku,
-  Shaairukurevifainuvaa nanthah faaskohdhinun,
-  Islamic names for newborn.
-
-  [
-  fazloon's has published by icon column for ministry and council. but no need really, as all are publish, and all entries have the icon
-  same thing with origin of name column, all of them are arabic.
-  his db gets rid of the repeat names with have the same arabic lafz repeated, with more than one entry for meanings, like "آدَم	އާދަމް	އެންމެހައި އިންސާނުންގެ ބައްޕަ، އެންމެފުރަތަމަ ޚަލްޤުކުރެއްވުނު އިންސާނާ" while other 3 apps have repeats like "آدَم	އާދަމް	ރަސޫލުބޭކަލުންނާއި ނަބީބޭކަލުންގެ ނަންފުޅުތައް	ފިރިހެން آدَمُ	އާދަމް	އޮޅަލި ކުލަ	ފިރިހެން"
-  while some repeats were indeed merged into one entry like "އިޙްސާންތެރިކަން / މަތިވެރި", others were just removed keeping only one entry. dont know how carefully that was done. maybe some of them were removed first come first go. so safe side would be not to use his data.
-  he also uses spaces between abdu and asmaul husna or allah.
-  other books with prophet/messenger names have a meaning entry of "ރަސޫލުބޭކަލުންނާއި ނަބީބޭކަލުންގެ ނަންފުޅުތައް" while he seems to have reviewed and chose either "ނަބީ ބޭކަލެއްގެ ނަންފުޅެއް" or "ރަސޫލުބޭކަލެއްގެ ނަންފުޅެއް" respectively. also he uses " އަޞްޙާބު ބޭކަލެއްގެ ނަންފުޅެއް" while others used "އަޞްޙާބު ބޭކަލުންގެ ނަންފުޅުތައް". also "ޞަހާބިއްޔާއެއްގެ ނަންފުޅެއް" vs "ޞަހާބިއްޔާއިންގެ ނަންފުޅުތައް" and "ކީރިތި ރަސޫލާ ގެ ދަރިކަނބަލެއްގެ ނަންފުޅު" vs "ކީރިތި ރަސޫލާ ގެ ދަރިކަނބަލުންގެ ނަންފުޅުތައް" note these plurals probably came from ministry pdf's categorization as such.
-  ministry pdf and previous app data sometimes doesnt have spaced before and after slash "ބަންގިގޮވާމީހާ/ބަންގިގޮވާތަން/ޒަޢީމު" while he places proper spaces. not that important.
-  he changes "آدَم	އާދަމް	ރަސޫލުބޭކަލުންނާއި ނަބީބޭކަލުންގެ ނަންފުޅުތައް" to "آدَم	އާދަމް	އެންމެހައި އިންސާނުންގެ ބައްޕަ، އެންމެފުރަތަމަ ޚަލްޤުކުރެއްވުނު އިންސާނާ	ފިރިހެން" this is good. dont delete the old entry, add this as a new one. !!!Correct: add it as a separate entry, without deleting the old one.
-  he also changes all abdu + asmaul husna entries from "(ނިކަމެތި ކުރައްވާ ރަސްކަލާނގެ)" to "ނިކަމެތި ކުރައްވާ ރަސްކަލާނގެ އަޅާ" this is good. !!!Correct: use it that way, instead of the other apps' way. maybe could use for asmaul husna db later on its own too.
-  other apps had this blunder in the first asmaul husna entry: "عَبْدُ اللهُ	ޢަބްދުﷲ	(މިއީ މާތްރަސްކަލާނގެ މަތިވެރި ޛާތުފުޅުގެ ޚާއްޞަ ނަމެވެ.)	ފިރިހެން" while he changed it to "މާތް ﷲ ގެ އަޅާ" !!!Correct: use it that way too. probably wont have any use of this meaning entry even if i did make an asmul husna db, as most such asmaul husna names are khaassa nan for Allah.
-  he also places the female name "anas" from the ministry/other apps, and places it in the boys db, albeit still with "female" written in the gender column for some reason.
-  ]
-
-  Nan Foiy
-  Ahmed Ahsam
-  com.ahsam.nanfoiy
-  Nanfoiycom.ahsam.nanfoiyv1.0
-  > \assets
-  names.sqlite
-  has 3 tables: NamesTable, _NamesTable_old_20180718 (both of which just seem to be the same abdu 99 names of Allah), as well as babynames table, which seems to have the abdu names of Allah as well, so make do with just that.
-  (2335 boys, 1923 girls)
-  4259 entries
-  Version
-  1.0
-  Updated on
-  27/4/2020
-  Released on
-  27/4/2020
-  All the names provided in this app are taken from the name book provided in the website of Ministry of Islamic Affairs, Maldives.
-
-  [
-  comparison between the 2 lists above and below:
-  ahsam has firihen anhen in one db, while looth has in two separate html list.
-  ahsam's app was released earlier, while looth's was later.
-  ahsam db: " يعيش" has a space in front of it for some reason, looth doesnt. !!!Correct: looth.
-  note that the ministry firihen nan foiy just provides 99 names of allah, and tells at the bottom that users can add abdu in front. it doesnt provide abdu written names as is. both ahsam and looth added those one their own to the dv word, as well as added abdu to the ar name of allah in their lists.
-  ahsam has dhivehi written versions for abu 99 names of Allah, along with meaning and ar word, while looth doesnt have the dhivehi written versions, just the ar ones. !!!Correct: not a mistake but a good addition by ahsam. update: rather use fazloon's his is even better fixed than ahsam's.
-  note that looth does have 5 written dhivehi names joined to Allah like ހައިމްﷲ ސަޢުދުﷲ ޖުންދުﷲ އަޙްމަދުﷲ ޖާދުﷲ
-  ahsam puts a space between Allah's name and the dhivehi part, while looth doesnt for the few such dhivehi written names he has. and in those few places on the pdf list, there isnt any space, like how looth wrote it. !!!Correct: looth.
-  as for meanings, ahsam has words like "މާތް ﷲ ގެ ސިފައިން" (from inistry au list) or "ﷲ ގެ" or "ޞައްލަ ﷲ" with a space between dv word and allah, while looth doesnt "މާތްﷲ"... which is how it is in the actual pdf. !!!Correct: looth.
-  ahsam has this entry: އެކުވެރި / ޖަމާޢަތް	އަނަސް	أنَسْ	އަންހެން. which is in the actual pdf, but looth has removed it, probably thinking it was wrong. !!!Correct: probably looth.
-  looth has ރަޙްމަތުﷲ without space, unlike ahsam. !!!Correct: looth.
-  looth has an entry that goes: އާސިޔާ	آسِيَة which has a meaning of "ރަސޫލުބޭކަލުންނާއި ނަބީބޭކަލުންގެ އަނބިކަނބަލުންގެ ނަންފުޅުތަކާއި ކީރިތި ޤުރްއާނުގައި ނަންގަނެވިގެންވާ އަންހެން ބޭކަނބަލުންގެ ނަންފުޅުތައް" but its got line breaks here and there, and is not on one line, unlike ahsam. looth's problem could probably easily be fixed using regex replace \n with nothing on g sheets (91 instances). note that there's no such new line issue in the boy's list.
-  also looth's data has \u00A0 : NO-BREAK SPACE [NBSP], which needs to be replaced with regular space and using looth's after that is better, because the meanings have no space before allah, unlike ahsam. eg: "ޞައްލަﷲ" !!!Correct: looth but regex replacing new lines and nb spaces. 
-  ahsan has this entry: އެކުވެރި / ޖަމާޢަތް	އަނަސް	أنَسْ	އަންހެން. which is actually in the pdf list, but is nevertheless wrong. looth had removed it. !!!Correct: looth
-  both ahsam and looth have kashidas "ـ" 873 of them (on find which counts multiple in a cell, on replace it replaces 1307 which is true total) HH has them too. Remove them all. Fazloon's doesnt have it !!!Correct: none, fix a merged one.
-  ]
-
-  Nan Foiyy
-  Looth Adnan
-  com.loothadnan.nanfoiyy
-  Nan_Foiyycom.loothadnan.nanfoiyyv2.0
-  > \assets
-  has 2 html files:
-  boys.html (2336), girls.html (1922)
-  total 4258 entries (same as ahsam app without the header)
-  loaded data as web source to excel, using local url
-  Version
-  2.0
-  Updated on
-  2/11/2017
-  Released on
-  2/11/2017
-  Search for an Islamic/Muslim name for your newborn!
-  2300+ Boy names
-  1900+ Girl names
-  Names and their meanings are provided by Ministry of Islamic Affairs (Maldives).
-
-  Dhivehi Nanfoiy
-  HHM Solutions
-  mv.hhmsolutions.dhivehi_nanfoiy
-  Dhivehi_Nanfoiymv.hhmsolutions.dhivehi_nanfoiyv1.0.0
-  data/data/... \r > app_flutterfavorites.db > Tables > Names
-  (2109 boys, 1734 girls)
-  3844 entries (which is 415 entries less than both ahsam and looth)
-  Version
-  1.0.0
-  Updated on
-  25/5/2020
-  Released on
-  19/12/2020
-  ?? have no idea why dates are like this
-  An app to search and find Muslim names with Dhivehi meaning
-  Features of this app include:-
-  * Find names based on gender
-  * Search names by preferable letter
-  * Favorite names and create a list of your favorite names.
-  - Names retrieved from Ministry of Islamic Affairs 2019 website.
-
-  [
-  this has no  entries that the other 3 app dbs dont have. so can ignore it entirely
-  has spaces between abdu and asmul husna
-  ]
-
--->
