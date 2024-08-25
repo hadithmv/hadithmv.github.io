@@ -44,7 +44,7 @@
       CUSTOM CSS
       === --- === --- ==== */
 
-      /* only for tablet size and up */
+      /* only for MOBILE size */
 
       @media (max-width: 599px) {
         /* removes stripe and column ordering class code */
@@ -64,7 +64,7 @@
         }
       } /* END OF MOBILE */
 
-      /* only for tablet size and up */
+      /* only for TABLET size and up */
       @media (min-width: 600px) {
         /* UNDOES OG CARDS CODE */
 
@@ -123,6 +123,20 @@
         div.dt-layout-cell.dt-layout-full > table.dataTable > thead > tr > th {
           padding-right: 20px;
           padding-left: 0;
+        }
+
+        /* removes margin spaces at edges of table */
+        div.dt-container {
+          margin-right: 0;
+          margin-left: 0;
+        }
+        /* since we removed spaces above, we add them inside the padding of the right of first column, and left of last column */
+        #tableID > tbody > tr > td:first-child {
+          padding-right: 10px;
+          padding-left: 10px;
+        }
+        #tableID > tbody > tr > td:last-child {
+          padding-left: 10px;
         }
       } /* END OF TABLET UP */
 
@@ -242,9 +256,7 @@
           (10/3/22، 169 ސ، 4141 ނަން)
         </p>
         <p id="pdfNoOfNames">ޕީޑީއެފްތަކުގައިވާ ޖުމްލަ ނަމުގެ އަދަދު: 8541</p>
-        <p id="namesOutsidePdf">
-          ޕީޑީއެފްތަކުގައިވާ ނުވާ މި ތާނގައިވާ ނަންތައް:
-        </p>
+        <p id="namesOutsidePdf">ޕީޑީއެފްތަކުގައިވާ ނުވާ ނަންތައް:</p>
         <script>
           // Delay execution by 1000ms (1 second) to ensure #tableID_info is available
           setTimeout(function () {
@@ -260,7 +272,7 @@
 
             // Update the text content of the element with ID 'namesOutsidePdf' to display the result
             document.querySelector("#namesOutsidePdf").textContent =
-              `ޕީޑީއެފްތަކުގައިވާ ނުވާ މި ތާނގައިވާ ނަންތައް: ${result}`;
+              `ޕީޑީއެފްތަކުގައިވާ ނުވާ ނަންތައް: ${result}`;
           }, 500); // 1000ms = 1 second delay, adjust if needed
         </script>
         <p>އެންމެ ފަހުން ޕީޑީއެފްތައް ބެލި ތާރީޚު: 23/3/24</p>
