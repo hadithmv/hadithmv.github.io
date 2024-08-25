@@ -43,33 +43,89 @@
       /* === --- === --- ====
       CUSTOM CSS
       === --- === --- ==== */
-      /* brings back the th table header above columns, hidden in card view */
-      thead {
-        display: table-header-group; /* none */
-      }
-      /* brings back colgroup cols removed, for card view. this effects table class hover. however this code isnt working.
-      .dt-container > colgroup > col:not(:nth-child(0)) {
-        display: table-column;
-      } */
-      table.dataTable > thead > tr > th > span.dt-column-title {
-        /* makes table headers not bold */
-        font-weight: normal;
-        font-size: 20px;
-        color: #555;
-      }
-      table.dataTable > thead > tr > th {
-        /* vertically aligns to top */
-        vertical-align: top;
-        /* centers */
-        text-align: center;
+
+      /* only for tablet size and up */
+
+      @media (max-width: 599px) {
+        /* removes stripe and column ordering class code */
+        :root {
+          --dt-row-stripe: none; /* 0, 0, 0*/
+          /*--dt-row-hover: 0, 0, 0;*/
+          --dt-column-ordering: none; /* 0, 0, 0*/
+        }
+
+        table.dataTable.row-border > tbody > tr > * {
+          /*border-top: 1px solid rgba(0, 0, 0, 0.15);*/
+          border-top: none;
+        }
+        /* center align english on mobile */
+        td.ColEng {
+          text-align: center;
+        }
+      } /* END OF MOBILE */
+
+      /* only for tablet size and up */
+      @media (min-width: 600px) {
+        /* UNDOES OG CARDS CODE */
+
+        .cards tbody tr {
+          /*margin: 0;*/ /* 0.5rem; just top and bottom? */
+          margin-top: 0;
+          margin-bottom: 0;
+          border: none; /* 0.0911rem solid #c4c6d0;*/
+          /*border-radius: 24px;*/
+        }
+        .cards tbody td {
+          display: table-cell; /* block; */
+        }
+
         /* */
-        line-height: 1.5;
-      }
-      /* reduces right and left padding of th, making that row smaller */
-      div.dt-layout-cell.dt-layout-full > table.dataTable > thead > tr > th {
-        padding-right: 20px;
-        padding-left: 0;
-      }
+
+        /* OTHER CARDS STUFF */
+
+        .cards tbody tr {
+          padding: initial; /* 20px ? */
+        }
+
+        .cards tbody {
+          display: table-row-group; /*flex*/
+          flex-direction: row; /* column */
+          align-items: normal; /* stretch */
+        }
+
+        /* */
+
+        /* OTHER STUFF */
+
+        /* brings back the th table header above columns, hidden in card view */
+        thead {
+          display: table-header-group; /* none */
+        }
+        /* brings back colgroup cols removed, for card view. this effects table class hover. however this code isnt working.
+        .dt-container > colgroup > col:not(:nth-child(0)) {
+        display: table-column;
+          } */
+        table.dataTable > thead > tr > th > span.dt-column-title {
+          /* makes table headers not bold */
+          font-weight: normal;
+          font-size: 20px;
+          color: #555;
+        }
+        table.dataTable > thead > tr > th {
+          /* vertically aligns to top */
+          vertical-align: top;
+          /* centers */
+          text-align: center;
+          /* */
+          line-height: 1.5;
+        }
+        /* reduces right and left padding of th, making that row smaller */
+        div.dt-layout-cell.dt-layout-full > table.dataTable > thead > tr > th {
+          padding-right: 20px;
+          padding-left: 0;
+        }
+      } /* END OF TABLET UP */
+
       /* right align and direction for english columns */
       .ColEng {
         text-align: left;
@@ -99,7 +155,7 @@
        https://datatables.net/examples/styling/display.html -->
       <table
         id="tableID"
-        class="stripe row-border compact"
+        class="cards stripe row-border compact"
         width="100%"
       ></table>
       <div class="footer">
