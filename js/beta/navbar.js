@@ -63,6 +63,7 @@ function createNavbar() {
                <a><span class=dropdown-arrow>◄</span>ބަސް</a>
                <ul class=sub-dropdown-content>
                   <li><a href=../books/radheefNanfoiy.html>ނަންފޮތް</a>
+                  <li><a href=../books/radheefRasmee.html>ރަސްމީ ރަދީފު</a>
                </ul>
          </ul>
       <li><a href=../notes/info/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
