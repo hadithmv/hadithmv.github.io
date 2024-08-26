@@ -148,7 +148,7 @@
 
       /* right align and direction for english columns */
       .colEng {
-        text-align: center;
+        text-align: left;
         direction: ltr;
         font-size: 20px;
       }
@@ -1536,28 +1536,21 @@
         // CHANGE !!!
         // arName arNoFili dvName enName arMean dvMean enMean gender source lang
         columns: [
-          { title: "އަރަބި ލަފްޒު", searchable: false },
           {
-            title: "އަރަބި ފިލިނުޖަހާ",
-            data: 0,
-            render: (data) => removeThashkeel(data),
-            visible: false,
-          },
-          { title: "ދިވެހި ލަފްޒު", data: 1 },
-          {
-            title: "އަރަބި ފިލިނުޖަހާ 2",
-            data: 1,
-            render: (data) => removeThashkeel(data),
-            visible: false,
+            title: "ދިވެހި ލަފްޒު",
           },
           {
-            /* add sofhaa string to page no */
-            data: 2,
-            title: "ސަފުހާ #",
-            render: function (data) {
-              return "[ސ. " + data + "]";
-            },
-            className: "colNoWrap",
+            title: "އިނގިރޭސިން ތާނަ",
+            className: "colEng",
+          },
+          {
+            title: "އިނގިރޭސިން ބާވަތް",
+            className: "colEng",
+            searchable: false,
+          },
+          {
+            title: "އިނގިރޭސި މާނަ",
+            className: "colEng",
           },
         ],
         columnDefs: [
