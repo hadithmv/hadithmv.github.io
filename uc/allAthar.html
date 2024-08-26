@@ -459,9 +459,10 @@
           // CHANGE !!!
           // book	#	arText	dvText	Takhrij
           columns: [
-            { title: "ފޮތް އަރަބިން" },
+            { title: "ފޮތް އަރަބިން", className: "colHeader" },
             {
               title: "ފޮތް ދިވެހިން",
+              className: "colHeader",
               data: 0,
               render: (data) =>
                 data
@@ -497,7 +498,7 @@
                   .replace("رياض الصالحين", "ރިޔާޟުއްޞާލިޙީން"),
               visible: false,
             },
-            { title: "#", data: 1 },
+            { title: "#", data: 1, className: "colHeader" },
             {
               title: "އަރަބި ލިޔުން",
               data: 2,
