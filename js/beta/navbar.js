@@ -17,74 +17,85 @@ function createNavbar() {
         */
   // Define the HTML structure for the navbar and side menu
   // MINIFY THIS HTML WITH KANGAX. if need to edit, format with something else then reminify
-  const navbarHTML = `<nav class=navbar>
-   <div class=navbar-left><img alt="Site Icon"class=site-icon onclick=goToHomePage() src=../img/logo/logo.svg title="back to homepage"></div>
-   <div class=navbar-center><span class=page-title>${pageTitle}</span></div>
-   <div class=navbar-right title=menu><span class=menu-icon>☰</span></div>
+  const navbarHTML = `
+  <nav class=navbar>
+  <div class=navbar-left><img alt="Site Icon"class=site-icon onclick=goToHomePage() src=../img/logo/logo.svg title="back to homepage"></div>
+  <div class=navbar-center><span class=page-title>${pageTitle}</span></div>
+  <div class=navbar-right title=menu><span class=menu-icon>☰</span></div>
 </nav>
 <div class=side-menu id=sideMenu>
-   <div class=side-menu-close onclick=toggleSideMenu()>×</div>
-   <ul>
-      <li><a href=../books/index.html>● މައި ސަފުހާ</a>
-      <li onclick=toggleDropdown(this) class=dropdown>
-         <a><span class=dropdown-arrow>◄</span>ބައިތައް</a>
-         <ul class=dropdown-content>
-            <li><a href=#>ގުރްއާން</a>
-            <li onclick=toggleDropdown(this,event) class=sub-dropdown>
-               <a><span class=dropdown-arrow>◄</span>ޙަދީޘް</a>
-               <ul class=sub-dropdown-content>
-                  <li><a href=../books/allAthar.html>އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</a>
-                  <li><a href=../books/muwattaMalik.html>މުވައްޠައު މާލިކު*</a>
-                  <li><a href=../books/umdathulAhkam.html>ޢުމްދަތުލް އަޙްކާމް</a>
-                  <li><a href=../books/hisnulMuslim.html>މުސްލިމުންގެ ކިއްލާ</a>
-                  <li><a href=../books/arbaoonAajurry.html>އާޖުއްރީގެ ސާޅީސް ޙަދީޘް*</a>
-                  <li><a href=../books/akhbaruShuyukh.html>ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާގު</a>
-                  <li><a href=../books/akhlaqHamalathilQuran.html>އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a>
-                  <li><a href=../books/bulughulMaram.html>ބުލޫޣުލް މަރާމް*</a>
-                  <li><a href=../books/arbaoonNawawi.html>ނަވަވީގެ ސާޅީސް ޙަދީޘް</a>
-                  <li><a href=../books/riyaduSaliheen.html>ރިޔާޟުއްޞާލިޙީން*</a>
-               </ul>
-               <li onclick=toggleDropdown(this,event) class=sub-dropdown>
-               <a><span class=dropdown-arrow>◄</span>އަގީދާ</a>
-               <ul class=sub-dropdown-content>
-                  <li><a href=../books/allAqida.html>އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</a>
-                  <li><a href=../books/usooluSunnahAhmed.html>އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް*</a>
-                  <li><a href=../books/sharhuSunnahBarbahari.html>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ*</a>
-                  <li><a href=../books/aqidatuRaziyain.html>ދެ ރާޒީންގެ އަގީދާ*</a>
-                  <li><a href=../books/kitabulEmanAbiUbaid.html>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</a>
-                  <li><a href=../books/nawaqidulislam.html>އިސްލާމްކަން ގެއްލޭ ކަންތައް</a>
-                  <li><a href=../books/qawaidulArbau.html>ހަތަރު ގަވާއިދު</a>
-                  <li><a href=../books/usooluSiththa.html>ހަ އުސޫލު*</a>
-                  <li><a href=../books/usooluThalaatha.html>ތިން އުސޫލު</a>
-                  <li><a href=../books/quranUshru.html#quranTable=:p69.html>މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް</a>
-                  <li><a href=../books/sharhuSunnahBarbahari-DFK.html>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ - DFK</a>
-               </ul>
-               <li onclick=toggleDropdown(this,event) class=sub-dropdown>
-               <a><span class=dropdown-arrow>◄</span>ބަސް</a>
-               <ul class=sub-dropdown-content>
-                  <li><a href=../books/radheefAll.html>އެއްކުރަމުންދާ ރަދީފުތައް*</a>
-                  <li><a href=../books/radheefNanfoiy.html>ނަންފޮތް*</a>
-                  <li><a href=../books/radheefRasmee.html>ރަސްމީ ރަދީފު</a>
-                  <li><a href=../books/radheefEegaal.html>އަލްއީޤާޡް</a>
-                  <li><a href=../books/radheefManiku.html>މަނިކުގެ ރަދީފު</a>
-               </ul>
-         </ul>
-      <li><a href=../notes/info/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
-      <li><a href=../notes/info/helpTranslate.html>ތަރުޖަމާގައި އެހީވެދިނުމަށް</a>
-      <li><a href=../notes/info/FAQ.html>ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a>
-      <li><a href=../notes/info/contributors.html>އެހީތެރިން</a>
-      <li onclick=openDiv() class=versionNo>⚙️ އިސްދާރު: v${hmvVersionNo}
-      <li><a href=https://t.me/ashraafmv>ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a>
-      <li style=font-size:90%>މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް
-      <li onclick='window.scrollTo({top:0,behavior:"smooth"})'href=# style=cursor:pointer;user-select:none>▲ މައްޗަށް ސްކްރޯލްކުރޭ
-      <li onclick=toggleDropdown(this) class=dropdown>
-         <a>↺ ސަފުހާ ރީލޯޑު</a>
-         <ul class=dropdown-content>
-            <li><a href=# onclick=window.location.reload()>މަޑު ރީލޯޑު</a>
-            <li><a onclick='window.location.href=window.location.href.split(".html")[0]+".html"'>ހަރު ރީލޯޑު</a>
-         </ul>
-   </ul>
-</div>`;
+  <div class=side-menu-close onclick=toggleSideMenu()>×</div>
+  <ul>
+    <li><a href=../books/index.html>● މައި ސަފުހާ</a>
+    <li onclick=toggleDropdown(this) class=dropdown>
+      <a><span class=dropdown-arrow>◄</span>ބައިތައް</a>
+      <ul class=dropdown-content>
+        <li onclick=toggleDropdown(this,event) class=sub-dropdown>
+          <a><span class=dropdown-arrow>◄</span>ގުރްއާން</a>
+          <ul class=sub-dropdown-content>
+            <li><a href=../books/quranHmv.html>ޙަދީޘްއެމްވީގެ ތަރުޖަމާ</a>
+            <li><a href=../books/quranRasmee.html>ރަސްމީ ތަރުޖަމާ</a>
+            <li><a href=../books/quranBakurube.html>ބަކުރުބެގެ ތަރުޖަމާ</a>
+            <li><a href=../books/quranJaufar.html>ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު*</a>
+            <li><a href=../books/quranSoabuni.html></a>
+            <li><a href=../books/quranUshru.html>ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު</a>
+          </ul>
+        <li onclick=toggleDropdown(this,event) class=sub-dropdown>
+          <a><span class=dropdown-arrow>◄</span>ޙަދީޘް</a>
+          <ul class=sub-dropdown-content>
+            <li><a href=../books/allAthar.html>އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</a>
+            <li><a href=../books/muwattaMalik.html>މުވައްޠައު މާލިކު*</a>
+            <li><a href=../books/umdathulAhkam.html>ޢުމްދަތުލް އަޙްކާމް</a>
+            <li><a href=../books/hisnulMuslim.html>މުސްލިމުންގެ ކިއްލާ</a>
+            <li><a href=../books/arbaoonAajurry.html>އާޖުއްރީގެ ސާޅީސް ޙަދީޘް*</a>
+            <li><a href=../books/akhbaruShuyukh.html>ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާގު</a>
+            <li><a href=../books/akhlaqHamalathilQuran.html>އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a>
+            <li><a href=../books/bulughulMaram.html>ބުލޫޣުލް މަރާމް*</a>
+            <li><a href=../books/arbaoonNawawi.html>ނަވަވީގެ ސާޅީސް ޙަދީޘް</a>
+            <li><a href=../books/riyaduSaliheen.html>ރިޔާޟުއްޞާލިޙީން*</a>
+          </ul>
+        <li onclick=toggleDropdown(this,event) class=sub-dropdown>
+          <a><span class=dropdown-arrow>◄</span>އަގީދާ</a>
+          <ul class=sub-dropdown-content>
+            <li><a href=../books/allAqida.html>އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</a>
+            <li><a href=../books/usooluSunnahAhmed.html>އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް*</a>
+            <li><a href=../books/sharhuSunnahBarbahari.html>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ*</a>
+            <li><a href=../books/aqidatuRaziyain.html>ދެ ރާޒީންގެ އަގީދާ*</a>
+            <li><a href=../books/kitabulEmanAbiUbaid.html>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</a>
+            <li><a href=../books/nawaqidulislam.html>އިސްލާމްކަން ގެއްލޭ ކަންތައް</a>
+            <li><a href=../books/qawaidulArbau.html>ހަތަރު ގަވާއިދު</a>
+            <li><a href=../books/usooluSiththa.html>ހަ އުސޫލު*</a>
+            <li><a href=../books/usooluThalaatha.html>ތިން އުސޫލު</a>
+            <li><a href=../books/quranUshru.html#quranTable=:p69.html>މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް</a>
+            <li><a href=../books/sharhuSunnahBarbahari-DFK.html>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ - DFK</a>
+          </ul>
+        <li onclick=toggleDropdown(this,event) class=sub-dropdown>
+          <a><span class=dropdown-arrow>◄</span>ބަސް</a>
+          <ul class=sub-dropdown-content>
+            <li><a href=../books/radheefAll.html>އެއްކުރަމުންދާ ރަދީފުތައް*</a>
+            <li><a href=../books/radheefNanfoiy.html>ނަންފޮތް*</a>
+            <li><a href=../books/radheefRasmee.html>ރަސްމީ ރަދީފު</a>
+            <li><a href=../books/radheefEegaal.html>އަލްއީޤާޡް</a>
+            <li><a href=../books/radheefManiku.html>މަނިކުގެ ރަދީފު</a>
+          </ul>
+      </ul>
+    <li><a href=../notes/info/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
+    <li><a href=../notes/info/helpTranslate.html>ތަރުޖަމާގައި އެހީވެދިނުމަށް</a>
+    <li><a href=../notes/info/FAQ.html>ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a>
+    <li><a href=../notes/info/contributors.html>އެހީތެރިން</a>
+    <li onclick=openDiv() class=versionNo>⚙️ އިސްދާރު: v${hmvVersionNo}
+    <li><a href=https://t.me/ashraafmv>ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a>
+    <li style=font-size:90%>މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް
+    <li onclick='window.scrollTo({top:0,behavior:"smooth"})'href=# style=cursor:pointer;user-select:none>▲ މައްޗަށް ސްކްރޯލްކުރޭ
+    <li onclick=toggleDropdown(this) class=dropdown>
+      <a>↺ ސަފުހާ ރީލޯޑު</a>
+      <ul class=dropdown-content>
+        <li><a href=# onclick=window.location.reload()>މަޑު ރީލޯޑު</a>
+        <li><a onclick='window.location.href=window.location.href.split(".html")[0]+".html"'>ހަރު ރީލޯޑު</a>
+      </ul>
+  </ul>
+</div>
+`;
   /*
   
 
