@@ -39,3 +39,5 @@ radheef searchpanes dont work for some reason
 searchpanes options (and maybe other options?) in spread config not working?
 
 check novelty maniku, does main book come before references section?
+
+replace mirrors entirely with just link to 404?

@@ -6,7 +6,7 @@
       rel="canonical"
       href="https://hadithmv.github.io/books/radheefNanfoiy.html"
     />
-    <title>معجم الأسماء – ނަންފޮތް</title>
+    <title>معجم الأسماء – ނަންފޮތް*</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
@@ -136,9 +136,12 @@
         }
 
         /* gives back the border top to the last child of tr */
+        /*table.dataTable.row-border > tbody > tr > * */
         div.dt-container.dt-empty-footer tbody > tr:last-child > td {
           border-top: 1px solid rgba(0, 0, 0, 0.15);
-          /*table.dataTable.row-border > tbody > tr > * */
+          /* adds a bottom border too */
+          border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+          /*1px solid rgba(0, 0, 0, 0.15);*/
         }
       } /* END OF TABLET UP */
 
@@ -342,7 +345,7 @@
         // this sets the default value on table load.
         displayLength: 10,
         // CHANGE !!!
-        // arName arNoFili dvName enName arMean dvMean enMean gender source lang
+        // ar dv en arMean dvMean enMean gender source lang
         columns: [
           { title: "އަރަބި ނަން", searchable: false },
           {
