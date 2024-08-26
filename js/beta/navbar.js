@@ -65,6 +65,7 @@ function createNavbar() {
                   <li><a href=../books/radheefNanfoiy.html>ނަންފޮތް</a>
                   <li><a href=../books/radheefRasmee.html>ރަސްމީ ރަދީފު</a>
                   <li><a href=../books/radheefEegaal.html>އަލްއީޤާޡް</a>
+                  <li><a href=../books/radheefManiku.html>މަނިކުގެ ރަދީފު</a>
                </ul>
          </ul>
       <li><a href=../notes/info/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
