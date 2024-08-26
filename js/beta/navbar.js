@@ -62,7 +62,8 @@ function createNavbar() {
                <li onclick=toggleDropdown(this,event) class=sub-dropdown>
                <a><span class=dropdown-arrow>◄</span>ބަސް</a>
                <ul class=sub-dropdown-content>
-                  <li><a href=../books/radheefNanfoiy.html>ނަންފޮތް</a>
+                  <li><a href=../books/radheefAll.html>އެއްކުރަމުންދާ ރަދީފުތައް*</a>
+                  <li><a href=../books/radheefNanfoiy.html>ނަންފޮތް*</a>
                   <li><a href=../books/radheefRasmee.html>ރަސްމީ ރަދީފު</a>
                   <li><a href=../books/radheefEegaal.html>އަލްއީޤާޡް</a>
                   <li><a href=../books/radheefManiku.html>މަނިކުގެ ރަދީފު</a>

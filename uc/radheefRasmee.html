@@ -37,7 +37,8 @@
       type="text/css"
     />
     <script src="../js/beta/ALL-COMB.min.js"></script>
-    <!-- CHANGE !!! -->
+    <!-- CHANGE !!! 
+    radheef rasmee no longer in a google sheet, as it is compiled -->
     <script src="../js/beta/json/radheefRasmee.js"></script>
     <style>
       /* === --- === --- ====
@@ -140,9 +141,12 @@
         }
 
         /* gives back the border top to the last child of tr */
+        /*table.dataTable.row-border > tbody > tr > * */
         div.dt-container.dt-empty-footer tbody > tr:last-child > td {
           border-top: 1px solid rgba(0, 0, 0, 0.15);
-          /*table.dataTable.row-border > tbody > tr > * */
+          /* adds a bottom border too */
+          border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+          /*1px solid rgba(0, 0, 0, 0.15);*/
         }
       } /* END OF TABLET UP */
 
@@ -282,7 +286,7 @@
         order: [],
         // this sets the default value on table load.
         displayLength: 10,
-        // arName arNoFili dvName enName arMean dvMean enMean gender source lang
+        // dv transliteration enMean dvMean dvMainClass dvTense dvAdabiClass dvDialect dvLevel dvField dvAtoll dvExample
         columns: [
           { title: "ދިވެހި ލަފްޒު" },
           {

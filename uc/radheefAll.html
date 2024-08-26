@@ -1,332 +1,391 @@
 <!doctype html>
-<html lang="dv">
-  <!-- prevent translate popup -->
-
+<html translate="no">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- CHANGE !!! -->
     <link
       rel="canonical"
       href="https://hadithmv.github.io/books/radheefAll.html"
     />
-    <meta name="google" content="notranslate" />
-
-    <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
-    <meta name="theme-color" content="#29434e" />
-    <!-- og metadata sm link previews -->
-    <meta property="og:title" content="Hadithmv" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://hadithmv.github.io/books/radheefAll.html"
-    />
-    <meta
-      property="og:image"
-      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
-    />
-
-    <!-- change123 html -->
-    <title>Hadithmv - Arabic, Dhivehi & English Dictionary Compilation</title>
+    <title>الجامع في المعاجم – އެއްކުރަމުންދާ ރަދީފުތައް</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
     />
-    <!-- META TAGS - END -->
-
-    <!-- === EXT CSS === -->
-    <!-- non critical -->
-    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
-    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
-    <!-- === EXT CSS - END === -->
-
-    <!-- === EXT JS === -->
-    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
-    <!-- critical -->
-    <script defer src="../js/resc/COMB-Crit.min.js"></script>
-    <!-- non critical -->
-    <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
-    <!-- change123 js -->
-    <script defer src="../js/json/radheefAll.js"></script>
-    <script defer src="../js/json/radheefRasmee.js"></script>
-    <script defer src="../js/json/radheefEegaal.js"></script>
-    <script defer src="../js/json/radheefManiku.js"></script>
-
-    <script defer src="../js/json/radheefNanfoiy.js"></script>
-    <!-- keep last -->
-
-    <script defer src="../js/radheefAll-script.min.js"></script>
-    <!-- === EXT JS - END === -->
-
-    <!-- === INT CSS === -->
-
-    <style>
-      /* change123 html */
-
-      /* === --- === --- ====
-         CUSTOM COLUMN CLASSES
-         === --- === --- ==== */
-
-      /* mobile only row centering, for rows with strings that are not long */
-
-      @media screen and (max-width: 900px) {
-        .dataTable tr td.rCol1,
-      .dataTable tr td.rCol2,
-      .dataTable tr td.rCol3,
-      .dataTable tr td.rCol4,
-      .dataTable tr td.rCol7
-
-      /*
-        .dataTable tr td.rCol5,
-        .dataTable tr td.rCol6 */ {
-          text-align: center;
-        }
-      }
-
-      /* --- EN FOR TABLE --- */
-
-      /* eng */
-      /* this used to be @mixin for-phone-only {
-  @media (max-width: 599px)
-  changed it to 900px to fit up to tablet) */
-      @media (max-width: 900px) {
-        .dataTable tr td.colEng {
-          text-align: center !important;
-        }
-      }
-
-      .dataTable > thead > tr > th {
-        text-align: right !important;
-      }
-
-      /* eng 
-      .dataTable > thead > tr > th.colEng {
-        text-align: center !important;
-      }*/
-      /* text-align: left !important; */
-
-      /* reduce card box shadows since 10 items per view */
-      #datatables_buttons_info,
-      .cards tbody tr {
-        /* box-shadow: 0 12px 15px 0 rgb(0 0 0 / 24%); */
-        box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.24);
-      }
-    </style>
-    <!-- === INT CSS - END === -->
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link
+      href="../css/beta/ALL-COMB.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="../js/beta/ALL-COMB.min.js"></script>
+    <!-- CHANGE !!! 
+    <script src="../js/beta/json/radheefAll.js"></script> -->
+    <style></style>
   </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="footer">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
+          <button
+            id="toggleFiliButton"
+            class="customButtons"
+            onclick="toggleFili();filiString();scrollUpTop()"
+          >
+            &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
+          </button>
 
-  <body translate="no">
-    <div id="page">
-      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
-      <!-- adding fixed or custom writing z index breaks on mobile -->
-      <div class="header fixed" onclick="drawer.open();">
-        <!-- hamburger -->
-        <a href="#menu"><span></span></a>
-        <a class="menuLeftIcon" href="index.html"
-          ><img
-            class="hmvLogo1"
-            alt="hadith mv"
-            loading="lazy"
-            src="../img/logo/logo.svg"
-        /></a>
-        <span class="hideOnPhoneOnly">الجامع في المعاجم – </span>
-        <span>އެއްކުރަމުންދާ ރަދީފުތައް</span>
+          <script>
+            function toggleFili() {
+              var isVisible = $("#tableID").DataTable().column(0).visible();
+              $("#tableID").DataTable().column(0).visible(!isVisible);
 
-        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
-        <nav id="menu">
-          <ul>
-            <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
+              var isVisible = $("#tableID").DataTable().column(1).visible();
+              $("#tableID").DataTable().column(1).visible(!isVisible);
+            }
+          </script>
 
-            <li>
-              <a href="../books/index.html">● މައި ސަފުހާ</a>
-            </li>
+          <hr />
 
-            <!--<li>
-              <span>● ފޮތް ބަދަލުކުރުމަށް</span>
-              <ul>-->
+          <p class="ltrText" style="font-size: 20px">
+            "The text presented here is exclusively for research and educational
+            purposes. It is intended for non-commercial fair use only."
+          </p>
+        </div>
+        <!-- <div class="centerAlignedText"> END -->
+        <hr />
 
-            <div class="menuListInList">
-              <li>
-                <a onclick="changeBookRadheef('radheefAll')"
-                  >1 އެއްކުރަމުންދާ ރަދީފުތައް</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookRadheef('radheefRasmee')"
-                  >2 ރަސްމީ ރަދީފު</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookRadheef('radheefEegaal')">3 އަލްއީގާޡް</a>
-              </li>
-              <li>
-                <a onclick="changeBookRadheef('radheefManiku')"
-                  >4 މަނިކުގެ ރަދީފު</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookRadheef('radheefNanfoiy')">5 ނަންފޮތް</a>
-              </li>
-            </div>
-            <!--</ul>
-            </li>-->
+        <p class="rightAlignedText">
+          މިއީ ޙަދީޘްއެމްވީގައިވާ ހުރިހާ ރަދީފުތަކެއް އެއް ތަނަކުން ސާޗްކުރެވޭ
+          ސަފުހާއެވެ.
+        </p>
 
-            <!-- moved to hmv-script, and from there to COMB-nonCrit.min
-            <script>
-              // change url to change to another book while preserving query terms
-              function changeBookRadheef(newBook) {
-                window.location = window.location
-                  .toString()
-                  .replace(
-                    /radheefAll|radheefRasmee|radheefEegaal|radheefManiku/g,
-                    newBook
-                  )
-                  .replace(/\:v.*$/, "");
-              }
-            </script>-->
+        <hr />
 
-            <li>
-              <a href="../notes/info/contact.html"
-                >ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a
-              >
-            </li>
-
-            <li>
-              <a href="../notes/info/helpTranslate.html"
-                >ތަރުޖަމާގައި އެހީވެދިނުމަށް</a
-              >
-            </li>
-
-            <li>
-              <a href="../notes/info/FAQ.html"
-                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
-              >
-            </li>
-
-            <li>
-              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
-            </li>
-
-            <li class="hmvVer" onclick="openDiv();">
-              <a class="versionNo">⚙️ އިސްދާރު: v</a>
-            </li>
-
-            <li>
-              <a href="https://t.me/ashraafmv"
-                >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-              >
-            </li>
-            <li class="madani">
-              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
-            </li>
-            <li>
-              <a onClick="window.location.reload()">🔄 މަޑު ރީލޯޑު</a>
-            </li>
-            <li>
-              <a
-                onclick="window.location.href = window.location.href.split('.html')[0] + '.html';"
-                >ހަރު ރީލޯޑު</a
-              >
-            </li>
-          </ul>
-        </nav>
-        <!-- <nav id="menu"> -->
+        <p class="rightAlignedText">
+          ⚠️ މިތާ ލައްކައަކަށް ވުރެ ގިނަ ލަފްޒު ހިމެނިފައިވާ އިރު، ބައެއް
+          ލަފްޒުތަކާއި މާނަތަކުގައި މައްސަލަ އުޅޭނެއެވެ. ވީމާ މި ކަމަށް
+          ސަމާލުވެ، ވިސްނައިގެން ކުރިއަށް ގެންދާށެވެ.
+        </p>
       </div>
-      <!-- <div class="header fixed" onclick="drawer.open();"> -->
-
-      <div class="content">
-        <main>
-          <!-- class="w3-animate-right" -->
-          <!-- --- TABLE --- -->
-          <!-- JEKYLL {{ content }} -->
-          <!-- cards js adds card classes to table ID -->
-          <!-- change123 TABLE -->
-          <!-- class="stripe table cards"> -->
-          <table id="radheefAllTable" class="stripe table"></table>
-          <!-- --- TABLE - END --- -->
-          <div class="hidden" id="footer">
-            <button class="lowerButtons" onclick="copyURLToClipButton();">
-              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
-            </button>
-
-            <button
-              id="toggleFiliButton"
-              class="lowerButtons"
-              onclick="toggleFili();filiString();scrollUpTop()"
-            >
-              &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
-            </button>
-
-            <script>
-              function toggleFili() {
-                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
-
-                var isVisible = $("#radheefAllTable")
-                  .DataTable()
-                  .column(0)
-                  .visible();
-                $("#radheefAllTable").DataTable().column(0).visible(!isVisible);
-
-                var isVisible = $("#radheefAllTable")
-                  .DataTable()
-                  .column(1)
-                  .visible();
-                $("#radheefAllTable").DataTable().column(1).visible(!isVisible);
-              }
-            </script>
-
-            <p>
-              ⚠️ މި ރަދީފުގައި ލައްކައަށް ވުރެ ގިނަ ލަފްޒު ހިމެނިފައިވާ އިރު،
-              އަދި މުޅިން ފުރިހަމައަށް އެކުލަވާލެވި މުރާޖާކޮށް ނުއެއް ނިމެއެވެ.
-              އަދި ބައެއް ލަފްޒުތަކުގައި މައްސަލަ ވެސް އުޅޭނެއެވެ. އެހެންވީމާ މި
-              ކަންކަމަށް ސަމާލުވެ، އަހައްމިއްޔަތުކަން ދިނުންހުއްޓެވެ.
-            </p>
-
-            <p style="text-align: middle; direction: ltr">
-              "The text presented here is exclusively for research and
-              educational purposes. It is intended for non-commercial fair use
-              only."
-            </p>
-
-            <!--<p>
-              އަލިފުބާ ތަރުތީބަށް ހެދުމަށް ޑެސްކްޓޮޕުގައި އެންމެ މަތީގައިވާ
-              އަރަބި / ދިވެހި / އިނގިރޭސި ލަފްޒު އިން ތަނަށް ފިތާލައްވާ
-            </p>-->
-
-            <!--
-            
-
-            -->
-          </div>
-          <!-- <div class="hidden" id="footer"> -->
-        </main>
-        <!-- <main> -->
-      </div>
-      <!-- <div class="content"> -->
     </div>
-    <!-- <div id="page"> -->
+    <script type="text/javascript">
+      // CHANGE !!!
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+      // Initialize an empty array to hold the datasets
+      var dataSets = [];
+      // array list of dataset files to load data from
+      /*var datasetFiles = [
+              "../js/beta/json/radheefAll.js",
+              "../js/beta/json/arbaoonNawawi.js",
+            ];*/
+      // Add more files as needed
+      var datasetFiles = [
+        // 0ar 1dv 2en 3arMean 4dvMean 5enMean
+        "radheefAll.js",
+        // radheef rasmee no longer in a google sheet, as it is compiled
+        // rasmee: 0dv 1transliteration 2enMean 3dvMean 4dvMainClass 5dvTense 6dvAdabiClass 7dvDialect 8dvLevel 9dvField 10dvAtoll 11dvExample
+        //NEED: 0 2 3
+        "radheefRasmee.js",
+        // arName ar dv pageNo
+        //NEED: 0 1 2
+        "radheefEegaal.js",
+        // transliteration dv enType enMean
+        "radheefManiku.js",
+        // 0ar 1dv 2en 3arMean 4dvMean 5enMean 6gender 7source 8lang
+        //NEED: 0 1 2 3 4 5
+        "radheefNanfoiy.js",
+        // Add other dataset files here
+      ].map((file) => `../js/beta/json/${file}`);
+
+      // Configuration for each dataset, in order
+      var datasetConfigs = [
+        // Columns to keep (0-based index)
+        // New order (after new column added)
+        // New column with "text"
+        /*{
+                // allAthar
+                // book	#	arText	dvText	Takhrij
+                columnsToKeep: null, // Keep all columns as they are
+                columnOrder: null, // Maintain the existing order of columns
+                newColumns: [], // No new columns to add
+              },*/
+        {
+          columnsToKeep: [0, 1, 2, 3, 4, 5],
+          //columnOrder: [0, 1, 2, 3, 4], // New order for the columns after adding new columns
+          //columnOrder: null, // Maintain the existing order of columns
+          // Remove or set to null: columnOrder: null,
+          //newColumns: [{ value: "radheefAll" }], // Add a new column with the value "text" in each row
+        },
+        {
+          columnsToKeep: [0, 2, 3],
+          //newColumns: [{ value: "radheefRasmee" }],
+        },
+        {
+          columnsToKeep: [0, 1, 2],
+          //newColumns: [{ value: "radheefEegaal" }],
+        },
+        {
+          columnsToKeep: [0, 3, 5, 6],
+          //newColumns: [{ value: "radheefManiku" }],
+        },
+        {
+          columnsToKeep: [0, 1, 2, 3, 4, 5],
+          //newColumns: [{ value: "radheefNanfoiy" }],
+        },
+        //
+      ];
+
+      // Function to process each dataset
+      function processDataSet(dataset, config, filename) {
+        let processedData = dataset.map((row) => {
+          let newRow = [];
+
+          // Keep only the specified columns from the original data
+          config.columnsToKeep.forEach((col) => {
+            newRow.push(row[col] == null ? "" : row[col]);
+          });
+
+          // Add the dataset name as the first column only if newColumns is specified
+          if (config.newColumns && config.newColumns.length > 0) {
+            newRow.unshift(config.newColumns[0].value);
+          }
+
+          return newRow;
+        });
+
+        // Reorder columns if a specific order is specified in the config
+        if (config.columnOrder) {
+          processedData = processedData.map((row) => {
+            return config.columnOrder.map(
+              (orderIndex) => row[orderIndex] || ""
+            );
+          });
+        }
+
+        // Return processed data along with the filename for identification
+        return { data: processedData, filename: filename };
       }
-      gtag("js", new Date());
 
-      gtag("config", "G-HL24Q9NN24");
+      // Function to load all datasets
+      function loadDatasets(files, configs, callback) {
+        var loaded = 0;
+        files.forEach(function (file, index) {
+          // Create a script element to load the dataset file
+          var script = document.createElement("script");
+          script.src = file;
+          script.onload = function () {
+            // Process the loaded data and store it in dataSets array
+            dataSets[index] = processDataSet(data, configs[index], file);
+            loaded++;
+            // If all datasets are loaded, call the callback function
+            if (loaded === files.length) {
+              callback();
+            }
+          };
+          document.head.appendChild(script);
+        });
+      }
+
+      // Load all datasets and then process them
+      loadDatasets(datasetFiles, datasetConfigs, function () {
+        // Find the indices of the two datasets we want to combine
+        /*const barbarahiIndex = dataSets.findIndex((ds) =>
+          ds.filename.includes("sharhuSunnahBarbahari.js")
+        );
+        const barbarahiDFKIndex = dataSets.findIndex((ds) =>
+          ds.filename.includes("sharhuSunnahBarbahari-DFK.js")
+        );
+
+        // If both datasets are found, combine them
+        if (barbarahiIndex !== -1 && barbarahiDFKIndex !== -1) {
+          // Combine the datasets
+          dataSets[barbarahiDFKIndex].data = dataSets[
+            barbarahiDFKIndex
+          ].data.map((row, index) => {
+            const barbarahiRow = dataSets[barbarahiIndex].data[index] || [];
+            return [
+              row[0], // Dataset name
+              barbarahiRow[1] || "", // First column from sharhuSunnahBarbahari
+              barbarahiRow[2] || "", // Second column from sharhuSunnahBarbahari
+              row[1] || "", // First column from sharhuSunnahBarbahari-DFK
+              row[2] || "", // Second column from sharhuSunnahBarbahari-DFK
+            ];
+          });
+        }*/
+
+        // Flatten the dataSets array to get a single array of all rows
+        var combinedDataSet = dataSets.flatMap((ds) => ds.data);
+
+        // Log the combined dataset to the console. uncomment this to see the object array
+        console.log(combinedDataSet);
+
+        // Initialize the DataTable with the combined dataset and specified configuration
+        var table = new DataTable("#tableID", {
+          ...DTconfig, // Existing DataTable configuration spreadd from external file source
+          data: combinedDataSet, // Set the combined dataset as the data for the table
+
+          //columns: [null, null, null, null, null],
+          /*columns: [
+                  { title: "New Column Title" }, // Title for the new column ? added in the second dataset ? or just title
+                  { title: "Column 1" },
+                  { title: "Column 2" },
+                  { title: "Column 3" },
+                  { title: "Column 4" },
+                ],*/
+
+          /*});
+            });*/
+
+          //
+
+          // 0ar 1dv 2en 3arMean 4dvMean 5enMean
+          columns: [
+            { title: "އަރަބި ލަފްޒު", searchable: false },
+            {
+              title: "އަރަބި ފިލިނުޖަހާ",
+              data: 0,
+              render: (data) => removeThashkeel(data),
+              visible: false,
+            },
+            {
+              title: "ދިވެހި ލަފްޒު",
+              data: 1,
+            },
+            {
+              title: "އިނގިރޭސި ލަފްޒު",
+              data: 2,
+            },
+            {
+              title: "އަރަބި މާނަ",
+              data: 3,
+            },
+            {
+              title: "ދިވެހި މާނަ",
+              data: 4,
+            },
+            {
+              title: "އިނގިރޭސި މާނަ",
+              data: 5,
+            },
+          ],
+          columnDefs: [...columnDefsconfig],
+        });
+        //
+
+        // due to the way multiple js array dataset files are dynamically loaded with datatable initialize being async, the focus code is  running before the table is fully initialized and the search input code or whaterver is available. instead of changing the external config, this can be fixed moving the focus code inside the callback that initializes the DataTable below, ensure it runs after the table is fully initialized and the search input code or whatever is available in the DOM. still currently getting a initialize-dt.js:31  Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')
+
+        /* from the initialize-dt.js, everything from between -
+      document.addEventListener("DOMContentLoaded", function () {
+        if (!isMobile) {
+            $("div.dt-search .dt-input").focus();
+        - till the end of that function was copied as is here, and any updates there will need to be brought here */
+
+        // EXECUTE AFTER DATATALE IS INITIALIZED
+        // document.dispatchEvent(new Event("dataTableInitialized"));
+        if (!isMobile) {
+          $("div.dt-search .dt-input").focus();
+
+          table.on("page", function () {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          });
+        } else {
+          table.on("page", function () {
+            const trElement = document.querySelector("tbody tr");
+            const navbarHeight = document.querySelector(".navbar").offsetHeight;
+
+            const trPosition =
+              trElement.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = trPosition - navbarHeight;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          });
+
+          delete Hammer.defaults.cssProps.userSelect;
+
+          Hammer(document.querySelector(".dataTable")).on(
+            "swipeleft",
+            function () {
+              table.page("previous").draw("page");
+            }
+          );
+
+          Hammer(document.querySelector(".dataTable")).on(
+            "swiperight",
+            function () {
+              table.page("next").draw("page");
+            }
+          );
+        }
+
+        $(".dt-paging-input input")
+          .prop("type", "search")
+          .attr("placeholder", "ސަފުހާ");
+
+        $("tbody").on("dblclick", "tr", function () {
+          if (table.search() !== "") {
+            table.search("").draw();
+          }
+          table.row(this).draw().show().select().draw(false);
+        });
+
+        $(".dt-search .dt-input").on("keyup click", function () {
+          var str = $(this).val();
+          str = str.replace(
+            /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
+            ""
+          );
+          $(this).val(str);
+        });
+        // END
+
+        //
+      });
+      /*
+            var table = new DataTable("#tableID", {
+              ...DTconfig,
+            });
+            */
     </script>
-    <!-- End Google Analytics -->
-
-    <!-- === INT JS - END === -->
   </body>
 </html>
 
 <!--
-HH dic additions so far:
+
+HH D ADDs so far:
 
 a
 b
@@ -336,4 +395,5 @@ e
 f
 ...
 m
+
 -->

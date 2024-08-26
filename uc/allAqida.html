@@ -147,8 +147,8 @@
           <hr />
 
           <p class="rightAlignedText">
-            ⚠️ ނޯޓު: މިއީ ޙަދީޘްއެމްވީގައިވާ ހުރިހާ އަގީދާ ފޮތްތައް އެއް
-            ތަނަކުން ސާޗް ކުރެވޭ ސަފުހާއެވެ.
+            މިއީ ޙަދީޘްއެމްވީގައިވާ ހުރިހާ އަގީދާ ފޮތްތައް އެއް ތަނަކުން
+            ސާޗްކުރެވޭ ސަފުހާއެވެ.
           </p>
         </div>
       </div>
@@ -335,6 +335,7 @@
 
           //
 
+          // CHANGE !!!
           // book	#	arText	dvText	Takhrij
           columns: [
             { title: "ފޮތް އަރަބިން" },
@@ -371,11 +372,10 @@
               title: "އަރަބި ލިޔުން",
               data: 2,
               searchable: false,
-              visible: false, //FOR ALL TABLES
+              visible: false, //FOR ALL TABLES, default is to show non fili
             },
             {
               title: "އަރަބި ފިލިނުޖަހާ",
-              // CHANGE !!!
               data: 2,
               render: (data) => removeThashkeel(data),
             },
