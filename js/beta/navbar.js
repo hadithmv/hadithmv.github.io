@@ -64,6 +64,7 @@ function createNavbar() {
                <ul class=sub-dropdown-content>
                   <li><a href=../books/radheefNanfoiy.html>ނަންފޮތް</a>
                   <li><a href=../books/radheefRasmee.html>ރަސްމީ ރަދީފު</a>
+                  <li><a href=../books/radheefEegaal.html>އަލްއީޤާޡް</a>
                </ul>
          </ul>
       <li><a href=../notes/info/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>

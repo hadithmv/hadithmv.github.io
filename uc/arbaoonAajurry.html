@@ -295,6 +295,7 @@
       var table = new DataTable("#tableID", {
         ...DTconfig,
         data: data,
+        // CHANGE !!!
         // #	arTitle	dvTitle	arab	dhiv	arRef	sharhAr	sharhDv
         columns: [
           { title: "#" },
@@ -303,7 +304,6 @@
           { title: "އަރަބި ލިޔުން", searchable: false },
           {
             title: "އަރަބި ފިލިނުޖަހާ",
-            // CHANGE !!!
             data: 3,
             visible: false,
             render: (data) => removeThashkeel(data),

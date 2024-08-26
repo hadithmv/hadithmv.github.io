@@ -536,6 +536,7 @@
       var table = new DataTable("#tableID", {
         ...DTconfig,
         data: combinedData,
+        // CHANGE !!!
         // dfkText dfkFootnote
         // # arText	dvText takhrij
         //columns: [null,null,null,null,null],
@@ -544,7 +545,6 @@
           { title: "އަރަބި ލިޔުން", searchable: false },
           {
             title: "އަރަބި ފިލިނުޖަހާ",
-            // CHANGE !!!
             data: 1,
             render: (data) => removeThashkeel(data),
             visible: false,

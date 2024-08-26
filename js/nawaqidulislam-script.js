@@ -210,7 +210,7 @@ $(document).ready(() => {
         },
       },
       {
-        className: "ColEng", // Eng Text
+        className: "colEng", // Eng Text
         targets: [7],
         visible: false,
         searchable: true,
