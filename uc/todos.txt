@@ -43,3 +43,5 @@ check novelty maniku, does main book come before references section?
 replace mirrors entirely with just link to 404?
 
 add bahuge stuff to lang side bar dropdown
+
+hiding fili does not preserve linebreaks
