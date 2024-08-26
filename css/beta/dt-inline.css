@@ -307,7 +307,7 @@ https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/140
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
   -webkit-font-smoothing: antialiased;
   text-align: right;
   direction: rtl;
@@ -555,7 +555,7 @@ div.dt-container .dt-search input {
   > div.dt-inputpaging.dt-paging
   > div
   > input[type="search"]::placeholder {
-  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
   text-indent: 5px;
   font-size: 90%;
 }
@@ -895,7 +895,7 @@ div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
 }
 /* ==================== FONTS CSS ==================== */
 html {
-  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
   -webkit-font-smoothing: antialiased;
   /* text-align: right;
     direction: rtl;
@@ -923,7 +923,7 @@ html {
 .dtsp-clearAll,
 .dtsb-button,
 .dtsb-dropDown {
-  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
   -webkit-font-smoothing: antialiased;
   text-align: right;
   direction: rtl;
