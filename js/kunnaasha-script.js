@@ -180,13 +180,7 @@ $(document).ready(() => {
           //console.log('<a href="' + url + '">' + links + "</a>");
           //return '<a href="' + url + '">' + links + "</a>";
           // added new tab
-          return (
-            '<a href="' +
-            url +
-            '" rel="noopener noreferrer" target="_blank">' +
-            links +
-            "</a>"
-          );
+          return '<a href="' + url + '"  target="_blank">' + links + "</a>";
         },
       },
 
