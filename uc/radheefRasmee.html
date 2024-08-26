@@ -1,349 +1,444 @@
 <!doctype html>
-<html lang="dv">
-  <!-- prevent translate popup -->
-
+<html translate="no">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- CHANGE !!! -->
     <link
       rel="canonical"
       href="https://hadithmv.github.io/books/radheefRasmee.html"
     />
-    <meta name="google" content="notranslate" />
-
-    <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
-    <meta name="theme-color" content="#29434e" />
-    <!-- og metadata sm link previews -->
-    <meta property="og:title" content="Hadithmv" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://hadithmv.github.io/books/radheefRasmee.html"
-    />
-    <meta
-      property="og:image"
-      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
-    />
-
-    <!-- change123 html -->
-    <title>The Dictionary of Dhivehi Language</title>
+    <title>معجم اللغة الدفهية – ދިވެހިބަހުގެ ރަދީފު</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
     />
-    <!-- META TAGS - END -->
-
-    <!-- === EXT CSS === -->
-    <!-- non critical -->
-    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
-    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
-    <!-- === EXT CSS - END === -->
-
-    <!-- === EXT JS === -->
-    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
-    <!-- critical -->
-    <script defer src="../js/resc/COMB-Crit.min.js"></script>
-    <!-- non critical -->
-    <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
-    <!-- change123 js -->
-    <script defer src="../js/json/radheefRasmee.js"></script>
-    <script defer src="../js/radheefRasmee-script.min.js"></script>
-    <!-- === EXT JS - END === -->
-
-    <!-- === INT CSS === -->
-
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link
+      href="../css/beta/ALL-COMB.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="../js/beta/ALL-COMB.min.js"></script>
+    <!-- CHANGE !!! -->
+    <script src="../js/beta/json/radheefRasmee.js"></script>
     <style>
-      /* change123 html */
-
       /* === --- === --- ====
-         CUSTOM COLUMN CLASSES
-         === --- === --- ==== */
+      CUSTOM CSS
+      === --- === --- ==== */
 
-      /* mobile only row centering, for rows with strings that are not long */
-      /* center-justify the last line of text */
-      @media screen and (max-width: 900px) {
-        .dataTable tr td {
-          /*text-align: justify;*/
-          text-align-last: center;
+      /* only for MOBILE size */
+
+      @media (max-width: 599px) {
+        /* removes stripe and column ordering class code */
+        :root {
+          --dt-row-stripe: none; /* 0, 0, 0*/
+          /*--dt-row-hover: 0, 0, 0;*/
+          --dt-column-ordering: none; /* 0, 0, 0*/
         }
-      }
 
-      /* eng */
-      /* this used to be @mixin for-phone-only {
-  @media (max-width: 599px)
-
-  changed it to 900px to fit up to tablet) */
-      @media (max-width: 900px) {
-        .dataTable tr td.ColEng {
-          text-align: center !important;
+        table.dataTable.row-border > tbody > tr > * {
+          /*border-top: 1px solid rgba(0, 0, 0, 0.15);*/
+          border-top: none;
         }
-      }
+        /* center align english on mobile */
+        td.ColEng {
+          text-align: center;
+        }
+      } /* END OF MOBILE */
 
-      .dataTable > thead > tr > th {
-        text-align: right !important;
-      }
+      /* only for TABLET size and up */
+      @media (min-width: 600px) {
+        /* UNDOES OG CARDS CODE */
 
-      /* reduce card box shadows since 10 items per view */
-      #datatables_buttons_info,
-      .cards tbody tr {
-        /* box-shadow: 0 12px 15px 0 rgb(0 0 0 / 24%); */
-        box-shadow: 0 1px 1.5px 0 rgba(0, 0, 0, 0.2);
+        .cards tbody tr {
+          /*margin: 0;*/ /* 0.5rem; just top and bottom? */
+          margin-top: 0;
+          margin-bottom: 0;
+          border: none; /* 0.0911rem solid #c4c6d0;*/
+          /*border-radius: 24px;*/
+        }
+        .cards tbody td {
+          display: table-cell; /* block; */
+        }
+
+        /* */
+
+        /* OTHER CARDS STUFF */
+
+        .cards tbody tr {
+          padding: initial; /* 20px ? */
+        }
+
+        .cards tbody {
+          display: table-row-group; /*flex*/
+          flex-direction: row; /* column */
+          align-items: normal; /* stretch */
+        }
+
+        /* */
+
+        /* OTHER STUFF */
+
+        /* brings back the th table header above columns, hidden in card view */
+        thead {
+          display: table-header-group; /* none */
+        }
+        /* brings back colgroup cols removed, for card view. this effects table class hover. however this code isnt working.
+        .dt-container > colgroup > col:not(:nth-child(0)) {
+        display: table-column;
+          } */
+        table.dataTable > thead > tr > th > span.dt-column-title {
+          /* makes table headers not bold */
+          font-weight: normal;
+          font-size: 20px;
+          color: #555;
+        }
+        table.dataTable > thead > tr > th {
+          /* vertically aligns to top */
+          vertical-align: top;
+          /* centers */
+          text-align: center;
+          /* */
+          line-height: 1.5;
+        }
+        /* reduces right and left padding of th, making that row smaller */
+        div.dt-layout-cell.dt-layout-full > table.dataTable > thead > tr > th {
+          padding-right: 20px;
+          padding-left: 0;
+        }
+
+        /* removes margin spaces at edges of table */
+        div.dt-container {
+          margin-right: 0;
+          margin-left: 0;
+        }
+        /* since we removed spaces above, we add them inside the padding of the right of first column, and left of last column */
+        #tableID > tbody > tr > td:first-child {
+          padding-right: 10px;
+          padding-left: 10px;
+        }
+        #tableID > tbody > tr > td:last-child {
+          padding-left: 10px;
+        }
+
+        /* gives back the border top to the last child of tr */
+        div.dt-container.dt-empty-footer tbody > tr:last-child > td {
+          border-top: 1px solid rgba(0, 0, 0, 0.15);
+          /*table.dataTable.row-border > tbody > tr > * */
+        }
+      } /* END OF TABLET UP */
+
+      /* right align and direction for english columns */
+      .ColEng {
+        text-align: center;
+        direction: ltr;
+        font-size: 20px;
       }
     </style>
-    <!-- === INT CSS - END === -->
   </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <!-- class="cards" display stripe>
+       https://datatables.net/examples/styling/display.html -->
+      <table
+        id="tableID"
+        class="cards stripe row-border compact"
+        width="100%"
+      ></table>
+      <div class="footer">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
 
-  <body translate="no">
-    <div id="page">
-      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
-      <!-- adding fixed or custom writing z index breaks on mobile -->
-      <div class="header fixed" onclick="drawer.open();">
-        <!-- hamburger -->
-        <a href="#menu"><span></span></a>
-        <a class="menuLeftIcon" href="index.html"
-          ><img
-            class="hmvLogo1"
-            alt="hadith mv"
-            loading="lazy"
-            src="../img/logo/logo.svg"
-        /></a>
-        <span class="hideOnPhoneOnly">معجم اللغة الدفهية – </span>
-        <span>ދިވެހިބަހުގެ ރަދީފު</span>
+          <hr />
 
-        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
-        <nav id="menu">
-          <ul>
-            <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
+          <p class="englishText" style="font-size: 20px">
+            "The text presented here is exclusively for research and educational
+            purposes. It is intended for non-commercial fair use only."
+          </p>
 
-            <li>
-              <a href="../books/index.html">● މައި ސަފުހާ</a>
-            </li>
+          <hr />
 
-            <div class="menuListInList">
-              <li>
-                <a onclick="changeBookRadheef('radheefAll')"
-                  >1 އެއްކުރަމުންދާ ރަދީފުތައް</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookRadheef('radheefRasmee')"
-                  >2 ރަސްމީ ރަދީފު</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookRadheef('radheefEegaal')">3 އަލްއީގާޡް</a>
-              </li>
-              <li>
-                <a onclick="changeBookRadheef('radheefManiku')"
-                  >4 މަނިކުގެ ރަދީފު</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookRadheef('radheefNanfoiy')">5 ނަންފޮތް</a>
-              </li>
-            </div>
+          <p>
+            ⚠️ މި ސަފުހާގައި ތަކުރާރުވާ ބައެއް އިނގިރޭސި މާނަތައް
+            އެކުލަވާލެވިފައިވާ ގޮތުގައި މައްސަލަ އުޅޭނެއެވެ.
+          </p>
 
-            <li>
-              <a href="../notes/info/contact.html"
-                >ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a
-              >
-            </li>
+          <hr class="lineVerticalSpace" />
 
-            <li>
-              <a href="../notes/info/helpTranslate.html"
-                >ތަރުޖަމާގައި އެހީވެދިނުމަށް</a
-              >
-            </li>
+          <p>The Dictionary of Dhivehi Language</p>
 
-            <li>
-              <a href="../notes/info/FAQ.html"
-                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
-              >
-            </li>
+          <p>ދިވެހިބަހުގެ ރަދީފު</p>
 
-            <li>
-              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
-            </li>
+          <p>
+            ރަސްމީ ރަދީފުގެ
+            <a
+              href="https://www.radheef.mv"
+              rel="noopener noreferrer"
+              target="_blank"
+              >ވެބްސައިޓު</a
+            >
+            |
+            <a
+              href="https://play.google.com/store/apps/details?id=mv.edu.dhivehiacademy.radheef"
+              rel="noopener noreferrer"
+              target="_blank"
+              >އެޕް</a
+            >
+          </p>
+        </div>
+        <!-- <div class="centerAlignedText"> END -->
+        <hr />
 
-            <li class="hmvVer" onclick="openDiv();">
-              <a class="versionNo">⚙️ އިސްދާރު: v</a>
-            </li>
+        <h3>މައުލޫމާތު: ރަދީފުގައިވާ ލަފުޒުތަކުގެ މައި ގިންތިތައް</h3>
 
-            <li>
-              <a href="https://t.me/ashraafmv"
-                >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-              >
-            </li>
-            <li class="madani">
-              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
-            </li>
-            <li>
-              <a onClick="window.location.reload()">🔄 މަޑު ރީލޯޑު</a>
-            </li>
-            <li>
-              <a
-                onclick="window.location.href = window.location.href.split('.html')[0] + '.html';"
-                >ހަރު ރީލޯޑު</a
-              >
-            </li>
-          </ul>
-        </nav>
-        <!-- <nav id="menu"> -->
+        <p>މައި ގިންތި</p>
+        <ul>
+          <li>ނަން</li>
+          <li>މަސްދަރު (ކަމުގެ ނަން)</li>
+          <li>ނަންއިތުރު</li>
+          <li>ކަން</li>
+          <li>ކަންއިތުރު</li>
+          <li>އިތުރު</li>
+          <li>އަކުރު</li>
+          <li>ނަންއިތުރުގެ ނަން</li>
+          <li>އަދަބީ ބަސް</li>
+        </ul>
+
+        <p>އަދަބީ ގިންތި</p>
+        <ul>
+          <li>މަޖާޒު</li>
+          <li>މަޖާޒީ މިސާލު</li>
+          <li>މިސާލުބަސް</li>
+          <li>ހަރުބަސް</li>
+          <li>މުސްކުޅިބަސް</li>
+        </ul>
+
+        <hr />
+
+        <h3>ތަޢާރަފު</h3>
+
+        <p>
+          މިއީ 2000ވަނަ އަހަރާއި 2006ވަނަ އަހަރު ދިވެހިބަހާއި ތާރީޚަށް
+          ޚިދުމަތްކުރާ ޤައުމީ މަރުކަޒުގެ ފަރާތުން ނެރުނު ބަސް ސީޑީއާއި 2011ވަނަ
+          އަހަރު ޤައުމީ ޔުނިވަރސިޓީގެ ދަށުގައި ބަހާއި ތާރީޚުގެ ބައި އޮތް އިރު
+          ނެރުއްވި ދިވެހި ބަސްފޮތުގައި ހިމެނޭ ލަފުޒުތައް ހިމަނައިގެން 2019 ވަނަ
+          އަހަރު "ބަސްދާރު"ގެ ނަމުގައި ޑޭޓާބޭހެއް އުފައްދައި އެ ޑޭޓާބޭހުގެ
+          އެހީތެރިކަމާއެކު، ކުރިން ނެރެފައިވާ ބަސްފޮތަށް ބޮޑެތި ބަދަލުތައް
+          ގެނެސް އައު އިސްލާހުތަކާއެކު ނެރެފައިވާ "ދިވެހިބަހުގެ ރަދީފު"އެވެ".
+        </p>
+
+        <hr />
+
+        <div class="englishText leftAlignedText">
+          <h3>Technical notes</h3>
+
+          <p>
+            <a
+              href="https://play.google.com/store/apps/details?id=mv.edu.dhivehiacademy.radheef"
+              rel="noopener noreferrer"
+              target="_blank"
+              >Dhivehi Bahuge Radheef</a
+            >
+            <br />
+            mv.edu.dhivehiacademy.radheef, v2.2.7
+            <br />
+            DB version used: 18/2/24
+            <br />
+            This page was updated: 14/6/24
+          </p>
+        </div>
       </div>
-      <!-- <div class="header fixed" onclick="drawer.open();"> -->
-
-      <div class="content">
-        <main>
-          <!-- class="w3-animate-right" -->
-          <!-- --- TABLE --- -->
-          <!-- JEKYLL {{ content }} -->
-          <!-- cards js adds card classes to table ID -->
-          <!-- change123 TABLE -->
-          <!-- class="stripe table cards"> -->
-          <table id="radheefRasmeeTable" class="stripe table"></table>
-          <!-- --- TABLE - END --- -->
-          <div class="hidden" id="footer">
-            <button class="lowerButtons" onclick="copyURLToClipButton();">
-              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
-            </button>
-
-            <p>
-              ⚠️ މި ސަފުހާގައި ތަކުރާރުވާ ބައެއް އިނގިރޭސި މާނަތައް
-              އެކުލަވާލެވިފައިވާ ގޮތުގައި މައްސަލަ އުޅޭނެއެވެ.
-            </p>
-
-            <hr class="lineVerticalSpace" />
-
-            <p>The Dictionary of Dhivehi Language</p>
-
-            <p>ދިވެހިބަހުގެ ރަދީފު</p>
-
-            <p>
-              ރަސްމީ ރަދީފުގެ
-              <a
-                href="https://www.radheef.mv"
-                rel="noopener noreferrer"
-                target="_blank"
-                >ވެބްސައިޓު</a
-              >
-              |
-              <a
-                href="https://play.google.com/store/apps/details?id=mv.edu.dhivehiacademy.radheef"
-                rel="noopener noreferrer"
-                target="_blank"
-                >އެޕް</a
-              >
-            </p>
-
-            <p style="text-align: middle; direction: ltr">
-              "The text presented here is exclusively for research and
-              educational purposes. It is intended for non-commercial fair use
-              only."
-            </p>
-
-            <hr class="lineVerticalSpace" />
-
-            <div class="justi">
-              <h3 class="mid">
-                <a>މައުލޫމާތު: ރަދީފުގައިވާ ލަފުޒުތަކުގެ މައި ގިންތިތައް</a>
-              </h3>
-
-              <p>މައި ގިންތި</p>
-              <ul>
-                <li>ނަން</li>
-                <li>މަސްދަރު (ކަމުގެ ނަން)</li>
-                <li>ނަންއިތުރު</li>
-                <li>ކަން</li>
-                <li>ކަންއިތުރު</li>
-                <li>އިތުރު</li>
-                <li>އަކުރު</li>
-                <li>ނަންއިތުރުގެ ނަން</li>
-                <li>އަދަބީ ބަސް</li>
-              </ul>
-
-              <p>އަދަބީ ގިންތި</p>
-              <ul>
-                <li>މަޖާޒު</li>
-                <li>މަޖާޒީ މިސާލު</li>
-                <li>މިސާލުބަސް</li>
-                <li>ހަރުބަސް</li>
-                <li>މުސްކުޅިބަސް</li>
-              </ul>
-
-              <hr class="lineVerticalSpace" />
-
-              <h3 class="mid">
-                <a>ތަޢާރަފު</a>
-              </h3>
-
-              <p>
-                މިއީ 2000ވަނަ އަހަރާއި 2006ވަނަ އަހަރު ދިވެހިބަހާއި ތާރީޚަށް
-                ޚިދުމަތްކުރާ ޤައުމީ މަރުކަޒުގެ ފަރާތުން ނެރުނު ބަސް ސީޑީއާއި
-                2011ވަނަ އަހަރު ޤައުމީ ޔުނިވަރސިޓީގެ ދަށުގައި ބަހާއި ތާރީޚުގެ
-                ބައި އޮތް އިރު ނެރުއްވި ދިވެހި ބަސްފޮތުގައި ހިމެނޭ ލަފުޒުތައް
-                ހިމަނައިގެން 2019 ވަނަ އަހަރު "ބަސްދާރު"ގެ ނަމުގައި ޑޭޓާބޭހެއް
-                އުފައްދައި އެ ޑޭޓާބޭހުގެ އެހީތެރިކަމާއެކު، ކުރިން ނެރެފައިވާ
-                ބަސްފޮތަށް ބޮޑެތި ބަދަލުތައް ގެނެސް އައު އިސްލާހުތަކާއެކު
-                ނެރެފައިވާ "ދިވެހިބަހުގެ ރަދީފު"އެވެ".
-              </p>
-            </div>
-
-            <!-- end of justi class -->
-
-            <hr class="lineVerticalSpace" />
-
-            <div style="text-align: left; direction: ltr">
-              <h3 class="mid">
-                <a>Technical notes</a>
-              </h3>
-
-              <p>
-                <a
-                  href="https://play.google.com/store/apps/details?id=mv.edu.dhivehiacademy.radheef"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  >Dhivehi Bahuge Radheef</a
-                >
-                <br />
-                mv.edu.dhivehiacademy.radheef, v2.2.7
-                <br />
-                DB version in use: 18/2/24
-                <br />
-                Updated 14/6/24
-              </p>
-            </div>
-            <!-- <div class="justi"> -->
-          </div>
-          <!-- <div class="hidden" id="footer"> -->
-        </main>
-        <!-- <main> -->
-      </div>
-      <!-- <div class="content"> -->
     </div>
-    <!-- <div id="page"> -->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-HL24Q9NN24");
+    <script type="text/javascript">
+      var table = new DataTable("#tableID", {
+        ...DTconfig,
+        data: data,
+        // turns ordering columns back on, which was off for cards
+        ordering: true,
+        // https://datatables.net/reference/option/ordering
+        // default [[0, 'asc']], below makes it no ordering, with clickable th for ordering
+        order: [],
+        // this sets the default value on table load.
+        displayLength: 10,
+        // arName arNoFili dvName enName arMean dvMean enMean gender source lang
+        columns: [
+          { title: "ދިވެހި ލަފްޒު" },
+          {
+            title: "އިނގިރޭސިން ތާނަ",
+            searchable: false,
+            className: "ColEng",
+          },
+          { title: "އިނގިރޭސި މާނަ", className: "ColEng" },
+          { title: "ދިވެހި މާނަ" },
+          {
+            title: "މައި ގިންތި",
+            render: (data) =>
+              data
+                .replace(/155/g, "އަދަބީ ބަސް")
+                .replace(/107/g, "އަކުރު")
+                .replace(/106/g, "އިތުރު")
+                .replace(/105/g, "ނަންއިތުރުގެނަން")
+                .replace(/104/g, "ނަންއިތުރު")
+                .replace(/103/g, "ނަން")
+                .replace(/102/g, "ކަންއިތުރު")
+                .replace(/101/g, "ކަން")
+                .replace(/100/g, "މަސްދަރު"),
+            searchable: false,
+          },
+          {
+            title: "ޒަމާން",
+            render: (data) =>
+              data
+                .replace(/115/g, "ވެދާނެކަން")
+                .replace(/114/g, "ނިމިނިމުނުކަން")
+                .replace(/113/g, "ނިމިނިމުނުކަން")
+                .replace(/112/g, "ވާނޭކަން")
+                .replace(/111/g, "ވޭވޭހުރިކަން")
+                .replace(/110/g, "ވާކަން")
+                .replace(/0/g, ""),
+            searchable: false,
+          },
+          {
+            title: "އަދަބީ ގިންތި",
+            render: (data) =>
+              data
+                .replace(/121/g, "އޮޅިބަސް")
+                .replace(/120/g, "މުސްކުޅިބަސް")
+                .replace(/119/g, "ހަރުބަސް")
+                .replace(/118/g, "މިސާލުބަސް")
+                .replace(/117/g, "މަޖާޒީ މިސާލު")
+                .replace(/116/g, "މަޖާޒު")
+                .replace(/0/g, ""),
+            searchable: false,
+          },
+          {
+            title: "ބަހުރުވަ",
+            render: (data) =>
+              data
+                .replace(/154/g, "ސަރަހައްދީ")
+                .replace(/149/g, "ބޯދާ")
+                .replace(/131/g, "މަލިކު")
+                .replace(/130/g, "ހުވަދޫ")
+                .replace(/129/g, "ހައްދުންމަތި")
+                .replace(/128/g, "ފުވައްމުލަކު")
+                .replace(/127/g, "އައްޑޫ")
+                .replace(/126/g, "އާންމު")
+                .replace(/0/g, ""),
+            searchable: false,
+          },
+          {
+            title: "ދަރަޖަ",
+            render: (data) =>
+              data
+                .replace(/125/g, "ހުތުރު / ބާޒާރީ")
+                .replace(/124/g, "އެންމެ މާތް")
+                .replace(/123/g, "މާތް")
+                .replace(/122/g, "އާންމު")
+                .replace(/0/g, ""),
+            searchable: false,
+          },
+          {
+            title: "ދާއިރާ",
+            render: (data) =>
+              data
+                .replace(/150/g, "އިންފޮމޭޝަން ޓެކްނޮލޮޖީ")
+                .replace(/141/g, "މިއުޒިކު")
+                .replace(/140/g, "މަސައްކަތްތެރިކަން")
+                .replace(/138/g, "ފަންޑިތަވެރިކަން")
+                .replace(/137/g, "ކަނބުރުވެރިކަން")
+                .replace(/136/g, "ނިޔަމިކަން")
+                .replace(/135/g, "ނަކަތްތެރިކަން")
+                .replace(/134/g, "ބޭސްވެރިކަން")
+                .replace(/133/g, "ދަނޑުވެރިކަން")
+                .replace(/132/g, "މަސްވެރިކަން")
+                .replace(/0/g, ""),
+            searchable: false,
+          },
+          {
+            title: "އަތޮޅު",
+            render: (data) =>
+              data
+                .replace(/\,/g, "، ")
+                .replace(/23/g, "ގ")
+                .replace(/22/g, "އ")
+                .replace(/21/g, "ހ")
+                .replace(/20/g, "ސ")
+                .replace(/19/g, "ޏ")
+                .replace(/18/g, "ގދ")
+                .replace(/17/g, "ގއ")
+                .replace(/16/g, "ލ")
+                .replace(/15/g, "ތ")
+                .replace(/14/g, "ދ")
+                .replace(/13/g, "ފ")
+                .replace(/12/g, "މ")
+                .replace(/11/g, "ވ")
+                .replace(/10/g, "އދ")
+                .replace(/9/g, "އއ")
+                .replace(/8/g, "ކ")
+                .replace(/7/g, "ޅ")
+                .replace(/6/g, "ބ")
+                .replace(/5/g, "ރ")
+                .replace(/4/g, "ނ")
+                .replace(/3/g, "ށ")
+                .replace(/2/g, "ހދ")
+                .replace(/1/g, "ހއ"),
+            // https://www.gillmeister-software.com/online-tools/text/sort-list.aspx
+            searchable: false,
+          },
+          {
+            title: "މިސާލު",
+          },
+          {
+            title: "ބާވަތް އިނގިރޭސިން",
+            render: (data) =>
+              data
+                .replace(/5/g, "adverb")
+                .replace(/4/g, "verb")
+                .replace(/3/g, "adjective")
+                .replace(/1/g, "noun")
+                .replace(/0/g, ""),
+            searchable: false,
+            className: "ColEng",
+          },
+        ],
+        columnDefs: [
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [0, 4, 5, 6, 7, 8, 9, 10, 12],
+          },
+          ...columnDefsconfig,
+        ],
+      });
     </script>
-    <!-- End Google Analytics -->
-
-    <!-- === INT JS - END === -->
   </body>
 </html>
-
 <!--
-
-  hadithmv.github.io\notes\scripts\for work\radheef
-
+\notes\scripts\for work\radheef
 -->

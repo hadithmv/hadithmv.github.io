@@ -33,3 +33,5 @@ make alltables ajax on the web?
 add some sort of svg ref instead of calling it twice?
 
 for radheef books, sort out ordering arrow appearance
+
+radheef searchpanes dont work for some reason
