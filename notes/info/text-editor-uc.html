@@ -1644,24 +1644,24 @@ ${dateDifference}`;
               textArea.value = leetText;
             }
 
-            function englishText() {
+            function ltrText() {
               const textArea = document.getElementById("textMainArea");
               let text = textArea.value;
 
-              const englishText = text.replace(
+              const ltrText = text.replace(
                 /[@8€∂3ƒ9#!ʝɮʅ^^π0¶ℚ₹$+µ√ω×Ч2]/g,
                 function (char) {
                   return reverseLeetMap[char] || char;
                 }
               );
 
-              textArea.value = englishText;
+              textArea.value = ltrText;
             }
 
             function toggleLeetSpeak() {
               leetspeak_timesClicked++;
               if (leetspeak_timesClicked % 2 == 0) {
-                englishText();
+                ltrText();
                 document.getElementById("leetSwitch").innerHTML = "📔 1337";
               } else {
                 leetSpeak();
