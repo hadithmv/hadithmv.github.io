@@ -1517,6 +1517,7 @@
       var table = new DataTable("#tableID", {
         ...DTconfig,
         data: data,
+        // CHANGE !!!
         // #	noAr	arTitle	dvTitle	arab	dhiv	arRef	dvRef
         columns: [
           { title: "#" },
@@ -1526,7 +1527,6 @@
           { title: "އަރަބި ލިޔުން", searchable: false },
           {
             title: "އަރަބި ފިލިނުޖަހާ",
-            // CHANGE !!!
             data: 4,
             // render: (data) => data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
             render: (data) => removeThashkeel(data),

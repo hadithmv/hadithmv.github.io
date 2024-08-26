@@ -59,7 +59,7 @@
           border-top: none;
         }
         /* center align english on mobile */
-        td.ColEng {
+        td.colEng {
           text-align: center;
         }
       } /* END OF MOBILE */
@@ -132,11 +132,11 @@
         }
         /* since we removed spaces above, we add them inside the padding of the right of first column, and left of last column */
         #tableID > tbody > tr > td:first-child {
-          padding-right: 10px;
+          padding-right: 15px;
           padding-left: 10px;
         }
         #tableID > tbody > tr > td:last-child {
-          padding-left: 10px;
+          padding-left: 15px;
         }
 
         /* gives back the border top to the last child of tr */
@@ -146,8 +146,12 @@
         }
       } /* END OF TABLET UP */
 
+      /* */
+
+      /* CUSTOM PAGE STUFF */
+
       /* right align and direction for english columns */
-      .ColEng {
+      .colEng {
         text-align: center;
         direction: ltr;
         font-size: 20px;
@@ -291,9 +295,9 @@
           {
             title: "އިނގިރޭސިން ތާނަ",
             searchable: false,
-            className: "ColEng",
+            className: "colEng",
           },
-          { title: "އިނގިރޭސި މާނަ", className: "ColEng" },
+          { title: "އިނގިރޭސި މާނަ", className: "colEng" },
           { title: "ދިވެހި މާނަ" },
           {
             title: "މައި ގިންތި",
@@ -423,7 +427,7 @@
                 .replace(/1/g, "noun")
                 .replace(/0/g, ""),
             searchable: false,
-            className: "ColEng",
+            className: "colEng",
           },
         ],
         columnDefs: [

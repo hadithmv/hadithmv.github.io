@@ -116,19 +116,19 @@ $(document).ready(() => {
         searchable: true, // cuz it includes dhivehi text as well
       },
       {
-        className: "ColEng", // en transliteration
+        className: "colEng", // en transliteration
         targets: [1],
         visible: true,
         searchable: true,
       },
       {
-        className: "ColEng", // en type
+        className: "colEng", // en type
         targets: [2],
         visible: true,
         searchable: false,
       },
       {
-        className: "ColEng", // en meaning
+        className: "colEng", // en meaning
         targets: [3],
         visible: true,
         searchable: true,

@@ -300,6 +300,7 @@
       var table = new DataTable("#tableID", {
         ...DTconfig,
         data: data,
+        // CHANGE !!!
         // #	kitab	bab dvKitab	dvBab	arText	dvText	Takhrij
         columns: [
           { title: "#" },
@@ -310,7 +311,6 @@
           { title: "އަރަބި ލިޔުން", searchable: false },
           {
             title: "އަރަބި ފިލިނުޖަހާ",
-            // CHANGE !!!
             data: 5,
             render: (data) => removeThashkeel(data),
             visible: false,

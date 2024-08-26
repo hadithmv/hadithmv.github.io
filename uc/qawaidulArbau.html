@@ -375,6 +375,7 @@
       var table = new DataTable("#tableID", {
         ...DTconfig,
         data: data,
+        // CHANGE !!!
         // #	bab babDhiv arab dhiv takhrij
         columns: [
           { title: "#" },
@@ -383,7 +384,6 @@
           { title: "އަރަބި ލިޔުން", searchable: false },
           {
             title: "އަރަބި ފިލިނުޖަހާ",
-            // CHANGE !!!
             data: 3,
             render: (data) => removeThashkeel(data),
             visible: false,
