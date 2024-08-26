@@ -42,7 +42,11 @@
     <script src="../js/beta/ALL-COMB.min.js"></script>
     <!-- CHANGE !!! -->
     <script src="../js/beta/json/aqidahNawawi.js"></script>
-    <style></style>
+    <style>
+      #tableID > tbody > tr {
+        overflow-wrap: anywhere;
+      }
+    </style>
   </head>
   <body>
     <div id="navbar-container"></div>
@@ -67,11 +71,11 @@
 
           <script>
             function toggleFili() {
+              var isVisible = $("#tableID").DataTable().column(2).visible();
+              $("#tableID").DataTable().column(2).visible(!isVisible);
+
               var isVisible = $("#tableID").DataTable().column(3).visible();
               $("#tableID").DataTable().column(3).visible(!isVisible);
-
-              var isVisible = $("#tableID").DataTable().column(4).visible();
-              $("#tableID").DataTable().column(4).visible(!isVisible);
             }
           </script>
 
@@ -544,6 +548,57 @@
         ...DTconfig,
         data: data,
         // CHANGE !!!
+        language: {
+          emptyTable: "— ما وجد —",
+          info: "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+          infoFiltered: "(مرشحة من مجموع _MAX_)",
+          infoEmpty: "— ما وجد  —",
+          lengthMenu: "إظهار _MENU_",
+          loadingRecords: "جار التحمي...",
+          search: "",
+          searchPlaceholder: 'اللفظ المحدد "كذا"، !كذا بدونه',
+          zeroRecords: "— ما وجد —",
+          buttons: {
+            pageLength: {
+              _: "%d إظهار",
+              "-1": "الكل",
+            },
+            copyTitle: "&nbsp; نسخ 📋",
+            copySuccess: {
+              1: "تم نسخ 1",
+              _: "تم نسخ %d",
+            },
+          },
+          searchBuilder: {
+            button: "🔍 مخصص",
+            add: "+ اضافة",
+            condition: "الشرط",
+            clearAll: "ازالة الكل",
+            data: "المعلومة",
+            logicAnd: "و &",
+            logicOr: "أو |",
+            title: {
+              0: "شروط البحث",
+              _: "شروط البحث (%d)",
+            },
+            value: "النص",
+            valueJoiner: "و",
+          },
+          searchPanes: {
+            // https://datatables.net/reference/option/language.searchPanes.collapse
+            // looks like i wont need text: "⧩ ފިލްޓާ" with this
+            collapse: { 0: "فلاتر البحث", _: "فلاتر البحث (%d)" },
+            title: {
+              _: "%d فلاتر البحث",
+              0: "0 فلاتر البحث",
+              1: "1 فلاتر البحث",
+            },
+            count: "{total}",
+            countFiltered: "{shown} ({total})",
+            emptyMessage: "— غير موجود —",
+            clearMessage: "ازالة الكل",
+          },
+        }, // language END
         // #	bab babDhiv arab takhrij dhiv	dvRef
         columns: [
           {
@@ -580,10 +635,50 @@
             searchPanes: {
               show: true,
             },
-            targets: [3],
+            targets: [1],
           },
           ...columnDefsconfig,
         ],
+      });
+    </script>
+
+    <script>
+      const buttonSpan = document.querySelector(
+        "#tableID_wrapper > div:nth-child(1) > div > div.dt-buttons > button:nth-child(2) > span:nth-child(1)"
+      );
+      if (buttonSpan) {
+        buttonSpan.textContent = "⌥ خيارات";
+      }
+
+      //
+
+      const copyButtonSpan = document.querySelector(
+        "#tableID_wrapper > div:nth-child(1) > div > div.dt-buttons > button.dt-button.buttons-copy.buttons-html5 > span"
+      );
+      if (copyButtonSpan) {
+        copyButtonSpan.textContent = "⧉ نسخ";
+      }
+
+      //
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Remove the item with the Telegram link
+        const telegramItem = document.querySelector(
+          'li a[href="https://t.me/ashraafmv"]'
+        );
+        if (telegramItem) {
+          telegramItem.closest("li").remove();
+        }
+
+        // Remove the item about the Hadith student
+        const studentItem = document.querySelector('li[style="font-size:90%"]');
+        if (
+          studentItem &&
+          studentItem.textContent.trim() ===
+            "މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް"
+        ) {
+          studentItem.remove();
+        }
       });
     </script>
   </body>
