@@ -631,6 +631,8 @@ Object.assign(DataTable.defaults, {
         key: "p",
       },
       config: {
+        // https://datatables.net/forums/discussion/comment/216621/#Comment_216621 the viewTotal / viewCount / cascade options in SearchPanes really slow things down, particularly when server-side processing is enabled.
+
         // https://datatables.net/reference/feature/searchPanes.cascadePanes
         cascadePanes: true,
         // https://datatables.net/reference/feature/searchPanes.viewTotal
