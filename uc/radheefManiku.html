@@ -145,13 +145,6 @@
       /* */
 
       /* CUSTOM PAGE STUFF */
-
-      /* right align and direction for english columns */
-      .colEng {
-        text-align: left;
-        direction: ltr;
-        font-size: 20px;
-      }
     </style>
   </head>
   <body>
@@ -1537,11 +1530,12 @@
         // arName arNoFili dvName enName arMean dvMean enMean gender source lang
         columns: [
           {
-            title: "ދިވެހި ލަފްޒު",
-          },
-          {
             title: "އިނގިރޭސިން ތާނަ",
             className: "colEng",
+          },
+          {
+            title: "ދިވެހި ލަފްޒު",
+            className: "centerAlignedText",
           },
           {
             title: "އިނގިރޭސިން ބާވަތް",
