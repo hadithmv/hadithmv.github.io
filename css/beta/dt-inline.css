@@ -252,6 +252,12 @@ https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/140
   direction: rtl;
 }
 
+.colEng {
+  text-align: left;
+  direction: ltr;
+  font-size: 20px;
+}
+
 /* page footnotes, styles from hassaan's .post-copyright, and some from .twitter-tweet  */
 .pageFootnotes {
   /*padding: 10px;*/ /* padding: 0.2em 2em 0.2em 3em; */
