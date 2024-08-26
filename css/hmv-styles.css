@@ -748,7 +748,7 @@ table.dataTable tbody tr.selected > * {
   font-weight: bold;
 }*/
 
-.dataTable > tbody > tr > td.ColEng {
+.dataTable > tbody > tr > td.colEng {
   font-family: sans-serif;
   direction: ltr;
   font-size: 20px;

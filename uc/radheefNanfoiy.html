@@ -128,11 +128,11 @@
         }
         /* since we removed spaces above, we add them inside the padding of the right of first column, and left of last column */
         #tableID > tbody > tr > td:first-child {
-          padding-right: 10px;
+          padding-right: 15px;
           padding-left: 10px;
         }
         #tableID > tbody > tr > td:last-child {
-          padding-left: 10px;
+          padding-left: 15px;
         }
 
         /* gives back the border top to the last child of tr */
@@ -142,8 +142,12 @@
         }
       } /* END OF TABLET UP */
 
+      /* */
+
+      /* CUSTOM PAGE STUFF */
+
       /* right align and direction for english columns */
-      .ColEng {
+      .colEng {
         text-align: center;
         direction: ltr;
         font-size: 20px;
@@ -339,21 +343,21 @@
         order: [],
         // this sets the default value on table load.
         displayLength: 10,
+        // CHANGE !!!
         // arName arNoFili dvName enName arMean dvMean enMean gender source lang
         columns: [
           { title: "އަރަބި ނަން", searchable: false },
           {
             title: "އަރަބި ފިލިނުޖަހާ",
-            // CHANGE !!!
             data: 0,
             render: (data) => removeThashkeel(data),
             visible: false,
           },
           { title: "ދިވެހި ނަން", data: 1 },
-          { title: "އިނގިރޭސި ނަން", data: 2, className: "ColEng" },
+          { title: "އިނގިރޭސި ނަން", data: 2, className: "colEng" },
           { title: "އަރަބި މާނަ", data: 3 },
           { title: "ދިވެހި މާނަ", data: 4 },
-          { title: "އިނގިރޭސި މާނަ", data: 5, className: "ColEng" },
+          { title: "އިނގިރޭސި މާނަ", data: 5, className: "colEng" },
           {
             title: "ޖިންސު",
             data: 6,

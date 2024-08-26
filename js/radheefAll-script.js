@@ -307,7 +307,7 @@ this is not there
         searchable: true,
       },
       {
-        className: "ColEng", // en word
+        className: "colEng", // en word
         targets: [3],
         visible: true,
         searchable: true,
@@ -325,7 +325,7 @@ this is not there
         searchable: true,
       },
       {
-        className: "ColEng", // en meaning
+        className: "colEng", // en meaning
         targets: [6],
         visible: true,
         searchable: true,
