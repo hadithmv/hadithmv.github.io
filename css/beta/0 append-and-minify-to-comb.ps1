@@ -3,34 +3,32 @@ Set-Location -Path $PSScriptRoot
 
 # Clear the content of ALL-COMB.min.css
 Clear-Content -Path "ALL-COMB.min.css"
-Write-Output "Cleared content of ALL-COMB.min.css"
+Write-Output "Cleared ALL-COMB.min.css"
 
 # Copy content from comb-DT.min.css to ALL-COMB.min.css
 Get-Content -Path "comb-DT.min.css" | Set-Content -Path "ALL-COMB.min.css"
-Write-Output "Copied into ALL-COMB.min.css: comb-DT.min.css"
+Write-Output "Copied: comb-DT.min.css"
 
 # Minify DT-inline.css using csso and append to ALL-COMB.min.css
 csso "DT-inline.css" -o "DT-inline.min.css"
 Add-Content -Path "ALL-COMB.min.css" -Value "`n/* DT-inline.css */" # `n
 Get-Content -Path "DT-inline.min.css" | Add-Content -Path "ALL-COMB.min.css"
 Remove-Item -Path "DT-inline.min.css"
-Write-Output "Minified and appended to ALL-COMB.min.css: dt-inline.css"
+Write-Output "Minified and copied: dt-inline.css"
 
 # Minify navbar.css using csso and append to ALL-COMB.min.css
 csso "navbar.css" -o "navbar.min.css"
 Add-Content -Path "ALL-COMB.min.css" -Value "`n/* navbar.css */" # `n
 Get-Content -Path "navbar.min.css" | Add-Content -Path "ALL-COMB.min.css"
 Remove-Item -Path "navbar.min.css"
-Write-Output "Minified and appended to ALL-COMB.min.css: navbar.css"
+Write-Output "Minified and copied: navbar.css"
 
 # Minify navbar.css using csso and append to ALL-COMB.min.css
 csso "nested-dropdown-button.css" -o "nested-dropdown-button.min.css"
 Add-Content -Path "ALL-COMB.min.css" -Value "`n/* nested-dropdown-button.css */" # `n
 Get-Content -Path "nested-dropdown-button.min.css" | Add-Content -Path "ALL-COMB.min.css"
 Remove-Item -Path "nested-dropdown-button.min.css"
-Write-Output "Minified and appended to ALL-COMB.min.css: nested-dropdown-button.css"
-
-Write-Output "All tasks completed successfully"
+Write-Output "Minified and copied: nested-dropdown-button.css"
 
 <# claude:
 write powershell script to
