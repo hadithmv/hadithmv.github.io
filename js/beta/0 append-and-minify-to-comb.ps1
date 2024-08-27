@@ -32,6 +32,8 @@ Get-Content -Path "temp2.js" | Add-Content -Path "ALL-COMB.min.js"
 Remove-Item -Path "temp1.js", "temp2.js"
 Write-Output "Minified and copied: nested-dropdown-button.js"
 
+Write-Output "-- -- DONE -- --"
+
 <# claude:
 Here's a comparison of the two scripts:
 

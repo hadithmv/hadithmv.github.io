@@ -43,6 +43,7 @@
     <!-- CHANGE !!! -->
     <script src="../js/beta/json/aqidahNawawi.js"></script>
     <style>
+      /* so that long links in table dont cause it to break off screen */
       #tableID > tbody > tr {
         overflow-wrap: anywhere;
       }
@@ -609,7 +610,7 @@
             },
           },
           { title: "العنوان", className: "colHeader" },
-          { title: "النص", searchable: false },
+          { title: "النص" },
           {
             title: "بدون تشكيل",
             data: 2,

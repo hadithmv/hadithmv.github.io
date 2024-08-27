@@ -281,13 +281,16 @@ var columnDefsconfig = [
   {
     targets: "_all",*/
     render: function (data, type, row) {
-      return data.replace(/\r\n|\n|\r/g, '<br class="dtBr">');
+      // if \r\n|\n|\r occurs more than once, i dont want <br class="dtBr"> to occure more than once
+      return data.replace(/(\r\n|\n|\r)+/g, '\t<br class="dtBr">');
+      //return data.replace(/\r\n|\n|\r/g, '\t<br class="dtBr">');
       // return data.replace(/\r\n|\n|\r/g, "\t<br>");
       // return data.replace(/\r\n|\n|\r/g, "\t<br><br>");
       //return data.replace(/\r\n|\n|\r/g, "\t<p><p>");
     }, // for some reason, without the \n replaced above, the single new lines in between same language paragraphs show in console as a single space, and therefore clipboard cannot be customized to show it
     // added space before br, otherwise clipboard copy export has no space
     // leave off applying '<br class="dtBr">' in the divider replacements ـــــــــــــــــــــــــــ in order to have footnotes close together
+    // it seems without \t, clipboard copy will not have newlines
   },
 ];
 //
@@ -341,7 +344,33 @@ var DTconfig = {
               },
             },
             customize: function (data) {
-              data = data.replace(/\t/g, "\n");
+              // Replace different newlines with \n
+              data = data.replace(/\r\n|\n|\r/g, "\n");
+              // Replace tabs with double newlines
+              data = data.replace(/\t/g, "\n\n");
+              //data = data.replace(/\t/g, "\n");
+              // Replace more than 2 consecutive newlines with just 2 newlines
+              data = data.replace(/\n{3,}/g, "\n\n");
+              //
+              // Split the data at the line of dashes
+              let parts = data.split("\n\nـــــــــــــــــــــــــــ\n\n");
+              if (parts.length > 1) {
+                // Replace all double newlines with single newlines in the part after the line of dashes
+                parts[1] = parts[1].replace(/\n\n/g, "\n");
+                // Ensure there's a double newline at the very end
+                parts[1] = parts[1].replace(/\n$/, "\n\n");
+                // Join the parts back together with only a single newline after the dashes
+                data =
+                  parts[0] + "\n\nـــــــــــــــــــــــــــ\n" + parts[1];
+              }
+              //
+              // regular expression to find instances of \n- ޙަދީޘްއެމްވީ - that are preceded by a single newline and replace them with a double newline.
+              data = data.replace(
+                /(?<!\n)\n- ޙަދީޘްއެމްވީ -/g,
+                "\n\n- ޙަދީޘްއެމްވީ -"
+              );
+              //
+              // print to console
               console.log(JSON.stringify(data));
               return data;
             },

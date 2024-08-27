@@ -1,218 +1,276 @@
 <!doctype html>
-<html lang="dv">
-  <!-- prevent translate popup -->
-
+<html translate="no">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- CHANGE !!! -->
     <link
       rel="canonical"
       href="https://hadithmv.github.io/books/kunnaasha.html"
     />
-    <meta name="google" content="notranslate" />
-
-    <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
-    <meta name="theme-color" content="#29434e" />
-    <!-- og metadata sm link previews -->
-    <meta property="og:title" content="Hadithmv" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://hadithmv.github.io/books/kunnaasha.html"
-    />
-    <meta
-      property="og:image"
-      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
-    />
-
-    <!-- change123 html -->
-    <title>Hadithmv - Notebook</title>
+    <title>الكناشة – ނޯޓުފޮތް</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
     />
-    <!-- META TAGS - END -->
-
-    <!-- === EXT CSS === -->
-    <!-- non critical -->
-    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
-    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
-    <!-- === EXT CSS - END === -->
-
-    <!-- === EXT JS === -->
-    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
-    <!-- critical -->
-    <script defer src="../js/resc/COMB-Crit.min.js"></script>
-    <!-- non critical -->
-    <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
-    <!-- change123 js -->
-    <script defer src="../js/json/kunnaasha.js"></script>
-    <script defer src="../js/kunnaasha-script.min.js"></script>
-    <!-- === EXT JS - END === -->
-
-    <!-- === INT CSS === -->
-
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link
+      href="../css/beta/ALL-COMB.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="../js/beta/ALL-COMB.min.js"></script>
+    <!-- CHANGE !!! -->
+    <script src="../js/beta/json/kunnaasha.js"></script>
     <style>
-      /* @mixin for-phone-only { */
-      @media (max-width: 599px) {
-        #kunnaashaTable > tbody > tr > td.Col3 {
-          text-align: center;
-        }
+      /* so that long links in table dont cause it to break off screen */
+      #tableID > tbody > tr {
+        overflow-wrap: anywhere;
       }
     </style>
-    <!-- === INT CSS - END === -->
   </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="footer">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
+          <button
+            id="toggleFiliButton"
+            class="customButtons"
+            onclick="toggleFili();filiString();scrollUpTop()"
+          >
+            &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
+          </button>
 
-  <body translate="no">
-    <div id="page">
-      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
-      <!-- adding fixed or custom writing z index breaks on mobile -->
-      <div class="header fixed" onclick="drawer.open();">
-        <!-- hamburger -->
-        <a href="#menu"><span></span></a>
-        <a class="menuLeftIcon" href="index.html"
-          ><img
-            class="hmvLogo1"
-            alt="hadith mv"
-            loading="lazy"
-            src="../img/logo/logo.svg"
-        /></a>
-        <span>الكناشة – ނޯޓުފޮތް</span>
+          <script>
+            function toggleFili() {
+              var isVisible = $("#tableID").DataTable().column(4).visible();
+              $("#tableID").DataTable().column(4).visible(!isVisible);
 
-        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
-        <nav id="menu">
-          <ul>
-            <!-- <li class="Selected"><a href="#">Home</a></li> dont know what selected does -->
+              var isVisible = $("#tableID").DataTable().column(5).visible();
+              $("#tableID").DataTable().column(5).visible(!isVisible);
+            }
+          </script>
 
-            <li>
-              <a href="../books/index.html">● މައި ސަފުހާ</a>
-            </li>
+          <hr />
 
-            <li>
-              <a href="../notes/info/contact.html"
-                >ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a
-              >
-            </li>
-
-            <li>
-              <a href="../notes/info/helpTranslate.html"
-                >ތަރުޖަމާގައި އެހީވެދިނުމަށް</a
-              >
-            </li>
-
-            <li>
-              <a href="../notes/info/FAQ.html"
-                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
-              >
-            </li>
-
-            <li>
-              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
-            </li>
-
-            <li class="hmvVer" onclick="openDiv();">
-              <a class="versionNo">⚙️ އިސްދާރު: v</a>
-            </li>
-
-            <li>
-              <a href="https://t.me/ashraafmv"
-                >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-              >
-            </li>
-            <li class="madani">
-              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
-            </li>
-            <li>
-              <a onClick="window.location.reload()">🔄 މަޑު ރީލޯޑު</a>
-            </li>
-            <li>
-              <a
-                onclick="window.location.href = window.location.href.split('.html')[0] + '.html';"
-                >ހަރު ރީލޯޑު</a
-              >
-            </li>
-          </ul>
-        </nav>
-        <!-- <nav id="menu"> -->
+          <p>
+            މިއީ އެކި ފަހަރު މަތިން އެކި މީހުން ލިޔެވިފައިވާ ބައެއް
+            ލިޔުންތަކެކެވެ. މިތާ އަހްލުއް ސުންނަތުގެ ލިޔުމެއް ހިމަނާލަން
+            ބޭނުންވާ ނަމަ،
+            <a href="../notes/info/contact.html">މެސެޖެއްކޮށްލާށެވެ</a>.
+          </p>
+          <p>
+            ހުޅުވާލާ އިރު، މި ސަފުހާގައި ދައްކާނީ އެންމެ ފަހުގެ ލިޔުމެވެ. އަދި
+            ދެން އަންނަ ސަފުހާއަށް ބަދަލުކުރާ އިރު، ފެންނާނީ އޭގެ ކުރީގެ
+            ލިޔުމެވެ.
+          </p>
+        </div>
+        <!-- <div class="centerAlignedText"> END -->
       </div>
-      <!-- <div class="header fixed" onclick="drawer.open();"> -->
-
-      <div class="content">
-        <main>
-          <!-- class="w3-animate-right" -->
-          <!-- --- TABLE --- -->
-          <!-- JEKYLL {{ content }} -->
-          <!-- cards js adds card classes to table ID -->
-          <!-- change123 TABLE -->
-          <!-- class="stripe table cards"> -->
-          <table id="kunnaashaTable" class="table cards"></table>
-          <!-- --- TABLE - END --- -->
-          <div class="hidden" id="footer">
-            <button class="lowerButtons" onclick="copyURLToClipButton();">
-              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
-            </button>
-            <button
-              id="toggleFiliButton"
-              class="lowerButtons"
-              onclick="toggleFili();filiString();scrollUpTop()"
-            >
-              &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
-            </button>
-
-            <script>
-              function toggleFili() {
-                // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
-
-                var isVisible = $("#kunnaashaTable")
-                  .DataTable()
-                  .column(4)
-                  .visible();
-                $("#kunnaashaTable").DataTable().column(4).visible(!isVisible);
-
-                var isVisible = $("#kunnaashaTable")
-                  .DataTable()
-                  .column(5)
-                  .visible();
-                $("#kunnaashaTable").DataTable().column(5).visible(!isVisible);
-              }
-            </script>
-
-            <p>
-              މިއީ އެކި ފަހަރު މަތިން އެކި މީހުން ލިޔެވިފައިވާ ބައެއް
-              ލިޔުންތަކެކެވެ. މިތާ އަހްލުއް ސުންނަތުގެ ލިޔުމެއް ހިމަނާލަން
-              ބޭނުންވާ ނަމަ، އަހަރުމެންނަށް
-              <a href="../notes/info/contact.html">ގުޅުއްވާށެވެ</a>.
-            </p>
-            <p>
-              ފުރަތަމަ ހުޅުވާލާ އިރު، މި ސަފުހާގައި ދައްކާނީ އެންމެ ފަހުގެ
-              ލިޔުމެވެ. އަދި ދެން އަންނަ ސަފުހާއަށް ބަދަލު ކުރާ އިރު، ފެންނާނީ
-              އޭގެ ކުރީގެ ލިޔުމެވެ.
-            </p>
-            <br />
-          </div>
-        </main>
-        <!-- <main> -->
-      </div>
-      <!-- <div class="content"> -->
     </div>
-    <!-- <div id="page"> -->
+    <script type="text/javascript">
+      var table = new DataTable("#tableID", {
+        ...DTconfig,
+        //data: data,
+        data: data.slice().reverse(), // Create a reversed copy of the data
+        // CHANGE !!!
+        // name date ar dv source
+        columns: [
+          {
+            //data: null,
+            title: "ސުރުހީ",
+            className: "colHeader",
+            render: function (data, type, row) {
+              return row[3].split("\n")[0];
+              // .trim()
+            },
+            /*render: function (data, type, row) {
+                // Get the first line of data[3]
+                let firstLine = row[3].split("\n")[0];
+                return firstLine;
+              },*/
+          },
+          {
+            title: "ލިޔުންތެރިޔާ",
+            data: 0,
+            className: "colHeader",
+            render: function (data) {
+              return "- " + data;
+            },
+          },
+          { title: "ތާރީޚު", data: 1, className: "colHeader" },
+          { title: "އަރަބި ލިޔުން", data: 2 },
+          {
+            title: "އަރަބި ފިލިނުޖަހާ",
+            data: 2,
+            render: (data) => removeThashkeel(data),
+            visible: false,
+          },
+          // <br>
+          // '\t<br class="dtBr">'
+          {
+            title: "ދިވެހި ލިޔުން",
+            data: 3,
+            render: function (data, type, row) {
+              var lines = data.split("\n");
+              lines.shift(); // Remove the first line
+              return lines
+                .join("\n")
+                .trim()
+                .replace(/\n+/g, '\t<br class="dtBr">');
+            },
+            /*render: function (data, type, row) {
+              // Get the data[3] without the first line
+              let lines = row[3].split("\n");
+              lines.shift(); // Remove the first line
+              let remainingText = lines.join("\n");
+              //return remainingText;
+              return remainingText.replace(/\r\n|\n|\r/g, '\t<br class="br">');
+            },*/
+          },
+          {
+            title: "ދިވެހި އ ފިލިނުޖަހާ",
+            data: 3,
+            render: (data) => removeThashkeel(data),
+            visible: false,
+          },
+          { title: "މަސްދަރު", data: 4 },
+        ],
+        //columns: [null, null, null, null, null],
+        /*columns: [
+              {
+                title: "ލިޔުންތެރިޔާ",
+                className: "colHeader",
+              },
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-HL24Q9NN24");
+              { title: "ތާރީޚު", className: "colHeader" },
+              {
+                title: "އަރަބި ލިޔުން", // some nass doesnt have fili by default, so no need for searchable: false
+              },
+              {
+                title: "ދިވެހި ލިޔުން", //can have arabic text in it, and not anything in the actual arabic text field before it
+              },
+              {
+                title: "މަސްދަރު",
+              },
+            ],*/
+        columnDefs: [
+          {
+            targets: [4],
+            render: (data) =>
+              data !== ""
+                ? "ـــــــــــــــــــــــــــ\t<br>" +
+                  data.replace(/\n/g, "\t<br>")
+                : data,
+          },
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [0, 1, 2],
+          },
+          ...columnDefsconfig,
+          // ADDED
+        ],
+      });
     </script>
-    <!-- End Google Analytics -->
-
-    <!-- === INT JS - END === -->
   </body>
 </html>
+<!--
+var table = new DataTable("#tableID", {
+        data: data,
+        columns: [
+          {
+            title: "ލިޔުންތެރިޔާ",
+          },
+
+          { title: "ތާރީޚު", },
+          {
+            title: "އަރަބި ލިޔުން", 
+          },
+          {
+            title: "ދިވެހި ލިޔުން", 
+          },
+          {
+            title: "މަސްދަރު",
+          },
+        ],
+}
+
+above is my datatables code
+
+what i want is
+
+for there to be a first column:
+{ title: "ސުރުހީ" },
+
+its data should be only the first line of
+{ title: "ދިވެހި ލިޔުން", },
+
+also,
+{ title: "ދިވެހި ލިޔުން", },
+should then have no first line
+
+[had to specify data targets]
+
+its not preserving the new lines now
+
+[dont need white-space: pre-wrap;]
+
+i am getting multiple <br> in the output
+
+...
+
+claude:
+
+var table = new DataTable("#tableID", {
+    data: data,
+    columns: [
+        {
+            title: "ސުރުހީ",
+            render: function(data, type, row) {
+                return row[3].split('\n')[0].trim();
+            }
+        },
+        { title: "ލިޔުންތެރިޔާ" },
+        { title: "ތާރީޚު" },
+        { title: "އަރަބި ލިޔުން" },
+        {
+            title: "ދިވެހި ލިޔުން",
+            render: function(data, type, row) {
+                var lines = data.split('\n');
+                lines.shift(); // Remove the first line
+                return lines.join('\n').trim().replace(/\n+/g, '<br>');
+            }
+        },
+        { title: "މަސްދަރު" }
+    ]
+});
+
+-->

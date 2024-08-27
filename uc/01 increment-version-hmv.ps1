@@ -32,3 +32,5 @@ if ($content -match '\.versionNo::after\{content:"(\d+\.\d+)"\}') {
 } else {
     Write-Output "Version number not found in the expected format."
 }
+
+Write-Output "-- -- DONE -- --"
