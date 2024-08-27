@@ -6,22 +6,21 @@ mmenu-inlineJs.js
 
 -Non critical
 jquery.min.js		3.7.1 (mergely and hammer breaks with jquery slim, zepto and cash doesnt work)
-**jquery.dataTables.min.js	2.0.0	(requires jq)
+**jquery.dataTables.min.js	1.13.8	(requires jq)
 
-dataTables.buttons.min.js	3.0.0
-buttons.colVis.min.js		3.0.0
-buttons.html5.min.js		3.0.0
-dataTables.keyTable.min.js	2.12.0	(not using its css, put it in hmv-styles)
-dataTables.searchPanes.min.js	2.3.0
-dataTables.select.min.js	2.0.0	(not using its css, not used at all?)
+dataTables.buttons.min.js	2.4.2
+buttons.colVis.min.js		2.4.2
+buttons.html5.min.js		2.4.2
+dataTables.keyTable.min.js	2.11.0
+dataTables.searchPanes.min.js	2.2.0
+dataTables.select.min.js	1.7.0
 
-**row().show().js		2.0.0	(add .min to end of url, dont use closure, dbl click breaks otherwise)
-https://cdn.datatables.net/plug-ins/2.0.0/api/row().show().min.js
+**row().show().js		(add .min to end of url, dont use closure, dbl click breaks otherwise)
+https://cdn.datatables.net/plug-ins/1.13.7/api/row().show().min.js
 
-**input.min.js			2.0.0	(minify w closure manually)
-https://cdn.datatables.net/plug-ins/2.0.0/pagination/input.js
+**input.min.js			(minify w closure) https://cdn.datatables.net/plug-ins/1.13.7/pagination/input.js
 
-**jquery.mark.min.js		9.0.0	(remove comments, otherwise ok) https://github.com/julkue/mark.js/blob/master/dist/jquery.mark.min.js (prev julmot)
+**jquery.mark.min.js		9.0.0	(remove comments, otherwise ok) https://github.com/julmot/mark.js/blob/master/dist/jquery.mark.min.js
 datatables.mark.min.js		2.1.0	https://github.com/julmot/datatables.mark.js/blob/master/dist/datatables.mark.min.js
 dataTables.keepConditions.min.js	1.2.0 https://github.com/jhyland87/DataTables-Keep-Conditions/blob/master/dist/dataTbles.keepConditions.min.js
 

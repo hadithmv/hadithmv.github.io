@@ -159,8 +159,33 @@ function changeBookQuran(newBook) {
 
 // Radheef CHANGE BOOK
 
+// Change URL to another book while preserving query terms if "radheef" is in the initial URL
+function changeBkRadheef(newBook) {
+  // Get the current URL as a string
+  let currentUrl = window.location.toString();
+
+  // Check if the current URL contains the string "radheef"
+  if (currentUrl.includes("radheef")) {
+    // If "radheef" is present, replace the current book name with the new book name
+    // and remove any part of the URL that comes after ":v" (e.g., ":vf1")
+    window.location = currentUrl
+      .replace(
+        /radheefAll|radheefRasmee|radheefEegaal|radheefManiku|radheefNanfoiy/g,
+        newBook
+      )
+      .replace(/\:v.*$/, "");
+  } else {
+    // If "radheef" is not present, change the URL to the new book
+    // without preserving any query or hash parameters
+    window.location =
+      window.location.origin +
+      window.location.pathname.replace(/[^\/]*$/, newBook + ".html");
+  }
+}
+
+/* OLD CODE
 // change url to change to another book while preserving query terms
-function changeBookRadheef(newBook) {
+function changeBkRadheef(newBook) {
   window.location = window.location
     .toString()
     .replace(
@@ -168,7 +193,7 @@ function changeBookRadheef(newBook) {
       newBook
     )
     .replace(/\:v.*$/, "");
-}
+}*/
 
 //
 
