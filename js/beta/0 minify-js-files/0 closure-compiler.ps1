@@ -15,4 +15,4 @@ foreach ($file in $jsFiles) {
     Write-Host "Minified $($file.Name) to $outputFile"
 }
 
-Write-Host "Minification complete."
+Write-Output "-- -- DONE -- --"
