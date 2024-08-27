@@ -35,7 +35,7 @@ $files = @(
 "qawaidulArbau",
 "quranBakurube",
 "quranBetaqat",
-"quranHmv",
+"quranHadithmv",
 "quranJaufar",
 "quranMuhammad",
 "quranMukhtasar",

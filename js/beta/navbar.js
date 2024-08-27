@@ -33,12 +33,14 @@ function createNavbar() {
         <li onclick=toggleDropdown(this,event) class=sub-dropdown>
           <a><span class=dropdown-arrow>◄</span>ގުރްއާން</a>
           <ul class=sub-dropdown-content>
-            <li><a href=../books/quranHmv.html>ޙަދީޘްއެމްވީގެ ތަރުޖަމާ</a>
+            <li><a href=../books/quranHadithmv.html>ޙަދީޘްއެމްވީގެ ތަރުޖަމާ</a>
             <li><a href=../books/quranRasmee.html>ރަސްމީ ތަރުޖަމާ</a>
             <li><a href=../books/quranBakurube.html>ބަކުރުބެގެ ތަރުޖަމާ</a>
             <li><a href=../books/quranJaufar.html>ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު*</a>
             <li><a href=../books/quranSoabuni.html></a>
             <li><a href=../books/quranUshru.html>ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު</a>
+            <li><a href="https://archive.org/details/malinge-hussain-didi-quran-tharujamaa-aai-thafseer"
+            target="_blank">جهود علماء المالديف في ترجمة معاني القرآن الكريم وتفسيره</a>
           </ul>
         <li onclick=toggleDropdown(this,event) class=sub-dropdown>
           <a><span class=dropdown-arrow>◄</span>ޙަދީޘް</a>
