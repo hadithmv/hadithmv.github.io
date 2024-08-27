@@ -1904,7 +1904,7 @@
             ],
             [
               "resolve",
-              "-- -- DONE -- --",
+              "✔ --- --- DONE --- --- ✔",
               E.Callbacks("once memory"),
               E.Callbacks("once memory"),
               0,
