@@ -39,7 +39,6 @@
     <script src="../js/beta/ALL-COMB.min.js"></script>
     <!-- CHANGE !!!
      TWO DATA SOURCES -->
-
      <script>
       // Create a global object to store datasets
       window.datasets = {};
@@ -535,6 +534,7 @@
       // Initialize the DataTable with the modified data
       var table = new DataTable("#tableID", {
         ...DTconfig,
+        //data: data,
         data: combinedData,
         // CHANGE !!!
         // dfkText dfkFootnote

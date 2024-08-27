@@ -35,7 +35,7 @@ $files = @(
     'qawaidulArbau-script.js',
     'quranBakurube-script.js',
     'quranBetaqat-script.js',
-    'quranHmv-script.js',
+    'quranHadithmv-script.js',
     'quranJaufar-script.js',
     'quranMuhammad-script.js',
     'quranMukhtasar-script.js',
@@ -88,7 +88,7 @@ google-closure-compiler --charset=UTF-8 --js=quranBakurube-script.js --js_output
 
 google-closure-compiler --charset=UTF-8 --js=quranBetaqat-script.js --js_output_file=quranBetaqat-script.min.js
 
-google-closure-compiler --charset=UTF-8 --js=quranHmv-script.js --js_output_file=quranHmv-script.min.js
+google-closure-compiler --charset=UTF-8 --js=quranHadithmv-script.js --js_output_file=quranHadithmv-script.min.js
 
 google-closure-compiler --charset=UTF-8 --js=quranJaufar-script.js --js_output_file=quranJaufar-script.min.js
 

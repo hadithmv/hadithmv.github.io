@@ -108,7 +108,7 @@ function changeBookQuran(newBook) {
   window.location = window.location
     .toString()
     .replace(
-      /quranUshru|quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassarGhareeb|quranMukhtasar|quranMuyassar|quranSadi|quranBetaqat|quranQiraaath/g,
+      /quranUshru|quranHadithmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassarGhareeb|quranMukhtasar|quranMuyassar|quranSadi|quranBetaqat|quranQiraaath/g,
       newBook
     )
     .replace(/\:v.*$/, "");
