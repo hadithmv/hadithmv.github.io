@@ -74,7 +74,7 @@ foreach ($file in $files) {
 # copies index page over to layout index dir
 Copy-Item "../books/index.html" -Destination "../_layouts/index.html"
 
-Write-Output "-- -- DONE -- --"
+Write-Output "✔ --- --- DONE --- --- ✔"
 
 #
 

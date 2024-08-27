@@ -30,7 +30,7 @@ Get-Content -Path "nested-dropdown-button.min.css" | Add-Content -Path "ALL-COMB
 Remove-Item -Path "nested-dropdown-button.min.css"
 Write-Output "Minified and copied: nested-dropdown-button.css"
 
-Write-Output "-- -- DONE -- --"
+Write-Output "✔ --- --- DONE --- --- ✔"
 
 <# claude:
 write powershell script to

@@ -29,4 +29,4 @@ foreach ($file in $cssFiles) {
     Write-Host "Minified $($file.Name) to $outputFile and cleaned up the original file in the target directory."
 }
 
-Write-Output "-- -- DONE -- --"
+Write-Output "✔ --- --- DONE --- --- ✔"
