@@ -1212,7 +1212,7 @@
           }
         }
 
-        .book:hover {
+        .book:hover:not(.bookDisabled) {
           /* cgpt style */
           /*transform: translateY(-10px);
           box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
@@ -1225,6 +1225,16 @@
 
           background-color: #136296;
           color: #fff;
+        }
+
+        .bookDisabled {
+          cursor: auto;
+        }
+        .bookDisabled:hover {
+          /* otherwise its a:hover { background: none; } */
+          background-color: #fff;
+          /* otherwise its a:hover {color: #36c;} */
+          color: #333;
         }
 
         .book.list-item {
@@ -1473,7 +1483,7 @@
             <p>3 تفسير القرآن لجعفر</p>
             <p>ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު</p>
           </a>
-          <a class="book">
+          <a class="book bookDisabled">
             <p class="smallerText">(އިތުރު ތަފްސީރެއް ތައްޔާރުވަނީ...)*</p>
           </a>
           <a class="book" href="../books/quranUshru.html">
@@ -1558,7 +1568,7 @@
             <p>މުޅި ގުރްއާން އެއް ސަފުހާއެއްގައި</p>
             <p class="smallerText">(PDF)</p>
           </a>
-          <a class="book">
+          <a class="book bookDisabled">
             <p>19 مقدمة في أصول التفسير*</p>
             <p>ތަފްސީރުގެ އުސޫލުތަކުގެ މުގައްދިމާ</p>
             <p class="smallerText">(ނިމެން ކައިރިވަނީ)</p>
@@ -1664,14 +1674,14 @@
             <p>ބުލޫޣުލް މަރާމް</p>
             <p class="smallerText">(އެކުލަވާލާ ނިމިފަ، މުރާޖާކުރަނީ)</p>
           </a>
+          <a class="book" href="../books/arbaoonNawawi.html">
+            <p>9 الأربعون النووية</p>
+            <p>ނަވަވީގެ ސާޅީސް ޙަދީޘް</p>
+          </a>
           <a class="book" href="../books/riyaduSaliheen.html">
-            <p>9 رياض الصالحين*</p>
+            <p>10 رياض الصالحين*</p>
             <p>ރިޔާޟުއްޞާލިޙީން</p>
             <p class="smallerText">(އެކުލަވާލަނީ)</p>
-          </a>
-          <a class="book" href="../books/arbaoonNawawi.html">
-            <p>10 الأربعون النووية</p>
-            <p>ނަވަވީގެ ސާޅީސް ޙަދީޘް</p>
           </a>
           <a
             class="book"
@@ -1682,7 +1692,7 @@
             <p>ޙަދީޘް މުސްޠަލަޙު ފަސޭހަކުރުން</p>
             <p class="smallerText">(PDF)</p>
           </a>
-          <a class="book">
+          <a class="book bookDisabled">
             <p>12 البيقونية*</p>
             <p>ބައިގޫނިއްޔާ</p>
             <p class="smallerText">(ތައްޔާރުވަނީ)</p>
