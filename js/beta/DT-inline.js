@@ -89,11 +89,24 @@ function toggleQuranFili() {
   $(".dataTable").DataTable().column(5).visible(!isVisible);
 }
 
+// SHOW OR HIDE SURAH NAME
+
+function toggleSurahName() {
+  var isVisible = $(".dataTable").DataTable().column(0).visible();
+  $(".dataTable").DataTable().column(0).visible(!isVisible);
+  //
+
+  var button = document.getElementById("toggleSurahButton");
+  if (button.innerHTML.trim() === "&nbsp; ސޫރަތް ނަތް ފޮރުވާ &nbsp;") {
+    button.innerHTML = "&nbsp; ސޫރަތް ނަތް ދައްކާ &nbsp;";
+  } else {
+    button.innerHTML = "&nbsp; ސޫރަތް ނަތް ފޮރުވާ &nbsp;";
+  }
+}
+
 // SWITCH BETWEEN IMLAI AND UTHMANI TEXT FOR AYAT
 
 function uthmaniImlai() {
-  // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
-
   var isVisible = $(".dataTable").DataTable().column(4).visible();
   $(".dataTable").DataTable().column(4).visible(!isVisible);
 
@@ -149,7 +162,7 @@ function changeBookQuran(newBook) {
   window.location = window.location
     .toString()
     .replace(
-      /quranUshru|quranHmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassarGhareeb|quranMukhtasar|quranMuyassar|quranSadi|quranBetaqat|quranQiraaath/g,
+      /quranUshru|quranHadithmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassarGhareeb|quranMukhtasar|quranMuyassar|quranSadi|quranBetaqat|quranQiraaath/g,
       newBook
     )
     .replace(/\:v.*$/, "");
@@ -350,7 +363,7 @@ var DTconfig = {
             titleAttr: "copy",
             text: "⧉ ކޮޕީ",
 
-            messageBottom: "- ޙަދީޘްއެމްވީ -",
+            //messageBottom: "- ޙަދީޘްއެމްވީ -",
 
             footer: false,
             header: false,
@@ -390,17 +403,20 @@ var DTconfig = {
                   parts[0] + "\n\nـــــــــــــــــــــــــــ\n" + parts[1];
               }
               //
-              // regular expression to find instances of \n- ޙަދީޘްއެމްވީ - that are preceded by a single newline and replace them with a double newline.
-              data = data.replace(
-                /(?<!\n)\n- ޙަދީޘްއެމްވީ -/g,
-                "\n\n- ޙަދީޘްއެމްވީ -"
-              );
-              //
+
               // print to console
               console.log(JSON.stringify(data));
               return data;
             },
           },
+          /*
+          // regular expression to find instances of \n- ޙަދީޘްއެމްވީ - that are preceded by a single newline and replace them with a double newline.
+              data = data.replace(
+                /(?<!\n)\n- ޙަދީޘްއެމްވީ -/g,
+                "\n\n- ޙަދީޘްއެމްވީ -"
+              );
+              //
+              */
 
           {
             extend: "collection",
