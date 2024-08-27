@@ -15,4 +15,4 @@ foreach ($file in $cssFiles) {
     Write-Host "Minified $($file.Name) to $outputFile"
 }
 
-Write-Output "✔ --- --- DONE --- --- ✔"
+Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
