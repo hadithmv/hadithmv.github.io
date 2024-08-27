@@ -53,6 +53,7 @@ function createNavbar() {
             <li><a href=../books/bulughulMaram.html>ބުލޫޣުލް މަރާމް*</a>
             <li><a href=../books/arbaoonNawawi.html>ނަވަވީގެ ސާޅީސް ޙަދީޘް</a>
             <li><a href=../books/riyaduSaliheen.html>ރިޔާޟުއްޞާލިޙީން*</a>
+            <li><a href="https://archive.org/details/uloomul-hadith-dv-ahmed-faruq-mohamed" target="_blank">ޙަދީޘް މުސްޠަލަޙު ފަސޭހަކުރުން PDF</a></li>
           </ul>
         <li onclick=toggleDropdown(this,event) class=sub-dropdown>
           <a><span class=dropdown-arrow>◄</span>އަގީދާ</a>
@@ -72,11 +73,20 @@ function createNavbar() {
         <li onclick=toggleDropdown(this,event) class=sub-dropdown>
           <a><span class=dropdown-arrow>◄</span>ބަސް</a>
           <ul class=sub-dropdown-content>
+            <li><a href=../mauhad/arabic.html>މަދީނާ އަރަބި ފޮތްތައް</a>
             <li><a href=../books/radheefAll.html>އެއްކުރަމުންދާ ރަދީފުތައް*</a>
             <li><a href=../books/radheefNanfoiy.html>ނަންފޮތް*</a>
             <li><a href=../books/radheefRasmee.html>ރަސްމީ ރަދީފު</a>
             <li><a href=../books/radheefEegaal.html>އަލްއީޤާޡް</a>
             <li><a href=../books/radheefManiku.html>މަނިކުގެ ރަދީފު</a>
+            <li><a href=../notes/info/lafzuVakikohLiyumugeQawaid.html>ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު (ދިވެހި)</a>
+            <li><a href="https://archive.org/details/dhifihuristhu"
+            target="_blank">ދިފިހުރިސްތު (PDF)</a>
+            <li><a href=../notes/info/NukuthaajehiAkuruthahBeynunkuraaneHama.html>ތާނައިގައި ހުރި ނުކުތާޖެހި އަކުރުތައް ބޭނުންކުރާނެ ހަމަ</a>
+            <li><a href="https://archive.org/details/dhivehi_bahuge_qawaidhu"
+            target="_blank">ދިވެހިބަހުގެ ގަވާއިދު (PDF)</a>
+            <li><a href="https://archive.org/details/latin_akurun_liyumuge_qawaidhu"
+            target="_blank">ތާނަލިޔުމުގެ ގަވާއިދު (PDF)</a>
           </ul>
       </ul>
     <li><a href=../notes/info/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
