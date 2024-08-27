@@ -45,3 +45,5 @@ replace mirrors entirely with just link to 404?
 add bahuge stuff to lang side bar dropdown
 
 hiding fili does not preserve linebreaks
+
+do the radheef/quran url switch clicks with search term, for hadith books too?
