@@ -97,10 +97,10 @@ function toggleSurahName() {
   //
 
   var button = document.getElementById("toggleSurahButton");
-  if (button.innerHTML.trim() === "&nbsp; ސޫރަތް ނަތް ފޮރުވާ &nbsp;") {
-    button.innerHTML = "&nbsp; ސޫރަތް ނަތް ދައްކާ &nbsp;";
+  if (button.innerHTML.trim() === "&nbsp; ސޫރަތުގެ ނަތް ފޮރުވާ &nbsp;") {
+    button.innerHTML = "&nbsp; ސޫރަތުގެ ނަތް ދައްކާ &nbsp;";
   } else {
-    button.innerHTML = "&nbsp; ސޫރަތް ނަތް ފޮރުވާ &nbsp;";
+    button.innerHTML = "&nbsp; ސޫރަތުގެ ނަތް ފޮރުވާ &nbsp;";
   }
 }
 
