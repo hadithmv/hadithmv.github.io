@@ -77,7 +77,7 @@
           <script>
             // If column 3 is hidden, make it visible and hide column 4. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 3 is visible and column 4 is hidden, trigger a click on .buttons-html5 without changing any column visibility.
             function copyOneOnly() {
-              var table = $("#tableID").DataTable();
+              var table = $(".dataTable").DataTable();
 
               // Get the current visibility status of columns 3 and 4
               var isVisible3 = table.column(3).visible();
@@ -120,11 +120,11 @@
           <script>
             // CHANGE !!!
             function toggleShowOne() {
-              /*var isVisible = $("#tableID").DataTable().column(8).visible();
-              $("#tableID").DataTable().column(8).visible(!isVisible);*/
+              /*var isVisible = $(".dataTable").DataTable().column(8).visible();
+              $(".dataTable").DataTable().column(8).visible(!isVisible);*/
 
-              var isVisible = $("#tableID").DataTable().column(6).visible();
-              $("#tableID").DataTable().column(6).visible(!isVisible);
+              var isVisible = $(".dataTable").DataTable().column(6).visible();
+              $(".dataTable").DataTable().column(6).visible(!isVisible);
 
               var button = document.getElementById("toggleShowButton");
               if (button.innerHTML.trim() === "&nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;") {
@@ -136,11 +136,11 @@
           </script>
           <script>
             function toggleFili() {
-              var isVisible = $("#tableID").DataTable().column(3).visible();
-              $("#tableID").DataTable().column(3).visible(!isVisible);
+              var isVisible = $(".dataTable").DataTable().column(3).visible();
+              $(".dataTable").DataTable().column(3).visible(!isVisible);
 
-              var isVisible = $("#tableID").DataTable().column(4).visible();
-              $("#tableID").DataTable().column(4).visible(!isVisible);
+              var isVisible = $(".dataTable").DataTable().column(4).visible();
+              $(".dataTable").DataTable().column(4).visible(!isVisible);
             }
           </script>
 

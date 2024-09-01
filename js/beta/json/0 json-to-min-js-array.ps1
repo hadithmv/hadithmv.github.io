@@ -31,7 +31,7 @@ Get-ChildItem -Filter "*.json" | ForEach-Object {
         Remove-Item $tempFileName
         
         # If successful, print a success message
-        Write-Host "Processed and minified: $($_.Name)"
+        Write-Host "Processed & minified: $($_.Name)"
     }
     catch {
         # If an error occurs during processing, catch it and print an error message
