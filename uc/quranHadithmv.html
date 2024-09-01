@@ -126,6 +126,14 @@
               &nbsp; ސޫރަތުގެ ނަތް ފޮރުވާ &nbsp;
             </button>
 
+            <button
+              id="toggleUthmaniImlai"
+              class="customButtons"
+              onclick="uthmaniImlai();loadRasmFont();scrollUpTop()"
+            >
+              &nbsp; ރަސްމު އުޘްމާނީއަށް &nbsp;
+            </button>
+
             <hr />
 
             <p>اسم الكتاب: ترجمة القرآن الكريم - حديث أم وي</p>
@@ -386,23 +394,23 @@
           </p>
           <p>
             <a
-              href="https://hassaanmv.com/post/waleed-and-quran"
-              target="_blank"
-              >މުސްހަފުގެ ފްރޭމް</a
-            >
-            އަދި
-            <a
               href="https://github.com/maaldheefee/Quran-Translation/blob/master/utils/gen_alternate.py"
               target="_blank"
               >އަރަބި ތާނަކުރާ ސްކްރިޕްޓް</a
             >
-            ހެދީ ޙައްސާން ޢަބްދުއްރައްޒާޤް. جَزَاهُ اللَّهُ خَيرًا.
+            ހެދީ ޙައްސާން ޢަބްދުއްރައްޒާޤް. جَزَاهُ اللَّهُ خَيرًا. އޭގެ
+            އިތުރަށް
+            <a
+              href="https://hassaanmv.com/post/waleed-and-quran"
+              target="_blank"
+              >މުސްހަފުގެ ފްރޭމް</a
+            >އެސްވީޖީއެއް ވެސް ހެދި.
           </p>
 
           <hr />
 
           <div class="leftAlignedText ltrText">
-            <p>Technical notes regarding the database text</p>
+            <h3>Technical notes regarding the database text</h3>
             <p>
               In the json db, first column is surah number, written as
               sans-serif digits.
@@ -427,8 +435,7 @@
               generated, using scripts to remove all taskheels. It is not in the
               db itself.
             </p>
-            <br />
-            <p>Details about the Tanzil text:</p>
+            <h4>Details about the Tanzil text:</h4>
             <p>(Version: 1.1, 12 February 2021)</p>
             <p>
               (Quran text type: Simple) also included ۞ and the space that comes
@@ -445,7 +452,6 @@
               is used as the primary arabic column in all translations/tafsirs
               on this site.
             </p>
-            <br />
             <p>
               As for the Rasm Uthmani column with fancy and complex unicode
               characters, it is a more beautiful script that matches the current

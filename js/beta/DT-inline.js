@@ -94,6 +94,7 @@ function toggleQuranFili() {
 function toggleSurahName() {
   var isVisible = $(".dataTable").DataTable().column(0).visible();
   $(".dataTable").DataTable().column(0).visible(!isVisible);
+
   //
 
   var button = document.getElementById("toggleSurahButton");
@@ -107,11 +108,40 @@ function toggleSurahName() {
 // SWITCH BETWEEN IMLAI AND UTHMANI TEXT FOR AYAT
 
 function uthmaniImlai() {
-  var isVisible = $(".dataTable").DataTable().column(4).visible();
-  $(".dataTable").DataTable().column(4).visible(!isVisible);
+  var isVisible = $(".dataTable").DataTable().column(5).visible();
+  $(".dataTable").DataTable().column(5).visible(!isVisible);
 
-  var isVisible = $(".dataTable").DataTable().column(6).visible();
-  $(".dataTable").DataTable().column(6).visible(!isVisible);
+  var isVisible = $(".dataTable").DataTable().column(7).visible();
+  $(".dataTable").DataTable().column(7).visible(!isVisible);
+
+  //
+
+  var button = document.getElementById("toggleUthmaniImlai");
+  if (button.innerHTML.trim() === "&nbsp; ރަސްމު އުޘްމާނީއަށް &nbsp;") {
+    button.innerHTML = "&nbsp; ރަސްމު އިމްލާއީއަށް &nbsp;";
+  } else {
+    button.innerHTML = "&nbsp; ރަސްމު އުޘްމާނީއަށް &nbsp;";
+  }
+}
+
+// LOAD UTHMANI FONT FOR QURAN ONLY ON BUTTON CLICK
+
+// Dynamically Load And Apply Fonts With JavaScript
+// https://awik.io/dynamically-load-apply-fonts-javascript/
+// Your font goes here
+const fontVar = new FontFace("mergedFont", "url(../font/hafs-400.woff)");
+// Function which loads the font and applies it
+function loadRasmFont() {
+  //console.log("Loading font...");
+  fontVar
+    .load()
+    .then(function (loadedFont) {
+      document.fonts.add(loadedFont);
+      //html.style.fontFamily = '"mergedFont"';
+    })
+    .catch(function (error) {
+      console.log("Failed to load font: " + error);
+    });
 }
 
 // CHANGE FILI BUTTON STRING
@@ -123,37 +153,6 @@ function filiString() {
   } else {
     button.innerHTML = "&nbsp; ފިލިތައް ފޮރުވާ &nbsp;";
   }
-}
-
-// CHANGE RASM UTHMANI IMLAI STRING
-
-function rasmString() {
-  var button = document.getElementById("toggleUthmaniImlai");
-  if (button.innerHTML.trim() === "&nbsp; ރަސްމު އުޘްމާނީ &nbsp;") {
-    button.innerHTML = "&nbsp; ރަސްމު އިމްލާއީ &nbsp;";
-  } else {
-    button.innerHTML = "&nbsp; ރަސްމު އުޘްމާނީ &nbsp;";
-  }
-}
-
-// LOAD UTHMANI FONT FOR QURAN ONLY ON BUTTON CLICK
-
-// Dynamically Load And Apply Fonts With JavaScript
-// https://awik.io/dynamically-load-apply-fonts-javascript/
-// Your font goes here
-const bangersFont = new FontFace("mergedFont", "url(../font/hafs-400.woff)");
-// Function which loads the font and applies it
-function loadFont() {
-  //console.log("Loading font...");
-  bangersFont
-    .load()
-    .then(function (loadedFont) {
-      document.fonts.add(loadedFont);
-      //html.style.fontFamily = '"mergedFont"';
-    })
-    .catch(function (error) {
-      console.log("Failed to load font: " + error);
-    });
 }
 
 // QURAN CHANGE BOOK
