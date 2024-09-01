@@ -108,18 +108,18 @@
           <script>
             // CHANGE !!!
             function toggleShowOne() {
-              var isVisible = $("#tableID").DataTable().column(4).visible();
-              $("#tableID").DataTable().column(4).visible(!isVisible);
-              var isVisible = $("#tableID").DataTable().column(6).visible();
-              $("#tableID").DataTable().column(6).visible(!isVisible);
+              var isVisible = $(".dataTable").DataTable().column(4).visible();
+              $(".dataTable").DataTable().column(4).visible(!isVisible);
+              var isVisible = $(".dataTable").DataTable().column(6).visible();
+              $(".dataTable").DataTable().column(6).visible(!isVisible);
 
               // hide ar footnote
-              var isVisible = $("#tableID").DataTable().column(8).visible();
-              $("#tableID").DataTable().column(8).visible(!isVisible);
+              var isVisible = $(".dataTable").DataTable().column(8).visible();
+              $(".dataTable").DataTable().column(8).visible(!isVisible);
 
               // hide dv footnote
-              var isVisible = $("#tableID").DataTable().column(9).visible();
-              $("#tableID").DataTable().column(9).visible(!isVisible);
+              var isVisible = $(".dataTable").DataTable().column(9).visible();
+              $(".dataTable").DataTable().column(9).visible(!isVisible);
 
               // change string
               var button = document.getElementById("toggleShowButton");
@@ -134,11 +134,11 @@
             function toggleFili() {
               // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
 
-              var isVisible = $("#tableID").DataTable().column(4).visible();
-              $("#tableID").DataTable().column(4).visible(!isVisible);
+              var isVisible = $(".dataTable").DataTable().column(4).visible();
+              $(".dataTable").DataTable().column(4).visible(!isVisible);
 
-              var isVisible = $("#tableID").DataTable().column(5).visible();
-              $("#tableID").DataTable().column(5).visible(!isVisible);
+              var isVisible = $(".dataTable").DataTable().column(5).visible();
+              $(".dataTable").DataTable().column(5).visible(!isVisible);
             }
           </script>
 
