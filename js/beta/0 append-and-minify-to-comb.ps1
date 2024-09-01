@@ -1,6 +1,24 @@
 # Set the location to the script's directory
 Set-Location -Path $PSScriptRoot
 
+# Function to minify and append files
+function Minify-And-Append {
+    param (
+        [string]$sourceFile,
+        [string]$targetFile
+    )
+    
+    $tempFile1 = "temp1.js"
+    $tempFile2 = "temp2.js"
+    
+    google-closure-compiler --charset=UTF-8 --js $sourceFile --js_output_file $tempFile1
+    uglifyjs $tempFile1 -c -m -o $tempFile2
+    Add-Content -Path $targetFile -Value "`n// $sourceFile"
+    Get-Content -Path $tempFile2 | Add-Content -Path $targetFile
+    Remove-Item -Path $tempFile1, $tempFile2
+    Write-Output "Minified and copied: $sourceFile"
+}
+
 # Clear the content of ALL-COMB.min.js
 Clear-Content -Path "ALL-COMB.min.js"
 Write-Output "Cleared ALL-COMB.min.js"
@@ -9,28 +27,19 @@ Write-Output "Cleared ALL-COMB.min.js"
 Get-Content -Path "comb-DT.min.js" | Set-Content -Path "ALL-COMB.min.js"
 Write-Output "Copied: comb-DT.min.js"
 
-# Minify dt-inline.js with Closure Compiler and UglifyJS, then append to ALL-COMB.min.js
-google-closure-compiler --charset=UTF-8 --js "DT-inline.js" --js_output_file "temp1.js"
-uglifyjs "temp1.js" -c -m -o "temp2.js"
-Add-Content -Path "ALL-COMB.min.js" -Value "`n// dt-inline.js"
-Get-Content -Path "temp2.js" | Add-Content -Path "ALL-COMB.min.js"
-Remove-Item -Path "temp1.js", "temp2.js"
-Write-Output "Minified and copied: DT-inline.js"
+# List of JavaScript files to minify and append
+$jsFiles = @(
+    "DT-inline.js",
+    "navbar.js",
+    "nested-dropdown-button.js"
+    "quran-dropdowns.js"
 
-# Minify navbar.js with Closure Compiler and UglifyJS, then append to ALL-COMB.min.js
-google-closure-compiler --charset=UTF-8 --js "navbar.js" --js_output_file "temp1.js"
-uglifyjs "temp1.js" -c -m -o "temp2.js"
-Add-Content -Path "ALL-COMB.min.js" -Value "`n// navbar.js"
-Get-Content -Path "temp2.js" | Add-Content -Path "ALL-COMB.min.js"
-Remove-Item -Path "temp1.js", "temp2.js"
-Write-Output "Minified and copied: navbar.js"
+)
 
-google-closure-compiler --charset=UTF-8 --js "nested-dropdown-button.js" --js_output_file "temp1.js"
-uglifyjs "temp1.js" -c -m -o "temp2.js"
-Add-Content -Path "ALL-COMB.min.js" -Value "`n// nested-dropdown-button.js"
-Get-Content -Path "temp2.js" | Add-Content -Path "ALL-COMB.min.js"
-Remove-Item -Path "temp1.js", "temp2.js"
-Write-Output "Minified and copied: nested-dropdown-button.js"
+# Process each file
+foreach ($file in $jsFiles) {
+    Minify-And-Append -sourceFile $file -targetFile "ALL-COMB.min.js"
+}
 
 Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
 
