@@ -311,7 +311,8 @@
         }
 
         // Flatten the dataSets array to get a single array of all rows
-        var combinedDataSet = dataSets.flatMap((ds) => ds.data);
+        // prev data was combinedDataSet
+        var data = dataSets.flatMap((ds) => ds.data);
 
         // Log the combined dataset to the console. uncomment this to see the object array
         // console.log(combinedDataSet);
@@ -319,7 +320,7 @@
         // Initialize the DataTable with the combined dataset and specified configuration
         var table = new DataTable("#tableID", {
           ...DTconfig, // Existing DataTable configuration spreadd from external file source
-          data: combinedDataSet, // Set the combined dataset as the data for the table
+          data: data, // Set the combined dataset as the data for the table
 
           //columns: [null, null, null, null, null],
           /*columns: [
