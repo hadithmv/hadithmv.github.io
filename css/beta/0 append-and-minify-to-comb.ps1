@@ -1,6 +1,22 @@
 # Set the working directory to the script's location
 Set-Location -Path $PSScriptRoot
 
+# Function to minify and append files
+function Minify-And-Append {
+    param (
+        [string]$sourceFile,
+        [string]$targetFile
+    )
+    
+    $minifiedFile = [System.IO.Path]::GetFileNameWithoutExtension($sourceFile) + ".min.css"
+    
+    csso $sourceFile -o $minifiedFile
+    Add-Content -Path $targetFile -Value "`n/* $sourceFile */"
+    Get-Content -Path $minifiedFile | Add-Content -Path $targetFile
+    Remove-Item -Path $minifiedFile
+    Write-Output "Minified and copied: $sourceFile"
+}
+
 # Clear the content of ALL-COMB.min.css
 Clear-Content -Path "ALL-COMB.min.css"
 Write-Output "Cleared ALL-COMB.min.css"
@@ -9,26 +25,18 @@ Write-Output "Cleared ALL-COMB.min.css"
 Get-Content -Path "comb-DT.min.css" | Set-Content -Path "ALL-COMB.min.css"
 Write-Output "Copied: comb-DT.min.css"
 
-# Minify DT-inline.css using csso and append to ALL-COMB.min.css
-csso "DT-inline.css" -o "DT-inline.min.css"
-Add-Content -Path "ALL-COMB.min.css" -Value "`n/* DT-inline.css */" # `n
-Get-Content -Path "DT-inline.min.css" | Add-Content -Path "ALL-COMB.min.css"
-Remove-Item -Path "DT-inline.min.css"
-Write-Output "Minified and copied: dt-inline.css"
+# List of CSS files to minify and append
+$cssFiles = @(
+    "DT-inline.css",
+    "navbar.css",
+    "nested-dropdown-button.css",
+    "quran-dropdowns.css"
+)
 
-# Minify navbar.css using csso and append to ALL-COMB.min.css
-csso "navbar.css" -o "navbar.min.css"
-Add-Content -Path "ALL-COMB.min.css" -Value "`n/* navbar.css */" # `n
-Get-Content -Path "navbar.min.css" | Add-Content -Path "ALL-COMB.min.css"
-Remove-Item -Path "navbar.min.css"
-Write-Output "Minified and copied: navbar.css"
-
-# Minify navbar.css using csso and append to ALL-COMB.min.css
-csso "nested-dropdown-button.css" -o "nested-dropdown-button.min.css"
-Add-Content -Path "ALL-COMB.min.css" -Value "`n/* nested-dropdown-button.css */" # `n
-Get-Content -Path "nested-dropdown-button.min.css" | Add-Content -Path "ALL-COMB.min.css"
-Remove-Item -Path "nested-dropdown-button.min.css"
-Write-Output "Minified and copied: nested-dropdown-button.css"
+# Process each file
+foreach ($file in $cssFiles) {
+    Minify-And-Append -sourceFile $file -targetFile "ALL-COMB.min.css"
+}
 
 Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
 
