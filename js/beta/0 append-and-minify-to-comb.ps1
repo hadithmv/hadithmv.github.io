@@ -31,7 +31,7 @@ Write-Output "Copied: comb-DT.min.js"
 $jsFiles = @(
     "DT-inline.js",
     "navbar.js",
-    "nested-dropdown-button.js"
+    "belowPage-bab-dropdown.js"
     "quran-dropdowns.js"
 
 )
