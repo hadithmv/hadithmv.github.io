@@ -390,6 +390,15 @@ var DTconfig = {
               // Replace more than 2 consecutive newlines with just 2 newlines
               data = data.replace(/\n{3,}/g, "\n\n");
               //
+              // Convert sans-serif digits to regular digits
+              // First, replace sans-serif digits with regular digits
+              Object.entries(sansSerifDigits).forEach(
+                ([regularDigit, sansSerifDigit]) => {
+                  const regex = new RegExp(sansSerifDigit, "g");
+                  data = data.replace(regex, regularDigit);
+                }
+              );
+              //
               // NOTE that the below newline reduction will reduce even wanted newlines where footnotes come above other content, like in dfk
               // Split the data at the line of dashes
               let parts = data.split("\n\nـــــــــــــــــــــــــــ\n\n");
@@ -405,7 +414,7 @@ var DTconfig = {
               //
 
               // print to console
-              console.log(JSON.stringify(data));
+              //console.log(JSON.stringify(data));
               return data;
             },
           },
