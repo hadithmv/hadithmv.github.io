@@ -82,18 +82,18 @@ function scrollUpTop() {
 function toggleQuranFili() {
   // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
 
-  var isVisible = $(".dataTable").DataTable().column(4).visible();
-  $(".dataTable").DataTable().column(4).visible(!isVisible);
-
   var isVisible = $(".dataTable").DataTable().column(5).visible();
   $(".dataTable").DataTable().column(5).visible(!isVisible);
+
+  var isVisible = $(".dataTable").DataTable().column(6).visible();
+  $(".dataTable").DataTable().column(6).visible(!isVisible);
 }
 
 // SHOW OR HIDE SURAH NAME
 
 function toggleSurahName() {
-  var isVisible = $(".dataTable").DataTable().column(0).visible();
-  $(".dataTable").DataTable().column(0).visible(!isVisible);
+  var isVisible = $(".dataTable").DataTable().column(2).visible();
+  $(".dataTable").DataTable().column(2).visible(!isVisible);
 
   //
 
