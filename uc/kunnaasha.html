@@ -41,7 +41,7 @@
     <script src="../js/beta/json/kunnaasha.js"></script>
     <style>
       /* so that long links in table dont cause it to break off screen */
-      #tableID > tbody > tr {
+      .dataTable > tbody > tr {
         overflow-wrap: anywhere;
       }
     </style>
@@ -69,11 +69,11 @@
 
           <script>
             function toggleFili() {
-              var isVisible = $("#tableID").DataTable().column(4).visible();
-              $("#tableID").DataTable().column(4).visible(!isVisible);
+              var isVisible = $(".dataTable").DataTable().column(4).visible();
+              $(".dataTable").DataTable().column(4).visible(!isVisible);
 
-              var isVisible = $("#tableID").DataTable().column(5).visible();
-              $("#tableID").DataTable().column(5).visible(!isVisible);
+              var isVisible = $(".dataTable").DataTable().column(5).visible();
+              $(".dataTable").DataTable().column(5).visible(!isVisible);
             }
           </script>
 
