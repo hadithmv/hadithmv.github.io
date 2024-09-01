@@ -38,3 +38,5 @@ Get-ChildItem -Filter "*.json" | ForEach-Object {
         Write-Host "Error processing $($_.Name): $_"
     }
 }
+
+Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
