@@ -98,8 +98,6 @@
         </div>
       </div>
       <!-- Navigation container for Surah, Ayah, and Juz selection - END-->
-      <div id="navbar-container"></div>
-      <div class="dtWrapper">
         <table id="tableID" class="cards" width="100%"></table>
         <div class="footer">
           <div class="centerAlignedText">
@@ -139,53 +137,63 @@
               class="customButtons"
               onclick="toggleShowOne();scrollUpTop()"
             >
-              &nbsp; އިޖްމާލީ ދައްކާ &nbsp;
+              &nbsp; އިޖްމާލީ އެކަނި &nbsp;
             </button>
 
-            <button class="lowerButtons" onclick="copyOneOnly();">
-              &nbsp; އިޖްމާލީ ކޮޕީ &nbsp;
-            </button>
+            
 
             <script>
               function toggleShowOne() {
-                var isVisible = $(".dataTable").DataTable().column(6).visible();
-                $(".dataTable").DataTable().column(6).visible(!isVisible);
+                var isVisible = $(".dataTable").DataTable().column(8).visible();
+                $(".dataTable").DataTable().column(8).visible(!isVisible);
+                // rongu
+              var isVisible = $(".dataTable").DataTable().column(9).visible();
+              $(".dataTable").DataTable().column(9).visible(!isVisible);
 
                 // change string
                 var button = document.getElementById("toggleShowButton");
                 if (
                   button.innerHTML.trim() ===
-                  "&nbsp; އިޖްމާލީ އެކަނި ދައްކާ &nbsp;"
+                  "&nbsp; އިޖްމާލީ އެކަނި &nbsp;"
                 ) {
                   button.innerHTML = "&nbsp; ލަފްޒީވެސް ދައްކާ &nbsp;";
                 } else {
-                  button.innerHTML = "&nbsp; އިޖްމާލީ އެކަނި ދައްކާ &nbsp;";
+                  button.innerHTML = "&nbsp; އިޖްމާލީ އެކަނި &nbsp;";
                 }
               }
             </script>
 
+            <button class="customButtons" onclick="copyOneOnly();">
+              &nbsp; އިޖްމާލީ ކޮޕީ &nbsp;
+            </button>
+
             <script>
-              // should only execute if visible(!isVisible) is already visible
-              function copyOneOnly() {
-                // This line gets the visibility status of the 6th column in the DataTable with the id "quranTable".
-                var isVisible = $(".dataTable").DataTable().column(6).visible();
+             function copyOneOnly() {
+                  // Check the current visibility status of the 8th column (index 7) in the DataTable
+    var isVisible = $(".dataTable").DataTable().column(8).visible();
+    $(".dataTable").DataTable().column(9).visible();
 
-                // Toggle visibility only if the column is already visible
-                // If the column is currently visible (isVisible is true), it hides the column; otherwise, it shows the column. This line effectively toggles the visibility of the 6th column.
-                if (isVisible) {
-                  $(".dataTable").DataTable().column(6).visible(!isVisible);
-                }
+        // If the column is currently visible, hide it
+    if (isVisible) {
+      $(".dataTable").DataTable().column(8).visible(false);
+      $(".dataTable").DataTable().column(9).visible(false);
+    }
+    
+    // Trigger click on the copy button (works on mobile too)
+    // This simulates clicking the button with class "buttons-html5"
+    $(".buttons-html5").click();
+    
+        // If the column was originally visible, we need to make it visible again
+    if (isVisible) {
+                        // Use setTimeout to delay the restoration of visibility
+        setTimeout(function() {
+          $(".dataTable").DataTable().column(8).visible(true);
+                      // After the specified delay, make the 8th column visible again
+          $(".dataTable").DataTable().column(9).visible(true);
+        }, 100); // Delay of 100ms, adjust as needed
+    } 
+}
 
-                // trigger click on copy button, works on mobile
-                // This line triggers a click event on all elements with the class "buttons-html5". This could be used to simulate a click on a button
-                $(".buttons-html5").click();
-
-                // Restore visibility to its original state
-                // If the column was originally visible (before step 2), it ensures that the column is set to be visible again. This step restores the original visibility state of the 6th column.
-                if (isVisible) {
-                  $(".dataTable").DataTable().column(6).visible(true);
-                }
-              }
             </script>
 
             <hr />

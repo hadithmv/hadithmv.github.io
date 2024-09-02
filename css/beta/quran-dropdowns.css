@@ -3,7 +3,7 @@
 .q-navigation-container {
   display: flex;
   justify-content: center;
-  /*margin-bottom: 20px;*/
+  margin-bottom: 10px; /* 20 */
   /* */
   direction: rtl;
   /*gap: 20px;*/
