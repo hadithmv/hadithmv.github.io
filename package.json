@@ -4,6 +4,7 @@
     "prettier": "3.3.1"
   },
   "dependencies": {
+    "axios": "^1.7.7",
     "papa": "^0.0.0",
     "postcss": "^8.4.41",
     "postcss-cli": "^11.0.0"
