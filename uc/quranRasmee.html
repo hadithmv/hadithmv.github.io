@@ -139,7 +139,7 @@
               class="customButtons"
               onclick="toggleThaana();"
             >
-              &nbsp; އަސްލު އަރަބިތާނަ &nbsp;
+              &nbsp; އަސްލު އަރަބިތާނައަށް &nbsp;
             </button>
             <script>
               function toggleThaana() {
@@ -152,11 +152,12 @@
                 // change string
                 var button = document.getElementById("toggleThaanaArabi");
                 if (
-                  button.innerHTML.trim() === "&nbsp; އަސްލު އަރަބިތާނަ &nbsp;"
+                  button.innerHTML.trim() ===
+                  "&nbsp; އަސްލު އަރަބިތާނައަށް &nbsp;"
                 ) {
-                  button.innerHTML = "&nbsp; ހުސްއެކަނި ތާނަ &nbsp;";
+                  button.innerHTML = "&nbsp; ހުސްއެކަނި ތާނައަށް &nbsp;";
                 } else {
-                  button.innerHTML = "&nbsp; އަސްލު އަރަބިތާނަ &nbsp;";
+                  button.innerHTML = "&nbsp; އަސްލު އަރަބިތާނައަށް &nbsp;";
                 }
               }
             </script>
@@ -166,8 +167,8 @@
             <p>اسم الكتاب: ترجمة القرآن الكريم - لمكتب رئيس جزر المالديف</p>
 
             <p>
-              Dhivehi | Translation of the Noble Quran by Office of the
-              President of Maldives
+              Name of the Book: Translation of the Noble Quran by Office of the
+              President of Maldives - Dhivehi
             </p>
 
             <p>
@@ -1041,16 +1042,25 @@
             },
           },
           {
-            title: "އަރަބި ތާނަ",
+            title: "ދިވެހި ތަރުޖަމާ",
             data: 6,
-            visible: false,
           },
           {
-            title: "ދިވެހި ތަރުޖަމާ",
+            title: "ތަރަޖުމާ އަރަބިއާއެކު",
             data: 7,
+            visible: false,
           },
         ],
         //
+        columnDefs: [
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [1, 2, 3],
+          },
+          ...columnDefsconfig,
+        ],
       }); // var table = new DataTable("#tableID", { END
       //
 
