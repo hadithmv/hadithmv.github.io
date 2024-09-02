@@ -138,7 +138,10 @@
 
             <p>اسم الكتاب: ترجمة القرآن الكريم - حديث أم وي</p>
 
-            <p>Dhivehi | Translation of the Noble Quran - Hadithmv</p>
+            <p>
+              Name of the Book: Translation of the Noble Quran - Hadithmv -
+              Dhivehi
+            </p>
 
             <p>ފޮތުގެ ނަން: ކީރިތި ގުރްއާނުގެ ތަރުޖަމާ - ޙަދީޘްއެމްވީ</p>
           </div>
@@ -798,6 +801,15 @@
           },
         ],
         //
+        columnDefs: [
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [1, 2, 3],
+          },
+          ...columnDefsconfig,
+        ],
       }); // var table = new DataTable("#tableID", { END
       //
 
