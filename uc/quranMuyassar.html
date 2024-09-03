@@ -1,1574 +1,1016 @@
 <!doctype html>
-<html lang="dv">
-  <!-- prevent translate popup -->
-
+<html translate="no">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- CHANGE !!! -->
     <link
       rel="canonical"
       href="https://hadithmv.github.io/books/quranMuyassar.html"
     />
-    <meta name="google" content="notranslate" />
-
-    <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
-    <meta name="theme-color" content="#29434e" />
-    <!-- og metadata sm link previews -->
-    <meta property="og:title" content="Hadithmv" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://hadithmv.github.io/books/quranMuyassar.html"
-    />
-    <meta
-      property="og:image"
-      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
-    />
-
-    <!-- change123 html -->
-    <title>Tafseer Muyassar</title>
+    <title>التفسير الميسر - ތަފްސީރުލް މުޔައްސަރު</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
     />
-    <!-- META TAGS - END -->
-
-    <!-- === EXT CSS === -->
-    <!-- non critical -->
-    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
-    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
-    <!-- === EXT CSS - END === -->
-
-    <!-- === EXT JS === -->
-    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
-    <!-- critical -->
-    <script defer src="../js/resc/COMB-Crit.min.js"></script>
-    <!-- non critical -->
-    <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
-    <!-- change123 js -->
-    <script
-      defer
-      src="../js/json/surah-juz-ayahNo-basmalah-ayah-uthmani.js"
-    ></script>
-    <script defer src="../js/json/quranMuyassar.js"></script>
-    <script defer src="../js/quranMuyassar-script.min.js"></script>
-    <!-- === EXT JS - END === -->
-
-    <!-- === INT CSS === -->
-
-    <style>
-      /* change123 html */
-
-      /* === --- === --- ====
-         CUSTOM COLUMN CLASSES
-         === --- === --- ==== */
-
-      /* mobile only row centering, for rows with strings that are not long */
-
-      /* @media screen and (max-width: 900px) { */
-
-      .dataTable tr td.qCol1,
-    .dataTable tr td.qCol2,
-    .dataTable tr td.qCol3,
-    .dataTable tr td.qCol4,
-    .dataTable tr td.qCol5,
-    .dataTable tr td.qCol6
-
-    /*.dataTable tr td.qCol7*/ {
-        text-align: center;
-      }
-
-      /* .dataTable tr td.qCol7 */
-
-      /* ===================
-          FOR Quran border frame and ayahbox
-      ===================== */
-
-      /* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Backgrounds_and_Borders/Border-image_generator 
-      The trick is to use the "round" option. PNG might have to be manually optimized. By carefully limiting the color pallete, etc.*/
-      /*
-        border-image-slice: 27 27 27 27;
-        border-image-width: 20px 20px 20px 20px;
-        border-image-outset: 0px 0px 0px 0px;
-        border-image-repeat: round round;
-        border-image-source: url("https://hadithmv.github.io/img/frame/ayahbox-mod-Opt.svg");
-        border-style: solid;
-        */
-
-      /* mobile only quran border frame svg */
-
-      /* @media screen and (max-width: 900px) { */
-
-      /* minimum height for frame */
-      #quranTable > tbody > tr {
-        min-height: 45vh;
-        /* 300px */
-      }
-
-      /* on mobile */
-      @media screen and (max-width: 900px) {
-        #quranTable > tbody > tr {
-          min-height: 70vh;
-          /* 300px */
-        }
-      }
-
-      #quranTable>tbody>tr
-
-    /*, table*/ {
-        /* font-family: hafs;
-          font-size: 20pt;
-          text-align: justify;
-            border-style: solid; */
-
-        /* for chromium */
-
-        /* margin: 0.5em; */
-
-        /* to allow for background color by extending border transparent parts */
-        padding: 1.15rem;
-
-        /* padding: 1em 2.2em; */
-        border-image-slice: 30% 30.5%;
-        border-image-width: 3em;
-        /* 3em; */
-        border-image-repeat: round round;
-
-        /* can move inside html to eliminate 1 network request, https://yoksel.github.io/ */
-        border-image-source: url("../img/frame/ayahbox-mod-Opt.svg");
-        border-image-outset: 0.6em;
-
-        /* margin + .1em for optical alignment */
-
-        /* background-color: beige; */
-
-        /* spaces out above and below quran table */
-        margin-top: 1.6rem;
-        /*margin-bottom: 2.4rem;*/
-      }
-
-      /* reduces margin last item at end of page, NOT WITHIN TABLE BOX, OUTSIDE IT */
-
-      /*#quranTable > tbody > tr:last-child {
-        margin-bottom: 50px;
-      }*/
-      /*30*/
-
-      /* } */
-
-      /* ===== quran frame border - END ===== */
-
-      /* ayah box */
-
-      #quranTable > tbody > tr > td.qCol1 {
-        /* makes it independant of the other rows */
-        position: absolute;
-        /* centers below */
-        left: 0;
-        right: 0;
-        margin-left: auto;
-        margin-right: auto;
-
-        /* float: left; */
-        /*position: relative;*/
-
-        /* top: .8em; */
-        font-size: 1em;
-        /* 0.9 */
-        line-height: 1.6em;
-        padding-top: 0.2em !important;
-        /*2px;*/
-        padding-bottom: 0.1em !important;
-        /*0;*/
-        padding-left: 0.5em;
-        padding-right: 0.5em;
-
-        /* padding: 0 .5em; */
-        background: #c1d1c3;
-        border-radius: 0.2em;
-        border: 1px solid #40455c;
-        box-shadow:
-          inset 0 0 2px 0 #693,
-          0 0 0 2px #fff,
-          0 0 0 3px #40455c;
-
-        /* centers ayahbox */
-        top: 15px;
-        /* -30 */
-        width: 7rem;
-        /* 7.5 */
-        margin: auto;
-        text-align: center;
-
-        /* removes margin below ayahbox to lessen space above ayah */
-        /*margin-bottom: -15px;*/
-      }
-
-      /* TRULY effects first and last space above and below quran table */
-      #quranTable > tbody > tr > td:nth-child(2) {
-        margin-top: 40px !important;
-      }
-
-      /*#quranTable > tbody > tr > td:nth-last-child(1) {
-          margin-bottom: 30px !important;
-        }*/
-
-      /* MOBILE only quran border frame svg */
-
-      @media screen and (max-width: 599px) {
-        #quranTable > tbody > tr {
-          border-image-width: 2.5em;
-        }
-
-        /* ayah box MOBILE ONLY */
-        #quranTable > tbody > tr > td.qCol1 {
-          top: 15px !important;
-          /* top: -32px 35 */
-          font-size: 0.9em;
-          /* 0.9 */
-          width: 6rem;
-          /* 7.5 */
-        }
-      }
-
-      /* gives space to the top and bottom of cells */
-
-      /* #quranTable > tbody */
-      #quranTable > tbody > tr > td.qCol1 {
-        margin-bottom: 5px !important;
-      }
-
-      #quranTable > tbody > tr {
-        padding-bottom: 50px !important;
-      }
-
-      /* gives space above the empty no results row */
-      /* table.dataTable td.dataTables_empty
-      margin-top: 30px  !important; */
-      #quranTable > tbody > tr > td:nth-child(2) {
-        margin-top: 0;
-      }
-
-      /* ===== quran ayahbox - END ===== */
-
-      /* custom quran css for Keytable - Desktop only MQ */
-
-      @media screen and (min-width: 900px) {
-        /* #quranTable tbody th.focus, */
-        #quranTable tbody td.focus {
-          box-shadow: inset 0 0 1px 2px #337ab7;
-
-          /* inset: Changes the shadow from an outer shadow (outset) to an inner shadow
-      next 4 numbers: offset-x | offset-y | blur-radius | spread-radius
-      last is color */
-
-          /* last px makes box thicker */
-        }
-      }
-
-      /*@mixin for-ABOVEphone and tablet-only*/
-      @media screen and (min-width: 900px) {
-        /* gives space to the top and bottom of cells */
-
-        /*
-        #quranTable > tbody > tr > td.qCol1 {
-          margin-bottom: 5px !important;
-        }
-        #quranTable > tbody > tr > td.qCol5 {
-          margin-bottom: 35px !important;
-        }
-        */
-
-        /* gives even more space around table wrapper in desktop view, and then centers */
-        #quranTable > tbody > tr {
-          max-width: 700px;
-          margin-left: auto;
-          margin-right: auto;
-          margin-top: 30px;
-          margin-bottom: 50px;
-        }
-
-        /* gives space to the left and right sides of words */
-        #quranTable > tbody > tr > td:not(:first-of-type) {
-          /* min-height: 200px !important; */
-          margin-left: 50px !important;
-          margin-right: 50px !important;
-        }
-      }
-
-      /* UNDOES unproportionate padding brought on by general card code */
-      table.cards.dataTable > tbody > tr > td:nth-child(1) {
-        padding-top: 0px;
-      }
-
-      table.cards.dataTable > tbody > tr > td:nth-last-child(1) {
-        padding-bottom: 0px;
-      }
-
-      /* ====================
-             DARK MODE
-      ======================= */
-
-      /* Chrome DevTools (Three dots > More tools > Rendering > Emulate CSS media feature prefers-color-scheme */
-
-      @media (prefers-color-scheme: dark) {
-        /* The :not(X) property in CSS is a negation pseudo class and accepts a simple selector1 as an argument.
-  otherwise border : 1px overwrites the quran frame and white outline gets larger */
-
-        /* ayahbox */
-        #quranTable > tbody > tr > td.qCol1 {
-          /* font-weight: normal;*/
-          background: #212d39;
-          color: rgba(255, 255, 255, 0.847);
-          border-color: #212d39;
-          box-shadow:
-            inset 0 0 2px 0 /*#693*/,
-            0 0 0 1.75px rgba(255, 255, 255, 0.847),
-            0 0 0 2.75px #40455c;
-        }
-
-        /* this colors the square border around the frame in quran, otherwise white */
-        #quranTable > tbody > tr {
-          background-color: #1a232d !important;
-        }
-
-        /* without important, double click go to jumping changes some of the inner background color */
-      }
-
-      /* basmala padding remove */
-      .dataTable tr td.qCol4 {
-        padding-top: 0;
-        padding-bottom: 0;
-      }
-    </style>
-    <!-- === INT CSS - END === -->
-  </head>
-
-  <body translate="no">
-    <div id="page">
-      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
-      <!-- adding fixed or custom writing z index breaks on mobile -->
-      <div class="header fixed" onclick="drawer.open();">
-        <!-- hamburger -->
-        <a href="#menu"><span></span></a>
-        <a class="menuLeftIcon" href="index.html"
-          ><img
-            class="hmvLogo1"
-            alt="hadith mv"
-            loading="lazy"
-            src="../img/logo/logo.svg"
-        /></a>
-        <span>التفسير الميسر</span>
-        <span class="hideOnPhoneOnly">- ތަފްސީރުލް މުޔައްސަރު</span>
-        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
-        <nav id="menu">
-          <ul>
-            <li>
-              <a href="../books/index.html">● މައި ސަފުހާ</a>
-            </li>
-
-            <div class="menuListInList">
-              <li>
-                <a onclick="changeBookQuran('quranHadithmv')"
-                  >1 ޙަދީޘްއެމްވީ ތަރުޖަމާ</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranBakurube')"
-                  >2 ބަކުރުބެގެ ތަރުޖަމާ</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranJaufar')"
-                  >3 ޖަޢުފަރުގެ ތަފްސީރު</a
-                >
-              </li>
-              <li><a onclick="changeBookQuran('quranSoabuni')">&nbsp;</a></li>
-              <li>
-                <a href="quranUshru.html">5 ފަހު ދިހަބައިކުޅަ އެއްބައި</a>
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranRasmee')"
-                  >6 ރަސްމީ ތަރުޖަމާ</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranMuyassar')"
-                  >7 التفسير الميسر</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranMukhtasar')"
-                  >8 المختصر في تفسير</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranSadi')">9 تفسير السعدي</a>
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranMuyassarGhareeb')"
-                  >10 الميسر غريب القرآن</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranBetaqat')"
-                  >11 بطاقات تعريف بسور</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranQiraaath')"
-                  >12 موسوعة القراءات</a
-                >
-              </li>
-            </div>
-
-            <li>
-              <a href="../notes/info/contact.html"
-                >ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a
-              >
-            </li>
-
-            <li>
-              <a href="../notes/info/helpTranslate.html"
-                >ތަރުޖަމާގައި އެހީވެދިނުމަށް</a
-              >
-            </li>
-
-            <li>
-              <a href="../notes/info/FAQ.html"
-                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
-              >
-            </li>
-
-            <li>
-              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
-            </li>
-
-            <li class="hmvVer" onclick="openDiv();">
-              <a class="versionNo">⚙️ އިސްދާރު: v</a>
-            </li>
-
-            <li>
-              <a href="https://t.me/ashraafmv"
-                >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-              >
-            </li>
-            <li class="madani">
-              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
-            </li>
-            <li>
-              <a onClick="window.location.reload()">🔄 މަޑު ރީލޯޑު</a>
-            </li>
-            <li>
-              <a
-                onclick="window.location.href = window.location.href.split('.html')[0] + '.html';"
-                >ހަރު ރީލޯޑު</a
-              >
-            </li>
-          </ul>
-        </nav>
-        <!-- <nav id="menu"> -->
-      </div>
-      <!-- <div class="header fixed" onclick="drawer.open();"> -->
-
-      <div class="content">
-        <main>
-          <!-- creates two input boxes, which are datalist, for surahs and ayahs.
-            hides them until page loads.
-            boxes take extracted values for surah and ayah before combining them, running search on them, and executing a double click on the first row to jump to that page.
-            // every time page draws, surah and ayah box update to extract surah and ayah values, the word surah is removed, and arabic numbers are turned into regular digits
-              -->
-          <div class="hidden" id="footer2">
-            <script>
-              //
-              // makes footer visible after script finishes rendering
-              window.onload = function () {
-                document.getElementById("footer2").classList.remove("hidden");
-                //
-                /*document.getElementById("ayahNoID").value = 1;
-                    document.getElementById("surahNameID").value =
-                      document.getElementsByClassName("buttons-copy")[0].innerText;
-                      */
-              };
-              //
-              // combines surah and ayah value in search then searches it
-              // https://stackoverflow.com/questions/18249758/i-cant-get-the-value-of-a-input-within-a-datalist/18250028#18250028
-              function jumpToItsPage() {
-                //
-                var combinedVals =
-                  document.getElementById("surahNameID").value +
-                  " " +
-                  document.getElementById("ayahNoID").value;
-                // https://stackoverflow.com/questions/33371038/programmatically-search-a-table-with-jquery-datatables/33371324#33371324
-                //$("#quranTable").dataTable().fnFilter(combinedVals);
-
-                $("#quranTable").DataTable().search(combinedVals).draw();
-                //setTimeout(function () {
-
-                //$("#quranTable").DataTable().destroy();
-                //#quranTable > tbody > tr > td.qCol4
-
-                // double clicks on first td (NOT WORKING NOW)
-                // https://stackoverflow.com/questions/38089625/programatically-click-on-button-using-javascript/38089731#38089731
-
-                /*document.getElementsByClassName("odd")[0].click();
-              document.getElementsByClassName("odd")[0].click();*/
-                // above used to work, dont anymore, so commented out
-
-                // -- ALTERNATIVE code for jumping to surah ayah row page
-                // https://datatables.net/reference/api/row().index()
-
-                /*console.log(
-                $("#quranTable").DataTable().row("tbody tr").index()
-              );*/
-
-                // gets index of row
-                // table.row("this").index();
-                var QrowToJumpTo = $("#quranTable")
-                  .DataTable()
-                  .row("tbody tr")
-                  .index();
-
-                //table.page(table.page() + 10).draw("page")
-                //$("#quranTable").DataTable().page(10).draw("page");
-
-                // after searching and jumping to row page, clears the search entry, otherwise searches again and page will change
-                if ($("#quranTable").DataTable().search() !== "") {
-                  $("#quranTable").DataTable().search("").draw();
-                }
-
-                // changes page to row index value
-                $("#quranTable").DataTable().page(QrowToJumpTo).draw("page");
-                // alert("Row index: " + table.row("tbody tr").index())
-
-                // -- END OF ALTERNATIVE CODE
-
-                //}, 1510);
-
-                /*document.querySelectorAll(
-                        ".dataTables_filter input[type=search]"
-                      ).value = combinedVals;*/
-              }
-
-              /*
-                  function scrollHere() {
-                    if (window.matchMedia("(max-width: 599px)").matches) {
-                      $("html, body").animate(
-                        {
-                          scrollTop: 550, //prev 0
-                        },
-                        "fast"
-                      );
-                    }
-                  }
-                  */
-
-              // replaces regular digits when typed into sans digits
-              function changeDigitsOnInput() {
-                document.getElementById("surahNameID").value = document
-                  .getElementById("surahNameID")
-                  .value.replace(/0/g, "٠")
-                  .replace(/1/g, "𝟣")
-                  .replace(/2/g, "𝟤")
-                  .replace(/3/g, "𝟥")
-                  .replace(/4/g, "𝟦")
-                  .replace(/5/g, "𝟧")
-                  .replace(/6/g, "𝟨")
-                  .replace(/7/g, "𝟩")
-                  .replace(/8/g, "𝟪")
-                  .replace(/9/g, "𝟫");
-              }
-              function setAyahToOne() {
-                // makes default ayah 1 on surah change
-                document.getElementById("ayahNoID").value = 1;
-              }
-            </script>
-
-            <style>
-              #footer2 {
-                margin-top: 10px;
-                margin-bottom: -18px;
-              }
-
-              #surahNameID,
-              #ayahNoID {
-                /*font-size: 16px;*/
-                font-size: 18px !important;
-                padding: 5px !important;
-                /**/
-                direction: rtl;
-                font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
-                border: 1px solid #aaa;
-                border-radius: 3px;
-                /*background-color: transparent;*/
-                text-indent: 10px;
-                font-size: 20px;
-                /*width: 200px;*/
-                width: 120px;
-                /*color: #c5cfd6;*/
-                /*height: 40px;*/
-                /*position: absolute;*/
-                background-color: #1a232d;
-                color: rgb(255 255 255/84.7%);
-              }
-
-              /* light box for light mode */
-              @media (prefers-color-scheme: light) {
-                #surahNameID,
-                #ayahNoID {
-                  background-color: transparent;
-                  color: #333;
-                }
-              }
-
-              /* moves datalist arrow to the right
-                  https://stackoverflow.com/questions/20937475/remove-datalist-dropdown-arrow-in-chrome/54997118#54997118 */
-              [list]::-webkit-calendar-picker-indicator {
-                /*display: none !important;*/
-                padding-left: 12px !important;
-              }
-            </style>
-            <form style="text-align: center; display: inline-block">
-              <!--<input
-                    id="surahNameID"
-                    list="surahName"
-                    placeholder="ސޫރަތް"
-                    onfocus="this.value='';"
-                    onchange="this.blur();jumpToItsPage();setAyahToOne()"
-                    style="display: block; float: right"
-                    oninput="changeDigitsOnInput();setAyahToOne()"
-                    onselect="jumpToItsPage();setAyahToOne()"
-                  />-->
-              <!-- clear and blur above https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
-              <!-- datalist not supported properly yet, mobile chrome has overlaying the keyboard issue, and firefox doesnt show the list at all
-                    <select id="surahName">
-                    <datalist id="surahName">
-                      <option value="𝟣 الفاتحة"></option>
-                      id="surahName"
-                    list="surahName"
-                    -->
-              <select
-                id="surahNameID"
-                placeholder="ސޫރަތް"
-                onfocus="this.value='';"
-                onchange="this.blur();jumpToItsPage();setAyahToOne()"
-                style="display: block; float: right"
-                oninput="changeDigitsOnInput();setAyahToOne()"
-                onselect="jumpToItsPage();setAyahToOne()"
-              >
-                <option value="" disabled selected>ސޫރަތް</option>
-                <option value="𝟣 الفَاتِحَة">1 الفَاتِحَة</option>
-                <option value="𝟤 البَقَرَة">2 البَقَرَة</option>
-                <option value="𝟥 آل عِمرَان">3 آل عِمرَان</option>
-                <option value="𝟦 النِّسَاء">4 النِّسَاء</option>
-                <option value="𝟧 المَائِدَة">5 المَائِدَة</option>
-                <option value="𝟨 الأَنعَام">6 الأَنعَام</option>
-                <option value="𝟩 الأَعرَاف">7 الأَعرَاف</option>
-                <option value="𝟪 الأَنفَال">8 الأَنفَال</option>
-                <option value="𝟫 التَّوبَة">9 التَّوبَة</option>
-                <option value="𝟣𝟢 يُونُس">10 يُونُس</option>
-                <option value="𝟣𝟣 هُود">11 هُود</option>
-                <option value="𝟣𝟤 يُوسُف">12 يُوسُف</option>
-                <option value="𝟣𝟥 الرَّعد">13 الرَّعد</option>
-                <option value="𝟣𝟦 إِبرَاهِيم">14 إِبرَاهِيم</option>
-                <option value="𝟣𝟧 الحِجر">15 الحِجر</option>
-                <option value="𝟣𝟨 النَّحل">16 النَّحل</option>
-                <option value="𝟣𝟩 الإِسرَاء">17 الإِسرَاء</option>
-                <option value="𝟣𝟪 الكَهف">18 الكَهف</option>
-                <option value="𝟣𝟫 مَريَم">19 مَريَم</option>
-                <option value="𝟤𝟢 طه">20 طه</option>
-                <option value="𝟤𝟣 الأَنبِيَاء">21 الأَنبِيَاء</option>
-                <option value="𝟤𝟤 الحَجّ">22 الحَجّ</option>
-                <option value="𝟤𝟥 المُؤمِنُون">23 المُؤمِنُون</option>
-                <option value="𝟤𝟦 النُّور">24 النُّور</option>
-                <option value="𝟤𝟧 الفُرقَان">25 الفُرقَان</option>
-                <option value="𝟤𝟨 الشُّعَرَاء">26 الشُّعَرَاء</option>
-                <option value="𝟤𝟩 النَّمل">27 النَّمل</option>
-                <option value="𝟤𝟪 القَصَص">28 القَصَص</option>
-                <option value="𝟤𝟫 العَنكَبُوت">29 العَنكَبُوت</option>
-                <option value="𝟥𝟢 الرُّوم">30 الرُّوم</option>
-                <option value="𝟥𝟣 لُقمَان">31 لُقمَان</option>
-                <option value="𝟥𝟤 السَّجدَة">32 السَّجدَة</option>
-                <option value="𝟥𝟥 الأَحزَاب">33 الأَحزَاب</option>
-                <option value="𝟥𝟦 سَبَإ">34 سَبَإ</option>
-                <option value="𝟥𝟧 فَاطِر">35 فَاطِر</option>
-                <option value="𝟥𝟨 يسٓ">36 يسٓ</option>
-                <option value="𝟥𝟩 الصَّافَّات">37 الصَّافَّات</option>
-                <option value="𝟥𝟪 صٓ">38 صٓ</option>
-                <option value="𝟥𝟫 الزُّمَر">39 الزُّمَر</option>
-                <option value="𝟦𝟢 غَافِر">40 غَافِر</option>
-                <option value="𝟦𝟣 فُصِّلَت">41 فُصِّلَت</option>
-                <option value="𝟦𝟤 الشُّورَى">42 الشُّورَى</option>
-                <option value="𝟦𝟥 الزُّخرُف">43 الزُّخرُف</option>
-                <option value="𝟦𝟦 الدُّخَان">44 الدُّخَان</option>
-                <option value="𝟦𝟧 الجَاثِيَة">45 الجَاثِيَة</option>
-                <option value="𝟦𝟨 الأَحقَاف">46 الأَحقَاف</option>
-                <option value="𝟦𝟩 مُحَمَّد">47 مُحَمَّد</option>
-                <option value="𝟦𝟪 الفَتح">48 الفَتح</option>
-                <option value="𝟦𝟫 الحُجُرَات">49 الحُجُرَات</option>
-                <option value="𝟧𝟢 قٓ">50 قٓ</option>
-                <option value="𝟧𝟣 الذَّارِيَات">51 الذَّارِيَات</option>
-                <option value="𝟧𝟤 الطُّور">52 الطُّور</option>
-                <option value="𝟧𝟥 النَّجم">53 النَّجم</option>
-                <option value="𝟧𝟦 القَمَر">54 القَمَر</option>
-                <option value="𝟧𝟧 الرَّحمٰن">55 الرَّحمٰن</option>
-                <option value="𝟧𝟨 الوَاقِعَة">56 الوَاقِعَة</option>
-                <option value="𝟧𝟩 الحَدِيد">57 الحَدِيد</option>
-                <option value="𝟧𝟪 المُجَادِلَة">58 المُجَادِلَة</option>
-                <option value="𝟧𝟫 الحَشر">59 الحَشر</option>
-                <option value="𝟨𝟢 المُمتَحَنَة">60 المُمتَحَنَة</option>
-                <option value="𝟨𝟣 الصَّف">61 الصَّف</option>
-                <option value="𝟨𝟤 الجُمعَة">62 الجُمعَة</option>
-                <option value="𝟨𝟥 المُنَافِقُون">63 المُنَافِقُون</option>
-                <option value="𝟨𝟦 التَّغَابُن">64 التَّغَابُن</option>
-                <option value="𝟨𝟧 الطَّلَاق">65 الطَّلَاق</option>
-                <option value="𝟨𝟨 التَّحرِيم">66 التَّحرِيم</option>
-                <option value="𝟨𝟩 المُلك">67 المُلك</option>
-                <option value="𝟨𝟪 القَلَم">68 القَلَم</option>
-                <option value="𝟨𝟫 الحَاقَّة">69 الحَاقَّة</option>
-                <option value="𝟩𝟢 المَعَارِج">70 المَعَارِج</option>
-                <option value="𝟩𝟣 نُوح">71 نُوح</option>
-                <option value="𝟩𝟤 الجِنّ">72 الجِنّ</option>
-                <option value="𝟩𝟥 المُزَّمِّل">73 المُزَّمِّل</option>
-                <option value="𝟩𝟦 المُدَّثِّر">74 المُدَّثِّر</option>
-                <option value="𝟩𝟧 القِيَامَة">75 القِيَامَة</option>
-                <option value="𝟩𝟨 الإِنسَان">76 الإِنسَان</option>
-                <option value="𝟩𝟩 المُرسَلَات">77 المُرسَلَات</option>
-                <option value="𝟩𝟪 النَّبَإ">78 النَّبَإ</option>
-                <option value="𝟩𝟫 النَّازِعَات">79 النَّازِعَات</option>
-                <option value="𝟪𝟢 عَبَس">80 عَبَس</option>
-                <option value="𝟪𝟣 التَّكوِير">81 التَّكوِير</option>
-                <option value="𝟪𝟤 الانفِطَار">82 الانفِطَار</option>
-                <option value="𝟪𝟥 المُطَفِّفِين">83 المُطَفِّفِين</option>
-                <option value="𝟪𝟦 الانشِقَاق">84 الانشِقَاق</option>
-                <option value="𝟪𝟧 البُرُوج">85 البُرُوج</option>
-                <option value="𝟪𝟨 الطَّارِق">86 الطَّارِق</option>
-                <option value="𝟪𝟩 الأَعلَى">87 الأَعلَى</option>
-                <option value="𝟪𝟪 الغَاشِيَة">88 الغَاشِيَة</option>
-                <option value="𝟪𝟫 الفَجر">89 الفَجر</option>
-                <option value="𝟫𝟢 البَلَد">90 البَلَد</option>
-                <option value="𝟫𝟣 الشَّمس">91 الشَّمس</option>
-                <option value="𝟫𝟤 اللَّيل">92 اللَّيل</option>
-                <option value="𝟫𝟥 الضُّحَى">93 الضُّحَى</option>
-                <option value="𝟫𝟦 الشَّرح">94 الشَّرح</option>
-                <option value="𝟫𝟧 التِّين">95 التِّين</option>
-                <option value="𝟫𝟨 العَلَق">96 العَلَق</option>
-                <option value="𝟫𝟩 القَدر">97 القَدر</option>
-                <option value="𝟫𝟪 البَيِّنَة">98 البَيِّنَة</option>
-                <option value="𝟫𝟫 الزَّلزَلَة">99 الزَّلزَلَة</option>
-                <option value="𝟣𝟢𝟢 العَادِيَات">100 العَادِيَات</option>
-                <option value="𝟣𝟢𝟣 القَارِعَة">101 القَارِعَة</option>
-                <option value="𝟣𝟢𝟤 التَّكَاثُر">102 التَّكَاثُر</option>
-                <option value="𝟣𝟢𝟥 العَصر">103 العَصر</option>
-                <option value="𝟣𝟢𝟦 الهُمَزَة">104 الهُمَزَة</option>
-                <option value="𝟣𝟢𝟧 الفِيل">105 الفِيل</option>
-                <option value="𝟣𝟢𝟨 قُرَيش">106 قُرَيش</option>
-                <option value="𝟣𝟢𝟩 المَاعُون">107 المَاعُون</option>
-                <option value="𝟣𝟢𝟪 الكَوثَر">108 الكَوثَر</option>
-                <option value="𝟣𝟢𝟫 الكَافِرُون">109 الكَافِرُون</option>
-                <option value="𝟣𝟣𝟢 النَّصر">110 النَّصر</option>
-                <option value="𝟣𝟣𝟣 المَسَد">111 المَسَد</option>
-                <option value="𝟣𝟣𝟤 الإِخلَاص">112 الإِخلَاص</option>
-                <option value="𝟣𝟣𝟥 الفَلَق">113 الفَلَق</option>
-                <option value="𝟣𝟣𝟦 النَّاس">114 النَّاس</option>
-              </select>
-
-              <span style="display: block; float: right"> &nbsp; &nbsp; </span>
-
-              <!--<input
-                    id="ayahNoID"
-                    list="ayahNo"
-                    placeholder="އާޔަތް"
-                    onfocus="this.value='';"
-                    onchange="this.blur();jumpToItsPage();"
-                    style="display: block; float: right"
-                    onselect="jumpToItsPage()"
-                     id="ayahNo"
-                  list="ayahNo"
-                  />
-                <datalist id="ayahNo">
-                  <option value="1"></option>
-                  https://stackoverflow.com/questions/5805059/how-do-i-make-a-placeholder-for-a-select-box/5859221#5859221
-                -->
-              <select
-                id="ayahNoID"
-                placeholder="އާޔަތް"
-                onfocus="this.value='';"
-                onchange="this.blur();jumpToItsPage();"
-                style="display: block; float: right"
-                onselect="jumpToItsPage()"
-              >
-                <option value="" disabled selected>އާޔަތް</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-                <option value="24">24</option>
-                <option value="25">25</option>
-                <option value="26">26</option>
-                <option value="27">27</option>
-                <option value="28">28</option>
-                <option value="29">29</option>
-                <option value="30">30</option>
-                <option value="31">31</option>
-                <option value="32">32</option>
-                <option value="33">33</option>
-                <option value="34">34</option>
-                <option value="35">35</option>
-                <option value="36">36</option>
-                <option value="37">37</option>
-                <option value="38">38</option>
-                <option value="39">39</option>
-                <option value="40">40</option>
-                <option value="41">41</option>
-                <option value="42">42</option>
-                <option value="43">43</option>
-                <option value="44">44</option>
-                <option value="45">45</option>
-                <option value="46">46</option>
-                <option value="47">47</option>
-                <option value="48">48</option>
-                <option value="49">49</option>
-                <option value="50">50</option>
-                <option value="51">51</option>
-                <option value="52">52</option>
-                <option value="53">53</option>
-                <option value="54">54</option>
-                <option value="55">55</option>
-                <option value="56">56</option>
-                <option value="57">57</option>
-                <option value="58">58</option>
-                <option value="59">59</option>
-                <option value="60">60</option>
-                <option value="61">61</option>
-                <option value="62">62</option>
-                <option value="63">63</option>
-                <option value="64">64</option>
-                <option value="65">65</option>
-                <option value="66">66</option>
-                <option value="67">67</option>
-                <option value="68">68</option>
-                <option value="69">69</option>
-                <option value="70">70</option>
-                <option value="71">71</option>
-                <option value="72">72</option>
-                <option value="73">73</option>
-                <option value="74">74</option>
-                <option value="75">75</option>
-                <option value="76">76</option>
-                <option value="77">77</option>
-                <option value="78">78</option>
-                <option value="79">79</option>
-                <option value="80">80</option>
-                <option value="81">81</option>
-                <option value="82">82</option>
-                <option value="83">83</option>
-                <option value="84">84</option>
-                <option value="85">85</option>
-                <option value="86">86</option>
-                <option value="87">87</option>
-                <option value="88">88</option>
-                <option value="89">89</option>
-                <option value="90">90</option>
-                <option value="91">91</option>
-                <option value="92">92</option>
-                <option value="93">93</option>
-                <option value="94">94</option>
-                <option value="95">95</option>
-                <option value="96">96</option>
-                <option value="97">97</option>
-                <option value="98">98</option>
-                <option value="99">99</option>
-                <option value="100">100</option>
-                <option value="101">101</option>
-                <option value="102">102</option>
-                <option value="103">103</option>
-                <option value="104">104</option>
-                <option value="105">105</option>
-                <option value="106">106</option>
-                <option value="107">107</option>
-                <option value="108">108</option>
-                <option value="109">109</option>
-                <option value="110">110</option>
-                <option value="111">111</option>
-                <option value="112">112</option>
-                <option value="113">113</option>
-                <option value="114">114</option>
-                <option value="115">115</option>
-                <option value="116">116</option>
-                <option value="117">117</option>
-                <option value="118">118</option>
-                <option value="119">119</option>
-                <option value="120">120</option>
-                <option value="121">121</option>
-                <option value="122">122</option>
-                <option value="123">123</option>
-                <option value="124">124</option>
-                <option value="125">125</option>
-                <option value="126">126</option>
-                <option value="127">127</option>
-                <option value="128">128</option>
-                <option value="129">129</option>
-                <option value="130">130</option>
-                <option value="131">131</option>
-                <option value="132">132</option>
-                <option value="133">133</option>
-                <option value="134">134</option>
-                <option value="135">135</option>
-                <option value="136">136</option>
-                <option value="137">137</option>
-                <option value="138">138</option>
-                <option value="139">139</option>
-                <option value="140">140</option>
-                <option value="141">141</option>
-                <option value="142">142</option>
-                <option value="143">143</option>
-                <option value="144">144</option>
-                <option value="145">145</option>
-                <option value="146">146</option>
-                <option value="147">147</option>
-                <option value="148">148</option>
-                <option value="149">149</option>
-                <option value="150">150</option>
-                <option value="151">151</option>
-                <option value="152">152</option>
-                <option value="153">153</option>
-                <option value="154">154</option>
-                <option value="155">155</option>
-                <option value="156">156</option>
-                <option value="157">157</option>
-                <option value="158">158</option>
-                <option value="159">159</option>
-                <option value="160">160</option>
-                <option value="161">161</option>
-                <option value="162">162</option>
-                <option value="163">163</option>
-                <option value="164">164</option>
-                <option value="165">165</option>
-                <option value="166">166</option>
-                <option value="167">167</option>
-                <option value="168">168</option>
-                <option value="169">169</option>
-                <option value="170">170</option>
-                <option value="171">171</option>
-                <option value="172">172</option>
-                <option value="173">173</option>
-                <option value="174">174</option>
-                <option value="175">175</option>
-                <option value="176">176</option>
-                <option value="177">177</option>
-                <option value="178">178</option>
-                <option value="179">179</option>
-                <option value="180">180</option>
-                <option value="181">181</option>
-                <option value="182">182</option>
-                <option value="183">183</option>
-                <option value="184">184</option>
-                <option value="185">185</option>
-                <option value="186">186</option>
-                <option value="187">187</option>
-                <option value="188">188</option>
-                <option value="189">189</option>
-                <option value="190">190</option>
-                <option value="191">191</option>
-                <option value="192">192</option>
-                <option value="193">193</option>
-                <option value="194">194</option>
-                <option value="195">195</option>
-                <option value="196">196</option>
-                <option value="197">197</option>
-                <option value="198">198</option>
-                <option value="199">199</option>
-                <option value="200">200</option>
-                <option value="201">201</option>
-                <option value="202">202</option>
-                <option value="203">203</option>
-                <option value="204">204</option>
-                <option value="205">205</option>
-                <option value="206">206</option>
-                <option value="207">207</option>
-                <option value="208">208</option>
-                <option value="209">209</option>
-                <option value="210">210</option>
-                <option value="211">211</option>
-                <option value="212">212</option>
-                <option value="213">213</option>
-                <option value="214">214</option>
-                <option value="215">215</option>
-                <option value="216">216</option>
-                <option value="217">217</option>
-                <option value="218">218</option>
-                <option value="219">219</option>
-                <option value="220">220</option>
-                <option value="221">221</option>
-                <option value="222">222</option>
-                <option value="223">223</option>
-                <option value="224">224</option>
-                <option value="225">225</option>
-                <option value="226">226</option>
-                <option value="227">227</option>
-                <option value="228">228</option>
-                <option value="229">229</option>
-                <option value="230">230</option>
-                <option value="231">231</option>
-                <option value="232">232</option>
-                <option value="233">233</option>
-                <option value="234">234</option>
-                <option value="235">235</option>
-                <option value="236">236</option>
-                <option value="237">237</option>
-                <option value="238">238</option>
-                <option value="239">239</option>
-                <option value="240">240</option>
-                <option value="241">241</option>
-                <option value="242">242</option>
-                <option value="243">243</option>
-                <option value="244">244</option>
-                <option value="245">245</option>
-                <option value="246">246</option>
-                <option value="247">247</option>
-                <option value="248">248</option>
-                <option value="249">249</option>
-                <option value="250">250</option>
-                <option value="251">251</option>
-                <option value="252">252</option>
-                <option value="253">253</option>
-                <option value="254">254</option>
-                <option value="255">255</option>
-                <option value="256">256</option>
-                <option value="257">257</option>
-                <option value="258">258</option>
-                <option value="259">259</option>
-                <option value="260">260</option>
-                <option value="261">261</option>
-                <option value="262">262</option>
-                <option value="263">263</option>
-                <option value="264">264</option>
-                <option value="265">265</option>
-                <option value="266">266</option>
-                <option value="267">267</option>
-                <option value="268">268</option>
-                <option value="269">269</option>
-                <option value="270">270</option>
-                <option value="271">271</option>
-                <option value="272">272</option>
-                <option value="273">273</option>
-                <option value="274">274</option>
-                <option value="275">275</option>
-                <option value="276">276</option>
-                <option value="277">277</option>
-                <option value="278">278</option>
-                <option value="279">279</option>
-                <option value="280">280</option>
-                <option value="281">281</option>
-                <option value="282">282</option>
-                <option value="283">283</option>
-                <option value="284">284</option>
-                <option value="285">285</option>
-                <option value="286">286</option>
-              </select>
-            </form>
-            <!-- <div class="hidden"> -->
-          </div>
-
-          <!-- -->
-
-          <!-- class="w3-animate-right" -->
-          <!-- --- TABLE --- -->
-          <!-- JEKYLL {{ content }} -->
-          <!-- cards js adds card classes to table ID -->
-          <!-- change123 TABLE - card view set as default here -->
-          <!-- class="stripe table cards"> -->
-          <table id="quranTable" class="table cards"></table>
-          <!-- --- TABLE - END --- -->
-
-          <div class="hidden" id="footer">
-            <button class="lowerButtons" onclick="copyURLToClipButton();">
-              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
-            </button>
-
-            <button
-              id="toggleFiliButton"
-              class="lowerButtons"
-              onclick="toggleQuranFili();filiString();scrollUpTop()"
-            >
-              &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
-            </button>
-
-            <button
-              id="toggleUthmaniImlai"
-              class="lowerButtons"
-              onclick="uthmaniImlai();rasmString();scrollUpTop();loadFont()"
-            >
-              &nbsp; ރަސްމު އުޘްމާނީ &nbsp;
-            </button>
-
-            <p>
-              اسم الكتاب: التفسير الميسر للقرآن الكريم - لنخبة من العلماء
-              <br />
-              الناشر: مجمع الملك فهد لطباعة المصحف الشريف | الطبعة الثالثة ١٤٤٠
-              هـ - ٢٠١٩ م.
-            </p>
-
-            <p style="direction: ltr">
-              Arabic | (Simple Explanation of the Quran) Tafseer Muyassar -
-              Elite Group of Scholars | King Fahd Glorious Qur'an Printing
-              Complex - 6th Edition, 1440 h. - 2019 m.
-            </p>
-
-            <p>
-              ފޮތުގެ ނަން: ކީރިތި ގުރްއާނުގެ ތަފްސީރުލް މުޔައްސަރު (ފަސޭހަ
-              ތަފްސީރު) - ލިޔުނީ: ޚާއްސަ އިލްމުވެރިންގެ ޖަމާއަތެއް
-              <br />
-              ޗާޕުކުރީ: ޝަރަފުވެރި މުސްހަފު ޗާޕުކުރާ ފަހްދު ރަސްގެފާނުގެ
-              މުޖައްމާ | ހަވަނަ ޗާޕު 1440 ހ. - 2019 މ.
-            </p>
-
-            <p>
-              ފޮތުގެ އަރަބި
-              <a href="https://shamela.ws/book/1407" target="_blank">އީ-ފޮތް</a>
-              (ދެވަނަ ޗާޕު) |
-              <a
-                href="https://archive.org/details/tafseerMuyassar"
-                target="_blank"
-                >ޕީޑީއެފް</a
-              >
-              (ހަވަނަ ޗާޕު)
-            </p>
-
-            <hr class="lineVerticalSpace" />
-
-            <h3 class="mid">
-              <a>‌‌مقدمات الطبعة الثانية </a>
-            </h3>
-
-            <h3 class="mid">
-              <a
-                >‌‌المقدمة بقلم معالى الشيخ صالح بن عبد العزيز بن محمد آل
-                الشيخ</a
-              >
-            </h3>
-            <p class="mid">
-              وزير الشؤون الإسلامية والأوقاف والدعوة والإرشاد المشرف العام على
-              مجمع الملك فهد لطباعة المصحف الشريف
-            </p>
-            <p class="mid">بِسمِ ٱللَّهِ ٱلرَّحمَٰنِ ٱلرَّحِيمِ</p>
-            <p class="justi">
-              إن الحمد لله، نحمده ونستعينه ونستغفره، ونعوذ بالله من شرور أنفسنا،
-              وسيئات أعمالنا، من يهده الله فلا مضلَّ له، ومن يضلل فلا هادي له،
-              وأشهد أن لا إله إلا الله وحده لا شريك له، وأشهد أن محمداً عبده
-              ورسوله.<br />
-              {يَا أَيُّهَا الَّذِينَ آَمَنُوا اتَّقُوا اللَّهَ حَقَّ تُقَاتِهِ
-              وَلَا تَمُوتُنَّ إِلَّا وَأَنْتُمْ مُسْلِمُونَ} [آل عمران: 102]<br />
-              {يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمُ الَّذِي خَلَقَكُمْ مِنْ
-              نَفْسٍ وَاحِدَةٍ وَخَلَقَ مِنْهَا زَوْجَهَا وَبَثَّ مِنْهُمَا
-              رِجَالًا كَثِيرًا وَنِسَاءً وَاتَّقُوا اللَّهَ الَّذِي
-              تَسَاءَلُونَ بِهِ وَالْأَرْحَامَ إِنَّ اللَّهَ كَانَ عَلَيْكُمْ
-              رَقِيبًا} [النساء: 1]<br />
-              {يَا أَيُّهَا الَّذِينَ آَمَنُوا اتَّقُوا اللَّهَ وَقُولُوا
-              قَوْلًا سَدِيدًا (70) يُصْلِحْ لَكُمْ أَعْمَالَكُمْ وَيَغْفِرْ
-              لَكُمْ ذُنُوبَكُمْ وَمَنْ يُطِعِ اللَّهَ وَرَسُولَهُ فَقَدْ فَازَ
-              فَوْزًا عَظِيمًا} [الأحزاب: 70، 71]<br />
-              أما بعد: فإن أصدق الحديث كتاب الله، فيه الغَنَاء والسعادة، لا
-              تملُّ منه النفوس، ولا تنقضي عجائبه، ولم تعرف الإنسانية في تاريخها
-              كتاباً يداني القرآن الكريم أو يقاربه، في تأثيره في نفوس سامعيه أو
-              قارئيه، أنزله الله على قلب خاتم الأنبياء والمرسلين نبينا ورسولنا
-              محمد صلى الله عليه وسلم، المبعوث رحمة للعالمين، آيةً ظاهرةً، وحجةً
-              قاطعة في استمراره وحفظه وإعجازه وهدايته، والتعبد بتلاوته وسماعه،
-              والافتقار إلى هدايته، وتعاهد الإيمان به: اعتقاداً وقولاً
-              وعملاً.<br />
-              وقد أخرج الله به البشرية من ظُلَم العبودية والجهل إلى نور التوحيد
-              والعلم {يَهْدِي بِهِ اللَّهُ مَنِ اتَّبَعَ رِضْوَانَهُ سُبُلَ
-              السَّلَامِ وَيُخْرِجُهُمْ مِنَ الظُّلُمَاتِ إِلَى النُّورِ
-              بِإِذْنِهِ وَيَهْدِيهِمْ إِلَى صِرَاطٍ مُسْتَقِيمٍ} [المائدة: 16]
-              .<br />
-              والقرآن الكريم هو الميزان الواضح لحال الأمة الإسلامية، فكلَّما
-              اهتدت بهداه وعملت به في جميع شؤونها، سَعِدت وعزَّ جانبها، وكلما
-              ابتعدت عنه وضَغفَ استمساكها به ابتليت بالذِّلة والتفرُّق وتداعي
-              الأمم عليها، قال تعالى: {وَإِنَّهُ لَذِكْرٌ لَكَ وَلِقَوْمِكَ
-              وَسَوْفَ تُسْأَلُونَ} [الزخرف: 44] .<br />
-              قال ابن عباس في تفسير هذه الآية: «إنه لشرفٌ لك ولقومك» ، فهو شرف
-              لهم من حيث إنه أُنزل بلغتهم، فَهُم أفهم الناس له، وينبغي أن يكونوا
-              أقوم الناس به، وأعلمهم بمقتضاه، كما بيَّن ذلك الحافظ ابن كثير، كما
-              أنه عز وجل سيضع من شأن مَنْ أعرض عنه، وقد قال عمر رضي الله عنه:
-              «أما إن نبيكم صلى الله عليه وسلم قد قال: إن الله يرفع بهذا الكتاب
-              أقواماً ويضع به آخرين» [رواه مسلم برقم: 817] ، فمن استمسك بحبله
-              المتين فاز، ومن أعرض عنه خسر خسراناً مبيناً.<br />
-              قال الإمام الشافعي في «الرسالة» : «فإن من أدرك علم أحكام الله في
-              كتابه نصّاً واستدلالاً، ووفقه الله للقول والعمل بما علم منه فاز
-              بالفضيلة في دينه ودنياه، وانتفت عنه الرِّيَب، ونوَّرت في قلبه
-              الحكمة» .<br />
-              وقد تكفَّل سبحانه بحفظه فقال تعالى: {إِنَّا نَحْنُ نَزَّلْنَا
-              الذِّكْرَ وَإِنَّا لَهُ لَحَافِظُونَ} [الحجر: 9] ، فلم يزل محفوظاً
-              في الصدور مكتوباً في السطور {لَا يَأْتِيهِ الْبَاطِلُ مِنْ بَيْنِ
-              يَدَيْهِ وَلَا مِنْ خَلْفِهِ تَنْزِيلٌ مِنْ حَكِيمٍ حَمِيدٍ}
-              [فصلت: 42] .<br />
-              فالقرآن العظيم منجاة لكل مسلم يستبصر بآياته، ويتعظ بمواعظه
-              وأمثاله، ويقف عند حلاله وحرامه، ويستجلي العبرة من أخباره وقصصه؛
-              مما يزكي بذلك نفسه، ويثبِّت التوحيد في قلبه، ويغرس فيه خشية الله،
-              ويزيل أسباب الكفر والفسوق والعصيان، ويجعل المجتمع كلَّه كالصف
-              الواحد.<br />
-              <br />
-              ‌‌[[نشأة علم التفسير وتوسعه]]<br />
-              وقد يسَّر الله تبارك وتعالى ألفاظه للتلاوة والحفظ، ومعانيه للفهم
-              والتدبر، فقال: {وَلَقَدْ يَسَّرْنَا الْقُرْآَنَ لِلذِّكْرِ فَهَلْ
-              مِنْ مُدَّكِرٍ} [القمر: 17] .<br />
-              وبيَّن النبي صلى الله عليه وسلم لأصحابه معانيه كما بيَّن لهم
-              ألفاظه، قال شيخ الإسلام ابن تيمية في «أصول التفسير» : «يجب أن
-              يُعلم أن الرسول صلى الله عليه وسلم بيَّن لأصحابه معاني القرآن، كما
-              بيَّن لهم ألفاظه، فقوله تعالى: {لِتُبَيِّنَ لِلنَّاسِ مَا نُزِّلَ
-              إِلَيْهِمْ} [النحل: 44] يتناول هذا وهذا» . وظلَّ الصحابة رضوان
-              الله عليهم يرجعون إلى النبي صلى الله عليه وسلم في فهم ما يُشكل
-              عليهم من معاني الآيات.<br />
-              وبعد أن انقضى عهد الصحب الكرام، برز عدد من أعلام التابعين تتلمذوا
-              عليهم، وأخذوا عنهم تفسير كتاب الله، وزادوا عليه ما استنبطوه وفهموه
-              بأنفسهم مما كان غامضاً على الناس في عصرهم.<br />
-              وما زال علم التفسير في تَوَسُّع حتى تجمَّع منه الشيء الكثير، وبدأت
-              تتضح معالم مدارسه باتجاهاتها المختلفة، وبدا بروزها مواكبةً لمرحلة
-              التدوين للعلوم.<br />
-              ومن أهمِّ مدارس التفسير: التفسير بالمأثور، ويشمل ما جاء في القرآن
-              نفسه من البيان والتفصيل لبعض آياته، وما نُقل عن الرسول<br />
-              صلى الله عليه وسلم، وما نُقل عن صحابته رضوان الله عليهم الذين
-              شهدوا التنزيل، وعرفوا التأويل، وما نُقل عن التابعين الذين نهلوا من
-              مدرسة النبوة عن الصحابة المفسرين النابغين.<br />
-              ومن أهم كتب التفسير بالمأثور: «جامع البيان» للطبري المتوفى سنة
-              (310 هـ) ، وهو من أجلِّ التفاسير وأعظمها قدراً، كما يصفه شيخ
-              الإسلام ابن تيمية في فتاواه، وكتاب «معالم التنزيل» للبغوي المتوفى
-              سنة (516 هـ) ؛ لأنه تحرَّى الصحة في معظم ما ذكر من الأقوال
-              والروايات، وتفسير الحافظ ابن كثير المتوفى سنة (774 هـ) ، وهو من
-              أجلِّ التفاسير وأعظمها نفعاً.<br />
-              وقد شهد تدوين التفسير مرحلة جديدة، وهي مرحلة التفاسير التي يغلب
-              عليها الطابع الاجتهادي لعلماء برعوا في مجالات مختلفة من العلوم،
-              فكان منهم من يقتصر في تفسيره على العلم الذي يغلب عليه، فالفقيه
-              يسرد المسائل الفقهية ويفرِّع عليها فروعاً كثيرة، والإخباري يهتم
-              بإيراد القصص، والنحوي يبرز الصناعة النحوية، وصاحب البلاغة يظهر
-              الجانب البلاغي والإعجاز البياني، وهكذا.<br />
-              وكان منهم من جمع في تفسيره عدَّة علوم لها تعلُّق بالقرآن الكريم،
-              وبعض هؤلاء المفسرين من أهل السنة والجماعة، وبعضهم من غيرهم من ذوي
-              المعتقدات المبتدعة.<br />
-              ومع تنوُّع اتجاهات التفسير -بعد عصر الصحابة- فُسِّر القرآن الكريم
-              بآراء تخالف ما صحَّ من تفسيره، أو تُصادم قواعد التفسير وأصوله،
-              ووقع الخطأ في تفسير كلام الله تعالى ممَّا أدى إلى البعد عن هداية
-              القرآن وإعجازه.<br />
-              وترجع أسباب الحَيْدة عن فهم القرآن العظيم على الوجه الصحيح إلما
-              عدة أمور، أهمها العدول عن مصادر التفسير الموثوقة وأصوله الصحيحة،
-              وعدم الدقة في فهم مدلولات الآيات، أو إخضاعها للأهواء والبدع، ثم
-              القصور في تطبيق الشروط اللازمة للتفسير.<br />
-              وقد قام جماعة من علماء الإسلام بتنقية التفسير وتحرير ما داخله من
-              تحريف وزيادات، وردِّه إلى الوضع الصحيح والفهم السليم على ضوء مدرسة
-              التفسير بالمأثور؛ مما يعين التالي لكتاب الله على فهم الآيات
-              الكريمات وَفْق معناها الصحيح، والوصول إلى المقصد الأساس من
-              التفسير.<br />
-              وكانت الحاجة ماسة في هذا العصر إلى وضع تفسير مختصر تراعى فيه أصول
-              التفسير وموارده على منهج السلف الصالح، يكفُل بيان التفسير على وجه
-              تطمئن له القلوب، وتثق به، ويُقدِّم التفسير بعبارة وجيزة سهلة تتضح
-              به معاني القرآن ومقاصده، وتظهر به مدلولات الألفاظ وتراكيبها مما
-              يغيب عن أذهان عامة الناس وإدراكهم.<br />
-              إن مجمع الملك فهد لطباعة المصحف الشريف بالمدينة المنورة يتشرف
-              بأمانة تبليغ معاني القرآن الكريم لمن لا يتكلم بالعربية ولا يعرفها،
-              وهو باب دخله من ليس أهلاً له، ودخله المُغرض بقصد الافتراء والدس
-              على كتاب الله.<br />
-              <br />
-              ‌‌[[عدم توافر ترجمات صحيحة لمعاني القرآن الكريم]]<br />
-              ولقد اعترض المجمَّعَ عَقَبةُ عدم توافر ترجمات صحيحة لمعاني القرآن
-              الكريم؛ إذ الترجمات المتوافرة عليها ملحوظات عديدة، وأي ترجمة
-              تُرَشَّح لطبعها في المجمَّع تمرُّ بمراحل مراجعة وتدقيق من عدة لجان
-              أمينة ومتخصصة؛ لأجل استدراك النقص الذي يظهر فيها، ومع ذلك تظلُّ
-              الترجمة دون ما يطمح إليه المجمَّع.<br />
-              وبعد دراسة متأنية رأى المجمَّع أن يصدر تفسيراً ميسَّراً للقرآن
-              الكريم باللغة العربية وَفْق أصول التفسير وموارده الأصيلة، يكون
-              أساساً لما يطبعه المجمَّع من ترجمات معاني القرآن الكريم إلى لغات
-              الشعوب الإسلامية وغيرها.<br />
-              <br />
-              ‌‌[[الضوابط المتبعة في هذا التفسير]]<br />
-              وقد اختير لوضع صيغته الأولى نخبة من أساتذة التفسير المشهود لهم
-              بالعلم والكفاءة، ضمن ضوابط من أهمها:<br />
-              1) تفسير الآيات وَفْق مذهب السلف الصالح في الاعتقاد.<br />
-              2) تقديم ما صحَّ من التفسير بالمأثور على غيره.<br />
-              3) الاقتصار في النقل على القول الصحيح أو الأرجح.<br />
-              4) إبراز الهداية القرآنية ومقاصد الشريعة من خلال التفسير.<br />
-              5) كون العبارة مختصرة سهلة، مع بيان معاني الألفاظ الغريبة أثناء
-              التفسير.<br />
-              6) وقوف المفسِّر على المعنى المساوي للآية، وتجنب الزيادة الواردة
-              في آيات أُخر؛ كي تُفسَّر في موضعها.<br />
-              7) إيراد معنى الآية مباشرة دون الحاجة إلى الأخبار، إلا ما دعت إليه
-              الضرورة.<br />
-              8) كون التفسير وَفْق رواية حفص عن عاصم.<br />
-              9) تجنب ذكر القراءات، ومسائل النحو والصرف والإعراب، والبلاغة.<br />
-              10) تفسير كل آية على حِدة، ولا تعاد ألفاظ النص القرآني إلا لضرورة،
-              ويذكر في بداية تفسير كل آية رقمها.<br />
-              11) يكون التفسير بالقدْر الذي تتسع له حاشية (مصحف المدينة النبوية)
-              .<br />
-              12) مراعاة المفسِّر أن هذا التفسير سيترجم إلى لغات مختلفة، وتجنب
-              ذكر المصطلحات التي يتعذر ترجمتها.<br />
-              <br />
-              وقد اجتهد الأساتذة الموكول إليهم إعداد التفسير بالضوابط المذكورة،
-              وتم مراجعة ما كتبوه من قبل لجنة أولى في أمانة مجمع الملك فهد
-              لطباعة المصحف الشريف بالمدينة المنورة، ثم من قِبل لجنتين في وزارة
-              الشؤون الإسلامية والأوقاف والدعوة والإرشاد بالرياض، حرصاً على أن
-              يكون التفسير محقّقاً الغرض من وضعه، سليماً في معناه ومبناه.<br />
-              ثم طبع طبعة أولى بأحجام مختلفة، فحَرَص الناس على اقتنائه؛ لما
-              امتاز به من يسر وسهولة في تأدية المعنى المراد.<br />
-              <br />
-              ‌‌[[هذه الطبعة الثانية وتجنب ملاحظات الطبعة الأولى]]<br />
-              وكما هي طبيعة الجهد البشري أنه لا يسلم من الغلط ولا يرقى إلى
-              الكمال، وفيه مجال لمستدرك، فقد تلقت الوزارة وكذلك المجمَّع عدداً
-              من الملحوظات المتباينة على «التفسير الميسر» ، فكان من اللازم إيقاف
-              إعادة طباعته حتى يراجع بدقة.<br />
-              وقد تمت دراسة جميع ما ورد من ملحوظات من قِبَل لجنة أُلِّفت لهذا
-              الغرض في المجمَّع، فأخذت بالجيد من الملحوظات، مراعية منهج السلف في
-              أصول التفسير وموارده، والضوابط المأخوذ بها في «التفسير الميسر»
-              .<br />
-              وراجعت كذلك مجموعة من الألفاظ المتكررة في التفسير، نحو لفظ
-              (التصديق) و (الجحد) و (اليقين) ، لصلة التفسير بها بعقيدة السلف
-              الصالح.<br />
-              وراجعت معاني أسماء الله تعالى وصفاته، والنظائر اللفظية المتفقة في
-              المعنى، نحو: {الصُّورِ} ، و {وَالصَّابِئِينَ} ، بحيث تفسَّر هذه
-              الألفاظ بالشيء نفسه في كلِّ أماكن ورودها في التفسير.<br />
-              وغيَّرَتْ لفظ «يا محمد» الوارد في تفسير بعض الآيات نداءً للنبي صلى
-              الله عليه وسلم إلى «أيها الرسول» إن كان سياق الآية في دعوة
-              المشركين أو محاجتهم، أو بيان ما عليه أهل الكتاب، أو في مقام
-              التبليغ العام.<br />
-              أو إلى «أيها النبي» إن كان سياق الآية خطاباً للمؤمنين أو بياناً
-              لحكم شرعي، إلا في أحد عشر موضعاً من «التفسير» أُبقي النداء بـ «يا
-              محمد» كما هو؛ لكونه حكايةَ قول مَن لا يُقرُّ بنبوة الرسول صلى الله
-              عليه وسلم.<br />
-              وقد أخذت اللجنة بإضافة معنى آخر على المذكور في «التفسير الميسر» إن
-              كان اللفظ القرآني يحتمل ذلك دون رُجحان أحد المعنيين؛ لأن القرآن
-              الكريم يعبَّر فيه بالألفاظ القليلة الدالَّة على المعاني
-              الكثيرة.<br />
-              وتمَّ ربط معنى الآية بما قبلها إذا كان الفهم متوقفاً على هذا
-              الربط، ونُبِّه في ختام تفسير عديد من الآيات التي وُجِّه الخطاب
-              فيها للنبي صلى الله عليه وسلم على أنها للأمة عامة، وإن كان الخطاب
-              فيها خاصاً للنبي صلى الله عليه وسلم.<br />
-              وراعت اللجنة سهولة العبارة ووضوحها في التعديلات التي أخذت بها،
-              ومناسبة ورود اللفظ في سياق تفسير الآية قَدْر الإمكان، مع بقاء
-              طموحنا أن يكون في عبارة أكثر سلاسة وقرباً من فهم القارئ.<br />
-              ومع كون القصد من إنشاء هذا «التفسير الميسَّر» أن يكون أصلاً
-              للترجمات التي يصدرها المجمَّع فإن حاجة القارئ العربي إليه قائمة؛
-              لذا فقد وجَّهتُ بإعادة طبعه مرة ثانية بصورته المنقحة والمزيدة.<br />
-              نسأل الله تعالى أن يجزي كلَّ من شارك في إعداد هذا التفسير أو
-              مراجعته، حتى خرج بهذه الصورة القشيبة، وأن يعظم لهم الأجر والمثوبة
-              على ما بذلوه من جهود.<br />
-              ونسأله سبحانه أن يوفقنا جميعاً لفهم كتابه الكريم، والاهتداء بهديه،
-              وأن يجزي خادم الحرمين الشريفين الملك عبد الله بن عبد العزيز آل
-              سعود الذي لا يألو جهداً في خدمة القرآن الكريم، ونشره وتوزيعه، وأن
-              يجزي سموَّ ولي عهده الأمين صاحب السمو الملكي الأمير سلطان بن عبد
-              العزيز على جهودهما المباركة في خدمة الإسلام والمسلمين، وأن يوفق
-              الجميع لما يحب ويرضى إنه سميع الدعاء.<br />
-              والحمد لله الذي بنعمته تتم الصالحات، وصلى الله وسلم وبارك على عبده
-              ورسوله نبينا محمد وعلى آله وصحبه أجمعين.<br />
-              <br />
-              صالح بن عبد العزيز بن محمد آل الشيخ<br />
-              وزير الشؤون الإسلامية والأوقاف والدعوة والإرشاد<br />
-              المشرف العام على مجمع الملك فهد لطباعة المصحف الشريف<br />
-            </p>
-
-            <hr class="lineVerticalSpace" />
-
-            <h3 class="mid">
-              <a>‌‌مقدمة الأمانة العامة [[د محمد سالم العوفي]]</a>
-            </h3>
-
-            <p class="justi">
-              إن الحمد لله، نحمده ونستعينه ونستغفره ونستهديه، ونعوذ بالله من
-              شرور أنفسنا، ومن سيئات أعمالنا، من يهده الله فلا مضلَّ له، ومن
-              يضلل فلا هادي له، ولن تجد له ولياً مرشداً.<br />
-              والصلاة والسلام على خير من بعثه الله إلى العالمين، بالرحمة والهدى،
-              وعلى آله وصحبه، ومن تبعهم بإحسان إلى يوم الدين، أما بعد:<br />
-              فإن القرآن الكريم وحي الله إلى أكمَل رسله، ضمَّنه من العقائد
-              والأحكام والآداب والأخبار ما به سعادة الإنسان في الدنيا والآخرة،
-              كما قال تعالى: {فَمَنِ اتَّبَعَ هُدَايَ فَلَا يَضِلُّ وَلَا
-              يَشْقَى} [طه: 123] .<br />
-              فينبغي لقارئ القرآن الكريم وسامعه أن يعرف تفسير ما يحتاج إليه من
-              آياته، إذ ألفاظ الكتاب العزيز عالية البيان، ولها من الفصاحة
-              أرقاها، ومن البلاغة أوفاها.<br />
-              وقد سبق لمجمع اللك فهد لطباعة المصحف إصدار الطبعة الأولى من كتاب
-              «التفسير الميسر» ، ولقي -بفضل الله وتوفيقه- قَبولاً لدى كثير من
-              أهل العلم، وعامة الناس.<br />
-              ولا ريب أن صيغة «التفسير» جهد بشري يحتاج إلى مراعاة ما فيه من
-              جوانب تكميلية، فقد تلقَّت الوزارة وكذلك المجمَّع عدداً من
-              الملحوظات المتفاوتة على «التفسير اليسَّر» ، وتمَّ تأليف لجنة في
-              المجمَّع لدراسة جميع ما ورد من ملحوظات عليه، فقامت اللجنة بدراسة
-              الملحوظات جميعها، ولم تهمل أياً منها، وأقرَّت المناسب منها، مراعية
-              منهج هذا المختصر في التفسير وضوابطه، ومناسبته للترجمة إلى اللغات
-              الأخرى.<br />
-              وقامت اللجنة كذلك بمراجعة التفسير وتوحيد النظائر؛ بحيث<br />
-              تفسَّر تلك الألفاظ بعبارة وجيزة وافية في كلِّ أماكن ورودها في
-              القرآن الكريم، مع مراعاة مناسبة ورود اللفظ في سياق تفسير الآية،
-              واعتبار تبيين جميع الألفاظ التي فيها غرابة على القارئ؛ كي لا يكون
-              في السياق إبهام أو غموض.<br />
-              وقد راعت اللجنة في جميع التعديلات التي أخذت بها أن يكون التفسير
-              المأخوذ به موافقاً لرواية حفص عن عاصم من حيث المعنى والإعراب.<br />
-              وأشير هنا إلى أن «التفسير الميسَّر» أحد مصادر التفسير المدرجة في
-              موقع مجمع الملك فهد لطباعة المصحف الشريف على شبكة (الإنترنت) .<br />
-              ولا يفوتني في هذا التصدير لهذه الطبعة المنقَّحة أن أشكر لكل من
-              أسهم في إخراج هذا العمل المبارك، وسعى في صدوره بهذه الصورة
-              البهيجة.<br />
-              والشكر موصول لوزير الشؤون الإسلامية والأوقاف والدعوة والإرشاد
-              المشرف العام على المجمع معالي الشيخ صالح بن عبد العزيز ابن محمد آل
-              الشيخ الذي كان لملاحظاته الموفقة، وتوجيهاته السديدة، الأثر البارز
-              في إخراج التفسير بهذه الحلة القشيبة.<br />
-              كما أشكر لقادة هذه البلاد وعلى رأسهم خادم الحرمين الشريفين اللك
-              عبد الله بن عبد العزيز، وسمو ولي عهده الأمين صاحب السمو الملكي
-              الأمير سلطان بن عبد العزيز حفظهما الله ما يقومون به من أعمال جليلة
-              في خدمة الإسلام والسلمين، ونمرة قضاياهم.<br />
-              والحمد لله على فضله وإنعامه، والحمد لله الذي بنعمته تتم
-              الصالحات.<br />
-              <br />
-              أ. د. محمد سالم بن شديد العوفي<br />
-              الأمين العام لمجمع الملك فهد لطباعة المصحف الشريف<br />
-            </p>
-
-            <hr class="lineVerticalSpace" />
-
-            <h3 class="mid">
-              <a>‌‌‌‌الاستعاذة</a>
-            </h3>
-
-            <p class="justi">
-              (أعوذ بالله من الشيطان الرجيم)<br />
-              شرع الله تعالى لكل قارئ للقرآن العظيم، أن يستعيذ بالله من الشيطان
-              الرجيم، قال سبحانه: {فَإِذَا قَرَأْتَ الْقُرْآَنَ فَاسْتَعِذْ
-              بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ} ؛ ذلك لأن القرآن الكريم
-              هداية للناس وشفاء لما في الصدور، والشيطان سبب الشرور والضلالات،
-              فأمر الله سبحانه كل قارئ للقرآن أن يتحصن به سبحانه من الشيطان
-              الرجيم، ووساوسه، وحزبه.<br />
-              وأجمع العلماء على أن الاستعاذة ليست من القرآن الكريم، ولهذا لم
-              تكتب في المصاحف.<br />
-              ومعنى «أعوذ بالله» : أستجير، وأتحصن بالله وحده.<br />
-              «من الشيطان» أي: من كل عاتٍ متمرِّد من الجن والإنس، يصرفني عن طاعة
-              ربي، وتلاوة كتابه.<br />
-              «الرجيمِ» أي: المطرود من رحمة الله.<br />
-            </p>
-
-            <hr class="lineVerticalSpace" />
-
-            <p class="justi">
-              سورة‌‌ الفاتحة سميت هذه السورة بالفاتحة; لأنه يفتتح بها القرآن
-              العظيم، وتسمى المثاني; لأنها تقرأ في كل ركعة، ولها أسماء أخر.
-            </p>
-
-            <hr class="lineVerticalSpace" />
-
-            <div style="text-align: left; direction: ltr">
-              <h3 class="mid">
-                <a>Technical notes regarding the database text</a>
-              </h3>
-              <p>
-                Text was taken from
-                <a
-                  href="https://qurancomplex.gov.sa/en/techquran/dev"
-                  target="_blank"
-                  >Qurancomplex</a
-                >
-                <br />
-                Glorious Qur'an Platform for Developers, Tafseer Muyassar,
-                <br />
-                Version: 3.0, 08-01-2023
-                <br />
-                Extracted the database on 5/2/24
-                <br />
-                Files, hafs_tafseerMouaser_v3.zip, hafs_tafseerMouaser_v3_data,
-                tafseerMouaser_v03.csv
-                <br />
-                column: aya_tafseer
-                <br />
-                It had tags like this:
-                <br />
-                &lt;span class='aya'&gt;ﵡ ٱللَّهِﵠ&lt;/span&gt;
-                <br />
-                I replaced '&lt;span class='aya'&gt;ﵡ '
-                <br />
-                with:
-                <br />
-                ﴿
-                <br />
-                and
-                <br />
-                ﵠ&lt;/span&gt;
-                <br />
-                with:
-                <br />
-                ﴾
-              </p>
-            </div>
-
-            <!-- end of justi class -->
-          </div>
-        </main>
-        <!-- <main> -->
-      </div>
-      <!-- <div class="content"> -->
-    </div>
-    <!-- <div id="page"> -->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
-    ></script>
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link
+      href="../css/beta/ALL-COMB.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="../js/beta/ALL-COMB.min.js"></script>
+    <!-- CHANGE !!!
+    TWO DATA SOURCES -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-HL24Q9NN24");
+      // Create a global object to store datasets
+      window.datasets = {};
     </script>
-    <!-- End Google Analytics -->
+    <script src="../js/beta/json/quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.js"></script>
+    <script>
+      // Store the first dataset
+      datasets.data1 = data.slice();
+    </script>
+    <script src="../js/beta/json/quranMuyassar.js"></script>
+    <script>
+      // Store the second dataset
+      datasets.data2 = data.slice();
+    </script>
+    <style></style>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <!-- Navigation container for Surah, Ayah, and Juz selection -->
+      <div class="q-navigation-container">
+        <!-- Surah navigation box -->
+        <div class="q-nav-box">
+          <span class="q-nav-label">ސޫރަތް:</span>
+          <span class="q-nav-arrow" data-type="surah" data-direction="prev"
+            >▶</span
+          >
+          <div class="q-nav-value" id="surahValue">1</div>
+          <span class="q-nav-arrow" data-type="surah" data-direction="next"
+            >◀</span
+          >
+          <div class="q-dropdown" id="surahDropdown"></div>
+        </div>
+        <!-- Ayah navigation box -->
+        <div class="q-nav-box">
+          <span class="q-nav-label">އާޔަތް:</span>
+          <span class="q-nav-arrow" data-type="ayah" data-direction="prev"
+            >▶</span
+          >
+          <div class="q-nav-value" id="ayahValue">1</div>
+          <span class="q-nav-arrow" data-type="ayah" data-direction="next"
+            >◀</span
+          >
+          <div class="q-dropdown" id="ayahDropdown"></div>
+        </div>
+        <!-- Juz navigation box -->
+        <div class="q-nav-box">
+          <span class="q-nav-label">ޖުޒް:</span>
+          <span class="q-nav-arrow" data-type="juz" data-direction="prev"
+            >▶</span
+          >
+          <div class="q-nav-value" id="juzValue">1</div>
+          <span class="q-nav-arrow" data-type="juz" data-direction="next"
+            >◀</span
+          >
+          <div class="q-dropdown" id="juzDropdown"></div>
+        </div>
+      </div>
+      <!-- Navigation container for Surah, Ayah, and Juz selection - END-->
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="footer">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
+          <button
+            id="toggleFiliButton"
+            class="customButtons"
+            onclick="toggleQuranFili();filiString();scrollUpTop()"
+          >
+            <!-- toggleFili() -->
+            &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
+          </button>
+          <button
+            id="toggleSurahButton"
+            class="customButtons"
+            onclick="toggleSurahName();scrollUpTop()"
+          >
+            &nbsp; ސޫރަތުގެ ނަތް ފޮރުވާ &nbsp;
+          </button>
 
-    <!-- === INT JS - END === -->
+          <button
+            id="toggleUthmaniImlai"
+            class="customButtons"
+            onclick="uthmaniImlai();loadRasmFont();scrollUpTop()"
+          >
+            &nbsp; ރަސްމު އުޘްމާނީއަށް &nbsp;
+          </button>
+
+          <button
+            id="toggleShowButton"
+            class="customButtons"
+            onclick="toggleShowOne();scrollUpTop()"
+          >
+            &nbsp; ތަފްސީރު އެކަނި ދައްކާ &nbsp;
+          </button>
+
+          <script>
+            function toggleShowOne() {
+              var isVisible = $(".dataTable").DataTable().column(8).visible();
+              $(".dataTable").DataTable().column(8).visible(!isVisible);
+              $(".dataTable").DataTable().column(9).visible();
+              $(".dataTable").DataTable().column(9).visible(!isVisible);
+
+              // change string
+              var button = document.getElementById("toggleShowButton");
+              if (
+                button.innerHTML.trim() ===
+                "&nbsp; ތަފްސީރު އެކަނި ދައްކާ &nbsp;"
+              ) {
+                button.innerHTML = "&nbsp; ރަސްމީ ތަރުޖަމާ ވެސް &nbsp;";
+              } else {
+                button.innerHTML = "&nbsp; ތަފްސީރު އެކަނި ދައްކާ &nbsp;";
+              }
+            }
+          </script>
+
+          <hr />
+
+          <p>
+            اسم الكتاب: التفسير الميسر للقرآن الكريم - لنخبة من العلماء
+            <br />
+            الناشر: مجمع الملك فهد لطباعة المصحف الشريف | الطبعة الثالثة ١٤٤٠ هـ
+            - ٢٠١٩ م.
+          </p>
+
+          <p>
+            Name of the Book: (Simple Explanation of the Quran) Tafseer Muyassar
+            - Elite Group of Scholars | King Fahd Glorious Qur'an Printing
+            Complex - 6th Edition, 1440 h. - 2019 m. - Arabic
+          </p>
+
+          <p>
+            ފޮތުގެ ނަން: ބަޔާންވެގެންވާ ފަސޭހަ ތަފްސީރު | ލިޔުނީ: މުޙައްމަދު
+            ޢަލީ އައްޞާބޫނީ އަލްއަޝްޢަރީ
+          </p>
+
+          <p>
+            ފޮތުގެ ނަން: ކީރިތި ގުރްއާނުގެ ތަފްސީރުލް މުޔައްސަރު (ފަސޭހަ
+            ތަފްސީރު) - ލިޔުނީ: ޚާއްސަ އިލްމުވެރިންގެ ޖަމާއަތެއް
+            <br />
+            ޗާޕުކުރީ: ޝަރަފުވެރި މުސްހަފު ޗާޕުކުރާ ފަހްދު ރަސްގެފާނުގެ މުޖައްމާ
+            | ހަވަނަ ޗާޕު 1440 ހ. - 2019 މ.
+          </p>
+
+          <p>
+            ފޮތުގެ އަރަބި
+            <a href="https://shamela.ws/book/1407" target="_blank">އީ-ފޮތް</a>
+            (ދެވަނަ ޗާޕު) |
+            <a
+              href="https://archive.org/details/tafseerMuyassar"
+              target="_blank"
+              >ޕީޑީއެފް</a
+            >
+            (ހަވަނަ ޗާޕު)
+          </p>
+        </div>
+        <!-- <div class="centerAlignedText"> END -->
+
+        <hr />
+        <h3>‌‌مقدمات الطبعة الثانية</h3>
+        <p>‌‌المقدمة بقلم معالى الشيخ صالح بن عبد العزيز بن محمد آل الشيخ</p>
+        <p>
+          وزير الشؤون الإسلامية والأوقاف والدعوة والإرشاد المشرف العام على مجمع
+          الملك فهد لطباعة المصحف الشريف
+        </p>
+        <p>بِسمِ ٱللَّهِ ٱلرَّحمَٰنِ ٱلرَّحِيمِ</p>
+        <p>
+          إن الحمد لله، نحمده ونستعينه ونستغفره، ونعوذ بالله من شرور أنفسنا،
+          وسيئات أعمالنا، من يهده الله فلا مضلَّ له، ومن يضلل فلا هادي له، وأشهد
+          أن لا إله إلا الله وحده لا شريك له، وأشهد أن محمداً عبده ورسوله.
+        </p>
+        <p>
+          {يَا أَيُّهَا الَّذِينَ آَمَنُوا اتَّقُوا اللَّهَ حَقَّ تُقَاتِهِ
+          وَلَا تَمُوتُنَّ إِلَّا وَأَنْتُمْ مُسْلِمُونَ} [آل عمران: 102]
+        </p>
+        <p>
+          {يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمُ الَّذِي خَلَقَكُمْ مِنْ
+          نَفْسٍ وَاحِدَةٍ وَخَلَقَ مِنْهَا زَوْجَهَا وَبَثَّ مِنْهُمَا رِجَالًا
+          كَثِيرًا وَنِسَاءً وَاتَّقُوا اللَّهَ الَّذِي تَسَاءَلُونَ بِهِ
+          وَالْأَرْحَامَ إِنَّ اللَّهَ كَانَ عَلَيْكُمْ رَقِيبًا} [النساء: 1]
+        </p>
+        <p>
+          {يَا أَيُّهَا الَّذِينَ آَمَنُوا اتَّقُوا اللَّهَ وَقُولُوا قَوْلًا
+          سَدِيدًا (70) يُصْلِحْ لَكُمْ أَعْمَالَكُمْ وَيَغْفِرْ لَكُمْ
+          ذُنُوبَكُمْ وَمَنْ يُطِعِ اللَّهَ وَرَسُولَهُ فَقَدْ فَازَ فَوْزًا
+          عَظِيمًا} [الأحزاب: 70، 71]
+        </p>
+        <p>
+          أما بعد: فإن أصدق الحديث كتاب الله، فيه الغَنَاء والسعادة، لا تملُّ
+          منه النفوس، ولا تنقضي عجائبه، ولم تعرف الإنسانية في تاريخها كتاباً
+          يداني القرآن الكريم أو يقاربه، في تأثيره في نفوس سامعيه أو قارئيه،
+          أنزله الله على قلب خاتم الأنبياء والمرسلين نبينا ورسولنا محمد صلى الله
+          عليه وسلم، المبعوث رحمة للعالمين، آيةً ظاهرةً، وحجةً قاطعة في استمراره
+          وحفظه وإعجازه وهدايته، والتعبد بتلاوته وسماعه، والافتقار إلى هدايته،
+          وتعاهد الإيمان به: اعتقاداً وقولاً وعملاً.
+        </p>
+        <p>
+          وقد أخرج الله به البشرية من ظُلَم العبودية والجهل إلى نور التوحيد
+          والعلم {يَهْدِي بِهِ اللَّهُ مَنِ اتَّبَعَ رِضْوَانَهُ سُبُلَ
+          السَّلَامِ وَيُخْرِجُهُمْ مِنَ الظُّلُمَاتِ إِلَى النُّورِ بِإِذْنِهِ
+          وَيَهْدِيهِمْ إِلَى صِرَاطٍ مُسْتَقِيمٍ} [المائدة: 16] .
+        </p>
+        <p>
+          والقرآن الكريم هو الميزان الواضح لحال الأمة الإسلامية، فكلَّما اهتدت
+          بهداه وعملت به في جميع شؤونها، سَعِدت وعزَّ جانبها، وكلما ابتعدت عنه
+          وضَغفَ استمساكها به ابتليت بالذِّلة والتفرُّق وتداعي الأمم عليها، قال
+          تعالى: {وَإِنَّهُ لَذِكْرٌ لَكَ وَلِقَوْمِكَ وَسَوْفَ تُسْأَلُونَ}
+          [الزخرف: 44] .
+        </p>
+        <p>
+          قال ابن عباس في تفسير هذه الآية: «إنه لشرفٌ لك ولقومك» ، فهو شرف لهم
+          من حيث إنه أُنزل بلغتهم، فَهُم أفهم الناس له، وينبغي أن يكونوا أقوم
+          الناس به، وأعلمهم بمقتضاه، كما بيَّن ذلك الحافظ ابن كثير، كما أنه عز
+          وجل سيضع من شأن مَنْ أعرض عنه، وقد قال عمر رضي الله عنه: «أما إن نبيكم
+          صلى الله عليه وسلم قد قال: إن الله يرفع بهذا الكتاب أقواماً ويضع به
+          آخرين» [رواه مسلم برقم: 817] ، فمن استمسك بحبله المتين فاز، ومن أعرض
+          عنه خسر خسراناً مبيناً.
+        </p>
+        <p>
+          قال الإمام الشافعي في «الرسالة» : «فإن من أدرك علم أحكام الله في كتابه
+          نصّاً واستدلالاً، ووفقه الله للقول والعمل بما علم منه فاز بالفضيلة في
+          دينه ودنياه، وانتفت عنه الرِّيَب، ونوَّرت في قلبه الحكمة» .
+        </p>
+        <p>
+          وقد تكفَّل سبحانه بحفظه فقال تعالى: {إِنَّا نَحْنُ نَزَّلْنَا
+          الذِّكْرَ وَإِنَّا لَهُ لَحَافِظُونَ} [الحجر: 9] ، فلم يزل محفوظاً في
+          الصدور مكتوباً في السطور {لَا يَأْتِيهِ الْبَاطِلُ مِنْ بَيْنِ
+          يَدَيْهِ وَلَا مِنْ خَلْفِهِ تَنْزِيلٌ مِنْ حَكِيمٍ حَمِيدٍ} [فصلت:
+          42] .
+        </p>
+        <p>
+          فالقرآن العظيم منجاة لكل مسلم يستبصر بآياته، ويتعظ بمواعظه وأمثاله،
+          ويقف عند حلاله وحرامه، ويستجلي العبرة من أخباره وقصصه؛ مما يزكي بذلك
+          نفسه، ويثبِّت التوحيد في قلبه، ويغرس فيه خشية الله، ويزيل أسباب الكفر
+          والفسوق والعصيان، ويجعل المجتمع كلَّه كالصف الواحد.
+        </p>
+        <p>‌‌[[نشأة علم التفسير وتوسعه]]</p>
+        <p>
+          وقد يسَّر الله تبارك وتعالى ألفاظه للتلاوة والحفظ، ومعانيه للفهم
+          والتدبر، فقال: {وَلَقَدْ يَسَّرْنَا الْقُرْآَنَ لِلذِّكْرِ فَهَلْ مِنْ
+          مُدَّكِرٍ} [القمر: 17] .
+        </p>
+        <p>
+          وبيَّن النبي صلى الله عليه وسلم لأصحابه معانيه كما بيَّن لهم ألفاظه،
+          قال شيخ الإسلام ابن تيمية في «أصول التفسير» : «يجب أن يُعلم أن الرسول
+          صلى الله عليه وسلم بيَّن لأصحابه معاني القرآن، كما بيَّن لهم ألفاظه،
+          فقوله تعالى: {لِتُبَيِّنَ لِلنَّاسِ مَا نُزِّلَ إِلَيْهِمْ} [النحل:
+          44] يتناول هذا وهذا» . وظلَّ الصحابة رضوان الله عليهم يرجعون إلى النبي
+          صلى الله عليه وسلم في فهم ما يُشكل عليهم من معاني الآيات.
+        </p>
+        <p>
+          وبعد أن انقضى عهد الصحب الكرام، برز عدد من أعلام التابعين تتلمذوا
+          عليهم، وأخذوا عنهم تفسير كتاب الله، وزادوا عليه ما استنبطوه وفهموه
+          بأنفسهم مما كان غامضاً على الناس في عصرهم.
+        </p>
+        <p>
+          وما زال علم التفسير في تَوَسُّع حتى تجمَّع منه الشيء الكثير، وبدأت
+          تتضح معالم مدارسه باتجاهاتها المختلفة، وبدا بروزها مواكبةً لمرحلة
+          التدوين للعلوم.
+        </p>
+        <p>
+          ومن أهمِّ مدارس التفسير: التفسير بالمأثور، ويشمل ما جاء في القرآن نفسه
+          من البيان والتفصيل لبعض آياته، وما نُقل عن الرسول
+        </p>
+        <p>
+          صلى الله عليه وسلم، وما نُقل عن صحابته رضوان الله عليهم الذين شهدوا
+          التنزيل، وعرفوا التأويل، وما نُقل عن التابعين الذين نهلوا من مدرسة
+          النبوة عن الصحابة المفسرين النابغين.
+        </p>
+        <p>
+          ومن أهم كتب التفسير بالمأثور: «جامع البيان» للطبري المتوفى سنة (310
+          هـ) ، وهو من أجلِّ التفاسير وأعظمها قدراً، كما يصفه شيخ الإسلام ابن
+          تيمية في فتاواه، وكتاب «معالم التنزيل» للبغوي المتوفى سنة (516 هـ) ؛
+          لأنه تحرَّى الصحة في معظم ما ذكر من الأقوال والروايات، وتفسير الحافظ
+          ابن كثير المتوفى سنة (774 هـ) ، وهو من أجلِّ التفاسير وأعظمها نفعاً.
+        </p>
+        <p>
+          وقد شهد تدوين التفسير مرحلة جديدة، وهي مرحلة التفاسير التي يغلب عليها
+          الطابع الاجتهادي لعلماء برعوا في مجالات مختلفة من العلوم، فكان منهم من
+          يقتصر في تفسيره على العلم الذي يغلب عليه، فالفقيه يسرد المسائل الفقهية
+          ويفرِّع عليها فروعاً كثيرة، والإخباري يهتم بإيراد القصص، والنحوي يبرز
+          الصناعة النحوية، وصاحب البلاغة يظهر الجانب البلاغي والإعجاز البياني،
+          وهكذا.
+        </p>
+        <p>
+          وكان منهم من جمع في تفسيره عدَّة علوم لها تعلُّق بالقرآن الكريم، وبعض
+          هؤلاء المفسرين من أهل السنة والجماعة، وبعضهم من غيرهم من ذوي المعتقدات
+          المبتدعة.
+        </p>
+        <p>
+          ومع تنوُّع اتجاهات التفسير -بعد عصر الصحابة- فُسِّر القرآن الكريم
+          بآراء تخالف ما صحَّ من تفسيره، أو تُصادم قواعد التفسير وأصوله، ووقع
+          الخطأ في تفسير كلام الله تعالى ممَّا أدى إلى البعد عن هداية القرآن
+          وإعجازه.
+        </p>
+        <p>
+          وترجع أسباب الحَيْدة عن فهم القرآن العظيم على الوجه الصحيح إلما عدة
+          أمور، أهمها العدول عن مصادر التفسير الموثوقة وأصوله الصحيحة، وعدم
+          الدقة في فهم مدلولات الآيات، أو إخضاعها للأهواء والبدع، ثم القصور في
+          تطبيق الشروط اللازمة للتفسير.
+        </p>
+        <p>
+          وقد قام جماعة من علماء الإسلام بتنقية التفسير وتحرير ما داخله من تحريف
+          وزيادات، وردِّه إلى الوضع الصحيح والفهم السليم على ضوء مدرسة التفسير
+          بالمأثور؛ مما يعين التالي لكتاب الله على فهم الآيات الكريمات وَفْق
+          معناها الصحيح، والوصول إلى المقصد الأساس من التفسير.
+        </p>
+        <p>
+          وكانت الحاجة ماسة في هذا العصر إلى وضع تفسير مختصر تراعى فيه أصول
+          التفسير وموارده على منهج السلف الصالح، يكفُل بيان التفسير على وجه
+          تطمئن له القلوب، وتثق به، ويُقدِّم التفسير بعبارة وجيزة سهلة تتضح به
+          معاني القرآن ومقاصده، وتظهر به مدلولات الألفاظ وتراكيبها مما يغيب عن
+          أذهان عامة الناس وإدراكهم.
+        </p>
+        <p>
+          إن مجمع الملك فهد لطباعة المصحف الشريف بالمدينة المنورة يتشرف بأمانة
+          تبليغ معاني القرآن الكريم لمن لا يتكلم بالعربية ولا يعرفها، وهو باب
+          دخله من ليس أهلاً له، ودخله المُغرض بقصد الافتراء والدس على كتاب الله.
+        </p>
+        <p>‌‌[[عدم توافر ترجمات صحيحة لمعاني القرآن الكريم]]</p>
+        <p>
+          ولقد اعترض المجمَّعَ عَقَبةُ عدم توافر ترجمات صحيحة لمعاني القرآن
+          الكريم؛ إذ الترجمات المتوافرة عليها ملحوظات عديدة، وأي ترجمة تُرَشَّح
+          لطبعها في المجمَّع تمرُّ بمراحل مراجعة وتدقيق من عدة لجان أمينة
+          ومتخصصة؛ لأجل استدراك النقص الذي يظهر فيها، ومع ذلك تظلُّ الترجمة دون
+          ما يطمح إليه المجمَّع.
+        </p>
+        <p>
+          وبعد دراسة متأنية رأى المجمَّع أن يصدر تفسيراً ميسَّراً للقرآن الكريم
+          باللغة العربية وَفْق أصول التفسير وموارده الأصيلة، يكون أساساً لما
+          يطبعه المجمَّع من ترجمات معاني القرآن الكريم إلى لغات الشعوب الإسلامية
+          وغيرها.
+        </p>
+        <p>‌‌[[الضوابط المتبعة في هذا التفسير]]</p>
+        <p>
+          وقد اختير لوضع صيغته الأولى نخبة من أساتذة التفسير المشهود لهم بالعلم
+          والكفاءة، ضمن ضوابط من أهمها:
+        </p>
+        <p>1) تفسير الآيات وَفْق مذهب السلف الصالح في الاعتقاد.</p>
+        <p>2) تقديم ما صحَّ من التفسير بالمأثور على غيره.</p>
+        <p>3) الاقتصار في النقل على القول الصحيح أو الأرجح.</p>
+        <p>4) إبراز الهداية القرآنية ومقاصد الشريعة من خلال التفسير.</p>
+        <p>
+          5) كون العبارة مختصرة سهلة، مع بيان معاني الألفاظ الغريبة أثناء
+          التفسير.
+        </p>
+        <p>
+          6) وقوف المفسِّر على المعنى المساوي للآية، وتجنب الزيادة الواردة في
+          آيات أُخر؛ كي تُفسَّر في موضعها.
+        </p>
+        <p>
+          7) إيراد معنى الآية مباشرة دون الحاجة إلى الأخبار، إلا ما دعت إليه
+          الضرورة.
+        </p>
+        <p>8) كون التفسير وَفْق رواية حفص عن عاصم.</p>
+        <p>9) تجنب ذكر القراءات، ومسائل النحو والصرف والإعراب، والبلاغة.</p>
+        <p>
+          10) تفسير كل آية على حِدة، ولا تعاد ألفاظ النص القرآني إلا لضرورة،
+          ويذكر في بداية تفسير كل آية رقمها.
+        </p>
+        <p>
+          11) يكون التفسير بالقدْر الذي تتسع له حاشية (مصحف المدينة النبوية) .
+        </p>
+        <p>
+          12) مراعاة المفسِّر أن هذا التفسير سيترجم إلى لغات مختلفة، وتجنب ذكر
+          المصطلحات التي يتعذر ترجمتها.
+        </p>
+        <p>
+          وقد اجتهد الأساتذة الموكول إليهم إعداد التفسير بالضوابط المذكورة، وتم
+          مراجعة ما كتبوه من قبل لجنة أولى في أمانة مجمع الملك فهد لطباعة المصحف
+          الشريف بالمدينة المنورة، ثم من قِبل لجنتين في وزارة الشؤون الإسلامية
+          والأوقاف والدعوة والإرشاد بالرياض، حرصاً على أن يكون التفسير محقّقاً
+          الغرض من وضعه، سليماً في معناه ومبناه.
+        </p>
+        <p>
+          ثم طبع طبعة أولى بأحجام مختلفة، فحَرَص الناس على اقتنائه؛ لما امتاز به
+          من يسر وسهولة في تأدية المعنى المراد.
+        </p>
+        <p>‌‌[[هذه الطبعة الثانية وتجنب ملاحظات الطبعة الأولى]]</p>
+        <p>
+          وكما هي طبيعة الجهد البشري أنه لا يسلم من الغلط ولا يرقى إلى الكمال،
+          وفيه مجال لمستدرك، فقد تلقت الوزارة وكذلك المجمَّع عدداً من الملحوظات
+          المتباينة على «التفسير الميسر» ، فكان من اللازم إيقاف إعادة طباعته حتى
+          يراجع بدقة.
+        </p>
+        <p>
+          وقد تمت دراسة جميع ما ورد من ملحوظات من قِبَل لجنة أُلِّفت لهذا الغرض
+          في المجمَّع، فأخذت بالجيد من الملحوظات، مراعية منهج السلف في أصول
+          التفسير وموارده، والضوابط المأخوذ بها في «التفسير الميسر» .
+        </p>
+        <p>
+          وراجعت كذلك مجموعة من الألفاظ المتكررة في التفسير، نحو لفظ (التصديق) و
+          (الجحد) و (اليقين) ، لصلة التفسير بها بعقيدة السلف الصالح.
+        </p>
+        <p>
+          وراجعت معاني أسماء الله تعالى وصفاته، والنظائر اللفظية المتفقة في
+          المعنى، نحو: {الصُّورِ} ، و {وَالصَّابِئِينَ} ، بحيث تفسَّر هذه
+          الألفاظ بالشيء نفسه في كلِّ أماكن ورودها في التفسير.
+        </p>
+        <p>
+          وغيَّرَتْ لفظ «يا محمد» الوارد في تفسير بعض الآيات نداءً للنبي صلى
+          الله عليه وسلم إلى «أيها الرسول» إن كان سياق الآية في دعوة المشركين أو
+          محاجتهم، أو بيان ما عليه أهل الكتاب، أو في مقام التبليغ العام.
+        </p>
+        <p>
+          أو إلى «أيها النبي» إن كان سياق الآية خطاباً للمؤمنين أو بياناً لحكم
+          شرعي، إلا في أحد عشر موضعاً من «التفسير» أُبقي النداء بـ «يا محمد» كما
+          هو؛ لكونه حكايةَ قول مَن لا يُقرُّ بنبوة الرسول صلى الله عليه وسلم.
+        </p>
+        <p>
+          وقد أخذت اللجنة بإضافة معنى آخر على المذكور في «التفسير الميسر» إن كان
+          اللفظ القرآني يحتمل ذلك دون رُجحان أحد المعنيين؛ لأن القرآن الكريم
+          يعبَّر فيه بالألفاظ القليلة الدالَّة على المعاني الكثيرة.
+        </p>
+        <p>
+          وتمَّ ربط معنى الآية بما قبلها إذا كان الفهم متوقفاً على هذا الربط،
+          ونُبِّه في ختام تفسير عديد من الآيات التي وُجِّه الخطاب فيها للنبي صلى
+          الله عليه وسلم على أنها للأمة عامة، وإن كان الخطاب فيها خاصاً للنبي
+          صلى الله عليه وسلم.
+        </p>
+        <p>
+          وراعت اللجنة سهولة العبارة ووضوحها في التعديلات التي أخذت بها، ومناسبة
+          ورود اللفظ في سياق تفسير الآية قَدْر الإمكان، مع بقاء طموحنا أن يكون
+          في عبارة أكثر سلاسة وقرباً من فهم القارئ.
+        </p>
+        <p>
+          ومع كون القصد من إنشاء هذا «التفسير الميسَّر» أن يكون أصلاً للترجمات
+          التي يصدرها المجمَّع فإن حاجة القارئ العربي إليه قائمة؛ لذا فقد
+          وجَّهتُ بإعادة طبعه مرة ثانية بصورته المنقحة والمزيدة.
+        </p>
+        <p>
+          نسأل الله تعالى أن يجزي كلَّ من شارك في إعداد هذا التفسير أو مراجعته،
+          حتى خرج بهذه الصورة القشيبة، وأن يعظم لهم الأجر والمثوبة على ما بذلوه
+          من جهود.
+        </p>
+        <p>
+          ونسأله سبحانه أن يوفقنا جميعاً لفهم كتابه الكريم، والاهتداء بهديه، وأن
+          يجزي خادم الحرمين الشريفين الملك عبد الله بن عبد العزيز آل سعود الذي
+          لا يألو جهداً في خدمة القرآن الكريم، ونشره وتوزيعه، وأن يجزي سموَّ ولي
+          عهده الأمين صاحب السمو الملكي الأمير سلطان بن عبد العزيز على جهودهما
+          المباركة في خدمة الإسلام والمسلمين، وأن يوفق الجميع لما يحب ويرضى إنه
+          سميع الدعاء.
+        </p>
+        <p>
+          والحمد لله الذي بنعمته تتم الصالحات، وصلى الله وسلم وبارك على عبده
+          ورسوله نبينا محمد وعلى آله وصحبه أجمعين.
+        </p>
+        <p>صالح بن عبد العزيز بن محمد آل الشيخ</p>
+        <p>وزير الشؤون الإسلامية والأوقاف والدعوة والإرشاد</p>
+        <p>المشرف العام على مجمع الملك فهد لطباعة المصحف الشريف</p>
+        <hr />
+        <p>‌‌مقدمة الأمانة العامة [[د محمد سالم العوفي]]</p>
+        <p>
+          إن الحمد لله، نحمده ونستعينه ونستغفره ونستهديه، ونعوذ بالله من شرور
+          أنفسنا، ومن سيئات أعمالنا، من يهده الله فلا مضلَّ له، ومن يضلل فلا
+          هادي له، ولن تجد له ولياً مرشداً.
+        </p>
+        <p>
+          والصلاة والسلام على خير من بعثه الله إلى العالمين، بالرحمة والهدى،
+          وعلى آله وصحبه، ومن تبعهم بإحسان إلى يوم الدين، أما بعد:
+        </p>
+        <p>
+          فإن القرآن الكريم وحي الله إلى أكمَل رسله، ضمَّنه من العقائد والأحكام
+          والآداب والأخبار ما به سعادة الإنسان في الدنيا والآخرة، كما قال تعالى:
+          {فَمَنِ اتَّبَعَ هُدَايَ فَلَا يَضِلُّ وَلَا يَشْقَى} [طه: 123] .
+        </p>
+        <p>
+          فينبغي لقارئ القرآن الكريم وسامعه أن يعرف تفسير ما يحتاج إليه من
+          آياته، إذ ألفاظ الكتاب العزيز عالية البيان، ولها من الفصاحة أرقاها،
+          ومن البلاغة أوفاها.
+        </p>
+        <p>
+          وقد سبق لمجمع اللك فهد لطباعة المصحف إصدار الطبعة الأولى من كتاب
+          «التفسير الميسر» ، ولقي -بفضل الله وتوفيقه- قَبولاً لدى كثير من أهل
+          العلم، وعامة الناس.
+        </p>
+        <p>
+          ولا ريب أن صيغة «التفسير» جهد بشري يحتاج إلى مراعاة ما فيه من جوانب
+          تكميلية، فقد تلقَّت الوزارة وكذلك المجمَّع عدداً من الملحوظات
+          المتفاوتة على «التفسير اليسَّر» ، وتمَّ تأليف لجنة في المجمَّع لدراسة
+          جميع ما ورد من ملحوظات عليه، فقامت اللجنة بدراسة الملحوظات جميعها، ولم
+          تهمل أياً منها، وأقرَّت المناسب منها، مراعية منهج هذا المختصر في
+          التفسير وضوابطه، ومناسبته للترجمة إلى اللغات الأخرى.
+        </p>
+        <p>وقامت اللجنة كذلك بمراجعة التفسير وتوحيد النظائر؛ بحيث</p>
+        <p>
+          تفسَّر تلك الألفاظ بعبارة وجيزة وافية في كلِّ أماكن ورودها في القرآن
+          الكريم، مع مراعاة مناسبة ورود اللفظ في سياق تفسير الآية، واعتبار تبيين
+          جميع الألفاظ التي فيها غرابة على القارئ؛ كي لا يكون في السياق إبهام أو
+          غموض.
+        </p>
+        <p>
+          وقد راعت اللجنة في جميع التعديلات التي أخذت بها أن يكون التفسير
+          المأخوذ به موافقاً لرواية حفص عن عاصم من حيث المعنى والإعراب.
+        </p>
+        <p>
+          وأشير هنا إلى أن «التفسير الميسَّر» أحد مصادر التفسير المدرجة في موقع
+          مجمع الملك فهد لطباعة المصحف الشريف على شبكة (الإنترنت) .
+        </p>
+        <p>
+          ولا يفوتني في هذا التصدير لهذه الطبعة المنقَّحة أن أشكر لكل من أسهم في
+          إخراج هذا العمل المبارك، وسعى في صدوره بهذه الصورة البهيجة.
+        </p>
+        <p>
+          والشكر موصول لوزير الشؤون الإسلامية والأوقاف والدعوة والإرشاد المشرف
+          العام على المجمع معالي الشيخ صالح بن عبد العزيز ابن محمد آل الشيخ الذي
+          كان لملاحظاته الموفقة، وتوجيهاته السديدة، الأثر البارز في إخراج
+          التفسير بهذه الحلة القشيبة.
+        </p>
+        <p>
+          كما أشكر لقادة هذه البلاد وعلى رأسهم خادم الحرمين الشريفين اللك عبد
+          الله بن عبد العزيز، وسمو ولي عهده الأمين صاحب السمو الملكي الأمير
+          سلطان بن عبد العزيز حفظهما الله ما يقومون به من أعمال جليلة في خدمة
+          الإسلام والسلمين، ونمرة قضاياهم.
+        </p>
+        <p>والحمد لله على فضله وإنعامه، والحمد لله الذي بنعمته تتم الصالحات.</p>
+        <p>أ. د. محمد سالم بن شديد العوفي</p>
+        <p>الأمين العام لمجمع الملك فهد لطباعة المصحف الشريف</p>
+        <hr />
+        <p>‌‌‌‌الاستعاذة</p>
+        <p>(أعوذ بالله من الشيطان الرجيم)</p>
+        <p>
+          شرع الله تعالى لكل قارئ للقرآن العظيم، أن يستعيذ بالله من الشيطان
+          الرجيم، قال سبحانه: {فَإِذَا قَرَأْتَ الْقُرْآَنَ فَاسْتَعِذْ
+          بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ} ؛ ذلك لأن القرآن الكريم هداية
+          للناس وشفاء لما في الصدور، والشيطان سبب الشرور والضلالات، فأمر الله
+          سبحانه كل قارئ للقرآن أن يتحصن به سبحانه من الشيطان الرجيم، ووساوسه،
+          وحزبه.
+        </p>
+        <p>
+          وأجمع العلماء على أن الاستعاذة ليست من القرآن الكريم، ولهذا لم تكتب في
+          المصاحف.
+        </p>
+        <p>ومعنى «أعوذ بالله» : أستجير، وأتحصن بالله وحده.</p>
+        <p>
+          «من الشيطان» أي: من كل عاتٍ متمرِّد من الجن والإنس، يصرفني عن طاعة
+          ربي، وتلاوة كتابه.
+        </p>
+        <p>«الرجيمِ» أي: المطرود من رحمة الله.</p>
+        <hr />
+        <p>
+          سورة‌‌ الفاتحة سميت هذه السورة بالفاتحة; لأنه يفتتح بها القرآن العظيم،
+          وتسمى المثاني; لأنها تقرأ في كل ركعة، ولها أسماء أخر.
+        </p>
+        <hr />
+        <p>[الكتاب]</p>
+        <hr />
+        <div class="leftAlignedText ltrText">
+          <h3>Technical notes regarding the database text</h3>
+
+          <p>Tafsir json columns:</p>
+
+          <p>1. Tafsir</p>
+
+          <p>
+            Text was taken from
+            <a
+              href="https://qurancomplex.gov.sa/en/techquran/dev"
+              target="_blank"
+              >Qurancomplex</a
+            >
+          </p>
+          <p>Glorious Qur'an Platform for Developers, Tafseer Muyassar,</p>
+          <p>Version: 3.0, 08-01-2023</p>
+          <p>Extracted the database on 5/2/24</p>
+          <p>
+            Files, hafs_tafseerMouaser_v3.zip, hafs_tafseerMouaser_v3_data,
+            tafseerMouaser_v03.csv
+          </p>
+          <p>column: aya_tafseer</p>
+          <p>It had tags like this:</p>
+          <p>&lt;span class='aya'&gt;ﵡ ٱللَّهِﵠ&lt;/span&gt;</p>
+          <p>I replaced '&lt;span class='aya'&gt;ﵡ '</p>
+          <p>with:</p>
+          <p>﴿</p>
+          <p>and</p>
+          <p>ﵠ&lt;/span&gt;</p>
+          <p>with:</p>
+          <p>﴾</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // COMBINES JSON DATA
+      //var combinedData = (function () {
+      var data = (function () {
+        // Combine the processed first dataset with the second dataset
+        var combined = datasets.data1.map(function (row, index) {
+          return row.concat(datasets.data2[index] || []);
+        });
+        //console.log('Combined:', combined);
+
+        // Flatten the array and replace null values with empty strings
+        return combined.map(function (row) {
+          return row.map(function (cell) {
+            return cell === null ? "" : cell;
+          });
+        });
+      })();
+      //console.log('Final Combined Data:', combinedData);
+
+      //
+      //
+      //
+
+      //  data array (replace with your full dataset)
+      // var data = [[]]
+
+      //var table; // DataTable instance
+      var currentSurah = 1;
+      var currentAyah = 1;
+      var currentJuz = null;
+      var maxSurah = 114;
+      var maxJuz = 30;
+      var ayahCounts = {}; // Will store the count of ayahs for each surah
+
+      //$(document).ready(function () {
+      // Initialize DataTable
+      //table = new DataTable("#tableID", {
+      var table = new DataTable("#tableID", {
+        ...DTconfig,
+        data: data,
+        /*columns: [
+          {
+            title: "index",
+            render: function (data, type, full, meta) {
+              return meta.row + 1; // Starts indexing from 1
+            },
+          },
+          { title: "Juz", data: 0 },
+          { title: "Surah No", data: 1 },
+          { title: "Ayah No", data: 2 },
+          { title: "Bismillah", data: 3 },
+          { title: "Quran Plain", data: 4 },
+          { title: "Quran Fancy", data: 5 },
+        ],*/
+        columns: [
+          {
+            title: "އިންޑެކްސް",
+            visible: false,
+            searchable: false,
+            render: function (data, type, full, meta) {
+              return meta.row + 1; // Starts indexing from 1
+            },
+          },
+          {
+            title: "ޖުޒް",
+            data: 0,
+            visible: false,
+            searchable: false,
+          },
+          {
+            title: "ސޫރަތް",
+            data: 1,
+            className: "colHeader",
+            render: (data) => {
+              // Convert the number to string to ensure we're working with a string
+              let surahNumber = data.toString();
+
+              // Get the Surah name
+              let surahName = surahNames[surahNumber] || "";
+
+              // Combine the number and name
+              //let result = `${surahNumber} ${surahName}`;
+              let result = `${surahNumber} سُورَةُ ${surahName}`;
+
+              // Replace regular digits with sans-serif digits
+              result = result.replace(
+                /[0-9]/g,
+                (digit) => sansSerifDigits[digit] || digit
+              );
+
+              return result;
+            },
+          },
+          { title: "އާޔަތް #", data: 2, visible: false },
+          { title: "ބިސްމި", data: 3 },
+          {
+            title: "އަރަބި ލިޔުން",
+            data: 4,
+            searchable: false,
+            /* add brackets to ayah */
+            //data = "﴿" + data + "﴾";
+            render: function (data, type, row) {
+              data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
+              // combines ayah and number columns together
+              data = "﴿" + data + " " + row[2] + "﴾";
+              // makes ayah numbers arabic
+              data = replaceDigitsWithArabic(data);
+              return data;
+            },
+          },
+          {
+            title: "އަރަބި ފިލިނުޖަހާ",
+            data: 4,
+            //render: (data) => removeThashkeel(data),
+            visible: false,
+
+            render: function (data, type, row) {
+              data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
+              //data = "﴿" + data + "﴾";
+              // replaces basmalas opening closing brackets non breaks, then kashida, then arabic numbers, then space, then makes two spaces into one
+              return data
+                .replace(/ـ/g, "")
+                .replace(/[^\u0621-\u064A|\s]/g, "")
+                .replace(/\s\s/g, " ");
+            },
+          },
+          {
+            title: "ރަސްމު އުޘްމާނީ",
+            data: 5,
+            visible: false,
+            searchable: false,
+            render: function (data, type, row) {
+              // this places a non break character before the numbers, also replaces a space before the numbers
+              data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
+              /* reverse brackets because thats how the font file needs it */
+              // combines ayah and number columns together
+              data = "﴿" + data + " " + row[2] + "﴾";
+              //data = "﴿" + data + "﴾";
+              // makes ayah numbers arabic
+              data = replaceDigitsWithArabic(data);
+              return data;
+            },
+          },
+          {
+            title: "ތަފުސީރު",
+            data: 6,
+          },
+          {
+            title: "ތަފުސީރު ފިލިނުޖަހާ",
+            data: 6,
+            render: (data) => removeThashkeel(data),
+            visible: false,
+          },
+        ],
+        //
+        columnDefs: [
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [1, 2, 3],
+          },
+          ...columnDefsconfig,
+        ],
+      }); // var table = new DataTable("#tableID", { END
+      //
+
+      // Populate ayahCounts object
+      data.forEach(function (row) {
+        var surah = row[1];
+        var ayah = parseInt(row[2]);
+        ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
+      });
+
+      // Initialize dropdowns
+      initializeQDropdown("surah", 1, maxSurah);
+      initializeQDropdown("juz", 1, maxJuz);
+      updateAyahDropdown();
+
+      // Event listener for DataTable's draw event
+      table.on("draw", function () {
+        updateQNavigationBoxes();
+      });
+
+      // Initial synchronization of navigation boxes
+      updateQNavigationBoxes();
+
+      // Event listeners for q-nav-value clicks
+      $(".q-nav-value").on("click", function () {
+        var type = $(this).attr("id").replace("Value", "");
+        QtoggleDropdown(type);
+      });
+
+      // Event listeners for arrow clicks
+      $(".q-nav-arrow").on("click", function () {
+        var type = $(this).data("type");
+        var direction = $(this).data("direction");
+        QnavigateArrow(type, direction);
+      });
+
+      // Close dropdowns when clicking outside
+      $(document).on("click", function (event) {
+        if (!$(event.target).closest(".q-nav-box").length) {
+          $(".q-dropdown").hide();
+        }
+      });
+      //
+      //});
+
+      // QURAN DROPDOWNS FUNCTIONS WOULD BE BELOW
+
+      // QURAN DROPDOWNS FUNCTIONS
+
+      /**
+       * Updates the navigation boxes with values from the first row of the current page
+       */
+      function updateQNavigationBoxes() {
+        var firstRow = table.row({ page: "current" }).data();
+        if (firstRow) {
+          updateAllQValues(firstRow);
+        }
+      }
+
+      function removeDiacritics(text) {
+        return text.replace(/[َُِّْٰۡۚٓـًٌٍّٔ]/g, "");
+      }
+
+      /**
+       * Initializes a dropdown with given range of values
+       * @param {string} type - The type of dropdown (surah, ayah, or juz)
+       * @param {number} min - The minimum value for the dropdown
+       * @param {number} max - The maximum value for the dropdown
+       */
+      function initializeQDropdown(type, min, max) {
+        var dropdown = $("#" + type + "Dropdown");
+        dropdown.empty();
+        dropdown.append(
+          '<input type="text" class="q-dropdown-search" placeholder="ލިޔޭ ނޫނީ ތިރިއަށް ފިތާ">'
+        );
+        for (var i = min; i <= max; i++) {
+          var displayText = i;
+          if (type === "surah" && surahNames[i]) {
+            displayText = i + " " + surahNames[i];
+          }
+          dropdown.append(
+            '<div class="q-dropdown-item" data-value="' +
+              i +
+              '">' +
+              displayText +
+              "</div>"
+          );
+        }
+
+        // Event listener for dropdown item clicks
+        dropdown.on("click", ".q-dropdown-item", function () {
+          var value = $(this).data("value");
+          updateQValue(type, value);
+          dropdown.hide();
+        });
+
+        // Event listener for search input
+        dropdown.find(".q-dropdown-search").on("input", function () {
+          var searchValue = removeDiacritics($(this).val().toLowerCase());
+          var matchingItems = [];
+
+          dropdown.find(".q-dropdown-item").each(function () {
+            var $item = $(this);
+            var itemValue = removeDiacritics($item.text().toLowerCase());
+            var itemNumericValue = $item.data("value").toString();
+
+            if (!isNaN(searchValue) && searchValue.trim() !== "") {
+              if (itemNumericValue.startsWith(searchValue)) {
+                matchingItems.push($item);
+              }
+              $item.hide();
+            } else {
+              $item.toggle(itemValue.includes(searchValue));
+            }
+          });
+
+          if (!isNaN(searchValue) && searchValue.trim() !== "") {
+            matchingItems
+              .sort(function (a, b) {
+                return a.data("value") - b.data("value");
+              })
+              .forEach(function ($item) {
+                $item.show().appendTo(dropdown);
+              });
+          }
+        });
+
+        // Event listener for search input enter key and arrow keys
+        dropdown.find(".q-dropdown-search").on("keydown", function (e) {
+          var visibleItems = dropdown.find(".q-dropdown-item:visible");
+          var currentIndex = visibleItems.index(
+            dropdown.find(".q-dropdown-item.highlighted")
+          );
+
+          switch (e.which) {
+            case 13: // Enter key
+              e.preventDefault();
+              var highlightedItem = dropdown.find(
+                ".q-dropdown-item.highlighted"
+              );
+              if (highlightedItem.length) {
+                updateQValue(type, highlightedItem.data("value"));
+              } else {
+                var firstVisible = visibleItems.first();
+                if (firstVisible.length) {
+                  updateQValue(type, firstVisible.data("value"));
+                }
+              }
+              dropdown.hide();
+              break;
+            case 38: // Up arrow
+              e.preventDefault();
+              if (currentIndex > 0) {
+                visibleItems.removeClass("highlighted");
+                visibleItems
+                  .eq(currentIndex - 1)
+                  .addClass("highlighted")
+                  .get(0)
+                  .scrollIntoView({ block: "nearest" });
+              }
+              break;
+            case 40: // Down arrow
+              e.preventDefault();
+              if (currentIndex < visibleItems.length - 1) {
+                visibleItems.removeClass("highlighted");
+                visibleItems
+                  .eq(currentIndex + 1)
+                  .addClass("highlighted")
+                  .get(0)
+                  .scrollIntoView({ block: "nearest" });
+              }
+              break;
+          }
+        });
+      }
+
+      // QURAN DROPDOWN CODE IS BELOW HERE
+    </script>
   </body>
 </html>
 
 <!--
 
-regex to capture every new line that starts with
-\n^ﭽ.*$
-\n^ﮉ.*$
+...
 
-js regex to capture any leading whitespace
-^\s+
+script for text
 
-js regex to check if a line starts with a number between parenthesis, and if the line before that also starts with the same exact number between parenthesis, then capture the second line only, leaving the first line uncaptured
+...
 
-...?
+old now fixed errors in the db:
+the last 77 ayat of the 16th suurah are also missing, dhivehi bai
+they would sure catch these if they just did ctrl plus arrow key on a sheet, or even ran a blank check
+17th suurathuge ves fahu 81 aayathuge dhivehi madhu
 
+...
 
-js regex to capture any leading whitespace
-^\s+
-' '
+still not fixed:
 
-remove more than one space
-[^\S\r\n]+
+reverses about curly quotes like: “ކެމްޕަސް”
 
-remove more than one new line
-\n\n
-\n
-find and replace in word:
-find any character: ^?
-replace: format, font, font color, green and red
+ބިސްމި (البسملة) ގެ ތަފްސީރު އިސްވެ ހިނގައްޖެއެވެ.
 
+s2, a between 260 and 261 is missing dhivehi. just ar
+same with:
+007  31    ۞ يَا بَنِي آدَمَ خُذُوا زِينَتَكُمْ عِندَ كُلِّ مَسْجِدٍ وَكُلُوا وَاشْرَبُوا وَلَا تُسْرِفُوا  إِنَّهُ لَا يُحِبُّ الْمُسْرِفِينَ
+007  78    فَأَخَذَتْهُمُ الرَّجْفَةُ فَأَصْبَحُوا فِي دَارِهِمْ جَاثِمِينَ
+007  187    يَسْأَلُونَكَ عَنِ السَّاعَةِ أَيَّانَ مُرْسَاهَا  قُلْ إِنَّمَا عِلْمُهَا عِندَ رَبِّي  لَا يُجَلِّيهَا لِوَقْتِهَا إِلَّا هُوَ  ثَقُلَتْ فِي السَّمَاوَاتِ وَالْأَرْضِ  لَا تَأْتِيكُمْ إِلَّا بَغْتَةً  يَسْأَلُونَكَ كَأَنَّكَ حَفِيٌّ عَنْهَا  قُلْ إِنَّمَا عِلْمُهَا عِندَ اللَّهِ وَلَـٰكِنَّ أَكْثَرَ النَّاسِ لَا يَعْلَمُونَ
 
+s19, a6 repeated twice
+s19, a17 missing
+s19, a21 missing
+s19, a23 repeated twice
+
+also site had quirks, unwanted strings here, report mistakes submission button not working, etc
+
+reported these to the dev on 25/11/23
+he said "In'sha'Allah will fix those tomorrow"
+nothing else was said since
+been ages since then
+
+since then it seems the first two mentioned bugs were fixed
+others still remain
 -->
