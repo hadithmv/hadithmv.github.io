@@ -133,66 +133,65 @@
             </button>
 
             <button
-              id="toggleShowButton"
-              class="customButtons"
-              onclick="toggleShowOne();scrollUpTop()"
-            >
-              &nbsp; އިޖްމާލީ އެކަނި ދައްކާ &nbsp;
-            </button>
+            id="toggleShowButton"
+            class="customButtons"
+            onclick="toggleShowOne();scrollUpTop()"
+          >
+            &nbsp; އިޖްމާލީ އެކަނި ދައްކާ &nbsp;
+          </button>
 
-            <script>
-              function toggleShowOne() {
-                var isVisible = $(".dataTable").DataTable().column(8).visible();
-                $(".dataTable").DataTable().column(8).visible(!isVisible);
-                // rongu
+          <script>
+            function toggleShowOne() {
+              var isVisible = $(".dataTable").DataTable().column(8).visible();
+              $(".dataTable").DataTable().column(8).visible(!isVisible);
+              // rongu
               var isVisible = $(".dataTable").DataTable().column(9).visible();
               $(".dataTable").DataTable().column(9).visible(!isVisible);
 
-                // change string
-                var button = document.getElementById("toggleShowButton");
-                if (
-                  button.innerHTML.trim() ===
-                  "&nbsp;  އިޖްމާލީ އެކަނި ދައްކާ &nbsp;"
-                ) {
-                  button.innerHTML = "&nbsp; ލަފްޒީވެސް ދައްކާ &nbsp;";
-                } else {
-                  button.innerHTML = "&nbsp; އިޖްމާލީ އެކަނި ދައްކާ &nbsp;";
-                }
+              // change string
+              var button = document.getElementById("toggleShowButton");
+              if (
+                button.innerHTML.trim() ===
+                "&nbsp;  އިޖްމާލީ އެކަނި ދައްކާ &nbsp;"
+              ) {
+                button.innerHTML = "&nbsp; ލަފްޒީވެސް ދައްކާ &nbsp;";
+              } else {
+                button.innerHTML = "&nbsp; އިޖްމާލީ އެކަނި ދައްކާ &nbsp;";
               }
-            </script>
+            }
+          </script>
 
-            <button class="customButtons" onclick="copyOneOnly();">
-              &nbsp; އިޖްމާލީ ކޮޕީ &nbsp;
-            </button>
+          <button class="customButtons" onclick="copyOneOnly();">
+            &nbsp; އިޖްމާލީ އެކަނި ކޮޕީ &nbsp;
+          </button>
 
-            <script>
-             function copyOneOnly() {
-                  // Check the current visibility status of the 8th column (index 7) in the DataTable
-    var isVisible = $(".dataTable").DataTable().column(8).visible();
-    $(".dataTable").DataTable().column(9).visible();
+          <script>
+            function copyOneOnly() {
+              // Check the current visibility status of the 8th column (index 7) in the DataTable
+              var isVisible = $(".dataTable").DataTable().column(8).visible();
+              $(".dataTable").DataTable().column(9).visible();
 
-        // If the column is currently visible, hide it
-    if (isVisible) {
-      $(".dataTable").DataTable().column(8).visible(false);
-      $(".dataTable").DataTable().column(9).visible(false);
-    }
-    
-    // Trigger click on the copy button (works on mobile too)
-    // This simulates clicking the button with class "buttons-html5"
-    $(".buttons-html5").click();
-    
-        // If the column was originally visible, we need to make it visible again
-    if (isVisible) {
-                        // Use setTimeout to delay the restoration of visibility
-        setTimeout(function() {
-          $(".dataTable").DataTable().column(8).visible(true);
-                      // After the specified delay, make the 8th column visible again
-          $(".dataTable").DataTable().column(9).visible(true);
-        }, 100); // Delay of 100ms, adjust as needed
-    } 
-}
+              // If the column is currently visible, hide it
+              if (isVisible) {
+                $(".dataTable").DataTable().column(8).visible(false);
+                $(".dataTable").DataTable().column(9).visible(false);
+              }
 
-            </script>
+              // Trigger click on the copy button (works on mobile too)
+              // This simulates clicking the button with class "buttons-html5"
+              $(".buttons-html5").click();
+
+              // If the column was originally visible, we need to make it visible again
+              if (isVisible) {
+                // Use setTimeout to delay the restoration of visibility
+                setTimeout(function () {
+                  // After the specified delay, make the 8th column visible again
+                  $(".dataTable").DataTable().column(8).visible(true);
+                  $(".dataTable").DataTable().column(9).visible(true);
+                }, 100); // Delay of 100ms, adjust as needed
+              }
+            }
+          </script>
 
             <hr />
 
@@ -227,12 +226,14 @@
               >
             </p>
 
+            <hr />
+
             <p>
               ގްރީންޓެކް އެޕްސްގެ
-              <a href="https://gtaf.org/apps/quran/" target="_blank"
+              <a href="https://gtaf.org/apps/quran" target="_blank"
                 >އަލްގުރްއާން</a
               >
-              އެޕްލިކޭޝަންގައި މި ތަރުޖަމާ ކިޔޭނެއެވެ.
+              އެޕްލިކޭޝަން އިން މި ތަރުޖަމާ ކިޔޭނެއެވެ.
             </p>
 
             <hr />

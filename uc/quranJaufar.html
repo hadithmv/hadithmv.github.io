@@ -1,2097 +1,669 @@
 <!doctype html>
-<html lang="dv">
-  <!-- prevent translate popup -->
-
+<html translate="no">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- CHANGE !!! -->
     <link
       rel="canonical"
       href="https://hadithmv.github.io/books/quranJaufar.html"
     />
-    <meta name="google" content="notranslate" />
-
-    <link rel="icon" type="image/svg+xml" href="../img/logo/logo.svg" />
-    <meta name="theme-color" content="#29434e" />
-    <!-- og metadata sm link previews -->
-    <meta property="og:title" content="Hadithmv" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://hadithmv.github.io/books/quranJaufar.html"
-    />
-    <meta
-      property="og:image"
-      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
-    />
-
-    <!-- change123 html -->
-    <title>Hadithmv - Jaufar's Tafsir</title>
+    <title>تفسير القرآن لجعفر – ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު*</title>
     <meta
       name="description"
       content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
     />
-    <!-- META TAGS - END -->
-
-    <!-- === EXT CSS === -->
-    <!-- non critical -->
-    <link rel="preload" href="../css/COMB-nonCrit.min.css" as="style" />
-    <link rel="stylesheet" href="../css/COMB-nonCrit.min.css" />
-    <!-- === EXT CSS - END === -->
-
-    <!-- === EXT JS === -->
-    <!-- defer and async breaks mmenu light js unless its inline js is moved to execute after its external -->
-    <!-- critical -->
-    <script defer src="../js/resc/COMB-Crit.min.js"></script>
-    <!-- non critical -->
-    <script defer src="../js/resc/COMB-nonCrit.min.js"></script>
-    <!-- change123 js -->
-    <script
-      defer
-      src="../js/json/surah-juz-ayahNo-basmalah-ayah-uthmani.js"
-    ></script>
-    <script defer src="../js/json/quranJaufar.js"></script>
-    <script defer src="../js/quranJaufar-script.min.js"></script>
-    <!-- === EXT JS - END === -->
-
-    <!-- === INT CSS === -->
-
-    <style>
-      /* change123 html */
-
-      /* === --- === --- ====
-         CUSTOM COLUMN CLASSES
-         === --- === --- ==== */
-
-      /* mobile only row centering, for rows with strings that are not long */
-
-      /* @media screen and (max-width: 900px) { */
-
-      .dataTable tr td.qCol1,
-      .dataTable tr td.qCol2,
-      .dataTable tr td.qCol3,
-      .dataTable tr td.qCol4,
-      .dataTable tr td.qCol5,
-      .dataTable tr td.qCol6
-      /*.dataTable tr td.qCol7*/ {
-        text-align: center;
-      }
-      /* .dataTable tr td.qCol7 */
-
-      /* ===================
-          FOR Quran border frame and ayahbox
-      ===================== */
-
-      /* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Backgrounds_and_Borders/Border-image_generator 
-      The trick is to use the "round" option. PNG might have to be manually optimized. By carefully limiting the color pallete, etc.*/
-      /*
-        border-image-slice: 27 27 27 27;
-        border-image-width: 20px 20px 20px 20px;
-        border-image-outset: 0px 0px 0px 0px;
-        border-image-repeat: round round;
-        border-image-source: url("https://hadithmv.github.io/img/frame/ayahbox-mod-Opt.svg");
-        border-style: solid;
-        */
-
-      /* mobile only quran border frame svg */
-
-      /* @media screen and (max-width: 900px) { */
-
-      /* minimum height for frame */
-      #quranTable > tbody > tr {
-        min-height: 45vh; /* 300px */
-      }
-
-      /* on mobile */
-      @media screen and (max-width: 900px) {
-        #quranTable > tbody > tr {
-          min-height: 70vh; /* 300px */
-        }
-      }
-
-      #quranTable>tbody>tr
-      /*, table*/ {
-        /* font-family: hafs;
-          font-size: 20pt;
-          text-align: justify;
-            border-style: solid; */
-
-        /* for chromium */
-
-        /* margin: 0.5em; */
-
-        /* to allow for background color by extending border transparent parts */
-        padding: 1.15rem;
-
-        /* padding: 1em 2.2em; */
-        border-image-slice: 30% 30.5%;
-        border-image-width: 3em; /* 3em; */
-        border-image-repeat: round round;
-
-        /* can move inside html to eliminate 1 network request, https://yoksel.github.io/ */
-        border-image-source: url("../img/frame/ayahbox-mod-Opt.svg");
-        border-image-outset: 0.6em;
-
-        /* margin + .1em for optical alignment */
-
-        /* background-color: beige; */
-
-        /* spaces out above and below quran table */
-        margin-top: 1.6rem;
-        /*margin-bottom: 2.4rem;*/
-      }
-
-      /* reduces margin last item at end of page, NOT WITHIN TABLE BOX, OUTSIDE IT */
-
-      /*#quranTable > tbody > tr:last-child {
-        margin-bottom: 50px;
-      }*/ /*30*/
-
-      /* } */
-
-      /* ===== quran frame border - END ===== */
-
-      /* ayah box */
-
-      #quranTable > tbody > tr > td.qCol1 {
-        /* makes it independant of the other rows */
-        position: absolute;
-        /* centers below */
-        left: 0;
-        right: 0;
-        margin-left: auto;
-        margin-right: auto;
-
-        /* float: left; */
-        /*position: relative;*/
-
-        /* top: .8em; */
-        font-size: 1em; /* 0.9 */
-        line-height: 1.6em;
-        padding-top: 0.2em !important; /*2px;*/
-        padding-bottom: 0.1em !important; /*0;*/
-        padding-left: 0.5em;
-        padding-right: 0.5em;
-
-        /* padding: 0 .5em; */
-        background: #c1d1c3;
-        border-radius: 0.2em;
-        border: 1px solid #40455c;
-        box-shadow:
-          inset 0 0 2px 0 #693,
-          0 0 0 2px #fff,
-          0 0 0 3px #40455c;
-
-        /* centers ayahbox */
-        top: 15px; /* -30 */
-        width: 7rem; /* 7.5 */
-        margin: auto;
-        text-align: center;
-
-        /* removes margin below ayahbox to lessen space above ayah */
-        /*margin-bottom: -15px;*/
-      }
-
-      /* TRULY effects first and last space above and below quran table */
-      #quranTable > tbody > tr > td:nth-child(2) {
-        margin-top: 40px !important;
-      }
-      /*#quranTable > tbody > tr > td:nth-last-child(1) {
-          margin-bottom: 30px !important;
-        }*/
-
-      /* MOBILE only quran border frame svg */
-
-      @media screen and (max-width: 599px) {
-        #quranTable > tbody > tr {
-          border-image-width: 2.5em;
-        }
-        /* ayah box MOBILE ONLY */
-        #quranTable > tbody > tr > td.qCol1 {
-          top: 15px !important; /* top: -32px 35 */
-          font-size: 0.9em; /* 0.9 */
-          width: 6rem; /* 7.5 */
-        }
-      }
-
-      /* gives space to the top and bottom of cells */
-
-      /* #quranTable > tbody */
-      #quranTable > tbody > tr > td.qCol1 {
-        margin-bottom: 5px !important;
-      }
-      #quranTable > tbody > tr {
-        padding-bottom: 50px !important;
-      }
-
-      /* gives space above the empty no results row */
-      /* table.dataTable td.dataTables_empty
-      margin-top: 30px  !important; */
-      #quranTable > tbody > tr > td:nth-child(2) {
-        margin-top: 0;
-      }
-
-      /* ===== quran ayahbox - END ===== */
-
-      /* custom quran css for Keytable - Desktop only MQ */
-
-      @media screen and (min-width: 900px) {
-        /* #quranTable tbody th.focus, */
-        #quranTable tbody td.focus {
-          box-shadow: inset 0 0 1px 2px #337ab7;
-
-          /* inset: Changes the shadow from an outer shadow (outset) to an inner shadow
-      next 4 numbers: offset-x | offset-y | blur-radius | spread-radius
-      last is color */
-
-          /* last px makes box thicker */
-        }
-      }
-
-      /*@mixin for-ABOVEphone and tablet-only*/
-      @media screen and (min-width: 900px) {
-        /* gives space to the top and bottom of cells */
-
-        /*
-        #quranTable > tbody > tr > td.qCol1 {
-          margin-bottom: 5px !important;
-        }
-        #quranTable > tbody > tr > td.qCol5 {
-          margin-bottom: 35px !important;
-        }
-        */
-
-        /* gives even more space around table wrapper in desktop view, and then centers */
-        #quranTable > tbody > tr {
-          max-width: 700px;
-          margin-left: auto;
-          margin-right: auto;
-          margin-top: 30px;
-          margin-bottom: 50px;
-        }
-
-        /* gives space to the left and right sides of words */
-        #quranTable > tbody > tr > td:not(:first-of-type) {
-          /* min-height: 200px !important; */
-          margin-left: 50px !important;
-          margin-right: 50px !important;
-        }
-      }
-
-      /* UNDOES unproportionate padding brought on by general card code */
-      table.cards.dataTable > tbody > tr > td:nth-child(1) {
-        padding-top: 0px;
-      }
-      table.cards.dataTable > tbody > tr > td:nth-last-child(1) {
-        padding-bottom: 0px;
-      }
-
-      /* ====================
-             DARK MODE
-      ======================= */
-
-      /* Chrome DevTools (Three dots > More tools > Rendering > Emulate CSS media feature prefers-color-scheme */
-
-      @media (prefers-color-scheme: dark) {
-        /* The :not(X) property in CSS is a negation pseudo class and accepts a simple selector1 as an argument.
-  otherwise border : 1px overwrites the quran frame and white outline gets larger */
-
-        /* ayahbox */
-        #quranTable > tbody > tr > td.qCol1 {
-          /* font-weight: normal;*/
-          background: #212d39;
-          color: rgba(255, 255, 255, 0.847);
-          border-color: #212d39;
-          box-shadow:
-            inset 0 0 2px 0 /*#693*/,
-            0 0 0 1.75px rgba(255, 255, 255, 0.847),
-            0 0 0 2.75px #40455c;
-        }
-
-        /* this colors the square border around the frame in quran, otherwise white */
-        #quranTable > tbody > tr {
-          background-color: #1a232d !important;
-        }
-        /* without important, double click go to jumping changes some of the inner background color */
-      }
-
-      /* basmala padding remove */
-      .dataTable tr td.qCol4 {
-        padding-top: 0;
-        padding-bottom: 0;
-      }
-    </style>
-    <!-- === INT CSS - END === -->
-  </head>
-
-  <body translate="no">
-    <div id="page">
-      <!-- added fixed (but this breaks header on mobile), wrote custom onclick -->
-      <!-- adding fixed or custom writing z index breaks on mobile -->
-      <div class="header fixed" onclick="drawer.open();">
-        <!-- hamburger -->
-        <a href="#menu"><span></span></a>
-        <a class="menuLeftIcon" href="index.html"
-          ><img
-            class="hmvLogo1"
-            alt="hadith mv"
-            loading="lazy"
-            src="../img/logo/logo.svg"
-        /></a>
-        <span class="hideOnPhoneOnly">تفسير القرآن لجعفر – </span>
-        <span>ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު</span>
-
-        <!-- on this tutorial, we'll add our menu in the header. - It is not important where in the markup the menu is located, the mmenu light plugin appends the menu to the <body /> when it is enabled and puts it back in its original place when disabled. -->
-        <nav id="menu">
-          <ul>
-            <li>
-              <a href="../books/index.html">● މައި ސަފުހާ</a>
-            </li>
-
-            <div class="menuListInList">
-              <li>
-                <a onclick="changeBookQuran('quranHadithmv')"
-                  >1 ޙަދީޘްއެމްވީ ތަރުޖަމާ</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranBakurube')"
-                  >2 ބަކުރުބެގެ ތަރުޖަމާ</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranJaufar')"
-                  >3 ޖަޢުފަރުގެ ތަފްސީރު</a
-                >
-              </li>
-              <li><a onclick="changeBookQuran('quranSoabuni')">&nbsp;</a></li>
-              <li>
-                <a href="quranUshru.html">5 ފަހު ދިހަބައިކުޅަ އެއްބައި</a>
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranRasmee')"
-                  >6 ރަސްމީ ތަރުޖަމާ</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranMuyassar')"
-                  >7 التفسير الميسر</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranMukhtasar')"
-                  >8 المختصر في تفسير</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranSadi')">9 تفسير السعدي</a>
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranMuyassarGhareeb')"
-                  >10 الميسر غريب القرآن</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranBetaqat')"
-                  >11 بطاقات تعريف بسور</a
-                >
-              </li>
-              <li>
-                <a onclick="changeBookQuran('quranQiraaath')"
-                  >12 موسوعة القراءات</a
-                >
-              </li>
-            </div>
-
-            <li>
-              <a href="../notes/info/contact.html"
-                >ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a
-              >
-            </li>
-
-            <li>
-              <a href="../notes/info/helpTranslate.html"
-                >ތަރުޖަމާގައި އެހީވެދިނުމަށް</a
-              >
-            </li>
-
-            <li>
-              <a href="../notes/info/FAQ.html"
-                >ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a
-              >
-            </li>
-
-            <li>
-              <a href="../notes/info/contributors.html">އެހީތެރިން</a>
-            </li>
-
-            <li class="hmvVer" onclick="openDiv();">
-              <a class="versionNo">⚙️ އިސްދާރު: v</a>
-            </li>
-
-            <li>
-              <a href="https://t.me/ashraafmv"
-                >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-              >
-            </li>
-            <li class="madani">
-              <a href="#">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a>
-            </li>
-            <li>
-              <a onClick="window.location.reload()">🔄 މަޑު ރީލޯޑު</a>
-            </li>
-            <li>
-              <a
-                onclick="window.location.href = window.location.href.split('.html')[0] + '.html';"
-                >ހަރު ރީލޯޑު</a
-              >
-            </li>
-          </ul>
-        </nav>
-        <!-- <nav id="menu"> -->
-      </div>
-      <!-- <div class="header fixed" onclick="drawer.open();"> -->
-
-      <div class="content">
-        <main>
-          <!-- creates two input boxes, which are datalist, for surahs and ayahs.
-            hides them until page loads.
-            boxes take extracted values for surah and ayah before combining them, running search on them, and executing a double click on the first row to jump to that page.
-            // every time page draws, surah and ayah box update to extract surah and ayah values, the word surah is removed, and arabic numbers are turned into regular digits
-              -->
-          <div class="hidden" id="footer2">
-            <script>
-              //
-              // makes footer visible after script finishes rendering
-              window.onload = function () {
-                document.getElementById("footer2").classList.remove("hidden");
-                //
-                /*document.getElementById("ayahNoID").value = 1;
-                      document.getElementById("surahNameID").value =
-                        document.getElementsByClassName("buttons-copy")[0].innerText;
-                        */
-              };
-              //
-              // combines surah and ayah value in search then searches it
-              // https://stackoverflow.com/questions/18249758/i-cant-get-the-value-of-a-input-within-a-datalist/18250028#18250028
-              function jumpToItsPage() {
-                //
-                var combinedVals =
-                  document.getElementById("surahNameID").value +
-                  " " +
-                  document.getElementById("ayahNoID").value;
-                // https://stackoverflow.com/questions/33371038/programmatically-search-a-table-with-jquery-datatables/33371324#33371324
-                //$("#quranTable").dataTable().fnFilter(combinedVals);
-
-                $("#quranTable").DataTable().search(combinedVals).draw();
-                //setTimeout(function () {
-
-                //$("#quranTable").DataTable().destroy();
-                //#quranTable > tbody > tr > td.qCol4
-
-                // double clicks on first td (NOT WORKING NOW)
-                // https://stackoverflow.com/questions/38089625/programatically-click-on-button-using-javascript/38089731#38089731
-
-                /*document.getElementsByClassName("odd")[0].click();
-                document.getElementsByClassName("odd")[0].click();*/
-                // above used to work, dont anymore, so commented out
-
-                // -- ALTERNATIVE code for jumping to surah ayah row page
-                // https://datatables.net/reference/api/row().index()
-
-                /*console.log(
-                  $("#quranTable").DataTable().row("tbody tr").index()
-                );*/
-
-                // gets index of row
-                // table.row("this").index();
-                var QrowToJumpTo = $("#quranTable")
-                  .DataTable()
-                  .row("tbody tr")
-                  .index();
-
-                //table.page(table.page() + 10).draw("page")
-                //$("#quranTable").DataTable().page(10).draw("page");
-
-                // after searching and jumping to row page, clears the search entry, otherwise searches again and page will change
-                if ($("#quranTable").DataTable().search() !== "") {
-                  $("#quranTable").DataTable().search("").draw();
-                }
-
-                // changes page to row index value
-                $("#quranTable").DataTable().page(QrowToJumpTo).draw("page");
-                // alert("Row index: " + table.row("tbody tr").index())
-
-                // -- END OF ALTERNATIVE CODE
-
-                //}, 1510);
-
-                /*document.querySelectorAll(
-                          ".dataTables_filter input[type=search]"
-                        ).value = combinedVals;*/
-              }
-
-              /*
-                    function scrollHere() {
-                      if (window.matchMedia("(max-width: 599px)").matches) {
-                        $("html, body").animate(
-                          {
-                            scrollTop: 550, //prev 0
-                          },
-                          "fast"
-                        );
-                      }
-                    }
-                    */
-
-              // replaces regular digits when typed into sans digits
-              function changeDigitsOnInput() {
-                document.getElementById("surahNameID").value = document
-                  .getElementById("surahNameID")
-                  .value.replace(/0/g, "٠")
-                  .replace(/1/g, "𝟣")
-                  .replace(/2/g, "𝟤")
-                  .replace(/3/g, "𝟥")
-                  .replace(/4/g, "𝟦")
-                  .replace(/5/g, "𝟧")
-                  .replace(/6/g, "𝟨")
-                  .replace(/7/g, "𝟩")
-                  .replace(/8/g, "𝟪")
-                  .replace(/9/g, "𝟫");
-              }
-              function setAyahToOne() {
-                // makes default ayah 1 on surah change
-                document.getElementById("ayahNoID").value = 1;
-              }
-            </script>
-
-            <style>
-              #footer2 {
-                margin-top: 10px;
-                margin-bottom: -18px;
-              }
-
-              #surahNameID,
-              #ayahNoID {
-                /*font-size: 16px;*/
-                font-size: 18px !important;
-                padding: 5px !important;
-                /**/
-                direction: rtl;
-                font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
-                border: 1px solid #aaa;
-                border-radius: 3px;
-                /*background-color: transparent;*/
-                text-indent: 10px;
-                font-size: 20px;
-                /*width: 200px;*/
-                width: 120px;
-                /*color: #c5cfd6;*/
-                /*height: 40px;*/
-                /*position: absolute;*/
-                background-color: #1a232d;
-                color: rgb(255 255 255/84.7%);
-              }
-
-              /* light box for light mode */
-              @media (prefers-color-scheme: light) {
-                #surahNameID,
-                #ayahNoID {
-                  background-color: transparent;
-                  color: #333;
-                }
-              }
-
-              /* moves datalist arrow to the right
-                  https://stackoverflow.com/questions/20937475/remove-datalist-dropdown-arrow-in-chrome/54997118#54997118 */
-              [list]::-webkit-calendar-picker-indicator {
-                /*display: none !important;*/
-                padding-left: 12px !important;
-              }
-            </style>
-            <form style="text-align: center; display: inline-block">
-              <!--<input
-                    id="surahNameID"
-                    list="surahName"
-                    placeholder="ސޫރަތް"
-                    onfocus="this.value='';"
-                    onchange="this.blur();jumpToItsPage();setAyahToOne()"
-                    style="display: block; float: right"
-                    oninput="changeDigitsOnInput();setAyahToOne()"
-                    onselect="jumpToItsPage();setAyahToOne()"
-                  />-->
-              <!-- clear and blur above https://stackoverflow.com/questions/63685028/how-to-clear-datalist-input-on-click/63685405#63685405 -->
-              <!-- datalist not supported properly yet, mobile chrome has overlaying the keyboard issue, and firefox doesnt show the list at all
-                    <select id="surahName">
-                    <datalist id="surahName">
-                      <option value="𝟣 الفاتحة"></option>
-                      id="surahName"
-                    list="surahName"
-                    -->
-              <select
-                id="surahNameID"
-                placeholder="ސޫރަތް"
-                onfocus="this.value='';"
-                onchange="this.blur();jumpToItsPage();setAyahToOne()"
-                style="display: block; float: right"
-                oninput="changeDigitsOnInput();setAyahToOne()"
-                onselect="jumpToItsPage();setAyahToOne()"
-              >
-                <option value="" disabled selected>ސޫރަތް</option>
-                <option value="𝟣 الفَاتِحَة">1 الفَاتِحَة</option>
-                <option value="𝟤 البَقَرَة">2 البَقَرَة</option>
-                <option value="𝟥 آل عِمرَان">3 آل عِمرَان</option>
-                <option value="𝟦 النِّسَاء">4 النِّسَاء</option>
-                <option value="𝟧 المَائِدَة">5 المَائِدَة</option>
-                <option value="𝟨 الأَنعَام">6 الأَنعَام</option>
-                <option value="𝟩 الأَعرَاف">7 الأَعرَاف</option>
-                <option value="𝟪 الأَنفَال">8 الأَنفَال</option>
-                <option value="𝟫 التَّوبَة">9 التَّوبَة</option>
-                <option value="𝟣𝟢 يُونُس">10 يُونُس</option>
-                <option value="𝟣𝟣 هُود">11 هُود</option>
-                <option value="𝟣𝟤 يُوسُف">12 يُوسُف</option>
-                <option value="𝟣𝟥 الرَّعد">13 الرَّعد</option>
-                <option value="𝟣𝟦 إِبرَاهِيم">14 إِبرَاهِيم</option>
-                <option value="𝟣𝟧 الحِجر">15 الحِجر</option>
-                <option value="𝟣𝟨 النَّحل">16 النَّحل</option>
-                <option value="𝟣𝟩 الإِسرَاء">17 الإِسرَاء</option>
-                <option value="𝟣𝟪 الكَهف">18 الكَهف</option>
-                <option value="𝟣𝟫 مَريَم">19 مَريَم</option>
-                <option value="𝟤𝟢 طه">20 طه</option>
-                <option value="𝟤𝟣 الأَنبِيَاء">21 الأَنبِيَاء</option>
-                <option value="𝟤𝟤 الحَجّ">22 الحَجّ</option>
-                <option value="𝟤𝟥 المُؤمِنُون">23 المُؤمِنُون</option>
-                <option value="𝟤𝟦 النُّور">24 النُّور</option>
-                <option value="𝟤𝟧 الفُرقَان">25 الفُرقَان</option>
-                <option value="𝟤𝟨 الشُّعَرَاء">26 الشُّعَرَاء</option>
-                <option value="𝟤𝟩 النَّمل">27 النَّمل</option>
-                <option value="𝟤𝟪 القَصَص">28 القَصَص</option>
-                <option value="𝟤𝟫 العَنكَبُوت">29 العَنكَبُوت</option>
-                <option value="𝟥𝟢 الرُّوم">30 الرُّوم</option>
-                <option value="𝟥𝟣 لُقمَان">31 لُقمَان</option>
-                <option value="𝟥𝟤 السَّجدَة">32 السَّجدَة</option>
-                <option value="𝟥𝟥 الأَحزَاب">33 الأَحزَاب</option>
-                <option value="𝟥𝟦 سَبَإ">34 سَبَإ</option>
-                <option value="𝟥𝟧 فَاطِر">35 فَاطِر</option>
-                <option value="𝟥𝟨 يسٓ">36 يسٓ</option>
-                <option value="𝟥𝟩 الصَّافَّات">37 الصَّافَّات</option>
-                <option value="𝟥𝟪 صٓ">38 صٓ</option>
-                <option value="𝟥𝟫 الزُّمَر">39 الزُّمَر</option>
-                <option value="𝟦𝟢 غَافِر">40 غَافِر</option>
-                <option value="𝟦𝟣 فُصِّلَت">41 فُصِّلَت</option>
-                <option value="𝟦𝟤 الشُّورَى">42 الشُّورَى</option>
-                <option value="𝟦𝟥 الزُّخرُف">43 الزُّخرُف</option>
-                <option value="𝟦𝟦 الدُّخَان">44 الدُّخَان</option>
-                <option value="𝟦𝟧 الجَاثِيَة">45 الجَاثِيَة</option>
-                <option value="𝟦𝟨 الأَحقَاف">46 الأَحقَاف</option>
-                <option value="𝟦𝟩 مُحَمَّد">47 مُحَمَّد</option>
-                <option value="𝟦𝟪 الفَتح">48 الفَتح</option>
-                <option value="𝟦𝟫 الحُجُرَات">49 الحُجُرَات</option>
-                <option value="𝟧𝟢 قٓ">50 قٓ</option>
-                <option value="𝟧𝟣 الذَّارِيَات">51 الذَّارِيَات</option>
-                <option value="𝟧𝟤 الطُّور">52 الطُّور</option>
-                <option value="𝟧𝟥 النَّجم">53 النَّجم</option>
-                <option value="𝟧𝟦 القَمَر">54 القَمَر</option>
-                <option value="𝟧𝟧 الرَّحمٰن">55 الرَّحمٰن</option>
-                <option value="𝟧𝟨 الوَاقِعَة">56 الوَاقِعَة</option>
-                <option value="𝟧𝟩 الحَدِيد">57 الحَدِيد</option>
-                <option value="𝟧𝟪 المُجَادِلَة">58 المُجَادِلَة</option>
-                <option value="𝟧𝟫 الحَشر">59 الحَشر</option>
-                <option value="𝟨𝟢 المُمتَحَنَة">60 المُمتَحَنَة</option>
-                <option value="𝟨𝟣 الصَّف">61 الصَّف</option>
-                <option value="𝟨𝟤 الجُمعَة">62 الجُمعَة</option>
-                <option value="𝟨𝟥 المُنَافِقُون">63 المُنَافِقُون</option>
-                <option value="𝟨𝟦 التَّغَابُن">64 التَّغَابُن</option>
-                <option value="𝟨𝟧 الطَّلَاق">65 الطَّلَاق</option>
-                <option value="𝟨𝟨 التَّحرِيم">66 التَّحرِيم</option>
-                <option value="𝟨𝟩 المُلك">67 المُلك</option>
-                <option value="𝟨𝟪 القَلَم">68 القَلَم</option>
-                <option value="𝟨𝟫 الحَاقَّة">69 الحَاقَّة</option>
-                <option value="𝟩𝟢 المَعَارِج">70 المَعَارِج</option>
-                <option value="𝟩𝟣 نُوح">71 نُوح</option>
-                <option value="𝟩𝟤 الجِنّ">72 الجِنّ</option>
-                <option value="𝟩𝟥 المُزَّمِّل">73 المُزَّمِّل</option>
-                <option value="𝟩𝟦 المُدَّثِّر">74 المُدَّثِّر</option>
-                <option value="𝟩𝟧 القِيَامَة">75 القِيَامَة</option>
-                <option value="𝟩𝟨 الإِنسَان">76 الإِنسَان</option>
-                <option value="𝟩𝟩 المُرسَلَات">77 المُرسَلَات</option>
-                <option value="𝟩𝟪 النَّبَإ">78 النَّبَإ</option>
-                <option value="𝟩𝟫 النَّازِعَات">79 النَّازِعَات</option>
-                <option value="𝟪𝟢 عَبَس">80 عَبَس</option>
-                <option value="𝟪𝟣 التَّكوِير">81 التَّكوِير</option>
-                <option value="𝟪𝟤 الانفِطَار">82 الانفِطَار</option>
-                <option value="𝟪𝟥 المُطَفِّفِين">83 المُطَفِّفِين</option>
-                <option value="𝟪𝟦 الانشِقَاق">84 الانشِقَاق</option>
-                <option value="𝟪𝟧 البُرُوج">85 البُرُوج</option>
-                <option value="𝟪𝟨 الطَّارِق">86 الطَّارِق</option>
-                <option value="𝟪𝟩 الأَعلَى">87 الأَعلَى</option>
-                <option value="𝟪𝟪 الغَاشِيَة">88 الغَاشِيَة</option>
-                <option value="𝟪𝟫 الفَجر">89 الفَجر</option>
-                <option value="𝟫𝟢 البَلَد">90 البَلَد</option>
-                <option value="𝟫𝟣 الشَّمس">91 الشَّمس</option>
-                <option value="𝟫𝟤 اللَّيل">92 اللَّيل</option>
-                <option value="𝟫𝟥 الضُّحَى">93 الضُّحَى</option>
-                <option value="𝟫𝟦 الشَّرح">94 الشَّرح</option>
-                <option value="𝟫𝟧 التِّين">95 التِّين</option>
-                <option value="𝟫𝟨 العَلَق">96 العَلَق</option>
-                <option value="𝟫𝟩 القَدر">97 القَدر</option>
-                <option value="𝟫𝟪 البَيِّنَة">98 البَيِّنَة</option>
-                <option value="𝟫𝟫 الزَّلزَلَة">99 الزَّلزَلَة</option>
-                <option value="𝟣𝟢𝟢 العَادِيَات">100 العَادِيَات</option>
-                <option value="𝟣𝟢𝟣 القَارِعَة">101 القَارِعَة</option>
-                <option value="𝟣𝟢𝟤 التَّكَاثُر">102 التَّكَاثُر</option>
-                <option value="𝟣𝟢𝟥 العَصر">103 العَصر</option>
-                <option value="𝟣𝟢𝟦 الهُمَزَة">104 الهُمَزَة</option>
-                <option value="𝟣𝟢𝟧 الفِيل">105 الفِيل</option>
-                <option value="𝟣𝟢𝟨 قُرَيش">106 قُرَيش</option>
-                <option value="𝟣𝟢𝟩 المَاعُون">107 المَاعُون</option>
-                <option value="𝟣𝟢𝟪 الكَوثَر">108 الكَوثَر</option>
-                <option value="𝟣𝟢𝟫 الكَافِرُون">109 الكَافِرُون</option>
-                <option value="𝟣𝟣𝟢 النَّصر">110 النَّصر</option>
-                <option value="𝟣𝟣𝟣 المَسَد">111 المَسَد</option>
-                <option value="𝟣𝟣𝟤 الإِخلَاص">112 الإِخلَاص</option>
-                <option value="𝟣𝟣𝟥 الفَلَق">113 الفَلَق</option>
-                <option value="𝟣𝟣𝟦 النَّاس">114 النَّاس</option>
-              </select>
-
-              <span style="display: block; float: right"> &nbsp; &nbsp; </span>
-
-              <!--<input
-                    id="ayahNoID"
-                    list="ayahNo"
-                    placeholder="އާޔަތް"
-                    onfocus="this.value='';"
-                    onchange="this.blur();jumpToItsPage();"
-                    style="display: block; float: right"
-                    onselect="jumpToItsPage()"
-                     id="ayahNo"
-                  list="ayahNo"
-                  />
-                <datalist id="ayahNo">
-                  <option value="1"></option>
-                  https://stackoverflow.com/questions/5805059/how-do-i-make-a-placeholder-for-a-select-box/5859221#5859221
-                -->
-              <select
-                id="ayahNoID"
-                placeholder="އާޔަތް"
-                onfocus="this.value='';"
-                onchange="this.blur();jumpToItsPage();"
-                style="display: block; float: right"
-                onselect="jumpToItsPage()"
-              >
-                <option value="" disabled selected>އާޔަތް</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-                <option value="24">24</option>
-                <option value="25">25</option>
-                <option value="26">26</option>
-                <option value="27">27</option>
-                <option value="28">28</option>
-                <option value="29">29</option>
-                <option value="30">30</option>
-                <option value="31">31</option>
-                <option value="32">32</option>
-                <option value="33">33</option>
-                <option value="34">34</option>
-                <option value="35">35</option>
-                <option value="36">36</option>
-                <option value="37">37</option>
-                <option value="38">38</option>
-                <option value="39">39</option>
-                <option value="40">40</option>
-                <option value="41">41</option>
-                <option value="42">42</option>
-                <option value="43">43</option>
-                <option value="44">44</option>
-                <option value="45">45</option>
-                <option value="46">46</option>
-                <option value="47">47</option>
-                <option value="48">48</option>
-                <option value="49">49</option>
-                <option value="50">50</option>
-                <option value="51">51</option>
-                <option value="52">52</option>
-                <option value="53">53</option>
-                <option value="54">54</option>
-                <option value="55">55</option>
-                <option value="56">56</option>
-                <option value="57">57</option>
-                <option value="58">58</option>
-                <option value="59">59</option>
-                <option value="60">60</option>
-                <option value="61">61</option>
-                <option value="62">62</option>
-                <option value="63">63</option>
-                <option value="64">64</option>
-                <option value="65">65</option>
-                <option value="66">66</option>
-                <option value="67">67</option>
-                <option value="68">68</option>
-                <option value="69">69</option>
-                <option value="70">70</option>
-                <option value="71">71</option>
-                <option value="72">72</option>
-                <option value="73">73</option>
-                <option value="74">74</option>
-                <option value="75">75</option>
-                <option value="76">76</option>
-                <option value="77">77</option>
-                <option value="78">78</option>
-                <option value="79">79</option>
-                <option value="80">80</option>
-                <option value="81">81</option>
-                <option value="82">82</option>
-                <option value="83">83</option>
-                <option value="84">84</option>
-                <option value="85">85</option>
-                <option value="86">86</option>
-                <option value="87">87</option>
-                <option value="88">88</option>
-                <option value="89">89</option>
-                <option value="90">90</option>
-                <option value="91">91</option>
-                <option value="92">92</option>
-                <option value="93">93</option>
-                <option value="94">94</option>
-                <option value="95">95</option>
-                <option value="96">96</option>
-                <option value="97">97</option>
-                <option value="98">98</option>
-                <option value="99">99</option>
-                <option value="100">100</option>
-                <option value="101">101</option>
-                <option value="102">102</option>
-                <option value="103">103</option>
-                <option value="104">104</option>
-                <option value="105">105</option>
-                <option value="106">106</option>
-                <option value="107">107</option>
-                <option value="108">108</option>
-                <option value="109">109</option>
-                <option value="110">110</option>
-                <option value="111">111</option>
-                <option value="112">112</option>
-                <option value="113">113</option>
-                <option value="114">114</option>
-                <option value="115">115</option>
-                <option value="116">116</option>
-                <option value="117">117</option>
-                <option value="118">118</option>
-                <option value="119">119</option>
-                <option value="120">120</option>
-                <option value="121">121</option>
-                <option value="122">122</option>
-                <option value="123">123</option>
-                <option value="124">124</option>
-                <option value="125">125</option>
-                <option value="126">126</option>
-                <option value="127">127</option>
-                <option value="128">128</option>
-                <option value="129">129</option>
-                <option value="130">130</option>
-                <option value="131">131</option>
-                <option value="132">132</option>
-                <option value="133">133</option>
-                <option value="134">134</option>
-                <option value="135">135</option>
-                <option value="136">136</option>
-                <option value="137">137</option>
-                <option value="138">138</option>
-                <option value="139">139</option>
-                <option value="140">140</option>
-                <option value="141">141</option>
-                <option value="142">142</option>
-                <option value="143">143</option>
-                <option value="144">144</option>
-                <option value="145">145</option>
-                <option value="146">146</option>
-                <option value="147">147</option>
-                <option value="148">148</option>
-                <option value="149">149</option>
-                <option value="150">150</option>
-                <option value="151">151</option>
-                <option value="152">152</option>
-                <option value="153">153</option>
-                <option value="154">154</option>
-                <option value="155">155</option>
-                <option value="156">156</option>
-                <option value="157">157</option>
-                <option value="158">158</option>
-                <option value="159">159</option>
-                <option value="160">160</option>
-                <option value="161">161</option>
-                <option value="162">162</option>
-                <option value="163">163</option>
-                <option value="164">164</option>
-                <option value="165">165</option>
-                <option value="166">166</option>
-                <option value="167">167</option>
-                <option value="168">168</option>
-                <option value="169">169</option>
-                <option value="170">170</option>
-                <option value="171">171</option>
-                <option value="172">172</option>
-                <option value="173">173</option>
-                <option value="174">174</option>
-                <option value="175">175</option>
-                <option value="176">176</option>
-                <option value="177">177</option>
-                <option value="178">178</option>
-                <option value="179">179</option>
-                <option value="180">180</option>
-                <option value="181">181</option>
-                <option value="182">182</option>
-                <option value="183">183</option>
-                <option value="184">184</option>
-                <option value="185">185</option>
-                <option value="186">186</option>
-                <option value="187">187</option>
-                <option value="188">188</option>
-                <option value="189">189</option>
-                <option value="190">190</option>
-                <option value="191">191</option>
-                <option value="192">192</option>
-                <option value="193">193</option>
-                <option value="194">194</option>
-                <option value="195">195</option>
-                <option value="196">196</option>
-                <option value="197">197</option>
-                <option value="198">198</option>
-                <option value="199">199</option>
-                <option value="200">200</option>
-                <option value="201">201</option>
-                <option value="202">202</option>
-                <option value="203">203</option>
-                <option value="204">204</option>
-                <option value="205">205</option>
-                <option value="206">206</option>
-                <option value="207">207</option>
-                <option value="208">208</option>
-                <option value="209">209</option>
-                <option value="210">210</option>
-                <option value="211">211</option>
-                <option value="212">212</option>
-                <option value="213">213</option>
-                <option value="214">214</option>
-                <option value="215">215</option>
-                <option value="216">216</option>
-                <option value="217">217</option>
-                <option value="218">218</option>
-                <option value="219">219</option>
-                <option value="220">220</option>
-                <option value="221">221</option>
-                <option value="222">222</option>
-                <option value="223">223</option>
-                <option value="224">224</option>
-                <option value="225">225</option>
-                <option value="226">226</option>
-                <option value="227">227</option>
-                <option value="228">228</option>
-                <option value="229">229</option>
-                <option value="230">230</option>
-                <option value="231">231</option>
-                <option value="232">232</option>
-                <option value="233">233</option>
-                <option value="234">234</option>
-                <option value="235">235</option>
-                <option value="236">236</option>
-                <option value="237">237</option>
-                <option value="238">238</option>
-                <option value="239">239</option>
-                <option value="240">240</option>
-                <option value="241">241</option>
-                <option value="242">242</option>
-                <option value="243">243</option>
-                <option value="244">244</option>
-                <option value="245">245</option>
-                <option value="246">246</option>
-                <option value="247">247</option>
-                <option value="248">248</option>
-                <option value="249">249</option>
-                <option value="250">250</option>
-                <option value="251">251</option>
-                <option value="252">252</option>
-                <option value="253">253</option>
-                <option value="254">254</option>
-                <option value="255">255</option>
-                <option value="256">256</option>
-                <option value="257">257</option>
-                <option value="258">258</option>
-                <option value="259">259</option>
-                <option value="260">260</option>
-                <option value="261">261</option>
-                <option value="262">262</option>
-                <option value="263">263</option>
-                <option value="264">264</option>
-                <option value="265">265</option>
-                <option value="266">266</option>
-                <option value="267">267</option>
-                <option value="268">268</option>
-                <option value="269">269</option>
-                <option value="270">270</option>
-                <option value="271">271</option>
-                <option value="272">272</option>
-                <option value="273">273</option>
-                <option value="274">274</option>
-                <option value="275">275</option>
-                <option value="276">276</option>
-                <option value="277">277</option>
-                <option value="278">278</option>
-                <option value="279">279</option>
-                <option value="280">280</option>
-                <option value="281">281</option>
-                <option value="282">282</option>
-                <option value="283">283</option>
-                <option value="284">284</option>
-                <option value="285">285</option>
-                <option value="286">286</option>
-              </select>
-            </form>
-            <!-- <div class="hidden"> -->
-          </div>
-
-          <!-- -->
-
-          <!-- class="w3-animate-right" -->
-          <!-- --- TABLE --- -->
-          <!-- JEKYLL {{ content }} -->
-          <!-- cards js adds card classes to table ID -->
-          <!-- change123 TABLE - card view set as default here -->
-          <!-- class="stripe table cards"> -->
-          <table id="quranTable" class="table cards"></table>
-          <!-- --- TABLE - END --- -->
-
-          <div class="hidden" id="footer">
-            <button class="lowerButtons" onclick="copyURLToClipButton();">
-              &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
-            </button>
-
-            <button
-              id="toggleFiliButton"
-              class="lowerButtons"
-              onclick="toggleQuranFili();filiString();scrollUpTop()"
-            >
-              &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
-            </button>
-
-            <button
-              id="toggleUthmaniImlai"
-              class="lowerButtons"
-              onclick="uthmaniImlai();rasmString();scrollUpTop();loadFont()"
-            >
-              &nbsp; ރަސްމު އުޘްމާނީ &nbsp;
-            </button>
-
-            <script>
-              function copyIjmalyOnly() {
-                var isVisible = $("#quranTable")
-                  .DataTable()
-                  .column(6)
-                  .visible();
-                $("#quranTable").DataTable().column(6).visible(!isVisible);
-
-                // https://stackoverflow.com/questions/56629325/programatically-invoke-jquery-datatable-cell-click-event/56629794#56629794
-                document
-                  .querySelector(
-                    "#quranTable_wrapper > div.dTop > div.dt-buttons > button.dt-button.buttons-copy.buttons-html5"
-                  )
-                  .click();
-
-                var isVisible = $("#quranTable")
-                  .DataTable()
-                  .column(6)
-                  .visible();
-                $("#quranTable").DataTable().column(6).visible(!isVisible);
-              }
-            </script>
-
-            <p>اسم الكتاب: تفسير القرآن الكريم - لجعفر فائز</p>
-
-            <p>Dhivehi | Explanation of the Noble Quran - Jaufar Faiz</p>
-
-            <p>
-              ފޮތުގެ ނަން: ކީރިތި قرآن ގެ ތަފްސީރު | ލިޔުނީ: ޖަޢުފަރު ފާއިޒު
-              <br />
-              (15/7/2021 މ. - 5/12/1442 ހ. - 60 އަހަރު) | ދެކުނުގެ / ސ. މީދޫ.
-            </p>
-
-            <hr class="lineVerticalSpace" />
-
-            <h3 class="mid">
-              <a>ޙަދީޘްއެމްވީގެ ނޯޓު</a>
-            </h3>
-
-            <p class="justi">
-              ⚠️ މި ވަގުތު މި ސައިޓިން ލިބެން ހުރީ 1، 2، 26، 27، 28، 29، 30 މި
-              ފޮތްތަކުގެ ތަފްސީރު އެކަންޏެވެ. އޭގެ އިތުރަށް ސިމްބޮލްތަކުގައި
-              މައްސަލަ އަދި އުޅޭނެއެވެ. އިން ޝާއަ ﷲ ކުރިއަށް އޮތް ތާނގައި އެ
-              ކަންތައްތައް ހައްލުކޮށް، ދެން ހުރި ފޮތްތައް ވެސް ހިމަނާނަމެވެ.
-            </p>
-
-            <p class="justi">
-              މި ފޮތުގެ މުއައްލިފު ވަނީ 7 ފޮތް (އެބަހީ: ޖުޒް) ފިޔަވާ މުޅި
-              ގުރްއާނުގެ ތަފްސީރު ލިޔެ ނިންމަވާފައެވެ. އެއީ ޖުމްލަ 23 ފޮތެވެ.
-              <br />
-              ކުރީކޮޅުން ނިންމަވާފައި ވަނީ 1، 2، 3، 4، 5، 6، 7 ،8، 9، 10، 11،
-              12، 13، 14، 15، 16، 17 މި ފޮތްތަކެވެ.
-              <br />
-              އަދި ފަހަތުން ނިންމަވާފައި ވަނީ 26، 27، 28، 29، 30 މި ފޮތްތަކެވެ.
-              <br />
-              އަދި ނުނިންމަވާ ވަނީ 19، 20، 21، 22، 23، 24، 25 މި ފޮތްތަކެވެ.
-              <br />
-              އަދި 18 ވަނަ ފޮތުގެ މަސައްކަތް ވެސް މުއައްލިފު ފެއްޓެވިއެވެ. އެ
-              ގޮތުން އެ ފޮތުގެ މުއުމިނޫނާއި ފުރްޤާން، މި ދެ ސޫރަތާއި، ނޫރު
-              ސޫރަތުގެ 27 ވަނަ އާޔަތާ ހިސާބަށް ތަފްސީރުގެ ޑްރާފްޓެއް
-              ލިޔުއްވިއެވެ. ނަމަވެސް މުޅި ފޮތް ނުނިމެނީސް މުއައްލިފު ވަނީ
-              ނިޔާވެފައެވެ. رَحِمَهُ اللَّهُ.
-              <br />
-              <br />
-              އަދި ތަފްސީރު ލިޔުއްވި ފޮތްތަކުގެ ތެރެއިން، މުއައްލިފު ވަނީ ބައެއް
-              އާޔަތްތަކުގެ ސަބަބުއް ނުޒޫލު (އެބަހީ: ބާވައިލެއްވުނު ސަބަބު)
-              ލިޔުއްވާފައެވެ. އެ ގޮތުން 1، 2، 3، 4، 5، 6 އަދި 13، 14، 15، 16، 17
-              މި ފޮތްތައް ވަނީ ސަބަބުއް ނުޒޫލާއެކު އެކީ އެކައްޗަކަށް ލިޔުއްވާ
-              ނިންމަވާފައެވެ.
-              <br />
-              އަދި 7 ވަނަ ފޮތުގެ އަންޢާމް ސޫރަތުގެ 52، 51 އަދި 93 ވަނަ އާޔަތުގެ
-              ސަބަބުއް ނުޒޫލު ލިޔުއްވާފައި ވެއެވެ. އަދި 10 ވަނަ ފޮތުގެ 58 އަދި
-              68 ވަނަ އާޔަތުގެ ސަބަބުއް ނުޒޫލު ލިޔުއްވާފައި ވެއެވެ. އަދި ހަމަ އެ
-              ފޮތުގައި ފަހުން ސަބަބުއް ނުޒޫލު ލިޔުއްވުމަށްޓަކައި އިތުރު 8 ތަނެއް
-              ފާހަގަ ކުރައްވާފައިވެއެވެ. އަދި 12 ވަނަ ފޮތުގައި ސަބަބުއް ނުޒޫލު
-              ލިޔުއްވާފައި ވަނީ ހަމައެކަނި ޔޫސުފް ސޫރަތުގެ މުގައްދިމާގައެވެ.
-              <br />
-              އަދި ނުނިމި ހުރި 18 ވަނަ ފޮތުގައި، މުއުމިނޫނާއި ފުރްޤާން، މި ދެ
-              ސޫރަތުގައި ސަބަބުއް ނުޒޫލު ލިޔުއްވާފައިވެއެވެ. އަދި ހަމަ އެ ފޮތުގެ
-              ނޫރު ސޫރަތުގައި 3، 10، 16 އަދި 22 މި އާޔަތްތަކަށް ސަބަބުއް ނުޒޫލު
-              ޑްރާފްޓެއްގެ ގޮތުގައި ލިޔުއްވާފައިވެއެވެ.
-              <br />ދެން 8، 9، 11، 12 މި ފޮތްތަކުގައި އެއްވެސް ވަރަކަށް ސަބަބުއް
-              ނުޒޫލު ލިޔުއްވާފައެއް ނުވެއެވެ.
-              <br />
-              <br />
-              މުއައްލިފު ނިޔާވިތާ 2 އަހަރަށް ފަހު، ނުނިމި ހުރި 7 ފޮތުގެ
-              ތަފްސީރު، އިން ޝާއަ ﷲ، ލިޔެ ނިންމާލުމުގެ މަސައްކަތް އަހަރެން މި
-              ދަނީ ކުރަމުންނެވެ. އެއީ 18، 19، 20، 21، 22، 23، 24، 25 މި
-              ފޮތްތަކެވެ. އެ ގޮތުން 18 އާއި 19 ވަނަ ފޮތުގެ ބަޔެއް ހިނގައްޖެއެވެ.
-              وَبِاللَّهِ التَّوفِيق.
-            </p>
-
-            <!--
-              އިން ޝާއަ ﷲ، ނުނިމި ހުރި ފޮތްތަކުގެ ތަފްސީރާއި، ނުލިޔެވި ހުރި
-              ބައެއް އާޔަތްތަކުގެ ސަބަބުއް ނުޒޫލު ނިންމާލެވޭތޯ އަހަރެން މި ދަނީ
-              މަސައްކަތް ކުރަމުންނެވެ. وَبِاللَّهِ التَّوفِيق.
-              <br />
-              އެ ގޮތުން މުއައްލިފުގެ މަސައްކަތް ފުރިހަމަ ކުރުމަށްޓަކައި،
-              އަހަރެން ސަބަބުއް ނުޒޫލު ލިޔެފައި ވަނީ 7، 8، 9، 10، 11، 12 މި
-              ފޮތްތަކަށެވެ. އަދި އަހަރެން ތަފްސީރާއެކީ ސަބަބުއް ނުޒޫލު ލިޔެފައި
-              ވަނީ 18 ވަނަ ފޮތުގެ ނޫރު ސޫރަތުގެ 28 ވަނަ އާޔަތުން ފެށިގެން އެ
-              ސޫރަތުގެ ނިޔަލަށެވެ. އަދި ކުރިއަށް އޮތްތާ އަހަރެން ލިޔަން އޮތީ 19،
-              20، 21، 22، 23، 24، 25 މި ފޮތްތަކެވެ.
-              -->
-
-            <p>
-              އިންޑިޒައިން ފައިލުތައް އެކްސެލް ޓޭބަލްތަކަށް ކޮންވަރޓު ކުރާ
-              ސްކްރިޕްޓް ހެދީ
-              <a href="https://twitter.com/mohamedxylam">މުޙައްމަދު ޖައިލަމް</a
-              >، <span>جَزَاهُ اللَّهُ خَيرًا.</span> އެއަށްފަހު އެ ޓޭބަލްތައް
-              ސާފުކޮށް ތަރުތީބުކޮށް ޑޭޓަބޭސަކަށް އަހަރެން އެޅީމެވެ.
-            </p>
-
-            <hr class="lineVerticalSpace" />
-
-            <div class="justi">
-              <h2 class="mid"><a>މުޤައްދިމާ</a></h2>
-
-              <p class="mid">بِسمِ ٱللَّهِ ٱلرَّحمَٰنِ ٱلرَّحِيمِ</p>
-
-              <h3 class="mid"><a>މުއައްލިފުގެ ތަޢާރަފެއް </a></h3>
-
-              <p>
-                اللهُ އަށް ޙަމްދުކުރަމެވެ. އަދި ކައު އިތުރު ރަސޫލާ، مُحَمَدٌ
-                ގެ އަރިހަށް ޞަލަވާތާއި ސަލާމްލެއްވުން އެދި ދުޢާ ކުރަމެވެ. އަދި
-                އެ ޞަލަވާތާއި ސަލާމުގައި އެ ރަސޫލާގެ އިތުރު އާލުންނާއި، މިތުރު
-                ޞަޙާބީންނާއި، ޤިޔާމަތާ ހަމައަށް އެ ރަސޫލާއާ ތަބާވާ އެންމެހައި
-                މުސްލިމުން ޝާމިލުކުރަމެވެ.
-              </p>
-              <p>
-                މި ތަފްސީރުގެ މުޞައްނިފު އައްޝައިޚު ޖަޢުފަރު ފާއިޒު ޢަބްދުﷲ،
-                އަޅުގަނޑު އެދުނު އެދުުމެއްގެ މަތީން މާލެ ވަޑައިގެން މި
-                ތަފްސީރުގެ މަސައްކަތް ފައްޓަވައި ދެއްވީ 2012 ވަނަ އަހަރުގެ މެއި
-                މަހުގެ ތެރޭގައެވެ. އެ މަސައްކަތުގައި މެދުކެނޑުމެއް ނެތި، 9
-                އަހަރު އުޅުއްވުމަށް ފަހު، މި ފަނާވެދަނިވި ދުނިޔެ ދޫކުރެއްވީ 2021
-                ވަނަ އަހަރުގެ ޖުލައި މަހުގެ 15 ވަނަދުވަހުއެވެ. މިދެންނެވި
-                މުއްދަތުގެ ތެރޭގައި، ކީރިތި ޤުރްއާނުގެ 17 ފޮތުގެ ތަފްސީރު ވަނީ
-                ސަބަބުއްނުޒޫލާއި އެކު މުޅީން ފުރިހަމަ ކުރައްވައިފައެވެ. އަދި 6
-                ފޮތުގެ ތަފްސީރު ވަނީ ނިންމަވާފައެވެ.
-              </p>
-              <p>
-                އައްޝައިޚު ޖަޢުފަރު ފާއިޒު ޢަބްދުﷲ އަކީ މާތް އަޚުލާގެއްގެ ވެރި،
-                ވަރަށް އާދައިގެ ދިރިއުޅުމެއް އުޅުއްވި އިލްމުވެރި ބޭފުޅެކެވެ.
-                އަދި މުޅި އުމުރުގެ ބޮޑުބައި ހޭދަކުރެއްވީ މީސްތަކުންނަށް
-                އިސްލާމްދީނުގެ ފުރިހަމަ މައުލޫމާތު ފޯރުކޮށްދެއްވުމަށާއި،
-                މުޖުތަމަޢުގެ ހަމަޖެހުމަށާއި މަގުދެއްކެވުމަށް
-                މަސައްކަތްކުރެއްވުމުގައެވެ.
-              </p>
-              <p>
-                އައްޝައިޚު ޖަޢުފަރު ފާއިޒަކީ ދިރިއުޅުގެ ތަފާތު ހުނަރުތައް
-                ދަސްކުރައްވާ، ގިނަ ދާއިރާތަކަކުން ތަމްރީނު ހޯއްދެވުމަށް ފަހު
-                މުޖުތަމަޢަށް ޚިދުމަތްކުރައްވަމުން ގެންދެވި ބޭފުޅެކެވެ. މި ގޮތުން
-                މެޑިކަލް ޓެކްނޮލޮޖީއާއި މުވާސަލާތީ ސާމާނު ބެލެހެއްޓުމުގެ
-                ދާއިރާއިން ތަމްރީނު ހޯއްދެވިއެވެ.
-              </p>
-              <p>
-                އެއަށް ފަހު، ސަޢޫދީ ޢަރަބިއްޔާގެ އިމާމު މުޙައްމަދު ބިން ސަޢުދު
-                ޔުނިވަރސިޓީއިން އިސްލާމިކް ޝަރީޢާ އެންޑް ލޯގެ ދާއިރާއިން
-                އެލް.އެލް.ބީ ޑިގްރީ ވަނީ ޙާޞިލުކުރައްވާފައެވެ. އަދި އެއަށްފަހު،
-                ހަމަ އެ ޔުނިވަރސިޓީއިން މާސްޓަރސް ޑިގްރީ ޙާޞިލުކުރެއްވީ
-                ކޮމްޕެރަޓިވް ޖުރިސްޕްރޫޑެންސްގެ ދާއިރާއިންނެވެ،
-              </p>
-              <p>
-                އަދި އިނގިރޭސި، ޢަރަބި، އުރުދޫ ބަސް ރަނގަޅަށް
-                ދެނެވަޑައިގަންނަވައެވެ. އަދި ރަޝީޔާ ބަހުން ވާހަކަދައްކަވާން
-                އެނގިވަޑައިގަންނަވައެވެ. އެހެންކަމުން، ގިނަ ބަޔަކާއި
-                މުއާމަލާތުކުރައްވާ ދުނިޔެއަށް ހޭލުންތެރިވުމުގެ ފުރުޞަތު
-                ލިބިވަޑައިގެންނެވިއެވެ. އަދި ސަޢޫދީ ޢަރަބިއްޔާގެ އެކިއެކި
-                ޔުނިވަރސިޓީތަކުގައި ކިޔަވާދެއްވުމުގެ އިތުރުން އެގައުމުގެ
-                މިނިސްޓްރީ އޮފް އިސްލާމިކް އެފެއާރޒްގައި ދަޢުވާގެ މަސައްކަތުގައި
-                ކޯޑިނޭޓަރެއްގެ މަޤާމުގައި އަށް އަހަރު މަސައްކަތްކުރައްވައިފައި
-                ވެއެވެ. މީގެ އިތުރުން، ކުރީގެ ސޯވިއެޓް ޔޫނިއަންގެ ވެރިރަށް
-                މޮސްކޯގެ ހަޔަރ އިސްލާމިކް ކޮލެޖުގައި އިސްލާމިކް ސްޓަޑީޒްގެ
-                ލެކްޗަރަރއެއްގެ ގޮތުގައި ހަ އަހަރު ދުވަހު މަސައްކަތް
-                ކުރައްވައިފައި ވެއެވެ. އަދި މީގެ އިތުރުން ޕާކިސްތާނުގެ
-                އަބޫބަކުރު ޔުނިވަރސިޓީގެ ކޮލެޖް އޮފް ޙަދީޘް އެންޑް އިސްލާމިކް
-                ސްޓަޑީޒްގެ ލެކްޗަރަރއެއްގެ ގޮތުގައި ދެ އަހަރެއްހާ ދުވަހު
-                ޚިދުމަތްކުރައްވާފައި ވެއެވެ.
-              </p>
-              <p>
-                އައްޝައިޚު ޖަޢުފަރު ފާއިޒު ޢަބުދުﷲ ދުނިޔެ ދޫކުރެއްވިއިރު
-                އަނބިކަބަލަކާއި ދެ އަންހެން ބޭފުޅުން އަދި އެއް ފިރިހެން ބޭފުޅަކު
-                ތިއްބެވިއެވެ.
-              </p>
-              <p>
-                މި ތަފްސީރު ވިދާޅުވާ އެންމެހައި އަޚުންނާއި އުޚުތުންގެ އަރިހުން
-                އަޅުގަނޑު އެދެނީ، ﷲގެ އޯގާވަންތަކަމާއި، ރަޙްމަތްވަންތަކަމުން،
-                އައްޝައިޚު ޖަޢުފަރު ފާއިޒުގެ މި މަސައްކަތުގައި ބަރަކާތްލައްވާ،
-                ޖަންނަތުލް ފިރުދައުސްގައި ލެއްވުން އެދި ދުޢާކޮށްދެއްވުމެވެ.
-                އާމީން!
-              </p>
-              <p style="text-align: left">
-                އިސްމާޢީލު ޝަރީފު މުޙައްމަދު ގ. އަލިރެސް މާލެ
-              </p>
-
-              <hr class="lineVerticalSpace" />
-
-              <p class="mid">بِسمِ ٱللَّهِ ٱلرَّحمَٰنِ ٱلرَّحِيمِ</p>
-
-              <h3 class="mid"><a>އިސްބަސް</a></h3>
-
-              <p>
-                إنَّ الْحَمْدَ لِلَّهِ نَحْمَدُهُ وَنَسْـتَعِينُهُ
-                وَنَسْتَغْفرُهُ وَنَـعُوْذُ بِاللهِ مِنْ شُرُورِ أَنْـفُسِنَا
-                وَمِنْ سَيِّئَاتِ أَعْمَالِنَا، مَنْ يَـهْدِهِ اللهُ فَلاَ
-                مُضِلَّ لَهُ وَمَنْ يُضْلِلْ فَلاَ هَادِيَ لَهُ، وَأَشْهَدُ أَنْ
-                لاَإِلَه إِلاَّ اللهُ وَحْدَهُ لاَشَرِيكَ لَهُ وَأَشْهَدُ أَنَّ
-                مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ، وَبَعْدُ.
-              </p>
-              <p>
-                ހަމަކަށަވަރުން، އެންމެހައި ތަޢުރީފާއި ޘަނާ ޙައްޤުވެގެންވަނީ،
-                اللهُ އަށެވެ. އަޅަމެން ޙަމްދުކުރަނީ، ހަމައެކަނި އެ إِلٰهއަށެވެ.
-                އަދި އަޅަމެން ވާގިއެދެނީ، ހަމައެކަނި އެ إِلٰهގެ ޙަޟްރަތުންނެވެ.
-                އަދި ފާފަފުއްސެވުމަށް އެދި ދަންނަވަނީ ވެސް، ހަމައެކަނި އެ
-                إِلٰهއަށެވެ. އަދި އަޅަމެންގެ ނަފްސުގެ ނުބައިކަމާއި ޢަމަލުގެ
-                ނުބައިކަމުން، އަޅަމެން ރައްކައުތެރިކޮށްދެއްވައި
-                ސަލާމަތްކޮށްދެއްވުން އެދި، اللهُ ގެ ޙަޟްރަތުގައި ދަންނަވަމެވެ.
-                اللهُ ، އެ މީހަކަށް ތެދުމަގުދައްކަވައިފި މީހަކު މަގުފުރެއްދޭނޭ
-                މީހަކު، އަދި، އެ إِلٰهُ މަގުފުރައްދަވައިފި މީހަކަށް ތެދުމަގު
-                ދައްކައިދެވޭނޭ ހަމަ އެއްވެސް އެހެން ފަރާތެއް ނުވެއެވެ. اللهُ 
-                ފިޔަވައި، އެ ފަރާތަކަށް އަޅުކަންކުރުން ޙައްޤުވެގެންވާ އެއްވެސް
-                އެހެން ފަރާތެއް ނުވާކަމަށް އަޅު ހެކިވަމެވެ. اللهُ އީ،
-                އެއްކައުވަންތަ إِلٰهއެވެ. އެ إِلٰهއަށް އެއްވެސް ބައިވެރިއަކު
-                އަދި ޝަރީކަކު ނުވެއެވެ. އަދި ހަމަކަށަވަރުން، مُـحَمّد އީ، اللهُ
-                ގެ އަޅާ ކަމަށާއި ރަސޫލާކަމަށް އަޅު ހެކިވަމެވެ.
-              </p>
-              <p>
-                އެއަށް ފަހު ދަންނާށެވެ! ހަމަކަށަވަރުން، ދުނިޔޭގެ އެންމެން ވެސް
-                މި ވޭތުކުރަމުންދާ ދުވަސްވަރަކީ، ފިތުނައިން ފުރިގެންވާ
-                ދުވަސްވަރެކެވެ. ކަން މިހެން ހުރުމާ އެކު، އެ ފިތުނަތަކުން
-                ސަލާމަތްވެވޭނީ، ކީރިތި ޤުރްއާނުގައިވާ ގޮތަށް ޢަމަލުކުރުމުންނެވެ.
-                އެހެނީ، ކުރީގެ މީހުންގެ ޚަބަރުތަކާއި ފަހުގެ މީހުންގެ ޚަބަރުތައް
-                އެ ފޮތުގައި ވެއެވެ.
-              </p>
-              <p>
-                އަދި މީސްތަކުންގެ މެދުގައި ޙުކުމުކުރާންވީ ގޮތުގެ ތަފްޞީލުތައް އެ
-                ފޮތުގައި ވޭމެއެވެ. އެ ފޮތުގައި ވަނީ، ސީދާވެގެންވާ ނިޔާއެވެ. އެ
-                ފޮތުގައި ވަނީ، އެއްގޮތަކަށް ވެސް ތޯތޯ ވާހަކަތަކެއް ނޫނެވެ. އެ
-                ފޮތުގައިވާ ގޮތަށް ނޫޅެ، އެ ފޮތަށް ފުރަގަސްދީ ބޮޑާވެ، އެ
-                ފޮތުގައިވާ ގޮތަށް ޢަމަލުކުރުމަށް އިންކާރުކޮށްފި މީހާ ދަންނާށެވެ!
-                ފަހެ، اللهُ  އިރާދަކުރެއްވި ކޮންމެ ގޮތަކަށް އެ މީހަކު
-                ހިއްޕަވައި، އެ މީހާގެ އެ ޢަމަލާ އެކަށޭނަ ޢުޤޫބާތް، އެ މީހަކަށް،
-                އެ إِلٰهُ ދެއްވާނެތެވެ. އަދި އެ ފޮތް ނޫން އެހެން އެއްޗަކުން،
-                ތިމާގެ ދީން ހޯދާން އެދޭ މީހާ މަގުފުރައްދަވާނެތެވެ. އެ ފޮތަކީ،
-                اللهُ ގެ އަޅުތަކުން، އެ إِلٰهއާ ގުޅުވައިދޭ އެންމެ ގަދަފަދަ
-                ވައުފަށެވެ. އެއީ، އެންމެ ޙިކްމަތްތެރި ޛިކްރެވެ. އެ ފޮތުގައި ވަނީ
-                އެންމެ ސީދާ ތެދުމަގެވެ. ވުމާއެކު، ތިމާގެ ނަފްސުގެ އެދުންތައް އެ
-                ފޮތުގައިވާ ގޮތާ އެއްގޮތްވެއްޖެ މީހާ ސީދާމަގުން ހިނގައިފިއެވެ.
-              </p>
-              <p>
-                ޝައްކެއްނެތެވެ. އެ ފޮތަކީ ދޫތަކަށް އޮޅޭނޭ ފޮތެއް ނޫނެވެ. އަދި
-                ކަނޑު އެއީ ލިޔާން ބޭނުންކުރާ ދަވާދު ކަމުގައި ވެފައި، އެއިގެ
-                ތެރެއަށް އަދި އެ ފަދަ އެއް ކަނޑު އިތުރުކުރެވުނު ކަމުގައި ވިއަސް
-                އެ ފޮތުގައިވާ ޢިލްމު ލިޔެ ހުސްވުމަކީ، ފަހަރެއްގައި ވެސް ވާނޭ
-                ކަމެއް ނޫނެވެ. އަދި އެ ފޮތް ކިޔަވައި ދަސްކޮށް، އެ ފޮތުގައިވާ
-                ޢިލްމު އުނގެނޭ މީހުންގެ ގިނަކަމުން، އެ ފޮތަށް ބާކަމެއް
-                ނާންނަހުއްޓެވެ. އަދި އެ ފޮތުގައިވާ އަޖައިބުތަކާއި މުޢުޖިޒާތްތައް
-                ދުވަހަކު ވެސް ހުސްނުވާނެއެވެ. އެ ޤުރްއާނަކީ، އޭގެ އަޑުއިވުމުން،
-                ހަމަކަށަވަރުން ވެސް، އަޖައިބުތަކުން ފުރިގެންވާ ޤުރްއާނެއްގެ އަޑު
-                ތިމަންމެންނަށް އިވިއްޖެއެވެ. މި ފަދައިން ޖިންނީން ބުނެ، އެ
-                ފޮތަށް އީމާންވެ، އެ ފޮތް މަގުދައްކައިދެނީ ޙައްޤު ތެދު މަގަށް
-                ކަމުގައި، އެ ޖިންނީން ބުނި ފޮތެވެ. އެހެންކަމުން، ކީރިތި ޤުރްއާން
-                އުނގެނި، އުނގަންނައިދީ އަދި ޤުރްއާން ކިޔެވުމުން ލިބޭ މާތްކަމާއި
-                މަތިވެރިކަން ލިބިގަތުމަކީ، ކޮންމެ މުސްލިމަކުމެ ކޮންމެހެން ވެސް
-                ކުރާންޖެހޭނޭ ކަމެކެވެ. ކަން މިހެން ހުރުމާއެކު، ކީރިތި ޤުރްއާނުގެ
-                އެއްވަނަ ފޮތުގެ ކުރު ތަފްސީރެއް ދިވެހި އަޚުންނާއި އުޚްތުންގެ
-                އަރިހަށް ގެނެސްދެމެވެ.
-              </p>
-              <p>
-                ޝައްކެއްނެތެވެ. ކިތަންމެ ކުރުކޮށް ނަމަވެސް ކީރިތި ޤުރްއާނުގެ
-                ތަފްސީރެއް ލިޔުމަކީ ނުހަނު ބުރަ އަދި އެހައިމެ ދިގު
-                މަސައްކަތެކެވެ. އަޅުގަނޑުމެންގެ ދުޢާއަކީ، މި މަސައްކަތް
-                ނިމުމަކަށް ދާނދެން މި މަސައްކަތުގައި ދެމިތިބުމުގެ ހެޔޮ ތައުފީޤު
-                އަޅަމެންނަށް ދެއްވައި، މި މަސައްކަތަކީ، اللهُ 
-                ޤަބޫލުކުރައްވަނިވި މަސައްކަތެއް ކަމުގައި ލެއްވުމުވެ. އަދި
-                ހުރިހައި ރޮނގަކުން ވެސް މި މަސައްކަތުގައި އަޅުގަނޑަށް
-                އެހީތެރިވެދެއްވި ހުރިހައި ފަރާތްތަކަށާއި، އަޅުގަނޑަށް
-                ކުރެވިފައިވާ ކުށްފާފަތައް ފުއްސަވައިދެއްވަނިވި ސަބަބެއް
-                ކަމުގައްޔާއި، އަޅުގަނޑުމެން އެންމެންނަށް ރަޙްމަތްލައްވައި
-                ސުވަރުގެ ވައްދަވަނިވި ވަސީލަތެއްކަމުގައި، އަޅުގަނޑުމެންގެ މި
-                މަސައްކަތް، اللهُ  ލެއްވުމެވެ. އަދި ހަމަ އެހެންމެ،
-                އަޅުގަނޑުމެންގެ ދުޢާއަކީ، މި ތަފްސީރު ވިދާޅުވާ ހުރިހައި ދިވެހި
-                އަޚުންނާއި އުޚްތުންނަށް
-              </p>
-              <p>
-                މި ތަފްސީރުން ފައިދާ ޙާޞިލުކުރެއްވޭނޭ މަގު ފަހިކޮށްދެއްވައި،
-                މީސްތަކުންނަށް ޓަކައި، اللهُ  ރުއްސެވި އިސްލާމް ދީނުގައިވާ
-                ގޮތަށް އުޅުއްވުމުގެ ހެޔޮ ތައުފީޤު، އެންމެހައި ދިވެހި އަޚުންނާއި
-                އުޚްތުންނަށް، އެ إِلٰهُ މިންވަރުކޮށްދެއްވުމެވެ.
-              </p>
-
-              <p>22 ޖުމާދިލްއޫލާ 1439</p>
-              <p>8 ފެބްރުއަރީ 2018</p>
-
-              <p style="text-align: left">ޖަޢުފަރު ފާއިޒު</p>
-
-              <hr class="lineVerticalSpace" />
-
-              <p class="mid">بِسمِ ٱللَّهِ ٱلرَّحمَٰنِ ٱلرَّحِيمِ</p>
-
-              <h3 class="mid"><a>ޝުކްރުގެ ބަހެއް </a></h3>
-
-              <p>
-                اللهُ އަށް ޙަމްދުކުރަމެވެ. އަދި ކައު އިތުރު ރަސޫލާ، مُحَمَدٌ
-                ގެ އަރިހަށް ޞަލަވާތާއި ސަލާމުގެ ގުލްދަސްތާތަކުން
-                ވެދުންކުރަމެވެ. އަދި އެ ޞަލަވާތާއި ސަލާމުގައި އެ ރަސޫލާގެ އިތުރު
-                އާލުންނާއި، މިތުރު ޞަޙާބީންނާއި، ޤިޔާމަތާ ހަމައަށް އެ ރަސޫލާއާ
-                ތަބާވާ އެންމެހައި މުސްލިމުން ޝާމިލުކުރަމެވެ.
-              </p>
-              <p>
-                ޝައްކެއްނެތެވެ. މީހުން ކޮށްދޭ ކަންކަމުގެ އަގުވަޒަންކޮށް
-                އެބައިމީހުންނަށް ޝުކްރުގެ ބަސްތަކުން ވެދުން ކުރުމަކީ ވެސް، اللهُ
-                އަށް ޝުކްރުވެރިވުމުގެ ތެރެއިން ހިމެނޭ ކަމެކެވެ. رَسُولُ اللهِ 
-                ޙަދީޘުކުރައްވައިފައި ވެއެވެ. «لاَ يَشْكُرُ اللهَ مَنْ لاَّ
-                يَشْكُرُ النَّاسَ» މާނައީ: [މީސްތަކުންނަށް ޝުކްރުނުކުރާ މީހާ،
-                اللهُ އަށް ޝުކްރުވެރި ވީ ކަމުގައެއް ނުވެއެވެ.] ކަން މިހެން
-                ހުރުމާއެކު، އެއްވަނަ ފޮތުގެ ތަފްސީރު ލިޔެ ނިންމުމުގެ ތައުފީޤު
-                ދެއްވިކަމަށް ޓަކައި، اللهُ އަށް ޝުކްރުދަންނަވަމެވެ. އެއަށް
-                ފަހު، ޚާއްޞަ ޝުކްރެއް ދަންނަވަނީ، މި މަސައްކަތްކުރުމުގެ ހުރިހައި
-                މަގުތަކެއް އަޅުގަނޑަށް ތަނަވަސްކޮށްދެއްވި، اَلْأَخُ إِسْمَاعِيلُ
-                شَرِيفُ مُحَمَّدއަށެވެ. އަދި މި މަސައްކަތުގައި އަޅުގަނޑުމެންނަށް
-                އެހީތެރިވެދެއްވި ހުރިހައި ބޭފުޅުން ވެސް އެ ޝުކްރުގައި
-                ޝާމިލުކުރަމެވެ.
-              </p>
-              <p>
-                އަޅުގަނޑުގެ ދުޢާއަކީ، މި މަސައްކަތްކުރުމުގެ ހުރިހައި މަގުތަކެއް
-                އަޅުގަނޑަށް ތަނަވަސްކޮށްދެއްވި اَلْأَخُ إِسْمَاعِيلُ شَرِيفُ
-                مُحَمَّدُގެ ކިބައިންނާއި އަޅުގަނޑުގެ ކިބައިން، اللهُ  މި
-                މަސައްކަތް ޤަބޫލުކުރައްވައި، މި މަސައްކަތުގައި އަޅުގަނޑުމެންނަށް
-                އެހީތެރިވެދެއްވި ހުރިހައި ފަރާތެއްގެ ޢަމަލު ވެސް، އެ إِلٰهُ
-                ޤަބޫލުކުރެއްވުމެވެ. އަދި މި މަސައްކަތުގައި އަޅުގަނޑުމެންނަށް
-                އެހީތެރިވެދެއްވި ހުރިހައި ބޭފުޅުންނާއި، އެ ބޭފުޅުންގެ
-                މައިންބަފައިންނާއި، ޢާއިލާއާއި ގާތްތިމާގެ ބޭފުޅުން ވެސް، މި
-                މަސައްކަތުގެ ވަސީލަތުން، ނަރަކައިގެ ޢަޛާބުން ދިންނަވައި، އެ
-                އެންމެ ބޭފުޅުންނަށް ސުވަރުގޭގެ މަތިވެރި ނިޢުމަތް، اللهُ 
-                މިންވަރުކޮށްދެއްވުމެވެ.
-              </p>
-              <p>
-                އަދި، އަޅުގަނޑުގެ ދުޢާއަކީ، މި ތަފްސީރު ވިދާޅުވާ ހުރިހައި ދިވެހި
-                އަޚުންނާއި އުޚްތުންނަށް، މި ތަފްސީރުން ފައިދާ ޙާޞިލުކުރެވޭނޭ
-                މަގު ފަހިކޮށްދެއްވައި، މީސްތަކުންނަށް ޓަކައި، اللهُ  ރުއްސެވި
-                އިސްލާމް ދީނުގައި، އެ إِلٰهُ އަންގަވައިފައިވާ ގޮތަށް
-                އުޅުއްވުމުގެ ހެޔޮ ތައުފީޤު އެންމެހައި ދިވެހި އަޚުންނާއި
-                އުޚްތުންނަށް، އެ إِلٰهُ މިންވަރުކޮށްދެއްވުމެވެ.
-              </p>
-
-              <p style="text-align: left">ޖަޢުފަރު ފާއިޒު</p>
-
-              <hr class="lineVerticalSpace" />
-
-              <p class="mid">بِسمِ ٱللَّهِ ٱلرَّحمَٰنِ ٱلرَّحِيمِ</p>
-
-              <h3 class="mid"><a>ތަފްސީރުގެ މުޤައްދިމާ </a></h3>
-
-              <p>
-                إنَّ الْـحَمْدَ لِلَّهِ نَحْمَدُهُ وَنَسْتَعِينُهُ
-                وَنَسْتَـغْفِرُهُ وَنَـعُوْذُ بِاللهِ مِنْ شُرُورِ أَنْـفُسِنَا
-                وَمِنْ سَيِّئَاتِ أَعْمَالِنَا، مَنْ يَهْدِهِ اللهُ فَلاَ
-                مُضِلَّ لَهُ وَمَنْ يُضْلِلْ فَلاَ هَادِيَ لَهُ، وَأَشْهَدُ أَنْ
-                لاَإِلَهَ إِلاَّ اللهُ وَحْدَهُ لاَشَرِيكَ لَهُ وَأَشْهَدُ أَنَّ
-                مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ، وَبَـعْدُ.
-              </p>
-              <p>
-                އެންމެހައި ޙަމްދުޘަނާއާއި ތަޢުރީފު ދަންނަވަނީ، އަޅުތަކުންނަށް
-                ހެޔޮކަންތައްތައް ކުރުމުގެ ތައުފީޤުދެއްވައި، އެ ކަންކަމަށް މަގު
-                ފަހިކޮށްދެއްވާ ދީލަތިވަންތަ އޯގާވަންތަ اللهُ އަށެވެ. ޞަލަވާތާއި
-                ސަލާމުގެ ރަންހާރުތައް އަރިސްކުރަނީ، ޢާލަމުތަކަށް
-                ރަޙްމަތެއްކަމުގައި ފޮނުއްވުނު ސާހިބާ، އަޅަމެންގެ ނަބިއްޔާ
-                مُحَمَّدٌ އާއި، އެ ނަބިއްޔާގެ އާލުންނާއި، އަޞްޙާބުންނާއި،
-                ޤިޔާމަތާ ހަމަޔަށް އެ ނަބިއްޔާއާ ތަބާވީހައި ބަޔަކަށެވެ.
-              </p>
-              <p>
-                ކީރިތި މޫރިތި ޤުރްއާނަކީ އިންސީންނާއި ޖިންނީންނަށް ތެދުމަގު
-                ބަޔާންކޮށްދެއްވުމަށް، اللهُ  ބާވައިލެއްވި އެންމެ ފަހުގެ ސަމާވީ
-                ފޮތެވެ. އެ ފޮތުގައިވާ ވާހަކަތަކާ މެދު ވިސްނައި، ފިކުރުކޮށް،
-                ޙައްޤާއި ބާޠިލު ވަކިކޮށް ދެނެގަތުމަކީ ނުހަނު ފަސޭހަކަމެއް
-                ކަމުގައި، އެ إِلٰهُ ލެއްވިއެވެ. މި ކަމަށް އިޝާރާތްކުރައްވައި، އެ
-                إِلٰهُ ވަޙީކުރެއްވިއެވެ. ( وَلَقَدْ يَسَّرْنَا الْقُرْآنَ
-                لِلذِّكْرِ فَـهَلْ مِن مُّدَّكِرٍ)¹ [1- سُورَةُ الْقَمَرِ
-                اَلْآيَة: 17] މާނައީ: “އަދި ހަމަކަށަވަރުން، ތިމަން إِلٰهُ ވަނީ،
-                ކީރިތި ޤުރްއާން ދަސްކޮށް، އެ ފޮތުގައިވާ ވާހަކަތައް
-                ވިސްނައިގަތުން ނުހަނު ފަސޭހަކޮށްދެއްވައިފައެވެ. ފަހެ، އެ
-                ފޮތުގައިވާ ވާހަކަތަކުން ނަސޭހަތްލިބިގަންނަ މީހަކު
-                އެބަވޭހެއްޔެވެ؟” އަދި އަޅުގަނޑުމެންގެ މާތް ނަބިއްޔާ مُحَمَّدٌ 
-                ޙަދީޘުކުރެއްވިއެވެ. «خَيْـرُكُمْ مَنْ تَـعَلَّمَ الْقُرْآنَ
-                وَعَلَّمَهُ » ² [2- صَحِيحُ الْـجَامِعِ لِلْإِمَامِ الْبُخَارِي
-                رَقْمُ الْحَدِيثِ 5027]
-              </p>
-              <p>
-                 މާނައީ: “ތިޔަބައިމީހުންގެ ތެރެއިން އެންމެ ހެޔޮ މީހަކީ ޤުރްއާން
-                އުނގެނި، އެ ޤުރްއާން އުނގަންނައިދޭ މީހާއެވެ.” ވީމާ، އަޅުގަނޑު
-                ވެސް އެ ހެޔޮކަން ލިބިގަތުމަށް ޓަކައި، الله ގެ ޙަޟްރަތުން
-                ވާގިއެދި ހުރެ، އަޅުގަނޑު މި މަސައްކަތް ކުރަނީ، ކީރިތި ޤުރްއާނުގެ
-                ކުރު ތަފްސީރެއް ލިޔެވޭތޯއެވެ. އެ ގޮތުން، ދިވެހި އަޚުންނާއި
-                އުޚްތުންގެ އަރިހަށް މި ގެނެސްދެނީ، ކީރިތި ޤުރްއާނުގެ އެއްވަނަ
-                ފޮތުގެ ތަފްސީރު ވަރަށް ކުރުގޮތަކަށެވެ. މި ތަފްސީރު ލިޔެފައި
-                ވަނީ، ޢަރަބި ބަހުން ލިޔެފައިވާ ބޮޑެތި ބައެއް ތަފްސީރުތަކާއި،
-                ކުރު ބައެއް ތަފްސީރުތަކާއި، ދިވެހިބަހުން ލިޔެފައިވާ
-                ތަފްސީރުތަކާއި ތަރްޖަމާތައް ބަލައި، އެ ފޮތްތަކުގެ އަލީގައެވެ. މި
-                ތަފްސީރު ލިޔުމުގައި ބަލައިފައިވާ ތަފްސީރު ފޮތްތަކުގެ ތެރޭގައި
-                އަންނަނިވި ފޮތްތައް ހިމެނެއެވެ.
-              </p>
-              <p>1- އަލްއިމާމު ފަޚުރުއްދީނު އައްރާޒީގެ އައްތަފްސީރުލްކަބީރު</p>
-              <p>
-                2- އަލްއިމާމު އަލްޤުރުޠުބީގެ އަލްޖާމިޢު ލި އަޙުކާމިލްޤުރްއާނި
-              </p>
-              <p>3- އަލްއިމާމު އަލްބައިޟާވީގެ ތަފްސީރު</p>
-              <p>4- އަލްއިމާމު އިބުނު ކަޘީރުގެ ތަފްސީރުލްޤުރްއާނިލްޢަޡީމި</p>
-              <p>
-                5- އަލްއިމާމު ޢަބްދުއްރަޙްމާނު އައްސަޢްދީގެ
-                ތައިސީރުލްކަރީމިއްރަޙްމާނި
-              </p>
-              <p>6- ޑރ. މުޙައްމަދު ސުލައިމާނުލްއަޝްޤަރުގެ ޒުބުދަތުއްތަފްސީރު</p>
-              <p>7- ޑރ. މުޙައްމަދު ޙިޖާޒީގެ އައްތަފްސީރުލްވާޟިޙު</p>
-              <p>
-                8- އައްޝައިޚު މުޙައްމަދު ޢަލީ އައްޞާބޫނީގެ ޞަފުވަތުއްތަފާސީރި
-              </p>
-              <p>
-                9- އަލްއިމާމު އިބުނު ޖަރީރުއްޠަބަރީގެ ތަފްސީރު ޖާމިޢުލްބަޔާނި
-              </p>
-              <p>10- އަލްއިމާމު މުޤާތިލު ބިން ސުލައިމާނުގެ ތަފްސީރު</p>
-              <p>
-                11- އަލްއިމާމު އައްސުޔޫޠީގެ އައްދުއްރުލްމަންޘޫރު ފިއްތަފްސީރި
-                ބިލްމައުޘޫރި
-              </p>
-              <p>12- ޑޮކްޓަރ ޢާއިޟުލްޤަރުނީގެ އައްތަފްސީރުލްމުޔައްސަރު</p>
-              <p>
-                13- ސުޢޫދީ ޢަރަބިޔާގެ އިސްލާމިކް މިނިސްޓްރީން ނެރުއްވައިފައިވާ
-                އައްތަފްސީރުލްމުޔައްސަރު
-              </p>
-              <p>
-                14- ސުޢޫދީ ޢަރަބިޔާގެ މަރުކަޒު ތަފްސީރި
-                ލިއްދިރާސާތިލްޤުރްއާނިއްޔާއިން ނެރުއްވައިފައިވާ އަލްމުޚުތަޞަރު
-                ފިއްތަފުސީރި
-              </p>
-              <p>
-                އަދި މި ތަފްސީރު ލިޔުމުގައި ބައެއް ޙަދީޘު ފޮތްތަކާއި، ތައުޙީދު
-                ފޮތްތަކާއި، ޢުލޫމުލްޤުރްއާނުގެ ބައެއް ފޮތްތައް ބަލައިފައި
-                ވެއެވެ. އަދި ހަމަ އެހެންމެ، ބަޔާންވެދިޔަ ފޮތްތަކުގެ އިތުރަށް،
-                ދިވެހި ބަހުން ލިޔެފައިވާ ބައެއް ތަފްސީރު ފޮތްތަކާއި ތަރުޖަމާތައް
-                ވެސް ބަލައިފައި ވެއެވެ. އޭގެ ތެރެއިން ބައެއް ފޮތްތަކަކީ:
-              </p>
-              <p>1- ފަޟީލަތުއްޝައިޚު މުޙައްމަދު ޖަމީލު ދީދީގެ އަލްބަޔާން</p>
-              <p>2- އައްޝައިޚު މަލިންގޭ ޙުސައިން ދީދީގެ ތަފްސީރު</p>
-              <p>3- އައްޝައިޚު އަބޫބަކުރު އިބްރާޙީމު ލިޔުއްވި ތަފްސީރު</p>
-              <p>
-                4- ރައީސުލް ޖުމްހޫރިއްޔާ ސުމުއްވުލްއަމީރު އިބްރާޙީމް ނާޞިރު
-                ރަންނަބަޑޭރި ކިލެގެފާނުގެ ބެއްލެވުމުގެ ދަށުން 1395 / 1975 ވަނަ
-                އަހަރު ނެރުއްވައިފައިވާ ކީރިތި ޤުރްއާނުގެ ދިވެހި ތަރުޖަމާ.
-              </p>
-              <p>
-                5- ރައީސުލް ޖުމްހޫރިއްޔާގެ އޮފީހުން 2007 ވަނަ އަހަރު
-                ޝާއިޢުކުރައްވައިފައިވާ އަލްޤުރްއާނުލްކަރީމުގެ ދިވެހި ތަރުޖަމާ.
-              </p>
-              <p>
-                ދަންނާށެވެ! اللهُ ، ކީރިތި ޤުރްއާން ބާވައިލައްވައިފައި ވަނީ،
-                މީސްތަކުން އެ ފޮތުން ތެދުމަގު ލިބިގަތުމަށް ޓަކައެވެ. ކުރެވޭ
-                އަޅުކަމެއްގެ ގޮތުން ކިޔަވައި އުޅުމަށް ޓަކައެވެ. އެ ފޮތުގައިވާ
-                އާޔަތްތަކާ މެދު ވިސްނައި، ފިކުރުކޮށް، ޢިބުރަތް ލިބިގަތުމަށް
-                ޓަކައެވެ. އެ ފޮތުގައިވާ ޙުކުމްތަކާ އެއްގޮތަށް ޢަމަލުކުރުމަށް
-                ޓަކައެވެ.
-              </p>
-              <p>
-                ހިތުގެ ބަލިތަކަށާއި ހަށިގަނޑުގެ ބަލިތަކަށް، އެ ފޮތުން ޝިފާ
-                ލިބިގަތުމަށް ޓަކައެވެ. އަދި ކީރިތި ޤުރްއާނަކީ، އިސްލާމް ދީނުގެ
-                އަޞްލު މަޞްދަރެވެ. އެންމެހައި މީސްތަކުން ތަބާވާންޖެހޭ، އިލާހީ
-                ޤާނޫނެވެ. އެ ފޮތުގައިވާ މަގުން އެއްކިބާވެ، އެ ފޮތަށް
-                ފުރަގަސްދީފި މީހާ ދަންނާށެވެ! ފަހެ، ހަމަކަށަވަރުން، އެ މީހާ ދެ
-                ދުނިޔެއިން ގެއްލި ދިޔައީއެވެ. ކަން މިހެން ހުރުމާއެކު، ކީރިތި
-                ޤުރްއާނަކީ ކޮބައިކަމާއި، އެ ފޮތުގެ މާތްކަމާއި، އެ ފޮތް އުނގެނި
-                ދަސްކުރުމާ ގުޅޭ، ބައެއް އަދަބުތައް ތިރީގައި މި ބަޔާންކުރަނީއެވެ.
-              </p>
-
-              <h4 class="mid"><a>ކީރިތި ޤުރްއާން </a></h4>
-
-              <p>
-                ކީރިތި ޤުރްއާނަކީ، مُحَمَّدٌ ގެ މައްޗަށް، اللهُ  ބާވައިލެއްވި،
-                އެ إِلٰهُގެ ކަލާމުފުޅެވެ. އަދި ނަމާދުގެ ކޮންމެ ރަކްޢަތެއްގައި
-                ވެސް، އެ ފޮތުގެ ބައެއް އާޔަތްތައް ކިޔަވައިގެން މެނުވީ، ނަމާދު
-                ޞައްޙަނުވާ ފޮތެވެ. އަދި ނަމާދުން ބޭރުގައި ވެސް، އެ ފޮތް
-                ކިޔެވުމުން ނުހަނު ބޮޑު ދަރުމައާއި ޘަވާބު ލިބެނިވި ފޮތެވެ. އަދި
-                އެ ފޮތާ އެއްފަދަ ފޮތެއް އެ ފޮތުގެ ކުރީން ވިއަސް އަދި ފަހުން
-                ވިއަސް ބާވައި ނުލެއްވެއެވެ. ޝައްކެއްނެތެވެ. އެ ފޮތަކީ، އެންމެ
-                ފަހުގެ ސަމާވީ ފޮތެވެ. އަދި އެ ފޮތަކީ، ޢަރަބި ބަހަށް އެންމެ
-                ކުޅަދާނަ، އެންމެ ފަޞާޙާތްތެރި، އެންމެ ބަލާޣާތްތެރި މީހުން
-                ކަމުގައިވި، ޤުރައިޝު ވަންހައިގެ މީހުން ވެސް، އެ ފޮތުގައިވާ ފަދަ
-                އެންމެ އާޔަތެއްގެ މިންވަރު ވިއަސް ގެނެސްގަތުމަށް ނުކުޅެދުނު
-                ފޮތެވެ. އަދި ކިއެއްތަ! އެ ޤުރްއާނަކީ، އެ ފޮތުގައިވާ ފަދަ އެންމެ
-                ސޫރަތެއް ނުވަތަ އާޔަތެއް ވިއަސް ގެނައުމަށް އެންމެހައި
-                އިންސީންނާއި ޖިންނީން އެއްތަނަކަށް އެއްވެ މަސައްކަތްކުރި
-                ކަމުގައި ވިއަސް ނުގެނެވޭނޭ ފޮތެވެ. އެ ކަމުން އެނގެނީ، އެ
-                ޤުރްއާނަކީ، مُحَمَّدٌ  އަމިއްލަފުޅަށް ހައްދަވައިފައިވާ ފޮތެއް
-                ނޫން ކަމެވެ.
-              </p>
-              <p>
-                އަދި އެއްވެސް އިންސާނެއް އަދި ޖިންނިއެއްގެ ގާތުން ވިއަސް، އެ
-                ރަސޫލާ އުނގެނިވަޑައިގެންފައިވާ ފޮތެއް ނޫން ކަމެވެ. ވުމާއެކު،
-                ޝައްކެއްނެތްގޮތުގައި އެ ފޮތުގައިވާ ވަޙީބަސްފުޅުތަކައިގެން،
-                مُحَمَّدٌ ގެ އަރިހަށް ވަޑައިގެންނެވީ، ވަޙީގެ
-                އަމާނާތްތެރިޔާއެވެ. އެއީ، جِبْرِيلُ އެވެ.
-              </p>
-              <p>
-                އަދި ހަމަކަށަވަރުން، مُحَمَّدٌ ގެ ދޫފުޅުމަތީން، ކީރިތި
-                ޤުރްއާނުގައިވާ އިލާހީ ބަސްފުޅުތައް މީސްތަކުންނާ ހަމައަށް
-                އައިސްފައިވަނީ މުތަވާތިރު ގޮތުގައެވެ. މުތަވާތިރު ގޮތުގައި
-                އައުމަކީ، ޢާންމު ގޮތެއްގައި ދޮގެއް ހެދުމުގެ މައްޗަށް
-                އިއްތިފާޤުވުން މުސްތަޙީލުވާ ފަދަ ގިނަ ޢަދަދެއްގެ ރާވީންގެ
-                ފަރާތުން އެއްވެސް ތަފާތެއް ނެތި އެއްގޮތަކަށް ރިވާވެގެން
-                އައުމެވެ. އެ ގޮތަށް އައިސްފައިވާ، ކީރިތި މޫރިތި އާޔަތްތައް އެއް
-                ފޮތެއްގައި ޖަމާކުރެވުނެވެ. އެ ފޮތް ފެށެނީ سُورَةُ
-                الْفَاتِحَةއިންނެވެ. ނިމެނީ سُورَةُ النَّاسِގެ ނިއަލަށެވެ. ވީމާ،
-                ކީރިތި ޤުރްއާނަކީ، اللهُ ގެ ޙަޟްރަތުން ބާވައިލެއްވިގެންވާ
-                އިތުރުކަމާއި މާތްކަން ބޮޑު ފޮތެއްކަމާ މެދަކު ކުޑަވެސް
-                ޝައްކެއްނެތެވެ.
-              </p>
-
-              <h4 class="mid"><a>ކީރިތި ޤުރްއާން ކިޔެވުމުގެ ދަރުމަ </a></h4>
-
-              <p>
-                مُحَمَّدٌ  ޙަދީޘުކުރެއްވިއެވެ. « مَنْ قَـرَأَ حَرْفًا مِنْ
-                كِتَابِ الله فَـلَهُ بِهِ حَسَنَةٌ وَالْحَسَنَةُ بِعَشْرِ
-                أَمْثَالِهَا » މާނައީ: “ اللهُ ގެ ފޮތުން އެންމެ އަކުރެއް ކިޔެވި
-                މީހާ ދަންނާށެވެ! ފަހެ، އޭނާ ކިޔެވި ކޮންމެ އަކުރަކަށް އޭނާއަށް
-                ހެޔޮ ކަމެއް ވެއެވެ. އަދި އެ ހެޔޮ ކަން އޭގެ ދިހަ ގުނަ ފަދައެވެ.]
-                ابن رَجَب h ވިދާޅުވެފައި ވެއެވެ. “ ކޮންމެ ހެޔޮ ޢަމަލެއް ދިހަ
-                ގުނައަށް އިތުރުވެގެންދާ ދިއުމަކީ، ހަމަ ކޮންމެ ޢަމަލަކަށް ވެސް
-                އިތުރުވެގެން ދާނޭ އިތުރުވުމެކެވެ. އެއީ، ވަކި ޢަމަލަކަށް
-                ޚާއްޞަކަމެއް ނޫނެވެ.] އަދި، اللهُ ގެ އަންނަނިވި ބަސްފުޅުން އެ
-                ކަމަށް ދަލީލު ލިބެއެވެ.
-              </p>
-              <p>
-                ( مَنْ جَاءَ بِالْحَسَنَةِ فَـلَهُ عَشْرُ أَمْثَالِهَا) މާނައީ:
-                “ ފަހެ، ހެޔޮ ކަމަކައިގެން، اللهُ ގެ ޙަޟްރަތަށް ހިނގައްޖެ
-                މީހަކަށް، އޭނާ އެ ކުރި ހެޔޮކަމުގެ ބަދަލު، ދިހަ ގުނައަށް، އެ
-                إِلٰهُ އިތުރުކޮށްދެއްވާހުއްޓެވެ.] އަދި ހެޔޮ ޢަމަލެއްގެ ދަރުމަ
-                ދިހަ ގުނައަށްވުރެން އިތުރަށް ވެސް ދެއްވަވައިފާނެތެވެ. އެއީ،
-                اللهُ  އެ އަޅަކަށް އިތުރުކޮށްދެއްވުމަށް އިރާދަކުރެއްވި
-                އަޅަކަށެވެ. اهـ އަދި ހެޔޮ ކަމެއްގެ ޘަވާބު ހަތް ސަތޭކަ ގުނައަށް
-                ނުވަތަ އެއަށްވުރެން ވެސް ބޮޑަށް އިތުރުވެގެން ހިނގައިދާނެތެވެ.
-              </p>
-              <p>
-                ޝައްކެއްނެތެވެ. ހެޔޮ ކަންކަމަށް ދެއްވާ ދަރުމަ އެ ގޮތަށް
-                އިތުރުވެގެން ދަނީ، اللهُ ގެ ފަޟްލުވަންތަވެރިކަމުންނެވެ. ދެން
-                އެއަށްފަހު، އަޅާގެ ހިތުގެ ޚުޝޫޢަތްތެރިކަމާއި، އެ ކިޔަވާ އެއްޗެއް
-                ތަދައްބުރުކޮށް ވިސްނައި އަދި އެ ކިޔަވާ އެއްޗެއް ފަހްމުވޭތޯ
-                މަސައްކަތްކުރުން ފަދަ ކަންކަމުންނެވެ. އަދި އެ ކިޔެވުމުގައި
-                އިޚްލާޞްތެރިކަންހުރި މިންވަރަކުންނެވެ. އަދި ސުންނަތާ އެއްގޮތަށް
-                އެ ޢަމަލެއް ބެހެއްޓުނު މިންވަރެއްގެ ނިސްބަތުން ވެސް މެއެވެ.
-              </p>
-
-              <h4 class="mid">
-                <a
-                  >ޤުރްއާން ކިޔެވުމަށާއި ކިޔަވައިދިނުމަށް ޓަކައި ޖަމާވާ
-                  މީހުންނަށް ހުރި ދަރުމަ
-                </a>
-              </h4>
-
-              <p>
-                رَسُولُ اللهِ  ޙަދީޘުކުރެއްވިއެވެ. «مَا اجْتَمَعَ قَـوْمٌ فِي
-                بَـيْتٍ مِنْ بُـيُوتِ الله تَعَالَى يَـتْلُونَ كِتَابَ اللهِ
-                وَيَـتَدَارَسُونَهُ بَيْنَهُمْ إِلَّا نَـزَلَتْ عَلَيْهِمْ
-                السَّكِينَةُ وَغَشِيَـتْـهُمْ الرَّحْمَةُ وَحَفَّتْـهُمْ
-                الْمَلَائِكَةُ وَذَكَرَهُمْ اللهُ فِيمَنْ عِنْدَهُ» މާނައީ: “
-                اللهُ ގެ ފޮތް ކިޔަވައި، އެ ފޮތުގައިވާ ވާހަކަތައް އުނގެނި
-                ދަސްކޮށް، އަނެކުންނަށް އުނގަންނައިދިނުމަށް ޓަކައި، اللهُ ގެ
-                ގެކޮޅުތަކުގެ ތެރެއިން ގެކޮޅެއްގައި ބަޔަކު ޖަމާވެއްޖެ ނަމަ، ފަހެ،
-                اللهُ ގެ ޙަޟްރަތުން، އުފައުވެރިކަމާއި ހިތްހަމަޖެހުން، އެ
-                ބަޔެއްގެ މައްޗަށް ބާވައިލައްވައެވެ.
-              </p>
-              <p>
-                އަދި ހުރިހައި ފަރާތަކުންމެ، އެ إِلٰهُގެ ރަޙްމަތް އައިސް
-                އެބައިމީހުން ނިވައިކުރެތެވެ. އަދި މަލާއިކަތުން ވަޑައިގަންނަވައި،
-                އެބައިމީހުން ވަށައިލައްވައިގެން ތިއްބަވަތެވެ. އަދި، اللهُ ގެ
-                ޙަޟްރަތުގައި ތިއްބަވާ ކުޑަތާ މަލާއިކަތުންގެ އަރިހުގައި،
-                އެބައިމީހުންގެ ވާހަކަ، އެ إِلٰهُ ބަޔާންކުރައްވަތެވެ.]
-              </p>
-
-              <h4 class="mid">
-                <a>ކީރިތި ޤުރްއާން އުނގަންނައިދިނުމުގެ ދަރުމަ </a>
-              </h4>
-
-              <p>
-                رَسُولُ اللهِ  ޙަދީޘުކުރެއްވިއެވެ. « خَيْرُكُمْ مَنْ تَعَلَّمَ
-                الْقُرْآنَ وَعَلَّمَهُ » މާނައީ: “ތިޔަބައިމީހުންގެ ތެރެއިން
-                އެންމެ ހެޔޮ މީހަކީ، ކީރިތި ޤުރްއާން އުނގެނި އަދި އުނގަންނައިދޭ
-                މީހާއެވެ.] އަދި ވެސް ޙަދީޘުކުރެއްވިއެވެ. « مَنْ عَلَّمَ آيَةً
-                مِنْ كِتَابِ اللهِ عَزَّ وَجَلَّ، كَانَ لَهُ ثَـوَابُهَا مَا
-                تُلِيَتْ » މާނައީ: “ اللهُ ގެ ފޮތުން އާޔަތެއްގެ މިންވަރު ވެސް
-                އުނގަންނައިދީފި މީހަކަށް، އެ އާޔަތް ކިޔެވޭހައި ހިނދަކު އެ ކަމުގެ
-                ޘަވާބުލިބިލިބިހުންނަހުއްޓެވެ.]
-              </p>
-
-              <h4 class="mid">
-                <a
-                  >ކީރިތި ޤުރްއާން އުނގެނުމާއި، ހިތުދަސްކުރުމާއި، ރަނގަޅަށް
-                  ކިޔެވުމުގެ މާތްކަން
-                </a>
-              </h4>
-
-              <p>
-                رَسُولُ اللهِ  ޙަދީޘުކުރެއްވިއެވެ. « مَثَلُ الَّذِي يَـقْرَأُ
-                الْقُرْآنَ وَهُوَ حَافِظٌ لَهُ مَعَ السَّـفَرَةِ الْكِرَامِ
-                الْبَـرَرَةِ وَمَثَلُ الَّذِي يَـقْرَأُ القُرْآنَ وَهُوَ
-                يَتَعَاهَدُهُ وَهُوَ عَلَيْهِ شَدِيدٌ فَلـَهُ أَجْرَانِ »
-                މާނައީ: “ ކީރިތި ޤުރްއާން ހިތުދަސްކުރުމަށް ފަހު، ރިވެތިކޮށް
-                ތަރްތީލުކޮށް ކިޔަވާ މީހާ ވާނީ، މާތްކަމާއި، އިތުރުކަމާއި،
-                ޠާހިރުކަން ބޮޑު ލިއުއްވާ މަލާއިކަތުންގެ އަރިހުގައެވެ. އަދި
-                ނުފަރިތަ މީހާ ކޮށަކޮށައިގެން ކިޔެވޭ ޙާލުގައި ވެސް،
-                ފަރުވާތެރިކަމާއެކު ޤުރްއާން ކިޔަވާ ނަމަ އެ މީހާއަށް ދެ
-                ދަރުމަހުއްޓެވެ.] އަދިވެސް ޙަދީޘުކުރެއްވިއެވެ. « يُـقَالُ
-                لِصَاحِبِ الْقُرْآنِ اقْـرَأْ وَارْتَقِ وَرَتِّلْ كَمَا كُنْتَ
-                تُـرَتِّلُ فِي الدُّنْـيَا فَإِنَّ مَنْزِلَتَكَ عِنْدَ آخِرِ
-                آيَةٍ تَـقْرَؤُهَا» މާނައީ: “ ޤުރްއާނުގެ އަހްލުވެރިޔާއަށް،
-                ޤިޔާމަތް ދުވަހުން ނިދާއިއްވެވޭނެތެވެ. ޤުރްއާން ތަރްތީލުކޮށް
-                ރިވެތިކޮށް، ދުނިޔެމަތީގައި ތިބާ ކިޔެވި ފަދައިން، މިއަދު ވެސް
-                ޤުރްއާން ކިޔަވަމުން، ދަރަޖައަކަށް ފަހު ދަރަޖައެއް މައްޗަށް
-                އަރަމުން ތިބާ ދާށެވެ! ފަހެ ހަމަކަށަވަރުން، ސުވަރުގޭގައި ތިބާގެ
-                މަންޒިލަކީ، އެންމެ ފަހުން ތިބާ ކިޔަވާ އާޔަތް ކިޔަވައި ނިމޭއިރު
-                ތިބާއަށް ދެވޭ ހިސާބެކެވެ.]
-              </p>
-              <p>
-                اَلْخَطَّابِي h ވިދާޅުވިއެވެ. “ އަޞްޙާބުންގެ އަރިހުން
-                ވާރިދުވެފައިވާ ބަސްފުޅެއްގައި ވެއެވެ. ޤުރްއާނުގެ އަކުރުތަކުގެ
-                ޢަދަދު ހުރީ ސުވަރުގޭގެ ދަރަޖަތަކުގެ ޢަދަދަށެވެ. ފަހެ، ޤުރްއާން
-                ކިޔަވާ މީހާއަށް، ޤިޔާމަތް ދުވަހުން ނިދާއިއްވެވޭނެތެވެ.
-                ސުވަރުގޭގެ ދަރަޖަތަކުން ތިބާ މައްޗަށް އަރާށެވެ! އެއީ، ޤުރްއާނުގެ
-                އާޔަތްތައް ތިބާއަށް ކިޔެވޭ މިންވަރަކަށެވެ. ފަހެ، މުޅި ޤުރްއާން
-                އެކަށް ކިޔަވައި ނިންމައިފި މީހާ ދަންނާށެވެ! ފަހެ، ސުވަރުގޭގެ
-                އެންމެ މަތީ ދަރަޖައަށް އޭނާ ވާޞިލުވެއްޖެއެވެ. އަދި ޤުރްއާނުން
-                ބައެއް ކިޔަވައިފި މީހާ ދަންނާށެވެ! ފަހެ، އޭނާއަށް އެ ކިޔެވުނު
-                މިންވަރަކަށް، އޭނާ ސުވަރުގެއިން ދަރަޖަ ހޯދައިފިއެވެ. ދެން،
-                އޭނާއަށް ލިބޭ ޘަވާބު ވެސް ނިމޭނީ، އެންމެ ފަހުން އޭނާއަށް ކިޔެވޭ
-                އާޔަތެއް ކިޔަވައި ނިމޭ ހިސާބުންނެވެ.]
-              </p>
-
-              <h4 class="mid">
-                <a
-                  >ދަރިއަކު ޤުރްއާން އުނގެނުމުން، މައިންބަފައިންނަށް ހުރި ދަރުމަ
-                </a>
-              </h4>
-              <p>
-                رَسُولُ اللهِ  ޙަދީޘުކުރެއްވިއެވެ. « مَنْ قَـرَأ القُرْآنَ
-                وَتَـعَلَّمَهُ وَعَمِلَ بِهِ أُلْبِسَ وَالِدَاهُ يَـوْمَ
-                الْقِيَامَةِ تَاجًا مِنْ نُـوْرٍ ضَوْؤُهُ مِثْلُ ضَوْءِ
-                الشَّمْسِ وَيُكْسَى وَالِدَاهُ حُلَّتَيْنِ لاَ يَـقُوْمُ لَهُمَا
-                الدُّنْـيَا ، فَـيَـقُوْلاَنِ: بِمَ كُسِيْـنَا هَذِهِ؟
-                فَـيُـقَالُ بِأَخْذِ وَلَدِكُمَا الْقُرْآنَ» މާނައީ: “ ޤުރްއާން
-                އުނގެނި ކިޔަވައި އަދި އެ ފޮތުގައިވާ ގޮތަށް ޢަމަލުކުރި މީހާގެ
-                މައިންބަފައިންގެ ބޮލުގައި، އިރުގެ އަލިކަން ފަދަ އަލި ގަދަ،
-                ނޫރުންވާ ތާޖެއް، ޤިޔާމަތް ޤާއިމުވާ ދުވަހުން އެޅުއްވޭނެތެވެ.
-              </p>
-              <p>
-                އަދި މުޅި ދުނިޔެ ވެސް، އެ ދެ ހެދުމުގެ އަގާ އަދި މޮޅުކަމާ
-                އެއްވަރުނުވާ ފަދަ މޮޅު އަދި އަގު މާތް ދެ ހެދުން އޭނާގެ
-                މައިންބަފައިންގެ ގައިގާ ލެއްވޭނެތެވެ. އެ ހިނދު، އެ ދެ މީހުން
-                ދަންނަވާނެތެވެ. އަޅަމެންގެ ގައިގާ މި ފަދަ އަގު މާތް ހެދުން
-                ލެއްވުނީ ކީއްވެގެންތޯއެވެ؟ ދެން، އެ ދެ މީހުންނަށް
-                އެންގެވޭނެތެވެ. އެއީ، ތިޔަ ދެ މީހުންގެ ދަރިފުޅު، ޤުރްއާން
-                އުނގެނި އެ ޤުރްއާނުގައިވާ ގޮތަށް ޢަމަލުކުރުމުގެ ސަބަބުންނެވެ.]
-              </p>
-
-              <h4 class="mid">
-                <a
-                  >އާޚިރަތް ދުވަހުން، ޤުރްއާނުގެ އަހްލުވެރިޔާއަށް ޤުރްއާން
-                  ޝަފާޢަތްތެރިވުން
-                </a>
-              </h4>
-              <p>
-                رَسُولُ اللهِ  ޙަދީޘުކުރެއްވިއެވެ. « اِقْـرَءُوْا الْقُرْآنَ
-                فَإنَّهُ يَأْتِي يَـوْمَ الْقِيَامَةِ شَفِيْـعًا لِأَصْحَابِهِ »
-                މާނައީ: “ ތިޔަބައިމީހުން ޤުރްއާންކިޔަވާށެވެ! އެހެނީ
-                ހަމަކަށަވަރުން، ޤުރްއާނުގެ އަހްލުވެރީންނަށް ޝަފާޢަތްތެރިވުމަށް
-                ޓަކައި، ޤިޔާމަތް ދުވަހުން އެ ޤުރްއާން އަންނަހުއްޓެވެ.] އަދި
-                އެހެން ޙަދީޘެއްގައި ވެސް ވެއެވެ. « الصِّيَامُ وَالْقُرْآنُ
-                يَشْفَعَانِ لِلْعَبْدِ يَـوْمَ الْقِيَامَةِ...» މާނައީ: “
-                ރޯދައާއި ޤުރްއާން، ޤިޔާމަތް ދުވަހުން އަޅާއަށް
-                ޝަފާޢަތްތެރިވާނެތެވެ.]
-              </p>
-
-              <h4 class="mid">
-                <a>ކީރިތި ޤުރްއާން ކިޔެވުމުގެ އަދަބުތައް </a>
-              </h4>
-              <p>
-                ކީރިތި ޤުރްއާން ކިޔެވުމުގެ އަދަބުތަކުގެ ތެރެއިން ބައެއް
-                އަދަބުތައް، رَسُولُ اللهِ  ބަޔާންކުރައްވައިފައި ވަނީ އަންނަނިވި
-                ފަދައިންނެވެ. އެ އަދަބުތަކަކީ:
-              </p>
-              <p>
-                1- ބޮޑު ޙަދަޘާއި ކުޑަ ޙަދަޘުން ޠާހިރުވެގެންވާ ޙާލުގައި މެނުވީ،
-                ކީރިތި ޤުރްއާން ނުކިޔެވުމާއި އެ ފޮތުގައި ނުބީހުން.
-              </p>
-              <p>2- ކީރިތި ޤުރްއާން ކިޔަވާން ފެށުމުގެ ކުރީން ދަތް އުނގުޅުން.</p>
-              <p>3- ރިވެތި ފޭރާން ލައިގެން އިނދެ ކިޔެވުން.</p>
-              <p>4- ޤިބްލައަށް ކުރިމަތި ލައިގެން އިނދެ ކިޔެވުން.</p>
-              <p>5- އާފުރޭގޮތް ވާނަމަ ކިޔެވުން ހުއްޓައިލުން.</p>
-              <p>
-                6- ކޮންމެހެން ދައްކާންޖެހޭ ވާހަކައެއް ދެއްކުމަށް މެނުވީ،
-                ކިޔެވުން މެދުކަނޑައިލައި ވާހަކަ ނުދެއްކުން.
-              </p>
-              <p>
-                7- ކިޔެވޭ އާޔަތްތަކަށް ރަނގަޅަށް ވިސްނައިގެން އިނދެ ކިޔެވުން.
-              </p>
-              <p>
-                8- ވަޢުދުގެ އާޔަތެއް ކިޔެވޭ ނަމަ، އެ އާޔަތެއް ނިމުމުން ކިޔެވުން
-                ހުއްޓައިލައި، އެ ވަޢުދުކުރެއްވި ކަމަކަށް އެދި ދެންނެވުން.
-              </p>
-              <p>
-                9- ވަޢީދުގެ އާޔަތެއް ކިޔެވޭ ނަމަ، އެ އާޔަތެއް ނިމުމުން ކިޔެވުން
-                ހުއްޓައިލައި، އެ ވަޢީދު އައި ކަމަކުން ރައްކައުތެރިކޮށްދެއްވުމަށް
-                އެދި ދުޢާކުރުން.
-              </p>
-              <p>10- ނުކިޔަވާ ނަމަ ޚަތިމު ހުޅުވައިފައި ނުބޭއްވުން.</p>
-              <p>11- ޚަތިމުގެ މަތީގައި އެހެން އެއްވެސް އެއްޗެއް ނުބޭއްވުން.</p>
-              <p>
-                12- އެއް ތަނެއްގައި ގިނަ ބަޔަކު ތިބެގެން ޤުރްއާން ކިޔަވާއިރު،
-                އެކަކަށްވުރެން އަނެކަކު ބާރަށް ނުކިޔެވުން.
-              </p>
-              <p>
-                13- ބާޒާރުތަކުގައްޔާއި ވިޔާނުދާ ބޭކާރު ވާހަކަދެކެވޭ ތަންތަނުގައި
-                ޤުރްއާން ނުކިޔެވުން.
-              </p>
-              <h4 class="mid">
-                <a>ކީރިތި ޤުރްއާން ކިޔަވާން ފެށުމުގެ ކުރީން އަޢޫޛުކިޔުން </a>
-              </h4>
-              <p>
-                ދަންނާށެވެ! ކީރިތި ޤުރްއާނަކީ، އެންމެހައި މީސްތަކުންނަށް
-                ތެދުމަގުދައްކައި ދެނިވި ފޮތެވެ. އަދި ހިތްތަކުގައި އުފެދޭ
-                ޝައްކުތަކާއި ޝުބްހަތަކުން ސަލާމަތްވެވޭނޭ ގޮތުގެ ޖަވާބު ލިބެނިވި
-                ފޮތެވެ. އަދި ހަށިތަކުގައި އުފެދޭ ރޫޙާނީ ބަލިތަކާއި ޖިސްމާނީ
-                ބަލިތަކަށް ޝިފާ ލިބެނިވި ފޮތް ވެސް މެއެވެ.
-              </p>
-              <p>
-                އަދި ޝައިޠާނާއަކީ، ހުރިހައި ނުބައި ކަމަކާއި ފުރެދުންތެރިކަމެއްގެ
-                އެންމެ ބޮޑު ސަބަބު ކަމުގައި ވުމާ އެކު، މީހަކު ޤުރްއާން ކިޔަވަނީ
-                ނަމަ، އެ ކަމަށް ހުރަސްއަޅައި، އެ ފޮތުގައިވާ ވާހަކަތަކާ މެދު
-                ވިސްނައި ފިކުރުކުރިއަނުދިނުމަށް ޓަކައި ތަފާތު ވަސްވާސްތައް
-                ވައްދައި، އެ ފޮތާ ދުރަށް އެ މީހާ ގެންދިއުމަށް މަސައްކަތްކުރުމަކީ
-                ޝައިޠާނާގެ އެންމެ އިސް އެއް މަސައްކަތެވެ.
-              </p>
-              <p>
-                ކަން މިހެން ހުރުމާއެކު، ކޮންމެ މުސްލިމަކު ވެސް، ކީރިތި ޤުރްއާން
-                ކިޔަވާން ފެށުމުގެ ކުރީގައި، اللهُ ގެ ރަޙްމަތުން ބޭރުކުރެއްވި،
-                ހުރިހައި ހެޔޮކަމަކުން ދުރުކުރެއްވިގެންވާ ޝައިޠާނާގެ ނުބައިކަމުން
-                ރައްކައުތެރިކޮށްދެއްވުމަށް އެދި، اللهُ ގެ ޙަޟްރަތުގައި
-                ދަންނަވައި، އެ إِلٰهُގެ ޙަޟްރަތުން ރައްކައުތެރިކަން ލިބިގަތުމަށް
-                ޓަކައި އަޢޫޛުކިއުން ސުންނަތްވެގެންވެއެވެ. އެ ކަން އަންގަވައި،
-                اللهُ  ވަޙީކުރެއްވިއެވެ. ( فَإِذَا قَـرَأْتَ الْقُرْآنَ
-                فَاسْتَعِذْ بِاللهِ مِنَ الشَّيْطَانِ الرَّجِيمِ ) މާނައީ: “ތިބާ
-                ޤުރްއާން ކިޔަވަނީ ނަމަ، އަޢޫޛުކިއައި ޝައިޠާނާގެ ނުބައިކަމުން
-                ރައްކައުތެރިކޮށްދެއްވުން އެދި، اللهُ ގެ ޙަޟްރަތުގައި
-                ދަންނަވައި، އެ إِلٰهُގެ ޙަޟްރަތުން
-                ރައްކައުތެރިކަންލިބިގަންނާށެވެ! ]
-              </p>
-              <h4 class="mid">
-                <a>އަޢޫޛުކިޔާނޭ ގޮތް </a>
-              </h4>
-              <p>
-                އަޢޫޛުކިޔާނީ މި ބަޔާންކުރާ ފަދައިންނެވެ. « أَعُوذُ بِاللهِ مِنَ
-                الشَّيْطَانِ الرَّجِيمِ » މާނައީ: “ اللهُ ގެ ރަޙްމަތުން
-                ބޭރުކުރެއްވި ދުރުކުރެއްވިގެންވާ ޝައިޠާނާގެ ނުބައިކަމުން
-                ސަލާމަތްކޮށްދެއްވުން އެދި، اللهُ ގެ ޙަޟްރަތުގައި ދަންނަވައި،
-                اللهُ ގެ ޙަޟްރަތުން މި އަޅާ ރައްކައުތެރިކަމާއި ޙިމާޔަތް
-                ލިބިގަންނަމެވެ. އެއީ، މި އަޅާގެ رَبُّ، اللهُ އަށް
-                ކިޔަމަންތެރިކަން އަދާކުރިއަ ނުދިނުމަށް ޓަކައި ވަސްވާސްދީ،
-                ޤުރްއާން ކިޔެވުމަށާއި ހެޔޮ ޢަމަލުކުރުމަށް މި އަޅާއަށް ހުރަސް
-                އަޅާ ޝައިޠާނާއެވެ. ]
-              </p>
-              <p>
-                ދަންނާށެވެ! ކީރިތި ޤުރްއާން ކިޔަވާން ފަށައިގަންނައިރު
-                އަޢޫޛުކިޔުމަކީ ސުންނަތެކެވެ. ނަމަވެސް، އަޢޫޛަކީ ކީރިތި
-                ޤުރްއާނުގެ އާޔަތެއް ނޫނެވެ. އަދި ހަމަ އެހެންމެ، ޝައިޠާނާގެ
-                ނުބައިކަމުން ސަލާމަތްކޮށް ދެއްވުމަށް އެދި، اللهُ ގެ
-                ޙަޟްރަތުގައި ދަންނަވާއިރު، ޖިންނީންނާއި އިންސީންގެ ތެރޭގައިވާ
-                އެންމެހައި ޝައިޠާނުންގެ ނުބައިކަމުން ސަލާމަތްކޮށްދެއްވުމަށް އެދި
-                ނިޔަތް ގަންނަންވާނެއެވެ!
-              </p>
-              <h4 class="mid">
-                <a>ކީރިތި ޤުރްއާން ކިޔަވާން ފެށުމު ކުރީގައި ބިސްމިކިއުން </a>
-              </h4>
-              <p>
-                ކޮންމެ ހެޔޮކަމެއް ކުރުމަށް ފަށައިގަންނައިރު ބިސްމިކިއުމަށް
-                އިރްޝާދުދެއްވައި رَسُولُ اللهِ  ޙަދީޘުކުރެއްވިއެވެ. «كُلُّ
-                أَمْرٍ ذِي بَالٍ لَا يُـبْدَأُ فِيهِ بِـبـِسْمِ اللهِ
-                الرَّحْمٰنِ الرَّحِيمِ ؛ فَـهُوَ أَبْتَـرُ» މާނައީ: “ އެ
-                ކަމެއްގެ ނަތީޖާ ރަނގަޅުވުމަށް އެދޭ ކޮންމެ ހެޔޮކަމެއް، ބިސްމީގެ
-                ބަރަކާތުން ނުފެށޭ ނަމަ، އެ ކަމުގައި އެއްވެސް ބަރަކާތެއް
-                ނުވެއެވެ.]
-              </p>
-              <p>
-                އަދި ހަމަ އެހެންމެ، ކޮންމެ ހެޔޮކަމެއް ކުރުމަށް ފަށައިގަންނަ
-                ކޮންމެ ފަހަރަކު، اللهُ ގެ ނަންފުޅުން އެ ކަމެއް ފަށައިގަތުމަށް
-                ޓަކައި، އަޢޫޛުކިޔައި ބިސްމިކިޔުމަކީ اللهُ ގެ ޙަޟްރަތުން
-                އައިސްފައިވާ އިލާހީ އިރްޝާދުފުޅެއް މެއެވެ. عَنْ اِبْنِ عَبَّاسٍ
-                h قَالَ: « أَوَّلُ مَا نَـزَلَ جِبْرِيلُ عَلَى مُحَمَّدٍ قَالَ:
-                « يَا مُحَمَّدُ اِسْتَعِذْ، قُلْ: أَسْتَعِيذُ بِالسَّمِيعِ
-                الْعَلِيمِ مِنَ الشَّيْطَانِ الرَّجِيمِ »، ثُـمَّ قَالَ: قُلْ: (
-                بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ ) މާނައީ: اللهُ  رَسُولُ
-                اللهِ ގެ އަރިހަށް، جِبْرِيلُ  އެންމެ ފުރަތަމަ
-                ފައިބައިވަޑައިގެންނެވި ފަހަރު ވިދާޅުވިއެވެ. އޭ ރަސޫލާއެވެ!
-                ރައްކައުތެރިކަމަށް އެދިވަޑައިގަންނަވާށެވެ! ވިދާޅުވާށެވެ! “
-                އެންމެހައި ހެޔޮކަމަކުން ދުރުކުރެއްވިގެންވާ ޝައިޠާނާގެ
-                ނުބައިކަމުން ސަލާމަތްވުމަށް ޓަކައި، ހުރިހައި އަޑުތަކެއް މޮޅަށް
-                އައްސަވައިވޮޑިގެންވާ އަދި ހުރިހައި ކަމެއް މޮޅަށް ދެނެވޮޑިގެންވާ
-                إِلٰهُގެ ޙަޟްރަތުން މި އަޅާ ރައްކައުތެރިކަން ލިބިގަންނަމެވެ.]
-                އެއަށްފަހު، جِبْرِيلُ  ވިދާޅުވިއެވެ. ވިދާޅުވާށެވެ! “
-                ރަޙުމާނުވަންތަ އަދި ރަޙީމުވަންތަ اللهُގެ އިސްމުފުޅުގެ ބަރަކާތުން
-                އަޅު ފަށަމެވެ.]
-              </p>
-              <p>
-                ޝައްކެއްނެތެވެ. ކީރިތި ޤުރްއާން ކިޔެވުމަކީ، ނުހަނު ބޮޑު
-                ހެޔޮކަމެކެވެ. އަދި ނުހަނު އިތުރުކަން ބޮޑު އަޅުކަމެއް ވެސް
-                މެއެވެ. ވީމާ، ކީރިތި ޤުރްއާން ކިޔެވުމަށް ފަށައިގަންނަ ކޮންމެ
-                ފަހަރަކުމެ، ބިސްމީގެ ބަރަކާތުން ފެށުމަކީ، އެ މީހެއްގެ އެ
-                ކިޔެވުމުގައި، اللهُ  ބަރަކާތްލައްވާނޭ ކަމެކެވެ. އަދި ޝައިޠާނާގެ
-                ވަސްވާސްތަކުން ދުރުވެ ރައްކައުތެރިވެވި، ތިމާއާއި ޝައިޠާނާގެ
-                ވަސްވާސްތަކާ ދެމެދު ހުރަސްއެޅޭނޭ ކަމެއް ވެސް މެއެވެ.
-              </p>
-              <h4 class="mid">
-                <a>ބިސްމިކިޔާނޭ ގޮތް </a>
-              </h4>
-              <p>
-                ބިސްމިކިޔާނީ މިފަދައިންނެވެ. ( بِسْمِ اللهِ الرَّحْمٰنِ
-                الرَّحِيمِ) މާނައީ: “ اللهُ ގެ އިސްމުފުޅުގެ ބަރަކާތުން
-                ފަށަމެވެ. އެއީ، اللهُ ގެ ޙަޟްރަތުން ވާގިއެދިހުރެ، މި އަޅާ
-                ކުރުމަށް މި ގަސްތުކުރާ ހެޔޮ ޢަމަލު ނިމުމަކަށް ދާނދެން އެ
-                ކަމުގައި ދެމިހުރުމުގެ ތައުފީޤުދެއްވައި، މި ޢަމަލު
-                ޤަބޫލުކުރެއްވުން އެދޭ ޙާލުގައެވެ. اللهُ އީ، އެ إِلٰهއަށް
-                ކިޔަމަންގަންނަ އަޅުންނަށާއި، ކިޔަމަންނުގަންނަ އަޅުންނަށާއި،
-                އެންމެހައި ޚަލްޤުތަކުންނަށް ދުނިޔޭގައި ކުދިބޮޑު ނިޢުމަތްތައް
-                ދެއްވާ ރަޙުމާނުވަންތަ إِلٰهއެވެ. އަދި ދުނިޔޭގައި އުޅުނުއިރު، އެ
-                إِلٰهއަށް ކިޔަމަންގަތް އަޅުންނަށް، އާޚިރަތުގައި ނުހަނު
-                އޯގާވަންތަ ރަޙީމުވަންތަ إِلٰهއެވެ.]
-              </p>
-              <h4 class="mid">
-                <a>ކީރިތި ޤުރްއާން ކިޔަވާނޭ ގޮތް </a>
-              </h4>
-              <p>
-                1- ކީރިތި ޤުރްއާން ކިޔަވާއިރު ކިޔަވާނީ ވެސް، އަދި ނަމާދުގެ
-                ތެރޭގައި ކިޔާ ޛިކްރުތަކާއި، އެ ނޫން ޛިކްރުތައް ކިޔާއިރު ވެސް
-                ކިޔާނީ، އެންމެ ކުޑަ މިނުން، ތިމާގެ އަމިއްލަ ނަފްސަށް އަޑުއިވޭ
-                ވަރަށެވެ. އެހެނީ، ތިމާގެ އަމިއްލަ ނަފްސަށް އަޑުއިވޭ ވަރަށް
-                ކިޔެވުމުން މެނުވީ، ޤުރްއާން ކިޔެވި ކަމުގައެއް ނުވާނެއެވެ. އަދި
-                ދުޢާތަކާއި ޛިކްރުތައް ވެސް ކިޔުނު ކަމުގައެއް ނުވާނެއެވެ.
-                ނަމަވެސް، އެ ގޮތަށް ކިޔަވާއިރު އެހެން މީހުންނަށް އުނދަގޫވާ
-                ވަރަށް ބާރަށް ކިޔަވައިގެން ނުވާނެއެވެ.
-              </p>
-              <p>
-                2- ޤުރްއާން ކިޔަވާއިރު މަޑުމައިތިރިކަމާއެކު ލަސްލަހުން ކިޔެވުން
-                އެދެވިގެން ވެއެވެ. رَسُولُ اللهِ  ޤުރްއާން ކިޔަވައިވިދާޅުވި
-                ގޮތާ މެދު أَنَسُ بْنِ مَالِكٍ hއާ ސުވާލުވެވުމުން أَنَسُ h
-                ވިދާޅުވިއެވެ. «كَانَ يَـمُدُّ مَدًّا ، إِذَا قَـرَأَ ( بِسْمِ
-                اللهِ الرَّحْمٰنِ الرَّحِيمِ)، يَـمُدُّ بِبِسْمِ اللهِ،
-                وَيَـمُدُّ بِالرَّحْمٰنِ ، وَيَـمُدُّ بِالرَّحِيمِ. » މާނައީ:
-                “رَسُولُ اللهِ  ޤުރްއާން ކިޔަވައިވިދާޅުވާއިރު،
-                ދަންމަވައިލައްވަންވާ ތަންތަނަށް ދަންމަވައިލައްވާ ކަމުގައި
-                ވިއެވެ. ވުމާއެކު، ބިސްމި ކިޔަވައިވިދާޅުވާ ނަމަ، بِسْمِ اللهِއަށް
-                ދަންމަވައިލައްވައެވެ. އަދި الرَّحْمنއަށް ދަންމަވައިލައްވައެވެ.
-                އަދި الرَّحِيْمއަށް ދަންމަވައިލައްވައެވެ.]
-              </p>
-              <h4 class="mid">
-                <a>ޤުރްއާން ކިޔެވުމުން ލިބޭ ދަރުމަ އިތުރުވުން </a>
-              </h4>
-              <p>
-                ޤުރްއާން ކިޔަވާ މީހާގެ އިޚްލާޞްތެރިކަން ހުރި މިންވަރަކަށް، اللهُ
-                 އޭނާއަށް ދަރުމަ ދެއްވާ ހުއްޓެވެ. ހަމަ އެއާއެކު، ހިތް
-                ޙާޟިރުކޮށް އަދި ކިޔެވޭ އާޔަތްތަކާ މެދު ވިސްނައި ފިކުރުކުރުމާއެކު
-                ކިޔަވާ ނަމަ، ކިޔެވުމުގެ ދަރުމަ އެތައް ގުނައަކަށް އިތުރުވާނެއެވެ.
-                އޭރުން، އަކުރަކަށް ލިބޭ، ދިހަ ހެޔޮކަން ހަތް ސަތޭކަ ގުނައަށް ވެސް
-                އިތުރުވެދާނެއެވެ.
-              </p>
-              <h4 class="mid">
-                <a>ޤުރްއާން ކިޔަވާނޭ މިންވަރު </a>
-              </h4>
-              <p>
-                رَسُولُ اللهِ ގެ އަޞްޙާބުންކުރެ ކޮންމެ ޞަޙާބީއަކު ވެސް، އެ
-                ޞަޙާބީއެއްގެ އަމިއްލަ ނަފްސުފުޅަށް ޓަކައި، ކީރިތި ޤުރްއާނުން
-                ކޮންމެވެސް މިންވަރެއް، ކޮންމެ ދުވަހަކު ވެސް ކިޔަވައި ވިދާޅުވާ
-                ކަމުގައި ވިއެވެ. އަދި އެއިން އެއްވެސް ސަޙާބީއަކު، ހަތް
-                ދުވަހަށްވުރެން އަވަހަށް ޚަތިމުކުރެއްވުން އާދަކުރައްވައިފައެއް
-                ނުވެއެވެ. އަދި ތިން ދުވަހަށްވުރެން އަވަހަށް ޚަތިމުކުރުމަކީ،
-                رَسُولُ اللهِ  ނަހީކުރައްވައިފައިވާ ކަމެއް ކަމުގައި
-                ވާރިދުވެފައި ވެއެވެ.
-              </p>
-              <h4 class="mid">
-                <a>ޚަތިމު ނުބަލައި ހިތުން ކިޔެވުން </a>
-              </h4>
-              <p>
-                ކީރިތި ޤުރްއާން ކިޔަވާއިރު، ޚަތިމު ބަލައިގެން ކިޔަވާ
-                ވަރަށްވުރެން ބޮޑަށް، ޚަތިމު ނުބަލައި ހިތުން ކިޔަވާއިރު، އެ
-                ކިޔެވޭ އެއްޗަކާ މެދު ވިސްނައި ފިކުރުކޮށް ހިތްޙާޟިރުކުރެވޭ ނަމަ،
-                އެންމެ މޮޅު އިތުރު ގޮތަކީ، ޚަތިމު ނުބަލައި ހިތުން ކިޔެވުމެވެ.
-                އެހެން ނަމަވެސް، ޚަތިމު ނުބަލައި ހިތުން ކިޔެވުމާއި، ޚަތިމު
-                ބަލައިގެން ކިޔެވުމާއި، މި ދެ ގޮތް އެއްފަދަ ނަމަ، މޮޅު
-                އިތުރުވެގެން ވަނީ ޚަތިމު ބަލައިގެން ކިއެވުމެވެ.
-              </p>
-              <h4 class="mid">
-                <a>ހެޔޮ ވަޞިއްޔަތެއް </a>
-              </h4>
-              <p>ލޮބުވެތި އަޚުންނާއި އުޚްތުންނޭވެ!</p>
-              <p>
-                ކީރިތި ޤުރްއާން ކިޔަވައިވިދާޅުވުމުގައި، ކޮންމެ ދުވަހަކު ވެސް
-                ކޮންމެވެސް ވަގުތެއް ހޭދަކުރެއްވޭތޯ ގަދައަޅުއްވައި
-                މަސައްކަތްކުރައްވާށެވެ! އަދި ކޮންމެ ދުވަހަކު ވެސް، އެ ދުވަހަކު
-                ކިޔަވައިވިދާޅުވާނޭ ވަކި މިންވަރެއް ކަނޑައަޅުއްވާށެވެ! އަދި
-                ކޮންމެފަދަ ކަމެއް މެދުވެރި ވިއަސް އެ މިންވަރު ކިޔަވައިވިދާޅުނުވެ
-                ދޫކޮށްނުލައްވާވޭތޯ ގަދައަޅުއްވައި މަސަކަތްކުރައްވާށެވެ!
-              </p>
-              <p>
-                އެހެނީ، ކިތަންމެ ގިނަ ޢަމަލުތަކެއް ކުރެވުނު ކަމުގައި ވިއަސް،
-                މެދު ކެނޑެމުން ދޭތެރެދޭތެރެއިން ކުރެވޭ ޢަމަލުތަކަކަށްވުރެން ހެޔޮ
-                ކަން ބޮޑުވެފައި އިތުރުވެގެން ވަނީ، ކިތަންމެ މަދު ޢަމަލެއް
-                ކުރެވުނު ކަމުގައި ވިއަސް، ދާއިމީ ގޮތެއްގައި ކުރެވޭ ޢަމަލުތަކެވެ.
-                ވުމާއެކު، ކޮންމެ ދުވަހަކު ވެސް ކިޔަވައިވިދާޅުވާނޭ ވަކި
-                މިންވަރެއް ކަނޑައަޅުއްވައިގެން ތިބާ ކިޔަވައިވިދާޅުވަމުން
-                ގެންދަވަނިކޮށް، ހަނދުމަފުޅު ނެތިގެން ނުވަތަ
-                އަވަހާރަފުޅުލެއްޕެވުމުގެ ސަބަބުން ނުވަތަ އެ ނޫން ސަބަބެއް
-                ދިމާވެގެން ނަމަވެސް، އެ ދުވަހަށް ޓަކައި ކަނޑައަޅުއްވައިފައިވާ
-                މިންވަރު ކިޔަވައިވިދާޅުވެ ފުރިހަމަ ނުކުރެއްވޭ ގޮތް
-                މެދުވެރިވެއްޖެ ނަމަ، ޖެހިގެން އަންނަ ދުވަހު އެ ބައި
-                ފުރިހަމަކުރެއްވޭތޯ ގަދައަޅުއްވައި މަސައްކަތްކުރައްވާށެވެ!
-              </p>
-              <p>
-                رَسُولُ اللهِ  ޙަދީޘުކުރެއްވިއެވެ. «مَنْ نَامَ عَنْ حِزْبِهِ
-                أَوْ عَنْ شَىْءٍ مِنْهُ فَـقَرَأَهُ فِيمَا بَـيْنَ صَلاَةِ
-                الْفَجْرِ وَصَلاَةِ الظُّـهْرِ كُتِبَ لَهُ كَأَنَّـمَا قَـرَأَهُ
-                مِنَ اللَّيْلِ» މާނައީ: “މީހަކު، ކޮންމެ ރެއަކު ޢާދަކޮށް،
-                ޤުރްއާނުން ކިޔަވަމުންދާ މިންވަރު ނުވަތަ އެއިން ބައެއް
-                ނުކިޔެވިހުއްޓައި ނިދިއްޖެ ނަމަ، އެ ނުކިޔެވި އޮތް މިންވަރު
-                ފަތިސްނަމާދާއި މެންދުރު ނަމާދާ ދެމެދު ކިޔަވައިފި ނަމަ، ފާއިތުވި
-                ރޭ އޭނާ އެ މިންވަރު ކިޔެވިފަދަ ކަމުގައި ލިއުއްވޭނެތެވެ.]
-              </p>
-              <p>
-                ވީމާ، ޤުރްއާން ކިޔެވުމުގައި ލުއިފަސޭހަކަންހުރީ މި ފަދައިން
-                ކަމުގައި ވާއިރު، އެއްގޮތަކަށް ވެސް، ކީރިތި ޤުރްއާން
-                ކިޔަވައިވިދާޅުނުވުން ނުވަތަ ތަޖްވީދުމަގުން ކިޔަވައިވިދާޅުނުވުން
-                ނުވަތަ ކިޔަވައިވިދާޅުވާ އާޔަތްތަކާ މެދު ވިސްނަވައި
-                ފިކުރުނުކުރެއްވުން ފަދަ އެއްވެސް ކަމެއް ނުކުރައްވާށެވެ! ނުވަތަ
-                އެ އާޔަތްތަކުގައިވާ ޙުކުމްތަކަށް ޢަމަލުނުކުރެއްވުން ކަމުގައި
-                ވިއަސް، ނުވަތަ، ކީރިތި ޤުރްއާނުން ޝިފާނުހޯއްދެވުން ކަމުގައި
-                ވިއަސް، މި ފަދަ އެއްވެސް ކަމެއް ކުރައްވާ، ކީރިތި ޤުރްއާން
-                ދޫކޮށްލި މީހަކު ކަމުގައި އަދި ޤުރްއާނުގެ މަތީން
-                ހަނދުމަނައްތައިލި މީހަކު ކަމުގައި އަދި ޤުރްއާނަށް ފުރަގަސްދިން
-                މީހަކު ކަމުގައި ތިބާ ވެވަޑައިނުގަންނަވާށެވެ!
-              </p>
-              <p>
-                فَـنَسْأَلُ اللهَ أَنْ يُـوَفِّقَنَا لِتَـوْبَةٍ نَصُوحٍ وَأَنْ
-                يَـتَـقَبَّلَ مِنَّا صَالِحَ اْلأَعْمَالِ وَأَنْ يَـتَجَاوَزَ
-                عَمَّا فِيهَا مِنْ نَـقْصِ وَزَلَلٍ، وَأَنْ يَجْعَلَ خَيْـرَ
-                أَعْمَالِنَا خَوَاتِيمَهَا وَخَيْـرَ أَيَّامَنَا يَـوْمَ
-                نَـلْقَاهُ، وَنَسْأَلُ أَنْ يُـقْسِمَ لَـنَا مِنْ خَشْيَتِهِ مَا
-                يَحُولُ بَـيْـنَـنَا وَبَـيْنَ مَعَاصِيهِ وَمِنْ طَاعَتِهِ مَا
-                يُـبَـلِّغُنَا بِهِ جَنَّـتَهُ وَأَنْ يَـغْفِرَ لَنَا
-                ذُنُوبَـنَا وَإِسْرَافَـنَا فِي أَمْرِنَا وَأَنْ يُـغْنِينَا
-                بِحَلَالِهِ عَنْ حَرَامِهِ وَبِفَضْلِهِ عَمَّنْ سِوَاهُ وَأَنْ
-                يَـتَـقَبَّلَ تَـوْبَـتَـنَا وَيَـغْسِلَ حَوْبَـتَـنَا إِنَّهُ
-                سَمِيعٌ مُجِيبٌ وَصَلَّى اللهُ وَسَلَّمَ وَبَارَكَ عَلَى
-                نَبِيِّنَا مُحَمَّدٍ وَعَلَى آلِهِ وَصَحْبِهِ أَجْمَعِينَ،
-                وَالْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ.
-              </p>
-              <p>7 ރަބީޢުލް އާޚިރު 1438</p>
-              <p>5 ޖަނަވަރީ 2017މ.</p>
-
-              <p style="text-align: left">ޖަޢުފަރު ފާއިޒު</p>
-            </div>
-            <!-- end of justi class -->
-          </div>
-        </main>
-        <!-- <main> -->
-      </div>
-      <!-- <div class="content"> -->
-    </div>
-    <!-- <div id="page"> -->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
-    ></script>
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link
+      href="../css/beta/ALL-COMB.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="../js/beta/ALL-COMB.min.js"></script>
+    <!-- CHANGE !!!
+    TWO DATA SOURCES -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-HL24Q9NN24");
+      // Create a global object to store datasets
+      window.datasets = {};
     </script>
-    <!-- End Google Analytics -->
+    <script src="../js/beta/json/quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.js"></script>
+    <script>
+      // Store the first dataset
+      datasets.data1 = data.slice();
+    </script>
+    <script src="../js/beta/json/quranJaufar.js"></script>
+    <script>
+      // Store the second dataset
+      datasets.data2 = data.slice();
+    </script>
+    <style></style>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <!-- Navigation container for Surah, Ayah, and Juz selection -->
+      <div class="q-navigation-container">
+        <!-- Surah navigation box -->
+        <div class="q-nav-box">
+          <span class="q-nav-label">ސޫރަތް:</span>
+          <span class="q-nav-arrow" data-type="surah" data-direction="prev"
+            >▶</span
+          >
+          <div class="q-nav-value" id="surahValue">1</div>
+          <span class="q-nav-arrow" data-type="surah" data-direction="next"
+            >◀</span
+          >
+          <div class="q-dropdown" id="surahDropdown"></div>
+        </div>
+        <!-- Ayah navigation box -->
+        <div class="q-nav-box">
+          <span class="q-nav-label">އާޔަތް:</span>
+          <span class="q-nav-arrow" data-type="ayah" data-direction="prev"
+            >▶</span
+          >
+          <div class="q-nav-value" id="ayahValue">1</div>
+          <span class="q-nav-arrow" data-type="ayah" data-direction="next"
+            >◀</span
+          >
+          <div class="q-dropdown" id="ayahDropdown"></div>
+        </div>
+        <!-- Juz navigation box -->
+        <div class="q-nav-box">
+          <span class="q-nav-label">ޖުޒް:</span>
+          <span class="q-nav-arrow" data-type="juz" data-direction="prev"
+            >▶</span
+          >
+          <div class="q-nav-value" id="juzValue">1</div>
+          <span class="q-nav-arrow" data-type="juz" data-direction="next"
+            >◀</span
+          >
+          <div class="q-dropdown" id="juzDropdown"></div>
+        </div>
+      </div>
+      <!-- Navigation container for Surah, Ayah, and Juz selection - END-->
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="footer">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
+          <button
+            id="toggleFiliButton"
+            class="customButtons"
+            onclick="toggleQuranFili();filiString();scrollUpTop()"
+          >
+            <!-- toggleFili() -->
+            &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
+          </button>
+          <button
+            id="toggleSurahButton"
+            class="customButtons"
+            onclick="toggleSurahName();scrollUpTop()"
+          >
+            &nbsp; ސޫރަތުގެ ނަތް ފޮރުވާ &nbsp;
+          </button>
 
-    <!-- === INT JS - END === -->
+          <button
+            id="toggleUthmaniImlai"
+            class="customButtons"
+            onclick="uthmaniImlai();loadRasmFont();scrollUpTop()"
+          >
+            &nbsp; ރަސްމު އުޘްމާނީއަށް &nbsp;
+          </button>
+
+          <button
+            id="toggleShowButton"
+            class="customButtons"
+            onclick="toggleShowOne();scrollUpTop()"
+          >
+            &nbsp; ތަފްސީރު އެކަނި ދައްކާ &nbsp;
+          </button>
+
+          <script>
+            function toggleShowOne() {
+              var isVisible = $(".dataTable").DataTable().column(9).visible();
+              $(".dataTable").DataTable().column(9).visible(!isVisible);
+
+              // change string
+              var button = document.getElementById("toggleShowButton");
+              if (
+                button.innerHTML.trim() ===
+                "&nbsp;  ތަފސީރު އެކަނި ދައްކާ &nbsp;"
+              ) {
+                button.innerHTML = "&nbsp; ފުޓްނޯޓުވެސް ދައްކާ &nbsp;";
+              } else {
+                button.innerHTML = "&nbsp; ތަފސީރު އެކަނި ދައްކާ &nbsp;";
+              }
+            }
+          </script>
+
+          <button class="customButtons" onclick="copyOneOnly();">
+            &nbsp; ތަފްސީރު އެކަނި ކޮޕީ &nbsp;
+          </button>
+
+          <script>
+            function copyOneOnly() {
+              // Check the current visibility status of the 8th column (index 7) in the DataTable
+              var isVisible = $(".dataTable").DataTable().column(9).visible();
+
+              // If the column is currently visible, hide it
+              if (isVisible) {
+                $(".dataTable").DataTable().column(9).visible(false);
+              }
+
+              // Trigger click on the copy button (works on mobile too)
+              // This simulates clicking the button with class "buttons-html5"
+              $(".buttons-html5").click();
+
+              // If the column was originally visible, we need to make it visible again
+              if (isVisible) {
+                // Use setTimeout to delay the restoration of visibility
+                setTimeout(function () {
+                  // After the specified delay, make the 8th column visible again
+                  $(".dataTable").DataTable().column(9).visible(true);
+                }, 100); // Delay of 100ms, adjust as needed
+              }
+            }
+          </script>
+
+          <hr />
+
+          <p>اسم الكتاب: تفسير القرآن الكريم - لجعفر فائز</p>
+
+          <p>
+            Name of the Book: Explanation of the Noble Quran by Jaufar Faiz -
+            Dhivehi
+          </p>
+
+          <p>
+            ފޮތުގެ ނަން: ކީރިތި قرآن ގެ ތަފްސީރު | ލިޔުނީ: ޖަޢުފަރު ފާއިޒު
+            <br />
+            (15/7/2021 މ. - 5/12/1442 ހ. - 60 އަހަރު) | ދެކުނުގެ / ސ. މީދޫ.
+          </p>
+        </div>
+        <!-- <div class="centerAlignedText"> END -->
+
+        <hr />
+
+        <p>
+          ޖަވާބުގެ
+          <a
+            href="https://play.google.com/store/apps/details?id=com.dhivehitafseer"
+            target="_blank"
+            >ދިވެހި ތަފްސީރު</a
+          >
+          އެޕްލިކޭޝަން އިން މި ތަރުޖަމާގެ ބައެއް ޕީޑީއެފްތައް ބެލޭނެއެވެ.
+        </p>
+
+        <hr />
+
+        <h3>تنبيه - ނޯޓު</h3>
+        <p>
+          ⚠️ މި ވަގުތު މި ސައިޓިން ލިބެން ހުރީ 1، 2، 26، 27، 28، 29، 30 މި
+          ފޮތްތަކުގެ ތަފްސީރު އެކަންޏެވެ. އޭގެ އިތުރަށް ސިމްބޮލްތަކުގައި
+          މައްސަލަ އަދި އުޅޭނެއެވެ. އިން ޝާއަ ﷲ ކުރިއަށް އޮތް ތާނގައި އެ
+          ކަންތައްތައް ހައްލުކޮށް، ދެން ހުރި ފޮތްތައް ވެސް ހިމަނާނަމެވެ.
+        </p>
+        <p>
+          މި ފޮތުގެ މުއައްލިފު ވަނީ 7 ފޮތް (އެބަހީ: ޖުޒް) ފިޔަވާ މުޅި ގުރްއާނުގެ
+          ތަފްސީރު ލިޔެ ނިންމަވާފައެވެ. އެއީ ޖުމްލަ 23 ފޮތެވެ.
+        </p>
+        <p>
+          ކުރީކޮޅުން ނިންމަވާފައި ވަނީ 1، 2، 3، 4، 5، 6، 7 ،8، 9، 10، 11، 12،
+          13، 14، 15، 16، 17 މި ފޮތްތަކެވެ.
+        </p>
+        <p>އަދި ފަހަތުން ނިންމަވާފައި ވަނީ 26، 27، 28، 29، 30 މި ފޮތްތަކެވެ.</p>
+        <p>އަދި ނުނިންމަވާ ވަނީ 19، 20، 21، 22، 23، 24، 25 މި ފޮތްތަކެވެ.</p>
+        <p>
+          އަދި 18 ވަނަ ފޮތުގެ މަސައްކަތް ވެސް މުއައްލިފު ފެއްޓެވިއެވެ. އެ ގޮތުން
+          އެ ފޮތުގެ މުއުމިނޫނާއި ފުރްޤާން، މި ދެ ސޫރަތާއި، ނޫރު ސޫރަތުގެ 27 ވަނަ
+          އާޔަތާ ހިސާބަށް ތަފްސީރުގެ ޑްރާފްޓެއް ލިޔުއްވިއެވެ. ނަމަވެސް މުޅި ފޮތް
+          ނުނިމެނީސް މުއައްލިފު ވަނީ ނިޔާވެފައެވެ. رَحِمَهُ اللَّهُ.
+        </p>
+        <p>
+          އަދި ތަފްސީރު ލިޔުއްވި ފޮތްތަކުގެ ތެރެއިން، މުއައްލިފު ވަނީ ބައެއް
+          އާޔަތްތަކުގެ ސަބަބުއް ނުޒޫލު (އެބަހީ: ބާވައިލެއްވުނު ސަބަބު)
+          ލިޔުއްވާފައެވެ. އެ ގޮތުން 1، 2، 3، 4، 5، 6 އަދި 13، 14، 15، 16، 17 މި
+          ފޮތްތައް ވަނީ ސަބަބުއް ނުޒޫލާއެކު އެކީ އެކައްޗަކަށް ލިޔުއްވާ
+          ނިންމަވާފައެވެ.
+        </p>
+        <p>
+          އަދި 7 ވަނަ ފޮތުގެ އަންޢާމް ސޫރަތުގެ 52، 51 އަދި 93 ވަނަ އާޔަތުގެ
+          ސަބަބުއް ނުޒޫލު ލިޔުއްވާފައި ވެއެވެ. އަދި 10 ވަނަ ފޮތުގެ 58 އަދި 68
+          ވަނަ އާޔަތުގެ ސަބަބުއް ނުޒޫލު ލިޔުއްވާފައި ވެއެވެ. އަދި ހަމަ އެ
+          ފޮތުގައި ފަހުން ސަބަބުއް ނުޒޫލު ލިޔުއްވުމަށްޓަކައި އިތުރު 8 ތަނެއް
+          ފާހަގަ ކުރައްވާފައިވެއެވެ. އަދި 12 ވަނަ ފޮތުގައި ސަބަބުއް ނުޒޫލު
+          ލިޔުއްވާފައި ވަނީ ހަމައެކަނި ޔޫސުފް ސޫރަތުގެ މުގައްދިމާގައެވެ.
+        </p>
+        <p>
+          އަދި ނުނިމި ހުރި 18 ވަނަ ފޮތުގައި، މުއުމިނޫނާއި ފުރްޤާން، މި ދެ
+          ސޫރަތުގައި ސަބަބުއް ނުޒޫލު ލިޔުއްވާފައިވެއެވެ. އަދި ހަމަ އެ ފޮތުގެ
+          ނޫރު ސޫރަތުގައި 3، 10، 16 އަދި 22 މި އާޔަތްތަކަށް ސަބަބުއް ނުޒޫލު
+          ޑްރާފްޓެއްގެ ގޮތުގައި ލިޔުއްވާފައިވެއެވެ.
+        </p>
+        <p>
+          ދެން 8، 9، 11، 12 މި ފޮތްތަކުގައި އެއްވެސް ވަރަކަށް ސަބަބުއް ނުޒޫލު
+          ލިޔުއްވާފައެއް ނުވެއެވެ.
+        </p>
+        <p>
+          މުއައްލިފު ނިޔާވިތާ 2 އަހަރަށް ފަހު، ނުނިމި ހުރި 7 ފޮތުގެ ތަފްސީރު،
+          އިން ޝާއަ ﷲ، ލިޔެ ނިންމާލުމުގެ މަސައްކަތް އަހަރެން މި ދަނީ
+          ކުރަމުންނެވެ. އެއީ 18، 19، 20، 21، 22، 23، 24، 25 މި ފޮތްތަކެވެ. އެ
+          ގޮތުން 18 އާއި 19 ވަނަ ފޮތުގެ ބަޔެއް ހިނގައްޖެއެވެ. وَبِاللَّهِ
+          التَّوفِيق.
+        </p>
+        <p>
+          އިންޑިޒައިން ފައިލުތައް އެކްސެލް ޓޭބަލްތަކަށް ކޮންވާޓުކުރާ ސްކްރިޕްޓް
+          ހެދީ
+          <a href="https://twitter.com/mohamedxylam">މުޙައްމަދު ޖައިލަމް</a>،
+          جَزَاهُ اللَّهُ خَيرًا. އެއަށްފަހު މި ކޮޅުން އެ ޓޭބަލްތައް ސާފުކޮށް
+          ތަރުތީބުކޮށް ޑޭޓަބޭސަކަށް އެޅީމެވެ.
+        </p>
+
+        <hr />
+
+        <p>...</p>
+
+        <hr />
+
+        <div class="leftAlignedText ltrText">
+          <h3>Technical notes regarding the database text</h3>
+
+          <p>Translation json columns:</p>
+          <p>1. tafseer.</p>
+          <p>2. footnote.</p>
+          <p>The text is sourced righted here on Hadithmv.</p>
+          <!--
+          <p>
+            The following platforms use this text (with various degrees of
+            up-to-dateness):
+          </p>
+          <p>
+            •
+            <a href="hadithmv.github.io/books/quranRasmee" target="_blank"
+              >Hadithmv</a
+            >
+            (This current page. The latest versions of the original arabic word
+            embedded translation, as well as the (utils/transliterator)
+            generated alternate thikijehi thaanafied version, are both available
+            here, taken straight from the source repository itself. Sometimes
+            the text here may be even more up to date than the repo's main
+            branch, as in the source repo, fixes can take time to be merged from
+            the dev branch to the main branch.)
+          </p>-->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // COMBINES JSON DATA
+      //var combinedData = (function () {
+      var data = (function () {
+        // Combine the processed first dataset with the second dataset
+        var combined = datasets.data1.map(function (row, index) {
+          return row.concat(datasets.data2[index] || []);
+        });
+        //console.log('Combined:', combined);
+
+        // Flatten the array and replace null values with empty strings
+        return combined.map(function (row) {
+          return row.map(function (cell) {
+            return cell === null ? "" : cell;
+          });
+        });
+      })();
+      //console.log('Final Combined Data:', combinedData);
+
+      //
+      //
+      //
+
+      //  data array (replace with your full dataset)
+      // var data = [[]]
+
+      //var table; // DataTable instance
+      var currentSurah = 1;
+      var currentAyah = 1;
+      var currentJuz = null;
+      var maxSurah = 114;
+      var maxJuz = 30;
+      var ayahCounts = {}; // Will store the count of ayahs for each surah
+
+      //$(document).ready(function () {
+      // Initialize DataTable
+      //table = new DataTable("#tableID", {
+      var table = new DataTable("#tableID", {
+        ...DTconfig,
+        data: data,
+        lengthMenu: [1, 2, 3, 4, 5, 10, 20, 50],
+        /*columns: [
+          {
+            title: "index",
+            render: function (data, type, full, meta) {
+              return meta.row + 1; // Starts indexing from 1
+            },
+          },
+          { title: "Juz", data: 0 },
+          { title: "Surah No", data: 1 },
+          { title: "Ayah No", data: 2 },
+          { title: "Bismillah", data: 3 },
+          { title: "Quran Plain", data: 4 },
+          { title: "Quran Fancy", data: 5 },
+        ],*/
+        columns: [
+          {
+            title: "އިންޑެކްސް",
+            visible: false,
+            searchable: false,
+            render: function (data, type, full, meta) {
+              return meta.row + 1; // Starts indexing from 1
+            },
+          },
+          {
+            title: "ޖުޒް",
+            data: 0,
+            visible: false,
+            searchable: false,
+          },
+          {
+            title: "ސޫރަތް",
+            data: 1,
+            className: "colHeader",
+            render: (data) => {
+              // Convert the number to string to ensure we're working with a string
+              let surahNumber = data.toString();
+
+              // Get the Surah name
+              let surahName = surahNames[surahNumber] || "";
+
+              // Combine the number and name
+              //let result = `${surahNumber} ${surahName}`;
+              let result = `${surahNumber} سُورَةُ ${surahName}`;
+
+              // Replace regular digits with sans-serif digits
+              result = result.replace(
+                /[0-9]/g,
+                (digit) => sansSerifDigits[digit] || digit
+              );
+
+              return result;
+            },
+          },
+          { title: "އާޔަތް #", data: 2, visible: false },
+          { title: "ބިސްމި", data: 3 },
+          {
+            title: "އަރަބި ލިޔުން",
+            data: 4,
+            searchable: false,
+            /* add brackets to ayah */
+            //data = "﴿" + data + "﴾";
+            render: function (data, type, row) {
+              data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
+              // combines ayah and number columns together
+              data = "﴿" + data + " " + row[2] + "﴾";
+              // makes ayah numbers arabic
+              data = replaceDigitsWithArabic(data);
+              return data;
+            },
+          },
+          {
+            title: "އަރަބި ފިލިނުޖަހާ",
+            data: 4,
+            //render: (data) => removeThashkeel(data),
+            visible: false,
+
+            render: function (data, type, row) {
+              data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
+              //data = "﴿" + data + "﴾";
+              // replaces basmalas opening closing brackets non breaks, then kashida, then arabic numbers, then space, then makes two spaces into one
+              return data
+                .replace(/ـ/g, "")
+                .replace(/[^\u0621-\u064A|\s]/g, "")
+                .replace(/\s\s/g, " ");
+            },
+          },
+          {
+            title: "ރަސްމު އުޘްމާނީ",
+            data: 5,
+            visible: false,
+            searchable: false,
+            render: function (data, type, row) {
+              // this places a non break character before the numbers, also replaces a space before the numbers
+              data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
+              /* reverse brackets because thats how the font file needs it */
+              // combines ayah and number columns together
+              data = "﴿" + data + " " + row[2] + "﴾";
+              //data = "﴿" + data + "﴾";
+              // makes ayah numbers arabic
+              data = replaceDigitsWithArabic(data);
+              return data;
+            },
+          },
+          {
+            title: "ދިވެހި ތަރުޖަމާ",
+            data: 6,
+          },
+          {
+            title: "ފުޓްނޯޓު",
+            data: 7,
+          },
+        ],
+        //
+        columnDefs: [
+          {
+            targets: [9],
+            render: (data) =>
+              data !== ""
+                ? "ـــــــــــــــــــــــــــ\t<br>" +
+                  data.replace(/\n/g, "\t<br>")
+                : data,
+          },
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [1, 2, 3],
+          },
+          ...columnDefsconfig,
+        ],
+      }); // var table = new DataTable("#tableID", { END
+      //
+
+      // Populate ayahCounts object
+      data.forEach(function (row) {
+        var surah = row[1];
+        var ayah = parseInt(row[2]);
+        ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
+      });
+
+      // Initialize dropdowns
+      initializeQDropdown("surah", 1, maxSurah);
+      initializeQDropdown("juz", 1, maxJuz);
+      updateAyahDropdown();
+
+      // Event listener for DataTable's draw event
+      table.on("draw", function () {
+        updateQNavigationBoxes();
+      });
+
+      // Initial synchronization of navigation boxes
+      updateQNavigationBoxes();
+
+      // Event listeners for q-nav-value clicks
+      $(".q-nav-value").on("click", function () {
+        var type = $(this).attr("id").replace("Value", "");
+        QtoggleDropdown(type);
+      });
+
+      // Event listeners for arrow clicks
+      $(".q-nav-arrow").on("click", function () {
+        var type = $(this).data("type");
+        var direction = $(this).data("direction");
+        QnavigateArrow(type, direction);
+      });
+
+      // Close dropdowns when clicking outside
+      $(document).on("click", function (event) {
+        if (!$(event.target).closest(".q-nav-box").length) {
+          $(".q-dropdown").hide();
+        }
+      });
+      //
+      //});
+
+      // QURAN DROPDOWNS FUNCTIONS WOULD BE BELOW
+
+      // QURAN DROPDOWNS FUNCTIONS
+
+      /**
+       * Updates the navigation boxes with values from the first row of the current page
+       */
+      function updateQNavigationBoxes() {
+        var firstRow = table.row({ page: "current" }).data();
+        if (firstRow) {
+          updateAllQValues(firstRow);
+        }
+      }
+
+      function removeDiacritics(text) {
+        return text.replace(/[َُِّْٰۡۚٓـًٌٍّٔ]/g, "");
+      }
+
+      /**
+       * Initializes a dropdown with given range of values
+       * @param {string} type - The type of dropdown (surah, ayah, or juz)
+       * @param {number} min - The minimum value for the dropdown
+       * @param {number} max - The maximum value for the dropdown
+       */
+      function initializeQDropdown(type, min, max) {
+        var dropdown = $("#" + type + "Dropdown");
+        dropdown.empty();
+        dropdown.append(
+          '<input type="text" class="q-dropdown-search" placeholder="ލިޔޭ ނޫނީ ތިރިއަށް ފިތާ">'
+        );
+        for (var i = min; i <= max; i++) {
+          var displayText = i;
+          if (type === "surah" && surahNames[i]) {
+            displayText = i + " " + surahNames[i];
+          }
+          dropdown.append(
+            '<div class="q-dropdown-item" data-value="' +
+              i +
+              '">' +
+              displayText +
+              "</div>"
+          );
+        }
+
+        // Event listener for dropdown item clicks
+        dropdown.on("click", ".q-dropdown-item", function () {
+          var value = $(this).data("value");
+          updateQValue(type, value);
+          dropdown.hide();
+        });
+
+        // Event listener for search input
+        dropdown.find(".q-dropdown-search").on("input", function () {
+          var searchValue = removeDiacritics($(this).val().toLowerCase());
+          var matchingItems = [];
+
+          dropdown.find(".q-dropdown-item").each(function () {
+            var $item = $(this);
+            var itemValue = removeDiacritics($item.text().toLowerCase());
+            var itemNumericValue = $item.data("value").toString();
+
+            if (!isNaN(searchValue) && searchValue.trim() !== "") {
+              if (itemNumericValue.startsWith(searchValue)) {
+                matchingItems.push($item);
+              }
+              $item.hide();
+            } else {
+              $item.toggle(itemValue.includes(searchValue));
+            }
+          });
+
+          if (!isNaN(searchValue) && searchValue.trim() !== "") {
+            matchingItems
+              .sort(function (a, b) {
+                return a.data("value") - b.data("value");
+              })
+              .forEach(function ($item) {
+                $item.show().appendTo(dropdown);
+              });
+          }
+        });
+
+        // Event listener for search input enter key and arrow keys
+        dropdown.find(".q-dropdown-search").on("keydown", function (e) {
+          var visibleItems = dropdown.find(".q-dropdown-item:visible");
+          var currentIndex = visibleItems.index(
+            dropdown.find(".q-dropdown-item.highlighted")
+          );
+
+          switch (e.which) {
+            case 13: // Enter key
+              e.preventDefault();
+              var highlightedItem = dropdown.find(
+                ".q-dropdown-item.highlighted"
+              );
+              if (highlightedItem.length) {
+                updateQValue(type, highlightedItem.data("value"));
+              } else {
+                var firstVisible = visibleItems.first();
+                if (firstVisible.length) {
+                  updateQValue(type, firstVisible.data("value"));
+                }
+              }
+              dropdown.hide();
+              break;
+            case 38: // Up arrow
+              e.preventDefault();
+              if (currentIndex > 0) {
+                visibleItems.removeClass("highlighted");
+                visibleItems
+                  .eq(currentIndex - 1)
+                  .addClass("highlighted")
+                  .get(0)
+                  .scrollIntoView({ block: "nearest" });
+              }
+              break;
+            case 40: // Down arrow
+              e.preventDefault();
+              if (currentIndex < visibleItems.length - 1) {
+                visibleItems.removeClass("highlighted");
+                visibleItems
+                  .eq(currentIndex + 1)
+                  .addClass("highlighted")
+                  .get(0)
+                  .scrollIntoView({ block: "nearest" });
+              }
+              break;
+          }
+        });
+      }
+
+      // QURAN DROPDOWN CODE IS BELOW HERE
+    </script>
   </body>
 </html>
