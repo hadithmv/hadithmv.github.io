@@ -322,7 +322,7 @@ $(document).ready(() => {
       },
       {
         data: 6,
-        title: "ތަފުސީރު", // ubufili on faafu, otherwise interferes with clipboard tite copy
+        title: "ތަފްސީރު", // ubufili on faafu, otherwise interferes with clipboard tite copy
       },
       {
         data: 6,
