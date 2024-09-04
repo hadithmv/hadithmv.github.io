@@ -34,7 +34,6 @@ $files = @(
 "nawaqidulislam",
 "qawaidulArbau",
 "quranBakurube",
-"quranBetaqat",
 "quranHadithmv",
 "quranJaufar",
 "quranSoabuni",
@@ -51,6 +50,7 @@ $files = @(
 )
 
 # "quranMuhammad",
+# "quranBetaqat",
 # "quranMukhtasar",
 # "quranMuyassar",
 # "quranMuyassarGhareeb",
