@@ -26,6 +26,7 @@ $files = @(
 "arbaoonNawawi",
 "arbaoonAajurry",
 "hisnulMuslim",
+"intisarLiAshabilHadith",
 "kitabulEmanAbiUbaid",
 "kunnaasha",
 "index",
