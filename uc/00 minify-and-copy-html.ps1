@@ -37,13 +37,6 @@ $files = @(
 "quranBetaqat",
 "quranHadithmv",
 "quranJaufar",
-"quranMuhammad",
-"quranMukhtasar",
-"quranMuyassar",
-"quranMuyassarGhareeb",
-"quranQiraaath",
-"quranRasmee",
-"quranSadi",
 "quranSoabuni",
 "radheefAll",
 "radheefEegaal",
@@ -56,6 +49,14 @@ $files = @(
 "usooluSunnahAhmed",
 "usooluThalaatha"
 )
+
+# "quranMuhammad",
+# "quranMukhtasar",
+# "quranMuyassar",
+# "quranMuyassarGhareeb",
+# "quranQiraaath",
+# "quranRasmee",
+# "quranSadi",
 
 # Loop through each file in the array
 foreach ($file in $files) {
