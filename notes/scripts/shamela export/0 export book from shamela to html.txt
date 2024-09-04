@@ -14,6 +14,9 @@
 <div class='PageHead'><span class='PageNumber'>\(ص: [٠-٩]+\)</span><hr/></div>
 (cl: using js regex, remove all instances of <div class='PageHead'><span class='PageNumber'>(ص: ١١٩)</span><hr/></div> where ١١٩ can be any arabic digits and any amount of arabic digits)
 
+NOTE! might need to replace this with a: <div>
+otherwise new page wont start on a new line
+
 6 remove all footnotes
 <div class='footnote'><font color=#be0000>(1)</font> «وَسَلَّمَ يَقُولُ» مطموسة في ك.</p><font color=#be0000>(2)</font> البخاري رقم الحديث (1).</p><font color=#be0000>(3)</font> في ح: «إنما الأعمال بالنيات، وفي رواية: بالنية» بتقديمٍ وتأخير.</p><font color=#be0000>(4)</font> «مَا نَوَى؛ فَمَنْ كَانَتْ» مطموسة في ك.</p><font color=#be0000>(5)</font> في ج، هـ: «دنياً» بالتَّنوين، والمثبت من ب، د، و، ح، ط، ي، ل.</p>قال ابن الملقِّن رحمه الله في الإعلام بفوائد عمدة الأحكام (1/ 202): «(دنيا): مقصور غير منوَّن على المشهور، وهو الذي جاءت به الرِّواية، ويجوز في لغةٍ عربيةٍ تنوينُها».</p><font color=#be0000>(6)</font> البخاري (6689)، ومسلم (1907)، ولفظ المُصنِّف يوافق لفظ الحميدي في الجمع بين الصحيحين (1/ 112).</p>وفي حاشية أ: «لفظ مسلم والبخاريِّ: (وإنما لامرئٍ)، واختصَّ البخاري: (وإنما لكل امرئ) في رواية».</p><font color=#be0000>(7)</font> في أ، ج، هـ، و، ك: «وعن».</p><font color=#be0000>(8)</font> البخاري (6954) واللفظ له، ومسلم (225).</div>
 
