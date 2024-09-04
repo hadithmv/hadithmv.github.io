@@ -2089,6 +2089,25 @@ ${dateDifference}`;
           </script>
 
           <button
+            onclick="rmvNonAr();triggerTheCounts();scrollToTopFully();"
+            class="ttClass"
+            data-tooltip="Removes all none arabic text"
+          >
+            Rmv NonAr
+          </button>
+
+          <script>
+            function rmvNonAr() {
+              const arabicRegex = /^[\u0600-\u06FF\s]+$/;
+              const textMainArea = document.getElementById("textMainArea");
+              textMainArea.value = textMainArea.value.replace(
+                /[^0-9\u0600-\u06FF\s]/g,
+                ""
+              );
+            }
+          </script>
+
+          <button
             onclick="htmlRmv();triggerTheCounts();scrollToTopFully();"
             class="ttClass"
             data-tooltip="Removes html tags from the text, but leaves the text as is"
