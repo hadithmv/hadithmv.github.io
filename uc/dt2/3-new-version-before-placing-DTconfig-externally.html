@@ -833,7 +833,7 @@ https://github.com/sindresorhus/github-markdown-css/blob/main/index.html */
       <table id="tableID" class="cards" width="100%"></table>
       <!-- TABLE END -->
       <!-- --- TABLE - END --- -->
-      <div class="footer">
+      <div class="hmvSection">
         <div class="centerAlignedText">
           <button class="customButtons" onclick="copyURLToClipButton();">
             &nbsp; މިސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
@@ -2262,27 +2262,27 @@ https://github.com/sindresorhus/github-markdown-css/blob/main/index.html */
               //data !== "" ? "ـــــــــــــــــــــــــــ<br>" + data : data,
               // above does not preserve the \n new lines in the data, below does
               data !== ""
-                ? "ـــــــــــــــــــــــــــ\t<br>" +
-                  data.replace(/\n/g, "\t<br>")
+                ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
+                  data.replace(/\n/g, '\t<br class="dtBr">')
                 : data,
           },
           {
             // turns \n new line from the data, into breaks in the html
             // this has to come after footnote line above
             targets: "_all",
-            //render: (data) => data.replace(/\n/g, "\t<br>"),
+            //render: (data) => data.replace(/\n/g, '\t<br class="dtBr">'),
             //render: (data) => data.replace(/\t/g, "\n\n<br>"),
             // for some reason, unless the above \n is replaced with a \t, there is no way see any separation of a single new line between same text paragraphs.
-            // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, "\t<br>")) in order for the clipboard to get it right
+            // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, '\t<br class="dtBr">')) in order for the clipboard to get it right
             // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
           },
           /*{
                             // turns \n new line from the data, into breaks in the html
                             // this has to come after footnote line above
                             targets: "_all",
-                            render: (data) => data.replace(/(\r\n|\n|\r)/g, "\t<br>"),
+                            render: (data) => data.replace(/(\r\n|\n|\r)/g, '\t<br class="dtBr">'),
                             // for some reason, unless the above \n is replaced with a \t, there is no way see any separation of a single new line between same text paragraphs.
-                            // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, "\t<br>")) in order for the clipboard to get it right
+                            // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, '\t<br class="dtBr">')) in order for the clipboard to get it right
                             // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
                           },*/
           {
@@ -2304,7 +2304,7 @@ https://github.com/sindresorhus/github-markdown-css/blob/main/index.html */
           {
             targets: "_all",
             render: function (data) {
-              return data.replace(/\r\n|\n|\r/g, "\t<br>");
+              return data.replace(/\r\n|\n|\r/g, '\t<br class="dtBr">');
             }, // for some reason, without the \n replaced above, the single new lines in between same language paragraphs show in console as a single space, and therefore clipboard cannot be customized to show it
             // added space before br, otherwise clipboard copy export has no space
           },
