@@ -19,6 +19,29 @@ function Minify-And-Append {
     Write-Output "Minified and copied: $sourceFile"
 }
 
+# Function to minify and insert navbar.js into index.html
+function Minify-And-Insert-Navbar {
+    $sourceFile = "navbar.js"
+    $tempFile1 = "temp1.js"
+    $tempFile2 = "temp2.js"
+    $indexHtmlPath = "..\uc\index.html"
+    
+    google-closure-compiler --charset=UTF-8 --js $sourceFile --js_output_file $tempFile1
+    uglifyjs $tempFile1 -c -m -o $tempFile2
+    
+    $minifiedCode = Get-Content -Path $tempFile2 -Raw
+    $indexHtmlContent = Get-Content -Path $indexHtmlPath -Raw
+    
+    $pattern = '(?s)<!-- INSERT NAV JS MIN CODE UNDER HERE -->\s*<script>.*?</script>'
+    $replacement = "<!-- INSERT NAV JS MIN CODE UNDER HERE -->`n<script>$minifiedCode</script>"
+    
+    $updatedContent = $indexHtmlContent -replace $pattern, $replacement
+    Set-Content -Path $indexHtmlPath -Value $updatedContent
+    
+    Remove-Item -Path $tempFile1, $tempFile2
+    Write-Output "Minified and inserted navbar.js into index.html"
+}
+
 # Clear the content of ALL-COMB.min.js
 Clear-Content -Path "ALL-COMB.min.js"
 Write-Output "Cleared ALL-COMB.min.js"
@@ -31,9 +54,8 @@ Write-Output "Copied: comb-DT.min.js"
 $jsFiles = @(
     "DT-inline.js",
     "navbar.js",
-    "belowPage-bab-dropdown.js"
+    "belowPage-bab-dropdown.js",
     "quran-dropdowns.js"
-
 )
 
 # Process each file
@@ -41,7 +63,12 @@ foreach ($file in $jsFiles) {
     Minify-And-Append -sourceFile $file -targetFile "ALL-COMB.min.js"
 }
 
+# Minify and insert navbar.js into index.html
+Minify-And-Insert-Navbar
+
 Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
+
+
 
 <# claude:
 Here's a comparison of the two scripts:
