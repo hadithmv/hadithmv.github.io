@@ -87,20 +87,13 @@ function createNavbar() {
                   <li>
                      <a href="../books/radheefNanfoiy.html" onclick="changeBkRadheef('radheefNanfoiy'; return false;)">ނަންފޮތް</a>
                   </li>
-                  <li><a href=../notes/info/lafzuVakikohLiyumugeQawaid.html>ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު (ދިވެހި)</a>
-                  <li><a href="https://archive.org/details/dhifihuristhu"
-                     target="_blank">ދިފިހުރިސްތު (PDF)</a>
-                  <li><a href=../notes/info/NukuthaajehiAkuruthahBeynunkuraaneHama.html>ތާނައިގައި ހުރި ނުކުތާޖެހި އަކުރުތައް ބޭނުންކުރާނެ ހަމަ</a>
-                  <li><a href="https://archive.org/details/dhivehi_bahuge_qawaidhu"
-                     target="_blank">ދިވެހިބަހުގެ ގަވާއިދު (PDF)</a>
-                  <li><a href="https://archive.org/details/latin_akurun_liyumuge_qawaidhu"
-                     target="_blank">ތާނަލިޔުމުގެ ގަވާއިދު (PDF)</a>
+                  <li><a href=../page/lafzuVakikohLiyumugeQawaid.html>ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު (ދިވެހި)</a>
                </ul>
          </ul>
-      <li><a href=../notes/info/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
+      <li><a href=../page/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
       <li><a href=../notes/info/helpTranslate.html>ތަރުޖަމާގައި އެހީވެދިނުމަށް</a>
       <li><a href=../notes/info/FAQ.html>ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a>
-      <li><a href=../notes/info/contributors.html>އެހީތެރިން</a>
+      <li><a href=../page/contributors.html>އެހީތެރިން</a>
       <li onclick=openDiv() class=versionNo>⚙️ އިސްދާރު: v${hmvVersionNo}
       <li><a href=https://t.me/ashraafmv>ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a>
       <li style=font-size:90%>މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް
