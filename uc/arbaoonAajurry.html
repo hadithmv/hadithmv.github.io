@@ -41,7 +41,7 @@
     <div id="navbar-container"></div>
     <div class="dtWrapper">
       <table id="tableID" class="cards" width="100%"></table>
-      <div class="footer">
+      <div class="hmvSection">
         <div class="centerAlignedText">
           <button
             id="copyPageLink"
@@ -340,8 +340,8 @@
             targets: [10],
             render: (data) =>
               data !== ""
-                ? "ـــــــــــــــــــــــــــ\t<br>" +
-                  data.replace(/\n/g, "\t<br>")
+                ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
+                  data.replace(/\n/g, '\t<br class="dtBr">')
                 : data,
           },
           {

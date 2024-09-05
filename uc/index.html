@@ -29,7 +29,6 @@
     <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#29434e" />
     <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
-    <!-- <script src="../js/ALL-COMB.min.js"></script> -->
     <!-- CHANGE !!! -->
     <style>
       html {
@@ -385,7 +384,7 @@
     <div id="navbar-container"></div>
     <div class="dtWrapper">
       <!-- <table id="tableID" class="cards" width="100%"></table> -->
-      <div class="footer">
+      <div class="hmvSection">
         <div class="centerAlignedText">
           <style>
             /* ====================
@@ -1902,24 +1901,28 @@
                 <p>5 كتاب الإيمان لأبي عبيد</p>
                 <p>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</p>
               </a>
-              <a class="book" href="../books/nawaqidulislam.html">
-                <p>6 نواقض الإسلام</p>
+              <a class="book" href="../books/kitabulEmanAbiUbaid.html">
+                <p>6 الانتصار لأصحاب الحديث للسمعاني</p>
+                <p>ޙަދީޘްގެ އަސްހާބުންނަށް ނަސްރުދިނުން</p>
+              </a>
+              <a class="book" href="../books/intisarLiAshabilHadith.html">
+                <p>7 نواقض الإسلام</p>
                 <p>އިސްލާމްކަން ގެއްލޭ ކަންކަން</p>
               </a>
               <a class="book" href="../books/qawaidulArbau.html">
-                <p>7 ‌‌القواعد الأربع</p>
+                <p>8 ‌‌القواعد الأربع</p>
                 <p>ހަތަރު ގަވާއިދު</p>
               </a>
               <a class="book" href="../books/usooluSiththa.html">
-                <p>8 الأصول الستة</p>
+                <p>9 الأصول الستة</p>
                 <p>ހަ އުސޫލު</p>
               </a>
               <a class="book" href="../books/usooluThalaatha.html">
-                <p>9 الأصول الثلاثة</p>
+                <p>10 الأصول الثلاثة</p>
                 <p>ތިން އުސޫލު</p>
               </a>
               <a class="book" href="../books/quranUshru.html#quranTable=:p69">
-                <p>10 أحكام تهم المسلم (من العشر الأخير)</p>
+                <p>11 أحكام تهم المسلم (من العشر الأخير)</p>
                 <p>މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް</p>
               </a>
               <a class="book" href="../books/sharhuSunnahBarbahari-DFK.html">
@@ -3819,11 +3822,7 @@
   </body>
 </html>
 <!-- INSERT NAV JS MIN CODE UNDER HERE -->
-<script>
-  var hmvVersionNo = 3.16;
-  function createNavbar() {
-    var a = document.title;
-    document.getElementById("navbar-container").innerHTML = `
+<script>var hmvVersionNo=3.16;function createNavbar(){var a=document.title;document.getElementById("navbar-container").innerHTML=`
 <nav class=navbar>
    <div class=navbar-left><img alt="Site Icon"class=site-icon onclick=goToHomePage() src=../img/logo/logo.svg title="back to homepage"></div>
    <div class=navbar-center><span class=page-title>${a}</span></div>
@@ -3921,72 +3920,7 @@
          </ul>
    </ul>
 </div>
-`;
-  }
-  function goToHomePage() {
-    window.location.href = "index.html";
-  }
-  function toggleSideMenu() {
-    document.getElementById("sideMenu").classList.toggle("open");
-  }
-  function sideMenutoggleDropdown(a, e) {
-    e && e.stopPropagation(),
-      (e = a.querySelector(
-        ".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content"
-      ));
-    var o,
-      n = a.querySelector(".dropdown-arrow");
-    e &&
-      (e.classList.toggle("show"),
-      (n.style.transform = e.classList.contains("show")
-        ? "rotate(-90deg)"
-        : ""));
-    for (o of (e = a.parentElement.children))
-      o !== a &&
-        ((e = o.querySelector(
-          ".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content"
-        )),
-        (n = o.querySelector(".dropdown-arrow")),
-        e) &&
-        (e.classList.remove("show"), (n.style.transform = ""));
-  }
-  document.addEventListener("DOMContentLoaded", createNavbar),
-    document.addEventListener("click", function (a) {
-      var e = document.querySelector(".navbar"),
-        o = document.getElementById("sideMenu"),
-        e = e.contains(a.target),
-        n = o.contains(a.target),
-        l = a.target.classList.contains("site-icon");
-      (a.target.classList.contains("menu-icon") ||
-        (e && !l) ||
-        (!n && o.classList.contains("open"))) &&
-        toggleSideMenu();
-    }),
-    document.addEventListener("DOMContentLoaded", function () {
-      let e = 0,
-        o = document.querySelector(".navbar"),
-        n = 0;
-      window.matchMedia("(max-width: 599px)").matches &&
-        window.addEventListener(
-          "scroll",
-          ((e, o) => {
-            let n;
-            return function () {
-              var a = arguments;
-              n || (e.apply(this, a), (n = !0), setTimeout(() => (n = !1), o));
-            };
-          })(function () {
-            var a;
-            o &&
-              ((a = window.pageYOffset || document.documentElement.scrollTop) <=
-              50
-                ? (o.classList.remove("navbar-hidden"), (n = 0))
-                : a > e
-                  ? (o.classList.add("navbar-hidden"), (n = 0))
-                  : 200 < (n += e - a) &&
-                    (o.classList.remove("navbar-hidden"), (n = 0)),
-              (e = a <= 0 ? 0 : a));
-          }, 100)
-        );
-    });
-</script>
+`}function goToHomePage(){window.location.href="index.html"}function toggleSideMenu(){document.getElementById("sideMenu").classList.toggle("open")}function sideMenutoggleDropdown(a,e){e&&e.stopPropagation(),e=a.querySelector(".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content");var o,n=a.querySelector(".dropdown-arrow");e&&(e.classList.toggle("show"),n.style.transform=e.classList.contains("show")?"rotate(-90deg)":"");for(o of e=a.parentElement.children)o!==a&&(e=o.querySelector(".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content"),n=o.querySelector(".dropdown-arrow"),e)&&(e.classList.remove("show"),n.style.transform="")}document.addEventListener("DOMContentLoaded",createNavbar),document.addEventListener("click",function(a){var e=document.querySelector(".navbar"),o=document.getElementById("sideMenu"),e=e.contains(a.target),n=o.contains(a.target),l=a.target.classList.contains("site-icon");(a.target.classList.contains("menu-icon")||e&&!l||!n&&o.classList.contains("open"))&&toggleSideMenu()}),document.addEventListener("DOMContentLoaded",function(){let e=0,o=document.querySelector(".navbar"),n=0;window.matchMedia("(max-width: 599px)").matches&&window.addEventListener("scroll",((e,o)=>{let n;return function(){var a=arguments;n||(e.apply(this,a),n=!0,setTimeout(()=>n=!1,o))}})(function(){var a;o&&((a=window.pageYOffset||document.documentElement.scrollTop)<=50?(o.classList.remove("navbar-hidden"),n=0):a>e?(o.classList.add("navbar-hidden"),n=0):200<(n+=e-a)&&(o.classList.remove("navbar-hidden"),n=0),e=a<=0?0:a)},100))});</script>
+
+
+

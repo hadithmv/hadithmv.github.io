@@ -64,7 +64,7 @@
       <table id="tableID" class="cards" width="100%"></table>
       <!-- TABLE END -->
       <!-- --- TABLE - END --- -->
-      <div class="footer">
+      <div class="hmvSection">
         <div class="centerAlignedText">
           <button
             id="copyPageLink"
@@ -1583,10 +1583,10 @@
             render: (data) =>
               //data !== "" ? "ـــــــــــــــــــــــــــ<br>" + data : data,
               // above does not preserve the \n new lines in the data, below does
-              // by not applying '<br class="dtBr">' here, when the data is rendered with the divider, the target _all giving the br the class is overidden
+              // by not applying '<br>' here, when the data is rendered with the divider, the target _all giving the br the class is overidden
               data !== ""
-                ? "ـــــــــــــــــــــــــــ\t<br>" +
-                  data.replace(/\n/g, "\t<br>")
+                ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
+                  data.replace(/\n/g, '\t<br class="dtBr">')
                 : data,
           },
           {
@@ -1607,19 +1607,19 @@
             // turns \n new line from the data, into breaks in the html
             // this has to come after footnote line above
             targets: "_all",
-            //render: (data) => data.replace(/\n/g, "\t<br>"),
+            //render: (data) => data.replace(/\n/g, '\t<br class="dtBr">'),
             //render: (data) => data.replace(/\t/g, "\n\n<br>"),
             // for some reason, unless the above \n is replaced with a \t, there is no way see any separation of a single new line between same text paragraphs.
-            // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, "\t<br>")) in order for the clipboard to get it right
+            // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, '\t<br class="dtBr">')) in order for the clipboard to get it right
             // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
           },*/
           /*{
                       // turns \n new line from the data, into breaks in the html
                       // this has to come after footnote line above
                       targets: "_all",
-                      render: (data) => data.replace(/(\r\n|\n|\r)/g, "\t<br>"),
+                      render: (data) => data.replace(/(\r\n|\n|\r)/g, '\t<br class="dtBr">'),
                       // for some reason, unless the above \n is replaced with a \t, there is no way see any separation of a single new line between same text paragraphs.
-                      // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, "\t<br>")) in order for the clipboard to get it right
+                      // the footnote separater code above the above code also needed a \t added before the break (data.replace(/\n/g, '\t<br class="dtBr">')) in order for the clipboard to get it right
                       // same with the line itself (ـــــــــــــــــــــــــــ\t<br>), \t had to be added
                     },*/
 

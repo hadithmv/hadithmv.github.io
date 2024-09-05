@@ -321,7 +321,7 @@ var columnDefsconfig = [
       // if \r\n|\n|\r occurs more than once, i dont want <br class="dtBr"> to occure more than once
       return data.replace(/(\r\n|\n|\r)+/g, '\t<br class="dtBr">');
       //return data.replace(/\r\n|\n|\r/g, '\t<br class="dtBr">');
-      // return data.replace(/\r\n|\n|\r/g, "\t<br>");
+      // return data.replace(/\r\n|\n|\r/g, '\t<br class="dtBr">');
       // return data.replace(/\r\n|\n|\r/g, "\t<br><br>");
       //return data.replace(/\r\n|\n|\r/g, "\t<p><p>");
     }, // for some reason, without the \n replaced above, the single new lines in between same language paragraphs show in console as a single space, and therefore clipboard cannot be customized to show it

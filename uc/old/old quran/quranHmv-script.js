@@ -291,11 +291,11 @@ $(document).ready(() => {
         // previously used to add br after basmala
         /*.replace(
               "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
-              'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
+              'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br><br>﴿'
             )
             .replace(
               "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
-              'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
+              'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br><br>﴿'
             );*/
       },
       {
@@ -307,18 +307,18 @@ $(document).ready(() => {
           // replaces basmalas opening closing brackets non breaks, then kashida, then arabic numbers, then space, then br tag, then makes two spaces into one
           return data
             .replace(/ـ/g, "")
-            .replace(/[^\u0621-\u064A|\s|<br class="br">]/g, "")
+            .replace(/[^\u0621-\u064A|\s|<br>]/g, "")
             .replace(/\s\s/g, " ");
         },
         // previously used to add br after basmala
         /*
             .replace(
               "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
-              'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
+              'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br><br>﴿'
             )
             .replace(
               "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
-              'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
+              'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br><br>﴿'
             )
             */
         //
@@ -368,7 +368,7 @@ $(document).ready(() => {
           /*
           .replace(
             "﴿بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n",
-            'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+            'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ\n\n<br><br>﴿'
           );
           */
         },
@@ -416,7 +416,7 @@ $(document).ready(() => {
       {
         targets: "_all",
         render: function (data, type, row) {
-          return data.replace(/\r\n|\n|\r/g, '\t<br class="br">');
+          return data.replace(/\r\n|\n|\r/g, '\t<br class="dtBr">');
         }, // added space before br, otherwise clipboard copy export has no space
       }, // later changed that blank space into a \t, so that single new lines could work on clipboard copy
       // previously just \n. added \r\n and \r to make lines break on mobile
@@ -1114,18 +1114,18 @@ $(document).ready(() => {
       str = str
         .replace(
           "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
-          'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+          'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br><br>﴿'
         )
         .replace(
           "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n",
-          'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿'
+          'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br><br>﴿'
         )
         .replace(/ـ/g, "")
-        .replace(/[^\u0621-\u064A|^\u0780-\u07B1|\s|<br class="br">]/g, "")
+        .replace(/[^\u0621-\u064A|^\u0780-\u07B1|\s|<br>]/g, "")
         .replace(/\s\s/g, " ");
       // u0621 is where hamza starts in arabic unicode block, while u064A is where yaa ends. ^ everything apart from the letters in this range is removed in regex search
       // \u0780-\u07B1 is the range of dhivehi letters in the thaana unicode block
-      // str = str.replace('﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace('﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br class="br"><br class="br">﴿').replace(/ـ/g, '').replace(/[^\u0621-\u064A|\s|<br class="br">]/g, '').replace(/\s\s/g, ' ')
+      // str = str.replace('﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br><br>﴿').replace('﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n', 'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n\n<br><br>﴿').replace(/ـ/g, '').replace(/[^\u0621-\u064A|\s|<br>]/g, '').replace(/\s\s/g, ' ')
       // str = str.replace(
       // /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|!|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g, "";
       // );
@@ -1139,15 +1139,15 @@ $(document).ready(() => {
     str = str
       .replace(
         "﴿بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
-        'بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
+        "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br><br>﴿"
       )
       .replace(
         "﴿بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n",
-        'بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br class="br"><br class="br">﴿'
+        "بِّسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ\n<br><br>﴿"
       )
       .replace(/ـ/g, "")
       .replace(
-        /[^\u0621-\u064A|^\u0780-\u07B1|^\uFDF2|^\uFDFA|^\d|^𝟣||^𝟣|^𝟤|^𝟥|^𝟦|^𝟧|^𝟨|^𝟩|^𝟪|^𝟫|^𝟢|\s|<br class="br">]/g,
+        /[^\u0621-\u064A|^\u0780-\u07B1|^\uFDF2|^\uFDFA|^\d|^𝟣||^𝟣|^𝟤|^𝟥|^𝟦|^𝟧|^𝟨|^𝟩|^𝟪|^𝟫|^𝟢|\s|<br>]/g,
         ""
       )
       .replace(/\s\s/g, " ");
