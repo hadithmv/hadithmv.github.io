@@ -184,10 +184,25 @@ p {
 }
 h3 {
   font-size: 23px;
-  margin-top: 1.5em;
+  margin-top: 1.75em; /* 1.5, 2 */
   /*margin-top: 1em;
    */
   margin-bottom: 1em;
+}
+
+/* after adding a class to dt br in js, can style it to make the gap wider
+https://stackoverflow.com/questions/7614928/change-br-height-using-css/28310011#28310011
+https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/1409742#1409742 */
+/* prev used a class called .dtBr*/
+br {
+  content: "";
+  margin: 2em;
+  display: block;
+  font-size: 34px; /* 24% control the spacing with the font size. */
+}
+/* for dt brs */
+.dtBr {
+  font-size: 5px; /* 5 */
 }
 /* */
 .dtWrapper {
@@ -199,16 +214,7 @@ h3 {
   max-width: 980px;
   /* */
 }
-/* after adding a class to dt br in js, can style it to make the gap wider
-https://stackoverflow.com/questions/7614928/change-br-height-using-css/28310011#28310011
-https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/1409742#1409742 */
-.dtBr {
-  content: "";
-  margin: 2em;
-  display: block;
-  font-size: 34%; /* 24 control the spacing with the font size. */
-}
-.footer {
+.hmvSection {
   padding: 3em 5em;
   text-align: right;
   /* center */
@@ -217,7 +223,7 @@ https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/140
   padding-top: 0;
 }
 @media (max-width: 599px) {
-  .footer {
+  .hmvSection {
     padding: 1em;
     margin: 0 0 2em;
   }
@@ -255,6 +261,9 @@ https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/140
 .colHeader {
   /*font-weight: bold;*/
   color: #0f4c75; /* !important;*/
+  /* before top down was 8 by default */
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
 }
 .colEng {
   text-align: left;
