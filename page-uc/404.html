@@ -286,7 +286,11 @@
       --></div>
     </div>
     <!-- INSERT NAV JS MIN CODE UNDER HERE -->
-<script>var hmvVersionNo=3.16;function createNavbar(){var a=document.title;document.getElementById("navbar-container").innerHTML=`
+    <script>
+      var hmvVersionNo = 3.16;
+      function createNavbar() {
+        var a = document.title;
+        document.getElementById("navbar-container").innerHTML = `
 <nav class=navbar>
    <div class=navbar-left><img alt="Site Icon"class=site-icon onclick=goToHomePage() src=../img/logo/logo.svg title="back to homepage"></div>
    <div class=navbar-center><span class=page-title>${a}</span></div>
@@ -377,7 +381,76 @@
          </ul>
    </ul>
 </div>
-`}function goToHomePage(){window.location.href="index.html"}function toggleSideMenu(){document.getElementById("sideMenu").classList.toggle("open")}function sideMenutoggleDropdown(a,e){e&&e.stopPropagation(),e=a.querySelector(".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content");var o,n=a.querySelector(".dropdown-arrow");e&&(e.classList.toggle("show"),n.style.transform=e.classList.contains("show")?"rotate(-90deg)":"");for(o of e=a.parentElement.children)o!==a&&(e=o.querySelector(".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content"),n=o.querySelector(".dropdown-arrow"),e)&&(e.classList.remove("show"),n.style.transform="")}document.addEventListener("DOMContentLoaded",createNavbar),document.addEventListener("click",function(a){var e=document.querySelector(".navbar"),o=document.getElementById("sideMenu"),e=e.contains(a.target),n=o.contains(a.target),l=a.target.classList.contains("site-icon");(a.target.classList.contains("menu-icon")||e&&!l||!n&&o.classList.contains("open"))&&toggleSideMenu()}),document.addEventListener("DOMContentLoaded",function(){let e=0,o=document.querySelector(".navbar"),n=0;window.matchMedia("(max-width: 599px)").matches&&window.addEventListener("scroll",((e,o)=>{let n;return function(){var a=arguments;n||(e.apply(this,a),n=!0,setTimeout(()=>n=!1,o))}})(function(){var a;o&&((a=window.pageYOffset||document.documentElement.scrollTop)<=50?(o.classList.remove("navbar-hidden"),n=0):a>e?(o.classList.add("navbar-hidden"),n=0):200<(n+=e-a)&&(o.classList.remove("navbar-hidden"),n=0),e=a<=0?0:a)},100))});</script>
+`;
+      }
+      function goToHomePage() {
+        window.location.href = "index.html";
+      }
+      function toggleSideMenu() {
+        document.getElementById("sideMenu").classList.toggle("open");
+      }
+      function sideMenutoggleDropdown(a, e) {
+        e && e.stopPropagation(),
+          (e = a.querySelector(
+            ".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content"
+          ));
+        var o,
+          n = a.querySelector(".dropdown-arrow");
+        e &&
+          (e.classList.toggle("show"),
+          (n.style.transform = e.classList.contains("show")
+            ? "rotate(-90deg)"
+            : ""));
+        for (o of (e = a.parentElement.children))
+          o !== a &&
+            ((e = o.querySelector(
+              ".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content"
+            )),
+            (n = o.querySelector(".dropdown-arrow")),
+            e) &&
+            (e.classList.remove("show"), (n.style.transform = ""));
+      }
+      document.addEventListener("DOMContentLoaded", createNavbar),
+        document.addEventListener("click", function (a) {
+          var e = document.querySelector(".navbar"),
+            o = document.getElementById("sideMenu"),
+            e = e.contains(a.target),
+            n = o.contains(a.target),
+            l = a.target.classList.contains("site-icon");
+          (a.target.classList.contains("menu-icon") ||
+            (e && !l) ||
+            (!n && o.classList.contains("open"))) &&
+            toggleSideMenu();
+        }),
+        document.addEventListener("DOMContentLoaded", function () {
+          let e = 0,
+            o = document.querySelector(".navbar"),
+            n = 0;
+          window.matchMedia("(max-width: 599px)").matches &&
+            window.addEventListener(
+              "scroll",
+              ((e, o) => {
+                let n;
+                return function () {
+                  var a = arguments;
+                  n ||
+                    (e.apply(this, a), (n = !0), setTimeout(() => (n = !1), o));
+                };
+              })(function () {
+                var a;
+                o &&
+                  ((a =
+                    window.pageYOffset || document.documentElement.scrollTop) <=
+                  50
+                    ? (o.classList.remove("navbar-hidden"), (n = 0))
+                    : a > e
+                      ? (o.classList.add("navbar-hidden"), (n = 0))
+                      : 200 < (n += e - a) &&
+                        (o.classList.remove("navbar-hidden"), (n = 0)),
+                  (e = a <= 0 ? 0 : a));
+              }, 100)
+            );
+        });
+    </script>
   </body>
 </html>
-
