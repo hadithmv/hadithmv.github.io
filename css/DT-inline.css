@@ -229,6 +229,13 @@ br {
   }
 }
 
+/* only for MOBILE size - removes top margin */
+@media (max-width: 599px) {
+  .rmvTopMarginOnMobile {
+    margin-top: 0;
+  }
+}
+
 /* HELPER CLASSES */
 .justifiedText {
   text-align: justify;

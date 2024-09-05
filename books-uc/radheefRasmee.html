@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="dv" translate="no">
+  <head>
+    <!-- CHANGE !!! -->
+    <link
+      rel="canonical"
+      href="https://hadithmv.github.io/books/radheefRasmee.html"
+    />
+    <title>معجم اللغة الدفهية – ދިވެހިބަހުގެ ރަދީފު</title>
+    <meta
+      name="description"
+      content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
+    />
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
+    <script src="../js/ALL-COMB.min.js"></script>
+    <!-- CHANGE !!! 
+    radheef rasmee no longer in a google sheet, as it is compiled -->
+    <script src="../js/json/radheefRasmee.js"></script>
+    <style>
+      /* === --- === --- ====
+      CUSTOM CSS
+      === --- === --- ==== */
+
+      /* only for MOBILE size */
+
+      @media (max-width: 599px) {
+        /* removes stripe and column ordering class code */
+        :root {
+          --dt-row-stripe: none; /* 0, 0, 0*/
+          /*--dt-row-hover: 0, 0, 0;*/
+          --dt-column-ordering: none; /* 0, 0, 0*/
+        }
+
+        table.dataTable.row-border > tbody > tr > * {
+          /*border-top: 1px solid rgba(0, 0, 0, 0.15);*/
+          border-top: none;
+        }
+        /* center align english on mobile */
+        td.colEng {
+          text-align: center;
+        }
+      } /* END OF MOBILE */
+
+      /* only for TABLET size and up */
+      @media (min-width: 600px) {
+        /* UNDOES OG CARDS CODE */
+
+        .cards tbody tr {
+          /*margin: 0;*/ /* 0.5rem; just top and bottom? */
+          margin-top: 0;
+          margin-bottom: 0;
+          border: none; /* 0.0911rem solid #c4c6d0;*/
+          /*border-radius: 24px;*/
+        }
+        .cards tbody td {
+          display: table-cell; /* block; */
+        }
+
+        /* */
+
+        /* OTHER CARDS STUFF */
+
+        .cards tbody tr {
+          padding: initial; /* 20px ? */
+        }
+
+        .cards tbody {
+          display: table-row-group; /*flex*/
+          flex-direction: row; /* column */
+          align-items: normal; /* stretch */
+        }
+
+        /* */
+
+        /* OTHER STUFF */
+
+        /* brings back the th table header above columns, hidden in card view */
+        thead {
+          display: table-header-group; /* none */
+        }
+        /* brings back colgroup cols removed, for card view. this effects table class hover. however this code isnt working.
+        .dt-container > colgroup > col:not(:nth-child(0)) {
+        display: table-column;
+          } */
+        table.dataTable > thead > tr > th > span.dt-column-title {
+          /* makes table headers not bold */
+          font-weight: normal;
+          font-size: 17px; /* prev 20, now even smaller on radheefRasmee, because it has 13 columns */
+          color: #555;
+        }
+        table.dataTable > thead > tr > th {
+          /* vertically aligns to top */
+          vertical-align: top;
+          /* centers */
+          text-align: center;
+          /* */
+          line-height: 1.4;
+        }
+        /* reduces right and left padding of th, making that row smaller */
+        div.dt-layout-cell.dt-layout-full > table.dataTable > thead > tr > th {
+          padding-right: 15px; /* prev 20, now even smaller on radheefRasmee, because it has 13 columns */
+          padding-left: 0;
+        }
+
+        /* removes margin spaces at edges of table */
+        div.dt-container {
+          margin-right: 0;
+          margin-left: 0;
+        }
+        /* since we removed spaces above, we add them inside the padding of the right of first column, and left of last column */
+        .dataTable > tbody > tr > td:first-child {
+          padding-right: 15px;
+          padding-left: 10px;
+        }
+        .dataTable > tbody > tr > td:last-child {
+          padding-left: 15px;
+        }
+
+        /* gives back the border top to the last child of tr */
+        /*table.dataTable.row-border > tbody > tr > * */
+        div.dt-container.dt-empty-footer tbody > tr:last-child > td {
+          border-top: 1px solid rgba(0, 0, 0, 0.15);
+          /* adds a bottom border too */
+          border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+          /*1px solid rgba(0, 0, 0, 0.15);*/
+        }
+      } /* END OF TABLET UP */
+
+      /* */
+
+      /* CUSTOM PAGE STUFF */
+    </style>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <!-- CHANGE !!! class="cards" display stripe>
+       https://datatables.net/examples/styling/display.html -->
+      <table
+        id="tableID"
+        class="cards stripe row-border compact"
+        width="100%"
+      ></table>
+      <div class="hmvSection">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
+
+          <hr class="lineVerticalSpace" />
+
+          <p>The Dictionary of Dhivehi Language</p>
+
+          <p>ދިވެހިބަހުގެ ރަދީފު</p>
+
+          <p>
+            ރަސްމީ ރަދީފުގެ
+            <a href="https://www.radheef.mv" target="_blank">ވެބްސައިޓު</a>
+            |
+            <a
+              href="https://play.google.com/store/apps/details?id=mv.edu.dhivehiacademy.radheef"
+              target="_blank"
+              >އެޕް</a
+            >
+          </p>
+
+          <hr />
+
+          <p>
+            ⚠️ މި ސަފުހާގައި ތަކުރާރުވާ ބައެއް އިނގިރޭސި މާނަތައް
+            އެކުލަވާލެވިފައިވާ ގޮތުގައި މައްސަލަ އުޅޭނެއެވެ.
+          </p>
+
+          <hr />
+
+          <p class="ltrText" style="font-size: 20px">
+            "The text presented here is exclusively for research and educational
+            purposes. It is intended for non-commercial fair use only."
+          </p>
+        </div>
+        <!-- <div class="centerAlignedText"> END -->
+
+        <hr />
+
+        <h3>މައުލޫމާތު: ރަދީފުގައިވާ ލަފުޒުތަކުގެ މައި ގިންތިތައް</h3>
+
+        <p>މައި ގިންތި</p>
+        <ul>
+          <li>ނަން</li>
+          <li>މަސްދަރު (ކަމުގެ ނަން)</li>
+          <li>ނަންއިތުރު</li>
+          <li>ކަން</li>
+          <li>ކަންއިތުރު</li>
+          <li>އިތުރު</li>
+          <li>އަކުރު</li>
+          <li>ނަންއިތުރުގެ ނަން</li>
+          <li>އަދަބީ ބަސް</li>
+        </ul>
+
+        <p>އަދަބީ ގިންތި</p>
+        <ul>
+          <li>މަޖާޒު</li>
+          <li>މަޖާޒީ މިސާލު</li>
+          <li>މިސާލުބަސް</li>
+          <li>ހަރުބަސް</li>
+          <li>މުސްކުޅިބަސް</li>
+        </ul>
+
+        <hr />
+
+        <h3>ތަޢާރަފު</h3>
+
+        <p>
+          މިއީ 2000ވަނަ އަހަރާއި 2006ވަނަ އަހަރު ދިވެހިބަހާއި ތާރީޚަށް
+          ޚިދުމަތްކުރާ ޤައުމީ މަރުކަޒުގެ ފަރާތުން ނެރުނު ބަސް ސީޑީއާއި 2011ވަނަ
+          އަހަރު ޤައުމީ ޔުނިވަރސިޓީގެ ދަށުގައި ބަހާއި ތާރީޚުގެ ބައި އޮތް އިރު
+          ނެރުއްވި ދިވެހި ބަސްފޮތުގައި ހިމެނޭ ލަފުޒުތައް ހިމަނައިގެން 2019 ވަނަ
+          އަހަރު "ބަސްދާރު"ގެ ނަމުގައި ޑޭޓާބޭހެއް އުފައްދައި އެ ޑޭޓާބޭހުގެ
+          އެހީތެރިކަމާއެކު، ކުރިން ނެރެފައިވާ ބަސްފޮތަށް ބޮޑެތި ބަދަލުތައް
+          ގެނެސް އައު އިސްލާހުތަކާއެކު ނެރެފައިވާ "ދިވެހިބަހުގެ ރަދީފު"އެވެ".
+        </p>
+
+        <hr />
+
+        <div class="ltrText leftAlignedText">
+          <h3>Technical notes</h3>
+          <p>
+            <a
+              href="https://play.google.com/store/apps/details?id=mv.edu.dhivehiacademy.radheef"
+              target="_blank"
+              >Dhivehi Bahuge Radheef</a
+            >
+            <br />
+            mv.edu.dhivehiacademy.radheef, v2.2.7
+            <br />
+            DB version used: 18/2/24
+            <br />
+            This page was updated: 14/6/24
+          </p>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var table = new DataTable("#tableID", {
+        ...DTconfig,
+        data: data,
+        // turns ordering columns back on, which was off for cards
+        ordering: true,
+        // https://datatables.net/reference/option/ordering
+        // default [[0, 'asc']], below makes it no ordering, with clickable th for ordering
+        order: [],
+        // this sets the default value on table load.
+        displayLength: 10,
+        // dv transliteration enMean dvMean dvMainClass dvTense dvAdabiClass dvDialect dvLevel dvField dvAtoll dvExample
+        columns: [
+          { title: "ދިވެހި ލަފްޒު" },
+          {
+            title: "އިނގިރޭސިން ތާނަ",
+            searchable: false,
+            className: "colEng",
+          },
+          { title: "އިނގިރޭސި މާނަ", className: "colEng" },
+          { title: "ދިވެހި މާނަ" },
+          {
+            title: "މައި ގިންތި",
+            render: (data) =>
+              data
+                .replace(/155/g, "އަދަބީ ބަސް")
+                .replace(/107/g, "އަކުރު")
+                .replace(/106/g, "އިތުރު")
+                .replace(/105/g, "ނަންއިތުރުގެނަން")
+                .replace(/104/g, "ނަންއިތުރު")
+                .replace(/103/g, "ނަން")
+                .replace(/102/g, "ކަންއިތުރު")
+                .replace(/101/g, "ކަން")
+                .replace(/100/g, "މަސްދަރު"),
+            searchable: false,
+          },
+          {
+            title: "ޒަމާން",
+            render: (data) =>
+              data
+                .replace(/115/g, "ވެދާނެކަން")
+                .replace(/114/g, "ނިމިނިމުނުކަން")
+                .replace(/113/g, "ނިމިނިމުނުކަން")
+                .replace(/112/g, "ވާނޭކަން")
+                .replace(/111/g, "ވޭވޭހުރިކަން")
+                .replace(/110/g, "ވާކަން")
+                .replace(/0/g, ""),
+            searchable: false,
+          },
+          {
+            title: "އަދަބީ ގިންތި",
+            render: (data) =>
+              data
+                .replace(/121/g, "އޮޅިބަސް")
+                .replace(/120/g, "މުސްކުޅިބަސް")
+                .replace(/119/g, "ހަރުބަސް")
+                .replace(/118/g, "މިސާލުބަސް")
+                .replace(/117/g, "މަޖާޒީ މިސާލު")
+                .replace(/116/g, "މަޖާޒު")
+                .replace(/0/g, ""),
+            searchable: false,
+          },
+          {
+            title: "ބަހުރުވަ",
+            render: (data) =>
+              data
+                .replace(/154/g, "ސަރަހައްދީ")
+                .replace(/149/g, "ބޯދާ")
+                .replace(/131/g, "މަލިކު")
+                .replace(/130/g, "ހުވަދޫ")
+                .replace(/129/g, "ހައްދުންމަތި")
+                .replace(/128/g, "ފުވައްމުލަކު")
+                .replace(/127/g, "އައްޑޫ")
+                .replace(/126/g, "އާންމު")
+                .replace(/0/g, ""),
+            searchable: false,
+          },
+          {
+            title: "ދަރަޖަ",
+            render: (data) =>
+              data
+                .replace(/125/g, "ހުތުރު / ބާޒާރީ")
+                .replace(/124/g, "އެންމެ މާތް")
+                .replace(/123/g, "މާތް")
+                .replace(/122/g, "އާންމު")
+                .replace(/0/g, ""),
+            searchable: false,
+          },
+          {
+            title: "ދާއިރާ",
+            render: (data) =>
+              data
+                .replace(/150/g, "އިންފޮމޭޝަން ޓެކްނޮލޮޖީ")
+                .replace(/141/g, "މިއުޒިކު")
+                .replace(/140/g, "މަސައްކަތްތެރިކަން")
+                .replace(/138/g, "ފަންޑިތަވެރިކަން")
+                .replace(/137/g, "ކަނބުރުވެރިކަން")
+                .replace(/136/g, "ނިޔަމިކަން")
+                .replace(/135/g, "ނަކަތްތެރިކަން")
+                .replace(/134/g, "ބޭސްވެރިކަން")
+                .replace(/133/g, "ދަނޑުވެރިކަން")
+                .replace(/132/g, "މަސްވެރިކަން")
+                .replace(/0/g, ""),
+            searchable: false,
+          },
+          {
+            title: "އަތޮޅު",
+            render: (data) =>
+              data
+                .replace(/\,/g, "، ")
+                .replace(/23/g, "ގ")
+                .replace(/22/g, "އ")
+                .replace(/21/g, "ހ")
+                .replace(/20/g, "ސ")
+                .replace(/19/g, "ޏ")
+                .replace(/18/g, "ގދ")
+                .replace(/17/g, "ގއ")
+                .replace(/16/g, "ލ")
+                .replace(/15/g, "ތ")
+                .replace(/14/g, "ދ")
+                .replace(/13/g, "ފ")
+                .replace(/12/g, "މ")
+                .replace(/11/g, "ވ")
+                .replace(/10/g, "އދ")
+                .replace(/9/g, "އއ")
+                .replace(/8/g, "ކ")
+                .replace(/7/g, "ޅ")
+                .replace(/6/g, "ބ")
+                .replace(/5/g, "ރ")
+                .replace(/4/g, "ނ")
+                .replace(/3/g, "ށ")
+                .replace(/2/g, "ހދ")
+                .replace(/1/g, "ހއ"),
+            // https://www.gillmeister-software.com/online-tools/text/sort-list.aspx
+            searchable: false,
+          },
+          {
+            title: "މިސާލު",
+          },
+          {
+            title: "ބާވަތް އިނގިރޭސިން",
+            render: (data) =>
+              data
+                .replace(/5/g, "adverb")
+                .replace(/4/g, "verb")
+                .replace(/3/g, "adjective")
+                .replace(/1/g, "noun")
+                .replace(/0/g, ""),
+            searchable: false,
+            className: "colEng",
+          },
+        ], //
+        columnDefs: [
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [0, 4, 5, 6, 7, 8, 9, 10, 12],
+          },
+          ...columnDefsconfig,
+        ],
+      });
+    </script>
+  </body>
+</html>
+<!--
+\notes\scripts\for work\radheef
+-->

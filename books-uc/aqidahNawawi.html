@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="dv" translate="no">
+  <head>
+    <!-- CHANGE !!! -->
+    <link
+      rel="canonical"
+      href="https://hadithmv.github.io/books/aqidahNawawi.html"
+    />
+    <title>دراسة عقيدة النووي</title>
+    <!-- 
+      المئوية في العقيدة النووية - دراسة عقيدة النووي
+     -->
+    <meta
+      name="description"
+      content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
+    />
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
+    <script src="../js/ALL-COMB.min.js"></script>
+    <!-- CHANGE !!! -->
+    <script src="../js/json/aqidahNawawi.js"></script>
+    <style>
+      /* so that long links in table dont cause it to break off screen */
+      .dataTable > tbody > tr {
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="hmvSection">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; نسخ رابط الصفحة &nbsp;
+          </button>
+          <button
+            id="toggleFiliButton2"
+            class="customButtons"
+            onclick="toggleFili();filiString2();scrollUpTop()"
+          >
+            &nbsp; إخفاء التشكيل &nbsp;
+          </button>
+
+          <script>
+            function toggleFili() {
+              var isVisible = $(".dataTable").DataTable().column(2).visible();
+              $(".dataTable").DataTable().column(2).visible(!isVisible);
+
+              var isVisible = $(".dataTable").DataTable().column(3).visible();
+              $(".dataTable").DataTable().column(3).visible(!isVisible);
+            }
+          </script>
+
+          <script>
+            function filiString2() {
+              var button = document.getElementById("toggleFiliButton2");
+              if (button.innerHTML.trim() === "&nbsp; إخفاء التشكيل &nbsp;") {
+                button.innerHTML = "&nbsp; إظهار التشكيل &nbsp;";
+              } else {
+                button.innerHTML = "&nbsp; إخفاء التشكيل &nbsp;";
+              }
+            }
+          </script>
+
+          <hr />
+
+          <p>⚠️ تنبيه: إنما ذكر هنا محل الشاهد.</p>
+          <hr />
+          <p>
+            سبب هذه الدراسة: طلب منا بعض الإخوة أن نجمع ما ورد في الباب للتبين،
+            فاستعنا بالله ورتبنا نبذة يسيرة، لئلا يغتر من لا يعلم، فيخلط بين
+            عقيدة أهل السنة وغيرهم. وبالله التوفيق.
+          </p>
+        </div>
+        <!-- <div class="centerAlignedText"> END -->
+
+        <hr />
+        <p>
+          ومن زعم أننا كذا وكذا وندعو إلى إحراق الكتب ونحو ذلك، فهو
+          <a
+            href="https://hadithmv.github.io/notes/harakis/more_lying_than_the_turd_of_dajjals_donkey.webp"
+            target="_blank"
+            >أكذب من روث حمار الدجال</a
+          >. فها نحن قد ترجمنا
+          <a href="bulugh" target="_blank">بلوغ المرام</a>
+          و
+          <a href="../notes/info/nawawiSiyar.html" target="_blank"
+            >سيرة النووي</a
+          >
+          الذي كتبه الذهبي، و
+          <a href="arbaoonNawawi" target="_blank">الأربعين</a>، وهو موجود في
+          <a
+            href="https://m.facebook.com/story.php?story_fbid=6398314856861749&id=187438007949496&"
+            target="_blank"
+            >المكتبات</a
+          >
+          و
+          <a
+            href="https://library.ium.edu.mv/cgi-bin/koha/opac-detail.pl?biblionumber=32906"
+            target="_blank"
+            >الجامعات</a
+          >، ولا عيب.
+        </p>
+        <hr />
+        <p>
+          وهؤلاء زعموا أنهم يدافعون عن العلماء ويحذرون من تبديعهم! وهم الذين
+          <a
+            href="https://hadithmv.github.io/notes/harakis/bin_baz_kafir_nawawi_excused_madkhalis_are_kafir.webp"
+            target="_blank"
+            >كفروا العلماء</a
+          >
+          و
+          <a
+            href="https://hadithmv.github.io/notes/harakis/AJ_Bin_Baz_kaafareh_magufuredhifai_dheenunun_beyruvefai_kudakuda_kureppeh.ogg"
+            target="_blank"
+            >قالوا</a
+          >: "والذي نعتقده أن بن باز كافر" و "والآن أعتقد أنه عالم كبير ضال،
+          بالإضافة إلى ضلالته أعتقد أنه خرج من الإسلام" و "لا نريد ذلك، لا نريده
+          على الإطلاق من صرصور صغير مثل بن باز".
+        </p>
+        <p>
+          و<a
+            href="https://hadithmv.github.io/notes/harakis/AJ_Uthaymeen_dhevah_dhonkeyo.webp"
+            target="_blank"
+            >قالوا أيضا</a
+          >: "وبعد كل هذه الأدلة القوية، وضع موزتي العثيمين".
+        </p>
+        <p>
+          ثم قالوا: الناس ظلمونا بالألقاب ونسبونا إلى
+          <a
+            href="https://hadithmv.github.io/notes/harakis/harakeenge_harakaiy.webp"
+            target="_blank"
+            >فرق</a
+          >! وهم الذين يقولون "<a
+            href="https://hadithmv.github.io/notes/harakis/ss_madhkhali.webp"
+            target="_blank"
+            >المدخلي</a
+          >" و "<a
+            href="https://hadithmv.github.io/notes/harakis/salool_broken_record.webp"
+            target="_blank"
+            >السلولي</a
+          >" و "<a
+            href="https://hadithmv.github.io/notes/harakis/thunfuhi_factory.webp"
+            target="_blank"
+            >منديل السلطان</a
+          >".
+        </p>
+        <p>
+          ثم قالوا: احذروا من
+          <a
+            href="https://hadithmv.github.io/notes/harakis/jaasoos_kuraa_counter_jaasoosun.webp"
+            target="_blank"
+            >الجواسيس</a
+          >
+          و
+          <a
+            href="https://hadithmv.github.io/notes/harakis/intel-harakis.webp"
+            target="_blank"
+            >استخبارات الشرطة</a
+          >
+          الذين ينشرون أسماء ومعلومات الإخوة والأخوات! وهم الذين
+          <a
+            href="https://hadithmv.github.io/notes/harakis/intel_sufahaul_ahlam.webp"
+            target="_blank"
+            >نصبوا القنوات</a
+          >
+          العامة
+          <a
+            href="https://hadithmv.github.io/notes/harakis/sanadheh_neiy_jaahilun.webp"
+            target="_blank"
+            >ليعلنوا أسماء</a
+          >
+          مخالفيهم.
+        </p>
+        <p>
+          ثم قالوا: هؤلاء ليس عندهم
+          <a
+            href="https://hadithmv.github.io/notes/harakis/gotheh_fotheh_huri_harakis.webp"
+            target="_blank"
+            >احترام ولا أدب ولا أخلاق</a
+          >! وهم
+          <a
+            href="https://hadithmv.github.io/notes/harakis/IL_adab_card_1.1.webp"
+            target="_blank"
+            >أفحش</a
+          >
+          الناس و
+          <a
+            href="https://hadithmv.github.io/notes/harakis/IL_adab_card_1.2.webp"
+            target="_blank"
+            >أشتمهم</a
+          >
+          و
+          <a
+            href="https://hadithmv.github.io/notes/harakis/IL_adab_card_1.3.webp"
+            target="_blank"
+            >أفجرهم</a
+          >
+          في
+          <a
+            href="https://hadithmv.github.io/notes/harakis/IL_adab_card_1.4.webp"
+            target="_blank"
+            >الكلام</a
+          >.
+        </p>
+        <p>
+          ثم قالوا: نريد ونستحق
+          <a
+            href="https://hadithmv.github.io/notes/harakis/bidua-ah-biduaey-kiyan-nukerey-latheefun.webp"
+            target="_blank"
+            >الإنصاف والعدل</a
+          >! ولا يهمهم ذلك في
+          <a
+            href="https://hadithmv.github.io/notes/harakis/cherry_pickers.webp"
+            target="_blank"
+            >حق غيرهم</a
+          >.
+        </p>
+        <p>
+          وقد روى البخاري في كتاب المظالم، عن عبد الله بن عمرو، رضي الله عنهما
+          عن النبي ﷺ قال: أربع من كن فيه كان منافقا، أو كانت فيه خصلة من أربعة
+          كانت فيه خصلة من النفاق، حتى يدعها؛ إذا حدث كذب، وإذا وعد أخلف، وإذا
+          عاهد غدر، وإذا خاصم فجر.
+        </p>
+        <p>وقال تعالى: سيعلمون غدا من الكذاب الأشر.</p>
+        <hr />
+        <p>
+          وأخيرا، نقول
+          <a
+            href="https://hadithmv.github.io/notes/harakis/dhen_nuwane_brather.webp"
+            target="_blank"
+            >للأخ المتعلم، الطالب للحق</a
+          >: اعلم رحمك الله، أن
+          <a
+            href="https://hadithmv.github.io/notes/harakis/talking_about_asharis_is_worse_than_being_asharis.webp"
+            target="_blank"
+            >المسألة الحقيقية</a
+          >
+          عند هؤلاء
+          <a
+            href="https://hadithmv.github.io/notes/harakis/save_ashariyya_save_qutb.webp"
+            target="_blank"
+            >الرويبضة المتناقضين</a
+          >، الذين يبغضون
+          <a
+            href="https://hadithmv.github.io/notes/harakis/dont_talk_against_asharis_talk_against_those_who_talk_against_them.webp"
+            target="_blank"
+            >الأثر وأهله</a
+          >، ليست مسألة النووي البتة، ولا
+          <a
+            href="https://hadithmv.github.io/notes/harakis/who_is_the_imam.webp"
+            target="_blank"
+            >إمامته</a
+          >
+          ولا
+          <a
+            href="https://hadithmv.github.io/notes/harakis/nawawi_staunch_ashari.webp"
+            target="_blank"
+            >هل هو أشعري</a
+          >
+          ولا
+          <a
+            href="https://hadithmv.github.io/notes/harakis/uzr_bi_wudiya_lahul_qabul.webp"
+            target="_blank"
+            >الترحم عليه</a
+          >
+          ولا
+          <a
+            href="https://hadithmv.github.io/notes/harakis/the_salaf_are_upon_bidah.webp"
+            target="_blank"
+            >الأدب
+          </a>
+          ولا
+          <a
+            href="https://hadithmv.github.io/notes/harakis/loftiness_of_ahlul_bidah.webp"
+            target="_blank"
+            >الإنصاف</a
+          >، كلا، كل ذلك
+          <a
+            href="https://hadithmv.github.io/notes/harakis/uzr_bil_shakhs.webp"
+            target="_blank"
+            >زور</a
+          >
+          و
+          <a
+            href="https://hadithmv.github.io/notes/harakis/aqidatu_shakhsiyyah.webp"
+            target="_blank"
+            >تلبيس</a
+          >. بل أقسم بالذي
+          <a
+            href="https://hadithmv.github.io/notes/harakis/knowingly_rejecting_istawa.webp"
+            target="_blank"
+            >على العرش استوى</a
+          >، إنما يفرون هؤلاء معرضين من
+          <a
+            href="https://hadithmv.github.io/notes/harakis/all_khurafis_are_saved_sect.webp"
+            target="_blank"
+            >موضوع العقيدة</a
+          >
+          و
+          <a
+            href="https://hadithmv.github.io/notes/harakis/the_salaf_are_wrong.webp"
+            target="_blank"
+            >منهج السلف</a
+          >
+          - كأنهم حمر مستنفرة،
+          <a
+            href="https://hadithmv.github.io/notes/harakis/aqida_nukiyaidheyshey_kiyanvejjeyyaa_haasvey.webp"
+            target="_blank"
+            >فرت من قسورة</a
+          >، - لأنهم يعرفون حق المعرفة أن لو
+          <a
+            href="https://hadithmv.github.io/notes/harakis/khilafa_not_aqida.webp"
+            target="_blank"
+            >تكلم به</a
+          >، لفضحت ودمرت دعوتهم
+          <a
+            href="https://hadithmv.github.io/notes/harakis/what_is_harakiyyah.webp"
+            target="_blank"
+            >الحركية المادية
+          </a>
+          العقلانية العارية من
+          <a
+            href="https://hadithmv.github.io/notes/harakis/atharis_should_be_called_ahlul_bidah.webp"
+            target="_blank"
+            >تنزيه الله</a
+          >، ويرى الناس ضلالات مقدسيهم
+          <a
+            href="https://hadithmv.github.io/notes/harakis/sayyid_ashari.webp"
+            target="_blank"
+            >كسادة أقطابهم</a
+          >
+          و
+          <a
+            href="https://hadithmv.github.io/notes/harakis/kullun_yukhaz-wa_yuradd_illa_AJ.webp"
+            target="_blank"
+            >أعلى أجلائهم</a
+          >، كما يرون
+          <a
+            href="https://hadithmv.github.io/notes/harakis/his_aqida_is_in_his_books.webp"
+            target="_blank"
+            >القمر ليلة البدر</a
+          >. فلذلك
+          <a
+            href="https://hadithmv.github.io/notes/harakis/qutbs_shiism.webp"
+            target="_blank"
+            >يوالون
+          </a>
+          و يعادون عليها،
+          <a
+            href="https://hadithmv.github.io/notes/harakis/giant_asharis.webp"
+            target="_blank"
+            >ويتعاونون فيما اتفقوا</a
+          >
+          عليه، ويعذروا بعضهم بعضا فيما
+          <a
+            href="https://hadithmv.github.io/notes/harakis/haqiqat_haqiqatjou.webp"
+            target="_blank"
+            >اختلفوا فيه</a
+          >، ويجوز لهم ما لا يجوز لغيرهم، ويقولون
+          <a
+            href="https://hadithmv.github.io/notes/harakis/say_what_they_dont_do.webp"
+            target="_blank"
+          >
+            ما لا يفعلون</a
+          >. والغاية عندهم
+          <a
+            href="https://hadithmv.github.io/notes/harakis/harakiyyathuge_natheejaa.webp"
+            target="_blank"
+            >تبرر الوسيلة</a
+          >. بل دينهم كله غاية، لا دين لهم سواها. وإذا سقط حركتهم، سقط دينهم، أو
+          <a
+            href="https://hadithmv.github.io/notes/harakis/deenuhum-yaduuru-ma'l-harakah-wujoodan-wa-adama.webp"
+            target="_blank"
+            >تحولوا إلى حركة أخرى</a
+          >. فلا
+          <a
+            href="https://hadithmv.github.io/notes/harakis/the_salaf_are_a_bad_example.webp"
+            target="_blank"
+            >يغرنكم</a
+          >
+          بالله الغرور. ولا تأسوا على
+          <a
+            href="https://hadithmv.github.io/notes/harakis/can_asharis_be_ahlu_sunnah.webp"
+            target="_blank"
+            >قوم هالكين</a
+          >. فلما عرفوا
+          <a
+            href="https://hadithmv.github.io/notes/harakis/why_take_from_asharis.webp"
+            target="_blank"
+            >مذهب السلف</a
+          >
+          الصالح فيما نقل عنهم الثقات، نبذوه وراء ظهورهم وقالوا: "‌وإن ‌كنت ‌لا
+          ‌أقول ‌به ‌ولا ‌أختاره!" و "لا سلف بعد الواقع!" و "كل المصايب هي
+          السلف!". وما قدروا الله حق قدره، والأرض جميعا قبضته يوم القيامة
+          والسماوات مطويات بيمينه. كل شيء هالك إلا وجهه، له الحكم وإليه ترجعون.
+        </p>
+        <hr />
+        <p>
+          ونقول للعاند على حركيته: هل تنقمون منا إلا أن آمنا بالله وما أنزل
+          إلينا وما أنزل من قبل وأن أكثركم فاسقون. إن يعلم الله في قلوبكم خيرا
+          يؤتكم خيرا مما أخذ منكم ويغفر لكم والله غفور رحيم. أعرض عن هذا، إنه قد
+          جاء أمر ربك. (وقد قال جل جلاله:) ونقلب أفئدتهم وأبصارهم كما لم يؤمنوا
+          به أول مرة ونذرهم في طغيانهم يعمهون. ويلك آمن. موتوا بغيظكم. لستم على
+          شيء، حتى تقيموا ما أنزل إليكم من ربكم، وليزيدن كثيرا منهم ما أنزل إليك
+          من ربك طغيانا وكفرا. إني تركت ملة قوم لا يؤمنون بالله. والسلام على من
+          اتبع الهدى.
+        </p>
+        <!--
+
+            على قلوبهم أكنة أن يفقهوه، وفي آذانهم وقرا،
+
+يجعلون أصابعهم في آذانهم من الصواعق حذر الموت
+
+لهم قلوب لا يفقهون بها، ولهم أعين لا يبصرون بها، ولهم آذان لا يسمعون بها،
+
+فإنها لا تعمى الأبصار ولكن تعمى القلوب التي في الصدور.
+
+
+
+            محمد ع
+            وحث عليه الأخوان أحمد ع، و محمد م. 
+          -->
+
+        <hr class="lineVerticalSpace" />
+
+        <h3>—&nbsp; روابط &nbsp;—</h3>
+
+        <div style="overflow-wrap: anywhere">
+          <p>
+            <a
+              href="https://islamqa.info/ar/answers/390725/هل-تصح-نسبة-جزء-الحرف-والصوت-الى-النووي-رحمه-الله"
+              target="_blank"
+              dir="ltr"
+              >https://islamqa.info/ar/answers/390725/هل-تصح-نسبة-جزء-الحرف-والصوت-الى-النووي-رحمه-الله</a
+            >
+          </p>
+          <p>
+            <a
+              href="https://archive.org/details/taqubaath-nawawi-rabeeu"
+              target="_blank"
+              >التعقبات على ما وقع فيه النووي من هفوات في شرحه لصحيح مسلم في
+              أبواب الاعتقادات
+            </a>
+          </p>
+          <p>
+            <a
+              href="https://archive.org/details/dalail-wafiyya-fi-tahqiq-aqida-nawawi"
+              target="_blank"
+              >الدلائل الوفية في تحقيق عقيدة الإمام النووي: أسلفية أم خلفية</a
+            >
+          </p>
+          <p>
+            <a
+              href="https://archive.org/details/rudood-wa-taqqubaath-nawawi"
+              target="_blank"
+              dir="ltr"
+              >الردود والتعقبات على ما وقع للإمام النووي في شرح صحيح مسلم من
+              التأويل في الصفات وغيرها من المسائل المهمات</a
+            >
+          </p>
+          <p>
+            <a
+              href="http://badralitammi.blogspot.com/2020/03/130.html"
+              target="_blank"
+              >http://badralitammi.blogspot.com/2020/03/130.html</a
+            >
+          </p>
+          <p>
+            <a
+              href="https://www.islamancient.com/كتاب-جزء-فيه-ذكر-اعتقاد-السلف-في-الحرو"
+              target="_blank"
+              dir="ltr"
+              >https://www.islamancient.com/كتاب-جزء-فيه-ذكر-اعتقاد-السلف-في-الحرو</a
+            >
+          </p>
+          <p>
+            <a
+              href="https://archive.org/details/aqida-nawawi-wa-bayan-qaulu-salaf-feehaa"
+              target="_blank"
+              >عقيدة النووي وبيان قول السلف فيها</a
+            >
+          </p>
+          <p>
+            <a
+              href="https://rushd.sa/products/جزء-فيه-استدراكات-على-شرح-مسلم-للنووي-مجلد-شاموا"
+              target="_blank"
+              dir="ltr"
+              >https://rushd.sa/products/جزء-فيه-استدراكات-على-شرح-مسلم-للنووي-مجلد-شاموا</a
+            >
+          </p>
+          <p>
+            <a
+              href="https://abo-musa.blogspot.com/2015/02/blog-post_47.html"
+              target="_blank"
+              >https://abo-musa.blogspot.com/2015/02/blog-post_47.html</a
+            >
+          </p>
+          <p>
+            <a
+              href="https://drwaleedbinalsalah.com/عقيدة-الإمام-النووي-رحمه-الله-من-أقوال"
+              target="_blank"
+              dir="ltr"
+              >https://drwaleedbinalsalah.com/عقيدة-الإمام-النووي-رحمه-الله-من-أقوال</a
+            >
+          </p>
+          <p>
+            <a
+              href="https://ashaeraa.blogspot.com/2011/12/blog-post_4124.html"
+              target="_blank"
+              >https://ashaeraa.blogspot.com/2011/12/blog-post_4124.html</a
+            >
+          </p>
+        </div>
+        <!-- <div style="overflow-wrap: anywhere">-->
+      </div>
+    </div>
+    <script type="text/javascript">
+      var table = new DataTable("#tableID", {
+        ...DTconfig,
+        data: data,
+        // CHANGE !!!
+        language: {
+          emptyTable: "— ما وجد —",
+          info: "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+          infoFiltered: "(مرشحة من مجموع _MAX_)",
+          infoEmpty: "— ما وجد  —",
+          lengthMenu: "إظهار _MENU_",
+          loadingRecords: "جار التحمي...",
+          search: "",
+          searchPlaceholder: 'اللفظ المحدد "كذا"، !كذا بدونه',
+          zeroRecords: "— ما وجد —",
+          buttons: {
+            pageLength: {
+              _: "%d إظهار",
+              "-1": "الكل",
+            },
+            copyTitle: "&nbsp; نسخ 📋",
+            copySuccess: {
+              1: "تم نسخ 1",
+              _: "تم نسخ %d",
+            },
+          },
+          searchBuilder: {
+            button: "🔍 مخصص",
+            add: "+ اضافة",
+            condition: "الشرط",
+            clearAll: "ازالة الكل",
+            data: "المعلومة",
+            logicAnd: "و &",
+            logicOr: "أو |",
+            title: {
+              0: "شروط البحث",
+              _: "شروط البحث (%d)",
+            },
+            value: "النص",
+            valueJoiner: "و",
+          },
+          searchPanes: {
+            // https://datatables.net/reference/option/language.searchPanes.collapse
+            // looks like i wont need text: "⧩ ފިލްޓާ" with this
+            collapse: { 0: "فلاتر البحث", _: "فلاتر البحث (%d)" },
+            title: {
+              _: "%d فلاتر البحث",
+              0: "0 فلاتر البحث",
+              1: "1 فلاتر البحث",
+            },
+            count: "{total}",
+            countFiltered: "{shown} ({total})",
+            emptyMessage: "— غير موجود —",
+            clearMessage: "ازالة الكل",
+          },
+        }, // language END
+        // #	bab babDhiv arab takhrij dhiv	dvRef
+        columns: [
+          {
+            title: "ص #",
+            className: "colHeader",
+            render: function (data) {
+              return "[ص. " + data + "]";
+            },
+          },
+          { title: "العنوان", className: "colHeader" },
+          { title: "النص" },
+          {
+            title: "بدون تشكيل",
+            data: 2,
+            render: (data) => removeThashkeel(data),
+            visible: false,
+          },
+          {
+            title: "الحاشية",
+            data: 3,
+            searchable: false,
+          },
+        ], //
+        columnDefs: [
+          {
+            targets: [4],
+            render: (data) =>
+              data !== ""
+                ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
+                  data.replace(/\n/g, '\t<br class="dtBr">')
+                : data,
+          },
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [1],
+          },
+          ...columnDefsconfig,
+        ],
+      });
+    </script>
+
+    <script>
+      const buttonSpan = document.querySelector(
+        "#tableID_wrapper > div:nth-child(1) > div > div.dt-buttons > button:nth-child(2) > span:nth-child(1)"
+      );
+      if (buttonSpan) {
+        buttonSpan.textContent = "⌥ خيارات";
+      }
+
+      //
+
+      const copyButtonSpan = document.querySelector(
+        "#tableID_wrapper > div:nth-child(1) > div > div.dt-buttons > button.dt-button.buttons-copy.buttons-html5 > span"
+      );
+      if (copyButtonSpan) {
+        copyButtonSpan.textContent = "⧉ نسخ";
+      }
+
+      //
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Remove the item with the Telegram link
+        const telegramItem = document.querySelector(
+          'li a[href="https://t.me/ashraafmv"]'
+        );
+        if (telegramItem) {
+          telegramItem.closest("li").remove();
+        }
+
+        // Remove the item about the Hadith student
+        const studentItem = document.querySelector('li[style="font-size:90%"]');
+        if (
+          studentItem &&
+          studentItem.textContent.trim() ===
+            "މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް"
+        ) {
+          studentItem.remove();
+        }
+      });
+    </script>
+  </body>
+</html>

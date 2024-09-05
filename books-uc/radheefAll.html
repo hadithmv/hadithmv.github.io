@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="dv" translate="no">
+  <head>
+    <!-- CHANGE !!! -->
+    <link
+      rel="canonical"
+      href="https://hadithmv.github.io/books/radheefAll.html"
+    />
+    <title>الجامع في المعاجم – އެއްކުރަމުންދާ ރަދީފުތައް*</title>
+    <meta
+      name="description"
+      content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
+    />
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
+    <script src="../js/ALL-COMB.min.js"></script>
+    <!-- CHANGE !!! 
+      radheef rasmee no longer in a google sheet, as it is compiled -->
+    <script src="../js/json/radheefRasmee.js"></script>
+    <style>
+      /* === --- === --- ====
+        CUSTOM CSS
+        === --- === --- ==== */
+
+      /* only for MOBILE size */
+
+      @media (max-width: 599px) {
+        /* removes stripe and column ordering class code */
+        :root {
+          --dt-row-stripe: none; /* 0, 0, 0*/
+          /*--dt-row-hover: 0, 0, 0;*/
+          --dt-column-ordering: none; /* 0, 0, 0*/
+        }
+
+        table.dataTable.row-border > tbody > tr > * {
+          /*border-top: 1px solid rgba(0, 0, 0, 0.15);*/
+          border-top: none;
+        }
+        /* center align english on mobile */
+        td.colEng {
+          text-align: center;
+        }
+      } /* END OF MOBILE */
+
+      /* only for TABLET size and up */
+      @media (min-width: 600px) {
+        /* UNDOES OG CARDS CODE */
+
+        .cards tbody tr {
+          /*margin: 0;*/ /* 0.5rem; just top and bottom? */
+          margin-top: 0;
+          margin-bottom: 0;
+          border: none; /* 0.0911rem solid #c4c6d0;*/
+          /*border-radius: 24px;*/
+        }
+        .cards tbody td {
+          display: table-cell; /* block; */
+        }
+
+        /* */
+
+        /* OTHER CARDS STUFF */
+
+        .cards tbody tr {
+          padding: initial; /* 20px ? */
+        }
+
+        .cards tbody {
+          display: table-row-group; /*flex*/
+          flex-direction: row; /* column */
+          align-items: normal; /* stretch */
+        }
+
+        /* */
+
+        /* OTHER STUFF */
+
+        /* brings back the th table header above columns, hidden in card view */
+        thead {
+          display: table-header-group; /* none */
+        }
+        /* brings back colgroup cols removed, for card view. this effects table class hover. however this code isnt working.
+          .dt-container > colgroup > col:not(:nth-child(0)) {
+          display: table-column;
+            } */
+        table.dataTable > thead > tr > th > span.dt-column-title {
+          /* makes table headers not bold */
+          font-weight: normal;
+          font-size: 20px;
+          color: #555;
+        }
+        table.dataTable > thead > tr > th {
+          /* vertically aligns to top */
+          vertical-align: top;
+          /* centers */
+          text-align: center;
+          /* */
+          line-height: 1.4;
+        }
+        /* reduces right and left padding of th, making that row smaller */
+        div.dt-layout-cell.dt-layout-full > table.dataTable > thead > tr > th {
+          padding-right: 20px;
+          padding-left: 0;
+        }
+
+        /* removes margin spaces at edges of table */
+        div.dt-container {
+          margin-right: 0;
+          margin-left: 0;
+        }
+        /* since we removed spaces above, we add them inside the padding of the right of first column, and left of last column */
+        .dataTable > tbody > tr > td:first-child {
+          padding-right: 15px;
+          padding-left: 10px;
+        }
+        .dataTable > tbody > tr > td:last-child {
+          padding-left: 15px;
+        }
+
+        /* gives back the border top to the last child of tr */
+        /*table.dataTable.row-border > tbody > tr > * */
+        div.dt-container.dt-empty-footer tbody > tr:last-child > td {
+          border-top: 1px solid rgba(0, 0, 0, 0.15);
+          /* adds a bottom border too */
+          border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+          /*1px solid rgba(0, 0, 0, 0.15);*/
+        }
+      } /* END OF TABLET UP */
+
+      /* */
+
+      /* CUSTOM PAGE STUFF */
+    </style>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <!-- CHANGE !!! class="cards" display stripe>
+       https://datatables.net/examples/styling/display.html -->
+      <table
+        id="tableID"
+        class="cards stripe row-border compact"
+        width="100%"
+      ></table>
+      <div class="hmvSection">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
+          <button
+            id="toggleFiliButton"
+            class="customButtons"
+            onclick="toggleFili();filiString();scrollUpTop()"
+          >
+            &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
+          </button>
+
+          <script>
+            function toggleFili() {
+              var isVisible = $(".dataTable").DataTable().column(0).visible();
+              $(".dataTable").DataTable().column(0).visible(!isVisible);
+
+              var isVisible = $(".dataTable").DataTable().column(1).visible();
+              $(".dataTable").DataTable().column(1).visible(!isVisible);
+            }
+          </script>
+
+          <hr />
+
+          <p>
+            މިއީ ޙަދީޘްއެމްވީގައިވާ ހުރިހާ ރަދީފުތަކެއް އެއް ތަނަކުން ސާޗްކުރެވޭ
+            ސަފުހާއެވެ.
+          </p>
+        </div>
+        <!-- <div class="centerAlignedText"> END -->
+
+        <hr />
+
+        <p class="centerAlignedText ltrText" style="font-size: 20px">
+          "The text presented here is exclusively for research and educational
+          purposes. It is intended for non-commercial fair use only."
+        </p>
+
+        <hr />
+
+        <p>
+          ⚠️ މިތާ ލައްކައަކަށް ވުރެ ގިނަ ލަފްޒު ހިމެނިފައިވާ އިރު، ބައެއް
+          ލަފްޒުތަކާއި މާނަތަކުގައި މައްސަލަ އުޅޭނެއެވެ. ވީމާ މި ކަމަށް
+          ސަމާލުވެ، ވިސްނައިގެން ކުރިއަށް ގެންދާށެވެ.
+        </p>
+
+        <hr />
+
+        <p>
+          މެނިއޫ އިން އެހެން ރަދީފަކަށް ދާ ނަމަ، ސާޗްކުރަން ހުރި ލަފްޒު ސޭވް
+          ވެފަ ހުންނާނެ
+        </p>
+
+        <p>
+          އަލިފުބާ ތަރުތީބަށް ހެދުމަށް، ޑެސްކްޓޮޕުގައި އެންމެ މަތީގައިވާ އަރަބި
+          / ދިވެހި / އިނގިރޭސި... މި ބަރިން ލަފްޒަކަށް ފިތާލާ
+        </p>
+
+        <p>
+          އަދި ޝިފްޓު ކްލިކްކޮށްގެން އެކަކަށް ވުރެ ގިނަ ކޮލަމްތައް އެ ގޮތަށް
+          ތަރުތީބު ކުރެވޭނެ
+        </p>
+      </div>
+    </div>
+    <script type="text/javascript">
+      // CHANGE !!!
+
+      // Initialize an empty array to hold the datasets
+      var dataSets = [];
+      // array list of dataset files to load data from
+      /*var datasetFiles = [
+              "../js/json/radheefAll.js",
+              "../js/json/arbaoonNawawi.js",
+            ];*/
+      // Add more files as needed
+      var datasetFiles = [
+        // 0ar 1dv 2en 3arMean 4dvMean 5enMean
+        "radheefAll.js",
+        // radheef rasmee no longer in a google sheet, as it is compiled
+        // rasmee: 0dv 1transliteration 2enMean 3dvMean 4dvMainClass 5dvTense 6dvAdabiClass 7dvDialect 8dvLevel 9dvField 10dvAtoll 11dvExample
+        //NEED: 0 2 3
+        "radheefRasmee.js",
+        // arName ar dv pageNo
+        //NEED: 0 1 2
+        "radheefEegaal.js",
+        // transliteration dv enType enMean
+        "radheefManiku.js",
+        // 0ar 1dv 2en 3arMean 4dvMean 5enMean 6gender 7source 8lang
+        //NEED: 0 1 2 3 4 5
+        "radheefNanfoiy.js",
+        // Add other dataset files here
+      ].map((file) => `../js/json/${file}`);
+
+      // Configuration for each dataset, in order
+      var datasetConfigs = [
+        // Columns to keep (0-based index)
+        // New order (after new column added)
+        // New column with "text"
+        /*{
+                // allAthar
+                // book	#	arText	dvText	Takhrij
+                columnsToKeep: null, // Keep all columns as they are
+                columnOrder: null, // Maintain the existing order of columns
+                newColumns: [], // No new columns to add
+              },*/
+        {
+          columnsToKeep: [0, 1, 2, 3, 4, 5],
+          //columnOrder: [0, 1, 2, 3, 4], // New order for the columns after adding new columns
+          //columnOrder: null, // Maintain the existing order of columns
+          // Remove or set to null: columnOrder: null,
+          //newColumns: [{ value: "radheefAll" }], // Add a new column with the value "text" in each row
+        },
+        {
+          columnsToKeep: [0, 2, 3],
+          columnOrder: [0, 1, 2, 3, 4, 5], // it seems without setting column order, the number of columns will not match the first dataset, and as a result not render
+          //newColumns: [{ value: "radheefRasmee" }],
+        },
+        {
+          columnsToKeep: [0, 1, 2],
+          columnOrder: [0, 1, 2, 3, 4, 5],
+          //newColumns: [{ value: "radheefEegaal" }],
+        },
+        {
+          columnsToKeep: [0, 3, 5, 6],
+          columnOrder: [0, 1, 2, 3, 4, 5],
+          //newColumns: [{ value: "radheefManiku" }],
+        },
+        {
+          columnsToKeep: [0, 1, 2, 3, 4, 5],
+          //newColumns: [{ value: "radheefNanfoiy" }],
+        },
+        //
+      ];
+
+      // Function to process each dataset
+      function processDataSet(dataset, config, filename) {
+        let processedData = dataset.map((row) => {
+          let newRow = [];
+
+          // Keep only the specified columns from the original data
+          config.columnsToKeep.forEach((col) => {
+            newRow.push(row[col] == null ? "" : row[col]);
+          });
+
+          // Add the dataset name as the first column only if newColumns is specified
+          if (config.newColumns && config.newColumns.length > 0) {
+            newRow.unshift(config.newColumns[0].value);
+          }
+
+          return newRow;
+        });
+
+        // Reorder columns if a specific order is specified in the config
+        if (config.columnOrder) {
+          processedData = processedData.map((row) => {
+            return config.columnOrder.map(
+              (orderIndex) => row[orderIndex] || ""
+            );
+          });
+        }
+
+        // Return processed data along with the filename for identification
+        return { data: processedData, filename: filename };
+      }
+
+      // Function to load all datasets
+      function loadDatasets(files, configs, callback) {
+        var loaded = 0;
+        files.forEach(function (file, index) {
+          // Create a script element to load the dataset file
+          var script = document.createElement("script");
+          script.src = file;
+          script.onload = function () {
+            // Process the loaded data and store it in dataSets array
+            dataSets[index] = processDataSet(data, configs[index], file);
+            loaded++;
+            // If all datasets are loaded, call the callback function
+            if (loaded === files.length) {
+              callback();
+            }
+          };
+          document.head.appendChild(script);
+        });
+      }
+
+      // Load all datasets and then process them
+      loadDatasets(datasetFiles, datasetConfigs, function () {
+        // Find the indices of the two datasets we want to combine
+        /*const barbarahiIndex = dataSets.findIndex((ds) =>
+          ds.filename.includes("sharhuSunnahBarbahari.js")
+        );
+        const barbarahiDFKIndex = dataSets.findIndex((ds) =>
+          ds.filename.includes("sharhuSunnahBarbahari-DFK.js")
+        );
+
+        // If both datasets are found, combine them
+        if (barbarahiIndex !== -1 && barbarahiDFKIndex !== -1) {
+          // Combine the datasets
+          dataSets[barbarahiDFKIndex].data = dataSets[
+            barbarahiDFKIndex
+          ].data.map((row, index) => {
+            const barbarahiRow = dataSets[barbarahiIndex].data[index] || [];
+            return [
+              row[0], // Dataset name
+              barbarahiRow[1] || "", // First column from sharhuSunnahBarbahari
+              barbarahiRow[2] || "", // Second column from sharhuSunnahBarbahari
+              row[1] || "", // First column from sharhuSunnahBarbahari-DFK
+              row[2] || "", // Second column from sharhuSunnahBarbahari-DFK
+            ];
+          });
+        }*/
+
+        // Flatten the dataSets array to get a single array of all rows
+        // prev data was combinedDataSet
+        var data = dataSets.flatMap((ds) => ds.data);
+
+        // Log the combined dataset to the console. uncomment this to see the object array
+        //console.log(combinedDataSet);
+
+        // Initialize the DataTable with the combined dataset and specified configuration
+        var table = new DataTable("#tableID", {
+          ...DTconfig, // Existing DataTable configuration spreadd from external file source
+          data: data, // Set the combined dataset as the data for the table
+
+          // turns ordering columns back on, which was off for cards
+          ordering: true,
+          // https://datatables.net/reference/option/ordering
+          // default [[0, 'asc']], below makes it no ordering, with clickable th for ordering
+          order: [],
+          // this sets the default value on table load.
+          displayLength: 10,
+
+          //columns: [null, null, null, null, null],
+          /*columns: [
+                  { title: "New Column Title" }, // Title for the new column ? added in the second dataset ? or just title
+                  { title: "Column 1" },
+                  { title: "Column 2" },
+                  { title: "Column 3" },
+                  { title: "Column 4" },
+                ],*/
+
+          /*});
+            });*/
+
+          //
+
+          // 0ar 1dv 2en 3arMean 4dvMean 5enMean
+          columns: [
+            { title: "އަރަބި ލަފްޒު", searchable: false },
+            {
+              title: "އަރަބި ފިލިނުޖަހާ",
+              data: 0,
+              render: (data) => removeThashkeel(data),
+              visible: false,
+            },
+            {
+              title: "ދިވެހި ލަފްޒު",
+              data: 1,
+            },
+            {
+              title: "އިނގިރޭސި ލަފްޒު",
+              data: 2,
+              className: "colEng",
+            },
+            {
+              title: "އަރަބި މާނަ",
+              data: 3,
+            },
+            {
+              title: "ދިވެހި މާނަ",
+              data: 4,
+            },
+            {
+              title: "އިނގިރޭސި މާނަ",
+              data: 5,
+              className: "colEng",
+            },
+          ],
+          columnDefs: [...columnDefsconfig],
+        });
+        //
+
+        // due to the way multiple js array dataset files are dynamically loaded with datatable initialize being async, the focus code is  running before the table is fully initialized and the search input code or whaterver is available. instead of changing the external config, this can be fixed moving the focus code inside the callback that initializes the DataTable below, ensure it runs after the table is fully initialized and the search input code or whatever is available in the DOM. still currently getting a initialize-dt.js:31  Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')
+
+        /* from the initialize-dt.js, everything from between -
+      document.addEventListener("DOMContentLoaded", function () {
+        if (!isMobile) {
+            $("div.dt-search .dt-input").focus();
+        - till the end of that function was copied as is here, and any updates there will need to be brought here */
+
+        // EXECUTE AFTER DATATALE IS INITIALIZED
+        // document.dispatchEvent(new Event("dataTableInitialized"));
+        if (!isMobile) {
+          $("div.dt-search .dt-input").focus();
+
+          table.on("page", function () {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          });
+        } else {
+          table.on("page", function () {
+            const trElement = document.querySelector("tbody tr");
+            const navbarHeight = document.querySelector(".navbar").offsetHeight;
+
+            const trPosition =
+              trElement.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = trPosition - navbarHeight;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          });
+
+          delete Hammer.defaults.cssProps.userSelect;
+
+          Hammer(document.querySelector(".dataTable")).on(
+            "swipeleft",
+            function () {
+              table.page("previous").draw("page");
+            }
+          );
+
+          Hammer(document.querySelector(".dataTable")).on(
+            "swiperight",
+            function () {
+              table.page("next").draw("page");
+            }
+          );
+        }
+
+        $(".dt-paging-input input")
+          .prop("type", "search")
+          .attr("placeholder", "ސަފުހާ");
+
+        $("tbody").on("dblclick", "tr", function () {
+          if (table.search() !== "") {
+            table.search("").draw();
+          }
+          table.row(this).draw().show().select().draw(false);
+        });
+
+        $(".dt-search .dt-input").on("keyup click", function () {
+          var str = $(this).val();
+          str = str.replace(
+            /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
+            ""
+          );
+          $(this).val(str);
+        });
+        // END
+
+        //
+      });
+      /*
+            var table = new DataTable("#tableID", {
+              ...DTconfig,
+            });
+            */
+    </script>
+  </body>
+</html>
+
+<!--
+
+HH D ADDs so far:
+
+a
+b
+c
+d
+e
+f
+...
+m
+
+-->
