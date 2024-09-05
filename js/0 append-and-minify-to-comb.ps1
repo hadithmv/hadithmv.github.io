@@ -84,12 +84,11 @@ foreach ($file in $jsFiles) {
 # Minify navbar.js
 $minifiedNavbarCode = Minify-Navbar
 
-# List of HTML files to update
-$htmlFiles = @(
-    "..\books-uc\index.html",
-    "..\page-uc\lafzuVakikohLiyumugeQawaid.html"
-    # Add more HTML file paths here as needed
-)
+# Get all HTML files in the ..\page-uc\ directory
+$htmlFiles = Get-ChildItem -Path "..\page-uc\" -Filter "*.html" -File | Select-Object -ExpandProperty FullName
+
+# Add ..\books-uc\index.html to the list of HTML files
+$htmlFiles += "..\books-uc\index.html"
 
 # Insert or update minified navbar.js in each HTML file
 foreach ($htmlFile in $htmlFiles) {

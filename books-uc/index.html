@@ -1510,7 +1510,7 @@
               </a>
               <a
                 class="book smallerText"
-                href="../notes/info/contact.html"
+                href="../page/contact.html"
                 target="_blank"
               >
                 (މައި 9 ޙަދީޘް ފޮތް ތައްޔާރުވަނީ، ބައިވެރިވުމަށް މެސެޖުކޮށްލާ)
@@ -2307,11 +2307,11 @@
                 <p>9 ما هو حديث أم وي؟</p>
                 <p>ℹ️ ޙަދީޘްއެމްވީ އަކީ ކޮބާ؟</p>
               </a>
-              <a class="book" href="../notes/info/mirror-backups.html">
+              <a class="book" href="../page/404.html">
                 <p>10 المواقع الإحتياطية</p>
                 <p>💾 ބެކްއަޕް ސައިޓުތައް</p>
               </a>
-              <a class="book" href="../notes/info/contributors.html">
+              <a class="book" href="../page/contributors.html">
                 <p>11 المساعدون</p>
                 <p>🤝 އެހީތެރިން</p>
               </a>
@@ -2323,7 +2323,7 @@
                 <p>13 مصادر الأدوات</p>
                 <p>🔧 ހަދަން ބޭނުންކުރި ތަކެތި</p>
               </a>
-              <a class="book" href="../notes/info/privacy.html">
+              <a class="book" href="../page/privacy.html">
                 <p>14 سياسة الخصوصية</p>
                 <p>🔒 ޕްރައިވެސީ ޕޮލިސީ</p>
               </a>
@@ -3819,10 +3819,13 @@
       </div>
       <!-- <div class="centerAlignedText"> END -->
     </div>
-  </body>
-</html>
-<!-- INSERT NAV JS MIN CODE UNDER HERE -->
-<script>var hmvVersionNo=3.16;function createNavbar(){var a=document.title;document.getElementById("navbar-container").innerHTML=`
+
+    <!-- INSERT NAV JS MIN CODE UNDER HERE -->
+    <script>
+      var hmvVersionNo = 3.16;
+      function createNavbar() {
+        var a = document.title;
+        document.getElementById("navbar-container").innerHTML = `
 <nav class=navbar>
    <div class=navbar-left><img alt="Site Icon"class=site-icon onclick=goToHomePage() src=../img/logo/logo.svg title="back to homepage"></div>
    <div class=navbar-center><span class=page-title>${a}</span></div>
@@ -3894,20 +3897,13 @@
                   <li>
                      <a href="../books/radheefNanfoiy.html" onclick="changeBkRadheef('radheefNanfoiy'; return false;)">ނަންފޮތް</a>
                   </li>
-                  <li><a href=../notes/info/lafzuVakikohLiyumugeQawaid.html>ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު (ދިވެހި)</a>
-                  <li><a href="https://archive.org/details/dhifihuristhu"
-                     target="_blank">ދިފިހުރިސްތު (PDF)</a>
-                  <li><a href=../notes/info/NukuthaajehiAkuruthahBeynunkuraaneHama.html>ތާނައިގައި ހުރި ނުކުތާޖެހި އަކުރުތައް ބޭނުންކުރާނެ ހަމަ</a>
-                  <li><a href="https://archive.org/details/dhivehi_bahuge_qawaidhu"
-                     target="_blank">ދިވެހިބަހުގެ ގަވާއިދު (PDF)</a>
-                  <li><a href="https://archive.org/details/latin_akurun_liyumuge_qawaidhu"
-                     target="_blank">ތާނަލިޔުމުގެ ގަވާއިދު (PDF)</a>
+                  <li><a href=../page/lafzuVakikohLiyumugeQawaid.html>ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު (ދިވެހި)</a>
                </ul>
          </ul>
-      <li><a href=../notes/info/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
+      <li><a href=../page/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
       <li><a href=../notes/info/helpTranslate.html>ތަރުޖަމާގައި އެހީވެދިނުމަށް</a>
       <li><a href=../notes/info/FAQ.html>ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a>
-      <li><a href=../notes/info/contributors.html>އެހީތެރިން</a>
+      <li><a href=../page/contributors.html>އެހީތެރިން</a>
       <li onclick=openDiv() class=versionNo>⚙️ އިސްދާރު: v${hmvVersionNo}
       <li><a href=https://t.me/ashraafmv>ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a>
       <li style=font-size:90%>މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް
@@ -3920,8 +3916,76 @@
          </ul>
    </ul>
 </div>
-`}function goToHomePage(){window.location.href="index.html"}function toggleSideMenu(){document.getElementById("sideMenu").classList.toggle("open")}function sideMenutoggleDropdown(a,e){e&&e.stopPropagation(),e=a.querySelector(".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content");var o,n=a.querySelector(".dropdown-arrow");e&&(e.classList.toggle("show"),n.style.transform=e.classList.contains("show")?"rotate(-90deg)":"");for(o of e=a.parentElement.children)o!==a&&(e=o.querySelector(".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content"),n=o.querySelector(".dropdown-arrow"),e)&&(e.classList.remove("show"),n.style.transform="")}document.addEventListener("DOMContentLoaded",createNavbar),document.addEventListener("click",function(a){var e=document.querySelector(".navbar"),o=document.getElementById("sideMenu"),e=e.contains(a.target),n=o.contains(a.target),l=a.target.classList.contains("site-icon");(a.target.classList.contains("menu-icon")||e&&!l||!n&&o.classList.contains("open"))&&toggleSideMenu()}),document.addEventListener("DOMContentLoaded",function(){let e=0,o=document.querySelector(".navbar"),n=0;window.matchMedia("(max-width: 599px)").matches&&window.addEventListener("scroll",((e,o)=>{let n;return function(){var a=arguments;n||(e.apply(this,a),n=!0,setTimeout(()=>n=!1,o))}})(function(){var a;o&&((a=window.pageYOffset||document.documentElement.scrollTop)<=50?(o.classList.remove("navbar-hidden"),n=0):a>e?(o.classList.add("navbar-hidden"),n=0):200<(n+=e-a)&&(o.classList.remove("navbar-hidden"),n=0),e=a<=0?0:a)},100))});</script>
-
-
-
-
+`;
+      }
+      function goToHomePage() {
+        window.location.href = "index.html";
+      }
+      function toggleSideMenu() {
+        document.getElementById("sideMenu").classList.toggle("open");
+      }
+      function sideMenutoggleDropdown(a, e) {
+        e && e.stopPropagation(),
+          (e = a.querySelector(
+            ".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content"
+          ));
+        var o,
+          n = a.querySelector(".dropdown-arrow");
+        e &&
+          (e.classList.toggle("show"),
+          (n.style.transform = e.classList.contains("show")
+            ? "rotate(-90deg)"
+            : ""));
+        for (o of (e = a.parentElement.children))
+          o !== a &&
+            ((e = o.querySelector(
+              ".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content"
+            )),
+            (n = o.querySelector(".dropdown-arrow")),
+            e) &&
+            (e.classList.remove("show"), (n.style.transform = ""));
+      }
+      document.addEventListener("DOMContentLoaded", createNavbar),
+        document.addEventListener("click", function (a) {
+          var e = document.querySelector(".navbar"),
+            o = document.getElementById("sideMenu"),
+            e = e.contains(a.target),
+            n = o.contains(a.target),
+            l = a.target.classList.contains("site-icon");
+          (a.target.classList.contains("menu-icon") ||
+            (e && !l) ||
+            (!n && o.classList.contains("open"))) &&
+            toggleSideMenu();
+        }),
+        document.addEventListener("DOMContentLoaded", function () {
+          let e = 0,
+            o = document.querySelector(".navbar"),
+            n = 0;
+          window.matchMedia("(max-width: 599px)").matches &&
+            window.addEventListener(
+              "scroll",
+              ((e, o) => {
+                let n;
+                return function () {
+                  var a = arguments;
+                  n ||
+                    (e.apply(this, a), (n = !0), setTimeout(() => (n = !1), o));
+                };
+              })(function () {
+                var a;
+                o &&
+                  ((a =
+                    window.pageYOffset || document.documentElement.scrollTop) <=
+                  50
+                    ? (o.classList.remove("navbar-hidden"), (n = 0))
+                    : a > e
+                      ? (o.classList.add("navbar-hidden"), (n = 0))
+                      : 200 < (n += e - a) &&
+                        (o.classList.remove("navbar-hidden"), (n = 0)),
+                  (e = a <= 0 ? 0 : a));
+              }, 100)
+            );
+        });
+    </script>
+  </body>
+</html>
