@@ -182,12 +182,37 @@ p {
   margin-top: 1em;
   margin-bottom: 1em;
 }
+/* added remove link hover underline from things like img */
+a.noLineA::after {
+  background: none;
+}
 h3 {
   font-size: 23px;
   margin-top: 1.75em; /* 1.5, 2 */
   /*margin-top: 1em;
    */
   margin-bottom: 1em;
+}
+h2 {
+  font-size: 28px;
+}
+
+.hmvLogo {
+  /*width: 200px;
+  height: 200px;*/
+  width: 150px;
+  height: 150px;
+  /*transition: transform 0.3s ease-in-out;*/
+  transition: transform 0.25s ease-out;
+  margin-bottom: 0.8em;
+}
+.hmvLogo:hover {
+  transform: scale(1.15);
+}
+
+.basmala {
+  /*padding-bottom: 10px !important;*/
+  font-size: 25px !important;
 }
 
 /* after adding a class to dt br in js, can style it to make the gap wider

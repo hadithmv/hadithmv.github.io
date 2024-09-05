@@ -170,3 +170,5 @@ matches:
     replace: "⁰"
   - trigger: ...-
     replace: "…"
+  - trigger: ttt-
+    replace: "translate to dhivehi, output only"
