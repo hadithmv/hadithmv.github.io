@@ -104,7 +104,8 @@ document.addEventListener("DOMContentLoaded", createNavbar);
 
 // Function to navigate to the homepage
 function goToHomePage() {
-  window.location.href = "index.html"; // "/";
+  window.location.href = "../books/index.html";
+  //window.location.href = "index.html"; // "/";
 }
 
 // Function to toggle the side menu's visibility
