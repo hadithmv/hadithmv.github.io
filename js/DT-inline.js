@@ -155,22 +155,68 @@ function filiString() {
   }
 }
 
-// QURAN CHANGE BOOK
+// COMBINED QURAN AND RADHEEF CHANGE BOOK
+// Function to change the book in the URL
+function changeBook(newBook) {
+  // Get the current URL as a string
+  let currentUrl = window.location.toString();
+  // Initialize variables for book type, regex, and search string
+  let bookType, bookRegex, searchString;
 
-function changeBookQuran(newBook) {
-  window.location = window.location
-    .toString()
-    .replace(
-      /quranUshru|quranHadithmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassarGhareeb|quranMukhtasar|quranMuyassar|quranSadi|quranBetaqat|quranQiraaath/g,
-      newBook
-    )
-    .replace(/\:v.*$/, "");
+  // Determine the book type based on the newBook parameter
+  if (newBook.startsWith("quran")) {
+    bookType = "quran";
+    searchString = "quran";
+    // Regex to match all possible Quran book names
+    bookRegex =
+      /quranHadithmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee/g;
+  } else if (newBook.startsWith("radheef")) {
+    bookType = "radheef";
+    searchString = "radheef";
+    // Regex to match all possible Radheef book names
+    bookRegex =
+      /radheefAll|radheefRasmee|radheefEegaal|radheefManiku|radheefNanfoiy/g;
+  } else {
+    // If the book type is neither Quran nor Radheef, log an error and exit the function
+    console.error("Invalid book type");
+    return;
+  }
+
+  // Check if the current URL contains the search string (either 'quran' or 'radheef')
+  if (currentUrl.includes(searchString)) {
+    // If it does, replace the current book name with the new one
+    // and remove any part of the URL that comes after ":v" (e.g., ":vf1")
+    window.location = currentUrl
+      .replace(bookRegex, newBook)
+      .replace(/\:v.*$/, "");
+  } else {
+    // If the search string is not in the current URL,
+    // change the URL to the new book without preserving any query or hash parameters
+    window.location =
+      window.location.origin +
+      window.location.pathname.replace(/[^\/]*$/, newBook + ".html");
+  }
 }
 
-//
+// OLD SEPARATE Q AND R CODE:
+// QURAN CHANGE BOOK
+/*function changeBkQuran(newBook) {
+  let currentUrl = window.location.toString();
+  if (currentUrl.includes("quran")) {
+    window.location = currentUrl
+      .replace(
+        /quranHadithmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee/g,
+        newBook
+      )
+      .replace(/\:v.*$/, "");
+  } else {
+    window.location =
+      window.location.origin +
+      window.location.pathname.replace(/[^\/]*$/, newBook + ".html");
+  }
+}
 
 // Radheef CHANGE BOOK
-
 // Change URL to another book while preserving query terms if "radheef" is in the initial URL
 function changeBkRadheef(newBook) {
   // Get the current URL as a string
@@ -193,9 +239,19 @@ function changeBkRadheef(newBook) {
       window.location.origin +
       window.location.pathname.replace(/[^\/]*$/, newBook + ".html");
   }
-}
+}*/
 
-/* OLD CODE
+/* OLDER Q CODE
+function changeBookQuran(newBook) {
+  window.location = window.location
+    .toString()
+    .replace(
+      /quranUshru|quranHadithmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassarGhareeb|quranMukhtasar|quranMuyassar|quranSadi|quranBetaqat|quranQiraaath/g,
+      newBook
+    )
+    .replace(/\:v.*$/, "");
+}*/
+/* OLDER R CODE
 // change url to change to another book while preserving query terms
 function changeBkRadheef(newBook) {
   window.location = window.location
