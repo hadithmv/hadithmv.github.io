@@ -33,6 +33,7 @@
     <meta name="theme-color" content="#29434e" />
     <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
     <!-- CHANGE !!! -->
+    <script src="../js/navbar.min.js"></script>
     <style></style>
   </head>
 
@@ -379,99 +380,11 @@
         </div> -->
       </div>
     </div>
-    <!-- INSERT NAV JS MIN CODE UNDER HERE -->
-<script>var hmvVersionNo=3.16;function createNavbar(){var a=document.title;document.getElementById("navbar-container").innerHTML=`
-<nav class=navbar>
-   <div class=navbar-left><img alt="Site Icon"class=site-icon onclick=goToHomePage() src=../img/logo/logo.svg title="back to homepage"></div>
-   <div class=navbar-center><span class=page-title>${a}</span></div>
-   <div class=navbar-right title=menu><span class=menu-icon>☰</span></div>
-</nav>
-<div class=side-menu id=sideMenu>
-   <div class=side-menu-close onclick=toggleSideMenu()>×</div>
-   <ul>
-      <li><a href=../books/index.html>● މައި ސަފުހާ</a>
-      <li onclick=sideMenutoggleDropdown(this) class=dropdown>
-         <a><span class=dropdown-arrow>◄</span>ބައިތައް</a>
-         <ul class=dropdown-content>
-            <li onclick=sideMenutoggleDropdown(this,event) class=sub-dropdown>
-               <a><span class=dropdown-arrow>◄</span>ގުރްއާން</a>
-               <ul class=sub-dropdown-content>
-                  <li><a href=../books/quranHadithmv.html>ޙަދީޘްއެމްވީގެ ތަރުޖަމާ</a>
-                  <li><a href=../books/quranRasmee.html>ރަސްމީ ތަރުޖަމާ</a>
-                  <li><a href=../books/quranBakurube.html>ބަކުރުބެގެ ތަރުޖަމާ</a>
-                  <li><a href=../books/quranJaufar.html>ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު*</a>
-                  <li><a href=../books/quranSoabuni.html></a>
-                  <li><a href=../books/quranUshru.html>ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު</a>
-               </ul>
-            <li onclick=sideMenutoggleDropdown(this,event) class=sub-dropdown>
-               <a><span class=dropdown-arrow>◄</span>ޙަދީޘް</a>
-               <ul class=sub-dropdown-content>
-                  <li><a href=../books/allAthar.html>އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</a>
-                  <li><a href=../books/muwattaMalik.html>މުވައްޠައު މާލިކު*</a>
-                  <li><a href=../books/umdathulAhkam.html>ޢުމްދަތުލް އަޙްކާމް</a>
-                  <li><a href=../books/hisnulMuslim.html>މުސްލިމުންގެ ކިއްލާ</a>
-                  <li><a href=../books/arbaoonAajurry.html>އާޖުއްރީގެ ސާޅީސް ޙަދީޘް*</a>
-                  <li><a href=../books/akhbaruShuyukh.html>ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާގު</a>
-                  <li><a href=../books/akhlaqHamalathilQuran.html>އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a>
-                  <li><a href=../books/bulughulMaram.html>ބުލޫޣުލް މަރާމް*</a>
-                  <li><a href=../books/arbaoonNawawi.html>ނަވަވީގެ ސާޅީސް ޙަދީޘް</a>
-                  <li><a href=../books/riyaduSaliheen.html>ރިޔާޟުއްޞާލިޙީން*</a>
-                  <li><a href="https://archive.org/details/uloomul-hadith-dv-ahmed-faruq-mohamed" target="_blank">ޙަދީޘް މުސްޠަލަޙު ފަސޭހަކުރުން PDF</a></li>
-               </ul>
-            <li onclick=sideMenutoggleDropdown(this,event) class=sub-dropdown>
-               <a><span class=dropdown-arrow>◄</span>އަގީދާ</a>
-               <ul class=sub-dropdown-content>
-                  <li><a href=../books/allAqida.html>އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</a>
-                  <li><a href=../books/usooluSunnahAhmed.html>އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް*</a>
-                  <li><a href=../books/sharhuSunnahBarbahari.html>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ*</a>
-                  <li><a href=../books/aqidatuRaziyain.html>ދެ ރާޒީންގެ އަގީދާ*</a>
-                  <li><a href=../books/kitabulEmanAbiUbaid.html>އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</a>
-                  <li><a href=../books/nawaqidulislam.html>އިސްލާމްކަން ގެއްލޭ ކަންތައް</a>
-                  <li><a href=../books/qawaidulArbau.html>ހަތަރު ގަވާއިދު</a>
-                  <li><a href=../books/usooluSiththa.html>ހަ އުސޫލު*</a>
-                  <li><a href=../books/usooluThalaatha.html>ތިން އުސޫލު</a>
-                  <li><a href=../books/quranUshru.html#quranTable=:p69.html>މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް</a>
-                  <li><a href=../books/sharhuSunnahBarbahari-DFK.html>ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ - DFK</a>
-               </ul>
-            <li onclick=sideMenutoggleDropdown(this,event) class=sub-dropdown>
-               <a><span class=dropdown-arrow>◄</span>ބަސް</a>
-               <ul class=sub-dropdown-content>
-                  <li><a href=../mauhad/arabic.html>މަދީނާ އަރަބި ފޮތްތައް</a>
-                  <li>
-                     <a href="../books/radheefAll.html" onclick="changeBkRadheef('radheefAll'); return false;">އެއްކުރަމުންދާ ރަދީފުތައް</a>
-                  </li>
-                  <li>
-                     <a href="../books/radheefRasmee.html" onclick="changeBkRadheef('radheefRasmee'); return false;">ރަސްމީ ރަދީފު</a>
-                  </li>
-                  <li>
-                     <a href="../books/radheefEegaal.html" onclick="changeBkRadheef('radheefEegaal'); return false;">އަލްއީގާޡް</a>
-                  </li>
-                  <li>
-                     <a href="../books/radheefManiku.html" onclick="changeBkRadheef('radheefManiku'); return false;">މަނިކުގެ ރަދީފު</a>
-                  </li>
-                  <li>
-                     <a href="../books/radheefNanfoiy.html" onclick="changeBkRadheef('radheefNanfoiy'; return false;)">ނަންފޮތް</a>
-                  </li>
-                  <li><a href=../page/lafzuVakikohLiyumugeQawaid.html>ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު (ދިވެހި)</a>
-               </ul>
-         </ul>
-      <li><a href=../page/contact.html>ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
-      <li><a href=../notes/info/helpTranslate.html>ތަރުޖަމާގައި އެހީވެދިނުމަށް</a>
-      <li><a href=../notes/info/FAQ.html>ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a>
-      <li><a href=../page/contributors.html>އެހީތެރިން</a>
-      <li onclick=openDiv() class=versionNo>⚙️ އިސްދާރު: v${hmvVersionNo}
-      <li><a href=https://t.me/ashraafmv>ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a>
-      <li style=font-size:90%>މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް
-      <li onclick='window.scrollTo({top:0,behavior:"smooth"})'href=# style=cursor:pointer;user-select:none>▲ މައްޗަށް ސްކްރޯލްކުރޭ
-      <li onclick=sideMenutoggleDropdown(this) class=dropdown>
-         <a>↺ ސަފުހާ ރީލޯޑު</a>
-         <ul class=dropdown-content>
-            <li><a href=# onclick=window.location.reload()>މަޑު ރީލޯޑު</a>
-            <li><a onclick='window.location.href=window.location.href.split(".html")[0]+".html"'>ހަރު ރީލޯޑު</a>
-         </ul>
-   </ul>
-</div>
-`}function goToHomePage(){window.location.href="index.html"}function toggleSideMenu(){document.getElementById("sideMenu").classList.toggle("open")}function sideMenutoggleDropdown(a,e){e&&e.stopPropagation(),e=a.querySelector(".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content");var o,n=a.querySelector(".dropdown-arrow");e&&(e.classList.toggle("show"),n.style.transform=e.classList.contains("show")?"rotate(-90deg)":"");for(o of e=a.parentElement.children)o!==a&&(e=o.querySelector(".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content"),n=o.querySelector(".dropdown-arrow"),e)&&(e.classList.remove("show"),n.style.transform="")}document.addEventListener("DOMContentLoaded",createNavbar),document.addEventListener("click",function(a){var e=document.querySelector(".navbar"),o=document.getElementById("sideMenu"),e=e.contains(a.target),n=o.contains(a.target),l=a.target.classList.contains("site-icon");(a.target.classList.contains("menu-icon")||e&&!l||!n&&o.classList.contains("open"))&&toggleSideMenu()}),document.addEventListener("DOMContentLoaded",function(){let e=0,o=document.querySelector(".navbar"),n=0;window.matchMedia("(max-width: 599px)").matches&&window.addEventListener("scroll",((e,o)=>{let n;return function(){var a=arguments;n||(e.apply(this,a),n=!0,setTimeout(()=>n=!1,o))}})(function(){var a;o&&((a=window.pageYOffset||document.documentElement.scrollTop)<=50?(o.classList.remove("navbar-hidden"),n=0):a>e?(o.classList.add("navbar-hidden"),n=0):200<(n+=e-a)&&(o.classList.remove("navbar-hidden"),n=0),e=a<=0?0:a)},100))});</script>
-  </body>
+  
+<!-- INSERT NAV JS MIN CODE UNDER HERE -->
+<script>var hmvVersionNo=3.16;function createNavbar(){document.getElementById("navbar-container").innerHTML=`<nav class=navbar><div class=navbar-left><img alt="Site Icon"class=site-icon onclick=goToHomePage() src=../img/logo/logo.svg title="back to homepage"></div><div class=navbar-center><span class=page-title>${a}</span></div><div class=navbar-right title=menu><span class=menu-icon>ظء░</span></div></nav><div class=side-menu id=sideMenu><div class=side-menu-close onclick=toggleSideMenu()>├ù</div><ul><li><a href=../books/index.html>ظù ▐ë▐خ▐ç▐ذ ▐▐خ▐è▐ز▐▐د</a><li onclick=sideMenutoggleDropdown(this) class=dropdown><a><span class=dropdown-arrow>ظù</span>▐▐خ▐ç▐ذ▐î▐خ▐ç▐░</a><ul class=dropdown-content><li onclick=sideMenutoggleDropdown(this,event) class=sub-dropdown><a><span class=dropdown-arrow>ظù</span>▐▐ز▐â▐░▐ç▐د▐é▐░</a><ul class=sub-dropdown-content><li><a href=../books/quranHadithmv.html>▐آ▐خ▐ï▐ر▐ء▐░▐ç▐ش▐ë▐░▐ê▐ر▐▐ش ▐î▐خ▐â▐ز▐û▐خ▐ë▐د</a><li><a href=../books/quranRasmee.html>▐â▐خ▐▐░▐ë▐ر ▐î▐خ▐â▐ز▐û▐خ▐ë▐د</a><li><a href=../books/quranBakurube.html>▐▐خ▐▐ز▐â▐ز▐▐ش▐▐ش ▐î▐خ▐â▐ز▐û▐خ▐ë▐د</a><li><a href=../books/quranJaufar.html>▐û▐خ▐ت▐ز▐è▐خ▐â▐ز▐▐ش ▐▐ز▐â▐░▐ç▐د▐é▐░ ▐î▐خ▐è▐░▐▐ر▐â▐ز*</a><li><a href=../books/quranSoabuni.html></a><li><a href=../books/quranUshru.html>▐è▐خ▐▐ز ▐ï▐ذ▐▐خ▐▐خ▐ç▐ذ ▐▐ز▐à▐خ ▐ç▐ش▐ç▐░▐▐خ▐ç▐ذ▐▐ش ▐î▐خ▐è▐░▐▐ر▐â▐ز</a></ul><li onclick=sideMenutoggleDropdown(this,event) class=sub-dropdown><a><span class=dropdown-arrow>ظù</span>▐آ▐خ▐ï▐ر▐ء▐░</a><ul class=sub-dropdown-content><li><a href=../books/allAthar.html>▐ç▐ش▐ç▐░▐▐ز▐â▐خ▐ë▐ز▐é▐░▐ï▐د ▐آ▐خ▐ï▐ر▐ء▐د▐ç▐ذ ▐ç▐خ▐ء▐خ▐â▐ز*</a><li><a href=../books/muwattaMalik.html>▐ë▐ز▐ê▐خ▐ç▐░▐ب▐خ▐ç▐ز ▐ë▐د▐▐ذ▐▐ز*</a><li><a href=../books/umdathulAhkam.html>▐ت▐ز▐ë▐░▐ï▐خ▐î▐ز▐▐░ ▐ç▐خ▐آ▐░▐▐د▐ë▐░</a><li><a href=../books/hisnulMuslim.html>▐ë▐ز▐▐░▐▐ذ▐ë▐ز▐é▐░▐▐ش ▐▐ذ▐ç▐░▐▐د</a><li><a href=../books/arbaoonAajurry.html>▐ç▐د▐û▐ز▐ç▐░▐â▐ر▐▐ش ▐▐د▐à▐ر▐▐░ ▐آ▐خ▐ï▐ر▐ء▐░*</a><li><a href=../books/akhbaruShuyukh.html>▐إ▐خ▐ç▐ذ▐أ▐ز▐é▐░▐▐ش ▐أ▐خ▐▐خ▐â▐ز▐î▐خ▐▐د▐ç▐ذ ▐ç▐ش▐▐ص▐▐خ▐▐ز▐é▐░▐▐ش ▐ç▐خ▐أ▐░▐▐د▐▐ز</a><li><a href=../books/akhlaqHamalathilQuran.html>▐ç▐د▐û▐ز▐ç▐░▐â▐ر▐▐ش ▐▐ز▐â▐░▐ç▐د▐é▐░ ▐ç▐ز▐è▐ز▐▐د ▐ë▐ر▐▐ز▐é▐░▐▐ش ▐ç▐خ▐أ▐░▐▐د▐▐ز</a><li><a href=../books/bulughulMaram.html>▐▐ز▐▐س▐ث▐ز▐▐░ ▐ë▐خ▐â▐د▐ë▐░*</a><li><a href=../books/arbaoonNawawi.html>▐é▐خ▐ê▐خ▐ê▐ر▐▐ش ▐▐د▐à▐ر▐▐░ ▐آ▐خ▐ï▐ر▐ء▐░</a><li><a href=../books/riyaduSaliheen.html>▐â▐ذ▐¤▐د▐ا▐ز▐ç▐░▐ئ▐د▐▐ذ▐آ▐ر▐é▐░*</a><li><a href=https://archive.org/details/uloomul-hadith-dv-ahmed-faruq-mohamed target=_blank>▐آ▐خ▐ï▐ر▐ء▐░ ▐ë▐ز▐▐░▐ب▐خ▐▐خ▐آ▐ز ▐è▐خ▐▐ص▐▐خ▐▐ز▐â▐ز▐é▐░ PDF</a></ul><li onclick=sideMenutoggleDropdown(this,event) class=sub-dropdown><a><span class=dropdown-arrow>ظù</span>▐ç▐خ▐▐ر▐ï▐د</a><ul class=sub-dropdown-content><li><a href=../books/allAqida.html>▐ç▐ش▐ç▐░▐▐ز▐â▐خ▐ë▐ز▐é▐░▐ï▐د ▐ç▐خ▐▐ر▐ï▐د▐▐ش ▐è▐«▐î▐░▐î▐خ▐ç▐░</a><li><a href=../books/usooluSunnahAhmed.html>▐ç▐خ▐آ▐░▐ë▐خ▐ï▐ز▐▐ش ▐▐ز▐é▐░▐é▐خ▐î▐ز▐▐ش ▐ç▐ز▐▐س▐▐ز▐î▐خ▐ç▐░*</a><li><a href=../books/sharhuSunnahBarbahari.html>▐▐خ▐â▐░▐▐خ▐▐د▐â▐ر▐▐ش ▐▐ز▐é▐░▐é▐خ▐î▐ز▐▐ش ▐إ▐خ▐â▐خ▐▐خ*</a><li><a href=../books/aqidatuRaziyain.html>▐ï▐ش ▐â▐د▐ْ▐ر▐é▐░▐▐ش ▐ç▐خ▐▐ر▐ï▐د*</a><li><a href=../books/kitabulEmanAbiUbaid.html>▐ç▐خ▐▐س ▐ت▐ز▐▐خ▐ç▐ذ▐ï▐ز▐▐ش ▐ç▐ر▐ë▐د▐é▐░▐▐خ▐ë▐ز▐▐ش ▐è▐«▐î▐░</a><li><a href=../books/nawaqidulislam.html>▐ç▐ذ▐▐░▐▐د▐ë▐░▐▐خ▐é▐░ ▐▐ش▐ç▐░▐▐ص ▐▐خ▐é▐░▐î▐خ▐ç▐░</a><li><a href=../books/qawaidulArbau.html>▐▐خ▐î▐خ▐â▐ز ▐▐خ▐ê▐د▐ç▐ذ▐ï▐ز</a><li><a href=../books/usooluSiththa.html>▐▐خ ▐ç▐ز▐▐س▐▐ز*</a><li><a href=../books/usooluThalaatha.html>▐î▐ذ▐é▐░ ▐ç▐ز▐▐س▐▐ز</a><li><a href="../books/quranUshru.html#quranTable=:p69.html">▐ë▐ز▐▐░▐▐ذ▐ë▐خ▐▐خ▐▐░ ▐ë▐ز▐▐ذ▐ç▐░▐ë▐ز▐ê▐د ▐▐ز▐▐ز▐ë▐░▐î▐خ▐ç▐░</a><li><a href=../books/sharhuSunnahBarbahari-DFK.html>▐▐خ▐â▐░▐▐خ▐▐د▐â▐ر▐▐ش ▐▐ز▐é▐░▐é▐خ▐î▐ز▐▐ش ▐إ▐خ▐â▐خ▐▐خ - DFK</a></ul><li onclick=sideMenutoggleDropdown(this,event) class=sub-dropdown><a><span class=dropdown-arrow>ظù</span>▐▐خ▐▐░</a><ul class=sub-dropdown-content><li><a href=../mauhad/arabic.html>▐ë▐خ▐ï▐ر▐é▐د ▐ç▐خ▐â▐خ▐▐ذ ▐è▐«▐î▐░▐î▐خ▐ç▐░</a><li><a href=../books/radheefAll.html onclick='return changeBkRadheef("radheefAll"),!1'>▐ç▐ش▐ç▐░▐▐ز▐â▐خ▐ë▐ز▐é▐░▐ï▐د ▐â▐خ▐ï▐ر▐è▐ز▐î▐خ▐ç▐░</a><li><a href=../books/radheefRasmee.html onclick='return changeBkRadheef("radheefRasmee"),!1'>▐â▐خ▐▐░▐ë▐ر ▐â▐خ▐ï▐ر▐è▐ز</a><li><a href=../books/radheefEegaal.html onclick='return changeBkRadheef("radheefEegaal"),!1'>▐ç▐خ▐▐░▐ç▐ر▐▐د▐ة▐░</a><li><a href=../books/radheefManiku.html onclick='return changeBkRadheef("radheefManiku"),!1'>▐ë▐خ▐é▐ذ▐▐ز▐▐ش ▐â▐خ▐ï▐ر▐è▐ز</a><li><a href=../books/radheefNanfoiy.html onclick="changeBkRadheef('radheefNanfoiy'; return false;)">▐é▐خ▐é▐░▐è▐«▐î▐░</a><li><a href=../page/lafzuVakikohLiyumugeQawaid.html>▐▐خ▐è▐ز▐ْ▐ز ▐ê▐خ▐▐ذ▐▐«▐▐░ ▐▐ذ▐¤▐ز▐ë▐ز▐▐ش ▐▐خ▐ê▐د▐ç▐ذ▐ï▐ز (▐ï▐ذ▐ê▐ش▐▐ذ)</a></ul></ul><li><a href=../page/contact.html>▐▐ز▐▐ش▐ç▐░/▐▐ذ▐¤▐د▐▐ش▐ç▐░ ▐▐ز▐▐خ▐▐ش▐à▐ز▐ë▐خ▐▐░</a><li><a href=../notes/info/helpTranslate.html>▐î▐خ▐â▐ز▐û▐خ▐ë▐د▐▐خ▐ç▐ذ ▐ç▐ش▐▐ر▐ê▐ش▐ï▐ذ▐é▐ز▐ë▐خ▐▐░</a><li><a href=../notes/info/FAQ.html>▐î▐خ▐▐ز▐â▐د▐â▐ز▐▐«▐▐░ ▐▐ز▐â▐ش▐ê▐ص ▐▐ز▐ê▐د▐▐ز▐î▐خ▐ç▐░</a><li><a href=../page/contributors.html>▐ç▐ش▐▐ر▐î▐ش▐â▐ذ▐é▐░</a><li onclick=openDiv() class=versionNo>ظأآي╕ ▐ç▐ذ▐▐░▐ï▐د▐â▐ز: v${hmvVersionNo}<li><a href=https://t.me/ashraafmv>▐è▐خ▐â▐ز▐ë▐د ▐▐ز▐â▐ر: ▐ç▐خ▐▐س ▐¤▐خ▐آ▐░▐¤▐د╪î ▐ë▐ز▐آ▐خ▐ç▐░▐ë▐خ▐ï▐ز ▐ç▐خ▐إ▐░▐â▐د▐è▐ز ▐ç▐ذ▐▐░▐â▐د▐▐ر▐ë▐░</a><li style=font-size:90%>▐ë▐خ▐ï▐ر▐é▐د▐▐ش ▐آ▐خ▐ï▐ر▐ء▐░ ▐▐ز▐ç▐░▐▐ذ▐ç▐░▐¤▐د▐▐ش ▐ï▐خ▐â▐ذ▐ê▐خ▐â▐ش▐ç▐░<li onclick='window.scrollTo({top:0,behavior:"smooth"})'href=# style=cursor:pointer;user-select:none>ظû▓ ▐ë▐خ▐ç▐░▐ù▐خ▐▐░ ▐▐░▐▐░▐â▐»▐▐░▐▐ز▐â▐ص<li onclick=sideMenutoggleDropdown(this) class=dropdown><a>ظ║ ▐▐خ▐è▐ز▐▐د ▐â▐ر▐▐»▐ّ▐ز</a><ul class=dropdown-content><li><a href=# onclick=window.location.reload()>▐ë▐خ▐ّ▐ز ▐â▐ر▐▐»▐ّ▐ز</a><li><a onclick='window.location.href=window.location.href.split(".html")[0]+".html"'>▐▐خ▐â▐ز ▐â▐ر▐▐»▐ّ▐ز</a></ul></ul></div>`}function goToHomePage(){window.location.href="index.html"}function toggleSideMenu(){document.getElementById("sideMenu").classList.toggle("open")}function sideMenutoggleDropdown(a,o){o&&o.stopPropagation(),o=a.querySelector(".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content");var e,n=a.querySelector(".dropdown-arrow");o&&(o.classList.toggle("show"),n.style.transform=o.classList.contains("show")?"rotate(-90deg)":"");for(e of o=a.parentElement.children)e!==a&&(o=e.querySelector(".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content"),n=e.querySelector(".dropdown-arrow"),o)&&(o.classList.remove("show"),n.style.transform="")}document.addEventListener("DOMContentLoaded",createNavbar),document.addEventListener("click",function(a){var o=document.querySelector(".navbar"),e=document.getElementById("sideMenu"),o=o.contains(a.target),n=e.contains(a.target),l=a.target.classList.contains("site-icon");(a.target.classList.contains("menu-icon")||o&&!l||!n&&e.classList.contains("open"))&&toggleSideMenu()}),document.addEventListener("DOMContentLoaded",function(){let o=0,e=document.querySelector(".navbar"),n=0;window.matchMedia("(max-width: 599px)").matches&&window.addEventListener("scroll",((o,e)=>{let n;return function(){var a=arguments;n||(o.apply(this,a),n=!0,setTimeout(()=>n=!1,e))}})(function(){var a;e&&((a=window.pageYOffset||document.documentElement.scrollTop)<=50?(e.classList.remove("navbar-hidden"),n=0):a>o?(e.classList.add("navbar-hidden"),n=0):200<(n+=o-a)&&(e.classList.remove("navbar-hidden"),n=0),o=a<=0?0:a)},100))});</script>
+</body>
 </html>
+
+
 
