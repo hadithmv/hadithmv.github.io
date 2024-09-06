@@ -29,10 +29,10 @@ Write-Output "Copied: comb-DT.min.js"
 
 # List of JavaScript files to minify and append
 $jsFiles = @(
-    "DT-inline.js",
-    "navbar.js",
-    "belowPage-bab-dropdown.js"
-    "quran-dropdowns.js"
+   "navbar.min.js",
+   "DT-inline.js",
+   "belowPage-bab-dropdown.js",
+   "quran-dropdowns.js"
 
 )
 
