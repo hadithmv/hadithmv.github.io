@@ -39,3 +39,27 @@ Remove-Item -Path $tempFile
 Remove-Item -Path $closureOutput
 
 Write-Host "Minification complete. Output saved to navbar.min.js"
+
+<#
+# Set the location to the script's directory
+Set-Location -Path $PSScriptRoot
+
+what i want is, i have a file called navbar.js, which i am going to minify with closure and uglify into navbar.min.js
+
+the command to minify is something along the lines of,
+google-closure-compiler --charset=UTF-8 --js sourceFile --js_output_file File1
+    uglifyjs File1 -c -m -o File2
+
+but before that, note that in navbar.js there is this kind of code:
+...
+...
+document.getElementById("navbar-container").innerHTML = ``;
+...
+...
+
+i want to replace the code there, between the first two backticks ` `
+
+i want that code to be replaced with the minified navbar.html code i mentioned before (but dont change the content of the navbar.js file itself) rather the replaced html code should be in the navbar.min.js which should be minified with closure and uglify
+
+do in in powershell, give full code
+#>
