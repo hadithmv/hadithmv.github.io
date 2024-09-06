@@ -158,40 +158,35 @@ function filiString() {
 // COMBINED QURAN AND RADHEEF CHANGE BOOK
 // Function to change the book in the URL
 function changeBook(newBook) {
-  // Get the current URL as a string
   let currentUrl = window.location.toString();
-  // Initialize variables for book type, regex, and search string
   let bookType, bookRegex, searchString;
 
-  // Determine the book type based on the newBook parameter
   if (newBook.startsWith("quran")) {
     bookType = "quran";
     searchString = "quran";
-    // Regex to match all possible Quran book names
     bookRegex =
-      /quranHadithmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee/g;
+      /quranHadithmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranUshru/g;
   } else if (newBook.startsWith("radheef")) {
     bookType = "radheef";
     searchString = "radheef";
-    // Regex to match all possible Radheef book names
     bookRegex =
       /radheefAll|radheefRasmee|radheefEegaal|radheefManiku|radheefNanfoiy/g;
   } else {
-    // If the book type is neither Quran nor Radheef, log an error and exit the function
     console.error("Invalid book type");
     return;
   }
 
-  // Check if the current URL contains the search string (either 'quran' or 'radheef')
-  if (currentUrl.includes(searchString)) {
-    // If it does, replace the current book name with the new one
-    // and remove any part of the URL that comes after ":v" (e.g., ":vf1")
-    window.location = currentUrl
-      .replace(bookRegex, newBook)
-      .replace(/\:v.*$/, "");
+  if (currentUrl.includes(searchString) || currentUrl.includes("quranUshru")) {
+    // Handle transition from quranUshru to other books
+    if (currentUrl.includes("quranUshru") && newBook !== "quranUshru") {
+      let newUrl = currentUrl.replace("quranUshru", newBook).split("#")[0];
+      window.location = newUrl.endsWith(".html") ? newUrl : newUrl + ".html";
+    } else {
+      window.location = currentUrl
+        .replace(bookRegex, newBook)
+        .replace(/\:v.*$/, "");
+    }
   } else {
-    // If the search string is not in the current URL,
-    // change the URL to the new book without preserving any query or hash parameters
     window.location =
       window.location.origin +
       window.location.pathname.replace(/[^\/]*$/, newBook + ".html");
