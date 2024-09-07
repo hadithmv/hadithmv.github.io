@@ -219,15 +219,23 @@ h2 {
 https://stackoverflow.com/questions/7614928/change-br-height-using-css/28310011#28310011
 https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/1409742#1409742 */
 /* prev used a class called .dtBr*/
-br {
+/*br {
   content: "";
   margin: 2em;
   display: block;
-  font-size: 10px; /* 34% 34px 24% control the spacing with the font size. */
-}
-/* for dt brs */
+  font-size: 10px;
+}*/
+/* 34% 34px 24% control the spacing with the font size. */
+/* footnotes br, not in datatable tables, but in page body */
+/*.pageFootnotes br {
+  font-size: 5px;
+}*/
+/* for dt table brs */
 .dtBr {
-  font-size: 5px; /* 5 */
+  content: "";
+  margin: 2em;
+  display: block;
+  font-size: 5px;
 }
 /*.dtBrFooter {
   font-size: 1px; 
