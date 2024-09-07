@@ -17,8 +17,9 @@ foreach ($file in $files) {
     
     # Construct the input file path
     $inputFile = $file.FullName
-    
-    # Construct the output file path, placing the file in the ../page/ directory
+
+    # Construct the output file path, placing the file in the ../folder/ directory
+    # CHANGE THIS 123!!!
     $outputFile = "../page/$($file.Name)"
     
     # Call the MinifyHTML function to process the file
