@@ -485,26 +485,29 @@
             },
           },
           { title: "ބާބު އަރަބިން", className: "colHeader" },
+          {
+            title: "ބާބު ދިވެހިން",
+            className: "colHeader",
+          },
           { title: "އަރަބި ލިޔުން", searchable: false },
           {
             title: "އަރަބި ފިލިނުޖަހާ",
-            data: 2,
+            data: 3,
             render: (data) => removeThashkeel(data),
             visible: false,
           },
-          /*{ title: "ބާބު ދިވެހިން", className: "colHeader", data: 3 },*/
           {
             title: "ދިވެހި ލިޔުން",
-            data: 3,
+            data: 4,
           },
           {
             title: "ދިވެހި ތަޚްރީޖު",
-            data: 4,
+            data: 5,
           },
-        ], // //
+        ], //
         columnDefs: [
           {
-            targets: [5],
+            targets: [6],
             render: (data) =>
               data !== ""
                 ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
@@ -515,7 +518,7 @@
             searchPanes: {
               show: true,
             },
-            targets: [1],
+            targets: [1, 2],
           },
           ...columnDefsconfig,
         ],
