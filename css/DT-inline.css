@@ -223,12 +223,15 @@ br {
   content: "";
   margin: 2em;
   display: block;
-  font-size: 34px; /* 24% control the spacing with the font size. */
+  font-size: 10px; /* 34% 34px 24% control the spacing with the font size. */
 }
 /* for dt brs */
 .dtBr {
   font-size: 5px; /* 5 */
 }
+/*.dtBrFooter {
+  font-size: 1px; 
+}*/
 /* */
 .dtWrapper {
   /*max-width: 1080px;
