@@ -70,7 +70,7 @@ Copy-Item ../notes/editorResc.min.js -Destination ../app/webview-master/app/src/
 # - - -
 Copy-Item ../notes/info/contributors.html -Destination ../app/webview-master/app/src/main/assets/notes/info/contributors.html -Recurse -Force
 Copy-Item ../notes/info/FAQ.html -Destination ../app/webview-master/app/src/main/assets/notes/info/FAQ.html -Recurse -Force
-Copy-Item ../notes/info/helpTranslate.html -Destination ../app/webview-master/app/src/main/assets/notes/info/helpTranslate.html -Recurse -Force
+Copy-Item ../page/helpTranslate.html -Destination ../app/webview-master/app/src/main/assets/page/helpTranslate.html -Recurse -Force
 Copy-Item ../notes/info/introFortyN.html -Destination ../app/webview-master/app/src/main/assets/notes/info/introFortyN.html -Recurse -Force
 Copy-Item ../notes/info/introHmv.html -Destination ../app/webview-master/app/src/main/assets/notes/info/introHmv.html -Recurse -Force
 Copy-Item ../notes/info/introUmdah.html -Destination ../app/webview-master/app/src/main/assets/notes/info/introUmdah.html -Recurse -Force
