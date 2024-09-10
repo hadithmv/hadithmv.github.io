@@ -188,12 +188,13 @@ a.noLineA::after {
 }
 h3 {
   font-size: 23px;
-  margin-top: 1.75em; /* 1.5, 2 */
+  margin-top: 1.65em; /* 1.5, 2 */
   /*margin-top: 1em;
    */
   margin-bottom: 1em;
 }
 h2 {
+  margin-top: 1.75em;
   font-size: 28px;
 }
 
