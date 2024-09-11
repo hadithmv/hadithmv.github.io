@@ -334,11 +334,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("reverseText").addEventListener("click", () => {
     if (reverseState === "horizontal") {
       textArea.value = textArea.value.split("").reverse().join("");
-      document.getElementById("reverseText").textContent = "Reverse Text ↕️";
+      document.getElementById("reverseText").textContent = "Reverse txt ↕️";
       reverseState = "vertical";
     } else {
       textArea.value = textArea.value.split("\n").reverse().join("\n");
-      document.getElementById("reverseText").textContent = "Reverse Text ⏪";
+      document.getElementById("reverseText").textContent = "Reverse txt ⏪";
       reverseState = "horizontal";
     }
     updateStats();
@@ -623,12 +623,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!document.fullscreenElement) {
       textArea.style.height = "300px";
     }
-  });
-
-  document.getElementById("help").addEventListener("click", () => {
-    document.querySelectorAll(".function-button").forEach((button) => {
-      button.title = button.id;
-    });
   });
 
   //
