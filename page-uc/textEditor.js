@@ -331,13 +331,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("reverseText").addEventListener("click", () => {
     if (reverseState === "horizontal") {
       textArea.value = textArea.value.split("").reverse().join("");
-      document.getElementById("reverseText").textContent =
-        "Reverse Text Vertically";
+      document.getElementById("reverseText").textContent = "Reverse Text ↕️";
       reverseState = "vertical";
     } else {
       textArea.value = textArea.value.split("\n").reverse().join("\n");
-      document.getElementById("reverseText").textContent =
-        "Reverse Text Horizontally";
+      document.getElementById("reverseText").textContent = "Reverse Text ⏪";
       reverseState = "horizontal";
     }
     updateStats();
@@ -363,8 +361,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "<ol>\n" +
         lines.map((line) => `  <li>${line}</li>`).join("\n") +
         "\n</ol>";
-      document.getElementById("toggleListTags").textContent =
-        "Make Unordered List";
+      document.getElementById("toggleListTags").textContent = "HTML U List";
       listState = "ordered";
     } else if (listState === "ordered") {
       textArea.value =
@@ -373,16 +370,14 @@ document.addEventListener("DOMContentLoaded", () => {
           .map((line) => line.replace(/<li>(.*)<\/li>/, "  <li>$1</li>"))
           .join("\n") +
         "\n</ul>";
-      document.getElementById("toggleListTags").textContent =
-        "Remove List Tags";
+      document.getElementById("toggleListTags").textContent = "Remove Tags";
       listState = "unordered";
     } else {
       textArea.value = lines
         .map((line) => line.replace(/<li>(.*)<\/li>/, "$1"))
         .join("\n")
         .replace(/<\/?[ou]l>\n?/g, "");
-      document.getElementById("toggleListTags").textContent =
-        "Make Ordered List";
+      document.getElementById("toggleListTags").textContent = "HTML O List";
       listState = "none";
     }
     updateStats();
@@ -395,6 +390,86 @@ document.addEventListener("DOMContentLoaded", () => {
       updateStats();
     });
 
+  document
+    .getElementById("removeDhivehiDiacritics")
+    .addEventListener("click", () => {
+      textArea.value = textArea.value.replace(/[\u07A6-\u07B0]/g, "");
+      updateStats();
+    });
+
+  document.getElementById("removePunctuation").addEventListener("click", () => {
+    textArea.value = textArea.value.replace(/[^\w\s]/g, "");
+    updateStats();
+  });
+
+  document.getElementById("convertFootnotes").addEventListener("click", () => {
+    textArea.value = textArea.value.replace(
+      /\((\d+)\)|\[(\d+)\]/g,
+      (match, p1, p2) => {
+        const num = p1 || p2;
+        return `⁽${num
+          .split("")
+          .map((d) => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d])
+          .join("")}⁾`;
+      }
+    );
+    updateStats();
+  });
+
+  document.getElementById("removeBrackets").addEventListener("click", () => {
+    textArea.value = textArea.value.replace(/\((\d+)\)|\[(\d+)\]/g, "$1$2");
+    updateStats();
+  });
+
+  document
+    .getElementById("removeNumbersInBrackets")
+    .addEventListener("click", () => {
+      textArea.value = textArea.value.replace(
+        /\(\d+\)|\[\d+\]|⁽[⁰¹²³⁴⁵⁶⁷⁸⁹]+⁾/g,
+        ""
+      );
+      updateStats();
+    });
+
+  document
+    .getElementById("removeDuplicateLines")
+    .addEventListener("click", () => {
+      const lines = textArea.value.split("\n");
+      const uniqueLines = [...new Set(lines)];
+      textArea.value = uniqueLines.join("\n");
+      updateStats();
+    });
+
+  document.getElementById("splitIntoWords").addEventListener("click", () => {
+    const words = textArea.value.match(/\S+/g) || [];
+    textArea.value = words.join("\n");
+    updateStats();
+  });
+
+  document.getElementById("convertSalawat").addEventListener("click", () => {
+    textArea.value = textArea.value.replace(
+      /صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ|صلى الله عليه وسلم/g,
+      "ﷺ"
+    );
+    updateStats();
+  });
+
+  document.getElementById("convertNumbers").addEventListener("click", () => {
+    textArea.value = textArea.value
+      .replace(/0/g, "𝟢")
+      .replace(/1/g, "𝟣")
+      .replace(/2/g, "𝟤")
+      .replace(/3/g, "𝟥")
+      .replace(/4/g, "𝟦")
+      .replace(/5/g, "𝟧")
+      .replace(/6/g, "𝟨")
+      .replace(/7/g, "𝟩")
+      .replace(/8/g, "𝟪")
+      .replace(/9/g, "𝟫");
+    updateStats();
+  });
+
+  //
   //
 
   document.addEventListener("fullscreenchange", () => {

@@ -214,10 +214,10 @@
               <button id="arabicDigits" class="function-button">٣ ٢ ١</button>
               <button id="regularDigits" class="function-button">3 2 1</button>
               <button id="removeDiacritics" class="function-button">
-                عربي ފިލި ފޮހެލާ
+                بلا تشكيل
               </button>
               <button id="saveFile" class="function-button">
-                Save as File 📩
+                Save File 📩
               </button>
               <button id="loadFile" class="function-button">
                 Load File 📁
@@ -226,23 +226,23 @@
                 RTL ↔️ LTR
               </button>
               <button id="changeCase" class="function-button">
-                Title Case
+                Title Case 🔠
               </button>
               <button id="wordWrap" class="function-button">Word Wrap</button>
               <button id="removeNewlines" class="function-button">
                 Remove Extra Lines
               </button>
               <button id="keepOnlyNumbers" class="function-button">
-                Keep Only Numbers
+                Keep Only Nos
               </button>
               <button id="removeAllNumbers" class="function-button">
-                Remove All Numbers
+                Rmv All Nos
               </button>
               <button id="sortWordsByFrequency" class="function-button">
-                Sort Words by Frequency
+                Sort Words by Freq 📉
               </button>
               <button id="sortLinesByFrequency" class="function-button">
-                Sort Lines by Frequency
+                Sort Lines by Freq
               </button>
               <button id="toggleLineNumbers" class="function-button">
                 Add Line Numbers
@@ -251,19 +251,46 @@
                 Sort Lines (Asc)
               </button>
               <button id="randomizeLines" class="function-button">
-                Randomize Lines
+                Shuffle Lines 🔀
               </button>
               <button id="reverseText" class="function-button">
-                Reverse Text Horizontally
+                Rvrs txt ⏪
               </button>
               <button id="generatePassword" class="function-button">
-                Generate Password
+                Gen Pass
               </button>
               <button id="toggleListTags" class="function-button">
-                Make Ordered List
+                HTML O List
               </button>
               <button id="removePrecedingZeros" class="function-button">
-                Remove Preceding Zeros
+                Rmv Lead 0s
+              </button>
+              <button id="removeDhivehiDiacritics" class="function-button">
+                Remove Dhivehi Diacritics
+              </button>
+              <button id="removePunctuation" class="function-button">
+                Remove Punctuation
+              </button>
+              <button id="convertFootnotes" class="function-button">
+                Convert Footnotes
+              </button>
+              <button id="removeBrackets" class="function-button">
+                Remove Brackets
+              </button>
+              <button id="removeNumbersInBrackets" class="function-button">
+                Remove Numbered Brackets
+              </button>
+              <button id="removeDuplicateLines" class="function-button">
+                Remove Duplicate Lines
+              </button>
+              <button id="splitIntoWords" class="function-button">
+                Split Into Words
+              </button>
+              <button id="convertSalawat" class="function-button">
+                Convert Salawat
+              </button>
+              <button id="convertNumbers" class="function-button">
+                Convert Nos
               </button>
 
               <!-- -->
@@ -1129,17 +1156,71 @@ claude:
 
 ...
 
-i dont want the 
-Generate Random Number
+this is my code:
 
-and
-Trim Characters
+<textarea id="textArea"></textarea>
+            <div class="function-buttons">
+              <button id="copyToClipboard" class="function-button">
+                Copy 📋
+              </button>
+              <button id="clearAll" class="function-button">Clear ❌</button>
+              <button id="arabicDigits" class="function-button">٣ ٢ ١</button>
+              <button id="regularDigits" class="function-button">1 2 3</button>
+              <button id="removeDiacritics" class="function-button">
+                عربي ފިލި ފޮހެލާ
+              </button>
+              <button id="saveFile" class="function-button">
+                Save as File 📩
+              </button>
+              <button id="loadFile" class="function-button">
+                Load File 📁
+              </button>
+...
+            </div>
 
-input boxes to show before the button is clicked
 
-generate random no button should generate random numbers from 1 to 10 on first click, and also show the input boxes. if a minimum or maximum has been provided, only then should it generate within that range
+document.addEventListener("DOMContentLoaded", () => {
+  const textArea = document.getElementById("textArea");
 
-as for Trim Characters button, first click should just show the input boxes. then when user has give an input for either beginning or end of line characters to trim, then when the button is clicked henceforth, that number of characters should be trimmed
+document.getElementById("copyToClipboard").addEventListener("click", () => {
+    navigator.clipboard.writeText(textArea.value);
+  });
+
+  document.getElementById("clearAll").addEventListener("click", () => {
+    textArea.value = "";
+    tabs = [{ id: 1, content: "" }];
+    numberedTabs.innerHTML =
+      '<button class="numbered-tab active" data-tab="1">1</button><button id="addTab">+</button>';
+    currentTab = 1;
+    updateStats();
+  });
+
+  document.getElementById("arabicDigits").addEventListener("click", () => {
+    textArea.value = textArea.value.replace(/[0-9]/g, (d) => "٠١٢٣٤٥٦٧٨٩"[d]);
+    updateStats();
+  });
+...
+
+what i want is, more buttons that do the following:
+
+
+remove diacritic Dhivehi marks
+
+remove punctuation marks
+
+converts footnote numbers like (1) or [1] to ⁽¹⁾
+
+removes brackets from numbers like (1) or [1] to 1
+
+remove all numbers inside any brackets, along with the brackets, such as (1) or [1] or ⁽¹⁾
+
+remove duplicate lines of text
+
+split all the text into individual words
+
+convert instances of صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ and صلى الله عليه وسلم to ﷺ
+
+convert regular numbers to mathematical sans serif numbers on first click, then full width numbers, then mathematical sans serif bold numbers, then circled numbers, then negative circled numbers, then reset to regular numbers again
 
 ...
 
