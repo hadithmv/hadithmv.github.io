@@ -3,7 +3,6 @@ Set-Location -Path $PSScriptRoot
 
 # Define a function to minify HTML files
 function MinifyHTML($inputFile, $outputFile) {
-    # Use html-minifier with various options to minify the HTML file
     html-minifier --collapse-boolean-attributes --collapse-whitespace --decode-entities --minify-css true --minify-js true --process-scripts [text/html] --remove-attribute-quotes --remove-comments --remove-empty-attributes --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-style-link-type-attributes --remove-tag-whitespace --sort-attributes --sort-class-name --trim-custom-fragments --use-short-doctype $inputFile -o $outputFile
 }
 
@@ -12,29 +11,41 @@ $files = Get-ChildItem -Filter "*.html"
 
 # Loop through each HTML file
 foreach ($file in $files) {
-    # Get the file name without extension
     $baseName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
-    
-    # Construct the input file path
     $inputFile = $file.FullName
-
-    # Construct the output file path, placing the file in the ../folder/ directory
-    # CHANGE THIS 123!!!
     $outputFile = "../page/$($file.Name)"
-    
-    # Call the MinifyHTML function to process the file
     MinifyHTML $inputFile $outputFile
-    
-    # Print a message indicating that the file has been processed
-    Write-Output "Processed: $($file.Name)"
+    Write-Output "Processed HTML: $($file.Name)"
 }
 
-# SEPARATE
+# Function to minify JS using Google Closure Compiler and UglifyJS
+function MinifyJS($inputFile, $outputFile) {
+    $tempFile = [System.IO.Path]::GetTempFileName()
+    $closureOutput = [System.IO.Path]::GetTempFileName()
 
-# copies index page over to layout index dir
-#Copy-Item "../books/index.html" -Destination "../_layouts/index.html"
+    # Run Google Closure Compiler
+    google-closure-compiler --charset=UTF-8 --js $inputFile --js_output_file $closureOutput
 
-# copies 404 to root
+    # Run UglifyJS on the output from Closure Compiler
+    uglifyjs $closureOutput -c -m -o $outputFile
+
+    # Clean up temp files
+    Remove-Item $tempFile
+    Remove-Item $closureOutput
+}
+
+# Minify and copy textEditor.js
+$textEditorInput = "textEditor.js"
+$textEditorOutput = "../page/textEditor.js"
+
+if (Test-Path $textEditorInput) {
+    MinifyJS $textEditorInput $textEditorOutput
+    Write-Output "Processed JS: textEditor.js"
+} else {
+    Write-Output "Warning: textEditor.js not found"
+}
+
+# Copy 404 to root
 Copy-Item "../page/404.html" -Destination "../404.html"
 
 Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
