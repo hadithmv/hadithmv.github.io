@@ -454,18 +454,26 @@ document.addEventListener("DOMContentLoaded", () => {
     updateStats();
   });
 
+  const numberStyles = [
+    ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+    ["𝟢", "𝟣", "𝟤", "𝟥", "𝟦", "𝟧", "𝟨", "𝟩", "𝟪", "𝟫"],
+    ["０", "１", "２", "３", "４", "５", "６", "７", "８", "９"],
+    ["𝟬", "𝟭", "𝟮", "𝟯", "𝟰", "𝟱", "𝟲", "𝟳", "𝟴", "𝟵"],
+    ["⓪", "①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨"],
+    ["⓿", "❶", "❷", "❸", "❹", "❺", "❻", "❼", "❽", "❾"],
+  ];
+  let currentStyleIndex = 0;
   document.getElementById("convertNumbers").addEventListener("click", () => {
-    textArea.value = textArea.value
-      .replace(/0/g, "𝟢")
-      .replace(/1/g, "𝟣")
-      .replace(/2/g, "𝟤")
-      .replace(/3/g, "𝟥")
-      .replace(/4/g, "𝟦")
-      .replace(/5/g, "𝟧")
-      .replace(/6/g, "𝟨")
-      .replace(/7/g, "𝟩")
-      .replace(/8/g, "𝟪")
-      .replace(/9/g, "𝟫");
+    const currentStyle = numberStyles[currentStyleIndex];
+    const nextStyle =
+      numberStyles[(currentStyleIndex + 1) % numberStyles.length];
+    let newText = textArea.value;
+    for (let i = 0; i < 10; i++) {
+      const regex = new RegExp(currentStyle[i], "g");
+      newText = newText.replace(regex, nextStyle[i]);
+    }
+    textArea.value = newText;
+    currentStyleIndex = (currentStyleIndex + 1) % numberStyles.length;
     updateStats();
   });
 
