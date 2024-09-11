@@ -402,22 +402,70 @@ document.addEventListener("DOMContentLoaded", () => {
     updateStats();
   });
 
-  document.getElementById("convertFootnotes").addEventListener("click", () => {
-    textArea.value = textArea.value.replace(
-      /\((\d+)\)|\[(\d+)\]/g,
-      (match, p1, p2) => {
-        const num = p1 || p2;
-        return `⁽${num
-          .split("")
-          .map((d) => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d])
-          .join("")}⁾`;
-      }
-    );
+  let footnoteClickCount = 0;
+
+  function updateFootnoteButtonText() {
+    const texts = ["(1)/[1] → ⁽¹⁾", "⁽¹⁾ → (1)", "(1) → [1]"];
+    convertFootnotesBtn.textContent = texts[footnoteClickCount % 3];
+  }
+
+  convertFootnotesBtn.addEventListener("click", () => {
+    switch (footnoteClickCount % 3) {
+      case 0: // Convert to superscript
+        textArea.value = textArea.value.replace(
+          /\((\d+)\)|\[(\d+)\]/g,
+          (match, p1, p2) => {
+            const num = p1 || p2;
+            return `⁽${num
+              .split("")
+              .map((d) => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d])
+              .join("")}⁾`;
+          }
+        );
+        break;
+      case 1: // Convert to parentheses
+        textArea.value = textArea.value.replace(
+          /⁽([⁰¹²³⁴⁵⁶⁷⁸⁹]+)⁾/g,
+          (match, p1) => {
+            const num = p1
+              .split("")
+              .map((d) => "⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(d))
+              .join("");
+            return `(${num})`;
+          }
+        );
+        break;
+      case 2: // Convert to square brackets
+        textArea.value = textArea.value.replace(/\((\d+)\)/g, (match, p1) => {
+          return `[${p1}]`;
+        });
+        break;
+    }
+
+    footnoteClickCount++;
+    updateFootnoteButtonText();
+
     updateStats();
   });
 
-  document.getElementById("removeBrackets").addEventListener("click", () => {
-    textArea.value = textArea.value.replace(/\((\d+)\)|\[(\d+)\]/g, "$1$2");
+  let bracketClickCount = 0;
+
+  function updateBracketButtonText() {
+    document.getElementById("bracketNumbers").textContent =
+      bracketClickCount % 2 === 0 ? "(1) → 1" : "1 → (1)";
+  }
+
+  document.getElementById("bracketNumbers").addEventListener("click", () => {
+    if (bracketClickCount % 2 === 0) {
+      // Remove brackets
+      textArea.value = textArea.value.replace(/\((\d+)\)|\[(\d+)\]/g, "$1$2");
+    } else {
+      // Add brackets
+      textArea.value = textArea.value.replace(/(\d+)(?!\))/g, "($1)");
+    }
+
+    bracketClickCount++;
+    updateBracketButtonText();
     updateStats();
   });
 
@@ -446,11 +494,25 @@ document.addEventListener("DOMContentLoaded", () => {
     updateStats();
   });
 
+  let convertSalawatclickCount = 0;
+
   document.getElementById("convertSalawat").addEventListener("click", () => {
-    textArea.value = textArea.value.replace(
-      /صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ|صلى الله عليه وسلم/g,
-      "ﷺ"
-    );
+    convertSalawatclickCount++;
+
+    if (convertSalawatclickCount % 2 === 1) {
+      // Odd clicks: convert to ligature
+      textArea.value = textArea.value.replace(
+        /صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ|صلى الله عليه وسلم/g,
+        "ﷺ"
+      );
+    } else {
+      // Even clicks: convert to full phrase
+      textArea.value = textArea.value.replace(
+        /ﷺ/g,
+        "صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ"
+      );
+    }
+
     updateStats();
   });
 
@@ -477,6 +539,26 @@ document.addEventListener("DOMContentLoaded", () => {
     updateStats();
   });
 
+  document.getElementById("shaddaB4Haraka").addEventListener("click", () => {
+    textArea.value = correctShaddaPlacement(textArea.value);
+  });
+
+  function correctShaddaPlacement(text) {
+    const diacritics = "ًٌٍَُِّْ";
+    const shadda = "ّ";
+
+    return text.replace(
+      new RegExp(`([${diacritics}])(${shadda})`, "g"),
+      (match, diacritic, shadda) => {
+        // If the diacritic is a sukun, leave it after the shadda
+        if (diacritic === "ْ") {
+          return match;
+        }
+        // Otherwise, move the shadda before the diacritic
+        return shadda + diacritic;
+      }
+    );
+  }
   //
   //
 
