@@ -225,14 +225,17 @@ document.addEventListener("DOMContentLoaded", () => {
     updateStats();
   });
 
-  document.getElementById("fullscreen").addEventListener("click", () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-      textArea.style.height = "100vh";
-    } else {
-      document.exitFullscreen();
-      textArea.style.height = "300px";
-    }
+  document.getElementById("removeExtraSpace").addEventListener("click", () => {
+    textArea.value = textArea.value
+      // Remove spaces at the beginning and end of each line
+      .replace(/^ +| +$/gm, "")
+      // Replace multiple spaces with a single space
+      .replace(/ +/g, " ")
+      // Replace multiple newlines with a single newline
+      .replace(/\n+/g, "\n")
+      // Trim leading and trailing whitespace from the entire text
+      .trim();
+    updateStats();
   });
 
   document.getElementById("keepOnlyNumbers").addEventListener("click", () => {
@@ -559,9 +562,63 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
   }
+
+  document
+    .getElementById("removeQuranicMarks")
+    .addEventListener("click", () => {
+      textArea.value = textArea.value
+        .replace(/[ۖۗۘۙۚۛۜ۝۞ۣ۟۠ۡۢۤۥۦۧۨ۩۪ۭ۫۬﴾﴿]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+      updateStats();
+    });
+
+  let isQuranicBr = true;
+
+  document
+    .getElementById("replaceQuranicBrackets")
+    .addEventListener("click", () => {
+      const replacements = isQuranicBr
+        ? { "﴾": "}", "﴿": "{", "۝": "*" }
+        : { "}": "﴾", "{": "﴿", "*": "۝" };
+
+      textArea.value = textArea.value.replace(
+        /[﴾﴿۝{}*]/g,
+        (match) => replacements[match] || match
+      );
+
+      isQuranicBr = !isQuranicBr;
+      updateStats();
+    });
+
+  let isPuncRTL = true;
+
+  document.getElementById("replaceRtlPunc").addEventListener("click", () => {
+    const replacements = isPuncRTL
+      ? { "،": ",", "؛": ";", "؟": "?" }
+      : { ",": "،", ";": "؛", "?": "؟" };
+
+    textArea.value = textArea.value.replace(
+      /[،؛؟,;?]/g,
+      (match) => replacements[match] || match
+    );
+
+    isPuncRTL = !isPuncRTL;
+    updateStats();
+  });
+
   //
   //
 
+  document.getElementById("fullscreen").addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+      textArea.style.height = "100vh";
+    } else {
+      document.exitFullscreen();
+      textArea.style.height = "300px";
+    }
+  });
   document.addEventListener("fullscreenchange", () => {
     if (!document.fullscreenElement) {
       textArea.style.height = "300px";
