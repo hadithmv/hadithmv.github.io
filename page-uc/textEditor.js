@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "text_area_content.txt";
+    a.download = "saved_text.txt";
     a.click();
   });
   //
