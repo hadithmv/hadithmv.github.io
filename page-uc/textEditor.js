@@ -223,21 +223,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const newlineStates = [
     {
-      name: "Remove Extra Newlines",
-      func: (str) => str.replace(/\n{3,}/g, "\n\n"),
+      // Remove extra lines, keeping up to double empty lines
+      func: (str) => str.trim().replace(/\n{3,}/g, "\n\n"),
     },
     {
-      name: "Remove All Extra Newlines",
-      func: (str) => str.replace(/\n{2,}/g, "\n"),
+      // Remove all extra lines, keeping only single empty lines
+      func: (str) => str.trim().replace(/\n{2,}/g, "\n"),
     },
-    { name: "Reset Newlines", func: (str) => str },
+    {
+      // Remove all empty lines
+      func: (str) =>
+        str
+          .trim()
+          .split("\n")
+          .filter((line) => line.trim() !== "")
+          .join("\n"),
+    },
+    {
+      // No changes (original text)
+      func: (str) => str,
+    },
   ];
+
   let currentNewlineState = 0;
+
   document.getElementById("removeNewlines").addEventListener("click", () => {
+    // Apply the current state's function to the text
     textArea.value = newlineStates[currentNewlineState].func(textArea.value);
+
+    // Move to the next state, wrapping around to 0 if we reach the end
     currentNewlineState = (currentNewlineState + 1) % newlineStates.length;
-    document.getElementById("removeNewlines").textContent =
-      newlineStates[currentNewlineState].name;
+
+    // Update stats (assuming this function exists elsewhere in your code)
     updateStats();
   });
   //
@@ -249,7 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Replace multiple spaces with a single space
       .replace(/ +/g, " ")
       // Replace multiple newlines with a single newline
-      .replace(/\n+/g, "\n")
+      //.replace(/\n+/g, "\n")
       // Trim leading and trailing whitespace from the entire text
       .trim();
     updateStats();
