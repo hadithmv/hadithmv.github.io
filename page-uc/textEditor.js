@@ -250,6 +250,12 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   //
 
+  document.getElementById("convertQuotes").addEventListener("click", () => {
+    textArea.value = textArea.value.replace(/[^0-9\n]/g, "");
+    updateStats();
+  });
+  //
+
   document.getElementById("keepOnlyNumbers").addEventListener("click", () => {
     textArea.value = textArea.value.replace(/[^0-9\n]/g, "");
     updateStats();
@@ -572,10 +578,15 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   //
 
+  document.getElementById("removeKashidas").addEventListener("click", () => {
+    textArea.value = textArea.value.replace(/ـ/g, "");
+    updateStats();
+  });
+  //
+
   document.getElementById("shaddaB4Haraka").addEventListener("click", () => {
     textArea.value = correctShaddaPlacement(textArea.value);
   });
-  //
 
   function correctShaddaPlacement(text) {
     const diacritics = "ًٌٍَُِّْ";
