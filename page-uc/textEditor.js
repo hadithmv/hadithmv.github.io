@@ -109,6 +109,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // BUTTON FUNCTIONS
 
+  function ltrSwitch() {
+    textArea.style.direction = "ltr";
+    textArea.style.textAlign = "left";
+  }
+  //
+
   document.getElementById("copyToClipboard").addEventListener("click", () => {
     navigator.clipboard.writeText(textArea.value);
   });
@@ -250,8 +256,35 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   //
 
+  let isSmartQuotes = false;
   document.getElementById("convertQuotes").addEventListener("click", () => {
-    textArea.value = textArea.value.replace(/[^0-9\n]/g, "");
+    if (isSmartQuotes) {
+      // Convert smart quotes to straight quotes
+      textArea.value = textArea.value
+        .replace(/[\u2018\u2019]/g, "'")
+        .replace(/[\u201C\u201D]/g, '"');
+    } else {
+      // Convert straight quotes to smart quotes for RTL
+      textArea.value = textArea.value
+        .replace(/(\W|^)"(\S)/g, "$1\u201D$2") // opening doubles
+        .replace(/(\u201D[^"]*)"([^"]*$|[^\u201D"]*\u201D)/g, "$1\u201C$2") // closing doubles
+        .replace(/([^0-9])"/g, "$1\u201C") // remaining double closing
+        .replace(/(\W|^)'(\S)/g, "$1\u2019$2") // opening singles
+        .replace(/([a-z])'([a-z])/gi, "$1\u2018$2") // contractions
+        .replace(/((\u2019[^']*)|[a-z])'([^0-9]|$)/gi, "$1\u2018$3") // closing singles
+        .replace(
+          /(\u2019)([0-9]{2}[^\u2018]*)(\u2019([^0-9]|$)|$|\u2018[a-z])/gi,
+          "\u2018$2$3"
+        ) // abbrev. years like '93
+        .replace(
+          /(\B|^)\u2019(?=([^\u2018]*\u2018\b)*([^\u2018\u2019]*\W[\u2018\u2019]\b|[^\u2018\u2019]*$))/gi,
+          "$1\u2018"
+        ) // backwards apostrophe
+        .replace(/'''/g, "\u2034") // triple prime
+        .replace(/''/g, "\u2033") // double prime
+        .replace(/'/g, "\u2032"); // prime
+    }
+    isSmartQuotes = !isSmartQuotes;
     updateStats();
   });
   //
@@ -262,8 +295,216 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   //
 
+  let cycleState = 0;
+  document.getElementById("cycleBrackets").addEventListener("click", () => {
+    const transformations = [
+      {
+        from: /[()[\]]/g,
+        to: (match) => (match === "(" || match === "[" ? "⌜" : "⌝"),
+        next: "⌜⌝ → ⌝⌜",
+      },
+      {
+        from: /[⌜⌝]/g,
+        to: (match) => (match === "⌜" ? "⌝" : "⌜"),
+        next: "⌝⌜ → ()",
+      },
+      {
+        from: /[⌝⌜]/g,
+        to: (match) => (match === "⌝" ? "(" : ")"),
+        next: "() [] → ⌜⌝",
+      },
+    ];
+
+    textArea.value = textArea.value.replace(
+      transformations[cycleState].from,
+      transformations[cycleState].to
+    );
+
+    document.getElementById("cycleBrackets").textContent =
+      transformations[cycleState].next;
+    cycleState = (cycleState + 1) % 3;
+
+    updateStats();
+  });
+  //
+
+  let isEllipsis = false;
+
+  document.getElementById("dotsToEllipsis").addEventListener("click", () => {
+    if (isEllipsis) {
+      // Convert ellipsis to three dots
+      textArea.value = textArea.value.replace(/…/g, "...");
+    } else {
+      // Convert three dots to ellipsis
+      textArea.value = textArea.value.replace(/\.{3}/g, "…");
+    }
+
+    isEllipsis = !isEllipsis;
+    updateStats();
+  });
+  //
+
+  let dashState = 0;
+
+  document
+    .getElementById("hyphenToEnThenEmDash")
+    .addEventListener("click", () => {
+      const transformations = [
+        { from: /-/g, to: "–" },
+        { from: /–/g, to: "—" },
+        { from: /—/g, to: "-" },
+      ];
+
+      textArea.value = textArea.value.replace(
+        transformations[dashState].from,
+        transformations[dashState].to
+      );
+
+      dashState = (dashState + 1) % 3;
+
+      updateStats();
+    });
+  //
+
+  let isRTLtoLTR = true;
+
+  document
+    .getElementById("reverseCurlyQuotes")
+    .addEventListener("click", () => {
+      const textArea = document.getElementById("textArea");
+      const quoteMap = isRTLtoLTR
+        ? { "‘": "’", "’": "‘", "“": "”", "”": "“" }
+        : { "’": "‘", "‘": "’", "”": "“", "“": "”" };
+
+      textArea.value = textArea.value.replace(
+        /[’‘”“]/g,
+        (match) => quoteMap[match] || match
+      );
+
+      isRTLtoLTR = !isRTLtoLTR;
+      updateStats();
+    });
+  //
+
   document.getElementById("removeAllNumbers").addEventListener("click", () => {
     textArea.value = textArea.value.replace(/[0-9]/g, "");
+    updateStats();
+  });
+  //
+
+  document.getElementById("keepOnlyAr").addEventListener("click", () => {
+    //textArea.value = textArea.value.replace(/[^\u0600-\u06FF\s]/g, "");
+    // https://notes.yshalsager.com/en/notes/Regex%20Match%20Arabic%20Letters/
+    textArea.value = textArea.value.replace(
+      /[^\u0600-\u06ff\u0750-\u077f\ufb50-\ufbc1\ufbd3-\ufd3f\ufd50-\ufd8f\ufd92-\ufdc7\ufe70-\ufefc\uFDF0-\uFDFD\s]/g,
+      ""
+    );
+    updateStats();
+  });
+  //
+
+  document.getElementById("text2HtmlP").addEventListener("click", () => {
+    ltrSwitch();
+
+    // Split the input text by one or more line breaks
+    let paragraphs = textArea.value.split(/\n{1,}/);
+
+    // Remove empty paragraphs and trim whitespace
+    paragraphs = paragraphs.filter((p) => p.trim() !== "");
+
+    // Wrap each paragraph with <p> tags and join them
+    textArea.value = paragraphs
+      .map((para) => `<p>${para.trim()}</p>`)
+      .join("\n");
+
+    /* Wrap each line with <p> tags and join them back into a single string
+  let formattedText = paragraphs.map(line => `<p>${line.trim()}</p>`).join('');*/
+
+    updateStats();
+  });
+  //
+
+  document
+    .getElementById("whichUnicodeCharacter")
+    .addEventListener("click", () => {
+      ltrSwitch();
+
+      const inputText = textArea.value;
+      let output = "";
+      for (let i = 0; i < inputText.length; i++) {
+        const codePoint = inputText.codePointAt(i);
+        const unicodeLink = `https://codepoints.net/U+${codePoint
+          .toString(16)
+          .toUpperCase()
+          .padStart(4, "0")}`;
+        output += `U+${codePoint
+          .toString(16)
+          .toUpperCase()
+          .padStart(4, "0")} : ${inputText[i]} : ${unicodeLink}\n`;
+        if (codePoint > 0xffff) i++; // Increment i again if surrogate pair
+      }
+      textArea.value = output;
+      updateStats();
+    });
+  //
+
+  document.getElementById("rmvHtmlTags").addEventListener("click", () => {
+    textArea.value = textArea.value.replace(/<[^>]*>/g, "");
+    updateStats();
+  });
+  //
+
+  let isDecoded = false;
+
+  document
+    .getElementById("decodeEncodeUnicode")
+    .addEventListener("click", () => {
+      ltrSwitch();
+
+      if (isDecoded) {
+        const input = textArea.value;
+        let output = "";
+
+        for (let i = 0; i < input.length; i++) {
+          const charCode = input.charCodeAt(i);
+          output += "\\u" + charCode.toString(16).padStart(4, "0");
+        }
+
+        textArea.value = output;
+        //
+        document.getElementById("decodeEncodeUnicode").textContent =
+          "Decode \\unicode";
+      } else {
+        // Decode: Convert Unicode escape sequences to characters
+        textArea.value = textArea.value.replace(
+          /\\u([0-9a-fA-F]{4})/g,
+          (match, p1) => {
+            return String.fromCharCode(parseInt(p1, 16));
+          }
+        );
+        document.getElementById("decodeEncodeUnicode").textContent =
+          "Encode unicode";
+      }
+      isDecoded = !isDecoded;
+      updateStats();
+    });
+  //
+
+  let isURLDecoded = false;
+
+  document.getElementById("decodeEncodeURL").addEventListener("click", () => {
+    ltrSwitch();
+
+    if (isURLDecoded) {
+      // Encode: Convert text to URL-encoded format
+      textArea.value = encodeURI(textArea.value);
+      document.getElementById("decodeEncodeURL").textContent = "Decode URL";
+    } else {
+      // Decode: Convert URL-encoded text back to regular text
+      textArea.value = decodeURI(textArea.value);
+      document.getElementById("decodeEncodeURL").textContent = "Encode URL";
+    }
+    isURLDecoded = !isURLDecoded;
     updateStats();
   });
   //
@@ -327,8 +568,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const lines = textArea.value.split("\n");
     if (sortOrder === "asc") {
       textArea.value = lines.sort().join("\n");
-      document.getElementById("toggleSortLines").textContent =
-        "Sort Lines (Desc)";
+      document.getElementById("toggleSortLines").textContent = "Sort Lines ↓";
       sortOrder = "desc";
     } else if (sortOrder === "desc") {
       textArea.value = lines.sort().reverse().join("\n");
@@ -336,8 +576,7 @@ document.addEventListener("DOMContentLoaded", () => {
       sortOrder = "reset";
     } else {
       // Reset to original order
-      document.getElementById("toggleSortLines").textContent =
-        "Sort Lines (Asc)";
+      document.getElementById("toggleSortLines").textContent = "Sort Lines ↑";
       sortOrder = "asc";
     }
     updateStats();
@@ -359,11 +598,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("reverseText").addEventListener("click", () => {
     if (reverseState === "horizontal") {
       textArea.value = textArea.value.split("").reverse().join("");
-      document.getElementById("reverseText").textContent = "Reverse txt ↕️";
+      document.getElementById("reverseText").textContent =
+        "Revrs verti lines ↕️";
       reverseState = "vertical";
     } else {
       textArea.value = textArea.value.split("\n").reverse().join("\n");
-      document.getElementById("reverseText").textContent = "Reverse txt ⏪";
+      document.getElementById("reverseText").textContent = "Revrs hori txt ⏪";
       reverseState = "horizontal";
     }
     updateStats();
@@ -484,11 +724,6 @@ document.addEventListener("DOMContentLoaded", () => {
   //
 
   let bracketClickCount = 0;
-  function updateBracketButtonText() {
-    document.getElementById("bracketNumbers").textContent =
-      bracketClickCount % 2 === 0 ? "(1) → 1" : "1 → (1)";
-  }
-  //
 
   document.getElementById("bracketNumbers").addEventListener("click", () => {
     if (bracketClickCount % 2 === 0) {
@@ -500,7 +735,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     bracketClickCount++;
-    updateBracketButtonText();
     updateStats();
   });
   //
@@ -578,6 +812,102 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   //
 
+  let isLeetSpeak = false;
+
+  const leetMap = {
+    a: "4",
+    e: "3",
+    i: "!",
+    o: "0",
+    t: "7",
+    l: "1",
+    s: "5",
+  };
+
+  const reverseLeetMap = Object.fromEntries(
+    Object.entries(leetMap).map(([key, value]) => [value, key])
+  );
+
+  document.getElementById("toggleLeetSpeak").addEventListener("click", () => {
+    if (isLeetSpeak) {
+      // Convert leet speak back to regular text (lowercase)
+      textArea.value = textArea.value.replace(
+        /[43!0715]/g,
+        (char) => reverseLeetMap[char]
+      );
+    } else {
+      // Convert regular text to leet speak (all lowercase)
+      textArea.value = textArea.value
+        .toLowerCase()
+        .replace(/[aeiotls]/g, (char) => leetMap[char]);
+    }
+
+    isLeetSpeak = !isLeetSpeak;
+    updateStats();
+  });
+
+  /* previously used:
+  const leetMap = {
+                a: "4",
+                e: "3",
+                l: "1",
+                o: "0",
+                s: "5",
+                t: "7",
+                a: "@",
+                // 4 λ ∂ α æ Λ
+                b: "8",
+                // ß
+                c: "€",
+                // ( ¢ ζ
+                d: "∂",
+                // ð Ð đ δ
+                e: "3",
+                // £ € ə ε ξ ℇ
+                f: "ƒ",
+                // ʃ
+                g: "9",
+                // ℊ
+                h: "#",
+                i: "!",
+                // ι
+                j: "ʝ",
+                // ĵ ¿
+                k: "ɮ",
+                // ₭
+                l: "ʅ",
+                // £ ℓ
+                m: "ണ",
+                // Պ സ ന ൩ ന ണ
+                n: "π",
+                // ₪ η
+                o: "0",
+                // ¤ Ω ø θ σ
+                p: "ρ",
+                // ? ₱ þ ¶
+                q: "ℚ",
+                //
+                r: "₹",
+                // Я
+                s: "$",
+                // §
+                t: "†",
+                // 7 + λ τ
+                u: "µ",
+                // Ü
+                v: "√",
+                // ▼ ѵ υ
+                w: "ω",
+                // Ш ɰ
+                x: "×",
+                // * Ж % χ א
+                y: "γ",
+                // Ψ ¥  Ч ψ
+                z: "2",
+              };
+              */
+  //
+
   document.getElementById("removeKashidas").addEventListener("click", () => {
     textArea.value = textArea.value.replace(/ـ/g, "");
     updateStats();
@@ -612,6 +942,50 @@ document.addEventListener("DOMContentLoaded", () => {
         .replace(/[ۖۗۘۙۚۛۜ۝۞ۣ۟۠ۡۢۤۥۦۧۨ۩۪ۭ۫۬﴾﴿]/g, "")
         .replace(/\s+/g, " ")
         .trim();
+      updateStats();
+    });
+  //
+
+  let quoteState = 0; // 0: double quotes, 1: angular quotes, 2: double parentheses
+
+  document
+    .getElementById("replaceQuoteToDoubleAngleBrackets")
+    .addEventListener("click", () => {
+      switch (quoteState) {
+        case 0: // Convert to angular quotes
+          textArea.value = textArea.value
+            .replace(/"([^"]*)"/g, "«$1»")
+            .replace(/\(\(([^)]*)\)\)/g, "«$1»");
+          document.getElementById(
+            "replaceQuoteToDoubleAngleBrackets"
+          ).textContent = "« » → (( ))";
+          quoteState = 1;
+          break;
+        case 1: // Convert to double parentheses
+          textArea.value = textArea.value.replace(/«([^»]*)»/g, "(($1))");
+          document.getElementById(
+            "replaceQuoteToDoubleAngleBrackets"
+          ).textContent = '(( )) → " "';
+          quoteState = 2;
+          break;
+        case 2: // Convert to double quotes
+          textArea.value = textArea.value.replace(/\(\(([^)]*)\)\)/g, '"$1"');
+          document.getElementById(
+            "replaceQuoteToDoubleAngleBrackets"
+          ).textContent = '" " / (( )) → « »';
+          quoteState = 0;
+          break;
+      }
+
+      updateStats();
+    });
+
+  //
+
+  document
+    .getElementById("replaceDoubleBracketsToSingle")
+    .addEventListener("click", () => {
+      textArea.value = textArea.value.replace(/\(\(([^)]*)\)\)/g, "($1)");
       updateStats();
     });
   //

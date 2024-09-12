@@ -296,9 +296,37 @@
               <button
                 id="convertQuotes"
                 class="function-button"
-                title="Converts all straight / dumb quotes to curly / smart quotes on first click, then does the reverse on second"
+                title="Converts all straight / dumb quotes to RTL curly / smart quotes on first click, then does the reverse on second"
               >
                 ' " ↔ ’ “
+              </button>
+              <button
+                id="reverseCurlyQuotes"
+                class="function-button"
+                title="Converts RTL curly quotes to LTR facing quotes on first click, then the reverse on second"
+              >
+                ’‘ ”“ ↔ ‘’ “”
+              </button>
+              <button
+                id="cycleBrackets"
+                class="function-button"
+                title="Replaces all brackets, circular and square, to LTR half brackets. on first click, then to RTL half brackets on second"
+              >
+                ()/[] → ⌜⌝
+              </button>
+              <button
+                id="dotsToEllipsis"
+                class="function-button"
+                title="Converts three dots to a proper ellipsis on first click, and does the reverse on second"
+              >
+                . . . ↔ …
+              </button>
+              <button
+                id="hyphenToEnThenEmDash"
+                class="function-button"
+                title="Converts a hyphen to an en dash on the first click, then to an em dash on the second"
+              >
+                - → – → —
               </button>
               <!-- -->
               <button
@@ -314,6 +342,41 @@
                 title="Erases all numbers in the text"
               >
                 Rmv All Nos ✖️
+              </button>
+              <button
+                id="removePrecedingZeros"
+                class="function-button"
+                title="Removes all leading / preceding zeros"
+              >
+                Rmv Lead 0s
+              </button>
+              <button
+                id="keepOnlyAr"
+                class="function-button"
+                title="Removes all none arabic text"
+              >
+                Keep Only Ar
+              </button>
+              <button
+                id="removeDhivehiDiacritics"
+                class="function-button"
+                title="Removes all Dhivehi fili / diacritics"
+              >
+                Rmv Dhiv Fili
+              </button>
+              <button
+                id="removePunctuation"
+                class="function-button"
+                title="Removes all punctuation marks"
+              >
+                Rmv Punct
+              </button>
+              <button
+                id="splitIntoWords"
+                class="function-button"
+                title="Splits the text into single words on each line"
+              >
+                Split Words ✂️
               </button>
               <button
                 id="sortWordsByFrequency"
@@ -341,7 +404,7 @@
                 class="function-button"
                 title="Orders the lines of text in ascending order on first click, and the reverse on second"
               >
-                Sort Lines (Asc) ↕️
+                Sort Lines ↑
               </button>
               <button
                 id="randomizeLines"
@@ -351,11 +414,18 @@
                 Shuffle Lines 🔀
               </button>
               <button
+                id="removeDuplicateLines"
+                class="function-button"
+                title="Removes duplicate lines / repeated lines of text"
+              >
+                Rmv Dupl Lines
+              </button>
+              <button
                 id="reverseText"
                 class="function-button"
                 title="Reverses the text characters horizontally on first click, and reverses the order of lines vertically on the second"
               >
-                Reverse txt ⏪
+                Revrs hori txt ⏪
               </button>
               <button
                 id="generatePassword"
@@ -365,32 +435,46 @@
                 Gen Passwrd
               </button>
               <button
+                id="text2HtmlP"
+                class="function-button"
+                title="Wraps each line of text in html paragraph tags, with no empty lines"
+              >
+                txt2 HTML&lt;p&gt;
+              </button>
+              <button
+                id="whichUnicodeCharacter"
+                class="function-button"
+                title="Tells you the unicode codepoints of each character in the text"
+              >
+                whichUniCodeChar
+              </button>
+              <button
+                id="decodeEncodeUnicode"
+                class="function-button"
+                title="Decodes unicode 4-digit hexadecimal code points into readable characters (like \u0061 to a) on the first click, and encodes it on the next"
+              >
+                Decode \unicode
+              </button>
+              <button
+                id="decodeEncodeURL"
+                class="function-button"
+                title="Decodes a URL from percent-encoding on the first click, and encodes it on the second"
+              >
+                Decode URL
+              </button>
+              <button
+                id="rmvHtmlTags"
+                class="function-button"
+                title="Removes HTML tags from the text, but leaves the text as is"
+              >
+                Rmv HTML Tags
+              </button>
+              <button
                 id="toggleListTags"
                 class="function-button"
                 title="Converts the text to an HTML ordered list on first click, then unordered list on second"
               >
                 HTML O List
-              </button>
-              <button
-                id="removePrecedingZeros"
-                class="function-button"
-                title="Removes all leading / preceding zeros"
-              >
-                Rmv Lead 0s
-              </button>
-              <button
-                id="removeDhivehiDiacritics"
-                class="function-button"
-                title="Removes all Dhivehi fili / diacritics"
-              >
-                Rmv Dhiv Fili
-              </button>
-              <button
-                id="removePunctuation"
-                class="function-button"
-                title="Removes all punctuation marks"
-              >
-                Rmv Punct
               </button>
               <button
                 id="convertFootnotesBtn"
@@ -414,25 +498,18 @@
                 Rmv ⁽¹⁾/(1)/[1]
               </button>
               <button
-                id="removeDuplicateLines"
-                class="function-button"
-                title="Removes duplicate lines / repeated lines of text"
-              >
-                Rmv Dupl Lines
-              </button>
-              <button
-                id="splitIntoWords"
-                class="function-button"
-                title="Splits the text into single words on each line"
-              >
-                Split Words ✂️
-              </button>
-              <button
                 id="convertNumbers"
                 class="function-button"
                 title="Converts regular numbers to MATHEMATICAL SANS-SERIF DIGIT on first click, then to fullwidth digit, then to MATHEMATICAL SANS-SERIF BOLD DIGIT, then to Circled Digit Zero, then to Negative Circled Digit Zero"
               >
                 1/𝟣/１/𝟭/①/❶
+              </button>
+              <button
+                id="toggleLeetSpeak"
+                class="function-button"
+                title="Convert regular text to leet speak on first click, and does the reverse on second"
+              >
+                📔 1337
               </button>
               <!-- -->
               <button
@@ -447,7 +524,7 @@
                 class="function-button"
                 title="Removes kashidas / tatweels, which elongate Arabic letters"
               >
-                ســلاــم ← سلام
+                تـطـويـل ← تطويل
               </button>
               <button
                 id="shaddaB4Haraka"
@@ -462,6 +539,20 @@
                 title="Removes the following Quranic marks: ۖ	ۗ	ۘ	ۙ	ۚ	ۛ	ۜ	 ۝ ﴿ ﴾ ۞	۟	۠	ۡ	ۢ	ۣ	ۤ	ۥ	ۦ	ۧ	ۨ	۩	۪	۫	۬	ۭ"
               >
                 Rmv ۗ&nbsp; &nbsp; ۘ&nbsp; ۚ&nbsp;۝ ﴾
+              </button>
+              <button
+                id="replaceQuoteToDoubleAngleBrackets"
+                class="function-button"
+                title="Replaces doubles straight quotes or double brackets to angular arabic quotes on the first click, then to double brackets on second click, and straight quotes on third"
+              >
+                " " / (( )) ↔ « »
+              </button>
+              <button
+                id="replaceDoubleBracketsToSingle"
+                class="function-button"
+                title="Replaces doubles brackets to single brackets"
+              >
+                (( )) → ( )
               </button>
               <button
                 id="replaceQuranicBrackets"
@@ -483,7 +574,7 @@
                 class="function-button"
                 title="Replaces colons with fullstops"
               >
-                : ← .
+                : → .
               </button>
 
               <!-- -->
