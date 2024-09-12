@@ -209,109 +209,271 @@
             </div>
             <textarea id="textArea"></textarea>
             <div class="function-buttons">
-              <button id="copyToClipboard" class="function-button">
+              <button
+                id="clearAll"
+                class="function-button"
+                title="Clears all text and tabs"
+              >
+                Clear ❌
+              </button>
+              <button
+                id="copyToClipboard"
+                class="function-button"
+                title="Copies text to clipboard"
+              >
                 Copy 📋
               </button>
-              <button id="clearAll" class="function-button">Clear ❌</button>
-              <button id="arabicDigits" class="function-button">٣ ٢ ١</button>
-              <button id="regularDigits" class="function-button">1 2 3</button>
-              <button id="removeDiacritics" class="function-button">
+              <button
+                id="arabicDigits"
+                class="function-button"
+                title="Converts regular numbers to Arabic numbers"
+              >
+                ٣ ٢ ١
+              </button>
+              <button
+                id="regularDigits"
+                class="function-button"
+                title="Converts Arabic  numbers to regular numbers"
+              >
+                1 2 3
+              </button>
+              <button
+                id="removeDiacritics"
+                class="function-button"
+                title="Removes all Arabic diacritical marks / tashkeel / harakat"
+              >
                 بلا تشكيل
               </button>
-              <button id="saveFile" class="function-button">
-                Save File 📩
+              <button
+                id="saveFile"
+                class="function-button"
+                title="Saves the text as a .txt file to your device. Note: Doesn't work on the Android app."
+              >
+                Save 📩
               </button>
-              <button id="loadFile" class="function-button">
-                Load File 📁
+              <button
+                id="loadFile"
+                class="function-button"
+                title="Uploads the content of a file you choose from your device. Note: Doesn't work on the Android app."
+              >
+                Load 📁
               </button>
-              <button id="toggleDirection" class="function-button">
+              <button
+                id="toggleDirection"
+                class="function-button"
+                title="Changes text direction from right to left and vice-versa"
+              >
                 RTL ↔️ LTR
               </button>
-              <button id="changeCase" class="function-button">
+              <button
+                id="changeCase"
+                class="function-button"
+                title="Changes English text to title case, then sentance case, then lower case, then upper case"
+              >
                 Title Case 🔠
               </button>
-              <button id="wordWrap" class="function-button">Word Wrap</button>
-              <button id="removeNewlines" class="function-button">
+              <button
+                id="wordWrap"
+                class="function-button"
+                title="Wraps the text to a single line"
+              >
+                Word Wrap
+              </button>
+              <button
+                id="removeNewlines"
+                class="function-button"
+                title="Removes more than double empty lines on the first click, and more than single empty lines on the second"
+              >
                 Rmv Xtra Lines
               </button>
-              <button id="removeExtraSpace" class="function-button">
+              <button
+                id="removeExtraSpace"
+                class="function-button"
+                title="Removes extra spaces"
+              >
                 Rmv Xtra Space
               </button>
-              <button id="keepOnlyNumbers" class="function-button">
+              <!-- -->
+              <button
+                id="keepOnlyNumbers"
+                class="function-button"
+                title="Erases all text except for numbers"
+              >
                 Keep Only Nos #️⃣
               </button>
-              <button id="removeAllNumbers" class="function-button">
+              <button
+                id="removeAllNumbers"
+                class="function-button"
+                title="Erases all numbers in the text"
+              >
                 Rmv All Nos ✖️
               </button>
-              <button id="sortWordsByFrequency" class="function-button">
+              <button
+                id="sortWordsByFrequency"
+                class="function-button"
+                title="Sorts each word of the text by highest frequency of occurance"
+              >
                 Sort Words by Freq 📉
               </button>
-              <button id="sortLinesByFrequency" class="function-button">
+              <button
+                id="sortLinesByFrequency"
+                class="function-button"
+                title="Sorts the lines of text by highest frequency of occurance"
+              >
                 Sort Lines by Freq
               </button>
-              <button id="toggleLineNumbers" class="function-button">
+              <button
+                id="toggleLineNumbers"
+                class="function-button"
+                title="Adds numbers to the beginning of each line of the text"
+              >
                 Add Line Nos
               </button>
-              <button id="toggleSortLines" class="function-button">
+              <button
+                id="toggleSortLines"
+                class="function-button"
+                title="Orders the lines of text in ascending order on first click, and the reverse on second"
+              >
                 Sort Lines (Asc) ↕️
               </button>
-              <button id="randomizeLines" class="function-button">
+              <button
+                id="randomizeLines"
+                class="function-button"
+                title="Randomly orders the lines of text"
+              >
                 Shuffle Lines 🔀
               </button>
-              <button id="reverseText" class="function-button">
+              <button
+                id="reverseText"
+                class="function-button"
+                title="Reverses the text characters horizontally on first click, and reverses the order of lines vertically on the second"
+              >
                 Reverse txt ⏪
               </button>
-              <button id="generatePassword" class="function-button">
+              <button
+                id="generatePassword"
+                class="function-button"
+                title="Generates a password of random characters and varying lengths"
+              >
                 Gen Passwrd
               </button>
-              <button id="toggleListTags" class="function-button">
+              <button
+                id="toggleListTags"
+                class="function-button"
+                title="Converts the text to an HTML ordered list on first click, then unordered list on second"
+              >
                 HTML O List
               </button>
-              <button id="removePrecedingZeros" class="function-button">
+              <button
+                id="removePrecedingZeros"
+                class="function-button"
+                title="Removes all leading / preceding zeros"
+              >
                 Rmv Lead 0s
               </button>
-              <button id="removeDhivehiDiacritics" class="function-button">
+              <button
+                id="removeDhivehiDiacritics"
+                class="function-button"
+                title="Removes all Dhivehi fili / diacritics"
+              >
                 Rmv Dhiv Fili
               </button>
-              <button id="removePunctuation" class="function-button">
+              <button
+                id="removePunctuation"
+                class="function-button"
+                title="Removes all punctuation marks"
+              >
                 Rmv Punct
               </button>
-              <button id="convertFootnotesBtn" class="function-button">
+              <button
+                id="convertFootnotesBtn"
+                class="function-button"
+                title="Convert circular or square brackets numbers to subscript bracketed numbers on first click, then to circular bracketed numbers on second click, then to square bracketed numbers on third click"
+              >
                 (1)/[1] → ⁽¹⁾
               </button>
-              <button id="bracketNumbers" class="function-button">
+              <button
+                id="bracketNumbers"
+                class="function-button"
+                title="Converts bracket numbers to non bracked numbers on first click, and does the reverse on second"
+              >
                 (1) ↔ 1
               </button>
-              <button id="removeNumbersInBrackets" class="function-button">
+              <button
+                id="removeNumbersInBrackets"
+                class="function-button"
+                title="mmm"
+              >
                 Rmv ⁽¹⁾/(1)/[1]
               </button>
-              <button id="removeDuplicateLines" class="function-button">
+              <button
+                id="removeDuplicateLines"
+                class="function-button"
+                title="Removes duplicate lines / repeated lines of text"
+              >
                 Rmv Dupl Lines
               </button>
-              <button id="splitIntoWords" class="function-button">
+              <button
+                id="splitIntoWords"
+                class="function-button"
+                title="Splits the text into single words on each line"
+              >
                 Split Words ✂️
               </button>
-              <button id="convertSalawat" class="function-button">
-                صلى… ↔ ﷺ
-              </button>
-              <button id="convertNumbers" class="function-button">
+              <button
+                id="convertNumbers"
+                class="function-button"
+                title="Converts regular numbers to MATHEMATICAL SANS-SERIF DIGIT on first click, then to fullwidth digit, then to MATHEMATICAL SANS-SERIF BOLD DIGIT, then to Circled Digit Zero, then to Negative Circled Digit Zero"
+              >
                 1/𝟣/１/𝟭/①/❶
               </button>
-              <button id="shaddaB4Haraka" class="function-button">
+              <!-- -->
+              <button
+                id="convertSalawat"
+                class="function-button"
+                title="Converts long form صلى الله عليه وسلم to short form ﷺ on first click, and does the reverse on second"
+              >
+                صلى… ↔ ﷺ
+              </button>
+              <button
+                id="shaddaB4Haraka"
+                class="function-button"
+                title="Corrects the placement of Arabic harakat on the shadda. The shadda should come first, followed by the haraka"
+              >
                 ـَ ـّ ← ـّ ـَ
               </button>
-              <button id="removeQuranicMarks" class="function-button">
+              <button
+                id="removeQuranicMarks"
+                class="function-button"
+                title="Removes the following Quranic marks: ۖ	ۗ	ۘ	ۙ	ۚ	ۛ	ۜ	 ۝ ﴿ ﴾ ۞	۟	۠	ۡ	ۢ	ۣ	ۤ	ۥ	ۦ	ۧ	ۨ	۩	۪	۫	۬	ۭ"
+              >
                 Rmv ۗ&nbsp; &nbsp; ۘ&nbsp; ۚ&nbsp;۝ ﴾
               </button>
-              <button id="replaceQuranicBrackets" class="function-button">
-                ﴾۝﴿ ↔ {*}
+              <button
+                id="replaceQuranicBrackets"
+                class="function-button"
+                title="Converts curly braces and asterisks to decorative Quranic brackets and ayah stops"
+              >
+                {*} ↔ ﴾۝﴿
               </button>
-              <button id="replaceRtlPunc" class="function-button">
+              <button
+                id="replaceRtlPunc"
+                class="function-button"
+                title="Converts left facing commas, semicolons and questions marks, to the right on first click, and does the reverse on second"
+              >
                 ، ؛ ؟ ↔ , ; ?
+              </button>
+              <!-- -->
+              <button
+                id="replaceColonFullstop"
+                class="function-button"
+                title="Replaces colons with fullstops"
+              >
+                : ← .
               </button>
 
               <!-- -->
-              <button id="fullscreen" class="function-button">
+              <button id="fullscreen" class="function-button" title="mmm">
                 Fullscreen
               </button>
             </div>
@@ -565,11 +727,11 @@ claude:
         </div>
         <textarea id="textArea"></textarea>
         <div class="function-buttons">
-            <button id="copyToClipboard" class="function-button">Copy to Clipboard</button>
-            <button id="clearAll" class="function-button">Clear All</button>
-            <button id="arabicDigits" class="function-button">Arabic Digits</button>
-            <button id="fullscreen" class="function-button">Fullscreen</button>
-            <button id="help" class="function-button">Help</button>
+            <button id="copyToClipboard" class="function-button" title="mmm">Copy to Clipboard</button>
+            <button id="clearAll" class="function-button" title="mmm">Clear All</button>
+            <button id="arabicDigits" class="function-button" title="mmm">Arabic Digits</button>
+            <button id="fullscreen" class="function-button" title="mmm">Fullscreen</button>
+            <button id="help" class="function-button" title="mmm">Help</button>
         </div>
     </div>
 
@@ -789,17 +951,17 @@ this is my code:
 
 <textarea id="textArea"></textarea>
             <div class="function-buttons">
-              <button id="copyToClipboard" class="function-button">
+              <button id="copyToClipboard" class="function-button" title="mmm">
                 Copy 📋
               </button>
-              <button id="clearAll" class="function-button">Clear ❌</button>
-              <button id="arabicDigits" class="function-button">
+              <button id="clearAll" class="function-button" title="mmm">Clear ❌</button>
+              <button id="arabicDigits" class="function-button" title="mmm">
                 Arabic Digits
               </button>
-              <button id="fullscreen" class="function-button">
+              <button id="fullscreen" class="function-button" title="mmm">
                 Fullscreen
               </button>
-              <button id="help" class="function-button">Help</button>
+              <button id="help" class="function-button" title="mmm">Help</button>
             </div>
 
 // JavaScript code will be added here
@@ -859,19 +1021,19 @@ this is my code:
 
 <textarea id="textArea"></textarea>
             <div class="function-buttons">
-              <button id="copyToClipboard" class="function-button">
+              <button id="copyToClipboard" class="function-button" title="mmm">
                 Copy 📋
               </button>
-              <button id="clearAll" class="function-button">Clear ❌</button>
-              <button id="arabicDigits" class="function-button">٣ ٢ ١</button>
-              <button id="regularDigits" class="function-button">1 2 3</button>
-              <button id="removeDiacritics" class="function-button">
+              <button id="clearAll" class="function-button" title="mmm">Clear ❌</button>
+              <button id="arabicDigits" class="function-button" title="mmm">٣ ٢ ١</button>
+              <button id="regularDigits" class="function-button" title="mmm">1 2 3</button>
+              <button id="removeDiacritics" class="function-button" title="mmm">
                 عربي ފިލި ފޮހެލާ
               </button>
-              <button id="saveFile" class="function-button">
+              <button id="saveFile" class="function-button" title="mmm">
                 Save as File 📩
               </button>
-              <button id="loadFile" class="function-button">
+              <button id="loadFile" class="function-button" title="mmm">
                 Load File 📁
               </button>
 ...
@@ -957,35 +1119,35 @@ claude:
 <body>
     <textarea id="textArea"></textarea>
     <div class="function-buttons">
-        <button id="copyToClipboard" class="function-button">Copy 📋</button>
-        <button id="clearAll" class="function-button">Clear ❌</button>
-        <button id="arabicDigits" class="function-button">٣ ٢ ١</button>
-        <button id="regularDigits" class="function-button">1 2 3</button>
-        <button id="removeDiacritics" class="function-button">عربي ފިލި ފޮހެލާ</button>
-        <button id="saveFile" class="function-button">Save as File 📩</button>
-        <button id="loadFile" class="function-button">Load File 📁</button>
+        <button id="copyToClipboard" class="function-button" title="mmm">Copy 📋</button>
+        <button id="clearAll" class="function-button" title="mmm">Clear ❌</button>
+        <button id="arabicDigits" class="function-button" title="mmm">٣ ٢ ١</button>
+        <button id="regularDigits" class="function-button" title="mmm">1 2 3</button>
+        <button id="removeDiacritics" class="function-button" title="mmm">عربي ފިލި ފޮހެލާ</button>
+        <button id="saveFile" class="function-button" title="mmm">Save as File 📩</button>
+        <button id="loadFile" class="function-button" title="mmm">Load File 📁</button>
         
-        <button id="keepOnlyNumbers" class="function-button">Keep Only Numbers</button>
-        <button id="removeAllNumbers" class="function-button">Remove All Numbers</button>
-        <button id="sortWordsByFrequency" class="function-button">Sort Words by Frequency</button>
-        <button id="sortLinesByFrequency" class="function-button">Sort Lines by Frequency</button>
-        <button id="toggleLineNumbers" class="function-button">Add Line Numbers</button>
-        <button id="toggleSortLines" class="function-button">Sort Lines (Asc)</button>
-        <button id="randomizeLines" class="function-button">Randomize Lines</button>
-        <button id="reverseText" class="function-button">Reverse Text Horizontally</button>
-        <button id="generatePassword" class="function-button">Generate Password</button>
-        <button id="generateRandomNumber" class="function-button">Generate Random Number (0-10)</button>
+        <button id="keepOnlyNumbers" class="function-button" title="mmm">Keep Only Numbers</button>
+        <button id="removeAllNumbers" class="function-button" title="mmm">Remove All Numbers</button>
+        <button id="sortWordsByFrequency" class="function-button" title="mmm">Sort Words by Frequency</button>
+        <button id="sortLinesByFrequency" class="function-button" title="mmm">Sort Lines by Frequency</button>
+        <button id="toggleLineNumbers" class="function-button" title="mmm">Add Line Numbers</button>
+        <button id="toggleSortLines" class="function-button" title="mmm">Sort Lines (Asc)</button>
+        <button id="randomizeLines" class="function-button" title="mmm">Randomize Lines</button>
+        <button id="reverseText" class="function-button" title="mmm">Reverse Text Horizontally</button>
+        <button id="generatePassword" class="function-button" title="mmm">Generate Password</button>
+        <button id="generateRandomNumber" class="function-button" title="mmm">Generate Random Number (0-10)</button>
         <div id="randomNumberInputs" class="input-box">
             <input type="number" id="minNumber" placeholder="Min">
             <input type="number" id="maxNumber" placeholder="Max">
         </div>
-        <button id="trimCharacters" class="function-button">Trim Characters</button>
+        <button id="trimCharacters" class="function-button" title="mmm">Trim Characters</button>
         <div id="trimInputs" class="input-box">
             <input type="number" id="trimStart" placeholder="Start">
             <input type="number" id="trimEnd" placeholder="End">
         </div>
-        <button id="toggleListTags" class="function-button">Make Ordered List</button>
-        <button id="removePrecedingZeros" class="function-button">Remove Preceding Zeros</button>
+        <button id="toggleListTags" class="function-button" title="mmm">Make Ordered List</button>
+        <button id="removePrecedingZeros" class="function-button" title="mmm">Remove Preceding Zeros</button>
     </div>
 
     <script>
@@ -1176,19 +1338,19 @@ this is my code:
 
 <textarea id="textArea"></textarea>
             <div class="function-buttons">
-              <button id="copyToClipboard" class="function-button">
+              <button id="copyToClipboard" class="function-button" title="mmm">
                 Copy 📋
               </button>
-              <button id="clearAll" class="function-button">Clear ❌</button>
-              <button id="arabicDigits" class="function-button">٣ ٢ ١</button>
-              <button id="regularDigits" class="function-button">1 2 3</button>
-              <button id="removeDiacritics" class="function-button">
+              <button id="clearAll" class="function-button" title="mmm">Clear ❌</button>
+              <button id="arabicDigits" class="function-button" title="mmm">٣ ٢ ١</button>
+              <button id="regularDigits" class="function-button" title="mmm">1 2 3</button>
+              <button id="removeDiacritics" class="function-button" title="mmm">
                 عربي ފިލި ފޮހެލާ
               </button>
-              <button id="saveFile" class="function-button">
+              <button id="saveFile" class="function-button" title="mmm">
                 Save as File 📩
               </button>
-              <button id="loadFile" class="function-button">
+              <button id="loadFile" class="function-button" title="mmm">
                 Load File 📁
               </button>
 ...

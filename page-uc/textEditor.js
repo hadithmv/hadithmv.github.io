@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("copyToClipboard").addEventListener("click", () => {
     navigator.clipboard.writeText(textArea.value);
   });
+  //
 
   document.getElementById("clearAll").addEventListener("click", () => {
     textArea.value = "";
@@ -121,11 +122,13 @@ document.addEventListener("DOMContentLoaded", () => {
     currentTab = 1;
     updateStats();
   });
+  //
 
   document.getElementById("arabicDigits").addEventListener("click", () => {
     textArea.value = textArea.value.replace(/[0-9]/g, (d) => "٠١٢٣٤٥٦٧٨٩"[d]);
     updateStats();
   });
+  //
 
   document.getElementById("regularDigits").addEventListener("click", () => {
     textArea.value = textArea.value.replace(/[٠١٢٣٤٥٦٧٨٩]/g, (d) =>
@@ -133,6 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     updateStats();
   });
+  //
 
   document.getElementById("removeDiacritics").addEventListener("click", () => {
     textArea.value = textArea.value.replace(
@@ -141,6 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
     updateStats();
   });
+  //
 
   document.getElementById("saveFile").addEventListener("click", () => {
     const blob = new Blob([textArea.value], {
@@ -151,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
     a.download = "text_area_content.txt";
     a.click();
   });
+  //
 
   document.getElementById("loadFile").addEventListener("click", () => {
     const input = document.createElement("input");
@@ -167,6 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     input.click();
   });
+  //
 
   let isRTL = true;
   document.getElementById("toggleDirection").addEventListener("click", () => {
@@ -174,6 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
     textArea.style.direction = isRTL ? "rtl" : "ltr";
     textArea.style.textAlign = isRTL ? "right" : "left";
   });
+  //
 
   const caseFunctions = [
     {
@@ -199,11 +207,13 @@ document.addEventListener("DOMContentLoaded", () => {
       caseFunctions[currentCaseIndex].name;
     updateStats();
   });
+  //
 
   document.getElementById("wordWrap").addEventListener("click", () => {
     textArea.value = textArea.value.replace(/\s+/g, " ").trim();
     updateStats();
   });
+  //
 
   const newlineStates = [
     {
@@ -224,6 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
       newlineStates[currentNewlineState].name;
     updateStats();
   });
+  //
 
   document.getElementById("removeExtraSpace").addEventListener("click", () => {
     textArea.value = textArea.value
@@ -237,16 +248,19 @@ document.addEventListener("DOMContentLoaded", () => {
       .trim();
     updateStats();
   });
+  //
 
   document.getElementById("keepOnlyNumbers").addEventListener("click", () => {
     textArea.value = textArea.value.replace(/[^0-9\n]/g, "");
     updateStats();
   });
+  //
 
   document.getElementById("removeAllNumbers").addEventListener("click", () => {
     textArea.value = textArea.value.replace(/[0-9]/g, "");
     updateStats();
   });
+  //
 
   document
     .getElementById("sortWordsByFrequency")
@@ -262,6 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .join("\n");
       updateStats();
     });
+  //
 
   document
     .getElementById("sortLinesByFrequency")
@@ -277,6 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .join("\n");
       updateStats();
     });
+  //
 
   let lineNumbersAdded = false;
   document.getElementById("toggleLineNumbers").addEventListener("click", () => {
@@ -298,6 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     updateStats();
   });
+  //
 
   let sortOrder = "asc";
   document.getElementById("toggleSortLines").addEventListener("click", () => {
@@ -319,6 +336,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     updateStats();
   });
+  //
 
   document.getElementById("randomizeLines").addEventListener("click", () => {
     const lines = textArea.value.split("\n");
@@ -329,6 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
     textArea.value = lines.join("\n");
     updateStats();
   });
+  //
 
   let reverseState = "horizontal";
   document.getElementById("reverseText").addEventListener("click", () => {
@@ -343,6 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     updateStats();
   });
+  //
 
   document.getElementById("generatePassword").addEventListener("click", () => {
     const length = Math.floor(Math.random() * 10) + 8; // Random length between 8 and 17
@@ -355,6 +375,7 @@ document.addEventListener("DOMContentLoaded", () => {
     textArea.value += (textArea.value ? "\n" : "") + password;
     updateStats();
   });
+  //
 
   let listState = "none";
   document.getElementById("toggleListTags").addEventListener("click", () => {
@@ -385,6 +406,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     updateStats();
   });
+  //
 
   document
     .getElementById("removePrecedingZeros")
@@ -392,6 +414,7 @@ document.addEventListener("DOMContentLoaded", () => {
       textArea.value = textArea.value.replace(/\b0+(\d+)/g, "$1");
       updateStats();
     });
+  //
 
   document
     .getElementById("removeDhivehiDiacritics")
@@ -399,18 +422,20 @@ document.addEventListener("DOMContentLoaded", () => {
       textArea.value = textArea.value.replace(/[\u07A6-\u07B0]/g, "");
       updateStats();
     });
+  //
 
   document.getElementById("removePunctuation").addEventListener("click", () => {
     textArea.value = textArea.value.replace(/[^\w\s]/g, "");
     updateStats();
   });
+  //
 
   let footnoteClickCount = 0;
-
   function updateFootnoteButtonText() {
     const texts = ["(1)/[1] → ⁽¹⁾", "⁽¹⁾ → (1)", "(1) → [1]"];
     convertFootnotesBtn.textContent = texts[footnoteClickCount % 3];
   }
+  //
 
   convertFootnotesBtn.addEventListener("click", () => {
     switch (footnoteClickCount % 3) {
@@ -450,13 +475,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateStats();
   });
+  //
 
   let bracketClickCount = 0;
-
   function updateBracketButtonText() {
     document.getElementById("bracketNumbers").textContent =
       bracketClickCount % 2 === 0 ? "(1) → 1" : "1 → (1)";
   }
+  //
 
   document.getElementById("bracketNumbers").addEventListener("click", () => {
     if (bracketClickCount % 2 === 0) {
@@ -471,6 +497,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateBracketButtonText();
     updateStats();
   });
+  //
 
   document
     .getElementById("removeNumbersInBrackets")
@@ -481,6 +508,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       updateStats();
     });
+  //
 
   document
     .getElementById("removeDuplicateLines")
@@ -490,18 +518,18 @@ document.addEventListener("DOMContentLoaded", () => {
       textArea.value = uniqueLines.join("\n");
       updateStats();
     });
+  //
 
   document.getElementById("splitIntoWords").addEventListener("click", () => {
     const words = textArea.value.match(/\S+/g) || [];
     textArea.value = words.join("\n");
     updateStats();
   });
+  //
 
   let convertSalawatclickCount = 0;
-
   document.getElementById("convertSalawat").addEventListener("click", () => {
     convertSalawatclickCount++;
-
     if (convertSalawatclickCount % 2 === 1) {
       // Odd clicks: convert to ligature
       textArea.value = textArea.value.replace(
@@ -518,6 +546,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateStats();
   });
+  //
 
   const numberStyles = [
     ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
@@ -541,15 +570,16 @@ document.addEventListener("DOMContentLoaded", () => {
     currentStyleIndex = (currentStyleIndex + 1) % numberStyles.length;
     updateStats();
   });
+  //
 
   document.getElementById("shaddaB4Haraka").addEventListener("click", () => {
     textArea.value = correctShaddaPlacement(textArea.value);
   });
+  //
 
   function correctShaddaPlacement(text) {
     const diacritics = "ًٌٍَُِّْ";
     const shadda = "ّ";
-
     return text.replace(
       new RegExp(`([${diacritics}])(${shadda})`, "g"),
       (match, diacritic, shadda) => {
@@ -562,6 +592,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
   }
+  //
 
   document
     .getElementById("removeQuranicMarks")
@@ -572,40 +603,45 @@ document.addEventListener("DOMContentLoaded", () => {
         .trim();
       updateStats();
     });
+  //
 
-  let isQuranicBr = true;
-
+  let isLatinBr = true;
   document
     .getElementById("replaceQuranicBrackets")
     .addEventListener("click", () => {
-      const replacements = isQuranicBr
-        ? { "﴾": "}", "﴿": "{", "۝": "*" }
-        : { "}": "﴾", "{": "﴿", "*": "۝" };
-
+      const replacements = isLatinBr
+        ? { "{": "﴿", "}": "﴾", "*": "۝" }
+        : { "﴿": "{", "﴾": "}", "۝": "*" };
       textArea.value = textArea.value.replace(
         /[﴾﴿۝{}*]/g,
         (match) => replacements[match] || match
       );
-
-      isQuranicBr = !isQuranicBr;
+      isLatinBr = !isLatinBr;
       updateStats();
     });
+  //
 
   let isPuncRTL = true;
-
   document.getElementById("replaceRtlPunc").addEventListener("click", () => {
     const replacements = isPuncRTL
       ? { "،": ",", "؛": ";", "؟": "?" }
       : { ",": "،", ";": "؛", "?": "؟" };
-
     textArea.value = textArea.value.replace(
       /[،؛؟,;?]/g,
       (match) => replacements[match] || match
     );
-
     isPuncRTL = !isPuncRTL;
     updateStats();
   });
+  //
+
+  document
+    .getElementById("replaceColonFullstop")
+    .addEventListener("click", () => {
+      textArea.value = textArea.value.replace(/:/g, ".");
+      updateStats();
+    });
+  //
 
   //
   //
