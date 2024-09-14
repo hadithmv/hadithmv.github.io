@@ -140,20 +140,23 @@
 
       .function-button,
       .copy-button,
-      .copy-button-noFunct {
+      .copy-button-lit,
+      .copy-button-other {
         padding: 5px 10px;
         cursor: pointer;
         /* */
-        font-size: 18px; /* 16 */
+        min-width: 15px;
       }
 
       .copy-button,
-      .copy-button-noFunct {
-        font-size: 20px;
+      .copy-button-lit,
+      .copy-button-other {
+        font-size: 22px;
         direction: rtl;
       }
 
       .function-button {
+        font-size: 18px; /* 16 */
         direction: ltr;
       }
 
@@ -595,118 +598,62 @@
 
         <div id="copyTab" class="tab-content">
           <div class="buttons-container">
-            <button class="copy-button" data-text="ﷺ">Copy ﷺ</button>
-            <button class="copy-button" data-text="﵆">Copy ﵆</button>
-            <button
-              class="copy-button"
-              data-text="صَلَّى اللَّهُ عَلَيهِ وَسَلَّم"
-            >
+            <button class="copy-button-lit">ﷺ</button>
+            <button class="copy-button-lit">﵆</button>
+            <button class="copy-button-lit">
               صَلَّى اللَّهُ عَلَيهِ وَسَلَّم
             </button>
-            <button class="copy-button" data-text="﵊">Copy ﵊</button>
-            <button class="copy-button" data-text="﵁">Copy ﵁</button>
-            <button class="copy-button" data-text="﵂">Copy ﵂</button>
-            <button class="copy-button" data-text="﵃">Copy ﵃</button>
-            <button class="copy-button" data-text="﵄">Copy ﵄</button>
-            <button class="copy-button" data-text="﵅">Copy ﵅</button>
-            <button class="copy-button" data-text="رَضِيَ اللَّهُ عَنْهُ">
-              رَضِيَ اللَّهُ عَنْهُ
-            </button>
-            <button class="copy-button" data-text="رَضِيَ اللَّهُ عَنْهَا">
-              رَضِيَ اللَّهُ عَنْهَا
-            </button>
-            <button class="copy-button" data-text="رَضِيَ اللَّهُ عَنْهُمَا">
-              رَضِيَ اللَّهُ عَنْهُمَا
-            </button>
-            <button class="copy-button" data-text="رَضِيَ اللَّهُ عَنْهُمْ">
-              رَضِيَ اللَّهُ عَنْهُمْ
-            </button>
-            <button class="copy-button" data-text="﵇">Copy ﵇</button>
-            <button class="copy-button" data-text="﵍">Copy ﵍</button>
-            <button class="copy-button" data-text="﵉">Copy ﵉</button>
-            <button class="copy-button" data-text="﵈">Copy ﵈</button>
-            <button class="copy-button" data-text="عَلَيهِ السَّلَامُ">
-              عَلَيهِ السَّلَامُ
-            </button>
-            <button class="copy-button" data-text="عَلَيهَا السَّلَامُ">
-              عَلَيهَا السَّلَامُ
-            </button>
-            <button class="copy-button" data-text="عَلَيهِمَا السَّلَامُ">
-              عَلَيهِمَا السَّلَامُ
-            </button>
-            <button class="copy-button" data-text="عَلَيهِمُ السَّلَامُ">
-              عَلَيهِمُ السَّلَامُ
-            </button>
-            <button class="copy-button" data-text="﵀">Copy ﵀</button>
-            <button class="copy-button" data-text="﵏">Copy ﵏</button>
-            <button class="copy-button" data-text="رَحِمَهُ اللَّهُ">
-              رَحِمَهُ اللَّهُ
-            </button>
-            <button class="copy-button" data-text="رَحِمَهَا اللَّهُ">
-              رَحِمَهَا اللَّهُ
-            </button>
-            <button class="copy-button" data-text="رَحِمَهُمَا اللَّهُ">
-              رَحِمَهُمَا اللَّهُ
-            </button>
-            <button class="copy-button" data-text="رَحِمَهُمُ اللَّهُ">
-              رَحِمَهُمُ اللَّهُ
-            </button>
-            <button class="copy-button" data-text="﷿">Copy ﷿</button>
-            <button class="copy-button" data-text="﷾">Copy ﷾</button>
-            <button class="copy-button" data-text="﵎">Copy ﵎</button>
-            <button class="copy-button" data-text="عَزَّ وَجَلَّ">
-              عَزَّ وَجَلَّ
-            </button>
-            <button class="copy-button" data-text="سُبحَانَهُ وَتَعَالَى">
-              سُبحَانَهُ وَتَعَالَى
-            </button>
-            <button class="copy-button" data-text="تَبَارَكَ وَتَعَالَى">
-              تَبَارَكَ وَتَعَالَى
-            </button>
-            <button class="copy-button" data-text="تَعَالَى">تَعَالَى</button>
-            <button class="copy-button" data-text="﷽">﷽</button>
-            <button
-              class="copy-button"
-              data-text="بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ"
-            >
+            <button class="copy-button-lit">﵊</button>
+            <button class="copy-button-lit">﵁</button>
+            <button class="copy-button-lit">﵂</button>
+            <button class="copy-button-lit">﵃</button>
+            <button class="copy-button-lit">﵄</button>
+            <button class="copy-button-lit">﵅</button>
+            <button class="copy-button-lit">رَضِيَ اللَّهُ عَنْهُ</button>
+            <button class="copy-button-lit">رَضِيَ اللَّهُ عَنْهَا</button>
+            <button class="copy-button-lit">رَضِيَ اللَّهُ عَنْهُمَا</button>
+            <button class="copy-button-lit">رَضِيَ اللَّهُ عَنْهُمْ</button>
+            <button class="copy-button-lit">Copy ﵇</button>
+            <button class="copy-button-lit">Copy ﵍</button>
+            <button class="copy-button-lit">Copy ﵉</button>
+            <button class="copy-button-lit">Copy ﵈</button>
+            <button class="copy-button-lit">عَلَيهِ السَّلَامُ</button>
+            <button class="copy-button-lit">عَلَيهَا السَّلَامُ</button>
+            <button class="copy-button-lit">عَلَيهِمَا السَّلَامُ</button>
+            <button class="copy-button-lit">عَلَيهِمُ السَّلَامُ</button>
+            <button class="copy-button-lit">Copy ﵀</button>
+            <button class="copy-button-lit">Copy ﵏</button>
+            <button class="copy-button-lit">رَحِمَهُ اللَّهُ</button>
+            <button class="copy-button-lit">رَحِمَهَا اللَّهُ</button>
+            <button class="copy-button-lit">رَحِمَهُمَا اللَّهُ</button>
+            <button class="copy-button-lit">رَحِمَهُمُ اللَّهُ</button>
+            <button class="copy-button-lit">﷿</button>
+            <button class="copy-button-lit">﷾</button>
+            <button class="copy-button-lit">﵎</button>
+            <button class="copy-button-lit">عَزَّ وَجَلَّ</button>
+            <button class="copy-button-lit">سُبحَانَهُ وَتَعَالَى</button>
+            <button class="copy-button-lit">تَبَارَكَ وَتَعَالَى</button>
+            <button class="copy-button-lit">تَعَالَى</button>
+            <button class="copy-button-lit">﷽</button>
+            <button class="copy-button-lit">
               بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
             </button>
-            <button class="copy-button" data-text="هـ">Copy هـ</button>
-            <button
-              class="copy-button"
-              data-text="السلام عليكم ورحمة الله وبركاته"
-            >
+            <button class="copy-button-lit">هـ</button>
+            <button class="copy-button-lit">
               السلام عليكم ورحمة الله وبركاته
             </button>
-            <button
-              class="copy-button"
-              data-text="وعليكم السلام ورحمة الله وبركاته"
-            >
+            <button class="copy-button-lit">
               وعليكم السلام ورحمة الله وبركاته
             </button>
-            <button class="copy-button" data-text="جزاك الله خيرا">
-              جزاك الله خيرا
-            </button>
-            <button class="copy-button" data-text="بارك الله فيك">
-              بارك الله فيك
-            </button>
-            <button class="copy-button" data-text="الحمد لله">الحمد لله</button>
-            <button class="copy-button" data-text="إن شاء الله">
-              إن شاء الله
-            </button>
-            <button class="copy-button" data-text="ما شاء الله تبارك الله">
-              ما شاء الله تبارك الله
-            </button>
-            <button class="copy-button" data-text="سبحان الله">
-              سبحان الله
-            </button>
-            <button class="copy-button" data-text="الله أكبر">الله أكبر</button>
-            <button class="copy-button" data-text="إنا لله وإنا إليه راجعون">
-              إنا لله وإنا إليه راجعون
-            </button>
-            <button class="copy-button" data-text="لا إله إلا الله">
-              لا إله إلا الله
-            </button>
+            <button class="copy-button-lit">جزاك الله خيرا</button>
+            <button class="copy-button-lit">بارك الله فيك</button>
+            <button class="copy-button-lit">الحمد لله</button>
+            <button class="copy-button-lit">إن شاء الله</button>
+            <button class="copy-button-lit">ما شاء الله تبارك الله</button>
+            <button class="copy-button-lit">سبحان الله</button>
+            <button class="copy-button-lit">الله أكبر</button>
+            <button class="copy-button-lit">إنا لله وإنا إليه راجعون</button>
+            <button class="copy-button-lit">لا إله إلا الله</button>
             <button
               class="copy-button"
               data-text="إنَّ الْحَمْدَ لِلهِ نَحْمَدُهُ وَنَسْتَعِينُهُ وَنَسْتَغْفِرُهُ، وَنَعُوذُ بِاللهِ مِنْ شُرُورِ أَنْفُسِنَا وَمِنْ سَيِّئَاتِ أَعْمَالِنَا، مَنْ يَهْدِهِ اللهُ فَلاَ مُضِلَّ لَهُ، وَمَنْ يُضْلِلْ فَلاَ هَادِىَ لَهُ، وَأَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ {يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ حَقَّ تُقَاتِهِ وَلَا تَمُوتُنَّ إِلَّا وَأَنْتُمْ مُسْلِمُونَ} (آل عمران:102) {يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمُ الَّذِي خَلَقَكُمْ مِنْ نَفْسٍ وَاحِدَةٍ وَخَلَقَ مِنْهَا زَوْجَهَا وَبَثَّ مِنْهُمَا رِجَالًا كَثِيرًا وَنِسَاءً وَاتَّقُوا اللَّهَ الَّذِي تَسَاءَلُونَ بِهِ وَالْأَرْحَامَ إِنَّ اللَّهَ كَانَ عَلَيْكُمْ رَقِيبًا} (النساء:1) {يَاأَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللهَ وَقُولُوا قَوْلاً سَدِيدًا * يُصْلِحْ لَكُمْ أَعْمَالَكُمْ وَيَغْفِرْ لَكُمْ ذُنُوبَكُمْ وَمَنْ يُطِعِ اللهَ وَرَسُولَهُ فَقَدْ فَازَ فَوْزًا عَظِيمًا} (الأحزاب: 70، 71) أَمَّا بَعْدُ"
@@ -720,32 +667,21 @@
               سبحانك اللهم وبحمدك...
             </button>
 
-            <button
-              class="copy-button"
-              data-text="ގެ އަރިހުން ރިވާވެގެންވެއެވެ."
-            >
+            <button class="copy-button-lit">
               ގެ އަރިހުން ރިވާވެގެންވެއެވެ.
             </button>
-            <button
-              class="copy-button"
-              data-text="ރަސޫލު ﷲ  ﷺޙަދީޘްކުރެއްވިއެވެ: "
-            >
+            <button class="copy-button-lit">
               ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ:
             </button>
-            <button class="copy-button" data-text="ނަބީ ﷺ ޛަދީޘްކުރެއްވިއެވެ: ">
-              ނަބީ ﷺ ޙަދީޘްކުރެއްވިއެވެ:
-            </button>
-            <button
-              class="copy-button"
-              data-text="ޙަދީޘްކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:"
-            >
+            <button class="copy-button-lit">ނަބީ ﷺ ޙަދީޘްކުރެއްވިއެވެ:</button>
+            <button class="copy-button-lit">
               ޙަދީޘްކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:
             </button>
-            <button class="copy-button-noFunct" id="getDateTime">
+            <button class="copy-button-other" id="getDateTime">
               Current Date & Time
             </button>
           </div>
-
+          <hr />
           <p>Font: KFGQPC Arabic Symbols 01 (Long Symbols)</p>
           <div class="buttons-container">
             <button class="copy-button" data-text="">بسم 1</button>
@@ -780,7 +716,7 @@
             <button class="copy-button" data-text="">رحمهم الله</button>
             <button class="copy-button" data-text="">رحمهن الله</button>
           </div>
-
+          <hr />
           <p>Font: KFGQPC Arabic Symbols 01 (Short Symbols)</p>
           <div class="buttons-container">
             <button class="copy-button" data-text="">عز وجل</button>
@@ -807,7 +743,7 @@
             <button class="copy-button" data-text="">رحمها الله</button>
             <button class="copy-button" data-text="">رحمهن الله</button>
           </div>
-
+          <hr />
           <p>Font: AGA Arabesque Regular</p>
           <div class="buttons-container">
             <button class="copy-button" data-text="">سبحانه وتعالى</button>
