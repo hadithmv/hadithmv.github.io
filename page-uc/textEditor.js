@@ -50,13 +50,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const text = textArea.value;
     const words = text.trim() ? text.trim().split(/\s+/).length : 0;
     const lines = text ? text.split("\n").length : 0;
-    charCount.textContent = `Chars: ${text.length}`;
-    wordCount.textContent = `Words: ${words}`;
-    lineCount.textContent = `Lines: ${lines}`;
+    charCount.textContent = `Char: ${text.length}`;
+    wordCount.textContent = `Wrd: ${words}`;
+    lineCount.textContent = `Ln: ${lines}`;
     const bytes = new Blob([text]).size;
     fileSize.textContent =
       bytes < 1024
-        ? `Bytes: ${bytes}`
+        ? `B: ${bytes}`
         : bytes < 1048576
           ? `KB: ${(bytes / 1024).toFixed(2)}`
           : bytes < 1073741824
@@ -529,15 +529,19 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("sortWordsByFrequency")
     .addEventListener("click", () => {
-      const words = textArea.value.split(/\s+/);
+      const text = textArea.value;
+      const words = text.toLowerCase().match(/\b[\w']+\b/g) || [];
       const frequency = {};
+
       words.forEach((word) => {
         frequency[word] = (frequency[word] || 0) + 1;
       });
-      const sortedWords = Object.entries(frequency).sort((a, b) => b[1] - a[1]);
-      textArea.value = sortedWords
-        .map(([word, freq]) => `${word}: ${freq}`)
-        .join("\n");
+
+      const sortedWords = Object.entries(frequency)
+        .sort((a, b) => b[1] - a[1])
+        .map(([word, freq]) => `${freq}: ${word}`);
+
+      textArea.value = sortedWords.join("\n");
       updateStats();
     });
   //
@@ -545,32 +549,38 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("sortLinesByFrequency")
     .addEventListener("click", () => {
-      const lines = textArea.value.split("\n");
+      const lines = textArea.value
+        .split("\n")
+        .filter((line) => line.trim() !== "");
       const frequency = {};
+
       lines.forEach((line) => {
         frequency[line] = (frequency[line] || 0) + 1;
       });
-      const sortedLines = Object.entries(frequency).sort((a, b) => b[1] - a[1]);
-      textArea.value = sortedLines
-        .map(([line, freq]) => `${line} (${freq})`)
-        .join("\n");
+
+      const sortedLines = Object.entries(frequency)
+        .sort((a, b) => b[1] - a[1])
+        .map(([line, freq]) => `${freq}: ${line}`);
+
+      textArea.value = sortedLines.join("\n");
       updateStats();
     });
   //
 
   let lineNumbersAdded = false;
+
   document.getElementById("toggleLineNumbers").addEventListener("click", () => {
     const lines = textArea.value.split("\n");
     if (!lineNumbersAdded) {
       textArea.value = lines
-        .map((line, index) => `${index + 1} ${line}`)
+        .map((line, index) => `${index + 1}. ${line}`)
         .join("\n");
       document.getElementById("toggleLineNumbers").textContent =
-        "Remove Line Numbers";
+        "Rmv Line Numbers";
       lineNumbersAdded = true;
     } else {
       textArea.value = lines
-        .map((line) => line.replace(/^\d+\s/, ""))
+        .map((line) => line.replace(/^\d+\.\s/, ""))
         .join("\n");
       document.getElementById("toggleLineNumbers").textContent =
         "Add Line Numbers";
@@ -585,7 +595,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const lines = textArea.value.split("\n");
     if (sortOrder === "asc") {
       textArea.value = lines.sort().join("\n");
-      document.getElementById("toggleSortLines").textContent = "Sort Lines ↓";
+      document.getElementById("toggleSortLines").textContent = "Sort Lines ⬇️";
       sortOrder = "desc";
     } else if (sortOrder === "desc") {
       textArea.value = lines.sort().reverse().join("\n");
@@ -593,7 +603,7 @@ document.addEventListener("DOMContentLoaded", () => {
       sortOrder = "reset";
     } else {
       // Reset to original order
-      document.getElementById("toggleSortLines").textContent = "Sort Lines ↑";
+      document.getElementById("toggleSortLines").textContent = "Sort Lines ⬆️";
       sortOrder = "asc";
     }
     updateStats();
