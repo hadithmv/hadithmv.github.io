@@ -1099,6 +1099,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  document.querySelectorAll(".copy-button-lit").forEach((button) => {
+    button.addEventListener("click", () => {
+      navigator.clipboard.writeText(button.textContent);
+    });
+  });
+
   // Load saved content
   const savedTabs = JSON.parse(localStorage.getItem("editorTabs"));
   if (savedTabs) {
