@@ -36,6 +36,12 @@
     <script src="../js/navbar.min.js"></script>
     <script src="textEditor.js"></script>
     <style>
+      @media (max-width: 599px) {
+        .hmvSection {
+          padding: 0; /*1em*/
+          margin: 0; /* 0 0 2em*/
+        }
+      }
       /* CSS styles will be added here */
       * {
         box-sizing: border-box;
@@ -167,6 +173,7 @@
 
         .stats {
           flex-wrap: wrap;
+          justify-content: space-evenly;
         }
       }
 
@@ -209,10 +216,10 @@
               <input type="text" id="fontSize" value="22" size="2" />
             </div>
             <div class="stats">
-              <span id="charCount">Chars: 0</span>
-              <span id="wordCount">Words: 0</span>
-              <span id="lineCount">Lines: 0</span>
-              <span id="fileSize">Bytes: 0</span>
+              <span id="charCount">Char: 0</span>
+              <span id="wordCount">Wrd: 0</span>
+              <span id="lineCount">Ln: 0</span>
+              <span id="fileSize">B: 0</span>
             </div>
           </div>
           <div class="numbered-tabs">
@@ -275,7 +282,7 @@
               class="function-button"
               title="Changes text direction from right to left and vice-versa"
             >
-              RTL ↔️ LTR
+              RTL ⟺ LTR
             </button>
             <button
               id="changeCase"
@@ -296,14 +303,14 @@
               class="function-button"
               title="Removes more than double empty lines on the first click, and more than single empty lines on the second"
             >
-              Rmv Xtra Lines
+              Rmv Xtra Lines ⌇
             </button>
             <button
               id="removeExtraSpace"
               class="function-button"
               title="Removes extra spaces"
             >
-              Rmv Xtra Space
+              Rmv Xtra Space ⸝⸝
             </button>
             <button
               id="convertQuotes"
@@ -367,21 +374,21 @@
               class="function-button"
               title="Removes all none arabic text"
             >
-              Keep Only Ar
+              Keep Only Ar 🏜️
             </button>
             <button
               id="removeDhivehiDiacritics"
               class="function-button"
               title="Removes all Dhivehi fili / diacritics"
             >
-              Rmv Dhiv Fili
+              Rmv Dhiv Fili 🏝️
             </button>
             <button
               id="removePunctuation"
               class="function-button"
               title="Removes all punctuation marks"
             >
-              Rmv Punct!?
+              Rmv Punct❗
             </button>
             <button
               id="splitIntoWords"
@@ -393,30 +400,30 @@
             <button
               id="sortWordsByFrequency"
               class="function-button"
-              title="Sorts each word of the text by highest frequency of occurance"
+              title="Sorts each word of the text by highest frequency of occurance, with no repeats"
             >
               Sort Words by Freq 📉
             </button>
             <button
               id="sortLinesByFrequency"
               class="function-button"
-              title="Sorts the lines of text by highest frequency of occurance"
+              title="Sorts the lines of text by highest frequency of occurance, with no repeats"
             >
               Sort Lines by Freq
             </button>
             <button
               id="toggleLineNumbers"
               class="function-button"
-              title="Adds numbers to the beginning of each line of the text"
+              title="Adds numbers to the beginning of each line of the text followed by a dot, on the first click, and remove such line numbers and a dot, on the second"
             >
               Add Line Nos 🔢
             </button>
             <button
               id="toggleSortLines"
               class="function-button"
-              title="Orders the lines of text in ascending order on first click, and the reverse on second"
+              title="Orders the lines of text in ascending order on first click, and by descending on the second"
             >
-              Sort Lines ↑
+              Sort Lines ⬆️
             </button>
             <button
               id="randomizeLines"
@@ -430,7 +437,7 @@
               class="function-button"
               title="Removes duplicate lines / repeated lines of text"
             >
-              Rmv Dupl Lines
+              Rmv Dupl Lines 🧬
             </button>
             <button
               id="reverseText"
@@ -451,7 +458,7 @@
               class="function-button"
               title="Wraps each line of text in html paragraph tags, with no empty lines"
             >
-              txt2 HTML&lt;p&gt; 📜
+              txt2 HTML&lt;p&gt; ✍
             </button>
             <button
               id="whichUnicodeCharacter"
@@ -472,7 +479,7 @@
               class="function-button"
               title="Decodes a URL from percent-encoding on the first click, and encodes it on the second"
             >
-              Decode URL
+              Decode URL 🔗
             </button>
             <button
               id="rmvHtmlTags"
@@ -486,7 +493,7 @@
               class="function-button"
               title="Converts the text to an HTML ordered list on first click, then unordered list on second"
             >
-              HTML O List
+              HTML ⭕ List
             </button>
             <button
               id="convertFootnotesBtn"
@@ -521,7 +528,7 @@
               class="function-button"
               title="Convert regular text to leet speak on first click, and does the reverse on second"
             >
-              📔 1337
+              1337 📔
             </button>
             <!-- -->
             <button
@@ -591,7 +598,7 @@
 
             <!-- -->
             <button id="fullscreen" class="function-button" title="mmm">
-              Fullscreen
+              Fullscreen 🖥️
             </button>
           </div>
         </div>
@@ -613,16 +620,16 @@
             <button class="copy-button-lit">رَضِيَ اللَّهُ عَنْهَا</button>
             <button class="copy-button-lit">رَضِيَ اللَّهُ عَنْهُمَا</button>
             <button class="copy-button-lit">رَضِيَ اللَّهُ عَنْهُمْ</button>
-            <button class="copy-button-lit">Copy ﵇</button>
-            <button class="copy-button-lit">Copy ﵍</button>
-            <button class="copy-button-lit">Copy ﵉</button>
-            <button class="copy-button-lit">Copy ﵈</button>
+            <button class="copy-button-lit">﵇</button>
+            <button class="copy-button-lit">﵍</button>
+            <button class="copy-button-lit">﵉</button>
+            <button class="copy-button-lit">﵈</button>
             <button class="copy-button-lit">عَلَيهِ السَّلَامُ</button>
             <button class="copy-button-lit">عَلَيهَا السَّلَامُ</button>
             <button class="copy-button-lit">عَلَيهِمَا السَّلَامُ</button>
             <button class="copy-button-lit">عَلَيهِمُ السَّلَامُ</button>
-            <button class="copy-button-lit">Copy ﵀</button>
-            <button class="copy-button-lit">Copy ﵏</button>
+            <button class="copy-button-lit">﵀</button>
+            <button class="copy-button-lit">﵏</button>
             <button class="copy-button-lit">رَحِمَهُ اللَّهُ</button>
             <button class="copy-button-lit">رَحِمَهَا اللَّهُ</button>
             <button class="copy-button-lit">رَحِمَهُمَا اللَّهُ</button>
