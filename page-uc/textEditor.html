@@ -129,7 +129,7 @@
         font-family: inherit;
       }
 
-      .function-buttons {
+      .buttons-container {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
@@ -139,11 +139,20 @@
       }
 
       .function-button,
-      .copy-button {
+      .copy-button,
+      .copy-button-noFunct {
         padding: 5px 10px;
         cursor: pointer;
         /* */
         font-size: 18px; /* 16 */
+      }
+
+      .copy-button,
+      .copy-button-noFunct {
+        direction: rtl;
+      }
+
+      .function-button {
         direction: ltr;
       }
 
@@ -173,430 +182,650 @@
     <div id="navbar-container"></div>
     <div class="dtWrapper">
       <div class="hmvSection leftAlignedText ltrText">
-        <div class="centerAlignedText">
-          <!-- -->
+        <!-- -->
 
-          <div class="top-tabs">
-            <button class="top-tab active" data-tab="edit">Edit</button>
-            <button class="top-tab" data-tab="copy">Copy</button>
-            <button class="top-tab" data-tab="calc">Calc</button>
-            <button class="top-tab" data-tab="diff">Diff</button>
-          </div>
+        <div class="top-tabs">
+          <button class="top-tab active" data-tab="edit">Edit</button>
+          <button class="top-tab" data-tab="copy">Copy</button>
+          <button class="top-tab" data-tab="calc">Calc</button>
+          <button class="top-tab" data-tab="diff">Diff</button>
+        </div>
 
-          <div id="editTab" class="tab-content active">
-            <div class="edit-controls">
-              <div class="font-size-control">
-                <label for="fontSize">Font Size:</label>
-                <input
-                  type="range"
-                  id="fontSizeSlider"
-                  min="1"
-                  max="72"
-                  value="22"
-                />
-                <input type="text" id="fontSize" value="22" size="2" />
-              </div>
-              <div class="stats">
-                <span id="charCount">Chars: 0</span>
-                <span id="wordCount">Words: 0</span>
-                <span id="lineCount">Lines: 0</span>
-                <span id="fileSize">Bytes: 0</span>
-              </div>
+        <div id="editTab" class="tab-content active">
+          <div class="edit-controls">
+            <div class="font-size-control">
+              <label for="fontSize">Font Size:</label>
+              <input
+                type="range"
+                id="fontSizeSlider"
+                min="1"
+                max="72"
+                value="22"
+              />
+              <input type="text" id="fontSize" value="22" size="2" />
             </div>
-            <div class="numbered-tabs">
-              <button class="numbered-tab active" data-tab="1">1</button>
-              <button id="addTab">+</button>
-            </div>
-            <textarea id="textArea"></textarea>
-            <div class="function-buttons">
-              <button
-                id="clearAll"
-                class="function-button"
-                title="Clears all text and tabs"
-              >
-                Clear ❌
-              </button>
-              <button
-                id="copyToClipboard"
-                class="function-button"
-                title="Copies text to clipboard"
-              >
-                Copy 📋
-              </button>
-              <button
-                id="arabicDigits"
-                class="function-button"
-                title="Converts regular numbers to Arabic numbers"
-              >
-                ٣ ٢ ١ 1️⃣
-              </button>
-              <button
-                id="regularDigits"
-                class="function-button"
-                title="Converts Arabic  numbers to regular numbers"
-              >
-                1 2 3
-              </button>
-              <button
-                id="removeDiacritics"
-                class="function-button"
-                title="Removes all Arabic diacritical marks / tashkeel / harakat"
-              >
-                Rmv تشكيل 〰️
-              </button>
-              <button
-                id="saveFile"
-                class="function-button"
-                title="Saves the text as a .txt file to your device. Note: Doesn't work on the Android app."
-              >
-                Save 📩
-              </button>
-              <button
-                id="loadFile"
-                class="function-button"
-                title="Uploads the content of a file you choose from your device. Note: Doesn't work on the Android app."
-              >
-                Load 📁
-              </button>
-              <button
-                id="toggleDirection"
-                class="function-button"
-                title="Changes text direction from right to left and vice-versa"
-              >
-                RTL ↔️ LTR
-              </button>
-              <button
-                id="changeCase"
-                class="function-button"
-                title="Changes English text to title case, then sentance case, then lower case, then upper case"
-              >
-                Title Case 🔠
-              </button>
-              <button
-                id="wordWrap"
-                class="function-button"
-                title="Wraps the text to a single line"
-              >
-                Word Wrap ↲
-              </button>
-              <button
-                id="removeNewlines"
-                class="function-button"
-                title="Removes more than double empty lines on the first click, and more than single empty lines on the second"
-              >
-                Rmv Xtra Lines
-              </button>
-              <button
-                id="removeExtraSpace"
-                class="function-button"
-                title="Removes extra spaces"
-              >
-                Rmv Xtra Space
-              </button>
-              <button
-                id="convertQuotes"
-                class="function-button"
-                title="Converts all straight / dumb quotes to RTL curly / smart quotes on first click, then does the reverse on second"
-              >
-                ' " ↔ ’ “
-              </button>
-              <button
-                id="reverseCurlyQuotes"
-                class="function-button"
-                title="Converts RTL curly quotes to LTR facing quotes on first click, then the reverse on second"
-              >
-                ’‘ ”“ ↔ ‘’ “”
-              </button>
-              <button
-                id="cycleBrackets"
-                class="function-button"
-                title="Replaces all brackets, circular and square, to LTR half brackets. on first click, then to RTL half brackets on second"
-              >
-                ()/[] → ⌜⌝
-              </button>
-              <button
-                id="dotsToEllipsis"
-                class="function-button"
-                title="Converts three dots to a proper ellipsis on first click, and does the reverse on second"
-              >
-                . . . ↔ …
-              </button>
-              <button
-                id="hyphenToEnThenEmDash"
-                class="function-button"
-                title="Converts a hyphen to an en dash on the first click, then to an em dash on the second"
-              >
-                -/–/—
-              </button>
-              <!-- -->
-              <button
-                id="keepOnlyNumbers"
-                class="function-button"
-                title="Erases all text except for numbers"
-              >
-                Keep Only Nos #️⃣
-              </button>
-              <button
-                id="removeAllNumbers"
-                class="function-button"
-                title="Erases all numbers in the text"
-              >
-                Rmv All Nos ✖️
-              </button>
-              <button
-                id="removePrecedingZeros"
-                class="function-button"
-                title="Removes all leading / preceding zeros"
-              >
-                Rmv Lead 0️⃣s
-              </button>
-              <button
-                id="keepOnlyAr"
-                class="function-button"
-                title="Removes all none arabic text"
-              >
-                Keep Only Ar
-              </button>
-              <button
-                id="removeDhivehiDiacritics"
-                class="function-button"
-                title="Removes all Dhivehi fili / diacritics"
-              >
-                Rmv Dhiv Fili
-              </button>
-              <button
-                id="removePunctuation"
-                class="function-button"
-                title="Removes all punctuation marks"
-              >
-                Rmv Punct!?
-              </button>
-              <button
-                id="splitIntoWords"
-                class="function-button"
-                title="Splits the text into single words on each line"
-              >
-                Split Words ✂️
-              </button>
-              <button
-                id="sortWordsByFrequency"
-                class="function-button"
-                title="Sorts each word of the text by highest frequency of occurance"
-              >
-                Sort Words by Freq 📉
-              </button>
-              <button
-                id="sortLinesByFrequency"
-                class="function-button"
-                title="Sorts the lines of text by highest frequency of occurance"
-              >
-                Sort Lines by Freq
-              </button>
-              <button
-                id="toggleLineNumbers"
-                class="function-button"
-                title="Adds numbers to the beginning of each line of the text"
-              >
-                Add Line Nos 🔢
-              </button>
-              <button
-                id="toggleSortLines"
-                class="function-button"
-                title="Orders the lines of text in ascending order on first click, and the reverse on second"
-              >
-                Sort Lines ↑
-              </button>
-              <button
-                id="randomizeLines"
-                class="function-button"
-                title="Randomly orders the lines of text"
-              >
-                Shuffle Lines 🔀
-              </button>
-              <button
-                id="removeDuplicateLines"
-                class="function-button"
-                title="Removes duplicate lines / repeated lines of text"
-              >
-                Rmv Dupl Lines
-              </button>
-              <button
-                id="reverseText"
-                class="function-button"
-                title="Reverses the text characters horizontally on first click, and reverses the order of lines vertically on the second"
-              >
-                Rvrs hori txt ⏪
-              </button>
-              <button
-                id="generatePassword"
-                class="function-button"
-                title="Generates a password of random characters and varying lengths"
-              >
-                Gen Passwrd *️⃣
-              </button>
-              <button
-                id="text2HtmlP"
-                class="function-button"
-                title="Wraps each line of text in html paragraph tags, with no empty lines"
-              >
-                txt2 HTML&lt;p&gt; 📜
-              </button>
-              <button
-                id="whichUnicodeCharacter"
-                class="function-button"
-                title="Tells you the unicode codepoints of each character in the text"
-              >
-                whichUniCdeChar❓
-              </button>
-              <button
-                id="decodeEncodeUnicode"
-                class="function-button"
-                title="Decodes unicode 4-digit hexadecimal code points into readable characters (like \u0061 to a) on the first click, and encodes it on the next"
-              >
-                Decode \unicode
-              </button>
-              <button
-                id="decodeEncodeURL"
-                class="function-button"
-                title="Decodes a URL from percent-encoding on the first click, and encodes it on the second"
-              >
-                Decode URL
-              </button>
-              <button
-                id="rmvHtmlTags"
-                class="function-button"
-                title="Removes HTML tags from the text, but leaves the text as is"
-              >
-                Rmv HTML &lt;tags&gt;
-              </button>
-              <button
-                id="toggleListTags"
-                class="function-button"
-                title="Converts the text to an HTML ordered list on first click, then unordered list on second"
-              >
-                HTML O List
-              </button>
-              <button
-                id="convertFootnotesBtn"
-                class="function-button"
-                title="Convert circular or square brackets numbers to subscript bracketed numbers on first click, then to circular bracketed numbers on second click, then to square bracketed numbers on third click"
-              >
-                (1)/[1] → ⁽¹⁾
-              </button>
-              <button
-                id="bracketNumbers"
-                class="function-button"
-                title="Converts bracket numbers to non bracked numbers on first click, and does the reverse on second"
-              >
-                (1) ↔ 1
-              </button>
-              <button
-                id="removeNumbersInBrackets"
-                class="function-button"
-                title="mmm"
-              >
-                Rmv ⁽¹⁾/(1)/[1]
-              </button>
-              <button
-                id="convertNumbers"
-                class="function-button"
-                title="Converts regular numbers to MATHEMATICAL SANS-SERIF DIGIT on first click, then to fullwidth digit, then to MATHEMATICAL SANS-SERIF BOLD DIGIT, then to Circled Digit Zero, then to Negative Circled Digit Zero"
-              >
-                1/𝟣/１/𝟭/①/❶
-              </button>
-              <button
-                id="toggleLeetSpeak"
-                class="function-button"
-                title="Convert regular text to leet speak on first click, and does the reverse on second"
-              >
-                📔 1337
-              </button>
-              <!-- -->
-              <button
-                id="convertSalawat"
-                class="function-button"
-                title="Converts long form صلى الله عليه وسلم to short form ﷺ on first click, and does the reverse on second"
-              >
-                صلى… ↔ ﷺ
-              </button>
-              <button
-                id="removeKashidas"
-                class="function-button"
-                title="Removes kashidas / tatweels, which elongate Arabic letters"
-              >
-                تـطـويـل ← تطويل
-              </button>
-              <button
-                id="shaddaB4Haraka"
-                class="function-button"
-                title="Corrects the placement of Arabic harakat on the shadda. The shadda should come first, followed by the haraka"
-              >
-                ـَ ـّ ← ـّ ـَ
-              </button>
-              <button
-                id="removeQuranicMarks"
-                class="function-button"
-                title="Removes the following Quranic marks: ۖ	ۗ	ۘ	ۙ	ۚ	ۛ	ۜ	 ۝ ﴿ ﴾ ۞	۟	۠	ۡ	ۢ	ۣ	ۤ	ۥ	ۦ	ۧ	ۨ	۩	۪	۫	۬	ۭ"
-              >
-                Rmv ۗ&nbsp; &nbsp; ۘ&nbsp; ۚ&nbsp;۝ ﴾
-              </button>
-              <button
-                id="replaceQuoteToDoubleAngleBrackets"
-                class="function-button"
-                title="Replaces doubles straight quotes or double brackets to angular arabic quotes on the first click, then to double brackets on second click, and straight quotes on third"
-              >
-                " " / (( )) ↔ « »
-              </button>
-              <button
-                id="replaceDoubleBracketsToSingle"
-                class="function-button"
-                title="Replaces doubles brackets to single brackets"
-              >
-                (( )) → ( )
-              </button>
-              <button
-                id="replaceQuranicBrackets"
-                class="function-button"
-                title="Converts curly braces and asterisks to decorative Quranic brackets and ayah stops"
-              >
-                {*} ↔ ﴾۝﴿
-              </button>
-              <button
-                id="replaceRtlPunc"
-                class="function-button"
-                title="Converts left facing commas, semicolons and questions marks, to the right on first click, and does the reverse on second"
-              >
-                ، ؛ ؟ ↔ , ; ?
-              </button>
-              <!-- -->
-              <button
-                id="replaceColonFullstop"
-                class="function-button"
-                title="Replaces colons with fullstops"
-              >
-                : → .
-              </button>
-
-              <!-- -->
-              <button id="fullscreen" class="function-button" title="mmm">
-                Fullscreen
-              </button>
+            <div class="stats">
+              <span id="charCount">Chars: 0</span>
+              <span id="wordCount">Words: 0</span>
+              <span id="lineCount">Lines: 0</span>
+              <span id="fileSize">Bytes: 0</span>
             </div>
           </div>
-
-          <div id="copyTab" class="tab-content">
-            <button class="copy-button" data-text="ﷺ">Copy ﷺ</button>
-            <!-- Add more copy buttons here -->
+          <div class="numbered-tabs">
+            <button class="numbered-tab active" data-tab="1">1</button>
+            <button id="addTab">+</button>
           </div>
-
-          <div id="calcTab" class="tab-content">
-            <!-- Add calculator content here -->
-          </div>
-
-          <div id="diffTab" class="tab-content">
-            <!-- Add diff content here -->
+          <textarea id="textArea"></textarea>
+          <div class="buttons-container">
+            <button
+              id="clearAll"
+              class="function-button"
+              title="Clears all text and tabs"
+            >
+              Clear ❌
+            </button>
+            <button
+              id="copyToClipboard"
+              class="function-button"
+              title="Copies text to clipboard"
+            >
+              Copy 📋
+            </button>
+            <button
+              id="arabicDigits"
+              class="function-button"
+              title="Converts regular numbers to Arabic numbers"
+            >
+              ٣ ٢ ١ 1️⃣
+            </button>
+            <button
+              id="regularDigits"
+              class="function-button"
+              title="Converts Arabic  numbers to regular numbers"
+            >
+              1 2 3
+            </button>
+            <button
+              id="removeDiacritics"
+              class="function-button"
+              title="Removes all Arabic diacritical marks / tashkeel / harakat"
+            >
+              Rmv تشكيل 〰️
+            </button>
+            <button
+              id="saveFile"
+              class="function-button"
+              title="Saves the text as a .txt file to your device. Note: Doesn't work on the Android app."
+            >
+              Save 📩
+            </button>
+            <button
+              id="loadFile"
+              class="function-button"
+              title="Uploads the content of a file you choose from your device. Note: Doesn't work on the Android app."
+            >
+              Load 📁
+            </button>
+            <button
+              id="toggleDirection"
+              class="function-button"
+              title="Changes text direction from right to left and vice-versa"
+            >
+              RTL ↔️ LTR
+            </button>
+            <button
+              id="changeCase"
+              class="function-button"
+              title="Changes English text to title case, then sentance case, then lower case, then upper case"
+            >
+              Title Case 🔠
+            </button>
+            <button
+              id="wordWrap"
+              class="function-button"
+              title="Wraps the text to a single line"
+            >
+              Word Wrap ↲
+            </button>
+            <button
+              id="removeNewlines"
+              class="function-button"
+              title="Removes more than double empty lines on the first click, and more than single empty lines on the second"
+            >
+              Rmv Xtra Lines
+            </button>
+            <button
+              id="removeExtraSpace"
+              class="function-button"
+              title="Removes extra spaces"
+            >
+              Rmv Xtra Space
+            </button>
+            <button
+              id="convertQuotes"
+              class="function-button"
+              title="Converts all straight / dumb quotes to RTL curly / smart quotes on first click, then does the reverse on second"
+            >
+              ' " ↔ ’ “
+            </button>
+            <button
+              id="reverseCurlyQuotes"
+              class="function-button"
+              title="Converts RTL curly quotes to LTR facing quotes on first click, then the reverse on second"
+            >
+              ’‘ ”“ ↔ ‘’ “”
+            </button>
+            <button
+              id="cycleBrackets"
+              class="function-button"
+              title="Replaces all brackets, circular and square, to LTR half brackets. on first click, then to RTL half brackets on second"
+            >
+              ()/[] → ⌜⌝
+            </button>
+            <button
+              id="dotsToEllipsis"
+              class="function-button"
+              title="Converts three dots to a proper ellipsis on first click, and does the reverse on second"
+            >
+              . . . ↔ …
+            </button>
+            <button
+              id="hyphenToEnThenEmDash"
+              class="function-button"
+              title="Converts a hyphen to an en dash on the first click, then to an em dash on the second"
+            >
+              -/–/—
+            </button>
             <!-- -->
+            <button
+              id="keepOnlyNumbers"
+              class="function-button"
+              title="Erases all text except for numbers"
+            >
+              Keep Only Nos #️⃣
+            </button>
+            <button
+              id="removeAllNumbers"
+              class="function-button"
+              title="Erases all numbers in the text"
+            >
+              Rmv All Nos ✖️
+            </button>
+            <button
+              id="removePrecedingZeros"
+              class="function-button"
+              title="Removes all leading / preceding zeros"
+            >
+              Rmv Lead 0️⃣s
+            </button>
+            <button
+              id="keepOnlyAr"
+              class="function-button"
+              title="Removes all none arabic text"
+            >
+              Keep Only Ar
+            </button>
+            <button
+              id="removeDhivehiDiacritics"
+              class="function-button"
+              title="Removes all Dhivehi fili / diacritics"
+            >
+              Rmv Dhiv Fili
+            </button>
+            <button
+              id="removePunctuation"
+              class="function-button"
+              title="Removes all punctuation marks"
+            >
+              Rmv Punct!?
+            </button>
+            <button
+              id="splitIntoWords"
+              class="function-button"
+              title="Splits the text into single words on each line"
+            >
+              Split Words ✂️
+            </button>
+            <button
+              id="sortWordsByFrequency"
+              class="function-button"
+              title="Sorts each word of the text by highest frequency of occurance"
+            >
+              Sort Words by Freq 📉
+            </button>
+            <button
+              id="sortLinesByFrequency"
+              class="function-button"
+              title="Sorts the lines of text by highest frequency of occurance"
+            >
+              Sort Lines by Freq
+            </button>
+            <button
+              id="toggleLineNumbers"
+              class="function-button"
+              title="Adds numbers to the beginning of each line of the text"
+            >
+              Add Line Nos 🔢
+            </button>
+            <button
+              id="toggleSortLines"
+              class="function-button"
+              title="Orders the lines of text in ascending order on first click, and the reverse on second"
+            >
+              Sort Lines ↑
+            </button>
+            <button
+              id="randomizeLines"
+              class="function-button"
+              title="Randomly orders the lines of text"
+            >
+              Shuffle Lines 🔀
+            </button>
+            <button
+              id="removeDuplicateLines"
+              class="function-button"
+              title="Removes duplicate lines / repeated lines of text"
+            >
+              Rmv Dupl Lines
+            </button>
+            <button
+              id="reverseText"
+              class="function-button"
+              title="Reverses the text characters horizontally on first click, and reverses the order of lines vertically on the second"
+            >
+              Rvrs hori txt ⏪
+            </button>
+            <button
+              id="generatePassword"
+              class="function-button"
+              title="Generates a password of random characters and varying lengths"
+            >
+              Gen Passwrd *️⃣
+            </button>
+            <button
+              id="text2HtmlP"
+              class="function-button"
+              title="Wraps each line of text in html paragraph tags, with no empty lines"
+            >
+              txt2 HTML&lt;p&gt; 📜
+            </button>
+            <button
+              id="whichUnicodeCharacter"
+              class="function-button"
+              title="Tells you the unicode codepoints of each character in the text"
+            >
+              whichUniCdeChar❓
+            </button>
+            <button
+              id="decodeEncodeUnicode"
+              class="function-button"
+              title="Decodes unicode 4-digit hexadecimal code points into readable characters (like \u0061 to a) on the first click, and encodes it on the next"
+            >
+              Decode \unicode
+            </button>
+            <button
+              id="decodeEncodeURL"
+              class="function-button"
+              title="Decodes a URL from percent-encoding on the first click, and encodes it on the second"
+            >
+              Decode URL
+            </button>
+            <button
+              id="rmvHtmlTags"
+              class="function-button"
+              title="Removes HTML tags from the text, but leaves the text as is"
+            >
+              Rmv HTML &lt;tags&gt;
+            </button>
+            <button
+              id="toggleListTags"
+              class="function-button"
+              title="Converts the text to an HTML ordered list on first click, then unordered list on second"
+            >
+              HTML O List
+            </button>
+            <button
+              id="convertFootnotesBtn"
+              class="function-button"
+              title="Convert circular or square brackets numbers to subscript bracketed numbers on first click, then to circular bracketed numbers on second click, then to square bracketed numbers on third click"
+            >
+              (1)/[1] → ⁽¹⁾
+            </button>
+            <button
+              id="bracketNumbers"
+              class="function-button"
+              title="Converts bracket numbers to non bracked numbers on first click, and does the reverse on second"
+            >
+              (1) ↔ 1
+            </button>
+            <button
+              id="removeNumbersInBrackets"
+              class="function-button"
+              title="mmm"
+            >
+              Rmv ⁽¹⁾/(1)/[1]
+            </button>
+            <button
+              id="convertNumbers"
+              class="function-button"
+              title="Converts regular numbers to MATHEMATICAL SANS-SERIF DIGIT on first click, then to fullwidth digit, then to MATHEMATICAL SANS-SERIF BOLD DIGIT, then to Circled Digit Zero, then to Negative Circled Digit Zero"
+            >
+              1/𝟣/１/𝟭/①/❶
+            </button>
+            <button
+              id="toggleLeetSpeak"
+              class="function-button"
+              title="Convert regular text to leet speak on first click, and does the reverse on second"
+            >
+              📔 1337
+            </button>
+            <!-- -->
+            <button
+              id="convertSalawat"
+              class="function-button"
+              title="Converts long form صلى الله عليه وسلم to short form ﷺ on first click, and does the reverse on second"
+            >
+              صلى… ↔ ﷺ
+            </button>
+            <button
+              id="removeKashidas"
+              class="function-button"
+              title="Removes kashidas / tatweels, which elongate Arabic letters"
+            >
+              Rmv تـطـويـل 📏
+            </button>
+            <button
+              id="shaddaB4Haraka"
+              class="function-button"
+              title="Corrects the placement of Arabic harakat on the shadda. The shadda should come first, followed by the haraka"
+            >
+              ـَ ـّ ← ـّ ـَ
+            </button>
+            <button
+              id="removeQuranicMarks"
+              class="function-button"
+              title="Removes the following Quranic marks: ۖ	ۗ	ۘ	ۙ	ۚ	ۛ	ۜ	 ۝ ﴿ ﴾ ۞	۟	۠	ۡ	ۢ	ۣ	ۤ	ۥ	ۦ	ۧ	ۨ	۩	۪	۫	۬	ۭ"
+            >
+              Rmv ۗ&nbsp; &nbsp; ۘ&nbsp; ۚ&nbsp;۝ ﴾
+            </button>
+            <button
+              id="replaceQuoteToDoubleAngleBrackets"
+              class="function-button"
+              title="Replaces doubles straight quotes or double brackets to angular arabic quotes on the first click, then to double brackets on second click, and straight quotes on third"
+            >
+              " " / (( )) ↔ « »
+            </button>
+            <button
+              id="replaceDoubleBracketsToSingle"
+              class="function-button"
+              title="Replaces doubles brackets to single brackets"
+            >
+              (( )) → ( )
+            </button>
+            <button
+              id="replaceQuranicBrackets"
+              class="function-button"
+              title="Converts curly braces and asterisks to decorative Quranic brackets and ayah stops"
+            >
+              {*} ↔ ﴾۝﴿
+            </button>
+            <button
+              id="replaceRtlPunc"
+              class="function-button"
+              title="Converts left facing commas, semicolons and questions marks, to the right on first click, and does the reverse on second"
+            >
+              ، ؛ ؟ ↔ , ; ?
+            </button>
+            <!-- -->
+            <button
+              id="replaceColonFullstop"
+              class="function-button"
+              title="Replaces colons with fullstops"
+            >
+              : → .
+            </button>
+
+            <!-- -->
+            <button id="fullscreen" class="function-button" title="mmm">
+              Fullscreen
+            </button>
           </div>
+        </div>
+
+        <div id="copyTab" class="tab-content">
+          <div class="buttons-container">
+            <button class="copy-button" data-text="ﷺ">Copy ﷺ</button>
+            <button class="copy-button" data-text="﵆">Copy ﵆</button>
+            <button
+              class="copy-button"
+              data-text="صَلَّى اللَّهُ عَلَيهِ وَسَلَّم"
+            >
+              صَلَّى اللَّهُ عَلَيهِ وَسَلَّم
+            </button>
+            <button class="copy-button" data-text="﵊">Copy ﵊</button>
+            <button class="copy-button" data-text="﵁">Copy ﵁</button>
+            <button class="copy-button" data-text="﵂">Copy ﵂</button>
+            <button class="copy-button" data-text="﵃">Copy ﵃</button>
+            <button class="copy-button" data-text="﵄">Copy ﵄</button>
+            <button class="copy-button" data-text="﵅">Copy ﵅</button>
+            <button class="copy-button" data-text="رَضِيَ اللَّهُ عَنْهُ">
+              رَضِيَ اللَّهُ عَنْهُ
+            </button>
+            <button class="copy-button" data-text="رَضِيَ اللَّهُ عَنْهَا">
+              رَضِيَ اللَّهُ عَنْهَا
+            </button>
+            <button class="copy-button" data-text="رَضِيَ اللَّهُ عَنْهُمَا">
+              رَضِيَ اللَّهُ عَنْهُمَا
+            </button>
+            <button class="copy-button" data-text="رَضِيَ اللَّهُ عَنْهُمْ">
+              رَضِيَ اللَّهُ عَنْهُمْ
+            </button>
+            <button class="copy-button" data-text="﵇">Copy ﵇</button>
+            <button class="copy-button" data-text="﵍">Copy ﵍</button>
+            <button class="copy-button" data-text="﵉">Copy ﵉</button>
+            <button class="copy-button" data-text="﵈">Copy ﵈</button>
+            <button class="copy-button" data-text="عَلَيهِ السَّلَامُ">
+              عَلَيهِ السَّلَامُ
+            </button>
+            <button class="copy-button" data-text="عَلَيهَا السَّلَامُ">
+              عَلَيهَا السَّلَامُ
+            </button>
+            <button class="copy-button" data-text="عَلَيهِمَا السَّلَامُ">
+              عَلَيهِمَا السَّلَامُ
+            </button>
+            <button class="copy-button" data-text="عَلَيهِمُ السَّلَامُ">
+              عَلَيهِمُ السَّلَامُ
+            </button>
+            <button class="copy-button" data-text="﵀">Copy ﵀</button>
+            <button class="copy-button" data-text="﵏">Copy ﵏</button>
+            <button class="copy-button" data-text="رَحِمَهُ اللَّهُ">
+              رَحِمَهُ اللَّهُ
+            </button>
+            <button class="copy-button" data-text="رَحِمَهَا اللَّهُ">
+              رَحِمَهَا اللَّهُ
+            </button>
+            <button class="copy-button" data-text="رَحِمَهُمَا اللَّهُ">
+              رَحِمَهُمَا اللَّهُ
+            </button>
+            <button class="copy-button" data-text="رَحِمَهُمُ اللَّهُ">
+              رَحِمَهُمُ اللَّهُ
+            </button>
+            <button class="copy-button" data-text="﷿">Copy ﷿</button>
+            <button class="copy-button" data-text="﷾">Copy ﷾</button>
+            <button class="copy-button" data-text="﵎">Copy ﵎</button>
+            <button class="copy-button" data-text="عَزَّ وَجَلَّ">
+              عَزَّ وَجَلَّ
+            </button>
+            <button class="copy-button" data-text="سُبحَانَهُ وَتَعَالَى">
+              سُبحَانَهُ وَتَعَالَى
+            </button>
+            <button class="copy-button" data-text="تَبَارَكَ وَتَعَالَى">
+              تَبَارَكَ وَتَعَالَى
+            </button>
+            <button class="copy-button" data-text="تَعَالَى">تَعَالَى</button>
+            <button class="copy-button" data-text="﷽">﷽</button>
+            <button
+              class="copy-button"
+              data-text="بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ"
+            >
+              بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+            </button>
+            <button class="copy-button" data-text="هـ">Copy هـ</button>
+            <button class="copy-button-noFunct" id="getDateTime">
+              Current Date & Time
+            </button>
+            <button
+              class="copy-button"
+              data-text="السلام عليكم ورحمة الله وبركاته"
+            >
+              السلام عليكم ورحمة الله وبركاته
+            </button>
+            <button
+              class="copy-button"
+              data-text="وعليكم السلام ورحمة الله وبركاته"
+            >
+              وعليكم السلام ورحمة الله وبركاته
+            </button>
+            <button class="copy-button" data-text="جزاك الله خيرا">
+              جزاك الله خيرا
+            </button>
+            <button class="copy-button" data-text="بارك الله فيك">
+              بارك الله فيك
+            </button>
+            <button class="copy-button" data-text="الحمد لله">الحمد لله</button>
+            <button class="copy-button" data-text="إن شاء الله">
+              إن شاء الله
+            </button>
+            <button class="copy-button" data-text="ما شاء الله تبارك الله">
+              ما شاء الله تبارك الله
+            </button>
+            <button class="copy-button" data-text="سبحان الله">
+              سبحان الله
+            </button>
+            <button class="copy-button" data-text="الله أكبر">الله أكبر</button>
+            <button class="copy-button" data-text="إنا لله وإنا إليه راجعون">
+              إنا لله وإنا إليه راجعون
+            </button>
+            <button class="copy-button" data-text="لا إله إلا الله">
+              لا إله إلا الله
+            </button>
+            <button
+              class="copy-button"
+              data-text="إنَّ الْحَمْدَ لِلهِ نَحْمَدُهُ وَنَسْتَعِينُهُ وَنَسْتَغْفِرُهُ، وَنَعُوذُ بِاللهِ مِنْ شُرُورِ أَنْفُسِنَا وَمِنْ سَيِّئَاتِ أَعْمَالِنَا، مَنْ يَهْدِهِ اللهُ فَلاَ مُضِلَّ لَهُ، وَمَنْ يُضْلِلْ فَلاَ هَادِىَ لَهُ، وَأَشْهَدُ أَنْ لاَ إِلَهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيكَ لَهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ {يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ حَقَّ تُقَاتِهِ وَلَا تَمُوتُنَّ إِلَّا وَأَنْتُمْ مُسْلِمُونَ} (آل عمران:102) {يَا أَيُّهَا النَّاسُ اتَّقُوا رَبَّكُمُ الَّذِي خَلَقَكُمْ مِنْ نَفْسٍ وَاحِدَةٍ وَخَلَقَ مِنْهَا زَوْجَهَا وَبَثَّ مِنْهُمَا رِجَالًا كَثِيرًا وَنِسَاءً وَاتَّقُوا اللَّهَ الَّذِي تَسَاءَلُونَ بِهِ وَالْأَرْحَامَ إِنَّ اللَّهَ كَانَ عَلَيْكُمْ رَقِيبًا} (النساء:1) {يَاأَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللهَ وَقُولُوا قَوْلاً سَدِيدًا * يُصْلِحْ لَكُمْ أَعْمَالَكُمْ وَيَغْفِرْ لَكُمْ ذُنُوبَكُمْ وَمَنْ يُطِعِ اللهَ وَرَسُولَهُ فَقَدْ فَازَ فَوْزًا عَظِيمًا} (الأحزاب: 70، 71) أَمَّا بَعْدُ"
+            >
+              إن الحمد لله...
+            </button>
+            <button
+              class="copy-button"
+              data-text="سبحانك اللهم وبحمدك، أشهد أن لا إله إلا أنت، أستغفرك وأتوب إليك"
+            >
+              سبحانك اللهم وبحمدك...
+            </button>
+
+            <button
+              class="copy-button"
+              data-text="ގެ އަރިހުން ރިވާވެގެންވެއެވެ."
+            >
+              ގެ އަރިހުން ރިވާވެގެންވެއެވެ.
+            </button>
+            <button
+              class="copy-button"
+              data-text="ރަސޫލު ﷲ  ﷺޙަދީޘްކުރެއްވިއެވެ: "
+            >
+              ރަސޫލު ﷲ ﷺޙަދީޘްކުރެއްވިއެވެ:
+            </button>
+            <button class="copy-button" data-text="ނަބީ ﷺ ޛަދީޘްކުރެއްވިއެވެ: ">
+              ނަބީ ﷺ ޛަދީޘްކުރެއްވިއެވެ:
+            </button>
+            <button
+              class="copy-button"
+              data-text="ޙަދީޘްކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:"
+            >
+              ޙަދީޘްކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:
+            </button>
+          </div>
+
+          <p>Font: KFGQPC Arabic Symbols 01 (Long Symbols)</p>
+          <div class="buttons-container">
+            <button class="copy-button" data-text="">بسم 1</button>
+            <button class="copy-button" data-text="">بسم 2</button>
+            <button class="copy-button" data-text="">
+              صلى الله عليه وسلم
+            </button>
+            <button class="copy-button" data-text="">رضي الله عنه</button>
+            <button class="copy-button" data-text="">رضي الله عنها</button>
+            <button class="copy-button" data-text="">رضي الله عنهما</button>
+            <button class="copy-button" data-text="">رضي الله عنهم</button>
+            <button class="copy-button" data-text="">رضي الله عنهن</button>
+            <button class="copy-button" data-text="">سبحانه وتعالى</button>
+            <button class="copy-button" data-text="">تبارك وتعالى</button>
+            <button class="copy-button" data-text="">عز وجل</button>
+            <button class="copy-button" data-text="">جل وعلا</button>
+            <button class="copy-button" data-text="">جل جلاله</button>
+            <button class="copy-button" data-text="">الله</button>
+            <button class="copy-button" data-text="">محمد</button>
+            <button class="copy-button" data-text="">الله أكبر</button>
+            <button class="copy-button" data-text="">عليه السلام</button>
+            <button class="copy-button" data-text="">
+              عليه الصلاة والسلام
+            </button>
+            <button class="copy-button" data-text="">عليها السلام</button>
+            <button class="copy-button" data-text="">عليهما السلام</button>
+            <button class="copy-button" data-text="">عليهم السلام</button>
+            <button class="copy-button" data-text="">عليه وعلى عاله</button>
+            <button class="copy-button" data-text="">رحمه الله</button>
+            <button class="copy-button" data-text="">رحمها الله</button>
+            <button class="copy-button" data-text="">رحمهما الله</button>
+            <button class="copy-button" data-text="">رحمهم الله</button>
+            <button class="copy-button" data-text="">رحمهن الله</button>
+          </div>
+
+          <p>Font: KFGQPC Arabic Symbols 01 (Short Symbols)</p>
+          <div class="buttons-container">
+            <button class="copy-button" data-text="">عز وجل</button>
+            <button class="copy-button" data-text="">سبحانه وتعالى</button>
+            <button class="copy-button" data-text="">جل جلاله</button>
+            <button class="copy-button" data-text="">جل وعلا</button>
+            <button class="copy-button" data-text="">تبارك وتعالى</button>
+            <button class="copy-button" data-text="">ﷺ</button>
+            <button class="copy-button" data-text="">رضي الله عنه</button>
+            <button class="copy-button" data-text="">رضي الله عنها</button>
+            <button class="copy-button" data-text="">رضي الله عنهم</button>
+            <button class="copy-button" data-text="">رضي الله عنهما</button>
+            <button class="copy-button" data-text="">رضي الله عنهن</button>
+            <button class="copy-button" data-text="">
+              عليه الصلاة والسلام
+            </button>
+            <button class="copy-button" data-text="">عليه السلام</button>
+            <button class="copy-button" data-text="">عليها السلام</button>
+            <button class="copy-button" data-text="">عليهم السلام</button>
+            <button class="copy-button" data-text="">عليهما السلام</button>
+            <button class="copy-button" data-text="">رحمه الله</button>
+            <button class="copy-button" data-text="">رحمهم الله</button>
+            <button class="copy-button" data-text="">رحمهما الله</button>
+            <button class="copy-button" data-text="">رحمها الله</button>
+            <button class="copy-button" data-text="">رحمهن الله</button>
+          </div>
+
+          <p>Font: AGA Arabesque Regular</p>
+          <div class="buttons-container">
+            <button class="copy-button" data-text="">سبحانه وتعالى</button>
+            <button class="copy-button" data-text="">ﷺ</button>
+            <button class="copy-button" data-text="">رضي الله عنه</button>
+            <button class="copy-button" data-text="">رضي الله عنهم</button>
+            <button class="copy-button" data-text="">عليه السلام</button>
+            <button class="copy-button" data-text="">عز وجل</button>
+          </div>
+          <!-- Add more copy buttons here -->
+        </div>
+
+        <div id="calcTab" class="tab-content">
+          <!-- Add calculator content here -->
+        </div>
+
+        <div id="diffTab" class="tab-content">
+          <!-- Add diff content here -->
+          <!-- -->
         </div>
       </div>
     </div>
