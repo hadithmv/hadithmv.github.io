@@ -1067,6 +1067,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // BUTTON FUNCTIONS END
   //
 
+  document.getElementById("getDateTime").addEventListener("click", function () {
+    const now = new Date();
+    const dateTimeString = now.toLocaleString();
+    navigator.clipboard.writeText(dateTimeString);
+  });
+
+  //
+  // COPY FUNCTIONS END
+  //
+
   // Text expander
   textArea.addEventListener("input", (e) => {
     const cursorPosition = e.target.selectionStart;
