@@ -1054,6 +1054,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     isLeetSpeak = !isLeetSpeak;
     updateStats();
+    ltrSwitch();
   });
 
   /* previously used:
