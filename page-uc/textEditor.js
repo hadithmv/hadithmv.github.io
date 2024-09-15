@@ -1262,7 +1262,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("getDateTime").addEventListener("click", function () {
     const now = new Date();
-    const dateTimeString = now.toLocaleString();
+    const day = now.getDate();
+    const month = now.getMonth() + 1; // getMonth() returns 0-11, so we add 1
+    const year = now.getFullYear();
+    const time = now.toLocaleTimeString();
+
+    const dateTimeString = `${day}/${month}/${year} ${time}`;
     navigator.clipboard.writeText(dateTimeString);
   });
 
