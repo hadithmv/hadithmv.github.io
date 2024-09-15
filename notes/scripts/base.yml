@@ -146,7 +146,7 @@ matches:
     replace: good night
   - trigger: tc-
     replace: take care
-  - trigger: cc-
+  - trigger: gc-
     replace: 'git add . && git commit -m "u" && git push'
   - trigger: 1--
     replace: "⁽¹⁾"
@@ -172,3 +172,5 @@ matches:
     replace: "…"
   - trigger: ttt-
     replace: "translate to dhivehi, output only"
+  - trigger: cc-
+    replace: "compare these two codes:"

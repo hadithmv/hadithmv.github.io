@@ -689,12 +689,42 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   //
 
+  // Define the replacement map
+  const thikijehiReplacements = {
+    ޘ: "ސ",
+    ޙ: "ހ",
+    ޛ: "ޒ",
+    ޜ: "ޒ",
+    ޞ: "ސ",
+    ޠ: "ތ",
+    ޡ: "ޒ",
+    ޢ: "އ",
+    ޤ: "ގ",
+    ޥ: "ވ",
+  };
+
+  // Function to remove Thikijehi Thaana
+  function removeThikijehiThaana(text) {
+    return text.replace(
+      /[ޘޙޛޜޞޠޡޢޤޥ]/g,
+      (char) => thikijehiReplacements[char] || char
+    );
+  }
+
+  // Add event listener to the button
   document
-    .getElementById("removeDhivehiDiacritics")
+    .getElementById("removeThikijehiThaana")
     .addEventListener("click", () => {
-      textArea.value = textArea.value.replace(/[\u07A6-\u07B0]/g, "");
-      updateStats();
+      const textArea = document.getElementById("textArea"); // Assuming the textarea has id "textArea"
+      textArea.value = removeThikijehiThaana(textArea.value);
+      updateStats(); // Assuming this function exists to update statistics
     });
+  //
+
+  document.getElementById("removeDhivehiFili").addEventListener("click", () => {
+    textArea.value = textArea.value.replace(/[\u07A6-\u07B0]/g, "");
+    updateStats();
+  });
   //
 
   document.getElementById("removePunctuation").addEventListener("click", () => {
