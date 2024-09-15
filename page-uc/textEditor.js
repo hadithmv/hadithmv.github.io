@@ -721,6 +721,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // TRANSLITERATION
   // https://github.com/naxeem/thaana-transliterator-js/blob/main/thaana-transliterator.js
 
+  // above is dhivehi to english only. there is a bidirectional working example on https://dhivehi.mv/tools/latin-thaana/, but its closed s, may have been based on jawish's
+
   // Dhivehi to English transliteration mappings
   const dhivehiToEnglish = {
     // fili + punctuations
@@ -852,6 +854,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     return input;
   };
+  //
 
   document
     .getElementById("transliterateDhivehi")
