@@ -113,6 +113,11 @@ document.addEventListener("DOMContentLoaded", () => {
     textArea.style.direction = "ltr";
     textArea.style.textAlign = "left";
   }
+
+  function rtlSwitch() {
+    textArea.style.direction = "rtl";
+    textArea.style.textAlign = "right";
+  }
   //
 
   document.getElementById("copyToClipboard").addEventListener("click", () => {
@@ -689,6 +694,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   //
 
+  // RMV THIKIJEHI THAANA
   // Define the replacement map
   const thikijehiReplacements = {
     ޘ: "ސ",
@@ -710,14 +716,180 @@ document.addEventListener("DOMContentLoaded", () => {
       (char) => thikijehiReplacements[char] || char
     );
   }
+  //
+
+  // TRANSLITERATION
+  // https://github.com/naxeem/thaana-transliterator-js/blob/main/thaana-transliterator.js
+
+  // Dhivehi to English transliteration mappings
+  const dhivehiToEnglish = {
+    // fili + punctuations
+    އަ: "a",
+    އާ: "aa",
+    އި: "i",
+    އީ: "ee",
+    އު: "u",
+    އޫ: "oo",
+    އެ: "e",
+    އޭ: "ey",
+    އޮ: "o",
+    ޢަ: "a",
+    ޢާ: "aa",
+    ޢި: "i",
+    ޢީ: "ee",
+    ޢު: "u",
+    ޢޫ: "oo",
+    ޢެ: "e",
+    ޢޭ: "ey",
+    ޢޮ: "o",
+    އޯ: "oa",
+    "ުއް": "uh",
+    "ިއް": "ih",
+    "ެއް": "eh",
+    "ަށް": "ah",
+    "ައް": "ah",
+    ށް: "h",
+    ތް: "i",
+    "ާއް": "aah",
+    އް: "ih",
+    އް: "h",
+    "]": "[",
+    "[": "]",
+    "\\": "\\",
+    "'": "'",
+    "،": ",",
+    ".": ".",
+    "/": "/",
+    "÷": "",
+    "}": "{",
+    "{": "}",
+    "|": "|",
+    ":": ":",
+    '"': '"',
+    ">": "<",
+    "<": ">",
+    "؟": "?",
+    ")": ")",
+    "(": "(",
+    // fili + akuru
+    "ަ": "a",
+    "ާ": "aa",
+    "ި": "i",
+    "ީ": "ee",
+    "ު": "u",
+    "ޫ": "oo",
+    "ެ": "e",
+    "ޭ": "ey",
+    "ޮ": "o",
+    "ޯ": "oa",
+    "ް": "",
+    ހ: "h",
+    ށ: "sh",
+    ނ: "n",
+    ރ: "r",
+    ބ: "b",
+    ޅ: "lh",
+    ކ: "k",
+    އ: "a",
+    ވ: "v",
+    މ: "m",
+    ފ: "f",
+    ދ: "dh",
+    ތ: "th",
+    ލ: "l",
+    ގ: "g",
+    ޏ: "y",
+    ސ: "s",
+    ޑ: "d",
+    ޒ: "z",
+    ޓ: "t",
+    ޔ: "y",
+    ޕ: "p",
+    ޖ: "j",
+    ޗ: "ch",
+    ޙ: "h",
+    ޚ: "kh",
+    "ޛ‎": "z",
+    "ޜ‎": "z",
+    "ޝ‎": "sh",
+    ޝ: "sh",
+    ޤ: "q",
+    ޢ: "a",
+    ޞ: "s",
+    ޟ: "dh",
+    ޡ: "z",
+    ޠ: "t",
+    "ާާޣ": "gh",
+    ޘ: "th",
+    ޛ: "dh",
+    "ާާޜ": "z",
+  };
+
+  // Create English to Dhivehi mapping by swapping keys and values
+  const englishToDhivehi = Object.fromEntries(
+    Object.entries(dhivehiToEnglish).map(([k, v]) => [v, k])
+  );
+
+  // Escape special characters for use in RegExp
+  const escapeRegExp = (string) => {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  };
+
+  // Replace characters based on the provided mapping
+  const replaceLetters = (input, replacements) => {
+    for (let [k, v] of Object.entries(replacements)) {
+      input = input.replace(new RegExp(escapeRegExp(k), "g"), v);
+    }
+    return input;
+  };
+
+  // Transliterate Dhivehi to English
+  const dhivehiToEnglishTransliterate = (input) => {
+    // Remove zero-width characters
+    input = input.replace(/[\u200B-\u200D\uFEFF]/g, "");
+
+    // Transliterate
+    input = replaceLetters(input, dhivehiToEnglish);
+
+    // Capitalize first letter of each sentence
+    input = input.replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
+
+    return input;
+  };
+
+  // Transliterate English to Dhivehi
+  const englishToDhivehiTransliterate = (input) => {
+    return replaceLetters(input, englishToDhivehi);
+  };
+
+  // Toggle state and button text
+  let isDhivehiToEnglish = true;
+
+  // Get button and textarea elements
+  const transliterateButton = document.getElementById("transliterateDhivehi");
+
+  // Add click event listener to the button
+  transliterateButton.addEventListener("click", () => {
+    if (isDhivehiToEnglish) {
+      textArea.value = dhivehiToEnglishTransliterate(textArea.value);
+      transliterateButton.textContent = "Transliterate Eng → Dv";
+      ltrSwitch();
+    } else {
+      textArea.value = englishToDhivehiTransliterate(textArea.value);
+      transliterateButton.textContent = "Transliterate Dv → Eng";
+      rtlSwitch();
+    }
+
+    isDhivehiToEnglish = !isDhivehiToEnglish;
+    updateStats(); // Assuming this function exists to update statistics
+  });
 
   // Add event listener to the button
   document
     .getElementById("removeThikijehiThaana")
     .addEventListener("click", () => {
-      const textArea = document.getElementById("textArea"); // Assuming the textarea has id "textArea"
       textArea.value = removeThikijehiThaana(textArea.value);
-      updateStats(); // Assuming this function exists to update statistics
+      updateStats();
     });
   //
 
