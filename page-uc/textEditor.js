@@ -823,12 +823,8 @@ document.addEventListener("DOMContentLoaded", () => {
     ޘ: "th",
     ޛ: "dh",
     "ާާޜ": "z",
+    ﷲ: "Allah", // added
   };
-
-  // Create English to Dhivehi mapping by swapping keys and values
-  const englishToDhivehi = Object.fromEntries(
-    Object.entries(dhivehiToEnglish).map(([k, v]) => [v, k])
-  );
 
   // Escape special characters for use in RegExp
   const escapeRegExp = (string) => {
@@ -857,32 +853,14 @@ document.addEventListener("DOMContentLoaded", () => {
     return input;
   };
 
-  // Transliterate English to Dhivehi
-  const englishToDhivehiTransliterate = (input) => {
-    return replaceLetters(input, englishToDhivehi);
-  };
-
-  // Toggle state and button text
-  let isDhivehiToEnglish = true;
-
-  // Get button and textarea elements
-  const transliterateButton = document.getElementById("transliterateDhivehi");
-
-  // Add click event listener to the button
-  transliterateButton.addEventListener("click", () => {
-    if (isDhivehiToEnglish) {
+  document
+    .getElementById("transliterateDhivehi")
+    .addEventListener("click", () => {
       textArea.value = dhivehiToEnglishTransliterate(textArea.value);
-      transliterateButton.textContent = "Transliterate Eng → Dv";
       ltrSwitch();
-    } else {
-      textArea.value = englishToDhivehiTransliterate(textArea.value);
-      transliterateButton.textContent = "Transliterate Dv → Eng";
-      rtlSwitch();
-    }
-
-    isDhivehiToEnglish = !isDhivehiToEnglish;
-    updateStats(); // Assuming this function exists to update statistics
-  });
+      updateStats();
+    });
+  //
 
   // Add event listener to the button
   document
