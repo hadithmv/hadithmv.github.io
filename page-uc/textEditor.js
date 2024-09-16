@@ -724,337 +724,164 @@ document.addEventListener("DOMContentLoaded", () => {
   // above is dhivehi to english only. there is a bidirectional working example on https://dhivehi.mv/tools/latin-thaana/, but its closed s, may have been based on jawish's
 
   // Dhivehi to English transliteration mappings
-  const dhivehiToEnglish = {
-    // fili + punctuations
-    އަ: "a",
-    އާ: "aa",
-    އި: "i",
-    އީ: "ee",
-    އު: "u",
-    އޫ: "oo",
-    އެ: "e",
-    އޭ: "ey",
-    އޮ: "o",
-    ޢަ: "a",
-    ޢާ: "aa",
-    ޢި: "i",
-    ޢީ: "ee",
-    ޢު: "u",
-    ޢޫ: "oo",
-    ޢެ: "e",
-    ޢޭ: "ey",
-    ޢޮ: "o",
-    އޯ: "oa",
-    "ުއް": "uh",
-    "ިއް": "ih",
-    "ެއް": "eh",
-    "ަށް": "ah",
-    "ައް": "ah",
-    ށް: "h",
-    ތް: "i",
-    "ާއް": "aah",
-    އް: "ih",
-    އް: "h",
-    "]": "[",
-    "[": "]",
-    "\\": "\\",
-    "'": "'",
-    "،": ",",
-    ".": ".",
-    "/": "/",
-    "÷": "",
-    "}": "{",
-    "{": "}",
-    "|": "|",
-    ":": ":",
-    '"': '"',
-    ">": "<",
-    "<": ">",
-    "؟": "?",
-    ")": ")",
-    "(": "(",
-    // fili + akuru
-    "ަ": "a",
-    "ާ": "aa",
-    "ި": "i",
-    "ީ": "ee",
-    "ު": "u",
-    "ޫ": "oo",
-    "ެ": "e",
-    "ޭ": "ey",
-    "ޮ": "o",
-    "ޯ": "oa",
-    "ް": "",
-    ހ: "h",
-    ށ: "sh",
-    ނ: "n",
-    ރ: "r",
-    ބ: "b",
-    ޅ: "lh",
-    ކ: "k",
-    އ: "a",
-    ވ: "v",
-    މ: "m",
-    ފ: "f",
-    ދ: "dh",
-    ތ: "th",
-    ލ: "l",
-    ގ: "g",
-    ޏ: "y",
-    ސ: "s",
-    ޑ: "d",
-    ޒ: "z",
-    ޓ: "t",
-    ޔ: "y",
-    ޕ: "p",
-    ޖ: "j",
-    ޗ: "ch",
-    ޙ: "h",
-    ޚ: "kh",
-    "ޛ‎": "z",
-    "ޜ‎": "z",
-    "ޝ‎": "sh",
-    ޝ: "sh",
-    ޤ: "q",
-    ޢ: "a",
-    ޞ: "s",
-    ޟ: "dh",
-    ޡ: "z",
-    ޠ: "t",
-    "ާާޣ": "gh",
-    ޘ: "th",
-    ޛ: "dh",
-    "ާާޜ": "z",
-    ﷲ: "Allah", // added
-  };
+  const transliterationMappings = [
+    ["އަ", "a"],
+    ["އާ", "aa"],
+    ["އި", "i"],
+    ["އީ", "ee"],
+    ["އު", "u"],
+    ["އޫ", "oo"],
+    ["އެ", "e"],
+    ["އޭ", "ey"],
+    ["އޮ", "o"],
+    ["އޯ", "oa"],
+    ["ުއް", "uh"],
+    ["ިއް", "ih"],
+    ["ެއް", "eh"],
+    ["ަށް", "ah"],
+    ["ައް", "ah"],
+    ["ށް", "h"],
+    ["ތް", "i"],
+    ["ާއް", "aah"],
+    ["އް", "h"],
+    ["ަ", "a"],
+    ["ާ", "aa"],
+    ["ި", "i"],
+    ["ީ", "ee"],
+    ["ު", "u"],
+    ["ޫ", "oo"],
+    ["ެ", "e"],
+    ["ޭ", "ey"],
+    ["ޮ", "o"],
+    ["ޯ", "oa"],
+    ["ް", ""],
+    ["ހ", "h"],
+    ["ށ", "sh"],
+    ["ނ", "n"],
+    ["ރ", "r"],
+    ["ބ", "b"],
+    ["ޅ", "lh"],
+    ["ކ", "k"],
+    ["އ", "a"],
+    ["ވ", "v"],
+    ["މ", "m"],
+    ["ފ", "f"],
+    ["ދ", "dh"],
+    ["ތ", "th"],
+    ["ލ", "l"],
+    ["ގ", "g"],
+    ["ޏ", "y"],
+    ["ސ", "s"],
+    ["ޑ", "d"],
+    ["ޒ", "z"],
+    ["ޓ", "t"],
+    ["ޔ", "y"],
+    ["ޕ", "p"],
+    ["ޖ", "j"],
+    ["ޗ", "ch"],
+    ["ޙ", "h"],
+    ["ޚ", "kh"],
+    ["ޛ‎", "z"],
+    ["ޜ‎", "z"],
+    ["ޝ‎", "sh"],
+    ["ޝ", "sh"],
+    ["ޤ", "q"],
+    ["ޢ", "a"],
+    ["ޞ", "s"],
+    ["ޟ", "dh"],
+    ["ޡ", "z"],
+    ["ޠ", "t"],
+    ["ާާޣ", "gh"],
+    ["ޘ", "th"],
+    ["ޛ", "dh"],
+    ["ާާޜ", "z"],
+  ];
 
-  // Escape special characters for use in RegExp
-  const escapeRegExp = (string) => {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  };
+  function transliterateDhivehi(input) {
+    let output = input;
 
-  // Replace characters based on the provided mapping
-  const replaceLetters = (input, replacements) => {
-    for (let [k, v] of Object.entries(replacements)) {
-      input = input.replace(new RegExp(escapeRegExp(k), "g"), v);
-    }
-    return input;
-  };
-
-  // Transliterate Dhivehi to English
-  const dhivehiToEnglishTransliterate = (input) => {
     // Remove zero-width characters
-    input = input.replace(/[\u200B-\u200D\uFEFF]/g, "");
+    output = output.replace(/[\u200B-\u200D\uFEFF]/g, "");
 
-    // Transliterate
-    input = replaceLetters(input, dhivehiToEnglish);
+    // Apply transliteration
+    for (const [dhivehi, english] of transliterationMappings) {
+      output = output.replace(new RegExp(dhivehi, "g"), english);
+    }
 
     // Capitalize first letter of each sentence
-    input = input.replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
+    output = output.replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
 
-    return input;
-  };
+    return output;
+  }
 
   document
     .getElementById("transliterateDvToEn")
     .addEventListener("click", () => {
-      textArea.value = dhivehiToEnglishTransliterate(textArea.value);
+      textArea.value = transliterateDhivehi(textArea.value);
       ltrSwitch();
       updateStats();
     });
   //
 
-  //
-  /* using js, when a function called "kahfBas" is run, take input as "document.getElementById("textMainArea").value", and also giving out the output as "document.getElementById("textMainArea").value", replace the character on the left with the character on the right, make it ignore: ﷲ
-  ء	އ
-  آ	އާ
-  after mapping, it should replace ލލަހު  with ﷲ
-  how can i change it, so when there is a ّ  character that comes after an arabic character, the output should provide a އް character before the mapped converted character that comes before it, so the outputs for the following inputs should be:
-  خَطَّا;
-  ޚައްޠާ;
-  خَطِّي;
-  ޚައްޠީ;
-  خَطُّوبِ;
-  ޚައްޠޫ;
-  i want you to do this for this character in the code: ة if any arabic diactric apart from ْ  comes after that ة, then that ة should be replaced with a ތ, else it should be replaced by a ހ
-  */
+  // Arabic to Dhivehi transliteration mapping
+  const arabicToDhivehiMap = [
+    // letters
+    ["ا", "އ"],
+    ["آ", "އާ"],
+    ["ب", "ބ"],
+    ["ت", "ތ"],
+    ["ث", "ޘ"],
+    ["ج", "ޖ"],
+    ["ح", "ޙ"],
+    ["خ", "ޚ"],
+    ["د", "ދ"],
+    ["ذ", "ޛ"],
+    ["ر", "ރ"],
+    ["ز", "ޒ"],
+    ["س", "ސ"],
+    ["ش", "ޝ"],
+    ["ص", "ޞ"],
+    ["ض", "ޟ"],
+    ["ط", "ޠ"],
+    ["ظ", "ޡ"],
+    ["ع", "ޢ"],
+    ["غ", "ޣ"],
+    ["ف", "ފ"],
+    ["ق", "ޤ"],
+    ["ك", "ކ"],
+    ["ل", "ލ"],
+    ["م", "މ"],
+    ["ن", "ނ"],
+    ["ه", "ހ"],
+    ["و", "ވ"],
+    ["ي", "ޔ"],
+    ["ة", "ތ"],
+    // Harakat (diacritical marks)
+    ["َ", "ަ"], // fatha
+    ["ِ", "ި"], // kasra
+    ["ُ", "ު"], // damma
+    ["ً", "އަ"], // tanwin fath
+    ["ٍ", "އި"], // tanwin kasr
+    ["ٌ", "އު"], // tanwin damm
+    ["ّ", "އް"], // shadda
+    ["ْ", "ް"], // sukun
+  ];
+
+  function transliterateArabicToDhivehi(text) {
+    let result = text;
+    for (const [arabic, dhivehi] of arabicToDhivehiMap) {
+      result = result.replace(new RegExp(arabic, "g"), dhivehi);
+    }
+    return result;
+  }
+
+  // Add event listener for the new button
   document
     .getElementById("transliterateArToDv")
     .addEventListener("click", () => {
-      var inputText = textArea.value;
-      var outputText = "";
-
-      var characterMap = {
-        ـ: "",
-        ء: "އ",
-        آ: "އާ",
-        أ: "އ",
-        ؤ: "އ",
-        إ: "އ",
-        ئ: "އ",
-        ب: "ބ",
-        ة: "", // Modified: Replaced with empty string, will be replaced later based on conditions
-        ت: "ތ",
-        ث: "ޘ",
-        ج: "ޖ",
-        ح: "ޙ",
-        خ: "ޚ",
-        د: "ދ",
-        ذ: "ޛ",
-        ر: "ރ",
-        ز: "ޒ",
-        س: "ސ",
-        ش: "ޝ",
-        ص: "ޞ",
-        ض: "ޟ",
-        ط: "ޠ",
-        ظ: "ޡ",
-        ع: "ޢ",
-        غ: "ޣ",
-        ف: "ފ",
-        ق: "ޤ",
-        ك: "ކ",
-        ل: "ލ",
-        م: "މ",
-        ن: "ނ",
-        ه: "ހ",
-        و: "ޥ",
-        ى: "އ",
-        ي: "ޔ",
-        "َ": "ަ",
-        "ُ": "ު",
-        "ِ": "ި",
-        "ْ": "ް",
-        "٠": "0",
-        "١": "1",
-        "٢": "2",
-        "٣": "3",
-        "٤": "4",
-        "٥": "5",
-        "٦": "6",
-        "٧": "7",
-        "٨": "8",
-        "٩": "9",
-      };
-
-      var previousChar = ""; // Keep track of the previous character
-
-      for (var i = 0; i < inputText.length; i++) {
-        var currentChar = inputText[i];
-        var nextChar = inputText[i + 1]; // Get the next character
-
-        if (currentChar === "ة" && nextChar && nextChar !== "ْ") {
-          // If the current character is "ة" and the next character is not "ْ"
-          // Replace "ة" with "ތ"
-          outputText += "ތ";
-        } else if (currentChar === "ة") {
-          // If the current character is "ة" and the next character is "ْ"
-          // Replace "ة" with "ހ"
-          outputText += "ހ";
-        } else if (currentChar === "ّ") {
-          // If the current character is Shadda, add the appropriate character before the mapped converted character
-          outputText =
-            outputText.slice(0, -1) + "އް" + characterMap[previousChar];
-        } else {
-          // If the current character is not Shadda or "ة", proceed with normal mapping
-          if (currentChar in characterMap) {
-            outputText += characterMap[currentChar];
-          } else {
-            outputText += currentChar;
-          }
-          previousChar = currentChar;
-        }
-      }
-
-      // Replace "ލލަހު" with "ﷲ" in the output text
-      function replaceThaanaText(outputText) {
-        // Object to map patterns to their replacements
-        const replacements = {
-          "ަا": "ާ", // Alif pattern replacement
-          اލ: "ލ", // Al Maurifah, also replaces qaala without aabaafili if not for above
-          // أَبِي އަބިޔ
-          // this has issues, interferes with other words
-          //.replace(/ިޔ/g, "ީ")
-          "ުޥ": "ޫ", // رَسُولَ ރަސުޥލަ
-          "ޫ ލ": "ު ލް", // وَأَبُو الحُسَيْنِ ޥައަބޫ ލޙުސަޔްނި
-          // نَوَى ނަޥައ
-          // this has issues, interferes with other words
-          //.replace(/ައ/g, "ާ")
-
-          // lafzul jalaalah
-          //.replace(/ލލަހު|ލލަހަ|ލލަހި|ލލަހ/g, "ﷲ")
-
-          /*.replace(/ލލަހު/g, "ﷲ ު") //all fili jehi lafzul jalaalas in dhivehi need a space after then, otherwise next letter will be too close
-        .replace(/ލލަހަ/g, "ﷲަ ")
-        .replace(/ލލަހި/g, "ﷲި ")
-        .replace(/ލލަހ/g, "ﷲ")*/
-
-          ލލަހު: "ﷲ ު", // Lafzul Jalaalah with different endings
-          ލލަހަ: "ﷲަ ",
-          ލލަހި: "ﷲި ",
-          ލލަހ: "ﷲ",
-          ލއްލަހު: "ﷲ ު", // Changed Thaana part, because thanween logic prior changes them
-          ލއްލަހަ: "ﷲަ ",
-          ލއްލަހި: "ﷲި ",
-          ލއްލަހ: "ﷲ",
-          // إِلَى اللَّهِ އިލައ ﷲި
-          "ައ ﷲ": "ަ ﷲ", // Fix spacing for lafzul Jalaalah
-          "ައ ": "ާ ",
-          //  إِنَّمَا الأَعْمَالُ އިއްނަމާ ލއަޢްމާލު
-          //.replace(/ާ ލ/g, "ަ ލް")
-          // .replace(/ާ ލ/g, "ަ ލް") but not if the input is any of these: ާ ލި ާ ލަ ާ ލު
-          "ާ ލ(?!ި|ަ|ު)": "ަ ލް",
-          // أَمِيرِ المُؤْمِنِينَ އަމިޔރި ލމުއްމިނިޔނަ
-          "ި ލ": "ި ލް", // Fixing trailing L with specific characters
-          "ިލއް": "ިއް", // بِالنِّيَّاتِ ބިލއްނިއްޔާތި
-          ލއްލ: "ލްލ", // دُرُوسُ اللُّغَةِ ދުރުޥސު ލއްލުޣަތި
-          // User look at this: اމްރިއިން if any ް comes after a thaana character, with a ا coming vefore the thaana character, then remove the ا use js regex replace. any thaana character, not just މ
-          "ا(?=ް*[\u0780-\u07B1])": "", // Remove alif before Thaana with sukun
-          // حَفْصٍ ޙަފްޞٍ
-          "ٍ": "ިން", // Replace Tanween with proper Thaana
-          // بَرْدِزْبَهْ البُخَارِيُّ ބަރްދިޒްބަހް ލބުޚާރިއްޔު
-          "ް ލ": "ް އަލް", // Fix combination of sukun followed by L
-          // بْنُ الحَجَّاجِ ބްނު ލޙައްޖާޖި
-          "ު ލ": "ު ލް", // Handle spacing after L
-          // مُسْلِمٍ القُشَيْرِيُّ މުސްލިމިން އަލްޤުޝަޔްރިއްޔު
-          // التنوين في ( أحد ) عند وصلها ب ( الله الصمد )
-          // «أحدن الله الصمد» بأن يكسر نون التنوين.
-          //  بضم الدال وكسر النون
-          "ިން އަލް": "ިނި ލް", // Fix Tanween-Lam combinations
-          // القُشَيْرِيُّ النَّيْسَابُورِيُّ ލްޤުޝަޔްރިއްޔު ލްއްނަޔްސާބޫރިއްޔު
-          ލްއް: "އް", // Handle double L with sukun
-          // الَّلذَيْنِ އްލަލޛަޔްނި
-          އްލަލ: "އލް", // Lafzul Jalaalah handling
-          // الشَّيْخ ލއްޝަޔްޚ
-          ލއްޝަޔްޚ: "އައް", // Fix prefix for Shaykh
-          // لِدُنْيَا ލްިދުންޔާ
-          ލްި: "ލި",
-          // ﷲި  ލއްރަޙްމަٰނި
-          "ި  ލއް": "ި އް",
-        };
-
-        // Apply replacements using a loop
-        for (const [pattern, replacement] of Object.entries(replacements)) {
-          outputText = outputText.replace(
-            new RegExp(pattern, "g"),
-            replacement
-          );
-        }
-
-        return outputText;
-      }
-
-      // Example usage:
-      textArea.value = replaceThaanaText(outputText);
-    });
-
-  /*document
-    .getElementById("transliterateArToDv")
-    .addEventListener("click", () => {
-      textArea.value = dhivehiToEnglishTransliterate(textArea.value);
-      ltrSwitch();
+      textArea.value = transliterateArabicToDhivehi(textArea.value);
       updateStats();
-    });*/
+    });
   //
 
   // Add event listener to the button
