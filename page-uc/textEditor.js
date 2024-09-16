@@ -856,7 +856,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   document
-    .getElementById("transliterateDvToEng")
+    .getElementById("transliterateDvToEn")
     .addEventListener("click", () => {
       textArea.value = dhivehiToEnglishTransliterate(textArea.value);
       ltrSwitch();
