@@ -825,8 +825,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Arabic to Dhivehi transliteration mapping
   const arabicToDhivehiMap = [
+    // Remove kashida (tatweel)
+    ["ـ", ""],
     // letters
-    ["ا", "އ"],
     ["آ", "އާ"],
     ["ب", "ބ"],
     ["ت", "ތ"],
@@ -856,22 +857,84 @@ document.addEventListener("DOMContentLoaded", () => {
     ["و", "ވ"],
     ["ي", "ޔ"],
     ["ة", "ތ"],
+    // added additional Arabic characters
+    ["ء", "އ"],
+    ["أ", "އ"],
+    ["ؤ", "އ"],
+    ["إ", "އ"],
+    ["ئ", "އ"],
+    ["ى", "އ"],
     // Harakat (diacritical marks)
     ["َ", "ަ"], // fatha
     ["ِ", "ި"], // kasra
     ["ُ", "ު"], // damma
-    ["ً", "އަ"], // tanwin fath
-    ["ٍ", "އި"], // tanwin kasr
-    ["ٌ", "އު"], // tanwin damm
-    ["ّ", "އް"], // shadda
     ["ْ", "ް"], // sukun
+    // Tanwin (nunation)
+    ["ً", "ަން"], // tanwin fath
+    ["ٍ", "ިން"], // tanwin kasr
+    ["ٌ", "ުން"], // tanwin damm
+    // words / multiple chars
+    // alif laam
+    ["ަا", "ާ"],
+    ["اލ", "ލ"],
+    //
+    ["ލއްލަހ", "ﷲ"],
+    ["ލލހ", "ﷲ"],
+    // އިއްނަމާ ލއަޢްމާލު
+    //["ާ ލ", "ަ ލ"],
+    // ބިލއްނިއްޔާތި
+    ["ލއް", "އް"],
+    // ބިހަޛާ އްލަފްޡި
+    ["ާ އްލަ", "ަ އްލަ"],
+    //
+    // ލިކުއްލި اމްރިއިން
+    ["ا", ""],
+    // ރަސުވލަ
+    ["ުވ", "ޫ"],
+    // އަތައ އްނަބިއްޔަ
+    ["އ އް", " އް"],
+    // ވައަބޫ ލޙުސަޔްނި
+    ["ޫ ލ", "ު ލ"],
+    // ޞަޙިޔޙަޔްހިމާ އްލަލޛަޔްނި
+    ["އްލަލ", "އްލަ"],
+    // other chars
+    ["«", '"'],
+    ["»", '"'],
+    /*
+    ["", ""],
+    */
   ];
 
   function transliterateArabicToDhivehi(text) {
     let result = text;
+
+    /*
+    i also want the following:
+
+when there is a ّ  character that comes after an arabic character, the output should provide a އް character before the mapped converted character that comes before it, so the outputs for the following inputs should be:                    خَطَّا;                    ޚައްޠާ;                    خَطِّي;                    ޚައްޠީ;                    خَطُّوبِ;                    ޚައްޠޫ;                    i want you to do this for this character in the code: ة if any arabic diactric apart from ْ  comes after that ة, then that ة should be replaced with a ތ, else it should be replaced by a ހ
+ */
+
+    // Handle shadda (gemination)
+    //result = result.replace(/(.)\u0651/g, (match, p1) => {
+    result = result.replace(/(.)ّ/g, (match, p1) => {
+      // Find the Dhivehi equivalent of the Arabic character
+      const dhivehiChar =
+        arabicToDhivehiMap.find(([ar]) => ar === p1)?.[1] || p1;
+      // Add 'އް' before the Dhivehi character to represent gemination
+      return `އް${dhivehiChar}`;
+    });
+
+    // Handle taa marbuta
+    // Replace with 'ތ' if followed by a diacritic (except sukun)
+    result = result.replace(/ة([َِ ُ ً ٍ ٌ])/g, "ތ$1");
+    // Replace with 'ހ' in all other cases
+    result = result.replace(/ة(?![َِ ُ ً ٍ ٌ])/g, "ހ");
+
+    // Apply other transliterations
     for (const [arabic, dhivehi] of arabicToDhivehiMap) {
       result = result.replace(new RegExp(arabic, "g"), dhivehi);
     }
+
     return result;
   }
 
