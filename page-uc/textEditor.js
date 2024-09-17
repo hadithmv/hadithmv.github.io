@@ -723,6 +723,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // above is dhivehi to english only. there is a bidirectional working example on https://dhivehi.mv/tools/latin-thaana/, but its closed s, may have been based on jawish's
 
+  // use an array of key-value pairs instead otherwise there might be issues with Unicode characters in the object literal
+
   // Dhivehi to English transliteration mappings
   const transliterationMappings = [
     ["އަ", "a"],
@@ -824,6 +826,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //
 
   // Arabic to Dhivehi transliteration mapping
+  // use an array of key-value pairs instead otherwise there might be issues with Unicode characters in the object literal
   const arabicToDhivehiMap = [
     // Remove kashida (tatweel)
     ["ـ", ""],
@@ -947,7 +950,11 @@ when there is a ّ  character that comes after an arabic character, the output s
     });
   //
 
-  // Add event listener to the button
+  document.getElementById("Nos2DvTxt").addEventListener("click", () => {
+    textArea.value = updateStats();
+  });
+  //
+
   document
     .getElementById("removeThikijehiThaana")
     .addEventListener("click", () => {
