@@ -169,12 +169,17 @@
       }
 
       .buttonInput {
-        width: 60px;
+        width: 90px; /* 60 */
         padding: 5px;
         border: 1px solid #ccc;
         border-radius: 4px;
-        font-size: 14px;
+        font-size: 18px; /* 14 */
         text-align: center;
+      }
+
+      #findInput,
+      #replaceInput {
+        height: 40px;
       }
 
       .input1 {
@@ -732,7 +737,44 @@
             >
               Fullscreen 🖥️
             </button>
-          </div>
+
+            <!-- -->
+
+            <button
+              id="findAndReplaceText"
+              class="function-button"
+              title="Finds and replaces text based on the input given in the boxes next to this button. The boxes can be made bigger by dragging"
+            >
+              Find & Replace 🔍
+            </button>
+
+            <textarea
+              id="findInput"
+              type="text"
+              placeholder="Find"
+              class="buttonInput input1"
+            ></textarea>
+            <textarea
+              id="replaceInput"
+              type="text"
+              placeholder="Replace"
+              class="buttonInput input2"
+            ></textarea>
+
+            <!--
+            <input
+              id="findInput"
+              type="text"
+              placeholder="Find"
+              class="buttonInput input1"
+            />
+            <input
+              id="replaceInput"
+              type="text"
+              placeholder="Replace"
+              class="buttonInput input2"
+            />
+          --></div>
         </div>
 
         <div id="copyTab" class="tab-content">

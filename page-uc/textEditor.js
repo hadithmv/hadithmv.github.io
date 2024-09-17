@@ -1625,6 +1625,9 @@ the input boxes should not show before the button has been clicked
 the input boxes should not show before the button has been clicked
 */
 
+  const removeFromStartInput = document.getElementById("removeFromStart");
+  const removeFromEndInput = document.getElementById("removeFromEnd");
+
   document
     .getElementById("rmvNoOfCharsPerLine")
     .addEventListener("click", () => {
@@ -1650,6 +1653,36 @@ the input boxes should not show before the button has been clicked
         updateStats();
       }
     });
+  //
+
+  /*
+two input boxes next to this button, saying "Find" and "Replace" as placeholders, which lets the user input characters, after which, clicking on the button will find and replace the characters from every line of text according to the input
+  */
+
+  const findInput = document.getElementById("findInput");
+  const replaceInput = document.getElementById("replaceInput");
+
+  document
+    .getElementById("findAndReplaceText")
+    .addEventListener("click", () => {
+      const findText = findInput.value;
+      const replaceText = replaceInput.value;
+
+      if (findText) {
+        // Create a regular expression for global case-sensitive search
+        const regex = new RegExp(escapeRegExp(findText), "g");
+
+        // Perform the find and replace operation
+        textArea.value = textArea.value.replace(regex, replaceText);
+
+        updateStats();
+      }
+    });
+
+  // Function to escape special characters in the search string
+  function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
   //
 
   //
