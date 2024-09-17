@@ -762,6 +762,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   //
 
+  document.getElementById("keepOnlyDv").addEventListener("click", () => {
+    textArea.value = textArea.value.replace(/[^\u0780-\u07BF\s]/g, "");
+    updateStats();
+  });
+
   // TRANSLITERATION
   // https://github.com/naxeem/thaana-transliterator-js/blob/main/thaana-transliterator.js
 
