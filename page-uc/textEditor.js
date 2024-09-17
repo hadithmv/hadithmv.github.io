@@ -642,6 +642,51 @@ document.addEventListener("DOMContentLoaded", () => {
   //
 
   document.getElementById("genRandPass").addEventListener("click", () => {
+    const minLength = 8;
+    const maxLength = 16;
+    const length =
+      Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
+
+    let password = "";
+    for (let i = 0; i < length; i++) {
+      const randomCharCode = Math.floor(Math.random() * (127 - 33) + 33);
+      password += String.fromCharCode(randomCharCode);
+    }
+
+    // Ensure the password contains at least one lowercase, one uppercase, one digit, and one special character
+    const ensureCharTypes = (pwd) => {
+      const charTypes = [
+        { regex: /[a-z]/, range: [97, 122] },
+        { regex: /[A-Z]/, range: [65, 90] },
+        { regex: /[0-9]/, range: [48, 57] },
+        { regex: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/, range: [33, 47] },
+      ];
+
+      charTypes.forEach((type) => {
+        if (!type.regex.test(pwd)) {
+          const randomIndex = Math.floor(Math.random() * pwd.length);
+          const randomChar = String.fromCharCode(
+            Math.floor(Math.random() * (type.range[1] - type.range[0] + 1)) +
+              type.range[0]
+          );
+          pwd =
+            pwd.substring(0, randomIndex) +
+            randomChar +
+            pwd.substring(randomIndex + 1);
+        }
+      });
+
+      return pwd;
+    };
+
+    //password = ensureCharTypes(password);
+    //textArea.value += (textArea.value ? "\n" : "") + password;
+    textArea.value = ensureCharTypes(password); //otherwise a new pass is made on every new line
+    updateStats();
+  });
+
+  /* OLD CODE
+  document.getElementById("genRandPass").addEventListener("click", () => {
     const length = Math.floor(Math.random() * 10) + 8; // Random length between 8 and 17
     const charset =
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
@@ -651,7 +696,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     textArea.value += (textArea.value ? "\n" : "") + password;
     updateStats();
-  });
+  });*/
   //
 
   let listState = "none";
