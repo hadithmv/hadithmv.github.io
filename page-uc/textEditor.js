@@ -641,7 +641,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   //
 
-  document.getElementById("generatePassword").addEventListener("click", () => {
+  document.getElementById("genRandPass").addEventListener("click", () => {
     const length = Math.floor(Math.random() * 10) + 8; // Random length between 8 and 17
     const charset =
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
