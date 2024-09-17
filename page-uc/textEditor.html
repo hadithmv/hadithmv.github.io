@@ -154,11 +154,13 @@
         min-width: 15px;
       }
 
-      .copy-button,
-      .copy-button-lit,
-      .copy-button-other {
+      /* copyTab buttons */
+      #copyTab > .buttons-container > button {
         font-size: 22px;
-        /*direction: rtl;*/
+        direction: rtl;
+      }
+      #copyTab > .buttons-container {
+        flex-direction: row-reverse;
       }
 
       .function-button {
