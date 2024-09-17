@@ -1473,6 +1473,58 @@ when there is a ّ  character that comes after an arabic character, the output s
     });
   //
 
+  /* generate a random number up to ten when this button is first clicked, also clicking this button should show two input boxes saying max and min respectively as placeholders, which lets the user input a custom range of values, within which, further clicks on the button will generate random numbers within the range of those given input numbers
+
+the input boxes should not show before the button has been clicked
+
+the textarea text should be replaced each time the button is clicked
+ */
+
+  const RandNoMinInput = document.getElementById("RandNoMinInput");
+  const RandNoMaxInput = document.getElementById("RandNoMaxInput");
+
+  let minRange = 1;
+  let maxRange = 10;
+
+  function generateRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  document.getElementById("randomNum").addEventListener("click", () => {
+    if (RandNoMinInput.style.display === "none") {
+      // First click: show input fields and generate number
+      RandNoMinInput.style.display = "inline-block";
+      RandNoMaxInput.style.display = "inline-block";
+      RandNoMinInput.value = minRange;
+      RandNoMaxInput.value = maxRange;
+    } else {
+      // Subsequent clicks: update range from input fields
+      minRange = parseInt(RandNoMinInput.value) || 1;
+      maxRange = parseInt(RandNoMaxInput.value) || 10;
+
+      if (minRange > maxRange) {
+        [minRange, maxRange] = [maxRange, minRange]; // Swap if min > max
+        RandNoMinInput.value = minRange;
+        RandNoMaxInput.value = maxRange;
+      }
+    }
+
+    // Generate and display random number
+    const randomNum = generateRandomNumber(minRange, maxRange);
+    textArea.value = randomNum.toString();
+    updateStats(); // Assuming this function exists to update statistics
+  });
+
+  // Update range when input values change
+  RandNoMinInput.addEventListener("change", () => {
+    minRange = parseInt(RandNoMinInput.value) || 1;
+  });
+
+  RandNoMaxInput.addEventListener("change", () => {
+    maxRange = parseInt(RandNoMaxInput.value) || 10;
+  });
+  //
+
   //
   //
 
