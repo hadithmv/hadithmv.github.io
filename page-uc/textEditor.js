@@ -1512,7 +1512,7 @@ the textarea text should be replaced each time the button is clicked
     // Generate and display random number
     const randomNum = generateRandomNumber(minRange, maxRange);
     textArea.value = randomNum.toString();
-    updateStats(); // Assuming this function exists to update statistics
+    updateStats();
   });
 
   // Update range when input values change
@@ -1544,6 +1544,68 @@ the input boxes should not show before the button has been clicked
       updateStats();
     }
   });
+  //
+
+  /*
+when this button is first clicked, show two input boxes saying Prefix and Suffix as placeholder, which lets the user input characters, after which, further clicks on the button will add prefix or suffix to every line of text with the characters given in the input
+the input boxes should not show before the button has been clicked
+  */
+
+  const prefixInput = document.getElementById("prefixInput");
+  const suffixInput = document.getElementById("suffixInput");
+
+  document
+    .getElementById("prefixSuffixToLine")
+    .addEventListener("click", () => {
+      if (prefixInput.style.display === "none") {
+        // First click: show input fields
+        prefixInput.style.display = "inline-block";
+        suffixInput.style.display = "inline-block";
+      } else {
+        // Subsequent clicks: apply prefix and suffix
+        const prefix = prefixInput.value;
+        const suffix = suffixInput.value;
+
+        // Split the text into lines, apply prefix and suffix, then join back
+        const lines = textArea.value.split("\n");
+        const modifiedLines = lines.map((line) => prefix + line + suffix);
+        textArea.value = modifiedLines.join("\n");
+
+        updateStats();
+      }
+    });
+  //
+
+  /*
+  when this button is first clicked, show two input boxes saying "From Start" and "From End" as placeholder, which lets the user input numbers, after which, further clicks on the button will remove the given number of characters from every line of text according to the input
+the input boxes should not show before the button has been clicked
+*/
+
+  document
+    .getElementById("rmvNoOfCharsPerLine")
+    .addEventListener("click", () => {
+      if (removeFromStartInput.style.display === "none") {
+        // First click: show input fields
+        removeFromStartInput.style.display = "inline-block";
+        removeFromEndInput.style.display = "inline-block";
+      } else {
+        // Subsequent clicks: remove characters from each line
+        const removeFromStart = parseInt(removeFromStartInput.value) || 0;
+        const removeFromEnd = parseInt(removeFromEndInput.value) || 0;
+
+        // Split the text into lines, remove characters, then join back
+        const lines = textArea.value.split("\n");
+        const modifiedLines = lines.map((line) => {
+          if (line.length <= removeFromStart + removeFromEnd) {
+            return ""; // Line is shorter than or equal to total characters to remove
+          }
+          return line.slice(removeFromStart, line.length - removeFromEnd);
+        });
+        textArea.value = modifiedLines.join("\n");
+
+        updateStats();
+      }
+    });
   //
 
   //
