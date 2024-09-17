@@ -630,12 +630,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("reverseText").addEventListener("click", () => {
     if (reverseState === "horizontal") {
       textArea.value = textArea.value.split("").reverse().join("");
-      document.getElementById("reverseText").textContent =
-        "Revrs verti lines ↕️";
+      document.getElementById("reverseText").textContent = "Rvrs VertiLines ↕️";
       reverseState = "vertical";
     } else {
       textArea.value = textArea.value.split("\n").reverse().join("\n");
-      document.getElementById("reverseText").textContent = "Revrs hori txt ⏪";
+      document.getElementById("reverseText").textContent = "Rvrs HoriTxt ⏪";
       reverseState = "horizontal";
     }
     updateStats();
