@@ -141,7 +141,7 @@
         gap: 10px;
         margin-top: 10px;
         /* */
-        direction: rtl;
+        /*direction: rtl;*/
       }
 
       .function-button,
@@ -158,12 +158,28 @@
       .copy-button-lit,
       .copy-button-other {
         font-size: 22px;
-        direction: rtl;
+        /*direction: rtl;*/
       }
 
       .function-button {
         font-size: 18px; /* 16 */
-        direction: ltr;
+        /*direction: ltr;*/
+      }
+
+      .buttonInput {
+        width: 60px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .input1 {
+        color: red;
+      }
+      .input2 {
+        color: blue;
       }
 
       @media (max-width: 768px) {
@@ -625,7 +641,34 @@
             </button>
 
             <!-- -->
-            <button id="fullscreen" class="function-button" title="mmm">
+            <button
+              id="randomNum"
+              class="function-button"
+              title="Generates a random number from 1-10 by default, or you can set a minimum and maximum range next to this button after it has been initially clicked"
+            >
+              Randm No 🔟
+            </button>
+            <input
+              id="RandNoMinInput"
+              type="number"
+              placeholder="Min"
+              class="buttonInput input1"
+              style="display: none"
+            />
+            <input
+              id="RandNoMaxInput"
+              type="number"
+              placeholder="Max"
+              class="buttonInput input2"
+              style="display: none"
+            />
+
+            <!-- -->
+            <button
+              id="fullscreen"
+              class="function-button"
+              title="Switches to fullscreen mode"
+            >
               Fullscreen 🖥️
             </button>
           </div>
