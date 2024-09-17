@@ -1473,7 +1473,7 @@ when there is a ّ  character that comes after an arabic character, the output s
     });
   //
 
-  /* generate a random number up to ten when this button is first clicked, also clicking this button should show two input boxes saying max and min respectively as placeholders, which lets the user input a custom range of values, within which, further clicks on the button will generate random numbers within the range of those given input numbers
+  /* generate a random number up to ten when the button is first clicked, also clicking this button should show two input boxes saying max and min respectively as placeholders, which lets the user input a custom range of values, within which, further clicks on the button will generate random numbers within the range of those given input numbers
 
 the input boxes should not show before the button has been clicked
 
@@ -1522,6 +1522,27 @@ the textarea text should be replaced each time the button is clicked
 
   RandNoMaxInput.addEventListener("change", () => {
     maxRange = parseInt(RandNoMaxInput.value) || 10;
+  });
+  //
+
+  /*
+when the button is first clicked, show an input boxes saying "How many?" placeholder, which lets the user input a number, after which, further clicks on the button will repeat the lines of text according to the number given in the input
+the input boxes should not show before the button has been clicked
+  */
+  const repeatLinesBtn = document.getElementById("repeatLines");
+  const repeatInput = document.getElementById("repeatInput");
+
+  // New Repeat Lines functionality
+  repeatLinesBtn.addEventListener("click", () => {
+    if (repeatInput.style.display === "none") {
+      repeatInput.style.display = "inline-block";
+      repeatInput.value = "2";
+    } else {
+      const repeatCount = parseInt(repeatInput.value) || 1;
+      const originalText = textArea.value;
+      textArea.value = Array(repeatCount).fill(originalText).join("\n");
+      updateStats();
+    }
   });
   //
 
