@@ -950,8 +950,153 @@ when there is a ّ  character that comes after an arabic character, the output s
     });
   //
 
+  // https://github.com/ahmedmaazin/number-to-thaana/blob/master/src/NumberToThaana.php
+  // which itself is based on https://github.com/Sofwath/NumberToThaana
+  // an alternative could have been https://github.com/dhivehi/DhivehiMVR_excel, but it seems closed s
+  class NumberToDhivehi {
+    constructor() {
+      this.ehbari = [
+        "ސުމެއް",
+        "އެއް",
+        "ދެ",
+        "ތިން",
+        "ހަތަރު",
+        "ފަސް",
+        "ހަ",
+        "ހަތް",
+        "އަށް",
+        "ނުވަ",
+        "ދިހަ",
+        "އެގާރަ",
+        "ބާރަ",
+        "ތޭރަ",
+        "ސާދަ",
+        "ފަނަރަ",
+        "ސޯޅަ",
+        "ސަތާރަ",
+        "އަށާރަ",
+        "ނަވާރަ",
+        "ވިހި",
+        "އެކާވީސް",
+        "ބާވީސް",
+        "ތޭވީސް",
+        "ސައުވީސް",
+        "ފަންސަވީސް",
+        "ސައްބީސް",
+        "ހަތާވީސް",
+        "އަށާވީސް",
+        "ނަވާވީސް",
+      ];
+      this.dhihabari = [
+        "ސުން",
+        "ދިހަ",
+        "ވިހި",
+        "ތިރީސް",
+        "ސާޅީސް",
+        "ފަންސާސް",
+        "ފަސްދޮޅަސް",
+        "ހައްދިހަ",
+        "އައްޑިހަ",
+        "ނުވަދިހަ",
+      ];
+      this.sunbari = ["", "ހާސް", "މިލިޔަން", "ބިލިޔަން", "ޓްރިލިޔަން"];
+    }
+
+    convert(number) {
+      if (!number) return null;
+
+      number = parseInt(number);
+
+      if (number < 1000) {
+        return this.thousandSub(number);
+      } else {
+        return this.thousandUp(number);
+      }
+    }
+
+    thousandSub(number) {
+      let hundred = "ސަތޭކަ ";
+
+      if (number <= 0 || number <= 29) {
+        return this.ehbari[number];
+      } else if (number <= 99) {
+        const tens = Math.floor(number / 10);
+        const ones = number % 10;
+        if (ones === 0) {
+          return this.dhihabari[tens];
+        } else {
+          return `${this.dhihabari[tens]} ${this.ehbari[ones]}`;
+        }
+      } else if (number <= 999) {
+        const rem = number % 100;
+        const dig = Math.floor(number / 100);
+
+        if (dig === 2) {
+          this.ehbari[2] = "ދުވި";
+          hundred = "ސައްތަ ";
+        }
+        // added spaces before ${hundred}
+        if (rem === 0) {
+          return `${this.ehbari[dig]} ${hundred}`;
+        } else {
+          return `${this.ehbari[dig]} ${hundred}${this.thousandSub(rem)}`;
+        }
+      }
+
+      return "";
+    }
+
+    thousandHalf(number) {
+      const thousandArray = [];
+      while (number !== 0) {
+        thousandArray.push(number % 1000);
+        number = Math.floor(number / 1000);
+      }
+      return thousandArray;
+    }
+
+    thousandUp(number) {
+      const thousandHalfArray = this.thousandHalf(number);
+      let thousandHalfArrayLength = thousandHalfArray.length - 1;
+      const responseArray = [];
+
+      for (const value of thousandHalfArray.reverse()) {
+        let word = `${this.thousandSub(value)} `;
+        let zap = `${this.sunbari[thousandHalfArrayLength]} `;
+
+        if (word === " ") {
+          break;
+        } else if (word === "ސުން " || word === "ސުމެއް ") {
+          word = "";
+          zap = "";
+        }
+
+        responseArray.push(word + zap);
+        thousandHalfArrayLength -= 1;
+      }
+
+      let response = responseArray.join("");
+
+      if (response.endsWith(",")) {
+        response = response.slice(0, -1);
+      }
+
+      return response.trim();
+    }
+  }
+
+  // Usage
+  const converter = new NumberToDhivehi();
+
   document.getElementById("Nos2DvTxt").addEventListener("click", () => {
-    textArea.value = updateStats();
+    const numbers = textArea.value.match(/\d+/g);
+    if (numbers) {
+      const convertedText = numbers
+        .map((num) => converter.convert(num))
+        .join(", ");
+      textArea.value = convertedText;
+    }
+    updateStats(); // Assuming this function exists in your code
   });
   //
 
