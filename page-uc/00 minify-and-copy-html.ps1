@@ -34,15 +34,37 @@ function MinifyJS($inputFile, $outputFile) {
     Remove-Item $closureOutput
 }
 
-# Minify and copy textEditor.js
-$textEditorInput = "textEditor.js"
-$textEditorOutput = "../page/textEditor.js"
+# Array of JS files to minify
+$jsFiles = @("textEditor.js", "mergely.js")
+# Note that minifying mergely with closure gives an error because it has css styles written as is, but the minification works even if the errors show
 
-if (Test-Path $textEditorInput) {
-    MinifyJS $textEditorInput $textEditorOutput
-    Write-Output "Processed JS: textEditor.js"
+# Minify and copy JS files
+foreach ($jsFile in $jsFiles) {
+    $inputFile = $jsFile
+    $outputFile = "../page/$jsFile"
+
+    if (Test-Path $inputFile) {
+        MinifyJS $inputFile $outputFile
+        Write-Output "Processed JS: $jsFile"
+    } else {
+        Write-Output "Warning: $jsFile not found"
+    }
+}
+
+# Function to minify CSS using csso
+function MinifyCSS($inputFile, $outputFile) {
+    & csso $inputFile -o $outputFile
+}
+
+# Minify and copy mergely.css
+$cssInputFile = "mergely.css"
+$cssOutputFile = "../page/mergely.css"
+
+if (Test-Path $cssInputFile) {
+    MinifyCSS $cssInputFile $cssOutputFile
+    Write-Output "Processed CSS: $cssInputFile"
 } else {
-    Write-Output "Warning: textEditor.js not found"
+    Write-Output "Warning: $cssInputFile not found"
 }
 
 # Copy 404 to root

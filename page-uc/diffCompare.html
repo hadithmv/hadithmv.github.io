@@ -1,0 +1,387 @@
+<!doctype html>
+<html translate="no">
+  <head>
+    <!-- CHANGE !!! -->
+    <link
+      rel="canonical"
+      href="https://hadithmv.github.io/page/diffCompare.html"
+    />
+    <title>Hadithmv - Diff Compare</title>
+    <meta
+      name="description"
+      content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
+    />
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
+    <!-- CHANGE !!! -->
+    <script src="../js/navbar.min.js"></script>
+  </head>
+
+  <body>
+    <div id="navbar-container"></div>
+    <!-- -->
+    <!--<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/mergely/5.3.2/mergely.css"
+/>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mergely/5.3.2/mergely.js"></script>-->
+
+    <!-- remove:
+ .mergely-splash
+ .mergely-splash p
+ .mergely-icon
+ .mergely-splash span.mergely-icon
+
+ minify w csso-->
+    <link rel="stylesheet" href="mergely.css" />
+
+    <script src="mergely.js"></script>
+    <!-- remove:
+ if (NOTICES.indexOf(this.settings.license) < 0) {
+		container.addEventListener('updated', () => {
+			const noticeTypes = {
+				'lgpl': 'GNU LGPL v3.0',
+				'gpl': 'GNU GPL v3.0',
+				'mpl': 'MPL 1.1'
+			};
+			let notice = noticeTypes[this.settings.license];
+			if (!notice) {
+				notice = noticeTypes.lgpl;
+			}
+			const editor = this._queryElement(`#${this.id}`);
+			const splash = dom.getSplash({
+				notice,
+				left: (editor.offsetWidth - 300) / 2,
+				top: (editor.offsetHeight - 58) / 3
+			});
+			editor.addEventListener('click', () => {
+				splash.style.visibility = 'hidden';
+				splash.style.opacity = '0';
+				splash.style.transition = `visibility 0s 100ms, opacity 100ms linear`;
+				setTimeout(() => splash.remove(), 110);
+			}, { once: true });
+			el.append(splash);
+		}, { once: true });
+	}
+
+
+
+    
+    function getSplash({ notice, left, top }) {
+          return htmlToElement(`\
+<div class="mergely-splash" style="left: ${left}px; top: ${top}px">
+	<p>
+		<span class="mergely-icon"></span>
+		This software is a Combined Work using Mergely and is covered by the
+		${notice} license. For the full license, see
+		<a target="_blank" href="http://www.mergely.com">http://www.mergely.com/license</a>.
+	</p>
+</div>`);
+        }
+
+
+
+
+
+        
+          getSplash,
+-->
+
+    <style>
+      .buttons-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+        /* */
+        /*direction: rtl;*/
+        margin-right: 20px;
+        margin-left: 20px;
+        margin-bottom: 8px;
+      }
+
+      .function-button {
+        padding: 5px 10px;
+        cursor: pointer;
+        /* */
+        min-width: 15px;
+        /* */
+        font-size: 18px;
+      }
+
+      /* only for MOBILE size */
+      @media (max-width: 599px) {
+        .buttons-container {
+          gap: 5px;
+          margin-right: 5px;
+          margin-left: 5px;
+          margin-bottom: 5px;
+        }
+        .function-button {
+          font-size: 14px;
+        }
+      }
+
+      /* MERGELY STUFF */
+
+      /* removes strikethrough on lefthand side */
+      .mergely-editor .mergely.ch.ind.lhs {
+        text-decoration: none;
+      }
+    </style>
+    <div class="buttons-container">
+      <button
+        id="clearContents"
+        class="function-button"
+        title="Clear the contents"
+      >
+        Clear ❌
+      </button>
+
+      <button
+        id="nextDiff"
+        class="function-button"
+        title="Jump to the next change"
+      >
+        Nxt Diff ▼
+      </button>
+      <button
+        id="prevDiff"
+        class="function-button"
+        title="Jump to the previous change"
+      >
+        ▲ Prv Diff
+      </button>
+
+      <button
+        id="mergeLeftToRight"
+        class="function-button"
+        title="Merges the current change from left side to right side. Note that you have to have clicked a button to jump to a change first"
+      >
+        Merge Chng L2R ►
+      </button>
+      <button
+        id="mergeRightToLeft"
+        class="function-button"
+        title="Merges the current change from right side to left side. Note that you have to have clicked a button to jump to a change first"
+      >
+        ◄ Merge Chng R2L
+      </button>
+
+      <button
+        id="toggleRTLtoLTR"
+        class="function-button"
+        title="Toggles wordwrap on and off"
+      >
+        LTR ↔️ RTL
+      </button>
+      <button
+        id="toggleWordWrap"
+        class="function-button"
+        title="Toggles wordwrap on and off"
+      >
+        Wordwrap ↲
+      </button>
+      <button
+        id="swapSides"
+        class="function-button"
+        title="Swaps the right hand side contents with the left hand side contents"
+      >
+        Swap Sides 🔄
+      </button>
+      <button
+        id="copyLHS"
+        class="function-button"
+        title="Copies the contents of the left-hand side"
+      >
+        📋 Copy L Side ◄
+      </button>
+      <button
+        id="copyRHS"
+        class="function-button"
+        title="Copies the contents of the right-hand side"
+      >
+        ► Copy R Side 📋
+      </button>
+
+      <!--
+      ADD FONT RESIZER - LATER !!! -->
+    </div>
+
+    <style>
+      #compare {
+        height: 90vh; /* inherit */
+      }
+      .CodeMirror {
+        /* Set height, width, borders, and global font properties here */
+        font-family: inherit; /* monospace */
+      }
+      .CodeMirror pre.CodeMirror-line {
+        line-height: 1.5;
+      }
+    </style>
+
+    <div id="compare"></div>
+    <script>
+      /*const doc = new Mergely("#compare");
+      doc.once("updated", () => {
+        doc.lhs("the quick red fox\njumped over the hairy dog");
+        doc.rhs("the quick brown fox\njumped over the lazy dog");*
+        // Scroll to first change on next update
+        doc.once("updated", () => {
+          doc.scrollToDiff("next");
+        });
+      });*/
+
+      // https://www.mergely.com/doc
+
+      const doc = new Mergely("#compare", {
+        lhs: "عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُ،\nقَالَ رَسُولُ اللَّهِ ﷺ:\n\nޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ގެ އަރިހުން ރިވާވެގެންވެއެވެ.\nރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ:",
+        rhs: "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ،\nسَمِعْتُ النَّبِيَّ ﷺ يَقُولُ:\n\nއިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ.\nނަބިއްޔާ ﷺ ޙަދީޘްކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:",
+
+        wrap_lines: true,
+
+        cmsettings: {
+          // https://codemirror.net/docs/ref/#view.Direction
+          // Flips overall layout and selects base paragraph direction
+          /* tried changed this from rtl to ltr, using css instead to do its job, so i can use a toggle button, but other problems came up */
+          direction: "rtl",
+
+          // https://codemirror.net/5/doc/manual.html
+          // Determines whether horizontal cursor movement through right-to-left
+          rtlMoveVisually: true,
+
+          //readOnly: true,
+          /* lets select go over change highlights https://github.com/wickedest/Mergely/issues/104 */
+          //styleSelectedText: true,
+          //autofocus: false,
+        },
+      });
+    </script>
+
+    <!-- custom functions -->
+    <script>
+      //
+      document.getElementById("clearContents").addEventListener("click", () => {
+        doc.clear("lhs");
+        doc.clear("rhs");
+      });
+      //
+
+      document.getElementById("nextDiff").addEventListener("click", () => {
+        doc.scrollToDiff("next");
+      });
+      //
+
+      document.getElementById("prevDiff").addEventListener("click", () => {
+        doc.scrollToDiff("prev");
+      });
+      //
+
+      document
+        .getElementById("mergeLeftToRight")
+        .addEventListener("click", () => {
+          doc.mergeCurrentChange("lhs");
+        });
+      //
+
+      document
+        .getElementById("mergeRightToLeft")
+        .addEventListener("click", () => {
+          doc.mergeCurrentChange("rhs");
+        });
+      //
+
+      /*
+      based on this js:
+      function setDirectionClass(cm) {
+            (cm.doc.direction == "rtl" ? addClass : rmClass)(
+              cm.display.lineDiv,
+              "CodeMirror-rtl"
+            );
+          }
+            it seems a class is used to set rtl to codemirror
+            toggling that class should toggle rtl
+      */
+      let isRTL = true; // Initial state for text direction
+      document
+        .getElementById("toggleRTLtoLTR")
+        .addEventListener("click", () => {
+          isRTL = !isRTL; // Toggle the RTL state
+
+          // Get all elements with class 'CodeMirror-code'
+          document.querySelectorAll(".CodeMirror-code").forEach((element) => {
+            if (isRTL) {
+              element.classList.add("CodeMirror-rtl");
+            } else {
+              element.classList.remove("CodeMirror-rtl");
+            }
+          });
+        });
+      //
+
+      let wrapLines = true; // Initial state
+      document
+        .getElementById("toggleWordWrap")
+        .addEventListener("click", () => {
+          wrapLines = !wrapLines; // Toggle the state
+          doc.options({ wrap_lines: wrapLines }); // Set the option
+        });
+      //
+
+      document.getElementById("swapSides").addEventListener("click", () => {
+        doc.swap();
+      });
+      //
+
+      /* now i want another two buttons
+a button each to copy the contents of each side
+*/
+
+      // Function to copy text to clipboard
+      async function copyToClipboard(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          //console.log("Content copied to clipboard");
+        } catch (err) {
+          //console.error("Failed to copy: ", err);
+        }
+      }
+
+      // Copy Left Side functionality
+      document.getElementById("copyLHS").addEventListener("click", () => {
+        const leftContent = doc.get("lhs");
+        copyToClipboard(leftContent);
+      });
+
+      // Copy Right Side functionality
+      document.getElementById("copyRHS").addEventListener("click", () => {
+        const rightContent = doc.get("rhs");
+        copyToClipboard(rightContent);
+      });
+
+      //
+    </script>
+
+    <!-- -->
+  </body>
+</html>
