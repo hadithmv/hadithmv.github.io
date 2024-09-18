@@ -136,6 +136,7 @@
           margin-left: 5px;
           margin-bottom: 5px;
         }
+
         .function-button {
           font-size: 14px;
         }
@@ -222,6 +223,29 @@
       >
         ► Copy R Side 📋
       </button>
+      <button
+        id="diffSummary"
+        class="function-button"
+        title="Shows a statistical summary of the differences"
+      >
+        Diff Summary 📊
+      </button>
+      <div
+        id="summaryPopup"
+        style="
+          display: none;
+          padding-left: 10px;
+          padding-right: 10px;
+          margin: 0;
+        "
+      >
+        Added lines: <span id="addedLines"></span> | Changed lines:
+        <span id="changedLines"></span> | Deleted lines:
+        <span id="deletedLines"></span> | Left side length:
+        <span id="lhsLength"></span> | Right side length:
+        <span id="rhsLength"></span> | Total # of changes:
+        <span id="totalChanges"></span>
+      </div>
 
       <!--
       ADD FONT RESIZER - LATER !!! -->
@@ -229,12 +253,16 @@
 
     <style>
       #compare {
-        height: 90vh; /* inherit */
+        height: 90vh;
+        /* inherit */
       }
+
       .CodeMirror {
         /* Set height, width, borders, and global font properties here */
-        font-family: inherit; /* monospace */
+        font-family: inherit;
+        /* monospace */
       }
+
       .CodeMirror pre.CodeMirror-line {
         line-height: 1.5;
       }
@@ -243,14 +271,14 @@
     <div id="compare"></div>
     <script>
       /*const doc = new Mergely("#compare");
-      doc.once("updated", () => {
-        doc.lhs("the quick red fox\njumped over the hairy dog");
-        doc.rhs("the quick brown fox\njumped over the lazy dog");*
-        // Scroll to first change on next update
         doc.once("updated", () => {
-          doc.scrollToDiff("next");
-        });
-      });*/
+          doc.lhs("the quick red fox\njumped over the hairy dog");
+          doc.rhs("the quick brown fox\njumped over the lazy dog");*
+          // Scroll to first change on next update
+          doc.once("updated", () => {
+            doc.scrollToDiff("next");
+          });
+        });*/
 
       // https://www.mergely.com/doc
 
@@ -275,6 +303,8 @@
           //styleSelectedText: true,
           //autofocus: false,
         },
+
+        //
       });
     </script>
 
@@ -312,16 +342,16 @@
       //
 
       /*
-      based on this js:
-      function setDirectionClass(cm) {
-            (cm.doc.direction == "rtl" ? addClass : rmClass)(
-              cm.display.lineDiv,
-              "CodeMirror-rtl"
-            );
-          }
-            it seems a class is used to set rtl to codemirror
-            toggling that class should toggle rtl
-      */
+        based on this js:
+        function setDirectionClass(cm) {
+              (cm.doc.direction == "rtl" ? addClass : rmClass)(
+                cm.display.lineDiv,
+                "CodeMirror-rtl"
+              );
+            }
+              it seems a class is used to set rtl to codemirror
+              toggling that class should toggle rtl
+        */
       let isRTL = true; // Initial state for text direction
       document
         .getElementById("toggleRTLtoLTR")
@@ -354,8 +384,8 @@
       //
 
       /* now i want another two buttons
-a button each to copy the contents of each side
-*/
+  a button each to copy the contents of each side
+  */
 
       // Function to copy text to clipboard
       async function copyToClipboard(text) {
@@ -378,6 +408,68 @@ a button each to copy the contents of each side
         const rightContent = doc.get("rhs");
         copyToClipboard(rightContent);
       });
+      //
+
+      /*
+        this is the documentation:
+  summary()
+  Gets a summary of the editors. Returns an object with summarized properties:
+  Name    Description
+  a    The number of added lines.
+  c    The number of changed lines.
+  d    The number of deleted lines.
+  lhsLength    The number of characters in the lhs text.
+  rhsLength    The number of characters in the rhs text.
+  numChanges    The total number of changed lines.
+  Example
+  console.log(doc.summary());
+  // { a: 0, c: 1, d: 0, lhsLength: 44, rhsLength: 45, numChanges: 1 }
+  when i click this button, i want a div to show right after the button, showing the summary in that div
+  i prefer html code that is display none, then made to show once the button is clicked
+  ...
+  
+  after that popup has been opened, i want the numbers to update if i change the content
+  
+  code would use something like 
+  
+   doc.on("updated", () =>
+   */
+
+      // Function to update the summary data
+      function updateSummary() {
+        const summary = doc.summary();
+
+        document.getElementById("addedLines").textContent = summary.a;
+        document.getElementById("changedLines").textContent = summary.c;
+        document.getElementById("deletedLines").textContent = summary.d;
+        document.getElementById("lhsLength").textContent = summary.lhsLength;
+        document.getElementById("rhsLength").textContent = summary.rhsLength;
+        document.getElementById("totalChanges").textContent =
+          summary.numChanges;
+      }
+
+      // Event listener for the button click
+      document.getElementById("diffSummary").addEventListener("click", () => {
+        const popup = document.getElementById("summaryPopup");
+
+        if (popup.style.display === "none") {
+          updateSummary();
+          popup.style.display = "block";
+        } else {
+          popup.style.display = "none";
+        }
+      });
+
+      // Listen for updates to the doc object
+      doc.on("updated", () => {
+        if (document.getElementById("summaryPopup").style.display === "block") {
+          updateSummary();
+        }
+      });
+      //
+
+      //doc.on("updated", () => console.log("updated!"));
+      //doc.on("updated", () => console.log(doc.summary()));
 
       //
     </script>
