@@ -161,14 +161,14 @@
       <button
         id="nextDiff"
         class="function-button"
-        title="Jump to the next change"
+        title="Jump to the next changed block of text"
       >
         Nxt Diff ▼
       </button>
       <button
         id="prevDiff"
         class="function-button"
-        title="Jump to the previous change"
+        title="Jump to the previous changed block of text"
       >
         ▲ Prv Diff
       </button>
@@ -176,16 +176,31 @@
       <button
         id="mergeLeftToRight"
         class="function-button"
-        title="Merges the current change from left side to right side. Note that you have to have clicked a button to jump to a change first"
+        title="Merges the current changed block from left side to right side. Note that you have to have clicked a button to jump to a change first"
       >
         Merge Chng L2R ►
       </button>
       <button
         id="mergeRightToLeft"
         class="function-button"
-        title="Merges the current change from right side to left side. Note that you have to have clicked a button to jump to a change first"
+        title="Merges the current changed block from right side to left side. Note that you have to have clicked a button to jump to a change first"
       >
         ◄ Merge Chng R2L
+      </button>
+
+      <button
+        id="copyLHS"
+        class="function-button"
+        title="Copies the contents of the left-hand side"
+      >
+        📋 Copy L Side ◄
+      </button>
+      <button
+        id="copyRHS"
+        class="function-button"
+        title="Copies the contents of the right-hand side"
+      >
+        ► Copy R Side 📋
       </button>
 
       <button
@@ -210,20 +225,6 @@
         Swap Sides 🔄
       </button>
       <button
-        id="copyLHS"
-        class="function-button"
-        title="Copies the contents of the left-hand side"
-      >
-        📋 Copy L Side ◄
-      </button>
-      <button
-        id="copyRHS"
-        class="function-button"
-        title="Copies the contents of the right-hand side"
-      >
-        ► Copy R Side 📋
-      </button>
-      <button
         id="diffSummary"
         class="function-button"
         title="Shows a statistical summary of the differences"
@@ -232,12 +233,7 @@
       </button>
       <div
         id="summaryPopup"
-        style="
-          display: none;
-          padding-left: 10px;
-          padding-right: 10px;
-          margin: 0;
-        "
+        style="display: none; padding-left: 10px; padding-right: 10px"
       >
         Added lines: <span id="addedLines"></span> | Changed lines:
         <span id="changedLines"></span> | Deleted lines:
@@ -247,13 +243,37 @@
         <span id="totalChanges"></span>
       </div>
 
+      <button
+        id="helpExplain"
+        class="function-button"
+        title="Explains what this page does"
+      >
+        ❓
+      </button>
+      <div
+        id="helpPopup"
+        style="display: none; padding-left: 10px; padding-right: 10px"
+      >
+        View differences between two texts, side by side. You can also merge the
+        changes you want, to where you want them. Differences in the text are
+        colored so you can clearly see what has changed. Left side should be
+        used for original/old text, and right side should be used for
+        new/updated text. Red text shows what was removed, blue text shows what
+        was added. There are various buttons provided on thss page, which do
+        different functions. In the middle of the two texts is a gap where lines
+        show which blocks of texts have changed even if they are in different
+        places. There are purple margins to the sides of each text, where if the
+        text is long enough, these margins can be used to jump to the relevant
+        place in the text.
+      </div>
+
       <!--
       ADD FONT RESIZER - LATER !!! -->
     </div>
 
     <style>
       #compare {
-        height: 90vh;
+        height: 88vh;
         /* inherit */
       }
 
@@ -470,6 +490,18 @@
 
       //doc.on("updated", () => console.log("updated!"));
       //doc.on("updated", () => console.log(doc.summary()));
+
+      // Event listener for the button click
+      document.getElementById("helpExplain").addEventListener("click", () => {
+        const popup = document.getElementById("helpPopup");
+
+        if (popup.style.display === "none") {
+          popup.style.display = "block";
+        } else {
+          popup.style.display = "none";
+        }
+      });
+      //
 
       //
     </script>
