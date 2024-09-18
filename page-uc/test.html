@@ -1,0 +1,89 @@
+<!--<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/mergely/5.3.2/mergely.css"
+/>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mergely/5.3.2/mergely.js"></script>-->
+
+<!-- remove:
+ .mergely-splash
+ .mergely-splash p
+ .mergely-icon
+ .mergely-splash span.mergely-icon
+
+ minify w csso-->
+<link rel="stylesheet" href="mergely.css" />
+
+<script src="mergely.js"></script>
+<!-- remove:
+ if (NOTICES.indexOf(this.settings.license) < 0) {
+		container.addEventListener('updated', () => {
+			const noticeTypes = {
+				'lgpl': 'GNU LGPL v3.0',
+				'gpl': 'GNU GPL v3.0',
+				'mpl': 'MPL 1.1'
+			};
+			let notice = noticeTypes[this.settings.license];
+			if (!notice) {
+				notice = noticeTypes.lgpl;
+			}
+			const editor = this._queryElement(`#${this.id}`);
+			const splash = dom.getSplash({
+				notice,
+				left: (editor.offsetWidth - 300) / 2,
+				top: (editor.offsetHeight - 58) / 3
+			});
+			editor.addEventListener('click', () => {
+				splash.style.visibility = 'hidden';
+				splash.style.opacity = '0';
+				splash.style.transition = `visibility 0s 100ms, opacity 100ms linear`;
+				setTimeout(() => splash.remove(), 110);
+			}, { once: true });
+			el.append(splash);
+		}, { once: true });
+	}
+
+
+
+    
+    function getSplash({ notice, left, top }) {
+          return htmlToElement(`\
+<div class="mergely-splash" style="left: ${left}px; top: ${top}px">
+	<p>
+		<span class="mergely-icon"></span>
+		This software is a Combined Work using Mergely and is covered by the
+		${notice} license. For the full license, see
+		<a target="_blank" href="http://www.mergely.com">http://www.mergely.com/license</a>.
+	</p>
+</div>`);
+        }
+
+
+
+
+
+        
+          getSplash,
+-->
+
+<style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+  }
+  #compare {
+    height: inherit;
+  }
+</style>
+<div id="compare"></div>
+<script>
+  const doc = new Mergely("#compare");
+  doc.once("updated", () => {
+    doc.lhs("the quick red fox\njumped over the hairy dog");
+    doc.rhs("the quick brown fox\njumped over the lazy dog");
+    // Scroll to first change on next update
+    doc.once("updated", () => {
+      doc.scrollToDiff("next");
+    });
+  });
+</script>
