@@ -128,6 +128,11 @@
         font-size: 18px;
       }
 
+      /*.function-button.active {
+        background-color: #4caf50;
+        color: white;
+      }*/
+
       /* only for MOBILE size */
       @media (max-width: 599px) {
         .buttons-container {
@@ -148,6 +153,37 @@
       .mergely-editor .mergely.ch.ind.lhs {
         text-decoration: none;
       }
+
+      #compare {
+        height: 88vh;
+        /* inherit */
+      }
+
+      .CodeMirror {
+        /* Set height, width, borders, and global font properties here */
+        font-family: inherit;
+        /* monospace */
+      }
+
+      .CodeMirror pre.CodeMirror-line {
+        line-height: 1.5;
+      }
+
+      /* removes sidebars, only for MOBILE size */
+      @media (max-width: 599px) {
+        /*.mergely-editor .mergely-margin canvas*/
+        .mergely-margin {
+          width: 0;
+          /*visibility: hidden;*/ /* this leaves gaps where sidebars would have been */
+          /*display: none;*/ /* this removes compare branches as well */
+        }
+      }
+
+      /* gives more width to gutter where line numbers are, otherwise too squashed up */
+      /*div.CodeMirror-gutter.CodeMirror-linenumbers*/
+      .CodeMirror-linenumbers {
+        width: 35px;
+      }
     </style>
     <div class="buttons-container">
       <button
@@ -163,29 +199,45 @@
         class="function-button"
         title="Jump to the next changed block of text"
       >
-        Nxt Diff ▼
+        Next Diff ▼
       </button>
       <button
         id="prevDiff"
         class="function-button"
         title="Jump to the previous changed block of text"
       >
-        ▲ Prv Diff
+        ▲ Prev Diff
       </button>
 
       <button
-        id="mergeLeftToRight"
+        id="mergeChangeLeftToRight"
         class="function-button"
         title="Merges the current changed block from left side to right side. Note that you have to have clicked a button to jump to a change first"
       >
-        Merge Chng L2R ►
+        Merge Change L2R ►
       </button>
       <button
-        id="mergeRightToLeft"
+        id="mergeChangeRightToLeft"
         class="function-button"
         title="Merges the current changed block from right side to left side. Note that you have to have clicked a button to jump to a change first"
       >
-        ◄ Merge Chng R2L
+        ◄ Merge Change L2R
+      </button>
+
+      <button
+        id="mergeFullLeftToRight"
+        class="function-button"
+        title="Merges the entire left side contents, replacing the right side"
+      >
+        🔀 Merge Full L2R ➡️
+      </button>
+
+      <button
+        id="mergeFullRightToLeft"
+        class="function-button"
+        title="Merges the entire right side contents, replacing the left side"
+      >
+        ⬅️ Merge Full R2L 🔀
       </button>
 
       <button
@@ -206,17 +258,26 @@
       <button
         id="toggleRTLtoLTR"
         class="function-button"
-        title="Toggles wordwrap on and off"
+        title="Toggles text direction. Default is RTL"
       >
         LTR ↔️ RTL
       </button>
       <button
         id="toggleWordWrap"
         class="function-button"
-        title="Toggles wordwrap on and off"
+        title="Toggles wrapping text lines. Default is on"
       >
         Wordwrap ↲
       </button>
+
+      <button
+        id="toggleIgnoreWhitespace"
+        class="function-button"
+        title="Toggles ignoring whitespace. Default is off"
+      >
+        Ignore Spaces ⬜
+      </button>
+
       <button
         id="swapSides"
         class="function-button"
@@ -224,6 +285,42 @@
       >
         Swap Sides 🔄
       </button>
+
+      <button
+        id="uploadLeftContent"
+        class="function-button"
+        title="Select a file and have its contents in the left side"
+      >
+        📤 Upload L Content
+      </button>
+
+      <button
+        id="uploadRightContent"
+        class="function-button"
+        title="Select a file and have its contents in the right side"
+      >
+        Upload R Content 📤
+      </button>
+
+      <input type="file" id="fileInputLeft" style="display: none" />
+      <input type="file" id="fileInputRight" style="display: none" />
+
+      <button
+        id="saveLeftContent"
+        class="function-button"
+        title="Save the left side content as a text file"
+      >
+        💾 Save L Content
+      </button>
+
+      <button
+        id="saveRightContent"
+        class="function-button"
+        title="Save the right side content as a text file"
+      >
+        Save R Content 💾
+      </button>
+
       <button
         id="diffSummary"
         class="function-button"
@@ -248,7 +345,7 @@
         class="function-button"
         title="Explains what this page does"
       >
-        ❓
+        Help❓
       </button>
       <div
         id="helpPopup"
@@ -256,37 +353,20 @@
       >
         View differences between two texts, side by side. You can also merge the
         changes you want, to where you want them. Differences in the text are
-        colored so you can clearly see what has changed. Left side should be
-        used for original/old text, and right side should be used for
-        new/updated text. Red text shows what was removed, blue text shows what
-        was added. There are various buttons provided on thss page, which do
-        different functions. In the middle of the two texts is a gap where lines
-        show which blocks of texts have changed even if they are in different
-        places. There are purple margins to the sides of each text, where if the
-        text is long enough, these margins can be used to jump to the relevant
-        place in the text.
+        colored so you can clearly see what has changed. Catches difference even
+        in spaces and filis. Left side should be used for original/old text, and
+        right side should be used for new/updated text. Red text shows what was
+        removed, blue text shows what was added. There are various buttons
+        provided on thss page, which do different functions. In the middle of
+        the two texts is a gap where lines show which blocks of texts have
+        changed even if they are in different places. There are purple margins
+        to the sides of each text, where if the text is long enough, these
+        margins can be used to jump to the relevant place in the text.
       </div>
 
       <!--
       ADD FONT RESIZER - LATER !!! -->
     </div>
-
-    <style>
-      #compare {
-        height: 88vh;
-        /* inherit */
-      }
-
-      .CodeMirror {
-        /* Set height, width, borders, and global font properties here */
-        font-family: inherit;
-        /* monospace */
-      }
-
-      .CodeMirror pre.CodeMirror-line {
-        line-height: 1.5;
-      }
-    </style>
 
     <div id="compare"></div>
     <script>
@@ -348,14 +428,14 @@
       //
 
       document
-        .getElementById("mergeLeftToRight")
+        .getElementById("mergeChangeLeftToRight")
         .addEventListener("click", () => {
           doc.mergeCurrentChange("lhs");
         });
       //
 
       document
-        .getElementById("mergeRightToLeft")
+        .getElementById("mergeChangeRightToLeft")
         .addEventListener("click", () => {
           doc.mergeCurrentChange("rhs");
         });
@@ -398,6 +478,32 @@
         });
       //
 
+      let ignoreWhitespace = false; // Initial state for ignore whitespace
+
+      document
+        .getElementById("toggleIgnoreWhitespace")
+        .addEventListener("click", () => {
+          ignoreWhitespace = !ignoreWhitespace; // Toggle the state
+          doc.options({ ignorews: ignoreWhitespace }); // Set the option
+          //updateButtonStyle("toggleIgnoreWhitespace", ignoreWhitespace);
+        });
+
+      // Function to update button style based on state
+      /*function updateButtonStyle(buttonId, isActive) {
+        const button = document.getElementById(buttonId);
+        if (isActive) {
+          button.classList.add("active");
+        } else {
+          button.classList.remove("active");
+        }
+      }
+
+      // Initial button style setup
+      updateButtonStyle("toggleWordWrap", wrapLines);
+      updateButtonStyle("toggleIgnoreWhitespace", ignoreWhitespace);
+      */
+      //
+
       document.getElementById("swapSides").addEventListener("click", () => {
         doc.swap();
       });
@@ -416,6 +522,20 @@
           //console.error("Failed to copy: ", err);
         }
       }
+      //
+
+      document
+        .getElementById("mergeFullLeftToRight")
+        .addEventListener("click", () => {
+          doc.merge("lhs");
+        });
+
+      document
+        .getElementById("mergeFullRightToLeft")
+        .addEventListener("click", () => {
+          doc.merge("rhs");
+        });
+      //
 
       // Copy Left Side functionality
       document.getElementById("copyLHS").addEventListener("click", () => {
@@ -502,6 +622,87 @@
         }
       });
       //
+
+      function handleFileSelect(side) {
+        return function (event) {
+          const file = event.target.files[0];
+          if (!file) {
+            return;
+          }
+
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const content = e.target.result;
+            if (side === "left") {
+              // Assuming you have a function to set the left content
+              setLeftContent(content);
+            } else {
+              // Assuming you have a function to set the right content
+              setRightContent(content);
+            }
+          };
+          reader.readAsText(file);
+        };
+      }
+
+      document
+        .getElementById("uploadLeftContent")
+        .addEventListener("click", () => {
+          document.getElementById("fileInputLeft").click();
+        });
+
+      document
+        .getElementById("uploadRightContent")
+        .addEventListener("click", () => {
+          document.getElementById("fileInputRight").click();
+        });
+
+      document
+        .getElementById("fileInputLeft")
+        .addEventListener("change", handleFileSelect("left"));
+      document
+        .getElementById("fileInputRight")
+        .addEventListener("change", handleFileSelect("right"));
+
+      // Placeholder functions - replace these with your actual implementation
+
+      // Implement your logic to set the left content here
+      function setLeftContent(content) {
+        //console.log("Setting left content:", content);
+        doc.lhs(content);
+      }
+
+      // Implement your logic to set the right content here
+      function setRightContent(content) {
+        //console.log("Setting right content:", content);
+        doc.rhs(content);
+      }
+      //
+
+      function saveContent(side) {
+        const content = doc.get(side);
+        const blob = new Blob([content], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = side === "lhs" ? "left_content.txt" : "right_content.txt";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      document
+        .getElementById("saveLeftContent")
+        .addEventListener("click", () => {
+          saveContent("lhs");
+        });
+
+      document
+        .getElementById("saveRightContent")
+        .addEventListener("click", () => {
+          saveContent("rhs");
+        });
 
       //
     </script>
