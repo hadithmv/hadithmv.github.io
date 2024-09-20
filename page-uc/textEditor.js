@@ -1578,11 +1578,10 @@ the textarea text should be replaced each time the button is clicked
 when the button is first clicked, show an input boxes saying "How many?" placeholder, which lets the user input a number, after which, further clicks on the button will repeat the lines of text according to the number given in the input
 the input boxes should not show before the button has been clicked
   */
-  const repeatLinesBtn = document.getElementById("repeatLines");
   const repeatInput = document.getElementById("repeatInput");
 
   // New Repeat Lines functionality
-  repeatLinesBtn.addEventListener("click", () => {
+  document.getElementById("repeatLines").addEventListener("click", () => {
     if (repeatInput.style.display === "none") {
       repeatInput.style.display = "inline-block";
       repeatInput.value = "2";
