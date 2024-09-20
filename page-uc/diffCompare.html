@@ -471,8 +471,9 @@
         over them on desktop shows what they do. In the middle of the two texts
         is a gap where lines show which blocks of texts have changed even if
         they are in different places. There are purple margins to the sides of
-        each text, where if the text is long enough, these margins can be used
-        to jump to the relevant place in the text.
+        each text, where if the text is long enough, these margins can be
+        clicked to jump to the relevant place in the text. You can drag and drop
+        text files onto either side to place the contents there.
       </div>
 
       <!-- -->
@@ -908,6 +909,17 @@
       }
       //
 
+      /*
+      so this is my code:
+      ...
+      the above code generates via js the following elements:
+      ...
+      what i want is
+if a file were to be drag and dropped onto #compare > .mergely-editor > .CodeMirror.cm-s-default:nth-child(3), i want the contents to be shown in the left hand side
+
+and if a file were to be drag and dropped onto #compare > .mergely-editor > .CodeMirror.cm-s-default:nth-child(6), i want the content to be shown in the right hand side
+      */
+
       function saveContent(side) {
         const content = doc.get(side);
         const blob = new Blob([content], { type: "text/plain" });
@@ -932,7 +944,49 @@
         .addEventListener("click", () => {
           saveContent("rhs");
         });
+      //
 
+      const leftEditor = document.querySelector(
+        "#compare > .mergely-editor > .CodeMirror.cm-s-default:nth-child(3)"
+      );
+      const rightEditor = document.querySelector(
+        "#compare > .mergely-editor > .CodeMirror.cm-s-default:nth-child(6)"
+      );
+
+      setupDragAndDrop(leftEditor, setLeftContent);
+      setupDragAndDrop(rightEditor, setRightContent);
+
+      function setupDragAndDrop(element, setContentFunction) {
+        ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+          element.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+
+        element.addEventListener("drop", handleDrop, false);
+
+        function handleDrop(e) {
+          const dt = e.dataTransfer;
+          const file = dt.files[0];
+
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            setContentFunction(event.target.result);
+          };
+          reader.readAsText(file);
+        }
+      }
+
+      function setLeftContent(content) {
+        doc.lhs(content);
+      }
+
+      function setRightContent(content) {
+        doc.rhs(content);
+      }
       //
     </script>
 
