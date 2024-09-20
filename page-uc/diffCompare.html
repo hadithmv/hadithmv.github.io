@@ -133,6 +133,15 @@
         color: white;
       }*/
 
+      .buttonInput {
+        width: 90px; /* 60 */
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 18px; /* 14 */
+        text-align: center;
+      }
+
       /* only for MOBILE size */
       @media (max-width: 599px) {
         .buttons-container {
@@ -169,20 +178,38 @@
         line-height: 1.5;
       }
 
-      /* removes sidebars, only for MOBILE size */
+      /* only for MOBILE size */
       @media (max-width: 599px) {
+        /* removes purple margin sidebars */
         /*.mergely-editor .mergely-margin canvas*/
         .mergely-margin {
           width: 0;
           /*visibility: hidden;*/ /* this leaves gaps where sidebars would have been */
           /*display: none;*/ /* this removes compare branches as well */
         }
+
+        /* removes line numbers */
+        div.CodeMirror-linenumber {
+          display: none;
+        }
+        /* reduces line number width */
+        .CodeMirror-linenumbers {
+          width: 10px !important;
+        }
+        /* reduces merge button left right size */
+        .merge-button {
+          font-size: 15px;
+        }
+        #compare-lhs-rhs-canvas {
+          width: 22px; /* 28 */
+          margin-right: -6px;
+        }
       }
 
       /* gives more width to gutter where line numbers are, otherwise too squashed up */
       /*div.CodeMirror-gutter.CodeMirror-linenumbers*/
       .CodeMirror-linenumbers {
-        width: 35px;
+        width: 45px;
       }
     </style>
     <div class="buttons-container">
@@ -229,7 +256,7 @@
         class="function-button"
         title="Merges the entire left side contents, replacing the right side"
       >
-        🔀 Merge Full L2R ➡️
+        Merge Full L2R 🔀
       </button>
 
       <button
@@ -237,7 +264,16 @@
         class="function-button"
         title="Merges the entire right side contents, replacing the left side"
       >
-        ⬅️ Merge Full R2L 🔀
+        <span style="display: inline-block; transform: rotate(180deg)">🔀</span>
+        Merge Full R2L
+      </button>
+
+      <button
+        id="swapSides"
+        class="function-button"
+        title="Swaps the right hand side contents with the left hand side contents"
+      >
+        Swap Sides 🔄
       </button>
 
       <button
@@ -245,15 +281,116 @@
         class="function-button"
         title="Copies the contents of the left-hand side"
       >
-        📋 Copy L Side ◄
+        Copy L 📋
       </button>
       <button
         id="copyRHS"
         class="function-button"
         title="Copies the contents of the right-hand side"
       >
-        ► Copy R Side 📋
+        <span style="display: inline-block; transform: rotate(180deg)">📋</span>
+        Copy R
       </button>
+
+      <button
+        id="uploadLeftContent"
+        class="function-button"
+        title="Select a file and have its contents in the left side"
+      >
+        Upload L 📤
+      </button>
+
+      <button
+        id="uploadRightContent"
+        class="function-button"
+        title="Select a file and have its contents in the right side"
+      >
+        📤 Upload R
+      </button>
+
+      <input type="file" id="fileInputLeft" style="display: none" />
+      <input type="file" id="fileInputRight" style="display: none" />
+
+      <button
+        id="saveLeftContent"
+        class="function-button"
+        title="Save the left side content as a text file"
+      >
+        Save L 💾
+      </button>
+
+      <button
+        id="saveRightContent"
+        class="function-button"
+        title="Save the right side content as a text file"
+      >
+        💾 Save R
+      </button>
+
+      <button
+        id="goToLeftSideLineNumber"
+        class="function-button"
+        title="Jumps to the line number on the left side, that was input in the box that shows after this button is clicked the first time"
+      >
+        L Line No #️⃣
+      </button>
+      <input
+        id="leftLineNumber"
+        type="number"
+        placeholder="L Line #"
+        class="buttonInput input1"
+        style="display: none"
+        min="1"
+      />
+
+      <button
+        id="goToRightSideLineNumber"
+        class="function-button"
+        title="Jumps to the line number on the right side, that was input in the box that shows after this button is clicked the first time"
+      >
+        #️⃣ R Line No
+      </button>
+      <input
+        id="rightLineNumber"
+        type="number"
+        placeholder="R Line #"
+        class="buttonInput input2"
+        style="display: none"
+        min="1"
+      />
+
+      <!-- -->
+
+      <button
+        id="searchLeftSide"
+        class="function-button"
+        title="Jumps to the search time on the left side, that was input in the box that shows after this button is clicked the first time"
+      >
+        L Search 🔍
+      </button>
+      <input
+        id="leftSearchTerm"
+        type="text"
+        placeholder="Search Left"
+        class="buttonInput"
+        style="display: none"
+      />
+
+      <button
+        id="searchRightSide"
+        class="function-button"
+        title="Jumps to the search time on the right side, that was input in the box that shows after this button is clicked the first time"
+      >
+        🔍 R Search
+      </button>
+
+      <input
+        id="rightSearchTerm"
+        type="text"
+        placeholder="Search Right"
+        class="buttonInput"
+        style="display: none"
+      />
 
       <button
         id="toggleRTLtoLTR"
@@ -279,46 +416,19 @@
       </button>
 
       <button
-        id="swapSides"
+        id="toggleLineNumbers"
         class="function-button"
-        title="Swaps the right hand side contents with the left hand side contents"
+        title="Toggles showing line numbers. Default is on. Note this will also toggle merge arrows left and right"
       >
-        Swap Sides 🔄
+        Line Nos 🔢
       </button>
 
       <button
-        id="uploadLeftContent"
+        id="toggleMarkup"
         class="function-button"
-        title="Select a file and have its contents in the left side"
+        title="Toggles the markup/colors that highlight the differences. Default is on"
       >
-        📤 Upload L Content
-      </button>
-
-      <button
-        id="uploadRightContent"
-        class="function-button"
-        title="Select a file and have its contents in the right side"
-      >
-        Upload R Content 📤
-      </button>
-
-      <input type="file" id="fileInputLeft" style="display: none" />
-      <input type="file" id="fileInputRight" style="display: none" />
-
-      <button
-        id="saveLeftContent"
-        class="function-button"
-        title="Save the left side content as a text file"
-      >
-        💾 Save L Content
-      </button>
-
-      <button
-        id="saveRightContent"
-        class="function-button"
-        title="Save the right side content as a text file"
-      >
-        Save R Content 💾
+        Markup 🎨
       </button>
 
       <button
@@ -326,7 +436,7 @@
         class="function-button"
         title="Shows a statistical summary of the differences"
       >
-        Diff Summary 📊
+        Diff Stats 📊
       </button>
       <div
         id="summaryPopup"
@@ -353,16 +463,19 @@
       >
         View differences between two texts, side by side. You can also merge the
         changes you want, to where you want them. Differences in the text are
-        colored so you can clearly see what has changed. Catches difference even
-        in spaces and filis. Left side should be used for original/old text, and
-        right side should be used for new/updated text. Red text shows what was
-        removed, blue text shows what was added. There are various buttons
-        provided on thss page, which do different functions. In the middle of
-        the two texts is a gap where lines show which blocks of texts have
-        changed even if they are in different places. There are purple margins
-        to the sides of each text, where if the text is long enough, these
-        margins can be used to jump to the relevant place in the text.
+        colored so you can clearly see what has changed. Catches differences
+        even in spaces and filis. Left side should be used for original/old
+        text, and right side should be used for new/updated text. Red text shows
+        what was removed, blue text shows what was added. There are various
+        buttons provided on thss page, which do different functions, hovering
+        over them on desktop shows what they do. In the middle of the two texts
+        is a gap where lines show which blocks of texts have changed even if
+        they are in different places. There are purple margins to the sides of
+        each text, where if the text is long enough, these margins can be used
+        to jump to the relevant place in the text.
       </div>
+
+      <!-- -->
 
       <!--
       ADD FONT RESIZER - LATER !!! -->
@@ -478,8 +591,7 @@
         });
       //
 
-      let ignoreWhitespace = false; // Initial state for ignore whitespace
-
+      let ignoreWhitespace = false; // Initial state
       document
         .getElementById("toggleIgnoreWhitespace")
         .addEventListener("click", () => {
@@ -549,6 +661,25 @@
         copyToClipboard(rightContent);
       });
       //
+
+      let lineNumbers = true; // Initial state
+      document
+        .getElementById("toggleLineNumbers")
+        .addEventListener("click", () => {
+          lineNumbers = !lineNumbers; // Toggle the state
+          doc.options({ line_numbers: lineNumbers }); // Set the option
+        });
+      //
+
+      let markUp = true; // Initial state
+      document.getElementById("toggleMarkup").addEventListener("click", () => {
+        if (markUp) {
+          doc.unmarkup(); // Remove markup when markUp is false
+        } else {
+          doc.update(); // Apply markup when markUp is true
+        }
+        markUp = !markUp; // Toggle the state
+      });
 
       /*
         this is the documentation:
@@ -621,6 +752,104 @@
           popup.style.display = "none";
         }
       });
+      //
+
+      const leftLineNumber = document.getElementById("leftLineNumber");
+      const rightLineNumber = document.getElementById("rightLineNumber");
+      const goToLeftSideLineNumber = document.getElementById(
+        "goToLeftSideLineNumber"
+      );
+      const goToRightSideLineNumber = document.getElementById(
+        "goToRightSideLineNumber"
+      );
+
+      function scrollToLine(side) {
+        const input = side === "left" ? leftLineNumber : rightLineNumber;
+        const line = Math.max(1, parseInt(input.value, 10));
+        if (!isNaN(line)) {
+          doc.scrollTo(side === "left" ? "lhs" : "rhs", line);
+          input.value = line; // Update input value if it was below 1
+        }
+      }
+
+      function setupLineNavigation(button, input, side) {
+        button.addEventListener("click", () => {
+          if (input.style.display === "none") {
+            input.style.display = "inline-block";
+            input.focus();
+          } else {
+            scrollToLine(side);
+          }
+        });
+
+        input.addEventListener("keydown", (event) => {
+          if (event.key === "Enter") {
+            scrollToLine(side);
+            event.preventDefault(); // Prevent form submission if within a form
+          }
+        });
+
+        input.addEventListener("change", () => scrollToLine(side));
+
+        // Prevent manual input of values less than 1
+        input.addEventListener("input", () => {
+          if (input.value < 1) {
+            input.value = 1;
+          }
+        });
+      }
+
+      setupLineNavigation(goToLeftSideLineNumber, leftLineNumber, "left");
+      setupLineNavigation(goToRightSideLineNumber, rightLineNumber, "right");
+
+      /*const leftLineNumber = document.getElementById("leftLineNumber");
+      document
+        .getElementById("goToLeftSideLineNumber")
+        .addEventListener("click", () => {
+          if (leftLineNumber.style.display === "none") {
+            // First click: show the input
+            leftLineNumber.style.display = "inline-block";
+          } else {
+            // Subsequent clicks: apply
+            const leftLine = parseInt(leftLineNumber.value);
+            doc.scrollTo("lhs", leftLine);
+          }
+        });*/
+      //
+
+      const leftSearchTerm = document.getElementById("leftSearchTerm");
+      const rightSearchTerm = document.getElementById("rightSearchTerm");
+      const searchLeftSide = document.getElementById("searchLeftSide");
+      const searchRightSide = document.getElementById("searchRightSide");
+
+      function searchTerm(side) {
+        const input = side === "left" ? leftSearchTerm : rightSearchTerm;
+        const term = input.value.trim();
+        if (term) {
+          doc.search(side === "left" ? "lhs" : "rhs", term);
+        }
+      }
+
+      function setupSearch(button, input, side) {
+        button.addEventListener("click", () => {
+          if (input.style.display === "none") {
+            input.style.display = "inline-block";
+            input.focus();
+          } else {
+            searchTerm(side);
+          }
+        });
+
+        input.addEventListener("keydown", (event) => {
+          if (event.key === "Enter") {
+            searchTerm(side);
+            event.preventDefault();
+          }
+        });
+      }
+
+      setupSearch(searchLeftSide, leftSearchTerm, "left");
+      setupSearch(searchRightSide, rightSearchTerm, "right");
       //
 
       function handleFileSelect(side) {
