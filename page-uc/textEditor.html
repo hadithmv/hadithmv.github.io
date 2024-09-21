@@ -210,6 +210,11 @@
         display: none;
         margin-left: 10px;
       }
+
+      #doubleFiliResults {
+        text-align: right;
+        direction: rtl;
+      }
     </style>
   </head>
   <body>
@@ -250,7 +255,11 @@
             <button id="addTab">+</button>
           </div>
           <textarea id="textArea"></textarea>
+          <!-- -->
+          <div id="doubleFiliResults" style="display: none"></div>
+          <!-- -->
           <div class="buttons-container">
+            <!-- -->
             <button
               id="clearAll"
               class="function-button"
@@ -392,12 +401,21 @@
             >
               Rmv Lead 0️⃣s
             </button>
+
+            <button
+              id="findDoubleFilis"
+              class="function-button"
+              title="Finds fili related issues, such as: 1. Repeated fili / diacritics / harakat in Arabic and Dhivehi. 2. Letters without fili in Dhivehi (except hus nuun). 3. Fili without letters in Arabic and Dhivehi"
+            >
+              Find Fili Issues 🏝️
+            </button>
+
             <button
               id="removeThikijehiThaana"
               class="function-button"
               title="Replaces most thikijehi thaana letters to those without thiki"
             >
-              Rmv ThikijehiThaana 🏝️
+              Rmv ThikijehiThaana
             </button>
 
             <button
@@ -429,6 +447,7 @@
             >
               Trnsltrt Ar → Dv
             </button>
+
             <button
               id="removeDhivehiFili"
               class="function-button"
@@ -436,6 +455,7 @@
             >
               Rmv Dhiv Fili
             </button>
+
             <button
               id="removePunctuation"
               class="function-button"
