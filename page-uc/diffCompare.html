@@ -296,17 +296,17 @@
       <button
         id="uploadLeftContent"
         class="function-button"
-        title="Select a file and have its contents in the left side"
+        title="Select a file and have its contents in the left side. Note: doesn't work on the Android app"
       >
-        Upload L 📤
+        Load L 📤
       </button>
 
       <button
         id="uploadRightContent"
         class="function-button"
-        title="Select a file and have its contents in the right side"
+        title="Select a file and have its contents in the right side. Note: doesn't work on the Android app"
       >
-        📤 Upload R
+        📤 Load R
       </button>
 
       <input type="file" id="fileInputLeft" style="display: none" />
@@ -315,7 +315,7 @@
       <button
         id="saveLeftContent"
         class="function-button"
-        title="Save the left side content as a text file"
+        title="Save the left side content as a text file. Note: doesn't work on the Android app"
       >
         Save L 📩
       </button>
@@ -323,7 +323,7 @@
       <button
         id="saveRightContent"
         class="function-button"
-        title="Save the right side content as a text file"
+        title="Save the right side content as a text file. Note: doesn't work on the Android app"
       >
         📩 Save R
       </button>
@@ -499,7 +499,7 @@
 
       const doc = new Mergely("#compare", {
         lhs: "عَنْ عَبْدِ اللَّهِ بْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُ،\nقَالَ رَسُولُ اللَّهِ ﷺ:\n\nޢަބްދު ﷲ ބިން ޢުމަރު رَضِيَ اللَّهُ عَنْهُ ގެ އަރިހުން ރިވާވެގެންވެއެވެ.\nރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ:",
-        rhs: "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا قَالَ،\nسَمِعْتُ النَّبِيَّ ﷺ يَقُولُ:\n\nއިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ވިދާޅުވިކަމަށް ރިވާވެގެންވެއެވެ.\nނަބިއްޔާ ﷺ ޙަދީޘްކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ:",
+        rhs: "عَنْ ابْنِ عُمَرَ رَضِيَ اللَّهُ عَنْهُمَا،\nيَقُولُ الرَسُولُ:\n\nއިބްނު ޢުމަރު رَضِيَ اللَّهُ عَنْهُمَا ގެ އަރިހުން ރިވާވެފައިވެއެވެ.\nރަސޫލާ ޙަދީޘުކުރެއްވިއެވެ.",
 
         wrap_lines: true,
 
