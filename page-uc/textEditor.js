@@ -1193,6 +1193,32 @@ but its okay if character u0782 is not followed by a diacritic
 I also want to find and show: Diacritics without letters in both Arabic and Dhivehi
 remember that a shadda can be followed by a fatha damma kasra
 
+if a standalone issue is followed by a multiple issue, it should be shown as just a multiple issue, not a standalone and multiple issue
+
+it shows the diacritic with issue, with the diacritic without issue before it
+what i want is, i want the letter before the diacritic without issue to also show, followed by a space, followed by the diacritic with issue
+
+i also want another space after the issue description
+
+currently it gives:
+1. عَنِْ عَبْدِ : Multiple Fili: ن ِْ
+2. قَالَ ِ رَسُولُ : Standalone Fili: ِ
+3. رَسُولُ اللَّهَِ ﷺ : Multiple Fili: ه َِ
+4. ﷺ ޢަބްދ ﷲ : Thaana without Fili: ް ދ
+5. ބިން ު ޢުމަރު : Standalone Fili: ު
+6. އަރިހުން ރިަވާވެގެންވެއެވެ. ރަސޫލު : Multiple Fili: ރ ިަ
+7. ﷺ ޙަދީޘްކުރެއްވިއެިވެ : Multiple Fili: އ ެި
+
+when it should be giving:
+1. عَنِْ عَبْدِ : Multiple Fili :  نْ ِ
+2. قَالَ ِ رَسُولُ : Standalone Fili :  لَ  ِ 
+3. رَسُولُ اللَّهَِ ﷺ : Multiple Fili:  هِ َ
+4. ﷺ ޢަބްދ ﷲ : Thaana without Fili :  ް ދ
+5. ބިން ު ޢުމަރު : Standalone Fili :  ން ު
+6. އަރިހުން ރިަވާވެގެންވެއެވެ. ރަސޫލު : Multiple Fili :  ރި ަ
+7. ﷺ ޙަދީޘްކުރެއްވިއެިވެ : Multiple Fili :  އެ ި
+
+i want one more space after the colon that comes after the issue description
 
   */
 
@@ -1281,45 +1307,70 @@ remember that a shadda can be followed by a fatha damma kasra
   }
 
   function displayResults(results) {
+    // Check if any issues were found
     if (results.length === 0) {
       resultsDiv.innerHTML = "No issues found.";
       resultsDiv.style.display = "block";
       return;
     }
 
+    // Split the input text into words
     const words = textArea.value.split(/\s+/);
     let html = "";
 
+    // Iterate through each result (word with issues)
     results.forEach((result, index) => {
+      // Get the words before and after the current word for context
       const prevWord = words[result.index - 1] || "";
       const nextWord = words[result.index + 1] || "";
 
+      // Process each issue in the current word
       let issueDescriptions = result.issues
         .map((issue) => {
-          const chars =
-            issue.type === "multiple"
-              ? result.word.slice(issue.index, issue.index + 2)
-              : result.word[issue.index];
+          let chars;
+          // Handle different types of issues
+          if (issue.type === "multiple") {
+            // For multiple Fili, show the base character and both diacritics
+            const baseChar = result.word[issue.index - 1] || "";
+            const firstDiacritic = result.word[issue.index];
+            const secondDiacritic = result.word[issue.index + 1];
+            chars = `${baseChar}${firstDiacritic} ${secondDiacritic}`;
+          } else if (issue.type === "standalone") {
+            // For standalone Fili, show the base character and the diacritic
+            const baseChar = result.word[issue.index - 1] || "";
+            const diacritic = result.word[issue.index];
+            chars = `${baseChar} ${diacritic}`;
+          } else {
+            // noDvFili
+            // For Thaana without Fili, show the previous character and the current one
+            const prevChar = result.word[issue.index - 1] || "";
+            chars = `${prevChar} ${result.word[issue.index]}`;
+          }
 
+          // Create the description string based on the issue type
           let description;
           switch (issue.type) {
             case "multiple":
-              description = `Multiple Fili: ${chars}`;
+              description = `Multiple Fili :&nbsp; ${chars}`;
               break;
             case "noDvFili":
-              description = `Thaana without Fili: ${chars}`;
+              description = `Thaana without Fili :&nbsp; ${chars}`;
               break;
             case "standalone":
-              description = `Standalone Fili: ${chars}`;
+              description = `Standalone Fili :&nbsp; ${chars}`;
               break;
           }
           return description;
         })
         .join(", ");
 
-      html += `${index + 1}. ${prevWord} <span style="color: blue;">${result.word}</span> ${nextWord} : <span style="color: red;">${issueDescriptions}</span><br>`;
+      // Construct the HTML for this result
+      // Include the index, previous word, the word with issues (in blue), next word,
+      // and the issue descriptions (in red)
+      html += `${index + 1}. ${prevWord} <span style="color: blue;">${result.word}</span> ${nextWord} : <span style="color: red;">${issueDescriptions}</span> <br>`;
     });
 
+    // Update the results div with the generated HTML and make it visible
     resultsDiv.innerHTML = html;
     resultsDiv.style.display = "block";
   }
