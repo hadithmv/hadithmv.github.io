@@ -1138,13 +1138,44 @@ when there is a ّ  character that comes after an arabic character, the output s
   const converter = new NumberToDhivehi();
 
   document.getElementById("Nos2DvTxt").addEventListener("click", () => {
-    const numbers = textArea.value.match(/\d+/g);
+    /*
+this code joins new lines with comma, instead of keeping them as they are
+
+i want commas when the a sequence of numbers are on the same line
+
+like
+123
+456 789
+101112
+
+should give
+one hundred twenty-three
+four hundred fifty-six, seven hundred eighty-nine
+one hundred one thousand one hundred twelve
+
+i dont want output to have multiple spaces
+    */
+    const lines = textArea.value.split("\n");
+    const convertedLines = lines.map((line) => {
+      const numbers = line.match(/\d+/g);
+      if (numbers) {
+        return numbers
+          .map((num) => converter.convert(num).replace(/\s+/g, " ").trim())
+          .join("، ");
+      }
+      return line.trim(); // Trim any whitespace from lines without numbers
+    });
+    textArea.value = convertedLines
+      .filter((line) => line.length > 0)
+      .join("\n");
+
+    /*const numbers = textArea.value.match(/\d+/g);
     if (numbers) {
       const convertedText = numbers
         .map((num) => converter.convert(num))
         .join(", ");
       textArea.value = convertedText;
-    }
+    }*/
     updateStats(); // Assuming this function exists in your code
   });
   //
