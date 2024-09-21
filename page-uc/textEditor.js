@@ -1354,7 +1354,7 @@ i want one more space after the colon that comes after the issue description
               description = `Multiple Fili :&nbsp; ${chars}`;
               break;
             case "noDvFili":
-              description = `Thaana without Fili :&nbsp; ${chars}`;
+              description = `Thaana w/o Fili :&nbsp; ${chars}`;
               break;
             case "standalone":
               description = `Standalone Fili :&nbsp; ${chars}`;
