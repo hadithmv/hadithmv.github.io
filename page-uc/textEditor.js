@@ -1184,73 +1184,84 @@ example:
 1. ބިން ޢުމަރުި رَضِيَ  :  ރު ި
 2. اللَّهُ عََنْهُ ގެ : عَ َ
 3. ގެ އަރިަހުން ރިވާވެގެންވެއެވެ. : ރި ަ
+
+i also want it to find and show:
+Letters not followed diacritics in Dhivehi
+the Dhivehi letters Unicode block is: u0780-u07a5
+but its okay if character u0782 is not followed by a diacritic
+
+I also want to find and show: Diacritics without letters in both Arabic and Dhivehi
+remember that a shadda can be followed by a fatha damma kasra
+
+
   */
 
-  // Get references to the results div
-  const resultsDiv = document.getElementById("doubleFiliResults");
+  const resultsDiv = document.getElementById("filiIssuesResults");
 
-  // Add click event listener to the "Find Double Filis" button
-  document.getElementById("findDoubleFilis").addEventListener("click", () => {
-    // Get the current text from the textarea
+  document.getElementById("findFiliIssues").addEventListener("click", () => {
     const text = textArea.value;
-    // Find repeated diacritics in the text
-    const results = findDoubleFilis(text);
-    // Display the results
+    const results = findIssues(text);
     displayResults(results);
   });
 
-  // Function to find repeated diacritics in the text
-  function findDoubleFilis(text) {
-    // Regular expressions for Dhivehi and Arabic diacritics
-    // Dhivehi diacritics range: U+07A6 to U+07B0
+  function findIssues(text) {
     const dhivehiDiacritics = /[\u07a6-\u07b0]/;
-    // Arabic diacritics ranges: U+064B to U+0650 and U+0652 to U+0656
     const arabicDiacritics = /[\u064b-\u0650\u0652-\u0656]/;
-    // Shadda character: U+0651
+    const dhivehiLetters = /[\u0780-\u07a5]/;
     const shadda = "\u0651";
-    // Diacritics allowed after shadda: fatha (U+064E), damma (U+064F), kasra (U+0650)
     const allowedAfterShadda = /[\u064e\u064f\u0650]/;
 
-    // Split the text into words using whitespace as separator
     const words = text.split(/\s+/);
     const results = [];
 
-    // Iterate through each word in the text
     for (let i = 0; i < words.length; i++) {
       const word = words[i];
-      let hasRepeatedDiacritics = false;
-      let repeatedIndex = -1;
+      let issues = [];
 
-      // Check for repeated diacritics within the word
-      for (let j = 0; j < word.length - 1; j++) {
+      for (let j = 0; j < word.length; j++) {
         const current = word[j];
-        const next = word[j + 1];
+        const next = word[j + 1] || "";
+        const prev = word[j - 1] || "";
 
-        // Check for various cases of repeated diacritics
+        // Check for multiple diacritics
         if (
-          // Case 1: Two consecutive Dhivehi diacritics
           (dhivehiDiacritics.test(current) && dhivehiDiacritics.test(next)) ||
-          // Case 2: Two consecutive Arabic diacritics
           (arabicDiacritics.test(current) && arabicDiacritics.test(next)) ||
-          // Case 3: Shadda followed by a diacritic that's not allowed after shadda
-          (current === shadda &&
-            !allowedAfterShadda.test(next) &&
-            next !== shadda) ||
-          // Case 4: Two consecutive shadda characters
-          (next === shadda && current === shadda)
+          (current === shadda && next === shadda)
         ) {
-          hasRepeatedDiacritics = true;
-          repeatedIndex = j;
-          break; // Stop at the first occurrence of repeated diacritics
+          issues.push({ type: "multiple", index: j });
+        }
+
+        // Check for Dhivehi letters not followed by diacritics (except u0782)
+        if (
+          dhivehiLetters.test(current) &&
+          current !== "\u0782" &&
+          !dhivehiDiacritics.test(next)
+        ) {
+          issues.push({ type: "noDvFili", index: j });
+        }
+
+        // Check for standalone diacritics
+        if (
+          (dhivehiDiacritics.test(current) ||
+            arabicDiacritics.test(current) ||
+            current === shadda) &&
+          !dhivehiLetters.test(prev) &&
+          !/[\u0600-\u06FF]/.test(prev)
+        ) {
+          // Special case for shadda
+          if (current === shadda && allowedAfterShadda.test(next)) {
+            continue;
+          }
+          issues.push({ type: "standalone", index: j });
         }
       }
 
-      // If repeated diacritics found, add word info to results
-      if (hasRepeatedDiacritics) {
+      if (issues.length > 0) {
         results.push({
-          word, // The word containing repeated diacritics
-          index: i, // Index of the word in the original text
-          repeatedIndex: repeatedIndex, // Index of the first repeated diacritic in the word
+          word,
+          index: i,
+          issues,
         });
       }
     }
@@ -1258,43 +1269,47 @@ example:
     return results;
   }
 
-  // Function to display the results of repeated diacritics
   function displayResults(results) {
-    // If no results found, display a message and exit the function
     if (results.length === 0) {
-      resultsDiv.innerHTML = "No repeated diacritics found.";
+      resultsDiv.innerHTML = "No issues found.";
       resultsDiv.style.display = "block";
       return;
     }
 
-    // Split the original text into words for providing context in results
     const words = textArea.value.split(/\s+/);
     let html = "";
 
-    // Generate HTML for each result
     results.forEach((result, index) => {
-      // Get the previous and next words for context
-      // If there's no previous or next word, use an empty string
       const prevWord = words[result.index - 1] || "";
       const nextWord = words[result.index + 1] || "";
 
-      // Get the repeated diacritics and the character before, with extra space
-      // This creates the format: [character before][first diacritic] [second diacritic]
-      const repeatedDiacritics =
-        result.word[result.repeatedIndex - 1] +
-        result.word[result.repeatedIndex] +
-        " " +
-        result.word[result.repeatedIndex + 1];
+      let issueDescriptions = result.issues
+        .map((issue) => {
+          const chars =
+            issue.type === "multiple"
+              ? result.word.slice(issue.index, issue.index + 2)
+              : result.word[issue.index];
 
-      // Build the HTML string for this result
-      // Format: [index]. [previous word] [word with repeated diacritics] [next word] : [repeated diacritics]
-      // The entire word with repeated diacritics are colored blue, while the repeated diacritics at the end are colored red
-      html += `${index + 1}. ${prevWord} <span style="color: blue;">${result.word}</span> ${nextWord} : <span style="color: red;">${repeatedDiacritics}</span><br>`;
+          let description;
+          switch (issue.type) {
+            case "multiple":
+              description = `Multiple Fili:  ${chars}`;
+              break;
+            case "noDvFili":
+              description = `Thaana without Fili:  ${chars}`;
+              break;
+            case "standalone":
+              description = `Standalone Fili:  ${chars}`;
+              break;
+          }
+          return description;
+        })
+        .join(", ");
+
+      html += `${index + 1}. ${prevWord} <span style="color: blue;">${result.word}</span> ${nextWord} : <span style="color: red;">${issueDescriptions}</span><br>`;
     });
 
-    // Display the results in the resultsDiv
     resultsDiv.innerHTML = html;
-    // Make the results visible
     resultsDiv.style.display = "block";
   }
   //
