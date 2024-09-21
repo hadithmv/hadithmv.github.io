@@ -1735,6 +1735,59 @@ i want one more space after the colon that comes after the issue description
     });
   //
 
+  const seqMinInput = document.getElementById("seqMinInput");
+  const seqMaxInput = document.getElementById("seqMaxInput");
+
+  let seqMin = 1;
+  let seqMax = 10;
+
+  function generateSequence(min, max) {
+    let sequence = "";
+    for (let i = min; i <= max; i++) {
+      sequence += i + "\n";
+    }
+    return sequence.trim();
+  }
+
+  document
+    .getElementById("generateNumSequence")
+    .addEventListener("click", () => {
+      if (seqMinInput.style.display === "none") {
+        // First click: show input fields and generate sequence
+        seqMinInput.style.display = "inline-block";
+        seqMaxInput.style.display = "inline-block";
+        seqMinInput.value = seqMin;
+        //seqMaxInput.value = seqMax;
+      } else {
+        // Subsequent clicks: update range from input fields
+        seqMin = parseInt(seqMinInput.value);
+        seqMax = parseInt(seqMaxInput.value);
+
+        // Check if inputs are valid numbers
+        if (isNaN(seqMin)) seqMin = 0;
+        if (isNaN(seqMax)) seqMax = 10;
+
+        if (seqMin > seqMax) {
+          [seqMin, seqMax] = [seqMax, seqMin]; // Swap if min > max
+          seqMinInput.value = seqMin;
+          seqMaxInput.value = seqMax;
+        }
+      }
+      // Generate and display sequence
+      textArea.value = generateSequence(seqMin, seqMax);
+    });
+
+  // Update range when input values change
+  seqMinInput.addEventListener("change", () => {
+    seqMin = parseInt(seqMinInput.value);
+    if (isNaN(seqMin)) seqMin = 0;
+  });
+  seqMaxInput.addEventListener("change", () => {
+    seqMax = parseInt(seqMaxInput.value);
+    if (isNaN(seqMax)) seqMax = 10;
+  });
+  //
+
   /* generate a random number up to ten when the button is first clicked, also clicking this button should show two input boxes saying max and min respectively as placeholders, which lets the user input a custom range of values, within which, further clicks on the button will generate random numbers within the range of those given input numbers
 
 the input boxes should not show before the button has been clicked
@@ -1758,7 +1811,7 @@ the textarea text should be replaced each time the button is clicked
       RandNoMinInput.style.display = "inline-block";
       RandNoMaxInput.style.display = "inline-block";
       RandNoMinInput.value = minRange;
-      RandNoMaxInput.value = maxRange;
+      //RandNoMaxInput.value = maxRange;
     } else {
       // Subsequent clicks: update range from input fields
       minRange = parseInt(RandNoMinInput.value) || 1;
@@ -1797,7 +1850,7 @@ the input boxes should not show before the button has been clicked
   document.getElementById("repeatLines").addEventListener("click", () => {
     if (repeatInput.style.display === "none") {
       repeatInput.style.display = "inline-block";
-      repeatInput.value = "2";
+      //repeatInput.value = "2";
     } else {
       const repeatCount = parseInt(repeatInput.value) || 1;
       const originalText = textArea.value;
