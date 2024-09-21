@@ -1229,7 +1229,17 @@ remember that a shadda can be followed by a fatha damma kasra
           (arabicDiacritics.test(current) && arabicDiacritics.test(next)) ||
           (current === shadda && next === shadda)
         ) {
+          // If the previous issue was a standalone, remove it and replace with this multiple
+          if (
+            issues.length > 0 &&
+            issues[issues.length - 1].type === "standalone" &&
+            issues[issues.length - 1].index === j - 1
+          ) {
+            issues.pop();
+          }
           issues.push({ type: "multiple", index: j });
+          j++; // Skip the next character as it's part of this multiple issue
+          continue;
         }
 
         // Check for Dhivehi letters not followed by diacritics (except u0782)
@@ -1253,6 +1263,7 @@ remember that a shadda can be followed by a fatha damma kasra
           if (current === shadda && allowedAfterShadda.test(next)) {
             continue;
           }
+
           issues.push({ type: "standalone", index: j });
         }
       }
@@ -1293,13 +1304,13 @@ remember that a shadda can be followed by a fatha damma kasra
           let description;
           switch (issue.type) {
             case "multiple":
-              description = `Multiple Fili:  ${chars}`;
+              description = `Multiple Fili: ${chars}`;
               break;
             case "noDvFili":
-              description = `Thaana without Fili:  ${chars}`;
+              description = `Thaana without Fili: ${chars}`;
               break;
             case "standalone":
-              description = `Standalone Fili:  ${chars}`;
+              description = `Standalone Fili: ${chars}`;
               break;
           }
           return description;
