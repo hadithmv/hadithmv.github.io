@@ -485,13 +485,6 @@
               Sort Lines by Freq
             </button>
             <button
-              id="toggleLineNumbers"
-              class="function-button"
-              title="Adds numbers to the beginning of each line of the text followed by a dot, on the first click, and remove such line numbers and a dot, on the second"
-            >
-              Add Line Nos 🔢
-            </button>
-            <button
               id="toggleSortLines"
               class="function-button"
               title="Orders the lines of text in ascending order on first click, and by descending on the second"
@@ -677,6 +670,37 @@
             </button>
 
             <!-- -->
+
+            <button
+              id="toggleLineNumbers"
+              class="function-button"
+              title="Adds numbers to the beginning of each line of the text followed by a dot, on the first click, and remove such line numbers and a dot, on the second"
+            >
+              Add Line Nos 🧮
+            </button>
+
+            <button
+              id="generateNumSequence"
+              class="function-button"
+              title="Generates a sequence of numbers. Default is 1 - 10. But you can set a min and max range in the input boxes shown after the initial click "
+            >
+              Gen Num Seq 🔢
+            </button>
+            <input
+              id="seqMinInput"
+              type="number"
+              placeholder="Min"
+              class="buttonInput input1"
+              style="display: none"
+            />
+            <input
+              id="seqMaxInput"
+              type="number"
+              placeholder="Max"
+              class="buttonInput input2"
+              style="display: none"
+            />
+
             <button
               id="randomNum"
               class="function-button"
@@ -702,14 +726,14 @@
             <button
               id="repeatLines"
               class="function-button"
-              title="Repeats the lines of text as many times as you set, in the input box next to this button after it has been clicked once"
+              title="Repeats the lines of text. Default is two times. Or the value you set in the input box next to this button after it has been clicked once"
             >
               Repeat Lines 🔁
             </button>
             <input
               id="repeatInput"
               type="number"
-              placeholder="How many?"
+              placeholder="Times?"
               class="buttonInput"
               style="display: none"
             />
