@@ -40,6 +40,12 @@ matches:
     replace: ﴿
   - trigger: "{--"
     replace: ﴾
+  - trigger: ރހމ-
+    replace: رحمه الله
+  - trigger: رحم-
+    replace: رحمه الله
+  - trigger: rahim-
+    replace: رحمه الله
   - trigger: رض-
     replace: رَضِيَ اللَّهُ عَنْهُ
   - trigger: ރއ-
