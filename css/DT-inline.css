@@ -336,6 +336,12 @@ https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/140
   /*margin-right: 1em;*/
   color: #555;
 }
+
+.pageFootnotes p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 /* adds line above footnote, In order for the new lines to work properly, you also need to set the white-space property to either pre or pre-wrap. however this isnt selectable or copyable, so added it in the html itself . */
 /*.pageFootnotes::before {
   content: "_________\a";
