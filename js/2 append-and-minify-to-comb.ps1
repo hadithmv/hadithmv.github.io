@@ -83,4 +83,71 @@ Main differences:
 4. The second script has a final completion message.
 
 Both scripts accomplish the same task, but the first one is slightly more maintainable due to variable usage, while the second one preserves original files at the cost of additional file operations.
+
+
+...
+
+B
+look at this code
+
+# Set the location to the script's directory
+Set-Location -Path $PSScriptRoot
+
+# Function to minify and append files
+function Minify-And-Append {
+    param (
+        [string]$sourceFile,
+        [string]$targetFile
+    )
+
+    $tempFile1 = "temp1.js"
+    $tempFile2 = "temp2.js"
+
+    google-closure-compiler --charset=UTF-8 --js $sourceFile --js_output_file $tempFile1
+    uglifyjs $tempFile1 -c -m -o $tempFile2
+    Add-Content -Path $targetFile -Value "`n// $sourceFile"
+    Get-Content -Path $tempFile2 | Add-Content -Path $targetFile
+    Remove-Item -Path $tempFile1, $tempFile2
+    Write-Output "Minified and copied: $sourceFile"
+}
+
+# Clear the content of ALL-COMB.min.js
+Clear-Content -Path "ALL-COMB.min.js"
+Write-Output "Cleared ALL-COMB.min.js"
+
+# Copy the content of comb-DT.min.js into ALL-COMB.min.js
+Get-Content -Path "comb-DT.min.js" | Set-Content -Path "ALL-COMB.min.js"
+Write-Output "Copied: comb-DT.min.js"
+
+# List of JavaScript files to minify and append
+$jsFiles = @(
+   "navbar.min.js",
+   "DT-inline.js",
+   "belowPage-bab-dropdown.js",
+   "quran-dropdowns.js"
+
+)
+
+# Process each file
+foreach ($file in $jsFiles) {
+    Minify-And-Append -sourceFile $file -targetFile "ALL-COMB.min.js"
+}
+
+Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
+
+now what i want is
+i dont want to Clear the content of ALL-COMB.min.js
+
+i dont want to copy over comb-DT.min.js
+
+what i want is
+for the following files
+
+   "navbar.min.js",
+   "DT-inline.js",
+   "belowPage-bab-dropdown.js",
+   "quran-dropdowns.js"
+
+for each of those, there will be a line of text with the file name, in the All-COMB.min.js file. below that line of text will be a block of code  relating to that file name. All i want is to update that block of code, for each of those instances
+
 #>
