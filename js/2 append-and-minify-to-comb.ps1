@@ -1,11 +1,10 @@
 # Set the location to the script's directory
 Set-Location -Path $PSScriptRoot
 
-# Function to minify and append files
-function Minify-And-Append {
+# Function to minify and create temporary content
+function Get-Minified-Content {
     param (
-        [string]$sourceFile,
-        [string]$targetFile
+        [string]$sourceFile
     )
     
     $tempFile1 = "temp1.js"
@@ -13,34 +12,55 @@ function Minify-And-Append {
     
     google-closure-compiler --charset=UTF-8 --js $sourceFile --js_output_file $tempFile1
     uglifyjs $tempFile1 -c -m -o $tempFile2
-    Add-Content -Path $targetFile -Value "`n// $sourceFile"
-    Get-Content -Path $tempFile2 | Add-Content -Path $targetFile
+    $minifiedContent = Get-Content -Path $tempFile2 -Raw
     Remove-Item -Path $tempFile1, $tempFile2
-    Write-Output "Minified and copied: $sourceFile"
+    return $minifiedContent.Trim()
 }
 
-# Clear the content of ALL-COMB.min.js
-Clear-Content -Path "ALL-COMB.min.js"
-Write-Output "Cleared ALL-COMB.min.js"
-
-# Copy the content of comb-DT.min.js into ALL-COMB.min.js
-Get-Content -Path "comb-DT.min.js" | Set-Content -Path "ALL-COMB.min.js"
-Write-Output "Copied: comb-DT.min.js"
-
-# List of JavaScript files to minify and append
+# Files to process
 $jsFiles = @(
-   "navbar.min.js",
-   "DT-inline.js",
-   "belowPage-bab-dropdown.js",
-   "quran-dropdowns.js"
-
+    "navbar.min.js",
+    "DT-inline.js",
+    "belowPage-bab-dropdown.js",
+    "quran-dropdowns.js"
 )
+
+# Read the entire content of ALL-COMB.min.js
+$allContent = Get-Content -Path "ALL-COMB.min.js" -Raw
 
 # Process each file
 foreach ($file in $jsFiles) {
-    Minify-And-Append -sourceFile $file -targetFile "ALL-COMB.min.js"
+    Write-Output "Processing: $file"
+    
+    # Create the exact header pattern that exists in the file
+    $headerPattern = "// $file"
+    
+    # Check if this header exists in the content
+    if ($allContent -match [regex]::Escape($headerPattern)) {
+        Write-Output "Found section for: $file"
+        
+        # Get the new minified content
+        $newContent = Get-Minified-Content -sourceFile $file
+        
+        # Pattern to match the whole section (header + content until next header or end)
+        $pattern = "(?ms)// $file\r?\n.*?(?=(// .*?\r?\n|\z))"
+        
+        # Create replacement with preserved header and blank line after code block
+        $replacement = "// $file`n$newContent`n`n"
+        
+        # Replace the section
+        $allContent = [regex]::Replace($allContent, $pattern, $replacement)
+    }
+    else {
+        Write-Output "Warning: Section not found for $file"
+    }
 }
 
+# Remove any potential multiple blank lines at the end of the file
+$allContent = $allContent -replace "`n{3,}$", "`n`n"
+
+# Write the updated content back to the file
+Set-Content -Path "ALL-COMB.min.js" -Value $allContent -NoNewline
 Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
 
 <# claude:
