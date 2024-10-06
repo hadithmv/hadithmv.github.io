@@ -656,11 +656,12 @@ div.dt-button-collection .dt-button-active:after {
   > div
   > div
   > div.dt-buttons
-  > div.dt-button-collection.dtb-b3
+  > div.dt-button-collection
   > div
   > button.dt-button {
   font-size: 90%;
-  text-align: center;
+  text-align: right;
+  padding-right: 30px;
 }
 /* sets color of colvis list items on hover
 div.dt-button-collection .dt-button:hover:not(.disabled) */
