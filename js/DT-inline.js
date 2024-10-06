@@ -524,14 +524,18 @@ var DTconfig = {
                   },
                 },
               },
+              {
+                extend: "pageLength",
+                background: false,
+              },
             ],
           },
 
-          {
+          /*{
             extend: "pageLength",
 
             background: false,
-          },
+          },*/
         ],
       },
     ],
@@ -572,7 +576,7 @@ Object.assign(DataTable.defaults, {
     info: "_TOTAL_ ގެ ތެރެއިން _START_ އިން _END_ އަށް",
     infoFiltered: "(ޖުމްލަ ބެލުނީ _MAX_)",
     infoEmpty: "— ނުފެނުނު —",
-    lengthMenu: "ދައްކާ _MENU_",
+    //lengthMenu: "ބަރި ދައްކާ _MENU_",
     loadingRecords: "ތައްޔާރުވަނީ...",
     search: "",
     searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"، !މިލަފްޒު ނުލާ ހޯދާ',
@@ -600,7 +604,7 @@ Object.assign(DataTable.defaults, {
     buttons: {
       // https://datatables.net/reference/button/pageLength
       pageLength: {
-        _: "%d ދައްކާ",
+        _: "%d ބަރި ދައްކާ",
         "-1": "ހުރިހާ",
       },
       //colvis: "ބަރިތައް",
@@ -612,7 +616,7 @@ Object.assign(DataTable.defaults, {
       },
     },
     searchBuilder: {
-      button: "ކަސްޓަމް 🔍",
+      button: "🔍 ކަސްޓަމް ސާޗް",
       add: "+ އިތުރުކުރޭ",
       condition: "ޝަރުތު",
       clearAll: "ރީސެޓް",
@@ -623,8 +627,8 @@ Object.assign(DataTable.defaults, {
       logicAnd: "އަދި &",
       logicOr: "ނޫނީ |",
       title: {
-        0: "ސާޗު ޝަރުތުތައް",
-        _: "ސާޗު ޝަރުތުތައް (%d)",
+        0: "ސާޗް ޝަރުތުތައް",
+        _: "ސާޗް ޝަރުތުތައް (%d)",
       },
       value: "ލިޔުން",
       valueJoiner: "އަދި",
@@ -632,11 +636,11 @@ Object.assign(DataTable.defaults, {
     searchPanes: {
       // https://datatables.net/reference/option/language.searchPanes.collapse
       // looks like i wont need text: "⧩ ފިލްޓާ" with this
-      collapse: { 0: "⧩ ފިލްޓާ", _: "⧩ ފިލްޓާ (%d)" },
+      collapse: { 0: "⧩ ބަރި ފިލްޓާ", _: "⧩ ބަރި ފިލްޓާ (%d)" },
       title: {
-        _: "%d ފިލްޓަރ ކުރެވިފާ",
-        0: "0 ފިލްޓަރ ކުރެވިފާ",
-        1: "1 ފިލްޓަރ ކުރެވިފާ",
+        _: "%d ފިލްޓާ ކުރެވިފާ",
+        0: "0 ފިލްޓާ ކުރެވިފާ",
+        1: "1 ފިލްޓާ ކުރެވިފާ",
       },
       count: "{total}",
       countFiltered: "{shown} ({total})",
