@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="dv" translate="no">
+  <head>
+    <!-- CHANGE !!! -->
+    <title>الجامع في الأحاديث والآثار – އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</title>
+    <meta
+      name="description"
+      content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
+    />
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
+    <script src="../js/ALL-COMB.min.js"></script>
+    <style></style>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="hmvSection">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
+          <button
+            id="toggleFiliButton"
+            class="customButtons"
+            onclick="toggleFili();filiString();scrollUpTop()"
+          >
+            &nbsp; ފިލިތައް ދައްކާ &nbsp;
+            <!-- ފޮރުވާ -->
+          </button>
+          <button
+            id="toggleShowButton"
+            class="customButtons"
+            onclick="toggleShowOne();scrollUpTop()"
+          >
+            &nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;
+          </button>
+
+          <button
+            id="switchDiacriticsAndCopy"
+            class="customButtons"
+            onclick="copyOneOnly();"
+          >
+            &nbsp; ފިއްޔާއެކު ކޮޕީ &nbsp;
+          </button>
+
+          <script>
+            // If column 3 is hidden, make it visible and hide column 4. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 3 is visible and column 4 is hidden, trigger a click on .buttons-html5 without changing any column visibility.
+            function copyOneOnly() {
+              var table = $(".dataTable").DataTable();
+
+              // Get the current visibility status of columns 3 and 4
+              var isVisible3 = table.column(3).visible();
+              var isVisible4 = table.column(4).visible();
+
+              // Function to change visibility and trigger export
+              function changeVisibilityAndExport(showCol3, showCol4) {
+                table.column(3).visible(showCol3, false);
+                table.column(4).visible(showCol4, false);
+                table.draw(false); // Redraw the table without resetting the paging
+
+                // Use setTimeout to ensure the visibility changes are applied before exporting
+                setTimeout(function () {
+                  $(".buttons-html5").click();
+
+                  // Restore original visibility after a short delay
+                  setTimeout(function () {
+                    table.column(3).visible(isVisible3, false);
+                    table.column(4).visible(isVisible4, false);
+                    table.draw(false);
+                  }, 100);
+                }, 100);
+              }
+
+              // If column 3 is hidden, make it visible and hide column 4
+              if (!isVisible3) {
+                changeVisibilityAndExport(true, false);
+              }
+              // If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible
+              else if (isVisible4 && !isVisible3) {
+                changeVisibilityAndExport(true, false);
+              }
+              // If column 3 is visible and column 4 is hidden, just trigger the export
+              else if (isVisible3 && !isVisible4) {
+                $(".buttons-html5").click();
+              }
+            }
+          </script>
+
+          <script>
+            // CHANGE !!!
+            function toggleShowOne() {
+              /*var isVisible = $(".dataTable").DataTable().column(8).visible();
+              $(".dataTable").DataTable().column(8).visible(!isVisible);*/
+
+              var isVisible = $(".dataTable").DataTable().column(5).visible();
+              $(".dataTable").DataTable().column(5).visible(!isVisible);
+              var isVisible = $(".dataTable").DataTable().column(7).visible();
+              $(".dataTable").DataTable().column(7).visible(!isVisible);
+
+              var isVisible = $(".dataTable").DataTable().column(9).visible();
+              $(".dataTable").DataTable().column(9).visible(!isVisible);
+
+              var button = document.getElementById("toggleShowButton");
+              if (button.innerHTML.trim() === "&nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;") {
+                button.innerHTML = "&nbsp; ފުޓްނޯޓު ދައްކާ &nbsp;";
+              } else {
+                button.innerHTML = "&nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;";
+              }
+            }
+          </script>
+          <script>
+            function toggleFili() {
+              var isVisible = $(".dataTable").DataTable().column(3).visible();
+              $(".dataTable").DataTable().column(3).visible(!isVisible);
+
+              var isVisible = $(".dataTable").DataTable().column(4).visible();
+              $(".dataTable").DataTable().column(4).visible(!isVisible);
+            }
+          </script>
+
+          <hr />
+
+          <p>
+            މިއީ ޙަދީޘްއެމްވީގައިވާ ހުރިހާ ޙަދީޘާއި އަޘަރު ފޮތްތައް އެއް
+            ތަނަކުން ސާޗްކުރެވޭ ސަފުހާއެވެ.
+          </p>
+
+          <hr />
+          <p class="rightAlignedText">
+            ⚠️ قَمِّش ثُمَّ فَتِّش. މި ސަފުހާގައި އެތައް ހާސް ޙަދީޘާއި އަޘަރު
+            ހިމެނިފައިވާ އިރު، އޭގައި ކުށްހުރި ވާހަކަ ބުނުމުގެ ކުރިން، އެނގެން
+            ޖެހޭ މުހިއްމު ނުކުތާއެއް ދަންނަވާލާނަމެވެ. މިތާ ވަނީ މުސައްވަދާ
+            (އެބަހީ: ޑްރާފްޓު) ލިޔުންތަކެކެވެ. އަދި ގިނަވާނީ އަޅުގަނޑުމެންގެ
+            ތަރުޖަމާތަކެއް ނޫނެވެ. އެކި މީހުން، އެކި ތަންތަނުން، އެކި ގޮތްގޮތަށް
+            ލިޔެފައިވާ ތަރުޖަމާތަކެކެވެ. ވީމާ ކުށް ހުންނާނެއެވެ. އަދި ކިއެއް،
+            ގިނަވެސް ވާނެއެވެ. އަދި މިތާ ހުރި ނައްސުތަކާއި އޭގެ ތަރުޖަމާއާ ދިމާ
+            ނުވެދާނެއެވެ. އަދި ރިވާޔަތާއި ތަޚްރީޖްވެސް ދިމާ ނުވެދާނެއެވެ. ދެން
+            އޮތް ސުވާލަކީ، އަޅުގަނޑުމެން ނުލިޔާ، ބަލާ ނުނިމި ހުރި ލިޔުންތަކެއް
+            މިތާ މި އެއްކުރީ ކީއްވެގެންހެއްޔެވެ؟ އެއީ ތަފާތު އެތައް ބައިވަރު
+            ތަރުޖަމާތަކެއް، އެއް ތަނަކުން ސާޗުކުރެވޭ ގޮތް ހެދުމަށެވެ. އެ ހުރި
+            ކުށްތަކާ އެކުވެސް އެއިން ފައިދާ ހާސިލު ކުރުމުގެ ފުރުސަތު ހޯދުމަށެވެ.
+            މުޅިން ދިމާ ނުވިޔަސް، ކޮންމެވެސް ވަރަކަށް ގާތްކޮށްދޭނެތީވެއެވެ.
+            އަޅުގަނޑުމެންގެ ނިސްބަތުން، މި އެއްކޮށްފައިވާ ޑްރާފްޓު
+            ތަރުޖަމާތަކުން ޙަދީޘްއެމްވީގެ ވަކިވަކި ފޮތްތަކަށް ނެރޭއިރު، ކުށްތައް
+            އިސްލާހު ކުރަމުން ގެންދާނަމެވެ. އަދި އެހެނިހެން ބޭފުޅުންގެ
+            ނިސްބަތުން ވެސް، މި ސަފުހާގެ ބޭނުން ހެޔޮ ގޮތުގައި ހިފޭނީ
+            އަހުލުވެރިކަމެއް ހުރި، މި ބޭނުން ކުރަންވީ ގޮތް އުނގެނެވޭނެ ވަރުގެ
+            ބަޔަކަށެވެ. އެ ފަރާތް ވާންޖެހޭނީ، މި ސަފުހައިގެ މަގުސަދު ފަހުމްވެ،
+            މި ލިޔުންތަކުގައި ހުރި ކުށްތަކާއެކީ ވެސް ކުރިއަށް ދާންވީ ގޮތް
+            ދެނެގަނެވޭނެ ފަދަ ބަޔެކެވެ. އެއާ ޚިލާފަށް މިކަން ނުދަންނަ ބަޔަކަށް
+            ހައްތަހާވެސް ހީވާނީ އަޅުގަނޑުމެންގެ ކުށްތައް މިތާ ވަރަށް
+            ގިނަކަމަށެވެ. ކޮންމެއަކަސް، އަރަބި ނައްސަކާ ދިވެހި ތަރުޖަމާއެއް ދިމާ
+            ނުވިޔަސް، އެ ދިމާވާ އެހެން ރިވާޔަތެއް ހުރެދާނެއެވެ. ހަވާލާ
+            ދެވިފައިވާ ފޮތުގައި އެހެން ގޮތަކަށް ލިޔުން ހުއްޓަސް، އެއާ ގުޅުމެއް
+            ހުރެދާނެއެވެ. ގާބިލިއްޔަތުކަން ހުރި މީހަކަށް އެ ގުޅުން ނުވަތަ
+            ރިވާޔަތް ހޯދޭނެއެވެ. މީހަކަށް އެ ނޭނގުމަކީ ނުވަތަ ނުފެނުމަކީ އަދި
+            ލިޔުން މުޅިން ގޯސްވެ، އޭގެ ބޭނުން ނުހިފޭންވީ ސަބަބެއް ނޫނެވެ. މިތާ
+            މިވާ ލިޔުންތައް ނަގުލު ކުރާއިރު އިތުރަށް ބަލާ ރަނގަޅުތޯ ކަށަވަރު
+            ކުރުމަކީ ވަރަށް މުހިއްމު ކަމެކެވެ. ނުވަތަ އެންމެ ކުޑަމިނުން އެ ކަން
+            ކުރެވޭނެ ވަރުގެ ފެންވަރެއް ހުރި ބަޔަކު ގާތު އަހާލަން ޖެހޭނެއެވެ.
+            ފަހުމެއް ނެތި، ހަމައެކަނި ކުށް ހުއްޓޭ ބުންޏަސް ވާނެ ހަމަ އެއްވެސް
+            ކަމެއް ނެތެވެ. އެހެންވީމާ މި ކަންކަމަށް ސަމާލުވެ، އަހައްމިއްޔަތުކަން
+            ދިނުންހުއްޓެވެ.
+          </p>
+
+          <hr />
+
+          <style>
+            /* removes search button */
+            #search_button_homepage {
+              display: none;
+            }
+
+            /* makes box larger */
+            #search_form_input_homepage {
+              font-size: 20px;
+              width: 200px;
+              height: 50px;
+              padding: 10px;
+              font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+            }
+
+            /* changes color from black for dark mode */
+            @media (prefers-color-scheme: dark) {
+              #search_form_input_homepage {
+                color: #c5cfd6;
+              }
+            }
+          </style>
+
+          <p>
+            ޙަދީޘެއް ސައްހަތޯ ބެލުމަށް، އޮންލައިންކޮށް ހުރެގެން، ތިރީގައި އަރަބި
+            ލަފްޒުތައް ޖަހާލައިގެން ބަލާލެވިދާނެއެވެ.
+            <span style="background-color: #c2d288; color: #333"
+              >ފެހިކުލައިގެ</span
+            >
+            މާނައަކީ ސައްހައެވެ. އަދި
+            <span style="background-color: #f7c7c9; color: #333"
+              >ރަތްކުލައިގެ</span
+            >
+            މާނައަކީ ޟަޢީފެވެ.
+          </p>
+
+          <form
+            id="search_form_homepage"
+            class="no-menu"
+            name="x"
+            action="http://hdith.com"
+            target="_blank"
+          >
+            <div id="sxd"></div>
+
+            <input
+              type="search"
+              autocomplete="off"
+              name="s"
+              id="search_form_input_homepage"
+              onfocus="if ('rc' in window) {
+                          nua('nro', rc)
+                      }
+                      ;
+                      fq = 1;"
+              onblur="fq = 0"
+              onclick="if (this.value == 'تأكد من صحة الحديث') {
+                          this.value = '';
+                          this.style.color = '#000000';
+                      }"
+              value=""
+              placeholder="تأكد من صحة الحديث"
+            />
+            <div id="search_wrapper_homepage">
+              <input id="search_button_homepage" type="submit" value="" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      // Configuration object for each JSON file
+      const jsonConfigs = {
+        "allAthar.json": {
+          keepColumns: [0, 1, 2, 3, 4], // indexes of columns to keep
+          removeColumns: [], // indexes of columns to remove
+          // columnOrder: [1, 0], // new order of columns
+          // newColumns: ["All Athar"], // adds a new column with constant value
+          // empty array, or nonexistent propery simply means no change
+        },
+        "arbaoonNawawi.json": {
+          keepColumns: [0, 4, 5, 6],
+          removeColumns: [],
+          columnOrder: [],
+          newColumns: ["الأربعون النووية"],
+        },
+
+        "umdathulAhkam.json": {
+          keepColumns: [0, 5, 6, 7],
+          newColumns: ["عمدة الأحكام"],
+        },
+        "hisnulMuslim.json": {
+          keepColumns: [0, 3, 4, 5],
+          newColumns: ["حصن المسلم"],
+        },
+        "akhbaruShuyukh.json": {
+          keepColumns: [0, 1, 2, 3],
+          newColumns: ["أخبار الشيوخ للمروذي"],
+        },
+        "akhlaqHamalathilQuran.json": {
+          columnsToKeep: [0, 3, 5, 6],
+          removeColumns: [1, 2, 4], // dont know why exactly, but the data for this json will not show what i want unless i specifically choose which columns to exclude
+          newColumns: ["أخلاق حملة القرآن للآجري"],
+        },
+        "muwattaMalik.json": {
+          columnsToKeep: [0, 2, 6, 7],
+          removeColumns: [1, 3, 4, 5], // same
+          newColumns: ["موطأ مالك"],
+        },
+        "bulughulMaram.json": {
+          columnsToKeep: [0, 5, 6, 7],
+          removeColumns: [1, 2, 3, 4], // same
+          newColumns: ["بلوغ المرام"],
+        },
+        "riyaduSaliheen.json": {
+          columnsToKeep: [0, 5, 6, 7],
+          removeColumns: [1, 2, 3, 4], // same
+          newColumns: ["رياض الصالحين"],
+        },
+        "arbaoonAajurry.json": {
+          columnsToKeep: [0, 3, 5, 6], // patch this up LATER !!!
+          removeColumns: [1, 2, 4], // same
+          newColumns: ["الأربعون حديثا للآجري"],
+        },
+      };
+
+      // Function to process a single JSON array based on its configuration
+      function processJsonData(data, config) {
+        return data.map((row) => {
+          let processedRow = [...row];
+
+          // Handle keep columns
+          if (config.keepColumns && config.keepColumns.length > 0) {
+            processedRow = config.keepColumns.map((i) => processedRow[i] || "");
+          }
+
+          // Handle remove columns
+          if (config.removeColumns && config.removeColumns.length > 0) {
+            processedRow = processedRow.filter(
+              (_, index) => !config.removeColumns.includes(index)
+            );
+          }
+
+          // Add new columns at the beginning
+          if (config.newColumns) {
+            processedRow = [...config.newColumns, ...processedRow];
+          }
+
+          // Reorder columns if specified
+          if (config.columnOrder && config.columnOrder.length > 0) {
+            processedRow = config.columnOrder.map((i) => processedRow[i] || "");
+          }
+
+          return processedRow;
+        });
+      }
+
+      // Function to combine all JSON data
+      async function combineJsonData() {
+        let combinedData = [];
+        const jsonFiles = Object.keys(jsonConfigs);
+
+        for (const file of jsonFiles) {
+          try {
+            const response = await fetch(`../js/json/${file}`);
+            const data = await response.json();
+            const config = jsonConfigs[file];
+            const processedData = processJsonData(data, config);
+            combinedData = [...combinedData, ...processedData];
+            console.log(
+              `Processed ${file}: Added ${processedData.length} rows`
+            );
+            console.log(`combined ${file}:${combinedData}`);
+          } catch (error) {
+            console.error(`Error processing ${file}:`, error);
+          }
+        }
+
+        return combinedData;
+      }
+
+      // Initialize DataTable
+      async function initializeDataTable() {
+        const combinedData = await combineJsonData();
+        console.log("Total combined rows:", combinedData.length);
+
+        var table = new DataTable("#tableID", {
+          ...DTconfig,
+          data: combinedData,
+          columns: [
+            { title: "ފޮތް އަރަބިން", className: "colHeader" },
+            /*{
+              title: "ފޮތް ދިވެހިން",
+              className: "colHeader",
+              data: 0,
+              render: (data) =>
+                data
+                  .replace("الأربعون النووية", "ނަވަވީގެ ސާޅީސް ޙަދީޘް")
+                  ...
+              visible: false,
+              */
+            { title: "#", className: "colHeader" },
+            {
+              title: "އަރަބި ލިޔުން",
+              searchable: false,
+              visible: false, //FOR ALL TABLES, default is to show non fili
+            },
+            {
+              title: "އަރަބި ފިލިނުޖަހާ",
+              data: 2,
+              render: (data) => removeThashkeel(data),
+            },
+            { title: "ބަރި 5", data: 3 }, // 4 އަރަބި ފުޓްނޯޓުނުލާ
+            { title: "6 ބަރި", data: 4 }, // 5 ދިވެހި ލިޔުން
+            // { title: "7 ބަރި" }, ތަޚްރީޖު 6
+            // Add or modify column definitions as needed
+          ],
+          columnDefs: [
+            /*{
+              targets: [4],
+              render: (data) =>
+                data !== ""
+                  ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
+                    data.replace(/\n/g, '\t<br class="dtBr">')
+                  : data,
+            },*/
+            {
+              searchPanes: {
+                show: true,
+              },
+              targets: [0], // [0, 1]
+            },
+            {
+              targets: [2],
+              render: (data) => "#" + data,
+            },
+            ...columnDefsconfig,
+          ],
+        });
+      }
+
+      // Call the initialization function when the document is ready
+      document.addEventListener("DOMContentLoaded", initializeDataTable);
+    </script>
+  </body>
+</html>
+
+<!--
+this is my datatables js code:
+
+var table = new DataTable("#tableID", {
+        ajax: {
+          url: `../js/json/file.json`,
+          dataSrc: "",
+        },
+
+so i have several jsons in the same directory "../js/json/", they are flat arrays
+their file names are
+        "allAthar.json",
+        "arbaoonNawawi.json",
+
+the json data is like this:
+[
+  ["Brielle Williamson", "Integration Specialist"],
+  ["Herrod Chandler", "Sales Assistant"],
+  ["Rhona Davidson", "Integration Specialist"],
+]
+
+for each json data, i want to be able to choose which columns of the json data to keep, or to remove, and be able to choose the order of the columns in that jsons data, using their column indexes. i also want to be able to create a new first column in a json data if i want, and give it a string that will be in each row of that column if i want
+
+i also want to combine these json data, where one json array ends, the next json array begins. i dont want null values, only empty strings,
+
+also console log the processed jsons
+
+i dont want var table = new DataTable("#tableID", { to be scoped inside something else
+
+the datatable should be loaded async
+
+...
+
+thats good but
+
+this is kinda repetitive:
+const jsonFiles = [ "allAthar.json", "arbaoonNawawi.json", "umdathulAhkam.json", "hisnulMuslim.json", "akhbaruShuyukh.json", "akhlaqHamalathilQuran.json", "muwattaMalik.json", "bulughulMaramFull.json", "riyaduSaliheen.json", "arbaoonAajurry.json" ];
+
+const jsonConfigs = {
+    "allAthar.json": {},
+    "arbaoonNawawi.json": {},
+
+...
+
+still a little redundant
+
+why have keepcolumns and remove columns when i can just have keepcolumns, with the indexes not selected, not kept
+
+also, that works for some columns, but not for others
+
+in this code, as well as the code before it
+
+in the code before it, it was usually enough to just set keepcolumns without having to set remove columns
+
+but for some particular rows i just had to set remove columns, otherwise it wouldnt show the columns i wanted it to
+
+now in this current code, the same issue occurs
+
+i think the issue occurs where empty strings are not taken into account. there should be no null values, and rows that have no data should simply have empty strings
+-->

@@ -577,7 +577,7 @@ div.dt-container .dt-search input {
   > div
   > div.dt-inputpaging.dt-paging
   > div
-  > input[type="search"] {
+  > input[type="text"] {
   /*width: 110%;
    */
   font-size: 80%;
