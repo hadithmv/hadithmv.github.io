@@ -30,7 +30,7 @@
     <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
     <script src="../js/ALL-COMB.min.js"></script>
     <!-- CHANGE !!!
-     TWO DATA SOURCES -->
+     TWO DATA SOURCES 
     <script>
       // Create a global object to store datasets
       window.datasets = {};
@@ -44,7 +44,7 @@
     <script>
       // Store the second dataset
       datasets.data2 = data.slice();
-    </script>
+    </script> -->
 
     <style></style>
   </head>
@@ -665,7 +665,8 @@
       </div>
     </div>
     <script type="text/javascript">
-      var combinedData = (function () {
+      /* old combine data, when it was js sourced not ajax
+     var combinedData = (function () {
         // Remove the 3rd column from the first dataset
         var processedData1 = datasets.data1.map(function (row) {
           return [row[0], row[1]].concat(row.slice(3));
@@ -685,15 +686,80 @@
           });
         });
       })();
-
       //console.log('Final Combined Data:', combinedData);
+      // Initialize the DataTable with the modified data*/
 
-      // Initialize the DataTable with the modified data
       var table = new DataTable("#tableID", {
         ...DTconfig,
         //data: data,
-        data: combinedData,
+        //data: combinedData,
         // CHANGE !!!
+        ajax: function (data, callback, settings) {
+          Promise.all([
+            fetch("../js/json/sharhuSunnahBarbahari.json"),
+            fetch("../js/json/sharhuSunnahBarbahari-DFK.json"),
+          ])
+            .then((responses) =>
+              Promise.all(responses.map((response) => response.json()))
+            )
+            .then(([mainData, dfkData]) => {
+              //console.log("Original main data:", mainData);
+              //console.log("Original DFK data:", dfkData);
+
+              // Process mainData: only remove 3rd column
+              const processedMainData = mainData.map((row) => {
+                const rowArray = Array.isArray(row)
+                  ? [...row]
+                  : Object.values(row);
+                rowArray.splice(2, 1);
+                return rowArray;
+              });
+
+              // Combine rows from both datasets
+              const combinedData = processedMainData.map((row, index) => {
+                const dfkRow = dfkData[index];
+                return [...row, ...dfkRow];
+              });
+
+              //console.log("Processed main data:", processedMainData);
+              //console.log("Combined data:", combinedData);
+
+              callback({
+                data: combinedData,
+              });
+            })
+            .catch((error) => {
+              console.error("Error loading data:", error);
+              callback({
+                data: [],
+              });
+            });
+        },
+
+        /*
+this is my code:
+var table = new DataTable("#tableID", {
+        ajax: {
+          url: ../js/json/data1.json,
+          dataSrc: "",
+        },
+so i have two jsons in the same directory, one is called data1.json, the other data2.json, they are arrays
+what i want is
+to combine them rowwise and also modify the data like so:
+remove the 3rd column of the data1
+combine the data2 with the now modified data1
+there should be no null values in the combined data, empty strings only, flatten.
+my actual two json files are
+../js/json/sharhuSunnahBarbahari.json
+../js/json/sharhuSunnahBarbahari-DFK.json
+
+they are flat json files
+
+console log
+
+processed main data is the same as combined data, nothing is being combined rowwise
+        */
+
         // dfkText dfkFootnote
         // # arText	dvText takhrij
         //columns: [null,null,null,null,null],
@@ -746,180 +812,3 @@
     </script>
   </body>
 </html>
-<!--
-<!DOCTYPE html>
-<html lang="dv" translate="no">
-  <head>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-    <link
-      href="https://nightly.datatables.net/css/dataTables.dataTables.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
-
-    <script src="data1.js"></script>
-    <script src="data2.js"></script>
-  </head>
-  <body>
-    <div class="container">
-      <table id="example" class="display nowrap" width="100%"></table>
-    </div>
-    <script>
-      new DataTable("#tableID", {
-        ...DTconfig,
-        data: dataSet,
-        //columns: [{ title: "Name" }, { title: "Position" }],
-        columns: [null,null],
-      });
-    </script>
-  </body>
-</html>
-
-data1.js links to an external js file and its contents are:
-var data = [
-  ["Tiger Nixon", "System Architect"],
-  ["Garrett Winters", "Accountant"],
-  ["Unity Butler", "Marketing Designer"],
-];
-
-data2.js links to an external js file and its contents are:
-var data = [
-  ["Brielle Williamson", "Integration Specialist"],
-  ["Herrod Chandler", "Sales Assistant"],
-  ["Rhona Davidson", "Integration Specialist"],
-];
-
-above is my datatables code
-
-external js links to different files with "var data = []" in each
-
-what i want to do is combine and modify the resulting data like so:
-
-remove the 3rd column of the 1st data
-
-combine the 2nd data with the 1st data
-
-no null values, empty strings only. flatten.
-
-how can i do this without changing the contents of the js files?
-
-...
-
-i am getting
-
-Uncaught ReferenceError: data2 is not defined
-
-i cant change the contents of the external js files remember
-
-i want to see the processed datas in console log
-
-modifieddata1 is just the first 2 columns of data1. nothing else. instead, is should be the 1st 2nd and 4th column, with 3rd removed
-
-combining is done wrong. you are just adding the rows of data2 to the end of data1. instead i need the columns of data2 added to the end of the processed columns of data1
-
-...
-
-claude result:
-
-<script>
-      window.datasets = {};
-    </script>
-    <script src="data1.js"></script>
-    <script>
-      datasets.data1 = data.slice();
-      console.log('Data1:', datasets.data1);
-    </script>
-    <script src="data2.js"></script>
-    <script>
-      datasets.data2 = data.slice();
-      console.log('Data2:', datasets.data2);
-    </script>
-  </head>
-  <body>
-    <div class="container">
-      <table id="example" class="display nowrap" width="100%"></table>
-    </div>
-    <script>
-      console.log('Before processing - Data1:', datasets.data1);
-      console.log('Before processing - Data2:', datasets.data2);
-
-      var combinedData = (function() {
-        // Remove the 3rd column from the first dataset
-        var processedData1 = datasets.data1.map(function(row) {
-          return [row[0], row[1]].concat(row.slice(3));
-        });
-        console.log('Processed Data1:', processedData1);
-
-        // Combine the processed first dataset with the second dataset
-        var combined = processedData1.map(function(row, index) {
-          return row.concat(datasets.data2[index] || []);
-        });
-        console.log('Combined:', combined);
-
-        // Flatten the array and replace null values with empty strings
-        return combined.map(function(row) {
-          return row.map(function(cell) {
-            return cell === null ? '' : cell;
-          });
-        });
-      })();
-
-      console.log('Final Combined Data:', combinedData);
-
-      new DataTable("#example", {
-        pageLength: 10,
-        columns: [
-          { title: "Name" }, 
-          { title: "Position" },
-          { title: "Name (Data2)" },
-          { title: "Position (Data2)" }
-        ],
-        data: combinedData,
-      });
-    </script>
-
-...
-
-cpgt result (slightly less efficient):
-
-<script src="data1.js"></script>
-<script>
-  // Rename the data variable to avoid overwriting
-  var data1 = typeof data !== "undefined" ? data : [];
-</script>
-
-<script src="data2.js"></script>
-<script>
-  // Rename the data variable to avoid overwriting
-  var data2 = typeof data !== "undefined" ? data : [];
-</script>
-</head>
-<body>
-<div class="container">
-  <table id="example" class="display nowrap" width="100%"></table>
-</div>
-<script>
-  // Process data1: Keep the 1st, 2nd, and 4th columns, removing the 3rd column
-  var modifiedData1 = data1.map(row => [row[0], row[1], row[3]]);
-
-  // Combine processed data1 with data2 by adding data2's columns to the end of data1's columns
-  var combinedData = modifiedData1.map((row, index) => row.concat(data2[index] || []));
-
-  // Replace any null values with empty strings
-  var finalData = combinedData.map(row =>
-    row.map(cell => (cell === null ? "" : cell))
-  );
-
-  // Log the final data to the console
-  console.log(finalData);
-
-  // Initialize the DataTable with the modified data
-  new DataTable("#example", {
-    pageLength: 10,
-    columns: [{ title: "Name" }, { title: "Position" }, { title: "Extra 1" }, { title: "Extra 2" }],
-    data: finalData,
-  });
-</script>
--->
