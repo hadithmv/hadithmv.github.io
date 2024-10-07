@@ -2,6 +2,91 @@ var hmvVersionNo = 3.16;
 
 // above is version no  var for hmv, shown in sidemenu and maybe main index page
 
+/* === === ===
+--- GET PAGE NAME AND DIRECTORY CODE ---
+=== === === */
+
+// moved this here in nav instead of dt-inline, so that pages could use it and not just books
+
+// Function to get canonical URL based on current path
+function getCanonicalUrl() {
+  // Get the full path excluding domain and start with /
+  const fullPath = window.location.pathname;
+
+  // Handle root path case (empty or just "/")
+  if (fullPath === "" || fullPath === "/") {
+    // If we're at root, return the base URL without trailing slash
+    return window.location.origin;
+  }
+
+  // For non-root paths:
+  // Get just the filename without extension (if it has one)
+  const fileName = fullPath.split("/").pop();
+  const hasExtension = fileName.includes(".");
+
+  if (hasExtension) {
+    // If the path includes a file with extension
+    const CURRENT_PAGE = fileName.replace(".html", "");
+    const pathStructure = fullPath.substring(0, fullPath.lastIndexOf("/"));
+    return `${window.location.origin}${pathStructure}/${CURRENT_PAGE}.html`;
+  } else {
+    // If the path is just directories without file extension
+    return `${window.location.origin}${fullPath}`;
+  }
+}
+
+// Create and append canonical link
+const canonicalLink = document.createElement("link");
+canonicalLink.rel = "canonical";
+canonicalLink.href = getCanonicalUrl();
+document.head.appendChild(canonicalLink);
+
+// Optional: Log the canonical URL for debugging
+console.log("Canonical URL:", canonicalLink.href);
+
+// For JSON files, assuming they're always in ../js/json/ relative to the HTML file
+// const jsonPath = `../js/json/${CURRENT_PAGE}.json`;
+
+/*
+i have this html file called
+arbaoonNawawi.html
+it has code like so
+<link
+      rel="canonical"
+      href="https://hadithmv.github.io/books/arbaoonNawawi.html"
+    />
+    <script type="text/javascript">
+var table = new DataTable("#tableID", {
+ajax: {
+          url: "../js/json/arbaoonNawawi.json",
+          dataSrc: "",
+        },
+})
+now what i want is, to not to have to write "arbaoonNawawi" in:
+href="https://hadithmv.github.io/books/arbaoonNawawi.html"
+and
+url: "../js/json/arbaoonNawawi.json",
+instead i want that to come from the name of the html file
+
+how about a global variable
+
+also note that the directory
+hadithmv.github.io/books/${CURRENT_PAGE}
+might be different for other files in other locations
+
+for example i have
+hadithmv.github.io/page/contributors.html
+
+there might also be directories more than one level deep
+what doesnt change is the source "hadithmv.github.io" directory, and the end file "{file}.html"
+but what is between can change
+
+https://hadithmv.github.io/file.html
+
+https://another.site.com/file.html
+
+*/
+
 // NAVBAR CODE below
 
 function createNavbar() {
