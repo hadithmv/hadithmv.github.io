@@ -6,10 +6,11 @@
   <!-- <html lang=""> -->
   <head>
     <!-- Page Information -->
-    <link
+    <!-- this is loaded dynamically via external js now
+      <link
       rel="canonical"
       href="https://hadithmv.github.io/books/arbaoonNawawi.html"
-    />
+    /> -->
     <title>الأربعون النووية – ނަވަވީގެ ސާޅީސް ޙަދީޘް</title>
     <meta
       name="description"
@@ -46,8 +47,8 @@
     <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
     <!-- defer !!! -->
     <script src="../js/ALL-COMB.min.js"></script>
-    <!-- CHANGE !!! -->
-    <script src="../js/json/arbaoonNawawi.js"></script>
+    <!-- CHANGE !!! 
+    <script src="../js/json/arbaoonNawawi.js"></script> -->
     <!-- -->
     <!-- -->
     <!-- INLINE STYLES -->
@@ -1552,8 +1553,27 @@
       //new DataTable("#tableID", {
       var table = new DataTable("#tableID", {
         ...DTconfig,
-        data: data,
+
+        // https://datatables.net/examples/data_sources/js_array.html
+        //data: data,
+
+        // https://datatables.net/examples/data_sources/ajax.html
+        //ajax: "arrays.txt",
+
+        // https://datatables.net/examples/ajax/custom_data_flat.html
+        // dataSrc: "" tells DataTables that the data is a plain array
+        // url: "../js/json/arbaoonNawawi.json",
+        ajax: {
+          url: `../js/json/${CURRENT_PAGE}.json`,
+          dataSrc: "",
+        },
+        /* another option would be,
+        For JSON files, assuming they're always in ../js/json/ relative to the HTML file
+        const jsonPath = `../js/json/${CURRENT_PAGE}.json`;
+                url: jsonPath,
+                */
         // CHANGE !!!
+        // columns: [null, null, null, null, null, null, null, null],
         // #	noAr	arTitle	dvTitle	arab	dhiv	arRef	dvRef
         columns: [
           { title: "#", className: "colHeader" },
