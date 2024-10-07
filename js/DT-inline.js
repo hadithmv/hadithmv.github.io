@@ -610,7 +610,7 @@ Object.assign(DataTable.defaults, {
     buttons: {
       // https://datatables.net/reference/button/pageLength
       pageLength: {
-        _: "%d ބަރި ދައްކާ",
+        _: "%d އެއްފަހަރާ ދައްކާ",
         "-1": "ހުރިހާ",
       },
       //colvis: "ބަރިތައް",
