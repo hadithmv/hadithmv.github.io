@@ -397,29 +397,6 @@
       // Load all datasets and then process them
       loadDatasets(datasetFiles, datasetConfigs, function () {
         // Find the indices of the two datasets we want to combine
-        /*const barbarahiIndex = dataSets.findIndex((ds) =>
-          ds.filename.includes("sharhuSunnahBarbahari.js")
-        );
-        const barbarahiDFKIndex = dataSets.findIndex((ds) =>
-          ds.filename.includes("sharhuSunnahBarbahari-DFK.js")
-        );
-
-        // If both datasets are found, combine them
-        if (barbarahiIndex !== -1 && barbarahiDFKIndex !== -1) {
-          // Combine the datasets
-          dataSets[barbarahiDFKIndex].data = dataSets[
-            barbarahiDFKIndex
-          ].data.map((row, index) => {
-            const barbarahiRow = dataSets[barbarahiIndex].data[index] || [];
-            return [
-              row[0], // Dataset name
-              barbarahiRow[1] || "", // First column from sharhuSunnahBarbahari
-              barbarahiRow[2] || "", // Second column from sharhuSunnahBarbahari
-              row[1] || "", // First column from sharhuSunnahBarbahari-DFK
-              row[2] || "", // Second column from sharhuSunnahBarbahari-DFK
-            ];
-          });
-        }*/
 
         // Flatten the dataSets array to get a single array of all rows
         // prev data was combinedDataSet
