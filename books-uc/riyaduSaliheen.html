@@ -2,10 +2,6 @@
 <html lang="dv" translate="no">
   <head>
     <!-- CHANGE !!! -->
-    <link
-      rel="canonical"
-      href="https://hadithmv.github.io/books/riyaduSaliheen.html"
-    />
     <title>رياض الصالحين – ރިޔާޟުއްޞާލިޙީން*</title>
     <meta
       name="description"
@@ -296,7 +292,10 @@
     <script type="text/javascript">
       var table = new DataTable("#tableID", {
         ...DTconfig,
-        data: data,
+        ajax: {
+          url: `../js/json/${CURRENT_PAGE}.json`,
+          dataSrc: "",
+        },
         // CHANGE !!!
         // #	kitab	bab dvKitab	dvBab	arText	dvText	Takhrij
         columns: [
