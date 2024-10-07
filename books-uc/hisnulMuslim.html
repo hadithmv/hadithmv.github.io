@@ -476,7 +476,10 @@
     <script type="text/javascript">
       var table = new DataTable("#tableID", {
         ...DTconfig,
-        data: data,
+        ajax: {
+          url: `../js/json/${CURRENT_PAGE}.json`,
+          dataSrc: "",
+        },
         // CHANGE !!!
         // #	bab	dvBab arText	dvText takhrij | eng bab engText
         columns: [

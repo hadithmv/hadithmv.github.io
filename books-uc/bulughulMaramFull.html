@@ -903,7 +903,10 @@
     <script type="text/javascript">
       var table = new DataTable("#tableID", {
         ...DTconfig,
-        data: data,
+        ajax: {
+          url: `../js/json/${CURRENT_PAGE}.json`,
+          dataSrc: "",
+        },
         // CHANGE !!!
         // #	kitab	bab dvKitab	dvBab	arText dvText	Takhrij
         columns: [

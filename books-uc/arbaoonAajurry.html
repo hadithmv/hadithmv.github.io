@@ -290,7 +290,10 @@
     <script type="text/javascript">
       var table = new DataTable("#tableID", {
         ...DTconfig,
-        data: data,
+        ajax: {
+          url: `../js/json/${CURRENT_PAGE}.json`,
+          dataSrc: "",
+        },
         // CHANGE !!!
         // #	arTitle	dvTitle	arab	dhiv	arRef	sharhAr	sharhDv
         columns: [
