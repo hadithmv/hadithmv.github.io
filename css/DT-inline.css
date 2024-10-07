@@ -660,8 +660,37 @@ div.dt-button-collection .dt-button-active:after {
   > div
   > button.dt-button {
   font-size: 90%;
+  /*text-align: right;*/
+  /*padding-right: 30px;*/
+}
+/* moves text span to right aligned, instead of left, also gives it some spacing from the right */
+.dt-container
+  > div
+  > div
+  > div.dt-buttons
+  > div.dt-button-collection
+  > div
+  > button.dt-button {
   text-align: right;
   padding-right: 30px;
+}
+/* gives more right side padding where ticks are, in colvis and pagelength dropdown */
+
+.dt-container
+  > div
+  > div
+  > div.dt-buttons
+  > div.dt-button-collection
+  > div
+  > button.dt-button.buttons-columnVisibility,
+.dt-container
+  > div
+  > div
+  > div.dt-buttons
+  > div.dt-button-collection
+  > div
+  > button.dt-button.button-page-length {
+  padding-right: 50px;
 }
 /* sets color of colvis list items on hover
 div.dt-button-collection .dt-button:hover:not(.disabled) */
