@@ -433,8 +433,8 @@ var DTconfig = {
               },
 
               key: {
-                shiftKey: true,
                 key: "c",
+                altKey: true,
               },
             },
             customize: function (data) {
@@ -492,7 +492,7 @@ var DTconfig = {
               {
                 extend: "colvis",
 
-                text: "☰ ބަރިތައް",
+                text: "☰ ދައްކާ/ފޮރުވާ",
                 background: false,
                 postfixButtons: [
                   // https://datatables.net/forums/discussion/36516
@@ -610,10 +610,10 @@ Object.assign(DataTable.defaults, {
     buttons: {
       // https://datatables.net/reference/button/pageLength
       pageLength: {
-        _: "%d އެއްފަހަރާ ދައްކާ",
+        _: "%d ބަރި ދައްކާ",
         "-1": "ހުރިހާ",
       },
-      //colvis: "ބަރިތައް",
+      //colvis: "☰ ފޮރުވާ/ދައްކާ",
       // https://datatables.net/reference/button/copyHtml5
       copyTitle: "&nbsp; ކޮޕީ 📋",
       copySuccess: {
@@ -701,7 +701,7 @@ Object.assign(DataTable.defaults, {
   // this sets the default value on table load. make sure the value is available above too
   displayLength: 1,
   //
-  buttons: [
+  /*buttons: [
     {
       // https://datatables.net/reference/button/copy
       extend: "copy",
@@ -710,7 +710,7 @@ Object.assign(DataTable.defaults, {
       text: "⧉ &nbsp; ކޮޕީ",
       //https://datatables.net/reference/api/buttons.exportInfo()
       messageBottom: "- ޙަދީޘްއެމްވީ -", //messageTop: "- ޙަދީޘްއެމްވީ -",
-      //title: "" /* default: html page title, prev was: "hadithmv.com", */,
+      //title: "" // default: html page title, prev was: "hadithmv.com",
       // https://datatables.net/reference/button/copy
       footer: false, // if not set to false, leaves an empty blank line
       header: false,
@@ -741,7 +741,7 @@ Object.assign(DataTable.defaults, {
     {
       extend: "colvis",
       titleAttr: "toggle columns",
-      text: "☰ ބަރިތައް",
+      //text: "☰ ފޮރުވާ/ދައްކާ",
       // https://datatables.net/reference/button/collection
       background: false,
       key: {
@@ -798,7 +798,7 @@ Object.assign(DataTable.defaults, {
         },
       },
     },
-  ], // buttons: [ END
+  ],*/ // buttons: [ END
   /*columnDefs: [
                   {
                     // https://datatables.net/reference/option/columns.searchPanes.show
