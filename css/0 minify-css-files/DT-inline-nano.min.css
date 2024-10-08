@@ -1,0 +1,1038 @@
+/* ==================== DARKER OUTER WRAPPER, LIGHER INNER WRAPPER ==================== */
+
+/* making the body background color different like in hassaans, but only on tablet and above, not mobile, otherwise hiding navbar on mobile shows the differently colored body from the wrapper */
+@media (min-width: 600px) {
+  body {
+    /* outer color */
+    /* material theme builder, source color C0DAF9 */
+    background-color: #e7edf6;
+    /*  prev f2f2f5 main bg-llight */
+    /* styles of hassaan */
+  }
+}
+.dtWrapper {
+  /* inner color */
+  /* material theme builder, source color C0DAF9 
+  background-color: #f7f9ff */
+  background-color: #fff;
+  /* prev  f7f9ff */
+}
+/* removes the first margin top of the first dt layout row, to make the dtwrapper touch the top, otherwise cant color the outer backgrown if its a margin.
+without important, mobile view gives it back top margin */
+div.dt-container div.dt-layout-row:first-child {
+  margin-top: 0;
+}
+/* mobile 
+@media (max-width: 599px) {
+  div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
+    margin-top: 0;
+  }
+  below targets both top and bottom rows, while above only top
+  div.dt-container
+    div.dt-layout-row:not(.dt-layout-table)
+    div.dt-layout-cell
+    > *:first-child {
+    margin-top: 0;
+  }
+} */
+/* instead of a margin, gives it a padding top and colors that */
+.dtWrapper {
+  padding-top: 0.75em;
+}
+/* for mobile
+@media (max-width: 599px) {
+  .dtWrapper {
+    padding-top: 0.75em;
+  }
+}  */
+
+/* centers first row of dt elements instead of them being to the right */
+div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
+  justify-content: space-evenly;
+}
+/* if i change the 3rd child to space evenly as well, it will be bunched together in the middle instead of the ends. so giving it a margin on either side instead. */
+/* for-tablet-portrait-up, because on mobile it gets right margin but not left, making it uneven */
+@media (min-width: 600px) {
+  div.dt-container > div.dt-layout-row:nth-child(3) > div.dt-layout-cell {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
+
+/* more margin on either side of the dt container */
+.dt-container {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+/* on mobile, remove tr side margins, because now the dtWrapper ones suffice. used important otherwise these are overidden */
+@media (max-width: 599px) {
+  .cards tbody tr {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* ==================== HTML BOILER PLATE - Base styles: opinionated defaults ==================== */
+/* https://www.cleancss.com/css-beautify/
+https://github.com/h5bp/html5-boilerplate updated with hassaan's css */
+html {
+  font-size: 22px;
+  /* 1em */
+  /*line-height: 1.8;
+   */
+  /* 1.4 now in body */
+  /* added */
+  -webkit-text-size-adjust: 100%;
+}
+/* Customize the background color to match your design */
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+/* A better looking default horizontal rule IS IT NEEDED !!! */
+hr {
+  display: block;
+  height: 1px;
+  /*border: 0;
+    border-top: 1px solid #ccc;
+   */
+  /*margin: 1em 0;*/
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 0;
+  /* added */
+  border: none;
+  /* material theme builder, source color C0DAF9 */
+  border-bottom: 2px solid #c2c7cf;
+  /* prev d3d3d3 */
+}
+/* Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers */
+/*audio, canvas, iframe, svg, video*/
+img {
+  vertical-align: middle;
+}
+/* fieldset styles, textarea resize */
+
+/* ==================== HTML BOILER PLATE - Helper classes ==================== */
+/* Hide visually and from screen readers */
+.hidden,
+[hidden] {
+  display: none !important;
+}
+/* Hide visually and from screen readers, but maintain layout */
+.invisible {
+  visibility: hidden;
+}
+/* clearfix, media queries, print styles */
+
+/* ==================== OTHER MAIN CSS ==================== */
+html {
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior */
+  scroll-behavior: smooth;
+  /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page */
+  overflow-y: scroll;
+  /* Allow long words to be able to break and wrap onto the next line. Prevents long url addresses from breaking page content when it doesnt fit the width. use this instead of text-wrap or break-word where it is needed. */
+  /* overflow-wrap: anywhere;
+    */
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap */
+  text-wrap: pretty;
+  /* pretty balance */
+}
+/* resets body and centers container */
+/* some body code from https://github.com/sindresorhus/github-markdown-css/blob/main/index.html */
+body {
+  margin: 0;
+  padding: 0;
+  /* */
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.8;
+  color: #0a0a0a;
+}
+/* add an animated underline on hover to a link */
+a {
+  color: #0065cc;
+  text-decoration: none;
+  position: relative;
+}
+a::after {
+  background-color: #0065cc;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  left: 0;
+  bottom: -2px;
+  /* -2px */
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+  /* this makes sure it is on top of other elements that might come after it */
+  z-index: 5;
+}
+p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+/* added remove link hover underline from things like img */
+a.noLineA::after {
+  background: none;
+}
+h3 {
+  font-size: 23px;
+  margin-top: 1.65em; /* 1.5, 2 */
+  /*margin-top: 1em;
+   */
+  margin-bottom: 1em;
+}
+h2 {
+  margin-top: 1.75em;
+  font-size: 28px;
+}
+
+.hmvLogo {
+  /*width: 200px;
+  height: 200px;*/
+  width: 150px;
+  height: 150px;
+  /*transition: transform 0.3s ease-in-out;*/
+  transition: transform 0.25s ease-out;
+  margin-bottom: 0.8em;
+}
+.hmvLogo:hover {
+  transform: scale(1.15);
+}
+
+.basmala {
+  /*padding-bottom: 10px !important;*/
+  font-size: 25px !important;
+}
+
+/* after adding a class to dt br in js, can style it to make the gap wider
+https://stackoverflow.com/questions/7614928/change-br-height-using-css/28310011#28310011
+https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/1409742#1409742 */
+/* prev used a class called .dtBr*/
+/*br {
+  content: "";
+  margin: 2em;
+  display: block;
+  font-size: 10px;
+}*/
+/* 34% 34px 24% control the spacing with the font size. */
+/* footnotes br, not in datatable tables, but in page body */
+/*.pageFootnotes br {
+  font-size: 5px;
+}*/
+/* for dt table brs */
+.dtBr {
+  content: "";
+  margin: 2em;
+  display: block;
+  font-size: 5px;
+}
+/*.dtBrFooter {
+  font-size: 1px; 
+}*/
+/* */
+.dtWrapper {
+  /*max-width: 1080px;
+    */
+  /* 800px, Adjust the maximum width as needed */
+  margin: 0 auto;
+  min-width: 200px;
+  max-width: 980px;
+  /* */
+}
+.hmvSection {
+  padding: 3em 5em;
+  text-align: right;
+  /* center */
+  direction: rtl;
+  /* */
+  padding-top: 0;
+}
+@media (max-width: 599px) {
+  .hmvSection {
+    padding: 1em;
+    margin: 0 0 2em;
+  }
+}
+
+/* only for MOBILE size - removes top margin */
+@media (max-width: 599px) {
+  .rmvTopMarginOnMobile {
+    margin-top: 0;
+  }
+}
+
+/* HELPER CLASSES */
+.justifiedText {
+  text-align: justify;
+  /*direction: rtl;
+   */
+}
+
+.centerAlignedText {
+  text-align: center;
+  /*direction: rtl;
+   */
+}
+
+.rightAlignedText {
+  text-align: right;
+}
+
+.leftAlignedText {
+  text-align: left;
+}
+
+.ltrText {
+  direction: ltr;
+}
+
+.rtlText {
+  direction: rtl;
+}
+
+.colHeader {
+  /*font-weight: bold;*/
+  color: #0f4c75; /* !important;*/
+  /* before top down was 8 by default */
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
+.colEng {
+  text-align: left;
+  direction: ltr;
+  font-size: 20px;
+}
+
+/* page footnotes, styles from hassaan's .post-copyright, and some from .twitter-tweet  */
+.pageFootnotes {
+  /*padding: 10px;*/ /* padding: 0.2em 2em 0.2em 3em; */
+  padding: 0 2em 1em 3em; /* .twitter-tweet */
+  /* material theme builder, source color C0DAF9 
+  background-color: #f0f4f9; */
+  background-color: #f6f6f6;
+  /* prev e7edf6, hsla(0, 0%, 71%, 0.1) 136296 */
+  /* prev c2c7cf 999 235580 .twitter-tweet */
+  border: 1px solid #e1e1e1;
+  /* material theme builder, source color C0DAF9 
+  border-right: 4px solid #c2c7cf; */
+  border-right: 4px solid #8c9199;
+  /*margin-top: 3em;*/
+  /* added */
+  font-size: 20px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  /*margin-right: 1em;*/
+  color: #555;
+}
+
+.pageFootnotes p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* adds line above footnote, In order for the new lines to work properly, you also need to set the white-space property to either pre or pre-wrap. however this isnt selectable or copyable, so added it in the html itself . */
+/*.pageFootnotes::before {
+  content: "_________\a";
+  white-space: pre;
+}*/
+
+/* CUSTOM STYLES */
+.customButtons {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  /*margin-bottom: 0.333em;
+   */
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-size: 0.88em;
+  line-height: 1.6em;
+  color: inherit;
+  user-select: none;
+  text-decoration: none;
+  outline: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
+  -webkit-font-smoothing: antialiased;
+  text-align: right;
+  direction: rtl;
+  /* */
+  /*padding-right: 25px;
+    padding-left: 25px;
+   */
+  border: none;
+  /* material theme builder, source color C0DAF9 */
+  background: #dee3eb none;
+  /* prev e0e1e2 */
+  border-radius: 0.28571429rem;
+  box-shadow:
+    0 0 0 1px transparent inset,
+    0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  transition:
+    opacity 0.1s ease,
+    background-color 0.1s ease,
+    color 0.1s ease,
+    box-shadow 0.1s ease,
+    background 0.1s ease;
+  /* added */
+  margin: 5px;
+  transition: transform 0.2s ease-out;
+}
+.customButtons:hover {
+  color: white;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #286294;
+  /* prev 1f6cb9 */
+  transform: scale(1.15);
+}
+/* RESPONSIVE SEARCH BAR CODE */
+/* END OF RESPONSIVE SEARCH BAR CODE */
+/* */
+/* @mixin for-phone-only {
+    @media (max-width: 599px) {
+        @content;
+   }
+}
+@mixin for-tablet-portrait-up {
+    @media (min-width: 600px) {
+        @content;
+   }
+}
+@mixin for-tablet-landscape-up {
+    @media (min-width: 900px) {
+        @content;
+   }
+}
+@mixin for-desktop-up {
+    @media (min-width: 1200px) {
+        @content;
+   }
+}
+@mixin for-big-desktop-up {
+    @media (min-width: 1800px) {
+        @content;
+   }
+}
+*/
+/* */
+
+/* ==================== ORIGINAL DT CARDS CSS ==================== */
+/* card styles
+https://datatables.net/forums/discussion/comment/228301/#Comment_228301 */
+.cards tbody tr {
+  /* float: left;
+    removing this used to center, now using flexbox instead */
+  /*width: 20rem;
+    this narrows the columns too much*/
+  /*box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+   */
+  margin: 0.5rem;
+  /* turned these below off recently to make it more modern? */
+  /* material theme builder, source color C0DAF9 */
+  border: 0.0911rem solid #c4c6d0;
+  /* prev 0.0625rem solid rgba(0, 0, 0, 0.125) */
+
+  border-radius: 24px;
+  /* 1em 0.28571429rem 0.25rem;
+    */
+}
+.cards tbody td {
+  display: block;
+}
+
+/* ==================== ADDED CARDS CODE ==================== */
+
+.cards tbody tr {
+  /* gives some padding around tr, in desktop */
+  padding: 20px;
+  /* border box shadow from fomantic ui, ui message*/
+  /* 0 0 0 1px */
+  /*box-shadow:
+    0 0 0 0.7px rgba(34, 36, 38, 0.22) inset,
+    0 0 0 0 transparent;*/
+}
+/* */
+/* added this to make it one column and centered, it was already centered after colspans were removed */
+.cards tbody {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* center */
+}
+
+/* on mobile, removes border, radius, padding, and leaves a clean edgeless looks, with only a border bottom double line separator/divider between pages*/
+/* mobile only size */
+@media (max-width: 599px) {
+  .dt-container .cards tbody tr {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    padding-bottom: 20px;
+    /* material theme builder, source color C0DAF9 */
+    border-bottom: 10px double #415f91;
+    /* prev 474747 */
+    /*border-bottom: 4px solid #999;*/
+    /* 10px 3d3d3d 333 */
+  }
+  /* adds a little space at the top and bottom of the tbody in mobile */
+  /*.dt-container {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }*/
+}
+
+/* ==================== DT CUSTOM CSS ==================== */
+/* removes space at the top and bottom of the first and last tr of the table*/
+.cards tbody tr:first-child {
+  margin-top: 0;
+}
+.cards tbody tr:last-child {
+  margin-bottom: 0;
+}
+/* mark js highlight color */
+/*mark {
+    background: #82b8fa;
+    color: black;
+}
+prev background: #b3d4fc */
+table.dataTable span.highlight {
+  background-color: #82b8fa;
+  /* ffff88 */
+  border-radius: 0.28571429rem;
+}
+/*table.dataTable span.column_highlight {
+    background-color: #ffcc99;
+    border-radius: 0.28571429rem;
+}
+*/
+/* hide first searchbar on tablet and up */
+@media (min-width: 600px) {
+  .dt-search:has(#dt-search-0) {
+    display: none;
+  }
+}
+/* reverse of that, hide second searchbar on mobile */
+@media (max-width: 599px) {
+  .dt-search:has(#dt-search-1) {
+    display: none;
+  }
+}
+
+/* removes th table header above columns, for card view */
+thead {
+  display: none;
+}
+/* removes colgroup cols except the first one, for card view */
+.dt-container > colgroup > col:not(:nth-child(0)) {
+  display: none;
+}
+/* aligns row of elements to top rather than center, like buttons etc */
+/*div.dt-container div.dt-layout-row div.dt-layout-cell {
+    align-items: center;
+}
+*/
+/* above moves paging info up too, so this moves it back to middle */
+/*div.dt-container div.dt-layout-row:nth-child(3) div.dt-layout-cell.dt-layout-full {
+    align-items: center;
+}
+*/
+/* jump to row select color */
+/*tr.selected*/
+.dataTable > tbody > tr.selected {
+  --dt-row-selected: initial;
+  --dt-row-selected-text: initial;
+  /* material theme builder, source color C0DAF9 */
+  border-top: 5px solid #235580;
+  border-bottom: 5px solid #235580;
+  /* prev 136296 */
+}
+/* ensure search bar doesnt overflow the width on mobile */
+div.dt-container .dt-input,
+div.dt-container .dt-search input {
+  width: 307px;
+  max-width: 90vw;
+  /* indent the text in the search a little, otherwise character cuts off */
+  text-indent: 7px;
+  /* makes its bg color not see thru */
+  background-color: #fff;
+}
+/* makes the inputpaging box bigger */
+.dt-container
+  > div
+  > div
+  > .dt-inputpaging.dt-paging
+  > .dt-paging-input
+  > input {
+  /*width: 110%;
+   */
+  font-size: 80%;
+  /* 80 */
+  /* fixes width, so doesnt jump around when numbers increase in no of digits */
+  width: 65px !important; /* 50 for mobile? */
+}
+/* mobile only size */
+/*@media (max-width: 599px) {
+  .dt-container
+    > div
+    > div
+    > div.dt-inputpaging.dt-paging
+    > div
+    > input[type="search"] {
+    font-size: 80%;
+    width: 50px !important;
+  }
+}*/
+/* make font size of / [total pages] smaller*/
+.dt-container
+  > div
+  > div
+  > div.dt-inputpaging.dt-paging
+  > div.dt-paging-input
+  > span {
+  font-size: 90%;
+  /* 70*/
+}
+/* sets font for searchbox placeholder */
+.dt-container
+  > div
+  > div
+  > div.dt-inputpaging.dt-paging
+  > div
+  > input[type="search"]::placeholder {
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
+  text-indent: 5px;
+  font-size: 90%;
+}
+/* right to left https://datatables.net/examples/i18n/rtl.html some other elements do need to be set back to ltr though */
+.dt-container {
+  direction: rtl;
+}
+/* remove thin border lines above and below rows of td (or rather, last td?) not enough to just remove "display" class from table */
+/* #example > tbody > tr > td */
+/* 
+div.dt-container.dt-empty-footer tbody > tr:last-child > * { */
+div.dt-container.dt-empty-footer tbody > tr:last-child > td {
+  border: none;
+}
+/* ensures pagination buttons dont overflow into the next row on mobile */
+div.dt-container > div > div > div.dt-inputpaging.dt-paging {
+  white-space: nowrap;
+}
+/* lessens the gap between colvis menu list, as well as pagelength button (mobile) and makes text a littler smaller */
+/* .buttons-columnVisibility
+ .button-page-length
+ .buttons-colvisRestore */
+.dt-container > div > div > div.dt-buttons > div > div > .dt-button {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 90%;
+}
+/* brings the tick marks in colvis closer to center */
+div.dt-button-collection > div > button.dt-button-active::after {
+  top: 30%;
+}
+/* same for pagelength button (mobile) 
+actually top covers that too
+div.dt-button-collection .dt-button-active:after {
+  top: 23%;
+} */
+/* on mobile, where collection buttons are, lessens font size, centers the dropdown */
+.dt-container
+  > div
+  > div
+  > div.dt-buttons
+  > div.dt-button-collection
+  > div
+  > button.dt-button {
+  font-size: 90%;
+  /*text-align: right;*/
+  /*padding-right: 30px;*/
+}
+/* moves text span to right aligned, instead of left, also gives it some spacing from the right */
+.dt-container
+  > div
+  > div
+  > div.dt-buttons
+  > div.dt-button-collection
+  > div
+  > button.dt-button {
+  text-align: right;
+  padding-right: 30px;
+}
+/* gives more right side padding where ticks are, in colvis and pagelength dropdown */
+
+.dt-container
+  > div
+  > div
+  > div.dt-buttons
+  > div.dt-button-collection
+  > div
+  > button.dt-button.buttons-columnVisibility,
+.dt-container
+  > div
+  > div
+  > div.dt-buttons
+  > div.dt-button-collection
+  > div
+  > button.dt-button.button-page-length {
+  padding-right: 50px;
+}
+/* sets color of colvis list items on hover
+div.dt-button-collection .dt-button:hover:not(.disabled) */
+div.dt-button-collection > div > button.dt-button:hover:not(.disabled) {
+  color: white;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #286294;
+  /* prev 195faa */
+}
+/* since we turned off the colors for select in the regular dt table, its invisible on the selected searchpanes data too, this makes it show again on searchpanes */
+div.dt-scroll > div.dt-scroll-body > table.dataTable > tbody > tr.selected {
+  color: white;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #286294;
+  /* prev 195faa */
+}
+/* lowers the number pill box in searchpanes a little bit, needed to change static position to do it */
+div.dt-scroll
+  > div.dt-scroll-body
+  > table.dataTable
+  > tbody
+  > tr
+  > td
+  > div
+  > span.dtsp-pill {
+  position: relative;
+  top: 1.5px;
+}
+/* gets rid of dt background in searchpanes and searchbuilder with css, which cant be removed in config */
+div.dt-layout-cell.dt-layout-full > div.dt-button-background {
+  background: none;
+  /* hidden interferes with reopening searchpanes and builder */
+  /*visibility: hidden;
+   */
+  /*display: none !important;
+   */
+  /*position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    background: radial-gradient( ellipse farthest-corner at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100% );
+    z-index: 2001;
+   */
+}
+/* makes search pane list content right aligned instead of left */
+div.dt-scroll-body
+  > table.dataTable
+  > tbody
+  > tr
+  > td.dtsp-nameColumn
+  > div.dtsp-nameCont
+  > span.dtsp-name {
+  text-align: right;
+}
+/* makes the value dropdown box of searchbuild, right aligned instead of left */
+.dtsb-inputCont {
+  text-align: right;
+}
+/* indents the searchbuilder data and condition dropdowns a little, followed by value */
+.dtsb-searchBuilder > div.dtsb-group > div.dtsb-criteria > select.dtsb-dropDown,
+.dtsb-searchBuilder
+  > div.dtsb-group
+  > div.dtsb-criteria
+  > div.dtsb-inputCont
+  > select {
+  text-indent: 7px;
+}
+/* rotates the AND button of searchbuilder to match rtl */
+.dtsb-searchBuilder
+  > div.dtsb-group
+  > div.dtsb-logicContainer
+  > button.dtsb-logic.dtsb-button
+  > div {
+  transform: rotate(-180deg);
+}
+/* makes copy alert number of rows copied, rtl */
+#datatables_buttons_info > div {
+  direction: rtl;
+}
+/* changes the clear filters button to match the others, but only when not in disabled state */
+.dtsp-panesContainer
+  > div.dtsp-titleRow
+  > button.dtsp-clearAll:not(.dtsp-disabledButton) {
+  border: none;
+  background: #e0e1e2 none;
+  border-radius: 0.28571429rem;
+  /* ? */
+  box-shadow:
+    0 0 0 1px transparent inset,
+    0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  transition:
+    opacity 0.1s ease,
+    background-color 0.1s ease,
+    color 0.1s ease,
+    box-shadow 0.1s ease,
+    background 0.1s ease;
+}
+/* customizes the keytables focus box */
+table.dataTable tbody td.focus {
+  /* material theme builder, source color C0DAF9 */
+  outline: 2.5px solid #235580; /* actually, this was selected by :root, but its derived value was 
+    rgb(51, 122, 183)
+  /* prev 337ab7 */
+  outline-offset: -2px;
+  border-radius: 0.28571429rem;
+  /* 5px;
+    */
+}
+/* makes the pagelength dropdown selecter rounder like the others */
+#dt-length-0,
+#dt-search-0 {
+  border-radius: 0.28571429rem;
+  -webkit-border-radius: 0.28571429rem;
+  -moz-border-radius: 0.28571429rem;
+}
+/* same for paginginput box, but setting border radius makes it thicker for some reason, so need to thin the border width here as well, and color it less dark */
+.dt-inputpaging.dt-paging > div > input[type="search"] {
+  border-radius: 0.28571429rem;
+  -webkit-border-radius: 0.28571429rem;
+  -moz-border-radius: 0.28571429rem;
+  /**/
+  border-width: 1px;
+  border-color: #aaa;
+}
+/* puts some margins to left and right of full dt rows, otherwise is basically touching the outside of the page as is
+.dt-container > div.dt-layout-row > div.dt-layout-cell.dt-layout-full {
+  margin-left: 10px;
+  margin-right: 10px;
+} */
+/* commented out right otherwise  all of it is moved from the right for some reason */
+
+/* */
+/* ==================== DT BUTTONS CSS ==================== */
+/* from fomantic ui */
+/* first one is basic button buttons, the rest are searchbuilder buttons */
+.dt-container > div > div > div.dt-buttons > button.dt-button,
+.dtsb-searchBuilder > div.dtsb-group > button,
+.dtsb-searchBuilder > div.dtsb-titleRow > button,
+.dtsb-searchBuilder
+  > div.dtsb-group
+  > div.dtsb-criteria
+  > div.dtsb-buttonContainer
+  > button,
+.dtsb-searchBuilder > div.dtsb-group > div.dtsb-logicContainer,
+div.dtsb-searchBuilder > div.dtsb-titleRow > button.dtsb-clearAll.dtsb-button,
+div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
+  border: none;
+  /* material theme builder, source color C0DAF9 */
+  background: #dee3eb none;
+  /* prev e0e1e2 */
+  /*color: rgba(0, 0, 0, 0.6);
+   */
+  /*margin: 0 0.25em 0 0;
+   */
+  /* commenting this out makes them not stick to each other when stacked */
+  /*line-height: 1em;
+   */
+  border-radius: 0.28571429rem;
+  /* ? */
+  box-shadow:
+    0 0 0 1px transparent inset,
+    0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  transition:
+    opacity 0.1s ease,
+    background-color 0.1s ease,
+    color 0.1s ease,
+    box-shadow 0.1s ease,
+    background 0.1s ease;
+  /*font-size: 1rem;
+   */
+}
+/* button buttons fomantic padding for tablet size and up */
+@media (min-width: 600px) {
+  .dt-container > div > div > div.dt-buttons > button.dt-button {
+    /* this causes buttons to get too wide, making that row overflow padding: 0.78571429em 1.5em 0.78571429em;
+        */
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+/* pad just the copy button a bit more, otherwise too narrow */
+.dt-container
+  > div
+  > div
+  > div.dt-buttons
+  > button.dt-button.buttons-copy.buttons-html5 {
+  padding-right: 25px;
+  padding-left: 25px;
+}
+/* adds some left margin to copy button on mobile, that the other buttons seem to have but this doesnt */
+@media (max-width: 599px) {
+  .dt-container
+    > div
+    > div
+    > div.dt-buttons
+    > button.dt-button.buttons-copy.buttons-html5 {
+    margin-left: 3px;
+  }
+}
+/* removes side padding of first and last pagination buttons to make them narrower */
+.dt-container
+  > div.dt-layout-row
+  > div.dt-layout-cell.dt-layout-full
+  > div.dt-inputpaging.dt-paging
+  > button.dt-paging-button:nth-child(1),
+.dt-container
+  > div.dt-layout-row
+  > div.dt-layout-cell.dt-layout-full
+  > div.dt-inputpaging.dt-paging
+  > button.dt-paging-button:nth-child(5) {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+/* hover button buttons */
+.dt-container > div > div > div.dt-buttons > button.dt-button:hover {
+  /*background-color: #cacbcd;
+   */
+  background-image: none;
+  /* otherwise doesnt remove gradient */
+  box-shadow:
+    0 0 0 1px transparent inset,
+    0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  color: rgba(0, 0, 0, 0.8);
+  /* cancel out default dt hover styles */
+  border: none;
+  /* custom colors */
+  color: white;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #286294;
+  /* prev 1f6cb9 */
+  /* #136296 #2185d0;
+    */
+}
+@media (max-width: 599px) {
+  /* makes search input smaller on mobile */
+  div.dt-container .dt-search input {
+    padding: 0;
+    padding-bottom: 2.5px;
+    font-size: 90%;
+  }
+  /* makes paginginput total page number smaller on mobile */
+  div.dt-container > div > div > div.dt-inputpaging.dt-paging > div > span {
+    font-size: 80%;
+  }
+  /* removes margin space between rows of dt elements on mobile */
+  /*div.dt-container div.dt-layout-row:not(.dt-layout-table) div.dt-layout-cell > * {
+        margin: 0;
+   }
+   */
+  /* more of that, especially around the table */
+  div.dt-container div.dt-layout-row {
+    margin: 0;
+  }
+  /* searchbuilders value box on mobile is moved to the left, into the and range, removing its right margin seems to bring it back where it should be */
+  div.dtsb-searchBuilder
+    div.dtsb-group
+    div.dtsb-criteria
+    div.dtsb-inputCont
+    select {
+    margin-right: 0;
+  }
+}
+/* pagination buttons - although this cant be seen, it must be set otherwise hover makes an abrupt visual shift */
+.dt-container > div > div > div.dt-inputpaging.dt-paging > button {
+  border: none;
+  border-radius: 0.28571429rem;
+  transition:
+    opacity 0.1s ease,
+    background-color 0.1s ease,
+    color 0.1s ease,
+    box-shadow 0.1s ease,
+    background 0.1s ease;
+}
+/* pagination buttons hover */
+.dt-container > div > div > div.dt-inputpaging.dt-paging > button:hover {
+  background-image: none;
+  /* otherwise doesnt remove gradient */
+  /* cancel out default dt hover styles */
+  border: none;
+  /* custom colors */
+  color: white;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #286294;
+  /* prev 1f6cb9 */
+  /* #136296 #2185d0;
+    */
+}
+/* ==================== FONTS CSS ==================== */
+html {
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
+  -webkit-font-smoothing: antialiased;
+  /* text-align: right;
+    direction: rtl;
+    */
+  /*font-size: 120%;
+   */
+  /* for tharujamaanu */
+}
+/* merged font */
+@font-face {
+  font-family: "mergedFont";
+  src:
+    url(../font/merged-300.woff2) format("woff2"),
+    url(../font/merged-300.woff) format("woff");
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display */
+  font-display: block;
+  /* previously swap */
+}
+/* ==================== DT FONTS CSS ==================== */
+/* paging buttons, search box, functional buttons, searchpanes column title, searchpanes clear button searchbuilder buttons searchbuilder dropdowns, */
+.dt-paging-button,
+.dt-input,
+.dt-button,
+.dtsp-search,
+.dtsp-clearAll,
+.dtsb-button,
+.dtsb-dropDown {
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
+  -webkit-font-smoothing: antialiased;
+  text-align: right;
+  direction: rtl;
+  font-size: 90%;
+  /* 100%;
+    */
+}
+/* font size on dt buttons, as above font size doesnt work without span */
+.dt-button span {
+  font-size: 100%;
+  /* 120%;
+    */
+}
+/* avoids oversized buttons overflowing to next row on mobile for-phone-only */
+/*@media (max-width: 599px) {
+    .dt-button span {
+        font-size: 100%;
+   }
+}
+*/
+/* */
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uLy4uLy4uL0FwcERhdGEvUm9hbWluZy9ucG0vbm9kZV9tb2R1bGVzL0RULWlubGluZS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEiLCJmaWxlIjoiLi5cXC4uXFwuLlxcLi5cXC4uXFxBcHBEYXRhXFxSb2FtaW5nXFxucG1cXG5vZGVfbW9kdWxlc1xcRFQtaW5saW5lLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qID09PT09PT09PT09PT09PT09PT09IERBUktFUiBPVVRFUiBXUkFQUEVSLCBMSUdIRVIgSU5ORVIgV1JBUFBFUiA9PT09PT09PT09PT09PT09PT09PSAqL1xyXG5cclxuLyogbWFraW5nIHRoZSBib2R5IGJhY2tncm91bmQgY29sb3IgZGlmZmVyZW50IGxpa2UgaW4gaGFzc2FhbnMsIGJ1dCBvbmx5IG9uIHRhYmxldCBhbmQgYWJvdmUsIG5vdCBtb2JpbGUsIG90aGVyd2lzZSBoaWRpbmcgbmF2YmFyIG9uIG1vYmlsZSBzaG93cyB0aGUgZGlmZmVyZW50bHkgY29sb3JlZCBib2R5IGZyb20gdGhlIHdyYXBwZXIgKi9cclxuQG1lZGlhIChtaW4td2lkdGg6IDYwMHB4KSB7XHJcbiAgYm9keSB7XHJcbiAgICAvKiBvdXRlciBjb2xvciAqL1xyXG4gICAgLyogbWF0ZXJpYWwgdGhlbWUgYnVpbGRlciwgc291cmNlIGNvbG9yIEMwREFGOSAqL1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2U3ZWRmNjtcclxuICAgIC8qICBwcmV2IGYyZjJmNSBtYWluIGJnLWxsaWdodCAqL1xyXG4gICAgLyogc3R5bGVzIG9mIGhhc3NhYW4gKi9cclxuICB9XHJcbn1cclxuLmR0V3JhcHBlciB7XHJcbiAgLyogaW5uZXIgY29sb3IgKi9cclxuICAvKiBtYXRlcmlhbCB0aGVtZSBidWlsZGVyLCBzb3VyY2UgY29sb3IgQzBEQUY5IFxyXG4gIGJhY2tncm91bmQtY29sb3I6ICNmN2Y5ZmYgKi9cclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmO1xyXG4gIC8qIHByZXYgIGY3ZjlmZiAqL1xyXG59XHJcbi8qIHJlbW92ZXMgdGhlIGZpcnN0IG1hcmdpbiB0b3Agb2YgdGhlIGZpcnN0IGR0IGxheW91dCByb3csIHRvIG1ha2UgdGhlIGR0d3JhcHBlciB0b3VjaCB0aGUgdG9wLCBvdGhlcndpc2UgY2FudCBjb2xvciB0aGUgb3V0ZXIgYmFja2dyb3duIGlmIGl0cyBhIG1hcmdpbi5cclxud2l0aG91dCBpbXBvcnRhbnQsIG1vYmlsZSB2aWV3IGdpdmVzIGl0IGJhY2sgdG9wIG1hcmdpbiAqL1xyXG5kaXYuZHQtY29udGFpbmVyIGRpdi5kdC1sYXlvdXQtcm93OmZpcnN0LWNoaWxkIHtcclxuICBtYXJnaW4tdG9wOiAwO1xyXG59XHJcbi8qIG1vYmlsZSBcclxuQG1lZGlhIChtYXgtd2lkdGg6IDU5OXB4KSB7XHJcbiAgZGl2LmR0LWNvbnRhaW5lciA+IGRpdi5kdC1sYXlvdXQtcm93Om50aC1jaGlsZCgxKSA+IGRpdi5kdC1sYXlvdXQtY2VsbCB7XHJcbiAgICBtYXJnaW4tdG9wOiAwO1xyXG4gIH1cclxuICBiZWxvdyB0YXJnZXRzIGJvdGggdG9wIGFuZCBib3R0b20gcm93cywgd2hpbGUgYWJvdmUgb25seSB0b3BcclxuICBkaXYuZHQtY29udGFpbmVyXHJcbiAgICBkaXYuZHQtbGF5b3V0LXJvdzpub3QoLmR0LWxheW91dC10YWJsZSlcclxuICAgIGRpdi5kdC1sYXlvdXQtY2VsbFxyXG4gICAgPiAqOmZpcnN0LWNoaWxkIHtcclxuICAgIG1hcmdpbi10b3A6IDA7XHJcbiAgfVxyXG59ICovXHJcbi8qIGluc3RlYWQgb2YgYSBtYXJnaW4sIGdpdmVzIGl0IGEgcGFkZGluZyB0b3AgYW5kIGNvbG9ycyB0aGF0ICovXHJcbi5kdFdyYXBwZXIge1xyXG4gIHBhZGRpbmctdG9wOiAwLjc1ZW07XHJcbn1cclxuLyogZm9yIG1vYmlsZVxyXG5AbWVkaWEgKG1heC13aWR0aDogNTk5cHgpIHtcclxuICAuZHRXcmFwcGVyIHtcclxuICAgIHBhZGRpbmctdG9wOiAwLjc1ZW07XHJcbiAgfVxyXG59ICAqL1xyXG5cclxuLyogY2VudGVycyBmaXJzdCByb3cgb2YgZHQgZWxlbWVudHMgaW5zdGVhZCBvZiB0aGVtIGJlaW5nIHRvIHRoZSByaWdodCAqL1xyXG5kaXYuZHQtY29udGFpbmVyID4gZGl2LmR0LWxheW91dC1yb3c6bnRoLWNoaWxkKDEpID4gZGl2LmR0LWxheW91dC1jZWxsIHtcclxuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcclxufVxyXG4vKiBpZiBpIGNoYW5nZSB0aGUgM3JkIGNoaWxkIHRvIHNwYWNlIGV2ZW5seSBhcyB3ZWxsLCBpdCB3aWxsIGJlIGJ1bmNoZWQgdG9nZXRoZXIgaW4gdGhlIG1pZGRsZSBpbnN0ZWFkIG9mIHRoZSBlbmRzLiBzbyBnaXZpbmcgaXQgYSBtYXJnaW4gb24gZWl0aGVyIHNpZGUgaW5zdGVhZC4gKi9cclxuLyogZm9yLXRhYmxldC1wb3J0cmFpdC11cCwgYmVjYXVzZSBvbiBtb2JpbGUgaXQgZ2V0cyByaWdodCBtYXJnaW4gYnV0IG5vdCBsZWZ0LCBtYWtpbmcgaXQgdW5ldmVuICovXHJcbkBtZWRpYSAobWluLXdpZHRoOiA2MDBweCkge1xyXG4gIGRpdi5kdC1jb250YWluZXIgPiBkaXYuZHQtbGF5b3V0LXJvdzpudGgtY2hpbGQoMykgPiBkaXYuZHQtbGF5b3V0LWNlbGwge1xyXG4gICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgbWFyZ2luLWxlZnQ6IDEwcHg7XHJcbiAgfVxyXG59XHJcblxyXG4vKiBtb3JlIG1hcmdpbiBvbiBlaXRoZXIgc2lkZSBvZiB0aGUgZHQgY29udGFpbmVyICovXHJcbi5kdC1jb250YWluZXIge1xyXG4gIG1hcmdpbi1yaWdodDogMTBweDtcclxuICBtYXJnaW4tbGVmdDogMTBweDtcclxufVxyXG5cclxuLyogb24gbW9iaWxlLCByZW1vdmUgdHIgc2lkZSBtYXJnaW5zLCBiZWNhdXNlIG5vdyB0aGUgZHRXcmFwcGVyIG9uZXMgc3VmZmljZS4gdXNlZCBpbXBvcnRhbnQgb3RoZXJ3aXNlIHRoZXNlIGFyZSBvdmVyaWRkZW4gKi9cclxuQG1lZGlhIChtYXgtd2lkdGg6IDU5OXB4KSB7XHJcbiAgLmNhcmRzIHRib2R5IHRyIHtcclxuICAgIG1hcmdpbi1sZWZ0OiAwICFpbXBvcnRhbnQ7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDAgIWltcG9ydGFudDtcclxuICB9XHJcbn1cclxuXHJcbi8qID09PT09PT09PT09PT09PT09PT09IEhUTUwgQk9JTEVSIFBMQVRFIC0gQmFzZSBzdHlsZXM6IG9waW5pb25hdGVkIGRlZmF1bHRzID09PT09PT09PT09PT09PT09PT09ICovXHJcbi8qIGh0dHBzOi8vd3d3LmNsZWFuY3NzLmNvbS9jc3MtYmVhdXRpZnkvXHJcbmh0dHBzOi8vZ2l0aHViLmNvbS9oNWJwL2h0bWw1LWJvaWxlcnBsYXRlIHVwZGF0ZWQgd2l0aCBoYXNzYWFuJ3MgY3NzICovXHJcbmh0bWwge1xyXG4gIGZvbnQtc2l6ZTogMjJweDtcclxuICAvKiAxZW0gKi9cclxuICAvKmxpbmUtaGVpZ2h0OiAxLjg7XHJcbiAgICovXHJcbiAgLyogMS40IG5vdyBpbiBib2R5ICovXHJcbiAgLyogYWRkZWQgKi9cclxuICAtd2Via2l0LXRleHQtc2l6ZS1hZGp1c3Q6IDEwMCU7XHJcbn1cclxuLyogQ3VzdG9taXplIHRoZSBiYWNrZ3JvdW5kIGNvbG9yIHRvIG1hdGNoIHlvdXIgZGVzaWduICovXHJcbjo6LW1vei1zZWxlY3Rpb24ge1xyXG4gIGJhY2tncm91bmQ6ICNiM2Q0ZmM7XHJcbiAgdGV4dC1zaGFkb3c6IG5vbmU7XHJcbn1cclxuOjpzZWxlY3Rpb24ge1xyXG4gIGJhY2tncm91bmQ6ICNiM2Q0ZmM7XHJcbiAgdGV4dC1zaGFkb3c6IG5vbmU7XHJcbn1cclxuLyogQSBiZXR0ZXIgbG9va2luZyBkZWZhdWx0IGhvcml6b250YWwgcnVsZSBJUyBJVCBORUVERUQgISEhICovXHJcbmhyIHtcclxuICBkaXNwbGF5OiBibG9jaztcclxuICBoZWlnaHQ6IDFweDtcclxuICAvKmJvcmRlcjogMDtcclxuICAgIGJvcmRlci10b3A6IDFweCBzb2xpZCAjY2NjO1xyXG4gICAqL1xyXG4gIC8qbWFyZ2luOiAxZW0gMDsqL1xyXG4gIG1hcmdpbi10b3A6IDEuNWVtO1xyXG4gIG1hcmdpbi1ib3R0b206IDEuNWVtO1xyXG4gIHBhZGRpbmc6IDA7XHJcbiAgLyogYWRkZWQgKi9cclxuICBib3JkZXI6IG5vbmU7XHJcbiAgLyogbWF0ZXJpYWwgdGhlbWUgYnVpbGRlciwgc291cmNlIGNvbG9yIEMwREFGOSAqL1xyXG4gIGJvcmRlci1ib3R0b206IDJweCBzb2xpZCAjYzJjN2NmO1xyXG4gIC8qIHByZXYgZDNkM2QzICovXHJcbn1cclxuLyogUmVtb3ZlIHRoZSBnYXAgYmV0d2VlbiBhdWRpbywgY2FudmFzLCBpZnJhbWVzLCBpbWFnZXMsIHZpZGVvcyBhbmQgdGhlIGJvdHRvbSBvZiB0aGVpciBjb250YWluZXJzICovXHJcbi8qYXVkaW8sIGNhbnZhcywgaWZyYW1lLCBzdmcsIHZpZGVvKi9cclxuaW1nIHtcclxuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xyXG59XHJcbi8qIGZpZWxkc2V0IHN0eWxlcywgdGV4dGFyZWEgcmVzaXplICovXHJcblxyXG4vKiA9PT09PT09PT09PT09PT09PT09PSBIVE1MIEJPSUxFUiBQTEFURSAtIEhlbHBlciBjbGFzc2VzID09PT09PT09PT09PT09PT09PT09ICovXHJcbi8qIEhpZGUgdmlzdWFsbHkgYW5kIGZyb20gc2NyZWVuIHJlYWRlcnMgKi9cclxuLmhpZGRlbixcclxuW2hpZGRlbl0ge1xyXG4gIGRpc3BsYXk6IG5vbmUgIWltcG9ydGFudDtcclxufVxyXG4vKiBIaWRlIHZpc3VhbGx5IGFuZCBmcm9tIHNjcmVlbiByZWFkZXJzLCBidXQgbWFpbnRhaW4gbGF5b3V0ICovXHJcbi5pbnZpc2libGUge1xyXG4gIHZpc2liaWxpdHk6IGhpZGRlbjtcclxufVxyXG4vKiBjbGVhcmZpeCwgbWVkaWEgcXVlcmllcywgcHJpbnQgc3R5bGVzICovXHJcblxyXG4vKiA9PT09PT09PT09PT09PT09PT09PSBPVEhFUiBNQUlOIENTUyA9PT09PT09PT09PT09PT09PT09PSAqL1xyXG5odG1sIHtcclxuICAvKiBodHRwczovL2RldmVsb3Blci5tb3ppbGxhLm9yZy9lbi1VUy9kb2NzL1dlYi9DU1Mvc2Nyb2xsLWJlaGF2aW9yICovXHJcbiAgc2Nyb2xsLWJlaGF2aW9yOiBzbW9vdGg7XHJcbiAgLyogaHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMTQxNzkzNC9ob3ctdG8tcHJldmVudC1zY3JvbGxiYXItZnJvbS1yZXBvc2l0aW9uaW5nLXdlYi1wYWdlICovXHJcbiAgb3ZlcmZsb3cteTogc2Nyb2xsO1xyXG4gIC8qIEFsbG93IGxvbmcgd29yZHMgdG8gYmUgYWJsZSB0byBicmVhayBhbmQgd3JhcCBvbnRvIHRoZSBuZXh0IGxpbmUuIFByZXZlbnRzIGxvbmcgdXJsIGFkZHJlc3NlcyBmcm9tIGJyZWFraW5nIHBhZ2UgY29udGVudCB3aGVuIGl0IGRvZXNudCBmaXQgdGhlIHdpZHRoLiB1c2UgdGhpcyBpbnN0ZWFkIG9mIHRleHQtd3JhcCBvciBicmVhay13b3JkIHdoZXJlIGl0IGlzIG5lZWRlZC4gKi9cclxuICAvKiBvdmVyZmxvdy13cmFwOiBhbnl3aGVyZTtcclxuICAgICovXHJcbiAgLyogaHR0cHM6Ly9kZXZlbG9wZXIubW96aWxsYS5vcmcvZW4tVVMvZG9jcy9XZWIvQ1NTL3RleHQtd3JhcCAqL1xyXG4gIHRleHQtd3JhcDogcHJldHR5O1xyXG4gIC8qIHByZXR0eSBiYWxhbmNlICovXHJcbn1cclxuLyogcmVzZXRzIGJvZHkgYW5kIGNlbnRlcnMgY29udGFpbmVyICovXHJcbi8qIHNvbWUgYm9keSBjb2RlIGZyb20gaHR0cHM6Ly9naXRodWIuY29tL3NpbmRyZXNvcmh1cy9naXRodWItbWFya2Rvd24tY3NzL2Jsb2IvbWFpbi9pbmRleC5odG1sICovXHJcbmJvZHkge1xyXG4gIG1hcmdpbjogMDtcclxuICBwYWRkaW5nOiAwO1xyXG4gIC8qICovXHJcbiAgLXdlYmtpdC1mb250LXNtb290aGluZzogYW50aWFsaWFzZWQ7XHJcbiAgbGluZS1oZWlnaHQ6IDEuODtcclxuICBjb2xvcjogIzBhMGEwYTtcclxufVxyXG4vKiBhZGQgYW4gYW5pbWF0ZWQgdW5kZXJsaW5lIG9uIGhvdmVyIHRvIGEgbGluayAqL1xyXG5hIHtcclxuICBjb2xvcjogIzAwNjVjYztcclxuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XHJcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG59XHJcbmE6OmFmdGVyIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDA2NWNjO1xyXG4gIGNvbnRlbnQ6IFwiXCI7XHJcbiAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGhlaWdodDogMnB4O1xyXG4gIGxlZnQ6IDA7XHJcbiAgYm90dG9tOiAtMnB4O1xyXG4gIC8qIC0ycHggKi9cclxuICB0cmFuc2Zvcm06IHNjYWxlWCgwKTtcclxuICB0cmFuc2Zvcm0tb3JpZ2luOiBib3R0b20gcmlnaHQ7XHJcbiAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDAuM3MgZWFzZS1vdXQ7XHJcbn1cclxuYTpob3Zlcjo6YWZ0ZXIge1xyXG4gIHRyYW5zZm9ybTogc2NhbGVYKDEpO1xyXG4gIHRyYW5zZm9ybS1vcmlnaW46IGJvdHRvbSBsZWZ0O1xyXG4gIC8qIHRoaXMgbWFrZXMgc3VyZSBpdCBpcyBvbiB0b3Agb2Ygb3RoZXIgZWxlbWVudHMgdGhhdCBtaWdodCBjb21lIGFmdGVyIGl0ICovXHJcbiAgei1pbmRleDogNTtcclxufVxyXG5wIHtcclxuICBtYXJnaW4tdG9wOiAxZW07XHJcbiAgbWFyZ2luLWJvdHRvbTogMWVtO1xyXG59XHJcbi8qIGFkZGVkIHJlbW92ZSBsaW5rIGhvdmVyIHVuZGVybGluZSBmcm9tIHRoaW5ncyBsaWtlIGltZyAqL1xyXG5hLm5vTGluZUE6OmFmdGVyIHtcclxuICBiYWNrZ3JvdW5kOiBub25lO1xyXG59XHJcbmgzIHtcclxuICBmb250LXNpemU6IDIzcHg7XHJcbiAgbWFyZ2luLXRvcDogMS42NWVtOyAvKiAxLjUsIDIgKi9cclxuICAvKm1hcmdpbi10b3A6IDFlbTtcclxuICAgKi9cclxuICBtYXJnaW4tYm90dG9tOiAxZW07XHJcbn1cclxuaDIge1xyXG4gIG1hcmdpbi10b3A6IDEuNzVlbTtcclxuICBmb250LXNpemU6IDI4cHg7XHJcbn1cclxuXHJcbi5obXZMb2dvIHtcclxuICAvKndpZHRoOiAyMDBweDtcclxuICBoZWlnaHQ6IDIwMHB4OyovXHJcbiAgd2lkdGg6IDE1MHB4O1xyXG4gIGhlaWdodDogMTUwcHg7XHJcbiAgLyp0cmFuc2l0aW9uOiB0cmFuc2Zvcm0gMC4zcyBlYXNlLWluLW91dDsqL1xyXG4gIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjI1cyBlYXNlLW91dDtcclxuICBtYXJnaW4tYm90dG9tOiAwLjhlbTtcclxufVxyXG4uaG12TG9nbzpob3ZlciB7XHJcbiAgdHJhbnNmb3JtOiBzY2FsZSgxLjE1KTtcclxufVxyXG5cclxuLmJhc21hbGEge1xyXG4gIC8qcGFkZGluZy1ib3R0b206IDEwcHggIWltcG9ydGFudDsqL1xyXG4gIGZvbnQtc2l6ZTogMjVweCAhaW1wb3J0YW50O1xyXG59XHJcblxyXG4vKiBhZnRlciBhZGRpbmcgYSBjbGFzcyB0byBkdCBiciBpbiBqcywgY2FuIHN0eWxlIGl0IHRvIG1ha2UgdGhlIGdhcCB3aWRlclxyXG5odHRwczovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy83NjE0OTI4L2NoYW5nZS1ici1oZWlnaHQtdXNpbmctY3NzLzI4MzEwMDExIzI4MzEwMDExXHJcbmh0dHBzOi8vc3RhY2tvdmVyZmxvdy5jb20vcXVlc3Rpb25zLzE0MDk2NDkvaG93LXRvLWNoYW5nZS10aGUtaGVpZ2h0LW9mLWEtYnIvMTQwOTc0MiMxNDA5NzQyICovXHJcbi8qIHByZXYgdXNlZCBhIGNsYXNzIGNhbGxlZCAuZHRCciovXHJcbi8qYnIge1xyXG4gIGNvbnRlbnQ6IFwiXCI7XHJcbiAgbWFyZ2luOiAyZW07XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbiAgZm9udC1zaXplOiAxMHB4O1xyXG59Ki9cclxuLyogMzQlIDM0cHggMjQlIGNvbnRyb2wgdGhlIHNwYWNpbmcgd2l0aCB0aGUgZm9udCBzaXplLiAqL1xyXG4vKiBmb290bm90ZXMgYnIsIG5vdCBpbiBkYXRhdGFibGUgdGFibGVzLCBidXQgaW4gcGFnZSBib2R5ICovXHJcbi8qLnBhZ2VGb290bm90ZXMgYnIge1xyXG4gIGZvbnQtc2l6ZTogNXB4O1xyXG59Ki9cclxuLyogZm9yIGR0IHRhYmxlIGJycyAqL1xyXG4uZHRCciB7XHJcbiAgY29udGVudDogXCJcIjtcclxuICBtYXJnaW46IDJlbTtcclxuICBkaXNwbGF5OiBibG9jaztcclxuICBmb250LXNpemU6IDVweDtcclxufVxyXG4vKi5kdEJyRm9vdGVyIHtcclxuICBmb250LXNpemU6IDFweDsgXHJcbn0qL1xyXG4vKiAqL1xyXG4uZHRXcmFwcGVyIHtcclxuICAvKm1heC13aWR0aDogMTA4MHB4O1xyXG4gICAgKi9cclxuICAvKiA4MDBweCwgQWRqdXN0IHRoZSBtYXhpbXVtIHdpZHRoIGFzIG5lZWRlZCAqL1xyXG4gIG1hcmdpbjogMCBhdXRvO1xyXG4gIG1pbi13aWR0aDogMjAwcHg7XHJcbiAgbWF4LXdpZHRoOiA5ODBweDtcclxuICAvKiAqL1xyXG59XHJcbi5obXZTZWN0aW9uIHtcclxuICBwYWRkaW5nOiAzZW0gNWVtO1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG4gIC8qIGNlbnRlciAqL1xyXG4gIGRpcmVjdGlvbjogcnRsO1xyXG4gIC8qICovXHJcbiAgcGFkZGluZy10b3A6IDA7XHJcbn1cclxuQG1lZGlhIChtYXgtd2lkdGg6IDU5OXB4KSB7XHJcbiAgLmhtdlNlY3Rpb24ge1xyXG4gICAgcGFkZGluZzogMWVtO1xyXG4gICAgbWFyZ2luOiAwIDAgMmVtO1xyXG4gIH1cclxufVxyXG5cclxuLyogb25seSBmb3IgTU9CSUxFIHNpemUgLSByZW1vdmVzIHRvcCBtYXJnaW4gKi9cclxuQG1lZGlhIChtYXgtd2lkdGg6IDU5OXB4KSB7XHJcbiAgLnJtdlRvcE1hcmdpbk9uTW9iaWxlIHtcclxuICAgIG1hcmdpbi10b3A6IDA7XHJcbiAgfVxyXG59XHJcblxyXG4vKiBIRUxQRVIgQ0xBU1NFUyAqL1xyXG4uanVzdGlmaWVkVGV4dCB7XHJcbiAgdGV4dC1hbGlnbjoganVzdGlmeTtcclxuICAvKmRpcmVjdGlvbjogcnRsO1xyXG4gICAqL1xyXG59XHJcblxyXG4uY2VudGVyQWxpZ25lZFRleHQge1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAvKmRpcmVjdGlvbjogcnRsO1xyXG4gICAqL1xyXG59XHJcblxyXG4ucmlnaHRBbGlnbmVkVGV4dCB7XHJcbiAgdGV4dC1hbGlnbjogcmlnaHQ7XHJcbn1cclxuXHJcbi5sZWZ0QWxpZ25lZFRleHQge1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbn1cclxuXHJcbi5sdHJUZXh0IHtcclxuICBkaXJlY3Rpb246IGx0cjtcclxufVxyXG5cclxuLnJ0bFRleHQge1xyXG4gIGRpcmVjdGlvbjogcnRsO1xyXG59XHJcblxyXG4uY29sSGVhZGVyIHtcclxuICAvKmZvbnQtd2VpZ2h0OiBib2xkOyovXHJcbiAgY29sb3I6ICMwZjRjNzU7IC8qICFpbXBvcnRhbnQ7Ki9cclxuICAvKiBiZWZvcmUgdG9wIGRvd24gd2FzIDggYnkgZGVmYXVsdCAqL1xyXG4gIHBhZGRpbmctdG9wOiAycHggIWltcG9ydGFudDtcclxuICBwYWRkaW5nLWJvdHRvbTogMnB4ICFpbXBvcnRhbnQ7XHJcbn1cclxuLmNvbEVuZyB7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxuICBkaXJlY3Rpb246IGx0cjtcclxuICBmb250LXNpemU6IDIwcHg7XHJcbn1cclxuXHJcbi8qIHBhZ2UgZm9vdG5vdGVzLCBzdHlsZXMgZnJvbSBoYXNzYWFuJ3MgLnBvc3QtY29weXJpZ2h0LCBhbmQgc29tZSBmcm9tIC50d2l0dGVyLXR3ZWV0ICAqL1xyXG4ucGFnZUZvb3Rub3RlcyB7XHJcbiAgLypwYWRkaW5nOiAxMHB4OyovIC8qIHBhZGRpbmc6IDAuMmVtIDJlbSAwLjJlbSAzZW07ICovXHJcbiAgcGFkZGluZzogMCAyZW0gMWVtIDNlbTsgLyogLnR3aXR0ZXItdHdlZXQgKi9cclxuICAvKiBtYXRlcmlhbCB0aGVtZSBidWlsZGVyLCBzb3VyY2UgY29sb3IgQzBEQUY5IFxyXG4gIGJhY2tncm91bmQtY29sb3I6ICNmMGY0Zjk7ICovXHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Y2ZjZmNjtcclxuICAvKiBwcmV2IGU3ZWRmNiwgaHNsYSgwLCAwJSwgNzElLCAwLjEpIDEzNjI5NiAqL1xyXG4gIC8qIHByZXYgYzJjN2NmIDk5OSAyMzU1ODAgLnR3aXR0ZXItdHdlZXQgKi9cclxuICBib3JkZXI6IDFweCBzb2xpZCAjZTFlMWUxO1xyXG4gIC8qIG1hdGVyaWFsIHRoZW1lIGJ1aWxkZXIsIHNvdXJjZSBjb2xvciBDMERBRjkgXHJcbiAgYm9yZGVyLXJpZ2h0OiA0cHggc29saWQgI2MyYzdjZjsgKi9cclxuICBib3JkZXItcmlnaHQ6IDRweCBzb2xpZCAjOGM5MTk5O1xyXG4gIC8qbWFyZ2luLXRvcDogM2VtOyovXHJcbiAgLyogYWRkZWQgKi9cclxuICBmb250LXNpemU6IDIwcHg7XHJcbiAgbWFyZ2luLWJvdHRvbTogMWVtO1xyXG4gIG1hcmdpbi10b3A6IDFlbTtcclxuICAvKm1hcmdpbi1yaWdodDogMWVtOyovXHJcbiAgY29sb3I6ICM1NTU7XHJcbn1cclxuXHJcbi5wYWdlRm9vdG5vdGVzIHAge1xyXG4gIG1hcmdpbi10b3A6IDA7XHJcbiAgbWFyZ2luLWJvdHRvbTogMDtcclxufVxyXG5cclxuLyogYWRkcyBsaW5lIGFib3ZlIGZvb3Rub3RlLCBJbiBvcmRlciBmb3IgdGhlIG5ldyBsaW5lcyB0byB3b3JrIHByb3Blcmx5LCB5b3UgYWxzbyBuZWVkIHRvIHNldCB0aGUgd2hpdGUtc3BhY2UgcHJvcGVydHkgdG8gZWl0aGVyIHByZSBvciBwcmUtd3JhcC4gaG93ZXZlciB0aGlzIGlzbnQgc2VsZWN0YWJsZSBvciBjb3B5YWJsZSwgc28gYWRkZWQgaXQgaW4gdGhlIGh0bWwgaXRzZWxmIC4gKi9cclxuLyoucGFnZUZvb3Rub3Rlczo6YmVmb3JlIHtcclxuICBjb250ZW50OiBcIl9fX19fX19fX1xcYVwiO1xyXG4gIHdoaXRlLXNwYWNlOiBwcmU7XHJcbn0qL1xyXG5cclxuLyogQ1VTVE9NIFNUWUxFUyAqL1xyXG4uY3VzdG9tQnV0dG9ucyB7XHJcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICBib3gtc2l6aW5nOiBib3JkZXItYm94O1xyXG4gIC8qbWFyZ2luLWJvdHRvbTogMC4zMzNlbTtcclxuICAgKi9cclxuICBwYWRkaW5nOiAwLjVlbSAxZW07XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIGZvbnQtc2l6ZTogMC44OGVtO1xyXG4gIGxpbmUtaGVpZ2h0OiAxLjZlbTtcclxuICBjb2xvcjogaW5oZXJpdDtcclxuICB1c2VyLXNlbGVjdDogbm9uZTtcclxuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XHJcbiAgb3V0bGluZTogbm9uZTtcclxuICB0ZXh0LW92ZXJmbG93OiBlbGxpcHNpcztcclxuICB3aGl0ZS1zcGFjZTogbm93cmFwO1xyXG4gIG92ZXJmbG93OiBoaWRkZW47XHJcbiAgZm9udC1mYW1pbHk6IFwibWVyZ2VkRm9udFwiLCBcIkFyaWFsXCIsIHNhbnMtc2VyaWYsIFwiZmFydW1hXCI7XHJcbiAgLXdlYmtpdC1mb250LXNtb290aGluZzogYW50aWFsaWFzZWQ7XHJcbiAgdGV4dC1hbGlnbjogcmlnaHQ7XHJcbiAgZGlyZWN0aW9uOiBydGw7XHJcbiAgLyogKi9cclxuICAvKnBhZGRpbmctcmlnaHQ6IDI1cHg7XHJcbiAgICBwYWRkaW5nLWxlZnQ6IDI1cHg7XHJcbiAgICovXHJcbiAgYm9yZGVyOiBub25lO1xyXG4gIC8qIG1hdGVyaWFsIHRoZW1lIGJ1aWxkZXIsIHNvdXJjZSBjb2xvciBDMERBRjkgKi9cclxuICBiYWNrZ3JvdW5kOiAjZGVlM2ViIG5vbmU7XHJcbiAgLyogcHJldiBlMGUxZTIgKi9cclxuICBib3JkZXItcmFkaXVzOiAwLjI4NTcxNDI5cmVtO1xyXG4gIGJveC1zaGFkb3c6XHJcbiAgICAwIDAgMCAxcHggdHJhbnNwYXJlbnQgaW5zZXQsXHJcbiAgICAwIDAgMCAwIHJnYmEoMzQsIDM2LCAzOCwgMC4xNSkgaW5zZXQ7XHJcbiAgdHJhbnNpdGlvbjpcclxuICAgIG9wYWNpdHkgMC4xcyBlYXNlLFxyXG4gICAgYmFja2dyb3VuZC1jb2xvciAwLjFzIGVhc2UsXHJcbiAgICBjb2xvciAwLjFzIGVhc2UsXHJcbiAgICBib3gtc2hhZG93IDAuMXMgZWFzZSxcclxuICAgIGJhY2tncm91bmQgMC4xcyBlYXNlO1xyXG4gIC8qIGFkZGVkICovXHJcbiAgbWFyZ2luOiA1cHg7XHJcbiAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDAuMnMgZWFzZS1vdXQ7XHJcbn1cclxuLmN1c3RvbUJ1dHRvbnM6aG92ZXIge1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICAvKiBtYXRlcmlhbCB0aGVtZSBidWlsZGVyLCBzb3VyY2UgY29sb3IgQzBEQUY5ICovXHJcbiAgYmFja2dyb3VuZC1jb2xvcjogIzI4NjI5NDtcclxuICAvKiBwcmV2IDFmNmNiOSAqL1xyXG4gIHRyYW5zZm9ybTogc2NhbGUoMS4xNSk7XHJcbn1cclxuLyogUkVTUE9OU0lWRSBTRUFSQ0ggQkFSIENPREUgKi9cclxuLyogRU5EIE9GIFJFU1BPTlNJVkUgU0VBUkNIIEJBUiBDT0RFICovXHJcbi8qICovXHJcbi8qIEBtaXhpbiBmb3ItcGhvbmUtb25seSB7XHJcbiAgICBAbWVkaWEgKG1heC13aWR0aDogNTk5cHgpIHtcclxuICAgICAgICBAY29udGVudDtcclxuICAgfVxyXG59XHJcbkBtaXhpbiBmb3ItdGFibGV0LXBvcnRyYWl0LXVwIHtcclxuICAgIEBtZWRpYSAobWluLXdpZHRoOiA2MDBweCkge1xyXG4gICAgICAgIEBjb250ZW50O1xyXG4gICB9XHJcbn1cclxuQG1peGluIGZvci10YWJsZXQtbGFuZHNjYXBlLXVwIHtcclxuICAgIEBtZWRpYSAobWluLXdpZHRoOiA5MDBweCkge1xyXG4gICAgICAgIEBjb250ZW50O1xyXG4gICB9XHJcbn1cclxuQG1peGluIGZvci1kZXNrdG9wLXVwIHtcclxuICAgIEBtZWRpYSAobWluLXdpZHRoOiAxMjAwcHgpIHtcclxuICAgICAgICBAY29udGVudDtcclxuICAgfVxyXG59XHJcbkBtaXhpbiBmb3ItYmlnLWRlc2t0b3AtdXAge1xyXG4gICAgQG1lZGlhIChtaW4td2lkdGg6IDE4MDBweCkge1xyXG4gICAgICAgIEBjb250ZW50O1xyXG4gICB9XHJcbn1cclxuKi9cclxuLyogKi9cclxuXHJcbi8qID09PT09PT09PT09PT09PT09PT09IE9SSUdJTkFMIERUIENBUkRTIENTUyA9PT09PT09PT09PT09PT09PT09PSAqL1xyXG4vKiBjYXJkIHN0eWxlc1xyXG5odHRwczovL2RhdGF0YWJsZXMubmV0L2ZvcnVtcy9kaXNjdXNzaW9uL2NvbW1lbnQvMjI4MzAxLyNDb21tZW50XzIyODMwMSAqL1xyXG4uY2FyZHMgdGJvZHkgdHIge1xyXG4gIC8qIGZsb2F0OiBsZWZ0O1xyXG4gICAgcmVtb3ZpbmcgdGhpcyB1c2VkIHRvIGNlbnRlciwgbm93IHVzaW5nIGZsZXhib3ggaW5zdGVhZCAqL1xyXG4gIC8qd2lkdGg6IDIwcmVtO1xyXG4gICAgdGhpcyBuYXJyb3dzIHRoZSBjb2x1bW5zIHRvbyBtdWNoKi9cclxuICAvKmJveC1zaGFkb3c6IDAuMjVyZW0gMC4yNXJlbSAwLjVyZW0gcmdiYSgwLCAwLCAwLCAwLjI1KTtcclxuICAgKi9cclxuICBtYXJnaW46IDAuNXJlbTtcclxuICAvKiB0dXJuZWQgdGhlc2UgYmVsb3cgb2ZmIHJlY2VudGx5IHRvIG1ha2UgaXQgbW9yZSBtb2Rlcm4/ICovXHJcbiAgLyogbWF0ZXJpYWwgdGhlbWUgYnVpbGRlciwgc291cmNlIGNvbG9yIEMwREFGOSAqL1xyXG4gIGJvcmRlcjogMC4wOTExcmVtIHNvbGlkICNjNGM2ZDA7XHJcbiAgLyogcHJldiAwLjA2MjVyZW0gc29saWQgcmdiYSgwLCAwLCAwLCAwLjEyNSkgKi9cclxuXHJcbiAgYm9yZGVyLXJhZGl1czogMjRweDtcclxuICAvKiAxZW0gMC4yODU3MTQyOXJlbSAwLjI1cmVtO1xyXG4gICAgKi9cclxufVxyXG4uY2FyZHMgdGJvZHkgdGQge1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG59XHJcblxyXG4vKiA9PT09PT09PT09PT09PT09PT09PSBBRERFRCBDQVJEUyBDT0RFID09PT09PT09PT09PT09PT09PT09ICovXHJcblxyXG4uY2FyZHMgdGJvZHkgdHIge1xyXG4gIC8qIGdpdmVzIHNvbWUgcGFkZGluZyBhcm91bmQgdHIsIGluIGRlc2t0b3AgKi9cclxuICBwYWRkaW5nOiAyMHB4O1xyXG4gIC8qIGJvcmRlciBib3ggc2hhZG93IGZyb20gZm9tYW50aWMgdWksIHVpIG1lc3NhZ2UqL1xyXG4gIC8qIDAgMCAwIDFweCAqL1xyXG4gIC8qYm94LXNoYWRvdzpcclxuICAgIDAgMCAwIDAuN3B4IHJnYmEoMzQsIDM2LCAzOCwgMC4yMikgaW5zZXQsXHJcbiAgICAwIDAgMCAwIHRyYW5zcGFyZW50OyovXHJcbn1cclxuLyogKi9cclxuLyogYWRkZWQgdGhpcyB0byBtYWtlIGl0IG9uZSBjb2x1bW4gYW5kIGNlbnRlcmVkLCBpdCB3YXMgYWxyZWFkeSBjZW50ZXJlZCBhZnRlciBjb2xzcGFucyB3ZXJlIHJlbW92ZWQgKi9cclxuLmNhcmRzIHRib2R5IHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgYWxpZ24taXRlbXM6IHN0cmV0Y2g7XHJcbiAgLyogY2VudGVyICovXHJcbn1cclxuXHJcbi8qIG9uIG1vYmlsZSwgcmVtb3ZlcyBib3JkZXIsIHJhZGl1cywgcGFkZGluZywgYW5kIGxlYXZlcyBhIGNsZWFuIGVkZ2VsZXNzIGxvb2tzLCB3aXRoIG9ubHkgYSBib3JkZXIgYm90dG9tIGRvdWJsZSBsaW5lIHNlcGFyYXRvci9kaXZpZGVyIGJldHdlZW4gcGFnZXMqL1xyXG4vKiBtb2JpbGUgb25seSBzaXplICovXHJcbkBtZWRpYSAobWF4LXdpZHRoOiA1OTlweCkge1xyXG4gIC5kdC1jb250YWluZXIgLmNhcmRzIHRib2R5IHRyIHtcclxuICAgIGJvcmRlcjogbm9uZTtcclxuICAgIGJvcmRlci1yYWRpdXM6IDA7XHJcbiAgICBib3gtc2hhZG93OiBub25lO1xyXG4gICAgcGFkZGluZzogMDtcclxuICAgIHBhZGRpbmctYm90dG9tOiAyMHB4O1xyXG4gICAgLyogbWF0ZXJpYWwgdGhlbWUgYnVpbGRlciwgc291cmNlIGNvbG9yIEMwREFGOSAqL1xyXG4gICAgYm9yZGVyLWJvdHRvbTogMTBweCBkb3VibGUgIzQxNWY5MTtcclxuICAgIC8qIHByZXYgNDc0NzQ3ICovXHJcbiAgICAvKmJvcmRlci1ib3R0b206IDRweCBzb2xpZCAjOTk5OyovXHJcbiAgICAvKiAxMHB4IDNkM2QzZCAzMzMgKi9cclxuICB9XHJcbiAgLyogYWRkcyBhIGxpdHRsZSBzcGFjZSBhdCB0aGUgdG9wIGFuZCBib3R0b20gb2YgdGhlIHRib2R5IGluIG1vYmlsZSAqL1xyXG4gIC8qLmR0LWNvbnRhaW5lciB7XHJcbiAgICBtYXJnaW4tdG9wOiAxNXB4O1xyXG4gICAgbWFyZ2luLWJvdHRvbTogMTVweDtcclxuICB9Ki9cclxufVxyXG5cclxuLyogPT09PT09PT09PT09PT09PT09PT0gRFQgQ1VTVE9NIENTUyA9PT09PT09PT09PT09PT09PT09PSAqL1xyXG4vKiByZW1vdmVzIHNwYWNlIGF0IHRoZSB0b3AgYW5kIGJvdHRvbSBvZiB0aGUgZmlyc3QgYW5kIGxhc3QgdHIgb2YgdGhlIHRhYmxlKi9cclxuLmNhcmRzIHRib2R5IHRyOmZpcnN0LWNoaWxkIHtcclxuICBtYXJnaW4tdG9wOiAwO1xyXG59XHJcbi5jYXJkcyB0Ym9keSB0cjpsYXN0LWNoaWxkIHtcclxuICBtYXJnaW4tYm90dG9tOiAwO1xyXG59XHJcbi8qIG1hcmsganMgaGlnaGxpZ2h0IGNvbG9yICovXHJcbi8qbWFyayB7XHJcbiAgICBiYWNrZ3JvdW5kOiAjODJiOGZhO1xyXG4gICAgY29sb3I6IGJsYWNrO1xyXG59XHJcbnByZXYgYmFja2dyb3VuZDogI2IzZDRmYyAqL1xyXG50YWJsZS5kYXRhVGFibGUgc3Bhbi5oaWdobGlnaHQge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICM4MmI4ZmE7XHJcbiAgLyogZmZmZjg4ICovXHJcbiAgYm9yZGVyLXJhZGl1czogMC4yODU3MTQyOXJlbTtcclxufVxyXG4vKnRhYmxlLmRhdGFUYWJsZSBzcGFuLmNvbHVtbl9oaWdobGlnaHQge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmY2M5OTtcclxuICAgIGJvcmRlci1yYWRpdXM6IDAuMjg1NzE0MjlyZW07XHJcbn1cclxuKi9cclxuLyogaGlkZSBmaXJzdCBzZWFyY2hiYXIgb24gdGFibGV0IGFuZCB1cCAqL1xyXG5AbWVkaWEgKG1pbi13aWR0aDogNjAwcHgpIHtcclxuICAuZHQtc2VhcmNoOmhhcygjZHQtc2VhcmNoLTApIHtcclxuICAgIGRpc3BsYXk6IG5vbmU7XHJcbiAgfVxyXG59XHJcbi8qIHJldmVyc2Ugb2YgdGhhdCwgaGlkZSBzZWNvbmQgc2VhcmNoYmFyIG9uIG1vYmlsZSAqL1xyXG5AbWVkaWEgKG1heC13aWR0aDogNTk5cHgpIHtcclxuICAuZHQtc2VhcmNoOmhhcygjZHQtc2VhcmNoLTEpIHtcclxuICAgIGRpc3BsYXk6IG5vbmU7XHJcbiAgfVxyXG59XHJcblxyXG4vKiByZW1vdmVzIHRoIHRhYmxlIGhlYWRlciBhYm92ZSBjb2x1bW5zLCBmb3IgY2FyZCB2aWV3ICovXHJcbnRoZWFkIHtcclxuICBkaXNwbGF5OiBub25lO1xyXG59XHJcbi8qIHJlbW92ZXMgY29sZ3JvdXAgY29scyBleGNlcHQgdGhlIGZpcnN0IG9uZSwgZm9yIGNhcmQgdmlldyAqL1xyXG4uZHQtY29udGFpbmVyID4gY29sZ3JvdXAgPiBjb2w6bm90KDpudGgtY2hpbGQoMCkpIHtcclxuICBkaXNwbGF5OiBub25lO1xyXG59XHJcbi8qIGFsaWducyByb3cgb2YgZWxlbWVudHMgdG8gdG9wIHJhdGhlciB0aGFuIGNlbnRlciwgbGlrZSBidXR0b25zIGV0YyAqL1xyXG4vKmRpdi5kdC1jb250YWluZXIgZGl2LmR0LWxheW91dC1yb3cgZGl2LmR0LWxheW91dC1jZWxsIHtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbn1cclxuKi9cclxuLyogYWJvdmUgbW92ZXMgcGFnaW5nIGluZm8gdXAgdG9vLCBzbyB0aGlzIG1vdmVzIGl0IGJhY2sgdG8gbWlkZGxlICovXHJcbi8qZGl2LmR0LWNvbnRhaW5lciBkaXYuZHQtbGF5b3V0LXJvdzpudGgtY2hpbGQoMykgZGl2LmR0LWxheW91dC1jZWxsLmR0LWxheW91dC1mdWxsIHtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbn1cclxuKi9cclxuLyoganVtcCB0byByb3cgc2VsZWN0IGNvbG9yICovXHJcbi8qdHIuc2VsZWN0ZWQqL1xyXG4uZGF0YVRhYmxlID4gdGJvZHkgPiB0ci5zZWxlY3RlZCB7XHJcbiAgLS1kdC1yb3ctc2VsZWN0ZWQ6IGluaXRpYWw7XHJcbiAgLS1kdC1yb3ctc2VsZWN0ZWQtdGV4dDogaW5pdGlhbDtcclxuICAvKiBtYXRlcmlhbCB0aGVtZSBidWlsZGVyLCBzb3VyY2UgY29sb3IgQzBEQUY5ICovXHJcbiAgYm9yZGVyLXRvcDogNXB4IHNvbGlkICMyMzU1ODA7XHJcbiAgYm9yZGVyLWJvdHRvbTogNXB4IHNvbGlkICMyMzU1ODA7XHJcbiAgLyogcHJldiAxMzYyOTYgKi9cclxufVxyXG4vKiBlbnN1cmUgc2VhcmNoIGJhciBkb2VzbnQgb3ZlcmZsb3cgdGhlIHdpZHRoIG9uIG1vYmlsZSAqL1xyXG5kaXYuZHQtY29udGFpbmVyIC5kdC1pbnB1dCxcclxuZGl2LmR0LWNvbnRhaW5lciAuZHQtc2VhcmNoIGlucHV0IHtcclxuICB3aWR0aDogMzA3cHg7XHJcbiAgbWF4LXdpZHRoOiA5MHZ3O1xyXG4gIC8qIGluZGVudCB0aGUgdGV4dCBpbiB0aGUgc2VhcmNoIGEgbGl0dGxlLCBvdGhlcndpc2UgY2hhcmFjdGVyIGN1dHMgb2ZmICovXHJcbiAgdGV4dC1pbmRlbnQ6IDdweDtcclxuICAvKiBtYWtlcyBpdHMgYmcgY29sb3Igbm90IHNlZSB0aHJ1ICovXHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZjtcclxufVxyXG4vKiBtYWtlcyB0aGUgaW5wdXRwYWdpbmcgYm94IGJpZ2dlciAqL1xyXG4uZHQtY29udGFpbmVyXHJcbiAgPiBkaXZcclxuICA+IGRpdlxyXG4gID4gLmR0LWlucHV0cGFnaW5nLmR0LXBhZ2luZ1xyXG4gID4gLmR0LXBhZ2luZy1pbnB1dFxyXG4gID4gaW5wdXQge1xyXG4gIC8qd2lkdGg6IDExMCU7XHJcbiAgICovXHJcbiAgZm9udC1zaXplOiA4MCU7XHJcbiAgLyogODAgKi9cclxuICAvKiBmaXhlcyB3aWR0aCwgc28gZG9lc250IGp1bXAgYXJvdW5kIHdoZW4gbnVtYmVycyBpbmNyZWFzZSBpbiBubyBvZiBkaWdpdHMgKi9cclxuICB3aWR0aDogNjVweCAhaW1wb3J0YW50OyAvKiA1MCBmb3IgbW9iaWxlPyAqL1xyXG59XHJcbi8qIG1vYmlsZSBvbmx5IHNpemUgKi9cclxuLypAbWVkaWEgKG1heC13aWR0aDogNTk5cHgpIHtcclxuICAuZHQtY29udGFpbmVyXHJcbiAgICA+IGRpdlxyXG4gICAgPiBkaXZcclxuICAgID4gZGl2LmR0LWlucHV0cGFnaW5nLmR0LXBhZ2luZ1xyXG4gICAgPiBkaXZcclxuICAgID4gaW5wdXRbdHlwZT1cInNlYXJjaFwiXSB7XHJcbiAgICBmb250LXNpemU6IDgwJTtcclxuICAgIHdpZHRoOiA1MHB4ICFpbXBvcnRhbnQ7XHJcbiAgfVxyXG59Ki9cclxuLyogbWFrZSBmb250IHNpemUgb2YgLyBbdG90YWwgcGFnZXNdIHNtYWxsZXIqL1xyXG4uZHQtY29udGFpbmVyXHJcbiAgPiBkaXZcclxuICA+IGRpdlxyXG4gID4gZGl2LmR0LWlucHV0cGFnaW5nLmR0LXBhZ2luZ1xyXG4gID4gZGl2LmR0LXBhZ2luZy1pbnB1dFxyXG4gID4gc3BhbiB7XHJcbiAgZm9udC1zaXplOiA5MCU7XHJcbiAgLyogNzAqL1xyXG59XHJcbi8qIHNldHMgZm9udCBmb3Igc2VhcmNoYm94IHBsYWNlaG9sZGVyICovXHJcbi5kdC1jb250YWluZXJcclxuICA+IGRpdlxyXG4gID4gZGl2XHJcbiAgPiBkaXYuZHQtaW5wdXRwYWdpbmcuZHQtcGFnaW5nXHJcbiAgPiBkaXZcclxuICA+IGlucHV0W3R5cGU9XCJzZWFyY2hcIl06OnBsYWNlaG9sZGVyIHtcclxuICBmb250LWZhbWlseTogXCJtZXJnZWRGb250XCIsIFwiQXJpYWxcIiwgc2Fucy1zZXJpZiwgXCJmYXJ1bWFcIjtcclxuICB0ZXh0LWluZGVudDogNXB4O1xyXG4gIGZvbnQtc2l6ZTogOTAlO1xyXG59XHJcbi8qIHJpZ2h0IHRvIGxlZnQgaHR0cHM6Ly9kYXRhdGFibGVzLm5ldC9leGFtcGxlcy9pMThuL3J0bC5odG1sIHNvbWUgb3RoZXIgZWxlbWVudHMgZG8gbmVlZCB0byBiZSBzZXQgYmFjayB0byBsdHIgdGhvdWdoICovXHJcbi5kdC1jb250YWluZXIge1xyXG4gIGRpcmVjdGlvbjogcnRsO1xyXG59XHJcbi8qIHJlbW92ZSB0aGluIGJvcmRlciBsaW5lcyBhYm92ZSBhbmQgYmVsb3cgcm93cyBvZiB0ZCAob3IgcmF0aGVyLCBsYXN0IHRkPykgbm90IGVub3VnaCB0byBqdXN0IHJlbW92ZSBcImRpc3BsYXlcIiBjbGFzcyBmcm9tIHRhYmxlICovXHJcbi8qICNleGFtcGxlID4gdGJvZHkgPiB0ciA+IHRkICovXHJcbi8qIFxyXG5kaXYuZHQtY29udGFpbmVyLmR0LWVtcHR5LWZvb3RlciB0Ym9keSA+IHRyOmxhc3QtY2hpbGQgPiAqIHsgKi9cclxuZGl2LmR0LWNvbnRhaW5lci5kdC1lbXB0eS1mb290ZXIgdGJvZHkgPiB0cjpsYXN0LWNoaWxkID4gdGQge1xyXG4gIGJvcmRlcjogbm9uZTtcclxufVxyXG4vKiBlbnN1cmVzIHBhZ2luYXRpb24gYnV0dG9ucyBkb250IG92ZXJmbG93IGludG8gdGhlIG5leHQgcm93IG9uIG1vYmlsZSAqL1xyXG5kaXYuZHQtY29udGFpbmVyID4gZGl2ID4gZGl2ID4gZGl2LmR0LWlucHV0cGFnaW5nLmR0LXBhZ2luZyB7XHJcbiAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcclxufVxyXG4vKiBsZXNzZW5zIHRoZSBnYXAgYmV0d2VlbiBjb2x2aXMgbWVudSBsaXN0LCBhcyB3ZWxsIGFzIHBhZ2VsZW5ndGggYnV0dG9uIChtb2JpbGUpIGFuZCBtYWtlcyB0ZXh0IGEgbGl0dGxlciBzbWFsbGVyICovXHJcbi8qIC5idXR0b25zLWNvbHVtblZpc2liaWxpdHlcclxuIC5idXR0b24tcGFnZS1sZW5ndGhcclxuIC5idXR0b25zLWNvbHZpc1Jlc3RvcmUgKi9cclxuLmR0LWNvbnRhaW5lciA+IGRpdiA+IGRpdiA+IGRpdi5kdC1idXR0b25zID4gZGl2ID4gZGl2ID4gLmR0LWJ1dHRvbiB7XHJcbiAgcGFkZGluZy10b3A6IDVweDtcclxuICBwYWRkaW5nLWJvdHRvbTogNXB4O1xyXG4gIGZvbnQtc2l6ZTogOTAlO1xyXG59XHJcbi8qIGJyaW5ncyB0aGUgdGljayBtYXJrcyBpbiBjb2x2aXMgY2xvc2VyIHRvIGNlbnRlciAqL1xyXG5kaXYuZHQtYnV0dG9uLWNvbGxlY3Rpb24gPiBkaXYgPiBidXR0b24uZHQtYnV0dG9uLWFjdGl2ZTo6YWZ0ZXIge1xyXG4gIHRvcDogMzAlO1xyXG59XHJcbi8qIHNhbWUgZm9yIHBhZ2VsZW5ndGggYnV0dG9uIChtb2JpbGUpIFxyXG5hY3R1YWxseSB0b3AgY292ZXJzIHRoYXQgdG9vXHJcbmRpdi5kdC1idXR0b24tY29sbGVjdGlvbiAuZHQtYnV0dG9uLWFjdGl2ZTphZnRlciB7XHJcbiAgdG9wOiAyMyU7XHJcbn0gKi9cclxuLyogb24gbW9iaWxlLCB3aGVyZSBjb2xsZWN0aW9uIGJ1dHRvbnMgYXJlLCBsZXNzZW5zIGZvbnQgc2l6ZSwgY2VudGVycyB0aGUgZHJvcGRvd24gKi9cclxuLmR0LWNvbnRhaW5lclxyXG4gID4gZGl2XHJcbiAgPiBkaXZcclxuICA+IGRpdi5kdC1idXR0b25zXHJcbiAgPiBkaXYuZHQtYnV0dG9uLWNvbGxlY3Rpb25cclxuICA+IGRpdlxyXG4gID4gYnV0dG9uLmR0LWJ1dHRvbiB7XHJcbiAgZm9udC1zaXplOiA5MCU7XHJcbiAgLyp0ZXh0LWFsaWduOiByaWdodDsqL1xyXG4gIC8qcGFkZGluZy1yaWdodDogMzBweDsqL1xyXG59XHJcbi8qIG1vdmVzIHRleHQgc3BhbiB0byByaWdodCBhbGlnbmVkLCBpbnN0ZWFkIG9mIGxlZnQsIGFsc28gZ2l2ZXMgaXQgc29tZSBzcGFjaW5nIGZyb20gdGhlIHJpZ2h0ICovXHJcbi5kdC1jb250YWluZXJcclxuICA+IGRpdlxyXG4gID4gZGl2XHJcbiAgPiBkaXYuZHQtYnV0dG9uc1xyXG4gID4gZGl2LmR0LWJ1dHRvbi1jb2xsZWN0aW9uXHJcbiAgPiBkaXZcclxuICA+IGJ1dHRvbi5kdC1idXR0b24ge1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG4gIHBhZGRpbmctcmlnaHQ6IDMwcHg7XHJcbn1cclxuLyogZ2l2ZXMgbW9yZSByaWdodCBzaWRlIHBhZGRpbmcgd2hlcmUgdGlja3MgYXJlLCBpbiBjb2x2aXMgYW5kIHBhZ2VsZW5ndGggZHJvcGRvd24gKi9cclxuXHJcbi5kdC1jb250YWluZXJcclxuICA+IGRpdlxyXG4gID4gZGl2XHJcbiAgPiBkaXYuZHQtYnV0dG9uc1xyXG4gID4gZGl2LmR0LWJ1dHRvbi1jb2xsZWN0aW9uXHJcbiAgPiBkaXZcclxuICA+IGJ1dHRvbi5kdC1idXR0b24uYnV0dG9ucy1jb2x1bW5WaXNpYmlsaXR5LFxyXG4uZHQtY29udGFpbmVyXHJcbiAgPiBkaXZcclxuICA+IGRpdlxyXG4gID4gZGl2LmR0LWJ1dHRvbnNcclxuICA+IGRpdi5kdC1idXR0b24tY29sbGVjdGlvblxyXG4gID4gZGl2XHJcbiAgPiBidXR0b24uZHQtYnV0dG9uLmJ1dHRvbi1wYWdlLWxlbmd0aCB7XHJcbiAgcGFkZGluZy1yaWdodDogNTBweDtcclxufVxyXG4vKiBzZXRzIGNvbG9yIG9mIGNvbHZpcyBsaXN0IGl0ZW1zIG9uIGhvdmVyXHJcbmRpdi5kdC1idXR0b24tY29sbGVjdGlvbiAuZHQtYnV0dG9uOmhvdmVyOm5vdCguZGlzYWJsZWQpICovXHJcbmRpdi5kdC1idXR0b24tY29sbGVjdGlvbiA+IGRpdiA+IGJ1dHRvbi5kdC1idXR0b246aG92ZXI6bm90KC5kaXNhYmxlZCkge1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICAvKiBtYXRlcmlhbCB0aGVtZSBidWlsZGVyLCBzb3VyY2UgY29sb3IgQzBEQUY5ICovXHJcbiAgYmFja2dyb3VuZC1jb2xvcjogIzI4NjI5NDtcclxuICAvKiBwcmV2IDE5NWZhYSAqL1xyXG59XHJcbi8qIHNpbmNlIHdlIHR1cm5lZCBvZmYgdGhlIGNvbG9ycyBmb3Igc2VsZWN0IGluIHRoZSByZWd1bGFyIGR0IHRhYmxlLCBpdHMgaW52aXNpYmxlIG9uIHRoZSBzZWxlY3RlZCBzZWFyY2hwYW5lcyBkYXRhIHRvbywgdGhpcyBtYWtlcyBpdCBzaG93IGFnYWluIG9uIHNlYXJjaHBhbmVzICovXHJcbmRpdi5kdC1zY3JvbGwgPiBkaXYuZHQtc2Nyb2xsLWJvZHkgPiB0YWJsZS5kYXRhVGFibGUgPiB0Ym9keSA+IHRyLnNlbGVjdGVkIHtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgLyogbWF0ZXJpYWwgdGhlbWUgYnVpbGRlciwgc291cmNlIGNvbG9yIEMwREFGOSAqL1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICMyODYyOTQ7XHJcbiAgLyogcHJldiAxOTVmYWEgKi9cclxufVxyXG4vKiBsb3dlcnMgdGhlIG51bWJlciBwaWxsIGJveCBpbiBzZWFyY2hwYW5lcyBhIGxpdHRsZSBiaXQsIG5lZWRlZCB0byBjaGFuZ2Ugc3RhdGljIHBvc2l0aW9uIHRvIGRvIGl0ICovXHJcbmRpdi5kdC1zY3JvbGxcclxuICA+IGRpdi5kdC1zY3JvbGwtYm9keVxyXG4gID4gdGFibGUuZGF0YVRhYmxlXHJcbiAgPiB0Ym9keVxyXG4gID4gdHJcclxuICA+IHRkXHJcbiAgPiBkaXZcclxuICA+IHNwYW4uZHRzcC1waWxsIHtcclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgdG9wOiAxLjVweDtcclxufVxyXG4vKiBnZXRzIHJpZCBvZiBkdCBiYWNrZ3JvdW5kIGluIHNlYXJjaHBhbmVzIGFuZCBzZWFyY2hidWlsZGVyIHdpdGggY3NzLCB3aGljaCBjYW50IGJlIHJlbW92ZWQgaW4gY29uZmlnICovXHJcbmRpdi5kdC1sYXlvdXQtY2VsbC5kdC1sYXlvdXQtZnVsbCA+IGRpdi5kdC1idXR0b24tYmFja2dyb3VuZCB7XHJcbiAgYmFja2dyb3VuZDogbm9uZTtcclxuICAvKiBoaWRkZW4gaW50ZXJmZXJlcyB3aXRoIHJlb3BlbmluZyBzZWFyY2hwYW5lcyBhbmQgYnVpbGRlciAqL1xyXG4gIC8qdmlzaWJpbGl0eTogaGlkZGVuO1xyXG4gICAqL1xyXG4gIC8qZGlzcGxheTogbm9uZSAhaW1wb3J0YW50O1xyXG4gICAqL1xyXG4gIC8qcG9zaXRpb246IGZpeGVkO1xyXG4gICAgdG9wOiAwO1xyXG4gICAgbGVmdDogMDtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgYmFja2dyb3VuZDogcmdiYSgwLCAwLCAwLCAwLjcpO1xyXG4gICAgYmFja2dyb3VuZDogcmFkaWFsLWdyYWRpZW50KCBlbGxpcHNlIGZhcnRoZXN0LWNvcm5lciBhdCBjZW50ZXIsIHJnYmEoMCwgMCwgMCwgMC4zKSAwJSwgcmdiYSgwLCAwLCAwLCAwLjcpIDEwMCUgKTtcclxuICAgIHotaW5kZXg6IDIwMDE7XHJcbiAgICovXHJcbn1cclxuLyogbWFrZXMgc2VhcmNoIHBhbmUgbGlzdCBjb250ZW50IHJpZ2h0IGFsaWduZWQgaW5zdGVhZCBvZiBsZWZ0ICovXHJcbmRpdi5kdC1zY3JvbGwtYm9keVxyXG4gID4gdGFibGUuZGF0YVRhYmxlXHJcbiAgPiB0Ym9keVxyXG4gID4gdHJcclxuICA+IHRkLmR0c3AtbmFtZUNvbHVtblxyXG4gID4gZGl2LmR0c3AtbmFtZUNvbnRcclxuICA+IHNwYW4uZHRzcC1uYW1lIHtcclxuICB0ZXh0LWFsaWduOiByaWdodDtcclxufVxyXG4vKiBtYWtlcyB0aGUgdmFsdWUgZHJvcGRvd24gYm94IG9mIHNlYXJjaGJ1aWxkLCByaWdodCBhbGlnbmVkIGluc3RlYWQgb2YgbGVmdCAqL1xyXG4uZHRzYi1pbnB1dENvbnQge1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG59XHJcbi8qIGluZGVudHMgdGhlIHNlYXJjaGJ1aWxkZXIgZGF0YSBhbmQgY29uZGl0aW9uIGRyb3Bkb3ducyBhIGxpdHRsZSwgZm9sbG93ZWQgYnkgdmFsdWUgKi9cclxuLmR0c2Itc2VhcmNoQnVpbGRlciA+IGRpdi5kdHNiLWdyb3VwID4gZGl2LmR0c2ItY3JpdGVyaWEgPiBzZWxlY3QuZHRzYi1kcm9wRG93bixcclxuLmR0c2Itc2VhcmNoQnVpbGRlclxyXG4gID4gZGl2LmR0c2ItZ3JvdXBcclxuICA+IGRpdi5kdHNiLWNyaXRlcmlhXHJcbiAgPiBkaXYuZHRzYi1pbnB1dENvbnRcclxuICA+IHNlbGVjdCB7XHJcbiAgdGV4dC1pbmRlbnQ6IDdweDtcclxufVxyXG4vKiByb3RhdGVzIHRoZSBBTkQgYnV0dG9uIG9mIHNlYXJjaGJ1aWxkZXIgdG8gbWF0Y2ggcnRsICovXHJcbi5kdHNiLXNlYXJjaEJ1aWxkZXJcclxuICA+IGRpdi5kdHNiLWdyb3VwXHJcbiAgPiBkaXYuZHRzYi1sb2dpY0NvbnRhaW5lclxyXG4gID4gYnV0dG9uLmR0c2ItbG9naWMuZHRzYi1idXR0b25cclxuICA+IGRpdiB7XHJcbiAgdHJhbnNmb3JtOiByb3RhdGUoLTE4MGRlZyk7XHJcbn1cclxuLyogbWFrZXMgY29weSBhbGVydCBudW1iZXIgb2Ygcm93cyBjb3BpZWQsIHJ0bCAqL1xyXG4jZGF0YXRhYmxlc19idXR0b25zX2luZm8gPiBkaXYge1xyXG4gIGRpcmVjdGlvbjogcnRsO1xyXG59XHJcbi8qIGNoYW5nZXMgdGhlIGNsZWFyIGZpbHRlcnMgYnV0dG9uIHRvIG1hdGNoIHRoZSBvdGhlcnMsIGJ1dCBvbmx5IHdoZW4gbm90IGluIGRpc2FibGVkIHN0YXRlICovXHJcbi5kdHNwLXBhbmVzQ29udGFpbmVyXHJcbiAgPiBkaXYuZHRzcC10aXRsZVJvd1xyXG4gID4gYnV0dG9uLmR0c3AtY2xlYXJBbGw6bm90KC5kdHNwLWRpc2FibGVkQnV0dG9uKSB7XHJcbiAgYm9yZGVyOiBub25lO1xyXG4gIGJhY2tncm91bmQ6ICNlMGUxZTIgbm9uZTtcclxuICBib3JkZXItcmFkaXVzOiAwLjI4NTcxNDI5cmVtO1xyXG4gIC8qID8gKi9cclxuICBib3gtc2hhZG93OlxyXG4gICAgMCAwIDAgMXB4IHRyYW5zcGFyZW50IGluc2V0LFxyXG4gICAgMCAwIDAgMCByZ2JhKDM0LCAzNiwgMzgsIDAuMTUpIGluc2V0O1xyXG4gIHRyYW5zaXRpb246XHJcbiAgICBvcGFjaXR5IDAuMXMgZWFzZSxcclxuICAgIGJhY2tncm91bmQtY29sb3IgMC4xcyBlYXNlLFxyXG4gICAgY29sb3IgMC4xcyBlYXNlLFxyXG4gICAgYm94LXNoYWRvdyAwLjFzIGVhc2UsXHJcbiAgICBiYWNrZ3JvdW5kIDAuMXMgZWFzZTtcclxufVxyXG4vKiBjdXN0b21pemVzIHRoZSBrZXl0YWJsZXMgZm9jdXMgYm94ICovXHJcbnRhYmxlLmRhdGFUYWJsZSB0Ym9keSB0ZC5mb2N1cyB7XHJcbiAgLyogbWF0ZXJpYWwgdGhlbWUgYnVpbGRlciwgc291cmNlIGNvbG9yIEMwREFGOSAqL1xyXG4gIG91dGxpbmU6IDIuNXB4IHNvbGlkICMyMzU1ODA7IC8qIGFjdHVhbGx5LCB0aGlzIHdhcyBzZWxlY3RlZCBieSA6cm9vdCwgYnV0IGl0cyBkZXJpdmVkIHZhbHVlIHdhcyBcclxuICAgIHJnYig1MSwgMTIyLCAxODMpXHJcbiAgLyogcHJldiAzMzdhYjcgKi9cclxuICBvdXRsaW5lLW9mZnNldDogLTJweDtcclxuICBib3JkZXItcmFkaXVzOiAwLjI4NTcxNDI5cmVtO1xyXG4gIC8qIDVweDtcclxuICAgICovXHJcbn1cclxuLyogbWFrZXMgdGhlIHBhZ2VsZW5ndGggZHJvcGRvd24gc2VsZWN0ZXIgcm91bmRlciBsaWtlIHRoZSBvdGhlcnMgKi9cclxuI2R0LWxlbmd0aC0wLFxyXG4jZHQtc2VhcmNoLTAge1xyXG4gIGJvcmRlci1yYWRpdXM6IDAuMjg1NzE0MjlyZW07XHJcbiAgLXdlYmtpdC1ib3JkZXItcmFkaXVzOiAwLjI4NTcxNDI5cmVtO1xyXG4gIC1tb3otYm9yZGVyLXJhZGl1czogMC4yODU3MTQyOXJlbTtcclxufVxyXG4vKiBzYW1lIGZvciBwYWdpbmdpbnB1dCBib3gsIGJ1dCBzZXR0aW5nIGJvcmRlciByYWRpdXMgbWFrZXMgaXQgdGhpY2tlciBmb3Igc29tZSByZWFzb24sIHNvIG5lZWQgdG8gdGhpbiB0aGUgYm9yZGVyIHdpZHRoIGhlcmUgYXMgd2VsbCwgYW5kIGNvbG9yIGl0IGxlc3MgZGFyayAqL1xyXG4uZHQtaW5wdXRwYWdpbmcuZHQtcGFnaW5nID4gZGl2ID4gaW5wdXRbdHlwZT1cInNlYXJjaFwiXSB7XHJcbiAgYm9yZGVyLXJhZGl1czogMC4yODU3MTQyOXJlbTtcclxuICAtd2Via2l0LWJvcmRlci1yYWRpdXM6IDAuMjg1NzE0MjlyZW07XHJcbiAgLW1vei1ib3JkZXItcmFkaXVzOiAwLjI4NTcxNDI5cmVtO1xyXG4gIC8qKi9cclxuICBib3JkZXItd2lkdGg6IDFweDtcclxuICBib3JkZXItY29sb3I6ICNhYWE7XHJcbn1cclxuLyogcHV0cyBzb21lIG1hcmdpbnMgdG8gbGVmdCBhbmQgcmlnaHQgb2YgZnVsbCBkdCByb3dzLCBvdGhlcndpc2UgaXMgYmFzaWNhbGx5IHRvdWNoaW5nIHRoZSBvdXRzaWRlIG9mIHRoZSBwYWdlIGFzIGlzXHJcbi5kdC1jb250YWluZXIgPiBkaXYuZHQtbGF5b3V0LXJvdyA+IGRpdi5kdC1sYXlvdXQtY2VsbC5kdC1sYXlvdXQtZnVsbCB7XHJcbiAgbWFyZ2luLWxlZnQ6IDEwcHg7XHJcbiAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG59ICovXHJcbi8qIGNvbW1lbnRlZCBvdXQgcmlnaHQgb3RoZXJ3aXNlICBhbGwgb2YgaXQgaXMgbW92ZWQgZnJvbSB0aGUgcmlnaHQgZm9yIHNvbWUgcmVhc29uICovXHJcblxyXG4vKiAqL1xyXG4vKiA9PT09PT09PT09PT09PT09PT09PSBEVCBCVVRUT05TIENTUyA9PT09PT09PT09PT09PT09PT09PSAqL1xyXG4vKiBmcm9tIGZvbWFudGljIHVpICovXHJcbi8qIGZpcnN0IG9uZSBpcyBiYXNpYyBidXR0b24gYnV0dG9ucywgdGhlIHJlc3QgYXJlIHNlYXJjaGJ1aWxkZXIgYnV0dG9ucyAqL1xyXG4uZHQtY29udGFpbmVyID4gZGl2ID4gZGl2ID4gZGl2LmR0LWJ1dHRvbnMgPiBidXR0b24uZHQtYnV0dG9uLFxyXG4uZHRzYi1zZWFyY2hCdWlsZGVyID4gZGl2LmR0c2ItZ3JvdXAgPiBidXR0b24sXHJcbi5kdHNiLXNlYXJjaEJ1aWxkZXIgPiBkaXYuZHRzYi10aXRsZVJvdyA+IGJ1dHRvbixcclxuLmR0c2Itc2VhcmNoQnVpbGRlclxyXG4gID4gZGl2LmR0c2ItZ3JvdXBcclxuICA+IGRpdi5kdHNiLWNyaXRlcmlhXHJcbiAgPiBkaXYuZHRzYi1idXR0b25Db250YWluZXJcclxuICA+IGJ1dHRvbixcclxuLmR0c2Itc2VhcmNoQnVpbGRlciA+IGRpdi5kdHNiLWdyb3VwID4gZGl2LmR0c2ItbG9naWNDb250YWluZXIsXHJcbmRpdi5kdHNiLXNlYXJjaEJ1aWxkZXIgPiBkaXYuZHRzYi10aXRsZVJvdyA+IGJ1dHRvbi5kdHNiLWNsZWFyQWxsLmR0c2ItYnV0dG9uLFxyXG5kaXYuZHRzYi1zZWFyY2hCdWlsZGVyID4gZGl2LmR0c2ItZ3JvdXAgPiBidXR0b24uZHRzYi1hZGQuZHRzYi1idXR0b24ge1xyXG4gIGJvcmRlcjogbm9uZTtcclxuICAvKiBtYXRlcmlhbCB0aGVtZSBidWlsZGVyLCBzb3VyY2UgY29sb3IgQzBEQUY5ICovXHJcbiAgYmFja2dyb3VuZDogI2RlZTNlYiBub25lO1xyXG4gIC8qIHByZXYgZTBlMWUyICovXHJcbiAgLypjb2xvcjogcmdiYSgwLCAwLCAwLCAwLjYpO1xyXG4gICAqL1xyXG4gIC8qbWFyZ2luOiAwIDAuMjVlbSAwIDA7XHJcbiAgICovXHJcbiAgLyogY29tbWVudGluZyB0aGlzIG91dCBtYWtlcyB0aGVtIG5vdCBzdGljayB0byBlYWNoIG90aGVyIHdoZW4gc3RhY2tlZCAqL1xyXG4gIC8qbGluZS1oZWlnaHQ6IDFlbTtcclxuICAgKi9cclxuICBib3JkZXItcmFkaXVzOiAwLjI4NTcxNDI5cmVtO1xyXG4gIC8qID8gKi9cclxuICBib3gtc2hhZG93OlxyXG4gICAgMCAwIDAgMXB4IHRyYW5zcGFyZW50IGluc2V0LFxyXG4gICAgMCAwIDAgMCByZ2JhKDM0LCAzNiwgMzgsIDAuMTUpIGluc2V0O1xyXG4gIHRyYW5zaXRpb246XHJcbiAgICBvcGFjaXR5IDAuMXMgZWFzZSxcclxuICAgIGJhY2tncm91bmQtY29sb3IgMC4xcyBlYXNlLFxyXG4gICAgY29sb3IgMC4xcyBlYXNlLFxyXG4gICAgYm94LXNoYWRvdyAwLjFzIGVhc2UsXHJcbiAgICBiYWNrZ3JvdW5kIDAuMXMgZWFzZTtcclxuICAvKmZvbnQtc2l6ZTogMXJlbTtcclxuICAgKi9cclxufVxyXG4vKiBidXR0b24gYnV0dG9ucyBmb21hbnRpYyBwYWRkaW5nIGZvciB0YWJsZXQgc2l6ZSBhbmQgdXAgKi9cclxuQG1lZGlhIChtaW4td2lkdGg6IDYwMHB4KSB7XHJcbiAgLmR0LWNvbnRhaW5lciA+IGRpdiA+IGRpdiA+IGRpdi5kdC1idXR0b25zID4gYnV0dG9uLmR0LWJ1dHRvbiB7XHJcbiAgICAvKiB0aGlzIGNhdXNlcyBidXR0b25zIHRvIGdldCB0b28gd2lkZSwgbWFraW5nIHRoYXQgcm93IG92ZXJmbG93IHBhZGRpbmc6IDAuNzg1NzE0MjllbSAxLjVlbSAwLjc4NTcxNDI5ZW07XHJcbiAgICAgICAgKi9cclxuICAgIHBhZGRpbmctcmlnaHQ6IDE1cHg7XHJcbiAgICBwYWRkaW5nLWxlZnQ6IDE1cHg7XHJcbiAgICBtYXJnaW4tcmlnaHQ6IDA7XHJcbiAgICBtYXJnaW4tbGVmdDogMDtcclxuICB9XHJcbn1cclxuLyogcGFkIGp1c3QgdGhlIGNvcHkgYnV0dG9uIGEgYml0IG1vcmUsIG90aGVyd2lzZSB0b28gbmFycm93ICovXHJcbi5kdC1jb250YWluZXJcclxuICA+IGRpdlxyXG4gID4gZGl2XHJcbiAgPiBkaXYuZHQtYnV0dG9uc1xyXG4gID4gYnV0dG9uLmR0LWJ1dHRvbi5idXR0b25zLWNvcHkuYnV0dG9ucy1odG1sNSB7XHJcbiAgcGFkZGluZy1yaWdodDogMjVweDtcclxuICBwYWRkaW5nLWxlZnQ6IDI1cHg7XHJcbn1cclxuLyogYWRkcyBzb21lIGxlZnQgbWFyZ2luIHRvIGNvcHkgYnV0dG9uIG9uIG1vYmlsZSwgdGhhdCB0aGUgb3RoZXIgYnV0dG9ucyBzZWVtIHRvIGhhdmUgYnV0IHRoaXMgZG9lc250ICovXHJcbkBtZWRpYSAobWF4LXdpZHRoOiA1OTlweCkge1xyXG4gIC5kdC1jb250YWluZXJcclxuICAgID4gZGl2XHJcbiAgICA+IGRpdlxyXG4gICAgPiBkaXYuZHQtYnV0dG9uc1xyXG4gICAgPiBidXR0b24uZHQtYnV0dG9uLmJ1dHRvbnMtY29weS5idXR0b25zLWh0bWw1IHtcclxuICAgIG1hcmdpbi1sZWZ0OiAzcHg7XHJcbiAgfVxyXG59XHJcbi8qIHJlbW92ZXMgc2lkZSBwYWRkaW5nIG9mIGZpcnN0IGFuZCBsYXN0IHBhZ2luYXRpb24gYnV0dG9ucyB0byBtYWtlIHRoZW0gbmFycm93ZXIgKi9cclxuLmR0LWNvbnRhaW5lclxyXG4gID4gZGl2LmR0LWxheW91dC1yb3dcclxuICA+IGRpdi5kdC1sYXlvdXQtY2VsbC5kdC1sYXlvdXQtZnVsbFxyXG4gID4gZGl2LmR0LWlucHV0cGFnaW5nLmR0LXBhZ2luZ1xyXG4gID4gYnV0dG9uLmR0LXBhZ2luZy1idXR0b246bnRoLWNoaWxkKDEpLFxyXG4uZHQtY29udGFpbmVyXHJcbiAgPiBkaXYuZHQtbGF5b3V0LXJvd1xyXG4gID4gZGl2LmR0LWxheW91dC1jZWxsLmR0LWxheW91dC1mdWxsXHJcbiAgPiBkaXYuZHQtaW5wdXRwYWdpbmcuZHQtcGFnaW5nXHJcbiAgPiBidXR0b24uZHQtcGFnaW5nLWJ1dHRvbjpudGgtY2hpbGQoNSkge1xyXG4gIHBhZGRpbmctcmlnaHQ6IDBweDtcclxuICBwYWRkaW5nLWxlZnQ6IDBweDtcclxufVxyXG4vKiBob3ZlciBidXR0b24gYnV0dG9ucyAqL1xyXG4uZHQtY29udGFpbmVyID4gZGl2ID4gZGl2ID4gZGl2LmR0LWJ1dHRvbnMgPiBidXR0b24uZHQtYnV0dG9uOmhvdmVyIHtcclxuICAvKmJhY2tncm91bmQtY29sb3I6ICNjYWNiY2Q7XHJcbiAgICovXHJcbiAgYmFja2dyb3VuZC1pbWFnZTogbm9uZTtcclxuICAvKiBvdGhlcndpc2UgZG9lc250IHJlbW92ZSBncmFkaWVudCAqL1xyXG4gIGJveC1zaGFkb3c6XHJcbiAgICAwIDAgMCAxcHggdHJhbnNwYXJlbnQgaW5zZXQsXHJcbiAgICAwIDAgMCAwIHJnYmEoMzQsIDM2LCAzOCwgMC4xNSkgaW5zZXQ7XHJcbiAgY29sb3I6IHJnYmEoMCwgMCwgMCwgMC44KTtcclxuICAvKiBjYW5jZWwgb3V0IGRlZmF1bHQgZHQgaG92ZXIgc3R5bGVzICovXHJcbiAgYm9yZGVyOiBub25lO1xyXG4gIC8qIGN1c3RvbSBjb2xvcnMgKi9cclxuICBjb2xvcjogd2hpdGU7XHJcbiAgLyogbWF0ZXJpYWwgdGhlbWUgYnVpbGRlciwgc291cmNlIGNvbG9yIEMwREFGOSAqL1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICMyODYyOTQ7XHJcbiAgLyogcHJldiAxZjZjYjkgKi9cclxuICAvKiAjMTM2Mjk2ICMyMTg1ZDA7XHJcbiAgICAqL1xyXG59XHJcbkBtZWRpYSAobWF4LXdpZHRoOiA1OTlweCkge1xyXG4gIC8qIG1ha2VzIHNlYXJjaCBpbnB1dCBzbWFsbGVyIG9uIG1vYmlsZSAqL1xyXG4gIGRpdi5kdC1jb250YWluZXIgLmR0LXNlYXJjaCBpbnB1dCB7XHJcbiAgICBwYWRkaW5nOiAwO1xyXG4gICAgcGFkZGluZy1ib3R0b206IDIuNXB4O1xyXG4gICAgZm9udC1zaXplOiA5MCU7XHJcbiAgfVxyXG4gIC8qIG1ha2VzIHBhZ2luZ2lucHV0IHRvdGFsIHBhZ2UgbnVtYmVyIHNtYWxsZXIgb24gbW9iaWxlICovXHJcbiAgZGl2LmR0LWNvbnRhaW5lciA+IGRpdiA+IGRpdiA+IGRpdi5kdC1pbnB1dHBhZ2luZy5kdC1wYWdpbmcgPiBkaXYgPiBzcGFuIHtcclxuICAgIGZvbnQtc2l6ZTogODAlO1xyXG4gIH1cclxuICAvKiByZW1vdmVzIG1hcmdpbiBzcGFjZSBiZXR3ZWVuIHJvd3Mgb2YgZHQgZWxlbWVudHMgb24gbW9iaWxlICovXHJcbiAgLypkaXYuZHQtY29udGFpbmVyIGRpdi5kdC1sYXlvdXQtcm93Om5vdCguZHQtbGF5b3V0LXRhYmxlKSBkaXYuZHQtbGF5b3V0LWNlbGwgPiAqIHtcclxuICAgICAgICBtYXJnaW46IDA7XHJcbiAgIH1cclxuICAgKi9cclxuICAvKiBtb3JlIG9mIHRoYXQsIGVzcGVjaWFsbHkgYXJvdW5kIHRoZSB0YWJsZSAqL1xyXG4gIGRpdi5kdC1jb250YWluZXIgZGl2LmR0LWxheW91dC1yb3cge1xyXG4gICAgbWFyZ2luOiAwO1xyXG4gIH1cclxuICAvKiBzZWFyY2hidWlsZGVycyB2YWx1ZSBib3ggb24gbW9iaWxlIGlzIG1vdmVkIHRvIHRoZSBsZWZ0LCBpbnRvIHRoZSBhbmQgcmFuZ2UsIHJlbW92aW5nIGl0cyByaWdodCBtYXJnaW4gc2VlbXMgdG8gYnJpbmcgaXQgYmFjayB3aGVyZSBpdCBzaG91bGQgYmUgKi9cclxuICBkaXYuZHRzYi1zZWFyY2hCdWlsZGVyXHJcbiAgICBkaXYuZHRzYi1ncm91cFxyXG4gICAgZGl2LmR0c2ItY3JpdGVyaWFcclxuICAgIGRpdi5kdHNiLWlucHV0Q29udFxyXG4gICAgc2VsZWN0IHtcclxuICAgIG1hcmdpbi1yaWdodDogMDtcclxuICB9XHJcbn1cclxuLyogcGFnaW5hdGlvbiBidXR0b25zIC0gYWx0aG91Z2ggdGhpcyBjYW50IGJlIHNlZW4sIGl0IG11c3QgYmUgc2V0IG90aGVyd2lzZSBob3ZlciBtYWtlcyBhbiBhYnJ1cHQgdmlzdWFsIHNoaWZ0ICovXHJcbi5kdC1jb250YWluZXIgPiBkaXYgPiBkaXYgPiBkaXYuZHQtaW5wdXRwYWdpbmcuZHQtcGFnaW5nID4gYnV0dG9uIHtcclxuICBib3JkZXI6IG5vbmU7XHJcbiAgYm9yZGVyLXJhZGl1czogMC4yODU3MTQyOXJlbTtcclxuICB0cmFuc2l0aW9uOlxyXG4gICAgb3BhY2l0eSAwLjFzIGVhc2UsXHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yIDAuMXMgZWFzZSxcclxuICAgIGNvbG9yIDAuMXMgZWFzZSxcclxuICAgIGJveC1zaGFkb3cgMC4xcyBlYXNlLFxyXG4gICAgYmFja2dyb3VuZCAwLjFzIGVhc2U7XHJcbn1cclxuLyogcGFnaW5hdGlvbiBidXR0b25zIGhvdmVyICovXHJcbi5kdC1jb250YWluZXIgPiBkaXYgPiBkaXYgPiBkaXYuZHQtaW5wdXRwYWdpbmcuZHQtcGFnaW5nID4gYnV0dG9uOmhvdmVyIHtcclxuICBiYWNrZ3JvdW5kLWltYWdlOiBub25lO1xyXG4gIC8qIG90aGVyd2lzZSBkb2VzbnQgcmVtb3ZlIGdyYWRpZW50ICovXHJcbiAgLyogY2FuY2VsIG91dCBkZWZhdWx0IGR0IGhvdmVyIHN0eWxlcyAqL1xyXG4gIGJvcmRlcjogbm9uZTtcclxuICAvKiBjdXN0b20gY29sb3JzICovXHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIC8qIG1hdGVyaWFsIHRoZW1lIGJ1aWxkZXIsIHNvdXJjZSBjb2xvciBDMERBRjkgKi9cclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMjg2Mjk0O1xyXG4gIC8qIHByZXYgMWY2Y2I5ICovXHJcbiAgLyogIzEzNjI5NiAjMjE4NWQwO1xyXG4gICAgKi9cclxufVxyXG4vKiA9PT09PT09PT09PT09PT09PT09PSBGT05UUyBDU1MgPT09PT09PT09PT09PT09PT09PT0gKi9cclxuaHRtbCB7XHJcbiAgZm9udC1mYW1pbHk6IFwibWVyZ2VkRm9udFwiLCBcIkFyaWFsXCIsIHNhbnMtc2VyaWYsIFwiZmFydW1hXCI7XHJcbiAgLXdlYmtpdC1mb250LXNtb290aGluZzogYW50aWFsaWFzZWQ7XHJcbiAgLyogdGV4dC1hbGlnbjogcmlnaHQ7XHJcbiAgICBkaXJlY3Rpb246IHJ0bDtcclxuICAgICovXHJcbiAgLypmb250LXNpemU6IDEyMCU7XHJcbiAgICovXHJcbiAgLyogZm9yIHRoYXJ1amFtYWFudSAqL1xyXG59XHJcbi8qIG1lcmdlZCBmb250ICovXHJcbkBmb250LWZhY2Uge1xyXG4gIGZvbnQtZmFtaWx5OiBcIm1lcmdlZEZvbnRcIjtcclxuICBzcmM6XHJcbiAgICB1cmwoLi4vZm9udC9tZXJnZWQtMzAwLndvZmYyKSBmb3JtYXQoXCJ3b2ZmMlwiKSxcclxuICAgIHVybCguLi9mb250L21lcmdlZC0zMDAud29mZikgZm9ybWF0KFwid29mZlwiKTtcclxuICAvKiBodHRwczovL2RldmVsb3Blci5tb3ppbGxhLm9yZy9lbi1VUy9kb2NzL1dlYi9DU1MvQGZvbnQtZmFjZS9mb250LWRpc3BsYXkgKi9cclxuICBmb250LWRpc3BsYXk6IGJsb2NrO1xyXG4gIC8qIHByZXZpb3VzbHkgc3dhcCAqL1xyXG59XHJcbi8qID09PT09PT09PT09PT09PT09PT09IERUIEZPTlRTIENTUyA9PT09PT09PT09PT09PT09PT09PSAqL1xyXG4vKiBwYWdpbmcgYnV0dG9ucywgc2VhcmNoIGJveCwgZnVuY3Rpb25hbCBidXR0b25zLCBzZWFyY2hwYW5lcyBjb2x1bW4gdGl0bGUsIHNlYXJjaHBhbmVzIGNsZWFyIGJ1dHRvbiBzZWFyY2hidWlsZGVyIGJ1dHRvbnMgc2VhcmNoYnVpbGRlciBkcm9wZG93bnMsICovXHJcbi5kdC1wYWdpbmctYnV0dG9uLFxyXG4uZHQtaW5wdXQsXHJcbi5kdC1idXR0b24sXHJcbi5kdHNwLXNlYXJjaCxcclxuLmR0c3AtY2xlYXJBbGwsXHJcbi5kdHNiLWJ1dHRvbixcclxuLmR0c2ItZHJvcERvd24ge1xyXG4gIGZvbnQtZmFtaWx5OiBcIm1lcmdlZEZvbnRcIiwgXCJBcmlhbFwiLCBzYW5zLXNlcmlmLCBcImZhcnVtYVwiO1xyXG4gIC13ZWJraXQtZm9udC1zbW9vdGhpbmc6IGFudGlhbGlhc2VkO1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG4gIGRpcmVjdGlvbjogcnRsO1xyXG4gIGZvbnQtc2l6ZTogOTAlO1xyXG4gIC8qIDEwMCU7XHJcbiAgICAqL1xyXG59XHJcbi8qIGZvbnQgc2l6ZSBvbiBkdCBidXR0b25zLCBhcyBhYm92ZSBmb250IHNpemUgZG9lc250IHdvcmsgd2l0aG91dCBzcGFuICovXHJcbi5kdC1idXR0b24gc3BhbiB7XHJcbiAgZm9udC1zaXplOiAxMDAlO1xyXG4gIC8qIDEyMCU7XHJcbiAgICAqL1xyXG59XHJcbi8qIGF2b2lkcyBvdmVyc2l6ZWQgYnV0dG9ucyBvdmVyZmxvd2luZyB0byBuZXh0IHJvdyBvbiBtb2JpbGUgZm9yLXBob25lLW9ubHkgKi9cclxuLypAbWVkaWEgKG1heC13aWR0aDogNTk5cHgpIHtcclxuICAgIC5kdC1idXR0b24gc3BhbiB7XHJcbiAgICAgICAgZm9udC1zaXplOiAxMDAlO1xyXG4gICB9XHJcbn1cclxuKi9cclxuLyogKi9cclxuIl19 */
