@@ -8,10 +8,10 @@ var hmvVersionNo = 3.16;
 
 // moved this here in nav instead of dt-inline, so that pages could use it and not just books
 
-// Function to get canonical URL based on current path
+// Function to get canonical URL based on the current path
 function getCanonicalUrl() {
-  // Get the full path excluding domain and start with /
-  const fullPath = window.location.pathname;
+  // Get the full path excluding the domain and start with /
+  var fullPath = window.location.pathname;
 
   // Handle root path case (empty or just "/")
   if (fullPath === "" || fullPath === "/") {
@@ -21,22 +21,22 @@ function getCanonicalUrl() {
 
   // For non-root paths:
   // Get just the filename without extension (if it has one)
-  const fileName = fullPath.split("/").pop();
-  const hasExtension = fileName.includes(".");
+  var fileName = fullPath.split("/").pop();
+  var hasExtension = fileName.indexOf(".") !== -1;
 
   if (hasExtension) {
     // If the path includes a file with extension
-    const CURRENT_PAGE = fileName.replace(".html", "");
-    const pathStructure = fullPath.substring(0, fullPath.lastIndexOf("/"));
-    return `${window.location.origin}${pathStructure}/${CURRENT_PAGE}.html`;
+    var currentPage = fileName.replace(".html", "");
+    var pathStructure = fullPath.substring(0, fullPath.lastIndexOf("/"));
+    return window.location.origin + pathStructure + "/" + currentPage + ".html";
   } else {
-    // If the path is just directories without file extension
-    return `${window.location.origin}${fullPath}`;
+    // If the path is just directories without a file extension
+    return window.location.origin + fullPath;
   }
 }
 
 // Create and append canonical link
-const canonicalLink = document.createElement("link");
+var canonicalLink = document.createElement("link");
 canonicalLink.rel = "canonical";
 canonicalLink.href = getCanonicalUrl();
 document.head.appendChild(canonicalLink);
@@ -45,8 +45,8 @@ document.head.appendChild(canonicalLink);
 console.log("Canonical URL:", canonicalLink.href);
 
 // For JSON files, assuming they're always in ../js/json/ relative to the HTML file
-// const jsonPath = `../js/json/${CURRENT_PAGE}.json`;
-
+var currentFileName = getCanonicalUrl().split("/").pop().replace(".html", "");
+//var jsonPath = "../js/json/" + currentFileName + ".json";
 /*
 i have this html file called
 arbaoonNawawi.html
@@ -84,6 +84,52 @@ but what is between can change
 https://hadithmv.github.io/file.html
 
 https://another.site.com/file.html
+
+--moved code from dt-inline to navbar, minified with minify-navbar
+
+this is my external js code:
+
+// Function to get canonical URL based on current path
+function getCanonicalUrl() {
+  // Get the full path excluding domain and start with /
+  const fullPath = window.location.pathname;
+
+  // Handle root path case (empty or just "/")
+  if (fullPath === "" || fullPath === "/") {
+    // If we're at root, return the base URL without trailing slash
+    return window.location.origin;
+  }
+
+  // For non-root paths:
+  // Get just the filename without extension (if it has one)
+  const fileName = fullPath.split("/").pop();
+  const hasExtension = fileName.includes(".");
+
+  if (hasExtension) {
+    // If the path includes a file with extension
+    const CURRENT_PAGE = fileName.replace(".html", "");
+    const pathStructure = fullPath.substring(0, fullPath.lastIndexOf("/"));
+    return `${window.location.origin}${pathStructure}/${CURRENT_PAGE}.html`;
+  } else {
+    // If the path is just directories without file extension
+    return `${window.location.origin}${fullPath}`;
+  }
+}
+
+// Create and append canonical link
+const canonicalLink = document.createElement("link");
+canonicalLink.rel = "canonical";
+canonicalLink.href = getCanonicalUrl();
+document.head.appendChild(canonicalLink);
+
+// Optional: Log the canonical URL for debugging
+console.log("Canonical URL:", canonicalLink.href);
+
+// For JSON files, assuming they're always in ../js/json/ relative to the HTML file
+const jsonPath = `../js/json/${CURRENT_PAGE}.json`;
+
+
+whatever minifies it, it excludes some stuff like what is in function and if statements and variables. rewrite the code so that the code works when minified.
 
 */
 

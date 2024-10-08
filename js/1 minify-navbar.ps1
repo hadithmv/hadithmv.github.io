@@ -62,4 +62,5 @@ i want to replace the code there, between the first two backticks ` `
 i want that code to be replaced with the minified navbar.html code i mentioned before (but dont change the content of the navbar.js file itself) rather the replaced html code should be in the navbar.min.js which should be minified with closure and uglify
 
 do in in powershell, give full code
+
 #>
