@@ -415,6 +415,10 @@ var DTconfig = {
         buttons: [
           {
             extend: "copy",
+            key: {
+              key: "c",
+              altKey: true,
+            },
 
             titleAttr: "copy",
             text: "⧉ ކޮޕީ",
@@ -430,11 +434,6 @@ var DTconfig = {
 
               modifier: {
                 page: "current",
-              },
-
-              key: {
-                key: "c",
-                altKey: true,
               },
             },
             customize: function (data) {
@@ -491,6 +490,10 @@ var DTconfig = {
             buttons: [
               {
                 extend: "colvis",
+                key: {
+                  key: "s",
+                  altKey: true,
+                },
 
                 text: "☰ ދައްކާ/ފޮރުވާ",
                 background: false,
@@ -512,10 +515,18 @@ var DTconfig = {
               },
               {
                 extend: "searchBuilder",
+                key: {
+                  key: "b",
+                  altKey: true,
+                },
                 titleAttr: "custom search",
               },
               {
                 extend: "searchPanes",
+                key: {
+                  key: "v",
+                  altKey: true,
+                },
 
                 config: {
                   cascadePanes: true,
@@ -547,7 +558,7 @@ var DTconfig = {
     ],
 
     bottom: ["inputPaging", "info"],
-  },
+  }, // layout: { END
 }; // var DTconfig = { END
 
 // Remove the defaults
