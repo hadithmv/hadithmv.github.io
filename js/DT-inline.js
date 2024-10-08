@@ -484,6 +484,10 @@ var DTconfig = {
 
           {
             extend: "collection",
+            key: {
+              key: "m",
+              altKey: true,
+            },
             text: "⌥ އިތުރު",
             background: false,
 
@@ -543,6 +547,10 @@ var DTconfig = {
               },
               {
                 extend: "pageLength",
+                key: {
+                  key: "p",
+                  altKey: true,
+                },
                 background: false,
               },
             ],
