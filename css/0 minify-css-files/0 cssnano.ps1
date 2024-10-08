@@ -1,6 +1,26 @@
 # Change the current directory to the script's location
 Set-Location -Path $PSScriptRoot
 
+# Get all CSS files in the current directory
+$cssFiles = Get-ChildItem -Filter *.css
+
+foreach ($file in $cssFiles) {
+    # Generate the output file name
+    $outputFile = $file.BaseName + "-nano.min.css"
+    
+    # Run postcss command for each file
+    Write-Output "Minifying $($file.Name)..."
+    postcss $file.Name > $outputFile
+}
+
+Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
+
+
+<# OLD CODE
+
+# Change the current directory to the script's location
+Set-Location -Path $PSScriptRoot
+
 # Define the target directory
 $targetDir = "C:\Users\ashra\AppData\Roaming\npm\node_modules"
 
@@ -30,3 +50,5 @@ foreach ($file in $cssFiles) {
 }
 
 Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
+
+#>
