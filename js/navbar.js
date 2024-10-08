@@ -1,3 +1,5 @@
+// this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
+
 var hmvVersionNo = 3.16;
 
 // above is version no  var for hmv, shown in sidemenu and maybe main index page
@@ -17,12 +19,7 @@ var hmvVersionNo = 3.16;
   f.parentNode.insertBefore(j, f);
 })(window, document, "script", "dataLayer", "GTM-TRR5NPBL"); /*</script>
 <!-- End Google Tag Manager -->*/
-/* below are noscripts tags, but only track images? do dont think i need it
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TRR5NPBL"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-*/
+/* below was a noscripts tag, but only track images? in any case, i moved it into below the navbar html */
 
 /* === === ===
 --- GET PAGE NAME AND DIRECTORY CODE ---
