@@ -261,11 +261,16 @@
       </div>
     </div>
     <script type="text/javascript">
-      // Configuration object for each JSON file
+      // Configuration object for JSON files
+      // Each file can specify:
+      // - keepColumns: array of column indices to keep from the original data
+      // - newColumns: array of new column names to add at the start
+      // - orderColumns: optional array to reorder the columns after processing
       const jsonConfigs = {
         "allAthar.json": {
           keepColumns: [0, 1, 2, 3, 4],
-          //newColumns: ["All Athar"],
+          //newColumns: ["All Athar"], // This column will be added at the start, with the text specified in all rows
+          //orderColumns: [5, 4, 2, 3, 1, 0], // Example: Reorder columns in reverse
         },
         "arbaoonNawawi.json": {
           keepColumns: [0, 4, 5, 6],
@@ -305,17 +310,26 @@
         },
       };
 
+      /**
+       * Processes JSON data according to the provided configuration
+       * @param {Array} data - The raw JSON data array
+       * @param {Object} config - Configuration object containing keepColumns, newColumns, and orderColumns
+       * @param {number} maxColumns - Maximum number of columns needed across all configurations
+       * @returns {Array} Processed data array with consistent column count
+       */
       function processJsonData(data, config, maxColumns) {
         return data.map((row) => {
+          // Convert row to array if it's an object
           const fullRow = Array.isArray(row) ? row : Object.values(row);
 
-          // Process the specified columns
+          // Extract only the columns specified in keepColumns
           let processedRow = config.keepColumns.map((index) => {
             const value = fullRow[index];
+            // Convert null/undefined to empty string, ensure all values are strings
             return value === null || value === undefined ? "" : String(value);
           });
 
-          // Add new columns if specified
+          // If newColumns specified, add them at the start of each row
           if (config.newColumns && config.newColumns.length > 0) {
             processedRow = [...config.newColumns, ...processedRow];
           }
@@ -324,7 +338,7 @@
           if (config.orderColumns) {
             const tempRow = [...processedRow];
             processedRow = config.orderColumns.map((index) => {
-              // If the index is within newColumns range, adjust accordingly
+              // Adjust index if we have newColumns to account for the added columns
               const adjustedIndex = config.newColumns
                 ? index + config.newColumns.length
                 : index;
@@ -332,7 +346,7 @@
             });
           }
 
-          // Pad with empty strings if needed
+          // Pad with empty strings if this row has fewer columns than the maximum
           while (processedRow.length < maxColumns) {
             processedRow.push("");
           }
@@ -341,8 +355,9 @@
         });
       }
 
+      // Initialize DataTable with async loading
       var table = new DataTable("#tableID", {
-        ...DTconfig,
+        ...DTconfig, // Spread your existing DataTable configuration
         //
         //processing: true,
         //serverSide: false,
@@ -351,35 +366,44 @@
           let loadedData = [];
           const files = Object.entries(jsonConfigs);
 
-          // Calculate maximum number of columns across all configurations
+          // Calculate the maximum number of columns needed
+          // This ensures all rows will have the same number of columns
           const maxColumns = Math.max(
             ...files.map(([_, config]) => {
+              // If orderColumns is specified, use its length, otherwise use keepColumns length
               const baseColumns = config.orderColumns
                 ? config.orderColumns.length
                 : config.keepColumns.length;
+              // Add any extra columns from newColumns
               const extraColumns = config.newColumns
                 ? config.newColumns.length
                 : 0;
               return baseColumns + extraColumns;
             })
           );
-
+          /**
+           * Loads files one at a time and updates the table progressively
+           * This ensures data is loaded in the correct order and prevents race conditions
+           */
           const loadSequentially = async () => {
             for (const [file, config] of files) {
               try {
+                // Fetch and parse each JSON file
                 const response = await fetch(`../js/json/${file}`);
                 if (!response.ok)
                   throw new Error(`HTTP error! status: ${response.status}`);
 
                 const jsonData = await response.json();
+                // Process the data according to the configuration
                 const processedData = processJsonData(
                   jsonData,
                   config,
                   maxColumns
                 );
+                // Add the processed data to our accumulated data
                 loadedData = [...loadedData, ...processedData];
 
-                // Update the table with current accumulated data
+                // Update the table with all data loaded so far
                 if (table) {
                   table.clear();
                   callback({
@@ -398,7 +422,7 @@
             }
           };
 
-          // Start loading process
+          // Start the loading process
           loadSequentially();
         },
         //
