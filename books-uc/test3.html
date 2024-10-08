@@ -305,6 +305,205 @@
         },
       };
 
+      function processJsonData(data, config) {
+        return data.map((row) => {
+          const fullRow = Array.isArray(row) ? row : Object.values(row);
+          let processedRow = config.keepColumns.map((index) => {
+            const value = fullRow[index];
+            return value === null || value === undefined ? "" : String(value);
+          });
+          if (config.newColumns && config.newColumns.length > 0) {
+            processedRow = [...config.newColumns, ...processedRow];
+          }
+          return processedRow;
+        });
+      }
+
+      var table = new DataTable("#tableID", {
+        ...DTconfig,
+        //
+        //processing: true,
+        //serverSide: false,
+        //deferRender: true,
+        ajax: function (data, callback, settings) {
+          let loadedData = [];
+          const files = Object.entries(jsonConfigs);
+
+          const loadSequentially = async () => {
+            for (const [file, config] of files) {
+              try {
+                const response = await fetch(`../js/json/${file}`);
+                if (!response.ok)
+                  throw new Error(`HTTP error! status: ${response.status}`);
+
+                const jsonData = await response.json();
+                const processedData = processJsonData(jsonData, config);
+                loadedData = [...loadedData, ...processedData];
+
+                // Update the table with current accumulated data
+                if (table) {
+                  table.clear();
+                  callback({
+                    data: loadedData,
+                    recordsTotal: loadedData.length,
+                    recordsFiltered: loadedData.length,
+                  });
+                }
+
+                console.log(
+                  `Loaded ${file}: Total rows now: ${loadedData.length}`
+                );
+              } catch (error) {
+                console.error(`Error loading ${file}:`, error);
+              }
+            }
+          };
+
+          // Start loading process
+          loadSequentially();
+        },
+        //
+        columns: [
+          { title: "ފޮތް އަރަބިން", className: "colHeader" },
+          { title: "#", className: "colHeader" },
+          {
+            title: "އަރަބި ލިޔުން",
+            searchable: false,
+            visible: false,
+          },
+          {
+            title: "އަރަބި ފިލިނުޖަހާ",
+            data: 2,
+            render: (data) => removeThashkeel(data),
+          },
+          { title: "ބަރި 5", data: 3 },
+          { title: "6 ބަރި", data: 4 },
+        ],
+        columnDefs: [
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [0],
+          },
+          {
+            targets: [2],
+            render: (data) => "#" + data,
+          },
+          ...columnDefsconfig,
+        ],
+      });
+    </script>
+  </body>
+</html>
+
+<!--
+this is my datatables js code:
+
+var table = new DataTable("#tableID", {
+        ajax: {
+          url: `../js/json/file.json`,
+          dataSrc: "",
+        },
+
+so i have several jsons in the same directory "../js/json/", they are flat arrays
+their file names are
+        "allAthar.json",
+        "arbaoonNawawi.json",
+
+the json data is like this:
+[
+  ["Brielle Williamson", "Integration Specialist"],
+  ["Herrod Chandler", "Sales Assistant"],
+  ["Rhona Davidson", "Integration Specialist"],
+]
+
+for each json data, i want to be able to choose which columns of the json data to keep, or to remove, and be able to choose the order of the columns in that jsons data, using their column indexes. i also want to be able to create a new first column in a json data if i want, and give it a string that will be in each row of that column if i want
+
+i also want to combine these json data, where one json array ends, the next json array begins. i dont want null values, only empty strings,
+
+also console log the processed jsons
+
+i dont want var table = new DataTable("#tableID", { to be scoped inside something else
+
+the datatable should be loaded async
+
+...
+
+thats good but
+
+this is kinda repetitive:
+const jsonFiles = [ "allAthar.json", "arbaoonNawawi.json", "umdathulAhkam.json", "hisnulMuslim.json", "akhbaruShuyukh.json", "akhlaqHamalathilQuran.json", "muwattaMalik.json", "bulughulMaramFull.json", "riyaduSaliheen.json", "arbaoonAajurry.json" ];
+
+const jsonConfigs = {
+    "allAthar.json": {},
+    "arbaoonNawawi.json": {},
+
+...
+
+now the issue is,
+i want to just use something like keepColumns and not use removeColumns, because i think thats redundant. by setting which columns i want to keep, others should just be excluded.
+
+also there is an issue. in json data which have columns where there are empty strings, it doesnt process and combine the data as it is supposed to. hovewever when i remove such columns, it works. i need it to work with columns that have empty strings. perhaps the code is using null values in its processing and combining?
+
+...
+
+thats better
+
+but that code with data: combinedData only renders the table when all the json data has finished loading
+
+which takes a lot of time
+
+i want it to happen asynchronously, where the table renders as the json loads
+
+...
+
+this is my datatables js code:
+
+// Configuration object for each JSON file
+      const jsonConfigs = {
+        "allAthar.json": {
+          keepColumns: [0, 1, 2, 3, 4],
+          //newColumns: ["All Athar"],
+        },
+        "arbaoonNawawi.json": {
+          keepColumns: [0, 4, 5, 6],
+          newColumns: ["الأربعون النووية"],
+        },
+        "umdathulAhkam.json": {
+          keepColumns: [0, 5, 6, 7],
+          newColumns: ["عمدة الأحكام"],
+        },
+        "hisnulMuslim.json": {
+          keepColumns: [0, 3, 4, 5],
+          newColumns: ["حصن المسلم"],
+        },
+        "akhbaruShuyukh.json": {
+          keepColumns: [0, 1, 2, 3],
+          newColumns: ["أخبار الشيوخ للمروذي"],
+        },
+        "akhlaqHamalathilQuran.json": {
+          keepColumns: [0, 3, 5, 6],
+          newColumns: ["أخلاق حملة القرآن للآجري"],
+        },
+        "muwattaMalik.json": {
+          keepColumns: [0, 2, 6, 7],
+          newColumns: ["موطأ مالك"],
+        },
+        "bulughulMaramFull.json": {
+          keepColumns: [0, 5, 6, 7],
+          newColumns: ["بلوغ المرام"],
+        },
+        "riyaduSaliheen.json": {
+          keepColumns: [0, 5, 6, 7],
+          newColumns: ["رياض الصالحين"],
+        },
+        "arbaoonAajurry.json": {
+          keepColumns: [0, 3, 5, 6],
+          newColumns: ["الأربعون حديثا للآجري"],
+        },
+      };
+
       // Function to process a single JSON array based on its configuration
       function processJsonData(data, config) {
         return data.map((row) => {
@@ -417,88 +616,36 @@
 
       // Call the initialization function when the document is ready
       document.addEventListener("DOMContentLoaded", initializeDataTable);
-    </script>
-  </body>
-</html>
 
-<!--
-this is my datatables js code:
+the issue is
 
-var table = new DataTable("#tableID", {
-        ajax: {
-          url: `../js/json/file.json`,
-          dataSrc: "",
-        },
-
-so i have several jsons in the same directory "../js/json/", they are flat arrays
-their file names are
-        "allAthar.json",
-        "arbaoonNawawi.json",
-
-the json data is like this:
-[
-  ["Brielle Williamson", "Integration Specialist"],
-  ["Herrod Chandler", "Sales Assistant"],
-  ["Rhona Davidson", "Integration Specialist"],
-]
-
-for each json data, i want to be able to choose which columns of the json data to keep, or to remove, and be able to choose the order of the columns in that jsons data, using their column indexes. i also want to be able to create a new first column in a json data if i want, and give it a string that will be in each row of that column if i want
-
-i also want to combine these json data, where one json array ends, the next json array begins. i dont want null values, only empty strings,
-
-also console log the processed jsons
-
-i dont want var table = new DataTable("#tableID", { to be scoped inside something else
-
-the datatable should be loaded async
-
-...
-
-thats good but
-
-this is kinda repetitive:
-const jsonFiles = [ "allAthar.json", "arbaoonNawawi.json", "umdathulAhkam.json", "hisnulMuslim.json", "akhbaruShuyukh.json", "akhlaqHamalathilQuran.json", "muwattaMalik.json", "bulughulMaramFull.json", "riyaduSaliheen.json", "arbaoonAajurry.json" ];
-
-const jsonConfigs = {
-    "allAthar.json": {},
-    "arbaoonNawawi.json": {},
-
-...
-
-now the issue is,
-i want to just use something like keepColumns and not use removeColumns, because i think thats redundant. by setting which columns i want to keep, others should just be excluded.
-
-also there is an issue. in json data which have columns where there are empty strings, it doesnt process and combine the data as it is supposed to. hovewever when i remove such columns, it works. i need it to work with columns that have empty strings. perhaps the code is using null values in its processing and combining?
-
-...
-
-thats better
-
-but that code with data: combinedData only renders the table when all the json data has finished loading
+my code with data: combinedData only renders the table when all the json data has finished loading
 
 which takes a lot of time
 
 i want it to happen asynchronously, where the table renders as the json loads
 
 usually i use something like this to do that in datatables js:
-
 var table = new DataTable("#tableID", {
-
         ...DTconfig,
-
         ajax: {
-
           url: ../js/json/file.json,
-
           dataSrc: "",
-
         },
+i also dont usually use something like document.addEventListener("DOMContentLoaded", initializeDataTable); to initialize the table, it just initializes with the var table = new DataTable("#tableID", { code i usually use
 
-perhaps something like dataSrc: function (..) {
-
+perhaps we could use something like dataSrc: function (..) {
 or something like ajax: function (data, callback, settings) {...
 
-could be used? these are just suggestions
+these are just suggestions, how could we do it?
 
+...
 
+it is showing way more pages that it is supposed to. and that number is not the same every time it finishes loading. for example, it shows 36890 at times, and at other times 44002, and so on. but the correct number of pages is 13651. are rows being repeated?
+
+everything is loaded yes, but still overloaded. its repeating data somehow. not loading a json was never the problem. the problem was it loading all the json and then even more, which when i went to the end of the result, made me not see what i expected at the end
+
+dont need progress element and indicator
+
+comment the code
 -->

@@ -29,9 +29,6 @@
     <meta name="theme-color" content="#29434e" />
     <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
     <script src="../js/ALL-COMB.min.js"></script>
-    <!-- CHANGE !!! 
-      radheef rasmee no longer in a google sheet, as it is compiled -->
-    <script src="../js/json/radheefRasmee.js"></script>
     <style>
       /* === --- === --- ====
         CUSTOM CSS
@@ -227,302 +224,164 @@
       </div>
     </div>
     <script type="text/javascript">
-      // CHANGE !!!
+      // Configuration object for each JSON file
+      const jsonConfigs = {
+        "radheefAll.json": {
+          // 0ar 1dv 2en 3arMean 4dvMean 5enMean
+          keepColumns: [0, 1, 2, 3, 4, 5],
+          //newColumns: ["All"],
+        },
+        "radheefRasmee.json": {
+          // radheef rasmee no longer in a google sheet, as it is compiled
+          // rasmee: 0dv 1transliteration 2enMean 3dvMean 4dvMainClass 5dvTense 6dvAdabiClass 7dvDialect 8dvLevel 9dvField 10dvAtoll 11dvExample
+          //NEED: 0 2 3
+          keepColumns: [0, 2, 3],
+        },
+        "radheefEegaal.json": {
+          // arName ar dv pageNo
+          //NEED: 0 1 2
+          keepColumns: [0, 1, 2],
+        },
+        "radheefManiku.json": {
+          // transliteration dv enType enMean
+          keepColumns: [0, 3, 5, 6],
+        },
+        "radheefNanfoiy.json": {
+          // 0ar 1dv 2en 3arMean 4dvMean 5enMean 6gender 7source 8lang
+          //NEED: 0 1 2 3 4 5
+          keepColumns: [0, 1, 2, 3, 4, 5],
+        },
+      };
 
-      // Initialize an empty array to hold the datasets
-      var dataSets = [];
-      // array list of dataset files to load data from
-      /*var datasetFiles = [
-              "../js/json/radheefAll.js",
-              "../js/json/arbaoonNawawi.js",
-            ];*/
-      // Add more files as needed
-      var datasetFiles = [
-        // 0ar 1dv 2en 3arMean 4dvMean 5enMean
-        "radheefAll.js",
-        // radheef rasmee no longer in a google sheet, as it is compiled
-        // rasmee: 0dv 1transliteration 2enMean 3dvMean 4dvMainClass 5dvTense 6dvAdabiClass 7dvDialect 8dvLevel 9dvField 10dvAtoll 11dvExample
-        //NEED: 0 2 3
-        "radheefRasmee.js",
-        // arName ar dv pageNo
-        //NEED: 0 1 2
-        "radheefEegaal.js",
-        // transliteration dv enType enMean
-        "radheefManiku.js",
-        // 0ar 1dv 2en 3arMean 4dvMean 5enMean 6gender 7source 8lang
-        //NEED: 0 1 2 3 4 5
-        "radheefNanfoiy.js",
-        // Add other dataset files here
-      ].map((file) => `../js/json/${file}`);
+      // Modified processJsonData function to handle column padding
+      function processJsonData(data, config, maxColumns) {
+        return data.map((row) => {
+          const fullRow = Array.isArray(row) ? row : Object.values(row);
 
-      // Configuration for each dataset, in order
-      var datasetConfigs = [
-        // Columns to keep (0-based index)
-        // New order (after new column added)
-        // New column with "text"
-        /*{
-                // allAthar
-                // book	#	arText	dvText	Takhrij
-                columnsToKeep: null, // Keep all columns as they are
-                columnOrder: null, // Maintain the existing order of columns
-                newColumns: [], // No new columns to add
-              },*/
-        {
-          columnsToKeep: [0, 1, 2, 3, 4, 5],
-          //columnOrder: [0, 1, 2, 3, 4], // New order for the columns after adding new columns
-          //columnOrder: null, // Maintain the existing order of columns
-          // Remove or set to null: columnOrder: null,
-          //newColumns: [{ value: "radheefAll" }], // Add a new column with the value "text" in each row
-        },
-        {
-          columnsToKeep: [0, 2, 3],
-          columnOrder: [0, 1, 2, 3, 4, 5], // it seems without setting column order, the number of columns will not match the first dataset, and as a result not render
-          //newColumns: [{ value: "radheefRasmee" }],
-        },
-        {
-          columnsToKeep: [0, 1, 2],
-          columnOrder: [0, 1, 2, 3, 4, 5],
-          //newColumns: [{ value: "radheefEegaal" }],
-        },
-        {
-          columnsToKeep: [0, 3, 5, 6],
-          columnOrder: [0, 1, 2, 3, 4, 5],
-          //newColumns: [{ value: "radheefManiku" }],
-        },
-        {
-          columnsToKeep: [0, 1, 2, 3, 4, 5],
-          //newColumns: [{ value: "radheefNanfoiy" }],
-        },
-        //
-      ];
-
-      // Function to process each dataset
-      function processDataSet(dataset, config, filename) {
-        let processedData = dataset.map((row) => {
-          let newRow = [];
-
-          // Keep only the specified columns from the original data
-          config.columnsToKeep.forEach((col) => {
-            newRow.push(row[col] == null ? "" : row[col]);
+          // Process the specified columns
+          let processedRow = config.keepColumns.map((index) => {
+            const value = fullRow[index];
+            return value === null || value === undefined ? "" : String(value);
           });
 
-          // Add the dataset name as the first column only if newColumns is specified
+          // Add new columns if specified
           if (config.newColumns && config.newColumns.length > 0) {
-            newRow.unshift(config.newColumns[0].value);
+            processedRow = [...config.newColumns, ...processedRow];
           }
 
-          return newRow;
+          // Pad with empty strings if needed
+          while (processedRow.length < maxColumns) {
+            processedRow.push("");
+          }
+
+          return processedRow;
         });
-
-        // Reorder columns if a specific order is specified in the config
-        if (config.columnOrder) {
-          processedData = processedData.map((row) => {
-            return config.columnOrder.map(
-              (orderIndex) => row[orderIndex] || ""
-            );
-          });
-        }
-
-        // Return processed data along with the filename for identification
-        return { data: processedData, filename: filename };
       }
 
-      // Function to load all datasets
-      function loadDatasets(files, configs, callback) {
-        var loaded = 0;
-        files.forEach(function (file, index) {
-          // Create a script element to load the dataset file
-          var script = document.createElement("script");
-          script.src = file;
-          script.onload = function () {
-            // Process the loaded data and store it in dataSets array
-            dataSets[index] = processDataSet(data, configs[index], file);
-            loaded++;
-            // If all datasets are loaded, call the callback function
-            if (loaded === files.length) {
-              callback();
+      var table = new DataTable("#tableID", {
+        ...DTconfig,
+        //
+        //processing: true,
+        //serverSide: false,
+        //deferRender: true,
+        ajax: function (data, callback, settings) {
+          let loadedData = [];
+          const files = Object.entries(jsonConfigs);
+
+          // Calculate maximum number of columns across all configurations
+          const maxColumns = Math.max(
+            ...files.map(([_, config]) => {
+              const baseColumns = config.keepColumns.length;
+              const extraColumns = config.newColumns
+                ? config.newColumns.length
+                : 0;
+              return baseColumns + extraColumns;
+            })
+          );
+
+          const loadSequentially = async () => {
+            for (const [file, config] of files) {
+              try {
+                const response = await fetch(`../js/json/${file}`);
+                if (!response.ok)
+                  throw new Error(`HTTP error! status: ${response.status}`);
+
+                const jsonData = await response.json();
+                const processedData = processJsonData(
+                  jsonData,
+                  config,
+                  maxColumns
+                );
+                loadedData = [...loadedData, ...processedData];
+
+                // Update the table with current accumulated data
+                if (table) {
+                  table.clear();
+                  callback({
+                    data: loadedData,
+                    recordsTotal: loadedData.length,
+                    recordsFiltered: loadedData.length,
+                  });
+                }
+
+                console.log(
+                  `Loaded ${file}: Total rows now: ${loadedData.length}`
+                );
+              } catch (error) {
+                console.error(`Error loading ${file}:`, error);
+              }
             }
           };
-          document.head.appendChild(script);
-        });
-      }
 
-      // Load all datasets and then process them
-      loadDatasets(datasetFiles, datasetConfigs, function () {
-        // Find the indices of the two datasets we want to combine
-        /*const barbarahiIndex = dataSets.findIndex((ds) =>
-          ds.filename.includes("sharhuSunnahBarbahari.js")
-        );
-        const barbarahiDFKIndex = dataSets.findIndex((ds) =>
-          ds.filename.includes("sharhuSunnahBarbahari-DFK.js")
-        );
-
-        // If both datasets are found, combine them
-        if (barbarahiIndex !== -1 && barbarahiDFKIndex !== -1) {
-          // Combine the datasets
-          dataSets[barbarahiDFKIndex].data = dataSets[
-            barbarahiDFKIndex
-          ].data.map((row, index) => {
-            const barbarahiRow = dataSets[barbarahiIndex].data[index] || [];
-            return [
-              row[0], // Dataset name
-              barbarahiRow[1] || "", // First column from sharhuSunnahBarbahari
-              barbarahiRow[2] || "", // Second column from sharhuSunnahBarbahari
-              row[1] || "", // First column from sharhuSunnahBarbahari-DFK
-              row[2] || "", // Second column from sharhuSunnahBarbahari-DFK
-            ];
-          });
-        }*/
-
-        // Flatten the dataSets array to get a single array of all rows
-        // prev data was combinedDataSet
-        var data = dataSets.flatMap((ds) => ds.data);
-
-        // Log the combined dataset to the console. uncomment this to see the object array
-        //console.log(combinedDataSet);
-
-        // Initialize the DataTable with the combined dataset and specified configuration
-        var table = new DataTable("#tableID", {
-          ...DTconfig, // Existing DataTable configuration spreadd from external file source
-          data: data, // Set the combined dataset as the data for the table
-
-          // turns ordering columns back on, which was off for cards
-          ordering: true,
-          // https://datatables.net/reference/option/ordering
-          // default [[0, 'asc']], below makes it no ordering, with clickable th for ordering
-          order: [],
-          // this sets the default value on table load.
-          displayLength: 10,
-
-          //columns: [null, null, null, null, null],
-          /*columns: [
-                  { title: "New Column Title" }, // Title for the new column ? added in the second dataset ? or just title
-                  { title: "Column 1" },
-                  { title: "Column 2" },
-                  { title: "Column 3" },
-                  { title: "Column 4" },
-                ],*/
-
-          /*});
-            });*/
-
-          //
-
-          // 0ar 1dv 2en 3arMean 4dvMean 5enMean
-          columns: [
-            { title: "އަރަބި ލަފްޒު", searchable: false },
-            {
-              title: "އަރަބި ފިލިނުޖަހާ",
-              data: 0,
-              render: (data) => removeThashkeel(data),
-              visible: false,
-            },
-            {
-              title: "ދިވެހި ލަފްޒު",
-              data: 1,
-            },
-            {
-              title: "އިނގިރޭސި ލަފްޒު",
-              data: 2,
-              className: "colEng",
-            },
-            {
-              title: "އަރަބި މާނަ",
-              data: 3,
-            },
-            {
-              title: "ދިވެހި މާނަ",
-              data: 4,
-            },
-            {
-              title: "އިނގިރޭސި މާނަ",
-              data: 5,
-              className: "colEng",
-            },
-          ],
-          columnDefs: [...columnDefsconfig],
-        });
+          // Start loading process
+          loadSequentially();
+        },
         //
 
-        // due to the way multiple js array dataset files are dynamically loaded with datatable initialize being async, the focus code is  running before the table is fully initialized and the search input code or whaterver is available. instead of changing the external config, this can be fixed moving the focus code inside the callback that initializes the DataTable below, ensure it runs after the table is fully initialized and the search input code or whatever is available in the DOM. still currently getting a initialize-dt.js:31  Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')
+        // turns ordering columns back on, which was off for cards
+        ordering: true,
+        // https://datatables.net/reference/option/ordering
+        // default [[0, 'asc']], below makes it no ordering, with clickable th for ordering
+        order: [],
+        // this sets the default value on table load.
+        displayLength: 10,
 
-        /* from the initialize-dt.js, everything from between -
-      document.addEventListener("DOMContentLoaded", function () {
-        if (!isMobile) {
-            $("div.dt-search .dt-input").focus();
-        - till the end of that function was copied as is here, and any updates there will need to be brought here */
+        //columns: [null, null, null, null, null],
 
-        // EXECUTE AFTER DATATALE IS INITIALIZED
-        // document.dispatchEvent(new Event("dataTableInitialized"));
-        if (!isMobile) {
-          $("div.dt-search .dt-input").focus();
-
-          table.on("page", function () {
-            window.scrollTo({
-              top: 0,
-              behavior: "smooth",
-            });
-          });
-        } else {
-          table.on("page", function () {
-            const trElement = document.querySelector("tbody tr");
-            const navbarHeight = document.querySelector(".navbar").offsetHeight;
-
-            const trPosition =
-              trElement.getBoundingClientRect().top + window.pageYOffset;
-            const offsetPosition = trPosition - navbarHeight;
-
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: "smooth",
-            });
-          });
-
-          delete Hammer.defaults.cssProps.userSelect;
-
-          Hammer(document.querySelector(".dataTable")).on(
-            "swipeleft",
-            function () {
-              table.page("previous").draw("page");
-            }
-          );
-
-          Hammer(document.querySelector(".dataTable")).on(
-            "swiperight",
-            function () {
-              table.page("next").draw("page");
-            }
-          );
-        }
-
-        $(".dt-paging-input input")
-          .prop("type", "search")
-          .attr("placeholder", "ސަފުހާ");
-
-        $("tbody").on("dblclick", "tr", function () {
-          if (table.search() !== "") {
-            table.search("").draw();
-          }
-          table.row(this).draw().show().select().draw(false);
-        });
-
-        $(".dt-search .dt-input").on("keyup click", function () {
-          var str = $(this).val();
-          str = str.replace(
-            /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
-            ""
-          );
-          $(this).val(str);
-        });
-        // END
-
-        //
+        // 0ar 1dv 2en 3arMean 4dvMean 5enMean
+        columns: [
+          { title: "އަރަބި ލަފްޒު", searchable: false },
+          {
+            title: "އަރަބި ފިލިނުޖަހާ",
+            data: 0,
+            render: (data) => removeThashkeel(data),
+            visible: false,
+          },
+          {
+            title: "ދިވެހި ލަފްޒު",
+            data: 1,
+          },
+          {
+            title: "އިނގިރޭސި ލަފްޒު",
+            data: 2,
+            className: "colEng",
+          },
+          {
+            title: "އަރަބި މާނަ",
+            data: 3,
+          },
+          {
+            title: "ދިވެހި މާނަ",
+            data: 4,
+          },
+          {
+            title: "އިނގިރޭސި މާނަ",
+            data: 5,
+            className: "colEng",
+          },
+        ],
+        columnDefs: [...columnDefsconfig],
       });
-      /*
-            var table = new DataTable("#tableID", {
-              ...DTconfig,
-            });
-            */
     </script>
   </body>
 </html>
