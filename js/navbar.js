@@ -5,23 +5,6 @@ var hmvVersionNo = 3.16;
 // above is version no  var for hmv, shown in sidemenu and maybe main index page
 
 /* === === ===
----  Google Tag Manager ---
-=== === === */
-/*<!-- Google Tag Manager -->
-<script>*/ (function (w, d, s, l, i) {
-  w[l] = w[l] || [];
-  w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-  var f = d.getElementsByTagName(s)[0],
-    j = d.createElement(s),
-    dl = l != "dataLayer" ? "&l=" + l : "";
-  j.async = true;
-  j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-  f.parentNode.insertBefore(j, f);
-})(window, document, "script", "dataLayer", "GTM-TRR5NPBL"); /*</script>
-<!-- End Google Tag Manager -->*/
-/* below was a noscripts tag, but only track images? in any case, i moved it into below the navbar html */
-
-/* === === ===
 --- GET PAGE NAME AND DIRECTORY CODE ---
 === === === */
 
