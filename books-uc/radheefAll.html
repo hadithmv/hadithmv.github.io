@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="dv" translate="no">
   <head>
     <!-- CHANGE !!! -->
@@ -296,9 +296,6 @@
       var table = new DataTable("#tableID", {
         ...DTconfig,
         //
-        //processing: true,
-        //serverSide: false,
-        //deferRender: true,
         ajax: function (data, callback, settings) {
           let loadedData = [];
           const files = Object.entries(jsonConfigs);
@@ -363,8 +360,8 @@
         // this sets the default value on table load.
         displayLength: 10,
 
+        // CHANGE !!!
         //columns: [null, null, null, null, null],
-
         // 0ar 1dv 2en 3arMean 4dvMean 5enMean
         columns: [
           { title: "އަރަބި ލަފްޒު", searchable: false },
@@ -397,7 +394,7 @@
             className: "colEng",
           },
         ],
-        columnDefs: [...columnDefsconfig],
+        ...columnDefsconfig,
       });
     </script>
   </body>
