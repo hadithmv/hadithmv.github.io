@@ -58,10 +58,10 @@ document.addEventListener("DOMContentLoaded", () => {
       bytes < 1024
         ? `B: ${bytes}`
         : bytes < 1048576
-          ? `KB: ${(bytes / 1024).toFixed(2)}`
-          : bytes < 1073741824
-            ? `MB: ${(bytes / 1048576).toFixed(2)}`
-            : `GB: ${(bytes / 1073741824).toFixed(2)}`;
+        ? `KB: ${(bytes / 1024).toFixed(2)}`
+        : bytes < 1073741824
+        ? `MB: ${(bytes / 1048576).toFixed(2)}`
+        : `GB: ${(bytes / 1073741824).toFixed(2)}`;
   }
 
   textArea.addEventListener("input", debounce(updateStats, 300));
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateStats();
   }
 
-  // BUTTON FUNCTIONS
+  // functions within FUNCTIONS
 
   function ltrSwitch() {
     textArea.style.direction = "ltr";
@@ -118,7 +118,13 @@ document.addEventListener("DOMContentLoaded", () => {
     textArea.style.direction = "rtl";
     textArea.style.textAlign = "right";
   }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
   //
+
+  // BUTTON FUNCTIONS
 
   document.getElementById("copyToClipboard").addEventListener("click", () => {
     navigator.clipboard.writeText(textArea.value);
@@ -415,6 +421,8 @@ document.addEventListener("DOMContentLoaded", () => {
   //
 
   document.getElementById("keepOnlyAr").addEventListener("click", () => {
+    scrollToTop();
+    //
     //textArea.value = textArea.value.replace(/[^\u0600-\u06FF\s]/g, "");
     // https://notes.yshalsager.com/en/notes/Regex%20Match%20Arabic%20Letters/
     textArea.value = textArea.value.replace(
@@ -427,6 +435,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("text2HtmlP").addEventListener("click", () => {
     ltrSwitch();
+    scrollToTop();
+    //
 
     // Split the input text by one or more line breaks
     let paragraphs = textArea.value.split(/\n{1,}/);
@@ -449,6 +459,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("whichUnicodeCharacter")
     .addEventListener("click", () => {
+      scrollToTop();
+      //
       ltrSwitch();
 
       const inputText = textArea.value;
@@ -471,6 +483,8 @@ document.addEventListener("DOMContentLoaded", () => {
   //
 
   document.getElementById("rmvHtmlTags").addEventListener("click", () => {
+    scrollToTop();
+    //
     textArea.value = textArea.value.replace(/<[^>]*>/g, "");
     updateStats();
   });
@@ -534,6 +548,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("sortWordsByFrequency")
     .addEventListener("click", () => {
+      scrollToTop();
+      //
       const text = textArea.value;
       const words = text.toLowerCase().match(/\b[\w']+\b/g) || [];
       const frequency = {};
@@ -554,6 +570,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("sortLinesByFrequency")
     .addEventListener("click", () => {
+      scrollToTop();
+      //
       const lines = textArea.value
         .split("\n")
         .filter((line) => line.trim() !== "");
@@ -755,6 +773,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to remove Thikijehi Thaana
   function removeThikijehiThaana(text) {
+    scrollToTop();
+    //
     return text.replace(
       /[ޘޙޛޜޞޠޡޢޤޥ]/g,
       (char) => thikijehiReplacements[char] || char
@@ -763,6 +783,8 @@ document.addEventListener("DOMContentLoaded", () => {
   //
 
   document.getElementById("keepOnlyDv").addEventListener("click", () => {
+    scrollToTop();
+    //
     textArea.value = textArea.value.replace(/[^\u0780-\u07BF\s]/g, "");
     updateStats();
   });
@@ -868,6 +890,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("transliterateDvToEn")
     .addEventListener("click", () => {
+      scrollToTop();
+      //
       textArea.value = transliterateDhivehi(textArea.value);
       ltrSwitch();
       updateStats();
@@ -994,6 +1018,8 @@ when there is a ّ  character that comes after an arabic character, the output s
   document
     .getElementById("transliterateArToDv")
     .addEventListener("click", () => {
+      scrollToTop();
+      //
       textArea.value = transliterateArabicToDhivehi(textArea.value);
       updateStats();
     });
@@ -1138,6 +1164,8 @@ when there is a ّ  character that comes after an arabic character, the output s
   const converter = new NumberToDhivehi();
 
   document.getElementById("Nos2DvTxt").addEventListener("click", () => {
+    scrollToTop();
+    //
     /*
 this code joins new lines with comma, instead of keeping them as they are
 
@@ -1189,6 +1217,8 @@ i dont want output to have multiple spaces
   //
 
   document.getElementById("removeDhivehiFili").addEventListener("click", () => {
+    scrollToTop();
+    //
     textArea.value = textArea.value.replace(/[\u07A6-\u07B0]/g, "");
     updateStats();
   });
@@ -1398,7 +1428,9 @@ i want one more space after the colon that comes after the issue description
       // Construct the HTML for this result
       // Include the index, previous word, the word with issues (in blue), next word,
       // and the issue descriptions (in red)
-      html += `${index + 1}. ${prevWord} <span style="color: blue;">${result.word}</span> ${nextWord} : <span style="color: red;">${issueDescriptions}</span> <br>`;
+      html += `${index + 1}. ${prevWord} <span style="color: blue;">${
+        result.word
+      }</span> ${nextWord} : <span style="color: red;">${issueDescriptions}</span> <br>`;
     });
 
     // Update the results div with the generated HTML and make it visible
@@ -1408,6 +1440,8 @@ i want one more space after the colon that comes after the issue description
   //
 
   document.getElementById("removePunctuation").addEventListener("click", () => {
+    scrollToTop();
+    //
     textArea.value = textArea.value.replace(/[^\w\s]/g, "");
     updateStats();
   });
@@ -1479,6 +1513,8 @@ i want one more space after the colon that comes after the issue description
   document
     .getElementById("removeNumbersInBrackets")
     .addEventListener("click", () => {
+      scrollToTop();
+      //
       textArea.value = textArea.value.replace(
         /\(\d+\)|\[\d+\]|⁽[⁰¹²³⁴⁵⁶⁷⁸⁹]+⁾/g,
         ""
@@ -1490,6 +1526,8 @@ i want one more space after the colon that comes after the issue description
   document
     .getElementById("removeDuplicateLines")
     .addEventListener("click", () => {
+      scrollToTop();
+      //
       const lines = textArea.value.split("\n");
       const uniqueLines = [...new Set(lines)];
       textArea.value = uniqueLines.join("\n");
@@ -1498,6 +1536,8 @@ i want one more space after the colon that comes after the issue description
   //
 
   document.getElementById("splitIntoWords").addEventListener("click", () => {
+    scrollToTop();
+    //
     const words = textArea.value.match(/\S+/g) || [];
     textArea.value = words.join("\n");
     updateStats();
@@ -1647,12 +1687,16 @@ i want one more space after the colon that comes after the issue description
   //
 
   document.getElementById("removeKashidas").addEventListener("click", () => {
+    scrollToTop();
+    //
     textArea.value = textArea.value.replace(/ـ/g, "");
     updateStats();
   });
   //
 
   document.getElementById("shaddaB4Haraka").addEventListener("click", () => {
+    scrollToTop();
+    //
     textArea.value = correctShaddaPlacement(textArea.value);
   });
 
@@ -1676,6 +1720,8 @@ i want one more space after the colon that comes after the issue description
   document
     .getElementById("removeQuranicMarks")
     .addEventListener("click", () => {
+      scrollToTop();
+      //
       textArea.value = textArea.value
         .replace(/[ۖۗۘۙۚۛۜ۝۞ۣ۟۠ۡۢۤۥۦۧۨ۩۪ۭ۫۬﴾﴿]/g, "")
         .replace(/\s+/g, " ")
@@ -1689,6 +1735,8 @@ i want one more space after the colon that comes after the issue description
   document
     .getElementById("replaceQuoteToDoubleAngleBrackets")
     .addEventListener("click", () => {
+      scrollToTop();
+      //
       switch (quoteState) {
         case 0: // Convert to angular quotes
           textArea.value = textArea.value
@@ -1759,8 +1807,10 @@ i want one more space after the colon that comes after the issue description
   //
 
   document
-    .getElementById("replaceColonFullstop")
+    .getElementById("replaceColon2Fullstop")
     .addEventListener("click", () => {
+      scrollToTop();
+      //
       textArea.value = textArea.value.replace(/:/g, ".");
       updateStats();
     });

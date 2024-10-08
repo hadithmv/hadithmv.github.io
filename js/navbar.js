@@ -42,7 +42,7 @@ canonicalLink.href = getCanonicalUrl();
 document.head.appendChild(canonicalLink);
 
 // Optional: Log the canonical URL for debugging
-console.log("Canonical URL:", canonicalLink.href);
+//console.log("Canonical URL:", canonicalLink.href);
 
 // For JSON files, assuming they're always in ../js/json/ relative to the HTML file
 var currentFileName = getCanonicalUrl().split("/").pop().replace(".html", "");
