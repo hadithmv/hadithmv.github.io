@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <!-- <html dir="rtl"> -->
 <html lang="dv" translate="no">
   <!-- prevent translate popup -->
@@ -43,8 +43,16 @@
     <!--<link rel="manifest" href="site.webmanifest" />-->
     <meta name="theme-color" content="#29434e" />
     <!-- -->
-    <!-- preload !!! -->
+    <!-- 
     <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
+    preload? but that makes it fout. 
+    https://stackoverflow.com/questions/32759272/how-to-load-css-asynchronously -->
+    <link
+      rel="stylesheet"
+      href="../css/ALL-COMB.min.css"
+      media="print"
+      onload="this.media='all'"
+    />
     <!-- defer !!! -->
     <script src="../js/ALL-COMB.min.js"></script>
     <!-- CHANGE !!! 
