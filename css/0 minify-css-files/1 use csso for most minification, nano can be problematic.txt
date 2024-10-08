@@ -18,4 +18,10 @@ C:\Users\ashra\AppData\Roaming\npm\node_modules
 minify with:
 postcss input.css > output.css
 
+...
+
+it worked for a while, then had problems again. minified files were way too large when done by cssnano. also cssnano messes up some characters in minification.
+
+so use csso for most things, and cssnano but manually in this folder, dont run scripts minifying with cssnano, just csso for scripts
+
 
