@@ -305,7 +305,6 @@
         },
       };
 
-      // Modified processJsonData function to handle column padding
       function processJsonData(data, config, maxColumns) {
         return data.map((row) => {
           const fullRow = Array.isArray(row) ? row : Object.values(row);
@@ -319,6 +318,18 @@
           // Add new columns if specified
           if (config.newColumns && config.newColumns.length > 0) {
             processedRow = [...config.newColumns, ...processedRow];
+          }
+
+          // Reorder columns if orderColumns is specified
+          if (config.orderColumns) {
+            const tempRow = [...processedRow];
+            processedRow = config.orderColumns.map((index) => {
+              // If the index is within newColumns range, adjust accordingly
+              const adjustedIndex = config.newColumns
+                ? index + config.newColumns.length
+                : index;
+              return tempRow[adjustedIndex] || "";
+            });
           }
 
           // Pad with empty strings if needed
@@ -343,7 +354,9 @@
           // Calculate maximum number of columns across all configurations
           const maxColumns = Math.max(
             ...files.map(([_, config]) => {
-              const baseColumns = config.keepColumns.length;
+              const baseColumns = config.orderColumns
+                ? config.orderColumns.length
+                : config.keepColumns.length;
               const extraColumns = config.newColumns
                 ? config.newColumns.length
                 : 0;
@@ -678,6 +691,19 @@ dont need progress element and indicator
 when adding json data to json data, the added data may have less columns than the added to data, in which case, columns with empty strings '' will have to be created for them, otherwise the data isnt processed
 
 (this will be needed for radheefAll table)
+
+...
+
+i use 
+          keepColumns: [0, 1, 2, 3, 4, 5],
+to choose which columns to keep and which to remove
+
+i also want to be able to choose the order of the columns if i set an order
+something like
+orderColumns: [5,4,2,3,1,0],
+where not setting an order leaves it in the defaul order
+
+...
 
 comment the code
 -->
