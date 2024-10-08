@@ -229,6 +229,7 @@
         "radheefAll.json": {
           // 0ar 1dv 2en 3arMean 4dvMean 5enMean
           keepColumns: [0, 1, 2, 3, 4, 5],
+          //orderColumns: [5, 4, 2, 3, 1, 0], // Optional: specify desired column order
           //newColumns: ["All"],
         },
         "radheefRasmee.json": {
@@ -236,15 +237,17 @@
           // rasmee: 0dv 1transliteration 2enMean 3dvMean 4dvMainClass 5dvTense 6dvAdabiClass 7dvDialect 8dvLevel 9dvField 10dvAtoll 11dvExample
           //NEED: 0 2 3
           keepColumns: [0, 2, 3],
+          orderColumns: [5, 0, 1, 3, 2, 4], // here, 5 and 2 are empty columns that i moved around to get the wanted columns in the right place, default order would be [0, 1, 2, 3, 4, 5]
         },
         "radheefEegaal.json": {
           // arName ar dv pageNo
           //NEED: 0 1 2
-          keepColumns: [0, 1, 2],
+          keepColumns: [0, 1],
         },
         "radheefManiku.json": {
           // transliteration dv enType enMean
           keepColumns: [0, 3, 5, 6],
+          orderColumns: [5, 4, 0, 2, 3, 1], // here, 5 and 4 are empty cols, and i had to move 0 and 1 to the right places
         },
         "radheefNanfoiy.json": {
           // 0ar 1dv 2en 3arMean 4dvMean 5enMean 6gender 7source 8lang
@@ -269,6 +272,18 @@
             processedRow = [...config.newColumns, ...processedRow];
           }
 
+          // Reorder columns if orderColumns is specified
+          if (config.orderColumns) {
+            const tempRow = [...processedRow];
+            processedRow = config.orderColumns.map((index) => {
+              // If the index is within newColumns range, adjust accordingly
+              const adjustedIndex = config.newColumns
+                ? index + config.newColumns.length
+                : index;
+              return tempRow[adjustedIndex] || "";
+            });
+          }
+
           // Pad with empty strings if needed
           while (processedRow.length < maxColumns) {
             processedRow.push("");
@@ -291,7 +306,9 @@
           // Calculate maximum number of columns across all configurations
           const maxColumns = Math.max(
             ...files.map(([_, config]) => {
-              const baseColumns = config.keepColumns.length;
+              const baseColumns = config.orderColumns
+                ? config.orderColumns.length
+                : config.keepColumns.length;
               const extraColumns = config.newColumns
                 ? config.newColumns.length
                 : 0;
