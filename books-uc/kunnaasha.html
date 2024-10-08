@@ -89,7 +89,7 @@
         ...DTconfig,
         // data: data.slice().reverse(), // Create a reversed copy of the data
         ajax: {
-          url: `../js/json/${CURRENT_PAGE}.json`,
+          url: `../js/json/` + currentFileName + `.json`,
           //dataSrc: "",
           // Create a shallow copy with slice() then reverse it
           dataSrc: function (json) {

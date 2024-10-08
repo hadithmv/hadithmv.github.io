@@ -203,7 +203,7 @@
       var table = new DataTable("#tableID", {
         ...DTconfig,
         ajax: {
-          url: `../js/json/${CURRENT_PAGE}.json`,
+          url: `../js/json/` + currentFileName + `.json`,
           dataSrc: "",
         },
         // CHANGE !!!
