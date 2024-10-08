@@ -10,6 +10,8 @@ var hmvVersionNo = 3.16;
 
 // moved this here in nav instead of dt-inline, so that pages could use it and not just books
 
+// NOTE, since json name is fetched from file name, and set using a variable, changing the file name will cause the json to not be fetched
+
 // Function to get canonical URL based on the current path
 function getCanonicalUrl() {
   // Get the full path excluding the domain and start with /
