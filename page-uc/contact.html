@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html translate="no">
   <head>
     <!-- CHANGE !!! -->
@@ -27,7 +27,12 @@
     />
     <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#29434e" />
-    <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="../css/ALL-COMB.min.css"
+      media="print"
+      onload="this.media='all'"
+    />
     <!-- CHANGE !!! -->
     <script src="../js/navbar.min.js"></script>
     <style></style>
@@ -76,16 +81,14 @@
             border: none;
             border-radius: 50px;
             transition: all 0.3s ease;
-            box-shadow:
-              0 4px 6px rgba(50, 50, 93, 0.11),
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11),
               0 1px 3px rgba(0, 0, 0, 0.08);
           }
 
           .modal-button:hover {
             background-color: #357ae8;
             transform: translateY(-2px);
-            box-shadow:
-              0 7px 14px rgba(50, 50, 93, 0.1),
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1),
               0 3px 6px rgba(0, 0, 0, 0.08);
           }
 
@@ -113,8 +116,7 @@
             border-radius: 15px;
             width: 90%;
             max-width: 400px;
-            box-shadow:
-              0 15px 35px rgba(50, 50, 93, 0.1),
+            box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1),
               0 5px 15px rgba(0, 0, 0, 0.07);
             transform: scale(0.8);
             transition: all 0.3s ease;

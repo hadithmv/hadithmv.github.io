@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="dv" translate="no">
   <head>
     <!-- CHANGE !!! -->
@@ -27,7 +27,12 @@
     />
     <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#29434e" />
-    <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="../css/ALL-COMB.min.css"
+      media="print"
+      onload="this.media='all'"
+    />
     <script src="../js/ALL-COMB.min.js"></script>
     <style>
       /* === --- === --- ====
@@ -250,8 +255,9 @@
             let result = numberInTableInfo - 8541;
 
             // Update the text content of the element with ID 'namesOutsidePdf' to display the result
-            document.querySelector("#namesOutsidePdf").textContent =
-              `ޕީޑީއެފްތަކުގައިވާ ނުވާ ނަންތައް: ${result}`;
+            document.querySelector(
+              "#namesOutsidePdf"
+            ).textContent = `ޕީޑީއެފްތަކުގައިވާ ނުވާ ނަންތައް: ${result}`;
           }, 500); // 1000ms = 1 second delay, adjust if needed
         </script>
         <p>އެންމެ ފަހުން ޕީޑީއެފްތައް ބެލި ތާރީޚު: 23/3/24</p>

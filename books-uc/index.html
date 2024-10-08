@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="dv" translate="no">
   <head>
     <!-- CHANGE !!! -->
@@ -28,7 +28,12 @@
     />
     <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#29434e" />
-    <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="../css/ALL-COMB.min.css"
+      media="print"
+      onload="this.media='all'"
+    />
     <!-- CHANGE !!! -->
     <script src="../js/navbar.min.js"></script>
     <style>
@@ -696,8 +701,7 @@
               direction: rtl;
               margin-bottom: 50px;
               /* shadow */
-              box-shadow:
-                0 1px 3px rgba(0, 0, 0, 0.12),
+              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
                 0 1px 2px rgba(0, 0, 0, 0.24);
               transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             }
@@ -825,9 +829,7 @@
               /* Start hidden */
               transform: translateY(50px);
               /* Start below */
-              transition:
-                opacity 0.5s ease-in-out,
-                transform 0.5s ease-in-out;
+              transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
             }
             .animate-table.visible {
               opacity: 1;
@@ -867,9 +869,7 @@
               /*font-family: Arial, sans-serif;*/
               background-color: #f4f4f4;
               color: #333;
-              transition:
-                background-color 0.3s,
-                color 0.3s;
+              transition: background-color 0.3s, color 0.3s;
             }
 
             body.dark-mode {
@@ -950,9 +950,7 @@
                 background-color 0.3s,
                 color 0.3s;*/
               /* changed */
-              transition:
-                transform 0.3s ease,
-                box-shadow 0.3s ease;
+              transition: transform 0.3s ease, box-shadow 0.3s ease;
               /* claude style */
               /*
               background-color: #ffffff;
@@ -1092,9 +1090,7 @@
               display: flex;
               align-items: center;
               justify-content: center;
-              transition:
-                background-color 0.3s,
-                border-color 0.3s;
+              transition: background-color 0.3s, border-color 0.3s;
               /* added */
               flex-wrap: wrap;
             }
@@ -3413,11 +3409,7 @@
             border-radius: 5px;
             /*transition: 25ms ease-out;*/
             padding: 0.5em 0.75em;
-            font-family:
-              Helvetica Neue,
-              Helvetica,
-              Arial,
-              sans-serif;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
             /* added */
             transition: transform 0.25s ease-out;
           }
