@@ -330,9 +330,12 @@
         </p>
       </div>
     </div>
+    <!-- external js brought towards end of body, right before inline js, and made to defer -->
     <script defer src="../js/ALL-COMB.min.js"></script>
     <script type="text/javascript">
+      //
       document.addEventListener("DOMContentLoaded", function () {
+        //
         document
           .querySelector(".dtWrapper")
           .insertAdjacentHTML(
@@ -340,7 +343,7 @@
             '<table id="tableID" class="cards" width="100%"></table>'
           );
         //
-        // Your code here
+        //
         var table = new DataTable("#tableID", {
           ...DTconfig,
           ajax: {
@@ -391,9 +394,10 @@
             },
             ...columnDefsconfig,
           ],
-        }); // Your code here
-        console.log("DOM fully loaded and parsed");
-      });
+        });
+        //
+        //
+      }); // document.addEventListener("DOMContentLoaded", function () { END
     </script>
   </body>
 </html>
