@@ -1,0 +1,104 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <img
+      alt="Site Icon"
+      class="site-icon"
+      onclick="goToHomePage()"
+      src="../img/logo/logo.svg"
+      title="back to homepage"
+    />
+  </div>
+  <div class="navbar-center">
+    <span class="page-title">${pageTitle}</span>
+  </div>
+  <div class="navbar-right" title="menu">
+    <span class="menu-icon">☰</span>
+  </div>
+</nav>
+<div class="side-menu" id="sideMenu">
+  <div class="side-menu-close" onclick="toggleSideMenu()">×</div>
+  <ul>
+    <li>
+      <a href="../books/index.html">● މައި ސަފުހާ</a>
+    </li>
+    <li onclick="sideMenutoggleDropdown(this)" class="dropdown">
+      <a><span class="dropdown-arrow">◄</span>ބައިތައް</a>
+      <ul class="dropdown-content">
+        <li onclick="sideMenutoggleDropdown(this,event)" class="sub-dropdown">
+          <a><span class="dropdown-arrow">◄</span>ގުރްއާން</a>
+          <ul class="sub-dropdown-content">
+            <li>
+              <a
+                href="../books/quranHadithmv.html"
+                onclick="changeBook('quranHadithmv'); return false;"
+                >ޙަދީޘްއެމްވީގެ ތަރުޖަމާ</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li onclick="sideMenutoggleDropdown(this,event)" class="sub-dropdown">
+          <a><span class="dropdown-arrow">◄</span>ޙަދީޘް</a>
+          <ul class="sub-dropdown-content">
+            <li>
+              <a href="../books/allAthar.html"
+                >އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li onclick="sideMenutoggleDropdown(this,event)" class="sub-dropdown">
+          <a><span class="dropdown-arrow">◄</span>އަގީދާ</a>
+          <ul class="sub-dropdown-content">
+            <li>
+              <a href="../books/allAqida.html"
+                >އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</a
+              >
+            </li>
+          </ul>
+        </li>
+        <li onclick="sideMenutoggleDropdown(this,event)" class="sub-dropdown">
+          <a><span class="dropdown-arrow">◄</span>ބަސް</a>
+          <ul class="sub-dropdown-content">
+            <li>
+              <a href="../mauhad/arabic.html">މަދީނާ އަރަބި ފޮތްތައް</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="../page/textEditor.html">ޓެކްސްޓު އެޑިޓަރ</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="../page/contact.html">ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
+    </li>
+    <li onclick="openDiv()" class="versionNo">⚙️ އިސްދާރު: v${hmvVersionNo}</li>
+    <li>
+      <a href="https://t.me/ashraafmv"
+        >ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
+      >
+    </li>
+    <li style="font-size: 90%">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</li>
+    <li
+      onclick='window.scrollTo({top:0,behavior:"smooth"})'
+      href="#"
+      style="cursor: pointer; user-select: none"
+    >
+      ▲ މައްޗަށް ސްކްރޯލްކުރޭ
+    </li>
+    <li onclick="sideMenutoggleDropdown(this)" class="dropdown">
+      <a>↺ ސަފުހާ ރީލޯޑު</a>
+      <ul class="dropdown-content">
+        <li>
+          <a href="#" onclick="window.location.reload()">މަޑު ރީލޯޑު</a>
+        </li>
+        <li>
+          <a
+            onclick='window.location.href=window.location.href.split(".html")[0]+".html"'
+            >ހަރު ރީލޯޑު</a
+          >
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

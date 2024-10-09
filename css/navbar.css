@@ -183,15 +183,35 @@ html body {
   margin: 0;
 }
 
-.side-menu ul li {
-  display: block; /* Ensure each li takes full width */
-  margin-bottom: 15px; /* increased from 10 */
-  padding-right: 0; /*  prev 5 which added like a little indent */
+/* Ensure each li takes full width */
+/* increased from 10 */
+/*  prev 5 which added like a little indent */
+/*.side-menu ul li {
+  display: block;
+  margin-bottom: 15px;
+  padding-right: 0;
+}*/
+.side-menu li {
+  margin: 0;
+  padding: 0;
+  display: block;
+  margin-bottom: 15px;
 }
 
-.side-menu ul li a {
+/*.side-menu ul li a {
   text-decoration: none;
-  color: #eee; /* #333; */
+  color: #eee; 
+}*/
+/* #333; */
+.side-menu li a {
+  display: block;
+  /*padding: 12px 16px;*/
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+  color: #eee;
+  text-decoration: none;
 }
 
 /* Dropdown styles */
@@ -199,7 +219,7 @@ html body {
 .sub-dropdown,
 .sub-sub-dropdown {
   position: relative;
-  display: block; /* Make dropdown take full width */
+  /*display: block;*/ /* Make dropdown take full width */
   width: 100%;
 
   text-align: right; /* Add this line */
@@ -213,17 +233,35 @@ html body {
   user-select: none; /* Standard */
 }
 
-.dropdown > a,
+/*padding: 12px 16px;*/
+/*.dropdown > a,
 .sub-dropdown > a,
 .sub-sub-dropdown > a {
   display: flex;
   align-items: center;
   width: 100%;
-  /*padding: 12px 16px;*/
   box-sizing: border-box;
 
   padding-top: 0;
   padding-bottom: 0;
+  padding-right: 16px;
+  padding-left: 16px;
+}*/
+.dropdown-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #eee;
+  /*padding: 12px 16px;*/
+  padding-left: 16px;
+  padding-right: 16px;
+
+  width: 100%;
+  box-sizing: border-box;
+}
+.dropdown > .dropdown-label,
+.sub-dropdown > .dropdown-label,
+.sub-sub-dropdown > .dropdown-label {
   padding-right: 16px;
   padding-left: 16px;
 }
@@ -253,6 +291,10 @@ html body {
   margin-top: 5px;
   /*    text-indent: 15px;
   cursor: pointer; */
+
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  line-height: 2.5;
 }
 
 /* Show dropdown content when active */
@@ -271,14 +313,15 @@ html body {
   margin: 0 !important;
 }
 
-.dropdown-content a,
+/*.dropdown-content a,
 .sub-dropdown-content a,
 .sub-sub-dropdown-content a {
   color: #eee;
   text-decoration: none !important;
-  display: block; /* was grid before, and block before that */
+  display: block;
   padding: 12px 16px;
-}
+}*/
+/* display was grid before, and block before that */
 
 /* Remove specific styling for sub-dropdown and sub-sub-dropdown */
 .sub-dropdown,
