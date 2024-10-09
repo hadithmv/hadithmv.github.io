@@ -1375,9 +1375,15 @@ i want one more space after the colon that comes after the issue description
       return;
     }
 
+    // Calculate total number of issues
+    const totalIssues = results.reduce(
+      (sum, result) => sum + result.issues.length,
+      0
+    );
+
     // Split the input text into words
     const words = textArea.value.split(/\s+/);
-    let html = "";
+    let html = `Found ${totalIssues} issue${totalIssues > 1 ? "s" : ""}<br>`; // :<br><br>
 
     // Iterate through each result (word with issues)
     results.forEach((result, index) => {
@@ -1428,9 +1434,10 @@ i want one more space after the colon that comes after the issue description
       // Construct the HTML for this result
       // Include the index, previous word, the word with issues (in blue), next word,
       // and the issue descriptions (in red)
+      // Construct the HTML for this result
       html += `${index + 1}. ${prevWord} <span style="color: blue;">${
         result.word
-      }</span> ${nextWord} : <span style="color: red;">${issueDescriptions}</span> <br>`;
+      }</span> ${nextWord} : <span style="color: red;">${issueDescriptions}</span><br>`;
     });
 
     // Update the results div with the generated HTML and make it visible
