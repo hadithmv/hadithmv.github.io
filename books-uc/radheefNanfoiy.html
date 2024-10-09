@@ -328,7 +328,11 @@
     <script type="text/javascript">
       var table = new DataTable("#tableID", {
         ...DTconfig,
-        data: data,
+        ajax: {
+          url: `../js/json/` + currentFileName + `.json`,
+          dataSrc: "",
+        },
+        // CHANGE !!!
         // turns ordering columns back on, which was off for cards
         ordering: true,
         // https://datatables.net/reference/option/ordering
