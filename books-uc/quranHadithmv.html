@@ -508,7 +508,7 @@
       //$(document).ready(function () {
       // Initialize DataTable
       //table = new DataTable("#tableID", {
-      var table = new DataTable("#tableID", {
+      table = new DataTable("#tableID", {
         ...DTconfig,
         data: data,
         /*columns: [
@@ -629,7 +629,7 @@
           },
           ...columnDefsconfig,
         ],
-      }); // var table = new DataTable("#tableID", { END
+      }); // table = new DataTable("#tableID", { END
       //
 
       // Populate ayahCounts object
@@ -916,7 +916,7 @@
       ];
     </script>
     <script type="text/javascript">
-      var table = new DataTable("#tableID", {
+      table = new DataTable("#tableID", {
         data: data,
         lengthMenu: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 50],
         columns: [
@@ -3389,7 +3389,7 @@ let me show you my code first:
       var maxJuz = 30;
       var ayahCounts = {}; 
 
-      var table = new DataTable("#tableID", {
+      table = new DataTable("#tableID", {
         ...DTconfig,
         data: data,
         lengthMenu: [1, 2, 3, 4, 5, 10, 20, 50],
