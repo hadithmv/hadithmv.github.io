@@ -40,6 +40,8 @@
     <div id="navbar-container"></div>
     <div class="dtWrapper">
       <table id="tableID" class="cards" width="100%"></table>
+      <div id="translationSelector" class="rtlText rightAlignedText"></div>
+
       <div class="hmvSection">
         <div class="centerAlignedText">
           <button
@@ -331,58 +333,267 @@
         </p>
       </div>
     </div>
+    <style>
+      .boldClass {
+        font-weight: bold;
+      }
+    </style>
     <script type="text/javascript">
-      table = new DataTable("#tableID", {
-        ...DTconfig,
-        ajax: {
-          url: `../js/json/` + currentFileName + `.json`,
-          dataSrc: "",
-        },
-        // CHANGE !!!
-        // #	bab babDhiv arab dhiv takhrij
-        columns: [
-          { title: "#", className: "colHeader" },
-          { title: "ބާބު އަރަބިން", className: "colHeader" },
-          { title: "ބާބު ދިވެހިން", className: "colHeader" },
-          { title: "އަރަބި ލިޔުން", searchable: false },
+      // Configuration for the DataTable
+
+      // Global variables
+      //let table;
+      let additionalColumns = []; // Tracks which additional translations are currently visible
+
+      const baseJsonUrl = "../js/json/"; // Base URL for all JSON files
+
+      // Base columns that are always present in the table
+      const baseColumns = [
+        { data: "0", title: "Juz" },
+        { data: "1", title: "Surah" },
+        { data: "2", title: "AyahNo" },
+        { data: "3", title: "Basmalah" },
+        { data: "4", title: "Ayah" },
+        { data: "5", title: "AyahUthmani" },
+      ];
+
+      // Configuration for additional translations that can be toggled
+      // name: filename without extension
+      // column: which column index in the JSON contains the translation text
+      // title: display name for the translation
+      const additionalJsons = [
+        { name: "quranHadithmv", column: 0, title: "ޙަދީޘްއެމްވީ ތަރުޖަމާ" },
+        { name: "quranRasmee", column: 0, title: "ރަސްމީ ތަރުޖަމާ" },
+        { name: "quranBakurube", column: 1, title: "ބަކުރުބެ ތަރުޖަމާ" },
+        { name: "quranJaufar", column: 0, title: "ޖަޢުފަރު ތަފްސީރު" },
+        { name: "quranSoabuni", column: 1, title: "ޞ ތަފްސީރު" },
+        { name: "quranMukhtasar", column: 0, title: "މުޚްތަޞަރު ތަފްސީރު" },
+        { name: "quranMuyassar", column: 0, title: "މުޔައްސަރު ތަފްސީރު" },
+      ];
+
+      // The translation that will be shown by default when the page loads
+      const defaultAdditionalJson = "quranHadithmv";
+
+      /**
+       * Creates all column definitions for the DataTable, including both base columns
+       * and additional translation columns (which start hidden)
+       * @returns {Array} Array of column definition objects for DataTables
+       */
+      function getAllColumnDefinitions() {
+        // Create column definitions for additional translations
+        const additionalColumnDefs = additionalJsons.flatMap((json) => [
+          // Name column - shows the translation name in bold
+
           {
-            title: "އަރަބި ފިލިނުޖަހާ",
-            data: 3,
-            render: (data) => removeThashkeel(data),
+            title: `<strong>${json.title}</strong>`,
+            data: null,
+            name: `${json.title}:name`,
             visible: false,
-          },
-          {
-            title: "ދިވެހި ލިޔުން",
-            data: 4,
-          },
-          {
-            title: "ތަޚްރީޖު",
-            data: 5,
-            searchable: false,
-          },
-        ], //
-        columnDefs: [
-          {
-            targets: [6],
-            render: (data) =>
-              data !== ""
-                ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
-                  data.replace(/\n/g, '\t<br class="dtBr">')
-                : data,
-          },
-          {
-            searchPanes: {
-              show: true,
+            render: function () {
+              return `<strong>${json.title}</strong>`;
             },
-            targets: [1, 2],
           },
+
+          // Data column - shows the actual translation text
           {
-            targets: [0],
-            render: (data) => "#" + data,
+            title: json.title,
+            data: null,
+            name: json.title,
+            visible: false,
+            render: function (data, type, row) {
+              if (row[json.title]) {
+                return row[json.title][json.column];
+              }
+              return "Loading...";
+            },
           },
-          ...columnDefsconfig,
-        ],
-      });
+        ]);
+
+        // Combine base columns with additional columns
+        return [...baseColumns, ...additionalColumnDefs];
+      }
+
+      /**
+       * Initializes the DataTable with base data and sets up the default translation
+       */
+      function initializeTable() {
+        // Clear any existing additional columns to ensure fresh start
+        additionalColumns = [];
+
+        // Initialize the DataTable
+        table = new DataTable("#tableID", {
+          ...DTconfig,
+          ajax: {
+            url: `${baseJsonUrl}quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json`,
+            dataSrc: "",
+          },
+          columns: getAllColumnDefinitions(),
+          initComplete: function () {
+            // Hide all additional columns initially
+            additionalJsons.forEach((json, index) => {
+              const baseColumnsLength = baseColumns.length;
+              const columnIndex = baseColumnsLength + index * 2;
+              table.column(columnIndex).visible(false);
+              table.column(columnIndex + 1).visible(false);
+            });
+
+            // Then toggle/Show only the default translation
+            toggleTranslation(defaultAdditionalJson);
+            updateTranslationSelector();
+          },
+        });
+      }
+
+      /**
+       * Toggles visibility of a translation column and loads its data if needed
+       * @param {string} jsonName - The name of the translation to toggle
+       */
+      function toggleTranslation(jsonName) {
+        const index = additionalColumns.indexOf(jsonName);
+        const jsonInfo = additionalJsons.find((j) => j.name === jsonName);
+        const baseColumnsLength = baseColumns.length;
+        const jsonIndex = additionalJsons.findIndex((j) => j.name === jsonName);
+        // Calculate column indices (each translation has two columns - name and data)
+        const columnIndex = baseColumnsLength + jsonIndex * 2;
+
+        if (index > -1) {
+          // Remove column // If translation is currently shown, hide it
+          additionalColumns.splice(index, 1);
+          table.column(columnIndex).visible(false);
+          table.column(columnIndex + 1).visible(false);
+        } else {
+          // Add column // If translation is currently hidden, show it
+          additionalColumns.push(jsonName);
+
+          //Load the translation JSON data
+          $.ajax({
+            url: `${baseJsonUrl}${jsonName}.json`,
+            dataType: "json",
+            success: function (data) {
+              // Get current table data
+              const currentData = table.data().toArray();
+
+              // Merge new translation data with existing data
+              currentData.forEach((row, idx) => {
+                row[jsonInfo.title] = data[idx];
+              });
+
+              // Update the table with merged data
+              table.clear();
+              table.rows.add(currentData);
+
+              // Show the translation columns
+              table.column(columnIndex).visible(true);
+              table.column(columnIndex + 1).visible(true);
+
+              // Redraw the table to show changes
+              table.draw();
+
+              console.log("Loaded data for " + jsonName + ":", data);
+              console.log("Current table data:", currentData);
+            },
+            error: function (xhr, status, error) {
+              console.error("Error loading translation:", error);
+            },
+          });
+        }
+
+        // Update the checkbox UI
+        updateTranslationSelector();
+      }
+
+      /**
+       * Shows all available translations
+       */ function showAllTranslations() {
+        additionalJsons.forEach((json) => {
+          if (!additionalColumns.includes(json.name)) {
+            toggleTranslation(json.name);
+          }
+        });
+      }
+
+      /**
+       * Resets to show only the default translation
+       */
+
+      function resetTranslations() {
+        const currentColumns = [...additionalColumns];
+        // Hide all non-default translations
+        currentColumns.forEach((jsonName) => {
+          if (jsonName !== defaultAdditionalJson) {
+            toggleTranslation(jsonName);
+          }
+        });
+        // Ensure default translation is shown
+        if (!additionalColumns.includes(defaultAdditionalJson)) {
+          toggleTranslation(defaultAdditionalJson);
+        }
+      }
+
+      /**
+       * Updates the translation selector UI with checkboxes and buttons
+       */
+      function updateTranslationSelector() {
+        const selectorContainer = document.getElementById(
+          "translationSelector"
+        );
+        selectorContainer.innerHTML = "<h3>އިތުރު ތަރުޖަމާ / ތަފްސީރު:</h3>";
+
+        // Create and add the "Show All" button
+        const showAllButton = document.createElement("button");
+        showAllButton.textContent = "Show All";
+        showAllButton.addEventListener("click", showAllTranslations);
+        selectorContainer.appendChild(showAllButton);
+
+        // Create and add the "Reset" button
+        const resetButton = document.createElement("button");
+        resetButton.textContent = "Reset";
+        resetButton.addEventListener("click", resetTranslations);
+        selectorContainer.appendChild(resetButton);
+
+        // Add some spacing
+        //selectorContainer.appendChild(document.createElement("br"));
+        selectorContainer.appendChild(document.createElement("br"));
+
+        // Create container for checkboxes with styling
+        const checkboxesContainer = document.createElement("div");
+        checkboxesContainer.style.cssText = `
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  `;
+        selectorContainer.appendChild(checkboxesContainer);
+
+        // Create checkboxes for each translation
+        additionalJsons.forEach((json) => {
+          const checkboxContainer = document.createElement("div");
+          checkboxContainer.style.display = "flex";
+          checkboxContainer.style.alignItems = "center";
+          checkboxContainer.style.gap = "8px";
+
+          // Create checkbox
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.id = json.name;
+          checkbox.checked = additionalColumns.includes(json.name);
+          checkbox.addEventListener("change", () =>
+            toggleTranslation(json.name)
+          );
+
+          // Create label
+          const label = document.createElement("label");
+          label.htmlFor = json.name;
+          label.textContent = json.title;
+
+          // Add checkbox and label to container
+          checkboxContainer.appendChild(checkbox);
+          checkboxContainer.appendChild(label);
+          checkboxesContainer.appendChild(checkboxContainer);
+        });
+      }
+
+      // Initialize the table when the page loads
+      document.addEventListener("DOMContentLoaded", initializeTable);
     </script>
     <!-- Google Tag Manager -->
     <script>

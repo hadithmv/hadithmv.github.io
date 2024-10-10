@@ -60,7 +60,7 @@ it has code like so
       href="https://hadithmv.github.io/books/arbaoonNawawi.html"
     />
     <script type="text/javascript">
-var table = new DataTable("#tableID", {
+table = new DataTable("#tableID", {
 ajax: {
           url: "../js/json/arbaoonNawawi.json",
           dataSrc: "",
