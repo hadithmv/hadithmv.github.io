@@ -8,7 +8,7 @@
 --- SET MOBILE WIDTH CODE ---
 === === === */
 
-var isMobile = window.innerWidth <= 800; // Boolean to check if the current view is mobile
+let isMobile = window.innerWidth <= 800; // Boolean to check if the current view is mobile
 
 /* --- */
 
@@ -32,7 +32,7 @@ function removeSmallishFootnotes(data) {
 // https://stackoverflow.com/questions/33855641/copy-output-of-a-javascript-variable-to-the-clipboard/48542290#48542290
 // https://stackoverflow.com/questions/10568815/replace-all-text-before-a-certain-point
 function copyURLToClipButton() {
-  var dummy = document.createElement("textarea");
+  let dummy = document.createElement("textarea");
   document.body.appendChild(dummy);
   dummy.value = window.location.href;
 
@@ -48,12 +48,12 @@ function copyURLToClipButton() {
   document.body.removeChild(dummy);
 
   // change copy page url button text
-  var button = document.getElementById("copyPageLink");
-  var originalText = button.innerHTML;
-  var originalStyle = window.getComputedStyle(button);
+  let button = document.getElementById("copyPageLink");
+  let originalText = button.innerHTML;
+  let originalStyle = window.getComputedStyle(button);
 
   function changeButtonText(newText, duration) {
-    var originalWidth = button.offsetWidth;
+    let originalWidth = button.offsetWidth;
     //var originalTextAlign = originalStyle.textAlign;
 
     button.style.width = originalWidth + "px";
@@ -359,11 +359,11 @@ function changeBkRadheef(newBook) {
 //
 
 //
-var table; // Variable to store the DataTable instance
+let table; // Variable to store the DataTable instance
 //
 
 // CUSTOM columnDefs CONFIGURATION
-var columnDefsconfig = [
+let columnDefsconfig = [
   // settings for all book tables
   {
     targets: "_all",
@@ -390,7 +390,7 @@ var columnDefsconfig = [
 //
 
 // CUSTOM DT CONFIGURATION
-var DTconfig = {
+let DTconfig = {
   // can enable this to use globally via spread, but need to disable it if im going to do things like merging multiple js arrays
   //data: data,
 

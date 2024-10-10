@@ -361,7 +361,7 @@
       }
 
       // Initialize DataTable with async loading
-      var table = new DataTable("#tableID", {
+      table = new DataTable("#tableID", {
         ...DTconfig, // Spread your existing DataTable configuration
         //
         //processing: true,
@@ -529,7 +529,7 @@
 <!--
 this is my datatables js code:
 
-var table = new DataTable("#tableID", {
+table = new DataTable("#tableID", {
         ajax: {
           url: `../js/json/file.json`,
           dataSrc: "",
@@ -553,7 +553,7 @@ i also want to combine these json data, where one json array ends, the next json
 
 also console log the processed jsons
 
-i dont want var table = new DataTable("#tableID", { to be scoped inside something else
+i dont want table = new DataTable("#tableID", { to be scoped inside something else
 
 the datatable should be loaded async
 
@@ -688,7 +688,7 @@ this is my datatables js code:
         const combinedData = await combineJsonData();
         console.log("Total combined rows:", combinedData.length);
 
-        var table = new DataTable("#tableID", {
+        table = new DataTable("#tableID", {
           ...DTconfig,
           data: combinedData,
           columns: [
@@ -755,13 +755,13 @@ which takes a lot of time
 i want it to happen asynchronously, where the table renders as the json loads
 
 usually i use something like this to do that in datatables js:
-var table = new DataTable("#tableID", {
+table = new DataTable("#tableID", {
         ...DTconfig,
         ajax: {
           url: ../js/json/file.json,
           dataSrc: "",
         },
-i also dont usually use something like document.addEventListener("DOMContentLoaded", initializeDataTable); to initialize the table, it just initializes with the var table = new DataTable("#tableID", { code i usually use
+i also dont usually use something like document.addEventListener("DOMContentLoaded", initializeDataTable); to initialize the table, it just initializes with the table = new DataTable("#tableID", { code i usually use
 
 perhaps we could use something like dataSrc: function (..) {
 or something like ajax: function (data, callback, settings) {...
