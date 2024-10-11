@@ -619,7 +619,13 @@
         updateQValue(type, current);
       }
 
+      /**
+       * Navigates to the selected verse in the DataTable
+       * This function finds the row corresponding to the current Surah and Ayah,
+       * scrolls to it, and updates the navigation boxes.
+       */
       function navigateToVerse() {
+        // Find the row index that matches the current Surah and Ayah
         var targetRow = table
           .rows()
           .indexes()
@@ -633,7 +639,9 @@
 
         if (targetRow.length > 0) {
           // Get the page number of the target row
+          // Get information about the current page
           var pageInfo = table.page.info();
+          // Calculate the page number of the target row
           var targetPage = Math.floor(targetRow[0] / pageInfo.length);
 
           // Go to the page containing the target row
@@ -650,6 +658,10 @@
         }
       }
 
+      /**
+       * Updates all navigation box values based on the given row data
+       * @param {Array} rowData - The data of the current row
+       */
       function updateAllQValues(rowData) {
         currentJuz = parseInt(rowData[0]);
         currentSurah = parseInt(rowData[1]);
