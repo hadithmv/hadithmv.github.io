@@ -34,11 +34,138 @@
       onload="this.media='all'"
     />
     <script src="../js/ALL-COMB.min.js"></script>
-    <style></style>
+    <style>
+      .q-navigation-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+        font-size: 20px;
+        direction: rtl;
+      }
+
+      .q-nav-box {
+        display: flex;
+        align-items: center;
+        margin: 0 10px;
+        position: relative;
+      }
+
+      .q-nav-label {
+        margin-left: 5px;
+      }
+
+      .q-nav-value {
+        border: 1px solid #ccc;
+        cursor: pointer;
+        min-width: 50px;
+        text-align: center;
+      }
+
+      .q-nav-value#surahValue {
+        min-width: 110px;
+      }
+
+      .q-nav-arrow {
+        cursor: pointer;
+        user-select: none;
+        padding: 0 5px;
+      }
+
+      .q-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: white;
+        border: 1px solid #ccc;
+        max-height: 80vh;
+        overflow-y: auto;
+        display: none;
+        z-index: 1000;
+        width: 100%;
+      }
+
+      .q-dropdown-item {
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+
+      .q-dropdown-item:hover {
+        background-color: #f0f0f0;
+      }
+
+      .q-dropdown-search {
+        width: calc(100% - 10px);
+        margin: 5px;
+        padding: 5px;
+        box-sizing: border-box;
+        font-family: inherit;
+        font-size: 18px;
+      }
+
+      /* Styling for highlighted q-dropdown item */
+      .q-dropdown-item.highlighted {
+        background-color: #e0e0e0;
+      }
+
+      /* Responsive styles for mobile devices */
+      @media (max-width: 599px) {
+        .q-navigation-container {
+          font-size: 18px;
+          justify-content: space-evenly;
+        }
+
+        .q-nav-box {
+          margin: 0px;
+        }
+
+        .q-nav-label {
+          display: none;
+        }
+
+        .q-nav-value {
+          font-size: 18px;
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="navbar-container"></div>
     <div class="dtWrapper">
+      <div class="q-navigation-container">
+        <div class="q-nav-box">
+          <span class="q-nav-label">ސޫރަތް:</span>
+          <span class="q-nav-arrow" data-type="surah" data-direction="prev"
+            >▶</span
+          >
+          <div class="q-nav-value" id="surahValue">1</div>
+          <span class="q-nav-arrow" data-type="surah" data-direction="next"
+            >◀</span
+          >
+          <div class="q-dropdown" id="surahDropdown"></div>
+        </div>
+        <div class="q-nav-box">
+          <span class="q-nav-label">އާޔަތް:</span>
+          <span class="q-nav-arrow" data-type="ayah" data-direction="prev"
+            >▶</span
+          >
+          <div class="q-nav-value" id="ayahValue">1</div>
+          <span class="q-nav-arrow" data-type="ayah" data-direction="next"
+            >◀</span
+          >
+          <div class="q-dropdown" id="ayahDropdown"></div>
+        </div>
+        <div class="q-nav-box">
+          <span class="q-nav-label">ޖުޒް:</span>
+          <span class="q-nav-arrow" data-type="juz" data-direction="prev"
+            >▶</span
+          >
+          <div class="q-nav-value" id="juzValue">1</div>
+          <span class="q-nav-arrow" data-type="juz" data-direction="next"
+            >◀</span
+          >
+          <div class="q-dropdown" id="juzDropdown"></div>
+        </div>
+      </div>
       <table id="tableID" class="cards" width="100%"></table>
       <div id="translationSelector" class="rtlText rightAlignedText"></div>
 
@@ -336,6 +463,207 @@
     <script type="text/javascript">
       // Configuration for the DataTable
 
+      let currentSurah = 1;
+      let currentAyah = 1;
+      let currentJuz = 1;
+      const maxSurah = 114;
+      const maxJuz = 30;
+      let ayahCounts = {};
+
+      // Initialize dropdowns after table initialization
+      function initializeNavigationBoxes() {
+        initializeQDropdown("surah", 1, maxSurah);
+        initializeQDropdown("juz", 1, maxJuz);
+        updateAyahDropdown();
+
+        // Event listeners for navigation boxes
+        $(".q-nav-value").on("click", function () {
+          var type = $(this).attr("id").replace("Value", "");
+          QtoggleDropdown(type);
+        });
+
+        $(".q-nav-arrow").on("click", function () {
+          var type = $(this).data("type");
+          var direction = $(this).data("direction");
+          QnavigateArrow(type, direction);
+        });
+
+        $(document).on("click", function (event) {
+          if (!$(event.target).closest(".q-nav-box").length) {
+            $(".q-dropdown").hide();
+          }
+        });
+      }
+
+      // Add this function to your existing code
+      function initializeQDropdown(type, min, max) {
+        var dropdown = $("#" + type + "Dropdown");
+        dropdown.empty();
+        dropdown.append(
+          '<input type="text" class="q-dropdown-search" placeholder="ލިޔޭ ނޫނީ ތިރިއަށް ފިތާ">'
+        );
+        for (var i = min; i <= max; i++) {
+          var displayText = i;
+          if (type === "surah" && surahNames[i]) {
+            displayText = i + " " + surahNames[i];
+          }
+          dropdown.append(
+            '<div class="q-dropdown-item" data-value="' +
+              i +
+              '">' +
+              displayText +
+              "</div>"
+          );
+        }
+
+        // Event listener for dropdown item clicks
+        dropdown.on("click", ".q-dropdown-item", function () {
+          var value = $(this).data("value");
+          updateQValue(type, value);
+          dropdown.hide();
+        });
+
+        // Event listener for search input
+        dropdown.find(".q-dropdown-search").on("input", function () {
+          var searchValue = removeDiacritics($(this).val().toLowerCase());
+          dropdown.find(".q-dropdown-item").each(function () {
+            var itemText = removeDiacritics($(this).text().toLowerCase());
+            $(this).toggle(itemText.includes(searchValue));
+          });
+        });
+      }
+
+      function updateAyahDropdown() {
+        var maxAyah = ayahCounts[currentSurah] || 1;
+        initializeQDropdown("ayah", 1, maxAyah);
+        $("#ayahValue").text("1");
+      }
+
+      function QtoggleDropdown(type) {
+        var dropdown = $("#" + type + "Dropdown");
+        $(".q-dropdown").not(dropdown).hide();
+        dropdown.toggle();
+
+        if (dropdown.is(":visible")) {
+          var currentValue = parseInt($("#" + type + "Value").text());
+          var item = dropdown.find(
+            '.q-dropdown-item[data-value="' + currentValue + '"]'
+          );
+          if (item.length) {
+            item.get(0).scrollIntoView({ block: "center" });
+          }
+          dropdown.find(".q-dropdown-search").val("").focus();
+        }
+      }
+
+      function updateQValue(type, value) {
+        value = parseInt(value);
+        if (type === "surah" && surahNames[value]) {
+          $("#" + type + "Value").text(value + " " + surahNames[value]);
+        } else {
+          $("#" + type + "Value").text(value);
+        }
+        if (type === "surah") {
+          currentSurah = value;
+          currentAyah = 1;
+          updateAyahDropdown();
+        } else if (type === "ayah") {
+          currentAyah = value;
+        } else if (type === "juz") {
+          currentJuz = value;
+        }
+        navigateToVerse();
+      }
+
+      function QnavigateArrow(type, direction) {
+        var current,
+          max,
+          min = 1;
+        if (type === "surah") {
+          current = currentSurah;
+          max = maxSurah;
+        } else if (type === "ayah") {
+          current = currentAyah;
+          max = ayahCounts[currentSurah] || 1;
+        } else if (type === "juz") {
+          current = currentJuz;
+          max = maxJuz;
+        }
+
+        if (direction === "prev") {
+          current--;
+          if (current < min) {
+            if (type === "ayah") {
+              currentSurah--;
+              if (currentSurah < 1) currentSurah = maxSurah;
+              updateAyahDropdown();
+              current = ayahCounts[currentSurah] || 1;
+            } else {
+              current = max;
+            }
+          }
+        } else {
+          current++;
+          if (current > max) {
+            if (type === "ayah") {
+              currentSurah++;
+              if (currentSurah > maxSurah) currentSurah = 1;
+              updateAyahDropdown();
+              current = 1;
+            } else {
+              current = min;
+            }
+          }
+        }
+
+        updateQValue(type, current);
+      }
+
+      function navigateToVerse() {
+        var targetRow = table
+          .rows()
+          .indexes()
+          .filter(function (value, index) {
+            var rowData = table.row(value).data();
+            return (
+              parseInt(rowData[1]) == currentSurah &&
+              parseInt(rowData[2]) == currentAyah
+            );
+          });
+
+        if (targetRow.length > 0) {
+          // Get the page number of the target row
+          var pageInfo = table.page.info();
+          var targetPage = Math.floor(targetRow[0] / pageInfo.length);
+
+          // Go to the page containing the target row
+          table.page(targetPage).draw(false);
+
+          // Scroll to the target row within the page
+          var rowNode = table.row(targetRow[0]).node();
+          if (rowNode) {
+            rowNode.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+
+          // Update navigation boxes with the current values
+          updateAllQValues(table.row(targetRow[0]).data());
+        }
+      }
+
+      function updateAllQValues(rowData) {
+        currentJuz = parseInt(rowData[0]);
+        currentSurah = parseInt(rowData[1]);
+        currentAyah = parseInt(rowData[2]);
+        $("#juzValue").text(currentJuz);
+        $("#surahValue").text(currentSurah + " " + surahNames[currentSurah]);
+        $("#ayahValue").text(currentAyah);
+      }
+
+      // Helper function to remove diacritics
+      function removeDiacritics(text) {
+        return text.replace(/[َُِّْٰۡۚٓـًٌٍّٔ]/g, "");
+      }
+
       // Global variables
       //let table;
       let additionalColumns = []; // Tracks which additional translations are currently visible
@@ -435,6 +763,20 @@
             // Then toggle/Show only the default translation
             toggleTranslation(defaultAdditionalJson);
             updateTranslationSelector();
+            //
+            // Initialize navigation boxes
+            initializeNavigationBoxes();
+
+            // Populate ayahCounts object
+            table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+              var data = this.data();
+              var surah = parseInt(data[1]);
+              var ayah = parseInt(data[2]);
+              ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
+            });
+
+            // Update navigation boxes with initial values
+            updateAllQValues(table.row(0).data());
           },
         });
       }
@@ -484,8 +826,8 @@
               // Redraw the table to show changes
               table.draw();
 
-              console.log("Loaded data for " + jsonName + ":", data);
-              console.log("Current table data:", currentData);
+              //console.log("Loaded data for " + jsonName + ":", data);
+              //console.log("Current table data:", currentData);
             },
             error: function (xhr, status, error) {
               console.error("Error loading translation:", error);
