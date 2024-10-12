@@ -178,5 +178,7 @@ matches:
     replace: "…"
   - trigger: ttt-
     replace: "translate to dhivehi, output only"
-  - trigger: cc-
+  - trigger: c2c-
     replace: "compare these two codes:"
+  - trigger: ctc-
+    replace: "comment this code:"

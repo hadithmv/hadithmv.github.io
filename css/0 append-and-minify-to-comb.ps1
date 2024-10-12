@@ -20,7 +20,7 @@ $cssFiles = @(
     "DT-inline.css",
     "navbar.css",
     "belowPage-bab-dropdown.css",
-    "quran-dropdowns.css"
+    "quran-navigation-list.css"
 )
 
 # Read the entire content of ALL-COMB.min.css
