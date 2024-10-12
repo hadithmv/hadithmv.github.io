@@ -423,6 +423,9 @@ let DTconfig = {
             titleAttr: "copy",
             text: "⧉ ކޮޕީ",
 
+            // Shown at the very top of the exported document
+            // title: * (default) - Use the HTML page's title value.
+
             //messageBottom: "- ޙަދީޘްއެމްވީ -",
 
             footer: false,
@@ -447,12 +450,38 @@ let DTconfig = {
               //
               // Convert sans-serif digits to regular digits
               // First, replace sans-serif digits with regular digits
-              Object.entries(sansSerifDigits).forEach(
+              /*Object.entries(sansSerifDigits).forEach(
                 ([regularDigit, sansSerifDigit]) => {
                   const regex = new RegExp(sansSerifDigit, "g");
                   data = data.replace(regex, regularDigit);
                 }
-              );
+              );*/
+
+              //
+
+              // REPLACE quran page title with surah number and name
+              // Split the data into rows
+              var rows = data.split("\n");
+              // Get the current Surah number and name
+              var currentSurahNumber = currentSurah;
+              var currentSurahName = arabicSurahNames[currentSurahNumber];
+              // Define the lines we want to replace
+              var linesToReplace = [
+                "ترجمة حديث أم وي – ޙަދީޘްއެމްވީ ގުރްއާން ތަރުޖަމާ",
+                "الترجمة الرسمية – ރަސްމީ ގުރްއާން ތަރުޖަމާ",
+                "التفسير الواضح الميسر – ޞާބޫނީގެ ތަފްސީރު",
+              ];
+              // Replace the specified lines with Surah number and name
+              rows = rows.map(function (row) {
+                if (linesToReplace.includes(row.trim())) {
+                  return `${currentSurahNumber} ${currentSurahName}`;
+                }
+                return row;
+              });
+              // Join the rows back together
+              return rows.join("\n");
+              //
+
               //
               // NOTE that the below newline reduction will reduce even wanted newlines where footnotes come above other content, like in dfk
               // Split the data at the line of dashes
@@ -969,13 +998,48 @@ document.addEventListener("DOMContentLoaded", function () {
   // add more width, or make text smaller later?
   //
 
-  // upon double click, jump to the page the double clicked entry was on and select it, with rowshowjs
+  /*
+  this is my code
+
+it uses the row().show() pluging to work
+This plugin jumps to the right page of the DataTable to show the required row
+i'd rather use scrollIntoView() instead
+*/
+
   $("tbody").on("dblclick", "tr", function () {
+    // Clear any existing search
+    if (table.search() !== "") {
+      table.search("").draw();
+    }
+
+    // Get the index of the clicked row
+    var clickedRowIndex = table.row(this).index();
+
+    // Check if the row index is valid
+    if (clickedRowIndex !== undefined) {
+      // Get the page info
+      var pageInfo = table.page.info();
+      var targetPage = Math.floor(clickedRowIndex / pageInfo.length);
+
+      // Navigate to the target page
+      table.page(targetPage).draw(false);
+
+      // Get the row node after the page change
+      var rowNode = table.row(clickedRowIndex).node();
+      if (rowNode) {
+        // Scroll the row into view
+        rowNode.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
+  });
+
+  // upon double click, jump to the page the double clicked entry was on and select it, with rowshowjs
+  /*$("tbody").on("dblclick", "tr", function () {
     if (table.search() !== "") {
       table.search("").draw();
     }
     table.row(this).draw().show().select().draw(false);
-  });
+  });*/
   //
 
   // https://datatables.net/reference/api/search()

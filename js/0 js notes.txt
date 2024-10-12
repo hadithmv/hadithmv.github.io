@@ -25,8 +25,6 @@ dataTables.searchPanes.js (CLOSURE+UGLIFY)	2.3.2	https://cdn.datatables.net/sear
 
 dataTables.select.js (CLOSURE+UGLIFY)	2.1.0	https://cdn.datatables.net/select/2.0.4/js/dataTables.select.js
 
-row().show().js (CLOSURE+UGLIFY)	2.1.8	https://datatables.net/plug-ins/api/row().show()
-
 
 
 dataTables.keepConditions.js (CLOSURE+UGLIFY)	1.2.0	https://github.com/jhyland87/DataTables-Keep-Conditions
@@ -39,6 +37,14 @@ jquery.highlight.js (UGLIFY)	?	https://github.com/bartaz/sandbox.js/blob/master/
 dataTables.searchHighlight.min.js (UGLIFY)	2.1.8
 	https://datatables.net/blog/2014/search-highlighting
 	https://github.com/bartaz/sandbox.js/blob/master/jquery.highlight.js
+
+
+
+
+NO LONGER USING:
+
+
+row().show().js (CLOSURE+UGLIFY)	2.1.8	https://datatables.net/plug-ins/api/row().show()
 
 
 
