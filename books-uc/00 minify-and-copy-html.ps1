@@ -12,21 +12,24 @@ $files = Get-ChildItem -Filter "*.html"
 
 # Loop through each HTML file
 foreach ($file in $files) {
-    # Get the file name without extension
-    $baseName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
-    
-    # Construct the input file path
-    $inputFile = $file.FullName
-    
-    # Construct the output file path, placing the file in the ../folder/ directory
-    # CHANGE THIS 123!!!
-    $outputFile = "../books/$($file.Name)"
-    
-    # Call the MinifyHTML function to process the file
-    MinifyHTML $inputFile $outputFile
-    
-    # Print a message indicating that the file has been processed
-    Write-Output "Processed: $($file.Name)"
+    # Check if the file name contains "test"
+    if ($file.Name -notlike "*test*") {
+        # Get the file name without extension
+        $baseName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
+        
+        # Construct the input file path
+        $inputFile = $file.FullName
+        
+        # Construct the output file path, placing the file in the ../folder/ directory
+        # CHANGE THIS 123!!!
+        $outputFile = "../books/$($file.Name)"
+        
+        # Call the MinifyHTML function to process the file
+        MinifyHTML $inputFile $outputFile
+        
+        # Print a message indicating that the file has been processed
+        Write-Output "Processed: $($file.Name)"
+    }
 }
 
 # SEPARATE

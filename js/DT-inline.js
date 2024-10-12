@@ -96,48 +96,59 @@ function toggleQuranFili() {
 }
 
 // SHOW OR HIDE SURAH NAME
+/*
 
-function toggleSurahName() {
+          <button
+            id="toggleSurahButton"
+            class="customButtons"
+            onclick="toggleSurahName();scrollUpTop()"
+          >
+            &nbsp; ސޫރަތުގެ ނަތް ފޮރުވާ &nbsp;
+          </button>
+*/
+/*function toggleSurahName() {
   var isVisible = $(".dataTable").DataTable().column(2).visible();
   $(".dataTable").DataTable().column(2).visible(!isVisible);
-
   //
-
   var button = document.getElementById("toggleSurahButton");
   if (button.innerHTML.trim() === "&nbsp; ސޫރަތުގެ ނަތް ފޮރުވާ &nbsp;") {
     button.innerHTML = "&nbsp; ސޫރަތުގެ ނަތް ދައްކާ &nbsp;";
   } else {
     button.innerHTML = "&nbsp; ސޫރަތުގެ ނަތް ފޮރުވާ &nbsp;";
   }
-}
+}*/
 
 // SWITCH BETWEEN IMLAI AND UTHMANI TEXT FOR AYAT
-
-function uthmaniImlai() {
+/*
+<button
+            id="toggleUthmaniImlai"
+            class="customButtons"
+            onclick="uthmaniImlai();loadRasmFont();scrollUpTop()"
+          >
+            &nbsp; ރަސްމު އުޘްމާނީއަށް &nbsp;
+          </button>
+*/
+/*function uthmaniImlai() {
   var isVisible = $(".dataTable").DataTable().column(5).visible();
   $(".dataTable").DataTable().column(5).visible(!isVisible);
-
   var isVisible = $(".dataTable").DataTable().column(7).visible();
   $(".dataTable").DataTable().column(7).visible(!isVisible);
-
   //
-
   var button = document.getElementById("toggleUthmaniImlai");
   if (button.innerHTML.trim() === "&nbsp; ރަސްމު އުޘްމާނީއަށް &nbsp;") {
     button.innerHTML = "&nbsp; ރަސްމު އިމްލާއީއަށް &nbsp;";
   } else {
     button.innerHTML = "&nbsp; ރަސްމު އުޘްމާނީއަށް &nbsp;";
   }
-}
+}*/
 
 // LOAD UTHMANI FONT FOR QURAN ONLY ON BUTTON CLICK
 
 // Dynamically Load And Apply Fonts With JavaScript
 // https://awik.io/dynamically-load-apply-fonts-javascript/
-// Your font goes here
-const fontVar = new FontFace("mergedFont", "url(../font/hafs-400.woff)");
-// Function which loads the font and applies it
+/*const fontVar = new FontFace("mergedFont", "url(../font/hafs-400.woff)"); // Your font goes here
 function loadRasmFont() {
+  // Function which loads the font and applies it
   //console.log("Loading font...");
   fontVar
     .load()
@@ -148,7 +159,7 @@ function loadRasmFont() {
     .catch(function (error) {
       console.log("Failed to load font: " + error);
     });
-}
+}*/
 
 // CHANGE FILI BUTTON STRING
 
