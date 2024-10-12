@@ -1,0 +1,198 @@
+/* QURAN NAVIGATION BOX STYLES */
+
+/* Container for the navigation boxes */
+.q-navigation-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+  direction: rtl;
+}
+
+/* Individual navigation box style */
+.q-nav-box {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+  /* Center the surah dropdown if it's wider than the surah box */
+  position: relative;
+}
+
+/* Label for each navigation box */
+.q-nav-label {
+  margin-left: 5px;
+}
+
+/* Style for the current value display in navigation boxes */
+.q-nav-value {
+  border: 1px solid #ccc;
+  cursor: pointer;
+  min-width: 50px;
+  text-align: center;
+}
+
+/* Specific style for Surah value display */
+.q-nav-value#surahValue {
+  /*min-width: 150px;*/ /* Adjust this value as needed */
+  /* 270px */
+  min-width: 110px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Style for navigation arrows */
+.q-nav-arrow {
+  cursor: pointer;
+  user-select: none;
+  padding: 0 5px;
+}
+
+/* Dropdown menu for navigation boxes */
+.q-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: none;
+  z-index: 1000;
+}
+
+/* Specific width for surah dropdown */
+#surahDropdown {
+  width: 260px;
+  /*left: 50%;
+        transform: translateX(-50%);*/
+}
+#surahDropdown .q-dropdown-item {
+  font-size: 19px; /* Adjust as needed */
+}
+
+/* Individual items in the dropdown menu */
+.q-dropdown-item {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 5px 10px;
+}
+
+/* Hover effect for dropdown items */
+.q-dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+.q-dropdown-item.active {
+  background-color: #e0e0e0;
+}
+
+/* Search input in the dropdown */
+.q-dropdown-search {
+  width: calc(100% - 10px);
+  margin: 5px;
+  padding: 5px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 18px;
+}
+
+/* Styling for highlighted q-dropdown item */
+.q-dropdown-item.highlighted {
+  background-color: #e0e0e0;
+}
+
+/* Responsive styles for mobile devices */
+@media (max-width: 599px) {
+  .q-navigation-container {
+    font-size: 18px;
+    justify-content: space-evenly;
+  }
+
+  .q-nav-box {
+    margin: 0px;
+  }
+
+  .q-nav-label {
+    display: none;
+  }
+
+  .q-nav-value {
+    font-size: 18px;
+  }
+
+  #surahDropdown {
+    /* Full width of its container */
+    /*width: 100%;*/
+    left: 0;
+    right: 0;
+  }
+}
+
+/*
+      *
+      */
+
+/* TRANSLATION SELECTOR */
+/* Styles for the translation selector */
+.translation-selector {
+  position: relative;
+  display: inline-block;
+}
+
+/*#translationToggleBtn {
+                  padding: 10px 15px;
+                  background-color: #f0f0f0;
+                  border: 1px solid #ccc;
+                  cursor: pointer;
+                }*/
+
+.translation-dropdown {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+  width: 250px;
+}
+
+.translation-list {
+  margin-bottom: 10px;
+}
+
+/* Style for individual translation items in the list */
+.translation-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.translation-item input[type="checkbox"] {
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.translation-item label {
+  font-size: 18px;
+}
+
+.translation-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.translation-actions button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+#translationDropdown .customButtons {
+  font-size: 0.77em;
+  margin: 0;
+  margin-top: 5px;
+}

@@ -1,0 +1,888 @@
+
+<!--
+this is my asynchronous datatables js code
+
+table = new DataTable("#tableID", {
+        ...DTconfig,
+        ajax: {
+          url: `../js/json/quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json`,
+          dataSrc: "",
+        },
+columns: [
+              { title: "Juz" },
+              { title: "Surah" },
+              { title: "AyahNo" },
+              { title: "Basmalah" },
+              { title: "Ayah" },
+              { title: "AyahUthmani" },
+            ],
+
+
+the json file has 6 columns
+sample of a row of those columns:
+
+  [
+    "30",
+    "114",
+    "6",
+    "",
+    "مِنَ الْجِنَّةِ وَالنَّاسِ",
+    "مِنَ ٱلۡجِنَّةِ وَٱلنَّاسِ"
+  ]
+
+it also contains empty strings ''
+
+now i also have other jsons in the same directory. they might also contain empty strings. i'd like to add the data of these other jsons, rowwise, to the quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json data, and combining them shouldn't produce any null values, just empty strings where needed. the columns of quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani should come first, followed by the columns of the added json data
+
+the addable jsons are listed below:
+note that these jsons might have more than one column, but i just want a particular column of them
+
+quranHadithmv (only has 1 column)
+quranRasmee (has 2 columns, only want the 1st)
+quranBakurube (has 2 columns, only want the 2nd)
+quranJaufar (has 2 columns, only want the 1st)
+quranSoabuni (has 4 columns, only want the 2nd)
+quranMukhtasar (only has 1 column)
+quranMuyassar (only has 1 column)
+
+a sample of their data might be something like:
+["އެއީ ޖިންނީންނާއި އިންސީންގެ ތެރެއިންވާ (ޝައިތާނުންނެވެ.)"]
+it can also contain empty strings ''
+
+
+i want to have an option somewhere in the html where, there is a list, and i can select any of these jsons, and they would be added as a column to the combined data of the table. i should be able to select more than one if i so choose.
+
+i should also be able to deselect them from the list, and their columns would be removed.
+
+something like
+add another translation:
+'some string' (loads quranHadithmv)
+'some string' (loads quranRasmee)
+'some string' (loads quranBakurube)
+'some string' (loads quranJaufar)
+'some string' (loads quranSoabuni)
+'some string' (loads quranMukhtasar)
+'some string' (loads quranMuyassar)
+
+after loading the quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json, one of the addable jsons should automatically be added to the data of quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json, as a default. i should be able to set which json gets added in the settings. for example quranHadithmv. the list should also show this added one at the start as already toggled
+
+if i deselect that one json as initially toggled on the list, its column should not show
+
+only the json selected to be loaded should be loaded at a time
+
+i already have
+let table and DTconfig declared globally, dont declare it again
+
+
+
+...
+
+no data is in the table at all
+when i toggle something, i then get this error
+Uncaught (in promise) TypeError: table.column.add is not a function
+    at toggleTranslation (test3.html:420:24)
+    at HTMLInputElement.<anonymous> (test3.html:440:13)
+
+...
+
+when i run the page
+no data is shown
+
+if i toggle a translation
+the data with the added translation is shown
+but i get this error
+Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'textNode')
+
+and the pagination is blank
+and the searchboxes are doubled
+
+and if i toggle anything else, the table disappears
+
+...
+
+now the 6 column initial json files data shows in the table
+but clicking on a toggle doesnt do anything
+i get this error
+test3.html:403  Uncaught TypeError: table.column.add is not a function
+
+...
+
+thats better
+
+but when the page is first run
+it only shows the columns of the quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json
+
+it does not show the column of the default addable json that should be set to be added automatically. and the list should show it toggled on as well.
+
+also if i run the page, and toggle on some jsons, then i reopen the page again, the columns that were toggled on to show before still show as added columns, they should not, they should reset. 
+
+also i want two more options on the list, one that says show all, which should show all jsons when clicked, and one that says reset, which should reset all toggled jsons to only show the initial added one at the start of the page, the one set to be there by default
+
+i also want, a translation name column to be created for every added json column when it is added, this name column should come before every translation data column, and this name columns should just show the name of that translation as text.
+
+when an addable json column is removed, the name column for that json columns should be removed too
+
+the default added column, should also have a name column when the page is started with the default column to show
+
+...
+
+your code loads all the jsons, every single one of them, then the table shows the quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json and the default json to be added as set. but i dont want to load all the jsons from the get go. i want them to be loaded as needed, when i choose to toggle them, and they should be loaded asynchronously
+
+...
+
+all that happens is i see this in the console:
+[Violation] 'load' handler took 285ms
+
+and the only thing that ever shows in the json columns are:
+Loading...
+
+all i see in the json data columns are
+Loading...
+
+...
+
+id like the json data name columns, which shows in a column above the data column, id like the name columns to be bold
+
+i'd also like some space between the checkboxes and the checkbox text
+
+also at the start, when the quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json data is loaded, and the default added other json is added to it, i'd like all other addable json data apart from the default to be removed. right now if i first open the page, and i select some togglabes, if i reload the page again, the columns i toggled on before still show, they should be cleared
+
+...
+
+this is my new datatables js code:
+
+
+      <table id="tableID" class="cards" width="100%"></table>
+      <div id="translationSelector" class="rtlText rightAlignedText"></div>
+
+// Global variables
+let table; // Main DataTable instance
+let additionalColumns = []; // Tracks which additional translations are currently visible
+const baseJsonUrl = "../js/json/"; // Base URL for all JSON files
+
+// Base columns that are always present in the table
+const baseColumns = [
+  { data: "0", title: "Juz" },
+  { data: "1", title: "Surah" },
+  { data: "2", title: "AyahNo" },
+  { data: "3", title: "Basmalah" },
+  { data: "4", title: "Ayah" },
+  { data: "5", title: "AyahUthmani" },
+];
+
+// Configuration for additional translations that can be toggled
+// name: filename without extension
+// column: which column index in the JSON contains the translation text
+// title: display name for the translation
+const additionalJsons = [
+  { name: "quranHadithmv", column: 0, title: "Hadithmv" },
+  { name: "quranRasmee", column: 0, title: "Rasmee" },
+  { name: "quranBakurube", column: 1, title: "Bakurube" },
+  { name: "quranJaufar", column: 0, title: "Jaufar" },
+  { name: "quranSoabuni", column: 1, title: "Soabuni" },
+  { name: "quranMukhtasar", column: 0, title: "Mukhtasar" },
+  { name: "quranMuyassar", column: 0, title: "Muyassar" },
+];
+
+// The translation that will be shown by default when the page loads
+const defaultAdditionalJson = "quranHadithmv";
+
+/**
+ * Creates all column definitions for the DataTable, including both base columns
+ * and additional translation columns (which start hidden)
+ * @returns {Array} Array of column definition objects for DataTables
+ */
+function getAllColumnDefinitions() {
+  // Create column definitions for additional translations
+  const additionalColumnDefs = additionalJsons.flatMap(json => [
+    // Name column - shows the translation name in bold
+    {
+      title: `<strong>${json.title}</strong>`,
+      data: null,
+      name: `${json.title}:name`,
+      visible: false,
+      render: function() {
+        return `<strong>${json.title}</strong>`;
+      }
+    },
+    // Data column - shows the actual translation text
+    {
+      title: json.title,
+      data: null,
+      name: json.title,
+      visible: false,
+      render: function(data, type, row) {
+        // Show the translation if it's loaded, otherwise show loading message
+        if (row[json.title]) {
+          return row[json.title][json.column];
+        }
+        return "Loading...";
+      }
+    }
+  ]);
+
+  // Combine base columns with additional columns
+  return [...baseColumns, ...additionalColumnDefs];
+}
+
+/**
+ * Initializes the DataTable with base data and sets up the default translation
+ */
+function initializeTable() {
+  // Clear any existing additional columns to ensure fresh start
+  additionalColumns = [];
+  
+  // Initialize the DataTable
+  table = new DataTable("#tableID", {
+    ...DTconfig,
+    ajax: {
+      url: `${baseJsonUrl}quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json`,
+      dataSrc: "",
+    },
+    columns: getAllColumnDefinitions(),
+    initComplete: function() {
+      // Hide all additional columns initially
+      additionalJsons.forEach((json, index) => {
+        const baseColumnsLength = baseColumns.length;
+        const columnIndex = baseColumnsLength + (index * 2);
+        table.column(columnIndex).visible(false);
+        table.column(columnIndex + 1).visible(false);
+      });
+      
+      // Show only the default translation
+      toggleTranslation(defaultAdditionalJson);
+      updateTranslationSelector();
+    }
+  });
+}
+
+/**
+ * Toggles visibility of a translation column and loads its data if needed
+ * @param {string} jsonName - The name of the translation to toggle
+ */
+function toggleTranslation(jsonName) {
+  const index = additionalColumns.indexOf(jsonName);
+  const jsonInfo = additionalJsons.find(j => j.name === jsonName);
+  const baseColumnsLength = baseColumns.length;
+  const jsonIndex = additionalJsons.findIndex(j => j.name === jsonName);
+  // Calculate column indices (each translation has two columns - name and data)
+  const columnIndex = baseColumnsLength + (jsonIndex * 2);
+  
+  if (index > -1) {
+    // If translation is currently shown, hide it
+    additionalColumns.splice(index, 1);
+    table.column(columnIndex).visible(false);
+    table.column(columnIndex + 1).visible(false);
+  } else {
+    // If translation is currently hidden, show it
+    additionalColumns.push(jsonName);
+    
+    // Load the translation data
+    $.ajax({
+      url: `${baseJsonUrl}${jsonName}.json`,
+      dataType: 'json',
+      success: function(data) {
+        // Get current table data
+        const currentData = table.data().toArray();
+        
+        // Merge new translation data with existing data
+        currentData.forEach((row, idx) => {
+          row[jsonInfo.title] = data[idx];
+        });
+        
+        // Update the table with merged data
+        table.clear();
+        table.rows.add(currentData);
+        
+        // Show the translation columns
+        table.column(columnIndex).visible(true);
+        table.column(columnIndex + 1).visible(true);
+        
+        // Redraw the table to show changes
+        table.draw();
+
+console.log('Loaded data for ' + jsonName + ':', data);
+console.log('Current table data:', currentData);
+      },
+      error: function(xhr, status, error) {
+        console.error('Error loading translation:', error);
+      }
+    });
+  }
+  
+  // Update the checkbox UI
+  updateTranslationSelector();
+}
+
+/**
+ * Shows all available translations
+ */
+function showAllTranslations() {
+  additionalJsons.forEach(json => {
+    if (!additionalColumns.includes(json.name)) {
+      toggleTranslation(json.name);
+    }
+  });
+}
+
+/**
+ * Resets to show only the default translation
+ */
+function resetTranslations() {
+  const currentColumns = [...additionalColumns];
+  // Hide all non-default translations
+  currentColumns.forEach(jsonName => {
+    if (jsonName !== defaultAdditionalJson) {
+      toggleTranslation(jsonName);
+    }
+  });
+  // Ensure default translation is shown
+  if (!additionalColumns.includes(defaultAdditionalJson)) {
+    toggleTranslation(defaultAdditionalJson);
+  }
+}
+
+/**
+ * Updates the translation selector UI with checkboxes and buttons
+ */
+function updateTranslationSelector() {
+  const selectorContainer = document.getElementById("translationSelector");
+  selectorContainer.innerHTML = "<h3>Add another translation:</h3>";
+
+  // Create and add the "Show All" button
+  const showAllButton = document.createElement("button");
+  showAllButton.textContent = "Show All";
+  showAllButton.addEventListener("click", showAllTranslations);
+  selectorContainer.appendChild(showAllButton);
+
+  // Create and add the "Reset" button
+  const resetButton = document.createElement("button");
+  resetButton.textContent = "Reset";
+  resetButton.addEventListener("click", resetTranslations);
+  selectorContainer.appendChild(resetButton);
+
+  // Add some spacing
+  selectorContainer.appendChild(document.createElement("br"));
+  selectorContainer.appendChild(document.createElement("br"));
+
+  // Create container for checkboxes with styling
+  const checkboxesContainer = document.createElement("div");
+  checkboxesContainer.style.cssText = `
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  `;
+  selectorContainer.appendChild(checkboxesContainer);
+
+  // Create checkboxes for each translation
+  additionalJsons.forEach((json) => {
+    const checkboxContainer = document.createElement("div");
+    checkboxContainer.style.display = "flex";
+    checkboxContainer.style.alignItems = "center";
+    checkboxContainer.style.gap = "8px";
+
+    // Create checkbox
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.id = json.name;
+    checkbox.checked = additionalColumns.includes(json.name);
+    checkbox.addEventListener("change", () => toggleTranslation(json.name));
+
+    // Create label
+    const label = document.createElement("label");
+    label.htmlFor = json.name;
+    label.textContent = json.title;
+
+    // Add checkbox and label to container
+    checkboxContainer.appendChild(checkbox);
+    checkboxContainer.appendChild(label);
+    checkboxesContainer.appendChild(checkboxContainer);
+  });
+}
+
+// Initialize the table when the page loads
+document.addEventListener("DOMContentLoaded", initializeTable);
+
+above is my new code, which loads json data asynchronously, and toggles them with checkboxes
+
+before this, when i was loading quran data synchronously in datatables, and using data: instead of ajax, and i didn't have these multi toggle switchers in the new code,
+
+i used to have surah, ayah, juz boxes with which i used to navigate the quran data
+
+the current file showsnew code, which loads json data asynchronously, and toggles them with checkboxes
+
+before this, when i was loading quran data synchronously in datatables, and using data: instead of ajax, and i didn't have these multi toggle switchers in the new code,
+
+i used to have surah, ayah, juz boxes with which i used to navigate the quran data
+
+I've recently updated my Quran navigation system to use asynchronous JSON loading and toggle switches for translations. However, I want to reintegrate the Surah, Ayah, and Juz navigation boxes from my previous version. Can you help me modify my new code to include these navigation features? Specifically:
+
+How can I add the Surah, Ayah, and Juz selection boxes to my new HTML structure?
+What changes are needed in my JavaScript code to support these navigation features with the new asynchronous data loading system?
+How should I update the CSS to maintain the style of these navigation boxes in the new layout?
+
+...
+
+cursor ai + claude:
+
+HTML Structure:
+Add the following HTML code for the navigation boxes just before your <div id="tableID" class="cards" width="100%"></div>:
+
+<div class="q-navigation-container">
+  <div class="q-nav-box">
+    <span class="q-nav-label">ސޫރަތް:</span>
+    <span class="q-nav-arrow" data-type="surah" data-direction="prev">▶</span>
+    <div class="q-nav-value" id="surahValue">1</div>
+    <span class="q-nav-arrow" data-type="surah" data-direction="next">◀</span>
+    <div class="q-dropdown" id="surahDropdown"></div>
+  </div>
+  <div class="q-nav-box">
+    <span class="q-nav-label">އާޔަތް:</span>
+    <span class="q-nav-arrow" data-type="ayah" data-direction="prev">▶</span>
+    <div class="q-nav-value" id="ayahValue">1</div>
+    <span class="q-nav-arrow" data-type="ayah" data-direction="next">◀</span>
+    <div class="q-dropdown" id="ayahDropdown"></div>
+  </div>
+  <div class="q-nav-box">
+    <span class="q-nav-label">ޖުޒް:</span>
+    <span class="q-nav-arrow" data-type="juz" data-direction="prev">▶</span>
+    <div class="q-nav-value" id="juzValue">1</div>
+    <span class="q-nav-arrow" data-type="juz" data-direction="next">◀</span>
+    <div class="q-dropdown" id="juzDropdown"></div>
+  </div>
+</div>
+
+JavaScript Modifications:
+Add the following code to your existing JavaScript file or script tag:
+Ask
+Copy
+Apply
+
+// Global variables
+let currentSurah = 1;
+let currentAyah = 1;
+let currentJuz = 1;
+const maxSurah = 114;
+const maxJuz = 30;
+let ayahCounts = {};
+
+// Initialize dropdowns after table initialization
+function initializeNavigationBoxes() {
+  initializeQDropdown("surah", 1, maxSurah);
+  initializeQDropdown("juz", 1, maxJuz);
+  updateAyahDropdown();
+
+  // Event listeners for navigation boxes
+  $(".q-nav-value").on("click", function () {
+    var type = $(this).attr("id").replace("Value", "");
+    QtoggleDropdown(type);
+  });
+
+  $(".q-nav-arrow").on("click", function () {
+    var type = $(this).data("type");
+    var direction = $(this).data("direction");
+    QnavigateArrow(type, direction);
+  });
+
+  $(document).on("click", function (event) {
+    if (!$(event.target).closest(".q-nav-box").length) {
+      $(".q-dropdown").hide();
+    }
+  });
+}
+
+// Add this function to your existing code
+function initializeQDropdown(type, min, max) {
+  var dropdown = $("#" + type + "Dropdown");
+  dropdown.empty();
+  dropdown.append('<input type="text" class="q-dropdown-search" placeholder="ލިޔޭ ނޫނީ ތިރިއަށް ފިތާ">');
+  for (var i = min; i <= max; i++) {
+    var displayText = i;
+    if (type === "surah" && surahNames[i]) {
+      displayText = i + " " + surahNames[i];
+    }
+    dropdown.append('<div class="q-dropdown-item" data-value="' + i + '">' + displayText + '</div>');
+  }
+
+  // Event listener for dropdown item clicks
+  dropdown.on("click", ".q-dropdown-item", function () {
+    var value = $(this).data("value");
+    updateQValue(type, value);
+    dropdown.hide();
+  });
+
+  // Event listener for search input
+  dropdown.find(".q-dropdown-search").on("input", function () {
+    var searchValue = removeDiacritics($(this).val().toLowerCase());
+    dropdown.find(".q-dropdown-item").each(function () {
+      var itemText = removeDiacritics($(this).text().toLowerCase());
+      $(this).toggle(itemText.includes(searchValue));
+    });
+  });
+}
+
+function updateAyahDropdown() {
+  var maxAyah = ayahCounts[currentSurah] || 1;
+  initializeQDropdown("ayah", 1, maxAyah);
+  $("#ayahValue").text("1");
+}
+
+function QtoggleDropdown(type) {
+  var dropdown = $("#" + type + "Dropdown");
+  $(".q-dropdown").not(dropdown).hide();
+  dropdown.toggle();
+
+  if (dropdown.is(":visible")) {
+    var currentValue = parseInt($("#" + type + "Value").text());
+    var item = dropdown.find('.q-dropdown-item[data-value="' + currentValue + '"]');
+    if (item.length) {
+      item.get(0).scrollIntoView({ block: "center" });
+    }
+    dropdown.find(".q-dropdown-search").val("").focus();
+  }
+}
+
+function updateQValue(type, value) {
+  value = parseInt(value);
+  if (type === "surah" && surahNames[value]) {
+    $("#" + type + "Value").text(value + " " + surahNames[value]);
+  } else {
+    $("#" + type + "Value").text(value);
+  }
+  if (type === "surah") {
+    currentSurah = value;
+    currentAyah = 1;
+    updateAyahDropdown();
+  } else if (type === "ayah") {
+    currentAyah = value;
+  } else if (type === "juz") {
+    currentJuz = value;
+  }
+  navigateToVerse();
+}
+
+function QnavigateArrow(type, direction) {
+  var current, max, min = 1;
+  if (type === "surah") {
+    current = currentSurah;
+    max = maxSurah;
+  } else if (type === "ayah") {
+    current = currentAyah;
+    max = ayahCounts[currentSurah] || 1;
+  } else if (type === "juz") {
+    current = currentJuz;
+    max = maxJuz;
+  }
+
+  if (direction === "prev") {
+    current--;
+    if (current < min) {
+      if (type === "ayah") {
+        currentSurah--;
+        if (currentSurah < 1) currentSurah = maxSurah;
+        updateAyahDropdown();
+        current = ayahCounts[currentSurah] || 1;
+      } else {
+        current = max;
+      }
+    }
+  } else {
+    current++;
+    if (current > max) {
+      if (type === "ayah") {
+        currentSurah++;
+        if (currentSurah > maxSurah) currentSurah = 1;
+        updateAyahDropdown();
+        current = 1;
+      } else {
+        current = min;
+      }
+    }
+  }
+
+  updateQValue(type, current);
+}
+
+function navigateToVerse() {
+  var targetRow = table.rows().indexes().filter(function (value, index) {
+    var rowData = table.row(value).data();
+    return parseInt(rowData[1]) == currentSurah && parseInt(rowData[2]) == currentAyah;
+  });
+
+  if (targetRow.length > 0) {
+    table.row(targetRow[0]).scrollTo();
+    updateAllQValues(table.row(targetRow[0]).data());
+  }
+}
+
+function updateAllQValues(rowData) {
+  currentJuz = parseInt(rowData[0]);
+  currentSurah = parseInt(rowData[1]);
+  currentAyah = parseInt(rowData[2]);
+  $("#juzValue").text(currentJuz);
+  $("#surahValue").text(currentSurah + " " + surahNames[currentSurah]);
+  $("#ayahValue").text(currentAyah);
+}
+
+// Helper function to remove diacritics
+function removeDiacritics(text) {
+  return text.replace(/[َُِّْٰۡۚٓـًٌٍّٔ]/g, "");
+}
+
+3. Modify your existing initializeTable function:
+
+function initializeTable() {
+  // ... (existing code)
+
+  table = new DataTable("#tableID", {
+    // ... (existing configuration)
+    initComplete: function () {
+      // ... (existing code)
+
+      // Initialize navigation boxes
+      initializeNavigationBoxes();
+
+      // Populate ayahCounts object
+      table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+        var data = this.data();
+        var surah = parseInt(data[1]);
+        var ayah = parseInt(data[2]);
+        ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
+      });
+
+      // Update navigation boxes with initial values
+      updateAllQValues(table.row(0).data());
+    }
+  });
+}
+
+4. CSS Modifications:
+Add the following CSS to your existing stylesheet:
+
+.q-navigation-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+  direction: rtl;
+}
+
+.q-nav-box {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+  position: relative;
+}
+
+.q-nav-label {
+  margin-left: 5px;
+}
+
+.q-nav-value {
+  border: 1px solid #ccc;
+  cursor: pointer;
+  min-width: 50px;
+  text-align: center;
+}
+
+.q-nav-value#surahValue {
+  min-width: 110px;
+}
+
+.q-nav-arrow {
+  cursor: pointer;
+  user-select: none;
+  padding: 0 5px;
+}
+
+.q-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: none;
+  z-index: 1000;
+  width: 100%;
+}
+
+.q-dropdown-item {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.q-dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+.q-dropdown-search {
+  width: calc(100% - 10px);
+  margin: 5px;
+  padding: 5px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 18px;
+}
+
+/* Styling for highlighted q-dropdown item */
+.q-dropdown-item.highlighted {
+  background-color: #e0e0e0;
+}
+
+/* Responsive styles for mobile devices */
+@media (max-width: 599px) {
+  .q-navigation-container {
+    font-size: 18px;
+    justify-content: space-evenly;
+  }
+
+  .q-nav-box {
+    margin: 0px;
+  }
+
+  .q-nav-label {
+    display: none;
+  }
+
+  .q-nav-value {
+    font-size: 18px;
+  }
+}
+  ...
+
+  i am getting this error when i try to use the navigation boxes
+test8.5.html:635  Uncaught TypeError: table.row(...).scrollTo is not a function
+
+I apologize for the confusion. The error occurs because the scrollTo method is not a standard DataTables function. Let's modify the navigateToVerse function to use DataTables' built-in methods for scrolling to a specific row. Here's an updated version of the functi
+
+If you're still encountering issues, it's possible that your version of DataTables doesn't include the scrollTo method. In that case, you can use an alternative approach:
+
+function navigateToVerse() {
+  var targetRow = table.rows().indexes().filter(function (value, index) {
+    var rowData = table.row(value).data();
+    return parseInt(rowData[1]) == currentSurah && parseInt(rowData[2]) == currentAyah;
+  });
+
+  if (targetRow.length > 0) {
+    // Get the page number of the target row
+    var pageInfo = table.page.info();
+    var targetPage = Math.floor(targetRow[0] / pageInfo.length);
+
+    // Go to the page containing the target row
+    table.page(targetPage).draw(false);
+
+    // Scroll to the target row within the page
+    var rowNode = table.row(targetRow[0]).node();
+    if (rowNode) {
+      rowNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Update navigation boxes with the current values
+    updateAllQValues(table.row(targetRow[0]).data());
+  }
+}
+
+...
+
+in my code, here
+label.textContent = json.title;
+i want to strip colon characters ':'
+
+i want to remove colon from here too
+the title of the column:
+title: json.title
+
+in addition to being able to toggle the additional columns, i want to be able to toggle the base columns as well. since the base columns are on by default, their checkboxes should be too
+
+i want the juz, surah and ayahno to be visible false
+setting visible false for those shows them untoggled on the checkboxes, yet the table shows them anyway
+
+...
+
+see my code
+
+it has const surahNames code like
+
+for all 114 surahs
+
+the names are in arabic
+
+and they show in the surah box dropdown in the navigation, with surah number, followed by space, followed by arabic surah name
+like so:
+1 الفَاتِحَة
+
+it can be clicked to select, arrow keyed to navigate to then enter, or input can be written and then enter. this takes me to that surah.
+
+what i want is, instead of that box showing surah number, followed by space, followed by arabic surah name
+
+i want it to show surah number, followed by space, followed by arabic surah name, followed by space, followed by dhivehi surah name, followed by space, followed by english surah name
+like so
+1 الفَاتِحَة ފާތިޙާ Fatiha
+
+instead of const surahNames = {
+  1: { arabic: "الفَاتِحَة", dhivehi: "ފާތިޙާ", english: "The Opener" },
+  2: { arabic: "البَقَرَة", dhivehi: "ބަގަރާ", english: "The Cow" },
+  3: { arabic: "آل عِمرَان", dhivehi: "އާލުޢިމްރާން", english: "Family of Imran" },
+  // ... continue for all 114 surahs
+};
+
+maybe it would be better if there were 3 seperate maps for arabic surah names, dhivehi surah names, and english surah names
+
+in the surahbox itself i dont need to see all three surah names at once
+1 الفَاتِحَة ފާތިޙާ The Opener
+
+i just need to see arabic
+1 الفَاتِحَة
+
+but when i open that surah box to select an option from the list, the list should show all three surah names as before
+
+...
+
+after opening a quran navigation dropdown box, i am unable to use the arrow keys to move to make a selection
+
+
+after i use the arrow keys to make a selection by hitting enter
+i am shown the right data yes
+but if i open a quran nav box again, it shows the currently selected option (as in where i am currently on the table) yes
+but if i then use the arrow key, i am not moving up or down from the immedate highlighted selection, instead i am moving to the very top or bottom of the dropdown
+
+that is if i used arrow key and enter on the dropdown before
+
+if i select with mouse, the first time, and then open quran nav boxes a second time, it does not show what i previously selection (as in where i am on the table right now)
+
+...
+
+when i load the page
+the surah names nav box has the correct dropdowns
+so does the juz nav box
+but the ayah nav box just shows 1
+that is not the range of ayah numbers for the currently shown surah, which is what i'd expect
+
+...
+
+the translationSelector should have its own html and css, instead of dynamically js generated html and css
+
+it should also be something like a buttom, when clicked, open its list of togglable options, which then i am able to check or uncheck, but only when i close it, or click outside it, should those toggles be applied
+
+...
+
+the check boxes are too small
+
+the translationToggleBtn only opens after a second click, not on the first click
+
+once open, it does not show the default added additional translation json column as checked, even thought it is showing on the table
+
+althought it has a reset and apply button at the bottom, it does not show an apply all checkboxes button, that should be in the middle of the reset and apply
+
+clicking outside the open list does not apply after i have checked or uncheck options
+
+...
+
+when i click resetTranslations, the checkboxes get reset from whatever toggles i changed, but then if i click apply, the toggle checks/unchecks dont get applied to the table
+
+if i manually untoggle the toggles i toggled, then i click apply, they get applied to the table
+
+...
+-->

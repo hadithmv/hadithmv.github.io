@@ -22,7 +22,7 @@ $jsFiles = @(
     "navbar.min.js",
     "DT-inline.js",
     "belowPage-bab-dropdown.js",
-    "quran-dropdowns.js"
+    "quran-navigation-list.js"
 )
 
 # Read the entire content of ALL-COMB.min.js

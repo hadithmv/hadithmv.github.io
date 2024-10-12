@@ -1,0 +1,3085 @@
+
+<!doctype html>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link
+      href="https://nightly.datatables.net/css/dataTables.dataTables.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/2.1.4/api/row().show().js"></script>
+  </head>
+  <body>
+    <table id="tableID" width="100%"></table>
+
+    <script>
+      var data = [
+        [
+    "1",
+    "1",
+    "1",
+    "",
+    "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ",
+    "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ"
+  ],
+  [
+    "1",
+    "1",
+    "2",
+    "",
+    "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+    "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ"
+  ],
+  ["1", "1", "3", "", "الرَّحْمَـٰنِ الرَّحِيمِ", "ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ"],
+  ["1", "1", "4", "", "مَالِكِ يَوْمِ الدِّينِ", "مَٰلِكِ يَوۡمِ ٱلدِّينِ"],
+  [
+    "1",
+    "1",
+    "5",
+    "",
+    "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ",
+    "إِيَّاكَ نَعۡبُدُ وَإِيَّاكَ نَسۡتَعِينُ"
+  ],
+  [
+    "1",
+    "1",
+    "6",
+    "",
+    "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ",
+    "ٱهۡدِنَا ٱلصِّرَٰطَ ٱلۡمُسۡتَقِيمَ"
+  ],
+  [
+    "1",
+    "1",
+    "7",
+    "",
+    "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+    "صِرَٰطَ ٱلَّذِينَ أَنۡعَمۡتَ عَلَيۡهِمۡ غَيۡرِ ٱلۡمَغۡضُوبِ عَلَيۡهِمۡ وَلَا ٱلضَّآلِّينَ"
+  ],
+  ["1", "2", "1", "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ", "الم", "الٓمٓ"],
+  [
+    "1",
+    "2",
+    "2",
+    "",
+    "ذَٰلِكَ الْكِتَابُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
+    "ذَٰلِكَ ٱلۡكِتَٰبُ لَا رَيۡبَۛ فِيهِۛ هُدٗى لِّلۡمُتَّقِينَ"
+  ],
+  [
+    "1",
+    "2",
+    "3",
+    "",
+    "الَّذِينَ يُؤْمِنُونَ بِالْغَيْبِ وَيُقِيمُونَ الصَّلَاةَ وَمِمَّا رَزَقْنَاهُمْ يُنفِقُونَ",
+    "ٱلَّذِينَ يُؤۡمِنُونَ بِٱلۡغَيۡبِ وَيُقِيمُونَ ٱلصَّلَوٰةَ وَمِمَّا رَزَقۡنَٰهُمۡ يُنفِقُونَ"
+  ],
+...
+      ];
+    </script>
+    <script type="text/javascript">
+      table = new DataTable("#tableID", {
+        data: data,
+        lengthMenu: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 50],
+        columns: [
+          {
+            title: "index",
+			// create an index column
+			render: function (data, type, full, meta) {
+              return meta.row;
+            },
+          },
+          {
+            title: "Juz",
+			data: 0,
+			// column for juz number
+          }, 
+          {
+            title: "Surah No",
+			data: 1,
+			// column for surah number
+          },
+          {
+            title: "Ayah No",
+			data: 2,
+			// column for ayah number
+          },
+          { title: "Bismillah" },
+			data: 3,
+			// column for when there is a bismillah at the start of the surah
+          },
+          {
+            title: "Quran Plain",
+			data: 4,
+			// column for plain quran text
+          },
+          {
+            title: "Quran Fancy",
+			data: 5,
+			// column for fancy quran text
+          },
+        ],
+      });
+    </script>
+  </body>
+</html>
+
+...
+
+the rows of my json data look like this:
+[ "1", "1", "1", "", "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ" ]
+
+it has 5 columns.
+datatables renders a new first column, which is an index column. it has the number of each row.
+
+what i want is,
+
+on the top of the page
+
+i want 3 boxes side by side. centered horizontally
+
+to the side of the first box should say "Surah", followed by a surah box
+
+to the side of the second box should say "Ayah", followed by an ayah box
+
+to the side of the third box should say "Juz", followed by a juz box
+
+
+for example
+
+surah box
+dropdowns:
+1
+2
+3
+...
+(these are the numbers of which surah it is)
+
+ayah box
+dropdowns:
+1
+2
+3
+...
+(these are the numbers of which ayah it is)
+
+juz box
+dropdowns:
+1
+2
+3
+...
+(these are the numbers of which juz it is)
+
+surah box, ayah box and juz box are three boxes, for each column of surah, ayah and juz.
+
+these boxes should show the values of the first row of the table. for example, when the page is opened, since the default first row would usually be juz 1 surah 1 ayah 1. based upon that, the currently displayed values in the boxes should be surah: 1, ayah: 1, juz: 1, 
+
+the boxes when clicked, should open a dropdown below them. by below them i mean below the boxes, not the text that precedes them which says surah: ayah: juz:
+
+the dropdown should contain the values of the rows of those columns
+
+surah dropdown has values that go from 1 to 114.
+
+juz dropdown has values that go from 1 to 30.
+
+ayah dropdown has values based on the first surah number the page is on. surahs have a fixed number of ayahs, according to their json data. for example, surah 1 should have ayah values from 1 to 7. while surah 2 should have ayah values from 1 to 286. etc.
+
+clicking a value of a dropdown should use datatables api row().show() to go to the row of that value.  as in jump to the position of that row, not scroll there. note that the data includes indexes for each row. maybe that might be useful in coding this.
+
+for example, if i click surah box and click value 2, the surah box should now show 2, and i should be taken to the first row where surah column has 2 in the data. and the ayah box would now show 1, since it is the first ayah column value of the first row where that surah value is. and juz box should now show the the value of the juz column for that same row.
+
+if i click juz box and click value 3, the juz box should now show 3, and i should be taken to the first row where juz column has 3 in the data. and the ayah box would now show 1, since it is the first ayah column value of the first row where that juz value is. and surah box should now show the the value of the surah column for that same row.
+
+if i click ayah box and click a value, the ayah box should now show that value, and based on the surah value of the first row in the current table, i should then be taken to the selected ayah value which has that surah value
+
+for example, if current surah is 1 in the first row of the table, and then i click ayah box and choose value 5, the ayah box should now show 5, and i should be taken to ayah 5 of surah 1. and juz box should now show the the value of the juz column for that same row.
+
+if current surah is 5 in the first row of the table, and then i click ayah box and choose value 10, the ayah box should now show 10, and i should be taken to ayah 10 of surah 5. etc. and juz box should now show the the value of the juz column for that same row.
+
+also changing the datatables page should still have the surah, ayah and juz boxes show the values of the first row of that page which i have changed to. so if i go one page forward. the boxes should update to show the values of the first row i am now on. same if i go back.
+
+also when i have clicked the box, and it opens its dropdown of values, between the box and the dropdown values should be another box for typing. after clicking the first box, typing on the keyboard should enter what was typed into the second box, and the dropdown should open, and the dropdown should update which values are now available based on what matches with what i wrote. for example if i write 5 on the keyboard, the dropdown values change to 5, 50, 51, 52...59 etc. and pressing the enter key should apply that value to the box, as if i had selected that same value from the dropdown, and i should be then taken to the appropriate row of the table
+
+also when the dropdown opens, it should show me the position from the current box value, in order, scrolling vertically where needed, but not horizontally. for example when the box has 1 as a value, and then i click it to open the dropdown, the dropdown should show me 1 already highlighted, and the rest of the values would go underneath it one by one, like so: 1, 2, 3, 4, 5...
+
+but for example when the box has 10 as a value, and then i click it to open the dropdown, the dropdown should show me 10 already highlighted, and the rest of the values would go underneath it one by one, like so: 10, 11, 12, 13, 14, 15... but the values 1, 2, 3, 4, 5, 7, 6, 7, 8, 9 would be above 10 even if out of view, and scrolling up vertically would show them, just as scrolling down vertically would show the rest of the values past the height of the dropdown below.
+
+once the dropdown is open, clicking elsewhere should close it, whether its on a dropdown value, or outside the dropdown. the difference being clicking on the dropdown value selects that value, while clicking elsewhere does not change the current value.
+
+the boxes should have small arrows on each side of each box. something like surah:<[value]> ayah:<[value]> juz:<[value]> 
+clicking on the right arrow of a box, should select and apply the preceding dropdown value of the currently shown value.
+clicking on the left arrow of a box, should select and apply the next dropdown value of the currently shown value.
+
+if there is no preceding dropdown value for ayah, which would be the case if the ayah value was already on ayah 1, then the ayah preceding arrow click should take me to the last ayah of the surah before it
+if there is no next dropdown value for ayah, which would be the case if the ayah value was the same as the last value in the ayah dropdown, the next ayah arrow click should take me to the first ayah of the surah after it
+
+if there is no preceding dropdown value for surah, which would be the case if the surah value was already on surah 1, then the surah preceding arrow click should take me to the last surah
+if there is no next dropdown value for surah, which would be the case if the surah value was already on the last surah, the next surah arrow click should take me to the first surah
+
+if there is no preceding dropdown value for juz, which would be the case if the juz value was already on juz 1, then the juz preceding arrow click should take me to the last juz
+if there is no next dropdown value for juz, which would be the case if the juz value was already on the last juz, the next juz arrow click should take me to the first juz
+
+
+for example for surah,
+surah:<[1]>
+
+clicking on the left arrow would change to dropdown value 2, the box would now show 2, and i would be taken to the first row where the surah column is 2.
+
+for example for surah,
+surah:<[1]>
+
+clicking on the left arrow would change to dropdown value 2, the box would now show 2, and i would be taken to the first row where the surah column is 2.
+
+
+i dont want to use scroller
+i dont want to use frameworks
+html, css and js only
+
+...
+
+claude:
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran Navigation</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://nightly.datatables.net/css/dataTables.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/2.1.4/api/row().show().js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            direction: rtl;
+        }
+        .navigation-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .nav-box {
+            display: flex;
+            align-items: center;
+            margin: 0 10px;
+        }
+        .nav-label {
+            margin-right: 5px;
+        }
+        .nav-value {
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            cursor: pointer;
+            position: relative;
+            min-width: 50px;
+            text-align: center;
+        }
+        .nav-arrow {
+            cursor: pointer;
+            user-select: none;
+            padding: 0 5px;
+        }
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+        }
+        .dropdown-item {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+        .dropdown-search {
+            width: calc(100% - 10px);
+            margin: 5px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navigation-container">
+        <div class="nav-box">
+            <span class="nav-label">سورة:</span>
+            <span class="nav-arrow" data-type="surah" data-direction="prev">◀</span>
+            <div class="nav-value" id="surahValue">1</div>
+            <span class="nav-arrow" data-type="surah" data-direction="next">▶</span>
+            <div class="dropdown" id="surahDropdown"></div>
+        </div>
+        <div class="nav-box">
+            <span class="nav-label">آية:</span>
+            <span class="nav-arrow" data-type="ayah" data-direction="prev">◀</span>
+            <div class="nav-value" id="ayahValue">1</div>
+            <span class="nav-arrow" data-type="ayah" data-direction="next">▶</span>
+            <div class="dropdown" id="ayahDropdown"></div>
+        </div>
+        <div class="nav-box">
+            <span class="nav-label">جزء:</span>
+            <span class="nav-arrow" data-type="juz" data-direction="prev">◀</span>
+            <div class="nav-value" id="juzValue">1</div>
+            <span class="nav-arrow" data-type="juz" data-direction="next">▶</span>
+            <div class="dropdown" id="juzDropdown"></div>
+        </div>
+    </div>
+    <table id="quranTable" width="100%"></table>
+
+    <script>
+        var quranData = [
+            ["1", "1", "1", "", "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ"],
+            ["1", "1", "2", "", "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ"],
+            ["1", "1", "3", "", "الرَّحْمَـٰنِ الرَّحِيمِ", "ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ"],
+            // ... (rest of the data)
+        ];
+
+        var table;
+        var currentSurah = 1;
+        var currentAyah = 1;
+        var currentJuz = 1;
+        var maxSurah = 114;
+        var maxJuz = 30;
+        var ayahCounts = {}; // Will be populated with the count of ayahs for each surah
+
+        $(document).ready(function() {
+            table = new DataTable("#quranTable", {
+                data: quranData,
+                lengthMenu: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 50],
+                columns: [
+                    { 
+                        title: "index",
+                        render: function (data, type, full, meta) {
+                            return meta.row;
+                        },
+                    },
+                    { title: "Juz", data: 0 },
+                    { title: "Surah No", data: 1 },
+                    { title: "Ayah No", data: 2 },
+                    { title: "Bismillah", data: 3 },
+                    { title: "Quran Plain", data: 4 },
+                    { title: "Quran Fancy", data: 5 },
+                ],
+            });
+
+            // Populate ayahCounts
+            quranData.forEach(function(row) {
+                var surah = row[1];
+                var ayah = parseInt(row[2]);
+                ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
+            });
+
+            // Initialize dropdowns
+            initializeQDropdown('surah', 1, maxSurah);
+            initializeQDropdown('juz', 1, maxJuz);
+            updateAyahDropdown();
+
+            // Event listeners for nav-value clicks
+            $('.nav-value').on('click', function() {
+                var type = $(this).attr('id').replace('Value', '');
+                toggleDropdown(type);
+            });
+
+            // Event listeners for arrow clicks
+            $('.nav-arrow').on('click', function() {
+                var type = $(this).data('type');
+                var direction = $(this).data('direction');
+                QnavigateArrow(type, direction);
+            });
+
+            // Close dropdowns when clicking outside
+            $(document).on('click', function(event) {
+                if (!$(event.target).closest('.nav-box').length) {
+                    $('.dropdown').hide();
+                }
+            });
+        });
+
+        function initializeQDropdown(type, min, max) {
+            var dropdown = $('#' + type + 'Dropdown');
+            dropdown.empty();
+            dropdown.append('<input type="text" class="dropdown-search" placeholder="Search...">');
+            for (var i = min; i <= max; i++) {
+                dropdown.append('<div class="dropdown-item" data-value="' + i + '">' + i + '</div>');
+            }
+
+            // Event listener for dropdown item clicks
+            dropdown.on('click', '.dropdown-item', function() {
+                var value = $(this).data('value');
+                updateQValue(type, value);
+            });
+
+            // Event listener for search input
+            dropdown.find('.dropdown-search').on('input', function() {
+                var searchValue = $(this).val().toLowerCase();
+                dropdown.find('.dropdown-item').each(function() {
+                    var itemValue = $(this).text().toLowerCase();
+                    $(this).toggle(itemValue.includes(searchValue));
+                });
+            });
+        }
+
+        function toggleDropdown(type) {
+            var dropdown = $('#' + type + 'Dropdown');
+            $('.dropdown').not(dropdown).hide();
+            dropdown.toggle();
+
+            if (dropdown.is(':visible')) {
+                var currentValue = parseInt($('#' + type + 'Value').text());
+                var item = dropdown.find('.dropdown-item[data-value="' + currentValue + '"]');
+                if (item.length) {
+                    item.get(0).scrollIntoView({ block: 'center' });
+                }
+                dropdown.find('.dropdown-search').val('').focus();
+            }
+        }
+
+        function updateQValue(type, value) {
+            $('#' + type + 'Value').text(value);
+            if (type === 'surah') {
+                currentSurah = value;
+                currentAyah = 1;
+                updateAyahDropdown();
+            } else if (type === 'ayah') {
+                currentAyah = value;
+            } else if (type === 'juz') {
+                currentJuz = value;
+            }
+            navigateToVerse();
+        }
+
+        function updateAyahDropdown() {
+            var maxAyah = ayahCounts[currentSurah] || 1;
+            initializeQDropdown('ayah', 1, maxAyah);
+            $('#ayahValue').text('1');
+        }
+
+        function QnavigateArrow(type, direction) {
+            var current, max, min = 1;
+            if (type === 'surah') {
+                current = currentSurah;
+                max = maxSurah;
+            } else if (type === 'ayah') {
+                current = currentAyah;
+                max = ayahCounts[currentSurah] || 1;
+            } else if (type === 'juz') {
+                current = currentJuz;
+                max = maxJuz;
+            }
+
+            if (direction === 'prev') {
+                current--;
+                if (current < min) {
+                    if (type === 'ayah') {
+                        currentSurah--;
+                        if (currentSurah < 1) currentSurah = maxSurah;
+                        updateAyahDropdown();
+                        current = ayahCounts[currentSurah] || 1;
+                    } else {
+                        current = max;
+                    }
+                }
+            } else {
+                current++;
+                if (current > max) {
+                    if (type === 'ayah') {
+                        currentSurah++;
+                        if (currentSurah > maxSurah) currentSurah = 1;
+                        updateAyahDropdown();
+                        current = 1;
+                    } else {
+                        current = min;
+                    }
+                }
+            }
+
+            updateQValue(type, current);
+        }
+
+        function navigateToVerse() {
+            var targetRow = table.rows().indexes().filter(function(value, index) {
+                var rowData = table.row(value).data();
+                return rowData[1] == currentSurah && rowData[2] == currentAyah;
+            });
+
+            if (targetRow.length > 0) {
+                table.row(targetRow[0]).show().draw(false);
+                updateAllQValues(table.row(targetRow[0]).data());
+            }
+        }
+
+        function updateAllQValues(rowData) {
+            currentJuz = parseInt(rowData[0]);
+            currentSurah = parseInt(rowData[1]);
+            currentAyah = parseInt(rowData[2]);
+            $('#juzValue').text(currentJuz);
+            $('#surahValue').text(currentSurah);
+            $('#ayahValue').text(currentAyah);
+            updateAyahDropdown();
+        }
+    </script>
+</body>
+</html>
+
+...
+
+i removed your rtl styling. dont need it
+
+surah arrows left and right work, they change the value in the surah box, and take me to the correct row in the table
+
+ayah arrows left and right work in the sense they take me to the correct row in the table, but the value in the ayah box does not change
+
+nothing happens when i click the juz arrows left and right
+
+clicking on any of the main surah, ayah or juz boxes, opens a dropdown at the very bottom and very right of the page. when they should have opened below the boxes.
+
+clicking a value on the surah or ayah dropdown does take me to the correct row in the table, but the dropdown stays open.
+
+clicking on the juz box opens the juz dropdown, it has the correct values from 1 to 30. but clicking on any of them doesn't do anything
+
+after opening the surah or ayah dropdown, the mouse cursor is in the search input field of the dropdown. typing a value however doesn't bring only the results starting with that value. instead it brings all results which have that value anywhere, even at the end. for example i write 2, and it shows me results like 12.
+
+also typing a value in the search input field of the dropdown, and then pressing enter doesn't do anything. it should apply that value.
+
+the dropdowns have horizontal scrolling, which i dont want. the width should be as wide as the boxes themselves
+
+...
+
+claude:
+
+<!doctype html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran Navigation</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://nightly.datatables.net/css/dataTables.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/2.1.4/api/row().show().js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .navigation-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .nav-box {
+            display: flex;
+            align-items: center;
+            margin: 0 10px;
+            position: relative;
+        }
+        .nav-label {
+            margin-right: 5px;
+        }
+        .nav-value {
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            cursor: pointer;
+            min-width: 50px;
+            text-align: center;
+        }
+        .nav-arrow {
+            cursor: pointer;
+            user-select: none;
+            padding: 0 5px;
+        }
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            width: 100%;
+        }
+        .dropdown-item {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+        .dropdown-search {
+            width: calc(100% - 10px);
+            margin: 5px;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="navigation-container">
+        <div class="nav-box">
+            <span class="nav-label">Surah:</span>
+            <span class="nav-arrow" data-type="surah" data-direction="prev">◀</span>
+            <div class="nav-value" id="surahValue">1</div>
+            <span class="nav-arrow" data-type="surah" data-direction="next">▶</span>
+            <div class="dropdown" id="surahDropdown"></div>
+        </div>
+        <div class="nav-box">
+            <span class="nav-label">Ayah:</span>
+            <span class="nav-arrow" data-type="ayah" data-direction="prev">◀</span>
+            <div class="nav-value" id="ayahValue">1</div>
+            <span class="nav-arrow" data-type="ayah" data-direction="next">▶</span>
+            <div class="dropdown" id="ayahDropdown"></div>
+        </div>
+        <div class="nav-box">
+            <span class="nav-label">Juz:</span>
+            <span class="nav-arrow" data-type="juz" data-direction="prev">◀</span>
+            <div class="nav-value" id="juzValue">1</div>
+            <span class="nav-arrow" data-type="juz" data-direction="next">▶</span>
+            <div class="dropdown" id="juzDropdown"></div>
+        </div>
+    </div>
+    <table id="quranTable" width="100%"></table>
+
+    <script>
+        var quranData = [
+            ["1", "1", "1", "", "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ"],
+            ["1", "1", "2", "", "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ"],
+            ["1", "1", "3", "", "الرَّحْمَـٰنِ الرَّحِيمِ", "ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ"],
+            // ... (rest of the data)
+        ];
+
+        var table;
+        var currentSurah = 1;
+        var currentAyah = 1;
+        var currentJuz = 1;
+        var maxSurah = 114;
+        var maxJuz = 30;
+        var ayahCounts = {}; // Will be populated with the count of ayahs for each surah
+
+        $(document).ready(function() {
+            table = new DataTable("#quranTable", {
+                data: quranData,
+                lengthMenu: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 50],
+                columns: [
+                    { 
+                        title: "index",
+                        render: function (data, type, full, meta) {
+                            return meta.row;
+                        },
+                    },
+                    { title: "Juz", data: 0 },
+                    { title: "Surah No", data: 1 },
+                    { title: "Ayah No", data: 2 },
+                    { title: "Bismillah", data: 3 },
+                    { title: "Quran Plain", data: 4 },
+                    { title: "Quran Fancy", data: 5 },
+                ],
+            });
+
+            // Populate ayahCounts
+            quranData.forEach(function(row) {
+                var surah = row[1];
+                var ayah = parseInt(row[2]);
+                ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
+            });
+
+            // Initialize dropdowns
+            initializeQDropdown('surah', 1, maxSurah);
+            initializeQDropdown('juz', 1, maxJuz);
+            updateAyahDropdown();
+
+            // Event listeners for nav-value clicks
+            $('.nav-value').on('click', function() {
+                var type = $(this).attr('id').replace('Value', '');
+                toggleDropdown(type);
+            });
+
+            // Event listeners for arrow clicks
+            $('.nav-arrow').on('click', function() {
+                var type = $(this).data('type');
+                var direction = $(this).data('direction');
+                QnavigateArrow(type, direction);
+            });
+
+            // Close dropdowns when clicking outside
+            $(document).on('click', function(event) {
+                if (!$(event.target).closest('.nav-box').length) {
+                    $('.dropdown').hide();
+                }
+            });
+        });
+
+        function initializeQDropdown(type, min, max) {
+            var dropdown = $('#' + type + 'Dropdown');
+            dropdown.empty();
+            dropdown.append('<input type="text" class="dropdown-search" placeholder="Search...">');
+            for (var i = min; i <= max; i++) {
+                dropdown.append('<div class="dropdown-item" data-value="' + i + '">' + i + '</div>');
+            }
+
+            // Event listener for dropdown item clicks
+            dropdown.on('click', '.dropdown-item', function() {
+                var value = $(this).data('value');
+                updateQValue(type, value);
+                dropdown.hide();
+            });
+
+            // Event listener for search input
+            dropdown.find('.dropdown-search').on('input', function() {
+                var searchValue = $(this).val().toLowerCase();
+                dropdown.find('.dropdown-item').each(function() {
+                    var itemValue = $(this).text();
+                    $(this).toggle(itemValue.startsWith(searchValue));
+                });
+            });
+
+            // Event listener for search input enter key
+            dropdown.find('.dropdown-search').on('keypress', function(e) {
+                if (e.which == 13) {
+                    var searchValue = $(this).val();
+                    var firstVisible = dropdown.find('.dropdown-item:visible').first();
+                    if (firstVisible.length) {
+                        updateQValue(type, firstVisible.data('value'));
+                        dropdown.hide();
+                    }
+                }
+            });
+        }
+
+        function toggleDropdown(type) {
+            var dropdown = $('#' + type + 'Dropdown');
+            $('.dropdown').not(dropdown).hide();
+            dropdown.toggle();
+
+            if (dropdown.is(':visible')) {
+                var currentValue = parseInt($('#' + type + 'Value').text());
+                var item = dropdown.find('.dropdown-item[data-value="' + currentValue + '"]');
+                if (item.length) {
+                    item.get(0).scrollIntoView({ block: 'center' });
+                }
+                dropdown.find('.dropdown-search').val('').focus();
+            }
+        }
+
+        function updateQValue(type, value) {
+            $('#' + type + 'Value').text(value);
+            if (type === 'surah') {
+                currentSurah = parseInt(value);
+                currentAyah = 1;
+                updateAyahDropdown();
+            } else if (type === 'ayah') {
+                currentAyah = parseInt(value);
+            } else if (type === 'juz') {
+                currentJuz = parseInt(value);
+            }
+            navigateToVerse();
+        }
+
+        function updateAyahDropdown() {
+            var maxAyah = ayahCounts[currentSurah] || 1;
+            initializeQDropdown('ayah', 1, maxAyah);
+            $('#ayahValue').text('1');
+        }
+
+        function QnavigateArrow(type, direction) {
+            var current, max, min = 1;
+            if (type === 'surah') {
+                current = currentSurah;
+                max = maxSurah;
+            } else if (type === 'ayah') {
+                current = currentAyah;
+                max = ayahCounts[currentSurah] || 1;
+            } else if (type === 'juz') {
+                current = currentJuz;
+                max = maxJuz;
+            }
+
+            if (direction === 'prev') {
+                current--;
+                if (current < min) {
+                    if (type === 'ayah') {
+                        currentSurah--;
+                        if (currentSurah < 1) currentSurah = maxSurah;
+                        updateAyahDropdown();
+                        current = ayahCounts[currentSurah] || 1;
+                    } else {
+                        current = max;
+                    }
+                }
+            } else {
+                current++;
+                if (current > max) {
+                    if (type === 'ayah') {
+                        currentSurah++;
+                        if (currentSurah > maxSurah) currentSurah = 1;
+                        updateAyahDropdown();
+                        current = 1;
+                    } else {
+                        current = min;
+                    }
+                }
+            }
+
+            updateQValue(type, current);
+        }
+
+        function navigateToVerse() {
+            var targetRow = table.rows().indexes().filter(function(value, index) {
+                var rowData = table.row(value).data();
+                return rowData[1] == currentSurah && rowData[2] == currentAyah;
+            });
+
+            if (targetRow.length > 0) {
+                table.row(targetRow[0]).show().draw(false);
+                updateAllQValues(table.row(targetRow[0]).data());
+            }
+        }
+
+        function updateAllQValues(rowData) {
+            currentJuz = parseInt(rowData[0]);
+            currentSurah = parseInt(rowData[1]);
+            currentAyah = parseInt(rowData[2]);
+            $('#juzValue').text(currentJuz);
+            $('#surahValue').text(currentSurah);
+            $('#ayahValue').text(currentAyah);
+            updateAyahDropdown();
+        }
+    </script>
+</body>
+</html>
+
+...
+...
+...
+
+let me show you my code first:
+
+<!doctype html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran Navigation</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://nightly.datatables.net/css/dataTables.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/2.1.4/api/row().show().js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .navigation-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .nav-box {
+            display: flex;
+            align-items: center;
+            margin: 0 10px;
+            position: relative;
+        }
+        .nav-label {
+            margin-right: 5px;
+        }
+        .nav-value {
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            cursor: pointer;
+            min-width: 50px;
+            text-align: center;
+        }
+        .nav-arrow {
+            cursor: pointer;
+            user-select: none;
+            padding: 0 5px;
+        }
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            max-height: 90vh;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            width: 100%;
+        }
+        .dropdown-item {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+        .dropdown-search {
+            width: calc(100% - 10px);
+            margin: 5px;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="navigation-container">
+        <div class="nav-box">
+            <span class="nav-label">Surah:</span>
+            <span class="nav-arrow" data-type="surah" data-direction="prev">◀</span>
+            <div class="nav-value" id="surahValue">1</div>
+            <span class="nav-arrow" data-type="surah" data-direction="next">▶</span>
+            <div class="dropdown" id="surahDropdown"></div>
+        </div>
+        <div class="nav-box">
+            <span class="nav-label">Ayah:</span>
+            <span class="nav-arrow" data-type="ayah" data-direction="prev">◀</span>
+            <div class="nav-value" id="ayahValue">1</div>
+            <span class="nav-arrow" data-type="ayah" data-direction="next">▶</span>
+            <div class="dropdown" id="ayahDropdown"></div>
+        </div>
+        <div class="nav-box">
+            <span class="nav-label">Juz:</span>
+            <span class="nav-arrow" data-type="juz" data-direction="prev">◀</span>
+            <div class="nav-value" id="juzValue">1</div>
+            <span class="nav-arrow" data-type="juz" data-direction="next">▶</span>
+            <div class="dropdown" id="juzDropdown"></div>
+        </div>
+    </div>
+    <table id="quranTable" width="100%"></table>
+
+    <script>
+        var data = [
+            ["1", "1", "1", "", "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ"],
+            ["1", "1", "2", "", "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ"],
+            ["1", "1", "3", "", "الرَّحْمَـٰنِ الرَّحِيمِ", "ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ"],
+            // ... (rest of the data)
+        ];
+
+        var table;
+        var currentSurah = 1;
+        var currentAyah = 1;
+        var currentJuz = 1;
+        var maxSurah = 114;
+        var maxJuz = 30;
+        var ayahCounts = {}; // Will be populated with the count of ayahs for each surah
+
+        $(document).ready(function() {
+            table = new DataTable("#quranTable", {
+                data: data,
+                lengthMenu: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 50],
+                columns: [
+                    { 
+                        title: "index",
+                        render: function (data, type, full, meta) {
+                            return meta.row; // generates an index column
+                        },
+                    },
+                    { title: "Juz", data: 0 },
+                    { title: "Surah No", data: 1 },
+                    { title: "Ayah No", data: 2 },
+                    { title: "Bismillah", data: 3 },
+                    { title: "Quran Plain", data: 4 },
+                    { title: "Quran Fancy", data: 5 },
+                ],
+            });
+
+            // Populate ayahCounts
+            data.forEach(function(row) {
+                var surah = row[1];
+                var ayah = parseInt(row[2]);
+                ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
+            });
+
+            // Initialize dropdowns
+            initializeQDropdown('surah', 1, maxSurah);
+            initializeQDropdown('juz', 1, maxJuz);
+            updateAyahDropdown();
+
+            // Event listeners for nav-value clicks
+            $('.nav-value').on('click', function() {
+                var type = $(this).attr('id').replace('Value', '');
+                toggleDropdown(type);
+            });
+
+            // Event listeners for arrow clicks
+            $('.nav-arrow').on('click', function() {
+                var type = $(this).data('type');
+                var direction = $(this).data('direction');
+                QnavigateArrow(type, direction);
+            });
+
+            // Close dropdowns when clicking outside
+            $(document).on('click', function(event) {
+                if (!$(event.target).closest('.nav-box').length) {
+                    $('.dropdown').hide();
+                }
+            });
+        });
+
+        function initializeQDropdown(type, min, max) {
+            var dropdown = $('#' + type + 'Dropdown');
+            dropdown.empty();
+            dropdown.append('<input type="text" class="dropdown-search" placeholder="Search...">');
+            for (var i = min; i <= max; i++) {
+                dropdown.append('<div class="dropdown-item" data-value="' + i + '">' + i + '</div>');
+            }
+
+            // Event listener for dropdown item clicks
+            dropdown.on('click', '.dropdown-item', function() {
+                var value = $(this).data('value');
+                updateQValue(type, value);
+                dropdown.hide();
+            });
+
+            // Event listener for search input
+            dropdown.find('.dropdown-search').on('input', function() {
+                var searchValue = $(this).val().toLowerCase();
+                dropdown.find('.dropdown-item').each(function() {
+                    var itemValue = $(this).text();
+                    $(this).toggle(itemValue.startsWith(searchValue));
+                });
+            });
+
+            // Event listener for search input enter key
+            dropdown.find('.dropdown-search').on('keypress', function(e) {
+                if (e.which == 13) {
+                    var searchValue = $(this).val();
+                    var firstVisible = dropdown.find('.dropdown-item:visible').first();
+                    if (firstVisible.length) {
+                        updateQValue(type, firstVisible.data('value'));
+                        dropdown.hide();
+                    }
+                }
+            });
+        }
+
+        function toggleDropdown(type) {
+            var dropdown = $('#' + type + 'Dropdown');
+            $('.dropdown').not(dropdown).hide();
+            dropdown.toggle();
+
+            if (dropdown.is(':visible')) {
+                var currentValue = parseInt($('#' + type + 'Value').text());
+                var item = dropdown.find('.dropdown-item[data-value="' + currentValue + '"]');
+                if (item.length) {
+                    item.get(0).scrollIntoView({ block: 'center' });
+                }
+                dropdown.find('.dropdown-search').val('').focus();
+            }
+        }
+
+        function updateQValue(type, value) {
+            value = parseInt(value);
+            $('#' + type + 'Value').text(value);
+            if (type === 'surah') {
+                currentSurah = value;
+                currentAyah = 1;
+                updateAyahDropdown();
+            } else if (type === 'ayah') {
+                currentAyah = value;
+            } else if (type === 'juz') {
+                currentJuz = value;
+            }
+            navigateToVerse();
+        }
+
+        function updateAyahDropdown() {
+            var maxAyah = ayahCounts[currentSurah] || 1;
+            initializeQDropdown('ayah', 1, maxAyah);
+            $('#ayahValue').text('1');
+        }
+
+        function QnavigateArrow(type, direction) {
+            var current, max, min = 1;
+            if (type === 'surah') {
+                current = currentSurah;
+                max = maxSurah;
+            } else if (type === 'ayah') {
+                current = currentAyah;
+                max = ayahCounts[currentSurah] || 1;
+            } else if (type === 'juz') {
+                current = currentJuz;
+                max = maxJuz;
+            }
+
+            if (direction === 'prev') {
+                current--;
+                if (current < min) {
+                    if (type === 'ayah') {
+                        currentSurah--;
+                        if (currentSurah < 1) currentSurah = maxSurah;
+                        updateAyahDropdown();
+                        current = ayahCounts[currentSurah] || 1;
+                    } else {
+                        current = max;
+                    }
+                }
+            } else {
+                current++;
+                if (current > max) {
+                    if (type === 'ayah') {
+                        currentSurah++;
+                        if (currentSurah > maxSurah) currentSurah = 1;
+                        updateAyahDropdown();
+                        current = 1;
+                    } else {
+                        current = min;
+                    }
+                }
+            }
+
+            updateQValue(type, current);
+        }
+
+        function navigateToVerse() {
+            var targetRow = table.rows().indexes().filter(function(value, index) {
+                var rowData = table.row(value).data();
+                return parseInt(rowData[1]) == currentSurah && parseInt(rowData[2]) == currentAyah;
+            });
+
+            if (targetRow.length > 0) {
+                table.row(targetRow[0]).show().draw(false);
+                updateAllQValues(table.row(targetRow[0]).data());
+            } else {
+                // If exact match not found, find the closest verse
+                targetRow = table.rows().indexes().filter(function(value, index) {
+                    var rowData = table.row(value).data();
+                    return parseInt(rowData[0]) == currentJuz;
+                });
+
+                if (targetRow.length > 0) {
+                    table.row(targetRow[0]).show().draw(false);
+                    updateAllQValues(table.row(targetRow[0]).data());
+                }
+            }
+        }
+
+        function updateAllQValues(rowData) {
+            currentJuz = parseInt(rowData[0]);
+            currentSurah = parseInt(rowData[1]);
+            currentAyah = parseInt(rowData[2]);
+            $('#juzValue').text(currentJuz);
+            $('#surahValue').text(currentSurah);
+            $('#ayahValue').text(currentAyah);
+        }
+    </script>
+</body>
+</html>
+
+...
+
+let me show you my code first:
+
+<!doctype html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran Navigation</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://nightly.datatables.net/css/dataTables.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/2.1.4/api/row().show().js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .navigation-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .nav-box {
+            display: flex;
+            align-items: center;
+            margin: 0 10px;
+            position: relative;
+        }
+        .nav-label {
+            margin-right: 5px;
+        }
+        .nav-value {
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            cursor: pointer;
+            min-width: 50px;
+            text-align: center;
+        }
+        .nav-arrow {
+            cursor: pointer;
+            user-select: none;
+            padding: 0 5px;
+        }
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            max-height: 90vh;
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            width: 100%;
+        }
+        .dropdown-item {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .dropdown-item:hover {
+            background-color: #f0f0f0;
+        }
+        .dropdown-search {
+            width: calc(100% - 10px);
+            margin: 5px;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="navigation-container">
+        <div class="nav-box">
+            <span class="nav-label">Surah:</span>
+            <span class="nav-arrow" data-type="surah" data-direction="prev">◀</span>
+            <div class="nav-value" id="surahValue">1</div>
+            <span class="nav-arrow" data-type="surah" data-direction="next">▶</span>
+            <div class="dropdown" id="surahDropdown"></div>
+        </div>
+        <div class="nav-box">
+            <span class="nav-label">Ayah:</span>
+            <span class="nav-arrow" data-type="ayah" data-direction="prev">◀</span>
+            <div class="nav-value" id="ayahValue">1</div>
+            <span class="nav-arrow" data-type="ayah" data-direction="next">▶</span>
+            <div class="dropdown" id="ayahDropdown"></div>
+        </div>
+        <div class="nav-box">
+            <span class="nav-label">Juz:</span>
+            <span class="nav-arrow" data-type="juz" data-direction="prev">◀</span>
+            <div class="nav-value" id="juzValue">1</div>
+            <span class="nav-arrow" data-type="juz" data-direction="next">▶</span>
+            <div class="dropdown" id="juzDropdown"></div>
+        </div>
+    </div>
+    <table id="quranTable" width="100%"></table>
+
+    <script>
+        var data = [
+            ["1", "1", "1", "", "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ"],
+            ["1", "1", "2", "", "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ"],
+            ["1", "1", "3", "", "الرَّحْمَـٰنِ الرَّحِيمِ", "ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ"],
+            // ... (rest of the data)
+        ];
+
+        var table;
+        var currentSurah = 1;
+        var currentAyah = 1;
+        var currentJuz = 1;
+        var maxSurah = 114;
+        var maxJuz = 30;
+        var ayahCounts = {}; // Will be populated with the count of ayahs for each surah
+
+        $(document).ready(function() {
+            table = new DataTable("#quranTable", {
+                data: data,
+                lengthMenu: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 50],
+                columns: [
+                    { 
+                        title: "index",
+                        render: function (data, type, full, meta) {
+                            return meta.row; // generates an index column
+                        },
+                    },
+                    { title: "Juz", data: 0 },
+                    { title: "Surah No", data: 1 },
+                    { title: "Ayah No", data: 2 },
+                    { title: "Bismillah", data: 3 },
+                    { title: "Quran Plain", data: 4 },
+                    { title: "Quran Fancy", data: 5 },
+                ],
+            });
+
+            // Populate ayahCounts
+            data.forEach(function(row) {
+                var surah = row[1];
+                var ayah = parseInt(row[2]);
+                ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
+            });
+
+            // Initialize dropdowns
+            initializeQDropdown('surah', 1, maxSurah);
+            initializeQDropdown('juz', 1, maxJuz);
+            updateAyahDropdown();
+
+            // Event listeners for nav-value clicks
+            $('.nav-value').on('click', function() {
+                var type = $(this).attr('id').replace('Value', '');
+                toggleDropdown(type);
+            });
+
+            // Event listeners for arrow clicks
+            $('.nav-arrow').on('click', function() {
+                var type = $(this).data('type');
+                var direction = $(this).data('direction');
+                QnavigateArrow(type, direction);
+            });
+
+            // Close dropdowns when clicking outside
+            $(document).on('click', function(event) {
+                if (!$(event.target).closest('.nav-box').length) {
+                    $('.dropdown').hide();
+                }
+            });
+        });
+
+        function initializeQDropdown(type, min, max) {
+            var dropdown = $('#' + type + 'Dropdown');
+            dropdown.empty();
+            dropdown.append('<input type="text" class="dropdown-search" placeholder="Search...">');
+            for (var i = min; i <= max; i++) {
+                dropdown.append('<div class="dropdown-item" data-value="' + i + '">' + i + '</div>');
+            }
+
+            // Event listener for dropdown item clicks
+            dropdown.on('click', '.dropdown-item', function() {
+                var value = $(this).data('value');
+                updateQValue(type, value);
+                dropdown.hide();
+            });
+
+            // Event listener for search input
+            dropdown.find('.dropdown-search').on('input', function() {
+                var searchValue = $(this).val().toLowerCase();
+                dropdown.find('.dropdown-item').each(function() {
+                    var itemValue = $(this).text();
+                    $(this).toggle(itemValue.startsWith(searchValue));
+                });
+            });
+
+            // Event listener for search input enter key
+            dropdown.find('.dropdown-search').on('keypress', function(e) {
+                if (e.which == 13) {
+                    var searchValue = $(this).val();
+                    var firstVisible = dropdown.find('.dropdown-item:visible').first();
+                    if (firstVisible.length) {
+                        updateQValue(type, firstVisible.data('value'));
+                        dropdown.hide();
+                    }
+                }
+            });
+        }
+
+        function toggleDropdown(type) {
+            var dropdown = $('#' + type + 'Dropdown');
+            $('.dropdown').not(dropdown).hide();
+            dropdown.toggle();
+
+            if (dropdown.is(':visible')) {
+                var currentValue = parseInt($('#' + type + 'Value').text());
+                var item = dropdown.find('.dropdown-item[data-value="' + currentValue + '"]');
+                if (item.length) {
+                    item.get(0).scrollIntoView({ block: 'center' });
+                }
+                dropdown.find('.dropdown-search').val('').focus();
+            }
+        }
+
+        function updateQValue(type, value) {
+            value = parseInt(value);
+            $('#' + type + 'Value').text(value);
+            if (type === 'surah') {
+                currentSurah = value;
+                currentAyah = 1;
+                updateAyahDropdown();
+            } else if (type === 'ayah') {
+                currentAyah = value;
+            } else if (type === 'juz') {
+                currentJuz = value;
+            }
+            navigateToVerse();
+        }
+
+        function updateAyahDropdown() {
+            var maxAyah = ayahCounts[currentSurah] || 1;
+            initializeQDropdown('ayah', 1, maxAyah);
+            $('#ayahValue').text('1');
+        }
+
+        function QnavigateArrow(type, direction) {
+            var current, max, min = 1;
+            if (type === 'surah') {
+                current = currentSurah;
+                max = maxSurah;
+            } else if (type === 'ayah') {
+                current = currentAyah;
+                max = ayahCounts[currentSurah] || 1;
+            } else if (type === 'juz') {
+                current = currentJuz;
+                max = maxJuz;
+            }
+
+            if (direction === 'prev') {
+                current--;
+                if (current < min) {
+                    if (type === 'ayah') {
+                        currentSurah--;
+                        if (currentSurah < 1) currentSurah = maxSurah;
+                        updateAyahDropdown();
+                        current = ayahCounts[currentSurah] || 1;
+                    } else {
+                        current = max;
+                    }
+                }
+            } else {
+                current++;
+                if (current > max) {
+                    if (type === 'ayah') {
+                        currentSurah++;
+                        if (currentSurah > maxSurah) currentSurah = 1;
+                        updateAyahDropdown();
+                        current = 1;
+                    } else {
+                        current = min;
+                    }
+                }
+            }
+
+            updateQValue(type, current);
+        }
+
+        function navigateToVerse() {
+            var targetRow = table.rows().indexes().filter(function(value, index) {
+                var rowData = table.row(value).data();
+                return parseInt(rowData[1]) == currentSurah && parseInt(rowData[2]) == currentAyah;
+            });
+
+            if (targetRow.length > 0) {
+                table.row(targetRow[0]).show().draw(false);
+                updateAllQValues(table.row(targetRow[0]).data());
+            } else {
+                // If exact match not found, find the closest verse
+                targetRow = table.rows().indexes().filter(function(value, index) {
+                    var rowData = table.row(value).data();
+                    return parseInt(rowData[0]) == currentJuz;
+                });
+
+                if (targetRow.length > 0) {
+                    table.row(targetRow[0]).show().draw(false);
+                    updateAllQValues(table.row(targetRow[0]).data());
+                }
+            }
+        }
+
+        function updateAllQValues(rowData) {
+            currentJuz = parseInt(rowData[0]);
+            currentSurah = parseInt(rowData[1]);
+            currentAyah = parseInt(rowData[2]);
+            $('#juzValue').text(currentJuz);
+            $('#surahValue').text(currentSurah);
+            $('#ayahValue').text(currentAyah);
+        }
+    </script>
+</body>
+</html>
+
+...
+
+now let me explain how my code works:
+
+the rows of my json data look like this:
+[ "1", "1", "1", "", "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ" ]
+
+it has 5 columns.
+datatables renders a new first column, which is an index column. it has the number of each row.
+
+on the top of the page are 3 boxes side by side
+
+to the side of the first box should say "Surah", followed by a surah box
+to the side of the second box should say "Ayah", followed by an ayah box
+to the side of the third box should say "Juz", followed by a juz box
+surah box, ayah box and juz box are three boxes, for each column of surah, ayah and juz.
+these boxes show the values of the first row of the table.
+
+the boxes when clicked, open a dropdown below them.
+the dropdown contains the values of the rows of those columns
+
+surah dropdown has values that go from 1 to 114.
+juz dropdown has values that go from 1 to 30.
+ayah dropdown has values based on the first surah number the page is on. surahs have a fixed number of ayahs, according to their json data.
+
+clicking a value of a dropdown uses datatables api row().show() to go to the row of that value. as in jumps to the position of that row
+
+for example, if i click surah box and click value 2, the surah box would show 2, and i would be taken to the first row where surah column has 2 in the data. and the ayah box would now show 1, since it is the first ayah column value of the first row where that surah value is. and juz box would now show the the value of the juz column for that same row.
+
+if i click juz box and click value 3, the juz box should now show 3, and i should be taken to the first row where juz column has 3 in the data. and the ayah box should now show 1, since it is the first ayah column value of the first row where that juz value is. and surah box should now show the the value of the surah column for that same row.
+
+if i click ayah box and click a value, the ayah box would now show that value, and based on the surah value of the first row in the current table, i would then be taken to the selected ayah value which has that surah value
+
+for example, if current surah is 1 in the first row of the table, and then i click ayah box and choose value 5, the ayah box would now show 5, and i would be taken to ayah 5 of surah 1. and juz box would now show the the value of the juz column for that same row.
+
+also when i have clicked the box, it opens its dropdown of values, between the box and the dropdown values would be another box for typing. after clicking the first box, typing on the keyboard would enter what was typed into the second box, and the dropdown would open, and the dropdown would update which values are now available based on what matches with what i wrote. and pressing the enter key would apply that value to the box, as if i had selected that same value from the dropdown, and i would be then taken to the appropriate row of the table
+
+once the dropdown is open, clicking elsewhere would close it, whether its on a dropdown value, or outside the dropdown. the difference being clicking on the dropdown value selects that value, while clicking elsewhere does not change the current value.
+
+the boxes would have small arrows on each side of each box. like surah:<[value]> ayah:<[value]> juz:<[value]> 
+clicking on the right arrow of a box, would select and apply the preceding dropdown value of the currently shown value.
+clicking on the left arrow of a box, would select and apply the next dropdown value of the currently shown value.
+
+if there is no preceding dropdown value for ayah, then the ayah preceding arrow click would take me to the last ayah of the surah before it
+if there is no next dropdown value for ayah, the next ayah arrow click would take me to the first ayah of the surah after it
+
+if there is no preceding dropdown value for surah, then the surah preceding arrow click would take me to the last surah
+if there is no next dropdown value for surah, the next surah arrow click would take me to the first surah
+
+if there is no preceding dropdown value for juz,then the juz preceding arrow click should take me to the last juz
+if there is no next dropdown value for juz, the next juz arrow click should take me to the first juz
+
+...
+
+now i will tell you the issues i have:
+
+changing the datatables table page, does not update the values in the boxes to match those in the first row of the table
+
+...
+
+cgpt:
+
+{ title: "Juz", data: 0 },
+            { title: "Surah No", data: 1 },
+            { title: "Ayah No", data: 2 },
+            { title: "Bismillah", data: 3 },
+            { title: "Quran Plain", data: 4 },
+            { title: "Quran Fancy", data: 5 },
+        ],
+        // Add other configurations if needed
+    });
+
+    // Existing code for populating ayahCounts and initializing dropdowns...
+
+    // Event listener for DataTable's draw event
+    table.on('draw', function() {
+        updateQNavigationBoxes();
+    });
+
+    // Initial synchronization of navigation boxes
+    updateQNavigationBoxes();
+
+    // Existing event listeners for navigation boxes and arrows...
+});
+
+
+function updateQNavigationBoxes() {
+    // Get the first row data of the current page
+    var firstRow = table.row({ page: 'current' }).data();
+    if (firstRow) {
+        updateAllQValues(firstRow);
+    }
+}
+
+function updateAllQValues(rowData) {
+    currentJuz = parseInt(rowData[0]);
+    currentSurah = parseInt(rowData[1]);
+    currentAyah = parseInt(rowData[2]);
+    $('#juzValue').text(currentJuz);
+    $('#surahValue').text(currentSurah);
+    $('#ayahValue').text(currentAyah);
+}
+
+
+
+additional recommendation by cgpt:
+
+
+    return meta.row + 1; // Starts indexing from 1
+
+
+...
+
+let me show you my code first:
+
+<!doctype html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quran Navigation</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link
+      href="https://nightly.datatables.net/css/dataTables.dataTables.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://nightly.datatables.net/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/2.1.4/api/row().show().js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+      .navigation-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      .nav-box {
+        display: flex;
+        align-items: center;
+        margin: 0 10px;
+        position: relative;
+      }
+      .nav-label {
+        margin-right: 5px;
+      }
+      .nav-value {
+        border: 1px solid #ccc;
+        padding: 5px 10px;
+        cursor: pointer;
+        min-width: 50px;
+        text-align: center;
+      }
+      .nav-arrow {
+        cursor: pointer;
+        user-select: none;
+        padding: 0 5px;
+      }
+      .dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: white;
+        border: 1px solid #ccc;
+        max-height: 90vh;
+        overflow-y: auto;
+        display: none;
+        z-index: 1000;
+        width: 100%;
+      }
+      .dropdown-item {
+        padding: 5px 10px;
+        cursor: pointer;
+      }
+      .dropdown-item:hover {
+        background-color: #f0f0f0;
+      }
+      .dropdown-search {
+        width: calc(100% - 10px);
+        margin: 5px;
+        padding: 5px;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navigation-container">
+      <div class="nav-box">
+        <span class="nav-label">Surah:</span>
+        <span class="nav-arrow" data-type="surah" data-direction="prev"
+          >◀</span
+        >
+        <div class="nav-value" id="surahValue">1</div>
+        <span class="nav-arrow" data-type="surah" data-direction="next"
+          >▶</span
+        >
+        <div class="dropdown" id="surahDropdown"></div>
+      </div>
+      <div class="nav-box">
+        <span class="nav-label">Ayah:</span>
+        <span class="nav-arrow" data-type="ayah" data-direction="prev">◀</span>
+        <div class="nav-value" id="ayahValue">1</div>
+        <span class="nav-arrow" data-type="ayah" data-direction="next">▶</span>
+        <div class="dropdown" id="ayahDropdown"></div>
+      </div>
+      <div class="nav-box">
+        <span class="nav-label">Juz:</span>
+        <span class="nav-arrow" data-type="juz" data-direction="prev">◀</span>
+        <div class="nav-value" id="juzValue">1</div>
+        <span class="nav-arrow" data-type="juz" data-direction="next">▶</span>
+        <div class="dropdown" id="juzDropdown"></div>
+      </div>
+    </div>
+    <table id="quranTable" width="100%"></table>
+
+    <script>
+        var data = [
+            ["1", "1", "1", "", "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ"],
+            ["1", "1", "2", "", "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ"],
+            ["1", "1", "3", "", "الرَّحْمَـٰنِ الرَّحِيمِ", "ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ"],
+            // ... (rest of the data)
+        ];
+
+        var table;
+      var currentSurah = 1;
+      var currentAyah = 1;
+      var currentJuz = 1;
+      var maxSurah = 114;
+      var maxJuz = 30;
+      var ayahCounts = {}; // Will be populated with the count of ayahs for each surah
+
+      $(document).ready(function () {
+        table = new DataTable("#quranTable", {
+          data: data,
+          lengthMenu: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 50],
+          columns: [
+            {
+              title: "index",
+              render: function (data, type, full, meta) {
+                //return meta.row; // generates an index column
+                return meta.row + 1; // Starts indexing from 1
+              },
+            },
+            { title: "Juz", data: 0 },
+            { title: "Surah No", data: 1 },
+            { title: "Ayah No", data: 2 },
+            { title: "Bismillah", data: 3 },
+            { title: "Quran Plain", data: 4 },
+            { title: "Quran Fancy", data: 5 },
+          ],
+        });
+
+        // Populate ayahCounts
+        data.forEach(function (row) {
+          var surah = row[1];
+          var ayah = parseInt(row[2]);
+          ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
+        });
+
+        // Initialize dropdowns
+        initializeQDropdown("surah", 1, maxSurah);
+        initializeQDropdown("juz", 1, maxJuz);
+        updateAyahDropdown();
+
+        // Event listener for DataTable's draw event
+        table.on("draw", function () {
+          updateQNavigationBoxes();
+        });
+
+        // Initial synchronization of navigation boxes
+        updateQNavigationBoxes();
+
+        // Event listeners for nav-value clicks
+        $(".nav-value").on("click", function () {
+          var type = $(this).attr("id").replace("Value", "");
+          toggleDropdown(type);
+        });
+
+        // Event listeners for arrow clicks
+        $(".nav-arrow").on("click", function () {
+          var type = $(this).data("type");
+          var direction = $(this).data("direction");
+          QnavigateArrow(type, direction);
+        });
+
+        // Close dropdowns when clicking outside
+        $(document).on("click", function (event) {
+          if (!$(event.target).closest(".nav-box").length) {
+            $(".dropdown").hide();
+          }
+        });
+      });
+
+      function updateQNavigationBoxes() {
+        // Get the first row data of the current page
+        var firstRow = table.row({ page: "current" }).data();
+        if (firstRow) {
+          updateAllQValues(firstRow);
+        }
+      }
+
+      function initializeQDropdown(type, min, max) {
+        var dropdown = $("#" + type + "Dropdown");
+        dropdown.empty();
+        dropdown.append(
+          '<input type="text" class="dropdown-search" placeholder="Search...">'
+        );
+        for (var i = min; i <= max; i++) {
+          dropdown.append(
+            '<div class="dropdown-item" data-value="' + i + '">' + i + "</div>"
+          );
+        }
+
+        // Event listener for dropdown item clicks
+        dropdown.on("click", ".dropdown-item", function () {
+          var value = $(this).data("value");
+          updateQValue(type, value);
+          dropdown.hide();
+        });
+
+        // Event listener for search input
+        dropdown.find(".dropdown-search").on("input", function () {
+          var searchValue = $(this).val().toLowerCase();
+          dropdown.find(".dropdown-item").each(function () {
+            var itemValue = $(this).text();
+            $(this).toggle(itemValue.startsWith(searchValue));
+          });
+        });
+
+        // Event listener for search input enter key
+        dropdown.find(".dropdown-search").on("keypress", function (e) {
+          if (e.which == 13) {
+            var searchValue = $(this).val();
+            var firstVisible = dropdown.find(".dropdown-item:visible").first();
+            if (firstVisible.length) {
+              updateQValue(type, firstVisible.data("value"));
+              dropdown.hide();
+            }
+          }
+        });
+      }
+
+      function toggleDropdown(type) {
+        var dropdown = $("#" + type + "Dropdown");
+        $(".dropdown").not(dropdown).hide();
+        dropdown.toggle();
+
+        if (dropdown.is(":visible")) {
+          var currentValue = parseInt($("#" + type + "Value").text());
+          var item = dropdown.find(
+            '.dropdown-item[data-value="' + currentValue + '"]'
+          );
+          if (item.length) {
+            item.get(0).scrollIntoView({ block: "center" });
+          }
+          dropdown.find(".dropdown-search").val("").focus();
+        }
+      }
+
+      function updateQValue(type, value) {
+        value = parseInt(value);
+        $("#" + type + "Value").text(value);
+        if (type === "surah") {
+          currentSurah = value;
+          currentAyah = 1;
+          updateAyahDropdown();
+        } else if (type === "ayah") {
+          currentAyah = value;
+        } else if (type === "juz") {
+          currentJuz = value;
+        }
+        navigateToVerse();
+      }
+
+      function updateAyahDropdown() {
+        var maxAyah = ayahCounts[currentSurah] || 1;
+        initializeQDropdown("ayah", 1, maxAyah);
+        $("#ayahValue").text("1");
+      }
+
+      function QnavigateArrow(type, direction) {
+        var current,
+          max,
+          min = 1;
+        if (type === "surah") {
+          current = currentSurah;
+          max = maxSurah;
+        } else if (type === "ayah") {
+          current = currentAyah;
+          max = ayahCounts[currentSurah] || 1;
+        } else if (type === "juz") {
+          current = currentJuz;
+          max = maxJuz;
+        }
+
+        if (direction === "prev") {
+          current--;
+          if (current < min) {
+            if (type === "ayah") {
+              currentSurah--;
+              if (currentSurah < 1) currentSurah = maxSurah;
+              updateAyahDropdown();
+              current = ayahCounts[currentSurah] || 1;
+            } else {
+              current = max;
+            }
+          }
+        } else {
+          current++;
+          if (current > max) {
+            if (type === "ayah") {
+              currentSurah++;
+              if (currentSurah > maxSurah) currentSurah = 1;
+              updateAyahDropdown();
+              current = 1;
+            } else {
+              current = min;
+            }
+          }
+        }
+
+        updateQValue(type, current);
+      }
+
+      function navigateToVerse() {
+        var targetRow = table
+          .rows()
+          .indexes()
+          .filter(function (value, index) {
+            var rowData = table.row(value).data();
+            return (
+              parseInt(rowData[1]) == currentSurah &&
+              parseInt(rowData[2]) == currentAyah
+            );
+          });
+
+        if (targetRow.length > 0) {
+          table.row(targetRow[0]).show().draw(false);
+          updateAllQValues(table.row(targetRow[0]).data());
+        } else {
+          // If exact match not found, find the closest verse
+          targetRow = table
+            .rows()
+            .indexes()
+            .filter(function (value, index) {
+              var rowData = table.row(value).data();
+              return parseInt(rowData[0]) == currentJuz;
+            });
+
+          if (targetRow.length > 0) {
+            table.row(targetRow[0]).show().draw(false);
+            updateAllQValues(table.row(targetRow[0]).data());
+          }
+        }
+      }
+
+      function updateAllQValues(rowData) {
+        currentJuz = parseInt(rowData[0]);
+        currentSurah = parseInt(rowData[1]);
+        currentAyah = parseInt(rowData[2]);
+        $("#juzValue").text(currentJuz);
+        $("#surahValue").text(currentSurah);
+        $("#ayahValue").text(currentAyah);
+      }
+    </script>
+</body>
+</html>
+
+...
+
+now let me explain how my code works:
+
+the rows of my json data look like this:
+[ "1", "1", "1", "", "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ" ]
+it has 5 columns.
+datatables renders a new first column, which is an index column. it has the number of each row.
+
+on the top of the page are 3 boxes
+surah box, ayah box and juz box are three boxes, for each column of surah, ayah and juz.
+these boxes show the values of the first row of the table.
+the boxes when clicked, open a dropdown below them.
+the dropdown contains the values of the rows of those columns
+
+surah dropdown has values that go from 1 to 114.
+juz dropdown has values that go from 1 to 30.
+ayah dropdown has values based on the first surah number the page is on. surahs have a fixed number of ayahs, according to their json data.
+
+clicking a value of a dropdown uses datatables api row().show() to go to the row of that value. as in jumps to the position of that row
+
+for example, if i click surah box and click value 2, the surah box would show 2, and i would be taken to the first row where surah column has 2 in the data. and the ayah box would now show 1, since it is the first ayah column value of the first row where that surah value is. and juz box would now show the the value of the juz column for that same row.
+
+if i click juz box and click value 3, the juz box should now show 3, and i should be taken to the first row where juz column has 3 in the data. and the ayah box should now show 1, since it is the first ayah column value of the first row where that juz value is. and surah box should now show the the value of the surah column for that same row.
+
+if i click ayah box and click a value, the ayah box would now show that value, and based on the surah value of the first row in the current table, i would then be taken to the selected ayah value which has that surah value
+
+also when i have clicked the box, it opens its dropdown of values, between the box and the dropdown values would be another box for typing. after clicking the first box, typing on the keyboard would enter what was typed into the second box, and the dropdown would open, and the dropdown would update which values are now available based on what matches with what i wrote. and pressing the enter key would apply that value to the box, as if i had selected that same value from the dropdown, and i would be then taken to the appropriate row of the table
+
+the boxes would have small arrows on each side of each box. like surah:<[value]> ayah:<[value]> juz:<[value]> 
+clicking on the right arrow of a box, would select and apply the preceding dropdown value of the currently shown value.
+clicking on the left arrow of a box, would select and apply the next dropdown value of the currently shown value.
+
+...
+
+now i will tell you the issues i have:
+
+
+juz box doesn't work. clicking on juz left and right arrows still does nothing. selecting a juz dropdown value also does nothing. 
+
+...
+
+claude:
+
+$(document).ready(function () {
+  // ... (keep existing code)
+
+  // Modify the navigateToVerse function
+  function navigateToVerse() {
+    var targetRow;
+    
+    if (currentJuz !== null) {
+      targetRow = table.rows().indexes().filter(function (value, index) {
+        var rowData = table.row(value).data();
+        return parseInt(rowData[0]) == currentJuz;
+      });
+    } else {
+      targetRow = table.rows().indexes().filter(function (value, index) {
+        var rowData = table.row(value).data();
+        return (
+          parseInt(rowData[1]) == currentSurah &&
+          parseInt(rowData[2]) == currentAyah
+        );
+      });
+    }
+
+    if (targetRow.length > 0) {
+      table.row(targetRow[0]).show().draw(false);
+      updateAllQValues(table.row(targetRow[0]).data());
+    }
+
+    // Reset currentJuz after navigation
+    currentJuz = null;
+  }
+
+  // Modify the updateQValue function
+  function updateQValue(type, value) {
+    value = parseInt(value);
+    $("#" + type + "Value").text(value);
+    if (type === "surah") {
+      currentSurah = value;
+      currentAyah = 1;
+      currentJuz = null;
+      updateAyahDropdown();
+    } else if (type === "ayah") {
+      currentAyah = value;
+      currentJuz = null;
+    } else if (type === "juz") {
+      currentJuz = value;
+    }
+    navigateToVerse();
+  }
+
+  // Modify the QnavigateArrow function
+  function QnavigateArrow(type, direction) {
+    var current, max, min = 1;
+    if (type === "surah") {
+      current = currentSurah;
+      max = maxSurah;
+      currentJuz = null;
+    } else if (type === "ayah") {
+      current = currentAyah;
+      max = ayahCounts[currentSurah] || 1;
+      currentJuz = null;
+    } else if (type === "juz") {
+      current = parseInt($("#juzValue").text());
+      max = maxJuz;
+    }
+
+    // ... (keep existing code for navigation logic)
+
+    updateQValue(type, current);
+  }
+
+  // ... (keep the rest of the existing code)
+});
+
+...
+
+after typing a value into the search input box of the dropdown and hitting enter, if i click the top level box again to open the dropdown, the only dropdown value is now the same value i entered previously. it should show me all values
+
+after opening a dropdown, i should be able to use the up and down keyboard arrow keys to go up and down the dropdown contents. meaning after opening a dropdown i should be able to type a value with the keyboard, or press down key on keyboard and begin navigation the dropdown with arrow keys and pressing enter to apply it
+
+...
+
+claude:
+
+$(document).ready(function () {
+  // ... (keep existing code)
+
+  function initializeQDropdown(type, min, max) {
+    var dropdown = $("#" + type + "Dropdown");
+    dropdown.empty();
+    dropdown.append('<input type="text" class="dropdown-search" placeholder="Search...">');
+    for (var i = min; i <= max; i++) {
+      dropdown.append('<div class="dropdown-item" data-value="' + i + '">' + i + '</div>');
+    }
+
+    // Event listener for dropdown item clicks
+    dropdown.on("click", ".dropdown-item", function () {
+      var value = $(this).data("value");
+      updateQValue(type, value);
+      dropdown.hide();
+    });
+
+    // Event listener for search input
+    dropdown.find(".dropdown-search").on("input", function () {
+      var searchValue = $(this).val().toLowerCase();
+      dropdown.find(".dropdown-item").each(function () {
+        var itemValue = $(this).text();
+        $(this).toggle(itemValue.startsWith(searchValue));
+      });
+    });
+
+    // Event listener for search input enter key and arrow keys
+    dropdown.find(".dropdown-search").on("keydown", function (e) {
+      var visibleItems = dropdown.find(".dropdown-item:visible");
+      var currentIndex = visibleItems.index(dropdown.find(".dropdown-item.highlighted"));
+
+      switch (e.which) {
+        case 13: // Enter key
+          e.preventDefault();
+          var highlightedItem = dropdown.find(".dropdown-item.highlighted");
+          if (highlightedItem.length) {
+            updateQValue(type, highlightedItem.data("value"));
+          } else {
+            var firstVisible = visibleItems.first();
+            if (firstVisible.length) {
+              updateQValue(type, firstVisible.data("value"));
+            }
+          }
+          dropdown.hide();
+          break;
+        case 38: // Up arrow
+          e.preventDefault();
+          if (currentIndex > 0) {
+            visibleItems.removeClass("highlighted");
+            visibleItems.eq(currentIndex - 1).addClass("highlighted").get(0).scrollIntoView({ block: "nearest" });
+          }
+          break;
+        case 40: // Down arrow
+          e.preventDefault();
+          if (currentIndex < visibleItems.length - 1) {
+            visibleItems.removeClass("highlighted");
+            visibleItems.eq(currentIndex + 1).addClass("highlighted").get(0).scrollIntoView({ block: "nearest" });
+          }
+          break;
+      }
+    });
+  }
+
+  function toggleDropdown(type) {
+    var dropdown = $("#" + type + "Dropdown");
+    $(".dropdown").not(dropdown).hide();
+    dropdown.toggle();
+
+    if (dropdown.is(":visible")) {
+      var currentValue = parseInt($("#" + type + "Value").text());
+      var item = dropdown.find('.dropdown-item[data-value="' + currentValue + '"]');
+      if (item.length) {
+        item.get(0).scrollIntoView({ block: "center" });
+      }
+      dropdown.find(".dropdown-search").val("").focus();
+      
+      // Reset dropdown items visibility
+      dropdown.find(".dropdown-item").show();
+      
+      // Remove highlight from all items
+      dropdown.find(".dropdown-item").removeClass("highlighted");
+    }
+  }
+
+  // ... (keep the rest of the existing code)
+});
+
+
+then it gave some css
+
+.dropdown-item.highlighted {
+  background-color: #e0e0e0;
+}
+
+...
+
+claude:
+
+
+
+very good. now give me the full code, and thoroughly comment the full code
+
+...
+
+it did so, adding this at the end:
+
+ // Additional utility functions can be added here as needed
+
+        /**
+         * Example of a utility function: Get the Arabic name of a Surah
+         * @param {number} surahNumber - The number of the Surah
+         * @returns {string} The Arabic name of the Surah
+         */
+        function getSurahName(surahNumber) {
+            // This is a placeholder. You would need to implement the actual logic
+            // to return the correct Surah name based on the number
+            var surahNames = [
+                "الفاتحة", "البقرة", "آل عمران", // ... add all 114 Surah names
+            ];
+            return surahNames[surahNumber - 1] || "";
+        }
+
+        /**
+         * Example of a utility function: Get the English translation of an Ayah
+         * @param {number} surah - The Surah number
+         * @param {number} ayah - The Ayah number
+         * @returns {string} The English translation of the Ayah
+         */
+        function getAyahTranslation(surah, ayah) {
+            // This is a placeholder. You would need to implement the actual logic
+            // to fetch and return the correct translation
+            // This might involve an API call or looking up in a local database
+            return "Translation of Surah " + surah + ", Ayah " + ayah;
+        }
+
+        /**
+         * Example of a utility function: Get the audio recitation for an Ayah
+         * @param {number} surah - The Surah number
+         * @param {number} ayah - The Ayah number
+         * @returns {string} The URL of the audio file
+         */
+        function getAyahAudio(surah, ayah) {
+            // This is a placeholder. You would need to implement the actual logic
+            // to return the correct audio URL
+            return "https://example.com/audio/surah" + surah + "/ayah" + ayah + ".mp3";
+        }
+
+        // You can add more utility functions as needed for your specific requirements
+
+
+        ...
+
+
+this is my surah names map
+     const surahNames = {
+        1: "الفَاتِحَة",
+        2: "البَقَرَة",
+        3: "آل عِمرَان",
+...
+
+right now the surah dropdown only shows numbers. i'd like it to show the number, followed by space, followed by surah name
+
+so instead of just "1" it would be "1 الفَاتِحَة"
+
+the surah name should not be followed by space followed by surah number
+
+it should be surah number, followed by space followed by surah name
+
+...
+
+claude:
+
+// Surah names map
+const surahNames = {
+    1: "الفَاتِحَة",
+    2: "البَقَرَة",
+    3: "آل عِمرَان",
+    // ... Add all 114 Surah names here
+};
+
+/**
+ * Initializes a dropdown with given range of values
+ * @param {string} type - The type of dropdown (surah, ayah, or juz)
+ * @param {number} min - The minimum value for the dropdown
+ * @param {number} max - The maximum value for the dropdown
+ */
+function initializeQDropdown(type, min, max) {
+    var dropdown = $("#" + type + "Dropdown");
+    dropdown.empty();
+    dropdown.append('<input type="text" class="dropdown-search" placeholder="Search...">');
+    for (var i = min; i <= max; i++) {
+        var displayText = i;
+        if (type === "surah" && surahNames[i]) {
+            displayText = i + " " + surahNames[i];  // Changed order here
+        }
+        dropdown.append('<div class="dropdown-item" data-value="' + i + '">' + displayText + '</div>');
+    }
+
+    // Event listener for dropdown item clicks
+    dropdown.on("click", ".dropdown-item", function () {
+        var value = $(this).data("value");
+        updateQValue(type, value);
+        dropdown.hide();
+    });
+
+    // Event listener for search input
+    dropdown.find(".dropdown-search").on("input", function () {
+        var searchValue = $(this).val().toLowerCase();
+        dropdown.find(".dropdown-item").each(function () {
+            var itemValue = $(this).text().toLowerCase();
+            $(this).toggle(itemValue.includes(searchValue));
+        });
+    });
+
+    // Event listener for search input enter key and arrow keys
+    dropdown.find(".dropdown-search").on("keydown", function (e) {
+        var visibleItems = dropdown.find(".dropdown-item:visible");
+        var currentIndex = visibleItems.index(dropdown.find(".dropdown-item.highlighted"));
+
+        switch (e.which) {
+            case 13: // Enter key
+                e.preventDefault();
+                var highlightedItem = dropdown.find(".dropdown-item.highlighted");
+                if (highlightedItem.length) {
+                    updateQValue(type, highlightedItem.data("value"));
+                } else {
+                    var firstVisible = visibleItems.first();
+                    if (firstVisible.length) {
+                        updateQValue(type, firstVisible.data("value"));
+                    }
+                }
+                dropdown.hide();
+                break;
+            case 38: // Up arrow
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    visibleItems.removeClass("highlighted");
+                    visibleItems.eq(currentIndex - 1).addClass("highlighted").get(0).scrollIntoView({ block: "nearest" });
+                }
+                break;
+            case 40: // Down arrow
+                e.preventDefault();
+                if (currentIndex < visibleItems.length - 1) {
+                    visibleItems.removeClass("highlighted");
+                    visibleItems.eq(currentIndex + 1).addClass("highlighted").get(0).scrollIntoView({ block: "nearest" });
+                }
+                break;
+        }
+    });
+}
+
+// Update the toggleDropdown function to display Surah names correctly
+function toggleDropdown(type) {
+    var dropdown = $("#" + type + "Dropdown");
+    $(".dropdown").not(dropdown).hide();
+    dropdown.toggle();
+
+    if (dropdown.is(":visible")) {
+        var currentValue = parseInt($("#" + type + "Value").text());
+        var item = dropdown.find('.dropdown-item[data-value="' + currentValue + '"]');
+        if (item.length) {
+            item.get(0).scrollIntoView({ block: "center" });
+        }
+        dropdown.find(".dropdown-search").val("").focus();
+        
+        // Reset dropdown items visibility
+        dropdown.find(".dropdown-item").show();
+        
+        // Remove highlight from all items
+        dropdown.find(".dropdown-item").removeClass("highlighted");
+    }
+}
+
+// Update the updateQValue function to display Surah names correctly
+function updateQValue(type, value) {
+    value = parseInt(value);
+    if (type === "surah" && surahNames[value]) {
+        $("#" + type + "Value").text(value + " " + surahNames[value]);  // Changed order here
+    } else {
+        $("#" + type + "Value").text(value);
+    }
+    if (type === "surah") {
+        currentSurah = value;
+        currentAyah = 1;
+        currentJuz = null;
+        updateAyahDropdown();
+    } else if (type === "ayah") {
+        currentAyah = value;
+        currentJuz = null;
+    } else if (type === "juz") {
+        currentJuz = value;
+    }
+    navigateToVerse();
+}
+
+...
+
+let me show you my code first:
+
+<style>
+
+        .navigation-container {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 20px;
+
+          direction: rtl;
+          gap: 20px;
+        }
+        .nav-box {
+          display: flex;
+          align-items: center;
+          margin: 0 10px;
+          position: relative;
+        }
+        .nav-label {
+
+          margin-left: 5px;
+        }
+        .nav-value {
+          border: 1px solid #ccc;
+
+          cursor: pointer;
+          min-width: 50px;
+          text-align: center;
+        }
+        .nav-arrow {
+          cursor: pointer;
+          user-select: none;
+          padding: 0 5px;
+        }
+        .dropdown {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          background-color: white;
+          border: 1px solid #ccc;
+          max-height: 90vh;
+          overflow-y: auto;
+          display: none;
+          z-index: 1000;
+          width: 100%;
+        }
+        .dropdown-item {
+          padding: 5px 10px;
+          cursor: pointer;
+        }
+        .dropdown-item:hover {
+          background-color: #f0f0f0;
+        }
+        .dropdown-search {
+          width: calc(100% - 10px);
+          margin: 5px;
+          padding: 5px;
+          box-sizing: border-box;
+
+          font-family: inherit;
+          font-size: 18px;
+        }
+
+        .dropdown-item.highlighted {
+          background-color: #e0e0e0;
+        }
+
+      </style>
+
+      <div class="navigation-container">
+
+        <div class="nav-box">
+          <span class="nav-label">ސޫރަތް:</span>
+          <span class="nav-arrow" data-type="surah" data-direction="prev"
+            >▶</span
+          >
+          <div class="nav-value" id="surahValue">1</div>
+          <span class="nav-arrow" data-type="surah" data-direction="next"
+            >◀</span
+          >
+          <div class="dropdown" id="surahDropdown"></div>
+        </div>
+
+        <div class="nav-box">
+          <span class="nav-label">އާޔަތް:</span>
+          <span class="nav-arrow" data-type="ayah" data-direction="prev"
+            >▶</span
+          >
+          <div class="nav-value" id="ayahValue">1</div>
+          <span class="nav-arrow" data-type="ayah" data-direction="next"
+            >◀</span
+          >
+          <div class="dropdown" id="ayahDropdown"></div>
+        </div>
+
+        <div class="nav-box">
+          <span class="nav-label">ޖުޒް:</span>
+          <span class="nav-arrow" data-type="juz" data-direction="prev"
+            >▶</span
+          >
+          <div class="nav-value" id="juzValue">1</div>
+          <span class="nav-arrow" data-type="juz" data-direction="next"
+            >◀</span
+          >
+          <div class="dropdown" id="juzDropdown"></div>
+        </div>
+      </div>
+
+      <table id="tableID" class="cards" width="100%"></table>
+
+	  js:
+
+	  var data = [
+        [
+          "1",
+          "1",
+          "1",
+          "1",
+          "",
+          "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ",
+          "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ",
+        ],
+        [
+          "2",
+          "1",
+          "1",
+          "2",
+          "",
+          "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+          "ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ",
+        ],
+        [
+          "3",
+          "1",
+          "1",
+          "3",
+          "",
+          "الرَّحْمَـٰنِ الرَّحِيمِ",
+          "ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ",
+        ],
+		...
+		],
+
+	  const surahNames = {
+        1: "سُورَةُ الفَاتِحَة",
+        2: "سُورَةُ البَقَرَة",
+        3: "سُورَةُ آل عِمرَان",
+        4: "سُورَةُ النِّسَاء",
+        5: "سُورَةُ المَائِدَة",
+		},
+		...
+
+            var currentSurah = 1;
+      var currentAyah = 1;
+      var currentJuz = null;
+      var maxSurah = 114;
+      var maxJuz = 30;
+      var ayahCounts = {}; 
+
+      table = new DataTable("#tableID", {
+        ...DTconfig,
+        data: data,
+        lengthMenu: [1, 2, 3, 4, 5, 10, 20, 50],
+        columns: [
+          {
+            title: "index",
+            render: function (data, type, full, meta) {
+              return meta.row + 1; 
+            },
+          },
+          { title: "Juz", data: 0 },
+          { title: "Surah No", data: 1 },
+          { title: "Ayah No", data: 2 },
+          { title: "Bismillah", data: 3 },
+          { title: "Quran Plain", data: 4 },
+          { title: "Quran Fancy", data: 5 },
+        ],
+
+      data.forEach(function (row) {
+        var surah = row[1];
+        var ayah = parseInt(row[2]);
+        ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
+      });
+
+      initializeQDropdown("surah", 1, maxSurah);
+      initializeQDropdown("juz", 1, maxJuz);
+      updateAyahDropdown();
+
+      table.on("draw", function () {
+        updateQNavigationBoxes();
+      });
+
+      updateQNavigationBoxes();
+
+      $(".nav-value").on("click", function () {
+        var type = $(this).attr("id").replace("Value", "");
+        toggleDropdown(type);
+      });
+
+      $(".nav-arrow").on("click", function () {
+        var type = $(this).data("type");
+        var direction = $(this).data("direction");
+        QnavigateArrow(type, direction);
+      });
+
+      $(document).on("click", function (event) {
+        if (!$(event.target).closest(".nav-box").length) {
+          $(".dropdown").hide();
+        }
+      });
+
+      function updateQNavigationBoxes() {
+        var firstRow = table.row({ page: "current" }).data();
+        if (firstRow) {
+          updateAllQValues(firstRow);
+        }
+      }
+
+      function initializeQDropdown(type, min, max) {
+        var dropdown = $("#" + type + "Dropdown");
+        dropdown.empty();
+        dropdown.append(
+          '<input type="text" class="dropdown-search" placeholder="Search...">'
+        );
+        for (var i = min; i <= max; i++) {
+          var displayText = i;
+          if (type === "surah" && surahNames[i]) {
+            displayText = i + " " + surahNames[i]; 
+          }
+          dropdown.append(
+            '<div class="dropdown-item" data-value="' +
+              i +
+              '">' +
+              displayText +
+              "</div>"
+          );
+        }
+
+        dropdown.on("click", ".dropdown-item", function () {
+          var value = $(this).data("value");
+          updateQValue(type, value);
+          dropdown.hide();
+        });
+
+        dropdown.find(".dropdown-search").on("input", function () {
+          var searchValue = $(this).val().toLowerCase();
+          dropdown.find(".dropdown-item").each(function () {
+            var itemValue = $(this).text().toLowerCase();
+            $(this).toggle(itemValue.includes(searchValue));
+          });
+        });
+
+        dropdown.find(".dropdown-search").on("keydown", function (e) {
+          var visibleItems = dropdown.find(".dropdown-item:visible");
+          var currentIndex = visibleItems.index(
+            dropdown.find(".dropdown-item.highlighted")
+          );
+
+          switch (e.which) {
+            case 13: 
+              e.preventDefault();
+              var highlightedItem = dropdown.find(".dropdown-item.highlighted");
+              if (highlightedItem.length) {
+                updateQValue(type, highlightedItem.data("value"));
+              } else {
+                var firstVisible = visibleItems.first();
+                if (firstVisible.length) {
+                  updateQValue(type, firstVisible.data("value"));
+                }
+              }
+              dropdown.hide();
+              break;
+            case 38: 
+              e.preventDefault();
+              if (currentIndex > 0) {
+                visibleItems.removeClass("highlighted");
+                visibleItems
+                  .eq(currentIndex - 1)
+                  .addClass("highlighted")
+                  .get(0)
+                  .scrollIntoView({ block: "nearest" });
+              }
+              break;
+            case 40: 
+              e.preventDefault();
+              if (currentIndex < visibleItems.length - 1) {
+                visibleItems.removeClass("highlighted");
+                visibleItems
+                  .eq(currentIndex + 1)
+                  .addClass("highlighted")
+                  .get(0)
+                  .scrollIntoView({ block: "nearest" });
+              }
+              break;
+          }
+        });
+      }
+
+      function toggleDropdown(type) {
+        var dropdown = $("#" + type + "Dropdown");
+        $(".dropdown").not(dropdown).hide();
+        dropdown.toggle();
+
+        if (dropdown.is(":visible")) {
+          var currentValue = parseInt($("#" + type + "Value").text());
+          var item = dropdown.find(
+            '.dropdown-item[data-value="' + currentValue + '"]'
+          );
+          if (item.length) {
+            item.get(0).scrollIntoView({ block: "center" });
+          }
+          dropdown.find(".dropdown-search").val("").focus();
+
+          dropdown.find(".dropdown-item").show();
+
+          dropdown.find(".dropdown-item").removeClass("highlighted");
+        }
+      }
+
+      function updateQValue(type, value) {
+        value = parseInt(value);
+        if (type === "surah" && surahNames[value]) {
+          $("#" + type + "Value").text(value + " " + surahNames[value]); 
+        } else {
+          $("#" + type + "Value").text(value);
+        }
+        if (type === "surah") {
+          currentSurah = value;
+          currentAyah = 1;
+          currentJuz = null;
+          updateAyahDropdown();
+        } else if (type === "ayah") {
+          currentAyah = value;
+          currentJuz = null;
+        } else if (type === "juz") {
+          currentJuz = value;
+        }
+        navigateToVerse();
+      }
+
+      function updateAyahDropdown() {
+        var maxAyah = ayahCounts[currentSurah] || 1;
+        initializeQDropdown("ayah", 1, maxAyah);
+        $("#ayahValue").text("1");
+      }
+
+      function QnavigateArrow(type, direction) {
+        var current,
+          max,
+          min = 1;
+        if (type === "surah") {
+          current = currentSurah;
+          max = maxSurah;
+          currentJuz = null;
+        } else if (type === "ayah") {
+          current = currentAyah;
+          max = ayahCounts[currentSurah] || 1;
+          currentJuz = null;
+        } else if (type === "juz") {
+          current = parseInt($("#juzValue").text());
+          max = maxJuz;
+        }
+
+        if (direction === "prev") {
+          current--;
+          if (current < min) {
+            if (type === "ayah") {
+              currentSurah--;
+              if (currentSurah < 1) currentSurah = maxSurah;
+              updateAyahDropdown();
+              current = ayahCounts[currentSurah] || 1;
+            } else {
+              current = max;
+            }
+          }
+        } else {
+          current++;
+          if (current > max) {
+            if (type === "ayah") {
+              currentSurah++;
+              if (currentSurah > maxSurah) currentSurah = 1;
+              updateAyahDropdown();
+              current = 1;
+            } else {
+              current = min;
+            }
+          }
+        }
+
+        updateQValue(type, current);
+      }
+
+      function navigateToVerse() {
+        var targetRow;
+
+        if (currentJuz !== null) {
+
+          targetRow = table
+            .rows()
+            .indexes()
+            .filter(function (value, index) {
+              var rowData = table.row(value).data();
+              return parseInt(rowData[0]) == currentJuz;
+            });
+        } else {
+
+          targetRow = table
+            .rows()
+            .indexes()
+            .filter(function (value, index) {
+              var rowData = table.row(value).data();
+              return (
+                parseInt(rowData[1]) == currentSurah &&
+                parseInt(rowData[2]) == currentAyah
+              );
+            });
+        }
+
+        if (targetRow.length > 0) {
+
+          table.row(targetRow[0]).show().draw(false);
+          updateAllQValues(table.row(targetRow[0]).data());
+        }
+
+        currentJuz = null;
+      }
+
+      function updateAllQValues(rowData) {
+        currentJuz = parseInt(rowData[0]);
+        currentSurah = parseInt(rowData[1]);
+        currentAyah = parseInt(rowData[2]);
+        $("#juzValue").text(currentJuz);
+        $("#surahValue").text(currentSurah);
+        $("#ayahValue").text(currentAyah);
+      }
+	  
+	  
+	  
+	  ...
+
+now let me explain how my code works:
+
+the rows of my json data look like this:
+[ "1", "1", "1", "", "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ", "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ" ]
+it has 5 columns.
+datatables renders a new first column, which is an index column. it has the number of each row.
+
+on the top of the page are 3 boxes
+surah box, ayah box and juz box are three boxes, for each column of surah, ayah and juz.
+these boxes show the values of the first row of the table.
+the boxes when clicked, open a dropdown below them.
+the dropdown contains the values of the rows of those columns
+
+surah dropdown has values that go from 1 to 114.
+juz dropdown has values that go from 1 to 30.
+ayah dropdown has values based on the first surah number the page is on. surahs have a fixed number of ayahs, according to their json data.
+
+clicking a value of a dropdown uses datatables api row().show() to go to the row of that value. as in jumps to the position of that row
+
+for example, if i click surah box and click value 2, the surah box would show 2, and i would be taken to the first row where surah column has 2 in the data. and the ayah box would now show 1, since it is the first ayah column value of the first row where that surah value is. and juz box would now show the the value of the juz column for that same row.
+
+if i click juz box and click value 3, the juz box should now show 3, and i should be taken to the first row where juz column has 3 in the data. and the ayah box should now show 1, since it is the first ayah column value of the first row where that juz value is. and surah box should now show the the value of the surah column for that same row.
+
+if i click ayah box and click a value, the ayah box would now show that value, and based on the surah value of the first row in the current table, i would then be taken to the selected ayah value which has that surah value
+
+also when i have clicked the box, it opens its dropdown of values, between the box and the dropdown values would be another box for typing. after clicking the first box, typing on the keyboard would enter what was typed into the second box, and the dropdown would open, and the dropdown would update which values are now available based on what matches with what i wrote. and pressing the enter key would apply that value to the box, as if i had selected that same value from the dropdown, and i would be then taken to the appropriate row of the table. i can also use keyboard up and down keys to navigate the dropdown values.
+
+the boxes would have small arrows on each side of each box. like surah:<[value]> ayah:<[value]> juz:<[value]> 
+clicking on the right arrow of a box, would select and apply the preceding dropdown value of the currently shown value.
+clicking on the left arrow of a box, would select and apply the next dropdown value of the currently shown value.
+
+i have a surahNames map
+ const surahNames = {
+        1: "الفَاتِحَة",
+        2: "البَقَرَة",
+        3: "آل عِمرَان",
+		
+		that maps the surah numbers from the rendered surah column onto it, and renders surah number, followed by space followed by surah name for that column.
+
+	  ...
+	  
+	  
+now i will tell you the issues i have:
+
+	   the surah box shows still only shows the number of the surah, i'd like it to show the number followed by space followed by text as well
+	   
+	   ...
+
+     claude:
+
+     // ... (previous code remains the same)
+
+function updateQValue(type, value) {
+  value = parseInt(value);
+  if (type === "surah" && surahNames[value]) {
+    $("#" + type + "Value").text(value + " " + surahNames[value]);
+  } else {
+    $("#" + type + "Value").text(value);
+  }
+  if (type === "surah") {
+    currentSurah = value;
+    currentAyah = 1;
+    currentJuz = null;
+    updateAyahDropdown();
+  } else if (type === "ayah") {
+    currentAyah = value;
+    currentJuz = null;
+  } else if (type === "juz") {
+    currentJuz = value;
+  }
+  navigateToVerse();
+}
+
+function updateQNavigationBoxes() {
+  var firstRow = table.row({ page: "current" }).data();
+  if (firstRow) {
+    updateAllQValues(firstRow);
+  }
+}
+
+function updateAllQValues(rowData) {
+  currentJuz = parseInt(rowData[0]);
+  currentSurah = parseInt(rowData[1]);
+  currentAyah = parseInt(rowData[2]);
+  $("#juzValue").text(currentJuz);
+  $("#surahValue").text(currentSurah + " " + surahNames[currentSurah]);
+  $("#ayahValue").text(currentAyah);
+}
+
+// ... (rest of the code remains the same)
+
+...
+
+
+when i type number into the search input of the dropdown
+
+the dropdown results i get are of everything that matches that number no matter what the order
+
+so if i write
+
+5
+
+i get
+
+5
+15
+25
+35
+45
+50
+...
+
+
+when instead i should be getting results where that number comes as the first number
+
+so when i write 
+
+
+i should get
+5
+50
+51
+52
+53
+54
+55
+...59
+
+
+...
+
+claude:
+
+function initializeQDropdown(type, min, max) {
+  var dropdown = $("#" + type + "Dropdown");
+  dropdown.empty();
+  dropdown.append('<input type="text" class="dropdown-search" placeholder="Search...">');
+  for (var i = min; i <= max; i++) {
+    var displayText = i;
+    if (type === "surah" && surahNames[i]) {
+      displayText = i + " " + surahNames[i];
+    }
+    dropdown.append('<div class="dropdown-item" data-value="' + i + '">' + displayText + '</div>');
+  }
+
+  dropdown.on("click", ".dropdown-item", function () {
+    var value = $(this).data("value");
+    updateQValue(type, value);
+    dropdown.hide();
+  });
+
+  dropdown.find(".dropdown-search").on("input", function () {
+    var searchValue = $(this).val().toLowerCase();
+    dropdown.find(".dropdown-item").each(function () {
+      var itemValue = $(this).text().toLowerCase();
+      var itemNumericValue = $(this).data("value").toString();
+      
+      // Check if the search value is numeric
+      if (!isNaN(searchValue) && searchValue.trim() !== '') {
+        // For numeric searches, match only at the beginning
+        $(this).toggle(itemNumericValue.startsWith(searchValue));
+      } else {
+        // For text searches, use the existing logic
+        $(this).toggle(itemValue.includes(searchValue));
+      }
+    });
+  });
+
+  // ... (rest of the function remains the same)
+}
+
+...
+
+i want to be able to type in the surah input box the Arabic without diacritics and have the dropdown results still show
+
+right now when i type
+
+الفا
+
+it doesn't show me
+
+1 الفَاتِحَة
+
+because there is a fatha on the faa
+
+maybe i could use something like
+
+replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "");
+
+...
+
+claude:
+
+function removeDiacritics(text) {
+  return text.replace(/[َُِّْٰۡۚٓـًٌٍّٔ]/g, "");
+}
+
+function initializeQDropdown(type, min, max) {
+  var dropdown = $("#" + type + "Dropdown");
+  dropdown.empty();
+  dropdown.append('<input type="text" class="dropdown-search" placeholder="Search...">');
+  for (var i = min; i <= max; i++) {
+    var displayText = i;
+    if (type === "surah" && surahNames[i]) {
+      displayText = i + " " + surahNames[i];
+    }
+    dropdown.append('<div class="dropdown-item" data-value="' + i + '">' + displayText + '</div>');
+  }
+
+  dropdown.on("click", ".dropdown-item", function () {
+    var value = $(this).data("value");
+    updateQValue(type, value);
+    dropdown.hide();
+  });
+
+  dropdown.find(".dropdown-search").on("input", function () {
+    var searchValue = removeDiacritics($(this).val().toLowerCase());
+    var matchingItems = [];
+
+    dropdown.find(".dropdown-item").each(function () {
+      var $item = $(this);
+      var itemValue = removeDiacritics($item.text().toLowerCase());
+      var itemNumericValue = $item.data("value").toString();
+      
+      if (!isNaN(searchValue) && searchValue.trim() !== '') {
+        if (itemNumericValue.startsWith(searchValue)) {
+          matchingItems.push($item);
+        }
+        $item.hide();
+      } else {
+        $item.toggle(itemValue.includes(searchValue));
+      }
+    });
+
+    if (!isNaN(searchValue) && searchValue.trim() !== '') {
+      matchingItems.sort(function(a, b) {
+        return a.data("value") - b.data("value");
+      }).forEach(function($item) {
+        $item.show().appendTo(dropdown);
+      });
+    }
+  });
+
+  // ... (rest of the function remains the same)
+}
+
+...
+
+
+
