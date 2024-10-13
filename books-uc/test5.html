@@ -95,7 +95,11 @@
       table = new DataTable("#tableID", {
         ...DTconfig,
 
-        mark: true,
+        //mark: true,
+        mark: {
+          //exclude: ["1"],
+          synonyms: { ރަސޫލާ: "1" },
+        },
         ajax: {
           url: `../js/json/qawaidulArbau.json`,
           dataSrc: "",
