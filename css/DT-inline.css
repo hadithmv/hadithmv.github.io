@@ -379,15 +379,9 @@ https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/140
   background: #dee3eb none;
   /* prev e0e1e2 */
   border-radius: 0.28571429rem;
-  box-shadow:
-    0 0 0 1px transparent inset,
-    0 0 0 0 rgba(34, 36, 38, 0.15) inset;
-  transition:
-    opacity 0.1s ease,
-    background-color 0.1s ease,
-    color 0.1s ease,
-    box-shadow 0.1s ease,
-    background 0.1s ease;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
+    box-shadow 0.1s ease, background 0.1s ease;
   /* added */
   margin: 5px;
   transition: transform 0.2s ease-out;
@@ -505,16 +499,16 @@ https://datatables.net/forums/discussion/comment/228301/#Comment_228301 */
   margin-bottom: 0;
 }
 /* mark js highlight color */
-/*mark {
-    background: #82b8fa;
-    color: black;
+mark {
+  background: #82b8fa;
+  /*color: black;*/
 }
-prev background: #b3d4fc */
-table.dataTable span.highlight {
+/*prev background: #b3d4fc */
+/*table.dataTable span.highlight {
   background-color: #82b8fa;
-  /* ffff88 */
   border-radius: 0.28571429rem;
-}
+}*/ /* ffff88 */
+
 /*table.dataTable span.column_highlight {
     background-color: #ffcc99;
     border-radius: 0.28571429rem;
@@ -780,15 +774,9 @@ div.dt-scroll-body
   background: #e0e1e2 none;
   border-radius: 0.28571429rem;
   /* ? */
-  box-shadow:
-    0 0 0 1px transparent inset,
-    0 0 0 0 rgba(34, 36, 38, 0.15) inset;
-  transition:
-    opacity 0.1s ease,
-    background-color 0.1s ease,
-    color 0.1s ease,
-    box-shadow 0.1s ease,
-    background 0.1s ease;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
+    box-shadow 0.1s ease, background 0.1s ease;
 }
 /* customizes the keytables focus box */
 table.dataTable tbody td.focus {
@@ -852,15 +840,9 @@ div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
    */
   border-radius: 0.28571429rem;
   /* ? */
-  box-shadow:
-    0 0 0 1px transparent inset,
-    0 0 0 0 rgba(34, 36, 38, 0.15) inset;
-  transition:
-    opacity 0.1s ease,
-    background-color 0.1s ease,
-    color 0.1s ease,
-    box-shadow 0.1s ease,
-    background 0.1s ease;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
+    box-shadow 0.1s ease, background 0.1s ease;
   /*font-size: 1rem;
    */
 }
@@ -914,9 +896,7 @@ div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
    */
   background-image: none;
   /* otherwise doesnt remove gradient */
-  box-shadow:
-    0 0 0 1px transparent inset,
-    0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
   color: rgba(0, 0, 0, 0.8);
   /* cancel out default dt hover styles */
   border: none;
@@ -961,12 +941,8 @@ div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
 .dt-container > div > div > div.dt-inputpaging.dt-paging > button {
   border: none;
   border-radius: 0.28571429rem;
-  transition:
-    opacity 0.1s ease,
-    background-color 0.1s ease,
-    color 0.1s ease,
-    box-shadow 0.1s ease,
-    background 0.1s ease;
+  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
+    box-shadow 0.1s ease, background 0.1s ease;
 }
 /* pagination buttons hover */
 .dt-container > div > div > div.dt-inputpaging.dt-paging > button:hover {
@@ -996,8 +972,7 @@ html {
 /* merged font */
 @font-face {
   font-family: "mergedFont";
-  src:
-    url(../font/merged-300.woff2) format("woff2"),
+  src: url(../font/merged-300.woff2) format("woff2"),
     url(../font/merged-300.woff) format("woff");
   /* https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display */
   font-display: block;
