@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="dv" translate="no">
+  <head>
+    <!-- CHANGE !!! -->
+    <title>القواعد الأربع – ހަތަރު ގަވާއިދު</title>
+    <meta
+      name="description"
+      content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
+    />
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <link
+      rel="stylesheet"
+      href="../css/ALL-COMB.min.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <script src="../js/ALL-COMB.min.js"></script>
+    <style></style>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="hmvSection"></div>
+    </div>
+
+    <style>
+      table.dataTable span.highlight {
+        background-color: #ffff88;
+        border-radius: 0.28571429rem;
+      }
+
+      table.dataTable span.column_highlight {
+        background-color: #ffcc99;
+        border-radius: 0.28571429rem;
+      }
+    </style>
+    <script type="text/javascript">
+      // searchHighlight code
+      /*! © SpryMedia Ltd - datatables.net/license */
+
+      (function (factory) {
+        if (typeof define === "function" && define.amd) {
+          // AMD
+          define(["jquery", "datatables.net"], function ($) {
+            return factory($, window, document);
+          });
+        } else if (typeof exports === "object") {
+          // CommonJS
+          var jq = require("jquery");
+          var cjsRequires = function (root, $) {
+            if (!$.fn.dataTable) {
+              require("datatables.net")(root, $);
+            }
+          };
+
+          if (typeof window === "undefined") {
+            module.exports = function (root, $) {
+              if (!root) {
+                // CommonJS environments without a window global must pass a
+                // root. This will give an error otherwise
+                root = window;
+              }
+
+              if (!$) {
+                $ = jq(root);
+              }
+
+              cjsRequires(root, $);
+              return factory($, root, root.document);
+            };
+          } else {
+            cjsRequires(window, jq);
+            module.exports = factory(jq, window, window.document);
+          }
+        } else {
+          // Browser
+          factory(jQuery, window, document);
+        }
+      })(function ($, window, document) {
+        "use strict";
+        var DataTable = $.fn.dataTable;
+
+        /**
+         * @summary     SearchHighlight
+         * @description Search term highlighter for DataTables
+         * @version     1.1.0
+         * @author      SpryMedia Ltd
+         *
+         * License      MIT - http://datatables.net/license/mit
+         *
+         * This feature plug-in for DataTables will highlight search terms in the
+         * DataTable as they are entered into the main search input element, or via the
+         * `search()` API method.
+         *
+         * It depends upon the jQuery Highlight plug-in by Bartek Szopka:
+         * 	  http://bartaz.github.io/sandbox.js/jquery.highlight.js
+         *
+         * Search highlighting in DataTables can be enabled by:
+         *
+         * * Adding the class `searchHighlight` to the HTML table
+         * * Setting the `searchHighlight` parameter in the DataTables initialisation to
+         *   be true
+         * * Setting the `searchHighlight` parameter to be true in the DataTables
+         *   defaults (thus causing all tables to have this feature) - i.e.
+         *   `DataTable.defaults.searchHighlight = true`.
+         *
+         * For more detailed information please see:
+         *     http://datatables.net/blog/2014-10-22
+         */
+        function highlight(body, table) {
+          // Removing the old highlighting first
+          body.unhighlight();
+          // Don't highlight the "not found" row, so we get the rows using the api
+          if (table.rows({ filter: "applied" }).data().length) {
+            table.columns().every(function () {
+              var column = this;
+              column
+                .nodes()
+                .flatten()
+                .to$()
+                .unhighlight({ className: "column_highlight" });
+              column
+                .nodes()
+                .flatten()
+                .to$()
+                .highlight(column.search().trim().split(/\s+/), {
+                  className: "column_highlight",
+                });
+            });
+            body.highlight(table.search().trim().split(/\s+/));
+          }
+        }
+        // Listen for DataTables initialisations
+        $(document).on("init.dt.dth", function (e, settings, json) {
+          if (e.namespace !== "dt") {
+            return;
+          }
+          var table = new DataTable.Api(settings);
+          var body = $(table.table().body());
+          if (
+            $(table.table().node()).hasClass("searchHighlight") || // table has class
+            settings.oInit.searchHighlight || // option specified
+            DataTable.defaults.searchHighlight // default set
+          ) {
+            table
+              .on(
+                "draw.dt.dth column-visibility.dt.dth column-reorder.dt.dth",
+                function () {
+                  highlight(body, table);
+                }
+              )
+              .on("destroy", function () {
+                // Remove event handler
+                table.off(
+                  "draw.dt.dth column-visibility.dt.dth column-reorder.dt.dth"
+                );
+              });
+            // initial highlight for state saved conditions and initial states
+            if (table.search()) {
+              highlight(body, table);
+            }
+          }
+        });
+
+        return DataTable;
+      });
+
+      //
+      //
+      //
+
+      // https://medium.com/@kashmiry/datatables-arabic-search-normalization-575949b0453c
+      // https://gist.github.com/kashmiry/ba35115ba23e8b6f034c2562dbd4042c#file-datatables-diacriticsarabic-js
+
+      // DataTables Arabic Search Normalization
+      // Extend diacritics to support Arabic characters
+      $(function () {
+        // Check if DataTable is defined
+        if (typeof DataTable !== "undefined") {
+          // Define a function to normalize Arabic text
+          DataTable.util.diacritics(function (str, both) {
+            // If the input is not a string, return it as is
+            if (typeof str !== "string") {
+              return str;
+            }
+            // Normalize the string by replacing specific Arabic characters
+            var normalized = str
+              .normalize("NFD") // Normalize the string to decompose characters
+              .replace(/[أآإ]/g, "ا") // Replace different forms of alef with a single form
+              .replace("ؤ", "و") // Replace waw with its alternative form
+              .replace(/ة/g, "ه") // Replace taa marbota with ha
+              .replace(/[\u064B-\u065F]/g, ""); // Remove diacritics (tashkeel)
+
+            // Return the normalized string, appending the original if lengths differ
+            return normalized.length !== str.length
+              ? (both === true ? str + " " : "") +
+                  normalized.replace(/[\u0300-\u036f]/g, "")
+              : normalized;
+          });
+        }
+      });
+
+      //
+      table = new DataTable("#tableID", {
+        ...DTconfig,
+
+        searchHighlight: true,
+        ajax: {
+          url: `../js/json/qawaidulArbau.json`,
+          dataSrc: "",
+        },
+        columns: [
+          { title: "#" },
+          { title: "ބާބު އަރަބިން" },
+          { title: "ބާބު ދިވެހިން" },
+          { title: "އަރަބި ލިޔުން" },
+          {
+            title: "ދިވެހި ލިޔުން",
+            data: 4,
+          },
+          {
+            title: "ތަޚްރީޖު",
+            data: 5,
+            searchable: false,
+          },
+        ],
+      });
+    </script>
+  </body>
+</html>

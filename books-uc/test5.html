@@ -42,7 +42,24 @@
       <table id="tableID" class="cards" width="100%"></table>
       <div class="hmvSection"></div>
     </div>
+
+    <!-- previously: mark.js v8.9.1, datatables.mark.js v2.0.0
+     currently: mark.js v9.0.0, datatables.mark.js v2.1.0
+    -->
+    <script src="jquery.mark.js"></script>
+    <script src="datatables.mark.js"></script>
+
+    <style>
+      mark {
+        background: orange;
+        color: black;
+      }
+    </style>
     <script type="text/javascript">
+      //
+      //
+      //
+
       // https://medium.com/@kashmiry/datatables-arabic-search-normalization-575949b0453c
       // https://gist.github.com/kashmiry/ba35115ba23e8b6f034c2562dbd4042c#file-datatables-diacriticsarabic-js
 
@@ -77,6 +94,8 @@
       //
       table = new DataTable("#tableID", {
         ...DTconfig,
+
+        mark: true,
         ajax: {
           url: `../js/json/qawaidulArbau.json`,
           dataSrc: "",
