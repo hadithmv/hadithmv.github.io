@@ -490,7 +490,8 @@ let DTconfig = {
                 return row;
               });
               // Join the rows back together
-              return rows.join("\n");
+              //return rows.join("\n"); // return would have exited, making the next part unreachable
+              data = rows.join("\n");
               //
 
               //
@@ -739,10 +740,54 @@ Object.assign(DataTable.defaults, {
   autoWidth: false,
   //
   //
-  // https://datatables.net/blog/2014/search-highlighting#:~:text=DataTables'%20built%20in%20search%20features,what%20they%20are%20looking%20for
-  searchHighlight: true,
+
   // https://datatables.net/blog/2017/search-highlighting-with-markjs
-  // mark: true,
+  // https://markjs.io
+  // Synonyms
+  //mark: true,
+  // remember to repeat in:
+  /* Normalize the string by replacing specific Arabic characters
+            var normalized = str
+              .replace(/[أآإ]/g, "ا")*/
+
+  mark: {
+    // this is actually supposed to be used for making matches with or without punctuation characters, like ["'"]
+    // i repurposed it as a arabic diacritic thaskeel remove
+    // \u064B-\u065F
+
+    ignorePunctuation: ["ًٌٍَُِّْٕٖٜٟٗ٘ٙٚٛٝٞ"],
+    //
+    synonyms: {
+      // arabic
+      أ: "ا",
+      آ: "ا",
+      إ: "ا",
+      ٱ: "ا",
+      //
+      ؤ: "و",
+      ة: "ه",
+      ئ: "ى",
+
+      // thaskeel \u064B-\u065F
+      // مَ: "م",
+      // كَ: "ك",
+
+      // thikijehi thaana
+      ޘ: "ސ",
+      ޙ: "ހ",
+      ޛ: "ޒ",
+      ޜ: "ޒ",
+      ޞ: "ސ",
+      ޠ: "ތ",
+      ޡ: "ޒ",
+      ޢ: "އ",
+      ޤ: "ގ",
+      ޥ: "ވ",
+    },
+  },
+
+  // https://datatables.net/blog/2014/search-highlighting#:~:text=DataTables'%20built%20in%20search%20features,what%20they%20are%20looking%20for
+  // searchHighlight: true,
   //
 
   // https://datatables.net/blog/2019/scroll-to-top
@@ -919,6 +964,57 @@ table = new DataTable("#tableID", {
 
   //
 }); // new DataTable("#example", { END
+
+//
+
+// https://medium.com/@kashmiry/datatables-arabic-search-normalization-575949b0453c
+// https://gist.github.com/kashmiry/ba35115ba23e8b6f034c2562dbd4042c#file-datatables-diacriticsarabic-js
+
+// DataTables Arabic Search Normalization Functions
+// Extend diacritics to support Arabic characters
+$(function () {
+  // Check if DataTable is defined
+  if (typeof DataTable !== "undefined") {
+    // Define a function to normalize Arabic text
+    DataTable.util.diacritics(function (str, both) {
+      // If the input is not a string, return it as is
+      if (typeof str !== "string") {
+        return str;
+      }
+      // Normalize the string by replacing specific Arabic characters
+      var normalized = str
+        .normalize("NFD") // Normalize the string to decompose characters
+        // remember to repeat in 'mark: { synonyms: { } }'
+        // added ٱ
+        .replace(/[أآإٱ]/g, "ا") // Replace different forms of alef with a single form
+        .replace("ؤ", "و") // Replace waw with its alternative form
+        .replace(/ة/g, "ه") // Replace taa marbota with ha
+        .replace(/[\u064B-\u065F]/g, "") // Remove diacritics (tashkeel)
+        // added
+        .replace("ئ", "ى") // Replace waw with its alternative form
+        // thikijehi thaana
+        .replace(/ޘ/g, "ސ")
+        .replace(/ޙ/g, "ހ")
+        .replace(/ޛ/g, "ޒ")
+        .replace(/ޜ/g, "ޒ")
+        .replace(/ޞ/g, "ސ")
+        .replace(/ޠ/g, "ތ")
+        .replace(/ޡ/g, "ޒ")
+        .replace(/ޢ/g, "އ")
+        .replace(/ޤ/g, "ގ")
+        .replace(/ޥ/g, "ވ");
+
+      // Return the normalized string, appending the original if lengths differ
+      // Check if the length of the normalized string is different from the original
+      return normalized.length !== str.length
+        ? (both === true ? str + " " : "") + // If 'both' is true, append the original string
+            normalized.replace(/[\u0300-\u036f]/g, "") // Remove (non arabic) diacritics from the normalized string
+        : // "ًٌٍَُِّْٕٖٜٟٗ٘ٙٚٛٝٞ"
+          normalized; // If lengths are the same, return the normalized string as is
+    });
+  }
+});
+//
 
 // This ensures that the code runs after the entire DOM has been fully loaded.
 document.addEventListener("DOMContentLoaded", function () {
