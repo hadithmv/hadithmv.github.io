@@ -4928,8 +4928,8 @@
             return box.bottom <= y
               ? false
               : box.top > y
-                ? true
-                : (left ? box.left : box.right) > x;
+              ? true
+              : (left ? box.left : box.right) > x;
           }
 
           function coordsCharInner(cm, lineObj, lineNo, x, y) {
@@ -5005,17 +5005,14 @@
                 ch == 0
                   ? "after"
                   : ch == lineObj.text.length
-                    ? "before"
-                    : measureCharPrepared(
-                          cm,
-                          preparedMeasure,
-                          ch - (ltr ? 1 : 0)
-                        ).bottom +
-                          widgetHeight <=
-                          y ==
-                        ltr
-                      ? "after"
-                      : "before";
+                  ? "before"
+                  : measureCharPrepared(cm, preparedMeasure, ch - (ltr ? 1 : 0))
+                      .bottom +
+                      widgetHeight <=
+                      y ==
+                    ltr
+                  ? "after"
+                  : "before";
               // Now get accurate coordinates for this place, in order to get a
               // base X position
               var coords = cursorCoords(
@@ -8175,10 +8172,9 @@
           }
 
           function setDirectionClass(cm) {
-            (cm.doc.direction == "rtl" ? addClass : rmClass)(
-              cm.display.lineDiv,
-              "CodeMirror-rtl"
-            );
+            (cm.doc.direction == "rtl"
+              ? addClass
+              : rmClass)(cm.display.lineDiv, "CodeMirror-rtl");
           }
 
           function directionChanged(cm) {
@@ -10508,10 +10504,10 @@
                     where == "text"
                       ? "textClass"
                       : where == "background"
-                        ? "bgClass"
-                        : where == "gutter"
-                          ? "gutterClass"
-                          : "wrapClass";
+                      ? "bgClass"
+                      : where == "gutter"
+                      ? "gutterClass"
+                      : "wrapClass";
                   if (!line[prop]) {
                     line[prop] = cls;
                   } else if (classTest(cls).test(line[prop])) {
@@ -10533,10 +10529,10 @@
                     where == "text"
                       ? "textClass"
                       : where == "background"
-                        ? "bgClass"
-                        : where == "gutter"
-                          ? "gutterClass"
-                          : "wrapClass";
+                      ? "bgClass"
+                      : where == "gutter"
+                      ? "gutterClass"
+                      : "wrapClass";
                   var cur = line[prop];
                   if (!cur) {
                     return false;
@@ -12286,10 +12282,10 @@
               value.unit = rect
                 ? "rectangle"
                 : repeat == "single"
-                  ? "char"
-                  : repeat == "double"
-                    ? "word"
-                    : "line";
+                ? "char"
+                : repeat == "double"
+                ? "word"
+                : "line";
             }
             if (value.extend == null || cm.doc.extend) {
               value.extend = cm.doc.extend || event.shiftKey;
@@ -12609,8 +12605,8 @@
                   e.clientY < editorSize.top
                     ? -20
                     : e.clientY > editorSize.bottom
-                      ? 20
-                      : 0;
+                    ? 20
+                    : 0;
                 if (outside) {
                   setTimeout(
                     operation(cm, function () {
@@ -13618,8 +13614,8 @@
                   (paste
                     ? "paste"
                     : cm.state.cutIncoming > recent
-                      ? "cut"
-                      : "+input"),
+                    ? "cut"
+                    : "+input"),
               };
               makeChange(cm.doc, changeEvent);
               signalLater(cm, "inputRead", cm, changeEvent);
@@ -13923,8 +13919,8 @@
                 return cut < 0
                   ? type
                   : cut == 0
-                    ? null
-                    : type.slice(0, cut - 1);
+                  ? null
+                  : type.slice(0, cut - 1);
               },
 
               getModeAt: function (pos) {
@@ -14249,12 +14245,12 @@
                         return isWordChar(ch, helper);
                       }
                     : /\s/.test(startChar)
-                      ? function (ch) {
-                          return /\s/.test(ch);
-                        }
-                      : function (ch) {
-                          return !/\s/.test(ch) && !isWordChar(ch);
-                        };
+                    ? function (ch) {
+                        return /\s/.test(ch);
+                      }
+                    : function (ch) {
+                        return !/\s/.test(ch) && !isWordChar(ch);
+                      };
                   while (start > 0 && check(line.charAt(start - 1))) {
                     --start;
                   }
@@ -14522,10 +14518,10 @@
                 var type = isWordChar(cur, helper)
                   ? "w"
                   : group && cur == "\n"
-                    ? "n"
-                    : !group || /\s/.test(cur)
-                      ? null
-                      : "p";
+                  ? "n"
+                  : !group || /\s/.test(cur)
+                  ? null
+                  : "p";
                 if (group && !first && !type) {
                   type = "s";
                 }
@@ -16994,7 +16990,7 @@ span.CodeMirror-selectedtext { background: none; }
 
         function Worker_fn() {
           return _node_modules_worker_loader_dist_runtime_inline_js__WEBPACK_IMPORTED_MODULE_0___default()(
-            "/******/ (() => { // webpackBootstrap\n/******/ \tvar __webpack_modules__ = ({\n\n/***/ 793:\n/***/ ((module) => {\n\nconst changeExp = new RegExp(/(^(?![><\\-])*\\d+(?:,\\d+)?)([acd])(\\d+(?:,\\d+)?)/);\n\nfunction DiffParser(diff) {\n\tconst changes = [];\n\tlet change_id = 0;\n\t// parse diff\n\tconst diff_lines = diff.split(/\\n/);\n\tfor (var i = 0; i < diff_lines.length; ++i) {\n\t\tif (diff_lines[i].length == 0) continue;\n\t\tconst change = {};\n\t\tconst test = changeExp.exec(diff_lines[i]);\n\t\tif (test == null) continue;\n\t\t// lines are zero-based\n\t\tconst fr = test[1].split(',');\n\t\tchange['lhs-line-from'] = fr[0] - 1;\n\t\tif (fr.length == 1) change['lhs-line-to'] = fr[0] - 1;\n\t\telse change['lhs-line-to'] = fr[1] - 1;\n\t\tconst to = test[3].split(',');\n\t\tchange['rhs-line-from'] = to[0] - 1;\n\t\tif (to.length == 1) change['rhs-line-to'] = to[0] - 1;\n\t\telse change['rhs-line-to'] = to[1] - 1;\n\t\tchange['op'] = test[2];\n\t\tchanges[change_id++] = change;\n\t}\n\treturn changes;\n};\n\nmodule.exports = DiffParser;\n\n\n/***/ }),\n\n/***/ 369:\n/***/ ((module) => {\n\nconst SMS_TIMEOUT_SECONDS = 1.0;\n\nfunction diff(lhs, rhs, options = {}) {\n\tconst {\n\t\tignorews = false,\n\t\tignoreaccents = false,\n\t\tignorecase = false,\n\t\tsplit = 'lines'\n\t} = options;\n\n\tthis.codeify = new CodeifyText(lhs, rhs, {\n\t\tignorews,\n\t\tignoreaccents,\n\t\tignorecase,\n\t\tsplit\n\t});\n\tconst lhs_ctx = {\n\t\tcodes: this.codeify.getCodes('lhs'),\n\t\tmodified: {}\n\t};\n\tconst rhs_ctx = {\n\t\tcodes: this.codeify.getCodes('rhs'),\n\t\tmodified: {}\n\t};\n\tconst vector_d = [];\n\tconst vector_u = [];\n\tthis._lcs(lhs_ctx, 0, lhs_ctx.codes.length, rhs_ctx, 0, rhs_ctx.codes.length, vector_u, vector_d);\n\tthis._optimize(lhs_ctx);\n\tthis._optimize(rhs_ctx);\n\tthis.items = this._create_diffs(lhs_ctx, rhs_ctx);\n};\n\ndiff.prototype.changes = function() {\n\treturn this.items;\n};\n\ndiff.prototype.getLines = function(side) {\n\treturn this.codeify.getLines(side);\n};\n\ndiff.prototype.normal_form = function() {\n\tlet nf = '';\n\tfor (let index = 0; index < this.items.length; ++index) {\n\t\tconst item = this.items[index];\n\t\tlet lhs_str = '';\n\t\tlet rhs_str = '';\n\t\tlet change = 'c';\n\t\tif (item.lhs_deleted_count === 0 && item.rhs_inserted_count > 0) change = 'a';\n\t\telse if (item.lhs_deleted_count > 0 && item.rhs_inserted_count === 0) change = 'd';\n\n\t\tif (item.lhs_deleted_count === 1) lhs_str = item.lhs_start + 1;\n\t\telse if (item.lhs_deleted_count === 0) lhs_str = item.lhs_start;\n\t\telse lhs_str = (item.lhs_start + 1) + ',' + (item.lhs_start + item.lhs_deleted_count);\n\n\t\tif (item.rhs_inserted_count === 1) rhs_str = item.rhs_start + 1;\n\t\telse if (item.rhs_inserted_count === 0) rhs_str = item.rhs_start;\n\t\telse rhs_str = (item.rhs_start + 1) + ',' + (item.rhs_start + item.rhs_inserted_count);\n\t\tnf += lhs_str + change + rhs_str + '\\n';\n\n\t\tconst lhs_lines = this.getLines('lhs');\n\t\tconst rhs_lines = this.getLines('rhs');\n\t\tif (rhs_lines && lhs_lines) {\n\t\t\tlet i;\n\t\t\t// if rhs/lhs lines have been retained, output contextual diff\n\t\t\tfor (i = item.lhs_start; i < item.lhs_start + item.lhs_deleted_count; ++i) {\n\t\t\t\tnf += '< ' + lhs_lines[i] + '\\n';\n\t\t\t}\n\t\t\tif (item.rhs_inserted_count && item.lhs_deleted_count) nf += '---\\n';\n\t\t\tfor (i = item.rhs_start; i < item.rhs_start + item.rhs_inserted_count; ++i) {\n\t\t\t\tnf += '> ' + rhs_lines[i] + '\\n';\n\t\t\t}\n\t\t}\n\t}\n\treturn nf;\n};\n\ndiff.prototype._lcs = function(lhs_ctx, lhs_lower, lhs_upper, rhs_ctx, rhs_lower, rhs_upper, vector_u, vector_d) {\n\twhile ( (lhs_lower < lhs_upper) && (rhs_lower < rhs_upper) && (lhs_ctx.codes[lhs_lower] === rhs_ctx.codes[rhs_lower]) ) {\n\t\t++lhs_lower;\n\t\t++rhs_lower;\n\t}\n\twhile ( (lhs_lower < lhs_upper) && (rhs_lower < rhs_upper) && (lhs_ctx.codes[lhs_upper - 1] === rhs_ctx.codes[rhs_upper - 1]) ) {\n\t\t--lhs_upper;\n\t\t--rhs_upper;\n\t}\n\tif (lhs_lower === lhs_upper) {\n\t\twhile (rhs_lower < rhs_upper) {\n\t\t\trhs_ctx.modified[ rhs_lower++ ] = true;\n\t\t}\n\t}\n\telse if (rhs_lower === rhs_upper) {\n\t\twhile (lhs_lower < lhs_upper) {\n\t\t\tlhs_ctx.modified[ lhs_lower++ ] = true;\n\t\t}\n\t}\n\telse {\n\t\tconst sms = this._sms(lhs_ctx, lhs_lower, lhs_upper, rhs_ctx, rhs_lower, rhs_upper, vector_u, vector_d);\n\t\tthis._lcs(lhs_ctx, lhs_lower, sms.x, rhs_ctx, rhs_lower, sms.y, vector_u, vector_d);\n\t\tthis._lcs(lhs_ctx, sms.x, lhs_upper, rhs_ctx, sms.y, rhs_upper, vector_u, vector_d);\n\t}\n};\n\ndiff.prototype._sms = function(lhs_ctx, lhs_lower, lhs_upper, rhs_ctx, rhs_lower, rhs_upper, vector_u, vector_d) {\n\tconst timeout = Date.now() + SMS_TIMEOUT_SECONDS * 1000;\n\tconst max = lhs_ctx.codes.length + rhs_ctx.codes.length + 1;\n\tconst kdown = lhs_lower - rhs_lower;\n\tconst kup = lhs_upper - rhs_upper;\n\tconst delta = (lhs_upper - lhs_lower) - (rhs_upper - rhs_lower);\n\tconst odd = (delta & 1) != 0;\n\tconst offset_down = max - kdown;\n\tconst offset_up = max - kup;\n\tconst maxd = ((lhs_upper - lhs_lower + rhs_upper - rhs_lower) / 2) + 1;\n\tvector_d[ offset_down + kdown + 1 ] = lhs_lower;\n\tvector_u[ offset_up + kup - 1 ] = lhs_upper;\n\tconst ret = { x:0, y:0 }\n\tlet x;\n\tlet y;\n\tfor (let d = 0; d <= maxd; ++d) {\n\t\tif (SMS_TIMEOUT_SECONDS && Date.now() > timeout) {\n\t\t\t// bail if taking too long\n\t\t\treturn { x: lhs_lower, y: rhs_upper };\n\t\t}\n\t\tfor (let k = kdown - d; k <= kdown + d; k += 2) {\n\t\t\tif (k === kdown - d) {\n\t\t\t\tx = vector_d[ offset_down + k + 1 ];//down\n\t\t\t}\n\t\t\telse {\n\t\t\t\tx = vector_d[ offset_down + k - 1 ] + 1;//right\n\t\t\t\tif ((k < (kdown + d)) && (vector_d[ offset_down + k + 1 ] >= x)) {\n\t\t\t\t\tx = vector_d[ offset_down + k + 1 ];//down\n\t\t\t\t}\n\t\t\t}\n\t\t\ty = x - k;\n\t\t\t// find the end of the furthest reaching forward D-path in diagonal k.\n\t\t\twhile ((x < lhs_upper) && (y < rhs_upper) && (lhs_ctx.codes[x] === rhs_ctx.codes[y])) {\n\t\t\t\tx++; y++;\n\t\t\t}\n\t\t\tvector_d[ offset_down + k ] = x;\n\t\t\t// overlap ?\n\t\t\tif (odd && (kup - d < k) && (k < kup + d)) {\n\t\t\t\tif (vector_u[offset_up + k] <= vector_d[offset_down + k]) {\n\t\t\t\t\tret.x = vector_d[offset_down + k];\n\t\t\t\t\tret.y = vector_d[offset_down + k] - k;\n\t\t\t\t\treturn (ret);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\t// Extend the reverse path.\n\t\tfor (let k = kup - d; k <= kup + d; k += 2) {\n\t\t\t// find the only or better starting point\n\t\t\tif (k === kup + d) {\n\t\t\t\tx = vector_u[offset_up + k - 1]; // up\n\t\t\t} else {\n\t\t\t\tx = vector_u[offset_up + k + 1] - 1; // left\n\t\t\t\tif ((k > kup - d) && (vector_u[offset_up + k - 1] < x))\n\t\t\t\t\tx = vector_u[offset_up + k - 1]; // up\n\t\t\t}\n\t\t\ty = x - k;\n\t\t\twhile ((x > lhs_lower) && (y > rhs_lower) && (lhs_ctx.codes[x - 1] === rhs_ctx.codes[y - 1])) {\n\t\t\t\t// diagonal\n\t\t\t\tx--;\n\t\t\t\ty--;\n\t\t\t}\n\t\t\tvector_u[offset_up + k] = x;\n\t\t\t// overlap ?\n\t\t\tif (!odd && (kdown - d <= k) && (k <= kdown + d)) {\n\t\t\t\tif (vector_u[offset_up + k] <= vector_d[offset_down + k]) {\n\t\t\t\t\tret.x = vector_d[offset_down + k];\n\t\t\t\t\tret.y = vector_d[offset_down + k] - k;\n\t\t\t\t\treturn (ret);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\tthrow \"the algorithm should never come here.\";\n};\n\ndiff.prototype._optimize = function(ctx) {\n\tlet start = 0;\n\tlet end = 0;\n\twhile (start < ctx.codes.length) {\n\t\twhile ((start < ctx.codes.length) && (ctx.modified[start] === undefined || ctx.modified[start] === false)) {\n\t\t\tstart++;\n\t\t}\n\t\tend = start;\n\t\twhile ((end < ctx.codes.length) && (ctx.modified[end] === true)) {\n\t\t\tend++;\n\t\t}\n\t\tif ((end < ctx.codes.length) && (ctx.codes[start] === ctx.codes[end])) {\n\t\t\tctx.modified[start] = false;\n\t\t\tctx.modified[end] = true;\n\t\t}\n\t\telse {\n\t\t\tstart = end;\n\t\t}\n\t}\n};\n\ndiff.prototype._create_diffs = function(lhs_ctx, rhs_ctx) {\n\tconst items = [];\n\tlet lhs_start = 0;\n\tlet rhs_start = 0;\n\tlet lhs_line = 0;\n\tlet rhs_line = 0;\n\n\twhile (lhs_line < lhs_ctx.codes.length || rhs_line < rhs_ctx.codes.length) {\n\t\tif ((lhs_line < lhs_ctx.codes.length) && (!lhs_ctx.modified[lhs_line])\n\t\t\t&& (rhs_line < rhs_ctx.codes.length) && (!rhs_ctx.modified[rhs_line])) {\n\t\t\t// equal lines\n\t\t\tlhs_line++;\n\t\t\trhs_line++;\n\t\t}\n\t\telse {\n\t\t\t// maybe deleted and/or inserted lines\n\t\t\tlhs_start = lhs_line;\n\t\t\trhs_start = rhs_line;\n\n\t\t\twhile (lhs_line < lhs_ctx.codes.length && (rhs_line >= rhs_ctx.codes.length || lhs_ctx.modified[lhs_line]))\n\t\t\t\tlhs_line++;\n\n\t\t\twhile (rhs_line < rhs_ctx.codes.length && (lhs_line >= lhs_ctx.codes.length || rhs_ctx.modified[rhs_line]))\n\t\t\t\trhs_line++;\n\n\t\t\tif ((lhs_start < lhs_line) || (rhs_start < rhs_line)) {\n\t\t\t\t// store a new difference-item\n\t\t\t\titems.push({\n\t\t\t\t\tlhs_start: lhs_start,\n\t\t\t\t\trhs_start: rhs_start,\n\t\t\t\t\tlhs_deleted_count: lhs_line - lhs_start,\n\t\t\t\t\trhs_inserted_count: rhs_line - rhs_start\n\t\t\t\t});\n\t\t\t}\n\t\t}\n\t}\n\treturn items;\n};\n\nfunction CodeifyText(lhs, rhs, options) {\n    this._max_code = 0;\n    this._diff_codes = {};\n\tthis.ctxs = {};\n\tthis.options = options;\n\tthis.options.split = this.options.split || 'lines';\n\tconst exp = /\\p{Letter}\\p{Mark}*|\\p{Number}\\p{Mark}*|\\p{Punctuation}\\p{Mark}*|\\p{Symbol}\\p{Mark}*|\\p{White_Space}/gu;\n\n\tif (typeof lhs === 'string') {\n\t\tif (this.options.split === 'chars') {\n\t\t\t// split characters and include their diacritical marks\n\t\t\tthis.lhs = lhs.match(exp) || [];\n\t\t\t// this.lhs = [...lhs];\n\t\t} else if (this.options.split === 'words') {\n\t\t\tthis.lhs = lhs.split(/\\s/);\n\t\t} else if (this.options.split === 'lines') {\n\t\t\tthis.lhs = lhs.split('\\n');\n\t\t}\n\t} else {\n\t\tthis.lhs = lhs;\n\t}\n\tif (typeof rhs === 'string') {\n\t\tif (this.options.split === 'chars') {\n\t\t\t// split characters and include their diacritical marks\n\t\t\tthis.rhs = rhs.match(exp) || [];\n\t\t\t// this.rhs = [...rhs];\n\t\t} else if (this.options.split === 'words') {\n\t\t\tthis.rhs = rhs.split(/\\s/);\n\t\t} else if (this.options.split === 'lines') {\n\t\t\tthis.rhs = rhs.split('\\n');\n\t\t}\n\t} else {\n\t\tthis.rhs = rhs;\n\t}\n};\n\nCodeifyText.prototype.getCodes = function(side) {\n\tif (!this.ctxs.hasOwnProperty(side)) {\n\t\tvar ctx = this._diff_ctx(this[side]);\n\t\tthis.ctxs[side] = ctx;\n\t\tctx.codes.length = Object.keys(ctx.codes).length;\n\t}\n\treturn this.ctxs[side].codes;\n}\n\nCodeifyText.prototype.getLines = function(side) {\n\treturn this.ctxs[side].lines;\n}\n\nCodeifyText.prototype._diff_ctx = function(lines) {\n\tvar ctx = {i: 0, codes: {}, lines: lines};\n\tthis._codeify(lines, ctx);\n\treturn ctx;\n}\n\nCodeifyText.prototype._codeify = function(lines, ctx) {\n\tfor (let i = 0; i < lines.length; ++i) {\n\t\tlet line = lines[i];\n\t\tif (this.options.ignorews) {\n\t\t\tline = line.replace(/\\s+/g, '');\n\t\t}\n\t\tif (this.options.ignorecase) {\n\t\t\tline = line.toLowerCase();\n\t\t}\n\t\tif (this.options.ignoreaccents) {\n\t\t\tline = line.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');\n\t\t}\n\t\tconst aCode = this._diff_codes[line];\n\t\tif (aCode !== undefined) {\n\t\t\tctx.codes[i] = aCode;\n\t\t} else {\n\t\t\t++this._max_code;\n\t\t\tthis._diff_codes[line] = this._max_code;\n\t\t\tctx.codes[i] = this._max_code;\n\t\t}\n\t}\n}\n\nmodule.exports = diff;\n\n\n/***/ })\n\n/******/ \t});\n/************************************************************************/\n/******/ \t// The module cache\n/******/ \tvar __webpack_module_cache__ = {};\n/******/ \t\n/******/ \t// The require function\n/******/ \tfunction __webpack_require__(moduleId) {\n/******/ \t\t// Check if module is in cache\n/******/ \t\tvar cachedModule = __webpack_module_cache__[moduleId];\n/******/ \t\tif (cachedModule !== undefined) {\n/******/ \t\t\treturn cachedModule.exports;\n/******/ \t\t}\n/******/ \t\t// Create a new module (and put it into the cache)\n/******/ \t\tvar module = __webpack_module_cache__[moduleId] = {\n/******/ \t\t\t// no module.id needed\n/******/ \t\t\t// no module.loaded needed\n/******/ \t\t\texports: {}\n/******/ \t\t};\n/******/ \t\n/******/ \t\t// Execute the module function\n/******/ \t\t__webpack_modules__[moduleId](module, module.exports, __webpack_require__);\n/******/ \t\n/******/ \t\t// Return the exports of the module\n/******/ \t\treturn module.exports;\n/******/ \t}\n/******/ \t\n/************************************************************************/\nvar __webpack_exports__ = {};\n// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.\n(() => {\nconst diff = __webpack_require__(369);\nconst DiffParser = __webpack_require__(793);\n\nonmessage = function (ev) {\n\tif (!ev.data) {\n\t\treturn;\n\t}\n\tconst { lhs, rhs, options } = ev.data;\n\tconst compare = new diff(lhs, rhs, options);\n\tconst changes = DiffParser(compare.normal_form());\n\tpostMessage(changes);\n};\n\n})();\n\n/******/ })()\n;",
+            "/******/ (() => { // webpackBootstrap\n/******/ \tvar __webpack_modules__ = ({\n\n/***/ 793:\n/***/ ((module) => {\n\nconst changeExp = new RegExp(/(^(?![><\\-])*\\d+(?:,\\d+)?)([acd])(\\d+(?:,\\d+)?)/);\n\nfunction DiffParser(diff) {\n\tconst changes = [];\n\tlet change_id = 0;\n\t// parse diff\n\tconst diff_lines = diff.split(/\\n/);\n\tfor (var i = 0; i < diff_lines.length; ++i) {\n\t\tif (diff_lines[i].length == 0) continue;\n\t\tconst change = {};\n\t\tconst test = changeExp.exec(diff_lines[i]);\n\t\tif (test == null) continue;\n\t\t// lines are zero-based\n\t\tconst fr = test[1].split(',');\n\t\tchange['lhs-line-from'] = fr[0] - 1;\n\t\tif (fr.length == 1) change['lhs-line-to'] = fr[0] - 1;\n\t\telse change['lhs-line-to'] = fr[1] - 1;\n\t\tconst to = test[3].split(',');\n\t\tchange['rhs-line-from'] = to[0] - 1;\n\t\tif (to.length == 1) change['rhs-line-to'] = to[0] - 1;\n\t\telse change['rhs-line-to'] = to[1] - 1;\n\t\tchange['op'] = test[2];\n\t\tchanges[change_id++] = change;\n\t}\n\treturn changes;\n};\n\nmodule.exports = DiffParser;\n\n\n/***/ }),\n\n/***/ 369:\n/***/ ((module) => {\n\nconst SMS_TIMEOUT_SECONDS = 1.0;\n\nfunction diff(lhs, rhs, options = {}) {\n\tconst {\n\t\tignorews = false,\n\t\tignoreaccents = false,\n\t\tignorecase = false,\n\t\tsplit = 'lines'\n\t} = options;\n\n\tthis.codeify = new CodeifyText(lhs, rhs, {\n\t\tignorews,\n\t\tignoreaccents,\n\t\tignorecase,\n\t\tsplit\n\t});\n\tconst lhs_ctx = {\n\t\tcodes: this.codeify.getCodes('lhs'),\n\t\tmodified: {}\n\t};\n\tconst rhs_ctx = {\n\t\tcodes: this.codeify.getCodes('rhs'),\n\t\tmodified: {}\n\t};\n\tconst vector_d = [];\n\tconst vector_u = [];\n\tthis._lcs(lhs_ctx, 0, lhs_ctx.codes.length, rhs_ctx, 0, rhs_ctx.codes.length, vector_u, vector_d);\n\tthis._optimize(lhs_ctx);\n\tthis._optimize(rhs_ctx);\n\tthis.items = this._create_diffs(lhs_ctx, rhs_ctx);\n};\n\ndiff.prototype.changes = function() {\n\treturn this.items;\n};\n\ndiff.prototype.getLines = function(side) {\n\treturn this.codeify.getLines(side);\n};\n\ndiff.prototype.normal_form = function() {\n\tlet nf = '';\n\tfor (let index = 0; index < this.items.length; ++index) {\n\t\tconst item = this.items[index];\n\t\tlet lhs_str = '';\n\t\tlet rhs_str = '';\n\t\tlet change = 'c';\n\t\tif (item.lhs_deleted_count === 0 && item.rhs_inserted_count > 0) change = 'a';\n\t\telse if (item.lhs_deleted_count > 0 && item.rhs_inserted_count === 0) change = 'd';\n\n\t\tif (item.lhs_deleted_count === 1) lhs_str = item.lhs_start + 1;\n\t\telse if (item.lhs_deleted_count === 0) lhs_str = item.lhs_start;\n\t\telse lhs_str = (item.lhs_start + 1) + ',' + (item.lhs_start + item.lhs_deleted_count);\n\n\t\tif (item.rhs_inserted_count === 1) rhs_str = item.rhs_start + 1;\n\t\telse if (item.rhs_inserted_count === 0) rhs_str = item.rhs_start;\n\t\telse rhs_str = (item.rhs_start + 1) + ',' + (item.rhs_start + item.rhs_inserted_count);\n\t\tnf += lhs_str + change + rhs_str + '\\n';\n\n\t\tconst lhs_lines = this.getLines('lhs');\n\t\tconst rhs_lines = this.getLines('rhs');\n\t\tif (rhs_lines && lhs_lines) {\n\t\t\tlet i;\n\t\t\t// if rhs/lhs lines have been retained, output contextual diff\n\t\t\tfor (i = item.lhs_start; i < item.lhs_start + item.lhs_deleted_count; ++i) {\n\t\t\t\tnf += '< ' + lhs_lines[i] + '\\n';\n\t\t\t}\n\t\t\tif (item.rhs_inserted_count && item.lhs_deleted_count) nf += '---\\n';\n\t\t\tfor (i = item.rhs_start; i < item.rhs_start + item.rhs_inserted_count; ++i) {\n\t\t\t\tnf += '> ' + rhs_lines[i] + '\\n';\n\t\t\t}\n\t\t}\n\t}\n\treturn nf;\n};\n\ndiff.prototype._lcs = function(lhs_ctx, lhs_lower, lhs_upper, rhs_ctx, rhs_lower, rhs_upper, vector_u, vector_d) {\n\twhile ( (lhs_lower < lhs_upper) && (rhs_lower < rhs_upper) && (lhs_ctx.codes[lhs_lower] === rhs_ctx.codes[rhs_lower]) ) {\n\t\t++lhs_lower;\n\t\t++rhs_lower;\n\t}\n\twhile ( (lhs_lower < lhs_upper) && (rhs_lower < rhs_upper) && (lhs_ctx.codes[lhs_upper - 1] === rhs_ctx.codes[rhs_upper - 1]) ) {\n\t\t--lhs_upper;\n\t\t--rhs_upper;\n\t}\n\tif (lhs_lower === lhs_upper) {\n\t\twhile (rhs_lower < rhs_upper) {\n\t\t\trhs_ctx.modified[ rhs_lower++ ] = true;\n\t\t}\n\t}\n\telse if (rhs_lower === rhs_upper) {\n\t\twhile (lhs_lower < lhs_upper) {\n\t\t\tlhs_ctx.modified[ lhs_lower++ ] = true;\n\t\t}\n\t}\n\telse {\n\t\tconst sms = this._sms(lhs_ctx, lhs_lower, lhs_upper, rhs_ctx, rhs_lower, rhs_upper, vector_u, vector_d);\n\t\tthis._lcs(lhs_ctx, lhs_lower, sms.x, rhs_ctx, rhs_lower, sms.y, vector_u, vector_d);\n\t\tthis._lcs(lhs_ctx, sms.x, lhs_upper, rhs_ctx, sms.y, rhs_upper, vector_u, vector_d);\n\t}\n};\n\ndiff.prototype._sms = function(lhs_ctx, lhs_lower, lhs_upper, rhs_ctx, rhs_lower, rhs_upper, vector_u, vector_d) {\n\tconst timeout = Date.now() + SMS_TIMEOUT_SECONDS * 1000;\n\tconst max = lhs_ctx.codes.length + rhs_ctx.codes.length + 1;\n\tconst kdown = lhs_lower - rhs_lower;\n\tconst kup = lhs_upper - rhs_upper;\n\tconst delta = (lhs_upper - lhs_lower) - (rhs_upper - rhs_lower);\n\tconst odd = (delta & 1) != 0;\n\tconst offset_down = max - kdown;\n\tconst offset_up = max - kup;\n\tconst maxd = ((lhs_upper - lhs_lower + rhs_upper - rhs_lower) / 2) + 1;\n\tvector_d[ offset_down + kdown + 1 ] = lhs_lower;\n\tvector_u[ offset_up + kup - 1 ] = lhs_upper;\n\tconst ret = { x:0, y:0 }\n\tlet x;\n\tlet y;\n\tfor (let d = 0; d <= maxd; ++d) {\n\t\tif (SMS_TIMEOUT_SECONDS && Date.now() > timeout) {\n\t\t\t// bail if taking too long\n\t\t\treturn { x: lhs_lower, y: rhs_upper };\n\t\t}\n\t\tfor (let k = kdown - d; k <= kdown + d; k += 2) {\n\t\t\tif (k === kdown - d) {\n\t\t\t\tx = vector_d[ offset_down + k + 1 ];//down\n\t\t\t}\n\t\t\telse {\n\t\t\t\tx = vector_d[ offset_down + k - 1 ] + 1;//right\n\t\t\t\tif ((k < (kdown + d)) && (vector_d[ offset_down + k + 1 ] >= x)) {\n\t\t\t\t\tx = vector_d[ offset_down + k + 1 ];//down\n\t\t\t\t}\n\t\t\t}\n\t\t\ty = x - k;\n\t\t\t// find the end of the furthest reaching forward D-path in diagonal k.\n\t\t\twhile ((x < lhs_upper) && (y < rhs_upper) && (lhs_ctx.codes[x] === rhs_ctx.codes[y])) {\n\t\t\t\tx++; y++;\n\t\t\t}\n\t\t\tvector_d[ offset_down + k ] = x;\n\t\t\t// overlap ?\n\t\t\tif (odd && (kup - d < k) && (k < kup + d)) {\n\t\t\t\tif (vector_u[offset_up + k] <= vector_d[offset_down + k]) {\n\t\t\t\t\tret.x = vector_d[offset_down + k];\n\t\t\t\t\tret.y = vector_d[offset_down + k] - k;\n\t\t\t\t\treturn (ret);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\t// Extend the reverse path.\n\t\tfor (let k = kup - d; k <= kup + d; k += 2) {\n\t\t\t// find the only or better starting point\n\t\t\tif (k === kup + d) {\n\t\t\t\tx = vector_u[offset_up + k - 1]; // up\n\t\t\t} else {\n\t\t\t\tx = vector_u[offset_up + k + 1] - 1; // left\n\t\t\t\tif ((k > kup - d) && (vector_u[offset_up + k - 1] < x))\n\t\t\t\t\tx = vector_u[offset_up + k - 1]; // up\n\t\t\t}\n\t\t\ty = x - k;\n\t\t\twhile ((x > lhs_lower) && (y > rhs_lower) && (lhs_ctx.codes[x - 1] === rhs_ctx.codes[y - 1])) {\n\t\t\t\t// diagonal\n\t\t\t\tx--;\n\t\t\t\ty--;\n\t\t\t}\n\t\t\tvector_u[offset_up + k] = x;\n\t\t\t// overlap ?\n\t\t\tif (!odd && (kdown - d <= k) && (k <= kdown + d)) {\n\t\t\t\tif (vector_u[offset_up + k] <= vector_d[offset_down + k]) {\n\t\t\t\t\tret.x = vector_d[offset_down + k];\n\t\t\t\t\tret.y = vector_d[offset_down + k] - k;\n\t\t\t\t\treturn (ret);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\tthrow \"the algorithm should never come here.\";\n};\n\ndiff.prototype._optimize = function(ctx) {\n\tlet start = 0;\n\tlet end = 0;\n\twhile (start < ctx.codes.length) {\n\t\twhile ((start < ctx.codes.length) && (ctx.modified[start] === undefined || ctx.modified[start] === false)) {\n\t\t\tstart++;\n\t\t}\n\t\tend = start;\n\t\twhile ((end < ctx.codes.length) && (ctx.modified[end] === true)) {\n\t\t\tend++;\n\t\t}\n\t\tif ((end < ctx.codes.length) && (ctx.codes[start] === ctx.codes[end])) {\n\t\t\tctx.modified[start] = false;\n\t\t\tctx.modified[end] = true;\n\t\t}\n\t\telse {\n\t\t\tstart = end;\n\t\t}\n\t}\n};\n\ndiff.prototype._create_diffs = function(lhs_ctx, rhs_ctx) {\n\tconst items = [];\n\tlet lhs_start = 0;\n\tlet rhs_start = 0;\n\tlet lhs_line = 0;\n\tlet rhs_line = 0;\n\n\twhile (lhs_line < lhs_ctx.codes.length || rhs_line < rhs_ctx.codes.length) {\n\t\tif ((lhs_line < lhs_ctx.codes.length) && (!lhs_ctx.modified[lhs_line])\n\t\t\t&& (rhs_line < rhs_ctx.codes.length) && (!rhs_ctx.modified[rhs_line])) {\n\t\t\t// equal lines\n\t\t\tlhs_line++;\n\t\t\trhs_line++;\n\t\t}\n\t\telse {\n\t\t\t// maybe deleted and/or inserted lines\n\t\t\tlhs_start = lhs_line;\n\t\t\trhs_start = rhs_line;\n\n\t\t\twhile (lhs_line < lhs_ctx.codes.length && (rhs_line >= rhs_ctx.codes.length || lhs_ctx.modified[lhs_line]))\n\t\t\t\tlhs_line++;\n\n\t\t\twhile (rhs_line < rhs_ctx.codes.length && (lhs_line >= lhs_ctx.codes.length || rhs_ctx.modified[rhs_line]))\n\t\t\t\trhs_line++;\n\n\t\t\tif ((lhs_start < lhs_line) || (rhs_start < rhs_line)) {\n\t\t\t\t// store a new difference-item\n\t\t\t\titems.push({\n\t\t\t\t\tlhs_start: lhs_start,\n\t\t\t\t\trhs_start: rhs_start,\n\t\t\t\t\tlhs_deleted_count: lhs_line - lhs_start,\n\t\t\t\t\trhs_inserted_count: rhs_line - rhs_start\n\t\t\t\t});\n\t\t\t}\n\t\t}\n\t}\n\treturn items;\n};\n\nfunction CodeifyText(lhs, rhs, options) {\n    this._max_code = 0;\n    this._diff_codes = {};\n\tthis.ctxs = {};\n\tthis.options = options;\n\tthis.options.split = this.options.split || 'lines';\n\tconst exp = /\\p{Letter}\\p{Mark}*|\\p{Number}\\p{Mark}*|\\p{Punctuation}\\p{Mark}*|\\p{Symbol}\\p{Mark}*|\\p{White_Space}/gu;\n\n\tif (typeof lhs === 'string') {\n\t\tif (this.options.split === 'chars') {\n\t\t\t// split characters and include their diacritical marks\n\t\t\tthis.lhs = lhs.match(exp) || [];\n\t\t\t// this.lhs = [...lhs];\n\t\t} else if (this.options.split === 'words') {\n\t\t\tthis.lhs = lhs.split(/\\s/);\n\t\t} else if (this.options.split === 'lines') {\n\t\t\tthis.lhs = lhs.split('\\n');\n\t\t}\n\t} else {\n\t\tthis.lhs = lhs;\n\t}\n\tif (typeof rhs === 'string') {\n\t\tif (this.options.split === 'chars') {\n\t\t\t// split characters and include their diacritical marks\n\t\t\tthis.rhs = rhs.match(exp) || [];\n\t\t\t// this.rhs = [...rhs];\n\t\t} else if (this.options.split === 'words') {\n\t\t\tthis.rhs = rhs.split(/\\s/);\n\t\t} else if (this.options.split === 'lines') {\n\t\t\tthis.rhs = rhs.split('\\n');\n\t\t}\n\t} else {\n\t\tthis.rhs = rhs;\n\t}\n};\n\nCodeifyText.prototype.getCodes = function(side) {\n\tif (!this.ctxs.hasOwnProperty(side)) {\n\t\tvar ctx = this._diff_ctx(this[side]);\n\t\tthis.ctxs[side] = ctx;\n\t\tctx.codes.length = Object.keys(ctx.codes).length;\n\t}\n\treturn this.ctxs[side].codes;\n}\n\nCodeifyText.prototype.getLines = function(side) {\n\treturn this.ctxs[side].lines;\n}\n\nCodeifyText.prototype._diff_ctx = function(lines) {\n\tvar ctx = {i: 0, codes: {}, lines: lines};\n\tthis._codeify(lines, ctx);\n\treturn ctx;\n}\n\nCodeifyText.prototype._codeify = function(lines, ctx) {\n\tfor (let i = 0; i < lines.length; ++i) {\n\t\tlet line = lines[i];\n\t\tif (this.options.ignorews) {\n\t\t\tline = line.replace(/\\s+/g, '');\n\t\t}\n\t\tif (this.options.ignorecase) {\n\t\t\tline = line.toLowerCase();\n\t\t}\n\t\tif (this.options.ignoreaccents) {\n\t\t\tline = line.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');\n\t\t}\n\t\tconst aCode = this._diff_codes[line];\n\t\tif (aCode !== undefined) {\n\t\t\tctx.codes[i] = aCode;\n\t\t} else {\n\t\t\t++this._max_code;\n\t\t\tthis._diff_codes[line] = this._max_code;\n\t\t\tctx.codes[i] = this._max_code;\n\t\t}\n\t}\n}\n\nmodule.exports = diff;\n\n\n/***/ })\n\n/******/ \t});\n/************************************************************************/\n/******/ \t// The module cache\n/******/ \tvar __webpack_module_cache__ = {};\n/******/ \t\n/******/ \t// The require function\n/******/ \tfunction __webpack_require__(moduleId) {\n/******/ \t\t// Check if module is in cache\n/******/ \t\tvar cachedModule = __webpack_module_cache__[moduleId];\n/******/ \t\tif (cachedModule !== undefined) {\n/******/ \t\t\treturn cachedModule.exports;\n/******/ \t\t}\n/******/ \t\t// Create a new module (and put it into the cache)\n/******/ \t\tvar module = __webpack_module_cache__[moduleId] = {\n/******/ \t\t\t// no module.id needed\n/******/ \t\t\t// no module.loaded needed\n/******/ \t\t\texports: {}\n/******/ \t\t};\n/******/ \t\n/******/ \t\t// Execute the module function\n/******/ \t\t__webpack_modules__[moduleId](module, module.exports, __webpack_require__);\n/******/ \t\n/******/ \t\t// Return the exports of the module\n/******/ \t\treturn module.exports;\n/******/ \t}\n/******/ \t\n/************************************************************************/\nconst diff = __webpack_require__(369);\nconst DiffParser = __webpack_require__(793);\n\nonmessage = function (ev) {\n\tif (!ev.data) {\n\t\treturn;\n\t}\n\tconst { lhs, rhs, options } = ev.data;\n\tconst compare = new diff(lhs, rhs, options);\n\tconst changes = DiffParser(compare.normal_form());\n\tpostMessage(changes);\n};\n\n/******/ })()\n;",
             "Worker",
             undefined,
             undefined
@@ -17543,7 +17539,6 @@ span.CodeMirror-selectedtext { background: none; }
               ev.preventDefault();
               return;
             }
-            const ed = this.editor[side];
             // See if the user clicked the line number of a difference:
             let found = false;
             for (let i = 0; i < this.changes.length; ++i) {
@@ -18964,7 +18959,9 @@ span.CodeMirror-selectedtext { background: none; }
         function getMergelyContainer({ clazz = "" }) {
           const classes = ["mergely-editor", clazz];
           return htmlToElement(`\
-<div class="${classes.join(" ")}" style="display:flex;height:100%;position:relative;overflow:hidden;"></div>`);
+<div class="${classes.join(
+            " "
+          )}" style="display:flex;height:100%;position:relative;overflow:hidden;"></div>`);
         }
 
         function getMarginTemplate({ id }) {
@@ -18993,6 +18990,7 @@ span.CodeMirror-selectedtext { background: none; }
           getMarginTemplate,
           getEditorTemplate,
           getCenterCanvasTemplate,
+          //getSplash,
         };
 
         /***/
@@ -19131,13 +19129,11 @@ span.CodeMirror-selectedtext { background: none; }
             const colors = dom.getColors(this.el);
             this._options = {
               ...defaultOptions, //lgpl
-              ...this._initOptions,
+              ...(this._options || this._initOptions),
               ...options, //lgpl-separate-notice
             };
             this._viewOptions = {
-              ...defaultOptions,
-              ...this._initOptions,
-              ...options,
+              ...this._options,
               _colors: colors,
             };
           }

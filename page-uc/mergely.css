@@ -19,6 +19,7 @@
 .mergely-editor .CodeMirror-selected {
   background: #0f73ff47;
 }
+
 .mergely-editor .merge-button {
   height: 18px;
   cursor: pointer;

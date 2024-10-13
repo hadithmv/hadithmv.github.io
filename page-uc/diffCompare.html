@@ -40,24 +40,26 @@
   <body>
     <div id="navbar-container"></div>
     <!-- -->
+    <!-- Mergely-v\examples\cdn.html -->
+
     <!--<link
   rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/mergely/5.3.2/mergely.css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/mergely/5.3.6/mergely.css"
 />-->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mergely/5.3.2/mergely.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mergely/5.3.6/mergely.js"></script>-->
 
-    <!-- remove:
- .mergely-splash
- .mergely-splash p
- .mergely-icon
- .mergely-splash span.mergely-icon
+    <!-- remove 4 things:
+ 1 .mergely-splash  {
+ 2 .mergely-splash p  {
+ 3 .mergely-icon  {
+ 4 .mergely-splash span.mergely-icon  {
 
  minify w csso-->
     <link rel="stylesheet" href="mergely.css" />
 
     <script src="mergely.js"></script>
-    <!-- remove:
- if (NOTICES.indexOf(this.settings.license) < 0) {
+    <!-- remove 3 things:
+ 1 if (NOTICES.indexOf(this.settings.license) < 0) {
 		container.addEventListener('updated', () => {
 			const noticeTypes = {
 				'lgpl': 'GNU LGPL v3.0',
@@ -84,10 +86,9 @@
 		}, { once: true });
 	}
 
-
-
-    
-    function getSplash({ notice, left, top }) {
+  
+  
+    2 function getSplash({ notice, left, top }) {
           return htmlToElement(`\
 <div class="mergely-splash" style="left: ${left}px; top: ${top}px">
 	<p>
@@ -101,10 +102,7 @@
 
 
 
-
-
-        
-          getSplash,
+          3 getSplash,
 -->
 
     <style>
@@ -363,13 +361,25 @@
 
       <!-- -->
 
+      <style>
+        .arrow-button {
+          cursor: pointer;
+          user-select: none;
+          display: none;
+          margin: 0 2px;
+        }
+      </style>
+
       <button
         id="searchLeftSide"
         class="function-button"
-        title="Jumps to the search time on the left side, that was input in the box that shows after this button is clicked the first time"
+        title="Search on the left side"
       >
         L Search 🔍
       </button>
+      <span id="leftArrowUp" class="arrow-button" title="Search previous"
+        >▲</span
+      >
       <input
         id="leftSearchTerm"
         type="text"
@@ -377,15 +387,17 @@
         class="buttonInput"
         style="display: none"
       />
-
+      <span id="leftArrowDown" class="arrow-button" title="Search next">▼</span>
       <button
         id="searchRightSide"
         class="function-button"
-        title="Jumps to the search time on the right side, that was input in the box that shows after this button is clicked the first time"
+        title="Search on the right side"
       >
         🔍 R Search
       </button>
-
+      <span id="rightArrowUp" class="arrow-button" title="Search previous"
+        >▲</span
+      >
       <input
         id="rightSearchTerm"
         type="text"
@@ -393,7 +405,11 @@
         class="buttonInput"
         style="display: none"
       />
+      <span id="rightArrowDown" class="arrow-button" title="Search next"
+        >▼</span
+      >
 
+      <!-- -->
       <button
         id="toggleRTLtoLTR"
         class="function-button"
@@ -824,35 +840,61 @@
       const rightSearchTerm = document.getElementById("rightSearchTerm");
       const searchLeftSide = document.getElementById("searchLeftSide");
       const searchRightSide = document.getElementById("searchRightSide");
+      const leftArrowUp = document.getElementById("leftArrowUp");
+      const leftArrowDown = document.getElementById("leftArrowDown");
+      const rightArrowUp = document.getElementById("rightArrowUp");
+      const rightArrowDown = document.getElementById("rightArrowDown");
 
-      function searchTerm(side) {
+      function searchTerm(side, direction) {
         const input = side === "left" ? leftSearchTerm : rightSearchTerm;
         const term = input.value.trim();
         if (term) {
-          doc.search(side === "left" ? "lhs" : "rhs", term);
+          doc.search(side === "left" ? "lhs" : "rhs", term, direction);
         }
       }
 
-      function setupSearch(button, input, side) {
+      function setupSearch(button, input, side, arrowUp, arrowDown) {
         button.addEventListener("click", () => {
           if (input.style.display === "none") {
             input.style.display = "inline-block";
+            arrowUp.style.display = "inline-block";
+            arrowDown.style.display = "inline-block";
             input.focus();
           } else {
-            searchTerm(side);
+            searchTerm(side, "next");
           }
         });
 
         input.addEventListener("keydown", (event) => {
           if (event.key === "Enter") {
-            searchTerm(side);
+            searchTerm(side, "next");
             event.preventDefault();
           }
         });
+
+        arrowUp.addEventListener("click", () => {
+          searchTerm(side, "prev");
+        });
+
+        arrowDown.addEventListener("click", () => {
+          searchTerm(side, "next");
+        });
       }
 
-      setupSearch(searchLeftSide, leftSearchTerm, "left");
-      setupSearch(searchRightSide, rightSearchTerm, "right");
+      setupSearch(
+        searchLeftSide,
+        leftSearchTerm,
+        "left",
+        leftArrowUp,
+        leftArrowDown
+      );
+      setupSearch(
+        searchRightSide,
+        rightSearchTerm,
+        "right",
+        rightArrowUp,
+        rightArrowDown
+      );
       //
 
       function handleFileSelect(side) {
