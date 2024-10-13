@@ -26,11 +26,25 @@ dataTables.searchPanes.js (CLOSURE+UGLIFY)	2.3.2	https://cdn.datatables.net/sear
 dataTables.select.js (CLOSURE+UGLIFY)	2.1.0	https://cdn.datatables.net/select/2.0.4/js/dataTables.select.js
 
 
+jquery.mark.js (CLOSURE+UGLIFY)	9.0.0	https://github.com/julkue/mark.js/blob/master/dist/jquery.mark.js
+
+datatables.mark.js (UGLIFY)	3.0.0	https://github.com/DataTables/Plugins/blob/master/features/mark.js/datatables.mark.js
+
 
 dataTables.keepConditions.js (CLOSURE+UGLIFY)	1.2.0	https://github.com/jhyland87/DataTables-Keep-Conditions
 
 hammer.js (CLOSURE+UGLIFY)	2.0.8	https://github.com/hammerjs/hammerjs.github.io/blob/master/dist/hammer.js
 (dist version 2016-04-23 which is much smaller, not main repo version 2016-09-30)
+
+
+
+
+...
+
+
+NO LONGER USING:
+
+row().show().js (CLOSURE+UGLIFY)	2.1.8	https://datatables.net/plug-ins/api/row().show()
 
 jquery.highlight.js (UGLIFY)	?	https://github.com/bartaz/sandbox.js/blob/master/jquery.highlight.js
 
@@ -38,27 +52,12 @@ dataTables.searchHighlight.min.js (UGLIFY)	2.1.8
 	https://datatables.net/blog/2014/search-highlighting
 	https://github.com/bartaz/sandbox.js/blob/master/jquery.highlight.js
 
-
-
-
-NO LONGER USING:
-
-
-row().show().js (CLOSURE+UGLIFY)	2.1.8	https://datatables.net/plug-ins/api/row().show()
-
-
-
+search highlight js is 2.38 kb
+while mark js is 18.48 kb, but supports better normalization and diacritics
 
 --------------------------
-OLD CODE:
+OLDER CODE:
 --------------------------
-
-jquery.mark.js (CLOSURE+UGLIFY)	9.0.0	https://github.com/julkue/mark.js/blob/master/dist/jquery.mark.js
-
-datatables.mark.js (UGLIFY)	3.0.0	https://github.com/DataTables/Plugins/blob/43cfbd1d7fd5150db5896d24998320905fec64f2/features/mark.js/datatables.mark.js
-
-mark js is 18.48 kb
-while search highlight js is 2.38 kb, so sticking with that one instead
 
 
 -Critical
