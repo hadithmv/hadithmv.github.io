@@ -330,21 +330,14 @@
         // CHANGE !!!
         // ar dv en arMean dvMean enMean gender source lang
         columns: [
-          { title: "އަރަބި ނަން", searchable: false },
-          {
-            title: "އަރަބި ފިލިނުޖަހާ",
-            data: 0,
-            render: (data) => removeThashkeel(data),
-            visible: false,
-          },
-          { title: "ދިވެހި ނަން", data: 1 },
-          { title: "އިނގިރޭސި ނަން", data: 2, className: "colEng" },
-          { title: "އަރަބި މާނަ", data: 3 },
-          { title: "ދިވެހި މާނަ", data: 4 },
-          { title: "އިނގިރޭސި މާނަ", data: 5, className: "colEng" },
+          { title: "އަރަބި ނަން" },
+          { title: "ދިވެހި ނަން" },
+          { title: "އިނގިރޭސި ނަން", className: "colEng" },
+          { title: "އަރަބި މާނަ" },
+          { title: "ދިވެހި މާނަ" },
+          { title: "އިނގިރޭސި މާނަ", className: "colEng" },
           {
             title: "ޖިންސު",
-            data: 6,
             render: (data) =>
               data
                 .replace(/(ފ)/g, '<span style="color: blue">ފިރިހެން</span>')
@@ -368,7 +361,6 @@
           },
           {
             title: "މަސްދަރު",
-            data: 7,
             render: (data) =>
               data.replace(/(މ|ކ|ބ)/g, function (match) {
                 if (match === "މ") {
@@ -384,7 +376,6 @@
           },
           {
             title: "ބަހުގެ އަސްލު",
-            data: 8,
           },
         ], //
         columnDefs: [
@@ -392,7 +383,7 @@
             searchPanes: {
               show: true,
             },
-            targets: [7, 8, 9],
+            targets: [6, 7, 8],
           },
           ...columnDefsconfig,
         ],

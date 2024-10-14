@@ -553,7 +553,10 @@
     <script type="text/javascript">
       table = new DataTable("#tableID", {
         ...DTconfig,
-        data: data,
+        ajax: {
+          url: `../js/json/` + currentFileName + `.json`,
+          dataSrc: "",
+        },
         // turns ordering columns back on, which was off for cards
         ordering: true,
         // https://datatables.net/reference/option/ordering
@@ -564,20 +567,8 @@
         // CHANGE !!!
         // arName ar dv pageNo
         columns: [
-          { title: "އަރަބި ލަފްޒު", searchable: false },
-          {
-            title: "އަރަބި ފިލިނުޖަހާ",
-            data: 0,
-            render: (data) => removeThashkeel(data),
-            visible: false,
-          },
-          { title: "ދިވެހި ލަފްޒު", data: 1 },
-          {
-            title: "އަރަބި ފިލިނުޖަހާ 2",
-            data: 1,
-            render: (data) => removeThashkeel(data),
-            visible: false,
-          },
+          { title: "އަރަބި ލަފްޒު" },
+          { title: "ދިވެހި ލަފްޒު" },
           {
             /* add sofhaa string to page no */
             data: 2,
@@ -589,12 +580,7 @@
           },
         ], //
         columnDefs: [
-          /*{
-            searchPanes: {
-              show: true,
-            },
-            targets: [7, 8, 9],
-          },*/
+          //
           ...columnDefsconfig,
         ],
       });

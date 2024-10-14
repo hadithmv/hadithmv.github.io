@@ -1515,7 +1515,10 @@
     <script type="text/javascript">
       table = new DataTable("#tableID", {
         ...DTconfig,
-        data: data,
+        ajax: {
+          url: `../js/json/` + currentFileName + `.json`,
+          dataSrc: "",
+        },
         // turns ordering columns back on, which was off for cards
         ordering: true,
         // https://datatables.net/reference/option/ordering
@@ -1545,12 +1548,7 @@
           },
         ], //
         columnDefs: [
-          /*{
-            searchPanes: {
-              show: true,
-            },
-            targets: [7, 8, 9],
-          },*/
+          //
           ...columnDefsconfig,
         ],
       });

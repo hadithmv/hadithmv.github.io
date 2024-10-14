@@ -1589,14 +1589,15 @@
           { title: "އަރަބި ނަމްބަރ", className: "colHeader" },
           { title: "ބާބު އަރަބިން", className: "colHeader" },
           { title: "ބާބު ދިވެހިން", className: "colHeader" },
-          { title: "އަރަބި ލިޔުން", searchable: false },
+          { title: "އަރަބި ލިޔުން" },
+          /* above previously had: , searchable: false
           {
             title: "އަރަބި ފިލިނުޖަހާ",
             data: 4,
             // render: (data) => data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
             render: (data) => removeThashkeel(data),
             visible: false,
-          },
+          }, */
           {
             title: "އަރަބި ފުޓްނޯޓުނުލާ",
             data: 4,
@@ -1618,7 +1619,8 @@
         columnDefs: [
           {
             // check if data is not empty string and append a line of kashidas and a line break if true; otherwise, return unchanged data, empty string.
-            targets: [8, 9],
+            // the targets for the footnote line always have to change depending on the columns rendered
+            targets: [7, 8],
             render: (data) =>
               //data !== "" ? "ـــــــــــــــــــــــــــ<br>" + data : data,
               // above does not preserve the \n new lines in the data, below does

@@ -307,29 +307,15 @@
           { title: "ބާބު އަރަބިން", className: "colHeader" },
           { title: "ފޮތް ދިވެހިން", className: "colHeader" },
           { title: "ބާބު ދިވެހިން", className: "colHeader" },
-          { title: "އަރަބި ލިޔުން", searchable: false },
-          {
-            title: "އަރަބި ފިލިނުޖަހާ",
-            data: 5,
-            render: (data) => removeThashkeel(data),
-            visible: false,
-          },
-          {
-            title: "އަރަބި ފުޓްނޯޓުނުލާ",
-            data: 5,
-            render: (data) => data.replace(/[⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
-            visible: false,
-            searchable: false,
-          },
+          { title: "އަރަބި ލިޔުން" },
           {
             title: "ދިވެހި ލިޔުން",
-            data: 6,
           },
-          { title: "ތަޚްރީޖު", data: 7, searchable: false },
+          { title: "ތަޚްރީޖު", searchable: false },
         ], //
         columnDefs: [
           {
-            targets: [9],
+            targets: [7],
             render: (data) =>
               data !== ""
                 ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +

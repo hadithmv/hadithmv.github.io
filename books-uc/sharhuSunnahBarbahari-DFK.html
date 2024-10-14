@@ -770,31 +770,22 @@ processed main data is the same as combined data, nothing is being combined roww
         //columns: [null,null,null,null,null],
         columns: [
           { title: "#", className: "colHeader" },
-          { title: "އަރަބި ލިޔުން", searchable: false },
-          {
-            title: "އަރަބި ފިލިނުޖަހާ",
-            data: 1,
-            render: (data) => removeThashkeel(data),
-            visible: false,
-          },
+          { title: "އަރަބި ލިޔުން" },
           {
             title: "ތަޚްރީޖު",
-            data: 2,
             visible: false,
             searchable: false,
           },
           {
             title: "ދިވެހި ލިޔުން",
-            data: 3,
           },
           {
             title: "ދިވެހި ތަޚްރީޖު",
-            data: 4,
           },
         ], //
         columnDefs: [
           {
-            targets: [5],
+            targets: [4],
             render: (data) =>
               data !== ""
                 ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +

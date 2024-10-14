@@ -571,16 +571,9 @@
           { title: "#", className: "colHeader" },
           { title: "ބާބު އަރަބިން", className: "colHeader" },
           { title: "ބާބު ދިވެހިން", className: "colHeader" },
-          { title: "އަރަބި ލިޔުން", searchable: false },
-          {
-            title: "އަރަބި ފިލިނުޖަހާ",
-            data: 3,
-            render: (data) => removeThashkeel(data),
-            visible: false,
-          },
+          { title: "އަރަބި ލިޔުން" },
           {
             title: "ތަޚްރީޖު",
-            data: 4,
             searchable: false,
           },
           {
@@ -602,7 +595,7 @@
         ], //
         columnDefs: [
           {
-            targets: [5, 8],
+            targets: [4, 7],
             render: (data) =>
               data !== ""
                 ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
