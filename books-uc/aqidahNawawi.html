@@ -58,30 +58,27 @@
             &nbsp; نسخ رابط الصفحة &nbsp;
           </button>
           <button
-            id="toggleFiliButton2"
+            id="toggleFiliButton"
             class="customButtons"
-            onclick="toggleFili();filiString2();scrollUpTop()"
+            onclick="toggleTashkeel();scrollUpTop();filiString2()"
           >
             &nbsp; إخفاء التشكيل &nbsp;
           </button>
 
           <script>
-            function toggleFili() {
-              var isVisible = $(".dataTable").DataTable().column(2).visible();
-              $(".dataTable").DataTable().column(2).visible(!isVisible);
+            let isToggled = false;
 
-              var isVisible = $(".dataTable").DataTable().column(3).visible();
-              $(".dataTable").DataTable().column(3).visible(!isVisible);
-            }
-          </script>
-
-          <script>
             function filiString2() {
-              var button = document.getElementById("toggleFiliButton2");
-              if (button.innerHTML.trim() === "&nbsp; إخفاء التشكيل &nbsp;") {
+              var button = document.getElementById("toggleFiliButton");
+
+              if (!isToggled) {
+                // First click action
                 button.innerHTML = "&nbsp; إظهار التشكيل &nbsp;";
+                isToggled = true;
               } else {
+                // Second click action
                 button.innerHTML = "&nbsp; إخفاء التشكيل &nbsp;";
+                isToggled = false;
               }
             }
           </script>
@@ -544,7 +541,12 @@
         ...DTconfig,
         ajax: {
           url: `../js/json/` + currentFileName + `.json`,
-          dataSrc: "",
+          dataSrc: function (json) {
+            originalData = json;
+            return json;
+          },
+          dataType: "json",
+          cache: true,
         },
         // CHANGE !!!
         language: {

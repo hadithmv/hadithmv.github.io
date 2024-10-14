@@ -222,32 +222,10 @@
           <button
             id="toggleFiliButton"
             class="customButtons"
-            onclick="toggleFili();filiString();scrollUpTop()"
+            onclick="toggleTashkeel();scrollUpTop()"
           >
             &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
           </button>
-
-          <script>
-            function toggleFili() {
-              var isVisible = $("#radheefEegaalTable")
-                .DataTable()
-                .column(0)
-                .visible();
-              $("#radheefEegaalTable")
-                .DataTable()
-                .column(0)
-                .visible(!isVisible);
-
-              var isVisible = $("#radheefEegaalTable")
-                .DataTable()
-                .column(1)
-                .visible();
-              $("#radheefEegaalTable")
-                .DataTable()
-                .column(1)
-                .visible(!isVisible);
-            }
-          </script>
 
           <hr />
 
@@ -553,9 +531,15 @@
     <script type="text/javascript">
       table = new DataTable("#tableID", {
         ...DTconfig,
+
         ajax: {
           url: `../js/json/` + currentFileName + `.json`,
-          dataSrc: "",
+          dataSrc: function (json) {
+            originalData = json;
+            return json;
+          },
+          dataType: "json",
+          cache: true,
         },
         // turns ordering columns back on, which was off for cards
         ordering: true,

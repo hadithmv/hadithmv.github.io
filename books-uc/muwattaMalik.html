@@ -53,20 +53,10 @@
           <button
             id="toggleFiliButton"
             class="customButtons"
-            onclick="toggleFili();filiString();scrollUpTop()"
+            onclick="toggleTashkeel();scrollUpTop()"
           >
             &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
           </button>
-
-          <script>
-            function toggleFili() {
-              var isVisible = $(".dataTable").DataTable().column(6).visible();
-              $(".dataTable").DataTable().column(6).visible(!isVisible);
-
-              var isVisible = $(".dataTable").DataTable().column(7).visible();
-              $(".dataTable").DataTable().column(7).visible(!isVisible);
-            }
-          </script>
 
           <hr />
 
@@ -210,7 +200,12 @@
         ...DTconfig,
         ajax: {
           url: `../js/json/` + currentFileName + `.json`,
-          dataSrc: "",
+          dataSrc: function (json) {
+            originalData = json;
+            return json;
+          },
+          dataType: "json",
+          cache: true,
         },
         // CHANGE !!!
         // #	basmala	kitab	bab	dvKitab	dvBab arText	dvText

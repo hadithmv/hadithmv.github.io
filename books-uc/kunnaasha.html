@@ -57,20 +57,10 @@
           <button
             id="toggleFiliButton"
             class="customButtons"
-            onclick="toggleFili();filiString();scrollUpTop()"
+            onclick="toggleTashkeel();scrollUpTop()"
           >
             &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
           </button>
-
-          <script>
-            function toggleFili() {
-              var isVisible = $(".dataTable").DataTable().column(4).visible();
-              $(".dataTable").DataTable().column(4).visible(!isVisible);
-
-              var isVisible = $(".dataTable").DataTable().column(5).visible();
-              $(".dataTable").DataTable().column(5).visible(!isVisible);
-            }
-          </script>
 
           <hr />
 
@@ -93,13 +83,22 @@
       table = new DataTable("#tableID", {
         ...DTconfig,
         // data: data.slice().reverse(), // Create a reversed copy of the data
-        ajax: {
+        /*ajax: {
           url: `../js/json/` + currentFileName + `.json`,
           //dataSrc: "",
           // Create a shallow copy with slice() then reverse it
           dataSrc: function (json) {
             return json.slice().reverse();
           },
+        },*/
+        ajax: {
+          url: `../js/json/` + currentFileName + `.json`,
+          dataSrc: function (json) {
+            originalData = json.slice().reverse();
+            return json.slice().reverse(); // Create a shallow copy with slice() then reverse it
+          },
+          dataType: "json",
+          cache: true,
         },
         // CHANGE !!!
 
