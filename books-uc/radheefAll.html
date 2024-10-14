@@ -369,37 +369,29 @@
         //columns: [null, null, null, null, null],
         // 0ar 1dv 2en 3arMean 4dvMean 5enMean
         columns: [
-          { title: "އަރަބި ލަފްޒު", searchable: false },
-          {
-            title: "އަރަބި ފިލިނުޖަހާ",
-            data: 0,
-            render: (data) => removeThashkeel(data),
-            visible: false,
-          },
+          { title: "އަރަބި ލަފްޒު" },
           {
             title: "ދިވެހި ލަފްޒު",
-            data: 1,
           },
           {
             title: "އިނގިރޭސި ލަފްޒު",
-            data: 2,
             className: "colEng",
           },
           {
             title: "އަރަބި މާނަ",
-            data: 3,
           },
           {
             title: "ދިވެހި މާނަ",
-            data: 4,
           },
           {
             title: "އިނގިރޭސި މާނަ",
-            data: 5,
             className: "colEng",
           },
         ],
-        ...columnDefsconfig,
+        columnDefs: [
+          //
+          ...columnDefsconfig,
+        ],
       });
     </script>
     <!-- Google Tag Manager -->
