@@ -52,10 +52,9 @@
           <button
             id="toggleFiliButton"
             class="customButtons"
-            onclick="toggleFili();filiString();scrollUpTop()"
+            onclick="toggleTashkeel();scrollUpTop()"
           >
-            &nbsp; ފިލިތައް ދައްކާ &nbsp;
-            <!-- ފޮރުވާ -->
+            &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
           </button>
           <button
             id="toggleShowButton"
@@ -136,15 +135,6 @@
               } else {
                 button.innerHTML = "&nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;";
               }
-            }
-          </script>
-          <script>
-            function toggleFili() {
-              var isVisible = $(".dataTable").DataTable().column(3).visible();
-              $(".dataTable").DataTable().column(3).visible(!isVisible);
-
-              var isVisible = $(".dataTable").DataTable().column(4).visible();
-              $(".dataTable").DataTable().column(4).visible(!isVisible);
             }
           </script>
 
@@ -425,6 +415,9 @@
                 console.error(`Error loading ${file}:`, error);
               }
             }
+
+            // added for thashkeel removal, changed from: originalData = json;
+            originalData = loadedData;
           };
 
           // Start the loading process
