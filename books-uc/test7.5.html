@@ -17,7 +17,7 @@
     <button
       id="toggleFiliButton"
       class="customButtons"
-      onclick="toggleTashkeel()"
+      onclick="toggleTashkeel();scrollUpTop();"
     >
       &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
     </button>
@@ -30,56 +30,6 @@
     <script src="../js/ALL-COMB.min.js"></script>
 
     <script type="text/javascript">
-      // Declare global variables
-      let tashkeelRemoved = false;
-      let originalData = [];
-
-      /**
-       * Removes tashkeel characters from the given string
-       * @param {string} data - The input string
-       * @return {string} The string with tashkeel characters removed
-       */
-      function removeThashkeel(data) {
-        return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "");
-      }
-
-      /**
-       * Toggles the visibility of tashkeel characters in the DataTable
-       */
-      function toggleTashkeel() {
-        tashkeelRemoved = !tashkeelRemoved;
-
-        if (tashkeelRemoved) {
-          // Remove tashkeel from each cell that contains a string
-          const newData = originalData.map((row) =>
-            row.map((cell) =>
-              typeof cell === "string" ? removeThashkeel(cell) : cell
-            )
-          );
-          // Update the table with the new data
-          table.clear().rows.add(newData).draw();
-          // Update button text
-          document.getElementById("toggleFiliButton").textContent =
-            " ފިލިތައް ދައްކާ ";
-        } else {
-          // Restore original data with tashkeel
-          table.clear().rows.add(originalData).draw();
-          // Update button text
-          document.getElementById("toggleFiliButton").textContent =
-            " ފިލިތައް ފޮރުވާ ";
-        }
-
-        // Scroll to the top of the page
-        scrollUpTop();
-      }
-
-      /**
-       * Scrolls the window to the top of the page
-       */
-      function scrollUpTop() {
-        window.scrollTo(0, 0);
-      }
-
       //
       //
       //
@@ -89,13 +39,24 @@
         ...DTconfig, // Spread your existing DataTable configuration
         ajax: {
           url: `../js/json/qawaidulArbau.json`,
+          // Custom function to process the loaded data before DataTables uses it
           dataSrc: function (json) {
-            // Store the original data when it's first loaded, needed for thashkeel fili removal
+            // Store the original JSON data in the global 'originalData' variable
+            // This allows us to keep a pristine copy of the data with tashkeel intact
+            // We'll use this later when toggling between tashkeel and non-tashkeel versions
             originalData = json;
+            // Return the unmodified JSON data for DataTables to use
+            // This ensures that the table is initially populated with the full data, including tashkeel
             return json;
           },
+          // Specify the expected data type of the server response
+          // This helps jQuery interpret the response correctly
           dataType: "json",
-          cache: true, // Enable caching for better performance
+          // Enable caching of the AJAX request
+          // This can significantly improve performance, especially for larger datasets
+          // The browser will store the response locally and reuse it for subsequent requests
+          // Note: Set this to false if your data changes frequently and needs real-time updates
+          cache: true,
         },
         columns: [
           { title: "#" },
