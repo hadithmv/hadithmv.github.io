@@ -16,12 +16,106 @@ let isMobile = window.innerWidth <= 800; // Boolean to check if the current view
 FILI AND FOOTNOTE REMOVE CODE
 === === === */
 
+/*
+this is my datatables js code
+what i want is, when i click toggleFiliButton, i want the thaskeel characters shown in the table to be removed like a toggle, and if i click it again, i want the taskheel characters back again
+here is a sample of my json data
+
+i want to do it without
+having something inside the table = new DataTable("#tableID", { scope
+or using document.addEventListener('DOMContentLoaded', function() {
+
+cant it be done without table.on('init', function() { originalData = table.data().toArray(); });
+*/
+
+//  implement  toggle functionality for removing and restoring tashkeel characters in  DataTable
+
+/**
+ * Removes tashkeel characters from the given string
+ * @param {string} data - The input string
+ * @return {string} The string with tashkeel characters removed
+ */
+function removeThashkeel(data) {
+  return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "");
+}
+
+// Declare global variables
+let tashkeelRemoved = false;
+let originalData = [];
+
+/**
+ * Toggles the visibility of tashkeel characters in the DataTable
+ */
+function toggleTashkeel() {
+  tashkeelRemoved = !tashkeelRemoved;
+
+  // Store the current page index
+  const currentPage = table.page();
+
+  if (tashkeelRemoved) {
+    // Remove tashkeel from each cell that contains a string
+    const newData = originalData.map((row) =>
+      row.map((cell) =>
+        typeof cell === "string" ? removeThashkeel(cell) : cell
+      )
+    );
+    // Update the table with the new data
+    table.clear().rows.add(newData).draw(false);
+    // Update button text
+    document.getElementById("toggleFiliButton").textContent =
+      " ފިލިތައް ދައްކާ ";
+  } else {
+    // Restore original data with tashkeel
+    table.clear().rows.add(originalData).draw(false);
+    // Update button text
+    document.getElementById("toggleFiliButton").textContent =
+      " ފިލިތައް ފޮރުވާ ";
+  }
+
+  // Return to the previously stored page
+  table.page(currentPage).draw("page");
+}
+
+/* below code goes inside the dt initialization of the page
+// Removes tashkeel characters from the given string @param {string} data - The input string @return {string} The string with tashkeel characters removed
+function removeThashkeel(data) {
+  return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "");
+}
+// Declare global variables
+let tashkeelRemoved = false;
+let originalData = [];
+// Toggles the visibility of tashkeel characters in the DataTable
+function toggleTashkeel() {
+  tashkeelRemoved = !tashkeelRemoved;
+  if (tashkeelRemoved) {
+    // Remove tashkeel from each cell that contains a string
+    const newData = originalData.map((row) =>
+      row.map((cell) =>
+        typeof cell === "string" ? removeThashkeel(cell) : cell
+      )
+    );
+    // Update the table with the new data
+    table.clear().rows.add(newData).draw();
+    // Update button text
+    document.getElementById("toggleFiliButton").textContent =
+      " ފިލިތައް ދައްކާ ";
+  } else {
+    // Restore original data with tashkeel
+    table.clear().rows.add(originalData).draw();
+    // Update button text
+    document.getElementById("toggleFiliButton").textContent =
+      " ފިލިތައް ފޮރުވާ ";
+  }
+}
+*/
+
 // OLD DIACRITIC REMOVAL ON DATA
 // define reusable functions for the regular expressions used in the render method. Replace the inline regex replacements with calls to these functions.
 /*function removeThashkeel(data) {
   return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "");
 }*/
 
+// removes just smallish footnotes - do i need this?
 function removeSmallishFootnotes(data) {
   return data.replace(/[⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "");
 }
@@ -375,6 +469,7 @@ let table; // Variable to store the DataTable instance
 //
 
 // CUSTOM columnDefs CONFIGURATION
+// remember to place ...columnDefsconfig at the very end of columnDefs: [], right before it is closed, otherwise overwrites and nonapplies will occur
 let columnDefsconfig = [
   // settings for all book tables
   {

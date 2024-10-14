@@ -1582,7 +1582,7 @@
           dataSrc: "",
         },*/
         ajax: {
-          url: `../js/json/` + currentFileName + `.json`,
+          url: `../js/json/arbaoonNawawi.json`,
           // Custom function to process the loaded data before DataTables uses it
           dataSrc: function (json) {
             // Store the original JSON data in the global 'originalData' variable
@@ -1602,6 +1602,7 @@
           // Note: Set this to false if your data changes frequently and needs real-time updates
           cache: true,
         },
+
         // CHANGE !!!
         // columns: [null, null, null, null, null, null, null, null],
         // #	noAr	arTitle	dvTitle	arab	dhiv	arRef	dvRef
@@ -1651,6 +1652,21 @@
                   data.replace(/\n/g, '\t<br class="dtBr">')
                 : data,
           },
+          /*{
+            targets: "_all",
+            // hides panes for all other columns
+            render: function (data, type, row) {
+              // if \r\n|\n|\r occurs more than once, i dont want <br class="dtBr"> to occure more than once
+              return data.replace(/(\r\n|\n|\r)+/g, '\t<br class="dtBr">');
+              //return data.replace(/\r\n|\n|\r/g, '\t<br class="dtBr">');
+              // return data.replace(/\r\n|\n|\r/g, '\t<br class="dtBr">');
+              // return data.replace(/\r\n|\n|\r/g, "\t<br><br>");
+              //return data.replace(/\r\n|\n|\r/g, "\t<p><p>");
+            }, // for some reason, without the \n replaced above, the single new lines in between same language paragraphs show in console as a single space, and therefore clipboard cannot be customized to show it
+            // added space before br, otherwise clipboard copy export has no space
+            // leave off applying '<br class="dtBr">' in the divider replacements ـــــــــــــــــــــــــــ in order to have footnotes close together
+            // it seems without \t, clipboard copy will not have newlines
+          },*/
           {
             // https://datatables.net/reference/option/columns.searchPanes.show
             // force all cols to show searchpanes by default
@@ -1689,6 +1705,13 @@
           // below includes a spread operator to include external settings for all book tables
           ...columnDefsconfig,
         ],
+      });
+      table.on("draw", function () {
+        //console.log("All table data after draw:", table.data().toArray());
+        console.log(
+          "Current table data:",
+          table.rows({ page: "current" }).data().toArray()
+        );
       });
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
