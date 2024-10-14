@@ -751,7 +751,9 @@ Object.assign(DataTable.defaults, {
               .replace(/[أآإ]/g, "ا")*/
 
   mark: {
-    // this is actually supposed to be used for making matches with or without punctuation characters, like ["'"]
+    // pair whats needed between arabic diacritic normalization and markjs search highlight
+
+    // ignorePunctuation is actually supposed to be used for making matches with or without punctuation characters, like ["'"]
     // i repurposed it as a arabic diacritic thaskeel remove
     // \u064B-\u065F
 
@@ -970,8 +972,10 @@ table = new DataTable("#tableID", {
 // https://medium.com/@kashmiry/datatables-arabic-search-normalization-575949b0453c
 // https://gist.github.com/kashmiry/ba35115ba23e8b6f034c2562dbd4042c#file-datatables-diacriticsarabic-js
 
-// DataTables Arabic Search Normalization Functions
+// DataTables Arabic Search Normalization Function
 // Extend diacritics to support Arabic characters
+
+// pair whats needed between arabic diacritic normalization and markjs search highlight
 $(function () {
   // Check if DataTable is defined
   if (typeof DataTable !== "undefined") {
