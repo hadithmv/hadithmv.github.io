@@ -610,20 +610,13 @@
           { title: "العنوان", className: "colHeader" },
           { title: "النص" },
           {
-            title: "بدون تشكيل",
-            data: 2,
-            render: (data) => removeThashkeel(data),
-            visible: false,
-          },
-          {
             title: "الحاشية",
-            data: 3,
             searchable: false,
           },
         ], //
         columnDefs: [
           {
-            targets: [4],
+            targets: [3],
             render: (data) =>
               data !== ""
                 ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +

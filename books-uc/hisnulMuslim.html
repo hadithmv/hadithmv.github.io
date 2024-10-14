@@ -485,43 +485,32 @@
           { title: "#", className: "colHeader" },
           { title: "ބާބު އަރަބިން", className: "colHeader" },
           { title: "ބާބު ދިވެހިން", className: "colHeader" },
-          { title: "އަރަބި ލިޔުން", searchable: false },
-          {
-            title: "އަރަބި ފިލިނުޖަހާ",
-            data: 3,
-            render: (data) => removeThashkeel(data),
-            visible: false,
-          },
+          { title: "އަރަބި ލިޔުން" },
           {
             title: "ދިވެހި ލިޔުން",
-            data: 4,
           },
           {
             title: "ތަޚްރީޖު",
-            data: 5,
             visible: false,
             searchable: false,
           },
           {
             title: "ދިވެހި ތަޚްރީޖު",
-            data: 6,
             visible: false,
             searchable: false,
           },
           {
             title: "Eng Chapter",
-            data: 7,
             visible: false,
           },
           {
             title: "English",
-            data: 8,
             visible: false,
           },
         ], //
         columnDefs: [
           {
-            targets: [6, 7],
+            targets: [5, 6],
             render: (data) =>
               data !== ""
                 ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
@@ -532,7 +521,7 @@
             searchPanes: {
               show: true,
             },
-            targets: [1, 2, 8],
+            targets: [1, 2, 7],
           },
           {
             targets: [0],
