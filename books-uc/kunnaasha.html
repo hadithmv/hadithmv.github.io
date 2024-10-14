@@ -131,12 +131,6 @@
           },
           { title: "ތާރީޚު", data: 1, className: "colHeader" },
           { title: "އަރަބި ލިޔުން", data: 2 },
-          {
-            title: "އަރަބި ފިލިނުޖަހާ",
-            data: 2,
-            render: (data) => removeThashkeel(data),
-            visible: false,
-          },
           // <br>
           // '\t<br>'
           {
@@ -158,12 +152,6 @@
               //return remainingText;
               return remainingText.replace(/\r\n|\n|\r/g, '\t<br>');
             },*/
-          },
-          {
-            title: "ދިވެހި އ ފިލިނުޖަހާ",
-            data: 3,
-            render: (data) => removeThashkeel(data),
-            visible: false,
           },
           { title: "މަސްދަރު", data: 4 },
         ],
@@ -187,7 +175,7 @@
             ],*/ //
         columnDefs: [
           {
-            targets: [4],
+            targets: [3],
             render: (data) =>
               data !== ""
                 ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +

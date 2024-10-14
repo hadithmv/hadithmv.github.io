@@ -220,27 +220,19 @@
         // # arText	dvText takhrij
         columns: [
           { title: "#", className: "colHeader" },
-          { title: "އަރަބި ލިޔުން", searchable: false },
-          {
-            title: "އަރަބި ފިލިނުޖަހާ",
-            data: 1,
-            render: (data) => removeThashkeel(data),
-            visible: false,
-          },
+          { title: "އަރަބި ލިޔުން" },
           {
             title: "ދިވެހި ލިޔުން",
-            data: 2,
           },
           {
             title: "ތަޚްރީޖު",
-            data: 3,
-            visible: false,
+            visible: false, // change later !!! ???
             searchable: false,
           },
         ],
         columnDefs: [
           {
-            targets: [4],
+            targets: [3],
             render: (data) =>
               data !== ""
                 ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +

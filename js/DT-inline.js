@@ -16,10 +16,11 @@ let isMobile = window.innerWidth <= 800; // Boolean to check if the current view
 FILI AND FOOTNOTE REMOVE CODE
 === === === */
 
+// OLD DIACRITIC REMOVAL ON DATA
 // define reusable functions for the regular expressions used in the render method. Replace the inline regex replacements with calls to these functions.
-function removeThashkeel(data) {
+/*function removeThashkeel(data) {
   return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "");
-}
+}*/
 
 function removeSmallishFootnotes(data) {
   return data.replace(/[⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "");
@@ -1153,9 +1154,10 @@ i'd rather use scrollIntoView() instead
   });*/
   //
 
+  // OLD DIACRITIC REMOVAL ON INPUT
   // https://datatables.net/reference/api/search()
   // removes diacritics and punctuation on key up for search
-  $(".dt-search .dt-input").on("keyup click", function () {
+  /*$(".dt-search .dt-input").on("keyup click", function () {
     var str = $(this).val();
     str = str.replace(
       /[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|.|،|؟|-|ـ|’|”|:|؛|/{|/}|/(|/)|/[|/]|«|»|]/g,
@@ -1164,7 +1166,7 @@ i'd rather use scrollIntoView() instead
     $(this).val(str);
     //table.search(str).draw();
     // commenting above out allows searchdelay to work with stringreplace
-  });
+  });*/
   //
   //
   //

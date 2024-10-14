@@ -389,26 +389,18 @@
           { title: "#", className: "colHeader" },
           { title: "ބާބު އަރަބިން", className: "colHeader" },
           { title: "ބާބު ދިވެހިން", className: "colHeader" },
-          { title: "އަރަބި ލިޔުން", searchable: false },
-          {
-            title: "އަރަބި ފިލިނުޖަހާ",
-            data: 3,
-            render: (data) => removeThashkeel(data),
-            visible: false,
-          },
+          { title: "އަރަބި ލިޔުން" },
           {
             title: "ދިވެހި ލިޔުން",
-            data: 4,
           },
           {
             title: "ތަޚްރީޖު",
-            data: 5,
             searchable: false,
           },
         ], //
         columnDefs: [
           {
-            targets: [6],
+            targets: [5],
             render: (data) =>
               data !== ""
                 ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
