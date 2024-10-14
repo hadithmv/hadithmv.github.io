@@ -1517,7 +1517,12 @@
         ...DTconfig,
         ajax: {
           url: `../js/json/` + currentFileName + `.json`,
-          dataSrc: "",
+          dataSrc: function (json) {
+            originalData = json;
+            return json;
+          },
+          dataType: "json",
+          cache: true,
         },
         // turns ordering columns back on, which was off for cards
         ordering: true,
