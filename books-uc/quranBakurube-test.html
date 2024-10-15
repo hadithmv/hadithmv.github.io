@@ -649,51 +649,65 @@
     </div>
 
     <script>
-      additionalColumns = [];
+      currentFileName = "quranBakurube";
+      //
+      /**
+       * Initializes the DataTable with base data and sets up the default translation
+       * This function is crucial for setting up the initial state of the table
+       */
+      function initializeTable() {
+        // Clear any existing additional columns to ensure fresh start
+        additionalColumns = [];
 
-      table = new DataTable("#tableID", {
-        ...DTconfig,
-        ajax: {
-          url: `${baseJsonUrl}quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json`,
-          dataSrc: "",
-        },
-        columns: getAllColumnDefinitions(),
-
-        initComplete: function () {
-          additionalJsons.forEach((json) => {
-            const columnIndices = getColumnIndices(json.name);
-            columnIndices.forEach((colIndex) => {
-              table.column(colIndex).visible(false);
-            });
-          });
-
-          toggleTranslation(defaultAdditionalJson);
-
-          initializeNavigationBoxes();
-
-          table.rows().every(function (rowIdx, tableLoop, rowLoop) {
-            var data = this.data();
-            var surah = parseInt(data[1]);
-            var ayah = parseInt(data[2]);
-
-            ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
-          });
-
-          updateAllQValues(table.row(0).data());
-        },
-
-        columnDefs: [
-          {
-            searchPanes: {
-              show: true,
-            },
-            targets: [0, 1, 2],
+        // Initialize the DataTable with asynchronous data loading
+        table = new DataTable("#tableID", {
+          ...DTconfig, // Spread operator to include additional DataTable configuration options
+          ajax: {
+            url: `${baseJsonUrl}quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json`, // URL for the JSON data source
+            dataSrc: "", // Specify that the data is directly in the root of the JSON response
           },
-          ...columnDefsconfig,
-        ],
-      });
+          columns: getAllColumnDefinitions(), // Get the column definitions for the DataTable
+          initComplete: function () {
+            additionalJsons.forEach((json) => {
+              const columnIndices = getColumnIndices(json.name);
+              columnIndices.forEach((colIndex) => {
+                table.column(colIndex).visible(false);
+              });
+            });
+            toggleTranslation(defaultAdditionalJson);
+            initializeNavigationBoxes();
+            table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+              var data = this.data();
+              var surah = parseInt(data[1]);
+              var ayah = parseInt(data[2]);
+              ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
+            });
+            updateAllQValues(table.row(0).data());
+          },
 
-      initializeTranslationSelector();
+          //
+          columnDefs: [
+            {
+              searchPanes: {
+                show: true,
+              },
+              targets: [0, 1, 2],
+            },
+            ...columnDefsconfig,
+          ],
+          //
+        }); // table = new DataTable("#tableID", {
+      } // function initializeTable() { END
+
+      //
+      //
+      //
+
+      // Initialize the translation selector after the table is set up
+      initializeTranslationSelector(); // Call the function to set up the translation selector UI
+
+      // Initialize the table when the page loads
+      document.addEventListener("DOMContentLoaded", initializeTable); // Set up an event listener to initialize the table once the DOM is fully loaded
     </script>
     <!-- Google Tag Manager -->
     <script>
