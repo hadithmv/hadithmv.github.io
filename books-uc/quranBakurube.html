@@ -77,6 +77,35 @@
       <table id="tableID" class="cards" width="100%"></table>
       <div class="hmvSection">
         <div class="centerAlignedText">
+          <!-- TRANSLATION SELECTOR -->
+          <!-- Translation selector container -->
+          <div class="translation-selector">
+            <!-- Button to toggle the translation dropdown -->
+            <button id="translationToggleBtn" class="customButtons">
+              ދައްކާ / ފޮރުވާ
+            </button>
+
+            <!-- Dropdown container for translation options -->
+            <div
+              id="translationDropdown"
+              style="display: none"
+              class="translation-dropdown rtlText rightAlignedText"
+            >
+              <!-- List of available translations, will be dynamically added here -->
+              <div id="translationList"></div>
+
+              <!-- Control buttons for translation selection -->
+              <button id="applyTranslations" class="customButtons">އޯކޭ</button>
+              <button id="resetTranslations" class="customButtons">
+                ރީސެޓް
+              </button>
+              <button id="showAllTranslations" class="customButtons">
+                ހުރިހާ
+              </button>
+            </div>
+          </div>
+          <!-- END OF TRANSLATION SELECTOR -->
+
           <button
             id="copyPageLink"
             class="customButtons"
