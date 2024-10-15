@@ -473,59 +473,59 @@
        * Initializes the DataTable with base data and sets up the default translation
        * This function is crucial for setting up the initial state of the table
        */
-      function initializeTable() {
-        // Clear any existing additional columns to ensure fresh start
-        additionalColumns = [];
+      //function initializeTable() {
+      // Clear any existing additional columns to ensure fresh start
+      additionalColumns = [];
 
-        // Initialize the DataTable with asynchronous data loading
-        table = new DataTable("#tableID", {
-          ...DTconfig, // Spread operator to include additional DataTable configuration options
-          ajax: {
-            url: `${baseJsonUrl}quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json`, // URL for the JSON data source
-            dataSrc: "", // Specify that the data is directly in the root of the JSON response
-          },
-          columns: getAllColumnDefinitions(), // Get the column definitions for the DataTable
-          initComplete: function () {
-            // Hide all additional columns initially for a clean start
-            additionalJsons.forEach((json, index) => {
-              const baseColumnsLength = baseColumns.length; // Get the length of base columns
-              const columnIndex = baseColumnsLength + index * 2; // Calculate the index for the additional columns
-              table.column(columnIndex).visible(false); // Hide the name column for the additional translation
-              table.column(columnIndex + 1).visible(false); // Hide the data column for the additional translation
-            });
+      // Initialize the DataTable with asynchronous data loading
+      table = new DataTable("#tableID", {
+        ...DTconfig, // Spread operator to include additional DataTable configuration options
+        ajax: {
+          url: `${baseJsonUrl}quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json`, // URL for the JSON data source
+          dataSrc: "", // Specify that the data is directly in the root of the JSON response
+        },
+        columns: getAllColumnDefinitions(), // Get the column definitions for the DataTable
+        initComplete: function () {
+          // Hide all additional columns initially for a clean start
+          additionalJsons.forEach((json, index) => {
+            const baseColumnsLength = baseColumns.length; // Get the length of base columns
+            const columnIndex = baseColumnsLength + index * 2; // Calculate the index for the additional columns
+            table.column(columnIndex).visible(false); // Hide the name column for the additional translation
+            table.column(columnIndex + 1).visible(false); // Hide the data column for the additional translation
+          });
 
-            // Toggle/Show only the default translation
-            toggleTranslation(defaultAdditionalJson); // Show the default additional translation
+          // Toggle/Show only the default translation
+          toggleTranslation(defaultAdditionalJson); // Show the default additional translation
 
-            // Initialize navigation boxes for Surah, Ayah, and Juz selection
-            initializeNavigationBoxes();
+          // Initialize navigation boxes for Surah, Ayah, and Juz selection
+          initializeNavigationBoxes();
 
-            // Populate ayahCounts object for navigation purposes
-            table.rows().every(function (rowIdx, tableLoop, rowLoop) {
-              var data = this.data(); // Get the data for the current row
-              var surah = parseInt(data[1]); // Parse the Surah number from the row data
-              var ayah = parseInt(data[2]); // Parse the Ayah number from the row data
-              // Update the ayahCounts object to track the maximum number of ayahs for each Surah
-              ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah); // Store the maximum ayah count for the Surah
-            });
+          // Populate ayahCounts object for navigation purposes
+          table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+            var data = this.data(); // Get the data for the current row
+            var surah = parseInt(data[1]); // Parse the Surah number from the row data
+            var ayah = parseInt(data[2]); // Parse the Ayah number from the row data
+            // Update the ayahCounts object to track the maximum number of ayahs for each Surah
+            ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah); // Store the maximum ayah count for the Surah
+          });
 
-            // Update navigation boxes with initial values
-            updateAllQValues(table.row(0).data()); // Set the initial values for the navigation boxes based on the first row
-          },
+          // Update navigation boxes with initial values
+          updateAllQValues(table.row(0).data()); // Set the initial values for the navigation boxes based on the first row
+        },
 
-          //
-          columnDefs: [
-            {
-              searchPanes: {
-                show: true,
-              },
-              targets: [0, 1, 2],
+        //
+        columnDefs: [
+          {
+            searchPanes: {
+              show: true,
             },
-            ...columnDefsconfig,
-          ],
-          //
-        }); // table = new DataTable("#tableID", {
-      } // function initializeTable() { END
+            targets: [0, 1, 2],
+          },
+          ...columnDefsconfig,
+        ],
+        //
+      }); // table = new DataTable("#tableID", {
+      //} // function initializeTable() { END
 
       //
       //
