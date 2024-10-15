@@ -898,13 +898,9 @@ const baseColumns = [
     data: "4",
     title: "އާޔަތް (އިމްލާއީ)",
     visible: true,
-    /* add brackets to ayah */
-    //data = "﴿" + data + "﴾";
     render: function (data, type, row) {
       data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
-      // combines ayah and number columns together
       data = "﴿" + data + " " + row[2] + "﴾";
-      // makes ayah numbers arabic
       data = replaceDigitsWithArabic(data);
       return data;
     },
@@ -914,13 +910,8 @@ const baseColumns = [
     title: "ރަސްމު އުޘްމާނީ",
     visible: false,
     render: function (data, type, row) {
-      // this places a non break character before the numbers, also replaces a space before the numbers
       data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
-      /* reverse brackets because thats how the font file needs it */
-      // combines ayah and number columns together
       data = "﴿" + data + " " + row[2] + "﴾";
-      //data = "﴿" + data + "﴾";
-      // makes ayah numbers arabic
       data = replaceDigitsWithArabic(data);
       return data;
     },
@@ -933,9 +924,6 @@ const baseColumns = [
 // title: display name for the translation
 // This allows for dynamic loading of different translations or tafsirs
 
-// Suggested change: Update this to include multiple columns where needed
-// For example: { name: "quranBakurube", columns: [0, 1], title: "ބަކުރުބެ ތަރުޖަމާ:" },
-// This allows specifying multiple columns for each JSON file
 const additionalJsons = [
   { name: "quranHadithmv", columns: [0], title: "ޙަދީޘްއެމްވީ ތަރުޖަމާ:" },
   { name: "quranRasmee", columns: [0, 1], title: "ރަސްމީ ތަރުޖަމާ:" },
@@ -956,14 +944,20 @@ const defaultAdditionalJson = currentFileName;
  * @returns {Array} Array of column definition objects for DataTables
  */
 
-// Suggested change: Modify this function to create separate columns for each specified column in the JSON
-// This would involve changing the flatMap logic to create a column for each specified column in json.columns
-
 function getAllColumnDefinitions() {
-  // Create column definitions for additional translations
   const additionalColumnDefs = additionalJsons.flatMap((json) => {
-    return json.columns.map((colIndex, index) => ({
-      title: `${json.title} ${index + 1}`,
+    const titleColumn = {
+      title: `<strong>${json.title}</strong>`,
+      data: null,
+      name: `${json.name}-title`,
+      visible: false,
+      //className: "dt-body-center dt-head-center",
+      render: function (data, type, row) {
+        return `<strong>${json.title}</strong>`;
+      },
+    };
+    const dataColumns = json.columns.map((colIndex, index) => ({
+      title: `${index + 1}`,
       data: null,
       name: `${json.name}-${colIndex}`,
       visible: false,
@@ -974,12 +968,8 @@ function getAllColumnDefinitions() {
         return "Loading...";
       },
     }));
+    return [titleColumn, ...dataColumns];
   });
-
-  // .replace(/:/g, "").trim(), // removes colon from column title columns
-
-  // Combine base columns with additional columns
-  // This allows for a flexible table structure that can accommodate various translations
   return [...baseColumns, ...additionalColumnDefs];
 }
 
@@ -999,75 +989,67 @@ function getAllColumnDefinitions() {
  * @param {string} jsonName - The name of the translation to toggle
  */
 
-// Suggested change: Modify this function to handle multiple columns per JSON
-// This would involve calculating the correct column indices for each JSON file
-// and toggling visibility for all specified columns
-
-function toggleTranslation(jsonName) {
-  // Find the index of the translation in the additionalColumns array
-  const index = additionalColumns.indexOf(jsonName);
-  // Get information about the translation from the additionalJsons array
+function toggleTranslation(jsonName, colIndex) {
   const jsonInfo = additionalJsons.find((j) => j.name === jsonName);
-  const columnIndices = getColumnIndices(jsonName);
+  const titleColumnIndex = getColumnIndices(jsonName)[0];
+  const dataColumnIndex = getColumnIndices(jsonName)[colIndex + 1];
 
-  if (index > -1) {
-    // Remove column if translation is currently shown
-    additionalColumns.splice(index, 1); // Remove the translation from the array
-    columnIndices.forEach((colIndex) => {
-      table.column(colIndex).visible(false); // Hide the column for the translation
-    });
-  } else {
-    // Add column if translation is currently hidden
-    additionalColumns.push(jsonName); // Add the translation to the array
-
-    // Asynchronously load the translation JSON data
+  if (!additionalColumns.includes(jsonName)) {
+    additionalColumns.push(jsonName);
     $.ajax({
-      url: `${baseJsonUrl}${jsonName}.json`, // Construct the URL for the translation JSON
-      dataType: "json", // Specify the data type expected from the server
+      url: `${baseJsonUrl}${jsonName}.json`,
+      dataType: "json",
       success: function (data) {
-        // Merge new translation data with existing data
         const currentData = table.data().toArray();
-        // Update each row with the new translation data
         currentData.forEach((row, idx) => {
-          row[jsonName] = data[idx]; // Add the translation data to the corresponding row
+          row[jsonName] = data[idx];
         });
-        // Log the combined data to the console
-        //console.log("Combined Data:", currentData);
-        // added for thashkeel removal, changed from: originalData = json;
-        originalData = currentData;
-
-        // Update the table with merged data and show the new columns
-        table.clear(); // Clear the existing table data
-        table.rows.add(currentData); // Add the updated data to the table
-
-        // Show the translation columns
-        columnIndices.forEach((colIndex) => {
-          table.column(colIndex).visible(true);
-        });
-
-        // Redraw the table to show changes
-        table.draw(); // Refresh the table to reflect the new data
+        table.clear();
+        table.rows.add(currentData);
+        table.column(titleColumnIndex).visible(true);
+        table.column(dataColumnIndex).visible(true);
+        table.draw();
       },
       error: function (xhr, status, error) {
-        console.error("Error loading translation:", error); // Log any errors that occur during the AJAX request
+        console.error("Error loading translation:", error);
       },
     });
+  } else {
+    const visibleDataColumns = jsonInfo.columns.filter((_, index) =>
+      table.column(getColumnIndices(jsonName)[index + 1]).visible()
+    );
+    if (
+      visibleDataColumns.length === 1 &&
+      colIndex === visibleDataColumns[0] - 1
+    ) {
+      // If this is the last visible data column, hide the title column too
+      table.column(titleColumnIndex).visible(false);
+    } else {
+      table.column(titleColumnIndex).visible(true);
+    }
+    table
+      .column(dataColumnIndex)
+      .visible(!table.column(dataColumnIndex).visible());
+    table.draw();
   }
 }
 
+// Function to get column indices for a given JSON
 function getColumnIndices(jsonName) {
   const baseColumnsLength = baseColumns.length;
   let startIndex = baseColumnsLength;
-
   for (let i = 0; i < additionalJsons.length; i++) {
     if (additionalJsons[i].name === jsonName) {
       break;
     }
-    startIndex += additionalJsons[i].columns.length;
+    startIndex += additionalJsons[i].columns.length + 1; // +1 for the title column
   }
-
-  const jsonInfo = additionalJsons.find((j) => j.name === jsonName);
-  return jsonInfo.columns.map((_, index) => startIndex + index);
+  return [
+    startIndex,
+    ...additionalJsons
+      .find((j) => j.name === jsonName)
+      .columns.map((_, index) => startIndex + index + 1),
+  ];
 }
 
 /**
@@ -1093,71 +1075,59 @@ let translationStates = {}; // Object to track the current state of each transla
 let initialTranslationStates = {}; // Object to store the initial state of each translation checkbox
 
 function initializeTranslationSelector() {
-  // Get references to the UI elements for the translation selector
   const translationList = document.getElementById("translationList");
-  const toggleBtn = document.getElementById("translationToggleBtn"); // Button to toggle the dropdown
-  const dropdown = document.getElementById("translationDropdown"); // Dropdown for translation options
-  const applyBtn = document.getElementById("applyTranslations"); // Button to apply selected translations
-  const resetBtn = document.getElementById("resetTranslations"); // Button to reset translations to initial state
-  const showAllBtn = document.getElementById("showAllTranslations"); // Button to show all translations
+  const toggleBtn = document.getElementById("translationToggleBtn");
+  const dropdown = document.getElementById("translationDropdown");
+  const applyBtn = document.getElementById("applyTranslations");
+  const resetBtn = document.getElementById("resetTranslations");
+  const showAllBtn = document.getElementById("showAllTranslations");
 
-  // Populate translation list with base columns
   baseColumns.forEach((column, index) => {
-    addTranslationItem(
-      translationList,
-      column.title, // Title of the column
-      index, // Index of the column
-      column.visible // Initial visibility state of the column
-    );
+    addTranslationItem(translationList, column.title, index, column.visible);
   });
 
-  // Populate translation list with additional translations
   additionalJsons.forEach((json) => {
     json.columns.forEach((colIndex, index) => {
       addTranslationItem(
         translationList,
         `${json.title} ${index + 1}`,
         `${json.name}-${colIndex}`,
-        json.name === defaultAdditionalJson
+        json.name === defaultAdditionalJson && index === 0
       );
     });
   });
 
-  // Store initial states of translation checkboxes
-  Object.assign(initialTranslationStates, translationStates);
+  if (!toggleBtn || !dropdown) {
+    console.error("Toggle button or dropdown not found");
+    return;
+  }
 
-  // Event listener for toggling the dropdown visibility
   toggleBtn.addEventListener("click", (event) => {
-    event.stopPropagation(); // Prevent event from bubbling up to the document
+    event.stopPropagation();
     dropdown.style.display =
-      dropdown.style.display === "block" ? "none" : "block"; // Toggle dropdown visibility
+      dropdown.style.display === "block" ? "none" : "block";
   });
 
-  // Close dropdown and apply changes when clicking outside of it
   document.addEventListener("click", (event) => {
     if (!event.target.closest(".translation-selector")) {
-      // Check if the click is outside the translation selector
       if (dropdown.style.display === "block") {
-        applyTranslations(); // Apply selected translations if dropdown is open
+        applyTranslations();
       }
-      dropdown.style.display = "none"; // Hide the dropdown
+      dropdown.style.display = "none";
     }
   });
 
-  // Apply translations when the apply button is clicked
   applyBtn.addEventListener("click", () => {
-    applyTranslations(); // Call function to apply translations
-    dropdown.style.display = "none"; // Hide the dropdown after applying
+    applyTranslations();
+    dropdown.style.display = "none";
   });
 
-  // Reset translations to their initial state when the reset button is clicked
   resetBtn.addEventListener("click", () => {
-    resetTranslations(); // Call function to reset translations
+    resetTranslations();
   });
 
-  // Show all available translations when the show all button is clicked
   showAllBtn.addEventListener("click", () => {
-    showAllTranslations(); // Call function to display all translations
+    showAllTranslations();
   });
 }
 
@@ -1169,93 +1139,80 @@ function initializeTranslationSelector() {
  * @param {boolean} checked - Whether the translation should be initially checked
  */
 function addTranslationItem(list, title, value, checked) {
-  // Create a new div element to represent the translation item
   const item = document.createElement("div");
-  item.className = "translation-item"; // Set the class name for styling
+  item.className = "translation-item";
 
-  // Set the inner HTML of the item, including a checkbox and a label
+  const valueStr = String(value);
+  if (valueStr.includes("-title")) {
+    return;
+  }
+
   item.innerHTML = `
-        <input type="checkbox" id="trans-${value}" value="${value}" ${
+      <input type="checkbox" id="trans-${valueStr}" value="${valueStr}" ${
     checked ? "checked" : ""
   }>
-        <label for="trans-${value}">${title}</label>
-    `;
-
-  // Append the newly created item to the provided list container
+      <label for="trans-${valueStr}">${title}</label>
+  `;
   list.appendChild(item);
-
-  // Update the translationStates object to track the current checked state of the translation
-  translationStates[value] = checked;
-
-  // Store the initial checked state of the translation for potential resets
-  initialTranslationStates[value] = checked;
+  translationStates[valueStr] = checked;
+  initialTranslationStates[valueStr] = checked; // Add this line
 }
-
-/**
- * Resets translations to their initial state
- * This function is called when the user wants to revert all changes
- */
-function resetTranslations() {
-  // Select all checkbox elements within the translation list
-  const checkboxes = document.querySelectorAll(
-    '#translationList input[type="checkbox"]'
-  );
-
-  // Iterate over each checkbox to reset its state
-  checkboxes.forEach((checkbox) => {
-    const value = checkbox.value; // Get the value associated with the checkbox
-    // Set the checkbox's checked state to its initial state
-    checkbox.checked = initialTranslationStates[value];
-    // Update the translationStates object to reflect the initial state
-    translationStates[value] = initialTranslationStates[value];
-  });
-
-  // Apply the reset state to update the translations displayed
-  applyTranslations();
-}
-
-/**
- * Applies the current state of translation checkboxes to the table
- * This function updates the table based on user selections
- */
-
-// Suggested change: Modify this to create separate checkboxes for each column in multi-column JSONs
-// This would allow individual control over each column's visibility
 
 function applyTranslations() {
   const checkboxes = document.querySelectorAll(
     '#translationList input[type="checkbox"]'
   );
-
-  // Iterate over each checkbox to apply its state
   checkboxes.forEach((checkbox) => {
-    const value = checkbox.value; // Get the value associated with the checkbox
-    const isChecked = checkbox.checked; // Get the checked state of the checkbox
-
-    // Always apply the change, regardless of previous state
-    translationStates[value] = isChecked; // Update the translationStates object with the current state
-
-    if (value.includes("-")) {
+    const value = checkbox.value;
+    const isChecked = checkbox.checked;
+    if (typeof value === "string" && value.includes("-")) {
       const [jsonName, colIndex] = value.split("-");
-      if (isChecked && !additionalColumns.includes(jsonName)) {
-        // If the checkbox is checked and the column is not already added, toggle it on
-        toggleTranslation(jsonName);
-      } else if (!isChecked && additionalColumns.includes(jsonName)) {
-        // If the checkbox is unchecked and the column is currently added, toggle it off
-        const allUnchecked = json.columns.every(
-          (col) => !translationStates[`${jsonName}-${col}`]
-        );
-        if (allUnchecked) {
-          toggleTranslation(jsonName);
-        }
+      if (
+        isChecked !==
+        table
+          .column(getColumnIndices(jsonName)[parseInt(colIndex) + 1])
+          .visible()
+      ) {
+        toggleTranslation(jsonName, parseInt(colIndex));
       }
-      const columnIndex = getColumnIndices(jsonName)[colIndex];
-      table.column(columnIndex).visible(isChecked);
     } else {
-      // If the value is a number, it indicates a base column
-      toggleBaseColumn(parseInt(value)); // Toggle the visibility of the base column based on its checked state
+      table.column(parseInt(value)).visible(isChecked);
     }
+    translationStates[value] = isChecked;
   });
+
+  // Update visibility of title columns
+  additionalJsons.forEach((json) => {
+    const titleColumnIndex = getColumnIndices(json.name)[0];
+    const dataColumnIndices = getColumnIndices(json.name).slice(1);
+    const anyDataColumnVisible = dataColumnIndices.some((index) =>
+      table.column(index).visible()
+    );
+    table.column(titleColumnIndex).visible(anyDataColumnVisible);
+  });
+
+  table.draw();
+}
+
+function resetTranslations() {
+  const checkboxes = document.querySelectorAll(
+    '#translationList input[type="checkbox"]'
+  );
+  checkboxes.forEach((checkbox) => {
+    const value = checkbox.value;
+    checkbox.checked = initialTranslationStates[value] || false;
+  });
+  // Don't apply translations here, wait for user to click apply or outside
+}
+
+function showAllTranslations() {
+  const checkboxes = document.querySelectorAll(
+    '#translationList input[type="checkbox"]'
+  );
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = true;
+  });
+  // Don't apply translations here, wait for user to click apply or outside
 }
 
 /**
