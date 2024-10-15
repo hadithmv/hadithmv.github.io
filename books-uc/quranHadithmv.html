@@ -485,13 +485,17 @@
           dataSrc: "", // Specify that the data is directly in the root of the JSON response
         },
         columns: getAllColumnDefinitions(), // Get the column definitions for the DataTable
+
+        // Suggested change: Modify this to correctly handle the visibility of all columns for each JSON,
+        // especially for those with multiple columns like quranBakurube
+
         initComplete: function () {
           // Hide all additional columns initially for a clean start
-          additionalJsons.forEach((json, index) => {
-            const baseColumnsLength = baseColumns.length; // Get the length of base columns
-            const columnIndex = baseColumnsLength + index * 2; // Calculate the index for the additional columns
-            table.column(columnIndex).visible(false); // Hide the name column for the additional translation
-            table.column(columnIndex + 1).visible(false); // Hide the data column for the additional translation
+          additionalJsons.forEach((json) => {
+            const columnIndices = getColumnIndices(json.name);
+            columnIndices.forEach((colIndex) => {
+              table.column(colIndex).visible(false);
+            });
           });
 
           // Toggle/Show only the default translation
@@ -535,7 +539,7 @@
       initializeTranslationSelector(); // Call the function to set up the translation selector UI
 
       // Initialize the table when the page loads
-      document.addEventListener("DOMContentLoaded", initializeTable); // Set up an event listener to initialize the table once the DOM is fully loaded
+      //document.addEventListener("DOMContentLoaded", initializeTable); // Set up an event listener to initialize the table once the DOM is fully loaded
     </script>
     <!-- Google Tag Manager -->
     <script>

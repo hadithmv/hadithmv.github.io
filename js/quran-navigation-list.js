@@ -932,14 +932,18 @@ const baseColumns = [
 // column: which column index in the JSON contains the translation text
 // title: display name for the translation
 // This allows for dynamic loading of different translations or tafsirs
+
+// Suggested change: Update this to include multiple columns where needed
+// For example: { name: "quranBakurube", columns: [0, 1], title: "ބަކުރުބެ ތަރުޖަމާ:" },
+// This allows specifying multiple columns for each JSON file
 const additionalJsons = [
-  { name: "quranHadithmv", column: 0, title: "ޙަދީޘްއެމްވީ ތަރުޖަމާ:" },
-  { name: "quranRasmee", column: 0, title: "ރަސްމީ ތަރުޖަމާ:" },
-  { name: "quranBakurube", column: 1, title: "ބަކުރުބެ ތަރުޖަމާ:" },
-  { name: "quranJaufar", column: 0, title: "ޖަޢުފަރު ތަފްސީރު:" },
-  { name: "quranSoabuni", column: 1, title: "ޞ ތަފްސީރު:" },
-  { name: "quranMukhtasar", column: 0, title: "مختصر التفسير:" },
-  { name: "quranMuyassar", column: 0, title: "التفسير الميسر:" },
+  { name: "quranHadithmv", columns: [0], title: "ޙަދީޘްއެމްވީ ތަރުޖަމާ:" },
+  { name: "quranRasmee", columns: [0, 1], title: "ރަސްމީ ތަރުޖަމާ:" },
+  { name: "quranBakurube", columns: [0, 1], title: "ބަކުރުބެ ތަރުޖަމާ:" },
+  { name: "quranJaufar", columns: [0, 1], title: "ޖަޢުފަރު ތަފްސީރު:" },
+  { name: "quranSoabuni", columns: [0, 1, 3, 4], title: "ޞ ތަފްސީރު:" },
+  { name: "quranMukhtasar", columns: [0], title: "مختصر التفسير:" },
+  { name: "quranMuyassar", columns: [0], title: "التفسير الميسر:" },
 ];
 
 // The translation that will be shown by default when the page loads
@@ -951,36 +955,28 @@ const defaultAdditionalJson = currentFileName;
  * and additional translation columns (which start hidden)
  * @returns {Array} Array of column definition objects for DataTables
  */
+
+// Suggested change: Modify this function to create separate columns for each specified column in the JSON
+// This would involve changing the flatMap logic to create a column for each specified column in json.columns
+
 function getAllColumnDefinitions() {
   // Create column definitions for additional translations
-  const additionalColumnDefs = additionalJsons.flatMap((json) => [
-    // Name column - shows the translation name in bold
-
-    {
-      title: `<strong>${json.title}</strong>`,
+  const additionalColumnDefs = additionalJsons.flatMap((json) => {
+    return json.columns.map((colIndex, index) => ({
+      title: `${json.title} ${index + 1}`,
       data: null,
-      name: `${json.title}:name`,
-      visible: false,
-      render: function () {
-        return `<strong>${json.title}</strong>`;
-      },
-    },
-
-    // Data column - shows the actual translation text
-    {
-      //title: json.title,
-      title: json.title.replace(/:/g, "").trim(), // removes colon from column title columns
-      data: null,
-      name: json.title,
+      name: `${json.name}-${colIndex}`,
       visible: false,
       render: function (data, type, row) {
-        if (row[json.title]) {
-          return row[json.title][json.column];
+        if (row[json.name]) {
+          return row[json.name][colIndex];
         }
         return "Loading...";
       },
-    },
-  ]);
+    }));
+  });
+
+  // .replace(/:/g, "").trim(), // removes colon from column title columns
 
   // Combine base columns with additional columns
   // This allows for a flexible table structure that can accommodate various translations
@@ -1002,27 +998,24 @@ function getAllColumnDefinitions() {
  * This function handles the dynamic loading and display of additional translations
  * @param {string} jsonName - The name of the translation to toggle
  */
+
+// Suggested change: Modify this function to handle multiple columns per JSON
+// This would involve calculating the correct column indices for each JSON file
+// and toggling visibility for all specified columns
+
 function toggleTranslation(jsonName) {
   // Find the index of the translation in the additionalColumns array
   const index = additionalColumns.indexOf(jsonName);
-
   // Get information about the translation from the additionalJsons array
   const jsonInfo = additionalJsons.find((j) => j.name === jsonName);
-
-  // Get the length of the base columns
-  const baseColumnsLength = baseColumns.length;
-
-  // Find the index of the translation in the additionalJsons array
-  const jsonIndex = additionalJsons.findIndex((j) => j.name === jsonName);
-
-  // Calculate column indices (each translation has two columns - name and data)
-  const columnIndex = baseColumnsLength + jsonIndex * 2;
+  const columnIndices = getColumnIndices(jsonName);
 
   if (index > -1) {
     // Remove column if translation is currently shown
     additionalColumns.splice(index, 1); // Remove the translation from the array
-    table.column(columnIndex).visible(false); // Hide the name column for the translation
-    table.column(columnIndex + 1).visible(false); // Hide the data column for the translation
+    columnIndices.forEach((colIndex) => {
+      table.column(colIndex).visible(false); // Hide the column for the translation
+    });
   } else {
     // Add column if translation is currently hidden
     additionalColumns.push(jsonName); // Add the translation to the array
@@ -1033,13 +1026,11 @@ function toggleTranslation(jsonName) {
       dataType: "json", // Specify the data type expected from the server
       success: function (data) {
         // Merge new translation data with existing data
-        const currentData = table.data().toArray(); // Get the current data in the table
-
+        const currentData = table.data().toArray();
         // Update each row with the new translation data
         currentData.forEach((row, idx) => {
-          row[jsonInfo.title] = data[idx]; // Add the translation data to the corresponding row
+          row[jsonName] = data[idx]; // Add the translation data to the corresponding row
         });
-
         // Log the combined data to the console
         //console.log("Combined Data:", currentData);
         // added for thashkeel removal, changed from: originalData = json;
@@ -1050,8 +1041,9 @@ function toggleTranslation(jsonName) {
         table.rows.add(currentData); // Add the updated data to the table
 
         // Show the translation columns
-        table.column(columnIndex).visible(true); // Show the name column for the translation
-        table.column(columnIndex + 1).visible(true); // Show the data column for the translation
+        columnIndices.forEach((colIndex) => {
+          table.column(colIndex).visible(true);
+        });
 
         // Redraw the table to show changes
         table.draw(); // Refresh the table to reflect the new data
@@ -1061,6 +1053,21 @@ function toggleTranslation(jsonName) {
       },
     });
   }
+}
+
+function getColumnIndices(jsonName) {
+  const baseColumnsLength = baseColumns.length;
+  let startIndex = baseColumnsLength;
+
+  for (let i = 0; i < additionalJsons.length; i++) {
+    if (additionalJsons[i].name === jsonName) {
+      break;
+    }
+    startIndex += additionalJsons[i].columns.length;
+  }
+
+  const jsonInfo = additionalJsons.find((j) => j.name === jsonName);
+  return jsonInfo.columns.map((_, index) => startIndex + index);
 }
 
 /**
@@ -1087,7 +1094,7 @@ let initialTranslationStates = {}; // Object to store the initial state of each 
 
 function initializeTranslationSelector() {
   // Get references to the UI elements for the translation selector
-  const translationList = document.getElementById("translationList"); // Container for translation items
+  const translationList = document.getElementById("translationList");
   const toggleBtn = document.getElementById("translationToggleBtn"); // Button to toggle the dropdown
   const dropdown = document.getElementById("translationDropdown"); // Dropdown for translation options
   const applyBtn = document.getElementById("applyTranslations"); // Button to apply selected translations
@@ -1106,12 +1113,14 @@ function initializeTranslationSelector() {
 
   // Populate translation list with additional translations
   additionalJsons.forEach((json) => {
-    addTranslationItem(
-      translationList,
-      json.title.replace(/:/g, "").trim(), // Clean up the title by removing colons and trimming whitespace
-      json.name, // Name of the translation
-      json.name === defaultAdditionalJson // Check if this is the default translation to set initial checked state
-    );
+    json.columns.forEach((colIndex, index) => {
+      addTranslationItem(
+        translationList,
+        `${json.title} ${index + 1}`,
+        `${json.name}-${colIndex}`,
+        json.name === defaultAdditionalJson
+      );
+    });
   });
 
   // Store initial states of translation checkboxes
@@ -1209,8 +1218,11 @@ function resetTranslations() {
  * Applies the current state of translation checkboxes to the table
  * This function updates the table based on user selections
  */
+
+// Suggested change: Modify this to create separate checkboxes for each column in multi-column JSONs
+// This would allow individual control over each column's visibility
+
 function applyTranslations() {
-  // Select all checkbox elements within the translation list
   const checkboxes = document.querySelectorAll(
     '#translationList input[type="checkbox"]'
   );
@@ -1223,15 +1235,22 @@ function applyTranslations() {
     // Always apply the change, regardless of previous state
     translationStates[value] = isChecked; // Update the translationStates object with the current state
 
-    if (isNaN(value)) {
-      // If the value is not a number, it indicates an additional column
-      if (isChecked && !additionalColumns.includes(value)) {
+    if (value.includes("-")) {
+      const [jsonName, colIndex] = value.split("-");
+      if (isChecked && !additionalColumns.includes(jsonName)) {
         // If the checkbox is checked and the column is not already added, toggle it on
-        toggleTranslation(value);
-      } else if (!isChecked && additionalColumns.includes(value)) {
+        toggleTranslation(jsonName);
+      } else if (!isChecked && additionalColumns.includes(jsonName)) {
         // If the checkbox is unchecked and the column is currently added, toggle it off
-        toggleTranslation(value);
+        const allUnchecked = json.columns.every(
+          (col) => !translationStates[`${jsonName}-${col}`]
+        );
+        if (allUnchecked) {
+          toggleTranslation(jsonName);
+        }
       }
+      const columnIndex = getColumnIndices(jsonName)[colIndex];
+      table.column(columnIndex).visible(isChecked);
     } else {
       // If the value is a number, it indicates a base column
       toggleBaseColumn(parseInt(value)); // Toggle the visibility of the base column based on its checked state
