@@ -115,6 +115,16 @@ function toggleTashkeel() {
   return data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "");
 }*/
 
+// CHANGE FILI BUTTON STRING
+/*function filiString() {
+  var button = document.getElementById("toggleFiliButton");
+  if (button.innerHTML.trim() === "&nbsp; ފިލިތައް ފޮރުވާ &nbsp;") {
+    button.innerHTML = "&nbsp; ފިލިތައް ދައްކާ &nbsp;";
+  } else {
+    button.innerHTML = "&nbsp; ފިލިތައް ފޮރުވާ &nbsp;";
+  }
+}*/
+
 // removes just smallish footnotes - do i need this?
 function removeSmallishFootnotes(data) {
   return data.replace(/[⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, "");
@@ -179,20 +189,16 @@ function scrollUpTop() {
 }
 
 // SHOW OR HIDE AYAT FILI
-
-function toggleQuranFili() {
+/*function toggleQuranFili() {
   // https://datatables.net/forums/discussion/61291/how-to-implement-the-data-table-column-visibility-and-order-dynamically
-
   var isVisible = $(".dataTable").DataTable().column(5).visible();
   $(".dataTable").DataTable().column(5).visible(!isVisible);
-
   var isVisible = $(".dataTable").DataTable().column(6).visible();
   $(".dataTable").DataTable().column(6).visible(!isVisible);
-}
+}*/
 
 // SHOW OR HIDE SURAH NAME
 /*
-
           <button
             id="toggleSurahButton"
             class="customButtons"
@@ -214,15 +220,13 @@ function toggleQuranFili() {
 }*/
 
 // SWITCH BETWEEN IMLAI AND UTHMANI TEXT FOR AYAT
-/*
-<button
+/*<button
             id="toggleUthmaniImlai"
             class="customButtons"
             onclick="uthmaniImlai();loadRasmFont();scrollUpTop()"
           >
             &nbsp; ރަސްމު އުޘްމާނީއަށް &nbsp;
-          </button>
-*/
+          </button>*/
 /*function uthmaniImlai() {
   var isVisible = $(".dataTable").DataTable().column(5).visible();
   $(".dataTable").DataTable().column(5).visible(!isVisible);
@@ -238,7 +242,6 @@ function toggleQuranFili() {
 }*/
 
 // LOAD UTHMANI FONT FOR QURAN ONLY ON BUTTON CLICK
-
 // Dynamically Load And Apply Fonts With JavaScript
 // https://awik.io/dynamically-load-apply-fonts-javascript/
 /*const fontVar = new FontFace("mergedFont", "url(../font/hafs-400.woff)"); // Your font goes here
@@ -255,17 +258,6 @@ function loadRasmFont() {
       console.log("Failed to load font: " + error);
     });
 }*/
-
-// CHANGE FILI BUTTON STRING
-
-function filiString() {
-  var button = document.getElementById("toggleFiliButton");
-  if (button.innerHTML.trim() === "&nbsp; ފިލިތައް ފޮރުވާ &nbsp;") {
-    button.innerHTML = "&nbsp; ފިލިތައް ދައްކާ &nbsp;";
-  } else {
-    button.innerHTML = "&nbsp; ފިލިތައް ފޮރުވާ &nbsp;";
-  }
-}
 
 // COMBINED QURAN AND RADHEEF CHANGE BOOK
 // Function to change the book in the URL
