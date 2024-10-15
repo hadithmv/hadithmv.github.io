@@ -158,6 +158,15 @@
   max-height: 300px;
   overflow-y: auto;
   width: 250px;
+  top: 100%; /* Position right below the button */
+}
+
+#translationToggleBtn {
+  cursor: pointer;
+}
+
+.translation-dropdown.show {
+  display: block;
 }
 
 .translation-list {
