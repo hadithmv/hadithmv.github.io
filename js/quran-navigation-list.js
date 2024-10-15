@@ -1040,6 +1040,11 @@ function toggleTranslation(jsonName) {
           row[jsonInfo.title] = data[idx]; // Add the translation data to the corresponding row
         });
 
+        // Log the combined data to the console
+        //console.log("Combined Data:", currentData);
+        // added for thashkeel removal, changed from: originalData = json;
+        originalData = currentData;
+
         // Update the table with merged data and show the new columns
         table.clear(); // Clear the existing table data
         table.rows.add(currentData); // Add the updated data to the table
