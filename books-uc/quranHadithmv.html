@@ -85,28 +85,24 @@
           <!-- TRANSLATION SELECTOR -->
           <!-- Translation selector container -->
           <div class="translation-selector">
-            <!-- Button to toggle the translation dropdown -->
             <button id="translationToggleBtn" class="customButtons">
               ދައްކާ / ފޮރުވާ
             </button>
-
-            <!-- Dropdown container for translation options -->
-            <div
-              id="translationDropdown"
-              style="display: none"
-              class="translation-dropdown rtlText rightAlignedText"
-            >
-              <!-- List of available translations, will be dynamically added here -->
-              <div id="translationList"></div>
-
-              <!-- Control buttons for translation selection -->
-              <button id="applyTranslations" class="customButtons">އޯކޭ</button>
-              <button id="resetTranslations" class="customButtons">
-                ރީސެޓް
-              </button>
-              <button id="showAllTranslations" class="customButtons">
-                ހުރިހާ
-              </button>
+            <div id="translationDropdown" class="translation-dropdown">
+              <div id="translationList">
+                <!-- Checkboxes will be dynamically added here -->
+              </div>
+              <div class="translation-actions">
+                <button id="applyTranslations" class="customButtons">
+                  Apply
+                </button>
+                <button id="resetTranslations" class="customButtons">
+                  Reset
+                </button>
+                <button id="showAllTranslations" class="customButtons">
+                  Show All
+                </button>
+              </div>
             </div>
           </div>
           <!-- END OF TRANSLATION SELECTOR -->
@@ -475,49 +471,30 @@
        */
       //function initializeTable() {
       // Clear any existing additional columns to ensure fresh start
-      additionalColumns = [];
-
-      // Initialize the DataTable with asynchronous data loading
       table = new DataTable("#tableID", {
-        ...DTconfig, // Spread operator to include additional DataTable configuration options
+        ...DTconfig,
         ajax: {
-          url: `${baseJsonUrl}quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json`, // URL for the JSON data source
-          dataSrc: "", // Specify that the data is directly in the root of the JSON response
+          url: `${baseJsonUrl}quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json`,
+          dataSrc: "",
         },
-        columns: getAllColumnDefinitions(), // Get the column definitions for the DataTable
-
-        // Suggested change: Modify this to correctly handle the visibility of all columns for each JSON,
-        // especially for those with multiple columns like quranBakurube
-
+        columns: getAllColumnDefinitions(),
         initComplete: function () {
-          // Hide all additional columns initially for a clean start
           additionalJsons.forEach((json) => {
             const columnIndices = getColumnIndices(json.name);
             columnIndices.forEach((colIndex) => {
               table.column(colIndex).visible(false);
             });
           });
-
-          // Toggle/Show only the default translation
-          toggleTranslation(defaultAdditionalJson); // Show the default additional translation
-
-          // Initialize navigation boxes for Surah, Ayah, and Juz selection
+          toggleTranslation(defaultAdditionalJson, 0); // Load only the first column of quranRasmee by default
           initializeNavigationBoxes();
-
-          // Populate ayahCounts object for navigation purposes
           table.rows().every(function (rowIdx, tableLoop, rowLoop) {
-            var data = this.data(); // Get the data for the current row
-            var surah = parseInt(data[1]); // Parse the Surah number from the row data
-            var ayah = parseInt(data[2]); // Parse the Ayah number from the row data
-            // Update the ayahCounts object to track the maximum number of ayahs for each Surah
-            ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah); // Store the maximum ayah count for the Surah
+            var data = this.data();
+            var surah = parseInt(data[1]);
+            var ayah = parseInt(data[2]);
+            ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
           });
-
-          // Update navigation boxes with initial values
-          updateAllQValues(table.row(0).data()); // Set the initial values for the navigation boxes based on the first row
+          updateAllQValues(table.row(0).data());
         },
-
-        //
         columnDefs: [
           {
             searchPanes: {
@@ -527,7 +504,6 @@
           },
           ...columnDefsconfig,
         ],
-        //
       }); // table = new DataTable("#tableID", {
       //} // function initializeTable() { END
 
