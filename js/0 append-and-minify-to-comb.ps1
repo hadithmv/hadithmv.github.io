@@ -11,7 +11,8 @@ function Get-Minified-Content {
     $tempFile2 = "temp2.js"
     
     google-closure-compiler --charset=UTF-8 --js $sourceFile --js_output_file $tempFile1
-    uglifyjs $tempFile1 -c -m -o $tempFile2
+    terser $tempFile1 -c -m --comments=false -o $tempFile2
+    #uglifyjs $tempFile1 -c -m -o $tempFile2
     $minifiedContent = Get-Content -Path $tempFile2 -Raw
     Remove-Item -Path $tempFile1, $tempFile2
     return $minifiedContent.Trim()
@@ -19,7 +20,7 @@ function Get-Minified-Content {
 
 # Files to process
 $jsFiles = @(
-    "navbar.min.js",
+    "navbar.js",
     "DT-inline.js",
     "belowPage-bab-dropdown.js",
     "quran-navigation-list.js"
@@ -61,6 +62,14 @@ $allContent = $allContent -replace "`n{3,}$", "`n`n"
 
 # Write the updated content back to the file
 Set-Content -Path "ALL-COMB.min.js" -Value $allContent -NoNewline
+
+# Minify navbar.js separately
+Write-Output "Minifying navbar.js separately"
+$navbarMinified = Get-Minified-Content -sourceFile "navbar.js"
+Set-Content -Path "navbar.min.js" -Value $navbarMinified -NoNewline
+
+# Note that now both the navbar js inside allcomb as well as navbar.min are both minified
+
 Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
 
 <# claude:
