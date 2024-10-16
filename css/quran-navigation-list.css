@@ -71,12 +71,12 @@
   font-size: 19px; /* Adjust as needed */
 }
 
-/* Individual items in the dropdown menu */
 .q-dropdown-item {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 5px 10px;
+  cursor: pointer; /* Add this line to change the cursor to a pointer */
 }
 
 /* Hover effect for dropdown items */
