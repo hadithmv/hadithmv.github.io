@@ -18,7 +18,7 @@ foreach ($file in $files) {
     Write-Output "Processed HTML: $($file.Name)"
 }
 
-# Function to minify JS using Google Closure Compiler and UglifyJS
+# Function to minify JS using Google Closure Compiler and Terser
 function MinifyJS($inputFile, $outputFile) {
     $tempFile = [System.IO.Path]::GetTempFileName()
     $closureOutput = [System.IO.Path]::GetTempFileName()
@@ -26,8 +26,9 @@ function MinifyJS($inputFile, $outputFile) {
     # Run Google Closure Compiler
     google-closure-compiler --charset=UTF-8 --js $inputFile --js_output_file $closureOutput
 
-    # Run UglifyJS on the output from Closure Compiler
-    uglifyjs $closureOutput -c -m -o $outputFile
+    # Run Terser on the output from Closure Compiler
+    terser $closureOutput -c -m --comments=false -o $outputFile
+    #uglifyjs $closureOutput -c -m -o $outputFile
 
     # Clean up temp files
     Remove-Item $tempFile

@@ -814,36 +814,50 @@ function initializeQDropdown(type, min, max) {
     dropdown.hide(); // Hide the dropdown after selection
   });
 
+  function cleanSurahText(text) {
+    // Remove diacritics and the word "سورة" (with or without diacritics)
+    return removeDiacritics(text)
+      .replace(/سورة\s*/, "")
+      .trim();
+  }
+
   // Event listener for input in the search field
   dropdown.find(".q-dropdown-search").on("input", function () {
-    var searchValue = removeDiacritics($(this).val().toLowerCase()); // Get the search input and normalize it
+    var searchValue = $(this).val().toLowerCase();
+    if (type === "surah") {
+      searchValue = cleanSurahText(searchValue);
+    }
     dropdown.find(".q-dropdown-item").each(function () {
-      var itemText = removeDiacritics($(this).text().toLowerCase()); // Normalize item text
-      // Show or hide items based on whether they include the search value
+      var itemText = $(this).text().toLowerCase();
+      if (type === "surah") {
+        itemText = cleanSurahText(itemText);
+      }
       $(this).toggle(itemText.includes(searchValue));
     });
-    currentFocus = -1; // Reset focus when search input changes
+    currentFocus = -1;
   });
 
   // Event listener for keydown events on the search input
   dropdown.find(".q-dropdown-search").on("keydown", function (e) {
-    var items = dropdown.find(".q-dropdown-item:visible"); // Get visible items in the dropdown
+    var items = dropdown.find(".q-dropdown-item:visible");
     if (e.keyCode == 40) {
-      // Down arrow key
-      e.preventDefault(); // Prevent default scrolling behavior
-      currentFocus = currentFocus < items.length - 1 ? currentFocus + 1 : 0; // Move focus down
-      addActive(items); // Highlight the currently focused item
+      // Down arrow
+      e.preventDefault();
+      currentFocus = currentFocus < items.length - 1 ? currentFocus + 1 : 0;
+      addActive(items);
     } else if (e.keyCode == 38) {
-      // Up arrow key
-      e.preventDefault(); // Prevent default scrolling behavior
-      currentFocus = currentFocus > 0 ? currentFocus - 1 : items.length - 1; // Move focus up
-      addActive(items); // Highlight the currently focused item
+      // Up arrow
+      e.preventDefault();
+      currentFocus = currentFocus > 0 ? currentFocus - 1 : items.length - 1;
+      addActive(items);
     } else if (e.keyCode == 13) {
       // Enter key
-      e.preventDefault(); // Prevent default form submission
+      e.preventDefault();
       if (currentFocus > -1) {
-        // If an item is focused
-        if (items.length) items[currentFocus].click(); // Trigger click on the focused item
+        if (items.length) items[currentFocus].click();
+      } else if (items.length) {
+        // If no item is focused, select the first visible item
+        items[0].click();
       }
     }
   });
