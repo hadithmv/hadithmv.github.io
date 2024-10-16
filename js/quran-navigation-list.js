@@ -519,26 +519,35 @@ const englishSurahNames = {
 // Update the QtoggleDropdown function to display Surah names correctly
 
 // Function to toggle the visibility of a dropdown based on its type
+let lastFocusedItems = {
+  surah: -1,
+  ayah: -1,
+  juz: -1,
+};
+
 function QtoggleDropdown(type) {
-  var dropdown = $("#" + type + "Dropdown"); // Select the dropdown element
-  $(".q-dropdown").not(dropdown).hide(); // Hide other dropdowns
-  dropdown.toggle(); // Toggle the visibility of the selected dropdown
-
-  // Check if the dropdown is now visible
+  var dropdown = $("#" + type + "Dropdown");
+  $(".q-dropdown").not(dropdown).hide();
+  dropdown.toggle();
   if (dropdown.is(":visible")) {
-    var currentValue = parseInt($("#" + type + "Value").text()); // Get the current value
-    var items = dropdown.find(".q-dropdown-item"); // Find all items in the dropdown
-    var currentItem = items.filter(`[data-value="${currentValue}"]`); // Filter for the current item
-
-    // If the current item exists
+    var currentValue = parseInt($("#" + type + "Value").text());
+    var items = dropdown.find(".q-dropdown-item");
+    var currentItem = items.filter(`[data-value="${currentValue}"]`);
     if (currentItem.length) {
-      currentFocus = items.index(currentItem); // Set the current focus
-      addActive(items); // Add active class to the current item
-      currentItem[0].scrollIntoView({ block: "center" }); // Scroll to the current item
+      currentFocus = items.index(currentItem);
+      lastFocusedItems[type] = currentFocus;
+      addActive(items);
+      currentItem[0].scrollIntoView({ block: "center" });
     } else {
-      currentFocus = -1; // Reset focus if no current item
+      currentFocus = lastFocusedItems[type];
+      if (currentFocus === -1 || currentFocus >= items.length) {
+        currentFocus = 0;
+      }
+      addActive(items);
     }
-    dropdown.find(".q-dropdown-search").val("").focus(); // Clear and focus the search input
+    var searchInput = dropdown.find(".q-dropdown-search");
+    searchInput.val(searchInputValues[type]).focus();
+    searchInput.trigger("input"); // Trigger input event to filter items
   }
 }
 
@@ -732,40 +741,60 @@ const maxSurah = 114;
 const maxJuz = 30;
 
 // Initialize dropdowns after table initialization
+let searchInputValues = {
+  surah: "",
+  ayah: "",
+  juz: "",
+};
+
 function initializeNavigationBoxes() {
-  // Initialize the Surah dropdown with values from 1 to maxSurah
   initializeQDropdown("surah", 1, maxSurah);
-
-  // Initialize the Juz dropdown with values from 1 to maxJuz
   initializeQDropdown("juz", 1, maxJuz);
-
-  // Update the Ayah dropdown based on the current Surah
   updateAyahDropdown();
 
-  // Event listener for clicks on navigation box values
   $(".q-nav-value").on("click", function () {
-    // Get the type of navigation from the clicked element's ID
     var type = $(this).attr("id").replace("Value", "");
-    // Toggle the dropdown for the selected navigation type
     QtoggleDropdown(type);
   });
 
-  // Event listener for clicks on navigation arrows
   $(".q-nav-arrow").on("click", function () {
-    // Get the type and direction of navigation from the clicked element's data attributes
     var type = $(this).data("type");
     var direction = $(this).data("direction");
-    // Navigate to the previous or next Surah/Ayah/Juz based on the direction
     QnavigateArrow(type, direction);
   });
 
-  // Event listener for clicks outside of navigation boxes
   $(document).on("click", function (event) {
-    // If the click is outside of any navigation box, hide all dropdowns
     if (!$(event.target).closest(".q-nav-box").length) {
       $(".q-dropdown").hide();
     }
   });
+
+  // Store search input values when hiding dropdowns
+  $(".q-dropdown").on("hide", function () {
+    var type = $(this).attr("id").replace("Dropdown", "");
+    searchInputValues[type] = $(this).find(".q-dropdown-search").val();
+  });
+}
+
+function QtoggleDropdown(type) {
+  var dropdown = $("#" + type + "Dropdown");
+  $(".q-dropdown").not(dropdown).hide();
+  dropdown.toggle();
+  if (dropdown.is(":visible")) {
+    var currentValue = parseInt($("#" + type + "Value").text());
+    var items = dropdown.find(".q-dropdown-item");
+    var currentItem = items.filter(`[data-value="${currentValue}"]`);
+    if (currentItem.length) {
+      currentFocus = items.index(currentItem);
+      addActive(items);
+      currentItem[0].scrollIntoView({ block: "center" });
+    } else {
+      currentFocus = -1;
+    }
+    var searchInput = dropdown.find(".q-dropdown-search");
+    searchInput.val(searchInputValues[type]).focus();
+    searchInput.trigger("input"); // Trigger input event to filter items
+  }
 }
 
 let currentFocus = -1; // Initialize the current focus index for dropdown item navigation
@@ -777,27 +806,19 @@ let currentFocus = -1; // Initialize the current focus index for dropdown item n
  * @param {number} max - The maximum value for the dropdown
  */
 function initializeQDropdown(type, min, max) {
-  var dropdown = $("#" + type + "Dropdown"); // Select the dropdown element based on the type
-  dropdown.empty(); // Clear any existing items in the dropdown
-
-  // Append a search input field to the dropdown for filtering items
+  var dropdown = $("#" + type + "Dropdown");
+  dropdown.empty();
   dropdown.append(
     '<input type="text" class="q-dropdown-search" placeholder="ލިޔޭ ނޫނީ ތިރިއަށް ފިތާ">'
   );
-
-  // If the dropdown type is "ayah", set the max to the count of ayahs for the current surah
   if (type === "ayah") {
-    max = ayahCounts[currentSurah]; // Use the ayah count for the current surah
+    max = ayahCounts[currentSurah];
   }
-
-  // Populate the dropdown with items from min to max
   for (var i = min; i <= max; i++) {
-    var displayText = i; // Default display text is the number itself
-    // If the dropdown type is "surah", include names in different languages
+    var displayText = i;
     if (type === "surah") {
       displayText = `${i} ${arabicSurahNames[i]} ${dhivehiSurahNames[i]} ${englishSurahNames[i]}`;
     }
-    // Append each item to the dropdown
     dropdown.append(
       '<div class="q-dropdown-item" data-value="' +
         i +
@@ -806,12 +827,11 @@ function initializeQDropdown(type, min, max) {
         "</div>"
     );
   }
-
-  // Event listener for clicks on dropdown items
   dropdown.on("click", ".q-dropdown-item", function () {
-    var value = $(this).data("value"); // Get the value of the clicked item
-    updateQValue(type, value); // Update the corresponding value based on the type
-    dropdown.hide(); // Hide the dropdown after selection
+    var value = $(this).data("value");
+    updateQValue(type, value);
+    lastFocusedItems[type] = dropdown.find(".q-dropdown-item").index(this);
+    dropdown.hide();
   });
 
   function cleanSurahText(text) {
@@ -841,22 +861,20 @@ function initializeQDropdown(type, min, max) {
   dropdown.find(".q-dropdown-search").on("keydown", function (e) {
     var items = dropdown.find(".q-dropdown-item:visible");
     if (e.keyCode == 40) {
-      // Down arrow
       e.preventDefault();
       currentFocus = currentFocus < items.length - 1 ? currentFocus + 1 : 0;
+      lastFocusedItems[type] = currentFocus;
       addActive(items);
     } else if (e.keyCode == 38) {
-      // Up arrow
       e.preventDefault();
       currentFocus = currentFocus > 0 ? currentFocus - 1 : items.length - 1;
+      lastFocusedItems[type] = currentFocus;
       addActive(items);
     } else if (e.keyCode == 13) {
-      // Enter key
       e.preventDefault();
       if (currentFocus > -1) {
         if (items.length) items[currentFocus].click();
       } else if (items.length) {
-        // If no item is focused, select the first visible item
         items[0].click();
       }
     }
@@ -1007,6 +1025,7 @@ function toggleTranslation(jsonName, colIndex) {
   const jsonInfo = additionalJsons.find((j) => j.name === jsonName);
   const titleColumnIndex = getColumnIndices(jsonName)[0];
   const dataColumnIndex = getColumnIndices(jsonName)[colIndex + 1];
+  const currentPage = table.page();
 
   if (!additionalColumns.includes(jsonName)) {
     additionalColumns.push(jsonName);
@@ -1023,6 +1042,7 @@ function toggleTranslation(jsonName, colIndex) {
         table.column(titleColumnIndex).visible(true);
         table.column(dataColumnIndex).visible(true);
         table.draw();
+        table.page(currentPage).draw("page");
       },
       error: function (xhr, status, error) {
         console.error("Error loading translation:", error);
@@ -1036,7 +1056,6 @@ function toggleTranslation(jsonName, colIndex) {
       visibleDataColumns.length === 1 &&
       colIndex === visibleDataColumns[0] - 1
     ) {
-      // If this is the last visible data column, hide the title column too
       table.column(titleColumnIndex).visible(false);
     } else {
       table.column(titleColumnIndex).visible(true);
@@ -1045,6 +1064,7 @@ function toggleTranslation(jsonName, colIndex) {
       .column(dataColumnIndex)
       .visible(!table.column(dataColumnIndex).visible());
     table.draw();
+    table.page(currentPage).draw("page");
   }
 }
 
@@ -1173,6 +1193,7 @@ function addTranslationItem(list, title, value, checked) {
 }
 
 function applyTranslations() {
+  const currentPage = table.page();
   const checkboxes = document.querySelectorAll(
     '#translationList input[type="checkbox"]'
   );
@@ -1194,8 +1215,6 @@ function applyTranslations() {
     }
     translationStates[value] = isChecked;
   });
-
-  // Update visibility of title columns
   additionalJsons.forEach((json) => {
     const titleColumnIndex = getColumnIndices(json.name)[0];
     const dataColumnIndices = getColumnIndices(json.name).slice(1);
@@ -1204,8 +1223,8 @@ function applyTranslations() {
     );
     table.column(titleColumnIndex).visible(anyDataColumnVisible);
   });
-
   table.draw();
+  table.page(currentPage).draw("page");
 }
 
 function resetTranslations() {
