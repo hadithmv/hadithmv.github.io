@@ -526,28 +526,32 @@ let lastFocusedItems = {
 };
 
 function QtoggleDropdown(type) {
-  var dropdown = $("#" + type + "Dropdown");
+  const dropdown = $(`#${type}Dropdown`);
   $(".q-dropdown").not(dropdown).hide();
   dropdown.toggle();
+
   if (dropdown.is(":visible")) {
-    var currentValue = parseInt($("#" + type + "Value").text());
-    var items = dropdown.find(".q-dropdown-item");
-    var currentItem = items.filter(`[data-value="${currentValue}"]`);
+    const currentValue = parseInt($(`#${type}Value`).text());
+    const items = dropdown.find(".q-dropdown-item");
+    const currentItem = items.filter(`[data-value="${currentValue}"]`);
+
     if (currentItem.length) {
       currentFocus = items.index(currentItem);
       lastFocusedItems[type] = currentFocus;
       addActive(items);
       currentItem[0].scrollIntoView({ block: "center" });
     } else {
-      currentFocus = lastFocusedItems[type];
+      currentFocus =
+        lastFocusedItems[type] !== undefined ? lastFocusedItems[type] : 0;
       if (currentFocus === -1 || currentFocus >= items.length) {
         currentFocus = 0;
       }
       addActive(items);
     }
-    var searchInput = dropdown.find(".q-dropdown-search");
+
+    const searchInput = dropdown.find(".q-dropdown-search");
     searchInput.val(searchInputValues[type]).focus();
-    searchInput.trigger("input"); // Trigger input event to filter items
+    searchInput.trigger("input");
   }
 }
 
@@ -559,30 +563,35 @@ function QtoggleDropdown(type) {
 // Update the updateQValue function to display Surah names correctly
 function updateQValue(type, value) {
   value = parseInt(value);
-  if (type === "surah") {
-    $("#" + type + "Value").text(`${value} ${arabicSurahNames[value]}`);
-    currentSurah = value;
-    currentAyah = 1; // Reset to first ayah when surah changes
-    initializeQDropdown("ayah", 1, ayahCounts[currentSurah]);
-    $("#ayahValue").text(currentAyah);
-    currentJuz = null; // Reset Juz when Surah is selected
-  } else if (type === "ayah") {
-    currentAyah = value;
-    $("#" + type + "Value").text(value);
-    currentJuz = null; // Reset Juz when Ayah is selected
-  } else if (type === "juz") {
-    currentJuz = value;
-    $("#" + type + "Value").text(value);
-    currentSurah = null; // Reset Surah when Juz is selected
-    currentAyah = null; // Reset Ayah when Juz is selected
+  const valueElement = $(`#${type}Value`);
+
+  switch (type) {
+    case "surah":
+      valueElement.text(`${value} ${arabicSurahNames[value]}`);
+      currentSurah = value;
+      currentAyah = 1;
+      initializeQDropdown("ayah", 1, ayahCounts[currentSurah]);
+      $("#ayahValue").text(currentAyah);
+      currentJuz = null;
+      break;
+    case "ayah":
+      currentAyah = value;
+      valueElement.text(value);
+      currentJuz = null;
+      break;
+    case "juz":
+      currentJuz = value;
+      valueElement.text(value);
+      currentSurah = null;
+      currentAyah = null;
+      break;
   }
 
-  navigateToVerse(); // Call the function to navigate to the specified verse
+  navigateToVerse();
 
-  // Update the currentFocus for the dropdown
-  var dropdown = $("#" + type + "Dropdown"); // Select the dropdown element based on the type
-  var items = dropdown.find(".q-dropdown-item"); // Find all items within the dropdown
-  currentFocus = items.index(items.filter(`[data-value="${value}"]`)); // Set currentFocus to the index of the item that matches the specified value
+  const dropdown = $(`#${type}Dropdown`);
+  const items = dropdown.find(".q-dropdown-item");
+  currentFocus = items.index(items.filter(`[data-value="${value}"]`));
 }
 
 /**
@@ -658,42 +667,30 @@ function QnavigateArrow(type, direction) {
  * scrolls to it, and updates the navigation boxes.
  */
 function navigateToVerse() {
-  // Find the target row(s) based on the current Juz, Surah, and Ayah
-  var targetRow = table
-    .rows() // Get all rows in the DataTable
-    .indexes() // Get the indexes of those rows
-    .filter(function (value, index) {
-      var rowData = table.row(value).data(); // Get the data for the current row
-      // Check if currentJuz is set and matches the row's Juz
+  const targetRow = table
+    .rows()
+    .indexes()
+    .filter((value) => {
+      const rowData = table.row(value).data();
       if (currentJuz !== null) {
-        return parseInt(rowData[0]) == currentJuz; // Compare Juz
-      }
-      // If currentSurah and currentAyah are set, check for a match
-      else if (currentSurah !== null && currentAyah !== null) {
+        return parseInt(rowData[0]) === currentJuz;
+      } else if (currentSurah !== null && currentAyah !== null) {
         return (
-          parseInt(rowData[1]) == currentSurah && // Compare Surah
-          parseInt(rowData[2]) == currentAyah // Compare Ayah
+          parseInt(rowData[1]) === currentSurah &&
+          parseInt(rowData[2]) === currentAyah
         );
       }
-      return false; // Return false if no conditions are met
+      return false;
     });
 
-  // If a target row is found
   if (targetRow.length > 0) {
-    var pageInfo = table.page.info(); // Get pagination info
-    var targetPage = Math.floor(targetRow[0] / pageInfo.length); // Calculate the target page
-
-    // Navigate to the target page without resetting the current state
+    const pageInfo = table.page.info();
+    const targetPage = Math.floor(targetRow[0] / pageInfo.length);
     table.page(targetPage).draw(false);
-
-    // Get the row node for the target row
-    var rowNode = table.row(targetRow[0]).node();
+    const rowNode = table.row(targetRow[0]).node();
     if (rowNode) {
-      // Scroll the row into view smoothly
       rowNode.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-
-    // Update the navigation boxes with the data of the target row
     updateAllQValues(table.row(targetRow[0]).data());
   }
 }
@@ -776,27 +773,6 @@ function initializeNavigationBoxes() {
   });
 }
 
-function QtoggleDropdown(type) {
-  var dropdown = $("#" + type + "Dropdown");
-  $(".q-dropdown").not(dropdown).hide();
-  dropdown.toggle();
-  if (dropdown.is(":visible")) {
-    var currentValue = parseInt($("#" + type + "Value").text());
-    var items = dropdown.find(".q-dropdown-item");
-    var currentItem = items.filter(`[data-value="${currentValue}"]`);
-    if (currentItem.length) {
-      currentFocus = items.index(currentItem);
-      addActive(items);
-      currentItem[0].scrollIntoView({ block: "center" });
-    } else {
-      currentFocus = -1;
-    }
-    var searchInput = dropdown.find(".q-dropdown-search");
-    searchInput.val(searchInputValues[type]).focus();
-    searchInput.trigger("input"); // Trigger input event to filter items
-  }
-}
-
 let currentFocus = -1; // Initialize the current focus index for dropdown item navigation
 
 /**
@@ -806,79 +782,79 @@ let currentFocus = -1; // Initialize the current focus index for dropdown item n
  * @param {number} max - The maximum value for the dropdown
  */
 function initializeQDropdown(type, min, max) {
-  var dropdown = $("#" + type + "Dropdown");
+  const dropdown = $(`#${type}Dropdown`);
   dropdown.empty();
   dropdown.append(
     '<input type="text" class="q-dropdown-search" placeholder="ލިޔޭ ނޫނީ ތިރިއަށް ފިތާ">'
   );
+
   if (type === "ayah") {
     max = ayahCounts[currentSurah];
   }
-  for (var i = min; i <= max; i++) {
-    var displayText = i;
+
+  for (let i = min; i <= max; i++) {
+    let displayText = i;
     if (type === "surah") {
       displayText = `${i} ${arabicSurahNames[i]} ${dhivehiSurahNames[i]} ${englishSurahNames[i]}`;
     }
     dropdown.append(
-      '<div class="q-dropdown-item" data-value="' +
-        i +
-        '">' +
-        displayText +
-        "</div>"
+      `<div class="q-dropdown-item" data-value="${i}">${displayText}</div>`
     );
   }
+
   dropdown.on("click", ".q-dropdown-item", function () {
-    var value = $(this).data("value");
+    const value = $(this).data("value");
     updateQValue(type, value);
     lastFocusedItems[type] = dropdown.find(".q-dropdown-item").index(this);
     dropdown.hide();
   });
 
-  function cleanSurahText(text) {
-    // Remove diacritics and the word "سورة" (with or without diacritics)
-    return removeDiacritics(text)
-      .replace(/سورة\s*/, "")
-      .trim();
-  }
+  const searchInput = dropdown.find(".q-dropdown-search");
 
-  // Event listener for input in the search field
-  dropdown.find(".q-dropdown-search").on("input", function () {
-    var searchValue = $(this).val().toLowerCase();
-    if (type === "surah") {
-      searchValue = cleanSurahText(searchValue);
-    }
+  searchInput.on("input", function () {
+    const searchValue = $(this).val().toLowerCase();
+    const cleanSearchValue =
+      type === "surah" ? cleanSurahText(searchValue) : searchValue;
+
     dropdown.find(".q-dropdown-item").each(function () {
-      var itemText = $(this).text().toLowerCase();
-      if (type === "surah") {
-        itemText = cleanSurahText(itemText);
-      }
-      $(this).toggle(itemText.includes(searchValue));
+      const itemText = $(this).text().toLowerCase();
+      const cleanItemText =
+        type === "surah" ? cleanSurahText(itemText) : itemText;
+      $(this).toggle(cleanItemText.includes(cleanSearchValue));
     });
+
     currentFocus = -1;
   });
 
-  // Event listener for keydown events on the search input
-  dropdown.find(".q-dropdown-search").on("keydown", function (e) {
-    var items = dropdown.find(".q-dropdown-item:visible");
-    if (e.keyCode == 40) {
-      e.preventDefault();
-      currentFocus = currentFocus < items.length - 1 ? currentFocus + 1 : 0;
-      lastFocusedItems[type] = currentFocus;
-      addActive(items);
-    } else if (e.keyCode == 38) {
-      e.preventDefault();
-      currentFocus = currentFocus > 0 ? currentFocus - 1 : items.length - 1;
-      lastFocusedItems[type] = currentFocus;
-      addActive(items);
-    } else if (e.keyCode == 13) {
-      e.preventDefault();
-      if (currentFocus > -1) {
-        if (items.length) items[currentFocus].click();
-      } else if (items.length) {
-        items[0].click();
-      }
+  searchInput.on("keydown", function (e) {
+    const items = dropdown.find(".q-dropdown-item:visible");
+    switch (e.keyCode) {
+      case 40: // Down arrow
+        e.preventDefault();
+        currentFocus = currentFocus < items.length - 1 ? currentFocus + 1 : 0;
+        break;
+      case 38: // Up arrow
+        e.preventDefault();
+        currentFocus = currentFocus > 0 ? currentFocus - 1 : items.length - 1;
+        break;
+      case 13: // Enter
+        e.preventDefault();
+        if (currentFocus > -1) {
+          if (items.length) items[currentFocus].click();
+        } else if (items.length) {
+          items[0].click();
+        }
+        return;
     }
+    lastFocusedItems[type] = currentFocus;
+    addActive(items);
   });
+}
+
+function cleanSurahText(text) {
+  return removeDiacritics(text)
+    .replace(/سورة\s*/, "")
+    .trim();
 }
 
 /**
@@ -1023,43 +999,37 @@ function getAllColumnDefinitions() {
 
 function toggleTranslation(jsonName, colIndex) {
   const jsonInfo = additionalJsons.find((j) => j.name === jsonName);
-  const titleColumnIndex = getColumnIndices(jsonName)[0];
-  const dataColumnIndex = getColumnIndices(jsonName)[colIndex + 1];
+  const columnIndices = getColumnIndices(jsonName);
+  const titleColumnIndex = columnIndices[0];
+  const dataColumnIndex = columnIndices[colIndex + 1];
   const currentPage = table.page();
 
   if (!additionalColumns.includes(jsonName)) {
     additionalColumns.push(jsonName);
-    $.ajax({
-      url: `${baseJsonUrl}${jsonName}.json`,
-      dataType: "json",
-      success: function (data) {
-        const currentData = table.data().toArray();
-        currentData.forEach((row, idx) => {
-          row[jsonName] = data[idx];
-        });
-        table.clear();
-        table.rows.add(currentData);
-        table.column(titleColumnIndex).visible(true);
-        table.column(dataColumnIndex).visible(true);
-        table.draw();
-        table.page(currentPage).draw("page");
-      },
-      error: function (xhr, status, error) {
-        console.error("Error loading translation:", error);
-      },
+    $.getJSON(`${baseJsonUrl}${jsonName}.json`, function (data) {
+      const currentData = table.data().toArray();
+      currentData.forEach((row, idx) => {
+        row[jsonName] = data[idx];
+      });
+      table.clear().rows.add(currentData).draw();
+      table.column(titleColumnIndex).visible(true);
+      table.column(dataColumnIndex).visible(true);
+      table.page(currentPage).draw("page");
+    }).fail(function (xhr, status, error) {
+      console.error("Error loading translation:", error);
     });
   } else {
     const visibleDataColumns = jsonInfo.columns.filter((_, index) =>
-      table.column(getColumnIndices(jsonName)[index + 1]).visible()
+      table.column(columnIndices[index + 1]).visible()
     );
-    if (
-      visibleDataColumns.length === 1 &&
-      colIndex === visibleDataColumns[0] - 1
-    ) {
-      table.column(titleColumnIndex).visible(false);
-    } else {
-      table.column(titleColumnIndex).visible(true);
-    }
+    table
+      .column(titleColumnIndex)
+      .visible(
+        !(
+          visibleDataColumns.length === 1 &&
+          colIndex === visibleDataColumns[0] - 1
+        )
+      );
     table
       .column(dataColumnIndex)
       .visible(!table.column(dataColumnIndex).visible());
@@ -1116,6 +1086,11 @@ function initializeTranslationSelector() {
   const resetBtn = document.getElementById("resetTranslations");
   const showAllBtn = document.getElementById("showAllTranslations");
 
+  if (!toggleBtn || !dropdown) {
+    console.error("Toggle button or dropdown not found");
+    return;
+  }
+
   baseColumns.forEach((column, index) => {
     addTranslationItem(translationList, column.title, index, column.visible);
   });
@@ -1131,11 +1106,6 @@ function initializeTranslationSelector() {
     });
   });
 
-  if (!toggleBtn || !dropdown) {
-    console.error("Toggle button or dropdown not found");
-    return;
-  }
-
   toggleBtn.addEventListener("click", (event) => {
     event.stopPropagation();
     dropdown.style.display =
@@ -1143,10 +1113,11 @@ function initializeTranslationSelector() {
   });
 
   document.addEventListener("click", (event) => {
-    if (!event.target.closest(".translation-selector")) {
-      if (dropdown.style.display === "block") {
-        applyTranslations();
-      }
+    if (
+      !event.target.closest(".translation-selector") &&
+      dropdown.style.display === "block"
+    ) {
+      applyTranslations();
       dropdown.style.display = "none";
     }
   });
@@ -1156,13 +1127,8 @@ function initializeTranslationSelector() {
     dropdown.style.display = "none";
   });
 
-  resetBtn.addEventListener("click", () => {
-    resetTranslations();
-  });
-
-  showAllBtn.addEventListener("click", () => {
-    showAllTranslations();
-  });
+  resetBtn.addEventListener("click", resetTranslations);
+  showAllBtn.addEventListener("click", showAllTranslations);
 }
 
 /**
