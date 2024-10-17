@@ -1034,27 +1034,21 @@ function getColumnIndices(jsonName) {
 }
 
 /**
- * Shows all available translations
+ * check all available translations
  */
 function showAllTranslations() {
-  // Iterate over each translation configuration in the additionalJsons array
-  additionalJsons.forEach((json) => {
-    // Check if the translation is not already included in the additionalColumns array
-    if (!additionalColumns.includes(json.name)) {
-      // If the translation is not currently shown, toggle its visibility
-      toggleTranslation(json.name); // Call the toggleTranslation function to show the translation
-    }
-  });
-}
-
-function showAllTranslations() {
+  // Update the UI: check all checkboxes
   const checkboxes = document.querySelectorAll(
     '#translationList input[type="checkbox"]'
   );
   checkboxes.forEach((checkbox) => {
     checkbox.checked = true;
+    // Update the translationStates object to reflect the checked state
+    translationStates[checkbox.value] = true;
   });
-  // Don't apply translations here, wait for user to click apply or outside
+
+  // Do not apply translations here
+  // The changes will be applied when the user clicks the "Apply" button
 }
 
 // Translation Selector UI
@@ -1149,9 +1143,11 @@ function applyTranslations() {
   const checkboxes = document.querySelectorAll(
     '#translationList input[type="checkbox"]'
   );
+
   checkboxes.forEach((checkbox) => {
     const value = checkbox.value;
     const isChecked = checkbox.checked;
+
     if (typeof value === "string" && value.includes("-")) {
       const [jsonName, colIndex] = value.split("-");
       if (
@@ -1165,8 +1161,10 @@ function applyTranslations() {
     } else {
       table.column(parseInt(value)).visible(isChecked);
     }
+
     translationStates[value] = isChecked;
   });
+
   additionalJsons.forEach((json) => {
     const titleColumnIndex = getColumnIndices(json.name)[0];
     const dataColumnIndices = getColumnIndices(json.name).slice(1);
@@ -1175,6 +1173,7 @@ function applyTranslations() {
     );
     table.column(titleColumnIndex).visible(anyDataColumnVisible);
   });
+
   table.draw();
   table.page(currentPage).draw("page");
 }
