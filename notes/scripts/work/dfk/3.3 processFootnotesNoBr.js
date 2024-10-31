@@ -1,0 +1,52 @@
+const fs = require("fs");
+
+// Read the JSON file
+fs.readFile("addfootnotestothis.json", "utf8", (err, data) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  let jsonData = JSON.parse(data);
+
+  // Read the footnotes file
+  fs.readFile("footnotes.txt", "utf8", (err, footnotesData) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    // Modified regex to match footnotes starting with a number
+    let footnotes = footnotesData.match(/^\d+\s+[^\n]+/gm);
+
+    // Process the data
+    for (let i = 0; i < jsonData.length; i++) {
+      // Modified regex to match plain numbers
+      let matches = jsonData[i][0].match(/\b\d+\b/g);
+      if (matches) {
+        for (let j = 0; j < matches.length; j++) {
+          let match = matches[j];
+          let index = footnotes.findIndex((fn) => fn.startsWith(match + " "));
+          if (index !== -1) {
+            let footnoteNumber = match;
+            let footnoteText = footnotes[index].replace(match + " ", "").trim();
+            if (jsonData[i][1]) {
+              jsonData[i][1] += "\n(" + footnoteNumber + ") " + footnoteText;
+            } else {
+              jsonData[i][1] = "(" + footnoteNumber + ") " + footnoteText;
+            }
+          }
+        }
+      }
+    }
+
+    // Write the output JSON file
+    fs.writeFile("output.json", JSON.stringify(jsonData, null, 2), (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log("Output JSON file has been created successfully.");
+    });
+  });
+});
