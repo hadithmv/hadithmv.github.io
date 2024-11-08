@@ -1,9 +1,44 @@
-// Constants and Configuration
+//
+// STATE VARIABLES - for tracking current position and UI state
+//
 
-const baseJsonUrl = "../js/json/"; // Base URL for all JSON files
+let // Current position within the Quran
+  currentSurah = 1, // Tracks which surah (chapter) is currently selected (1-114)
+  currentAyah = 1, // Tracks which ayah (verse) is currently selected within the surah
+  currentJuz = 1, // Tracks which juz (part) is currently selected (1-30)
+  // UI state for dropdown navigation
+  currentFocus = -1, // Tracks which item is focused in dropdown lists (-1 means no focus)
+  // Columns management
+  additionalColumns = [], // Keeps track of which additional translation columns have been loaded
+  // Translation visibility states
+  translationStates = {}, // Tracks current visibility state of each translation
+  initialTranslationStates = {}, // Stores initial visibility settings for reset functionality
+  // UI interaction memory
+  lastFocusedItems = {
+    // Remembers last focused items in each dropdown
+    surah: -1, // Last focused surah in dropdown
+    ayah: -1, // Last focused ayah in dropdown
+    juz: -1, // Last focused juz in dropdown
+  },
+  // Search state management
+  searchInputValues = {
+    // Stores search input values for each dropdown
+    surah: "", // Current search text for surah dropdown
+    ayah: "", // Current search text for ayah dropdown
+    juz: "", // Current search text for juz dropdown
+  };
 
-// QURAN OBJECT MAPS
+//
+// CONSTANTS - for constant data
+//
 
+// Base URL for JSON data files
+const baseJsonUrl = "../js/json/";
+//
+
+// Object mappings
+
+// Object mapping western digits (0-9) to their Arabic numeral equivalents
 const arabicDigits = {
   0: "٠",
   1: "١",
@@ -16,8 +51,9 @@ const arabicDigits = {
   8: "٨",
   9: "٩",
 };
-//
-
+// Object containing the number of verses (ayahs) in each surah
+// Key: Surah number (1-114)
+// Value: Number of verses in that surah
 const ayahCounts = {
   1: 7,
   2: 286,
@@ -134,8 +170,9 @@ const ayahCounts = {
   113: 5,
   114: 6,
 };
-
-// makes surah numbers into names, Object mapping surah numbers to their Arabic names
+// Object containing the Arabic names of each surah
+// Key: Surah number (1-114)
+// Value: Arabic name with diacritical marks
 const arabicSurahNames = {
   1: "الفَاتِحَة",
   2: "البَقَرَة",
@@ -252,7 +289,7 @@ const arabicSurahNames = {
   113: "الفَلَق",
   114: "النَّاس",
 };
-
+// Object containing Dhivehi transliterations of surah names
 const dhivehiSurahNames = {
   1: "ފާތިޙާ",
   2: "ބަގަރާ",
@@ -369,7 +406,7 @@ const dhivehiSurahNames = {
   113: "ފަލަގު",
   114: "ނާސް",
 };
-
+// Object containing English transliterations of surah names
 const englishSurahNames = {
   1: "Fatihah",
   2: "Baqarah",
@@ -486,751 +523,639 @@ const englishSurahNames = {
   113: "Falaq",
   114: "Nas",
 };
-//
 
-// makes numbers into MATHEMATICAL SANS-SERIF DIGIT, Object mapping regular digits to their mathematical sans-serif equivalents
-/*const sansSerifDigits = {
-        0: "𝟢",
-        1: "𝟣",
-        2: "𝟤",
-        3: "𝟥",
-        4: "𝟦",
-        5: "𝟧",
-        6: "𝟨",
-        7: "𝟩",
-        8: "𝟪",
-        9: "𝟫",
-      };*/
+// Constants for maximum values
+const maxSurah = 114; // Total number of surahs in Quran
+const maxJuz = 30; // Total number of juz (parts) in Quran
 
-// Define the maximum number of Surahs in the Quran
-const maxSurah = 114;
-
-// Define the maximum number of Juz in the Quran
-const maxJuz = 30;
-
-// DataTables Configuration
-
-// Base columns that are always present in the table
-// These represent the core Quran data structure
+// Base columns configuration
+// Base columns configuration for the DataTable
 const baseColumns = [
-  { data: "0", title: "ޖުޒް", visible: false },
-  { data: "1", title: "ސޫރަތް", visible: false },
-  { data: "2", title: "އާޔަތް #", visible: false },
-  { data: "3", title: "ބިސްމި", visible: true },
+  { data: "0", title: "ޖުޒް", visible: !1 }, // Juz column (hidden by default)
+  { data: "1", title: "ސޫރަތް", visible: !1 }, // Surah column (hidden by default)
+  { data: "2", title: "އާޔަތް #", visible: !1 }, // Ayah number column (hidden by default)
+  { data: "3", title: "ބިސްމި", visible: !0 }, // Bismillah column (visible by default)
   {
     data: "4",
-    title: "އާޔަތް (އިމްލާއީ)",
-    visible: true,
-    render: function (data, type, row) {
-      data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
-      data = "﴿" + data + " " + row[2] + "﴾";
-      data = replaceDigitsWithArabic(data);
-      return data;
+    title: "އާޔަތް (އިމްލާއީ)", // Ayah text column (Imlai script)
+    visible: !0,
+    render: function (a, e, t) {
+      // Render function to format ayah text with Arabic numerals and brackets
+      return replaceDigitsWithArabic(
+        (a =
+          "﴿" + (a = a.replace(/\s([\u0660-\u0669]+)/, " ")) + " " + t[2] + "﴾")
+      );
     },
   },
   {
     data: "5",
-    title: "ރަސްމު އުޘްމާނީ",
-    visible: false,
-    render: function (data, type, row) {
-      data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
-      data = "﴿" + data + " " + row[2] + "﴾";
-      data = replaceDigitsWithArabic(data);
-      return data;
+    title: "ރަސްމު އުޘްމާނީ", // Uthmani script column
+    visible: !1,
+    render: function (a, e, t) {
+      // Similar render function for Uthmani script
+      return replaceDigitsWithArabic(
+        (a =
+          "﴿" + (a = a.replace(/\s([\u0660-\u0669]+)/, " ")) + " " + t[2] + "﴾")
+      );
     },
   },
 ];
 
-// Configuration for additional translations that can be toggled
-// name: filename without extension
-// column: which column index in the JSON contains the translation text
-// title: display name for the translation
-// This allows for dynamic loading of different translations or tafsirs
-
+// Configuration for additional JSON translations/tafsirs
 const additionalJsons = [
-  { name: "quranHadithmv", columns: [0], title: "ޙަދީޘްއެމްވީ ތަރުޖަމާ:" },
+  {
+    name: "quranHadithmv",
+    columns: [0],
+    title: "ޙަދީޘްއެމްވީ ތަރުޖަމާ:",
+  },
   { name: "quranRasmee", columns: [0, 1], title: "ރަސްމީ ތަރުޖަމާ:" },
-  { name: "quranBakurube", columns: [0, 1], title: "ބަކުރުބެ ތަރުޖަމާ:" },
+  {
+    name: "quranBakurube",
+    columns: [0, 1],
+    title: "ބަކުރުބެ ތަރުޖަމާ:",
+  },
   { name: "quranJaufar", columns: [0, 1], title: "ޖަޢުފަރު ތަފްސީރު:" },
   { name: "quranSoabuni", columns: [0, 1, 3, 4], title: "ޞ ތަފްސީރު:" },
   { name: "quranMukhtasar", columns: [0], title: "مختصر التفسير:" },
   { name: "quranMuyassar", columns: [0], title: "التفسير الميسر:" },
 ];
 
-// The translation that will be shown by default when the page loads
-//const defaultAdditionalJson = "quranHadithmv";
-const defaultAdditionalJson = currentFileName;
+// Default translation to load
+defaultAdditionalJson = currentFileName;
+//defaultAdditionalJson = "quranHadithmv";
 
-// Configuration for the DataTable
-// Initialize the current Surah to the first Surah (1)
-let currentSurah = 1;
+//
+// UTILITIES - for helper functions
+//
 
-// Initialize the current Ayah to the first Ayah (1)
-let currentAyah = 1;
-
-// Initialize the current Juz to the first Juz (1)
-let currentJuz = 1;
-
-let currentFocus = -1; // Initialize the current focus index for dropdown item navigation
-
-//let table;
-let additionalColumns = []; // Tracks which additional translations are currently visible
-
-let translationStates = {}; // Object to track the current state of each translation checkbox
-
-let initialTranslationStates = {}; // Object to store the initial state of each translation checkbox
-
-// Function to toggle the visibility of a dropdown based on its type
-let lastFocusedItems = {
-  surah: -1,
-  ayah: -1,
-  juz: -1,
-};
-
-// Initialize dropdowns after table initialization
-let searchInputValues = {
-  surah: "",
-  ayah: "",
-  juz: "",
-};
-
-/* !!!
- *
- * QURAN NAVIGATION FUNCTIONS
- *
- */
-
-// Utility Functions
-
-// makes ayah numbers arabic
-function replaceDigitsWithArabic(data) {
-  return data.replace(/[0-9]/g, function (match) {
-    return arabicDigits[match];
+// Replaces western numerals (0-9) with their Arabic numeral equivalents
+function replaceDigitsWithArabic(a) {
+  return a.replace(/[0-9]/g, function (a) {
+    return arabicDigits[a];
   });
 }
 
-/**
- * Helper function to remove diacritics from a given text.
- * @param {string} text - The input text from which diacritics will be removed
- * @returns {string} - The text without diacritics
- */
-function removeDiacritics(text) {
-  return text.replace(/[َُِّْٰۡۚٓـًٌٍّٔ]/g, ""); // Use a regular expression to remove diacritic characters
+// Removes Arabic diacritical marks from text for easier searching/matching
+function removeDiacritics(a) {
+  return a.replace(/[َُِّْٰۡۚٓـًٌٍّٔ]/g, "");
 }
 
-function cleanSurahText(text) {
-  return removeDiacritics(text)
+// Cleans surah text by removing the word "سورة" (surah) and any whitespace
+function cleanSurahText(a) {
+  return removeDiacritics(a)
     .replace(/سورة\s*/, "")
     .trim();
 }
 
-// Navigation Functions
+//
+// QURAN NAVIGATION - for quran navigation-related functions
+//
 
-// QURAN DROPDOWN CODE
-/**
- * Toggles the visibility of a dropdown
- * @param {string} type - The type of dropdown to toggle
- */
-// Update the QtoggleDropdown function to display Surah names correctly
+// Handles dropdown toggle functionality
+function QtoggleDropdown(a) {
+  var dropdown = $(`#${a}Dropdown`);
 
-function QtoggleDropdown(type) {
-  const dropdown = $(`#${type}Dropdown`);
+  // Hide all other dropdowns first
   $(".q-dropdown").not(dropdown).hide();
-  dropdown.toggle();
 
-  if (dropdown.is(":visible")) {
-    const currentValue = parseInt($(`#${type}Value`).text());
+  // If dropdown becomes visible after toggle
+  if (dropdown.toggle().is(":visible")) {
+    // Get current value and dropdown items
+    const currentValue = parseInt($(`#${a}Value`).text());
     const items = dropdown.find(".q-dropdown-item");
+
+    // Find the currently selected item
     const currentItem = items.filter(`[data-value="${currentValue}"]`);
 
     if (currentItem.length) {
+      // Update focus to current item's position
       currentFocus = items.index(currentItem);
-      lastFocusedItems[type] = currentFocus;
-      addActive(items);
+
+      // Scroll current item into view
       currentItem[0].scrollIntoView({ block: "center" });
-    } else {
-      currentFocus =
-        lastFocusedItems[type] !== undefined ? lastFocusedItems[type] : 0;
-      if (currentFocus === -1 || currentFocus >= items.length) {
-        currentFocus = 0;
-      }
-      addActive(items);
+
+      // Highlight current item
+      removeActive(items);
+      currentItem.addClass("active");
     }
 
+    // Focus the search input and restore any previous search value
     const searchInput = dropdown.find(".q-dropdown-search");
-    searchInput.val(searchInputValues[type]).focus();
-    searchInput.trigger("input");
+    searchInput.val(searchInputValues[a]).focus();
   }
 }
 
-/**
- * Handles navigation when arrow buttons are clicked
- * @param {string} type - The type of navigation (surah, ayah, or juz)
- * @param {string} direction - The direction of navigation ("prev" or "next")
- */
-function QnavigateArrow(type, direction) {
-  var current, // Variable to hold the current value (surah, ayah, or juz)
-    max, // Variable to hold the maximum value for the current type
-    min = 1; // Minimum value for navigation, set to 1
-
-  // Determine the current value and maximum based on the type of navigation
-  if (type === "surah") {
-    current = currentSurah; // Get the current surah
-    max = maxSurah; // Get the maximum number of surahs
-  } else if (type === "ayah") {
-    current = currentAyah; // Get the current ayah
-    max = ayahCounts[currentSurah] || 1; // Get the maximum ayah count for the current surah, default to 1
-  } else if (type === "juz") {
-    current = currentJuz; // Get the current juz
-    max = maxJuz; // Get the maximum number of juz
+// Handles navigation using arrow buttons
+function QnavigateArrow(a, e) {
+  // Set navigation limits based on type (surah, ayah, or juz)
+  if ("surah" === a) {
+    var t = currentSurah,
+      n = 114; // Max surah number
+  } else if ("ayah" === a) {
+    t = currentAyah;
+    n = ayahCounts[currentSurah] || 1; // Max ayah for current surah
+  } else if ("juz" === a) {
+    t = currentJuz;
+    n = 30; // Max juz number
   }
 
-  // Handle navigation in the "prev" direction
-  if (direction === "prev") {
-    current--; // Decrement the current value
-    if (current < min) {
-      // Check if current is less than the minimum
-      if (type === "ayah") {
-        currentSurah--; // Move to the previous surah
-        if (currentSurah < 1) currentSurah = maxSurah; // Wrap around to the last surah if below 1
-        updateAyahDropdown(); // Update the ayah dropdown for the new surah
-        current = ayahCounts[currentSurah] || 1; // Reset current to the last ayah of the new surah
+  // Handle previous navigation
+  if ("prev" === e) {
+    t--;
+    if (t < 1) {
+      if ("ayah" === a) {
+        // Move to previous surah's last ayah
+        currentSurah--;
+        if (currentSurah < 1) currentSurah = 114;
+        updateAyahDropdown();
+        t = ayahCounts[currentSurah] || 1;
       } else {
-        current = max; // If not ayah, wrap around to the maximum value
-      }
-    }
-  } else {
-    // Handle navigation in the "next" direction
-    current++; // Increment the current value
-    if (current > max) {
-      // Check if current exceeds the maximum
-      if (type === "ayah") {
-        currentSurah++; // Move to the next surah
-        if (currentSurah > maxSurah) currentSurah = 1; // Wrap around to the first surah if above max
-        updateAyahDropdown(); // Update the ayah dropdown for the new surah
-        current = 1; // Reset current to the first ayah of the new surah
-      } else {
-        current = min; // If not ayah, wrap around to the minimum value
+        // Wrap around to maximum value
+        t = n;
       }
     }
   }
+  // Handle next navigation
+  else {
+    t++;
+    if (t > n) {
+      if ("ayah" === a) {
+        // Move to next surah's first ayah
+        currentSurah++;
+        if (currentSurah > 114) currentSurah = 1;
+        updateAyahDropdown();
+      }
+      t = 1;
+    }
+  }
 
-  // Update the displayed value for the current type
-  updateQValue(type, current);
+  // Update the display value
+  updateQValue(a, t);
 }
 
-/**
- * Navigates to the selected verse in the DataTable
- * This function finds the row corresponding to the current Surah and Ayah,
- * scrolls to it, and updates the navigation boxes.
- */
+// Navigates to a specific verse in the table and updates the display
 function navigateToVerse() {
-  const targetRow = table
+  // Find matching rows based on current position
+  const a = table
     .rows()
     .indexes()
-    .filter((value) => {
-      const rowData = table.row(value).data();
-      if (currentJuz !== null) {
-        return parseInt(rowData[0]) === currentJuz;
-      } else if (currentSurah !== null && currentAyah !== null) {
-        return (
-          parseInt(rowData[1]) === currentSurah &&
-          parseInt(rowData[2]) === currentAyah
-        );
-      }
-      return false;
-    });
+    .filter(
+      (a) => (
+        (a = table.row(a).data()),
+        // Check if we're navigating by juz or by surah/ayah combination
+        null !== currentJuz
+          ? parseInt(a[0]) === currentJuz
+          : null !== currentSurah &&
+            null !== currentAyah &&
+            parseInt(a[1]) === currentSurah &&
+            parseInt(a[2]) === currentAyah
+      )
+    );
 
-  if (targetRow.length > 0) {
-    const pageInfo = table.page.info();
-    const targetPage = Math.floor(targetRow[0] / pageInfo.length);
-    table.page(targetPage).draw(false);
-    const rowNode = table.row(targetRow[0]).node();
-    if (rowNode) {
-      rowNode.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-    updateAllQValues(table.row(targetRow[0]).data());
+  if (0 < a.length) {
+    // Get current page info and navigate to correct page
+    var e = table.page.info();
+    table.page(Math.floor(a[0] / e.length)).draw(!1);
+
+    // Scroll the row into view if found
+    (e = table.row(a[0]).node()) &&
+      e.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    // Update all navigation values based on the new position
+    updateAllQValues(table.row(a[0]).data());
   }
 }
 
-/**
- * Updates the value of a navigation box and navigates to the corresponding verse
- * @param {string} type - The type of value to update (surah, ayah, or juz)
- * @param {number} value - The new value
- */
-// Update the updateQValue function to display Surah names correctly
-function updateQValue(type, value) {
-  value = parseInt(value);
-  const valueElement = $(`#${type}Value`);
+// Updates a single navigation value (surah, ayah, or juz)
+function updateQValue(a, e) {
+  e = parseInt(e);
+  const t = $(`#${a}Value`);
 
-  switch (type) {
+  switch (a) {
     case "surah":
-      valueElement.text(`${value} ${arabicSurahNames[value]}`);
-      currentSurah = value;
+      // Update surah display and reset ayah to 1
+      t.text(`${e} ${arabicSurahNames[e]}`);
+      currentSurah = e;
       currentAyah = 1;
+      // Reinitialize ayah dropdown with new surah's verse count
       initializeQDropdown("ayah", 1, ayahCounts[currentSurah]);
       $("#ayahValue").text(currentAyah);
       currentJuz = null;
       break;
+
     case "ayah":
-      currentAyah = value;
-      valueElement.text(value);
+      // Update ayah display
+      currentAyah = e;
+      t.text(e);
       currentJuz = null;
       break;
+
     case "juz":
-      currentJuz = value;
-      valueElement.text(value);
-      currentSurah = null;
-      currentAyah = null;
-      break;
+      // Update juz display
+      currentJuz = e;
+      t.text(e);
+      currentAyah = currentSurah = null;
   }
 
+  // Navigate to the new position and update focus
   navigateToVerse();
-
-  const dropdown = $(`#${type}Dropdown`);
-  const items = dropdown.find(".q-dropdown-item");
-  currentFocus = items.index(items.filter(`[data-value="${value}"]`));
+  a = $(`#${a}Dropdown`).find(".q-dropdown-item");
+  currentFocus = a.index(a.filter(`[data-value="${e}"]`));
 }
 
-/**
- * Updates all navigation box values based on the given row data
- * @param {Array} rowData - The data of the current row
- */
-function updateAllQValues(rowData) {
-  // Parse the current Juz from the row data and convert it to an integer
-  currentJuz = parseInt(rowData[0]);
+// Updates all navigation values based on provided data
+function updateAllQValues(data) {
+  // Parse and update current position
+  currentJuz = parseInt(data[0]);
+  currentSurah = parseInt(data[1]);
+  currentAyah = parseInt(data[2]);
 
-  // Parse the current Surah from the row data and convert it to an integer
-  currentSurah = parseInt(rowData[1]);
-
-  // Parse the current Ayah from the row data and convert it to an integer
-  currentAyah = parseInt(rowData[2]);
-
-  // Update the displayed value for the Juz navigation box
+  // Update display values
   $("#juzValue").text(currentJuz);
-
-  // Update the displayed value for the Surah navigation box, including the Arabic name
-  $("#surahValue").text(
-    `${currentSurah} ${arabicSurahNames[currentSurah]}` // Display Surah number and its Arabic name
-  );
-
-  // Update the displayed value for the Ayah navigation box
+  $("#surahValue").text(`${currentSurah} ${arabicSurahNames[currentSurah]}`);
   $("#ayahValue").text(currentAyah);
 }
 
-/**
- * Updates the ayah dropdown based on the current surah
- */
+// Updates the ayah dropdown for the current surah
 function updateAyahDropdown() {
-  // Determine the maximum number of ayahs for the current surah.
-  // If currentSurah is not set or ayahCounts[currentSurah] is undefined, default to 1.
-  var maxAyah = ayahCounts[currentSurah] || 1;
-  initializeQDropdown("ayah", 1, maxAyah); // Initialize the ayah dropdown with values from 1 to maxAyah.
-  $("#ayahValue").text("1"); // Set the displayed value of the ayah to "1", indicating the first ayah.
+  // Initialize ayah dropdown with verse count of current surah
+  initializeQDropdown("ayah", 1, ayahCounts[currentSurah] || 1);
+  $("#ayahValue").text("1");
 }
 
-// Dropdown Initialization and Handling
+// Initializes a dropdown menu (surah, ayah, or juz)
+function initializeQDropdown(a, e, t) {
+  const n = $(`#${a}Dropdown`);
 
-/**
- * Initializes the dropdown for the specified type with a range of values
- * @param {string} type - The type of dropdown (e.g., "surah" or "ayah")
- * @param {number} min - The minimum value for the dropdown
- * @param {number} max - The maximum value for the dropdown
- */
-function initializeQDropdown(type, min, max) {
-  const dropdown = $(`#${type}Dropdown`);
-  dropdown.empty();
-  dropdown.append(
+  // Clear dropdown and add search input
+  n.empty();
+  n.append(
     '<input type="text" class="q-dropdown-search" placeholder="ލިޔޭ ނޫނީ ތިރިއަށް ފިތާ">'
   );
 
-  if (type === "ayah") {
-    max = ayahCounts[currentSurah];
+  // For ayah dropdown, get verse count from current surah
+  "ayah" === a && (t = ayahCounts[currentSurah]);
+
+  // Add dropdown items
+  for (; e <= t; e++) {
+    let t = e;
+    // For surah dropdown, include names in multiple languages
+    "surah" === a &&
+      (t = `${e} ${arabicSurahNames[e]} ${dhivehiSurahNames[e]} ${englishSurahNames[e]}`);
+    n.append(`<div class="q-dropdown-item" data-value="${e}">${t}</div>`);
   }
 
-  for (let i = min; i <= max; i++) {
-    let displayText = i;
-    if (type === "surah") {
-      displayText = `${i} ${arabicSurahNames[i]} ${dhivehiSurahNames[i]} ${englishSurahNames[i]}`;
-    }
-    dropdown.append(
-      `<div class="q-dropdown-item" data-value="${i}">${displayText}</div>`
-    );
-  }
+  // Continue from initializeQDropdown...
 
-  dropdown.on("click", ".q-dropdown-item", function () {
-    const value = $(this).data("value");
-    updateQValue(type, value);
-    lastFocusedItems[type] = dropdown.find(".q-dropdown-item").index(this);
-    dropdown.hide();
+  // Add event listeners for dropdown items and search
+  n.on("click", ".q-dropdown-item", function () {
+    // Handle click on dropdown item
+    const e = $(this).data("value");
+    updateQValue(a, e);
+    // Store last focused item
+    lastFocusedItems[a] = n.find(".q-dropdown-item").index(this);
+    n.hide();
   });
 
-  const searchInput = dropdown.find(".q-dropdown-search");
+  // Set up search functionality
+  t = n.find(".q-dropdown-search");
+  t.on("input", function () {
+    // Get search value and clean it if it's a surah search
+    const e = $(this).val().toLowerCase();
+    const t = "surah" === a ? cleanSurahText(e) : e;
 
-  searchInput.on("input", function () {
-    const searchValue = $(this).val().toLowerCase();
-    const cleanSearchValue =
-      type === "surah" ? cleanSurahText(searchValue) : searchValue;
-
-    dropdown.find(".q-dropdown-item").each(function () {
-      const itemText = $(this).text().toLowerCase();
-      const cleanItemText =
-        type === "surah" ? cleanSurahText(itemText) : itemText;
-      $(this).toggle(cleanItemText.includes(cleanSearchValue));
+    // Filter dropdown items based on search
+    n.find(".q-dropdown-item").each(function () {
+      var e = $(this).text().toLowerCase();
+      e = "surah" === a ? cleanSurahText(e) : e;
+      $(this).toggle(e.includes(t));
     });
-
     currentFocus = -1;
   });
 
-  searchInput.on("keydown", function (e) {
-    const items = dropdown.find(".q-dropdown-item:visible");
+  // Handle keyboard navigation in search
+  t.on("keydown", function (e) {
+    const visibleItems = n.find(".q-dropdown-item:visible");
+    const itemCount = visibleItems.length;
+
+    if (itemCount === 0) return;
+
     switch (e.keyCode) {
       case 40: // Down arrow
         e.preventDefault();
-        currentFocus = currentFocus < items.length - 1 ? currentFocus + 1 : 0;
+        currentFocus = Math.min(currentFocus + 1, itemCount - 1);
         break;
+
       case 38: // Up arrow
         e.preventDefault();
-        currentFocus = currentFocus > 0 ? currentFocus - 1 : items.length - 1;
+        currentFocus = Math.max(currentFocus - 1, 0);
         break;
+
       case 13: // Enter
         e.preventDefault();
-        if (currentFocus > -1) {
-          if (items.length) items[currentFocus].click();
-        } else if (items.length) {
-          items[0].click();
+        if (currentFocus >= 0 && currentFocus < itemCount) {
+          visibleItems.eq(currentFocus).click();
         }
         return;
     }
-    lastFocusedItems[type] = currentFocus;
-    addActive(items);
+
+    // Update visual focus
+    removeActive(visibleItems);
+    visibleItems.eq(currentFocus).addClass("active");
+    visibleItems[currentFocus].scrollIntoView({ block: "nearest" });
   });
 }
 
-/**
- * Adds the "active" class to the currently focused item in the dropdown
- * and scrolls it into view.
- * @param {Array} items - The list of dropdown items
- */
-function addActive(items) {
-  if (!items) return false; // If no items are provided, exit the function
-  removeActive(items); // Remove the "active" class from all items
-  $(items[currentFocus]).addClass("active"); // Add the "active" class to the currently focused item
-  // Scroll the currently focused item into view
-  $(items[currentFocus])[0].scrollIntoView({
-    block: "nearest", // Align the item to the nearest edge of the viewport
-    inline: "nearest", // Align the item to the nearest edge horizontally
+// Adds active class to currently focused item and scrolls it into view
+function addActive(a) {
+  if (!a) return !1;
+  removeActive(a);
+  $(a[currentFocus]).addClass("active");
+  $(a[currentFocus])[0].scrollIntoView({
+    block: "nearest",
+    inline: "nearest",
   });
 }
 
-/**
- * Removes the "active" class from all items in the dropdown.
- * @param {Array} items - The list of dropdown items
- */
-function removeActive(items) {
-  items.removeClass("active"); // Remove the "active" class from all items
+// Removes active class from all items
+function removeActive(a) {
+  a.removeClass("active");
 }
 
-// Translation Handling
-
-/**
- * Creates all column definitions for the DataTable, including both base columns
- * and additional translation columns (which start hidden)
- * @returns {Array} Array of column definition objects for DataTables
- */
-
-function getAllColumnDefinitions() {
-  const additionalColumnDefs = additionalJsons.flatMap((json) => {
-    const titleColumn = {
-      title: `<strong>${json.title}</strong>`,
-      data: null,
-      name: `${json.name}-title`,
-      visible: false,
-      //className: "dt-body-center dt-head-center",
-      render: function (data, type, row) {
-        return `<strong>${json.title}</strong>`;
-      },
-    };
-    const dataColumns = json.columns.map((colIndex, index) => ({
-      title: `${index + 1}`,
-      data: null,
-      name: `${json.name}-${colIndex}`,
-      visible: false,
-      render: function (data, type, row) {
-        if (row[json.name]) {
-          return row[json.name][colIndex];
-        }
-        return "Loading...";
-      },
-    }));
-    return [titleColumn, ...dataColumns];
-  });
-  return [...baseColumns, ...additionalColumnDefs];
-}
-
-/**
- * Toggles visibility of a translation column and loads its data if needed
- * This function handles the dynamic loading and display of additional translations
- * @param {string} jsonName - The name of the translation to toggle
- */
-
-function toggleTranslation(jsonName, colIndex) {
-  const jsonInfo = additionalJsons.find((j) => j.name === jsonName);
-  const columnIndices = getColumnIndices(jsonName);
-  const titleColumnIndex = columnIndices[0];
-  const dataColumnIndex = columnIndices[colIndex + 1];
-  const currentPage = table.page();
-
-  if (!additionalColumns.includes(jsonName)) {
-    additionalColumns.push(jsonName);
-    $.getJSON(`${baseJsonUrl}${jsonName}.json`, function (data) {
-      const currentData = table.data().toArray();
-      currentData.forEach((row, idx) => {
-        row[jsonName] = data[idx];
-      });
-      table.clear().rows.add(currentData).draw();
-      table.column(titleColumnIndex).visible(true);
-      table.column(dataColumnIndex).visible(true);
-      table.page(currentPage).draw("page");
-    }).fail(function (xhr, status, error) {
-      console.error("Error loading translation:", error);
-    });
-  } else {
-    const visibleDataColumns = jsonInfo.columns.filter((_, index) =>
-      table.column(columnIndices[index + 1]).visible()
-    );
-    table
-      .column(titleColumnIndex)
-      .visible(
-        !(
-          visibleDataColumns.length === 1 &&
-          colIndex === visibleDataColumns[0] - 1
-        )
-      );
-    table
-      .column(dataColumnIndex)
-      .visible(!table.column(dataColumnIndex).visible());
-    table.draw();
-    table.page(currentPage).draw("page");
-  }
-}
-
-// Function to get column indices for a given JSON
-function getColumnIndices(jsonName) {
-  const baseColumnsLength = baseColumns.length;
-  let startIndex = baseColumnsLength;
-  for (let i = 0; i < additionalJsons.length; i++) {
-    if (additionalJsons[i].name === jsonName) {
-      break;
-    }
-    startIndex += additionalJsons[i].columns.length + 1; // +1 for the title column
-  }
-  return [
-    startIndex,
-    ...additionalJsons
-      .find((j) => j.name === jsonName)
-      .columns.map((_, index) => startIndex + index + 1),
-  ];
-}
-
-/**
- * check all available translations
- */
-function showAllTranslations() {
-  // Update the UI: check all checkboxes
-  const checkboxes = document.querySelectorAll(
-    '#translationList input[type="checkbox"]'
-  );
-  checkboxes.forEach((checkbox) => {
-    checkbox.checked = true;
-    // Update the translationStates object to reflect the checked state
-    translationStates[checkbox.value] = true;
-  });
-
-  // Do not apply translations here
-  // The changes will be applied when the user clicks the "Apply" button
-}
-
-// Translation Selector UI
-
-/**
- * Initializes the translation selector UI with checkboxes
- * This function sets up the user interface for toggling different translations
- */
-
-function initializeTranslationSelector() {
-  const translationList = document.getElementById("translationList");
-  const toggleBtn = document.getElementById("translationToggleBtn");
-  const dropdown = document.getElementById("translationDropdown");
-  const applyBtn = document.getElementById("applyTranslations");
-  const resetBtn = document.getElementById("resetTranslations");
-  const showAllBtn = document.getElementById("showAllTranslations");
-
-  if (!toggleBtn || !dropdown) {
-    console.error("Toggle button or dropdown not found");
-    return;
-  }
-
-  baseColumns.forEach((column, index) => {
-    addTranslationItem(translationList, column.title, index, column.visible);
-  });
-
-  additionalJsons.forEach((json) => {
-    json.columns.forEach((colIndex, index) => {
-      addTranslationItem(
-        translationList,
-        `${json.title} ${index + 1}`,
-        `${json.name}-${colIndex}`,
-        json.name === defaultAdditionalJson && index === 0
-      );
-    });
-  });
-
-  toggleBtn.addEventListener("click", (event) => {
-    event.stopPropagation();
-    dropdown.style.display =
-      dropdown.style.display === "block" ? "none" : "block";
-  });
-
-  document.addEventListener("click", (event) => {
-    if (
-      !event.target.closest(".translation-selector") &&
-      dropdown.style.display === "block"
-    ) {
-      applyTranslations();
-      dropdown.style.display = "none";
-    }
-  });
-
-  applyBtn.addEventListener("click", () => {
-    applyTranslations();
-    dropdown.style.display = "none";
-  });
-
-  resetBtn.addEventListener("click", resetTranslations);
-  showAllBtn.addEventListener("click", showAllTranslations);
-}
-
-/**
- * Adds a translation item to the selector list
- * @param {HTMLElement} list - The container element for the translation items
- * @param {string} title - The display title for the translation
- * @param {string|number} value - The value associated with the translation
- * @param {boolean} checked - Whether the translation should be initially checked
- */
-function addTranslationItem(list, title, value, checked) {
-  const item = document.createElement("div");
-  item.className = "translation-item";
-
-  const valueStr = String(value);
-  if (valueStr.includes("-title")) {
-    return;
-  }
-
-  item.innerHTML = `
-      <input type="checkbox" id="trans-${valueStr}" value="${valueStr}" ${
-    checked ? "checked" : ""
-  }>
-      <label for="trans-${valueStr}">${title}</label>
-  `;
-  list.appendChild(item);
-  translationStates[valueStr] = checked;
-  initialTranslationStates[valueStr] = checked; // Add this line
-}
-
-function applyTranslations() {
-  const currentPage = table.page();
-  const checkboxes = document.querySelectorAll(
-    '#translationList input[type="checkbox"]'
-  );
-
-  checkboxes.forEach((checkbox) => {
-    const value = checkbox.value;
-    const isChecked = checkbox.checked;
-
-    if (typeof value === "string" && value.includes("-")) {
-      const [jsonName, colIndex] = value.split("-");
-      if (
-        isChecked !==
-        table
-          .column(getColumnIndices(jsonName)[parseInt(colIndex) + 1])
-          .visible()
-      ) {
-        toggleTranslation(jsonName, parseInt(colIndex));
-      }
-    } else {
-      table.column(parseInt(value)).visible(isChecked);
-    }
-
-    translationStates[value] = isChecked;
-  });
-
-  additionalJsons.forEach((json) => {
-    const titleColumnIndex = getColumnIndices(json.name)[0];
-    const dataColumnIndices = getColumnIndices(json.name).slice(1);
-    const anyDataColumnVisible = dataColumnIndices.some((index) =>
-      table.column(index).visible()
-    );
-    table.column(titleColumnIndex).visible(anyDataColumnVisible);
-  });
-
-  table.draw();
-  table.page(currentPage).draw("page");
-}
-
-function resetTranslations() {
-  const checkboxes = document.querySelectorAll(
-    '#translationList input[type="checkbox"]'
-  );
-  checkboxes.forEach((checkbox) => {
-    const value = checkbox.value;
-    checkbox.checked = initialTranslationStates[value] || false;
-  });
-  // Don't apply translations here, wait for user to click apply or outside
-}
-
-/**
- * Toggles visibility of a base column
- * @param {number} index - The index of the base column to toggle
- */
-function toggleBaseColumn(index) {
-  // Get the column object for the specified index from the DataTable
-  const column = table.column(index);
-
-  // Set the visibility of the column based on the current state in translationStates
-  column.visible(translationStates[index]);
-
-  // Update the visibility property of the corresponding base column
-  baseColumns[index].visible = column.visible(); // Store the current visibility state
-}
-
-// Initialization
-
+// Initializes the navigation boxes (surah, ayah, juz selectors)
 function initializeNavigationBoxes() {
-  initializeQDropdown("surah", 1, maxSurah);
-  initializeQDropdown("juz", 1, maxJuz);
+  // Initialize dropdowns
+  initializeQDropdown("surah", 1, 114);
+  initializeQDropdown("juz", 1, 30);
   updateAyahDropdown();
 
+  // Set up click handlers for navigation elements
   $(".q-nav-value").on("click", function () {
-    var type = $(this).attr("id").replace("Value", "");
-    QtoggleDropdown(type);
+    QtoggleDropdown($(this).attr("id").replace("Value", ""));
   });
 
   $(".q-nav-arrow").on("click", function () {
-    var type = $(this).data("type");
-    var direction = $(this).data("direction");
-    QnavigateArrow(type, direction);
+    QnavigateArrow($(this).data("type"), $(this).data("direction"));
   });
 
-  $(document).on("click", function (event) {
-    if (!$(event.target).closest(".q-nav-box").length) {
-      $(".q-dropdown").hide();
-    }
+  // Close dropdowns when clicking outside
+  $(document).on("click", function (a) {
+    $(a.target).closest(".q-nav-box").length || $(".q-dropdown").hide();
   });
 
-  // Store search input values when hiding dropdowns
+  // Save search input values when hiding dropdowns
   $(".q-dropdown").on("hide", function () {
-    var type = $(this).attr("id").replace("Dropdown", "");
-    searchInputValues[type] = $(this).find(".q-dropdown-search").val();
+    var a = $(this).attr("id").replace("Dropdown", "");
+    searchInputValues[a] = $(this).find(".q-dropdown-search").val();
   });
+}
+
+//
+// TRANSLATIONS - for  translation-related functions
+//
+
+// Gets all column definitions for the DataTable
+function getAllColumnDefinitions() {
+  // Map additional JSON translations to column definitions
+  const a = additionalJsons.flatMap((a) => [
+    // Title column for each translation
+    {
+      title: `<strong>${a.title}</strong>`,
+      data: null,
+      name: `${a.name}-title`,
+      visible: !1,
+      render: function (e, t, n) {
+        return `<strong>${a.title}</strong>`;
+      },
+    },
+    // Data columns for each translation
+    ...a.columns.map((e, t) => ({
+      title: `${t + 1}`,
+      data: null,
+      name: `${a.name}-${e}`,
+      visible: !1,
+      render: function (t, n, r) {
+        return r[a.name] ? r[a.name][e] : "ތައްޔާރުވަނީ..."; // "Loading..." in Dhivehi
+      },
+    })),
+  ]);
+
+  // Combine base columns with additional translation columns
+  return [...baseColumns, ...a];
+}
+
+// Toggles visibility of a specific translation column
+function toggleTranslation(a, e) {
+  // Find the translation configuration
+  var t = additionalJsons.find((e) => e.name === a);
+  const n = getColumnIndices(a),
+    r = n[0], // Title column index
+    i = n[e + 1], // Data column index
+    l = table.page(); // Current page number
+
+  // If translation is already loaded
+  if (additionalColumns.includes(a)) {
+    // Check which columns are visible
+    t = t.columns.filter((a, e) => table.column(n[e + 1]).visible());
+    // Toggle title column visibility based on content columns
+    table.column(r).visible(!(1 === t.length && e === t[0] - 1));
+    // Toggle content column visibility
+    table.column(i).visible(!table.column(i).visible());
+    table.draw();
+    table.page(l).draw("page");
+  }
+  // If translation needs to be loaded
+  else {
+    additionalColumns.push(a);
+    // Load translation data from JSON file
+    $.getJSON(`${baseJsonUrl}${a}.json`, function (e) {
+      const t = table.data().toArray();
+      // Add translation data to existing table data
+      t.forEach((t, n) => {
+        t[a] = e[n];
+      });
+      // Update table with new data
+      table.clear().rows.add(t).draw();
+      table.column(r).visible(!0);
+      table.column(i).visible(!0);
+      table.page(l).draw("page");
+    }).fail(function (a, e, t) {
+      console.error("Error loading translation:", t);
+    });
+  }
+}
+
+// Gets column indices for a specific translation
+function getColumnIndices(a) {
+  let e = baseColumns.length;
+  // Calculate offset based on previous translations
+  for (
+    let t = 0;
+    t < additionalJsons.length && additionalJsons[t].name !== a;
+    t++
+  ) {
+    e += additionalJsons[t].columns.length + 1;
+  }
+  // Return array of indices [titleIndex, ...contentIndices]
+  return [
+    e,
+    ...additionalJsons
+      .find((e) => e.name === a)
+      .columns.map((a, t) => e + t + 1),
+  ];
+}
+
+// Shows all available translations
+function showAllTranslations() {
+  document
+    .querySelectorAll('#translationList input[type="checkbox"]')
+    .forEach((a) => {
+      a.checked = !0;
+      translationStates[a.value] = !0;
+    });
+}
+
+// Sets up the translation selector UI
+function initializeTranslationSelector() {
+  // Get UI elements
+  const a = document.getElementById("translationList"),
+    e = document.getElementById("translationToggleBtn"),
+    t = document.getElementById("translationDropdown"),
+    n = document.getElementById("applyTranslations"),
+    r = document.getElementById("resetTranslations"),
+    i = document.getElementById("showAllTranslations");
+
+  if (e && t) {
+    // Add base columns to translation list
+    baseColumns.forEach((e, t) => {
+      addTranslationItem(a, e.title, t, e.visible);
+    });
+
+    // Add additional translations to list
+    additionalJsons.forEach((e) => {
+      e.columns.forEach((t, n) => {
+        addTranslationItem(
+          a,
+          `${e.title} ${n + 1}`,
+          `${e.name}-${t}`,
+          e.name === defaultAdditionalJson && 0 === n
+        );
+      });
+    });
+
+    // Set up event listeners
+    e.addEventListener("click", (a) => {
+      a.stopPropagation();
+      t.style.display = "block" === t.style.display ? "none" : "block";
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", (a) => {
+      if (
+        !a.target.closest(".translation-selector") &&
+        "block" === t.style.display
+      ) {
+        applyTranslations();
+        t.style.display = "none";
+      }
+    });
+
+    // Set up button event listeners
+    n.addEventListener("click", () => {
+      applyTranslations();
+      t.style.display = "none";
+    });
+    r.addEventListener("click", resetTranslations);
+    i.addEventListener("click", showAllTranslations);
+  } else {
+    console.error("Toggle button or dropdown not found");
+  }
+}
+
+// Adds a translation item to the translation selector UI
+function addTranslationItem(a, e, t, n) {
+  const r = document.createElement("div");
+  r.className = "translation-item";
+
+  // Skip title columns
+  if (!String(t).includes("-title")) {
+    // Create checkbox and label for translation
+    r.innerHTML = `
+        <input type="checkbox" id="trans-${t}" value="${t}" ${
+      n ? "checked" : ""
+    }>
+        <label for="trans-${t}">${e}</label>
+    `;
+    a.appendChild(r);
+
+    // Store initial states
+    translationStates[t] = n;
+    initialTranslationStates[t] = n;
+  }
+}
+
+// Applies the selected translation visibility settings
+function applyTranslations() {
+  const currentPage = table.page();
+
+  // First, handle all checkboxes and their corresponding columns
+  document
+    .querySelectorAll('#translationList input[type="checkbox"]')
+    .forEach((checkbox) => {
+      const value = checkbox.value;
+      const isChecked = checkbox.checked;
+
+      // Handle JSON-based translations
+      if (typeof value === "string" && value.includes("-")) {
+        const [jsonName, colNum] = value.split("-");
+        if (
+          isChecked !==
+          table
+            .column(getColumnIndices(jsonName)[parseInt(colNum) + 1])
+            .visible()
+        ) {
+          toggleTranslation(jsonName, parseInt(colNum));
+        }
+      } else {
+        // Handle base columns
+        table.column(parseInt(value)).visible(isChecked);
+      }
+      translationStates[value] = isChecked;
+    });
+
+  // Then handle title columns visibility
+  additionalJsons.forEach((json) => {
+    const columnIndices = getColumnIndices(json.name);
+    const titleColumnIndex = columnIndices[0];
+    const contentColumns = columnIndices.slice(1);
+
+    // Check if any content columns are visible
+    const hasVisibleColumns = contentColumns.some((idx) =>
+      table.column(idx).visible()
+    );
+
+    // Set title column visibility based on content columns
+    table.column(titleColumnIndex).visible(hasVisibleColumns);
+  });
+
+  // Redraw table and maintain page position
+  table.draw();
+  table.page(currentPage).draw("page");
+  scrollUpTop();
+}
+
+// Resets translations to their initial state
+function resetTranslations() {
+  document
+    .querySelectorAll('#translationList input[type="checkbox"]')
+    .forEach((a) => {
+      a.checked = initialTranslationStates[a.value] || !1;
+    });
+}
+
+// Toggles visibility of a base column
+function toggleBaseColumn(a) {
+  const e = table.column(a);
+  e.visible(translationStates[a]);
+  baseColumns[a].visible = e.visible();
 }

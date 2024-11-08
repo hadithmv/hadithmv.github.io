@@ -389,11 +389,9 @@
           <p>
             ⚠️ ނޯޓު: މީގައިވާ ބައެއް އަރަބި ލަފްޒުތައް ވަކިވާން ޖެހޭ ތަންތާނގައި
             ވަނީ އެއްވެފައެވެ. އެއީ އޭގެ އަސްލު ލިޔުން ނެގި އެޕްލިކޭޝަންއިން
-            އައިސްފައިވާ ކުށްތަކެކެވެ. އެ ފަދަ ކުށެއް ފެނިއްޖެ ނަމަ
-            އަހަރުމެންނަށް ފޮނުވުން އެދެން، އަދި އެ ފެންނަމުންދާ ވަރަކަށް
-            ރަނގަޅު ކުރަމުން ގެންދާނަން އިން ޝާއަ ﷲ. ކުށްތައް ފޮނުވާ އިރު،
-            ހަމައެކަނި ސްކްރީންޝޮޓު ފޮނުވުމުގެ ބަދަލުގައި، އޭގެ އިތުރަށް ލިޔުން
-            ވެސް ކޮޕީކޮށްފައި ޕޭސްޓު ކުރިއްޔާ، ރަނގަޅު ކުރަން ފަސޭހަވާނީ.
+            އައިސްފައިވާ ކުށްތަކެކެވެ. އެ ފަދަ ކުށެއް ފެނިއްޖެ ނަމަ ފޮނުވުން
+            އެދެން، އަދި އެ ފެންނަމުންދާ ވަރަކަށް ރަނގަޅުކުރަމުން ގެންދާނަން
+            އިން ޝާއަ ﷲ.
           </p>
 
           <p>
@@ -449,10 +447,15 @@
           </p>
 
           <p>
+            الطبعة التاسعة عشر - އަރަބި
             <a
               href="https://archive.org/details/ushrul-akheer/ushrul-akheer-ar-v19"
               target="_blank"
-              >الطبعة التاسعة عشر</a
+              >ޕީޑީއެފް</a
+            >
+            |
+            <a href="https://www.tafseer.info/ar/sections/0/1" target="_blank"
+              >އީ-ފޮތް</a
             >
             <br />
             (من كتاب المختصر في تفسير القرآن الكريم، وهذا الذي موجود بالعربي في
@@ -612,7 +615,7 @@
               return "[ސ. " + data + "]";
             },
           },
-          { title: "އަރަބި ލިޔުން" },
+          { title: "އަރަބި ލިޔުން", visible: false },
           {
             title: "ދިވެހި ލިޔުން",
           },
@@ -667,4 +670,27 @@
 </html>
 
 <!--
+
+
+write me regex to capture lines that, start with a regular number digit, and end with an Arabic digit followed by a closing decorative bracket
+
+example:
+
+27 ﴿އޭ ހިތްހަމަޖެހުންލިބިގެންވާ ފުރާނަޔާއެވެ!﴾ ﴿ارْجِعِي إِلَى رَبِّكِ رَاضِيَةً مَرْضِيَّةً ٢٨﴾
+
+in this example, the regular number is "2"
+and the Arabic number followed by a closing decorative bracket is "٢﴾"
+
+i need to match that whole line
+
+all of it
+
+that doesnt take into account actual arabic numbers like ٢
+
+...
+
+^\d+\s.*[\u0660-\u0669]﴾$
+
+
+
 -->
