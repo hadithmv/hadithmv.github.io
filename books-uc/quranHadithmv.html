@@ -481,6 +481,8 @@
     <script>
       // MAIN Q JS -  for core initialization and state management:
 
+      defaultColumns = [0]; // Default value for which columns to load as additional columns
+
       // Initialize the DataTable with configuration
       table = new DataTable("#tableID", {
         ...DTconfig,
@@ -498,8 +500,10 @@
             });
           });
 
-          // Load default translation
-          toggleTranslation(defaultAdditionalJson, 0);
+          // Load default translation with specified columns
+          defaultColumns.forEach((colIndex) => {
+            toggleTranslation(defaultAdditionalJson, colIndex);
+          });
 
           // Initialize navigation and update counts
           initializeNavigationBoxes();
@@ -586,5 +590,4 @@
 </html>
 
 <!--
-
 -->

@@ -475,7 +475,7 @@ let columnDefsconfig = [
     targets: "_all",*/
     render: function (data, type, row) {
       // if \r\n|\n|\r occurs more than once, i dont want <br class="dtBr"> to occure more than once
-      return data.replace(/(\r\n|\n|\r)+/g, '\t<br class="dtBr">');
+      return data.replace(/(\r\n|\n|\r)+/g, '\t<br class="dtBr">'); // remember to update quran-navigation-list.js with this as well
       //return data.replace(/\r\n|\n|\r/g, '\t<br class="dtBr">');
       // return data.replace(/\r\n|\n|\r/g, '\t<br class="dtBr">');
       // return data.replace(/\r\n|\n|\r/g, "\t<br><br>");
