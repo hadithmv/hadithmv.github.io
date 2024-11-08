@@ -12,8 +12,8 @@ $files = Get-ChildItem -Filter "*.html"
 
 # Loop through each HTML file
 foreach ($file in $files) {
-    # Check if the file name contains "test"
-    if ($file.Name -notlike "*test*") {
+    # Check if the file name contains "test", "backup", or "copy"
+    if ($file.Name -notmatch "(test|backup|copy)") {
         # Get the file name without extension
         $baseName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
         

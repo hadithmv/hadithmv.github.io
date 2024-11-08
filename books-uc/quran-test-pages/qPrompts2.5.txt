@@ -1,0 +1,304 @@
+
+sample initial code
+
+      table = new DataTable("#tableID", {
+        ...DTconfig,
+        ajax: {
+          url: `../js/json/quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json.json`,
+          dataSrc: function (json) {
+            originalData = json;
+            return json;
+          },
+          dataType: "json",
+          cache: true,
+        },
+        // base columns
+        columns: [
+  { data: "0", title: "ޖުޒް", visible: false },
+  { data: "1", title: "ސޫރަތް", visible: false },
+  { data: "2", title: "އާޔަތް #", visible: false },
+  { data: "3", title: "ބިސްމި", visible: true },
+  {
+    data: "4",
+    title: "އާޔަތް (އިމްލާއީ)",
+    visible: true,
+    render: function (data, type, row) {
+      data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
+      data = "﴿" + data + " " + row[2] + "﴾";
+      data = replaceDigitsWithArabic(data);
+      return data;
+    },
+  },
+  {
+    data: "5",
+    title: "ރަސްމު އުޘްމާނީ",
+    visible: false,
+    render: function (data, type, row) {
+      data = data.replace(/\s([\u0660-\u0669]+)/, "\u00a0$1");
+      data = "﴿" + data + " " + row[2] + "﴾";
+      data = replaceDigitsWithArabic(data);
+      return data;
+    },
+  },
+]; //
+        columnDefs: [
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [0, 1, 2],
+          },
+          ...columnDefsconfig,
+        ],
+      });
+	  
+	
+...
+
+some js that we could use in our solution
+
+const arabicDigits = {
+  0: "٠",
+  1: "١",...
+
+const ayahCounts = {
+  1: 7,
+  2: 286,...
+  
+const arabicSurahNames = {
+  1: "الفَاتِحَة",
+  2: "البَقَرَة",...
+  
+const dhivehiSurahNames = {
+  1: "ފާތިޙާ",
+  2: "ބަގަރާ",...
+  
+const englishSurahNames = {
+  1: "Fatihah",
+  2: "Baqarah",...
+  
+const maxSurah = 114;
+  
+const maxJuz = 30;
+
+...
+
+
+4. 
+create a show translation options button, which loads additional json data asynchronously when checkboxes are applied
+this should not be a datatables button of datatables, rather a regular html button
+this button will open a checkbox list of columns for the data, both base json columns and additional json columns will show in this
+what is already shown will be checked, what is not will be unchecked.
+some jsons can have multiple columns, these will also be in the checkbox list
+at the bottom of this list will be "apply" which applies what has been checked or unchecked, " reset" which resets the checks back to the way they were after i had changed them, and "show all" which checks every thing on the list.
+only when i click "apply" or i click outside the opened list should it be applied, reset should just remove checks, and show all should just check all, neither should apply.
+when i add a column from another json, that column should be asynchronously be added to the base columns, and there should also be another title column that comes before this added column, that just shows the name of the json which was added, like "quranRasmee". note that data from added jsons can have more than one column, and i choose which columns to add by ticking checkboxes, but even if i choose one or all columns of an additional column, there should be just one title column for every additional json.
+for example:
+...
+title column: quranRasmee
+column 1 of quranRasmee
+column 2 of Quran rasmee
+...
+the title column should show bold text, and this bold title text should show both in table columns itself, as well as the list of translations that can be toggled
+note the column visibility (colvis) code of datatables
+
+
+additional columns from different jsons from the same directory which i'd like to add to the base columns when i choose to load them. they might look something like this, feel free to change how its written:
+
+const additionalJsons = [
+  { name: "quranHadithmv", columns: [0], title: "ޙަދީޘްއެމްވީ ތަރުޖަމާ:" },
+  { name: "quranRasmee", columns: [0, 1], title: "ރަސްމީ ތަރުޖަމާ:" },
+  { name: "quranBakurube", columns: [0, 1], title: "ބަކުރުބެ ތަރުޖަމާ:" },
+  { name: "quranJaufar", columns: [0, 1], title: "ޖަޢުފަރު ތަފްސީރު:" },
+  { name: "quranSoabuni", columns: [0, 1, 3, 4], title: "ޞ ތަފްސީރު:" },
+  { name: "quranMukhtasar", columns: [0], title: "مختصر التفسير:" },
+  { name: "quranMuyassar", columns: [0], title: "التفسير الميسر:" },
+];
+i'd like to have one of those additional columns added by default, for example "quranHadithmv"
+...
+
+i also want checkboxes for the base columns, and be able to toggle them on and off, these should be above the checkboxes for the additional columns
+
+...
+
+# DataTables Translation Toggle Feature Specification
+
+## Overview
+Implement a translation options system for a DataTable that allows users to dynamically show/hide columns from both base data and additional translation JSON files through a custom dropdown interface.
+
+## Core Requirements
+
+### Initial State
+- Load base columns
+- Automatically load and display a default additional translation, such as "quranHadithmv" by default
+  - Include its title column
+  - Include its data column(s)
+  - Mark its checkboxes as checked in the dropdown panel
+
+### Translation Toggle Button
+- Create a standard HTML button (not a DataTables button)
+- Label: "Show Translation Options"
+- Opens a dropdown panel with checkboxes
+
+### Dropdown Panel Interface
+
+#### Structure
+1. Base Columns Section
+   - Checkboxes for all base columns
+   - Initially displayed at the top
+   - State reflects current visibility
+
+2. Additional Translations Section
+   - Grouped by translation source
+   - Each group shows available columns
+   - Checkbox for each column
+
+3. Control Buttons
+   - Apply: Implements selected changes
+   - Reset: Reverts to state before changes
+   - Show All: Checks all boxes without applying
+
+#### Behavior
+- Changes only apply when:
+  - "Apply" button is clicked
+  - User clicks outside the panel
+- Reset/Show All only modify checkbox state
+- Panel remains open after Reset/Show All
+
+### Column Management
+
+#### Base Columns
+- Can be toggled on/off
+
+#### Additional Translation Columns
+- Loaded asynchronously when selected
+- Each translation source gets:
+  1. Title Column (required)
+     - Bold text
+     - Shows translation source name
+     - Added before translation columns
+  2. Data Columns (optional)
+     - One or more columns per source
+     - User can select specific columns
+
+### Data Structure
+```javascript
+const additionalJsons = [
+  {
+    name: "quranHadithmv", // This will be loaded by default
+    columns: [0],
+    title: "ޙަދީޘްއެމްވީ ތަރުޖަމާ:"
+  },
+  {
+    name: "quranRasmee",
+    columns: [0, 1],
+    title: "ރަސްމީ ތަރުޖަމާ:"
+  },
+  // ... additional translations
+];
+```
+
+### Default Configuration
+- Show all base columns initially
+- Automatically load and display default additional translation "quranHadithmv" 
+  - Add its title column
+  - Add its data column(s)
+  - Mark its checkboxes as checked in the panel
+
+## Example Layout
+
+### Initial Table Structure
+```
+[Base Columns] | Title: quranHadithmv | Column 1
+```
+
+### Initial Checkbox Panel Structure
+```
+Base Columns:
+☑️ Column 1
+☑️ Column 2
+...
+
+Additional Translations:
+📌 ޙަދީޘްއެމްވީ ތަރުޖަމާ: (Pre-loaded)
+  ☑️ Column 1
+
+📌 ރަސްމީ ތަރުޖަމާ:
+  ☐ Column 1
+  ☐ Column 2
+...
+
+[Apply] [Reset] [Show All]
+```
+
+## Technical Notes
+1. Note that DataTables shows and hides columns using column visibility (colvis)
+2. Implement async loading for translation data
+3. Load "quranHadithmv" data during initial table setup
+4. Maintain column order with title columns
+5. Handle multiple columns per translation
+
+...
+
+this is my datatables js code
+
+it loads asynchronous json data from a file called "quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json"
+
+i would also like to add additional data from json files in the same directory, such as:
+"quranHadithmv", columns: [0],
+"quranRasmee", columns: [0, 1], 
+"quranBakurube", columns: [0, 1]
+"quranJaufar", columns: [0, 1], 
+"quranSoabuni", columns: [0, 1],
+"quranMukhtasar", columns: [0], 
+"quranMuyassar", columns: [0], 
+
+the columns of this new data should be added asynchronously, to the base data columns, as values, when an html button with their data name is clicked, in whatever order those buttons are clicked
+
+and declicking the button, should remove the added column
+
+...
+...
+...
+
+console log the merged data
+
+...
+
+I see the issue. The Hadithmv data is being added as an array property instead of as a direct value in the row array. Let's modify the merging logic to properly add it as a column value:
+
+
+no, you are loading empty columns. that is wrong. the columns loaded should be the base columns at first, and only when i choose to add additional columns, should they then be loaded
+
+...
+
+good. i'd like to be able to add the following json file data as well
+quranBakurube, it has 2 columns
+quranJaufar, it has 2 columns,
+quranSoabuni, it has 4 columns
+
+
+right now you have repetitive code for loading quranHadithmv, and quranRasmee. dont make it redundant when i want to make these additional json file data loadable as well
+
+...
+
+right now, if i click the buttons in order, the data is loaded properly, and no errors occur
+
+however if i were to click the second button first, "quranRasmee", i get these errors:
+
+DataTables warning: table id=tableID - Requested unknown parameter '8' for row 0, column 7.
+DataTables warning: table id=tableID - Requested unknown parameter '8' for row 0, column 7.
+
+and then only the second column of quranRasmee is shown, instead of the first and second
+
+...
+
+i'd like to be able to declick a button to remove the added translation
+
+...
+
+i dont want to use null to fill in the gaps of not yet loaded or removed additional json data
+
+when i try declicking a button to remove an added translation data, i get this error
+DataTables warning: table id=tableID - Incorrect column count.
+

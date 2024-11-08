@@ -34,7 +34,6 @@
       media="print"
       onload="this.media='all'"
     />
-    <!--<script src="../js/ALL-COMB.min.js"></script>-->
     <script src="../js/ALL-COMB.min.js"></script>
     <style></style>
   </head>
@@ -46,21 +45,15 @@
         <!-- Surah navigation box -->
         <div class="q-nav-box">
           <span class="q-nav-label">ސޫރަތް:</span>
-          <!-- Previous surah arrow button -->
           <span class="q-nav-arrow" data-type="surah" data-direction="prev"
             >▶</span
           >
-          <!-- Current surah number display -->
           <div class="q-nav-value" id="surahValue">1</div>
-          <!-- Next surah arrow button -->
           <span class="q-nav-arrow" data-type="surah" data-direction="next"
             >◀</span
           >
-          <!-- Dropdown menu for surah selection -->
           <div class="q-dropdown" id="surahDropdown"></div>
         </div>
-        <!-- Similar structure repeated for Ayah and Juz navigation boxes -->
-
         <!-- Ayah navigation box -->
         <div class="q-nav-box">
           <span class="q-nav-label">އާޔަތް:</span>
@@ -93,22 +86,23 @@
           <!-- TRANSLATION SELECTOR -->
           <!-- Translation selector container -->
           <div class="translation-selector">
-            <!-- Toggle button to show/hide translation options -->
             <button id="translationToggleBtn" class="customButtons">
-              ތަރުޖަމާތައް / ތަފްސީރުތައް
+              ދައްކާ / ފޮރުވާ
             </button>
-
-            <!-- Translation dropdown menu container -->
             <div id="translationDropdown" class="translation-dropdown">
-              <!-- Control buttons container -->
-              <div class="translation-buttons-container">
-                <button id="showAllTranslations">ހުރިހާ</button>
-                <button id="resetTranslations">ރީސެޓް</button>
-                <button id="applyTranslations">އޯކޭ</button>
+              <div id="translationList">
+                <!-- Checkboxes will be dynamically added here -->
               </div>
-              <!--  container for translation options -->
-              <div class="translation-list-container">
-                <div id="translationList"></div>
+              <div class="translation-actions">
+                <button id="applyTranslations" class="customButtons">
+                  Apply
+                </button>
+                <button id="resetTranslations" class="customButtons">
+                  Reset
+                </button>
+                <button id="showAllTranslations" class="customButtons">
+                  Show All
+                </button>
               </div>
             </div>
           </div>
@@ -127,13 +121,6 @@
             onclick="toggleTashkeel();scrollUpTop()"
           >
             &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
-          </button>
-
-          <button id="toggleAyahNumbers" class="customButtons">
-            &nbsp; އާޔަތް ނަމްބަރު ފޮރުވާ &nbsp;
-          </button>
-          <button id="toggleQuranBrackets" class="customButtons">
-            &nbsp; އާޔަތް ބްރެކެޓް ފޮރުވާ &nbsp;
           </button>
 
           <hr />
@@ -479,9 +466,12 @@
     </div>
 
     <script>
-      // MAIN Q JS -  for core initialization and state management:
-
-      // Initialize the DataTable with configuration
+      /**
+       * Initializes the DataTable with base data and sets up the default translation
+       * This function is crucial for setting up the initial state of the table
+       */
+      //function initializeTable() {
+      // Clear any existing additional columns to ensure fresh start
       table = new DataTable("#tableID", {
         ...DTconfig,
         ajax: {
@@ -490,18 +480,13 @@
         },
         columns: getAllColumnDefinitions(),
         initComplete: function () {
-          // Hide all additional columns initially
           additionalJsons.forEach((json) => {
             const columnIndices = getColumnIndices(json.name);
             columnIndices.forEach((colIndex) => {
               table.column(colIndex).visible(false);
             });
           });
-
-          // Load default translation
-          toggleTranslation(defaultAdditionalJson, 0);
-
-          // Initialize navigation and update counts
+          toggleTranslation(defaultAdditionalJson, 0); // Load only the first column of quranRasmee by default
           initializeNavigationBoxes();
           table.rows().every(function (rowIdx, tableLoop, rowLoop) {
             var data = this.data();
@@ -509,13 +494,13 @@
             var ayah = parseInt(data[2]);
             ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
           });
-
-          // Set initial values
           updateAllQValues(table.row(0).data());
         },
         columnDefs: [
           {
-            searchPanes: { show: true },
+            searchPanes: {
+              show: true,
+            },
             targets: [0, 1, 2],
           },
           ...columnDefsconfig,
@@ -530,34 +515,9 @@
       // Initialize the translation selector after the table is set up
       initializeTranslationSelector(); // Call the function to set up the translation selector UI
 
-      // Add event handlers for table navigation
-      table.on("page.dt", function () {
-        // Update values based on first visible row on new page
-        const firstVisibleRow = table.row({ page: "current" }).data();
-        if (firstVisibleRow) {
-          updateAllQValues(firstVisibleRow);
-        }
-      });
-
-      // Handle clicks on table rows
-      $("#tableID tbody").on("click", "tr", function () {
-        const rowData = table.row(this).data();
-        if (rowData) {
-          updateAllQValues(rowData);
-        }
-      });
-
-      // Update navigation when using next/previous buttons
-      $(".dataTables_paginate").on("click", "a", function () {
-        setTimeout(() => {
-          const firstVisibleRow = table.row({ page: "current" }).data();
-          if (firstVisibleRow) {
-            updateAllQValues(firstVisibleRow);
-          }
-        }, 100);
-      });
+      // Initialize the table when the page loads
+      //document.addEventListener("DOMContentLoaded", initializeTable); // Set up an event listener to initialize the table once the DOM is fully loaded
     </script>
-
     <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
