@@ -2,7 +2,7 @@
 // STATE VARIABLES - for tracking current position and UI state
 //
 
-let // Current position within the Quran
+let // Current position within the Quran page
   currentSurah = 1, // Tracks which surah (chapter) is currently selected (1-114)
   currentAyah = 1, // Tracks which ayah (verse) is currently selected within the surah
   currentJuz = 1, // Tracks which juz (part) is currently selected (1-30)
@@ -10,6 +10,7 @@ let // Current position within the Quran
   currentFocus = -1, // Tracks which item is focused in dropdown lists (-1 means no focus)
   // Columns management
   additionalColumns = [], // Keeps track of which additional translation columns have been loaded
+  defaultColumns = [0], // Default value for which columns to load as additional columns, to be overwritten in HTML later
   // Translation visibility states
   translationStates = {}, // Tracks current visibility state of each translation
   initialTranslationStates = {}, // Stores initial visibility settings for reset functionality
@@ -575,7 +576,7 @@ const additionalJsons = [
     title: "ބަކުރުބެ ތަރުޖަމާ:",
   },
   { name: "quranJaufar", columns: [0, 1], title: "ޖަޢުފަރު ތަފްސީރު:" },
-  { name: "quranSoabuni", columns: [0, 1, 3, 4], title: "ޞ ތަފްސީރު:" },
+  { name: "quranSoabuni", columns: [0, 1, 2, 3], title: "ޞ ތަފްސީރު:" },
   { name: "quranMukhtasar", columns: [0], title: "مختصر التفسير:" },
   { name: "quranMuyassar", columns: [0], title: "التفسير الميسر:" },
 ];
@@ -583,6 +584,8 @@ const additionalJsons = [
 // Default translation to load
 defaultAdditionalJson = currentFileName;
 //defaultAdditionalJson = "quranHadithmv";
+//defaultAdditionalJson = "quranBakurube";
+//defaultColumns = [0];
 
 //
 // UTILITIES - for helper functions
@@ -935,7 +938,12 @@ function getAllColumnDefinitions() {
       name: `${a.name}-${e}`,
       visible: !1,
       render: function (t, n, r) {
-        return r[a.name] ? r[a.name][e] : "ތައްޔާރުވަނީ..."; // "Loading..." in Dhivehi
+        // Check if the translation data exists
+        if (r[a.name] && r[a.name][e] !== undefined) {
+          // Return empty string if it's empty, otherwise replace newlines
+          return r[a.name][e] === "" ? "" : r[a.name][e].replace(/\n/g, "<br>");
+        }
+        return "ތައްޔާރުވަނީ..."; // Only show loading when data is undefined
       },
     })),
   ]);
@@ -1079,18 +1087,27 @@ function addTranslationItem(a, e, t, n) {
 
   // Skip title columns
   if (!String(t).includes("-title")) {
+    // Check if this is a default column for the default translation
+    let isDefaultColumn = false;
+    if (typeof t === "string" && t.includes("-")) {
+      const [jsonName, colNum] = t.split("-");
+      isDefaultColumn =
+        jsonName === defaultAdditionalJson &&
+        defaultColumns.includes(parseInt(colNum));
+    }
+
     // Create checkbox and label for translation
     r.innerHTML = `
-        <input type="checkbox" id="trans-${t}" value="${t}" ${
-      n ? "checked" : ""
+      <input type="checkbox" id="trans-${t}" value="${t}" ${
+      n || isDefaultColumn ? "checked" : ""
     }>
-        <label for="trans-${t}">${e}</label>
+      <label for="trans-${t}">${e}</label>
     `;
     a.appendChild(r);
 
     // Store initial states
-    translationStates[t] = n;
-    initialTranslationStates[t] = n;
+    translationStates[t] = n || isDefaultColumn;
+    initialTranslationStates[t] = n || isDefaultColumn;
   }
 }
 

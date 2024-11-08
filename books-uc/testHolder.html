@@ -34,7 +34,6 @@
       media="print"
       onload="this.media='all'"
     />
-    <!--<script src="../js/ALL-COMB.min.js"></script>-->
     <script src="../js/ALL-COMB.min.js"></script>
     <style></style>
   </head>
@@ -46,21 +45,15 @@
         <!-- Surah navigation box -->
         <div class="q-nav-box">
           <span class="q-nav-label">ސޫރަތް:</span>
-          <!-- Previous surah arrow button -->
           <span class="q-nav-arrow" data-type="surah" data-direction="prev"
             >▶</span
           >
-          <!-- Current surah number display -->
           <div class="q-nav-value" id="surahValue">1</div>
-          <!-- Next surah arrow button -->
           <span class="q-nav-arrow" data-type="surah" data-direction="next"
             >◀</span
           >
-          <!-- Dropdown menu for surah selection -->
           <div class="q-dropdown" id="surahDropdown"></div>
         </div>
-        <!-- Similar structure repeated for Ayah and Juz navigation boxes -->
-
         <!-- Ayah navigation box -->
         <div class="q-nav-box">
           <span class="q-nav-label">އާޔަތް:</span>
@@ -93,23 +86,28 @@
           <!-- TRANSLATION SELECTOR -->
           <!-- Translation selector container -->
           <div class="translation-selector">
-            <!-- Toggle button to show/hide translation options -->
+            <!-- Button to toggle the translation dropdown -->
             <button id="translationToggleBtn" class="customButtons">
-              ތަރުޖަމާތައް / ތަފްސީރުތައް
+              ދައްކާ / ފޮރުވާ
             </button>
 
-            <!-- Translation dropdown menu container -->
-            <div id="translationDropdown" class="translation-dropdown">
-              <!-- Control buttons container -->
-              <div class="translation-buttons-container">
-                <button id="showAllTranslations">ހުރިހާ</button>
-                <button id="resetTranslations">ރީސެޓް</button>
-                <button id="applyTranslations">އޯކޭ</button>
-              </div>
-              <!--  container for translation options -->
-              <div class="translation-list-container">
-                <div id="translationList"></div>
-              </div>
+            <!-- Dropdown container for translation options -->
+            <div
+              id="translationDropdown"
+              style="display: none"
+              class="translation-dropdown rtlText rightAlignedText"
+            >
+              <!-- List of available translations, will be dynamically added here -->
+              <div id="translationList"></div>
+
+              <!-- Control buttons for translation selection -->
+              <button id="applyTranslations" class="customButtons">އޯކޭ</button>
+              <button id="resetTranslations" class="customButtons">
+                ރީސެޓް
+              </button>
+              <button id="showAllTranslations" class="customButtons">
+                ހުރިހާ
+              </button>
             </div>
           </div>
           <!-- END OF TRANSLATION SELECTOR -->
@@ -129,13 +127,6 @@
             &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
           </button>
 
-          <button id="toggleAyahNumbers" class="customButtons">
-            &nbsp; އާޔަތް ނަމްބަރު ފޮރުވާ &nbsp;
-          </button>
-          <button id="toggleQuranBrackets" class="customButtons">
-            &nbsp; އާޔަތް ބްރެކެޓް ފޮރުވާ &nbsp;
-          </button>
-
           <button
             id="toggleShowButton"
             class="customButtons"
@@ -146,18 +137,47 @@
 
           <script>
             function toggleShowOne() {
-              var isVisible = $(".dataTable").DataTable().column(16).visible();
-              $(".dataTable").DataTable().column(16).visible(!isVisible);
+              var isVisible = $(".dataTable").DataTable().column(9).visible();
+              $(".dataTable").DataTable().column(9).visible(!isVisible);
 
               // change string
               var button = document.getElementById("toggleShowButton");
               if (
                 button.innerHTML.trim() ===
-                "&nbsp; ތަފްސީރު އެކަނި ދައްކާ &nbsp;"
+                "&nbsp;  ތަފސީރު އެކަނި ދައްކާ &nbsp;"
               ) {
-                button.innerHTML = "&nbsp; ރަސްމީ ތަރުޖަމާ ވެސް &nbsp;";
+                button.innerHTML = "&nbsp; ފުޓްނޯޓުވެސް ދައްކާ &nbsp;";
               } else {
-                button.innerHTML = "&nbsp; ތަފްސީރު އެކަނި ދައްކާ &nbsp;";
+                button.innerHTML = "&nbsp; ތަފސީރު އެކަނި ދައްކާ &nbsp;";
+              }
+            }
+          </script>
+
+          <button class="customButtons" onclick="copyOneOnly();">
+            &nbsp; ތަފްސީރު އެކަނި ކޮޕީ &nbsp;
+          </button>
+
+          <script>
+            function copyOneOnly() {
+              // Check the current visibility status of the 8th column (index 7) in the DataTable
+              var isVisible = $(".dataTable").DataTable().column(9).visible();
+
+              // If the column is currently visible, hide it
+              if (isVisible) {
+                $(".dataTable").DataTable().column(9).visible(false);
+              }
+
+              // Trigger click on the copy button (works on mobile too)
+              // This simulates clicking the button with class "buttons-html5"
+              $(".buttons-html5").click();
+
+              // If the column was originally visible, we need to make it visible again
+              if (isVisible) {
+                // Use setTimeout to delay the restoration of visibility
+                setTimeout(function () {
+                  // After the specified delay, make the 8th column visible again
+                  $(".dataTable").DataTable().column(9).visible(true);
+                }, 100); // Delay of 100ms, adjust as needed
               }
             }
           </script>
@@ -292,11 +312,8 @@
     </div>
 
     <script>
-      // MAIN Q JS -  for core initialization and state management:
+      additionalColumns = [];
 
-      defaultColumns = [0, 1]; // Default value for which columns to load as additional columns
-
-      // Initialize the DataTable with configuration
       table = new DataTable("#tableID", {
         ...DTconfig,
         ajax: {
@@ -304,8 +321,8 @@
           dataSrc: "",
         },
         columns: getAllColumnDefinitions(),
+
         initComplete: function () {
-          // Hide all additional columns initially
           additionalJsons.forEach((json) => {
             const columnIndices = getColumnIndices(json.name);
             columnIndices.forEach((colIndex) => {
@@ -313,68 +330,34 @@
             });
           });
 
-          // Load default translation with specified columns
-          defaultColumns.forEach((colIndex) => {
-            toggleTranslation(defaultAdditionalJson, colIndex);
-          });
+          toggleTranslation(defaultAdditionalJson);
 
-          // Initialize navigation and update counts
           initializeNavigationBoxes();
+
           table.rows().every(function (rowIdx, tableLoop, rowLoop) {
             var data = this.data();
             var surah = parseInt(data[1]);
             var ayah = parseInt(data[2]);
+
             ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
           });
 
-          // Set initial values
           updateAllQValues(table.row(0).data());
         },
+
         columnDefs: [
           {
-            searchPanes: { show: true },
+            searchPanes: {
+              show: true,
+            },
             targets: [0, 1, 2],
           },
           ...columnDefsconfig,
         ],
-      }); // table = new DataTable("#tableID", {
-      //} // function initializeTable() { END
-
-      //
-      //
-      //
-
-      // Initialize the translation selector after the table is set up
-      initializeTranslationSelector(); // Call the function to set up the translation selector UI
-
-      // Add event handlers for table navigation
-      table.on("page.dt", function () {
-        // Update values based on first visible row on new page
-        const firstVisibleRow = table.row({ page: "current" }).data();
-        if (firstVisibleRow) {
-          updateAllQValues(firstVisibleRow);
-        }
       });
 
-      // Handle clicks on table rows
-      $("#tableID tbody").on("click", "tr", function () {
-        const rowData = table.row(this).data();
-        if (rowData) {
-          updateAllQValues(rowData);
-        }
-      });
-
-      // Update navigation when using next/previous buttons
-      $(".dataTables_paginate").on("click", "a", function () {
-        setTimeout(() => {
-          const firstVisibleRow = table.row({ page: "current" }).data();
-          if (firstVisibleRow) {
-            updateAllQValues(firstVisibleRow);
-          }
-        }, 100);
-      });
+      initializeTranslationSelector();
     </script>
-
     <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
@@ -401,6 +384,3 @@
     <!-- End Google Tag Manager (noscript) -->
   </body>
 </html>
-
-<!--
--->
