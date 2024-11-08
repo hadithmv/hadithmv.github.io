@@ -573,10 +573,10 @@ const additionalJsons = [
   {
     name: "quranBakurube",
     columns: [0, 1],
-    title: "ބަކުރުބެ ތަރުޖަމާ:",
+    title: "ބަކުރުބެގެ ތަރުޖަމާ:",
   },
-  { name: "quranJaufar", columns: [0, 1], title: "ޖަޢުފަރު ތަފްސީރު:" },
-  { name: "quranSoabuni", columns: [0, 1, 2, 3], title: "ޞ ތަފްސީރު:" },
+  { name: "quranJaufar", columns: [0, 1], title: "ޖަޢުފަރުގެ ތަފްސީރު:" },
+  { name: "quranSoabuni", columns: [0, 1, 2, 3], title: "ޞގެ ތަފްސީރު:" },
   { name: "quranMukhtasar", columns: [0], title: "مختصر التفسير:" },
   { name: "quranMuyassar", columns: [0], title: "التفسير الميسر:" },
 ];
