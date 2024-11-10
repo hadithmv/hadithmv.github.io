@@ -136,9 +136,9 @@
 }
 
 /* Translation Toggle Button and List Styles */
-#translationToggleBtn {
+/*#translationToggleBtn {
   cursor: pointer;
-}
+}*/
 
 .translation-list {
   margin-bottom: 10px;
