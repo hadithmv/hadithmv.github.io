@@ -145,21 +145,56 @@
         margin: 2rem 0;
       }
 
-      /* Optional: if you want a slightly more sophisticated look, 
-     you can use this gradient version instead: */
-      /*
-  hr {
-    border: none;
-    height: 1px;
-    background: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0.05),
-      rgba(0, 0, 0, 0.15),
-      rgba(0, 0, 0, 0.05)
-    );
-    margin: 2rem 0;
-  }
-  */
+      /* Add responsive adjustments for mobile screens */
+      @media (max-width: 599px) {
+        .dtWrapper {
+          margin: 1rem;
+          padding: 1.5rem;
+        }
+
+        /* Action buttons */
+        .action-buttons {
+          flex-direction: column;
+        }
+
+        .btn-home {
+          text-align: center;
+          justify-content: center;
+        }
+
+        .btn-home a {
+          text-align: center;
+        }
+
+        /* Link groups */
+        .link-group {
+          padding: 1rem;
+        }
+
+        /* Mirror links and other link sections */
+        .mirror-links {
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+
+        .mirror-links a {
+          text-align: center;
+          display: block;
+          padding: 12px 16px; /* Slightly larger touch target */
+        }
+
+        /* Section headings */
+        .link-group h3 {
+          text-align: center;
+          font-size: 1.2rem;
+        }
+
+        /* Warning box */
+        .warning-box {
+          padding: 1rem;
+          margin: 1.5rem 0;
+        }
+      }
 
       .warning-box {
         background: #fff3cd;
@@ -185,12 +220,11 @@
         </p>
 
         <div class="action-buttons">
-          <a href="https://hadithmv.github.io" target="_blank" class="btn-home">
+          <a href="https://hadithmv.github.io" class="btn-home">
             Return to Main Site
           </a>
           <a
-            href="https://hadithmv.github.io/notes/info/contact.html"
-            target="_blank"
+            href="https://hadithmv.github.io/page/contact.html"
             class="btn-home danger"
           >
             Contact Us
@@ -198,7 +232,7 @@
         </div>
 
         <div class="link-group">
-          <h3>Website Mirrors</h3>
+          <h3>🔄 Website Mirrors</h3>
           <p>
             In case the Main site is down, use one of these mirror links to go
             to a working copy of Hadithmv:
@@ -267,7 +301,7 @@
         </div>
 
         <div class="link-group">
-          <h3>Application Downloads</h3>
+          <h3>📱 Application Downloads</h3>
           <p>
             Link to Windows and Android application (Hadithmv_Win64.exe and
             app-release.apk)
@@ -320,7 +354,7 @@
         </div>
 
         <div class="link-group">
-          <h3>Code Repository</h3>
+          <h3>📦 Code Repository</h3>
           <p>Link to the main code repository and its backup mirrors:</p>
           <div class="mirror-links">
             <a
