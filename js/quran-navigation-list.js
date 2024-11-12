@@ -610,6 +610,37 @@ function cleanSurahText(a) {
     .trim();
 }
 
+// Add this to your utilities section
+const charNormalizationMap = {
+  // Arabic
+  أ: "ا",
+  آ: "ا",
+  إ: "ا",
+  ٱ: "ا",
+  ؤ: "و",
+  ة: "ه",
+  ئ: "ى",
+  // Thaana
+  ޘ: "ސ",
+  ޙ: "ހ",
+  ޛ: "ޒ",
+  ޜ: "ޒ",
+  ޞ: "ސ",
+  ޠ: "ތ",
+  ޡ: "ޒ",
+  ޢ: "އ",
+  ޤ: "ގ",
+  ޥ: "ވ",
+};
+
+// Add this new utility function
+function normalizeChars(text) {
+  return text
+    .split("")
+    .map((char) => charNormalizationMap[char] || char)
+    .join("");
+}
+
 //
 // QURAN NAVIGATION - for quran navigation-related functions
 //
@@ -823,16 +854,22 @@ function initializeQDropdown(a, e, t) {
   // Set up search functionality
   t = n.find(".q-dropdown-search");
   t.on("input", function () {
-    // Get search value and clean it if it's a surah search
-    const e = $(this).val().toLowerCase();
-    const t = "surah" === a ? cleanSurahText(e) : e;
+    const value = this.value.toLowerCase();
+    const normalizedValue = normalizeChars(value);
 
-    // Filter dropdown items based on search
     n.find(".q-dropdown-item").each(function () {
-      var e = $(this).text().toLowerCase();
-      e = "surah" === a ? cleanSurahText(e) : e;
-      $(this).toggle(e.includes(t));
+      const item = $(this);
+      const text = removeDiacritics(cleanSurahText(item.text().toLowerCase()));
+      const normalizedText = normalizeChars(text);
+
+      if (normalizedText.includes(normalizedValue)) {
+        item.show();
+      } else {
+        item.hide();
+      }
     });
+
+    // Reset focus when searching
     currentFocus = -1;
   });
 
@@ -846,7 +883,8 @@ function initializeQDropdown(a, e, t) {
     switch (e.keyCode) {
       case 40: // Down arrow
         e.preventDefault();
-        currentFocus = Math.min(currentFocus + 1, itemCount - 1);
+        currentFocus =
+          currentFocus < 0 ? 0 : Math.min(currentFocus + 1, itemCount - 1);
         break;
 
       case 38: // Up arrow
@@ -856,6 +894,10 @@ function initializeQDropdown(a, e, t) {
 
       case 13: // Enter
         e.preventDefault();
+        if (currentFocus < 0 && itemCount > 0) {
+          // If no item is focused but there are visible items, select the first one
+          currentFocus = 0;
+        }
         if (currentFocus >= 0 && currentFocus < itemCount) {
           visibleItems.eq(currentFocus).click();
         }
@@ -864,8 +906,10 @@ function initializeQDropdown(a, e, t) {
 
     // Update visual focus
     removeActive(visibleItems);
-    visibleItems.eq(currentFocus).addClass("active");
-    visibleItems[currentFocus].scrollIntoView({ block: "nearest" });
+    if (currentFocus >= 0) {
+      visibleItems.eq(currentFocus).addClass("active");
+      visibleItems[currentFocus].scrollIntoView({ block: "nearest" });
+    }
   });
 }
 

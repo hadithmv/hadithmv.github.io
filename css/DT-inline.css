@@ -73,6 +73,16 @@ div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
   }
 }
 
+.warning-box {
+  background: #fff3cd;
+  /* border-left: 4px solid #ffc107; for LTR */
+  border-right: 4px solid #ffc107;
+  /* padding: 1rem; */
+  padding: 0.1rem 1rem;
+  border-radius: 4px;
+  /* margin-top: 2rem; */
+}
+
 /* ==================== HTML BOILER PLATE - Base styles: opinionated defaults ==================== */
 /* https://www.cleancss.com/css-beautify/
 https://github.com/h5bp/html5-boilerplate updated with hassaan's css */

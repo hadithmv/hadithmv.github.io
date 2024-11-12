@@ -28,36 +28,145 @@
     />
     <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#29434e" />
-    <link
-      rel="stylesheet"
-      href="../css/ALL-COMB.min.css"
-      media="print"
-      onload="this.media='all'"
-    />
     <!-- CHANGE !!! -->
-    <script src="../js/navbar.min.js"></script>
+    <!-- css and js removed -->
     <style>
-      #navbar-container > nav > div.navbar-center > span {
-        direction: ltr;
+      :root {
+        --primary-color: #29434e;
+        --accent-color: #3498db;
+        --error-color: #cc474b;
+        --text-color: #333;
+        --bg-color: #eef2f6;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background: var(--bg-color);
+        margin: 0;
+        padding: 0;
+      }
+
+      .dtWrapper {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2.5rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1),
+          0 4px 20px rgba(0, 0, 0, 0.035);
+        border: 1px solid rgba(0, 0, 0, 0.12);
+      }
+
+      h2 {
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin: 2rem 0;
       }
 
       .btn-home {
-        background-color: #3498db;
-        color: #fff;
-        /*padding: 12px 20px;*/
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
-
-        /* added */
+        background-color: var(--accent-color);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 6px;
         text-decoration: none;
-        display: block;
-        width: fit-content;
-        text-align: center;
-        margin: 0 auto; /* Add this line to center the button horizontally */
-        margin-top: 5px;
+        display: inline-flex;
+        align-items: center;
+        margin: 0;
+        transition: all 0.2s;
+        font-weight: 500;
+        box-shadow: 0 1px 2px rgba(52, 152, 219, 0.1);
+      }
+
+      .btn-home:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
+      }
+
+      .btn-home.danger {
+        background-color: var(--error-color);
+        box-shadow: 0 1px 2px rgba(204, 71, 75, 0.1);
+      }
+
+      .btn-home.danger:hover {
+        box-shadow: 0 2px 8px rgba(204, 71, 75, 0.2);
+      }
+
+      .link-group {
+        background: var(--bg-color);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .link-group h3 {
+        color: var(--primary-color);
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+      }
+
+      .mirror-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .mirror-links a {
+        color: var(--primary-color);
+        text-decoration: none;
+        padding: 8px 16px;
+        border: 2px solid var(--primary-color);
+        border-radius: 6px;
+        transition: all 0.2s;
+        font-weight: 500;
+        background-color: white;
+      }
+
+      .mirror-links a:hover {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      hr {
+        border: none;
+        height: 1px;
+        background-color: rgba(0, 0, 0, 0.12); /* Darker, more visible line */
+        margin: 2rem 0;
+      }
+
+      /* Optional: if you want a slightly more sophisticated look, 
+     you can use this gradient version instead: */
+      /*
+  hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.05),
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.05)
+    );
+    margin: 2rem 0;
+  }
+  */
+
+      .warning-box {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-top: 2rem;
       }
     </style>
   </head>
@@ -65,68 +174,52 @@
   <body>
     <div id="navbar-container"></div>
     <div class="dtWrapper">
-      <div class="hmvSection leftAlignedText ltrText">
-        <p></p>
-        <div class="centerAlignedText">
-          <a href="../books/index.html" class="noLineA"
-            ><img class="hmvLogo" alt="hadith mv" src="../img/logo/logo.svg"
-          /></a>
-        </div>
-        <hr />
-        <h2 class="centerAlignedText rmvTopMarginOnMobile">
-          404 Page Not Found / Mirror Backups
-        </h2>
+      <div class="hmvSection">
+        <h2>404 Page Not Found / Mirror Backups</h2>
         <hr />
 
         <p>
-          If the page page you were trying to view does not exist; either
-          because the URL address was incorrect, or the page you were looking
-          for has moved, then you can:
-          <a href="https://hadithmv.github.io" target="_blank" class="btn-home"
-            >Return to the Main Site</a
-          >
+          If the page you were trying to view does not exist; either because the
+          URL address was incorrect, or the page you were looking for has moved,
+          then you can use one of these options:
         </p>
 
-        <p>
+        <div class="action-buttons">
+          <a href="https://hadithmv.github.io" target="_blank" class="btn-home">
+            Return to Main Site
+          </a>
           <a
             href="https://hadithmv.github.io/notes/info/contact.html"
             target="_blank"
-            class="btn-home"
-            style="background-color: #cc474b !important"
-            >Click here to contact us</a
+            class="btn-home danger"
           >
-        </p>
+            Contact Us
+          </a>
+        </div>
 
-        <p>
-          In case the Main site is also down, use one of these website mirror
-          links to go to a working copy of Hadithmv:
-        </p>
-
-        <p>
-          <!-- 
-          remember to set static site name to 'hadithmv' 'hadithmv.github.io', otherwise static site link will be 'https://hadithmv-github-io.onrender.com'
+        <div class="link-group">
+          <h3>Website Mirrors</h3>
+          <p>
+            In case the Main site is down, use one of these mirror links to go
+            to a working copy of Hadithmv:
+          </p>
+          <div class="mirror-links">
+            <!-- OnRender
           Build Command: jekyll build
           Publish directory: _site/
           -->
-          <a href="https://hadithmv-github-io.onrender.com" target="_blank"
-            >Mirror 1</a
-          >
-          |
-          <!-- Cloudflare Pages -->
-          <a href="https://hadithmv.pages.dev" target="_blank">Mirror 2</a>
-          |
-          <!-- Rawgit - dead -->
-          <!--<a
-          href="https://ghcdn.rawgit.org/hadithmv/hadithmv.github.io/master/books/index.html"
-          >Mirror 4</a
-        >-->
-          <a
-            href="https://raw.githack.com/hadithmv/hadithmv.github.io/master/books/index.html"
-            target="_blank"
-            >Mirror 3</a
-          >
-          |
-          <!-- vercel,
+            <a href="https://hadithmv-github-io.onrender.com" target="_blank"
+              >Mirror 1</a
+            >
+            <!-- Cloudflare Pages -->
+            <a href="https://hadithmv.pages.dev" target="_blank">Mirror 2</a>
+            <!-- rawgithack-->
+            <a
+              href="https://raw.githack.com/hadithmv/hadithmv.github.io/master/books/index.html"
+              target="_blank"
+              >Mirror 3</a
+            >
+            <!-- vercel,
             when importing a git repository, change name from hadithmv-github-io to hadithmv, otherwise browser shows this warning prompt thinking it should redirect to .github.io
             ...
             couldnt get vercel to work at first,
@@ -150,65 +243,71 @@
           ...
           sometimes the domains under deployment show one main link, sometimes they show an addition two branching links? 
         -->
-          <a href="https://hadithmv.vercel.app" target="_blank">Mirror 4</a>
-          |
-          <!-- Netlify - disabled automatic deployment, otherwise it automatically switches to paid tier when free is used up, and the only way oyt of that is to make another account?  -->
-          <a href="https://hadithmv.netlify.app" target="_blank">Mirror 5</a>
-          <!-- doesnt seem to work anymore, they changed their settings, and havent been able to reconfigure to get it deployed -->
-          <!-- <a
+            <a href="https://hadithmv.vercel.app" target="_blank">Mirror 4</a>
+            <!-- Netlify - disabled automatic deployment, otherwise it automatically switches to paid tier when free is used up, and the only way oyt of that is to make another account?  -->
+            <a href="https://hadithmv.netlify.app" target="_blank">Mirror 5</a>
+            <!-- doesnt seem to work anymore, they changed their settings, and havent been able to reconfigure to get it deployed -->
+            <!-- <a
             href="https://hadithmv.gitlab.io"
             
             target="_blank"
             >Mirror 5</a
           > -->
-          <!-- Combinatronics - dead -->
-          <!--<a
+            <!-- Combinatronics - dead -->
+            <!--<a
           href="https://combinatronics.com/hadithmv/hadithmv.github.io/master/books/index.html"
           >Mirror 5</a
         > | -->
-        </p>
+            <!-- Rawgit - dead -->
+            <!--<a
+          href="https://ghcdn.rawgit.org/hadithmv/hadithmv.github.io/master/books/index.html"
+          >Mirror 4</a
+        >-->
+          </div>
+        </div>
 
-        <p>
-          Link to Windows and Android application (Hadithmv_Win64.exe and
-          app-release.apk)
-          <a
-            href="https://github.com/hadithmv/hadithmv.github.io/releases"
-            target="_blank"
-            >Files</a
-          >, and their backup mirrors:
-        </p>
+        <div class="link-group">
+          <h3>Application Downloads</h3>
+          <p>
+            Link to Windows and Android application (Hadithmv_Win64.exe and
+            app-release.apk)
+          </p>
+          <div class="mirror-links">
+            <a
+              href="https://github.com/hadithmv/hadithmv.github.io/releases"
+              target="_blank"
+              >Application Files</a
+            >
+            <!-- Source Forge
+             This only syncs release files, if i want to sync the code files, i will have to import them every time
+                https://sourceforge.net/p/import_project/github -->
+            <a
+              href="https://sourceforge.net/projects/hadithmv-github-io/files"
+              target="_blank"
+              >Mirror 1</a
+            >
+            <!-- GitLab
+             Check whether these releases update, as a set action is supposed to update it -->
+            <a
+              href="https://gitlab.com/hadithmv/hadithmv.github.io/-/tags"
+              target="_blank"
+              >Mirror 2</a
+            >
+            <!-- Forgejo
+             8 hour interval to sync by default, can change it apparently -->
+            <a
+              href="https://next.forgejo.org/hadithmv/hadithmv.github.io/tags"
+              target="_blank"
+              >Mirror 3</a
+            >
+            <!-- archive.softwareheritage -->
+            <a
+              href="https://archive.softwareheritage.org/browse/origin/directory/?origin_url=https://github.com/hadithmv/hadithmv.github.io"
+              target="_blank"
+              >Mirror 4</a
+            >
 
-        <p>
-          <!-- this only syncs release files, if i want to sync the code files, i will have to import them every time
-              https://sourceforge.net/p/import_project/github -->
-          <a
-            href="https://sourceforge.net/projects/hadithmv-github-io/files"
-            target="_blank"
-            >Mirror 1</a
-          >
-          |
-          <!-- check whether these releases update, as a set action is supposed to update it -->
-          <a
-            href="https://gitlab.com/hadithmv/hadithmv.github.io/-/tags"
-            target="_blank"
-            >Mirror 2</a
-          >
-          |
-          <!-- 8 hour interval to sync by default, can change it apparently -->
-          <a
-            href="https://next.forgejo.org/hadithmv/hadithmv.github.io/tags"
-            target="_blank"
-            >Mirror 3</a
-          >
-          |
-          <a
-            href="https://archive.softwareheritage.org/browse/origin/directory/?origin_url=https://github.com/hadithmv/hadithmv.github.io"
-            target="_blank"
-            >Mirror 4</a
-          >
-          (click "Branches")
-        </p>
-        <!-- 8 hour interval to sync by default, can change it apparently 
+            <!-- 8 hour interval to sync by default, can change it apparently 
           <a
             href="https://try.gogs.io/hadithmv/hadithmv.github.io/releases"
             
@@ -217,39 +316,42 @@
           >
           |
         -->
+          </div>
+        </div>
 
-        <p>
-          Link to the main code
-          <a
-            href="https://github.com/hadithmv/hadithmv.github.io"
-            target="_blank"
-            >repository</a
-          >, and its backup mirrors:
-        </p>
-
-        <p>
-          <!-- had to use a github action using ssh keys to mirror with this, otherwise it is a paid feature on gitlab 
-          https://github.com/yesolutions/mirror-action -->
-          <a
-            href="https://gitlab.com/hadithmv/hadithmv.gitlab.io"
-            target="_blank"
-            >Mirror 1</a
-          ><!-- not uptodate? but it shows: Set up your repository to automatically synchronize commits, tags and branches with another repository. How do I mirror repositories?
+        <div class="link-group">
+          <h3>Code Repository</h3>
+          <p>Link to the main code repository and its backup mirrors:</p>
+          <div class="mirror-links">
+            <a
+              href="https://github.com/hadithmv/hadithmv.github.io"
+              target="_blank"
+              >Main Repository</a
+            >
+            <!-- GitLab
+             Had to use a github action using ssh keys to mirror with this, otherwise it is a paid feature on gitlab 
+            https://github.com/yesolutions/mirror-action -->
+            <!-- not uptodate? but it shows: Set up your repository to automatically synchronize commits, tags and branches with another repository. How do I mirror repositories?
             To set up a pull mirror, please consult: the "Pulling from a remote repository" section of the documentation. -->
-          |
-          <!-- 8 hour interval to sync by default, can change it apparently -->
-          <a
-            href="https://next.forgejo.org/hadithmv/hadithmv.github.io"
-            target="_blank"
-            >Mirror 2</a
-          >
-          |
-          <a
-            href="https://archive.softwareheritage.org/browse/origin/directory/?origin_url=https://github.com/hadithmv/hadithmv.github.io"
-            target="_blank"
-            >Mirror 3</a
-          >
-        </p>
+            <a
+              href="https://gitlab.com/hadithmv/hadithmv.gitlab.io"
+              target="_blank"
+              >Mirror 1</a
+            >
+            <!-- 8 hour interval to sync by default, can change it apparently -->
+            <a
+              href="https://next.forgejo.org/hadithmv/hadithmv.github.io"
+              target="_blank"
+              >Mirror 2</a
+            >
+            <a
+              href="https://archive.softwareheritage.org/browse/origin/directory/?origin_url=https://github.com/hadithmv/hadithmv.github.io"
+              target="_blank"
+              >Mirror 3</a
+            >
+          </div>
+        </div>
+
         <!-- 8 hour interval to sync by default, can change it apparently 
         <a
         href="https://try.gogs.io/hadithmv/hadithmv.github.io"
@@ -284,29 +386,15 @@
 
         <!-- cant seem to figure out bitbucket, cyclic  -->
 
-        <!--
-          <p style="padding-bottom: 15px">
-          Click here to
-          <a
-            href="https://hadithmv.github.io/notes/info/contact.html"
-            
-            target="_blank"
-            >contact us</a
-          >
-        </p>
-
-        
-
-        <a href="/" class="btn-home">Back to Home</a>
-      -->
-
         <hr />
-        <p>
-          ⚠️ Sometimes there are upgrades happening on the site, which is the
-          always the latest version of Hadithmv. If you are unable to find what
-          you are looking for during such a time, try using Mirror 5, or the
-          Windows or Android apps, as they will have an older version.
-        </p>
+        <div class="warning-box">
+          <p>
+            ⚠️ Sometimes there are upgrades happening on the site, which is the
+            always the latest version of Hadithmv. If you are unable to find
+            what you are looking for during such a time, try using Mirror 5, or
+            the Windows or Android apps, as they will have an older version.
+          </p>
+        </div>
       </div>
     </div>
     <!-- Google Tag Manager -->
