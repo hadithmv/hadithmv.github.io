@@ -178,6 +178,8 @@ matches:
     replace: "…"
   - trigger: ttt-
     replace: "translate to dhivehi, output only"
+  - trigger: www-
+    replace: "write it in 10 different ways"
   - trigger: c2c-
     replace: "compare these two codes:"
   - trigger: ctc-
