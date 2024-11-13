@@ -810,7 +810,22 @@ Object.assign(DataTable.defaults, {
   // currently" above works
   // above seems to break table, use the one below
   //bstateSave: true,
+
+  // prevents state save from saving colvis / column visibility. else stuff like quran additional translations mess up the table on reload
+  // https://datatables.net/reference/option/stateSaveParams
+  stateSaveParams: function (settings, data) {
+    //data.search.search = ""; // Remove a saved filter, so filtering is never saved:
+    // delete data.search;
+    //
+    // https://datatables.net/reference/option/stateSaveCallback
+    // https://datatables.net/forums/discussion/27259/selective-state-saving-only-on-colvis-plugin
+    for (var i = 0; i < data.columns.length; i++) {
+      // delete data.columns[i].search;
+      delete data.columns[i].visible;
+    }
+  },
   //
+
   // https://datatables.net/reference/option/stateDuration
   // default is 2 hours, now set to 1 day
   stateDuration: 86400,
