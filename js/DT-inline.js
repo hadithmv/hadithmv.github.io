@@ -635,28 +635,30 @@ let DTconfig = {
 
               //
 
-              // REPLACE quran page title with surah number and name
-              // Split the data into rows
-              var rows = data.split("\n");
-              // Get the current Surah number and name
-              var currentSurahNumber = currentSurah;
-              var currentSurahName = arabicSurahNames[currentSurahNumber];
-              // Define the lines we want to replace
-              var linesToReplace = [
-                "ترجمة حديث أم وي – ޙަދީޘްއެމްވީ ގުރްއާން ތަރުޖަމާ",
-                "الترجمة الرسمية – ރަސްމީ ގުރްއާން ތަރުޖަމާ",
-                "التفسير الواضح الميسر – ޞާބޫނީގެ ތަފްސީރު",
-              ];
-              // Replace the specified lines with Surah number and name
-              rows = rows.map(function (row) {
-                if (linesToReplace.includes(row.trim())) {
-                  return `${currentSurahNumber} ${currentSurahName}`;
-                }
-                return row;
-              });
-              // Join the rows back together
-              //return rows.join("\n"); // return would have exited, making the next part unreachable
-              data = rows.join("\n");
+              //  REPLACE quran page title with surah number and name
+              // Only proceed if currentSurah is defined
+              if (typeof currentSurah !== "undefined" && currentSurah) {
+                // Split the data into rows
+                var rows = data.split("\n");
+                // Get the current Surah number and name
+                var currentSurahNumber = currentSurah;
+                var currentSurahName = arabicSurahNames[currentSurahNumber];
+                // Define the lines we want to replace
+                var linesToReplace = [
+                  "ترجمة حديث أم وي – ޙަދީޘްއެމްވީ ގުރްއާން ތަރުޖަމާ",
+                  "الترجمة الرسمية – ރަސްމީ ގުރްއާން ތަރުޖަމާ",
+                  "التفسير الواضح الميسر – ޞާބޫނީގެ ތަފްސީރު",
+                ];
+                // Replace the specified lines with Surah number and name
+                rows = rows.map(function (row) {
+                  if (linesToReplace.includes(row.trim())) {
+                    return `${currentSurahNumber} ${currentSurahName}`;
+                  }
+                  return row;
+                });
+                // Join the rows back together
+                data = rows.join("\n");
+              }
               //
 
               //
