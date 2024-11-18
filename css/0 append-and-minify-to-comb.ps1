@@ -17,12 +17,13 @@ function Get-Minified-Content {
 
 # Files to process for ALL-COMB.min.css
 $combFiles = @(
-    "DT-inline.css"
+    #"DT-inline.css"
 )
 
 # Files to minify separately
 $separateFiles = @(
     "navbar.css",
+    "DT-inline.css",
     "quran-navigation-list.css"
 )
 
