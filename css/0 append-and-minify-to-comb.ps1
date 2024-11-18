@@ -15,19 +15,23 @@ function Get-Minified-Content {
     return $minifiedContent.Trim()
 }
 
-# Files to process
-$cssFiles = @(
+# Files to process for ALL-COMB.min.css
+$combFiles = @(
     "DT-inline.css",
     "navbar.css",
-    "belowPage-bab-dropdown.css",
+    "belowPage-bab-dropdown.css"
+)
+
+# Files to minify separately
+$separateFiles = @(
     "quran-navigation-list.css"
 )
 
 # Read the entire content of ALL-COMB.min.css
 $allContent = Get-Content -Path "ALL-COMB.min.css" -Raw
 
-# Process each file
-foreach ($file in $cssFiles) {
+# Process files for ALL-COMB.min.css
+foreach ($file in $combFiles) {
     Write-Output "Processing: $file"
     
     # Create the exact header pattern that exists in the file
@@ -52,6 +56,14 @@ foreach ($file in $cssFiles) {
     else {
         Write-Output "Warning: Section not found for $file"
     }
+}
+
+# Process files that need separate minification
+foreach ($file in $separateFiles) {
+    Write-Output "Processing separately: $file"
+    $minifiedFile = [System.IO.Path]::GetFileNameWithoutExtension($file) + ".min.css"
+    csso $file -o $minifiedFile
+    Write-Output "Created: $minifiedFile"
 }
 
 # Remove any potential multiple blank lines at the end of the file
