@@ -27,12 +27,12 @@ this is to try an reduce having to edit dir redirects while editing
 ......dont need to change......
     <script>
            window.jQuery || document.write('<script src="js/resc/COMBjs.js"><\/script>');
-           window.jQuery || document.write('<script src="js/umdah-script.min.js"><\/script>');
+           window.jQuery || document.write('<script src="js/umdah-script.js"><\/script>');
            window.jQuery || document.write('<script src="js/json/umdah.js"><\/script>');
     </script>
 
-<link rel="stylesheet" href="../css/COMBcss.min.css" />
-	<link rel="stylesheet" href="css/COMBcss.min.css" />
+<link rel="stylesheet" href="../css/COMBcss.css" />
+	<link rel="stylesheet" href="css/COMBcss.css" />
 
        <img width="40px" alt="navlogo" src="../img/logo/newLogo5-Opt-white-noback.svg" onerror="this.onerror=null;this.src='img/logo/newLogo5-Opt-white-noback.svg';" />
 ......dont need to change END......

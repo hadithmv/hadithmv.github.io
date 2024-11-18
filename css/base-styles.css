@@ -2,6 +2,8 @@
     Theme Colors
    ========================================================================== */
 
+/* Add CSS Custom Properties for theming */
+
 :root {
   /* Light theme */
   --color-bg-primary: #fff;

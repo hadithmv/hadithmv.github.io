@@ -3,6 +3,44 @@ add <div id="navbar-container"></div>
 to html, and link to the js
 */
 
+/* Add CSS Custom Properties for theming */
+:root {
+  /* Light theme */
+  --nav-bg: #235580;
+  --nav-text: #ffffff;
+  /* --nav-shadow: rgba(0, 0, 0, 0.1); */
+  --menu-bg: #235580;
+  --menu-text: #eeeeee;
+  --dropdown-bg: #0d4266;
+  --dropdown-hover: #1a5585;
+  --menu-border: rgba(255, 255, 255, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark theme */
+    --nav-bg: #1a3f61;
+    --nav-text: #ffffff;
+    /* --nav-shadow: rgba(0, 0, 0, 0.3); */
+    --menu-bg: #1a3f61;
+    --menu-text: #ffffff;
+    --dropdown-bg: #0a2540;
+    --dropdown-hover: #2a5075;
+    --menu-border: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Optional: Add transition for smooth theme switching */
+/* .navbar,
+.side-menu,
+.dropdown-content,
+.sub-dropdown-content,
+.sub-sub-dropdown-content {
+  transition: background-color 0.3s ease, color 0.3s ease;
+} */
+
+/* END theme styles*/
+
 /* Reset default margins and paddings
       html,
       body {
@@ -26,9 +64,14 @@ html body {
   justify-content: space-between;
   align-items: center;
   /* material theme builder, source color C0DAF9, primary P-40 */
-  background-color: #235580;
-  color: white;
+  /*background-color: #235580;
+  color: white;*/
   /* prev 0f4c75 #333; */
+
+  background-color: var(--nav-bg);
+  color: var(--nav-text);
+  /* box-shadow: 0 2px 4px var(--nav-shadow); */
+  /* ??? */
   height: 50px; /* 60 */
   /* hassan */
   /*background-color: #fefefe;
@@ -139,8 +182,12 @@ html body {
   box-sizing: border-box;
   z-index: 1000;
   /* material theme builder, source color C0DAF9, primary P-40 */
-  background-color: #235580; /* prev 0f4c75 f1f1f1; */
-  color: #eee; /* added; */
+  /*background-color: #235580;*/
+  /* prev 0f4c75 f1f1f1; */
+  /*color: #eee;*/
+  background-color: var(--menu-bg);
+  color: var(--menu-text);
+  border-left: 1px solid var(--menu-border); /* a */
   text-align: right; /* Add this line for right-aligned text */
   direction: rtl;
   overflow-y: scroll; /* Add the ability to scroll */
@@ -171,7 +218,8 @@ html body {
 .side-menu-close {
   font-size: 24px;
   cursor: pointer;
-  color: #eee; /* added; */
+  /* color: #eee;  */
+  color: var(--menu-text);
   text-align: left; /* Add this line for right-aligned text. prev right */
 }
 
@@ -198,6 +246,17 @@ html body {
   margin-bottom: 15px;
 }
 
+.side-menu li a,
+.dropdown-label {
+  color: var(--menu-text);
+}
+
+/* Add hover effects */
+.side-menu li a:hover,
+.dropdown-label:hover {
+  background-color: var(--dropdown-hover);
+}
+
 /*.side-menu ul li a {
   text-decoration: none;
   color: #eee; 
@@ -210,7 +269,7 @@ html body {
   padding-right: 14px;
   padding-top: 0;
   padding-bottom: 0;
-  color: #eee;
+  /* color: #eee; */
   text-decoration: none;
 }
 
@@ -251,7 +310,7 @@ html body {
   display: flex;
   align-items: center;
   cursor: pointer;
-  color: #eee;
+  /* color: #eee; */
   /*padding: 12px 16px;*/
   padding-left: 16px;
   padding-right: 16px;
@@ -279,7 +338,9 @@ html body {
 .sub-sub-dropdown-content {
   display: none;
   position: relative;
-  background-color: #0d4266; /* #f9f9f9; */
+  /*background-color: #0d4266;*/
+  /* #f9f9f9; */
+  background-color: var(--dropdown-bg);
   /*width: 200px;*/
   min-width: 160px;
   /*box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);*/ /* cleaner without shadows */
