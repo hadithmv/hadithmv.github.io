@@ -29,7 +29,7 @@ $separateFiles = @(
 )
 
 # Read the entire content of ALL-COMB.min.css
-$allContent = Get-Content -Path "ALL-COMB.css" -Raw
+$allContent = Get-Content -Path "ALL-COMB.min.css" -Raw
 
 # Process files for ALL-COMB.min.css
 foreach ($file in $combFiles) {
@@ -71,7 +71,7 @@ foreach ($file in $separateFiles) {
 $allContent = $allContent -replace "`n{3,}$", "`n`n"
 
 # Write the updated content back to the file
-Set-Content -Path "ALL-COMB.css" -Value $allContent -NoNewline
+Set-Content -Path "ALL-COMB.min.css" -Value $allContent -NoNewline
 Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
 
 <# claude:
