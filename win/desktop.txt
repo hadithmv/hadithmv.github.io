@@ -24,7 +24,7 @@ but in compiler and exe it will work as css/COMBcss.min.css on execute
 (this is not true for apks)
 
 
-<link rel="stylesheet" href="../css/COMBcss.min.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
+<link rel="stylesheet" href="../css/COMBcss.css" onerror="this.onerror=null;this.href='css/COMBcss.min.css';" />
     <!-- this works as fallback but causes FOUC in apk app, but not in win app where this is needed -->
 
 <script defer src="../js/resc/COMBjs.js"></script>

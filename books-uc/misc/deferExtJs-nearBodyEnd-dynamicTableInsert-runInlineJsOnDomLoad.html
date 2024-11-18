@@ -60,17 +60,17 @@
     <meta name="theme-color" content="#29434e" />
     <!-- -->
     <!-- 
-    <link href="../css/ALL-COMB.min.css" rel="stylesheet" type="text/css" />
+    <link href="../css/ALL-COMB.css" rel="stylesheet" type="text/css" />
     preload? but that makes it fout. 
     https://stackoverflow.com/questions/32759272/how-to-load-css-asynchronously -->
     <link
       rel="stylesheet"
-      href="../css/ALL-COMB.min.css"
+      href="../css/ALL-COMB.css"
       media="print"
       onload="this.media='all'"
     />
     <!-- moved towards end of body, before inline, and deferred
-    <script src="../js/ALL-COMB.min.js"></script> -->
+    <script src="../js/ALL-COMB.js"></script> -->
     <!-- CHANGE !!! 
     <script src="../js/json/arbaoonNawawi.js"></script> -->
     <!-- -->
@@ -1575,7 +1575,7 @@
     </div>
     <!-- <div class="dtWrapper">  END -->
     <!-- external js brought towards end of body, right before inline js, and made to defer -->
-    <script defer src="../js/ALL-COMB.min.js"></script>
+    <script defer src="../js/ALL-COMB.js"></script>
     <script type="text/javascript">
       // added this dom loaded function, all the inline js is within its scope now
       // inline js runs after dom loaded, not when all assets loaded
@@ -1728,55 +1728,55 @@
 
   /*
    <!-- EXTERNAL SCRIPTS AND STYLES -->
-   <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.7.1.slim.js"></script>
    <!-- above seems to work without issue, ajax and effects are the only things missing, only thing noticable is the lack of opening closing animations
-      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
+      <script src="https://code.jquery.com/jquery-3.7.1.js"></script> -->
    <link
       href="https://nightly.datatables.net/css/dataTables.dataTables.css"
       rel="stylesheet"
       type="text/css"
       />
-   <script src="https://nightly.datatables.net/js/dataTables.min.js"></script>
+   <script src="https://nightly.datatables.net/js/dataTables.js"></script>
    <!-- -->
    <link
-      href="https://cdn.datatables.net/plug-ins/2.1.2/features/inputPaging/dist/dataTables.inputPaging.min.css"
+      href="https://cdn.datatables.net/plug-ins/2.1.2/features/inputPaging/dist/dataTables.inputPaging.css"
       rel="stylesheet"
       type="text/css"
       />
-   <script src="https://cdn.datatables.net/plug-ins/2.1.2/features/inputPaging/dist/dataTables.inputPaging.min.js"></script>
+   <script src="https://cdn.datatables.net/plug-ins/2.1.2/features/inputPaging/dist/dataTables.inputPaging.js"></script>
    <!-- -->
    <link
-      href="https://cdn.datatables.net/buttons/3.1.0/css/buttons.dataTables.min.css"
+      href="https://cdn.datatables.net/buttons/3.1.0/css/buttons.dataTables.css"
       rel="stylesheet"
       />
-   <script src="https://cdn.datatables.net/buttons/3.1.0/js/dataTables.buttons.min.js"></script>
-   <script src="https://cdn.datatables.net/buttons/3.1.0/js/buttons.colVis.min.js"></script>
-   <script src="https://cdn.datatables.net/buttons/3.1.0/js/buttons.html5.min.js"></script>
+   <script src="https://cdn.datatables.net/buttons/3.1.0/js/dataTables.buttons.js"></script>
+   <script src="https://cdn.datatables.net/buttons/3.1.0/js/buttons.colVis.js"></script>
+   <script src="https://cdn.datatables.net/buttons/3.1.0/js/buttons.html5.js"></script>
    <!-- -->
    <link
-      href="https://cdn.datatables.net/searchbuilder/1.7.1/css/searchBuilder.dataTables.min.css"
+      href="https://cdn.datatables.net/searchbuilder/1.7.1/css/searchBuilder.dataTables.css"
       rel="stylesheet"
       />
-   <script src="https://cdn.datatables.net/searchbuilder/1.7.1/js/dataTables.searchBuilder.min.js"></script>
+   <script src="https://cdn.datatables.net/searchbuilder/1.7.1/js/dataTables.searchBuilder.js"></script>
    <!-- searchpanes requires select too -->
    <link
-      href="https://cdn.datatables.net/searchpanes/2.3.1/css/searchPanes.dataTables.min.css"
+      href="https://cdn.datatables.net/searchpanes/2.3.1/css/searchPanes.dataTables.css"
       rel="stylesheet"
       />
-   <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/dataTables.searchPanes.min.js"></script>
+   <script src="https://cdn.datatables.net/searchpanes/2.3.1/js/dataTables.searchPanes.js"></script>
    <link
-      href="https://cdn.datatables.net/select/2.0.3/css/select.dataTables.min.css"
+      href="https://cdn.datatables.net/select/2.0.3/css/select.dataTables.css"
       rel="stylesheet"
       />
-   <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.min.js"></script>
+   <script src="https://cdn.datatables.net/select/2.0.3/js/dataTables.select.js"></script>
    <!-- -->
    <link
-      href="https://cdn.datatables.net/keytable/2.12.1/css/keyTable.dataTables.min.css"
+      href="https://cdn.datatables.net/keytable/2.12.1/css/keyTable.dataTables.css"
       rel="stylesheet"
       />
-   <script src="https://cdn.datatables.net/keytable/2.12.1/js/dataTables.keyTable.min.js"></script>
+   <script src="https://cdn.datatables.net/keytable/2.12.1/js/dataTables.keyTable.js"></script>
    <!-- -->
-   <script src="https://cdn.datatables.net/plug-ins/2.1.3/api/row().show().min.js"></script>
+   <script src="https://cdn.datatables.net/plug-ins/2.1.3/api/row().show().js"></script>
    <!-- -->
    <!-- need to get latest code manually, as cdns dont have the most recent
       https://github.com/julkue/mark.js/blob/master/dist/jquery.mark.min.js
@@ -1786,9 +1786,9 @@
    <script src="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.js"></script>
    <!-- -->
    <!-- minify this with closure -->
-   <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+   <script src="https://hammerjs.github.io/dist/hammer.js"></script>
    <!-- https://github.com/jhyland87/DataTables-Keep-Conditions -->
-   <script src="https://cdn.rawgit.com/jhyland87/DataTables-Keep-Conditions/118c5e107f1f603b1b91475dc139df6f53917e38/dist/dataTables.keepConditions.min.js"></script>
+   <script src="https://cdn.rawgit.com/jhyland87/DataTables-Keep-Conditions/118c5e107f1f603b1b91475dc139df6f53917e38/dist/dataTables.keepConditions.js"></script>
    <script src="arrays.js"></script> 
    */
 </style>

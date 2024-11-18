@@ -10,7 +10,7 @@ every time this script is run, i want to increment that by 0.01
 
 Set-Location -Path $PSScriptRoot
 
-$filePath = "..\css\COMB-nonCrit.min.css"
+$filePath = "..\css\COMB-nonCrit.css"
 
 # Read the content of the file
 $content = Get-Content $filePath -Raw
