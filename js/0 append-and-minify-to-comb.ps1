@@ -20,13 +20,12 @@ function Get-Minified-Content {
 
 # Files to process for ALL-COMB.min.js
 $combFiles = @(
-    "navbar.js",
-    "DT-inline.js",
-    "belowPage-bab-dropdown.js"
+    "DT-inline.js"
 )
 
 # Files to minify separately
 $separateFiles = @(
+   "navbar.js",
     "quran-navigation-list.js"
 )
 
