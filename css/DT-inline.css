@@ -1,397 +1,6 @@
 /* ==========================================================================
-   Base Styles and Layout
-   ========================================================================== */
-
-/* Body */
-
-body {
-  margin: 0;
-  padding: 0;
-  /* */
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.8;
-  color: #0a0a0a;
-}
-
-/* making the body background color different like in hassaans, but only on tablet and above, not mobile, otherwise hiding navbar on mobile shows the differently colored body from the wrapper */
-@media (min-width: 600px) {
-  body {
-    /* outer color */
-    /* material theme builder, source color C0DAF9 */
-    background-color: #e7edf6;
-    /*  prev f2f2f5 main bg-llight */
-    /* styles of hassaan */
-  }
-}
-
-/* outer wrapper container */
-
-.dtWrapper {
-  /* inner color */
-  /* material theme builder, source color C0DAF9 
-    background-color: #f7f9ff */
-  background-color: #fff;
-  /* prev  f7f9ff */
-  /* !!! */
-  padding-top: 0.75em; /* instead of a margin, gives it a padding top and colors that */
-  /* !!! */
-  /*max-width: 1080px;
-    */
-  /* 800px, Adjust the maximum width as needed */
-  margin: 0 auto;
-  min-width: 200px;
-  max-width: 980px;
-}
-/* for mobile
-  @media (max-width: 599px) {
-    .dtWrapper {
-      padding-top: 0.75em;
-    }
-  }  */
-
-.hmvSection {
-  padding: 3em 5em;
-  text-align: right;
-  /* center */
-  direction: rtl;
-  /* */
-  padding-top: 0;
-}
-@media (max-width: 599px) {
-  .hmvSection {
-    padding: 1em;
-    margin: 0 0 2em;
-  }
-}
-
-/* page footnotes, styles from hassaan's .post-copyright, and some from .twitter-tweet  */
-.pageFootnotes {
-  /*padding: 10px;*/ /* padding: 0.2em 2em 0.2em 3em; */
-  padding: 0 2em 1em 3em; /* .twitter-tweet */
-  /* material theme builder, source color C0DAF9 
-    background-color: #f0f4f9; */
-  background-color: #f6f6f6;
-  /* prev e7edf6, hsla(0, 0%, 71%, 0.1) 136296 */
-  /* prev c2c7cf 999 235580 .twitter-tweet */
-  border: 1px solid #e1e1e1;
-  /* material theme builder, source color C0DAF9 
-    border-right: 4px solid #c2c7cf; */
-  border-right: 4px solid #8c9199;
-  /*margin-top: 3em;*/
-  /* added */
-  font-size: 20px;
-  margin-bottom: 1em;
-  margin-top: 1em;
-  /*margin-right: 1em;*/
-  color: #555;
-}
-
-.pageFootnotes p {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-/* adds line above footnote, In order for the new lines to work properly, you also need to set the white-space property to either pre or pre-wrap. however this isnt selectable or copyable, so added it in the html itself . */
-/*.pageFootnotes::before {
-    content: "_________\a";
-    white-space: pre;
-  }*/
-
-/* only for MOBILE size - removes top margin */
-@media (max-width: 599px) {
-  .rmvTopMarginOnMobile {
-    margin-top: 0;
-  }
-}
-
-/* Basic Elements */
-
-/* add an animated underline on hover to a link */
-a {
-  color: #0065cc;
-  text-decoration: none;
-  position: relative;
-}
-a::after {
-  background-color: #0065cc;
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  left: 0;
-  bottom: -2px;
-  /* -2px */
-  transform: scaleX(0);
-  transform-origin: bottom right;
-  transition: transform 0.3s ease-out;
-}
-a:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-  /* this makes sure it is on top of other elements that might come after it */
-  z-index: 5;
-}
-p {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-/* added remove link hover underline from things like img */
-a.noLineA::after {
-  background: none;
-}
-
-/* horizontal rule */
-/* A better looking default hr IS IT NEEDED !!! */
-hr {
-  display: block;
-  height: 1px;
-  /*border: 0;
-      border-top: 1px solid #ccc;
-     */
-  /*margin: 1em 0;*/
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  padding: 0;
-  /* added */
-  border: none;
-  /* material theme builder, source color C0DAF9 */
-  border-bottom: 2px solid #c2c7cf;
-  /* prev d3d3d3 */
-}
-
-/* Customize the background color to match your design */
-::-moz-selection {
-  background: #b3d4fc;
-  text-shadow: none;
-}
-::selection {
-  background: #b3d4fc;
-  text-shadow: none;
-}
-
-/* Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers */
-/*audio, canvas, iframe, svg, video*/
-img {
-  vertical-align: middle;
-}
-/* fieldset styles, textarea resize */
-
-/* ==========================================================================
-   Typography - Font
-   ========================================================================== */
-
-/* merged font */
-@font-face {
-  font-family: "mergedFont";
-  src: url(../font/merged-300.woff2) format("woff2"),
-    url(../font/merged-300.woff) format("woff");
-  /* https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display */
-  font-display: block;
-  /* previously swap */
-}
-
-/* https://www.cleancss.com/css-beautify/
-https://github.com/h5bp/html5-boilerplate updated with hassaan's css */
-html {
-  font-size: 22px;
-  /* 1em */
-  /*line-height: 1.8;
-     */
-  /* 1.4 now in body */
-  /* added */
-  -webkit-text-size-adjust: 100%;
-  /* !!! */
-  font-family: "mergedFont", "Arial", sans-serif, "faruma";
-  -webkit-font-smoothing: antialiased;
-  /* text-align: right;
-      direction: rtl;
-      */
-  /*font-size: 120%;
-     */
-  /* for tharujamaanu */
-  /* !!! */
-  /* https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior */
-  scroll-behavior: smooth;
-  /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page */
-  overflow-y: scroll;
-  /* Allow long words to be able to break and wrap onto the next line. Prevents long url addresses from breaking page content when it doesnt fit the width. use this instead of text-wrap or break-word where it is needed. */
-  /* overflow-wrap: anywhere;
-      */
-  /* https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap */
-  text-wrap: pretty;
-  /* pretty balance */
-}
-/* resets body and centers container */
-/* some body code from https://github.com/sindresorhus/github-markdown-css/blob/main/index.html */
-
-/* Headings */
-
-h2 {
-  margin-top: 1.75em;
-  font-size: 28px;
-}
-
-h3 {
-  font-size: 23px;
-  margin-top: 1.65em; /* 1.5, 2 */
-  /*margin-top: 1em;
-     */
-  margin-bottom: 1em;
-}
-
-/* ==========================================================================
-  Helper Classes
-   ========================================================================== */
-
-/* Hide visually and from screen readers */
-.hidden,
-[hidden] {
-  display: none !important;
-}
-/* Hide visually and from screen readers, but maintain layout */
-.invisible {
-  visibility: hidden;
-}
-/* clearfix, media queries, print styles */
-
-.hmvLogo {
-  /*width: 200px;
-    height: 200px;*/
-  width: 150px;
-  height: 150px;
-  /*transition: transform 0.3s ease-in-out;*/
-  transition: transform 0.25s ease-out;
-  margin-bottom: 0.8em;
-}
-.hmvLogo:hover {
-  transform: scale(1.15);
-}
-
-.basmala {
-  /*padding-bottom: 10px !important;*/
-  font-size: 25px !important;
-}
-
-.warning-box {
-  background: #fff3cd;
-  /* border-left: 4px solid #ffc107; for LTR */
-  border-right: 4px solid #ffc107;
-  /* padding: 1rem; */
-  padding: 0.1rem 1rem;
-  border-radius: 4px;
-  /* margin-top: 2rem; */
-}
-
-/* HELPER CLASSES */
-.justifiedText {
-  text-align: justify;
-  /*direction: rtl;
-     */
-}
-
-.centerAlignedText {
-  text-align: center;
-  /*direction: rtl;
-     */
-}
-
-.rightAlignedText {
-  text-align: right;
-}
-
-.leftAlignedText {
-  text-align: left;
-}
-
-.ltrText {
-  direction: ltr;
-}
-
-.rtlText {
-  direction: rtl;
-}
-
-/*  responsive media queries code */
-
-/* @mixin for-phone-only {
-    @media (max-width: 599px) {
-        @content;
-   }
-}
-@mixin for-tablet-portrait-up {
-    @media (min-width: 600px) {
-        @content;
-   }
-}
-@mixin for-tablet-landscape-up {
-    @media (min-width: 900px) {
-        @content;
-   }
-}
-@mixin for-desktop-up {
-    @media (min-width: 1200px) {
-        @content;
-   }
-}
-@mixin for-big-desktop-up {
-    @media (min-width: 1800px) {
-        @content;
-   }
-}
-*/
-
-/* ==========================================================================
-  Button Styles
-   ========================================================================== */
-
-.customButtons {
-  position: relative;
-  display: inline-block;
-  box-sizing: border-box;
-  /*margin-bottom: 0.333em;
-     */
-  padding: 0.5em 1em;
-  cursor: pointer;
-  font-size: 0.88em;
-  line-height: 1.6em;
-  color: inherit;
-  user-select: none;
-  text-decoration: none;
-  outline: none;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  font-family: "mergedFont", "Arial", sans-serif, "faruma";
-  -webkit-font-smoothing: antialiased;
-  text-align: right;
-  direction: rtl;
-  /* */
-  /*padding-right: 25px;
-      padding-left: 25px;
-     */
-  border: none;
-  /* material theme builder, source color C0DAF9 */
-  background: #dee3eb none;
-  /* prev e0e1e2 */
-  border-radius: 0.28571429rem;
-  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
-  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
-    box-shadow 0.1s ease, background 0.1s ease;
-  /* added */
-  margin: 5px;
-  transition: transform 0.2s ease-out;
-}
-.customButtons:hover {
-  color: white;
-  /* material theme builder, source color C0DAF9 */
-  background-color: #286294;
-  /* prev 1f6cb9 */
-  /* transform: scale(1.15); */
-}
-
-/* ==========================================================================
-  Nested belowpage bab dropdown styles
-   ========================================================================== */
+    Nested belowpage bab dropdown styles - this part is none datatables specific
+     ========================================================================== */
 
 /* font size. parent and all child elements */
 .belowPage-bab-dropdown > * {
@@ -400,8 +9,8 @@ h3 {
 
 .belowPage-bab-dropdown {
   /*background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
   width: 250px;
   /* */
   padding-inline-start: 0;
@@ -513,8 +122,8 @@ h3 {
 }
 
 /* ==========================================================================
-   DataTables Custom Core Styles
-   ========================================================================== */
+     DataTables Custom Core Styles
+     ========================================================================== */
 
 /* removes space at the top and bottom of the first and last tr of the table*/
 .cards tbody tr:first-child {
@@ -523,22 +132,6 @@ h3 {
 .cards tbody tr:last-child {
   margin-bottom: 0;
 }
-/* mark js highlight color */
-mark {
-  background: #82b8fa;
-  /*color: black;*/
-}
-/*prev background: #b3d4fc */
-/*table.dataTable span.highlight {
-    background-color: #82b8fa;
-    border-radius: 0.28571429rem;
-  }*/ /* ffff88 */
-
-/*table.dataTable span.column_highlight {
-      background-color: #ffcc99;
-      border-radius: 0.28571429rem;
-  }
-  */
 /* hide first searchbar on tablet and up */
 @media (min-width: 600px) {
   .dt-search:has(#dt-search-0) {
@@ -562,14 +155,14 @@ thead {
 }
 /* aligns row of elements to top rather than center, like buttons etc */
 /*div.dt-container div.dt-layout-row div.dt-layout-cell {
-      align-items: center;
-  }
-  */
+        align-items: center;
+    }
+    */
 /* above moves paging info up too, so this moves it back to middle */
 /*div.dt-container div.dt-layout-row:nth-child(3) div.dt-layout-cell.dt-layout-full {
-      align-items: center;
-  }
-  */
+        align-items: center;
+    }
+    */
 /* jump to row select color */
 /*tr.selected*/
 .dataTable > tbody > tr.selected {
@@ -580,6 +173,16 @@ thead {
   border-bottom: 5px solid #235580;
   /* prev 136296 */
 }
+
+/* colors for DataTables controls */
+.dt-container .dt-input,
+.dt-container .dt-search input,
+.dt-container .dt-paging input {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
 /* ensure search bar doesnt overflow the width on mobile */
 div.dt-container .dt-input,
 div.dt-container .dt-search input {
@@ -588,7 +191,7 @@ div.dt-container .dt-search input {
   /* indent the text in the search a little, otherwise character cuts off */
   text-indent: 7px;
   /* makes its bg color not see thru */
-  background-color: #fff;
+  /*background-color: #fff;*/
 }
 /* makes the inputpaging box bigger */
 .dt-container
@@ -598,7 +201,7 @@ div.dt-container .dt-search input {
   > .dt-paging-input
   > input {
   /*width: 110%;
-     */
+       */
   font-size: 80%;
   /* 80 */
   /* fixes width, so doesnt jump around when numbers increase in no of digits */
@@ -606,16 +209,16 @@ div.dt-container .dt-search input {
 }
 /* mobile only size */
 /*@media (max-width: 599px) {
-    .dt-container
-      > div
-      > div
-      > div.dt-inputpaging.dt-paging
-      > div
-      > input[type="search"] {
-      font-size: 80%;
-      width: 50px !important;
-    }
-  }*/
+      .dt-container
+        > div
+        > div
+        > div.dt-inputpaging.dt-paging
+        > div
+        > input[type="search"] {
+        font-size: 80%;
+        width: 50px !important;
+      }
+    }*/
 /* make font size of / [total pages] smaller*/
 .dt-container
   > div
@@ -644,7 +247,7 @@ div.dt-container .dt-search input {
 /* remove thin border lines above and below rows of td (or rather, last td?) not enough to just remove "display" class from table */
 /* #example > tbody > tr > td */
 /* 
-  div.dt-container.dt-empty-footer tbody > tr:last-child > * { */
+    div.dt-container.dt-empty-footer tbody > tr:last-child > * { */
 div.dt-container.dt-empty-footer tbody > tr:last-child > td {
   border: none;
 }
@@ -654,8 +257,8 @@ div.dt-container > div > div > div.dt-inputpaging.dt-paging {
 }
 /* lessens the gap between colvis menu list, as well as pagelength button (mobile) and makes text a littler smaller */
 /* .buttons-columnVisibility
-   .button-page-length
-   .buttons-colvisRestore */
+     .button-page-length
+     .buttons-colvisRestore */
 .dt-container > div > div > div.dt-buttons > div > div > .dt-button {
   padding-top: 5px;
   padding-bottom: 5px;
@@ -666,10 +269,10 @@ div.dt-button-collection > div > button.dt-button-active::after {
   top: 30%;
 }
 /* same for pagelength button (mobile) 
-  actually top covers that too
-  div.dt-button-collection .dt-button-active:after {
-    top: 23%;
-  } */
+    actually top covers that too
+    div.dt-button-collection .dt-button-active:after {
+      top: 23%;
+    } */
 /* on mobile, where collection buttons are, lessens font size, centers the dropdown */
 .dt-container
   > div
@@ -711,20 +314,30 @@ div.dt-button-collection > div > button.dt-button-active::after {
   > button.dt-button.button-page-length {
   padding-right: 50px;
 }
+
+/* colors for Button states */
+
 /* sets color of colvis list items on hover
-  div.dt-button-collection .dt-button:hover:not(.disabled) */
+    div.dt-button-collection .dt-button:hover:not(.disabled) */
 div.dt-button-collection > div > button.dt-button:hover:not(.disabled) {
-  color: white;
+  /*color: white;*/
   /* material theme builder, source color C0DAF9 */
-  background-color: #286294;
+  /*background-color: #286294;*/
   /* prev 195faa */
+  background-color: var(--color-accent) !important;
+  color: var(--color-bg-primary) !important;
 }
+
+/* colors for Selected states */
+
 /* since we turned off the colors for select in the regular dt table, its invisible on the selected searchpanes data too, this makes it show again on searchpanes */
 div.dt-scroll > div.dt-scroll-body > table.dataTable > tbody > tr.selected {
-  color: white;
+  /*color: white;*/
   /* material theme builder, source color C0DAF9 */
-  background-color: #286294;
+  /*background-color: #286294;*/
   /* prev 195faa */
+  background-color: var(--color-accent);
+  color: var(--color-bg-primary);
 }
 /* lowers the number pill box in searchpanes a little bit, needed to change static position to do it */
 div.dt-scroll
@@ -743,18 +356,18 @@ div.dt-layout-cell.dt-layout-full > div.dt-button-background {
   background: none;
   /* hidden interferes with reopening searchpanes and builder */
   /*visibility: hidden;
-     */
+       */
   /*display: none !important;
-     */
+       */
   /*position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      background: radial-gradient( ellipse farthest-corner at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100% );
-      z-index: 2001;
-     */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        background: radial-gradient( ellipse farthest-corner at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100% );
+        z-index: 2001;
+       */
 }
 /* makes search pane list content right aligned instead of left */
 div.dt-scroll-body
@@ -803,16 +416,18 @@ div.dt-scroll-body
   transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
     box-shadow 0.1s ease, background 0.1s ease;
 }
-/* customizes the keytables focus box */
+/* focust states style */
+/*customizes the keytables focus box */
 table.dataTable tbody td.focus {
   /* material theme builder, source color C0DAF9 */
-  outline: 2.5px solid #235580; /* actually, this was selected by :root, but its derived value was 
-      rgb(51, 122, 183)
-    /* prev 337ab7 */
+  /*outline: 2.5px solid #235580;*/ /* actually, this was selected by :root, but its derived value was 
+        rgb(51, 122, 183)
+      /* prev 337ab7 */
+  outline: 2.5px solid var(--color-focus);
   outline-offset: -2px;
   border-radius: 0.28571429rem;
   /* 5px;
-      */
+        */
 }
 /* makes the pagelength dropdown selecter rounder like the others */
 #dt-length-0,
@@ -831,41 +446,109 @@ table.dataTable tbody td.focus {
   border-color: #aaa;
 }
 /* puts some margins to left and right of full dt rows, otherwise is basically touching the outside of the page as is
-  .dt-container > div.dt-layout-row > div.dt-layout-cell.dt-layout-full {
-    margin-left: 10px;
-    margin-right: 10px;
-  } */
+    .dt-container > div.dt-layout-row > div.dt-layout-cell.dt-layout-full {
+      margin-left: 10px;
+      margin-right: 10px;
+    } */
 /* commented out right otherwise  all of it is moved from the right for some reason */
 
+/* datatables search highlight styles */
+
+/* mark js highlight color */
+mark {
+  /* background: #82b8fa; */
+  /*color: black;*/
+  background-color: var(--color-highlight);
+  color: var(--color-text-primary);
+  /* ? */
+}
+/*prev background: #b3d4fc */
+/*table.dataTable span.highlight {
+      background-color: #82b8fa;
+      border-radius: 0.28571429rem;
+    }*/ /* ffff88 */
+
+/*table.dataTable span.column_highlight {
+        background-color: #ffcc99;
+        border-radius: 0.28571429rem;
+    }
+    */
+
 /* ==========================================================================
-  DataTables Cards Layout
-   ========================================================================== */
+    DataTables Additional Specific Dark Mode Overrides
+     ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  .cards tbody tr {
+    /* Enhance card shadows for dark mode ??? */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Adjust input fields for dark mode */
+  .dt-container input[type="search"],
+  .dt-container select {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border-color: var(--color-border);
+  }
+  /* Adjust button backgrounds for dark mode */
+  .dt-button,
+  .dtsb-button {
+    background: var(--color-bg-tertiary) none !important;
+  }
+
+  /* Enhance visibility of borders in dark mode */
+  .dt-container {
+    border-color: var(--color-border);
+  }
+
+  /* color for disabled paging buttons */
+
+  /*div.dt-container .dt-paging .dt-paging-button.disabled
+  default dt css has important, so had to specify it further */
+  div.dt-container div.dt-paging .dt-paging-button.disabled {
+    /* Dark mode */
+    opacity: 0.35;
+    color: var(--color-text-secondary) !important;
+    background-color: var(--color-bg-tertiary) !;
+  }
+}
+
+/* ==========================================================================
+    DataTables Cards Layout
+     ========================================================================== */
 /* original card styles */
 
 /* card styles
-https://datatables.net/forums/discussion/comment/228301/#Comment_228301 */
+  https://datatables.net/forums/discussion/comment/228301/#Comment_228301 */
 .cards tbody tr {
   /* float: left;
-      removing this used to center, now using flexbox instead */
+        removing this used to center, now using flexbox instead */
   /*width: 20rem;
-      this narrows the columns too much*/
+        this narrows the columns too much*/
   /*box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
-     */
+       */
   margin: 0.5rem;
   /* turned these below off recently to make it more modern? */
   /* material theme builder, source color C0DAF9 */
-  border: 0.0911rem solid #c4c6d0;
+  /*border: 0.0911rem solid #c4c6d0;*/
   /* prev 0.0625rem solid rgba(0, 0, 0, 0.125) */
+  border-width: 0.0911rem;
+  border-style: solid;
+  border-color: var(--color-border);
+  background-color: var(--color-bg-primary); /* a */
 
   border-radius: 24px;
   /* 1em 0.28571429rem 0.25rem;
-      */
+        */
 }
 .cards tbody td {
   display: block;
+  color: var(--color-text-primary);
+  /* a */
 }
 
-/* added custom card styles */
+/* added custom card styles below */
 
 .cards tbody tr {
   /* gives some padding around tr, in desktop */
@@ -873,8 +556,8 @@ https://datatables.net/forums/discussion/comment/228301/#Comment_228301 */
   /* border box shadow from fomantic ui, ui message*/
   /* 0 0 0 1px */
   /*box-shadow:
-      0 0 0 0.7px rgba(34, 36, 38, 0.22) inset,
-      0 0 0 0 transparent;*/
+        0 0 0 0.7px rgba(34, 36, 38, 0.22) inset,
+        0 0 0 0 transparent;*/
 }
 /* */
 /* added this to make it one column and centered, it was already centered after colspans were removed */
@@ -886,7 +569,7 @@ https://datatables.net/forums/discussion/comment/228301/#Comment_228301 */
 }
 
 /* on mobile, removes border, radius, padding, and leaves a clean edgeless looks, with only a border bottom double line separator/divider between pages*/
-/* mobile only size */
+/* mobile only size cards */
 @media (max-width: 599px) {
   .dt-container .cards tbody tr {
     border: none;
@@ -895,36 +578,40 @@ https://datatables.net/forums/discussion/comment/228301/#Comment_228301 */
     padding: 0;
     padding-bottom: 20px;
     /* material theme builder, source color C0DAF9 */
-    border-bottom: 10px double #415f91;
+    /*border-bottom: 10px double #415f91;*/
+    border-bottom-width: 10px;
+    border-bottom-style: double;
+    border-bottom-color: var(--color-divider);
+
     /* prev 474747 */
     /*border-bottom: 4px solid #999;*/
     /* 10px 3d3d3d 333 */
   }
   /* adds a little space at the top and bottom of the tbody in mobile */
   /*.dt-container {
-      margin-top: 15px;
-      margin-bottom: 15px;
-    }*/
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }*/
 }
 
 /* removes the first margin top of the first dt layout row, to make the dtwrapper touch the top, otherwise cant color the outer backgrown if its a margin.
-without important, mobile view gives it back top margin */
+  without important, mobile view gives it back top margin */
 div.dt-container div.dt-layout-row:first-child {
   margin-top: 0;
 }
 /* mobile 
-  @media (max-width: 599px) {
-    div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
-      margin-top: 0;
-    }
-    below targets both top and bottom rows, while above only top
-    div.dt-container
-      div.dt-layout-row:not(.dt-layout-table)
-      div.dt-layout-cell
-      > *:first-child {
-      margin-top: 0;
-    }
-  } */
+    @media (max-width: 599px) {
+      div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
+        margin-top: 0;
+      }
+      below targets both top and bottom rows, while above only top
+      div.dt-container
+        div.dt-layout-row:not(.dt-layout-table)
+        div.dt-layout-cell
+        > *:first-child {
+        margin-top: 0;
+      }
+    } */
 
 /* centers first row of dt elements instead of them being to the right */
 div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
@@ -956,20 +643,20 @@ div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
 /* datatables br styles */
 
 /* after adding a class to dt br in js, can style it to make the gap wider
-https://stackoverflow.com/questions/7614928/change-br-height-using-css/28310011#28310011
-https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/1409742#1409742 */
+  https://stackoverflow.com/questions/7614928/change-br-height-using-css/28310011#28310011
+  https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/1409742#1409742 */
 /* prev used a class called .dtBr*/
 /*br {
-  content: "";
-  margin: 2em;
-  display: block;
-  font-size: 10px;
-}*/
+    content: "";
+    margin: 2em;
+    display: block;
+    font-size: 10px;
+  }*/
 /* 34% 34px 24% control the spacing with the font size. */
 /* footnotes br, not in datatable tables, but in page body */
 /*.pageFootnotes br {
-  font-size: 5px;
-}*/
+    font-size: 5px;
+  }*/
 /* for dt table brs */
 .dtBr {
   content: "";
@@ -978,14 +665,15 @@ https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/140
   font-size: 5px;
 }
 /*.dtBrFooter {
-    font-size: 1px; 
-  }*/
+      font-size: 1px; 
+    }*/
 
 /* datatables column styles */
 
 .colHeader {
   /*font-weight: bold;*/
-  color: #0f4c75; /* !important;*/
+  /* color: #0f4c75; */
+  color: var(--color-header) !important;
   /* before top down was 8 by default */
   padding-top: 2px !important;
   padding-bottom: 2px !important;
@@ -996,8 +684,8 @@ https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/140
   font-size: 20px;
 }
 /* ==========================================================================
-   DataTables Buttons and Controls
-   ========================================================================== */
+     DataTables Buttons and Controls
+     ========================================================================== */
 
 /* from fomantic ui */
 /* first one is basic button buttons, the rest are searchbuilder buttons */
@@ -1017,25 +705,25 @@ div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
   background: #dee3eb none;
   /* prev e0e1e2 */
   /*color: rgba(0, 0, 0, 0.6);
-   */
+     */
   /*margin: 0 0.25em 0 0;
-   */
+     */
   /* commenting this out makes them not stick to each other when stacked */
   /*line-height: 1em;
-   */
+     */
   border-radius: 0.28571429rem;
   /* ? */
   box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
   transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
     box-shadow 0.1s ease, background 0.1s ease;
   /*font-size: 1rem;
-   */
+     */
 }
 /* button buttons fomantic padding for tablet size and up */
 @media (min-width: 600px) {
   .dt-container > div > div > div.dt-buttons > button.dt-button {
     /* this causes buttons to get too wide, making that row overflow padding: 0.78571429em 1.5em 0.78571429em;
-        */
+          */
     padding-right: 15px;
     padding-left: 15px;
     margin-right: 0;
@@ -1078,7 +766,7 @@ div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
 /* hover button buttons */
 .dt-container > div > div > div.dt-buttons > button.dt-button:hover {
   /*background-color: #cacbcd;
-   */
+     */
   background-image: none;
   /* otherwise doesnt remove gradient */
   box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
@@ -1091,7 +779,7 @@ div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
   background-color: #286294;
   /* prev 1f6cb9 */
   /* #136296 #2185d0;
-    */
+      */
 }
 @media (max-width: 599px) {
   /* makes search input smaller on mobile */
@@ -1106,9 +794,9 @@ div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
   }
   /* removes margin space between rows of dt elements on mobile */
   /*div.dt-container div.dt-layout-row:not(.dt-layout-table) div.dt-layout-cell > * {
-        margin: 0;
-   }
-   */
+          margin: 0;
+     }
+     */
   /* more of that, especially around the table */
   div.dt-container div.dt-layout-row {
     margin: 0;
@@ -1141,12 +829,11 @@ div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
   background-color: #286294;
   /* prev 1f6cb9 */
   /* #136296 #2185d0;
-    */
+      */
 }
-
 /* ==========================================================================
-   DataTables Typography - Font
-   ========================================================================== */
+     DataTables Typography - Font
+     ========================================================================== */
 /* paging buttons, search box, functional buttons, searchpanes column title, searchpanes clear button searchbuilder buttons searchbuilder dropdowns, */
 .dt-paging-button,
 .dt-input,
@@ -1161,18 +848,18 @@ div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
   direction: rtl;
   font-size: 90%;
   /* 100%;
-    */
+      */
 }
 /* font size on dt buttons, as above font size doesnt work without span */
 .dt-button span {
   font-size: 100%;
   /* 120%;
-    */
+      */
 }
 /* avoids oversized buttons overflowing to next row on mobile for-phone-only */
 /*@media (max-width: 599px) {
-    .dt-button span {
-        font-size: 100%;
-   }
-}
-*/
+      .dt-button span {
+          font-size: 100%;
+     }
+  }
+  */

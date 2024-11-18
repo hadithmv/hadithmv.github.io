@@ -22,6 +22,7 @@ $combFiles = @(
 
 # Files to minify separately
 $separateFiles = @(
+    "base-styles.css",
     "navbar.css",
     "DT-inline.css",
     "quran-navigation-list.css"
