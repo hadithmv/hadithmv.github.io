@@ -1,5 +1,11 @@
 # Set the location to the script's directory
-Set-Location -Path $PSScriptRoot
+try {
+    Set-Location -Path $PSScriptRoot -ErrorAction Stop
+}
+catch {
+    Write-Error "Failed to set working directory: $_"
+    exit 1
+}
 
 # Function to minify and create temporary content
 function Get-Minified-Content {
@@ -7,15 +13,49 @@ function Get-Minified-Content {
         [string]$sourceFile
     )
     
-    $tempFile1 = "temp1.js"
-    $tempFile2 = "temp2.js"
-    
-    google-closure-compiler --charset=UTF-8 --js $sourceFile --js_output_file $tempFile1
-    terser $tempFile1 -c -m --comments=false -o $tempFile2
-    #uglifyjs $tempFile1 -c -m -o $tempFile2
-    $minifiedContent = Get-Content -Path $tempFile2 -Raw
-    Remove-Item -Path $tempFile1, $tempFile2
-    return $minifiedContent.Trim()
+    try {
+        # Check if source file exists
+        if (-not (Test-Path $sourceFile)) {
+            throw "Source file not found: $sourceFile"
+        }
+
+        # Check if required tools are installed
+        if (-not (Get-Command google-closure-compiler -ErrorAction SilentlyContinue)) {
+            throw "google-closure-compiler is not installed"
+        }
+        if (-not (Get-Command terser -ErrorAction SilentlyContinue)) {
+            throw "terser is not installed"
+        }
+
+        $tempFile1 = [System.IO.Path]::GetTempFileName() + ".js"
+        $tempFile2 = [System.IO.Path]::GetTempFileName() + ".js"
+        
+        try {
+            # Run Google Closure Compiler
+            $compilerOutput = google-closure-compiler --charset=UTF-8 --js $sourceFile --js_output_file $tempFile1 2>&1
+            if ($LASTEXITCODE -ne 0) {
+                throw "Closure compiler failed: $compilerOutput"
+            }
+
+            # Run Terser
+            $terserOutput = terser $tempFile1 -c -m --comments=false -o $tempFile2 2>&1
+            if ($LASTEXITCODE -ne 0) {
+                throw "Terser failed: $terserOutput"
+            }
+
+            $minifiedContent = Get-Content -Path $tempFile2 -Raw -ErrorAction Stop
+            return $minifiedContent.Trim()
+        }
+        finally {
+            # Clean up temp files
+            if (Test-Path $tempFile1) { Remove-Item -Path $tempFile1 -ErrorAction SilentlyContinue }
+            if (Test-Path $tempFile2) { Remove-Item -Path $tempFile2 -ErrorAction SilentlyContinue }
+        }
+    }
+    catch {
+        Write-Error "Failed to minify $sourceFile : $_"
+        return $null
+    }
 }
 
 # Files to process for ALL-COMB.min.js
@@ -25,56 +65,91 @@ $combFiles = @(
 
 # Files to minify separately
 $separateFiles = @(
-   "navbar.js",
+    "navbar.js",
     "quran-navigation-list.js"
 )
 
-# Process ALL-COMB.min.js updates
-$allContent = Get-Content -Path "ALL-COMB.min.js" -Raw
-
-foreach ($file in $combFiles) {
-    Write-Output "Processing: $file"
-    
-    # Create the exact header pattern that exists in the file
-    $headerPattern = "// $file"
-    
-    # Check if this header exists in the content
-    if ($allContent -match [regex]::Escape($headerPattern)) {
-        Write-Output "Found section for: $file"
-        
-        # Get the new minified content
-        $newContent = Get-Minified-Content -sourceFile $file
-        
-        # Pattern to match the whole section (header + content until next header or end)
-        $pattern = "(?ms)// $file\r?\n.*?(?=(// .*?\r?\n|\z))"
-        
-        # Create replacement with preserved header and blank line after code block
-        $replacement = "// $file`n$newContent`n`n"
-        
-        # Replace the section
-        $allContent = [regex]::Replace($allContent, $pattern, $replacement)
+try {
+    # Check if ALL-COMB.min.js exists
+    if (-not (Test-Path "ALL-COMB.min.js")) {
+        throw "ALL-COMB.min.js not found"
     }
-    else {
-        Write-Output "Warning: Section not found for $file"
+
+    # Read the entire content of ALL-COMB.min.js
+    $allContent = Get-Content -Path "ALL-COMB.min.js" -Raw -ErrorAction Stop
+
+    # Process ALL-COMB.min.js updates
+    foreach ($file in $combFiles) {
+        Write-Output "Processing: $file"
+        
+        # Create the exact header pattern that exists in the file
+        $headerPattern = "// $file"
+        
+        # Check if this header exists in the content
+        if ($allContent -match [regex]::Escape($headerPattern)) {
+            Write-Output "Found section for: $file"
+            
+            # Get the new minified content
+            $newContent = Get-Minified-Content -sourceFile $file
+            if ($null -eq $newContent) {
+                Write-Warning "Skipping $file due to minification error"
+                continue
+            }
+            
+            try {
+                # Pattern to match the whole section
+                $pattern = "(?ms)// $file\r?\n.*?(?=(// .*?\r?\n|\z))"
+                
+                # Create replacement with preserved header and blank line
+                $replacement = "// $file`n$newContent`n`n"
+                
+                # Replace the section
+                $allContent = [regex]::Replace($allContent, $pattern, $replacement)
+            }
+            catch {
+                Write-Error "Failed to process regex replacement for $file : $_"
+                continue
+            }
+        }
+        else {
+            Write-Warning "Section not found for $file"
+        }
     }
+
+    # Process files that need separate minification
+    foreach ($file in $separateFiles) {
+        Write-Output "Processing separately: $file"
+        try {
+            if (-not (Test-Path $file)) {
+                Write-Warning "File not found: $file"
+                continue
+            }
+
+            $minifiedFile = [System.IO.Path]::GetFileNameWithoutExtension($file) + ".min.js"
+            $minifiedContent = Get-Minified-Content -sourceFile $file
+            
+            if ($null -ne $minifiedContent) {
+                Set-Content -Path $minifiedFile -Value $minifiedContent -NoNewline -ErrorAction Stop
+                Write-Output "✅ Created: $minifiedFile"
+            }
+        }
+        catch {
+            Write-Error "Error processing $file : $_"
+            continue
+        }
+    }
+
+    # Clean up the content
+    $allContent = $allContent -replace "`n{3,}$", "`n`n"
+
+    # Write the updated content back to the file
+    Set-Content -Path "ALL-COMB.min.js" -Value $allContent -NoNewline -ErrorAction Stop
+    Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
 }
-
-# Process files that need separate minification
-foreach ($file in $separateFiles) {
-    Write-Output "Processing separately: $file"
-    $minifiedFile = [System.IO.Path]::GetFileNameWithoutExtension($file) + ".min.js"
-    $minifiedContent = Get-Minified-Content -sourceFile $file
-    Set-Content -Path $minifiedFile -Value $minifiedContent -NoNewline
-    Write-Output "Created: $minifiedFile"
+catch {
+    Write-Error "Script execution failed: $_"
+    exit 1
 }
-
-# Remove any potential multiple blank lines at the end of the file
-$allContent = $allContent -replace "`n{3,}$", "`n`n"
-
-# Write the updated content back to the file
-Set-Content -Path "ALL-COMB.min.js" -Value $allContent -NoNewline
-
-Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
 
 <# claude:
 Here's a comparison of the two scripts:
