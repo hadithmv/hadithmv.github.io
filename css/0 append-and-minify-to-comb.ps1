@@ -42,7 +42,7 @@ function Get-Minified-Content {
     }
 }
 
-# Files to process for ALL-COMB.min.css
+# Files to process for DT-COMB.min.css
 $combFiles = @(
     #"DT-inline.css"
 )
@@ -56,16 +56,16 @@ $separateFiles = @(
 )
 
 try {
-    # Check if ALL-COMB.min.css exists
-    if (-not (Test-Path "ALL-COMB.min.css")) {
-        Write-Warning "ALL-COMB.min.css not found. Creating new file."
-        New-Item -ItemType File -Name "ALL-COMB.min.css" -Force | Out-Null
+    # Check if DT-COMB.min.css exists
+    if (-not (Test-Path "DT-COMB.min.css")) {
+        Write-Warning "DT-COMB.min.css not found. Creating new file."
+        New-Item -ItemType File -Name "DT-COMB.min.css" -Force | Out-Null
     }
 
-    # Read the entire content of ALL-COMB.min.css
-    $allContent = Get-Content -Path "ALL-COMB.min.css" -Raw -ErrorAction Stop
+    # Read the entire content of DT-COMB.min.css
+    $allContent = Get-Content -Path "DT-COMB.min.css" -Raw -ErrorAction Stop
 
-    # Process files for ALL-COMB.min.css
+    # Process files for DT-COMB.min.css
     foreach ($file in $combFiles) {
         Write-Output "Processing: $file"
         
@@ -131,7 +131,7 @@ try {
     $allContent = $allContent -replace "`n{3,}$", "`n`n"
 
     # Write the updated content back to the file
-    Set-Content -Path "ALL-COMB.min.css" -Value $allContent -NoNewline -ErrorAction Stop
+    Set-Content -Path "DT-COMB.min.css" -Value $allContent -NoNewline -ErrorAction Stop
     Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
 }
 catch {

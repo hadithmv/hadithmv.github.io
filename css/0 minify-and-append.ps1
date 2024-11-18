@@ -15,7 +15,7 @@ function Get-Minified-Content {
     return $minifiedContent.Trim()
 }
 
-# Files to process for ALL-COMB.min.css
+# Files to process for DT-COMB.min.css
 $combFiles = @(
     #"DT-inline.css"
 )
@@ -28,10 +28,10 @@ $separateFiles = @(
     "quran-navigation-list.css"
 )
 
-# Read the entire content of ALL-COMB.min.css
-$allContent = Get-Content -Path "ALL-COMB.min.css" -Raw
+# Read the entire content of DT-COMB.min.css
+$allContent = Get-Content -Path "DT-COMB.min.css" -Raw
 
-# Process files for ALL-COMB.min.css
+# Process files for DT-COMB.min.css
 foreach ($file in $combFiles) {
     Write-Output "Processing: $file"
     
@@ -71,7 +71,7 @@ foreach ($file in $separateFiles) {
 $allContent = $allContent -replace "`n{3,}$", "`n`n"
 
 # Write the updated content back to the file
-Set-Content -Path "ALL-COMB.min.css" -Value $allContent -NoNewline
+Set-Content -Path "DT-COMB.min.css" -Value $allContent -NoNewline
 Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
 
 <# claude:
@@ -83,23 +83,23 @@ Set-Location -Path $PSScriptRoot
 there is are css files
 
 one of them is called
-ALL-COMB.min.css
+DT-COMB.min.css
 clear the content of that file
 
 then in the folder there is another file called
 comb-DT.min.css
-copy the content of this file, and place it into ALL-COMB.min.css
+copy the content of this file, and place it into DT-COMB.min.css
 
 then there is another file called dt-inline.css
 minify its content with csso:
 csso [file] -o [file]
 
-and place the content at the end of ALL-COMB.min.css, after a new line and a commented out line that says "dt-inline.css"
+and place the content at the end of DT-COMB.min.css, after a new line and a commented out line that says "dt-inline.css"
 
 then in the folder there is another file called
 navbar.css
 minify its content with csso
-and place the content at the end of ALL-COMB.min.css, after a new line and a commented out line that says "navbar.css"
+and place the content at the end of DT-COMB.min.css, after a new line and a commented out line that says "navbar.css"
 
 print what you do
 #>

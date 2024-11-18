@@ -58,7 +58,7 @@ function Get-Minified-Content {
     }
 }
 
-# Files to process for ALL-COMB.min.js
+# Files to process for DT-COMB.min.js
 $combFiles = @(
     "DT-inline.js"
 )
@@ -70,15 +70,15 @@ $separateFiles = @(
 )
 
 try {
-    # Check if ALL-COMB.min.js exists
-    if (-not (Test-Path "ALL-COMB.min.js")) {
-        throw "ALL-COMB.min.js not found"
+    # Check if DT-COMB.min.js exists
+    if (-not (Test-Path "DT-COMB.min.js")) {
+        throw "DT-COMB.min.js not found"
     }
 
-    # Read the entire content of ALL-COMB.min.js
-    $allContent = Get-Content -Path "ALL-COMB.min.js" -Raw -ErrorAction Stop
+    # Read the entire content of DT-COMB.min.js
+    $allContent = Get-Content -Path "DT-COMB.min.js" -Raw -ErrorAction Stop
 
-    # Process ALL-COMB.min.js updates
+    # Process DT-COMB.min.js updates
     foreach ($file in $combFiles) {
         Write-Output "Processing: $file"
         
@@ -143,7 +143,7 @@ try {
     $allContent = $allContent -replace "`n{3,}$", "`n`n"
 
     # Write the updated content back to the file
-    Set-Content -Path "ALL-COMB.min.js" -Value $allContent -NoNewline -ErrorAction Stop
+    Set-Content -Path "DT-COMB.min.js" -Value $allContent -NoNewline -ErrorAction Stop
     Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
 }
 catch {
@@ -219,12 +219,12 @@ function Minify-And-Append {
     Write-Output "Minified and copied: $sourceFile"
 }
 
-# Clear the content of ALL-COMB.min.js
-Clear-Content -Path "ALL-COMB.min.js"
-Write-Output "Cleared ALL-COMB.min.js"
+# Clear the content of DT-COMB.min.js
+Clear-Content -Path "DT-COMB.min.js"
+Write-Output "Cleared DT-COMB.min.js"
 
-# Copy the content of comb-DT.min.js into ALL-COMB.min.js
-Get-Content -Path "comb-DT.min.js" | Set-Content -Path "ALL-COMB.min.js"
+# Copy the content of comb-DT.min.js into DT-COMB.min.js
+Get-Content -Path "comb-DT.min.js" | Set-Content -Path "DT-COMB.min.js"
 Write-Output "Copied: comb-DT.min.js"
 
 # List of JavaScript files to minify and append
@@ -238,13 +238,13 @@ $jsFiles = @(
 
 # Process each file
 foreach ($file in $jsFiles) {
-    Minify-And-Append -sourceFile $file -targetFile "ALL-COMB.min.js"
+    Minify-And-Append -sourceFile $file -targetFile "DT-COMB.min.js"
 }
 
 Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
 
 now what i want is
-i dont want to Clear the content of ALL-COMB.min.js
+i dont want to Clear the content of DT-COMB.min.js
 
 i dont want to copy over comb-DT.min.js
 
@@ -256,6 +256,6 @@ for the following files
    "belowPage-bab-dropdown.js",
    "quran-dropdowns.js"
 
-for each of those, there will be a line of text with the file name, in the All-COMB.min.js file. below that line of text will be a block of code  relating to that file name. All i want is to update that block of code, for each of those instances
+for each of those, there will be a line of text with the file name, in the DT-COMB.min.js file. below that line of text will be a block of code  relating to that file name. All i want is to update that block of code, for each of those instances
 
 #>
