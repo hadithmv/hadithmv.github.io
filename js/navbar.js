@@ -217,7 +217,7 @@ function createNavbar() {
               <a
                 href="../books/quranSoabuni.html"
                 onclick="changeBook('quranSoabuni'); return false;"
-              ></a>
+              >&nbsp;</a>
             </li>
             <li>
               <a href="../books/quranUshru.html"
