@@ -54,6 +54,14 @@ body {
   line-height: 1.8;
   /* color: #0a0a0a; */
   color: var(--color-text-primary);
+  /* */
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
+  /* text-align: right;
+        direction: rtl;
+        */
+  /*font-size: 120%;
+       */
+  /* for tharujamaanu */
 }
 
 /* making the body background color different like in hassaans, but only on tablet and above, not mobile, otherwise hiding navbar on mobile shows the differently colored body from the wrapper */
@@ -213,11 +221,15 @@ hr {
 
 /* Customize the background color to match your design */
 ::-moz-selection {
-  background: #b3d4fc;
+  /*background: #b3d4fc;
+  text-shadow: none;*/
+  background: var(--color-selection);
   text-shadow: none;
 }
 ::selection {
-  background: #b3d4fc;
+  /*background: #b3d4fc;
+  text-shadow: none;*/
+  background: var(--color-selection);
   text-shadow: none;
 }
 
@@ -252,15 +264,6 @@ html {
   /* 1.4 now in body */
   /* added */
   -webkit-text-size-adjust: 100%;
-  /* !!! */
-  font-family: "mergedFont", "Arial", sans-serif, "faruma";
-  -webkit-font-smoothing: antialiased;
-  /* text-align: right;
-        direction: rtl;
-        */
-  /*font-size: 120%;
-       */
-  /* for tharujamaanu */
   /* !!! */
   /* https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior */
   scroll-behavior: smooth;
