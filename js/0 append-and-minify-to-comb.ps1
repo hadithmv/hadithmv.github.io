@@ -18,19 +18,22 @@ function Get-Minified-Content {
     return $minifiedContent.Trim()
 }
 
-# Files to process
-$jsFiles = @(
+# Files to process for ALL-COMB.min.js
+$combFiles = @(
     "navbar.js",
     "DT-inline.js",
-    "belowPage-bab-dropdown.js",
+    "belowPage-bab-dropdown.js"
+)
+
+# Files to minify separately
+$separateFiles = @(
     "quran-navigation-list.js"
 )
 
-# Read the entire content of ALL-COMB.min.js
+# Process ALL-COMB.min.js updates
 $allContent = Get-Content -Path "ALL-COMB.min.js" -Raw
 
-# Process each file
-foreach ($file in $jsFiles) {
+foreach ($file in $combFiles) {
     Write-Output "Processing: $file"
     
     # Create the exact header pattern that exists in the file
@@ -57,18 +60,20 @@ foreach ($file in $jsFiles) {
     }
 }
 
+# Process files that need separate minification
+foreach ($file in $separateFiles) {
+    Write-Output "Processing separately: $file"
+    $minifiedFile = [System.IO.Path]::GetFileNameWithoutExtension($file) + ".min.js"
+    $minifiedContent = Get-Minified-Content -sourceFile $file
+    Set-Content -Path $minifiedFile -Value $minifiedContent -NoNewline
+    Write-Output "Created: $minifiedFile"
+}
+
 # Remove any potential multiple blank lines at the end of the file
 $allContent = $allContent -replace "`n{3,}$", "`n`n"
 
 # Write the updated content back to the file
 Set-Content -Path "ALL-COMB.min.js" -Value $allContent -NoNewline
-
-# Minify navbar.js separately
-Write-Output "Minifying navbar.js separately"
-$navbarMinified = Get-Minified-Content -sourceFile "navbar.js"
-Set-Content -Path "navbar.min.js" -Value $navbarMinified -NoNewline
-
-# Note that now both the navbar js inside allcomb as well as navbar.min are both minified
 
 Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
 
