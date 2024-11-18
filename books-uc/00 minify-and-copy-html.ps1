@@ -3,8 +3,24 @@ Set-Location -Path $PSScriptRoot
 
 # Define a function to minify HTML files
 function MinifyHTML($inputFile, $outputFile) {
-    # Use html-minifier with various options to minify the HTML file
-    html-minifier --collapse-boolean-attributes --collapse-whitespace --decode-entities --minify-css true --minify-js true --process-scripts [text/html] --remove-attribute-quotes --remove-comments --remove-empty-attributes --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-style-link-type-attributes --remove-tag-whitespace --sort-attributes --sort-class-name --trim-custom-fragments --use-short-doctype $inputFile -o $outputFile
+    # Read the content of the file
+    $content = Get-Content -Path $inputFile -Raw
+    
+    # Replace .css with .min.css in link tags, being careful not to replace .min.css again
+    $content = $content -replace '(href="[^"]*?)(?<!\.min)\.css"', '$1.min.css"'
+    
+    # Replace .js with .min.js in script tags, being careful not to replace .min.js again
+    $content = $content -replace '(src="[^"]*?)(?<!\.min)\.js"', '$1.min.js"'
+    
+    # Create a temporary file for the modified content
+    $tempFile = [System.IO.Path]::GetTempFileName()
+    $content | Set-Content -Path $tempFile -NoNewline
+    
+    # Use html-minifier with the temporary file
+    html-minifier --collapse-boolean-attributes --collapse-whitespace --decode-entities --minify-css true --minify-js true --process-scripts [text/html] --remove-attribute-quotes --remove-comments --remove-empty-attributes --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-style-link-type-attributes --remove-tag-whitespace --sort-attributes --sort-class-name --trim-custom-fragments --use-short-doctype $tempFile -o $outputFile
+    
+    # Clean up the temporary file
+    Remove-Item $tempFile
 }
 
 # Get all HTML files in the current directory
