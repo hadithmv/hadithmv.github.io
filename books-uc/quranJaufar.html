@@ -59,7 +59,12 @@
     />
     <script src="../js/quran-navigation-list.js"></script>
     <!-- end added -->
-    <style></style>
+    <style>
+      /* Hide the column visibility button, needed on quran pages since they handle colvis with another different button below, and using this button here will mess up the loading */
+      #tableID_wrapper .dt-buttons .buttons-colvis {
+        display: none !important;
+      }
+    </style>
   </head>
   <body>
     <div id="navbar-container"></div>
