@@ -19,6 +19,18 @@
   --color-selection: #b3d4fc;
   --color-focus: #235580;
   --color-divider: #415f91;
+  /* added for text editor */
+  /* --editor-bg: #ffffff;
+  --editor-text: #000000; */
+  --button-bg: #f0f0f0;
+  --button-hover: #007bff;
+  --button-text: #000000;
+  --button-hover-text: #ffffff;
+  --tab-active: #007bff;
+  --tab-border: #ccc;
+  --textarea-bg: #ffffff;
+  --textarea-text: #000000;
+  --textarea-border: #ccc;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -37,6 +49,18 @@
     --color-selection: #364c63;
     --color-focus: #4d8ac7;
     --color-divider: #4d8ac7;
+    /* added for text editor */
+    --editor-bg: #1a1b1e;
+    --editor-text: #e1e1e1;
+    --button-bg: #2d2e32;
+    --button-hover: #4d8ac7;
+    --button-text: #e1e1e1;
+    --button-hover-text: #ffffff;
+    --tab-active: #4d8ac7;
+    --tab-border: #4a4b50;
+    --textarea-bg: #2d2e32;
+    --textarea-text: #e1e1e1;
+    --textarea-border: #4a4b50;
   }
 }
 
