@@ -38,28 +38,30 @@
     --color-focus: #4d8ac7;
     --color-divider: #4d8ac7;
   }
+}
 
-  /*  */
+/*  */
 
-  /* ... existing root variables ... */
+/* ... existing root variables ... */
 
-  :root {
-    /* Editor & Diff Compare shared variables */
-    --button-bg: #2d2e32;
-    --button-hover: #4d8ac7;
-    --button-text: #e1e1e1;
-    --button-hover-text: #ffffff;
-    --tab-active: #4d8ac7;
-    --tab-border: #4a4b50;
-    --textarea-bg: #2d2e32;
-    --textarea-text: #e1e1e1;
-    --textarea-border: #4a4b50;
-    --input-bg: #1a1b1e;
-    --input-border: #4a4b50;
-    --input-text: #e1e1e1;
-    --popup-bg: #2d2e32;
-    --popup-text: #e1e1e1;
-  }
+:root {
+  /* Editor & Diff Compare shared variables */
+  /* added for text editor */
+  --button-bg: #f0f0f0;
+  --button-hover: #007bff;
+  --button-text: #000000;
+  --button-hover-text: #ffffff;
+  --tab-active: #007bff;
+  --tab-border: #ccc;
+  --textarea-bg: #ffffff;
+  --textarea-text: #000000;
+  --textarea-border: #ccc;
+  /* added for diff compare */
+  --input-bg: #ffffff;
+  --input-border: #ccc;
+  --input-text: #000000;
+  --popup-bg: #ffffff;
+  --popup-text: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -67,6 +69,7 @@
     /* ... existing dark theme variables ... */
 
     /* Editor & Diff Compare dark theme */
+    /* added for text editor */
     --button-bg: #2d2e32;
     --button-hover: #4d8ac7;
     --button-text: #e1e1e1;
@@ -76,6 +79,7 @@
     --textarea-bg: #2d2e32;
     --textarea-text: #e1e1e1;
     --textarea-border: #4a4b50;
+    /* added for diff compare */
     --input-bg: #1a1b1e;
     --input-border: #4a4b50;
     --input-text: #e1e1e1;
