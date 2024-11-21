@@ -127,9 +127,9 @@
       }
 
       /*.function-button.active {
-        background-color: #4caf50;
-        color: white;
-      }*/
+          background-color: #4caf50;
+          color: white;
+        }*/
 
       /* Update popup styles */
       #summaryPopup,
@@ -215,29 +215,70 @@
       @media (prefers-color-scheme: dark) {
         /* Dark theme overrides for CodeMirror */
         .CodeMirror {
-          background: #1a1b1e !important;
-          color: #e1e1e1 !important;
+          background-color: var(--color-bg-primary) !important;
+          color: var(--color-text-primary) !important;
         }
 
         .CodeMirror-gutters {
-          background: #2d2e32 !important;
-          border-right: 1px solid #4a4b50 !important;
+          background-color: var(--color-bg-secondary) !important;
+          border-color: var(--color-border) !important;
         }
 
-        .CodeMirror-linenumber {
-          color: #a0a0a0 !important;
+        .mergely-column .CodeMirror-linenumber {
+          color: var(--color-text-secondary) !important;
         }
 
         /* Dark theme for diff highlights */
-        .mergely.ch.d.lhs {
-          background-color: rgba(255, 0, 0, 0.2) !important;
+        .mergely-editor .mergely.c.CodeMirror-linebackground {
+          border-color: var(--color-border);
+          background-color: var(--color-bg-secondary);
         }
-        .mergely.ch.a.rhs {
-          background-color: rgba(0, 255, 0, 0.2) !important;
+
+        /* text color */
+        .mergely-editor .CodeMirror-code {
+          color: #b0b0b0 !important; /* Dark mode - lighter gray for better contrast */
         }
-        .mergely.ch.c.rhs {
-          background-color: rgba(0, 0, 255, 0.2) !important;
+        /* Change diff colors for dark mode */
+        /* .mergely.ch.a { */
+        /* Added */
+        .mergely-editor .mergely.ch.ina.rhs {
+          /* background-color: rgba(76, 175, 80, 0.2) */
+          color: #81c784 !important; /* Brighter green for dark mode */
         }
+
+        /* .mergely.ch.d { */
+        /* Deleted */
+        .mergely-editor .mergely.ch.ind.lhs {
+          /* background-color: rgba(244, 67, 54, 0.2) */
+          color: #ef5350 !important; /* Brighter red for dark mode */
+        }
+
+        /* Changed - this doesnt do anything */
+        /* .mergely.ch.c {
+            background-color: rgba(255, 152, 0, 0.2) !important;
+          } */
+
+        /* Change border colors */
+        .mergely-column {
+          border-color: var(--color-border) !important;
+        }
+
+        /* Change active line highlight */
+        .CodeMirror-activeline-background {
+          background-color: var(--color-bg-tertiary) !important;
+        }
+      }
+
+      /* Light mode colors */
+      /* Added - blue */
+      .mergely-editor .mergely.ch.ina.rhs {
+        color: #1a1aff; /* Lighter blue */
+      }
+
+      /* Deleted - red */
+      .mergely-editor .mergely.ch.ind.lhs,
+      .mergely-editor .mergely.ch.d.lhs {
+        color: #c62828; /* Darker red */
       }
     </style>
     <div class="buttons-container">
