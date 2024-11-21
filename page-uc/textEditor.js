@@ -1,3 +1,12 @@
+const numberStyles = {
+  regular: "0123456789",
+  mathSansSerif: "𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫",
+  fullWidth: "０１２３４５６７８９",
+  mathSansSerifBold: "𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵",
+  circled: "⓪①②③④⑤⑥⑦⑧⑨",
+  negativeCircled: "⓿❶❷❸❹❺❻❼❽❾",
+};
+
 // JavaScript code will be added here
 document.addEventListener("DOMContentLoaded", () => {
   const topTabs = document.querySelectorAll(".top-tab");
@@ -425,6 +434,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return String.fromCharCode(parseInt(group1, 16));
           }
         );
+        ltrSwitch();
         break;
 
       case "encodeUnicode":
@@ -434,6 +444,7 @@ document.addEventListener("DOMContentLoaded", () => {
           while (hex.length < 4) hex = "0" + hex;
           return "\\u" + hex;
         });
+        ltrSwitch();
         break;
 
       case "decodeURL":
@@ -442,10 +453,74 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (e) {
           alert("Invalid URL encoding");
         }
+        ltrSwitch();
         break;
 
       case "encodeURL":
         textArea.value = encodeURI(textArea.value);
+        ltrSwitch();
+        break;
+
+      case "whichUnicodeCharacter":
+        const inputText = textArea.value;
+        let output = "";
+        for (let i = 0; i < inputText.length; i++) {
+          const codePoint = inputText.codePointAt(i);
+          const unicodeLink = `https://codepoints.net/U+${codePoint
+            .toString(16)
+            .toUpperCase()
+            .padStart(4, "0")}`;
+          output += `U+${codePoint
+            .toString(16)
+            .toUpperCase()
+            .padStart(4, "0")} : ${inputText[i]} : ${unicodeLink}\n`;
+          if (codePoint > 0xffff) i++; // Increment i again if surrogate pair
+        }
+        textArea.value = output;
+        ltrSwitch();
+        break;
+
+        // =====================================================
+
+        // had to place: const numberStyles = [, outside case, as global variable
+        function convertNumbers(targetStyle) {
+          let text = textArea.value;
+
+          // First convert everything to regular numbers
+          Object.values(numberStyles).forEach((style) => {
+            [...style].forEach((digit, index) => {
+              const regex = new RegExp(digit, "g");
+              text = text.replace(regex, index);
+            });
+          });
+
+          // Then convert to target style
+          const targetDigits = [...numberStyles[targetStyle]];
+          for (let i = 0; i < 10; i++) {
+            const regex = new RegExp(i.toString(), "g");
+            text = text.replace(regex, targetDigits[i]);
+          }
+
+          textArea.value = text;
+        }
+
+      case "toRegularNumbers":
+        convertNumbers("regular");
+        break;
+      case "toMathSansSerif":
+        convertNumbers("mathSansSerif");
+        break;
+      case "toFullWidth":
+        convertNumbers("fullWidth");
+        break;
+      case "toMathSansSerifBold":
+        convertNumbers("mathSansSerifBold");
+        break;
+      case "toCircled":
+        convertNumbers("circled");
+        break;
+      case "toNegativeCircled":
+        convertNumbers("negativeCircled");
         break;
 
       // =====================================================
@@ -700,32 +775,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateStats();
   });
-  //
-
-  document
-    .getElementById("whichUnicodeCharacter")
-    .addEventListener("click", () => {
-      scrollToTop();
-      //
-      ltrSwitch();
-
-      const inputText = textArea.value;
-      let output = "";
-      for (let i = 0; i < inputText.length; i++) {
-        const codePoint = inputText.codePointAt(i);
-        const unicodeLink = `https://codepoints.net/U+${codePoint
-          .toString(16)
-          .toUpperCase()
-          .padStart(4, "0")}`;
-        output += `U+${codePoint
-          .toString(16)
-          .toUpperCase()
-          .padStart(4, "0")} : ${inputText[i]} : ${unicodeLink}\n`;
-        if (codePoint > 0xffff) i++; // Increment i again if surrogate pair
-      }
-      textArea.value = output;
-      updateStats();
-    });
   //
 
   document.getElementById("rmvHtmlTags").addEventListener("click", () => {
@@ -1631,30 +1680,6 @@ i want one more space after the colon that comes after the issue description
       );
     }
 
-    updateStats();
-  });
-  //
-
-  const numberStyles = [
-    ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-    ["𝟢", "𝟣", "𝟤", "𝟥", "𝟦", "𝟧", "𝟨", "𝟩", "𝟪", "𝟫"],
-    ["０", "１", "２", "３", "４", "５", "６", "７", "８", "９"],
-    ["𝟬", "𝟭", "𝟮", "𝟯", "𝟰", "𝟱", "𝟲", "𝟳", "𝟴", "𝟵"],
-    ["⓪", "①", "②", "③", "④", "⑤", "⑥", "⑦", "⑧", "⑨"],
-    ["⓿", "❶", "❷", "❸", "❹", "❺", "❻", "❼", "❽", "❾"],
-  ];
-  let currentStyleIndex = 0;
-  document.getElementById("convertNumbers").addEventListener("click", () => {
-    const currentStyle = numberStyles[currentStyleIndex];
-    const nextStyle =
-      numberStyles[(currentStyleIndex + 1) % numberStyles.length];
-    let newText = textArea.value;
-    for (let i = 0; i < 10; i++) {
-      const regex = new RegExp(currentStyle[i], "g");
-      newText = newText.replace(regex, nextStyle[i]);
-    }
-    textArea.value = newText;
-    currentStyleIndex = (currentStyleIndex + 1) % numberStyles.length;
     updateStats();
   });
   //
