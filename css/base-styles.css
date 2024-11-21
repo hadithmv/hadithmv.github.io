@@ -4,6 +4,8 @@
 
 /* Add CSS Custom Properties for theming */
 
+/* Base variables */
+
 :root {
   /* Light theme */
   --color-bg-primary: #fff;
@@ -40,12 +42,9 @@
   }
 }
 
-/*  */
-
-/* ... existing root variables ... */
+/* Editor & Diff Compare shared variables */
 
 :root {
-  /* Editor & Diff Compare shared variables */
   /* added for text editor */
   --button-bg: #f0f0f0;
   --button-hover: #007bff;
