@@ -332,7 +332,7 @@
                 class="function-button"
                 title="Number operations and conversions"
               >
-                Numbers 🔢
+                NumberConv 🔢
               </button>
               <div class="dropdown-content">
                 <button
@@ -656,14 +656,9 @@
             >
               Txt 2 HTML&lt;p&gt; ✍
             </button>
-            <button
-              id="whichUnicodeCharacter"
-              class="function-button"
-              title="Tells you the unicode codepoints of each character in the text"
-            >
-              whichUniCdeChar❓
-            </button>
+
             <!--  -->
+
             <div class="dropdown-button">
               <button
                 id="decodeOptions"
@@ -672,6 +667,9 @@
               >
                 Decode/Encode 🔄
               </button>
+
+              <!--  -->
+
               <div class="dropdown-content">
                 <button
                   data-action="decodeUnicode"
@@ -696,6 +694,12 @@
                   title="Encodes a URL to percent-encoding"
                 >
                   Encode URL (space → %20)
+                </button>
+                <button
+                  data-action="whichUnicodeCharacter"
+                  title="Tells you the unicode codepoints of each character in the text"
+                >
+                  Show Unicode Codepoints ❓
                 </button>
               </div>
             </div>
@@ -736,13 +740,57 @@
             >
               Rmv ⁽¹⁾/(1)/[1]
             </button>
-            <button
-              id="convertNumbers"
-              class="function-button"
-              title="Converts regular numbers to MATHEMATICAL SANS-SERIF DIGIT on first click, then to fullwidth digit, then to MATHEMATICAL SANS-SERIF BOLD DIGIT, then to Circled Digit Zero, then to Negative Circled Digit Zero"
-            >
-              1/𝟣/１/𝟭/①/❶
-            </button>
+
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="numberStyles"
+                class="function-button"
+                title="Convert numbers to different styles"
+              >
+                NumberStyles #️⃣
+              </button>
+              <div class="dropdown-content">
+                <button
+                  data-action="toRegularNumbers"
+                  title="Convert back to regular digits"
+                >
+                  Regular (1)
+                </button>
+                <button
+                  data-action="toMathSansSerif"
+                  title="Convert to Mathematical Sans-serif Digits"
+                >
+                  Sans-serif (𝟣)
+                </button>
+                <button
+                  data-action="toFullWidth"
+                  title="Convert to Fullwidth Digits"
+                >
+                  Fullwidth (１)
+                </button>
+                <button
+                  data-action="toMathSansSerifBold"
+                  title="Convert to Mathematical Sans-serif Bold Digits"
+                >
+                  Sans-serif Bold (𝟭)
+                </button>
+                <button
+                  data-action="toCircled"
+                  title="Convert to Circled Digits"
+                >
+                  Circled (①)
+                </button>
+                <button
+                  data-action="toNegativeCircled"
+                  title="Convert to Negative Circled Digits"
+                >
+                  Negative Circled (❶)
+                </button>
+              </div>
+            </div>
+            <!--  -->
             <button
               id="toggleLeetSpeak"
               class="function-button"
