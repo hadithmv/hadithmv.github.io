@@ -339,7 +339,8 @@ document.addEventListener("DOMContentLoaded", () => {
           .replace(/[^a-zA-Z0-9]+/g, "");
         break;
 
-      //
+      // =====================================================
+
       case "splitIntoWords":
         textArea.value = textArea.value
           .split(/\s+/)
@@ -414,6 +415,42 @@ document.addEventListener("DOMContentLoaded", () => {
       case "reverseTextVertical":
         textArea.value = textArea.value.split("\n").reverse().join("\n");
         break;
+
+      // =====================================================
+
+      case "decodeUnicode":
+        textArea.value = textArea.value.replace(
+          /\\u([0-9a-fA-F]{4})/g,
+          function (match, group1) {
+            return String.fromCharCode(parseInt(group1, 16));
+          }
+        );
+        break;
+
+      case "encodeUnicode":
+        textArea.value = textArea.value.replace(/[\s\S]/g, function (char) {
+          let hex = char.charCodeAt(0).toString(16);
+          // Pad with zeros to ensure 4 digits
+          while (hex.length < 4) hex = "0" + hex;
+          return "\\u" + hex;
+        });
+        break;
+
+      case "decodeURL":
+        try {
+          textArea.value = decodeURI(textArea.value);
+        } catch (e) {
+          alert("Invalid URL encoding");
+        }
+        break;
+
+      case "encodeURL":
+        textArea.value = encodeURI(textArea.value);
+        break;
+
+      // =====================================================
+
+      //
 
       // CASES END
     }
@@ -695,61 +732,6 @@ document.addEventListener("DOMContentLoaded", () => {
     scrollToTop();
     //
     textArea.value = textArea.value.replace(/<[^>]*>/g, "");
-    updateStats();
-  });
-  //
-
-  let isDecoded = false;
-
-  document
-    .getElementById("decodeEncodeUnicode")
-    .addEventListener("click", () => {
-      ltrSwitch();
-
-      if (isDecoded) {
-        const input = textArea.value;
-        let output = "";
-
-        for (let i = 0; i < input.length; i++) {
-          const charCode = input.charCodeAt(i);
-          output += "\\u" + charCode.toString(16).padStart(4, "0");
-        }
-
-        textArea.value = output;
-        //
-        document.getElementById("decodeEncodeUnicode").textContent =
-          "Decode \\unicode";
-      } else {
-        // Decode: Convert Unicode escape sequences to characters
-        textArea.value = textArea.value.replace(
-          /\\u([0-9a-fA-F]{4})/g,
-          (match, p1) => {
-            return String.fromCharCode(parseInt(p1, 16));
-          }
-        );
-        document.getElementById("decodeEncodeUnicode").textContent =
-          "Encode unicode";
-      }
-      isDecoded = !isDecoded;
-      updateStats();
-    });
-  //
-
-  let isURLDecoded = false;
-
-  document.getElementById("decodeEncodeURL").addEventListener("click", () => {
-    ltrSwitch();
-
-    if (isURLDecoded) {
-      // Encode: Convert text to URL-encoded format
-      textArea.value = encodeURI(textArea.value);
-      document.getElementById("decodeEncodeURL").textContent = "Decode URL";
-    } else {
-      // Decode: Convert URL-encoded text back to regular text
-      textArea.value = decodeURI(textArea.value);
-      document.getElementById("decodeEncodeURL").textContent = "Encode URL";
-    }
-    isURLDecoded = !isURLDecoded;
     updateStats();
   });
   //
@@ -1630,15 +1612,6 @@ i want one more space after the colon that comes after the issue description
       );
       updateStats();
     });
-  //
-
-  document.getElementById("splitIntoWords").addEventListener("click", () => {
-    scrollToTop();
-    //
-    const words = textArea.value.match(/\S+/g) || [];
-    textArea.value = words.join("\n");
-    updateStats();
-  });
   //
 
   let convertSalawatclickCount = 0;
