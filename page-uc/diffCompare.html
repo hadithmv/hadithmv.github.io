@@ -133,6 +133,13 @@
         min-width: 15px;
         /* */
         font-size: 18px;
+        background-color: var(--button-bg);
+        color: var(--button-text);
+      }
+
+      .function-button:hover {
+        background-color: var(--button-hover);
+        color: var(--button-hover-text);
       }
 
       /*.function-button.active {
@@ -147,6 +154,16 @@
         border-radius: 4px;
         font-size: 18px; /* 14 */
         text-align: center;
+        background-color: var(--input-bg);
+        color: var(--input-text);
+        border-color: var(--input-border);
+      }
+
+      /* Update popup styles */
+      #summaryPopup,
+      #helpPopup {
+        background-color: var(--popup-bg);
+        color: var(--popup-text);
       }
 
       /* only for MOBILE size */
@@ -160,6 +177,8 @@
 
         .function-button {
           font-size: 14px;
+          background-color: var(--button-bg);
+          color: var(--button-text);
         }
       }
 
@@ -219,6 +238,34 @@
       /*div.CodeMirror-gutter.CodeMirror-linenumbers*/
       .CodeMirror-linenumbers {
         width: 45px;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        /* Dark theme overrides for CodeMirror */
+        .CodeMirror {
+          background: #1a1b1e !important;
+          color: #e1e1e1 !important;
+        }
+
+        .CodeMirror-gutters {
+          background: #2d2e32 !important;
+          border-right: 1px solid #4a4b50 !important;
+        }
+
+        .CodeMirror-linenumber {
+          color: #a0a0a0 !important;
+        }
+
+        /* Dark theme for diff highlights */
+        .mergely.ch.d.lhs {
+          background-color: rgba(255, 0, 0, 0.2) !important;
+        }
+        .mergely.ch.a.rhs {
+          background-color: rgba(0, 255, 0, 0.2) !important;
+        }
+        .mergely.ch.c.rhs {
+          background-color: rgba(0, 0, 255, 0.2) !important;
+        }
       }
     </style>
     <div class="buttons-container">
