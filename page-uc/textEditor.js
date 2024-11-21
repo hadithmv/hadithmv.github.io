@@ -338,6 +338,84 @@ document.addEventListener("DOMContentLoaded", () => {
           .toLowerCase()
           .replace(/[^a-zA-Z0-9]+/g, "");
         break;
+
+      //
+      case "splitIntoWords":
+        textArea.value = textArea.value
+          .split(/\s+/)
+          .filter((word) => word.length > 0)
+          .join("\n");
+        break;
+
+      case "sortWordsByFrequency":
+        scrollToTop();
+        const text = textArea.value;
+        const words = text.toLowerCase().match(/\b[\w']+\b/g) || [];
+        const frequency = {};
+
+        words.forEach((word) => {
+          frequency[word] = (frequency[word] || 0) + 1;
+        });
+
+        const sortedWords = Object.entries(frequency)
+          .sort((a, b) => b[1] - a[1])
+          .map(([word, freq]) => `${freq}: ${word}`);
+
+        textArea.value = sortedWords.join("\n");
+        break;
+
+      case "sortLinesByFrequency":
+        scrollToTop();
+        const lines = textArea.value
+          .split("\n")
+          .filter((line) => line.trim() !== "");
+        const lineFrequency = {};
+
+        lines.forEach((line) => {
+          lineFrequency[line] = (lineFrequency[line] || 0) + 1;
+        });
+
+        const sortedLines = Object.entries(lineFrequency)
+          .sort((a, b) => b[1] - a[1])
+          .map(([line, freq]) => `${freq}: ${line}`);
+
+        textArea.value = sortedLines.join("\n");
+        break;
+
+      case "sortLinesAscending":
+        textArea.value = textArea.value
+          .split("\n")
+          .sort((a, b) => a.localeCompare(b))
+          .join("\n");
+        break;
+
+      case "sortLinesDescending":
+        textArea.value = textArea.value
+          .split("\n")
+          .sort((a, b) => b.localeCompare(a))
+          .join("\n");
+        break;
+
+      case "randomizeLines":
+        textArea.value = textArea.value
+          .split("\n")
+          .sort(() => Math.random() - 0.5)
+          .join("\n");
+        break;
+
+      case "removeDuplicateLines":
+        textArea.value = [...new Set(textArea.value.split("\n"))].join("\n");
+        break;
+
+      case "reverseTextHorizontal":
+        textArea.value = textArea.value.split("").reverse().join("");
+        break;
+
+      case "reverseTextVertical":
+        textArea.value = textArea.value.split("\n").reverse().join("\n");
+        break;
+
+      // CASES END
     }
     updateStats();
   }
@@ -676,51 +754,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   //
 
-  document
-    .getElementById("sortWordsByFrequency")
-    .addEventListener("click", () => {
-      scrollToTop();
-      //
-      const text = textArea.value;
-      const words = text.toLowerCase().match(/\b[\w']+\b/g) || [];
-      const frequency = {};
-
-      words.forEach((word) => {
-        frequency[word] = (frequency[word] || 0) + 1;
-      });
-
-      const sortedWords = Object.entries(frequency)
-        .sort((a, b) => b[1] - a[1])
-        .map(([word, freq]) => `${freq}: ${word}`);
-
-      textArea.value = sortedWords.join("\n");
-      updateStats();
-    });
-  //
-
-  document
-    .getElementById("sortLinesByFrequency")
-    .addEventListener("click", () => {
-      scrollToTop();
-      //
-      const lines = textArea.value
-        .split("\n")
-        .filter((line) => line.trim() !== "");
-      const frequency = {};
-
-      lines.forEach((line) => {
-        frequency[line] = (frequency[line] || 0) + 1;
-      });
-
-      const sortedLines = Object.entries(frequency)
-        .sort((a, b) => b[1] - a[1])
-        .map(([line, freq]) => `${freq}: ${line}`);
-
-      textArea.value = sortedLines.join("\n");
-      updateStats();
-    });
-  //
-
   let lineNumbersAdded = false;
 
   document.getElementById("toggleLineNumbers").addEventListener("click", () => {
@@ -739,52 +772,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("toggleLineNumbers").textContent =
         "Add Line Numbers";
       lineNumbersAdded = false;
-    }
-    updateStats();
-  });
-  //
-
-  let sortOrder = "asc";
-  document.getElementById("toggleSortLines").addEventListener("click", () => {
-    const lines = textArea.value.split("\n");
-    if (sortOrder === "asc") {
-      textArea.value = lines.sort().join("\n");
-      document.getElementById("toggleSortLines").textContent = "Sort Lines ⬇️";
-      sortOrder = "desc";
-    } else if (sortOrder === "desc") {
-      textArea.value = lines.sort().reverse().join("\n");
-      document.getElementById("toggleSortLines").textContent = "Reset Sorting";
-      sortOrder = "reset";
-    } else {
-      // Reset to original order
-      document.getElementById("toggleSortLines").textContent = "Sort Lines ⬆️";
-      sortOrder = "asc";
-    }
-    updateStats();
-  });
-  //
-
-  document.getElementById("randomizeLines").addEventListener("click", () => {
-    const lines = textArea.value.split("\n");
-    for (let i = lines.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [lines[i], lines[j]] = [lines[j], lines[i]];
-    }
-    textArea.value = lines.join("\n");
-    updateStats();
-  });
-  //
-
-  let reverseState = "horizontal";
-  document.getElementById("reverseText").addEventListener("click", () => {
-    if (reverseState === "horizontal") {
-      textArea.value = textArea.value.split("").reverse().join("");
-      document.getElementById("reverseText").textContent = "Rvrs VertiLines ↕️";
-      reverseState = "vertical";
-    } else {
-      textArea.value = textArea.value.split("\n").reverse().join("\n");
-      document.getElementById("reverseText").textContent = "Rvrs HoriTxt ⏪";
-      reverseState = "horizontal";
     }
     updateStats();
   });
@@ -1641,18 +1628,6 @@ i want one more space after the colon that comes after the issue description
         /\(\d+\)|\[\d+\]|⁽[⁰¹²³⁴⁵⁶⁷⁸⁹]+⁾/g,
         ""
       );
-      updateStats();
-    });
-  //
-
-  document
-    .getElementById("removeDuplicateLines")
-    .addEventListener("click", () => {
-      scrollToTop();
-      //
-      const lines = textArea.value.split("\n");
-      const uniqueLines = [...new Set(lines)];
-      textArea.value = uniqueLines.join("\n");
       updateStats();
     });
   //
