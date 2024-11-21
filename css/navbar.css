@@ -10,11 +10,9 @@ to html, and link to the js
 /* Add CSS Custom Properties for NAVBAR theming */
 :root {
   /* Light theme */
-  --nav-bg: #235580;
-  --nav-text: #ffffff;
-  /* --nav-shadow: rgba(0, 0, 0, 0.1); */
   --menu-bg: #235580;
-  --menu-text: #eeeeee;
+  --menu-text: #ffffff;
+  /* --nav-shadow: rgba(0, 0, 0, 0.1); */
   --dropdown-bg: #0d4266;
   --dropdown-hover: #1a5585;
   --menu-border: rgba(255, 255, 255, 0.1);
@@ -23,11 +21,9 @@ to html, and link to the js
 @media (prefers-color-scheme: dark) {
   :root {
     /* Dark theme */
-    --nav-bg: #1a3f61;
-    --nav-text: #ffffff;
-    /* --nav-shadow: rgba(0, 0, 0, 0.3); */
     --menu-bg: #1a3f61;
-    --menu-text: #ffffff;
+    --menu-text: #e1e1e1;
+    /* --nav-shadow: rgba(0, 0, 0, 0.3); */
     --dropdown-bg: #0a2540;
     --dropdown-hover: #2a5075;
     --menu-border: rgba(255, 255, 255, 0.15);
@@ -72,8 +68,8 @@ html body {
     color: white;*/
   /* prev 0f4c75 #333; */
 
-  background-color: var(--nav-bg);
-  color: var(--nav-text);
+  background-color: var(--menu-bg);
+  color: var(--menu-text);
   /* box-shadow: 0 2px 4px var(--nav-shadow); */
   /* ??? */
   height: 50px; /* 60 */
