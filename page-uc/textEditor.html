@@ -378,7 +378,7 @@
                 class="function-button"
                 title="Fili and Diacritic  options"
               >
-                Fili Diacritics ◌̱
+                Diacritics ◌̱
               </button>
               <div class="dropdown-content">
                 <button
@@ -440,7 +440,7 @@
                 class="function-button"
                 title="Change text case options"
               >
-                Change Case 🔠
+                Case 🔠
               </button>
               <div class="dropdown-content">
                 <button data-action="titleCase">Title Case</button>
@@ -663,20 +663,44 @@
             >
               whichUniCdeChar❓
             </button>
-            <button
-              id="decodeEncodeUnicode"
-              class="function-button"
-              title="Decodes unicode 4-digit hexadecimal code points into readable characters (like \u0061 to a) on the first click, and encodes it on the next"
-            >
-              Decode \unicode
-            </button>
-            <button
-              id="decodeEncodeURL"
-              class="function-button"
-              title="Decodes a URL from percent-encoding on the first click, and encodes it on the second"
-            >
-              Decode URL 🔗
-            </button>
+            <!--  -->
+            <div class="dropdown-button">
+              <button
+                id="decodeOptions"
+                class="function-button"
+                title="Decode/Encode options"
+              >
+                Decode/Encode 🔄
+              </button>
+              <div class="dropdown-content">
+                <button
+                  data-action="decodeUnicode"
+                  title="Decodes unicode 4-digit hexadecimal code points into readable characters"
+                >
+                  Decode Unicode (\u0061 → a)
+                </button>
+                <button
+                  data-action="encodeUnicode"
+                  title="Encodes characters into unicode 4-digit hexadecimal code points"
+                >
+                  Encode Unicode (a → \u0061)
+                </button>
+                <button
+                  data-action="decodeURL"
+                  title="Decodes a URL from percent-encoding"
+                >
+                  Decode URL (%20 → space)
+                </button>
+                <button
+                  data-action="encodeURL"
+                  title="Encodes a URL to percent-encoding"
+                >
+                  Encode URL (space → %20)
+                </button>
+              </div>
+            </div>
+            <!--  -->
+
             <button
               id="rmvHtmlTags"
               class="function-button"
