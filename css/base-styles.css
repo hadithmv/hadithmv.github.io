@@ -31,6 +31,12 @@
   --textarea-bg: #ffffff;
   --textarea-text: #000000;
   --textarea-border: #ccc;
+  /* added for diff compare */
+  --input-bg: #ffffff;
+  --input-border: #ccc;
+  --input-text: #000000;
+  --popup-bg: #ffffff;
+  --popup-text: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -61,6 +67,12 @@
     --textarea-bg: #2d2e32;
     --textarea-text: #e1e1e1;
     --textarea-border: #4a4b50;
+    /* added for diff compare */
+    --input-bg: #1a1b1e;
+    --input-border: #4a4b50;
+    --input-text: #e1e1e1;
+    --popup-bg: #2d2e32;
+    --popup-text: #e1e1e1;
   }
 }
 
