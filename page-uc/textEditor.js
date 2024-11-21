@@ -1928,6 +1928,128 @@ the textarea text should be replaced each time the button is clicked
   });
   //
 
+  document.getElementById("numerateWords").addEventListener("click", () => {
+    const textArea = document.getElementById("textArea");
+    const isNumberToWords = document
+      .getElementById("numerateWords")
+      .textContent.includes("No → Wrd");
+
+    if (isNumberToWords) {
+      // Convert numbers to words and "%" to "percent"
+      textArea.value = textArea.value
+        .replace(/\b\d+\b/g, (match) => numberToWords(parseInt(match))) // Numbers to words
+        .replace(/%/g, "percent"); // % to percent
+      document.getElementById("numerateWords").textContent = "Wrd → No";
+    } else {
+      // Convert words to numbers and "percent" to "%"
+      textArea.value = textArea.value
+        .replace(/\b(?:\w+(?:-\w+)*)\b/g, (match) =>
+          wordToNumber(match.toLowerCase())
+        ) // Words to numbers
+        .replace(/\bpercent\b/g, "%"); // Only "percent" to "%"
+      document.getElementById("numerateWords").textContent = "No → Wrd";
+    }
+
+    updateStats();
+  });
+
+  // Helper: Convert numbers to words
+  function numberToWords(num) {
+    const ones = [
+      "",
+      "one",
+      "two",
+      "three",
+      "four",
+      "five",
+      "six",
+      "seven",
+      "eight",
+      "nine",
+    ];
+    const tens = [
+      "",
+      "",
+      "twenty",
+      "thirty",
+      "forty",
+      "fifty",
+      "sixty",
+      "seventy",
+      "eighty",
+      "ninety",
+    ];
+    const teens = [
+      "ten",
+      "eleven",
+      "twelve",
+      "thirteen",
+      "fourteen",
+      "fifteen",
+      "sixteen",
+      "seventeen",
+      "eighteen",
+      "nineteen",
+    ];
+
+    if (num < 10) return ones[num];
+    if (num < 20) return teens[num - 10];
+    if (num < 100) {
+      const remainder = num % 10;
+      return (
+        tens[Math.floor(num / 10)] + (remainder ? `-${ones[remainder]}` : "")
+      );
+    }
+    return num; // Extend for larger numbers if needed
+  }
+
+  // Helper: Convert words to numbers
+  function wordToNumber(word) {
+    const wordsToNumbers = {
+      one: 1,
+      two: 2,
+      three: 3,
+      four: 4,
+      five: 5,
+      six: 6,
+      seven: 7,
+      eight: 8,
+      nine: 9,
+      ten: 10,
+      eleven: 11,
+      twelve: 12,
+      thirteen: 13,
+      fourteen: 14,
+      fifteen: 15,
+      sixteen: 16,
+      seventeen: 17,
+      eighteen: 18,
+      nineteen: 19,
+      twenty: 20,
+      thirty: 30,
+      forty: 40,
+      fifty: 50,
+      sixty: 60,
+      seventy: 70,
+      eighty: 80,
+      ninety: 90,
+      hundred: 100,
+    };
+
+    // Handle hyphenated numbers
+    if (word.includes("-")) {
+      const parts = word.split("-");
+      const tens = wordsToNumbers[parts[0]] || 0;
+      const ones = wordsToNumbers[parts[1]] || 0;
+      return tens + ones;
+    }
+
+    // Handle single-word numbers
+    return wordsToNumbers[word] || word;
+  }
+
+  //
+
   /*
 when the button is first clicked, show an input boxes saying "How many?" placeholder, which lets the user input a number, after which, further clicks on the button will repeat the lines of text according to the number given in the input
 the input boxes should not show before the button has been clicked
