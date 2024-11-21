@@ -107,6 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
     updateStats();
   }
 
+  // =====================================================
+
   // functions within FUNCTIONS
 
   function ltrSwitch() {
@@ -123,6 +125,224 @@ document.addEventListener("DOMContentLoaded", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
   //
+
+  // =====================================================
+
+  //  JavaScript to handle the dropdown functionality:
+
+  // Call this after your DOM is loaded
+  setupDropdowns();
+  //
+
+  // Add near the top of your DOMContentLoaded event handler
+  function setupDropdowns() {
+    document.querySelectorAll(".dropdown-button").forEach((dropdown) => {
+      const button = dropdown.querySelector(".function-button");
+      const content = dropdown.querySelector(".dropdown-content");
+
+      // Toggle dropdown on button click
+      button.addEventListener("click", (e) => {
+        e.stopPropagation();
+        closeAllDropdowns();
+        content.classList.toggle("show");
+      });
+
+      // Handle dropdown option clicks
+      content.addEventListener("click", (e) => {
+        if (e.target.tagName === "BUTTON") {
+          const action = e.target.dataset.action;
+          handleDropdownAction(action);
+          content.classList.remove("show");
+        }
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener("click", closeAllDropdowns);
+  }
+
+  function closeAllDropdowns() {
+    document.querySelectorAll(".dropdown-content").forEach((content) => {
+      content.classList.remove("show");
+    });
+  }
+
+  //  DROPDOWN FUNCTIONS BEGIN FROM HERE BELOW
+
+  function handleDropdownAction(action) {
+    switch (action) {
+      case "arabicToRegular":
+        textArea.value = textArea.value.replace(/[٠١٢٣٤٥٦٧٨٩]/g, (d) =>
+          "٠١٢٣٤٥٦٧٨٩".indexOf(d)
+        );
+        break;
+      case "regularToArabic":
+        textArea.value = textArea.value.replace(
+          /[0-9]/g,
+          (d) => "٠١٢٣٤٥٦٧٨٩"[d]
+        );
+        break;
+      case "removePrecedingZeros":
+        textArea.value = textArea.value.replace(/\b0+(\d)/g, "$1");
+        break;
+
+      case "removeAllNumbers":
+        textArea.value = textArea.value.replace(/[٠-٩0-9]/g, "");
+        break;
+
+      case "keepOnlyNumbers":
+        textArea.value = textArea.value.replace(/[^٠-٩0-9]/g, "");
+        break;
+
+      //     // Add more cases as needed
+      //   }
+      //   updateStats();
+      // }
+
+      // =====================================================
+
+      case "removeArabicDiacritics":
+        textArea.value = textArea.value.replace(
+          /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED]/g,
+          ""
+        );
+        break;
+      case "removeDhivehiFili":
+        textArea.value = textArea.value.replace(/[\u07A6-\u07B0]/g, "");
+        break;
+
+      // =====================================================
+
+      case "saveFile":
+        const blob = new Blob([textArea.value], {
+          type: "text/plain;charset=utf-8",
+        });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "saved_text.txt";
+        a.click();
+        break;
+
+      case "loadFile":
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "text/plain";
+        input.onchange = (e) => {
+          const file = e.target.files[0];
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            textArea.value = event.target.result;
+            updateStats();
+          };
+          reader.readAsText(file);
+        };
+        input.click();
+        break;
+
+      // =====================================================
+
+      case "titleCase":
+        textArea.value = textArea.value.replace(
+          /\w\S*/g,
+          (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+        );
+        break;
+
+      case "sentenceCase":
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/(^\w|\.\s+\w)/g, (letter) => letter.toUpperCase());
+        break;
+
+      case "lowercase":
+        textArea.value = textArea.value.toLowerCase();
+        break;
+
+      case "UPPERCASE":
+        textArea.value = textArea.value.toUpperCase();
+        break;
+
+      case "alternatingCase":
+        textArea.value = textArea.value
+          .split("")
+          .map((char, i) =>
+            i % 2 === 0 ? char.toLowerCase() : char.toUpperCase()
+          )
+          .join("");
+        break;
+
+      case "inverseCase":
+        textArea.value = textArea.value
+          .split("")
+          .map((char) =>
+            char === char.toUpperCase()
+              ? char.toLowerCase()
+              : char.toUpperCase()
+          )
+          .join("");
+        break;
+
+      case "randomCase":
+        textArea.value = textArea.value
+          .split("")
+          .map((char) =>
+            Math.random() > 0.5 ? char.toUpperCase() : char.toLowerCase()
+          )
+          .join("");
+        break;
+
+      case "camelCase":
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/[^a-zA-Z0-9]+(.)/g, (match, char) => char.toUpperCase());
+        break;
+
+      case "pascalCase":
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/(^|[^a-zA-Z0-9]+)(.)/g, (match, separator, char) =>
+            char.toUpperCase()
+          );
+        break;
+
+      case "snakeCase":
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/[^a-zA-Z0-9]+/g, "_")
+          .replace(/^_+|_+$/g, "");
+        break;
+
+      case "constantCase":
+        textArea.value = textArea.value
+          .toUpperCase()
+          .replace(/[^A-Z0-9]+/g, "_")
+          .replace(/^_+|_+$/g, "");
+        break;
+
+      case "kebabCase":
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/[^a-zA-Z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+        break;
+
+      case "dotCase":
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/[^a-zA-Z0-9]+/g, ".")
+          .replace(/^\.+|\.+$/g, "");
+        break;
+
+      case "flatcase":
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/[^a-zA-Z0-9]+/g, "");
+        break;
+    }
+    updateStats();
+  }
+
+  // =====================================================
 
   // BUTTON FUNCTIONS
 
@@ -141,88 +361,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   //
 
-  document.getElementById("arabicDigits").addEventListener("click", () => {
-    textArea.value = textArea.value.replace(/[0-9]/g, (d) => "٠١٢٣٤٥٦٧٨٩"[d]);
-    updateStats();
-  });
-  //
-
-  document.getElementById("regularDigits").addEventListener("click", () => {
-    textArea.value = textArea.value.replace(/[٠١٢٣٤٥٦٧٨٩]/g, (d) =>
-      "٠١٢٣٤٥٦٧٨٩".indexOf(d)
-    );
-    updateStats();
-  });
-  //
-
-  document.getElementById("removeDiacritics").addEventListener("click", () => {
-    textArea.value = textArea.value.replace(
-      /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED]/g,
-      ""
-    );
-    updateStats();
-  });
-  //
-
-  document.getElementById("saveFile").addEventListener("click", () => {
-    const blob = new Blob([textArea.value], {
-      type: "text/plain;charset=utf-8",
-    });
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "saved_text.txt";
-    a.click();
-  });
-  //
-
-  document.getElementById("loadFile").addEventListener("click", () => {
-    const input = document.createElement("input");
-    input.type = "file";
-    input.accept = "text/plain";
-    input.onchange = (e) => {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        textArea.value = event.target.result;
-        updateStats();
-      };
-      reader.readAsText(file);
-    };
-    input.click();
-  });
-  //
-
   let isRTL = true;
   document.getElementById("toggleDirection").addEventListener("click", () => {
     isRTL = !isRTL;
     textArea.style.direction = isRTL ? "rtl" : "ltr";
     textArea.style.textAlign = isRTL ? "right" : "left";
-  });
-  //
-
-  const caseFunctions = [
-    {
-      name: "Title Case",
-      func: (str) =>
-        str.replace(
-          /\w\S*/g,
-          (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-        ),
-    },
-    {
-      name: "Sentence case",
-      func: (str) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase(),
-    },
-    { name: "lower case", func: (str) => str.toLowerCase() },
-    { name: "UPPER CASE", func: (str) => str.toUpperCase() },
-  ];
-  let currentCaseIndex = 0;
-  document.getElementById("changeCase").addEventListener("click", () => {
-    textArea.value = caseFunctions[currentCaseIndex].func(textArea.value);
-    currentCaseIndex = (currentCaseIndex + 1) % caseFunctions.length;
-    document.getElementById("changeCase").textContent =
-      caseFunctions[currentCaseIndex].name;
-    updateStats();
   });
   //
 
@@ -317,12 +460,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   //
 
-  document.getElementById("keepOnlyNumbers").addEventListener("click", () => {
-    textArea.value = textArea.value.replace(/[^0-9\n]/g, "");
-    updateStats();
-  });
-  //
-
   let cycleState = 0;
   document.getElementById("cycleBrackets").addEventListener("click", () => {
     const transformations = [
@@ -412,12 +549,6 @@ document.addEventListener("DOMContentLoaded", () => {
       isRTLtoLTR = !isRTLtoLTR;
       updateStats();
     });
-  //
-
-  document.getElementById("removeAllNumbers").addEventListener("click", () => {
-    textArea.value = textArea.value.replace(/[0-9]/g, "");
-    updateStats();
-  });
   //
 
   document.getElementById("keepOnlyAr").addEventListener("click", () => {
@@ -746,14 +877,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     updateStats();
   });
-  //
-
-  document
-    .getElementById("removePrecedingZeros")
-    .addEventListener("click", () => {
-      textArea.value = textArea.value.replace(/\b0+(\d+)/g, "$1");
-      updateStats();
-    });
   //
 
   // RMV THIKIJEHI THAANA
@@ -1214,14 +1337,6 @@ i dont want output to have multiple spaces
       textArea.value = removeThikijehiThaana(textArea.value);
       updateStats();
     });
-  //
-
-  document.getElementById("removeDhivehiFili").addEventListener("click", () => {
-    scrollToTop();
-    //
-    textArea.value = textArea.value.replace(/[\u07A6-\u07B0]/g, "");
-    updateStats();
-  });
   //
 
   /*
