@@ -176,6 +176,47 @@
         /*direction: ltr;*/
       }
 
+      /* Add to your existing <style> section */
+      .dropdown-button {
+        position: relative;
+        display: inline-block;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: var(--textarea-bg);
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        border: 1px solid var(--textarea-border);
+        border-radius: 4px;
+        max-height: 300px;
+        overflow-y: auto;
+        direction: ltr;
+      }
+
+      .dropdown-content button {
+        color: var(--textarea-text);
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        width: 100%;
+        text-align: left;
+        border: none;
+        background: none;
+        cursor: pointer;
+      }
+
+      .dropdown-content button:hover {
+        background-color: var(--button-hover);
+        color: var(--button-hover-text);
+      }
+
+      .show {
+        display: block;
+      }
+
       .buttonInput {
         width: 90px; /* 60 */
         padding: 5px;
@@ -284,41 +325,104 @@
             >
               Copy 📋
             </button>
-            <button
-              id="arabicDigits"
-              class="function-button"
-              title="Converts regular numbers to Arabic numbers"
-            >
-              ٣ ٢ ١ 1️⃣
-            </button>
-            <button
-              id="regularDigits"
-              class="function-button"
-              title="Converts Arabic  numbers to regular numbers"
-            >
-              1 2 3
-            </button>
-            <button
-              id="removeDiacritics"
-              class="function-button"
-              title="Removes all Arabic diacritical marks / tashkeel / harakat"
-            >
-              Rmv تشكيل 〰️
-            </button>
-            <button
-              id="saveFile"
-              class="function-button"
-              title="Saves the text as a .txt file to your device. Note: Doesn't work on the Android app."
-            >
-              Save 📩
-            </button>
-            <button
-              id="loadFile"
-              class="function-button"
-              title="Uploads the content of a file you choose from your device. Note: Doesn't work on the Android app."
-            >
-              Load 📤
-            </button>
+
+            <div class="dropdown-button">
+              <button
+                id="numberConversions"
+                class="function-button"
+                title="Number operations and conversions"
+              >
+                Numbers 🔢
+              </button>
+              <div class="dropdown-content">
+                <button
+                  data-action="arabicToRegular"
+                  title="Converts Arabic numbers to regular numbers"
+                >
+                  Arabic to Regular (١٢٣ → 123)
+                </button>
+                <button
+                  data-action="regularToArabic"
+                  title="Converts regular numbers to Arabic numbers"
+                >
+                  Regular to Arabic (123 → ١٢٣)
+                </button>
+                <button
+                  data-action="removePrecedingZeros"
+                  title="Removes all leading / preceding zeros"
+                >
+                  Remove leading zeros (001 → 1)
+                </button>
+                <button
+                  data-action="removeAllNumbers"
+                  title="Removes all numbers"
+                >
+                  Remove all numbers (1a → a)
+                </button>
+                <button
+                  data-action="keepOnlyNumbers"
+                  title="Removes all text except for numbers"
+                >
+                  Keep only numbers (1a → 1)
+                </button>
+                <!-- Add more number-related options as needed -->
+              </div>
+            </div>
+
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="diacriticOptions"
+                class="function-button"
+                title="Fili and Diacritic  options"
+              >
+                Fili Diacritics ◌̱
+              </button>
+              <div class="dropdown-content">
+                <button
+                  data-action="removeArabicDiacritics"
+                  title="Removes all Arabic diacritical marks / tashkeel / harakat"
+                >
+                  Remove Arabic Diacritics 〰️
+                </button>
+                <button
+                  data-action="removeDhivehiFili"
+                  title="Removes all Dhivehi fili / diacritics"
+                >
+                  Remove Dhivehi Fili ➿
+                </button>
+              </div>
+            </div>
+
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="fileOperations"
+                class="function-button"
+                title="Save or load files"
+              >
+                File Ops 📁
+              </button>
+              <div class="dropdown-content">
+                <button
+                  data-action="saveFile"
+                  title="Saves the text as a .txt file to your device. Note: Doesn't work on the Android app."
+                >
+                  Save File 📩
+                </button>
+                <button
+                  data-action="loadFile"
+                  title="Uploads the content of a file you choose from your device. Note: Doesn't work on the Android app."
+                >
+                  Load File 📤
+                </button>
+              </div>
+            </div>
+
+            <!--  -->
+
             <button
               id="toggleDirection"
               class="function-button"
@@ -326,13 +430,37 @@
             >
               RTL ⟺ LTR
             </button>
-            <button
-              id="changeCase"
-              class="function-button"
-              title="Changes English text to title case, then sentance case, then lower case, then upper case"
-            >
-              Title Case 🔠
-            </button>
+
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="caseOptions"
+                class="function-button"
+                title="Change text case options"
+              >
+                Change Case 🔠
+              </button>
+              <div class="dropdown-content">
+                <button data-action="titleCase">Title Case</button>
+                <button data-action="sentenceCase">Sentence case</button>
+                <button data-action="lowercase">lowercase</button>
+                <button data-action="UPPERCASE">UPPERCASE</button>
+                <button data-action="alternatingCase">aLtErNaTiNg cAsE</button>
+                <button data-action="inverseCase">InVeRsE CaSe</button>
+                <button data-action="randomCase">RaNDom caSE</button>
+                <button data-action="camelCase">camelCase</button>
+                <button data-action="pascalCase">PascalCase</button>
+                <button data-action="snakeCase">snake_case</button>
+                <button data-action="constantCase">CONSTANT_CASE</button>
+                <button data-action="kebabCase">kebab-case</button>
+                <button data-action="dotCase">dot.case</button>
+                <button data-action="flatcase">flatcase</button>
+              </div>
+            </div>
+
+            <!--  -->
+
             <button
               id="wordWrap"
               class="function-button"
@@ -390,27 +518,6 @@
               -/–/—
             </button>
             <!-- -->
-            <button
-              id="keepOnlyNumbers"
-              class="function-button"
-              title="Erases all text except for numbers"
-            >
-              Keep Only Nos #️⃣
-            </button>
-            <button
-              id="removeAllNumbers"
-              class="function-button"
-              title="Erases all numbers in the text"
-            >
-              Rmv All Nos ✖️
-            </button>
-            <button
-              id="removePrecedingZeros"
-              class="function-button"
-              title="Removes all leading / preceding zeros"
-            >
-              Rmv Lead 0️⃣s
-            </button>
 
             <button
               id="findFiliIssues"
@@ -448,14 +555,6 @@
               title="Transliterates Arabic (must have fili) to Dhivehi"
             >
               Trnsltrt Ar → Dv
-            </button>
-
-            <button
-              id="removeDhivehiFili"
-              class="function-button"
-              title="Removes all Dhivehi fili / diacritics"
-            >
-              Rmv Dhiv Fili ➿
             </button>
 
             <button
