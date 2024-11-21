@@ -64,6 +64,8 @@
         /*font-family: Arial, sans-serif;*/
         line-height: 1.6;
         padding: 20px;
+        /* background-color: var(--editor-bg);
+        color: var(--editor-text); */
       }
 
       .top-tabs {
@@ -78,11 +80,12 @@
         border: none;
         background: none;
         font-size: 16px;
+        color: var(--editor-text);
       }
 
       .top-tab.active {
-        border-bottom: 2px solid #007bff;
-        color: #007bff;
+        border-bottom: 2px solid var(--tab-active);
+        color: var(--tab-active);
       }
 
       .tab-content {
@@ -122,16 +125,18 @@
       #addTab {
         padding: 5px 10px;
         cursor: pointer;
-        border: 1px solid #ccc;
         border-radius: 5px;
         margin-right: 5px;
         min-width: 30px;
         text-align: center;
+        border: 1px solid var(--tab-border);
+        background-color: var(--button-bg);
+        color: var(--button-text);
       }
 
       .numbered-tab.active {
-        background-color: #007bff;
-        color: white;
+        background-color: var(--tab-active);
+        color: var(--button-hover-text);
       }
 
       #textArea {
@@ -144,6 +149,9 @@
         direction: rtl;
         text-align: right;
         font-family: inherit;
+        background-color: var(--textarea-bg);
+        color: var(--textarea-text);
+        border: 1px solid var(--textarea-border);
       }
 
       .buttons-container {
@@ -163,6 +171,17 @@
         cursor: pointer;
         /* */
         min-width: 15px;
+        background-color: var(--button-bg);
+        color: var(--button-text);
+        border: 1px solid var(--tab-border);
+      }
+
+      .function-button:hover,
+      .copy-button:hover,
+      .copy-button-lit:hover,
+      .copy-button-other:hover {
+        background-color: var(--button-hover);
+        color: var(--button-hover-text);
       }
 
       /* copyTab buttons */
@@ -182,10 +201,12 @@
       .buttonInput {
         width: 90px; /* 60 */
         padding: 5px;
-        border: 1px solid #ccc;
         border-radius: 4px;
         font-size: 18px; /* 14 */
         text-align: center;
+        background-color: var(--textarea-bg);
+        color: var(--textarea-text);
+        border: 1px solid var(--textarea-border);
       }
 
       #findInput,
