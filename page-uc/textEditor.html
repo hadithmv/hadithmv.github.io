@@ -551,20 +551,35 @@
             >
               Rmv Xtra Space ⸝⸝
             </button>
-            <button
-              id="convertQuotes"
-              class="function-button"
-              title="Converts all straight / dumb quotes to RTL curly / smart quotes on first click, then does the reverse on the second"
-            >
-              ' " ↔ ’ “
-            </button>
-            <button
-              id="reverseCurlyQuotes"
-              class="function-button"
-              title="Converts RTL curly quotes to LTR facing quotes on first click, then the reverse on the second"
-            >
-              ’‘ ”“ ↔ ‘’ “”
-            </button>
+
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="convertQuotes"
+                class="function-button"
+                title="Quote conversion options"
+              >
+                QuoteConv ' " ↔ ‘’ “”
+              </button>
+              <div class="dropdown-content">
+                <button data-action="rtlStraightToCurly">
+                  RTL Straight → Curly ('' "" → ’‘ ”“)
+                </button>
+                <button data-action="ltrStraightToCurly">
+                  LTR Straight → Curly ('' "" → ‘’ “”)
+                </button>
+                <button data-action="curlyToStraight">
+                  Curly to Straight (‘’ “” → '' "")
+                </button>
+                <button data-action="reverseCurlyQuotes">
+                  Reverse Curly Quotes (‘’ “” ↔ ’‘ ”“)
+                </button>
+              </div>
+            </div>
+
+            <!--  -->
+
             <button
               id="cycleBrackets"
               class="function-button"
