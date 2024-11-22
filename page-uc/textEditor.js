@@ -809,26 +809,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   //
 
-  let isRTLtoLTR = true;
-
-  document
-    .getElementById("reverseCurlyQuotes")
-    .addEventListener("click", () => {
-      const textArea = document.getElementById("textArea");
-      const quoteMap = isRTLtoLTR
-        ? { "‘": "’", "’": "‘", "“": "”", "”": "“" }
-        : { "’": "‘", "‘": "’", "”": "“", "“": "”" };
-
-      textArea.value = textArea.value.replace(
-        /[’‘”“]/g,
-        (match) => quoteMap[match] || match
-      );
-
-      isRTLtoLTR = !isRTLtoLTR;
-      updateStats();
-    });
-  //
-
   document.getElementById("keepOnlyAr").addEventListener("click", () => {
     scrollToTop();
     //
