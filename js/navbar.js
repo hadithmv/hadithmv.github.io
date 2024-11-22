@@ -156,35 +156,35 @@ function createNavbar() {
   <div class="navbar-left">
     <img
       alt="Site Icon"
-      class="site-icon"
+      class="navbar-site-icon"
       onclick="goToHomePage()"
       src="../img/logo/logo.svg"
       title="back to homepage"
     />
   </div>
   <div class="navbar-center">
-    <span class="page-title">${pageTitle}</span>
+    <span class="navbar-navbar-page-title">${pageTitle}</span>
   </div>
   <div class="navbar-right" title="menu">
-    <span class="menu-icon">☰</span>
+    <span class="navbar-menu-icon">☰</span>
   </div>
 </nav>
-<div class="side-menu" id="sideMenu">
-  <div class="side-menu-close" onclick="toggleSideMenu()">×</div>
+<div class="navbar-side-menu" id="sideMenu">
+  <div class="navbar-side-menu-close" onclick="toggleSideMenu()">×</div>
   <ul>
     <li>
       <a href="../books/index.html">● މައި ސަފުހާ</a>
     </li>
-    <li onclick="sideMenutoggleDropdown(this)" class="dropdown">
-      <div class="dropdown-label">
-        <span class="dropdown-arrow">◄</span>ބައިތައް
+    <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
+      <div class="navbar-dropdown-label">
+        <span class="navbar-dropdown-arrow">◄</span>ބައިތައް
       </div>
-      <ul class="dropdown-content">
-        <li onclick="sideMenutoggleDropdown(this,event)" class="sub-dropdown">
-          <div class="dropdown-label">
-            <span class="dropdown-arrow">◄</span>ގުރްއާން
+      <ul class="navbar-dropdown-content">
+        <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
+          <div class="navbar-dropdown-label">
+            <span class="navbar-dropdown-arrow">◄</span>ގުރްއާން
           </div>
-          <ul class="sub-dropdown-content">
+          <ul class="sub-navbar-dropdown-content">
             <li>
               <a
                 href="../books/quranHadithmv.html"
@@ -226,11 +226,11 @@ function createNavbar() {
             </li>
           </ul>
         </li>
-        <li onclick="sideMenutoggleDropdown(this,event)" class="sub-dropdown">
-          <div class="dropdown-label">
-            <span class="dropdown-arrow">◄</span>ޙަދީޘް
+        <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
+          <div class="navbar-dropdown-label">
+            <span class="navbar-dropdown-arrow">◄</span>ޙަދީޘް
           </div>
-          <ul class="sub-dropdown-content">
+          <ul class="sub-navbar-dropdown-content">
             <li>
               <a href="../books/allAthar.html"
                 >އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</a
@@ -278,11 +278,11 @@ function createNavbar() {
             </li>
           </ul>
         </li>
-        <li onclick="sideMenutoggleDropdown(this,event)" class="sub-dropdown">
-          <div class="dropdown-label">
-            <span class="dropdown-arrow">◄</span>އަގީދާ
+        <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
+          <div class="navbar-dropdown-label">
+            <span class="navbar-dropdown-arrow">◄</span>އަގީދާ
           </div>
-          <ul class="sub-dropdown-content">
+          <ul class="sub-navbar-dropdown-content">
             <li>
               <a href="../books/allAqida.html"
                 >އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</a
@@ -337,11 +337,11 @@ function createNavbar() {
             </li>
           </ul>
         </li>
-        <li onclick="sideMenutoggleDropdown(this,event)" class="sub-dropdown">
-          <div class="dropdown-label">
-            <span class="dropdown-arrow">◄</span>ބަސް
+        <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
+          <div class="navbar-dropdown-label">
+            <span class="navbar-dropdown-arrow">◄</span>ބަސް
           </div>
-          <ul class="sub-dropdown-content">
+          <ul class="sub-navbar-dropdown-content">
             <li>
               <a href="../mauhad/arabic.html">މަދީނާ އަރަބި ފޮތްތައް</a>
             </li>
@@ -418,12 +418,12 @@ function createNavbar() {
     >
       ▲ މައްޗަށް ސްކްރޯލްކުރޭ
     </li>
-    <li onclick="sideMenutoggleDropdown(this)" class="dropdown">
-      <div class="dropdown-label">
-        <span class="dropdown-arrow">◄</span>↺ ސަފުހާ
+    <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
+      <div class="navbar-dropdown-label">
+        <span class="navbar-dropdown-arrow">◄</span>↺ ސަފުހާ
       </div>
 
-      <ul class="dropdown-content">
+      <ul class="navbar-dropdown-content">
         <li>
           <a href="#" onclick="window.location.reload()">މަޑު ރީލޯޑު</a>
         </li>
@@ -449,28 +449,28 @@ document.addEventListener("DOMContentLoaded", createNavbar);
   <nav class="navbar">
         <div class="navbar-left">
             <img src="../img/logo/logo.svg" 
-                 title="back to homepage" alt="Site Icon" class="site-icon" onclick="goToHomePage()">
+                 title="back to homepage" alt="Site Icon" class="navbar-site-icon" onclick="goToHomePage()">
         </div>
         <div class="navbar-center">
-            <span class="page-title">${pageTitle}</span>
+            <span class="navbar-page-title">${pageTitle}</span>
         </div>
         <div class="navbar-right" 
              title="menu">
-        <span class="menu-icon">☰</span>
+        <span class="navbar-menu-icon">☰</span>
         </div>
     </nav>
     
-    <div class="side-menu" id="sideMenu">
-        <div class="side-menu-close" onclick="toggleSideMenu()">×</div>
+    <div class="navbar-side-menu" id="sideMenu">
+        <div class="navbar-side-menu-close" onclick="toggleSideMenu()">×</div>
         <ul>
             <li><a href="../books/index.html">● މައި ސަފުހާ</a></li>
-            <li class="dropdown" onclick="sideMenutoggleDropdown(this)">
-                <a><span class="dropdown-arrow">◄</span>ބައިތައް</a>
-                <ul class="dropdown-content">
+            <li class="navbar-dropdown" onclick="sideMenutoggleNavbarDropdown(this)">
+                <a><span class="navbar-dropdown-arrow">◄</span>ބައިތައް</a>
+                <ul class="navbar-dropdown-content">
                     <li><a href="#">ގުރްއާން</a></li>
-                    <li class="sub-dropdown" onclick="sideMenutoggleDropdown(this, event)">
-                        <a><span class="dropdown-arrow">◄</span>ޙަދީޘް</a>
-                        <ul class="sub-dropdown-content">
+                    <li class="sub-navbar-dropdown" onclick="sideMenutoggleNavbarDropdown(this, event)">
+                        <a><span class="navbar-dropdown-arrow">◄</span>ޙަދީޘް</a>
+                        <ul class="sub-navbar-dropdown-content">
                             <li><a href="allAthar.html">އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</a></li>
                             <li><a href="muwattaMalik.html">މުވައްޠައު މާލިކު*</a></li>
                             <li><a href="umdathulAhkam.html">ޢުމްދަތުލް އަޙްކާމް</a></li>
@@ -493,9 +493,9 @@ document.addEventListener("DOMContentLoaded", createNavbar);
             <li><a href="https://t.me/ashraafmv">ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a></li>
             <li style="font-size: 90%">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</li>
             <li style="cursor: pointer; user-select: none;"  href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">▲ މައްޗަށް ސްކްރޯލްކުރޭ</li>
-            <li class="dropdown" onclick="sideMenutoggleDropdown(this)">
+            <li class="navbar-dropdown" onclick="sideMenutoggleNavbarDropdown(this)">
                 <a>↺ ސަފުހާ ރީލޯޑު</a>
-                <ul class="dropdown-content">
+                <ul class="navbar-dropdown-content">
                     <li><a onclick="window.location.reload()" href="#">މަޑު ރީލޯޑު</a></li>
                     <li><a onclick="window.location.href=window.location.href.split('.html')[0]+'.html'">ހަރު ރީލޯޑު</a></li>
                 </ul>
@@ -507,16 +507,16 @@ document.addEventListener("DOMContentLoaded", createNavbar);
     ///////////////////
     
   
-  <a><span class="dropdown-arrow">◄</span>↺ ސަފުހާ ރީލޯޑު</a>
+  <a><span class="navbar-dropdown-arrow">◄</span>↺ ސަފުހާ ރީލޯޑު</a>
 
   <li><a href="#">ބައި 1</a></li>
-                    <li class="sub-dropdown" onclick="sideMenutoggleDropdown(this, event)">
-                        <a><span class="dropdown-arrow">◄</span>ބައި 2</a>
-                        <ul class="sub-dropdown-content">
+                    <li class="sub-navbar-dropdown" onclick="sideMenutoggleNavbarDropdown(this, event)">
+                        <a><span class="navbar-dropdown-arrow">◄</span>ބައި 2</a>
+                        <ul class="sub-navbar-dropdown-content">
                             <li><a href="#">ސަބް-ބައި 2.1</a></li>
-                            <li class="sub-sub-dropdown" onclick="sideMenutoggleDropdown(this, event)">
-                                <a><span class="dropdown-arrow">◄</span>ސަބް-ބައި 2.2</a>
-                                <ul class="sub-sub-dropdown-content">
+                            <li class="sub-sub-navbar-dropdown" onclick="sideMenutoggleNavbarDropdown(this, event)">
+                                <a><span class="navbar-dropdown-arrow">◄</span>ސަބް-ބައި 2.2</a>
+                                <ul class="sub-sub-navbar-dropdown-content">
                                     <li><a href="#">ސަބް-ސަބް-ބައި 2.2.1</a></li>
                                     <li>ސަބް-ސަބް-ބައި 2.2.2 (ޓެކްސްޓް)</li>
                                 </ul>
@@ -548,10 +548,10 @@ document.addEventListener("click", function (event) {
   const isClickInsideSideMenu = sideMenu.contains(event.target);
 
   // Check if the site icon is clicked (prevents the side menu from opening)
-  const isSiteIconClicked = event.target.classList.contains("site-icon");
+  const isSiteIconClicked = event.target.classList.contains("navbar-site-icon");
 
   // Check if the menu icon is clicked
-  const isMenuIconClicked = event.target.classList.contains("menu-icon");
+  const isMenuIconClicked = event.target.classList.contains("navbar-menu-icon");
 
   // If the menu icon is clicked, toggle the side menu
   if (isMenuIconClicked) {
@@ -571,37 +571,37 @@ document.addEventListener("click", function (event) {
 //--------------------
 // NAVBAR DROPDOWNS
 //--------------------
-// Function to toggle dropdowns
+// Function to toggle navbar dropdowns
 
-function sideMenutoggleDropdown(element, event) {
+function sideMenutoggleNavbarDropdown(element, event) {
   // Prevent event bubbling
 
   if (event) {
     event.stopPropagation();
   }
-  const dropdownContent = element.querySelector(
-    ".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content"
+  const dropdownNavbarContent = element.querySelector(
+    ".navbar-dropdown-content, .sub-navbar-dropdown-content, .sub-sub-navbar-dropdown-content"
   );
-  const arrow = element.querySelector(".dropdown-arrow");
-  if (dropdownContent) {
-    dropdownContent.classList.toggle("show");
+  const arrow = element.querySelector(".navbar-dropdown-arrow");
+  if (dropdownNavbarContent) {
+    dropdownNavbarContent.classList.toggle("show");
     // Rotate arrow when dropdown is opened/closed
 
-    arrow.style.transform = dropdownContent.classList.contains("show")
+    arrow.style.transform = dropdownNavbarContent.classList.contains("show")
       ? "rotate(-90deg)"
       : "";
   }
 
-  // Close other dropdowns at the same level
+  // Close other navbar dropdowns at the same level
   const siblings = element.parentElement.children;
   for (let sibling of siblings) {
     if (sibling !== element) {
-      const siblingDropdown = sibling.querySelector(
-        ".dropdown-content, .sub-dropdown-content, .sub-sub-dropdown-content"
+      const siblingNavbarDropdown = sibling.querySelector(
+        ".navbar-dropdown-content, .sub-navbar-dropdown-content, .sub-sub-navbar-dropdown-content"
       );
-      const siblingArrow = sibling.querySelector(".dropdown-arrow");
-      if (siblingDropdown) {
-        siblingDropdown.classList.remove("show");
+      const siblingArrow = sibling.querySelector(".navbar-dropdown-arrow");
+      if (siblingNavbarDropdown) {
+        siblingNavbarDropdown.classList.remove("show");
         siblingArrow.style.transform = "";
       }
     }
@@ -678,11 +678,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //
 
-// Close dropdowns when clicking outside
+// Close navbar dropdowns when clicking outside
 /*window.onclick = function (event) {
-  if (!event.target.closest(".dropdown, .sub-dropdown, .sub-sub-dropdown")) {
-    const dropdowns = document.getElementsByClassName("dropdown-content");
-    const arrows = document.getElementsByClassName("dropdown-arrow");
+  if (!event.target.closest(".navbar-dropdown, .sub-navbar-dropdown, .sub-sub-navbar-dropdown")) {
+    const dropdowns = document.getElementsByClassName("navbar-dropdown-content");
+    const arrows = document.getElementsByClassName("navbar-dropdown-arrow");
     for (let dropdown of dropdowns) {
       dropdown.classList.remove("show");
     }
@@ -699,14 +699,14 @@ document.addEventListener("DOMContentLoaded", function () {
 //
 
 /*
- <div class="side-menu" id="sideMenu">
-                    <div class="side-menu-close" onclick="toggleSideMenu()">×</div>
+ <div class="navbar-side-menu" id="sideMenu">
+                    <div class="navbar-side-menu-close" onclick="toggleSideMenu()">×</div>
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li><a href="#">About</a></li>
-                        <li class="dropdown">
+                        <li class="navbar-dropdown">
                             <a href="#">Services</a>
-                            <div class="dropdown-content">
+                            <div class="navbar-dropdown-content">
                                 <a href="#">Service 1</a>
                                 <a href="#">Service 2</a>
                                 <a href="#">Service 3</a>

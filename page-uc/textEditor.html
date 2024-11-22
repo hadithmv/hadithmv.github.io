@@ -216,6 +216,48 @@
       .show {
         display: block;
       }
+      /*  */
+
+      .converter-options {
+        padding: 10px;
+        text-align: left;
+      }
+
+      .option-group {
+        margin-bottom: 10px;
+      }
+
+      .option-group label {
+        display: block;
+        color: var(--textarea-text);
+      }
+
+      .converter-select {
+        width: 100%;
+        padding: 5px;
+        background-color: var(--textarea-bg);
+        color: var(--textarea-text);
+        border: 1px solid var(--textarea-border);
+        border-radius: 4px;
+      }
+
+      .apply-button {
+        width: 100%;
+        padding: 8px;
+        margin-top: 10px;
+        background-color: var(--button-bg);
+        color: var(--button-text);
+        border: 1px solid var(--button-border);
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .apply-button:hover {
+        background-color: var(--button-hover);
+        color: var(--button-hover-text);
+      }
+
+      /*  */
 
       .buttonInput {
         width: 90px; /* 60 */
@@ -575,6 +617,53 @@
                 <button data-action="reverseCurlyQuotes">
                   Reverse Curly Quotes (‘’ “” ↔ ’‘ ”“)
                 </button>
+              </div>
+            </div>
+
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="bracketConverter"
+                class="function-button"
+                title="Convert between different bracket styles"
+              >
+                BracketConv ( )
+              </button>
+              <div class="dropdown-content bracket-converter">
+                <div class="converter-options">
+                  <div class="option-group">
+                    <label>From:</label>
+                    <select id="bracketFrom" class="converter-select">
+                      <option value="round">()</option>
+                      <option value="square">[]</option>
+                      <option value="superscript">⁽⁾</option>
+                      <option value="corner">⌜⌝</option>
+                    </select>
+                  </div>
+
+                  <div class="option-group">
+                    <label>To:</label>
+                    <select id="bracketTo" class="converter-select">
+                      <option value="round">()</option>
+                      <option value="square">[]</option>
+                      <option value="superscript">⁽⁾</option>
+                      <option value="corner">⌜⌝</option>
+                    </select>
+                  </div>
+
+                  <div class="option-group">
+                    <label>Direction:</label>
+                    <select id="bracketDirection" class="converter-select">
+                      <option value="ltr">LTR</option>
+                      <option value="rtl">RTL</option>
+                    </select>
+                  </div>
+
+                  <button data-action="convertBrackets" class="apply-button">
+                    Apply
+                  </button>
+                </div>
               </div>
             </div>
 

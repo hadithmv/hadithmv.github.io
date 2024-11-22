@@ -13,8 +13,8 @@ to html, and link to the js
   --menu-bg: #235580;
   --menu-text: #ffffff;
   /* --nav-shadow: rgba(0, 0, 0, 0.1); */
-  --dropdown-bg: #0d4266;
-  --dropdown-hover: #1a5585;
+  --navbar-dropdown-bg: #0d4266;
+  --navbar-dropdown-hover: #1a5585;
   --menu-border: rgba(255, 255, 255, 0.1);
 }
 
@@ -24,18 +24,18 @@ to html, and link to the js
     --menu-bg: #1a3f61;
     --menu-text: #e1e1e1;
     /* --nav-shadow: rgba(0, 0, 0, 0.3); */
-    --dropdown-bg: #0a2540;
-    --dropdown-hover: #2a5075;
+    --navbar-dropdown-bg: #0a2540;
+    --navbar-dropdown-hover: #2a5075;
     --menu-border: rgba(255, 255, 255, 0.15);
   }
 }
 
 /* Optional: Add transition for smooth theme switching */
 /* .navbar,
-  .side-menu,
-  .dropdown-content,
-  .sub-dropdown-content,
-  .sub-sub-dropdown-content {
+  .navbar-side-menu,
+  .navbar-dropdown-content,
+  .sub-navbar-dropdown-content,
+  .sub-sub-navbar-dropdown-content {
     transition: background-color 0.3s ease, color 0.3s ease;
   } */
 
@@ -113,7 +113,7 @@ html body {
 }
 
 /* Site icon styles */
-.site-icon {
+.navbar-site-icon {
   width: 46px; /* 48 40 */
   height: 46px;
   cursor: pointer;
@@ -124,7 +124,7 @@ html body {
 }
 
 /* Page title styles */
-.page-title {
+.navbar-page-title {
   font-size: 22px; /* Default size for larger screens */
   white-space: nowrap; /* Prevent line breaks */
   overflow: hidden; /* Hide overflow */
@@ -137,15 +137,15 @@ html body {
 }
 
 /* Menu icon styles */
-.menu-icon {
+.navbar-menu-icon {
   font-size: 24px;
   cursor: pointer;
 
   display: flex; /* Ensure proper alignment */
   align-items: center;
   justify-content: center;
-  width: 40px; /* Match the width of the site-icon */
-  height: 40px; /* Match the height of the site-icon */
+  width: 40px; /* Match the width of the navbar-site-icon */
+  height: 40px; /* Match the height of the navbar-site-icon */
 }
 
 /* Responsive adjustments for smaller screens */
@@ -154,23 +154,23 @@ html body {
     padding: 0 10px;
   }
 
-  .site-icon,
-  .menu-icon {
+  .navbar-site-icon,
+  .navbar-menu-icon {
     width: 36px;
     height: 36px;
   }
 
-  .page-title {
+  .navbar-page-title {
     font-size: 18px;
   }
 
-  .menu-icon {
+  .navbar-menu-icon {
     font-size: 22px;
   }
 }
 
 /* Side menu styles */
-.side-menu {
+.navbar-side-menu {
   position: fixed;
   top: 0;
   right: -300px;
@@ -195,11 +195,11 @@ html body {
 
 /* Hide scrollbar but keep functionality */
 /* Chrome, Safari and Opera */
-.side-menu::-webkit-scrollbar {
+.navbar-side-menu::-webkit-scrollbar {
   display: none;
 }
 /* Hide scrollbar for IE, Edge and Firefox */
-.side-menu {
+.navbar-side-menu {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
@@ -210,12 +210,12 @@ html body {
         } */
 
 /* Side menu open state */
-.side-menu.open {
+.navbar-side-menu.open {
   right: 0;
 }
 
 /* Side menu close button styles */
-.side-menu-close {
+.navbar-side-menu-close {
   font-size: 24px;
   cursor: pointer;
   /* color: #eee;  */
@@ -224,7 +224,7 @@ html body {
 }
 
 /* Side menu list styles */
-.side-menu ul {
+.navbar-side-menu ul {
   list-style-type: none;
   padding: 0;
   /* */
@@ -234,35 +234,35 @@ html body {
 /* Ensure each li takes full width */
 /* increased from 10 */
 /*  prev 5 which added like a little indent */
-/*.side-menu ul li {
+/*.navbar-side-menu ul li {
     display: block;
     margin-bottom: 15px;
     padding-right: 0;
   }*/
-.side-menu li {
+.navbar-side-menu li {
   margin: 0;
   padding: 0;
   display: block;
   margin-bottom: 15px;
 }
 
-.side-menu li a,
-.dropdown-label {
+.navbar-side-menu li a,
+.navbar-dropdown-label {
   color: var(--menu-text);
 }
 
 /* Add hover effects */
-.side-menu li a:hover,
-.dropdown-label:hover {
-  background-color: var(--dropdown-hover);
+.navbar-side-menu li a:hover,
+.navbar-dropdown-label:hover {
+  background-color: var(--navbar-dropdown-hover);
 }
 
-/*.side-menu ul li a {
+/*.navbar-side-menu ul li a {
     text-decoration: none;
     color: #eee; 
   }*/
 /* #333; */
-.side-menu li a {
+.navbar-side-menu li a {
   display: block;
   /*padding: 12px 16px;*/
   padding-left: 14px;
@@ -273,10 +273,10 @@ html body {
   text-decoration: none;
 }
 
-/* Dropdown styles */
-.dropdown,
-.sub-dropdown,
-.sub-sub-dropdown {
+/* Navbar Dropdown styles */
+.navbar-dropdown,
+.sub-navbar-dropdown,
+.sub-sub-navbar-dropdown {
   position: relative;
   /*display: block;*/ /* Make dropdown take full width */
   width: 100%;
@@ -293,9 +293,9 @@ html body {
 }
 
 /*padding: 12px 16px;*/
-/*.dropdown > a,
-  .sub-dropdown > a,
-  .sub-sub-dropdown > a {
+/*.navbar-dropdown > a,
+  .sub-navbar-dropdown > a,
+  .sub-sub-navbar-dropdown > a {
     display: flex;
     align-items: center;
     width: 100%;
@@ -306,7 +306,7 @@ html body {
     padding-right: 16px;
     padding-left: 16px;
   }*/
-.dropdown-label {
+.navbar-dropdown-label {
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -318,29 +318,29 @@ html body {
   width: 100%;
   box-sizing: border-box;
 }
-.dropdown > .dropdown-label,
-.sub-dropdown > .dropdown-label,
-.sub-sub-dropdown > .dropdown-label {
+.navbar-dropdown > .navbar-dropdown-label,
+.sub-navbar-dropdown > .navbar-dropdown-label,
+.sub-sub-navbar-dropdown > .navbar-dropdown-label {
   padding-right: 16px;
   padding-left: 16px;
 }
 
-/* Dropdown arrow styles */
-.dropdown-arrow {
+/* Navbar Dropdown arrow styles */
+.navbar-dropdown-arrow {
   display: inline-block;
   margin-left: 10px;
   transition: transform 0.3s ease;
 }
 
-/* Dropdown content styles */
-.dropdown-content,
-.sub-dropdown-content,
-.sub-sub-dropdown-content {
+/* NavbarDropdown content styles */
+.navbar-dropdown-content,
+.sub-navbar-dropdown-content,
+.sub-sub-navbar-dropdown-content {
   display: none;
   position: relative;
   /*background-color: #0d4266;*/
   /* #f9f9f9; */
-  background-color: var(--dropdown-bg);
+  background-color: var(--navbar-dropdown-bg);
   /*width: 200px;*/
   min-width: 160px;
   /*box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);*/ /* cleaner without shadows */
@@ -358,25 +358,25 @@ html body {
   line-height: 2.5;
 }
 
-/* Show dropdown content when active */
-.dropdown-content.show,
-.sub-dropdown-content.show,
-.sub-sub-dropdown-content.show {
+/* Show navbar dropdown content when active */
+.navbar-dropdown-content.show,
+.sub-navbar-dropdown-content.show,
+.sub-sub-navbar-dropdown-content.show {
   display: block;
 }
 
-/* Styles for list items within dropdowns */
-.dropdown-content li,
-.sub-dropdown-content li,
-.sub-sub-dropdown-content li {
+/* Styles for list items within navbar dropdowns */
+.navbar-dropdown-content li,
+.sub-navbar-dropdown-content li,
+.sub-sub-navbar-dropdown-content li {
   padding: 0;
   /* added. this makes the line gaps even. important overrides the parent margin given to this */
   margin: 0 !important;
 }
 
-/*.dropdown-content a,
-  .sub-dropdown-content a,
-  .sub-sub-dropdown-content a {
+/*.navbar-dropdown-content a,
+  .sub-navbar-dropdown-content a,
+  .sub-sub-navbar-dropdown-content a {
     color: #eee;
     text-decoration: none !important;
     display: block;
@@ -384,14 +384,14 @@ html body {
   }*/
 /* display was grid before, and block before that */
 
-/* Remove specific styling for sub-dropdown and sub-sub-dropdown */
-.sub-dropdown,
-.sub-sub-dropdown {
+/* Remove specific styling for sub-navbar-dropdown and sub-sub-navbar-dropdown */
+.sub-navbar-dropdown,
+.sub-sub-navbar-dropdown {
   padding-right: 0;
 }
 
-.sub-dropdown::after,
-.sub-sub-dropdown::after {
+.sub-navbar-dropdown::after,
+.sub-sub-navbar-dropdown::after {
   content: none;
 }
 

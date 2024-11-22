@@ -156,9 +156,12 @@ document.addEventListener("DOMContentLoaded", () => {
         content.classList.toggle("show");
       });
 
-      // Handle dropdown option clicks
+      // Prevent closing when clicking inside dropdown content
       content.addEventListener("click", (e) => {
-        if (e.target.tagName === "BUTTON") {
+        e.stopPropagation();
+
+        // Only handle action if clicking a direct action button
+        if (e.target.tagName === "BUTTON" && e.target.dataset.action) {
           const action = e.target.dataset.action;
           handleDropdownAction(action);
           content.classList.remove("show");
@@ -576,6 +579,33 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
       case "toNegativeCircled":
         convertNumbers("negativeCircled");
+        break;
+
+      // =====================================================
+
+      case "convertBrackets":
+        const bracketMappings = {
+          round: ["(", ")"],
+          square: ["[", "]"],
+          superscript: ["⁽", "⁾"],
+          corner: ["⌜", "⌝"],
+        };
+
+        const fromBrackets =
+          bracketMappings[document.getElementById("bracketFrom").value];
+        const toBrackets =
+          bracketMappings[document.getElementById("bracketTo").value];
+        const direction = document.getElementById("bracketDirection").value;
+
+        if (direction === "ltr") {
+          textArea.value = textArea.value
+            .replace(new RegExp("\\" + fromBrackets[0], "g"), toBrackets[0])
+            .replace(new RegExp("\\" + fromBrackets[1], "g"), toBrackets[1]);
+        } else {
+          textArea.value = textArea.value
+            .replace(new RegExp("\\" + fromBrackets[0], "g"), toBrackets[1])
+            .replace(new RegExp("\\" + fromBrackets[1], "g"), toBrackets[0]);
+        }
         break;
 
       // =====================================================
