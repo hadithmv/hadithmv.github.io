@@ -203,7 +203,62 @@ document.addEventListener("DOMContentLoaded", () => {
         textArea.value = textArea.value.replace(/[^٠-٩0-9]/g, "");
         break;
 
-      //     // Add more cases as needed
+      // =====================================================
+
+      case "rtlStraightToCurly":
+      case "ltrStraightToCurly":
+        const isRTL = action === "rtlStraightToCurly";
+        textArea.value = textArea.value
+          // Opening doubles
+          .replace(/(\W|^)"(\S)/g, `$1${isRTL ? "\u201D" : "\u201C"}$2`)
+          // Closing doubles
+          .replace(
+            new RegExp(
+              `(${isRTL ? "\u201D" : "\u201C"}[^"]*)"([^"]*$|[^${
+                isRTL ? "\u201D" : "\u201C"
+              }"]*${isRTL ? "\u201D" : "\u201C"})`,
+              "g"
+            ),
+            `$1${isRTL ? "\u201C" : "\u201D"}$2`
+          )
+          // Remaining double closing
+          .replace(/([^0-9])"/g, `$1${isRTL ? "\u201C" : "\u201D"}`)
+          // Opening singles
+          .replace(/(\W|^)'(\S)/g, `$1${isRTL ? "\u2019" : "\u2018"}$2`)
+          // Contractions
+          .replace(/([a-z])'([a-z])/gi, "$1\u2018$2")
+          // Closing singles
+          .replace(
+            /((\u2019[^']*)|[a-z])'([^0-9]|$)/gi,
+            `$1${isRTL ? "\u2018" : "\u2019"}$3`
+          )
+          // Abbrev. years like '93
+          .replace(
+            /(\u2019)([0-9]{2}[^\u2018]*)(\u2019([^0-9]|$)|$|\u2018[a-z])/gi,
+            "\u2018$2$3"
+          )
+          // Backwards apostrophe
+          .replace(
+            /(\B|^)\u2019(?=([^\u2018]*\u2018\b)*([^\u2018\u2019]*\W[\u2018\u2019]\b|[^\u2018\u2019]*$))/gi,
+            "$1\u2018"
+          )
+          // Triple prime
+          .replace(/'''/g, "\u2034")
+          // Double prime
+          .replace(/''/g, "\u2033")
+          // Prime
+          .replace(/'/g, "\u2032");
+        break;
+
+      case "curlyToStraight":
+        textArea.value = textArea.value
+          .replace(/[\u2018\u2019]/g, "'")
+          .replace(/[\u201C\u201D]/g, '"');
+        break;
+
+      // =====================================================
+
+      //     !!!  Add more cases as needed
       //   }
       //   updateStats();
       // }
