@@ -455,13 +455,13 @@ NESTED BELOWPAGE DROPDOWN CODE
 
 // Wait for the DOM to be fully loaded before executing the script
 document.addEventListener("DOMContentLoaded", function () {
-  // Select the main dropdown container
-  const dropdown = document.querySelector(".belowPage-bab-dropdown");
+  // Select the main bab dropdown container
+  const babDropdown = document.querySelector(".belowPage-bab-dropdown");
 
-  // Only proceed if the dropdown exists on the page
-  if (dropdown) {
-    // Add a click event listener to the dropdown for event delegation
-    dropdown.addEventListener("click", function (e) {
+  // Only proceed if the bab dropdown exists on the page
+  if (babDropdown) {
+    // Add a click event listener to the bab dropdown for event delegation
+    babDropdown.addEventListener("click", function (e) {
       // Prevent the default anchor tag behavior
       e.preventDefault();
       // Get the clicked element
@@ -474,19 +474,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Handle different click scenarios
         if (target.classList.contains("open-all")) {
-          // If "open all" is clicked, open all dropdowns
-          openAllDropdowns(dropdown);
+          // If "open all" is clicked, open all bab dropdowns
+          openAllBabDropdowns(babDropdown);
         } else if (target.classList.contains("collapse-all")) {
-          // If "collapse all" is clicked, collapse only sub-sub-dropdowns
-          collapseSubSubDropdowns(dropdown);
+          // If "collapse all" is clicked, collapse only sub-sub-bab-dropdowns
+          collapseSubSubBabDropdowns(babDropdown);
         } else if (parent.querySelector("ul")) {
           // If the clicked item has a nested list, toggle its visibility
           parent.classList.toggle("active");
         } else if (target.hasAttribute("data-value")) {
           // If the clicked item has a data-value attribute, update URL and reload
           const value = target.getAttribute("data-value");
+
+          // old code
           // Update the URL hash
-          window.location.hash = "#tableID=l1:p" + value;
+          // window.location.hash = "#tableID=l1:p" + value;
+          // l1: was resetting 10 row length pages like radheefs
+
+          // new code
+          // Get current URL hash
+          const currentHash = window.location.hash;
+          // Extract the current page length value using regex
+          const lengthMatch = currentHash.match(/l(\d+)/);
+          // Use the existing length value if found, otherwise default to 1
+          const pageLength = lengthMatch ? lengthMatch[1] : "1";
+          // Update hash while preserving the page length
+          window.location.hash = `#tableID=l${pageLength}:p${value}`;
+          //
+
           // Smoothly scroll to the top before reloading
           window.scrollTo({ top: 0, behavior: "smooth" });
           // Delay reload until after the smooth scroll completes
@@ -497,9 +512,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // Function to open all dropdowns
-    function openAllDropdowns(rootElement) {
-      // Select all list items in the dropdown
+    // Function to open all bab dropdowns
+    function openAllBabDropdowns(rootElement) {
+      // Select all list items in the bab dropdown
       const allItems = rootElement.querySelectorAll("li");
       allItems.forEach((item) => {
         // If the item contains a nested list, make it visible
@@ -509,21 +524,21 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    // Function to collapse only sub-sub-dropdowns
-    function collapseSubSubDropdowns(rootElement) {
-      // Select only the active sub-sub-dropdown items
-      const subSubDropdowns = rootElement.querySelectorAll(
+    // Function to collapse only sub-sub-bab-dropdowns
+    function collapseSubSubBabDropdowns(rootElement) {
+      // Select only the active sub-sub-bab-dropdown items
+      const subSubBabDropdowns = rootElement.querySelectorAll(
         "li > ul > li.active"
       );
-      subSubDropdowns.forEach((item) => {
-        // Remove the active class to collapse the sub-sub-dropdown
+      subSubBabDropdowns.forEach((item) => {
+        // Remove the active class to collapse the sub-sub-bab-dropdown
         item.classList.remove("active");
       });
     }
   }
 
   // Ensure the page is smoothly scrolled to the top after reload
-  // This runs regardless of whether the dropdown exists
+  // This runs regardless of whether the bab dropdown exists
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
