@@ -194,6 +194,7 @@
         max-height: 300px;
         overflow-y: auto;
         direction: ltr;
+        font-size: 15px;
       }
 
       .dropdown-content button {
@@ -206,6 +207,7 @@
         border: none;
         background: none;
         cursor: pointer;
+        font-size: 15px;
       }
 
       .dropdown-content button:hover {
@@ -615,7 +617,7 @@
                   Curly to Straight (‘’ “” → '' "")
                 </button>
                 <button data-action="reverseCurlyQuotes">
-                  Reverse Curly Quotes (‘’ “” ↔ ’‘ ”“)
+                  Reverse Curly Direction (‘’ “” ↔ ’‘ ”“)
                 </button>
               </div>
             </div>
@@ -635,33 +637,44 @@
                   <div class="option-group">
                     <label>From:</label>
                     <select id="bracketFrom" class="converter-select">
-                      <option value="round">()</option>
-                      <option value="square">[]</option>
-                      <option value="superscript">⁽⁾</option>
-                      <option value="corner">⌜⌝</option>
+                      <option value="round" title="round">()</option>
+                      <option value="square" title="square">[]</option>
+                      <option value="superscript" title="superscript">
+                        ⁽⁾
+                      </option>
+                      <option value="corner" title="corner">⌜⌝</option>
                     </select>
                   </div>
 
                   <div class="option-group">
                     <label>To:</label>
                     <select id="bracketTo" class="converter-select">
-                      <option value="round">()</option>
-                      <option value="square">[]</option>
-                      <option value="superscript">⁽⁾</option>
-                      <option value="corner">⌜⌝</option>
+                      <option value="round" title="round">()</option>
+                      <option value="square" title="square">[]</option>
+                      <option value="superscript" title="superscript">
+                        ⁽⁾
+                      </option>
+                      <option value="corner" title="corner">⌜⌝</option>
                     </select>
                   </div>
 
                   <div class="option-group">
                     <label>Direction:</label>
                     <select id="bracketDirection" class="converter-select">
-                      <option value="ltr">LTR</option>
                       <option value="rtl">RTL</option>
+                      <option value="ltr">LTR</option>
                     </select>
                   </div>
 
                   <button data-action="convertBrackets" class="apply-button">
                     Apply
+                  </button>
+
+                  <button
+                    data-action="reverseBracketDirection"
+                    class="apply-button"
+                  >
+                    Reverse Direction
                   </button>
                 </div>
               </div>
@@ -669,13 +682,6 @@
 
             <!--  -->
 
-            <button
-              id="cycleBrackets"
-              class="function-button"
-              title="Replaces all brackets, circular and square, to LTR half brackets. on first click, then to RTL half brackets on the second"
-            >
-              ()/[] → ⌜⌝
-            </button>
             <button
               id="dotsToEllipsis"
               class="function-button"

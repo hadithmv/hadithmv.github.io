@@ -596,16 +596,52 @@ document.addEventListener("DOMContentLoaded", () => {
         const toBrackets =
           bracketMappings[document.getElementById("bracketTo").value];
         const direction = document.getElementById("bracketDirection").value;
+        const toType = document.getElementById("bracketTo").value;
+        const fromType = document.getElementById("bracketFrom").value;
 
-        if (direction === "ltr") {
-          textArea.value = textArea.value
-            .replace(new RegExp("\\" + fromBrackets[0], "g"), toBrackets[0])
-            .replace(new RegExp("\\" + fromBrackets[1], "g"), toBrackets[1]);
-        } else {
-          textArea.value = textArea.value
-            .replace(new RegExp("\\" + fromBrackets[0], "g"), toBrackets[1])
-            .replace(new RegExp("\\" + fromBrackets[1], "g"), toBrackets[0]);
-        }
+        // Create a regex that matches either opening or closing bracket
+        const fromRegex = new RegExp(
+          `\\${fromBrackets[0]}|\\${fromBrackets[1]}`,
+          "g"
+        );
+
+        textArea.value = textArea.value.replace(fromRegex, (match) => {
+          if (direction === "rtl") {
+            if (toType === "corner") {
+              // When converting TO corner brackets in RTL, reverse them
+              return match === fromBrackets[0] ? toBrackets[1] : toBrackets[0];
+            } else if (fromType === "corner") {
+              // When converting FROM corner brackets in RTL, maintain direction
+              return match === fromBrackets[0] ? toBrackets[0] : toBrackets[1];
+            } else {
+              // For other RTL conversions, maintain direction
+              return match === fromBrackets[0] ? toBrackets[0] : toBrackets[1];
+            }
+          } else {
+            // For LTR, maintain direction
+            return match === fromBrackets[0] ? toBrackets[0] : toBrackets[1];
+          }
+        });
+        break;
+
+      case "reverseBracketDirection":
+        const allBrackets = {
+          "(": ")",
+          ")": "(",
+          "[": "]",
+          "]": "[",
+          "⁽": "⁾",
+          "⁾": "⁽",
+          "⌜": "⌝",
+          "⌝": "⌜",
+        };
+
+        const bracketRegex = /[()[\]⁽⁾⌜⌝]/g;
+
+        textArea.value = textArea.value.replace(
+          bracketRegex,
+          (match) => allBrackets[match]
+        );
         break;
 
       // =====================================================
@@ -731,39 +767,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .replace(/'/g, "\u2032"); // prime
     }
     isSmartQuotes = !isSmartQuotes;
-    updateStats();
-  });
-  //
-
-  let cycleState = 0;
-  document.getElementById("cycleBrackets").addEventListener("click", () => {
-    const transformations = [
-      {
-        from: /[()[\]]/g,
-        to: (match) => (match === "(" || match === "[" ? "⌜" : "⌝"),
-        next: "⌜⌝ → ⌝⌜",
-      },
-      {
-        from: /[⌜⌝]/g,
-        to: (match) => (match === "⌜" ? "⌝" : "⌜"),
-        next: "⌝⌜ → ()",
-      },
-      {
-        from: /[⌝⌜]/g,
-        to: (match) => (match === "⌝" ? "(" : ")"),
-        next: "() [] → ⌜⌝",
-      },
-    ];
-
-    textArea.value = textArea.value.replace(
-      transformations[cycleState].from,
-      transformations[cycleState].to
-    );
-
-    document.getElementById("cycleBrackets").textContent =
-      transformations[cycleState].next;
-    cycleState = (cycleState + 1) % 3;
-
     updateStats();
   });
   //
