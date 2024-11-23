@@ -2402,8 +2402,27 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
           .replace(/\s+،/g, "،")
           .replace(/\s+$/, "") + arTime;
 
+      /*
+      // https://medium.com/@ahmelq/date-in-javascript-a-deep-dive-into-arabic-and-hijri-calendars-localization-c632e89b79a2
+      // Get the list of Hijri months
+      function getHijriMonths(locale = "en-u-ca-islamic") {
+        const formatter = new Intl.DateTimeFormat(locale, { month: "long" });
+        const months = [];
+        // Generate month names by iterating through the Islamic calendar months
+        for (let i = 0; i < 12; i++) {
+          // Use a reference date (e.g., 1st Muharram) and add months dynamically
+          const date = new Date(2023, i, 1); // 2023 Gregorian year as a reference
+          const monthName = formatter.format(date);
+          months.push(monthName);
+        }
+        return months;
+      }
+      console.log(getHijriMonths());
+      */
+
       // Hijri Long English
-      const hijriEnParts = new Intl.DateTimeFormat("en-u-ca-islamic", {
+      // const hijriEnParts = new Intl.DateTimeFormat("en-u-ca-islamic", {
+      const hijriEnParts = new Intl.DateTimeFormat("en-u-ca-islamic-umalqura", {
         weekday: "long",
         day: "numeric",
         month: "long",
@@ -2431,16 +2450,16 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       const hijriDvMonths = {
         Muharram: "މުޙައްރަމް",
         Safar: "ޞަފަރު",
-        "Rabi al-Awwal": "ރަބީޢުލްއައްވަލް",
-        "Rabi ath-Thani": "ރަބީޢުލްއާޚިރު",
-        "Jumada al-Awwal": "ޖުމާދަލްއޫލާ",
-        "Jumada ath-Thani": "ޖުމާދަލްއާޚިރާ",
+        "Rabi' I": "ރަބީޢުލްއައްވަލް",
+        "Rabi' II": "ރަބީޢުލްއާޚިރު",
+        "Jumada I": "ޖުމާދަލްއޫލާ",
+        "Jumada II": "ޖުމާދަލްއާޚިރާ",
         Rajab: "ރަޖަބު",
         "Sha'ban": "ޝަޢުބާން",
         Ramadan: "ރަމަޟާން",
         Shawwal: "ޝައްވާލް",
-        "Dhul-Qa'dah": "ޛުލްގަޢިދާ",
-        "Dhul-Hijjah": "ޛުލްޙިއްޖާ",
+        "Dhu'l-Qi'dah": "ޛުލްޤަޢިދާ",
+        "Dhu'l-Hijjah": "ޛުލްޙިއްޖާ",
       };
 
       const hijriDvParts = new Intl.DateTimeFormat("en-u-ca-islamic", {
