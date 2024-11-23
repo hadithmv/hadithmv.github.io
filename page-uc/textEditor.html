@@ -378,7 +378,7 @@
                 class="function-button"
                 title="Number operations and conversions"
               >
-                NumberConv 🔢
+                Number Conv 🔢
               </button>
               <div class="dropdown-content">
                 <button
@@ -606,7 +606,7 @@
                 class="function-button"
                 title="Quote conversion options"
               >
-                QuoteConv 🎤
+                Quote Conv 🎤
               </button>
               <div class="dropdown-content">
                 <button data-action="rtlStraightToCurly">
@@ -632,7 +632,7 @@
                 class="function-button"
                 title="Convert between different bracket styles"
               >
-                BracketConv 🌓
+                Bracket Conv 🌓
               </button>
               <div class="dropdown-content bracket-converter">
                 <div class="converter-options">
@@ -761,13 +761,50 @@
             >
               Gen Passwrd *️⃣
             </button>
-            <button
-              id="text2HtmlP"
-              class="function-button"
-              title="Wraps each line of text in html paragraph tags, with no empty lines"
-            >
-              Txt 2 HTML&lt;p&gt; ✍
-            </button>
+
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="htmlConversions"
+                class="function-button"
+                title="HTML conversion options"
+              >
+                HTML Conv ✍
+              </button>
+              <div class="dropdown-content">
+                <button
+                  data-action="textToParagraphs"
+                  title="Wraps each line of text in HTML paragraph tags"
+                >
+                  Text to &lt;p&gt; Tags
+                </button>
+                <button
+                  data-action="textToBrTags"
+                  title="Adds HTML line break tags between lines"
+                >
+                  Text to &lt;br&gt; Tags
+                </button>
+                <button
+                  data-action="textToOrderedList"
+                  title="Converts text to HTML ordered list"
+                >
+                  Text to Ordered List &lt;ol&gt;
+                </button>
+                <button
+                  data-action="textToUnorderedList"
+                  title="Converts text to HTML unordered list"
+                >
+                  Text to Unordered List &lt;ul&gt;
+                </button>
+                <button
+                  data-action="removeHtmlTags"
+                  title="Removes all HTML tags from text"
+                >
+                  Remove HTML Tags
+                </button>
+              </div>
+            </div>
 
             <!--  -->
 
@@ -824,7 +861,7 @@
                 class="function-button"
                 title="Remove comments from code"
               >
-                RmvComments 📝
+                Rmv Comments 📝
               </button>
               <div class="dropdown-content">
                 <button
@@ -868,30 +905,13 @@
 
             <!--  -->
 
-            <button
-              id="rmvHtmlTags"
-              class="function-button"
-              title="Removes HTML tags from the text, but leaves the text as is"
-            >
-              Rmv HTML &lt;tags&gt;
-            </button>
-            <button
-              id="toggleListTags"
-              class="function-button"
-              title="Converts the text to an HTML ordered list on first click, then unordered list on the second"
-            >
-              HTML ⭕ List
-            </button>
-
-            <!--  -->
-
             <div class="dropdown-button">
               <button
                 id="numberBracketConverter"
                 class="function-button"
                 title="Convert between different number bracket styles"
               >
-                NumBracketConv 1️⃣
+                NumBracket Conv 1️⃣
               </button>
               <div class="dropdown-content number-bracket-converter">
                 <div class="converter-options">
@@ -938,7 +958,7 @@
                 class="function-button"
                 title="Convert numbers to different styles"
               >
-                NumberStyles #️⃣
+                Number Styles #️⃣
               </button>
               <div class="dropdown-content">
                 <button

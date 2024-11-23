@@ -265,26 +265,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
       case "removeJsComments":
         textArea.value = textArea.value.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "");
+        ltrSwitch();
         break;
 
       case "removeHtmlComments":
         textArea.value = textArea.value.replace(/<!--[\s\S]*?-->/g, "");
+        ltrSwitch();
         break;
 
       case "removeCssComments":
         textArea.value = textArea.value.replace(/\/\*[\s\S]*?\*\//g, "");
+        ltrSwitch();
         break;
 
       case "removePythonComments":
         textArea.value = textArea.value
           .replace(/#.*$/gm, "") // Single line comments
           .replace(/'''[\s\S]*?'''|"""[\s\S]*?"""/g, ""); // Triple quoted strings
+        ltrSwitch();
         break;
 
       case "removePowershellComments":
         textArea.value = textArea.value
           .replace(/#.*$/gm, "") // Single line comments
           .replace(/<#[\s\S]*?#>/g, ""); // Multi-line comments
+        ltrSwitch();
         break;
 
       case "removePhpComments":
@@ -292,6 +297,51 @@ document.addEventListener("DOMContentLoaded", () => {
           /\/\*[\s\S]*?\*\/|\/\/.*|#.*$/gm,
           ""
         );
+        ltrSwitch();
+        break;
+
+      // =====================================================
+
+      case "textToParagraphs":
+        textArea.value = textArea.value
+          .split("\n")
+          .filter((line) => line.trim())
+          .map((line) => `<p>${line}</p>`)
+          .join("\n");
+        ltrSwitch();
+        break;
+
+      case "textToBrTags":
+        textArea.value = textArea.value.split("\n").join("<br>\n");
+        ltrSwitch();
+        break;
+
+      case "textToOrderedList":
+        textArea.value =
+          "<ol>\n" +
+          textArea.value
+            .split("\n")
+            .filter((line) => line.trim())
+            .map((line) => `  <li>${line}</li>`)
+            .join("\n") +
+          "\n</ol>";
+        ltrSwitch();
+        break;
+
+      case "textToUnorderedList":
+        textArea.value =
+          "<ul>\n" +
+          textArea.value
+            .split("\n")
+            .filter((line) => line.trim())
+            .map((line) => `  <li>${line}</li>`)
+            .join("\n") +
+          "\n</ul>";
+        ltrSwitch();
+        break;
+
+      case "removeHtmlTags":
+        textArea.value = textArea.value.replace(/<[^>]*>/g, "");
         break;
 
       // =====================================================
@@ -903,37 +953,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   //
 
-  document.getElementById("text2HtmlP").addEventListener("click", () => {
-    ltrSwitch();
-    scrollToTop();
-    //
-
-    // Split the input text by one or more line breaks
-    let paragraphs = textArea.value.split(/\n{1,}/);
-
-    // Remove empty paragraphs and trim whitespace
-    paragraphs = paragraphs.filter((p) => p.trim() !== "");
-
-    // Wrap each paragraph with <p> tags and join them
-    textArea.value = paragraphs
-      .map((para) => `<p>${para.trim()}</p>`)
-      .join("\n");
-
-    /* Wrap each line with <p> tags and join them back into a single string
-  let formattedText = paragraphs.map(line => `<p>${line.trim()}</p>`).join('');*/
-
-    updateStats();
-  });
-  //
-
-  document.getElementById("rmvHtmlTags").addEventListener("click", () => {
-    scrollToTop();
-    //
-    textArea.value = textArea.value.replace(/<[^>]*>/g, "");
-    updateStats();
-  });
-  //
-
   let lineNumbersAdded = false;
 
   document.getElementById("toggleLineNumbers").addEventListener("click", () => {
@@ -1013,37 +1032,6 @@ document.addEventListener("DOMContentLoaded", () => {
     textArea.value += (textArea.value ? "\n" : "") + password;
     updateStats();
   });*/
-  //
-
-  let listState = "none";
-  document.getElementById("toggleListTags").addEventListener("click", () => {
-    const lines = textArea.value.split("\n");
-    if (listState === "none") {
-      textArea.value =
-        "<ol>\n" +
-        lines.map((line) => `  <li>${line}</li>`).join("\n") +
-        "\n</ol>";
-      document.getElementById("toggleListTags").textContent = "HTML U List";
-      listState = "ordered";
-    } else if (listState === "ordered") {
-      textArea.value =
-        "<ul>\n" +
-        lines
-          .map((line) => line.replace(/<li>(.*)<\/li>/, "  <li>$1</li>"))
-          .join("\n") +
-        "\n</ul>";
-      document.getElementById("toggleListTags").textContent = "Remove Tags";
-      listState = "unordered";
-    } else {
-      textArea.value = lines
-        .map((line) => line.replace(/<li>(.*)<\/li>/, "$1"))
-        .join("\n")
-        .replace(/<\/?[ou]l>\n?/g, "");
-      document.getElementById("toggleListTags").textContent = "HTML O List";
-      listState = "none";
-    }
-    updateStats();
-  });
   //
 
   // RMV THIKIJEHI THAANA
