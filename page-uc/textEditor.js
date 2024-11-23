@@ -2307,8 +2307,14 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   // NEW DATE TIME CODE
   function updateDateTimeButtons() {
     const now = new Date();
+    const isMilitaryTime = localStorage.getItem("militaryTime") === "true";
     const hours12 = now.getHours() % 12 || 12;
+    const hours24 = String(now.getHours()).padStart(2, "0");
+    const hours = isMilitaryTime ? hours24 : hours12;
     const ampm = now.getHours() >= 12 ? "PM" : "AM";
+    const timeStr = isMilitaryTime
+      ? `${hours}:${String(now.getMinutes()).padStart(2, "0")}`
+      : `${hours}:${String(now.getMinutes()).padStart(2, "0")} ${ampm}`;
 
     // Gregorian Long English
     const enOptions = {
@@ -2323,11 +2329,13 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       const suffix = ["th", "st", "nd", "rd"][day % 10 > 3 ? 0 : day % 10];
       return `${weekday}, ${day}${suffix}`;
     });
-    document.getElementById(
-      "gregorianLongEn"
-    ).textContent = `${enDate}, at ${hours12}:${String(
-      now.getMinutes()
-    ).padStart(2, "0")} ${ampm}`;
+
+    // Gregorian Long English
+    document.getElementById("gregorianLongEn").textContent = `${enDate}, at ${
+      isMilitaryTime ? hours24 : hours12
+    }:${String(now.getMinutes()).padStart(2, "0")}${
+      isMilitaryTime ? "" : " " + ampm
+    }`;
 
     // Gregorian Long Dhivehi
     const dvWeekdays = [
@@ -2353,13 +2361,19 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       "ނޮވެންބަރު",
       "ޑިސެންބަރު",
     ];
-    const dvAmPm = now.getHours() >= 12 ? "މެނދުރުފަސް" : "މެނދުރުކުރި";
+
+    const dvAmPm = isMilitaryTime
+      ? "" // Empty string when in military time
+      : now.getHours() >= 12
+      ? "މެނދުރުފަސް"
+      : "މެނދުރުކުރި";
     const dvDate = `${dvWeekdays[now.getDay()]}، ${now.getDate()} ${
       dvMonths[now.getMonth()]
-    } ${now.getFullYear()}، ${hours12}:${String(now.getMinutes()).padStart(
+    } ${now.getFullYear()}، ${hours}:${String(now.getMinutes()).padStart(
       2,
       "0"
-    )} ${dvAmPm}`;
+    )}${isMilitaryTime ? "" : " " + dvAmPm}`; // Conditionally add AM/PM
+
     document.getElementById("gregorianLongDv").textContent = dvDate;
 
     // Gregorian Long Arabic
@@ -2372,11 +2386,26 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       minute: "2-digit",
       hour12: true,
     };
-    let arDate = now.toLocaleDateString("ar", arOptions);
+
+    // Gregorian Long Arabic
+    let arDate = now.toLocaleDateString("ar", {
+      ...arOptions,
+      hour12: !isMilitaryTime,
+    });
+
+    arDate = now.toLocaleDateString("ar", arOptions);
     // Fix Arabic date format
     arDate = arDate
-      .replace(/(\d{4})\s*،?\s*في/, "$1، في") // Fix spacing and comma before "في"
-      .replace(/\s+،/g, "،"); // Remove spaces before commas
+      .replace(/(\d{4})\s*،?\s*في/, "$1، في")
+      .replace(/\s+،/g, "،")
+      .replace(
+        /\d{1,2}:\d{2}\s*[صم]/,
+        `${isMilitaryTime ? hours24 : hours12}:${String(
+          now.getMinutes()
+        ).padStart(2, "0")}${
+          isMilitaryTime ? "" : now.getHours() >= 12 ? " م" : " ص"
+        }`
+      );
     document.getElementById("gregorianLongAr").textContent = arDate;
 
     //
@@ -2392,10 +2421,13 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
         calendar: "islamic",
       }).format(now);
 
-      const arTime = `، في ${hours12}:${String(now.getMinutes()).padStart(
-        2,
-        "0"
-      )} ${now.getHours() >= 12 ? "م" : "ص"}`;
+      // Hijri Long Arabic
+      const arTime = `، في ${isMilitaryTime ? hours24 : hours12}:${String(
+        now.getMinutes()
+      ).padStart(2, "0")}${
+        isMilitaryTime ? "" : now.getHours() >= 12 ? " م" : " ص"
+      }`;
+
       document.getElementById("hijriLongAr").textContent =
         hijriArDate
           .replace(/هـ/, "")
@@ -2438,13 +2470,16 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
         if (part.type === "year") enYear = part.value;
       });
 
+      // Hijri Long English
       document.getElementById(
         "hijriLongEn"
       ).textContent = `${enWeekday}, ${parseInt(
         enDay
-      )} ${enMonth}, ${enYear} AH, at ${hours12}:${String(
-        now.getMinutes()
-      ).padStart(2, "0")} ${ampm}`;
+      )} ${enMonth}, ${enYear} AH, at ${
+        isMilitaryTime ? hours24 : hours12
+      }:${String(now.getMinutes()).padStart(2, "0")}${
+        isMilitaryTime ? "" : " " + ampm
+      }`;
 
       // Hijri Long Dhivehi
       const hijriDvMonths = {
@@ -2477,11 +2512,14 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
         if (part.type === "year") dvYear = part.value;
       });
 
+      // Hijri Long Dhivehi
       document.getElementById("hijriLongDv").textContent = `${
         dvWeekdays[now.getDay()]
-      }، ${parseInt(dvDay)} ${dvMonth} ${dvYear}، ${hours12}:${String(
-        now.getMinutes()
-      ).padStart(2, "0")} ${dvAmPm}`;
+      }، ${parseInt(dvDay)} ${dvMonth} ${dvYear}، ${
+        isMilitaryTime ? hours24 : hours12
+      }:${String(now.getMinutes()).padStart(2, "0")}${
+        isMilitaryTime ? "" : " " + dvAmPm
+      }`;
 
       // Hijri Short
       const hijriShortDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
@@ -2493,11 +2531,12 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
         .format(now)
         .replace(/[^0-9/]/g, ""); // Keep only numbers and forward slashes
 
-      document.getElementById(
-        "hijriShort"
-      ).textContent = `${hijriShortDate} ${hours12}:${String(
-        now.getMinutes()
-      ).padStart(2, "0")} ${ampm}`;
+      // Hijri Short
+      document.getElementById("hijriShort").textContent = `${hijriShortDate} ${
+        isMilitaryTime ? hours24 : hours12
+      }:${String(now.getMinutes()).padStart(2, "0")}${
+        isMilitaryTime ? "" : " " + ampm
+      }`;
     } catch (e) {
       console.error("Error formatting Hijri dates:", e);
       ["hijriLongAr", "hijriLongEn", "hijriLongDv", "hijriShort"].forEach(
@@ -2515,7 +2554,15 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     ).padStart(2, "0")}/${now.getFullYear()} ${hours12}:${String(
       now.getMinutes()
     ).padStart(2, "0")} ${ampm}`;
-    document.getElementById("gregorianShort").textContent = shortDate;
+
+    document.getElementById("gregorianShort").textContent = `${String(
+      now.getDate()
+    ).padStart(2, "0")}/${String(now.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}/${now.getFullYear()} ${isMilitaryTime ? hours24 : hours12}:${String(
+      now.getMinutes()
+    ).padStart(2, "0")}${isMilitaryTime ? "" : " " + ampm}`;
   }
 
   //
@@ -2523,6 +2570,19 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   // Update button texts every minute
   updateDateTimeButtons();
   setInterval(updateDateTimeButtons, 60000);
+
+  //
+
+  // Add near the DOMContentLoaded event listener
+  document
+    .getElementById("toggleMilitaryTime")
+    .addEventListener("click", () => {
+      const currentSetting = localStorage.getItem("militaryTime") === "true";
+      localStorage.setItem("militaryTime", !currentSetting);
+      updateDateTimeButtons();
+    });
+
+  //
 
   // Add click handlers for copying
   document.querySelectorAll(".copy-button-other").forEach((button) => {
