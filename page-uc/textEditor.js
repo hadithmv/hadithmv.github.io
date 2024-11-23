@@ -337,13 +337,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
-      //     !!!  Add more cases as needed
-      //   }
-      //   updateStats();
-      // }
-
-      // =====================================================
-
       case "removeArabicDiacritics":
         textArea.value = textArea.value.replace(
           /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED]/g,
@@ -776,6 +769,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
+      // Add these cases to your handleDropdownAction function
+      case "keepOnlyDhivehi":
+        textArea.value = textArea.value.replace(/[^\u0780-\u07BF\s]/g, "");
+        break;
+
+      case "removeAllDhivehi":
+        textArea.value = textArea.value.replace(/[\u0780-\u07BF]/g, "");
+        break;
+
+      case "keepOnlyArabic":
+        //textArea.value = textArea.value.replace(/[^\u0600-\u06FF\s]/g, "");
+        // https://notes.yshalsager.com/en/notes/Regex%20Match%20Arabic%20Letters/
+        textArea.value = textArea.value.replace(
+          /[^\u0600-\u06ff\u0750-\u077f\ufb50-\ufbc1\ufbd3-\ufd3f\ufd50-\ufd8f\ufd92-\ufdc7\ufe70-\ufefc\uFDF0-\uFDFD\s]/g,
+          ""
+        );
+        break;
+
+      case "removeAllArabic":
+        textArea.value = textArea.value.replace(
+          /[\u0600-\u06ff\u0750-\u077f\ufb50-\ufbc1\ufbd3-\ufd3f\ufd50-\ufd8f\ufd92-\ufdc7\ufe70-\ufefc\uFDF0-\uFDFD]/g,
+          ""
+        );
+        break;
+
+      case "keepOnlyEnglish":
+        textArea.value = textArea.value.replace(/[^A-Za-z\s]/g, "");
+        break;
+
+      case "removeAllEnglish":
+        textArea.value = textArea.value.replace(/[A-Za-z]/g, "");
+        break;
+
+      // =====================================================
+
+      //     !!!  Add more cases as needed
+
+      // =====================================================
+
       //
 
       // CASES END
@@ -1058,13 +1090,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
   //
-
-  document.getElementById("keepOnlyDv").addEventListener("click", () => {
-    scrollToTop();
-    //
-    textArea.value = textArea.value.replace(/[^\u0780-\u07BF\s]/g, "");
-    updateStats();
-  });
 
   // TRANSLITERATION
   // https://github.com/naxeem/thaana-transliterator-js/blob/main/thaana-transliterator.js
