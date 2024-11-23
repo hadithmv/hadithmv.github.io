@@ -437,7 +437,7 @@
                   data-action="removeDhivehiFili"
                   title="Removes all Dhivehi fili / diacritics"
                 >
-                  Remove Dhivehi Fili 🏝️
+                  Remove Dhivehi Fili 🥥
                 </button>
               </div>
             </div>
@@ -738,13 +738,57 @@
               Trnsltrt Ar → Dv
             </button>
 
-            <button
-              id="keepOnlyDv"
-              class="function-button"
-              title="Removes all none-Dhivehi text"
-            >
-              Keep Only Dv 🥥
-            </button>
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="languageFilter"
+                class="function-button"
+                title="Language filtering options"
+              >
+                Lang Filter 🌐
+              </button>
+              <div class="dropdown-content">
+                <button
+                  data-action="keepOnlyDhivehi"
+                  title="Removes all non-Dhivehi text"
+                >
+                  Keep Only Dhivehi 🥥
+                </button>
+                <button
+                  data-action="removeAllDhivehi"
+                  title="Removes all Dhivehi text"
+                >
+                  Remove All Dhivehi
+                </button>
+                <button
+                  data-action="keepOnlyArabic"
+                  title="Removes all non-Arabic text"
+                >
+                  Keep Only Arabic ☀️
+                </button>
+                <button
+                  data-action="removeAllArabic"
+                  title="Removes all Arabic text"
+                >
+                  Remove All Arabic
+                </button>
+                <button
+                  data-action="keepOnlyEnglish"
+                  title="Removes all non-English text"
+                >
+                  Keep Only English 🔤
+                </button>
+                <button
+                  data-action="removeAllEnglish"
+                  title="Removes all English text"
+                >
+                  Remove All English
+                </button>
+              </div>
+            </div>
+
+            <!-- -->
 
             <button
               id="removePunctuation"
@@ -1006,14 +1050,6 @@
               title="Convert regular text to leet speak on first click, and does the reverse on the second"
             >
               1337 📔
-            </button>
-            <!-- -->
-            <button
-              id="keepOnlyAr"
-              class="function-button"
-              title="Removes all none-Arabic text"
-            >
-              Keep Only Ar 🏜️
             </button>
             <button
               id="convertSalawat"
