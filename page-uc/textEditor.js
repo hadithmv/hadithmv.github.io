@@ -2397,7 +2397,10 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
         "0"
       )} ${now.getHours() >= 12 ? "م" : "ص"}`;
       document.getElementById("hijriLongAr").textContent =
-        hijriArDate.replace(/هـ/, "").replace(/\s+،/g, "،") + arTime;
+        hijriArDate
+          .replace(/هـ/, "")
+          .replace(/\s+،/g, "،")
+          .replace(/\s+$/, "") + arTime;
 
       // Hijri Long English
       const hijriEnParts = new Intl.DateTimeFormat("en-u-ca-islamic", {
@@ -2418,35 +2421,53 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
 
       document.getElementById(
         "hijriLongEn"
-      ).textContent = `${enWeekday}, ${enDay} ${enMonth}, ${enYear} AH, at ${hours12}:${String(
+      ).textContent = `${enWeekday}, ${parseInt(
+        enDay
+      )} ${enMonth}, ${enYear} AH, at ${hours12}:${String(
         now.getMinutes()
       ).padStart(2, "0")} ${ampm}`;
 
       // Hijri Long Dhivehi
-      const hijriArParts = new Intl.DateTimeFormat("ar-SA-u-ca-islamic", {
+      const hijriDvMonths = {
+        Muharram: "މުޙައްރަމް",
+        Safar: "ޞަފަރު",
+        "Rabi' I": "ރަބީޢުލްއައްވަލް",
+        "Rabi' II": "ރަބީޢުލްއާޚިރު",
+        "Jumada I": "ޖުމާދަލްއޫލާ",
+        "Jumada II": "ޖުމާދަލްއާޚިރާ",
+        Rajab: "ރަޖަބު",
+        "Sha'ban": "ޝަޢުބާން",
+        Ramadan: "ރަމަޟާން",
+        Shawwal: "ޝައްވާލް",
+        "Dhu'l-Qi'dah": "ޛުލްޤަޢިދާ",
+        "Dhu'l-Hijjah": "ޛުލްޙިއްޖާ",
+      };
+
+      const hijriDvParts = new Intl.DateTimeFormat("en-u-ca-islamic", {
         day: "numeric",
         month: "long",
         year: "numeric",
         calendar: "islamic",
       }).formatToParts(now);
 
-      let arDay, arMonth, arYear;
-      hijriArParts.forEach((part) => {
-        if (part.type === "day") arDay = part.value;
-        if (part.type === "month") arMonth = part.value;
-        if (part.type === "year") arYear = part.value;
+      let dvDay, dvMonth, dvYear;
+      hijriDvParts.forEach((part) => {
+        if (part.type === "day") dvDay = part.value;
+        if (part.type === "month")
+          dvMonth = hijriDvMonths[part.value] || part.value;
+        if (part.type === "year") dvYear = part.value;
       });
 
       document.getElementById("hijriLongDv").textContent = `${
         dvWeekdays[now.getDay()]
-      }، ${arDay} ${arMonth} ${arYear}، ${hours12}:${String(
+      }، ${parseInt(dvDay)} ${dvMonth} ${dvYear}، ${hours12}:${String(
         now.getMinutes()
       ).padStart(2, "0")} ${dvAmPm}`;
 
       // Hijri Short
       const hijriShortDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
-        day: "2-digit",
-        month: "2-digit",
+        day: "numeric", // Changed from "2-digit" to "numeric"
+        month: "numeric", // Changed from "2-digit" to "numeric"
         year: "numeric",
         calendar: "islamic",
       })
