@@ -708,20 +708,67 @@
 
             <!--  -->
 
-            <button
-              id="dotsToEllipsis"
-              class="function-button"
-              title="Converts three dots to a proper ellipsis on first click, and does the reverse on the second"
-            >
-              . . . ↔ …
-            </button>
-            <button
-              id="hyphenToEnThenEmDash"
-              class="function-button"
-              title="Converts a hyphen to an en dash on the first click, then to an em dash on the second"
-            >
-              -/–/—
-            </button>
+            <div class="dropdown-button">
+              <button
+                id="dotsToEllipsis"
+                class="function-button"
+                title="Convert between dots and ellipsis"
+              >
+                . . . ↔ …
+              </button>
+              <div class="dropdown-content">
+                <button
+                  data-action="dotsToEllipsis"
+                  title="Converts three dots to a proper ellipsis"
+                >
+                  Dots to Ellipsis (... → …)
+                </button>
+                <button
+                  data-action="ellipsisToDots"
+                  title="Converts ellipsis to three dots"
+                >
+                  Ellipsis to Dots (… → ...)
+                </button>
+              </div>
+            </div>
+
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="dashConverter"
+                class="function-button"
+                title="Convert between different dash styles"
+              >
+                -/–/—
+              </button>
+              <div class="dropdown-content dash-converter">
+                <div class="converter-options">
+                  <div class="option-group">
+                    <label>From:</label>
+                    <select id="dashFrom" class="converter-select">
+                      <option value="hyphen" title="hyphen">-</option>
+                      <option value="en" title="en dash">–</option>
+                      <option value="em" title="em dash">—</option>
+                    </select>
+                  </div>
+
+                  <div class="option-group">
+                    <label>To:</label>
+                    <select id="dashTo" class="converter-select">
+                      <option value="hyphen" title="hyphen">-</option>
+                      <option value="en" title="en dash">–</option>
+                      <option value="em" title="em dash">—</option>
+                    </select>
+                  </div>
+
+                  <button data-action="convertDashes" class="apply-button">
+                    Apply
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <!-- -->
 
             <button
