@@ -179,10 +179,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  //  DROPDOWN FUNCTIONS BEGIN FROM HERE BELOW
+  // =====================================================
 
   function handleDropdownAction(action) {
     switch (action) {
+      //  DROPDOWN FUNCTIONS BEGIN FROM HERE BELOW
+
       case "arabicToRegular":
         textArea.value = textArea.value.replace(/[٠١٢٣٤٥٦٧٨٩]/g, (d) =>
           "٠١٢٣٤٥٦٧٨٩".indexOf(d)
@@ -257,6 +259,39 @@ document.addEventListener("DOMContentLoaded", () => {
         textArea.value = textArea.value
           .replace(/[\u2018\u2019]/g, "'")
           .replace(/[\u201C\u201D]/g, '"');
+        break;
+
+      // =====================================================
+
+      case "removeJsComments":
+        textArea.value = textArea.value.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "");
+        break;
+
+      case "removeHtmlComments":
+        textArea.value = textArea.value.replace(/<!--[\s\S]*?-->/g, "");
+        break;
+
+      case "removeCssComments":
+        textArea.value = textArea.value.replace(/\/\*[\s\S]*?\*\//g, "");
+        break;
+
+      case "removePythonComments":
+        textArea.value = textArea.value
+          .replace(/#.*$/gm, "") // Single line comments
+          .replace(/'''[\s\S]*?'''|"""[\s\S]*?"""/g, ""); // Triple quoted strings
+        break;
+
+      case "removePowershellComments":
+        textArea.value = textArea.value
+          .replace(/#.*$/gm, "") // Single line comments
+          .replace(/<#[\s\S]*?#>/g, ""); // Multi-line comments
+        break;
+
+      case "removePhpComments":
+        textArea.value = textArea.value.replace(
+          /\/\*[\s\S]*?\*\/|\/\/.*|#.*$/gm,
+          ""
+        );
         break;
 
       // =====================================================
