@@ -512,7 +512,7 @@
                 class="function-button"
                 title="Text manipulation options"
               >
-                Line Ops 📌
+                Sort Lines 📌
               </button>
               <div class="dropdown-content">
                 <button
@@ -574,23 +574,13 @@
 
             <!--  -->
 
-            <button
-              id="wordWrap"
-              class="function-button"
-              title="Wraps the text to a single line"
-            >
-              Word Wrap ↲
-            </button>
-
-            <!--  -->
-
             <div class="dropdown-button">
               <button
                 id="spaceLineControl"
                 class="function-button"
                 title="Space and line control options"
               >
-                Spaces & Lines ⬜
+                Empty Spaces/Lines ⬜
               </button>
               <div class="dropdown-content">
                 <button
@@ -604,6 +594,12 @@
                   title="Removes extra spaces and more than double empty lines"
                 >
                   Remove Spaces & Double Lines
+                </button>
+                <button
+                  data-action="wordWrap"
+                  title="Wraps all text to a single line"
+                >
+                  Word Wrap to Single Line ↲
                 </button>
                 <button
                   data-action="removeExtraSpacesOnly"

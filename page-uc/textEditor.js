@@ -821,6 +821,10 @@ document.addEventListener("DOMContentLoaded", () => {
           .replace(/\n{3,}/g, "\n\n"); // More than double empty line to double
         break;
 
+      case "wordWrap":
+        textArea.value = textArea.value.replace(/\s+/g, " ").trim();
+        break;
+
       case "removeExtraSpacesOnly":
         textArea.value = textArea.value
           .replace(/^ +| +$/gm, "") // Remove spaces at line starts/ends
@@ -877,12 +881,6 @@ document.addEventListener("DOMContentLoaded", () => {
     isRTL = !isRTL;
     textArea.style.direction = isRTL ? "rtl" : "ltr";
     textArea.style.textAlign = isRTL ? "right" : "left";
-  });
-  //
-
-  document.getElementById("wordWrap").addEventListener("click", () => {
-    textArea.value = textArea.value.replace(/\s+/g, " ").trim();
-    updateStats();
   });
   //
 
