@@ -829,27 +829,53 @@
             >
               HTML ⭕ List
             </button>
-            <button
-              id="convertFootnotesBtn"
-              class="function-button"
-              title="Convert circular or square brackets numbers to subscript bracketed numbers on first click, then to circular bracketed numbers on second click, then to square bracketed numbers on third click"
-            >
-              (1)/[1] → ⁽¹⁾
-            </button>
-            <button
-              id="bracketNumbers"
-              class="function-button"
-              title="Converts bracket numbers to non bracked numbers on first click, and does the reverse on the second"
-            >
-              (1) ↔ 1
-            </button>
-            <button
-              id="removeNumbersInBrackets"
-              class="function-button"
-              title="Removes superscript / round / square brackets from numbers"
-            >
-              Rmv ⁽¹⁾/(1)/[1]
-            </button>
+
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="numberBracketConverter"
+                class="function-button"
+                title="Convert between different number bracket styles"
+              >
+                NumBracketConv 1️⃣
+              </button>
+              <div class="dropdown-content number-bracket-converter">
+                <div class="converter-options">
+                  <div class="option-group">
+                    <label>From:</label>
+                    <select id="numberBracketFrom" class="converter-select">
+                      <option value="round" title="round">(1)</option>
+                      <option value="square" title="square">[1]</option>
+                      <option value="superscript" title="superscript">
+                        ⁽¹⁾
+                      </option>
+                      <option value="none" title="none">1</option>
+                    </select>
+                  </div>
+
+                  <div class="option-group">
+                    <label>To:</label>
+                    <select id="numberBracketTo" class="converter-select">
+                      <option value="round" title="round">(1)</option>
+                      <option value="square" title="square">[1]</option>
+                      <option value="superscript" title="superscript">
+                        ⁽¹⁾
+                      </option>
+
+                      <option value="none" title="none">1</option>
+                    </select>
+                  </div>
+
+                  <button
+                    data-action="convertNumberBrackets"
+                    class="apply-button"
+                  >
+                    Apply
+                  </button>
+                </div>
+              </div>
+            </div>
 
             <!--  -->
 
