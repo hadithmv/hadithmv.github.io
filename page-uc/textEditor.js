@@ -2497,6 +2497,7 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
         "Dhu'l-Hijjah": "ޛުލްޙިއްޖާ",
       };
 
+      // Hijri Long Dhivehi
       const hijriDvParts = new Intl.DateTimeFormat("en-u-ca-islamic", {
         day: "numeric",
         month: "long",
@@ -2504,13 +2505,34 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
         calendar: "islamic",
       }).formatToParts(now);
 
+      console.log("1. Full hijriDvParts:", hijriDvParts);
+
       let dvDay, dvMonth, dvYear;
       hijriDvParts.forEach((part) => {
-        if (part.type === "day") dvDay = part.value;
-        if (part.type === "month")
+        console.log("2. Processing part:", part);
+        if (part.type === "day") {
+          dvDay = part.value;
+          console.log("3. Found day:", dvDay);
+        }
+        if (part.type === "month") {
           dvMonth = hijriDvMonths[part.value] || part.value;
-        if (part.type === "year") dvYear = part.value;
+          console.log("4. Found month:", part.value, "Mapped to:", dvMonth);
+        }
+        if (part.type === "year") {
+          dvYear = part.value;
+          console.log("5. Found year:", dvYear);
+        }
       });
+
+      const finalOutput = `${dvWeekdays[now.getDay()]}، ${parseInt(
+        dvDay
+      )} ${dvMonth} ${dvYear}، ${isMilitaryTime ? hours24 : hours12}:${String(
+        now.getMinutes()
+      ).padStart(2, "0")}${isMilitaryTime ? "" : " " + dvAmPm}`;
+
+      console.log("6. Final output:", finalOutput);
+
+      //
 
       // Hijri Long Dhivehi
       document.getElementById("hijriLongDv").textContent = `${
