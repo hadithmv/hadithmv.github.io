@@ -646,6 +646,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
+      // Add this to your handleDropdownAction function
+      case "convertNumberBrackets":
+        const numberBracketMappings = {
+          none: ["", ""],
+          round: ["(", ")"],
+          square: ["[", "]"],
+          superscript: ["⁽", "⁾"],
+        };
+
+        const fromNumberBrackets =
+          numberBracketMappings[
+            document.getElementById("numberBracketFrom").value
+          ];
+        const toNumberBrackets =
+          numberBracketMappings[
+            document.getElementById("numberBracketTo").value
+          ];
+
+        // Convert from current format to plain numbers first
+        let processedText = textArea.value;
+        if (fromNumberBrackets[0]) {
+          const fromRegex = new RegExp(
+            `\\${fromNumberBrackets[0]}\\d+\\${fromNumberBrackets[1]}`,
+            "g"
+          );
+          processedText = processedText.replace(fromRegex, (match) =>
+            match.slice(
+              fromNumberBrackets[0].length,
+              -fromNumberBrackets[1].length
+            )
+          );
+        }
+
+        // Then convert to target format
+        if (toNumberBrackets[0]) {
+          processedText = processedText.replace(
+            /\d+/g,
+            (match) => `${toNumberBrackets[0]}${match}${toNumberBrackets[1]}`
+          );
+        }
+
+        textArea.value = processedText;
+        break;
+
+      // =====================================================
+
       //
 
       // CASES END
@@ -1653,82 +1699,6 @@ i want one more space after the colon that comes after the issue description
     textArea.value = textArea.value.replace(/[^\w\s]/g, "");
     updateStats();
   });
-  //
-
-  let footnoteClickCount = 0;
-  function updateFootnoteButtonText() {
-    const texts = ["(1)/[1] → ⁽¹⁾", "⁽¹⁾ → (1)", "(1) → [1]"];
-    convertFootnotesBtn.textContent = texts[footnoteClickCount % 3];
-  }
-  //
-
-  convertFootnotesBtn.addEventListener("click", () => {
-    switch (footnoteClickCount % 3) {
-      case 0: // Convert to superscript
-        textArea.value = textArea.value.replace(
-          /\((\d+)\)|\[(\d+)\]/g,
-          (match, p1, p2) => {
-            const num = p1 || p2;
-            return `⁽${num
-              .split("")
-              .map((d) => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d])
-              .join("")}⁾`;
-          }
-        );
-        break;
-      case 1: // Convert to parentheses
-        textArea.value = textArea.value.replace(
-          /⁽([⁰¹²³⁴⁵⁶⁷⁸⁹]+)⁾/g,
-          (match, p1) => {
-            const num = p1
-              .split("")
-              .map((d) => "⁰¹²³⁴⁵⁶⁷⁸⁹".indexOf(d))
-              .join("");
-            return `(${num})`;
-          }
-        );
-        break;
-      case 2: // Convert to square brackets
-        textArea.value = textArea.value.replace(/\((\d+)\)/g, (match, p1) => {
-          return `[${p1}]`;
-        });
-        break;
-    }
-
-    footnoteClickCount++;
-    updateFootnoteButtonText();
-
-    updateStats();
-  });
-  //
-
-  let bracketClickCount = 0;
-
-  document.getElementById("bracketNumbers").addEventListener("click", () => {
-    if (bracketClickCount % 2 === 0) {
-      // Remove brackets
-      textArea.value = textArea.value.replace(/\((\d+)\)|\[(\d+)\]/g, "$1$2");
-    } else {
-      // Add brackets
-      textArea.value = textArea.value.replace(/(\d+)(?!\))/g, "($1)");
-    }
-
-    bracketClickCount++;
-    updateStats();
-  });
-  //
-
-  document
-    .getElementById("removeNumbersInBrackets")
-    .addEventListener("click", () => {
-      scrollToTop();
-      //
-      textArea.value = textArea.value.replace(
-        /\(\d+\)|\[\d+\]|⁽[⁰¹²³⁴⁵⁶⁷⁸⁹]+⁾/g,
-        ""
-      );
-      updateStats();
-    });
   //
 
   let convertSalawatclickCount = 0;
