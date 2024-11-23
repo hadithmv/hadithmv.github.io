@@ -2304,16 +2304,112 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   // BUTTON FUNCTIONS END
   //
 
-  document.getElementById("getDateTime").addEventListener("click", function () {
+  // NEW DATE TIME CODE
+  function updateDateTimeButtons() {
     const now = new Date();
-    const day = now.getDate();
-    const month = now.getMonth() + 1; // getMonth() returns 0-11, so we add 1
-    const year = now.getFullYear();
-    const time = now.toLocaleTimeString();
+    const hours12 = now.getHours() % 12 || 12;
+    const ampm = now.getHours() >= 12 ? "PM" : "AM";
 
-    const dateTimeString = `${day}/${month}/${year} ${time}`;
-    navigator.clipboard.writeText(dateTimeString);
+    // Gregorian Long English
+    const enOptions = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    let enDate = now.toLocaleDateString("en-GB", enOptions);
+    // Add comma after weekday and fix day suffix
+    enDate = enDate.replace(/^(\w+)\s+(\d+)/, (_, weekday, day) => {
+      const suffix = ["th", "st", "nd", "rd"][day % 10 > 3 ? 0 : day % 10];
+      return `${weekday}, ${day}${suffix}`;
+    });
+    document.getElementById(
+      "gregorianLongEn"
+    ).textContent = `${enDate}, at ${hours12}:${String(
+      now.getMinutes()
+    ).padStart(2, "0")} ${ampm}`;
+
+    // Gregorian Long Dhivehi
+    const dvWeekdays = [
+      "އާދީއްތަ",
+      "ހޯމަ",
+      "އަންގާރަ",
+      "ބުދަ",
+      "ބުރާސްފަތި",
+      "ހުކުރު",
+      "ހޮނިހިރު",
+    ];
+    const dvMonths = [
+      "ޖެނުއަރީ",
+      "ފެބްރުއަރީ",
+      "މާރޗް",
+      "އޭޕްރީލް",
+      "މޭ",
+      "ޖޫން",
+      "ޖުލައި",
+      "އޯގަސްޓް",
+      "ސެޕްޓެމްބަރ",
+      "އޮކްޓޯބަރ",
+      "ނޮވެމްބަރ",
+      "ޑިސެމްބަރ",
+    ];
+    const dvAmPm = now.getHours() >= 12 ? "މެނދުރުފަސް" : "މެނދުރުކުރި";
+    const dvDate = `${dvWeekdays[now.getDay()]}، ${now.getDate()} ${
+      dvMonths[now.getMonth()]
+    } ${now.getFullYear()}، ${hours12}:${String(now.getMinutes()).padStart(
+      2,
+      "0"
+    )} ${dvAmPm}`;
+    document.getElementById("gregorianLongDv").textContent = dvDate;
+
+    // Gregorian Long Arabic
+    // Gregorian Long Arabic
+    const arOptions = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    };
+    let arDate = now.toLocaleDateString("ar", arOptions);
+    // Fix Arabic date format
+    arDate = arDate
+      .replace(/(\d{4})\s*،?\s*في/, "$1، في") // Fix spacing and comma before "في"
+      .replace(/\s+،/g, "،"); // Remove spaces before commas
+    document.getElementById("gregorianLongAr").textContent = arDate;
+
+    // Gregorian Short
+    const shortDate = `${String(now.getDate()).padStart(2, "0")}/${String(
+      now.getMonth() + 1
+    ).padStart(2, "0")}/${now.getFullYear()} ${hours12}:${String(
+      now.getMinutes()
+    ).padStart(2, "0")} ${ampm}`;
+    document.getElementById("gregorianShort").textContent = shortDate;
+  }
+
+  // Update button texts every minute
+  updateDateTimeButtons();
+  setInterval(updateDateTimeButtons, 60000);
+
+  // Add click handlers for copying
+  document.querySelectorAll(".copy-button-other").forEach((button) => {
+    button.addEventListener("click", () => {
+      navigator.clipboard.writeText(button.textContent);
+    });
   });
+
+  // OLD DATE TIME CODE
+  // document.getElementById("getDateTime").addEventListener("click", function () {
+  //   const now = new Date();
+  //   const day = now.getDate();
+  //   const month = now.getMonth() + 1; // getMonth() returns 0-11, so we add 1
+  //   const year = now.getFullYear();
+  //   const time = now.toLocaleTimeString();
+  //   const dateTimeString = `${day}/${month}/${year} ${time}`;
+  //   navigator.clipboard.writeText(dateTimeString);
+  // });
 
   //
   // COPY FUNCTIONS END
