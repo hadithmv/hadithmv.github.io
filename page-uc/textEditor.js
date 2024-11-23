@@ -1,12 +1,3 @@
-const numberStyles = {
-  regular: "0123456789",
-  mathSansSerif: "𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫",
-  fullWidth: "０１２３４５６７８９",
-  mathSansSerifBold: "𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵",
-  circled: "⓪①②③④⑤⑥⑦⑧⑨",
-  negativeCircled: "⓿❶❷❸❹❺❻❼❽❾",
-};
-
 // JavaScript code will be added here
 document.addEventListener("DOMContentLoaded", () => {
   const topTabs = document.querySelectorAll(".top-tab");
@@ -625,9 +616,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // =====================================================
 
-        // had to place: const numberStyles = [, outside case, as global variable
         function convertNumbers(targetStyle) {
           let text = textArea.value;
+
+          const numberStyles = {
+            regular: "0123456789",
+            mathSansSerif: "𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫",
+            fullWidth: "０１２３４５６７８９",
+            mathSansSerifBold: "𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵",
+            circled: "⓪①②③④⑤⑥⑦⑧⑨",
+            negativeCircled: "⓿❶❷❸❹❺❻❼❽❾",
+          };
 
           // First convert everything to regular numbers
           Object.values(numberStyles).forEach((style) => {
