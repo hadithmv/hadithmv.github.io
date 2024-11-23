@@ -163,7 +163,7 @@ function createNavbar() {
     />
   </div>
   <div class="navbar-center">
-    <span class="navbar-navbar-page-title">${pageTitle}</span>
+    <span class="navbar-page-title">${pageTitle}</span>
   </div>
   <div class="navbar-right" title="menu">
     <span class="navbar-menu-icon">☰</span>
