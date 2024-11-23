@@ -2431,16 +2431,16 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       const hijriDvMonths = {
         Muharram: "މުޙައްރަމް",
         Safar: "ޞަފަރު",
-        "Rabi' I": "ރަބީޢުލްއައްވަލް",
-        "Rabi' II": "ރަބީޢުލްއާޚިރު",
-        "Jumada I": "ޖުމާދަލްއޫލާ",
-        "Jumada II": "ޖުމާދަލްއާޚިރާ",
+        "Rabi al-Awwal": "ރަބީޢުލްއައްވަލް",
+        "Rabi ath-Thani": "ރަބީޢުލްއާޚިރު",
+        "Jumada al-Awwal": "ޖުމާދަލްއޫލާ",
+        "Jumada ath-Thani": "ޖުމާދަލްއާޚިރާ",
         Rajab: "ރަޖަބު",
         "Sha'ban": "ޝަޢުބާން",
         Ramadan: "ރަމަޟާން",
         Shawwal: "ޝައްވާލް",
-        "Dhu'l-Qi'dah": "ޛުލްޤަޢިދާ",
-        "Dhu'l-Hijjah": "ޛުލްޙިއްޖާ",
+        "Dhul-Qa'dah": "ޛުލްގަޢިދާ",
+        "Dhul-Hijjah": "ޛުލްޙިއްޖާ",
       };
 
       const hijriDvParts = new Intl.DateTimeFormat("en-u-ca-islamic", {
