@@ -804,6 +804,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
+      // Add these cases to your handleDropdownAction function
+      case "removeSpacesAndSingleLines":
+        textArea.value = textArea.value
+          .replace(/^ +| +$/gm, "") // Remove spaces at line starts/ends
+          .replace(/ +/g, " ") // Multiple spaces to single
+          .trim() // Trim whole text
+          .replace(/\n{2,}/g, "\n"); // More than single empty line to single
+        break;
+
+      case "removeSpacesAndDoubleLines":
+        textArea.value = textArea.value
+          .replace(/^ +| +$/gm, "") // Remove spaces at line starts/ends
+          .replace(/ +/g, " ") // Multiple spaces to single
+          .trim() // Trim whole text
+          .replace(/\n{3,}/g, "\n\n"); // More than double empty line to double
+        break;
+
+      case "removeExtraSpacesOnly":
+        textArea.value = textArea.value
+          .replace(/^ +| +$/gm, "") // Remove spaces at line starts/ends
+          .replace(/ +/g, " ") // Multiple spaces to single
+          .trim(); // Trim whole text
+        break;
+
+      case "removeSingleLinesOnly":
+        textArea.value = textArea.value
+          .trim() // Trim whole text
+          .replace(/\n{2,}/g, "\n"); // More than single empty line to single
+        break;
+
+      case "removeDoubleLinesOnly":
+        textArea.value = textArea.value
+          .trim() // Trim whole text
+          .replace(/\n{3,}/g, "\n\n"); // More than double empty line to double
+        break;
+
+      // =====================================================
+
       //     !!!  Add more cases as needed
 
       // =====================================================
@@ -844,58 +882,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("wordWrap").addEventListener("click", () => {
     textArea.value = textArea.value.replace(/\s+/g, " ").trim();
-    updateStats();
-  });
-  //
-
-  const newlineStates = [
-    {
-      // Remove extra lines, keeping up to double empty lines
-      func: (str) => str.trim().replace(/\n{3,}/g, "\n\n"),
-    },
-    {
-      // Remove all extra lines, keeping only single empty lines
-      func: (str) => str.trim().replace(/\n{2,}/g, "\n"),
-    },
-    {
-      // Remove all empty lines
-      func: (str) =>
-        str
-          .trim()
-          .split("\n")
-          .filter((line) => line.trim() !== "")
-          .join("\n"),
-    },
-    {
-      // No changes (original text)
-      func: (str) => str,
-    },
-  ];
-
-  let currentNewlineState = 0;
-
-  document.getElementById("removeNewlines").addEventListener("click", () => {
-    // Apply the current state's function to the text
-    textArea.value = newlineStates[currentNewlineState].func(textArea.value);
-
-    // Move to the next state, wrapping around to 0 if we reach the end
-    currentNewlineState = (currentNewlineState + 1) % newlineStates.length;
-
-    // Update stats (assuming this function exists elsewhere in your code)
-    updateStats();
-  });
-  //
-
-  document.getElementById("removeExtraSpace").addEventListener("click", () => {
-    textArea.value = textArea.value
-      // Remove spaces at the beginning and end of each line
-      .replace(/^ +| +$/gm, "")
-      // Replace multiple spaces with a single space
-      .replace(/ +/g, " ")
-      // Replace multiple newlines with a single newline
-      //.replace(/\n+/g, "\n")
-      // Trim leading and trailing whitespace from the entire text
-      .trim();
     updateStats();
   });
   //
