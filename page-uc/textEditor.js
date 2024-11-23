@@ -723,7 +723,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
-      // Add this to your handleDropdownAction function
       case "convertNumberBrackets":
         const numberBracketMappings = {
           none: ["", ""],
@@ -846,6 +845,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
+      case "dotsToEllipsis":
+        textArea.value = textArea.value.replace(/\.{3}/g, "…");
+        break;
+
+      case "ellipsisToDots":
+        textArea.value = textArea.value.replace(/…/g, "...");
+        break;
+
+      // =====================================================
+
+      case "convertDashes":
+        const dashMappings = {
+          hyphen: "-",
+          en: "–",
+          em: "—",
+        };
+
+        const fromDash =
+          dashMappings[document.getElementById("dashFrom").value];
+        const toDash = dashMappings[document.getElementById("dashTo").value];
+
+        // Convert from current format to target format
+        textArea.value = textArea.value.replace(
+          new RegExp(fromDash, "g"),
+          toDash
+        );
+        break;
+
+      // =====================================================
+
       //     !!!  Add more cases as needed
 
       // =====================================================
@@ -913,67 +942,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .replace(/'/g, "\u2032"); // prime
     }
     isSmartQuotes = !isSmartQuotes;
-    updateStats();
-  });
-  //
-
-  let isEllipsis = false;
-
-  document.getElementById("dotsToEllipsis").addEventListener("click", () => {
-    if (isEllipsis) {
-      // Convert ellipsis to three dots
-      textArea.value = textArea.value.replace(/…/g, "...");
-    } else {
-      // Convert three dots to ellipsis
-      textArea.value = textArea.value.replace(/\.{3}/g, "…");
-    }
-
-    isEllipsis = !isEllipsis;
-    updateStats();
-  });
-  //
-
-  let dashState = 0;
-
-  document
-    .getElementById("hyphenToEnThenEmDash")
-    .addEventListener("click", () => {
-      const transformations = [
-        { from: /-/g, to: "–" },
-        { from: /–/g, to: "—" },
-        { from: /—/g, to: "-" },
-      ];
-
-      textArea.value = textArea.value.replace(
-        transformations[dashState].from,
-        transformations[dashState].to
-      );
-
-      dashState = (dashState + 1) % 3;
-
-      updateStats();
-    });
-  //
-
-  let lineNumbersAdded = false;
-
-  document.getElementById("toggleLineNumbers").addEventListener("click", () => {
-    const lines = textArea.value.split("\n");
-    if (!lineNumbersAdded) {
-      textArea.value = lines
-        .map((line, index) => `${index + 1}. ${line}`)
-        .join("\n");
-      document.getElementById("toggleLineNumbers").textContent =
-        "Rmv Line Numbers";
-      lineNumbersAdded = true;
-    } else {
-      textArea.value = lines
-        .map((line) => line.replace(/^\d+\.\s/, ""))
-        .join("\n");
-      document.getElementById("toggleLineNumbers").textContent =
-        "Add Line Numbers";
-      lineNumbersAdded = false;
-    }
     updateStats();
   });
   //
