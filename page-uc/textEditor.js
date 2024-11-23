@@ -2330,7 +2330,6 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       return `${weekday}, ${day}${suffix}`;
     });
 
-    // Gregorian Long English
     document.getElementById("gregorianLongEn").textContent = `${enDate}, at ${
       isMilitaryTime ? hours24 : hours12
     }:${String(now.getMinutes()).padStart(2, "0")}${
@@ -2363,7 +2362,7 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     ];
 
     const dvAmPm = isMilitaryTime
-      ? "" // Empty string when in military time
+      ? ""
       : now.getHours() >= 12
       ? "މެނދުރުފަސް"
       : "މެނދުރުކުރި";
@@ -2372,7 +2371,7 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     } ${now.getFullYear()}، ${hours}:${String(now.getMinutes()).padStart(
       2,
       "0"
-    )}${isMilitaryTime ? "" : " " + dvAmPm}`; // Conditionally add AM/PM
+    )}${isMilitaryTime ? "" : " " + dvAmPm}`;
 
     document.getElementById("gregorianLongDv").textContent = dvDate;
 
@@ -2387,14 +2386,11 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       hour12: true,
     };
 
-    // Gregorian Long Arabic
     let arDate = now.toLocaleDateString("ar", {
       ...arOptions,
       hour12: !isMilitaryTime,
     });
 
-    arDate = now.toLocaleDateString("ar", arOptions);
-    // Fix Arabic date format
     arDate = arDate
       .replace(/(\d{4})\s*،?\s*في/, "$1، في")
       .replace(/\s+،/g, "،")
@@ -2408,10 +2404,27 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       );
     document.getElementById("gregorianLongAr").textContent = arDate;
 
-    //
-
     // Hijri dates
     try {
+      // Single mapping for Hijri months
+      const hijriMonths = {
+        محرم: ["Muharram", "މުޙައްރަމް"],
+        صفر: ["Safar", "ޞަފަރު"],
+        "ربيع الأول": ["Rabi' al-Awwal", "ރަބީޢުލްއައްވަލް"],
+        "ربيع الآخر": ["Rabi' ath-Thani", "ރަބީޢުލްއާޚިރު"],
+        "جمادى الأولى": ["Jumada al-Awwal", "ޖުމާދަލްއޫލާ"],
+        "جمادى الآخرة": ["Jumada ath-Thani", "ޖުމާދަލްއާޚިރާ"],
+        رجب: ["Rajab", "ރަޖަބު"],
+        شعبان: ["Sha'ban", "ޝަޢުބާން"],
+        رمضان: ["Ramadan", "ރަމަޟާން"],
+        شوال: ["Shawwal", "ޝައްވާލް"],
+        "ذو القعدة": ["Dhul-Qa'dah", "ޛުލްގަޢިދާ"],
+        "ذو الحجة": ["Dhul-Hijjah", "ޛުލްޙިއްޖާ"],
+      };
+
+      const toEnglish = (arMonth) => hijriMonths[arMonth]?.[0] || arMonth;
+      const toDhivehi = (arMonth) => hijriMonths[arMonth]?.[1] || arMonth;
+
       // Hijri Long Arabic
       const hijriArDate = new Intl.DateTimeFormat("ar-TN-u-ca-islamic", {
         weekday: "long",
@@ -2421,7 +2434,6 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
         calendar: "islamic",
       }).format(now);
 
-      // Hijri Long Arabic
       const arTime = `، في ${isMilitaryTime ? hours24 : hours12}:${String(
         now.getMinutes()
       ).padStart(2, "0")}${
@@ -2434,27 +2446,8 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
           .replace(/\s+،/g, "،")
           .replace(/\s+$/, "") + arTime;
 
-      /*
-      // https://medium.com/@ahmelq/date-in-javascript-a-deep-dive-into-arabic-and-hijri-calendars-localization-c632e89b79a2
-      // Get the list of Hijri months
-      function getHijriMonths(locale = "en-u-ca-islamic") {
-        const formatter = new Intl.DateTimeFormat(locale, { month: "long" });
-        const months = [];
-        // Generate month names by iterating through the Islamic calendar months
-        for (let i = 0; i < 12; i++) {
-          // Use a reference date (e.g., 1st Muharram) and add months dynamically
-          const date = new Date(2023, i, 1); // 2023 Gregorian year as a reference
-          const monthName = formatter.format(date);
-          months.push(monthName);
-        }
-        return months;
-      }
-      console.log(getHijriMonths());
-      */
-
-      // Hijri Long English
-      // const hijriEnParts = new Intl.DateTimeFormat("en-u-ca-islamic", {
-      const hijriEnParts = new Intl.DateTimeFormat("en-u-ca-islamic-umalqura", {
+      // Hijri Long English & Dhivehi
+      const hijriParts = new Intl.DateTimeFormat("ar-u-ca-islamic-umalqura", {
         weekday: "long",
         day: "numeric",
         month: "long",
@@ -2462,57 +2455,44 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
         calendar: "islamic",
       }).formatToParts(now);
 
+      //  weekday mapping
+      const weekdayMap = {
+        الأحد: "Sunday",
+        الاثنين: "Monday",
+        الثلاثاء: "Tuesday",
+        الأربعاء: "Wednesday",
+        الخميس: "Thursday",
+        الجمعة: "Friday",
+        السبت: "Saturday",
+      };
+
+      // Update the hijriParts section
       let enWeekday, enDay, enMonth, enYear;
-      hijriEnParts.forEach((part) => {
-        if (part.type === "weekday") enWeekday = part.value;
+      hijriParts.forEach((part) => {
+        if (part.type === "weekday")
+          enWeekday = weekdayMap[part.value] || part.value;
         if (part.type === "day") enDay = part.value;
-        if (part.type === "month") enMonth = part.value;
+        if (part.type === "month") enMonth = toEnglish(part.value);
         if (part.type === "year") enYear = part.value;
       });
 
-      // Hijri Long English
       document.getElementById(
         "hijriLongEn"
       ).textContent = `${enWeekday}, ${parseInt(
         enDay
-      )} ${enMonth}, ${enYear} AH, at ${
+      )} ${enMonth} ${enYear} AH, at ${
         isMilitaryTime ? hours24 : hours12
       }:${String(now.getMinutes()).padStart(2, "0")}${
         isMilitaryTime ? "" : " " + ampm
       }`;
 
-      // Hijri Long Dhivehi
-      const hijriDvMonths = {
-        Muharram: "މުޙައްރަމް",
-        Safar: "ޞަފަރު",
-        "Rabi' I": "ރަބީޢުލްއައްވަލް",
-        "Rabi' II": "ރަބީޢުލްއާޚިރު",
-        "Jumada I": "ޖުމާދަލްއޫލާ",
-        "Jumada II": "ޖުމާދަލްއާޚިރާ",
-        Rajab: "ރަޖަބު",
-        "Sha'ban": "ޝަޢުބާން",
-        Ramadan: "ރަމަޟާން",
-        Shawwal: "ޝައްވާލް",
-        "Dhu'l-Qi'dah": "ޛުލްޤަޢިދާ",
-        "Dhu'l-Hijjah": "ޛުލްޙިއްޖާ",
-      };
-
-      const hijriDvParts = new Intl.DateTimeFormat("en-u-ca-islamic", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-        calendar: "islamic",
-      }).formatToParts(now);
-
       let dvDay, dvMonth, dvYear;
-      hijriDvParts.forEach((part) => {
+      hijriParts.forEach((part) => {
         if (part.type === "day") dvDay = part.value;
-        if (part.type === "month")
-          dvMonth = hijriDvMonths[part.value] || part.value;
+        if (part.type === "month") dvMonth = toDhivehi(part.value);
         if (part.type === "year") dvYear = part.value;
       });
 
-      // Hijri Long Dhivehi
       document.getElementById("hijriLongDv").textContent = `${
         dvWeekdays[now.getDay()]
       }، ${parseInt(dvDay)} ${dvMonth} ${dvYear}، ${
@@ -2523,15 +2503,14 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
 
       // Hijri Short
       const hijriShortDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
-        day: "numeric", // Changed from "2-digit" to "numeric"
-        month: "numeric", // Changed from "2-digit" to "numeric"
+        day: "numeric",
+        month: "numeric",
         year: "numeric",
         calendar: "islamic",
       })
         .format(now)
-        .replace(/[^0-9/]/g, ""); // Keep only numbers and forward slashes
+        .replace(/[^0-9/]/g, "");
 
-      // Hijri Short
       document.getElementById("hijriShort").textContent = `${hijriShortDate} ${
         isMilitaryTime ? hours24 : hours12
       }:${String(now.getMinutes()).padStart(2, "0")}${
@@ -2546,15 +2525,7 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       );
     }
 
-    //
-
     // Gregorian Short
-    const shortDate = `${String(now.getDate()).padStart(2, "0")}/${String(
-      now.getMonth() + 1
-    ).padStart(2, "0")}/${now.getFullYear()} ${hours12}:${String(
-      now.getMinutes()
-    ).padStart(2, "0")} ${ampm}`;
-
     document.getElementById("gregorianShort").textContent = `${String(
       now.getDate()
     ).padStart(2, "0")}/${String(now.getMonth() + 1).padStart(
@@ -2565,15 +2536,11 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     ).padStart(2, "0")}${isMilitaryTime ? "" : " " + ampm}`;
   }
 
-  //
-
   // Update button texts every minute
   updateDateTimeButtons();
   setInterval(updateDateTimeButtons, 60000);
 
-  //
-
-  // Add near the DOMContentLoaded event listener
+  // Toggle military time
   document
     .getElementById("toggleMilitaryTime")
     .addEventListener("click", () => {
@@ -2581,8 +2548,6 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       localStorage.setItem("militaryTime", !currentSetting);
       updateDateTimeButtons();
     });
-
-  //
 
   // Add click handlers for copying
   document.querySelectorAll(".copy-button-other").forEach((button) => {
