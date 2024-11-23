@@ -581,20 +581,50 @@
             >
               Word Wrap ↲
             </button>
-            <button
-              id="removeNewlines"
-              class="function-button"
-              title="Removes more than double empty lines on the first click, and more than single empty lines on the second"
-            >
-              Rmv Xtra Lines ⌇
-            </button>
-            <button
-              id="removeExtraSpace"
-              class="function-button"
-              title="Removes extra spaces"
-            >
-              Rmv Xtra Space ⸝⸝
-            </button>
+
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="spaceLineControl"
+                class="function-button"
+                title="Space and line control options"
+              >
+                Spaces & Lines ⬜
+              </button>
+              <div class="dropdown-content">
+                <button
+                  data-action="removeSpacesAndSingleLines"
+                  title="Removes extra spaces and more than single empty lines"
+                >
+                  Remove Spaces & Single Lines
+                </button>
+                <button
+                  data-action="removeSpacesAndDoubleLines"
+                  title="Removes extra spaces and more than double empty lines"
+                >
+                  Remove Spaces & Double Lines
+                </button>
+                <button
+                  data-action="removeExtraSpacesOnly"
+                  title="Removes only extra spaces"
+                >
+                  Remove Extra Spaces Only
+                </button>
+                <button
+                  data-action="removeSingleLinesOnly"
+                  title="Removes only more than single empty lines"
+                >
+                  Remove Extra Single Lines Only
+                </button>
+                <button
+                  data-action="removeDoubleLinesOnly"
+                  title="Removes only more than double empty lines"
+                >
+                  Remove Extra Double Lines Only
+                </button>
+              </div>
+            </div>
 
             <!--  -->
 
