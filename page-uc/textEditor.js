@@ -971,19 +971,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   //
 
-  document.getElementById("keepOnlyAr").addEventListener("click", () => {
-    scrollToTop();
-    //
-    //textArea.value = textArea.value.replace(/[^\u0600-\u06FF\s]/g, "");
-    // https://notes.yshalsager.com/en/notes/Regex%20Match%20Arabic%20Letters/
-    textArea.value = textArea.value.replace(
-      /[^\u0600-\u06ff\u0750-\u077f\ufb50-\ufbc1\ufbd3-\ufd3f\ufd50-\ufd8f\ufd92-\ufdc7\ufe70-\ufefc\uFDF0-\uFDFD\s]/g,
-      ""
-    );
-    updateStats();
-  });
-  //
-
   let lineNumbersAdded = false;
 
   document.getElementById("toggleLineNumbers").addEventListener("click", () => {
