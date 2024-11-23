@@ -2447,6 +2447,7 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
           .replace(/\s+$/, "") + arTime;
 
       // Hijri Long English & Dhivehi
+      // using en-u-ca-islamic messes up the calendar months on mobile, for some reason that shows as gregorian, so instead used actual arabic month names
       const hijriParts = new Intl.DateTimeFormat("ar-u-ca-islamic-umalqura", {
         weekday: "long",
         day: "numeric",
