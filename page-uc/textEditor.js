@@ -2340,18 +2340,18 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       "ހޮނިހިރު",
     ];
     const dvMonths = [
-      "ޖެނުއަރީ",
-      "ފެބްރުއަރީ",
-      "މާރޗް",
-      "އޭޕްރީލް",
+      "ޖަނަވަރީ",
+      "ފެބުރުވަރީ",
+      "މާރިޗު",
+      "އެޕްރީލް",
       "މޭ",
       "ޖޫން",
       "ޖުލައި",
-      "އޯގަސްޓް",
-      "ސެޕްޓެމްބަރ",
-      "އޮކްޓޯބަރ",
-      "ނޮވެމްބަރ",
-      "ޑިސެމްބަރ",
+      "އޮގަސްޓު",
+      "ސެޕްޓެންބަރު",
+      "އޮކްޓޫބަރު",
+      "ނޮވެންބަރު",
+      "ޑިސެންބަރު",
     ];
     const dvAmPm = now.getHours() >= 12 ? "މެނދުރުފަސް" : "މެނދުރުކުރި";
     const dvDate = `${dvWeekdays[now.getDay()]}، ${now.getDate()} ${
@@ -2362,7 +2362,6 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     )} ${dvAmPm}`;
     document.getElementById("gregorianLongDv").textContent = dvDate;
 
-    // Gregorian Long Arabic
     // Gregorian Long Arabic
     const arOptions = {
       weekday: "long",
@@ -2380,6 +2379,96 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       .replace(/\s+،/g, "،"); // Remove spaces before commas
     document.getElementById("gregorianLongAr").textContent = arDate;
 
+    //
+
+    // Hijri dates
+    try {
+      // Hijri Long Arabic
+      const hijriArDate = new Intl.DateTimeFormat("ar-TN-u-ca-islamic", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        calendar: "islamic",
+      }).format(now);
+
+      const arTime = `، في ${hours12}:${String(now.getMinutes()).padStart(
+        2,
+        "0"
+      )} ${now.getHours() >= 12 ? "م" : "ص"}`;
+      document.getElementById("hijriLongAr").textContent =
+        hijriArDate.replace(/هـ/, "").replace(/\s+،/g, "،") + arTime;
+
+      // Hijri Long English
+      const hijriEnParts = new Intl.DateTimeFormat("en-u-ca-islamic", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        calendar: "islamic",
+      }).formatToParts(now);
+
+      let enWeekday, enDay, enMonth, enYear;
+      hijriEnParts.forEach((part) => {
+        if (part.type === "weekday") enWeekday = part.value;
+        if (part.type === "day") enDay = part.value;
+        if (part.type === "month") enMonth = part.value;
+        if (part.type === "year") enYear = part.value;
+      });
+
+      document.getElementById(
+        "hijriLongEn"
+      ).textContent = `${enWeekday}, ${enDay} ${enMonth}, ${enYear} AH, at ${hours12}:${String(
+        now.getMinutes()
+      ).padStart(2, "0")} ${ampm}`;
+
+      // Hijri Long Dhivehi
+      const hijriArParts = new Intl.DateTimeFormat("ar-SA-u-ca-islamic", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        calendar: "islamic",
+      }).formatToParts(now);
+
+      let arDay, arMonth, arYear;
+      hijriArParts.forEach((part) => {
+        if (part.type === "day") arDay = part.value;
+        if (part.type === "month") arMonth = part.value;
+        if (part.type === "year") arYear = part.value;
+      });
+
+      document.getElementById("hijriLongDv").textContent = `${
+        dvWeekdays[now.getDay()]
+      }، ${arDay} ${arMonth} ${arYear}، ${hours12}:${String(
+        now.getMinutes()
+      ).padStart(2, "0")} ${dvAmPm}`;
+
+      // Hijri Short
+      const hijriShortDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        calendar: "islamic",
+      })
+        .format(now)
+        .replace(/[^0-9/]/g, ""); // Keep only numbers and forward slashes
+
+      document.getElementById(
+        "hijriShort"
+      ).textContent = `${hijriShortDate} ${hours12}:${String(
+        now.getMinutes()
+      ).padStart(2, "0")} ${ampm}`;
+    } catch (e) {
+      console.error("Error formatting Hijri dates:", e);
+      ["hijriLongAr", "hijriLongEn", "hijriLongDv", "hijriShort"].forEach(
+        (id) => {
+          document.getElementById(id).textContent = "Hijri date unavailable";
+        }
+      );
+    }
+
+    //
+
     // Gregorian Short
     const shortDate = `${String(now.getDate()).padStart(2, "0")}/${String(
       now.getMonth() + 1
@@ -2388,6 +2477,8 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     ).padStart(2, "0")} ${ampm}`;
     document.getElementById("gregorianShort").textContent = shortDate;
   }
+
+  //
 
   // Update button texts every minute
   updateDateTimeButtons();
