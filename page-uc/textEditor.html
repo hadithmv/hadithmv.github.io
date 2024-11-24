@@ -182,7 +182,49 @@
         font-size: 18px; /* 16 */
       }
 
-      /* Add to your existing <style> section */
+      /**/
+      /* Add to your CSS */
+      .copy-button-lit,
+      .copy-button,
+      .copy-button-other {
+        position: relative;
+      }
+
+      .copy-feedback {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        pointer-events: none;
+        animation: fadeOut 1s forwards;
+      }
+
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+        }
+        70% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .copy-success {
+        background-color: #e8f5e9;
+        transition: background-color 0.3s;
+        text-align: left;
+        direction: ltr !important;
+      }
+
+      /* dropdown buttons */
       .dropdown-button {
         position: relative;
         display: inline-block;

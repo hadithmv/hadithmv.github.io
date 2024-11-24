@@ -2612,13 +2612,6 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       updateDateTimeButtons();
     });
 
-  // Add click handlers for copying
-  document.querySelectorAll(".copy-button-other").forEach((button) => {
-    button.addEventListener("click", () => {
-      navigator.clipboard.writeText(button.textContent);
-    });
-  });
-
   // OLD DATE TIME CODE
   // document.getElementById("getDateTime").addEventListener("click", function () {
   //   const now = new Date();
@@ -2656,11 +2649,37 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     });
   });
 
-  document.querySelectorAll(".copy-button-lit").forEach((button) => {
-    button.addEventListener("click", () => {
-      navigator.clipboard.writeText(button.textContent);
+  function showCopyFeedback(button) {
+    // Add feedback tooltip
+    const feedback = document.createElement("span");
+    feedback.textContent = "Copied";
+    feedback.className = "copy-feedback";
+    button.appendChild(feedback);
+
+    // Add success background
+    button.classList.add("copy-success");
+
+    // Remove feedback elements
+    setTimeout(() => {
+      feedback.remove();
+      button.classList.remove("copy-success");
+    }, 1000);
+  }
+
+  // Add click handlers for copying
+  document
+    .querySelectorAll(".copy-button-lit, .copy-button, .copy-button-other")
+    .forEach((button) => {
+      button.addEventListener("click", async () => {
+        const text = button.dataset.text || button.textContent.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+          showCopyFeedback(button);
+        } catch (err) {
+          console.error("Failed to copy:", err);
+        }
+      });
     });
-  });
 
   // Load saved content
   const savedTabs = JSON.parse(localStorage.getItem("editorTabs"));
