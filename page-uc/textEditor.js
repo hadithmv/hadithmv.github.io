@@ -875,6 +875,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
+      case "convertSalawat":
+        const salawatMappings = {
+          plain: "صلى الله عليه وسلم",
+          symbol: "ﷺ",
+          tashkeel: "صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ",
+        };
+
+        const fromSalawat =
+          salawatMappings[document.getElementById("salawatFrom").value];
+        const toSalawat =
+          salawatMappings[document.getElementById("salawatTo").value];
+
+        // Escape special characters for regex
+        const escapedFromSalawat = fromSalawat.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        );
+
+        textArea.value = textArea.value.replace(
+          new RegExp(escapedFromSalawat, "g"),
+          toSalawat
+        );
+        break;
+
+      // =====================================================
+
       //     !!!  Add more cases as needed
 
       // =====================================================
@@ -1683,27 +1709,6 @@ i want one more space after the colon that comes after the issue description
     scrollToTop();
     //
     textArea.value = textArea.value.replace(/[^\w\s]/g, "");
-    updateStats();
-  });
-  //
-
-  let convertSalawatclickCount = 0;
-  document.getElementById("convertSalawat").addEventListener("click", () => {
-    convertSalawatclickCount++;
-    if (convertSalawatclickCount % 2 === 1) {
-      // Odd clicks: convert to ligature
-      textArea.value = textArea.value.replace(
-        /صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ|صلى الله عليه وسلم/g,
-        "ﷺ"
-      );
-    } else {
-      // Even clicks: convert to full phrase
-      textArea.value = textArea.value.replace(
-        /ﷺ/g,
-        "صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ"
-      );
-    }
-
     updateStats();
   });
   //
