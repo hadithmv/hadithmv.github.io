@@ -901,6 +901,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
+      case "removeKashidas":
+        textArea.value = textArea.value.replace(/ـ/g, "");
+        break;
+
+      case "shaddaB4Haraka":
+        function correctShaddaPlacement(text) {
+          const diacritics = "ًٌٍَُِّْ";
+          const shadda = "ّ";
+          return text.replace(
+            new RegExp(`([${diacritics}])(${shadda})`, "g"),
+            (match, diacritic, shadda) => {
+              // If the diacritic is a sukun, leave it after the shadda
+              if (diacritic === "ْ") {
+                return match;
+              }
+              // Otherwise, move the shadda before the diacritic
+              return shadda + diacritic;
+            }
+          );
+        }
+
+        textArea.value = correctShaddaPlacement(textArea.value);
+        break;
+
+      case "removeQuranicMarks":
+        textArea.value = textArea.value
+          .replace(/[ۖۗۘۙۚۛۜ۝۞ۣ۟۠ۡۢۤۥۦۧۨ۩۪ۭ۫۬﴾﴿]/g, "")
+          .replace(/\s+/g, " ")
+          .trim();
+        break;
+
+      case "replaceDoubleBracketsToSingle":
+        textArea.value = textArea.value.replace(/\(\(([^)]*)\)\)/g, "($1)");
+        break;
+
+      // =====================================================
+
       //     !!!  Add more cases as needed
 
       // =====================================================
@@ -1810,50 +1847,6 @@ i want one more space after the colon that comes after the issue description
               */
   //
 
-  document.getElementById("removeKashidas").addEventListener("click", () => {
-    scrollToTop();
-    //
-    textArea.value = textArea.value.replace(/ـ/g, "");
-    updateStats();
-  });
-  //
-
-  document.getElementById("shaddaB4Haraka").addEventListener("click", () => {
-    scrollToTop();
-    //
-    textArea.value = correctShaddaPlacement(textArea.value);
-  });
-
-  function correctShaddaPlacement(text) {
-    const diacritics = "ًٌٍَُِّْ";
-    const shadda = "ّ";
-    return text.replace(
-      new RegExp(`([${diacritics}])(${shadda})`, "g"),
-      (match, diacritic, shadda) => {
-        // If the diacritic is a sukun, leave it after the shadda
-        if (diacritic === "ْ") {
-          return match;
-        }
-        // Otherwise, move the shadda before the diacritic
-        return shadda + diacritic;
-      }
-    );
-  }
-  //
-
-  document
-    .getElementById("removeQuranicMarks")
-    .addEventListener("click", () => {
-      scrollToTop();
-      //
-      textArea.value = textArea.value
-        .replace(/[ۖۗۘۙۚۛۜ۝۞ۣ۟۠ۡۢۤۥۦۧۨ۩۪ۭ۫۬﴾﴿]/g, "")
-        .replace(/\s+/g, " ")
-        .trim();
-      updateStats();
-    });
-  //
-
   let quoteState = 0; // 0: double quotes, 1: angular quotes, 2: double parentheses
 
   document
@@ -1890,14 +1883,6 @@ i want one more space after the colon that comes after the issue description
       updateStats();
     });
 
-  //
-
-  document
-    .getElementById("replaceDoubleBracketsToSingle")
-    .addEventListener("click", () => {
-      textArea.value = textArea.value.replace(/\(\(([^)]*)\)\)/g, "($1)");
-      updateStats();
-    });
   //
 
   let isLatinBr = true;
