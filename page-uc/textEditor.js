@@ -938,6 +938,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
+      case "convertPunctuation":
+        const punctuationMappings = {
+          colon: ":",
+          fullstop: ".",
+          comma: ",",
+        };
+
+        const fromPunctuation =
+          punctuationMappings[document.getElementById("punctuationFrom").value];
+        const toPunctuation =
+          punctuationMappings[document.getElementById("punctuationTo").value];
+
+        // Escape special characters for regex
+        const escapedFromPunctuation = fromPunctuation.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        );
+
+        textArea.value = textArea.value.replace(
+          new RegExp(escapedFromPunctuation, "g"),
+          toPunctuation
+        );
+        break;
+
+      // =====================================================
+
+      case "ltrToRtlPunc":
+        textArea.value = textArea.value.replace(
+          /[,;?]/g,
+          (match) =>
+            ({
+              ",": "،",
+              ";": "؛",
+              "?": "؟",
+            }[match] || match)
+        );
+        break;
+
+      case "rtlToLtrPunc":
+        textArea.value = textArea.value.replace(
+          /[،؛؟]/g,
+          (match) =>
+            ({
+              "،": ",",
+              "؛": ";",
+              "؟": "?",
+            }[match] || match)
+        );
+        break;
+
+      // =====================================================
+
       //     !!!  Add more cases as needed
 
       // =====================================================
@@ -1897,30 +1949,6 @@ i want one more space after the colon that comes after the issue description
         (match) => replacements[match] || match
       );
       isLatinBr = !isLatinBr;
-      updateStats();
-    });
-  //
-
-  let isPuncRTL = true;
-  document.getElementById("replaceRtlPunc").addEventListener("click", () => {
-    const replacements = isPuncRTL
-      ? { "،": ",", "؛": ";", "؟": "?" }
-      : { ",": "،", ";": "؛", "?": "؟" };
-    textArea.value = textArea.value.replace(
-      /[،؛؟,;?]/g,
-      (match) => replacements[match] || match
-    );
-    isPuncRTL = !isPuncRTL;
-    updateStats();
-  });
-  //
-
-  document
-    .getElementById("replaceColon2Fullstop")
-    .addEventListener("click", () => {
-      scrollToTop();
-      //
-      textArea.value = textArea.value.replace(/:/g, ".");
       updateStats();
     });
   //
