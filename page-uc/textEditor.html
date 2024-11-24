@@ -246,6 +246,7 @@
         color: var(--textarea-text);
         border: 1px solid var(--textarea-border);
         border-radius: 4px;
+        font-weight: bold;
       }
 
       .apply-button {
@@ -1215,14 +1216,43 @@
             <!-- !! add fix harf illa fili of arabic -->
 
             <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="punctuationConverter"
+                class="function-button"
+                title="Convert between different punctuation marks"
+              >
+                : / . / ,
+              </button>
+              <div class="dropdown-content punctuation-converter">
+                <div class="converter-options">
+                  <div class="option-group">
+                    <label>From:</label>
+                    <select id="punctuationFrom" class="converter-select">
+                      <option value="colon" title="colon">:</option>
+                      <option value="fullstop" title="fullstop">.</option>
+                      <option value="comma" title="comma">,</option>
+                    </select>
+                  </div>
+
+                  <div class="option-group">
+                    <label>To:</label>
+                    <select id="punctuationTo" class="converter-select">
+                      <option value="colon" title="colon">:</option>
+                      <option value="fullstop" title="fullstop">.</option>
+                      <option value="comma" title="comma">,</option>
+                    </select>
+                  </div>
+
+                  <button data-action="convertPunctuation" class="apply-button">
+                    Apply
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <!-- -->
-            <button
-              id="replaceColon2Fullstop"
-              class="function-button"
-              title="Replaces colons with fullstops"
-            >
-              : → .
-            </button>
 
             <button
               id="replaceQuoteToDoubleAngleBrackets"
@@ -1239,13 +1269,32 @@
             >
               {*} ↔ ﴾۝﴿
             </button>
-            <button
-              id="replaceRtlPunc"
-              class="function-button"
-              title="Converts left facing commas, semicolons and questions marks, to the right on first click, and does the reverse on second"
-            >
-              ، ؛ ؟ ↔ , ; ?
-            </button>
+
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="rtlPunctuationConverter"
+                class="function-button"
+                title="Convert between RTL and LTR punctuation marks"
+              >
+                ، ؛ ؟ ↔ , ; ?
+              </button>
+              <div class="dropdown-content">
+                <button
+                  data-action="ltrToRtlPunc"
+                  title="Converts LTR punctuation to RTL"
+                >
+                  LTR to RTL (, ; ? → ، ؛ ؟)
+                </button>
+                <button
+                  data-action="rtlToLtrPunc"
+                  title="Converts RTL punctuation to LTR"
+                >
+                  RTL to LTR (، ؛ ؟ → , ; ?)
+                </button>
+              </div>
+            </div>
 
             <!-- -->
 
