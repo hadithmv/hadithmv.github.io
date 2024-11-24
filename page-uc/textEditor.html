@@ -1176,27 +1176,54 @@
 
             <!--  -->
 
+            <div class="dropdown-button">
+              <button
+                id="arabicDiacritics"
+                class="function-button"
+                title="Arabic diacritics and marks options"
+              >
+                Arabic Ops ☀️
+              </button>
+              <div class="dropdown-content">
+                <button
+                  data-action="removeKashidas"
+                  title="Removes kashidas / tatweels, which elongate Arabic letters"
+                >
+                  Remove تـطـويـل 📏
+                </button>
+                <button
+                  data-action="shaddaB4Haraka"
+                  title="Corrects the placement of Arabic harakat on the shadda"
+                >
+                  Fix Shadda Order (ـَ ـّ ← ـّ ـَ)
+                </button>
+                <button
+                  data-action="removeQuranicMarks"
+                  title="Removes Quranic marks"
+                >
+                  Remove Quranic Marks ( ۗ&nbsp; &nbsp; ۘ&nbsp; ۚ&nbsp;﴾ ۝)
+                </button>
+                <button
+                  data-action="replaceDoubleBracketsToSingle"
+                  title="Replaces doubles brackets to single brackets"
+                >
+                  Double Bracket to Single (( )) → ( )
+                </button>
+              </div>
+            </div>
+
+            <!-- !! add fix harf illa fili of arabic -->
+
+            <!--  -->
+            <!-- -->
             <button
-              id="removeKashidas"
+              id="replaceColon2Fullstop"
               class="function-button"
-              title="Removes kashidas / tatweels, which elongate Arabic letters"
+              title="Replaces colons with fullstops"
             >
-              Rmv تـطـويـل 📏
+              : → .
             </button>
-            <button
-              id="shaddaB4Haraka"
-              class="function-button"
-              title="Corrects the placement of Arabic harakat on the shadda. The shadda should come first, followed by the haraka"
-            >
-              ـَ ـّ ← ـّ ـَ
-            </button>
-            <button
-              id="removeQuranicMarks"
-              class="function-button"
-              title="Removes the following Quranic marks: ۖ	ۗ	ۘ	ۙ	ۚ	ۛ	ۜ	 ۝ ﴿ ﴾ ۞	۟	۠	ۡ	ۢ	ۣ	ۤ	ۥ	ۦ	ۧ	ۨ	۩	۪	۫	۬	ۭ"
-            >
-              Rmv ۗ&nbsp; &nbsp; ۘ&nbsp; ۚ&nbsp;۝ ﴾
-            </button>
+
             <button
               id="replaceQuoteToDoubleAngleBrackets"
               class="function-button"
@@ -1204,13 +1231,7 @@
             >
               " " / (( )) ↔ « »
             </button>
-            <button
-              id="replaceDoubleBracketsToSingle"
-              class="function-button"
-              title="Replaces doubles brackets to single brackets"
-            >
-              (( )) → ( )
-            </button>
+
             <button
               id="replaceQuranicBrackets"
               class="function-button"
@@ -1224,14 +1245,6 @@
               title="Converts left facing commas, semicolons and questions marks, to the right on first click, and does the reverse on second"
             >
               ، ؛ ؟ ↔ , ; ?
-            </button>
-            <!-- -->
-            <button
-              id="replaceColon2Fullstop"
-              class="function-button"
-              title="Replaces colons with fullstops"
-            >
-              : → .
             </button>
 
             <!-- -->
