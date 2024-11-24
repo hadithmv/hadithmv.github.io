@@ -1129,13 +1129,53 @@
             >
               1337 📔
             </button>
-            <button
-              id="convertSalawat"
-              class="function-button"
-              title="Converts long form صلى الله عليه وسلم to short form ﷺ on first click, and does the reverse on the second"
-            >
-              صلى… ↔ ﷺ
-            </button>
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="convertSalawat"
+                class="function-button"
+                title="Convert between different forms of Salawat"
+              >
+                صلى… ↔ ﷺ
+              </button>
+              <div class="dropdown-content salawat-converter">
+                <div class="converter-options">
+                  <div class="option-group">
+                    <label>From:</label>
+                    <select id="salawatFrom" class="converter-select">
+                      <option value="plain" title="plain">
+                        صلى الله عليه وسلم
+                      </option>
+                      <option value="symbol" title="symbol">ﷺ</option>
+                      <option value="tashkeel" title="tashkeel">
+                        صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="option-group">
+                    <label>To:</label>
+                    <select id="salawatTo" class="converter-select">
+                      <option value="plain" title="plain">
+                        صلى الله عليه وسلم
+                      </option>
+                      <option value="symbol" title="symbol">ﷺ</option>
+                      <option value="tashkeel" title="tashkeel">
+                        صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ
+                      </option>
+                    </select>
+                  </div>
+
+                  <button data-action="convertSalawat" class="apply-button">
+                    Apply
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!--  -->
+
             <button
               id="removeKashidas"
               class="function-button"
