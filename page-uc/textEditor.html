@@ -220,6 +220,12 @@
         color: var(--button-hover-text);
       }
 
+      .dropdown-separator {
+        margin: 8px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+      }
+
       .show {
         display: block;
       }
@@ -640,7 +646,7 @@
               >
                 Quote Conv 🎤
               </button>
-              <div class="dropdown-content">
+              <div class="dropdown-content quote-converter">
                 <button data-action="rtlStraightToCurly">
                   RTL Straight to Curly ('' "" → ’‘ ”“)
                 </button>
@@ -653,6 +659,74 @@
                 <button data-action="reverseCurlyQuotes">
                   Reverse Curly Direction (‘’ “” ↔ ’‘ ”“)
                 </button>
+
+                <hr class="dropdown-separator" />
+
+                <div class="converter-options">
+                  <div class="option-group">
+                    <label>From:</label>
+                    <select id="quoteFrom" class="converter-select">
+                      <option value="straightSingle" title="straight single">
+                        Straight single ''
+                      </option>
+                      <option value="straightDouble" title="straight double">
+                        Straight double ""
+                      </option>
+                      <option value="ltrCurlyDouble" title="LTR curly double">
+                        LTR curly double “”
+                      </option>
+                      <option value="rtlCurlyDouble" title="RTL curly double">
+                        RTL curly double ”“
+                      </option>
+                      <option value="ltrCurlySingle" title="LTR curly single">
+                        LTR curly single ‘’
+                      </option>
+                      <option value="rtlCurlySingle" title="RTL curly single">
+                        RTL curly single ‘’
+                      </option>
+                      <option value="doubleBrackets" title="double brackets">
+                        Double brackets (())
+                      </option>
+                      <option value="angleQuotes" title="angle quotes">
+                        Angle Quotes «»
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="option-group">
+                    <label>To:</label>
+                    <select id="quoteTo" class="converter-select">
+                      <option value="straightSingle" title="straight single">
+                        Straight single ''
+                      </option>
+                      <option value="straightDouble" title="straight double">
+                        Straight double ""
+                      </option>
+                      <option value="ltrCurlyDouble" title="LTR curly double">
+                        LTR curly double “”
+                      </option>
+                      <option value="rtlCurlyDouble" title="RTL curly double">
+                        RTL curly double ”“
+                      </option>
+                      <option value="ltrCurlySingle" title="LTR curly single">
+                        LTR curly single ‘’
+                      </option>
+                      <option value="rtlCurlySingle" title="RTL curly single">
+                        RTL curly single ‘’
+                      </option>
+                      <option value="doubleBrackets" title="double brackets">
+                        Double brackets (())
+                      </option>
+                      <option value="angleQuotes" title="angle quotes">
+                        Angle Quotes «»
+                      </option>
+                    </select>
+                  </div>
+
+                  <button data-action="convertQuotes" class="apply-button">
+                    Apply
+                  </button>
+                </div>
               </div>
             </div>
 

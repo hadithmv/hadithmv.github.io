@@ -252,6 +252,50 @@ document.addEventListener("DOMContentLoaded", () => {
           .replace(/[\u201C\u201D]/g, '"');
         break;
 
+      case "reverseCurlyQuotes":
+        textArea.value = textArea.value
+          .replace(/“|”/g, (match) => (match === "“" ? "”" : "“")) // Swap curly double quotes
+          .replace(/‘|’/g, (match) => (match === "‘" ? "’" : "‘")); // Swap curly single quotes
+        break;
+
+      //
+
+      case "convertQuotes":
+        const quoteMappings = {
+          straightSingle: ["'", "'"],
+          straightDouble: ['"', '"'],
+          ltrCurlyDouble: ["“", "”"], // Correct LTR curly double quotes
+          rtlCurlyDouble: ["”", "“"], // Correct RTL curly double quotes
+          ltrCurlySingle: ["‘", "’"], // Correct LTR curly single quotes
+          rtlCurlySingle: ["’", "‘"], // Correct RTL curly single quotes
+          doubleBrackets: ["((", "))"],
+          angleQuotes: ["«", "»"],
+        };
+
+        const fromQuotes =
+          quoteMappings[document.getElementById("quoteFrom").value];
+        const toQuotes =
+          quoteMappings[document.getElementById("quoteTo").value];
+
+        // Escape special characters for regex
+        const escapedFromOpen = fromQuotes[0].replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        );
+        const escapedFromClose = fromQuotes[1].replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        );
+
+        textArea.value = textArea.value.replace(
+          new RegExp(
+            `${escapedFromOpen}([^${escapedFromClose}]*)${escapedFromClose}`,
+            "g"
+          ),
+          `${toQuotes[0]}$1${toQuotes[1]}`
+        );
+        break;
+
       // =====================================================
 
       case "removeJsComments":
