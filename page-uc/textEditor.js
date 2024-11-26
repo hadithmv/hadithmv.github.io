@@ -186,6 +186,37 @@ document.addEventListener("DOMContentLoaded", () => {
           /[0-9]/g,
           (d) => "٠١٢٣٤٥٦٧٨٩"[d]
         );
+
+      //
+
+      case "convertNumerals":
+        const numeralMappings = {
+          regular: "0123456789",
+          arabic: "٠١٢٣٤٥٦٧٨٩", // Arabic-Indic
+          mathSansSerif: "𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫", // Mathematical Sans-serif
+          mathSansSerifBold: "𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵", // Mathematical Sans-serif Bold
+          fullWidth: "０１２３４５６７８９", // Fullwidth
+          circled: "⓪①②③④⑤⑥⑦⑧⑨", // Circled
+          negativeCircled: "⓿❶❷❸❹❺❻❼❽❾", // Negative Circled
+          persian: "۰۱۲۳۴۵۶۷۸۹", // Extended Arabic-Indic
+          devanagari: "०१२३४५६७८९", // Devanagari
+          thai: "๐๑๒๓๔๕๖๗๘๙", // Thai
+          bengali: "০১২৩৪৫৬৭৮৯", // Bengali
+        };
+
+        const fromNumerals =
+          numeralMappings[document.getElementById("numeralFrom").value];
+        const toNumerals =
+          numeralMappings[document.getElementById("numeralTo").value];
+
+        textArea.value = textArea.value.replace(/[0-9]/g, (d) => {
+          const index = fromNumerals.indexOf(d);
+          return index !== -1 ? toNumerals[index] : d;
+        });
+        break;
+
+        //
+
         break;
       case "removePrecedingZeros":
         textArea.value = textArea.value.replace(/\b0+(\d)/g, "$1");
@@ -298,6 +329,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
+      // Web Languages
+
       case "removeJsComments":
         textArea.value = textArea.value.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "");
         ltrSwitch();
@@ -313,12 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ltrSwitch();
         break;
 
-      case "removePythonComments":
-        textArea.value = textArea.value
-          .replace(/#.*$/gm, "") // Single line comments
-          .replace(/'''[\s\S]*?'''|"""[\s\S]*?"""/g, ""); // Triple quoted strings
-        ltrSwitch();
-        break;
+      //
 
       case "removePowershellComments":
         textArea.value = textArea.value
@@ -327,11 +355,98 @@ document.addEventListener("DOMContentLoaded", () => {
         ltrSwitch();
         break;
 
+      case "removePythonComments":
+        textArea.value = textArea.value
+          .replace(/#.*$/gm, "") // Single line comments
+          .replace(/'''[\s\S]*?'''|"""[\s\S]*?"""/g, ""); // Triple quoted strings
+        ltrSwitch();
+        break;
+
       case "removePhpComments":
         textArea.value = textArea.value.replace(
           /\/\*[\s\S]*?\*\/|\/\/.*|#.*$/gm,
           ""
         );
+        ltrSwitch();
+        break;
+
+      // C-Style Languages
+      case "removeCComments":
+        textArea.value = textArea.value.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "");
+        ltrSwitch();
+        break;
+
+      case "removeCSharpComments":
+        textArea.value = textArea.value.replace(
+          /\/\*[\s\S]*?\*\/|\/\/\/.*|\/\/.*/g,
+          ""
+        ); // Includes XML doc comments
+        ltrSwitch();
+        break;
+
+      case "removeJavaComments":
+        textArea.value = textArea.value.replace(
+          /\/\*[\s\S]*?\*\/|\/\*\*[\s\S]*?\*\/|\/\/.*/g,
+          ""
+        ); // Includes JavaDoc
+        ltrSwitch();
+        break;
+
+      // Scripting Languages
+      case "removeRubyComments":
+        textArea.value = textArea.value
+          .replace(/#.*$/gm, "") // Single line comments
+          .replace(/^=begin[\s\S]*?^=end/gm, ""); // Multi-line comments
+        ltrSwitch();
+        break;
+
+      // Shell Scripts
+      case "removeBashComments":
+        textArea.value = textArea.value.replace(/#.*$/gm, "");
+        ltrSwitch();
+        break;
+
+      // Modern Languages
+      case "removeGoComments":
+        textArea.value = textArea.value.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "");
+        ltrSwitch();
+        break;
+
+      case "removeRustComments":
+        textArea.value = textArea.value.replace(
+          /\/\*[\s\S]*?\*\/|\/\/!.*|\/\/.*/g,
+          ""
+        ); // Includes doc comments
+        ltrSwitch();
+        break;
+
+      case "removeSwiftComments":
+        textArea.value = textArea.value.replace(
+          /\/\*[\s\S]*?\*\/|\/\/\/.*|\/\/.*/g,
+          ""
+        ); // Includes doc comments
+        ltrSwitch();
+        break;
+
+      case "removeKotlinComments":
+        textArea.value = textArea.value.replace(
+          /\/\*[\s\S]*?\*\/|\/\*\*[\s\S]*?\*\/|\/\/.*/g,
+          ""
+        ); // Includes KDoc
+        ltrSwitch();
+        break;
+
+      case "removeDartComments":
+        textArea.value = textArea.value.replace(
+          /\/\*[\s\S]*?\*\/|\/\/\/.*|\/\/.*/g,
+          ""
+        ); // Includes doc comments
+        ltrSwitch();
+        break;
+
+      // Database
+      case "removeSqlComments":
+        textArea.value = textArea.value.replace(/\/\*[\s\S]*?\*\/|--.*$/gm, ""); // Multi-line and single-line comments
         ltrSwitch();
         break;
 
@@ -649,57 +764,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         textArea.value = output;
         ltrSwitch();
-        break;
-
-        // =====================================================
-
-        function convertNumbers(targetStyle) {
-          let text = textArea.value;
-
-          const numberStyles = {
-            regular: "0123456789",
-            mathSansSerif: "𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫",
-            fullWidth: "０１２３４５６７８９",
-            mathSansSerifBold: "𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵",
-            circled: "⓪①②③④⑤⑥⑦⑧⑨",
-            negativeCircled: "⓿❶❷❸❹❺❻❼❽❾",
-          };
-
-          // First convert everything to regular numbers
-          Object.values(numberStyles).forEach((style) => {
-            [...style].forEach((digit, index) => {
-              const regex = new RegExp(digit, "g");
-              text = text.replace(regex, index);
-            });
-          });
-
-          // Then convert to target style
-          const targetDigits = [...numberStyles[targetStyle]];
-          for (let i = 0; i < 10; i++) {
-            const regex = new RegExp(i.toString(), "g");
-            text = text.replace(regex, targetDigits[i]);
-          }
-
-          textArea.value = text;
-        }
-
-      case "toRegularNumbers":
-        convertNumbers("regular");
-        break;
-      case "toMathSansSerif":
-        convertNumbers("mathSansSerif");
-        break;
-      case "toFullWidth":
-        convertNumbers("fullWidth");
-        break;
-      case "toMathSansSerifBold":
-        convertNumbers("mathSansSerifBold");
-        break;
-      case "toCircled":
-        convertNumbers("circled");
-        break;
-      case "toNegativeCircled":
-        convertNumbers("negativeCircled");
         break;
 
       // =====================================================
