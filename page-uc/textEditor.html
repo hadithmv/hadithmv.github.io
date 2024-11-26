@@ -832,28 +832,28 @@
                     <label>From:</label>
                     <select id="quoteFrom" class="converter-select">
                       <option value="straightSingle" title="straight single">
-                        Straight single ''
+                        Straight single (' ')
                       </option>
                       <option value="straightDouble" title="straight double">
-                        Straight double ""
+                        Straight double (" ")
                       </option>
                       <option value="ltrCurlyDouble" title="LTR curly double">
-                        LTR curly double “”
+                        LTR curly double (“ ”)
                       </option>
                       <option value="rtlCurlyDouble" title="RTL curly double">
-                        RTL curly double ”“
+                        RTL curly double (” “)
                       </option>
                       <option value="ltrCurlySingle" title="LTR curly single">
-                        LTR curly single ‘’
+                        LTR curly single (‘ ’)
                       </option>
                       <option value="rtlCurlySingle" title="RTL curly single">
-                        RTL curly single ‘’
+                        RTL curly single (‘ ’)
                       </option>
                       <option value="doubleBrackets" title="double brackets">
-                        Double brackets (())
+                        Double brackets (( ))
                       </option>
                       <option value="angleQuotes" title="angle quotes">
-                        Angle Quotes «»
+                        Angle Quotes (« »)
                       </option>
                     </select>
                   </div>
@@ -862,28 +862,28 @@
                     <label>To:</label>
                     <select id="quoteTo" class="converter-select">
                       <option value="straightSingle" title="straight single">
-                        Straight single ''
+                        Straight single (' ')
                       </option>
                       <option value="straightDouble" title="straight double">
-                        Straight double ""
+                        Straight double (" ")
                       </option>
                       <option value="ltrCurlyDouble" title="LTR curly double">
-                        LTR curly double “”
+                        LTR curly double (“ ”)
                       </option>
                       <option value="rtlCurlyDouble" title="RTL curly double">
-                        RTL curly double ”“
+                        RTL curly double (” “)
                       </option>
                       <option value="ltrCurlySingle" title="LTR curly single">
-                        LTR curly single ‘’
+                        LTR curly single (‘ ’)
                       </option>
                       <option value="rtlCurlySingle" title="RTL curly single">
-                        RTL curly single ‘’
+                        RTL curly single (‘ ’)
                       </option>
                       <option value="doubleBrackets" title="double brackets">
-                        Double brackets (())
+                        Double brackets (( ))
                       </option>
                       <option value="angleQuotes" title="angle quotes">
-                        Angle Quotes «»
+                        Angle Quotes (« »)
                       </option>
                     </select>
                   </div>
@@ -994,18 +994,18 @@
                   <div class="option-group">
                     <label>From:</label>
                     <select id="dashFrom" class="converter-select">
-                      <option value="hyphen" title="hyphen">-</option>
-                      <option value="en" title="en dash">–</option>
-                      <option value="em" title="em dash">—</option>
+                      <option value="hyphen" title="hyphen">Hyphen (-)</option>
+                      <option value="en" title="en dash">En Dash (–)</option>
+                      <option value="em" title="em dash">Em Dash (—)</option>
                     </select>
                   </div>
 
                   <div class="option-group">
                     <label>To:</label>
                     <select id="dashTo" class="converter-select">
-                      <option value="hyphen" title="hyphen">-</option>
-                      <option value="en" title="en dash">–</option>
-                      <option value="em" title="em dash">—</option>
+                      <option value="hyphen" title="hyphen">Hyphen (-)</option>
+                      <option value="en" title="en dash">En Dash (–)</option>
+                      <option value="em" title="em dash">Em Dash (—)</option>
                     </select>
                   </div>
 
@@ -1017,46 +1017,6 @@
             </div>
 
             <!-- -->
-
-            <button
-              id="findFiliIssues"
-              class="function-button"
-              title="Finds fili related issues, such as: 1. Multiple fili / diacritics / harakat in Arabic and Dhivehi. 2. Letters without fili in Dhivehi (except hus nuun). 3. Fili without letters in Arabic and Dhivehi"
-            >
-              Find Fili Issues 🌴
-            </button>
-
-            <button
-              id="removeThikijehiThaana"
-              class="function-button"
-              title="Replaces most thikijehi thaana letters to those without thiki"
-            >
-              Rmv ThikijehiThaana ⏺️
-            </button>
-
-            <button
-              id="Nos2DvTxt"
-              class="function-button"
-              title="Converts numbers to Dhivehi words (numeration)"
-            >
-              Nos to Dv Words 💵
-            </button>
-            <button
-              id="transliterateDvToEn"
-              class="function-button"
-              title="Transliterates Dhivehi to English"
-            >
-              Trnsltrt Dv → En
-            </button>
-            <button
-              id="transliterateArToDv"
-              class="function-button"
-              title="Transliterates Arabic (must have fili) to Dhivehi"
-            >
-              Trnsltrt Ar → Dv
-            </button>
-
-            <!--  -->
 
             <div class="dropdown-button">
               <button
@@ -1431,17 +1391,33 @@
             >
               1337 📔
             </button>
+
             <!--  -->
 
             <div class="dropdown-button">
               <button
-                id="convertSalawat"
+                id="arabicDiacritics"
                 class="function-button"
-                title="Convert between different forms of Salawat"
+                title="Arabic diacritics and marks options"
               >
-                صلى… ↔ ﷺ
+                Arabic Ops ☀️
               </button>
-              <div class="dropdown-content salawat-converter">
+              <div class="dropdown-content">
+                <button
+                  data-action="removeKashidas"
+                  title="Removes kashidas / tatweels, which elongate Arabic letters"
+                >
+                  Remove تـطـويـل 📏
+                </button>
+                <button
+                  data-action="shaddaB4Haraka"
+                  title="Corrects the placement of Arabic harakat on the shadda"
+                >
+                  Fix Shadda Order (ـَ ـّ ← ـّ ـَ)
+                </button>
+
+                <hr class="dropdown-separator" />
+
                 <div class="converter-options">
                   <div class="option-group">
                     <label>From:</label>
@@ -1473,32 +1449,9 @@
                     Apply
                   </button>
                 </div>
-              </div>
-            </div>
 
-            <!--  -->
+                <hr class="dropdown-separator" />
 
-            <div class="dropdown-button">
-              <button
-                id="arabicDiacritics"
-                class="function-button"
-                title="Arabic diacritics and marks options"
-              >
-                Arabic Ops ☀️
-              </button>
-              <div class="dropdown-content">
-                <button
-                  data-action="removeKashidas"
-                  title="Removes kashidas / tatweels, which elongate Arabic letters"
-                >
-                  Remove تـطـويـل 📏
-                </button>
-                <button
-                  data-action="shaddaB4Haraka"
-                  title="Corrects the placement of Arabic harakat on the shadda"
-                >
-                  Fix Shadda Order (ـَ ـّ ← ـّ ـَ)
-                </button>
                 <button
                   data-action="removeQuranicMarks"
                   title="Removes Quranic marks"
@@ -1531,18 +1484,22 @@
                   <div class="option-group">
                     <label>From:</label>
                     <select id="punctuationFrom" class="converter-select">
-                      <option value="colon" title="colon">:</option>
-                      <option value="fullstop" title="fullstop">.</option>
-                      <option value="comma" title="comma">,</option>
+                      <option value="colon" title="colon">Colon (:)</option>
+                      <option value="fullstop" title="fullstop">
+                        Fullstop (.)
+                      </option>
+                      <option value="comma" title="comma">Comma (,)</option>
                     </select>
                   </div>
 
                   <div class="option-group">
                     <label>To:</label>
                     <select id="punctuationTo" class="converter-select">
-                      <option value="colon" title="colon">:</option>
-                      <option value="fullstop" title="fullstop">.</option>
-                      <option value="comma" title="comma">,</option>
+                      <option value="colon" title="colon">Colon (:)</option>
+                      <option value="fullstop" title="fullstop">
+                        Fullstop (.)
+                      </option>
+                      <option value="comma" title="comma">Comma (,)</option>
                     </select>
                   </div>
 
@@ -1554,14 +1511,6 @@
             </div>
 
             <!-- -->
-
-            <button
-              id="replaceQuoteToDoubleAngleBrackets"
-              class="function-button"
-              title="Replaces doubles straight quotes or double brackets to angular arabic quotes on the first click, then to double brackets on second click, and straight quotes on third"
-            >
-              " " / (( )) ↔ « »
-            </button>
 
             <button
               id="replaceQuranicBrackets"
@@ -1599,6 +1548,46 @@
                 </button>
               </div>
             </div>
+
+            <!--  -->
+
+            <button
+              id="findFiliIssues"
+              class="function-button"
+              title="Finds fili related issues, such as: 1. Multiple fili / diacritics / harakat in Arabic and Dhivehi. 2. Letters without fili in Dhivehi (except hus nuun). 3. Fili without letters in Arabic and Dhivehi"
+            >
+              Find Fili Issues 🌴
+            </button>
+
+            <button
+              id="removeThikijehiThaana"
+              class="function-button"
+              title="Replaces most thikijehi thaana letters to those without thiki"
+            >
+              Rmv ThikijehiThaana ⏺️
+            </button>
+
+            <button
+              id="Nos2DvTxt"
+              class="function-button"
+              title="Converts numbers to Dhivehi words (numeration)"
+            >
+              Nos to Dv Words 💵
+            </button>
+            <button
+              id="transliterateDvToEn"
+              class="function-button"
+              title="Transliterates Dhivehi to English"
+            >
+              Trnsltrt Dv → En
+            </button>
+            <button
+              id="transliterateArToDv"
+              class="function-button"
+              title="Transliterates Arabic (must have fili) to Dhivehi"
+            >
+              Trnsltrt Ar → Dv
+            </button>
 
             <!-- -->
 

@@ -2007,44 +2007,6 @@ i want one more space after the colon that comes after the issue description
               */
   //
 
-  let quoteState = 0; // 0: double quotes, 1: angular quotes, 2: double parentheses
-
-  document
-    .getElementById("replaceQuoteToDoubleAngleBrackets")
-    .addEventListener("click", () => {
-      scrollToTop();
-      //
-      switch (quoteState) {
-        case 0: // Convert to angular quotes
-          textArea.value = textArea.value
-            .replace(/"([^"]*)"/g, "«$1»")
-            .replace(/\(\(([^)]*)\)\)/g, "«$1»");
-          document.getElementById(
-            "replaceQuoteToDoubleAngleBrackets"
-          ).textContent = "« » → (( ))";
-          quoteState = 1;
-          break;
-        case 1: // Convert to double parentheses
-          textArea.value = textArea.value.replace(/«([^»]*)»/g, "(($1))");
-          document.getElementById(
-            "replaceQuoteToDoubleAngleBrackets"
-          ).textContent = '(( )) → " "';
-          quoteState = 2;
-          break;
-        case 2: // Convert to double quotes
-          textArea.value = textArea.value.replace(/\(\(([^)]*)\)\)/g, '"$1"');
-          document.getElementById(
-            "replaceQuoteToDoubleAngleBrackets"
-          ).textContent = '" " / (( )) → « »';
-          quoteState = 0;
-          break;
-      }
-
-      updateStats();
-    });
-
-  //
-
   let isLatinBr = true;
   document
     .getElementById("replaceQuranicBrackets")
