@@ -437,13 +437,14 @@
 
             <div class="dropdown-button">
               <button
-                id="numberConversions"
+                id="numeralConverter"
                 class="function-button"
-                title="Number operations and conversions"
+                title="Convert between different numeral systems"
               >
                 Number Conv 🔢
               </button>
-              <div class="dropdown-content">
+
+              <div class="dropdown-content numeral-converter">
                 <button
                   data-action="arabicToRegular"
                   title="Converts Arabic numbers to regular numbers"
@@ -456,6 +457,88 @@
                 >
                   Regular to Arabic (123 → ١٢٣)
                 </button>
+
+                <hr class="dropdown-separator" />
+
+                <div class="converter-options">
+                  <div class="option-group">
+                    <label>From:</label>
+                    <select id="numeralFrom" class="converter-select">
+                      <option value="regular" title="Regular">
+                        Regular (123)
+                      </option>
+                      <option value="arabic" title="Arabic">
+                        Arabic (١٢٣)
+                      </option>
+                      <option value="mathSansSerif" title="Sans-serif">
+                        Sans-serif (𝟣𝟤𝟥)
+                      </option>
+                      <option value="mathSansSerifBold" title="Sans-serif Bold">
+                        Sans-serif Bold (𝟭𝟮𝟯)
+                      </option>
+                      <option value="fullWidth" title="Fullwidth">
+                        Fullwidth (１２３)
+                      </option>
+                      <option value="circled" title="Circled">
+                        Circled (①②③)
+                      </option>
+                      <option value="negativeCircled" title="Negative Circled">
+                        Negative Circled (❶❷❸)
+                      </option>
+                      <option value="persian" title="Persian">
+                        Persian (۱۲۳)
+                      </option>
+                      <option value="devanagari" title="Devanagari">
+                        Devanagari (१२३)
+                      </option>
+                      <option value="thai" title="Thai">Thai (๑๒๓)</option>
+                      <option value="bengali" title="Bengali">
+                        Bengali (১২৩)
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="option-group">
+                    <label>To:</label>
+                    <select id="numeralTo" class="converter-select">
+                      <option value="regular" title="Regular">
+                        Regular (123)
+                      </option>
+                      <option value="arabic" title="Arabic">
+                        Arabic (١٢٣)
+                      </option>
+                      <option value="mathSansSerif" title="Sans-serif">
+                        Sans-serif (𝟣𝟤𝟥)
+                      </option>
+                      <option value="mathSansSerifBold" title="Sans-serif Bold">
+                        Sans-serif Bold (𝟭𝟮𝟯)
+                      </option>
+                      <option value="fullWidth" title="Fullwidth">
+                        Fullwidth (１２３)
+                      </option>
+                      <option value="circled" title="Circled">
+                        Circled (①②③)
+                      </option>
+                      <option value="negativeCircled" title="Negative Circled">
+                        Negative Circled (❶❷❸)
+                      </option>
+                      <option value="persian" title="Persian">
+                        Persian (۱۲۳)
+                      </option>
+                      <option value="devanagari" title="Devanagari">
+                        Devanagari (१२३)
+                      </option>
+                      <option value="thai" title="Thai">Thai (๑๒๓)</option>
+                      <option value="bengali" title="Bengali">
+                        Bengali (১২৩)
+                      </option>
+                    </select>
+                  </div>
+
+                  <button data-action="convertNumerals" class="apply-button">
+                    Apply
+                  </button>
+                </div>
 
                 <hr class="dropdown-separator" />
 
@@ -1161,44 +1244,135 @@
                 Rmv Comments 📝
               </button>
               <div class="dropdown-content">
+                <!-- Web Languages -->
                 <button
                   data-action="removeJsComments"
                   title="Removes JavaScript comments (// and /* */)"
                 >
-                  Remove JavaScript Comments
+                  JavaScript
                 </button>
                 <button
                   data-action="removeHtmlComments"
                   title="Removes HTML comments (<!-- -->)"
                 >
-                  Remove HTML Comments
+                  HTML
                 </button>
                 <button
                   data-action="removeCssComments"
                   title="Removes CSS comments (/* */)"
                 >
-                  Remove CSS Comments
+                  CSS
                 </button>
 
                 <hr class="dropdown-separator" />
+
+                <!--  -->
+
+                <button
+                  data-action="removePowershellComments"
+                  title="Removes PowerShell comments (#)"
+                >
+                  PowerShell
+                </button>
 
                 <button
                   data-action="removePythonComments"
                   title="Removes Python comments (#)"
                 >
-                  Remove Python Comments
+                  Python
                 </button>
-                <button
-                  data-action="removePowershellComments"
-                  title="Removes PowerShell comments (#)"
-                >
-                  Remove PowerShell Comments
-                </button>
+
                 <button
                   data-action="removePhpComments"
                   title="Removes PHP comments (// and /* */ and #)"
                 >
-                  Remove PHP Comments
+                  PHP
+                </button>
+
+                <hr class="dropdown-separator" />
+
+                <!-- C-Style Languages -->
+                <button
+                  data-action="removeCComments"
+                  title="Removes C/C++ comments (// and /* */)"
+                >
+                  C/C++
+                </button>
+                <button
+                  data-action="removeCSharpComments"
+                  title="Removes C# comments (// and /* */ and ///)"
+                >
+                  C#
+                </button>
+                <button
+                  data-action="removeJavaComments"
+                  title="Removes Java comments (// and /* */ and /** */)"
+                >
+                  Java
+                </button>
+
+                <hr class="dropdown-separator" />
+
+                <!-- Scripting Languages -->
+                <button
+                  data-action="removeRubyComments"
+                  title="Removes Ruby comments (#)"
+                >
+                  Ruby
+                </button>
+
+                <hr class="dropdown-separator" />
+
+                <!-- Shell Scripts -->
+                <button
+                  data-action="removeBashComments"
+                  title="Removes Bash/Shell comments (#)"
+                >
+                  Bash/Shell
+                </button>
+
+                <hr class="dropdown-separator" />
+
+                <!-- Modern Languages -->
+                <button
+                  data-action="removeGoComments"
+                  title="Removes Go comments (// and /* */)"
+                >
+                  Go
+                </button>
+                <button
+                  data-action="removeRustComments"
+                  title="Removes Rust comments (// and /* */ and //!)"
+                >
+                  Rust
+                </button>
+                <button
+                  data-action="removeSwiftComments"
+                  title="Removes Swift comments (// and /* */ and ///)"
+                >
+                  Swift
+                </button>
+                <button
+                  data-action="removeKotlinComments"
+                  title="Removes Kotlin comments (// and /* */ and /** */)"
+                >
+                  Kotlin
+                </button>
+                <button
+                  data-action="removeDartComments"
+                  title="Removes Dart comments (// and /* */ and ///)"
+                >
+                  Dart
+                </button>
+
+                <hr class="dropdown-separator" />
+
+                <!-- Database -->
+                <button
+                  data-action="removeSqlComments"
+                  title="Removes SQL comments (-- and /* */)"
+                >
+                  SQL
                 </button>
               </div>
             </div>
@@ -1250,55 +1424,6 @@
               </div>
             </div>
 
-            <!--  -->
-
-            <div class="dropdown-button">
-              <button
-                id="numberStyles"
-                class="function-button"
-                title="Convert numbers to different styles"
-              >
-                Number Styles #️⃣
-              </button>
-              <div class="dropdown-content">
-                <button
-                  data-action="toRegularNumbers"
-                  title="Convert back to regular digits"
-                >
-                  Regular (1)
-                </button>
-                <button
-                  data-action="toMathSansSerif"
-                  title="Convert to Mathematical Sans-serif Digits"
-                >
-                  Sans-serif (𝟣)
-                </button>
-                <button
-                  data-action="toFullWidth"
-                  title="Convert to Fullwidth Digits"
-                >
-                  Fullwidth (１)
-                </button>
-                <button
-                  data-action="toMathSansSerifBold"
-                  title="Convert to Mathematical Sans-serif Bold Digits"
-                >
-                  Sans-serif Bold (𝟭)
-                </button>
-                <button
-                  data-action="toCircled"
-                  title="Convert to Circled Digits"
-                >
-                  Circled (①)
-                </button>
-                <button
-                  data-action="toNegativeCircled"
-                  title="Convert to Negative Circled Digits"
-                >
-                  Negative Circled (❶)
-                </button>
-              </div>
-            </div>
             <!--  -->
             <button
               id="toggleLeetSpeak"
