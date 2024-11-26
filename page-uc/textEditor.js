@@ -1044,6 +1044,22 @@ document.addEventListener("DOMContentLoaded", () => {
         textArea.value = textArea.value.replace(/\(\(([^)]*)\)\)/g, "($1)");
         break;
 
+      //
+
+      case "textToQuranicBrackets":
+        textArea.value = textArea.value
+          .replace(/\{/g, "﴾")
+          .replace(/\}/g, "﴿")
+          .replace(/\*/g, "۝");
+        break;
+
+      case "quranicToTextBrackets":
+        textArea.value = textArea.value
+          .replace(/﴾/g, "{")
+          .replace(/﴿/g, "}")
+          .replace(/۝/g, "*");
+        break;
+
       // =====================================================
 
       case "convertPunctuation":
