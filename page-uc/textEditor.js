@@ -2023,22 +2023,6 @@ i want one more space after the colon that comes after the issue description
               */
   //
 
-  let isLatinBr = true;
-  document
-    .getElementById("replaceQuranicBrackets")
-    .addEventListener("click", () => {
-      const replacements = isLatinBr
-        ? { "{": "﴿", "}": "﴾", "*": "۝" }
-        : { "﴿": "{", "﴾": "}", "۝": "*" };
-      textArea.value = textArea.value.replace(
-        /[﴾﴿۝{}*]/g,
-        (match) => replacements[match] || match
-      );
-      isLatinBr = !isLatinBr;
-      updateStats();
-    });
-  //
-
   const seqMinInput = document.getElementById("seqMinInput");
   const seqMaxInput = document.getElementById("seqMaxInput");
 
