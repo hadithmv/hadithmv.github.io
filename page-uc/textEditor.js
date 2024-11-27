@@ -1033,6 +1033,47 @@ document.addEventListener("DOMContentLoaded", () => {
         textArea.value = correctShaddaPlacement(textArea.value);
         break;
 
+      //
+
+      case "textToArabicDiacritics":
+      case "arabicDiacriticsToText":
+        const arabicPhrases = {
+          "رضي الله عنهما": "رَضِيَ اللَّهُ عَنْهُمَا",
+          "رضي الله عنهم": "رَضِيَ اللَّهُ عَنْهُمْ",
+          "رضي الله عنها": "رَضِيَ اللَّهُ عَنْهَا",
+          "رضي الله عنه": "رَضِيَ اللَّهُ عَنْهُ",
+          "عليهما السلام": "عَلَيهِمَا السَّلَامُ",
+          "عليهم السلام": "عَلَيهِمُ السَّلَامُ",
+          "عليها السلام": "عَلَيهَا السَّلَامُ",
+          "عليه السلام": "عَلَيهِ السَّلَامُ",
+          "رحمهما الله": "رَحِمَهُمَا اللَّهُ",
+          "رحمهم الله": "رَحِمَهُمُ اللَّهُ",
+          "رحمها الله": "رَحِمَهَا اللَّهُ",
+          "رحمه الله": "رَحِمَهُ اللَّهُ",
+          "عز وجل": "عَزَّ وَجَلَّ",
+          "جل جلاله": "جَلَّ جَلَاﻟَﻪُ",
+          "تبارك وتعالى": "تَبَارَكَ وَتَعَالَى",
+          تعالى: "تَعَالَى",
+        };
+
+        textArea.value = Object.entries(arabicPhrases).reduce(
+          (result, [plain, diacritic]) => {
+            return result.replace(
+              new RegExp(
+                escapeRegExp(
+                  action === "textToArabicDiacritics" ? plain : diacritic
+                ),
+                "g"
+              ),
+              action === "textToArabicDiacritics" ? diacritic : plain
+            );
+          },
+          textArea.value
+        );
+        break;
+
+      //
+
       case "removeQuranicMarks":
         textArea.value = textArea.value
           .replace(/[ۖۗۘۙۚۛۜ۝۞ۣ۟۠ۡۢۤۥۦۧۨ۩۪ۭ۫۬﴾﴿]/g, "")

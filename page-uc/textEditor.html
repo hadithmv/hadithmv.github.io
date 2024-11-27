@@ -242,8 +242,10 @@
       .dropdown-content {
         display: none;
         position: absolute;
+        right: 0; /* Align to right edge of button */
         background-color: var(--textarea-bg);
         min-width: 160px;
+        max-width: calc(100vw - 40px); /* Prevent extending past screen edges */
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
         border: 1px solid var(--textarea-border);
@@ -251,6 +253,15 @@
         max-height: 300px;
         overflow-y: auto;
         font-size: 15px;
+      }
+
+      /* Add media query for smaller screens */
+      @media (max-width: 768px) {
+        .dropdown-content {
+          right: auto; /* Reset right alignment */
+          left: 50%; /* Center horizontally */
+          transform: translateX(-50%); /* Center adjustment */
+        }
       }
 
       .dropdown-content button {
@@ -1455,6 +1466,22 @@
                 <hr class="dropdown-separator" />
 
                 <button
+                  data-action="textToArabicDiacritics"
+                  title="Convert Arabic phrases (رضي الله ، عليه، رحمه، عز، تعالى
+                  ) to their diacritical form"
+                >
+                  Text to Diacritics (رضي الله → رَضِيَ اللَّهُ)
+                </button>
+                <button
+                  data-action="arabicDiacriticsToText"
+                  title="Convert common Arabic phrases with diacritics to their plain form"
+                >
+                  Diacritics to Text (رَضِيَ اللَّهُ → رضي الله)
+                </button>
+
+                <hr class="dropdown-separator" />
+
+                <button
                   data-action="removeQuranicMarks"
                   title="Removes Quranic marks"
                 >
@@ -1819,6 +1846,7 @@
             <button class="copy-button-lit">﷾</button>
             <button class="copy-button-lit">﵎</button>
             <button class="copy-button-lit">عَزَّ وَجَلَّ</button>
+            <button class="copy-button-lit">ﺟَﻞَّ جَلَاﻟَﻪُ</button>
             <button class="copy-button-lit">سُبحَانَهُ وَتَعَالَى</button>
             <button class="copy-button-lit">تَبَارَكَ وَتَعَالَى</button>
             <button class="copy-button-lit">تَعَالَى</button>
