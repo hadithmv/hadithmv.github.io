@@ -839,6 +839,20 @@ document.addEventListener("DOMContentLoaded", () => {
           superscript: ["⁽", "⁾"],
         };
 
+        // Add superscript number mappings
+        const superscriptNumbers = {
+          0: "⁰",
+          1: "¹",
+          2: "²",
+          3: "³",
+          4: "⁴",
+          5: "⁵",
+          6: "⁶",
+          7: "⁷",
+          8: "⁸",
+          9: "⁹",
+        };
+
         const fromNumberBrackets =
           numberBracketMappings[
             document.getElementById("numberBracketFrom").value
@@ -847,6 +861,7 @@ document.addEventListener("DOMContentLoaded", () => {
           numberBracketMappings[
             document.getElementById("numberBracketTo").value
           ];
+        const toNumBrackType = document.getElementById("numberBracketTo").value;
 
         // Convert from current format to plain numbers first
         let processedText = textArea.value;
@@ -865,10 +880,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Then convert to target format
         if (toNumberBrackets[0]) {
-          processedText = processedText.replace(
-            /\d+/g,
-            (match) => `${toNumberBrackets[0]}${match}${toNumberBrackets[1]}`
-          );
+          processedText = processedText.replace(/\d+/g, (match) => {
+            const numbers =
+              toNumBrackType === "superscript"
+                ? match
+                    .split("")
+                    .map((n) => superscriptNumbers[n])
+                    .join("")
+                : match;
+            return `${toNumberBrackets[0]}${numbers}${toNumberBrackets[1]}`;
+          });
         }
 
         textArea.value = processedText;
