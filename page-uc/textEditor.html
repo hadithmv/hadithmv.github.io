@@ -182,15 +182,15 @@
         font-size: 18px; /* 16 */
       }
 
-      /* copy feedback*/
-
+      /* Button Feedback Styles */
       .copy-button-lit,
       .copy-button,
-      .copy-button-other {
+      .copy-button-other,
+      .function-button {
         position: relative;
       }
 
-      .copy-feedback {
+      .button-feedback {
         position: absolute;
         background: rgba(0, 0, 0, 0.8);
         color: white;
@@ -202,6 +202,7 @@
         transform: translateX(-50%);
         white-space: nowrap;
         pointer-events: none;
+        z-index: 10;
         animation: fadeOut 1s forwards;
       }
 
@@ -217,21 +218,23 @@
         }
       }
 
-      .copy-success {
+      .button-click-success {
         background-color: #90caf9; /* A moderate blue */
         transition: background-color 0.3s;
         direction: ltr !important;
       }
 
       @media (prefers-color-scheme: dark) {
-        .copy-success {
+        .button-click-success {
           background-color: #2e7d32; /* A brighter dark green */
         }
-        .copy-feedback {
+        .button-feedback {
           background: rgba(255, 255, 255, 0.8);
           color: black;
         }
       }
+
+      /*  */
 
       /* dropdown buttons */
       .dropdown-button {
