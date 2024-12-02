@@ -2730,45 +2730,49 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   //
 
   // Copy functionality for the Copy tab
-  document.querySelectorAll(".copy-button").forEach((button) => {
-    button.addEventListener("click", () => {
-      navigator.clipboard.writeText(button.dataset.text);
-    });
-  });
-
-  //
-
-  function showCopyFeedback(button) {
-    // Add feedback tooltip
-    const feedback = document.createElement("span");
-    feedback.textContent = "Copied";
-    feedback.className = "copy-feedback";
-    button.appendChild(feedback);
-
-    // Add success background
-    button.classList.add("copy-success");
-
-    // Remove feedback elements
-    setTimeout(() => {
-      feedback.remove();
-      button.classList.remove("copy-success");
-    }, 1000);
-  }
-
-  // Add click handlers for copying
+  // Copy functionality for copy-specific buttons
   document
-    .querySelectorAll(".copy-button-lit, .copy-button, .copy-button-other")
+    .querySelectorAll(".copy-button, .copy-button-lit, .copy-button-other")
     .forEach((button) => {
       button.addEventListener("click", async () => {
         const text = button.dataset.text || button.textContent.trim();
         try {
           await navigator.clipboard.writeText(text);
-          showCopyFeedback(button);
+          showButtonFeedback(button, "Copied");
         } catch (err) {
           console.error("Failed to copy:", err);
         }
       });
     });
+
+  // Generic feedback for all buttons except dropdown triggers
+  document.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      if (button.closest(".dropdown-button")) {
+        // Skip feedback for dropdown buttons
+        return;
+      }
+      showButtonFeedback(button, "Clicked");
+    });
+  });
+
+  // Generic feedback tooltip
+  function showButtonFeedback(button, message) {
+    // Add feedback tooltip
+    const feedback = document.createElement("span");
+    feedback.textContent = message;
+    feedback.className = "copy-feedback";
+    button.appendChild(feedback);
+
+    // Add visual feedback
+    button.classList.add("copy-success");
+
+    // Remove feedback elements after a delay
+    setTimeout(() => {
+      feedback.remove();
+      button.classList.remove("copy-success");
+    }, 1000);
+  }
 
   //
 
