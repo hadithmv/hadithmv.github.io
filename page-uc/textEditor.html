@@ -183,14 +183,14 @@
       }
 
       /* Button Feedback Styles */
+
       .copy-button-lit,
       .copy-button,
-      .copy-button-other,
-      .function-button {
+      .copy-button-other {
         position: relative;
       }
 
-      .button-feedback {
+      .copy-feedback {
         position: absolute;
         background: rgba(0, 0, 0, 0.8);
         color: white;
@@ -202,7 +202,6 @@
         transform: translateX(-50%);
         white-space: nowrap;
         pointer-events: none;
-        z-index: 10;
         animation: fadeOut 1s forwards;
       }
 
@@ -218,17 +217,17 @@
         }
       }
 
-      .button-click-success {
+      .copy-success {
         background-color: #90caf9; /* A moderate blue */
         transition: background-color 0.3s;
         direction: ltr !important;
       }
 
       @media (prefers-color-scheme: dark) {
-        .button-click-success {
+        .copy-success {
           background-color: #2e7d32; /* A brighter dark green */
         }
-        .button-feedback {
+        .copy-feedback {
           background: rgba(255, 255, 255, 0.8);
           color: black;
         }
