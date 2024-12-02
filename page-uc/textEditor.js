@@ -2727,12 +2727,16 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     }
   });
 
+  //
+
   // Copy functionality for the Copy tab
   document.querySelectorAll(".copy-button").forEach((button) => {
     button.addEventListener("click", () => {
       navigator.clipboard.writeText(button.dataset.text);
     });
   });
+
+  //
 
   function showCopyFeedback(button) {
     // Add feedback tooltip
@@ -2765,6 +2769,8 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
         }
       });
     });
+
+  //
 
   // Load saved content
   const savedTabs = JSON.parse(localStorage.getItem("editorTabs"));
