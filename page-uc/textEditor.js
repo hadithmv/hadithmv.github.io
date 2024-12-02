@@ -193,15 +193,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const numeralMappings = {
           regular: "0123456789",
           arabic: "٠١٢٣٤٥٦٧٨٩", // Arabic-Indic
+          superscript: "⁰¹²³⁴⁵⁶⁷⁸⁹", // Superscript
           mathSansSerif: "𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫", // Mathematical Sans-serif
           mathSansSerifBold: "𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵", // Mathematical Sans-serif Bold
           fullWidth: "０１２３４５６７８９", // Fullwidth
           circled: "⓪①②③④⑤⑥⑦⑧⑨", // Circled
           negativeCircled: "⓿❶❷❸❹❺❻❼❽❾", // Negative Circled
-          persian: "۰۱۲۳۴۵۶۷۸۹", // Extended Arabic-Indic
-          devanagari: "०१२३४५६७८९", // Devanagari
-          thai: "๐๑๒๓๔๕๖๗๘๙", // Thai
-          bengali: "০১২৩৪৫৬৭৮৯", // Bengali
         };
 
         const fromNumerals =
