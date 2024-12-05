@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+  <!--
+QR-Code-generator v1.8.0
+
+  https://www.nayuki.io/page/qr-code-generator-library
+
+  https://github.com/nayuki/QR-Code-generator/tree/master/typescript-javascript
+
+  convert ts files to js using: https://www.typescriptlang.org/play
+
+  -->
+<html lang="dv" class="notranslate" translate="no">
+  <head>
+    <meta name="google" content="notranslate" />
+    <!-- CHANGE !!! -->
+    <title>Hadithmv - QR Generator</title>
+    <meta
+      name="description"
+      content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
+    />
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <!-- external resources-->
+    <link
+      rel="stylesheet"
+      href="../../css/base-styles.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../../css/navbar.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <script src="../../js/navbar.js"></script>
+    <!-- END external resources-->
+  </head>
+  
+
+
+    <style type="text/css">
+      html {
+        font-family: sans-serif;
+      }
+      h1 {
+        text-align: center;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      td {
+        vertical-align: top;
+        padding-top: 0.2em;
+        padding-bottom: 0.2em;
+      }
+      td:first-child {
+        /* misaligns "QR Code" text for some reason */
+        /* white-space: pre; */
+        padding-right: 0.5em;
+      }
+      input,
+      textarea {
+        font-size: inherit;
+        font-family: inherit;
+      }
+      input[type="radio"],
+      input[type="checkbox"] {
+        margin: 0em 0.2em 0em 0em;
+        padding: 0em;
+      }
+      label + label {
+        margin-left: 0.8em;
+      }
+      hr {
+        margin: 2em 0em;
+        border: none;
+        border-top: 0.1em solid #a0a0a0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="navbar-container"></div>
+
+    <br>
+    
+    <div id="loading">
+      <p>Loading application...</p>
+      <p>(Are the JavaScript files missing?)</p>
+      <p>
+        (The JavaScript code needs to be compiled from the TypeScript code.)
+      </p>
+    </div>
+    <form id="loaded" style="display: none" onsubmit="event.preventDefault();">
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>Text string:</strong></td>
+            <td>
+              <textarea
+                placeholder="Enter your text to be put into the QR Code"
+                id="text-input"
+                style="width: 30em; height: 5em"
+              ></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>QR Code:</strong><br /><a id="download">(download)</a>
+            </td>
+            <td>
+              <canvas
+                id="qrcode-canvas"
+                style="padding: 1em; background-color: #e8e8e8"
+              ></canvas>
+              <svg
+                id="qrcode-svg"
+                style="
+                  width: 30em;
+                  height: 30em;
+                  padding: 1em;
+                  background-color: #e8e8e8;
+                "
+              >
+                <rect
+                  width="100%"
+                  height="100%"
+                  fill="#FFFFFF"
+                  stroke-width="0"
+                ></rect>
+                <path d="" fill="#000000" stroke-width="0"></path>
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Error correction:</strong></td>
+            <td>
+              <label
+                ><input
+                  type="radio"
+                  name="errcorlvl"
+                  id="errcorlvl-low"
+                  checked="checked"
+                />Low</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  name="errcorlvl"
+                  id="errcorlvl-medium"
+                />Medium</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  name="errcorlvl"
+                  id="errcorlvl-quartile"
+                />Quartile</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  name="errcorlvl"
+                  id="errcorlvl-high"
+                />High</label
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Output format:</td>
+            <td>
+              <label
+                ><input
+                  type="radio"
+                  name="output-format"
+                  id="output-format-bitmap"
+                  checked="checked"
+                />Bitmap</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  name="output-format"
+                  id="output-format-vector"
+                />Vector</label
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Border:</td>
+            <td>
+              <input
+                type="number"
+                value="4"
+                min="0"
+                max="100"
+                step="1"
+                id="border-input"
+                style="width: 4em"
+              />
+              modules
+            </td>
+          </tr>
+          <tr id="scale-row">
+            <td>Scale:</td>
+            <td>
+              <input
+                type="number"
+                value="8"
+                min="1"
+                max="30"
+                step="1"
+                id="scale-input"
+                style="width: 4em"
+              />
+              pixels per module
+            </td>
+          </tr>
+          <tr>
+            <td>Colors:</td>
+            <td>
+              Light =
+              <input
+                id="light-color-input"
+                type="color"
+                style="padding: 0"
+                value="#FFFFFF"
+              />
+              , dark =
+              <input
+                id="dark-color-input"
+                type="color"
+                style="padding: 0"
+                value="#000000"
+              />
+            </td>
+            <!-- !!! change <td>
+              Light =
+              <input
+                type="text"
+                value="#FFFFFF"
+                id="light-color-input"
+                style="width: 6em"
+              />, dark =
+              <input
+                type="text"
+                value="#000000"
+                id="dark-color-input"
+                style="width: 6em"
+              />
+            </td> -->
+          </tr>
+          <tr>
+            <td>Version range:</td>
+            <td>
+              Minimum =
+              <input
+                type="number"
+                value="1"
+                min="1"
+                max="40"
+                step="1"
+                id="version-min-input"
+                style="width: 4em"
+                oninput="app.handleVersionMinMax('min');"
+              />, maximum =
+              <input
+                type="number"
+                value="40"
+                min="1"
+                max="40"
+                step="1"
+                id="version-max-input"
+                style="width: 4em"
+                oninput="app.handleVersionMinMax('max');"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Mask pattern:</td>
+            <td>
+              <input
+                type="number"
+                value="-1"
+                min="-1"
+                max="7"
+                step="1"
+                id="mask-input"
+                style="width: 4em"
+              />
+              (−1 for automatic, 0 to 7 for manual)
+            </td>
+          </tr>
+          <tr>
+            <td>Boost ECC:</td>
+            <td>
+              <label
+                ><input
+                  type="checkbox"
+                  checked="checked"
+                  id="boost-ecc-input"
+                />Increase <abbr title="error-correcting code">ECC</abbr> level
+                within same version</label
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Statistics:</td>
+            <td id="statistics-output" style="white-space: pre"></td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+    <script type="application/javascript" src="qrcodegen.js"></script>
+    <script
+      type="application/javascript"
+      src="qrcodegen-input-demo.js"
+    ></script>
+  </body>
+</html>
