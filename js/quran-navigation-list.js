@@ -603,11 +603,23 @@ function removeDiacritics(a) {
   return a.replace(/[َُِّْٰۡۚٓـًٌٍّٔ]/g, "");
 }
 
-// Cleans surah text by removing the word "سورة" (surah) and any whitespace
-function cleanSurahText(a) {
-  return removeDiacritics(a)
-    .replace(/سورة\s*/, "")
+// Add this new utility function that:
+// Removes diacritics
+// Removes both "سورة" and "سوره" variations
+// Removes the "ال" prefix from the beginning of words
+// Normalizes characters
+// Trims whitespace
+function prepareArabicText(text) {
+  // Remove diacritics first
+  text = removeDiacritics(text);
+
+  // Handle common variations
+  text = text
+    .replace(/سورة|سوره/g, "") // Remove both سورة and سوره
+    .replace(/^ال/g, "") // Remove ال prefix
     .trim();
+
+  return normalizeChars(text);
 }
 
 // Add this to your utilities section
@@ -852,17 +864,26 @@ function initializeQDropdown(a, e, t) {
   });
 
   // Set up search functionality
+
+  // Update the search functionality in initializeQDropdown
   t = n.find(".q-dropdown-search");
   t.on("input", function () {
     const value = this.value.toLowerCase();
-    const normalizedValue = normalizeChars(value);
+    const searchTerms = prepareArabicText(value).split(/\s+/);
 
     n.find(".q-dropdown-item").each(function () {
       const item = $(this);
-      const text = removeDiacritics(cleanSurahText(item.text().toLowerCase()));
-      const normalizedText = normalizeChars(text);
+      const itemText = prepareArabicText(item.text().toLowerCase());
 
-      if (normalizedText.includes(normalizedValue)) {
+      // Match if all search terms are found in the item text
+      const isMatch = searchTerms.every((term) => itemText.includes(term));
+
+      // Debug logging (remove in production)
+      // console.log('Search terms:', searchTerms);
+      // console.log('Item text:', itemText);
+      // console.log('Match:', isMatch);
+
+      if (isMatch) {
         item.show();
       } else {
         item.hide();
