@@ -2430,6 +2430,10 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   document.getElementById("diffCompare").addEventListener("click", () => {
     window.open("diffCompare.html", "_blank");
   });
+
+  document.getElementById("keyboardPage").addEventListener("click", () => {
+    window.open("keyboardPage.html", "_blank");
+  });
   //
 
   document.getElementById("fullscreen").addEventListener("click", () => {
