@@ -7,9 +7,25 @@
   <head>
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css"> -->
     <link rel="stylesheet" href="build/css/index.css" />
-    <!-- created -->
-    <link rel="stylesheet" href="src/index.css" />
+    <!-- downloaded offline ext, and now it is loaded locally -->
+    <!-- <link rel="stylesheet" href="src/index.css" /> -->
+    <!-- placed its styles directly below inline -->
   </head>
+  <!--  -->
+  <style>
+    input {
+      width: 100%;
+      height: 100px;
+      padding: 20px;
+      font-size: 20px;
+      border: none;
+      box-sizing: border-box;
+    }
+
+    .simple-keyboard {
+      max-width: 850px;
+    }
+  </style>
 
   <body>
     <input class="input" placeholder="Tap on the virtual keyboard to start" />
