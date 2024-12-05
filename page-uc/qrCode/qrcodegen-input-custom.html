@@ -337,3 +337,46 @@ QR-Code-generator v1.8.0
     ></script>
   </body>
 </html>
+<!--
+
+for minification scripting:
+
+
+in this directory, is a folder called "qrcodegen-input-custom"
+in that sub directory, are the following:
+qrcodegen-input-custom.html
+qrcodegen.js
+qrcodegen-input-demo.js
+
+now what i want is for you to 
+
+make a copy of the content of "qrcodegen-input-custom.html", without changing the actual file itself
+change the following link tag urls from that content:
+../../
+to
+../
+
+also replace these 2 script links
+ <script type="application/javascript" src="qrcodegen.js"></script>
+    <script
+      type="application/javascript"
+      src="qrcodegen-input-demo.js"
+    ></script>
+
+to just this 1 script link
+<script src="qrGenerator.min.js"></script>
+
+then that content should be saved into a file called "qrGenerator.html", which should be then placed in "../page/qrGeneratpr.html"
+
+then minify that content with just html-minifier
+
+also minify the contents of both
+qrcodegen.js
+qrcodegen-input-demo.js
+with Google Closure Compiler and Terser
+and save it as one file
+"../page/qrGenerator.min.js"
+
+every time this script is run, the contents of qrGenerator.html and qrGenerator.min.js should be overwritten
+
+-->
