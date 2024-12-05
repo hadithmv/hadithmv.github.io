@@ -35,7 +35,7 @@ examples/cdn.html
       property="og:image"
       content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
     />
-    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <link rel="icon" href="../../img/logo/logo.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#29434e" />
     <!-- external resources-->
     <link
@@ -1162,3 +1162,40 @@ and if a file were to be drag and dropped onto #compare > .mergely-editor > .Cod
     <!-- End Google Tag Manager (noscript) -->
   </body>
 </html>
+
+<!-- 
+
+for minification scriptingL
+
+
+in this directory, is a folder called "diffCompare"
+in that sub directory, are the following:
+cdn-custom.html
+mergely.js
+
+now what i want is for you to 
+
+make a copy of the content of "cdn-custom.html", without changing the actual file itself
+change the following link tag urls from that content:
+../../
+to
+../
+
+also change this tag
+<script src="mergely.js"></script>
+to
+<script src="diffCompare.min.js"></script>
+
+then that content should be saved into a file called "diffCompare.html", which should be then placed in "../page/diffCompare.html"
+
+then minify that content with just html-minifier
+
+also minify the content of
+"mergely.js"
+with Google Closure Compiler and Terser
+and save it as
+"../page/diffCompare.min.js"
+
+every time this script is run, the contents of diffCompare.html and mergely.min.js should be overwritten
+
+-->

@@ -178,6 +178,57 @@ try {
 
     #
 
+
+    # Process diffCompare files
+    $diffCompareHtmlInput = "diffCompare/cdn-custom.html"
+    $diffCompareHtmlOutput = "../page/diffCompare.html"
+    $diffCompareJsInput = "diffCompare/mergely.js"
+    $diffCompareJsOutput = "../page/diffCompare.min.js"
+
+    # Process diffCompare HTML
+    if (Test-Path $diffCompareHtmlInput) {
+        # Read and modify the content
+        $content = Get-Content -Path $diffCompareHtmlInput -Raw
+        # $content = $content -replace 'href="../../', 'href="../'
+        $content = $content -replace '../../', '../'
+
+        $content = $content -replace '<script src="mergely.js"></script>', '<script src="diffCompare.min.js"></script>'
+        
+        # Create a temporary file for the modified content
+        $tempFile = [System.IO.Path]::GetTempFileName()
+        $content | Set-Content -Path $tempFile -NoNewline
+        
+        # Minify and save the HTML
+        $success = MinifyHTML $tempFile $diffCompareHtmlOutput
+        if ($success) {
+            Write-Output "✅ Processed diffCompare HTML"
+        } else {
+            Write-Output "❌ Failed to process diffCompare HTML"
+        }
+        
+        # Clean up temp file
+        if (Test-Path $tempFile) {
+            Remove-Item $tempFile -ErrorAction SilentlyContinue
+        }
+    } else {
+        Write-Warning "Warning: $diffCompareHtmlInput not found"
+    }
+
+    # Process diffCompare JS
+    if (Test-Path $diffCompareJsInput) {
+        $success = MinifyJS $diffCompareJsInput $diffCompareJsOutput
+        if ($success) {
+            Write-Output "✅ Processed diffCompare JS"
+        } else {
+            Write-Output "❌ Failed to process diffCompare JS"
+        }
+    } else {
+        Write-Warning "Warning: $diffCompareJsInput not found"
+    }
+
+
+    #
+
     # Get all HTML files in the current directory
     $files = Get-ChildItem -Filter "*.html" -ErrorAction Stop
 
@@ -195,7 +246,8 @@ try {
     }
 
     # Process JS files
-    $jsFiles = @("textEditor.js", "mergely.js")
+    # $jsFiles = @("textEditor.js", "mergely.js")
+    $jsFiles = @("textEditor.js")
     foreach ($jsFile in $jsFiles) {
         $inputFile = $jsFile
         $outputFile = "../page/$([System.IO.Path]::GetFileNameWithoutExtension($jsFile)).min.js"
@@ -212,20 +264,20 @@ try {
         }
     }
 
-    # Process CSS file
-    $cssInputFile = "mergely.css"
-    $cssOutputFile = "../page/mergely.min.css"
+    # # Process CSS file
+    # $cssInputFile = "mergely.css"
+    # $cssOutputFile = "../page/mergely.min.css"
 
-    if (Test-Path $cssInputFile) {
-        $success = MinifyCSS $cssInputFile $cssOutputFile
-        if ($success) {
-            Write-Output "✅ Processed CSS: $cssInputFile -> $([System.IO.Path]::GetFileName($cssOutputFile))"
-        } else {
-            Write-Output "❌ Failed to process CSS: $cssInputFile"
-        }
-    } else {
-        Write-Warning "Warning: $cssInputFile not found"
-    }
+    # if (Test-Path $cssInputFile) {
+    #     $success = MinifyCSS $cssInputFile $cssOutputFile
+    #     if ($success) {
+    #         Write-Output "✅ Processed CSS: $cssInputFile -> $([System.IO.Path]::GetFileName($cssOutputFile))"
+    #     } else {
+    #         Write-Output "❌ Failed to process CSS: $cssInputFile"
+    #     }
+    # } else {
+    #     Write-Warning "Warning: $cssInputFile not found"
+    # }
 
     # Copy 404 to root
     try {
