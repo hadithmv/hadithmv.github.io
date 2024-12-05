@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<!-- 
+mergely v5.3.6
+
+https://www.mergely.com
+
+https://github.com/wickedest/Mergely/releases
+examples/cdn.html
+
+ -->
 <html lang="dv" class="notranslate" translate="no">
   <head>
     <meta name="google" content="notranslate" />
@@ -31,17 +40,17 @@
     <!-- external resources-->
     <link
       rel="stylesheet"
-      href="../css/base-styles.css"
+      href="../../css/base-styles.css"
       media="print"
       onload="this.media='all'"
     />
     <link
       rel="stylesheet"
-      href="../css/navbar.css"
+      href="../../css/navbar.css"
       media="print"
       onload="this.media='all'"
     />
-    <script src="../js/navbar.js"></script>
+    <script src="../../js/navbar.js"></script>
     <!-- END external resources-->
   </head>
 
@@ -56,18 +65,30 @@
 />-->
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mergely/5.3.6/mergely.js"></script>-->
 
-    <!-- remove 4 things:
+    <!-- !!! REMOVE  4 things from the CSS code:
  1 .mergely-splash  {
  2 .mergely-splash p  {
  3 .mergely-icon  {
  4 .mergely-splash span.mergely-icon  {
 
- minify w csso-->
-    <link rel="stylesheet" href="mergely.css" />
+ minify w csso -->
+    <!-- <link rel="stylesheet" href="mergely.css" /> -->
+    <!-- instead of ext linl, placed that modified css inline directly below: -->
+
+    <!-- prettier-ignore -->
+    <style>
+		.mergely-editor .CodeMirror{line-height:18px;height:auto;width:100%}.mergely-editor .mergely-margin canvas{width:8px}.mergely-editor .mergely-canvas canvas{width:28px}.mergely-editor .CodeMirror-linenumber{cursor:pointer}.mergely-editor .CodeMirror-selected{background:#0f73ff47}.mergely-editor .merge-button{height:18px;cursor:pointer}.mergely-editor .mergely.CodeMirror-linebackground{border-style:solid;border-width:0}.mergely-editor .mergely.start.CodeMirror-linebackground{border-top-width:1px}.mergely-editor .mergely.end.CodeMirror-linebackground{border-bottom-width:1px}.mergely-editor .mergely.no-end.CodeMirror-linebackground{border-bottom-width:0;background-color:initial}.mergely-editor .CodeMirror-code{color:#717171}.mergely-editor .CodeMirror{border:1px solid #ccc}.mergely-editor .mergely.CodeMirror-gutter-background.current{background-color:#777}.mergely-editor .mergely.current .CodeMirror-linenumber{color:#f9f9f9;font-weight:700}.mergely-editor .merge-button{color:#ccc}.mergely-editor .merge-button:hover{color:#666}.mergely-editor .current .merge-button:hover{color:#fff}.mergely-editor .mergely.c.CodeMirror-linebackground{border-color:#a3a3a3;background-color:#fafafa}.mergely-editor .mergely.lhs.d.CodeMirror-linebackground,.mergely-editor .mergely.rhs.a.no-end.CodeMirror-linebackground,.mergely-editor .mergely.rhs.a.no-start.CodeMirror-linebackground{border-color:#ff7f7f}.mergely-editor .mergely.lhs.d.CodeMirror-linebackground{background-color:#ffe9e9}.mergely-editor .mergely.ch.d.lhs,.mergely-editor .mergely.ch.ind.lhs{text-decoration:line-through;color:red}.mergely-editor .mergely.lhs.no-end.CodeMirror-linebackground,.mergely-editor .mergely.lhs.no-start.CodeMirror-linebackground,.mergely-editor .mergely.rhs.a.CodeMirror-linebackground{border-color:#a3d1ff}.mergely-editor .mergely.rhs.a.CodeMirror-linebackground{background-color:#eff7ff}.mergely-editor .mergely.ch.ina.rhs{color:#00f}.mergely-editor .mergely.ch.a.rhs{color:inherit}.mergely-editor .mergely.current.lhs.CodeMirror-linebackground,.mergely-editor .mergely.current.rhs.CodeMirror-linebackground{border-color:#000}.mergely-editor .mergely.no-end.start.CodeMirror-linebackground,.mergely-editor .mergely.no-start.end.CodeMirror-linebackground{background:0 0}
+	</style>
+
+    <!--  -->
+
+    <!--  -->
+
+    <!--  -->
 
     <script src="mergely.js"></script>
-    <!-- remove 3 things:
- 1 if (NOTICES.indexOf(this.settings.license) < 0) {
+    <!-- !!! REMOVE 3 things from the JS code:
+ 		1 if (NOTICES.indexOf(this.settings.license) < 0) {
 		container.addEventListener('updated', () => {
 			const noticeTypes = {
 				'lgpl': 'GNU LGPL v3.0',
@@ -96,7 +117,7 @@
 
   
   
-    2 function getSplash({ notice, left, top }) {
+  	  2 function getSplash({ notice, left, top }) {
           return htmlToElement(`\
 <div class="mergely-splash" style="left: ${left}px; top: ${top}px">
 	<p>
@@ -110,8 +131,12 @@
 
 
 
-          3 getSplash,
+        3 getSplash,
 -->
+
+    <!--  -->
+
+    <!-- custom styles -->
 
     <style>
       .buttons-container {

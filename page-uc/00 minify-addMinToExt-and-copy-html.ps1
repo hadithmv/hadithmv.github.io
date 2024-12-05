@@ -126,6 +126,58 @@ function MinifyCSS($inputFile, $outputFile) {
 }
 
 try {
+
+    #
+
+    # Process keyboardPage files
+    $keyboardHtmlInput = "keyboardPage/index-custom.html"
+    $keyboardHtmlOutput = "../page/keyboardPage.html"
+    $keyboardJsInput = "keyboardPage/build/index.js"
+    $keyboardJsOutput = "../page/keyboardPage.min.js"
+
+    # Process keyboard HTML
+    if (Test-Path $keyboardHtmlInput) {
+        # Read and modify the content
+        $content = Get-Content -Path $keyboardHtmlInput -Raw
+        $content = $content -replace '<script src="build/index.js"></script>', '<script src="keyboardPage.min.js"></script>'
+        
+        # Create a temporary file for the modified content
+        $tempFile = [System.IO.Path]::GetTempFileName()
+        $content | Set-Content -Path $tempFile -NoNewline
+        
+        # Minify and save the HTML
+        $success = MinifyHTML $tempFile $keyboardHtmlOutput
+        if ($success) {
+            Write-Output "✅ Processed keyboardPage HTML"
+        } else {
+            Write-Output "❌ Failed to process keyboardPage HTML"
+        }
+        
+        # Clean up temp file
+        if (Test-Path $tempFile) {
+            Remove-Item $tempFile -ErrorAction SilentlyContinue
+        }
+    } else {
+        Write-Warning "Warning: $keyboardHtmlInput not found"
+    }
+
+    # Copy and process keyboard JS
+    if (Test-Path $keyboardJsInput) {
+        # Create directory if it doesn't exist
+        $outputDir = Split-Path -Parent $keyboardJsOutput
+        if (-not (Test-Path $outputDir)) {
+            New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
+        }
+        
+        # Copy JS file (already minified)
+        Copy-Item $keyboardJsInput $keyboardJsOutput -Force
+        Write-Output "✅ Copied keyboard JS file"
+    } else {
+        Write-Warning "Warning: $keyboardJsInput not found"
+    }
+
+    #
+
     # Get all HTML files in the current directory
     $files = Get-ChildItem -Filter "*.html" -ErrorAction Stop
 
