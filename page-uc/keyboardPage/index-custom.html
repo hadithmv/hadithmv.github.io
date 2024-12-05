@@ -1,0 +1,186 @@
+<html>
+  <!-- added
+    https://github.com/hodgef/simple-keyboard
+	https://virtual-keyboard.js.org/
+	https://hodgef.com/simple-keyboard/editor/?d=hodgef/simple-keyboard-js-demos/tree/master -->
+
+  <head>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css"> -->
+    <link rel="stylesheet" href="build/css/index.css" />
+    <!-- created -->
+    <link rel="stylesheet" href="src/index.css" />
+  </head>
+
+  <style>
+    /* 
+    https://hodgef.com/simple-keyboard/editor/?d=hodgef/simple-keyboard-js-demos/tree/dark-theme
+     */
+
+    /*
+  Theme: myTheme1
+  note: removed ".myTheme1" from "".simple-keyboard.myTheme1
+  and added the styles inside prefer dark mq
+*/
+
+    @media (prefers-color-scheme: dark) {
+      .simple-keyboard {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 0;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+
+      .simple-keyboard .hg-button {
+        /* height: 50px; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+      }
+
+      .simple-keyboard .hg-button:active {
+        background: #1c4995;
+        color: white;
+      }
+
+      #root .simple-keyboard + .simple-keyboard-preview {
+        background: #1c4995;
+      }
+    }
+  </style>
+
+  <!-- this used to be near the end of body originally -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script> -->
+  <script src="build/index.js"></script>
+  <!-- created -->
+  <script src="src/index.js"></script>
+
+  <body>
+    <input class="input" placeholder="Tap on the virtual keyboard to start" />
+    <div class="simple-keyboard"></div>
+
+    <!-- Add language switch buttons -->
+    <br />
+    <style>
+      button {
+        height: 40px;
+        width: 100px;
+        margin: 5px;
+        font-size: 20px;
+      }
+    </style>
+    <button onclick="switchLayout('english')">English</button>
+    <button onclick="switchLayout('arabic')">عربي</button>
+    <button onclick="switchLayout('dhivehi')">ދިވެހި</button>
+
+    <!-- Add inline script for layout switching -->
+    <script>
+      // Function to switch layouts
+      function switchLayout(language) {
+        // Get the first keyboard instance
+        const keyboard = Object.values(window.SimpleKeyboardInstances)[0];
+
+        const layouts = {
+          english: {
+            default: [
+              "` 1 2 3 4 5 6 7 8 9 0 - = {bksp}",
+              "{tab} q w e r t y u i o p [ ] \\",
+              "{lock} a s d f g h j k l ; ' {enter}",
+              "{shift} z x c v b n m , . / {shift}",
+              ".com @ {space}",
+            ],
+            shift: [
+              "~ ! @ # $ % ^ & * ( ) _ + {bksp}",
+              "{tab} Q W E R T Y U I O P { } |",
+              '{lock} A S D F G H J K L : " {enter}',
+              "{shift} Z X C V B N M < > ? {shift}",
+              ".com @ {space}",
+            ],
+          },
+
+          // https://github.com/simple-keyboard/simple-keyboard-layouts/blob/master/src/lib/layouts/arabic.ts
+          arabic: {
+            default: [
+              "ذ 1 2 3 4 5 6 7 8 9 0 - = {bksp}",
+              "{tab} ض ص ث ق ف غ ع ه خ ح ج د \\",
+              "{lock} ش س ي ب ل ا ت ن م ك ط {enter}",
+              "{shift} ئ ء ؤ ر لا ى ة و ز ظ {shift}",
+              ".com @ {space}",
+            ],
+            shift: [
+              "ّ ! @ # $ % ^ & * ) ( _ + {bksp}",
+              "{tab} َ ً ُ ٌ لإ إ ' ÷ × ؛ < > |",
+              '{lock} ِ ٍ ] [ لأ أ ـ ، / : " {enter}',
+              "{shift} ~ ْ } { لآ آ ' , . ؟ {shift}",
+              ".com @ {space}",
+            ],
+          },
+          // custom added
+          dhivehi: {
+            default: [
+              "` 1 2 3 4 5 6 7 8 9 0 - = {bksp}",
+              "{tab} ް އ ެ ރ ތ ޔ ު ި ޮ ޕ ] [ \\",
+              "{lock} ަ ސ ދ ފ ގ ހ ޖ ކ ލ ؛ ' {enter}",
+              "{shift} ޒ × ޗ ވ ބ ނ މ ، . / {shift}",
+              ".com @ {space}",
+            ],
+            shift: [
+              "~ ! @ # $ % ^ & * ) ( _ + {bksp}",
+              "{tab} ޤ ޢ ޭ ޜ ޓ ޠ ޫ ީ ޯ ÷ } { |",
+              '{lock} ާ ށ ޑ ﷲ ޣ ޙ ޛ ޚ ޅ : " {enter}',
+              "{shift} ޡ ޘ ޝ ޥ ޞ ޏ ޟ > < ؟ {shift}",
+              ".com @ {space}",
+            ],
+          },
+        };
+
+        if (keyboard) {
+          keyboard.setOptions({
+            layout: layouts[language],
+          });
+        } else {
+          console.error("Keyboard instance not found");
+        }
+      }
+
+      // Debug helper - log the instance name when keyboard is initialized
+      window.addEventListener("DOMContentLoaded", function () {
+        setTimeout(() => {
+          console.log(
+            "Available keyboard instances:",
+            Object.keys(window.SimpleKeyboardInstances)
+          );
+        }, 100);
+      });
+    </script>
+  </body>
+</html>
+
+<!-- 
+take a look at this code
+
+// showed it the html, as well as a formatted version of build/index.js
+
+what i want is, an html button that uses inline html js code to switch keyboard language to
+default: [
+            "ذ 1 2 3 4 5 6 7 8 9 0 - = {bksp}",
+            "{tab} ض ص ث ق ف غ ع ه خ ح ج د \\",
+            "{lock} ش س ي ب ل ا ت ن م ك ط {enter}",
+            "{shift} ئ ء ؤ ر لا ى ة و ز ظ {shift}",
+            ".com @ {space}"
+          ],
+          shift: [
+            "ّ ! @ # $ % ^ & * ) ( _ + {bksp}",
+            "{tab} َ ً ُ ٌ لإ إ ' ÷ × ؛ < > |",
+            '{lock} ِ ٍ ] [ لأ أ ـ ، / : " {enter}',
+            "{shift} ~ ْ } { لآ آ ' , . ؟ {shift}",
+            ".com @ {space}"
+          ]
+
+note that i might want to add more keyboard languages in future
+
+i dont want to change external js
+
+
+-->
