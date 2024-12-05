@@ -1,8 +1,14 @@
 <html>
-  <!-- simple-keyboard 3.8.0
-    https://github.com/hodgef/simple-keyboard
+  <!-- 
+simple-keyboard 3.8.0
+
+  https://github.com/hodgef/simple-keyboard
 	https://virtual-keyboard.js.org/
-	https://hodgef.com/simple-keyboard/editor/?d=hodgef/simple-keyboard-js-demos/tree/master -->
+
+	https://hodgef.com/simple-keyboard/editor/?d=hodgef/simple-keyboard-js-demos/tree/master
+  open in sandbox, download sandbox
+  index.html
+   -->
 
   <head>
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css"> -->
@@ -258,16 +264,27 @@ in this directory, is a folder called "keyboardPage"
 in that sub directory, are the following:
 index-custom.html
 build/index.js
-build/css/index.css
 
-now what i want is for you to minify the content of "index-custom.html",
-then add the style and script code of
+now what i want is for you to 
+
+make a copy of the content of "index-custom.html", without changing the actual file itse
+change the following script link tag from that content:
+<script src="build/index.js"></script>
+change it to:
+<script src="keyboardPage.min.js"></script>
+
+then that content should be saved into a file called "keyboardPage.html", which should be then placed in "../page/keyboardPage.html"
+
+also
+
 build/index.js
-build/css/index.css
-to the content of the just now minified "index-custom.html"
+should be saved as
+"../page/keyboardPage.min.js"
+with js comments removed
+and no need to minify it as it is already minified
 
-then that content should be saved into a file called "keyboardPage", which should be then placed in "../page/keyboardPage.html"
+then minify that content with just html-minifier
 
-the actual "index-custom.html" file should not change
+every time this script is run, the contents of keyboardPage.html and keyboardPage.js should be overwritten
 
 -->
