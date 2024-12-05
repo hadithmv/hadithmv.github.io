@@ -1,5 +1,5 @@
 <html>
-  <!-- added
+  <!-- simple-keyboard 3.8.0
     https://github.com/hodgef/simple-keyboard
 	https://virtual-keyboard.js.org/
 	https://hodgef.com/simple-keyboard/editor/?d=hodgef/simple-keyboard-js-demos/tree/master -->
@@ -7,12 +7,27 @@
   <head>
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css"> -->
     <link rel="stylesheet" href="build/css/index.css" />
-    <!-- created -->
-    <link rel="stylesheet" href="src/index.css" />
+    <!-- downloaded offline ext, and now it is loaded locally -->
+    <!-- <link rel="stylesheet" href="src/index.css" /> -->
+    <!-- placed its styles directly below inline -->
   </head>
+  <style>
+    input {
+      width: 100%;
+      height: 100px;
+      padding: 20px;
+      font-size: 20px;
+      border: none;
+      box-sizing: border-box;
+    }
+
+    .simple-keyboard {
+      max-width: 850px;
+    }
+  </style>
 
   <style>
-    /* 
+    /* dark theme styles
     https://hodgef.com/simple-keyboard/editor/?d=hodgef/simple-keyboard-js-demos/tree/dark-theme
      */
 
@@ -49,12 +64,6 @@
       }
     }
   </style>
-
-  <!-- this used to be near the end of body originally -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script> -->
-  <script src="build/index.js"></script>
-  <!-- created -->
-  <script src="src/index.js"></script>
 
   <body>
     <input class="input" placeholder="Tap on the virtual keyboard to start" />
@@ -154,6 +163,55 @@
         }, 100);
       });
     </script>
+
+    <!--  -->
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script> -->
+    <script src="build/index.js"></script>
+    <!-- downloaded offline ext, and now it is loaded locally -->
+    <!-- <script src="src/index.js"></script> -->
+    <!-- placed its styles directly below inline
+   now both src css and js whole directory is completely removed -->
+    <script>
+      let Keyboard = window.SimpleKeyboard.default;
+
+      let keyboard = new Keyboard({
+        onChange: (input) => onChange(input),
+        onKeyPress: (button) => onKeyPress(button),
+      });
+
+      /**
+       * Update simple-keyboard when input is changed directly
+       */
+      document.querySelector(".input").addEventListener("input", (event) => {
+        keyboard.setInput(event.target.value);
+      });
+
+      console.log(keyboard);
+
+      function onChange(input) {
+        document.querySelector(".input").value = input;
+        console.log("Input changed", input);
+      }
+
+      function onKeyPress(button) {
+        console.log("Button pressed", button);
+
+        /**
+         * If you want to handle the shift and caps lock buttons
+         */
+        if (button === "{shift}" || button === "{lock}") handleShift();
+      }
+
+      function handleShift() {
+        let currentLayout = keyboard.options.layoutName;
+        let shiftToggle = currentLayout === "default" ? "shift" : "default";
+
+        keyboard.setOptions({
+          layoutName: shiftToggle,
+        });
+      }
+    </script>
   </body>
 </html>
 
@@ -182,5 +240,20 @@ note that i might want to add more keyboard languages in future
 
 i dont want to change external js
 
+...
+
+for minification script:
+
+
+
+in this directory, is a folder called "keyboardPage"
+in that sub directory, are the following:
+index-custom.html
+build/index.js
+build/css/index
+src/index.css
+src/index.js
+
+now what i want is for you to minify all the css and js files here, add them to the content of "index-custom.html", then minify the html of that into a file called "keyboardPage", which should be then placed in "../page/keyboardPage.html"
 
 -->
