@@ -125,7 +125,97 @@ function MinifyCSS($inputFile, $outputFile) {
     return $true
 }
 
+#
+
+# Add these new functions after the existing functions but before the main try block
+function ProcessQRGeneratorHTML() {
+    try {
+        $inputFile = "qrCode/qrcodegen-input-custom.html"
+        $outputFile = "../page/qrGenerator.html"
+
+        # Check if input file exists
+        if (-not (Test-Path $inputFile)) {
+            throw "Input file not found: $inputFile"
+        }
+
+        # Read and modify the content
+        $content = Get-Content -Path $inputFile -Raw
+        
+        # Replace paths and script tags
+        $content = $content -replace '\.\.\/\.\.\/', '../'
+        $content = $content -replace '<script type="application/javascript" src="qrcodegen.js"></script>\s*<script\s*type="application/javascript"\s*src="qrcodegen-input-demo.js"\s*></script>', '<script src="qrGenerator.min.js"></script>'
+
+        # Create a temporary file for the modified content
+        $tempFile = [System.IO.Path]::GetTempFileName()
+        $content | Set-Content -Path $tempFile -NoNewline
+
+        # Ensure output directory exists
+        $outputDir = Split-Path -Parent $outputFile
+        if (-not (Test-Path $outputDir)) {
+            New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
+        }
+
+        # Use html-minifier with the temporary file
+        $minifierResult = html-minifier --collapse-boolean-attributes --collapse-whitespace --decode-entities --minify-css true --minify-js true --process-scripts [text/html] --remove-attribute-quotes --remove-comments --remove-empty-attributes --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-style-link-type-attributes --remove-tag-whitespace --sort-attributes --sort-class-name --trim-custom-fragments --use-short-doctype $tempFile -o $outputFile 2>&1
+
+        if ($LASTEXITCODE -ne 0) {
+            throw "html-minifier failed: $minifierResult"
+        }
+
+        Write-Output "✅ Processed QR Generator HTML"
+        return $true
+    }
+    catch {
+        Write-Error "Error processing QR Generator HTML: $_"
+        return $false
+    }
+    finally {
+        if ($tempFile -and (Test-Path $tempFile)) {
+            Remove-Item $tempFile -ErrorAction SilentlyContinue
+        }
+    }
+}
+
+function ProcessQRGeneratorJS() {
+    try {
+        $jsFile1 = "qrCode/qrcodegen.js"
+        $jsFile2 = "qrCode/qrcodegen-input-demo.js"
+        $outputFile = "../page/qrGenerator.min.js"
+        $tempFile = [System.IO.Path]::GetTempFileName()
+
+        # Check if input files exist
+        if (-not (Test-Path $jsFile1) -or -not (Test-Path $jsFile2)) {
+            throw "One or more input JS files not found"
+        }
+
+        # Combine JS files
+        Get-Content $jsFile1, $jsFile2 | Set-Content $tempFile
+
+        # Minify combined JS
+        $success = MinifyJS $tempFile $outputFile
+        if ($success) {
+            Write-Output "✅ Processed QR Generator JS"
+            return $true
+        }
+        return $false
+    }
+    catch {
+        Write-Error "Error processing QR Generator JS: $_"
+        return $false
+    }
+    finally {
+        if ($tempFile -and (Test-Path $tempFile)) {
+            Remove-Item $tempFile -ErrorAction SilentlyContinue
+        }
+    }
+}
+
+#
+
 try {
+    # Add these lines at the beginning of the main try block
+    ProcessQRGeneratorHTML
+    ProcessQRGeneratorJS
 
     #
 
