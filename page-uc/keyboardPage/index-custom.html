@@ -245,15 +245,20 @@ i dont want to change external js
 for minification script:
 
 
-
 in this directory, is a folder called "keyboardPage"
 in that sub directory, are the following:
 index-custom.html
 build/index.js
-build/css/index
-src/index.css
-src/index.js
+build/css/index.css
 
-now what i want is for you to minify all the css and js files here, add them to the content of "index-custom.html", then minify the html of that into a file called "keyboardPage", which should be then placed in "../page/keyboardPage.html"
+now what i want is for you to minify the content of "index-custom.html",
+then add the style and script code of
+build/index.js
+build/css/index.css
+to the content of the just now minified "index-custom.html"
+
+then that content should be saved into a file called "keyboardPage", which should be then placed in "../page/keyboardPage.html"
+
+the actual "index-custom.html" file should not change
 
 -->
