@@ -2974,5 +2974,5 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     }, 5000);
   }
 
-  // ... rest of the code ...
-});
+  // END
+}); // document.addEventListener("DOMContentLoaded", () => {
