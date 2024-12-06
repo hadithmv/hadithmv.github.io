@@ -2810,9 +2810,8 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   // Initial update
   updateStats();
 
-  //
+  // =====================================================
 
-  // Calculator tab functionality
   // Calculator tab functionality
   const calcArea = document.getElementById("calcArea");
   const addCalcTabButton = document.getElementById("addCalcTab");
