@@ -1804,6 +1804,7 @@
         </div>
 
         <div id="copyTab" class="tab-content">
+          <!--  -->
           <div class="buttons-container">
             <button class="copy-button-lit">ﷺ</button>
             <button class="copy-button-lit">﵆</button>
@@ -2044,9 +2045,72 @@
             <button class="copy-button" data-text="">عز وجل</button>
           </div>
           <!-- Add more copy buttons here -->
+          <!--  -->
         </div>
 
         <div id="calcTab" class="tab-content">
+          <!-- -->
+          <!-- i want another text area for calculating numbers
+in it i can write any text
+
+there should be buttons above the text area, that say
+1, +
+this shows the current calculation text area
+1 is the current one, and highlighted
+when + is clicked, it creates another text area calculation with corresponding tab "2" and switches to that
+i should be able to switch between tabs
+
+i already have similar code that does this, so take a look at that 
+
+...
+
+This implementation:
+Creates a similar tab system for the calculator
+Allows switching between calculator tabs
+Saves calculator content to localStorage
+Loads saved calculator content on page load
+Uses the same styling pattern as the editor tabs
+The functionality mirrors your existing editor tab system, making it consistent with the rest of your application.
+
+-->
+          <style>
+            /* ... existing styles ... */
+
+            .calc-numbered-tabs {
+              display: flex;
+              overflow-x: auto;
+              margin-bottom: 10px;
+            }
+
+            .calc-numbered-tab,
+            #addCalcTab {
+              padding: 5px 10px;
+              cursor: pointer;
+              border: 1px solid #ccc;
+              border-radius: 5px;
+              margin-right: 5px;
+              min-width: 30px;
+              text-align: center;
+            }
+
+            .calc-numbered-tab.active {
+              background-color: #007bff;
+              color: white;
+            }
+
+            #calcArea {
+              width: 100%;
+              height: 300px;
+              resize: vertical;
+              padding: 10px;
+            }
+          </style>
+          <div class="calc-numbered-tabs">
+            <button class="calc-numbered-tab active" data-tab="1">1</button>
+            <button id="addCalcTab">+</button>
+          </div>
+          <textarea id="calcArea"></textarea>
+          <!--  -->
           <!-- Add calculator content here -->
         </div>
 

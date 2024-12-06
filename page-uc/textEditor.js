@@ -1773,7 +1773,7 @@ i also want these lines of occurences to be numbered followed by a space, like
 i also want, after the 3 words shown with the middle word being the instance, i want a space after the 3 words, then a colon :, then another spaces, then i want the repeated diacritic and the diacritic and letter character before it, with a space between the repeat diacritic and the diacritic before it, all in red color after the colon
 
 example:
-1. ބިން ޢުމަރުި رَضِيَ  :  ރު ި
+1. ބިން ޢުމަރު رَضِيَ  :  ރު ި
 2. اللَّهُ عََنْهُ ގެ : عَ َ
 3. ގެ އަރިަހުން ރިވާވެގެންވެއެވެ. : ރި ަ
 
@@ -2809,4 +2809,72 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
 
   // Initial update
   updateStats();
-});
+
+  //
+
+  // Calculator tab functionality
+  const calcArea = document.getElementById("calcArea");
+  const addCalcTabButton = document.getElementById("addCalcTab");
+  const calcNumberedTabs = document.querySelector(".calc-numbered-tabs");
+
+  // Check if calculator elements exist before adding functionality
+  if (calcArea && addCalcTabButton && calcNumberedTabs) {
+    let currentCalcTab = 1;
+    let calcTabs = [{ id: 1, content: "" }];
+
+    // Add new calculation tab
+    addCalcTabButton.addEventListener("click", () => {
+      const newTabId = calcTabs.length + 1;
+      calcTabs.push({ id: newTabId, content: "" });
+
+      const newTab = document.createElement("button");
+      newTab.classList.add("calc-numbered-tab");
+      newTab.dataset.tab = newTabId;
+      newTab.textContent = newTabId;
+
+      calcNumberedTabs.insertBefore(newTab, addCalcTabButton);
+      switchCalcTab(newTabId);
+    });
+
+    // Switch between calculation tabs
+    calcNumberedTabs.addEventListener("click", (e) => {
+      if (e.target.classList.contains("calc-numbered-tab")) {
+        const tabId = parseInt(e.target.dataset.tab);
+        switchCalcTab(tabId);
+      }
+    });
+
+    function switchCalcTab(tabId) {
+      calcTabs[currentCalcTab - 1].content = calcArea.value;
+      currentCalcTab = tabId;
+      calcArea.value = calcTabs[currentCalcTab - 1].content;
+
+      document.querySelectorAll(".calc-numbered-tab").forEach((tab) => {
+        tab.classList.toggle("active", parseInt(tab.dataset.tab) === tabId);
+      });
+    }
+
+    // Load saved calculator content
+    const savedCalcTabs = JSON.parse(localStorage.getItem("calculatorTabs"));
+    if (savedCalcTabs) {
+      calcTabs = savedCalcTabs;
+      calcTabs.forEach((tab) => {
+        if (tab.id > 1) {
+          const newTab = document.createElement("button");
+          newTab.classList.add("calc-numbered-tab");
+          newTab.dataset.tab = tab.id;
+          newTab.textContent = tab.id;
+          calcNumberedTabs.insertBefore(newTab, addCalcTabButton);
+        }
+      });
+      switchCalcTab(parseInt(localStorage.getItem("currentCalcTab")) || 1);
+    }
+
+    // Save calculator content periodically
+    setInterval(() => {
+      calcTabs[currentCalcTab - 1].content = calcArea.value;
+      localStorage.setItem("calculatorTabs", JSON.stringify(calcTabs));
+      localStorage.setItem("currentCalcTab", currentCalcTab);
+    }, 5000);
+  }
+}); // document.addEventListener("DOMContentLoaded", () => {
