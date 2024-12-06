@@ -2835,8 +2835,11 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       let numbers = line.match(numberPattern) || [];
       let operators = line.match(operatorPattern) || [];
 
-      // Convert comma-formatted numbers
-      numbers = numbers.map((n) => parseFloat(n.replace(/,/g, "")));
+      // Convert comma-formatted numbers and handle explicit negative numbers
+      numbers = numbers.map((n) => {
+        // First remove commas, then parse as float
+        return parseFloat(n.replace(/,/g, ""));
+      });
 
       // Process multiplication and division first
       for (let i = 0; i < operators.length; i++) {
@@ -2857,12 +2860,8 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       }
 
       // Then process addition and subtraction
-      return numbers.reduce((sum, num, i) => {
-        if (operators[i - 1] === "-") {
-          return sum - num;
-        }
-        return sum + num;
-      }, 0);
+      // Start with the first number and add/subtract the rest
+      return numbers.reduce((sum, num) => sum + num, 0);
     }
 
     function updateCalculations() {

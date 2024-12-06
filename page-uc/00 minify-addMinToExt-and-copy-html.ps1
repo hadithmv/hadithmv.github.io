@@ -142,7 +142,7 @@ function ProcessQRGeneratorHTML() {
         $content = Get-Content -Path $inputFile -Raw
         
         # Replace paths and script tags
-        $content = $content -replace '\.\.\/\.\.\/', '../'
+        $content = $content -replace '../../', '../'
         $content = $content -replace '<script type="application/javascript" src="qrcodegen.js"></script>\s*<script\s*type="application/javascript"\s*src="qrcodegen-input-demo.js"\s*></script>', '<script src="qrGenerator.min.js"></script>'
 
         # Create a temporary file for the modified content
