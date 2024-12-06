@@ -1,3 +1,40 @@
+/* CSS Variables */
+:root {
+  /* Light theme (default) */
+  --qurNav-bg: #fff;
+  --qurNav-text: #333;
+  --qurNav-border: #ccc;
+  --qurNav-hover-bg: #f0f0f0;
+  --qurNav-active-bg: #e0e0e0;
+  --qurNav-dropdown-bg: #fff;
+  --qurNav-button-bg: #f8f9fa;
+  --qurNav-button-hover: #e9ecef;
+
+  --qurNav-scrollbar-bg: #f1f1f1;
+  --qurNav-scrollbar-thumb: #c1c1c1;
+  --qurNav-scrollbar-thumb-hover: #a8a8a8;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --qurNav-bg: #1a1a1a;
+    --qurNav-text: #e0e0e0;
+    --qurNav-border: #444;
+    --qurNav-hover-bg: #2a2a2a;
+    --qurNav-active-bg: #333;
+    --qurNav-dropdown-bg: #242424;
+    --qurNav-button-bg: #2d2d2d;
+    --qurNav-button-hover: #3d3d3d;
+
+    --qurNav-scrollbar-bg: #2d2d2d;
+    --qurNav-scrollbar-thumb: #444;
+    --qurNav-scrollbar-thumb-hover: #555;
+  }
+}
+
+/* --------------------------- */
+
 /* Navigation Container Styles */
 .q-navigation-container {
   display: flex;
@@ -21,7 +58,10 @@
 }
 
 .q-nav-value {
-  border: 1px solid #ccc;
+  border: 1px solid var(--qurNav-border);
+  color: var(--qurNav-text);
+  background-color: var(--qurNav-bg);
+
   cursor: pointer;
   min-width: 50px;
   text-align: center;
@@ -44,11 +84,13 @@
 
 /* Dropdown Menu Styles */
 .q-dropdown {
+  background-color: var(--qurNav-dropdown-bg);
+  border: 1px solid var(--qurNav-border);
+  color: var(--qurNav-text);
+
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
   max-height: 80vh; /* Limit height to 80% of viewport */
   overflow-y: auto;
   display: none;
@@ -74,16 +116,20 @@
 }
 
 .q-dropdown-item:hover {
-  background-color: #f0f0f0;
+  background-color: var(--qurNav-hover-bg);
 }
 
 .q-dropdown-item.active,
 .q-dropdown-item.highlighted {
-  background-color: #e0e0e0;
+  background-color: var(--qurNav-active-bg);
 }
 
 /* Dropdown Search Input Styles */
 .q-dropdown-search {
+  background-color: var(--qurNav-bg);
+  color: var(--qurNav-text);
+  border: 1px solid var(--qurNav-border);
+
   width: calc(100% - 10px);
   margin: 5px;
   padding: 5px;
@@ -120,10 +166,11 @@
 }
 
 .translation-dropdown {
+  background-color: var(--qurNav-dropdown-bg);
+  border: 1px solid var(--qurNav-border);
+
   display: none;
   position: absolute;
-  background-color: white;
-  border: 1px solid #ddd;
   z-index: 1000;
   width: 250px;
   height: fit-content;
@@ -180,27 +227,30 @@
 
 /* Translation Buttons Container Styles */
 .translation-buttons-container {
+  background-color: var(--qurNav-dropdown-bg);
+  border-bottom: 1px solid var(--qurNav-border);
+
   flex-shrink: 0;
-  background-color: white;
   padding: 10px;
-  border-bottom: 1px solid #ddd;
   display: flex;
   gap: 5px;
   justify-content: space-between;
 }
 
 .translation-buttons-container button {
+  background-color: var(--qurNav-button-bg);
+  border: 1px solid var(--qurNav-border);
+  color: var(--qurNav-text);
+
   font-family: inherit;
   font-size: 18px;
   padding: 5px 10px;
-  border: 1px solid #ddd;
   border-radius: 4px;
-  background-color: #f8f9fa;
   cursor: pointer;
 }
 
 .translation-buttons-container button:hover {
-  background-color: #e9ecef;
+  background-color: var(--qurNav-button-hover);
 }
 
 /* Translation List Container Styles */
@@ -208,4 +258,37 @@
   flex-grow: 1;
   overflow-y: auto;
   padding: 10px;
+}
+
+/*  */
+
+/* Scrollbar Styles */
+
+/* Scrollbar styles for webkit browsers */
+.q-dropdown::-webkit-scrollbar,
+.translation-list-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.q-dropdown::-webkit-scrollbar-track,
+.translation-list-container::-webkit-scrollbar-track {
+  background: var(--qurNav-scrollbar-bg);
+}
+
+.q-dropdown::-webkit-scrollbar-thumb,
+.translation-list-container::-webkit-scrollbar-thumb {
+  background: var(--qurNav-scrollbar-thumb);
+  border-radius: 5px;
+}
+
+.q-dropdown::-webkit-scrollbar-thumb:hover,
+.translation-list-container::-webkit-scrollbar-thumb:hover {
+  background: var(--qurNav-scrollbar-thumb-hover);
+}
+
+/* Firefox scrollbar styles */
+.q-dropdown,
+.translation-list-container {
+  scrollbar-width: thin;
+  scrollbar-color: var(--qurNav-scrollbar-thumb) var(--qurNav-scrollbar-bg);
 }
