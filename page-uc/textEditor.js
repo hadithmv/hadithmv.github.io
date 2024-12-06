@@ -2813,6 +2813,7 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   //
 
   // Calculator tab functionality
+  // Calculator tab functionality
   const calcArea = document.getElementById("calcArea");
   const addCalcTabButton = document.getElementById("addCalcTab");
   const calcNumberedTabs = document.querySelector(".calc-numbered-tabs");
@@ -2821,6 +2822,72 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   if (calcArea && addCalcTabButton && calcNumberedTabs) {
     let currentCalcTab = 1;
     let calcTabs = [{ id: 1, content: "" }];
+
+    const sumTotalDisplay = document.getElementById("sumTotal");
+    const zakatDisplay = document.getElementById("zakatAmount");
+    const lineResults = document.getElementById("lineResults");
+    const copyTotalBtn = document.getElementById("copyTotal");
+    const clearCalcBtn = document.getElementById("clearCalc");
+
+    // Add By Line header to HTML
+    const lineResultsHeader = document.createElement("div");
+    lineResultsHeader.className = "calc-display";
+    lineResultsHeader.textContent = "By Line";
+    lineResults.parentNode.insertBefore(lineResultsHeader, lineResults);
+
+    function calculateLine(line) {
+      const numberPattern = /[+-]?\d*\.?\d+(?:,\d{3})*(?:\d*\.?\d+)?/g;
+      const operatorPattern = /[\+\-\*x\/÷]/g;
+
+      let numbers = line.match(numberPattern) || [];
+      let operators = line.match(operatorPattern) || [];
+
+      // Convert comma-formatted numbers
+      numbers = numbers.map((n) => parseFloat(n.replace(/,/g, "")));
+
+      // Process multiplication and division first
+      for (let i = 0; i < operators.length; i++) {
+        if (
+          operators[i] === "*" ||
+          operators[i] === "x" ||
+          operators[i] === "/" ||
+          operators[i] === "÷"
+        ) {
+          const result =
+            operators[i] === "*" || operators[i] === "x"
+              ? numbers[i] * numbers[i + 1]
+              : numbers[i] / numbers[i + 1];
+          numbers.splice(i, 2, result);
+          operators.splice(i, 1);
+          i--;
+        }
+      }
+
+      // Then process addition and subtraction
+      return numbers.reduce((sum, num, i) => {
+        if (operators[i - 1] === "-") {
+          return sum - num;
+        }
+        return sum + num;
+      }, 0);
+    }
+
+    function updateCalculations() {
+      const lines = calcArea.value.split("\n");
+      let runningTotal = 0;
+      let lineResultsText = "";
+
+      lines.forEach((line) => {
+        const lineTotal = calculateLine(line);
+        runningTotal += lineTotal;
+        // Format the running total with 2 decimal places
+        lineResultsText += `${runningTotal.toFixed(2)}\n`;
+      });
+
+      sumTotalDisplay.textContent = runningTotal.toFixed(2);
+      zakatDisplay.textContent = (runningTotal * 0.025).toFixed(2);
+      lineResults.textContent = lineResultsText;
+    }
 
     // Add new calculation tab
     addCalcTabButton.addEventListener("click", () => {
@@ -2852,7 +2919,24 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       document.querySelectorAll(".calc-numbered-tab").forEach((tab) => {
         tab.classList.toggle("active", parseInt(tab.dataset.tab) === tabId);
       });
+
+      updateCalculations(); // Add this line to update calculations when switching tabs
     }
+
+    calcArea.addEventListener("input", updateCalculations);
+
+    copyTotalBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(sumTotalDisplay.textContent);
+      showButtonFeedback(copyTotalBtn, "Copied");
+    });
+
+    clearCalcBtn.addEventListener("click", () => {
+      calcArea.value = "";
+      lineResults.textContent = ""; // Clear the line results
+      sumTotalDisplay.textContent = "0.00";
+      zakatDisplay.textContent = "0.00";
+      showButtonFeedback(clearCalcBtn, "Cleared");
+    });
 
     // Load saved calculator content
     const savedCalcTabs = JSON.parse(localStorage.getItem("calculatorTabs"));
@@ -2877,4 +2961,6 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       localStorage.setItem("currentCalcTab", currentCalcTab);
     }, 5000);
   }
-}); // document.addEventListener("DOMContentLoaded", () => {
+
+  // ... rest of the code ...
+});

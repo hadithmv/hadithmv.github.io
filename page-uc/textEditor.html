@@ -2063,7 +2063,45 @@ this shows the current calculation text area
 when + is clicked, it creates another text area calculation with corresponding tab "2" and switches to that
 i should be able to switch between tabs
 
-i already have similar code that does this, so take a look at that  -->
+i already have similar code that does this, so take a look at that
+
+...
+
+
+placeholder should be:
+"Any numbers written here will be added together, or if a number has a minus it will be subtracted, even within text. Use this to calculate the total cost for a list of items, or add up kilos when packing luggage. Eg: 
+50 books 
+-10 gifts..."
+
+if there are numbers in the text area, in any order they are, no matter the non number text around them, they should be added up,
+and the sum total should be shown above the text area
+Sum Total: 0.00 (when starting out, updates when text is input to textarea)
+
+as for the numbers, whether they have a "+" sign immediately before them, or no + sign immediately before them, they should be added
+if the numbers have a "-" sign immediately before them, then that number should be subtracted
+
+if there is an "x" or "*" sign immediately between two numbers, they should be multiplied
+
+if there is an "/" or "÷" sign immediately between two numbers, they should be divided
+
+all this according to the rules of maths
+
+number calculations should work even with decimals 0.00 and commas 100,000.00
+
+there should be a column to the right hand side, which shows the calculation results for the corresponding line in the text area, in relation to the sum total up to that line
+5	5
+10	15
+-5	10
+above that columns should be text that says: By Line
+
+below the text area should be a button that says copy total, which copies the current sum total
+there should also be a clear button, that clears the text area and line by line results
+below that should be be a calculation of zakat, that says:
+the Zakat for the total would be: 0.00 (when starting out, updates when text is input to textarea)
+
+all that should work for the current number textarea tab, if another is switched to, the values for that tab start out as they do initially, and are updated only for that tab
+
+-->
         <div id="calcTab" class="tab-content">
           <!-- Add calculator content here -->
           <!--
@@ -2076,22 +2114,93 @@ Loads saved calculator content on page load
 Uses the same styling pattern as the editor tabs
 The functionality mirrors your existing editor tab system, making it consistent with the rest of your application.
 
+...
+
+This implementation:
+Shows running total above the textarea
+Displays line-by-line results in a column to the right
+Handles addition, subtraction, multiplication, and division
+Supports decimal numbers and comma-formatted numbers
+Calculates Zakat (2.5% of total)
+Provides copy and clear functionality
+Maintains separate calculations for each tab
+Updates calculations in real-time as text is entered
+Follows order of operations (multiplication/division before addition/subtraction)
+The calculator will process numbers with or without + signs as addition, numbers with - signs as subtraction, and handle multiplication (,x) and division (/,÷) between numbers.
+
 -->
+
+          <style>
+            .calc-display {
+              margin-bottom: 10px;
+              font-weight: bold;
+              font-size: 1.2em;
+            }
+
+            .calc-container {
+              display: flex;
+              gap: 10px;
+            }
+
+            #calcArea {
+              flex: 1;
+              direction: ltr;
+              text-align: left;
+            }
+
+            #lineResults {
+              width: 150px;
+              white-space: pre;
+              font-family: monospace;
+              padding: 10px;
+              background-color: var(--textarea-bg);
+              border: 1px solid var(--textarea-border);
+              color: var(--textarea-text);
+            }
+
+            .calc-buttons {
+              margin-top: 10px;
+              display: flex;
+              gap: 10px;
+            }
+
+            .zakat-display {
+              margin-top: 10px;
+            }
+          </style>
+
           <div class="calc-numbered-tabs">
             <button class="calc-numbered-tab active" data-tab="1">1</button>
             <button id="addCalcTab">+</button>
           </div>
-          <textarea
-            id="calcArea"
-            style="direction: ltr; text-align: left"
-            placeholder="Any numbers written here will be added together, even within text.
+
+          <div class="calc-display">
+            Sum Total: <span id="sumTotal">0.00</span>
+          </div>
+
+          <div class="calc-container">
+            <textarea
+              id="calcArea"
+              style="direction: ltr; text-align: left"
+              placeholder="Any numbers written here will be added together, even within text.
 To subtract, write a minus before the number.
 To multiply, write an asterisk between the numbers.
 To divide, write a forward slash between the numbers.
 Use this to calculate the total cost for a list of items, or add up kilos when packing luggage. Eg: 
 50 books 
 -10 gifts..."
-          ></textarea>
+            ></textarea>
+            <div id="lineResults"></div>
+          </div>
+
+          <div class="calc-buttons">
+            <button id="copyTotal" class="function-button">Copy Total</button>
+            <button id="clearCalc" class="function-button">Clear</button>
+          </div>
+
+          <div class="zakat-display">
+            The Zakat for the total would be: <span id="zakatAmount">0.00</span>
+          </div>
           <!--  -->
         </div>
 
