@@ -2829,12 +2829,6 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     const copyTotalBtn = document.getElementById("copyTotal");
     const clearCalcBtn = document.getElementById("clearCalc");
 
-    // Add By Line header to HTML
-    const lineResultsHeader = document.createElement("div");
-    lineResultsHeader.className = "calc-display";
-    lineResultsHeader.textContent = "By Line";
-    lineResults.parentNode.insertBefore(lineResultsHeader, lineResults);
-
     function calculateLine(line) {
       const numberPattern = /[+-]?\d*\.?\d+(?:,\d{3})*(?:\d*\.?\d+)?/g;
       const operatorPattern = /[\+\-\*x\/÷]/g;
@@ -2931,10 +2925,28 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     });
 
     clearCalcBtn.addEventListener("click", () => {
+      // Clear the current tab's content
       calcArea.value = "";
-      lineResults.textContent = ""; // Clear the line results
+      lineResults.textContent = "";
       sumTotalDisplay.textContent = "0.00";
       zakatDisplay.textContent = "0.00";
+
+      // Reset to single tab
+      calcTabs = [{ id: 1, content: "" }];
+      currentCalcTab = 1;
+
+      // Clear all tabs except the first one
+      const tabButtons =
+        calcNumberedTabs.querySelectorAll(".calc-numbered-tab");
+      tabButtons.forEach((button) => {
+        if (button.dataset.tab !== "1") {
+          button.remove();
+        }
+      });
+
+      // Make sure first tab is active
+      tabButtons[0].classList.add("active");
+
       showButtonFeedback(clearCalcBtn, "Cleared");
     });
 

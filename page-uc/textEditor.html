@@ -2133,7 +2133,19 @@ The calculator will process numbers with or without + signs as addition, numbers
           <style>
             .calc-display {
               margin-bottom: 10px;
-              font-size: 1.2em;
+              font-size: 1.1em; /*1.2em;*/
+            }
+
+            .calc-headers {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding-right: 10px; /* Match the padding of lineResults */
+            }
+
+            /* Remove any right margin that was previously set */
+            .calc-headers .calc-display:last-child {
+              margin-right: 0;
             }
 
             .calc-container {
@@ -2173,8 +2185,11 @@ The calculator will process numbers with or without + signs as addition, numbers
             <button id="addCalcTab">+</button>
           </div>
 
-          <div class="calc-display">
-            Sum Total: <span id="sumTotal">0.00</span>
+          <div class="calc-headers">
+            <div class="calc-display">
+              Sum Total: <span id="sumTotal">0.00</span>
+            </div>
+            <div class="calc-display">By Line</div>
           </div>
 
           <div class="calc-container">
