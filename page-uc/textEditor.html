@@ -122,14 +122,17 @@
         gap: 10px;
       }
 
-      .numbered-tabs {
+      .numbered-tabs,
+      .calc-numbered-tabs {
         display: flex;
         overflow-x: auto;
         margin-bottom: 10px;
       }
 
       .numbered-tab,
-      #addTab {
+      #addTab,
+      .calc-numbered-tab,
+      #addCalcTab {
         padding: 5px 10px;
         cursor: pointer;
         border-radius: 5px;
@@ -141,12 +144,14 @@
         color: var(--button-text);
       }
 
-      .numbered-tab.active {
+      .numbered-tab.active,
+      .calc-numbered-tab.active {
         background-color: var(--tab-active);
         color: var(--button-hover-text);
       }
 
-      #textArea {
+      #textArea,
+      #calcArea {
         width: 100%;
         height: 300px;
         resize: vertical;
@@ -2073,38 +2078,6 @@ Uses the same styling pattern as the editor tabs
 The functionality mirrors your existing editor tab system, making it consistent with the rest of your application.
 
 -->
-          <style>
-            /* ... existing styles ... */
-
-            .calc-numbered-tabs {
-              display: flex;
-              overflow-x: auto;
-              margin-bottom: 10px;
-            }
-
-            .calc-numbered-tab,
-            #addCalcTab {
-              padding: 5px 10px;
-              cursor: pointer;
-              border: 1px solid #ccc;
-              border-radius: 5px;
-              margin-right: 5px;
-              min-width: 30px;
-              text-align: center;
-            }
-
-            .calc-numbered-tab.active {
-              background-color: #007bff;
-              color: white;
-            }
-
-            #calcArea {
-              width: 100%;
-              height: 300px;
-              resize: vertical;
-              padding: 10px;
-            }
-          </style>
           <div class="calc-numbered-tabs">
             <button class="calc-numbered-tab active" data-tab="1">1</button>
             <button id="addCalcTab">+</button>
