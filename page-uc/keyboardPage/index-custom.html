@@ -69,6 +69,7 @@ simple-keyboard 3.8.0
   <!-- <link rel="stylesheet" href="src/index.css" /> -->
   <!-- placed its styles directly below inline -->
   <style>
+    /*  */
     input {
       width: 100%;
       height: 100px;
@@ -130,27 +131,118 @@ simple-keyboard 3.8.0
   <body>
     <div id="navbar-container"></div>
 
-    <input class="input" placeholder="Tap on the virtual keyboard to start" />
-    <div class="simple-keyboard"></div>
-
-    <!-- Add language switch buttons -->
-    <br />
+    <!--  -->
     <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 850px;
+        margin: 0 auto;
+      }
+      .button-row {
+        display: flex;
+        justify-content: center;
+        gap: 10px; /* Adds space between buttons */
+        margin-top: 20px; /* 10 */
+      }
       button {
         height: 40px;
         width: 100px;
-        margin: 5px;
+        /* margin: 0; Remove individual margins */
         font-size: 20px;
+        /*  */
+        cursor: pointer;
+        border-radius: 5px;
+        /* margin: 10px; */
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+      button:hover {
+        background-color: #e0ffe0;
+      }
+
+      .hg-button {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /*  */
+
+      .input {
+        color: hsla(0, 0%, 100%, 0.9);
+        background: 0 0;
+        border: none;
+        outline: 0;
+        font-family: monospace;
+        width: 100%;
+        height: 100%;
+        font-size: 18px;
+        /*  */
+        margin: 10px;
+        padding: 20px;
       }
     </style>
-    <button onclick="switchLayout('english')">English</button>
-    <button onclick="switchLayout('arabic')">عربي</button>
-    <button onclick="switchLayout('dhivehi')">ދިވެހި</button>
+    <div class="container">
+      <!--  -->
+      <!-- <input class="input" placeholder="Tap on the virtual keyboard to start" /> -->
+      <textarea
+        class="input"
+        placeholder="Tap on the keyboard to input"
+      ></textarea>
+      <!--  -->
+      <div class="simple-keyboard"></div>
+
+      <!-- Add language switch buttons -->
+      <div class="button-row">
+        <button onclick="switchLayout('english')">English</button>
+        <button onclick="switchLayout('arabic')">عربي</button>
+        <button onclick="switchLayout('dhivehi')">ދިވެހި</button>
+      </div>
+
+      <!--  -->
+      <div class="button-row">
+        <button onclick="copyToClipboard()">Copy 📋</button>
+        <button onclick="clearInput()">Clear ❌</button>
+      </div>
+      <script>
+        function copyToClipboard() {
+          const inputElement = document.querySelector(".input");
+          inputElement.select();
+          document.execCommand("copy");
+
+          // Optional: Provide visual feedback
+          inputElement.style.backgroundColor = "#e0ffe0";
+          setTimeout(() => {
+            inputElement.style.backgroundColor = "";
+          }, 200);
+        }
+
+        function clearInput() {
+          const inputElement = document.querySelector(".input");
+          inputElement.value = "";
+
+          // Ensure the keyboard input is also cleared
+          if (window.SimpleKeyboardInstances) {
+            const keyboard = Object.values(window.SimpleKeyboardInstances)[0];
+            if (keyboard) {
+              keyboard.setInput("");
+            }
+          }
+        }
+      </script>
+      <!--  -->
+    </div>
+    <!-- container END -->
 
     <!-- Add inline script for layout switching -->
     <script>
-      // Function to switch layouts
+      // Function to switch layouts and handle RTL
       function switchLayout(language) {
+        // Get the input element
+        const inputElement = document.querySelector(".input");
+
         // Get the first keyboard instance
         const keyboard = Object.values(window.SimpleKeyboardInstances)[0];
 
@@ -170,9 +262,8 @@ simple-keyboard 3.8.0
               "{shift} Z X C V B N M < > ? {shift}",
               ".com @ {space}",
             ],
+            rtl: false,
           },
-
-          // https://github.com/simple-keyboard/simple-keyboard-layouts/blob/master/src/lib/layouts/arabic.ts
           arabic: {
             default: [
               "ذ 1 2 3 4 5 6 7 8 9 0 - = {bksp}",
@@ -183,13 +274,13 @@ simple-keyboard 3.8.0
             ],
             shift: [
               "ّ ! @ # $ % ^ & * ) ( _ + {bksp}",
-              "{tab} َ ً ُ ٌ لإ إ ' ÷ × ؛ < > |",
+              "{tab}َ ً ُ ٌ لإ إ ' ÷ × ؛ < > |",
               '{lock} ِ ٍ ] [ لأ أ ـ ، / : " {enter}',
               "{shift} ~ ْ } { لآ آ ' , . ؟ {shift}",
               ".com @ {space}",
             ],
+            rtl: true,
           },
-          // custom added
           dhivehi: {
             default: [
               "` 1 2 3 4 5 6 7 8 9 0 - = {bksp}",
@@ -205,17 +296,70 @@ simple-keyboard 3.8.0
               "{shift} ޡ ޘ ޝ ޥ ޞ ޏ ޟ > < ؟ {shift}",
               ".com @ {space}",
             ],
+            rtl: true,
           },
         };
 
         if (keyboard) {
+          // Update keyboard layout
           keyboard.setOptions({
             layout: layouts[language],
           });
+
+          // Handle RTL
+          if (layouts[language].rtl) {
+            inputElement.setAttribute("dir", "rtl");
+            inputElement.style.textAlign = "right";
+          } else {
+            inputElement.setAttribute("dir", "ltr");
+            inputElement.style.textAlign = "left";
+          }
         } else {
           console.error("Keyboard instance not found");
         }
       }
+
+      // Existing keyboard initialization code remains the same
+      // let Keyboard = window.SimpleKeyboard.default;
+
+      // let keyboard = new Keyboard({
+      //   onChange: (input) => onChange(input),
+      //   onKeyPress: (button) => onKeyPress(button),
+      // });
+
+      //
+
+      /**
+       * Update simple-keyboard when input is changed directly
+       */
+      document.querySelector(".input").addEventListener("input", (event) => {
+        keyboard.setInput(event.target.value);
+      });
+
+      function onChange(input) {
+        document.querySelector(".input").value = input;
+        console.log("Input changed", input);
+      }
+
+      function onKeyPress(button) {
+        console.log("Button pressed", button);
+
+        /**
+         * If you want to handle the shift and caps lock buttons
+         */
+        if (button === "{shift}" || button === "{lock}") handleShift();
+      }
+
+      function handleShift() {
+        let currentLayout = keyboard.options.layoutName;
+        let shiftToggle = currentLayout === "default" ? "shift" : "default";
+
+        keyboard.setOptions({
+          layoutName: shiftToggle,
+        });
+      }
+
+      //
 
       // Debug helper - log the instance name when keyboard is initialized
       window.addEventListener("DOMContentLoaded", function () {
