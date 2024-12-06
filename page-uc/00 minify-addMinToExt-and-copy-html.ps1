@@ -127,144 +127,7 @@ function MinifyCSS($inputFile, $outputFile) {
 
 #
 
-# Add these new functions after the existing functions but before the main try block
-function ProcessQRGeneratorHTML() {
-    try {
-        $inputFile = "qrCode/qrcodegen-input-custom.html"
-        $outputFile = "../page/qrGenerator.html"
-
-        # Check if input file exists
-        if (-not (Test-Path $inputFile)) {
-            throw "Input file not found: $inputFile"
-        }
-
-        # Read and modify the content
-        $content = Get-Content -Path $inputFile -Raw
-        
-        # Replace paths and script tags
-        $content = $content -replace '../../', '../'
-        $content = $content -replace '<script type="application/javascript" src="qrcodegen.js"></script>\s*<script\s*type="application/javascript"\s*src="qrcodegen-input-demo.js"\s*></script>', '<script src="qrGenerator.min.js"></script>'
-
-        # Create a temporary file for the modified content
-        $tempFile = [System.IO.Path]::GetTempFileName()
-        $content | Set-Content -Path $tempFile -NoNewline
-
-        # Ensure output directory exists
-        $outputDir = Split-Path -Parent $outputFile
-        if (-not (Test-Path $outputDir)) {
-            New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
-        }
-
-        # Use html-minifier with the temporary file
-        $minifierResult = html-minifier --collapse-boolean-attributes --collapse-whitespace --decode-entities --minify-css true --minify-js true --process-scripts [text/html] --remove-attribute-quotes --remove-comments --remove-empty-attributes --remove-optional-tags --remove-redundant-attributes --remove-script-type-attributes --remove-style-link-type-attributes --remove-tag-whitespace --sort-attributes --sort-class-name --trim-custom-fragments --use-short-doctype $tempFile -o $outputFile 2>&1
-
-        if ($LASTEXITCODE -ne 0) {
-            throw "html-minifier failed: $minifierResult"
-        }
-
-        Write-Output "✅ Processed QR Generator HTML"
-        return $true
-    }
-    catch {
-        Write-Error "Error processing QR Generator HTML: $_"
-        return $false
-    }
-    finally {
-        if ($tempFile -and (Test-Path $tempFile)) {
-            Remove-Item $tempFile -ErrorAction SilentlyContinue
-        }
-    }
-}
-
-function ProcessQRGeneratorJS() {
-    try {
-        $jsFile1 = "qrCode/qrcodegen.js"
-        $jsFile2 = "qrCode/qrcodegen-input-demo.js"
-        $outputFile = "../page/qrGenerator.min.js"
-        $tempFile = [System.IO.Path]::GetTempFileName()
-
-        # Check if input files exist
-        if (-not (Test-Path $jsFile1) -or -not (Test-Path $jsFile2)) {
-            throw "One or more input JS files not found"
-        }
-
-        # Combine JS files
-        Get-Content $jsFile1, $jsFile2 | Set-Content $tempFile
-
-        # Minify combined JS
-        $success = MinifyJS $tempFile $outputFile
-        if ($success) {
-            Write-Output "✅ Processed QR Generator JS"
-            return $true
-        }
-        return $false
-    }
-    catch {
-        Write-Error "Error processing QR Generator JS: $_"
-        return $false
-    }
-    finally {
-        if ($tempFile -and (Test-Path $tempFile)) {
-            Remove-Item $tempFile -ErrorAction SilentlyContinue
-        }
-    }
-}
-
-#
-
 try {
-    # Add these lines at the beginning of the main try block
-    ProcessQRGeneratorHTML
-    ProcessQRGeneratorJS
-
-    #
-
-    # Process keyboardPage files
-    $keyboardHtmlInput = "keyboardPage/index-custom.html"
-    $keyboardHtmlOutput = "../page/keyboardPage.html"
-    $keyboardJsInput = "keyboardPage/build/index.js"
-    $keyboardJsOutput = "../page/keyboardPage.min.js"
-
-    # Process keyboard HTML
-    if (Test-Path $keyboardHtmlInput) {
-        # Read and modify the content
-        $content = Get-Content -Path $keyboardHtmlInput -Raw
-        $content = $content -replace '<script src="build/index.js"></script>', '<script src="keyboardPage.min.js"></script>'
-        
-        # Create a temporary file for the modified content
-        $tempFile = [System.IO.Path]::GetTempFileName()
-        $content | Set-Content -Path $tempFile -NoNewline
-        
-        # Minify and save the HTML
-        $success = MinifyHTML $tempFile $keyboardHtmlOutput
-        if ($success) {
-            Write-Output "✅ Processed keyboardPage HTML"
-        } else {
-            Write-Output "❌ Failed to process keyboardPage HTML"
-        }
-        
-        # Clean up temp file
-        if (Test-Path $tempFile) {
-            Remove-Item $tempFile -ErrorAction SilentlyContinue
-        }
-    } else {
-        Write-Warning "Warning: $keyboardHtmlInput not found"
-    }
-
-    # Copy and process keyboard JS
-    if (Test-Path $keyboardJsInput) {
-        # Create directory if it doesn't exist
-        $outputDir = Split-Path -Parent $keyboardJsOutput
-        if (-not (Test-Path $outputDir)) {
-            New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
-        }
-        
-        # Copy JS file (already minified)
-        Copy-Item $keyboardJsInput $keyboardJsOutput -Force
-        Write-Output "✅ Copied keyboard JS file"
-    } else {
-        Write-Warning "Warning: $keyboardJsInput not found"
-    }
 
     #
 
@@ -292,7 +155,8 @@ try {
         $success = MinifyHTML $tempFile $diffCompareHtmlOutput
         if ($success) {
             Write-Output "✅ Processed diffCompare HTML"
-        } else {
+        }
+        else {
             Write-Output "❌ Failed to process diffCompare HTML"
         }
         
@@ -300,7 +164,8 @@ try {
         if (Test-Path $tempFile) {
             Remove-Item $tempFile -ErrorAction SilentlyContinue
         }
-    } else {
+    }
+    else {
         Write-Warning "Warning: $diffCompareHtmlInput not found"
     }
 
@@ -309,10 +174,12 @@ try {
         $success = MinifyJS $diffCompareJsInput $diffCompareJsOutput
         if ($success) {
             Write-Output "✅ Processed diffCompare JS"
-        } else {
+        }
+        else {
             Write-Output "❌ Failed to process diffCompare JS"
         }
-    } else {
+    }
+    else {
         Write-Warning "Warning: $diffCompareJsInput not found"
     }
 
@@ -330,7 +197,8 @@ try {
         
         if ($success) {
             Write-Output "✅ Processed HTML: $($file.Name)"
-        } else {
+        }
+        else {
             Write-Output "❌ Failed to process HTML: $($file.Name)"
         }
     }
@@ -346,10 +214,12 @@ try {
             $success = MinifyJS $inputFile $outputFile
             if ($success) {
                 Write-Output "✅ Processed JS: $jsFile -> $([System.IO.Path]::GetFileName($outputFile))"
-            } else {
+            }
+            else {
                 Write-Output "❌ Failed to process JS: $jsFile"
             }
-        } else {
+        }
+        else {
             Write-Warning "Warning: $jsFile not found"
         }
     }
@@ -374,12 +244,54 @@ try {
         if (Test-Path "../page/404.html") {
             Copy-Item "../page/404.html" -Destination "../404.html" -ErrorAction Stop
             Write-Output "✅ Copied 404.html to root"
-        } else {
+        }
+        else {
             Write-Warning "404.html not found in ../page/"
         }
     }
     catch {
         Write-Error "Failed to copy 404.html: $_"
+    }
+
+    # Process custom HTML files with path modifications
+    $customFileMap = @{
+        "qrCode/qrcodegen-input-custom.html" = "../page/qrGenerator.html"
+        "keyboardPage/index-custom.html"     = "../page/keyboardPage.html"
+    }
+
+    foreach ($mapping in $customFileMap.GetEnumerator()) {
+        $inputFile = $mapping.Key
+        $outputFile = $mapping.Value
+
+        if (Test-Path $inputFile) {
+            # Read and modify the content
+            $content = Get-Content -Path $inputFile -Raw
+            # $content = $content -replace '../../', '../'
+            # above ../ replace messes up some core keyboard js code, and so we look for src and href to target it more specifically. also had to take care with the regex to make it work
+            $content = $content -replace '(src=["''])../../', '$1../'
+            $content = $content -replace '(href=["''])../../', '$1../'
+
+            # Create a temporary file for the modified content
+            $tempFile = [System.IO.Path]::GetTempFileName()
+            $content | Set-Content -Path $tempFile -NoNewline
+
+            # Minify and save the HTML
+            $success = MinifyHTML $tempFile $outputFile
+            if ($success) {
+                Write-Output "✅ Processed custom HTML: $inputFile -> $([System.IO.Path]::GetFileName($outputFile))"
+            }
+            else {
+                Write-Output "❌ Failed to process custom HTML: $inputFile"
+            }
+
+            # Clean up temp file
+            if (Test-Path $tempFile) {
+                Remove-Item $tempFile -ErrorAction SilentlyContinue
+            }
+        }
+        else {
+            Write-Warning "Warning: $inputFile not found"
+        }
     }
 }
 catch {
