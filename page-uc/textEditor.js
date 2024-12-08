@@ -2976,5 +2976,73 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     }, 5000);
   }
 
+  // =====================================================
+
+  // Add after your existing event listeners
+
+  // Night Calculator Functions
+  function calculateNightTimes() {
+    const maghribInput = document.getElementById("maghribTime");
+    const fajrInput = document.getElementById("fajrTime");
+
+    if (!maghribInput.value || !fajrInput.value) return;
+
+    // Convert input times to minutes since midnight
+    const maghribTime = timeToMinutes(maghribInput.value);
+    let fajrTime = timeToMinutes(fajrInput.value);
+
+    // If Fajr is before Maghrib, add 24 hours
+    if (fajrTime < maghribTime) {
+      fajrTime += 24 * 60;
+    }
+
+    // Calculate total night duration
+    const nightDuration = fajrTime - maghribTime;
+
+    // Calculate various times
+    const midnight = maghribTime + nightDuration / 2;
+    const firstThird = maghribTime + nightDuration / 3;
+    const secondThird = maghribTime + (2 * nightDuration) / 3;
+    const lastThird = secondThird;
+
+    // Update display
+    document.getElementById("midnightTime").textContent =
+      minutesToTime(midnight);
+    document.getElementById("firstThirdTime").textContent =
+      minutesToTime(firstThird);
+    document.getElementById("secondThirdTime").textContent =
+      minutesToTime(secondThird);
+    document.getElementById("lastThirdTime").textContent =
+      minutesToTime(lastThird);
+  }
+
+  function timeToMinutes(timeString) {
+    const [hours, minutes] = timeString.split(":").map(Number);
+    return hours * 60 + minutes;
+  }
+
+  function minutesToTime(totalMinutes) {
+    totalMinutes = Math.round(totalMinutes);
+    // Handle overflow past midnight
+    totalMinutes = totalMinutes % (24 * 60);
+
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+      2,
+      "0"
+    )}`;
+  }
+
+  // Add event listeners for the time inputs
+  document
+    .getElementById("maghribTime")
+    .addEventListener("change", calculateNightTimes);
+  document
+    .getElementById("fajrTime")
+    .addEventListener("change", calculateNightTimes);
+
+  // =====================================================
+
   // END
 }); // document.addEventListener("DOMContentLoaded", () => {
