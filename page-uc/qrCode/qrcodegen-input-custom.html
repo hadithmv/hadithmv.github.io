@@ -154,6 +154,7 @@ QR-Code-generator v1.8.0
         color: var(--text-color);
         /* margin-bottom: 0.75rem; */
         display: block;
+        padding-bottom: 10px;
       }
 
       /* Common Input Styles */
@@ -204,6 +205,7 @@ QR-Code-generator v1.8.0
         cursor: pointer;
         transition: all 0.3s ease;
         font-size: 0.9rem;
+        user-select: none;
       }
 
       .radio-group label:hover {
@@ -615,6 +617,31 @@ QR-Code-generator v1.8.0
         display: flex;
         align-items: center;
         gap: 0.5rem; /* Reduced from 0.75rem */
+      }
+
+      /* Update radio button styles */
+      input[type="radio"] {
+        accent-color: var(
+          --primary-color
+        ); /* Use theme color instead of default grey */
+        width: 16px;
+        height: 16px;
+        margin: 0;
+        cursor: pointer;
+        vertical-align: middle;
+      }
+
+      .radio-group label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        background: var(--surface-color);
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+        user-select: none; /* Prevent text selection */
       }
     </style>
 
