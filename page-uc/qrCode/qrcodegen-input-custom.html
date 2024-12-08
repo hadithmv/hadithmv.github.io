@@ -278,8 +278,8 @@ QR-Code-generator v1.8.0
 
       /* SVG specific size */
       #qrcode-svg {
-        width: 30em;
-        height: 30em;
+        max-width: 100%;
+        height: auto;
       }
 
       /* Mobile styles */
@@ -971,8 +971,8 @@ QR-Code-generator v1.8.0
             <svg
               id="qrcode-svg"
               style="
-                width: 30em;
-                height: 30em;
+                max-width: 100%;
+                height: auto;
                 padding: 1em;
                 background-color: #e8e8e8;
               "
@@ -1042,12 +1042,78 @@ QR-Code-generator v1.8.0
       // Add this to your existing JavaScript
       const scaleSlider = document.getElementById("scale-input");
       const scaleValue = document.getElementById("scale-value");
+      const svgElement = document.getElementById("qrcode-svg");
 
       scaleSlider.oninput = function () {
-        scaleValue.textContent = this.value + "x";
+        const scale = this.value;
+        scaleValue.textContent = scale + "x";
+
+        // Update SVG size based on scale
+        const baseSize = 30; // Increased base size to compensate for the offset
+        const newSize = baseSize * (scale + 1); // Add 1 to scale to match bitmap
+        svgElement.style.width = `${newSize}px`;
+        svgElement.style.height = `${newSize}px`;
+
         // Trigger the existing QR code update function
         app.handleVersionMinMax("min");
       };
+    </script>
+
+    <!-- Add this script after all other scripts, just before closing body tag -->
+    <script>
+      // Wait for DOM to be ready
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get the radio buttons for output format
+        const bitmapRadio = document.getElementById("output-format-bitmap");
+        const vectorRadio = document.getElementById("output-format-vector");
+        const scaleRow = document.getElementById("scale-row");
+        const svgElement = document.getElementById("qrcode-svg");
+
+        // Create a mutation observer to watch for display changes
+        const observer = new MutationObserver(function (mutations) {
+          mutations.forEach(function (mutation) {
+            if (
+              mutation.type === "attributes" &&
+              mutation.attributeName === "style"
+            ) {
+              // Force scale row to always be visible
+              scaleRow.style.removeProperty("display");
+            }
+          });
+        });
+
+        // Start observing the scale-row element
+        observer.observe(scaleRow, {
+          attributes: true,
+        });
+
+        // Also force show when radio buttons change
+        [bitmapRadio, vectorRadio].forEach((radio) => {
+          radio.addEventListener("change", function () {
+            // Small delay to ensure this runs after the original code
+            setTimeout(() => {
+              scaleRow.style.removeProperty("display");
+              updateSvgScale(); // Update scale when switching formats
+            }, 0);
+          });
+        });
+
+        // Add scale input listener
+        const scaleInput = document.getElementById("scale-input");
+        scaleInput.addEventListener("input", updateSvgScale);
+
+        function updateSvgScale() {
+          const scale = parseInt(scaleInput.value);
+          // Increased base size to compensate for the offset
+          const baseSize = 30;
+          const newSize = baseSize * (scale + 1); // Add 1 to scale to match bitmap
+          svgElement.style.width = `${newSize}px`;
+          svgElement.style.height = `${newSize}px`;
+        }
+
+        // Initial scale update
+        updateSvgScale();
+      });
     </script>
   </body>
 </html>
