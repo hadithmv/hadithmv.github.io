@@ -229,6 +229,7 @@ QR-Code-generator v1.8.0
         box-shadow: var(--shadow);
         color: var(--text-color);
         border: 1px solid var(--border-color);
+        margin-top: 1rem;
       }
 
       .statistics-label {
@@ -535,7 +536,20 @@ QR-Code-generator v1.8.0
 
         /* Hide statistics on mobile */
         .statistics {
-          display: none;
+          display: block !important;
+          order: 999;
+          margin-top: 2rem;
+          padding: 1rem;
+          width: calc(100% - 2rem);
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        /* Ensure output section allows proper ordering */
+        .output-section {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
         }
 
         /* Ensure QR code is properly sized */
