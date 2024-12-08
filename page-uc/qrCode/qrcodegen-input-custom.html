@@ -68,46 +68,488 @@ QR-Code-generator v1.8.0
 
     <!--  -->
 
-    <style type="text/css">
-      /* these styles are from the original qrcodegen-input-demo.html */
-      html {
-        font-family: sans-serif;
+    <!-- ... existing head content ... -->
+
+    <!-- Add this style section after your existing styles -->
+    <style>
+      :root {
+        --primary-color: #2196f3;
+        --surface-color: #ffffff;
+        --background-color: #f5f7fa;
+        --text-color: #2c3e50;
+        --border-radius: 12px;
+        --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       }
-      h1 {
-        text-align: center;
+
+      body {
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.6;
       }
-      table {
-        border-collapse: collapse;
+
+      .qr-container {
+        max-width: 1200px;
+        /* margin: 2rem auto; */
+        /* padding: 1.5rem; */
+        margin: 1rem auto;
+        margin-top: 0;
+        padding-top: 0;
       }
-      td {
-        vertical-align: top;
-        padding-top: 0.2em;
-        padding-bottom: 0.2em;
+
+      .qr-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        background: var(--surface-color);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        padding: 2rem;
       }
-      td:first-child {
-        white-space: pre;
-        padding-right: 0.5em;
+
+      @media (min-width: 968px) {
+        .qr-grid {
+          grid-template-columns: 1.2fr 1fr;
+        }
       }
-      input,
-      textarea {
-        font-size: inherit;
-        font-family: inherit;
+
+      .input-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
       }
-      input[type="radio"],
+
+      .input-group {
+        background: var(--background-color);
+        padding: 1.25rem;
+        border-radius: var(--border-radius);
+        transition: all 0.3s ease;
+      }
+
+      .input-group:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+      }
+
+      .input-group label {
+        font-weight: 600;
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .input-group textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid #e1e8ed;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+        resize: vertical;
+        min-height: 100px;
+        box-sizing: border-box;
+        max-width: 100%;
+      }
+
+      .input-group textarea:focus {
+        border-color: var(--primary-color);
+        outline: none;
+      }
+
+      .radio-group {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-top: 0.5rem;
+      }
+
+      .radio-group label {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.5rem 0.75rem;
+        background: var(--surface-color);
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+      }
+
+      .radio-group label:hover {
+        background: rgba(33, 150, 243, 0.1);
+      }
+
+      .radio-group input[type="radio"] {
+        margin: 0;
+        width: 0.9rem;
+        height: 0.9rem;
+      }
+
+      .number-input {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .number-input input[type="number"] {
+        padding: 0.5rem;
+        border: 2px solid #e1e8ed;
+        border-radius: 8px;
+        width: 5rem;
+      }
+
+      .output-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      /* Adjust output format position */
+      .output-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      /* Order elements in output section */
+      .output-section > strong:first-child {
+        order: 1;
+      } /* "QR Code:" */
+      .output-section > #qrcode-canvas,
+      .output-section > #qrcode-svg {
+        order: 2;
+      }
+      .output-section > #download {
+        order: 3;
+      }
+      .output-section > .output-format {
+        order: 4;
+      } /* New class */
+      .output-section > .statistics {
+        order: 5;
+      } /* Statistics section */
+
+      /* Style statistics section */
+      .statistics {
+        width: 100%;
+        padding: 1rem;
+        background: var(--surface-color);
+        border-radius: var(--border-radius);
+        font-size: 0.9rem;
+        line-height: 1.6;
+        box-shadow: var(--shadow);
+      }
+
+      .statistics-label {
+        font-weight: 600;
+        margin-right: 0.5rem;
+      }
+
+      /* Reduce checkbox label text size */
+      .checkbox-label {
+        font-size: 0.9rem; /* Smaller text */
+      }
+
+      #qrcode-canvas,
+      #qrcode-svg {
+        max-width: 100%;
+        height: auto;
+        border-radius: var(--border-radius);
+        transition: transform 0.2s ease-out;
+        transform-origin: center center;
+        will-change: transform;
+      }
+
+      #qrcode-canvas:hover,
+      #qrcode-svg:hover {
+        transform: scale(1.02);
+      }
+
+      /* Add smooth transition back to normal size */
+      #qrcode-canvas:not(:hover),
+      #qrcode-svg:not(:hover) {
+        transform: scale(1);
+      }
+
+      #download {
+        padding: 0.75rem 1.5rem;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 20px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      #download:hover {
+        background: #1976d2;
+        transform: translateY(-2px);
+      }
+
+      /* Custom checkbox style */
       input[type="checkbox"] {
-        margin: 0em 0.2em 0em 0em;
-        padding: 0em;
+        accent-color: var(--primary-color);
+        width: 1.2rem;
+        height: 1.2rem;
       }
-      label + label {
-        margin-left: 0.8em;
+
+      /* Style color inputs */
+      .color-inputs {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
       }
-      hr {
-        margin: 2em 0em;
+
+      .color-input {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .color-input span {
+        min-width: 3.5rem;
+      }
+
+      .color-input input[type="text"] {
+        width: 7rem;
+        padding: 0.5rem;
+        border: 2px solid #e1e8ed;
+        border-radius: 8px;
+      }
+
+      .color-input input[type="text"]:focus {
+        border-color: var(--primary-color);
+        outline: none;
+      }
+
+      /* Add color picker */
+      .color-input input[type="color"] {
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0;
         border: none;
-        border-top: 0.1em solid #a0a0a0;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      /* Style version range inputs */
+      .version-inputs {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .version-inputs .number-input {
+        flex: 1;
+        min-width: 120px;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .version-inputs .number-input span {
+        min-width: 4.5rem;
+      }
+
+      .version-inputs input[type="number"] {
+        width: 5rem;
+      }
+
+      /* Loading state styling */
+      #loading {
+        text-align: center;
+        padding: 2rem;
+        color: var(--text-color);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .qr-container {
+          padding: 1rem;
+          margin: 1rem auto;
+        }
+
+        .qr-grid {
+          padding: 1rem;
+        }
+
+        .input-group {
+          padding: 1rem;
+        }
+
+        .radio-group label {
+          padding: 0.4rem 0.8rem;
+        }
+      }
+
+      /* Fix checkbox alignment */
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 0;
+        cursor: pointer;
+        font-size: 0.9rem;
+      }
+
+      .checkbox-label input[type="checkbox"] {
+        margin: 0; /* Remove default margins */
+      }
+
+      .color-section {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        order: 4; /* Adjust order as needed in output-section */
+      }
+
+      /* Update output section ordering */
+      .output-section > strong:first-child {
+        order: 1;
+      } /* "QR Code:" */
+      .output-section > #qrcode-canvas,
+      .output-section > #qrcode-svg {
+        order: 2;
+      }
+      .output-section > #download {
+        order: 3;
+      }
+      .output-section > .color-section {
+        order: 4;
+      }
+      .output-section > .output-format {
+        order: 5;
+      }
+      .output-section > .statistics {
+        order: 6;
+      }
+
+      /* Style number inputs */
+      .input-group input[type="number"] {
+        width: 4rem; /* Reduced width */
+        padding: 0.4rem;
+        border: 2px solid #e1e8ed;
+        border-radius: 8px;
+        font-size: 1rem; /* Increased font size */
+      }
+
+      /* Style text inputs */
+      .input-group input[type="text"] {
+        width: 5rem; /* Reduced width */
+        padding: 0.4rem;
+        border: 2px solid #e1e8ed;
+        border-radius: 8px;
+        font-size: 1rem; /* Increased font size */
+      }
+
+      /* Style color inputs */
+      .color-input input[type="text"] {
+        width: 5rem; /* Reduced width */
+        padding: 0.4rem;
+        border: 2px solid #e1e8ed;
+        border-radius: 8px;
+        font-size: 1rem; /* Increased font size */
+      }
+
+      /* Style labels */
+      .input-group label,
+      .input-group span {
+        font-size: 1rem; /* Increased font size */
+      }
+
+      /* Maintain textarea size */
+      .input-group textarea {
+        font-size: 1rem; /* Increased font size */
+      }
+
+      /* Style checkbox and its label */
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        margin: 0;
+        cursor: pointer;
+        padding: 0.25rem 0;
+      }
+
+      .checkbox-label input[type="checkbox"] {
+        margin: 0;
+        width: 0.9rem;
+        height: 0.9rem;
+        vertical-align: middle;
+        position: relative;
+        top: 0;
+      }
+
+      /* Remove any inherited styles that might affect alignment */
+      .input-group .checkbox-label {
+        display: flex;
+        align-items: center;
+      }
+
+      @media (max-width: 768px) {
+        /* Reorder the main grid sections */
+        .qr-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        /* Force output section (QR code) to top */
+        .output-section {
+          order: -1;
+        }
+
+        /* Hide statistics on mobile */
+        .statistics {
+          display: none;
+        }
+
+        /* Ensure QR code is properly sized */
+        #qrcode-canvas,
+        #qrcode-svg {
+          width: 100% !important;
+          height: auto !important;
+          max-width: 300px;
+          margin: 0 auto;
+          padding: 0.5em !important;
+          /* Force scale down if needed */
+          transform: scale(0.8);
+          transform-origin: center center;
+        }
+
+        /* Reset all container styles */
+        .qr-container,
+        .qr-grid,
+        .output-section {
+          padding: 0 !important;
+          margin: 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          box-shadow: none !important;
+          border-radius: 0 !important;
+          overflow: hidden !important;
+        }
+
+        /* Style the download button */
+        #download {
+          display: block;
+          margin: 1rem auto !important;
+          padding: 0.75rem 2rem;
+          border-radius: 20px;
+        }
+
+        /* Ensure output format is below download button */
+        .output-format {
+          margin-top: 1rem;
+          text-align: center;
+        }
       }
     </style>
 
+    <!-- Important: Keep the loading div -->
     <div id="loading">
       <p>Loading application...</p>
       <p>(Are the JavaScript files missing?)</p>
@@ -115,210 +557,233 @@ QR-Code-generator v1.8.0
         (The JavaScript code needs to be compiled from the TypeScript code.)
       </p>
     </div>
-    <form id="loaded" style="display: none" onsubmit="event.preventDefault();">
-      <table>
-        <tbody>
-          <tr>
-            <td><strong>Text string:</strong></td>
-            <td>
+
+    <!-- Replace the form content with: -->
+    <div class="qr-container">
+      <form
+        id="loaded"
+        style="display: none"
+        onsubmit="event.preventDefault();"
+      >
+        <div class="qr-grid">
+          <div class="input-section">
+            <!-- Text Input -->
+            <div class="input-group">
+              <label><strong>Text to encode:</strong></label>
               <textarea
-                placeholder="Enter your text to be put into the QR Code"
                 id="text-input"
-                style="width: 30em; height: 5em"
+                placeholder="Enter text for QR code"
+                rows="4"
               ></textarea>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>QR Code:</strong><br /><a id="download">(download)</a>
-            </td>
-            <td>
-              <canvas
-                id="qrcode-canvas"
-                style="padding: 1em; background-color: #e8e8e8"
-              ></canvas>
-              <svg
-                id="qrcode-svg"
-                style="
-                  width: 30em;
-                  height: 30em;
-                  padding: 1em;
-                  background-color: #e8e8e8;
-                "
-              >
-                <rect
-                  width="100%"
-                  height="100%"
-                  fill="#FFFFFF"
-                  stroke-width="0"
-                ></rect>
-                <path d="" fill="#000000" stroke-width="0"></path>
-              </svg>
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Error correction:</strong></td>
-            <td>
-              <label
-                ><input
-                  type="radio"
-                  name="errcorlvl"
-                  id="errcorlvl-low"
-                  checked="checked"
-                />Low</label
-              >
-              <label
-                ><input
-                  type="radio"
-                  name="errcorlvl"
-                  id="errcorlvl-medium"
-                />Medium</label
-              >
-              <label
-                ><input
-                  type="radio"
-                  name="errcorlvl"
-                  id="errcorlvl-quartile"
-                />Quartile</label
-              >
-              <label
-                ><input
-                  type="radio"
-                  name="errcorlvl"
-                  id="errcorlvl-high"
-                />High</label
-              >
-            </td>
-          </tr>
-          <tr>
-            <td>Output format:</td>
-            <td>
-              <label
-                ><input
-                  type="radio"
-                  name="output-format"
-                  id="output-format-bitmap"
-                  checked="checked"
-                />Bitmap</label
-              >
-              <label
-                ><input
-                  type="radio"
-                  name="output-format"
-                  id="output-format-vector"
-                />Vector</label
-              >
-            </td>
-          </tr>
-          <tr>
-            <td>Border:</td>
-            <td>
-              <input
-                type="number"
-                value="4"
-                min="0"
-                max="100"
-                step="1"
-                id="border-input"
-                style="width: 4em"
-              />
-              modules
-            </td>
-          </tr>
-          <tr id="scale-row">
-            <td>Scale:</td>
-            <td>
-              <input
-                type="number"
-                value="8"
-                min="1"
-                max="30"
-                step="1"
-                id="scale-input"
-                style="width: 4em"
-              />
-              pixels per module
-            </td>
-          </tr>
-          <tr>
-            <td>Colors:</td>
-            <td>
-              Light =
-              <input
-                type="text"
-                value="#FFFFFF"
-                id="light-color-input"
-                style="width: 6em"
-              />, dark =
-              <input
-                type="text"
-                value="#000000"
-                id="dark-color-input"
-                style="width: 6em"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Version range:</td>
-            <td>
-              Minimum =
-              <input
-                type="number"
-                value="1"
-                min="1"
-                max="40"
-                step="1"
-                id="version-min-input"
-                style="width: 4em"
-                oninput="app.handleVersionMinMax('min');"
-              />, maximum =
-              <input
-                type="number"
-                value="40"
-                min="1"
-                max="40"
-                step="1"
-                id="version-max-input"
-                style="width: 4em"
-                oninput="app.handleVersionMinMax('max');"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Mask pattern:</td>
-            <td>
-              <input
-                type="number"
-                value="-1"
-                min="-1"
-                max="7"
-                step="1"
-                id="mask-input"
-                style="width: 4em"
-              />
-              (−1 for automatic, 0 to 7 for manual)
-            </td>
-          </tr>
-          <tr>
-            <td>Boost ECC:</td>
-            <td>
-              <label
-                ><input
-                  type="checkbox"
-                  checked="checked"
-                  id="boost-ecc-input"
-                />Increase <abbr title="error-correcting code">ECC</abbr> level
-                within same version</label
-              >
-            </td>
-          </tr>
-          <tr>
-            <td>Statistics:</td>
-            <td id="statistics-output" style="white-space: pre"></td>
-          </tr>
-        </tbody>
-      </table>
-    </form>
+            </div>
+
+            <!-- Error Correction -->
+            <div class="input-group">
+              <label><strong>Error correction:</strong></label>
+              <div class="radio-group">
+                <label
+                  ><input
+                    type="radio"
+                    name="errcorlvl"
+                    id="errcorlvl-low"
+                    checked="checked"
+                  />Low</label
+                >
+                <label
+                  ><input
+                    type="radio"
+                    name="errcorlvl"
+                    id="errcorlvl-medium"
+                  />Medium</label
+                >
+                <label
+                  ><input
+                    type="radio"
+                    name="errcorlvl"
+                    id="errcorlvl-quartile"
+                  />Quartile</label
+                >
+                <label
+                  ><input
+                    type="radio"
+                    name="errcorlvl"
+                    id="errcorlvl-high"
+                  />High</label
+                >
+              </div>
+            </div>
+
+            <!-- Border -->
+            <div class="input-group">
+              <label><strong>Border:</strong></label>
+              <div class="number-input">
+                <input
+                  type="number"
+                  value="4"
+                  min="0"
+                  max="100"
+                  step="1"
+                  id="border-input"
+                />
+                <span>modules</span>
+              </div>
+            </div>
+
+            <!-- Scale -->
+            <div class="input-group" id="scale-row">
+              <label><strong>Scale:</strong></label>
+              <div class="number-input">
+                <input
+                  type="number"
+                  value="8"
+                  min="1"
+                  max="30"
+                  step="1"
+                  id="scale-input"
+                />
+                <span>pixels per module</span>
+              </div>
+            </div>
+
+            <!-- Colors -->
+            <div class="input-group">
+              <label><strong>Colors:</strong></label>
+              <div class="color-inputs">
+                <div class="color-input">
+                  <span>Light:</span>
+                  <input type="text" value="#FFFFFF" id="light-color-input" />
+                  <input
+                    type="color"
+                    value="#FFFFFF"
+                    onchange="document.getElementById('light-color-input').value = this.value"
+                  />
+                </div>
+                <div class="color-input">
+                  <span>Dark:</span>
+                  <input type="text" value="#000000" id="dark-color-input" />
+                  <input
+                    type="color"
+                    value="#000000"
+                    onchange="document.getElementById('dark-color-input').value = this.value"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Version Range -->
+            <div class="input-group">
+              <label><strong>Version range:</strong></label>
+              <div class="version-inputs">
+                <div class="number-input">
+                  <span>Minimum:</span>
+                  <input
+                    type="number"
+                    value="1"
+                    min="1"
+                    max="40"
+                    step="1"
+                    id="version-min-input"
+                    oninput="app.handleVersionMinMax('min');"
+                  />
+                </div>
+                <div class="number-input">
+                  <span>Maximum:</span>
+                  <input
+                    type="number"
+                    value="40"
+                    min="1"
+                    max="40"
+                    step="1"
+                    id="version-max-input"
+                    oninput="app.handleVersionMinMax('max');"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Mask Pattern -->
+            <div class="input-group">
+              <label><strong>Mask pattern:</strong></label>
+              <div class="number-input">
+                <input
+                  type="number"
+                  value="-1"
+                  min="-1"
+                  max="7"
+                  step="1"
+                  id="mask-input"
+                />
+                <span>(−1 for automatic, 0 to 7 for manual)</span>
+              </div>
+            </div>
+
+            <!-- Boost ECC -->
+            <div class="input-group">
+              <label class="checkbox-label">
+                <input type="checkbox" checked="checked" id="boost-ecc-input" />
+                <span>Increase ECC level within same version</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="output-section">
+            <strong>QR Code:</strong>
+            <!-- QR code canvas/svg here -->
+            <a id="download">Download</a>
+
+            <canvas
+              id="qrcode-canvas"
+              style="padding: 1em; background-color: #e8e8e8"
+            ></canvas>
+            <svg
+              id="qrcode-svg"
+              style="
+                width: 30em;
+                height: 30em;
+                padding: 1em;
+                background-color: #e8e8e8;
+              "
+            >
+              <rect
+                width="100%"
+                height="100%"
+                fill="#FFFFFF"
+                stroke-width="0"
+              ></rect>
+              <path d="" fill="#000000" stroke-width="0"></path>
+            </svg>
+
+            <!-- Add output format section -->
+            <div class="output-format">
+              <strong>Output format:</strong>
+              <div class="radio-group">
+                <label
+                  ><input
+                    type="radio"
+                    name="output-format"
+                    id="output-format-bitmap"
+                    checked="checked"
+                  />Bitmap</label
+                >
+                <label
+                  ><input
+                    type="radio"
+                    name="output-format"
+                    id="output-format-vector"
+                  />Vector</label
+                >
+              </div>
+            </div>
+
+            <!-- Add statistics section -->
+            <div class="statistics">
+              <span class="statistics-label">Statistics:</span>
+              <span id="statistics-output"></span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
 
     <!--  -->
 
