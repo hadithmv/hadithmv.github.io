@@ -460,6 +460,54 @@ QR-Code-generator v1.8.0
           order: -1;
         }
       }
+
+      /* Scale Row Specific Styles */
+      #scale-row {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+        gap: 1rem;
+      }
+
+      /* Scale Label */
+      #scale-row label {
+        display: inline-flex;
+        align-items: center;
+        margin: 0;
+        white-space: nowrap;
+      }
+
+      /* Scale Container */
+      .slider-container {
+        display: inline-flex;
+        align-items: center;
+        flex: 1;
+        gap: 1rem;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Scale Value Display */
+      #scale-value {
+        min-width: 2.5rem;
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      /* Scale Slider */
+      #scale-input.slider {
+        flex: 1;
+        margin: 0;
+      }
+
+      /* Mobile Adjustments */
+      @media (max-width: 768px) {
+        #scale-row.input-divider {
+          padding: 0.5rem 1rem;
+        }
+      }
     </style>
 
     <!-- Important: Keep the loading div -->
