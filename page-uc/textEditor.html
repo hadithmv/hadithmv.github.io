@@ -2213,7 +2213,7 @@ The calculator will process numbers with or without + signs as addition, numbers
 
           <div class="calc-headers">
             <div class="calc-display">
-              Sum Total: <span id="sumTotal">0.00</span>
+              🧮 Sum Total: <span id="sumTotal">0.00</span>
             </div>
             <div class="calc-display">Σ by Line</div>
           </div>
@@ -2243,7 +2243,106 @@ Use this to calculate the total cost for a list of items, or add up kilos when p
           </div>
           <!--  -->
 
+          <hr />
+
           <!-- Third and half of night calculator -->
+
+          <!-- 
+          id like an islamic
+Third and half of night calculator
+where the user inputs maghrib time
+and fajr time
+
+upon which is automatically calculated:
+midnight
+1st third
+2nd third
+last third
+
+shown in am pm, with a button that switches between 12 and 24 hour format
+          -->
+
+          <style>
+            .night-calculator {
+              padding: 15px;
+              background: var(--textarea-bg);
+              border-radius: 5px;
+              margin: 10px 0;
+            }
+
+            .time-inputs {
+              display: flex;
+              gap: 20px;
+              margin-bottom: 15px;
+            }
+
+            .time-input-group {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+            }
+
+            .time-input {
+              padding: 5px;
+              border: 1px solid var(--textarea-border);
+              border-radius: 3px;
+              background: var(--textarea-bg);
+              color: var(--textarea-text);
+            }
+
+            .time-results {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+              gap: 10px;
+            }
+
+            .result-group {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 5px 10px;
+              background: var(--button-bg);
+              border-radius: 3px;
+            }
+
+            .result-label {
+              font-weight: bold;
+            }
+          </style>
+
+          <div class="night-calculator">
+            <h4>Islamic Night Time Calculator 🌙</h4>
+            <br />
+            <div class="time-inputs">
+              <div class="time-input-group">
+                <label for="maghribTime">Maghrib Time:</label>
+                <input type="time" id="maghribTime" class="time-input" />
+              </div>
+              <div class="time-input-group">
+                <label for="fajrTime">Fajr Time:</label>
+                <input type="time" id="fajrTime" class="time-input" />
+              </div>
+            </div>
+
+            <div class="time-results">
+              <div class="result-group">
+                <span class="result-label">Midnight:</span>
+                <span id="midnightTime" class="result-value">--:--</span>
+              </div>
+              <div class="result-group">
+                <span class="result-label">1st Third:</span>
+                <span id="firstThirdTime" class="result-value">--:--</span>
+              </div>
+              <div class="result-group">
+                <span class="result-label">2nd Third:</span>
+                <span id="secondThirdTime" class="result-value">--:--</span>
+              </div>
+              <div class="result-group">
+                <span class="result-label">Last Third:</span>
+                <span id="lastThirdTime" class="result-value">--:--</span>
+              </div>
+            </div>
+          </div>
 
           <!--  -->
           <hr />
