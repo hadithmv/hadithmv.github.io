@@ -3034,17 +3034,17 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     const minutes = totalMinutes % 60;
 
     if (nightCalcMilitaryTime) {
+      // 24-hour format always shows leading zeros
       return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
         2,
         "0"
       )}`;
     } else {
+      // 12-hour format without leading zeros for hours
       const period = hours >= 12 ? "PM" : "AM";
       const hours12 = hours % 12 || 12;
-      return `${String(hours12).padStart(2, "0")}:${String(minutes).padStart(
-        2,
-        "0"
-      )} ${period}`;
+      // Don't pad hours with zeros, but still pad minutes
+      return `${hours12}:${String(minutes).padStart(2, "0")} ${period}`;
     }
   }
 

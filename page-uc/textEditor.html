@@ -2247,6 +2247,13 @@ Use this to calculate the total cost for a list of items, or add up kilos when p
 
           <!-- Third and half of night calculator -->
 
+          <!-- inspirations:
+           https://github.com/proateen/thirdofthenight
+           https://github.com/fawazahmed0/last-third-night-calculator
+           their midnights dont match
+           apparently proateen considers isha has to be done before midnight
+            -->
+
           <!-- 
           id like an islamic
 Third and half of night calculator
@@ -2307,6 +2314,7 @@ shown in am pm, with a button that switches between 12 and 24 hour format
 
             .result-label {
               font-weight: bold;
+              font-size: 18px;
             }
           </style>
 
@@ -2314,10 +2322,6 @@ shown in am pm, with a button that switches between 12 and 24 hour format
             <h4>Islamic Night Time Calculator 🌙</h4>
 
             <br />
-
-            <button id="toggleNightCalcFormat" class="function-button">
-              Switch 12/24 🕐
-            </button>
 
             <div class="time-inputs">
               <div class="time-input-group">
@@ -2328,7 +2332,16 @@ shown in am pm, with a button that switches between 12 and 24 hour format
                 <label for="fajrTime">Fajr Time:</label>
                 <input type="time" id="fajrTime" class="time-input" />
               </div>
+              <!--  -->
+
+              <button id="toggleNightCalcFormat" class="function-button">
+                Switch 12/24 🕐
+              </button>
+
+              <!--  -->
             </div>
+
+            <!--  -->
 
             <div class="time-results">
               <div class="result-group">
