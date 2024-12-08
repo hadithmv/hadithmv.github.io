@@ -443,9 +443,9 @@ h3 {
   /* margin-top: 2rem; */
 }
 
-.warning-box {
-  /* Add dark mode support */
-  @media (prefers-color-scheme: dark) {
+/* Add dark mode support */
+@media (prefers-color-scheme: dark) {
+  .warning-box {
     background: #332d1a;
     border-left-color: #ffc107;
   }
