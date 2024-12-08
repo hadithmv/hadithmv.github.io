@@ -809,6 +809,23 @@ QR-Code-generator v1.8.0
               ></textarea>
             </div>
 
+            <!-- Scale -->
+            <div class="input-divider" id="scale-row">
+              <label><strong>Scale:</strong></label>
+              <div class="slider-container">
+                <input
+                  type="range"
+                  class="slider"
+                  id="scale-input"
+                  min="1"
+                  max="16"
+                  value="8"
+                  step="1"
+                />
+                <span class="slider-value" id="scale-value">8x</span>
+              </div>
+            </div>
+
             <!-- Error Correction -->
             <div class="input-divider">
               <label><strong>Error correction:</strong></label>
@@ -858,23 +875,6 @@ QR-Code-generator v1.8.0
                   id="border-input"
                 />
                 <span>modules</span>
-              </div>
-            </div>
-
-            <!-- Scale -->
-            <div class="input-divider" id="scale-row">
-              <label><strong>Scale:</strong></label>
-              <div class="slider-container">
-                <input
-                  type="range"
-                  class="slider"
-                  id="scale-input"
-                  min="1"
-                  max="16"
-                  value="8"
-                  step="1"
-                />
-                <span class="slider-value" id="scale-value">8x</span>
               </div>
             </div>
 
