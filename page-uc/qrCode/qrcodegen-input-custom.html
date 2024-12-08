@@ -197,13 +197,6 @@ QR-Code-generator v1.8.0
         width: 5rem;
       }
 
-      .output-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-      }
-
       /* Adjust output format position */
       .output-section {
         display: flex;
@@ -379,6 +372,10 @@ QR-Code-generator v1.8.0
 
         .radio-group label {
           padding: 0.4rem 0.8rem;
+        }
+        /* Adjust output format position */
+        .output-section {
+          gap: 0;
         }
       }
 
@@ -675,7 +672,7 @@ QR-Code-generator v1.8.0
               <label><strong>Version range:</strong></label>
               <div class="version-inputs">
                 <div class="number-input">
-                  <span>Minimum:</span>
+                  <span>Min:</span>
                   <input
                     type="number"
                     value="1"
@@ -687,7 +684,7 @@ QR-Code-generator v1.8.0
                   />
                 </div>
                 <div class="number-input">
-                  <span>Maximum:</span>
+                  <span>Max:</span>
                   <input
                     type="number"
                     value="40"
