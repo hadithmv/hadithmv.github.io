@@ -508,6 +508,70 @@ QR-Code-generator v1.8.0
           padding: 0.5rem 1rem;
         }
       }
+
+      /* Version Range Inputs */
+      .version-inputs {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .version-inputs .number-input {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .version-inputs span,
+      .version-inputs label {
+        min-width: 3.5rem;
+        color: var(--text-color);
+      }
+
+      .version-inputs input[type="number"] {
+        width: 5rem;
+        padding: 0.875rem;
+        border: 2px solid var(--border-color);
+        border-radius: var(--border-radius);
+        background: var(--surface-color);
+        color: var(--text-color);
+        font-size: 1rem;
+        transition: all 0.2s ease;
+      }
+
+      .version-inputs input[type="number"]:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+      }
+
+      /* Mask Pattern Input - to match version range style */
+      #mask-input {
+        width: 5rem;
+        padding: 0.875rem;
+        border: 2px solid var(--border-color);
+        border-radius: var(--border-radius);
+        background: var(--surface-color);
+        color: var(--text-color);
+        font-size: 1rem;
+        transition: all 0.2s ease;
+      }
+
+      #mask-input:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+      }
+
+      /* Remove spinner buttons from number inputs */
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
     </style>
 
     <!-- Important: Keep the loading div -->
