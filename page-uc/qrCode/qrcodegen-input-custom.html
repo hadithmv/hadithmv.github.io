@@ -79,6 +79,23 @@ QR-Code-generator v1.8.0
         --text-color: #2c3e50;
         --border-radius: 12px;
         --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        --border-color: #e1e8ed;
+        --hover-color: rgba(33, 150, 243, 0.1);
+        --button-bg: #1976d2;
+        --button-hover: #1565c0;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --primary-color: #64b5f6;
+          --surface-color: #1e1e1e;
+          --background-color: #121212;
+          --text-color: #e0e0e0;
+          --border-color: #333333;
+          --hover-color: rgba(100, 181, 246, 0.2);
+          --button-bg: #1e88e5;
+          --button-hover: #2196f3;
+        }
       }
 
       body {
@@ -119,10 +136,11 @@ QR-Code-generator v1.8.0
       }
 
       .input-group {
-        background: var(--background-color);
+        background: var(--surface-color);
         padding: 1.25rem;
         border-radius: var(--border-radius);
         transition: all 0.3s ease;
+        border: 1px solid var(--border-color);
       }
 
       .input-group:hover {
@@ -148,6 +166,9 @@ QR-Code-generator v1.8.0
         min-height: 100px;
         box-sizing: border-box;
         max-width: 100%;
+        background: var(--background-color);
+        color: var(--text-color);
+        border-color: var(--border-color);
       }
 
       .input-group textarea:focus {
@@ -175,7 +196,7 @@ QR-Code-generator v1.8.0
       }
 
       .radio-group label:hover {
-        background: rgba(33, 150, 243, 0.1);
+        background: var(--hover-color);
       }
 
       .radio-group input[type="radio"] {
@@ -195,6 +216,9 @@ QR-Code-generator v1.8.0
         border: 2px solid #e1e8ed;
         border-radius: 8px;
         width: 5rem;
+        background: var(--background-color);
+        color: var(--text-color);
+        border-color: var(--border-color);
       }
 
       /* Adjust output format position */
@@ -232,6 +256,8 @@ QR-Code-generator v1.8.0
         font-size: 0.9rem;
         line-height: 1.6;
         box-shadow: var(--shadow);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
       }
 
       .statistics-label {
@@ -252,6 +278,7 @@ QR-Code-generator v1.8.0
         transition: transform 0.2s ease-out;
         transform-origin: center center;
         will-change: transform;
+        background-color: var(--surface-color) !important;
       }
 
       #qrcode-canvas:hover,
@@ -267,16 +294,18 @@ QR-Code-generator v1.8.0
 
       #download {
         padding: 0.75rem 1.5rem;
-        background: var(--primary-color);
+        background: var(--button-bg);
         color: white;
         border-radius: 20px;
         text-decoration: none;
         transition: all 0.3s ease;
+        opacity: 0.9;
       }
 
       #download:hover {
-        background: #1976d2;
+        background: var(--button-hover);
         transform: translateY(-2px);
+        opacity: 1;
       }
 
       /* Custom checkbox style */
@@ -308,6 +337,9 @@ QR-Code-generator v1.8.0
         padding: 0.5rem;
         border: 2px solid #e1e8ed;
         border-radius: 8px;
+        background: var(--background-color);
+        color: var(--text-color);
+        border-color: var(--border-color);
       }
 
       .color-input input[type="text"]:focus {
@@ -345,6 +377,9 @@ QR-Code-generator v1.8.0
 
       .version-inputs input[type="number"] {
         width: 5rem;
+        background: var(--background-color);
+        color: var(--text-color);
+        border-color: var(--border-color);
       }
 
       /* Loading state styling */
@@ -428,6 +463,9 @@ QR-Code-generator v1.8.0
         border: 2px solid #e1e8ed;
         border-radius: 8px;
         font-size: 1rem; /* Increased font size */
+        background: var(--background-color);
+        color: var(--text-color);
+        border-color: var(--border-color);
       }
 
       /* Style text inputs */
@@ -437,6 +475,9 @@ QR-Code-generator v1.8.0
         border: 2px solid #e1e8ed;
         border-radius: 8px;
         font-size: 1rem; /* Increased font size */
+        background: var(--background-color);
+        color: var(--text-color);
+        border-color: var(--border-color);
       }
 
       /* Style color inputs */
@@ -446,6 +487,9 @@ QR-Code-generator v1.8.0
         border: 2px solid #e1e8ed;
         border-radius: 8px;
         font-size: 1rem; /* Increased font size */
+        background: var(--background-color);
+        color: var(--text-color);
+        border-color: var(--border-color);
       }
 
       /* Style labels */
