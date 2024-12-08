@@ -61,55 +61,52 @@ QR-Code-generator v1.8.0
     <!-- END external resources-->
   </head>
 
-  <!-- these styles are from the original qrcodegen-input-demo.html -->
-  <style type="text/css">
-    html {
-      font-family: sans-serif;
-    }
-    h1 {
-      text-align: center;
-    }
-    table {
-      border-collapse: collapse;
-    }
-    td {
-      vertical-align: top;
-      padding-top: 0.2em;
-      padding-bottom: 0.2em;
-    }
-    td:first-child {
-      white-space: pre;
-      padding-right: 0.5em;
-    }
-    input,
-    textarea {
-      font-size: inherit;
-      font-family: inherit;
-    }
-    input[type="radio"],
-    input[type="checkbox"] {
-      margin: 0em 0.2em 0em 0em;
-      padding: 0em;
-    }
-    label + label {
-      margin-left: 0.8em;
-    }
-    hr {
-      margin: 2em 0em;
-      border: none;
-      border-top: 0.1em solid #a0a0a0;
-    }
-  </style>
-
-  <!--  -->
-
-  <!-- custom styles here -->
-  <style></style>
-
   <body>
     <div id="navbar-container"></div>
 
     <br />
+
+    <!--  -->
+
+    <style type="text/css">
+      /* these styles are from the original qrcodegen-input-demo.html */
+      html {
+        font-family: sans-serif;
+      }
+      h1 {
+        text-align: center;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      td {
+        vertical-align: top;
+        padding-top: 0.2em;
+        padding-bottom: 0.2em;
+      }
+      td:first-child {
+        white-space: pre;
+        padding-right: 0.5em;
+      }
+      input,
+      textarea {
+        font-size: inherit;
+        font-family: inherit;
+      }
+      input[type="radio"],
+      input[type="checkbox"] {
+        margin: 0em 0.2em 0em 0em;
+        padding: 0em;
+      }
+      label + label {
+        margin-left: 0.8em;
+      }
+      hr {
+        margin: 2em 0em;
+        border: none;
+        border-top: 0.1em solid #a0a0a0;
+      }
+    </style>
 
     <div id="loading">
       <p>Loading application...</p>
@@ -248,22 +245,6 @@ QR-Code-generator v1.8.0
             <td>
               Light =
               <input
-                id="light-color-input"
-                type="color"
-                style="padding: 0"
-                value="#FFFFFF"
-              />
-              , dark =
-              <input
-                id="dark-color-input"
-                type="color"
-                style="padding: 0"
-                value="#000000"
-              />
-            </td>
-            <!-- !!! change <td>
-              Light =
-              <input
                 type="text"
                 value="#FFFFFF"
                 id="light-color-input"
@@ -275,7 +256,7 @@ QR-Code-generator v1.8.0
                 id="dark-color-input"
                 style="width: 6em"
               />
-            </td> -->
+            </td>
           </tr>
           <tr>
             <td>Version range:</td>
@@ -338,6 +319,9 @@ QR-Code-generator v1.8.0
         </tbody>
       </table>
     </form>
+
+    <!--  -->
+
     <!-- <script type="application/javascript" src="qrcodegen.js"></script> -->
     <!-- js code of above is inlined below -->
     <!-- prettier-ignore -->
