@@ -2980,6 +2980,10 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
 
   // Add after your existing event listeners
 
+  // Add a new state variable near the top of your code
+  let nightCalcMilitaryTime =
+    localStorage.getItem("nightCalcMilitaryTime") === "true";
+
   // Night Calculator Functions
   function calculateNightTimes() {
     const maghribInput = document.getElementById("maghribTime");
@@ -3028,10 +3032,20 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
 
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
-    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
-      2,
-      "0"
-    )}`;
+
+    if (nightCalcMilitaryTime) {
+      return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+        2,
+        "0"
+      )}`;
+    } else {
+      const period = hours >= 12 ? "PM" : "AM";
+      const hours12 = hours % 12 || 12;
+      return `${String(hours12).padStart(2, "0")}:${String(minutes).padStart(
+        2,
+        "0"
+      )} ${period}`;
+    }
   }
 
   // Add event listeners for the time inputs
@@ -3041,6 +3055,14 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   document
     .getElementById("fajrTime")
     .addEventListener("change", calculateNightTimes);
+
+  document
+    .getElementById("toggleNightCalcFormat")
+    .addEventListener("click", () => {
+      nightCalcMilitaryTime = !nightCalcMilitaryTime;
+      localStorage.setItem("nightCalcMilitaryTime", nightCalcMilitaryTime);
+      calculateNightTimes(); // Recalculate to update display
+    });
 
   // =====================================================
 
