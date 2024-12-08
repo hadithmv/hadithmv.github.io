@@ -64,8 +64,6 @@ QR-Code-generator v1.8.0
   <body>
     <div id="navbar-container"></div>
 
-    <br />
-
     <!--  -->
 
     <!-- ... existing head content ... -->
@@ -180,7 +178,7 @@ QR-Code-generator v1.8.0
         display: flex;
         gap: 0.5rem;
         flex-wrap: wrap;
-        margin-top: 0.5rem;
+        /* margin-top: 0.5rem; */
       }
 
       .radio-group label {
@@ -270,26 +268,62 @@ QR-Code-generator v1.8.0
         font-size: 0.9rem; /* Smaller text */
       }
 
+      /* Base styles for both canvas and SVG */
       #qrcode-canvas,
       #qrcode-svg {
         max-width: 100%;
         height: auto;
-        border-radius: var(--border-radius);
-        transition: transform 0.2s ease-out;
-        transform-origin: center center;
-        will-change: transform;
-        background-color: var(--surface-color) !important;
       }
 
-      #qrcode-canvas:hover,
-      #qrcode-svg:hover {
-        transform: scale(1.02);
+      /* Light mode styles */
+      @media not all and (prefers-color-scheme: dark) {
+        #qrcode-canvas,
+        #qrcode-svg {
+          padding: 0.8em !important;
+          background-color: #e8e8e8;
+          border-radius: 12px;
+        }
       }
 
-      /* Add smooth transition back to normal size */
-      #qrcode-canvas:not(:hover),
-      #qrcode-svg:not(:hover) {
-        transform: scale(1);
+      /* Dark mode styles */
+      @media (prefers-color-scheme: dark) {
+        #qrcode-canvas,
+        #qrcode-svg {
+          background-color: var(--background-color);
+          border-radius: 0;
+          padding: 0 !important;
+        }
+
+        #qrcode-svg {
+          padding: 0;
+        }
+
+        #qrcode-svg rect[fill="#FFFFFF"] {
+          fill: var(--background-color);
+        }
+      }
+
+      /* SVG specific size */
+      #qrcode-svg {
+        width: 30em;
+        height: 30em;
+      }
+
+      /* Mobile styles */
+      @media (max-width: 768px) {
+        #qrcode-canvas,
+        #qrcode-svg {
+          width: 100% !important;
+          height: auto !important;
+          max-width: 300px;
+          margin: 0 auto;
+        }
+      }
+
+      /* Output ordering */
+      .output-section > #qrcode-canvas,
+      .output-section > #qrcode-svg {
+        order: 2;
       }
 
       #download {
@@ -554,7 +588,7 @@ QR-Code-generator v1.8.0
           height: auto !important;
           max-width: 300px;
           margin: 0 auto;
-          padding: 0.5em !important;
+          padding: 0.5em;
           /* Force scale down if needed */
           transform: scale(0.8);
           transform-origin: center center;
@@ -573,17 +607,26 @@ QR-Code-generator v1.8.0
           overflow: hidden !important;
         }
 
+        /* .qr-grid {
+          padding-top: 30px !important;
+        } */
+
+        #loaded > div > div.output-section > strong {
+          display: none;
+        }
+
         /* Style the download button */
         #download {
           display: block;
-          margin: 1rem auto !important;
+          margin: 0;
+          margin-bottom: 20px;
           padding: 0.75rem 2rem;
           border-radius: 20px;
         }
 
         /* Ensure output format is below download button */
         .output-format {
-          margin-top: 1rem;
+          margin-top: 0;
           text-align: center;
         }
       }
