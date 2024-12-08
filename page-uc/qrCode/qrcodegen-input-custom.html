@@ -334,14 +334,13 @@ QR-Code-generator v1.8.0
 
       .version-inputs .number-input {
         flex: 1;
-        min-width: 120px;
         display: flex;
         align-items: center;
         gap: 0.75rem;
       }
 
       .version-inputs .number-input span {
-        min-width: 4.5rem;
+        min-width: 2.5rem;
       }
 
       .version-inputs input[type="number"] {
@@ -726,7 +725,7 @@ QR-Code-generator v1.8.0
           <div class="output-section">
             <strong>QR Code:</strong>
             <!-- QR code canvas/svg here -->
-            <a id="download">Download</a>
+            <a id="download" title="does not work on Android app">Download</a>
 
             <canvas
               id="qrcode-canvas"
