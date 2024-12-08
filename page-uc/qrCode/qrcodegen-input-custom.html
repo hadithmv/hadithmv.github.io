@@ -554,9 +554,9 @@ QR-Code-generator v1.8.0
           /* padding-right: 25px !important; */
         }
 
-        #loaded > div > div.output-section > strong {
+        /* #loaded > div > div.output-section > strong {
           display: none;
-        }
+        } */
 
         /* Style the download button */
         #download {
@@ -786,6 +786,37 @@ QR-Code-generator v1.8.0
         line-height: 1.6;
         white-space: pre-wrap;
       }
+
+      /* Update the slider container styles */
+      .slider-container {
+        width: 100%;
+        padding: 10px 0;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      /* Add styles for the scale label */
+      #scale-row label {
+        display: flex;
+        align-items: center;
+        margin: 0;
+        white-space: nowrap;
+      }
+
+      /* Update the input-divider for the scale row specifically */
+      #scale-row.input-divider {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem 0;
+      }
+
+      /* Adjust the slider value text alignment */
+      .slider-value {
+        min-width: 3rem;
+        text-align: left;
+      }
     </style>
 
     <!-- Important: Keep the loading div -->
@@ -958,7 +989,7 @@ QR-Code-generator v1.8.0
           </div>
 
           <div class="output-section">
-            <strong>QR Code:</strong>
+            <!-- <strong>QR Code:</strong> -->
             <!-- QR code canvas/svg here -->
             <a id="download" title="does not work on Android app">Download</a>
 
