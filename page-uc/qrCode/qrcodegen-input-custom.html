@@ -762,6 +762,7 @@ QR-Code-generator v1.8.0
         white-space: pre-wrap;
         line-height: 1.6;
         margin-top: 0.5rem;
+        font-size: 20px;
       }
 
       /* Add these CSS rules to your existing styles section */
@@ -779,12 +780,6 @@ QR-Code-generator v1.8.0
         display: block;
         margin-bottom: 0.5rem;
         color: var(--text-color);
-      }
-
-      #statistics-output {
-        display: block;
-        line-height: 1.6;
-        white-space: pre-wrap;
       }
 
       /* Update the slider container styles */
@@ -1087,6 +1082,7 @@ QR-Code-generator v1.8.0
         const scaleRow = document.getElementById("scale-row");
         const svgElement = document.getElementById("qrcode-svg");
         const canvasElement = document.getElementById("qrcode-canvas");
+        const scaleValue = document.getElementById("scale-value");
 
         let lastKnownSize = 0;
 
@@ -1132,6 +1128,9 @@ QR-Code-generator v1.8.0
           updateElementSize(canvasElement, newSize);
           updateElementSize(svgElement, newSize);
           lastKnownSize = newSize;
+
+          // Update scale value display
+          scaleValue.textContent = `${scale}x`;
         });
 
         // Initial setup
