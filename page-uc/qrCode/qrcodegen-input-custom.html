@@ -698,20 +698,30 @@ QR-Code-generator v1.8.0
               <div class="color-inputs">
                 <div class="color-input">
                   <span>Light:</span>
-                  <input type="text" value="#FFFFFF" id="light-color-input" />
+                  <input
+                    type="text"
+                    value="#FFFFFF"
+                    id="light-color-input"
+                    oninput="app.redraw()"
+                  />
                   <input
                     type="color"
                     value="#FFFFFF"
-                    onchange="document.getElementById('light-color-input').value = this.value"
+                    onchange="document.getElementById('light-color-input').value = this.value; app.redraw()"
                   />
                 </div>
                 <div class="color-input">
                   <span>Dark:</span>
-                  <input type="text" value="#000000" id="dark-color-input" />
+                  <input
+                    type="text"
+                    value="#000000"
+                    id="dark-color-input"
+                    oninput="app.redraw()"
+                  />
                   <input
                     type="color"
                     value="#000000"
-                    onchange="document.getElementById('dark-color-input').value = this.value"
+                    onchange="document.getElementById('dark-color-input').value = this.value; app.redraw()"
                   />
                 </div>
               </div>
@@ -955,6 +965,15 @@ QR-Code-generator v1.8.0
           attributes: true,
         });
       });
+    </script>
+
+    <!-- Add this to your JavaScript section -->
+    <script>
+      // Add this to the app object
+      app.redraw = function () {
+        // Trigger the redraw by calling the existing update function
+        document.getElementById("text-input").dispatchEvent(new Event("input"));
+      };
     </script>
   </body>
 </html>
