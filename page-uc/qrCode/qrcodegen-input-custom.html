@@ -709,6 +709,76 @@ QR-Code-generator v1.8.0
       * {
         box-sizing: border-box;
       }
+
+      /* Slider styles */
+      .slider-container {
+        width: 100%;
+        padding: 10px 0;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .slider {
+        flex: 1;
+        -webkit-appearance: none;
+        appearance: none;
+        height: 8px;
+        border-radius: 4px;
+        background: var(--border-color);
+        outline: none;
+        transition: all 0.2s;
+      }
+
+      .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        cursor: pointer;
+        transition: all 0.2s;
+        border: none;
+      }
+
+      .slider:hover::-webkit-slider-thumb {
+        transform: scale(1.1);
+      }
+
+      .slider:hover::-moz-range-thumb {
+        transform: scale(1.1);
+      }
+
+      .slider-value {
+        min-width: 3rem;
+        text-align: center;
+        font-weight: 500;
+      }
+
+      /* Dark mode adjustments */
+      @media (prefers-color-scheme: dark) {
+        .slider {
+          background: var(--border-color);
+        }
+
+        .slider::-webkit-slider-thumb {
+          background: var(--primary-color);
+        }
+
+        .slider::-moz-range-thumb {
+          background: var(--primary-color);
+        }
+      }
     </style>
 
     <!-- Important: Keep the loading div -->
@@ -794,16 +864,17 @@ QR-Code-generator v1.8.0
             <!-- Scale -->
             <div class="input-divider" id="scale-row">
               <label><strong>Scale:</strong></label>
-              <div class="number-input">
+              <div class="slider-container">
                 <input
-                  type="number"
-                  value="8"
-                  min="1"
-                  max="30"
-                  step="1"
+                  type="range"
+                  class="slider"
                   id="scale-input"
+                  min="1"
+                  max="16"
+                  value="8"
+                  step="1"
                 />
-                <span>pixels per module</span>
+                <span class="slider-value" id="scale-value">8x</span>
               </div>
             </div>
 
@@ -965,6 +1036,19 @@ QR-Code-generator v1.8.0
     <script>
             var app;!function(){function e(){var e=r("output-format-bitmap").checked,n=t("scale-row");let o=t("download");e?(n.style.removeProperty("display"),o.download="qr-code.png"):(n.style.display="none",o.download="qr-code.svg"),o.removeAttribute("href");var i=t("qrcode-canvas"),l=document.getElementById("qrcode-svg");i.style.display="none",l.style.display="none";var a=r("errcorlvl-medium").checked?qrcodegen.QrCode.Ecc.MEDIUM:r("errcorlvl-quartile").checked?qrcodegen.QrCode.Ecc.QUARTILE:r("errcorlvl-high").checked?qrcodegen.QrCode.Ecc.HIGH:qrcodegen.QrCode.Ecc.LOW;n=t("text-input").value;const c=qrcodegen.QrSegment.makeSegments(n);var s=parseInt(r("version-min-input").value,10),d=parseInt(r("version-max-input").value,10),u=parseInt(r("mask-input").value,10);const p=r("boost-ecc-input").checked;if(a=qrcodegen.QrCode.encodeSegments(c,a,s,d,u,p),u=parseInt(r("border-input").value,10),s=r("light-color-input").value,d=r("dark-color-input").value,!(0>u||100<u)){if(e){if(0>=(l=parseInt(r("scale-input").value,10))||30<l)return;!function(e,t,r,n,o,i){if(0>=t||0>r)throw new RangeError("Value out of range");var l=(e.size+2*r)*t;for(i.width=l,i.height=l,i=i.getContext("2d"),l=-r;l<e.size+r;l++)for(let a=-r;a<e.size+r;a++)i.fillStyle=e.getModule(a,l)?o:n,i.fillRect((a+r)*t,(l+r)*t,t,t)}(a,l,u,s,d,i),i.style.removeProperty("display"),o.href=i.toDataURL("image/png")}else e=function(e,t,r,n){if(0>t)throw new RangeError("Border must be non-negative");let o=[];for(let r=0;r<e.size;r++)for(let n=0;n<e.size;n++)e.getModule(n,r)&&o.push(`M${n+t},${r+t}h1v1h-1z`);return`<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 ${e.size+2*t} ${e.size+2*t}" stroke="none">\n    <rect width="100%" height="100%" fill="${r}"/>\n    <path d="${o.join(" ")}" fill="${n}"/>\n</svg>\n`}(a,u,s,d),i=/ viewBox="([^"]*)"/.exec(e)[1],u=/ d="([^"]*)"/.exec(e)[1],l.setAttribute("viewBox",i),l.querySelector("path").setAttribute("d",u),l.querySelector("rect").setAttribute("fill",s),l.querySelector("path").setAttribute("fill",d),l.style.removeProperty("display"),o.href="data:application/svg+xml,"+encodeURIComponent(e);t("statistics-output").textContent=`QR Code version = ${a.version}, mask pattern = ${a.mask}, character count = ${function(e){let t=0;for(const r of e){if(55296<=(e=r.codePointAt(0))&&57344>e)throw new RangeError("Invalid UTF-16 string");t++}return t}(n)},\nencoding mode = ${function(e){if(0==e.length)return"none";if(1==e.length){e=e[0].mode;const t=qrcodegen.QrSegment.Mode;return e==t.NUMERIC?"numeric":e==t.ALPHANUMERIC?"alphanumeric":e==t.BYTE?"byte":e==t.KANJI?"kanji":"unknown"}return"multiple"}(c)}, error correction = level ${"LMQH".charAt(a.errorCorrectionLevel.ordinal)}, data bits = ${qrcodegen.QrSegment.getTotalBits(c,a.version)}.`}}function t(e){if((e=document.getElementById(e))instanceof HTMLElement)return e;throw Error("Assertion error")}function r(e){if((e=t(e))instanceof HTMLInputElement)return e;throw Error("Assertion error")}(app||={}).handleVersionMinMax=function(t){const n=r("version-min-input"),o=r("version-max-input");let i=parseInt(n.value,10),l=parseInt(o.value,10);i=Math.max(Math.min(i,qrcodegen.QrCode.MAX_VERSION),qrcodegen.QrCode.MIN_VERSION),l=Math.max(Math.min(l,qrcodegen.QrCode.MAX_VERSION),qrcodegen.QrCode.MIN_VERSION),"min"==t&&i>l?l=i:"max"==t&&l<i&&(i=l),n.value=i.toString(),o.value=l.toString(),e()},function(){t("loading").style.display="none",t("loaded").style.removeProperty("display");let r=document.querySelectorAll("input[type=number], input[type=text], textarea");for(let t of r)0!=t.id.indexOf("version-")&&(t.oninput=e);r=document.querySelectorAll("input[type=radio], input[type=checkbox]");for(let t of r)t.onchange=e;e()}()}();
            </script>
+
+    <!-- Add this JavaScript just before the closing body tag -->
+    <script>
+      // Add this to your existing JavaScript
+      const scaleSlider = document.getElementById("scale-input");
+      const scaleValue = document.getElementById("scale-value");
+
+      scaleSlider.oninput = function () {
+        scaleValue.textContent = this.value + "x";
+        // Trigger the existing QR code update function
+        app.handleVersionMinMax("min");
+      };
+    </script>
   </body>
 </html>
 <!--
