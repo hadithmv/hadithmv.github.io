@@ -133,10 +133,9 @@ simple-keyboard 3.8.0
 
     <!--  -->
     <style>
+      /* centers */
       .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        padding: 0 15px;
         max-width: 850px;
         margin: 0 auto;
       }
@@ -171,17 +170,75 @@ simple-keyboard 3.8.0
       /*  */
 
       .input {
-        color: hsla(0, 0%, 100%, 0.9);
         background: 0 0;
         border: none;
         outline: 0;
         font-family: monospace;
         width: 100%;
-        height: 100%;
-        font-size: 18px;
+        /* height: 100%; */
+        height: 8em;
+        font-size: 20px;
         /*  */
-        margin: 10px;
         padding: 20px;
+      }
+
+      /* Mobile Adjustments */
+      @media (max-width: 599px) {
+        .input {
+          /* places keyboard lower */
+          height: 30vh;
+        }
+        /* makes long text smaller */
+        body
+          > div.container
+          > div.simple-keyboard.hg-theme-default.hg-layout-default
+          > div
+          > div:nth-child(1)
+          > div.hg-button.hg-functionBtn.hg-button-bksp,
+        body
+          > div.container
+          > div.simple-keyboard.hg-theme-default.hg-layout-default
+          > div
+          > div:nth-child(3)
+          > div.hg-button.hg-functionBtn.hg-button-enter,
+        body
+          > div.container
+          > div.simple-keyboard.hg-theme-default.hg-layout-default
+          > div
+          > div:nth-child(4)
+          > div:nth-child(12),
+        body
+          > div.container
+          > div.simple-keyboard.hg-theme-default.hg-layout-default
+          > div
+          > div:nth-child(2)
+          > div.hg-button.hg-functionBtn.hg-button-tab,
+        body
+          > div.container
+          > div.simple-keyboard.hg-theme-default.hg-layout-default
+          > div
+          > div:nth-child(3)
+          > div.hg-button.hg-functionBtn.hg-button-lock,
+        body
+          > div.container
+          > div.simple-keyboard.hg-theme-default.hg-layout-default
+          > div
+          > div:nth-child(3)
+          > div.hg-button.hg-functionBtn.hg-button-lock,
+        body
+          > div.container
+          > div.simple-keyboard.hg-theme-default.hg-layout-default
+          > div
+          > div:nth-child(4)
+          > div:nth-child(1),
+        body
+          > div.container
+          > div.simple-keyboard.hg-theme-default.hg-layout-default
+          > div
+          > div:nth-child(5)
+          > div:nth-child(1) {
+          font-size: 75%;
+        }
       }
     </style>
     <div class="container">
