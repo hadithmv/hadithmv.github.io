@@ -283,7 +283,9 @@ document.addEventListener("DOMContentLoaded", () => {
       case "reverseCurlyQuotes":
         textArea.value = textArea.value
           .replace(/“|”/g, (match) => (match === "“" ? "”" : "“")) // Swap curly double quotes
-          .replace(/‘|’/g, (match) => (match === "‘" ? "’" : "‘")); // Swap curly single quotes
+          .replace(/‘|’/g, (match) => (match === "‘" ? "’" : "‘")) // Swap curly single quotes
+          .replace(/❝|❞/g, (match) => (match === "❝" ? "❞" : "❝"))
+          .replace(/🙶|🙷/g, (match) => (match === "🙶" ? "🙷" : "🙷"));
         break;
 
       //
@@ -296,8 +298,10 @@ document.addEventListener("DOMContentLoaded", () => {
           rtlCurlyDouble: ["”", "“"], // Correct RTL curly double quotes
           ltrCurlySingle: ["‘", "’"], // Correct LTR curly single quotes
           rtlCurlySingle: ["’", "‘"], // Correct RTL curly single quotes
-          doubleBrackets: ["((", "))"],
           angleQuotes: ["«", "»"],
+          doubleBrackets: ["((", "))"],
+          heavyCommaQuotes: ["❝", "❞"],
+          sansSerifHeavyCommaQuotes: ["🙶", "🙷"],
         };
 
         const fromQuotes =
