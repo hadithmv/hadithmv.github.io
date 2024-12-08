@@ -1033,13 +1033,65 @@ QR-Code-generator v1.8.0
         const svgElement = document.getElementById("qrcode-svg");
         const canvasElement = document.getElementById("qrcode-canvas");
 
+        let lastKnownSize = 0;
+
+        function updateElementSize(element, size) {
+          element.style.width = `${size}px`;
+          element.style.height = `${size}px`;
+        }
+
+        // Remove any display:none from scale row when format changes
+        function ensureScaleVisible() {
+          scaleRow.style.removeProperty("display");
+        }
+
+        [bitmapRadio, vectorRadio].forEach((radio) => {
+          radio.addEventListener("change", function () {
+            const currentElement = bitmapRadio.checked
+              ? canvasElement
+              : svgElement;
+            lastKnownSize = currentElement.offsetWidth;
+
+            // Ensure scale control remains visible
+            ensureScaleVisible();
+
+            setTimeout(() => {
+              const targetElement = bitmapRadio.checked
+                ? canvasElement
+                : svgElement;
+              if (lastKnownSize > 0) {
+                updateElementSize(targetElement, lastKnownSize);
+              }
+              // Double-check scale visibility after timeout
+              ensureScaleVisible();
+            }, 0);
+          });
+        });
+
+        const scaleInput = document.getElementById("scale-input");
+        scaleInput.addEventListener("input", function () {
+          const scale = parseInt(scaleInput.value);
+          const baseSize = 29.5;
+          const newSize = baseSize * (scale + 1);
+
+          updateElementSize(canvasElement, newSize);
+          updateElementSize(svgElement, newSize);
+          lastKnownSize = newSize;
+        });
+
+        // Initial setup
+        scaleInput.dispatchEvent(new Event("input"));
+        ensureScaleVisible();
+
+        // Override any attempts to hide scale row
         const observer = new MutationObserver(function (mutations) {
           mutations.forEach(function (mutation) {
             if (
               mutation.type === "attributes" &&
-              mutation.attributeName === "style"
+              mutation.attributeName === "style" &&
+              scaleRow.style.display === "none"
             ) {
-              scaleRow.style.removeProperty("display");
+              ensureScaleVisible();
             }
           });
         });
@@ -1047,37 +1099,6 @@ QR-Code-generator v1.8.0
         observer.observe(scaleRow, {
           attributes: true,
         });
-
-        [bitmapRadio, vectorRadio].forEach((radio) => {
-          radio.addEventListener("change", function () {
-            // Get current bitmap size if it's visible
-            const currentSize = bitmapRadio.checked
-              ? canvasElement.offsetWidth
-              : svgElement.offsetWidth;
-
-            setTimeout(() => {
-              scaleRow.style.removeProperty("display");
-              // Match the exact pixel size of the previous format
-              if (vectorRadio.checked) {
-                svgElement.style.width = `${currentSize}px`;
-                svgElement.style.height = `${currentSize}px`;
-              }
-            }, 0);
-          });
-        });
-
-        const scaleInput = document.getElementById("scale-input");
-        scaleInput.addEventListener("input", updateSvgScale);
-
-        function updateSvgScale() {
-          const scale = parseInt(scaleInput.value);
-          const baseSize = 29.5; // Fine-tuned base size
-          const newSize = baseSize * (scale + 1);
-          svgElement.style.width = `${newSize}px`;
-          svgElement.style.height = `${newSize}px`;
-        }
-
-        updateSvgScale();
       });
     </script>
   </body>
