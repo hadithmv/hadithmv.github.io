@@ -138,6 +138,7 @@ QR-Code-generator v1.8.0
 
       .input-divider:last-child {
         border-bottom: none;
+        padding-bottom: 0;
       }
 
       .input-divider label {
@@ -213,23 +214,6 @@ QR-Code-generator v1.8.0
       }
       .output-section > .output-format {
         order: 4;
-      } /* New class */
-      .output-section > .statistics {
-        order: 5;
-      } /* Statistics section */
-
-      /* Style statistics section */
-      .statistics {
-        width: 100%;
-        padding: 1rem;
-        background: var(--surface-color);
-        border-radius: var(--border-radius);
-        font-size: 0.9rem;
-        line-height: 1.6;
-        box-shadow: var(--shadow);
-        color: var(--text-color);
-        border: 1px solid var(--border-color);
-        /* margin-top: 1rem; */
       }
 
       .statistics-label {
@@ -447,9 +431,6 @@ QR-Code-generator v1.8.0
       .output-section > .output-format {
         order: 5;
       }
-      .output-section > .statistics {
-        order: 6;
-      }
 
       /* Style number inputs */
       .input-group input[type="number"] {
@@ -532,17 +513,6 @@ QR-Code-generator v1.8.0
         /* Force output section (QR code) to top */
         .output-section {
           order: -1;
-        }
-
-        /* Hide statistics on mobile */
-        .statistics {
-          display: block !important;
-          order: 999;
-          /* margin-top: 2rem; */
-          padding: 1rem;
-          width: calc(100% - 2rem);
-          margin-left: auto;
-          margin-right: auto;
         }
 
         /* Ensure output section allows proper ordering */
@@ -780,6 +750,42 @@ QR-Code-generator v1.8.0
           background: var(--primary-color);
         }
       }
+
+      /* Add this CSS rule to your existing styles section */
+      #statistics-output {
+        display: block;
+        padding: 0.5rem;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        background: var(--background-color);
+        color: var(--text-color);
+        white-space: pre-wrap;
+        line-height: 1.6;
+        margin-top: 0.5rem;
+      }
+
+      /* Add these CSS rules to your existing styles section */
+      .statistics-section {
+        background: var(--surface-color);
+        border-radius: var(--border-radius);
+        padding: 1rem;
+        margin-top: 1rem;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border-color);
+      }
+
+      .statistics-label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--text-color);
+      }
+
+      #statistics-output {
+        display: block;
+        line-height: 1.6;
+        white-space: pre-wrap;
+      }
     </style>
 
     <!-- Important: Keep the loading div -->
@@ -808,23 +814,6 @@ QR-Code-generator v1.8.0
                 placeholder="Enter text for QR code"
                 rows="4"
               ></textarea>
-            </div>
-
-            <!-- Scale -->
-            <div class="input-divider" id="scale-row">
-              <label><strong>Scale:</strong></label>
-              <div class="slider-container">
-                <input
-                  type="range"
-                  class="slider"
-                  id="scale-input"
-                  min="1"
-                  max="16"
-                  value="8"
-                  step="1"
-                />
-                <span class="slider-value" id="scale-value">8x</span>
-              </div>
             </div>
 
             <!-- Error Correction -->
@@ -958,6 +947,14 @@ QR-Code-generator v1.8.0
                 <span>Increase ECC level within same version</span>
               </label>
             </div>
+
+            <!-- Add statistics section -->
+            <div class="input-divider">
+              <label><strong>Statistics:</strong></label>
+              <span id="statistics-output"></span>
+            </div>
+
+            <!--  -->
           </div>
 
           <div class="output-section">
@@ -1009,11 +1006,24 @@ QR-Code-generator v1.8.0
               </div>
             </div>
 
-            <!-- Add statistics section -->
-            <div class="statistics">
-              <span class="statistics-label">Statistics:</span>
-              <span id="statistics-output"></span>
+            <!-- Scale -->
+            <div class="input-divider" id="scale-row">
+              <label><strong>Scale:</strong></label>
+              <div class="slider-container">
+                <input
+                  type="range"
+                  class="slider"
+                  id="scale-input"
+                  min="1"
+                  max="16"
+                  value="8"
+                  step="1"
+                />
+                <span class="slider-value" id="scale-value">8x</span>
+              </div>
             </div>
+
+            <!--  -->
           </div>
         </div>
       </form>
