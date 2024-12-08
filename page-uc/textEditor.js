@@ -3002,18 +3002,16 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
 
     // Calculate total night duration
     const nightDuration = fajrTime - maghribTime;
+    // First third starts at Maghrib
 
     // Calculate various times
     const midnight = maghribTime + nightDuration / 2;
-    const firstThird = maghribTime + nightDuration / 3;
-    const secondThird = maghribTime + (2 * nightDuration) / 3;
-    const lastThird = secondThird;
+    const secondThird = maghribTime + nightDuration / 3; // Start of second third
+    const lastThird = maghribTime + (2 * nightDuration) / 3; // Start of last third
 
     // Update display
     document.getElementById("midnightTime").textContent =
       minutesToTime(midnight);
-    document.getElementById("firstThirdTime").textContent =
-      minutesToTime(firstThird);
     document.getElementById("secondThirdTime").textContent =
       minutesToTime(secondThird);
     document.getElementById("lastThirdTime").textContent =
