@@ -70,6 +70,7 @@ QR-Code-generator v1.8.0
 
     <!-- Add this style section after your existing styles -->
     <style>
+      /* Base Theme Variables */
       :root {
         --primary-color: #2196f3;
         --surface-color: #ffffff;
@@ -96,12 +97,18 @@ QR-Code-generator v1.8.0
         }
       }
 
+      /* Base Styles */
+      * {
+        box-sizing: border-box;
+      }
+
       body {
         background-color: var(--background-color);
         color: var(--text-color);
         line-height: 1.6;
       }
 
+      /* Layout */
       .qr-container {
         max-width: 1200px;
         margin: 1rem auto;
@@ -125,10 +132,10 @@ QR-Code-generator v1.8.0
         }
       }
 
+      /* Input Section */
       .input-section {
         display: flex;
         flex-direction: column;
-        /* gap: 1.5rem; */
       }
 
       .input-divider {
@@ -141,6 +148,7 @@ QR-Code-generator v1.8.0
         padding-bottom: 0;
       }
 
+      /* Form Elements */
       .input-divider label {
         font-weight: 600;
         color: var(--text-color);
@@ -148,11 +156,42 @@ QR-Code-generator v1.8.0
         display: block;
       }
 
+      /* Common Input Styles */
+      input[type="number"],
+      input[type="text"],
+      textarea {
+        padding: 0.875rem;
+        border: 2px solid var(--border-color);
+        border-radius: var(--border-radius);
+        background: var(--surface-color);
+        color: var(--text-color);
+        font-size: 1rem;
+        transition: all 0.2s ease;
+      }
+
+      input[type="number"]:focus,
+      input[type="text"]:focus,
+      textarea:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+      }
+
+      /* Textarea Specific */
+      .input-divider textarea {
+        width: 100%;
+        max-width: 100%;
+        min-height: 100px;
+        resize: vertical;
+        line-height: 1.5;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      /* Radio Group */
       .radio-group {
         display: flex;
         gap: 0.5rem;
         flex-wrap: wrap;
-        /* margin-top: 0.5rem; */
       }
 
       .radio-group label {
@@ -177,124 +216,25 @@ QR-Code-generator v1.8.0
         height: 0.9rem;
       }
 
-      .number-input {
+      /* Checkbox */
+      .checkbox-label {
         display: flex;
         align-items: center;
         gap: 0.75rem;
+        margin: 0;
+        cursor: pointer;
+        font-size: 0.9rem;
+        padding: 0.25rem 0;
       }
 
-      .number-input input[type="number"] {
-        padding: 0.5rem;
-        border: 2px solid #e1e8ed;
-        border-radius: 8px;
-        width: 5rem;
-        background: var(--background-color);
-        color: var(--text-color);
-        border-color: var(--border-color);
-      }
-
-      /* Adjust output format position */
-      .output-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-      }
-
-      /* Order elements in output section */
-      .output-section > strong:first-child {
-        order: 1;
-      } /* "QR Code:" */
-      .output-section > #qrcode-canvas,
-      .output-section > #qrcode-svg {
-        order: 2;
-      }
-      .output-section > #download {
-        order: 3;
-      }
-      .output-section > .output-format {
-        order: 4;
-      }
-
-      .statistics-label {
-        font-weight: 600;
-        margin-right: 0.5rem;
-      }
-
-      /* Reduce checkbox label text size */
-      .checkbox-label {
-        font-size: 0.9rem; /* Smaller text */
-      }
-
-      /* Base styles for both canvas and SVG */
-      #qrcode-canvas,
-      #qrcode-svg {
-        max-width: 100%;
-        height: auto;
-        transition: width 0.2s ease, height 0.2s ease;
-      }
-
-      /* Light mode styles */
-      @media not all and (prefers-color-scheme: dark) {
-        #qrcode-canvas,
-        #qrcode-svg {
-          padding: 0.8em !important;
-          background-color: #e8e8e8;
-          border-radius: 12px;
-        }
-      }
-
-      /* Dark mode styles */
-      @media (prefers-color-scheme: dark) {
-        #qrcode-canvas,
-        #qrcode-svg {
-          background-color: var(--background-color);
-          border-radius: 0;
-          padding: 0 !important;
-        }
-      }
-
-      /* Mobile styles */
-      @media (max-width: 768px) {
-        #qrcode-canvas,
-        #qrcode-svg {
-          width: 100% !important;
-          height: auto !important;
-          max-width: 300px;
-          margin: 0 auto;
-        }
-      }
-
-      /* Output ordering */
-      .output-section > #qrcode-canvas,
-      .output-section > #qrcode-svg {
-        order: 2;
-      }
-
-      #download {
-        padding: 0.75rem 1.5rem;
-        background: var(--button-bg);
-        color: white;
-        border-radius: 20px;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        opacity: 0.9;
-      }
-
-      #download:hover {
-        background: var(--button-hover);
-        transform: translateY(-2px);
-        opacity: 1;
-      }
-
-      /* Custom checkbox style */
       input[type="checkbox"] {
         accent-color: var(--primary-color);
         width: 1.2rem;
         height: 1.2rem;
+        margin: 0;
       }
 
-      /* Style color inputs */
+      /* Color Inputs */
       .color-inputs {
         display: flex;
         gap: 1.5rem;
@@ -311,22 +251,6 @@ QR-Code-generator v1.8.0
         min-width: 3.5rem;
       }
 
-      .color-input input[type="text"] {
-        width: 7rem;
-        padding: 0.5rem;
-        border: 2px solid #e1e8ed;
-        border-radius: 8px;
-        background: var(--background-color);
-        color: var(--text-color);
-        border-color: var(--border-color);
-      }
-
-      .color-input input[type="text"]:focus {
-        border-color: var(--primary-color);
-        outline: none;
-      }
-
-      /* Add color picker */
       .color-input input[type="color"] {
         width: 2.5rem;
         height: 2.5rem;
@@ -336,364 +260,19 @@ QR-Code-generator v1.8.0
         cursor: pointer;
       }
 
-      /* Style version range inputs */
-      .version-inputs {
-        display: flex;
-        gap: 1.5rem;
-        flex-wrap: wrap;
-      }
-
-      .version-inputs .number-input {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-      }
-
-      .version-inputs .number-input span {
-        min-width: 2.5rem;
-      }
-
-      .version-inputs input[type="number"] {
-        width: 5rem;
-        background: var(--background-color);
-        color: var(--text-color);
-        border-color: var(--border-color);
-      }
-
-      /* Loading state styling */
-      #loading {
-        text-align: center;
-        padding: 2rem;
-        color: var(--text-color);
-      }
-
-      /* Responsive adjustments */
-      @media (max-width: 768px) {
-        .qr-container {
-          padding: 1rem;
-          margin: 1rem auto;
-        }
-
-        .qr-grid {
-          padding: 1rem;
-        }
-
-        .input-group {
-          padding: 1rem;
-        }
-
-        .radio-group label {
-          padding: 0.4rem 0.8rem;
-        }
-        /* Adjust output format position */
-        .output-section {
-          gap: 0;
-        }
-      }
-
-      /* Fix checkbox alignment */
-      .checkbox-label {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin: 0;
-        cursor: pointer;
-        font-size: 0.9rem;
-      }
-
-      .checkbox-label input[type="checkbox"] {
-        margin: 0; /* Remove default margins */
-      }
-
-      .color-section {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        order: 4; /* Adjust order as needed in output-section */
-      }
-
-      /* Update output section ordering */
-      .output-section > strong:first-child {
-        order: 1;
-      } /* "QR Code:" */
-      .output-section > #qrcode-canvas,
-      .output-section > #qrcode-svg {
-        order: 2;
-      }
-      .output-section > #download {
-        order: 3;
-      }
-      .output-section > .color-section {
-        order: 4;
-      }
-      .output-section > .output-format {
-        order: 5;
-      }
-
-      /* Style number inputs */
-      .input-group input[type="number"] {
-        width: 4rem; /* Reduced width */
-        padding: 0.4rem;
-        border: 2px solid #e1e8ed;
-        border-radius: 8px;
-        background: var(--background-color);
-        color: var(--text-color);
-        border-color: var(--border-color);
-      }
-
-      /* Style text inputs */
-      .input-group input[type="text"] {
-        width: 5rem; /* Reduced width */
-        padding: 0.4rem;
-        border: 2px solid #e1e8ed;
-        border-radius: 8px;
-        background: var(--background-color);
-        color: var(--text-color);
-        border-color: var(--border-color);
-      }
-
-      /* Style color inputs */
-      .color-input input[type="text"] {
-        width: 5rem; /* Reduced width */
-        padding: 0.4rem;
-        border: 2px solid #e1e8ed;
-        border-radius: 8px;
-        background: var(--background-color);
-        color: var(--text-color);
-        border-color: var(--border-color);
-      }
-
-      /* Style labels */
-      .input-group label,
-      .input-group span {
-        font-size: 1rem; /* Increased font size */
-      }
-
-      /* Maintain textarea size */
-      .input-group textarea {
-        font-size: 1rem; /* Increased font size */
-      }
-
-      /* Style checkbox and its label */
-      .checkbox-label {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.9rem;
-        margin: 0;
-        cursor: pointer;
-        padding: 0.25rem 0;
-      }
-
-      .checkbox-label input[type="checkbox"] {
-        margin: 0;
-        width: 0.9rem;
-        height: 0.9rem;
-        vertical-align: middle;
-        position: relative;
-        top: 0;
-      }
-
-      /* Remove any inherited styles that might affect alignment */
-      .input-group .checkbox-label {
-        display: flex;
-        align-items: center;
-      }
-
-      @media (max-width: 768px) {
-        /* Reorder the main grid sections */
-        .qr-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 1rem;
-        }
-
-        /* Force output section (QR code) to top */
-        .output-section {
-          order: -1;
-        }
-
-        /* Ensure output section allows proper ordering */
-        .output-section {
-          display: flex;
-          flex-direction: column;
-          width: 100%;
-        }
-
-        /* Ensure QR code is properly sized */
-        #qrcode-canvas,
-        #qrcode-svg {
-          width: 100% !important;
-          height: auto !important;
-          max-width: 300px;
-          margin: 0 auto;
-          padding: 0.5em;
-          /* Force scale down if needed */
-          transform: scale(0.8);
-          transform-origin: center center;
-        }
-
-        /* Reset all container styles */
-        .qr-container,
-        .qr-grid,
-        .output-section {
-          padding: 0 !important;
-          margin: 0 !important;
-          width: 100% !important;
-          max-width: 100% !important;
-          box-shadow: none !important;
-          border-radius: 0 !important;
-          overflow: hidden !important;
-        }
-
-        .qr-grid {
-          /* padding-top: 30px !important; */
-          /* padding-left: 25px !important; */
-          /* padding-right: 25px !important; */
-        }
-
-        /* #loaded > div > div.output-section > strong {
-          display: none;
-        } */
-
-        /* Style the download button */
-        #download {
-          display: block;
-          margin: 0;
-          margin-bottom: 20px;
-          padding: 0.75rem 2rem;
-          border-radius: 20px;
-        }
-
-        /* Ensure output format is below download button */
-        .output-format {
-          margin-top: 0;
-          text-align: center;
-        }
-      }
-
-      /* Enhanced textarea styling */
-      .input-divider textarea {
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-        padding: 0.875rem;
-        margin: 0;
-        border: 2px solid var(--border-color);
-        border-radius: var(--border-radius);
-        font-size: 1rem;
-        line-height: 1.5;
-        transition: all 0.2s ease;
-        resize: vertical;
-        min-height: 100px;
-        background: var(--surface-color);
-        color: var(--text-color);
-        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
-      }
-
-      .input-divider textarea:hover {
-        border-color: var(--primary-color);
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-      }
-
-      .input-divider textarea:focus {
-        border-color: var(--primary-color);
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
-      }
-
-      input {
-        font-size: 1rem;
-      }
-
-      /* Dark mode specific textarea styles */
-      @media (prefers-color-scheme: dark) {
-        .input-divider textarea {
-          background: var(--background-color);
-          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-        }
-
-        .input-divider textarea:hover {
-          box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
-        }
-      }
-
-      /* Mobile-specific adjustments */
-      @media (max-width: 768px) {
-        .qr-container {
-          padding: 0.25rem;
-        }
-
-        .qr-grid {
-          padding: 0.75rem;
-          gap: 1rem;
-        }
-
-        .input-divider {
-          padding: 0.75rem 0;
-        }
-      }
-
-      /* Update container and grid for mobile */
-      @media (max-width: 768px) {
-        .qr-container {
-          padding: 0;
-          margin: 0;
-          width: 100%;
-        }
-
-        .qr-grid {
-          padding: 0.5rem;
-          gap: 0.5rem;
-          border-radius: 0;
-          box-shadow: none;
-        }
-
-        .input-divider {
-          padding: 0.5rem;
-          width: 100%;
-          box-sizing: border-box;
-        }
-
-        .input-divider textarea {
-          width: 100%;
-          max-width: calc(100vw - 2rem); /* Account for container padding */
-          min-height: 80px;
-          padding: 0.5rem;
-          font-size: 20px;
-          margin: 0;
-          border-width: 1px;
-        }
-
-        /* Force proper width calculation */
-        .input-section {
-          width: 100%;
-          max-width: 100vw;
-          padding: 0 0.5rem;
-          box-sizing: border-box;
-        }
-      }
-
-      /* Ensure proper box model for all elements */
-      * {
-        box-sizing: border-box;
-      }
-
-      /* Slider styles */
+      /* Slider */
       .slider-container {
         width: 100%;
         padding: 10px 0;
         display: flex;
         align-items: center;
         gap: 1rem;
+        justify-content: center;
       }
 
       .slider {
         flex: 1;
         -webkit-appearance: none;
-        appearance: none;
         height: 8px;
         border-radius: 4px;
         background: var(--border-color);
@@ -703,7 +282,6 @@ QR-Code-generator v1.8.0
 
       .slider::-webkit-slider-thumb {
         -webkit-appearance: none;
-        appearance: none;
         width: 20px;
         height: 20px;
         border-radius: 50%;
@@ -722,36 +300,49 @@ QR-Code-generator v1.8.0
         border: none;
       }
 
-      .slider:hover::-webkit-slider-thumb {
-        transform: scale(1.1);
-      }
-
+      .slider:hover::-webkit-slider-thumb,
       .slider:hover::-moz-range-thumb {
         transform: scale(1.1);
       }
 
       .slider-value {
         min-width: 3rem;
-        text-align: center;
+        text-align: left;
         font-weight: 500;
       }
 
-      /* Dark mode adjustments */
-      @media (prefers-color-scheme: dark) {
-        .slider {
-          background: var(--border-color);
-        }
-
-        .slider::-webkit-slider-thumb {
-          background: var(--primary-color);
-        }
-
-        .slider::-moz-range-thumb {
-          background: var(--primary-color);
-        }
+      /* Output Section */
+      .output-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
       }
 
-      /* Add this CSS rule to your existing styles section */
+      #qrcode-canvas,
+      #qrcode-svg {
+        max-width: 100%;
+        height: auto;
+        transition: width 0.2s ease, height 0.2s ease;
+      }
+
+      #download {
+        padding: 0.75rem 1.5rem;
+        background: var(--button-bg);
+        color: white;
+        border-radius: 20px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        opacity: 0.9;
+      }
+
+      #download:hover {
+        background: var(--button-hover);
+        transform: translateY(-2px);
+        opacity: 1;
+      }
+
+      /* Statistics */
       #statistics-output {
         display: block;
         padding: 0.5rem;
@@ -765,7 +356,6 @@ QR-Code-generator v1.8.0
         font-size: 20px;
       }
 
-      /* Add these CSS rules to your existing styles section */
       .statistics-section {
         background: var(--surface-color);
         border-radius: var(--border-radius);
@@ -775,67 +365,100 @@ QR-Code-generator v1.8.0
         border: 1px solid var(--border-color);
       }
 
-      .statistics-label {
-        font-weight: 600;
-        display: block;
-        margin-bottom: 0.5rem;
+      /* Loading State */
+      #loading {
+        text-align: center;
+        padding: 2rem;
         color: var(--text-color);
       }
 
-      /* Update the slider container styles */
-      .slider-container {
-        width: 100%;
-        padding: 10px 0;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
+      /* Media Queries */
+      @media not all and (prefers-color-scheme: dark) {
+        #qrcode-canvas,
+        #qrcode-svg {
+          padding: 0.8em !important;
+          background-color: #e8e8e8;
+          border-radius: 12px;
+        }
       }
 
-      /* Add styles for the scale label */
-      #scale-row label {
-        display: flex;
-        align-items: center;
-        margin: 0;
-        white-space: nowrap;
+      @media (prefers-color-scheme: dark) {
+        #qrcode-canvas,
+        #qrcode-svg {
+          background-color: var(--background-color);
+          border-radius: 0;
+          padding: 0 !important;
+        }
+
+        .input-divider textarea {
+          background: var(--background-color);
+          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .input-divider textarea:hover {
+          box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
       }
 
-      /* Update the input-divider for the scale row specifically */
-      #scale-row.input-divider {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 0.5rem 0;
-      }
+      @media (max-width: 768px) {
+        .qr-container,
+        .qr-grid,
+        .output-section {
+          padding: 0 !important;
+          margin: 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          box-shadow: none !important;
+          border-radius: 0 !important;
+          overflow: hidden !important;
+          gap: 0;
+        }
 
-      /* Adjust the slider value text alignment */
-      .slider-value {
-        min-width: 3rem;
-        text-align: left;
-      }
+        .input-section {
+          width: 100%;
+          max-width: 100vw;
+          padding: 0 0.5rem;
+        }
 
-      /* Update output section styling */
-      .output-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-      }
+        .input-divider {
+          padding: 0.5rem;
+          width: 100%;
+        }
 
-      /* Update scale row styling specifically for output section */
-      .output-section #scale-row {
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-        padding: 0 1rem;
-      }
+        .input-divider textarea {
+          width: 100%;
+          max-width: calc(100vw - 2rem);
+          min-height: 80px;
+          padding: 0.5rem;
+          font-size: 20px;
+          border-width: 1px;
+        }
 
-      /* Update slider container for better alignment */
-      .slider-container {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        justify-content: center;
+        #qrcode-canvas,
+        #qrcode-svg {
+          width: 100% !important;
+          height: auto !important;
+          max-width: 300px;
+          margin: 0 auto;
+          padding: 0.5em;
+          transform: scale(0.8);
+          transform-origin: center center;
+        }
+
+        #download {
+          display: block;
+          margin: 0 0 20px;
+          padding: 0.75rem 2rem;
+        }
+
+        .output-format {
+          margin-top: 0;
+          text-align: center;
+        }
+
+        .output-section {
+          order: -1;
+        }
       }
     </style>
 
@@ -1009,9 +632,25 @@ QR-Code-generator v1.8.0
           </div>
 
           <div class="output-section">
+            <!-- Scale -->
+            <div id="scale-row">
+              <label><strong>Scale:</strong></label>
+              <div class="slider-container">
+                <input
+                  type="range"
+                  class="slider"
+                  id="scale-input"
+                  min="1"
+                  max="16"
+                  value="8"
+                  step="1"
+                />
+                <span class="slider-value" id="scale-value">8x</span>
+              </div>
+            </div>
+
             <!-- <strong>QR Code:</strong> -->
             <!-- QR code canvas/svg here -->
-            <a id="download" title="does not work on Android app">Download</a>
 
             <canvas
               id="qrcode-canvas"
@@ -1035,6 +674,10 @@ QR-Code-generator v1.8.0
               <path d="" fill="#000000" stroke-width="0"></path>
             </svg>
 
+            <!--  -->
+
+            <a id="download" title="does not work on Android app">Download</a>
+
             <!-- Add output format section -->
             <div class="output-format">
               <strong>Output format:</strong>
@@ -1054,23 +697,6 @@ QR-Code-generator v1.8.0
                     id="output-format-vector"
                   />Vector</label
                 >
-              </div>
-            </div>
-
-            <!-- Scale -->
-            <div class="input-divider" id="scale-row">
-              <label><strong>Scale:</strong></label>
-              <div class="slider-container">
-                <input
-                  type="range"
-                  class="slider"
-                  id="scale-input"
-                  min="1"
-                  max="16"
-                  value="8"
-                  step="1"
-                />
-                <span class="slider-value" id="scale-value">8x</span>
               </div>
             </div>
 
