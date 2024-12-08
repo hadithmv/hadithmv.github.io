@@ -2251,7 +2251,8 @@ Use this to calculate the total cost for a list of items, or add up kilos when p
            https://github.com/proateen/thirdofthenight
            https://github.com/fawazahmed0/last-third-night-calculator
            their midnights dont match
-           apparently proateen considers isha has to be done before midnight
+           apparently proateen considers isha has to be done before midnight. i think this is correct.
+           fawaz does it differently, and his is like 30 mins different.
             -->
 
           <!-- 
@@ -2262,8 +2263,7 @@ and fajr time
 
 upon which is automatically calculated:
 midnight
-1st third
-2nd third
+second third
 last third
 
 shown in am pm, with a button that switches between 12 and 24 hour format
@@ -2281,6 +2281,8 @@ shown in am pm, with a button that switches between 12 and 24 hour format
               display: flex;
               gap: 20px;
               margin-bottom: 15px;
+              flex-wrap: wrap;
+              margin-top: 20px;
             }
 
             .time-input-group {
@@ -2289,12 +2291,17 @@ shown in am pm, with a button that switches between 12 and 24 hour format
               gap: 10px;
             }
 
+            .time-input-group label {
+              width: 100px;
+            }
+
             .time-input {
               padding: 5px;
               border: 1px solid var(--textarea-border);
               border-radius: 3px;
               background: var(--textarea-bg);
               color: var(--textarea-text);
+              font-size: 18px;
             }
 
             .time-results {
@@ -2314,31 +2321,26 @@ shown in am pm, with a button that switches between 12 and 24 hour format
 
             .result-label {
               font-weight: bold;
-              font-size: 18px;
+              font-size: 20px;
+            }
+
+            .result-value {
+              text-align: right;
             }
           </style>
 
+          <h4>Islamic Night Time Calculator 🌙</h4>
+
           <div class="night-calculator">
-            <h4>Islamic Night Time Calculator 🌙</h4>
-
-            <br />
-
             <div class="time-inputs">
               <div class="time-input-group">
-                <label for="maghribTime">Maghrib Time:</label>
+                <label for="maghribTime">Maghrib:</label>
                 <input type="time" id="maghribTime" class="time-input" />
               </div>
               <div class="time-input-group">
-                <label for="fajrTime">Fajr Time:</label>
+                <label for="fajrTime">Fajr:</label>
                 <input type="time" id="fajrTime" class="time-input" />
               </div>
-              <!--  -->
-
-              <button id="toggleNightCalcFormat" class="function-button">
-                Switch 12/24 🕐
-              </button>
-
-              <!--  -->
             </div>
 
             <!--  -->
@@ -2349,11 +2351,7 @@ shown in am pm, with a button that switches between 12 and 24 hour format
                 <span id="midnightTime" class="result-value">--:--</span>
               </div>
               <div class="result-group">
-                <span class="result-label">1st Third:</span>
-                <span id="firstThirdTime" class="result-value">--:--</span>
-              </div>
-              <div class="result-group">
-                <span class="result-label">2nd Third:</span>
+                <span class="result-label">Second Third:</span>
                 <span id="secondThirdTime" class="result-value">--:--</span>
               </div>
               <div class="result-group">
@@ -2361,10 +2359,46 @@ shown in am pm, with a button that switches between 12 and 24 hour format
                 <span id="lastThirdTime" class="result-value">--:--</span>
               </div>
             </div>
+
+            <!--  -->
+
+            <br />
+
+            <button id="toggleNightCalcFormat" class="function-button">
+              Switch 12/24 🕐
+            </button>
+
+            <!--  -->
           </div>
 
           <!--  -->
+
           <hr />
+
+          <!-- Aqiqah date calculator -->
+
+          <h4>Aqiqah Date Calculator 🩸</h4>
+
+          <p>
+            If you don’t know the date of your child’s Aqiqah, you can use our
+            <br />
+            <a href="https://birrumv.com">Aqiqah date calculator</a>.
+          </p>
+
+          <hr />
+
+          <!--  -->
+
+          <hr />
+
+          <!-- 🔄 unit converter -->
+          <!--  -->
+
+          <hr />
+
+          <p>Results are not guaranteed to be 100% correct.</p>
+
+          <!--  -->
         </div>
 
         <div id="cryptTab" class="tab-content">
