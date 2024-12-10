@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <!-- UnitOf v1.0.0.0?
  https://digidemic.github.io/UnitOf/
 
@@ -25,15 +27,53 @@ https://github.com/nagarjuna06/Unit-Converter -web, might have been copied off u
 https://github.com/robsd/js-unit-converter -web
 1 star, last year, 19.4 KB unminified, An application to convert between different units of measurement including length, weight, speed, temperature and digital storage (more coming soon).
 -->
-
-<!DOCTYPE html>
-<html>
+<html lang="en" class="notranslate" translate="no">
   <head>
+    <meta name="google" content="notranslate" />
+    <!-- CHANGE !!! -->
+    <title>Hadithmv - Unit Converter</title>
+    <meta
+      name="description"
+      content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
+    />
+    <meta
+      name="keywords"
+      content="hadithmv,hadith mv, hadeeth mv,dhivehi,hadith,ޙަދީޘްއެމްވީ,ޙަދީޘް އެމްވީ"
+    />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <!-- external resources-->
+    <link
+      rel="stylesheet"
+      href="../../css/base-styles.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../../css/navbar.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <script src="../../js/navbar.js"></script>
+    <!-- END external resources-->
+  </head>
 
-    <!-- 
+  <!-- 
      in the faq, it did say the following:
      
 Besides adding UnitOf to my project, are there any other dependencies needed?
@@ -43,18 +83,18 @@ A BigInteger library is only required for JavaScript's version of UnitOf.Numeric
 and it seems that is already included as it works out of the box
     -->
 
-    <!-- i got this ext js link from their site: https://digidemic.github.io/UnitOf/
+  <!-- i got this ext js link from their site: https://digidemic.github.io/UnitOf/
      got the unimified version as it contains needed comments that explain how it works
 -->
-    <!-- <script
+  <!-- <script
       type="application/javascript"
       src="https://digidemic.github.io/UnitOf/assets/frameworks/UnitOf/UnitOf.min.js"
     ></script> -->
 
-    <script type="application/javascript" src="UnitOf.js"></script>
-  </head>
+  <script type="application/javascript" src="UnitOf.js"></script>
 
   <body>
+    <div id="navbar-container"></div>
     <!-- 
     this is a measurement and data type conversion library
 20+ complete units of measure.
@@ -279,6 +319,8 @@ DataStorage: {
       .container {
         max-width: 800px;
         margin: 0 auto;
+        /*  */
+        margin-top: 20px;
       }
 
       .tabs {
@@ -319,7 +361,7 @@ DataStorage: {
         cursor: pointer;
         transition: all 0.3s ease;
         font-family: inherit;
-        font-size: inherit;
+        /* font-size: inherit; */
       }
 
       .clear-btn:hover {
@@ -336,6 +378,8 @@ DataStorage: {
         background: var(--surface-color);
         border-radius: var(--border-radius);
         box-shadow: var(--shadow-sm);
+        /*  */
+        font-size: 0.8rem;
       }
 
       .unit-input {
@@ -370,6 +414,11 @@ DataStorage: {
 
       .measurement-section.active {
         display: block;
+      }
+
+      /*  */
+      #measurementTabs > button {
+        font-size: 0.8rem;
       }
     </style>
 
