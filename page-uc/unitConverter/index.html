@@ -164,7 +164,7 @@ take a look at the UnitOf.js file to know what the measurements and units are. i
 
 inputting in any of these input boxes, should convert the values into all other input unit values of that measurement
 
-there should be a clear button, when clicked, clears the input boxes.
+the last tab should say clear all, and be red, when clicked this clears the input boxes.
 
 the page should be nice modern and responsive, the tabs and input boxes should be like in a column or grip or something
 
@@ -173,6 +173,809 @@ the page should be nice modern and responsive, the tabs and input boxes should b
               // some very basic example code
       var a = UnitOf.Mass.fromPounds(5).toKilograms; //2.26796 returned as 5 pounds is 2.26796 kilograms
       console.log(a);
-    </script> -->
+    </script> 
+    
+    
+    
+    ...
+    
+    
+    This code creates a responsive interface with:
+Tabs for each measurement type
+Input fields for each unit within a measurement
+Automatic conversion when any input value changes
+A clear button to reset all inputs
+Modern styling with a clean look
+You'll need to expand the measurements object in the JavaScript file to include all the measurements and units you want to support. The current example includes just a few units for demonstration.
+To add more measurements and units, simply add them to the measurements object following the same pattern. The converter will automatically create the appropriate UI elements and handle the conversions using the UnitOf library.
+The interface is responsive and will adjust to different screen sizes, with the unit inputs arranged in a grid that automatically adjusts based on the available space.
+    
+    
+    
+    -->
+
+    <style>
+      :root {
+        /* Light theme colors */
+        --primary-color: #2196f3;
+        --primary-hover: #1976d2;
+        --danger-color: #dc3545;
+        --danger-hover: #bb2d3b;
+        --bg-color: #f5f5f5;
+        --surface-color: #ffffff;
+        --text-primary: #000000;
+        --text-secondary: #666666;
+        --border-color: #dddddd;
+
+        /* Spacing */
+        --spacing-xs: 4px;
+        --spacing-sm: 8px;
+        --spacing-md: 16px;
+        --spacing-lg: 24px;
+
+        /* Border radius */
+        --border-radius: 8px;
+
+        /* Shadows */
+        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+        --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-color: #121212;
+          --surface-color: #1e1e1e;
+          --text-primary: #ffffff;
+          --text-secondary: #aaaaaa;
+          --border-color: #333333;
+          --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+          --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        margin: 0;
+        padding: var(--spacing-md);
+        background: var(--bg-color);
+        color: var(--text-primary);
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-md);
+      }
+
+      .tab {
+        padding: var(--spacing-sm) var(--spacing-md);
+        background: var(--surface-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        color: var(--text-primary);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .tab.active {
+        background: var(--primary-color);
+        border-color: var(--primary-color);
+        color: white;
+      }
+
+      .tab:hover:not(.active) {
+        background: var(--primary-hover);
+        border-color: var(--primary-hover);
+        color: white;
+      }
+
+      .clear-btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+        background: var(--surface-color);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        font-size: inherit;
+      }
+
+      .clear-btn:hover {
+        background: var(--danger-color);
+        border-color: var(--danger-color);
+        color: white;
+      }
+
+      .units-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: var(--spacing-md);
+        padding: var(--spacing-md);
+        background: var(--surface-color);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .unit-input {
+        position: relative;
+      }
+
+      .unit-input input {
+        width: 100%;
+        padding: var(--spacing-sm);
+        background: var(--bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        color: var(--text-primary);
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+
+      .unit-input input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+      }
+
+      .unit-input label {
+        display: block;
+        margin-bottom: var(--spacing-xs);
+        color: var(--text-secondary);
+      }
+
+      .measurement-section {
+        display: none;
+      }
+
+      .measurement-section.active {
+        display: block;
+      }
+    </style>
+
+    <div class="container">
+      <div class="tabs" id="measurementTabs">
+        <!-- Tabs will be inserted here by JavaScript -->
+      </div>
+      <div id="measurementSections"></div>
+    </div>
+
+    <script>
+      // Define the measurements we want to use (excluding Anything and DataType)
+      const measurements = {
+        Acceleration: {
+          name: "Acceleration",
+          units: {
+            "Attometer/s²": ["fromAttometersPerSecondSquared", "am/s²"],
+            "Centimeter/s²": ["fromCentimeterPerSecondSquared", "cm/s²"],
+            "Decimeter/s²": ["fromDecimetersPerSecondSquared", "dm/s²"],
+            "Dekameter/s²": ["fromDekametersPerSecondSquared", "dam/s²"],
+            "Exameter/s²": ["fromExametersPerSecondSquared", "Em/s²"],
+            "Feet/Hour/s": ["fromFeetPerHourPerSecond", "ft/h/s"],
+            "Feet/Minute/s": ["fromFeetPerMinutePerSecond", "ft/min/s"],
+            "Feet/s²": ["fromFeetPerSecondSquared", "ft/s²"],
+            "Femtometer/s²": ["fromFemtometersPerSecondSquared", "fm/s²"],
+            Galileo: ["fromGalileos", "Gal"],
+            "Gigameter/s²": ["fromGigametersPerSecondSquared", "Gm/s²"],
+            Gravity: ["fromGravity", "g"],
+            "Hectometer/s²": ["fromHectometersPerSecondSquared", "hm/s²"],
+            "Inch/Minute/s": ["fromInchesPerMinutePerSecond", "in/min/s"],
+            "Inch/s²": ["fromInchesPerSecondSquared", "in/s²"],
+            "Kilometer/Hour/s": ["fromKilometersPerHourPerSecond", "km/h/s"],
+            "Kilometer/Hour²": ["fromKilometersPerHourSquared", "km/h²"],
+            "Kilometer/s²": ["fromKilometersPerSecondSquared", "km/s²"],
+            "Knot/s": ["fromKnotsPerSecond", "kn/s"],
+            "Megameter/s²": ["fromMegametersPerSecondSquared", "Mm/s²"],
+            "Meter/s²": ["fromMetersPerSecondSquared", "m/s²"],
+            Microgalileo: ["fromMicrogalileos", "µGal"],
+            "Micrometer/s²": ["fromMicrometersPerSecondSquared", "µm/s²"],
+            "Mile/Hour/s": ["fromMilesPerHourPerSecond", "mi/h/s"],
+            "Mile/Minute/s": ["fromMilesPerMinutePerSecond", "mi/min/s"],
+            "Mile/s²": ["fromMilesPerSecondSquared", "mi/s²"],
+            Milligalileo: ["fromMilligalileos", "mGal"],
+            "Millimeter/s²": ["fromMillimetersPerSecondSquared", "mm/s²"],
+            "Nanometer/s²": ["fromNanometersPerSecondSquared", "nm/s²"],
+            "Petameter/s²": ["fromPetametersPerSecondSquared", "Pm/s²"],
+            "Picometer/s²": ["fromPicometersPerSecondSquared", "pm/s²"],
+            "Terameter/s²": ["fromTerametersPerSecondSquared", "Tm/s²"],
+            "Yard/s²": ["fromYardsPerSecondSquared", "yd/s²"],
+          },
+        },
+        Angle: {
+          name: "Angle",
+          units: {
+            Circle: ["fromCircles", "circ"],
+            Degree: ["fromDegrees", "°"],
+            Gradian: ["fromGradians", "grad"],
+            "Angular Mil": ["fromMils", "mil"],
+            Minute: ["fromMinutes", "′"],
+            Quadrant: ["fromQuadrants", "quad"],
+            Radian: ["fromRadians", "rad"],
+            Revolution: ["fromRevolutions", "rev"],
+            "Right Angle": ["fromRightAngles", "right∠"],
+            Second: ["fromSeconds", "″"],
+            Sextant: ["fromSextants", "sext"],
+            Sign: ["fromSigns", "sign"],
+            Turn: ["fromTurns", "turn"],
+          },
+        },
+        Area: {
+          name: "Area",
+          units: {
+            Acre: ["fromAcres", "ac"],
+            Are: ["fromAres", "a"],
+            Arpent: ["fromArpents", "arpent"],
+            Barn: ["fromBarns", "b"],
+            "Circular Inch": ["fromCircularInches", "circ in"],
+            "Circular Mil": ["fromCircularMils", "circ mil"],
+            Hectare: ["fromHectares", "ha"],
+            Homestead: ["fromHomesteads", "homestead"],
+            Rood: ["fromRoods", "rood"],
+            Sabin: ["fromSabins", "sabin"],
+            "Square Centimeter": ["fromSquareCentimeters", "cm²"],
+            "Square Chain": ["fromSquareChains", "ch²"],
+            "Square Decimeter": ["fromSquareDecimeters", "dm²"],
+            "Square Dekameter": ["fromSquareDekameters", "dam²"],
+            "Square Foot": ["fromSquareFeet", "ft²"],
+            "Square Hectometer": ["fromSquareHectometers", "hm²"],
+            "Square Inch": ["fromSquareInches", "in²"],
+            "Square Kilometer": ["fromSquareKilometers", "km²"],
+            "Square Meter": ["fromSquareMeters", "m²"],
+            "Square Micrometer": ["fromSquareMicrometers", "µm²"],
+            "Square Mile": ["fromSquareMiles", "mi²"],
+            "Square Millimeter": ["fromSquareMillimeters", "mm²"],
+            "Square Nanometer": ["fromSquareNanometers", "nm²"],
+            "Square Perch": ["fromSquarePerches", "perch²"],
+            "Square Pole": ["fromSquarePoles", "pole²"],
+            "Square Rod": ["fromSquareRods", "rod²"],
+            "Square Yard": ["fromSquareYards", "yd²"],
+          },
+        },
+        DataStorage: {
+          name: "Data Storage",
+          units: {
+            Bit: ["fromBits", "b"],
+            Block: ["fromBlocks", "block"],
+            "Blu-ray DL": ["fromBluRayDiscDoubleLayers", "BD-DL"],
+            "Blu-ray SL": ["fromBluRayDiscSingleLayers", "BD-SL"],
+            Byte: ["fromBytes", "B"],
+            "CD 74min": ["fromCD74Minutes", "CD-74"],
+            "CD 80min": ["fromCD80Minutes", "CD-80"],
+            "DVD 2L2S": ["fromDVD2Layer2Sides", "DVD-18"],
+            "DVD 1L2S": ["fromDVD1Layer2Sides", "DVD-10"],
+            "DVD 2L1S": ["fromDVD2Layer1Sides", "DVD-9"],
+            "DVD 1L1S": ["fromDVD1Layer1Sides", "DVD-5"],
+            Exabit: ["fromExabits", "Eb"],
+            Exabyte: ["fromExabytes", "EB"],
+            'Floppy 3.5" DD': ["fromFloppyDisk35DD", "FD-DD"],
+            'Floppy 3.5" ED': ["fromFloppyDisk35ED", "FD-ED"],
+            'Floppy 3.5" HD': ["fromFloppyDisk35HD", "FD-HD"],
+            'Floppy 5.25" DD': ["fromFloppyDisk525DD", "FD5-DD"],
+            'Floppy 5.25" HD': ["fromFloppyDisk525HD", "FD5-HD"],
+            Gigabit: ["fromGigabits", "Gb"],
+            Gigabyte: ["fromGigabytes", "GB"],
+            Kilobit: ["fromKilobits", "kb"],
+            Kilobyte: ["fromKilobytes", "KB"],
+            Megabit: ["fromMegabits", "Mb"],
+            Megabyte: ["fromMegabytes", "MB"],
+            Nibble: ["fromNibbles", "nibble"],
+            Petabit: ["fromPetabits", "Pb"],
+            Petabyte: ["fromPetabytes", "PB"],
+            "SI Exabit": ["fromSIExabits", "Eb-SI"],
+            "SI Exabyte": ["fromSIExabytes", "EB-SI"],
+            "SI Gigabit": ["fromSIGigabits", "Gb-SI"],
+            "SI Gigabyte": ["fromSIGigabytes", "GB-SI"],
+            "SI Kilobit": ["fromSIKilobits", "kb-SI"],
+            "SI Kilobyte": ["fromSIKilobytes", "KB-SI"],
+            "SI Megabit": ["fromSIMegabits", "Mb-SI"],
+            "SI Megabyte": ["fromSIMegabytes", "MB-SI"],
+            "SI Petabit": ["fromSIPetabits", "Pb-SI"],
+            "SI Petabyte": ["fromSIPetabytes", "PB-SI"],
+            "SI Terabit": ["fromSITerabits", "Tb-SI"],
+            "SI Terabyte": ["fromSITerabytes", "TB-SI"],
+            "SI Yottabit": ["fromSIYottabits", "Yb-SI"],
+            "SI Yottabyte": ["fromSIYottabytes", "YB-SI"],
+            "SI Zettabit": ["fromSIZettabits", "Zb-SI"],
+            "SI Zettabyte": ["fromSIZettabytes", "ZB-SI"],
+            Terabit: ["fromTerabits", "Tb"],
+            Terabyte: ["fromTerabytes", "TB"],
+            Word: ["fromWords", "word"],
+            Yottabit: ["fromYottabits", "Yb"],
+            Yottabyte: ["fromYottabytes", "YB"],
+            Zettabit: ["fromZettabits", "Zb"],
+            Zettabyte: ["fromZettabytes", "ZB"],
+          },
+        },
+        DataTransferRate: {
+          name: "Data Transfer Rate",
+          units: {
+            "Bit/Second": ["fromBitsPerSecond", "bps"],
+            "Byte/Second": ["fromBytesPerSecond", "Bps"],
+            "Exabit/Second": ["fromExabitsPerSecond", "Ebps"],
+            "Exabyte/Second": ["fromExabytesPerSecond", "EBps"],
+            "Gigabit/Second": ["fromGigabitsPerSecond", "Gbps"],
+            "Gigabyte/Second": ["fromGigabytesPerSecond", "GBps"],
+            "Kilobit/Second": ["fromKilobitsPerSecond", "kbps"],
+            "Kilobyte/Second": ["fromKilobytesPerSecond", "KBps"],
+            "Megabit/Second": ["fromMegabitsPerSecond", "Mbps"],
+            "Megabyte/Second": ["fromMegabytesPerSecond", "MBps"],
+            "Petabit/Second": ["fromPetabitsPerSecond", "Pbps"],
+            "Petabyte/Second": ["fromPetabytesPerSecond", "PBps"],
+            "Terabit/Second": ["fromTerabitsPerSecond", "Tbps"],
+            "Terabyte/Second": ["fromTerabytesPerSecond", "TBps"],
+            "Yottabit/Second": ["fromYottabitsPerSecond", "Ybps"],
+            "Yottabyte/Second": ["fromYottabytesPerSecond", "YBps"],
+            "Zettabit/Second": ["fromZettabitsPerSecond", "Zbps"],
+            "Zettabyte/Second": ["fromZettabytesPerSecond", "ZBps"],
+          },
+        },
+        ElectricCharge: {
+          name: "Electric Charge",
+          units: {
+            Abcoulomb: ["fromAbcoulombs", "abC"],
+            "Ampere Hour": ["fromAmpereHours", "Ah"],
+            Coulomb: ["fromCoulombs", "C"],
+            "EMU of Charge": ["fromEMUOfCharge", "EMU"],
+            "ESU of Charge": ["fromESUOfCharge", "ESU"],
+            Faraday: ["fromFaradays", "F"],
+            Franklin: ["fromFranklins", "Fr"],
+            Kilocoulomb: ["fromKilocoulombs", "kC"],
+            Megacoulomb: ["fromMegacoulombs", "MC"],
+            Microcoulomb: ["fromMicrocoulombs", "µC"],
+            Millicoulomb: ["fromMillicoulombs", "mC"],
+            Nanocoulomb: ["fromNanocoulombs", "nC"],
+            Picocoulomb: ["fromPicocoulombs", "pC"],
+            Statcoulomb: ["fromStatcoulombs", "statC"],
+          },
+        },
+        Energy: {
+          name: "Energy",
+          units: {
+            BTU: ["fromBTU", "BTU"],
+            "BTU Thermochemical": ["fromBTUThermochemical", "BTUth"],
+            Calorie: ["fromCalories", "cal"],
+            "Dyne Centimeter": ["fromDyneCentimeters", "dyn⋅cm"],
+            "Electron Volt": ["fromElectronVolts", "eV"],
+            Erg: ["fromErgs", "erg"],
+            "Foot Pound": ["fromFootPounds", "ft⋅lb"],
+            "Foot Poundal": ["fromFootPoundals", "ft⋅pdl"],
+            Gigajoule: ["fromGigajoules", "GJ"],
+            "Gram Calorie": ["fromGramCalories", "g⋅cal"],
+            "Horsepower Hour": ["fromHorsepowerHours", "hp⋅h"],
+            Joule: ["fromJoules", "J"],
+            Kilocalorie: ["fromKilocalories", "kcal"],
+            Kilojoule: ["fromKilojoules", "kJ"],
+            "Kilowatt Hour": ["fromKilowattHours", "kW⋅h"],
+            Megajoule: ["fromMegajoules", "MJ"],
+            "Megawatt Hour": ["fromMegawattHours", "MW⋅h"],
+            "Newton Meter": ["fromNewtonMeters", "N⋅m"],
+            Therm: ["fromTherms", "thm"],
+            "Watt Hour": ["fromWattHours", "W⋅h"],
+            "Watt Second": ["fromWattSeconds", "W⋅s"],
+          },
+        },
+        Force: {
+          name: "Force",
+          units: {
+            "Atomic Unit": ["fromAtomicUnitsOfForce", "au"],
+            Dyne: ["fromDynes", "dyn"],
+            "Gram Force": ["fromGramForce", "gf"],
+            "Kilogram Force": ["fromKilogramForce", "kgf"],
+            Kilopond: ["fromKiloponds", "kp"],
+            Kip: ["fromKips", "kip"],
+            Newton: ["fromNewtons", "N"],
+            "Ounce Force": ["fromOunceForce", "ozf"],
+            Pond: ["fromPonds", "p"],
+            "Pound Force": ["fromPoundForce", "lbf"],
+            Poundal: ["fromPoundals", "pdl"],
+            Sthene: ["fromSthenes", "sn"],
+            "Tonne Force": ["fromTonneForce", "tf"],
+          },
+        },
+        Frequency: {
+          name: "Frequency",
+          units: {
+            Exahertz: ["fromExahertz", "EHz"],
+            Femtohertz: ["fromFemtohertz", "fHz"],
+            Gigahertz: ["fromGigahertz", "GHz"],
+            Hertz: ["fromHertz", "Hz"],
+            Kilohertz: ["fromKilohertz", "kHz"],
+            Megahertz: ["fromMegahertz", "MHz"],
+            Microhertz: ["fromMicrohertz", "µHz"],
+            Millihertz: ["fromMillihertz", "mHz"],
+            Nanohertz: ["fromNanohertz", "nHz"],
+            Petahertz: ["fromPetahertz", "PHz"],
+            Picohertz: ["fromPicohertz", "pHz"],
+            Terahertz: ["fromTerahertz", "THz"],
+            RPM: ["fromRevolutionsPerMinute", "rpm"],
+            RPH: ["fromRevolutionsPerHour", "rph"],
+            RPS: ["fromRevolutionsPerSecond", "rps"],
+          },
+        },
+        FuelEconomy: {
+          name: "Fuel Economy",
+          units: {
+            "Kilometers/Liter": ["fromKilometersPerLiter", "km/L"],
+            "Kilometers/Gallon US": ["fromKilometersPerGallonUS", "km/gal"],
+            "Kilometers/Gallon UK": ["fromKilometersPerGallonUK", "km/gal UK"],
+            "Liters/100 Kilometers": ["fromLitersPer100Kilometers", "L/100km"],
+            "Miles/Gallon US": ["fromMilesPerGallonUS", "mpg"],
+            "Miles/Gallon UK": ["fromMilesPerGallonUK", "mpg UK"],
+            "Miles/Liter": ["fromMilesPerLiter", "mi/L"],
+          },
+        },
+        Length: {
+          name: "Length",
+          units: {
+            Angstrom: ["fromAngstroms", "Å"],
+            "Astronomical Unit": ["fromAstronomicalUnits", "au"],
+            Attometer: ["fromAttometers", "am"],
+            Centimeter: ["fromCentimeters", "cm"],
+            Chain: ["fromChains", "ch"],
+            Decimeter: ["fromDecimeters", "dm"],
+            Dekameter: ["fromDekameters", "dam"],
+            Exameter: ["fromExameters", "Em"],
+            Fathom: ["fromFathoms", "ftm"],
+            Femtometer: ["fromFemtometers", "fm"],
+            Foot: ["fromFeet", "ft"],
+            Furlong: ["fromFurlongs", "fur"],
+            Gigameter: ["fromGigameters", "Gm"],
+            Hand: ["fromHands", "h"],
+            Hectometer: ["fromHectometers", "hm"],
+            Inch: ["fromInches", "in"],
+            Kilometer: ["fromKilometers", "km"],
+            League: ["fromLeagues", "lea"],
+            "Light Year": ["fromLightYears", "ly"],
+            Link: ["fromLinks", "li"],
+            Megameter: ["fromMegameters", "Mm"],
+            Meter: ["fromMeters", "m"],
+            Micrometer: ["fromMicrometers", "µm"],
+            Mile: ["fromMiles", "mi"],
+            Millimeter: ["fromMillimeters", "mm"],
+            Nanometer: ["fromNanometers", "nm"],
+            "Nautical League": ["fromNauticalLeagues", "nl"],
+            "Nautical Mile": ["fromNauticalMiles", "nmi"],
+            Parsec: ["fromParsecs", "pc"],
+            Petameter: ["fromPetameters", "Pm"],
+            Picometer: ["fromPicometers", "pm"],
+            Rod: ["fromRods", "rd"],
+            Terameter: ["fromTerameters", "Tm"],
+            Thou: ["fromThous", "thou"],
+            Yard: ["fromYards", "yd"],
+          },
+        },
+        Mass: {
+          name: "Mass",
+          units: {
+            "Atomic Mass Unit": ["fromAtomicMassUnits", "u"],
+            Carat: ["fromCarats", "ct"],
+            Centigram: ["fromCentigrams", "cg"],
+            Decigram: ["fromDecigrams", "dg"],
+            Dekagram: ["fromDekagrams", "dag"],
+            Dram: ["fromDrams", "dr"],
+            Grain: ["fromGrains", "gr"],
+            Gram: ["fromGrams", "g"],
+            Hectogram: ["fromHectograms", "hg"],
+            "Hundredweight UK": ["fromHundredweightUK", "cwt"],
+            "Hundredweight US": ["fromHundredweightUS", "cwt US"],
+            Kilogram: ["fromKilograms", "kg"],
+            "Long Ton": ["fromLongTons", "long tn"],
+            Megagram: ["fromMegagrams", "Mg"],
+            "Metric Ton": ["fromMetricTons", "t"],
+            Microgram: ["fromMicrograms", "µg"],
+            Milligram: ["fromMilligrams", "mg"],
+            Ounce: ["fromOunces", "oz"],
+            Pound: ["fromPounds", "lb"],
+            "Quarter UK": ["fromQuartersUK", "qr"],
+            "Quarter US": ["fromQuartersUS", "qr US"],
+            "Short Ton": ["fromShortTons", "sh tn"],
+            Slug: ["fromSlugs", "slug"],
+            Stone: ["fromStones", "st"],
+            Tonne: ["fromTonnes", "t"],
+          },
+        },
+        Pressure: {
+          name: "Pressure",
+          units: {
+            Atmosphere: ["fromAtmospheres", "atm"],
+            Bar: ["fromBars", "bar"],
+            Barye: ["fromBaryes", "Ba"],
+            "Centimeter Mercury": ["fromCentimetersOfMercury", "cmHg"],
+            "Centimeter Water": ["fromCentimetersOfWater", "cmH2O"],
+            Decibar: ["fromDecibars", "dbar"],
+            "Foot Mercury": ["fromFeetOfMercury", "ftHg"],
+            "Foot Water": ["fromFeetOfWater", "ftH2O"],
+            Gigapascal: ["fromGigapascals", "GPa"],
+            Hectopascal: ["fromHectopascals", "hPa"],
+            "Inch Mercury": ["fromInchesOfMercury", "inHg"],
+            "Inch Water": ["fromInchesOfWater", "inH2O"],
+            Kilobar: ["fromKilobars", "kbar"],
+            "Kilogram Force/cm²": [
+              "fromKilogramsForcePerSquareCentimeter",
+              "kgf/cm²",
+            ],
+            "Kilogram Force/m²": ["fromKilogramsForcePerSquareMeter", "kgf/m²"],
+            "Kilonewton/m²": ["fromKilonewtonsPerSquareMeter", "kN/m²"],
+            Kilopascal: ["fromKilopascals", "kPa"],
+            Megabar: ["fromMegabars", "Mbar"],
+            Megapascal: ["fromMegapascals", "MPa"],
+            "Meter Water": ["fromMetersOfWater", "mH2O"],
+            Microbar: ["fromMicrobars", "µbar"],
+            Millibar: ["fromMillibars", "mbar"],
+            "Millimeter Mercury": ["fromMillimetersOfMercury", "mmHg"],
+            "Millimeter Water": ["fromMillimetersOfWater", "mmH2O"],
+            "Newton/m²": ["fromNewtonsPerSquareMeter", "N/m²"],
+            Pascal: ["fromPascals", "Pa"],
+            Pieze: ["fromPiezes", "pz"],
+            "Pound Force/ft²": ["fromPoundsForcePerSquareFoot", "lbf/ft²"],
+            "Pound Force/in²": ["fromPoundsForcePerSquareInch", "psi"],
+            "Technical Atmosphere": ["fromTechnicalAtmospheres", "at"],
+            Torr: ["fromTorr", "Torr"],
+          },
+        },
+        Speed: {
+          name: "Speed",
+          units: {
+            "Feet/Hour": ["fromFeetPerHour", "ft/h"],
+            "Feet/Minute": ["fromFeetPerMinute", "ft/min"],
+            "Feet/Second": ["fromFeetPerSecond", "ft/s"],
+            "First Cosmic Velocity": ["fromFirstCosmicVelocity", "v1"],
+            "Inches/Hour": ["fromInchesPerHour", "in/h"],
+            "Inches/Minute": ["fromInchesPerMinute", "in/min"],
+            "Inches/Second": ["fromInchesPerSecond", "in/s"],
+            "Kilometers/Hour": ["fromKilometersPerHour", "km/h"],
+            "Kilometers/Minute": ["fromKilometersPerMinute", "km/min"],
+            "Kilometers/Second": ["fromKilometersPerSecond", "km/s"],
+            Knot: ["fromKnots", "kn"],
+            "Light Speed": ["fromLight", "c"],
+            Mach: ["fromMach", "M"],
+            "Meters/Hour": ["fromMetersPerHour", "m/h"],
+            "Meters/Minute": ["fromMetersPerMinute", "m/min"],
+            "Meters/Second": ["fromMetersPerSecond", "m/s"],
+            "Miles/Hour": ["fromMilesPerHour", "mph"],
+            "Miles/Minute": ["fromMilesPerMinute", "mi/min"],
+            "Miles/Second": ["fromMilesPerSecond", "mi/s"],
+            "Millimeters/Hour": ["fromMillimetersPerHour", "mm/h"],
+            "Millimeters/Minute": ["fromMillimetersPerMinute", "mm/min"],
+            "Millimeters/Second": ["fromMillimetersPerSecond", "mm/s"],
+            "Second Cosmic Velocity": ["fromSecondCosmicVelocity", "v2"],
+            "Sound in Air": ["fromSoundsInAir", "Mach 1"],
+            "Sound in Water": ["fromSoundsInWater", "Mach 1w"],
+            "Third Cosmic Velocity": ["fromThirdCosmicVelocity", "v3"],
+            "Yards/Hour": ["fromYardsPerHour", "yd/h"],
+            "Yards/Minute": ["fromYardsPerMinute", "yd/min"],
+            "Yards/Second": ["fromYardsPerSecond", "yd/s"],
+          },
+        },
+        Temperature: {
+          name: "Temperature",
+          units: {
+            Celsius: ["fromCelsius", "°C"],
+            Fahrenheit: ["fromFahrenheit", "°F"],
+            Kelvin: ["fromKelvin", "K"],
+            Rankine: ["fromRankine", "°R"],
+            Reaumur: ["fromReaumur", "°Ré"],
+          },
+        },
+        Time: {
+          name: "Time",
+          units: {
+            Attosecond: ["fromAttoseconds", "as"],
+            Century: ["fromCenturies", "c"],
+            Day: ["fromDays", "d"],
+            Decade: ["fromDecades", "dec"],
+            Femtosecond: ["fromFemtoseconds", "fs"],
+            Fortnight: ["fromFortnights", "fn"],
+            "Gregorian Year": ["fromGregorianYears", "y"],
+            Hour: ["fromHours", "h"],
+            "Julian Year": ["fromJulianYears", "j.y"],
+            "Leap Year": ["fromLeapYears", "l.y"],
+            Microsecond: ["fromMicroseconds", "µs"],
+            Millennium: ["fromMillenniums", "ka"],
+            Millisecond: ["fromMilliseconds", "ms"],
+            Minute: ["fromMinutes", "min"],
+            Month: ["fromMonths", "mo"],
+            Nanosecond: ["fromNanoseconds", "ns"],
+            Picosecond: ["fromPicoseconds", "ps"],
+            Second: ["fromSeconds", "s"],
+            Week: ["fromWeeks", "wk"],
+            Year: ["fromYears", "y"],
+          },
+        },
+        Torque: {
+          name: "Torque",
+          units: {
+            "Dyne Centimeter": ["fromDyneCentimeters", "dyn⋅cm"],
+            "Dyne Meter": ["fromDyneMeters", "dyn⋅m"],
+            "Dyne Millimeter": ["fromDyneMillimeters", "dyn⋅mm"],
+            "Gram Force Centimeter": ["fromGramCentimeters", "gf⋅cm"],
+            "Gram Force Meter": ["fromGramMeters", "gf⋅m"],
+            "Gram Force Millimeter": ["fromGramMillimeters", "gf⋅mm"],
+            "Kilogram Force Centimeter": ["fromKilogramCentimeters", "kgf⋅cm"],
+            "Kilogram Force Meter": ["fromKilogramMeters", "kgf⋅m"],
+            "Kilogram Force Millimeter": ["fromKilogramMillimeters", "kgf⋅mm"],
+            "Kilonewton Meter": ["fromKilonewtonMeters", "kN⋅m"],
+            "Newton Centimeter": ["fromNewtonCentimeters", "N⋅cm"],
+            "Newton Meter": ["fromNewtonMeters", "N⋅m"],
+            "Newton Millimeter": ["fromNewtonMillimeters", "N⋅mm"],
+            "Ounce Force Foot": ["fromOunceFeet", "ozf⋅ft"],
+            "Ounce Force Inch": ["fromOunceInches", "ozf⋅in"],
+            "Pound Force Foot": ["fromPoundFeet", "lbf⋅ft"],
+            "Pound Force Inch": ["fromPoundInches", "lbf⋅in"],
+          },
+        },
+        Volume: {
+          name: "Volume",
+          units: {
+            "Acre Foot": ["fromAcreFeet", "ac⋅ft"],
+            "Acre Foot US Survey": ["fromAcreFeetUSSurvey", "ac⋅ft US"],
+            "Acre Inch": ["fromAcreInches", "ac⋅in"],
+            "Barrel Oil": ["fromBarrelsOfOil", "bbl"],
+            "Barrel UK": ["fromBarrelsUK", "bbl UK"],
+            "Barrel US": ["fromBarrelsUS", "bbl US"],
+            "Board Foot": ["fromBoardFeet", "FBM"],
+            Centiliter: ["fromCentiliters", "cL"],
+            Cord: ["fromCords", "cord"],
+            "Cubic Centimeter": ["fromCubicCentimeters", "cm³"],
+            "Cubic Decimeter": ["fromCubicDecimeters", "dm³"],
+            "Cubic Foot": ["fromCubicFeet", "ft³"],
+            "Cubic Inch": ["fromCubicInches", "in³"],
+            "Cubic Kilometer": ["fromCubicKilometers", "km³"],
+            "Cubic Meter": ["fromCubicMeters", "m³"],
+            "Cubic Mile": ["fromCubicMiles", "mi³"],
+            "Cubic Millimeter": ["fromCubicMillimeters", "mm³"],
+            "Cubic Yard": ["fromCubicYards", "yd³"],
+            "Cup Metric": ["fromCupsMetric", "cup"],
+            "Cup UK": ["fromCupsUK", "cup UK"],
+            "Cup US": ["fromCupsUS", "cup US"],
+            Deciliter: ["fromDeciliters", "dL"],
+            Dekaliter: ["fromDekaliters", "daL"],
+            "Fluid Ounce UK": ["fromFluidOuncesUK", "fl oz UK"],
+            "Fluid Ounce US": ["fromFluidOuncesUS", "fl oz US"],
+            "Gallon UK": ["fromGallonsUK", "gal UK"],
+            "Gallon US": ["fromGallonsUS", "gal US"],
+            "Gill UK": ["fromGillsUK", "gi UK"],
+            "Gill US": ["fromGillsUS", "gi US"],
+            Hectoliter: ["fromHectoliters", "hL"],
+            Kiloliter: ["fromKiloliters", "kL"],
+            Liter: ["fromLiters", "L"],
+            Megaliter: ["fromMegaliters", "ML"],
+            Microliter: ["fromMicroliters", "µL"],
+            Milliliter: ["fromMilliliters", "mL"],
+            "Minim UK": ["fromMinimsUK", "min UK"],
+            "Minim US": ["fromMinimsUS", "min US"],
+            "Pint UK": ["fromPintsUK", "pt UK"],
+            "Pint US": ["fromPintsUS", "pt US"],
+            "Quart UK": ["fromQuartsUK", "qt UK"],
+            "Quart US": ["fromQuartsUS", "qt US"],
+            "Register Ton": ["fromRegisterTons", "RT"],
+            "Tablespoon Metric": ["fromTablespoonsMetric", "tbsp"],
+            "Tablespoon UK": ["fromTablespoonsUK", "tbsp UK"],
+            "Tablespoon US": ["fromTablespoonsUS", "tbsp US"],
+            "Teaspoon Metric": ["fromTeaspoonsMetric", "tsp"],
+            "Teaspoon UK": ["fromTeaspoonsUK", "tsp UK"],
+            "Teaspoon US": ["fromTeaspoonsUS", "tsp US"],
+          },
+        },
+        // Add more measurements as needed
+        // Add more units as needed
+      };
+
+      // Initialize the UI
+      function initializeUI() {
+        const tabsContainer = document.getElementById("measurementTabs");
+        const sectionsContainer = document.getElementById(
+          "measurementSections"
+        );
+
+        // Create tabs and sections for each measurement
+        Object.entries(measurements).forEach(([key, measurement], index) => {
+          // Create tab
+          const tab = document.createElement("button");
+          tab.className = `tab ${index === 0 ? "active" : ""}`;
+          tab.textContent = measurement.name;
+          tab.onclick = () => switchTab(key);
+          tabsContainer.appendChild(tab);
+
+          // Create section
+          const section = document.createElement("div");
+          section.className = `measurement-section ${
+            index === 0 ? "active" : ""
+          }`;
+          section.id = `section-${key}`;
+
+          // Create units container
+          const unitsContainer = document.createElement("div");
+          unitsContainer.className = "units-container";
+
+          // Create input fields for each unit
+          Object.entries(measurement.units).forEach(
+            ([unitName, [funcName, symbol]]) => {
+              const unitDiv = document.createElement("div");
+              unitDiv.className = "unit-input";
+
+              const label = document.createElement("label");
+              label.textContent = `${unitName} (${symbol})`;
+
+              const input = document.createElement("input");
+              input.type = "number";
+              input.step = "any";
+              input.dataset.measurement = key;
+              input.dataset.unit = funcName;
+              input.oninput = handleInput;
+
+              unitDiv.appendChild(label);
+              unitDiv.appendChild(input);
+              unitsContainer.appendChild(unitDiv);
+            }
+          );
+
+          section.appendChild(unitsContainer);
+          sectionsContainer.appendChild(section);
+        });
+
+        // Add Clear All button as the last tab
+        const clearBtn = document.createElement("button");
+        clearBtn.className = "clear-btn";
+        clearBtn.textContent = "Clear All ❌";
+        clearBtn.onclick = clearInputs;
+        tabsContainer.appendChild(clearBtn);
+        //
+      }
+
+      // Handle input changes
+      function handleInput(event) {
+        const value = event.target.value;
+        if (value === "") return;
+
+        const measurement = event.target.dataset.measurement;
+        const fromUnit = event.target.dataset.unit;
+        const section = document.getElementById(`section-${measurement}`);
+        const inputs = section.querySelectorAll("input");
+
+        // Convert the value to all other units
+        const converter = UnitOf[measurement][fromUnit](parseFloat(value));
+
+        inputs.forEach((input) => {
+          if (input !== event.target) {
+            const toUnit = input.dataset.unit.replace("from", "to");
+            input.value = converter[toUnit];
+          }
+        });
+      }
+
+      // Switch between measurement tabs
+      function switchTab(measurementKey) {
+        document.querySelectorAll(".tab").forEach((tab) => {
+          tab.classList.remove("active");
+          if (tab.textContent === measurements[measurementKey].name) {
+            tab.classList.add("active");
+          }
+        });
+
+        document.querySelectorAll(".measurement-section").forEach((section) => {
+          section.classList.remove("active");
+          if (section.id === `section-${measurementKey}`) {
+            section.classList.add("active");
+          }
+        });
+      }
+
+      // Clear all inputs
+      function clearInputs() {
+        document.querySelectorAll("input").forEach((input) => {
+          input.value = "";
+        });
+      }
+
+      // Initialize the UI when the page loads
+      document.addEventListener("DOMContentLoaded", initializeUI);
+    </script>
   </body>
 </html>
