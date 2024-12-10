@@ -54,6 +54,16 @@ standardjs linter
 html-minifier, csso (csso-cli), cssnano, google-closure-compiler
 uglify-js
 unused-CSS, purifyCSS, unCSS-online
+
+prettier:
+https://prettier.io/docs/en/configuration: A .prettierrc file written in JSON or YAML.
+https://prettier.io/docs/en/options.html: { "quoteProps": "consistent" }
+ If at least one property in an object requires quotes, quote all properties
+
+https://prettier.io/docs/en/ignore.html: .prettierignore
+*.min.css
+html: <!-- prettier-ignore -->
+
 ----------------------
 
 VSC KEYS:
