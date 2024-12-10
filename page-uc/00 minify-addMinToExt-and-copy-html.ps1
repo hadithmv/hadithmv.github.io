@@ -204,23 +204,34 @@ try {
     }
 
     # Process JS files
-    # $jsFiles = @("textEditor.js", "mergely.js")
-    $jsFiles = @("textEditor.js")
+    $jsFiles = @(
+        "textEditor.js",
+        @{
+            Input  = "unitConverter/UnitOf.js"
+            Output = "../page/unitConverter.min.js"
+        }
+    )
     foreach ($jsFile in $jsFiles) {
-        $inputFile = $jsFile
-        $outputFile = "../page/$([System.IO.Path]::GetFileNameWithoutExtension($jsFile)).min.js"
+        if ($jsFile -is [string]) {
+            $inputFile = $jsFile
+            $outputFile = "../page/$([System.IO.Path]::GetFileNameWithoutExtension($jsFile)).min.js"
+        }
+        else {
+            $inputFile = $jsFile.Input
+            $outputFile = $jsFile.Output
+        }
 
         if (Test-Path $inputFile) {
             $success = MinifyJS $inputFile $outputFile
             if ($success) {
-                Write-Output "✅ Processed JS: $jsFile -> $([System.IO.Path]::GetFileName($outputFile))"
+                Write-Output "✅ Processed JS: $inputFile -> $([System.IO.Path]::GetFileName($outputFile))"
             }
             else {
                 Write-Output "❌ Failed to process JS: $jsFile"
             }
         }
         else {
-            Write-Warning "Warning: $jsFile not found"
+            Write-Warning "Warning: $inputFile not found"
         }
     }
 
@@ -257,6 +268,7 @@ try {
     $customFileMap = @{
         "qrCode/qrcodegen-input-custom.html" = "../page/qrGenerator.html"
         "keyboardPage/index-custom.html"     = "../page/keyboardPage.html"
+        "unitConverter/index.html"           = "../page/unitConverter.html"
     }
 
     foreach ($mapping in $customFileMap.GetEnumerator()) {
@@ -266,10 +278,13 @@ try {
         if (Test-Path $inputFile) {
             # Read and modify the content
             $content = Get-Content -Path $inputFile -Raw
-            # $content = $content -replace '../../', '../'
-            # above ../ replace messes up some core keyboard js code, and so we look for src and href to target it more specifically. also had to take care with the regex to make it work
             $content = $content -replace '(src=["''])../../', '$1../'
             $content = $content -replace '(href=["''])../../', '$1../'
+            
+            # Add specific replacement for unitConverter
+            if ($inputFile -eq "unitConverter/index.html") {
+                $content = $content -replace 'src="UnitOf.js"', 'src="unitConverter.min.js"'
+            }
 
             # Create a temporary file for the modified content
             $tempFile = [System.IO.Path]::GetTempFileName()
