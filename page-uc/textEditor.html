@@ -2460,6 +2460,105 @@ follow the tab stylings i used for other numbered tabs
 
           <p>🔢 Direct Quantity Proportion</p>
 
+          <style>
+            .proportion-container {
+              display: flex;
+              flex-direction: column;
+              gap: 2rem;
+              padding: 1rem;
+            }
+          
+            .proportion-set {
+              display: flex;
+              flex-direction: column;
+              gap: 0.5rem;
+              padding: 1rem;
+              background-color: var(--textarea-bg);
+              border: 1px solid var(--textarea-border);
+              border-radius: 4px;
+            }
+          
+            .proportion-row {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+              font-size: 1.1em;
+            }
+          
+            .prop-input {
+              width: 80px;
+              padding: 0.3rem;
+              font-size: 1em;
+              border: 1px solid var(--textarea-border);
+              background-color: var(--textarea-bg);
+              color: var(--textarea-text);
+              border-radius: 4px;
+            }
+          
+            .prop-input:focus {
+              outline: none;
+              border-color: var(--button-hover);
+            }
+          
+            .unit {
+              color: var(--textarea-text);
+            }
+          
+            .prop-numbered-tabs {
+              display: flex;
+              gap: 5px;
+              margin-bottom: 1rem;
+            }
+          
+            .prop-numbered-tab, #addPropTab {
+              padding: 5px 10px;
+              cursor: pointer;
+              border: 1px solid var(--textarea-border);
+              border-radius: 5px;
+              background-color: var(--textarea-bg);
+              color: var(--textarea-text);
+              min-width: 30px;
+              text-align: center;
+            }
+          
+            .prop-numbered-tab.active {
+              background-color: var(--button-hover);
+              color: var(--button-hover-text);
+            }
+          </style>
+
+<div id="proportionTab" class="tab-content"></div>
+  <div class="prop-numbered-tabs">
+    <button class="prop-numbered-tab active" data-tab="1">1</button>
+    <button id="addPropTab">+</button>
+  </div>
+
+  <div class="proportion-container">
+    <!-- First proportion set -->
+    <div class="proportion-set">
+      <div class="proportion-row">
+        If <input type="number" class="prop-input first-x" placeholder="10"> <span class="unit">g</span> = 
+        <input type="number" class="prop-input first-y" placeholder="20"> <span class="unit">$</span>
+      </div>
+      <div class="proportion-row">
+        then <input type="number" class="prop-input second-x" value="1"> <span class="unit">g</span> = 
+        <input type="number" class="prop-input second-y" placeholder="2"> <span class="unit">$</span>
+      </div>
+    </div>
+
+    <!-- Second proportion set -->
+    <div class="proportion-set">
+      <div class="proportion-row">
+        If <input type="number" class="prop-input first-x" placeholder="10"> <span class="unit">g</span> = 
+        <input type="number" class="prop-input first-y" placeholder="20"> <span class="unit">$</span>
+      </div>
+      <div class="proportion-row">
+        then <input type="number" class="prop-input second-x" value="1"> <span class="unit">g</span> = 
+        <input type="number" class="prop-input second-y" placeholder="2"> <span class="unit">$</span>
+      </div>
+    </div>
+  </div>
+</div>
           <!--  -->
 
           <hr />
