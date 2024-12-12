@@ -507,6 +507,29 @@ document.addEventListener("DOMContentLoaded", () => {
         textArea.value = textArea.value.replace(/[\u07A6-\u07B0]/g, "");
         break;
 
+      // RMV THIKIJEHI THAANA
+      case "removeThikijehiThaana":
+        // Define the replacement map
+        const thikijehiReplacements = {
+          ޘ: "ސ",
+          ޙ: "ހ",
+          ޛ: "ޒ",
+          ޜ: "ޒ",
+          ޞ: "ސ",
+          ޠ: "ތ",
+          ޡ: "ޒ",
+          ޢ: "އ",
+          ޤ: "ގ",
+          ޥ: "ވ",
+        };
+
+        textArea.value = textArea.value.replace(
+          /[ޘޙޛޜޞޠޡޢޤޥ]/g,
+          (char) => thikijehiReplacements[char] || char
+        );
+        break;
+      //
+
       // =====================================================
 
       case "saveFile":
@@ -710,6 +733,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
       case "reverseTextVertical":
         textArea.value = textArea.value.split("\n").reverse().join("\n");
+        break;
+
+      //
+
+      // Add this to your handleDropdownAction function
+      case "addLineNumbers":
+        const addSeparator = document.getElementById("addNumbersWith").value;
+        const textToNumber = textArea.value.split("\n");
+        const withNumbers = textToNumber.map(
+          (line, index) => `${index + 1}${addSeparator} ${line}`
+        );
+        textArea.value = withNumbers.join("\n");
+        break;
+
+      case "removeLineNumbers":
+        const removeSeparator =
+          document.getElementById("removeNumbersWith").value;
+        const textToClean = textArea.value.split("\n");
+        // Escape special characters for regex
+        const escapedSeparator = removeSeparator.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        );
+        const pattern = new RegExp(`^\\d+${escapedSeparator}\\s+`);
+        const withoutNumbers = textToClean.map((line) =>
+          line.replace(pattern, "")
+        );
+        textArea.value = withoutNumbers.join("\n");
         break;
 
       // =====================================================
@@ -1306,32 +1357,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });*/
   //
 
-  // RMV THIKIJEHI THAANA
-  // Define the replacement map
-  const thikijehiReplacements = {
-    ޘ: "ސ",
-    ޙ: "ހ",
-    ޛ: "ޒ",
-    ޜ: "ޒ",
-    ޞ: "ސ",
-    ޠ: "ތ",
-    ޡ: "ޒ",
-    ޢ: "އ",
-    ޤ: "ގ",
-    ޥ: "ވ",
-  };
-
-  // Function to remove Thikijehi Thaana
-  function removeThikijehiThaana(text) {
-    scrollToTop();
-    //
-    return text.replace(
-      /[ޘޙޛޜޞޠޡޢޤޥ]/g,
-      (char) => thikijehiReplacements[char] || char
-    );
-  }
-  //
-
   // TRANSLITERATION
   // https://github.com/naxeem/thaana-transliterator-js/blob/main/thaana-transliterator.js
 
@@ -1749,14 +1774,6 @@ i dont want output to have multiple spaces
     }*/
     updateStats(); // Assuming this function exists in your code
   });
-  //
-
-  document
-    .getElementById("removeThikijehiThaana")
-    .addEventListener("click", () => {
-      textArea.value = removeThikijehiThaana(textArea.value);
-      updateStats();
-    });
   //
 
   /*

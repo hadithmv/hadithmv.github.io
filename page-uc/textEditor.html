@@ -598,6 +598,13 @@
                 >
                   Remove Dhivehi Fili 🥥
                 </button>
+
+                <button
+                  data-action="removeThikijehiThaana"
+                  title="Replaces most thikijehi thaana letters to those without thiki"
+                >
+                  Remove Thikijehi Thaana ⏺️
+                </button>
               </div>
             </div>
 
@@ -676,17 +683,64 @@
                 class="function-button"
                 title="Text manipulation options"
               >
-                Sort Lines 📌
+                Line Ops 📌
               </button>
               <div class="dropdown-content">
+                <div class="converter-options">
+                  <div class="option-group">
+                    <label>Add line numbers with:</label>
+                    <select id="addNumbersWith" class="converter-select">
+                      <option value="" title="No separator">
+                        No separator (1 Text)
+                      </option>
+                      <option value="." title="Dot">Dot (1. Text)</option>
+                      <option value="-" title="Dash">Dash (1- Text)</option>
+                      <option value="*" title="Asterisk">
+                        Asterisk (1* Text)
+                      </option>
+                      <option value="/" title="Slash">Slash (1/ Text)</option>
+                      <option value="+" title="Plus">Plus (1+ Text)</option>
+                      <option value=":" title="Colon">Colon (1: Text)</option>
+                    </select>
+                    <button data-action="addLineNumbers" class="apply-button">
+                      Add
+                    </button>
+                  </div>
+
+                  <hr class="dropdown-separator" />
+
+                  <div class="option-group">
+                    <label>Remove line numbers with:</label>
+                    <select id="removeNumbersWith" class="converter-select">
+                      <option value="" title="No separator">
+                        No separator (1 Text)
+                      </option>
+                      <option value="." title="Dot">Dot (1. Text)</option>
+                      <option value="-" title="Dash">Dash (1- Text)</option>
+                      <option value="*" title="Asterisk">
+                        Asterisk (1* Text)
+                      </option>
+                      <option value="/" title="Slash">Slash (1/ Text)</option>
+                      <option value="+" title="Plus">Plus (1+ Text)</option>
+                      <option value=":" title="Colon">Colon (1: Text)</option>
+                    </select>
+                    <button
+                      data-action="removeLineNumbers"
+                      class="apply-button"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+
+                <hr class="dropdown-separator" />
+
                 <button
                   data-action="splitIntoWords"
                   title="Splits the text into single words on each line"
                 >
                   Split Words ✂️
                 </button>
-
-                <hr class="dropdown-separator" />
 
                 <button
                   data-action="sortWordsByFrequency"
@@ -1611,14 +1665,6 @@
             </button>
 
             <button
-              id="removeThikijehiThaana"
-              class="function-button"
-              title="Replaces most thikijehi thaana letters to those without thiki"
-            >
-              Rmv ThikijehiThaana ⏺️
-            </button>
-
-            <button
               id="Nos2DvTxt"
               class="function-button"
               title="Converts numbers to Dhivehi words (numeration)"
@@ -1641,14 +1687,6 @@
             </button>
 
             <!-- -->
-
-            <button
-              id="toggleLineNumbers"
-              class="function-button"
-              title="Adds numbers to the beginning of each line of the text followed by a dot, on the first click, and remove such line numbers and a dot, on the second"
-            >
-              Add Line Nos 🧮
-            </button>
 
             <button
               id="generateNumSequence"
@@ -1738,6 +1776,10 @@
               class="buttonInput input2"
               style="display: none"
             />
+
+            <!-- !!!
+             REMOVE Prefix/Suffix 
+             -->
 
             <button
               id="rmvNoOfCharsPerLine"
