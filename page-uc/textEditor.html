@@ -2301,12 +2301,14 @@ it should look nice and modern and responsive. take into account prefer dark sch
 
 follow the tab stylings i used for other numbered tabs
 
+i also need a clear button that below the direct quantity proportion calculator, that when clicked, clears resets the proportion input boxes as well as the proportion tabs
+
 ...
 
 
  -->
 
-          <p>🔢 Direct Quantity Proportion</p>
+          <p>🔢 Direct Quantity Proportion Calculator</p>
 
           <style>
             .proportion-container {
@@ -2387,6 +2389,12 @@ follow the tab stylings i used for other numbered tabs
             .prop-numbered-tab.active {
               background-color: var(--button-hover);
               color: var(--button-hover-text);
+            }
+
+            .prop-buttons {
+              margin-top: 10px;
+              display: flex;
+              gap: 10px;
             }
 
             /* Mobile responsiveness */
@@ -2482,6 +2490,11 @@ follow the tab stylings i used for other numbered tabs
                 </div>
               </div>
             </div>
+          </div>
+
+          <!-- Add this after the proportion-container div -->
+          <div class="prop-buttons">
+            <button id="clearProp" class="function-button">Clear</button>
           </div>
 
           <!--  -->
