@@ -2989,15 +2989,30 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
 
     function updateProportions(set) {
       const inputs = set.querySelectorAll(".prop-input");
-      const firstX = inputs[0].value || inputs[0].placeholder;
-      const firstY = inputs[1].value || inputs[1].placeholder;
-      const secondX = inputs[2].value || inputs[2].placeholder;
 
-      // Calculate k (constant of proportionality)
-      const k = firstY / firstX;
+      // Count only actual input values (not placeholders)
+      const filledInputs = Array.from(inputs).filter(
+        (input) => input.value !== ""
+      ).length;
 
-      // Update second Y based on proportion
-      inputs[3].value = (secondX * k).toFixed(2);
+      // Only calculate if at least 3 inputs have values
+      if (filledInputs >= 3) {
+        const firstX = inputs[0].value;
+        const firstY = inputs[1].value;
+        const secondX = inputs[2].value;
+
+        // Only calculate if we have the necessary values
+        if (firstX && firstY && secondX) {
+          // Calculate k (constant of proportionality)
+          const k = firstY / firstX;
+
+          // Update second Y based on proportion
+          inputs[3].value = (secondX * k).toFixed(2);
+        }
+      } else {
+        // Clear the result if less than 3 inputs
+        inputs[3].value = "";
+      }
     }
 
     // Add event listeners to all input fields
