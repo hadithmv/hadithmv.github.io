@@ -3064,6 +3064,98 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
 
   // =====================================================
 
+  // Direct Proportion Calculator functionality
+  const propContainer = document.querySelector(".proportion-container");
+  const addPropTabButton = document.getElementById("addPropTab");
+  const propNumberedTabs = document.querySelector(".prop-numbered-tabs");
+
+  if (propContainer && addPropTabButton && propNumberedTabs) {
+    let currentPropTab = 1;
+    let propTabs = [{ id: 1, content: propContainer.innerHTML }];
+
+    function updateProportions(set) {
+      const inputs = set.querySelectorAll(".prop-input");
+      const firstX = inputs[0].value || inputs[0].placeholder;
+      const firstY = inputs[1].value || inputs[1].placeholder;
+      const secondX = inputs[2].value || inputs[2].placeholder;
+
+      // Calculate k (constant of proportionality)
+      const k = firstY / firstX;
+
+      // Update second Y based on proportion
+      inputs[3].value = (secondX * k).toFixed(2);
+    }
+
+    // Add event listeners to all input fields
+    function setupInputListeners() {
+      document.querySelectorAll(".proportion-set").forEach((set) => {
+        set.querySelectorAll(".prop-input").forEach((input) => {
+          input.addEventListener("input", () => updateProportions(set));
+        });
+      });
+    }
+
+    // Add new proportion tab
+    addPropTabButton.addEventListener("click", () => {
+      const newTabId = propTabs.length + 1;
+      propTabs.push({ id: newTabId, content: propContainer.innerHTML });
+
+      const newTab = document.createElement("button");
+      newTab.classList.add("prop-numbered-tab");
+      newTab.dataset.tab = newTabId;
+      newTab.textContent = newTabId;
+
+      propNumberedTabs.insertBefore(newTab, addPropTabButton);
+      switchPropTab(newTabId);
+    });
+
+    // Switch between proportion tabs
+    propNumberedTabs.addEventListener("click", (e) => {
+      if (e.target.classList.contains("prop-numbered-tab")) {
+        const tabId = parseInt(e.target.dataset.tab);
+        switchPropTab(tabId);
+      }
+    });
+
+    function switchPropTab(tabId) {
+      propTabs[currentPropTab - 1].content = propContainer.innerHTML;
+      currentPropTab = tabId;
+      propContainer.innerHTML = propTabs[currentPropTab - 1].content;
+
+      document.querySelectorAll(".prop-numbered-tab").forEach((tab) => {
+        tab.classList.toggle("active", parseInt(tab.dataset.tab) === tabId);
+      });
+
+      setupInputListeners();
+    }
+
+    // Initialize input listeners
+    setupInputListeners();
+
+    // Load saved proportion content
+    const savedPropTabs = JSON.parse(localStorage.getItem("proportionTabs"));
+    if (savedPropTabs) {
+      propTabs = savedPropTabs;
+      propTabs.forEach((tab) => {
+        if (tab.id > 1) {
+          const newTab = document.createElement("button");
+          newTab.classList.add("prop-numbered-tab");
+          newTab.dataset.tab = tab.id;
+          newTab.textContent = tab.id;
+          propNumberedTabs.insertBefore(newTab, addPropTabButton);
+        }
+      });
+      switchPropTab(parseInt(localStorage.getItem("currentPropTab")) || 1);
+    }
+
+    // Save content periodically
+    setInterval(() => {
+      propTabs[currentPropTab - 1].content = propContainer.innerHTML;
+      localStorage.setItem("proportionTabs", JSON.stringify(propTabs));
+      localStorage.setItem("currentPropTab", currentPropTab);
+    }, 5000);
+  }
+
   // =====================================================
 
   // END
