@@ -947,6 +947,32 @@ document.addEventListener("DOMContentLoaded", () => {
         textArea.value = processedText;
         break;
 
+      //
+
+      // Then in your handleDropdownAction function:
+      case "removeNumberBrackets":
+        const removeNumberBracketMappings = {
+          round: ["(", ")"],
+          square: ["[", "]"],
+          superscript: ["⁽", "⁾"],
+          none: ["", ""],
+        };
+        const bracketTypeToRemove =
+          removeNumberBracketMappings[
+            document.getElementById("numberBracketRemove").value
+          ];
+
+        // Create regex to match numbers with the selected bracket style
+        const removeRegex = new RegExp(
+          `\\${bracketTypeToRemove[0]}\\d+\\${bracketTypeToRemove[1]}`,
+          "g"
+        );
+
+        // Remove the entire pattern (brackets and numbers)
+        textArea.value = textArea.value.replace(removeRegex, "");
+        updateStats();
+        break;
+
       // =====================================================
 
       // Add these cases to your handleDropdownAction function

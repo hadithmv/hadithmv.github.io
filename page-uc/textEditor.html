@@ -1464,6 +1464,29 @@
                     Apply
                   </button>
                 </div>
+
+                <hr class="dropdown-separator" />
+
+                <!-- New remove section -->
+                <div class="converter-options">
+                  <div class="option-group">
+                    <label>Remove brackets w No:</label>
+                    <select id="numberBracketRemove" class="converter-select">
+                      <option value="round" title="round">Round (1)</option>
+                      <option value="square" title="square">Square [1]</option>
+                      <option value="superscript" title="superscript">
+                        Superscript ⁽¹⁾
+                      </option>
+                    </select>
+                  </div>
+
+                  <button
+                    data-action="removeNumberBrackets"
+                    class="apply-button"
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -1781,6 +1804,9 @@
              REMOVE Prefix/Suffix 
              -->
 
+            <!-- !!!
+              📅 Days Since -->
+
             <button
               id="rmvNoOfCharsPerLine"
               class="function-button"
@@ -1857,6 +1883,8 @@
               class="buttonInput input2"
               style="width: 140px"
             ></textarea>
+
+            <!-- !!! regex mode -->
 
             <!--
             <input
