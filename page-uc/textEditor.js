@@ -2978,92 +2978,6 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
 
   // =====================================================
 
-  // Add after your existing event listeners
-
-  // Add a new state variable near the top of your code
-  let nightCalcMilitaryTime =
-    localStorage.getItem("nightCalcMilitaryTime") === "true";
-
-  // Night Calculator Functions
-  function calculateNightTimes() {
-    const maghribInput = document.getElementById("maghribTime");
-    const fajrInput = document.getElementById("fajrTime");
-
-    if (!maghribInput.value || !fajrInput.value) return;
-
-    // Convert input times to minutes since midnight
-    const maghribTime = timeToMinutes(maghribInput.value);
-    let fajrTime = timeToMinutes(fajrInput.value);
-
-    // If Fajr is before Maghrib, add 24 hours
-    if (fajrTime < maghribTime) {
-      fajrTime += 24 * 60;
-    }
-
-    // Calculate total night duration
-    const nightDuration = fajrTime - maghribTime;
-    // First third starts at Maghrib
-
-    // Calculate various times
-    const midnight = maghribTime + nightDuration / 2;
-    const secondThird = maghribTime + nightDuration / 3; // Start of second third
-    const lastThird = maghribTime + (2 * nightDuration) / 3; // Start of last third
-
-    // Update display
-    document.getElementById("midnightTime").textContent =
-      minutesToTime(midnight);
-    document.getElementById("secondThirdTime").textContent =
-      minutesToTime(secondThird);
-    document.getElementById("lastThirdTime").textContent =
-      minutesToTime(lastThird);
-  }
-
-  function timeToMinutes(timeString) {
-    const [hours, minutes] = timeString.split(":").map(Number);
-    return hours * 60 + minutes;
-  }
-
-  function minutesToTime(totalMinutes) {
-    totalMinutes = Math.round(totalMinutes);
-    // Handle overflow past midnight
-    totalMinutes = totalMinutes % (24 * 60);
-
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = totalMinutes % 60;
-
-    if (nightCalcMilitaryTime) {
-      // 24-hour format always shows leading zeros
-      return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
-        2,
-        "0"
-      )}`;
-    } else {
-      // 12-hour format without leading zeros for hours
-      const period = hours >= 12 ? "PM" : "AM";
-      const hours12 = hours % 12 || 12;
-      // Don't pad hours with zeros, but still pad minutes
-      return `${hours12}:${String(minutes).padStart(2, "0")} ${period}`;
-    }
-  }
-
-  // Add event listeners for the time inputs
-  document
-    .getElementById("maghribTime")
-    .addEventListener("change", calculateNightTimes);
-  document
-    .getElementById("fajrTime")
-    .addEventListener("change", calculateNightTimes);
-
-  document
-    .getElementById("toggleNightCalcFormat")
-    .addEventListener("click", () => {
-      nightCalcMilitaryTime = !nightCalcMilitaryTime;
-      localStorage.setItem("nightCalcMilitaryTime", nightCalcMilitaryTime);
-      calculateNightTimes(); // Recalculate to update display
-    });
-
-  // =====================================================
-
   // Direct Proportion Calculator functionality
   const propContainer = document.querySelector(".proportion-container");
   const addPropTabButton = document.getElementById("addPropTab");
@@ -3155,6 +3069,92 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       localStorage.setItem("currentPropTab", currentPropTab);
     }, 5000);
   }
+
+  // =====================================================
+
+  // Add after your existing event listeners
+
+  // Add a new state variable near the top of your code
+  let nightCalcMilitaryTime =
+    localStorage.getItem("nightCalcMilitaryTime") === "true";
+
+  // Night Calculator Functions
+  function calculateNightTimes() {
+    const maghribInput = document.getElementById("maghribTime");
+    const fajrInput = document.getElementById("fajrTime");
+
+    if (!maghribInput.value || !fajrInput.value) return;
+
+    // Convert input times to minutes since midnight
+    const maghribTime = timeToMinutes(maghribInput.value);
+    let fajrTime = timeToMinutes(fajrInput.value);
+
+    // If Fajr is before Maghrib, add 24 hours
+    if (fajrTime < maghribTime) {
+      fajrTime += 24 * 60;
+    }
+
+    // Calculate total night duration
+    const nightDuration = fajrTime - maghribTime;
+    // First third starts at Maghrib
+
+    // Calculate various times
+    const midnight = maghribTime + nightDuration / 2;
+    const secondThird = maghribTime + nightDuration / 3; // Start of second third
+    const lastThird = maghribTime + (2 * nightDuration) / 3; // Start of last third
+
+    // Update display
+    document.getElementById("midnightTime").textContent =
+      minutesToTime(midnight);
+    document.getElementById("secondThirdTime").textContent =
+      minutesToTime(secondThird);
+    document.getElementById("lastThirdTime").textContent =
+      minutesToTime(lastThird);
+  }
+
+  function timeToMinutes(timeString) {
+    const [hours, minutes] = timeString.split(":").map(Number);
+    return hours * 60 + minutes;
+  }
+
+  function minutesToTime(totalMinutes) {
+    totalMinutes = Math.round(totalMinutes);
+    // Handle overflow past midnight
+    totalMinutes = totalMinutes % (24 * 60);
+
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    if (nightCalcMilitaryTime) {
+      // 24-hour format always shows leading zeros
+      return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+        2,
+        "0"
+      )}`;
+    } else {
+      // 12-hour format without leading zeros for hours
+      const period = hours >= 12 ? "PM" : "AM";
+      const hours12 = hours % 12 || 12;
+      // Don't pad hours with zeros, but still pad minutes
+      return `${hours12}:${String(minutes).padStart(2, "0")} ${period}`;
+    }
+  }
+
+  // Add event listeners for the time inputs
+  document
+    .getElementById("maghribTime")
+    .addEventListener("change", calculateNightTimes);
+  document
+    .getElementById("fajrTime")
+    .addEventListener("change", calculateNightTimes);
+
+  document
+    .getElementById("toggleNightCalcFormat")
+    .addEventListener("click", () => {
+      nightCalcMilitaryTime = !nightCalcMilitaryTime;
+      localStorage.setItem("nightCalcMilitaryTime", nightCalcMilitaryTime);
+      calculateNightTimes(); // Recalculate to update display
+    });
 
   // =====================================================
 
