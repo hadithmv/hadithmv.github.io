@@ -3068,6 +3068,42 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       localStorage.setItem("proportionTabs", JSON.stringify(propTabs));
       localStorage.setItem("currentPropTab", currentPropTab);
     }, 5000);
+
+    // Add inside the if (propContainer && addPropTabButton && propNumberedTabs) block
+    const clearPropBtn = document.getElementById("clearProp");
+
+    clearPropBtn.addEventListener("click", () => {
+      // Clear all proportion sets
+      document.querySelectorAll(".proportion-set").forEach((set) => {
+        const inputs = set.querySelectorAll(".prop-input");
+        inputs.forEach((input, index) => {
+          if (index === 2) {
+            // Keep "1" only in the first input of the second row
+            input.value = "1";
+          } else {
+            input.value = "";
+          }
+        });
+      });
+
+      // Reset to single tab
+      propTabs = [{ id: 1, content: propContainer.innerHTML }];
+      currentPropTab = 1;
+
+      // Clear all tabs except the first one
+      const tabButtons =
+        propNumberedTabs.querySelectorAll(".prop-numbered-tab");
+      tabButtons.forEach((button) => {
+        if (button.dataset.tab !== "1") {
+          button.remove();
+        }
+      });
+
+      // Make sure first tab is active
+      tabButtons[0].classList.add("active");
+
+      showButtonFeedback(clearPropBtn, "Cleared");
+    });
   }
 
   // =====================================================
