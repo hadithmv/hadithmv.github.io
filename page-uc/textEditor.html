@@ -923,7 +923,8 @@
 
             <!--  -->
 
-            <!-- !!! why is this id even listener dependant? -->
+            <!-- !!! why is this id even listener dependant?
+             ? and what more functions are in the js that can be moved to case  -->
 
             <div class="dropdown-button">
               <button
@@ -1811,6 +1812,15 @@
             >
               Trnsltrt Ar → Dv
             </button>
+            <!--  -->
+
+            <button
+              id="numerateWords"
+              class="function-button"
+              title="Converts numbers to words on the first click, and does the reverse on the second"
+            >
+              No → Wrd
+            </button>
 
             <!-- -->
 
@@ -1868,6 +1878,8 @@
                       <input type="checkbox" id="seqReverse" /> Reverse order
                     </label>
                   </div>
+
+                  <!-- !!! maybe this shouldnt be here -->
 
                   <div class="option-group">
                     <label>Prefix:</label>
@@ -1959,28 +1971,44 @@
 
             <!--  -->
 
-            <button
-              id="numerateWords"
-              class="function-button"
-              title="Converts numbers to words on the first click, and does the reverse on the second"
-            >
-              No → Wrd
-            </button>
+            <div class="dropdown-button">
+              <button
+                class="function-button"
+                title="Repeats the text according to specified options"
+              >
+                Repeat Text 🔁
+              </button>
+              <div class="dropdown-content repeat-lines">
+                <div class="converter-options">
+                  <div class="option-group">
+                    <label>Number of repetitions:</label>
+                    <input
+                      type="number"
+                      id="repeatCount"
+                      class="converter-select"
+                      value="2"
+                      min="1"
+                      max="1000"
+                    />
+                  </div>
 
-            <button
-              id="repeatLines"
-              class="function-button"
-              title="Repeats the lines of text. Default is two times. Or the value you set in the input box next to this button after it has been clicked once"
-            >
-              Repeat Lines 🔁
-            </button>
-            <input
-              id="repeatInput"
-              type="number"
-              placeholder="Times?"
-              class="buttonInput"
-              style="display: none"
-            />
+                  <div class="option-group">
+                    <label>Separator:</label>
+                    <select id="repeatSeparator" class="converter-select">
+                      <option value="\n">Newline</option>
+                      <option value=", ">Comma</option>
+                      <option value=" ">Space</option>
+                    </select>
+                  </div>
+
+                  <button data-action="repeatText" class="apply-button">
+                    Apply
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!--  -->
 
             <button
               id="prefixSuffixToLine"
@@ -2088,7 +2116,8 @@
               style="width: 140px"
             ></textarea>
 
-            <!-- !!! regex mode -->
+            <!-- !!! regex mode 
+             ?aslo dropdown input-->
 
             <!--
             <input

@@ -1223,15 +1223,16 @@ document.addEventListener("DOMContentLoaded", () => {
       // =====================================================
 
       case "generateSequence": {
-        const min = parseInt(document.getElementById("seqMinInput").value) || 1;
-        const max =
+        let seqMin =
+          parseInt(document.getElementById("seqMinInput").value) || 1;
+        let seqMax =
           parseInt(document.getElementById("seqMaxInput").value) || 10;
 
-        // Swap if min > max
-        if (min > max) {
-          [min, max] = [max, min];
-          document.getElementById("seqMinInput").value = min;
-          document.getElementById("seqMaxInput").value = max;
+        // Swap if seqMin > seqMax
+        if (seqMin > seqMax) {
+          [seqMin, seqMax] = [seqMax, seqMin];
+          document.getElementById("seqMinInput").value = seqMin;
+          document.getElementById("seqMaxInput").value = seqMax;
         }
 
         // Generate sequence with options
@@ -1250,8 +1251,8 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         // Create sequence array
-        let sequence = Array.from({ length: max - min + 1 }, (_, i) => {
-          let num = min + i;
+        let sequence = Array.from({ length: seqMax - seqMin + 1 }, (_, i) => {
+          let num = seqMin + i;
           // Pad with zeros if enabled
           if (options.padStart) {
             num = String(num).padStart(options.padLength, "0");
@@ -1274,23 +1275,23 @@ document.addEventListener("DOMContentLoaded", () => {
       // =====================================================
 
       case "generateRandomNumber": {
-        const min =
+        let randMin =
           parseInt(document.getElementById("randNoMinInput").value) || 1;
-        const max =
+        let randMax =
           parseInt(document.getElementById("randNoMaxInput").value) || 10;
         const count =
           parseInt(document.getElementById("randNoCount").value) || 1;
         const unique = document.getElementById("randNoUnique").checked;
 
-        // Swap if min > max
-        if (min > max) {
-          [min, max] = [max, min];
-          document.getElementById("randNoMinInput").value = min;
-          document.getElementById("randNoMaxInput").value = max;
+        // Swap if randMin > randMax
+        if (randMin > randMax) {
+          [randMin, randMax] = [randMax, randMin];
+          document.getElementById("randNoMinInput").value = randMin;
+          document.getElementById("randNoMaxInput").value = randMax;
         }
 
         // Validate count for unique numbers
-        const possibleNumbers = max - min + 1;
+        const possibleNumbers = randMax - randMin + 1;
         let actualCount = count;
         if (unique && count > possibleNumbers) {
           actualCount = possibleNumbers;
@@ -1302,7 +1303,7 @@ document.addEventListener("DOMContentLoaded", () => {
           // Create array of all possible numbers and shuffle it
           const allNumbers = Array.from(
             { length: possibleNumbers },
-            (_, i) => min + i
+            (_, i) => randMin + i
           );
           for (let i = allNumbers.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -1312,11 +1313,31 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           // Generate random numbers without uniqueness constraint
           for (let i = 0; i < actualCount; i++) {
-            numbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
+            numbers.push(
+              Math.floor(Math.random() * (randMax - randMin + 1)) + randMin
+            );
           }
         }
 
         textArea.value = numbers.join("\n");
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+
+      // =====================================================
+
+      case "repeatText": {
+        const count =
+          parseInt(document.getElementById("repeatCount").value) || 2;
+        const separator =
+          document.getElementById("repeatSeparator").value === "\\n"
+            ? "\n"
+            : document.getElementById("repeatSeparator").value;
+
+        const originalText = textArea.value;
+        textArea.value = Array(count).fill(originalText).join(separator);
+
         updateStats();
         closeAllDropdowns();
         break;
@@ -2433,26 +2454,6 @@ i want one more space after the colon that comes after the issue description
     return wordsToNumbers[word] || word;
   }
 
-  //
-
-  /*
-when the button is first clicked, show an input boxes saying "How many?" placeholder, which lets the user input a number, after which, further clicks on the button will repeat the lines of text according to the number given in the input
-the input boxes should not show before the button has been clicked
-  */
-  const repeatInput = document.getElementById("repeatInput");
-
-  // New Repeat Lines functionality
-  document.getElementById("repeatLines").addEventListener("click", () => {
-    if (repeatInput.style.display === "none") {
-      repeatInput.style.display = "inline-block";
-      //repeatInput.value = "2";
-    } else {
-      const repeatCount = parseInt(repeatInput.value) || 1;
-      const originalText = textArea.value;
-      textArea.value = Array(repeatCount).fill(originalText).join("\n");
-      updateStats();
-    }
-  });
   //
 
   /*
