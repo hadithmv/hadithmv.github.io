@@ -540,7 +540,6 @@
 
             <div class="dropdown-button">
               <button
-                id="numeralConverter"
                 class="function-button"
                 title="Convert between different numeral systems"
               >
@@ -656,7 +655,6 @@
 
             <div class="dropdown-button">
               <button
-                id="diacriticOptions"
                 class="function-button"
                 title="Fili and Diacritic  options"
               >
@@ -691,11 +689,7 @@
             <!--  -->
 
             <div class="dropdown-button">
-              <button
-                id="fileOperations"
-                class="function-button"
-                title="Save or load files"
-              >
+              <button class="function-button" title="Save or load files">
                 File Ops 📁
               </button>
               <div class="dropdown-content">
@@ -727,11 +721,7 @@
             <!--  -->
 
             <div class="dropdown-button">
-              <button
-                id="caseOptions"
-                class="function-button"
-                title="Change text case options"
-              >
+              <button class="function-button" title="Change text case options">
                 Case 🔠
               </button>
               <div class="dropdown-content">
@@ -758,11 +748,7 @@
             <!--  -->
 
             <div class="dropdown-button">
-              <button
-                id="textManipulation"
-                class="function-button"
-                title="Text manipulation options"
-              >
+              <button class="function-button" title="Text manipulation options">
                 Line Ops 📌
               </button>
               <div class="dropdown-content">
@@ -887,7 +873,6 @@
 
             <div class="dropdown-button">
               <button
-                id="spaceLineControl"
                 class="function-button"
                 title="Space and line control options"
               >
@@ -940,6 +925,8 @@
             </div>
 
             <!--  -->
+
+            <!-- !!! why is this id even listener dependant? -->
 
             <div class="dropdown-button">
               <button
@@ -1061,7 +1048,6 @@
 
             <div class="dropdown-button">
               <button
-                id="bracketConverter"
                 class="function-button"
                 title="Convert between different bracket styles"
               >
@@ -1121,7 +1107,6 @@
 
             <div class="dropdown-button">
               <button
-                id="dotsToEllipsis"
                 class="function-button"
                 title="Convert between dots and ellipsis"
               >
@@ -1147,7 +1132,6 @@
 
             <div class="dropdown-button">
               <button
-                id="dashConverter"
                 class="function-button"
                 title="Convert between different dash styles"
               >
@@ -1184,7 +1168,6 @@
 
             <div class="dropdown-button">
               <button
-                id="languageFilter"
                 class="function-button"
                 title="Language filtering options"
               >
@@ -1250,7 +1233,6 @@
 
             <div class="dropdown-button">
               <button
-                id="passwordGenerator"
                 class="function-button"
                 title="Generate random passwords with custom options"
               >
@@ -1311,11 +1293,7 @@
             <!--  -->
 
             <div class="dropdown-button">
-              <button
-                id="htmlConversions"
-                class="function-button"
-                title="HTML conversion options"
-              >
+              <button class="function-button" title="HTML conversion options">
                 HTML Conv ✍
               </button>
               <div class="dropdown-content">
@@ -1361,11 +1339,7 @@
             <!--  -->
 
             <div class="dropdown-button">
-              <button
-                id="decodeOptions"
-                class="function-button"
-                title="Decode/Encode options"
-              >
+              <button class="function-button" title="Decode/Encode options">
                 Decode/Encode 🕹️
               </button>
 
@@ -1414,11 +1388,7 @@
             <!--  -->
 
             <div class="dropdown-button">
-              <button
-                id="removeComments"
-                class="function-button"
-                title="Remove comments from code"
-              >
+              <button class="function-button" title="Remove comments from code">
                 Rmv Comments 📝
               </button>
               <div class="dropdown-content">
@@ -1559,7 +1529,6 @@
 
             <div class="dropdown-button">
               <button
-                id="numberBracketConverter"
                 class="function-button"
                 title="Convert between different number bracket styles"
               >
@@ -1637,7 +1606,6 @@
 
             <div class="dropdown-button">
               <button
-                id="arabicDiacritics"
                 class="function-button"
                 title="Arabic diacritics and marks options"
               >
@@ -1745,7 +1713,6 @@
 
             <div class="dropdown-button">
               <button
-                id="punctuationConverter"
                 class="function-button"
                 title="Convert between different punctuation marks"
               >
@@ -1786,7 +1753,6 @@
 
             <div class="dropdown-button">
               <button
-                id="rtlPunctuationConverter"
                 class="function-button"
                 title="Convert between RTL and LTR punctuation marks"
               >
@@ -1845,27 +1811,47 @@
 
             <!-- -->
 
-            <button
-              id="generateNumSequence"
-              class="function-button"
-              title="Generates a sequence of numbers. Default is 1 - 10. But you can set a min and max range in the input boxes shown after the initial click "
-            >
-              Gen Num Seq 🔢
-            </button>
-            <input
-              id="seqMinInput"
-              type="number"
-              placeholder="Min"
-              class="buttonInput input1"
-              style="display: none"
-            />
-            <input
-              id="seqMaxInput"
-              type="number"
-              placeholder="Max"
-              class="buttonInput input2"
-              style="display: none"
-            />
+            <div class="dropdown-button">
+              <button
+                class="function-button"
+                title="Generate a sequence of numbers with custom range"
+              >
+                Gen Num Seq 🔢
+              </button>
+              <div class="dropdown-content number-sequence">
+                <div class="converter-options">
+                  <div class="option-group">
+                    <label>Minimum number:</label>
+                    <input
+                      type="number"
+                      id="seqMinInput"
+                      class="converter-select"
+                      value="1"
+                      min="-999999"
+                      max="999999"
+                    />
+                  </div>
+
+                  <div class="option-group">
+                    <label>Maximum number:</label>
+                    <input
+                      type="number"
+                      id="seqMaxInput"
+                      class="converter-select"
+                      value="10"
+                      min="-999999"
+                      max="999999"
+                    />
+                  </div>
+
+                  <button data-action="generateSequence" class="apply-button">
+                    Generate
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!--  -->
 
             <button
               id="randomNum"

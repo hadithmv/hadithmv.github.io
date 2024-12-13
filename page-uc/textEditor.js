@@ -1222,6 +1222,53 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
+      case "generateSequence": {
+        const min = parseInt(document.getElementById("seqMinInput").value) || 1;
+        const max =
+          parseInt(document.getElementById("seqMaxInput").value) || 10;
+
+        // Swap if min > max
+        if (min > max) {
+          [min, max] = [max, min];
+          document.getElementById("seqMinInput").value = min;
+          document.getElementById("seqMaxInput").value = max;
+        }
+
+        // Generate sequence with options
+        const options = {
+          padStart: document.getElementById("seqPadStart")?.checked || false,
+          padLength:
+            parseInt(document.getElementById("seqPadLength")?.value) || 1,
+          separator: document.getElementById("seqSeparator")?.value || "\n",
+          reverse: document.getElementById("seqReverse")?.checked || false,
+          prefix: document.getElementById("seqPrefix")?.value || "",
+          suffix: document.getElementById("seqSuffix")?.value || "",
+        };
+
+        // Create sequence array
+        let sequence = Array.from({ length: max - min + 1 }, (_, i) => {
+          let num = min + i;
+          // Pad with zeros if enabled
+          if (options.padStart) {
+            num = String(num).padStart(options.padLength, "0");
+          }
+          return `${options.prefix}${num}${options.suffix}`;
+        });
+
+        // Reverse if enabled
+        if (options.reverse) {
+          sequence.reverse();
+        }
+
+        // Join with selected separator
+        textArea.value = sequence.join(options.separator);
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+
+      // =====================================================
+
       case "convertSalawat":
         const salawatMappings = {
           plain: "صلى الله عليه وسلم",
@@ -2209,59 +2256,6 @@ i want one more space after the colon that comes after the issue description
                 z: "2",
               };
               */
-  //
-
-  const seqMinInput = document.getElementById("seqMinInput");
-  const seqMaxInput = document.getElementById("seqMaxInput");
-
-  let seqMin = 1;
-  let seqMax = 10;
-
-  function generateSequence(min, max) {
-    let sequence = "";
-    for (let i = min; i <= max; i++) {
-      sequence += i + "\n";
-    }
-    return sequence.trim();
-  }
-
-  document
-    .getElementById("generateNumSequence")
-    .addEventListener("click", () => {
-      if (seqMinInput.style.display === "none") {
-        // First click: show input fields and generate sequence
-        seqMinInput.style.display = "inline-block";
-        seqMaxInput.style.display = "inline-block";
-        seqMinInput.value = seqMin;
-        //seqMaxInput.value = seqMax;
-      } else {
-        // Subsequent clicks: update range from input fields
-        seqMin = parseInt(seqMinInput.value);
-        seqMax = parseInt(seqMaxInput.value);
-
-        // Check if inputs are valid numbers
-        if (isNaN(seqMin)) seqMin = 0;
-        if (isNaN(seqMax)) seqMax = 10;
-
-        if (seqMin > seqMax) {
-          [seqMin, seqMax] = [seqMax, seqMin]; // Swap if min > max
-          seqMinInput.value = seqMin;
-          seqMaxInput.value = seqMax;
-        }
-      }
-      // Generate and display sequence
-      textArea.value = generateSequence(seqMin, seqMax);
-    });
-
-  // Update range when input values change
-  seqMinInput.addEventListener("change", () => {
-    seqMin = parseInt(seqMinInput.value);
-    if (isNaN(seqMin)) seqMin = 0;
-  });
-  seqMaxInput.addEventListener("change", () => {
-    seqMax = parseInt(seqMaxInput.value);
-    if (isNaN(seqMax)) seqMax = 10;
-  });
   //
 
   /* generate a random number up to ten when the button is first clicked, also clicking this button should show two input boxes saying max and min respectively as placeholders, which lets the user input a custom range of values, within which, further clicks on the button will generate random numbers within the range of those given input numbers
