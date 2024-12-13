@@ -58,6 +58,10 @@
           padding: 15px;
           padding-bottom: 0;
         }
+
+        .tab-content {
+          padding: 0.5rem;
+        }
       }
 
       /* CSS styles will be added here */
@@ -271,7 +275,7 @@
       }
 
       /* Add media query for smaller screens */
-      @media (max-width: 768px) {
+      @media (max-width: 599px) {
         .dropdown-content {
           right: auto; /* Reset right alignment */
           left: 50%; /* Center horizontally */
@@ -373,7 +377,7 @@
         color: blue;
       }
 
-      @media (max-width: 768px) {
+      @media (max-width: 599px) {
         .edit-controls {
           flex-direction: column;
         }
@@ -2575,7 +2579,7 @@ i also need a clear button that below the direct quantity proportion calculator,
             }
 
             /* Mobile responsiveness */
-            @media (max-width: 768px) {
+            @media (max-width: 599px) {
               .proportion-row {
                 grid-template-columns: 2.5rem 4rem 2.5rem 4rem 1rem;
                 gap: 0.25rem;
@@ -2880,9 +2884,7 @@ shown in am pm, with a button that switches between 12 and 24 hour format
                  -->
 
           <h4>🔒 Text Encryption and Decryption</h4>
-          <p>(AES 256-GCM & PBKDF2)</p>
-
-          <br />
+          <p>(Uses AES 256-GCM & PBKDF2)</p>
 
           <style>
             .crypt-container {
@@ -2892,16 +2894,13 @@ shown in am pm, with a button that switches between 12 and 24 hour format
               width: 100%;
               box-sizing: border-box;
               margin: 0 auto;
+              margin-top: 5px;
             }
 
-            @media (max-width: 768px) {
+            @media (max-width: 599px) {
               .crypt-container {
                 grid-template-columns: minmax(0, 1fr);
                 gap: 1rem;
-              }
-
-              .tab-content {
-                padding: 0.5rem;
               }
             }
 
@@ -2938,20 +2937,20 @@ shown in am pm, with a button that switches between 12 and 24 hour format
               padding: 0.75rem;
               border: 1px solid var(--textarea-border);
               border-radius: 4px;
-              font-size: 0.7rem;
+              font-size: 0.75rem;
               background-color: var(--textarea-bg);
               color: var(--textarea-text);
               box-sizing: border-box;
             }
 
             .crypt-button {
-              padding: 0.75rem 1.5rem;
+              /* padding: 0.75rem 1.5rem; */
               background-color: var(--button-bg);
               color: var(--button-text);
               border: 1px solid var(--button-border);
               border-radius: 4px;
               cursor: pointer;
-              font-size: 1rem;
+              /* font-size: 1rem; */
             }
 
             .crypt-button:hover {
@@ -2983,7 +2982,7 @@ shown in am pm, with a button that switches between 12 and 24 hour format
               line-height: 1.5;
             }
 
-            .copy-button {
+            .crypt-copy-button {
               align-self: flex-end;
               padding: 0.5rem 1rem;
               background-color: var(--button-bg);
@@ -2991,12 +2990,18 @@ shown in am pm, with a button that switches between 12 and 24 hour format
               border: 1px solid var(--button-border);
               border-radius: 4px;
               cursor: pointer;
-              font-size: 0.9rem;
+              /* font-size: 0.9rem; */
             }
 
-            .copy-button:hover {
+            .crypt-copy-button:hover {
               background-color: var(--button-hover);
               color: var(--button-hover-text);
+            }
+
+            .crypt-button,
+            .crypt-copy-button {
+              flex: 0.65;
+              font-size: 0.9rem;
             }
 
             /* .crypt-textarea::placeholder {
@@ -3017,7 +3022,7 @@ shown in am pm, with a button that switches between 12 and 24 hour format
               <h4>Encrypt Text</h4>
               <p class="instructions">
                 1. Enter text to encrypt below<br />
-                2. Enter a password in the password field<br />
+                2. Enter an optional password<br />
                 3. Click "Encrypt" to generate encrypted text
               </p>
               <textarea
@@ -3029,7 +3034,7 @@ shown in am pm, with a button that switches between 12 and 24 hour format
                 <input
                   type="password"
                   id="encryptPassword"
-                  placeholder="Enter password (optional)"
+                  placeholder="Enter password"
                 />
                 <button id="encryptButton" class="crypt-button">Encrypt</button>
               </div>
@@ -3040,7 +3045,9 @@ shown in am pm, with a button that switches between 12 and 24 hour format
                   readonly
                   placeholder="Encrypted text will appear here..."
                 ></textarea>
-                <button id="copyEncrypted" class="copy-button">Copy 📋</button>
+                <button id="copyEncrypted" class="crypt-copy-button">
+                  Copy 📋
+                </button>
               </div>
             </div>
 
@@ -3060,7 +3067,7 @@ shown in am pm, with a button that switches between 12 and 24 hour format
                 <input
                   type="password"
                   id="decryptPassword"
-                  placeholder="Enter password (optional)"
+                  placeholder="Enter password"
                 />
                 <button id="decryptButton" class="crypt-button">Decrypt</button>
               </div>
@@ -3071,7 +3078,9 @@ shown in am pm, with a button that switches between 12 and 24 hour format
                   readonly
                   placeholder="Decrypted text will appear here..."
                 ></textarea>
-                <button id="copyDecrypted" class="copy-button">Copy 📋</button>
+                <button id="copyDecrypted" class="crypt-copy-button">
+                  Copy 📋
+                </button>
               </div>
             </div>
           </div>
@@ -3336,7 +3345,7 @@ claude:
             cursor: pointer;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 599px) {
             .edit-controls {
                 flex-direction: column;
             }
