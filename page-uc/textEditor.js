@@ -3252,7 +3252,7 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
 
   // =====================================================
 
-  // Add these utility functions at the top of your file
+  // Utility functions remain the same
   const buff_to_base64 = (buff) =>
     btoa(
       new Uint8Array(buff).reduce(
@@ -3267,16 +3267,17 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   const enc = new TextEncoder();
   const dec = new TextDecoder();
 
-  // Add these crypto helper functions
+  // Modified to handle empty password
   const getPasswordKey = (password) =>
     window.crypto.subtle.importKey(
       "raw",
-      enc.encode(password),
+      enc.encode(password || "empty"), // Use 'empty' as default password
       "PBKDF2",
       false,
       ["deriveKey"]
     );
 
+  // Rest of the helper functions remain the same
   const deriveKey = (passwordKey, salt, keyUsage) =>
     window.crypto.subtle.deriveKey(
       {
@@ -3291,8 +3292,12 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       keyUsage
     );
 
-  // Main encryption function
+  // Modified encryption function
   async function encryptData(secretData, password) {
+    if (!secretData) {
+      throw new Error("No data to encrypt");
+    }
+
     try {
       const salt = window.crypto.getRandomValues(new Uint8Array(16));
       const iv = window.crypto.getRandomValues(new Uint8Array(12));
@@ -3322,8 +3327,12 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     }
   }
 
-  // Main decryption function
+  // Modified decryption function
   async function decryptData(encryptedData, password) {
+    if (!encryptedData) {
+      throw new Error("No data to decrypt");
+    }
+
     try {
       const encryptedDataBuff = base64_to_buf(encryptedData);
       const salt = encryptedDataBuff.slice(0, 16);
@@ -3348,7 +3357,6 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
 
   //
 
-  // Encryption/Decryption functionality
   const encryptButton = document.getElementById("encryptButton");
   const decryptButton = document.getElementById("decryptButton");
   const copyEncrypted = document.getElementById("copyEncrypted");
@@ -3357,10 +3365,10 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   if (encryptButton) {
     encryptButton.addEventListener("click", async () => {
       const text = document.getElementById("textToEncrypt").value;
-      const password = document.getElementById("encryptPassword").value;
+      const password = document.getElementById("encryptPassword").value; // Can be empty now
 
-      if (!text || !password) {
-        showButtonFeedback(encryptButton, "Please fill all fields");
+      if (!text) {
+        showButtonFeedback(encryptButton, "Please enter text to encrypt");
         return;
       }
 
@@ -3378,10 +3386,10 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   if (decryptButton) {
     decryptButton.addEventListener("click", async () => {
       const text = document.getElementById("textToDecrypt").value;
-      const password = document.getElementById("decryptPassword").value;
+      const password = document.getElementById("decryptPassword").value; // Can be empty now
 
-      if (!text || !password) {
-        showButtonFeedback(decryptButton, "Please fill all fields");
+      if (!text) {
+        showButtonFeedback(decryptButton, "Please enter text to decrypt");
         return;
       }
 
@@ -3393,11 +3401,12 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       } catch (error) {
         console.error("Decryption failed:", error);
         showButtonFeedback(decryptButton, "Decryption failed");
+        document.getElementById("decryptedText").value = "Decryption failed";
       }
     });
   }
 
-  // Copy buttons
+  // Copy buttons remain the same
   if (copyEncrypted) {
     copyEncrypted.addEventListener("click", () => {
       const text = document.getElementById("encryptedText").value;
