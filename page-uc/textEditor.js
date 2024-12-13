@@ -1269,6 +1269,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
+      case "generateRandomNumber": {
+        const min =
+          parseInt(document.getElementById("randNoMinInput").value) || 1;
+        const max =
+          parseInt(document.getElementById("randNoMaxInput").value) || 10;
+        const count =
+          parseInt(document.getElementById("randNoCount").value) || 1;
+        const unique = document.getElementById("randNoUnique").checked;
+
+        // Swap if min > max
+        if (min > max) {
+          [min, max] = [max, min];
+          document.getElementById("randNoMinInput").value = min;
+          document.getElementById("randNoMaxInput").value = max;
+        }
+
+        // Validate count for unique numbers
+        const possibleNumbers = max - min + 1;
+        let actualCount = count;
+        if (unique && count > possibleNumbers) {
+          actualCount = possibleNumbers;
+        }
+
+        // Generate random numbers
+        let numbers = [];
+        if (unique) {
+          // Create array of all possible numbers and shuffle it
+          const allNumbers = Array.from(
+            { length: possibleNumbers },
+            (_, i) => min + i
+          );
+          for (let i = allNumbers.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [allNumbers[i], allNumbers[j]] = [allNumbers[j], allNumbers[i]];
+          }
+          numbers = allNumbers.slice(0, actualCount);
+        } else {
+          // Generate random numbers without uniqueness constraint
+          for (let i = 0; i < actualCount; i++) {
+            numbers.push(Math.floor(Math.random() * (max - min + 1)) + min);
+          }
+        }
+
+        textArea.value = numbers.join("\n");
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+
+      // =====================================================
+
       case "convertSalawat":
         const salawatMappings = {
           plain: "صلى الله عليه وسلم",
