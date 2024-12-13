@@ -3252,5 +3252,173 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
 
   // =====================================================
 
+  // Add these utility functions at the top of your file
+  const buff_to_base64 = (buff) =>
+    btoa(
+      new Uint8Array(buff).reduce(
+        (data, byte) => data + String.fromCharCode(byte),
+        ""
+      )
+    );
+
+  const base64_to_buf = (b64) =>
+    Uint8Array.from(atob(b64), (c) => c.charCodeAt(null));
+
+  const enc = new TextEncoder();
+  const dec = new TextDecoder();
+
+  // Add these crypto helper functions
+  const getPasswordKey = (password) =>
+    window.crypto.subtle.importKey(
+      "raw",
+      enc.encode(password),
+      "PBKDF2",
+      false,
+      ["deriveKey"]
+    );
+
+  const deriveKey = (passwordKey, salt, keyUsage) =>
+    window.crypto.subtle.deriveKey(
+      {
+        name: "PBKDF2",
+        salt: salt,
+        iterations: 250000,
+        hash: "SHA-256",
+      },
+      passwordKey,
+      { name: "AES-GCM", length: 256 },
+      false,
+      keyUsage
+    );
+
+  // Main encryption function
+  async function encryptData(secretData, password) {
+    try {
+      const salt = window.crypto.getRandomValues(new Uint8Array(16));
+      const iv = window.crypto.getRandomValues(new Uint8Array(12));
+      const passwordKey = await getPasswordKey(password);
+      const aesKey = await deriveKey(passwordKey, salt, ["encrypt"]);
+      const encryptedContent = await window.crypto.subtle.encrypt(
+        {
+          name: "AES-GCM",
+          iv: iv,
+        },
+        aesKey,
+        enc.encode(secretData)
+      );
+
+      const encryptedContentArr = new Uint8Array(encryptedContent);
+      let buff = new Uint8Array(
+        salt.byteLength + iv.byteLength + encryptedContentArr.byteLength
+      );
+      buff.set(salt, 0);
+      buff.set(iv, salt.byteLength);
+      buff.set(encryptedContentArr, salt.byteLength + iv.byteLength);
+      const base64Buff = buff_to_base64(buff);
+      return base64Buff;
+    } catch (e) {
+      console.error(`Encryption error: ${e}`);
+      throw e;
+    }
+  }
+
+  // Main decryption function
+  async function decryptData(encryptedData, password) {
+    try {
+      const encryptedDataBuff = base64_to_buf(encryptedData);
+      const salt = encryptedDataBuff.slice(0, 16);
+      const iv = encryptedDataBuff.slice(16, 16 + 12);
+      const data = encryptedDataBuff.slice(16 + 12);
+      const passwordKey = await getPasswordKey(password);
+      const aesKey = await deriveKey(passwordKey, salt, ["decrypt"]);
+      const decryptedContent = await window.crypto.subtle.decrypt(
+        {
+          name: "AES-GCM",
+          iv: iv,
+        },
+        aesKey,
+        data
+      );
+      return dec.decode(decryptedContent);
+    } catch (e) {
+      console.error(`Decryption error: ${e}`);
+      throw e;
+    }
+  }
+
+  //
+
+  // Encryption/Decryption functionality
+  const encryptButton = document.getElementById("encryptButton");
+  const decryptButton = document.getElementById("decryptButton");
+  const copyEncrypted = document.getElementById("copyEncrypted");
+  const copyDecrypted = document.getElementById("copyDecrypted");
+
+  if (encryptButton) {
+    encryptButton.addEventListener("click", async () => {
+      const text = document.getElementById("textToEncrypt").value;
+      const password = document.getElementById("encryptPassword").value;
+
+      if (!text || !password) {
+        showButtonFeedback(encryptButton, "Please fill all fields");
+        return;
+      }
+
+      try {
+        const encrypted = await encryptData(text, password);
+        document.getElementById("encryptedText").value = encrypted;
+        showButtonFeedback(encryptButton, "Encrypted");
+      } catch (error) {
+        console.error("Encryption failed:", error);
+        showButtonFeedback(encryptButton, "Encryption failed");
+      }
+    });
+  }
+
+  if (decryptButton) {
+    decryptButton.addEventListener("click", async () => {
+      const text = document.getElementById("textToDecrypt").value;
+      const password = document.getElementById("decryptPassword").value;
+
+      if (!text || !password) {
+        showButtonFeedback(decryptButton, "Please fill all fields");
+        return;
+      }
+
+      try {
+        const decrypted = await decryptData(text, password);
+        document.getElementById("decryptedText").value =
+          decrypted || "Decryption failed";
+        showButtonFeedback(decryptButton, decrypted ? "Decrypted" : "Failed");
+      } catch (error) {
+        console.error("Decryption failed:", error);
+        showButtonFeedback(decryptButton, "Decryption failed");
+      }
+    });
+  }
+
+  // Copy buttons
+  if (copyEncrypted) {
+    copyEncrypted.addEventListener("click", () => {
+      const text = document.getElementById("encryptedText").value;
+      if (text) {
+        navigator.clipboard.writeText(text);
+        showButtonFeedback(copyEncrypted, "Copied");
+      }
+    });
+  }
+
+  if (copyDecrypted) {
+    copyDecrypted.addEventListener("click", () => {
+      const text = document.getElementById("decryptedText").value;
+      if (text) {
+        navigator.clipboard.writeText(text);
+        showButtonFeedback(copyDecrypted, "Copied");
+      }
+    });
+  }
+
+  // =====================================================
+
   // END
 }); // document.addEventListener("DOMContentLoaded", () => {
