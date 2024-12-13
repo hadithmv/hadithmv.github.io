@@ -2943,14 +2943,69 @@ shown in am pm, with a button that switches between 12 and 24 hour format
               box-sizing: border-box;
             }
 
+            /* Tab System Styles */
+            .crypt-tabs {
+              display: flex;
+              gap: 0.5rem;
+              margin-bottom: 1rem;
+            }
+
+            .crypt-tab {
+              padding: 0.5rem 1rem;
+              background: var(--button-bg);
+              border: 1px solid var(--button-border);
+              border-radius: 4px;
+              color: var(--button-text);
+              cursor: pointer;
+              font-size: 0.9rem;
+            }
+
+            .crypt-tab.active {
+              background: var(--button-hover);
+              color: var(--button-hover-text);
+            }
+
+            .crypt-panel {
+              display: none;
+            }
+
+            .crypt-panel.active {
+              display: block;
+            }
+
+            /* File Input Styles */
+            .file-input-container {
+              width: 100%;
+            }
+
+            .file-input {
+              display: none;
+            }
+
+            .file-label {
+              display: block;
+              padding: 0.75rem;
+              background: var(--textarea-bg);
+              border: 1px solid var(--textarea-border);
+              border-radius: 4px;
+              color: var(--textarea-text);
+              text-align: center;
+              cursor: pointer;
+              font-size: 0.9rem;
+            }
+
+            .file-label:hover {
+              background: var(--button-hover);
+              color: var(--button-hover-text);
+            }
+
+            /* Button Styles */
             .crypt-button {
-              /* padding: 0.75rem 1.5rem; */
               background-color: var(--button-bg);
               color: var(--button-text);
               border: 1px solid var(--button-border);
               border-radius: 4px;
               cursor: pointer;
-              /* font-size: 1rem; */
             }
 
             .crypt-button:hover {
@@ -2978,7 +3033,6 @@ shown in am pm, with a button that switches between 12 and 24 hour format
               color: var(--textarea-text);
               font-family: inherit;
               box-sizing: border-box;
-              /*  */
               line-height: 1.5;
             }
 
@@ -2990,7 +3044,6 @@ shown in am pm, with a button that switches between 12 and 24 hour format
               border: 1px solid var(--button-border);
               border-radius: 4px;
               cursor: pointer;
-              /* font-size: 0.9rem; */
             }
 
             .crypt-copy-button:hover {
@@ -3015,79 +3068,128 @@ shown in am pm, with a button that switches between 12 and 24 hour format
               outline: none;
               border-color: var(--button-hover);
             } */
+
+            /*  */
+
+            /* CSS styles for drag and drop support: */
+
+            .file-label.dragover {
+              background: var(--button-hover);
+              color: var(--button-hover-text);
+              border-style: dashed;
+            }
+
+            /* Add loading state styles */
+            .crypt-button.loading {
+              position: relative;
+              pointer-events: none;
+              opacity: 0.8;
+            }
+
+            .crypt-button.loading::after {
+              content: "";
+              position: absolute;
+              width: 1em;
+              height: 1em;
+              border: 2px solid transparent;
+              border-top-color: currentColor;
+              border-radius: 50%;
+              animation: button-loading 0.8s linear infinite;
+              right: 0.5rem;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+
+            @keyframes button-loading {
+              to {
+                transform: translateY(-50%) rotate(360deg);
+              }
+            }
           </style>
 
-          <div class="crypt-container">
-            <div class="crypt-section">
-              <h4>Encrypt Text</h4>
-              <p class="instructions">
-                1. Enter text to encrypt below<br />
-                2. Enter an optional password<br />
-                3. Click "Encrypt" to generate encrypted text
-              </p>
-              <textarea
-                id="textToEncrypt"
-                class="crypt-textarea"
-                placeholder="Enter text to encrypt..."
-              ></textarea>
-              <div class="password-container">
-                <input
-                  type="password"
-                  id="encryptPassword"
-                  placeholder="Enter password"
-                />
-                <button id="encryptButton" class="crypt-button">Encrypt</button>
-              </div>
-              <div class="result-container">
-                <textarea
-                  id="encryptedText"
-                  class="crypt-textarea"
-                  readonly
-                  placeholder="Encrypted text will appear here..."
-                ></textarea>
-                <button id="copyEncrypted" class="crypt-copy-button">
-                  Copy 📋
-                </button>
-              </div>
-            </div>
-
-            <div class="crypt-section">
-              <h4>Decrypt Text</h4>
-              <p class="instructions">
-                1. Paste encrypted text below<br />
-                2. Enter the same password used for encryption<br />
-                3. Click "Decrypt" to reveal original text
-              </p>
-              <textarea
-                id="textToDecrypt"
-                class="crypt-textarea"
-                placeholder="Enter encrypted text..."
-              ></textarea>
-              <div class="password-container">
-                <input
-                  type="password"
-                  id="decryptPassword"
-                  placeholder="Enter password"
-                />
-                <button id="decryptButton" class="crypt-button">Decrypt</button>
-              </div>
-              <div class="result-container">
-                <textarea
-                  id="decryptedText"
-                  class="crypt-textarea"
-                  readonly
-                  placeholder="Decrypted text will appear here..."
-                ></textarea>
-                <button id="copyDecrypted" class="crypt-copy-button">
-                  Copy 📋
-                </button>
-              </div>
-            </div>
+          <div class="crypt-tabs">
+            <button class="crypt-tab active" data-crypttab="text">Text</button>
+            <button class="crypt-tab" data-crypttab="file">File</button>
           </div>
 
-          <hr />
+          <div class="crypt-content">
+            <!-- Text encryption/decryption (your existing content) -->
+            <div id="textCrypt" class="crypt-panel active">
+              <div class="crypt-container">
+                <div class="crypt-section">
+                  <h4>Encrypt Text</h4>
+                  <p class="instructions">
+                    1. Enter text to encrypt below<br />
+                    2. Enter an optional password<br />
+                    3. Click "Encrypt" to generate encrypted text
+                  </p>
+                  <textarea
+                    id="textToEncrypt"
+                    class="crypt-textarea"
+                    placeholder="Enter text to encrypt..."
+                  ></textarea>
+                  <div class="password-container">
+                    <input
+                      type="password"
+                      id="encryptPassword"
+                      placeholder="Enter password"
+                    />
+                    <button id="encryptButton" class="crypt-button">
+                      Encrypt
+                    </button>
+                  </div>
+                  <div class="result-container">
+                    <textarea
+                      id="encryptedText"
+                      class="crypt-textarea"
+                      readonly
+                      placeholder="Encrypted text will appear here..."
+                    ></textarea>
+                    <button id="copyEncrypted" class="crypt-copy-button">
+                      Copy 📋
+                    </button>
+                  </div>
+                </div>
 
-          <!-- 
+                <div class="crypt-section">
+                  <h4>Decrypt Text</h4>
+                  <p class="instructions">
+                    1. Paste encrypted text below<br />
+                    2. Enter the same password used for encryption<br />
+                    3. Click "Decrypt" to reveal original text
+                  </p>
+                  <textarea
+                    id="textToDecrypt"
+                    class="crypt-textarea"
+                    placeholder="Enter encrypted text..."
+                  ></textarea>
+                  <div class="password-container">
+                    <input
+                      type="password"
+                      id="decryptPassword"
+                      placeholder="Enter password"
+                    />
+                    <button id="decryptButton" class="crypt-button">
+                      Decrypt
+                    </button>
+                  </div>
+                  <div class="result-container">
+                    <textarea
+                      id="decryptedText"
+                      class="crypt-textarea"
+                      readonly
+                      placeholder="Decrypted text will appear here..."
+                    ></textarea>
+                    <button id="copyDecrypted" class="crypt-copy-button">
+                      Copy 📋
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- Your existing text encryption/decryption content -->
+            </div>
+
+            <!-- 
                 ...
  
                 file encryption and decryption
@@ -3100,7 +3202,82 @@ shown in am pm, with a button that switches between 12 and 24 hour format
                  so i guess im going to have to salvage the old code i used in a previous version of editor, based on the now deleted repo code, and use that.
 
                  ?for large strings, use this from https://stackoverflow.com/a/49124600
+
+                 ...
+
+                 prompt:
+
+                 this is my current code:
+
+it encrypts and decrypts text
+
+in addition to text encryption and decryption, i would also like to be able to encrypt and decrypt files
+
+right now the current code is for text encryption and decryption. the ui is such that on the left is text encryption, and on the right is text decryption.
+
+id like there to be a tab that switches from text to file, having similar ui for both instances, but changes where necessary, like how text has textarea, file would have file input. take a look at my existing tab code to see how to implement similar tab switching here.
+
+below is an example of someone elses code that encrypts and decrypts files, take a look at it to get an idea, but i want to use something similar to the implementation above in the current code, just take a look below to see how the below file code might be used or inspire and idea on how modify the current text only solution to text and file encryption and decryption.
+
           -->
+
+            <!--  -->
+
+            <!-- File encryption/decryption -->
+            <div id="fileCrypt" class="crypt-panel">
+              <div class="crypt-container">
+                <div class="crypt-section">
+                  <h4>Encrypt File</h4>
+                  <p class="instructions">
+                    1. Select a file to encrypt<br />
+                    2. Enter an optional password<br />
+                    3. Click "Encrypt" to download encrypted file
+                  </p>
+                  <div class="file-input-container">
+                    <input type="file" id="fileToEncrypt" class="file-input" />
+                    <label for="fileToEncrypt" class="file-label"
+                      >Choose File</label
+                    >
+                  </div>
+                  <div class="password-container">
+                    <input
+                      type="password"
+                      id="fileEncryptPassword"
+                      placeholder="Enter password"
+                    />
+                    <button id="fileEncryptButton" class="crypt-button">
+                      Encrypt
+                    </button>
+                  </div>
+                </div>
+
+                <div class="crypt-section">
+                  <h4>Decrypt File</h4>
+                  <p class="instructions">
+                    1. Select an encrypted file<br />
+                    2. Enter the same password used for encryption<br />
+                    3. Click "Decrypt" to download original file
+                  </p>
+                  <div class="file-input-container">
+                    <input type="file" id="fileToDecrypt" class="file-input" />
+                    <label for="fileToDecrypt" class="file-label"
+                      >Choose File</label
+                    >
+                  </div>
+                  <div class="password-container">
+                    <input
+                      type="password"
+                      id="fileDecryptPassword"
+                      placeholder="Enter password"
+                    />
+                    <button id="fileDecryptButton" class="crypt-button">
+                      Decrypt
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- -->
         </div>
