@@ -1017,8 +1017,8 @@ assertion errors occur if without:
           updateElementSize(svgElement, newSize);
           lastKnownSize = newSize;
 
-          // Update scale value display
-          scaleValue.textContent = `${scale}x`;
+          // Update scale value display to show pixels instead of multiplier
+          scaleValue.textContent = `${Math.round(newSize)}px`;
         });
 
         // Initial setup
