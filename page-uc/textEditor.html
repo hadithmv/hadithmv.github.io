@@ -358,38 +358,34 @@
 
       /*  */
 
-      .checkbox-group {
-        margin: 8px 0;
-      }
-
-      .checkbox-group .option-group {
+      /* .checkbox-group .option-group {
         padding: 4px 0;
         display: flex;
-        align-items: flex-start; /* Align to top for multi-line text */
-      }
+        align-items: flex-start; 
+      } */
+      /* Align to top for multi-line text */
 
       /* Hide default checkbox */
-      .checkbox-group input[type="checkbox"] {
+      /* input[type="checkbox"] {
         appearance: none;
         -webkit-appearance: none;
         width: 18px;
         height: 18px;
         border: 1px solid #ccc;
         border-radius: 3px;
-        margin: 2px 8px 0 0; /* Added top margin to align with first line of text */
+        margin: 2px 8px 0 0;
         cursor: pointer;
         position: relative;
         background-color: white;
-        flex-shrink: 0; /* Prevent checkbox from shrinking */
+        flex-shrink: 0;
       }
 
-      /* Checkmark */
-      .checkbox-group input[type="checkbox"]:checked {
+      input[type="checkbox"]:checked {
         background-color: #0078d4;
         border-color: #0078d4;
       }
 
-      .checkbox-group input[type="checkbox"]:checked::after {
+      input[type="checkbox"]:checked::after {
         content: "";
         position: absolute;
         left: 5px;
@@ -401,28 +397,29 @@
         transform: rotate(45deg);
       }
 
-      /* Label styling */
-      .checkbox-group label {
+      label {
         font-size: 14px;
         line-height: 1.4;
         color: var(--textarea-text);
         cursor: pointer;
         user-select: none;
-        display: inline-block; /* Allow text to wrap */
-        padding-top: 2px; /* Align text with checkbox */
+        display: inline-block;
+        padding-top: 2px;
       }
 
-      /* Hover state */
-      .checkbox-group input[type="checkbox"]:hover {
+      input[type="checkbox"]:hover {
         border-color: #0078d4;
       }
 
-      /* Dark mode */
       @media (prefers-color-scheme: dark) {
-        .checkbox-group input[type="checkbox"] {
+        input[type="checkbox"] {
           background-color: #2b2b2b;
           border-color: #666;
         }
+      } */
+
+      input[type="checkbox"] {
+        accent-color: #0078d4;
       }
 
       /*  */
@@ -1268,23 +1265,29 @@
                     />
                   </div>
 
-                  <div class="checkbox-group">
-                    <div class="option-group">
+                  <div class="option-group">
+                    <label>
                       <input type="checkbox" id="useUppercase" checked />
-                      <label for="useUppercase">Uppercase (A-Z)</label>
-                    </div>
-                    <div class="option-group">
-                      <input type="checkbox" id="useLowercase" checked />
-                      <label for="useLowercase">Lowercase (a-z)</label>
-                    </div>
-                    <div class="option-group">
-                      <input type="checkbox" id="useNumbers" checked />
-                      <label for="useNumbers">Numbers (0-9)</label>
-                    </div>
-                    <div class="option-group">
-                      <input type="checkbox" id="useSymbols" checked />
-                      <label for="useSymbols">Symbols (!@#$%^&*)</label>
-                    </div>
+                      Uppercase (A-Z)</label
+                    >
+                  </div>
+                  <div class="option-group">
+                    <label
+                      ><input type="checkbox" id="useLowercase" checked />
+                      Lowercase (a-z)</label
+                    >
+                  </div>
+                  <div class="option-group">
+                    <label
+                      ><input type="checkbox" id="useNumbers" checked /> Numbers
+                      (0-9)</label
+                    >
+                  </div>
+                  <div class="option-group">
+                    <label>
+                      <input type="checkbox" id="useSymbols" checked /> Symbols
+                      (!@#$%^&*)</label
+                    >
                   </div>
                 </div>
               </div>
@@ -1820,6 +1823,13 @@
               </button>
               <div class="dropdown-content number-sequence">
                 <div class="converter-options">
+                  <!--  -->
+
+                  <button data-action="generateSequence" class="apply-button">
+                    Generate
+                  </button>
+
+                  <!--  -->
                   <div class="option-group">
                     <label>Minimum number:</label>
                     <input
@@ -1844,9 +1854,110 @@
                     />
                   </div>
 
-                  <button data-action="generateSequence" class="apply-button">
+                  <!--  -->
+
+                  <div class="option-group">
+                    <label>Separator:</label>
+                    <select id="seqSeparator" class="converter-select">
+                      <option value="\n">Newline</option>
+                      <option value=", ">Comma</option>
+                      <option value=" ">Space</option>
+                    </select>
+                  </div>
+
+                  <div class="option-group">
+                    <label>
+                      <input type="checkbox" id="seqReverse" /> Reverse order
+                    </label>
+                  </div>
+
+                  <div class="option-group">
+                    <label>Prefix:</label>
+                    <input
+                      type="text"
+                      id="seqPrefix"
+                      class="converter-select"
+                      placeholder="e.g., #"
+                    />
+                  </div>
+
+                  <div class="option-group">
+                    <label>Suffix:</label>
+                    <input
+                      type="text"
+                      id="seqSuffix"
+                      class="converter-select"
+                      placeholder="e.g., ."
+                    />
+                  </div>
+
+                  <!--  -->
+                </div>
+              </div>
+            </div>
+
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="randomNum"
+                class="function-button"
+                title="Generate random numbers within a custom range"
+              >
+                Randm No 🔟
+              </button>
+              <div class="dropdown-content random-number">
+                <div class="converter-options">
+                  <!--  -->
+                  <button
+                    data-action="generateRandomNumber"
+                    class="apply-button"
+                  >
                     Generate
                   </button>
+                  <!--  -->
+                  <div class="option-group">
+                    <label>Minimum number:</label>
+                    <input
+                      type="number"
+                      id="randNoMinInput"
+                      class="converter-select"
+                      value="1"
+                      min="-999999"
+                      max="999999"
+                    />
+                  </div>
+
+                  <div class="option-group">
+                    <label>Maximum number:</label>
+                    <input
+                      type="number"
+                      id="randNoMaxInput"
+                      class="converter-select"
+                      value="10"
+                      min="-999999"
+                      max="999999"
+                    />
+                  </div>
+
+                  <div class="option-group">
+                    <label>Amount of numbers to generate:</label>
+                    <input
+                      type="number"
+                      id="randNoCount"
+                      class="converter-select"
+                      value="1"
+                      min="1"
+                      max="1000"
+                    />
+                  </div>
+
+                  <div class="option-group">
+                    <label>
+                      <input type="checkbox" id="randNoUnique" /> Unique numbers
+                      only
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1874,6 +1985,8 @@
               class="buttonInput input2"
               style="display: none"
             />
+
+            <!--  -->
 
             <button
               id="numerateWords"
