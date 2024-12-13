@@ -3252,7 +3252,8 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
 
   // =====================================================
 
-  // Utility functions remain the same
+  // Utility functions
+  // Utility functions
   const buff_to_base64 = (buff) =>
     btoa(
       new Uint8Array(buff).reduce(
@@ -3262,22 +3263,21 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     );
 
   const base64_to_buf = (b64) =>
-    Uint8Array.from(atob(b64), (c) => c.charCodeAt(null));
+    Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
 
   const enc = new TextEncoder();
   const dec = new TextDecoder();
 
-  // Modified to handle empty password
+  // Password key generation
   const getPasswordKey = (password) =>
     window.crypto.subtle.importKey(
       "raw",
-      enc.encode(password || "empty"), // Use 'empty' as default password
+      enc.encode(password || "empty"),
       "PBKDF2",
       false,
       ["deriveKey"]
     );
 
-  // Rest of the helper functions remain the same
   const deriveKey = (passwordKey, salt, keyUsage) =>
     window.crypto.subtle.deriveKey(
       {
@@ -3292,7 +3292,7 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       keyUsage
     );
 
-  // Modified encryption function
+  // Encryption function
   async function encryptData(secretData, password) {
     if (!secretData) {
       throw new Error("No data to encrypt");
@@ -3327,7 +3327,7 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     }
   }
 
-  // Modified decryption function
+  // Decryption function
   async function decryptData(encryptedData, password) {
     if (!encryptedData) {
       throw new Error("No data to decrypt");
@@ -3355,8 +3355,45 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     }
   }
 
-  //
+  // File handling utilities
+  function readFileAsArrayBuffer(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(reader.error);
+      reader.readAsArrayBuffer(file);
+    });
+  }
 
+  function downloadFile(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // UI Event Handlers
+  // Tab switching functionality
+  const cryptTabs = document.querySelectorAll(".crypt-tab");
+  const cryptPanels = document.querySelectorAll(".crypt-panel");
+
+  cryptTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      cryptTabs.forEach((t) => t.classList.remove("active"));
+      cryptPanels.forEach((p) => p.classList.remove("active"));
+
+      tab.classList.add("active");
+      document
+        .getElementById(tab.dataset.crypttab + "Crypt")
+        .classList.add("active");
+    });
+  });
+
+  // Text encryption/decryption handlers
   const encryptButton = document.getElementById("encryptButton");
   const decryptButton = document.getElementById("decryptButton");
   const copyEncrypted = document.getElementById("copyEncrypted");
@@ -3365,7 +3402,7 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   if (encryptButton) {
     encryptButton.addEventListener("click", async () => {
       const text = document.getElementById("textToEncrypt").value;
-      const password = document.getElementById("encryptPassword").value; // Can be empty now
+      const password = document.getElementById("encryptPassword").value;
 
       if (!text) {
         showButtonFeedback(encryptButton, "Please enter text to encrypt");
@@ -3386,7 +3423,7 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   if (decryptButton) {
     decryptButton.addEventListener("click", async () => {
       const text = document.getElementById("textToDecrypt").value;
-      const password = document.getElementById("decryptPassword").value; // Can be empty now
+      const password = document.getElementById("decryptPassword").value;
 
       if (!text) {
         showButtonFeedback(decryptButton, "Please enter text to decrypt");
@@ -3406,7 +3443,7 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     });
   }
 
-  // Copy buttons remain the same
+  // Copy button handlers
   if (copyEncrypted) {
     copyEncrypted.addEventListener("click", () => {
       const text = document.getElementById("encryptedText").value;
@@ -3426,6 +3463,106 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       }
     });
   }
+
+  // File encryption/decryption handlers
+  const fileToEncrypt = document.getElementById("fileToEncrypt");
+  const fileToDecrypt = document.getElementById("fileToDecrypt");
+  const fileEncryptButton = document.getElementById("fileEncryptButton");
+  const fileDecryptButton = document.getElementById("fileDecryptButton");
+
+  // File encryption
+  fileEncryptButton?.addEventListener("click", async () => {
+    const file = fileToEncrypt.files[0];
+    const password = document.getElementById("fileEncryptPassword").value;
+
+    if (!file) {
+      showButtonFeedback(fileEncryptButton, "Please select a file");
+      return;
+    }
+
+    try {
+      showButtonFeedback(fileEncryptButton, "Encrypting...");
+      const fileData = await readFileAsArrayBuffer(file);
+      const encrypted = await encryptData(new Uint8Array(fileData), password);
+      downloadFile(
+        new Blob([base64_to_buf(encrypted)]),
+        file.name + ".encrypted"
+      );
+      showButtonFeedback(fileEncryptButton, "Encrypted");
+    } catch (error) {
+      console.error("File encryption failed:", error);
+      showButtonFeedback(fileEncryptButton, "Encryption failed");
+    }
+  });
+
+  // File decryption
+  fileDecryptButton?.addEventListener("click", async () => {
+    const file = fileToDecrypt.files[0];
+    const password = document.getElementById("fileDecryptPassword").value;
+
+    if (!file) {
+      showButtonFeedback(fileDecryptButton, "Please select a file");
+      return;
+    }
+
+    try {
+      showButtonFeedback(fileDecryptButton, "Decrypting...");
+      const fileData = await readFileAsArrayBuffer(file);
+      const decrypted = await decryptData(
+        buff_to_base64(new Uint8Array(fileData)),
+        password
+      );
+      downloadFile(
+        new Blob([new TextEncoder().encode(decrypted)]),
+        file.name.replace(/\.encrypted$/, "")
+      );
+      showButtonFeedback(fileDecryptButton, "Decrypted");
+    } catch (error) {
+      console.error("File decryption failed:", error);
+      showButtonFeedback(fileDecryptButton, "Decryption failed");
+    }
+  });
+
+  // File input handling
+  function updateFileLabel(input, defaultText = "Choose File") {
+    const label = input.nextElementSibling;
+    label.textContent = input.files[0]?.name || defaultText;
+  }
+
+  fileToEncrypt?.addEventListener("change", () => {
+    updateFileLabel(fileToEncrypt);
+  });
+
+  fileToDecrypt?.addEventListener("change", () => {
+    updateFileLabel(fileToDecrypt);
+  });
+
+  // Drag and drop support
+  const fileLabels = document.querySelectorAll(".file-label");
+
+  fileLabels.forEach((label) => {
+    label.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      label.classList.add("dragover");
+    });
+
+    label.addEventListener("dragleave", () => {
+      label.classList.remove("dragover");
+    });
+
+    label.addEventListener("drop", (e) => {
+      e.preventDefault();
+      label.classList.remove("dragover");
+
+      const input = document.getElementById(label.getAttribute("for"));
+      const files = e.dataTransfer.files;
+
+      if (files.length > 0) {
+        input.files = files;
+        updateFileLabel(input);
+      }
+    });
+  });
 
   // =====================================================
 
