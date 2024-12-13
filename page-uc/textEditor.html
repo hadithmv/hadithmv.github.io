@@ -340,16 +340,20 @@
         width: 100%;
         padding: 8px;
         margin-top: 10px;
-        background-color: var(--button-bg);
-        color: var(--button-text);
-        border: 1px solid var(--button-border);
-        border-radius: 4px;
-        cursor: pointer;
+        margin-bottom: 10px;
+        background-color: var(--button-bg) !important;
+        color: var(--button-text) !important;
+        /* border: 1px solid var(--button-border) !important; */
+        border: 1px solid var(--tab-border) !important;
+        border-radius: 4px !important;
+        cursor: pointer !important;
+        text-align: center !important;
+        /*  */
       }
 
       .apply-button:hover {
-        background-color: var(--button-hover);
-        color: var(--button-hover-text);
+        background-color: var(--button-hover) !important;
+        color: var(--button-hover-text) !important;
       }
 
       /*  */
@@ -1185,6 +1189,10 @@
               </button>
               <div class="dropdown-content password-generator">
                 <div class="converter-options">
+                  <button data-action="generatePasswords" class="apply-button">
+                    Generate
+                  </button>
+
                   <div class="option-group">
                     <label>Number of passwords:</label>
                     <input
@@ -1209,8 +1217,6 @@
                     />
                   </div>
 
-                  <hr class="dropdown-separator" />
-
                   <div class="checkbox-group">
                     <div class="option-group">
                       <input type="checkbox" id="useUppercase" checked />
@@ -1229,10 +1235,6 @@
                       <label for="useSymbols">Symbols (!@#$%^&*)</label>
                     </div>
                   </div>
-
-                  <button data-action="generatePasswords" class="apply-button">
-                    Generate
-                  </button>
                 </div>
               </div>
             </div>
