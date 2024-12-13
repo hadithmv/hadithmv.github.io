@@ -2855,8 +2855,169 @@ shown in am pm, with a button that switches between 12 and 24 hour format
 
                possible alternative?: https://github.com/paulgreg/crypttool
 
-                for large strings, use this from https://stackoverflow.com/a/49124600
+                ?for large strings, use this from https://stackoverflow.com/a/49124600
 
+                ...
+
+                prompt:
+
+                id like to be able encrypt and decrypt text using AES-GCM, here is some sample code on how others have done it, to give you an idea, but you arent restricted to it, and feel free to change it as much as you want:
+
+                id like text areas to show what is to be encrypted and decrypted
+                but i dont want alerts, i want to be able to password without alerts.
+                encrypted and decrypted text should have a copy button for each that copies the text to the clipboard
+
+                there should also be text instructions on how this works, what the user should do
+
+                id like the solution to be modern, responsive and nice looking
+
+                 -->
+
+          <h4>🔒 Text Encryption and Decryption</h4>
+
+          <style>
+            .crypt-container {
+              display: flex;
+              gap: 2rem;
+              padding: 1rem;
+            }
+
+            @media (max-width: 768px) {
+              .crypt-container {
+                flex-direction: column;
+              }
+            }
+
+            .crypt-section {
+              flex: 1;
+              min-width: 300px;
+            }
+
+            .crypt-section h3 {
+              margin-bottom: 1rem;
+              color: #333;
+            }
+
+            .instructions {
+              font-size: 0.9rem;
+              color: #666;
+              margin-bottom: 1rem;
+              line-height: 1.4;
+            }
+
+            .password-container {
+              display: flex;
+              gap: 0.5rem;
+              margin: 1rem 0;
+            }
+
+            .password-container input {
+              flex: 1;
+              padding: 0.5rem;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+            }
+
+            .crypt-button {
+              padding: 0.5rem 1rem;
+              background-color: #007bff;
+              color: white;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+            }
+
+            .crypt-button:hover {
+              background-color: #0056b3;
+            }
+
+            .result-container {
+              position: relative;
+            }
+
+            .result-container textarea {
+              width: 100%;
+              min-height: 100px;
+              padding: 0.5rem;
+              margin-bottom: 0.5rem;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              resize: vertical;
+            }
+
+            .result-container .copy-button {
+              position: absolute;
+              right: 0.5rem;
+              top: 0.5rem;
+              padding: 0.25rem 0.5rem;
+              background-color: white;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              cursor: pointer;
+            }
+          </style>
+
+          <div class="crypt-container">
+            <div class="crypt-section">
+              <h3>Encrypt Text</h3>
+              <p class="instructions">
+                1. Enter text to encrypt below<br />
+                2. Enter a password in the password field<br />
+                3. Click "Encrypt" to generate encrypted text
+              </p>
+              <textarea
+                id="textToEncrypt"
+                placeholder="Enter text to encrypt..."
+              ></textarea>
+              <div class="password-container">
+                <input
+                  type="password"
+                  id="encryptPassword"
+                  placeholder="Enter password"
+                />
+                <button id="encryptButton" class="crypt-button">Encrypt</button>
+              </div>
+              <div class="result-container">
+                <textarea
+                  id="encryptedText"
+                  readonly
+                  placeholder="Encrypted text will appear here..."
+                ></textarea>
+                <button id="copyEncrypted" class="copy-button">Copy 📋</button>
+              </div>
+            </div>
+
+            <div class="crypt-section">
+              <h3>Decrypt Text</h3>
+              <p class="instructions">
+                1. Paste encrypted text below<br />
+                2. Enter the same password used for encryption<br />
+                3. Click "Decrypt" to reveal original text
+              </p>
+              <textarea
+                id="textToDecrypt"
+                placeholder="Enter encrypted text..."
+              ></textarea>
+              <div class="password-container">
+                <input
+                  type="password"
+                  id="decryptPassword"
+                  placeholder="Enter password"
+                />
+                <button id="decryptButton" class="crypt-button">Decrypt</button>
+              </div>
+              <div class="result-container">
+                <textarea
+                  id="decryptedText"
+                  readonly
+                  placeholder="Decrypted text will appear here..."
+                ></textarea>
+                <button id="copyDecrypted" class="copy-button">Copy 📋</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 
                 ...
 
                 file encryption and decryption
@@ -2865,7 +3026,7 @@ shown in am pm, with a button that switches between 12 and 24 hour format
 
                  possible alternative?, but uses cbc, not gcm: https://github.com/meixler/web-browser-based-file-encryption-decryption
 
-                 for large strings, use this from https://stackoverflow.com/a/49124600
+                 ?for large strings, use this from https://stackoverflow.com/a/49124600
           -->
 
           <!-- -->
