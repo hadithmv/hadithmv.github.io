@@ -1080,6 +1080,132 @@ document.addEventListener("DOMContentLoaded", () => {
         );
         break;
 
+        // =====================================================
+
+        // Define password generator function outside switch
+        function generatePassword(options) {
+          const charSets = {
+            uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            lowercase: "abcdefghijklmnopqrstuvwxyz",
+            numbers: "0123456789",
+            symbols: "!@#$%^&*()_+-=[]{}|;:,.<>?",
+          };
+
+          let chars = "";
+          if (options.useUppercase) chars += charSets.uppercase;
+          if (options.useLowercase) chars += charSets.lowercase;
+          if (options.useNumbers) chars += charSets.numbers;
+          if (options.useSymbols) chars += charSets.symbols;
+
+          if (!chars) chars = charSets.lowercase;
+
+          let password = "";
+          for (let i = 0; i < options.length; i++) {
+            password += chars.charAt(Math.floor(Math.random() * chars.length));
+          }
+
+          if (options.useUppercase && !/[A-Z]/.test(password)) {
+            const pos = Math.floor(Math.random() * options.length);
+            password =
+              password.substring(0, pos) +
+              charSets.uppercase.charAt(
+                Math.floor(Math.random() * charSets.uppercase.length)
+              ) +
+              password.substring(pos + 1);
+          }
+          if (options.useLowercase && !/[a-z]/.test(password)) {
+            const pos = Math.floor(Math.random() * options.length);
+            password =
+              password.substring(0, pos) +
+              charSets.lowercase.charAt(
+                Math.floor(Math.random() * charSets.lowercase.length)
+              ) +
+              password.substring(pos + 1);
+          }
+          if (options.useNumbers && !/[0-9]/.test(password)) {
+            const pos = Math.floor(Math.random() * options.length);
+            password =
+              password.substring(0, pos) +
+              charSets.numbers.charAt(
+                Math.floor(Math.random() * charSets.numbers.length)
+              ) +
+              password.substring(pos + 1);
+          }
+          if (
+            options.useSymbols &&
+            !/[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(password)
+          ) {
+            const pos = Math.floor(Math.random() * options.length);
+            password =
+              password.substring(0, pos) +
+              charSets.symbols.charAt(
+                Math.floor(Math.random() * charSets.symbols.length)
+              ) +
+              password.substring(pos + 1);
+          }
+
+          return password;
+        }
+
+      // In your switch statement:
+      case "setupPasswordGenerator": {
+        // Setup input validations when the dropdown is opened
+        const passwordCount = document.getElementById("passwordCount");
+        if (passwordCount) {
+          passwordCount.addEventListener("input", () => {
+            let value = parseInt(passwordCount.value);
+            if (value < 1) passwordCount.value = 1;
+            if (value > 100) passwordCount.value = 100;
+          });
+        }
+
+        const passwordLength = document.getElementById("passwordLength");
+        if (passwordLength) {
+          passwordLength.addEventListener("input", () => {
+            let value = parseInt(passwordLength.value);
+            if (value < 4) passwordLength.value = 4;
+            if (value > 128) passwordLength.value = 128;
+          });
+        }
+
+        const checkboxes = document.querySelectorAll(
+          '.checkbox-group input[type="checkbox"]'
+        );
+        checkboxes.forEach((checkbox) => {
+          checkbox.addEventListener("change", () => {
+            const anyChecked = Array.from(checkboxes).some((cb) => cb.checked);
+            if (!anyChecked) {
+              checkbox.checked = true;
+            }
+          });
+        });
+        break;
+      }
+
+      case "generatePasswords": {
+        const count =
+          parseInt(document.getElementById("passwordCount").value) || 1;
+        const length =
+          parseInt(document.getElementById("passwordLength").value) || 8;
+        const options = {
+          length: length,
+          useUppercase: document.getElementById("useUppercase").checked,
+          useLowercase: document.getElementById("useLowercase").checked,
+          useNumbers: document.getElementById("useNumbers").checked,
+          useSymbols: document.getElementById("useSymbols").checked,
+        };
+
+        const passwords = [];
+        for (let i = 0; i < count; i++) {
+          passwords.push(generatePassword(options));
+        }
+
+        textArea.value = passwords.join("\n");
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+
       // =====================================================
 
       case "convertSalawat":
@@ -1323,6 +1449,8 @@ document.addEventListener("DOMContentLoaded", () => {
     isSmartQuotes = !isSmartQuotes;
     updateStats();
   });
+  //
+
   //
 
   document.getElementById("genRandPass").addEventListener("click", () => {

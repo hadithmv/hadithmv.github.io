@@ -1173,6 +1173,72 @@
               Rmv Punct❗
             </button>
 
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                id="passwordGenerator"
+                class="function-button"
+                title="Generate random passwords with custom options"
+              >
+                Gen Passwrd *️⃣
+              </button>
+              <div class="dropdown-content password-generator">
+                <div class="converter-options">
+                  <div class="option-group">
+                    <label>Number of passwords:</label>
+                    <input
+                      type="number"
+                      id="passwordCount"
+                      class="converter-select"
+                      value="1"
+                      min="1"
+                      max="100"
+                    />
+                  </div>
+
+                  <div class="option-group">
+                    <label>Password length:</label>
+                    <input
+                      type="number"
+                      id="passwordLength"
+                      class="converter-select"
+                      value="8"
+                      min="4"
+                      max="128"
+                    />
+                  </div>
+
+                  <hr class="dropdown-separator" />
+
+                  <div class="checkbox-group">
+                    <div class="option-group">
+                      <input type="checkbox" id="useUppercase" checked />
+                      <label for="useUppercase">Uppercase (A-Z)</label>
+                    </div>
+                    <div class="option-group">
+                      <input type="checkbox" id="useLowercase" checked />
+                      <label for="useLowercase">Lowercase (a-z)</label>
+                    </div>
+                    <div class="option-group">
+                      <input type="checkbox" id="useNumbers" checked />
+                      <label for="useNumbers">Numbers (0-9)</label>
+                    </div>
+                    <div class="option-group">
+                      <input type="checkbox" id="useSymbols" checked />
+                      <label for="useSymbols">Symbols (!@#$%^&*)</label>
+                    </div>
+                  </div>
+
+                  <button data-action="generatePasswords" class="apply-button">
+                    Generate
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!--  -->
+
             <button
               id="genRandPass"
               class="function-button"
