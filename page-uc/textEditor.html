@@ -358,6 +358,75 @@
 
       /*  */
 
+      .checkbox-group {
+        margin: 8px 0;
+      }
+
+      .checkbox-group .option-group {
+        padding: 4px 0;
+        display: flex;
+        align-items: flex-start; /* Align to top for multi-line text */
+      }
+
+      /* Hide default checkbox */
+      .checkbox-group input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin: 2px 8px 0 0; /* Added top margin to align with first line of text */
+        cursor: pointer;
+        position: relative;
+        background-color: white;
+        flex-shrink: 0; /* Prevent checkbox from shrinking */
+      }
+
+      /* Checkmark */
+      .checkbox-group input[type="checkbox"]:checked {
+        background-color: #0078d4;
+        border-color: #0078d4;
+      }
+
+      .checkbox-group input[type="checkbox"]:checked::after {
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 2px;
+        width: 6px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+
+      /* Label styling */
+      .checkbox-group label {
+        font-size: 14px;
+        line-height: 1.4;
+        color: var(--textarea-text);
+        cursor: pointer;
+        user-select: none;
+        display: inline-block; /* Allow text to wrap */
+        padding-top: 2px; /* Align text with checkbox */
+      }
+
+      /* Hover state */
+      .checkbox-group input[type="checkbox"]:hover {
+        border-color: #0078d4;
+      }
+
+      /* Dark mode */
+      @media (prefers-color-scheme: dark) {
+        .checkbox-group input[type="checkbox"] {
+          background-color: #2b2b2b;
+          border-color: #666;
+        }
+      }
+
+      /*  */
+
       .buttonInput {
         width: 90px; /* 60 */
         padding: 5px;
