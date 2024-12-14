@@ -3444,11 +3444,14 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
     });
   }
 
+  // Modified downloadFile function
   function downloadFile(blob, filename) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
     a.download = filename;
+    a.type = "application/octet-stream"; // Added explicit type
+    a.setAttribute("download", filename); // Force download attribute
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -3563,10 +3566,11 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       showButtonFeedback(fileEncryptButton, "Encrypting...");
       const fileData = await readFileAsArrayBuffer(file);
       const encrypted = await encryptData(new Uint8Array(fileData), password);
-      downloadFile(
-        new Blob([base64_to_buf(encrypted)]),
-        file.name + ".encrypted"
-      );
+      // Create blob with explicit type and download with forced download attribute
+      const blob = new Blob([base64_to_buf(encrypted)], {
+        type: "application/octet-stream", // Changed from default type
+      });
+      downloadFile(blob, file.name + ".encrypted");
       showButtonFeedback(fileEncryptButton, "Encrypted");
     } catch (error) {
       console.error("File encryption failed:", error);
@@ -3591,10 +3595,11 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
         buff_to_base64(new Uint8Array(fileData)),
         password
       );
-      downloadFile(
-        new Blob([new TextEncoder().encode(decrypted)]),
-        file.name.replace(/\.encrypted$/, "")
-      );
+      // Create blob with explicit type and download with forced download attribute
+      const blob = new Blob([new TextEncoder().encode(decrypted)], {
+        type: "application/octet-stream", // Changed from default type
+      });
+      downloadFile(blob, file.name.replace(/\.encrypted$/, ""));
       showButtonFeedback(fileDecryptButton, "Decrypted");
     } catch (error) {
       console.error("File decryption failed:", error);
