@@ -1381,6 +1381,38 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
       }
 
+      case "removeCharsFromEnds": {
+        const charsFromStart =
+          parseInt(document.getElementById("removeStartChars").value) || 0;
+        const charsFromEnd =
+          parseInt(document.getElementById("removeEndChars").value) || 0;
+
+        const lines = textArea.value.split("\n");
+        const modifiedLines = lines.map((line) => {
+          // Handle empty lines
+          if (!line) return line;
+
+          // Remove from start
+          let modifiedLine = line;
+          if (charsFromStart > 0) {
+            modifiedLine = modifiedLine.slice(charsFromStart);
+          }
+
+          // Remove from end
+          if (charsFromEnd > 0 && modifiedLine.length > 0) {
+            modifiedLine = modifiedLine.slice(0, -charsFromEnd);
+          }
+
+          return modifiedLine;
+        });
+
+        textArea.value = modifiedLines.join("\n");
+
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+
       // =====================================================
 
       case "convertSalawat":
@@ -2491,42 +2523,6 @@ i want one more space after the colon that comes after the issue description
     // Handle single-word numbers
     return wordsToNumbers[word] || word;
   }
-
-  //
-
-  /*
-  when this button is first clicked, show two input boxes saying "From Start" and "From End" as placeholder, which lets the user input numbers, after which, further clicks on the button will remove the given number of characters from every line of text according to the input
-the input boxes should not show before the button has been clicked
-*/
-
-  const removeFromStartInput = document.getElementById("removeFromStart");
-  const removeFromEndInput = document.getElementById("removeFromEnd");
-
-  document
-    .getElementById("rmvNoOfCharsPerLine")
-    .addEventListener("click", () => {
-      if (removeFromStartInput.style.display === "none") {
-        // First click: show input fields
-        removeFromStartInput.style.display = "inline-block";
-        removeFromEndInput.style.display = "inline-block";
-      } else {
-        // Subsequent clicks: remove characters from each line
-        const removeFromStart = parseInt(removeFromStartInput.value) || 0;
-        const removeFromEnd = parseInt(removeFromEndInput.value) || 0;
-
-        // Split the text into lines, remove characters, then join back
-        const lines = textArea.value.split("\n");
-        const modifiedLines = lines.map((line) => {
-          if (line.length <= removeFromStart + removeFromEnd) {
-            return ""; // Line is shorter than or equal to total characters to remove
-          }
-          return line.slice(removeFromStart, line.length - removeFromEnd);
-        });
-        textArea.value = modifiedLines.join("\n");
-
-        updateStats();
-      }
-    });
   //
 
   /*

@@ -2067,6 +2067,40 @@
                   <button data-action="removePrefixSuffix" class="apply-button">
                     Remove
                   </button>
+
+                  <hr class="dropdown-separator" />
+
+                  <!-- Remove characters section -->
+                  <div class="option-group">
+                    <label>Remove no of characters from start:</label>
+                    <input
+                      type="number"
+                      id="removeStartChars"
+                      class="converter-select"
+                      placeholder="Number of chars"
+                      min="0"
+                      value="0"
+                    />
+                  </div>
+
+                  <div class="option-group">
+                    <label>Remove no of characters from end:</label>
+                    <input
+                      type="number"
+                      id="removeEndChars"
+                      class="converter-select"
+                      placeholder="Number of chars"
+                      min="0"
+                      value="0"
+                    />
+                  </div>
+
+                  <button
+                    data-action="removeCharsFromEnds"
+                    class="apply-button"
+                  >
+                    Remove
+                  </button>
                 </div>
               </div>
             </div>
@@ -2075,28 +2109,6 @@
 
             <!-- !!!
               📅 Days Since -->
-
-            <button
-              id="rmvNoOfCharsPerLine"
-              class="function-button"
-              title="Removes a number of characters from the beginning or end of each line, according to the input number given in the boxes next to this button after it has been clicked once"
-            >
-              Rmv NoOfChars/Ln ➖
-            </button>
-            <input
-              id="removeFromStart"
-              type="number"
-              placeholder="Start"
-              class="buttonInput input1"
-              style="display: none"
-            />
-            <input
-              id="removeFromEnd"
-              type="number"
-              placeholder="End"
-              class="buttonInput input2"
-              style="display: none"
-            />
 
             <!-- -->
             <button
