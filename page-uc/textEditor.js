@@ -3333,7 +3333,6 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   // =====================================================
 
   // Utility functions
-  // Utility functions
   const buff_to_base64 = (buff) =>
     btoa(
       new Uint8Array(buff).reduce(
