@@ -152,16 +152,17 @@ function createNavbar() {
   // MINIFY THIS HTML WITH KANGAX. if need to edit, format with something else then reminify
   // Insert the navbar HTML into the container
   document.getElementById("navbar-container").innerHTML = `
-  <nav class="navbar">
-  <div class="navbar-left">
-    <img
-      alt="Site Icon"
-      class="navbar-site-icon"
-      onclick="goToHomePage()"
-      src="../img/logo/logo.svg"
-      title="back to homepage"
-    />
-  </div>
+   <nav class="navbar">
+    <div class="navbar-left">
+      <a href="../books/index.html">
+        <img
+          alt="Site Icon" 
+          class="navbar-site-icon"
+          src="../img/logo/logo.svg"
+          title="back to homepage"
+        />
+      </a>
+    </div>
   <div class="navbar-center">
     <span class="navbar-page-title">${pageTitle}</span>
   </div>
@@ -525,11 +526,11 @@ document.addEventListener("DOMContentLoaded", createNavbar);
                     </li>
                     */
 
-// Function to navigate to the homepage
+/*// Function to navigate to the homepage
 function goToHomePage() {
   window.location.href = "../books/index.html";
   //window.location.href = "index.html"; // "/";
-}
+}*/
 
 // Function to toggle the side menu's visibility
 function toggleSideMenu() {

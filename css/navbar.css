@@ -112,6 +112,19 @@ html body {
   justify-content: flex-end;
 }
 
+.navbar-left a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  text-decoration: none; /* Remove underline from link */
+}
+
+.navbar-site-icon {
+  width: 46px;
+  height: 46px;
+  /* Remove cursor: pointer since it's now handled by the anchor tag */
+}
+
 /* Site icon styles */
 .navbar-site-icon {
   width: 46px; /* 48 40 */
