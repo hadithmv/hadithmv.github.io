@@ -540,7 +540,7 @@
                 class="function-button"
                 title="Convert between different numeral systems"
               >
-                Number Conv 🔢
+                Number Ops 🔢
               </button>
               <div class="dropdown-content numeral-converter">
                 <button
@@ -645,6 +645,150 @@
                 </button>
 
                 <!-- Add more number-related options as needed -->
+              </div>
+            </div>
+
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                class="function-button"
+                title="Generate a sequence of numbers with custom range"
+              >
+                Gen Num Seq 🔢
+              </button>
+              <div class="dropdown-content number-sequence">
+                <div class="converter-options">
+                  <button data-action="generateSequence" class="apply-button">
+                    Generate
+                  </button>
+
+                  <div class="option-group">
+                    <label>Minimum number:</label>
+                    <input
+                      type="number"
+                      id="seqMinInput"
+                      class="converter-select"
+                      value="1"
+                      min="-999999"
+                      max="999999"
+                    />
+                  </div>
+
+                  <div class="option-group">
+                    <label>Maximum number:</label>
+                    <input
+                      type="number"
+                      id="seqMaxInput"
+                      class="converter-select"
+                      value="10"
+                      min="-999999"
+                      max="999999"
+                    />
+                  </div>
+
+                  <div class="option-group">
+                    <label>Separator:</label>
+                    <select id="seqSeparator" class="converter-select">
+                      <option value="\n">Newline</option>
+                      <option value=", ">Comma</option>
+                      <option value=" ">Space</option>
+                    </select>
+                  </div>
+
+                  <div class="option-group">
+                    <label>
+                      <input type="checkbox" id="seqReverse" /> Reverse order
+                    </label>
+                  </div>
+
+                  <!-- !!! maybe this shouldnt be here -->
+
+                  <div class="option-group">
+                    <label>Prefix:</label>
+                    <input
+                      type="text"
+                      id="seqPrefix"
+                      class="converter-select"
+                      placeholder="e.g., #"
+                    />
+                  </div>
+
+                  <div class="option-group">
+                    <label>Suffix:</label>
+                    <input
+                      type="text"
+                      id="seqSuffix"
+                      class="converter-select"
+                      placeholder="e.g., ."
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--  -->
+
+            <div class="dropdown-button">
+              <button
+                class="function-button"
+                title="Generate random numbers within a custom range"
+              >
+                Randm No 🔟
+              </button>
+              <div class="dropdown-content random-number">
+                <div class="converter-options">
+                  <!--  -->
+                  <button
+                    data-action="generateRandomNumber"
+                    class="apply-button"
+                  >
+                    Generate
+                  </button>
+                  <!--  -->
+                  <div class="option-group">
+                    <label>Minimum number:</label>
+                    <input
+                      type="number"
+                      id="randNoMinInput"
+                      class="converter-select"
+                      value="1"
+                      min="-999999"
+                      max="999999"
+                    />
+                  </div>
+
+                  <div class="option-group">
+                    <label>Maximum number:</label>
+                    <input
+                      type="number"
+                      id="randNoMaxInput"
+                      class="converter-select"
+                      value="10"
+                      min="-999999"
+                      max="999999"
+                    />
+                  </div>
+
+                  <div class="option-group">
+                    <label>Amount of numbers to generate:</label>
+                    <input
+                      type="number"
+                      id="randNoCount"
+                      class="converter-select"
+                      value="1"
+                      min="1"
+                      max="1000"
+                    />
+                  </div>
+
+                  <div class="option-group">
+                    <label>
+                      <input type="checkbox" id="randNoUnique" /> Unique numbers
+                      only
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1944,150 +2088,6 @@
             >
               No → Wrd
             </button>
-
-            <!-- -->
-
-            <div class="dropdown-button">
-              <button
-                class="function-button"
-                title="Generate a sequence of numbers with custom range"
-              >
-                Gen Num Seq 🔢
-              </button>
-              <div class="dropdown-content number-sequence">
-                <div class="converter-options">
-                  <button data-action="generateSequence" class="apply-button">
-                    Generate
-                  </button>
-
-                  <div class="option-group">
-                    <label>Minimum number:</label>
-                    <input
-                      type="number"
-                      id="seqMinInput"
-                      class="converter-select"
-                      value="1"
-                      min="-999999"
-                      max="999999"
-                    />
-                  </div>
-
-                  <div class="option-group">
-                    <label>Maximum number:</label>
-                    <input
-                      type="number"
-                      id="seqMaxInput"
-                      class="converter-select"
-                      value="10"
-                      min="-999999"
-                      max="999999"
-                    />
-                  </div>
-
-                  <div class="option-group">
-                    <label>Separator:</label>
-                    <select id="seqSeparator" class="converter-select">
-                      <option value="\n">Newline</option>
-                      <option value=", ">Comma</option>
-                      <option value=" ">Space</option>
-                    </select>
-                  </div>
-
-                  <div class="option-group">
-                    <label>
-                      <input type="checkbox" id="seqReverse" /> Reverse order
-                    </label>
-                  </div>
-
-                  <!-- !!! maybe this shouldnt be here -->
-
-                  <div class="option-group">
-                    <label>Prefix:</label>
-                    <input
-                      type="text"
-                      id="seqPrefix"
-                      class="converter-select"
-                      placeholder="e.g., #"
-                    />
-                  </div>
-
-                  <div class="option-group">
-                    <label>Suffix:</label>
-                    <input
-                      type="text"
-                      id="seqSuffix"
-                      class="converter-select"
-                      placeholder="e.g., ."
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!--  -->
-
-            <div class="dropdown-button">
-              <button
-                class="function-button"
-                title="Generate random numbers within a custom range"
-              >
-                Randm No 🔟
-              </button>
-              <div class="dropdown-content random-number">
-                <div class="converter-options">
-                  <!--  -->
-                  <button
-                    data-action="generateRandomNumber"
-                    class="apply-button"
-                  >
-                    Generate
-                  </button>
-                  <!--  -->
-                  <div class="option-group">
-                    <label>Minimum number:</label>
-                    <input
-                      type="number"
-                      id="randNoMinInput"
-                      class="converter-select"
-                      value="1"
-                      min="-999999"
-                      max="999999"
-                    />
-                  </div>
-
-                  <div class="option-group">
-                    <label>Maximum number:</label>
-                    <input
-                      type="number"
-                      id="randNoMaxInput"
-                      class="converter-select"
-                      value="10"
-                      min="-999999"
-                      max="999999"
-                    />
-                  </div>
-
-                  <div class="option-group">
-                    <label>Amount of numbers to generate:</label>
-                    <input
-                      type="number"
-                      id="randNoCount"
-                      class="converter-select"
-                      value="1"
-                      min="1"
-                      max="1000"
-                    />
-                  </div>
-
-                  <div class="option-group">
-                    <label>
-                      <input type="checkbox" id="randNoUnique" /> Unique numbers
-                      only
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             <!--  -->
 
