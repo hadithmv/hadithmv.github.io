@@ -2007,31 +2007,71 @@
 
             <!--  -->
 
-            <button
-              id="prefixSuffixToLine"
-              class="function-button"
-              title="Adds a prefix or suffix to every line, according to the input given in the boxes next to this button after it has been clicked once"
-            >
-              Prefix/Suffix ➕
-            </button>
-            <input
-              id="prefixInput"
-              type="text"
-              placeholder="Prefix"
-              class="buttonInput input1"
-              style="display: none"
-            />
-            <input
-              id="suffixInput"
-              type="text"
-              placeholder="Suffix"
-              class="buttonInput input2"
-              style="display: none"
-            />
+            <div class="dropdown-button">
+              <button
+                class="function-button"
+                title="Add or remove prefix/suffix to each line"
+              >
+                Prefix/Suffix ➕
+              </button>
+              <div class="dropdown-content prefix-suffix">
+                <div class="converter-options">
+                  <!-- Add prefix/suffix section -->
+                  <div class="option-group">
+                    <label>Add prefix:</label>
+                    <input
+                      type="text"
+                      id="addPrefixInput"
+                      class="converter-select"
+                      placeholder="Text to add at start"
+                    />
+                  </div>
 
-            <!-- !!!
-             REMOVE Prefix/Suffix 
-             -->
+                  <div class="option-group">
+                    <label>Add suffix:</label>
+                    <input
+                      type="text"
+                      id="addSuffixInput"
+                      class="converter-select"
+                      placeholder="Text to add at end"
+                    />
+                  </div>
+
+                  <button data-action="addPrefixSuffix" class="apply-button">
+                    Add
+                  </button>
+
+                  <hr class="dropdown-separator" />
+
+                  <!-- Remove prefix/suffix section -->
+                  <div class="option-group">
+                    <label>Remove prefix:</label>
+                    <input
+                      type="text"
+                      id="removePrefixInput"
+                      class="converter-select"
+                      placeholder="Text to remove from start"
+                    />
+                  </div>
+
+                  <div class="option-group">
+                    <label>Remove suffix:</label>
+                    <input
+                      type="text"
+                      id="removeSuffixInput"
+                      class="converter-select"
+                      placeholder="Text to remove from end"
+                    />
+                  </div>
+
+                  <button data-action="removePrefixSuffix" class="apply-button">
+                    Remove
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!--  -->
 
             <!-- !!!
               📅 Days Since -->

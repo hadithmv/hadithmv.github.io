@@ -1345,6 +1345,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
+      case "addPrefixSuffix": {
+        const prefix = document.getElementById("addPrefixInput").value;
+        const suffix = document.getElementById("addSuffixInput").value;
+
+        const lines = textArea.value.split("\n");
+        const modifiedLines = lines.map((line) => prefix + line + suffix);
+        textArea.value = modifiedLines.join("\n");
+
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+
+      case "removePrefixSuffix": {
+        const prefix = document.getElementById("removePrefixInput").value;
+        const suffix = document.getElementById("removeSuffixInput").value;
+
+        const lines = textArea.value.split("\n");
+        const modifiedLines = lines.map((line) => {
+          let modifiedLine = line;
+          if (prefix && modifiedLine.startsWith(prefix)) {
+            modifiedLine = modifiedLine.slice(prefix.length);
+          }
+          if (suffix && modifiedLine.endsWith(suffix)) {
+            modifiedLine = modifiedLine.slice(0, -suffix.length);
+          }
+          return modifiedLine;
+        });
+
+        textArea.value = modifiedLines.join("\n");
+
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+
+      // =====================================================
+
       case "convertSalawat":
         const salawatMappings = {
           plain: "صلى الله عليه وسلم",
@@ -2454,36 +2492,6 @@ i want one more space after the colon that comes after the issue description
     return wordsToNumbers[word] || word;
   }
 
-  //
-
-  /*
-when this button is first clicked, show two input boxes saying Prefix and Suffix as placeholder, which lets the user input characters, after which, further clicks on the button will add prefix or suffix to every line of text with the characters given in the input
-the input boxes should not show before the button has been clicked
-  */
-
-  const prefixInput = document.getElementById("prefixInput");
-  const suffixInput = document.getElementById("suffixInput");
-
-  document
-    .getElementById("prefixSuffixToLine")
-    .addEventListener("click", () => {
-      if (prefixInput.style.display === "none") {
-        // First click: show input fields
-        prefixInput.style.display = "inline-block";
-        suffixInput.style.display = "inline-block";
-      } else {
-        // Subsequent clicks: apply prefix and suffix
-        const prefix = prefixInput.value;
-        const suffix = suffixInput.value;
-
-        // Split the text into lines, apply prefix and suffix, then join back
-        const lines = textArea.value.split("\n");
-        const modifiedLines = lines.map((line) => prefix + line + suffix);
-        textArea.value = modifiedLines.join("\n");
-
-        updateStats();
-      }
-    });
   //
 
   /*
