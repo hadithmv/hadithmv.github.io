@@ -356,6 +356,10 @@
         color: var(--button-hover-text) !important;
       }
 
+      /* .converter-options .apply-button {
+        margin-top: 0;
+      } */
+
       /*  */
 
       /* .checkbox-group .option-group {
@@ -645,20 +649,12 @@
                 </button>
 
                 <!-- Add more number-related options as needed -->
-              </div>
-            </div>
 
-            <!--  -->
+                <hr class="dropdown-separator" />
 
-            <div class="dropdown-button">
-              <button
-                class="function-button"
-                title="Generate a sequence of numbers with custom range"
-              >
-                Gen Num Seq 🔢
-              </button>
-              <div class="dropdown-content number-sequence">
                 <div class="converter-options">
+                  <h4>Generate a sequence of numbers with custom range</h4>
+
                   <button data-action="generateSequence" class="apply-button">
                     Generate
                   </button>
@@ -724,21 +720,14 @@
                     />
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <!--  -->
+                <!--  -->
+                <hr class="dropdown-separator" />
+                <!--  -->
 
-            <div class="dropdown-button">
-              <button
-                class="function-button"
-                title="Generate random numbers within a custom range"
-              >
-                Randm No 🔟
-              </button>
-              <div class="dropdown-content random-number">
                 <div class="converter-options">
-                  <!--  -->
+                  <h4>Generate random numbers within a custom range</h4>
+
                   <button
                     data-action="generateRandomNumber"
                     class="apply-button"
@@ -789,6 +778,8 @@
                     </label>
                   </div>
                 </div>
+
+                <!--  -->
               </div>
             </div>
 
@@ -1037,93 +1028,97 @@
 
                   <!-- Add prefix/suffix section -->
 
-                  <h4>Add or remove Prefix/Suffix for each line</h4>
-                  <br />
+                  <div class="converter-options">
+                    <h4>Add or remove Prefix/Suffix for each line</h4>
 
-                  <div class="option-group">
-                    <label>Add prefix:</label>
-                    <input
-                      type="text"
-                      id="addPrefixInput"
-                      class="converter-select"
-                      placeholder="add at start"
-                    />
+                    <div class="option-group">
+                      <label>Add prefix:</label>
+                      <input
+                        type="text"
+                        id="addPrefixInput"
+                        class="converter-select"
+                        placeholder="add at start"
+                      />
+                    </div>
+
+                    <div class="option-group">
+                      <label>Add suffix:</label>
+                      <input
+                        type="text"
+                        id="addSuffixInput"
+                        class="converter-select"
+                        placeholder="add at end"
+                      />
+                    </div>
+
+                    <button data-action="addPrefixSuffix" class="apply-button">
+                      Add
+                    </button>
+
+                    <hr class="dropdown-separator" />
+
+                    <!-- Remove prefix/suffix section -->
+                    <div class="option-group">
+                      <label>Remove prefix:</label>
+                      <input
+                        type="text"
+                        id="removePrefixInput"
+                        class="converter-select"
+                        placeholder="rmv from start"
+                      />
+                    </div>
+
+                    <div class="option-group">
+                      <label>Remove suffix:</label>
+                      <input
+                        type="text"
+                        id="removeSuffixInput"
+                        class="converter-select"
+                        placeholder="rmv from end"
+                      />
+                    </div>
+
+                    <button
+                      data-action="removePrefixSuffix"
+                      class="apply-button"
+                    >
+                      Remove
+                    </button>
+
+                    <hr class="dropdown-separator" />
+
+                    <!-- Remove characters section -->
+                    <div class="option-group">
+                      <label>Remove no of characters from start:</label>
+                      <input
+                        type="number"
+                        id="removeStartChars"
+                        class="converter-select"
+                        placeholder="Number of chars"
+                        min="0"
+                        value="0"
+                      />
+                    </div>
+
+                    <div class="option-group">
+                      <label>Remove no of characters from end:</label>
+                      <input
+                        type="number"
+                        id="removeEndChars"
+                        class="converter-select"
+                        placeholder="Number of chars"
+                        min="0"
+                        value="0"
+                      />
+                    </div>
+
+                    <button
+                      data-action="removeCharsFromEnds"
+                      class="apply-button"
+                    >
+                      Remove
+                    </button>
                   </div>
-
-                  <div class="option-group">
-                    <label>Add suffix:</label>
-                    <input
-                      type="text"
-                      id="addSuffixInput"
-                      class="converter-select"
-                      placeholder="add at end"
-                    />
-                  </div>
-
-                  <button data-action="addPrefixSuffix" class="apply-button">
-                    Add
-                  </button>
-
-                  <hr class="dropdown-separator" />
-
-                  <!-- Remove prefix/suffix section -->
-                  <div class="option-group">
-                    <label>Remove prefix:</label>
-                    <input
-                      type="text"
-                      id="removePrefixInput"
-                      class="converter-select"
-                      placeholder="rmv from start"
-                    />
-                  </div>
-
-                  <div class="option-group">
-                    <label>Remove suffix:</label>
-                    <input
-                      type="text"
-                      id="removeSuffixInput"
-                      class="converter-select"
-                      placeholder="rmv from end"
-                    />
-                  </div>
-
-                  <button data-action="removePrefixSuffix" class="apply-button">
-                    Remove
-                  </button>
-
-                  <hr class="dropdown-separator" />
-
-                  <!-- Remove characters section -->
-                  <div class="option-group">
-                    <label>Remove no of characters from start:</label>
-                    <input
-                      type="number"
-                      id="removeStartChars"
-                      class="converter-select"
-                      placeholder="Number of chars"
-                      min="0"
-                      value="0"
-                    />
-                  </div>
-
-                  <div class="option-group">
-                    <label>Remove no of characters from end:</label>
-                    <input
-                      type="number"
-                      id="removeEndChars"
-                      class="converter-select"
-                      placeholder="Number of chars"
-                      min="0"
-                      value="0"
-                    />
-                  </div>
-
-                  <button
-                    data-action="removeCharsFromEnds"
-                    class="apply-button"
-                  >
-                    Remove
-                  </button>
                 </div>
                 <!--  -->
               </div>
@@ -1362,7 +1357,7 @@
                     data-action="reverseBracketDirection"
                     class="apply-button"
                   >
-                    Reverse Direction
+                    🔄 Reverse Direction
                   </button>
                 </div>
               </div>
