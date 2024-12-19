@@ -144,14 +144,6 @@ matches:
     replace: بسم الله الرحمن الرحيم
   - trigger: pp-
     replace: present
-  - trigger: thk-
-    replace: thank you
-  - trigger: wc-
-    replace: welcome
-  - trigger: gn-
-    replace: good night
-  - trigger: tc-
-    replace: take care
   - trigger: gc-
     replace: 'git add . && git commit -m "u" && git push'
   - trigger: 1--

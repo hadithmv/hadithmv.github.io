@@ -818,6 +818,103 @@ document.addEventListener("DOMContentLoaded", () => {
         ltrSwitch();
         break;
 
+      //
+
+      case "textToLeet":
+        const leetMap = {
+          a: "4",
+          e: "3",
+          i: "!",
+          o: "0",
+          t: "7",
+          l: "1",
+          s: "5",
+        };
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/[aeiotls]/g, (char) => leetMap[char]);
+        ltrSwitch();
+        break;
+
+      case "leetToText":
+        const reverseLeetMap = {
+          4: "a",
+          3: "e",
+          "!": "i",
+          0: "o",
+          7: "t",
+          1: "l",
+          5: "s",
+        };
+        textArea.value = textArea.value.replace(
+          /[43!0715]/g,
+          (char) => reverseLeetMap[char]
+        );
+        ltrSwitch();
+        break;
+
+      /* previously used:
+  const leetMap = {
+                a: "4",
+                e: "3",
+                l: "1",
+                o: "0",
+                s: "5",
+                t: "7",
+                a: "@",
+                // 4 λ ∂ α æ Λ
+                b: "8",
+                // ß
+                c: "€",
+                // ( ¢ ζ
+                d: "∂",
+                // ð Ð đ δ
+                e: "3",
+                // £ € ə ε ξ ℇ
+                f: "ƒ",
+                // ʃ
+                g: "9",
+                // ℊ
+                h: "#",
+                i: "!",
+                // ι
+                j: "ʝ",
+                // ĵ ¿
+                k: "ɮ",
+                // ₭
+                l: "ʅ",
+                // £ ℓ
+                m: "ണ",
+                // Պ സ ന ൩ ന ണ
+                n: "π",
+                // ₪ η
+                o: "0",
+                // ¤ Ω ø θ σ
+                p: "ρ",
+                // ? ₱ þ ¶
+                q: "ℚ",
+                //
+                r: "₹",
+                // Я
+                s: "$",
+                // §
+                t: "†",
+                // 7 + λ τ
+                u: "µ",
+                // Ü
+                v: "√",
+                // ▼ ѵ υ
+                w: "ω",
+                // Ш ɰ
+                x: "×",
+                // * Ж % χ א
+                y: "γ",
+                // Ψ ¥  Ч ψ
+                z: "2",
+              };
+              */
+      //
+
       // =====================================================
 
       case "convertBrackets":
@@ -2305,103 +2402,6 @@ i want one more space after the colon that comes after the issue description
     textArea.value = textArea.value.replace(/[^\w\s]/g, "");
     updateStats();
   });
-  //
-
-  let isLeetSpeak = false;
-
-  const leetMap = {
-    a: "4",
-    e: "3",
-    i: "!",
-    o: "0",
-    t: "7",
-    l: "1",
-    s: "5",
-  };
-
-  const reverseLeetMap = Object.fromEntries(
-    Object.entries(leetMap).map(([key, value]) => [value, key])
-  );
-
-  document.getElementById("toggleLeetSpeak").addEventListener("click", () => {
-    if (isLeetSpeak) {
-      // Convert leet speak back to regular text (lowercase)
-      textArea.value = textArea.value.replace(
-        /[43!0715]/g,
-        (char) => reverseLeetMap[char]
-      );
-    } else {
-      // Convert regular text to leet speak (all lowercase)
-      textArea.value = textArea.value
-        .toLowerCase()
-        .replace(/[aeiotls]/g, (char) => leetMap[char]);
-    }
-
-    isLeetSpeak = !isLeetSpeak;
-    updateStats();
-    ltrSwitch();
-  });
-
-  /* previously used:
-  const leetMap = {
-                a: "4",
-                e: "3",
-                l: "1",
-                o: "0",
-                s: "5",
-                t: "7",
-                a: "@",
-                // 4 λ ∂ α æ Λ
-                b: "8",
-                // ß
-                c: "€",
-                // ( ¢ ζ
-                d: "∂",
-                // ð Ð đ δ
-                e: "3",
-                // £ € ə ε ξ ℇ
-                f: "ƒ",
-                // ʃ
-                g: "9",
-                // ℊ
-                h: "#",
-                i: "!",
-                // ι
-                j: "ʝ",
-                // ĵ ¿
-                k: "ɮ",
-                // ₭
-                l: "ʅ",
-                // £ ℓ
-                m: "ണ",
-                // Պ സ ന ൩ ന ണ
-                n: "π",
-                // ₪ η
-                o: "0",
-                // ¤ Ω ø θ σ
-                p: "ρ",
-                // ? ₱ þ ¶
-                q: "ℚ",
-                //
-                r: "₹",
-                // Я
-                s: "$",
-                // §
-                t: "†",
-                // 7 + λ τ
-                u: "µ",
-                // Ü
-                v: "√",
-                // ▼ ѵ υ
-                w: "ω",
-                // Ш ɰ
-                x: "×",
-                // * Ж % χ א
-                y: "γ",
-                // Ψ ¥  Ч ψ
-                z: "2",
-              };
-              */
   //
 
   document.getElementById("numerateWords").addEventListener("click", () => {
