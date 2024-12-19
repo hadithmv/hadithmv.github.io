@@ -328,6 +328,41 @@ document.addEventListener("DOMContentLoaded", () => {
         );
         break;
 
+      /* OLD CODE
+          let isSmartQuotes = false;
+  document.getElementById("convertQuotes").addEventListener("click", () => {
+    if (isSmartQuotes) {
+      // Convert smart quotes to straight quotes
+      textArea.value = textArea.value
+        .replace(/[\u2018\u2019]/g, "'")
+        .replace(/[\u201C\u201D]/g, '"');
+    } else {
+      // Convert straight quotes to smart quotes for RTL
+      textArea.value = textArea.value
+        .replace(/(\W|^)"(\S)/g, "$1\u201D$2") // opening doubles
+        .replace(/(\u201D[^"]*)"([^"]*$|[^\u201D"]*\u201D)/g, "$1\u201C$2") // closing doubles
+        .replace(/([^0-9])"/g, "$1\u201C") // remaining double closing
+        .replace(/(\W|^)'(\S)/g, "$1\u2019$2") // opening singles
+        .replace(/([a-z])'([a-z])/gi, "$1\u2018$2") // contractions
+        .replace(/((\u2019[^']*)|[a-z])'([^0-9]|$)/gi, "$1\u2018$3") // closing singles
+        .replace(
+          /(\u2019)([0-9]{2}[^\u2018]*)(\u2019([^0-9]|$)|$|\u2018[a-z])/gi,
+          "\u2018$2$3"
+        ) // abbrev. years like '93
+        .replace(
+          /(\B|^)\u2019(?=([^\u2018]*\u2018\b)*([^\u2018\u2019]*\W[\u2018\u2019]\b|[^\u2018\u2019]*$))/gi,
+          "$1\u2018"
+        ) // backwards apostrophe
+        .replace(/'''/g, "\u2034") // triple prime
+        .replace(/''/g, "\u2033") // double prime
+        .replace(/'/g, "\u2032"); // prime
+    }
+    isSmartQuotes = !isSmartQuotes;
+    updateStats();
+  });
+  //
+  */
+
       // =====================================================
 
       // Web Languages
@@ -1719,39 +1754,6 @@ document.addEventListener("DOMContentLoaded", () => {
     isRTL = !isRTL;
     textArea.style.direction = isRTL ? "rtl" : "ltr";
     textArea.style.textAlign = isRTL ? "right" : "left";
-  });
-  //
-
-  let isSmartQuotes = false;
-  document.getElementById("convertQuotes").addEventListener("click", () => {
-    if (isSmartQuotes) {
-      // Convert smart quotes to straight quotes
-      textArea.value = textArea.value
-        .replace(/[\u2018\u2019]/g, "'")
-        .replace(/[\u201C\u201D]/g, '"');
-    } else {
-      // Convert straight quotes to smart quotes for RTL
-      textArea.value = textArea.value
-        .replace(/(\W|^)"(\S)/g, "$1\u201D$2") // opening doubles
-        .replace(/(\u201D[^"]*)"([^"]*$|[^\u201D"]*\u201D)/g, "$1\u201C$2") // closing doubles
-        .replace(/([^0-9])"/g, "$1\u201C") // remaining double closing
-        .replace(/(\W|^)'(\S)/g, "$1\u2019$2") // opening singles
-        .replace(/([a-z])'([a-z])/gi, "$1\u2018$2") // contractions
-        .replace(/((\u2019[^']*)|[a-z])'([^0-9]|$)/gi, "$1\u2018$3") // closing singles
-        .replace(
-          /(\u2019)([0-9]{2}[^\u2018]*)(\u2019([^0-9]|$)|$|\u2018[a-z])/gi,
-          "\u2018$2$3"
-        ) // abbrev. years like '93
-        .replace(
-          /(\B|^)\u2019(?=([^\u2018]*\u2018\b)*([^\u2018\u2019]*\W[\u2018\u2019]\b|[^\u2018\u2019]*$))/gi,
-          "$1\u2018"
-        ) // backwards apostrophe
-        .replace(/'''/g, "\u2034") // triple prime
-        .replace(/''/g, "\u2033") // double prime
-        .replace(/'/g, "\u2032"); // prime
-    }
-    isSmartQuotes = !isSmartQuotes;
-    updateStats();
   });
   //
 
