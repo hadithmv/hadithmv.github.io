@@ -1784,7 +1784,7 @@
               <input
                 type="text"
                 id="urlInput"
-                placeholder="ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ"
+                placeholder="ސޭވްކުރި ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ"
               />
               <button class="goToButton" onclick="redirectToUrl()">
                 ސ އަށްދޭ
@@ -1801,14 +1801,19 @@
             </p>
             <p class="quoteHere">
               ރަސޫލު ﷲ
+
               <button
-                class="lowerButtons"
-                id="sallaButton"
-                onclick="copySalla();"
-                title="ﷺ Copy"
+                class="copy-button-lit"
+                style="
+                  font-family: mergedFont, Arial, sans-serif, faruma;
+                  font-size: 22px;
+                  padding-top: 0;
+                  padding-bottom: 0;
+                "
               >
-                &nbsp; ﷺ &nbsp;
+                ﷺ
               </button>
+
               ޙަދީޘްކުރެއްވިއެވެ: ”ފަހުން އަންނަ ކޮންމެ ބަޔެއްގެ ތެރެއިންވެސް
               އެބައިމީހުންގެ އަދުލުވެރިން މި އިލްމު އުފުލާނެއެވެ. ޖާހިލުންގެ
               ބަދަލު ކުރުންތަކާއި، ބާތިލު ކުރާ މީހުންގެ ދައުވާތަކާއި،
@@ -1824,44 +1829,53 @@
                 1893]
                 </p>
                 -->
-            <style>
-              #sallaButton {
-                background-color: #fff;
-                width: 69px;
-                /*style="margin: 0; height: 20px"*/
-              }
-              #sallaButton:hover {
-                background-color: #136296;
-              }
-              /*
-             @media (prefers-color-scheme: light) {
-             #sallaButton {
-             background-color: #fff;
-             }
-             }*/
-            </style>
             <script>
-              // https://stackoverflow.com/questions/8252638/executing-javascript-after-x-seconds
-              function copySalla() {
-                document.getElementById("sallaButton").innerHTML =
-                  "&nbsp; ކޮޕީ &nbsp;";
-                /**/
-                var input = document.createElement("textarea");
-                input.innerHTML = "ﷺ";
-                document.body.appendChild(input);
-                input.select();
-                var result = document.execCommand("copy");
-                document.body.removeChild(input);
+              // Copy this elsewhere if needed. currently in textEditor.js and index.html
+              // Copy functionality for copy-specific buttons document
+              document
+                .querySelectorAll(
+                  ".copy-button, .copy-button-lit, .copy-button-other"
+                )
+                .forEach((button) => {
+                  button.addEventListener("click", async () => {
+                    const text =
+                      button.dataset.text || button.textContent.trim();
+                    try {
+                      await navigator.clipboard.writeText(text);
+                      showButtonFeedback(button, "Copied");
+                    } catch (err) {
+                      console.error("Failed to copy:", err);
+                    }
+                  });
+                });
 
-                /**/
-                setTimeout(function () {
-                  document.getElementById("sallaButton").innerHTML =
-                    "&nbsp; ﷺ &nbsp;";
-                  document.getElementById("div2").style.display = "none";
-                }, 1500);
+              // Generic feedback for all buttons except dropdown triggers
+              document.querySelectorAll("button").forEach((button) => {
+                button.addEventListener("click", (event) => {
+                  if (button.closest(".dropdown-button")) {
+                    // Skip feedback for dropdown buttons
+                    return;
+                  }
+                  showButtonFeedback(button, "Clicked");
+                });
+              });
 
-                /**/
-                return result;
+              // Generic feedback tooltip
+              function showButtonFeedback(button, message) {
+                // Add feedback tooltip
+                const feedback = document.createElement("span");
+                feedback.textContent = message;
+                feedback.className = "copy-feedback";
+                button.appendChild(feedback);
+
+                // Add visual feedback
+                button.classList.add("copy-success");
+
+                // Remove feedback elements after a delay
+                setTimeout(() => {
+                  feedback.remove();
+                  button.classList.remove("copy-success");
+                }, 1000);
               }
             </script>
             <p class="quoteHere">
@@ -3707,32 +3721,33 @@
           }
           #urlInput {
             width: auto;
-            padding: 1px;
+            padding: 5px;
+            text-indent: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            font-size: 16px;
+            font-size: 20px;
             outline: none;
             transition: border-color 0.3s;
             background-color: #ffffff;
             color: #0e1621;
             max-width: 50vw;
-            font-size: 85%;
             font-family: inherit;
           }
           #urlInput:focus {
             border-color: #007bff;
           }
           .goToButton {
-            padding: 1px 20px;
+            padding: 5px 20px;
             border: none;
             border-radius: 4px;
             background-color: #136296;
             color: white;
-            font-size: 16px;
+            font-size: 20px;
             cursor: pointer;
             transition: background-color 0.3s;
-            font-size: 90%;
+            /* font-size: 90%; */
             font-family: inherit;
+            margin-right: 5px;
           }
           .goToButton:hover {
             background-color: #0f4c75;
@@ -3813,7 +3828,7 @@
                   inputElement.removeAttribute("style");
                   inputElement.setAttribute(
                     "placeholder",
-                    "ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ"
+                    "ސޭވްކުރި ސަފުހާގެ ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ"
                   ); // Set to default or new placeholder text if needed
                 },
                 { once: true }
@@ -3840,7 +3855,7 @@
               inputElement.classList.remove("incorrect");
               inputElement.setAttribute(
                 "placeholder",
-                "ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ"
+                "ސޭވްކުރި ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ"
               );
               inputElement.style.removeProperty("--placeholder-color");
               inputElement.style.removeProperty("--border-color");

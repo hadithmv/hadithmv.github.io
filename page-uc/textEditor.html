@@ -195,61 +195,6 @@
         font-size: 18px; /* 16 */
       }
 
-      /* Button Feedback Styles */
-
-      button {
-        position: relative; /* Required for feedback positioning */
-        overflow: visible; /* Ensure feedback isn't clipped */
-      }
-
-      .copy-button-lit,
-      .copy-button,
-      .copy-button-other {
-        position: relative;
-      }
-
-      .copy-feedback {
-        position: absolute;
-        background: rgba(0, 0, 0, 0.8);
-        color: white;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 12px;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        white-space: nowrap;
-        pointer-events: none;
-        animation: fadeOut 1s forwards;
-      }
-
-      @keyframes fadeOut {
-        0% {
-          opacity: 1;
-        }
-        70% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0;
-        }
-      }
-
-      .copy-success {
-        background-color: #90caf9; /* A moderate blue */
-        transition: background-color 0.3s;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        .copy-success {
-          background-color: #2e7d32; /* A brighter dark green */
-        }
-        .copy-feedback {
-          background: rgba(255, 255, 255, 0.8);
-          color: black;
-        }
-      }
-
       /*  */
 
       /* dropdown buttons */
