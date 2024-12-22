@@ -2871,6 +2871,8 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
   //
 
   // Copy functionality for the Copy tab
+
+  // Copy this elsewhere if needed. currently in textEditor.js and index.html
   // Copy functionality for copy-specific buttons
   document
     .querySelectorAll(".copy-button, .copy-button-lit, .copy-button-other")
@@ -2914,6 +2916,8 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       button.classList.remove("copy-success");
     }, 1000);
   }
+
+  //
 
   //
 
