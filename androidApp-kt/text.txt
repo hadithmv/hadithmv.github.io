@@ -1,0 +1,142 @@
+https://medium.com/@01one/create-simplest-webview-application-with-android-studio-aa55417fe8ec
+
+https://github.com/01one/AndroidWebviewTemplate/tree/main/02.AndroidWebviewOfflineAppTemplate
+
+...app\src\main\assets
+html css js
+
+...
+
+problem:
+
+index.html:375  Access to fetch at 'file:///C:/Users/ashra/Downloads/VScode/hadithmv.github.io/androidApp-kt/app/src/main/assets/style.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome-extension, chrome-untrusted, data, edge, http, https, isolated-app
+
+index.html:375  Access to XMLHttpRequest at 'file:///C:/Users/ashra/Downloads/VScode/hadithmv.github.io/androidApp-kt/app/src/main/js/json/index.json' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome-extension, chrome-untrusted, data, edge, http, https, isolated-app.
+
+solution:
+                // added
+                allowFileAccessFromFileURLs = true
+                // https://developer.android.com/reference/android/webkit/WebSettings
+                // https://chromium.googlesource.com/chromium/src/+/HEAD/android_webview/docs/cors-and-webview-api.md
+                // https://docs.jumio.com/production/Content/Integration/Integration%20Channels/Android%20WebView.htm
+
+remember to change
+ajax: {
+          url: currentFileName + `.json`,
+to `qawaidulArbau.json`,
+or other than index if running from index
+
+...
+
+gemini:
+
+how do i change name of this android app
+
+
+Okay, let's walk through the steps to change the name of your Android app.
+Steps
+Locate strings.xml:
+In your Android Studio project, navigate to the res/values folder.
+Open the strings.xml file.
+Modify app_name:
+Find the <string name="app_name"> element.
+Change the text between the tags to your desired app name.
+
+Sync Project:
+After making the change, sync your project with the Gradle files. You can usually do this by clicking the "Sync Project with Gradle Files" button in the toolbar (it looks like an elephant with a green arrow).
+Clean and Rebuild:
+To ensure the changes take effect, clean and rebuild your project. You can do this by going to Build > Clean Project and then Build > Rebuild Project.
+Run Your App:
+Run your app on a device or emulator to see the updated name reflected in the launcher and other areas of the app.
+Important Considerations
+Launcher Icon Name: The name displayed below the launcher icon is primarily determined by the app_name string. However, if you have a custom launcher activity (e.g., a splash screen), you might need to adjust the android:label attribute in your AndroidManifest.xml for that activity as well.
+Other String Resources: If you have other string resources that refer to the app name, make sure to update those as well to maintain consistency.
+Application ID: Changing the app name does not change the application ID (package name). If you need to change the application ID, you'll need to follow a separate process.
+I hope this helps! Let me know if you have any other questions.
+
+...
+
+i also want to change package name
+com.hadithmv.hmv
+
+currently its com.example.androidWebViewOfflineApp
+
+
+stackoverflow answer:
+https://stackoverflow.com/questions/16804093/rename-package-in-android-studio
+
+if cant find compact empty middle:
+https://www.youtube.com/watch?v=gfmqkV8O__M
+https://stackoverflow.com/questions/54537127/compact-empty-middle-packages-is-not-found-in-new-android-studio/78939797#78939797
+
+Renaming project root directory gives java.io.IOException
+https://stackoverflow.com/questions/56107963/renaming-project-root-directory-in-pycharm-gives-java-io-ioexception/77752178#77752178
+
+https://stackoverflow.com/questions/54505958/unresolved-class-mainactivity/68692175#68692175
+
+there is also in build.gradle module:app
+android {
+    namespace 'com.example.androidWebViewOfflineApplication'
+
+there is also ih settings.gradle
+rootProject.name = "androidWebViewOfflineApplication"
+
+also in .idea
+androidWebViewOfflineApplication
+
+also in AndroidManifest.xml
+android:theme="@style/Theme.androidWebViewOfflineApplication" (x2)
+
+also in themes.xml
+    <style name="Theme.androidWebViewOfflineApplication" parent="android:Theme.Material.Light.NoActionBar" />
+
+
+i think stackoverflow instruction is better, so SKIP below
+
+gemini answer:
+
+Okay, let's go through the steps to change the package name of your Android app in Android Studio.
+Steps
+Refactor Package Name:
+In the "Project" view, right-click on the package you want to rename (usually under app/java/com/your_current_package_name).
+Select Refactor > Rename.
+Choose "Rename package" in the dialog that appears.
+Enter the new package name and click "Refactor".
+Android Studio will update all references to the old package name throughout your project.
+Update AndroidManifest.xml:
+Open your AndroidManifest.xml file.
+Update the package attribute in the <manifest> tag to your new package name.
+Update build.gradle (Module: app):
+Open your build.gradle file (Module: app).
+Update the applicationId in the defaultConfig block to your new package name.
+Sync Project:
+Sync your project with the Gradle files by clicking the "Sync Project with Gradle Files" button in the toolbar.
+Clean and Rebuild:
+Clean and rebuild your project to ensure the changes take effect. Go to Build > Clean Project and then Build > Rebuild Project.
+Example
+Let's say you want to change your package name from com.example.myapp to com.mynewapp.mobile. Here's how the relevant files would be updated:
+
+AndroidManifest.xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mynewapp.mobile"> 
+    </manifest>
+
+build.gradle (Module: app)
+android {
+    defaultConfig {
+        applicationId "com.mynewapp.mobile" 
+    }
+}
+
+Important Considerations
+Data Migration: If your app stores data locally (e.g., in SharedPreferences or databases), you'll need to handle data migration to the new package name. Otherwise, users might lose their data when they update to the new version.
+External Libraries: If you're using any external libraries that rely on your package name (e.g., for deep linking), you'll need to update their configurations accordingly.
+Version Control: Make sure to commit your changes to version control after successfully renaming the package.
+I hope this helps you change your app's package name without any issues! Let me know if you have any other questions.
+
+
+...
+
+next setup app icons
+
+https://developer.android.com/studio/write/create-app-icons
