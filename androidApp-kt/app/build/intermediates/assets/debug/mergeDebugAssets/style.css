@@ -1,0 +1,1984 @@
+/* ==========================================================================
+    Theme Colors
+   ========================================================================== */
+
+/* Add CSS Custom Properties for theming */
+
+/* Base variables */
+
+:root {
+  /* Light theme */
+  --color-bg-primary: #fff;
+  --color-bg-secondary: #e7edf6;
+  --color-bg-tertiary: #dee3eb;
+  --color-text-primary: #0a0a0a;
+  --color-text-secondary: #555;
+  --color-border: #c4c6d0;
+  --color-link: #0065cc;
+  --color-highlight: #82b8fa;
+  --color-accent: #286294;
+  --color-header: #0f4c75;
+  --color-selection: #b3d4fc;
+  --color-focus: #235580;
+  --color-divider: #415f91;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark theme */
+    --color-bg-primary: #1a1b1e;
+    --color-bg-secondary: #2d2e32;
+    --color-bg-tertiary: #3a3b40;
+    --color-text-primary: #e1e1e1;
+    --color-text-secondary: #a0a0a0;
+    --color-border: #4a4b50;
+    --color-link: #66b3ff;
+    --color-highlight: #2d5c99;
+    --color-accent: hsl(210, 52%, 54%);
+    --color-header: #99ccff;
+    --color-selection: #364c63;
+    --color-focus: #4d8ac7;
+    --color-divider: #4d8ac7;
+  }
+}
+
+/* Editor & Diff Compare shared variables */
+
+:root {
+  /* added for text editor */
+  --button-bg: #f0f0f0;
+  --button-hover: #007bff;
+  --button-text: #000000;
+  --button-hover-text: #ffffff;
+  --tab-active: #007bff;
+  --tab-border: #ccc;
+  --textarea-bg: #ffffff;
+  --textarea-text: #000000;
+  --textarea-border: #ccc;
+  /* added for diff compare */
+  --input-bg: #ffffff;
+  --input-border: #ccc;
+  --input-text: #000000;
+  --popup-bg: #ffffff;
+  --popup-text: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* ... existing dark theme variables ... */
+
+    /* Editor & Diff Compare dark theme */
+    /* added for text editor */
+    --button-bg: #2d2e32;
+    --button-hover: #4d8ac7;
+    --button-text: #e1e1e1;
+    --button-hover-text: #ffffff;
+    --tab-active: #4d8ac7;
+    --tab-border: #4a4b50;
+    --textarea-bg: #2d2e32;
+    --textarea-text: #e1e1e1;
+    --textarea-border: #4a4b50;
+    /* added for diff compare */
+    --input-bg: #1a1b1e;
+    --input-border: #4a4b50;
+    --input-text: #e1e1e1;
+    --popup-bg: #2d2e32;
+    --popup-text: #e1e1e1;
+  }
+}
+
+/* ... OTHER styles ... */
+
+/* Shared Editor & Diff Compare Styles */
+.function-button,
+.copy-button,
+.copy-button-lit,
+.copy-button-other {
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  min-width: 15px;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--tab-border);
+  font-size: 18px;
+}
+
+.function-button:hover,
+.copy-button:hover,
+.copy-button-lit:hover,
+.copy-button-other:hover {
+  background-color: var(--button-hover);
+  color: var(--button-hover-text);
+}
+
+.buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.buttonInput {
+  width: 90px;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 18px;
+  text-align: center;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 599px) {
+  .buttons-container {
+    gap: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+  }
+
+  .function-button {
+    font-size: 14px;
+  }
+}
+
+/*  */
+
+/* Button Feedback Styles */
+
+button {
+  position: relative; /* Required for feedback positioning */
+  overflow: visible; /* Ensure feedback isn't clipped */
+}
+
+.copy-button-lit,
+.copy-button,
+.copy-button-other {
+  position: relative;
+}
+
+.copy-feedback {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.copy-success {
+  background-color: #90caf9; /* A moderate blue */
+  transition: background-color 0.3s;
+}
+
+@media (prefers-color-scheme: dark) {
+  .copy-success {
+    background-color: #2e7d32; /* A brighter dark green */
+  }
+  .copy-feedback {
+    background: rgba(255, 255, 255, 0.8);
+    color: black;
+  }
+}
+
+/* ==========================================================================
+     Base Styles and Layout
+     ========================================================================== */
+
+/* Body */
+
+body {
+  margin: 0;
+  padding: 0;
+  /* */
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.8;
+  /* color: #0a0a0a; */
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  /* */
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
+  /* text-align: right;
+        direction: rtl;
+        */
+  /*font-size: 120%;
+       */
+  /* for tharujamaanu */
+}
+
+/* making the body background color different like in hassaans, but only on tablet and above, not mobile, otherwise hiding navbar on mobile shows the differently colored body from the wrapper */
+/* tablet - desktop */
+@media (min-width: 600px) {
+  body {
+    /* outer color */
+    /* material theme builder, source color C0DAF9 */
+    /* background-color: #e7edf6; */
+    background-color: var(--color-bg-secondary);
+    /*  prev f2f2f5 main bg-llight */
+    /* styles of hassaan */
+  }
+}
+
+/* outer wrapper container */
+
+.dtWrapper {
+  /* inner color */
+  /* material theme builder, source color C0DAF9 
+      background-color: #f7f9ff */
+  /* background-color: #fff; */
+  background-color: var(--color-bg-primary);
+  /* prev  f7f9ff */
+  /* !!! */
+  padding-top: 0.75em; /* instead of a margin, gives it a padding top and colors that */
+  /* !!! */
+  /*max-width: 1080px;
+      */
+  /* 800px, Adjust the maximum width as needed */
+  margin: 0 auto;
+  min-width: 200px;
+  max-width: 980px;
+}
+/* for mobile
+    @media (max-width: 599px) {
+      .dtWrapper {
+        padding-top: 0.75em;
+      }
+    }  */
+
+.hmvSection {
+  padding: 3em 5em;
+  text-align: right;
+  /* center */
+  direction: rtl;
+  /* */
+  padding-top: 0;
+}
+@media (max-width: 599px) {
+  .hmvSection {
+    padding: 1em;
+    margin: 0 0 2em;
+  }
+}
+
+/* page footnotes, styles from hassaan's .post-copyright, and some from .twitter-tweet  */
+.pageFootnotes {
+  /*padding: 10px;*/ /* padding: 0.2em 2em 0.2em 3em; */
+  padding: 0 2em 1em 2em; /* 0 2em 1em 3em .twitter-tweet */
+  /* material theme builder, source color C0DAF9 
+      background-color: #f0f4f9; */
+  /*background-color: #f6f6f6;*/
+  /* prev e7edf6, hsla(0, 0%, 71%, 0.1) 136296 */
+  /* prev c2c7cf 999 235580 .twitter-tweet */
+  background-color: var(--color-bg-secondary);
+  /*border: 1px solid #e1e1e1;*/
+  /* material theme builder, source color C0DAF9 
+      border-right: 4px solid #c2c7cf; */
+  border: 1px solid var(--color-border);
+  /*border-right: 4px solid #8c9199;*/
+  border-right: 4px solid var(--color-divider);
+  /*margin-top: 3em;*/
+  /* added */
+  font-size: 20px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  /*margin-right: 1em;*/
+  /*color: #555;*/
+  color: var(--color-text-secondary);
+}
+
+.pageFootnotes p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* adds line above footnote, In order for the new lines to work properly, you also need to set the white-space property to either pre or pre-wrap. however this isnt selectable or copyable, so added it in the html itself . */
+/*.pageFootnotes::before {
+      content: "_________\a";
+      white-space: pre;
+    }*/
+
+/* only for MOBILE size - removes top margin */
+@media (max-width: 599px) {
+  .rmvTopMarginOnMobile {
+    margin-top: 0;
+  }
+}
+
+/* Basic Elements */
+
+/* add an animated underline on hover to a link */
+a {
+  /* color: #0065cc; */
+  color: var(--color-link);
+  text-decoration: none;
+  position: relative;
+}
+a::after {
+  /* background-color: #0065cc; */
+  background-color: var(--color-link);
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  left: 0;
+  bottom: -2px;
+  /* -2px */
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+  /* this makes sure it is on top of other elements that might come after it */
+  z-index: 5;
+}
+p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+/* added remove link hover underline from things like img */
+a.noLineA::after {
+  background: none;
+}
+
+/* horizontal rule */
+/* A better looking default hr IS IT NEEDED !!! */
+hr {
+  display: block;
+  height: 1px;
+  /*border: 0;
+        border-top: 1px solid #ccc;
+       */
+  /*margin: 1em 0;*/
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  padding: 0;
+  /* added */
+  border: none;
+  /* material theme builder, source color C0DAF9 */
+  /* border-bottom: 2px solid #c2c7cf;  */
+  border-bottom: 2px solid var(--color-border);
+  /* prev d3d3d3 */
+}
+
+/* Customize the background color to match your design */
+::-moz-selection {
+  /*background: #b3d4fc;
+  text-shadow: none;*/
+  background: var(--color-selection);
+  text-shadow: none;
+}
+::selection {
+  /*background: #b3d4fc;
+  text-shadow: none;*/
+  background: var(--color-selection);
+  text-shadow: none;
+}
+
+/* Remove the gap between audio, canvas, iframes, images, videos and the bottom of their containers */
+/*audio, canvas, iframe, svg, video*/
+img {
+  vertical-align: middle;
+}
+/* fieldset styles, textarea resize */
+
+/* ==========================================================================
+     Typography - Font
+     ========================================================================== */
+
+/* merged font */
+@font-face {
+  font-family: "mergedFont";
+  src: url(../font/merged-300.woff2) format("woff2"),
+    url(../font/merged-300.woff) format("woff");
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display */
+  font-display: block;
+  /* previously swap */
+}
+
+/* https://www.cleancss.com/css-beautify/
+  https://github.com/h5bp/html5-boilerplate updated with hassaan's css */
+html {
+  font-size: 22px;
+  /* 1em */
+  /*line-height: 1.8;
+       */
+  /* 1.4 now in body */
+  /* added */
+  -webkit-text-size-adjust: 100%;
+  /* !!! */
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior */
+  scroll-behavior: smooth;
+  /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page */
+  overflow-y: scroll;
+  /* Allow long words to be able to break and wrap onto the next line. Prevents long url addresses from breaking page content when it doesnt fit the width. use this instead of text-wrap or break-word where it is needed. */
+  /* overflow-wrap: anywhere;
+        */
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap */
+  text-wrap: pretty;
+  /* pretty balance */
+}
+/* resets body and centers container */
+/* some body code from https://github.com/sindresorhus/github-markdown-css/blob/main/index.html */
+
+/* Headings */
+
+h2 {
+  margin-top: 1.75em;
+  font-size: 28px;
+}
+
+h3 {
+  font-size: 23px;
+  margin-top: 1.65em; /* 1.5, 2 */
+  /*margin-top: 1em;
+       */
+  margin-bottom: 1em;
+}
+
+/* ==========================================================================
+    Helper Classes
+     ========================================================================== */
+
+/* Hide visually and from screen readers */
+.hidden,
+[hidden] {
+  display: none !important;
+}
+/* Hide visually and from screen readers, but maintain layout */
+.invisible {
+  visibility: hidden;
+}
+/* clearfix, media queries, print styles */
+
+.hmvLogo {
+  /*width: 200px;
+      height: 200px;*/
+  width: 150px;
+  height: 150px;
+  /*transition: transform 0.3s ease-in-out;*/
+  transition: transform 0.25s ease-out;
+  margin-bottom: 0.8em;
+}
+.hmvLogo:hover {
+  transform: scale(1.15);
+}
+
+.basmala {
+  /*padding-bottom: 10px !important;*/
+  font-size: 25px !important;
+}
+
+.warning-box {
+  background: #fff3cd;
+  /* border-left: 4px solid #ffc107; for LTR */
+  border-right: 4px solid #ffc107;
+  /* padding: 1rem; */
+  padding: 0.1rem 1rem;
+  border-radius: 4px;
+  /* margin-top: 2rem; */
+}
+
+/* Add dark mode support */
+@media (prefers-color-scheme: dark) {
+  .warning-box {
+    background: #332d1a;
+    border-left-color: #ffc107;
+  }
+}
+
+/* HELPER CLASSES */
+.justifiedText {
+  text-align: justify;
+  /*direction: rtl;
+       */
+}
+
+.centerAlignedText {
+  text-align: center;
+  /*direction: rtl;
+       */
+}
+
+.rightAlignedText {
+  text-align: right;
+}
+
+.leftAlignedText {
+  text-align: left;
+}
+
+.ltrText {
+  direction: ltr;
+}
+
+.rtlText {
+  direction: rtl;
+}
+
+/*  responsive media queries code */
+
+/* @mixin for-phone-only {
+      @media (max-width: 599px) {
+          @content;
+     }
+  }
+  @mixin for-tablet-portrait-up {
+      @media (min-width: 600px) {
+          @content;
+     }
+  }
+  @mixin for-tablet-landscape-up {
+      @media (min-width: 900px) {
+          @content;
+     }
+  }
+  @mixin for-desktop-up {
+      @media (min-width: 1200px) {
+          @content;
+     }
+  }
+  @mixin for-big-desktop-up {
+      @media (min-width: 1800px) {
+          @content;
+     }
+  }
+  */
+
+/* ==========================================================================
+    Button Styles
+     ========================================================================== */
+
+.customButtons {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  /*margin-bottom: 0.333em;
+       */
+  padding: 0.5em 1em;
+  cursor: pointer;
+  font-size: 0.88em;
+  line-height: 1.6em;
+  color: inherit;
+  user-select: none;
+  text-decoration: none;
+  outline: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
+  -webkit-font-smoothing: antialiased;
+  text-align: right;
+  direction: rtl;
+  /* */
+  /*padding-right: 25px;
+        padding-left: 25px;
+       */
+  border: none;
+  /* material theme builder, source color C0DAF9 */
+  /* background: #dee3eb none; */
+  background: var(--color-bg-tertiary) none;
+  /* prev e0e1e2 */
+  color: var(--color-text-primary);
+  /* ? */
+  border-radius: 0.28571429rem;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
+    box-shadow 0.1s ease, background 0.1s ease;
+  /* added */
+  margin: 5px;
+  transition: transform 0.2s ease-out;
+}
+.customButtons:hover {
+  /* color: white; */
+  color: var(--color-bg-primary);
+  /* material theme builder, source color C0DAF9 */
+  /* background-color: #286294; */
+  background-color: var(--color-accent);
+  /* prev 1f6cb9 */
+  /* transform: scale(1.15); */
+}
+/* ==========================================================================
+    Navbar Styles
+     ========================================================================== */
+
+/* CSS styles for the navbar
+add <div id="navbar-container"></div>
+to html, and link to the js
+*/
+
+/* Add CSS Custom Properties for NAVBAR theming */
+:root {
+  /* Light theme */
+  --menu-bg: #235580;
+  --menu-text: #ffffff;
+  /* --nav-shadow: rgba(0, 0, 0, 0.1); */
+  --navbar-dropdown-bg: #0d4266;
+  --navbar-dropdown-hover: #1a5585;
+  --menu-border: rgba(255, 255, 255, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark theme */
+    --menu-bg: #1a3f61;
+    --menu-text: #e1e1e1;
+    /* --nav-shadow: rgba(0, 0, 0, 0.3); */
+    --navbar-dropdown-bg: #0a2540;
+    --navbar-dropdown-hover: #2a5075;
+    --menu-border: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Optional: Add transition for smooth theme switching */
+/* .navbar,
+  .navbar-side-menu,
+  .navbar-dropdown-content,
+  .sub-navbar-dropdown-content,
+  .sub-sub-navbar-dropdown-content {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  } */
+
+/* END theme styles*/
+
+/* Reset default margins and paddings
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+        }      */
+
+/* Add top padding to body to account for fixed navbar */
+html body {
+  padding-top: 47px; /* 60px; */
+}
+
+/* Navbar styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3000; /* 1000 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* material theme builder, source color C0DAF9, primary P-40 */
+  /*background-color: #235580;
+    color: white;*/
+  /* prev 0f4c75 #333; */
+
+  background-color: var(--menu-bg);
+  color: var(--menu-text);
+  /* box-shadow: 0 2px 4px var(--nav-shadow); */
+  /* ??? */
+  height: 50px; /* 60 */
+  /* hassan */
+  /*background-color: #fefefe;
+    box-shadow: 0 2px 2px #cacaca;*/
+  /* */
+
+  padding: 0 15px; /* Consistent padding */
+  box-sizing: border-box;
+  width: 100%;
+
+  /* hassaans style */
+  /*box-shadow: 0 2px 2px #cacaca;*/
+
+  transition: transform 0.3s ease-out; /* for mobile sticky on scroll */
+}
+
+/* div class to add on mobile to make it hide on scroll down */
+.navbar-hidden {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.navbar-left,
+.navbar-center,
+.navbar-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center all items */
+  height: 100%;
+}
+
+.navbar-left {
+  justify-content: flex-start;
+}
+
+.navbar-right {
+  justify-content: flex-end;
+}
+
+.navbar-left a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  text-decoration: none; /* Remove underline from link */
+}
+
+.navbar-site-icon {
+  width: 46px;
+  height: 46px;
+  /* Remove cursor: pointer since it's now handled by the anchor tag */
+}
+
+/* Site icon styles */
+.navbar-site-icon {
+  width: 46px; /* 48 40 */
+  height: 46px;
+  cursor: pointer;
+
+  display: flex; /* Ensure proper alignment */
+  justify-content: center; /* Center all items */
+  height: 100%;
+}
+
+/* Page title styles */
+.navbar-page-title {
+  font-size: 22px; /* Default size for larger screens */
+  white-space: nowrap; /* Prevent line breaks */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+  max-width: 60vw; /* Limit width to 60% of viewport width */
+  direction: rtl;
+
+  text-align: center; /* Ensure center alignment */
+  width: 100%; /* Take full width of container */
+}
+
+/* Menu icon styles */
+.navbar-menu-icon {
+  font-size: 24px;
+  cursor: pointer;
+
+  display: flex; /* Ensure proper alignment */
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Match the width of the navbar-site-icon */
+  height: 40px; /* Match the height of the navbar-site-icon */
+}
+
+/* Responsive adjustments for smaller screens */
+@media screen and (max-width: 480px) {
+  .navbar {
+    padding: 0 10px;
+  }
+
+  .navbar-site-icon,
+  .navbar-menu-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .navbar-page-title {
+    font-size: 18px;
+  }
+
+  .navbar-menu-icon {
+    font-size: 22px;
+  }
+}
+
+/* Side menu styles */
+.navbar-side-menu {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 275px; /* 300 */
+  /*height: 100%;*/
+  height: 100vh; /* fixes chrome address bar gap issue https://bokand.github.io/demo/urlbarsize.html */
+  transition: right 0.3s ease-in-out;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+  /* material theme builder, source color C0DAF9, primary P-40 */
+  /*background-color: #235580;*/
+  /* prev 0f4c75 f1f1f1; */
+  /*color: #eee;*/
+  background-color: var(--menu-bg);
+  color: var(--menu-text);
+  border-left: 1px solid var(--menu-border); /* a */
+  text-align: right; /* Add this line for right-aligned text */
+  direction: rtl;
+  overflow-y: scroll; /* Add the ability to scroll */
+}
+
+/* Hide scrollbar but keep functionality */
+/* Chrome, Safari and Opera */
+.navbar-side-menu::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.navbar-side-menu {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* https://stackoverflow.com/questions/52848856/100vh-height-when-address-bar-is-shown-chrome-mobile
+        html {
+          height: 100%;
+        } */
+
+/* Side menu open state */
+.navbar-side-menu.open {
+  right: 0;
+}
+
+/* Side menu close button styles */
+.navbar-side-menu-close {
+  font-size: 24px;
+  cursor: pointer;
+  /* color: #eee;  */
+  color: var(--menu-text);
+  text-align: left; /* Add this line for right-aligned text. prev right */
+}
+
+/* Side menu list styles */
+.navbar-side-menu ul {
+  list-style-type: none;
+  padding: 0;
+  /* */
+  margin: 0;
+}
+
+/* Ensure each li takes full width */
+/* increased from 10 */
+/*  prev 5 which added like a little indent */
+/*.navbar-side-menu ul li {
+    display: block;
+    margin-bottom: 15px;
+    padding-right: 0;
+  }*/
+.navbar-side-menu li {
+  margin: 0;
+  padding: 0;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.navbar-side-menu li a,
+.navbar-dropdown-label {
+  color: var(--menu-text);
+}
+
+/* Add hover effects */
+.navbar-side-menu li a:hover,
+.navbar-dropdown-label:hover {
+  background-color: var(--navbar-dropdown-hover);
+}
+
+/*.navbar-side-menu ul li a {
+    text-decoration: none;
+    color: #eee;
+  }*/
+/* #333; */
+.navbar-side-menu li a {
+  display: block;
+  /*padding: 12px 16px;*/
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-top: 0;
+  padding-bottom: 0;
+  /* color: #eee; */
+  text-decoration: none;
+}
+
+/* Navbar Dropdown styles */
+.navbar-dropdown,
+.sub-navbar-dropdown,
+.sub-sub-navbar-dropdown {
+  position: relative;
+  /*display: block;*/ /* Make dropdown take full width */
+  width: 100%;
+
+  text-align: right; /* Add this line */
+  direction: rtl;
+  cursor: pointer;
+
+  /* */
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+/*padding: 12px 16px;*/
+/*.navbar-dropdown > a,
+  .sub-navbar-dropdown > a,
+  .sub-sub-navbar-dropdown > a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 16px;
+    padding-left: 16px;
+  }*/
+.navbar-dropdown-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  /* color: #eee; */
+  /*padding: 12px 16px;*/
+  padding-left: 16px;
+  padding-right: 16px;
+
+  width: 100%;
+  box-sizing: border-box;
+}
+.navbar-dropdown > .navbar-dropdown-label,
+.sub-navbar-dropdown > .navbar-dropdown-label,
+.sub-sub-navbar-dropdown > .navbar-dropdown-label {
+  padding-right: 16px;
+  padding-left: 16px;
+}
+
+/* Navbar Dropdown arrow styles */
+.navbar-dropdown-arrow {
+  display: inline-block;
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+/* NavbarDropdown content styles */
+.navbar-dropdown-content,
+.sub-navbar-dropdown-content,
+.sub-sub-navbar-dropdown-content {
+  display: none;
+  position: relative;
+  /*background-color: #0d4266;*/
+  /* #f9f9f9; */
+  background-color: var(--navbar-dropdown-bg);
+  /*width: 200px;*/
+  min-width: 160px;
+  /*box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);*/ /* cleaner without shadows */
+  z-index: 1;
+  /*  right: 0;  prev added this line to align to the right */
+  direction: rtl;
+  text-align: right; /* Add this line for right-aligned text */
+  border-radius: 20px;
+  margin-top: 5px;
+  /*    text-indent: 15px;
+    cursor: pointer; */
+
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  line-height: 2.5;
+}
+
+/* Show navbar dropdown content when active */
+.navbar-dropdown-content.show,
+.sub-navbar-dropdown-content.show,
+.sub-sub-navbar-dropdown-content.show {
+  display: block;
+}
+
+/* Styles for list items within navbar dropdowns */
+.navbar-dropdown-content li,
+.sub-navbar-dropdown-content li,
+.sub-sub-navbar-dropdown-content li {
+  padding: 0;
+  /* added. this makes the line gaps even. important overrides the parent margin given to this */
+  margin: 0 !important;
+}
+
+/*.navbar-dropdown-content a,
+  .sub-navbar-dropdown-content a,
+  .sub-sub-navbar-dropdown-content a {
+    color: #eee;
+    text-decoration: none !important;
+    display: block;
+    padding: 12px 16px;
+  }*/
+/* display was grid before, and block before that */
+
+/* Remove specific styling for sub-navbar-dropdown and sub-sub-navbar-dropdown */
+.sub-navbar-dropdown,
+.sub-sub-navbar-dropdown {
+  padding-right: 0;
+}
+
+.sub-navbar-dropdown::after,
+.sub-sub-navbar-dropdown::after {
+  content: none;
+}
+
+/* */
+
+/* */
+
+/* */
+
+/* */
+
+/* */
+
+/* */
+
+/* CLAUDE
+
+  code for me a nice modern top navbar
+
+  it should be responsive
+
+  at the top left should be the site icon
+
+  at the middle should be the text of the page, should be same as title of the html
+
+  on the left should be something like a hamburger menu icon
+
+  on the navbar, clicking on the top left site icon should take me to the home page
+
+  clicking anywhere else on the navbar, should open the side menu from the right
+
+  it should have lines of text, links etc. right aligned. it should also have dropdowns that when clicked, open a dropdown list.
+
+  this navbar should be such that, i can place its js code on a page, and it will create the navbar on that page, using html elements
+
+  write me the code, the html, the css, the js, for this
+
+  ...
+
+  clicking the hamburger doesnt open the side menu. it should open the side menu just like clicking anywhere else on the navbar. right now hamburger is clicked like it is something different from navbar. it is a part of navbar and clicking the hamburger icon should behave as if navbar was clicked
+
+  the side menu shows itself behind the other body elements in the html
+
+  i want to make the site icon larger, without making the navbar larger
+
+  menu scrolls out of view when scrolling
+
+  on mobile chrome, which has its own top navbar, when i scroll down, the top navbar of chrome goes up and disappears. in that moment, the bottom of the side menu is gone, and the body html can be seen
+
+  ...
+
+  in addition to dropdowns, i want sub-dropdowns, and sub-sub-dropdowns, in which can be text, or links
+
+  feel free to change the code of the dropdowns itself, before making the other changes needed
+
+  dropdowns sub dropdowns and sub sub dropdowns should not appear with just hover. they should be clicked on top appear.
+
+  and i dont want them appearing to the side. they should appear below.
+
+  ބައިތައް
+  only opens when i click the text itself, not when i click the area of the li it is in
+
+  the a or the li of each nested dropdown moves a little to the left each level. i want them to be in the same space that the top level is in.
+
+  also instead of the ▼ that appears before a dropdown or sub  or sub sub dropdown is opened, and disapears after it is opened,
+
+  there should be a  ▼ arrow before the dropdown item text with a little space between them, the arrow should initially point towards the left where sub dropdowns are further nested, then when that dropdown is opened, the arrow should rotate to facing down. when a dropdown is closed, the down facing arrow should rotate to facing left again. no matter the level of nesting.
+  */
+
+
+/* dataTables.dataTables.css */
+@charset "UTF-8";@keyframes datatables-loader-1{0%{transform:scale(0)}to{transform:scale(1)}}@keyframes datatables-loader-3{0%{transform:scale(1)}to{transform:scale(0)}}@keyframes datatables-loader-2{0%{transform:translate(0,0)}to{transform:translate(24px,0)}}:root{--dt-row-selected:13, 110, 253;--dt-row-selected-text:255, 255, 255;--dt-row-selected-link:9, 10, 11;--dt-row-stripe:0, 0, 0;--dt-row-hover:0, 0, 0;--dt-column-ordering:0, 0, 0;--dt-html-background:white}:root.dark{--dt-html-background:rgb(33, 37, 41)}table.dataTable td.dt-control{text-align:center;cursor:pointer}table.dataTable td.dt-control:before{display:inline-block;box-sizing:border-box;content:"";border-top:5px solid transparent;border-left:10px solid rgba(0,0,0,.5);border-bottom:5px solid transparent;border-right:0 solid transparent}table.dataTable tr.dt-hasChild td.dt-control:before{border-top:10px solid rgba(0,0,0,.5);border-left:5px solid transparent;border-bottom:0 solid transparent;border-right:5px solid transparent}:root[data-bs-theme=dark] table.dataTable td.dt-control:before,:root[data-theme=dark] table.dataTable td.dt-control:before,html.dark table.dataTable td.dt-control:before{border-left-color:rgba(255,255,255,.5)}:root[data-bs-theme=dark] table.dataTable tr.dt-hasChild td.dt-control:before,:root[data-theme=dark] table.dataTable tr.dt-hasChild td.dt-control:before,html.dark table.dataTable tr.dt-hasChild td.dt-control:before{border-top-color:rgba(255,255,255,.5);border-left-color:transparent}div.dt-scroll{width:100%}div.dt-scroll-body tfoot tr,div.dt-scroll-body thead tr{height:0}div.dt-scroll-body tfoot tr td,div.dt-scroll-body tfoot tr th,div.dt-scroll-body thead tr td,div.dt-scroll-body thead tr th{height:0!important;padding-top:0!important;padding-bottom:0!important;border-top-width:0!important;border-bottom-width:0!important}div.dt-scroll-body tfoot tr td div.dt-scroll-sizing,div.dt-scroll-body tfoot tr th div.dt-scroll-sizing,div.dt-scroll-body thead tr td div.dt-scroll-sizing,div.dt-scroll-body thead tr th div.dt-scroll-sizing{height:0!important;overflow:hidden!important}table.dataTable thead>tr>td.dt-orderable-asc span.dt-column-order:before,table.dataTable thead>tr>td.dt-ordering-asc span.dt-column-order:before,table.dataTable thead>tr>th.dt-orderable-asc span.dt-column-order:before,table.dataTable thead>tr>th.dt-ordering-asc span.dt-column-order:before{position:absolute;display:block;bottom:50%;content:"▲"/""}table.dataTable thead>tr>td.dt-orderable-desc span.dt-column-order:after,table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after,table.dataTable thead>tr>th.dt-orderable-desc span.dt-column-order:after,table.dataTable thead>tr>th.dt-ordering-desc span.dt-column-order:after{position:absolute;display:block;top:50%;content:"▼"/""}table.dataTable thead>tr>td.dt-orderable-asc,table.dataTable thead>tr>td.dt-orderable-desc,table.dataTable thead>tr>td.dt-ordering-asc,table.dataTable thead>tr>td.dt-ordering-desc,table.dataTable thead>tr>th.dt-orderable-asc,table.dataTable thead>tr>th.dt-orderable-desc,table.dataTable thead>tr>th.dt-ordering-asc,table.dataTable thead>tr>th.dt-ordering-desc{position:relative;padding-right:30px}table.dataTable thead>tr>td.dt-orderable-asc span.dt-column-order,table.dataTable thead>tr>td.dt-orderable-desc span.dt-column-order,table.dataTable thead>tr>td.dt-ordering-asc span.dt-column-order,table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order,table.dataTable thead>tr>th.dt-orderable-asc span.dt-column-order,table.dataTable thead>tr>th.dt-orderable-desc span.dt-column-order,table.dataTable thead>tr>th.dt-ordering-asc span.dt-column-order,table.dataTable thead>tr>th.dt-ordering-desc span.dt-column-order{position:absolute;right:12px;top:0;bottom:0;width:12px}table.dataTable thead>tr>th.dt-orderable-asc span.dt-column-order:after,table.dataTable thead>tr>th.dt-orderable-asc span.dt-column-order:before,table.dataTable thead>tr>th.dt-orderable-desc span.dt-column-order:after,table.dataTable thead>tr>th.dt-orderable-desc span.dt-column-order:before{left:0;opacity:.125;line-height:9px;font-size:.8em}table.dataTable thead>tr>th.dt-ordering-asc span.dt-column-order:before{left:0;line-height:9px;font-size:.8em}table.dataTable thead>tr>th.dt-ordering-asc span.dt-column-order:after,table.dataTable thead>tr>th.dt-ordering-desc span.dt-column-order:before{left:0;opacity:.125;line-height:9px;font-size:.8em}table.dataTable thead>tr>th.dt-ordering-desc span.dt-column-order:after{left:0;line-height:9px;font-size:.8em}table.dataTable thead>tr>td.dt-orderable-asc span.dt-column-order:after,table.dataTable thead>tr>td.dt-orderable-asc span.dt-column-order:before,table.dataTable thead>tr>td.dt-orderable-desc span.dt-column-order:after,table.dataTable thead>tr>td.dt-orderable-desc span.dt-column-order:before{left:0;opacity:.125;line-height:9px;font-size:.8em}table.dataTable thead>tr>td.dt-ordering-asc span.dt-column-order:before{left:0;line-height:9px;font-size:.8em}table.dataTable thead>tr>td.dt-ordering-asc span.dt-column-order:after,table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:before{left:0;opacity:.125;line-height:9px;font-size:.8em}table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after{left:0;line-height:9px;font-size:.8em}table.dataTable thead>tr>td.dt-orderable-asc,table.dataTable thead>tr>td.dt-orderable-desc,table.dataTable thead>tr>th.dt-orderable-asc,table.dataTable thead>tr>th.dt-orderable-desc{cursor:pointer}table.dataTable thead>tr>td.dt-orderable-asc:hover,table.dataTable thead>tr>td.dt-orderable-desc:hover,table.dataTable thead>tr>th.dt-orderable-asc:hover,table.dataTable thead>tr>th.dt-orderable-desc:hover{outline:2px solid rgba(0,0,0,.05);outline-offset:-2px}table.dataTable thead>tr>td.dt-ordering-asc span.dt-column-order:before,table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after,table.dataTable thead>tr>th.dt-ordering-asc span.dt-column-order:before,table.dataTable thead>tr>th.dt-ordering-desc span.dt-column-order:after{opacity:.6}table.dataTable thead>tr>td.sorting_asc_disabled span.dt-column-order:before,table.dataTable thead>tr>td.sorting_desc_disabled span.dt-column-order:after,table.dataTable thead>tr>th.sorting_asc_disabled span.dt-column-order:before,table.dataTable thead>tr>th.sorting_desc_disabled span.dt-column-order:after{display:none}html.dark table.dataTable>thead>tr>td:active,html.dark table.dataTable>thead>tr>th:active,table.dataTable thead>tr>td:active,table.dataTable thead>tr>th:active,table.dataTable>thead>tr>td:active,table.dataTable>thead>tr>th:active{outline:0}div.dt-scroll-body>table.dataTable>thead>tr>td,div.dt-scroll-body>table.dataTable>thead>tr>th{overflow:hidden}:root.dark table.dataTable thead>tr>td.dt-orderable-asc:hover,:root.dark table.dataTable thead>tr>td.dt-orderable-desc:hover,:root.dark table.dataTable thead>tr>th.dt-orderable-asc:hover,:root.dark table.dataTable thead>tr>th.dt-orderable-desc:hover,:root[data-bs-theme=dark] table.dataTable thead>tr>td.dt-orderable-asc:hover,:root[data-bs-theme=dark] table.dataTable thead>tr>td.dt-orderable-desc:hover,:root[data-bs-theme=dark] table.dataTable thead>tr>th.dt-orderable-asc:hover,:root[data-bs-theme=dark] table.dataTable thead>tr>th.dt-orderable-desc:hover{outline:2px solid rgba(255,255,255,.05)}div.dt-processing{position:absolute;top:50%;left:50%;width:200px;margin-left:-100px;margin-top:-22px;text-align:center;padding:2px;z-index:10}div.dt-processing>div:last-child{position:relative;width:80px;height:15px;margin:1em auto}div.dt-processing>div:last-child>div{position:absolute;top:0;width:13px;height:13px;border-radius:50%;background:#0d6efd;background:rgb(var(--dt-row-selected));animation-timing-function:cubic-bezier(0,1,1,0)}div.dt-processing>div:last-child>div:nth-child(1){left:8px;animation:datatables-loader-1 .6s infinite}div.dt-processing>div:last-child>div:nth-child(2){left:8px;animation:datatables-loader-2 .6s infinite}div.dt-processing>div:last-child>div:nth-child(3){left:32px;animation:datatables-loader-2 .6s infinite}div.dt-processing>div:last-child>div:nth-child(4){left:56px;animation:datatables-loader-3 .6s infinite}table.dataTable.nowrap td,table.dataTable.nowrap th{white-space:nowrap}table.dataTable td,table.dataTable th{box-sizing:border-box}table.dataTable td.dt-left,table.dataTable tfoot td,table.dataTable tfoot td.dt-head-left,table.dataTable tfoot th,table.dataTable tfoot th.dt-head-left,table.dataTable th.dt-left,table.dataTable thead td,table.dataTable thead td.dt-head-left,table.dataTable thead th,table.dataTable thead th.dt-head-left{text-align:left}table.dataTable td.dt-center,table.dataTable tfoot td.dt-head-center,table.dataTable tfoot th.dt-head-center,table.dataTable th.dt-center,table.dataTable thead td.dt-head-center,table.dataTable thead th.dt-head-center{text-align:center}table.dataTable td.dt-right,table.dataTable th.dt-right{text-align:right}table.dataTable td.dt-justify,table.dataTable th.dt-justify{text-align:justify}table.dataTable td.dt-nowrap,table.dataTable th.dt-nowrap{white-space:nowrap}table.dataTable td.dt-empty,table.dataTable th.dt-empty{text-align:center;vertical-align:top}table.dataTable td.dt-type-date,table.dataTable td.dt-type-numeric,table.dataTable tfoot td.dt-head-right,table.dataTable tfoot th.dt-head-right,table.dataTable th.dt-type-date,table.dataTable th.dt-type-numeric,table.dataTable thead td.dt-head-right,table.dataTable thead th.dt-head-right{text-align:right}table.dataTable tfoot td.dt-head-justify,table.dataTable tfoot th.dt-head-justify,table.dataTable thead td.dt-head-justify,table.dataTable thead th.dt-head-justify{text-align:justify}table.dataTable tfoot td.dt-head-nowrap,table.dataTable tfoot th.dt-head-nowrap,table.dataTable thead td.dt-head-nowrap,table.dataTable thead th.dt-head-nowrap{white-space:nowrap}[dir=rtl] table.dataTable td.dt-type-date,[dir=rtl] table.dataTable td.dt-type-numeric,[dir=rtl] table.dataTable th.dt-type-date,[dir=rtl] table.dataTable th.dt-type-numeric,table.dataTable tbody td.dt-body-left,table.dataTable tbody th.dt-body-left{text-align:left}table.dataTable tbody td.dt-body-center,table.dataTable tbody th.dt-body-center{text-align:center}table.dataTable tbody td.dt-body-right,table.dataTable tbody th.dt-body-right{text-align:right}table.dataTable tbody td.dt-body-justify,table.dataTable tbody th.dt-body-justify{text-align:justify}table.dataTable tbody td.dt-body-nowrap,table.dataTable tbody th.dt-body-nowrap{white-space:nowrap}table.dataTable{width:100%;margin:0 auto;border-spacing:0}table.dataTable tfoot th,table.dataTable thead th{font-weight:700}table.dataTable>thead>tr>td,table.dataTable>thead>tr>th{padding:10px;border-bottom:1px solid rgba(0,0,0,.3)}table.dataTable>tfoot>tr>td,table.dataTable>tfoot>tr>th{border-top:1px solid rgba(0,0,0,.3);padding:10px 10px 6px}table.dataTable>tbody>tr{background-color:transparent}html.dark table.dataTable.display>tbody>tr:first-child>*,html.dark table.dataTable.row-border>tbody>tr:first-child>*,table.dataTable.display>tbody>tr:first-child>*,table.dataTable.row-border>tbody>tr:first-child>*,table.dataTable>tbody>tr:first-child>*{border-top:none}table.dataTable>tbody>tr:last-child>*{border-bottom:none}table.dataTable>tbody>tr.selected>*{box-shadow:inset 0 0 0 9999px rgba(13,110,253,.9);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-selected),.9);color:#fff;color:rgb(var(--dt-row-selected-text))}table.dataTable>tbody>tr.selected a{color:#090a0b;color:rgb(var(--dt-row-selected-link))}table.dataTable>tbody>tr>td,table.dataTable>tbody>tr>th{padding:8px 10px}table.dataTable.display>tbody>tr>*,table.dataTable.row-border>tbody>tr>*{border-top:1px solid rgba(0,0,0,.15)}html.dark table.dataTable.display>tbody>tr.selected+tr.selected>td,html.dark table.dataTable.row-border>tbody>tr.selected+tr.selected>td,table.dataTable.display>tbody>tr.selected+tr.selected>td,table.dataTable.row-border>tbody>tr.selected+tr.selected>td{border-top-color:rgba(13,110,253,.65);border-top-color:rgba(var(--dt-row-selected),.65)}table.dataTable.cell-border>tbody>tr>*{border-top:1px solid rgba(0,0,0,.15);border-right:1px solid rgba(0,0,0,.15)}table.dataTable.cell-border>tbody>tr>:first-child{border-left:1px solid rgba(0,0,0,.15)}table.dataTable.cell-border>tbody>tr:first-child>*{border-top:1px solid rgba(0,0,0,.3)}table.dataTable.display>tbody>tr:nth-child(odd)>*,table.dataTable.stripe>tbody>tr:nth-child(odd)>*{box-shadow:inset 0 0 0 9999px rgba(0,0,0,.023);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-stripe),.023)}table.dataTable.display>tbody>tr:nth-child(odd).selected>*,table.dataTable.stripe>tbody>tr:nth-child(odd).selected>*{box-shadow:inset 0 0 0 9999px rgba(13,110,253,.923);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-selected),.923)}table.dataTable.display>tbody>tr:hover>*,table.dataTable.hover>tbody>tr:hover>*{box-shadow:inset 0 0 0 9999px rgba(0,0,0,.035);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-hover),.035)}table.dataTable.display>tbody>tr.selected:hover>*,table.dataTable.hover>tbody>tr.selected:hover>*{box-shadow:inset 0 0 0 9999px #0d6efd!important;box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-selected),1)!important}table.dataTable.display>tbody tr>.sorting_1,table.dataTable.display>tbody tr>.sorting_2,table.dataTable.display>tbody tr>.sorting_3,table.dataTable.order-column>tbody tr>.sorting_1,table.dataTable.order-column>tbody tr>.sorting_2,table.dataTable.order-column>tbody tr>.sorting_3{box-shadow:inset 0 0 0 9999px rgba(0,0,0,.019);box-shadow:inset 0 0 0 9999px rgba(var(--dt-column-ordering),.019)}table.dataTable.display>tbody tr.selected>.sorting_1,table.dataTable.display>tbody tr.selected>.sorting_2,table.dataTable.display>tbody tr.selected>.sorting_3,table.dataTable.order-column>tbody tr.selected>.sorting_1,table.dataTable.order-column>tbody tr.selected>.sorting_2,table.dataTable.order-column>tbody tr.selected>.sorting_3{box-shadow:inset 0 0 0 9999px rgba(13,110,253,.919);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-selected),.919)}table.dataTable.display>tbody>tr:nth-child(odd)>.sorting_1,table.dataTable.order-column.stripe>tbody>tr:nth-child(odd)>.sorting_1{box-shadow:inset 0 0 0 9999px rgba(0,0,0,.054);box-shadow:inset 0 0 0 9999px rgba(var(--dt-column-ordering),.054)}table.dataTable.display>tbody>tr:nth-child(odd)>.sorting_2,table.dataTable.order-column.stripe>tbody>tr:nth-child(odd)>.sorting_2{box-shadow:inset 0 0 0 9999px rgba(0,0,0,.047);box-shadow:inset 0 0 0 9999px rgba(var(--dt-column-ordering),.047)}table.dataTable.display>tbody>tr:nth-child(odd)>.sorting_3,table.dataTable.order-column.stripe>tbody>tr:nth-child(odd)>.sorting_3{box-shadow:inset 0 0 0 9999px rgba(0,0,0,.039);box-shadow:inset 0 0 0 9999px rgba(var(--dt-column-ordering),.039)}table.dataTable.display>tbody>tr:nth-child(odd).selected>.sorting_1,table.dataTable.order-column.stripe>tbody>tr:nth-child(odd).selected>.sorting_1{box-shadow:inset 0 0 0 9999px rgba(13,110,253,.954);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-selected),.954)}table.dataTable.display>tbody>tr:nth-child(odd).selected>.sorting_2,table.dataTable.order-column.stripe>tbody>tr:nth-child(odd).selected>.sorting_2{box-shadow:inset 0 0 0 9999px rgba(13,110,253,.947);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-selected),.947)}table.dataTable.display>tbody>tr:nth-child(odd).selected>.sorting_3,table.dataTable.order-column.stripe>tbody>tr:nth-child(odd).selected>.sorting_3{box-shadow:inset 0 0 0 9999px rgba(13,110,253,.939);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-selected),.939)}table.dataTable.display>tbody>tr.even>.sorting_1,table.dataTable.order-column.stripe>tbody>tr.even>.sorting_1{box-shadow:inset 0 0 0 9999px rgba(0,0,0,.019);box-shadow:inset 0 0 0 9999px rgba(var(--dt-column-ordering),.019)}table.dataTable.display>tbody>tr.even>.sorting_2,table.dataTable.order-column.stripe>tbody>tr.even>.sorting_2{box-shadow:inset 0 0 0 9999px rgba(0,0,0,.011);box-shadow:inset 0 0 0 9999px rgba(var(--dt-column-ordering),.011)}table.dataTable.display>tbody>tr.even>.sorting_3,table.dataTable.order-column.stripe>tbody>tr.even>.sorting_3{box-shadow:inset 0 0 0 9999px rgba(0,0,0,.003);box-shadow:inset 0 0 0 9999px rgba(var(--dt-column-ordering),.003)}table.dataTable.display>tbody>tr.even.selected>.sorting_1,table.dataTable.order-column.stripe>tbody>tr.even.selected>.sorting_1{box-shadow:inset 0 0 0 9999px rgba(13,110,253,.919);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-selected),.919)}table.dataTable.display>tbody>tr.even.selected>.sorting_2,table.dataTable.order-column.stripe>tbody>tr.even.selected>.sorting_2{box-shadow:inset 0 0 0 9999px rgba(13,110,253,.911);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-selected),.911)}table.dataTable.display>tbody>tr.even.selected>.sorting_3,table.dataTable.order-column.stripe>tbody>tr.even.selected>.sorting_3{box-shadow:inset 0 0 0 9999px rgba(13,110,253,.903);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-selected),.903)}table.dataTable.display tbody tr:hover>.sorting_1,table.dataTable.order-column.hover tbody tr:hover>.sorting_1{box-shadow:inset 0 0 0 9999px rgba(0,0,0,.082);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-hover),.082)}table.dataTable.display tbody tr:hover>.sorting_2,table.dataTable.order-column.hover tbody tr:hover>.sorting_2{box-shadow:inset 0 0 0 9999px rgba(0,0,0,.074);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-hover),.074)}table.dataTable.display tbody tr:hover>.sorting_3,table.dataTable.order-column.hover tbody tr:hover>.sorting_3{box-shadow:inset 0 0 0 9999px rgba(0,0,0,.062);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-hover),.062)}table.dataTable.display tbody tr:hover.selected>.sorting_1,table.dataTable.order-column.hover tbody tr:hover.selected>.sorting_1{box-shadow:inset 0 0 0 9999px rgba(13,110,253,.982);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-selected),.982)}table.dataTable.display tbody tr:hover.selected>.sorting_2,table.dataTable.order-column.hover tbody tr:hover.selected>.sorting_2{box-shadow:inset 0 0 0 9999px rgba(13,110,253,.974);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-selected),.974)}table.dataTable.display tbody tr:hover.selected>.sorting_3,table.dataTable.order-column.hover tbody tr:hover.selected>.sorting_3{box-shadow:inset 0 0 0 9999px rgba(13,110,253,.962);box-shadow:inset 0 0 0 9999px rgba(var(--dt-row-selected),.962)}div.dt-container select.dt-input,table.dataTable.compact tbody td,table.dataTable.compact tbody th,table.dataTable.compact tfoot td,table.dataTable.compact tfoot th,table.dataTable.compact thead td,table.dataTable.compact thead th{padding:4px}div.dt-container div.dt-layout-row{width:100%;margin:.75em 0}div.dt-container div.dt-layout-row,div.dt-container div.dt-layout-row div.dt-layout-cell{display:flex;justify-content:space-between;align-items:center}div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-start{justify-content:flex-start;margin-right:auto}div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-end{justify-content:flex-end;margin-left:auto}div.dt-container div.dt-layout-row div.dt-layout-cell:empty{display:none}@media screen and (max-width:767px){div.dt-container div.dt-layout-row:not(.dt-layout-table){display:block}div.dt-container div.dt-layout-row:not(.dt-layout-table) div.dt-layout-cell{display:block;text-align:center}div.dt-container div.dt-layout-row:not(.dt-layout-table) div.dt-layout-cell>*{margin:.5em 0}div.dt-container div.dt-layout-row:not(.dt-layout-table) div.dt-layout-cell.dt-layout-start{margin-right:0}div.dt-container div.dt-layout-row:not(.dt-layout-table) div.dt-layout-cell.dt-layout-end{margin-left:0}}div.dt-container div.dt-layout-start>:not(:last-child){margin-right:1em}div.dt-container div.dt-layout-end>:not(:first-child){margin-left:1em}div.dt-container div.dt-layout-full{width:100%}div.dt-container div.dt-layout-full>:only-child{margin-left:auto;margin-right:auto}div.dt-container div.dt-layout-table>div{display:block!important}@media screen and (max-width:767px){div.dt-container div.dt-layout-start>:not(:last-child){margin-right:0}div.dt-container div.dt-layout-end>:not(:first-child){margin-left:0}}div.dt-container{position:relative;clear:both}div.dt-container .dt-search input{margin-left:3px}div.dt-container .dt-input,div.dt-container .dt-search input{border:1px solid #aaa;border-radius:3px;padding:5px;background-color:transparent;color:inherit}div.dt-container .dt-paging .dt-paging-button{box-sizing:border-box;display:inline-block;min-width:1.5em;padding:.5em 1em;margin-left:2px;text-align:center;text-decoration:none!important;cursor:pointer;color:inherit!important;border:1px solid transparent;border-radius:2px;background:0 0}div.dt-container .dt-paging .dt-paging-button.current,div.dt-container .dt-paging .dt-paging-button.current:hover{color:inherit!important;border:1px solid rgba(0,0,0,.3);background-color:rgba(0,0,0,.05);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(230,230,230,.05)),color-stop(100%,rgba(0,0,0,.05)));background:-webkit-linear-gradient(top,rgba(230,230,230,.05)0,rgba(0,0,0,.05) 100%);background:-moz-linear-gradient(top,rgba(230,230,230,.05)0,rgba(0,0,0,.05) 100%);background:-ms-linear-gradient(top,rgba(230,230,230,.05) 0%,rgba(0,0,0,.05) 100%);background:-o-linear-gradient(top,rgba(230,230,230,.05)0,rgba(0,0,0,.05) 100%);background:linear-gradient(to bottom,rgba(230,230,230,.05)0,rgba(0,0,0,.05) 100%)}div.dt-container .dt-paging .dt-paging-button.disabled,div.dt-container .dt-paging .dt-paging-button.disabled:active,div.dt-container .dt-paging .dt-paging-button.disabled:hover{cursor:default;color:rgba(0,0,0,.5)!important;border:1px solid transparent;background:0 0;box-shadow:none}div.dt-container .dt-paging .dt-paging-button:hover{color:#fff!important;border:1px solid #111;background-color:#111;background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#585858),color-stop(100%,#111));background:-webkit-linear-gradient(top,#585858 0,#111 100%);background:-moz-linear-gradient(top,#585858 0,#111 100%);background:-ms-linear-gradient(top,#585858 0%,#111 100%);background:-o-linear-gradient(top,#585858 0,#111 100%);background:linear-gradient(to bottom,#585858 0,#111 100%)}div.dt-container .dt-paging .dt-paging-button:active{outline:0;background-color:#0c0c0c;background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#2b2b2b),color-stop(100%,#0c0c0c));background:-webkit-linear-gradient(top,#2b2b2b 0,#0c0c0c 100%);background:-moz-linear-gradient(top,#2b2b2b 0,#0c0c0c 100%);background:-ms-linear-gradient(top,#2b2b2b 0%,#0c0c0c 100%);background:-o-linear-gradient(top,#2b2b2b 0,#0c0c0c 100%);background:linear-gradient(to bottom,#2b2b2b 0,#0c0c0c 100%);box-shadow:inset 0 0 3px #111}div.dt-container .dt-paging .ellipsis{padding:0 1em}div.dt-container .dt-info,div.dt-container .dt-length,div.dt-container .dt-paging,div.dt-container .dt-processing,div.dt-container .dt-search{color:inherit}div.dt-container .dataTables_scroll{clear:both}div.dt-container .dataTables_scroll div.dt-scroll-body{-webkit-overflow-scrolling:touch}div.dt-container .dataTables_scroll div.dt-scroll-body>table>tbody>tr>td,div.dt-container .dataTables_scroll div.dt-scroll-body>table>tbody>tr>th,div.dt-container .dataTables_scroll div.dt-scroll-body>table>thead>tr>td,div.dt-container .dataTables_scroll div.dt-scroll-body>table>thead>tr>th{vertical-align:middle}div.dt-container .dataTables_scroll div.dt-scroll-body>table>tbody>tr>td>div.dataTables_sizing,div.dt-container .dataTables_scroll div.dt-scroll-body>table>tbody>tr>th>div.dataTables_sizing,div.dt-container .dataTables_scroll div.dt-scroll-body>table>thead>tr>td>div.dataTables_sizing,div.dt-container .dataTables_scroll div.dt-scroll-body>table>thead>tr>th>div.dataTables_sizing{height:0;overflow:hidden;margin:0!important;padding:0!important}div.dt-container.dt-empty-footer tbody>tr:last-child>*{border-bottom:1px solid rgba(0,0,0,.3)}div.dt-container.dt-empty-footer .dt-scroll-body{border-bottom:1px solid rgba(0,0,0,.3)}div.dt-container.dt-empty-footer .dt-scroll-body tbody>tr:last-child>*{border-bottom:none}html.dark{--dt-row-hover:255, 255, 255;--dt-row-stripe:255, 255, 255;--dt-column-ordering:255, 255, 255}html.dark .dt-container.dt-empty-footer table.dataTable,html.dark table.dataTable>thead>tr>td,html.dark table.dataTable>thead>tr>th{border-bottom:1px solid #595b5e}html.dark table.dataTable>tfoot>tr>td,html.dark table.dataTable>tfoot>tr>th{border-top:1px solid #595b5e}html.dark table.dataTable.display>tbody>tr>*,html.dark table.dataTable.row-border>tbody>tr>*{border-top:1px solid #404346}html.dark table.dataTable.cell-border>tbody>tr>td,html.dark table.dataTable.cell-border>tbody>tr>th{border-top:1px solid #404346;border-right:1px solid #404346}html.dark table.dataTable.cell-border>tbody>tr>td:first-child,html.dark table.dataTable.cell-border>tbody>tr>th:first-child{border-left:1px solid #404346}html.dark .dt-container .dt-length select,html.dark .dt-container .dt-search input{border:1px solid rgba(255,255,255,.2);background-color:var(--dt-html-background)}html.dark .dt-container .dt-paging .dt-paging-button.current,html.dark .dt-container .dt-paging .dt-paging-button.current:hover{border:1px solid #595b5e;background:rgba(255,255,255,.15)}html.dark .dt-container .dt-paging .dt-paging-button.disabled,html.dark .dt-container .dt-paging .dt-paging-button.disabled:active,html.dark .dt-container .dt-paging .dt-paging-button.disabled:hover{color:#666!important}html.dark .dt-container .dt-paging .dt-paging-button:hover{border:1px solid #353535;background:#353535}html.dark .dt-container .dt-paging .dt-paging-button:active{background:#3a3a3a}[dir=rtl] div.dt-container div.dt-layout-cell.dt-start,[dir=rtl] table.dataTable tfoot td,[dir=rtl] table.dataTable tfoot th,[dir=rtl] table.dataTable thead td,[dir=rtl] table.dataTable thead th{text-align:right}[dir=rtl] div.dt-container div.dt-layout-cell.dt-end{text-align:left}[dir=rtl] div.dt-container div.dt-search input{margin:0 3px 0 0}
+
+/* dataTables.inputPaging.css */
+div.dt-paging-input{display:inline-block;margin:0 .25em}.dt-paging-input input{display:inline-block;width:3em;min-width:3em;text-align:center;padding:.5em 1px;box-sizing:border-box}
+
+/* buttons.dataTables */
+@keyframes dtb-spinner{to{transform:rotate(360deg)}}@-o-keyframes dtb-spinner{to{-o-transform:rotate(360deg);transform:rotate(360deg)}}@-ms-keyframes dtb-spinner{to{-ms-transform:rotate(360deg);transform:rotate(360deg)}}@-webkit-keyframes dtb-spinner{to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@-moz-keyframes dtb-spinner{to{-moz-transform:rotate(360deg);transform:rotate(360deg)}}div.dataTables_wrapper{position:relative}div.dt-buttons{position:initial}div.dt-buttons .dt-button{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}div.dt-button-info{position:fixed;top:50%;left:50%;width:400px;margin-top:-100px;margin-left:-200px;background-color:#fff;border-radius:.75em;box-shadow:3px 4px 10px 1px rgba(0,0,0,.8);text-align:center;z-index:2003;overflow:hidden}div.dt-button-info h2{padding:2rem 2rem 1rem;margin:0;font-weight:400}div.dt-button-info>div{padding:1em 2em 2em}div.dtb-popover-close{position:absolute;top:6px;right:6px;width:22px;height:22px;text-align:center;border-radius:3px;cursor:pointer;z-index:2003}button.dtb-hide-drop{display:none!important}div.dt-button-collection-title{text-align:center;padding:.3em .5em .5em;margin-left:.5em;margin-right:.5em;font-size:.9em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}div.dt-button-collection-title:empty{display:none}span.dt-button-spacer{display:inline-block;margin:.5em;white-space:nowrap}span.dt-button-spacer.bar{border-left:1px solid rgba(0,0,0,.3);vertical-align:middle;padding-left:.5em}span.dt-button-spacer.bar:empty{height:1em;width:1px;padding-left:0}div.dt-button-collection .dt-button-active,div.dt-button-collection .dt-button-active-a a{padding-right:3em}div.dt-button-collection .dt-button-active:after{position:absolute;top:50%;margin-top:-10px;right:1em;display:inline-block;content:"✓";color:inherit}div.dt-button-collection .dt-button-active.dt-button-split{padding-right:0}div.dt-button-collection .dt-button-active.dt-button-split:after{display:none}div.dt-button-collection .dt-button-active.dt-button-split>:first-child{padding-right:3em}div.dt-button-collection .dt-button-active.dt-button-split>:first-child:after{position:absolute;top:50%;margin-top:-10px;right:1em;display:inline-block;content:"✓";color:inherit}div.dt-button-collection .dt-button-active-a a:after{position:absolute;right:1em;display:inline-block;content:"✓";color:inherit}div.dt-button-collection span.dt-button-spacer{width:100%;font-size:.9em;text-align:center;margin:.5em 0}div.dt-button-collection span.dt-button-spacer:empty{height:0;width:100%}div.dt-button-collection span.dt-button-spacer.bar{border-left:none;border-bottom:1px solid rgba(0,0,0,.1);padding-left:0}@media print{table.dataTable tr>*{box-shadow:none!important}}html.dark div.dt-button-info{background-color:var(--dt-html-background);border:1px solid rgba(255,255,255,.15)}div.dt-buttons>.dt-button,div.dt-buttons>div.dt-button-split .dt-button{position:relative;display:inline-block;box-sizing:border-box;margin-left:.167em;margin-right:.167em;margin-bottom:.333em;padding:.5em 1em;border:1px solid rgba(0,0,0,.3);border-radius:2px;cursor:pointer;font-size:.88em;line-height:1.6em;color:inherit;white-space:nowrap;overflow:hidden;background-color:rgba(0,0,0,.1);background:linear-gradient(to bottom,rgba(230,230,230,.1)0,rgba(0,0,0,.1) 100%);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr="rgba(230, 230, 230, 0.1)", EndColorStr="rgba(0, 0, 0, 0.1)");-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;text-decoration:none;outline:0;text-overflow:ellipsis}div.dt-buttons>.dt-button:first-child,div.dt-buttons>div.dt-button-split .dt-button:first-child{margin-left:0}div.dt-buttons>.dt-button.disabled,div.dt-buttons>div.dt-button-split .dt-button.disabled{cursor:default;opacity:.4}div.dt-buttons>.dt-button.dt-button-active:not(.disabled),div.dt-buttons>div.dt-button-split .dt-button.dt-button-active:not(.disabled){background-color:rgba(0,0,0,.1);background:linear-gradient(to bottom,rgba(179,179,179,.1)0,rgba(0,0,0,.1) 100%);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr="rgba(179, 179, 179, 0.1)", EndColorStr="rgba(0, 0, 0, 0.1)");box-shadow:inset 1px 1px 3px #999}div.dt-buttons>.dt-button.dt-button-active:not(.disabled):hover:not(.disabled),div.dt-buttons>div.dt-button-split .dt-button.dt-button-active:not(.disabled):hover:not(.disabled){box-shadow:inset 1px 1px 3px #999;background-color:rgba(0,0,0,.1);background:linear-gradient(to bottom,rgba(128,128,128,.1)0,rgba(0,0,0,.1) 100%);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr="rgba(128, 128, 128, 0.1)", EndColorStr="rgba(0, 0, 0, 0.1)")}div.dt-buttons>.dt-button:hover,div.dt-buttons>div.dt-button-split .dt-button:hover{text-decoration:none}div.dt-buttons>.dt-button:hover:not(.disabled),div.dt-buttons>div.dt-button-split .dt-button:hover:not(.disabled){border:1px solid #666;background-color:rgba(0,0,0,.1);background:linear-gradient(to bottom,rgba(153,153,153,.1)0,rgba(0,0,0,.1) 100%);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr="rgba(153, 153, 153, 0.1)", EndColorStr="rgba(0, 0, 0, 0.1)")}div.dt-buttons>.dt-button:focus:not(.disabled),div.dt-buttons>div.dt-button-split .dt-button:focus:not(.disabled){outline:2px solid #3584e4}div.dt-buttons>.dt-button embed,div.dt-buttons>div.dt-button-split .dt-button embed{outline:0}div.dt-buttons>div.dt-button-split .dt-button:first-child{border-right:1px solid rgba(0,0,0,.15);border-top-right-radius:0;border-bottom-right-radius:0}div.dt-buttons>div.dt-button-split .dt-button:first-child:hover{border-right:1px solid #666}div.dt-buttons>div.dt-button-split .dt-button:last-child{border-left:1px solid transparent;border-top-left-radius:0;border-bottom-left-radius:0}div.dt-buttons>div.dt-button-split .dt-button:last-child:hover{border-left:1px solid #666}div.dt-buttons span.dt-button-down-arrow{position:relative;top:-2px;font-size:10px;padding-left:10px;line-height:1em;opacity:.6}div.dt-buttons div.dt-button-split{display:inline-block}div.dt-buttons div.dt-button-split .dt-button:first-child{margin-right:0}div.dt-buttons div.dt-button-split .dt-button:last-child{margin-left:-1px;padding-left:.75em;padding-right:.75em;z-index:2}div.dt-buttons div.dt-button-split .dt-button:last-child span{padding-left:0}div.dt-button-collection{position:absolute;top:0;left:0;width:200px;margin-top:3px;margin-bottom:3px;padding:.75em 0;border:1px solid rgba(0,0,0,.4);background-color:#fff;overflow:hidden;z-index:2002;border-radius:5px;box-shadow:3px 4px 10px 1px rgba(0,0,0,.3);box-sizing:border-box}div.dt-button-collection .dt-button{position:relative;left:0;right:0;width:100%;display:block;float:none;background:0 0;margin:0;padding:.5em 1em;border:0;text-align:left;cursor:pointer;color:inherit;border-radius:0}div.dt-button-collection .dt-button.dt-button-active{background:0 0;box-shadow:none}div.dt-button-collection .dt-button.disabled{cursor:default;opacity:.4}div.dt-button-collection .dt-button:hover:not(.disabled){border:0;background:rgba(153,153,153,.1);box-shadow:none}div.dt-button-collection div.dt-button-split{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-content:flex-start;align-items:stretch}div.dt-button-collection div.dt-button-split button.dt-button{margin:0;display:inline-block;width:0;flex-grow:1;flex-shrink:0;flex-basis:50px}div.dt-button-collection div.dt-button-split button.dt-button-split-drop{min-width:33px;flex:0}div.dt-button-collection.fixed .dt-button{border-radius:.25em;background:rgba(255,255,255,.1)}div.dt-button-collection.fixed{position:fixed;display:block;top:50%;left:50%;margin-left:-75px;border-radius:5px;background-color:#fff;padding:.5em}div.dt-button-collection.fixed.two-column{margin-left:-200px}div.dt-button-collection.fixed.three-column{margin-left:-225px}div.dt-button-collection.fixed.four-column{margin-left:-300px}div.dt-button-collection.fixed.columns{margin-left:-409px}@media screen and (max-width:1024px){div.dt-button-collection.fixed.columns{margin-left:-308px}}@media screen and (max-width:640px){div.dt-button-collection.fixed.columns{margin-left:-203px}}@media screen and (max-width:460px){div.dt-button-collection.fixed.columns{margin-left:-100px}}div.dt-button-collection.fixed>:last-child{max-height:100vh;overflow:auto}div.dt-button-collection.four-column>:last-child,div.dt-button-collection.three-column>:last-child,div.dt-button-collection.two-column>:last-child{display:block!important;-webkit-column-gap:8px;-moz-column-gap:8px;-ms-column-gap:8px;-o-column-gap:8px;column-gap:8px}div.dt-button-collection.four-column>:last-child>*,div.dt-button-collection.three-column>:last-child>*,div.dt-button-collection.two-column>:last-child>*{-webkit-column-break-inside:avoid;break-inside:avoid}div.dt-button-collection.two-column{width:400px}div.dt-button-collection.two-column>:last-child{padding-bottom:1px;column-count:2}div.dt-button-collection.three-column{width:450px}div.dt-button-collection.three-column>:last-child{padding-bottom:1px;column-count:3}div.dt-button-collection.four-column{width:600px}div.dt-button-collection.four-column>:last-child{padding-bottom:1px;column-count:4}div.dt-button-collection.columns{width:auto}div.dt-button-collection.columns>:last-child{display:flex;flex-wrap:wrap;justify-content:flex-start;align-items:center;gap:6px;width:818px;padding-bottom:1px}div.dt-button-collection.columns>:last-child .dt-button{min-width:200px;flex:0 1;margin:0}div.dt-button-collection.columns.dtb-b1>:last-child,div.dt-button-collection.columns.dtb-b2>:last-child,div.dt-button-collection.columns.dtb-b3>:last-child{justify-content:space-between}div.dt-button-collection.columns.dtb-b3 .dt-button{flex:1 1 32%}div.dt-button-collection.columns.dtb-b2 .dt-button{flex:1 1 48%}div.dt-button-collection.columns.dtb-b1 .dt-button{flex:1 1 100%}@media screen and (max-width:1024px){div.dt-button-collection.columns>:last-child{width:612px}}@media screen and (max-width:640px){div.dt-button-collection.columns>:last-child{width:406px}div.dt-button-collection.columns.dtb-b3 .dt-button{flex:0 1 32%}}@media screen and (max-width:460px){div.dt-button-collection.columns>:last-child{width:200px}}div.dt-button-background{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);background:radial-gradient(ellipse farthest-corner at center,rgba(0,0,0,.3)0,rgba(0,0,0,.7) 100%);z-index:2001}.dt-button.processing{color:rgba(0,0,0,.2)}.dt-button.processing:after{position:absolute;top:50%;left:50%;width:16px;height:16px;margin:-8px 0 0-8px;box-sizing:border-box;display:block;content:" ";border:2px solid #282828;border-radius:50%;border-left-color:transparent;border-right-color:transparent;animation:dtb-spinner 1500ms infinite linear;-o-animation:dtb-spinner 1500ms infinite linear;-ms-animation:dtb-spinner 1500ms infinite linear;-webkit-animation:dtb-spinner 1500ms infinite linear;-moz-animation:dtb-spinner 1500ms infinite linear}@media screen and (max-width:640px){div.dt-buttons{float:none!important;text-align:center}}html.dark div.dt-buttons>.dt-button,html.dark div.dt-buttons>div.dt-button-split .dt-button{border:1px solid #595b5e;background:rgba(255,255,255,.15)}html.dark div.dt-buttons>.dt-button.dt-button-active:not(.disabled),html.dark div.dt-buttons>div.dt-button-split .dt-button.dt-button-active:not(.disabled){background:rgba(179,179,179,.15);box-shadow:inset 1px 1px 2px #000}html.dark div.dt-buttons>.dt-button.dt-button-active:not(.disabled):hover:not(.disabled),html.dark div.dt-buttons>div.dt-button-split .dt-button.dt-button-active:not(.disabled):hover:not(.disabled){background:rgba(128,128,128,.15);box-shadow:inset 1px 1px 3px #000}html.dark div.dt-buttons>.dt-button:hover:not(.disabled),html.dark div.dt-buttons>div.dt-button-split .dt-button:hover:not(.disabled){background:rgba(179,179,179,.15)}html.dark div.dt-buttons>.dt-button:focus:not(.disabled),html.dark div.dt-buttons>div.dt-button-split .dt-button:focus:not(.disabled){outline:2px solid #6ea8fe}html.dark div.dt-buttons>div.dt-button-split .dt-button:first-child{border-right:1px solid rgba(255,255,255,.1)}html.dark div.dt-buttons>div.dt-button-split .dt-button:first-child:hover{border-right:1px solid #595b5e}html.dark div.dt-buttons>div.dt-button-split .dt-button:last-child:hover{border-left:1px solid #595b5e}html.dark div.dt-button-collection{border:1px solid rgba(255,255,255,.15);background-color:#212529;box-shadow:3px 4px 10px 1px rgba(0,0,0,.8)}
+
+/* keyTable.dataTables.css */
+table.dataTable tbody td.focus,table.dataTable tbody th.focus{outline:2px solid #36f;outline-offset:-2px}table.dataTable tbody tr.selected td.focus,table.dataTable tbody tr.selected th.focus{outline-color:#03c}div.dtk-focus-alt table.dataTable tbody td.focus,div.dtk-focus-alt table.dataTable tbody th.focus{outline:2px solid #ff8b33;outline-offset:-2px}html.dark table.dataTable tbody td.focus,html.dark table.dataTable tbody th.focus{outline-color:#0d6efd}html.dark table.dataTable tbody tr.selected td.focus,html.dark table.dataTable tbody tr.selected th.focus{outline-color:#0143a3}html.dark div.dtk-focus-alt table.dataTable tbody td.focus,html.dark div.dtk-focus-alt table.dataTable tbody th.focus{outline-color:#ff8b33}
+
+/* searchBuilder.dataTables.css */
+div.dt-button-collection{overflow:visible!important;z-index:2002!important}div.dt-button-collection div.dtsb-searchBuilder{box-sizing:border-box;padding-left:1em!important;padding-right:1em!important}div.dt-button-collection.dtb-collection-closeable div.dtsb-titleRow{padding-right:40px}.dtsb-greyscale{border:1px solid #cecece!important}div.dtsb-logicContainer .dtsb-greyscale{border:0!important}div.dtsb-searchBuilder{justify-content:space-evenly;cursor:default;margin-bottom:1em;text-align:left;width:100%}div.dtsb-searchBuilder select{font-size:1em}div.dtsb-searchBuilder div.dtsb-titleRow{justify-content:space-evenly;margin-bottom:.5em}div.dtsb-searchBuilder div.dtsb-titleRow div.dtsb-title{display:inline-block;padding-top:14px}div.dtsb-searchBuilder div.dtsb-titleRow div.dtsb-title:empty{display:inline}div.dtsb-searchBuilder div.dtsb-titleRow button.dtsb-clearAll{float:right;margin-bottom:.8em}div.dtsb-searchBuilder div.dtsb-vertical .dtsb-condition,div.dtsb-searchBuilder div.dtsb-vertical .dtsb-data,div.dtsb-searchBuilder div.dtsb-vertical .dtsb-value{display:block}div.dtsb-searchBuilder div.dtsb-group{position:relative;clear:both;margin-bottom:.8em}div.dtsb-searchBuilder div.dtsb-group button.dtsb-search{float:right}div.dtsb-searchBuilder div.dtsb-group button.dtsb-clearGroup{margin:2px;text-align:center;padding:0}div.dtsb-searchBuilder div.dtsb-group div.dtsb-logicContainer{-webkit-transform:rotate(90deg);-moz-transform:rotate(90deg);-o-transform:rotate(90deg);-ms-transform:rotate(90deg);transform:rotate(90deg);position:absolute;margin-top:.8em;margin-right:.8em}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria{margin-bottom:.8em;display:flex;justify-content:start;flex-flow:row wrap}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-input,div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-dropDown{padding:.4em;margin-right:.8em;min-width:5em;max-width:20em;color:inherit;font-size:1em}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-input option.dtsb-notItalic,div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-dropDown option.dtsb-notItalic{font-style:normal}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-italic{font-style:italic}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-inputCont{flex:1;white-space:nowrap}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-buttonContainer button.dtsb-delete,div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-buttonContainer button.dtsb-left,div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-buttonContainer button.dtsb-right,div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-inputCont span.dtsb-joiner{margin-right:.8em}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-inputCont input.dtsb-value{width:33%}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-inputCont input,div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-inputCont select{height:100%;box-sizing:border-box}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-buttonContainer{margin-left:auto;display:inline-block}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-buttonContainer button.dtsb-delete:last-child,div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-buttonContainer button.dtsb-left:last-child,div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-buttonContainer button.dtsb-right:last-child{margin-right:0}@media screen and (max-width:550px){div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria{display:flex;flex-flow:none;flex-direction:column;justify-content:start;padding-right:calc(35px + .8em);margin-bottom:0}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria:not(:first-child),div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria:not(:last-child),div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria:not(:nth-child(2)){padding-top:.8em}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria:first-child,div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria:last-child,div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria:nth-child(2){padding-top:0}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-input,div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-dropDown{max-width:none;width:100%;margin-bottom:.8em;margin-right:.8em}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-inputCont{margin-right:.8em}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-buttonContainer{position:absolute;width:35px;display:flex;flex-wrap:wrap-reverse;right:0}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-buttonContainer button{margin-right:0!important}}div.dtsb-searchBuilder button,div.dtsb-searchBuilder input,div.dtsb-searchBuilder select.dtsb-dropDown{background-color:#f9f9f9}div.dtsb-searchBuilder button.dtsb-button{position:relative;display:inline-block;box-sizing:border-box;padding:.5em 1em;border:1px solid rgba(0,0,0,.3);border-radius:2px;cursor:pointer;font-size:.88em;line-height:1.6em;color:inherit;white-space:nowrap;overflow:hidden;background-color:rgba(0,0,0,.1);background:linear-gradient(to bottom,rgba(230,230,230,.1)0,rgba(0,0,0,.1) 100%);-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;text-decoration:none;outline:0;text-overflow:ellipsis}div.dtsb-searchBuilder button.dtsb-button:hover{background-color:#cecece;cursor:pointer}div.dtsb-searchBuilder div.dtsb-logicContainer{border:1px solid rgba(0,0,0,.3);background-color:rgba(0,0,0,.1);background:linear-gradient(to right,rgba(230,230,230,.1)0,rgba(0,0,0,.1) 100%)}div.dtsb-searchBuilder div.dtsb-logicContainer button{border:1px solid transparent;background:0 0}div.dtsb-searchBuilder button.dtsb-clearGroup{min-width:2em;padding:0}div.dtsb-searchBuilder button.dtsb-iptbtn{min-width:100px;text-align:left}div.dtsb-searchBuilder div.dtsb-group div.dtsb-logicContainer{border:1px solid;border-color:#cecece;border-radius:3px;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-content:flex-start;align-items:flex-start}div.dtsb-searchBuilder div.dtsb-group div.dtsb-logicContainer button.dtsb-logic{border:0;border-radius:0;flex-grow:1;flex-shrink:0;flex-basis:3em;margin:0}div.dtsb-searchBuilder div.dtsb-group div.dtsb-logicContainer button.dtsb-clearGroup{border:0;border-radius:0;width:2em;margin:0}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-input,div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-dropDown{border:1px solid;border-radius:3px}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-condition{border-color:#48b13c}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-data{border-color:#e70f00}div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-value,div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-value{border-color:#0069ba}html.dark div.dtsb-searchBuilder button.dtsb-button,html.dark div.dtsb-searchBuilder input.dtsb-input,html.dark div.dtsb-searchBuilder select.dtsb-dropDown{background-color:#424549!important;color-scheme:dark}html.dark div.dtsb-searchBuilder button.dtsb-button{border:1px solid #595b5e;background:rgba(255,255,255,.15)}html.dark div.dtsb-searchBuilder button.dtsb-button:hover{background:rgba(179,179,179,.15)}html.dark div.dtsb-searchBuilder div.dtsb-logicContainer{border:1px solid #595b5e}html.dark div.dtsb-searchBuilder .dtsb-greyscale{border-color:rgba(255,255,255,.2)!important}
+
+/* searchPanes.dataTables.css */
+div.dtsp-topRow{display:flex;flex-direction:row;flex-wrap:nowrap;border:2px solid transparent;border-radius:3px;justify-content:space-around;align-content:flex-start;align-items:flex-start}div.dtsp-topRow input.dtsp-search{text-overflow:ellipsis;min-width:50px;flex-basis:90px;max-width:none}div.dtsp-topRow input.dtsp-search::placeholder{color:inherit}div.dtsp-topRow div.dtsp-subRow1{display:flex;flex-direction:row;flex-wrap:nowrap;flex:1 1 auto}div.dtsp-topRow div.dtsp-subRow1 div.dtsp-searchCont{position:relative;width:100%}div.dtsp-topRow div.dtsp-subRow1 input{padding-right:2em;width:100%!important;box-sizing:border-box;font-size:1em}div.dtsp-topRow div.dtsp-subRow1 input[disabled=disabled]{background-color:transparent;border:0;cursor:initial;box-shadow:none;padding-bottom:0;padding-top:0;min-height:1em;height:fit-content;box-sizing:content-box}div.dtsp-topRow div.dtsp-subRow1 input[disabled=disabled]::placeholder{color:initial;opacity:1}div.dtsp-topRow div.dtsp-subRow1 button.dtsp-searchIcon{position:absolute;top:0;right:0;bottom:0}div.dtsp-topRow div.dtsp-subRow1 button.dtsp-searchIcon span{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAABbmlDQ1BpY2MAACiRdZE7SwNBFIU/EyWikRRaiFhsoWKhEBREO42FTZAQFYza7G5eQhKX3QQJtoKNhWAh2vgq/AfaCrYKgqAIIhb+Al+NhPVOEkiQZJbZ+3FmzmXmDHjCGTPrtAYhm8vb0bmQthxb0Xzv+PHRxRSabjrWTCQSpun4eaRF1YdR1av5voajM55wTGhpF54wLTsvPC0c3sxbineFe8y0Hhc+ER6x5YDCt0o3KvymOFXhL8X2YnQWPKqnlqpjo47NtJ0VHhYeyGYKZvU86ib+RG5pQWqfzH4coswRQsOgwDoZ8oxKzUlmjX3Bsm+eDfGY8rcoYosjRVq8I6IWpGtCalL0hHwZiir3/3k6yfGxSnd/CNpeXfdzEHz7UNpz3d9T1y2dgfcFrnM1/4bkNPkt+l5NGziGwDZc3tQ04wCudqD32dJtvSx5ZXqSSfi4gK4YdN9Dx2olq+o650+wuCVPdAeHRzAk+wNrfw8JaBFXEnV+AAAACXBIWXMAAA9hAAAPYQGoP6dpAAABMUlEQVQoU6XRr0vDQRjH8akoM4iIjqGoOIZ5oIjB5XWxajaYDGLSIhhNYjcPRDSJwbQNw+L+BNGgYYo/5pT5/shz8vDlBgMPXux7z3N3z+25VOofYyCyd4ZYCavI4gXPsRp9LqiDdrEMH+8wv8Vh8gBfWclFPOEUN3hAHjlMoRa7wTzBS5xgKLFglPkZLjDic6HyDsEMNvGR2Nxifoci3tEI+X770JU0XmPXIlax+LTPh83fFox1X6kxyzdjm9UcdXi9S+Vti6svfyNULhNR9TVsYNhW6Ff9KKCNR7/Zv6eeaQ+6+qcdpu9BqGlp1HFgud+FYdzzUcUExu0Q/cdzHGEFetIlXKPjK/sbqYoOftMiS+j9jzEJPd1Wt+5+kdR/9EM9ucIC5jCbyPc01Q32kfsBppYz3hYFcCwAAAAASUVORK5CYII=)!important;background-repeat:no-repeat;background-position:center;background-size:12px}div.dtsp-topRow div.dtsp-subRow2{white-space:nowrap;flex:0 0 auto}div.dtsp-topRow button>span{display:inline-block;height:100%;width:100%}div.dtsp-topRow button.dtsp-countButton span,div.dtsp-topRow button.dtsp-nameButton span{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAABcGlDQ1BpY2MAACiRdZHNSwJBGMYftTDS8FCHkA57sOigIAXRMQzyYh3UIKvL7rirwe66zK6IdA26dBA6RF36OvQf1DXoWhAERRAR9B/0dQnZ3nEFJXSG2ffHs/O8zDwD+DM6M+yBJGCYDs+mU9JaYV0KviNMM4QoEjKzreXcUh59x88jfKI+JESv/vt6jlBRtRngGyKeYxZ3iBeIMzXHErxHPMbKcpH4hDjO6YDEt0JXPH4TXPL4SzDPZxcBv+gplbpY6WJW5gbxNHHM0KusfR5xk7BqruaoRmlNwEYWaaQgQUEVW9DhIEHVpMx6+5It3woq5GH0tVAHJ0cJZfLGSa1SV5WqRrpKU0dd5P4/T1ubnfG6h1PA4Kvrfk4CwX2g2XDd31PXbZ4BgRfg2uz4K5TT/DfpjY4WOwYiO8DlTUdTDoCrXWD82ZK53JICtPyaBnxcACMFYPQeGN7wsmr/x/kTkN+mJ7oDDo+AKdof2fwDCBRoDkL8UccAAAAJcEhZcwAAD2EAAA9hAag/p2kAAAK2SURBVFgJ7ZY9j41BFICvryCExrJBQ6HyEYVEIREaUZDQIRoR2ViJKCioxV+gkVXYTVZEQiEUhG2EQnxUCh0FKolY4ut5XnM2cyfva3Pt5m7EPcmzZ2bemTNnzjkzd1utnvQi0IvAfxiBy5z5FoxO89kPY+8mbMjtzs47RXs5/WVpbAG6bWExt5PuIibvhVkwmC+ck3eK9ln6/fAddFojYzBVuYSBpcnIEvRaqOw2RcaN18FPuJH0JvRUxbT3wWf4ltiKPgfVidWlbGZgPozDFfgAC+EA/K2EI4cwcAJ+gPaeQ+VQU2SOMMGcPgPl/m/V2p50rrbRsRgt9Iv5h6xtpP22Bz7Ce1C+gFFxfKzOmShcU+Qmyh2w3w8rIJfddHTck66EukL/xPhj+JM8rHNmFys0Pg4v0up3aFNlwR9NYyodd3OL/C64zpsymcTFcf6ElM4YzjAWKYrJkaq8kE/yUYNP4BoYvS1QRo+hNtF5xfkTUjoTheukSFFMjlTFm6PjceOca/SMpKfeCR1L6Uzk/y2WIkVhNFJlJAZhP+hYns7b9D3IPuhY5mYrIv8OrQJvR5NYyNaW4jsU8pSGNySiVx4o5tXq3JkoXE/mg5R/M8dGJCJpKhaDcjBRdbI/Rm8g69c122om33BHmj2CHoV5qa9jUXBraJ+G1fAVjIBO1klc87ro1K4JZ/K35SWW3TwcyDd6TecqnAEd8cGq2+w84xvBm1n3vS0izKkkwh5XNC/GmFPqqAtPF89AOScKuemaNzoTV1SD5dtSbmLf1/RV+tC0WTgcj6R7HEtrVGWaqu/lYDZ/2pvxQ/kIyw/gFByHC9AHw910hv1aUUumyd8yy0QfhmEkfiNod0Xusct68J1qc8Tdux0Z97Q+hsDb+AYGYEbF/4Guw2Q/qDPqZG/zXgT+3Qj8AtKnfWhFwmuAAAAAAElFTkSuQmCC)!important;background-repeat:no-repeat;background-position:center;background-size:23px;vertical-align:bottom}div.dtsp-topRow button.dtsp-countButton span{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABcGlDQ1BpY2MAACiRdZHNSwJBGMYftTDS8FCHkA57sOigIAXRMQzyYh3UIKvL7rirwe66zK6IdA26dBA6RF36OvQf1DXoWhAERRAR9B/0dQnZ3nEFJXSG2ffHs/O8zDwD+DM6M+yBJGCYDs+mU9JaYV0KviNMM4QoEjKzreXcUh59x88jfKI+JESv/vt6jlBRtRngGyKeYxZ3iBeIMzXHErxHPMbKcpH4hDjO6YDEt0JXPH4TXPL4SzDPZxcBv+gplbpY6WJW5gbxNHHM0KusfR5xk7BqruaoRmlNwEYWaaQgQUEVW9DhIEHVpMx6+5It3woq5GH0tVAHJ0cJZfLGSa1SV5WqRrpKU0dd5P4/T1ubnfG6h1PA4Kvrfk4CwX2g2XDd31PXbZ4BgRfg2uz4K5TT/DfpjY4WOwYiO8DlTUdTDoCrXWD82ZK53JICtPyaBnxcACMFYPQeGN7wsmr/x/kTkN+mJ7oDDo+AKdof2fwDCBRoDkL8UccAAAAJcEhZcwAAD2EAAA9hAag/p2kAAAG5SURBVEgN3VU9LwVBFF0fiYhofUSlEQkKhU7z/oBCQkIiGr9BgUbhVzy9BAnhFyjV/AYFiU5ICM7ZN+c5Zud5dm3lJmfmzrkz9+7cu3c3y/6jjOBSF8CxXS7FmTkbwqIJjDpJvTcmsJ4K3KPZUpyZsx0sxoB9J6mnAkyC7wGuuCFIipNtEcpcWExgXpOBc78vgj6N+QO4NVsjwdFM59tUIDxDrHMBOeIQ34C5ZDregXuAQm4YcI68nN9B3wr2PcwPAIPkN2EqtJH6b+QZm1ajjTx7BqwAr26Lb+C2Kvpbt0Mb2HAJ7NrGFGfmXO3DeA4UshDfQAVmH0gaUFg852TTTDvlxwBlCtxy9zXyBhQFaq0wMmIdRebrfgosA3zb2hKnqG0oqchp4QbuR8X0TjzABhbdOT8jnQ/atcgqpnfwOA7yqZyTU587ZkIGdesLTt2EkynOnbreMUUKMI/dA4B/QVOcO13CQh+5wWCgDwo/75u59odB/wjmfhbgvACcAOyZPHihMWAoIwxyCLgf1oxfgjzVbgBXSTzIN+f0pg6s5DkcesLMRpsBrgE2XO3CN64JFP7JtUeKHX4CKtRRXFZ+7dEAAAAASUVORK5CYII=)!important;background-size:18px}div.dtsp-topRow button.dtsp-collapseButton span.dtsp-caret{position:relative;top:9px;display:inline-block}div.dtsp-topRow button.dtsp-collapseButton.dtsp-rotated{transform:rotate(180deg)}div.dtsp-searchPane div.dataTables_wrapper div.dataTables_scrollBody td.dtsp-nameColumn,div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll-body td.dtsp-nameColumn,div.dtsp-searchPane div.dt-container div.dataTables_scrollBody td.dtsp-nameColumn,div.dtsp-searchPane div.dt-container div.dt-scroll-body td.dtsp-nameColumn,div.dtsp-searchPane table thead td,div.dtsp-searchPane table thead th{width:100%!important}div.dt-button-collection{z-index:2002}div.dt-button-collection.dtb-collection-closeable div.dtsp-titleRow{padding-right:25px}div.dtsp-columns-1{max-width:100%;min-width:100%;margin:0!important}div.dtsp-columns-2{max-width:49%;min-width:49%;margin:0!important}div.dtsp-columns-3{max-width:32%;min-width:32%;margin:0!important}div.dtsp-columns-4{max-width:24%;min-width:24%;margin:0!important}div.dtsp-columns-5{max-width:19%;min-width:19%;margin:0!important}div.dtsp-columns-6{max-width:16%;min-width:16%;margin:0!important}div.dtsp-columns-7{max-width:14%;min-width:14%;margin:0!important}div.dtsp-columns-8{max-width:12%;min-width:12%;margin:0!important}div.dtsp-columns-9{max-width:10.5%;min-width:10.5%;margin:0!important}div.dtsp-narrow{flex-direction:column!important}div.dtsp-narrow div.dtsp-subRow1,div.dtsp-narrow div.dtsp-subRow2{width:100%}div.dtsp-narrow div.dtsp-subRow2 button{margin:0!important;width:25%!important}div.dt-button-collection div.dtsp-panesContainer{padding-left:1em;padding-right:1em;margin-bottom:0}div.dtsp-panesContainer{margin-bottom:1em;clear:both;padding-left:0;padding-right:0;text-align:center}div.dtsp-searchPane div.dataTables_wrapper,div.dtsp-searchPane div.dt-container{width:100%}div.dtsp-searchPane div.dataTables_wrapper div.dataTables_layout_cell,div.dtsp-searchPane div.dt-container div.dataTables_layout_cell{padding:0}div.dtsp-hidden,div.dtsp-searchPane div.dataTables_wrapper div.dataTables_scrollHead,div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll-head,div.dtsp-searchPane div.dt-container div.dataTables_scrollHead,div.dtsp-searchPane div.dt-container div.dt-scroll-head{display:none!important}div.dtsp-searchPane div.dataTables_wrapper div.dataTables_scrollBody,div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll-body,div.dtsp-searchPane div.dt-container div.dataTables_scrollBody,div.dtsp-searchPane div.dt-container div.dt-scroll-body{background:#fff!important;border:0}div.dtsp-panesContainer div.dtsp-searchPanes div.dtsp-searchPane div.dataTables_wrapper div.dataTables_filter,div.dtsp-panesContainer div.dtsp-searchPanes div.dtsp-searchPane div.dataTables_wrapper div.dt-search,div.dtsp-panesContainer div.dtsp-searchPanes div.dtsp-searchPane div.dt-container div.dataTables_filter,div.dtsp-panesContainer div.dtsp-searchPanes div.dtsp-searchPane div.dt-container div.dt-search,div.dtsp-searchPane div.dataTables_wrapper div.dataTables_scrollBody thead,div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll-body thead,div.dtsp-searchPane div.dt-container div.dataTables_scrollBody thead,div.dtsp-searchPane div.dt-container div.dt-scroll-body thead{display:none}div.dtsp-searchPane div.dataTables_wrapper div.dataTables_scrollBody table tr>td,div.dtsp-searchPane div.dataTables_wrapper div.dataTables_scrollBody table tr>th,div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll-body table tr>td,div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll-body table tr>th,div.dtsp-searchPane div.dt-container div.dataTables_scrollBody table tr>td,div.dtsp-searchPane div.dt-container div.dataTables_scrollBody table tr>th,div.dtsp-searchPane div.dt-container div.dt-scroll-body table tr>td,div.dtsp-searchPane div.dt-container div.dt-scroll-body table tr>th{padding:5px 10px}div.dtsp-searchPane div.dataTables_wrapper div.dataTables_scrollBody div.dtsp-nameCont,div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll-body div.dtsp-nameCont,div.dtsp-searchPane div.dt-container div.dataTables_scrollBody div.dtsp-nameCont,div.dtsp-searchPane div.dt-container div.dt-scroll-body div.dtsp-nameCont{width:100%;display:flex;flex-direction:row;justify-content:flex-start;align-content:flex-start;align-items:flex-start}div.dtsp-searchPane div.dataTables_wrapper div.dataTables_scrollBody div.dtsp-nameCont span.dtsp-name,div.dtsp-searchPane div.dataTables_wrapper div.dataTables_scrollBody div.dtsp-nameCont span.dtsp-pill,div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll-body div.dtsp-nameCont span.dtsp-name,div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll-body div.dtsp-nameCont span.dtsp-pill,div.dtsp-searchPane div.dt-container div.dataTables_scrollBody div.dtsp-nameCont span.dtsp-name,div.dtsp-searchPane div.dt-container div.dataTables_scrollBody div.dtsp-nameCont span.dtsp-pill,div.dtsp-searchPane div.dt-container div.dt-scroll-body div.dtsp-nameCont span.dtsp-name,div.dtsp-searchPane div.dt-container div.dt-scroll-body div.dtsp-nameCont span.dtsp-pill{cursor:default}div.dtsp-searchPane div.dataTables_wrapper div.dataTables_scrollBody div.dtsp-nameCont span.dtsp-name,div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll-body div.dtsp-nameCont span.dtsp-name,div.dtsp-searchPane div.dt-container div.dataTables_scrollBody div.dtsp-nameCont span.dtsp-name,div.dtsp-searchPane div.dt-container div.dt-scroll-body div.dtsp-nameCont span.dtsp-name{text-overflow:ellipsis;overflow:hidden;display:inline-block;vertical-align:middle;white-space:nowrap;flex-grow:1;text-align:left}div.dtsp-searchPane div.dataTables_wrapper div.dataTables_scrollBody div.dtsp-nameCont span.dtsp-pill,div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll-body div.dtsp-nameCont span.dtsp-pill,div.dtsp-searchPane div.dt-container div.dataTables_scrollBody div.dtsp-nameCont span.dtsp-pill,div.dtsp-searchPane div.dt-container div.dt-scroll-body div.dtsp-nameCont span.dtsp-pill{display:inline-block;background-color:#cfcfcf;text-align:center;border-radius:10px;width:auto;min-width:30px;color:#000;font-size:.9em;padding:0 4px}div.dtsp-searchPane div.dataTables_wrapper div.dataTables_scrollBody div.dtsp-nameCont span.dtsp-pill:empty,div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll-body div.dtsp-nameCont span.dtsp-pill:empty,div.dtsp-searchPane div.dt-container div.dataTables_scrollBody div.dtsp-nameCont span.dtsp-pill:empty,div.dtsp-searchPane div.dt-container div.dt-scroll-body div.dtsp-nameCont span.dtsp-pill:empty{display:none}div.dtsp-panesContainer div.dtsp-searchPanes{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;align-content:flex-start;align-items:stretch;clear:both;text-align:left}div.dtsp-panesContainer div.dtsp-searchPanes div.dtsp-searchPane{flex-grow:1;flex-shrink:0;font-size:.9em;margin-top:15px!important}div.dtsp-panesContainer div.dtsp-searchPanes div.dtsp-searchPane div.dataTables_wrapper,div.dtsp-panesContainer div.dtsp-searchPanes div.dtsp-searchPane div.dt-container{flex:1;box-sizing:border-box}div.dtsp-panesContainer div.dtsp-title{float:left;padding:10px 0}div.dtsp-panesContainer button.dtsp-clearAll,div.dtsp-panesContainer button.dtsp-collapseAll,div.dtsp-panesContainer button.dtsp-showAll{float:right}html.dark div.dtsp-topRow div.dtsp-subRow1 div.dtsp-searchCont input[disabled=disabled]::placeholder,html[data-bs-theme=dark] div.dtsp-topRow div.dtsp-subRow1 div.dtsp-searchCont input[disabled=disabled]::placeholder{color:#fff}div.dtsp-searchPane div.dataTables_wrapper,div.dtsp-searchPane div.dt-container{border:1px solid #f0f0f0;border-radius:4px;overflow:hidden}div.dtsp-searchPane div.dataTables_wrapper:hover,div.dtsp-searchPane div.dt-container:hover{border:1px solid #cfcfcf}div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll,div.dtsp-searchPane div.dt-container div.dt-scroll{margin:-5px 0}div.dtsp-searchPane div.dataTables_wrapper table.dataTable,div.dtsp-searchPane div.dt-container table.dataTable{border-bottom:none!important}div.dtsp-searchPane div.dtsp-topRow{border:1px solid transparent}div.dtsp-searchPane div.dtsp-topRow div.dtsp-subRow1 input[disabled=disabled]{padding-bottom:5px}div.dtsp-searchPane div.dtsp-topRow div.dtsp-searchCont input.dtsp-search{border:0;padding-left:3px}div.dtsp-searchPane div.dtsp-topRow.dtsp-bordered{border:1px solid #f0f0f0;border-radius:3px}div.dtsp-searchPane div.dtsp-topRow.dtsp-bordered:hover{background-color:#f0f0f0}div.dtsp-searchPane button.dtsp-paneButton,div.dtsp-searchPane input.dtsp-paneInputButton{height:35px;width:35px;min-width:0;display:inline-block;border:0 solid transparent;background-color:transparent;margin:2px 2px 0}div.dtsp-panesContainer button.dtsp-clearAll:hover,div.dtsp-panesContainer button.dtsp-collapseAll:hover,div.dtsp-panesContainer button.dtsp-showAll:hover,div.dtsp-searchPane button.dtsp-paneButton:hover,div.dtsp-searchPane input.dtsp-paneInputButton:hover{background-color:#f0f0f0;border-radius:2px;cursor:pointer}div.dtsp-searchPane button.dtsp-paneButton{vertical-align:middle;opacity:.6}div.dtsp-panesContainer button.dtsp-clearAll,div.dtsp-panesContainer button.dtsp-collapseAll,div.dtsp-panesContainer button.dtsp-showAll{border:1px solid transparent;background-color:transparent}div.dtsp-panesContainer button.dtsp-disabledButton{cursor:default!important;color:#7c7c7c}div.dtsp-panesContainer button.dtsp-disabledButton:hover{background-color:transparent}div.dtsp-panesContainer button.dtsp-disabledButton:focus{outline:0}@media screen and (max-width:767px){div.dtsp-columns-4,div.dtsp-columns-5,div.dtsp-columns-6{max-width:31%!important;min-width:31%!important}}@media screen and (max-width:640px){div.dtsp-searchPanes{flex-direction:column!important}div.dtsp-searchPane{max-width:98%!important;min-width:98%!important}}html.dark div.dtsp-topRow button.dtsp-countButton span,html.dark div.dtsp-topRow button.dtsp-nameButton span,html.dark div.dtsp-topRow div.dtsp-subRow1 button.dtsp-searchIcon span{filter:invert(1)}html.dark div.dtsp-panesContainer button.dtsp-clearAll,html.dark div.dtsp-panesContainer button.dtsp-collapseAll,html.dark div.dtsp-panesContainer button.dtsp-showAll,html.dark div.dtsp-topRow button.dtsp-paneButton,html.dark div.dtsp-topRow input.dtsp-paneInputButton{color:inherit}html.dark div.dtsp-panesContainer button.dtsp-clearAll:hover,html.dark div.dtsp-panesContainer button.dtsp-collapseAll:hover,html.dark div.dtsp-panesContainer button.dtsp-showAll:hover,html.dark div.dtsp-topRow button.dtsp-paneButton:hover,html.dark div.dtsp-topRow input.dtsp-paneInputButton:hover{background-color:#404549}html.dark div.dtsp-topRow.dtsp-bordered{border:1px solid rgba(255,255,255,.2);background:#2f3438!important}html.dark div.dtsp-searchPane div.dataTables_wrapper:hover,html.dark div.dtsp-searchPane div.dt-container:hover,html.dark div.dtsp-topRow.dtsp-bordered:hover{border:1px solid rgba(255,255,255,.3)}html.dark div.dtsp-panesContainer button.dtsp-disabledButton{color:#7c7c7c}html.dark div.dtsp-searchPane div.dataTables_wrapper,html.dark div.dtsp-searchPane div.dt-container{border:1px solid rgba(255,255,255,.2)}html.dark div.dtsp-searchPane div.dataTables_wrapper div.dataTables_scrollBody,html.dark div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll-body,html.dark div.dtsp-searchPane div.dt-container div.dataTables_scrollBody,html.dark div.dtsp-searchPane div.dt-container div.dt-scroll-body{background:#2f3438!important}html.dark div.dtsp-searchPane div.dataTables_wrapper div.dataTables_scrollBody div.dtsp-nameCont span.dtsp-pill,html.dark div.dtsp-searchPane div.dataTables_wrapper div.dt-scroll-body div.dtsp-nameCont span.dtsp-pill,html.dark div.dtsp-searchPane div.dt-container div.dataTables_scrollBody div.dtsp-nameCont span.dtsp-pill,html.dark div.dtsp-searchPane div.dt-container div.dt-scroll-body div.dtsp-nameCont span.dtsp-pill{background-color:#212529;color:inherit}
+
+/* select.dataTables.css */
+table.dataTable>tbody>tr>.selected{background-color:rgba(13,110,253,.9);color:#fff}table.dataTable>tbody>tr>.dt-select{text-align:center;vertical-align:middle}table.dataTable>thead>tr>.dt-select{text-align:center}table.dataTable input.dt-select-checkbox{appearance:none;position:relative;display:inline-block;width:12px;height:12px;border:1px solid;border-radius:3px;vertical-align:middle;margin-top:1px;color:inherit;font-size:20px;line-height:1em}table.dataTable input.dt-select-checkbox:checked:after{display:block;content:"✓";margin-top:-8px}table.dataTable input.dt-select-checkbox:indeterminate:after{display:block;position:absolute;content:" ";top:3px;left:3px;height:4px;width:4px;background-color:#000;border-radius:2px}table.dataTable>tbody>tr.selected input.dt-select-checkbox:checked{border:1px solid}table.dataTable>tbody>tr>td.select-checkbox,table.dataTable>tbody>tr>th.select-checkbox{position:relative}table.dataTable>tbody>tr>td.select-checkbox:before,table.dataTable>tbody>tr>th.select-checkbox:before{display:block;position:absolute;top:50%;left:50%;width:12px;height:12px;box-sizing:border-box;content:" ";margin-top:-6px;margin-left:-6px;border:1px solid;border-radius:3px}table.dataTable>tbody>tr.selected>td.select-checkbox:before,table.dataTable>tbody>tr.selected>th.select-checkbox:before{border:1px solid;content:"✓";font-size:20px;line-height:6px;text-align:center}table.dataTable.compact>tbody>tr>td.select-checkbox:before,table.dataTable.compact>tbody>tr>th.select-checkbox:before{margin-top:-12px}table.dataTable.compact>tbody>tr.selected>td.select-checkbox:after,table.dataTable.compact>tbody>tr.selected>th.select-checkbox:after{margin-top:-16px}div.dt-container span.select-info,div.dt-container span.select-item{margin-left:.5em}html.dark table.dataTable input.dt-select-checkbox:indeterminate:after,html[data-bs-theme=dark] table.dataTable input.dt-select-checkbox:indeterminate:after{background-color:#fff}@media screen and (max-width:640px){div.dt-container span.select-info,div.dt-container span.select-item{margin-left:0;display:block}}
+
+/* ==========================================================================
+    Nested belowpage bab dropdown styles - this part is none datatables specific
+     ========================================================================== */
+
+/* font size. parent and all child elements */
+.belowPage-bab-dropdown > * {
+  font-size: 0.88em;
+}
+
+.belowPage-bab-dropdown {
+  /*background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);*/
+  width: 250px;
+  /* */
+  padding-inline-start: 0;
+  list-style-type: none;
+  /* center horizontally */
+  margin-left: auto;
+  margin-right: auto;
+  /* remove top margin */
+  margin-top: 0;
+  /* buttons style */
+  border: none;
+  /* material theme builder, source color C0DAF9 */
+  background: #dee3eb none;
+  /* https://material-foundation.github.io/material-theme-builder */
+  /* prev e0e1e2 */
+  border-radius: 0.28571429rem;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
+    box-shadow 0.1s ease, background 0.1s ease;
+}
+
+.belowPage-bab-dropdown ul {
+  display: none;
+  list-style-type: none;
+  padding: 0;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #eceef4;
+  /* prev f9f9f9 */
+  /* */
+  text-align: right;
+}
+
+.belowPage-bab-dropdown li {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.belowPage-bab-dropdown li:last-child {
+  border-bottom: none;
+}
+
+.belowPage-bab-dropdown a {
+  color: #333;
+  display: block;
+  /*padding: 12px 20px;*/
+  padding: 10px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  cursor: pointer; /* Added pointer cursor */
+}
+
+.belowPage-bab-dropdown a:hover {
+  /* material theme builder, source color C0DAF9 */
+  background-color: #286294;
+  /* prev f5f5f5 */
+  color: #fff;
+}
+
+.belowPage-bab-dropdown > li > a::before {
+  content: "◄";
+  float: left;
+  font-size: 0.8em; /* 0.7 */
+  margin-top: 8px; /* 4 */
+}
+
+.belowPage-bab-dropdown li.active > a::before {
+  content: "▼ ";
+  /* */
+  font-size: 0.7em;
+  /*float: left;*/
+}
+
+.belowPage-bab-dropdown li.active > ul {
+  display: block;
+}
+
+.belowPage-bab-dropdown > li > ul > li > a {
+  padding-right: 40px;
+}
+
+.belowPage-bab-dropdown > li > ul > li > ul > li > a {
+  padding-right: 50px; /* 60 */
+  position: relative;
+}
+
+.belowPage-bab-dropdown > li > ul > li > a::before {
+  content: "\25CF"; /* Black Circle */
+  margin-left: 10px; /* Adjust spacing */
+  color: #000; /* Adjust color */
+}
+
+/* Remove the black circle for the last two items */
+.belowPage-bab-dropdown > li > ul > li:nth-last-child(-n + 2) > a::before {
+  content: none; /* Removes the content */
+  margin-left: 0; /* Adjust spacing */
+}
+/* Remove the black circle for the last two items */
+.belowPage-bab-dropdown > li > ul > li:nth-last-child(-n + 2) > a {
+  text-align: left;
+  padding-left: 40px;
+}
+
+.belowPage-bab-dropdown > li > ul > li > ul > li > a::before {
+  content: "\2578\00a0"; /* Unicode for a line then a space */
+  /*margin-right: 10px;*/ /* Adjust spacing */
+}
+
+.belowPage-bab-dropdown ul li:first-child {
+  border-top: 1px solid #e0e0e0;
+}
+
+/* ==========================================================================
+     DataTables Custom Core Styles
+     ========================================================================== */
+
+/* removes space at the top and bottom of the first and last tr of the table*/
+.cards tbody tr:first-child {
+  margin-top: 0;
+}
+.cards tbody tr:last-child {
+  margin-bottom: 0;
+}
+/* hide first searchbar on tablet and up */
+@media (min-width: 600px) {
+  .dt-search:has(#dt-search-0) {
+    display: none;
+  }
+}
+/* reverse of that, hide second searchbar on mobile */
+@media (max-width: 599px) {
+  .dt-search:has(#dt-search-1) {
+    display: none;
+  }
+}
+
+/* removes th table header above columns, for card view */
+thead {
+  display: none;
+}
+/* removes colgroup cols except the first one, for card view */
+.dt-container > colgroup > col:not(:nth-child(0)) {
+  display: none;
+}
+/* aligns row of elements to top rather than center, like buttons etc */
+/*div.dt-container div.dt-layout-row div.dt-layout-cell {
+        align-items: center;
+    }
+    */
+/* above moves paging info up too, so this moves it back to middle */
+/*div.dt-container div.dt-layout-row:nth-child(3) div.dt-layout-cell.dt-layout-full {
+        align-items: center;
+    }
+    */
+/* jump to row select color */
+/*tr.selected*/
+.dataTable > tbody > tr.selected {
+  --dt-row-selected: initial;
+  --dt-row-selected-text: initial;
+  /* material theme builder, source color C0DAF9 */
+  border-top: 5px solid #235580;
+  border-bottom: 5px solid #235580;
+  /* prev 136296 */
+}
+
+/* colors for DataTables controls */
+.dt-container .dt-input,
+.dt-container .dt-search input,
+.dt-container .dt-paging input {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+/* ensure search bar doesnt overflow the width on mobile */
+div.dt-container .dt-input,
+div.dt-container .dt-search input {
+  width: 307px;
+  max-width: 90vw;
+  /* indent the text in the search a little, otherwise character cuts off */
+  text-indent: 7px;
+  /* makes its bg color not see thru */
+  /*background-color: #fff;*/
+}
+/* makes the inputpaging box bigger */
+.dt-container
+  > div
+  > div
+  > .dt-inputpaging.dt-paging
+  > .dt-paging-input
+  > input {
+  /*width: 110%;
+       */
+  font-size: 80%;
+  /* 80 */
+  /* fixes width, so doesnt jump around when numbers increase in no of digits */
+  width: 65px !important; /* 50 for mobile? */
+}
+/* mobile only size */
+/*@media (max-width: 599px) {
+      .dt-container
+        > div
+        > div
+        > div.dt-inputpaging.dt-paging
+        > div
+        > input[type="search"] {
+        font-size: 80%;
+        width: 50px !important;
+      }
+    }*/
+/* make font size of / [total pages] smaller*/
+.dt-container
+  > div
+  > div
+  > div.dt-inputpaging.dt-paging
+  > div.dt-paging-input
+  > span {
+  font-size: 90%;
+  /* 70*/
+}
+/* sets font for searchbox placeholder */
+.dt-container
+  > div
+  > div
+  > div.dt-inputpaging.dt-paging
+  > div
+  > input[type="search"]::placeholder {
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
+  text-indent: 5px;
+  font-size: 90%;
+}
+/* right to left https://datatables.net/examples/i18n/rtl.html some other elements do need to be set back to ltr though */
+.dt-container {
+  direction: rtl;
+}
+/* remove thin border lines above and below rows of td (or rather, last td?) not enough to just remove "display" class from table */
+/* #example > tbody > tr > td */
+/*
+    div.dt-container.dt-empty-footer tbody > tr:last-child > * { */
+div.dt-container.dt-empty-footer tbody > tr:last-child > td {
+  border: none;
+}
+/* ensures pagination buttons dont overflow into the next row on mobile */
+div.dt-container > div > div > div.dt-inputpaging.dt-paging {
+  white-space: nowrap;
+}
+/* lessens the gap between colvis menu list, as well as pagelength button (mobile) and makes text a littler smaller */
+/* .buttons-columnVisibility
+     .button-page-length
+     .buttons-colvisRestore */
+.dt-container > div > div > div.dt-buttons > div > div > .dt-button {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 90%;
+}
+/* brings the tick marks in colvis closer to center */
+div.dt-button-collection > div > button.dt-button-active::after {
+  top: 30%;
+}
+/* same for pagelength button (mobile)
+    actually top covers that too
+    div.dt-button-collection .dt-button-active:after {
+      top: 23%;
+    } */
+/* on mobile, where collection buttons are, lessens font size, centers the dropdown */
+.dt-container
+  > div
+  > div
+  > div.dt-buttons
+  > div.dt-button-collection
+  > div
+  > button.dt-button {
+  font-size: 90%;
+  /*text-align: right;*/
+  /*padding-right: 30px;*/
+}
+/* moves text span to right aligned, instead of left, also gives it some spacing from the right */
+.dt-container
+  > div
+  > div
+  > div.dt-buttons
+  > div.dt-button-collection
+  > div
+  > button.dt-button {
+  text-align: right;
+  padding-right: 30px;
+}
+/* gives more right side padding where ticks are, in colvis and pagelength dropdown */
+
+.dt-container
+  > div
+  > div
+  > div.dt-buttons
+  > div.dt-button-collection
+  > div
+  > button.dt-button.buttons-columnVisibility,
+.dt-container
+  > div
+  > div
+  > div.dt-buttons
+  > div.dt-button-collection
+  > div
+  > button.dt-button.button-page-length {
+  padding-right: 50px;
+}
+
+/* colors for Button states */
+
+/* sets color of colvis list items on hover
+    div.dt-button-collection .dt-button:hover:not(.disabled) */
+div.dt-button-collection > div > button.dt-button:hover:not(.disabled) {
+  /*color: white;*/
+  /* material theme builder, source color C0DAF9 */
+  /*background-color: #286294;*/
+  /* prev 195faa */
+  background-color: var(--color-accent) !important;
+  color: var(--color-bg-primary) !important;
+}
+
+/* colors for Selected states */
+
+/* since we turned off the colors for select in the regular dt table, its invisible on the selected searchpanes data too, this makes it show again on searchpanes */
+div.dt-scroll > div.dt-scroll-body > table.dataTable > tbody > tr.selected {
+  /*color: white;*/
+  /* material theme builder, source color C0DAF9 */
+  /*background-color: #286294;*/
+  /* prev 195faa */
+  background-color: var(--color-accent);
+  color: var(--color-bg-primary);
+}
+/* lowers the number pill box in searchpanes a little bit, needed to change static position to do it */
+div.dt-scroll
+  > div.dt-scroll-body
+  > table.dataTable
+  > tbody
+  > tr
+  > td
+  > div
+  > span.dtsp-pill {
+  position: relative;
+  top: 1.5px;
+}
+/* gets rid of dt background in searchpanes and searchbuilder with css, which cant be removed in config */
+div.dt-layout-cell.dt-layout-full > div.dt-button-background {
+  background: none;
+  /* hidden interferes with reopening searchpanes and builder */
+  /*visibility: hidden;
+       */
+  /*display: none !important;
+       */
+  /*position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        background: radial-gradient( ellipse farthest-corner at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100% );
+        z-index: 2001;
+       */
+}
+/* makes search pane list content right aligned instead of left */
+div.dt-scroll-body
+  > table.dataTable
+  > tbody
+  > tr
+  > td.dtsp-nameColumn
+  > div.dtsp-nameCont
+  > span.dtsp-name {
+  text-align: right;
+}
+/* makes the value dropdown box of searchbuild, right aligned instead of left */
+.dtsb-inputCont {
+  text-align: right;
+}
+/* indents the searchbuilder data and condition dropdowns a little, followed by value */
+.dtsb-searchBuilder > div.dtsb-group > div.dtsb-criteria > select.dtsb-dropDown,
+.dtsb-searchBuilder
+  > div.dtsb-group
+  > div.dtsb-criteria
+  > div.dtsb-inputCont
+  > select {
+  text-indent: 7px;
+}
+/* rotates the AND button of searchbuilder to match rtl */
+.dtsb-searchBuilder
+  > div.dtsb-group
+  > div.dtsb-logicContainer
+  > button.dtsb-logic.dtsb-button
+  > div {
+  transform: rotate(-180deg);
+}
+/* makes copy alert number of rows copied, rtl */
+#datatables_buttons_info > div {
+  direction: rtl;
+}
+/* changes the clear filters button to match the others, but only when not in disabled state */
+.dtsp-panesContainer
+  > div.dtsp-titleRow
+  > button.dtsp-clearAll:not(.dtsp-disabledButton) {
+  border: none;
+  background: #e0e1e2 none;
+  border-radius: 0.28571429rem;
+  /* ? */
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
+    box-shadow 0.1s ease, background 0.1s ease;
+}
+/* focust states style */
+/*customizes the keytables focus box */
+table.dataTable tbody td.focus {
+  /* material theme builder, source color C0DAF9 */
+  /*outline: 2.5px solid #235580;*/ /* actually, this was selected by :root, but its derived value was
+        rgb(51, 122, 183)
+      /* prev 337ab7 */
+  outline: 2.5px solid var(--color-focus);
+  outline-offset: -2px;
+  border-radius: 0.28571429rem;
+  /* 5px;
+        */
+}
+/* makes the pagelength dropdown selecter rounder like the others */
+#dt-length-0,
+#dt-search-0 {
+  border-radius: 0.28571429rem;
+  -webkit-border-radius: 0.28571429rem;
+  -moz-border-radius: 0.28571429rem;
+}
+/* same for paginginput box, but setting border radius makes it thicker for some reason, so need to thin the border width here as well, and color it less dark */
+.dt-inputpaging.dt-paging > div > input[type="search"] {
+  border-radius: 0.28571429rem;
+  -webkit-border-radius: 0.28571429rem;
+  -moz-border-radius: 0.28571429rem;
+  /**/
+  border-width: 1px;
+  border-color: #aaa;
+}
+/* puts some margins to left and right of full dt rows, otherwise is basically touching the outside of the page as is
+    .dt-container > div.dt-layout-row > div.dt-layout-cell.dt-layout-full {
+      margin-left: 10px;
+      margin-right: 10px;
+    } */
+/* commented out right otherwise  all of it is moved from the right for some reason */
+
+/* datatables search highlight styles */
+
+/* mark js highlight color */
+mark {
+  /* background: #82b8fa; */
+  /*color: black;*/
+  background-color: var(--color-highlight);
+  color: var(--color-text-primary);
+  /* ? */
+}
+/*prev background: #b3d4fc */
+/*table.dataTable span.highlight {
+      background-color: #82b8fa;
+      border-radius: 0.28571429rem;
+    }*/ /* ffff88 */
+
+/*table.dataTable span.column_highlight {
+        background-color: #ffcc99;
+        border-radius: 0.28571429rem;
+    }
+    */
+
+/* ==========================================================================
+    DataTables Additional Specific Dark Mode Overrides
+     ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  .cards tbody tr {
+    /* Enhance card shadows for dark mode ??? */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Adjust input fields for dark mode */
+  .dt-container input[type="search"],
+  .dt-container select {
+    /*background-color: var(--color-bg-tertiary);*/
+    color: var(--color-text-primary);
+    border-color: var(--color-border);
+  }
+  /* Adjust button backgrounds for dark mode */
+  .dt-button,
+  .dtsb-button {
+    background: var(--color-bg-tertiary) none !important;
+  }
+
+  /* Enhance visibility of borders in dark mode */
+  .dt-container {
+    border-color: var(--color-border);
+  }
+
+  /* color for disabled paging buttons */
+
+  /*div.dt-container .dt-paging .dt-paging-button.disabled
+  default dt css has important, so had to specify it further */
+  div.dt-container div.dt-paging .dt-paging-button.disabled {
+    /* Dark mode */
+    opacity: 0.35;
+    color: var(--color-text-secondary) !important;
+    background-color: var(--color-bg-tertiary) !;
+  }
+}
+
+/* ==========================================================================
+    DataTables Cards Layout
+     ========================================================================== */
+/* original card styles */
+
+/* card styles
+  https://datatables.net/forums/discussion/comment/228301/#Comment_228301 */
+.cards tbody tr {
+  /* float: left;
+        removing this used to center, now using flexbox instead */
+  /*width: 20rem;
+        this narrows the columns too much*/
+  /*box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+       */
+  margin: 0.5rem;
+  /* turned these below off recently to make it more modern? */
+  /* material theme builder, source color C0DAF9 */
+  /*border: 0.0911rem solid #c4c6d0;*/
+  /* prev 0.0625rem solid rgba(0, 0, 0, 0.125) */
+  border-width: 0.0911rem;
+  border-style: solid;
+  border-color: var(--color-border);
+  background-color: var(--color-bg-primary); /* a */
+
+  border-radius: 24px;
+  /* 1em 0.28571429rem 0.25rem;
+        */
+}
+.cards tbody td {
+  display: block;
+  color: var(--color-text-primary);
+  /* a */
+}
+
+/* added custom card styles below */
+
+.cards tbody tr {
+  /* gives some padding around tr, in desktop */
+  padding: 20px;
+  /* border box shadow from fomantic ui, ui message*/
+  /* 0 0 0 1px */
+  /*box-shadow:
+        0 0 0 0.7px rgba(34, 36, 38, 0.22) inset,
+        0 0 0 0 transparent;*/
+}
+/* */
+/* added this to make it one column and centered, it was already centered after colspans were removed */
+.cards tbody {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* center */
+}
+
+/* on mobile, removes border, radius, padding, and leaves a clean edgeless looks, with only a border bottom double line separator/divider between pages*/
+/* mobile only size cards */
+@media (max-width: 599px) {
+  .dt-container .cards tbody tr {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    padding-bottom: 20px;
+    /* material theme builder, source color C0DAF9 */
+    /*border-bottom: 10px double #415f91;*/
+    border-bottom-width: 10px;
+    border-bottom-style: double;
+    border-bottom-color: var(--color-divider);
+
+    /* prev 474747 */
+    /*border-bottom: 4px solid #999;*/
+    /* 10px 3d3d3d 333 */
+  }
+  /* adds a little space at the top and bottom of the tbody in mobile */
+  /*.dt-container {
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }*/
+}
+
+/* removes the first margin top of the first dt layout row, to make the dtwrapper touch the top, otherwise cant color the outer backgrown if its a margin.
+  without important, mobile view gives it back top margin */
+div.dt-container div.dt-layout-row:first-child {
+  margin-top: 0;
+}
+/* mobile
+    @media (max-width: 599px) {
+      div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
+        margin-top: 0;
+      }
+      below targets both top and bottom rows, while above only top
+      div.dt-container
+        div.dt-layout-row:not(.dt-layout-table)
+        div.dt-layout-cell
+        > *:first-child {
+        margin-top: 0;
+      }
+    } */
+
+/* centers first row of dt elements instead of them being to the right */
+div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
+  justify-content: space-evenly;
+}
+/* if i change the 3rd child to space evenly as well, it will be bunched together in the middle instead of the ends. so giving it a margin on either side instead. */
+/* for-tablet-portrait-up, because on mobile it gets right margin but not left, making it uneven */
+@media (min-width: 600px) {
+  div.dt-container > div.dt-layout-row:nth-child(3) > div.dt-layout-cell {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
+
+/* more margin on either side of the dt container */
+.dt-container {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+/* on mobile, remove tr side margins, because now the dtWrapper ones suffice. used important otherwise these are overidden */
+@media (max-width: 599px) {
+  .cards tbody tr {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* datatables br styles */
+
+/* after adding a class to dt br in js, can style it to make the gap wider
+  https://stackoverflow.com/questions/7614928/change-br-height-using-css/28310011#28310011
+  https://stackoverflow.com/questions/1409649/how-to-change-the-height-of-a-br/1409742#1409742 */
+/* prev used a class called .dtBr*/
+/*br {
+    content: "";
+    margin: 2em;
+    display: block;
+    font-size: 10px;
+  }*/
+/* 34% 34px 24% control the spacing with the font size. */
+/* footnotes br, not in datatable tables, but in page body */
+/*.pageFootnotes br {
+    font-size: 5px;
+  }*/
+/* for dt table brs */
+.dtBr {
+  content: "";
+  margin: 2em;
+  display: block;
+  font-size: 5px;
+}
+/*.dtBrFooter {
+      font-size: 1px;
+    }*/
+
+/* datatables column styles */
+
+.colHeader {
+  /*font-weight: bold;*/
+  /* color: #0f4c75; */
+  color: var(--color-header) !important;
+  /* before top down was 8 by default */
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
+.colEng {
+  text-align: left;
+  direction: ltr;
+  font-size: 20px;
+}
+/* ==========================================================================
+     DataTables Buttons and Controls
+     ========================================================================== */
+
+/* from fomantic ui */
+/* first one is basic button buttons, the rest are searchbuilder buttons */
+.dt-container > div > div > div.dt-buttons > button.dt-button,
+.dtsb-searchBuilder > div.dtsb-group > button,
+.dtsb-searchBuilder > div.dtsb-titleRow > button,
+.dtsb-searchBuilder
+  > div.dtsb-group
+  > div.dtsb-criteria
+  > div.dtsb-buttonContainer
+  > button,
+.dtsb-searchBuilder > div.dtsb-group > div.dtsb-logicContainer,
+div.dtsb-searchBuilder > div.dtsb-titleRow > button.dtsb-clearAll.dtsb-button,
+div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
+  border: none;
+  /* material theme builder, source color C0DAF9 */
+  background: #dee3eb none;
+  /* prev e0e1e2 */
+  /*color: rgba(0, 0, 0, 0.6);
+     */
+  /*margin: 0 0.25em 0 0;
+     */
+  /* commenting this out makes them not stick to each other when stacked */
+  /*line-height: 1em;
+     */
+  border-radius: 0.28571429rem;
+  /* ? */
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
+    box-shadow 0.1s ease, background 0.1s ease;
+  /*font-size: 1rem;
+     */
+}
+/* button buttons fomantic padding for tablet size and up */
+@media (min-width: 600px) {
+  .dt-container > div > div > div.dt-buttons > button.dt-button {
+    /* this causes buttons to get too wide, making that row overflow padding: 0.78571429em 1.5em 0.78571429em;
+          */
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+/* pad just the copy button a bit more, otherwise too narrow */
+.dt-container
+  > div
+  > div
+  > div.dt-buttons
+  > button.dt-button.buttons-copy.buttons-html5 {
+  padding-right: 25px;
+  padding-left: 25px;
+}
+/* adds some left margin to copy button on mobile, that the other buttons seem to have but this doesnt */
+@media (max-width: 599px) {
+  .dt-container
+    > div
+    > div
+    > div.dt-buttons
+    > button.dt-button.buttons-copy.buttons-html5 {
+    margin-left: 3px;
+  }
+}
+/* removes side padding of first and last pagination buttons to make them narrower */
+.dt-container
+  > div.dt-layout-row
+  > div.dt-layout-cell.dt-layout-full
+  > div.dt-inputpaging.dt-paging
+  > button.dt-paging-button:nth-child(1),
+.dt-container
+  > div.dt-layout-row
+  > div.dt-layout-cell.dt-layout-full
+  > div.dt-inputpaging.dt-paging
+  > button.dt-paging-button:nth-child(5) {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+/* hover button buttons */
+.dt-container > div > div > div.dt-buttons > button.dt-button:hover {
+  /*background-color: #cacbcd;
+     */
+  background-image: none;
+  /* otherwise doesnt remove gradient */
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  color: rgba(0, 0, 0, 0.8);
+  /* cancel out default dt hover styles */
+  border: none;
+  /* custom colors */
+  color: white;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #286294;
+  /* prev 1f6cb9 */
+  /* #136296 #2185d0;
+      */
+}
+@media (max-width: 599px) {
+  /* makes search input smaller on mobile */
+  div.dt-container .dt-search input {
+    padding: 0;
+    padding-bottom: 2.5px;
+    font-size: 90%;
+  }
+  /* makes paginginput total page number smaller on mobile */
+  div.dt-container > div > div > div.dt-inputpaging.dt-paging > div > span {
+    font-size: 80%;
+  }
+  /* removes margin space between rows of dt elements on mobile */
+  /*div.dt-container div.dt-layout-row:not(.dt-layout-table) div.dt-layout-cell > * {
+          margin: 0;
+     }
+     */
+  /* more of that, especially around the table */
+  div.dt-container div.dt-layout-row {
+    margin: 0;
+  }
+  /* searchbuilders value box on mobile is moved to the left, into the and range, removing its right margin seems to bring it back where it should be */
+  div.dtsb-searchBuilder
+    div.dtsb-group
+    div.dtsb-criteria
+    div.dtsb-inputCont
+    select {
+    margin-right: 0;
+  }
+}
+/* pagination buttons - although this cant be seen, it must be set otherwise hover makes an abrupt visual shift */
+.dt-container > div > div > div.dt-inputpaging.dt-paging > button {
+  border: none;
+  border-radius: 0.28571429rem;
+  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
+    box-shadow 0.1s ease, background 0.1s ease;
+}
+/* pagination buttons hover */
+.dt-container > div > div > div.dt-inputpaging.dt-paging > button:hover {
+  background-image: none;
+  /* otherwise doesnt remove gradient */
+  /* cancel out default dt hover styles */
+  border: none;
+  /* custom colors */
+  color: white;
+  /* material theme builder, source color C0DAF9 */
+  background-color: #286294;
+  /* prev 1f6cb9 */
+  /* #136296 #2185d0;
+      */
+}
+/* ==========================================================================
+     DataTables Typography - Font
+     ========================================================================== */
+/* paging buttons, search box, functional buttons, searchpanes column title, searchpanes clear button searchbuilder buttons searchbuilder dropdowns, */
+.dt-paging-button,
+.dt-input,
+.dt-button,
+.dtsp-search,
+.dtsp-clearAll,
+.dtsb-button,
+.dtsb-dropDown {
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
+  -webkit-font-smoothing: antialiased;
+  text-align: right;
+  direction: rtl;
+  font-size: 90%;
+  /* 100%;
+      */
+}
+/* font size on dt buttons, as above font size doesnt work without span */
+.dt-button span {
+  font-size: 100%;
+  /* 120%;
+      */
+}
+/* avoids oversized buttons overflowing to next row on mobile for-phone-only */
+/*@media (max-width: 599px) {
+      .dt-button span {
+          font-size: 100%;
+     }
+  }
+  */
