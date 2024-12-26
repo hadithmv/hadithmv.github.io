@@ -102,8 +102,20 @@ install the msi from the official site, updates npm too
 choco list -lo
 choco outdated
 ----------------------
-winget upgrade (checks)
+winget upgrade (checks for u)
 winget upgrade --all
+
+Pinning it will keep winget from updating that app. You should be able to run "upgrade --all" and it won't update apps that are pinned.
+https://learn.microsoft.com/en-us/windows/package-manager/winget/pinning
+winget pin add --id <app.id>
+winget pin add Adobe.Acrobat.Pro
+
+winget pin list
+
+Installer hash does not match.
+winget install -e --id Glarysoft.GlaryUtilities
+winget settings --enable InstallerHashOverride
+winget install -e --id Glarysoft.GlaryUtilities --ignore-security-hash
 ----------------------
 
 make list of extensions in vscode:
