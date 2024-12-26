@@ -4,41 +4,7 @@
             "outputFile": "com.hadithmv.hmv.app-mergeDebugResources-45:/values-am/values-am.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ashra\\.gradle\\caches\\transforms-4\\4299573e320afc15f16e4d5a2ab07a91\\transformed\\core-1.13.1\\res\\values-am\\values-am.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,148,248,345,444,540,642,742",
-                        "endColumns": "92,99,96,98,95,101,99,100",
-                        "endOffsets": "143,243,340,439,535,637,737,838"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,5,6,7,8,81",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,198,298,395,494,590,692,7873",
-                        "endColumns": "92,99,96,98,95,101,99,100",
-                        "endOffsets": "193,293,390,489,585,687,787,7969"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\ashra\\.gradle\\caches\\transforms-4\\75022411ee89324b5ad60c4fdc033c4c\\transformed\\foundation-release\\res\\values-am\\values-am.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,142",
-                        "endColumns": "86,85",
-                        "endOffsets": "137,223"
-                    },
-                    "to": {
-                        "startLines": "85,86",
-                        "startColumns": "4,4",
-                        "startOffsets": "8235,8322",
-                        "endColumns": "86,85",
-                        "endOffsets": "8317,8403"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\ashra\\.gradle\\caches\\transforms-4\\736de8d0d02cdf00f25520444c241bfa\\transformed\\material3-release\\res\\values-am\\values-am.xml",
+                    "source": "C:\\Users\\ashra\\.gradle\\caches\\8.9\\transforms\\df476c2503d6e1ede2750bd5e83dd8b3\\transformed\\material3-release\\res\\values-am\\values-am.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -55,7 +21,24 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\ashra\\.gradle\\caches\\transforms-4\\b81f83d869d60f3d874daac2dab47d4c\\transformed\\ui-release\\res\\values-am\\values-am.xml",
+                    "source": "C:\\Users\\ashra\\.gradle\\caches\\8.9\\transforms\\a16e1d72c5de0f6c201531c555a7f17e\\transformed\\core-1.13.1\\res\\values-am\\values-am.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,148,248,345,444,540,642,742",
+                        "endColumns": "92,99,96,98,95,101,99,100",
+                        "endOffsets": "143,243,340,439,535,637,737,838"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,81",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,198,298,395,494,590,692,7873",
+                        "endColumns": "92,99,96,98,95,101,99,100",
+                        "endOffsets": "193,293,390,489,585,687,787,7969"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\ashra\\.gradle\\caches\\8.9\\transforms\\ac3e43c37eeccc1baf269c6aa729a04a\\transformed\\ui-release\\res\\values-am\\values-am.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -69,6 +52,23 @@
                         "startOffsets": "792,875,952,1044,1140,1222,1300,7266,7348,7426,7504,7585,7655,7728,7801,7974,8054,8119",
                         "endColumns": "82,76,91,95,81,77,82,81,77,77,80,69,72,72,71,79,64,115",
                         "endOffsets": "870,947,1039,1135,1217,1295,1378,7343,7421,7499,7580,7650,7723,7796,7868,8049,8114,8230"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\ashra\\.gradle\\caches\\8.9\\transforms\\c76753bed9e125c39d860a7baa057309\\transformed\\foundation-release\\res\\values-am\\values-am.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,142",
+                        "endColumns": "86,85",
+                        "endOffsets": "137,223"
+                    },
+                    "to": {
+                        "startLines": "85,86",
+                        "startColumns": "4,4",
+                        "startOffsets": "8235,8322",
+                        "endColumns": "86,85",
+                        "endOffsets": "8317,8403"
                     }
                 }
             ]

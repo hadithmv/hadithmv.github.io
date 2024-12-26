@@ -4,7 +4,7 @@
             "outputFile": "com.hadithmv.hmv.test.app-mergeDebugAndroidTestResources-34:/values-in/values-in.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ashra\\.gradle\\caches\\transforms-4\\4299573e320afc15f16e4d5a2ab07a91\\transformed\\core-1.13.1\\res\\values-in\\values-in.xml",
+                    "source": "C:\\Users\\ashra\\.gradle\\caches\\8.9\\transforms\\a16e1d72c5de0f6c201531c555a7f17e\\transformed\\core-1.13.1\\res\\values-in\\values-in.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\ashra\\.gradle\\caches\\transforms-4\\b81f83d869d60f3d874daac2dab47d4c\\transformed\\ui-release\\res\\values-in\\values-in.xml",
+                    "source": "C:\\Users\\ashra\\.gradle\\caches\\8.9\\transforms\\ac3e43c37eeccc1baf269c6aa729a04a\\transformed\\ui-release\\res\\values-in\\values-in.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

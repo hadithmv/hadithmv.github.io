@@ -3,8 +3,8 @@
     package="com.hadithmv.hmv.test" >
 
     <uses-sdk
-        android:minSdkVersion="23"
-        android:targetSdkVersion="34" />
+        android:minSdkVersion="21"
+        android:targetSdkVersion="35" />
 
     <instrumentation
         android:name="androidx.test.runner.AndroidJUnitRunner"
@@ -23,7 +23,7 @@
 
     <application
         android:debuggable="true"
-        android:extractNativeLibs="false" >
+        android:extractNativeLibs="true" >
         <uses-library android:name="android.test.runner" />
 
         <activity

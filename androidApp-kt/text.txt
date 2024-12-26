@@ -1,3 +1,9 @@
+i created the following files in this directory:
+OG-asset-files
+text.txt
+
+...
+
 https://medium.com/@01one/create-simplest-webview-application-with-android-studio-aa55417fe8ec
 
 https://github.com/01one/AndroidWebviewTemplate/tree/main/02.AndroidWebviewOfflineAppTemplate
@@ -142,3 +148,40 @@ next setup app icons
 https://developer.android.com/studio/write/create-app-icons
 
 white background
+
+...
+
+
+how do i change project name
+
+https://stackoverflow.com/questions/18276872/change-project-name-on-android-studio/28324892#28324892
+
+...
+
+setting index file
+
+it will be in MainActivity .kt or .java
+
+
+    private val applicationUrl = "file:///android_asset/index.html"
+
+         mWebView.loadUrl("file:///android_asset/books/index.html");
+
+
+...
+
+
+add 
+.../app/build/outputs
+to git ignore
+
+...
+
+https://developer.android.com/studio/debug
+
+https://developer.android.com/develop/ui/views/layout/webapps/debugging
+
+edge://inspect/#devices
+
+https://developer.chrome.com/docs/devtools/remote-debugging
+
