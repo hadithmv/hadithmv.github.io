@@ -4,24 +4,7 @@
             "outputFile": "com.hadithmv.hmv.test.app-mergeDebugAndroidTestResources-34:/values-zh-rTW/values-zh-rTW.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ashra\\.gradle\\caches\\transforms-4\\4299573e320afc15f16e4d5a2ab07a91\\transformed\\core-1.13.1\\res\\values-zh-rTW\\values-zh-rTW.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,147,246,340,434,527,620,716",
-                        "endColumns": "91,98,93,93,92,92,95,100",
-                        "endOffsets": "142,241,335,429,522,615,711,812"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,5,6,7,8,24",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,197,296,390,484,577,670,1911",
-                        "endColumns": "91,98,93,93,92,92,95,100",
-                        "endOffsets": "192,291,385,479,572,665,761,2007"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\ashra\\.gradle\\caches\\transforms-4\\b81f83d869d60f3d874daac2dab47d4c\\transformed\\ui-release\\res\\values-zh-rTW\\values-zh-rTW.xml",
+                    "source": "C:\\Users\\ashra\\.gradle\\caches\\8.9\\transforms\\ac3e43c37eeccc1baf269c6aa729a04a\\transformed\\ui-release\\res\\values-zh-rTW\\values-zh-rTW.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -35,6 +18,23 @@
                         "startOffsets": "766,843,919,1006,1097,1175,1249,1326,1404,1479,1552,1627,1695,1768,1840,2012,2086,2154",
                         "endColumns": "76,75,86,90,77,73,76,77,74,72,74,67,72,71,70,73,67,115",
                         "endOffsets": "838,914,1001,1092,1170,1244,1321,1399,1474,1547,1622,1690,1763,1835,1906,2081,2149,2265"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\ashra\\.gradle\\caches\\8.9\\transforms\\a16e1d72c5de0f6c201531c555a7f17e\\transformed\\core-1.13.1\\res\\values-zh-rTW\\values-zh-rTW.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,147,246,340,434,527,620,716",
+                        "endColumns": "91,98,93,93,92,92,95,100",
+                        "endOffsets": "142,241,335,429,522,615,711,812"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,24",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,197,296,390,484,577,670,1911",
+                        "endColumns": "91,98,93,93,92,92,95,100",
+                        "endOffsets": "192,291,385,479,572,665,761,2007"
                     }
                 }
             ]

@@ -4,24 +4,7 @@
             "outputFile": "com.hadithmv.hmv.test.app-mergeDebugAndroidTestResources-34:/values-pt-rBR/values-pt-rBR.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ashra\\.gradle\\caches\\transforms-4\\4299573e320afc15f16e4d5a2ab07a91\\transformed\\core-1.13.1\\res\\values-pt-rBR\\values-pt-rBR.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,152,254,353,453,560,670,790",
-                        "endColumns": "96,101,98,99,106,109,119,100",
-                        "endOffsets": "147,249,348,448,555,665,785,886"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,5,6,7,8,24",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,202,304,403,503,610,720,2142",
-                        "endColumns": "96,101,98,99,106,109,119,100",
-                        "endOffsets": "197,299,398,498,605,715,835,2238"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\ashra\\.gradle\\caches\\transforms-4\\b81f83d869d60f3d874daac2dab47d4c\\transformed\\ui-release\\res\\values-pt-rBR\\values-pt-rBR.xml",
+                    "source": "C:\\Users\\ashra\\.gradle\\caches\\8.9\\transforms\\ac3e43c37eeccc1baf269c6aa729a04a\\transformed\\ui-release\\res\\values-pt-rBR\\values-pt-rBR.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -35,6 +18,23 @@
                         "startOffsets": "840,935,1021,1118,1217,1303,1386,1483,1574,1661,1746,1836,1912,1988,2067,2243,2319,2386",
                         "endColumns": "94,85,96,98,85,82,96,90,86,84,89,75,75,78,74,75,66,112",
                         "endOffsets": "930,1016,1113,1212,1298,1381,1478,1569,1656,1741,1831,1907,1983,2062,2137,2314,2381,2494"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\ashra\\.gradle\\caches\\8.9\\transforms\\a16e1d72c5de0f6c201531c555a7f17e\\transformed\\core-1.13.1\\res\\values-pt-rBR\\values-pt-rBR.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,152,254,353,453,560,670,790",
+                        "endColumns": "96,101,98,99,106,109,119,100",
+                        "endOffsets": "147,249,348,448,555,665,785,886"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,24",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,202,304,403,503,610,720,2142",
+                        "endColumns": "96,101,98,99,106,109,119,100",
+                        "endOffsets": "197,299,398,498,605,715,835,2238"
                     }
                 }
             ]
