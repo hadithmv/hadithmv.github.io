@@ -140,3 +140,5 @@ I hope this helps you change your app's package name without any issues! Let me 
 next setup app icons
 
 https://developer.android.com/studio/write/create-app-icons
+
+white background
