@@ -185,3 +185,16 @@ edge://inspect/#devices
 
 https://developer.chrome.com/docs/devtools/remote-debugging
 
+...
+
+change android statusbar color:
+
+https://developer.android.com/develop/ui/views/theming/themes
+
+the file is usually in
+res/values/styles.xml
+
+but this time t was in themes.xml
+
+<!-- added this to set statusbar color from grey to black -->
+        <item name="android:statusBarColor">@android:color/black</item>
