@@ -1,3 +1,89 @@
+//====================================================
+
+// MISC PART OF CODE
+// not very much related to the other part, but makes use of some references to it
+// This is just showAyahNumbers and showQuranBrackets buttons functionality
+// brought into the quran navigation js file because both will only be in the quran pages as well
+
+// State variables to track visibility of ayah numbers and brackets
+let showAyahNumbers = true;
+let showQuranBrackets = true;
+
+// Event listener for toggling ayah numbers visibility
+
+//
+document.addEventListener("DOMContentLoaded", function () {
+  // without it; JavaScript can't find the elements with IDs "toggleAyahNumbers" and "toggleQuranBrackets" in your HTML document. The error message suggests that document.getElementById() is returning null, which means those elements don't exist when the code tries to attach the event listeners. Your JavaScript might be running before the DOM is fully loaded. Try wrapping your code in a DOMContentLoaded event listener:
+  //
+  document
+    .getElementById("toggleAyahNumbers")
+    .addEventListener("click", function () {
+      // Toggle the state
+      showAyahNumbers = !showAyahNumbers;
+      const cells = document.querySelectorAll("td");
+
+      cells.forEach((cell) => {
+        const text = cell.textContent;
+        // Check if cell contains ayah numbers within brackets
+        if (text.match(/﴿.*﴾/)) {
+          if (showAyahNumbers) {
+            // Restore original text with numbers if it was stored
+            if (cell.dataset.originalText) {
+              cell.textContent = cell.dataset.originalText;
+            }
+          } else {
+            // Store original text and remove numbers while keeping brackets
+            const match = text.match(/﴿(.*?)\s[\u0660-\u0669]+﴾/);
+            if (match) {
+              cell.dataset.originalText = text;
+              // Remove only the numbers before the closing bracket
+              cell.textContent = text.replace(/\s[\u0660-\u0669]+﴾/, "﴾");
+            }
+          }
+        }
+      });
+
+      // Update button text to reflect current state
+      this.innerHTML = `&nbsp; އާޔަތް ނަމްބަރު ${
+        showAyahNumbers ? "ފޮރުވާ" : "ދައްކާ"
+      } &nbsp;`;
+    });
+
+  // Event listener for toggling Quran brackets visibility
+  document
+    .getElementById("toggleQuranBrackets")
+    .addEventListener("click", function () {
+      // Toggle the state
+      showQuranBrackets = !showQuranBrackets;
+      const cells = document.querySelectorAll("td");
+
+      cells.forEach((cell) => {
+        const text = cell.textContent;
+        // Check if cell has brackets or stored content
+        if (text.match(/﴿.*﴾/) || cell.dataset.originalWithBrackets) {
+          if (showQuranBrackets) {
+            // Restore text with brackets
+            const textToWrap = cell.textContent;
+            cell.textContent = `﴿${textToWrap}﴾`;
+          } else {
+            // Store current text and remove brackets
+            cell.dataset.originalWithBrackets = text;
+            cell.textContent = text.replace(/[﴿﴾]/g, "");
+          }
+        }
+      });
+
+      // Update button text to reflect current state
+      this.innerHTML = `&nbsp; އާޔަތް ބްރެކެޓް ${
+        showQuranBrackets ? "ފޮރުވާ" : "ދައްކާ"
+      } &nbsp;`;
+    });
+  //
+});
+
+// ACTUAL PART OF QURAN NAV CODE
+// This is the actual quran navigation code below
+
 //
 // STATE VARIABLES - for tracking current position and UI state
 //
@@ -1241,3 +1327,5 @@ function toggleBaseColumn(a) {
   e.visible(translationStates[a]);
   baseColumns[a].visible = e.visible();
 }
+
+//
