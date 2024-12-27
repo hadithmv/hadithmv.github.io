@@ -6,7 +6,9 @@ _site/
 # app/webview-master/app/build/outputs
 # app/webview-master/app/build/intermediates
 
-# 
+# https://stackoverflow.com/questions/13541615/how-to-remove-files-that-are-listed-in-the-gitignore-but-still-on-the-repositor/13541721#13541721
+
+# https://stackoverflow.com/questions/31125465/git-wont-ignore-build-intermediates-files-even-though-i-added-build-to-gitig
 
 # Created by https://www.toptal.com/developers/gitignore/api/androidstudio
 # Edit at https://www.toptal.com/developers/gitignore?templates=androidstudio

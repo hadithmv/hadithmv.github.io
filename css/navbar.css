@@ -85,14 +85,17 @@ html body {
   /* hassaans style */
   /*box-shadow: 0 2px 2px #cacaca;*/
 
-  transition: transform 0.3s ease-out; /* for mobile sticky on scroll */
+  /* DONT WANT */
+  /* transition: transform 0.3s ease-out; */
+  /* for mobile sticky on scroll */
 }
 
+/* DONT WANT */
 /* div class to add on mobile to make it hide on scroll down */
-.navbar-hidden {
+/* .navbar-hidden {
   transform: translateY(-100%);
   transition: transform 0.3s ease-in-out;
-}
+} */
 
 .navbar-left,
 .navbar-center,

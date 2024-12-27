@@ -609,6 +609,7 @@ function sideMenutoggleNavbarDropdown(element, event) {
   }
 }
 
+/* DONT WANT
 //--------------------
 // HIDE NAVBAR ON SCROLL DOWN
 //--------------------
@@ -674,6 +675,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 //
+*/
 
 //
 
