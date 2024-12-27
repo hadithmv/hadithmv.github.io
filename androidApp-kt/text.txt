@@ -198,3 +198,80 @@ but this time t was in themes.xml
 
 <!-- added this to set statusbar color from grey to black -->
         <item name="android:statusBarColor">@android:color/black</item>
+
+
+...
+
+this is my android code
+
+
+the issue is, when i click on links in the app, that are supposed to open externally on the mobile browser
+
+i get this error instead
+
+Web page not available
+The web page at https://shamela.ws/book/31307 could not be loaded because:
+
+net::ERR_CACHE_MISS
+
+answer:
+
+I understand you're trying to handle external links in your Android WebView app. Currently, all links are being handled within the WebView itself, which is why you're seeing that error for external URLs. Let me help you modify the code to open external links in the device's default browser.
+
+The key changes I've made are:
+
+Created a custom WebViewClient implementation with shouldOverrideUrlLoading
+Added logic to check if the URL is external (not starting with "file://")
+Used Android's Intent system to open external links in the default browser
+
+Now when users click on external links like "https://shamela.ws/book/31307", they will automatically open in the device's default browser instead of trying to load within the WebView.
+The logic is simple:
+
+If the URL starts with "file://", it's handled by the WebView (your local content)
+If the URL starts with "http://" or "https://", it opens in the external browser
+
+code generated:
+
+package com.hadithmv.hmv
+
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.activity.ComponentActivity
+
+class MainActivity : ComponentActivity() {
+    private val applicationUrl = "file:///android_asset/books/index.html"
+
+    @SuppressLint("SetJavaScriptEnabled")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val webView = WebView(this).apply {
+            webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                    if (url != null && !url.startsWith("file://")) {
+                        // Open external URLs in browser
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                        return true
+                    }
+                    // Let WebView handle local file URLs
+                    return false
+                }
+            }
+            
+            settings.apply {
+                javaScriptEnabled = true
+                allowFileAccess = true
+                domStorageEnabled = true
+                allowFileAccessFromFileURLs = true
+                allowContentAccess = true
+            }
+            loadUrl(applicationUrl)
+        }
+        setContentView(webView)
+    }
+}
