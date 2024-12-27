@@ -712,7 +712,175 @@
         //data: data,
         //data: combinedData,
         // CHANGE !!!
+
+        // Replace the fetch-based ajax function with jQuery's ajax
         ajax: function (data, callback, settings) {
+          // Create promises for both JSON requests
+          const promise1 = $.getJSON("../js/json/sharhuSunnahBarbahari.json");
+          const promise2 = $.getJSON(
+            "../js/json/sharhuSunnahBarbahari-DFK.json"
+          );
+
+          // Use jQuery's when() instead of Promise.all()
+          $.when(promise1, promise2)
+            .then(function (mainDataResponse, dfkDataResponse) {
+              // jQuery returns [data, statusText, jqXHR], we want just the data
+              const mainData = mainDataResponse[0];
+              const dfkData = dfkDataResponse[0];
+
+              // Process mainData: only remove 3rd column
+              const processedMainData = mainData.map((row) => {
+                const rowArray = Array.isArray(row)
+                  ? [...row]
+                  : Object.values(row);
+                rowArray.splice(2, 1);
+                return rowArray;
+              });
+
+              // Combine rows from both datasets
+              const combinedData = processedMainData.map((row, index) => {
+                const dfkRow = dfkData[index];
+                return [...row, ...dfkRow];
+              });
+
+              // added for thashkeel removal
+              originalData = combinedData;
+
+              callback({
+                data: combinedData,
+              });
+            })
+            .fail(function (error) {
+              console.error("Error loading data:", error);
+              callback({
+                data: [],
+              });
+            });
+        },
+
+        /* NEW PROMPT FOR CODE, since old one wasnt working on android app web view
+
+        // started by updating barbahari dfk code, would also have to update: radheefAll, allAqida, allAthar
+
+        prompt:
+
+(old barbahari dfk code)
+
+take a look at this code
+
+ajax: function (data, callback, settings) {
+          Promise.all([
+            fetch("../js/json/sharhuSunnahBarbahari.json"),
+            fetch("../js/json/sharhuSunnahBarbahari-DFK.json"),
+          ])
+            .then((responses) =>
+              Promise.all(responses.map((response) => response.json()))
+            )
+            .then(([mainData, dfkData]) => {
+              const processedMainData = mainData.map((row) => {
+                const rowArray = Array.isArray(row)
+                  ? [...row]
+                  : Object.values(row);
+                rowArray.splice(2, 1);
+                return rowArray;
+              });
+              
+              const combinedData = processedMainData.map((row, index) => {
+                const dfkRow = dfkData[index];
+                return [...row, ...dfkRow];
+              });
+              
+              originalData = combinedData;
+              
+              
+              callback({
+                data: combinedData,
+              });
+            })
+            .catch((error) => {
+              console.error("Error loading data:", error);
+              callback({
+                data: [],
+              });
+            });
+        },
+
+
+it works when loaded as a real webpage, but doesnt work on android app webview
+
+i get this error on android app webview
+
+sharhuSunnahBarbahari-DFK.html:1  Fetch API cannot load file:///android_asset/js/json/sharhuSunnahBarbahari.json. URL scheme "file" is not supported.
+ajax @ sharhuSunnahBarbahari-DFK.html:1
+he @ DT-COMB.min.js:5
+n @ DT-COMB.min.js:5
+Re @ DT-COMB.min.js:5
+be @ DT-COMB.min.js:5
+(anonymous) @ DT-COMB.min.js:5
+each @ DT-COMB.min.js:2
+each @ DT-COMB.min.js:2
+q @ DT-COMB.min.js:5
+P.fn.DataTable @ DT-COMB.min.js:5
+q @ DT-COMB.min.js:5
+(anonymous) @ sharhuSunnahBarbahari-DFK.html:1
+sharhuSunnahBarbahari-DFK.html:1  Fetch API cannot load file:///android_asset/js/json/sharhuSunnahBarbahari-DFK.json. URL scheme "file" is not supported.
+
+so the problem seems to be in how the jsons are being loaded
+
+however on another different page,
+which uses js code from quran-navigation-list.js
+and has js like the following
+
+    additionalColumns.push(a);
+    // Load translation data from JSON file
+    $.getJSON(`${baseJsonUrl}${a}.json`, function (e) {
+      const t = table.data().toArray();
+      // Add translation data to existing table data
+      t.forEach((t, n) => {
+        t[a] = e[n];
+      });
+      // Update table with new data
+      table.clear().rows.add(t).draw();
+      table.column(r).visible(!0);
+      table.column(i).visible(!0);
+      table.page(l).draw("page");
+    }).fail(function (a, e, t) {
+      console.error("Error loading translation:", t);
+    });
+
+and so forth
+
+the jsons are loaded for this page on android app webview just fine
+
+so take a look and figure out how to solve the issue
+
+...
+
+answer:
+
+I see the issue. The problem is that fetch() API doesn't support loading local files with the file:// scheme in WebView, but jQuery's $.getJSON() does. Let's modify your code to use jQuery's AJAX method instead of fetch, similar to how it works in the working example:
+
+The key changes are:
+Replaced fetch() with $.getJSON()
+Replaced Promise.all() with jQuery's $.when()
+Adjusted the response handling to work with jQuery's AJAX response format
+Used jQuery's .fail() instead of .catch()
+
+This should work in Android WebView since it uses jQuery's AJAX implementation which has better compatibility with local file loading in WebView environments. The rest of your code can remain the same since we're just changing how the data is fetched while maintaining the same data processing logic.
+Make sure jQuery is properly loaded before this code runs. Based on your working example, it seems jQuery is already available in your environment.
+
+...
+
+for other pages:
+
+can you do something similar for this file too
+
+its code is something like this
+
+*/
+
+        // OLD CODE
+        /*ajax: function (data, callback, settings) {
           Promise.all([
             fetch("../js/json/sharhuSunnahBarbahari.json"),
             fetch("../js/json/sharhuSunnahBarbahari-DFK.json"),
@@ -755,7 +923,7 @@
                 data: [],
               });
             });
-        },
+        },*/
 
         /*
 this is my code:

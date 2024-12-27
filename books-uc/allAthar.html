@@ -422,7 +422,74 @@
         //processing: true,
         //serverSide: false,
         //deferRender: true,
+
+        //
+
         ajax: function (data, callback, settings) {
+          let loadedData = [];
+          const files = Object.entries(jsonConfigs);
+
+          // Calculate maximum number of columns across all configurations
+          const maxColumns = Math.max(
+            ...files.map(([_, config]) => {
+              const baseColumns = config.orderColumns
+                ? config.orderColumns.length
+                : config.keepColumns.length;
+              const extraColumns = config.newColumns
+                ? config.newColumns.length
+                : 0;
+              return baseColumns + extraColumns;
+            })
+          );
+
+          // Modified to use jQuery's ajax with promises
+          const loadSequentially = function () {
+            let promise = Promise.resolve();
+
+            files.forEach(([file, config]) => {
+              promise = promise.then(() => {
+                return $.getJSON(`../js/json/${file}`)
+                  .then(function (jsonData) {
+                    const processedData = processJsonData(
+                      jsonData,
+                      config,
+                      maxColumns
+                    );
+                    loadedData = [...loadedData, ...processedData];
+
+                    // Update the table with current accumulated data
+                    if (table) {
+                      table.clear();
+                      callback({
+                        data: loadedData,
+                        recordsTotal: loadedData.length,
+                        recordsFiltered: loadedData.length,
+                      });
+                    }
+
+                    console.log(
+                      `Loaded ${file}: Total rows now: ${loadedData.length}`
+                    );
+                  })
+                  .fail(function (jqXHR, textStatus, error) {
+                    console.error(`Error loading ${file}:`, error);
+                  });
+              });
+            });
+
+            // After all files are loaded
+            promise.then(() => {
+              // added for thashkeel removal
+              originalData = loadedData;
+            });
+          };
+
+          // Start loading process
+          loadSequentially();
+        },
+
+        // OLD CODE INCOMPATIBLE WITH ANDROID APP WEBVIEW
+        /*ajax: function (data, callback, settings) {
           let loadedData = [];
           const files = Object.entries(jsonConfigs);
 
@@ -441,10 +508,10 @@
               return baseColumns + extraColumns;
             })
           );
-          /**
-           * Loads files one at a time and updates the table progressively
-           * This ensures data is loaded in the correct order and prevents race conditions
-           */
+          //
+          // Loads files one at a time and updates the table progressively
+          // This ensures data is loaded in the correct order and prevents race conditions
+          //
           const loadSequentially = async () => {
             for (const [file, config] of files) {
               try {
@@ -487,7 +554,8 @@
 
           // Start the loading process
           loadSequentially();
-        },
+        },*/
+
         //
         // CHANGE !!
         // book	#	arText	dvText	Takhrij!
