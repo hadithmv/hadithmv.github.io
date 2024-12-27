@@ -1249,8 +1249,9 @@ document.addEventListener("DOMContentLoaded", function () {
     table.on("page", function () {
       //setTimeout(function () {
       // https://datatables.net/forums/discussion/comment/175697/#Comment_175697
-      // other code works, but navbar hides the top of tr, so this code calculates the height of navbar and scrolls to where it ends
-      /*const trElement = document.querySelector("tbody tr");
+      // CURRENTLY MOST UP TO DATE CODE USED
+      // other code works too, but navbar hides the top of tr, so this code calculates the height of navbar and scrolls to where it ends
+      const trElement = document.querySelector("tbody tr");
       const navbarHeight = document.querySelector(".navbar").offsetHeight;
 
       const trPosition =
@@ -1260,8 +1261,11 @@ document.addEventListener("DOMContentLoaded", function () {
       window.scrollTo({
         top: offsetPosition,
         behavior: "smooth",
-      });*/
-      document.querySelector("tbody tr").scrollIntoView({ behavior: "smooth" });
+      });
+
+      // PREVIOUS MOST UP TO DATE CODE
+      //document.querySelector("tbody tr").scrollIntoView({ behavior: "smooth" });
+
       //console.log("Hello world!");
       // added this to hide navbar if it is at a point where it is shown, otherwise it covers first row. but then again, doing this makes it hard to have the navbar shown when needed like when taking screenshots with title
       //document.querySelector(".navbar").classList.add("navbar-hidden");
