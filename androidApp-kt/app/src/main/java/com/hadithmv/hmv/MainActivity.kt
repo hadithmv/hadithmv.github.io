@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
+// added
+import android.content.Intent
+import android.net.Uri
 
 class MainActivity : ComponentActivity() {
     // private val applicationUrl = "file:///android_asset/index.html"
@@ -16,7 +19,26 @@ class MainActivity : ComponentActivity() {
 
 
         val webView = WebView(this).apply {
-            webViewClient = WebViewClient()
+
+//            old code
+//            webViewClient = WebViewClient()
+
+//
+            webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                    if (url != null && !url.startsWith("file://")) {
+                        // Open external URLs in browser
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                        return true
+                    }
+                    // Let WebView handle local file URLs
+                    return false
+                }
+            }
+//
+
+
             settings.apply {
                 javaScriptEnabled = true
                 allowFileAccess = true
