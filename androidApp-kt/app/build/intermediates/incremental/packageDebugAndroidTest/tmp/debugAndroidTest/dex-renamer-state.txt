@@ -1,7 +1,0 @@
-#Fri Dec 27 02:24:25 PKT 2024
-base.0=C\:\\Users\\ashra\\Downloads\\VScode\\hadithmv.github.io\\androidApp-kt\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeExtDexDebugAndroidTest\\classes.dex
-base.1=C\:\\Users\\ashra\\Downloads\\VScode\\hadithmv.github.io\\androidApp-kt\\app\\build\\intermediates\\dex\\debugAndroidTest\\mergeProjectDexDebugAndroidTest\\0\\classes.dex
-path.0=classes.dex
-path.1=0/classes.dex
-renamed.0=classes.dex
-renamed.1=classes2.dex
