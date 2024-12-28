@@ -46,6 +46,7 @@ let originalData = [];
 /**
  * Toggles the visibility of tashkeel characters in the DataTable
  */
+// NEW CODE, adapted to work for quran pages also
 function toggleTashkeel() {
   tashkeelRemoved = !tashkeelRemoved;
 
@@ -75,6 +76,37 @@ function toggleTashkeel() {
   // Return to the previously stored page
   table.page(currentPage).draw("page");
 }
+
+// OLD CODE, without quran page mods
+/*function toggleTashkeel() {
+  tashkeelRemoved = !tashkeelRemoved;
+
+  // Store the current page index
+  const currentPage = table.page();
+
+  if (tashkeelRemoved) {
+    // Remove tashkeel from each cell that contains a string
+    const newData = originalData.map((row) =>
+      row.map((cell) =>
+        typeof cell === "string" ? removeThashkeel(cell) : cell
+      )
+    );
+    // Update the table with the new data
+    table.clear().rows.add(newData).draw(false);
+    // Update button text
+    document.getElementById("toggleFiliButton").textContent =
+      " ފިލިތައް ދައްކާ ";
+  } else {
+    // Restore original data with tashkeel
+    table.clear().rows.add(originalData).draw(false);
+    // Update button text
+    document.getElementById("toggleFiliButton").textContent =
+      " ފިލިތައް ފޮރުވާ ";
+  }
+
+  // Return to the previously stored page
+  table.page(currentPage).draw("page");
+}*/
 
 /* below code goes inside the dt initialization of the page
 // Removes tashkeel characters from the given string @param {string} data - The input string @return {string} The string with tashkeel characters removed
