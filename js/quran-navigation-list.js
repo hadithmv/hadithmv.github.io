@@ -1133,6 +1133,14 @@ function toggleTranslation(a, e) {
       t.forEach((t, n) => {
         t[a] = e[n];
       });
+
+      // Update originalData to include the new translation data
+      originalData = originalData.map((row, index) => {
+        const newRow = Array.isArray(row) ? [...row] : Object.values(row);
+        newRow[a] = e[index];
+        return newRow;
+      });
+
       // Update table with new data
       table.clear().rows.add(t).draw();
       table.column(r).visible(!0);

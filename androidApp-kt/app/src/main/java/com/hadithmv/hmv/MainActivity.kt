@@ -5,53 +5,76 @@ import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
-// added
 import android.content.Intent
 import android.net.Uri
+import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
+import androidx.activity.OnBackPressedCallback
 
 class MainActivity : ComponentActivity() {
-    // private val applicationUrl = "file:///android_asset/index.html"
     private val applicationUrl = "file:///android_asset/books/index.html"
+    private lateinit var webView: WebView
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-        val webView = WebView(this).apply {
-
-//            old code
-//            webViewClient = WebViewClient()
-
-//
+        webView = WebView(this).apply {
             webViewClient = object : WebViewClient() {
-                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                    if (url != null && !url.startsWith("file://")) {
-                        // Open external URLs in browser
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                        startActivity(intent)
-                        return true
+                override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+                    val url = request?.url?.toString()
+                    return when {
+                        url == null -> false
+                        url.startsWith("file://") -> false
+                        else -> {
+                            try {
+                                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                                true
+                            } catch (e: Exception) {
+                                false
+                            }
+                        }
                     }
-                    // Let WebView handle local file URLs
-                    return false
                 }
             }
-//
-
 
             settings.apply {
                 javaScriptEnabled = true
                 allowFileAccess = true
                 domStorageEnabled = true
-                // added
                 allowFileAccessFromFileURLs = true
-                // https://developer.android.com/reference/android/webkit/WebSettings
-                // https://chromium.googlesource.com/chromium/src/+/HEAD/android_webview/docs/cors-and-webview-api.md
-                // https://docs.jumio.com/production/Content/Integration/Integration%20Channels/Android%20WebView.htm
-                // added
+                allowContentAccess = true
+                mixedContentMode = WebSettings.MIXED_CONTENT_NEVER_ALLOW
+                cacheMode = WebSettings.LOAD_DEFAULT
+                databaseEnabled = true
             }
             loadUrl(applicationUrl)
         }
         setContentView(webView)
+
+        // Handle back button press
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                when {
+                    webView.canGoBack() -> webView.goBack()
+                    else -> {
+                        isEnabled = false
+                        onBackPressedDispatcher.onBackPressed()
+                    }
+                }
+            }
+        })
+    }
+
+    // Optional: Save WebView state
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        webView.saveState(outState)
+    }
+
+    // Optional: Restore WebView state
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        webView.restoreState(savedInstanceState)
     }
 }

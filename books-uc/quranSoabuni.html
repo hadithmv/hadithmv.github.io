@@ -751,7 +751,13 @@
         ...DTconfig,
         ajax: {
           url: `${baseJsonUrl}quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json`,
-          dataSrc: "",
+          dataSrc: function (json) {
+            // Store the initial data when main JSON is loaded
+            originalData = json.map((row) =>
+              Array.isArray(row) ? [...row] : Object.values(row)
+            );
+            return json;
+          },
         },
         columns: getAllColumnDefinitions(),
         initComplete: function () {
