@@ -639,6 +639,7 @@ let DTconfig = {
           {
             extend: "copy",
             // https://datatables.net/forums/discussion/comment/234022/#Comment_234022
+            // removes copied to clipboard notification
             copySuccess: false,
 
             key: {
