@@ -852,15 +852,15 @@ Object.assign(DataTable.defaults, {
   // https://datatables.net/reference/option/language
   // LANGUAGE SET DEFAULTS
   language: {
-    emptyTable: "— ނުފެނުނު —",
+    emptyTable: "– ނުފެނުނު 🗨️ –",
     info: "_TOTAL_ ގެ ތެރެއިން _START_ އިން _END_ އަށް",
     infoFiltered: "(ޖުމްލަ ބެލުނީ _MAX_)",
-    infoEmpty: "— ނުފެނުނު —",
+    infoEmpty: "– ނުފެނުނު 🗨️ –",
     //lengthMenu: "ބަރި ދައްކާ _MENU_",
     loadingRecords: "ތައްޔާރުވަނީ...⏳",
     search: "",
     searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"، !މިލަފްޒު ނުލާ ހޯދާ',
-    zeroRecords: "— ނުފެނުނު —",
+    zeroRecords: "– ނުފެނުނު 🗨️ –",
     paginate: {
       first: "<< ",
       last: " >>",
