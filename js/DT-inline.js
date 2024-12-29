@@ -638,6 +638,9 @@ let DTconfig = {
         buttons: [
           {
             extend: "copy",
+            // https://datatables.net/forums/discussion/comment/234022/#Comment_234022
+            copySuccess: false,
+
             key: {
               key: "c",
               altKey: true,
@@ -890,10 +893,10 @@ Object.assign(DataTable.defaults, {
       //colvis: "☰ ފޮރުވާ/ދައްކާ",
       // https://datatables.net/reference/button/copyHtml5
       copyTitle: "&nbsp; ކޮޕީ 📋",
-      copySuccess: {
-        1: "1 ކޮޕީވެއްޖެ",
-        _: "%d ކޮޕީވެއްޖެ",
-      },
+      // copySuccess: {
+      //   1: "1 ކޮޕީވެއްޖެ",
+      //   _: "%d ކޮޕީވެއްޖެ",
+      // },
     },
     searchBuilder: {
       button: "🔍 ކަސްޓަމް ސާޗް",
