@@ -3727,17 +3727,22 @@
                 -->
         <style>
           .goToButtonContainer {
-            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            /* text-align: center; */
+            justify-content: center;
             /*margin-bottom: -14px;*/
-            margin-top: -15px;
+            /* margin-top: -15px; */
+            gap: 15px;
           }
           #urlInput {
             width: auto;
+            min-width: 230px;
             padding: 5px;
             text-indent: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            font-size: 20px;
+            font-size: 19px;
             outline: none;
             transition: border-color 0.3s;
             background-color: #ffffff;
@@ -3754,18 +3759,21 @@
             border-radius: 4px;
             background-color: #136296;
             color: white;
-            font-size: 20px;
+            font-size: 19px;
             cursor: pointer;
             transition: background-color 0.3s;
             /* font-size: 90%; */
             font-family: inherit;
-            margin-right: 5px;
+            /* margin-right: 5px; */
           }
           .goToButton:hover {
             background-color: #0f4c75;
           }
           #urlInput::placeholder {
             color: var(--placeholder-color, #757575);
+          }
+          #urlInput:placeholder-shown {
+            text-overflow: ellipsis;
           }
           @media (prefers-color-scheme: dark) {
             #urlInput {
