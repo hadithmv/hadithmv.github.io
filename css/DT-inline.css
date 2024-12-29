@@ -125,6 +125,19 @@
      DataTables Custom Core Styles
      ========================================================================== */
 
+/* makes the first row of date take up most of the vertical height of the screen on mobile */
+@media (max-width: 599px) {
+  .cards tbody tr:first-child {
+    min-height: 90vh;
+  }
+}
+/* for the remaining screens, tablet - desktop */
+@media (min-width: 600px) {
+  .cards tbody tr:first-child {
+    min-height: 50vh;
+  }
+}
+
 /* removes space at the top and bottom of the first and last tr of the table*/
 .cards tbody tr:first-child {
   margin-top: 0;
