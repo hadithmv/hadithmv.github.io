@@ -160,18 +160,6 @@
   }
 }
 
-/* moves searchbar close x icon a little to the right (for rtl i have to change left) */
-@media (max-width: 599px) {
-  /* Adjust the clear (x) button position for the search input on mobile */
-  .dt-input::-webkit-search-cancel-button {
-    position: relative;
-    left: 10px; /* Adjust this value as needed */
-    /* increase size a little */
-    font-size: 50px;
-  }
-  /* firefox doesnt show it at all */
-}
-
 /* removes th table header above columns, for card view */
 thead {
   display: none;

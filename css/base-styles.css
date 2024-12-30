@@ -537,6 +537,21 @@ h3 {
   direction: rtl;
 }
 
+/* https://yootheme.com/support/question/155972 
+https://stackoverflow.com/a/68687577 */
+/* How to add search input clear button by using CSS.
+firefox doesnt support x icon that shows on input type search as does for webkit,
+even webkit different browsers style it differently.
+alternatively could use type reset which is widely supported, but has to be within a form, eg: https://stackoverflow.com/questions/37846023/input-type-search-doesn-t-show-cancel-button-x-in-firefox/37846330#37846330 */
+input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 24px;
+  width: 24px;
+  margin-left: 0.4em;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23777'><path d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/></svg>");
+  cursor: pointer;
+}
+
 /*  responsive media queries code */
 
 /* @mixin for-phone-only {
