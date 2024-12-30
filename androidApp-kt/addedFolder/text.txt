@@ -585,5 +585,10 @@ Don't forget to add the import:
 
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
+...
+
+in case of load failure, id like the user to be taken to this page
+file:///android_asset/books/page/404.html ?
+
 
 
