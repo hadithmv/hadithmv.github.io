@@ -419,7 +419,6 @@ how do i get prefer dark mode to work on this app if system settings is set to d
 Let's try a more comprehensive approach. First, let's make sure your app theme properly supports dark mode.
 
 I see the issue. Your app is using a light theme by default because of your themes.xml. Let's create a dark theme variant and make the app respond to system dark mode:
-First, create a new file for dark theme:
 
 First, create a new file for dark theme:
 
@@ -524,6 +523,67 @@ webView.evaluateJavascript("""
 
 ...
 
+does my app have a splashscreen?
+
+No, your app currently doesn't have a splash screen. Looking at your manifest and theme files, there's no splash screen implementation.
+Here's how you can add a splash screen to your Android app:
+First, add the splash screen dependency in your build.gradle:
+
+dependencies {
+    // ... existing dependencies ...
+    implementation libs.androidx.core.splashscreen
+}
+
+Create a splash screen theme in themes.xml:
+
+<resources>
+    <!-- Base application theme -->
+    <style name="Theme.androidWebViewOfflineApplication" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/black</item>
+    </style>
+
+    <!-- Splash screen theme -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Set the splash screen background color -->
+        <item name="windowSplashScreenBackground">@color/white</item>
+        
+        <!-- Use your app icon as the splash image -->
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        
+        <!-- Set the theme that will be used after the splash screen -->
+        <item name="postSplashScreenTheme">@style/Theme.androidWebViewOfflineApplication</item>
+    </style>
+</resources>
+
+Update your manifest to use the splash screen theme:
+
+<activity
+    android:name=".MainActivity"
+    android:exported="true"
+    android:theme="@style/Theme.App.Starting">  <!-- Changed this line -->
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+</activity>
+
+
+Finally, update your MainActivity to handle the splash screen:
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // Add this line before super.onCreate()
+        installSplashScreen()
+        
+        super.onCreate(savedInstanceState)
+        // ... rest of your existing onCreate code ...
+    }
+    // ... rest of your existing code ...
+}
+
+Don't forget to add the import:
+
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
 
 

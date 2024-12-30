@@ -5,4 +5,18 @@
         <!-- added this to set statusbar color from grey to black -->
         <item name="android:statusBarColor">@android:color/black</item>
     </style>
+
+    <!-- Splash screen theme -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Set the splash screen background color -->
+        <!-- <item name="windowSplashScreenBackground">@color/white</item> -->
+        
+        <!-- Use your app icon as the splash image -->
+        <!-- <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item> -->
+        <!-- https://developer.android.com/develop/ui/views/launch/splash-screen -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        
+        <!-- Set the theme that will be used after the splash screen -->
+        <item name="postSplashScreenTheme">@style/Theme.androidWebViewOfflineApplication</item>
+    </style>
 </resources>

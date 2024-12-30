@@ -15,6 +15,7 @@ import android.content.res.Configuration
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import android.webkit.JavascriptInterface
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
 /**
  * MainActivity serves as the primary activity for the WebView-based application.
@@ -50,6 +51,8 @@ class MainActivity : ComponentActivity() {
      */
     @SuppressLint("SetJavaScriptEnabled")  // Suppress JavaScript warning as it's required for our app
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+        
         super.onCreate(savedInstanceState)
 
         // Initialize SharedPreferences for storing the last visited URL
