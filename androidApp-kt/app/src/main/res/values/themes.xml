@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="Theme.androidWebViewOfflineApplication" parent="android:Theme.Material.Light.NoActionBar">
 
         <!-- added this to set statusbar color from grey to black -->
         <item name="android:statusBarColor">@android:color/black</item>
     </style>
-
 </resources>

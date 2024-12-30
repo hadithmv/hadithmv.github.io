@@ -408,8 +408,121 @@ Provides a fallback mechanism for when state is too large
 Removes redundant state saving
 Includes cleanup when needed
 
+...
+
+i have an android webview kotlin app
+
+it runs offline html pages
+
+how do i get prefer dark mode to work on this app if system settings is set to dark mode?
+
+Let's try a more comprehensive approach. First, let's make sure your app theme properly supports dark mode.
+
+I see the issue. Your app is using a light theme by default because of your themes.xml. Let's create a dark theme variant and make the app respond to system dark mode:
+First, create a new file for dark theme:
+
+First, create a new file for dark theme:
+
+values-night/themes.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.androidWebViewOfflineApplication" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@android:color/black</item>
+    </style>
+</resources>
 
 
+In your MainActivity, let's try forcing dark mode in a different way:
+
+// Create and configure the WebView
+    webView = WebView(this).apply {
+        // Configure WebView settings
+        settings.apply {
+            // ... existing settings ...
+
+            // Enable dark mode support
+            if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK) &&
+                WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)) {
+                when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        WebSettingsCompat.setForceDark(this, WebSettingsCompat.FORCE_DARK_ON)
+                        WebSettingsCompat.setForceDarkStrategy(
+                            this,
+                            WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY
+                        )
+                    }
+                    else -> {
+                        WebSettingsCompat.setForceDark(this, WebSettingsCompat.FORCE_DARK_OFF)
+                    }
+                }
+            }
+
+            // Enable JavaScript execution (required for modern web apps)
+            javaScriptEnabled = true
+
+            // Add this to ensure CSS media queries work
+            mediaPlaybackRequiresUserGesture = false
+        }
+
+        // Add JavaScript interface to detect theme changes
+        addJavascriptInterface(object {
+            @JavascriptInterface
+            fun isDarkMode(): Boolean {
+                return resources.configuration.uiMode and 
+                       Configuration.UI_MODE_NIGHT_MASK == 
+                       Configuration.UI_MODE_NIGHT_YES
+            }
+        }, "Android")
+
+        // ... rest of WebView configuration ...
+    }
+
+
+This comprehensive approach should:
+Having both light and dark themes defined
+Properly support system-wide dark mode through themes
+Force the WebView to respect dark mode settings
+Provide a JavaScript bridge to explicitly detect dark mode
+Support both media queries and class-based dark mode styling
+
+alt code, not sure if it works? :
+
+
+settings.apply {
+    // ... existing settings ...
+
+    // Enable dark mode support
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        // Force dark mode based on system settings
+        forceDark = if ((resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == 
+            Configuration.UI_MODE_NIGHT_YES) {
+            WebSettings.FORCE_DARK_ON
+        } else {
+            WebSettings.FORCE_DARK_OFF
+        }
+    }
+
+    // Add this to ensure the WebView knows about color scheme changes
+    isWebViewDebuggingEnabled = true  // Optional: helps with debugging
+}
+
+// Add this after WebView settings configuration
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    webView.setWebContentsDebuggingEnabled(true)  // Optional: helps with debugging
+}
+
+
+// Add this after WebView settings configuration
+webView.evaluateJavascript("""
+    // Force a color scheme update
+    document.documentElement.setAttribute(
+        'data-force-color-scheme',
+        window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    );
+""".trimIndent(), null)
+
+...
 
 
 
