@@ -107,6 +107,52 @@ class MainActivity : ComponentActivity() {
                     super.onPageFinished(view, url)
                     url?.let { saveLastUrl(it) }
                 }
+
+                /**
+                 * Handle errors in the legacy WebView error callback.
+                 * This method is deprecated but still needed for backward compatibility.
+                 *
+                 * @param view The WebView that encountered the error
+                 * @param errorCode The code of the error (e.g., ERROR_FILE_NOT_FOUND)
+                 * @param description A string describing the error
+                 * @param failingUrl The URL that failed to load
+                 */
+                @Deprecated("Deprecated in Java")
+                override fun onReceivedError(
+                    view: WebView?,
+                    errorCode: Int,
+                    description: String?,
+                    failingUrl: String?
+                ) {
+                    if (errorCode == ERROR_FILE_NOT_FOUND || 
+                        errorCode == ERROR_HOST_LOOKUP ||
+                        description?.contains("net::ERR_FILE_NOT_FOUND") == true) {
+                        // Redirect to custom 404 page when a file or resource is not found
+                        view?.loadUrl("file:///android_asset/page/404.html")
+                    } else {
+                        // For all other errors, use default error handling
+                        super.onReceivedError(view, errorCode, description, failingUrl)
+                    }
+                }
+
+                /**
+                 * Handle errors in the modern WebView error callback.
+                 * This method works with newer versions of WebView and provides more detailed error information.
+                 *
+                 * @param view The WebView that encountered the error
+                 * @param request The WebResourceRequest that failed
+                 * @param error Detailed error information
+                 */
+                override fun onReceivedError(
+                    view: WebView?,
+                    request: WebResourceRequest?,
+                    error: android.webkit.WebResourceError?
+                ) {
+                    // Delegate to the deprecated method to maintain consistent error handling
+                    error?.let {
+                        onReceivedError(view, it.errorCode, it.description?.toString(), request?.url?.toString())
+                    }
+                }
             }
 
             // Configure WebView settings
