@@ -587,8 +587,56 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
 ...
 
-in case of load failure, id like the user to be taken to this page
-file:///android_asset/books/page/404.html ?
+if a linked page does not exist, i get this error
+webpage not available
+the webpage at could not be loaded because
+net::ERR_FILE_NOT_FOUND
 
+instead of that happening, id like the user to be taken to this page instead
+file:///android_asset/page/404.html 
+?
+
+I'll help you modify the WebViewClient to handle file not found errors by redirecting to a custom 404 page. Here's the change needed:
+
+This change adds the onReceivedError method to your WebViewClient implementation. When a file not found error occurs (ERROR_FILE_NOT_FOUND), it will redirect the user to your custom 404 page instead of showing the default error message. For all other types of errors, it will fall back to the default error handling behavior.
+Make sure you have created the 404.html file in your project's assets folder at
+
+Let me help debug this. The issue might be that we need to handle different error codes or the error is being caught at a different point. Let's modify the error handling to be more comprehensive:
+
+This updated version:
+Handles both the deprecated and new error handling methods
+3. Checks for multiple error conditions that might indicate a file not found
+Makes sure to handle the newer WebResourceError method as well
+
+
+webViewClient = object : WebViewClient() {
+    @Deprecated("Deprecated in Java")
+    override fun onReceivedError(
+        view: WebView?,
+        errorCode: Int,
+        description: String?,
+        failingUrl: String?
+    ) {
+        if (errorCode == ERROR_FILE_NOT_FOUND || 
+            errorCode == ERROR_HOST_LOOKUP ||
+            description?.contains("net::ERR_FILE_NOT_FOUND") == true) {
+            view?.loadUrl("file:///android_asset/page/404.html")
+        } else {
+            super.onReceivedError(view, errorCode, description, failingUrl)
+        }
+    }
+
+    override fun onReceivedError(
+        view: WebView?,
+        request: WebResourceRequest?,
+        error: android.webkit.WebResourceError?
+    ) {
+        error?.let {
+            onReceivedError(view, it.errorCode, it.description?.toString(), request?.url?.toString())
+        }
+    }
+}
+
+...
 
 
