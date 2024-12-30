@@ -861,7 +861,7 @@ Object.assign(DataTable.defaults, {
     infoFiltered: "(ޖުމްލަ ބެލުނީ _MAX_)",
     infoEmpty: "– ނުފެނުނު 🗨️ –",
     //lengthMenu: "ބަރި ދައްކާ _MENU_",
-    loadingRecords: "ތައްޔާރުވަނީ...⏳",
+    loadingRecords: "ތައްޔާރުވަނީ... ⏳",
     search: "",
     searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"، !މިލަފްޒު ނުލާ ހޯދާ',
     zeroRecords: "– ނުފެނުނު 🗨️ –",
