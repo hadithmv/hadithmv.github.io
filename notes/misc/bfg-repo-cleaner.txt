@@ -5,6 +5,8 @@ https://adnanxteam.medium.com/how-to-clear-git-history-with-bfg-cleaner-5db4eb6c
 
 ..[$ java -jar bfg.jar --strip-blobs-bigger-than 100M hadithmv.github.io.git]
 
+https://rtyley.github.io/bfg-repo-cleaner
+
 copy the bfg jar file to (outside of) the 'hadithmv.github.io' folder
 (run in powershell, right outside the 'hadithmv.github.io' folder)
 =======
