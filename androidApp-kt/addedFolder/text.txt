@@ -639,4 +639,48 @@ webViewClient = object : WebViewClient() {
 
 ...
 
+better solution than prompt answers below:
+
+https://stackoverflow.com/questions/39654620/android-how-to-change-specific-name-of-the-generated-apk-file-in-android-studio/55333735#55333735
+
+by default android studio builds files with names like app release app debug apk aab
+how do i change that to
+hadithmv (if release on apk or aab)
+and
+hadithmv-debug (if debug on apk or aab) ?
+
+I'll help you modify the build.gradle file to customize your APK/AAB output names. Here's how to add the configuration:
+
+android {
+    // ... existing config ...
+    buildTypes {
+        release {
+            // ... existing release config ...
+            // Custom APK/AAB naming
+            setProperty("archivesBaseName", "hadithmv-v${defaultConfig.versionName}")
+        }
+    }
+    // ... rest of config ...
+}
+
+i dont want version, i just want it to say hadithmv . apk or aab
+
+Here's the simplified version to just name your output files "hadithmv":
+
+android {
+    // ... existing config ...
+
+    buildTypes {
+        release {
+            // ... existing release config ...
+            setProperty("archivesBaseName", "hadithmv")
+        }
+        debug {
+            setProperty("archivesBaseName", "hadithmv")
+        }
+    }
+}
+
+the release version should not have the word -release
+
 

@@ -13,6 +13,9 @@ android {
         targetSdk 35
         versionCode 85
         versionName "4.02"
+     
+     // https://stackoverflow.com/questions/39654620/android-how-to-change-specific-name-of-the-generated-apk-file-in-android-studio/55333735#55333735
+       archivesBaseName = "hadithmv"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
