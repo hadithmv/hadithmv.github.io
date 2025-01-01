@@ -1,12 +1,20 @@
 node_modules
 _site/
 
+# https://stackoverflow.com/questions/13541615/how-to-remove-files-that-are-listed-in-the-gitignore-but-still-on-the-repositor/13541721#13541721
+# git ls-files -i -c --exclude-from=.gitignore | %{git rm --cached $_}
+
+androidApp-kt/app/src/main/assets
+
+windowsApp-tauri/Hadithmv/src
+windowsApp-tauri/Hadithmv/src-tauri/target
+
 # androidApp-kt/app/build/outputs
 # androidApp-kt/app/build/intermediates
 # app/webview-master/app/build/outputs
 # app/webview-master/app/build/intermediates
 
-# https://stackoverflow.com/questions/13541615/how-to-remove-files-that-are-listed-in-the-gitignore-but-still-on-the-repositor/13541721#13541721
+
 
 # https://stackoverflow.com/questions/31125465/git-wont-ignore-build-intermediates-files-even-though-i-added-build-to-gitig
 

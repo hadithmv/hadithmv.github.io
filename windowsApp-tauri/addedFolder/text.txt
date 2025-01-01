@@ -1,0 +1,105 @@
+npm run tauri dev
+
+hadithmv.github.io\windowsApp-tauri\tauri-hadithmv> npm run tauri dev
+
+...
+
+npm run tauri build
+
+...
+
+https://v2.tauri.app/start/prerequisites/
+
+https://v2.tauri.app/start/create-project/
+
+npm create tauri-app@latest
+
+✔ Project name · Hadithmv
+✔ Package name · hadithmv
+✔ Identifier · com.hadithmv.app
+✔ Choose which language to use for your frontend · TypeScript / JavaScript - (pnpm, yarn, npm, deno, bun)
+✔ Choose your package manager · npm
+✔ Choose your UI template · Vanilla
+✔ Choose your UI flavor · JavaScript
+
+cd Hadithmv
+npm install
+
+npm run tauri dev
+
+...
+
+{
+  "version": "4.0.2",
+
+https://v2.tauri.app/develop/configuration-files/
+
+https://v2.tauri.app/reference/config/#windowconfig
+
+tauri-hadithmv\src-tauri\tauri.conf.json
+
+"app": {
+    "windows": [
+      {
+        "title": "Hadithmv",
+        "width": 800,
+        "height": 600
+        "maximized": true
+
+Hadithmv
+
+...
+
+npm run tauri info
+
+...
+
+https://v1.tauri.app/v1/guides/features/icons/
+
+npm run tauri icon [OPTIONS] [INPUT]
+ <INPUT>    Path to the source icon (png, 1024x1024px with transparency) [default: ./app-icon.png]
+(./ is current directory, so should run the command from:
+src-tauri)
+OPTIONS:
+    -o, --output <OUTPUT>    Output directory. Default: 'icons' directory next to the tauri.conf.json file
+
+npm run tauri icon C:\Users\ashra\Downloads\VScode\hadithmv.github.io\windowsApp-tauri\Hadithmv\src\img\logo\logo.svg
+
+...
+
+https://v1.tauri.app/v1/guides/features/splashscreen/
+
+?
+
+...
+
+html css js files will be here:
+
+tauri-hadithmv\src
+
+...
+
+https://v2.tauri.app/reference/cli/#build
+
+https://v2.tauri.app/distribute/windows-installer/
+
+npm run tauri build
+
+releases will be here:
+
+tauri-hadithmv\src-tauri\target\release
+
+...
+
+https://v2.tauri.app/develop/updating-dependencies/
+
+npm install @tauri-apps/cli@latest @tauri-apps/api@latest
+
+...
+
+https://v2.tauri.app/distribute/
+
+Versioning
+
+Signing
+
