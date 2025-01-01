@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 https://adnanxteam.medium.com/how-to-clear-git-history-with-bfg-cleaner-5db4eb6c5a79 (now hidden by medium paywall)
 
 [$ java -jar bfg.jar --strip-blobs-bigger-than 100M some-big-repo.git]
@@ -18,9 +17,8 @@ $ java -jar bfg.jar --strip-blobs-bigger-than 100M hadithmv.github.io.git
 
 (for larger than 100mb)
 
->>>>>>> 80f80e1f9149dfa040e2770068fca34d34bc04d0
 java -jar bfg-1.14.0.jar --strip-blobs-bigger-than 2M hadithmv.github.io
-(i usually use this)
+!!! (i usually use this)
 
 cd hadithmv.github.io
 
@@ -28,12 +26,7 @@ git reflog expire --expire=now --all && git gc --prune=now --aggressive
 
 git push --force
 
-
----
-<<<<<<< HEAD
-??:
 =======
->>>>>>> 80f80e1f9149dfa040e2770068fca34d34bc04d0
 
 git config --global http.postBuffer 524288000
 
