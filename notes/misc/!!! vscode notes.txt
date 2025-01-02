@@ -169,3 +169,9 @@ Uploaded necessary files and folders newly without history to that new repo.
 Renamed old repo with date, left as is since then.
 Rename new repo to be the same as old, this way the github pages works for that.
 
+
+...
+
+How to navigate to the earliest commit in a repository?
+
+https://stackoverflow.com/questions/28533602/how-to-navigate-to-the-earliest-commit-in-a-repository/68779188#68779188
