@@ -1,3 +1,5 @@
+# asset files are not committed to github, since they are just the copied files from the main web folder
+
 # Purpose: This script copies necessary files from the source directory to the Android app's assets folder
 # It first clears the destination directory, then creates required subdirectories, and finally copies specific files
 
