@@ -696,4 +696,5 @@ this is my offline webview kotlin app. since it targets SDK 35 or later, edge-to
 https://stackoverflow.com/questions/79095037/android-15-edge-to-edge-mode-hide-a-top-view/79095115#79095115
 https://proandroiddev.com/google-secretly-adds-opt-out-api-for-android-15s-edge-to-edge-behaviour-80ca2630d298
 
+...
 
