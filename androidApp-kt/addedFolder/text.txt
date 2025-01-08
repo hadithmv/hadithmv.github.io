@@ -693,9 +693,3 @@ https://medium.com/androiddevelopers/insets-handling-tips-for-android-15s-edge-t
 
 my app is edge to edge display. it already has edge to edge enabled by default and doesn't need enabling it again. how do i handle overlaps using insets for the top? the app is overlapping with the statusbar
 
-
-These changes will:
-Enable edge-to-edge display by setting DecorFitsSystemWindows to false
-Set up an insets listener that will apply the correct padding to the WebView to prevent content from being hidden behind the status bar
-Automatically adjust the WebView's padding when the system bars' insets change
-The WebView will now properly respect the status bar while maintaining an edge-to-edge display.
