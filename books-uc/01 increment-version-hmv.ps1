@@ -30,22 +30,23 @@ try {
         throw "File is empty"
     }
 
-    # Extract the current version number
-    if ($content -match 'var hmvVersionNo = (\d+\.\d+);') {
-        $currentVersion = [double]$matches[1]
+    # Extract the current version number (now handling quoted semver format)
+    if ($content -match 'var hmvVersionNo = "(\d+\.\d+\.\d+)";') {
+        $currentVersion = $matches[1]
         
         try {
-            # Increment the version by 0.01
-            $newVersion = [math]::Round($currentVersion + 0.01, 2)
-            $newVersion = $newVersion.ToString("F2")
-            
-            # Validate new version is greater than current version
-            if ([double]$newVersion -le $currentVersion) {
-                throw "New version ($newVersion) is not greater than current version ($currentVersion)"
-            }
+            # Parse semver components
+            $versionParts = $currentVersion.Split('.')
+            $major = [int]$versionParts[0]
+            $minor = [int]$versionParts[1]
+            $patch = [int]$versionParts[2]
 
-            # Update navbar.js
-            $newContent = $content -replace 'var hmvVersionNo = \d+\.\d+;', "var hmvVersionNo = $newVersion;"
+            # Increment the patch version
+            $patch += 1
+            $newVersion = "$major.$minor.$patch"
+            
+            # Update navbar.js with semver format (including quotes)
+            $newContent = $content -replace 'var hmvVersionNo = "\d+\.\d+\.\d+";', "var hmvVersionNo = `"$newVersion`";"
             if ($newContent -eq $content) {
                 throw "Version replacement failed in navbar.js"
             }
@@ -59,7 +60,7 @@ try {
                 $tauriContent = Get-Content $tauriPath -Raw
                 $newTauriContent = $tauriContent -replace '"version": "\d+\.\d+\.\d+"', "`"version`": `"$newVersion`""
                 $newTauriContent | Set-Content $tauriPath -NoNewline
-                Write-Output "✅ tauri.conf.json version updated to $newVersion"
+                Write-Output "✅ tauri.conf.json version updated to version: $newVersion"
             }
             else {
                 Write-Warning "⚠️ tauri.conf.json not found at $tauriPath"
@@ -70,17 +71,10 @@ try {
             if (Test-Path $gradlePath) {
                 $gradleContent = Get-Content $gradlePath -Raw
                 
-                # Extract and increment versionCode
-                if ($gradleContent -match 'versionCode\s+(\d+)') {
-                    $versionCode = [int]$matches[1]
-                    $newVersionCode = $versionCode + 1
-                    $gradleContent = $gradleContent -replace 'versionCode\s+\d+', "versionCode $newVersionCode"
-                }
-
-                # Update versionName (keeping the decimal point)
+                # Update versionName with semver
                 $gradleContent = $gradleContent -replace 'versionName\s+"[^"]+"', "versionName `"$newVersion`""
                 $gradleContent | Set-Content $gradlePath -NoNewline
-                Write-Output "✅ build.gradle updated (versionName: $newVersion, versionCode: $newVersionCode)"
+                Write-Output "✅ build.gradle updated to versionName: $newVersion"
             }
             else {
                 Write-Warning "⚠️ build.gradle not found at $gradlePath"
