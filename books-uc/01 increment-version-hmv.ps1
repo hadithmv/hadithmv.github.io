@@ -37,40 +37,53 @@ try {
         try {
             # Increment the version by 0.01
             $newVersion = [math]::Round($currentVersion + 0.01, 2)
-            
-            # Format to ensure two decimal places
             $newVersion = $newVersion.ToString("F2")
             
             # Validate new version is greater than current version
             if ([double]$newVersion -le $currentVersion) {
                 throw "New version ($newVersion) is not greater than current version ($currentVersion)"
             }
-            
-            # Replace the old version with the new one
+
+            # Update navbar.js
             $newContent = $content -replace 'var hmvVersionNo = \d+\.\d+;', "var hmvVersionNo = $newVersion;"
-            
-            # Verify the replacement occurred
             if ($newContent -eq $content) {
-                throw "Version replacement failed - content unchanged"
+                throw "Version replacement failed in navbar.js"
             }
             
-            # Create backup of original file
-            $backupPath = "$filePath.backup"
-            Copy-Item -Path $filePath -Destination $backupPath -ErrorAction Stop
-            
-            try {
-                # Write the updated content back to the file
-                $newContent | Set-Content $filePath -NoNewline -ErrorAction Stop
-                
-                Write-Output "✅ Version updated from $currentVersion to $newVersion"
-                
-                # Remove backup if write was successful
-                Remove-Item -Path $backupPath -ErrorAction SilentlyContinue
+            $newContent | Set-Content $filePath -NoNewline -ErrorAction Stop
+            Write-Output "✅ navbar.js updated from $currentVersion to $newVersion"
+
+            # Update tauri.conf.json
+            $tauriPath = "..\windowsApp-tauri\Hadithmv\src-tauri\tauri.conf.json"
+            if (Test-Path $tauriPath) {
+                $tauriContent = Get-Content $tauriPath -Raw
+                $newTauriContent = $tauriContent -replace '"version": "\d+\.\d+\.\d+"', "`"version`": `"$newVersion`""
+                $newTauriContent | Set-Content $tauriPath -NoNewline
+                Write-Output "✅ tauri.conf.json version updated to $newVersion"
             }
-            catch {
-                # Restore from backup if write failed
-                Copy-Item -Path $backupPath -Destination $filePath -Force -ErrorAction Stop
-                throw "Failed to write new content, restored from backup: $_"
+            else {
+                Write-Warning "⚠️ tauri.conf.json not found at $tauriPath"
+            }
+
+            # Update build.gradle
+            $gradlePath = "..\androidApp-kt\app\build.gradle"
+            if (Test-Path $gradlePath) {
+                $gradleContent = Get-Content $gradlePath -Raw
+                
+                # Extract and increment versionCode
+                if ($gradleContent -match 'versionCode\s+(\d+)') {
+                    $versionCode = [int]$matches[1]
+                    $newVersionCode = $versionCode + 1
+                    $gradleContent = $gradleContent -replace 'versionCode\s+\d+', "versionCode $newVersionCode"
+                }
+
+                # Update versionName (keeping the decimal point)
+                $gradleContent = $gradleContent -replace 'versionName\s+"[^"]+"', "versionName `"$newVersion`""
+                $gradleContent | Set-Content $gradlePath -NoNewline
+                Write-Output "✅ build.gradle updated (versionName: $newVersion, versionCode: $newVersionCode)"
+            }
+            else {
+                Write-Warning "⚠️ build.gradle not found at $gradlePath"
             }
         }
         catch {

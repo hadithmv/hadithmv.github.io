@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("SetJavaScriptEnabled")  // Suppress JavaScript warning as it's required for our app
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
-                
+
         super.onCreate(savedInstanceState)
 
         // Initialize SharedPreferences for storing the last visited URL
