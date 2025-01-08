@@ -691,7 +691,7 @@ https://developer.android.com/develop/ui/views/layout/edge-to-edge
 
 https://medium.com/androiddevelopers/insets-handling-tips-for-android-15s-edge-to-edge-enforcement-872774e8839b
 
-my app is edge to edge display. it already has edge to edge enabled by default and doesn't need enabling it again. how do i handle overlaps using insets for the top?
+my app is edge to edge display. it already has edge to edge enabled by default and doesn't need enabling it again. how do i handle overlaps using insets for the top? the app is overlapping with the statusbar
 
 
 These changes will:
