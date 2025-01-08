@@ -1,0 +1,224 @@
+2025
+
+...
+
+winget list
+
+https://answers.microsoft.com/en-us/windows/forum/all/how-do-i-print-a-list-of-all-installed/9e099095-6c8e-4fc3-a3b6-b4733d86abe5
+
+...
+
+Name                                     Id                                        Version          Available    Source
+-----------------------------------------------------------------------------------------------------------------------
+7-Zip 24.09 (x64)                        7zip.7zip                                 24.09                         winget
+Android Studio                           ARP\Machine\X64\Android Studio            2024.2
+Everything 1.4.1.1026 (x64)              ARP\Machine\X64\Everything                1.4.1.1026
+GPL Ghostscript                          ARP\Machine\X64\GPL Ghostscript 10.03.0   10.03.0
+Git                                      Git.Git                                   2.47.1                        winget
+Intel® Hardware Accelerated Execution M… ARP\Machine\X64\HAXM                      7.6.5
+IrfanView 4.70 (64-bit)                  IrfanSkiljan.IrfanView                    4.70                          winget
+High-Logic MainType 12                   High-Logic.MainType                       Unknown          12.0.0.1339  winget
+NetBalancer                              ARP\Machine\X64\NetBalancer_is1           Unknown
+Notepad++ (64-bit x64)                   Notepad++.Notepad++                       8.7.5                         winget
+Microsoft 365 Apps for enterprise - en-… Microsoft.Office                          16.0.18227.20162              winget
+Microsoft OneDrive                       Microsoft.OneDrive                        24.226.1110.0004              winget
+Q-Dir                                    ARP\Machine\X64\Q-Dir                     Unknown
+SQLiteStudio                             PawelSalawa.SQLiteStudio                  3.4.12           3.4.13       winget
+TablePlus 6.2.2                          TablePlus.TablePlus                       6.2.2                         winget
+TeamViewer                               TeamViewer.TeamViewer                     15.61.3                       winget
+VLC media player                         VideoLAN.VLC                              3.0.21                        winget
+VLC media player                         VideoLAN.VLC                              3.0.21                        winget
+Canon G3010 series MP Drivers            ARP\Machine\X64\{1199FAD5-9546-44f3-81CF… 1.02
+DecSoft HTML Compiler                    ARP\Machine\X64\{14C7ECFA-7CE2-486D-A7E0… Unknown
+Microsoft Visual C++ 2010  x64 Redistri… Microsoft.VCRedist.2010.x64               10.0.40219                    winget
+Logi Plugin Service                      ARP\Machine\X64\{2751BCA2-7FA8-4CDF-A240… 6.0.2.21145
+DB Browser for SQLite                    DBBrowserForSQLite.DBBrowserForSQLite     3.13.1                        winget
+Meld                                     Meld.Meld                                 3.22.2                        winget
+Microsoft Visual C++ 2008 Redistributab… Microsoft.VCRedist.2008.x64               9.0.30729.6161                winget
+Node.js                                  OpenJS.NodeJS                             23.3.0           23.6.0       winget
+Google Drive                             Google.GoogleDrive                        101.0.3.0                     winget
+Microsoft Visual Studio Installer        ARP\Machine\X64\{6F320B93-EE3C-4826-85E0… 3.12.2149.20818
+Java 8 Update 431 (64-bit)               Oracle.JavaRuntimeEnvironment             8.0.4310.10                   winget
+calibre 64bit                            calibre.calibre                           7.23.0                        winget
+Aria2 Manager                            ARP\Machine\X64\{819C381B-D740-406A-A2E9… 1.1.0
+Logi Options+                            Logitech.OptionsPlus                      1.85.655119                   winget
+Python 2.7.18 (64-bit)                   Python.Python.2                           2.7.18150                     winget
+Adobe Acrobat (64-bit)                   Adobe.Acrobat.Pro                         24.004.20272     24.005.20320 winget
+Microsoft Update Health Tools            ARP\Machine\X64\{C6FD611E-7EFE-488C-A0E0… 5.72.0.0
+Java(TM) SE Development Kit 20.0.2 (64-… Oracle.JDK.20                             20.0.2.0                      winget
+Visual Studio Build Tools 2022           Microsoft.VisualStudio.2022.BuildTools    17.12.3                       winget
+Advanced SystemCare                      IObit.AdvancedSystemCare                  18.0.1.175                    winget
+Canon Inkjet Printer/Scanner/Fax Extend… ARP\Machine\X86\CANONIJPLM100             6.6.0
+Printer Registration                     ARP\Machine\X86\Canon EISRegistration     1.9.1
+Canon Easy-PhotoPrint Editor             ARP\Machine\X86\Canon Easy-PhotoPrint Ed… 1.9.0
+Canon G3010 series On-screen Manual      ARP\Machine\X86\Canon G3010 series On-sc… 1.2.0
+Canon IJ Printer Assistant Tool          ARP\Machine\X86\Canon IJ Printer Assista… 1.90.2.28
+Canon My Image Garden                    ARP\Machine\X86\Canon My Image Garden     3.6.4
+Canon My Image Garden Design Files       ARP\Machine\X86\Canon My Image Garden De… 3.6.0
+Canon Quick Menu                         ARP\Machine\X86\CanonQuickMenu            2.8.5
+Canon IJ Network Scanner Selector EX2    ARP\Machine\X86\Canon_IJ_Network_Scanner… 2.0.5.3
+Canon IJ Scan Utility                    ARP\Machine\X86\Canon_IJ_Scan_Utility     1.4.0.16
+EaseUS Fixo                              ARP\Machine\X86\EaseUS Fixo_is1           Unknown
+Canon Easy-PhotoPrint EX                 ARP\Machine\X86\Easy-PhotoPrint EX        4.7.0
+Glary Utilities 6.20                     Glarysoft.GlaryUtilities                  6.20.0.24                     winget
+Adobe InDesign 2023                      ARP\Machine\X86\IDSN_18_5                 18.5
+Adobe Illustrator 2023                   ARP\Machine\X86\ILST_27_9                 27.9
+IObit Unlocker                           IObit.IObitUnlocker                       1.3.0.11                      winget
+IObit Uninstaller 14                     IObit.Uninstaller                         14.1.0.2                      winget
+LDPlayer                                 ARP\Machine\X86\LDPlayer9                 9.0.67
+Laragon 6.0.0                            LeNgocKhoa.Laragon                        < 7.0.1          7.0.1        winget
+Microsoft Edge                           Microsoft.Edge                            131.0.2903.112                winget
+Adobe Photoshop 2024                     ARP\Machine\X86\PHSP_25_0                 25.0.0.37
+Razer Synapse                            ARP\Machine\X86\Razer Synapse             3.9.1231.112613
+Canon Wi-Fi Connection Assistant         ARP\Machine\X86\Wi-Fi Connection Assista… 1.60.0
+Microsoft Visual C++ 2013 Redistributab… Microsoft.VCRedist.2013.x64               12.0.40664.0                  winget
+vs_CoreEditorFonts                       ARP\Machine\X86\{1851460E-0E63-4117-B5BA… 17.7.40001
+Microsoft Visual C++ 2012 Redistributab… Microsoft.VCRedist.2012.x86               11.0.61030.0                  winget
+HP Connection Optimizer                  ARP\Machine\X86\{6468C4A5-E47E-405F-B675… 2.0.17.0
+Microsoft Visual C++ 2005 Redistributab… Microsoft.VCRedist.2005.x86               8.0.61001                     winget
+Windows Software Development Kit - Wind… ARP\Machine\X86\{71684ad3-afc2-4a65-9d45… 10.1.22621.3233
+Microsoft Visual C++ 2015-2022 Redistri… Microsoft.VCRedist.2015+.x64              14.42.34433.0                 winget
+Python Launcher                          Python.Launcher                           > 3.12.0                      winget
+Microsoft Visual C++ 2013 Redistributab… Microsoft.VCRedist.2013.x86               12.0.40664.0                  winget
+مصحف المدينة النبوية للنشر الحاسوبي      ARP\Machine\X86\{B88D349E-0037-4177-B3C7… 2.0
+جامع خادم الحرمين الشريفين الملك عبد ال… ARP\Machine\X86\{BE2F2239-D222-4A35-8A1C… 1.00.0000
+Windows SDK AddOn                        ARP\Machine\X86\{F1E37C98-16B7-421F-BA33… 10.1.0.0
+Microsoft Visual C++ 2012 Redistributab… Microsoft.VCRedist.2012.x64               11.0.61030.0                  winget
+PowerShell 7.4.6.0-x64                   Microsoft.PowerShell                      7.4.6.0                       winget
+Microsoft Visual C++ 2015-2022 Redistri… Microsoft.VCRedist.2015+.x86              14.42.34433.0                 winget
+Cursor 0.44.9                            Anysphere.Cursor                          0.44.9           0.44.11      winget
+Signal 7.36.1                            OpenWhisperSystems.Signal                 7.36.1                        winget
+GitHub Desktop                           GitHub.GitHubDesktop                      3.4.12                        winget
+Q-Dir                                    ARP\User\X64\Q-Dir                        Unknown
+Rustup: the Rust toolchain installer     Rustlang.Rustup                           1.27.1                        winget
+Fast Node Manager                        Schniz.fnm                                1.38.1                        winget
+SumatraPDF                               SumatraPDF.SumatraPDF                     3.5.2                         winget
+Scratch 3 3.29.1                         MITMediaLab.Scratch.3                     3.29.1                        winget
+Obsidian                                 Obsidian.Obsidian                         1.7.7                         winget
+SmartControl                             ARP\User\X64\eaf31a0e-c98a-5e6e-9883-2a4… 6.19.0
+Arclab Dir2HTML 4.1                      ARP\User\X64\{01B11788-1936-4077-84B4-9C… 4.1
+Espanso version 2.2.1                    Espanso.Espanso                           2.2.1                         winget
+Telegram Desktop                         Telegram.TelegramDesktop                  5.10.1                        winget
+Windsurf (User)                          Codeium.Windsurf                          1.94.0                        winget
+Microsoft Visual Studio Code (User)      Microsoft.VisualStudioCode                1.96.2                        winget
+MSYS2                                    ARP\User\X64\{7fde14be-32f9-4f2a-9bbc-ab… 20240507
+Python 3.12.8 (64-bit)                   Python.Python.3.12                        3.12.8                        winget
+PowerToys (Preview) x64                  Microsoft.PowerToys                       0.82.1           0.87.1       winget
+Canon Inkjet Print Utility               MSIX\34791E63.CanonInkjetPrintUtility_3.… 3.1.0.0
+Canon PRINT                              MSIX\34791E63.CanonInkjetSmartConnect_1.… 1.8.1.0
+WhatsApp                                 MSIX\5319275A.WhatsAppDesktop_2.2450.6.0… 2.2450.6.0
+HP Display Center                        MSIX\AD2F1837.HPDisplayCenter_2.2.3.0_x6… 2.2.3.0
+HP Support Assistant                     MSIX\AD2F1837.HPSupportAssistant_9.41.29… 9.41.29.0
+Adobe Acrobat                            MSIX\AdobeAcrobatDCCoreApp_23.1.0.0_x64_… 23.1.0.0
+Intel® Graphics Command Center           MSIX\AppUp.IntelGraphicsExperience_1.100… 1.100.5688.0
+Intel® Rapid Storage Technology Applica… MSIX\AppUp.IntelOptaneMemoryandStorageMa… 20.0.1019.0
+Ubuntu                                   Canonical.Ubuntu                          2404.1.66.0                   winget
+Microsoft Clipchamp                      MSIX\Clipchamp.Clipchamp_4.0.10460.0_x64… 4.0.10460.0
+Hadith Collection (All In One)           MSIX\GreentechAppsFoundation.HadithColle… 1.11.11.0
+Cortana                                  MSIX\Microsoft.549981C3F5F10_4.2308.1005… 4.2308.1005.0
+News                                     MSIX\Microsoft.BingNews_4.55.62231.0_x64… 4.55.62231.0
+MSN Weather                              MSIX\Microsoft.BingWeather_4.54.63007.0_… 4.54.63007.0
+Copilot                                  MSIX\Microsoft.Copilot_1.1.9.0_neutral__… 1.1.9.0
+App Installer                            Microsoft.AppInstaller                    1.24.25200.0                  winget
+Xbox                                     MSIX\Microsoft.GamingApp_2412.1001.22.0_… 2412.1001.22.0
+Get Help                                 MSIX\Microsoft.GetHelp_10.2409.22951.0_x… 10.2409.22951.0
+Microsoft Tips                           MSIX\Microsoft.Getstarted_10.2312.1.0_x6… 10.2312.1.0
+HEIF Image Extensions                    MSIX\Microsoft.HEIFImageExtension_1.2.3.… 1.2.3.0
+HEVC Video Extensions from Device Manuf… MSIX\Microsoft.HEVCVideoExtension_2.2.9.… 2.2.9.0
+Ink.Handwriting.Main.en-US.1.0           MSIX\Microsoft.Ink.Handwriting.Main.en-U… 0.645.1237.0
+Ink.Handwriting.en-US.1.0                MSIX\Microsoft.Ink.Handwriting.en-US.1.0… 0.645.1237.0
+Ink.Handwriting.en-US.1.0                MSIX\Microsoft.Ink.Handwriting.en-US.1.0… 0.645.1237.0
+English (United States) Local Experienc… MSIX\Microsoft.LanguageExperiencePacken-… 22621.103.370.0
+Microsoft Edge                           MSIX\Microsoft.MicrosoftEdge.Stable_131.… 131.0.2903.112
+Microsoft 365 (Office)                   MSIX\Microsoft.MicrosoftOfficeHub_18.241… 18.2412.1274.0
+PC Manager                               MSIX\Microsoft.MicrosoftPCManager_3.14.1… 3.14.14.0
+Microsoft Sticky Notes                   MSIX\Microsoft.MicrosoftStickyNotes_6.1.… 6.1.4.0
+Microsoft .Net Native Framework Package… MSIX\Microsoft.NET.Native.Framework.1.3_… 1.3.24211.0
+Microsoft .Net Native Framework Package… MSIX\Microsoft.NET.Native.Framework.1.3_… 1.3.24211.0
+Microsoft .Net Native Framework Package… MSIX\Microsoft.NET.Native.Framework.2.2_… 2.2.29512.0
+Microsoft .Net Native Framework Package… MSIX\Microsoft.NET.Native.Framework.2.2_… 2.2.29512.0
+Microsoft .Net Native Runtime Package 1… MSIX\Microsoft.NET.Native.Runtime.1.4_1.… 1.4.24201.0
+Microsoft .Net Native Runtime Package 1… MSIX\Microsoft.NET.Native.Runtime.1.4_1.… 1.4.24201.0
+Microsoft .Net Native Runtime Package 2… MSIX\Microsoft.NET.Native.Runtime.2.2_2.… 2.2.28604.0
+Microsoft .Net Native Runtime Package 2… MSIX\Microsoft.NET.Native.Runtime.2.2_2.… 2.2.28604.0
+OneDrive                                 MSIX\Microsoft.OneDriveSync_24226.1110.4… 24226.1110.4.0
+Outlook for Windows                      MSIX\Microsoft.OutlookForWindows_1.2023.… 1.2023.920.900
+Paint                                    MSIX\Microsoft.Paint_11.2410.39.0_x64__8… 11.2410.39.0
+Microsoft People                         MSIX\Microsoft.People_10.2202.100.0_x64_… 10.2202.100.0
+Power Automate                           MSIX\Microsoft.PowerAutomateDesktop_1.0.… 1.0.1329.0
+PowerToys FileLocksmith Context Menu     MSIX\Microsoft.PowerToys.FileLocksmithCo… 1.0.0.0
+PowerToys ImageResizer Context Menu      MSIX\Microsoft.PowerToys.ImageResizerCon… 0.73.0.0
+PowerToys PowerRename Context Menu       MSIX\Microsoft.PowerToys.PowerRenameCont… 0.73.0.0
+Raw Image Extension                      MSIX\Microsoft.RawImageExtension_2.5.3.0… 2.5.3.0
+Snipping Tool                            MSIX\Microsoft.ScreenSketch_11.2409.25.0… 11.2409.25.0
+Windows Security                         MSIX\Microsoft.SecHealthUI_1000.25992.90… 1000.25992.9000…
+Microsoft Engagement Framework           MSIX\Microsoft.Services.Store.Engagement… 10.0.23012.0
+Microsoft Engagement Framework           MSIX\Microsoft.Services.Store.Engagement… 10.0.23012.0
+Store Experience Host                    MSIX\Microsoft.StorePurchaseApp_22410.14… 22410.1401.0.0
+Microsoft To Do                          MSIX\Microsoft.Todos_0.114.7122.0_x64__8… 0.114.7122.0
+Microsoft.UI.Xaml.2.7                    Microsoft.UI.Xaml.2.7                     7.2409.9001.0                 winget
+Microsoft.UI.Xaml.2.7                    Microsoft.UI.Xaml.2.7                     7.2409.9001.0                 winget
+Microsoft.UI.Xaml.2.8                    Microsoft.UI.Xaml.2.8                     8.2310.30001.0                winget
+Microsoft.UI.Xaml.2.8                    Microsoft.UI.Xaml.2.8                     8.2310.30001.0                winget
+Microsoft.UI.Xaml.2.8                    Microsoft.UI.Xaml.2.8                     8.2306.22001.0                winget
+Microsoft Visual C++ Runtime Package     MSIX\Microsoft.VCLibs.120.00_12.0.21005.… 12.0.21005.1
+Microsoft Visual C++ Runtime Package     MSIX\Microsoft.VCLibs.120.00_12.0.21005.… 12.0.21005.1
+Microsoft Visual C++ 2015 UWP Desktop R… Microsoft.VCLibs.Desktop.14               14.0.33728.0                  winget
+Microsoft Visual C++ 2015 UWP Desktop R… Microsoft.VCLibs.Desktop.14               14.0.33728.0                  winget
+Microsoft Visual C++ 2015 UWP Desktop R… Microsoft.VCLibs.Desktop.14               14.0.33519.0                  winget
+Microsoft Visual C++ 2015 UWP Desktop R… Microsoft.VCLibs.Desktop.14               14.0.33321.0                  winget
+Microsoft Visual C++ 2015 UWP Desktop R… Microsoft.VCLibs.Desktop.14               14.0.32530.0                  winget
+Microsoft Visual C++ 2015 UWP Runtime P… MSIX\Microsoft.VCLibs.140.00_14.0.30704.… 14.0.30704.0
+Microsoft Visual C++ 2015 UWP Runtime P… MSIX\Microsoft.VCLibs.140.00_14.0.32530.… 14.0.32530.0
+Microsoft Visual C++ 2015 UWP Runtime P… MSIX\Microsoft.VCLibs.140.00_14.0.33321.… 14.0.33321.0
+Microsoft Visual C++ 2015 UWP Runtime P… MSIX\Microsoft.VCLibs.140.00_14.0.33519.… 14.0.33519.0
+Microsoft Visual C++ 2015 UWP Runtime P… MSIX\Microsoft.VCLibs.140.00_14.0.33519.… 14.0.33519.0
+VP9 Video Extensions                     MSIX\Microsoft.VP9VideoExtensions_1.2.2.… 1.2.2.0
+Web Media Extensions                     MSIX\Microsoft.WebMediaExtensions_1.1.12… 1.1.1295.0
+Webp Image Extensions                    MSIX\Microsoft.WebpImageExtension_1.1.17… 1.1.1711.0
+Widgets Platform Runtime                 MSIX\Microsoft.WidgetsPlatformRuntime_1.… 1.6.1.0
+Microsoft Photos                         MSIX\Microsoft.Windows.Photos_2024.11120… 2024.11120.5010…
+Windows Clock                            MSIX\Microsoft.WindowsAlarms_11.2411.2.0… 11.2411.2.0
+WindowsAppRuntime.1.3                    MSIX\Microsoft.WindowsAppRuntime.1.3_300… 3000.934.1904.0
+WindowsAppRuntime.1.3                    MSIX\Microsoft.WindowsAppRuntime.1.3_300… 3000.934.1904.0
+WindowsAppRuntime.1.4                    MSIX\Microsoft.WindowsAppRuntime.1.4_400… 4000.1136.2333.0
+WindowsAppRuntime.1.4                    MSIX\Microsoft.WindowsAppRuntime.1.4_400… 4000.1309.2056.0
+WindowsAppRuntime.1.4                    MSIX\Microsoft.WindowsAppRuntime.1.4_400… 4000.1309.2056.0
+WindowsAppRuntime.1.5                    MSIX\Microsoft.WindowsAppRuntime.1.5_500… 5001.178.1908.0
+WindowsAppRuntime.1.5                    MSIX\Microsoft.WindowsAppRuntime.1.5_500… 5001.214.1843.0
+WindowsAppRuntime.1.5                    MSIX\Microsoft.WindowsAppRuntime.1.5_500… 5001.275.500.0
+WindowsAppRuntime.1.5                    MSIX\Microsoft.WindowsAppRuntime.1.5_500… 5001.275.500.0
+WindowsAppRuntime.1.5                    MSIX\Microsoft.WindowsAppRuntime.1.5_500… 5001.311.2039.0
+WindowsAppRuntime.1.5                    MSIX\Microsoft.WindowsAppRuntime.1.5_500… 5001.311.2039.0
+WindowsAppRuntime.1.6                    MSIX\Microsoft.WindowsAppRuntime.1.6_600… 6000.318.2304.0
+WindowsAppRuntime.1.6                    MSIX\Microsoft.WindowsAppRuntime.1.6_600… 6000.318.2304.0
+Windows Calculator                       MSIX\Microsoft.WindowsCalculator_11.2411… 11.2411.1.0
+Windows Camera                           MSIX\Microsoft.WindowsCamera_2024.2411.0… 2024.2411.0.0
+Feedback Hub                             MSIX\Microsoft.WindowsFeedbackHub_1.2411… 1.2411.17101.0
+Windows Maps                             MSIX\Microsoft.WindowsMaps_11.2411.7.0_x… 11.2411.7.0
+Windows Notepad                          MSIX\Microsoft.WindowsNotepad_11.2410.21… 11.2410.21.0
+Windows Scan                             MSIX\Microsoft.WindowsScan_6.3.9654.1713… 6.3.9654.17133
+Windows Sound Recorder                   MSIX\Microsoft.WindowsSoundRecorder_11.2… 11.2408.6.0
+Microsoft Store                          MSIX\Microsoft.WindowsStore_22411.1401.5… 22411.1401.5.0
+Windows Terminal                         Microsoft.WindowsTerminal                 1.21.3231.0                   winget
+Windows Package Manager Source (winget)… MSIX\Microsoft.Winget.Source_2025.108.13… 2025.108.1341.0
+Xbox TCUI                                MSIX\Microsoft.Xbox.TCUI_1.24.10001.0_x6… 1.24.10001.0
+Xbox Game Bar Plugin                     MSIX\Microsoft.XboxGameOverlay_1.54.4001… 1.54.4001.0
+Game Bar                                 MSIX\Microsoft.XboxGamingOverlay_7.224.1… 7.224.11211.0
+Xbox Identity Provider                   MSIX\Microsoft.XboxIdentityProvider_12.1… 12.115.1001.0
+Xbox Game Speech Window                  MSIX\Microsoft.XboxSpeechToTextOverlay_1… 1.21.13002.0
+Phone Link                               MSIX\Microsoft.YourPhone_1.24112.110.0_x… 1.24112.110.0
+Windows Media Player                     MSIX\Microsoft.ZuneMusic_11.2410.8.0_x64… 11.2410.8.0
+Movies & TV                              MSIX\Microsoft.ZuneVideo_10.24111.10061.… 10.24111.10061.0
+Quick Assist                             MSIX\MicrosoftCorporationII.QuickAssist_… 2.0.32.0
+WinAppRuntime.Main.1.5                   MSIX\MicrosoftCorporationII.WinAppRuntim… 5001.311.2039.0
+WinAppRuntime.Singleton                  MSIX\MicrosoftCorporationII.WinAppRuntim… 6000.318.2304.0
+Windows Subsystem for Linux              Microsoft.WSL                             2.3.26.0                      winget
+Microsoft Teams (personal)               Microsoft.Teams.Free                      24348.802.3311.…              winget
+Windows Web Experience Pack              MSIX\MicrosoftWindows.Client.WebExperien… 524.34401.20.0
+Cross Device Experience Host             MSIX\MicrosoftWindows.CrossDevice_1.2411… 1.24112.22.0
+Speech Pack - English (United States)    MSIX\MicrosoftWindows.Speech.en-US.1_1.0… 1.0.16.0
+Notepad++                                MSIX\NotepadPlusPlus_1.0.0.0_neutral__7n… 1.0.0.0
+Waves MaxxAudio Pro for Dell 2021        MSIX\WavesAudio.MaxxAudioProforDell2021_… 4.0.53.0
+Mail and Calendar                        MSIX\microsoft.windowscommunicationsapps… 16005.14326.221…
+Photopea                                 MSIX\www.photopea.com-795BF510_1.0.0.2_n… 1.0.0.2
