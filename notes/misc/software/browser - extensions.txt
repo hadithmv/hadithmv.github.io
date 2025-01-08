@@ -1,0 +1,27 @@
+2025
+
+...
+
+Extension List
+
+https://chromewebstore.google.com/detail/extension-list/cboicfdginkkdfppcjighdkchdlebdjp
+...
+
+Name,ID,Version,Status,"Install Type"
+"Aria2 Explorer","jjfgljkjddpcpfapejfkelkbjbehagbh","2.5.6","on","normal"
+"Chat AI","nlhpidbjmmffhoogcennoiopekbiglbp","3.3.1","on","normal"
+"Chrome Regex Search","bpelaihoicobbkgmhcbikncnpacdbknn","1.0.8","on","normal"
+"Dark Reader","ifoakfbpdcdoeenechcleahebpibofpc","4.9.96","on","normal"
+"Extension List","cboicfdginkkdfppcjighdkchdlebdjp","1.1.0","on","normal"
+"GitHub Repository Size","apnjnioapinblneaedefcnopcjepgkci","0.6.0","on","normal"
+"Google Docs Offline","ghbmnnjooekpmoecnnnilnnbdlolhkhi","1.85.1","on","sideload"
+"Google Translate","aapbdbdomjkkjkaonfhkkikfgjllcleb","2.0.16","on","normal"
+"HTML & CSS Design Analysis","dpokifddfnhedgpjijmbbogiclobbddg","3.0.0.2","on","normal"
+"Lighthouse","blipmdconlkpinefehnmjammfjpmpbjk","100.0.0.4","on","normal"
+"Linkclump","lfpjkncokllnfokkgpkobnkbkmelfefj","2.9.5","on","normal"
+"React Developer Tools","gpphkfbcpidddadnkolkpfckpihlkkil","6.0.1","on","normal"
+"Refined GitHub","hlepfoohegkhhmjieoechaddaejaokhf","24.12.20","on","normal"
+"SuperCopy, Allow Right Click and Copy","nhiheekdcnmfbapkmpbhmplfddenhjic","0.1.18","off","normal"
+"Tab Groups Extension","nplimhmoanghlebhdiboeellhgmgommi","1.0.10","on","normal"
+"Tidy Tab Groups","fohgbkobjdckaapjimleemkolchkmebf","0.1.3","on","normal"
+"uBlock Origin","odfafepnkmbhccpbejgmiehpchacaeak","1.62.0","on","normal"

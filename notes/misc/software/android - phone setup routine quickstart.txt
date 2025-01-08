@@ -1,0 +1,214 @@
+2025
+
+...
+
+New phone setup routine quickstart guide:
+
+backup all accounts, social media
+keep note of apps on old phone
+...
+
+full charge
+add screen protector, follow instructions carefully, leave 24hrs before using
+
+boot phone, update everything, about os, system apps
+
+turn of all data collection (expand for more)
+
+turn off bluetooth
+
+system navigation: buttons
+
+screenlock: pattern + fingerprint
+
+sign in to google, update play store apps
+
+sim:
+if no 4g, then:
+https://www.apnsettings.org/maldives/dhiraagu-internet-setting-for-android/
+name: dhiraagu
+APN	internet.dhimobile
+
+wifi...
+
+keyboard:
+gboard or ms swiftkey
+gboard: settings,
+add langs dv ar
+pref: number row, no haptic, long press for symbols, 150 ms long press delay, show app icon
+theme: default dark
+voice typing: off
+clipboard: save recent screenshots (req full access to photos)
+privacy: off share usage, personalize, improve for everyone
+
+system settings:
+display: dark mode, auto brightness off
+screen lock: pattern make it not visible
+
+os version: click until developer
+additional settings: developer settings: usb debugging, install via usb and usb debug security (requires mi acc)
+
+install apps from unknown sources 
+
+search:
+animation: remove animation
+vibration: no vibration in silent mode, no vibration on tap
+	(sound) additional settings: no sounds of: dialpad tones, locking device, screenshot, uninstalling apps, deleting items
+	ringtone + alarm: pre installed ringtones: beep
+
+themes: settings: show no ads
+
+ads
+
+system navigation: button shortcuts:
+	long press back: turn off screen
+	
+camera settings: shutter sound off
+
+gesture shortcuts: launch digital assistant off
+
+notification & status bar:
+	num of notifications: 3 icons
+	show connection speed
+
+
+
+chrome: no sign in
+
+youtube: history paused
+
+...
+
+PULL DOWN NOTIFICATION BAR
+
+mute, flashlight, lock orientation, location reading mode, Bluetooth, airplane mode
+
+remove: wallet, quick share, screenshot, settings, scanner, calculator,  screen recorder
+
+...
+
+
+APPS:
+
+ordered bottom to top as most used, check digital wellbeing to see stats (for all apps), or more connectivity options, data usage,  last month,  wifi usage for online apps, (battery use any good??)
+
+main first screen:
+	prayer times widget (namaadhu [capital male, serttings 12 hr format, widget theme dark] or salatmv)
+
+Mamen, TOOLS
+
+	tools: vpn (ultrasurf), recorder, scanner, cleaner, security, camscanner, avas app, acrobat sign, queuebee, rtl travel, blc, link to windows,
+
+firefox ,calculator
+
+Ayah, clock, tasks, keep
+
+GOOGLE, WORK, EDUCATION, messages
+
+	google: google, maps, calendar, authenticator, lens
+
+	work: bml, facebook, efaas, x, faisamobile, discord, Instagram, binance, analytics, play console, dhiraagu, bml2, ali express
+
+	education: dheenugemagu (apkpure), readera,  quran android, al quran, almaany Arabic, almaany English, radheef, hijri calendar, brilliant, chatgpt, claude, Dhivehi foiy, Dhivehi calendar, docs, sheets, hadith collection, shamela, jamiul kutubu thisa
+
+file manager, settings, gallery, camera
+
+gmail, playstore, drive, whatsapp
+
+viber, business suite, signal, hadithmv
+
+bottom row: contacts, calls, camera, youtube, telegram chrome, 
+
+
+
+BLOAT: music, mi video, mi browser, getapps, game center, themes, mi home, app vault, calculator, fm radio, downloads, shareme, services & fees, weather, calendar, notes, simkit, mi remote, compass, google one, yt music, google photos, google safety, google meet, gboard, namaadhu
+
+...
+
+telegram settings:
+
+chat settings, browse themes, build my own theme, dark, three dots, change wallpaper to my messages, remove all colors except first blue, bring range scaler to leftish of left end and already above circle
+chat list view: three lines
+in app browser: off
+animations: all off
+raise to listen: off
+
+delete my account: if away for 24 months (already set)
+
+map preview provider: google
+notifications: vibrate off, in app notifications all off
+
+data and storage: automatic media download all off
+
+language, show translate button
+
+add birru account
+
+...
+
+whatsapp
+
+...
+ 
+gmail
+
+...
+
+twitter
+	yahyasdadmv
+
+...
+
+facebook
+	2.ibn.ibrahim
+	Lolza.lolz1
+
+and with that, login to Instagram and meta business suite too (make sure to login with fb, not insta, on business suite)
+
+...
+
+viber (get sus if you login more than once)
+
+
+...
+
+mamen
+
+...
+
+signal
+
+...
+
+bml
+	dual
+	profile, dark theme
+
+...
+
+faisamobile
+
+...
+
+discord
+	D.dr
+
+...
+
+quran android tafsirs
+al quran bakurube
+
+...
+
+alarms:	additional settings, vibrate off, shutdown alarm off,
+
+everyday: fajr 4.30, 
+weekdays: yayya school, 1.40 pm, repeat 
+saturday: 8, repeat sats
+	also 8.15, also 8.25
+Friday: hukuru, 11.45 repeat fri
+	also 12
+everyday: message post, 6 pm
+
+...
+
