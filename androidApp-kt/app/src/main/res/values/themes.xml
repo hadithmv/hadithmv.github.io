@@ -4,6 +4,10 @@
 
         <!-- added this to set statusbar color from grey to black -->
         <item name="android:statusBarColor">@android:color/black</item>
+
+<!--        https://stackoverflow.com/questions/79095037/android-15-edge-to-edge-mode-hide-a-top-view/79095115#79095115 -->
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+
     </style>
 
     <!-- Splash screen theme -->

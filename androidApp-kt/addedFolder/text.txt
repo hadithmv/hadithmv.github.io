@@ -686,10 +686,14 @@ the release version should not have the word -release
 ...
 
 https://www.reddit.com/r/androiddev/comments/1c1rs1t/apps_targeting_android_15_will_be_forced_into/
-
 https://developer.android.com/develop/ui/views/layout/edge-to-edge
-
 https://medium.com/androiddevelopers/insets-handling-tips-for-android-15s-edge-to-edge-enforcement-872774e8839b
 
-my app is edge to edge display. it already has edge to edge enabled by default and doesn't need enabling it again. how do i handle overlaps using insets for the top? the app is overlapping with the statusbar
+this is my offline webview kotlin app. since it targets SDK 35 or later, edge-to-edge is automatically enabled for Android 15 devices or later. how do i handle overlaps using insets for the top? the app is overlapping with the statusbar"
+
+... no working solution as of yet, so going to use:
+
+https://stackoverflow.com/questions/79095037/android-15-edge-to-edge-mode-hide-a-top-view/79095115#79095115
+https://proandroiddev.com/google-secretly-adds-opt-out-api-for-android-15s-edge-to-edge-behaviour-80ca2630d298
+
 
