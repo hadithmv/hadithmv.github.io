@@ -52,6 +52,10 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("SetJavaScriptEnabled")  // Suppress JavaScript warning as it's required for our app
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
+    
+    // Add these lines before super.onCreate()
+    window.setDecorFitsSystemWindows(false)
+    window.navigationBarColor = android.graphics.Color.TRANSPARENT
         
         super.onCreate(savedInstanceState)
 
