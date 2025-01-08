@@ -683,4 +683,19 @@ android {
 
 the release version should not have the word -release
 
+...
 
+https://www.reddit.com/r/androiddev/comments/1c1rs1t/apps_targeting_android_15_will_be_forced_into/
+
+https://developer.android.com/develop/ui/views/layout/edge-to-edge
+
+https://medium.com/androiddevelopers/insets-handling-tips-for-android-15s-edge-to-edge-enforcement-872774e8839b
+
+my app is edge to edge display. it already has edge to edge enabled by default and doesn't need enabling it again. how do i handle overlaps using insets for the top?
+
+
+These changes will:
+Enable edge-to-edge display by setting DecorFitsSystemWindows to false
+Set up an insets listener that will apply the correct padding to the WebView to prevent content from being hidden behind the status bar
+Automatically adjust the WebView's padding when the system bars' insets change
+The WebView will now properly respect the status bar while maintaining an edge-to-edge display.
