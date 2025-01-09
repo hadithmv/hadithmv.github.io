@@ -7,6 +7,7 @@
 
 <!--        https://stackoverflow.com/questions/79095037/android-15-edge-to-edge-mode-hide-a-top-view/79095115#79095115 -->
         <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+<!--        it seems i need to add this in the night theme xml code too, for it to work on dark mode-->
 
     </style>
 
