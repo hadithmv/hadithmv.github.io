@@ -146,7 +146,8 @@ add birru account
 
 ...
 
-whatsapp
+WhatsApp
+	auto download media off
 
 ...
  
@@ -167,7 +168,8 @@ and with that, login to Instagram and meta business suite too (make sure to logi
 
 ...
 
-viber (get sus if you login more than once)
+viber (get sus if you login more than once, will have to submit report and wait next day then)
+	pin chats, mediasave to gallery off, auto download media off, autoplay videos off
 
 
 ...

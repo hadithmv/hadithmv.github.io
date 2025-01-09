@@ -3,7 +3,14 @@
     <style name="Theme.androidWebViewOfflineApplication" parent="android:Theme.Material.Light.NoActionBar">
 
         <!-- added this to set statusbar color from grey to black -->
-        <item name="android:statusBarColor">@android:color/black</item>
+        <!-- <item name="android:statusBarColor">@android:color/black</item> -->
+
+                <!-- Change to transparent for consistency with dark theme, need to apply these to the night theme too -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        
+        <!-- Add this to ensure dark status bar icons for better visibility on light background -->
+        <item name="android:windowLightStatusBar">true</item>
 
 <!--        https://stackoverflow.com/questions/79095037/android-15-edge-to-edge-mode-hide-a-top-view/79095115#79095115 -->
         <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
