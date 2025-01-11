@@ -105,19 +105,19 @@ Ayah, clock, tasks, keep
 
 GOOGLE, WORK, EDUCATION, messages
 
-	google: google, maps, calendar, authenticator, lens
+	google:  maps, calendar, lens, authenticator, google,
 
 	work: bml, facebook, efaas, x, faisamobile, discord, Instagram, binance, analytics, play console, dhiraagu, bml2, ali express
 
 	education: dheenugemagu (apkpure), readera,  quran android, al quran, almaany Arabic, almaany English, radheef, hijri calendar, brilliant, chatgpt, claude, Dhivehi foiy, Dhivehi calendar, docs, sheets, hadith collection, shamela, jamiul kutubu thisa
 
-file manager, settings, gallery, camera
+file manager, settings, gallery, gmail
 
-gmail, playstore, drive, whatsapp
+playstore, drive, camera, whatsapp
 
 viber, business suite, signal, hadithmv
 
-bottom row: contacts, calls, camera, youtube, telegram chrome, 
+bottom row: contacts, calls, camera, youtube, chrome, telegram, 
 
 
 
@@ -165,6 +165,7 @@ facebook
 	Lolza.lolz1
 
 and with that, login to Instagram and meta business suite too (make sure to login with fb, not insta, on business suite)
+dark mode on (might have to manually set the individual app on phone settings)
 
 ...
 
