@@ -32,14 +32,19 @@ APN	internet.dhimobile
 wifi...
 
 keyboard:
-gboard or ms swiftkey
-gboard: settings,
-add langs dv ar
-pref: number row, no haptic, long press for symbols, 150 ms long press delay, show app icon
-theme: default dark
-voice typing: off
-clipboard: save recent screenshots (req full access to photos)
-privacy: off share usage, personalize, improve for everyone
+install ms swiftkey, uninstall gboard
+languages and input: current keyboard, swiftkey, 
+manage keyboad: remove gboard toggles
+
+swiftkey settings:
+	languages: Dhivehi, Arabic
+	typing: autocorrect off
+	sound and vibration: off
+	privacy: share data off
+	layout and keys: number row, long press symbols, accented characters, long press duration: 175
+start typing somewhere, keyboard opens, clipboard, 
+enable screenshots to clipboard, grant photos access
+pin acc
 
 system settings:
 display: dark mode, auto brightness off
@@ -121,7 +126,7 @@ bottom row: contacts, calls, camera, youtube, chrome, telegram,
 
 
 
-BLOAT: music, mi video, mi browser, getapps, game center, themes, mi home, app vault, calculator, fm radio, downloads, shareme, services & fees, weather, calendar, notes, simkit, mi remote, compass, google one, yt music, google photos, google safety, google meet, gboard, namaadhu
+BLOAT: music, mi video, mi browser, getapps, game center, themes, mi home, app vault, calculator, fm radio, downloads, shareme, services & fees, weather, calendar, notes, simkit, mi remote, compass, google one, yt music, google photos, google safety, google meet, swiftkey, gboard, namaadhu
 
 ...
 
@@ -163,9 +168,11 @@ twitter
 facebook
 	2.ibn.ibrahim
 	Lolza.lolz1
+settings, content preferences, media, autoplay: never
 
 and with that, login to Instagram and meta business suite too (make sure to login with fb, not insta, on business suite)
 dark mode on (might have to manually set the individual app on phone settings)
+
 
 ...
 
