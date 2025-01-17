@@ -1,0 +1,27 @@
+php with vscode
+
+...
+
+download laragon
+
+https://laragon.org/download/
+
+install
+turn off run when windows starts
+
+open
+right click window, tools, path, add laragon to path
+
+path is usually
+C:\laragon
+
+
+open vscode
+add five server extension
+
+https://github.com/yandeu/five-server
+ctrl p > ui settings
+five server > php executable path:
+something like,
+C:\laragon\bin\php\php-8.1.10-Win32-vs16-x64\php.exe
+
