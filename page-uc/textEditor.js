@@ -1143,10 +1143,11 @@ document.addEventListener("DOMContentLoaded", () => {
       // =====================================================
 
       // Add these cases to your handleDropdownAction function
-      case "removeSpacesAndSingleLines":
+      case "removeSpacesTabsAndSingleLines":
         textArea.value = textArea.value
           .replace(/^ +| +$/gm, "") // Remove spaces at line starts/ends
           .replace(/ +/g, " ") // Multiple spaces to single
+          .replace(/\t+/g, " ") // Multiple tabs to a single space
           .trim() // Trim whole text
           .replace(/\n{2,}/g, "\n"); // More than single empty line to single
         break;
@@ -1167,6 +1168,12 @@ document.addEventListener("DOMContentLoaded", () => {
         textArea.value = textArea.value
           .replace(/^ +| +$/gm, "") // Remove spaces at line starts/ends
           .replace(/ +/g, " ") // Multiple spaces to single
+          .trim(); // Trim whole text
+        break;
+
+      case "convertTabsToSpaces":
+        textArea.value = textArea.value
+          .replace(/\t+/g, " ") // Multiple tabs to a single space
           .trim(); // Trim whole text
         break;
 
