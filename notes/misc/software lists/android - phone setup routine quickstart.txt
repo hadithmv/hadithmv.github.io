@@ -23,6 +23,8 @@ screenlock: pattern + fingerprint
 
 sign in to google, update play store apps
 
+MI file manager > settings > withdrawal of consent (make sure it is off, if it reasks privacy when starting file manager, say no and you can still use it)
+
 sim:
 if no 4g, then:
 https://www.apnsettings.org/maldives/dhiraagu-internet-setting-for-android/
@@ -102,7 +104,7 @@ main first screen:
 
 Mamen, TOOLS
 
-	tools: vpn (ultrasurf), recorder, scanner, cleaner, security, camscanner, avas app, acrobat sign, queuebee, rtl travel, blc, link to windows,
+	tools: vpn (ultrasurf), recorder, scanner, cleaner, security, camscanner, avas app, queuebee, rtl travel, blc, link to windows,
 
 firefox ,calculator
 
