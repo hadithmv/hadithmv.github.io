@@ -2873,6 +2873,8 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
       e.target.value = newText;
       e.target.setSelectionRange(cursorPosition, cursorPosition);
     }
+
+    // !!! complete
   });
 
   //
