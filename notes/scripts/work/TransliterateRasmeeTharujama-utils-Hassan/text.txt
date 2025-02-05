@@ -1,0 +1,15 @@
+create a dir
+
+download this dir below and place it inside the prev dir:
+
+https://github.com/maaldheefee/Quran-Translation/tree/master/utils
+
+make sure to name it dir "utils"
+
+then place "master_dv.divehi.txt" just outside the utils dir
+
+run this script:
+
+...\utils\transliterator\generate_alt_text_with_thikithaana.py
+
+done

@@ -1,0 +1,345 @@
+below is information about my project:
+
+About Hadithmv
+The Maldivian Platform for Translations of the Sunnah
+The Hadithmv project is a collaborative initiative dedicated to making the sayings and teachings of Prophet Muhammad ﷺ and his righteous followers accessible and understandable to the Maldivian community. We offer:
+
+• Free Islamic texts and supplementary works in Dhivehi
+
+• Resources for students, scholars, and the general public
+
+• Beneficial tools and content for Islamic learning
+
+Our Approach
+Recognizing that Allah has provided us with technology as a means of spreading knowledge, we harness it to provide:
+
+• A feature-rich, user-friendly experience
+
+• Compatibility across various devices and configurations
+
+• Multiple platforms: Website, Android app, and Windows app
+
+• Search and text-copying functionalities
+
+Project Aims:
+Accessibility
+• Bring Hadith and Prophetic teachings to everyone, overcoming barriers of medium, location, portability, age, language, or wealth
+
+• Use modern technology to spread awareness and love for the Sunnah, as today’s people are more connected to their deviced than traditional books
+
+• Prepare a database of translations accessible on multiple platforms
+
+• Provide a free service intended for immediate use.
+
+Education
+• Address the issue that most of our society’s problems are due to people being uneducated and ignorant about the Sunnah
+
+• Offer easy-to-access, referenced Islamic content for self-study
+
+• Provide resources for teachers, students and scholars
+
+• Eliminate repetitive, inefficient and outdated translation efforts as well as partisanship
+
+
+
+What are the features of Hadithmv?
+The Official Hadithmv app.
+
+Hadithmv contains the following in the Maldivian language, Dhivehi:
+
+• 10 Books of Hadith and Athar, with around 8,000 entries
+
+• 6 Quran translations and Tafsirs
+
+• 10 Books of Aqida and Usooluddeen
+
+• 5 Dictionaries, with around 100,000 entries
+
+
+It includes Hadith and Athar from books such as:
+
+• Muwatta Malik
+
+• Umdatul Ahkam
+
+• Fortress of the Muslim
+
+• Aajurry’s 40 Hadith
+
+• Marroozy’s Narrations of the Sheikhs and their Manners
+
+• Aajurry’s Manners of the Carriers of the Quran
+
+• Bulughul Maram
+
+• Nawawi’s 40 Hadith
+
+• As well as from several other books.
+
+
+It includes Aqida and Usooluddeen from books such as:
+
+• Ahmed’s Fundamentals of the Sunnah
+
+• Barbahari’s Explanation of the Sunnah
+
+• Creed of the Two Razis
+
+• Summary of Aajurry’s Book of Shariah
+
+• Abu ’Ubaid’s Book of Faith
+
+• Sam’aanys’ Giving Victory to the People of Hadith
+
+• MBAW’s The Nullifiers of Islam
+
+• MBAW’s The Four Foundations
+
+• MBAW’s The Six Principles
+
+• MBAW’s The Three Principles
+
+
+It also includes the following:
+
+• Dhivehi Quran Translation where Aqida issues of previous translations are being fixed
+
+• Bakurubey’s Quran Translation
+
+• Jaufar’s Quran Tafsir
+
+• Tafsir of the Last Tenth of the Quran
+
+• Translation of the Office of the President of Maldives
+
+• Comprehensive English Dhivehi Arabic Dictionary
+
+• Book of Names
+
+• Dictionary of the Dhivehi Language
+
+• Al Eegaal Arabic Dhivehi Dictionary
+
+• Concise Etymological Vocabulary - English Dhivehi
+
+• Dhivehi Word Separation Rules
+
+• Guide to Using Dotted Letters in Thaana
+
+• Text Editor with Various Features
+
+
+Other Features:
+
+• Unique: The first Dhivehi Hadith and Athar app in Maldives
+
+• Focused: Importance is given to the major classical works
+
+• Cross Platform: Available on the Web, Android and Windows
+
+• Sourced: Reference numbers match the source books
+
+• Searchable: Text can be queried in both Arabic and Dhivehi
+
+• Diacritic-agnostic: Supports Arabic search with and without Tashkheel
+
+• Accessible: Texts can be found, copied and shared across devices
+
+• Offline: Works without an internet connection
+
+• 100% free: Valuable knowledge made available free of charge
+
+
+...
+
+now what i want to do is write about donating to the Hadithmv project, below are some samples of some other sites and platforms, feel free to get an idea of how to ask for donations from them:
+
+...
+
+(sample from islamqa:)
+
+An Answer Can Help Guide Someone to Islam, Save A Marriage, Save A Life, Purify A Business And Much More…
+
+
+Support our Mission
+Answering the Ummah
+For 28 years, IslamQA has been serving people by providing scholarly, in-depth, researched answers to their questions on a wide range of issues.
+
+By supporting IslamQA, you can help bring valuable answers and information to people everywhere. Contribute to IslamQA, and be part of the effort. 
+
+IslamQA’s Current Impact
+calender28 years
+Countries200+ Countries
+Languages16 Languages
+Questions10k answers yearly
+ 
+
+IslamQA Changing Lives
+Positive stories from around the world
+
+“I had sent you questions a while ago. Today, I want to tell you that I have embraced Islam, praise be to Allah! All I wanted to do was to let you know this and to thank you for your answers to my questions. May Allah reward you with good.”
+
+More Stories of Impact
+Help us serve the Ummah
+Muslims everywhere need guidance perhaps more than ever before. Muslims face new and difficult  challenges every day and need to navigate their way through these trials and tribulations with knowledge of Islam.
+
+We have 1000’s of people wanting to ask questions yet we are only able to cater to the needs of a small percentage of them due to our limited capacity and resources.
+
+In order to make sure that IslamQA can continue to support the needs of the Ummah we need your help.
+
+How your contribution helps
+Your contribution will enable us to expand our capacity and extend our project in meaningful ways to cater to the growing needs of Muslims everywhere. Here are some of the most important things that we can do with your help.
+
+✓Answer more questions
+✓Enhance Question & Answer Research
+✓Expand our Translation Services
+✓Extend our content into other areas
+✓Ensure Ongoing Maintenance & Support
+✓Maintain Technical Infrastructure & Hosting Services
+✓Implement Design & Development for our site & mobile app
+✓Maintain ongoing Tech & User Experience Research
+✓Help cover expenses of future projects
+Learn more about IslamQA
+To learn more about IslamQA.info and how it works, please visit our About pages below.
+
+...
+
+(sample from gtaf apps:)
+
+Be A Changemaker! Your Generosity Will
+Bring People Closer To Allah.
+
+Why should I become a monthly donor?
+Your regular donation will help us focus more on improving our apps. It will earn you ongoing rewards in the form of Sadaqah Jariyah. As stated in a Hadith, Allah values regular good deeds, no matter how small.
+
+And you will get important quarterly and yearly updates, a chance to share direct feedback and early access to upcoming resources.
+
+How is the donation money used?
+We utilise all donations to improve our Islamic apps, including Quran, Hadith, Dua, Seerah, All-in-One App Sadiq and other apps respectively. And reach those apps to Muslims worldwide.
+
+We have multiple dedicated teams to develop, maintain, design, and promote our apps.Our team comprises 25 staff members, including 10 in engineering, 3 in design, 3 in marketing, 3 in product development, 1 in administration, and 5 others. You can learn more here.
+
+Your donation is Amanah to us. We update our supporters through email and app notifications about donations on different occasions and periods, especially quarterly and annually. You can subscribe to our newsletter to receive the updates.
+
+...
+
+(sample from quran com:)
+
+Become a monthly donor
+The Quran transforms lives.
+Help us spread its light.
+
+Alhamdulillah, with your support, Quran.com has grown by 52% since last Ramadan, reaching 5.5 million monthly users.
+
+Your donation will empower us to reach more people, continue to enhance user experience, leverage AI, enrich scholarly content, and foster community reflection.
+
+Become a monthly donor
+Monthly donations help us retain top talent and sustain operations so we focus less on fundraising and more on creating impact.
+
+...
+
+(sample from tanzil:)
+
+Donation
+While all work done in the Tanzil project is voluntary, we have to pay for our servers and bandwidth expenses. We also pay for our backup servers and the associated domain names. All these costs are covered by the collected donations.
+
+Usage Statistics
+Tanzil serves millions of visitors every year. The usage statistics for a recent year is provided below.
+
+Number of Visits	21 million visits	≃ 1.2 billion server hits
+Quran Pages Viewed	125 million pages	≃ 207,000 complete Qurans
+Audio Files Listened	840 million verses	≃ 135,000 complete Qurans
+Bandwidth Used	104 Terabytes	≃ 160,000 audio CDs
+With each dollar of donation, you can contribute in serving more than 4,000 visitors, reading 25,000 pages of Quran, and listening to 170,000 verses. This is indeed a great investment.
+
+How to Donate
+The donation link is now inactive as we have received enough donation for this year. The link will be put back here whenever we need your help. Thanks in advance for your kind support.
+
+...
+
+(sample from tarteel:)
+
+Tarteel Alim
+
+خيركم من تعلم القرآن وعلمه 📗 — The best of you are those who learn the Qur’an and teach it to others
+The best of you are those who learn the Qur’an and teach it to others.
+خيركم من تعلم القرآن وعلمه 📗
+As we approach the blessed month of Ramadan ☪️, we are proud to introduce the Tarteel Alim Program! Tarteel Alim is designed to bring our premium Quran features to all those studying the Quran that wish to use Tarteel Premium but don't have the financial resources to do so. Alim program participants get the tools they need to improve their Quran memorization and recitation while donors get to share in the reward from the Quran being memorized and recited - it's a win-win!
+
+Alim Program - Tarteel
+Earn a Sadiqah Jariyah by supporting Tarteel’s mission and sponsoring a student to memorize the Quran with the best resources available.
+
+Privacy PolicyTerms of ServiceChangelog
+
+We regularly receive inquiries from very generous individuals requesting to learn how they can support our work by making donations to the project. We also receive inquiries from many Quran students from a variety of regions and economic standings that cannot afford the premium subscription required to utilize the complete product suite on Tarteel. With the Tarteel Alim program, you can now directly donate as a sadaqah jariyah to help support a Student engage with the Quran in a much more meaningful manner.
+
+Donations to the Tarteel Alim program give individuals with financial need access to features and functionality that allow them to review, memorize, and practice the recitation of the Quran at their own pace. These features include Tarteel's one-of-a-kind Artificial Intelligence Mistake Detection as well as Challenges and goal setting, advanced analytics, and much more.
+
+Be Sure That Your Donation Is Being Used Effectively —
+As a donor you will get monthly reports on how Students are benefiting from your Alim program sponsorship.
+
+Want to donate to the Alim program?
+Start a sadaqah jariyah by supporting Tarteel's mission and sponsoring a student to memorize the Quran with the best resources available.
+‍
+Your donation goes to a fund specific to the Alim program and gets directly allocated to students that qualify for the program through an application process.
+
+Sponsor an Alim
+Interested in applying to the Alim Program?
+The Alim program is open to anyone who wants to benefit from the tools available in a Tarteel Premium subscription but cannot afford it. When we say "Quran Students", we are referring to anyone trying to grow closer with the Quran, regardless of their age or enrolment in a traditional academic institution. Once accepted into the Alim program, we require participants to read or recite a minimum of 2 hours a month on Tarteel to remain enrolled.
+
+Apply for Tarteel Alim
+The why behind the Alim program
+As you may know, Tarteel was historically an open-source project with a completely volunteer-based workforce dedicating their time pro-bono to develop the world's largest Quran Recitation dataset and software that could make use of it. As we started creating Machine Learning and Artificial Intelligence models and product experiences around these models it became very clear that we needed dedicated and very specialized talent to create the impact for the Quran that we wish to have in the long-term. We also needed significant sustainable funding in order to develop and maintain the core services and technology. As a result, we needed to charge a subscription fee to our users. However, we always wanted to be able to provide Tarteel to any Muslim who could benefit from it, without financial resources being a barrier, and so we're launching the Alim program to connect individuals with financial need to donors who would like to share in the reward of reciting and memorizing the Quran.
+
+Why not remove Premium and rely on donations?
+Tarteel is not interested in creating a non-profit organization dependent on fundraising cycles and operational overhead related to marketing for donations. We want to help lead an eco-system that provides opportunities for highly skilled Muslims to work on Islamic projects and find success in their careers while also serving the Muslim ummah. In order for us to succeed in this mission we need to develop an environment where talent, resources, and mentorship is readily available to anyone interested in entering the space. This requires building an appetite for Muslims to start paying for religiously oriented services that deliver exponential value to them in the digital medium. Our mission is to be able to attract and sustain the best talent in the world to solve some of the most complex problems when it comes to Machine Learning and Artificial Intelligence in relation to the Quran and Islam. Our vision is to create a culture of sustained growth and stay committed to working on these extremely beneficial projects for the Muslim Ummah.
+
+That is why Tarteel is operated as a Public Benefit Corporation — In the United States, a public benefit corporation is a kind of for-profit corporate entity that includes positive impact on society, workers, the community and the environment in addition to profit as its legally defined goals, in that the definition of "best interest of the corporation" is specified to include those impacts. This includes Tarteel having a clearly outlined mandate in the articles of incorporation that will require us to prioritize the overall objective of making the Quran more accessible for the masses.
+
+Charting a Path Forward
+"Guide us along the Straight Path, the Path of those You have blessed—not those You are displeased with, or those who are astray."
+Surah Al-Fatihah / 1:5-1:7
+
+We are still a small team of dedicated individuals and very early on the journey to accomplish this sustainable vision of an environment that aligns incentives and resources for continued development and research on Religious and Spiritual technologies for Muslims. The features and the product experience that you see today in the Tarteel mobile application is only the beginning and a portion of what we have on our long-term roadmap. Without the support of our Premium users and now sponsors for the Alim program none of this would be possible. We are excited to be able to continue to innovate and develop the future of Quranic interaction and appreciate all the support and belief in our team's ability to execute. Thank you for the continued support! 😊
+
+How to Support Tarteel's Mission
+Love our mission and want to support us? Aside from donating to support Alim program participants, you can also help us achieve our mission by subscribing to Tarteel Premium, sharing Tarteel with your community, and making du'a for us.
+
+...
+
+(sample from islam house:)
+
+
+بنشر علم يُنتفع به بلغات العالم
+
+ســــاهــم معنــــا في دعــــــم
+أبرز المواقع والموسوعات والمرجعيات العلمية الدعوية بلغات العالم
+
+كيف تساهم في دعم الموقع ؟
+للتبرع - فقط من داخل السعودية - لدعم الأنشطة المختلفة عبر مصرف الراجحي بالسعودية حسب البيانات التالية:
+
+حساب مواقع دار الإسلام: 296608010177270 أو من أي مصرف سعودي بموجب رقم الآيبان: SA2480000296608010177270 باسم: المكتب التعاوني للدعوة وتوعية الجاليات بالربوة.
+بالتبرع بواسطة الأمر المستديم شهرياً لدى مصرف الراجحي بالسعودية من خلال موقع الراجحي مباشر، ومن ثم اختيار قسم (الحوالات) ثم قسم (إلى حساب خيري) ثم اختيار من قائمة الجمعيات الخيرية (المكتب التعاوني لتوعية الجاليات بالربوة) ثم اختيار من قائمة الحسابات نوع النشاط: حساب مواقع دار الإسلام، ثم تخصص الفترة الزمنية التي تنوي الاستمرار في تقديم التبرع شهرياً
+
+لدعم مشاريع الموقع عبر مصرف الراجحي
+
+...
+
+(sample from nuqayah:)
+
+المساهمة
+نحن فريق مبرمجين صغير. مساهمتك تذهب مباشرة لدعم تطوير المشاريع.
+
+بواسطة
+بواسطة جمعية آيات الخيرية (كويت)
+بواسطة DonorBox 🔒
+
+...
+
+(sample from shamela:)
+
+للمساهمة في دعم المكتبة الشاملة
+﻿تتوزع المساهمات على جميع المهام من تطوير الموقع والتطبيقات وتدقيق الكتب الحالية وإضافة الكتب الجديدة وغير ذلك
+
+
+

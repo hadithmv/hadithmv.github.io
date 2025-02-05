@@ -397,7 +397,7 @@ function createNavbar() {
       <a href="../page/contact.html">ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a>
     </li>
     <li>
-      <a href="../page/helpTranslate.html">ތަރުޖަމާގައި އެހީވެދިނުމަށް</a>
+      <a href="../page/supportHadithmv.html">މަޝްރޫއަށް އެހީވެދިނުމަށް</a>
     </li>
     <li>
       <a href="../page/FAQ.html">ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a>
@@ -487,7 +487,7 @@ document.addEventListener("DOMContentLoaded", createNavbar);
                 </ul>
             </li>
             <li><a href="../notes/info/contact.html">ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a></li>
-            <li><a href="../page/helpTranslate.html">ތަރުޖަމާގައި އެހީވެދިނުމަށް</a></li>
+            <li><a href="../page/supportHadithmv.html">ތަރުޖަމާގައި އެހީވެދިނުމަށް</a></li>
             <li><a href="../notes/info/FAQ.html">ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a></li>
             <li><a href="../notes/info/contributors.html">އެހީތެރިން</a></li>
             <li class="versionNo" onclick="openDiv()">⚙️ އިސްދާރު: v${hmvVersionNo}</li>
