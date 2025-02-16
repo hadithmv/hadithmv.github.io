@@ -3541,43 +3541,49 @@
           const currentTime = new Date().getHours();
           // REMEMBER TO DECLARE THIS ONLY ONCE, REMOVE FROM OTHER TIME CHECKS
 
+          //
+
           // Check if the current day is Friday (5)
-          if (currentDay === 5) {
-            // Get the current time
+          // AND
+          // Check if the current time is between 7 PM and 2 AM (inclusive)
+          if (currentDay === 5 && currentTime >= 5 && currentTime <= 18) {
+            // console.log("test");
 
-            // Check if the current time is between 5 AM and 6 PM (inclusive)
-            if (currentTime >= 5 && currentTime <= 18) {
-              // console.log("test");
+            // Get the span elements
+            // const span1 = document.querySelector(".hideOnPhoneOnly");
+            const span1 = document.querySelector(".navbar-page-title");
+            const span2 = document.querySelector(".hideOnPhoneOnly + span");
 
-              // Get the span elements
-              const span1 = document.querySelector(".hideOnPhoneOnly");
-              const span2 = document.querySelector(".hideOnPhoneOnly + span");
+            // Change the text content
+            // Only modify spans if they exist
 
-              // Change the text content and order
-              // Only modify spans if they exist
-              if (span1 && span2) {
-                // Change the text content and order
-                span2.textContent = "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ";
-                span1.textContent =
-                  "، وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيتَ عَلَى إِبْرَاهِيمَ، وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ";
+            // console.log("test");
 
-                // Reorder the spans
-                const parent = span1.parentNode;
-                parent.insertBefore(span2, span1);
-              }
+            // Change the text content
+            document.addEventListener("DOMContentLoaded", function () {
+              span1.textContent =
+                "، اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ، وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيتَ عَلَى إِبْرَاهِيمَ، وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ";
+            });
+            // span2.textContent = "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ";
+            // span1.textContent =
+            //   "، وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيتَ عَلَى إِبْرَاهِيمَ، وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ";
 
-              // Get the element with the ID and show it
-              document.querySelector("#kahfReminder").style.display = "flex";
-              // block, table-row
+            // Reorder the spans
+            // const parent = span1.parentNode;
+            // parent.insertBefore(span2, span1);
+            // }
 
-              // increase top margin of top container
-              document
-                .querySelectorAll(".alertContainer")
-                .forEach(function (container) {
-                  container.style.marginTop = "10px";
-                });
-              //
-            }
+            // Get the element with the ID and show it
+            document.querySelector("#kahfReminder").style.display = "flex";
+            // block, table-row
+
+            // make alert container visible
+            document
+              .querySelectorAll(".alertContainer")
+              .forEach(function (element) {
+                element.style.display = "flex";
+              });
+            //
           }
 
           //
@@ -3595,7 +3601,7 @@
             const span1 = document.querySelector(".hideOnPhoneOnly");
             const span2 = document.querySelector(".hideOnPhoneOnly + span");
     
-            // Change the text content and order
+            // Change the text content
             span2.textContent = "ނިދުމުގެ ކުރިން ގުރްއާން ކިޔަވާ";
             span1.textContent = " - ސުންނަތުގައި ހިފައިގެން ރައްކާތެރިކަން ހޯދާ";
     
@@ -3604,8 +3610,8 @@
             parent.insertBefore(span2, span1);*/
 
             // Get the element with the ID and show it
-            document.querySelector("#nightQuranReminder").style.display =
-              "flex";
+            // document.querySelector("#nightQuranReminder").style.display =
+            ("flex");
             // block, table-row
 
             // make alert container visible
@@ -3632,7 +3638,7 @@
             const span1 = document.querySelector(".hideOnPhoneOnly");
             const span2 = document.querySelector(".hideOnPhoneOnly + span");
     
-            // Change the text content and order
+            // Change the text content
             span2.textContent = "ހޭލައިގެން ގުރްއާން ކިޔަވާ";
             span1.textContent = " - ހެނދުނުގެ ޒިކުރުތައްވެސް ކިޔާ";
     
