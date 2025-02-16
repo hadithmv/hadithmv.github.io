@@ -3547,18 +3547,24 @@
 
             // Check if the current time is between 5 AM and 6 PM (inclusive)
             if (currentTime >= 5 && currentTime <= 18) {
+              // console.log("test");
+
               // Get the span elements
               const span1 = document.querySelector(".hideOnPhoneOnly");
               const span2 = document.querySelector(".hideOnPhoneOnly + span");
 
               // Change the text content and order
-              span2.textContent = "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ";
-              span1.textContent =
-                "، وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيتَ عَلَى إِبْرَاهِيمَ، وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ";
+              // Only modify spans if they exist
+              if (span1 && span2) {
+                // Change the text content and order
+                span2.textContent = "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ";
+                span1.textContent =
+                  "، وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيتَ عَلَى إِبْرَاهِيمَ، وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ";
 
-              // Reorder the spans
-              const parent = span1.parentNode;
-              parent.insertBefore(span2, span1);
+                // Reorder the spans
+                const parent = span1.parentNode;
+                parent.insertBefore(span2, span1);
+              }
 
               // Get the element with the ID and show it
               document.querySelector("#kahfReminder").style.display = "flex";
