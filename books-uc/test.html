@@ -348,9 +348,7 @@
       table = new DataTable("#tableID", {
         ...DTconfig,
         ajax: {
-          url: `../js/json/` + currentFileName + `.json`,
-          // url: `../js/json/` + `qawaidulArbau` + `.json`,
-
+          url: `../js/json/` + `qawaidulArbau` + `.json`,
           dataSrc: function (json) {
             originalData = json;
             return json;
