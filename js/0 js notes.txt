@@ -3,27 +3,35 @@
 
 -- LOAD PRIORTY IN COMB: --
 
-jquery.js (UGLIFY)	3.7.1	https://code.jquery.com/jquery-3.7.1.min.js
+jquery.js (UGLIFY)	v4.0.0-beta.2+667321e 2025-02-02T12:25Z
+	https://jquery.com/download
+in this beta:
+removed all deprecated or under-supported dependencies
+	(previously used 3.7.1, https://code.jquery.com/jquery-3.7.1.min.js)
 	(previously used slim, it worked until i switched to loading json via ajax)
 
-dataTables.js (CLOSURE+UGLIFY)	2.1.8	https://cdn.datatables.net/2.1.3/js/dataTables.js
-(currently nightly was used, on 14/8/24, due to a bug: https://github.com/DataTables/DataTablesSrc/issues/288, version this normally after 2.1.5 is released)
 
-dataTables.inputPaging.js (CLOSURE+UGLIFY)	2.1.8	https://datatables.net/blog/2024/inputPaging
+:::	https://datatables.net/download/
 
-dataTables.buttons.js (CLOSURE+UGLIFY)	3.2.0	https://cdn.datatables.net/buttons/3.1.1/js/buttons.colVis.js
+dataTables.js (CLOSURE+UGLIFY)	2.2.2
 
-buttons.colVis.js (CLOSURE+UGLIFY)	3.2.0	https://cdn.datatables.net/plug-ins/3.1.1/features/buttons/dist/buttons.colVis.js
+(then turn off core dt js checkbox)
 
-buttons.html5.js (CLOSURE+UGLIFY)	3.2.0	https://cdn.datatables.net/buttons/3.1.1/js/buttons.html5.js
+dataTables.inputPaging.js (CLOSURE+UGLIFY)	2.2.2	https://datatables.net/blog/2024/inputPaging
 
-dataTables.keyTable.js (CLOSURE+UGLIFY)	2.12.1	https://cdn.datatables.net/keytable/2.12.1/js/dataTables.keyTable.js
+dataTables.buttons.js (CLOSURE+UGLIFY)	3.2.2
 
-dataTables.searchbuilder.js (CLOSURE+UGLIFY)	1.8.1	https://cdn.datatables.net/searchbuilder/1.7.1/js/dataTables.searchBuilder.js
+buttons.colVis.js (CLOSURE+UGLIFY)	3.2.2
 
-dataTables.searchPanes.js (CLOSURE+UGLIFY)	2.3.3	https://cdn.datatables.net/searchbuilder/2.3.1/js/dataTables.searchPanes.js
+buttons.html5.js (CLOSURE+UGLIFY)	3.2.2
 
-dataTables.select.js (CLOSURE+UGLIFY)	2.1.0	https://cdn.datatables.net/select/2.0.4/js/dataTables.select.js
+dataTables.keyTable.js (CLOSURE+UGLIFY)	2.12.1
+
+dataTables.searchbuilder.js (CLOSURE+UGLIFY)	1.8.2
+
+dataTables.searchPanes.js (CLOSURE+UGLIFY)	2.3.3
+
+dataTables.select.js (CLOSURE+UGLIFY)	3.0.0
 
 
 jquery.mark.js (CLOSURE+UGLIFY)	9.0.0	https://github.com/julkue/mark.js/blob/master/dist/jquery.mark.js

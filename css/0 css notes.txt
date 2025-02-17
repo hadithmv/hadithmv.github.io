@@ -3,21 +3,23 @@
 
 -- LOAD PRIORTY IN COMB: --
 
-dataTables.dataTables.css (CSSO)	2.1.8
-	nano messes up order icons	https://cdn.datatables.net/2.1.3/css/dataTables.dataTables.css
+:::	https://datatables.net/download/
 
-dataTables.inputPaging.css (REMOVE bootstrap & frameworks, CSSO)	2.1.8	https://datatables.net/blog/2024/inputPaging
+dataTables.dataTables.css (CSSO)	2.2.2
+	(nano messes up order icons)
 
-buttons.dataTables.css (CSSO)	3.2.0	https://cdn.datatables.net/buttons/3.1.1/css/buttons.dataTables.css
-	!!! using nano BREAKS ✓ char
+dataTables.inputPaging.css (REMOVE bootstrap & frameworks below it, then CSSO)	2.2.2	https://datatables.net/blog/2024/inputPaging
 
-keyTable.dataTables.css (CSSO)	2.12.1	https://cdn.datatables.net/keytable/2.12.1/css/keyTable.dataTables.css
+buttons.dataTables.css (CSSO)	3.2.2
+	(nano BREAKS ✓ char)
 
-searchBuilder.dataTables.css (CSSO+NANO)	1.8.1	https://cdn.datatables.net/searchbuilder/1.7.1/css/searchBuilder.dataTables.css
+keyTable.dataTables.css (CSSO)	2.12.1
 
-searchPanes.dataTables (CSSO)	2.3.3	https://cdn.datatables.net/searchpanes/2.3.1/css/searchPanes.dataTables.css
+searchBuilder.dataTables.css (CSSO+NANO)	1.8.2
 
-select.dataTables.css (CSSO)	2.1.0	https://cdn.datatables.net/select/2.0.4/css/select.dataTables.css
+searchPanes.dataTables (CSSO)	2.3.3
+
+select.dataTables.css (CSSO)	3.0.0
 
 
 --------------------------
