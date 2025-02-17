@@ -919,10 +919,16 @@ function updateAyahDropdown() {
 function initializeQDropdown(a, e, t) {
   const n = $(`#${a}Dropdown`);
 
-  // Clear dropdown and add search input
+  // Clear dropdown and add search input, also show placeholder text
   n.empty();
   n.append(
-    '<input type="text" class="q-dropdown-search" placeholder="ލިޔޭ ނޫނީ ތިރިއަށް ފިތާ">'
+    `<input type="text" class="q-dropdown-search" placeholder="${
+      n.closest(".q-nav-box").find(".q-nav-label").text() === "ސޫރަތް:"
+        ? "ސޫރަތުގެ ނަން ނުވަތަ ނަންބަރު ލިޔޭ"
+        : n.closest(".q-nav-box").find(".q-nav-label").text() === "އާޔަތް:"
+        ? "އާޔަތް ނަންބަރު ލިޔޭ"
+        : "ޖުޒް ނަންބަރު ލިޔޭ"
+    }">`
   );
 
   // For ayah dropdown, get verse count from current surah
