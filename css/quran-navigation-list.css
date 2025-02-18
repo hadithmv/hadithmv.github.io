@@ -258,6 +258,25 @@
 
 .translation-buttons-container button:hover {
   background-color: var(--qurNav-button-hover);
+  opacity: 0.9;
+}
+
+/* Add new button colors */
+#showMainTranslations {
+  background-color: #4caf50;
+  color: white;
+}
+#showAllTranslations {
+  background-color: #ff9800;
+  color: white;
+}
+#resetTranslations {
+  background-color: #f44336;
+  color: white;
+}
+#applyTranslations {
+  background-color: #2196f3;
+  color: white;
 }
 
 /* Translation List Container Styles */
