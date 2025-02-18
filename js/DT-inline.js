@@ -812,6 +812,40 @@ let DTconfig = {
                 },
                 background: false,
               },
+              //
+
+              // https://stackoverflow.com/questions/53600956/how-to-add-custom-button-in-r-shiny-datatable
+              // https://datatables.net/extensions/buttons/examples/initialisation/customHTMLButtons.html
+
+              "<h3></h3>",
+              //'<h3 class="not-top-heading">Column Visibility</h3>',
+              // places css in DT inline css file
+
+              {
+                text: "ސަފުހާގެ ލިންކު ކޮޕީކުރޭ", // Button label
+                action: function (e, dt, node, config) {
+                  // Click handler. what should happen when the button is clicked
+                  // e: The click event. when and where the click happened
+                  // dt: The DataTable API instance. the DataTable table
+                  // node: The button element itself that was clicked
+                  // config: The button configuration. its settings
+                  //
+                  copyURLToClipButton(); // This will run
+
+                  // alert("Button activated");
+                  // dt.ajax.reload();
+                },
+              },
+              // https://datatables.net/extensions/buttons/custom
+
+              {
+                text: "ފިލިތައް ފޮރުވާ/ދައްކާ",
+                action: function (e, dt, node, config) {
+                  toggleTashkeel();
+                },
+              },
+
+              //
             ],
           },
 

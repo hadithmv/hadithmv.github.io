@@ -330,6 +330,17 @@ div.dt-button-collection > div > button.dt-button-active::after {
   padding-right: 50px;
 }
 
+/* line styling for button container seperator
+https://datatables.net/extensions/buttons/examples/initialisation/customHTMLButtons.html */
+div.dt-button-collection h3 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-weight: 100;
+  border-bottom: 1px solid rgba(150, 150, 150, 0.5);
+  font-size: 1em;
+  padding: 0 1em;
+}
+
 /* colors for Button states */
 
 /* sets color of colvis list items on hover
