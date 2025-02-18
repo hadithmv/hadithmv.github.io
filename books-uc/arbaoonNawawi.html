@@ -45,17 +45,27 @@
     <!--<link rel="manifest" href="site.webmanifest" />-->
     <meta name="theme-color" content="#29434e" />
     <!-- -->
-    <!-- 
-    <link href="../css/DT-COMB.min.css" rel="stylesheet" type="text/css" />
-    preload? but that makes it fout. 
-    https://stackoverflow.com/questions/32759272/how-to-load-css-asynchronously -->
+
     <!-- external resources-->
+
+    <!-- flash of unstyled content / fouc fix
+      https://gist.github.com/electrotype/7960ddcc44bc4aea07a35603d1c41cb0
+      https://stackoverflow.com/questions/3221561/eliminate-flash-of-unstyled-content/53364612#53364612
+      https://dev.to/lyqht/what-the-fouc-is-happening-flash-of-unstyled-content-413j
+       -->
     <style>
       html {
         visibility: hidden;
         opacity: 0;
       }
     </style>
+    <!-- placed the undo visibility and opacity css at the very end of the navbar css file -->
+
+    <!-- 
+    <link href="../css/DT-COMB.min.css" rel="stylesheet" type="text/css" />
+    preload? but that makes it fout. 
+    https://stackoverflow.com/questions/32759272/how-to-load-css-asynchronously -->
+
     <link
       rel="stylesheet"
       href="../css/base-styles.css"
@@ -80,12 +90,6 @@
       media="print"
       onload="this.media='all'"
     />
-    <style>
-      html {
-        visibility: visible;
-        opacity: 1;
-      }
-    </style>
     <script src="../js/navbar.js"></script>
     <script src="../js/DT-COMB.min.js"></script>
     <script src="../js/DT-inline.js"></script>

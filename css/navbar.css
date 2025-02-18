@@ -476,3 +476,11 @@ html body {
   
   there should be a  ▼ arrow before the dropdown item text with a little space between them, the arrow should initially point towards the left where sub dropdowns are further nested, then when that dropdown is opened, the arrow should rotate to facing down. when a dropdown is closed, the down facing arrow should rotate to facing left again. no matter the level of nesting.
   */
+
+/* =============================  */
+/* FOUC FIX */
+
+html {
+  visibility: visible;
+  opacity: 1;
+}
