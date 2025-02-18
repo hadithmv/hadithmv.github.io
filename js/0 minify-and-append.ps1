@@ -67,6 +67,7 @@ $combFiles = @(
 $separateFiles = @(
     "navbar.js",
     "DT-inline.js"
+    "quran-navigation-objectMaps.js"
     "quran-navigation-list.js"
 )
 
