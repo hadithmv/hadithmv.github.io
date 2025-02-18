@@ -924,10 +924,10 @@ function initializeQDropdown(a, e, t) {
   n.append(
     `<input type="text" class="q-dropdown-search" placeholder="${
       n.closest(".q-nav-box").find(".q-nav-label").text() === "ސޫރަތް:"
-        ? "ސޫރަތުގެ ނަން ނުވަތަ ނަންބަރު ލިޔޭ"
+        ? "ސޫރަތުގެ ނަން ނުވަތަ ނަމްބަރު ލިޔޭ"
         : n.closest(".q-nav-box").find(".q-nav-label").text() === "އާޔަތް:"
-        ? "އާޔަތް ނަންބަރު ލިޔޭ"
-        : "ޖުޒް ނަންބަރު ލިޔޭ"
+        ? "އާޔަތް ނަމްބަރު ލިޔޭ"
+        : "ޖުޒް ނަމްބަރު ލިޔޭ"
     }">`
   );
 
