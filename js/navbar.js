@@ -178,13 +178,13 @@ function createNavbar() {
       <a  href="../books/index.html" title="Main Menu">⭐ މައި ސަފުހާ</a>
     </li>
     <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
-      <div class="navbar-dropdown-label">
-        <span class="navbar-dropdown-arrow" title="Categories">📍</span>ބައިތައް
+      <div class="navbar-dropdown-label" title="Categories">
+        <span class="navbar-dropdown-arrow">📍</span>ބައިތައް
       </div>
       <ul class="navbar-dropdown-content">
         <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
-          <div class="navbar-dropdown-label">
-            <span class="navbar-dropdown-arrow" title="Quran">📍</span>ގުރްއާން
+          <div class="navbar-dropdown-label" title="Quran">
+            <span class="navbar-dropdown-arrow">📍</span>ގުރްއާން
           </div>
           <ul class="sub-navbar-dropdown-content">
             <li>
@@ -229,8 +229,8 @@ function createNavbar() {
           </ul>
         </li>
         <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
-          <div class="navbar-dropdown-label">
-            <span class="navbar-dropdown-arrow" title="Hadith">📍</span>ޙަދީޘް
+          <div class="navbar-dropdown-label" title="Hadith">
+            <span class="navbar-dropdown-arrow">📍</span>ޙަދީޘް
           </div>
           <ul class="sub-navbar-dropdown-content">
             <li>
@@ -274,8 +274,8 @@ function createNavbar() {
           </ul>
         </li>
         <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
-          <div class="navbar-dropdown-label">
-            <span class="navbar-dropdown-arrow" title="Aqida">📍</span>އަގީދާ
+          <div class="navbar-dropdown-label" title="Aqida">
+            <span class="navbar-dropdown-arrow">📍</span>އަގީދާ
           </div>
           <ul class="sub-navbar-dropdown-content">
             <li>
@@ -333,8 +333,8 @@ function createNavbar() {
           </ul>
         </li>
         <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
-          <div class="navbar-dropdown-label">
-            <span class="navbar-dropdown-arrow" title="Language">📍</span>ބަސް
+          <div class="navbar-dropdown-label" title="Language">
+            <span class="navbar-dropdown-arrow">📍</span>ބަސް
           </div>
           <ul class="sub-navbar-dropdown-content">
             <li>
@@ -421,8 +421,8 @@ function createNavbar() {
       >
     </li>
     <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
-      <div class="navbar-dropdown-label">
-        <span class="navbar-dropdown-arrow" title="Reload Page">📍</span>ރީލޯޑު 🔄
+      <div class="navbar-dropdown-label" title="Reload Page">
+        <span class="navbar-dropdown-arrow">📍</span>ރީލޯޑު 🔄
       </div>
 
       <ul class="navbar-dropdown-content">
