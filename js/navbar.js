@@ -599,7 +599,8 @@ function sideMenutoggleNavbarDropdown(element, event) {
     arrow.style.transform = dropdownNavbarContent.classList.contains("show")
       ? "rotate(90deg)"
       : "";
-    // previously: ? "rotate(-90deg)"
+    // now turns right
+    // previously turned left: ? "rotate(-90deg)"
   }
 
   // Close other navbar dropdowns at the same level
