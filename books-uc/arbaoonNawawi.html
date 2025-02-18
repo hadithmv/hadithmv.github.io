@@ -50,7 +50,12 @@
     preload? but that makes it fout. 
     https://stackoverflow.com/questions/32759272/how-to-load-css-asynchronously -->
     <!-- external resources-->
-    <!-- external resources-->
+    <style>
+      html {
+        visibility: hidden;
+        opacity: 0;
+      }
+    </style>
     <link
       rel="stylesheet"
       href="../css/base-styles.css"
@@ -75,6 +80,12 @@
       media="print"
       onload="this.media='all'"
     />
+    <style>
+      html {
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
     <script src="../js/navbar.js"></script>
     <script src="../js/DT-COMB.min.js"></script>
     <script src="../js/DT-inline.js"></script>
