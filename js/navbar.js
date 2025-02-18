@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "4.1.7";
+var hmvVersionNo = "4.1.8";
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
 
 // above is version no  var for hmv, shown in sidemenu and maybe main index page
@@ -159,14 +159,14 @@ function createNavbar() {
           alt="Site Icon" 
           class="navbar-site-icon"
           src="../img/logo/logo.svg"
-          title="back to homepage"
+          title="Homepage"
         />
       </a>
     </div>
   <div class="navbar-center">
     <span class="navbar-page-title">${pageTitle}</span>
   </div>
-  <div class="navbar-right" title="menu">
+  <div class="navbar-right" title="Menu">
     <span class="navbar-menu-icon">☰</span>
   </div>
 </nav>
@@ -174,54 +174,54 @@ function createNavbar() {
   <div class="navbar-side-menu-close" onclick="toggleSideMenu()">×</div>
   <ul>
     <li>
-      <a href="../books/index.html">⭐ މައި ސަފުހާ</a>
+      <a  href="../books/index.html" title="Main Menu">⭐ މައި ސަފުހާ</a>
     </li>
     <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
       <div class="navbar-dropdown-label">
-        <span class="navbar-dropdown-arrow">◄</span>ބައިތައް
+        <span class="navbar-dropdown-arrow" title="Categories">◄</span>ބައިތައް
       </div>
       <ul class="navbar-dropdown-content">
         <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
           <div class="navbar-dropdown-label">
-            <span class="navbar-dropdown-arrow">◄</span>ގުރްއާން
+            <span class="navbar-dropdown-arrow" title="Quran">◄</span>ގުރްއާން
           </div>
           <ul class="sub-navbar-dropdown-content">
             <li>
               <a
                 href="../books/quranHadithmv.html"
-                onclick="changeBook('quranHadithmv'); return false;"
+                onclick="changeBook('quranHadithmv'); return false;" title="Hadithmv Translation"
                 >ޙަދީޘްއެމްވީގެ ތަރުޖަމާ</a
               >
             </li>
             <li>
               <a
                 href="../books/quranRasmee.html"
-                onclick="changeBook('quranRasmee'); return false;"
+                onclick="changeBook('quranRasmee'); return false;" title="Official Translation"
                 >ރަސްމީ ތަރުޖަމާ</a
               >
             </li>
             <li>
               <a
                 href="../books/quranBakurube.html"
-                onclick="changeBook('quranBakurube'); return false;"
+                onclick="changeBook('quranBakurube'); return false;"title="Bakurube Translation"
                 >ބަކުރުބެގެ ތަރުޖަމާ</a
               >
             </li>
             <li>
               <a
                 href="../books/quranJaufar.html"
-                onclick="changeBook('quranJaufar'); return false;"
+                onclick="changeBook('quranJaufar'); return false;"title="Jaufar Tafsir"
                 >ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު*</a
               >
             </li>
             <li>
               <a
                 href="../books/quranSoabuni.html"
-                onclick="changeBook('quranSoabuni'); return false;"
+                onclick="changeBook('quranSoabuni'); return false;"title="S Tafsir"
               >&nbsp;</a>
             </li>
             <li>
-              <a href="../books/quranUshru.html"
+              <a href="../books/quranUshru.html" title="Tafsir of Last 10th"
                 >ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު</a
               >
             </li>
@@ -229,110 +229,103 @@ function createNavbar() {
         </li>
         <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
           <div class="navbar-dropdown-label">
-            <span class="navbar-dropdown-arrow">◄</span>ޙަދީޘް
+            <span class="navbar-dropdown-arrow" title="Hadith">◄</span>ޙަދީޘް
           </div>
           <ul class="sub-navbar-dropdown-content">
             <li>
-              <a href="../books/allAthar.html"
+              <a href="../books/allAthar.html" title="Hadith Compilation"
                 >އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</a
               >
             </li>
             <li>
-              <a href="../books/muwattaMalik.html">މުވައްޠައު މާލިކު*</a>
+              <a href="../books/muwattaMalik.html" title="Muwatta Malik">މުވައްޠައު މާލިކު*</a>
             </li>
             <li>
-              <a href="../books/umdathulAhkam.html">ޢުމްދަތުލް އަޙްކާމް</a>
+              <a href="../books/umdathulAhkam.html" title="Umdathul Ahkam">ޢުމްދަތުލް އަޙްކާމް</a>
             </li>
             <li>
-              <a href="../books/hisnulMuslim.html">މުސްލިމުންގެ ކިއްލާ</a>
+              <a href="../books/hisnulMuslim.html" title="Hisnul Muslim">މުސްލިމުންގެ ކިއްލާ</a>
             </li>
             <li>
-              <a href="../books/arbaoonAajurry.html"
+              <a href="../books/arbaoonAajurry.html" title="Aajurrys’ 40 Hadith"
                 >އާޖުއްރީގެ ސާޅީސް ޙަދީޘް*</a
               >
             </li>
             <li>
-              <a href="../books/akhbaruShuyukh.html"
+              <a href="../books/akhbaruShuyukh.html" title="Manners of the Sheikhs"
                 >ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާގު</a
               >
             </li>
             <li>
-              <a href="../books/akhlaqHamalathilQuran.html"
+              <a href="../books/akhlaqHamalathilQuran.html" title="Etiqutte of the carriers of the Quran"
                 >އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a
               >
             </li>
             <li>
-              <a href="../books/bulughulMaram.html">ބުލޫޣުލް މަރާމް*</a>
+              <a href="../books/bulughulMaram.html" title="Bulughul Maram">ބުލޫޣުލް މަރާމް*</a>
             </li>
             <li>
-              <a href="../books/arbaoonNawawi.html">ނަވަވީގެ ސާޅީސް ޙަދީޘް</a>
+              <a href="../books/arbaoonNawawi.html" title="40 Nawawi">ނަވަވީގެ ސާޅީސް ޙަދީޘް</a>
             </li>
             <li>
-              <a href="../books/riyaduSaliheen.html">ރިޔާޟުއްޞާލިޙީން*</a>
-            </li>
-            <li>
-              <a
-                href="https://archive.org/details/uloomul-hadith-dv-ahmed-faruq-mohamed"
-                target="_blank"
-                >ޙަދީޘް މުސްޠަލަޙު ފަސޭހަކުރުން PDF</a
-              >
+              <a href="../books/riyaduSaliheen.html" title="Riyadussaaliheen">ރިޔާޟުއްޞާލިޙީން*</a>
             </li>
           </ul>
         </li>
         <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
           <div class="navbar-dropdown-label">
-            <span class="navbar-dropdown-arrow">◄</span>އަގީދާ
+            <span class="navbar-dropdown-arrow" title="Aqida">◄</span>އަގީދާ
           </div>
           <ul class="sub-navbar-dropdown-content">
             <li>
-              <a href="../books/allAqida.html"
+              <a href="../books/allAqida.html" title="Aqida Compilation"
                 >އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</a
               >
             </li>
             <li>
-              <a href="../books/usooluSunnahAhmed.html"
+              <a href="../books/usooluSunnahAhmed.html" title="Ahmed’s Foundations of the Sunnah"
                 >އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް*</a
               >
             </li>
             <li>
-              <a href="../books/sharhuSunnahBarbahari.html"
+              <a href="../books/sharhuSunnahBarbahari.html" title="Barbahari’s Explanation of the Creed"
                 >ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ*</a
               >
             </li>
             <li>
-              <a href="../books/aqidatuRaziyain.html">ދެ ރާޒީންގެ އަގީދާ*</a>
+              <a href="../books/aqidatuRaziyain.html" title="Creed of the 2 Razis">ދެ ރާޒީންގެ އަގީދާ*</a>
             </li>
             <li>
-              <a href="../books/kitabulEmanAbiUbaid.html"
+              <a href="../books/kitabulEmanAbiUbaid.html" title="Abu Ubaid’s Book of Faith"
                 >އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</a
               >
             </li>
             <li>
-              <a href="../books/intisarLiAshabilHadith.html"
+              <a href="../books/intisarLiAshabilHadith.html" title="Giving Victory to the People of Hadith"
                 >ޙަދީޘްގެ އަސްހާބުންނަށް ނަސްރުދިނުން</a
               >
             </li>
             <li>
-              <a href="../books/nawaqidulislam.html"
+              <a href="../books/nawaqidulislam.html" title="Nullifiers of Islam"
                 >އިސްލާމްކަން ގެއްލޭ ކަންތައް</a
               >
             </li>
             <li>
-              <a href="../books/qawaidulArbau.html">ހަތަރު ގަވާއިދު</a>
+              <a href="../books/qawaidulArbau.html" title="4 Fundamental Principles (of Shirk)">ހަތަރު ގަވާއިދު</a>
             </li>
             <li>
-              <a href="../books/usooluSiththa.html">ހަ އުސޫލު*</a>
+              <a href="../books/usooluSiththa.html" title="6 Principles (of Monotheism)">ހަ އުސޫލު*</a>
             </li>
             <li>
-              <a href="../books/usooluThalaatha.html">ތިން އުސޫލު</a>
+              <a href="../books/usooluThalaatha.html" title="3 Principles (of Monotheism)">ތިން އުސޫލު</a>
             </li>
             <li>
-              <a href="../books/quranUshru.html#quranTable=:p69.html"
+              <a href="../books/quranUshru.html#quranTable=:p69.html" title="Important Rulings for Muslims"
                 >މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް</a
               >
             </li>
             <li>
-              <a href="../books/sharhuSunnahBarbahari-DFK.html"
+              <a href="../books/sharhuSunnahBarbahari-DFK.html" title="Barbahari’s Explanation of the Creed - DFK Version"
                 >ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ - DFK</a
               >
             </li>
@@ -340,70 +333,70 @@ function createNavbar() {
         </li>
         <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
           <div class="navbar-dropdown-label">
-            <span class="navbar-dropdown-arrow">◄</span>ބަސް
+            <span class="navbar-dropdown-arrow" title="Language">◄</span>ބަސް
           </div>
           <ul class="sub-navbar-dropdown-content">
             <li>
-              <a href="../mauhad/arabic.html">މަދީނާ އަރަބި ފޮތްތައް</a>
+              <a href="../mauhad/arabic.html" title="Madinah Arabic Books">މަދީނާ އަރަބި ފޮތްތައް</a>
             </li>
             <li>
               <a
                 href="../books/radheefAll.html"
-                onclick="changeBook('radheefAll'); return false;"
+                onclick="changeBook('radheefAll'); return false;" title="Dictionary Compilation"
                 >އެއްކުރަމުންދާ ރަދީފުތައް</a
               >
             </li>
             <li>
               <a
                 href="../books/radheefRasmee.html"
-                onclick="changeBook('radheefRasmee'); return false;"
+                onclick="changeBook('radheefRasmee'); return false;" title="Official Dictionary"
                 >ރަސްމީ ރަދީފު</a
               >
             </li>
             <li>
               <a
-                href="../books/radheefEegaal.html"
+                href="../books/radheefEegaal.html" title="Eegaal Dictionary"
                 onclick="changeBook('radheefEegaal'); return false;"
                 >އަލްއީގާޡް</a
               >
             </li>
             <li>
               <a
-                href="../books/radheefManiku.html"
+                href="../books/radheefManiku.html" title="Manik Dictionary"
                 onclick="changeBook('radheefManiku'); return false;"
                 >މަނިކުގެ ރަދީފު</a
               >
             </li>
             <li>
               <a
-                href="../books/radheefNanfoiy.html"
+                href="../books/radheefNanfoiy.html" title="Dictionary of Names"
                 onclick="changeBook('radheefNanfoiy'); return false;"
                 >ނަންފޮތް</a
               >
             </li>
             <li>
-              <a href="../page/lafzuVakikohLiyumugeQawaid.html"
+              <a href="../page/lafzuVakikohLiyumugeQawaid.html" title="Rules of Word Separation"
                 >ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު (ދިވެހި)</a
               >
             </li>
           </ul>
         </li>
         <li>
-          <a href="../page/textEditor.html">ޓެކްސްޓު އެޑިޓަރ</a>
+          <a href="../page/textEditor.html" title="Text Editor">ޓެކްސްޓު އެޑިޓަރ</a>
         </li>
       </ul>
     </li>
     <li>
-      <a href="../page/contact.html">✉️ ގުޅުއްވުމަށް</a>
+      <a href="../page/contact.html" title="Contact">✉️ ގުޅުއްވުމަށް</a>
     </li>
     <li>
-      <a href="../page/supportHadithmv.html">✋ މަޝްރޫއަށް އެހީވެދިނުމަށް</a>
+      <a href="../page/supportHadithmv.html" title="Support the Project">✋ މަޝްރޫއަށް އެހީވެދިނުމަށް</a>
     </li>
     <li>
-      <a href="../page/FAQ.html">❓ ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a>
+      <a href="../page/FAQ.html" title="FAQ">❓ ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a>
     </li>
     <li>
-      <a href="../page/contributors.html">🤝 އެހީތެރިން</a>
+      <a href="../page/contributors.html" title="Contributers">🤝 އެހީތެރިން</a>
     </li>
     <li>
       <a href="https://github.com/hadithmv/hadithmv.github.io/releases" 
@@ -411,7 +404,7 @@ function createNavbar() {
       onclick="openDiv() class="versionNo>⚙️ އިސްދާރު: v${hmvVersionNo}</a>
     </li>
     <li>
-      <a href="https://t.me/ashraafmv"
+      <a href="https://t.me/ashraafmv" target="_blank" title="Message on Telegram"
         >✍️ ފަރުމާކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
       >
     </li>
@@ -422,23 +415,23 @@ function createNavbar() {
     </li>
     <li>
       <a href="#"
-      onclick='window.scrollTo({top:0,behavior:"smooth"})'
+      onclick='window.scrollTo({top:0,behavior:"smooth"})'  title="Scroll Up"
         >▲ މައްޗަށް ސްކްރޯލްކުރޭ</a
       >
     </li>
     <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
       <div class="navbar-dropdown-label">
-        <span class="navbar-dropdown-arrow">◄</span>ރީލޯޑު 🔄
+        <span class="navbar-dropdown-arrow" title="Reload Page">◄</span>ރީލޯޑު 🔄
       </div>
 
       <ul class="navbar-dropdown-content">
         <li>
-          <a href="#" onclick="window.location.reload()">މަޑު ރީލޯޑު</a>
+          <a href="#" onclick="window.location.reload()" title="Soft Reload">މަޑު ރީލޯޑު</a>
         </li>
         <li>
           <a
             href="#"
-            onclick='window.location.href=window.location.href.split(".html")[0]+".html"'
+            onclick='window.location.href=window.location.href.split(".html")[0]+".html"' title="Hard Reload"
             >ހަރު ރީލޯޑު</a
           >
         </li>
@@ -446,7 +439,7 @@ function createNavbar() {
 
       <li>
       <a href="https://github.com/hadithmv/hadithmv.github.io"
-                target="_blank"
+                target="_blank" title="Github"
         >🚀 ގިޓްހަބް</a
       >
     </li>

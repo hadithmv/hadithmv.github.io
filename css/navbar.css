@@ -282,7 +282,7 @@ html body {
   display: block;
   /*padding: 12px 16px;*/
   padding-left: 14px;
-  /* padding-right: 14px; */ /* this aligns sidebar emojis with hamburger icon */
+  padding-right: 14px;
   padding-top: 0;
   padding-bottom: 0;
   /* color: #eee; */
