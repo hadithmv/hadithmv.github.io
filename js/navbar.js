@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "4.1.8";
+var hmvVersionNo = "4.1.9";
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
 
 // above is version no  var for hmv, shown in sidemenu and maybe main index page
@@ -175,7 +175,7 @@ function createNavbar() {
   <div class="navbar-side-menu-close" onclick="toggleSideMenu()">×</div>
   <ul>
     <li>
-      <a  href="../books/index.html" title="Main Menu">⭐ މައި ސަފުހާ</a>
+      <a  href="../books/index.html" title="Homepage">⭐ މައި ސަފުހާ</a>
     </li>
     <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
       <div class="navbar-dropdown-label" title="Categories">

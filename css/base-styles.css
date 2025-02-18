@@ -11,6 +11,7 @@
   --color-bg-primary: #fff;
   --color-bg-secondary: #e7edf6;
   --color-bg-tertiary: #dee3eb;
+  --color-bg-quaternary: #ff6467;
   --color-text-primary: #0a0a0a;
   --color-text-secondary: #555;
   --color-border: #c4c6d0;
@@ -29,6 +30,7 @@
     --color-bg-primary: #1a1b1e;
     --color-bg-secondary: #2d2e32;
     --color-bg-tertiary: #3a3b40;
+    --color-bg-quaternary: #9f0712;
     --color-text-primary: #e1e1e1;
     --color-text-secondary: #a0a0a0;
     --color-border: #4a4b50;
