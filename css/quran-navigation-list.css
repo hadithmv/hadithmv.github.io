@@ -183,9 +183,16 @@
 }
 
 /* Translation Toggle Button and List Styles */
-/*#translationToggleBtn {
-  cursor: pointer;
-}*/
+#translationToggleBtn {
+  /* cursor: pointer; */
+  background: var(--color-bg-quaternary) none;
+  /* changes color to red */
+}
+#translationToggleBtn:hover {
+  /* cursor: pointer; */
+  background: var(--color-accent);
+  /* changes color back to normal for hover */
+}
 
 .translation-list {
   margin-bottom: 10px;
