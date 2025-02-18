@@ -746,7 +746,8 @@ function initializeTranslationSelector() {
     t = document.getElementById("translationDropdown"),
     n = document.getElementById("applyTranslations"),
     r = document.getElementById("resetTranslations"),
-    i = document.getElementById("showAllTranslations");
+    i = document.getElementById("showAllTranslations"),
+    m = document.getElementById("showMainTranslations"); // Add new button reference
 
   if (e && t) {
     // Add base columns to translation list
@@ -790,9 +791,29 @@ function initializeTranslationSelector() {
     });
     r.addEventListener("click", resetTranslations);
     i.addEventListener("click", showAllTranslations);
+    m.addEventListener("click", showMainTranslations); // Add new event listener
   } else {
     console.error("Toggle button or dropdown not found");
   }
+}
+
+// Add new function to show main translations
+function showMainTranslations() {
+  const mainTranslations = [
+    "ބިސްމި", // Keep default column
+    "އާޔަތް (އިމްލާއީ)", // Keep default column
+    "ރަސްމީ ތަރުޖަމާ: 1",
+    "ބަކުރުބެގެ ތަރުޖަމާ: 2",
+    "ޖަޢުފަރުގެ ތަފްސީރު: 1",
+    "ޞގެ ތަފްސީރު: 2",
+  ];
+  document
+    .querySelectorAll('#translationList input[type="checkbox"]')
+    .forEach((checkbox) => {
+      const label = checkbox.nextElementSibling.textContent.trim();
+      checkbox.checked = mainTranslations.includes(label);
+      translationStates[checkbox.value] = checkbox.checked;
+    });
 }
 
 // Adds a translation item to the translation selector UI
