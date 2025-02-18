@@ -164,7 +164,8 @@ function createNavbar() {
       </a>
     </div>
   <div class="navbar-center">
-    <span class="navbar-page-title">${pageTitle}</span>
+    <span class="navbar-page-title" title="Hadithmv - The Maldivian Platform for Translations of the Sunnah
+">${pageTitle}</span>
   </div>
   <div class="navbar-right" title="Menu">
     <span class="navbar-menu-icon">☰</span>
