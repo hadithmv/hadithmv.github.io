@@ -845,14 +845,32 @@ let DTconfig = {
                 },
               },
 
-              //
-              // {
-              //   text: "test",
-              //   action: function (e, dt, node, config) {
-              //     createTranslationSelector();
-              //   },
-              // },
-              //
+              /*//
+              {
+                text: "⭐ ތަރުޖަމާތައް",
+                autoClose: true,
+                action: function (e, dt, node, config) {
+                  const dropdown = document.getElementById(
+                    "translationDropdown"
+                  );
+                  if (dropdown) {
+                    dropdown.classList.toggle("active");
+                    // console.log(
+                    //   "Active class toggled:",
+                    //   dropdown.classList.contains("active")
+                    // );
+                    // Prevent any default actions that might interfere
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // without these doesnt work it seems
+                  } else {
+                    console.error("Translation dropdown element not found");
+                  }
+                  // closes the collection, detach works too
+                  $(".dt-button-collection").hide();
+                },
+              },
+              //*/
 
               //
             ],

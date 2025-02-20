@@ -44,9 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       // Update button text to reflect current state
-      this.innerHTML = `&nbsp; އާޔަތް ނަމްބަރު ${
+      /*this.innerHTML = `&nbsp; އާޔަތް ނަމްބަރު ${
         showAyahNumbers ? "ފޮރުވާ" : "ދައްކާ"
-      } &nbsp;`;
+      } &nbsp;`;*/
     });
 
   // Event listener for toggling Quran brackets visibility
@@ -768,21 +768,34 @@ function initializeTranslationSelector() {
     });
 
     // Set up event listeners
+    // t.style.display = "block" === t.style.display ? "none" : "block";
+    /*e.addEventListener("click", (a) => {
+      a.stopPropagation();
+      t.style.display = "flex" === t.style.display ? "none" : "flex";
+    });*/
     e.addEventListener("click", (a) => {
       a.stopPropagation();
-      // t.style.display = "block" === t.style.display ? "none" : "block";
-      t.style.display = "flex" === t.style.display ? "none" : "flex";
+      t.classList.toggle("active");
     });
 
     // Close dropdown when clicking outside
-    document.addEventListener("click", (a) => {
+    // "block" === t.style.display
+    /*document.addEventListener("click", (a) => {
       if (
         !a.target.closest(".translation-selector") &&
-        // "block" === t.style.display
         "flex" === t.style.display
       ) {
         applyTranslations();
         t.style.display = "none";
+      }
+    });*/
+    document.addEventListener("click", (a) => {
+      if (
+        !a.target.closest(".translation-selector") &&
+        t.classList.contains("active")
+      ) {
+        applyTranslations();
+        t.classList.remove("active");
       }
     });
 
