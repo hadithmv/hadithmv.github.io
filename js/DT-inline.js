@@ -846,6 +846,12 @@ let DTconfig = {
               },
 
               //
+              // {
+              //   text: "test",
+              //   action: function (e, dt, node, config) {
+              //     createTranslationSelector();
+              //   },
+              // },
               //
 
               //
