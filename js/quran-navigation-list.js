@@ -913,4 +913,45 @@ function toggleBaseColumn(a) {
   baseColumns[a].visible = e.visible();
 }
 
+// Create and initialize the translation selector widget
+function createTranslationSelector() {
+  const containers = document.getElementsByClassName(
+    "translation-selector-widget"
+  );
+
+  if (!containers.length) return;
+
+  // HTML template for the translation selector
+  const template = `
+    <div class="translation-selector">
+      <button id="translationToggleBtn" class="customButtons">
+        ⭐ ތަރުޖަމާތައް / ތަފްސީރުތައް
+      </button>
+
+      <div id="translationDropdown" class="translation-dropdown">
+        <div class="translation-buttons-container">
+          <button id="showMainTranslations">މައި</button>
+          <button id="showAllTranslations">ހުރިހާ</button>
+          <button id="resetTranslations">ރީސެޓް</button>
+          <button id="applyTranslations">އޯކޭ</button>
+        </div>
+        <div class="translation-list-container">
+          <div id="translationList"></div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Insert the template into each container found
+  Array.from(containers).forEach((container) => {
+    container.innerHTML = template;
+  });
+
+  // Initialize the functionality after creating the elements
+  initializeTranslationSelector();
+}
+
+// Call this when the DOM is loaded
+document.addEventListener("DOMContentLoaded", createTranslationSelector);
+
 //
