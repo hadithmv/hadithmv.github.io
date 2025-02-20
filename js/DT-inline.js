@@ -845,6 +845,13 @@ let DTconfig = {
                 },
               },
 
+              {
+                text: "ފިލިތައް ފޮރުވާ/ދައްކާ",
+                action: function (e, dt, node, config) {
+                  toggleTashkeel();
+                },
+              },
+
               //
             ],
           },
