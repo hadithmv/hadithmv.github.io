@@ -18,6 +18,8 @@
 /* Dark theme */
 @media (prefers-color-scheme: dark) {
   :root {
+    /* https://stackoverflow.com/questions/65940522/how-do-i-switch-to-chromes-dark-scrollbar-like-github-does */
+    color-scheme: dark;
     --qurNav-bg: #1a1a1a;
     --qurNav-text: #e0e0e0;
     --qurNav-border: #444;
@@ -254,7 +256,7 @@
 .translation-buttons-container {
   position: sticky;
   top: 0;
-  background-color: white; /* Match your background color */
+  background-color: --qurNav-dropdown-bg;
   padding: 10px;
   border-bottom: 1px solid #ddd; /* Optional: adds separation */
   z-index: 1;
