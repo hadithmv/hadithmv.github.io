@@ -913,7 +913,11 @@ function toggleBaseColumn(a) {
   baseColumns[a].visible = e.visible();
 }
 
+//
+// TRANSLATION SELECTOR WIDGET
 // Create and initialize the translation selector widget
+//
+
 function createTranslationSelector() {
   const containers = document.getElementsByClassName(
     "translation-selector-widget"
@@ -951,7 +955,53 @@ function createTranslationSelector() {
   initializeTranslationSelector();
 }
 
+// Call this function when initializing the page
+// (You can add this to your existing initialization code)
+//createTranslationSelector();
+
 // Call this when the DOM is loaded
 document.addEventListener("DOMContentLoaded", createTranslationSelector);
 
+//
+// QURAN NAVIGATION STRUCTURE - dynamically generated
+//
+
+function createNavigationBoxes() {
+  const navTypes = [
+    { type: "surah", label: "ސޫރަތް" },
+    { type: "ayah", label: "އާޔަތް" },
+    { type: "juz", label: "ޖުޒް" },
+  ];
+
+  const container = document.getElementById("quranNavigation");
+  if (!container) return;
+
+  // Create navigation container
+  const navContainer = document.createElement("div");
+  navContainer.className = "q-navigation-container";
+
+  // Generate navigation boxes
+  navTypes.forEach(({ type, label }) => {
+    const navBox = `
+      <div class="q-nav-box">
+        <span class="q-nav-label">${label}:</span>
+        <span class="q-nav-arrow" data-type="${type}" data-direction="prev">▶</span>
+        <div class="q-nav-value" id="${type}Value">1</div>
+        <span class="q-nav-arrow" data-type="${type}" data-direction="next">◀</span>
+        <div class="q-dropdown" id="${type}Dropdown"></div>
+      </div>
+    `;
+    navContainer.insertAdjacentHTML("beforeend", navBox);
+  });
+
+  // Add to page
+  container.appendChild(navContainer);
+}
+
+// Call this function when initializing the page
+// (You can add this to your existing initialization code)
+//createNavigationBoxes();
+
+// Call this when the DOM is loaded
+document.addEventListener("DOMContentLoaded", createNavigationBoxes);
 //
