@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "hadithmv",
-  "version": "4.1.11",
+  "version": "4.1.12",
   "identifier": "com.hadithmv.app",
   "build": {
     "frontendDist": "../src"
