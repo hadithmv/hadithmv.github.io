@@ -770,14 +770,16 @@ function initializeTranslationSelector() {
     // Set up event listeners
     e.addEventListener("click", (a) => {
       a.stopPropagation();
-      t.style.display = "block" === t.style.display ? "none" : "block";
+      // t.style.display = "block" === t.style.display ? "none" : "block";
+      t.style.display = "flex" === t.style.display ? "none" : "flex";
     });
 
     // Close dropdown when clicking outside
     document.addEventListener("click", (a) => {
       if (
         !a.target.closest(".translation-selector") &&
-        "block" === t.style.display
+        // "block" === t.style.display
+        "flex" === t.style.display
       ) {
         applyTranslations();
         t.style.display = "none";
@@ -927,24 +929,24 @@ function createTranslationSelector() {
 
   // HTML template for the translation selector
   const template = `
-    <div class="translation-selector">
-      <button id="translationToggleBtn" class="customButtons">
-        ⭐ ތަރުޖަމާތައް / ތަފްސީރުތައް
-      </button>
+  <div class="translation-selector">
+    <button id="translationToggleBtn" class="customButtons">
+      ⭐ ތަރުޖަމާތައް / ތަފްސީރުތައް
+    </button>
 
-      <div id="translationDropdown" class="translation-dropdown">
-        <div class="translation-buttons-container">
-          <button id="showMainTranslations">މައި</button>
-          <button id="showAllTranslations">ހުރިހާ</button>
-          <button id="resetTranslations">ރީސެޓް</button>
-          <button id="applyTranslations">އޯކޭ</button>
-        </div>
-        <div class="translation-list-container">
-          <div id="translationList"></div>
-        </div>
+    <div id="translationDropdown" class="translation-dropdown">
+      <div class="translation-buttons-container">
+        <button id="showMainTranslations">މައި</button>
+        <button id="showAllTranslations">ހުރިހާ</button>
+        <button id="resetTranslations">ރީސެޓް</button>
+        <button id="applyTranslations">އޯކޭ</button>
+      </div>
+      <div class="translation-list-wrapper">
+        <div id="translationList"></div>
       </div>
     </div>
-  `;
+  </div>
+`;
 
   // Insert the template into each container found
   Array.from(containers).forEach((container) => {
