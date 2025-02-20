@@ -170,10 +170,19 @@
   border: 1px solid var(--qurNav-border);
 
   display: none;
-  position: absolute;
+  position: absolute; /* Change back to absolute from fixed */
   z-index: 1000;
   width: 250px;
-  height: fit-content;
+
+  /* Position in the middle of the viewport */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* Set max-height and enable scrolling */
+  max-height: 80vh;
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 /* Active state for translation dropdown */
@@ -279,10 +288,9 @@
   color: white;
 }
 
-/* Translation List Container Styles */
 .translation-list-container {
   flex-grow: 1;
-  overflow-y: auto;
+  overflow-y: auto; /* Enable scrolling for the list container */
   padding: 10px;
 }
 
