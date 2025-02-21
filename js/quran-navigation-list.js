@@ -227,7 +227,7 @@ const baseColumns = [
   { data: "3", title: "ބިސްމި", visible: !0 }, // Bismillah column (visible by default)
   {
     data: "4",
-    title: "އާޔަތް (އިމްލާއީ)", // Ayah text column (Imlai script)
+    title: "އާޔަތް (ރަސްމު އިމްލާއީ)", // Ayah text column (Imlai script)
     visible: !0,
     render: function (a, e, t) {
       // Render function to format ayah text with Arabic numerals and brackets
@@ -876,7 +876,7 @@ function initializeTranslationSelector() {
 function showMainTranslations() {
   const mainTranslations = [
     "ބިސްމި", // Keep default column
-    "އާޔަތް (އިމްލާއީ)", // Keep default column
+    "އާޔަތް (ރަސްމު އިމްލާއީ)", // Keep default column
     "ރަސްމީ ތަރުޖަމާ: 1",
     "ބަކުރުބެގެ ތަރުޖަމާ: 2",
     "ޖަޢުފަރުގެ ތަފްސީރު: 1",
@@ -1048,7 +1048,7 @@ function createNavigationBoxes() {
     { type: "juz", label: "ޖުޒް" },
   ];
 
-  const container = document.getElementById("quranNavigation");
+  const container = document.getElementById("quran-navigation-widget");
   if (!container) return;
 
   // Create navigation container

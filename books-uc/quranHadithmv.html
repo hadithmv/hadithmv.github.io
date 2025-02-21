@@ -84,7 +84,7 @@
     <div id="navbar-container"></div>
     <div class="dtWrapper">
       <!-- Navigation container for Surah, Ayah, and Juz selection -->
-      <div id="quranNavigation"></div>
+      <div id="quran-navigation-widget"></div>
       <!-- Navigation container for Surah, Ayah, and Juz selection - END-->
       <table id="tableID" class="cards" width="100%"></table>
       <div class="hmvSection">
@@ -502,6 +502,10 @@
       }); // table = new DataTable("#tableID", {
       //} // function initializeTable() { END
 
+      //
+      //
+      //
+
       // https://datatables.net/reference/api/button().add()
       /*table.button().add(0, {
         action: function (e, dt, button, config) {
@@ -532,7 +536,6 @@
           // closes the collection, detach works too
           $(".dt-button-collection").hide();
         },
-        //
 
         // https://datatables.net/reference/feature/buttons.buttons.split
         // split: ['pdf', 'excel']

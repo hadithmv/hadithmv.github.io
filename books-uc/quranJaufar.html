@@ -84,23 +84,17 @@
     <div id="navbar-container"></div>
     <div class="dtWrapper">
       <!-- Navigation container for Surah, Ayah, and Juz selection -->
-      <div id="quranNavigation"></div>
+      <div id="quran-navigation-widget"></div>
       <!-- Navigation container for Surah, Ayah, and Juz selection - END-->
       <table id="tableID" class="cards" width="100%"></table>
       <div class="hmvSection">
         <div class="centerAlignedText">
           <!-- TRANSLATION SELECTOR -->
-          <div class="translation-selector-widget"></div>
+          <!-- added max height zero to hide its presence -->
+          <div class="translation-selector-widget" style="max-height: 0"></div>
           <!-- END OF TRANSLATION SELECTOR -->
 
-          <button id="toggleAyahNumbers" class="customButtons">
-            &nbsp; އާޔަތް ނަމްބަރު ފޮރުވާ &nbsp;
-          </button>
-          <button id="toggleQuranBrackets" class="customButtons">
-            &nbsp; އާޔަތް ބްރެކެޓް ފޮރުވާ &nbsp;
-          </button>
-
-          <button
+          <!-- <button
             id="toggleShowButton"
             class="customButtons"
             onclick="toggleShowOne();scrollUpTop()"
@@ -124,7 +118,7 @@
                 button.innerHTML = "&nbsp; ތަފްސީރު އެކަނި ދައްކާ &nbsp;";
               }
             }
-          </script>
+          </script> -->
 
           <hr />
 
@@ -1080,6 +1074,50 @@
         ],
       }); // table = new DataTable("#tableID", {
       //} // function initializeTable() { END
+
+      //
+      //
+      //
+
+      table.button().add("1-8", {
+        text: "ތަރުޖަމާތައް",
+        action: function (e, dt, button, config) {
+          const dropdown = document.getElementById("translationDropdown");
+          if (dropdown) {
+            dropdown.classList.toggle("active");
+            // console.log(
+            //   "Active class toggled:",
+            //   dropdown.classList.contains("active")
+            // );
+            // Prevent any default actions that might interfere
+            e.preventDefault();
+            e.stopPropagation();
+            // without these doesnt work it seems
+          } else {
+            console.error("Translation dropdown element not found");
+          }
+          // closes the collection, detach works too
+          $(".dt-button-collection").hide();
+        },
+
+        // https://datatables.net/reference/feature/buttons.buttons.split
+        // split: ['pdf', 'excel']
+        split: [
+          {
+            text: "އާޔަތް ނަމްބަރު ދ/ފ",
+            action: function () {
+              toggleAyahNumbers();
+            },
+          },
+          {
+            text: "އާޔަތް ބްރެކެޓް ދ/ފ",
+            action: function () {
+              toggleQuranBrackets();
+            },
+          },
+        ],
+        //
+      });
 
       //
       //
