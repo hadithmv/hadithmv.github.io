@@ -307,7 +307,7 @@ function createNavbar() {
               >
             </li>
             <li>
-              <a href="../books/nawaqidulislam.html" title="Nullifiers of Islam"
+              <a href="../books/nawaqidulIslam.html" title="Nullifiers of Islam"
                 >އިސްލާމްކަން ގެއްލޭ ކަންތައް</a
               >
             </li>

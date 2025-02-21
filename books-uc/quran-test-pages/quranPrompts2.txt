@@ -5,7 +5,7 @@ this is my asynchronous datatables js code
 table = new DataTable("#tableID", {
         ...DTconfig,
         ajax: {
-          url: `../js/json/quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json`,
+          url: `../js/json/quranData_juz-surah-ayahNo-basmalah-ayahImlai.json`,
           dataSrc: "",
         },
 columns: [
@@ -32,7 +32,7 @@ sample of a row of those columns:
 
 it also contains empty strings ''
 
-now i also have other jsons in the same directory. they might also contain empty strings. i'd like to add the data of these other jsons, rowwise, to the quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json data, and combining them shouldn't produce any null values, just empty strings where needed. the columns of quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani should come first, followed by the columns of the added json data
+now i also have other jsons in the same directory. they might also contain empty strings. i'd like to add the data of these other jsons, rowwise, to the quranData_juz-surah-ayahNo-basmalah-ayahImlai.json data, and combining them shouldn't produce any null values, just empty strings where needed. the columns of quranData_juz-surah-ayahNo-basmalah-ayahImlai should come first, followed by the columns of the added json data
 
 the addable jsons are listed below:
 note that these jsons might have more than one column, but i just want a particular column of them
@@ -64,7 +64,7 @@ add another translation:
 'some string' (loads quranMukhtasar)
 'some string' (loads quranMuyassar)
 
-after loading the quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json, one of the addable jsons should automatically be added to the data of quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json, as a default. i should be able to set which json gets added in the settings. for example quranHadithmv. the list should also show this added one at the start as already toggled
+after loading the quranData_juz-surah-ayahNo-basmalah-ayahImlai.json, one of the addable jsons should automatically be added to the data of quranData_juz-surah-ayahNo-basmalah-ayahImlai.json, as a default. i should be able to set which json gets added in the settings. for example quranHadithmv. the list should also show this added one at the start as already toggled
 
 if i deselect that one json as initially toggled on the list, its column should not show
 
@@ -110,7 +110,7 @@ test3.html:403  Uncaught TypeError: table.column.add is not a function
 thats better
 
 but when the page is first run
-it only shows the columns of the quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json
+it only shows the columns of the quranData_juz-surah-ayahNo-basmalah-ayahImlai.json
 
 it does not show the column of the default addable json that should be set to be added automatically. and the list should show it toggled on as well.
 
@@ -126,7 +126,7 @@ the default added column, should also have a name column when the page is starte
 
 ...
 
-your code loads all the jsons, every single one of them, then the table shows the quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json and the default json to be added as set. but i dont want to load all the jsons from the get go. i want them to be loaded as needed, when i choose to toggle them, and they should be loaded asynchronously
+your code loads all the jsons, every single one of them, then the table shows the quranData_juz-surah-ayahNo-basmalah-ayahImlai.json and the default json to be added as set. but i dont want to load all the jsons from the get go. i want them to be loaded as needed, when i choose to toggle them, and they should be loaded asynchronously
 
 ...
 
@@ -145,7 +145,7 @@ id like the json data name columns, which shows in a column above the data colum
 
 i'd also like some space between the checkboxes and the checkbox text
 
-also at the start, when the quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json data is loaded, and the default added other json is added to it, i'd like all other addable json data apart from the default to be removed. right now if i first open the page, and i select some togglabes, if i reload the page again, the columns i toggled on before still show, they should be cleared
+also at the start, when the quranData_juz-surah-ayahNo-basmalah-ayahImlai.json data is loaded, and the default added other json is added to it, i'd like all other addable json data apart from the default to be removed. right now if i first open the page, and i select some togglabes, if i reload the page again, the columns i toggled on before still show, they should be cleared
 
 ...
 
@@ -236,7 +236,7 @@ function initializeTable() {
   table = new DataTable("#tableID", {
     ...DTconfig,
     ajax: {
-      url: `${baseJsonUrl}quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json`,
+      url: `${baseJsonUrl}quranData_juz-surah-ayahNo-basmalah-ayahImlai.json`,
       dataSrc: "",
     },
     columns: getAllColumnDefinitions(),

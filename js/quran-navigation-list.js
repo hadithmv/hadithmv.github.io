@@ -237,7 +237,9 @@ const baseColumns = [
       );
     },
   },
-  {
+  // below moved outside of the baseColumns array
+  // maybe i should make rasmUthmani render with decorative brackets and ayah numbers later, right now it doesnt with this removed
+  /*{
     data: "5",
     title: "ރަސްމު އުޘްމާނީ", // Uthmani script column
     visible: !1,
@@ -248,11 +250,16 @@ const baseColumns = [
           "﴿" + (a = a.replace(/\s([\u0660-\u0669]+)/, " ")) + " " + t[2] + "﴾")
       );
     },
-  },
+  },*/
 ];
 
 // Configuration for additional JSON translations/tafsirs
 const additionalJsons = [
+  {
+    name: "quranData_rasmUthmani",
+    columns: [0],
+    title: "ރަސްމު އުޘްމާނީ:",
+  },
   {
     name: "quranHadithmv",
     columns: [0],
