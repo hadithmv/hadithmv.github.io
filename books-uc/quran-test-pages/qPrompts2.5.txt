@@ -4,7 +4,7 @@ sample initial code
       table = new DataTable("#tableID", {
         ...DTconfig,
         ajax: {
-          url: `../js/json/quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json.json`,
+          url: `../js/json/quranData_juz-surah-ayahNo-basmalah-ayahImlai.json.json`,
           dataSrc: function (json) {
             originalData = json;
             return json;
@@ -242,7 +242,7 @@ Additional Translations:
 
 this is my datatables js code
 
-it loads asynchronous json data from a file called "quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json"
+it loads asynchronous json data from a file called "quranData_juz-surah-ayahNo-basmalah-ayahImlai.json"
 
 i would also like to add additional data from json files in the same directory, such as:
 "quranHadithmv", columns: [0],

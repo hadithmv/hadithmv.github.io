@@ -386,9 +386,8 @@
         <div class="leftAlignedText ltrText">
           <h3>Technical notes regarding the database text</h3>
           <p>
-            In the quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani json db,
-            first column is juz number. (Before this, an index column is
-            rendered.)
+            In the quranData_juz-surah-ayahNo-basmalah-ayahImlai json db, first
+            column is juz number. (Before this, an index column is rendered.)
           </p>
           <p>Next column is surah number.</p>
           <p>Next column is ayah number.</p>
@@ -475,7 +474,7 @@
       table = new DataTable("#tableID", {
         ...DTconfig,
         ajax: {
-          url: `${baseJsonUrl}quranJuz-surah-ayahNo-basmalah-ayah-ayahUthmani.json`,
+          url: `${baseJsonUrl}quranData_juz-surah-ayahNo-basmalah-ayahImlai.json`,
           dataSrc: "",
         },
         columns: getAllColumnDefinitions(),
