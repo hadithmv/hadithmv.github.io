@@ -1,0 +1,16 @@
+(?<!\s)=|=(?!\s)
+
+hey = man =yo man= hi
+وَمِن شَرِّ حَاسِدٍ =އަދި ޙަސަދަ ވެރިންގެ ނުބައިކަމުންނާއި. إِذَا حَسَدَ= އެމީހުން ޙަސަދަ ވެރި ވެއްޖެއްޔާ.
+
+...
+
+give me js regex to match equal signs =, that do not have a space either before or after them
+example:
+in
+hey = man =yo man= hi
+the equal signs in these:
+=yo
+man=
+should be matched.
+but not: hey = man
