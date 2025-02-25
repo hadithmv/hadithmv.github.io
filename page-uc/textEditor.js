@@ -950,6 +950,41 @@ document.addEventListener("DOMContentLoaded", () => {
               */
       //
 
+      // Add these cases to your switch statement
+      case "textToBinary":
+        // Convert each character to its ASCII value, then to binary
+        textArea.value = textArea.value
+          .split("")
+          .map((char) => {
+            // Get ASCII code for each character
+            const ascii = char.charCodeAt(0);
+            // Convert to 8-bit binary representation with padding
+            return ascii.toString(2).padStart(8, "0");
+          })
+          .join(" "); // Add spaces between binary codes for readability
+        break;
+
+      case "binaryToText":
+        // Split by spaces, convert each binary code back to a character
+        try {
+          textArea.value = textArea.value
+            .trim()
+            .split(" ")
+            .map((binary) => {
+              // Convert binary to decimal (ASCII)
+              const decimal = parseInt(binary, 2);
+              // Convert ASCII to character
+              return String.fromCharCode(decimal);
+            })
+            .join("");
+        } catch (e) {
+          alert(
+            "Error converting machine code to text. Make sure you have valid binary numbers separated by spaces."
+          );
+        }
+        break;
+      //
+
       // =====================================================
 
       case "convertBrackets":
