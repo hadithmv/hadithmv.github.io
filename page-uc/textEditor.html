@@ -3126,19 +3126,19 @@ shown in am pm, with a button that switches between 12 and 24 hour format
 
             .hathim-inputs {
               display: flex;
-              gap: 20px;
-              margin-bottom: 15px;
-              flex-wrap: wrap;
+              flex-direction: column;
+              gap: 15px;
+              margin-bottom: 20px;
             }
 
             .number-input-group {
               display: flex;
               align-items: center;
-              gap: 10px;
             }
 
             .number-input-group label {
-              min-width: 140px;
+              width: 200px; /* Fixed width for label container */
+              text-align: left;
             }
 
             .number-input-wrapper {
@@ -3148,28 +3148,25 @@ shown in am pm, with a button that switches between 12 and 24 hour format
             }
 
             .number-input {
-              width: 80px;
+              width: 60px;
               padding: 5px;
+              text-align: center;
               border: 1px solid var(--textarea-border);
               border-radius: 3px;
               background: var(--textarea-bg);
               color: var(--textarea-text);
               font-size: 18px;
-              text-align: center;
             }
 
             .spinner-button {
               padding: 5px 10px;
+              min-width: 30px;
+              text-align: center;
               background: var(--button-bg);
               border: 1px solid var(--button-border);
               border-radius: 3px;
               color: var(--button-text);
               cursor: pointer;
-            }
-
-            .spinner-button:hover {
-              background: var(--button-hover);
-              color: var(--button-hover-text);
             }
 
             .hathim-results {
