@@ -1,0 +1,8 @@
+https://stackoverflow.com/questions/59886559/why-does-copying-multi-row-text-from-google-sheets-to-the-instagram-caption-box/68925873#68925873
+
+Why does copying multi-row text from Google Sheets to the Instagram caption box add a quote mark at the beginning and end of the text?
+
+SOLUTION:
+new column, use this formula and auto fill
+
+=SUBSTITUTE(A1,char(10),char(13))

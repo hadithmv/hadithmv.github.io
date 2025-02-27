@@ -1,3 +1,5 @@
+# NOTE: NO LONGER USING "MIN" SUFFIX IN FILENAMES
+
 # Set the current working directory to the directory containing the script
 Set-Location -Path $PSScriptRoot
 
