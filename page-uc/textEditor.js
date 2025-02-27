@@ -2517,6 +2517,7 @@ i want one more space after the colon that comes after the issue description
     resultsDiv.style.display = "block";
   }
   //
+  //
 
   document.getElementById("removePunctuation").addEventListener("click", () => {
     scrollToTop();
