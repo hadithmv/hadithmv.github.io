@@ -199,6 +199,30 @@
   flex-direction: column;
 }
 
+button.dt-button.qTharujamaButton,
+button.dt-button-split-drop.dt-button {
+  /* color of #translationToggleBtn brought here instead */
+  background-color: var(--color-bg-quaternary) !important;
+  /* default aligned to left, now made to right */
+  text-align: right;
+}
+
+button.dt-button-split-drop.dt-button {
+  border-right: solid !important;
+  /* important for it to be there even on hover */
+}
+
+button.dt-button-split-drop.dt-button {
+  /* removes ellipsis */
+  /* text-overflow: ellipsis;
+  text-overflow: clip;
+}
+div.dt-buttons div.dt-button-split .dt-button:last-child {
+  /* bring is back from being too much to the left */
+  /* margin-left: -1px;*/
+  margin-left: 0px;
+}
+
 /* Translation Toggle Button and List Styles */
 #translationToggleBtn {
   /* cursor: pointer; */
