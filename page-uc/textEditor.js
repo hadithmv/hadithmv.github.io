@@ -2292,19 +2292,63 @@ i want one more space after the colon that comes after the issue description
     const shadda = "\u0651";
     const allowedAfterShadda = /[\u064e\u064f\u0650]/;
 
+    // Define paired symbols to check for balance
+    const pairs = {
+      "(": ")", // Parentheses
+      "[": "]", // Square brackets
+      "{": "}", // Curly braces
+      '"': '"', // Double quotes
+      "'": "'", // Single quotes
+      "“": "”", // Curly quotes
+      "=": "=", // Equals sign (matches with itself)
+    };
+
     const words = text.split(/\s+/);
     const results = [];
+
+    // Stack to track opening symbols that need closing
+    let symbolStack = [];
 
     for (let i = 0; i < words.length; i++) {
       const word = words[i];
       let issues = [];
 
+      // Check each character for both typos and unbalanced symbols
       for (let j = 0; j < word.length; j++) {
         const current = word[j];
         const next = word[j + 1] || "";
         const prev = word[j - 1] || "";
 
-        // Check for multiple diacritics
+        // Check for unbalanced symbols
+        if (current in pairs) {
+          // Opening symbol - add to stack
+          symbolStack.push({ char: current, wordIndex: i, charIndex: j });
+        } else if (Object.values(pairs).includes(current)) {
+          // Closing symbol - check if it matches last opening symbol
+          if (symbolStack.length === 0) {
+            // Closing symbol with no opener
+            issues.push({
+              type: "unbalanced",
+              index: j,
+              detail: `Unexpected closing ${current}`,
+            });
+          } else {
+            const lastOpener = symbolStack[symbolStack.length - 1];
+            if (pairs[lastOpener.char] === current) {
+              symbolStack.pop(); // Matched pair - remove opener
+            } else {
+              issues.push({
+                type: "unbalanced",
+                index: j,
+                detail: `Mismatched ${current}, expected ${
+                  pairs[lastOpener.char]
+                }`,
+              });
+            }
+          }
+        }
+
+        // Existing typo checks
         if (
           (dhivehiDiacritics.test(current) && dhivehiDiacritics.test(next)) ||
           (arabicDiacritics.test(current) && arabicDiacritics.test(next)) ||
@@ -2349,6 +2393,16 @@ i want one more space after the colon that comes after the issue description
         }
       }
 
+      // Add any remaining unclosed symbols from this word
+      while (symbolStack.length > 0 && symbolStack[0].wordIndex === i) {
+        const unclosed = symbolStack.shift();
+        issues.push({
+          type: "unbalanced",
+          index: unclosed.charIndex,
+          detail: `Unclosed ${unclosed.char}`,
+        });
+      }
+
       if (issues.length > 0) {
         results.push({
           word,
@@ -2356,6 +2410,23 @@ i want one more space after the colon that comes after the issue description
           issues,
         });
       }
+    }
+
+    // Check for any remaining unclosed symbols across all words
+    if (symbolStack.length > 0) {
+      symbolStack.forEach((unclosed) => {
+        results.push({
+          word: words[unclosed.wordIndex],
+          index: unclosed.wordIndex,
+          issues: [
+            {
+              type: "unbalanced",
+              index: unclosed.charIndex,
+              detail: `Unclosed ${unclosed.char}`,
+            },
+          ],
+        });
+      });
     }
 
     return results;
@@ -2389,36 +2460,43 @@ i want one more space after the colon that comes after the issue description
       let issueDescriptions = result.issues
         .map((issue) => {
           let chars;
-          // Handle different types of issues
-          if (issue.type === "multiple") {
-            // For multiple Fili, show the base character and both diacritics
-            const baseChar = result.word[issue.index - 1] || "";
-            const firstDiacritic = result.word[issue.index];
-            const secondDiacritic = result.word[issue.index + 1];
-            chars = `${baseChar}${firstDiacritic} ${secondDiacritic}`;
-          } else if (issue.type === "standalone") {
-            // For standalone Fili, show the base character and the diacritic
-            const baseChar = result.word[issue.index - 1] || "";
-            const diacritic = result.word[issue.index];
-            chars = `${baseChar} ${diacritic}`;
-          } else {
-            // noDvFili
-            // For Thaana without Fili, show the previous character and the current one
-            const prevChar = result.word[issue.index - 1] || "";
-            chars = `${prevChar} ${result.word[issue.index]}`;
-          }
-
-          // Create the description string based on the issue type
           let description;
+
           switch (issue.type) {
             case "multiple":
+              // For multiple Fili, show the base character and both diacritics
+              const baseChar = result.word[issue.index - 1] || "";
+              const firstDiacritic = result.word[issue.index];
+              const secondDiacritic = result.word[issue.index + 1];
+              chars = `${baseChar}${firstDiacritic} ${secondDiacritic}`;
               description = `Multiple Fili :&nbsp; ${chars}`;
               break;
             case "noDvFili":
+              // For Thaana without Fili, show the previous character and the current one
+              const prevChar = result.word[issue.index - 1] || "";
+              chars = `${prevChar} ${result.word[issue.index]}`;
               description = `Thaana w/o Fili :&nbsp; ${chars}`;
               break;
             case "standalone":
+              // For standalone Fili, show the base character and the diacritic
+              const baseCharStand = result.word[issue.index - 1] || "";
+              const diacritic = result.word[issue.index];
+              chars = `${baseCharStand} ${diacritic}`;
               description = `Standalone Fili :&nbsp; ${chars}`;
+              break;
+            case "unbalanced":
+              // For unbalanced characters, show the problematic character and its context
+              const problemChar = result.word[issue.index];
+              const contextBefore = result.word.slice(
+                Math.max(0, issue.index - 2),
+                issue.index
+              );
+              const contextAfter = result.word.slice(
+                issue.index + 1,
+                issue.index + 3
+              );
+              chars = `${contextBefore}${problemChar}${contextAfter}`;
+              description = `${issue.detail} :&nbsp; ...${chars}...`;
               break;
           }
           return description;
