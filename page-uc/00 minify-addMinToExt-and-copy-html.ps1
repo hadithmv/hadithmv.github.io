@@ -17,11 +17,12 @@ function MinifyHTML($inputFile, $outputFile) {
         # Read the content of the file
         $content = Get-Content -Path $inputFile -Raw -ErrorAction Stop
         
+        # The following replacements are no longer needed since we're not using .min in filenames
         # Replace .css with .min.css in link tags, being careful not to replace .min.css again
-        $content = $content -replace '(href="[^"]*?)(?<!\.min)\.css"', '$1.min.css"'
-        
+        # $content = $content -replace '(href="[^"]*?)(?<!\.min)\.css"', '$1.css"'
         # Replace .js with .min.js in script tags, being careful not to replace .min.js again
-        $content = $content -replace '(src="[^"]*?)(?<!\.min)\.js"', '$1.min.js"'
+        # $content = $content -replace '(src="[^"]*?)(?<!\.min)\.js"', '$1.js"'
+        
         
         # Create a temporary file for the modified content
         $tempFile = [System.IO.Path]::GetTempFileName()
@@ -125,27 +126,19 @@ function MinifyCSS($inputFile, $outputFile) {
     return $true
 }
 
-#
-
 try {
-
-    #
-
-
     # Process diffCompare files
     $diffCompareHtmlInput = "diffCompare/cdn-custom.html"
     $diffCompareHtmlOutput = "../page/diffCompare.html"
     $diffCompareJsInput = "diffCompare/mergely.js"
-    $diffCompareJsOutput = "../page/diffCompare.min.js"
+    $diffCompareJsOutput = "../page/diffCompare.js"  # Removed .min
 
     # Process diffCompare HTML
     if (Test-Path $diffCompareHtmlInput) {
         # Read and modify the content
         $content = Get-Content -Path $diffCompareHtmlInput -Raw
-        # $content = $content -replace 'href="../../', 'href="../'
         $content = $content -replace '../../', '../'
-
-        $content = $content -replace '<script src="mergely.js"></script>', '<script src="diffCompare.min.js"></script>'
+        $content = $content -replace '<script src="mergely.js"></script>', '<script src="diffCompare.js"></script>'  # Removed .min
         
         # Create a temporary file for the modified content
         $tempFile = [System.IO.Path]::GetTempFileName()
@@ -183,9 +176,6 @@ try {
         Write-Warning "Warning: $diffCompareJsInput not found"
     }
 
-
-    #
-
     # Get all HTML files in the current directory
     $files = Get-ChildItem -Filter "*.html" -ErrorAction Stop
 
@@ -206,15 +196,16 @@ try {
     # Process JS files
     $jsFiles = @(
         "textEditor.js",
+        "noFiliExceptions.js",
         @{
             Input  = "unitConverter/UnitOf.js"
-            Output = "../page/unitConverter.min.js"
+            Output = "../page/unitConverter.js"  # Removed .min
         }
     )
     foreach ($jsFile in $jsFiles) {
         if ($jsFile -is [string]) {
             $inputFile = $jsFile
-            $outputFile = "../page/$([System.IO.Path]::GetFileNameWithoutExtension($jsFile)).min.js"
+            $outputFile = "../page/$([System.IO.Path]::GetFileNameWithoutExtension($jsFile)).js"  # Removed .min
         }
         else {
             $inputFile = $jsFile.Input
@@ -235,9 +226,9 @@ try {
         }
     }
 
-    # # Process CSS file
+    # Process CSS file (commented out in original)
     # $cssInputFile = "mergely.css"
-    # $cssOutputFile = "../page/mergely.min.css"
+    # $cssOutputFile = "../page/mergely.css"  # Removed .min
 
     # if (Test-Path $cssInputFile) {
     #     $success = MinifyCSS $cssInputFile $cssOutputFile
@@ -283,7 +274,7 @@ try {
             
             # Add specific replacement for unitConverter
             if ($inputFile -eq "unitConverter/index.html") {
-                $content = $content -replace 'src="UnitOf.js"', 'src="unitConverter.min.js"'
+                $content = $content -replace 'src="UnitOf.js"', 'src="unitConverter.js"'  # Removed .min
             }
 
             # Create a temporary file for the modified content
