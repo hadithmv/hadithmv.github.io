@@ -2277,9 +2277,9 @@ i want one more space after the colon that comes after the issue description
 
   */
 
-  const resultsDiv = document.getElementById("filiIssuesResults");
+  const resultsDiv = document.getElementById("typoIssuesResults");
 
-  document.getElementById("findFiliIssues").addEventListener("click", () => {
+  document.getElementById("findTypoIssues").addEventListener("click", () => {
     const text = textArea.value;
     const results = findIssues(text);
     displayResults(results);
@@ -2364,7 +2364,7 @@ i want one more space after the colon that comes after the issue description
   function displayResults(results) {
     // Check if any issues were found
     if (results.length === 0) {
-      resultsDiv.innerHTML = "No issues found.";
+      resultsDiv.innerHTML = "No Issues Found.";
       resultsDiv.style.display = "block";
       return;
     }
@@ -2377,7 +2377,7 @@ i want one more space after the colon that comes after the issue description
 
     // Split the input text into words
     const words = textArea.value.split(/\s+/);
-    let html = `Found ${totalIssues} issue${totalIssues > 1 ? "s" : ""}<br>`; // :<br><br>
+    let html = `Found ${totalIssues} Issue${totalIssues > 1 ? "s" : ""}<br>`; // :<br><br>
 
     // Iterate through each result (word with issues)
     results.forEach((result, index) => {

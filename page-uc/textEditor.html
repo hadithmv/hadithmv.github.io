@@ -424,11 +424,6 @@
         display: none;
         margin-left: 10px;
       }
-
-      #filiIssuesResults {
-        text-align: right;
-        direction: rtl;
-      }
     </style>
   </head>
   <body>
@@ -470,7 +465,10 @@
           </div>
           <textarea id="textArea"></textarea>
           <!-- -->
-          <div id="filiIssuesResults" style="display: none"></div>
+          <div
+            id="typoIssuesResults"
+            style="display: none; text-align: right; direction: rtl"
+          ></div>
           <!-- -->
           <div class="buttons-container">
             <!-- -->
@@ -775,11 +773,11 @@
             <!-- !!! move this inside, change function to data action  -->
 
             <button
-              id="findFiliIssues"
+              id="findTypoIssues"
               class="function-button"
-              title="Finds fili related issues, such as: 1. Multiple fili / diacritics / harakat in Arabic and Dhivehi. 2. Letters without fili in Dhivehi (except hus nuun). 3. Fili without letters in Arabic and Dhivehi"
+              title="Finds typo related issues, such as: 1. Multiple fili / diacritics / harakat in Arabic and Dhivehi. 2. Letters without fili in Dhivehi (except hus nuun). 3. Fili without letters in Arabic and Dhivehi"
             >
-              Find Fili Issues 🌴
+              Find Typos 🌴
             </button>
 
             <!--  -->
