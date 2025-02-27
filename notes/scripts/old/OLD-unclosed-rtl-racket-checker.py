@@ -1,4 +1,6 @@
 
+# note: this is not as good as aadil's solution, and is restricted to RTL pairs only
+
 import re
 
 def is_balanced_rtl(line):
