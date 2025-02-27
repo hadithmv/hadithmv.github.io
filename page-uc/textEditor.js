@@ -2281,8 +2281,36 @@ i want one more space after the colon that comes after the issue description
 
   document.getElementById("findTypoIssues").addEventListener("click", () => {
     const text = textArea.value;
-    const results = findIssues(text);
-    displayResults(results);
+
+    // Check if exceptions are already loaded
+    if (window.noFiliExceptions) {
+      // If already loaded, proceed with checking
+      const results = findIssues(text);
+      displayResults(results);
+      return;
+    }
+
+    // If not loaded, dynamically load the script
+    const script = document.createElement("script");
+    script.src = "noFiliExceptions.js"; // This should define window.noFiliExceptions
+
+    script.onload = () => {
+      // Script loaded, now process the text
+      const results = findIssues(text);
+      displayResults(results);
+    };
+
+    script.onerror = () => {
+      console.error("Failed to load exceptions");
+      resultsDiv.innerHTML =
+        "Error loading exceptions. Continuing without them.";
+      // Still try to process without exceptions
+      const results = findIssues(text);
+      displayResults(results);
+    };
+
+    // Add the script to the document to start loading
+    document.head.appendChild(script);
   });
 
   function findIssues(text) {
@@ -2291,6 +2319,9 @@ i want one more space after the colon that comes after the issue description
     const dhivehiLetters = /[\u0780-\u07a5]/;
     const shadda = "\u0651";
     const allowedAfterShadda = /[\u064e\u064f\u0650]/;
+
+    // Access the global exceptions variable (or use empty array if not loaded)
+    const noFiliExceptions = window.noFiliExceptions || [];
 
     // Define paired symbols to check for balance
     const pairs = {
@@ -2313,7 +2344,9 @@ i want one more space after the colon that comes after the issue description
       const word = words[i];
       let issues = [];
 
-      // Check each character for both typos and unbalanced symbols
+      // Check if current word is in exceptions list
+      const isException = noFiliExceptions.includes(word);
+
       for (let j = 0; j < word.length; j++) {
         const current = word[j];
         const next = word[j + 1] || "";
@@ -2367,13 +2400,20 @@ i want one more space after the colon that comes after the issue description
           continue;
         }
 
-        // Check for Dhivehi letters not followed by diacritics (except u0782, which is ނ)
-        if (
-          dhivehiLetters.test(current) &&
-          current !== "\u0782" &&
-          !dhivehiDiacritics.test(next)
-        ) {
-          issues.push({ type: "noDvFili", index: j });
+        // Check for Dhivehi letters not followed by diacritics
+        if (dhivehiLetters.test(current)) {
+          if (!dhivehiDiacritics.test(next)) {
+            if (
+              (current === "\u0782" || current === "\u0783") &&
+              !isException
+            ) {
+              // ނ or ރ
+              issues.push({ type: "noDvFili", index: j });
+            } else if (current !== "\u0782" && current !== "\u0783") {
+              // all other Dhivehi letters
+              issues.push({ type: "noDvFili", index: j });
+            }
+          }
         }
 
         // Check for standalone diacritics
@@ -2435,7 +2475,7 @@ i want one more space after the colon that comes after the issue description
   function displayResults(results) {
     // Check if any issues were found
     if (results.length === 0) {
-      resultsDiv.innerHTML = "No Issues Found.";
+      resultsDiv.innerHTML = "No Issues Found";
       resultsDiv.style.display = "block";
       return;
     }
@@ -2506,7 +2546,6 @@ i want one more space after the colon that comes after the issue description
       // Construct the HTML for this result
       // Include the index, previous word, the word with issues (in blue), next word,
       // and the issue descriptions (in red)
-      // Construct the HTML for this result
       html += `${index + 1}. ${prevWord} <span style="color: blue;">${
         result.word
       }</span> ${nextWord} : <span style="color: red;">${issueDescriptions}</span><br>`;
