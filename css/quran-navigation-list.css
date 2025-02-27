@@ -214,7 +214,7 @@ button.dt-button-split-drop.dt-button {
 
 button.dt-button-split-drop.dt-button {
   /* removes ellipsis */
-  /* text-overflow: ellipsis;
+  /* text-overflow: ellipsis; */
   text-overflow: clip;
 }
 div.dt-buttons div.dt-button-split .dt-button:last-child {
