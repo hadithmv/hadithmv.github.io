@@ -2367,7 +2367,7 @@ i want one more space after the colon that comes after the issue description
           continue;
         }
 
-        // Check for Dhivehi letters not followed by diacritics (except u0782)
+        // Check for Dhivehi letters not followed by diacritics (except u0782, which is ނ)
         if (
           dhivehiLetters.test(current) &&
           current !== "\u0782" &&
