@@ -2344,8 +2344,14 @@ i want one more space after the colon that comes after the issue description
       const word = words[i];
       let issues = [];
 
+      // note this is exact match only, so changed to below
       // Check if current word is in exceptions list
-      const isException = noFiliExceptions.includes(word);
+      // const isException = noFiliExceptions.includes(word);
+
+      // use this more flexible check that looks for substring matches:
+      const isException = noFiliExceptions.some((exception) =>
+        word.includes(exception)
+      );
 
       for (let j = 0; j < word.length; j++) {
         const current = word[j];

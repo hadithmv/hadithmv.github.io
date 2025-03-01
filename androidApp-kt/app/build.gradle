@@ -12,7 +12,7 @@ android {
         minSdk 24
         targetSdk 35
         versionCode 88
-        versionName "4.1.13"
+        versionName "4.1.14"
      
      // https://stackoverflow.com/questions/39654620/android-how-to-change-specific-name-of-the-generated-apk-file-in-android-studio/55333735#55333735
        archivesBaseName = "hadithmv"
