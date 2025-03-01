@@ -2408,7 +2408,20 @@ i want one more space after the colon that comes after the issue description
 
         // Check for Dhivehi letters not followed by diacritics
         if (dhivehiLetters.test(current)) {
-          if (!dhivehiDiacritics.test(next)) {
+          // Check if this is part of a two-letter abbreviation followed by period
+          const nextIsAlsoDhivehiLetter = dhivehiLetters.test(next);
+          const nextNextChar = word[j + 2] || "";
+          const twoLetterAbbreviation =
+            nextIsAlsoDhivehiLetter && nextNextChar === ".";
+
+          // Check if this is a single letter abbreviation followed by period
+          const singleLetterAbbreviation = next === ".";
+
+          if (
+            !dhivehiDiacritics.test(next) &&
+            !singleLetterAbbreviation &&
+            !twoLetterAbbreviation
+          ) {
             if (
               (current === "\u0782" || current === "\u0783") &&
               !isException
@@ -2419,6 +2432,11 @@ i want one more space after the colon that comes after the issue description
               // all other Dhivehi letters
               issues.push({ type: "noDvFili", index: j });
             }
+          }
+
+          // Skip the second letter of a two-letter abbreviation
+          if (twoLetterAbbreviation) {
+            j++; // Skip checking the second letter
           }
         }
 
