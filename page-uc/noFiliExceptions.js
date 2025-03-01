@@ -1,4 +1,6 @@
 // List of words where ނ/ރ without fili is allowed
+// not that these words are trimmed, and only include the first 2 characters immediately before and after the husnuunu/raa, to keep the list small. actual full worded list would be 4344 words
+// the shortened list here is 586
 // export const noFiliExceptions = [
 window.noFiliExceptions = [
   "ގަނޑު",

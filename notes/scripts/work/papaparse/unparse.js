@@ -1,4 +1,4 @@
-# uses npm papaparse, install it
+// uses npm papaparse, install it
 
 const fs = require("fs");
 const Papa = require("papaparse");
