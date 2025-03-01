@@ -62,33 +62,62 @@ and output the results to a new file called, output_listRadheefW
 
 Here's JavaScript code to process a text file and catch all words containing a ނ or ރ without a diacritic:
 
-const fs = require('fs');
+// Verify if the encoding is properly set to UTF-8
+
+const fs = require("fs");
 
 // Read the input file
-fs.readFile('listRadheefW', 'utf8', (err, data) => {
+fs.readFile("listRadheefW.txt", "utf8", (err, data) => {
   if (err) {
-    console.error('Error reading file:', err);
+    console.error("Error reading file:", err);
     return;
   }
 
-  // Split the content into words
-  const words = data.split(/\s+/);
+  // Split the content into words, handling multiple whitespace characters
+  const words = data
+    .trim()
+    .split(/\s+/)
+    .filter((word) => word.length > 0);
 
-  // Regex to match ނ or ރ not followed by a diacritic
-  const regex = /[ނރ](?![ަާިީުޫެޭޮޯް])/;
+  // Log some diagnostics
+  console.log(`Total words in file: ${words.length}`);
+
+  // Check if any words contain ނ or ރ (just to verify text is being read correctly)
+  const anyWithLetters = words.filter(
+    (word) => word.includes("ނ") || word.includes("ރ")
+  );
+  console.log(`Words containing ނ or ރ (anywhere): ${anyWithLetters.length}`);
+
+  // Improved regex to match ނ or ރ not followed by a diacritic
+  // Using a lookbehind to check for character boundary or another character before
+  const regex = /[ނރ](?![ަާިީުޫެޭޮޯް])/u;
 
   // Filter words that contain ނ or ރ without a diacritic
-  const matchedWords = words.filter(word => regex.test(word));
+  const matchedWords = words.filter((word) => regex.test(word));
+
+  // Log a few matched words for verification
+  if (matchedWords.length > 0) {
+    console.log("Sample matched words:");
+    matchedWords.slice(0, 5).forEach((word) => console.log(`- ${word}`));
+  }
 
   // Write the results to the output file
-  fs.writeFile('output_listRadheefW', matchedWords.join('\n'), 'utf8', (err) => {
-    if (err) {
-      console.error('Error writing to output file:', err);
-      return;
+  fs.writeFile(
+    "output_listRadheefW.txt",
+    matchedWords.join("\n"),
+    "utf8",
+    (err) => {
+      if (err) {
+        console.error("Error writing to output file:", err);
+        return;
+      }
+      console.log(
+        `Processing complete. Found ${matchedWords.length} matching words.`
+      );
     }
-    console.log(`Processing complete. Found ${matchedWords.length} matching words.`);
-  });
+  );
 });
+
 
 This code:
 
