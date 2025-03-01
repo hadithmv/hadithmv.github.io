@@ -877,6 +877,7 @@ function showMainTranslations() {
   const mainTranslations = [
     "ބިސްމި", // Keep default column
     "އާޔަތް (ރަސްމު އިމްލާއީ)", // Keep default column
+    "ޙަދީޘްއެމްވީ ތަރުޖަމާ: 1",
     "ރަސްމީ ތަރުޖަމާ: 1",
     "ބަކުރުބެގެ ތަރުޖަމާ: 2",
     "ޖަޢުފަރުގެ ތަފްސީރު: 1",
