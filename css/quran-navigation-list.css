@@ -61,6 +61,10 @@
 
 .q-nav-value {
   border: 1px solid var(--qurNav-border);
+  border-radius: 0.28571429rem;
+  -webkit-border-radius: 0.28571429rem;
+  -moz-border-radius: 0.28571429rem;
+
   color: var(--qurNav-text);
   background-color: var(--qurNav-bg);
 
