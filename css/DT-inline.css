@@ -147,6 +147,7 @@
 .cards tbody tr:last-child {
   margin-bottom: 0;
 }
+
 /* hide first searchbar on tablet and up */
 @media (min-width: 600px) {
   .dt-search:has(#dt-search-0) {
@@ -207,6 +208,10 @@ div.dt-container .dt-search input {
   text-indent: 7px;
   /* makes its bg color not see thru */
   /*background-color: #fff;*/
+  /* rounds the corners */
+  /* border-radius: 0.28571429rem;
+  -webkit-border-radius: 0.28571429rem;
+  -moz-border-radius: 0.28571429rem; */
 }
 /* makes the inputpaging box bigger */
 .dt-container
