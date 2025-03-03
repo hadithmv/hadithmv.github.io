@@ -414,6 +414,16 @@ function createNavbar() {
         >- މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a
       >
     </li>
+    <hr>
+    <li>
+    <!-- onclick='document.querySelector(".dtWrapper").style.maxWidth="none";' -->
+    <a href="#" 
+    onclick='const wrapper = document.querySelector(".dtWrapper"); 
+              wrapper.style.maxWidth = wrapper.style.maxWidth === "none" ? "980px" : "none"; 
+              return false;'>
+    ↔️ ވައިޑު ސްކްރީން</a
+      >
+    </li>
     <li>
       <a href="#"
       onclick='window.scrollTo({top:0,behavior:"smooth"})'  title="Scroll Up"
