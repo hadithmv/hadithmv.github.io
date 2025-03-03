@@ -40,6 +40,10 @@ datatables.mark.js (UGLIFY)	3.0.0	https://github.com/DataTables/Plugins/blob/mas
 
 
 dataTables.keepConditions.js (CLOSURE+UGLIFY)	1.2.0	https://github.com/jhyland87/DataTables-Keep-Conditions
+	(need to update this with something like:
+https://stackoverflow.com/questions/55446923/datatables-1-10-using-savestate-to-remember-filtering-and-order-but-need-to-upd/60708638#60708638
+https://datatables.net/forums/discussion/44147
+https://datatables.net/forums/discussion/56338)
 
 hammer.js (CLOSURE+UGLIFY)	2.0.8	https://github.com/hammerjs/hammerjs.github.io/blob/master/dist/hammer.js
 (dist version 2016-04-23 which is much smaller, not main repo version 2016-09-30)
