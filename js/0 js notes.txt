@@ -3,10 +3,10 @@
 
 -- LOAD PRIORTY IN COMB: --
 
-jquery.js (UGLIFY)	v4.0.0-beta.2+667321e 2025-02-02T12:25Z
+jquery.js (UGLIFY)	3.7.1
 	https://jquery.com/download
-in this beta:
-removed all deprecated or under-supported dependencies
+(note, in the beta v4, they removed all deprecated or under-supported dependencies, and while that file is smaller, keepConditions does not work with it, as
+The code is trying to use $.isArray(), which is a jQuery function, and you would be using a newer version of jQuery where this method was removed, it was deprecated in jQuery 3.2 and removed in later versions)
 	(previously used 3.7.1, https://code.jquery.com/jquery-3.7.1.min.js)
 	(previously used slim, it worked until i switched to loading json via ajax)
 
