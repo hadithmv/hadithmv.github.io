@@ -418,6 +418,18 @@ html body {
   margin-bottom: 1.25em; */
 }
 
+/* Hide the element by default */
+#sideMenu .wide-screen-toggle {
+  display: none;
+}
+
+/* Show it only when viewport is wider than 980px */
+@media screen and (min-width: 981px) {
+  #sideMenu .wide-screen-toggle {
+    display: block; /* or list-item, depending on your layout */
+  }
+}
+
 /* */
 
 /* */
