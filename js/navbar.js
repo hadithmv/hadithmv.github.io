@@ -394,7 +394,7 @@ function createNavbar() {
       <a href="../page/supportHadithmv.html" title="Support the Project">✋ މަޝްރޫއަށް އެހީވެދިނުމަށް</a>
     </li>
     <li>
-      <a href="../page/FAQ.html" title="FAQ">❓ ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a>
+      <a href="../page/FAQ.html" title="FAQ">❓ ތަކުރާރު ސުވާލުތައް</a>
     </li>
     <li>
       <a href="../page/contributors.html" title="Contributers">🤝 އެހީތެރިން</a>
@@ -415,7 +415,7 @@ function createNavbar() {
       >
     </li>
     <hr>
-    <li>
+    <li class="wide-screen-toggle">
     <!-- onclick='document.querySelector(".dtWrapper").style.maxWidth="none";' -->
     <a href="#" 
     onclick='const wrapper = document.querySelector(".dtWrapper"); 
