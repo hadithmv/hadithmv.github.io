@@ -3,12 +3,14 @@
 
 -- LOAD PRIORTY IN COMB: --
 
-jquery.js (UGLIFY)	3.7.1
-	https://jquery.com/download
-(note, in the beta v4, they removed all deprecated or under-supported dependencies, and while that file is smaller, keepConditions does not work with it, as
-The code is trying to use $.isArray(), which is a jQuery function, and you would be using a newer version of jQuery where this method was removed, it was deprecated in jQuery 3.2 and removed in later versions)
-	(previously used 3.7.1, https://code.jquery.com/jquery-3.7.1.min.js)
-	(previously used slim, it worked until i switched to loading json via ajax)
+jquery.js (UGLIFY)	v4.0.0-beta.2+447432f
+	https://releases.jquery.com/jquery
+(note, in the beta v4, the difference of which is: 84.12-76.26=7.86kb
+they removed all deprecated or under-supported dependencies, and while that file is smaller, keepConditions throws these errors:
+$.unique() and $.isArray() is not a function, because they are depreciated in latest jQuery
+solution is to update with Array.isArray() and $.uniqueSort()
+	previously used 3.7.1, https://code.jquery.com/jquery-3.7.1.min.js
+	previously also used slim, it worked until i switched to loading json via ajax)
 
 
 :::	https://datatables.net/download/
@@ -39,8 +41,10 @@ jquery.mark.js (CLOSURE+UGLIFY)	9.0.0	https://github.com/julkue/mark.js/blob/mas
 datatables.mark.js (UGLIFY)	3.0.0	https://github.com/DataTables/Plugins/blob/master/features/mark.js/datatables.mark.js
 
 
-dataTables.keepConditions.js (CLOSURE+UGLIFY)	1.2.0	https://github.com/jhyland87/DataTables-Keep-Conditions
-	(need to update this with something like:
+dataTables.keepConditions.js (CLOSURE+UGLIFY)	1.2.0
+https://github.com/hadithmv/DataTables-Keep-Conditions/blob/master/src/dataTables.keepConditions.js
+	(original epo: https://github.com/jhyland87/DataTables-Keep-Conditions
+	need to update this with something like:
 https://stackoverflow.com/questions/55446923/datatables-1-10-using-savestate-to-remember-filtering-and-order-but-need-to-upd/60708638#60708638
 https://datatables.net/forums/discussion/44147
 https://datatables.net/forums/discussion/56338)
