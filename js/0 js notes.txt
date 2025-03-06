@@ -10,7 +10,7 @@ they removed all deprecated or under-supported dependencies, and while that file
 $.unique() and $.isArray() is not a function, because they are depreciated in latest jQuery
 solution is to update with Array.isArray() and $.uniqueSort()
 	previously used 3.7.1, https://code.jquery.com/jquery-3.7.1.min.js
-	previously also used slim, it worked until i switched to loading json via ajax)
+	previously also used slim, it worked until i switched to loading json via ajax, and vanilla js methods throw cors errors)
 
 
 :::	https://datatables.net/download/
