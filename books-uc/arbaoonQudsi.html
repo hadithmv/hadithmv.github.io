@@ -176,87 +176,78 @@
       </div>
     </div>
     <script type="text/javascript">
-      table = new DataTable("#tableID", {
-        ...DTconfig,
-        ajax: {
-          url: `../js/json/` + currentFileName + `.json`,
-          dataSrc: function (json) {
-            originalData = json;
-            return json;
-          },
-          dataType: "json",
-          cache: true,
-        },
-        // CHANGE !!!
-        // #	noAr	arTitle	dvTitle	arab	dhiv	arRef	dvRef
-
-        columns: [
-          { title: "#", className: "colHeader" },
-          { title: "އަރަބި ނަމްބަރ", className: "colHeader" },
-          { title: "ބާބު އަރަބިން", className: "colHeader" },
-          { title: "ބާބު ދިވެހިން", className: "colHeader" },
-          { title: "އަރަބި ލިޔުން" },
-          {
-            title: "އަރަބި ފުޓްނޯޓުނުލާ",
-            data: 4,
-            // render: (data) => data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
-            render: (data) => removeSmallishFootnotes(data),
-            visible: false,
-            searchable: false,
-          },
-          {
-            title: "ދިވެހި ލިޔުން",
-            data: 5,
-          },
-          { title: "ތަޚްރީޖު", data: 6, searchable: false },
-          { title: "ދިވެހި ތަޚްރީޖު", data: 7, searchable: false },
-        ], //
-        columnDefs: [
-          {
-            targets: [7, 8],
-            render: (data) =>
-              data !== ""
-                ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
-                  data.replace(/\n/g, '\t<br class="dtBr">')
-                : data,
-          },
-          {
-            searchPanes: {
-              show: true,
+        table = new DataTable("#tableID", {
+          ...DTconfig,
+          ajax: {
+            url: `../js/json/` + currentFileName + `.json`,
+            dataSrc: function (json) {
+              originalData = json;
+              return json;
             },
-            targets: [0, 1],
+            dataType: "json",
+            cache: true,
           },
-          {
-            targets: [0],
-            render: (data) => "#" + data,
-          },
-          ...columnDefsconfig,
-        ],
-      });
-    </script>
-    <!-- Google Tag Manager -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-TRR5NPBL");
+          // CHANGE !!!
+          // #	noAr	arTitle	dvTitle	arab	dhiv	arRef	dvRef
+
+          columns: [
+            { title: "#", className: "colHeader" },
+            { title: "އަރަބި ނަމްބަރ", className: "colHeader" },
+            { title: "ބާބު އަރަބިން", className: "colHeader" },
+            { title: "ބާބު ދިވެހިން", className: "colHeader" },
+            { title: "އަރަބި ލިޔުން" },
+            {
+              title: "އަރަބި ފުޓްނޯޓުނުލާ",
+              data: 4,
+              // render: (data) => data.replace(/[َ|ً|ُ|ٌ|ِ|ٍ|ْ|ّ|~|⁽|⁾|¹²³⁴⁵⁶⁷⁸⁹⁰]/g, ""),
+              render: (data) => removeSmallishFootnotes(data),
+              visible: false,
+              searchable: false,
+            },
+            {
+              title: "ދިވެހި ލިޔުން",
+              data: 5,
+            },
+            { title: "ތަޚްރީޖު", data: 6, searchable: false },
+            { title: "ދިވެހި ތަޚްރީޖު", data: 7, searchable: false },
+          ], //
+          columnDefs: [
+            {
+              targets: [7, 8],
+              render: (data) =>
+                data !== ""
+                  ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
+                    data.replace(/\n/g, '\t<br class="dtBr">')
+                  : data,
+            },
+            {
+              searchPanes: {
+                show: true,
+              },
+              targets: [0, 1],
+            },
+            {
+              targets: [0],
+              render: (data) => "#" + data,
+            },
+            ...columnDefsconfig,
+          ],
+        });
+        <!-- htmlmin:ignore -->
+      <!-- Google Tag Manager -->
+      <!-- prettier-ignore -->
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-TRR5NPBL');
     </script>
     <!-- End Google Tag Manager -->
     <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-TRR5NPBL"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe
-    ></noscript>
+    <!-- prettier-ignore -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TRR5NPBL"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
+    <!-- htmlmin:ignore -->
   </body>
 </html>
