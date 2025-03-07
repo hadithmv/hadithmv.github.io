@@ -74,6 +74,12 @@ matches:
     replace: رَضِيَ اللَّهُ عَنْهُمْ
   - trigger: ra3-
     replace: رَضِيَ اللَّهُ عَنْهُمْ
+  - trigger: رضن-
+    replace: رَضِيَ اللَّهُ ‌عَنْهُنَّ
+  - trigger: ރއނ-
+    replace: رَضِيَ اللَّهُ ‌عَنْهُنَّ
+  - trigger: ran-
+    replace: رَضِيَ اللَّهُ ‌عَنْهُنَّ
   - trigger: ވދ-
     replace: "ވިދާޅުވިއެވެ: "
   - trigger: ދނ-
@@ -81,9 +87,9 @@ matches:
   - trigger: ރވ-
     replace: "ރިވާވެގެންވެއެވެ: "
   - trigger: ރކ-
-    replace: ރިވާ ކުރެއްވީ
+    replace: ރިވާކުރެއްވީ
   - trigger: ރކއ-
-    replace: "ރިވާ ކުރެއްވިއެވެ: "
+    replace: "ރިވާކުރެއްވިއެވެ: "
   - trigger: ނރ-
     replace: ނެރުއްވީ
   - trigger: މހ-
@@ -105,11 +111,11 @@ matches:
   - trigger: އމޚ-
     replace: "އަހަރުމެންނަށް ޚަބަރުދެއްވިއެވެ."
   - trigger: ރހކ-
-    replace: "ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”"
+    replace: "ރަސޫލު ﷲ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”"
   - trigger: ނހކ-
-    replace: "ނަބިއްޔާ ﷺ ޙަދީޘް ކުރެއްވިއެވެ: ”"
+    replace: "ނަބިއްޔާ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”"
   - trigger: ހކ-
-    replace: "ޙަދީޘް ކުރެއްވިއެވެ: ”"
+    replace: "ޙަދީޘްކުރެއްވިއެވެ: ”"
   - trigger: ހމ-
     replace: ހަމަކަށަވަރުން
   - trigger: އހ-
@@ -125,13 +131,13 @@ matches:
   - trigger: ނބ-
     replace: ނަބިއްޔާ
   - trigger: ހކއ-
-    replace: "ޙަދީޘް ކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ: ”"
+    replace: "ޙަދީޘްކުރައްވަނިކޮށް ތިމަން އަޑުއެހީމެވެ: ”"
   - trigger: ސައްހަ-
-    replace: މި ޙަދީޘް ސައްހަ ކުރެއްވިއެވެ.
+    replace: މި ޙަދީޘް ސައްހަކުރެއްވިއެވެ.
   - trigger: ޟ-
-    replace: މި ޙަދީޘް ޟަޢީފު ކުރެއްވިއެވެ.
+    replace: މި ޙަދީޘް ޟަޢީފުކުރެއްވިއެވެ.
   - trigger: މރވ-
-    replace: މި ޙަދީޘް ރިވާ ކުރެއްވީ
+    replace: މި ޙަދީޘް ރިވާކުރެއްވީ
   - trigger: salam-
     replace: السلام عليكم ورحمة الله وبركاته
   - trigger: wsalam-
