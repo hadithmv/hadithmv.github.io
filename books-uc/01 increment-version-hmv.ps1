@@ -5,90 +5,166 @@ at the very top is a single line of code which says  var hmvVersionNo = 3.15;
 every time this script is run, increment that by 0.01
 #>
 
+# Enhanced Version Increment Script
+# This script increments version numbers across multiple project files
+
+# Set the location to the script's directory
 try {
-    # Set working directory
     Set-Location -Path $PSScriptRoot -ErrorAction Stop
+    
+    # Start timing the script execution
+    $startTime = Get-Date
 }
 catch {
-    Write-Error "Failed to set working directory: $_"
+    Write-Error "Failed to initialize script: $_"
     exit 1
 }
 
-$filePath = "..\js\navbar.js"
+# Files to update versions in
+$filesToUpdate = @(
+    @{Path = "..\js\navbar.js"; Pattern = 'var hmvVersionNo = "(\d+\.\d+\.\d+)";'; Replacement = 'var hmvVersionNo = "{0}";'},
+    @{Path = "..\windowsApp-tauri\Hadithmv\src-tauri\tauri.conf.json"; Pattern = '"version": "(\d+\.\d+\.\d+)"'; Replacement = '"version": "{0}"'},
+    @{Path = "..\androidApp-kt\app\build.gradle"; Pattern = 'versionName\s+"([^"]+)"'; Replacement = 'versionName "{0}"'}
+)
 
 try {
-    # Check if file exists
-    if (-not (Test-Path $filePath)) {
-        throw "File not found: $filePath"
-    }
-
-    # Read the content of the file
-    $content = Get-Content $filePath -Raw -ErrorAction Stop
-
-    # Check if content is empty
-    if ([string]::IsNullOrWhiteSpace($content)) {
-        throw "File is empty"
-    }
-
-    # Extract the current version number (now handling quoted semver format)
-    if ($content -match 'var hmvVersionNo = "(\d+\.\d+\.\d+)";') {
-        $currentVersion = $matches[1]
+    Write-Host "`n🔄 Starting Version Update Process..." -ForegroundColor Cyan
+    Write-Host "🔍 Found $($filesToUpdate.Count) files to update" -ForegroundColor Cyan
+    Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
+    
+    $totalFiles = $filesToUpdate.Count
+    $processedCount = 0
+    $successCount = 0
+    $failCount = 0
+    $currentVersion = $null
+    $newVersion = $null
+    
+    # Process each file
+    foreach ($file in $filesToUpdate) {
+        $processedCount++
+        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100, 1)
+        
+        # Format display
+        $countDisplay = "[$processedCount/$totalFiles]"
+        $percentDisplay = "$percentComplete%"
+        
+        # Show progress
+        Write-Host $countDisplay -ForegroundColor Yellow -NoNewline
+        Write-Host " " -NoNewline
+        Write-Host $percentDisplay -ForegroundColor Magenta -NoNewline
+        
+        # Create progress bar
+        $progressBarWidth = 20
+        $filledWidth = [math]::Round(($percentComplete / 100) * $progressBarWidth)
+        $emptyWidth = $progressBarWidth - $filledWidth
+        
+        Write-Host " [" -NoNewline -ForegroundColor DarkGray
+        if ($filledWidth -gt 0) {
+            Write-Host ("■" * $filledWidth) -NoNewline -ForegroundColor Cyan
+        }
+        if ($emptyWidth -gt 0) {
+            Write-Host ("□" * $emptyWidth) -NoNewline -ForegroundColor DarkGray
+        }
+        Write-Host "] " -NoNewline -ForegroundColor DarkGray
+        
+        $filePath = $file.Path
+        $fileName = Split-Path $filePath -Leaf
+        
+        Write-Host "$fileName " -NoNewline
         
         try {
-            # Parse semver components
-            $versionParts = $currentVersion.Split('.')
-            $major = [int]$versionParts[0]
-            $minor = [int]$versionParts[1]
-            $patch = [int]$versionParts[2]
-
-            # Increment the patch version
-            $patch += 1
-            $newVersion = "$major.$minor.$patch"
-            
-            # Update navbar.js with semver format (including quotes)
-            $newContent = $content -replace 'var hmvVersionNo = "\d+\.\d+\.\d+";', "var hmvVersionNo = `"$newVersion`";"
-            if ($newContent -eq $content) {
-                throw "Version replacement failed in navbar.js"
+            # Check if file exists
+            if (-not (Test-Path $filePath)) {
+                Write-Host "❌ (File not found)" -ForegroundColor Red
+                $failCount++
+                continue
             }
             
-            $newContent | Set-Content $filePath -NoNewline -ErrorAction Stop
-            Write-Output "✅ navbar.js updated from $currentVersion to $newVersion"
-
-            # Update tauri.conf.json
-            $tauriPath = "..\windowsApp-tauri\Hadithmv\src-tauri\tauri.conf.json"
-            if (Test-Path $tauriPath) {
-                $tauriContent = Get-Content $tauriPath -Raw
-                $newTauriContent = $tauriContent -replace '"version": "\d+\.\d+\.\d+"', "`"version`": `"$newVersion`""
-                $newTauriContent | Set-Content $tauriPath -NoNewline
-                Write-Output "✅ tauri.conf.json version updated to version: $newVersion"
-            }
-            else {
-                Write-Warning "⚠️ tauri.conf.json not found at $tauriPath"
-            }
-
-            # Update build.gradle
-            $gradlePath = "..\androidApp-kt\app\build.gradle"
-            if (Test-Path $gradlePath) {
-                $gradleContent = Get-Content $gradlePath -Raw
+            # Read the content of the file
+            $content = Get-Content $filePath -Raw -ErrorAction Stop
+            
+            # Extract the current version number
+            if ($content -match $file.Pattern) {
+                $fileVersion = $matches[1]
                 
-                # Update versionName with semver
-                $gradleContent = $gradleContent -replace 'versionName\s+"[^"]+"', "versionName `"$newVersion`""
-                $gradleContent | Set-Content $gradlePath -NoNewline
-                Write-Output "✅ build.gradle updated to versionName: $newVersion"
+                # Store the version from the first file to use in all files
+                if ($null -eq $currentVersion) {
+                    $currentVersion = $fileVersion
+                    
+                    # Parse semver components
+                    $versionParts = $currentVersion.Split('.')
+                    $major = [int]$versionParts[0]
+                    $minor = [int]$versionParts[1]
+                    $patch = [int]$versionParts[2]
+                    
+                    # Increment the patch version
+                    $patch += 1
+                    $newVersion = "$major.$minor.$patch"
+                }
+                
+                # Replace the version in the file
+                $replacement = $file.Replacement -f $newVersion
+                $newContent = $content -replace $file.Pattern, $replacement
+                
+                if ($newContent -eq $content) {
+                    Write-Host "❌ (Version replacement failed)" -ForegroundColor Red
+                    $failCount++
+                    continue
+                }
+                
+                # Write the new content
+                $newContent | Set-Content $filePath -NoNewline -ErrorAction Stop
+                
+                # Success message
+                Write-Host "✅ " -ForegroundColor Green -NoNewline
+                Write-Host "($fileVersion → $newVersion)" -ForegroundColor Cyan
+                $successCount++
             }
             else {
-                Write-Warning "⚠️ build.gradle not found at $gradlePath"
+                Write-Host "❌ (Version pattern not found)" -ForegroundColor Red
+                $failCount++
             }
         }
         catch {
-            throw "Version update failed: $_"
+            Write-Host "❌" -ForegroundColor Red
+            Write-Error "Error processing $fileName : $_"
+            $failCount++
         }
-    } 
-    else {
-        throw "Version number not found in the expected format"
     }
-
-    Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
+    
+    # Calculate execution time
+    $endTime = Get-Date
+    $executionTime = ($endTime - $startTime).TotalSeconds
+    
+    # Display summary
+    Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
+    Write-Host "📊 SUMMARY" -ForegroundColor Cyan
+    Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
+    Write-Host "📌 New Version: " -ForegroundColor Blue -NoNewline
+    Write-Host "$newVersion" -ForegroundColor White
+    Write-Host "✅ Successful: " -ForegroundColor Green -NoNewline
+    Write-Host "$successCount files" -ForegroundColor White
+    Write-Host "❌ Failed: " -ForegroundColor Red -NoNewline
+    Write-Host "$failCount files" -ForegroundColor White
+    Write-Host "📈 Completion: " -ForegroundColor Magenta -NoNewline
+    
+    if ($totalFiles -gt 0) {
+        Write-Host "$([math]::Round(($successCount / $totalFiles) * 100))% of files" -ForegroundColor White
+    }
+    else {
+        Write-Host "0% (no files processed)" -ForegroundColor White
+    }
+    
+    Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
+    Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
+    Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
+    
+    if ($failCount -eq 0) {
+        Write-Host "✅ ALL FILES PROCESSED SUCCESSFULLY ✅" -ForegroundColor Green
+    }
+    else {
+        Write-Host "⚠️ COMPLETED WITH ERRORS ⚠️" -ForegroundColor Yellow
+    }
 }
 catch {
     Write-Error "Script execution failed: $_"
