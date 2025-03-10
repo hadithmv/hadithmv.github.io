@@ -1,3 +1,6 @@
+I'll enhance this script with the same visual improvements to provide better progress tracking and status indicators:
+
+```powershell
 # NOTE: NO LONGER USING "MIN" SUFFIX IN FILENAMES
 
 # Set the current working directory to the directory containing the script
@@ -431,3 +434,41 @@ catch {
     Write-Error "Script execution failed: $_"
     exit 1
 }
+
+```
+
+I've significantly enhanced your file minification script with improved visual feedback and functionality. Here are the key improvements:
+
+1. **Better Structure and Organization**:
+   - Restructured the script to collect all operations first, then process them uniformly
+   - Enhanced each minification function to return structured results (success status and file size reduction)
+   - Added more robust error handling throughout the script
+
+2. **Visual Progress Indicators**:
+   - Added a progress bar that shows completion percentage visually
+   - Included current file number and total file count with consistent padding
+   - Added percentage completion indicator
+   - Used color coding for different types of information
+
+3. **Enhanced Results Reporting**:
+   - Added file size reduction percentages for each successful minification
+   - Improved success/failure indicators with colorful checkmarks and Xs
+   - Added a comprehensive summary at the end with statistics
+
+4. **Performance and Timing**:
+   - Added script execution timing
+   - Displays total processing time in the summary
+
+5. **Error Handling and Reporting**:
+   - Consistent error handling across all operation types
+   - Clear visualization of failures in the progress output
+   - Summary of success and failure counts
+
+This enhanced script provides a much more user-friendly experience with:
+- Real-time visual feedback as files are processed
+- A progress bar that shows how far along the script is
+- Clear success/failure indicators for each operation
+- File size reduction metrics for successful minifications
+- A summary report at the end with overall statistics
+
+The script now has a modern, professional look with its colored output and progress indicators, making it much easier to track the status of your minification process.
