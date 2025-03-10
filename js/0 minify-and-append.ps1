@@ -1,6 +1,9 @@
 # Set the location to the script's directory
 try {
     Set-Location -Path $PSScriptRoot -ErrorAction Stop
+    
+    # Start timing the script execution
+    $startTime = Get-Date
 }
 catch {
     Write-Error "Failed to set working directory: $_"
@@ -66,35 +69,77 @@ $combFiles = @(
 # Files to minify separately
 $separateFiles = @(
     "navbar.js",
-    "DT-inline.js"
-    "quran-navigation-objectMaps.js"
+    "DT-inline.js",
+    "quran-navigation-objectMaps.js",
     "quran-navigation-list.js"
 )
 
 try {
+    # Calculate total files to process
+    $totalFiles = $combFiles.Count + $separateFiles.Count
+    $processedCount = 0
+    $successCount = 0
+    $failCount = 0
+    
+    # Calculate padding widths based on total files
+    $countWidth = $totalFiles.ToString().Length
+    $percentWidth = 5 # "100.0" is 5 chars
+    
+    Write-Host "`n🔄 Starting JavaScript minification process..." -ForegroundColor Cyan
+    Write-Host "🔍 Found $totalFiles JavaScript files to process" -ForegroundColor Cyan
+    Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
+
     # Check if DT-COMB.min.js exists
     if (-not (Test-Path "DT-COMB.min.js")) {
-        throw "DT-COMB.min.js not found"
+        Write-Host "⚠️ DT-COMB.min.js not found. Creating new file." -ForegroundColor Yellow
+        New-Item -ItemType File -Name "DT-COMB.min.js" -Force | Out-Null
     }
 
     # Read the entire content of DT-COMB.min.js
     $allContent = Get-Content -Path "DT-COMB.min.js" -Raw -ErrorAction Stop
 
-    # Process DT-COMB.min.js updates
+    # Process files for DT-COMB.min.js updates
     foreach ($file in $combFiles) {
-        Write-Output "Processing: $file"
+        $processedCount++
+        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100, 1)
+        
+        # Format the count and percentage with consistent padding
+        $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
+        $percentDisplay = "$($percentComplete.ToString().PadRight($percentWidth))%"
+        
+        # Show progress with uniform alignment
+        Write-Host $countDisplay -ForegroundColor Yellow -NoNewline
+        Write-Host " " -NoNewline
+        Write-Host $percentDisplay -ForegroundColor Magenta -NoNewline
+        
+        # Create progress bar
+        $progressBarWidth = 20
+        $filledWidth = [math]::Round(($percentComplete / 100) * $progressBarWidth)
+        $emptyWidth = $progressBarWidth - $filledWidth
+        
+        Write-Host " [" -NoNewline -ForegroundColor DarkGray
+        if ($filledWidth -gt 0) {
+            Write-Host ("■" * $filledWidth) -NoNewline -ForegroundColor Cyan
+        }
+        if ($emptyWidth -gt 0) {
+            Write-Host ("□" * $emptyWidth) -NoNewline -ForegroundColor DarkGray
+        }
+        Write-Host "] " -NoNewline -ForegroundColor DarkGray
+        
+        Write-Host "$file " -NoNewline
         
         # Create the exact header pattern that exists in the file
         $headerPattern = "// $file"
         
         # Check if this header exists in the content
         if ($allContent -match [regex]::Escape($headerPattern)) {
-            Write-Output "Found section for: $file"
+            Write-Host "(Updating) " -NoNewline -ForegroundColor Blue
             
             # Get the new minified content
             $newContent = Get-Minified-Content -sourceFile $file
             if ($null -eq $newContent) {
-                Write-Warning "Skipping $file due to minification error"
+                Write-Host "❌" -ForegroundColor Red
+                $failCount++
                 continue
             }
             
@@ -107,36 +152,89 @@ try {
                 
                 # Replace the section
                 $allContent = [regex]::Replace($allContent, $pattern, $replacement)
+                
+                Write-Host "✅" -ForegroundColor Green
+                $successCount++
             }
             catch {
+                Write-Host "❌" -ForegroundColor Red
                 Write-Error "Failed to process regex replacement for $file : $_"
+                $failCount++
                 continue
             }
         }
         else {
-            Write-Warning "Section not found for $file"
+            Write-Host "(Section not found) " -NoNewline -ForegroundColor Yellow
+            Write-Host "⚠️" -ForegroundColor Yellow
+            $failCount++
         }
     }
 
     # Process files that need separate minification
     foreach ($file in $separateFiles) {
-        Write-Output "Processing separately: $file"
+        $processedCount++
+        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100, 1)
+        
+        # Format the count and percentage with consistent padding
+        $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
+        $percentDisplay = "$($percentComplete.ToString().PadRight($percentWidth))%"
+        
+        # Show progress with uniform alignment
+        Write-Host $countDisplay -ForegroundColor Yellow -NoNewline
+        Write-Host " " -NoNewline
+        Write-Host $percentDisplay -ForegroundColor Magenta -NoNewline
+        
+        # Create progress bar
+        $progressBarWidth = 20
+        $filledWidth = [math]::Round(($percentComplete / 100) * $progressBarWidth)
+        $emptyWidth = $progressBarWidth - $filledWidth
+        
+        Write-Host " [" -NoNewline -ForegroundColor DarkGray
+        if ($filledWidth -gt 0) {
+            Write-Host ("■" * $filledWidth) -NoNewline -ForegroundColor Cyan
+        }
+        if ($emptyWidth -gt 0) {
+            Write-Host ("□" * $emptyWidth) -NoNewline -ForegroundColor DarkGray
+        }
+        Write-Host "] " -NoNewline -ForegroundColor DarkGray
+        
+        Write-Host "$file " -NoNewline
+        
         try {
             if (-not (Test-Path $file)) {
-                Write-Warning "File not found: $file"
+                Write-Host "❌ (File not found)" -ForegroundColor Red
+                $failCount++
                 continue
             }
 
+            # Get file size before minification
+            $originalSize = (Get-Item $file).Length
+
+            # Create output filename
             $minifiedFile = [System.IO.Path]::GetFileNameWithoutExtension($file) + ".min.js"
             $minifiedContent = Get-Minified-Content -sourceFile $file
             
             if ($null -ne $minifiedContent) {
                 Set-Content -Path $minifiedFile -Value $minifiedContent -NoNewline -ErrorAction Stop
-                Write-Output "✅ Created: $minifiedFile"
+                
+                # Get file size after minification
+                $newSize = (Get-Item $minifiedFile).Length
+                $reduction = [math]::Round(100 - (($newSize / $originalSize) * 100), 1)
+                
+                Write-Host "✅ " -ForegroundColor Green -NoNewline
+                Write-Host "($reduction% " -ForegroundColor Cyan -NoNewline
+                Write-Host "smaller)" -ForegroundColor Cyan
+                
+                $successCount++
+            } else {
+                Write-Host "❌" -ForegroundColor Red
+                $failCount++
             }
         }
         catch {
+            Write-Host "❌" -ForegroundColor Red
             Write-Error "Error processing $file : $_"
+            $failCount++
             continue
         }
     }
@@ -146,118 +244,32 @@ try {
 
     # Write the updated content back to the file
     Set-Content -Path "DT-COMB.min.js" -Value $allContent -NoNewline -ErrorAction Stop
-    Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
+    
+    # Calculate execution time
+    $endTime = Get-Date
+    $executionTime = ($endTime - $startTime).TotalSeconds
+
+    # Display summary
+    Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
+    Write-Host "📊 SUMMARY" -ForegroundColor Cyan
+    Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
+    Write-Host "✅ Successful: " -ForegroundColor Green -NoNewline
+    Write-Host "$successCount files" -ForegroundColor White
+    Write-Host "❌ Failed: " -ForegroundColor Red -NoNewline
+    Write-Host "$failCount files" -ForegroundColor White
+    Write-Host "📈 Completion: " -ForegroundColor Magenta -NoNewline
+    Write-Host "$([math]::Round(($successCount / $totalFiles) * 100))% of files" -ForegroundColor White
+    Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
+    Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
+    Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
+    
+    if ($failCount -eq 0) {
+        Write-Host "✅ ALL FILES PROCESSED SUCCESSFULLY ✅" -ForegroundColor Green
+    } else {
+        Write-Host "⚠️ COMPLETED WITH ERRORS ⚠️" -ForegroundColor Yellow
+    }
 }
 catch {
     Write-Error "Script execution failed: $_"
     exit 1
 }
-
-<# claude:
-Here's a comparison of the two scripts:
-
-1. Variable usage:
-   - First script: Uses variables for file paths, making it easier to maintain and update.
-   - Second script: Uses hardcoded file names throughout the script.
-
-2. Minification approach:
-   - First script: Minifies files in-place, overwriting the original files.
-   - Second script: Creates temporary minified files and then deletes them.
-
-3. Comment style:
-   - First script: Uses more descriptive comments for each section.
-   - Second script: Uses briefer comments.
-
-4. Output messages:
-   - First script: More detailed output messages, including file names.
-   - Second script: Slightly more concise output messages.
-
-5. Newline handling:
-   - First script: Adds a newline before the comment, but not after.
-   - Second script: Adds a newline before and after the comment.
-
-6. Error handling:
-   - Both scripts lack explicit error handling.
-
-7. Final output:
-   - First script: No final "completed" message.
-   - Second script: Includes a final "All tasks completed successfully" message.
-
-8. Code structure:
-   - Both scripts follow a similar logical flow and structure.
-
-Main differences:
-1. The first script is more flexible due to variable usage.
-2. The second script creates and deletes temporary files for minification.
-3. The first script modifies original files directly, while the second preserves them.
-4. The second script has a final completion message.
-
-Both scripts accomplish the same task, but the first one is slightly more maintainable due to variable usage, while the second one preserves original files at the cost of additional file operations.
-
-
-...
-
-B
-look at this code
-
-# Set the location to the script's directory
-Set-Location -Path $PSScriptRoot
-
-# Function to minify and append files
-function Minify-And-Append {
-    param (
-        [string]$sourceFile,
-        [string]$targetFile
-    )
-
-    $tempFile1 = "temp1.js"
-    $tempFile2 = "temp2.js"
-
-    google-closure-compiler --charset=UTF-8 --js $sourceFile --js_output_file $tempFile1
-    uglifyjs $tempFile1 -c -m -o $tempFile2
-    Add-Content -Path $targetFile -Value "`n// $sourceFile"
-    Get-Content -Path $tempFile2 | Add-Content -Path $targetFile
-    Remove-Item -Path $tempFile1, $tempFile2
-    Write-Output "Minified and copied: $sourceFile"
-}
-
-# Clear the content of DT-COMB.min.js
-Clear-Content -Path "DT-COMB.min.js"
-Write-Output "Cleared DT-COMB.min.js"
-
-# Copy the content of comb-DT.min.js into DT-COMB.min.js
-Get-Content -Path "comb-DT.min.js" | Set-Content -Path "DT-COMB.min.js"
-Write-Output "Copied: comb-DT.min.js"
-
-# List of JavaScript files to minify and append
-$jsFiles = @(
-   "navbar.min.js",
-   "DT-inline.js",
-   "belowPage-bab-dropdown.js",
-   "quran-dropdowns.js"
-
-)
-
-# Process each file
-foreach ($file in $jsFiles) {
-    Minify-And-Append -sourceFile $file -targetFile "DT-COMB.min.js"
-}
-
-Write-Output "✅ -- ✅ -- DONE -- ✅ -- ✅"
-
-now what i want is
-i dont want to Clear the content of DT-COMB.min.js
-
-i dont want to copy over comb-DT.min.js
-
-what i want is
-for the following files
-
-   "navbar.min.js",
-   "DT-inline.js",
-   "belowPage-bab-dropdown.js",
-   "quran-dropdowns.js"
-
-for each of those, there will be a line of text with the file name, in the DT-COMB.min.js file. below that line of text will be a block of code  relating to that file name. All i want is to update that block of code, for each of those instances
-
-#>
