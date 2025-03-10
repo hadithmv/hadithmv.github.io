@@ -673,7 +673,7 @@ document.addEventListener("DOMContentLoaded", () => {
           .replace(/^_+|_+$/g, "");
         break;
 
-      case "kebabCase":
+      case "slugCase":
         textArea.value = textArea.value
           .toLowerCase()
           .replace(/[^a-zA-Z0-9]+/g, "-")
