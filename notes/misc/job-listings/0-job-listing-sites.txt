@@ -1,0 +1,66 @@
+ސުންގަޑި ހަމަނުވާ އިޢުލާންތައް އެކަނި
+
+https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ސޮފްޓ+&start-date=&end-date=&open-only=1 
+
+https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ޑިވެލ&start-date=&end-date=&open-only=1 
+https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ޑިވްލ&start-date=&end-date=&open-only=1 
+https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ޑެވެލ&start-date=&end-date=&open-only=1 
+https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ޑިވަލ&start-date=&end-date=&open-only=1 
+https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ޑިވޮލ&start-date=&end-date=&open-only=1 
+
+https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ޕްރޮގްރާމަ&start-date=&end-date=&open-only=1 
+https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ޕްރޮގްރާމާ&start-date=&end-date=&open-only=1 
+
+https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=އައިޓ&start-date=&end-date=&open-only=1 
+https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=އައި.ޓ&start-date=&end-date=&open-only=1 
+
+https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ޑޭޓާ&start-date=&end-date=&open-only=1 
+
+https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ޑިޖިޓ&start-date=&end-date=&open-only=1 
+...
+https://www.gazette.gov.mv/iulaan?type=&job-category=&office=national-centre-for-information-technology&q=&start-date=&end-date=&open-only=1 
+
+https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=information-technology&office=&q=&start-date=&end-date=&open-only=1 
+
+note that some places just say “vazeefaage furusathu” with no mention of what it is about on the headers, like:
+ވަޒީފާގެ ފުރުޞަތު
+މޯލްޑިވްސް އިންލަންޑް ރެވެނިއު އޮތޯރިޓީ
+
+https://jobcenter.mv/en/jobs?filter%5Bactive%5D=1&filter%5Bsector%5D=&filter%5Bindustry%5D=125&filter%5Boccupation%5D=&filter%5Bemployer%5D=&filter%5Bsalary%5D=&filter%5Bstate%5D=&filter%5Bcity%5D=&filter%5Bqualification%5D=&filter%5Battributes%5D%5Bemployment_types%5D=&filter%5Battributes%5D%5Bfield_of_work%5D=&filter%5Battributes%5D%5Bskills%5D= 
+Industry: Vocational and Technical Educational Institutes
+
+https://jobcenter.mv/en/jobs?filter%5Bactive%5D=1&filter%5Bsector%5D=&filter%5Bindustry%5D=90&filter%5Boccupation%5D=&filter%5Bemployer%5D=&filter%5Bsalary%5D=&filter%5Bstate%5D=&filter%5Bcity%5D=&filter%5Bqualification%5D=&filter%5Battributes%5D%5Bemployment_types%5D=&filter%5Battributes%5D%5Bfield_of_work%5D=&filter%5Battributes%5D%5Bskills%5D= 
+Industry: Computer programming, consultancy and related activities
+
+https://jobcenter.mv/en/jobs?filter%5Bactive%5D=1&filter%5Bsector%5D=&filter%5Bindustry%5D=139&filter%5Boccupation%5D=&filter%5Bemployer%5D=&filter%5Bsalary%5D=&filter%5Bstate%5D=&filter%5Bcity%5D=&filter%5Bqualification%5D=&filter%5Battributes%5D%5Bemployment_types%5D=&filter%5Battributes%5D%5Bfield_of_work%5D=&filter%5Battributes%5D%5Bskills%5D= 
+Industry: Repair of computers and personal and household goods
+
+https://careersmv.com/tags/it
+
+...
+
+https://jobsicle.mv/ 
+Category:
+IT Software (Software Engineering / Development / Application Development)
+IT Networking (System Administration / Network Administration / Security)
+IT Hardware (Hardware Repair & Maintenance / Support)
+
+https://notify.mv/search/jobs?filter[category]=software-engineering 
+
+https://career-maldives.com/jobs/?categories[]=Information%20Technology%20Jobs 
+could also be in "business development", so check for keywords:
+
+https://ibay.com.mv/index.php?page=search&s_res=AND&cid=55&f_industry_ex=Information+Technology 
+https://ibay.com.mv/index.php?page=search&s_res=AND&cid=55&f_category_ex=IT%2C+Web+%26+Software 
+
+https://www.linkedin.com/jobs/search/?currentJobId=4005113672&f_F=it&location=maldives&origin=JOB_SEARCH_PAGE_JOB_FILTER&sortBy=R 
+
+https://www.linkedin.com/jobs/intern-jobs/?currentJobId=4133051525&originalSubdomain=mv
+
+...
+
+software
+developer
+IT
+information technology
+programmer
