@@ -1,6 +1,9 @@
 # Set the current working directory to the directory containing the script
 Set-Location -Path $PSScriptRoot
 
+# Start timing the script execution
+$startTime = Get-Date
+
 # Define a function to minify HTML files
 function MinifyHTML($inputFile, $outputFile) {
     try {
@@ -56,11 +59,30 @@ function MinifyHTML($inputFile, $outputFile) {
 # Get all HTML files in the current directory
 try {
     $files = Get-ChildItem -Filter "*.html" -ErrorAction Stop
+    $totalFiles = ($files | Where-Object { $_.Name -notmatch "(test|backup|copy)" }).Count
+    $processedCount = 0
+    $successCount = 0
+    $failCount = 0
+    
+    # Calculate padding widths based on total files
+    $countWidth = $totalFiles.ToString().Length
+    $percentWidth = 5 # "100.0" is 5 chars
+
+    Write-Host "`n🔄 Starting HTML minification process..." -ForegroundColor Cyan
+    Write-Host "🔍 Found $totalFiles HTML files to process" -ForegroundColor Cyan
+    Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
 
     # Loop through each HTML file
     foreach ($file in $files) {
         # Check if the file name contains "test", "backup", or "copy"
         if ($file.Name -notmatch "(test|backup|copy)") {
+            $processedCount++
+            $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100, 1)
+            
+            # Format the count and percentage with consistent padding
+            $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
+            $percentDisplay = "$($percentComplete.ToString().PadRight($percentWidth))%"
+            
             # Get the file name without extension
             $baseName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
             
@@ -68,34 +90,81 @@ try {
             $inputFile = $file.FullName
             $outputFile = "../books/$($file.Name)"
             
+            # Show progress with uniform alignment
+            Write-Host $countDisplay -ForegroundColor Yellow -NoNewline
+            Write-Host " " -NoNewline
+            Write-Host $percentDisplay -ForegroundColor Magenta -NoNewline
+            
+            # Create progress bar
+            $progressBarWidth = 20
+            $filledWidth = [math]::Round(($percentComplete / 100) * $progressBarWidth)
+            $emptyWidth = $progressBarWidth - $filledWidth
+            
+            Write-Host " [" -NoNewline -ForegroundColor DarkGray
+            if ($filledWidth -gt 0) {
+                Write-Host ("■" * $filledWidth) -NoNewline -ForegroundColor Cyan
+            }
+            if ($emptyWidth -gt 0) {
+                Write-Host ("□" * $emptyWidth) -NoNewline -ForegroundColor DarkGray
+            }
+            Write-Host "] " -NoNewline -ForegroundColor DarkGray
+            
+            Write-Host "$($file.Name) " -NoNewline
+            
             # Call the MinifyHTML function to process the file
             $success = MinifyHTML $inputFile $outputFile
             
             # Print appropriate message based on success
             if ($success) {
-                Write-Output "✅ Processed: $($file.Name)"
+                Write-Host "✅" -ForegroundColor Green
+                $successCount++
             } else {
-                Write-Output "❌ Failed to process: $($file.Name)"
+                Write-Host "❌" -ForegroundColor Red
+                $failCount++
             }
         }
     }
 
     # Copy index page over to layout index dir
     try {
+        Write-Host "`nCopying index.html to layouts directory..." -ForegroundColor Cyan -NoNewline
         if (Test-Path "../books/index.html") {
             Copy-Item "../books/index.html" -Destination "../_layouts/index.html" -ErrorAction Stop
-            Write-Output "✅ Copied index.html to _layouts"
+            Write-Host " ✅" -ForegroundColor Green
         } else {
-            Write-Warning "index.html not found in ../books/"
+            Write-Host " ⚠️ index.html not found in ../books/" -ForegroundColor Yellow
         }
     }
     catch {
+        Write-Host " ❌" -ForegroundColor Red
         Write-Error "Failed to copy index.html: $_"
+    }
+
+    # Calculate execution time
+    $endTime = Get-Date
+    $executionTime = ($endTime - $startTime).TotalSeconds
+
+    # Display summary
+    Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
+    Write-Host "📊 SUMMARY" -ForegroundColor Cyan
+    Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
+    Write-Host "✅ Successful: " -ForegroundColor Green -NoNewline
+    Write-Host "$successCount files" -ForegroundColor White
+    Write-Host "❌ Failed: " -ForegroundColor Red -NoNewline
+    Write-Host "$failCount files" -ForegroundColor White
+    Write-Host "📈 Completion: " -ForegroundColor Magenta -NoNewline
+    Write-Host "$([math]::Round(($successCount / $totalFiles) * 100))% of files" -ForegroundColor White
+    Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
+    Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
+    Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
+    
+    if ($failCount -eq 0) {
+        Write-Host "✅ ALL FILES PROCESSED SUCCESSFULLY ✅" -ForegroundColor Green
+    } else {
+        Write-Host "⚠️ COMPLETED WITH ERRORS ⚠️" -ForegroundColor Yellow
     }
 }
 catch {
     Write-Error "Script execution failed: $_"
     exit 1
 }
-
-Write-Output "`n✅ -- ✅ -- DONE -- ✅ -- ✅"
