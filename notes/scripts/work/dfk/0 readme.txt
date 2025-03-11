@@ -34,17 +34,17 @@ do it in js
 
 7 upload output.txt to a google sheet
 remove rows above BODY CONTENT text,
-check if there are any columns other than first, if so resolve (ignore out of place footnote text)
+check if there are any columns other than first, if so resolve (IGNORE out of place footnote text)
 then remove all other columns but first, delete extra bottom rows
 
 8 download as csv, convert to json via papaparse.
 
-9 open json content in vscode, replace "#" with "\n" (without quotes, and make sure regex is OFF)
+9 !!! open json content in vscode, replace "#" with "\n" (without quotes, and make sure regex is OFF)
 save as input.json
 
 10 convert to csv
-https://www.convertcsv.com/json-to-csv.htm
-dont include header in first row
+use either papaparse unparse, or below:
+	/ https://www.convertcsv.com/json-to-csv.htmdont include header in first row
 
 11 download, upload to google sheets
 data cleanup, remove extra columns and rows, trim whitespace
@@ -59,20 +59,21 @@ everything should fit. as for the last row, it will contain footnotes, and maybe
 
 NEXT PART
 
-1 as for footnotes, you can find them in the initial plain text file we made in step 5: input.txt (it should also be in the last cell of the most recently processed google sheet?)
+1 as for footnotes, you can find them in the initial plain text file we made in step 5: input.txt (?it should also be in the last cell of the most recently processed google sheet?)
 
 2 look for the first footnote to know where to begin. for example, it could be [3] or (6)
 
 3 from that number, til the end of the doc, copy the text, save it in a new text file called footnotes.txt (no need for " characters)
 
-4 replace "\n" with "#" (?? is this step even needed/relevant now?)
+4 ?replace "\n" with "#" (?? is this step even needed/relevant now?)
 
-5 get just the column of dv text we made, no extra columns, convert just that data to json, and save as addfootnotestothis.json.
+5 get just the column of dv text we made, no extra columns, no footnote text, convert just that data to json, and save as addfootnotestothis.json.
 
 6 run processFootnotesSquareBr.js
 //or the circularBr if thats relevant
 //or the noBr
-(modified the proccessFootnotes script code for different instances of brackets or no brackets, had to make sure it didn't mess up the non initial numbers in the case of the no brackets at all version)
+(! modified the processFootnotes script code for different instances of brackets or no brackets, had to make sure it didn't mess up the non initial numbers in the case of the no brackets at all version)
+
 it should give output.json
 
 ignore...
@@ -118,7 +119,8 @@ when i should be getting:
 
 
 7 convert json to csv
-dont include header in first row
+use papaparse unparse, or:
+	table convert (in which case: dont include header in first row)
 remove bottom empty rows
 trim whitespace
 

@@ -4,7 +4,7 @@ const fs = require("fs");
 const Papa = require("papaparse");
 
 // Read the JSON file
-fs.readFile("radheefRasmee.json", "utf8", (err, data) => {
+fs.readFile("input.json", "utf8", (err, data) => {
   if (err) {
     console.error("Error reading file:", err);
     return;
