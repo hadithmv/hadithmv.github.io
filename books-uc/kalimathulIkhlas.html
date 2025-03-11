@@ -4,7 +4,7 @@
     <meta name="google" content="notranslate" />
     <!-- CHANGE !!! -->
     <title>
-      كلمة الإخلاص وتحقيق معناها لابن رجب – އިބްނު ރަޖަބުގެ ލިޔުނު އިޚްލާސްގެ
+      كلمة الإخلاص وتحقيق معناها لابن رجب – އިބްނު ރަޖަބު ލިޔުނު އިޚްލާސްގެ
       ކަލިމަ
     </title>
     <meta
@@ -486,27 +486,36 @@
           cache: true,
         },
         // CHANGE !!!
-        // dvBab dvText	dvRef pageNo
+        // #	bab babDhiv arab takhrij	dhiv	dvRef
         columns: [
-          { title: "ދިވެހި ބާބު", className: "colHeader" },
+          { title: "#", className: "colHeader" },
+          { title: "ބާބު އަރަބިން", className: "colHeader" },
+          { title: "ބާބު ދިވެހިން", className: "colHeader" },
+          { title: "އަރަބި ލިޔުން" },
+          {
+            title: "ތަޚްރީޖު",
+            searchable: false,
+          },
+          {
+            title: "ހުސް ބަރި",
+            render: function (data) {
+              //return "a";
+              return "";
+            },
+            searchable: false,
+          },
           {
             title: "ދިވެހި ލިޔުން",
+            data: 5,
           },
           {
             title: "ދިވެހި ތަޚްރީޖު",
-          },
-          {
-            /* add sofhaa string to page no */
-            title: "ސަފުހާ #",
-            searchable: false,
-            render: function (data) {
-              return "[ސ: " + data + "]";
-            },
+            data: 6,
           },
         ], //
         columnDefs: [
           {
-            targets: [2],
+            targets: [4, 7],
             render: (data) =>
               data !== ""
                 ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
@@ -517,7 +526,11 @@
             searchPanes: {
               show: true,
             },
+            targets: [1, 2],
+          },
+          {
             targets: [0],
+            render: (data) => "#" + data,
           },
           ...columnDefsconfig,
         ],
