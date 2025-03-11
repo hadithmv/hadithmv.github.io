@@ -49,7 +49,8 @@ use either papaparse unparse, or below:
 11 download, upload to google sheets
 data cleanup, remove extra columns and rows, trim whitespace
 
-this gets you the dv body text column. now regular copy paste (not plain without formatting) column over to final db table sheet
+this gets you the dv body text column. move onto next step
+	?SKIP FOR NOW AS NOT FINISHED: now regular copy paste (not plain without formatting) column over to final db table sheet
 
 check whether a row is missing, and fix. maybe you forgot to put a ** somewhere
 
