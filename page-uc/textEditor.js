@@ -181,12 +181,17 @@ document.addEventListener("DOMContentLoaded", () => {
           "٠١٢٣٤٥٦٧٨٩".indexOf(d)
         );
         break;
+
       case "regularToArabic":
         textArea.value = textArea.value.replace(
           /[0-9]/g,
           (d) => "٠١٢٣٤٥٦٧٨٩"[d]
         );
+      //
 
+      case "removeFootnoteNumbers":
+        textArea.value = textArea.value.replace(/⁽[¹²³⁴⁵⁶⁷⁸⁹⁰]+⁾/g, "");
+        break;
       //
 
       case "convertNumerals":
@@ -212,9 +217,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         break;
 
-        //
+      //
 
-        break;
       case "removePrecedingZeros":
         textArea.value = textArea.value.replace(/\b0+(\d)/g, "$1");
         break;
