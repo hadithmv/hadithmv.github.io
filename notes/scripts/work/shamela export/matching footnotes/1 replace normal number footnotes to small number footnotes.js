@@ -1,10 +1,10 @@
-/* cg: write js code to replace all single or double digits within curved brackets only at the start of a line, such as: (1) (6) (99) to footnote like characters like the following ⁽¹⁾ ⁽⁶⁾ ⁽⁹⁹⁾ input file is called "output-text.html", output file should be called "actual-footnotes.txt"
+/* cg: write js code to replace all single or double digits within curved brackets only at the start of a line, such as: (1) (6) (99) to footnote like characters like the following ⁽¹⁾ ⁽⁶⁾ ⁽⁹⁹⁾ input file is called "output.html", output file should be called "actual-footnotes.txt"
  */
 
 const fs = require("fs");
 
 // Read the input file
-fs.readFile("output-text.html", "utf8", (err, data) => {
+fs.readFile("normal-number-footnotes-to-small.txt", "utf8", (err, data) => {
   if (err) {
     console.error("Error reading file:", err);
     return;
@@ -32,6 +32,8 @@ fs.readFile("output-text.html", "utf8", (err, data) => {
       console.error("Error writing file:", err);
       return;
     }
-    console.log("File has been successfully processed and saved.");
+    console.log(
+      "footnotes.txt file has been successfully processed and saved."
+    );
   });
 });

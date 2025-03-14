@@ -1,21 +1,38 @@
-1 export book from shamela to html
+1 export book from shamela to htm
 
-2 open html file in editor, go to where the book body starts, remove everything above that
+2 open html file in vscode, (DONT format document with html language features)
 
-3 go to where book body ends, remove everything after that
+2.5 go to where the book main content body starts, remove everything above that (usually:
+<div class='PageText'>
+تاريخ النشر بالشاملة)
+
+3 go to where book main content body ends, remove everything after that
+(usually:
+    </div>
+</body>
+
+</html>
+)
 
 4 remove headers like
 <span class='PartName'>عمدة الأحكام - ت القاسم</span>
+	where "عمدة الأحكام - ت القاسم" is the name of the book
 
 5 remove page numbers like
 <div class='PageHead'><span class='PageNumber'>(ص: ١١٩)</span><hr/></div>
 
--regex:
-<div class='PageHead'><span class='PageNumber'>\(ص: [٠-٩]+\)</span><hr/></div>
-(cl: using js regex, remove all instances of <div class='PageHead'><span class='PageNumber'>(ص: ١١٩)</span><hr/></div> where ١١٩ can be any arabic digits and any amount of arabic digits)
+first search for regex:
+\(ص: [٠-٩]+\)
+remove
+
+then search and remove:
+<div class='PageHead'><span class='PageNumber'></span><hr/></div>
+
+	(cl: using js regex, remove all instances of <div class='PageHead'><span class='PageNumber'>(ص: ١١٩)</span><hr/></div> where ١١٩ can be any arabic digits and any amount of arabic digits)
 
 NOTE! might need to replace this with a: <div>
 otherwise new page wont start on a new line
+
 
 6 remove all footnotes
 <div class='footnote'><font color=#be0000>(1)</font> «وَسَلَّمَ يَقُولُ» مطموسة في ك.</p><font color=#be0000>(2)</font> البخاري رقم الحديث (1).</p><font color=#be0000>(3)</font> في ح: «إنما الأعمال بالنيات، وفي رواية: بالنية» بتقديمٍ وتأخير.</p><font color=#be0000>(4)</font> «مَا نَوَى؛ فَمَنْ كَانَتْ» مطموسة في ك.</p><font color=#be0000>(5)</font> في ج، هـ: «دنياً» بالتَّنوين، والمثبت من ب، د، و، ح، ط، ي، ل.</p>قال ابن الملقِّن رحمه الله في الإعلام بفوائد عمدة الأحكام (1/ 202): «(دنيا): مقصور غير منوَّن على المشهور، وهو الذي جاءت به الرِّواية، ويجوز في لغةٍ عربيةٍ تنوينُها».</p><font color=#be0000>(6)</font> البخاري (6689)، ومسلم (1907)، ولفظ المُصنِّف يوافق لفظ الحميدي في الجمع بين الصحيحين (1/ 112).</p>وفي حاشية أ: «لفظ مسلم والبخاريِّ: (وإنما لامرئٍ)، واختصَّ البخاري: (وإنما لكل امرئ) في رواية».</p><font color=#be0000>(7)</font> في أ، ج، هـ، و، ك: «وعن».</p><font color=#be0000>(8)</font> البخاري (6954) واللفظ له، ومسلم (225).</div>
@@ -29,16 +46,19 @@ otherwise new page wont start on a new line
 
 8 remove kitabs and baabs such as
 <span data-type='title' id=toc-86>&#8204;كِتَابُ الحَجِّ</span></p>&#8204;<span data-type='title' id=toc-87>&#8204;بَابُ المَوَاقِيتِ</span>
+	where "بَابُ المَوَاقِيتِ" is the kitab/baab
 
 -regex:
 <span\s+data-type=['"]title['"][^>]*>[\s\S]*?<\/span>
-(cl: with js regex, i want to remove everything in every instance between these span tags with data-type='title', including those tags <span data-type='title' id=toc-86>&#8204;كِتَابُ الحَجِّ</span>)
+	(cl: with js regex, i want to remove everything in every instance between these span tags with data-type='title', including those tags <span data-type='title' id=toc-86>&#8204;كِتَابُ الحَجِّ</span>)
 
-9 open that html in browser as a webpage, copy all text, paste in editor. save as input.html
+9 open that html in browser as a webpage, copy all text, paste in editor. save WITHOUT FORMATING as input.html
+
+...NEXT STEP
 
 10 change all hadith numbers to Arabic numbers
 -run js file: 1 convert arabic numbers at line start.js
-(cl: with js, change all numbers with dashes at the beginning of any new line to Arabic numbers, such as "1 - " should be "١ - " and "414 - " should be "٤١٤ - ". input file is called "input.html". output file should be called "output.html")
+	(cl: with js, change all numbers with dashes at the beginning of any new line to Arabic numbers, such as "1 - " should be "١ - " and "414 - " should be "٤١٤ - ". input file is called "input.html". output file should be called "output.html")
 
 11 in the editor, with output file open, replace the following:
 (first line has space at end)
@@ -58,6 +78,7 @@ to
 ###
 
 that last replace is what gets the new lines ready for correct placement later
+SAVE WITHOUT FORMATTING
 
 
 12 run js file: 2 replace salla with symbol and radiya with filijehi
@@ -70,7 +91,7 @@ replaces the following:
 
 13 run js file: 3 replace normal number footnotes to small number footnotes
 
-[INCORPORATED THIS BIT INTO THE SCRIPT ABOVE, SO NO NEED TO DO IT MANUALLY.
+	[INCORPORATED THIS BIT INTO THE SCRIPT ABOVE, SO NO NEED TO DO IT MANUALLY.
 for some reason there were many stray footnote numbers at the very end of some body text cells
 there were some empty new lines at end. seems they were caused by the following invisible characters:
 https://codepoints.net/U+200C Zero Width Non-Joiner
@@ -78,19 +99,24 @@ remove with regex:
 \u200C
 then run data trim to clean up trailing empty line breaks.]
 
-14 copy all text, paste in a google sheet cell. this should get the text in correct rows with corresponding numbers
+14 copy all text (NOT IMPORT), paste in a google sheet cell. this should get the text in correct rows with corresponding numbers
 
-15 download as csv, convert to json, save as json, open in editor, replace all:
+15 download as csv, convert to json, save as input.json, open in editor, replace all:
 ###
 to
 \n
 
-16 json to csv, dont include header in first row
+16 json to csv, (USE PAPA UNPARSE) dont include header in first row
 
 17 download csv, upload to google sheets. data > trim white space
 
-18 thats it. now you need to connect continuous paragraphs where they were broken off with a new line in the shamela original. expand cell and look manually
+18 THATS ITS. now you need to connect continuous paragraphs where they were broken off with a new line in the shamela original. expand cell and look manually
 
 remember that kitabs and baabs can have footnote numbers, and these  break the next step of processing footnotes. so footnotes need to be matched manually, and kitabs and baabs need to be added to the table manually.
 
 footnotes will also have \r instead of \n in various places, those too need to be taken care of. script that later
+
+...NEXT STEP
+head over to the
+matching footnotes
+folder

@@ -27,6 +27,6 @@ fs.readFile("input.htm", "utf8", (err, data) => {
       console.error("Error writing output file:", err);
       return;
     }
-    console.log("Output file has been saved successfully.");
+    console.log("output.html file has been saved successfully.");
   });
 });

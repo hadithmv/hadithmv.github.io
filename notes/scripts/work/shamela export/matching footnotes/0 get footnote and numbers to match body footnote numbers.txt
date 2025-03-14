@@ -1,17 +1,21 @@
-1 get exported html from shamela
+1 get RAW exported htm file from shamela, WITH NO CONTENT EDITS, rename as "input" here in this folder
 
 2 remove everything but the footnotes from that
 run js: 0 remove everything but footnotes.js
+	(NOTE: if the footnote numbers restart from 1 again later, will need to remove the ones appearing prior, and only use a consecutive set of numbers)
 
-3 change normal number footnotes to arabic
+2.5 this produces a "output.htm" file, open that in browser, copy all text, paste in new file, save as normal text file named:
+normal-number-footnotes-to-small.txt
+
+3 change normal number footnotes to small numbers
 run js: 1 replace normal number footnotes to small number footnotes.js
 
-4 if not already done, make a new google sheet, only copy the column with body text (with footnot numbers) there, remove all other columns and rows. download as csv, convert to json w papaparse, save as "addfootnotestothis.json"
+4 (FROM THE FILE IN STEP 17 OF THE PREVIOUS INSTRUCTION NOTE; get the body text only google sheet, download as csv, convert to json w papaparse, save as "addfootnotestothis.json"
 
-5 change smallish numbers and brackets to square and regular, in both files
+5 change smallish numbers and brackets to square and regular, in both files [DONT WORRY, WE WILL REVERSE THIS LATER, NEEDED FOR MATCHING]
 run js: 2 footnotes numbers to square bracket and numbers.js
 
-5.5 before doing the next step, make sure the addfootnotestothis.json doesn't have any extra footnotes like at the end 
+	5.5 before doing the next step, make sure the addfootnotestothis.json doesn't have any extra footnotes like at the end 
 
 6 now get the footnotes into the body where appropriate as a second column. same code as the one used in dfk scripts.
 run js: 3 processFootnotes.js
@@ -24,4 +28,8 @@ run js: 4 square bracket footnotes numbers to proper small bracket and numbers.j
 to ﷺ
 in the footnotes column
 
-done
+done.
+
+uparse that json to csv and import to google sheets.
+
+manually add back resetted pre footnote sequences, or [*] instances
