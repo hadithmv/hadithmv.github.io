@@ -16,7 +16,8 @@ fs.readFile("addfootnotestothis.json", "utf8", (err, data) => {
       return;
     }
 
-    let footnotes = footnotesData.match(/\[\d+\][^\[\]]+/g);
+    // Make sure footnotes is initialized as an array even if match returns null
+    let footnotes = footnotesData.match(/\[\d+\][^\[\]]+/g) || [];
     let globalUsedFootnotes = []; // To keep track of all used footnotes globally
 
     // Process the data
