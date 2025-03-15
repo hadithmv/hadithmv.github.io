@@ -1,0 +1,11 @@
+copy an html page and rename
+update:	title
+	book meta info, links, pdfs, intro
+	json column titles/numbers, lines if need be
+
+then update:
+	faq
+	home page entry
+	jaamiu entry
+	
+iulaan on hmv social media
