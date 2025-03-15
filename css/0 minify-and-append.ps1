@@ -94,7 +94,7 @@ try {
     
     # Calculate padding widths based on total files
     $countWidth = $totalFiles.ToString().Length
-    $percentWidth = 2 # No decimal points now
+    $percentWidth = 3 # No decimal points now
     
     # Calculate total original size
     foreach ($file in ($combFiles + $separateFiles)) {
@@ -127,8 +127,8 @@ try {
         $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100)
         
         # Format the count and percentage with consistent padding
-        $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
-        $percentDisplay = "$($percentComplete.ToString().PadLeft($percentWidth))%"
+        $countDisplay = "[$($processedCount.ToString().PadRight($countWidth))/$totalFiles]"
+        $percentDisplay = "$($percentComplete.ToString().PadRight($percentWidth))%"
         
         # Show progress with uniform alignment
         Write-Host $countDisplay -ForegroundColor Yellow -NoNewline
@@ -204,8 +204,8 @@ try {
         $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100)
         
         # Format the count and percentage with consistent padding
-        $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
-        $percentDisplay = "$($percentComplete.ToString().PadLeft($percentWidth))%"
+        $countDisplay = "[$($processedCount.ToString().PadRight($countWidth))/$totalFiles]"
+        $percentDisplay = "$($percentComplete.ToString().PadRight($percentWidth))%"
         
         # Show progress with uniform alignment
         Write-Host $countDisplay -ForegroundColor Yellow -NoNewline

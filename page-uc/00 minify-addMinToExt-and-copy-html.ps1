@@ -345,7 +345,7 @@ try {
         $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100)
         
         # Format the count and percentage with consistent padding
-        $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
+        $countDisplay = "[$($processedCount.ToString().PadRight($countWidth))/$totalFiles]"
         $percentDisplay = "$($percentComplete.ToString().PadRight($percentWidth))%"
         
         # Show progress with uniform alignment

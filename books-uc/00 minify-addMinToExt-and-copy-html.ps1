@@ -103,7 +103,7 @@ try {
     
     # Calculate padding widths based on total files
     $countWidth = $totalFiles.ToString().Length
-    $percentWidth = 2 # No decimal points now
+    $percentWidth = 3 # No decimal points now
 
     Write-Host "`n🔄 Starting HTML minification process..." -ForegroundColor Cyan
     Write-Host "🔍 Found $totalFiles HTML files to process (💾 $totalOriginalSizeFormatted total)" -ForegroundColor Cyan
@@ -115,8 +115,8 @@ try {
         $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100)
         
         # Format the count and percentage with consistent padding
-        $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
-        $percentDisplay = "$($percentComplete.ToString().PadLeft($percentWidth))%"
+        $countDisplay = "[$($processedCount.ToString().PadRight($countWidth))/$totalFiles]"
+        $percentDisplay = "$($percentComplete.ToString().PadRight($percentWidth))%"
         
         # Get the file name without extension
         $baseName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
