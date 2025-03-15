@@ -5,6 +5,7 @@ update:	title
 
 then update:
 	faq
+	supportHmv page
 	home page entry
 	jaamiu entry
 	

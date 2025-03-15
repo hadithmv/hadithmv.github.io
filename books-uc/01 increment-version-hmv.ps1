@@ -222,10 +222,10 @@ try {
         Write-Host "0% (no files processed)" -ForegroundColor White
     }
     
-    Write-Host "💾 Total Space Change: " -ForegroundColor Blue -NoNewline
+    Write-Host "💾 Total Space Saved: " -ForegroundColor Yellow -NoNewline
     Write-Host "$newTotalSizeFormatted from $totalSizeFormatted ($sizeDiffTotalFormatted, $percentChange% $changeDirection)" -ForegroundColor White
     
-    Write-Host "🕒 Total Time: " -ForegroundColor Yellow -NoNewline
+    Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
     Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
     
