@@ -17,6 +17,9 @@ function MinifyHTML($inputFile, $outputFile) {
             throw "html-minifier is not installed. Please install it using 'npm install -g html-minifier'"
         }
 
+        # Get the original file size
+        $originalSize = (Get-Item $inputFile).Length
+
         # Read the content of the file
         $content = Get-Content -Path $inputFile -Raw -ErrorAction Stop
         
@@ -42,10 +45,29 @@ function MinifyHTML($inputFile, $outputFile) {
         if ($LASTEXITCODE -ne 0) {
             throw "html-minifier failed: $minifierResult"
         }
+
+        # Get the new file size
+        $newSize = (Get-Item $outputFile).Length
+        
+        # Calculate size reduction
+        $sizeDiff = $originalSize - $newSize
+        
+        # Store size information
+        return @{
+            Success = $true
+            OriginalSize = $originalSize
+            NewSize = $newSize
+            SizeDiff = $sizeDiff
+        }
     }
     catch {
         Write-Error "Error processing file $inputFile : $_"
-        return $false
+        return @{
+            Success = $false
+            OriginalSize = 0
+            NewSize = 0
+            SizeDiff = 0
+        }
     }
     finally {
         # Clean up the temporary file if it exists
@@ -53,75 +75,90 @@ function MinifyHTML($inputFile, $outputFile) {
             Remove-Item $tempFile -ErrorAction SilentlyContinue
         }
     }
-    return $true
+}
+
+# Function to format file size
+function Format-FileSize($size) {
+    if ($size -ge 1MB) {
+        return "$([math]::Round($size / 1MB, 2)) MB"
+    } else {
+        return "$([math]::Round($size / 1KB, 1)) KB"
+    }
 }
 
 # Get all HTML files in the current directory
 try {
     $files = Get-ChildItem -Filter "*.html" -ErrorAction Stop
-    $totalFiles = ($files | Where-Object { $_.Name -notmatch "(test|backup|copy)" }).Count
+    $filteredFiles = $files | Where-Object { $_.Name -notmatch "(test|backup|copy)" }
+    $totalFiles = $filteredFiles.Count
+    
+    # Calculate total size
+    $totalOriginalSize = ($filteredFiles | Measure-Object -Property Length -Sum).Sum
+    $totalOriginalSizeFormatted = Format-FileSize $totalOriginalSize
+    
     $processedCount = 0
     $successCount = 0
     $failCount = 0
+    $totalNewSize = 0
     
     # Calculate padding widths based on total files
     $countWidth = $totalFiles.ToString().Length
-    $percentWidth = 5 # "100.0" is 5 chars
+    $percentWidth = 2 # No decimal points now
 
     Write-Host "`n🔄 Starting HTML minification process..." -ForegroundColor Cyan
-    Write-Host "🔍 Found $totalFiles HTML files to process" -ForegroundColor Cyan
+    Write-Host "🔍 Found $totalFiles HTML files to process (💾 $totalOriginalSizeFormatted total)" -ForegroundColor Cyan
     Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
 
     # Loop through each HTML file
-    foreach ($file in $files) {
-        # Check if the file name contains "test", "backup", or "copy"
-        if ($file.Name -notmatch "(test|backup|copy)") {
-            $processedCount++
-            $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100, 1)
-            
-            # Format the count and percentage with consistent padding
-            $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
-            $percentDisplay = "$($percentComplete.ToString().PadRight($percentWidth))%"
-            
-            # Get the file name without extension
-            $baseName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
-            
-            # Construct the input and output file paths
-            $inputFile = $file.FullName
-            $outputFile = "../books/$($file.Name)"
-            
-            # Show progress with uniform alignment
-            Write-Host $countDisplay -ForegroundColor Yellow -NoNewline
-            Write-Host " " -NoNewline
-            Write-Host $percentDisplay -ForegroundColor Magenta -NoNewline
-            
-            # Create progress bar
-            $progressBarWidth = 20
-            $filledWidth = [math]::Round(($percentComplete / 100) * $progressBarWidth)
-            $emptyWidth = $progressBarWidth - $filledWidth
-            
-            Write-Host " [" -NoNewline -ForegroundColor DarkGray
-            if ($filledWidth -gt 0) {
-                Write-Host ("■" * $filledWidth) -NoNewline -ForegroundColor Cyan
-            }
-            if ($emptyWidth -gt 0) {
-                Write-Host ("□" * $emptyWidth) -NoNewline -ForegroundColor DarkGray
-            }
-            Write-Host "] " -NoNewline -ForegroundColor DarkGray
-            
-            Write-Host "$($file.Name) " -NoNewline
-            
-            # Call the MinifyHTML function to process the file
-            $success = MinifyHTML $inputFile $outputFile
-            
-            # Print appropriate message based on success
-            if ($success) {
-                Write-Host "✅" -ForegroundColor Green
-                $successCount++
-            } else {
-                Write-Host "❌" -ForegroundColor Red
-                $failCount++
-            }
+    foreach ($file in $filteredFiles) {
+        $processedCount++
+        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100)
+        
+        # Format the count and percentage with consistent padding
+        $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
+        $percentDisplay = "$($percentComplete.ToString().PadLeft($percentWidth))%"
+        
+        # Get the file name without extension
+        $baseName = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
+        
+        # Construct the input and output file paths
+        $inputFile = $file.FullName
+        $outputFile = "../books/$($file.Name)"
+        
+        # Show progress with uniform alignment
+        Write-Host $countDisplay -ForegroundColor Yellow -NoNewline
+        Write-Host " " -NoNewline
+        Write-Host $percentDisplay -ForegroundColor Magenta -NoNewline
+        
+        # Create progress bar
+        $progressBarWidth = 20
+        $filledWidth = [math]::Round(($percentComplete / 100) * $progressBarWidth)
+        $emptyWidth = $progressBarWidth - $filledWidth
+        
+        Write-Host " [" -NoNewline -ForegroundColor DarkGray
+        if ($filledWidth -gt 0) {
+            Write-Host ("■" * $filledWidth) -NoNewline -ForegroundColor Cyan
+        }
+        if ($emptyWidth -gt 0) {
+            Write-Host ("□" * $emptyWidth) -NoNewline -ForegroundColor DarkGray
+        }
+        Write-Host "] " -NoNewline -ForegroundColor DarkGray
+        
+        Write-Host "$($file.Name) " -NoNewline
+        
+        # Call the MinifyHTML function to process the file
+        $result = MinifyHTML $inputFile $outputFile
+        
+        # Print appropriate message based on success
+        if ($result.Success) {
+            $sizeDiffFormatted = Format-FileSize $result.SizeDiff
+            Write-Host "✅" -ForegroundColor Green -NoNewline
+            Write-Host " (🗜 $sizeDiffFormatted)" -ForegroundColor Blue
+            $successCount++
+            $totalNewSize += $result.NewSize
+        } else {
+            Write-Host "❌" -ForegroundColor Red
+            $failCount++
         }
     }
 
@@ -144,6 +181,12 @@ try {
     $endTime = Get-Date
     $executionTime = ($endTime - $startTime).TotalSeconds
 
+    # Calculate total size saved
+    $totalSizeSaved = $totalOriginalSize - $totalNewSize
+    $totalSizeSavedFormatted = Format-FileSize $totalSizeSaved
+    $totalNewSizeFormatted = Format-FileSize $totalNewSize
+    $percentSaved = [math]::Round(($totalSizeSaved / $totalOriginalSize) * 100)
+
     # Display summary
     Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
     Write-Host "📊 SUMMARY" -ForegroundColor Cyan
@@ -154,7 +197,9 @@ try {
     Write-Host "$failCount files" -ForegroundColor White
     Write-Host "📈 Completion: " -ForegroundColor Magenta -NoNewline
     Write-Host "$([math]::Round(($successCount / $totalFiles) * 100))% of files" -ForegroundColor White
-    Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
+    Write-Host "💾 Total Space Saved: " -ForegroundColor Blue -NoNewline
+    Write-Host "$totalNewSizeFormatted from $totalOriginalSizeFormatted ($totalSizeSavedFormatted, $percentSaved% smaller)" -ForegroundColor White
+    Write-Host "🕒 Total Time: " -ForegroundColor Yellow -NoNewline
     Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
     

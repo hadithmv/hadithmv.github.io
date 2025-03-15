@@ -10,6 +10,15 @@ catch {
     exit 1
 }
 
+# Function to format file size
+function Format-FileSize($size) {
+    if ($size -ge 1MB) {
+        return "$([math]::Round($size / 1MB, 2)) MB"
+    } else {
+        return "$([math]::Round($size / 1KB, 1)) KB"
+    }
+}
+
 # Function to minify and create temporary content
 function Get-Minified-Content {
     param (
@@ -27,6 +36,9 @@ function Get-Minified-Content {
             throw "csso is not installed. Please install it using 'npm install -g csso-cli'"
         }
 
+        # Get the original file size
+        $originalSize = (Get-Item $sourceFile).Length
+
         $minifiedFile = [System.IO.Path]::GetFileNameWithoutExtension($sourceFile) + ".temp.css"
         
         # Run csso and capture any errors
@@ -36,8 +48,21 @@ function Get-Minified-Content {
         }
 
         $minifiedContent = Get-Content -Path $minifiedFile -Raw -ErrorAction Stop
+        
+        # Get the minified file size
+        $minifiedSize = (Get-Item $minifiedFile).Length
+        
+        # Calculate size difference
+        $sizeDiff = $originalSize - $minifiedSize
+        
         Remove-Item -Path $minifiedFile -ErrorAction Stop
-        return $minifiedContent.Trim()
+        
+        return @{
+            Content = $minifiedContent.Trim()
+            OriginalSize = $originalSize
+            MinifiedSize = $minifiedSize
+            SizeDiff = $sizeDiff
+        }
     }
     catch {
         Write-Error "Failed to minify $sourceFile : $_"
@@ -64,19 +89,33 @@ try {
     $processedCount = 0
     $successCount = 0
     $failCount = 0
+    $totalOriginalSize = 0
+    $totalMinifiedSize = 0
     
     # Calculate padding widths based on total files
     $countWidth = $totalFiles.ToString().Length
-    $percentWidth = 5 # "100.0" is 5 chars
+    $percentWidth = 2 # No decimal points now
+    
+    # Calculate total original size
+    foreach ($file in ($combFiles + $separateFiles)) {
+        if (Test-Path $file) {
+            $totalOriginalSize += (Get-Item $file).Length
+        }
+    }
+    
+    $totalOriginalSizeFormatted = Format-FileSize $totalOriginalSize
     
     Write-Host "`n🔄 Starting CSS minification process..." -ForegroundColor Cyan
-    Write-Host "🔍 Found $totalFiles CSS files to process" -ForegroundColor Cyan
+    Write-Host "🔍 Found $totalFiles CSS files to process (💾 $totalOriginalSizeFormatted total)" -ForegroundColor Cyan
     Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
 
     # Check if DT-COMB.min.css exists
-    if (-not (Test-Path "DT-COMB.min.css")) {
+    $combFileExists = Test-Path "DT-COMB.min.css"
+    if (-not $combFileExists) {
         Write-Host "⚠️ DT-COMB.min.css not found. Creating new file." -ForegroundColor Yellow
         New-Item -ItemType File -Name "DT-COMB.min.css" -Force | Out-Null
+    } else {
+        $combOriginalSize = (Get-Item "DT-COMB.min.css").Length
     }
 
     # Read the entire content of DT-COMB.min.css
@@ -85,11 +124,11 @@ try {
     # Process files for DT-COMB.min.css
     foreach ($file in $combFiles) {
         $processedCount++
-        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100, 1)
+        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100)
         
         # Format the count and percentage with consistent padding
         $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
-        $percentDisplay = "$($percentComplete.ToString().PadRight($percentWidth))%"
+        $percentDisplay = "$($percentComplete.ToString().PadLeft($percentWidth))%"
         
         # Show progress with uniform alignment
         Write-Host $countDisplay -ForegroundColor Yellow -NoNewline
@@ -120,8 +159,8 @@ try {
             Write-Host "(Updating) " -NoNewline -ForegroundColor Blue
             
             # Get the new minified content
-            $newContent = Get-Minified-Content -sourceFile $file
-            if ($null -eq $newContent) {
+            $result = Get-Minified-Content -sourceFile $file
+            if ($null -eq $result) {
                 Write-Host "❌" -ForegroundColor Red
                 $failCount++
                 continue
@@ -132,12 +171,17 @@ try {
                 $pattern = "(?ms)/\* $file \*/\r?\n.*?(?=(/\* .*?\*/\r?\n|\z))"
                 
                 # Create replacement with preserved header and blank line after code block
-                $replacement = "/* $file */`n$newContent`n`n"
+                $replacement = "/* $file */`n$($result.Content)`n`n"
                 
                 # Replace the section
                 $allContent = [regex]::Replace($allContent, $pattern, $replacement)
                 
-                Write-Host "✅" -ForegroundColor Green
+                $sizeDiffFormatted = Format-FileSize $result.SizeDiff
+                Write-Host "✅ " -ForegroundColor Green -NoNewline
+                Write-Host "(🗜 $sizeDiffFormatted)" -ForegroundColor Blue
+                
+                $totalOriginalSize += $result.OriginalSize
+                $totalMinifiedSize += $result.MinifiedSize
                 $successCount++
             }
             catch {
@@ -157,11 +201,11 @@ try {
     # Process files that need separate minification
     foreach ($file in $separateFiles) {
         $processedCount++
-        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100, 1)
+        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100)
         
         # Format the count and percentage with consistent padding
         $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
-        $percentDisplay = "$($percentComplete.ToString().PadRight($percentWidth))%"
+        $percentDisplay = "$($percentComplete.ToString().PadLeft($percentWidth))%"
         
         # Show progress with uniform alignment
         Write-Host $countDisplay -ForegroundColor Yellow -NoNewline
@@ -191,11 +235,23 @@ try {
                 continue
             }
 
+            # Get original file size
+            $originalSize = (Get-Item $file).Length
+            
             $minifiedFile = [System.IO.Path]::GetFileNameWithoutExtension($file) + ".min.css"
             $cssoOutput = csso $file -o $minifiedFile 2>&1
             
             if ($LASTEXITCODE -eq 0) {
-                Write-Host "✅" -ForegroundColor Green
+                # Get minified file size
+                $minifiedSize = (Get-Item $minifiedFile).Length
+                $sizeDiff = $originalSize - $minifiedSize
+                $sizeDiffFormatted = Format-FileSize $sizeDiff
+                
+                Write-Host "✅ " -ForegroundColor Green -NoNewline
+                Write-Host "(🗜 $sizeDiffFormatted)" -ForegroundColor Blue
+                
+                $totalOriginalSize += $originalSize
+                $totalMinifiedSize += $minifiedSize
                 $successCount++
             }
             else {
@@ -218,9 +274,25 @@ try {
     # Write the updated content back to the file
     Set-Content -Path "DT-COMB.min.css" -Value $allContent -NoNewline -ErrorAction Stop
     
+    # Get final combined file size
+    $combFinalSize = (Get-Item "DT-COMB.min.css").Length
+    $combSizeDiff = 0
+    if ($combFileExists) {
+        $combSizeDiff = $combOriginalSize - $combFinalSize
+    }
+    
     # Calculate execution time
     $endTime = Get-Date
     $executionTime = ($endTime - $startTime).TotalSeconds
+    
+    # Calculate total space saved
+    $totalSizeSaved = $totalOriginalSize - $totalMinifiedSize
+    $totalSizeSavedFormatted = Format-FileSize $totalSizeSaved
+    $totalMinifiedSizeFormatted = Format-FileSize $totalMinifiedSize
+    $percentSaved = 0
+    if ($totalOriginalSize -gt 0) {
+        $percentSaved = [math]::Round(($totalSizeSaved / $totalOriginalSize) * 100)
+    }
 
     # Display summary
     Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
@@ -232,7 +304,9 @@ try {
     Write-Host "$failCount files" -ForegroundColor White
     Write-Host "📈 Completion: " -ForegroundColor Magenta -NoNewline
     Write-Host "$([math]::Round(($successCount / $totalFiles) * 100))% of files" -ForegroundColor White
-    Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
+    Write-Host "💾 Total Space Saved: " -ForegroundColor Blue -NoNewline
+    Write-Host "$totalMinifiedSizeFormatted from $totalOriginalSizeFormatted ($totalSizeSavedFormatted, $percentSaved% smaller)" -ForegroundColor White
+    Write-Host "🕒 Total Time: " -ForegroundColor Yellow -NoNewline
     Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
     

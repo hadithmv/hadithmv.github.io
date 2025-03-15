@@ -27,9 +27,32 @@ $filesToUpdate = @(
     @{Path = "..\androidApp-kt\app\build.gradle"; Pattern = 'versionName\s+"([^"]+)"'; Replacement = 'versionName "{0}"'}
 )
 
+# Function to format file size
+function Format-FileSize($size) {
+    if ($size -ge 1MB) {
+        return "$([math]::Round($size / 1MB, 2)) MB"
+    } else {
+        return "$([math]::Round($size / 1KB, 1)) KB"
+    }
+}
+
 try {
+    # Calculate total file size
+    $totalSize = 0
+    $filesExist = 0
+    
+    foreach ($file in $filesToUpdate) {
+        if (Test-Path $file.Path) {
+            $fileSize = (Get-Item $file.Path).Length
+            $totalSize += $fileSize
+            $filesExist++
+        }
+    }
+    
+    $totalSizeFormatted = Format-FileSize $totalSize
+    
     Write-Host "`n🔄 Starting Version Update Process..." -ForegroundColor Cyan
-    Write-Host "🔍 Found $($filesToUpdate.Count) files to update" -ForegroundColor Cyan
+    Write-Host "🔍 Found $($filesToUpdate.Count) files to update (💾 $totalSizeFormatted total)" -ForegroundColor Cyan
     Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
     
     $totalFiles = $filesToUpdate.Count
@@ -39,14 +62,17 @@ try {
     $currentVersion = $null
     $newVersion = $null
     
+    # Calculate padding widths based on total files
+    $countWidth = $totalFiles.ToString().Length
+    
     # Process each file
     foreach ($file in $filesToUpdate) {
         $processedCount++
-        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100, 1)
+        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100)
         
         # Format display
-        $countDisplay = "[$processedCount/$totalFiles]"
-        $percentDisplay = "$percentComplete%"
+        $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
+        $percentDisplay = "$($percentComplete.ToString().PadLeft(2))%"
         
         # Show progress
         Write-Host $countDisplay -ForegroundColor Yellow -NoNewline
@@ -79,6 +105,10 @@ try {
                 $failCount++
                 continue
             }
+            
+            # Get file size before update
+            $originalSize = (Get-Item $filePath).Length
+            $originalSizeFormatted = Format-FileSize $originalSize
             
             # Read the content of the file
             $content = Get-Content $filePath -Raw -ErrorAction Stop
@@ -115,9 +145,23 @@ try {
                 # Write the new content
                 $newContent | Set-Content $filePath -NoNewline -ErrorAction Stop
                 
+                # Get file size after update
+                $newSize = (Get-Item $filePath).Length
+                $sizeDiff = $newSize - $originalSize
+                
+                # Format size change
+                if ($sizeDiff -gt 0) {
+                    $sizeDiffFormatted = "+$(Format-FileSize $sizeDiff)"
+                } elseif ($sizeDiff -lt 0) {
+                    $sizeDiffFormatted = "-$(Format-FileSize ($sizeDiff * -1))"
+                } else {
+                    $sizeDiffFormatted = "0 KB"
+                }
+                
                 # Success message
                 Write-Host "✅ " -ForegroundColor Green -NoNewline
-                Write-Host "($fileVersion → $newVersion)" -ForegroundColor Cyan
+                Write-Host "($fileVersion → $newVersion) " -ForegroundColor Cyan -NoNewline
+                Write-Host "(🗜 $sizeDiffFormatted)" -ForegroundColor Blue
                 $successCount++
             }
             else {
@@ -135,6 +179,26 @@ try {
     # Calculate execution time
     $endTime = Get-Date
     $executionTime = ($endTime - $startTime).TotalSeconds
+    
+    # Recalculate total file size after updates
+    $newTotalSize = 0
+    foreach ($file in $filesToUpdate) {
+        if (Test-Path $file.Path) {
+            $fileSize = (Get-Item $file.Path).Length
+            $newTotalSize += $fileSize
+        }
+    }
+    
+    $sizeDiffTotal = $newTotalSize - $totalSize
+    $newTotalSizeFormatted = Format-FileSize $newTotalSize
+    $sizeDiffTotalFormatted = Format-FileSize ([Math]::Abs($sizeDiffTotal))
+    
+    $percentChange = 0
+    if ($totalSize -ne 0) {
+        $percentChange = [math]::Round(($sizeDiffTotal / $totalSize) * 100)
+    }
+    
+    $changeDirection = if ($sizeDiffTotal -gt 0) { "larger" } else { "smaller" }
     
     # Display summary
     Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
@@ -155,7 +219,10 @@ try {
         Write-Host "0% (no files processed)" -ForegroundColor White
     }
     
-    Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
+    Write-Host "💾 Total Space Change: " -ForegroundColor Blue -NoNewline
+    Write-Host "$newTotalSizeFormatted from $totalSizeFormatted ($sizeDiffTotalFormatted, $percentChange% $changeDirection)" -ForegroundColor White
+    
+    Write-Host "🕒 Total Time: " -ForegroundColor Yellow -NoNewline
     Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
     
