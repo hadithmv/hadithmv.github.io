@@ -50,18 +50,22 @@ function MinifyHTML($inputFile, $outputFile) {
         
         # Get file size after minification
         $newSize = (Get-Item $outputFile).Length
-        $reduction = [math]::Round(100 - (($newSize / $originalSize) * 100), 1)
+        $reduction = [math]::Round(100 - (($newSize / $originalSize) * 100))
+        $kbSaved = [math]::Round(($originalSize - $newSize) / 1KB, 1)
         
         return @{
-            Success = $true
-            Reduction = $reduction
+            Success      = $true
+            Reduction    = $reduction
+            KBSaved      = $kbSaved
+            BytesSaved   = ($originalSize - $newSize)
+            OriginalSize = $originalSize
         }
     }
     catch {
         Write-Error "Error processing file $inputFile : $_"
         return @{
             Success = $false
-            Error = $_
+            Error   = $_
         }
     }
     finally {
@@ -108,18 +112,22 @@ function MinifyJS($inputFile, $outputFile) {
         
         # Get file size after minification
         $newSize = (Get-Item $outputFile).Length
-        $reduction = [math]::Round(100 - (($newSize / $originalSize) * 100), 1)
+        $reduction = [math]::Round(100 - (($newSize / $originalSize) * 100))
+        $kbSaved = [math]::Round(($originalSize - $newSize) / 1KB, 1)
         
         return @{
-            Success = $true
-            Reduction = $reduction
+            Success      = $true
+            Reduction    = $reduction
+            KBSaved      = $kbSaved
+            BytesSaved   = ($originalSize - $newSize)
+            OriginalSize = $originalSize
         }
     }
     catch {
         Write-Error "Error minifying JS file $inputFile : $_"
         return @{
             Success = $false
-            Error = $_
+            Error   = $_
         }
     }
     finally {
@@ -156,18 +164,22 @@ function MinifyCSS($inputFile, $outputFile) {
         
         # Get file size after minification
         $newSize = (Get-Item $outputFile).Length
-        $reduction = [math]::Round(100 - (($newSize / $originalSize) * 100), 1)
+        $reduction = [math]::Round(100 - (($newSize / $originalSize) * 100))
+        $kbSaved = [math]::Round(($originalSize - $newSize) / 1KB, 1)
         
         return @{
-            Success = $true
-            Reduction = $reduction
+            Success      = $true
+            Reduction    = $reduction
+            KBSaved      = $kbSaved
+            BytesSaved   = ($originalSize - $newSize)
+            OriginalSize = $originalSize
         }
     }
     catch {
         Write-Error "Error minifying CSS file $inputFile : $_"
         return @{
             Success = $false
-            Error = $_
+            Error   = $_
         }
     }
 }
@@ -178,6 +190,8 @@ try {
     $processedCount = 0
     $successCount = 0
     $failCount = 0
+    $totalBytesSaved = 0
+    $totalOriginalSize = 0
     
     # Collect all file operations to process
     $operations = @()
@@ -190,10 +204,10 @@ try {
     
     if (Test-Path $diffCompareHtmlInput) {
         $operations += @{
-            Type = "CustomHTML"
-            Input = $diffCompareHtmlInput
-            Output = $diffCompareHtmlOutput
-            Name = "diffCompare HTML"
+            Type          = "CustomHTML"
+            Input         = $diffCompareHtmlInput
+            Output        = $diffCompareHtmlOutput
+            Name          = "diffCompare HTML"
             Modifications = {
                 param($content)
                 $content = $content -replace '../../', '../'
@@ -205,10 +219,10 @@ try {
     
     if (Test-Path $diffCompareJsInput) {
         $operations += @{
-            Type = "JS"
-            Input = $diffCompareJsInput
+            Type   = "JS"
+            Input  = $diffCompareJsInput
             Output = $diffCompareJsOutput
-            Name = "diffCompare JS"
+            Name   = "diffCompare JS"
         }
     }
     
@@ -216,10 +230,10 @@ try {
     $htmlFiles = Get-ChildItem -Filter "*.html" -ErrorAction Stop
     foreach ($file in $htmlFiles) {
         $operations += @{
-            Type = "HTML"
-            Input = $file.FullName
+            Type   = "HTML"
+            Input  = $file.FullName
             Output = "../page/$($file.Name)"
-            Name = $file.Name
+            Name   = $file.Name
         }
     }
     
@@ -228,7 +242,7 @@ try {
         "textEditor.js",
         "noFiliExceptions.js",
         @{
-            Input = "unitConverter/UnitOf.js"
+            Input  = "unitConverter/UnitOf.js"
             Output = "../page/unitConverter.js"
         }
     )
@@ -247,10 +261,10 @@ try {
 
         if (Test-Path $inputFile) {
             $operations += @{
-                Type = "JS"
-                Input = $inputFile
+                Type   = "JS"
+                Input  = $inputFile
                 Output = $outputFile
-                Name = $jsName
+                Name   = $jsName
             }
         }
     }
@@ -268,10 +282,10 @@ try {
         
         if (Test-Path $inputFile) {
             $operations += @{
-                Type = "CustomHTML"
-                Input = $inputFile
-                Output = $outputFile
-                Name = $inputFile
+                Type          = "CustomHTML"
+                Input         = $inputFile
+                Output        = $outputFile
+                Name          = $inputFile
                 Modifications = {
                     param($content)
                     $content = $content -replace '(src=["''])../../', '$1../'
@@ -290,26 +304,45 @@ try {
     
     # Add 404 copy operation
     $operations += @{
-        Type = "Copy"
-        Input = "../page/404.html"
+        Type   = "Copy"
+        Input  = "../page/404.html"
         Output = "../404.html"
-        Name = "404.html to root"
+        Name   = "404.html to root"
     }
     
     # Calculate total files
     $totalFiles = $operations.Count
     $countWidth = $totalFiles.ToString().Length
-    $percentWidth = 5 # "100.0" is 5 chars
+    $percentWidth = 3 # "100" is 3 chars
+    
+    # Calculate total size of files
+    foreach ($op in $operations) {
+        if (($op.Type -eq "HTML" -or $op.Type -eq "JS" -or $op.Type -eq "CSS" -or $op.Type -eq "CustomHTML") -and (Test-Path $op.Input)) {
+            $totalOriginalSize += (Get-Item $op.Input).Length
+        }
+    }
     
     # Display banner
     Write-Host "`n🔄 Starting file minification process..." -ForegroundColor Cyan
-    Write-Host "🔍 Found $totalFiles files to process" -ForegroundColor Cyan
+    
+    # Display total files and size
+    $totalKB = [math]::Round($totalOriginalSize / 1KB, 1)
+    $totalMB = [math]::Round($totalOriginalSize / 1MB, 2)
+    
+    # For the total files and size display:
+    if ($totalMB -ge 1) {
+        Write-Host "🔍 Found $totalFiles files to process (💾 $totalMB MB total)" -ForegroundColor Cyan
+    }
+    else {
+        Write-Host "🔍 Found $totalFiles files to process (💾 $totalKB KB total)" -ForegroundColor Cyan
+    }
+    
     Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
     
     # Process all operations
     foreach ($op in $operations) {
         $processedCount++
-        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100, 1)
+        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100)
         
         # Format the count and percentage with consistent padding
         $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
@@ -385,16 +418,18 @@ try {
         # Display result
         if ($result.Success) {
             Write-Host "✅ " -ForegroundColor Green -NoNewline
-            
+    
             # Show reduction if available
-            if ($result.ContainsKey('Reduction')) {
-                Write-Host "($($result.Reduction)% " -ForegroundColor Cyan -NoNewline
-                Write-Host "smaller)" -ForegroundColor Cyan
+            if ($result.ContainsKey('KBSaved')) {
+                Write-Host "(🗜 $($result.KBSaved) KB)" -ForegroundColor Cyan
+        
+                # Add to total bytes saved
+                $totalBytesSaved += $result.BytesSaved
             }
             else {
                 Write-Host ""
             }
-            
+    
             $successCount++
         }
         else {
@@ -406,7 +441,23 @@ try {
     # Calculate execution time
     $endTime = Get-Date
     $executionTime = ($endTime - $startTime).TotalSeconds
+    $executionTime = [math]::Round($executionTime, 2)  # Round to 2 decimal places
+
     
+    # Calculate total size saved
+    $totalKBSaved = [math]::Round($totalBytesSaved / 1KB, 1)
+    $totalMBSaved = [math]::Round($totalBytesSaved / 1MB, 2)
+    $totalPercentSaved = [math]::Round(($totalBytesSaved / $totalOriginalSize) * 100)
+
+    # Calculate new total size
+    $newTotalSize = $totalOriginalSize - $totalBytesSaved
+    $newTotalKB = [math]::Round($newTotalSize / 1KB, 1)
+    $newTotalMB = [math]::Round($newTotalSize / 1MB, 2)
+    $originalTotalMB = [math]::Round($totalOriginalSize / 1MB, 2)
+
+
+
+
     # Display summary
     Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
     Write-Host "📊 SUMMARY" -ForegroundColor Cyan
@@ -417,13 +468,23 @@ try {
     Write-Host "$failCount files" -ForegroundColor White
     Write-Host "📈 Completion: " -ForegroundColor Magenta -NoNewline
     Write-Host "$([math]::Round(($successCount / $totalFiles) * 100))% of files" -ForegroundColor White
+    Write-Host "💾 Total Space Saved: " -ForegroundColor Yellow -NoNewline
+
+    if ($newTotalMB -ge 1) {
+        Write-Host "$newTotalMB MB from $originalTotalMB MB ($totalKBSaved KB, $totalPercentSaved% smaller)" -ForegroundColor White
+    }
+    else {
+        Write-Host "$newTotalKB KB from $originalTotalMB MB ($totalKBSaved KB, $totalPercentSaved% smaller)" -ForegroundColor White
+    }
+    
     Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
-    Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
+    Write-Host "$executionTime seconds" -ForegroundColor White
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
     
     if ($failCount -eq 0) {
         Write-Host "✅ ALL FILES PROCESSED SUCCESSFULLY ✅" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Host "⚠️ COMPLETED WITH ERRORS ⚠️" -ForegroundColor Yellow
     }
 }
