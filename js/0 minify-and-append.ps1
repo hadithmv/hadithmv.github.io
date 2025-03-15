@@ -80,13 +80,34 @@ try {
     $processedCount = 0
     $successCount = 0
     $failCount = 0
+    $totalBytesSaved = 0
+    $totalOriginalSize = 0
     
     # Calculate padding widths based on total files
     $countWidth = $totalFiles.ToString().Length
-    $percentWidth = 5 # "100.0" is 5 chars
+    $percentWidth = 3 # "100" is 3 chars
+    
+    # Calculate total size of files
+    foreach ($file in $combFiles + $separateFiles) {
+        if (Test-Path $file) {
+            $totalOriginalSize += (Get-Item $file).Length
+        }
+    }
+    
+    # Display total files and size
+    $totalKB = [math]::Round($totalOriginalSize / 1KB, 1)
+    $totalMB = [math]::Round($totalOriginalSize / 1MB, 2)
     
     Write-Host "`n🔄 Starting JavaScript minification process..." -ForegroundColor Cyan
-    Write-Host "🔍 Found $totalFiles JavaScript files to process" -ForegroundColor Cyan
+    
+    # For the total files and size display:
+    if ($totalMB -ge 1) {
+        Write-Host "🔍 Found $totalFiles JavaScript files to process (💾 $totalMB MB total)" -ForegroundColor Cyan
+    }
+    else {
+        Write-Host "🔍 Found $totalFiles JavaScript files to process (💾 $totalKB KB total)" -ForegroundColor Cyan
+    }
+    
     Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
 
     # Check if DT-COMB.min.js exists
@@ -101,7 +122,7 @@ try {
     # Process files for DT-COMB.min.js updates
     foreach ($file in $combFiles) {
         $processedCount++
-        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100, 1)
+        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100)
         
         # Format the count and percentage with consistent padding
         $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
@@ -135,6 +156,9 @@ try {
         if ($allContent -match [regex]::Escape($headerPattern)) {
             Write-Host "(Updating) " -NoNewline -ForegroundColor Blue
             
+            # Get original file size
+            $originalSize = (Get-Item $file).Length
+            
             # Get the new minified content
             $newContent = Get-Minified-Content -sourceFile $file
             if ($null -eq $newContent) {
@@ -150,10 +174,27 @@ try {
                 # Create replacement with preserved header and blank line
                 $replacement = "// $file`n$newContent`n`n"
                 
+                # Calculate size difference
+                $newContentSize = [System.Text.Encoding]::UTF8.GetByteCount($newContent)
+                
+                # Get the current content for the section
+                $currentSectionMatch = [regex]::Match($allContent, $pattern)
+                $currentSectionSize = 0
+                if ($currentSectionMatch.Success) {
+                    $currentSectionSize = [System.Text.Encoding]::UTF8.GetByteCount($currentSectionMatch.Value)
+                }
+                
+                # Calculate bytes saved
+                $bytesSaved = $currentSectionSize - $newContentSize
+                $totalBytesSaved += $bytesSaved
+                $kbSaved = [math]::Round($bytesSaved / 1KB, 1)
+                
                 # Replace the section
                 $allContent = [regex]::Replace($allContent, $pattern, $replacement)
                 
-                Write-Host "✅" -ForegroundColor Green
+                Write-Host "✅ " -ForegroundColor Green -NoNewline
+                Write-Host "(🗜 $kbSaved KB)" -ForegroundColor Cyan
+                
                 $successCount++
             }
             catch {
@@ -173,7 +214,7 @@ try {
     # Process files that need separate minification
     foreach ($file in $separateFiles) {
         $processedCount++
-        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100, 1)
+        $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100)
         
         # Format the count and percentage with consistent padding
         $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
@@ -219,11 +260,12 @@ try {
                 
                 # Get file size after minification
                 $newSize = (Get-Item $minifiedFile).Length
-                $reduction = [math]::Round(100 - (($newSize / $originalSize) * 100), 1)
+                $bytesSaved = $originalSize - $newSize
+                $totalBytesSaved += $bytesSaved
+                $kbSaved = [math]::Round($bytesSaved / 1KB, 1)
                 
                 Write-Host "✅ " -ForegroundColor Green -NoNewline
-                Write-Host "($reduction% " -ForegroundColor Cyan -NoNewline
-                Write-Host "smaller)" -ForegroundColor Cyan
+                Write-Host "(🗜 $kbSaved KB)" -ForegroundColor Cyan
                 
                 $successCount++
             } else {
@@ -248,6 +290,18 @@ try {
     # Calculate execution time
     $endTime = Get-Date
     $executionTime = ($endTime - $startTime).TotalSeconds
+    $executionTime = [math]::Round($executionTime, 2)  # Round to 2 decimal places
+    
+    # Calculate total size saved
+    $totalKBSaved = [math]::Round($totalBytesSaved / 1KB, 1)
+    $totalMBSaved = [math]::Round($totalBytesSaved / 1MB, 2)
+    $totalPercentSaved = [math]::Round(($totalBytesSaved / $totalOriginalSize) * 100)
+    
+    # Calculate new total size
+    $newTotalSize = $totalOriginalSize - $totalBytesSaved
+    $newTotalKB = [math]::Round($newTotalSize / 1KB, 1)
+    $newTotalMB = [math]::Round($newTotalSize / 1MB, 2)
+    $originalTotalMB = [math]::Round($totalOriginalSize / 1MB, 2)
 
     # Display summary
     Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
@@ -259,8 +313,17 @@ try {
     Write-Host "$failCount files" -ForegroundColor White
     Write-Host "📈 Completion: " -ForegroundColor Magenta -NoNewline
     Write-Host "$([math]::Round(($successCount / $totalFiles) * 100))% of files" -ForegroundColor White
+    Write-Host "💾 Total Space Saved: " -ForegroundColor Yellow -NoNewline
+    
+    if ($newTotalMB -ge 1) {
+        Write-Host "$newTotalMB MB from $originalTotalMB MB ($totalKBSaved KB, $totalPercentSaved% smaller)" -ForegroundColor White
+    }
+    else {
+        Write-Host "$newTotalKB KB from $originalTotalMB MB ($totalKBSaved KB, $totalPercentSaved% smaller)" -ForegroundColor White
+    }
+    
     Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
-    Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
+    Write-Host "$executionTime seconds" -ForegroundColor White
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
     
     if ($failCount -eq 0) {
