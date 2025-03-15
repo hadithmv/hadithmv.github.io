@@ -1,17 +1,25 @@
+Update npm Packages
+npm install @tauri-apps/cli@latest @tauri-apps/api@latest
+
+...
+
+Start the development server
+can take a little while
 npm run tauri dev
 
 hadithmv.github.io\windowsApp-tauri\tauri-hadithmv> npm run tauri dev
 
 ...
 
+Building
+Tauri builds your application directly from its CLI via the build, android build and ios build commands.
 npm run tauri build
 
 ...
 
+Create a Project
 https://v2.tauri.app/start/prerequisites/
-
 https://v2.tauri.app/start/create-project/
-
 npm create tauri-app@latest
 
 ✔ Project name · Hadithmv
@@ -91,8 +99,8 @@ tauri-hadithmv\src-tauri\target\release
 
 ...
 
+Update npm Packages
 https://v2.tauri.app/develop/updating-dependencies/
-
 npm install @tauri-apps/cli@latest @tauri-apps/api@latest
 
 ...
