@@ -304,9 +304,9 @@ try {
     Write-Host "$failCount files" -ForegroundColor White
     Write-Host "📈 Completion: " -ForegroundColor Magenta -NoNewline
     Write-Host "$([math]::Round(($successCount / $totalFiles) * 100))% of files" -ForegroundColor White
-    Write-Host "💾 Total Space Saved: " -ForegroundColor Blue -NoNewline
+    Write-Host "💾 Total Space Saved: " -ForegroundColor Yellow -NoNewline
     Write-Host "$totalMinifiedSizeFormatted from $totalOriginalSizeFormatted ($totalSizeSavedFormatted, $percentSaved% smaller)" -ForegroundColor White
-    Write-Host "🕒 Total Time: " -ForegroundColor Yellow -NoNewline
+    Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
     Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
     
