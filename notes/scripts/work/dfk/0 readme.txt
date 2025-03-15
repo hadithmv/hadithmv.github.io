@@ -99,5 +99,7 @@ remove all those temporary google sheets created
 
 maybe script a big number footnote number to ⁽¹⁾ later
 
+[remember to add back what is above sequence number 1, if its a sequenced book]
+
 
 
