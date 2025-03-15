@@ -8,5 +8,8 @@ then update:
 	supportHmv page
 	home page entry
 	jaamiu entry
+
+update sitemap
+run deadlinkchecker.com/website-dead-link-checker.asp
 	
 iulaan on hmv social media

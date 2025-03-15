@@ -209,7 +209,7 @@ try {
             Output        = $diffCompareHtmlOutput
             Name          = "diffCompare HTML"
             Modifications = {
-                param($content)
+                param($content, $currentInputFile)
                 $content = $content -replace '../../', '../'
                 $content = $content -replace '<script src="mergely.js"></script>', '<script src="diffCompare.js"></script>'
                 return $content
@@ -287,12 +287,12 @@ try {
                 Output        = $outputFile
                 Name          = $inputFile
                 Modifications = {
-                    param($content)
+                    param($content, $currentInputFile)
                     $content = $content -replace '(src=["''])../../', '$1../'
                     $content = $content -replace '(href=["''])../../', '$1../'
                     
                     # Add specific replacement for unitConverter
-                    if ($inputFile -eq "unitConverter/index.html") {
+                    if ($currentInputFile -eq "unitConverter/index.html") {
                         $content = $content -replace 'src="UnitOf.js"', 'src="unitConverter.js"'
                     }
                     
@@ -388,7 +388,7 @@ try {
                 $tempFile = [System.IO.Path]::GetTempFileName()
                 try {
                     $content = Get-Content -Path $op.Input -Raw
-                    $content = & $op.Modifications $content
+                    $content = & $op.Modifications $content $op.Input
                     $content | Set-Content -Path $tempFile -NoNewline
                     
                     $result = MinifyHTML $tempFile $op.Output
