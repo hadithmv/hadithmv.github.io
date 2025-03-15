@@ -64,6 +64,9 @@ try {
     
     # Calculate padding widths based on total files
     $countWidth = $totalFiles.ToString().Length
+
+    $percentWidth = 3  # No decimal points now
+
     
     # Process each file
     foreach ($file in $filesToUpdate) {
@@ -71,8 +74,8 @@ try {
         $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100)
         
         # Format display
-        $countDisplay = "[$($processedCount.ToString().PadLeft($countWidth))/$totalFiles]"
-        $percentDisplay = "$($percentComplete.ToString().PadLeft(2))%"
+        $countDisplay = "[$($processedCount.ToString().PadRight($countWidth))/$totalFiles]"
+        $percentDisplay = "$($percentComplete.ToString().PadRight($percentWidth))%"
         
         # Show progress
         Write-Host $countDisplay -ForegroundColor Yellow -NoNewline
