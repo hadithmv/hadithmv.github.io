@@ -5,14 +5,12 @@ at the very top is a single line of code which says  var hmvVersionNo = 3.15;
 every time this script is run, increment that by 0.01
 #>
 
-# Enhanced Version Increment Script
+# Simplified Version Increment Script
 # This script increments version numbers across multiple project files
 
 # Set the location to the script's directory
 try {
     Set-Location -Path $PSScriptRoot -ErrorAction Stop
-    
-    # Start timing the script execution
     $startTime = Get-Date
 }
 catch {
@@ -27,32 +25,9 @@ $filesToUpdate = @(
     @{Path = "..\androidApp-kt\app\build.gradle"; Pattern = 'versionName\s+"([^"]+)"'; Replacement = 'versionName "{0}"'}
 )
 
-# Function to format file size
-function Format-FileSize($size) {
-    if ($size -ge 1MB) {
-        return "$([math]::Round($size / 1MB, 2)) MB"
-    } else {
-        return "$([math]::Round($size / 1KB, 1)) KB"
-    }
-}
-
 try {
-    # Calculate total file size
-    $totalSize = 0
-    $filesExist = 0
-    
-    foreach ($file in $filesToUpdate) {
-        if (Test-Path $file.Path) {
-            $fileSize = (Get-Item $file.Path).Length
-            $totalSize += $fileSize
-            $filesExist++
-        }
-    }
-    
-    $totalSizeFormatted = Format-FileSize $totalSize
-    
     Write-Host "`n🔄 Starting Version Update Process..." -ForegroundColor Cyan
-    Write-Host "🔍 Found $($filesToUpdate.Count) files to update (💾 $totalSizeFormatted total)" -ForegroundColor Cyan
+    Write-Host "🔍 Found $($filesToUpdate.Count) files to update" -ForegroundColor Cyan
     Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
     
     $totalFiles = $filesToUpdate.Count
@@ -62,43 +37,15 @@ try {
     $currentVersion = $null
     $newVersion = $null
     
-    # Calculate padding widths based on total files
-    $countWidth = $totalFiles.ToString().Length
-
-    $percentWidth = 3  # No decimal points now
-
-    
     # Process each file
     foreach ($file in $filesToUpdate) {
         $processedCount++
         $percentComplete = [math]::Round(($processedCount / $totalFiles) * 100)
         
-        # Format display
-        $countDisplay = "[$($processedCount.ToString().PadRight($countWidth))/$totalFiles]"
-        $percentDisplay = "$($percentComplete.ToString().PadRight($percentWidth))%"
-        
-        # Show progress
-        Write-Host $countDisplay -ForegroundColor Yellow -NoNewline
-        Write-Host " " -NoNewline
-        Write-Host $percentDisplay -ForegroundColor Magenta -NoNewline
-        
-        # Create progress bar
-        $progressBarWidth = 20
-        $filledWidth = [math]::Round(($percentComplete / 100) * $progressBarWidth)
-        $emptyWidth = $progressBarWidth - $filledWidth
-        
-        Write-Host " [" -NoNewline -ForegroundColor DarkGray
-        if ($filledWidth -gt 0) {
-            Write-Host ("■" * $filledWidth) -NoNewline -ForegroundColor Cyan
-        }
-        if ($emptyWidth -gt 0) {
-            Write-Host ("□" * $emptyWidth) -NoNewline -ForegroundColor DarkGray
-        }
-        Write-Host "] " -NoNewline -ForegroundColor DarkGray
-        
         $filePath = $file.Path
         $fileName = Split-Path $filePath -Leaf
         
+        Write-Host "[$processedCount/$totalFiles] $percentComplete% " -NoNewline
         Write-Host "$fileName " -NoNewline
         
         try {
@@ -108,10 +55,6 @@ try {
                 $failCount++
                 continue
             }
-            
-            # Get file size before update
-            $originalSize = (Get-Item $filePath).Length
-            $originalSizeFormatted = Format-FileSize $originalSize
             
             # Read the content of the file
             $content = Get-Content $filePath -Raw -ErrorAction Stop
@@ -148,23 +91,9 @@ try {
                 # Write the new content
                 $newContent | Set-Content $filePath -NoNewline -ErrorAction Stop
                 
-                # Get file size after update
-                $newSize = (Get-Item $filePath).Length
-                $sizeDiff = $newSize - $originalSize
-                
-                # Format size change
-                if ($sizeDiff -gt 0) {
-                    $sizeDiffFormatted = "+$(Format-FileSize $sizeDiff)"
-                } elseif ($sizeDiff -lt 0) {
-                    $sizeDiffFormatted = "-$(Format-FileSize ($sizeDiff * -1))"
-                } else {
-                    $sizeDiffFormatted = "0 KB"
-                }
-                
                 # Success message
                 Write-Host "✅ " -ForegroundColor Green -NoNewline
-                Write-Host "($fileVersion → $newVersion) " -ForegroundColor Cyan -NoNewline
-                Write-Host "(🗜 $sizeDiffFormatted)" -ForegroundColor Blue
+                Write-Host "($fileVersion → $newVersion)" -ForegroundColor Cyan
                 $successCount++
             }
             else {
@@ -183,26 +112,6 @@ try {
     $endTime = Get-Date
     $executionTime = ($endTime - $startTime).TotalSeconds
     
-    # Recalculate total file size after updates
-    $newTotalSize = 0
-    foreach ($file in $filesToUpdate) {
-        if (Test-Path $file.Path) {
-            $fileSize = (Get-Item $file.Path).Length
-            $newTotalSize += $fileSize
-        }
-    }
-    
-    $sizeDiffTotal = $newTotalSize - $totalSize
-    $newTotalSizeFormatted = Format-FileSize $newTotalSize
-    $sizeDiffTotalFormatted = Format-FileSize ([Math]::Abs($sizeDiffTotal))
-    
-    $percentChange = 0
-    if ($totalSize -ne 0) {
-        $percentChange = [math]::Round(($sizeDiffTotal / $totalSize) * 100)
-    }
-    
-    $changeDirection = if ($sizeDiffTotal -gt 0) { "larger" } else { "smaller" }
-    
     # Display summary
     Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
     Write-Host "📊 SUMMARY" -ForegroundColor Cyan
@@ -213,18 +122,6 @@ try {
     Write-Host "$successCount files" -ForegroundColor White
     Write-Host "❌ Failed: " -ForegroundColor Red -NoNewline
     Write-Host "$failCount files" -ForegroundColor White
-    Write-Host "📈 Completion: " -ForegroundColor Magenta -NoNewline
-    
-    if ($totalFiles -gt 0) {
-        Write-Host "$([math]::Round(($successCount / $totalFiles) * 100))% of files" -ForegroundColor White
-    }
-    else {
-        Write-Host "0% (no files processed)" -ForegroundColor White
-    }
-    
-    Write-Host "💾 Total Space Saved: " -ForegroundColor Yellow -NoNewline
-    Write-Host "$newTotalSizeFormatted from $totalSizeFormatted ($sizeDiffTotalFormatted, $percentChange% $changeDirection)" -ForegroundColor White
-    
     Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
     Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
