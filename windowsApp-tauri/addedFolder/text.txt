@@ -1,3 +1,7 @@
+location: hadithmv.github.io\windowsApp-tauri\Hadithmv
+
+...
+
 Update npm Packages
 npm install @tauri-apps/cli@latest @tauri-apps/api@latest
 
