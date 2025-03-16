@@ -27,6 +27,12 @@ function MinifyHTML($inputFile, $outputFile) {
 
         # Read the content of the file
         $content = Get-Content -Path $inputFile -Raw -ErrorAction Stop
+                
+                # Replace .css with .min.css in link tags, being careful not to replace .min.css again
+                $content = $content -replace '(href="[^"]*?)(?<!\.min)\.css"', '$1.min.css"'
+        
+                # Replace .js with .min.js in script tags, being careful not to replace .min.js again
+                $content = $content -replace '(src="[^"]*?)(?<!\.min)\.js"', '$1.min.js"'
         
         # Create a temporary file for the modified content
         $tempFile = [System.IO.Path]::GetTempFileName()
@@ -200,7 +206,7 @@ try {
     $diffCompareHtmlInput = "diffCompare/cdn-custom.html"
     $diffCompareHtmlOutput = "../page/diffCompare.html"
     $diffCompareJsInput = "diffCompare/mergely.js"
-    $diffCompareJsOutput = "../page/diffCompare.js"
+    $diffCompareJsOutput = "../page/diffCompare.min.js"
     
     if (Test-Path $diffCompareHtmlInput) {
         $operations += @{
@@ -211,7 +217,7 @@ try {
             Modifications = {
                 param($content, $currentInputFile)
                 $content = $content -replace '../../', '../'
-                $content = $content -replace '<script src="mergely.js"></script>', '<script src="diffCompare.js"></script>'
+                $content = $content -replace '<script src="mergely.js"></script>', '<script src="diffCompare.min.js"></script>'
                 return $content
             }
         }
@@ -250,7 +256,7 @@ try {
     foreach ($jsFile in $jsFiles) {
         if ($jsFile -is [string]) {
             $inputFile = $jsFile
-            $outputFile = "../page/$([System.IO.Path]::GetFileNameWithoutExtension($jsFile)).js"
+            $outputFile = "../page/$([System.IO.Path]::GetFileNameWithoutExtension($jsFile)).min.js"
             $jsName = $jsFile
         }
         else {
