@@ -21,6 +21,7 @@ catch {
 # Files to update versions in
 $filesToUpdate = @(
     @{Path = "..\js\navbar.js"; Pattern = 'var hmvVersionNo = "(\d+\.\d+\.\d+)";'; Replacement = 'var hmvVersionNo = "{0}";'},
+    @{Path = "..\js\navbar.min.js"; Pattern = 'var hmvVersionNo="(\d+\.\d+\.\d+)"'; Replacement = 'var hmvVersionNo="{0}"'},
     @{Path = "..\windowsApp-tauri\Hadithmv\src-tauri\tauri.conf.json"; Pattern = '"version": "(\d+\.\d+\.\d+)"'; Replacement = '"version": "{0}"'},
     @{Path = "..\androidApp-kt\app\build.gradle"; Pattern = 'versionName\s+"([^"]+)"'; Replacement = 'versionName "{0}"'}
 )

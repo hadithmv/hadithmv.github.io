@@ -1,16 +1,18 @@
 # asset files are not committed to github, since they are just the copied files from the main web folder
 
-# Purpose: This script copies necessary files from the source directory to the Android app's assets folder
-# It first clears the destination directory, then creates required subdirectories, and finally copies specific files
+# Purpose: This script copies necessary files from the source directory to the Android and Windows app folders
 
 # Set the current working directory to the directory containing the script
-# This ensures relative paths work correctly regardless of where the script is called from
-Set-Location -Path $PSScriptRoot
+try {
+    Set-Location -Path $PSScriptRoot -ErrorAction Stop
+    $startTime = Get-Date
+}
+catch {
+    Write-Error "Failed to initialize script: $_"
+    exit 1
+}
 
 # Define base paths for source and destinations
-# Source: Main project directory containing all the required files
-# Destination: Android app's assets directory where files need to be copied
-# Destination: Windows app's directory where files need to be copied
 $sourcePath = "C:\Users\ashra\Downloads\VScode\hadithmv.github.io"
 $destPathAndroid = "C:\Users\ashra\Downloads\VScode\hadithmv.github.io\androidApp-kt\app\src\main\assets"
 $destPathWindows = "C:\Users\ashra\Downloads\VScode\hadithmv.github.io\windowsApp-tauri\Hadithmv\src"
@@ -19,81 +21,123 @@ $destPathWindows = "C:\Users\ashra\Downloads\VScode\hadithmv.github.io\windowsAp
 $preserveFiles = @("index.html", "styles.css", "main.js")
 
 try {
+    Write-Host "`n🔄 Starting File Copy Process..." -ForegroundColor Cyan
+    Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
+    
     # Step 1: Clear the destination directories
+    Write-Host "[1/3] 📂 Clearing destination directories" -ForegroundColor Yellow
+    
     if (Test-Path $destPathAndroid) {
         Remove-Item -Path "$destPathAndroid\*" -Recurse -Force -ErrorAction Stop
-        Write-Output "✅ Cleared Android destination directory"
+        Write-Host "  ✅ Cleared Android destination directory" -ForegroundColor Green
+    } else {
+        Write-Host "  ⚠️ Android destination directory not found" -ForegroundColor Yellow
     }
 
     if (Test-Path $destPathWindows) {
-        # Remove all files except preserved ones
         Get-ChildItem -Path $destPathWindows -Recurse |
         Where-Object { $_.Name -notin $preserveFiles } |
         Remove-Item -Recurse -Force -ErrorAction Stop
-        Write-Output "✅ Cleared Windows destination directory (preserved specified files)"
+        Write-Host "  ✅ Cleared Windows destination directory (preserved specified files)" -ForegroundColor Green
+    } else {
+        Write-Host "  ⚠️ Windows destination directory not found" -ForegroundColor Yellow
     }
-
+    
     # Step 2: Create the required directory structure in both destinations
+    Write-Host "`n[2/3] 📂 Creating directory structure" -ForegroundColor Yellow
+    
     $directories = @("books", "js\json", "js", "css", "page", "font", "img\logo")
+    $dirCount = 0
+    $totalDirs = $directories.Count * 2  # For both Android and Windows
+    
     foreach ($dir in $directories) {
         foreach ($destPath in @($destPathAndroid, $destPathWindows)) {
-            New-Item -Path "$destPath\$dir" -ItemType Directory -Force -ErrorAction Stop | Out-Null
-            Write-Output "✅ Created directory: $dir in $(Split-Path $destPath -Leaf)"
+            $dirCount++
+            $destType = if ($destPath -eq $destPathAndroid) { "Android" } else { "Windows" }
+            
+            try {
+                New-Item -Path "$destPath\$dir" -ItemType Directory -Force -ErrorAction Stop | Out-Null
+                Write-Host "  ✅ [$dirCount/$totalDirs] Created $dir in $destType" -ForegroundColor Green
+            }
+            catch {
+                $errorMsg = $_.Exception.Message
+                Write-Host "  ❌ [$dirCount/$totalDirs] Failed to create $dir in $destType" -ForegroundColor Red
+            }
         }
     }
-
+    
     # Step 3: Define all copy operations
-    # Each operation is defined as a hashtable with:
-    # - Source: The path to the source file(s)
-    # - Dest: The destination directory
-    # - Desc: A description of what's being copied (for logging)
+    Write-Host "`n[3/3] 📋 Copying files" -ForegroundColor Yellow
+    
     $copyOperations = @(
-        # Copy HTML files from books directory
         @{Source = "$sourcePath\books\*.html"; Dest = "$destPathAndroid\books"; Desc = "HTML files from books" }
-        
-        # Copy JSON data files
         @{Source = "$sourcePath\js\json\*.json"; Dest = "$destPathAndroid\js\json"; Desc = "JSON files" }
-        
-        # Copy minified JavaScript files
         @{Source = "$sourcePath\js\*.min.js"; Dest = "$destPathAndroid\js"; Desc = "Minified JS files" }
-        
-        # Copy minified CSS stylesheets
         @{Source = "$sourcePath\css\*.min.css"; Dest = "$destPathAndroid\css"; Desc = "Minified CSS files" }
-        
-        # Copy license information
         @{Source = "$sourcePath\LICENSE.txt"; Dest = "$destPathAndroid"; Desc = "LICENSE file" }
-        
-        # Copy page-specific files
         @{Source = "$sourcePath\page\*"; Dest = "$destPathAndroid\page"; Desc = "Page files" }
-        
-        # Copy font files needed for text rendering
         @{Source = "$sourcePath\font\merged-300.woff2"; Dest = "$destPathAndroid\font"; Desc = "Font file" }
-        
-        # Copy logo assets
         @{Source = "$sourcePath\img\logo\logo.svg"; Dest = "$destPathAndroid\img\logo"; Desc = "Logo file" }
     )
-
-    # Step 4: Execute all copy operations for both destinations
+    
+    $opCount = 0
+    $totalOps = $copyOperations.Count * 2  # For both Android and Windows
+    $successCount = 0
+    $failCount = 0
+    
+    # Execute all copy operations for both destinations
     $copyOperations | ForEach-Object {
         if (Test-Path $_.Source) {
             foreach ($destPath in @($destPathAndroid, $destPathWindows)) {
-                Copy-Item -Path $_.Source -Destination ($_.Dest -replace [regex]::Escape($destPathAndroid), $destPath) -Force -ErrorAction Stop
-                Write-Output "✅ Copied $($_.Desc) to $(Split-Path $destPath -Leaf)"
+                $opCount++
+                $destType = if ($destPath -eq $destPathAndroid) { "Android" } else { "Windows" }
+                $targetDest = $_.Dest -replace [regex]::Escape($destPathAndroid), $destPath
+                
+                try {
+                    Copy-Item -Path $_.Source -Destination $targetDest -Force -ErrorAction Stop
+                    Write-Host "  ✅ [$opCount/$totalOps] Copied $($_.Desc) to $destType" -ForegroundColor Green
+                    $successCount++
+                }
+                catch {
+                    Write-Host "  ❌ [$opCount/$totalOps] Failed to copy $($_.Desc) to $destType" -ForegroundColor Red
+                    $failCount++
+                }
             }
         }
         else {
-            Write-Warning "⚠️ Source not found: $($_.Source)"
+            $opCount += 2  # Count as 2 operations (Android and Windows)
+            Write-Host "  ⚠️ Source not found: $($_.Source)" -ForegroundColor Yellow
+            $failCount += 2
         }
+    }
+    
+    # Calculate execution time
+    $endTime = Get-Date
+    $executionTime = ($endTime - $startTime).TotalSeconds
+    
+    # Display summary
+    Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
+    Write-Host "📊 SUMMARY" -ForegroundColor Cyan
+    Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
+    Write-Host "✅ Successful: " -ForegroundColor Green -NoNewline
+    Write-Host "$successCount operations" -ForegroundColor White
+    Write-Host "❌ Failed: " -ForegroundColor Red -NoNewline
+    Write-Host "$failCount operations" -ForegroundColor White
+    Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
+    Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
+    Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
+    
+    if ($failCount -eq 0) {
+        Write-Host "✅ ALL OPERATIONS COMPLETED SUCCESSFULLY ✅" -ForegroundColor Green
+    }
+    else {
+        Write-Host "⚠️ COMPLETED WITH ERRORS ⚠️" -ForegroundColor Yellow
     }
 }
 catch {
-    # If any error occurs during execution, display the error message and exit with error code 1
     Write-Error "❌ Script execution failed: $_"
     exit 1
 }
-
-# Display completion message
-Write-Output "`n✅ -- ✅ -- DONE -- ✅ -- ✅"
 
 
 <#
