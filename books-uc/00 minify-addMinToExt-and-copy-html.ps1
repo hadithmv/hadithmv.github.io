@@ -77,6 +77,140 @@ function MinifyHTML($inputFile, $outputFile) {
     }
 }
 
+# Function to minify CSS files using csso
+function MinifyCSS($inputFile, $outputFile) {
+    try {
+        # Check if input file exists
+        if (-not (Test-Path $inputFile)) {
+            throw "Input file not found: $inputFile"
+        }
+
+        # Check if csso is installed
+        if (-not (Get-Command csso -ErrorAction SilentlyContinue)) {
+            throw "csso is not installed. Please install it using 'npm install -g csso-cli'"
+        }
+
+        # Get the original file size
+        $originalSize = (Get-Item $inputFile).Length
+
+        # Ensure output directory exists
+        $outputDir = Split-Path -Parent $outputFile
+        if (-not (Test-Path $outputDir)) {
+            New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
+        }
+
+        # Use csso for minification
+        $cssoOutput = csso $inputFile -o $outputFile 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            throw "csso failed: $cssoOutput"
+        }
+
+        # Get the new file size
+        $newSize = (Get-Item $outputFile).Length
+        
+        # Calculate size reduction
+        $sizeDiff = $originalSize - $newSize
+        
+        # Store size information
+        return @{
+            Success = $true
+            OriginalSize = $originalSize
+            NewSize = $newSize
+            SizeDiff = $sizeDiff
+        }
+    }
+    catch {
+        Write-Error "Error processing CSS file $inputFile : $_"
+        return @{
+            Success = $false
+            OriginalSize = 0
+            NewSize = 0
+            SizeDiff = 0
+        }
+    }
+}
+
+# Function to minify JS files using terser (with optional closure compiler first)
+function MinifyJS($inputFile, $outputFile) {
+    try {
+        # Check if input file exists
+        if (-not (Test-Path $inputFile)) {
+            throw "Input file not found: $inputFile"
+        }
+
+        # Check if terser is installed
+        if (-not (Get-Command terser -ErrorAction SilentlyContinue)) {
+            throw "terser is not installed. Please install it using 'npm install -g terser'"
+        }
+
+        $useClosureCompiler = $false
+        if (Get-Command google-closure-compiler -ErrorAction SilentlyContinue) {
+            $useClosureCompiler = $true
+        }
+
+        # Get the original file size
+        $originalSize = (Get-Item $inputFile).Length
+
+        # Create temp files
+        $tempFile = $null
+        if ($useClosureCompiler) {
+            $tempFile = [System.IO.Path]::GetTempFileName() + ".js"
+        }
+
+        # Ensure output directory exists
+        $outputDir = Split-Path -Parent $outputFile
+        if (-not (Test-Path $outputDir)) {
+            New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
+        }
+
+        # Use Google Closure Compiler first if available
+        if ($useClosureCompiler) {
+            $compilerOutput = google-closure-compiler --charset=UTF-8 --js $inputFile --js_output_file $tempFile 2>&1
+            if ($LASTEXITCODE -ne 0) {
+                throw "Closure compiler failed: $compilerOutput"
+            }
+            $terserInput = $tempFile
+        } else {
+            $terserInput = $inputFile
+        }
+
+        # Use terser for minification
+        $terserOutput = terser $terserInput -c -m --comments=false -o $outputFile 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            throw "terser failed: $terserOutput"
+        }
+
+        # Get the new file size
+        $newSize = (Get-Item $outputFile).Length
+        
+        # Calculate size reduction
+        $sizeDiff = $originalSize - $newSize
+        
+        # Store size information
+        return @{
+            Success = $true
+            OriginalSize = $originalSize
+            NewSize = $newSize
+            SizeDiff = $sizeDiff
+        }
+    }
+    catch {
+        Write-Error "Error processing JS file $inputFile : $_"
+        return @{
+            Success = $false
+            OriginalSize = 0
+            NewSize = 0
+            SizeDiff = 0
+        }
+    }
+    finally {
+        # Clean up the temporary file if it exists
+        if ($tempFile -and (Test-Path $tempFile)) {
+            Remove-Item $tempFile -ErrorAction SilentlyContinue
+        }
+    }
+}
+
 # Function to format file size
 function Format-FileSize($size) {
     if ($size -ge 1MB) {
@@ -177,33 +311,118 @@ try {
         Write-Error "Failed to copy index.html: $_"
     }
 
+    # Minify CSS and JS files
+    Write-Host "`n🔄 Starting CSS/JS minification process..." -ForegroundColor Cyan
+    
+    # Define asset files to minify
+    $cssFile = "../css/index.css"
+    $jsFile = "../js/index.js"
+    $assetFiles = @(
+        @{Path = $cssFile; Type = "CSS"; OutputPath = $cssFile -replace '\.css$', '.min.css'},
+        @{Path = $jsFile; Type = "JS"; OutputPath = $jsFile -replace '\.js$', '.min.js'}
+    )
+    
+    $totalAssetFiles = $assetFiles.Count
+    $assetProcessed = 0
+    $assetSuccess = 0
+    $assetFail = 0
+    $totalAssetOriginalSize = 0
+    $totalAssetNewSize = 0
+    
+    # Process each asset file
+    foreach ($asset in $assetFiles) {
+        $assetProcessed++
+        
+        Write-Host "[$assetProcessed/$totalAssetFiles] Processing $($asset.Type) file: $($asset.Path) " -NoNewline
+        
+        if (-not (Test-Path $asset.Path)) {
+            Write-Host "❌ (File not found)" -ForegroundColor Red
+            $assetFail++
+            continue
+        }
+        
+        $minifyResult = $null
+        if ($asset.Type -eq "CSS") {
+            $minifyResult = MinifyCSS $asset.Path $asset.OutputPath
+        } elseif ($asset.Type -eq "JS") {
+            $minifyResult = MinifyJS $asset.Path $asset.OutputPath
+        }
+        
+        if ($minifyResult -and $minifyResult.Success) {
+            $sizeDiffFormatted = Format-FileSize $minifyResult.SizeDiff
+            Write-Host "✅" -ForegroundColor Green -NoNewline
+            Write-Host " (🗜 $sizeDiffFormatted)" -ForegroundColor Blue
+            $assetSuccess++
+            $totalAssetOriginalSize += $minifyResult.OriginalSize
+            $totalAssetNewSize += $minifyResult.NewSize
+        } else {
+            Write-Host "❌" -ForegroundColor Red
+            $assetFail++
+        }
+    }
+
     # Calculate execution time
     $endTime = Get-Date
     $executionTime = ($endTime - $startTime).TotalSeconds
 
-    # Calculate total size saved
+    # Calculate total size saved for HTML
     $totalSizeSaved = $totalOriginalSize - $totalNewSize
     $totalSizeSavedFormatted = Format-FileSize $totalSizeSaved
     $totalNewSizeFormatted = Format-FileSize $totalNewSize
     $percentSaved = [math]::Round(($totalSizeSaved / $totalOriginalSize) * 100)
+    
+    # Calculate total size saved for assets
+    $totalAssetSizeSaved = $totalAssetOriginalSize - $totalAssetNewSize
+    $totalAssetSizeSavedFormatted = Format-FileSize $totalAssetSizeSaved
+    $totalAssetNewSizeFormatted = Format-FileSize $totalAssetNewSize
+    $assetPercentSaved = 0
+    if ($totalAssetOriginalSize -gt 0) {
+        $assetPercentSaved = [math]::Round(($totalAssetSizeSaved / $totalAssetOriginalSize) * 100)
+    }
 
     # Display summary
     Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
     Write-Host "📊 SUMMARY" -ForegroundColor Cyan
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
-    Write-Host "✅ Successful: " -ForegroundColor Green -NoNewline
+    
+    # HTML summary
+    Write-Host "📄 HTML FILES:" -ForegroundColor Yellow
+    Write-Host "  ✅ Successful: " -ForegroundColor Green -NoNewline
     Write-Host "$successCount files" -ForegroundColor White
-    Write-Host "❌ Failed: " -ForegroundColor Red -NoNewline
+    Write-Host "  ❌ Failed: " -ForegroundColor Red -NoNewline
     Write-Host "$failCount files" -ForegroundColor White
-    Write-Host "📈 Completion: " -ForegroundColor Magenta -NoNewline
+    Write-Host "  📈 Completion: " -ForegroundColor Magenta -NoNewline
     Write-Host "$([math]::Round(($successCount / $totalFiles) * 100))% of files" -ForegroundColor White
-    Write-Host "💾 Total Space Saved: " -ForegroundColor Yellow -NoNewline
+    Write-Host "  💾 Space Saved: " -ForegroundColor Blue -NoNewline
     Write-Host "$totalNewSizeFormatted from $totalOriginalSizeFormatted ($totalSizeSavedFormatted, $percentSaved% smaller)" -ForegroundColor White
-    Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
+    
+    # CSS/JS summary
+    Write-Host "`n🎨 CSS/JS FILES:" -ForegroundColor Yellow
+    Write-Host "  ✅ Successful: " -ForegroundColor Green -NoNewline
+    Write-Host "$assetSuccess files" -ForegroundColor White
+    Write-Host "  ❌ Failed: " -ForegroundColor Red -NoNewline
+    Write-Host "$assetFail files" -ForegroundColor White
+    if ($totalAssetFiles -gt 0) {
+        Write-Host "  📈 Completion: " -ForegroundColor Magenta -NoNewline
+        Write-Host "$([math]::Round(($assetSuccess / $totalAssetFiles) * 100))% of files" -ForegroundColor White
+        if ($totalAssetOriginalSize -gt 0) {
+            Write-Host "  💾 Space Saved: " -ForegroundColor Blue -NoNewline
+            Write-Host "$totalAssetNewSizeFormatted from $(Format-FileSize $totalAssetOriginalSize) ($totalAssetSizeSavedFormatted, $assetPercentSaved% smaller)" -ForegroundColor White
+        }
+    }
+    
+    # Overall summary
+    $totalOverallSaved = $totalSizeSaved + $totalAssetSizeSaved
+    $totalOverallOriginal = $totalOriginalSize + $totalAssetOriginalSize
+    
+    Write-Host "`n📊 OVERALL:" -ForegroundColor Cyan
+    Write-Host "  🕒 Total Time: " -ForegroundColor Cyan -NoNewline
     Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
+    Write-Host "  💾 Total Space Saved: " -ForegroundColor Yellow -NoNewline
+    Write-Host "$(Format-FileSize $totalOverallSaved) from $(Format-FileSize $totalOverallOriginal) ($([math]::Round(($totalOverallSaved / $totalOverallOriginal) * 100))% smaller)" -ForegroundColor White
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
     
-    if ($failCount -eq 0) {
+    if ($failCount + $assetFail -eq 0) {
         Write-Host "✅ ALL FILES PROCESSED SUCCESSFULLY ✅" -ForegroundColor Green
     } else {
         Write-Host "⚠️ COMPLETED WITH ERRORS ⚠️" -ForegroundColor Yellow
