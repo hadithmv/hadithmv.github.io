@@ -96,8 +96,10 @@
         transition: all 0.2s;
         font-weight: 500;
         border: 2px solid var(--accent-color);
+      }
 
-        @media (prefers-color-scheme: dark) {
+      @media (prefers-color-scheme: dark) {
+        .btn-home {
           background-color: #3d8ac7; /* Darker shade for dark mode */
           border-color: #3d8ac7;
         }
@@ -107,8 +109,10 @@
         background-color: #2171a6;
         color: white;
         border-color: #2171a6;
+      }
 
-        @media (prefers-color-scheme: dark) {
+      @media (prefers-color-scheme: dark) {
+        .btn-home:hover {
           background-color: #2d6694; /* Even darker shade for hover in dark mode */
           border-color: #2d6694;
         }
@@ -117,8 +121,9 @@
       .btn-home.danger {
         background-color: var(--error-color);
         border-color: var(--error-color);
-
-        @media (prefers-color-scheme: dark) {
+      }
+      @media (prefers-color-scheme: dark) {
+        .btn-home.danger {
           background-color: #d32f2f; /* Darker red for dark mode */
           border-color: #d32f2f;
         }
@@ -128,8 +133,9 @@
         background-color: #8b2326;
         color: white;
         border-color: #8b2326;
-
-        @media (prefers-color-scheme: dark) {
+      }
+      @media (prefers-color-scheme: dark) {
+        .btn-home.danger:hover {
           background-color: #962226; /* Even darker red for hover in dark mode */
           border-color: #962226;
         }
@@ -170,9 +176,10 @@
       .mirror-links a:hover {
         background-color: var(--primary-color);
         color: white;
-
-        /* Add dark mode support */
-        @media (prefers-color-scheme: dark) {
+      }
+      /* Add dark mode support */
+      @media (prefers-color-scheme: dark) {
+        .mirror-links a:hover {
           background-color: #3d8ac7; /* Darker shade of the primary color (#64b5f6) */
           border-color: #3d8ac7;
           color: white;
@@ -244,12 +251,22 @@
         border-radius: 4px;
         margin-top: 2rem;
       }
+      /* Add dark mode support */
+      @media (prefers-color-scheme: dark) {
+        .warning-box {
+          background: #332d1a;
+          border-left-color: #ffc107;
+        }
+      }
 
       /* Update these selectors for dark mode */
       .dtWrapper {
         background: white;
-        /* Add dark mode support */
-        @media (prefers-color-scheme: dark) {
+      }
+
+      /* Add dark mode support */
+      @media (prefers-color-scheme: dark) {
+        .dtWrapper {
           background: #1e1e1e;
           border-color: rgba(255, 255, 255, 0.12);
         }
@@ -257,27 +274,23 @@
 
       .link-group {
         background: var(--bg-color);
-        /* Add dark mode support */
-        @media (prefers-color-scheme: dark) {
+      }
+      /* Add dark mode support */
+      @media (prefers-color-scheme: dark) {
+        .link-group {
           border-color: rgba(255, 255, 255, 0.12);
         }
       }
 
       .mirror-links a {
         background-color: white;
-        /* Add dark mode support */
-        @media (prefers-color-scheme: dark) {
+      }
+      /* Add dark mode support */
+      @media (prefers-color-scheme: dark) {
+        .mirror-links a {
           background-color: #1e1e1e;
           color: var(--primary-color);
           border-color: var(--primary-color);
-        }
-      }
-
-      .warning-box {
-        /* Add dark mode support */
-        @media (prefers-color-scheme: dark) {
-          background: #332d1a;
-          border-left-color: #ffc107;
         }
       }
     </style>
