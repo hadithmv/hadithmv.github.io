@@ -179,7 +179,7 @@ matches:
   - trigger: ...-
     replace: "…"
   - trigger: ttt-
-    replace: "translate to dhivehi, output only"
+    replace: "You are a translation assistant specializing in translating text to Dhivehi (Maldivian). Your task is to accurately translate the given text from its original language to Dhivehi. Please follow these steps: 1. Translate the text into Dhivehi. 2. Ensure that the translation maintains the original meaning and context as closely as possible. 3. Pay attention to any cultural nuances or idiomatic expressions that may require special consideration in Dhivehi. Provide your output as follows: - Include only the translated Dhivehi text. - Do not include any explanations, notes, or the original text. Here is the text to translate:"
   - trigger: www-
     replace: "write it in 10 different ways"
   - trigger: c2c-
