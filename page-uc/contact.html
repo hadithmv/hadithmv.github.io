@@ -118,7 +118,7 @@
 
           .modal-content {
             background-color: #ffffff;
-            margin: 10% auto;
+            margin: 15vh auto; /* Changed from 10% to 15vh for better positioning */
             padding: 30px;
             border-radius: 15px;
             width: 90%;
@@ -127,6 +127,43 @@
               0 5px 15px rgba(0, 0, 0, 0.07);
             transform: scale(0.8);
             transition: all 0.3s ease;
+          }
+
+          /* Add dark mode styles */
+          @media (prefers-color-scheme: dark) {
+            .modal-button {
+              background-color: #2d5a88;
+            }
+
+            .modal-button:hover {
+              background-color: #1d3c5a;
+            }
+
+            .modal-content {
+              background-color: #1a1a1a;
+              color: #e0e0e0;
+            }
+
+            .modal-content h2 {
+              color: #e0e0e0;
+            }
+
+            .modal-content ul li a {
+              background-color: #2d2d2d;
+              color: #e0e0e0;
+            }
+
+            .modal-content ul li a:hover {
+              background-color: #3d3d3d;
+            }
+
+            .close {
+              color: #888;
+            }
+
+            .close:hover {
+              color: #aaa;
+            }
           }
 
           .modal.show .modal-content {
