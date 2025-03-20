@@ -110,15 +110,19 @@
             background-color: rgba(0, 0, 0, 0.5);
             opacity: 0;
             transition: opacity 0.3s ease;
+            /* Improved centering with flexbox */
+            display: none;
+            justify-content: center;
+            align-items: center;
           }
 
           .modal.show {
             opacity: 1;
+            display: flex;
           }
 
           .modal-content {
             background-color: #ffffff;
-            margin: 10vh auto;
             padding: 30px;
             border-radius: 15px;
             width: 90%;
@@ -127,6 +131,17 @@
               0 5px 15px rgba(0, 0, 0, 0.07);
             transform: scale(0.8);
             transition: all 0.3s ease;
+            /* Remove margin that was causing centering issues */
+            margin: 0;
+            position: relative;
+          }
+
+          /* tablet - desktop only */
+          @media (min-width: 600px) {
+            .modal-content {
+              /* added back top margin */
+              margin-top: 8vh;
+            }
           }
 
           .modal.show .modal-content {
@@ -135,7 +150,9 @@
 
           .close {
             color: #aaa;
-            float: right;
+            position: absolute;
+            top: 10px;
+            right: 15px;
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
@@ -151,6 +168,7 @@
             color: #2c3e50;
             font-size: 24px;
             text-align: center;
+            padding-top: 10px;
           }
 
           .modal-content ul {
@@ -213,6 +231,7 @@
 
             .modal-content ul li a:hover {
               background-color: #444444;
+              transform: translateY(-2px);
               box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             }
 
@@ -225,6 +244,7 @@
             }
           }
         </style>
+
         <div id="contactModal" class="modal">
           <div class="modal-content">
             <span class="close">&times;</span>
@@ -263,7 +283,7 @@
           const span = document.querySelector(".close");
 
           btn.onclick = function () {
-            modal.style.display = "block";
+            modal.style.display = "flex"; // Changed to flex for centering
             setTimeout(() => {
               modal.classList.add("show");
             }, 10);
