@@ -421,7 +421,7 @@ function createNavbar() {
     onclick='const wrapper = document.querySelector(".dtWrapper"); 
               wrapper.style.maxWidth = wrapper.style.maxWidth === "none" ? "980px" : "none"; 
               return false;'>
-    ↔️ ވައިޑު ސްކްރީން</a
+    ↔️ ވައިޑް ސްކްރީން</a
       >
     </li>
     <li>
