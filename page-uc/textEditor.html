@@ -3275,8 +3275,6 @@ shown in am pm, with a button that switches between 12 and 24 hour format
           </div>
 
           <script>
-            // ... existing code ...
-
             // Hathim Calculator
             document.addEventListener("DOMContentLoaded", () => {
               const monthsInput = document.getElementById("monthsInput");
@@ -3320,11 +3318,11 @@ shown in am pm, with a button that switches between 12 and 24 hour format
                 const hathims = parseFloat(hathimsInput.value);
                 const daysInPeriod = months * 30; // Approximate days in Islamic months
 
-                const totalPagesValue = Math.ceil(604 * hathims); // 604 is one complete Hathim
-                const pagesPerDayValue = Math.ceil(
+                const totalPagesValue = Math.round(604 * hathims); // 604 is one complete Hathim
+                const pagesPerDayValue = Math.round(
                   totalPagesValue / daysInPeriod
                 );
-                const pagesPerPrayerValue = Math.ceil(pagesPerDayValue / 5); // 5 prayers per day
+                const pagesPerPrayerValue = Math.round(pagesPerDayValue / 5); // 5 prayers per day
 
                 totalPages.textContent = totalPagesValue;
                 pagesPerDay.textContent = pagesPerDayValue;
@@ -3334,8 +3332,6 @@ shown in am pm, with a button that switches between 12 and 24 hour format
               // Initial calculation
               calculateHathim();
             });
-
-            // ... rest of the code ...
           </script>
 
           <hr />
