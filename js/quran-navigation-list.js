@@ -707,11 +707,24 @@ function getAllColumnDefinitions() {
       render: function (t, n, r) {
         // Check if the translation data exists
         if (r[a.name] && r[a.name][e] !== undefined) {
-          // Return empty string if it's empty, otherwise replace newlines
+          //
+          // Special case for quranSoabuni's third column when it's exactly "-"
+          if (a.name === "quranSoabuni" && e === 1 && r[a.name][e] === "-") {
+            return "ކުރިއަށް އޮތް އާޔަތުގެ ތަފްސީރު ބައްލަވާ";
+          }
+          //
+          // Regular case: Return empty string if it's empty, otherwise replace newlines
           return r[a.name][e] === "" ? "" : r[a.name][e].replace(/\n/g, "<br>");
         }
         return "ތައްޔާރުވަނީ..."; // Only show loading when data is undefined
       },
+      /*// Check if the translation data exists
+        if (r[a.name] && r[a.name][e] !== undefined) {
+          // Return empty string if it's empty, otherwise replace newlines
+          return r[a.name][e] === "" ? "" : r[a.name][e].replace(/\n/g, "<br>");
+        }
+        return "ތައްޔާރުވަނީ..."; // Only show loading when data is undefined
+      },*/
     })),
   ]);
 
