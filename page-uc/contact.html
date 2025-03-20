@@ -118,7 +118,7 @@
 
           .modal-content {
             background-color: #ffffff;
-            margin: 10vh auto; /* Changed to 10vh to position it higher */
+            margin: 10vh auto;
             padding: 30px;
             border-radius: 15px;
             width: 90%;
@@ -127,50 +127,6 @@
               0 5px 15px rgba(0, 0, 0, 0.07);
             transform: scale(0.8);
             transition: all 0.3s ease;
-          }
-
-          /* Dark mode styles */
-          @media (prefers-color-scheme: dark) {
-            .modal-button {
-              background-color: #4a90e2; /* Keep original bright blue */
-            }
-
-            .modal-button:hover {
-              background-color: #357ae8;
-            }
-
-            .modal-content {
-              background-color: #121212; /* Darker background */
-              color: #ffffff;
-              box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5),
-                0 5px 15px rgba(0, 0, 0, 0.3);
-            }
-
-            .modal-content h2 {
-              color: #ffffff;
-              font-weight: 600;
-            }
-
-            .modal-content ul li a {
-              background-color: #1e1e1e; /* Darker buttons */
-              color: #ffffff;
-              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-              font-weight: 500;
-            }
-
-            .modal-content ul li a:hover {
-              background-color: #2c2c2c;
-            }
-
-            .close {
-              color: #ffffff;
-              opacity: 0.9;
-            }
-
-            .close:hover {
-              color: #ffffff;
-              opacity: 1;
-            }
           }
 
           .modal.show .modal-content {
@@ -212,21 +168,61 @@
           }
 
           .modal-content ul li a {
-            /*color: #3498db;*/
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             display: block;
             padding: 10px 15px;
             border-radius: 8px;
             background-color: #f8f9fa;
+            color: #2c3e50;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            /* */
             text-align: center;
+            font-weight: 500;
           }
 
           .modal-content ul li a:hover {
-            /*color: #2980b9;*/
             background-color: #e9ecef;
+          }
+
+          /* Dark mode styles - Improved */
+          @media (prefers-color-scheme: dark) {
+            .modal-button {
+              background-color: #2d5a88;
+            }
+
+            .modal-button:hover {
+              background-color: #1d3c5a;
+            }
+
+            .modal-content {
+              background-color: #222222;
+              color: #ffffff;
+              box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3),
+                0 5px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            .modal-content h2 {
+              color: #ffffff;
+            }
+
+            .modal-content ul li a {
+              background-color: #333333;
+              color: #ffffff;
+              border: none;
+            }
+
+            .modal-content ul li a:hover {
+              background-color: #444444;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            .close {
+              color: #dddddd;
+            }
+
+            .close:hover {
+              color: #ffffff;
+            }
           }
         </style>
         <div id="contactModal" class="modal">
