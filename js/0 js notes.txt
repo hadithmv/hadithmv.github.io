@@ -3,13 +3,17 @@
 
 -- LOAD PRIORTY IN COMB: --
 
-jquery.js (UGLIFY)	v4.0.0-beta.2+447432f
-	https://releases.jquery.com/jquery
-(note, in the beta v4, the difference of which is: 84.12-76.26=7.86kb
-they removed all deprecated or under-supported dependencies, and while that file is smaller, keepConditions throws these errors:
+jquery.js (UGLIFY)	3.7.1
+	https://jquery.com/download/
+	
+(note, previously used the beta v4, the difference of which is: 84.12-76.26=7.86kb
+https://releases.jquery.com/jquery
+they removed all deprecated or under-supported dependencies, and while that file is smaller,
+but it seems unsuitable for production, as gives weird errors regarding pagination which were not fixable at the time
+also keepConditions throws these errors:
 $.unique() and $.isArray() is not a function, because they are depreciated in latest jQuery
 solution is to update with Array.isArray() and $.uniqueSort()
-	previously used 3.7.1, https://code.jquery.com/jquery-3.7.1.min.js
+but that was fixed by updating the keepConditions jquery specific logic to vanilla
 	previously also used slim, it worked until i switched to loading json via ajax, and vanilla js methods throw cors errors)
 
 
@@ -42,9 +46,9 @@ datatables.mark.js (UGLIFY)	3.0.0	https://github.com/DataTables/Plugins/blob/mas
 
 
 dataTables.keepConditions.js (CLOSURE+UGLIFY)	1.2.0
+	https://github.com/jhyland87/DataTables-Keep-Conditions/blob/master/src/dataTables.keepConditions.js
+	(to fix errors given by v4 jQuery, would have needed to update this with something like:
 https://github.com/hadithmv/DataTables-Keep-Conditions/blob/master/src/dataTables.keepConditions.js
-	(original epo: https://github.com/jhyland87/DataTables-Keep-Conditions
-	need to update this with something like:
 https://stackoverflow.com/questions/55446923/datatables-1-10-using-savestate-to-remember-filtering-and-order-but-need-to-upd/60708638#60708638
 https://datatables.net/forums/discussion/44147
 https://datatables.net/forums/discussion/56338)

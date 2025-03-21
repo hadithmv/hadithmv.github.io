@@ -477,7 +477,16 @@
         // CHANGE !!!
         // #	bab babDhiv arab takhrij	dhiv	dvRef
         columns: [
-          { title: "#", className: "colHeader" },
+          {
+            /* add sofhaa string to page no */
+            title: "ސަފުހާ #",
+            className: "colHeader",
+            searchable: false,
+            render: function (data) {
+              return "[ސ: " + data + "]";
+            },
+          },
+          { title: "ބާބު އަރަބިން", className: "colHeader" },
           { title: "އަރަބި ލިޔުން" },
           {
             title: "ތަޚްރީޖު",
@@ -492,18 +501,22 @@
             searchable: false,
           },
           {
+            title: "ބާބު ދިވެހިން",
+            className: "colHeader",
+            data: 4,
+          },
+          {
             title: "ދިވެހި ލިޔުން",
-            data: 3,
+            data: 5,
           },
           {
             title: "ދިވެހި ތަޚްރީޖު",
-            data: 4,
+            data: 6,
           },
         ], //
         columnDefs: [
           {
-            // targets: [4, 7],
-            targets: [2, 5],
+            targets: [3, 7],
             render: (data) =>
               data !== ""
                 ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
