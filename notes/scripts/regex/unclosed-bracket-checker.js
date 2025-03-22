@@ -3,7 +3,7 @@ const fs = require("fs"); // Import the file system module to read and write fil
 /**
  * Checks if a string has balanced brackets, parentheses, and quotation marks
  * @param {string} text - The text to check for balanced symbols
- * @return {Object} Result containing whether the text is balanced and any unbalanced symbols
+ * @return {Object} Result containing whether the text is balanced, any unbalanced symbols, and their positions
  */
 function isBalanced(text = "") {
   // Define paired symbols where each opening symbol has a corresponding closing symbol
@@ -13,59 +13,97 @@ function isBalanced(text = "") {
     "{": "}", // Curly braces
     '"': '"', // Double quotes
     "'": "'", // Single quotes
-    "“": "”", // Curly quotes
+    '"': '"', // Curly quotes
     "=": "=", // Equals sign (matches with itself)
   };
 
   // List of all symbols we want to check for balance
   const brackets = ["(", ")", "[", "]", "{", "}", '"', "'", "="];
-  // Note: You can extend this list with more symbols as needed
 
-  // Stack to keep track of opening symbols that need to be closed
-  // We'll push opening symbols onto this stack and pop them off when we find matching closing symbols
+  // Stack to keep track of opening symbols and their positions
   const stack = [];
 
+  // Track unbalanced symbols and their positions
+  const unbalancedInfo = {
+    balanced: true,
+    symbols: [],
+    positions: [],
+  };
+
   // Iterate through each character in the input text
-  for (let c of text) {
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+
     // Check if the current character is one of our tracked symbols
     if (brackets.includes(c)) {
       // If we already have symbols on the stack
       if (stack.length > 0) {
+        const lastItem = stack[stack.length - 1];
         // If the current character is the closing match for the symbol at the top of the stack
-        if (pair[stack[stack.length - 1]] === c) {
+        if (pair[lastItem.symbol] === c) {
           stack.pop(); // Remove the opening symbol since we found its match
         } else if (c in pair) {
-          // If this is a new opening symbol, add it to the stack
-          stack.push(c);
+          // If this is a new opening symbol, add it to the stack with its position
+          stack.push({ symbol: c, position: i });
+        } else {
+          // A closing symbol that doesn't match - record it
+          unbalancedInfo.balanced = false;
+          unbalancedInfo.symbols.push(c);
+          unbalancedInfo.positions.push(i);
         }
-        // Note: If it's a closing symbol that doesn't match the top of the stack,
-        // we keep going (the text is already unbalanced)
       } else {
         // If the stack is empty (no pending opening symbols)
         if (c in pair) {
-          // If this is an opening symbol, add it to the stack
-          stack.push(c);
+          // If this is an opening symbol, add it to the stack with its position
+          stack.push({ symbol: c, position: i });
         } else {
-          // If this is a closing symbol with no matching opening symbol,
-          // text is immediately unbalanced - return right away
-          return { balanced: false, remainingStack: [c] };
+          // If this is a closing symbol with no matching opening symbol
+          unbalancedInfo.balanced = false;
+          unbalancedInfo.symbols.push(c);
+          unbalancedInfo.positions.push(i);
         }
       }
     }
   }
 
-  // After processing all characters:
-  // - If stack is empty, all symbols were properly matched and closed
-  // - If stack has items, we have opening symbols without matching closing symbols
-  return {
-    balanced: stack.length === 0,
-    remainingStack: stack, // Return any unmatched symbols for error reporting
-  };
+  // Add any remaining opening symbols from the stack to our unbalanced info
+  if (stack.length > 0) {
+    unbalancedInfo.balanced = false;
+    for (const item of stack) {
+      unbalancedInfo.symbols.push(item.symbol);
+      unbalancedInfo.positions.push(item.position);
+    }
+  }
+
+  return unbalancedInfo;
+}
+
+/**
+ * Gets context around a position in text
+ * @param {string} text - The full text
+ * @param {number} position - The position of the character
+ * @param {number} contextSize - Number of characters on each side to include
+ * @return {string} The context string
+ */
+
+// Added a new getContext() function that extracts a portion of text around each problematic character (default 15 characters on each side), with ellipses to indicate when text is truncated.
+// You can adjust the context size by changing the contextSize parameter in the getContext() function if you want to see more or less surrounding text.
+function getContext(text, position, contextSize = 15) {
+  const start = Math.max(0, position - contextSize);
+  const end = Math.min(text.length, position + contextSize + 1);
+
+  let context = text.substring(start, end);
+
+  // Add ellipsis if we're not showing from the beginning or to the end
+  if (start > 0) context = "..." + context;
+  if (end < text.length) context = context + "...";
+
+  return context;
 }
 
 /**
  * Main function that reads input file, checks each line for balanced symbols,
- * and writes unbalanced lines to output file
+ * and writes unbalanced lines to output file with context
  */
 function checkBalancedBrackets() {
   console.log("Starting bracket balance check..."); // Log start of process
@@ -80,26 +118,32 @@ function checkBalancedBrackets() {
     const unbalancedLines = [];
 
     // Process each line from the input file
-    for (let line of inputLines) {
-      line = line.trim(); // Remove whitespace from start and end of line
+    for (let lineIndex = 0; lineIndex < inputLines.length; lineIndex++) {
+      let line = inputLines[lineIndex].trim(); // Remove whitespace from start and end of line
       if (line.length === 0) continue; // Skip empty lines
 
       // Check if the current line has balanced symbols
-      const { balanced, remainingStack } = isBalanced(line);
+      const result = isBalanced(line);
 
       // If the line has unbalanced symbols, add it to our results
-      if (!balanced) {
-        // Format the unbalanced characters for the output
-        const unbalancedChars =
-          remainingStack.length > 0 ? remainingStack.join("") : "unknown";
+      if (!result.balanced) {
+        // Get contexts for each unbalanced symbol
+        const contexts = result.positions.map((pos) => {
+          const context = getContext(line, pos);
+          return `${
+            result.symbols[result.positions.indexOf(pos)]
+          } in context: "${context}"`;
+        });
 
-        // Add the unbalanced line to our results with information about what's unbalanced
-        unbalancedLines.push(`${line} !!! unbalanced : [${unbalancedChars}]`);
+        // Format the unbalanced information for the output
+        const unbalancedInfo = contexts.join(", ");
+
+        // Add the unbalanced line to our results with context information
+        unbalancedLines.push(`${line} !!! unbalanced : [${unbalancedInfo}]`);
       }
     }
 
     // Write all unbalanced lines to the output file
-    // Join the array of lines with newline characters to create a single string
     fs.writeFileSync("output.txt", unbalancedLines.join("\n"));
 
     // Log how many unbalanced lines were found
@@ -119,42 +163,3 @@ function checkBalancedBrackets() {
 
 // Execute the main function when the script is run
 checkBalancedBrackets();
-
-/*
-take a look at this code
-[aadils code]
-i want to do it like in javascript
-
-i dont need to use surah-juz-basmalah-ayah.js at all
-
-input file would be a plain text file called input.txt, with just lines of text
-output file would be a plain text file called output.txt with the lines of text where there is an unbalanced opening and closing caught
-
-as for telling what was unbalanced in each line of the output, that can be included right at the end of the line, but still part of that line, where the text of the output line would come first, followed by !!! unbalanced : [unbalanced character, like ( for example]
-
-...
-
-I'll rewrite this code in JavaScript for you. The goal is to:
-
-Read from a plain text file called input.txt (line by line)
-Check each line for balanced brackets/quotes
-Write lines with unbalanced brackets to output.txt with a special marker showing what's unbalanced
-
-JavaScript Bracket Balance Checker
-This JavaScript version accomplishes the same purpose as your Python code but with the specific requirements you mentioned:
-
-It reads from input.txt line by line
-Checks each line for balanced brackets and quotes
-Writes unbalanced lines to output.txt
-Includes a marker at the end of each unbalanced line showing what's unbalanced
-
-To use this code:
-
-Save it as something like bracketChecker.js
-Make sure you have Node.js installed
-Create your input.txt file with the text you want to check
-Run it with node bracketChecker.js
-
-The output format will be exactly as you requested, with the unbalanced lines followed by !!! unbalanced : [character].
-
-*/
