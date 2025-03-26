@@ -14,11 +14,26 @@ that is not immediately preceded by
 
 claude:
 (?<!• )ދަންނައެވެ
+(?<!• )ދަންނައެވެ!
+
+(?<!• )ދަންނާށެވެ
 
 ...
 
 
-also find every instance of
-"ދަންނައެވެ"
-or
-which does not start a new line
+check for every
+• ދަންނައެވެ
+that does not start on a new line:
+
+(?<!^)• ދަންނައެވެ
+
+check for every
+•
+that does not start on a new line:
+
+(?<!^)(?<!\n)•
+
+...
+
+
+
