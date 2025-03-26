@@ -27,6 +27,8 @@ that does not start on a new line:
 
 (?<!^)• ދަންނައެވެ
 
+-actually below suffices for above
+
 check for every
 •
 that does not start on a new line:
