@@ -245,44 +245,47 @@ const currentTime = new Date().getHours();
 // REMEMBER TO DECLARE THIS ONLY ONCE, REMOVE FROM OTHER TIME CHECKS
 
 //
-
-// Check if the current day is Friday (5)
-// AND
-// Check if the current time is between 4 AM and 6 PM (inclusive)
-if (currentDay === 5 && currentTime >= 4 && currentTime <= 18) {
-  // console.log("test");
-
-  // Get the span elements
-  // const span1 = document.querySelector(".hideOnPhoneOnly");
-  // const span2 = document.querySelector(".hideOnPhoneOnly + span");
-
-  // Change the text content
-
-  // console.log("test");
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
+  // Check if the current day is Friday (5)
+  // AND
+  // Check if the current time is between 4 AM and 6 PM (inclusive)
+  if (currentDay === 5 && currentTime >= 4 && currentTime <= 18) {
+    // console.log("test");
+    // Get the span elements
     const span1 = document.querySelector(".navbar-page-title");
-    span1.textContent =
-      "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ، وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيتَ عَلَى إِبْرَاهِيمَ، وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ";
-  });
-  // span2.textContent = "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ";
-  // span1.textContent =
-  //   "، وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيتَ عَلَى إِبْرَاهِيمَ، وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ";
+    if (span1) {
+      span1.textContent =
+        "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ، وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيتَ عَلَى إِبْرَاهِيمَ، وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ";
+    }
 
-  // Reorder the spans
-  // const parent = span1.parentNode;
-  // parent.insertBefore(span2, span1);
-  // }
+    // Get the span elements
+    // const span1 = document.querySelector(".hideOnPhoneOnly");
+    // const span2 = document.querySelector(".hideOnPhoneOnly + span");
 
-  // Get the element with the ID and show it
-  document.querySelector("#kahfReminder").style.display = "flex";
-  // block, table-row
+    // Change the text content
 
-  // make alert container visible
-  document.querySelectorAll(".alertContainer").forEach(function (element) {
-    element.style.display = "flex";
-  });
-  //
-}
+    // span2.textContent = "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ";
+    // span1.textContent =
+    //   "، وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيتَ عَلَى إِبْرَاهِيمَ، وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ";
+
+    // Reorder the spans
+    // const parent = span1.parentNode;
+    // parent.insertBefore(span2, span1);
+    // }
+
+    // Get the element with the ID and show it
+    const kahfReminder = document.querySelector("#kahfReminder");
+    if (kahfReminder) {
+      kahfReminder.style.display = "flex";
+      // block, table-row
+    }
+
+    // make alert container visible
+    document.querySelectorAll(".alertContainer").forEach(function (element) {
+      element.style.display = "flex";
+    });
+  }
+});
 
 //
 //
