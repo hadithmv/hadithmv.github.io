@@ -1214,11 +1214,49 @@ a:hover {
   display: none;
 }
 
-#morningQuranReminder,
+/* #morningQuranReminder,
 #kahfReminder,
 #nightQuranReminder {
   background-color: #b03b45;
   color: #eee;
+}
+
+#supportReminder {
+  background-color: #4a7c59;
+  color: #eee;
+} */
+
+/* Light mode (default) */
+#morningQuranReminder,
+#kahfReminder,
+#nightQuranReminder {
+  background-color: #c0444f;
+  color: #eee;
+  /* color: #fff; */
+}
+
+#supportReminder {
+  background-color: #599754;
+  /* 467642
+  #2f5030;  Darkened green */
+  color: #eee;
+}
+
+/* Dark mode specific styles */
+@media (prefers-color-scheme: dark) {
+  #morningQuranReminder,
+  #kahfReminder,
+  #nightQuranReminder {
+    background-color: #b03b45;
+    color: #f0f0f0;
+    border: 1px solid #6b1f2b;
+  }
+
+  #supportReminder {
+    background-color: #4f874b;
+    color: #e6e6e6;
+    border: 1px solid #1c2f22;
+  }
 }
 
 /* animation of pulsatThis icon */
