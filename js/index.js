@@ -332,8 +332,20 @@ if (currentTime >= 19 || currentTime <= 2) {
 // const currentTime = new Date().getHours();
 
 // Check if the current time is between 4 AM and 8 AM (inclusive)
-if (currentTime >= 4 && currentTime <= 8) {
-  /*// Get the span elements
+document.addEventListener("DOMContentLoaded", function () {
+  if (currentTime >= 4 && currentTime <= 8) {
+    // Change background color and content of .azkarBook element
+    const azkarBook = document.querySelector(".azkarBook");
+    if (azkarBook) {
+      azkarBook.style.backgroundColor = "#b03b45"; // Change this to your desired color
+      azkarBook.style.color = "#eee";
+      azkarBook.innerHTML = `
+        <p><span class="pulsateThis">⚠️</span> أذكار الصباح والمساء</p>
+        <p>🤲 ހެނދުނާއި ހަވީރުގެ ޒިކުރުތައް</p>
+      `;
+    }
+
+    /*// Get the span elements
             const span1 = document.querySelector(".hideOnPhoneOnly");
             const span2 = document.querySelector(".hideOnPhoneOnly + span");
     
@@ -345,27 +357,20 @@ if (currentTime >= 4 && currentTime <= 8) {
             const parent = span1.parentNode;
             parent.insertBefore(span2, span1);*/
 
-  // Change background color and content of .azkarBook element
-  const azkarBook = document.querySelector(".azkarBook");
-  if (azkarBook) {
-    azkarBook.style.backgroundColor = "#b03b45"; // Change this to your desired color
-    azkarBook.style.color = "#eee";
-    azkarBook.innerHTML = `
-            <p><span class="pulsateThis">⚠️</span> أذكار الصباح والمساء</p>
-            <p>🤲 ހެނދުނާއި ހަވީރުގެ ޒިކުރުތައް</p>
-          `;
+    // Get the element with the ID and show it
+    const morningQuranReminder = document.querySelector(
+      "#morningQuranReminder"
+    );
+    if (morningQuranReminder) {
+      morningQuranReminder.style.display = "flex";
+    }
+
+    // make alert container visible
+    document.querySelectorAll(".alertContainer").forEach(function (element) {
+      element.style.display = "flex";
+    });
   }
-
-  // Get the element with the ID and show it
-  document.querySelector("#morningQuranReminder").style.display = "flex";
-  // block, table-row
-
-  // make alert container visible
-  document.querySelectorAll(".alertContainer").forEach(function (element) {
-    element.style.display = "flex";
-  });
-  //
-}
+});
 
 // =======================
 // toggleview code
@@ -437,6 +442,8 @@ toggleButtons.forEach((button) => {
 
 function redirectToUrl() {
   const inputElement = document.getElementById("urlInput");
+  if (!inputElement) return;
+
   const input = inputElement.value;
   const currentUrl = window.location.href;
   let newUrl = "";
@@ -460,6 +467,7 @@ function redirectToUrl() {
         the placeholder should disappear when text is typed in the input, reappear when no text is typed in the input
         after the second red placeholder text shown, the initial placeholder text should show, just not in red, when cursor is placed, but typing hasnt happened. right now the initial placeholder text is gone as well
         */
+
     setTimeout(() => {
       inputElement.classList.add("incorrect-fade");
       setTimeout(() => {
@@ -491,24 +499,28 @@ function redirectToUrl() {
   window.location.href = newUrl;
 }
 
-document
-  .getElementById("urlInput")
-  .addEventListener("keypress", function (event) {
+document.addEventListener("DOMContentLoaded", function () {
+  const urlInput = document.getElementById("urlInput");
+  if (!urlInput) return;
+
+  urlInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       redirectToUrl();
     }
   });
 
-// Remove incorrect class on focus
-document.getElementById("urlInput").addEventListener("focus", function () {
-  const inputElement = document.getElementById("urlInput");
-  inputElement.classList.remove("incorrect");
-  inputElement.setAttribute(
-    "placeholder",
-    "ސޭވްކުރި ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ"
-  );
-  inputElement.style.removeProperty("--placeholder-color");
-  inputElement.style.removeProperty("--border-color");
+  // Remove incorrect class on focus
+
+  urlInput.addEventListener("focus", function () {
+    const inputElement = document.getElementById("urlInput");
+    inputElement.classList.remove("incorrect");
+    inputElement.setAttribute(
+      "placeholder",
+      "ސޭވްކުރި ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ"
+    );
+    inputElement.style.removeProperty("--placeholder-color");
+    inputElement.style.removeProperty("--border-color");
+  });
 });
 
 // =======================
