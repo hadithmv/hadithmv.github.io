@@ -35,6 +35,23 @@ that does not start on a new line:
 
 (?<!^)(?<!\n)•
 
+---
+
+give me js regex to
+find all two dots that arent in three dots
+..
+...
+
+(?<!\.)\.\.(?!\.)
+
+---
+
+give me regex to find all instances of
+ އެބަހީ
+that is not immediately followed by a colon:
+
+އެބަހީ(?!:)
+
 ...
 
 
