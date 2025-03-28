@@ -5,7 +5,7 @@ Set-Location -Path $PSScriptRoot
 $startTime = Get-Date
 
 # Define a function to minify HTML files
-function MinifyHTML($inputFile, $outputFile) {
+function MinifyHTML($inputFile, $outputFile, $embedAssets = $false) {
     try {
         # Check if input file exists
         if (-not (Test-Path $inputFile)) {
@@ -23,11 +23,54 @@ function MinifyHTML($inputFile, $outputFile) {
         # Read the content of the file
         $content = Get-Content -Path $inputFile -Raw -ErrorAction Stop
         
-        # Replace .css with .min.css in link tags, being careful not to replace .min.css again
-        $content = $content -replace '(href="[^"]*?)(?<!\.min)\.css"', '$1.min.css"'
-        
-        # Replace .js with .min.js in script tags, being careful not to replace .min.js again
-        $content = $content -replace '(src="[^"]*?)(?<!\.min)\.js"', '$1.min.js"'
+        # If we're not embedding assets, replace .css with .min.css and .js with .min.js
+        if (-not $embedAssets) {
+            # Replace .css with .min.css in link tags, being careful not to replace .min.css again
+            $content = $content -replace '(href="[^"]*?)(?<!\.min)\.css"', '$1.min.css"'
+            
+            # Replace .js with .min.js in script tags, being careful not to replace .min.js again
+            $content = $content -replace '(src="[^"]*?)(?<!\.min)\.js"', '$1.min.js"'
+        }
+        # If embedding assets and this is index.html, embed CSS and JS
+        elseif ($embedAssets -and [System.IO.Path]::GetFileName($inputFile) -eq "index.html") {
+            Write-Host "   Embedding CSS and JS into index.html..." -ForegroundColor Cyan
+            
+            # Embed CSS
+            $cssFile = "../css/index.css"
+            if (Test-Path $cssFile) {
+                $cssContent = Get-Content -Path $cssFile -Raw -ErrorAction Stop
+                
+                # Minify CSS content
+                $minCssContent = MinifyCSSContent $cssContent
+                
+                # Replace external CSS link with embedded style
+                $cssLinkPattern = '<link\s+[^>]*?href="[^"]*?index\.css"[^>]*?>'
+                $cssEmbedded = "<style>$minCssContent</style>"
+                $content = $content -replace $cssLinkPattern, $cssEmbedded
+                
+                Write-Host "   ✅ CSS embedded successfully" -ForegroundColor Green
+            } else {
+                Write-Host "   ⚠️ CSS file not found: $cssFile" -ForegroundColor Yellow
+            }
+            
+            # Embed JS
+            $jsFile = "../js/index.js"
+            if (Test-Path $jsFile) {
+                $jsContent = Get-Content -Path $jsFile -Raw -ErrorAction Stop
+                
+                # Minify JS content
+                $minJsContent = MinifyJSContent $jsContent
+                
+                # Replace external JS script with embedded script
+                $jsScriptPattern = '<script\s+[^>]*?src="[^"]*?index\.js"[^>]*?>\s*</script>'
+                $jsEmbedded = "<script>$minJsContent</script>"
+                $content = $content -replace $jsScriptPattern, $jsEmbedded
+                
+                Write-Host "   ✅ JS embedded successfully" -ForegroundColor Green
+            } else {
+                Write-Host "   ⚠️ JS file not found: $jsFile" -ForegroundColor Yellow
+            }
+        }
         
         # Create a temporary file for the modified content
         $tempFile = [System.IO.Path]::GetTempFileName()
@@ -73,6 +116,48 @@ function MinifyHTML($inputFile, $outputFile) {
         # Clean up the temporary file if it exists
         if ($tempFile -and (Test-Path $tempFile)) {
             Remove-Item $tempFile -ErrorAction SilentlyContinue
+        }
+    }
+}
+
+# Function to minify CSS content directly
+function MinifyCSSContent($cssContent) {
+    try {
+        # Check if csso is installed
+        if (-not (Get-Command csso -ErrorAction SilentlyContinue)) {
+            throw "csso is not installed. Please install it using 'npm install -g csso-cli'"
+        }
+
+        # Create a temporary file for the CSS content
+        $tempInputFile = [System.IO.Path]::GetTempFileName() + ".css"
+        $tempOutputFile = [System.IO.Path]::GetTempFileName() + ".min.css"
+        
+        # Write CSS content to temporary file
+        $cssContent | Set-Content -Path $tempInputFile -NoNewline -ErrorAction Stop
+        
+        # Use csso for minification
+        $cssoOutput = csso $tempInputFile -o $tempOutputFile 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            throw "csso failed: $cssoOutput"
+        }
+        
+        # Read the minified content
+        $minifiedContent = Get-Content -Path $tempOutputFile -Raw -ErrorAction Stop
+        
+        return $minifiedContent
+    }
+    catch {
+        Write-Error "Error minifying CSS content: $_"
+        # Return the original content if minification fails
+        return $cssContent
+    }
+    finally {
+        # Clean up temporary files
+        if ($tempInputFile -and (Test-Path $tempInputFile)) {
+            Remove-Item $tempInputFile -ErrorAction SilentlyContinue
+        }
+        if ($tempOutputFile -and (Test-Path $tempOutputFile)) {
+            Remove-Item $tempOutputFile -ErrorAction SilentlyContinue
         }
     }
 }
@@ -126,6 +211,69 @@ function MinifyCSS($inputFile, $outputFile) {
             OriginalSize = 0
             NewSize = 0
             SizeDiff = 0
+        }
+    }
+}
+
+# Function to minify JS content directly
+function MinifyJSContent($jsContent) {
+    try {
+        # Check if terser is installed
+        if (-not (Get-Command terser -ErrorAction SilentlyContinue)) {
+            throw "terser is not installed. Please install it using 'npm install -g terser'"
+        }
+
+        $useClosureCompiler = $false
+        if (Get-Command google-closure-compiler -ErrorAction SilentlyContinue) {
+            $useClosureCompiler = $true
+        }
+
+        # Create temporary files
+        $tempInputFile = [System.IO.Path]::GetTempFileName() + ".js"
+        $tempOutputFile = [System.IO.Path]::GetTempFileName() + ".min.js"
+        $tempClosureFile = $null
+        
+        # Write JS content to temporary file
+        $jsContent | Set-Content -Path $tempInputFile -NoNewline -ErrorAction Stop
+        
+        # Use Google Closure Compiler first if available
+        if ($useClosureCompiler) {
+            $tempClosureFile = [System.IO.Path]::GetTempFileName() + ".js"
+            $compilerOutput = google-closure-compiler --charset=UTF-8 --js $tempInputFile --js_output_file $tempClosureFile 2>&1
+            if ($LASTEXITCODE -ne 0) {
+                throw "Closure compiler failed: $compilerOutput"
+            }
+            $terserInput = $tempClosureFile
+        } else {
+            $terserInput = $tempInputFile
+        }
+
+        # Use terser for minification
+        $terserOutput = terser $terserInput -c -m --comments=false -o $tempOutputFile 2>&1
+        if ($LASTEXITCODE -ne 0) {
+            throw "terser failed: $terserOutput"
+        }
+        
+        # Read the minified content
+        $minifiedContent = Get-Content -Path $tempOutputFile -Raw -ErrorAction Stop
+        
+        return $minifiedContent
+    }
+    catch {
+        Write-Error "Error minifying JS content: $_"
+        # Return the original content if minification fails
+        return $jsContent
+    }
+    finally {
+        # Clean up temporary files
+        if ($tempInputFile -and (Test-Path $tempInputFile)) {
+            Remove-Item $tempInputFile -ErrorAction SilentlyContinue
+        }
+        if ($tempOutputFile -and (Test-Path $tempOutputFile)) {
+            Remove-Item $tempOutputFile -ErrorAction SilentlyContinue
+        }
+        if ($tempClosureFile -and (Test-Path $tempClosureFile)) {
+            Remove-Item $tempClosureFile -ErrorAction SilentlyContinue
         }
     }
 }
@@ -280,8 +428,12 @@ try {
         
         Write-Host "$($file.Name) " -NoNewline
         
+        # Determine if this is the index.html file (for embedding assets)
+        $isIndexFile = ($file.Name -eq "index.html")
+        
         # Call the MinifyHTML function to process the file
-        $result = MinifyHTML $inputFile $outputFile
+        # For index.html, we'll embed CSS and JS
+        $result = MinifyHTML $inputFile $outputFile $isIndexFile
         
         # Print appropriate message based on success
         if ($result.Success) {
@@ -311,7 +463,7 @@ try {
         Write-Error "Failed to copy index.html: $_"
     }
 
-    # Minify CSS and JS files
+    # Minify CSS and JS files (still useful for other pages that might reference them)
     Write-Host "`n🔄 Starting CSS/JS minification process..." -ForegroundColor Cyan
     
     # Define asset files to minify
@@ -395,6 +547,7 @@ try {
     Write-Host "$([math]::Round(($successCount / $totalFiles) * 100))% of files" -ForegroundColor White
     Write-Host "  💾 Space Saved: " -ForegroundColor Blue -NoNewline
     Write-Host "$totalNewSizeFormatted from $totalOriginalSizeFormatted ($totalSizeSavedFormatted, $percentSaved% smaller)" -ForegroundColor White
+    Write-Host "  📝 Note: CSS and JS have been embedded into index.html" -ForegroundColor Cyan
     
     # CSS/JS summary
     Write-Host "`n🎨 CSS/JS FILES:" -ForegroundColor Yellow
