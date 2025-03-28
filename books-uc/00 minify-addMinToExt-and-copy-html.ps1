@@ -49,7 +49,8 @@ function MinifyHTML($inputFile, $outputFile, $embedAssets = $false) {
                 $content = $content -replace $cssLinkPattern, $cssEmbedded
                 
                 Write-Host "   ✅ CSS embedded successfully" -ForegroundColor Green
-            } else {
+            }
+            else {
                 Write-Host "   ⚠️ CSS file not found: $cssFile" -ForegroundColor Yellow
             }
             
@@ -67,7 +68,8 @@ function MinifyHTML($inputFile, $outputFile, $embedAssets = $false) {
                 $content = $content -replace $jsScriptPattern, $jsEmbedded
                 
                 Write-Host "   ✅ JS embedded successfully" -ForegroundColor Green
-            } else {
+            }
+            else {
                 Write-Host "   ⚠️ JS file not found: $jsFile" -ForegroundColor Yellow
             }
         }
@@ -97,19 +99,19 @@ function MinifyHTML($inputFile, $outputFile, $embedAssets = $false) {
         
         # Store size information
         return @{
-            Success = $true
+            Success      = $true
             OriginalSize = $originalSize
-            NewSize = $newSize
-            SizeDiff = $sizeDiff
+            NewSize      = $newSize
+            SizeDiff     = $sizeDiff
         }
     }
     catch {
         Write-Error "Error processing file $inputFile : $_"
         return @{
-            Success = $false
+            Success      = $false
             OriginalSize = 0
-            NewSize = 0
-            SizeDiff = 0
+            NewSize      = 0
+            SizeDiff     = 0
         }
     }
     finally {
@@ -198,19 +200,19 @@ function MinifyCSS($inputFile, $outputFile) {
         
         # Store size information
         return @{
-            Success = $true
+            Success      = $true
             OriginalSize = $originalSize
-            NewSize = $newSize
-            SizeDiff = $sizeDiff
+            NewSize      = $newSize
+            SizeDiff     = $sizeDiff
         }
     }
     catch {
         Write-Error "Error processing CSS file $inputFile : $_"
         return @{
-            Success = $false
+            Success      = $false
             OriginalSize = 0
-            NewSize = 0
-            SizeDiff = 0
+            NewSize      = 0
+            SizeDiff     = 0
         }
     }
 }
@@ -244,7 +246,8 @@ function MinifyJSContent($jsContent) {
                 throw "Closure compiler failed: $compilerOutput"
             }
             $terserInput = $tempClosureFile
-        } else {
+        }
+        else {
             $terserInput = $tempInputFile
         }
 
@@ -318,7 +321,8 @@ function MinifyJS($inputFile, $outputFile) {
                 throw "Closure compiler failed: $compilerOutput"
             }
             $terserInput = $tempFile
-        } else {
+        }
+        else {
             $terserInput = $inputFile
         }
 
@@ -336,19 +340,19 @@ function MinifyJS($inputFile, $outputFile) {
         
         # Store size information
         return @{
-            Success = $true
+            Success      = $true
             OriginalSize = $originalSize
-            NewSize = $newSize
-            SizeDiff = $sizeDiff
+            NewSize      = $newSize
+            SizeDiff     = $sizeDiff
         }
     }
     catch {
         Write-Error "Error processing JS file $inputFile : $_"
         return @{
-            Success = $false
+            Success      = $false
             OriginalSize = 0
-            NewSize = 0
-            SizeDiff = 0
+            NewSize      = 0
+            SizeDiff     = 0
         }
     }
     finally {
@@ -363,7 +367,8 @@ function MinifyJS($inputFile, $outputFile) {
 function Format-FileSize($size) {
     if ($size -ge 1MB) {
         return "$([math]::Round($size / 1MB, 2)) MB"
-    } else {
+    }
+    else {
         return "$([math]::Round($size / 1KB, 1)) KB"
     }
 }
@@ -442,7 +447,8 @@ try {
             Write-Host " (🗜 $sizeDiffFormatted)" -ForegroundColor Blue
             $successCount++
             $totalNewSize += $result.NewSize
-        } else {
+        }
+        else {
             Write-Host "❌" -ForegroundColor Red
             $failCount++
         }
@@ -454,7 +460,8 @@ try {
         if (Test-Path "../books/index.html") {
             Copy-Item "../books/index.html" -Destination "../_layouts/index.html" -ErrorAction Stop
             Write-Host " ✅" -ForegroundColor Green
-        } else {
+        }
+        else {
             Write-Host " ⚠️ index.html not found in ../books/" -ForegroundColor Yellow
         }
     }
@@ -470,8 +477,10 @@ try {
     $cssFile = "../css/index.css"
     $jsFile = "../js/index.js"
     $assetFiles = @(
-        @{Path = $cssFile; Type = "CSS"; OutputPath = $cssFile -replace '\.css$', '.min.css'},
-        @{Path = $jsFile; Type = "JS"; OutputPath = $jsFile -replace '\.js$', '.min.js'}
+        @{Path = $cssFile; Type = "CSS" },
+        # @{Path = $cssFile; Type = "CSS"; OutputPath = $cssFile -replace '\.css$', '.min.css'},
+        @{Path = $jsFile; Type = "JS" }
+        # @{Path = $jsFile; Type = "JS"; OutputPath = $jsFile -replace '\.js$', '.min.js'}
     )
     
     $totalAssetFiles = $assetFiles.Count
@@ -493,21 +502,27 @@ try {
             continue
         }
         
-        $minifyResult = $null
+        # Get original file size
+        $originalSize = (Get-Item $asset.Path).Length
+        $totalAssetOriginalSize += $originalSize
+        
+        # Minify content
+        $minifiedContent = $null
         if ($asset.Type -eq "CSS") {
-            $minifyResult = MinifyCSS $asset.Path $asset.OutputPath
-        } elseif ($asset.Type -eq "JS") {
-            $minifyResult = MinifyJS $asset.Path $asset.OutputPath
+            $minifiedContent = MinifyCSSContent (Get-Content -Path $asset.Path -Raw -ErrorAction Stop)
+        }
+        elseif ($asset.Type -eq "JS") {
+            $minifiedContent = MinifyJSContent (Get-Content -Path $asset.Path -Raw -ErrorAction Stop)
         }
         
-        if ($minifyResult -and $minifyResult.Success) {
-            $sizeDiffFormatted = Format-FileSize $minifyResult.SizeDiff
+        if ($minifiedContent) {
+            $newSize = [System.Text.Encoding]::UTF8.GetByteCount($minifiedContent)
+            $totalAssetNewSize += $newSize
             Write-Host "✅" -ForegroundColor Green -NoNewline
-            Write-Host " (🗜 $sizeDiffFormatted)" -ForegroundColor Blue
+            Write-Host " (🗜 $(Format-FileSize ($originalSize - $newSize)))" -ForegroundColor Blue
             $assetSuccess++
-            $totalAssetOriginalSize += $minifyResult.OriginalSize
-            $totalAssetNewSize += $minifyResult.NewSize
-        } else {
+        }
+        else {
             Write-Host "❌" -ForegroundColor Red
             $assetFail++
         }
@@ -577,7 +592,8 @@ try {
     
     if ($failCount + $assetFail -eq 0) {
         Write-Host "✅ ALL FILES PROCESSED SUCCESSFULLY ✅" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Host "⚠️ COMPLETED WITH ERRORS ⚠️" -ForegroundColor Yellow
     }
 }
