@@ -290,11 +290,14 @@ document.addEventListener("DOMContentLoaded", function () {
 //
 //
 
-// nightQuranReminder
 // https://dhivehi.mv/prayer-times
 /* claude: see the code above, it executes changes to the elements, but only from 5 am to 6 pm on a friday. i want you to make it so it changes the elements from 7pm to 2am, everyday */
 // Get the current hour
 // const currentTime = new Date().getHours();
+
+//
+
+// nightQuranReminder
 
 // Check if the current time is between 7 PM and 2 AM (inclusive)
 document.addEventListener("DOMContentLoaded", function () {
@@ -327,14 +330,11 @@ document.addEventListener("DOMContentLoaded", function () {
 //
 
 // morningQuranReminder
-// https://dhivehi.mv/prayer-times
-/* claude: see the code above, it executes changes to the elements, but only from 5 am to 6 pm on a friday. i want you to make it so it changes the elements from 7pm to 2am, everyday */
-// Get the current hour
-// const currentTime = new Date().getHours();
 
 // Check if the current time is between 4 AM and 8 AM (inclusive)
 document.addEventListener("DOMContentLoaded", function () {
   if (currentTime >= 4 && currentTime <= 8) {
+    // ! ONLY FOR AZKAR
     // Change background color and content of .azkarBook element
     const azkarBook = document.querySelector(".azkarBook");
     if (azkarBook) {
@@ -372,6 +372,29 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+//
+//
+
+// supportReminder
+
+// Check if the current time is between 7 PM and 2 AM (inclusive)
+document.addEventListener("DOMContentLoaded", function () {
+  // if (currentTime >= 19 || currentTime <= 2) {
+  // Get the element with the ID and show it
+  const supportReminder = document.querySelector("#supportReminder");
+  if (supportReminder) {
+    supportReminder.style.display = "flex";
+  }
+
+  // make alert container visible
+  document.querySelectorAll(".alertContainer").forEach(function (element) {
+    element.style.display = "flex";
+  });
+  // }
+});
+
+//
 
 // =======================
 // toggleview code
