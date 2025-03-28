@@ -23,16 +23,8 @@ function MinifyHTML($inputFile, $outputFile, $embedAssets = $false) {
         # Read the content of the file
         $content = Get-Content -Path $inputFile -Raw -ErrorAction Stop
         
-        # If we're not embedding assets, replace .css with .min.css and .js with .min.js
-        if (-not $embedAssets) {
-            # Replace .css with .min.css in link tags, being careful not to replace .min.css again
-            $content = $content -replace '(href="[^"]*?)(?<!\.min)\.css"', '$1.min.css"'
-            
-            # Replace .js with .min.js in script tags, being careful not to replace .min.js again
-            $content = $content -replace '(src="[^"]*?)(?<!\.min)\.js"', '$1.min.js"'
-        }
-        # If embedding assets and this is index.html, embed CSS and JS
-        elseif ($embedAssets -and [System.IO.Path]::GetFileName($inputFile) -eq "index.html") {
+        # If embedding assets and this is index.html, embed CSS and JS first
+        if ($embedAssets -and [System.IO.Path]::GetFileName($inputFile) -eq "index.html") {
             Write-Host "   Embedding CSS and JS into index.html..." -ForegroundColor Cyan
             
             # Embed CSS
@@ -73,6 +65,13 @@ function MinifyHTML($inputFile, $outputFile, $embedAssets = $false) {
                 Write-Host "   ⚠️ JS file not found: $jsFile" -ForegroundColor Yellow
             }
         }
+        
+        # Now replace .css with .min.css and .js with .min.js for all other files
+        # Replace .css with .min.css in link tags, being careful not to replace .min.css again
+        $content = $content -replace '(href="[^"]*?)(?<!\.min)\.css"', '$1.min.css"'
+        
+        # Replace .js with .min.js in script tags, being careful not to replace .min.js again
+        $content = $content -replace '(src="[^"]*?)(?<!\.min)\.js"', '$1.min.js"'
         
         # Create a temporary file for the modified content
         $tempFile = [System.IO.Path]::GetTempFileName()
