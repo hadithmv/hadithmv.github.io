@@ -248,8 +248,8 @@ const currentTime = new Date().getHours();
 
 // Check if the current day is Friday (5)
 // AND
-// Check if the current time is between 7 PM and 2 AM (inclusive)
-if (currentDay === 5 && currentTime >= 5 && currentTime <= 18) {
+// Check if the current time is between 4 AM and 6 PM (inclusive)
+if (currentDay === 5 && currentTime >= 4 && currentTime <= 18) {
   // console.log("test");
 
   // Get the span elements
