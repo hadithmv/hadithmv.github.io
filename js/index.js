@@ -297,8 +297,9 @@ document.addEventListener("DOMContentLoaded", function () {
 // const currentTime = new Date().getHours();
 
 // Check if the current time is between 7 PM and 2 AM (inclusive)
-if (currentTime >= 19 || currentTime <= 2) {
-  /*// Get the span elements
+document.addEventListener("DOMContentLoaded", function () {
+  if (currentTime >= 19 || currentTime <= 2) {
+    /*// Get the span elements
             const span1 = document.querySelector(".hideOnPhoneOnly");
             const span2 = document.querySelector(".hideOnPhoneOnly + span");
     
@@ -309,18 +310,18 @@ if (currentTime >= 19 || currentTime <= 2) {
             // Reorder the spans
             const parent = span1.parentNode;
             parent.insertBefore(span2, span1);*/
+    // Get the element with the ID and show it
+    const nightQuranReminder = document.querySelector("#nightQuranReminder");
+    if (nightQuranReminder) {
+      nightQuranReminder.style.display = "flex";
+    }
 
-  // Get the element with the ID and show it
-  // document.querySelector("#nightQuranReminder").style.display =
-  ("flex");
-  // block, table-row
-
-  // make alert container visible
-  document.querySelectorAll(".alertContainer").forEach(function (element) {
-    element.style.display = "flex";
-  });
-  //
-}
+    // make alert container visible
+    document.querySelectorAll(".alertContainer").forEach(function (element) {
+      element.style.display = "flex";
+    });
+  }
+});
 
 //
 //
