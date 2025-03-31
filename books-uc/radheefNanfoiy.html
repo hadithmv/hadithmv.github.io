@@ -251,7 +251,10 @@
           (10/3/22، 169 ސ، 4141 ނަން)
         </p>
         <p id="pdfNoOfNames">ޕީޑީއެފްތަކުގައިވާ ޖުމްލަ ނަމުގެ އަދަދު: 8541</p>
-        <p id="namesOutsidePdf">ޕީޑީއެފްތަކުގައިވާ ނުވާ ނަންތައް:</p>
+
+        <p id="namesOutsidePdf" style="display: none">
+          ޕީޑީއެފްތަކުގައިވާ ނުވާ ނަންތައް:
+        </p>
         <script>
           // Delay execution by 1000ms (1 second) to ensure #tableID_info is available
           setTimeout(function () {
@@ -262,15 +265,21 @@
             // Parse the number from the text content, removing commas
             let numberInTableInfo = parseInt(tableInfoText.replace(/,/g, ""));
 
-            // Subtract 8541 from the parsed number
-            let result = numberInTableInfo - 8541;
+            // Only proceed if we have a valid number
+            if (!isNaN(numberInTableInfo)) {
+              // Subtract 8541 from the parsed number
+              let result = numberInTableInfo - 8541;
 
-            // Update the text content of the element with ID 'namesOutsidePdf' to display the result
-            document.querySelector(
-              "#namesOutsidePdf"
-            ).textContent = `ޕީޑީއެފްތަކުގައިވާ ނުވާ ނަންތައް: ${result}`;
+              // Get the paragraph element
+              let paragraphElement = document.querySelector("#namesOutsidePdf");
+
+              // Update the text content and show the element
+              paragraphElement.textContent = `ޕީޑީއެފްތަކުގައިވާ ނުވާ ނަންތައް: ${result}`;
+              paragraphElement.style.display = "block";
+            }
           }, 1000); // 1000ms = 1 second delay, adjust if needed. lesser amounts result in NaN
         </script>
+
         <p>އެންމެ ފަހުން ޕީޑީއެފްތައް ބެލި ތާރީޚު: 23/3/24</p>
 
         <hr />
