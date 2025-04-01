@@ -93,6 +93,13 @@
       #tableID > colgroup {
         display: none;
       }
+
+      @media screen and (max-width: 767px) {
+        div.dt-container div.dt-layout-row:not(.dt-layout-table) {
+          /* display: block; */
+          display: flex;
+        }
+      }
     </style>
 
     <script
@@ -125,10 +132,11 @@
               bottom: ["search", "search", "buttons", "info"],*/
 
           layout: {
-            bottom: [
-              "search",
-              "search",
+            bottomStart: ["search", "search"],
 
+            bottomEnd: ["info"],
+
+            bottom2: [
               {
                 buttons: [
                   {
@@ -167,7 +175,6 @@
 
                 //
               },
-              "info",
             ],
           },
           // layout: { END
@@ -176,9 +183,18 @@
           //   pageLength: 1,
           scrollY: "75vh",
           //   scrollY: getScrollHeight(),
-          scroller: true,
+          //   scroller: true,
+          scroller: {
+            // https://datatables.net/reference/option/scroller.displayBuffer
+            displayBuffer: 20,
+            // https://datatables.net/reference/option/scroller.boundaryScale
+            boundaryScale: 0.75,
+            // https://datatables.net/reference/option/scroller.rowHeight
+            // rowHeight: 30
+          },
           //
 
+          // added select in order to use its class on the export button options, otherwise everything gets copied to clipboard
           select: true,
 
           language: {
