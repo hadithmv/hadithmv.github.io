@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="dv" class="notranslate" translate="no">
+  <head>
+    <meta name="google" content="notranslate" />
+    <!-- CHANGE !!! -->
+    <title>عمدة الأحكام – ޢުމްދަތުލް އަޙްކާމް</title>
+    <meta
+      name="description"
+      content="The Maldivian Platform for Translations of the Sunnah | ސުންނަތުގެ ތަރުޖަމާ މަންސަ"
+    />
+    <meta
+      name="keywords"
+      content="hadithmv, hadith mv, hadeeth mv, dhivehi, hadith, hadhees, dhivehi islamic books, tharujama, dhivehi translation,ފޮތް, ތަރުޖަމާ, ޤުރްއާން, ޤުރުއާން, ގުރްއާން,ގުރުއާން, އިސްލާމް, ދީނީ, ޙަދީޘް, ހަދީޘް, ޙަދީސް, ހަދީސް, ސުންނަތް, ސުންނާ, ސުންނަ, ސުއްނަތް, ސުއްނާ, ސުއްނަ, ސުންނީ, ސުއްނީ, ސަލަފް, ސަލަފު, ސަލަފުން, ސަލަފީ, އަޘަރީ, ދިވެހި ,ޙަދީޘްއެމްވީ ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <!-- external resources-->
+    <style>
+      html {
+        visibility: hidden;
+        opacity: 0;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="../css/base-styles.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/navbar.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/DT-COMB.min.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/DT-inline.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <script src="../js/navbar.js"></script>
+    <script src="../js/DT-COMB.min.js"></script>
+    <script src="../js/DT-inline.js"></script>
+    <!-- END external resources-->
+    <style></style>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <table id="tableID" class="cards" width="100%"></table>
+      <!-- <thead>
+          <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Extn.</th>
+            <th>Start date</th>
+            <th>Salary</th>
+          </tr>
+        </thead> 
+      </table>-->
+    </div>
+
+    <style>
+      /* wraps whitespace, otherwise every td on its own row */
+      /* div.dts tbody th,
+      div.dts tbody td {
+        white-space: normal;
+      } */
+
+      /* remove this otherwise columns wrap */
+      #tableID > colgroup {
+        display: none;
+      }
+    </style>
+
+    <script
+      src="https://cdn.datatables.net/scroller/2.4.3/js/dataTables.scroller.min.js"
+      integrity="sha384-nakznh5a15VRD4Q2jpl+vqMjMCL666OX944SaU8OzAaROCqoFwpPRuVzjDt3HR6d"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="selectPaging.js"></script>
+
+    <script
+      src="https://cdn.datatables.net/select/3.0.0/js/dataTables.select.min.js"
+      integrity="sha384-Y/112jU1UJsyj7J/WhficUVfFZTLF2TgmBuDHBvJmYS8f+dGaz3ZNKxgwcg4YgP9"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      addEventListener("DOMContentLoaded", () => {
+        table = new DataTable("#tableID", {
+          ...DTconfig,
+
+          /*layout: {
+              // top: ["search", "search"],
+              // bottom: ["search", "search", "buttons", "info"],
+              bottom: ["search", "search", "buttons", "info"],*/
+
+          layout: {
+            bottom: [
+              "search",
+              "search",
+
+              {
+                buttons: [
+                  {
+                    extend: "copy",
+                    // https://datatables.net/forums/discussion/comment/234022/#Comment_234022
+                    // removes copied to clipboard notification
+                    copySuccess: false,
+
+                    key: {
+                      key: "c",
+                      altKey: true,
+                    },
+
+                    titleAttr: "copy",
+                    text: "⧉ ކޮޕީ",
+
+                    // Shown at the very top of the exported document
+                    // title: * (default) - Use the HTML page's title value.
+
+                    //messageBottom: "- ޙަދީޘްއެމްވީ -",
+
+                    footer: false,
+                    header: false,
+
+                    fieldSeparator: "\n\n",
+                    exportOptions: {
+                      columns: ":visible",
+                      rows: ".selected",
+
+                      //   modifier: {
+                      //     page: "current",
+                      //   },
+                    },
+                  },
+                ], // buttons
+
+                //
+              },
+              "info",
+            ],
+          },
+          // layout: { END
+
+          //   keepConditions: true,
+          //   pageLength: 1,
+          scrollY: "75vh",
+          scroller: true,
+          //
+
+          select: true,
+          //
+          ajax: {
+            // url: `../js/json/` + currentFileName + `.json`,
+            url: `data3.json`,
+            dataSrc: function (json) {
+              originalData = json;
+              return json;
+            },
+            dataType: "json",
+            cache: true,
+          },
+          // CHANGE !!!
+          // #	kitab	bab dvKitab	dvBab	arText dvText	Takhrij
+          columns: [
+            { title: "#", className: "colHeader" },
+            { title: "ފޮތް އަރަބިން", className: "colHeader" },
+            { title: "ބާބު އަރަބިން", className: "colHeader" },
+            { title: "ފޮތް ދިވެހިން", className: "colHeader" },
+            { title: "ބާބު ދިވެހިން", className: "colHeader" },
+            { title: "އަރަބި ލިޔުން" },
+            {
+              title: "އަރަބި ފުޓްނޯޓުނުލާ",
+              data: 5,
+              render: (data) => removeSmallishFootnotes(data),
+              visible: false,
+              searchable: false,
+            },
+            {
+              title: "ދިވެހި ލިޔުން",
+              data: 6,
+            },
+            { title: "ތަޚްރީޖު", data: 7, searchable: false },
+          ], //
+          columnDefs: [
+            {
+              targets: [8],
+              render: (data) =>
+                data !== ""
+                  ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
+                    data.replace(/\n/g, '\t<br class="dtBr">')
+                  : data,
+            },
+            {
+              searchPanes: {
+                show: true,
+              },
+              targets: [1, 2, 3, 4],
+            },
+            {
+              targets: [0],
+              render: (data) => "#" + data,
+            },
+            ...columnDefsconfig,
+          ],
+        });
+        //
+      }); // addEventListener("DOMContentLoaded", () => {
+      //
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-HL24Q9NN24");
+    </script>
+    <!-- End Google Analytics -->
+  </body>
+</html>

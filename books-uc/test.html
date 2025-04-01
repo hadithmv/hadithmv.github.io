@@ -63,6 +63,19 @@
     <script src="../js/DT-COMB.min.js"></script>
     <script src="../js/DT-inline.js"></script>
     <!-- END external resources-->
+
+    <link
+      href="https://cdn.datatables.net/scroller/2.4.3/css/scroller.dataTables.min.css"
+      rel="stylesheet"
+      integrity="sha384-iszZFel2EIfnGc1OBSiwLR3BB5TZ27aHIJ1DQx1wqzvo1xzUFFJVsNqNpfobe1GL"
+      crossorigin="anonymous"
+    />
+
+    <script
+      src="https://cdn.datatables.net/scroller/2.4.3/js/dataTables.scroller.min.js"
+      integrity="sha384-nakznh5a15VRD4Q2jplz+vqMjMCL666OX944SaU8OzAaROCqoFwpPRuVzjDt3HR6d"
+      crossorigin="anonymous"
+    ></script>
     <style></style>
   </head>
   <body>
@@ -336,7 +349,14 @@
     </div>
     <script type="text/javascript">
       table = new DataTable("#tableID", {
-        ...DTconfig,
+        // ...DTconfig,
+        scroller: true,
+        scrollY: "70vh",
+        // scrollY: 200,
+        layout: {
+          topStart: "paging",
+          bottomEnd: null,
+        },
         ajax: {
           url: `../js/json/` + `qawaidulArbau` + `.json`,
           dataSrc: function (json) {
