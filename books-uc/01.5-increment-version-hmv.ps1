@@ -1,3 +1,5 @@
+# !! NOTE: the 01-git-sync.ps1 script runs this here, so no need to run it independently
+
 <#
 powershell script:
 for the file in this directory: ..\js\navbar.js
