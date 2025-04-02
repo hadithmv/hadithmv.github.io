@@ -8,13 +8,17 @@ const fs = require("fs"); // Import the file system module to read and write fil
 function isBalanced(text = "") {
   // Define paired symbols where each opening symbol has a corresponding closing symbol
   const pair = {
-    "(": ")", // Parentheses
-    "[": "]", // Square brackets
-    "{": "}", // Curly braces
-    '"': '"', // Double quotes
-    "'": "'", // Single quotes
-    '"': '"', // Curly quotes
-    "=": "=", // Equals sign (matches with itself)
+      "(": ")", // Parentheses
+      "[": "]", // Square brackets
+      "{": "}", // Curly braces
+      '"': '"', // Double quotes (ASCII)
+      "'": "'", // Single quotes (ASCII)
+      "“": "”", // Left/Right double quotation marks (U+201C, U+201D)
+      "‘": "’", // Left/Right single quotation marks (U+2018, U+2019)
+      "«": "»", // Double angle quotes (U+00AB, U+00BB)
+      "‹": "›", // Single angle quotes (U+2039, U+203A)
+      "=": "=", // Equals sign (matches with itself)
+    };
   };
 
   // List of all symbols we want to check for balance
