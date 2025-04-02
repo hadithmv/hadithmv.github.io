@@ -1,3 +1,5 @@
+# !! NOTE: this script first runs # First run the version increment script, this happens in function Main {
+
 # Git Sync PowerShell Script
 # This script automates adding, committing with detailed messages, and pushing Git changes
 
@@ -96,14 +98,17 @@ function Generate-CommitMessage {
 }
 
 function Main {
-    # Change to the root directory of the project (two directories up from the script location)
-    #$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-    
-    #$rootDir = Split-Path -Parent $scriptDir
-    #Set-Location -Path $rootDir
+    # First run the version increment script
+    $versionScriptPath = Join-Path $PSScriptRoot "01.5-increment-version-hmv.ps1"
+    if (Test-Path $versionScriptPath) {
+        Write-Host "`n📜 Running version increment script..." -ForegroundColor Cyan
+        & $versionScriptPath
+    } else {
+        Write-Host "`n⚠️ Version increment script not found at: $versionScriptPath" -ForegroundColor Yellow
+    }
 
     # Replace the directory navigation with a direct path
-Set-Location -Path "C:\Users\ashra\Downloads\VScode\hadithmv.github.io"
+    Set-Location -Path "C:\Users\ashra\Downloads\VScode\hadithmv.github.io"
     
     Write-Host "`n🔄 Starting Git Sync Process..." -ForegroundColor Cyan
     
@@ -765,5 +770,53 @@ try {
     Write-Host "`n❌ Error: $_" -ForegroundColor Red
     exit 1
 }
+
+...
+
+i get this error:
+PS C:\Users\ashra\Downloads\VScode\hadithmv.github.io> . 'C:\Users\ashra\Downloads\VScode\hadithmv.github.io\books-uc\02-git-sync.ps1'
+❌ Error: Cannot bind argument to parameter 'Path' because it is null.
+
+This error occurs because the script is trying to navigate to a directory that doesn't exist. The specific error "Cannot bind argument to parameter 'Path' because it is null" indicates that the script is trying to use a null path value with Set-Location.
+The issue is likely in this part of the script where it tries to navigate to the project root:
+powershellCopy# Change to the root directory of the project (two directories up from the script location)
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$rootDir = Split-Path -Parent $scriptDir
+Set-Location -Path $rootDir
+Here are a few ways to fix this:
+
+Modify the script to use your current location instead of trying to navigate:
+
+powershellCopy# Replace these lines:
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$rootDir = Split-Path -Parent $scriptDir
+Set-Location -Path $rootDir
+
+# With this:
+# Just use the current location or specify the exact path
+# No directory change needed
+
+Run the script from its proper location:
+
+Make sure you're running the script from within the correct subdirectory of your project
+
+
+Debug the path issues by adding these lines at the beginning of your Main function:
+
+powershellCopyfunction Main {
+    # Debug information
+    Write-Host "Current location: $(Get-Location)"
+    Write-Host "Script path: $($MyInvocation.MyCommand.Path)"
+    $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+    Write-Host "Script directory: $scriptDir"
+    
+    # Rest of your code...
+}
+
+Specify an absolute path instead of navigating relative to the script:
+
+powershellCopy# Replace the directory navigation with a direct path
+Set-Location -Path "C:\Users\ashra\Downloads\VScode\hadithmv.github.io"
+The simplest fix is to just remove the directory navigation entirely if you're already in the correct directory. Try removing or commenting out the directory navigation section and run the script again.
 
 #>
