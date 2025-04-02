@@ -44,7 +44,7 @@ fs.readFile("addfootnotestothis.json", "utf8", (err, data) => {
         console.error(err);
         return;
       }
-      console.log("Output JSON file has been created successfully.");
+      console.log("output.json file has been created successfully.");
     });
   });
 });
