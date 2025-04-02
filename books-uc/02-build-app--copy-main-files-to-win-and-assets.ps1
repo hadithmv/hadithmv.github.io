@@ -20,12 +20,106 @@ $destPathWindows = "C:\Users\ashra\Downloads\VScode\hadithmv.github.io\windowsAp
 # Files to preserve in Windows destination
 $preserveFiles = @("index.html", "styles.css", "main.js")
 
+# Files to update versions in
+$filesToUpdate = @(
+    @{Path = "..\windowsApp-tauri\Hadithmv\src-tauri\tauri.conf.json"; Pattern = '"version": "(\d+\.\d+\.\d+)"'; Replacement = '"version": "{0}"'},
+    @{Path = "..\androidApp-kt\app\build.gradle"; Pattern = 'versionName\s+"([^"]+)"'; Replacement = 'versionName "{0}"'}
+)
+
 try {
-    Write-Host "`n🔄 Starting File Copy Process..." -ForegroundColor Cyan
+    Write-Host "`n🔄 Starting File Copy and Version Update Process..." -ForegroundColor Cyan
     Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
     
-    # Step 1: Clear the destination directories
-    Write-Host "[1/3] 📂 Clearing destination directories" -ForegroundColor Yellow
+    # Step 1: Get current version from navbar.js and update app files
+    Write-Host "[1/4] 🔄 Updating version in app configuration files" -ForegroundColor Yellow
+    
+    $totalVersionFiles = $filesToUpdate.Count
+    $processedVersionCount = 0
+    $versionSuccessCount = 0
+    $versionFailCount = 0
+    $currentVersion = $null
+    
+    # Get the current version from navbar.js file
+    $navbarJsPath = "$sourcePath\js\navbar.js"
+    if (Test-Path $navbarJsPath) {
+        $navbarContent = Get-Content $navbarJsPath -Raw -ErrorAction Stop
+        if ($navbarContent -match 'var hmvVersionNo = "(\d+\.\d+\.\d+)";') {
+            $currentVersion = $matches[1]
+            Write-Host "  ℹ️ Using version: $currentVersion from navbar.js" -ForegroundColor Cyan
+        }
+        else {
+            Write-Host "  ⚠️ Could not extract version from navbar.js" -ForegroundColor Yellow
+            Write-Host "  ⚠️ Version update will be skipped" -ForegroundColor Yellow
+        }
+    }
+    else {
+        Write-Host "  ⚠️ navbar.js not found at $navbarJsPath" -ForegroundColor Yellow
+        Write-Host "  ⚠️ Version update will be skipped" -ForegroundColor Yellow
+    }
+    
+    # Process each version file if we have a version to use
+    if ($null -ne $currentVersion) {
+        foreach ($file in $filesToUpdate) {
+            $processedVersionCount++
+            $percentComplete = [math]::Round(($processedVersionCount / $totalVersionFiles) * 100)
+            
+            $filePath = $file.Path
+            $fileName = Split-Path $filePath -Leaf
+            
+            Write-Host "  [$processedVersionCount/$totalVersionFiles] $percentComplete% " -NoNewline
+            Write-Host "$fileName " -NoNewline
+            
+            try {
+                # Check if file exists
+                if (-not (Test-Path $filePath)) {
+                    Write-Host "❌ (File not found)" -ForegroundColor Red
+                    $versionFailCount++
+                    continue
+                }
+                
+                # Read the content of the file
+                $content = Get-Content $filePath -Raw -ErrorAction Stop
+                
+                # Extract the current version number
+                if ($content -match $file.Pattern) {
+                    $fileVersion = $matches[1]
+                    
+                    # Replace the version in the file with the one from navbar.js
+                    $replacement = $file.Replacement -f $currentVersion
+                    $newContent = $content -replace $file.Pattern, $replacement
+                    
+                    if ($newContent -eq $content) {
+                        Write-Host "❌ (Version replacement failed)" -ForegroundColor Red
+                        $versionFailCount++
+                        continue
+                    }
+                    
+                    # Write the new content
+                    $newContent | Set-Content $filePath -NoNewline -ErrorAction Stop
+                    
+                    # Success message
+                    Write-Host "✅ " -ForegroundColor Green -NoNewline
+                    Write-Host "($fileVersion → $currentVersion)" -ForegroundColor Cyan
+                    $versionSuccessCount++
+                }
+                else {
+                    Write-Host "❌ (Version pattern not found)" -ForegroundColor Red
+                    $versionFailCount++
+                }
+            }
+            catch {
+                Write-Host "❌" -ForegroundColor Red
+                Write-Error "Error processing $fileName : $_"
+                $versionFailCount++
+            }
+        }
+    }
+    else {
+        Write-Host "  ⚠️ Skipping version updates due to missing version information" -ForegroundColor Yellow
+    }
+    
+    # Step 2: Clear the destination directories
+    Write-Host "`n[2/4] 📂 Clearing destination directories" -ForegroundColor Yellow
     
     if (Test-Path $destPathAndroid) {
         Remove-Item -Path "$destPathAndroid\*" -Recurse -Force -ErrorAction Stop
@@ -43,8 +137,8 @@ try {
         Write-Host "  ⚠️ Windows destination directory not found" -ForegroundColor Yellow
     }
     
-    # Step 2: Create the required directory structure in both destinations
-    Write-Host "`n[2/3] 📂 Creating directory structure" -ForegroundColor Yellow
+    # Step 3: Create the required directory structure in both destinations
+    Write-Host "`n[3/4] 📂 Creating directory structure" -ForegroundColor Yellow
     
     $directories = @("books", "js\json", "js", "css", "page", "font", "img\logo")
     $dirCount = 0
@@ -66,8 +160,8 @@ try {
         }
     }
     
-    # Step 3: Define all copy operations
-    Write-Host "`n[3/3] 📋 Copying files" -ForegroundColor Yellow
+    # Step 4: Define all copy operations
+    Write-Host "`n[4/4] 📋 Copying files" -ForegroundColor Yellow
     
     $copyOperations = @(
         @{Source = "$sourcePath\books\*.html"; Dest = "$destPathAndroid\books"; Desc = "HTML files from books" }
@@ -119,15 +213,21 @@ try {
     Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
     Write-Host "📊 SUMMARY" -ForegroundColor Cyan
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
-    Write-Host "✅ Successful: " -ForegroundColor Green -NoNewline
-    Write-Host "$successCount operations" -ForegroundColor White
-    Write-Host "❌ Failed: " -ForegroundColor Red -NoNewline
-    Write-Host "$failCount operations" -ForegroundColor White
+    if ($null -ne $currentVersion) {
+        Write-Host "📌 App Version: " -ForegroundColor Blue -NoNewline
+        Write-Host "$currentVersion" -ForegroundColor White
+        Write-Host "✅ Version Updates: " -ForegroundColor Green -NoNewline
+        Write-Host "$versionSuccessCount files" -ForegroundColor White
+    }
+    Write-Host "✅ File Operations: " -ForegroundColor Green -NoNewline
+    Write-Host "$successCount successful" -ForegroundColor White
+    Write-Host "❌ Failed Operations: " -ForegroundColor Red -NoNewline
+    Write-Host "$($versionFailCount + $failCount) total" -ForegroundColor White
     Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
     Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
     
-    if ($failCount -eq 0) {
+    if (($versionFailCount + $failCount) -eq 0) {
         Write-Host "✅ ALL OPERATIONS COMPLETED SUCCESSFULLY ✅" -ForegroundColor Green
     }
     else {
