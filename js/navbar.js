@@ -1,6 +1,8 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "4.1.43";
+var hmvVersionNo = "6.2.89";
+// changed from 4.1.43 to 6.2.88, to match number of commits
+
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
 
 // above is version no  var for hmv, shown in sidemenu and maybe main index page

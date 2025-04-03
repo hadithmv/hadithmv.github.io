@@ -74,9 +74,25 @@ try {
                     $minor = [int]$versionParts[1]
                     $patch = [int]$versionParts[2]
                     
-                    # Increment the patch version
+                    # Increment version according to pattern:
+                    # Increment patch, if patch > 99, increment minor and reset patch
+                    # If minor > 9, increment major and reset minor and patch
                     $patch += 1
-                    $newVersion = "$major.$minor.$patch"
+                    
+                    if ($patch > 99) {
+                        $patch = 0
+                        $minor += 1
+                        
+                        if ($minor > 9) {
+                            $minor = 0
+                            $major += 1
+                        }
+                    }
+                    
+                    # Format with leading zeros for patch when needed
+                    # Only use leading zeros when patch is less than 10
+                    $patchStr = if ($patch -lt 10) { "0$patch" } else { "$patch" }
+                    $newVersion = "$major.$minor.$patchStr"
                 }
                 
                 # Replace the version in the file
@@ -138,3 +154,64 @@ catch {
     Write-Error "Script execution failed: $_"
     exit 1
 }
+
+
+<#
+
+me:
+
+i have a version increment script
+
+id like it to increase like this
+
+6.2.88
+
+increments to
+
+6.2.89
+
+all the way to
+
+6.2.99
+
+then
+
+6.3.00
+
+all the way to
+
+9.9.99
+
+then
+
+10.0.00
+
+then
+
+10.0.01
+
+and so on
+
+
+cl:
+
+I see that you have a PowerShell script for incrementing version numbers in JavaScript files. Let's modify it to handle the version incrementing pattern you described, where:
+
+6.2.88 → 6.2.89 → ... → 6.2.99 → 6.3.00 (notice the minor version increases and patch resets)
+And similarly for major versions (9.9.99 → 10.0.00)
+
+Here's an updated version of your script with the proper version incrementing logic:
+Enhanced Version Incrementation ScriptCode 
+The key changes I made to meet your requirements:
+
+Modified the version incrementing logic to:
+
+Increment the patch version (6.2.88 → 6.2.89)
+When patch reaches 99, increment minor and reset patch to 00 (6.2.99 → 6.3.00)
+When minor reaches 9 and patch reaches 99, increment major and reset others (9.9.99 → 10.0.00)
+
+Added leading zero formatting for patch numbers when they're less than 10:
+
+For example: 6.3.00, 6.3.01, 6.3.02, etc.
+Numbers 10 and above are displayed without leading zeros: 6.3.10, 6.3.11, etc.
+#>
