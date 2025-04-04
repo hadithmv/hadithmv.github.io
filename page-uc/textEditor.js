@@ -697,6 +697,15 @@ document.addEventListener("DOMContentLoaded", () => {
           .replace(/[^a-zA-Z0-9]+/g, "");
         break;
 
+      // removing underscores and hyphens
+      case "removeUnderscores":
+        textArea.value = textArea.value.replace(/_/g, " ");
+        break;
+
+      case "removeHyphens":
+        textArea.value = textArea.value.replace(/-/g, " ");
+        break;
+
       // =====================================================
 
       case "splitIntoWords":
