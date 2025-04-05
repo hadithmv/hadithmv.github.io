@@ -17,10 +17,32 @@ function Run-GitCommand {
     )
     
     try {
-        $output = & git $Command.Split() 2>&1
-        if ($LASTEXITCODE -ne 0) {
+        Write-Host "DEBUG: Running Git command: $Command" -ForegroundColor Gray
+        
+        # Split the command into an array
+        $cmdArgs = $Command.Split()
+        
+        # Create process info
+        $pinfo = New-Object System.Diagnostics.ProcessStartInfo
+        $pinfo.FileName = "git"
+        $pinfo.RedirectStandardError = $true
+        $pinfo.RedirectStandardOutput = $true
+        $pinfo.UseShellExecute = $false
+        $pinfo.Arguments = $cmdArgs
+        
+        # Create and start the process
+        $p = New-Object System.Diagnostics.Process
+        $p.StartInfo = $pinfo
+        $p.Start() | Out-Null
+        
+        # Wait for the process to exit and capture output
+        $output = $p.StandardOutput.ReadToEnd()
+        $errorOutput = $p.StandardError.ReadToEnd()
+        $p.WaitForExit()
+        
+        if ($p.ExitCode -ne 0) {
             Write-Host "Error executing git command: $Command" -ForegroundColor Red
-            Write-Host "Error output: $output" -ForegroundColor Red
+            Write-Host "Error output: $errorOutput" -ForegroundColor Red
             exit 1
         }
         return $output
@@ -250,71 +272,41 @@ function Increment-Version {
 
 function Sync-Git {
     param (
-        [string]$NewVersion
+        [string]$repoPath = "C:\Users\ashra\Downloads\VScode\hadithmv.github.io"
     )
     
-    # Replace the directory navigation with a direct path - update this to your actual repo path
-    $repoPath = "C:\Users\ashra\Downloads\VScode\hadithmv.github.io"
-    Set-Location -Path $repoPath
-    
-    Write-Host "`n🔄 Starting Git Sync Process..." -ForegroundColor Cyan
-    
-    # Check git status
-    $status = Run-GitCommand "status --porcelain"
-    if ([string]::IsNullOrWhiteSpace($status)) {
-        Write-Host "✨ Working directory is clean. No changes to commit." -ForegroundColor Green
-        return $false
-    }
-    
-    # Get changed files
-    $changedFiles = $status -split "`n"
-    Write-Host "`n📝 Changed files ($($changedFiles.Count)):" -ForegroundColor Yellow
-    foreach ($file in $changedFiles) {
-        Write-Host "   $file"
-    }
-    
-    # Add all changes
-    Write-Host "`n📦 Adding changes..." -ForegroundColor Yellow
-    Run-GitCommand "add ."
-    
-    # Generate detailed commit message
-    $commitMsg = Generate-CommitMessage -ChangedFiles $changedFiles -NewVersion $NewVersion
-    
-    Write-Host "`n📋 Commit message:" -ForegroundColor Yellow
-    Write-Host ("-" * 50)
-    Write-Host $commitMsg
-    Write-Host ("-" * 50)
-    
-    # Commit changes
-    Write-Host "`n💾 Committing changes..." -ForegroundColor Yellow
-    
-    # Create temporary file in the Git repository root
-    $tempFile = Join-Path $repoPath ".git_commit_msg.tmp"
-    
     try {
-        # Write the commit message to the temporary file
-        $commitMsg | Out-File -FilePath $tempFile -Encoding utf8 -NoNewline -ErrorAction Stop
+        # Set the repository path
+        Set-Location -Path $repoPath -ErrorAction Stop
         
-        # Commit using the temporary file
-        Run-GitCommand "commit -F .git_commit_msg.tmp"
-    }
-    finally {
-        # Always clean up the temporary file
-        if (Test-Path $tempFile) {
-            Remove-Item -Path $tempFile -Force -ErrorAction SilentlyContinue
+        # Debug: Check for 99 file before Git operations
+        $file99Path = Join-Path $repoPath "99"
+        if (Test-Path $file99Path) {
+            Write-Host "  🔍 Found existing '99' file with content: $(Get-Content $file99Path)" -ForegroundColor Yellow
+        }
+        
+        # Run git commands
+        Write-Host "  🔄 Running Git commands..." -ForegroundColor Cyan
+        Run-GitCommand "add ."
+        
+        # Use a simpler commit approach with inline message
+        $commitMsg = "Version update and sync - Incremented version numbers and synced changes with Git"
+        Write-Host "  🔍 Running commit command with inline message" -ForegroundColor Gray
+        Run-GitCommand "commit -m `"$commitMsg`""
+        
+        Run-GitCommand "push"
+        
+        Write-Host "  ✅ Git sync completed successfully" -ForegroundColor Green
+        
+        # Debug: Check for 99 file after Git operations
+        if (Test-Path $file99Path) {
+            Write-Host "  🔍 Found '99' file after Git operations with content: $(Get-Content $file99Path)" -ForegroundColor Yellow
         }
     }
-    
-    # Pull latest changes
-    Write-Host "`n⬇️ Pulling latest changes..." -ForegroundColor Yellow
-    Run-GitCommand "pull --rebase"
-    
-    # Push changes
-    Write-Host "`n⬆️ Pushing changes..." -ForegroundColor Yellow
-    Run-GitCommand "push"
-    
-    Write-Host "`n✅ Git sync completed successfully!" -ForegroundColor Green
-    return $true
+    catch {
+        Write-Error "Git sync failed: $_"
+        throw
+    }
 }
 
 # Main execution block
@@ -324,7 +316,7 @@ try {
     
     # Then run git sync if version increment was successful
     if ($versionSuccess) {
-        $gitSuccess = Sync-Git -NewVersion $newVersion
+        $gitSuccess = Sync-Git
     }
     else {
         Write-Host "`n⚠️ Skipping Git sync due to version update errors" -ForegroundColor Yellow
