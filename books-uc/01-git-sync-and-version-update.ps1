@@ -288,17 +288,15 @@ function Sync-Git {
     # Commit changes
     Write-Host "`n💾 Committing changes..." -ForegroundColor Yellow
     
-    # Create temporary file in the repository directory
-    $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
-    $tempFile = Join-Path $repoPath ".git_commit_msg_$timestamp.tmp"
+    # Create temporary file in the Git repository root
+    $tempFile = Join-Path $repoPath ".git_commit_msg.tmp"
     
     try {
         # Write the commit message to the temporary file
-        $commitMsg | Out-File -FilePath $tempFile -Encoding utf8 -ErrorAction Stop
+        $commitMsg | Out-File -FilePath $tempFile -Encoding utf8 -NoNewline -ErrorAction Stop
         
-        # Commit using the temporary file - use relative path
-        $relativePath = Split-Path $tempFile -Leaf
-        Run-GitCommand "commit -F $relativePath"
+        # Commit using the temporary file
+        Run-GitCommand "commit -F .git_commit_msg.tmp"
     }
     finally {
         # Always clean up the temporary file
