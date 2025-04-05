@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.3.04";
+var hmvVersionNo = "6.3.05";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
@@ -166,7 +166,7 @@ function createNavbar() {
       </a>
     </div>
   <div class="navbar-center">
-    <span class="navbar-page-title" title="Hadithmv - The Maldivian Platform for Translations of the Sunnah
+    <span class="navbar-page-title" title="Hadithmv - The Dhivehi Platform for the Sunnah
 ">${pageTitle}</span>
   </div>
   <div class="navbar-right" title="Menu">
