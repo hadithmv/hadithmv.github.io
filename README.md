@@ -120,7 +120,7 @@ Welcome to the official Hadithmv app. Your extensive digital Islamic library in 
 
 • Important Matters for the Muslim
 
-### 📓 Also includes the following:
+### 📕 Also includes the following:
 
 • Dhivehi Quran Translation where Aqida issues of previous translations are being fixed
 
