@@ -307,7 +307,7 @@ function Sync-Git {
         }
     }
     
-    # Pull latest changes
+    #  Pull latest changes
     Write-Host "`n⬇️ Pulling latest changes..." -ForegroundColor Yellow
     Run-GitCommand "pull --rebase"
     
