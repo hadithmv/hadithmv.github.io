@@ -24,7 +24,8 @@ function Run-GitCommand {
             exit 1
         }
         return $output
-    } catch {
+    }
+    catch {
         Write-Host "Exception occurred: $_" -ForegroundColor Red
         exit 1
     }
@@ -50,21 +51,26 @@ function Generate-CommitMessage {
         
         if ($statusCode -eq "??" -or $statusCode.StartsWith("A")) {
             $added += $filename
-        } elseif ($statusCode.StartsWith("M")) {
+        }
+        elseif ($statusCode.StartsWith("M")) {
             $modified += $filename
-        } elseif ($statusCode.StartsWith("D")) {
+        }
+        elseif ($statusCode.StartsWith("D")) {
             $deleted += $filename
-        } else {
+        }
+        else {
             # Handle renamed, copied files, etc.
             if ($statusCode.StartsWith("R")) {
                 # Typical format for renamed: R100 old-name -> new-name
                 if ($fileInfo -match 'R\d*\s+(.*?)\s+->\s+(.*)') {
                     $deleted += $matches[1]
                     $added += $matches[2]
-                } else {
+                }
+                else {
                     $modified += $filename # Fallback
                 }
-            } else {
+            }
+            else {
                 $modified += $filename # Default to modified for other codes
             }
         }
@@ -111,8 +117,8 @@ function Generate-CommitMessage {
 function Increment-Version {
     # Files to update versions in - JS files only
     $filesToUpdate = @(
-        @{Path = "..\js\navbar.js"; Pattern = 'var hmvVersionNo = "(\d+\.\d+\.\d+)";'; Replacement = 'var hmvVersionNo = "{0}";'},
-        @{Path = "..\js\navbar.min.js"; Pattern = 'var hmvVersionNo="(\d+\.\d+\.\d+)"'; Replacement = 'var hmvVersionNo="{0}"'}
+        @{Path = "..\js\navbar.js"; Pattern = 'var hmvVersionNo = "(\d+\.\d+\.\d+)";'; Replacement = 'var hmvVersionNo = "{0}";' },
+        @{Path = "..\js\navbar.min.js"; Pattern = 'var hmvVersionNo="(\d+\.\d+\.\d+)"'; Replacement = 'var hmvVersionNo="{0}"' }
     )
 
     try {
@@ -167,11 +173,12 @@ function Increment-Version {
                         # Increment patch, if patch > 99, increment minor and reset patch
                         # If minor > 9, increment major and reset minor and patch
                         $patch += 1
-                        
                         if ($patch > 99) {
+                            # Change this to: if ($patch >= 99)
+                            # With this change, when your version is 6.2.99 and you increment the patch, it will become 6.2.100, then immediately be converted to 6.3.00 because the patch exceeds 99.
                             $patch = 0
                             $minor += 1
-                            
+    
                             if ($minor > 9) {
                                 $minor = 0
                                 $major += 1
@@ -312,7 +319,8 @@ try {
     # Then run git sync if version increment was successful
     if ($versionSuccess) {
         $gitSuccess = Sync-Git -NewVersion $newVersion
-    } else {
+    }
+    else {
         Write-Host "`n⚠️ Skipping Git sync due to version update errors" -ForegroundColor Yellow
         $gitSuccess = $false
     }
@@ -329,7 +337,8 @@ try {
     if ($versionSuccess) {
         Write-Host "🚀 Updated to version: " -ForegroundColor Green -NoNewline
         Write-Host "v$newVersion ✨" -ForegroundColor Yellow
-    } else {
+    }
+    else {
         Write-Host "⚠️ Version update: " -ForegroundColor Yellow -NoNewline
         Write-Host "FAILED" -ForegroundColor Red
     }
@@ -337,11 +346,13 @@ try {
     if ($gitSuccess) {
         Write-Host "📤 Git sync: " -ForegroundColor Green -NoNewline
         Write-Host "SUCCESS" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Host "📤 Git sync: " -ForegroundColor Yellow -NoNewline
         if (!$versionSuccess) {
             Write-Host "SKIPPED" -ForegroundColor Yellow
-        } else {
+        }
+        else {
             Write-Host "FAILED" -ForegroundColor Red
         }
     }
@@ -352,7 +363,8 @@ try {
     
     if ($versionSuccess -and $gitSuccess) {
         Write-Host "✅ SUCCESSFULLY UPDATED TO VERSION v$newVersion AND SYNCED WITH GIT ✅" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Host "⚠️ COMPLETED WITH ERRORS OR WARNINGS ⚠️" -ForegroundColor Yellow
     }
     
@@ -365,7 +377,8 @@ catch {
     # Try to return to initial location
     try {
         Set-Location -Path $initialLocation
-    } catch {
+    }
+    catch {
         # Ignore errors when returning to initial location
     }
     
