@@ -191,24 +191,19 @@ function Increment-Version {
                         $minor = [int]$versionParts[1]
                         $patch = [int]$versionParts[2]
                         
-                        # Increment version according to pattern:
-                        # Increment patch, if patch > 99, increment minor and reset patch
-                        # If minor > 9, increment major and reset minor and patch
+                        # Increment version according to pattern
                         $patch += 1
-                        if ($patch > 99) {
-                            # Change this to: if ($patch >= 99)
-                            # With this change, when your version is 6.2.99 and you increment the patch, it will become 6.2.100, then immediately be converted to 6.3.00 because the patch exceeds 99.
+                        if ($patch -ge 100) {
                             $patch = 0
                             $minor += 1
-    
-                            if ($minor > 9) {
+                            
+                            if ($minor -ge 10) {
                                 $minor = 0
                                 $major += 1
                             }
                         }
                         
                         # Format with leading zeros for patch when needed
-                        # Only use leading zeros when patch is less than 10
                         $patchStr = if ($patch -lt 10) { "0$patch" } else { "$patch" }
                         $script:newVersion = "$major.$minor.$patchStr"
                     }
