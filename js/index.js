@@ -228,11 +228,11 @@ function openDiv() {
 /* claude:
                html: ...
                  <span class="hideOnPhoneOnly">ޙަދީޘްއެމްވީ – </span>
-                 <span>ސުންނަތުގެ ތަރުޖަމާ މަންސަ</span>
-             this shows the following text: ޙަދީޘްއެމްވީ – ސުންނަތުގެ ތަރުޖަމާ މަންސަ
-             and it shows this text on mobile: ސުންނަތުގެ ތަރުޖަމާ މަންސަ
+                 <span>ދިވެހިންގެ ސުންނަތުގެ މަންސަ</span>
+             this shows the following text: ޙަދީޘްއެމްވީ – ދިވެހިންގެ ސުންނަތުގެ މަންސަ
+             and it shows this text on mobile: ދިވެހިންގެ ސުންނަތުގެ މަންސަ
              using js, i want to change the text "ޙަދީޘްއެމްވީ – " to "hey man 1"
-             and i want to i want to change the text "ސުންނަތުގެ ތަރުޖަމާ މަންސަ" to "hey man 2"
+             and i want to i want to change the text "ދިވެހިންގެ ސުންނަތުގެ މަންސަ" to "hey man 2"
              //
              only change it from 5 am to 6 pm on a friday
              also in the order of position, bring span 2 first, with span 1 second
