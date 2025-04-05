@@ -10,9 +10,7 @@
 <img src="https://hadithmv.github.io/img/logo/logo.svg" width=250 height=200>
 </p>
 
-<br/>
-
-# 📖 About Hadithmv
+## 📖 About Hadithmv
 
 ### The Dhivehi Platform for the Sunnah
 
@@ -32,9 +30,9 @@ We embrace modern technology as a powerful tool given by Allah to facilitate Da�
 - Implement advanced features such as search capabilities, filtering, offline access, and text copying
 - Provide regular content updates, bug fixes, and usability improvements
 
-# 🎯 Project Aims
+## 🎯 Project Aims
 
-## 1\. Accessibility
+### 1\. Accessibility
 
 - Break down barriers to Islamic knowledge due to language, age, tech literacy, or financial status
 
@@ -42,7 +40,7 @@ We embrace modern technology as a powerful tool given by Allah to facilitate Da�
 - Develop and maintain a comprehensive database of translations accessible across multiple platforms
 - Offer free, instant access to important Islamic books and resources that can be searched, copied and shared by all
 
-## 2\. Education
+### 2\. Education
 
 - Address the root cause of societal issues and ignorance: lack of proper resources to understand the the Sunnah
 - Provide sound, referenced and easy-to-read Islamic material for self-education
@@ -50,7 +48,7 @@ We embrace modern technology as a powerful tool given by Allah to facilitate Da�
 - Avoid duplication of effort by centralizing translations and improving consistency
 - Remove misguided beliefs and innovations by focusing on the authentic methodology of the Salaf
 
-## 3\. Community Building
+### 3\. Community Building
 
 - Create a collaborative environment for knowledge sharing
 - Encourage participation in translation, proofreading, and technical development
@@ -58,11 +56,11 @@ We embrace modern technology as a powerful tool given by Allah to facilitate Da�
 - Strengthen Islamic identity within the Maldivian community through shared understanding
 - Provide opportunities for contributing to a meaningful cause
 
-# 📚 What We Offer
+## 📚 What We Offer
 
 Welcome to the official Hadithmv app. Your extensive digital Islamic library in Dhivehi. We offer a wide collection of texts, tools, and references in the Maldivian language, such as:
 
-## ✅ Core Collections
+### ✅ Core Collections
 
 • 11 Books of Hadith and Athar - with around 14,000 narrations
 
@@ -72,7 +70,7 @@ Welcome to the official Hadithmv app. Your extensive digital Islamic library in 
 
 • 5 Dictionaries - with around 150,000 entries
 
-## 📘 Featured books of Hadith and Athar:
+### 📘 Featured books of Hadith and Athar:
 
 • Muwatta Malik
 
@@ -94,7 +92,7 @@ Welcome to the official Hadithmv app. Your extensive digital Islamic library in 
 
 • And other valuable collections
 
-## 📙 Featured books of Aqida and Usooluddeen:
+### 📙 Featured books of Aqida and Usooluddeen:
 
 • Ahmed’s Fundamentals of the Sunnah
 
@@ -122,7 +120,7 @@ Welcome to the official Hadithmv app. Your extensive digital Islamic library in 
 
 • Important Matters for the Muslim
 
-## 📓 Also includes the following:
+### 📓 Also includes the following:
 
 • Dhivehi Quran Translation where Aqida issues of previous translations are being fixed
 
@@ -150,7 +148,7 @@ Welcome to the official Hadithmv app. Your extensive digital Islamic library in 
 
 • Multifunctional Text Editor
 
-## ✨ Additional Features:
+### ✨ Additional Features:
 
 • Unique: The first Dhivehi Hadith and Athar app in Maldives
 
