@@ -530,6 +530,14 @@ document.addEventListener("DOMContentLoaded", () => {
         ltrSwitch();
         break;
 
+      case "addBulletPoints":
+        textArea.value = textArea.value
+          .split("\n")
+          .map((line) => (line.trim() ? `• ${line}` : line))
+          .join("\n");
+        ltrSwitch();
+        break;
+
       case "removeHtmlTags":
         textArea.value = textArea.value.replace(/<[^>]*>/g, "");
         break;
