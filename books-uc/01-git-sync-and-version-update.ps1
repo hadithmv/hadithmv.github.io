@@ -288,15 +288,22 @@ function Sync-Git {
     # Commit changes
     Write-Host "`n💾 Committing changes..." -ForegroundColor Yellow
     
-    # Write the commit message to a temporary file to handle multi-line messages
-    $tempFile = ".git_commit_msg.tmp"
-    $commitMsg | Out-File -FilePath $tempFile -Encoding utf8
+    # Use a unique temporary file name with timestamp to avoid conflicts
+    $timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
+    $tempFile = Join-Path $env:TEMP "git_commit_msg_$timestamp.tmp"
     
-    Run-GitCommand "commit -F $tempFile"
-    
-    # Clean up temporary file
-    if (Test-Path $tempFile) {
-        Remove-Item -Path $tempFile
+    try {
+        # Write the commit message to the temporary file
+        $commitMsg | Out-File -FilePath $tempFile -Encoding utf8 -ErrorAction Stop
+        
+        # Commit using the temporary file - use single quotes for the file path
+        Run-GitCommand "commit -F '$tempFile'"
+    }
+    finally {
+        # Always clean up the temporary file
+        if (Test-Path $tempFile) {
+            Remove-Item -Path $tempFile -Force -ErrorAction SilentlyContinue
+        }
     }
     
     # Pull latest changes
@@ -388,7 +395,7 @@ catch {
 <#
 
 I'll combine these two scripts into a single PowerShell script that first increments the version numbers and then performs the Git sync operation. I'll also ensure the output shows the updated version number at the end with colors and emojis.
-Combined Version Increment and Git Sync ScriptCode 
+Combined Version Increment and Git Sync ScriptCode 
 This combined script does the following:
 
 Starts by setting up the environment and storing the initial directory location
@@ -476,7 +483,7 @@ I see that you have a PowerShell script for incrementing version numbers in Java
 And similarly for major versions (9.9.99 → 10.0.00)
 
 Here's an updated version of your script with the proper version incrementing logic:
-Enhanced Version Incrementation ScriptCode 
+Enhanced Version Incrementation ScriptCode 
 The key changes I made to meet your requirements:
 
 Modified the version incrementing logic to:
