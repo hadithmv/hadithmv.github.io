@@ -1,218 +1,183 @@
-<h3 align="center"><b>
-بِسمِ اللهِ الرَّحمنِ الرَّحِيمِ
-</b></h3>
-<br>
-<p align="center">
-<img src="https://hadithmv.github.io/img/logo/logo.svg" width="200">
-</p>
+<h3 align="center">
+بِسمِ اللهِ الرَّحمَنِ الرَّحِيمِ
+</h3>
 
-<h2 align="center"><b>
-Hadithmv
-</b></h3>
+<br/>
+
+<!-- ![Hadithmv](https://hadithmv.github.io/img/logo/logo.svg "This is a sample image.") -->
 
 <p align="center">
-The Dhivehi Platform for the Sunnah
+<img src="https://hadithmv.github.io/img/logo/logo.svg" width=250 height=200>
 </p>
 
-<p align="center">
-ދިވެހިންގެ ސުންނަތުގެ މަންސަ
-</p>
+<br/>
 
-<!---
-<p align="center">
-  View the <a href="https://hadithmv.github.io"><b>Web Version</b></a>
-</p>
+# 📖 About Hadithmv
 
-<p align="center">
-<img src="https://hadithmv.github.io/img/gb/google-play-badge-Opt.svg" width="200px" />
-</p>
+### The Dhivehi Platform for the Sunnah
 
-<p align="center">
-<img src="https://hadithmv.github.io/img/wb/windows-badge-Opt.svg" width="200px" />
-</p>
---->
+The Hadithmv project is a comprehensive, collaborative initiative dedicated to translating and disseminating the teachings of Prophet Muhammad ﷺ and the righteous Salaf in the Dhivehi language. We aim to make authentic Islamic knowledge accessible to all Maldivians and empower them to connect with traditional scholarship in their native tongue. Our mission bridges classical Islamic texts with modern technology to serve the unique needs of the Dhivehi-speaking community.
 
-<br>
-<hr>
-<br>
+## 🔭 Our Vision
 
-<p align="center"><i>
-  - In the Name of Allah, Ar-Rahman, Ar-Raheem -</i>
-</p>
-<br>
+To create the most comprehensive, accurate, and accessible digital collection of Islamic texts in Dhivehi, empowering every Maldivian to connect with the Sunnah and the way of the Salaf regardless of their background, location, or resources.
 
-### **Developing a hadith platform for Maldivians**
+## 🧩 Our Approach
 
-The **Hadithmv** project is a collaborative effort in making the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Maldivian community. Once this work is complete, they will have a hadith collection in their native Dhivehi language, in sha Allah. We are also working on making other Islamic works available, as well as beneficial tools and content for those who wish to make use of them.
+We embrace modern technology as a powerful tool given by Allah to facilitate Da’wah and spreading beneficial knowledge. We harness these tools to:
 
-> It is Allah Who has subjected technology for us to use. We aim to provide a feature-rich yet user-friendly product for everyone, while maintaining a compatible user experience over varying devices and configurations. Hadithmv is designed to be mobile-first with minimal bloat. Currently available on the Web, Android and Windows.
+- Create a feature-rich, intuitive experience for users of all ages and backgrounds
+- Ensure compatibility across various devices and system configurations
+- Maintain consistent accessibility on multiple platforms: Web, Android, and Windows
+- Implement advanced features such as search capabilities, filtering, offline access, and text copying
+- Provide regular content updates, bug fixes, and usability improvements
 
-## Aims of starting this project
+# 🎯 Project Aims
 
-### **Accessibility**
+## 1\. Accessibility
 
-> Bring the Hadith of Allah’s Prophet ﷺ within the reach of everyone, regardless of the barriers of medium, location, portability, age, language or wealth. And use the platform of modern technology to help spread and instill the love of living according to the Sunnah in the hearts, as the Maldivians of today are closer are closer to their personal devices than they are to books. One database, multiple platforms.
+- Break down barriers to Islamic knowledge due to language, age, tech literacy, or financial status
 
-### **Education**
+- Harness modern technology to raise awareness about the Sunnah, recognizing that today's society interacts more with digital devices than traditional books
+- Develop and maintain a comprehensive database of translations accessible across multiple platforms
+- Offer free, instant access to important Islamic books and resources that can be searched, copied and shared by all
 
-> The cause of most of our society’s problems is due to people being uneducated about Islam. To solve this redundant issue, they need a way to access Islamic material they can look up for themselves. Also, teachers and students alike can benefit from these references, without having to repeat the translation process every time. One database, multiple platforms. Write once, look up anytime.
+## 2\. Education
 
-<br />
+- Address the root cause of societal issues and ignorance: lack of proper resources to understand the the Sunnah
+- Provide sound, referenced and easy-to-read Islamic material for self-education
+- Support teachers, students and scholars with reliable, accessible resources to foster a culture of continuous learning
+- Avoid duplication of effort by centralizing translations and improving consistency
+- Remove misguided beliefs and innovations by focusing on the authentic methodology of the Salaf
 
-<hr />
-<!---
-## Milestones
+## 3\. Community Building
 
-<table>
+- Create a collaborative environment for knowledge sharing
+- Encourage participation in translation, proofreading, and technical development
+- Build bridges between scholars, students, and the general public
+- Strengthen Islamic identity within the Maldivian community through shared understanding
+- Provide opportunities for contributing to a meaningful cause
 
-<tbody>
+# 📚 What We Offer
 
-<tr>
+Welcome to the official Hadithmv app. Your extensive digital Islamic library in Dhivehi. We offer a wide collection of texts, tools, and references in the Maldivian language, such as:
 
-<th>Hadith</th>
+## ✅ Core Collections
 
-<th>Progress</th>
+• 11 Books of Hadith and Athar - with around 14,000 narrations
 
-</tr>
+• 6 Quran translations and Tafsirs
 
-<tr>
+• 14 Books of Aqida and Usooluddeen
 
-<td>40 Nawawi</td>
+• 5 Dictionaries - with around 150,000 entries
 
-<td>Complete</td>
+## 📘 Featured books of Hadith and Athar:
 
-</tr>
+• Muwatta Malik
 
-<tr>
+• Umdatul Ahkam
 
-<td>Sahihain</td>
+• Fortress of the Muslim
 
-<td>In Progress</td>
+• Aajurry’s 40 Hadith
 
-</tr>
+• Abu Khaithama’s Book of Knowledge
 
-</tbody>
+• Marroozy’s Narrations of the Sheikhs
 
-</table>
---->
+• Aajurry’s Manners of the Quran Carriers
 
-<br>
+• Bulughul Maram
 
-<div >
+• Nawawi’s 40 Hadith
 
-<p align="center">
-- ﷲ، އައްރަޙްމާން، އައްރަޙީމުގެ އިސްމުފުޅުން ފަށައިގަންނަމެވެ -
-</p>
-<br>
+• And other valuable collections
 
-<h3 align="right"><b>
-ޙަދީޘްއެމްވީ – ދިވެހިންނަށް ޙަދީޘް މަންސައެއް އުފެއްދުން
-</b></h3>
+## 📙 Featured books of Aqida and Usooluddeen:
 
-<p align="right" dir="rtl">
-ޙަދީޘްއެމްވީ މަޝްރޫއަކީ އިސްލާމީ ދިވެހި މުޖުތަމައަށް ވީހާވެސް ފަސޭހަ ކަމާއިއެކު ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތަަކުގެ މާނަ އުނގަންނައިދީ ފޯރުކޮށްދިނުމަށް ޓަކައި ޒަމާނީ ވަސީލަތެއް ގާއިމު ކުރުމުގެ ގޮތުން ކުރެވޭ މަސައްކަތެކެވެ. މި މަޝްރޫއު ފުރިހަމަ ވުމުން ގިނަ އަދަދެއްގެ ޙަދީޘް ދިވެހި ބަހުން ފަސޭހައިން އެއްތަނަކުން ލިބެން ހުންނާނެއެވެ. އިން ޝާއަ ﷲ. އަދި އެހެނިހެން އިސްލާމީ ލިޔުންތައް އެކުލަވާލާ ގެނެސްދިނުމުގެ އިތުރުން، ބޭނުން ކުރާ ބަޔަކަށް ފައިދާކުރާނެ އާލަތްތަކައި މައުލޫމާތު ވެސް ފޯރުކޮށްދެވޭތޯ އެބަ މަސައްކަތް ކުރަމެވެ.
-</p>
+• Ahmed’s Fundamentals of the Sunnah
 
-<p align="right" dir="rtl">އަޅުގަނޑުމެންނަށް ޓަކައި ޓެކްނޮލޮޖީގެ ހިދުމަތް ލައްވައި، އޭގެ ބޭނުން ކުރެވޭނެ ގޮތް މިންވަރު ކުރެއްވީ ﷲ އެވެ. ޙަދީޘްއެމްވީގެ އަމާޒަކީ ގިނަގުނަ ބޭނުން ހިފޭ، ބޭނުން ކުރަން ފަސޭހަ ހިދުމަތެއް އެންމެންނަށް ފޯރުކޮށް ދިނުމެވެ. އަދި ގެންގުޅޭ ވަސީލަތްތަކާއި ސެޓިންގްތައް ތަފާތު ވިޔެއްކަމަކު، ބޭނުންކުރާ ފަރާތްތަކަށް އެކަށީގެންވާ ހިތްގައިމު މާހައުލެއް ގާއިމު ކޮށްދިނުމެވެ. ޙަދީޘްއެމްވީ ފަރުމާ ކުރެވިފައި ވަނީ ފޯނަށް އަހައްމިއްޔަތުކަން ދެވި، ޖާގައަށް ބުރަ ނުވާ ގޮތަށެވެ. މި ވަގުތު ވެބް، އެންޑުރޮއިޑް އަދި ވިންޑޯސްގެ ވަސީލަތްތަކުގައި ބޭނުން ކުރެވޭނެއެވެ.
-</p>
+• Barbahari’s Explanation of the Sunnah
 
-<br /><br />
+• Creed of the Two Razis
 
-<h3 align="right"><b>
-މައިގަނޑު ލަނޑުދަނޑިތައް
-</b></h3>
+• Ibn Rajab’s Attainment of the Statement of Ikhlas
 
----
+• Summary of Aajurry’s Book of Shariah
 
-<h3 align="right"><b>
-ފޯރުކޮށްދިނުން
-</b></h3>
+• Sam’aany’s Giving Victory to the People of Hadith
 
-<p align="right" dir="rtl">ގެންގުޅޭ ވަސީލަތްތަކާއި، އުޅޭ ތަނާއި، އުމުރާއި، ބަސް އެނގެނުމާއި، ތަނަވަސްކަން ނެތުމުގެ ސަބަބުން ކުރިމަތިވެފައިވާ ހުރަސްތައް ފަހަނައަޅައި، ރަސޫލު ﷲ ﷺ ގެ ޙަދީޘްފުޅުތައް އެންމެހައި ދިވެހިންނަށް ހަމައަށް ފޯރުކޮށްދިނުމެވެ. އަދި މި ޒަމާނަކީ ފޮތްތަކަށް ވުރެ ބޮޑަށް ފޯނާއި ކޮމްޕިޔުޓަރ ފަދަ ވަސީލަތްތަކަށް ދިވެހިން އަހުލުވެރި ވެފައިވާ ޒަމާނެއް ކަމުން، އަދުގެ ޓެކްނޮލަޖީގެ ޒަރިއްޔާއިން ސުންނަތް ފަތުރައި އެއާ އެއްގޮތަށް އުޅުމުގެ ލޯބި ހިތްތަކުގައި ޖެއްސުމެވެ. އެ ގޮތުން އެއް ޑޭޓާބޭސެއް، ތަފާތު މަންސަތަކުން ލިބެން ހުންނާނެއެވެ.
-</p>
+• Abu ’Ubaid’s Book of Faith
 
-<h3 align="right"><b>
-އުނގަންނައިދިނުން
-</b></h3>
+• Soabuni’s Creed of the Salaf
 
-<p align="right" dir="rtl">މި ކުޑަކުޑަ މުޖުތަމައުގެ ގިނަ މައްސަލަތަކުގެ މައިގަނޑު ސަބަބަކީ މީސްތަކުން އިސްލާމް ދީނަށް ރަނގަޅަށް އަހުލުވެރި ވެފައި ނުވުމެވެ. ވީމާ މި ކަމަށް ހައްލެއް ގެނައުމަށް ޓަކައި އަމިއްލައަށް އިސްލާމީ މައުލޫމާތު ބަލައި ހޯދޭނެ ފަސޭހަ މަގެއް މީސްތަކުންނަށް ތަނަވަސްވެފައި އޮތުން މުހިއްމެވެ. ހަމަ އެހެންމެ، މުދައްރިސުންނާއި ދަރިވަރުން މި މަސްދަރުތަކުގެ ބޭނުން ހިފައި، އެއް ޙަދީޘްތަކެއް ތަކުރާރުކޮށް ތަރުޖަމާ ކުރުމުގެ ބުރައިން ސަލާމަތް ވެގެން ދާނެއެވެ. އެ ގޮތުން އެއް ފަހަރު ލިޔުމަށް ފަހު، ބޭނުން އިރަކު ތަރުޖަމާ ހޯދޭނެއެވެ.
-</p>
+• MBAW’s The Nullifiers of Islam
 
-<!---
+• MBAW’s The Four Foundations
 
-<h3 align="right"><b>
-ތަރައްގީވުން
-</b></h3>
+• MBAW’s The Six Principles
 
-<br /><br />
+• MBAW’s The Three Principles
 
-<hr />
-<br /><br />
+• Important Matters for the Muslim
 
-<h3 align="right"><b>
-ލަނޑުދަނޑިތައް
-</b></h3>
+## 📓 Also includes the following:
 
-<table class="dvTable" align="right"  dir="rtl">
+• Dhivehi Quran Translation where Aqida issues of previous translations are being fixed
 
-<tbody>
+• Bakurubey’s Quran Translation
 
-<tr>
+• Jaufar’s Quran Tafsir
 
-<th>ޙަދީޘް</th>
+• Tafsir of the Last Tenth of the Quran
 
-<th>މަސައްކަތް</th>
+• Quran Translation of the Office of the President of Maldives
 
-</tr>
+• Comprehensive English Dhivehi Arabic Dictionary
 
-<tr>
+• Dictionary of Names
 
-<td>40 ނަވަވީ</td>
+• Dictionary of the Dhivehi Language
 
-<td>ނިމިފައި</td>
+• Al Eegaal Arabic Dhivehi Dictionary
 
-</tr>
+• Concise Etymological Vocabulary - English Dhivehi
 
-<tr>
+• Dhivehi Word Separation Rules
 
-<td>ސަހީހައިން</td>
+• Guide to Using Dotted Letters in Thaana
 
-<td>ކުރިއަށް ދަނީ</td>
+• Multifunctional Text Editor
 
-</tr>
+## ✨ Additional Features:
 
-</tbody>
+• Unique: The first Dhivehi Hadith and Athar app in Maldives
 
-</table>--->
+• Focused: Importance is given to the major classical works
 
-</div>
+• Cross Platform: Available on the Web, Android and Windows
 
-<div class="mid" align="center">
-<p>For more queries, read our
-          <a href="http://hadithmv.github.io/notes/info/FAQ.html">FAQ</a> section | For a list of participants, get to know our <a href="http://hadithmv.github.io/notes/info/contributors.html">contributors</a>
-        </p>
+• Sourced: Reference numbers match the source books
 
-<p>If you find a mistake, or have a suggestion, or want to help with this
-        project, feel free to <a href="http://hadithmv.github.io/notes/info/contact.html">contact us</a>
-        </p>
+• Searchable: Text can be queried and filtered in both Arabic and Dhivehi
 
-  <p>
-    Subscribe: <a href="http://fb.me/hadithmvOfficial">Facebook</a> |
-    <a href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX/ZVrvGtq/bJboZzADy3OssLND4H1TFWklNmNQZC">Viber</a> |
-    <a href="http://t.me/hadithmv">Telegram</a> |
-    <a href="https://instagram.com/hadithmv">Instagram</a> |
-    <a href="https://twitter.com/hadithmv">Twitter</a>
-  </p>
+• Accessible: Texts can be found, copied and shared across devices
 
-  <p>Get the Hadithmv app:
-        <a href="https://hadithmv.github.io">Web</a> |
-        <a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv">Android</a> | <a href="https://github.com/hadithmv/hadithmv.github.io/releases">Windows</a>
-      </p>
-  <p>
-    - Back to the
-    <b><a href="../../books/index.html">Main Page</a></b> -
-  </p>
-</div>
-<br />
+• Offline: Works without an internet connection
 
-</div>
+• Dark/light mode support: Automatically adjusts to your system settings
+
+• 100% free: Valuable knowledge made available free of charge
+
+## 📌 Misc
+
+For more queries, read our [FAQ](https://hadithmv.github.io/page/FAQ.html).
+
+For a list of participants, see our [contributors](https://hadithmv.github.io/page/contributors.html).
+
+If you find a mistake, or have a suggestion, or want to contribute to this project, feel free to [contact us](https://hadithmv.github.io/page/contact.html).
+
+Subscribe: [Facebook](http://fb.me/hadithmvOfficial) | [Viber](https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX%2FZVrvGtq%2FbJboZzADy3OssLND4H1TFWklNmNQZC) | [Telegram](http://t.me/hadithmv) | [Instagram](https://instagram.com/hadithmv) | [X](https://x.com/hadithmv)
+
+Get the Hadithmv app: [Web](https://hadithmv.github.io/) | [Android](https://play.google.com/store/apps/details?id=com.hadithmv.hmv) | [Windows](https://github.com/hadithmv/hadithmv.github.io/releases)
