@@ -1286,7 +1286,7 @@ $(function () {
         .normalize("NFD") // Normalize the string to decompose characters
         // remember to repeat in 'mark: { synonyms: { } }'
         // added ٱ
-        .replace(/[أآإٱ]/g, "ا") // Replace different forms of alef with a single form
+        .replace(/[أآإٱ ٰ]/g, "ا") // Replace different forms of alef with a single form
         .replace("ؤ", "و") // Replace waw with its alternative form
         .replace(/ة/g, "ه") // Replace taa marbota with ha
         .replace(/[\u064B-\u065F]/g, "") // Remove diacritics (tashkeel)
