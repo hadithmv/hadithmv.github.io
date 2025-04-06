@@ -1,0 +1,166 @@
+give me a number stylish console messages i can display in the console for developers inspecting my site code in their browser
+
+id like my text to be like such, note that these are links
+
+Developed by: https://t.me/ashraafmv
+
+GitHub Repo: https://github.com/hadithmv/hadithmv.github.io
+
+...
+
+console.log('%c Welcome to Hadithmv', 
+  'font-size: 20px; font-weight: bold; color: white; background-image: linear-gradient(to right, #3f51b5, #2196f3); padding: 10px; border-radius: 5px;');
+console.log('💻 Developed by: https://t.me/ashraafmv');
+console.log('🚀 GitHub Repo: https://github.com/hadithmv/hadithmv.github.io');
+
+...
+
+console.log('%c Welcome to Hadithmv', 
+  'font-size: 20px; font-weight: bold; color: white; background-image: linear-gradient(to right, #3f51b5, #2196f3); padding: 10px; border-radius: 5px;');
+console.log('%c💻 Developed by: https://t.me/ashraafmv\n🚀 GitHub Repo: https://github.com/hadithmv/hadithmv.github.io', 
+  'font-size: 14px; color: white; background-image: linear-gradient(to right, #3f51b5, #2196f3); padding: 10px; border-radius: 5px;');
+
+
+console.log(
+  '%cWelcome to Hadithmv\nDeveloper: https://t.me/ashraafmv\nGitHub: https://github.com/hadithmv/hadithmv.github.io',
+  'background: #000; color: #0ff; padding: 10px; font-size: 20px; font-family: monospace; text-shadow: 0 0 8px #0ff;',
+  'color: #8f8; font-size: 14px;'
+);
+
+console.log(
+  '%c⚡ CYBERSPACE ACTIVATED ⚡\n%cWelcome to the digital realm!\nDeveloper: https://t.me/ashraafmv\nGitHub: https://github.com/hadithmv/hadithmv.github.io',
+  'background: #000; color: #0ff; padding: 10px; font-size: 20px; font-family: monospace; text-shadow: 0 0 8px #0ff;',
+  'color: #8f8; font-size: 14px;'
+);
+
+...
+
+console.log('%c Welcome to hadithmv.github.io!', 
+  'font-size: 20px; font-weight: bold; color: white; background-image: linear-gradient(to right, #3f51b5, #2196f3); padding: 10px; border-radius: 5px;');
+console.log('Developed by: https://t.me/ashraafmv');
+console.log('GitHub Repo: https://github.com/hadithmv/hadithmv.github.io');
+
+
+// Warning message for curious developers
+console.log('%c 🔍 Hello curious developer! 🔍', 'color: red; font-size: 24px; font-weight: bold;');
+console.log('%c If you found something interesting, connect with the developer:', 'color: #444; font-size: 14px;');
+console.log('%c • Telegram: %c https://t.me/ashraafmv', 'color: #444; font-size: 14px;', 'color: #0088cc; font-size: 14px;');
+console.log('%c • GitHub: %c https://github.com/hadithmv/hadithmv.github.io', 'color: #444; font-size: 14px;', 'color: #6e5494; font-size: 14px;');
+
+console.groupCollapsed('%c🔧 Developed by AshraafMV', 'background: #000; color: #fff; padding: 3px 6px; border-radius: 2px; font-size: 12px;');
+console.log('%cDeveloped by:%c https://t.me/ashraafmv', 
+    'background: #000; color: #00ff00; padding: 3px 6px; font-weight: bold;', 
+    'background: #000; color: #00aaff; padding: 3px 6px; text-decoration: underline;'
+);
+console.log('%cGitHub Repo:%c https://github.com/hadithmv/hadithmv.github.io', 
+    'background: #000; color: #00ff00; padding: 3px 6px; font-weight: bold;', 
+    'background: #000; color: #00aaff; padding: 3px 6px; text-decoration: underline;'
+);
+console.groupEnd();
+
+console.log(
+  '%c🔥 Hadithmv 🔥\n%cDeveloped by: https://t.me/ashraafmv\nGitHub: https://github.com/hadithmv/hadithmv.github.io',
+  'background: linear-gradient(to right, #00c6ff, #0072ff); color: white; padding: 4px 10px; font-size: 16px; font-weight: bold; border-radius: 4px;',
+  'color: #444; font-size: 14px;'
+);
+
+...
+
+i like things like these
+
+give me more
+
+...
+
+console.log('%c ✨ Welcome to hadithmv ✨ ', 
+  'font-size: 18px; background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); background-size: 400% 400%; color: white; padding: 10px; border-radius: 5px; animation: gradient 15s ease infinite;');
+console.group('%c Project Info', 'font-size: 14px; color: #333; font-weight: bold;');
+console.log('%c Creator: %c https://t.me/ashraafmv', 'font-weight: bold; color: #555;', 'color: #0088cc; text-decoration: underline;');
+console.log('%c Source: %c https://github.com/hadithmv/hadithmv.github.io', 'font-weight: bold; color: #555;', 'color: #6e5494; text-decoration: underline;');
+console.groupEnd();
+
+console.log('%c 📚 hadithmv.github.io 📚 ', 
+  'font-size: 18px; font-weight: bold; color: white; background: #3f51b5; padding: 10px 15px; border-radius: 5px; box-shadow: 3px 3px 6px rgba(0,0,0,0.3);');
+console.log('%c 👨‍💻 Developer: %c https://t.me/ashraafmv', 
+  'font-size: 14px; font-weight: bold; color: #333;', 
+  'font-size: 14px; color: #0088cc; text-decoration: underline;');
+console.log('%c 🔗 Repository: %c https://github.com/hadithmv/hadithmv.github.io', 
+  'font-size: 14px; font-weight: bold; color: #333;', 
+  'font-size: 14px; color: #6e5494; text-decoration: underline;');
+  
+console.log(
+  '%c⚡ CYBERSPACE ACTIVATED ⚡\n%cWelcome to the digital realm!\nDeveloper: https://t.me/ashraafmv\nGitHub: https://github.com/hadithmv/hadithmv.github.io',
+  'background: #000; color: #0ff; padding: 10px; font-size: 20px; font-family: monospace; text-shadow: 0 0 8px #0ff;',
+  'color: #8f8; font-size: 14px;'
+);
+
+console.groupCollapsed('%c💡 DEVELOPER NOTES', 'color: #fff; background: #2c3e50; padding: 5px 10px; border-radius: 3px;');
+console.log('%c🔗 Important Links:', 'font-weight: bold; color: #3498db;');
+console.log('%c• Telegram Contact: https://t.me/ashraafmv', 'color: #2980b9;');
+console.log('%c• GitHub Repository: https://github.com/hadithmv/hadithmv.github.io', 'color: #2c3e50;');
+console.log('%c📌 Pro Tip:', 'font-weight: bold; color: #e74c3c; margin-top: 10px;');
+console.log('%cCheck network requests for hidden Easter eggs!', 'color: #95a5a6; font-style: italic;');
+console.groupEnd();
+
+console.log(
+  '%c⬡⬡⬡⬡⬡ HADITHMV SYSTEM ⬡⬡⬡⬡⬡\n%c> Initializing developer interface...\n> Loading contact protocols...\n> Access granted:\n   ░ Telegram: https://t.me/ashraafmv\n   ░ GitHub: https://github.com/hadithmv/hadithmv.github.io',
+  'color: #0f0; text-shadow: 0 0 8px #0f0; font-family: monospace; font-size: 16px;',
+  'color: #0f0; font-family: monospace; font-size: 14px;'
+);
+
+console.group('%c📞 DEVELOPER HOTLINE', 'color: #fff; background: #e74c3c; padding: 5px 15px; border-radius: 25px;');
+console.log('%cNeed help? Contact the developer:', 'color: #2c3e50; font-size: 14px;');
+console.log('%c➤ Telegram Emergency Line: %chttps://t.me/ashraafmv', 'color: #444;', 'color: #27ae60; text-decoration: underline;');
+console.log('%c➤ GitHub Support Center: %chttps://github.com/hadithmv/hadithmv.github.io', 'color: #444;', 'color: #2c3e50; text-decoration: underline;');
+console.groupEnd();
+
+console.log(
+  '%c🔥 HADITHMV DEVELOPER PORTAL 🔥\n%c✉ Contact: https://t.me/ashraafmv\n🐙 GitHub: https://github.com/hadithmv/hadithmv.github.io',
+  'background: linear-gradient(90deg, #ff6b6b, #4ecdc4); color: white; padding: 10px 20px; font-size: 18px; border-radius: 8px; font-weight: bold;',
+  'color: #2d3436; font-size: 14px; margin-top: 8px;'
+);
+
+console.log('%c❄️ Welcome to Hadithmv ❄️', 
+  'font-size: 22px; font-weight: bold; color: white; background: linear-gradient(to right, #83a4d4, #b6fbff); padding: 10px 15px; border-radius: 6px;');
+
+console.log('%c✨ Hadithmv ✨', 
+  'font-size: 20px; font-weight: bold; background: linear-gradient(to right, #f953c6, #b91d73); color: white; padding: 8px 12px; border-radius: 8px;');
+console.log('%cTelegram:%c https://t.me/ashraafmv', 'color: #fff; background: #333; padding: 2px;', 'color: #00acee;');
+console.log('%cGitHub:%c https://github.com/hadithmv/hadithmv.github.io', 'color: #fff; background: #333; padding: 2px;', 'color: #6e5494;');
+
+console.log('%c🔮 Hadithmv Wizard Portal 🔮', 
+  'font-size: 18px; font-weight: bold; background: linear-gradient(to right, #6441a5, #2a0845); color: white; padding: 8px; border-radius: 6px;');
+console.log('%c🧙‍♂️ Connect with the wizard: https://t.me/ashraafmv\n📚 Source spellbook: https://github.com/hadithmv/hadithmv.github.io', 
+  'color: #ddd;');
+
+console.log('%c🚀 INITIATING HADITHMV PROTOCOL...', 
+  'background: black; color: #0ff; padding: 6px; font-family: monospace; font-size: 14px;');
+console.log('%cCREATOR:%c https://t.me/ashraafmv\n%cSOURCE CODE:%c https://github.com/hadithmv/hadithmv.github.io', 
+  'color: #0ff;', 'color: #00acee;', 'color: #0ff;', 'color: #6e5494;');
+
+console.groupCollapsed('%c📦 Hadithmv Project Details', 
+  'color: white; background: #4caf50; padding: 4px 10px; border-radius: 4px; font-weight: bold;');
+console.log('%cDeveloper:%c https://t.me/ashraafmv', 'color: #555;', 'color: #0088cc;');
+console.log('%cGitHub Repo:%c https://github.com/hadithmv/hadithmv.github.io', 'color: #555;', 'color: #6e5494;');
+console.groupEnd();
+
+console.log('%c📘 Hadithmv Docs', 
+  'background: #f1f1f1; color: #333; font-weight: bold; font-size: 18px; padding: 6px 10px; border-left: 4px solid #2196f3;');
+console.log('%cTelegram: %chttps://t.me/ashraafmv', 'color: #444;', 'color: #2196f3; text-decoration: underline;');
+console.log('%cGitHub: %chttps://github.com/hadithmv/hadithmv.github.io', 'color: #444;', 'color: #333; text-decoration: underline;');
+
+console.log('%c🌟 Welcome to hadithmv.github.io 🌟\n%cConnect → https://t.me/ashraafmv\nSource → https://github.com/hadithmv/hadithmv.github.io', 
+  'font-size: 18px; font-weight: bold; background: linear-gradient(to right, #0f2027, #203a43, #2c5364); color: #fff; padding: 10px; border-radius: 5px;',
+  'color: #ccc; font-size: 14px;');
+
+...
+
+obfuscated
+
+var _0xhadithmv = [
+  "\x25\x63\x20\x57\x65\x6C\x63\x6F\x6D\x65\x20\x74\x6F\x20\x68\x61\x64\x69\x74\x68\x6D\x76\x2E\x67\x69\x74\x68\x75\x62\x2E\x69\x6F\x21",
+  "\x66\x6F\x6E\x74\x2D\x73\x69\x7A\x65\x3A\x20\x32\x30\x70\x78\x3B\x20\x66\x6F\x6E\x74\x2D\x77\x65\x69\x67\x68\x74\x3A\x20\x62\x6F\x6C\x64\x3B\x20\x63\x6F\x6C\x6F\x72\x3A\x20\x77\x68\x69\x74\x65\x3B\x20\x62\x61\x63\x6B\x67\x72\x6F\x75\x6E\x64\x2D\x69\x6D\x61\x67\x65\x3A\x20\x6C\x69\x6E\x65\x61\x72\x2D\x67\x72\x61\x64\x69\x65\x6E\x74\x28\x74\x6F\x20\x72\x69\x67\x68\x74\x2C\x20\x23\x33\x66\x35\x31\x62\x35\x2C\x20\x23\x32\x31\x39\x36\x66\x33\x29\x3B\x20\x70\x61\x64\x64\x69\x6E\x67\x3A\x20\x31\x30\x70\x78\x3B\x20\x62\x6F\x72\x64\x65\x72\x2D\x72\x61\x64\x69\x75\x73\x3A\x20\x35\x70\x78\x3B"
+];
+console.log(_0xhadithmv[0], _0xhadithmv[1]);
+
+
