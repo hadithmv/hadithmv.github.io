@@ -68,7 +68,7 @@ Welcome to the official Hadithmv app. Your extensive digital Islamic library in 
 
 • 14 Books of Aqida and Usooluddeen
 
-• 5 Dictionaries - with around 150,000 entries
+• 6 Dictionaries - with around 150,000 entries
 
 ### 📘 Featured books of Hadith and Athar:
 
@@ -134,9 +134,11 @@ Welcome to the official Hadithmv app. Your extensive digital Islamic library in 
 
 • Comprehensive English Dhivehi Arabic Dictionary
 
+• Dictionary of the Dhivehi Language
+
 • Dictionary of Names
 
-• Dictionary of the Dhivehi Language
+• Dictionary of Quranic Words
 
 • Al Eegaal Arabic Dhivehi Dictionary
 
