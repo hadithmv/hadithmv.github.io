@@ -24,6 +24,12 @@ matches:
     replace: ﷺ
   - trigger: صص-
     replace: ﷺ
+  - trigger: ތއ-
+    replace: ތަޢާލާ
+  - trigger: ސވތ-
+    replace: "ސުބްޙާނަހޫ ވަތަޢާލާ"
+  - trigger: އވޖ-
+    replace: "ޢައްޒަ ވަޖައްލަ"
   - trigger: '"-'
     replace: ”
   - trigger: '-"'
@@ -116,10 +122,20 @@ matches:
     replace: "ނަބިއްޔާ ﷺ ޙަދީޘްކުރެއްވިއެވެ: ”"
   - trigger: ހކ-
     replace: "ޙަދީޘްކުރެއްވިއެވެ: ”"
+  - trigger: ވހ-
+    replace: "ވަހީކުރެއްވިއެވެ: ”"
+  - trigger: ދނ-
+    replace: "ދެންނެވިއެވެ: "
+  - trigger: މނ-
+    replace: "މާނައީ: ”"
   - trigger: ހމ-
     replace: ހަމަކަށަވަރުން
+  - trigger: އހމ-
+    replace: އެހެނީ ހަމަކަށަވަރުން
   - trigger: އހ-
     replace: އެހެނީ ހަމަކަށަވަރުން
+  - trigger: ކށ-
+    replace: ކަށަވަރެވެ
   - trigger: ކލ-
     replace: ކަލޭގެފާނު
   - trigger: އކ-
