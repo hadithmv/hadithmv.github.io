@@ -41,4 +41,4 @@ further compressed by vectaio+svgomg
 
 ...
 
-remember to optimize android app res mipmap files as well as main ic_launcher-playstore.png
+remember to optimize android app res mipmap files as well as main ic_launcher-Play Store.png

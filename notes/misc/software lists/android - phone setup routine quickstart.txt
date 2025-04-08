@@ -120,7 +120,7 @@ GOOGLE, WORK, EDUCATION, messages
 
 file manager, settings, gallery, gmail
 
-playstore, drive, camera, whatsapp
+Play Store, drive, camera, whatsapp
 
 viber, business suite, signal, hadithmv
 

@@ -15,4 +15,4 @@ run deadlinkchecker.com/website-dead-link-checker.asp
 iulaan on hmv social media
 
 ship android and windows releases
-update playstore info
+update Play Store info
