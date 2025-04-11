@@ -11,13 +11,22 @@ https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ޑިވޮ
 https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ޕްރޮގްރާމަ&start-date=&end-date=&open-only=1 
 https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ޕްރޮގްރާމާ&start-date=&end-date=&open-only=1 
 
+...
+
+
+https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=މިނިސްޓްރީ+އޮފް+އިސްލާމިކް+އެފެއާޒް&q=&start-date=&end-date=&open-only=1
+
+...
+
 https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=އައިޓ&start-date=&end-date=&open-only=1 
 https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=އައި.ޓ&start-date=&end-date=&open-only=1 
 
 https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ޑޭޓާ&start-date=&end-date=&open-only=1 
 
 https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=&office=&q=ޑިޖިޓ&start-date=&end-date=&open-only=1 
+
 ...
+
 https://www.gazette.gov.mv/iulaan?type=&job-category=&office=national-centre-for-information-technology&q=&start-date=&end-date=&open-only=1 
 
 https://www.gazette.gov.mv/iulaan?type=vazeefaa&job-category=information-technology&office=&q=&start-date=&end-date=&open-only=1 
