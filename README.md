@@ -10,6 +10,8 @@
 <img src="https://hadithmv.github.io/img/logo/logo.svg" width=250 height=200>
 </p>
 
+Welcome to the official Hadithmv app. Your extensive digital Islamic library in Dhivehi. We offer a wide collection of texts, tools, and references in the Maldivian language.
+
 ## 📖 About Hadithmv
 
 ### The Dhivehi Platform for the Sunnah
@@ -58,7 +60,7 @@ We embrace modern technology as a powerful tool given by Allah to facilitate Da�
 
 ## 📚 What We Offer
 
-Welcome to the official Hadithmv app. Your extensive digital Islamic library in Dhivehi. We offer a wide collection of texts, tools, and references in the Maldivian language, such as:
+Hadithmv has delivered a total of over 30 digital publications, gets around 4000 monthly visits to the website, has been downloaded over 12,000 times, of which 5000 are currently on mobile, with a 4.8 star rating, has the most Maldivian public contributions by GitHub, with over 6000 commits, and delivers essential Islamic resources to the Maldivian community, such as:
 
 ### ✅ Core Collections
 
