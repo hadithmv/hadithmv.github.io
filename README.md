@@ -60,9 +60,11 @@ We embrace modern technology as a powerful tool given by Allah to facilitate Da�
 
 ## 📚 What We Offer
 
-Hadithmv has delivered a total of over 30 digital publications, gets around 4000 monthly visits to the website, has been downloaded over 12,000 times, of which 5000 are currently on mobile, with a 4.8 star rating, has the most Maldivian public contributions by GitHub, with over 6000 commits, and delivers essential Islamic resources to the Maldivian community, such as:
+Hadithmv has delivered a total of over 80 digital publications, gets around 4000 monthly visits to the website, has been downloaded over 12,000 times, of which 5000 are currently on mobile, with a 4.8 star rating, has the most Maldivian public contributions by GitHub, with over 6000 commits, and delivers essential Islamic resources to the Maldivian community, such as:
 
 ### ✅ Core Collections
+
+• 40+ Articles on various Islamic topics
 
 • 11 Books of Hadith and Athar - with around 14,000 narrations
 
