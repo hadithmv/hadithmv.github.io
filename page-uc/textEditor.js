@@ -1216,6 +1216,13 @@ document.addEventListener("DOMContentLoaded", () => {
           .replace(/\n{3,}/g, "\n\n"); // More than double empty line to double
         break;
 
+      case "convertSingleToDoubleNewlines":
+        textArea.value = textArea.value.replace(
+          /([^\n])\n([^\n])/g,
+          "$1\n\n$2"
+        ); // Convert single newlines to double
+        break;
+
       case "wordWrap":
         textArea.value = textArea.value.replace(/\s+/g, " ").trim();
         break;
