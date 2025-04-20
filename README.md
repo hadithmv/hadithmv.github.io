@@ -176,7 +176,7 @@ Hadithmv has delivered a total of over 30 digital publications, gets around 4000
 
 For more queries, read our [FAQ](https://hadithmv.github.io/page/FAQ.html).
 
-For a list of participants, see our [contributors](https://hadithmv.github.io/page/contributors.html).
+For a list of participants, see our [contributors](https://hadithmv.github.io/page/contributorsList.html).
 
 If you find a mistake, or have a suggestion, or want to contribute to this project, feel free to [contact us](https://hadithmv.github.io/page/contact.html).
 
