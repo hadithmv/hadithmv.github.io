@@ -70,7 +70,7 @@ Hadithmv has delivered a total of over 80 digital publications, gets around 4000
 
 • 6 Quran translations and Tafsirs
 
-• 14 Books of Aqida and Usooluddeen
+• 15 Books of Aqida and Usooluddeen
 
 • 6 Dictionaries - with around 150,000 entries
 
@@ -97,6 +97,8 @@ Hadithmv has delivered a total of over 80 digital publications, gets around 4000
 • And other valuable collections
 
 ### 📙 Featured books of Aqida and Usooluddeen:
+
+• Allah’s Most Beautiful Names
 
 • Ahmed’s Fundamentals of the Sunnah
 
