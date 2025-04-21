@@ -273,8 +273,18 @@
         // CHANGE !!!
         // arName ar dv pageNo
         columns: [
-          { title: "އަރަބި ލަފްޒު" },
-          { title: "ދިވެހި ލަފްޒު" },
+          // { title: "އަރަބި ލަފްޒު" },
+          {
+            /* replace one character hamzatul wasl that has quranic sukun, to regular hamza  */
+            data: 0,
+            title: "އަރަބި ލަފްޒު",
+            render: (data) => data.replace(/ٱ/g, "ا"),
+          },
+          {
+            data: 1,
+            title: "ދިވެހި ލަފްޒު",
+            render: (data) => data.replace(/ٱ/g, "ا"),
+          },
           { title: "އިންގިރޭސި ލަފްޒު", className: "colEng" },
         ], //
         columnDefs: [
