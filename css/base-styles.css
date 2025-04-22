@@ -540,6 +540,19 @@ h3 {
   direction: rtl;
 }
 
+.rtlText {
+  direction: rtl;
+}
+
+/* use class: dt-nowrap
+ https://datatables.net/manual/styling/classes#Cell-classe
+ 
+ instead of below */
+
+/* .noWrapClass {
+  white-space: nowrap;
+} */
+
 /* https://yootheme.com/support/question/155972 
 https://stackoverflow.com/a/68687577 */
 /* How to add search input clear button by using CSS.
