@@ -396,7 +396,15 @@
           { title: "އަރަބި މަސްދަރު" },
           { title: "ގިސްމު" },
         ], //
-        columnDefs: [...columnDefsconfig],
+        columnDefs: [
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [6],
+          },
+          ...columnDefsconfig,
+        ],
       });
     </script>
     <!-- Google tag (gtag.js) -->
