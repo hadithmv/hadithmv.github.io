@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="dv" class="notranslate" translate="no">
+  <head>
+    <meta name="google" content="notranslate" />
+    <!-- CHNGE !!! -->
+    <title>معجم أحمد فهمي –  އަޙްމަދު ފަހްމީގެ ރަދީފު</title>
+    <meta
+      name="description"
+      content="The Dhivehi Platform for the Sunnah | ދިވެހިންގެ ސުންނަތުގެ މަންސަ"
+    />
+    <meta
+      name="keywords"
+      content="hadithmv, hadith mv, hadeeth mv, dhivehi, hadith, hadhees, dhivehi islamic books, tharujama, ފޮތް, ތަރުޖަމާ, ޤުރްއާން, ޤުރުއާން, ގުރްއާން,ގުރުއާން, އިސްލާމް, ދީނީ, ދިވެހި ,ޙަދީޘްއެމްވީ ,ޙަދީޘް އެމްވީ ,dhivehi word meaning, dhivehi name meaning, dhivehi words, dhivehi names, dhivehi dictionary, dhivehi language, ނަންފޮތް , ރަދީފު, ބަސް,"
+    />
+    <!-- note above is different for radheefs -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <!-- external resources-->
+    <style>
+      html {
+        visibility: hidden;
+        opacity: 0;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="../css/base-styles.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/navbar.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/DT-COMB.min.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/DT-inline.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <script src="../js/navbar.js"></script>
+    <script src="../js/DT-COMB.min.js"></script>
+    <script src="../js/DT-inline.js"></script>
+    <!-- END external resources-->
+    <style>
+      /* === --- === --- ====
+      CUSTOM CSS
+      === --- === --- ==== */
+
+      /* only for MOBILE size */
+
+      @media (max-width: 599px) {
+        /* removes stripe and column ordering class code */
+        :root {
+          --dt-row-stripe: none; /* 0, 0, 0*/
+          /*--dt-row-hover: 0, 0, 0;*/
+          --dt-column-ordering: none; /* 0, 0, 0*/
+        }
+
+        table.dataTable.row-border > tbody > tr > * {
+          /*border-top: 1px solid rgba(0, 0, 0, 0.15);*/
+          border-top: none;
+        }
+      } /* END OF MOBILE */
+
+      /* only for TABLET size and up */
+      @media (min-width: 600px) {
+        /* UNDOES OG CARDS CODE */
+
+        .cards tbody tr {
+          /*margin: 0;*/ /* 0.5rem; just top and bottom? */
+          margin-top: 0;
+          margin-bottom: 0;
+          border: none; /* 0.0911rem solid #c4c6d0;*/
+          /*border-radius: 24px;*/
+        }
+        .cards tbody td {
+          display: table-cell; /* block; */
+        }
+
+        /* */
+
+        /* OTHER CARDS STUFF */
+
+        .cards tbody tr {
+          padding: initial; /* 20px ? */
+        }
+
+        .cards tbody {
+          display: table-row-group; /*flex*/
+          flex-direction: row; /* column */
+          align-items: normal; /* stretch */
+        }
+
+        /* */
+
+        /* OTHER STUFF */
+
+        /* brings back the th table header above columns, hidden in card view */
+        thead {
+          display: table-header-group; /* none */
+        }
+        /* brings back colgroup cols removed, for card view. this effects table class hover. however this code isnt working.
+        .dt-container > colgroup > col:not(:nth-child(0)) {
+        display: table-column;
+          } */
+        table.dataTable > thead > tr > th > span.dt-column-title {
+          /* makes table headers not bold */
+          font-weight: normal;
+          font-size: 20px;
+          color: #555;
+        }
+        table.dataTable > thead > tr > th {
+          /* vertically aligns to top */
+          vertical-align: top;
+          /* centers */
+          text-align: center;
+          /* */
+          line-height: 1.4;
+        }
+        /* reduces right and left padding of th, making that row smaller */
+        div.dt-layout-cell.dt-layout-full > table.dataTable > thead > tr > th {
+          padding-right: 20px;
+          padding-left: 0;
+        }
+
+        /* removes margin spaces at edges of table */
+        div.dt-container {
+          margin-right: 0;
+          margin-left: 0;
+        }
+        /* since we removed spaces above, we add them inside the padding of the right of first column, and left of last column */
+        .dataTable > tbody > tr > td:first-child {
+          padding-right: 15px;
+          padding-left: 10px;
+        }
+        .dataTable > tbody > tr > td:last-child {
+          padding-left: 15px;
+        }
+
+        /* gives back the border top to the last child of tr */
+        /*table.dataTable.row-border > tbody > tr > * */
+        div.dt-container.dt-empty-footer tbody > tr:last-child > td {
+          border-top: 1px solid rgba(0, 0, 0, 0.15);
+          /* adds a bottom border too */
+          border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+          /*1px solid rgba(0, 0, 0, 0.15);*/
+        }
+      } /* END OF TABLET UP */
+
+      /* */
+
+      /* CUSTOM PAGE STUFF */
+    </style>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <!-- CHANGE !!! class="cards" display stripe>
+       https://datatables.net/examples/styling/display.html -->
+      <table
+        id="tableID"
+        class="cards stripe row-border compact multiRowTable"
+        width="100%"
+      ></table>
+      <div class="hmvSection">
+        <div class="centerAlignedText">
+          <p>
+            اسم الكتاب: معجم عربي مالديفي (عربي - إنجليزي - الديفهي) - لأحمد
+            فهمي دیدي
+          </p>
+
+          <p>
+            ފޮތުގެ ނަން: ޢަރަބި ދިވެހި ރަދީފު (އަރަބި - އިނގިރޭސި - ދިވެހި) |
+            ލިޔުނީ: އަޙްމަދު ފަހްމީ ދީދީ
+          </p>
+
+          <p>ދިވެހި ބަހުގައި ހިމެނޭ 600 އަށް ވުރެ ގިނަ ޢަރަބި ބަސް</p>
+          <p>ދިވެހި ޝަރަޙަ އާއި އިނގިރޭސި ތަރުޖަމާ</p>
+
+          <!-- <div class="centerAlignedText"> END -->
+        </div>
+
+        <hr />
+
+        <p>بسم الله الرحمن الرحيم</p>
+        <p>ފެށުން</p>
+        <p>
+          الحمد لله الذي علم بالقلم، والصلاة والسلام على محمد النبي الامي وعلى
+          أله وصحبه أجمعين.
+        </p>
+        <p>
+          އާދެ! ޢަރަބި ބަހަކީ، ދިވެހި ބަހުގެ ތެރޭގައި ގިނަ ޢަދަދަކަށް، އެކުވެ
+          މަސްހުނިވެފައިވާ ބަހެ ކެވެ. މިހެން މި ކަން ވާން ޖެހުނު އެއް ސަބަބެއް
+          ކަމުގައި ވިސްނެނީ، ދިވެހިންނަކީ، މުސްލިމުންނަށް ވުމުގެ ސަބަބުން
+          އިސްލާމް ދީނުގެ ޝަރީޢަތް އުނގެނި ދަސްކުރުމަކީ، އެ މީހުންނަށް
+          ވާޖިބަކަށް ވީ ކަމެވެ. އޮޅުމެއް ނުވާނޭ ފަދައިން މި ދެންނެވި އިސްލާމީ
+          ޝަރީޢަތް ދިވެހީންނާ ހަމައަށް އައިސްފައި ވަނީ ޢަރަބި ބަހުންނެވެ. އަދި
+          އެ ދީން ބާވައިލެއްވީ ވެސް ޢަރަބި ބަހުންނެވެ. އެހެން ކަމުން ދީނީ
+          ވާޖިބުތަކާއި މަޢުލޫމާތާ ބެހޭ ވަރަށް ގިނަ ބަސްބަހާއި އެ ނޫން ވެސް
+          ބަސްބަސް ދިވެހި ބަހުގައި ޢަރަބި ބަހުން ލިޔެކިޔައި އުޅޭތާ އެތައް ސަތޭކަ
+          އަހަރެއް ވެއްޖެ އެވެ. އެހެން ކަމުން ދިވެހި ބަހުގައި ހިމެނޭ ޢަރަބި
+          ބަސްބަހަކީ ކޮންމެ ދިވެއްސަކަށް ވެސް އެނގެން ބޭނުން އެއްޗަކަސް ވަނީ
+          ވެފަ އެވެ. ދިވެހިންނަކަށް މިއާ ވަކިވެވޭކަށެއް ވެސް ނުމެ ނެތްމެ އެވެ.
+          އޭރުން އެ ކަން ވާނީ ދިވެހި އަދަބިއްޔާތަށް ލިބޭ ވަރަށް ބޮޑު އުނި
+          ކަމަކަށެވެ.
+        </p>
+        <p>
+          ޢަރަބި ބަހަކީ ދިވެހި ބަހަށް މާ ބީރައްޓެހި ބަހެއް ވެސް ނޫނެވެ. އާދެ
+          ދިވެހި ބަހަކީ ވެސް ކަނާތުން ވާތަށް ލިޔެވޭ ބަހެކެވެ. ޢަރަބި ބަހަކީ ވެސް
+          ކަނާތުން ވާތަށް ލިޔެވޭ سامى Semitic ބަހެކެވެ. އެހެން ކަމުން ލިޔުމުގައި
+          މާ ބޮޑު ދަތިތަކަކާ ކުރިމަތިލާކަށް ވެސް ނުޖެހެ އެވެ.
+        </p>
+        <p>
+          ދިވެހި ބަހުގެ ތެރޭގައި ހައެއްކަ އަށެއްކަ ސަތޭކަ ޢަރަބި ބަސް
+          ބޭނުންކުރެވެމުން ދިޔަ ކަމުގައި ވިޔަސް އެ ބަސްބަސް ބޭނުން ކުރަންވާ
+          މަޤާމުގައި ރަނގަޅަށް ބޭނުން ކުރާކަށް އެންމެންނަކަށް ނޭނގެ އެވެ. شائع
+          ބޭނުން ކުރަންވީ ތަނުގައި شاعر އަދި اعتراف އަށް اعتراض އަދި اعتراض
+          ބޭނުންކުރަންވީ ތަނުގައި اعتراف ބޭނުންކުރެވޭ ތަން ވެސް އާދެ އެވެ. اجماع
+          އަދި جماع ވެސް އޮޅޭ ގޮތް ދިމާވެ އެވެ. ބައެއް ޢަރަބި ނޫން ބަސްބަސް
+          ޢަރަބި އަކުރުން ލިޔެ ޗާޕުކޮށްފައި ހުއްޓައި ވެސް ފެނިފައި އެބަހުއްޓެވެ.
+          މިސާލަކަށް نماد ، خرد މި ދެ ބަހަކީ ޙަޤީޤަތުގައި ފާރިސީ ދެ ބަހެވެ. އެއީ
+          نماز އާއި خرج އެވެ. އެހެންކަމުން މި ފަދަ ފޮތެއް ނެރުމަކީ އިންތިހާ
+          ދަރަޖަ އަށް ބޭނުންޖެހިފައިވާ ކަމެކެވެ. ޚާއްޞަ ގޮތެއްގައި މި ފޮތް
+          އަމާޒު ކުރެވެނީ މިއަދުގެ ދިވެހި ކިޔަވާ ކުދިންނަށެވެ. އެހެން ކަމުން މި
+          ފޮތުގައި ހިމަނާލައިފައިވާ ޢަރަބި ބަސްބަހުގެ މާނަ އިނގިރޭސި ބަހުން ވެސް
+          ލިޔެފައި ވާނެ އެވެ. އިނގިރޭސި ބަހުން ދިވެހި ބަހަށް ތަރުޖަމާ ކުރާ އިރު
+          ބޭނުންކުރާނެ އެކަށީގެންވާ ބަސް ލިބުމަކީ ވެސް ބައެއް ފަހަރު ކިޔަވާ
+          ކުދިންނަށް ދަތިވެގެން ޝަކުވާ ކުރާ ކަމެކެވެ. އެ ކަމަށް ވެސް އަޅުގަނޑުގެ
+          މި ކުޑަކުޑަ ފޮތުން ވަގުތީ ޙައްލެއް ނަމަވެސް ލިބޭނެ ކަމުގައި އުންމީދު
+          ކުރަމެވެ.
+        </p>
+        <p>17 رجب 1414هـ</p>
+        <p>30 ޑިސެމްބަރު 1993މ</p>
+        <p>މުޞައްނިފު</p>
+        <p>أحمد فهمي ديدي</p>
+
+        <hr />
+
+        [ފޮތް]
+
+        <hr />
+
+        <p>ނޯޓު:</p>
+        <p>
+          މި ފޮތް އެކުލަވައިލުމުގައި الف باء ގެ ތަރުތީބު ނުވަތަ ބަސްފޮތްތަކުގައި
+          ބަސްތައް އަތުރައިފައި ހުންނަ ތަރުތީބަށް ބަލައިފައެއް ނުވާނެ އެވެ.
+          ސަބަބަކީ އެ ތަރުތީބުން ފައިދާ ކުރާނީ ޢިލްމުވެރިންނަށް ކަމުގައި ވެފައި،
+          މި ފޮތް އަމާޒުކުރަން ގަސްތުކުރާ ފަރާތްތަކަކީ ޢަރަބި ބަހުގެ
+          އަހުލުވެރިން ކަމުގައި ނުވާ ދިވެހީން ކަމުގައި ވުމެވެ. މި ފޮތަކީ ވަރަށް
+          ކުރު ފޮތަކަށް ވުމާ އެކު މި ފޮތުގައި ލިޔެފައިވާ ޢަރަބި ބަސްތަކުގެ
+          ހުރިހައި މާނައެއް ލިޔެފައެއް ނުވާނެ އެވެ. އެހެން ނަމަވެސް ދިވެހި
+          ބަހުގައި އެ ބަސްތައް ބޭނުން ކުރާ ގޮތާއި މާނަ، ދިވެހި ޝަރަހައިގައި
+          ލިޔެވޭތޯ ވަރަށް ބޮޑަށް މަސައްކަތް ކޮށްފައި ވާނެ އެވެ. އެ ފަދަ މާނައެއް
+          ދޫކޮށްލެފިފައި ވާ ނަމަ އެ ކަމަށް ނިހާޔަތަށް މަޢާފަށް އެދެމެވެ.
+        </p>
+
+        <hr />
+
+        <div class="leftAlignedText ltrText">
+          <h3>Technical notes regarding the database text</h3>
+
+          <p>Letter sections are as follows (10 of them):</p>
+
+          <ul>
+            <li>الألف</li>
+            <li>الجيم</li>
+            <li>الشين</li>
+            <li>القاف</li>
+            <li>الكاف</li>
+            <li>الميم</li>
+            <li>النون</li>
+            <li>الواو</li>
+            <li>الهاء</li>
+            <li>الياء</li>
+          </ul>
+
+          <p>There seems to be a total of 658 entries for this dictionary, excluding just the headings of individual letters above.</p>
+
+      </div>
+    </div>
+    <script type="text/javascript">
+      table = new DataTable("#tableID", {
+        ...DTconfig,
+
+        ajax: {
+          url: `../js/json/` + currentFileName + `.json`,
+          dataSrc: function (json) {
+            originalData = json;
+            return json;
+          },
+          dataType: "json",
+          cache: true,
+        },
+        // turns ordering columns back on, which was off for cards
+        ordering: true,
+        // https://datatables.net/reference/option/ordering
+        // default [[0, 'asc']], below makes it no ordering, with clickable th for ordering
+        order: [],
+        // this sets the default value on table load.
+        displayLength: 10,
+        // CHANGE !!!
+        // letter ar en dv
+        columns: [
+          // {
+          //   title: "އަކުރު",
+          // },
+          {
+            title: "އަރަބި ލަފްޒު",
+          },
+          { title: "އިންގިރޭސި ލަފްޒު", className: "dt-center" }, // colEng
+          {
+            title: "ދިވެހި ލަފްޒާއި މާނަ",
+          },
+        ], //
+        columnDefs: [
+          //
+          ...columnDefsconfig,
+        ],
+      });
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-HL24Q9NN24");
+    </script>
+    <!-- End Google Analytics -->
+  </body>
+</html>
+
+<!-- 
+
+had to fix:
+
+رمزي	symbolic	
+		ރަމްޒީ: ކަމެއް ރަމްޒުކޮށްދޭ، ހަނދާނީ އެއްޗެއް، މިސާލަކަށް ހަނދާނީ ލިޔުމެއް، ހަނދާނީ ފިލައެއް، ބޮޑު ކަމަކަށް ދޭ ކުޑަ އަގެއް
+    
+    took up 2 rows, probably due to space error
+    
+    -->
