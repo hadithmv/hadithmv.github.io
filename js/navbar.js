@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.3.65";
+var hmvVersionNo = "6.3.66";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
@@ -330,7 +330,7 @@ function createNavbar() {
               <a href="../books/usooluThalaatha.html" title="3 Principles (of Monotheism)">ތިން އުސޫލު</a>
             </li>
             <li>
-              <a href="../books/quranUshru.html#quranTable=:p69.html" title="Important Rulings for Muslims"
+              <a href="../books/quranUshru.html#tableID=:p69.html" title="Important Rulings for Muslims"
                 >މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް</a
               >
             </li>
