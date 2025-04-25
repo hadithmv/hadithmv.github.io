@@ -210,11 +210,6 @@ class MainActivity : ComponentActivity() {
                            Configuration.UI_MODE_NIGHT_MASK == 
                            Configuration.UI_MODE_NIGHT_YES
                 }
-
-                @JavascriptInterface
-                fun shouldIgnoreSavedState(): Boolean {
-                    return true
-                }
             }, "Android")
 
             // Load either the last visited URL or the default URL
@@ -253,10 +248,6 @@ class MainActivity : ComponentActivity() {
      * @param url The URL to save
      */
     private fun saveLastUrl(url: String) {
-        // Don't save URLs that should ignore saved state
-        if (url.contains("ignoreState=true")) {
-            return
-        }
         prefs.edit().apply {
             putString(LAST_URL_KEY, url)
             apply()  // Asynchronously save changes
