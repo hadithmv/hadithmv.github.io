@@ -85,6 +85,27 @@ BETTER COMMENTS:
 
 sudo -H pip install openpyxl
 
+...
+
+https://stackoverflow.com/questions/26881441/can-you-get-the-number-of-lines-of-code-from-a-github-repository
+
+git ls-files | xargs wc -l
+   498336 total
+
+
+https://github.com/AlDanial/cloc
+(as admin)
+cloc hadithmv.github.io --md
+
+PS C:\Users\ashra\Downloads\VScode> cloc hadithmv.github.io
+SUM:                                5569          52223          59909         711538
+
+
+https://github.com/boyter/scc
+?
+
+...
+
 NPM COMMANDS:
 npm install -g <package_name> (global install)
 npm uninstall -g <package_name>
