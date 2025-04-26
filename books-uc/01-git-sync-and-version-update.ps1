@@ -242,7 +242,7 @@ function Increment-Version {
         Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
         Write-Host "📊 VERSION UPDATE SUMMARY" -ForegroundColor Cyan
         Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
-        Write-Host "📌 New Version: " -ForegroundColor Blue -NoNewline
+        Write-Host "📌 New Version: " -ForegroundColor Cyan -NoNewline
         Write-Host "$script:newVersion" -ForegroundColor White
         Write-Host "✅ Successful: " -ForegroundColor Green -NoNewline
         Write-Host "$successCount files" -ForegroundColor White
@@ -418,7 +418,7 @@ try {
             }
             if ($script:modifiedFiles.Count -gt 0) {
                 $plural = if ($script:modifiedFiles.Count -ne 1) { "s" } else { "" }
-                Write-Host "📝 Update $($script:modifiedFiles.Count) file$plural" -ForegroundColor Blue
+                Write-Host "📝 Update $($script:modifiedFiles.Count) file$plural" -ForegroundColor Cyan
             }
             if ($script:deletedFiles.Count -gt 0) {
                 $plural = if ($script:deletedFiles.Count -ne 1) { "s" } else { "" }
