@@ -413,13 +413,16 @@ try {
         if ($gitSuccess) {
             # Show detailed file changes breakdown
             if ($script:addedFiles.Count -gt 0) {
-                Write-Host "➕ Add $($script:addedFiles.Count) file$((if ($script:addedFiles.Count -ne 1) { 's' } else { '' }))" -ForegroundColor Green
+                $plural = if ($script:addedFiles.Count -ne 1) { "s" } else { "" }
+                Write-Host "➕ Add $($script:addedFiles.Count) file$plural" -ForegroundColor Green
             }
             if ($script:modifiedFiles.Count -gt 0) {
-                Write-Host "📝 Update $($script:modifiedFiles.Count) file$((if ($script:modifiedFiles.Count -ne 1) { 's' } else { '' }))" -ForegroundColor Blue
+                $plural = if ($script:modifiedFiles.Count -ne 1) { "s" } else { "" }
+                Write-Host "📝 Update $($script:modifiedFiles.Count) file$plural" -ForegroundColor Blue
             }
             if ($script:deletedFiles.Count -gt 0) {
-                Write-Host "❌ Remove $($script:deletedFiles.Count) file$((if ($script:deletedFiles.Count -ne 1) { 's' } else { '' }))" -ForegroundColor Red
+                $plural = if ($script:deletedFiles.Count -ne 1) { "s" } else { "" }
+                Write-Host "❌ Remove $($script:deletedFiles.Count) file$plural" -ForegroundColor Red
             }
         }
     }
