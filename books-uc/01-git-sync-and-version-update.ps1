@@ -366,16 +366,23 @@ try {
     Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
     Write-Host "📊 FINAL SUMMARY" -ForegroundColor Cyan
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
-    
+
     if ($versionSuccess) {
         Write-Host "🚀 Updated to version: " -ForegroundColor Green -NoNewline
         Write-Host "v$newVersion ✨" -ForegroundColor Yellow
+    
+        # Calculate the number of changed files from git status
+        if ($gitSuccess) {
+            $changedFilesCount = ($changedFiles.Count)
+            Write-Host "📄 Changes: " -ForegroundColor Blue -NoNewline
+            Write-Host "Update $changedFilesCount files" -ForegroundColor White
+        }
     }
     else {
         Write-Host "⚠️ Version update: " -ForegroundColor Yellow -NoNewline
         Write-Host "FAILED" -ForegroundColor Red
     }
-    
+
     if ($gitSuccess) {
         Write-Host "📤 Git sync: " -ForegroundColor Green -NoNewline
         Write-Host "SUCCESS" -ForegroundColor Green
