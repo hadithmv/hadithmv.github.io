@@ -414,15 +414,21 @@ try {
             # Show detailed file changes breakdown
             if ($script:addedFiles.Count -gt 0) {
                 $plural = if ($script:addedFiles.Count -ne 1) { "s" } else { "" }
-                Write-Host "➕ Add $($script:addedFiles.Count) file$plural" -ForegroundColor Green
+                Write-Host "➕ " -NoNewline
+                Write-Host "Add" -ForegroundColor Green -NoNewline
+                Write-Host " $($script:addedFiles.Count) file$plural" -ForegroundColor White
             }
             if ($script:modifiedFiles.Count -gt 0) {
                 $plural = if ($script:modifiedFiles.Count -ne 1) { "s" } else { "" }
-                Write-Host "📝 Update $($script:modifiedFiles.Count) file$plural" -ForegroundColor Cyan
+                Write-Host "📝 " -NoNewline
+                Write-Host "Update" -ForegroundColor Cyan -NoNewline
+                Write-Host " $($script:modifiedFiles.Count) file$plural" -ForegroundColor White
             }
             if ($script:deletedFiles.Count -gt 0) {
                 $plural = if ($script:deletedFiles.Count -ne 1) { "s" } else { "" }
-                Write-Host "❌ Remove $($script:deletedFiles.Count) file$plural" -ForegroundColor Red
+                Write-Host "❌ " -NoNewline
+                Write-Host "Remove" -ForegroundColor Red -NoNewline
+                Write-Host " $($script:deletedFiles.Count) file$plural" -ForegroundColor White
             }
         }
     }
