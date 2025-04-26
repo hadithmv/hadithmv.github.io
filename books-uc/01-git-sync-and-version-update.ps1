@@ -286,6 +286,45 @@ function Sync-Git {
         
         # Get changed files
         $changedFiles = $status -split "`n"
+        $script:changedFilesCount = $changedFiles.Count
+        
+        # Initialize counters for different types of changes
+        $script:addedFiles = @()
+        $script:modifiedFiles = @()
+        $script:deletedFiles = @()
+        
+        foreach ($file in $changedFiles) {
+            if ([string]::IsNullOrWhiteSpace($file)) { continue }
+            
+            $statusCode = $file.Substring(0, 2).Trim()
+            $filename = $file.Substring(2).Trim()
+            
+            if ($statusCode -eq "??" -or $statusCode.StartsWith("A")) {
+                $script:addedFiles += $filename
+            }
+            elseif ($statusCode.StartsWith("M")) {
+                $script:modifiedFiles += $filename
+            }
+            elseif ($statusCode.StartsWith("D")) {
+                $script:deletedFiles += $filename
+            }
+            else {
+                # Handle renamed, copied files, etc.
+                if ($statusCode.StartsWith("R")) {
+                    if ($file -match 'R\d*\s+(.*?)\s+->\s+(.*)') {
+                        $script:deletedFiles += $matches[1]
+                        $script:addedFiles += $matches[2]
+                    }
+                    else {
+                        $script:modifiedFiles += $filename
+                    }
+                }
+                else {
+                    $script:modifiedFiles += $filename
+                }
+            }
+        }
+        
         Write-Host "`n📝 Changed files ($($changedFiles.Count)):" -ForegroundColor Yellow
         foreach ($file in $changedFiles) {
             Write-Host "   $file"
@@ -371,11 +410,17 @@ try {
         Write-Host "🚀 Updated to version: " -ForegroundColor Green -NoNewline
         Write-Host "v$newVersion ✨" -ForegroundColor Yellow
     
-        # Calculate the number of changed files from git status
         if ($gitSuccess) {
-            $changedFilesCount = ($changedFiles.Count)
-            Write-Host "📄 Changes: " -ForegroundColor Blue -NoNewline
-            Write-Host "Update $changedFilesCount files" -ForegroundColor White
+            # Show detailed file changes breakdown
+            if ($script:addedFiles.Count -gt 0) {
+                Write-Host "➕ Add $($script:addedFiles.Count) file$((if ($script:addedFiles.Count -ne 1) { 's' } else { '' }))" -ForegroundColor Green
+            }
+            if ($script:modifiedFiles.Count -gt 0) {
+                Write-Host "📝 Update $($script:modifiedFiles.Count) file$((if ($script:modifiedFiles.Count -ne 1) { 's' } else { '' }))" -ForegroundColor Blue
+            }
+            if ($script:deletedFiles.Count -gt 0) {
+                Write-Host "❌ Remove $($script:deletedFiles.Count) file$((if ($script:deletedFiles.Count -ne 1) { 's' } else { '' }))" -ForegroundColor Red
+            }
         }
     }
     else {
