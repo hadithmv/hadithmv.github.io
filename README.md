@@ -112,9 +112,9 @@ Hadithmv has emerged as a leading digital platform for Islamic material in Dhive
 
 • Sam’aany’s Giving Victory to the People of Hadith
 
-• Abu ’Ubaid’s Book of Faith
-
 • Soabuni’s Creed of the Salaf
+
+• Abu ’Ubaid’s Book of Faith
 
 • MBAW’s The Nullifiers of Islam
 

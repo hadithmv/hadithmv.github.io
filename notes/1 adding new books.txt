@@ -4,9 +4,12 @@ update:	title
 	json column titles/numbers, lines if need be
 
 then update:
+	index (title attribute too)
+	nav js
 	faq
-	supportHmv page
-	home page entry
+	supportHmv
+	readme
+	play store listing
 	jaamiu entry
 
 update sitemap
@@ -15,4 +18,3 @@ run deadlinkchecker.com/website-dead-link-checker.asp
 iulaan on hmv social media
 
 ship android and windows releases
-update Play Store info
