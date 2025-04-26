@@ -72,7 +72,7 @@ Hadithmv has emerged as a leading digital platform for Islamic material in Dhive
 
 • 15 Books of Aqida and Usooluddeen
 
-• 6 Dictionaries - with around 150,000 entries
+• 7 Dictionaries - with around 150,000 entries
 
 ### 📘 Featured books of Hadith and Athar:
 
@@ -148,7 +148,9 @@ Hadithmv has emerged as a leading digital platform for Islamic material in Dhive
 
 • Al Eegaal Arabic Dhivehi Dictionary
 
-• Concise Etymological Vocabulary - English Dhivehi
+• Concise Etymological Vocabulary - En Dv
+
+• Ahmad Fahmy’s Dictionary - Ar En Dv
 
 • Dhivehi Word Separation Rules
 
