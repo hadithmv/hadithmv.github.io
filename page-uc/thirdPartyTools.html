@@ -3,7 +3,7 @@
   <head>
     <meta name="google" content="notranslate" />
     <!-- CHANGE !!! -->
-    <title>File Types, Lines of Code & Third Party Tools</title>
+    <title>Third Party Tools</title>
     <meta
       name="description"
       content="The Dhivehi Platform for the Sunnah | ދިވެހިންގެ ސުންނަތުގެ މަންސަ"
@@ -48,13 +48,24 @@
       onload="this.media='all'"
     />
     <script src="../js/navbar.js"></script>
-    <style></style>
+    <style>
+      /* needed for this page */
+      /* > tr:first-child > td:first-child */
+      table {
+        /* overflow-wrap: anywhere;
+        border-collapse: collapse;
+        width: 100%; */
+        font-size: 85%;
+      }
+    </style>
   </head>
 
   <body>
     <div id="navbar-container"></div>
     <div class="dtWrapper">
       <div class="hmvSection leftAlignedText ltrText">
+        <h2>File Types and Lines of Code</h2>
+
         <!-- cloc hadithmv.github.io --md -->
 
         <table>
@@ -298,6 +309,8 @@
         </table>
 
         <hr />
+
+        <h2>Third Party Tools</h2>
 
         <p>https://github.com/h5bp/html5-boilerplate -MIT</p>
         <p>https://github.com/necolas/normalize.css -MIT</p>
