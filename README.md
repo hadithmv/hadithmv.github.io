@@ -60,7 +60,7 @@ We embrace modern technology as a powerful tool given by Allah to facilitate Da�
 
 ## 📚 What We Offer
 
-Hadithmv has emerged as a leading digital platform for Islamic material in Dhivehi, delivering over 80 digital publications and attracting around 4000 website visitors a month. It has been downloaded more than 12,000 times, with over 5000 users on mobile, along with a 4.8 star rating. Hadithmv is made up of over 700,000 lines of code, has the most public Maldivian contributions on GitHub, with over 6000 commits. Hadithmv is established as a trusted source of Dhivehi content, and delivers essential Islamic resources to the Maldivian community, such as:
+Hadithmv has emerged as a leading digital platform for Islamic material in Dhivehi, delivering over 80 digital publications and attracting around 4000 website visitors a month. It has been downloaded more than 12,000 times, with over 5000 users on mobile, along with a 4.8 star rating. Hadithmv is made up of over 700,000 lines of code, has the most public Maldivian contributions on GitHub, with over 6000 commits. It is established as a trusted source of Dhivehi content, and delivers essential Islamic resources to the Maldivian community, such as:
 
 ### ✅ Core Collections
 
