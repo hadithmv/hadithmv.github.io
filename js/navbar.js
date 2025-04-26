@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.3.79";
+var hmvVersionNo = "6.3.80";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
@@ -200,28 +200,28 @@ function createNavbar() {
               <a
                 href="../books/quranHadithmv.html"
                 onclick="changeBook('quranHadithmv'); return false;" title="Hadithmv Translation"
-                >ޙަދީޘްއެމްވީގެ ތަރުޖަމާ</a
+                >1 ޙަދީޘްއެމްވީގެ ތަރުޖަމާ</a
               >
             </li>
             <li>
               <a
                 href="../books/quranRasmee.html"
                 onclick="changeBook('quranRasmee'); return false;" title="Official Translation"
-                >ރަސްމީ ތަރުޖަމާ</a
+                >2 ރަސްމީ ތަރުޖަމާ</a
               >
             </li>
             <li>
               <a
                 href="../books/quranBakurube.html"
                 onclick="changeBook('quranBakurube'); return false;"title="Bakurube Translation"
-                >ބަކުރުބެގެ ތަރުޖަމާ</a
+                >3 ބަކުރުބެގެ ތަރުޖަމާ</a
               >
             </li>
             <li>
               <a
                 href="../books/quranJaufar.html"
                 onclick="changeBook('quranJaufar'); return false;"title="Jaufar Tafsir"
-                >ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު*</a
+                >4 ޖަޢުފަރުގެ ތަފްސީރު*</a
               >
             </li>
             <li>
@@ -232,7 +232,7 @@ function createNavbar() {
             </li>
             <li>
               <a href="../books/quranUshru.html" title="Tafsir of Last 10th"
-                >ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު</a
+                >6 ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު</a
               >
             </li>
           </ul>
@@ -244,41 +244,49 @@ function createNavbar() {
           <ul class="sub-navbar-dropdown-content">
             <li>
               <a href="../books/allAthar.html" title="Hadith Compilation"
-                >އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</a
+                >0 އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</a
               >
             </li>
             <li>
-              <a href="../books/muwattaMalik.html" title="Muwatta Malik">މުވައްޠައު މާލިކު*</a>
+              <a href="../books/muwattaMalik.html" title="Muwatta Malik">1 މުވައްޠައު މާލިކު*</a>
             </li>
             <li>
-              <a href="../books/umdathulAhkam.html" title="Umdathul Ahkam">ޢުމްދަތުލް އަޙްކާމް</a>
+              <a href="../books/umdathulAhkam.html" title="Umdathul Ahkam">2 ޢުމްދަތުލް އަޙްކާމް</a>
             </li>
             <li>
-              <a href="../books/hisnulMuslim.html" title="Hisnul Muslim">މުސްލިމުންގެ ކިއްލާ</a>
+              <a href="../books/hisnulMuslim.html" title="Hisnul Muslim">3 މުސްލިމުންގެ ކިއްލާ</a>
             </li>
             <li>
               <a href="../books/arbaoonAajurry.html" title="Aajurrys’ 40 Hadith"
-                >އާޖުއްރީގެ ސާޅީސް ޙަދީޘް*</a
+                >4 އާޖުއްރީގެ ސާޅީސް ޙަދީޘް*</a
+              >
+            </li>
+            <li>
+              <a href="../books/kithabulIlmAbiKhaithama.html" title="Abu Khaithama’s Book of Knowledge"
+                >5 އަބޫ ޚައިޘަމާ ލިޔުނު އިލްމުގެ ފޮތް</a
               >
             </li>
             <li>
               <a href="../books/akhbaruShuyukh.html" title="Manners of the Sheikhs"
-                >ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާގު</a
+                >6 ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާގު</a
               >
             </li>
             <li>
-              <a href="../books/akhlaqHamalathilQuran.html" title="Etiqutte of the carriers of the Quran"
-                >އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a
+              <a href="../books/akhlaqHamalathilQuran.html" title="Manners of the Quran Carriers"
+                >7 އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a
               >
             </li>
             <li>
-              <a href="../books/bulughulMaram.html" title="Bulughul Maram">ބުލޫޣުލް މަރާމް*</a>
+              <a href="../books/bulughulMaram.html" title="Bulughul Maram">8 ބުލޫޣުލް މަރާމް*</a>
             </li>
             <li>
-              <a href="../books/arbaoonNawawi.html" title="40 Nawawi">ނަވަވީގެ ސާޅީސް ޙަދީޘް</a>
+              <a href="../books/arbaoonNawawi.html" title="40 Nawawi">9 ނަވަވީގެ ސާޅީސް ޙަދީޘް</a>
             </li>
             <li>
-              <a href="../books/riyaduSaliheen.html" title="Riyadussaaliheen">ރިޔާޟުއްޞާލިޙީން*</a>
+              <a href="" title=""></a>
+            </li>
+            <li>
+              <a href="../books/riyaduSaliheen.html" title="Riyadussaaliheen">11 ރިޔާޟުއްޞާލިޙީން*</a>
             </li>
           </ul>
         </li>
@@ -289,49 +297,69 @@ function createNavbar() {
           <ul class="sub-navbar-dropdown-content">
             <li>
               <a href="../books/allAqida.html" title="Aqida Compilation"
-                >އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</a
+                >0 އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</a
+              >
+            </li>
+            <li>
+              <a href="../books/usooluSunnahAhmed.html" title="Allah’s Most Beautiful Names"
+                >1 ﷲ ގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް</a
               >
             </li>
             <li>
               <a href="../books/usooluSunnahAhmed.html" title="Ahmed’s Foundations of the Sunnah"
-                >އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް*</a
+                >2 އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް*</a
               >
             </li>
             <li>
               <a href="../books/sharhuSunnahBarbahari.html" title="Barbahari’s Explanation of the Creed"
-                >ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ*</a
+                >3 ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ*</a
               >
             </li>
             <li>
-              <a href="../books/aqidatuRaziyain.html" title="Creed of the 2 Razis">ދެ ރާޒީންގެ އަގީދާ*</a>
+              <a href="../books/aqidatuRaziyain.html" title="Creed of the 2 Razis">4 ދެ ރާޒީންގެ އަގީދާ*</a>
             </li>
             <li>
-              <a href="../books/kitabulEmanAbiUbaid.html" title="Abu Ubaid’s Book of Faith"
-                >އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</a
+              <a href="../books/kalimathulIkhlas.html" title="Ibn Rajab’s Attainment of the Statement of Ikhlas"
+                >5 އިބްނު ރަޖަބު ލިޔުނު އިޚްލާސްގެ ކަލިމަ</a
+              >
+            </li>
+            <li>
+              <a href="../books/talkhisKitabiShariah.html" title="Summary of Aajurry’s Book of Shariah"
+                >6 އާޖުއްރީ ލިޔުނު ޝަރީއަތް ފޮތުގެ އަގީދާގެ ޚުލާސާއެއް</a
               >
             </li>
             <li>
               <a href="../books/intisarLiAshabilHadith.html" title="Giving Victory to the People of Hadith"
-                >ޙަދީޘްގެ އަސްހާބުންނަށް ނަސްރުދިނުން</a
+                >7 ޙަދީޘްގެ އަސްހާބުންނަށް ނަސްރުދިނުން</a
+              >
+            </li>
+            <li>
+              <a href="../books/aqidatuSalafSoabuni.html" title="Soabuni’s Creed of the Salaf"
+                >8 އަބޫ ޢުޘްމާން އައްޞާބޫނީ ލިޔުނު ސަލަފުންގެ އަގީދާ</a
+              >
+            </li>
+            <li>
+              <a href="../books/kitabulEmanAbiUbaid.html" title="Abu Ubaid’s Book of Faith"
+                >9 އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</a
               >
             </li>
             <li>
               <a href="../books/nawaqidulIslam.html" title="Nullifiers of Islam"
-                >އިސްލާމްކަން ގެއްލޭ ކަންތައް</a
+                >10 އިސްލާމްކަން ގެއްލޭ ކަންތައް</a
               >
             </li>
             <li>
-              <a href="../books/qawaidulArbau.html" title="4 Fundamental Principles (of Shirk)">ހަތަރު ގަވާއިދު</a>
+              <a href="../books/qawaidulArbau.html" title="4 Fundamental Principles (of Shirk)">11 ހަތަރު ގަވާއިދު</a>
             </li>
             <li>
-              <a href="../books/usooluSiththa.html" title="6 Principles (of Monotheism)">ހަ އުސޫލު*</a>
+              <a href="../books/usooluSiththa.html" title="6 Principles (of Monotheism)">12 ހަ އުސޫލު*</a>
             </li>
             <li>
-              <a href="../books/usooluThalaatha.html" title="3 Principles (of Monotheism)">ތިން އުސޫލު</a>
+              <a href="../books/usooluThalaatha.html" title="3 Principles (of Monotheism)">13 ތިން އުސޫލު</a>
             </li>
             <li>
               <a href="../books/quranUshru.html#tableID=:p69.html" title="Important Rulings for Muslims"
-                >މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް</a
+                >14 މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް</a
               >
             </li>
             <li>
