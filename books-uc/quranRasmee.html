@@ -785,9 +785,12 @@
       // Initialize the DataTable with configuration
       table = new DataTable("#tableID", {
         ...DTconfig,
+
         ajax: {
           url: `${baseJsonUrl}quranData_juz-surah-ayahNo-basmalah-ayahImlai.json`,
+          // dataSrc: "",
           dataSrc: function (json) {
+            // console.log("Initial JSON loaded, current page:", table.page());
             // Store the initial data when main JSON is loaded
             originalData = json.map((row) =>
               Array.isArray(row) ? [...row] : Object.values(row)
@@ -797,30 +800,39 @@
         },
         columns: getAllColumnDefinitions(),
         initComplete: function () {
-          // Hide all additional columns initially
-          additionalJsons.forEach((json) => {
-            const columnIndices = getColumnIndices(json.name);
-            columnIndices.forEach((colIndex) => {
-              table.column(colIndex).visible(false);
+          // console.log("Table initComplete, current page:", table.page());
+
+          // Wait for next tick to ensure table state is fully set up
+          setTimeout(() => {
+            const initialPage = table.page();
+            // console.log("Initial page after setup:", initialPage);
+
+            // Hide all additional columns initially
+            additionalJsons.forEach((json) => {
+              const columnIndices = getColumnIndices(json.name);
+              columnIndices.forEach((colIndex) => {
+                table.column(colIndex).visible(false);
+              });
             });
-          });
 
-          // Load default translation with specified columns
-          defaultColumns.forEach((colIndex) => {
-            toggleTranslation(defaultAdditionalJson, colIndex);
-          });
+            // Load default translation with specified columns
+            defaultColumns.forEach((colIndex) => {
+              // console.log("Loading default translation column:", colIndex);
+              toggleTranslation(defaultAdditionalJson, colIndex, initialPage);
+            });
 
-          // Initialize navigation and update counts
-          initializeNavigationBoxes();
-          table.rows().every(function (rowIdx, tableLoop, rowLoop) {
-            var data = this.data();
-            var surah = parseInt(data[1]);
-            var ayah = parseInt(data[2]);
-            ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
-          });
+            // Initialize navigation and update counts
+            initializeNavigationBoxes();
+            table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+              var data = this.data();
+              var surah = parseInt(data[1]);
+              var ayah = parseInt(data[2]);
+              ayahCounts[surah] = Math.max(ayahCounts[surah] || 0, ayah);
+            });
 
-          // Set initial values
-          updateAllQValues(table.row(0).data());
+            // Set initial values
+            updateAllQValues(table.row(0).data());
+          }, 0);
         },
         columnDefs: [
           {

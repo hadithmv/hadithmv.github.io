@@ -733,13 +733,22 @@ function getAllColumnDefinitions() {
 }
 
 // Toggles visibility of a specific translation column
-function toggleTranslation(a, e) {
+function toggleTranslation(a, e, initialPage) {
   // Find the translation configuration
   var t = additionalJsons.find((e) => e.name === a);
   const n = getColumnIndices(a),
     r = n[0], // Title column index
     i = n[e + 1], // Data column index
-    l = table.page(); // Current page number
+    l = initialPage !== undefined ? initialPage : table.page(); // Use initial page if provided
+
+  console.log(
+    "toggleTranslation called for:",
+    a,
+    "column:",
+    e,
+    "using page:",
+    l
+  );
 
   // If translation is already loaded
   if (additionalColumns.includes(a)) {
@@ -749,14 +758,28 @@ function toggleTranslation(a, e) {
     table.column(r).visible(!(1 === t.length && e === t[0] - 1));
     // Toggle content column visibility
     table.column(i).visible(!table.column(i).visible());
+    console.log(
+      "Redrawing table after toggling existing translation, page:",
+      l
+    );
     table.draw();
     table.page(l).draw("page");
   }
   // If translation needs to be loaded
   else {
     additionalColumns.push(a);
+    // Store current page state
+    const currentPage = l;
+    console.log("Storing current page state:", currentPage);
+
     // Load translation data from JSON file
     $.getJSON(`${baseJsonUrl}${a}.json`, function (e) {
+      console.log(
+        "Additional JSON loaded for:",
+        a,
+        "stored page:",
+        currentPage
+      );
       const t = table.data().toArray();
       // Add translation data to existing table data
       t.forEach((t, n) => {
@@ -771,10 +794,14 @@ function toggleTranslation(a, e) {
       });
 
       // Update table with new data
+      console.log(
+        "Redrawing table after loading new translation, restoring page:",
+        currentPage
+      );
       table.clear().rows.add(t).draw();
       table.column(r).visible(!0);
       table.column(i).visible(!0);
-      table.page(l).draw("page");
+      table.page(currentPage).draw("page");
     }).fail(function (a, e, t) {
       console.error("Error loading translation:", t);
     });
