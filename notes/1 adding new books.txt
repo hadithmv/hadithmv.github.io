@@ -11,10 +11,11 @@ then update:
 	readme
 	play store listing
 	jaamiu entry
+	kunnaasha / quran hmv / muwatta
 
 update sitemap
 run deadlinkchecker.com/website-dead-link-checker.asp
 	
 iulaan on hmv social media
 
-ship android and windows releases
+ship android (update version code manually) and windows releases
