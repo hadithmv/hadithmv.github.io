@@ -132,7 +132,7 @@ Hadithmv has emerged as a leading digital platform for Islamic material in Dhive
 
 • Bakurubey’s Quran Translation
 
-• Jaufar’s Quran Tafsir
+<!-- • Jaufar’s Quran Tafsir -->
 
 • Tafsir of the Last Tenth of the Quran
 
@@ -144,7 +144,7 @@ Hadithmv has emerged as a leading digital platform for Islamic material in Dhive
 
 • Dictionary of Names
 
-• Dictionary of Quranic Words
+• Dictionary of Quranic Words - Ar Dv En
 
 • Al Eegaal Arabic Dhivehi Dictionary
 

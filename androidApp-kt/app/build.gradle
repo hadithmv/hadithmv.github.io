@@ -11,8 +11,8 @@ android {
         applicationId "com.hadithmv.hmv"
         minSdk 24
         targetSdk 35
-        versionCode 93
-        versionName "4.1.37"
+        versionCode 94
+        versionName "6.3.83"
      
      // https://stackoverflow.com/questions/39654620/android-how-to-change-specific-name-of-the-generated-apk-file-in-android-studio/55333735#55333735
        archivesBaseName = "hadithmv"

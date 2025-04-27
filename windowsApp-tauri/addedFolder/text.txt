@@ -1,4 +1,5 @@
 location: hadithmv.github.io\windowsApp-tauri\Hadithmv
+(C:\Users\ashra\Downloads\VScode\hadithmv.github.io\windowsApp-tauri\Hadithmv)
 
 ...
 
@@ -18,6 +19,8 @@ hadithmv.github.io\windowsApp-tauri\tauri-hadithmv> npm run tauri dev
 Building
 Tauri builds your application directly from its CLI via the build, android build and ios build commands.
 npm run tauri build
+
+C:\Users\ashra\Downloads\VScode\hadithmv.github.io\windowsApp-tauri\Hadithmv\src-tauri\target\release
 
 ...
 
