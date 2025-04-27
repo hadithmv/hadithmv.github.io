@@ -130,7 +130,7 @@ Hadithmv has emerged as a leading digital platform for Islamic material in Dhive
 
 • Dhivehi Quran Translation where Aqida issues of previous translations are being fixed
 
-• Bakurubey’s Quran Translation
+• Bakurube’s Quran Translation
 
 <!-- • Jaufar’s Quran Tafsir -->
 
