@@ -28,11 +28,11 @@ function MinifyHTML($inputFile, $outputFile) {
         # Read the content of the file
         $content = Get-Content -Path $inputFile -Raw -ErrorAction Stop
                 
-                # Replace .css with .min.css in link tags, being careful not to replace .min.css again
-                $content = $content -replace '(href="[^"]*?)(?<!\.min)\.css"', '$1.min.css"'
+        # Replace .css with .min.css in link tags, being careful not to replace .min.css again
+        $content = $content -replace '(href="[^"]*?)(?<!\.min)\.css"', '$1.min.css"'
         
-                # Replace .js with .min.js in script tags, being careful not to replace .min.js again
-                $content = $content -replace '(src="[^"]*?)(?<!\.min)\.js"', '$1.min.js"'
+        # Replace .js with .min.js in script tags, being careful not to replace .min.js again
+        $content = $content -replace '(src="[^"]*?)(?<!\.min)\.js"', '$1.min.js"'
         
         # Create a temporary file for the modified content
         $tempFile = [System.IO.Path]::GetTempFileName()
@@ -249,7 +249,7 @@ try {
         "noFiliExceptions.js",
         @{
             Input  = "unitConverter/UnitOf.js"
-            Output = "../page/unitConverter.js"
+            Output = "../page/unitConverter.min.js"
         }
     )
     
