@@ -751,12 +751,19 @@
           <a href="https://www.microsoft.com/en-us/edge" target="_blank"
             >Microsoft Edge</a
           >
-          - Fast Chromium-based browser
         </p>
 
-        <!-- use extension: Extension List -->
+        <!-- last done: 5/5/25
+         use extension: Extension List
+         https://chromewebstore.google.com/detail/extension-list/cboicfdginkkdfppcjighdkchdlebdjp?hl=en
+         export to csv
+         load in tableconvert
+         copy first column only
+         convert to unordered list
+          -->
 
         <ul>
+          <li>Name</li>
           <li>Chrome Regex Search</li>
           <li>Dark Reader</li>
           <li>Extension List</li>
@@ -765,17 +772,14 @@
           <li>Google Translate</li>
           <li>HTML & CSS Design Analysis</li>
           <li>Lighthouse</li>
-          <li>Linkclump</li>
           <li>Markdown Viewer</li>
           <li>New Tab Draft</li>
-          <li>React Developer Tools</li>
+          <li>Open Selected Links</li>
           <li>Refined GitHub</li>
-          <li>SuperCopy, Allow Right Click and Copy</li>
           <li>Tab Manager by Workona</li>
-          <li>Tab Manager Plus for Chrome</li>
           <li>Tab Suspender by Workona</li>
           <li>Table Capture</li>
-          <li>Tidy Tab Groups</li>
+          <li>Tidy Tabs</li>
           <li>uBlock Origin</li>
         </ul>
 
@@ -787,18 +791,25 @@
           <a href="https://code.visualstudio.com" target="_blank"
             >Visual Studio Code</a
           >
-          - Lightweight and powerful source code editor
         </p>
 
-        <!-- use command:  code --list-extensions -->
+        <!-- last done: 5/5/25
+        use command:  code --list-extensions
+        convert to unordered list
+        -->
 
         <ul>
           <li>aaron-bond.better-comments</li>
           <li>alexcvzz.vscode-sqlite</li>
           <li>arturodent.problems-copy</li>
+          <li>bierner.markdown-preview-github-styles</li>
+          <li>bmewburn.vscode-intelephense-client</li>
+          <li>bradlc.vscode-tailwindcss</li>
           <li>brapifra.phpserver</li>
+          <li>burkeholland.simple-react-snippets</li>
           <li>cwan.native-ascii-converter</li>
           <li>davidanson.vscode-markdownlint</li>
+          <li>dsznajder.es7-react-js-snippets</li>
           <li>eamodio.gitlens</li>
           <li>eldargerfanov.leet-html</li>
           <li>esbenp.prettier-vscode</li>
@@ -809,31 +820,48 @@
           <li>github.remotehub</li>
           <li>github.vscode-github-actions</li>
           <li>github.vscode-pull-request-github</li>
+          <li>gruntfuggly.todo-tree</li>
           <li>htmlhint.vscode-htmlhint</li>
+          <li>ibm.output-colorizer</li>
+          <li>influrium.haxe-jsx</li>
           <li>jannisx11.batch-rename-extension</li>
+          <li>jock.svg</li>
+          <li>johnpapa.vscode-peacock</li>
           <li>kisstkondoros.vscode-gutter-preview</li>
           <li>lacroixdavid1.vscode-format-context-menu</li>
           <li>lengmo.json-table-viewer</li>
           <li>leodevbro.blockman</li>
           <li>lewissteele.vscode-sql-lint</li>
           <li>mechatroner.rainbow-csv</li>
+          <li>mhutchie.git-graph</li>
+          <li>michaelcurrin.auto-commit-msg</li>
           <li>mkxml.vscode-filesize</li>
+          <li>ms-python.debugpy</li>
+          <li>ms-python.isort</li>
+          <li>ms-python.python</li>
+          <li>ms-python.vscode-pylance</li>
+          <li>ms-toolsai.vscode-jupyter-cell-tags</li>
+          <li>ms-toolsai.vscode-jupyter-slideshow</li>
           <li>ms-vscode-remote.remote-wsl</li>
           <li>ms-vscode.live-server</li>
           <li>ms-vscode.powershell</li>
           <li>ms-vscode.remote-repositories</li>
+          <li>msjsdiag.vscode-react-native</li>
           <li>naumovs.color-highlight</li>
+          <li>ntkhang03.run-file-command</li>
+          <li>onecentlin.laravel-blade</li>
           <li>randomfractalsinc.vscode-data-preview</li>
           <li>rioj7.vscode-remove-comments</li>
-          <li>shd101wyy.markdown-preview-enhanced</li>
           <li>techer.open-in-browser</li>
           <li>tombonnike.vscode-status-bar-format-toggle</li>
+          <li>tomoki1207.pdf</li>
           <li>tyriar.vscode-terminal-here</li>
           <li>vincaslt.highlight-matching-tag</li>
           <li>vscode-icons-team.vscode-icons</li>
+          <li>xdebug.php-debug</li>
           <li>yandeu.five-server</li>
           <li>yzane.markdown-pdf</li>
-          <li>yzhang.markdown-all-in-one</li>
+          <li>zhang-renyang.vscode-react</li>
         </ul>
 
         <hr />
@@ -841,10 +869,11 @@
         <h3>• Node & NPM Packages:</h3>
 
         <p>
-          <a href="https://nodejs.org" target="_blank">Node.js</a> - JavaScript
-          runtime environment
+          <a href="https://nodejs.org" target="_blank">Node.js</a>
         </p>
-        <!-- use command:  npm list -g --json | node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync(0, 'utf-8')).dependencies).join('\n'))" -->
+
+        <!-- last done: ???
+         use command:  npm list -g --json | node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync(0, 'utf-8')).dependencies).join('\n'))" -->
 
         <ul>
           <li>cssnano</li>
@@ -867,19 +896,26 @@
 
         <h3>• Windows Software & Programs:</h3>
 
-        <!-- use: nirsoft uninstallview, view choose columns, deselect all but first, (alphabetical order?) copy list, remove 'Display Name' first item -->
+        <!-- last done: 5/5/25
+         use: nirsoft uninstallview, vie, choose columns, deselect all but first, (alphabetical order?) select all, right click, copy list, remove first item 'Display Name'
+         convert to unordered list -->
 
+        <ul>
+          <li>Upgrade hardware if needed (esp. memory)</li>
+          <li>Defragment drive</li>
+        </ul>
+        <!--  -->
         <ul>
           <li>7-Zip 24.09 (x64)</li>
           <li>Acer Display Widget</li>
           <li>Adobe Acrobat (64-bit)</li>
-          <li>Adobe Illustrator 2023</li>
           <li>Adobe InDesign 2023</li>
           <li>Adobe Photoshop 2024</li>
           <li>Advanced SystemCare</li>
           <li>Android Studio</li>
           <li>Arclab Dir2HTML 4.1</li>
           <li>Aria2 Manager</li>
+          <li>Browser for SQL Server 2022</li>
           <li>calibre 64bit</li>
           <li>Canon Easy-PhotoPrint Editor</li>
           <li>Canon Easy-PhotoPrint EX</li>
@@ -893,26 +929,29 @@
           <li>Canon My Image Garden Design Files</li>
           <li>Canon Quick Menu</li>
           <li>Canon Wi-Fi Connection Assistant</li>
+          <li>CPUID CPU-Z 2.15</li>
           <li>Cursor (User)</li>
-          <li>Cursor 0.45.14</li>
           <li>DB Browser for SQLite</li>
-          <li>DecSoft HTML Compiler</li>
+          <li>Dell SupportAssist</li>
+          <li>Dell SupportAssist OS Recovery Plugin for Dell Update</li>
+          <li>draw.io 26.2.15</li>
           <li>EaseUS Fixo</li>
-          <li>Espanso version 2.2.1</li>
+          <li>Espanso version 2.2.3</li>
           <li>Everything 1.4.1.1026 (x64)</li>
           <li>Fast Node Manager</li>
           <li>Git</li>
           <li>GitHub Desktop</li>
-          <li>Glary Utilities 6.22</li>
+          <li>Glary Utilities 6.25</li>
           <li>Google Drive</li>
           <li>GPL Ghostscript</li>
+          <li>Herd</li>
           <li>High-Logic MainType 12</li>
           <li>HP Connection Optimizer</li>
           <li>Intel® Hardware Accelerated Execution Manager</li>
           <li>IObit Uninstaller 14</li>
           <li>IObit Unlocker</li>
           <li>IrfanView 4.70 (64-bit)</li>
-          <li>Java 8 Update 441 (64-bit)</li>
+          <li>Java 8 Update 451 (64-bit)</li>
           <li>Java(TM) SE Development Kit 20.0.2 (64-bit)</li>
           <li>Laragon 6.0.0</li>
           <li>LDPlayer</li>
@@ -921,7 +960,12 @@
           <li>Meld</li>
           <li>Microsoft 365 Apps for enterprise - en-us</li>
           <li>Microsoft Edge</li>
+          <li>Microsoft Help Viewer 2.3</li>
+          <li>Microsoft ODBC Driver 17 for SQL Server</li>
+          <li>Microsoft OLE DB Driver for SQL Server</li>
           <li>Microsoft OneDrive</li>
+          <li>Microsoft SQL Server 2022 Setup (English)</li>
+          <li>Microsoft SQL Server Management Studio - 20.2.1</li>
           <li>Microsoft Teams Meeting Add-in for Microsoft Office</li>
           <li>Microsoft Update Health Tools</li>
           <li>Microsoft Visual C++ 2005 Redistributable</li>
@@ -929,6 +973,7 @@
             Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.6161
           </li>
           <li>Microsoft Visual C++ 2010 x64 Redistributable - 10.0.40219</li>
+          <li>Microsoft Visual C++ 2010 x86 Redistributable - 10.0.40219</li>
           <li>Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030</li>
           <li>Microsoft Visual C++ 2012 Redistributable (x86) - 11.0.61030</li>
           <li>Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.40664</li>
@@ -941,10 +986,11 @@
           </li>
           <li>Microsoft Visual Studio Code (User)</li>
           <li>Microsoft Visual Studio Installer</li>
-          <li>Microsoft Windows Desktop Runtime - 8.0.14 (x64)</li>
+          <li>Microsoft Visual Studio Tools for Applications 2019</li>
+          <li>Microsoft VSS Writer for SQL Server 2022</li>
+          <li>Microsoft Windows Desktop Runtime - 8.0.15 (x64)</li>
           <li>MSYS2</li>
           <li>Mushaf Publication</li>
-          <li>NetBalancer</li>
           <li>Node.js</li>
           <li>Notepad++ (64-bit x64)</li>
           <li>Obsidian</li>
@@ -954,18 +1000,21 @@
           <li>PowerToys (Preview) x64</li>
           <li>Printer Registration</li>
           <li>Python 2.7.18 (64-bit)</li>
-          <li>Python 3.12.9 (64-bit)</li>
+          <li>Python 3.12.10 (64-bit)</li>
+          <li>Python 3.13.3 (64-bit)</li>
           <li>Python Launcher</li>
           <li>Q-Dir</li>
           <li>Q-Dir</li>
           <li>Razer Synapse</li>
           <li>Rustup: the Rust toolchain installer</li>
           <li>Scratch 3 3.29.1</li>
-          <li>Signal 7.46.0</li>
+          <li>Signal 7.53.0</li>
           <li>SmartControl</li>
+          <li>Speccy</li>
           <li>SQLiteStudio</li>
           <li>SumatraPDF</li>
-          <li>TablePlus 6.4.0</li>
+          <li>TablePlus 6.4.8</li>
+          <li>taskbar-monitor</li>
           <li>TeamViewer</li>
           <li>Telegram Desktop</li>
           <li>UniGetUI</li>
@@ -984,8 +1033,9 @@
         </ul>
 
         <!-- 
-        below are programs that do not appear on the lsit above
+        below are programs that do not appear on the list above, so kept them there seperately
          -->
+
         <ul>
           <li>Shamela</li>
           <li>JADX</li>
@@ -995,9 +1045,11 @@
 
         <h3>• Android Apps:</h3>
 
-        <!-- use: App Manager, com.lbapp_manager, give file permissions, hold and select all apps, share, what to share: App names only, tg 
+        <!-- last done: 5/5/25
+        use: App Manager, com.lbapp_manager, give file permissions, usage permissions, hold one app to select it first, then click 1/no and select all apps, share, what to share: App names 'only', send to tg 
+        convert to unordered list
          
-        REMEMBER TO REMOVE:
+        ! REMEMBER TO REMOVE:
         Binance
         What to Expect -->
 
@@ -1009,6 +1061,7 @@
           <li>Apps Backup Restore</li>
           <li>Authenticator</li>
           <li>Avas App</li>
+          <li>Avas Ride</li>
           <li>Ayah</li>
           <li>BML Mobile</li>
           <li>Brilliant</li>
@@ -1033,6 +1086,7 @@
           <li>FaisaMobile</li>
           <li>Firefox</li>
           <li>Gallery Editor</li>
+          <li>Gemini</li>
           <li>Haasiboo</li>
           <li>Hadith Collection</li>
           <li>Hadithmv</li>
@@ -1043,16 +1097,23 @@
           <li>Link to Windows</li>
           <li>LinkedIn</li>
           <li>mamen</li>
+          <li>MetricS</li>
           <li>Mi Doc Viewer (Powered by WPS)</li>
           <li>Mi Home</li>
           <li>Mi Remote</li>
           <li>Mi Store</li>
           <li>Microsoft SwiftKey Keyboard</li>
+          <li>Mimo</li>
           <li>Namaadhu</li>
           <li>Notes</li>
+          <li>OneDrive</li>
+          <li>OneNote</li>
+          <li>Outlook</li>
+          <li>PDF Reader - Hi Read</li>
           <li>Play Console</li>
           <li>QueueBee</li>
           <li>Quran</li>
+          <li>Quranly</li>
           <li>Radheef</li>
           <li>ReadEra</li>
           <li>Recorder</li>
@@ -1063,17 +1124,20 @@
           <li>ShareMe</li>
           <li>Sheets</li>
           <li>Signal</li>
+          <li>SIMDI Online</li>
+          <li>Simple Markdown</li>
           <li>Tasks</li>
+          <li>Teams</li>
           <li>Telegram</li>
           <li>Translate</li>
           <li>Ultrasurf VPN</li>
-          <li>Ummah</li>
           <li>Viber</li>
           <li>VLC</li>
           <li>Wallpaper Carousel</li>
           <li>Weather</li>
           <li>WhatsApp</li>
           <li>X</li>
+          <li>Zoom</li>
           <li>المعاني عربي إنجليزي</li>
           <li>المعاني عربي عربي</li>
           <li>المكتبة الشاملة</li>
