@@ -196,3 +196,8 @@ Rename new repo to be the same as old, this way the github pages works for that.
 How to navigate to the earliest commit in a repository?
 
 https://stackoverflow.com/questions/28533602/how-to-navigate-to-the-earliest-commit-in-a-repository/68779188#68779188
+
+...
+
+Redirecting a whole domain with Cloudflare
+https://til.simonwillison.net/cloudflare/redirect-whole-domain
