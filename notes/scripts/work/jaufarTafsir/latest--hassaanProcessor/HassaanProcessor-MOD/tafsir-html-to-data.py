@@ -69,6 +69,8 @@ def clean_text(element):
     if not element: return ""
     text = element.get_text(separator='', strip=True) # Using separator=''
     text = normalize_str(text)
+    # Remove Mushaf Madina font characters (U+FC50 to U+FC9F and U+FCA0 to U+FCFF)
+    text = re.sub(r'[\uFC50-\uFCFF]+', '', text)
     text = re.sub(r'\s+', ' ', text).strip()
     # Replace the space marker with an actual space
     text = text.replace('__SPACE__', ' ')
@@ -76,7 +78,8 @@ def clean_text(element):
 
 def is_quranic_script(text):
     if not text: return False
-    thaana_pattern = re.compile(r'[\u0780-\u07BF]')
+    # Add both ranges of Mushaf Madina font characters to the exclusion list
+    thaana_pattern = re.compile(r'[\u0780-\u07BF\uFC50-\uFCFF]')
     if thaana_pattern.search(text): return False
     if re.match(r'^\s*\((\d+)\)', text): return False
     quranic_chars=r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\u1EE00-\u1EEFF]'
