@@ -2,6 +2,18 @@ INSTRUCTIONS:
 
 ...
 
+
+also need to change all
+(\d)
+change to: (write nothing)
+
+find format:
+(advanced character formats) language: arabic
+change format:
+(advanced character formats) language: English usa
+
+...
+
 NOTE: AYAH NUMBERS MUST BE CORRECT AND SEQUENTIAL (NOT REVERSED NUMBERS) IN ORDER FOR THIS SCRIPT TO WORK ON THE HTML
 
 to correct reversed ayah numbers (if any):
@@ -30,6 +42,10 @@ $2$1
 
 ...
 
+
+
+...
+
 One issue is that when we clean up the <span> tags, some white space is getting removed.
 [ayah 24 of book 5]
 ...I think we can pre process the document from InDesign side or using regex after HTML output.
@@ -51,12 +67,150 @@ Advanced > Dont include classes in HTML
 ...
 
 Remove all the <span> tags in CODE EDITOR
+DO THIS ONLY ONCE! NOT MORE THAN ONCE! as the other times it highlights are needed for footnote numbers
 
 <span.*?>(.+?)</span>
 Replace with
 $1
 
 This should simplify the markup.
+
+...
+
+
+running the script will output to terminal stats like these below,
+check on excel and see whether all numbers are sequential, to ensure everything is as it should be:
+
+Found Aayah: 92
+Found Aayah: 93
+Found Aayah: 94
+Found Aayah: 95
+Found Aayah: 96
+Found Aayah: 97
+Found Aayah: 98
+Found Aayah: 99
+Found Aayah: 100
+Found Aayah: 101
+Found Aayah: 102
+Found Aayah: 103
+Found Aayah: 104
+Found Aayah: 105
+Found Aayah: 106
+Found Aayah: 107
+Found Aayah: 108
+Found Aayah: 109
+Found Aayah: 110
+Found Aayah: 111
+Found Aayah: 112
+Found Aayah: 113
+Found Aayah: 114
+Found Aayah: 115
+Found Aayah: 116
+Found Aayah: 117
+Found Aayah: 118
+Found Aayah: 119
+Found Aayah: 120
+Found Aayah: 121
+Found Aayah: 122
+Found Aayah: 123
+Found Aayah: 124
+Found Aayah: 125
+Found Aayah: 126
+Found Aayah: 127
+Found Aayah: 128
+Found Aayah: 129
+Found Aayah: 130
+Found Aayah: 131
+Found Aayah: 132
+Found Aayah: 133
+Found Aayah: 134
+Found Aayah: 135
+Found Aayah: 136
+Found Aayah: 137
+Found Aayah: 138
+Found Aayah: 139
+Found Aayah: 140
+Found Aayah: 141
+Found Aayah: 142
+Found Aayah: 143
+Found Aayah: 144
+Found Aayah: 145
+Found Aayah: 146
+Found Aayah: 147
+Found Aayah: 148
+Found Aayah: 149
+Found Aayah: 150
+Found Aayah: 151
+Found Aayah: 152
+Found Aayah: 153
+Found Aayah: 154
+Found Aayah: 155
+Found Aayah: 156
+Found Aayah: 157
+Found Aayah: 158
+Found Aayah: 159
+Found Aayah: 160
+Found Aayah: 161
+Found Aayah: 162
+Found Aayah: 163
+Found Aayah: 164
+Found Aayah: 165
+Found Aayah: 166
+Found Aayah: 167
+Found Aayah: 168
+Found Aayah: 169
+Found Aayah: 170
+Found Aayah: 171
+Found Aayah: 172
+Found Aayah: 173
+Found Aayah: 174
+Found Aayah: 175
+Found Aayah: 176
+Found Aayah: 177
+Found Aayah: 178
+Found Aayah: 179
+Found Aayah: 180
+Found Aayah: 181
+Found Aayah: 182
+Found Aayah: 183
+Found Aayah: 184
+Found Aayah: 185
+Found Aayah: 186
+Found Aayah: 187
+Found Aayah: 188
+Found Aayah: 189
+Found Aayah: 190
+Found Aayah: 191
+Found Aayah: 192
+Found Aayah: 193
+Found Aayah: 194
+Found Aayah: 195
+Found Aayah: 196
+Found Aayah: 197
+Found Aayah: 198
+Found Aayah: 1
+Found Aayah: 2
+Found Aayah: 3
+Found Aayah: 4
+Found Aayah: 5
+Found Aayah: 6
+Found Aayah: 7
+Found Aayah: 8
+Found Aayah: 9
+Found Aayah: 10
+Found Aayah: 11
+Found Aayah: 11
+Found Aayah: 13
+Found Aayah: 14
+Found Aayah: 15
+Found Aayah: 16
+Found Aayah: 17
+Found Aayah: 18
+Found Aayah: 19
+Found Aayah: 20
+Found Aayah: 21
+Found Aayah: 22
+Found Aayah: 23
 
 ...
 ...
@@ -242,7 +396,7 @@ i am still getting this error
 
 Traceback (most recent call last):
   File "c:\Users\ashra\Downloads\VScode\hadithmv.github.io\notes\scripts\work\jaufarTafsir\latest--hassaanProcessor\HassaanProcessor-MOD\tafsir-html-to-data.py", line 21, in <module>
-    normalize_str("���������"): 4,
+    normalize_str("         "): 4,
     ^^^^^^^^^^^^^
 NameError: name 'normalize_str' is not defined
 
