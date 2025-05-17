@@ -77,6 +77,9 @@ This should simplify the markup.
 
 ...
 
+remember there will be unwanted repeats of footnotes in the last row, of both the tafseer column as well as the footnotes column. remove them manually
+
+...
 
 running the script will output to terminal stats like these below,
 check on excel and see whether all numbers are sequential, to ensure everything is as it should be:
@@ -537,4 +540,100 @@ Added code in the clean_text function to replace this marker with an actual spac
 This approach should ensure that the space after the footnote number is preserved even after all the text processing. The special marker will be converted to a space at the very end of processing, which should prevent it from being lost or merged with other spaces.
 
 ...
+
+theres another issue,
+
+where mushaf madina custom font characters for the ayat are at the end of the cell text content in the tafsir column
+
+they could come after a new line, or right after the last line of text already there
+
+they look something like these
+
+ﱓﱔﱕﱖﱗﱘﱙﱚﱛﱜﱝ ﱞ ﱟ ﱠ
+ﱡ ﱢ ﱣﱤ ﱥ ﱦ ﱧ ﱨ ﱩ ﱪ ﱫ ﱬ
+
+ ﱭ ﱮ ﱯ ﱰ ﱱ ﱲ ﱳ ﱴ ﱵ ﱶ ﱷ ﱸ
+
+ﱹ ﱺ ﱻﱼ ﱽ ﱾ ﱿ ﲀ ﲁﲂ ﲃ ﲄ ﲅ ﲆ
+
+ ﲒ ﲓ ﲔ ﲕ ﲖﲗ ﲘ ﲙ ﲚ ﲛﲜ ﲝ ﲞ ﲟ ﲠ ﲡ ﲢ ﲣ ﲤ ﲥﲦ ﲧ ﲨ ﲩ ﲪ ﲫ ﲬ ﲭ ﲮ
+
+ ﲯ ﲰ ﲱ ﲲ ﲳ ﲴ ﲵ ﲶ ﲷ ﲸ ﲹ ﲺ ﲻ
+
+i dont want them
+
+...
+
+I understand - you want to remove these special Mushaf Madina font characters that appear at the end of the tafseer text. These characters are in the Unicode range U+FC50 to U+FC9F. Let me modify the code to filter these out during text processing.
+
+
+Ctrl+K to generate a command
+ހިމެނެއެވެ.[39]ފޮތުގެ 
+
+I see the issue is still persisting. Let me check the code more carefully. The problem might be that the footnote is being added in a way that doesn't preserve the space. Let me try a different approach by ensuring the space is preserved in the text processing.
+I've made two changes:
+Changed the footnote placeholder to use a special marker __SPACE__ instead of a regular space
+Added code in the clean_text function to replace this marker with an actual space during text processing
+This approach should ensure that the space after the footnote number is preserved even after all the text processing. The special marker will be converted to a space at the very end of processing, which should prevent it from being lost or merged with other spaces.
+Would you like to process a file to verify this works as expected?
+good.
+
+theres another issue,
+
+where mushaf madina custom font characters for the ayat are at the end of the cell text content in the tafsir column
+
+they could come after a new line, or right after the last line of text already there
+
+they look something like these
+
+ﱓﱔﱕﱖﱗﱘﱙﱚﱛﱜﱝ ﱞ ﱟ ﱠ
+ﱡ ﱢ ﱣﱤ ﱥ ﱦ ﱧ ﱨ ﱩ ﱪ ﱫ ﱬ
+
+ ﱭ ﱮ ﱯ ﱰ ﱱ ﱲ ﱳ ﱴ ﱵ ﱶ ﱷ ﱸ
+
+ﱹ ﱺ ﱻﱼ ﱽ ﱾ ﱿ ﲀ ﲁﲂ ﲃ ﲄ ﲅ ﲆ
+
+ ﲒ ﲓ ﲔ ﲕ ﲖﲗ ﲘ ﲙ ﲚ ﲛﲜ ﲝ ﲞ ﲟ ﲠ ﲡ ﲢ ﲣ ﲤ ﲥﲦ ﲧ ﲨ ﲩ ﲪ ﲫ ﲬ ﲭ ﲮ
+
+ ﲯ ﲰ ﲱ ﲲ ﲳ ﲴ ﲵ ﲶ ﲷ ﲸ ﲹ ﲺ ﲻ
+
+i dont want them
+
+i still see them
+
+for example:
+
+they are here
+
+ ﲬ ﲭ ﲮ ﲯ ﲰ ﲱ ﲲ ﲳ ﲴ ﲵ ﲶ ﲷﲸ ﲹ ﲺ ﲻ ﲼ"
+
+...
+
+I understand - you want to remove these special Mushaf Madina font characters that appear at the end of the tafseer text. These characters are in the Unicode range U+FC50 to U+FC9F. Let me modify the code to filter these out during text processing.
+I've made two changes:
+Added a regex pattern in clean_text to remove all Mushaf Madina font characters (Unicode range U+FC50 to U+FC9F)
+Also added these characters to the exclusion list in is_quranic_script to ensure they're not treated as Quranic text
+This should now:
+Remove all those special Mushaf Madina font characters from the tafseer text
+Do this regardless of whether they appear at the end of a line or after a newline
+Preserve all other text content
+
+
+I see the issue - these characters are in a different Unicode range than what I initially targeted. Looking at the example, these characters are in the range U+FCA0 to U+FCFF. Let me update the code to include this range as well.
+
+I've updated the code to:
+Include both ranges of Mushaf Madina font characters (U+FC50 to U+FC9F and U+FCA0 to U+FCFF) in the removal regex
+Update the exclusion list in is_quranic_script to match
+This should now remove all those special characters you showed in your example. Would you like to process a file to verify this works as expected?
+
+...
+
+still these appear:
+
+ﱉﱊﱋﱌﱍﱎﱏ
+ ﱋﱌﱍ
+ ﱎ ﱏ
+ ﱁﱂﱃﱄﱅﱆﱇ ﱈ
+ﱍﱎﱏ
+
 
