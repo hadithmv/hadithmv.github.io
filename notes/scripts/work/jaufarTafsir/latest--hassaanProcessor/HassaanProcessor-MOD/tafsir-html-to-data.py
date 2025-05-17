@@ -70,6 +70,8 @@ def clean_text(element):
     text = element.get_text(separator='', strip=True) # Using separator=''
     text = normalize_str(text)
     text = re.sub(r'\s+', ' ', text).strip()
+    # Replace the space marker with an actual space
+    text = text.replace('__SPACE__', ' ')
     return text
 
 def is_quranic_script(text):
@@ -118,7 +120,7 @@ def find_and_replace_footnote_tags_by_id(p_element):
                 global_footnote_counter += 1
                 footnote_id_to_seq_map[id_num] = global_footnote_counter
             seq_num = footnote_id_to_seq_map[id_num]
-            placeholder = f"\n[{seq_num}]" # Changed to use new format
+            placeholder = f"\n[{seq_num}]__SPACE__"  # Use a special marker for space
             try:
                 tag.replace_with(NavigableString(placeholder))
                 if id_num not in refs_id_nums: refs_id_nums.append(id_num)
