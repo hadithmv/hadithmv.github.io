@@ -1,4 +1,5 @@
 # HTML Minification Script
+# This script can be run from any directory
 try {
     # Store the initial location to return to it at the end if needed
     $initialLocation = Get-Location
@@ -21,7 +22,7 @@ function Run-MinifierCommand {
     )
     
     try {
-        Write-Host "DEBUG: Running minifier on: $InputFile" -ForegroundColor Gray
+        # Process is running
         
         # Create process info
         $pinfo = New-Object System.Diagnostics.ProcessStartInfo
@@ -80,9 +81,7 @@ function Process-Files {
     )
     
     try {
-        Write-Host "`n🔄 Starting HTML Minification Process..." -ForegroundColor Cyan
-        Write-Host "🔍 Found $($FilesToProcess.Count) files to process" -ForegroundColor Cyan
-        Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
+        Write-Host "`n🔄 Processing $($FilesToProcess.Count) files..." -ForegroundColor Cyan
         
         $script:fileStats = @()
         $totalFiles = $FilesToProcess.Count
@@ -101,8 +100,7 @@ function Process-Files {
             
             $fileName = Split-Path $inputFile -Leaf
             
-            Write-Host "[$script:processedFiles/$totalFiles] $percentComplete% " -NoNewline
-            Write-Host "$fileName " -NoNewline
+            Write-Host "[$script:processedFiles/$totalFiles] $fileName " -NoNewline
             
             try {
                 # Check if file exists
@@ -136,9 +134,7 @@ function Process-Files {
         }
         
         # Display summary for minification
-        Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
-        Write-Host "📊 HTML MINIFICATION SUMMARY" -ForegroundColor Cyan
-        Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
+        Write-Host "`n📊 Summary:" -ForegroundColor Cyan
         
         # Overall statistics
         $totalOriginalSize = ($script:fileStats | Measure-Object -Property OriginalSize -Sum).Sum
@@ -146,29 +142,26 @@ function Process-Files {
         $totalSavings = $totalOriginalSize - $totalMinifiedSize
         $overallSavingsPercent = if ($totalOriginalSize -gt 0) { [math]::Round(($totalSavings / $totalOriginalSize) * 100, 2) } else { 0 }
         
-        Write-Host "📏 Original Size: " -ForegroundColor Cyan -NoNewline
-        Write-Host "$([math]::Round($totalOriginalSize / 1KB, 2)) KB" -ForegroundColor White
-        Write-Host "📏 Minified Size: " -ForegroundColor Cyan -NoNewline
-        Write-Host "$([math]::Round($totalMinifiedSize / 1KB, 2)) KB" -ForegroundColor White
-        Write-Host "💾 Space Saved: " -ForegroundColor Green -NoNewline
-        Write-Host "$([math]::Round($totalSavings / 1KB, 2)) KB ($overallSavingsPercent%)" -ForegroundColor White
-        Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
-        Write-Host "✅ Successful: " -ForegroundColor Green -NoNewline
-        Write-Host "$script:successfulFiles files" -ForegroundColor White
-        Write-Host "❌ Failed: " -ForegroundColor Red -NoNewline
-        Write-Host "$script:failedFiles files" -ForegroundColor White
-        Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
+        Write-Host "💾 Saved: $([math]::Round($totalSavings / 1KB, 2)) KB ($overallSavingsPercent%)" -ForegroundColor Green
+        Write-Host "✅ Files: $script:successfulFiles successful" -NoNewline -ForegroundColor $(if ($script:failedFiles -eq 0) { "Green" } else { "Yellow" })
+        if ($script:failedFiles -gt 0) {
+            Write-Host ", ❌ $script:failedFiles failed" -ForegroundColor Red
+        }
+        else {
+            Write-Host "" # Just for newline
+        }
         
+        # Add status message
         if ($script:failedFiles -eq 0 -and $script:successfulFiles -gt 0) {
-            Write-Host "✅ HTML MINIFICATION COMPLETED SUCCESSFULLY ✅" -ForegroundColor Green
+            Write-Host "✅ HTML MINIFICATION COMPLETED SUCCESSFULLY" -ForegroundColor Green
             return $true
         }
         elseif ($script:failedFiles -gt 0 -and $script:successfulFiles -gt 0) {
-            Write-Host "⚠️ HTML MINIFICATION COMPLETED WITH ERRORS ⚠️" -ForegroundColor Yellow
+            Write-Host "⚠️ COMPLETED WITH ERRORS" -ForegroundColor Yellow
             return $true
         }
         else {
-            Write-Host "❌ HTML MINIFICATION FAILED ❌" -ForegroundColor Red
+            Write-Host "❌ MINIFICATION FAILED" -ForegroundColor Red
             return $false
         }
     }
@@ -183,8 +176,8 @@ try {
     # Define the files to process with their options
     $filesToProcess = @(
         @{
-            InputFile  = "index-uc.html"
-            OutputFile = "index.html"
+            InputFile  = (Join-Path $PSScriptRoot "index-uc.html")
+            OutputFile = (Join-Path $PSScriptRoot "index.html")
             Options    = @(
                 "--collapse-boolean-attributes",
                 "--collapse-whitespace",
@@ -208,8 +201,8 @@ try {
         }
         # Add more files here as needed, for example:
         # @{
-        #     InputFile = "about-uc.html"
-        #     OutputFile = "about.html"
+        #     InputFile = (Join-Path $PSScriptRoot "about-uc.html")
+        #     OutputFile = (Join-Path $PSScriptRoot "about.html")
         #     Options = @( ... same options ... )
         # }
     )
@@ -221,27 +214,8 @@ try {
     $endTime = Get-Date
     $executionTime = ($endTime - $startTime).TotalSeconds
     
-    # Display final summary
-    Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
-    Write-Host "📊 FINAL SUMMARY" -ForegroundColor Cyan
-    Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
-    
-    Write-Host "🕒 Total time: " -ForegroundColor Cyan -NoNewline
-    Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
-    
-    if ($success) {
-        $totalSavings = ($script:fileStats | Measure-Object -Property SavingsBytes -Sum).Sum
-        $totalSavingsKB = [math]::Round($totalSavings / 1KB, 2)
-        
-        Write-Host "💾 Total space saved: " -ForegroundColor Green -NoNewline
-        Write-Host "$totalSavingsKB KB" -ForegroundColor White
-        Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
-        Write-Host "✅ HTML MINIFICATION COMPLETED SUCCESSFULLY ✅" -ForegroundColor Green
-    }
-    else {
-        Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
-        Write-Host "⚠️ HTML MINIFICATION COMPLETED WITH ERRORS ⚠️" -ForegroundColor Yellow
-    }
+    # Display just the completion time
+    Write-Host "`n🕒 Completed in $([math]::Round($executionTime, 2)) seconds" -ForegroundColor Cyan
     
     # Return to initial location
     Set-Location -Path $initialLocation
