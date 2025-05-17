@@ -11,16 +11,16 @@ character direction > default
 
 (IF DOC IS ALREADY FORMMATTED AND LAYOUTED, THEN FIND AND REPLACE)
 find > grep >
-(\d)(\d)(\d)(\d)
+(\d)(\d)(\d)
 change to:
-$4$3$2$1
+$3$2$1
+find format:
+(middle east character formats) character direction: rtl
 change format:
 (middle east character formats) character direction: default
 DESELECT FOOTNOTE TEXT (small square looking thing at the end of 5 icons above find format)
 
-Try that for 4 digits, 3 digits, 2 digits, etc.
-(\d)(\d)(\d)(\d)
-$4$3$2$1
+Try that for 3 digits, 2 digits, etc.
 
 (\d)(\d)(\d)
 $3$2$1
@@ -299,3 +299,4 @@ Updated the processing messages to be more generic
 The script will now process the content without any surah information, focusing only on the aayah numbers, tafseer text, and footnotes.
 
 ...
+
