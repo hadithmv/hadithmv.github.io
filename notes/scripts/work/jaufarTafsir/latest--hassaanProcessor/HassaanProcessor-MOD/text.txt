@@ -1,12 +1,57 @@
 INSTRUCTIONS:
 
+...
+
+NOTE: AYAH NUMBERS MUST BE CORRECT AND SEQUENTIAL (NOT REVERSED NUMBERS) IN ORDER FOR THIS SCRIPT TO WORK ON THE HTML
+
+to correct reversed ayah numbers (if any):
+
+(TO SET IT CORRECTLY IN INDESIGN BEFORE FORMATTING THE DOCUMENT AT THE START OF LAYOUTING)
+character direction > default
+
+(IF DOC IS ALREADY FORMMATTED AND LAYOUTED, THEN FIND AND REPLACE)
+find > grep >
+(\d)(\d)(\d)(\d)
+change to:
+$4$3$2$1
+change format:
+(middle east character formats) character direction: default
+DESELECT FOOTNOTE TEXT (small square looking thing at the end of 5 icons above find format)
+
+Try that for 4 digits, 3 digits, 2 digits, etc.
+(\d)(\d)(\d)(\d)
+$4$3$2$1
+
+(\d)(\d)(\d)
+$3$2$1
+
+(\d)(\d)
+$2$1
+
+...
+
+One issue is that when we clean up the <span> tags, some white space is getting removed.
+[ayah 24 of book 5]
+...I think we can pre process the document from InDesign side or using regex after HTML output.
+
+SOLUTION:
+that happens due to forced line breaks in the text.
+to fix, before exporting as html,
+grep replace all:
+\n
+with
+nothing
+
+...
+
 File > Export > HTML
 
 Advanced > Dont include classes in HTML
 
 ...
 
-Remove all the <span> tags
+Remove all the <span> tags in CODE EDITOR
+
 <span.*?>(.+?)</span>
 Replace with
 $1
@@ -226,21 +271,31 @@ this is done in order to simplify the markup of the html prior to doing the rest
 
 ...
 
-I'll add a preprocessing step to remove all <span> tags while preserving their content. We can do this using BeautifulSoup's unwrap() method, which is more reliable than regex for HTML processing. Here's how we'll modify the script:
+id like to use this script without this part
 
-I've added a preprocessing step that:
-Uses BeautifulSoup's find_all('span') to find all <span> tags in the document
-Uses the unwrap() method to remove each span tag while preserving its content
-Does this before any other processing begins
-This approach is better than using regex because:
-It properly handles nested tags
-It correctly handles spans that contain other HTML elements
-It's more reliable for HTML processing than regex
-It won't break if there are special characters or formatting in the spans
-The script will now:
-Load the HTML file
-Remove all span tags while keeping their content
-Continue with the rest of the processing as before
-You can run the script again and it will process the HTML files with the spans removed. This should simplify the markup and make the rest of the processing more straightforward.
+current_surah_number = 4  # We know this is Surah An-Nisa
+    current_surah_name = "النِّسَاء"
+
+i just dont want surah number or surah name column at actually
+
+...
+
+Ah, I understand now. You want to completely remove the Surah information from the output. I'll modify the script to remove those fields from the data structure and output:
+
+I've made the following changes:
+Removed all surah-related variables and fields:
+Removed current_surah_number and current_surah_name
+Removed surah detection code
+Removed surah fields from the JSON output
+Removed surah headers from the Markdown output
+Simplified the data structure to only include:
+aayah_number
+tafseer
+footnotes
+Updated the output formats:
+JSON now only contains aayah number, tafseer text, and footnotes
+Markdown now starts directly with aayah sections, without surah headers
+Updated the processing messages to be more generic
+The script will now process the content without any surah information, focusing only on the aayah numbers, tafseer text, and footnotes.
 
 ...
