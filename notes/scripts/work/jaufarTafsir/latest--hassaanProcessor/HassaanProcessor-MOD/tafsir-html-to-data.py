@@ -15,6 +15,44 @@ if not HTML_FILES:
 # Remove configuration of single file paths since we'll process multiple files
 REMOVE_QURANIC_TEXT = True
 DEBUG_FOOTNOTES = False # Set True to debug footnote issues
+DEBUG_CONTENT = True  # New debug flag
+
+def is_surah_header(text):
+    """Checks if the given text is a surah header using various patterns"""
+    # Common variations of how surah can be written
+    surah_patterns = [
+        'سورة',
+        'سُوْرَةُ',
+        'سُورَةُ',
+        'سُوْرَة'
+    ]
+    
+    # First check if any of our surah patterns exist
+    if not any(pattern in text for pattern in surah_patterns):
+        return False
+        
+    # Additional validation to ensure it's a header:
+    # 1. Should be relatively short (not a long paragraph)
+    # 2. Should not contain certain punctuation that would indicate it's part of a sentence
+    # 3. Should be mostly Arabic text
+    if len(text) > 100:  # Too long to be a header
+        return False
+        
+    # Check if it looks like a sentence (contains multiple punctuation marks)
+    sentence_indicators = ['.', '،', ':', ';', '!', '?', '؟']
+    punctuation_count = sum(1 for c in text if c in sentence_indicators)
+    if punctuation_count > 1:  # Headers usually don't have multiple punctuation marks
+        return False
+    
+    # Count Arabic characters
+    arabic_chars = len([c for c in text if '\u0600' <= c <= '\u06FF'])
+    total_chars = len([c for c in text if c.strip()])  # Count non-whitespace chars
+    
+    # Should be predominantly Arabic
+    if total_chars > 0 and arabic_chars / total_chars < 0.5:
+        return False
+        
+    return True
 
 # Global counter for sequential footnotes
 global_footnote_counter = 0
@@ -115,6 +153,7 @@ def process_html_file(html_file_path):
     try:
         with open(html_file_path, 'r', encoding='utf-8') as f:
             html_content = f.read()
+        print(f"Successfully read HTML file, content length: {len(html_content)}")
     except FileNotFoundError:
         print(f"Error: HTML file not found at {html_file_path}")
         return
@@ -208,6 +247,13 @@ def process_html_file(html_file_path):
                 all_paragraphs.append(p)
                 processed_para_elements.add(p)
 
+    print(f"Found {len(all_paragraphs)} paragraphs to process")
+    print("Checking first few paragraphs for potential headers:")
+    for i, p in enumerate(all_paragraphs[:20]):
+        cleaned = clean_text(p)
+        if is_surah_header(cleaned):
+            print(f"Found potential surah header in paragraph {i}: {cleaned}")
+
     def store_previous_aayah():
         """Stores the data for the previously processed Aayah block."""
         nonlocal current_tafseer_lines, current_footnote_id_refs, parsed_data
@@ -253,20 +299,30 @@ def process_html_file(html_file_path):
 
     print("\n--- Processing Main Content ---")
     # --- Main Loop (Processing Paragraphs) ---
+    current_surah = None
     for i, p in enumerate(all_paragraphs):
         refs_id_nums_found = find_and_replace_footnote_tags_by_id(p)  # Replace tags with ID placeholders
         cleaned_p_text = clean_text(p)  # Clean text *with* ID placeholders
         if not cleaned_p_text:
             continue
         normalized_p_text = normalize_str(cleaned_p_text)
-        surah_match = re.match(r'^\s*سُوْرَةُ\s+([\u0600-\u06FF]+)\s*$', normalized_p_text)
-        if surah_match:
-            store_previous_aayah()
-            processing_started = True
+        
+        # Check if this is a surah header
+        if is_surah_header(normalized_p_text) and not processing_started:
+            print(f"Found surah header: {normalized_p_text}")
+            processing_started = True  # Start processing once we find first surah header
             print("\n--- Processing Content ---")
             current_aayah_number = ""
-            current_footnote_id_refs.extend(refs_id_nums_found)  # Store IDs found
+            current_footnote_id_refs.extend(refs_id_nums_found)
             continue
+        elif is_surah_header(normalized_p_text):
+            # If we find another surah header after processing started,
+            # just store the previous ayah and continue - don't reset processing
+            store_previous_aayah()
+            current_aayah_number = ""
+            current_footnote_id_refs.extend(refs_id_nums_found)
+            continue
+        
         if not processing_started:
             continue
         aayah_match = re.match(r'^\s*\((\d+)\)\s*(.*)', cleaned_p_text)
@@ -290,6 +346,8 @@ def process_html_file(html_file_path):
 
     # Store the very last Aayah block
     store_previous_aayah()
+
+    print(f"Total verses processed: {len(parsed_data)}")
 
     # --- Output Generation ---
     try:
