@@ -25,7 +25,7 @@ function Run-MinifierCommand {
         
         # Create process info
         $pinfo = New-Object System.Diagnostics.ProcessStartInfo
-        $pinfo.FileName = "html-minifier"
+        $pinfo.FileName = "html-minifier.cmd"
         $pinfo.RedirectStandardError = $true
         $pinfo.RedirectStandardOutput = $true
         $pinfo.UseShellExecute = $false
