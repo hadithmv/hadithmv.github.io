@@ -1,5 +1,5 @@
 location: hadithmv.github.io\windowsApp-tauri\Hadithmv
-(C:\Users\ashra\Downloads\VScode\hadithmv.github.io\windowsApp-tauri\Hadithmv)
+(D:\hadithmv\hadithmv.github.io\windowsApp-tauri\Hadithmv)
 
 ...
 
@@ -20,7 +20,7 @@ Building
 Tauri builds your application directly from its CLI via the build, android build and ios build commands.
 npm run tauri build
 
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\windowsApp-tauri\Hadithmv\src-tauri\target\release
+D:\hadithmv\hadithmv.github.io\windowsApp-tauri\Hadithmv\src-tauri\target\release
 
 ...
 
@@ -78,7 +78,7 @@ src-tauri)
 OPTIONS:
     -o, --output <OUTPUT>    Output directory. Default: 'icons' directory next to the tauri.conf.json file
 
-npm run tauri icon C:\Users\ashra\Downloads\VScode\hadithmv.github.io\windowsApp-tauri\Hadithmv\src\img\logo\logo.svg
+npm run tauri icon D:\hadithmv\hadithmv.github.io\windowsApp-tauri\Hadithmv\src\img\logo\logo.svg
 
 ...
 

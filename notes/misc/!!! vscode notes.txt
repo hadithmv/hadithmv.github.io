@@ -1,4 +1,4 @@
-android: C:\Users\ashra\Downloads\VScode\hadithmv.github.io\app
+android: D:\hadithmv\hadithmv.github.io\app
 
 webview-master
 
@@ -14,7 +14,7 @@ http://www.notyourdadsit.com/blog/2018/4/3/cheatsheet-setup-github-on-visual-stu
 COPYING REPO LOCALLY
 ====================
 
-file:///C:/Users/ashra/Downloads/VScode/hadithmv.github.io/notes/misc/version%20control%20-%20How%20to%20connect%20local%20folder%20to%20Git%20repository%20and%20start%20making%20changes%20on%20branches_%20-%20Stack%20Overflow.html
+file:///D:\hadithmv\hadithmv.github.io/notes/misc/version%20control%20-%20How%20to%20connect%20local%20folder%20to%20Git%20repository%20and%20start%20making%20changes%20on%20branches_%20-%20Stack%20Overflow.html
 
 git init
 git remote add origin https://github.com/hadithmv/hadithmv.github.io.git

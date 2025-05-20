@@ -108,7 +108,7 @@ function Main {
     }
 
     # Replace the directory navigation with a direct path
-    Set-Location -Path "C:\Users\ashra\Downloads\VScode\hadithmv.github.io"
+    Set-Location -Path "D:\hadithmv\hadithmv.github.io"
     
     Write-Host "`n🔄 Starting Git Sync Process..." -ForegroundColor Cyan
     
@@ -774,7 +774,7 @@ try {
 ...
 
 i get this error:
-PS C:\Users\ashra\Downloads\VScode\hadithmv.github.io> . 'C:\Users\ashra\Downloads\VScode\hadithmv.github.io\books-uc\02-git-sync.ps1'
+PS D:\hadithmv\hadithmv.github.io> . 'D:\hadithmv\hadithmv.github.io\books-uc\02-git-sync.ps1'
 ❌ Error: Cannot bind argument to parameter 'Path' because it is null.
 
 This error occurs because the script is trying to navigate to a directory that doesn't exist. The specific error "Cannot bind argument to parameter 'Path' because it is null" indicates that the script is trying to use a null path value with Set-Location.
@@ -816,7 +816,7 @@ powershellCopyfunction Main {
 Specify an absolute path instead of navigating relative to the script:
 
 powershellCopy# Replace the directory navigation with a direct path
-Set-Location -Path "C:\Users\ashra\Downloads\VScode\hadithmv.github.io"
+Set-Location -Path "D:\hadithmv\hadithmv.github.io"
 The simplest fix is to just remove the directory navigation entirely if you're already in the correct directory. Try removing or commenting out the directory navigation section and run the script again.
 
 #>

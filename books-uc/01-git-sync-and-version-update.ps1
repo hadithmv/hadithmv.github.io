@@ -59,42 +59,65 @@ function Generate-CommitMessage {
         [string]$NewVersion
     )
     
+    Write-Host "DEBUG: Starting Generate-CommitMessage" -ForegroundColor Gray
+    Write-Host "DEBUG: Number of changed files: $($ChangedFiles.Count)" -ForegroundColor Gray
+    
     $added = @()
     $modified = @()
     $deleted = @()
     
     foreach ($fileInfo in $ChangedFiles) {
         if ([string]::IsNullOrWhiteSpace($fileInfo)) {
+            Write-Host "DEBUG: Skipping empty file info" -ForegroundColor Gray
             continue
         }
         
-        $statusCode = $fileInfo.Substring(0, 2).Trim()
-        $filename = $fileInfo.Substring(2).Trim()
+        Write-Host "DEBUG: Processing file info: $fileInfo" -ForegroundColor Gray
         
-        if ($statusCode -eq "??" -or $statusCode.StartsWith("A")) {
-            $added += $filename
-        }
-        elseif ($statusCode.StartsWith("M")) {
-            $modified += $filename
-        }
-        elseif ($statusCode.StartsWith("D")) {
-            $deleted += $filename
-        }
-        else {
-            # Handle renamed, copied files, etc.
-            if ($statusCode.StartsWith("R")) {
-                # Typical format for renamed: R100 old-name -> new-name
-                if ($fileInfo -match 'R\d*\s+(.*?)\s+->\s+(.*)') {
-                    $deleted += $matches[1]
-                    $added += $matches[2]
-                }
-                else {
-                    $modified += $filename # Fallback
-                }
+        try {
+            # Handle files with quotes
+            $fileInfo = $fileInfo.Trim('"')
+            $statusCode = $fileInfo.Substring(0, 2).Trim()
+            # Remove any leading/trailing quotes and trim spaces
+            $filename = $fileInfo.Substring(2).Trim().Trim('"')
+            
+            Write-Host "DEBUG: Status code: '$statusCode', Filename: '$filename'" -ForegroundColor Gray
+            
+            # Handle double M status (MM) as modified
+            if ($statusCode -eq "MM") {
+                $modified += $filename
+                continue
+            }
+            
+            if ($statusCode -eq "??" -or $statusCode.StartsWith("A")) {
+                $added += $filename
+            }
+            elseif ($statusCode.StartsWith("M")) {
+                $modified += $filename
+            }
+            elseif ($statusCode.StartsWith("D")) {
+                $deleted += $filename
             }
             else {
-                $modified += $filename # Default to modified for other codes
+                # Handle renamed, copied files, etc.
+                if ($statusCode.StartsWith("R")) {
+                    if ($fileInfo -match 'R\d*\s+(.*?)\s+->\s+(.*)') {
+                        $deleted += $matches[1].Trim('"')
+                        $added += $matches[2].Trim('"')
+                    }
+                    else {
+                        $modified += $filename
+                    }
+                }
+                else {
+                    $modified += $filename
+                }
             }
+        }
+        catch {
+            Write-Host "DEBUG: Error processing file info: $_" -ForegroundColor Red
+            Write-Host "DEBUG: Problematic file info: $fileInfo" -ForegroundColor Red
+            continue
         }
     }
     
@@ -272,7 +295,7 @@ function Sync-Git {
     
     try {
         # Set the repository path
-        $repoPath = "C:\Users\ashra\Downloads\VScode\hadithmv.github.io"
+        $repoPath = "D:\hadithmv\hadithmv.github.io"
         Set-Location -Path $repoPath -ErrorAction Stop
         
         Write-Host "`n🔄 Starting Git Sync Process..." -ForegroundColor Cyan

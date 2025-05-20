@@ -368,13 +368,13 @@ Processing Book 5.html...
 
 --- Processing Main Content ---
 Traceback (most recent call last):
-  File "c:\Users\ashra\Downloads\VScode\hadithmv.github.io\notes\scripts\work\jaufarTafsir\latest--hassaanProcessor\HassaanProcessor-MOD\tafsir-html-to-data.py", line 342, in <module>
+  File "D:\hadithmv\hadithmv.github.io\notes\scripts\work\jaufarTafsir\latest--hassaanProcessor\HassaanProcessor-MOD\tafsir-html-to-data.py", line 342, in <module>
     process_html_file(html_file)
     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^
-  File "c:\Users\ashra\Downloads\VScode\hadithmv.github.io\notes\scripts\work\jaufarTafsir\latest--hassaanProcessor\HassaanProcessor-MOD\tafsir-html-to-data.py", line 269, in process_html_file
+  File "D:\hadithmv\hadithmv.github.io\notes\scripts\work\jaufarTafsir\latest--hassaanProcessor\HassaanProcessor-MOD\tafsir-html-to-data.py", line 269, in process_html_file
     store_previous_aayah()
     ~~~~~~~~~~~~~~~~~~~~^^
-  File "c:\Users\ashra\Downloads\VScode\hadithmv.github.io\notes\scripts\work\jaufarTafsir\latest--hassaanProcessor\HassaanProcessor-MOD\tafsir-html-to-data.py", line 217, in store_previous_aayah
+  File "D:\hadithmv\hadithmv.github.io\notes\scripts\work\jaufarTafsir\latest--hassaanProcessor\HassaanProcessor-MOD\tafsir-html-to-data.py", line 217, in store_previous_aayah
     if current_surah_number is not None and current_aayah_number and current_tafseer_lines:
        ^^^^^^^^^^^^^^^^^^^^
 NameError: name 'current_surah_number' is not defined
@@ -398,7 +398,7 @@ i am still getting this error
 ...
 
 Traceback (most recent call last):
-  File "c:\Users\ashra\Downloads\VScode\hadithmv.github.io\notes\scripts\work\jaufarTafsir\latest--hassaanProcessor\HassaanProcessor-MOD\tafsir-html-to-data.py", line 21, in <module>
+  File "D:\hadithmv\hadithmv.github.io\notes\scripts\work\jaufarTafsir\latest--hassaanProcessor\HassaanProcessor-MOD\tafsir-html-to-data.py", line 21, in <module>
     normalize_str("         "): 4,
     ^^^^^^^^^^^^^
 NameError: name 'normalize_str' is not defined

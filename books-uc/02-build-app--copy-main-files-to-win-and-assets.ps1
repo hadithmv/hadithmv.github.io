@@ -13,17 +13,17 @@ catch {
 }
 
 # Define base paths for source and destinations
-$sourcePath = "C:\Users\ashra\Downloads\VScode\hadithmv.github.io"
-$destPathAndroid = "C:\Users\ashra\Downloads\VScode\hadithmv.github.io\androidApp-kt\app\src\main\assets"
-$destPathWindows = "C:\Users\ashra\Downloads\VScode\hadithmv.github.io\windowsApp-tauri\Hadithmv\src"
+$sourcePath = "D:\hadithmv\hadithmv.github.io"
+$destPathAndroid = "D:\hadithmv\hadithmv.github.io\androidApp-kt\app\src\main\assets"
+$destPathWindows = "D:\hadithmv\hadithmv.github.io\windowsApp-tauri\Hadithmv\src"
 
 # Files to preserve in Windows destination
 $preserveFiles = @("index.html", "styles.css", "main.js")
 
 # Files to update versions in
 $filesToUpdate = @(
-    @{Path = "..\windowsApp-tauri\Hadithmv\src-tauri\tauri.conf.json"; Pattern = '"version": "(\d+\.\d+\.\d+)"'; Replacement = '"version": "{0}"'},
-    @{Path = "..\androidApp-kt\app\build.gradle"; Pattern = 'versionName\s+"([^"]+)"'; Replacement = 'versionName "{0}"'}
+    @{Path = "..\windowsApp-tauri\Hadithmv\src-tauri\tauri.conf.json"; Pattern = '"version": "(\d+\.\d+\.\d+)"'; Replacement = '"version": "{0}"' },
+    @{Path = "..\androidApp-kt\app\build.gradle"; Pattern = 'versionName\s+"([^"]+)"'; Replacement = 'versionName "{0}"' }
 )
 
 try {
@@ -124,7 +124,8 @@ try {
     if (Test-Path $destPathAndroid) {
         Remove-Item -Path "$destPathAndroid\*" -Recurse -Force -ErrorAction Stop
         Write-Host "  ✅ Cleared Android destination directory" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Host "  ⚠️ Android destination directory not found" -ForegroundColor Yellow
     }
 
@@ -133,7 +134,8 @@ try {
         Where-Object { $_.Name -notin $preserveFiles } |
         Remove-Item -Recurse -Force -ErrorAction Stop
         Write-Host "  ✅ Cleared Windows destination directory (preserved specified files)" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Host "  ⚠️ Windows destination directory not found" -ForegroundColor Yellow
     }
     
@@ -245,61 +247,61 @@ catch {
 write me a powershell script that does the following
 
 remove the contents inside this folder
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\androidApp-kt\app\src\main\assets
+D:\hadithmv\hadithmv.github.io\androidApp-kt\app\src\main\assets
 
 copy the .html files inside this folder
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\books
+D:\hadithmv\hadithmv.github.io\books
 
 and place them in
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\androidApp-kt\app\src\main\assets\books
+D:\hadithmv\hadithmv.github.io\androidApp-kt\app\src\main\assets\books
 
 
 also copy the .json files inside this folder
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\js\json
+D:\hadithmv\hadithmv.github.io\js\json
 
 and place them in 
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\androidApp-kt\app\src\main\assets\js\json
+D:\hadithmv\hadithmv.github.io\androidApp-kt\app\src\main\assets\js\json
 
 
 also copy the files .min.js files inside this folder
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\js
+D:\hadithmv\hadithmv.github.io\js
 
 and place them in
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\androidApp-kt\app\src\main\assets\js
+D:\hadithmv\hadithmv.github.io\androidApp-kt\app\src\main\assets\js
 
 also copy the files .min.css files inside this folder
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\css
+D:\hadithmv\hadithmv.github.io\css
 
 and place them in
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\androidApp-kt\app\src\main\assets\css
+D:\hadithmv\hadithmv.github.io\androidApp-kt\app\src\main\assets\css
 
 
 also copy the LICENSE.txt file from inside this folder
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io
+D:\hadithmv\hadithmv.github.io
 
 and place it in
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\androidApp-kt\app\src\main\assets
+D:\hadithmv\hadithmv.github.io\androidApp-kt\app\src\main\assets
 
 
 also copy the files inside this folder
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\page
+D:\hadithmv\hadithmv.github.io\page
 
 and place them in
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\androidApp-kt\app\src\main\assets\page
+D:\hadithmv\hadithmv.github.io\androidApp-kt\app\src\main\assets\page
 
 
 also copy the merged-300.woff2 file inside this folder
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\font
+D:\hadithmv\hadithmv.github.io\font
 
 and place them in
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\androidApp-kt\app\src\main\assets\font
+D:\hadithmv\hadithmv.github.io\androidApp-kt\app\src\main\assets\font
 
 
 also copy the logo.svg file inside this folder
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\img\logo
+D:\hadithmv\hadithmv.github.io\img\logo
 
 and place them in
-C:\Users\ashra\Downloads\VScode\hadithmv.github.io\androidApp-kt\app\src\main\assets\img\logo
+D:\hadithmv\hadithmv.github.io\androidApp-kt\app\src\main\assets\img\logo
 
 
 ....
@@ -315,7 +317,7 @@ your previous solution had stuff like
 
 i get this error
 
-Test-Path: C:\Users\ashra\Downloads\VScode\hadithmv.github.io\win\1 NEW--copy-main-files-to-win-and-assets.ps1:48:13
+Test-Path: D:\hadithmv\hadithmv.github.io\win\1 NEW--copy-main-files-to-win-and-assets.ps1:48:13
 Line |
   48 |          if (Test-Path $_.Source) {
      |              ~~~~~~~~~~~~~~~~~~~
