@@ -15,9 +15,9 @@ html css js
 
 problem:
 
-index.html:375  Access to fetch at 'file:///C:/Users/ashra/Downloads/VScode/hadithmv.github.io/androidApp-kt/app/src/main/assets/style.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome-extension, chrome-untrusted, data, edge, http, https, isolated-app
+index.html:375  Access to fetch at 'file:///D:\hadithmv\hadithmv.github.io/androidApp-kt/app/src/main/assets/style.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome-extension, chrome-untrusted, data, edge, http, https, isolated-app
 
-index.html:375  Access to XMLHttpRequest at 'file:///C:/Users/ashra/Downloads/VScode/hadithmv.github.io/androidApp-kt/app/src/main/js/json/index.json' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome-extension, chrome-untrusted, data, edge, http, https, isolated-app.
+index.html:375  Access to XMLHttpRequest at 'file:///D:\hadithmv\hadithmv.github.io/androidApp-kt/app/src/main/js/json/index.json' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome-extension, chrome-untrusted, data, edge, http, https, isolated-app.
 
 solution:
                 // added
@@ -357,7 +357,7 @@ Navigation history
 ...
 
 
-e: file:///C:/Users/ashra/Downloads/VScode/hadithmv.github.io/androidApp-kt/app/src/main/java/com/hadithmv/hmv/MainActivity.kt:66:17 Unresolved reference: setAppCacheEnabled setAppCachePath ?
+e: file:///D:\hadithmv\hadithmv.github.io/androidApp-kt/app/src/main/java/com/hadithmv/hmv/MainActivity.kt:66:17 Unresolved reference: setAppCacheEnabled setAppCachePath ?
 
 Ah, I apologize for the error. The setAppCacheEnabled method is deprecated and has been removed in newer versions of Android WebView. Let me correct the code by removing the deprecated methods.
 
