@@ -1,0 +1,33 @@
+i want to download images from a site
+
+the image links look like this:
+https://easyquran-eg.com/qrhafs/assets/frontend/dist/img/001.jpg
+https://easyquran-eg.com/qrhafs/assets/frontend/dist/img/002.jpg
+
+all the way up to:
+https://easyquran-eg.com/qrhafs/assets/frontend/dist/img/604.jpg
+
+i want them in a folder
+
+
+...
+
+You can download images from the specified links using Python. Here's a script that uses the requests library to download the images and the os library to save them in a specified folder:
+
+Make sure you have the necessary libraries installed:
+
+
+pip install requests
+
+
+Use the following Python script to download the images:
+
+...
+
+This script will:
+
+Create a directory named downloaded_images to save the downloaded images.
+Loop through numbers from 1 to 604, formatting each number to three digits with leading zeros (e.g., 001, 002, ... 604).
+Construct the full URL for each image.
+Send a request to download each image.
+Save each image in the downloaded_images directory if the download is successful.
