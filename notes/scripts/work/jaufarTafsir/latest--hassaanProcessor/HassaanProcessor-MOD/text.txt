@@ -627,13 +627,84 @@ Update the exclusion list in is_quranic_script to match
 This should now remove all those special characters you showed in your example. Would you like to process a file to verify this works as expected?
 
 ...
+...
 
-still these appear:
+this is my code
+
+it processes html files that have a structure, into json and md files
+
+it it supposed to remove mushaf madina font characters from the tafseer column, i think it does that by using a range in a removal regex, and it also has an exclusion list
+
+these are the characters which are still appearing but need to be removed from the tafseer column, note that they can appear on a new line by themselves, or at the end of the last line, they can be few or many, and have spaces
+
+ ﱋﱌﱍ
+
+ ﱎ ﱏ
+
+ ﱁﱂﱃﱄﱅﱆﱇ ﱈ
 
 ﱉﱊﱋﱌﱍﱎﱏ
- ﱋﱌﱍ
- ﱎ ﱏ
- ﱁﱂﱃﱄﱅﱆﱇ ﱈ
-ﱍﱎﱏ
 
+ ﱋﱌﱍﱎﱏ
+ 
+ 
+now it is removing these characters correctly:
+ ﱎ ﱏ
+
+ﱋﱌﱍﱎﱏ
+
+but these are still showing when they should not be there:
+ ﱆﱇﱈﱉﱊ
+
+
+...
+
+I'll help you modify the code to remove these specific Mushaf Madina font characters. Looking at the code, I can see that the character removal is primarily handled in the clean_text function. Let me analyze and make the necessary changes.
+First, let me check the current implementation:
+I see that the current code removes Mushaf Madina font characters in the range U+FC50 to U+FCFF in the clean_text function. However, the characters you provided (ﱋ, ﱌ, ﱍ, etc.) are in a different range. Let me modify the code to handle these characters as well.
+I'll edit the clean_text function to include these additional characters:
+
+I see that we need to add one more range to handle the characters ﱆ, ﱇ, ﱈ, ﱉ, ﱊ. Let me modify the clean_text function again to include these characters:
+
+I've added another regex pattern to remove characters in the range U+FC46 to U+FC4A, which includes:
+
+...
+
+good. what id also like, is to replace certain text with something else
+
+such as:
+
+ -> سُبحَانَهُ وَتَعَالَى
+ -> ﷺ
+ -> عَلَيهِ السَّلَامُ
+ -> رَضِيَ اللَّهُ عَنْهُ
+ - > رَضِيَ اللَّهُ عَنْهُمَا
+ -> رَحِمَهُمَا اللَّهُ
+
+id also like to switch these two characters with each other:
+“ <-> ”
+
+
+...
+
+I'll modify the clean_text function to include these text replacements. I'll add a dictionary for the text replacements and handle the quote character swapping:
+
+I've made the following changes to the clean_text function:
+Added a dictionary text_replacements that maps the special characters to their full text equivalents:
+ → سُبحَانَهُ وَتَعَالَى
+ → ﷺ
+ → عَلَيهِ السَّلَامُ
+ → رَضِيَ اللَّهُ عَنْهُ
+ → رَضِيَ اللَّهُ عَنْهُمَا
+ → رَحِمَهُمَا اللَّهُ
+Added a quote character swapping mechanism that:
+Temporarily replaces " with a placeholder
+Replaces " with "
+Replaces the placeholder with "
+This effectively swaps the two quote characters with each other.
+The replacements are done before the Mushaf Madina font character removal, so the full text replacements will be preserved in the final output.
+
+...
+
+ 
 

@@ -69,6 +69,26 @@ def clean_text(element):
     if not element: return ""
     text = element.get_text(separator='', strip=True) # Using separator=''
     text = normalize_str(text)
+    
+    # Text replacements dictionary
+    text_replacements = {
+        '': 'سُبحَانَهُ وَتَعَالَى',
+        '': 'ﷺ',
+        '': 'عَلَيهِ السَّلَامُ',
+        '': 'رَضِيَ اللَّهُ عَنْهُ',
+        '': 'رَضِيَ اللَّهُ عَنْهُمَا',
+        '': 'رَحِمَهُمَا اللَّهُ'
+    }
+    
+    # Apply text replacements
+    for old, new in text_replacements.items():
+        text = text.replace(old, new)
+    
+    # Swap quote characters
+    text = text.replace('“', '__TEMP_QUOTE__')
+    text = text.replace('”', '“')
+    text = text.replace('__TEMP_QUOTE__', '”')
+    
     # Remove Mushaf Madina font characters (U+FC50 to U+FC9F and U+FCA0 to U+FCFF)
     text = re.sub(r'[\uFC50-\uFCFF]+', '', text)
     # Remove additional Mushaf Madina font characters (U+FC4B to U+FC4F)
