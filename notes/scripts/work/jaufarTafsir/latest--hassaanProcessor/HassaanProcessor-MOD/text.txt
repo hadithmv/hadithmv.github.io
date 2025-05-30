@@ -3,7 +3,8 @@ INSTRUCTIONS:
 ...
 
 
-also need to change all
+CHANGING ARABIC DIGITS TO English
+
 (\d)
 change to: (write nothing)
 
@@ -13,8 +14,8 @@ change format:
 (advanced character formats) language: English usa
 
 ...
-
-NOTE: AYAH NUMBERS MUST BE CORRECT AND SEQUENTIAL (NOT REVERSED NUMBERS) IN ORDER FOR THIS SCRIPT TO WORK ON THE HTML
+ENSURING SEQUENTIAL NUMBERS (NOT REVERSED)
+IN ORDER FOR THIS SCRIPT TO WORK ON THE HTML
 
 to correct reversed ayah numbers (if any):
 
@@ -42,9 +43,16 @@ $2$1
 
 ...
 
-
+FIXING FARUMA SQUARE BRACKETS TO ACTUAL CURLY QUOTES
+note that the people who worked on editing the text have sometimes used [ ] character where curly quotes should be, its a faruma thing. those will need to be corrected in the indd file before processing.
+find: [ / ]
+change to: "
+indesign should auto change it to curly
 
 ...
+
+WHITE SPACE GETTING REMOVED DUE TO FORCED LINE BREAKS
+MAKE A COPY OF THE INDD FILE BEFORE DOING THIS AS THOSE LINE BREAKS ARE NEEDED FOR PRINT
 
 One issue is that when we clean up the <span> tags, some white space is getting removed.
 [ayah 24 of book 5]
@@ -60,11 +68,14 @@ nothing
 
 ...
 
-File > Export > HTML
+EXPORTING TO HTML BEFORE Processing
 
+File > Export > HTML
 Advanced > Dont include classes in HTML
 
 ...
+
+OPEN HTML IN VS CODE
 
 Remove all the <span> tags in CODE EDITOR
 DO THIS ONLY ONCE! NOT MORE THAN ONCE! as the other times it highlights are needed for footnote numbers
@@ -77,11 +88,19 @@ This should simplify the markup.
 
 ...
 
+REMOVING DUPLICATE FOONOTES
 remember there will be unwanted repeats of footnotes in the last row, of both the tafseer column as well as the footnotes column. remove them manually
 
-also dont need the conclusion word at the end of every juz, remove that too, the part with wasallaa...
+...
 
-also wrap cells and see if any madina mushaf characters still got into the processed text, add them to removal list if any
+REMOVING CONCLUSION
+dont need the conclusion word at the end of every juz, remove that too, the part with wasallaa...
+
+...
+
+OTHER CHECKS
+
+wrap cells in google sheets and see if any madina mushaf characters still got into the processed text, add them to removal list if any
 
 also see if any stray custom font symbols are still showing in the processed text, add them to the replacement map if any
 
