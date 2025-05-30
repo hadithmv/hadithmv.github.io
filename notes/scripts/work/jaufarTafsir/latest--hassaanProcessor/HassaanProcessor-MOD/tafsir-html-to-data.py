@@ -77,6 +77,7 @@ def clean_text(element):
         '': 'عَلَيهِ السَّلَامُ',
         '': 'رَضِيَ اللَّهُ عَنْهُ',
         '': 'رَضِيَ اللَّهُ عَنْهُمَا',
+        '': 'رَضِيَ اللَّهُ عَنْهَا',
         '': 'رَحِمَهُمَا اللَّهُ'
     }
     
@@ -291,7 +292,8 @@ def process_html_file(html_file_path):
         nonlocal current_aayah_number
 
         if current_aayah_number and current_tafseer_lines:
-            tafseer_with_placeholders = "\n".join(current_tafseer_lines).strip()
+            # Join lines with newlines, preserving empty lines
+            tafseer_with_placeholders = "\n".join(current_tafseer_lines)
             tafseer_final_text = tafseer_with_placeholders
 
             # Get unique footnote IDs referenced in this Aayah
@@ -313,16 +315,28 @@ def process_html_file(html_file_path):
                         footnotes_text += "\n"
                     footnotes_text += f"[{seq_num}] Footnote text for ID {id_num} not found"
 
-            # Final cleanup of spacing
-            tafseer_final_text = re.sub(r'\s{2,}', ' ', tafseer_final_text).strip()
-            tafseer_final_text = re.sub(r'\s([,.!?;:])', r'\1', tafseer_final_text)
-            tafseer_final_text = re.sub(r'(\()\s', r'\1', tafseer_final_text)
-            tafseer_final_text = re.sub(r'\s(\))', r'\1', tafseer_final_text)
+            # Clean up spacing within paragraphs while preserving paragraph breaks
+            lines = tafseer_final_text.split('\n')
+            cleaned_lines = []
+            for line in lines:
+                if line.strip():
+                    # Clean up spacing within non-empty lines
+                    cleaned_line = re.sub(r'\s{2,}', ' ', line)  # Replace multiple spaces with single space
+                    cleaned_line = re.sub(r'\s([,.!?;:])', r'\1', cleaned_line)  # Remove spaces before punctuation
+                    cleaned_line = re.sub(r'(\()\s', r'\1', cleaned_line)  # Remove spaces after opening parenthesis
+                    cleaned_line = re.sub(r'\s(\))', r'\1', cleaned_line)  # Remove spaces before closing parenthesis
+                    cleaned_lines.append(cleaned_line)
+                else:
+                    # Preserve empty lines
+                    cleaned_lines.append('')
+
+            # Join back with newlines
+            tafseer_final_text = '\n'.join(cleaned_lines)
 
             parsed_data.append({
                 "aayah_number": current_aayah_number,
-                "tafseer": tafseer_final_text.strip(),
-                "footnotes": footnotes_text  # Now a single multiline string
+                "tafseer": tafseer_final_text,
+                "footnotes": footnotes_text
             })
 
         current_tafseer_lines = []
