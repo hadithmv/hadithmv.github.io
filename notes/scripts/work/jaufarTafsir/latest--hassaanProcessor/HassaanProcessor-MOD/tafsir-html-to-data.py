@@ -71,6 +71,12 @@ def clean_text(element):
     text = normalize_str(text)
     # Remove Mushaf Madina font characters (U+FC50 to U+FC9F and U+FCA0 to U+FCFF)
     text = re.sub(r'[\uFC50-\uFCFF]+', '', text)
+    # Remove additional Mushaf Madina font characters (U+FC4B to U+FC4F)
+    text = re.sub(r'[\uFC4B-\uFC4F]+', '', text)
+    # Remove specific Mushaf Madina font characters that appear individually
+    text = re.sub(r'[\uFC41-\uFC45]+', '', text)
+    # Remove additional Mushaf Madina font characters (U+FC46 to U+FC4A)
+    text = re.sub(r'[\uFC46-\uFC4A]+', '', text)
     text = re.sub(r'\s+', ' ', text).strip()
     # Replace the space marker with an actual space
     text = text.replace('__SPACE__', ' ')
