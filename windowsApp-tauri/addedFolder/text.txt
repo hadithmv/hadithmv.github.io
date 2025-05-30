@@ -12,7 +12,7 @@ Start the development server
 can take a little while
 npm run tauri dev
 
-hadithmv.github.io\windowsApp-tauri\tauri-hadithmv> npm run tauri dev
+like hadithmv.github.io\windowsApp-tauri\Hadithmv> npm run tauri dev
 
 ...
 
