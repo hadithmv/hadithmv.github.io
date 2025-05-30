@@ -79,6 +79,12 @@ This should simplify the markup.
 
 remember there will be unwanted repeats of footnotes in the last row, of both the tafseer column as well as the footnotes column. remove them manually
 
+also dont need the conclusion word at the end of every juz, remove that too, the part with wasallaa...
+
+also wrap cells and see if any madina mushaf characters still got into the processed text, add them to removal list if any
+
+also see if any stray custom font symbols are still showing in the processed text, add them to the replacement map if any
+
 ...
 
 running the script will output to terminal stats like these below,
@@ -705,6 +711,3 @@ This effectively swaps the two quote characters with each other.
 The replacements are done before the Mushaf Madina font character removal, so the full text replacements will be preserved in the final output.
 
 ...
-
- 
-
