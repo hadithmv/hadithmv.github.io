@@ -72,6 +72,7 @@ def clean_text(element):
     
     # Text replacements dictionary
     text_replacements = {
+        'ـ': '',
         '': 'سُبحَانَهُ وَتَعَالَى',
         '': 'ﷺ',
         '': 'عَلَيهِ السَّلَامُ',
