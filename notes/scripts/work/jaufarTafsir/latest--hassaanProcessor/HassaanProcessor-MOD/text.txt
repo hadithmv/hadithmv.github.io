@@ -6,10 +6,9 @@ INSTRUCTIONS:
 CHANGING ARABIC DIGITS TO English
 
 (\d)
-change to: (write nothing)
-
+GREP change to: (write nothing)
 find format:
-(advanced character formats) language: arabic
+(advanced character formats) language: arabic (not bracket arabic?)
 change format:
 (advanced character formats) language: English usa
 
@@ -18,11 +17,12 @@ ENSURING SEQUENTIAL NUMBERS (NOT REVERSED)
 IN ORDER FOR THIS SCRIPT TO WORK ON THE HTML
 
 to correct reversed ayah numbers (if any):
+first check if there is any such issues: grep find: (\d) and MIDDLE EAST CHARACTER FORMATS > character direction: rtl, (remove previous find format if any) if no results show, can skip this part entirely
 
-(TO SET IT CORRECTLY IN INDESIGN BEFORE FORMATTING THE DOCUMENT AT THE START OF LAYOUTING)
+(PREEMPTIVE SOLUTION: TO SET IT CORRECTLY IN INDESIGN BEFORE FORMATTING THE DOCUMENT AT THE START OF LAYOUTING)
 character direction > default
 
-(IF DOC IS ALREADY FORMMATTED AND LAYOUTED, THEN FIND AND REPLACE)
+(POST FIX: IF DOC IS ALREADY FORMMATTED AND LAYOUTED, THEN FIND AND REPLACE)
 find > grep >
 (\d)(\d)(\d)
 change to:
@@ -45,7 +45,10 @@ $2$1
 
 FIXING FARUMA SQUARE BRACKETS TO ACTUAL CURLY QUOTES
 note that the people who worked on editing the text have sometimes used [ ] character where curly quotes should be, its a faruma thing. those will need to be corrected in the indd file before processing.
-find: [ / ]
+
+NOTE before doing this, make sure quotes is set to normal  “” and ‘’ instead of <<>> or <>. Edit > Preferences > Dictionary.
+
+then find: [ and then ] respectively
 change to: "
 indesign should auto change it to curly
 
@@ -62,7 +65,7 @@ SOLUTION:
 that happens due to forced line breaks in the text.
 to fix, before exporting as html,
 grep replace all:
-\n
+\n (go to first find to check first)
 with
 nothing
 
@@ -84,7 +87,7 @@ Remove all the <span> tags in CODE EDITOR
 DO THIS ONLY ONCE! NOT MORE THAN ONCE! as the other times it highlights are needed for footnote numbers
 
 <span.*?>(.+?)</span>
-Replace with
+regex replace with
 $1
 
 do that in vs code, save file without formatting
@@ -93,10 +96,11 @@ This should simplify the markup.
 
 ...
 
-RUNNING SCRIPT
+RUN SCRIPT
 
 running the script will output to terminal stats like these below,
-check on excel and see whether all numbers are sequential, to ensure everything is as it should be:
+check on excel and see whether all numbers are sequential, to ensure everything is as it should be
+if not sequential, or numbers reversed, go back and fix in the indesign file and run again
 
 Found Aayah: 92
 Found Aayah: 93
@@ -109,14 +113,30 @@ Found Aayah: 2
 Found Aayah: 22
 Found Aayah: 23
 
-...
-
-convert json to google sheets
+IT IS IMPORTANT TO MAKE SURE EVERYTHING IS SEQUENTIAL, use software to check that
 
 ...
 
-REMOVING DUPLICATE FOONOTES
-remember there will be unwanted repeats of footnotes in the last row, of both the tafseer column as well as the footnotes column. remove them manually
+convert json to google sheets (use https://tableconvert.com/json-to-csv)
+remove first row (headers)
+remove first column (index)
+
+...
+
+ADDING SURAH INTRODUCTIONS
+note that the script only gets the ayah tafsir and footnotes that corresond to the sequential ayah numbers
+as muqaddimas of surahs come before that, they are not included, so have to add them back in the google sheet manually, at the start of each surah, look for them in the indd file using home / end buttons
+
+NOTE that the script does excludes both the muqaddima text as well as its associated footnotes, so add both manually?
+
+...
+
+REMOVING CONCLUSION & DUPLICATE FOONOTES
+dont need the conclusion word at the end of every juz (in the tafsir column), remove that too, the part with wasallaa...
+
+remember there will be unwanted repeats of footnotes in the last row, of both the tafseer column as well as the footnotes column. remove them manually.
+
+NOTE that the duplication of footnotes ALSO OCCURS at the end of every surah, before another surah starts, so remember to remove duplicate footnotes from there too, in both columns.
 
 ...
 
