@@ -884,3 +884,133 @@ Perfect! I've successfully modified the script to address your issue. Here's wha
 
 The script will now preserve all the crucial introductory content that was previously being skipped, while maintaining the existing functionality for numbered ayahs. The introductory text and footnotes will be properly combined and formatted in the output files.
 
+...
+
+**User**
+
+id like the ayah number to come right before the tafsir of that ayah in the tafsir column, surrounded by circuluar brackets
+
+for example:
+اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
+
+this is how the first ayah starts, after it is the rest of the ayah. and before it is some introductory text
+
+how it should be is like:
+(1) اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
+
+with the same stuff before and after it as before, just this number and its surrounding brackets added
+
+same with 2nd ayah, 3rd, and the rest of them ayahs
+
+then another surah starts, and after the introductory bit, it should have its first ayah, which should have (1) before it
+
+note that some files do not start with 1 as an ayah number. it can be a number much higher up, and the rest of the ayahs following that are consequitive, until a new surah starts, and so on
+
+---
+
+**Cursor**
+
+I understand! You want the ayah number to appear at the beginning of the tafsir text itself, not as a separate field. So instead of having the ayah number in a separate column, it should be embedded in the tafsir text like `(1)` at the start of each ayah's tafsir content.
+
+Let me modify the script to add the ayah number with circular brackets at the beginning of the tafsir text:
+
+
+Perfect! I've modified the script to add the ayah number with circular brackets at the beginning of the tafsir text. Here's what the change does:
+
+## Key Modification:
+
+
+## How It Works Now:
+
+1. **For the first ayah of each Surah**: The introductory text will appear first, then `(1)` followed by the ayah's tafsir content
+2. **For subsequent ayahs**: Each ayah will start with its number in brackets like `(2)`, `(3)`, etc.
+3. **For files that don't start with ayah 1**: The script will use whatever ayah number is found (e.g., `(15)`, `(23)`, etc.) and continue consecutively
+4. **When a new Surah starts**: The first ayah of that Surah will be `(1)` again, regardless of what the previous Surah ended with
+
+## Example Output:
+
+Instead of:
+```
+اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
+```
+
+You'll now get:
+```
+(1) اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
+```
+
+The ayah number will be embedded directly in the tafsir text column, making it clear which ayah each tafsir section belongs to, while preserving all the introductory content and maintaining the consecutive numbering within each Surah.
+
+```plaintext
+اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
+```
+
+```plaintext
+(1) اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
+```
+
+---
+
+**User**
+
+where there are introductory bits before the text of the first ayah, you are adding the ayah number before even first ayah text, you are adding it to the very beginning, of the line of the introductory text, instead of at the beginning of the line where the actual ayah tafsir starts
+
+---
+
+**Cursor**
+
+You're absolutely right! The ayah number should be added at the beginning of the actual ayah tafsir text, not at the very beginning of the introductory text. Let me fix this by modifying where the ayah number is inserted.
+
+---
+
+Now I need to remove the old ayah number addition that was happening at the end:
+
+
+Perfect! Now the script will correctly place the ayah number at the beginning of the actual ayah tafsir text, not at the beginning of the introductory text. Here's what the fix does:
+
+## Key Changes:
+
+1. **Removed the global ayah number addition** that was adding `(1)` to the very beginning of all content
+2. **Added targeted ayah number insertion** that only adds the number to the first line of the actual ayah content
+
+## How It Works Now:
+
+1. **Introductory text** appears first (without any ayah number)
+2. **Empty line separator** (if there's both intro and ayah content)
+3. **First line of ayah content** starts with `(1)` followed by the actual ayah tafsir
+4. **Remaining ayah lines** continue normally
+
+## Example Output:
+
+**Before (incorrect):**
+```
+(1) [Introductory text about the surah...]
+[more intro text...]
+
+اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
+```
+
+**After (correct):**
+```
+[Introductory text about the surah...]
+[more intro text...]
+
+(1) اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
+```
+
+Now the ayah number will appear exactly where it should - at the beginning of the actual ayah tafsir text, not mixed with the introductory content.
+
+```plaintext
+(1) [Introductory text about the surah...]
+[more intro text...]
+
+اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
+```
+
+```plaintext
+[Introductory text about the surah...]
+[more intro text...]
+
+(1) اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
+```
+

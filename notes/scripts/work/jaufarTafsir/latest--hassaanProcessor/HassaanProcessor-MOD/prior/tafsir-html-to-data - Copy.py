@@ -311,13 +311,8 @@ def process_html_file(html_file_path):
                 if current_tafseer_lines:
                     combined_lines.append("")  # Empty line as separator
             
-            # Add ayah content with number prefix
-            if current_tafseer_lines:
-                # Add ayah number to the first line of ayah content
-                first_ayah_line = f"({current_aayah_number}) {current_tafseer_lines[0]}"
-                combined_lines.append(first_ayah_line)
-                # Add remaining ayah lines
-                combined_lines.extend(current_tafseer_lines[1:])
+            # Add ayah content
+            combined_lines.extend(current_tafseer_lines)
             combined_footnote_refs.extend(current_footnote_id_refs)
             
             # Join lines with newlines, preserving empty lines
