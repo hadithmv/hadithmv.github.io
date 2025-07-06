@@ -1014,3 +1014,55 @@ Now the ayah number will appear exactly where it should - at the beginning of th
 (1) اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
 ```
 
+...
+
+**User**
+
+right now there is an empty line between a first ayah of a surah, and the introductory text before it
+
+instead of a blank line, id like  this to be there:
+-------------
+
+---
+
+**Cursor**
+
+I'll modify the script to replace the empty line separator with the dashed line you specified.
+
+
+Perfect! Now instead of an empty line between the introductory text and the first ayah of each Surah, there will be a dashed line separator (`-------------`).
+
+## Example Output:
+
+**Before:**
+```
+[Introductory text about the surah...]
+[more intro text...]
+
+(1) اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
+```
+
+**After:**
+```
+[Introductory text about the surah...]
+[more intro text...]
+-------------
+(1) اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
+```
+
+This will provide a clear visual separation between the introductory content and the actual ayah tafsir text.
+
+```plaintext
+[Introductory text about the surah...]
+[more intro text...]
+
+(1) اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
+```
+
+```plaintext
+[Introductory text about the surah...]
+[more intro text...]
+-------------
+(1) اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ.
+```
+

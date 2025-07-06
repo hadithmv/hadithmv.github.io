@@ -309,8 +309,7 @@ def process_html_file(html_file_path):
                 combined_footnote_refs.extend(surah_intro_footnote_refs)
                 # Add a separator between intro and ayah content
                 if current_tafseer_lines:
-                    # combined_lines.append("")  # Empty line as separator
-                    combined_lines.append("-------------")  # Dashed line as separator
+                    combined_lines.append("")  # Empty line as separator
             
             # Add ayah content with number prefix
             if current_tafseer_lines:
