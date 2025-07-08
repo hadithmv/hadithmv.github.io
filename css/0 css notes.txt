@@ -5,21 +5,21 @@
 
 :::	https://datatables.net/download/
 
-dataTables.dataTables.css (CSSO)	2.2.2
+dataTables.dataTables.css (CSSO)	2.3.2
 	(nano messes up order icons)
 
-dataTables.inputPaging.css (REMOVE bootstrap & frameworks below it, then CSSO)	2.2.2	https://datatables.net/blog/2024/inputPaging
+dataTables.inputPaging.css (REMOVE bootstrap & frameworks below it, then CSSO. note that til now we only needed just the first two rules, and could do away with all the rest. if that is still the case then this probably hasn't changed and doesn't need to be updated)	2.3.2	https://datatables.net/blog/2024/inputPaging
 
-buttons.dataTables.css (CSSO)	3.2.2
+buttons.dataTables.css (CSSO)	3.2.4
 	(nano BREAKS ✓ char)
-
-keyTable.dataTables.css (CSSO)	2.12.1
-
-searchBuilder.dataTables.css (CSSO+NANO)	1.8.2
 
 searchPanes.dataTables (CSSO)	2.3.3
 
-select.dataTables.css (CSSO)	3.0.0
+select.dataTables.css (CSSO)	3.0.1
+
+keyTable.dataTables.css (CSSO)	2.12.1
+
+searchBuilder.dataTables.css (CSSO+NANO)	1.8.3
 
 
 --------------------------
