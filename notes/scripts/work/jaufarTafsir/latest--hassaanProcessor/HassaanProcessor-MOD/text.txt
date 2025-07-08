@@ -129,6 +129,26 @@ as muqaddimas of surahs come before that, they are not included, so have to add 
 
 NOTE that the script does excludes both the muqaddima text as well as its associated footnotes, so add both manually?
 
+NOTE that the basmalah of a new surah, is sometimes appended to the previous cell.
+this can happen if brackets around ayah numbers for dhiv text are not there (). go back and add them if so.
+
+ADD
+بِسمِ اللهِ الرَّحمَنِ الرَّحِيمِ
+before the translation for basmalah, on every surah
+add
+-------------
+if needed too
+
+look out for
+
+get rid of them
+
+check for
+هُسُ
+too
+
+sometimes tableconvert includes data of another table at the end of new input's data. shift refresh.
+
 ...
 
 REMOVING CONCLUSION & DUPLICATE FOONOTES
@@ -1941,7 +1961,7 @@ This will provide a clear visual separation between the introductory content and
 
 **User**
 
-for some reason, the first footnote number for any file is always 3. it starts at 3 always and continues from there consequtively til the end of the entire doc. instead of 3, it should start at 1
+for some reason, the first footnote number for any file is always 3. it starts at 3 always and continues from there CONSECUTIVEly til the end of the entire doc. instead of 3, it should start at 1
 
 ---
 
@@ -2004,4 +2024,78 @@ The footnote numbering will now start at 1 for the first footnote that appears i
 ```
 
 ...
+
+# Identify non-consecutive numbers in output
+_Exported on 7/8/2025 at 17:33:26 GMT+5 from Cursor (1.2.2)_
+
+---
+
+**User**
+
+
+this code outputs to the console stuff like
+
+Found Aayah: 144
+Found Aayah: 145
+Found Aayah: 146
+Found Aayah: 147
+Found Aayah: 148
+Found Aayah: 149
+
+i also need to know where those numbers arent CONSECUTIVE in any way
+
+like
+
+
+Found Aayah: 144
+Found Aayah: 146 [!! NOT CONSECUTIVE !!]
+Found Aayah: 147
+Found Aayah: 148
+Found Aayah: 149
+Found Aayah: 149 [!! NOT CONSECUTIVE !!]
+Found Aayah: 150
+
+---
+
+**Cursor**
+
+To achieve this, you need to keep track of the previous aayah number and compare it with the current one each time you find a new aayah. If the current aayah number is not exactly one greater than the previous (or is a duplicate), you print a warning message.
+
+Here's how you can do it:
+
+You want to add logic to compare the current aayah number with the previous one.
+
+**What to do:**
+1. Before the loop, initialize a variable to keep track of the previous aayah number, e.g. `prev_aayah_number = None`.
+2. When you find a new aayah, compare it to `prev_aayah_number`:
+   - If it's not consecutive (i.e., not exactly one greater), or if it's a duplicate, print the warning.
+3. Update `prev_aayah_number` after each aayah.
+
+
+**Summary of changes:**
+- Track the previous aayah number.
+- Print a warning if the new number is not consecutive or is a duplicate.
+
+Would you like me to make this change in your code now?
+
+
+**Cursor**
+
+I've updated your script to print a warning when an aayah number is not consecutive (i.e., not exactly one greater than the previous aayah number). Now, when processing, you'll see output like:
+
+```
+Found Aayah: 144
+Found Aayah: 146 [!! NOT CONSECUTIVE !!]
+Found Aayah: 147
+...
+```
+
+Let me know if you want to also explicitly catch and label duplicates, or if you want any further customization!
+
+```plaintext
+Found Aayah: 144
+Found Aayah: 146 [!! NOT CONSECUTIVE !!]
+Found Aayah: 147
+...
+```
 

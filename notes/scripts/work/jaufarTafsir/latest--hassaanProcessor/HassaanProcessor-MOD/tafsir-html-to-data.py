@@ -381,6 +381,7 @@ def process_html_file(html_file_path):
     print("\n--- Processing Main Content ---")
     # --- Main Loop (Processing Paragraphs) ---
     current_surah = None
+    prev_aayah_number = None  # Track previous aayah number
     for i, p in enumerate(all_paragraphs):
         # Only increment footnote counter if we're processing content that will be included
         should_increment = processing_started
@@ -414,12 +415,20 @@ def process_html_file(html_file_path):
         # Check if this is an ayah number
         aayah_match = re.match(r'^\s*\((\d+)\)\s*(.*)', cleaned_p_text)
         if aayah_match:
+            new_aayah_number = int(aayah_match.group(1))
+            if prev_aayah_number is not None:
+                if new_aayah_number != prev_aayah_number + 1:
+                    print(f"Found Aayah: {new_aayah_number} [!! NOT CONSECUTIVE !!]")
+                else:
+                    print(f"Found Aayah: {new_aayah_number}")
+            else:
+                print(f"Found Aayah: {new_aayah_number}")
+            prev_aayah_number = new_aayah_number
             # If we were waiting for first ayah, this is it
             if waiting_for_first_ayah:
                 waiting_for_first_ayah = False
                 current_aayah_number = aayah_match.group(1)
                 initial_tafseer_part = aayah_match.group(2).strip()
-                print(f"Found first Aayah of Surah: {current_aayah_number}")
                 current_footnote_id_refs.extend(refs_id_nums_found)  # Store IDs found in this line
                 if initial_tafseer_part:
                     if not (REMOVE_QURANIC_TEXT and is_quranic_script(initial_tafseer_part)):
@@ -429,7 +438,6 @@ def process_html_file(html_file_path):
                 store_previous_aayah()
                 current_aayah_number = aayah_match.group(1)
                 initial_tafseer_part = aayah_match.group(2).strip()
-                print(f"Found Aayah: {current_aayah_number}")
                 current_footnote_id_refs.extend(refs_id_nums_found)  # Store IDs found in this line
                 if initial_tafseer_part:
                     if not (REMOVE_QURANIC_TEXT and is_quranic_script(initial_tafseer_part)):
