@@ -1505,7 +1505,8 @@ https://www.base64decode.org/
 .resp-sharing-button {
   border-radius: 5px;
   /*transition: 25ms ease-out;*/
-  padding: 0.5em 0.75em;
+  /* padding: 0.5em 0.75em; */
+  padding: 0.25em 0.5em;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   /* added */
   transition: transform 0.25s ease-out;
