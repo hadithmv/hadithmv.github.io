@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.4.41";
+var hmvVersionNo = "6.4.42";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
@@ -464,7 +464,7 @@ function createNavbar() {
     <li>
       <a href="#"
       onclick='window.scrollTo({top:0,behavior:"smooth"})'  title="Scroll Up"
-        >▲ މައްޗަށް ސްކްރޯލްކުރޭ</a
+        ><span class="scrollUpIcon"></span>މައްޗަށް ސްކްރޯލްކުރޭ</a
       >
     </li>
     <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
