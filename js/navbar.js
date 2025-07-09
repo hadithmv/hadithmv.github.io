@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.4.39";
+var hmvVersionNo = "6.4.40";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
@@ -184,7 +184,7 @@ function createNavbar() {
   <div class="navbar-side-menu-close" onclick="toggleSideMenu()">×</div>
   <ul>
     <li>
-      <a  href="../books/index.html" title="Homepage">⭐ މައި ސަފުހާ</a>
+      <a  href="../books/index.html" title="Homepage"><span class="homeIcon"></span>މައި ސަފުހާ</a>
     </li>
     <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
       <div class="navbar-dropdown-label" title="Categories">
@@ -425,25 +425,25 @@ function createNavbar() {
       </ul>
     </li>
     <li>
-      <a href="../page/contact.html" title="Contact">✉️ ގުޅުއްވުމަށް</a>
+      <a href="../page/contact.html" title="Contact"><span class="contactIcon"></span>ގުޅުއްވުމަށް</a>
     </li>
     <li>
-      <a href="../page/supportHadithmv.html" title="Support the Project">✋ މަޝްރޫއަށް އެހީވެދިނުމަށް</a>
+      <a href="../page/supportHadithmv.html" title="Support the Project"><span class="supportIcon"></span>މަޝްރޫއަށް އެހީވެދިނުމަށް</a>
     </li>
     <li>
-      <a href="../page/FAQ.html" title="FAQ">❓ ތަކުރާރު ސުވާލުތައް</a>
+      <a href="../page/FAQ.html" title="FAQ"><span class="faqIcon"></span>ތަކުރާރު ސުވާލުތައް</a>
     </li>
     <li>
-      <a href="../page/contributorsList.html" title="Contributers">🤝 އެހީތެރިން</a>
+      <a href="../page/contributorsList.html" title="Contributers"><span class="helpersIcon"></span>އެހީތެރިން</a>
     </li>
     <li>
       <a href="https://github.com/hadithmv/hadithmv.github.io/releases" 
                 target="_blank"
-       class="versionNo">⚙️ އިސްދާރު: v${hmvVersionNo}</a>
+       class="versionNo"><span class="versionIcon"></span>އިސްދާރު: v${hmvVersionNo}</a>
     </li>
     <li>
       <a href="https://t.me/ashraafmv" target="_blank" title="Message on Telegram"
-        >✍️ ފަރުމާކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
+        ><span class="authorIcon"></span>ފަރުމާކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
       >
     </li>
     <li>
