@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.4.43";
+var hmvVersionNo = "6.4.44";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
@@ -178,7 +178,7 @@ function createNavbar() {
   </div>
   <div class="navbar-right" title="Menu">
     <span class="navbar-menu-icon">☰</span>
-  </div>
+
 </nav>
 <div class="navbar-side-menu" id="sideMenu">
   <div class="navbar-side-menu-close" onclick="toggleSideMenu()">×</div>
@@ -467,6 +467,7 @@ function createNavbar() {
         ><span class="scrollUpIcon"></span>މައްޗަށް ސްކްރޯލްކުރޭ</a
       >
     </li>
+
     <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
       <div class="navbar-dropdown-label" title="Reload Page">
         <span class="navbar-dropdown-arrow reloadIcon"></span>ރީލޯޑު
@@ -484,15 +485,14 @@ function createNavbar() {
           >
         </li>
       </ul>
+    </li>
 
-      <li>
+      
+    <li>
       <a href="https://github.com/hadithmv/hadithmv.github.io"
-                target="_blank" title="Github"
-        >
-        <span class="navbar-dropdown-arrow githubIcon"></span>ގިޓްހަބް</a
-      >
+                target="_blank" title="Github"><span class="githubIcon"></span>ގިޓްހަބް</a>
     </li>
-    </li>
+
   </ul>
 </div>
 `;
