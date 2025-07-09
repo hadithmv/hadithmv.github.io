@@ -400,63 +400,65 @@ document.addEventListener("DOMContentLoaded", function () {
 // toggleview code
 // =======================
 
-// Retrieve the saved view state from localStorage
-const savedViewState = localStorage.getItem("viewState");
-let isListView = savedViewState === "list";
+document.addEventListener("DOMContentLoaded", function () {
+  // Retrieve the saved view state from localStorage
+  const savedViewState = localStorage.getItem("viewState");
+  let isListView = savedViewState === "list";
 
-// Select all elements with the class "toggleView"
-const toggleButtons = document.querySelectorAll(".toggleView");
+  // Select all elements with the class "toggleView"
+  const toggleButtons = document.querySelectorAll(".toggleView");
 
-// Function to update the view based on the global state
-function updateView() {
-  // Find all tabcontent elements
-  const tabContents = document.querySelectorAll(".tabcontent");
+  // Function to update the view based on the global state
+  function updateView() {
+    // Find all tabcontent elements
+    const tabContents = document.querySelectorAll(".tabcontent");
 
-  // Update all containers based on the global state
-  tabContents.forEach((tabContent) => {
-    const containers = tabContent.querySelectorAll(".bookContainer");
-    containers.forEach((container) => {
-      // Toggle class for the current container
-      container.classList.toggle("list-view", isListView);
+    // Update all containers based on the global state
+    tabContents.forEach((tabContent) => {
+      const containers = tabContent.querySelectorAll(".bookContainer");
+      containers.forEach((container) => {
+        // Toggle class for the current container
+        container.classList.toggle("list-view", isListView);
 
-      // Toggle list-item class on all books in this container
-      const books = container.querySelectorAll(".book");
-      books.forEach((book) => {
-        book.classList.toggle("list-item", isListView);
+        // Toggle list-item class on all books in this container
+        const books = container.querySelectorAll(".book");
+        books.forEach((book) => {
+          book.classList.toggle("list-item", isListView);
+        });
       });
     });
-  });
 
-  // Update the text of all toggle buttons
+    // Update the text of all toggle buttons
+    toggleButtons.forEach((button) => {
+      if (window.innerWidth <= 599) {
+        // Mobile view
+        button.innerHTML = isListView
+          ? "≡<span class='hiddenOnMobile'>&nbsp;ލިސްޓު</span>"
+          : "⊞<span class='hiddenOnMobile'>&nbsp;ގްރިޑް</span>";
+      } else {
+        // Desktop view
+        button.innerHTML = isListView
+          ? "≡<span class='hiddenOnMobile'>&nbsp;ލިސްޓު</span>"
+          : "⊞<span class='hiddenOnMobile'>&nbsp;ގްރިޑް</span>";
+      }
+    });
+  }
+
+  // Initialize view based on saved state
+  updateView();
+
+  // Add click event listener to each toggle button
   toggleButtons.forEach((button) => {
-    if (window.innerWidth <= 599) {
-      // Mobile view
-      button.innerHTML = isListView
-        ? "≡<span class='hiddenOnMobile'>&nbsp;ލިސްޓު</span>"
-        : "⊞<span class='hiddenOnMobile'>&nbsp;ގްރިޑް</span>";
-    } else {
-      // Desktop view
-      button.innerHTML = isListView
-        ? "≡<span class='hiddenOnMobile'>&nbsp;ލިސްޓު</span>"
-        : "⊞<span class='hiddenOnMobile'>&nbsp;ގްރިޑް</span>";
-    }
-  });
-}
+    button.addEventListener("click", function () {
+      // Toggle the global state
+      isListView = !isListView;
 
-// Initialize view based on saved state
-updateView();
+      // Save the new view state to localStorage
+      localStorage.setItem("viewState", isListView ? "list" : "grid");
 
-// Add click event listener to each toggle button
-toggleButtons.forEach((button) => {
-  button.addEventListener("click", function () {
-    // Toggle the global state
-    isListView = !isListView;
-
-    // Save the new view state to localStorage
-    localStorage.setItem("viewState", isListView ? "list" : "grid");
-
-    // Update the view
-    updateView();
+      // Update the view
+      updateView();
+    });
   });
 });
 
