@@ -204,7 +204,8 @@ function openDiv() {
                 .remove("mm-ocd--open");*/
 
     // closes side menu
-    drawer.close();
+    // drawer.close(); // not used, so removing open instead
+    document.getElementById("sideMenu").classList.remove("open");
 
     // scroll to div
     //supriseDiv.scrollIntoView({ behavior: "smooth" });
