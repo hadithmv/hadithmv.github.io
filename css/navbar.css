@@ -612,5 +612,29 @@ html {
 /*  */
 
 .gridIcon {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M11.25 12.75V22H7.81C4.17 22 2 19.83 2 16.19v-3.44h9.25ZM22 7.81v3.44h-9.25V2h3.44C19.83 2 22 4.17 22 7.81ZM11.25 2v9.25H2V7.81C2 4.17 4.17 2 7.81 2h3.44ZM22 12.75v3.44c0 3.64-2.17 5.81-5.81 5.81h-3.44v-9.25H22Z'/%3E%3C/svg%3E");
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80% 80%;
+  filter: invert(100%);
+  vertical-align: middle;
+  margin-left: 10px;
+  /*  */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 15 15'%3E%3Cpath fill='%23000' d='M1.5 0A1.5 1.5 0 0 0 0 1.5v4A1.5 1.5 0 0 0 1.5 7h4A1.5 1.5 0 0 0 7 5.5v-4A1.5 1.5 0 0 0 5.5 0h-4Zm8 0A1.5 1.5 0 0 0 8 1.5v4A1.5 1.5 0 0 0 9.5 7h4A1.5 1.5 0 0 0 15 5.5v-4A1.5 1.5 0 0 0 13.5 0h-4Zm-8 8A1.5 1.5 0 0 0 0 9.5v4A1.5 1.5 0 0 0 1.5 15h4A1.5 1.5 0 0 0 7 13.5v-4A1.5 1.5 0 0 0 5.5 8h-4Zm8 0A1.5 1.5 0 0 0 8 9.5v4A1.5 1.5 0 0 0 9.5 15h4a1.5 1.5 0 0 0 1.5-1.5v-4A1.5 1.5 0 0 0 13.5 8h-4Z'/%3E%3C/svg%3E");
+}
+
+.rowsIcon {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80% 80%;
+  filter: invert(100%);
+  vertical-align: middle;
+  margin-left: 10px;
+  /*  */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill-rule='evenodd' d='M18 16H2a2 2 0 0 0 0 4h16a2 2 0 0 0 0-4Zm0-8H2a2 2 0 0 0 0 4h16a2 2 0 0 0 0-4ZM2 4h16a2 2 0 0 0 0-4H2a2 2 0 0 0 0 4Z'/%3E%3C/svg%3E");
 }
