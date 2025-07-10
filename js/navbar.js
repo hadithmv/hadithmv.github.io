@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.4.55";
+var hmvVersionNo = "6.4.59";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
@@ -430,7 +430,7 @@ function createNavbar() {
       <a href="../page/contact.html" title="Contact"><span class="contactIcon"></span>ގުޅުއްވުމަށް</a>
     </li>
     <li>
-      <a href="../page/supportHadithmv.html" title="Support the Project"><span class="supportIcon"></span>މަޝްރޫއަށް އެހީވެދިނުމަށް</a>
+      <a href="../page/supportHadithmv.html" title="Support the Project"><span class="supportSideMenuIcon"></span>މަޝްރޫއަށް އެހީވެދިނުމަށް</a>
     </li>
     <li>
       <a href="../page/FAQ.html" title="FAQ"><span class="faqIcon"></span>ތަކުރާރު ސުވާލުތައް</a>

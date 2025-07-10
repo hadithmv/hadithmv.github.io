@@ -1276,6 +1276,7 @@ a:hover {
 .pulsateThis {
   display: inline-block;
   /* Ensure that the span takes up space and can be animated */
+  transform-origin: center;
   animation: pulsate 1s infinite;
 }
 
