@@ -434,13 +434,13 @@ document.addEventListener("DOMContentLoaded", function () {
       if (window.innerWidth <= 599) {
         // Mobile view
         button.innerHTML = isListView
-          ? "<span class='rowIcon'></span><span class='hiddenOnMobile'>&nbsp;ލިސްޓު</span>"
-          : "<span class='gridIcon'></span><span class='hiddenOnMobile'>&nbsp;ގްރިޑް</span>";
+          ? "<span class='iconBase rowIcon'></span><span class='hiddenOnMobile'>&nbsp;ލިސްޓު</span>"
+          : "<span class='iconBase gridIcon'></span><span class='hiddenOnMobile'>&nbsp;ގްރިޑް</span>";
       } else {
         // Desktop view
         button.innerHTML = isListView
-          ? "<span class='rowIcon'></span><span class='hiddenOnMobile'>&nbsp;ލިސްޓު</span>"
-          : "<span class='gridIcon'></span><span class='hiddenOnMobile'>&nbsp;ގްރިޑް</span>";
+          ? "<span class='iconBase rowIcon'></span><span class='hiddenOnMobile'>&nbsp;ލިސްޓު</span>"
+          : "<span class='iconBase gridIcon'></span><span class='hiddenOnMobile'>&nbsp;ގްރިޑް</span>";
       }
     });
   }
