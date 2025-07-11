@@ -15,7 +15,16 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("tab1").style.display = "block";
 });
 
+// Track current and previous tab
+let currentTab = "tab1";
+let previousTab = null;
+
 function openTab(evt, tabName) {
+  // Update previousTab only if navigating to a new tab
+  if (tabName !== currentTab) {
+    previousTab = currentTab;
+    currentTab = tabName;
+  }
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
@@ -26,7 +35,22 @@ function openTab(evt, tabName) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
   document.getElementById(tabName).style.display = "block";
-  evt.currentTarget.className += " active";
+  if (evt && evt.currentTarget) {
+    evt.currentTarget.className += " active";
+  }
+}
+
+// Function to go back to the previous tab
+function goBackToPreviousTab() {
+  if (previousTab && currentTab !== "tab1") {
+    // Simulate a click to go to the previous tab
+    openTab({ currentTarget: document.createElement("div") }, previousTab);
+    scrollBack2Top();
+  } else {
+    // If no previous tab or on tab1, do nothing or stay on tab1
+    openTab({ currentTarget: document.createElement("div") }, "tab1");
+    scrollBack2Top();
+  }
 }
 
 /* OLD CODE BELOW, cgpt prompt used to change below code to above:
