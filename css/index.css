@@ -1280,11 +1280,6 @@ a:hover {
   animation: pulsate 1s infinite;
 }
 
-/* go back arrow */
-.goBack {
-  transform: rotate(180deg);
-}
-
 /*  */
 
 .top-container .top-box {
