@@ -73,15 +73,19 @@
           <div id="tab2" class="tabcontent">
             <!-- -->
             <div class="top-container">
-              <div class="top-box toggleView"></div>
-              <div class="top-box">
-                <span class="iconBase quranIcon"></span>
-                <span class="hiddenOnMobile">القرآن والتفسير -&nbsp;</span>
-                ގުރްއާނާއި ތަފްސީރު
+              <div class="top-box toggleView">
+                ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
               </div>
-              <div class="top-box" onclick="goBackToPreviousTab();">
-                <span class="iconBase backIcon"></span
-                ><span class="hiddenOnMobile">ފަހަތަށް</span>
+              <div class="top-box">
+                <span class="hiddenOnMobile">القرآن والتفسير -&nbsp;</span
+                >ގުރްއާނާއި ތަފްސީރު
+              </div>
+              <div
+                class="top-box"
+                onclick="openTab(event, 'tab1'); scrollBack2Top();"
+              >
+                <span class="goBack">➔</span
+                ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
               </div>
             </div>
             <!-- -->
@@ -291,21 +295,23 @@
             </p>
           </div>
           <!-- class="tabcontent"> -->
-
           <div id="tab3" class="tabcontent">
             <!-- -->
 
             <div class="top-container">
-              <div class="top-box toggleView"></div>
-              <div class="top-box">
-                <span class="iconBase hadithIcon"></span>
-                <span class="hiddenOnMobile">الحديث والأثر -&nbsp;</span>
-                ޙަދީޘާއި އަޘަރު
+              <div class="top-box toggleView">
+                ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
               </div>
-
-              <div class="top-box" onclick="goBackToPreviousTab();">
-                <span class="iconBase backIcon"></span
-                ><span class="hiddenOnMobile">ފަހަތަށް</span>
+              <div class="top-box">
+                <span class="hiddenOnMobile">الحديث والأثر -&nbsp;</span
+                >ޙަދީޘާއި އަޘަރު
+              </div>
+              <div
+                class="top-box"
+                onclick="openTab(event, 'tab1'); scrollBack2Top();"
+              >
+                <span class="goBack">➔</span
+                ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
               </div>
             </div>
 
@@ -419,21 +425,23 @@
           <div id="tab1" class="tabcontent">
             <!-- -->
             <div class="top-container">
-              <div class="top-box toggleView"></div>
+              <div class="top-box toggleView">
+                ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
+              </div>
               <div class="top-box" style="font-size: 100%">
                 <span class="hiddenOnMobile">الصفحة الرئسية -&nbsp;</span>މައި
                 ސަފުހާ
               </div>
               <div
                 class="top-box"
-                onclick="goBackToPreviousTab();"
+                onclick="openTab(event, 'tab1'); scrollBack2Top();"
                 style="cursor: auto"
               >
                 <span class="versionNo"
                   ><span class="hiddenOnMobile"></span
                 ></span>
                 <!--
-                <span class="goBack">➔</span><span class="hiddenOnMobile">ފަހަތަށް</span>
+                <span class="goBack">➔</span><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
                 -->
               </div>
             </div>
@@ -449,7 +457,7 @@
                 style="flex: 1"
               >
                 <p>
-                  <span class="supportHomepageIcon pulsateThis"></span>
+                  <span class="pulsateThis">🌱</span>
                   މަޝްރޫއަށް އެހީވެދިނުމަށް
                 </p>
               </a>
@@ -459,9 +467,10 @@
                 href="../books/quranHadithmv.html#tableID=p482"
                 id="morningQuranReminder"
                 style="flex: 1"
-                ><p>
-                  <span class="timedReminderIcon pulsateThis"></span>
-                  ހޭލައިގެން سورة آل عمران ގެ ފަހު ދިހަ އާޔަތް ކިޔެވުން
+              >
+                <p>
+                  <span class="pulsateThis">⚠️</span> ހޭލައިގެން سورة آل عمران
+                  ގެ ފަހު ދިހަ އާޔަތް ކިޔެވުން
                 </p>
                 <!-- قراءة آخر عشر آيات من آل عمران بعد 
     
@@ -474,8 +483,9 @@
                 href="../books/quranHadithmv.html#tableID=p2140"
                 id="kahfReminder"
                 style="flex: 1"
-                ><p>
-                  <span class="timedReminderIcon pulsateThis"></span>
+              >
+                <p>
+                  <span class="pulsateThis">⚠️</span>
                   ”ހުކުރު ދުވަހު سورة الكهف ކިޔަވައިފި މީހާއަށް، ޖެހިގެން އަންނަ
                   ހުކުރާ ހަމައަށް ނޫރަކުން އަލިކޮށްދެއްވާނެއެވެ.“
                 </p>
@@ -489,9 +499,10 @@
                 onclick="openTab(event, 'tab13'); scrollBack2Top();"
                 id="nightQuranReminder"
                 style="flex: 1"
-                ><p>
-                  <span class="timedReminderIcon pulsateThis"></span>
-                  ނިދުމުގެ ކުރިން ގުރްއާން ކިޔެވުން
+              >
+                <p>
+                  <span class="pulsateThis">⚠️</span> ނިދުމުގެ ކުރިން ގުރްއާން
+                  ކިޔެވުން
                 </p>
                 <!-- قراءة القرآن قبل النوم
     
@@ -507,83 +518,64 @@
                 onclick="openTab(event, 'tab2'); scrollBack2Top();"
               >
                 <p>1 القرآن والتفسير</p>
-                <p>
-                  <span class="iconBase quranIcon"></span>ގުރްއާނާއި ތަފްސީރު
-                </p>
+                <p>📖 ގުރްއާނާއި ތަފްސީރު</p>
               </a>
               <a
                 class="book"
                 onclick="openTab(event, 'tab3'); scrollBack2Top();"
               >
                 <p>2 الحديث والأثر</p>
-                <p><span class="iconBase hadithIcon"></span>ޙަދީޘާއި އަޘަރު</p>
+                <p>📘 ޙަދީޘާއި އަޘަރު</p>
               </a>
               <a
                 class="book"
                 onclick="openTab(event, 'tab4'); scrollBack2Top();"
               >
                 <p>3 العقيدة والمنهج</p>
-                <p>
-                  <span class="iconBase aqidaIcon"></span>އަގީދާއާއި މަންހަޖު
-                </p>
+                <p>📙 އަގީދާއާއި މަންހަޖު</p>
               </a>
               <a
                 class="book"
                 onclick="openTab(event, 'tab5'); scrollBack2Top();"
               >
                 <p>4 اللغة والكتابة</p>
-                <p>
-                  <span class="iconBase languageIcon"></span>ބަހާއި
-                  ލިޔުންތެރިކަން
-                </p>
+                <p>🌐 ބަހާއި ލިޔުންތެރިކަން</p>
               </a>
               <a
                 class="book azkarBook"
                 href="../books/hisnulMuslim.html#tableID=p74"
               >
                 <p>5 أذكار الصباح والمساء</p>
-                <p>
-                  <span class="iconBase duaIcon"></span>ހެނދުނާއި ހަވީރުގެ
-                  ޒިކުރުތައް
-                </p>
+                <p>🤲 ހެނދުނާއި ހަވީރުގެ ޒިކުރުތައް</p>
               </a>
               <a class="book" href="../page/textEditor.html">
                 <p>6 محرر النصوص</p>
-                <p>
-                  <span class="iconBase textEditorIcon"></span>ޓެކްސްޓު އެޑިޓަރ
-                </p>
+                <p>📝 ޓެކްސްޓު އެޑިޓަރ</p>
               </a>
               <a
                 class="book"
                 onclick="openTab(event, 'tab14'); scrollBack2Top();"
               >
                 <p>7 أكاديمية حديث أم وي</p>
-                <p>
-                  <span class="iconBase academyIcon"></span>ޙަދީޘްއެމްވީ
-                  އެކެޑެމީ
-                </p>
+                <p>📜 ޙަދީޘްއެމްވީ އެކެޑެމީ</p>
               </a>
               <a
                 class="book"
                 onclick="openTab(event, 'tab6'); scrollBack2Top();"
               >
                 <p>8 المتنوعات</p>
-                <p><span class="iconBase miscIcon"></span>އެހެނިހެން</p>
+                <p>📓 އެހެނިހެން</p>
               </a>
               <a
                 class="book"
                 onclick="openTab(event, 'tab10'); scrollBack2Top();"
               >
                 <p>9 دار فتية الكهف</p>
-                <p>
-                  <span class="iconBase caveIcon"></span>ދާރު ފިތްޔަތިލް ކަހްފި
-                </p>
+                <p>⛰️ ދާރު ފިތްޔަތިލް ކަހްފި</p>
               </a>
               <a class="book" href="https://birrumv.com" target="_blank">
                 <p>العقيقة والآبار</p>
-                <p>
-                  <span class="iconBase dropIcon"></span>އަގީގާއާއި ވަޅުހެދުން
-                </p>
+                <p>💧 އަގީގާއާއި ވަޅުހެދުން</p>
               </a>
               <!-- bookContainer-->
             </div>
@@ -658,15 +650,19 @@
           <div id="tab4" class="tabcontent">
             <!-- -->
             <div class="top-container">
-              <div class="top-box toggleView"></div>
-              <div class="top-box">
-                <span class="iconBase aqidaIcon"></span>
-                <span class="hiddenOnMobile">العقيدة والمنهج -&nbsp;</span>
-                އަގީދާއާއި މަންހަޖު
+              <div class="top-box toggleView">
+                ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
               </div>
-              <div class="top-box" onclick="goBackToPreviousTab();">
-                <span class="iconBase backIcon"></span
-                ><span class="hiddenOnMobile">ފަހަތަށް</span>
+              <div class="top-box">
+                <span class="hiddenOnMobile">العقيدة والمنهج -&nbsp;</span
+                >އަގީދާއާއި މަންހަޖު
+              </div>
+              <div
+                class="top-box"
+                onclick="openTab(event, 'tab1'); scrollBack2Top();"
+              >
+                <span class="goBack">➔</span
+                ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
               </div>
             </div>
             <!-- -->
@@ -775,17 +771,19 @@
           <div id="tab5" class="tabcontent">
             <!-- -->
             <div class="top-container">
-              <div class="top-box toggleView"></div>
-
-              <div class="top-box">
-                <span class="iconBase languageIcon"></span>
-                <span class="hiddenOnMobile">اللغة والكتابة -&nbsp;</span>
-                ބަހާއި ލިޔުންތެރިކަން
+              <div class="top-box toggleView">
+                ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
               </div>
-
-              <div class="top-box" onclick="goBackToPreviousTab();">
-                <span class="iconBase backIcon"></span
-                ><span class="hiddenOnMobile">ފަހަތަށް</span>
+              <div class="top-box">
+                <span class="hiddenOnMobile">اللغة والكتابة -&nbsp;</span>ބަހާއި
+                ލިޔުންތެރިކަން
+              </div>
+              <div
+                class="top-box"
+                onclick="openTab(event, 'tab1'); scrollBack2Top();"
+              >
+                <span class="goBack">➔</span
+                ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
               </div>
             </div>
             <!-- -->
@@ -910,17 +908,19 @@
           <div id="tab14" class="tabcontent">
             <!-- -->
             <div class="top-container">
-              <div class="top-box toggleView"></div>
-
-              <div class="top-box">
-                <span class="iconBase academyIcon"></span>
-                <span class="hiddenOnMobile">أكاديمية حديث أم وي -&nbsp;</span>
-                ޙަދީޘްއެމްވީ އެކެޑެމީ
+              <div class="top-box toggleView">
+                ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
               </div>
-
-              <div class="top-box" onclick="goBackToPreviousTab();">
-                <span class="iconBase backIcon"></span
-                ><span class="hiddenOnMobile">ފަހަތަށް</span>
+              <div class="top-box">
+                <span class="hiddenOnMobile">أكاديمية حديث أم وي -&nbsp;</span
+                >ޙަދީޘްއެމްވީ އެކެޑެމީ
+              </div>
+              <div
+                class="top-box"
+                onclick="openTab(event, 'tab1'); scrollBack2Top();"
+              >
+                <span class="goBack">➔</span
+                ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
               </div>
             </div>
             <!-- -->
@@ -962,12 +962,12 @@
               ފަހުމްކޮށްދެއްވައެވެ.“ [صحيح البخاري 71]
             </p>
             <p class="quoteHere">
-              ބުޚާރީ ވިދާޅުވިއެވެ: އިބްނު ޢައްބާސް ވިދާޅުވިއެވެ: ”ތިޔަބައިމީހުން
-              ރައްބާނީން ކަމުގައި ވާށެވެ.“ (މި އާޔަތުގެ) މާނައީ، ހިލްމުވެރި
-              ފިގްހުވެރިން (ކަމުގައި ވާށެވެ.) އަދި ބުނެވުނެވެ: ރައްބާނީއަކީ،
-              އިލްމުގެ ބޮޑެތި ކަންކަމުގެ ކުރިން، އޭގެ ކުދި ކަންކަމުން މީސްތަކުން
-              ތަރުބިއްޔަތުކުރާ މީހާއެވެ.“ [صحيح البخاري، باب ‌‌10 العلم قبل
-              القول والعمل]
+              ބުޚާރީ ވިދާޅުވިއެވެ: އިބްނު ޢައްބާސް ވިދާޅުވިއެވެ:
+              ””ތިޔަބައިމީހުން ރައްބާނީން ކަމުގައި ވާށެވެ.“ (މި އާޔަތުގެ)
+              މާނައީ، ހިލްމުވެރި ފިގްހުވެރިން (ކަމުގައި ވާށެވެ.) އަދި
+              ބުނެވުނެވެ: ރައްބާނީއަކީ، އިލްމުގެ ބޮޑެތި ކަންކަމުގެ ކުރިން، އޭގެ
+              ކުދި ކަންކަމުން މީސްތަކުން ތަރުބިއްޔަތުކުރާ މީހާއެވެ.“ [صحيح
+              البخاري، باب ‌‌10 العلم قبل القول والعمل]
             </p>
           </div>
           <!-- class="tabcontent"> -->
@@ -975,14 +975,19 @@
           <div id="tab7" class="tabcontent">
             <!-- -->
             <div class="top-container">
-              <div class="top-box toggleView"></div>
+              <div class="top-box toggleView">
+                ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
+              </div>
               <div class="top-box">
                 <span class="hiddenOnMobile">متون طالب العلم -&nbsp;</span
                 >އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް
               </div>
-              <div class="top-box" onclick="goBackToPreviousTab();">
-                <span class="iconBase backIcon"></span
-                ><span class="hiddenOnMobile">ފަހަތަށް</span>
+              <div
+                class="top-box"
+                onclick="openTab(event, 'tab14'); scrollBack2Top();"
+              >
+                <span class="goBack">➔</span
+                ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
               </div>
             </div>
             <!-- -->
@@ -1063,13 +1068,18 @@
           <div id="tab6" class="tabcontent">
             <!-- -->
             <div class="top-container">
-              <div class="top-box toggleView"></div>
+              <div class="top-box toggleView">
+                ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
+              </div>
               <div class="top-box">
                 <span class="hiddenOnMobile">المتنوعات -&nbsp;</span>އެހެނިހެން
               </div>
-              <div class="top-box" onclick="goBackToPreviousTab();">
-                <span class="iconBase backIcon"></span
-                ><span class="hiddenOnMobile">ފަހަތަށް</span>
+              <div
+                class="top-box"
+                onclick="openTab(event, 'tab1'); scrollBack2Top();"
+              >
+                <span class="goBack">➔</span
+                ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
               </div>
             </div>
             <!-- -->
@@ -1114,50 +1124,50 @@
                 <p>10 المواقع الإحتياطية</p>
                 <p>💾 ބެކްއަޕް ސައިޓުތައް</p>
               </a>
-              <!-- <a class="book" href="../page/contributorsList.html">
+              <a class="book" href="../page/contributorsList.html">
                 <p>11 المساعدون</p>
                 <p>🤝 އެހީތެރިން</p>
-              </a> -->
+              </a>
               <a class="book" href="../page/howToUse.html">
-                <p>11 كيفية استخدام</p>
+                <p>12 كيفية استخدام</p>
                 <p>📒 ޙަދީޘްއެމްވީ ބޭނުންކުރާ ގޮތް</p>
               </a>
               <a class="book" href="../page/thirdPartyTools.html">
-                <p>12 مصادر الأدوات</p>
+                <p>13 مصادر الأدوات</p>
                 <p>🔧 ހަދަން ބޭނުންކުރި ތަކެތި</p>
               </a>
               <a class="book" href="../page/privacyPolicy.html">
-                <p>13 سياسة الخصوصية</p>
+                <p>14 سياسة الخصوصية</p>
                 <p>🔒 ޕްރައިވެސީ ޕޮލިސީ</p>
               </a>
               <a class="book" href="../LICENSE.txt">
-                <p>14 رخصة البرمجية</p>
+                <p>15 رخصة البرمجية</p>
                 <p>📄 ލައިސެންސް</p>
               </a>
               <a class="book" href="../page/otherLinks.html">
-                <p>15 روابط أخرى</p>
+                <p>16 روابط أخرى</p>
                 <p>🔗 އެހެނިހެން ލިންކުތައް</p>
               </a>
               <a class="book" href="../page/keyboardPage.html">
-                <p>16 لوحة المفاتيح</p>
+                <p>17 لوحة المفاتيح</p>
                 <p>⌨ ކީބޯޑުތައް</p>
               </a>
               <a class="book" href="../page/qrGenerator.html">
-                <p>17 رمز استجابة سريعة</p>
+                <p>18 رمز استجابة سريعة</p>
                 <p>🏁 ކިއޫ އާރް ކޯޑު</p>
               </a>
               <a class="book" href="../page/unitConverter.html">
-                <p>18 محول الوحدات</p>
+                <p>19 محول الوحدات</p>
                 <p>🔄 ޔުނިޓް ކޮންވާޓަރ</p>
               </a>
-              <!-- <a
+              <a
                 class="book"
                 href="https://github.com/hadithmv/hadithmv.github.io"
                 target="_blank"
               >
                 <p>غيت هاب</p>
                 <p>🚀 ގިޓްހަބް</p>
-              </a> -->
+              </a>
               <!-- bookContainer-->
             </div>
             <!---->
@@ -1193,14 +1203,19 @@
           <div id="tab8" class="tabcontent">
             <!-- -->
             <div class="top-container">
-              <div class="top-box toggleView"></div>
+              <div class="top-box toggleView">
+                ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
+              </div>
               <div class="top-box">
                 <span class="hiddenOnMobile">تحميلات -&nbsp;</span
                 >ޑައުންލޯޑުތައް
               </div>
-              <div class="top-box" onclick="goBackToPreviousTab();">
-                <span class="iconBase backIcon"></span
-                ><span class="hiddenOnMobile">ފަހަތަށް</span>
+              <div
+                class="top-box"
+                onclick="openTab(event, 'tab6'); scrollBack2Top();"
+              >
+                <span class="goBack">➔</span
+                ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
               </div>
             </div>
             <!-- -->
@@ -1248,14 +1263,19 @@
           <div id="tab10" class="tabcontent">
             <!-- -->
             <div class="top-container">
-              <div class="top-box toggleView"></div>
+              <div class="top-box toggleView">
+                ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
+              </div>
               <div class="top-box">
                 <span class="hiddenOnMobile">دار فتية الكهف -&nbsp;</span>ދާރު
                 ފިތްޔަތިލް ކަހްފި
               </div>
-              <div class="top-box" onclick="goBackToPreviousTab();">
-                <span class="iconBase backIcon"></span
-                ><span class="hiddenOnMobile">ފަހަތަށް</span>
+              <div
+                class="top-box"
+                onclick="openTab(event, 'tab1'); scrollBack2Top();"
+              >
+                <span class="goBack">➔</span
+                ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
               </div>
             </div>
             <!-- -->
@@ -1343,17 +1363,19 @@
             <!-- -->
             <div class="top-container">
               <div class="top-box toggleView">
-                <span class="gridIcon"></span
-                ><span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
+                ⊞<span class="hiddenOnMobile">&nbsp;ގްރިޑް</span>
               </div>
               <div class="top-box">
                 <span class="hiddenOnMobile"
                   >قراءة القرآن قبل النوم -&nbsp;</span
                 >ނިދުމުގެ ކުރިން ގުރްއާން ކިޔެވުން
               </div>
-              <div class="top-box" onclick="goBackToPreviousTab();">
-                <span class="iconBase backIcon"></span
-                ><span class="hiddenOnMobile">ފަހަތަށް</span>
+              <div
+                class="top-box"
+                onclick="openTab(event, 'tab1'); scrollBack2Top();"
+              >
+                <span class="goBack">➔</span
+                ><span class="hiddenOnMobile">&nbsp;ފަހަތަށް</span>
               </div>
             </div>
             <!-- -->
@@ -1668,29 +1690,28 @@
               26/7/2024<br />
             </div>
 
-            <div class="rightAlignedText warning-box">
-              <p>
-                ކުށެއް ހުރިކަން އެންގުމަށް، ނުވަތަ ހިޔާލެއް ހުށަހެޅުމަށް، ނުވަތަ
-                ތަރުޖަމާގެ މަސައްކަތެއް
-                <a href="../page/contact.html">ކޮމިޝަންކުރުމަށް</a>
-              </p>
-              <!-- <p>
+            <p>
+              ކުށެއް ހުރިކަން އެންގުމަށް، ނުވަތަ ހިޔާލެއް ހުށަހެޅުމަށް، ނުވަތަ
+              ތަރުޖަމާގެ މަސައްކަތެއް
+              <a href="../page/contact.html">ކޮމިޝަންކުރުމަށް</a>
+            </p>
+            <!-- <p>
               ޙަދީޘްއެމްވީ މަޝްރޫއަށް
               <a href="../page/supportHadithmv.html">އެހީވެދިނުމަށް</a>
             </p> -->
-              <p>
-                ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް
-                <a href="../page/FAQ.html">ކިޔުމަށް</a>
-              </p>
+            <p>
+              ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް
+              <a href="../page/FAQ.html">ކިޔުމަށް</a>
+            </p>
 
-              <p>
-                ޙަދީޘްއެމްވީ ބޭނުންކުރާނެ ގޮތް
-                <a href="../page/howToUse.html" target="_blank">ދަސްކުރުމަށް</a>
-              </p>
+            <p>
+              ޙަދީޘްއެމްވީ ބޭނުންކުރާނެ ގޮތް
+              <a href="../page/howToUse.html" target="_blank">ދަސްކުރުމަށް</a>
+            </p>
 
-              <!--
+            <!--
                 <p>
-                  <span onclick="openDiv();">ޙަދީޘްއެމްވީ</span>އެޕް ހޯދުމަށް:
+                  <span onclick="openDiv();">ޙަދީޘްއެމްވީ</span> އެޕް ހޯދުމަށް:
                   <a href="https://hadithmv.github.io">ވެބް</a> |
                   <a
                     href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
@@ -1702,78 +1723,74 @@
                   >
                 </p>
                 -->
-            </div>
 
             <hr />
 
-            <section id="downloads">
-              <span>ޙަދީޘްއެމްވީ އެޕް ހޯދުމަށް:</span>
+            <span>ޙަދީޘްއެމްވީ އެޕް ހޯދުމަށް:</span>
 
-              <br />
+            <br />
 
-              <div class="appButtons">
-                <!-- windows -->
-                <a
-                  class="resp-sharing-button__link noLine"
-                  href="https://github.com/hadithmv/hadithmv.github.io/releases"
-                  target="_blank"
-                  aria-label=""
-                >
-                  <div class="resp-sharing-button">
-                    <div
-                      aria-hidden="true"
-                      class="resp-sharing-button__icon resp-sharing-button__icon--normal"
-                    >
-                      <!--<img src="windows.svg" alt="windows logo" />-->
-                      <div class="windowsIcon"></div>
-                      <br />
-                      <span class="btnText">Windows</span>
-                    </div>
+            <div class="appButtons">
+              <!-- windows -->
+              <a
+                class="resp-sharing-button__link noLine"
+                href="https://github.com/hadithmv/hadithmv.github.io/releases"
+                target="_blank"
+                aria-label=""
+              >
+                <div class="resp-sharing-button">
+                  <div
+                    aria-hidden="true"
+                    class="resp-sharing-button__icon resp-sharing-button__icon--normal"
+                  >
+                    <!--<img src="windows.svg" alt="windows logo" />-->
+                    <div class="encodedWindowsBtn"></div>
+                    <br />
+                    <span class="btnText">Win</span>
                   </div>
-                </a>
-                <!-- android -->
-                <a
-                  class="resp-sharing-button__link noLine"
-                  href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
-                  target="_blank"
-                  aria-label=""
-                >
-                  <div class="resp-sharing-button">
-                    <div
-                      aria-hidden="true"
-                      class="resp-sharing-button__icon resp-sharing-button__icon--normal"
-                    >
-                      <!--<img src="android.svg" alt="android logo" />-->
-                      <div class="androidIcon"></div>
-                      <br />
-                      <span class="btnText">Android</span>
-                    </div>
+                </div>
+              </a>
+              <!-- android -->
+              <a
+                class="resp-sharing-button__link noLine"
+                href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv"
+                target="_blank"
+                aria-label=""
+              >
+                <div class="resp-sharing-button">
+                  <div
+                    aria-hidden="true"
+                    class="resp-sharing-button__icon resp-sharing-button__icon--normal"
+                  >
+                    <!--<img src="android.svg" alt="android logo" />-->
+                    <div class="encodedAndroidBtn"></div>
+                    <br />
+                    <span class="btnText">Android</span>
                   </div>
-                </a>
-                <!-- web -->
-                <a
-                  class="resp-sharing-button__link"
-                  href="https://hadithmv.github.io"
-                  target="_blank"
-                  aria-label=""
-                >
-                  <div class="resp-sharing-button">
-                    <div
-                      aria-hidden="true"
-                      class="resp-sharing-button__icon resp-sharing-button__icon--normal"
-                    >
-                      <!--<img src="web.svg" alt="web logo" />-->
-                      <div class="webIcon"></div>
-                      <br />
-                      <span class="btnText">Web</span>
-                    </div>
+                </div>
+              </a>
+              <!-- web -->
+              <a
+                class="resp-sharing-button__link"
+                href="https://hadithmv.github.io"
+                target="_blank"
+                aria-label=""
+              >
+                <div class="resp-sharing-button">
+                  <div
+                    aria-hidden="true"
+                    class="resp-sharing-button__icon resp-sharing-button__icon--normal"
+                  >
+                    <!--<img src="web.svg" alt="web logo" />-->
+                    <div class="encodedWebBtn"></div>
+                    <br />
+                    <span class="btnText">Web</span>
                   </div>
-                </a>
-                <!-- div END -->
-              </div>
-              <!-- APP BUTTONS END -->
-            </section>
-
+                </div>
+              </a>
+              <!-- div END -->
+            </div>
+            <!-- APP BUTTONS END -->
             <br />
 
             <!--  -->
@@ -1782,7 +1799,7 @@
 
             <br />
 
-            <div class="appButtons" style="margin-bottom: 10px">
+            <div class="appButtons">
               <!-- facebook -->
               <a
                 class="resp-sharing-button__link noLine"
@@ -1796,7 +1813,7 @@
                     class="resp-sharing-button__icon resp-sharing-button__icon--normal"
                   >
                     <!--<img src="windows.svg" alt="windows logo" />-->
-                    <div class="facebookIcon"></div>
+                    <div class="encodedFacebookBtn"></div>
                   </div>
                 </div>
               </a>
@@ -1813,11 +1830,10 @@
                     class="resp-sharing-button__icon resp-sharing-button__icon--normal"
                   >
                     <!--<img src="windows.svg" alt="windows logo" />-->
-                    <div class="twitterIcon"></div>
+                    <div class="encodedTwitterBtn"></div>
                   </div>
-                </div>
-              </a>
-              <!-- telegram -->
+                </div> </a
+              ><!-- telegram -->
               <a
                 class="resp-sharing-button__link noLine"
                 href="http://t.me/hadithmv"
@@ -1830,7 +1846,7 @@
                     class="resp-sharing-button__icon resp-sharing-button__icon--normal"
                   >
                     <!--<img src="windows.svg" alt="windows logo" />-->
-                    <div class="telegramIcon"></div>
+                    <div class="encodedTelegramBtn"></div>
                   </div>
                 </div>
               </a>
@@ -1847,7 +1863,7 @@
                     class="resp-sharing-button__icon resp-sharing-button__icon--normal"
                   >
                     <!--<img src="web.svg" alt="web logo" />-->
-                    <div class="viberIcon"></div>
+                    <div class="encodedViberBtn"></div>
                   </div>
                 </div>
               </a>
@@ -1864,7 +1880,7 @@
                     class="resp-sharing-button__icon resp-sharing-button__icon--normal"
                   >
                     <!--<img src="web.svg" alt="web logo" />-->
-                    <div class="instagramIcon"></div>
+                    <div class="encodedInstagramBtn"></div>
                   </div>
                 </div>
               </a>
@@ -1875,9 +1891,9 @@
 
             <!-- SOCIAL BUTTONS END -->
           </div>
-          <!-- <div class="mid" id="footer" -->
+          <br />
         </div>
-        <!-- <div class="centerAlignedText"> -->
+        <!-- <div id="page"> -->
 
         <!-- URL CODE -->
         <!--
@@ -1886,9 +1902,8 @@
                 if neither /uc/ or /books/ are there, it should not change to that page, and the placeholder text should say "incorrect link" and be in red color, border color should also be red
                 -->
       </div>
-      <!-- <div class="hmvSection"> -->
+      <!-- <div class="centerAlignedText"> END -->
     </div>
-    <!-- <div class="dtWrapper"> -->
     <!-- Google tag (gtag.js) -->
     <script
       async
