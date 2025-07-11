@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.4.63";
+var hmvVersionNo = "6.4.64";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
@@ -162,340 +162,331 @@ function createNavbar() {
   // Insert the navbar HTML into the container
   document.getElementById("navbar-container").innerHTML = `
    <nav class="navbar">
-    <div class="navbar-left">
+   <div class="navbar-left">
       <a href="../books/index.html">
-        <img
-          alt="Site Icon" 
-          class="navbar-site-icon"
-          src="../img/logo/logo.svg"
-          title="Homepage"
-        />
+      <img
+         alt="Site Icon"
+         class="navbar-site-icon"
+         src="../img/logo/logo.svg"
+         title="Homepage"
+         />
       </a>
-    </div>
-  <div class="navbar-center">
-    <span class="navbar-page-title" title="Hadithmv - The Dhivehi Platform for the Sunnah
-">${pageTitle}</span>
-  </div>
-
-    <div class="navbar-right" title="Menu">
-    <span class="navbar-menu-icon hamburgerIcon"></span>
-  </div>
-
+   </div>
+   <div class="navbar-center">
+      <span class="navbar-page-title" title="Hadithmv - The Dhivehi Platform for the Sunnah
+         ">${pageTitle}</span>
+   </div>
+   <div class="navbar-right" title="Menu">
+      <span class="navbar-menu-icon hamburgerIcon"></span>
+   </div>
 </nav>
 <div class="navbar-side-menu" id="sideMenu">
-  <div class="navbar-side-menu-close" onclick="toggleSideMenu()">×</div>
-  <ul>
-    <li>
-      <a  href="../books/index.html" title="Homepage"><span class="homeIcon"></span>މައި ސަފުހާ</a>
-    </li>
-    <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
-      <div class="navbar-dropdown-label" title="Categories">
-        <span class="navbar-dropdown-arrow dropdownIcon"></span>ބައިތައް
-      </div>
-      <ul class="navbar-dropdown-content">
-        <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
-          <div class="navbar-dropdown-label" title="Quran">
-            <span class="navbar-dropdown-arrow dropdownIcon"></span>ގުރްއާން
-          </div>
-          <ul class="sub-navbar-dropdown-content">
-            <li>
-              <a
-                href="../books/quranHadithmv.html"
-                onclick="changeBook('quranHadithmv'); return false;" title="Hadithmv Translation"
-                >1 ޙަދީޘްއެމްވީގެ ތަރުޖަމާ</a
-              >
+   <div class="navbar-side-menu-close" onclick="toggleSideMenu()">×</div>
+   <ul>
+      <li>
+         <a  href="../books/index.html" title="Homepage"><span class="homeIcon"></span>މައި ސަފުހާ</a>
+      </li>
+      <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
+         <div class="navbar-dropdown-label" title="Categories">
+            <span class="navbar-dropdown-arrow dropdownIcon"></span>ބައިތައް
+         </div>
+         <ul class="navbar-dropdown-content">
+            <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
+               <div class="navbar-dropdown-label" title="Quran">
+                  <span class="navbar-dropdown-arrow dropdownIcon"></span>ގުރްއާން
+               </div>
+               <ul class="sub-navbar-dropdown-content">
+                  <li>
+                     <a
+                        href="../books/quranHadithmv.html"
+                        onclick="changeBook('quranHadithmv'); return false;" title="Hadithmv Translation"
+                        >1 ޙަދީޘްއެމްވީގެ ތަރުޖަމާ</a
+                        >
+                  </li>
+                  <li>
+                     <a
+                        href="../books/quranRasmee.html"
+                        onclick="changeBook('quranRasmee'); return false;" title="Official Translation"
+                        >2 ރަސްމީ ތަރުޖަމާ</a
+                        >
+                  </li>
+                  <li>
+                     <a
+                        href="../books/quranBakurube.html"
+                        onclick="changeBook('quranBakurube'); return false;"title="Bakurube Translation"
+                        >3 ބަކުރުބެގެ ތަރުޖަމާ</a
+                        >
+                  </li>
+                  <li>
+                     <a
+                        href="../books/quranJaufar.html"
+                        onclick="changeBook('quranJaufar'); return false;"title="Jaufar Tafsir"
+                        >4 ޖަޢުފަރުގެ ތަފްސީރު*</a
+                        >
+                  </li>
+                  <li>
+                     <a
+                        href="../books/quranSoabuni.html"
+                        onclick="changeBook('quranSoabuni'); return false;"title="S Tafsir"
+                        >&nbsp;</a>
+                  </li>
+                  <li>
+                     <a href="../books/quranUshru.html" title="Tafsir of Last 10th"
+                        >6 ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު</a
+                        >
+                  </li>
+               </ul>
+            </li>
+            <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
+               <div class="navbar-dropdown-label" title="Hadith">
+                  <span class="navbar-dropdown-arrow dropdownIcon"></span>ޙަދީޘް
+               </div>
+               <ul class="sub-navbar-dropdown-content">
+                  <li>
+                     <a href="../books/allAthar.html" title="Hadith Compilation"
+                        >0 އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/muwattaMalik.html" title="Muwatta Malik">1 މުވައްޠައު މާލިކު*</a>
+                  </li>
+                  <li>
+                     <a href="../books/umdathulAhkam.html" title="Umdathul Ahkam">2 ޢުމްދަތުލް އަޙްކާމް</a>
+                  </li>
+                  <li>
+                     <a href="../books/hisnulMuslim.html" title="Hisnul Muslim">3 މުސްލިމުންގެ ކިއްލާ</a>
+                  </li>
+                  <li>
+                     <a href="../books/arbaoonAajurry.html" title="Aajurrys’ 40 Hadith"
+                        >4 އާޖުއްރީގެ ސާޅީސް ޙަދީޘް*</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/kithabulIlmAbiKhaithama.html" title="Abu Khaithama’s Book of Knowledge"
+                        >5 އަބޫ ޚައިޘަމާ ލިޔުނު އިލްމުގެ ފޮތް</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/akhbaruShuyukh.html" title="Manners of the Sheikhs"
+                        >6 ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާގު</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/akhlaqHamalathilQuran.html" title="Manners of the Quran Carriers"
+                        >7 އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/bulughulMaram.html" title="Bulughul Maram">8 ބުލޫޣުލް މަރާމް*</a>
+                  </li>
+                  <li>
+                     <a href="../books/arbaoonNawawi.html" title="40 Nawawi">9 ނަވަވީގެ ސާޅީސް ޙަދީޘް</a>
+                  </li>
+                  <li>
+                     <a href="" title=""></a>
+                  </li>
+                  <li>
+                     <a href="../books/riyaduSaliheen.html" title="Riyadussaaliheen">11 ރިޔާޟުއްޞާލިޙީން*</a>
+                  </li>
+               </ul>
+            </li>
+            <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
+               <div class="navbar-dropdown-label" title="Aqida">
+                  <span class="navbar-dropdown-arrow dropdownIcon"></span>އަގީދާ
+               </div>
+               <ul class="sub-navbar-dropdown-content">
+                  <li>
+                     <a href="../books/allAqida.html" title="Aqida Compilation"
+                        >0 އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/usooluSunnahAhmed.html" title="Allah’s Most Beautiful Names"
+                        >1 ﷲ ގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/usooluSunnahAhmed.html" title="Ahmed’s Foundations of the Sunnah"
+                        >2 އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް*</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/sharhuSunnahBarbahari.html" title="Barbahari’s Explanation of the Creed"
+                        >3 ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ*</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/aqidatuRaziyain.html" title="Creed of the 2 Razis">4 ދެ ރާޒީންގެ އަގީދާ*</a>
+                  </li>
+                  <li>
+                     <a href="../books/kalimathulIkhlas.html" title="Ibn Rajab’s Attainment of the Statement of Ikhlas"
+                        >5 އިބްނު ރަޖަބު ލިޔުނު އިޚްލާސްގެ ކަލިމަ</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/talkhisKitabiShariah.html" title="Summary of Aajurry’s Book of Shariah"
+                        >6 އާޖުއްރީ ލިޔުނު ޝަރީއަތް ފޮތުގެ އަގީދާގެ ޚުލާސާއެއް</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/intisarLiAshabilHadith.html" title="Giving Victory to the People of Hadith"
+                        >7 ޙަދީޘްގެ އަސްހާބުންނަށް ނަސްރުދިނުން</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/aqidatuSalafSoabuni.html" title="Soabuni’s Creed of the Salaf"
+                        >8 އަބޫ ޢުޘްމާން އައްޞާބޫނީ ލިޔުނު ސަލަފުންގެ އަގީދާ</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/kitabulEmanAbiUbaid.html" title="Abu Ubaid’s Book of Faith"
+                        >9 އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/nawaqidulIslam.html" title="Nullifiers of Islam"
+                        >10 އިސްލާމްކަން ގެއްލޭ ކަންތައް</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/qawaidulArbau.html" title="4 Fundamental Principles (of Shirk)">11 ހަތަރު ގަވާއިދު</a>
+                  </li>
+                  <li>
+                     <a href="../books/usooluSiththa.html" title="6 Principles (of Monotheism)">12 ހަ އުސޫލު*</a>
+                  </li>
+                  <li>
+                     <a href="../books/usooluThalaatha.html" title="3 Principles (of Monotheism)">13 ތިން އުސޫލު</a>
+                  </li>
+                  <li>
+                     <a href="../books/quranUshru.html#tableID=:p69.html" title="Important Rulings for Muslims"
+                        >14 މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../books/sharhuSunnahBarbahari-DFK.html" title="Barbahari’s Explanation of the Creed - DFK Version"
+                        >ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ - DFK</a
+                        >
+                  </li>
+               </ul>
+            </li>
+            <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
+               <div class="navbar-dropdown-label" title="Language">
+                  <span class="navbar-dropdown-arrow dropdownIcon"></span>ބަސް
+               </div>
+               <ul class="sub-navbar-dropdown-content">
+                  <li>
+                     <a href="../mauhad/arabic.html" title="Madinah Arabic Books">މަދީނާ އަރަބި ފޮތްތައް</a>
+                  </li>
+                  <li>
+                     <a
+                        href="../books/radheefAll.html"
+                        onclick="changeBook('radheefAll'); return false;" title="Dictionary Compilation"
+                        >އެއްކުރަމުންދާ ރަދީފުތައް</a
+                        >
+                  </li>
+                  <li>
+                     <a
+                        href="../books/radheefRasmee.html"
+                        onclick="changeBook('radheefRasmee'); return false;" title="Official Dictionary"
+                        >ރަސްމީ ރަދީފު</a
+                        >
+                  </li>
+                  <li>
+                     <a
+                        href="../books/radheefEegaal.html" title="Eegaal Dictionary"
+                        onclick="changeBook('radheefEegaal'); return false;"
+                        >އަލްއީގާޡް</a
+                        >
+                  </li>
+                  <li>
+                     <a
+                        href="../books/radheefManiku.html" title="Manik Dictionary"
+                        onclick="changeBook('radheefManiku'); return false;"
+                        >މަނިކުގެ ރަދީފު</a
+                        >
+                  </li>
+                  <li>
+                     <a
+                        href="../books/radheefNanfoiy.html" title="Dictionary of Names"
+                        onclick="changeBook('radheefNanfoiy'); return false;"
+                        >ނަންފޮތް</a
+                        >
+                  </li>
+                  <li>
+                     <a href="../page/lafzuVakikohLiyumugeQawaid.html" title="Rules of Word Separation"
+                        >ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު (ދިވެހި)</a
+                        >
+                  </li>
+               </ul>
             </li>
             <li>
-              <a
-                href="../books/quranRasmee.html"
-                onclick="changeBook('quranRasmee'); return false;" title="Official Translation"
-                >2 ރަސްމީ ތަރުޖަމާ</a
-              >
+               <a href="../page/textEditor.html" title="Text Editor">ޓެކްސްޓު އެޑިޓަރ</a>
+            </li>
+         </ul>
+      </li>
+      <li>
+         <a href="../page/contact.html" title="Contact"><span class="contactIcon"></span>ގުޅުއްވުމަށް</a>
+      </li>
+      <li>
+         <a href="../page/supportHadithmv.html" title="Support the Project"><span class="supportSideMenuIcon"></span>މަޝްރޫއަށް އެހީވެދިނުމަށް</a>
+      </li>
+      <li>
+         <a href="../page/FAQ.html" title="FAQ"><span class="faqIcon"></span>ތަކުރާރު ސުވާލުތައް</a>
+      </li>
+      <li>
+         <a href="../page/contributorsList.html" title="Contributers"><span class="helpersIcon"></span>އެހީތެރިން</a>
+      </li>
+      <li>
+         <a href="https://github.com/hadithmv/hadithmv.github.io/releases" 
+            target="_blank"
+            class="versionNo"><span class="versionIcon"></span>އިސްދާރު: v${hmvVersionNo}</a>
+      </li>
+      <li>
+         <a href="https://t.me/ashraafmv" target="_blank" title="Message on Telegram"
+            ><span class="authorIcon"></span>ފަރުމާކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
+            >
+      </li>
+      <li>
+         <a style="font-size: 90%" onclick="openDiv()"
+            >- މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a
+            >
+      </li>
+      <hr>
+      <li class="wide-screen-toggle">
+         <!-- onclick='document.querySelector(".dtWrapper").style.maxWidth="none";' -->
+         <a href="#" 
+            onclick='const wrapper = document.querySelector(".dtWrapper"); 
+            wrapper.style.maxWidth = wrapper.style.maxWidth === "none" ? "980px" : "none"; 
+            return false;'><span class="fullScreenIcon"></span>ވައިޑް ސްކްރީން</a >
+      </li>
+      <li>
+         <a href="#"
+            onclick='window.scrollTo({top:0,behavior:"smooth"})'  title="Scroll Up"
+            ><span class="scrollUpIcon"></span>މައްޗަށް ސްކްރޯލްކުރޭ</a
+            >
+      </li>
+      <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
+         <div class="navbar-dropdown-label" title="Reload Page">
+            <span class="navbar-dropdown-arrow reloadIcon"></span>ރީލޯޑު
+         </div>
+         <ul class="navbar-dropdown-content">
+            <li>
+               <a href="#" onclick="window.location.reload()" title="Soft Reload">މަޑު ރީލޯޑު</a>
             </li>
             <li>
-              <a
-                href="../books/quranBakurube.html"
-                onclick="changeBook('quranBakurube'); return false;"title="Bakurube Translation"
-                >3 ބަކުރުބެގެ ތަރުޖަމާ</a
-              >
+               <a
+                  href="#"
+                  onclick='window.location.href=window.location.href.split(".html")[0]+".html"' title="Hard Reload"
+                  >ހަރު ރީލޯޑު</a
+                  >
             </li>
-            <li>
-              <a
-                href="../books/quranJaufar.html"
-                onclick="changeBook('quranJaufar'); return false;"title="Jaufar Tafsir"
-                >4 ޖަޢުފަރުގެ ތަފްސީރު*</a
-              >
-            </li>
-            <li>
-              <a
-                href="../books/quranSoabuni.html"
-                onclick="changeBook('quranSoabuni'); return false;"title="S Tafsir"
-              >&nbsp;</a>
-            </li>
-            <li>
-              <a href="../books/quranUshru.html" title="Tafsir of Last 10th"
-                >6 ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު</a
-              >
-            </li>
-          </ul>
-        </li>
-        <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
-          <div class="navbar-dropdown-label" title="Hadith">
-            <span class="navbar-dropdown-arrow dropdownIcon"></span>ޙަދީޘް
-          </div>
-          <ul class="sub-navbar-dropdown-content">
-            <li>
-              <a href="../books/allAthar.html" title="Hadith Compilation"
-                >0 އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު*</a
-              >
-            </li>
-            <li>
-              <a href="../books/muwattaMalik.html" title="Muwatta Malik">1 މުވައްޠައު މާލިކު*</a>
-            </li>
-            <li>
-              <a href="../books/umdathulAhkam.html" title="Umdathul Ahkam">2 ޢުމްދަތުލް އަޙްކާމް</a>
-            </li>
-            <li>
-              <a href="../books/hisnulMuslim.html" title="Hisnul Muslim">3 މުސްލިމުންގެ ކިއްލާ</a>
-            </li>
-            <li>
-              <a href="../books/arbaoonAajurry.html" title="Aajurrys’ 40 Hadith"
-                >4 އާޖުއްރީގެ ސާޅީސް ޙަދީޘް*</a
-              >
-            </li>
-            <li>
-              <a href="../books/kithabulIlmAbiKhaithama.html" title="Abu Khaithama’s Book of Knowledge"
-                >5 އަބޫ ޚައިޘަމާ ލިޔުނު އިލްމުގެ ފޮތް</a
-              >
-            </li>
-            <li>
-              <a href="../books/akhbaruShuyukh.html" title="Manners of the Sheikhs"
-                >6 ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާގު</a
-              >
-            </li>
-            <li>
-              <a href="../books/akhlaqHamalathilQuran.html" title="Manners of the Quran Carriers"
-                >7 އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a
-              >
-            </li>
-            <li>
-              <a href="../books/bulughulMaram.html" title="Bulughul Maram">8 ބުލޫޣުލް މަރާމް*</a>
-            </li>
-            <li>
-              <a href="../books/arbaoonNawawi.html" title="40 Nawawi">9 ނަވަވީގެ ސާޅީސް ޙަދީޘް</a>
-            </li>
-            <li>
-              <a href="" title=""></a>
-            </li>
-            <li>
-              <a href="../books/riyaduSaliheen.html" title="Riyadussaaliheen">11 ރިޔާޟުއްޞާލިޙީން*</a>
-            </li>
-          </ul>
-        </li>
-        <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
-          <div class="navbar-dropdown-label" title="Aqida">
-            <span class="navbar-dropdown-arrow dropdownIcon"></span>އަގީދާ
-          </div>
-          <ul class="sub-navbar-dropdown-content">
-            <li>
-              <a href="../books/allAqida.html" title="Aqida Compilation"
-                >0 އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް</a
-              >
-            </li>
-            <li>
-              <a href="../books/usooluSunnahAhmed.html" title="Allah’s Most Beautiful Names"
-                >1 ﷲ ގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް</a
-              >
-            </li>
-            <li>
-              <a href="../books/usooluSunnahAhmed.html" title="Ahmed’s Foundations of the Sunnah"
-                >2 އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް*</a
-              >
-            </li>
-            <li>
-              <a href="../books/sharhuSunnahBarbahari.html" title="Barbahari’s Explanation of the Creed"
-                >3 ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ*</a
-              >
-            </li>
-            <li>
-              <a href="../books/aqidatuRaziyain.html" title="Creed of the 2 Razis">4 ދެ ރާޒީންގެ އަގީދާ*</a>
-            </li>
-            <li>
-              <a href="../books/kalimathulIkhlas.html" title="Ibn Rajab’s Attainment of the Statement of Ikhlas"
-                >5 އިބްނު ރަޖަބު ލިޔުނު އިޚްލާސްގެ ކަލިމަ</a
-              >
-            </li>
-            <li>
-              <a href="../books/talkhisKitabiShariah.html" title="Summary of Aajurry’s Book of Shariah"
-                >6 އާޖުއްރީ ލިޔުނު ޝަރީއަތް ފޮތުގެ އަގީދާގެ ޚުލާސާއެއް</a
-              >
-            </li>
-            <li>
-              <a href="../books/intisarLiAshabilHadith.html" title="Giving Victory to the People of Hadith"
-                >7 ޙަދީޘްގެ އަސްހާބުންނަށް ނަސްރުދިނުން</a
-              >
-            </li>
-            <li>
-              <a href="../books/aqidatuSalafSoabuni.html" title="Soabuni’s Creed of the Salaf"
-                >8 އަބޫ ޢުޘްމާން އައްޞާބޫނީ ލިޔުނު ސަލަފުންގެ އަގީދާ</a
-              >
-            </li>
-            <li>
-              <a href="../books/kitabulEmanAbiUbaid.html" title="Abu Ubaid’s Book of Faith"
-                >9 އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް</a
-              >
-            </li>
-            <li>
-              <a href="../books/nawaqidulIslam.html" title="Nullifiers of Islam"
-                >10 އިސްލާމްކަން ގެއްލޭ ކަންތައް</a
-              >
-            </li>
-            <li>
-              <a href="../books/qawaidulArbau.html" title="4 Fundamental Principles (of Shirk)">11 ހަތަރު ގަވާއިދު</a>
-            </li>
-            <li>
-              <a href="../books/usooluSiththa.html" title="6 Principles (of Monotheism)">12 ހަ އުސޫލު*</a>
-            </li>
-            <li>
-              <a href="../books/usooluThalaatha.html" title="3 Principles (of Monotheism)">13 ތިން އުސޫލު</a>
-            </li>
-            <li>
-              <a href="../books/quranUshru.html#tableID=:p69.html" title="Important Rulings for Muslims"
-                >14 މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް</a
-              >
-            </li>
-            <li>
-              <a href="../books/sharhuSunnahBarbahari-DFK.html" title="Barbahari’s Explanation of the Creed - DFK Version"
-                >ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ - DFK</a
-              >
-            </li>
-          </ul>
-        </li>
-        <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
-          <div class="navbar-dropdown-label" title="Language">
-            <span class="navbar-dropdown-arrow dropdownIcon"></span>ބަސް
-          </div>
-          <ul class="sub-navbar-dropdown-content">
-            <li>
-              <a href="../mauhad/arabic.html" title="Madinah Arabic Books">މަދީނާ އަރަބި ފޮތްތައް</a>
-            </li>
-            <li>
-              <a
-                href="../books/radheefAll.html"
-                onclick="changeBook('radheefAll'); return false;" title="Dictionary Compilation"
-                >އެއްކުރަމުންދާ ރަދީފުތައް</a
-              >
-            </li>
-            <li>
-              <a
-                href="../books/radheefRasmee.html"
-                onclick="changeBook('radheefRasmee'); return false;" title="Official Dictionary"
-                >ރަސްމީ ރަދީފު</a
-              >
-            </li>
-            <li>
-              <a
-                href="../books/radheefEegaal.html" title="Eegaal Dictionary"
-                onclick="changeBook('radheefEegaal'); return false;"
-                >އަލްއީގާޡް</a
-              >
-            </li>
-            <li>
-              <a
-                href="../books/radheefManiku.html" title="Manik Dictionary"
-                onclick="changeBook('radheefManiku'); return false;"
-                >މަނިކުގެ ރަދީފު</a
-              >
-            </li>
-            <li>
-              <a
-                href="../books/radheefNanfoiy.html" title="Dictionary of Names"
-                onclick="changeBook('radheefNanfoiy'); return false;"
-                >ނަންފޮތް</a
-              >
-            </li>
-            <li>
-              <a href="../page/lafzuVakikohLiyumugeQawaid.html" title="Rules of Word Separation"
-                >ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު (ދިވެހި)</a
-              >
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="../page/textEditor.html" title="Text Editor">ޓެކްސްޓު އެޑިޓަރ</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <a href="../page/contact.html" title="Contact"><span class="contactIcon"></span>ގުޅުއްވުމަށް</a>
-    </li>
-    <li>
-      <a href="../page/supportHadithmv.html" title="Support the Project"><span class="supportSideMenuIcon"></span>މަޝްރޫއަށް އެހީވެދިނުމަށް</a>
-    </li>
-    <li>
-      <a href="../page/FAQ.html" title="FAQ"><span class="faqIcon"></span>ތަކުރާރު ސުވާލުތައް</a>
-    </li>
-    <li>
-      <a href="../page/contributorsList.html" title="Contributers"><span class="helpersIcon"></span>އެހީތެރިން</a>
-    </li>
-    <li>
-      <a href="https://github.com/hadithmv/hadithmv.github.io/releases" 
-                target="_blank"
-       class="versionNo"><span class="versionIcon"></span>އިސްދާރު: v${hmvVersionNo}</a>
-    </li>
-    <li>
-      <a href="https://t.me/ashraafmv" target="_blank" title="Message on Telegram"
-        ><span class="authorIcon"></span>ފަރުމާކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-      >
-    </li>
-    <li>
-      <a style="font-size: 90%" onclick="openDiv()"
-        >- މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a
-      >
-    </li>
-    <hr>
-    <li class="wide-screen-toggle">
-    <!-- onclick='document.querySelector(".dtWrapper").style.maxWidth="none";' -->
-    <a href="#" 
-    onclick='const wrapper = document.querySelector(".dtWrapper"); 
-              wrapper.style.maxWidth = wrapper.style.maxWidth === "none" ? "980px" : "none"; 
-              return false;'><span class="fullScreenIcon"></span>
-    ވައިޑް ސްކްރީން</a
-      >
-    </li>
-    <li>
-      <a href="#"
-      onclick='window.scrollTo({top:0,behavior:"smooth"})'  title="Scroll Up"
-        ><span class="scrollUpIcon"></span>މައްޗަށް ސްކްރޯލްކުރޭ</a
-      >
-    </li>
-
-    <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
-      <div class="navbar-dropdown-label" title="Reload Page">
-        <span class="navbar-dropdown-arrow reloadIcon"></span>ރީލޯޑު
-      </div>
-
-      <ul class="navbar-dropdown-content">
-        <li>
-          <a href="#" onclick="window.location.reload()" title="Soft Reload">މަޑު ރީލޯޑު</a>
-        </li>
-        <li>
-          <a
-            href="#"
-            onclick='window.location.href=window.location.href.split(".html")[0]+".html"' title="Hard Reload"
-            >ހަރު ރީލޯޑު</a
-          >
-        </li>
-      </ul>
-    </li>
-
-      
-    <li>
-      <a href="https://github.com/hadithmv/hadithmv.github.io"
-                target="_blank" title="Github"><span class="githubIcon"></span>ގިޓްހަބް</a>
-    </li>
-
-  </ul>
+         </ul>
+      </li>
+      <li>
+         <a href="https://github.com/hadithmv/hadithmv.github.io"
+            target="_blank" title="Github"><span class="githubIcon"></span>ގިޓްހަބް</a>
+      </li>
+   </ul>
 </div>
 `;
 }
@@ -692,14 +683,14 @@ document.addEventListener("DOMContentLoaded", function () {
       // When scroll is within topThreshold of the top, always show navbar
       navbar.classList.remove("navbar-hidden");
       scrollUpDistance = 0; // Reset scroll up distance
-    } else if (currentScrollTop > lastScrollTop) {
+    } else if (currentScrollTop >lastScrollTop) {
       // Scrolling down and beyond topThreshold
       navbar.classList.add("navbar-hidden"); // Hide navbar
       scrollUpDistance = 0; // Reset scroll up distance
     } else {
       // Scrolling up and beyond topThreshold
       scrollUpDistance += lastScrollTop - currentScrollTop; // Accumulate scroll up distance
-      if (scrollUpDistance > scrollThreshold) {
+      if (scrollUpDistance >scrollThreshold) {
         // If scrolled up more than the scrollThreshold
         navbar.classList.remove("navbar-hidden"); // Show navbar
         scrollUpDistance = 0; // Reset scroll up distance
@@ -719,7 +710,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!inThrottle) {
         func.apply(context, args);
         inThrottle = true;
-        setTimeout(() => (inThrottle = false), limit);
+        setTimeout(() =>(inThrottle = false), limit);
       }
     };
   }
@@ -787,7 +778,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //
 
 /*
-The reason you can't right-click on the <a> element to open it in a new tab is that the onclick event handler is used to trigger a JavaScript function (changeBkRadheef('radheefAll')) instead of providing a standard hyperlink (href) that directs to a URL. When an onclick event is used without an href attribute, the browser doesn't interpret the link as a regular hyperlink, and therefore, the right-click context menu for opening in a new tab or window doesn't appear.
+The reason you can't right-click on the <a>element to open it in a new tab is that the onclick event handler is used to trigger a JavaScript function (changeBkRadheef('radheefAll')) instead of providing a standard hyperlink (href) that directs to a URL. When an onclick event is used without an href attribute, the browser doesn't interpret the link as a regular hyperlink, and therefore, the right-click context menu for opening in a new tab or window doesn't appear.
 
 Solution:
 Add an href attribute: If possible, provide a fallback URL with the href attribute. This way, users can still open the link in a new tab.

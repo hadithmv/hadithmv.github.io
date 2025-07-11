@@ -1420,8 +1420,9 @@ https://icons8.com/icons
 (prev https://iconmonstr.com but thats not updated)
 
 and optimized them:
-https://vecta.io/nano
-https://jakearchibald.github.io/svgomg/ (THIS ALONE MIGHT BE ENOUGH WITHOUT THE ABOVE)
+Adobe Illustrator > fit to artboard , simplify
+(do i still need this at all? https://vecta.io/nano)
+https://jakearchibald.github.io/svgomg/
 
 or otherwise took them from their official sources and then optimized them */
 
@@ -1433,8 +1434,10 @@ or otherwise took them from their official sources and then optimized them */
 }
 
 to decode from base64 to svg use:
+https://codebeautify.org/url-decode-string
 https://www.base64decode.org/
-
+https://www.urldecoder.org/
+(Just paste the encoded part after: "data:image/svg+xml, ... ")
 */
 
 /* SOCIAL MEDIA ICONS */
@@ -1527,7 +1530,7 @@ https://www.base64decode.org/
 }
 
 .aqidaIcon {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.2' viewBox='0 0 550 700'%3E%3Cpath d='M525 0H25C11.2 0 0 11.2 0 25v650c0 13.8 11.2 25 25 25h500c13.8 0 25-11.2 25-25V25c0-13.8-11.2-25-25-25zM396.9 220.2l-36.4-26.4-38.6 27.6V46.9h75z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 550 700'%3E%3Cpath d='M490.75 0H59.25C26.53 0 0 26.53 0 59.25v581.5C0 673.47 26.53 700 59.25 700h431.5c32.72 0 59.25-26.53 59.25-59.25V59.25C550 26.53 523.47 0 490.75 0Zm-60.63 373.74-68.65-49.79-72.8 52.05V46.9h141.45v326.84Z'/%3E%3C/svg%3E");
 }
 
 .languageIcon {
