@@ -1242,6 +1242,10 @@ a:hover {
   color: #eee;
 }
 
+#supportReminder {
+  color: #eee;
+}
+
 /* Dark mode specific styles */
 @media (prefers-color-scheme: dark) {
   #morningQuranReminder,
@@ -1254,8 +1258,12 @@ a:hover {
 
   #supportReminder {
     background-color: #4f874b;
-    color: #e6e6e6;
+    /* color: #e6e6e6; */
     border: 1px solid #1c2f22;
+  }
+
+  #supportReminder p {
+    color: #fff;
   }
 }
 
@@ -1434,6 +1442,14 @@ https://www.base64decode.org/
 https://www.urldecoder.org/
 (Just paste the encoded part after: "data:image/svg+xml, ... ")
 */
+
+/* iconbase light mode - for INDEX ONLY */
+@media (prefers-color-scheme: light) {
+  .iconBase {
+    filter: invert(0%);
+    /* no filter */
+  }
+}
 
 /* SOCIAL MEDIA ICONS */
 
