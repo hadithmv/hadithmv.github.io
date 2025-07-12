@@ -15,14 +15,14 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("tab1").style.display = "block";
 });
 
-// Track current and previous tab
+// Track current tab and tab history stack
 let currentTab = "tab1";
-let previousTab = null;
+let tabHistory = ["tab1"]; // Stack to track tab navigation history
 
 function openTab(evt, tabName) {
-  // Update previousTab only if navigating to a new tab
+  // Update history only if navigating to a new tab
   if (tabName !== currentTab) {
-    previousTab = currentTab;
+    tabHistory.push(currentTab);
     currentTab = tabName;
   }
   var i, tabcontent, tablinks;
@@ -35,20 +35,35 @@ function openTab(evt, tabName) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
   document.getElementById(tabName).style.display = "block";
-  if (evt && evt.currentTarget) {
-    evt.currentTarget.className += " active";
+  evt.currentTarget.className += " active";
+}
+
+// Function to switch tabs without updating history (for back navigation)
+function switchToTab(tabName) {
+  currentTab = tabName;
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+
+  // Find and activate the correct tab button
+  const tabButton = document.querySelector(`[onclick*="${tabName}"]`);
+  if (tabButton) {
+    tabButton.className += " active";
   }
 }
 
-// Function to go back to the previous tab
 function goBackToPreviousTab() {
-  if (previousTab && currentTab !== "tab1") {
-    // Simulate a click to go to the previous tab
-    openTab({ currentTarget: document.createElement("div") }, previousTab);
-    scrollBack2Top();
-  } else {
-    // If no previous tab or on tab1, do nothing or stay on tab1
-    openTab({ currentTarget: document.createElement("div") }, "tab1");
+  // Only go back if we're not on tab1 and there's history
+  if (currentTab !== "tab1" && tabHistory.length > 0) {
+    const previousTab = tabHistory.pop();
+    switchToTab(previousTab);
     scrollBack2Top();
   }
 }
