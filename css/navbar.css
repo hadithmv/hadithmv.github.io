@@ -187,6 +187,7 @@ html body {
 
 /* Side menu styles */
 .navbar-side-menu {
+  font-size: 19.5px !important;
   position: fixed;
   top: 0;
   right: -300px;
