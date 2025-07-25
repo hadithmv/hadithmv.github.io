@@ -65,9 +65,9 @@ SOLUTION:
 that happens due to forced line breaks in the text.
 to fix, before exporting as html,
 grep replace all:
-\n (go to first find to check first)
-with
-nothing
+\n
+(go to first find to check first)
+	replace with nothing
 
 save as a copy, dont overwrite original
 
