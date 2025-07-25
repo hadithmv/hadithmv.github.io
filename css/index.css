@@ -1362,20 +1362,71 @@ a:hover {
  }*/
 
 /* =======================
-= appButtons
+= iconButtons
 ======================== */
 
-.appButtons {
-  direction: ltr;
-  /* margin-top: -10px; */
+.iconButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.iconButtons2 > a {
+  /* width: 100px; */
+  flex: 0 1 60px !important; /* Allow shrinking and growing */
+}
+
+/* @media (max-width: 600px) {
+  .iconButtons2 > a {
+    width: 70px;
+  }
+} */
+
+.iconButtons > a {
+  width: 90px;
+  min-width: 60px;
+  flex: 1 1 60px; /* Allow shrinking and growing */
+  max-width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.iconButtons .btnText {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  /* or another smaller value */
+  /* .iconButtons > a {
+    width: 70px;
+  } */
+  /* Optional: make text smaller on mobile */
+  .iconButtons .btnText {
+    font-size: 16px;
+  }
+  .iconButtons > a {
+    width: 70px;
+    min-width: 50px;
+    flex: 1 1 50px;
+    max-width: 80px;
+  }
 }
 
 /*
- .appButtons svg {
+ .iconButtons svg {
  opacity: 0.95;
  }
  */
-.appButtons .resp-sharing-button__link > div > div > div {
+.iconButtons .resp-sharing-button__link > div > div > div {
   opacity: 0.95;
 }
 
@@ -1385,7 +1436,7 @@ a:hover {
 }
 
 @media (prefers-color-scheme: light) {
-  .appButtons > a > div > div > div {
+  .iconButtons > a > div > div > div {
     filter: invert(0%);
   }
 
@@ -1394,7 +1445,7 @@ a:hover {
   }
 }
 
-#footer > div.appButtons > a:hover {
+#footer > div.iconButtons > a:hover {
   /*color: #66bce6 !important;*/
   color: #299bdc !important;
 }
