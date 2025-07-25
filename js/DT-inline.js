@@ -696,7 +696,7 @@ let DTconfig = {
                 var currentSurahName = arabicSurahNames[currentSurahNumber];
                 // Define the lines we want to replace
                 var linesToReplace = [
-                  "ترجمة حديث أم وي – ޙަދީޘްއެމްވީ ގުރްއާން ތަރުޖަމާ",
+                  "ترجمة حديث إم في – ޙަދީޘްއެމްވީ ގުރްއާން ތަރުޖަމާ",
                   "الترجمة الرسمية – ރަސްމީ ގުރްއާން ތަރުޖަމާ",
                   "التفسير الواضح الميسر – ޞާބޫނީގެ ތަފްސީރު",
                 ];
