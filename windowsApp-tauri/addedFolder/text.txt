@@ -98,6 +98,8 @@ https://v2.tauri.app/reference/cli/#build
 
 https://v2.tauri.app/distribute/windows-installer/
 
+!!!
+
 npm run tauri build
 
 releases will be here:

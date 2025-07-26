@@ -64,6 +64,7 @@ One issue is that when we clean up the <span> tags, some white space is getting 
 SOLUTION:
 that happens due to forced line breaks in the text.
 to fix, before exporting as html,
+
 grep replace all:
 \n
 (go to first find to check first)
