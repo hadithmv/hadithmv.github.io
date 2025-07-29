@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="dv" class="notranslate" translate="no">
+  <head>
+    <meta name="google" content="notranslate" />
+    <!-- CHANGE !!! -->
+    <title>ޙަދީޘްއެމްވީގެ ނޯޓުފޮތް - كناشة حديث إم في</title>
+    <meta
+      name="description"
+      content="The Dhivehi Platform for the Sunnah | ދިވެހިންގެ ސުންނަތުގެ މަންސަ"
+    />
+    <meta
+      name="keywords"
+      content="hadithmv, hadith mv, hadeeth mv, dhivehi, hadith, hadhees, dhivehi islamic books, tharujama, dhivehi translation,ފޮތް, ތަރުޖަމާ, ޤުރްއާން, ޤުރުއާން, ގުރްއާން,ގުރުއާން, އިސްލާމް, ދީނީ, ޙަދީޘް, ހަދީޘް, ޙަދީސް, ހަދީސް, ސުންނަތް, ސުންނާ, ސުންނަ, ސުއްނަތް, ސުއްނާ, ސުއްނަ, ސުންނީ, ސުއްނީ, ސަލަފް, ސަލަފު, ސަލަފުން, ސަލަފީ, އަޘަރީ, ދިވެހި ,ޙަދީޘްއެމްވީ ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <!-- external resources-->
+    <style>
+      html {
+        visibility: hidden;
+        opacity: 0;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="../css/base-styles.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/navbar.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/DT-COMB.min.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/DT-inline.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <script src="../js/navbar.js"></script>
+    <script src="../js/DT-COMB.min.js"></script>
+    <script src="../js/DT-inline.js"></script>
+    <!-- END external resources-->
+    <style>
+      /* so that long links in table dont cause it to break off screen */
+      .dataTable > tbody > tr {
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="hmvSection">
+        <!-- <div class="centerAlignedText"></div> -->
+        <!-- <div class="centerAlignedText"> END -->
+
+        <p>
+          މިއީ އެކި ފަހަރު މަތިން އެކި މީހުން ލިޔެވިފައިވާ ބައެއް
+          ލިޔުންތަކެކެވެ. މިތާ އަހްލުއް ސުންނަތުގެ ލިޔުމެއް ހިމަނާލަން ބޭނުންވާ
+          ނަމަ،
+          <a href="../page/contact.html">މެސެޖެއްކޮށްލާށެވެ</a>.
+        </p>
+        <p>
+          ހުޅުވާލާ އިރު، މި ސަފުހާގައި ދައްކާނީ އެންމެ ފަހުގެ ލިޔުމެވެ. އަދި
+          ދެން އަންނަ ސަފުހާއަށް ބަދަލުކުރާ އިރު، ފެންނާނީ އޭގެ ކުރީގެ ލިޔުމެވެ.
+        </p>
+      </div>
+    </div>
+    <script type="text/javascript">
+      table = new DataTable("#tableID", {
+        ...DTconfig,
+        // data: data.slice().reverse(), // Create a reversed copy of the data
+        /*ajax: {
+          url: `../js/json/` + currentFileName + `.json`,
+          //dataSrc: "",
+          // Create a shallow copy with slice() then reverse it
+          dataSrc: function (json) {
+            return json.slice().reverse();
+          },
+        },*/
+        ajax: {
+          url: `../js/json/` + currentFileName + `.json`,
+          dataSrc: function (json) {
+            originalData = json.slice().reverse();
+            return json.slice().reverse(); // Create a shallow copy with slice() then reverse it
+          },
+          dataType: "json",
+          cache: true,
+        },
+        // CHANGE !!!
+
+        //data: data,
+        // CHANGE !!!
+        // name date ar dv source
+        columns: [
+          {
+            //data: null,
+            title: "ސުރުހީ",
+            className: "colHeader",
+            render: function (data, type, row) {
+              return row[3].split("\n")[0];
+              // .trim()
+            },
+            /*render: function (data, type, row) {
+                // Get the first line of data[3]
+                let firstLine = row[3].split("\n")[0];
+                return firstLine;
+              },*/
+          },
+          {
+            title: "ލިޔުންތެރިޔާ",
+            data: 0,
+            className: "colHeader",
+            render: function (data) {
+              return "- " + data;
+            },
+          },
+          { title: "ތާރީޚު", data: 1, className: "colHeader" },
+          { title: "އަރަބި ލިޔުން", data: 2 },
+          // <br>
+          // '\t<br>'
+          {
+            title: "ދިވެހި ލިޔުން",
+            data: 3,
+            render: function (data, type, row) {
+              var lines = data.split("\n");
+              lines.shift(); // Remove the first line
+              return lines
+                .join("\n")
+                .trim()
+                .replace(/\n+/g, '\t<br class="dtBr">');
+            },
+            /*render: function (data, type, row) {
+              // Get the data[3] without the first line
+              let lines = row[3].split("\n");
+              lines.shift(); // Remove the first line
+              let remainingText = lines.join("\n");
+              //return remainingText;
+              return remainingText.replace(/\r\n|\n|\r/g, '\t<br>');
+            },*/
+          },
+          { title: "މަސްދަރު", data: 4 },
+        ],
+        //columns: [null, null, null, null, null],
+        /*columns: [
+              {
+                title: "ލިޔުންތެރިޔާ",
+                className: "colHeader",
+              },
+
+              { title: "ތާރީޚު", className: "colHeader" },
+              {
+                title: "އަރަބި ލިޔުން", // some nass doesnt have fili by default, so no need for searchable: false
+              },
+              {
+                title: "ދިވެހި ލިޔުން", //can have arabic text in it, and not anything in the actual arabic text field before it
+              },
+              {
+                title: "މަސްދަރު",
+              },
+            ],*/ //
+        columnDefs: [
+          {
+            targets: [3],
+            render: (data) =>
+              data !== ""
+                ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
+                  data.replace(/\n/g, '\t<br class="dtBr">')
+                : data,
+          },
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [0, 1, 2],
+          },
+          ...columnDefsconfig,
+          // ADDED
+        ],
+      });
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-HL24Q9NN24");
+    </script>
+    <!-- End Google Analytics -->
+  </body>
+</html>
+<!--
+table = new DataTable("#tableID", {
+        data: data,
+        columns: [
+          {
+            title: "ލިޔުންތެރިޔާ",
+          },
+
+          { title: "ތާރީޚު", },
+          {
+            title: "އަރަބި ލިޔުން", 
+          },
+          {
+            title: "ދިވެހި ލިޔުން", 
+          },
+          {
+            title: "މަސްދަރު",
+          },
+        ],
+}
+
+above is my datatables code
+
+what i want is
+
+for there to be a first column:
+{ title: "ސުރުހީ" },
+
+its data should be only the first line of
+{ title: "ދިވެހި ލިޔުން", },
+
+also,
+{ title: "ދިވެހި ލިޔުން", },
+should then have no first line
+
+[had to specify data targets]
+
+its not preserving the new lines now
+
+[dont need white-space: pre-wrap;]
+
+i am getting multiple <br> in the output
+
+...
+
+claude:
+
+table = new DataTable("#tableID", {
+    data: data,
+    columns: [
+        {
+            title: "ސުރުހީ",
+            render: function(data, type, row) {
+                return row[3].split('\n')[0].trim();
+            }
+        },
+        { title: "ލިޔުންތެރިޔާ" },
+        { title: "ތާރީޚު" },
+        { title: "އަރަބި ލިޔުން" },
+        {
+            title: "ދިވެހި ލިޔުން",
+            render: function(data, type, row) {
+                var lines = data.split('\n');
+                lines.shift(); // Remove the first line
+                return lines.join('\n').trim().replace(/\n+/g, '<br>');
+            }
+        },
+        { title: "މަސްދަރު" }
+    ]
+});
+
+-->
