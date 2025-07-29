@@ -539,7 +539,7 @@ function redirectToUrl() {
       setTimeout(() => {
         inputElement.setAttribute(
           "placeholder",
-          "ބޭނުންކުރަން ދަސްކުރެވޭނެ އެންމެ ތިރިން"
+          "ބޭނުންކުރަން ދަސްކުރެވޭނެ ތިރީގައިވާ ލިންކަކުން"
         );
         inputElement.classList.remove("incorrect-fade");
       }, 500); // Match this duration to the CSS transition duration, this is transition: opacity 0.5s ease-in-out; time
