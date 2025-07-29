@@ -2,13 +2,18 @@ import os
 import sys
 import json
 from bs4 import BeautifulSoup
+import re
 
 # Find all .html files in the current directory
 html_files = [f for f in os.listdir('.') if f.lower().endswith('.html')]
 
 for html_file in html_files:
     with open(html_file, 'r', encoding='utf-8') as f:
-        soup = BeautifulSoup(f, 'html.parser')
+        html = f.read()
+    # Replace <br><br> with a unique placeholder, then <br> with another
+    html = re.sub(r'<br\s*/?>\s*<br\s*/?>', '__DOUBLE_BR__', html)
+    html = re.sub(r'<br\s*/?>', '__SINGLE_BR__', html)
+    soup = BeautifulSoup(html, 'html.parser')
 
     messages = []
     # Each message is in a div with class 'message default clearfix' or 'message default clearfix joined'
@@ -32,10 +37,12 @@ for html_file in html_files:
         # Remove any reactions or unwanted children
         for unwanted in text_div.find_all(['span', 'div'], class_=['reactions']):
             unwanted.decompose()
-        text = text_div.get_text(separator=' ', strip=True)
+        text = text_div.get_text(separator='', strip=True)
+        # Restore line breaks
+        text = text.replace('__DOUBLE_BR__', '\n\n').replace('__SINGLE_BR__', '\n')
         if not text:
             continue
-        messages.append({'datetime': datetime, 'text': text})
+        messages.append([datetime, text])  # 2D array: [datetime, text]
 
     # Output to JSON file
     json_file = os.path.splitext(html_file)[0] + '.json'
