@@ -1,3 +1,8 @@
+WARNING: footnote number numbers not given in order, sometimes something that should be consequtive is switched with each other. fix later?
+
+sometimes also basmala translation is wholly omitted as well, so make sure to check
+...
+
 INSTRUCTIONS:
 
 ...
