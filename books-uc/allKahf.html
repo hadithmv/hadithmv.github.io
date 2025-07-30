@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="dv" class="notranslate" translate="no">
+  <head>
+    <meta name="google" content="notranslate" />
+    <!-- CHANGE !!! -->
+    <title>އެއްކުރަމުންދާ ކަހްފުގެ ފޮތްތައް - الجامع في الكهف</title>
+    <meta
+      name="description"
+      content="The Dhivehi Platform for the Sunnah | ދިވެހިންގެ ސުންނަތުގެ މަންސަ"
+    />
+    <meta
+      name="keywords"
+      content="hadithmv, hadith mv, hadeeth mv, dhivehi, hadith, hadhees, dhivehi islamic books, tharujama, dhivehi translation,ފޮތް, ތަރުޖަމާ, ޤުރްއާން, ޤުރުއާން, ގުރްއާން,ގުރުއާން, އިސްލާމް, ދީނީ, ޙަދީޘް, ހަދީޘް, ޙަދީސް, ހަދީސް, ސުންނަތް, ސުންނާ, ސުންނަ, ސުއްނަތް, ސުއްނާ, ސުއްނަ, ސުންނީ, ސުއްނީ, ސަލަފް, ސަލަފު, ސަލަފުން, ސަލަފީ, އަޘަރީ, ދިވެހި ,ޙަދީޘްއެމްވީ ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <!-- external resources-->
+    <style>
+      html {
+        visibility: hidden;
+        opacity: 0;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="../css/base-styles.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/navbar.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/DT-COMB.min.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/DT-inline.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <script src="../js/navbar.js"></script>
+    <script src="../js/DT-COMB.min.js"></script>
+    <script src="../js/DT-inline.js"></script>
+    <!-- END external resources-->
+    <style></style>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="hmvSection">
+        <div class="centerAlignedText">
+          <button
+            id="copyPageLink"
+            class="customButtons"
+            onclick="copyURLToClipButton();"
+          >
+            &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
+          </button>
+          <button
+            id="toggleFiliButton"
+            class="customButtons"
+            onclick="toggleTashkeel();scrollUpTop()"
+          >
+            &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
+          </button>
+          <button
+            id="toggleShowButton"
+            class="customButtons"
+            onclick="toggleShowOne();scrollUpTop()"
+          >
+            &nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;
+          </button>
+
+          <button class="customButtons" onclick="copyOneOnly();">
+            &nbsp; ފިއްޔާއެކު ކޮޕީ &nbsp;
+          </button>
+
+          <script>
+            // If column 3 is hidden, make it visible and hide column 4. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible. Then trigger a click on .buttons-html5, and finally restore the original visibility states. If column 3 is visible and column 4 is hidden, trigger a click on .buttons-html5 without changing any column visibility.
+            function copyOneOnly() {
+              var table = $(".dataTable").DataTable();
+
+              // Get the current visibility status of columns 3 and 4
+              var isVisible3 = table.column(3).visible();
+              var isVisible4 = table.column(4).visible();
+
+              // Function to change visibility and trigger export
+              function changeVisibilityAndExport(showCol3, showCol4) {
+                table.column(3).visible(showCol3, false);
+                table.column(4).visible(showCol4, false);
+                table.draw(false); // Redraw the table without resetting the paging
+
+                // Use setTimeout to ensure the visibility changes are applied before exporting
+                setTimeout(function () {
+                  $(".buttons-html5").click();
+
+                  // Restore original visibility after a short delay
+                  setTimeout(function () {
+                    table.column(3).visible(isVisible3, false);
+                    table.column(4).visible(isVisible4, false);
+                    table.draw(false);
+                  }, 100);
+                }, 100);
+              }
+
+              // If column 3 is hidden, make it visible and hide column 4
+              if (!isVisible3) {
+                changeVisibilityAndExport(true, false);
+              }
+              // If column 4 is visible and column 3 is hidden, hide column 4 and make column 3 visible
+              else if (isVisible4 && !isVisible3) {
+                changeVisibilityAndExport(true, false);
+              }
+              // If column 3 is visible and column 4 is hidden, just trigger the export
+              else if (isVisible3 && !isVisible4) {
+                $(".buttons-html5").click();
+              }
+            }
+          </script>
+
+          <script>
+            // CHANGE !!!
+            function toggleShowOne() {
+              /*var isVisible = $(".dataTable").DataTable().column(8).visible();
+              $(".dataTable").DataTable().column(8).visible(!isVisible);*/
+
+              var isVisible = $(".dataTable").DataTable().column(6).visible();
+              $(".dataTable").DataTable().column(6).visible(!isVisible);
+
+              var button = document.getElementById("toggleShowButton");
+              if (button.innerHTML.trim() === "&nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;") {
+                button.innerHTML = "&nbsp; ފުޓްނޯޓު ދައްކާ &nbsp;";
+              } else {
+                button.innerHTML = "&nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;";
+              }
+            }
+          </script>
+
+          <hr />
+
+          <p>
+            މިއީ ދާރު ފިތްޔަތިލް ކަހްފިގައިވާ ހުރިހާ ފޮތްތައް އެއް ތަނަކުން
+            ސާޗްކުރެވޭ ސަފުހާއެވެ.
+          </p>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      // Configuration object for each JSON file
+      const jsonConfigs = {
+        "talkhisKitabiShariah.json": {
+          keepColumns: [0, 1, 2, 3],
+          newColumns: ["تلخيص الشريعة للآجري"],
+        },
+        "usooluSunnahAhmed.json": {
+          keepColumns: [0, 1, 2, 3],
+          //orderColumns: [5, 4, 2, 3, 1, 0], // Optional: specify desired column order
+          newColumns: ["أصول السنة لأحمد"],
+        },
+        "sharhuSunnahBarbahari.json": {
+          keepColumns: [0, 1, 2, 3],
+          newColumns: ["شرح السنة للبربهاري"],
+        },
+        "kitabulEmanAbiUbaid.json": {
+          keepColumns: [0, 3, 5, 6],
+          newColumns: ["كتاب الإيمان لأبي عبيد"],
+        },
+        "akhlaqHamalathilQuran.json": {
+          keepColumns: [0, 3, 5, 6],
+          newColumns: ["أخلاق حملة القرآن للآجري"],
+        },
+        "akhbaruShuyukh.json": {
+          keepColumns: [0, 1, 2, 3],
+          newColumns: ["أخبار الشيوخ للمروذي"],
+        },
+        "intisarLiAshabilHadith.json": {
+          keepColumns: [1, 2, 3, 4],
+          newColumns: ["الانتصار لأصحاب الحديث"],
+        },
+        "kalimathulIkhlas.json": {
+          keepColumns: [0, 2, 3, 4],
+          newColumns: ["كلمة الإخلاص لابن رجب"],
+        },
+        "kithabulIlmAbiKhaithama.json": {
+          keepColumns: [0, 1, 2, 3, 4],
+          newColumns: ["أخبار الشيوخ للمروذي"],
+        },
+        "aqidatuSalafSoabuni.json": {
+          keepColumns: [2, 3, 4, 5],
+          newColumns: ["عقيدة السلف وأصحاب الحديث"],
+        },
+      };
+
+      // Modified processJsonData function to handle column padding
+      function processJsonData(data, config, maxColumns) {
+        return data.map((row) => {
+          const fullRow = Array.isArray(row) ? row : Object.values(row);
+
+          // Process the specified columns
+          let processedRow = config.keepColumns.map((index) => {
+            const value = fullRow[index];
+            return value === null || value === undefined ? "" : String(value);
+          });
+
+          // Add new columns if specified
+          if (config.newColumns && config.newColumns.length > 0) {
+            processedRow = [...config.newColumns, ...processedRow];
+          }
+
+          // Reorder columns if orderColumns is specified
+          if (config.orderColumns) {
+            const tempRow = [...processedRow];
+            processedRow = config.orderColumns.map((index) => {
+              // If the index is within newColumns range, adjust accordingly
+              const adjustedIndex = config.newColumns
+                ? index + config.newColumns.length
+                : index;
+              return tempRow[adjustedIndex] || "";
+            });
+          }
+
+          // Pad with empty strings if needed
+          while (processedRow.length < maxColumns) {
+            processedRow.push("");
+          }
+
+          return processedRow;
+        });
+      }
+
+      table = new DataTable("#tableID", {
+        ...DTconfig,
+        //
+
+        ajax: function (data, callback, settings) {
+          let loadedData = [];
+          const files = Object.entries(jsonConfigs);
+
+          // Calculate maximum number of columns across all configurations
+          const maxColumns = Math.max(
+            ...files.map(([_, config]) => {
+              const baseColumns = config.orderColumns
+                ? config.orderColumns.length
+                : config.keepColumns.length;
+              const extraColumns = config.newColumns
+                ? config.newColumns.length
+                : 0;
+              return baseColumns + extraColumns;
+            })
+          );
+
+          // Modified to use jQuery's ajax with promises
+          const loadSequentially = function () {
+            let promise = Promise.resolve();
+
+            files.forEach(([file, config]) => {
+              promise = promise.then(() => {
+                return $.getJSON(`../js/json/${file}`)
+                  .then(function (jsonData) {
+                    const processedData = processJsonData(
+                      jsonData,
+                      config,
+                      maxColumns
+                    );
+                    loadedData = [...loadedData, ...processedData];
+
+                    // Update the table with current accumulated data
+                    if (table) {
+                      table.clear();
+                      callback({
+                        data: loadedData,
+                        recordsTotal: loadedData.length,
+                        recordsFiltered: loadedData.length,
+                      });
+                    }
+
+                    console.log(
+                      `Loaded ${file}: Total rows now: ${loadedData.length}`
+                    );
+                  })
+                  .fail(function (jqXHR, textStatus, error) {
+                    console.error(`Error loading ${file}:`, error);
+                  });
+              });
+            });
+
+            // After all files are loaded
+            promise.then(() => {
+              // added for thashkeel removal
+              originalData = loadedData;
+            });
+          };
+
+          // Start loading process
+          loadSequentially();
+        },
+
+        // OLD CODE INCOMPATIBLE WITH ANDROID APP WEBVIEW
+        /*ajax: function (data, callback, settings) {
+          let loadedData = [];
+          const files = Object.entries(jsonConfigs);
+
+          // Calculate maximum number of columns across all configurations
+          const maxColumns = Math.max(
+            ...files.map(([_, config]) => {
+              const baseColumns = config.orderColumns
+                ? config.orderColumns.length
+                : config.keepColumns.length;
+              const extraColumns = config.newColumns
+                ? config.newColumns.length
+                : 0;
+              return baseColumns + extraColumns;
+            })
+          );
+
+          const loadSequentially = async () => {
+            for (const [file, config] of files) {
+              try {
+                const response = await fetch(`../js/json/${file}`);
+                if (!response.ok)
+                  throw new Error(`HTTP error! status: ${response.status}`);
+
+                const jsonData = await response.json();
+                const processedData = processJsonData(
+                  jsonData,
+                  config,
+                  maxColumns
+                );
+                loadedData = [...loadedData, ...processedData];
+
+                // Update the table with current accumulated data
+                if (table) {
+                  table.clear();
+                  callback({
+                    data: loadedData,
+                    recordsTotal: loadedData.length,
+                    recordsFiltered: loadedData.length,
+                  });
+                }
+
+                console.log(
+                  `Loaded ${file}: Total rows now: ${loadedData.length}`
+                );
+              } catch (error) {
+                console.error(`Error loading ${file}:`, error);
+              }
+            }
+
+            // added for thashkeel removal, changed from: originalData = json;
+            originalData = loadedData;
+          };
+
+          // Start loading process
+          loadSequentially();
+        },*/
+        //
+
+        // CHANGE !!!
+        //columns: [null, null, null, null, null],
+        // book	#	arText	dvText	Takhrij
+        columns: [
+          { title: "ފޮތް އަރަބިން", className: "colHeader" },
+          /*{
+            title: "ފޮތް ދިވެހިން",
+            data: 0,
+            render: (data) =>
+              data
+                .replace("أصول السنة لأحمد", "އަޙްމަދުގެ ސުންނަތުގެ އުސޫލުތައް")
+                .replace(
+                  "شرح السنة للبربهاري - DFK",
+                  "ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ - DFK"
+                )
+                .replace(
+                  "شرح السنة للبربهاري",
+                  "ބަރްބަހާރީގެ ސުންނަތުގެ ޝަރަހަ"
+                )
+                .replace("عقيدة الرازيين", "ދެ ރާޒީންގެ އަގީދާ")
+                .replace(
+                  "كتاب الإيمان لأبي عبيد",
+                  "އަބޫ ޢުބައިދުގެ އީމާންކަމުގެ ފޮތް"
+                )
+                .replace("نواقض الإسلام", "އިސްލާމްކަން ގެއްލޭ ކަންތައް")
+                .replace("القواعد الأربع", "ހަތަރު ގަވާއިދު")
+                .replace("الأصول الستة", "ހަ އުސޫލު")
+                .replace("الأصول الثلاثة", "ތިން އުސޫލު"),
+            visible: false,
+          },*/
+          { title: "#" },
+          {
+            title: "އަރަބި ލިޔުން",
+          },
+          {
+            title: "ދިވެހި ލިޔުން",
+          },
+          { title: "ތަޚްރީޖު", searchable: true },
+        ],
+        columnDefs: [
+          {
+            searchPanes: {
+              show: true,
+            },
+            targets: [0],
+          },
+          ...columnDefsconfig,
+        ],
+      });
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-HL24Q9NN24");
+    </script>
+    <!-- End Google Analytics -->
+  </body>
+</html>
