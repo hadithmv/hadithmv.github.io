@@ -597,17 +597,35 @@ let columnDefsconfig = [
     /*},
   {
     targets: "_all",*/
-    render: function (data, type, row) {
-      // if \r\n|\n|\r occurs more than once, i dont want <br class="dtBr"> to occure more than once
-      return data.replace(/(\r\n|\n|\r)+/g, '\t<br class="dtBr">'); // remember to update quran-navigation-list.js with this as well
-      //return data.replace(/\r\n|\n|\r/g, '\t<br class="dtBr">');
-      // return data.replace(/\r\n|\n|\r/g, '\t<br class="dtBr">');
-      // return data.replace(/\r\n|\n|\r/g, "\t<br><br>");
-      //return data.replace(/\r\n|\n|\r/g, "\t<p><p>");
-    }, // for some reason, without the \n replaced above, the single new lines in between same language paragraphs show in console as a single space, and therefore clipboard cannot be customized to show it
+    // if \r\n|\n|\r occurs more than once, i dont want <br class="dtBr"> to occure more than once
+
+    render: (data) => {
+      return (
+        data
+          // double newlines
+          .replace(
+            /(\r\n\r\n|\n\n|\r\r)+/g,
+            '\t<br class="dtBr">\t<br class="dtBr">'
+          )
+          // single newlines
+          .replace(/(\r\n|\n|\r)+/g, '\t<br class="dtBr">')
+      );
+    },
+
+    // data.replace(/\r\n|\n|\r/g, '\t<br class="dtBr">');
+    // data.replace(/\r\n|\n|\r/g, '\t<br class="dtBr">');
+    // data.replace(/\r\n|\n|\r/g, "\t<br><br>");
+    // data.replace(/\r\n|\n|\r/g, "\t<p><p>");
+
+    // for some reason, without the \n replaced above, the single new lines in between same language paragraphs show in console as a single space, and therefore clipboard cannot be customized to show it
     // added space before br, otherwise clipboard copy export has no space
     // leave off applying '<br class="dtBr">' in the divider replacements ـــــــــــــــــــــــــــ in order to have footnotes close together
     // it seems without \t, clipboard copy will not have newlines
+
+    /* PREV
+     render: function (data, type, row) {
+      return data.replace(/(\r\n|\n|\r)+/g, '\t<br class="dtBr">'); // remember to update quran-navigation-list.js with this as well
+    }, */
   },
 ];
 //
