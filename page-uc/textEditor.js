@@ -716,6 +716,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
+      case "removeDuplicateLines":
+        textArea.value = [...new Set(textArea.value.split("\n"))].join("\n");
+        break;
+
+      case "sortLinesAscending":
+        textArea.value = textArea.value
+          .split("\n")
+          .sort((a, b) => a.localeCompare(b))
+          .join("\n");
+        break;
+
+      case "sortLinesDescending":
+        textArea.value = textArea.value
+          .split("\n")
+          .sort((a, b) => b.localeCompare(a))
+          .join("\n");
+        break;
+
+      //
+
+      // Add this to your handleDropdownAction function
+      case "addLineNumbers":
+        const addSeparator = document.getElementById("addNumbersWith").value;
+        const textToNumber = textArea.value.split("\n");
+        const withNumbers = textToNumber.map(
+          (line, index) => `${index + 1}${addSeparator} ${line}`
+        );
+        textArea.value = withNumbers.join("\n");
+        break;
+
+      case "removeLineNumbers":
+        const removeSeparator =
+          document.getElementById("removeNumbersWith").value;
+        const textToClean = textArea.value.split("\n");
+        // Escape special characters for regex
+        const escapedSeparator = removeSeparator.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        );
+        const pattern = new RegExp(`^\\d+${escapedSeparator}\\s+`);
+        const withoutNumbers = textToClean.map((line) =>
+          line.replace(pattern, "")
+        );
+        textArea.value = withoutNumbers.join("\n");
+        break;
+
       case "splitIntoWords":
         textArea.value = textArea.value
           .split(/\s+/)
@@ -758,29 +804,11 @@ document.addEventListener("DOMContentLoaded", () => {
         textArea.value = sortedLines.join("\n");
         break;
 
-      case "sortLinesAscending":
-        textArea.value = textArea.value
-          .split("\n")
-          .sort((a, b) => a.localeCompare(b))
-          .join("\n");
-        break;
-
-      case "sortLinesDescending":
-        textArea.value = textArea.value
-          .split("\n")
-          .sort((a, b) => b.localeCompare(a))
-          .join("\n");
-        break;
-
       case "randomizeLines":
         textArea.value = textArea.value
           .split("\n")
           .sort(() => Math.random() - 0.5)
           .join("\n");
-        break;
-
-      case "removeDuplicateLines":
-        textArea.value = [...new Set(textArea.value.split("\n"))].join("\n");
         break;
 
       case "reverseTextHorizontal":
@@ -793,31 +821,126 @@ document.addEventListener("DOMContentLoaded", () => {
 
       //
 
-      // Add this to your handleDropdownAction function
-      case "addLineNumbers":
-        const addSeparator = document.getElementById("addNumbersWith").value;
-        const textToNumber = textArea.value.split("\n");
-        const withNumbers = textToNumber.map(
-          (line, index) => `${index + 1}${addSeparator} ${line}`
-        );
-        textArea.value = withNumbers.join("\n");
+      case "checkLineNumberSequence":
+        scrollToTop();
+        const linesToCheck = textArea.value.split("\n");
+        const result = [];
+        let expectedNumber = 1;
+        let hasNumbers = false;
+
+        for (let i = 0; i < linesToCheck.length; i++) {
+          const line = linesToCheck[i].trim();
+
+          // Skip empty lines
+          if (line === "") {
+            result.push(line);
+            continue;
+          }
+
+          // Try to extract number from the beginning of the line
+          const numberMatch = line.match(/^(\d+)/);
+
+          if (numberMatch) {
+            hasNumbers = true;
+            const currentNumber = parseInt(numberMatch[1]);
+
+            // If this is the first number we've found, set expected number
+            if (result.length === 0 || !result.some((l) => /\d+/.test(l))) {
+              expectedNumber = currentNumber;
+            }
+
+            // Check if the number is consecutive
+            if (currentNumber !== expectedNumber) {
+              // Add error message before the non-consecutive line
+              result.push("[!! NOT CONSECUTIVE !!]");
+            }
+
+            result.push(line);
+            expectedNumber = currentNumber + 1;
+          } else {
+            // Line doesn't start with a number, just add it
+            result.push(line);
+          }
+        }
+
+        // If no numbers were found, show a message
+        if (!hasNumbers) {
+          alert("No line numbers found to check for sequence.");
+          return;
+        }
+
+        textArea.value = result.join("\n");
         break;
 
-      case "removeLineNumbers":
-        const removeSeparator =
-          document.getElementById("removeNumbersWith").value;
-        const textToClean = textArea.value.split("\n");
-        // Escape special characters for regex
-        const escapedSeparator = removeSeparator.replace(
-          /[.*+?^${}()|[\]\\]/g,
-          "\\$&"
-        );
-        const pattern = new RegExp(`^\\d+${escapedSeparator}\\s+`);
-        const withoutNumbers = textToClean.map((line) =>
-          line.replace(pattern, "")
-        );
-        textArea.value = withoutNumbers.join("\n");
+      //
+
+      case "addPrefixSuffix": {
+        const prefix = document.getElementById("addPrefixInput").value;
+        const suffix = document.getElementById("addSuffixInput").value;
+
+        const lines = textArea.value.split("\n");
+        const modifiedLines = lines.map((line) => prefix + line + suffix);
+        textArea.value = modifiedLines.join("\n");
+
+        updateStats();
+        closeAllDropdowns();
         break;
+      }
+
+      case "removePrefixSuffix": {
+        const prefix = document.getElementById("removePrefixInput").value;
+        const suffix = document.getElementById("removeSuffixInput").value;
+
+        const lines = textArea.value.split("\n");
+        const modifiedLines = lines.map((line) => {
+          let modifiedLine = line;
+          if (prefix && modifiedLine.startsWith(prefix)) {
+            modifiedLine = modifiedLine.slice(prefix.length);
+          }
+          if (suffix && modifiedLine.endsWith(suffix)) {
+            modifiedLine = modifiedLine.slice(0, -suffix.length);
+          }
+          return modifiedLine;
+        });
+
+        textArea.value = modifiedLines.join("\n");
+
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+
+      case "removeCharsFromEnds": {
+        const charsFromStart =
+          parseInt(document.getElementById("removeStartChars").value) || 0;
+        const charsFromEnd =
+          parseInt(document.getElementById("removeEndChars").value) || 0;
+
+        const lines = textArea.value.split("\n");
+        const modifiedLines = lines.map((line) => {
+          // Handle empty lines
+          if (!line) return line;
+
+          // Remove from start
+          let modifiedLine = line;
+          if (charsFromStart > 0) {
+            modifiedLine = modifiedLine.slice(charsFromStart);
+          }
+
+          // Remove from end
+          if (charsFromEnd > 0 && modifiedLine.length > 0) {
+            modifiedLine = modifiedLine.slice(0, -charsFromEnd);
+          }
+
+          return modifiedLine;
+        });
+
+        textArea.value = modifiedLines.join("\n");
+
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
 
       // =====================================================
 
@@ -1544,77 +1667,6 @@ document.addEventListener("DOMContentLoaded", () => {
         closeAllDropdowns();
         break;
       }
-
-      // =====================================================
-
-      case "addPrefixSuffix": {
-        const prefix = document.getElementById("addPrefixInput").value;
-        const suffix = document.getElementById("addSuffixInput").value;
-
-        const lines = textArea.value.split("\n");
-        const modifiedLines = lines.map((line) => prefix + line + suffix);
-        textArea.value = modifiedLines.join("\n");
-
-        updateStats();
-        closeAllDropdowns();
-        break;
-      }
-
-      case "removePrefixSuffix": {
-        const prefix = document.getElementById("removePrefixInput").value;
-        const suffix = document.getElementById("removeSuffixInput").value;
-
-        const lines = textArea.value.split("\n");
-        const modifiedLines = lines.map((line) => {
-          let modifiedLine = line;
-          if (prefix && modifiedLine.startsWith(prefix)) {
-            modifiedLine = modifiedLine.slice(prefix.length);
-          }
-          if (suffix && modifiedLine.endsWith(suffix)) {
-            modifiedLine = modifiedLine.slice(0, -suffix.length);
-          }
-          return modifiedLine;
-        });
-
-        textArea.value = modifiedLines.join("\n");
-
-        updateStats();
-        closeAllDropdowns();
-        break;
-      }
-
-      case "removeCharsFromEnds": {
-        const charsFromStart =
-          parseInt(document.getElementById("removeStartChars").value) || 0;
-        const charsFromEnd =
-          parseInt(document.getElementById("removeEndChars").value) || 0;
-
-        const lines = textArea.value.split("\n");
-        const modifiedLines = lines.map((line) => {
-          // Handle empty lines
-          if (!line) return line;
-
-          // Remove from start
-          let modifiedLine = line;
-          if (charsFromStart > 0) {
-            modifiedLine = modifiedLine.slice(charsFromStart);
-          }
-
-          // Remove from end
-          if (charsFromEnd > 0 && modifiedLine.length > 0) {
-            modifiedLine = modifiedLine.slice(0, -charsFromEnd);
-          }
-
-          return modifiedLine;
-        });
-
-        textArea.value = modifiedLines.join("\n");
-
-        updateStats();
-        closeAllDropdowns();
-        break;
-      }
-
       // =====================================================
 
       case "convertSalawat":
