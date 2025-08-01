@@ -110,21 +110,32 @@ def clean_text(element):
 
 def is_quranic_script(text):
     if not text: return False
-    # Add both ranges of Mushaf Madina font characters to the exclusion list
-    thaana_pattern = re.compile(r'[\u0780-\u07BF\uFC50-\uFCFF]')
+    
+    # Check for Thaana (Dhivehi) characters - these should be excluded
+    thaana_pattern = re.compile(r'[\u0780-\u07BF]')
     if thaana_pattern.search(text): return False
+    
+    # Check for ayah numbers - these should be excluded
     if re.match(r'^\s*\((\d+)\)', text): return False
-    quranic_chars=r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\u1EE00-\u1EEFF]'
-    allowed_in_quranic=r'[()\d\s\uFD3E\uFD3F\ufdfa\ufdfb\ufd3f\ufd3e\u06dd\u06de\ufdfd]'
-    quranic_line_pattern=re.compile(f'^({quranic_chars}|{allowed_in_quranic})+$')
-    if quranic_line_pattern.match(text):
-        arabic_count = len(re.findall(quranic_chars, text))
-        total_count = len(text)
-        if total_count > 0 and ((arabic_count / total_count) > 0.85 or any(sym in text for sym in ['ﭑ','ﭐ','ﭒ','ﭓ','ﱂ','ﱃ','ﱄ','ﱅ', '﷽'])):
-            if len(text) < 15 and not any(sym in text for sym in ['ﭑ','ﭐ','ﭒ','ﭓ','ﱂ','ﱃ','ﱄ','ﱅ', '﷽']): return False
-            return True
-    specific_marker_pattern=re.compile(r'^[\s\uFD3E\uFD3F\ufdfa\ufdfb\ufd3f\ufd3e\u06dd\u06de\ufdfd]+$')
-    if specific_marker_pattern.match(text): return True
+    
+    # Check for specific Mushaf Madina font characters that should be removed
+    # These are the custom glyphs used for Quranic text formatting
+    mushaf_madina_chars = r'[\uFC50-\uFCFF\uFC4B-\uFC4F\uFC41-\uFC45\uFC46-\uFC4A]'
+    if re.search(mushaf_madina_chars, text):
+        return True
+    
+    # Check for specific Quranic symbols that indicate this is Quranic text
+    quranic_symbols = ['ﭑ','ﭐ','ﭒ','ﭓ','ﱂ','ﱃ','ﱄ','ﱅ', '﷽']
+    if any(sym in text for sym in quranic_symbols):
+        return True
+    
+    # Check for specific marker patterns that are only used in Quranic text
+    specific_marker_pattern = re.compile(r'^[\s\uFD3E\uFD3F\ufdfa\ufdfb\ufd3f\ufd3e\u06dd\u06de\ufdfd]+$')
+    if specific_marker_pattern.match(text): 
+        return True
+    
+    # Only remove text that contains Mushaf Madina font characters
+    # Do NOT remove normal Arabic text regardless of length
     return False
 
 def find_and_replace_footnote_tags_by_id(p_element, should_increment_counter=True):
