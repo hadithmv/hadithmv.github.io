@@ -149,7 +149,7 @@ def find_and_replace_footnote_tags_by_id(p_element, should_increment_counter=Tru
     footnote_links_with_id = p_element.find_all('a', id=lambda x: x and x.startswith('footnote-') and x.endswith('-backlink'))
     for tag in footnote_links_with_id:
          if tag not in tags_to_replace: tags_to_replace.append(tag)
-    tags_to_replace.sort(key=lambda tag: tag.sourceline * 1000 + tag.sourcepos if hasattr(tag, 'sourceline') and tag.sourceline is not None else float('inf'), reverse=True)
+    tags_to_replace.sort(key=lambda tag: tag.sourceline * 1000 + tag.sourcepos if hasattr(tag, 'sourceline') and tag.sourceline is not None else float('inf'), reverse=False)
     processed_tags = set()
     for tag in tags_to_replace:
         if tag in processed_tags or (tag.parent and tag.parent in processed_tags): continue
@@ -178,7 +178,7 @@ def find_and_replace_footnote_tags_by_id(p_element, should_increment_counter=Tru
                 if tag.parent and tag.parent.name == 'span' and not clean_text(tag.parent): processed_tags.add(tag.parent)
             except Exception as e:
                 if id_num and id_num not in refs_id_nums: refs_id_nums.append(id_num)
-    return refs_id_nums[::-1]
+    return refs_id_nums
 
 # --- Main Processing Function ---
 def process_html_file(html_file_path):
