@@ -475,6 +475,10 @@ def process_html_file(html_file_path):
         if is_bismillah_para:
             # Handle un-numbered bismillah paragraphs (e.g., in an introduction)
             line_to_add = f"-------------\nبِسمِ اللهِ الرَّحمَنِ الرَّحِيمِ\n{cleaned_p_text}\n-------------"
+        # START of the new logic
+        elif cleaned_p_text.startswith("ފަހެ، اللهُ سُبحَانَهُ وَتَعَالَى ދެއްވި ވާގިފުޅުން، ކީރިތި ޤުރްއާނުގެ އެއްވަނަ ފޮތުގެ ކުރު ތަފްސީރެއް ލިއުމަށް އަޅުގަނޑު ގަސްތުކުރި މިންވަރަށް ލިޔެ ނިމުނީއެވެ."):
+            line_to_add = f"-------------\n{cleaned_p_text}"
+        # END of the new logic
         
         # Add the content to the correct list.
         if waiting_for_first_ayah:
