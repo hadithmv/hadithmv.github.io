@@ -46,11 +46,11 @@ def is_surah_header(text):
     punctuation_count = sum(1 for c in text if c in sentence_indicators)
     if punctuation_count > 1:  # Headers usually don't have multiple punctuation marks
         return False
-    
+
     # Count Arabic characters
     arabic_chars = len([c for c in text if '\u0600' <= c <= '\u06FF'])
     total_chars = len([c for c in text if c.strip()])  # Count non-whitespace chars
-    
+
     # Should be predominantly Arabic
     if total_chars > 0 and arabic_chars / total_chars < 0.5:
         return False
@@ -59,11 +59,11 @@ def is_surah_header(text):
 
 # Global counter for sequential footnotes
 global_footnote_counter = 0
+
 # Map to store original footnote IDs to their sequential numbers
 footnote_id_to_seq_map = {}
 
 # --- Helper Functions ---
-# (Keep normalize_str, clean_text, is_quranic_script functions as they were)
 def normalize_str(text):
     if not text: return ""
     return unicodedata.normalize('NFC', text)
@@ -87,17 +87,18 @@ def clean_text(element):
         '': 'رَضِيَ اللَّهُ عَنْهُمَا',
         '': 'رَضِيَ اللَّهُ عَنْهَا',
         '': 'رَحِمَهُمَا اللَّهُ',
+        'ba': '',
     }
-    
+
     # Apply text replacements
     for old, new in text_replacements.items():
         text = text.replace(old, new)
-    
+
     # Swap quote characters
     text = text.replace('“', '__TEMP_QUOTE__')
     text = text.replace('”', '“')
     text = text.replace('__TEMP_QUOTE__', '”')
-    
+
     # Remove Mushaf Madina font characters (U+FC50 to U+FC9F and U+FCA0 to U+FCFF)
     text = re.sub(r'[\uFC50-\uFCFF]+', '', text)
     # Remove additional Mushaf Madina font characters (U+FC4B to U+FC4F)
@@ -108,7 +109,7 @@ def clean_text(element):
     text = re.sub(r'[\uFC46-\uFC4A]+', '', text)
     text = re.sub(r'\s+', ' ', text).strip()
     # Replace the space marker with an actual space
-    text = text.replace('__SPACE__', ' ')
+    text = text.replace('SPACE', ' ')
     return text
 
 def is_quranic_script(text):
@@ -117,33 +118,33 @@ def is_quranic_script(text):
     # Check for Thaana (Dhivehi) characters - these should be excluded
     thaana_pattern = re.compile(r'[\u0780-\u07BF]')
     if thaana_pattern.search(text): return False
-    
+
     # Check for ayah numbers - these should be excluded
     if re.match(r'^\s*\((\d+)\)', text): return False
-    
+
     # Check for specific Mushaf Madina font characters that should be removed
     # These are the custom glyphs used for Quranic text formatting
     mushaf_madina_chars = r'[\uFC50-\uFCFF\uFC4B-\uFC4F\uFC41-\uFC45\uFC46-\uFC4A]'
     if re.search(mushaf_madina_chars, text):
         return True
-    
+
     # Check for specific Quranic symbols that indicate this is Quranic text
     quranic_symbols = ['ﭑ','ﭐ','ﭒ','ﭓ','ﱂ','ﱃ','ﱄ','ﱅ', '﷽']
     if any(sym in text for sym in quranic_symbols):
         return True
-    
+
     # Check for specific marker patterns that are only used in Quranic text
     specific_marker_pattern = re.compile(r'^[\s\uFD3E\uFD3F\ufdfa\ufdfb\ufd3f\ufd3e\u06dd\u06de\ufdfd]+$')
     if specific_marker_pattern.match(text): 
         return True
-    
+
     # Only remove text that contains Mushaf Madina font characters
     # Do NOT remove normal Arabic text regardless of length
     return False
 
 def find_and_replace_footnote_tags_by_id(p_element, should_increment_counter=True):
     """Finds footnote <a> tags based on href, replaces them with ID-based placeholders,
-       and returns the extracted footnote ID numbers."""
+    and returns the extracted footnote ID numbers."""
     global global_footnote_counter, footnote_id_to_seq_map
     refs_id_nums = []
     tags_to_replace = []
@@ -151,7 +152,7 @@ def find_and_replace_footnote_tags_by_id(p_element, should_increment_counter=Tru
     tags_to_replace.extend(footnote_links)
     footnote_links_with_id = p_element.find_all('a', id=lambda x: x and x.startswith('footnote-') and x.endswith('-backlink'))
     for tag in footnote_links_with_id:
-         if tag not in tags_to_replace: tags_to_replace.append(tag)
+        if tag not in tags_to_replace: tags_to_replace.append(tag)
     tags_to_replace.sort(key=lambda tag: tag.sourceline * 1000 + tag.sourcepos if hasattr(tag, 'sourceline') and tag.sourceline is not None else float('inf'), reverse=False)
     processed_tags = set()
     for tag in tags_to_replace:
@@ -161,8 +162,8 @@ def find_and_replace_footnote_tags_by_id(p_element, should_increment_counter=Tru
         id_match = re.search(r'#footnote-(\d+)', href)
         id_num = id_match.group(1) if id_match else None
         if not id_num:
-             id_match_from_link_id = re.search(r'footnote-(\d+)-backlink', link_id_attr)
-             if id_match_from_link_id: id_num = id_match_from_link_id.group(1)
+            id_match_from_link_id = re.search(r'footnote-(\d+)-backlink', link_id_attr)
+            if id_match_from_link_id: id_num = id_match_from_link_id.group(1)
         if id_num:
             # Assign sequential number if not already assigned
             if id_num not in footnote_id_to_seq_map:
@@ -173,7 +174,7 @@ def find_and_replace_footnote_tags_by_id(p_element, should_increment_counter=Tru
                     # Just store the ID without incrementing counter
                     footnote_id_to_seq_map[id_num] = id_num
             seq_num = footnote_id_to_seq_map[id_num]
-            placeholder = f"\n[{seq_num}]__SPACE__"  # Use a special marker for space
+            placeholder = f"\n[{seq_num}]SPACE"  # Use a special marker for space
             try:
                 tag.replace_with(NavigableString(placeholder))
                 if id_num not in refs_id_nums: refs_id_nums.append(id_num)
@@ -184,32 +185,33 @@ def find_and_replace_footnote_tags_by_id(p_element, should_increment_counter=Tru
     return refs_id_nums
 
 # --- Main Processing Function ---
+
 def process_html_file(html_file_path):
     """Process a single HTML file and generate corresponding output files."""
     global global_footnote_counter, footnote_id_to_seq_map
-    
+
     # Reset global counters for each file
     global_footnote_counter = 0
     footnote_id_to_seq_map = {}
-    
+
     # Variables for processing current file
     current_aayah_number = ""
     current_tafseer_lines = []
     current_footnote_id_refs = []  # Store ID numbers found FOR the current ayah
     processing_started = False
-    
+
     # NEW: Variables to capture introductory text for each Surah
     surah_intro_lines = []
     surah_intro_footnote_refs = []
     waiting_for_first_ayah = False
-    
+
     # Generate output paths based on input filename
     base_name = os.path.splitext(html_file_path)[0]
     output_json_path = f"{base_name}_output.json"
     output_md_path = f"{base_name}_output.md"
-    
+
     print(f"\nProcessing {html_file_path}...")
-    
+
     try:
         with open(html_file_path, 'r', encoding='utf-8') as f:
             html_content = f.read()
@@ -228,7 +230,7 @@ def process_html_file(html_file_path):
         return
 
     parsed_data = []
-    
+
     # --- Footnote dictionary population (key=ID, value=dict) ---
     footnotes_map = {}  # Key: ID_Num, Value: {'visible_num': str, 'text': str}
     print("--- Parsing Footnotes ---")
@@ -291,6 +293,12 @@ def process_html_file(html_file_path):
         for p in candidate_paragraphs:
             if p in processed_para_elements:
                 continue
+            
+            # --- FIX: Skip any paragraph that is inside a footnote definition div ---
+            if p.find_parent('div', id=lambda x: x and x.startswith('footnote-')):
+                continue
+            # --- END FIX ---
+            
             if p.find_parent('section', class_='_idFootnotes'):
                 continue  # Skip notes section explicitly
             # Add check for parent being a footnote section (new structure)
@@ -510,6 +518,7 @@ def process_html_file(html_file_path):
         print(f"Error writing Markdown file: {e}")
 
 # --- Main Execution ---
+
 print(f"Found {len(HTML_FILES)} HTML file(s) to process:")
 for html_file in HTML_FILES:
     print(f"- {html_file}")
