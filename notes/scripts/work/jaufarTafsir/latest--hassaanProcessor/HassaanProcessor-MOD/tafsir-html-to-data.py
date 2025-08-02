@@ -497,9 +497,15 @@ def process_html_file(html_file_path):
 
     # --- Output Generation ---
     try:
+        # <<<< START OF CHANGE >>>>
+        # Transform the data from a list of objects to the desired 2D array format
+        json_output_data = [[item['tafseer'], item['footnotes']] for item in parsed_data]
+
         with open(output_json_path, 'w', encoding='utf-8') as f:
-            json.dump(parsed_data, f, ensure_ascii=False, indent=4)
+            # Dump the newly formatted 2D array
+            json.dump(json_output_data, f, ensure_ascii=False, indent=4)
         print(f"Successfully created JSON file: {output_json_path}")
+        # <<<< END OF CHANGE >>>>
     except Exception as e:
         print(f"Error writing JSON file: {e}")
 
@@ -520,6 +526,7 @@ def process_html_file(html_file_path):
         print(f"Successfully created Markdown file: {output_md_path}")
     except Exception as e:
         print(f"Error writing Markdown file: {e}")
+
 
 # --- Main Execution ---
 
