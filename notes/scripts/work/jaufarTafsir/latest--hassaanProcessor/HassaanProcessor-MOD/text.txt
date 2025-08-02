@@ -87,6 +87,8 @@ dont need the web resource folder, can delete that
 
 ...
 
+!!! can skip this part as it is now integrated into the script that is to be run after this section
+
 OPEN HTML IN VS CODE
 
 Remove all the <span> tags in CODE EDITOR
