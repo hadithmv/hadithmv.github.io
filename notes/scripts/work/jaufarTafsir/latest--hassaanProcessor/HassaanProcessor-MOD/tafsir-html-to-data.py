@@ -6,6 +6,11 @@ import os
 import glob
 
 # --- Configuration ---
+# Set to True to run the pre-processing step that removes all <span> tags from the HTML files.
+# This will modify the files on disk before the main script runs.
+# Set to False to skip this step and process the files as they are.
+PRE_PROCESS_SPANS = True
+
 # Process all HTML files in current directory
 HTML_FILES = glob.glob('*.html')  # Get all HTML files in current directory
 if not HTML_FILES:
@@ -19,6 +24,46 @@ BISMILLAH_PHRASE_CHECK = "اللهُ سُبحَانَهُ وَتَعَالَىގ
 REMOVE_QURANIC_TEXT = True
 DEBUG_FOOTNOTES = False # Set True to debug footnote issues
 DEBUG_CONTENT = True  # New debug flag
+
+
+# --- NEW: Pre-processing Function ---
+def preprocess_and_remove_spans(file_list):
+    """
+    Reads each HTML file, removes all <span> tags while keeping their content,
+    and saves the modified content back to the original file.
+    """
+    print("\n--- Starting Pre-processing: Removing <span> tags ---")
+    if not file_list:
+        print("No HTML files found to pre-process.")
+        return
+
+    # The regex pattern to find <span> tags and capture their content.
+    # re.DOTALL ensures that '.' matches newline characters as well.
+    span_pattern = re.compile(r'<span.*?>(.+?)</span>', re.DOTALL)
+
+    for file_path in file_list:
+        try:
+            print(f"  - Processing: {file_path}")
+            # Read the original file content
+            with open(file_path, 'r', encoding='utf-8') as f:
+                original_content = f.read()
+
+            # Replace all occurrences of the pattern with just the inner content (\1)
+            modified_content = span_pattern.sub(r'\1', original_content)
+
+            # Write the modified content back to the same file
+            with open(file_path, 'w', encoding='utf-8') as f:
+                f.write(modified_content)
+
+            print(f"    ... Done. Saved changes to {file_path}")
+
+        except FileNotFoundError:
+            print(f"    Error: File not found at {file_path}")
+        except Exception as e:
+            print(f"    An error occurred while processing {file_path}: {e}")
+
+    print("--- Pre-processing complete ---\n")
+
 
 def is_surah_header(text):
     """Checks if the given text is a surah header using various patterns"""
@@ -497,7 +542,6 @@ def process_html_file(html_file_path):
 
     # --- Output Generation ---
     try:
-        # <<<< START OF CHANGE >>>>
         # Transform the data from a list of objects to the desired 2D array format
         json_output_data = [[item['tafseer'], item['footnotes']] for item in parsed_data]
 
@@ -505,7 +549,6 @@ def process_html_file(html_file_path):
             # Dump the newly formatted 2D array
             json.dump(json_output_data, f, ensure_ascii=False, indent=4)
         print(f"Successfully created JSON file: {output_json_path}")
-        # <<<< END OF CHANGE >>>>
     except Exception as e:
         print(f"Error writing JSON file: {e}")
 
@@ -527,8 +570,11 @@ def process_html_file(html_file_path):
     except Exception as e:
         print(f"Error writing Markdown file: {e}")
 
-
 # --- Main Execution ---
+
+# Check the flag. If True, run the pre-processing step first.
+if PRE_PROCESS_SPANS:
+    preprocess_and_remove_spans(HTML_FILES)
 
 print(f"Found {len(HTML_FILES)} HTML file(s) to process:")
 for html_file in HTML_FILES:
