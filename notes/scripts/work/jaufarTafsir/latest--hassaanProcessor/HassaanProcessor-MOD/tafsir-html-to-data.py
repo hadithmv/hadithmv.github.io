@@ -12,6 +12,9 @@ if not HTML_FILES:
     print("Error: No HTML files found in current directory")
     exit()
 
+# The specific phrase to check for after initial cleaning (like replacing )
+BISMILLAH_PHRASE_CHECK = "اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ"
+
 # Remove configuration of single file paths since we'll process multiple files
 REMOVE_QURANIC_TEXT = True
 DEBUG_FOOTNOTES = False # Set True to debug footnote issues
@@ -315,82 +318,82 @@ def process_html_file(html_file_path):
         """Stores the data for the previously processed Aayah block."""
         nonlocal current_tafseer_lines, current_footnote_id_refs, parsed_data
         nonlocal current_aayah_number, surah_intro_lines, surah_intro_footnote_refs
+        
+        # Exit if there's nothing to store for the current ayah number
+        if not current_aayah_number or not (current_tafseer_lines or surah_intro_lines):
+            # Clear lists and return
+            current_tafseer_lines, current_footnote_id_refs = [], []
+            surah_intro_lines, surah_intro_footnote_refs = [], []
+            return
 
-        if current_aayah_number and (current_tafseer_lines or surah_intro_lines):
-            # Combine introductory text with first ayah content
-            combined_lines = []
-            combined_footnote_refs = []
-            
-            # Add introductory text first (if any)
+        # --- Content Assembly ---
+        # 1. Number the first line of the main tafseer content (if it exists)
+        if current_tafseer_lines:
+            # Check if the first line is our special Bismillah block
+            # If so, the number is already part of the content, so we don't add another.
+            if not current_tafseer_lines[0].startswith("-------------"):
+                 current_tafseer_lines[0] = f"({current_aayah_number}) {current_tafseer_lines[0]}"
+
+        # 2. Combine introductory and tafseer content with intelligent separation
+        final_lines = []
+        if surah_intro_lines:
+            final_lines.extend(surah_intro_lines)
+        
+        if current_tafseer_lines:
+            needs_separator = False
+            # Check if a separator is needed between intro and tafseer
             if surah_intro_lines:
-                combined_lines.extend(surah_intro_lines)
-                combined_footnote_refs.extend(surah_intro_footnote_refs)
-                # Add a separator between intro and ayah content
-                if current_tafseer_lines:
-                    # combined_lines.append("")  # Empty line as separator
-                    combined_lines.append("-------------")  # Dashed line as separator
+                last_intro_line = surah_intro_lines[-1].strip()
+                first_tafseer_line = current_tafseer_lines[0].strip()
+                # Add separator ONLY if intro doesn't end with one AND tafseer doesn't start with one.
+                if not last_intro_line.endswith("-------------") and not first_tafseer_line.startswith("-------------"):
+                    needs_separator = True
             
-            # Add ayah content with number prefix
-            if current_tafseer_lines:
-                # Add ayah number to the first line of ayah content
-                first_ayah_line = f"({current_aayah_number}) {current_tafseer_lines[0]}"
-                combined_lines.append(first_ayah_line)
-                # Add remaining ayah lines
-                combined_lines.extend(current_tafseer_lines[1:])
-            combined_footnote_refs.extend(current_footnote_id_refs)
+            if needs_separator:
+                final_lines.append("-------------")
             
-            # Join lines with newlines, preserving empty lines
-            tafseer_with_placeholders = "\n".join(combined_lines)
-            tafseer_final_text = tafseer_with_placeholders
+            final_lines.extend(current_tafseer_lines)
 
-            # Get unique footnote IDs referenced in this Aayah
-            unique_id_refs_ordered = list(dict.fromkeys(combined_footnote_refs))
+        tafseer_with_placeholders = "\n".join(final_lines)
+
+        # --- Footnote Assembly ---
+        combined_footnote_refs = list(dict.fromkeys(surah_intro_footnote_refs + current_footnote_id_refs))
+        footnotes_text = ""
+        for id_num in combined_footnote_refs:
+            footnote_info = footnotes_map.get(id_num)
+            seq_num = footnote_id_to_seq_map.get(id_num)
             
-            # Build the footnotes text
-            footnotes_text = ""
-            for id_num in unique_id_refs_ordered:
-                footnote_info = footnotes_map.get(id_num)
-                seq_num = footnote_id_to_seq_map.get(id_num)
-                
-                if footnote_info and seq_num:
-                    if footnotes_text:  # Add newline between footnotes
-                        footnotes_text += "\n"
-                    footnotes_text += f"[{seq_num}] {footnote_info['text']}"
-                else:
-                    # If original footnote text wasn't found
-                    if footnotes_text:
-                        footnotes_text += "\n"
-                    footnotes_text += f"[{seq_num}] Footnote text for ID {id_num} not found"
+            if footnote_info and seq_num:
+                if footnotes_text: footnotes_text += "\n"
+                footnotes_text += f"[{seq_num}] {footnote_info['text']}"
+            else:
+                if footnotes_text: footnotes_text += "\n"
+                footnotes_text += f"[{seq_num}] Footnote text for ID {id_num} not found"
 
-            # Clean up spacing within paragraphs while preserving paragraph breaks
-            lines = tafseer_final_text.split('\n')
-            cleaned_lines = []
-            for line in lines:
-                if line.strip():
-                    # Clean up spacing within non-empty lines
-                    cleaned_line = re.sub(r'\s{2,}', ' ', line)  # Replace multiple spaces with single space
-                    cleaned_line = re.sub(r'\s([,.!?;:])', r'\1', cleaned_line)  # Remove spaces before punctuation
-                    cleaned_line = re.sub(r'(\()\s', r'\1', cleaned_line)  # Remove spaces after opening parenthesis
-                    cleaned_line = re.sub(r'\s(\))', r'\1', cleaned_line)  # Remove spaces before closing parenthesis
-                    cleaned_lines.append(cleaned_line)
-                else:
-                    # Preserve empty lines
-                    cleaned_lines.append('')
+        # --- Final Text Cleaning ---
+        lines = tafseer_with_placeholders.split('\n')
+        cleaned_lines = []
+        for line in lines:
+            if line.strip() and line.strip() != '-------------':
+                cleaned_line = re.sub(r'\s{2,}', ' ', line)
+                cleaned_line = re.sub(r'\s([,.!?;:])', r'\1', cleaned_line)
+                cleaned_line = re.sub(r'(\()\s', r'\1', cleaned_line)
+                cleaned_line = re.sub(r'\s(\))', r'\1', cleaned_line)
+                cleaned_lines.append(cleaned_line)
+            else:
+                cleaned_lines.append(line)
+        tafseer_final_text = '\n'.join(cleaned_lines)
 
-            # Join back with newlines
-            tafseer_final_text = '\n'.join(cleaned_lines)
+        # Append final data
+        parsed_data.append({
+            "aayah_number": current_aayah_number,
+            "tafseer": tafseer_final_text,
+            "footnotes": footnotes_text
+        })
 
-            parsed_data.append({
-                "aayah_number": current_aayah_number,
-                "tafseer": tafseer_final_text,
-                "footnotes": footnotes_text
-            })
-
-        current_tafseer_lines = []
-        current_footnote_id_refs = []  # Reset IDs
-        # Reset introductory text for next surah
-        surah_intro_lines = []
-        surah_intro_footnote_refs = []
+        # Reset for the next block
+        current_tafseer_lines, current_footnote_id_refs = [], []
+        surah_intro_lines, surah_intro_footnote_refs = [], []
 
     print("\n--- Processing Main Content ---")
     # --- Main Loop (Processing Paragraphs) ---
@@ -404,22 +407,15 @@ def process_html_file(html_file_path):
         if not cleaned_p_text:
             continue
         normalized_p_text = normalize_str(cleaned_p_text)
+        is_bismillah_para = BISMILLAH_PHRASE_CHECK in cleaned_p_text
         
         # Check if this is a surah header
-        if is_surah_header(normalized_p_text) and not processing_started:
+        if is_surah_header(normalized_p_text) and not is_bismillah_para:
+            store_previous_aayah() # Store any previous data before starting a new surah
             print(f"Found surah header: {normalized_p_text}")
             processing_started = True  # Start processing once we find first surah header
-            print("\n--- Processing Content ---")
-            current_aayah_number = ""
+            current_aayah_number = "" # Reset ayah number
             waiting_for_first_ayah = True  # Start collecting introductory text
-            surah_intro_footnote_refs.extend(refs_id_nums_found)
-            continue
-        elif is_surah_header(normalized_p_text):
-            # If we find another surah header after processing started,
-            # store the previous ayah and start collecting intro for new surah
-            store_previous_aayah()
-            current_aayah_number = ""
-            waiting_for_first_ayah = True  # Start collecting introductory text for new surah
             surah_intro_footnote_refs.extend(refs_id_nums_found)
             continue
         
@@ -429,6 +425,11 @@ def process_html_file(html_file_path):
         # Check if this is an ayah number
         aayah_match = re.match(r'^\s*\((\d+)\)\s*(.*)', cleaned_p_text)
         if aayah_match:
+            # This paragraph marks the start of a new ayah's content.
+            # Store the previous ayah's data first.
+            if not waiting_for_first_ayah:
+                 store_previous_aayah()
+            
             new_aayah_number = int(aayah_match.group(1))
             if prev_aayah_number is not None:
                 if new_aayah_number != prev_aayah_number + 1:
@@ -437,44 +438,45 @@ def process_html_file(html_file_path):
                     print(f"Found Aayah: {new_aayah_number}")
             else:
                 print(f"Found Aayah: {new_aayah_number}")
+            
+            # Start collecting data for the new ayah.
+            waiting_for_first_ayah = False
             prev_aayah_number = new_aayah_number
-            # If we were waiting for first ayah, this is it
-            if waiting_for_first_ayah:
-                waiting_for_first_ayah = False
-                current_aayah_number = aayah_match.group(1)
-                initial_tafseer_part = aayah_match.group(2).strip()
-                current_footnote_id_refs.extend(refs_id_nums_found)  # Store IDs found in this line
-                if initial_tafseer_part:
-                    if not (REMOVE_QURANIC_TEXT and is_quranic_script(initial_tafseer_part)):
-                        current_tafseer_lines.append(initial_tafseer_part)
+            current_aayah_number = aayah_match.group(1)
+            current_footnote_id_refs.extend(refs_id_nums_found)
+
+            line_to_add = cleaned_p_text
+            if is_bismillah_para:
+                # Format the Bismillah paragraph without a leading newline
+                line_to_add = f"-------------\nبِسمِ اللهِ الرَّحمَنِ الرَّحِيمِ\n{cleaned_p_text}\n-------------"
             else:
-                # This is a subsequent ayah, store previous and start new
-                store_previous_aayah()
-                current_aayah_number = aayah_match.group(1)
-                initial_tafseer_part = aayah_match.group(2).strip()
-                current_footnote_id_refs.extend(refs_id_nums_found)  # Store IDs found in this line
-                if initial_tafseer_part:
-                    if not (REMOVE_QURANIC_TEXT and is_quranic_script(initial_tafseer_part)):
-                        current_tafseer_lines.append(initial_tafseer_part)
-            continue
+                # It's a regular numbered line, just use the text after the number
+                line_to_add = aayah_match.group(2).strip()
+
+            if line_to_add and not (REMOVE_QURANIC_TEXT and is_quranic_script(line_to_add)):
+                current_tafseer_lines.append(line_to_add)
             
-        # If we're waiting for first ayah, collect introductory text
-        if waiting_for_first_ayah:
-            if not (REMOVE_QURANIC_TEXT and is_quranic_script(cleaned_p_text)):
-                if cleaned_p_text and not cleaned_p_text.isspace():
-                    if not re.fullmatch(r'(\s*__FOOTNOTE_ID_\d+__\s*)+', cleaned_p_text):
-                        surah_intro_lines.append(cleaned_p_text)
-                surah_intro_footnote_refs.extend(refs_id_nums_found)
-            continue
+            continue # Move to the next paragraph
             
-        # Regular processing for ayah content
+        # This code block handles paragraphs that are NOT ayah-numbered.
+        # They are either introductory text or continuation of a previous ayah.
         if REMOVE_QURANIC_TEXT and is_quranic_script(cleaned_p_text):
             continue
-        if current_aayah_number:
-            if cleaned_p_text and not cleaned_p_text.isspace():
-                if not re.fullmatch(r'(\s*__FOOTNOTE_ID_\d+__\s*)+', cleaned_p_text):
-                    current_tafseer_lines.append(cleaned_p_text)
-            current_footnote_id_refs.extend(refs_id_nums_found)  # Store IDs found in this line
+
+        line_to_add = cleaned_p_text
+        if is_bismillah_para:
+            # Handle un-numbered bismillah paragraphs (e.g., in an introduction)
+            line_to_add = f"-------------\nبِسمِ اللهِ الرَّحمَنِ الرَّحِيمِ\n{cleaned_p_text}\n-------------"
+        
+        # Add the content to the correct list.
+        if waiting_for_first_ayah:
+            if line_to_add and not line_to_add.isspace():
+                surah_intro_lines.append(line_to_add)
+            surah_intro_footnote_refs.extend(refs_id_nums_found)
+        elif current_aayah_number:
+            if line_to_add and not line_to_add.isspace():
+                current_tafseer_lines.append(line_to_add)
+            current_footnote_id_refs.extend(refs_id_nums_found)
 
     # Store the very last Aayah block
     store_previous_aayah()
