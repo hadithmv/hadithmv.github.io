@@ -1,6 +1,15 @@
 node_modules
 _site/
 
+
+
+# Custom rules for ignoring specific files in the notes directory
+/notes/scripts/work/0 papaparse/*.json
+/notes/scripts/work/0 papaparse/*.csv
+/notes/scripts/work/jaufarTafsir/latest--hassaanProcessor/HassaanProcessor-MOD/*.json
+/notes/scripts/work/jaufarTafsir/latest--hassaanProcessor/HassaanProcessor-MOD/*.html
+/notes/scripts/work/jaufarTafsir/latest--hassaanProcessor/HassaanProcessor-MOD/*.md
+
 # https://stackoverflow.com/questions/13541615/how-to-remove-files-that-are-listed-in-the-gitignore-but-still-on-the-repositor/13541721#13541721
 # git ls-files -i -c --exclude-from=.gitignore | %{git rm --cached $_}
 

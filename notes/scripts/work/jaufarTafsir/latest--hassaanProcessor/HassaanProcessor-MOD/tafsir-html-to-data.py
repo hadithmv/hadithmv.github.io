@@ -6,7 +6,7 @@ import os
 import glob
 
 # --- Configuration ---
-# Set to True to run the pre-processing step that removes all <span> tags from the HTML files.
+# Set to True to run the pre-processing step that removes all <span> and <br> tags from the HTML files.
 # This will modify the files on disk before the main script runs.
 # Set to False to skip this step and process the files as they are.
 PRE_PROCESS_SPANS = True
@@ -27,19 +27,23 @@ DEBUG_CONTENT = True  # New debug flag
 
 
 # --- NEW: Pre-processing Function ---
-def preprocess_and_remove_spans(file_list):
+def preprocess_and_remove_tags(file_list):
     """
-    Reads each HTML file, removes all <span> tags while keeping their content,
+    Reads each HTML file, removes all <span> and <br> tags,
     and saves the modified content back to the original file.
     """
-    print("\n--- Starting Pre-processing: Removing <span> tags ---")
+    print("\n--- Starting Pre-processing: Removing <span> and <br> tags ---")
     if not file_list:
         print("No HTML files found to pre-process.")
         return
 
-    # The regex pattern to find <span> tags and capture their content.
+    # Regex to find <span> tags and capture their content.
     # re.DOTALL ensures that '.' matches newline characters as well.
     span_pattern = re.compile(r'<span.*?>(.+?)</span>', re.DOTALL)
+
+    # Regex to find all variations of <br> tags (e.g., <br>, <br/>, <BR>)
+    br_pattern = re.compile(r'<br\s*/?>', re.IGNORECASE)
+
 
     for file_path in file_list:
         try:
@@ -48,8 +52,11 @@ def preprocess_and_remove_spans(file_list):
             with open(file_path, 'r', encoding='utf-8') as f:
                 original_content = f.read()
 
-            # Replace all occurrences of the pattern with just the inner content (\1)
+            # 1. Replace all <span> tags with just their inner content (\1)
             modified_content = span_pattern.sub(r'\1', original_content)
+
+            # 2. Remove all <br> tags from the result
+            modified_content = br_pattern.sub('', modified_content)
 
             # Write the modified content back to the same file
             with open(file_path, 'w', encoding='utf-8') as f:
@@ -574,7 +581,7 @@ def process_html_file(html_file_path):
 
 # Check the flag. If True, run the pre-processing step first.
 if PRE_PROCESS_SPANS:
-    preprocess_and_remove_spans(HTML_FILES)
+    preprocess_and_remove_tags(HTML_FILES)
 
 print(f"Found {len(HTML_FILES)} HTML file(s) to process:")
 for html_file in HTML_FILES:
