@@ -20,6 +20,10 @@ if not HTML_FILES:
 # The specific phrase to check for after initial cleaning (like replacing )
 BISMILLAH_PHRASE_CHECK = "اللهُ سُبحَانَهُ وَتَعَالَىގެ އިސްމުފުޅުގެ ބަރަކާތުން ފަށަމެވެ"
 
+# NEW: The specific phrase that marks the absolute end of the content.
+CONCLUDING_PHRASE = "وَصَلَّى اللهُ وَسَلَّمَ عَلَى سَيِّدِنَا وَمَوْلَانَا مُحَمَّدٍ، وَعَلَى آلِهِ وَأَصْحَابِهِ، وَمَنْ تَبِعَهُمْ بِإِحْسَانٍ إِلَى يَوْمِ الدِّينِ. وَالْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ."
+
+
 # Remove configuration of single file paths since we'll process multiple files
 REMOVE_QURANIC_TEXT = True
 DEBUG_FOOTNOTES = False # Set True to debug footnote issues
@@ -443,6 +447,15 @@ def process_html_file(html_file_path):
             else:
                 cleaned_lines.append(line)
         tafseer_final_text = '\n'.join(cleaned_lines)
+        
+        # --- NEW: Truncate text after the concluding phrase ---
+        # Search for the concluding phrase in the final text
+        end_phrase_pos = tafseer_final_text.find(CONCLUDING_PHRASE)
+        if end_phrase_pos != -1:
+            # If the phrase is found, cut the string off after it
+            tafseer_final_text = tafseer_final_text[:end_phrase_pos + len(CONCLUDING_PHRASE)]
+        # --- END NEW ---
+
 
         # Append final data
         parsed_data.append({

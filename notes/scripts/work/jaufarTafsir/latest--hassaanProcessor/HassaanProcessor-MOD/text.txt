@@ -1,6 +1,9 @@
-WARNING: footnote number numbers not given in order, sometimes something that should be consequtive is switched with each other. fix later?
+WARNING: 
 
-sometimes also basmala translation is wholly omitted as well, so make sure to check
+still all intros of every new surah are in the cell of the last ayah before it, so have to fix those manually, as well as their footnotes
+
+sometimes also basmala translation is wholly omitted as well, so make sure to check where every new surahs start
+
 ...
 
 INSTRUCTIONS:
