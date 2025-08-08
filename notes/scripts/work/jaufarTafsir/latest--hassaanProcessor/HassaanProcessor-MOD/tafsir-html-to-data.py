@@ -180,7 +180,9 @@ def is_quranic_script(text):
 
     # Check for specific Mushaf Madina font characters that should be removed
     # These are the custom glyphs used for Quranic text formatting
-    mushaf_madina_chars = r'[\uFC50-\uFCFF\uFC4B-\uFC4F\uFC41-\uFC45\uFC46-\uFC4A]'
+    # mushaf_madina_chars = r'[\uFC50-\uFCFF\uFC4B-\uFC4F\uFC41-\uFC45\uFC46-\uFC4A]'
+    # Simplified version combining all ranges
+    mushaf_madina_chars = r'[\uF56A-\uF572\uFC41-\uFCFF]'
     if re.search(mushaf_madina_chars, text):
         return True
 
@@ -469,6 +471,16 @@ def process_html_file(html_file_path):
         surah_intro_lines, surah_intro_footnote_refs = [], []
 
     print("\n--- Processing Main Content ---")
+    
+    # --- MODIFICATION START ---
+    # This regex is now corrected. It no longer contains the erroneous 's' and it does not
+    # require the sentence to be the ONLY thing in the paragraph. It just checks if the
+    # paragraph STARTS with this sentence structure.
+    conclusion_para_pattern = re.compile(
+        r"ފަހެ، اللهُ سُبحَانَهُ وَتَعَالَى ދެއްވި ވާގިފުޅުން، ކީރިތި ޤުރްއާނުގެ \S+ ފޮތުގެ ކުރު ތަފްސީރެއް ލިއުމަށް އަޅުގަނޑު ގަސްތުކުރި މިންވަރަށް ލިޔެ ނިމުނީއެވެ"
+    )
+    # --- MODIFICATION END ---
+    
     # --- Main Loop (Processing Paragraphs) ---
     current_surah = None
     prev_aayah_number = None  # Track previous aayah number
@@ -540,10 +552,13 @@ def process_html_file(html_file_path):
         if is_bismillah_para:
             # Handle un-numbered bismillah paragraphs (e.g., in an introduction)
             line_to_add = f"-------------\nبِسمِ اللهِ الرَّحمَنِ الرَّحِيمِ\n{cleaned_p_text}\n-------------"
-        # START of the new logic
-        elif cleaned_p_text.startswith("ފަހެ، اللهُ سُبحَانَهُ وَتَعَالَى ދެއްވި ވާގިފުޅުން، ކީރިތި ޤުރްއާނުގެ އެއްވަނަ ފޮތުގެ ކުރު ތަފްސީރެއް ލިއުމަށް އަޅުގަނޑު ގަސްތުކުރި މިންވަރަށް ލިޔެ ނިމުނީއެވެ."):
+        
+        # --- MODIFICATION START ---
+        # Use the corrected regex pattern to match the concluding paragraph.
+        # This now works even if the paragraph contains more text after the first sentence.
+        elif re.match(conclusion_para_pattern, cleaned_p_text):
             line_to_add = f"-------------\n{cleaned_p_text}"
-        # END of the new logic
+        # --- MODIFICATION END ---
         
         # Add the content to the correct list.
         if waiting_for_first_ayah:
