@@ -1,0 +1,14 @@
+Update to v6.5.15, Add 3 files, Update 7 files
+
+2025-08-24 14:20
+
+- Add: books-uc/mukhtasarTauhidilAsmaWaSifat.html
+- Add: books/mukhtasarTauhidilAsmaWaSifat.html
+- Add: js/json/mukhtasarTauhidilAsmaWaSifat.json
+- Update: _layouts/index.html
+- Update: books-uc/allAqida.html
+- Update: books-uc/index.html
+- Update: books/allAqida.html
+- Update: books/index.html
+- Update: js/navbar.js
+- Update: js/navbar.min.js

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="dv" class="notranslate" translate="no">
+  <head>
+    <meta name="google" content="notranslate" />
+    <!-- CHANGE !!! -->
+    <title>
+      ފިތުރަތުން އެ ކަންކަމަށް ގޮވާލާ އަދި ޝަރީއަތުން އެ ކަންކަން
+      ކަނޑައަޅާފައިވާ ހައްގުތައް - حقوق دعت إليها الفطرة وقررتها الشريعة
+    </title>
+    <meta
+      name="description"
+      content="The Dhivehi Platform for the Sunnah | ދިވެހިންގެ ސުންނަތުގެ މަންސަ"
+    />
+    <meta
+      name="keywords"
+      content="hadithmv, hadith mv, hadeeth mv, dhivehi, hadith, hadhees, dhivehi islamic books, tharujama, dhivehi translation,ފޮތް, ތަރުޖަމާ, ޤުރްއާން, ޤުރުއާން, ގުރްއާން,ގުރުއާން, އިސްލާމް, ދީނީ, ޙަދީޘް, ހަދީޘް, ޙަދީސް, ހަދީސް, ސުންނަތް, ސުންނާ, ސުންނަ, ސުއްނަތް, ސުއްނާ, ސުއްނަ, ސުންނީ, ސުއްނީ, ސަލަފް, ސަލަފު, ސަލަފުން, ސަލަފީ, އަޘަރީ, ދިވެހި ,ޙަދީޘްއެމްވީ ,ޙަދީޘް އެމްވީ"
+    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta itemprop="name" content="Hadithmv" />
+    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
+    <meta
+      itemprop="image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <meta property="og:title" content="Hadithmv" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
+    />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#29434e" />
+    <!-- external resources-->
+    <style>
+      html {
+        visibility: hidden;
+        opacity: 0;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="../css/base-styles.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/navbar.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/DT-COMB.min.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="stylesheet"
+      href="../css/DT-inline.css"
+      media="print"
+      onload="this.media='all'"
+    />
+    <script src="../js/navbar.js"></script>
+    <script src="../js/DT-COMB.min.js"></script>
+    <script src="../js/DT-inline.js"></script>
+    <!-- END external resources-->
+    <style></style>
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="dtWrapper">
+      <table id="tableID" class="cards" width="100%"></table>
+      <div class="hmvSection">
+        <div class="centerAlignedText">
+          <p>
+            اسم الكتاب: حقوق دعت إليها الفطرة وقررتها الشريعة - لابن العثيمين (ت
+            1421 هـ)<br />
+            | الناشر: مؤسسة الشيخ محمد بن صالح العثيمين الخيرية - السعودية |
+            الطبعة السادسة 1440 هـ - 2019 م.
+          </p>
+
+          <p>
+            ފޮތުގެ ނަން: ފިތުރަތުން އެ ކަންކަމަށް ގޮވާލާ އަދި ޝަރީއަތުން އެ
+            ކަންކަން ކަނޑައަޅާފައިވާ ހައްގުތައް | ލިޔުނީ: އިބްނުލް އުޘައިމީން
+            (1421 ހ.)
+            <br />
+            | ޗާޕުކުރީ: ޝައިޚް މުޙައްމަދު ބިން ޞާލިޙް އަލްޢުޘައިމީންގެ
+            ޚައިރިއްޔާ ޖަމްޢިއްޔާ | ހަވަނަ ޗާޕު 1440 ހ. - 2019 މ.
+          </p>
+
+          <p>
+            އަރަބި
+            <a href="https://ketabonline.com/ar/books/23743" target="_blank"
+              >އީ-ފޮތް</a
+            >
+            |
+            <a
+              href="huquqDaathIlaihalFitraWaQarrarathaSharia-uthaymeen"
+              target="_blank"
+              >ޕީޑީއެފް</a
+            >
+          </p>
+
+          <!-- !! also add tahzib and english links 
+           
+          https://islamhouse.com/ar/books/2827777
+
+          https://d1.islamhouse.com/data/ar/ih_books/single-03/ar-tahdhib-huquq.pdf
+          
+          -->
+        </div>
+        <!-- <div class="centerAlignedText"> END -->
+      </div>
+    </div>
+    <script type="text/javascript">
+      table = new DataTable("#tableID", {
+        ...DTconfig,
+        ajax: {
+          url: `../js/json/` + currentFileName + `.json`,
+          dataSrc: function (json) {
+            originalData = json;
+            return json;
+          },
+          dataType: "json",
+          cache: true,
+        },
+        // CHANGE !!!
+        // # arText	dvText takhrij
+        columns: [
+          { title: "އަރަބި ލިޔުން" },
+          {
+            title: "ދިވެހި ލިޔުން",
+          },
+        ],
+        columnDefs: [
+          {
+            targets: [1],
+            render: (data) =>
+              data !== ""
+                ? 'ـــــــــــــــــــــــــــ\t<br class="dtBr">' +
+                  data.replace(/\n/g, '\t<br class="dtBr">')
+                : data,
+          },
+          ...columnDefsconfig,
+        ],
+      });
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-HL24Q9NN24");
+    </script>
+    <!-- End Google Analytics -->
+  </body>
+</html>
