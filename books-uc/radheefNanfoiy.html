@@ -373,11 +373,11 @@
             title: "ޖިންސު",
             render: (data) =>
               data
-                .replace(/(ފ)/g, '<span style="color: blue">ފިރިހެން</span>')
-                .replace(/(އ)/g, '<span style="color: red">އަންހެން</span>')
+                .replace(/(ފ)/g, '<span style="color: #66b3ff">ފިރިހެން</span>')
+                .replace(/(އ)/g, '<span style="color: #ff6667">އަންހެން</span>')
                 .replace(
                   /(2)/g,
-                  '<span style="background: linear-gradient(to left, blue, red); -webkit-background-clip: text; color: transparent;">ދެ ޖިންސު</span>'
+                  '<span style="background: linear-gradient(to left, #66b3ff 49%, #ff6667 50%); -webkit-background-clip: text; color: transparent;">ދެ ޖިންސު</span>'
                 )
                 .replace(/(2)/g, "ދެ ޖިންސު"),
             /*.replace(/(ފ)/g, "ފިރިހެން")
@@ -397,9 +397,9 @@
             render: (data) =>
               data.replace(/(މ|ކ|ބ)/g, function (match) {
                 if (match === "މ") {
-                  return '<span style="color: green;">އިސްލާމިކް މިނިސްޓްރީ</span>';
+                  return '<span style="color: #50c0ce;">އިސްލާމިކް މިނިސްޓްރީ</span>';
                 } else if (match === "ކ") {
-                  return '<span style="color: green;">މާލެ ސިޓީ ކައުންސިލް</span>';
+                  return '<span style="color: #c96391;">މާލެ ސިޓީ ކައުންސިލް</span>';
                 } else if (match === "ބ") {
                   return "";
                 }
