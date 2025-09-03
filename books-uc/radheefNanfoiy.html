@@ -66,8 +66,54 @@
     <!-- END external resources-->
     <style>
       /* === --- === --- ====
-      CUSTOM CSS
-      === --- === --- ==== */
+            CUSTOM CSS
+
+            === --- === --- ==== */
+
+      /* DARK MODE colors - Enhanced for better readability and aesthetics */
+      @media (prefers-color-scheme: dark) {
+        .firihen {
+          color: #7dd3fc; /* Sky blue - softer, less harsh */
+        }
+        .anhen {
+          color: #fb7185; /* Rose - warmer, less aggressive */
+        }
+        .dheJinsu {
+          background: linear-gradient(to left, #7dd3fc 55%, #fb7185 45%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+        .ministry {
+          color: #4ade80; /* Emerald - vibrant but readable */
+        }
+        .council {
+          color: #c084fc; /* Purple - refined and elegant */
+        }
+      }
+
+      /* LIGHT MODE colors - Optimized for clarity and professionalism */
+      @media (prefers-color-scheme: light) {
+        .firihen {
+          color: #0369a1; /* Deep blue - strong contrast */
+        }
+        .anhen {
+          color: #dc2626; /* Red - bold but not overwhelming */
+        }
+        .dheJinsu {
+          background: linear-gradient(to left, #0369a1 55%, #dc2626 45%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+        .ministry {
+          color: #059669; /* Green - professional and trustworthy */
+        }
+        .council {
+          color: #9333ea; /* Purple - authoritative and distinctive */
+        }
+      }
+      /*  */
 
       /* only for MOBILE size */
 
@@ -123,9 +169,9 @@
           display: table-header-group; /* none */
         }
         /* brings back colgroup cols removed, for card view. this effects table class hover. however this code isnt working.
-        .dt-container > colgroup > col:not(:nth-child(0)) {
-        display: table-column;
-          } */
+              .dt-container > colgroup > col:not(:nth-child(0)) {
+              display: table-column;
+                } */
         table.dataTable > thead > tr > th > span.dt-column-title {
           /* makes table headers not bold */
           font-weight: normal;
@@ -396,12 +442,9 @@
             title: "ޖިންސު",
             render: (data) =>
               data
-                .replace(/(ފ)/g, '<span style="color: #66b3ff">ފިރިހެން</span>')
-                .replace(/(އ)/g, '<span style="color: #ff6667">އަންހެން</span>')
-                .replace(
-                  /(2)/g,
-                  '<span style="background: linear-gradient(to left, #66b3ff 49%, #ff6667 50%); -webkit-background-clip: text; color: transparent;">ދެ ޖިންސު</span>'
-                )
+                .replace(/(ފ)/g, '<span class="firihen">ފިރިހެން</span>')
+                .replace(/(އ)/g, '<span class="anhen">އަންހެން</span>')
+                .replace(/(2)/g, '<span class="dheJinsu">ދެ ޖިންސު</span>')
                 .replace(/(2)/g, "ދެ ޖިންސު"),
             /*.replace(/(ފ)/g, "ފިރިހެން")
                 .replace(/(އ)/g, "އަންހެން")
@@ -420,9 +463,9 @@
             render: (data) =>
               data.replace(/(މ|ކ|ބ)/g, function (match) {
                 if (match === "މ") {
-                  return '<span style="color: #50c0ce;">އިސްލާމިކް މިނިސްޓްރީ</span>';
+                  return '<span class="ministry">އިސްލާމިކް މިނިސްޓްރީ</span>';
                 } else if (match === "ކ") {
-                  return '<span style="color: #c96391;">މާލެ ސިޓީ ކައުންސިލް</span>';
+                  return '<span class="council">މާލެ ސިޓީ ކައުންސިލް</span>';
                 } else if (match === "ބ") {
                   return "";
                 }
