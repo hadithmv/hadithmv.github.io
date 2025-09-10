@@ -19,25 +19,28 @@ but that was fixed by updating the keepConditions jquery specific logic to vanil
 
 :::	https://datatables.net/download/
 
-dataTables.js (CLOSURE+UGLIFY)	2.3.2
+I NOW DO NOT MINIFY MANUALLY, INSTEAD I USE MINIFIED VERSION FROM OFFICIAL SITE
+
+dataTables.js (CLOSURE+UGLIFY)	2.3.4
 
 (then turn off core dt js checkbox)
 
-dataTables.inputPaging.js (CLOSURE+UGLIFY)	2.3.2	https://datatables.net/blog/2024/inputPaging
+dataTables.inputPaging.js (CLOSURE+UGLIFY)	2.3.4	https://datatables.net/blog/2024/inputPaging
 
-dataTables.buttons.js (CLOSURE+UGLIFY)	3.2.4
+dataTables.buttons.js (CLOSURE+UGLIFY)	3.2.5
 
-buttons.colVis.js (CLOSURE+UGLIFY)	3.2.4
+buttons.colVis.js (CLOSURE+UGLIFY)	3.2.5
 
-buttons.html5.js (CLOSURE+UGLIFY)	3.2.4
-
-dataTables.searchbuilder.js (CLOSURE+UGLIFY)	1.8.3
-
-dataTables.searchPanes.js (CLOSURE+UGLIFY)	2.3.3
-
-dataTables.select.js (CLOSURE+UGLIFY)	3.0.1
+buttons.html5.js (CLOSURE+UGLIFY)	3.2.5
 
 dataTables.keyTable.js (CLOSURE+UGLIFY)	2.12.1
+
+dataTables.searchbuilder.js (CLOSURE+UGLIFY)	1.8.4
+
+dataTables.searchPanes.js (CLOSURE+UGLIFY)	2.3.5
+
+dataTables.select.js (CLOSURE+UGLIFY)	3.1.0
+
 
 
 jquery.mark.js (CLOSURE+UGLIFY)	9.0.0	https://github.com/julkue/mark.js/blob/master/dist/jquery.mark.js
