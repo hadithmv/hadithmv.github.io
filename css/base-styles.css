@@ -270,7 +270,7 @@ body {
 
 .hmvSection {
   padding: 3em 5em;
-  padding-bottom: 0;
+  /* padding-bottom: 0; */
   text-align: right;
   /* center */
   direction: rtl;
