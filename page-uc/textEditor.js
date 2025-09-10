@@ -1841,6 +1841,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // =====================================================
 
+      // TYPO FINDING CASES
+      case "findAllTypoIssues":
+        handleTypoFinding("findAllTypoIssues");
+        break;
+
+      case "findDiacriticIssues":
+        handleTypoFinding("findDiacriticIssues");
+        break;
+
+      case "findUnbalancedSymbols":
+        handleTypoFinding("findUnbalancedSymbols");
+        break;
+
+      // =====================================================
+
       //     !!!  Add more cases as needed
 
       // =====================================================
@@ -2359,14 +2374,13 @@ i want one more space after the colon that comes after the issue description
 
   const resultsDiv = document.getElementById("typoIssuesResults");
 
-  document.getElementById("findTypoIssues").addEventListener("click", () => {
+  function handleTypoFinding(action) {
     const text = textArea.value;
 
     // Check if exceptions are already loaded
     if (window.noFiliExceptions) {
       // If already loaded, proceed with checking
-      const results = findIssues(text);
-      displayResults(results);
+      processTypoAction(action, text);
       return;
     }
 
@@ -2376,8 +2390,7 @@ i want one more space after the colon that comes after the issue description
 
     script.onload = () => {
       // Script loaded, now process the text
-      const results = findIssues(text);
-      displayResults(results);
+      processTypoAction(action, text);
     };
 
     script.onerror = () => {
@@ -2385,13 +2398,36 @@ i want one more space after the colon that comes after the issue description
       resultsDiv.innerHTML =
         "Error loading exceptions. Continuing without them.";
       // Still try to process without exceptions
-      const results = findIssues(text);
-      displayResults(results);
+      processTypoAction(action, text);
     };
 
     // Add the script to the document to start loading
     document.head.appendChild(script);
-  });
+  }
+
+  function processTypoAction(action, text) {
+    let results = [];
+
+    switch (action) {
+      case "findAllTypoIssues":
+        results = findIssues(text);
+        break;
+      case "findDiacriticIssues":
+        // Combine all diacritic-related issues
+        const multipleResults = findMultipleDiacritics(text);
+        const missingResults = findMissingDhivehiFili(text);
+        const standaloneResults = findStandaloneDiacritics(text);
+
+        // Merge all results
+        results = [...multipleResults, ...missingResults, ...standaloneResults];
+        break;
+      case "findUnbalancedSymbols":
+        results = findUnbalancedSymbols(text);
+        break;
+    }
+
+    displayResults(results, action);
+  }
 
   function findIssues(text) {
     const dhivehiDiacritics = /[\u07a6-\u07b0]/;
@@ -2579,7 +2615,260 @@ i want one more space after the colon that comes after the issue description
     return results;
   }
 
-  function displayResults(results) {
+  function findMultipleDiacritics(text) {
+    const dhivehiDiacritics = /[\u07a6-\u07b0]/;
+    const arabicDiacritics = /[\u064b-\u0650\u0652-\u0656]/;
+    const shadda = "\u0651";
+
+    const words = text.split(/\s+/);
+    const results = [];
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      let issues = [];
+
+      for (let j = 0; j < word.length; j++) {
+        const current = word[j];
+        const next = word[j + 1] || "";
+
+        if (
+          (dhivehiDiacritics.test(current) && dhivehiDiacritics.test(next)) ||
+          (arabicDiacritics.test(current) && arabicDiacritics.test(next)) ||
+          (current === shadda && next === shadda)
+        ) {
+          issues.push({ type: "multiple", index: j });
+          j++; // Skip the next character as it's part of this multiple issue
+        }
+      }
+
+      if (issues.length > 0) {
+        results.push({
+          word,
+          index: i,
+          issues,
+        });
+      }
+    }
+
+    return results;
+  }
+
+  function findMissingDhivehiFili(text) {
+    const dhivehiDiacritics = /[\u07a6-\u07b0]/;
+    const dhivehiLetters = /[\u0780-\u07a5]/;
+
+    // Access the global exceptions variable (or use empty array if not loaded)
+    const noFiliExceptions = window.noFiliExceptions || [];
+
+    const words = text.split(/\s+/);
+    const results = [];
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      let issues = [];
+
+      // Check if current word is in exceptions list
+      const isException = noFiliExceptions.some((exception) =>
+        word.includes(exception)
+      );
+
+      for (let j = 0; j < word.length; j++) {
+        const current = word[j];
+        const next = word[j + 1] || "";
+
+        // Check for Dhivehi letters not followed by diacritics
+        if (dhivehiLetters.test(current)) {
+          // Check if this is part of a two-letter abbreviation followed by period
+          const nextIsAlsoDhivehiLetter = dhivehiLetters.test(next);
+          const nextNextChar = word[j + 2] || "";
+          const twoLetterAbbreviation =
+            nextIsAlsoDhivehiLetter && nextNextChar === ".";
+
+          // Check if this is a single letter abbreviation followed by period
+          const singleLetterAbbreviation = next === ".";
+
+          if (
+            !dhivehiDiacritics.test(next) &&
+            !singleLetterAbbreviation &&
+            !twoLetterAbbreviation
+          ) {
+            if (
+              (current === "\u0782" || current === "\u0783") &&
+              !isException
+            ) {
+              // ނ or ރ
+              issues.push({ type: "noDvFili", index: j });
+            } else if (current !== "\u0782" && current !== "\u0783") {
+              // all other Dhivehi letters
+              issues.push({ type: "noDvFili", index: j });
+            }
+          }
+
+          // Skip the second letter of a two-letter abbreviation
+          if (twoLetterAbbreviation) {
+            j++; // Skip checking the second letter
+          }
+        }
+      }
+
+      if (issues.length > 0) {
+        results.push({
+          word,
+          index: i,
+          issues,
+        });
+      }
+    }
+
+    return results;
+  }
+
+  function findStandaloneDiacritics(text) {
+    const dhivehiDiacritics = /[\u07a6-\u07b0]/;
+    const arabicDiacritics = /[\u064b-\u0650\u0652-\u0656]/;
+    const dhivehiLetters = /[\u0780-\u07a5]/;
+    const shadda = "\u0651";
+    const allowedAfterShadda = /[\u064e\u064f\u0650]/;
+
+    const words = text.split(/\s+/);
+    const results = [];
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      let issues = [];
+
+      for (let j = 0; j < word.length; j++) {
+        const current = word[j];
+        const next = word[j + 1] || "";
+        const prev = word[j - 1] || "";
+
+        // Check for standalone diacritics
+        if (
+          (dhivehiDiacritics.test(current) ||
+            arabicDiacritics.test(current) ||
+            current === shadda) &&
+          !dhivehiLetters.test(prev) &&
+          !/[\u0600-\u06FF]/.test(prev)
+        ) {
+          // Special case for shadda
+          if (current === shadda && allowedAfterShadda.test(next)) {
+            continue;
+          }
+
+          issues.push({ type: "standalone", index: j });
+        }
+      }
+
+      if (issues.length > 0) {
+        results.push({
+          word,
+          index: i,
+          issues,
+        });
+      }
+    }
+
+    return results;
+  }
+
+  function findUnbalancedSymbols(text) {
+    // Define paired symbols to check for balance
+    const pairs = {
+      "(": ")", // Parentheses
+      "[": "]", // Square brackets
+      "{": "}", // Curly braces
+      '"': '"', // Double quotes (ASCII)
+      "'": "'", // Single quotes (ASCII)
+      '"': '"', // Left/Right double quotation marks (U+201C, U+201D)
+      "'": "'", // Left/Right single quotation marks (U+2018, U+2019)
+      "«": "»", // Double angle quotes (U+00AB, U+00BB)
+      "‹": "›", // Single angle quotes (U+2039, U+203A)
+      "=": "=", // Equals sign (matches with itself)
+    };
+
+    const words = text.split(/\s+/);
+    const results = [];
+
+    // Stack to track opening symbols that need closing
+    let symbolStack = [];
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      let issues = [];
+
+      for (let j = 0; j < word.length; j++) {
+        const current = word[j];
+
+        // Check for unbalanced symbols
+        if (current in pairs) {
+          // Opening symbol - add to stack
+          symbolStack.push({ char: current, wordIndex: i, charIndex: j });
+        } else if (Object.values(pairs).includes(current)) {
+          // Closing symbol - check if it matches last opening symbol
+          if (symbolStack.length === 0) {
+            // Closing symbol with no opener
+            issues.push({
+              type: "unbalanced",
+              index: j,
+              detail: `Unexpected closing ${current}`,
+            });
+          } else {
+            const lastOpener = symbolStack[symbolStack.length - 1];
+            if (pairs[lastOpener.char] === current) {
+              symbolStack.pop(); // Matched pair - remove opener
+            } else {
+              issues.push({
+                type: "unbalanced",
+                index: j,
+                detail: `Mismatched ${current}, expected ${
+                  pairs[lastOpener.char]
+                }`,
+              });
+            }
+          }
+        }
+      }
+
+      // Add any remaining unclosed symbols from this word
+      while (symbolStack.length > 0 && symbolStack[0].wordIndex === i) {
+        const unclosed = symbolStack.shift();
+        issues.push({
+          type: "unbalanced",
+          index: unclosed.charIndex,
+          detail: `Unclosed ${unclosed.char}`,
+        });
+      }
+
+      if (issues.length > 0) {
+        results.push({
+          word,
+          index: i,
+          issues,
+        });
+      }
+    }
+
+    // Check for any remaining unclosed symbols across all words
+    if (symbolStack.length > 0) {
+      symbolStack.forEach((unclosed) => {
+        results.push({
+          word: words[unclosed.wordIndex],
+          index: unclosed.wordIndex,
+          issues: [
+            {
+              type: "unbalanced",
+              index: unclosed.charIndex,
+              detail: `Unclosed ${unclosed.char}`,
+            },
+          ],
+        });
+      });
+    }
+
+    return results;
+  }
+
+  function displayResults(results, action = "findAllTypoIssues") {
     // Check if any issues were found
     if (results.length === 0) {
       resultsDiv.innerHTML = "No Issues Found";
@@ -2595,7 +2884,125 @@ i want one more space after the colon that comes after the issue description
 
     // Split the input text into words
     const words = textArea.value.split(/\s+/);
-    let html = `Found ${totalIssues} Issue${totalIssues > 1 ? "s" : ""}<br>`; // :<br><br>
+    let html = `Found ${totalIssues} Issue${
+      totalIssues > 1 ? "s" : ""
+    }<br><br>`;
+
+    // If it's a specific action (not "findAllTypoIssues"), show results directly
+    if (action !== "findAllTypoIssues") {
+      if (action === "findDiacriticIssues") {
+        // For diacritic issues, group by type and show in separate sections
+        const groupedResults = groupResultsByType(results);
+
+        const diacriticTypes = [
+          { type: "multiple", title: "Multiple Diacritics 🔄" },
+          { type: "noDvFili", title: "Missing Dhivehi Fili 🥥" },
+          { type: "standalone", title: "Standalone Diacritics ⚡" },
+        ];
+
+        diacriticTypes.forEach((issueType, index) => {
+          const typeResults = groupedResults[issueType.type] || [];
+          if (typeResults.length > 0) {
+            if (index > 0) {
+              html += '<hr class="dropdown-separator" style="margin: 10px 0;">';
+            }
+            html += generateIssueSection(
+              typeResults,
+              action,
+              words,
+              issueType.title
+            );
+          }
+        });
+      } else {
+        html += generateIssueSection(results, action, words);
+      }
+    } else {
+      // For "findAllTypoIssues", group results by issue type
+      const groupedResults = groupResultsByType(results);
+
+      // Show each type of issue in its own section
+      const issueTypes = [
+        {
+          type: "multiple",
+          title: "Multiple Diacritics 🔄",
+          action: "findMultipleDiacritics",
+        },
+        {
+          type: "noDvFili",
+          title: "Missing Dhivehi Fili 🥥",
+          action: "findMissingDhivehiFili",
+        },
+        {
+          type: "standalone",
+          title: "Standalone Diacritics ⚡",
+          action: "findStandaloneDiacritics",
+        },
+        {
+          type: "unbalanced",
+          title: "Unbalanced Symbols ⚖️",
+          action: "findUnbalancedSymbols",
+        },
+      ];
+
+      issueTypes.forEach((issueType, index) => {
+        const typeResults = groupedResults[issueType.type] || [];
+        if (typeResults.length > 0) {
+          if (index > 0) {
+            html += '<hr class="dropdown-separator" style="margin: 10px 0;">';
+          }
+          html += generateIssueSection(
+            typeResults,
+            issueType.action,
+            words,
+            issueType.title
+          );
+        }
+      });
+    }
+
+    // Update the results div with the generated HTML and make it visible
+    resultsDiv.innerHTML = html;
+    resultsDiv.style.display = "block";
+  }
+
+  function groupResultsByType(results) {
+    const grouped = {
+      multiple: [],
+      noDvFili: [],
+      standalone: [],
+      unbalanced: [],
+    };
+
+    results.forEach((result) => {
+      result.issues.forEach((issue) => {
+        if (grouped[issue.type]) {
+          grouped[issue.type].push({
+            ...result,
+            issues: [issue], // Only include this specific issue
+          });
+        }
+      });
+    });
+
+    return grouped;
+  }
+
+  function generateIssueSection(results, action, words, customTitle = null) {
+    const actionTitles = {
+      findMultipleDiacritics: "Multiple Diacritics 🔄",
+      findMissingDhivehiFili: "Missing Dhivehi Fili 🥥",
+      findStandaloneDiacritics: "Standalone Diacritics ⚡",
+      findUnbalancedSymbols: "Unbalanced Symbols ⚖️",
+    };
+
+    const title = customTitle || actionTitles[action] || "Issues";
+    const issueCount = results.reduce(
+      (sum, result) => sum + result.issues.length,
+      0
+    );
+
+    let html = `<strong>${title} (${issueCount})</strong><br>`;
 
     // Iterate through each result (word with issues)
     results.forEach((result, index) => {
@@ -2653,14 +3060,13 @@ i want one more space after the colon that comes after the issue description
       // Construct the HTML for this result
       // Include the index, previous word, the word with issues (in blue), next word,
       // and the issue descriptions (in red)
-      html += `${index + 1}. ${prevWord} <span style="color: blue;">${
+      html += `${index + 1}. ${prevWord} <span class="blueColor">${
         result.word
-      }</span> ${nextWord} : <span style="color: red;">${issueDescriptions}</span><br>`;
+      }</span> ${nextWord} : <span class="redColor">${issueDescriptions}</span><br>`;
     });
 
-    // Update the results div with the generated HTML and make it visible
-    resultsDiv.innerHTML = html;
-    resultsDiv.style.display = "block";
+    html += "<br>";
+    return html;
   }
   //
   //
