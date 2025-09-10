@@ -1348,13 +1348,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // instead of using the plugin externally, place the code here directly
     // it seems this does the same thing as the mobile version of the scroll
     table.on("page", function () {
-      window.scrollTo({
+      // not currently using anything on desktop, previously it would go to top of table, but now it goes to top of page
+      /*window.scrollTo({
         top: 0,
         behavior: "smooth",
-        /*window.scrollTo({
-           top: $(table.table().container()).offset().top,
-           behavior: "smooth",*/
-      });
+        // window.scrollTo({
+        //    top: $(table.table().container()).offset().top,
+        //    behavior: "smooth",
+      });*/
       /*setTimeout(function () {
                   $(document).scrollTop($(table.table().container()).offset().top);
                 }, 10);*/
@@ -1456,8 +1457,28 @@ i'd rather use scrollIntoView() instead
       // Get the row node after the page change
       var rowNode = table.row(clickedRowIndex).node();
       if (rowNode) {
-        // Scroll the row into view
-        rowNode.scrollIntoView({ behavior: "smooth", block: "center" });
+        /*// Scroll the row into view
+        rowNode.scrollIntoView({ behavior: "smooth", block: "start" });
+        // block: "start" ? / center*/
+
+        /* code modified to incorporate navbar height consideration: */
+
+        // Get navbar height
+        const navbarHeight =
+          document.querySelector(".navbar")?.offsetHeight || 0;
+
+        // Get the row's position
+        const rowPosition =
+          rowNode.getBoundingClientRect().top + window.pageYOffset;
+
+        // Calculate offset position to account for navbar
+        const offsetPosition = rowPosition - navbarHeight;
+
+        // Scroll to the calculated position
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
       }
     }
   });
