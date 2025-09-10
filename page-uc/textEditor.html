@@ -745,7 +745,7 @@
             <div class="dropdown-button">
               <button
                 class="function-button"
-                title="Fili and Diacritic  options"
+                title="Fili and Diacritic options"
               >
                 Diacritics 🌀
               </button>
@@ -783,13 +783,61 @@
             id="typoIssuesResults"
             style="display: none; text-align: right; direction: rtl"
           ></div> -->
-            <button
-              id="findTypoIssues"
-              class="function-button"
-              title="Finds typo related issues, such as: 1. Multiple fili / diacritics / harakat in Arabic and Dhivehi. 2. Letters without fili in Dhivehi (except hus nuun). 3. Fili without letters in Arabic and Dhivehi. 4. Unclosed brackets and other pairs."
-            >
-              Find Typos 🌴
-            </button>
+            <div class="dropdown-button">
+              <button
+                class="function-button"
+                title="Finds typo related issues, such as: 1. Multiple fili / diacritics / harakat in Arabic and Dhivehi. 2. Letters without fili in Dhivehi (except hus nuun). 3. Fili without letters in Arabic and Dhivehi. 4. Unclosed brackets and other pairs."
+              >
+                Find Typos ⚠️
+              </button>
+              <div class="dropdown-content">
+                <button
+                  data-action="findAllTypoIssues"
+                  title="Finds all types of typo issues"
+                >
+                  Find All Issues 🔍
+                </button>
+
+                <hr class="dropdown-separator" />
+
+                <button
+                  data-action="findDiacriticIssues"
+                  title="Finds all diacritic-related issues: multiple diacritics, missing Dhivehi fili, and standalone diacritics"
+                >
+                  Diacritic Issues ާފަ
+                </button>
+
+                <button
+                  data-action="findUnbalancedSymbols"
+                  title="Finds unclosed brackets and other paired symbols"
+                >
+                  Unbalanced Symbols ([{"'«‹›=
+                </button>
+              </div>
+            </div>
+
+            <style>
+              /* DARK MODE colors - Enhanced for better readability and aesthetics */
+              @media (prefers-color-scheme: dark) {
+                .blueColor {
+                  color: #7dd3fc; /* Sky blue - softer, less harsh */
+                }
+                .redColor {
+                  color: #fb7185; /* Rose - warmer, less aggressive */
+                }
+              }
+
+              /* LIGHT MODE colors - Optimized for clarity and professionalism */
+              @media (prefers-color-scheme: light) {
+                .blueColor {
+                  color: #0369a1; /* Deep blue - strong contrast */
+                }
+                .redColor {
+                  color: #dc2626; /* Red - bold but not overwhelming */
+                }
+              }
+              /*  */
+            </style>
 
             <!--  -->
 
