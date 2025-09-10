@@ -1750,7 +1750,12 @@
           {
             // https://datatables.net/examples/advanced_init/column_render.html
             targets: [0],
-            render: (data) => "#" + data,
+            render: (data) => {
+              // Check if data is a number (including string numbers)
+              return !isNaN(data) && !isNaN(parseFloat(data))
+                ? "#" + data
+                : data;
+            },
           },
           /*{
             // turns \n new line from the data, into breaks in the html

@@ -250,7 +250,12 @@
         columnDefs: [
           {
             targets: [0],
-            render: (data) => "#" + data,
+            render: (data) => {
+              // Check if data is a number (including string numbers)
+              return !isNaN(data) && !isNaN(parseFloat(data))
+                ? "#" + data
+                : data;
+            },
           },
           {
             searchPanes: {
