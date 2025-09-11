@@ -2315,14 +2315,18 @@ i dont want output to have multiple spaces
 
   /*
   when this button is clicked
-i want to find all instances of diacritics which are repeated, in the sense that a diacritic is immediately followed by another unwanted diacritic.
+i want to find all instances of diacritics which are repeated, in the sense that a diacritic is immediately followed by another unwanted diacritic. for both arabic and dhivehi
+
 the Dhivehi diacritic Unicode block is u07a6-u07b0
+
 the Arabic diacritic Unicode block is made up of several parts like
 u064b-u0650
 after which is u0651 which is a shadda
 which is then followed by u0652-u0656
+
 as for the shadda, it can be followed by either u064e or u064f or u0650, which are the fatha damma and kasra, but the shadda cannot be followed by other diacritics, or even another shadda
 now once these instances are found
+
 i want a div to show under the button, which had initially display none. this div will show line by line the words where repeated diacritics occurred. in each instance, i want to see the word with repeated instance, as well as the word before and after it. but only the word with repeated instance should be blue, after which should be a new line containing the next such instance with repeated diacritics
 
 i also want these lines of occurences to be numbered followed by a space, like
@@ -2336,7 +2340,7 @@ example:
 3. ގެ އަރިަހުން ރިވާވެގެންވެއެވެ. : ރި ަ
 
 i also want it to find and show:
-Letters not followed diacritics in Dhivehi
+Letters not followed diacritics in Dhivehi ONLY
 the Dhivehi letters Unicode block is: u0780-u07a5
 but its okay if character u0782 is not followed by a diacritic
 
