@@ -10,11 +10,16 @@ catch {
     exit 1
 }
 
+# CONFIG: Toggle processing only files modified within N days ago
+# Allowed values: 1, 2, 5, 10, or 'Off' to disable. Default: 2
+$ModifiedDaysOption = 2
+
 # Function to format file size
 function Format-FileSize($size) {
     if ($size -ge 1MB) {
         return "$([math]::Round($size / 1MB, 2)) MB"
-    } else {
+    }
+    else {
         return "$([math]::Round($size / 1KB, 1)) KB"
     }
 }
@@ -58,10 +63,10 @@ function Get-Minified-Content {
         Remove-Item -Path $minifiedFile -ErrorAction Stop
         
         return @{
-            Content = $minifiedContent.Trim()
+            Content      = $minifiedContent.Trim()
             OriginalSize = $originalSize
             MinifiedSize = $minifiedSize
-            SizeDiff = $sizeDiff
+            SizeDiff     = $sizeDiff
         }
     }
     catch {
@@ -83,9 +88,63 @@ $separateFiles = @(
     "quran-navigation-list.css"
 )
 
+# Apply "modified within N days ago" filter if enabled
+$effectiveOption = $ModifiedDaysOption
+if ($null -eq $effectiveOption -or (
+        ($effectiveOption -isnot [int]) -and -not (
+            $effectiveOption -is [string] -and $effectiveOption -match '^(?i)off$'
+        )
+    )) {
+    # Fallback to default if invalid value is set
+    $effectiveOption = 2
+}
+
+$activeDays = $null
+if ($effectiveOption -is [int] -and @(1, 2, 5, 10) -contains [int]$effectiveOption) {
+    $activeDays = [int]$effectiveOption
+}
+
+if ($activeDays) {
+    $since = (Get-Date).AddDays(-$activeDays)
+    $until = Get-Date
+
+    # Filter combFiles
+    $filteredCombFiles = @()
+    foreach ($file in $combFiles) {
+        if (Test-Path $file) {
+            $fileInfo = Get-Item $file
+            if ($fileInfo.LastWriteTime -ge $since -and $fileInfo.LastWriteTime -le $until) {
+                $filteredCombFiles += $file
+            }
+        }
+    }
+    $combFiles = $filteredCombFiles
+
+    # Filter separateFiles
+    $filteredSeparateFiles = @()
+    foreach ($file in $separateFiles) {
+        if (Test-Path $file) {
+            $fileInfo = Get-Item $file
+            if ($fileInfo.LastWriteTime -ge $since -and $fileInfo.LastWriteTime -le $until) {
+                $filteredSeparateFiles += $file
+            }
+        }
+    }
+    $separateFiles = $filteredSeparateFiles
+
+    Write-Host ("🗓 Filtering files modified within last {0} days (since {1:yyyy-MM-dd HH:mm})" -f $activeDays, $since) -ForegroundColor Cyan
+}
+else {
+    Write-Host "🗓 Modified-days filter: OFF (processing all files)" -ForegroundColor DarkGray
+}
+
 try {
     # Calculate total files to process
     $totalFiles = $combFiles.Count + $separateFiles.Count
+    if ($totalFiles -eq 0) {
+        Write-Host "No CSS files matched the modified-days filter." -ForegroundColor Yellow
+        return
+    }
     $processedCount = 0
     $successCount = 0
     $failCount = 0
@@ -106,7 +165,11 @@ try {
     $totalOriginalSizeFormatted = Format-FileSize $totalOriginalSize
     
     Write-Host "`n🔄 Starting CSS minification process..." -ForegroundColor Cyan
-    Write-Host "🔍 Found $totalFiles CSS files to process (💾 $totalOriginalSizeFormatted total)" -ForegroundColor Cyan
+    Write-Host "🔍 Found " -ForegroundColor Cyan -NoNewline
+    Write-Host "$totalFiles" -ForegroundColor White -NoNewline
+    Write-Host " files to process (💾 " -ForegroundColor Cyan -NoNewline
+    Write-Host "$totalOriginalSizeFormatted" -ForegroundColor White -NoNewline
+    Write-Host " total)" -ForegroundColor Cyan
     Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
 
     # Check if DT-COMB.min.css exists
@@ -114,7 +177,8 @@ try {
     if (-not $combFileExists) {
         Write-Host "⚠️ DT-COMB.min.css not found. Creating new file." -ForegroundColor Yellow
         New-Item -ItemType File -Name "DT-COMB.min.css" -Force | Out-Null
-    } else {
+    }
+    else {
         $combOriginalSize = (Get-Item "DT-COMB.min.css").Length
     }
 
@@ -312,7 +376,8 @@ try {
     
     if ($failCount -eq 0) {
         Write-Host "✅ ALL FILES PROCESSED SUCCESSFULLY ✅" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Host "⚠️ COMPLETED WITH ERRORS ⚠️" -ForegroundColor Yellow
     }
 }

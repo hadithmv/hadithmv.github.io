@@ -4,6 +4,10 @@ Set-Location -Path $PSScriptRoot
 # Start timing the script execution
 $startTime = Get-Date
 
+# CONFIG: Toggle processing only files modified within N days ago
+# Allowed values: 1, 2, 5, 10, or 'Off' to disable. Default: 2
+$ModifiedDaysOption = 2
+
 # Define a function to minify HTML files
 function MinifyHTML($inputFile, $outputFile, $embedAssets = $false) {
     try {
@@ -376,6 +380,32 @@ function Format-FileSize($size) {
 try {
     $files = Get-ChildItem -Filter "*.html" -ErrorAction Stop
     $filteredFiles = $files | Where-Object { $_.Name -notmatch "(test|backup|copy)" }
+
+    # Apply "modified within N days ago" filter if enabled
+    $effectiveOption = $ModifiedDaysOption
+    if ($null -eq $effectiveOption -or (
+            ($effectiveOption -isnot [int]) -and -not (
+                $effectiveOption -is [string] -and $effectiveOption -match '^(?i)off$'
+            )
+        )) {
+        # Fallback to default if invalid value is set
+        $effectiveOption = 2
+    }
+
+    $activeDays = $null
+    if ($effectiveOption -is [int] -and @(1, 2, 5, 10) -contains [int]$effectiveOption) {
+        $activeDays = [int]$effectiveOption
+    }
+
+    if ($activeDays) {
+        $since = (Get-Date).AddDays(-$activeDays)
+        $until = Get-Date
+        $filteredFiles = $filteredFiles | Where-Object { $_.LastWriteTime -ge $since -and $_.LastWriteTime -le $until }
+        Write-Host ("🗓 Filtering files modified within last {0} days (since {1:yyyy-MM-dd HH:mm})" -f $activeDays, $since) -ForegroundColor Cyan
+    }
+    else {
+        Write-Host "🗓 Modified-days filter: OFF (processing all files)" -ForegroundColor DarkGray
+    }
     $totalFiles = $filteredFiles.Count
     
     # Calculate total size
@@ -392,8 +422,17 @@ try {
     $percentWidth = 3 # No decimal points now
 
     Write-Host "`n🔄 Starting HTML minification process..." -ForegroundColor Cyan
-    Write-Host "🔍 Found $totalFiles HTML files to process (💾 $totalOriginalSizeFormatted total)" -ForegroundColor Cyan
+    Write-Host "🔍 Found " -ForegroundColor Cyan -NoNewline
+    Write-Host "$totalFiles" -ForegroundColor White -NoNewline
+    Write-Host " files to process (💾 " -ForegroundColor Cyan -NoNewline
+    Write-Host "$totalOriginalSizeFormatted" -ForegroundColor White -NoNewline
+    Write-Host " total)" -ForegroundColor Cyan
     Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
+
+    if ($totalFiles -eq 0) {
+        Write-Host "No HTML files matched the modified-days filter." -ForegroundColor Yellow
+        return
+    }
 
     # Loop through each HTML file
     foreach ($file in $filteredFiles) {
