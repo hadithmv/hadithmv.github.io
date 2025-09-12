@@ -10,6 +10,10 @@ catch {
     exit 1
 }
 
+# CONFIG: Toggle processing only files modified within N days ago
+# Allowed values: 1, 2, 5, 10, or 'Off' to disable. Default: 2
+$ModifiedDaysOption = 2
+
 # Function to minify and create temporary content
 function Get-Minified-Content {
     param (
@@ -74,9 +78,65 @@ $separateFiles = @(
     "quran-navigation-list.js"
 )
 
+# Apply "modified within N days ago" filter if enabled
+$effectiveOption = $ModifiedDaysOption
+if ($null -eq $effectiveOption -or (
+        ($effectiveOption -isnot [int]) -and -not (
+            $effectiveOption -is [string] -and $effectiveOption -match '^(?i)off$'
+        )
+    )) {
+    # Fallback to default if invalid value is set
+    $effectiveOption = 2
+}
+
+$activeDays = $null
+if ($effectiveOption -is [int] -and @(1, 2, 5, 10) -contains [int]$effectiveOption) {
+    $activeDays = [int]$effectiveOption
+}
+
+if ($activeDays) {
+    $since = (Get-Date).AddDays(-$activeDays)
+    $until = Get-Date
+    
+    # Filter combFiles
+    $filteredCombFiles = @()
+    foreach ($file in $combFiles) {
+        if (Test-Path $file) {
+            $fileInfo = Get-Item $file
+            if ($fileInfo.LastWriteTime -ge $since -and $fileInfo.LastWriteTime -le $until) {
+                $filteredCombFiles += $file
+            }
+        }
+    }
+    $combFiles = $filteredCombFiles
+    
+    # Filter separateFiles
+    $filteredSeparateFiles = @()
+    foreach ($file in $separateFiles) {
+        if (Test-Path $file) {
+            $fileInfo = Get-Item $file
+            if ($fileInfo.LastWriteTime -ge $since -and $fileInfo.LastWriteTime -le $until) {
+                $filteredSeparateFiles += $file
+            }
+        }
+    }
+    $separateFiles = $filteredSeparateFiles
+    
+    Write-Host ("🗓 Filtering files modified within last {0} days (since {1:yyyy-MM-dd HH:mm})" -f $activeDays, $since) -ForegroundColor Cyan
+}
+else {
+    Write-Host "🗓 Modified-days filter: OFF (processing all files)" -ForegroundColor DarkGray
+}
+
 try {
     # Calculate total files to process
     $totalFiles = $combFiles.Count + $separateFiles.Count
+    
+    if ($totalFiles -eq 0) {
+        Write-Host "No JavaScript files matched the modified-days filter." -ForegroundColor Yellow
+        return
+    }
+    
     $processedCount = 0
     $successCount = 0
     $failCount = 0
@@ -102,10 +162,18 @@ try {
     
     # For the total files and size display:
     if ($totalMB -ge 1) {
-        Write-Host "🔍 Found $totalFiles JavaScript files to process (💾 $totalMB MB total)" -ForegroundColor Cyan
+        Write-Host "🔍 Found " -ForegroundColor Cyan -NoNewline
+        Write-Host "$totalFiles" -ForegroundColor White -NoNewline
+        Write-Host " files to process (💾 " -ForegroundColor Cyan -NoNewline
+        Write-Host "$totalMB MB" -ForegroundColor White -NoNewline
+        Write-Host " total)" -ForegroundColor Cyan
     }
     else {
-        Write-Host "🔍 Found $totalFiles JavaScript files to process (💾 $totalKB KB total)" -ForegroundColor Cyan
+        Write-Host "🔍 Found " -ForegroundColor Cyan -NoNewline
+        Write-Host "$totalFiles" -ForegroundColor White -NoNewline
+        Write-Host " files to process (💾 " -ForegroundColor Cyan -NoNewline
+        Write-Host "$totalKB KB" -ForegroundColor White -NoNewline
+        Write-Host " total)" -ForegroundColor Cyan
     }
     
     Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
@@ -268,7 +336,8 @@ try {
                 Write-Host "(🗜 $kbSaved KB)" -ForegroundColor Cyan
                 
                 $successCount++
-            } else {
+            }
+            else {
                 Write-Host "❌" -ForegroundColor Red
                 $failCount++
             }
@@ -328,7 +397,8 @@ try {
     
     if ($failCount -eq 0) {
         Write-Host "✅ ALL FILES PROCESSED SUCCESSFULLY ✅" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Host "⚠️ COMPLETED WITH ERRORS ⚠️" -ForegroundColor Yellow
     }
 }

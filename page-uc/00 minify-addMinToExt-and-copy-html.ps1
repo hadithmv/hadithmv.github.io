@@ -12,6 +12,10 @@ catch {
     exit 1
 }
 
+# CONFIG: Toggle processing only files modified within N days ago
+# Allowed values: 1, 2, 5, 10, or 'Off' to disable. Default: 2
+$ModifiedDaysOption = 2
+
 # Define a function to minify HTML files
 function MinifyHTML($inputFile, $outputFile) {
     try {
@@ -316,8 +320,55 @@ try {
         Name   = "404.html to root"
     }
     
+    # Apply "modified within N days ago" filter if enabled
+    $effectiveOption = $ModifiedDaysOption
+    if ($null -eq $effectiveOption -or (
+            ($effectiveOption -isnot [int]) -and -not (
+                $effectiveOption -is [string] -and $effectiveOption -match '^(?i)off$'
+            )
+        )) {
+        # Fallback to default if invalid value is set
+        $effectiveOption = 2
+    }
+
+    $activeDays = $null
+    if ($effectiveOption -is [int] -and @(1, 2, 5, 10) -contains [int]$effectiveOption) {
+        $activeDays = [int]$effectiveOption
+    }
+
+    if ($activeDays) {
+        $since = (Get-Date).AddDays(-$activeDays)
+        $until = Get-Date
+        
+        # Filter operations based on input file LastWriteTime
+        $filteredOperations = @()
+        foreach ($op in $operations) {
+            # Skip Copy operations and operations without input files
+            if ($op.Type -eq "Copy" -or -not $op.Input -or -not (Test-Path $op.Input)) {
+                $filteredOperations += $op
+                continue
+            }
+            
+            $fileInfo = Get-Item $op.Input
+            if ($fileInfo.LastWriteTime -ge $since -and $fileInfo.LastWriteTime -le $until) {
+                $filteredOperations += $op
+            }
+        }
+        $operations = $filteredOperations
+        
+        Write-Host ("🗓 Filtering files modified within last {0} days (since {1:yyyy-MM-dd HH:mm})" -f $activeDays, $since) -ForegroundColor Cyan
+    }
+    else {
+        Write-Host "🗓 Modified-days filter: OFF (processing all files)" -ForegroundColor DarkGray
+    }
+    
     # Calculate total files
     $totalFiles = $operations.Count
+    
+    if ($totalFiles -eq 0) {
+        Write-Host "No files matched the modified-days filter." -ForegroundColor Yellow
+        return
+    }
     $countWidth = $totalFiles.ToString().Length
     $percentWidth = 3 # "100" is 3 chars
     
@@ -337,10 +388,18 @@ try {
     
     # For the total files and size display:
     if ($totalMB -ge 1) {
-        Write-Host "🔍 Found $totalFiles files to process (💾 $totalMB MB total)" -ForegroundColor Cyan
+        Write-Host "🔍 Found " -ForegroundColor Cyan -NoNewline
+        Write-Host "$totalFiles" -ForegroundColor White -NoNewline
+        Write-Host " files to process (💾 " -ForegroundColor Cyan -NoNewline
+        Write-Host "$totalMB MB" -ForegroundColor White -NoNewline
+        Write-Host " total)" -ForegroundColor Cyan
     }
     else {
-        Write-Host "🔍 Found $totalFiles files to process (💾 $totalKB KB total)" -ForegroundColor Cyan
+        Write-Host "🔍 Found " -ForegroundColor Cyan -NoNewline
+        Write-Host "$totalFiles" -ForegroundColor White -NoNewline
+        Write-Host " files to process (💾 " -ForegroundColor Cyan -NoNewline
+        Write-Host "$totalKB KB" -ForegroundColor White -NoNewline
+        Write-Host " total)" -ForegroundColor Cyan
     }
     
     Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray

@@ -2783,8 +2783,8 @@ i want one more space after the colon that comes after the issue description
       "{": "}", // Curly braces
       '"': '"', // Double quotes (ASCII)
       "'": "'", // Single quotes (ASCII)
-      '"': '"', // Left/Right double quotation marks (U+201C, U+201D)
-      "'": "'", // Left/Right single quotation marks (U+2018, U+2019)
+      "“": "”", // Left/Right double quotation marks (U+201C, U+201D)
+      "‘": "’", // Left/Right single quotation marks (U+2018, U+2019)
       "«": "»", // Double angle quotes (U+00AB, U+00BB)
       "‹": "›", // Single angle quotes (U+2039, U+203A)
       "=": "=", // Equals sign (matches with itself)

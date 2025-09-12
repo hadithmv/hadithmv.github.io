@@ -10,10 +10,46 @@ catch {
     exit 1
 }
 
+# CONFIG: Toggle processing only files modified within N days ago
+# Allowed values: 1, 2, 5, 10, or 'Off' to disable. Default: 2
+$ModifiedDaysOption = 2
+
 try {
     # Get all JSON files in the current directory
     $files = Get-ChildItem -Filter "*.json" -ErrorAction Stop
+    
+    # Apply "modified within N days ago" filter if enabled
+    $effectiveOption = $ModifiedDaysOption
+    if ($null -eq $effectiveOption -or (
+            ($effectiveOption -isnot [int]) -and -not (
+                $effectiveOption -is [string] -and $effectiveOption -match '^(?i)off$'
+            )
+        )) {
+        # Fallback to default if invalid value is set
+        $effectiveOption = 2
+    }
+
+    $activeDays = $null
+    if ($effectiveOption -is [int] -and @(1, 2, 5, 10) -contains [int]$effectiveOption) {
+        $activeDays = [int]$effectiveOption
+    }
+
+    if ($activeDays) {
+        $since = (Get-Date).AddDays(-$activeDays)
+        $until = Get-Date
+        $files = $files | Where-Object { $_.LastWriteTime -ge $since -and $_.LastWriteTime -le $until }
+        Write-Host ("🗓 Filtering files modified within last {0} days (since {1:yyyy-MM-dd HH:mm})" -f $activeDays, $since) -ForegroundColor Cyan
+    }
+    else {
+        Write-Host "🗓 Modified-days filter: OFF (processing all files)" -ForegroundColor DarkGray
+    }
+    
     $totalFiles = $files.Count
+    
+    if ($totalFiles -eq 0) {
+        Write-Host "No JSON files matched the modified-days filter." -ForegroundColor Yellow
+        return
+    }
     $processedCount = 0
     $successCount = 0
     $failCount = 0
@@ -37,10 +73,18 @@ try {
     
     # For the total files and size display:
     if ($totalMB -ge 1) {
-        Write-Host "🔍 Found $totalFiles JSON files to process (💾 $totalMB MB total)" -ForegroundColor Cyan
+        Write-Host "🔍 Found " -ForegroundColor Cyan -NoNewline
+        Write-Host "$totalFiles" -ForegroundColor White -NoNewline
+        Write-Host " files to process (💾 " -ForegroundColor Cyan -NoNewline
+        Write-Host "$totalMB MB" -ForegroundColor White -NoNewline
+        Write-Host " total)" -ForegroundColor Cyan
     }
     else {
-        Write-Host "🔍 Found $totalFiles JSON files to process (💾 $totalKB KB total)" -ForegroundColor Cyan
+        Write-Host "🔍 Found " -ForegroundColor Cyan -NoNewline
+        Write-Host "$totalFiles" -ForegroundColor White -NoNewline
+        Write-Host " files to process (💾 " -ForegroundColor Cyan -NoNewline
+        Write-Host "$totalKB KB" -ForegroundColor White -NoNewline
+        Write-Host " total)" -ForegroundColor Cyan
     }
     
     Write-Host "═══════════════════════════════════════════════════" -ForegroundColor DarkGray
@@ -150,7 +194,8 @@ try {
     
     if ($failCount -eq 0) {
         Write-Host "✅ ALL FILES PROCESSED SUCCESSFULLY ✅" -ForegroundColor Green
-    } else {
+    }
+    else {
         Write-Host "⚠️ COMPLETED WITH ERRORS ⚠️" -ForegroundColor Yellow
     }
 }
