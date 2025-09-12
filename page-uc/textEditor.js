@@ -720,6 +720,38 @@ document.addEventListener("DOMContentLoaded", () => {
         textArea.value = [...new Set(textArea.value.split("\n"))].join("\n");
         break;
 
+      case "keepDuplicateLines":
+        const allLines = textArea.value.split("\n");
+        const lineCount = {};
+
+        // Count occurrences of each line
+        allLines.forEach((line) => {
+          lineCount[line] = (lineCount[line] || 0) + 1;
+        });
+
+        // Keep only lines that appear more than once
+        const duplicateLines = allLines.filter((line) => lineCount[line] > 1);
+        textArea.value = duplicateLines.join("\n");
+        break;
+
+      case "findAdjacentDuplicates":
+        const textLines = textArea.value.split("\n");
+        const adjacentDuplicates = [];
+
+        for (let i = 0; i < textLines.length; i++) {
+          const currentLine = textLines[i];
+          const prevLine = i > 0 ? textLines[i - 1] : null;
+          const nextLine = i < textLines.length - 1 ? textLines[i + 1] : null;
+
+          // Check if current line matches previous or next line
+          if (currentLine === prevLine || currentLine === nextLine) {
+            adjacentDuplicates.push(currentLine);
+          }
+        }
+
+        textArea.value = adjacentDuplicates.join("\n");
+        break;
+
       case "sortLinesAscending":
         textArea.value = textArea.value
           .split("\n")
