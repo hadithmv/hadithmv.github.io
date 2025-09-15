@@ -19,7 +19,7 @@ GREP change to: (write nothing)
 find format:
 (advanced character formats) language: arabic (not bracket arabic?)
 change format:
-(advanced character formats) language: English usa
+(advanced character formats) language: English USA
 
 ...
 
