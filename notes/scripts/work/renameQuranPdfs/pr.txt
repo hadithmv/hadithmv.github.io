@@ -1,0 +1,61 @@
+000_Full_Quran_Tharujamaa_Aboobakr_Ibrahim_Ali.pdf
+
+001_Al_Fatihah_Quran_Tharujamaa_Aboobakr_Ibrahim_Ali_p005_006.pdf
+002_Al_Baqarah_Quran_Tharujamaa_Aboobakr_Ibrahim_Ali_p007_162.pdf
+
+...
+
+000_Full_Quran_Tafsir_Jaufar_Faiz.pdf
+
+001_Al_Fatihah_Quran_Tafsir_Jaufar_Faiz.pdf
+002_Al_Baqarah_Quran_Tafsir_Jaufar_Faiz.pdf
+
+...
+...
+
+
+so i have in this directory, quran pdf files
+
+their file names are
+1
+2
+3
+and so on
+
+their names stand for the surah number. each file is a separate surah.
+
+in this directory is also a js file, called
+surah-names-english.js
+
+it looks like:
+const englishSurahNames = {
+  1: "Fatihah",
+  2: "Baqarah",
+  3: "AalImran",
+  4: "Nisa",
+  5: "Maidah",
+  6: "An'am",
+  
+all the way to
+  111: "Masad",
+  112: "Ikhlas",
+  113: "Falaq",
+  114: "Nas",
+};
+
+so what i want you to do is, write a python script that will do the following
+
+rename the quran pdf files, so that instead of filenames that are just a number like
+1
+2
+3
+
+they will be named like
+
+001_Fatihah_Quran_Tafsir_Jaufar_Faiz.pdf
+002_Baqarah_Quran_Tafsir_Jaufar_Faiz.pdf
+002_AalImran_Quran_Tafsir_Jaufar_Faiz.pdf
+
+and so on, according to the surah name given in the js file
+the js file is external, keep it external
+
