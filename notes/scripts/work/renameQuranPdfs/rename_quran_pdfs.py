@@ -1,15 +1,3 @@
-
-# Quran PDF File Renamer
-# This script renames Quran PDF files in a specified directory based on surah names
-# extracted from a JavaScript file.
-# The new filenames will follow the format:
-# "001_Al-Fatiha_Quran_Tafsir_Jaufar_Faiz.pdf"
-#
-# Usage:
-# 1. Place this script in the directory containing the PDF files.
-# 2. Ensure the JavaScript file "surah-names-english.js" is in the same directory.
-# 3. Run it with: python rename_quran_pdfs.py
-
 import os
 import re
 import json
@@ -89,8 +77,20 @@ def rename_pdf_files(directory_path, js_file_path):
             if surah_number in surah_names:
                 surah_name = surah_names[surah_number]
                 
+                # Clean surah name for filename (replace apostrophes and other problematic characters)
+                clean_surah_name = surah_name.replace("'", "")  # Remove apostrophes
+                clean_surah_name = clean_surah_name.replace('"', '')  # Remove quotes
+                clean_surah_name = clean_surah_name.replace('/', '_')  # Replace forward slashes
+                clean_surah_name = clean_surah_name.replace('\\', '_')  # Replace backslashes
+                clean_surah_name = clean_surah_name.replace(':', '_')  # Replace colons
+                clean_surah_name = clean_surah_name.replace('?', '')  # Remove question marks
+                clean_surah_name = clean_surah_name.replace('*', '')  # Remove asterisks
+                clean_surah_name = clean_surah_name.replace('<', '')  # Remove less than
+                clean_surah_name = clean_surah_name.replace('>', '')  # Remove greater than
+                clean_surah_name = clean_surah_name.replace('|', '_')  # Replace pipes
+                
                 # Create new filename with zero-padded number
-                new_filename = f"{surah_number:03d}_{surah_name}_Quran_Tafsir_Jaufar_Faiz.pdf"
+                new_filename = f"{surah_number:03d}_{clean_surah_name}_Quran_Tafsir_Jaufar_Faiz.pdf"
                 
                 # Full paths
                 old_path = os.path.join(directory_path, file)

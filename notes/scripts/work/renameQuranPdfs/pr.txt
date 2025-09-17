@@ -59,3 +59,4 @@ they will be named like
 and so on, according to the surah name given in the js file
 the js file is external, keep it external
 
+mind the apostrophe's in some of the surah names
