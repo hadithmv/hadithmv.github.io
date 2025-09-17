@@ -1010,7 +1010,7 @@ function applyTranslations() {
   // Redraw table and maintain page position
   table.draw();
   table.page(currentPage).draw("page");
-  scrollUpTop();
+  // scrollUpTop();
 }
 
 // Resets translations to their initial state
