@@ -349,6 +349,17 @@ function normalizeChars(text) {
     .join("");
 }
 
+// Preserve window scroll position around operations that cause layout redraws
+function preserveWindowScrollDuring(fn) {
+  const x = window.pageXOffset || document.documentElement.scrollLeft || 0;
+  const y = window.pageYOffset || document.documentElement.scrollTop || 0;
+  try {
+    fn();
+  } finally {
+    window.scrollTo(x, y);
+  }
+}
+
 //
 // QURAN NAVIGATION - for quran navigation-related functions
 //
@@ -762,8 +773,10 @@ function toggleTranslation(a, e, initialPage) {
       "Redrawing table after toggling existing translation, page:",
       l
     );
-    table.draw();
-    table.page(l).draw("page");
+    preserveWindowScrollDuring(function () {
+      table.draw();
+      table.page(l).draw("page");
+    });
   }
   // If translation needs to be loaded
   else {
@@ -798,10 +811,12 @@ function toggleTranslation(a, e, initialPage) {
         "Redrawing table after loading new translation, restoring page:",
         currentPage
       );
-      table.clear().rows.add(t).draw();
-      table.column(r).visible(!0);
-      table.column(i).visible(!0);
-      table.page(currentPage).draw("page");
+      preserveWindowScrollDuring(function () {
+        table.clear().rows.add(t).draw();
+        table.column(r).visible(!0);
+        table.column(i).visible(!0);
+        table.page(currentPage).draw("page");
+      });
     }).fail(function (a, e, t) {
       console.error("Error loading translation:", t);
     });
@@ -908,7 +923,9 @@ function initializeTranslationSelector() {
     i.addEventListener("click", showAllTranslations);
     m.addEventListener("click", showMainTranslations); // Add new event listener
   } else {
-    console.error("Toggle button or dropdown not found");
+    //console.error("Toggle button or dropdown not found");
+    // Elements not present on this page or not yet inserted; safely skip init
+    return;
   }
 }
 
@@ -1007,9 +1024,11 @@ function applyTranslations() {
     table.column(titleColumnIndex).visible(hasVisibleColumns);
   });
 
-  // Redraw table and maintain page position
-  table.draw();
-  table.page(currentPage).draw("page");
+  // Redraw table and maintain page position and window scroll
+  preserveWindowScrollDuring(function () {
+    table.draw();
+    table.page(currentPage).draw("page");
+  });
   // scrollUpTop();
 }
 
