@@ -53,6 +53,13 @@ html body {
   padding-top: 47px; /* 60px; */
 }
 
+/* When using href attributes with ID targets (anchor links) and a fixed or sticky navigation bar, the target element can sometimes be hidden behind the navbar when the page jumps to it. This occurs because the browser scrolls the target element to the very top of the viewport, not accounting for the fixed-position element occupying that space.
+
+The scroll-padding-top property defines offsets for the top of the optimal viewing region of the scrollport: the region used as the target region for placing things in view of the user. This allows the author to exclude regions of the scrollport that are obscured by other content (such as fixed-positioned toolbars or sidebars) or to put more breathing room between a targeted element and the edges of the scrollport. */
+html {
+  scroll-padding-top: 80px;
+}
+
 /* Navbar styles */
 .navbar {
   position: fixed;
@@ -81,6 +88,27 @@ html body {
   padding: 0 15px; /* Consistent padding */
   box-sizing: border-box;
   width: 100%;
+
+  /*
+  When using href attributes with ID targets (anchor links) and a fixed or sticky navigation bar, the target element can sometimes be hidden behind the navbar when the page jumps to it. This occurs because the browser scrolls the target element to the very top of the viewport, not accounting for the fixed-position element occupying that space.
+Several solutions exist to address this issue:
+
+1. CSS scroll-margin-top:
+This is the most modern and recommended CSS-only solution. Apply scroll-margin-top to the target element (the element with the id you are linking to). The value should be equal to or slightly greater than the height of your fixed navbar.
+
+#your-section-id {
+  scroll-margin-top: 80px; 
+}
+  /* Adjust this value based on your navbar height */
+
+  /* 2. CSS scroll-padding-top (on parent container):
+Instead of applying scroll-margin-top to each individual target, you can apply scroll-padding-top to the parent container of your scrollable content. This effectively creates a "padding" at the top of the scrollable area, pushing the content down and preventing it from being obscured by the fixed navbar.  */
+
+  /* Or a more specific scrollable container */
+  /*html { 
+  scroll-padding-top: 80px; 
+}*/
+  /* Adjust this value based on your navbar height */
 
   /* hassaans style */
   /*box-shadow: 0 2px 2px #cacaca;*/

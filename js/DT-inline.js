@@ -1348,7 +1348,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // instead of using the plugin externally, place the code here directly
     // it seems this does the same thing as the mobile version of the scroll
     table.on("page", function () {
-      // not currently using anything on desktop, previously it would go to top of table, but now it goes to top of page
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      // previously it would go to top of table, but now it goes to top of page
       /*window.scrollTo({
         top: 0,
         behavior: "smooth",
@@ -1369,15 +1373,17 @@ document.addEventListener("DOMContentLoaded", function () {
       // https://datatables.net/forums/discussion/comment/175697/#Comment_175697
       // CURRENTLY MOST UP TO DATE CODE USED
       // other code works too, but navbar hides the top of tr, so this code calculates the height of navbar and scrolls to where it ends
-      const trElement = document.querySelector("tbody tr");
+      const scrollToElement = document.querySelector("tbody");
+      // const scrollToElement = document.querySelector("tbody tr");
       const navbarHeight = document.querySelector(".navbar").offsetHeight;
 
-      const trPosition =
-        trElement.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = trPosition - navbarHeight;
+      const scrollToPosition =
+        scrollToElement.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = scrollToPosition - navbarHeight;
 
       window.scrollTo({
-        top: offsetPosition,
+        // top: offsetPosition,
+        top: offsetPosition + 25, // scroll 25 pixels further down than the calculated position of the target
         behavior: "smooth",
       });
 
