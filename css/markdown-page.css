@@ -68,7 +68,7 @@ h1 {
 }
 
 h2 {
-  font-size: 28px;
+  font-size: 26px;
   /* margin-top: 1.75em; */
   margin-top: 1em;
 }
@@ -180,4 +180,36 @@ a.noLine::after {
 .skeleton-paragraph {
   height: 100px; /* Multi-line height */
   margin: 1em 0; /* Consistent spacing */
+}
+
+/* =================================
+  Helper Classes
+==================================== */
+
+.justifiedText {
+  text-align: justify;
+  /*direction: rtl;
+       */
+}
+
+.centerAlignedText {
+  text-align: center;
+  /*direction: rtl;
+       */
+}
+
+.rightAligned {
+  text-align: right;
+}
+
+.leftAligned {
+  text-align: left;
+}
+
+.ltrText {
+  direction: ltr;
+}
+
+.rtlText {
+  direction: rtl;
 }

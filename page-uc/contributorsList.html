@@ -1,417 +1,94 @@
 <!DOCTYPE html>
+<!-- Language set to Dhivehi with Google Translate disabled -->
 <html lang="dv" class="notranslate" translate="no">
   <head>
+    <!-- Disable Google Translate -->
     <meta name="google" content="notranslate" />
-    <!-- CHANGE !!! -->
-    <title>އެހީތެރިން - Contributors</title>
-    <meta
-      name="description"
-      content="The Dhivehi Platform for the Sunnah | ދިވެހިންގެ ސުންނަތުގެ މަންސަ"
-    />
-    <meta
-      name="keywords"
-      content="hadithmv, hadith mv, hadeeth mv, dhivehi, hadith, hadhees, dhivehi islamic books, tharujama, dhivehi translation,ފޮތް, ތަރުޖަމާ, ޤުރްއާން, ޤުރުއާން, ގުރްއާން,ގުރުއާން, އިސްލާމް, ދީނީ, ޙަދީޘް, ހަދީޘް, ޙަދީސް, ހަދީސް, ސުންނަތް, ސުންނާ, ސުންނަ, ސުއްނަތް, ސުއްނާ, ސުއްނަ, ސުންނީ, ސުއްނީ, ސަލަފް, ސަލަފު, ސަލަފުން, ސަލަފީ, އަޘަރީ, ދިވެހި ,ޙަދީޘްއެމްވީ ,ޙަދީޘް އެމްވީ"
-    />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta itemprop="name" content="Hadithmv" />
-    <meta itemprop="description" content="ޙަދީޘްއެމްވީ" />
-    <meta
-      itemprop="image"
-      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
-    />
-    <meta property="og:title" content="Hadithmv" />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:image"
-      content="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png"
-    />
-    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#29434e" />
-    <!-- external resources-->
+
+    <!-- Basic meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>...</title>
+    <!-- Title will be set from markdown H1 -->
+
+    <!-- Prevent Flash of Unstyled Content (FOUC) -->
     <style>
       html {
         visibility: hidden;
         opacity: 0;
       }
     </style>
-    <link
-      rel="stylesheet"
-      href="../css/base-styles.css"
-      media="print"
-      onload="this.media='all'"
-    />
+
+    <!-- SEO and Social Media Meta Tags - Populated dynamically -->
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta itemprop="name" content="" />
+    <meta itemprop="description" content="" />
+    <meta itemprop="image" content="" />
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="" />
+    <meta name="theme-color" content="" />
+
+    <!-- External Resources -->
+    <!-- Site favicon -->
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+
+    <!-- Stylesheets -->
+    <!-- Main styles for markdown content -->
+    <link rel="stylesheet" href="../css/markdown-page.css" />
+    <!-- Navigation bar styles with performance optimization -->
     <link
       rel="stylesheet"
       href="../css/navbar.css"
       media="print"
       onload="this.media='all'"
     />
+
+    <!-- Scripts -->
+    <!-- Navigation bar functionality -->
     <script src="../js/navbar.js"></script>
-    <!-- END external resources-->
-    <style></style>
+    <!-- Markdown parser -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> -->
+    <script src="marked.min.js"></script>
   </head>
 
   <body>
+    <!-- Navigation Bar Container -->
     <div id="navbar-container"></div>
-    <div class="dtWrapper">
-      <div class="hmvSection leftAlignedText ltrText">
-        <div class="centerAlignedText">
-          <p class="basmala">بِسمِ اللهِ الرَّحمَنِ الرَّحِيمِ</p>
-          <a href="../books/index.html" class="noLineA"
-            ><img class="hmvLogo" alt="hadith mv" src="../img/logo/logo.svg"
-          /></a>
-        </div>
 
-        <h3>Thank you to everyone who made a significant contribution</h3>
-
-        <p>
-          Abu Huraira narrated that the Messenger ﷺ said: “He who does not thank
-          the people, does not thank Allah.” [Tirmizi 1954, authenticated by
-          Albani.] The people listed below have contributed to this project in
-          various ways over time. We thank Allah for letting us create this
-          project. We would also like to thank all those who participated in the
-          work, translated the difficult arabic, corrected the errors,
-          proof-read the content, helped with publishing, as well assisted in
-          different ways. After the permission of Allah, we are only able to
-          release this project, because of their abundant support. May Allah
-          reward them abundantly and perpetually. If you would like to help with
-          this project, you can contact us from the main page. Any good that
-          comes of this is from Allah, and any shortcomings are from ourselves
-          and shaithan. O Allah, please accept and bless this work of ours, and
-          make it from our good deeds. Let it be a Sadaqa Jariya (continuous
-          charity) that remains until the Day of Judgement. And forgive the
-          brothers and sisters who participated in it, guide them to the true
-          path, and keep them firm upon it, along with their families and
-          friends. Ameen.
-        </p>
-
-        <h3 class="rtlText rightAlignedText">
-          މަޝްރޫއުގައި ފާހަގަކުރެވޭ ގޮތުގައި ބައިވެރިވި އެންމެހާ ފަރާތްތަކަށް
-          ޝުކުރު އަދާކުރުން
-        </h3>
-
-        <p class="rtlText rightAlignedText">
-          އަބޫ ހުރައިރާގެ އަރިހުން ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:
-          ”މީސްތަކުންނަށް ޝުކުރު ނުކުރާ މީހަކު، ﷲ އަށް ޝުކުރެއް ނުކުރާނެއެވެ.“
-          [ތިރްމިޛީ 1954، ސައްހަ ކުރެއްވީ އަލްބާނީ.] ތިރީގައި ދެންނެވިފައިވާ
-          ފަރާތްތައް ވަނީ އެކިގޮތްގޮތަށް އެކިފަހަރު މަތިން
-          އެހީތެރިވެދެއްވާފައެވެ. މި މަޝްރޫއަށް ހެޔޮ ތައުފީގު
-          ދެއްވިކަމަށްޓަކައި، މާތް ﷲ އަށް ހަމްދާއި ޝުކުރު ކުރަމެވެ. އަދި މީގެ
-          އިތުރަށް މި މަސައްކަތުގައި ބައިވެރިވެ، އުނދަގޫ އަރަބި ލަފުޒުތައް
-          މާނަކޮށް، ކުށްތައް ފިލުވައި، ލިޔުން ބަލައި އިސްލާހުކޮށް، ޗާޕު
-          ތައްޔާރުކޮށް އަދި އެ ނޫންވެސް އެކި ގޮތްގޮތުން އެހީތެރިވި އެންމެހައި
-          ފަރާތްތަކަށް ޝުކުރު ދަންނަވަމެވެ. ﷲގެ އިޒުނަފުޅަށް ފަހު، މި މަސައްކަތް
-          ނެރެވުނީ އެ ފަރާތްތަކުން ދެއްވި ދީލަތި އެހީގެ ސަބަބުންނެވެ. އެ ހުރިހާ
-          ފަރާތަކުން ކޮށްދެއްވި މަސައްކަތަށް ގިނަގުނަ ދަރުމައާއި ސަވާބު ދާއިމީ
-          ގޮތުގައި ދެއްވާށިއެވެ. މި މަޝްރޫއަށް އެހީވެދޭން އެދޭ ނަމަ، މައި
-          ސަފުހާއިން އަހަރުމެންނަށް މެސެޖެއްކުރާށެވެ. މި މަސައްކަތުގައި އެއްވެސް
-          ހެޔޮކަމެއް ވާނަމަ، އެއީ ﷲގެ ހަޒުރަތުން ލިބުނު ހެޔޮކަމެކެވެ. އަދި މި
-          ކަމުގައި އެއްވެސް އުނިކަމެއް ވާނަމަ، އެއީ އަޅުގަނޑުމެންނާއި ޝައިތާނާގެ
-          ފަރާތުން އައި އުނިކަމެކެވެ. ޔާ ﷲ އެވެ. އަޅަމެންގެ މި މަސައްކަތް ގަބޫލު
-          ކުރައްވާ، މިކަމުގައި ބަރަކާތް ލައްވާށިއެވެ. އަދި އަޅަމެންގެ ހެޔޮ
-          އަމަލުތަކުގެ ތެރޭގައި ހިމަނުއްވާށިއެވެ. އަދި މިއީ ގިޔާމަތަށް ދާންދެން
-          ދެމިގެންދާ ސަދަގާ ޖާރިއާއެއް ކަމުގައި ލައްވާށިއެވެ. އަދި މިކަމުގައި
-          ބައިވެރިވި އެންމެހައި އަޚުންނާއި އުޚްތުންނާއި އެ މީހުންގެ އާއިލާތަކާއި
-          ރަހުމަތްތެރިންނަށް ފާފަ ފުއްސަވާދެއްވާ، ހައްގުގެ މަގަށް މަގުދައްކަވާ،
-          އަދި އެ މަގުގައި ސާބިތުކަން ދެއްވާށިއެވެ. އާމީން.
-        </p>
-
-        <hr />
-
-        <h3 class="centerAlignedText">List</h3>
-        <!-- https://www.textfixer.com/html/html-list-generator.php -->
-        <div class="ltrText leftAlignedText" style="line-height: 1.5">
-          <!-- STARTHERE123 -->
-          <!-- !!! -->
-          <ol>
-            <li>
-              (Abu Yahya) Mohamed Ashraaf Ibrahim (Graduate of Hadith Faculty,
-              Madina University, and Software Developer)
-            </li>
-            <li>
-              Abdul Muiz Rasheed (Graduate of Sharia Faculty, Madina University)
-            </li>
-            <li>
-              Abdullah Ahsan Saeed (Graduate of Sharia Faculty, Madina
-              University)
-            </li>
-            <li>
-              Abdullah Azzam Ahmed K. (Graduate of Sharia Faculty, Madina
-              University)
-            </li>
-            <li>
-              Abu Abdullah (Graduate of Hadith Faculty, Madina University)
-            </li>
-            <li>Abu Amru Haisham (Helper)</li>
-            <li>Abu Moosa Ismaeel (Helper)</li>
-            <li>Abu Ubaidha Ahmadh (Helper)</li>
-            <li>Adam Ifham (Helper)</li>
-            <li>
-              Ahmed Aaman Ibrahim (Graduate of Dawah Faculty, Madina University)
-            </li>
-            <li>
-              Ahmed Affan Haleem (Graduate of Dawah Faculty, Madina University)
-            </li>
-            <li>Ahmed Ahsam (Helper and Software Developer)</li>
-            <li>Ahmed Azhan (Graduate of Sharia Faculty, Madina University)</li>
-            <li>
-              Ahmed Fazad Faaiz (Graduate of Sharia Faculty, Madina University)
-            </li>
-            <li>
-              Ahmed Shujau Shareef (Graduate of Sharia Faculty, Madina
-              University)
-            </li>
-            <li>Ali Shaafee (Helper)</li>
-            <li>Ali Ziyad (Helper)</li>
-            <li>Allan J. (Software Developer)</li>
-            <li>Amir Mustafa (Helper)</li>
-            <li>
-              Ammar Ilyas Hussain (Graduate of Hadith Faculty, Madina
-              University)
-            </li>
-            <li>Aseel H. (Helper)</li>
-            <li>Awwam Muhammad (Helper)</li>
-            <li>
-              Azzam Haleem (Graduate of Sharia Faculty, Madina University)
-            </li>
-            <li>
-              Basheer Adam (Graduate of Islamic Studies, Qaseem University)
-            </li>
-            <li>BB. (Helper)</li>
-            <li>Easa Hunain (Graduate of Sharia Faculty, Madina University)</li>
-            <li>Faaiz Abdullah (Helper)</li>
-            <li>Faris Hussain (Helper)</li>
-            <li>
-              Fathimath Kifah Qubad (Graduate of Fundamentals of Religion
-              Faculty, Azhar University)
-            </li>
-            <li>
-              Fathimath Maziya Muawiyath (Graduate of Islamic Studies, Maldives
-              National University)
-            </li>
-            <li>
-              Hassaan Abdul Razzaq (Graduate of Hadith Faculty, Madina
-              University)
-            </li>
-            <li>
-              Hassan Ziyan (Graduate of Sharia Faculty, Madina University)
-            </li>
-            <li>
-              Hussain Jauzan (Graduate of Sharia Faculty, Madina University)
-            </li>
-            <li>
-              Hussain Mohamed Didi (Student of Islamic Studies, International
-              Open University)
-            </li>
-            <li>
-              Hussain Nashaath (Graduate of Sharia Faculty, Madina University)
-            </li>
-            <li>
-              Hussain Sodiq (Graduate of Islamic Studies, Qaseem University)
-            </li>
-            <li>
-              Hussain Toriq (Graduate of Sharia Faculty, Madina University)
-            </li>
-            <li>Ibrahim Adil (Software Developer)</li>
-            <li>
-              Ibrahim Ruwais Ahmed (Student of Arabic Institute, Madina
-              University)
-            </li>
-            <li>
-              Ibrahim Samooh (Student of Dawah Faculty, Madina University)
-            </li>
-            <li>Ibrahim Saneeh (Helper)</li>
-            <li>Imad Yusuf (Graduate of Ummul Qura University, Makka)</li>
-            <li>
-              Imthithaau Abbas (Graduate of Hadith Faculty, Madina University)
-            </li>
-            <li>
-              Ishaq Fathhee (Graduate of Hadith Faculty, Madina University)
-            </li>
-            <li>
-              Ismail Jumail Mohamed (Student of Arabic Institute, Madina
-              University)
-            </li>
-            <li>Ismail Shareef (Helper)</li>
-            <li>
-              Jailam Abdul Jaleel (Graduate of Language Faculty, King Saud
-              University)
-            </li>
-            <li>Kevin T. (Software Developer)</li>
-            <li>Khadija (Helper)</li>
-            <li>M. Ashfa (Helper)</li>
-            <li>Maihan Nazim (Helper)</li>
-            <li>
-              Mohamed Aamil Ali (Graduate of Sharia Faculty, Madina University)
-            </li>
-            <li>Mohamed Abdul Sattar (Helper)</li>
-            <li>
-              Mohamed Adil (Graduate of Sharia Faculty, Madina University)
-            </li>
-            <li>
-              Mohamed Ahmed (Graduate of Sharia Faculty, Madina University)
-            </li>
-            <li>
-              Mohamed Fazeel (Graduate of Sharia Faculty, Madina University)
-            </li>
-            <li>
-              Mohamed Hafeez (Student of Medicine, Newcastle University,
-              Australia)
-            </li>
-            <li>
-              Mohamed Humam Yusuf (Student of Sharia Faculty, Madina University)
-            </li>
-            <li>
-              Mohamed Ihsan (Graduate of Dawah Faculty, Madina University)
-            </li>
-            <li>
-              Mohamed Jazlan Umar (Graduate of Law Faculty, Madina University)
-            </li>
-            <li>
-              Mohamed Maaiz Muaviyath (Graduate of Dawah Faculty, Madina
-              University)
-            </li>
-            <li>
-              Mohamed Mafaz Ahmed (Graduate of Business Administration, King
-              Khalid University, Abha)
-            </li>
-            <li>
-              Mohamed Samooh (Graduate of Sharia Faculty, Qaseem University)
-            </li>
-            <li>
-              Mohamed Vishah (Graduate of Sharia Faculty, Qaseem University)
-            </li>
-            <li>Moosa Abdul Gani (Helper)</li>
-            <li>Muhammad Bin Moosa (Helper)</li>
-            <li>Muhammad Naajih Didi (Helper)</li>
-            <li>
-              Mujahid Abdullah (Graduate of Hadith Faculty, Madina University)
-            </li>
-            <li>Mussab Rameez (Helper)</li>
-            <li>
-              Mutheeu Ismail (Graduate of Sharia Faculty, Qaseem University)
-            </li>
-            <li>
-              Nazeem Nizaam (Graduate of Arabic Institute, Madina University)
-            </li>
-            <li>Nihan Ali (Helper)</li>
-            <li>Nihreer Maajid Dawud (Helper)</li>
-            <li>O.S. Ibrahim Didi (Helper)</li>
-            <li>Raaif Rushdhy (Student of Arabic Language, Zikura College)</li>
-            <li>Samy Ilyas (Helper)</li>
-            <li>Shahid Rameez (Helper)</li>
-            <li>
-              Shifaq Ahmed (Graduate of Sharia Faculty, Madina University)
-            </li>
-            <li>
-              Shiruhan Ali (Graduate of Sharia Faculty, Qaseem University)
-            </li>
-            <li>Umm Hanzalah (Helper)</li>
-            <li>
-              Umm Yahya (Graduate of Islamic Studies, Maldives National
-              University)
-            </li>
-            <li>
-              Zahwan Nazim (Graduate of Computer Science, King Khalid
-              University, Abha)
-            </li>
-          </ol>
-        </div>
-
-        <!-- END -->
-
-        <p style="text-align: center; margin-top: 40px">
-          —&nbsp; as well as other brothers and sisters &nbsp;—
-        </p>
-
-        <!--</div>-->
-        <!-- <div id="tabOne" class="tabcontent"> -->
-
-        <!--
-  
-        <div id="tabTwo" class="tabcontent dv">
-          <br />
-          <h2>
-            <a
-              ><b
-                >މަޝްރޫއުގައި ބައިވެރިވި އެންމެހައި ފަރާތްތަކަށް ޝުކުރު
-                އަދާކުރުން</b
-              ></a
-            >
-          </h2>
-          <p>
-            އަބޫ ހުރައިރާގެ އަރިހުން ރަސޫލު ﷲ ﷺ ޙަދީޘް ކުރެއްވިއެވެ:
-            ”މީސްތަކުންނަށް ޝުކުރު ނުކުރާ މީހަކު، ﷲ އަށް ޝުކުރެއް ނުކުރާނެއެވެ.“
-            [ތިރްމިޛީ 1954، ސައްހަ ކުރެއްވީ އަލްބާނީ.] ތިރީގައި ދެންނެވިފައިވާ
-            ފަރާތްތައް ވަނީ އެކިގޮތްގޮތަށް އެކިފަހަރު މަތިން
-            އެހީތެރިވެދެއްވާފައެވެ. މި ކަމުގައި އެއްވެސް ހެޔޮކަމެއް ވާނަމަ، ފަހެ
-            އެއީ ﷲ ގެ ހަޒުރަތުން އައި ކަމެކެވެ. އަދި މި ކަމުގައި އެއްވެސް
-            އުނިކަމެއް ވާނަމަ އެއީ އަޅުގަނޑުމެންނާއި ޝައިތާނާގެ ފަރާތުން އައި
-            ކަމެކެވެ. ޔާ ﷲ އެވެ. އަޅަމެންގެ މި މަސައްކަތް ގަބޫލު ކުރައްވާ،
-            މިކަމުގައި ބަރަކާތް ލައްވާ، އަޅަމެންގެ ހެޔޮ ޢަމަލުތަކުގެ ތެރޭގައި
-            ހިމަނުއްވާށިއެވެ. އަދި މިއީ ގިޔާމަތަށް ދާންދެން ދެމިގެންދާ ސަދަގާ
-            ޖާރިއާއެއް ކަމުގައި ލައްވާށިއެވެ. އަދި މިކަމުގައި ބައިވެރިވި
-            އެންމެހައި އަޚުންނާއި އުޚްތުންނާއި އެ މީހުންގެ އާއިލާތަކާއި
-            ރަހްމަތްތެރިންގެ ފާފަތައް ފުއްސަވާށިއެވެ. އާމީން.
-          </p>
-          <br />
-  
-          <p class="justi inde">
-            އަބޫ ޔަޙްޔާ މުޙައްމަދު އަޝްރާފު އިބްރާހީމް، އުއްމު ޔަޙްޔާ، ޙައްސާން
-            ޢަބްދުއްރައްޒާގް، ޢަބްދުލް މުޢިއްޒު ރަޝީދު، ޢަބްދު ﷲ އަޙްސަން ސަޢީދު،
-            ޢަބްދު ﷲ ޢައްޒާމް އ.، ޢަބްދު ﷲ ޢައްޒާމް ކ.، ޢަބްދު ﷲ މުޙައްމަދު
-            އާދަމް، ޢަބްދު ﷲ މުނައްވަރު، ޢަބްދު ﷲ ސަޢުދާން، އަބޫ މުޞްޢަބް، އަބޫ
-            ނުސައިބާ، އާދަމް އިފްހާމް، ޢަދިއްޔު މުޙައްމަދު، އަޙްމަދު އާމަން
-            އިބްރާހީމް، އަޙްމަދު ޢައްފާން ޙަލީމް، އަޙްމަދު އަޙްސަން، އަޙްމަދު ޢަލީ
-            ޖާބިރު، އަޙްމަދު އަޝްރަފު، އަޙްމަދު އަޒުހާން، އަޙްމަދު ނާދިހު،
-            އަޙްމަދު ނަޒްމީ ރަޝީދު، އަޙްމަދު ޝުޢައިބު، އަޙްމަދު ޝުޖާޢު ޝަރީފު،
-            ޢަލީ ޝައްމާޚް، ޢަލީ ޒިޔާދު، އެލަން ޖ، ޢައްމާރު އިލްޔާސް ޙުސައިން،
-            އަޝްރަފު ޢަލީ، އާޒިމް ޚާލިދު، ޢައްޒާމް ޙަލީމް، ބަޝީރު އާދަމް، ބިލާލް
-            ޢަބްދުއްސައްތާރު، ކޮލިން މ، ޢީސާ ޙުނައިން، ފަހްމީ ދީދީ، ފާޠިމަތު
-            ކިފާޙް ޤުބާދު، ހާޝިމް ސ.، ހަޝުމް ނާޡިމް، ޙަސަން މ.، ޙަސަން ޒިޔާން،
-            ހާތިމް ޔޫސުފް، ހޫދު މުޙައްމަދު، ޙުމައިދު ޝާހިދު ރަމީޒު، ޙުސައިން
-            އަންޞާރު، ޙުސައިން ޙިޒާމް، ޙުސައިން އިބްރާހީމް، ޙުސައިން ޖައިޝާން،
-            ޙުސައިން ޖައުޒާން، ޙުސައިން ނަޝާޠު، ޙުސައިން ޝިފާން، ޙުސައިން ޞާދިޤު،
-            ޙުސައިން ޠާރިޤް، އިބްރާހިމް ޖަދީދު އަޙްމަދު، އިބްރާހިމް ސަމޫހް،
-            އިބްރާހިމް ސަނީހު، އިލްޔާސް އަޙްމަދު، އިލްޔާސް ޖަމާލު، ޢިމާދު ޔޫސުފް،
-            އިމްތިޠާއު ޢައްބާސް، އިސްޙާޤް ފަތުޙީ، އިސްމާޢީލް އިނާޝް ޙަނީފް،
-            އިސްމާޢީލް ޖުމައިލު މުޙައްމަދު، އިސްމާޢީލް ލަމްޢާން ދީދީ، އިސްމާޢީލް
-            ޝަރީފު، ޖައިލަމް ޢަބްދުލް ޖަލީލު، ޖަޢުފަރު މުޙައްމަދު އުޘްމާން، ކެވިން
-            ޓ، މައިހާން ނާޒިމް، މާޒިޔާ މުޢާވިޔަތު، މުޙައްމަދު ޢާމިލް ޢަލީ،
-            މުޙައްމަދު ޢާދިލު، މުޙައްމަދު އަޙްމަދު، މުޙައްމަދު ޢައްލާމް ނަޢީމް،
-            މުޙައްމަދު އަރުހަމް، މުޙައްމަދު ފަޟީލް، މުޙައްމަދު ޣާލިބް ޝާހިދު،
-            މުޙައްމަދު ޙަފީޡް، މުޙައްމަދު ޙަލީމް، މުޙައްމަދު ހުމާމް ޔޫސުފް،
-            މުޙައްމަދު އިޙްސާން، މުޙައްމަދު ޖަޒްލާން ޢުމަރު، މުޙައްމަދު މާއިޒު
-            މުޢާވިޔަތު، މުޙައްމަދު މަފާޒު އަޙްމަދު، ޝަފީޢު ޢަބްދު ﷲ، މުޙައްމަދު
-            ޝަފްރާޒު، މުޙައްމަދު ޝާހިދު، މުޙައްމަދު ސިރާޖް، މުޙައްމަދު ވިޝާޙު
-            ޢަލީ، މޫސާ އައްޔޫބް، މުޙައްމަދު ޑ.، މުޖާހިދު ޢަބްދު ﷲ، މުއުތަމިން
-            އަޙްމަދު، މުޠީޢު އިސްމާޢީލް މުޙައްމަދު، ނާޖިޙު ދީދީ، ނަޡީމް ނިޡާމް،
-            ނިޙްރީރު މާޖިދު ދާވޫދު، ނޫޙް ވ.، ރ.ކ.، ރ.ހ.، ރާއިފު ރުޝްދީ، ރަޝާދު،
-            ރިޔާސް ޙުސައިން، ޝާމީ، ޝާހިދު ރަމީޒް، ޝާޒިން އިބްރާހީމް، ޝިފާޤް
-            އަޙްމަދު، ޝިރުޙާން ޢަލީ، ޝުޢައިބު ނާޠިމް، ޒަހްވާން ނާޒިމް، އަދި އެ
-            އަޚުންނާއި އުޚްތުންގެ އާއިލާތަކާއި ރަހުމަތްތެރިންނެވެ.
-          </p>
-  
-          <br />
-        </div> -->
-      </div>
+    <!-- Loading Skeleton Screen -->
+    <!-- Shows while content is loading -->
+    <div id="skeleton">
+      <div class="skeleton skeleton-title"></div>
+      <div class="skeleton skeleton-text"></div>
+      <div class="skeleton skeleton-text"></div>
+      <div class="skeleton skeleton-paragraph"></div>
+      <div class="skeleton skeleton-text"></div>
+      <div class="skeleton skeleton-text"></div>
+      <div class="skeleton skeleton-paragraph"></div>
     </div>
 
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-HL24Q9NN24"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+    <!-- Main Content Container -->
+    <div id="content" dir="auto" style="display: none"></div>
 
-      gtag("config", "G-HL24Q9NN24");
+    <!-- style="display: none" | Hidden initially, shown after markdown is loaded -->
+    <!-- dir="auto" | let the browser decide using a basic algorithm as it parses the characters inside the element until it finds a character with a strong directionality, then applies that directionality to the whole element -->
+
+    <!-- Initialize Page -->
+    <!-- Load and render markdown content -->
+    <script type="module">
+      import { initializePage } from "../js/markdown-loader.js";
+
+      // For specific markdown file, uncomment below
+      // initializePage("../page-uc/privacyPolicy.md");
+
+      // Get current HTML filename without extension
+      const currentPath = window.location.pathname;
+      const filename = currentPath.split("/").pop().replace(".html", "");
+
+      // Use same filename for markdown
+      initializePage(`../page-uc/${filename}.md`);
     </script>
-    <!-- End Google Analytics -->
   </body>
 </html>
