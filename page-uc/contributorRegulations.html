@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- Language set to Dhivehi with Google Translate disabled -->
+<html lang="dv" class="notranslate" translate="no">
+  <head>
+    <!-- Disable Google Translate -->
+    <meta name="google" content="notranslate" />
+
+    <!-- Basic meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>...</title>
+    <!-- Title will be set from markdown H1 -->
+
+    <!-- Prevent Flash of Unstyled Content (FOUC) -->
+    <style>
+      html {
+        visibility: hidden;
+        opacity: 0;
+      }
+    </style>
+
+    <!-- SEO and Social Media Meta Tags - Populated dynamically -->
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta itemprop="name" content="" />
+    <meta itemprop="description" content="" />
+    <meta itemprop="image" content="" />
+    <meta property="og:title" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="" />
+    <meta name="theme-color" content="" />
+
+    <!-- External Resources -->
+    <!-- Site favicon -->
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+
+    <!-- Stylesheets -->
+    <!-- Main styles for markdown content -->
+    <link rel="stylesheet" href="../css/markdown-page.css" />
+    <!-- Navigation bar styles with performance optimization -->
+    <link
+      rel="stylesheet"
+      href="../css/navbar.css"
+      media="print"
+      onload="this.media='all'"
+    />
+
+    <!-- Scripts -->
+    <!-- Navigation bar functionality -->
+    <script src="../js/navbar.js"></script>
+    <!-- Markdown parser -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> -->
+    <script src="marked.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar Container -->
+    <div id="navbar-container"></div>
+
+    <!-- Loading Skeleton Screen -->
+    <!-- Shows while content is loading -->
+    <div id="skeleton">
+      <div class="skeleton skeleton-title"></div>
+      <div class="skeleton skeleton-text"></div>
+      <div class="skeleton skeleton-text"></div>
+      <div class="skeleton skeleton-paragraph"></div>
+      <div class="skeleton skeleton-text"></div>
+      <div class="skeleton skeleton-text"></div>
+      <div class="skeleton skeleton-paragraph"></div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div id="content" dir="auto" style="display: none"></div>
+
+    <!-- style="display: none" | Hidden initially, shown after markdown is loaded -->
+    <!-- dir="auto" | let the browser decide using a basic algorithm as it parses the characters inside the element until it finds a character with a strong directionality, then applies that directionality to the whole element -->
+
+    <!-- Initialize Page -->
+    <!-- Load and render markdown content -->
+    <script type="module">
+      import { initializePage } from "../js/markdown-loader.js";
+
+      // For specific markdown file, uncomment below
+      // initializePage("../page-uc/privacyPolicy.md");
+
+      // Get current HTML filename without extension
+      const currentPath = window.location.pathname;
+      const filename = currentPath.split("/").pop().replace(".html", "");
+
+      // Use same filename for markdown
+      initializePage(`../page-uc/${filename}.md`);
+    </script>
+  </body>
+</html>
