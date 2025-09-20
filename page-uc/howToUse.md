@@ -10,7 +10,7 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### NAVIGATION
+### Navigation
 
 - Click on the "Navbar" at the very top to access the Menu.
 
@@ -18,7 +18,7 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### READING BOOKS
+### Reading Books
 
 - From the home page, select a category (e.g., Hadith) and open a book (e.g., Muwatta Malik).
 
@@ -28,7 +28,7 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### READING CONTROLS
+### Reading Controls
 
 - "Show 1" adjusts the number of entries displayed per page. (note: doing so may cause other functions to not work as expected).
 
@@ -38,7 +38,7 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### COPYING TEXT
+### Copying Text
 
 - "Copy" lets you copy all visible text. (note: hidden text won't be copied).
 
@@ -48,7 +48,7 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### SEARCHING
+### Searching
 
 - Use the "Search Box" to find specific text within the current book.
 
@@ -62,7 +62,7 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### CONTINUING WHERE YOU LAST READ
+### Continuing Where You Last Read
 
 - When using either the online website or offline Android app: Your reading position is automatically saved.
 
@@ -72,7 +72,7 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### RETURN TO HOME PAGE
+### Return To Home Page
 
 - On book pages with the Navbar, click the "Hadithmv Logo" at the top left.
 
@@ -82,7 +82,7 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### TROUBLESHOOTING
+### Troubleshooting
 
 - If something malfunctions on a book, open the Navbar menu, and refresh the page using "Soft Reload" or "Hard Reload" found at the bottom.
 
@@ -90,23 +90,23 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### DESKTOP KEYBOARD SHORTCUTS
+### Desktop Keyboard Shortcuts
 
-- \[tab] = Tab Navigation
+- [tab] = Tab Navigation
 
-- \[arrow keys] = Keyboard Navigation
+- [arrow keys] = Keyboard Navigation
 
-- \[alt + c] = Copy text to clipboard
+- [alt + c] = Copy text to clipboard
 
-- \[alt + m] = Open the more buttons button
+- [alt + m] = Open the more buttons button
 
-- \[alt + s] = Show/hide columns
+- [alt + s] = Show/hide columns
 
-- \[alt + v] = Open filter
+- [alt + v] = Open filter
 
-- \[alt + b] = Open custom search
+- [alt + b] = Open custom search
 
-- \[alt + p] = Open number of rows shown in a page
+- [alt + p] = Open number of rows shown in a page
 
 - The cursor starts inside the Search box on desktop for easy typing. To use the keyboard shortcuts above, click outside the search box first.
 
