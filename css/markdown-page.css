@@ -1,5 +1,8 @@
-/* Theme Variables
-   Define color scheme for light/dark modes using CSS custom properties */
+/* =================================
+  Theme Variables
+==================================== */
+
+/* Define color scheme for light/dark modes using CSS custom properties */
 :root {
   --bg-color: #ffffff; /* Page background */
   --text-color: #0a0a0a; /* Main text color */
@@ -18,10 +21,75 @@
   }
 }
 
-/* Base Layout Styles
-   Core typography and spacing for markdown content */
+/* =================================
+  Typography - Font
+==================================== */
+
+/* merged font */
+@font-face {
+  font-family: "mergedFont";
+  src: url(../font/merged-300.woff2) format("woff2"),
+    url(../font/merged-300.woff) format("woff");
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display */
+  font-display: block;
+  /* previously swap */
+}
+
+/* https://www.cleancss.com/css-beautify/
+  https://github.com/h5bp/html5-boilerplate updated with hassaan's css */
+html {
+  font-size: 22px;
+  /* 1em */
+  /*line-height: 1.8;
+       */
+  /* 1.4 now in body */
+  /* added */
+  -webkit-text-size-adjust: 100%;
+  /* !!! */
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior */
+  scroll-behavior: smooth;
+  /* https://stackoverflow.com/questions/1417934/how-to-prevent-scrollbar-from-repositioning-web-page */
+  overflow-y: scroll;
+  /* Allow long words to be able to break and wrap onto the next line. Prevents long url addresses from breaking page content when it doesnt fit the width. use this instead of text-wrap or break-word where it is needed. */
+  /* overflow-wrap: anywhere;
+        */
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap */
+  text-wrap: pretty;
+  /* pretty balance */
+}
+/* resets body and centers container */
+/* some body code from https://github.com/sindresorhus/github-markdown-css/blob/main/index.html */
+
+/* Headings */
+
+h1 {
+  font-size: 32px;
+  margin-top: 1em;
+}
+
+h2 {
+  font-size: 28px;
+  /* margin-top: 1.75em; */
+  margin-top: 1em;
+}
+
+h3 {
+  font-size: 23px;
+  margin-top: 1.65em; /* 1.5, 2 */
+  /* margin-top: 1em; */
+  margin-bottom: 1em;
+}
+
+/* =================================
+  Base Layout Styles
+==================================== */
+
+/* Core typography and spacing for markdown content */
 body {
-  font-family: system-ui, -apple-system, sans-serif; /* System font stack */
+  /* font-family: system-ui, -apple-system, sans-serif; */
+  /* System font stack */
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
+
   line-height: 1.6; /* Comfortable reading line height */
   max-width: 800px; /* Limit width for readability */
   margin: 0 auto; /* Center content */

@@ -70,8 +70,10 @@
     </div>
 
     <!-- Main Content Container -->
-    <!-- Hidden initially, shown after markdown is loaded -->
-    <div id="content" style="display: none"></div>
+    <div id="content" dir="auto" style="display: none"></div>
+
+    <!-- style="display: none" | Hidden initially, shown after markdown is loaded -->
+    <!-- dir="auto" | let the browser decide using a basic algorithm as it parses the characters inside the element until it finds a character with a strong directionality, then applies that directionality to the whole element -->
 
     <!-- Initialize Page -->
     <!-- Load and render markdown content -->
