@@ -1,0 +1,115 @@
+/* Theme Variables
+   Define color scheme for light/dark modes using CSS custom properties */
+:root {
+  --bg-color: #ffffff; /* Page background */
+  --text-color: #0a0a0a; /* Main text color */
+  --link-color: #2196f3; /* Link and accent color */
+  --border-color: #dddddd; /* Borders and dividers */
+}
+
+/* Dark Mode Colors
+   Automatically switch colors when system prefers dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1a1b1e; /* Dark background */
+    --text-color: #e1e1e1; /* Light text for contrast */
+    --link-color: #64b5f6; /* Lighter blue for dark mode */
+    --border-color: #333333; /* Darker borders for dark mode */
+  }
+}
+
+/* Base Layout Styles
+   Core typography and spacing for markdown content */
+body {
+  font-family: system-ui, -apple-system, sans-serif; /* System font stack */
+  line-height: 1.6; /* Comfortable reading line height */
+  max-width: 800px; /* Limit width for readability */
+  margin: 0 auto; /* Center content */
+  padding: 20px; /* Space around content */
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Link Styling
+   Interactive link effects with hover animation */
+a {
+  color: var(--link-color);
+  text-decoration: none; /* Remove default underline */
+  position: relative; /* For animated underline */
+}
+
+/* Link Hover Effect
+   Animated underline that appears on hover */
+a::after {
+  background-color: var(--link-color);
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px; /* Underline thickness */
+  left: 0;
+  bottom: -2px; /* Space between text and line */
+  transform: scaleX(0); /* Start with no width */
+  transform-origin: bottom right; /* Animation starting point */
+  transition: transform 0.3s ease-out;
+}
+
+/* Link Hover Animation
+   Expand underline from left to right */
+a:hover::after {
+  transform: scaleX(1); /* Expand to full width */
+  transform-origin: bottom left;
+  z-index: 5; /* Keep above other content */
+}
+
+/* Link Style Exceptions
+   Disable underline animation for certain links */
+a.noLine::after {
+  display: none;
+}
+
+/* Loading Skeleton Animation
+   Creates shimmering effect while content loads */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0; /* Start position */
+  }
+  100% {
+    background-position: 1000px 0; /* End position */
+  }
+}
+
+/* Skeleton Base Style
+   Common styles for all skeleton elements */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-color) 0px,
+    /* Fade in */ rgb(99 99 99 / 20%) 50%,
+    /* Shimmer effect */ var(--bg-color) 100% /* Fade out */
+  );
+  background-size: 1000px 100%; /* Gradient size */
+  animation: shimmer 2s infinite linear; /* Continuous animation */
+}
+
+/* Skeleton Text Line
+   Placeholder for single lines of text */
+.skeleton-text {
+  height: 1em; /* Match text height */
+  margin: 0.5em 0; /* Vertical spacing */
+  border-radius: 4px; /* Rounded corners */
+}
+
+/* Skeleton Title
+   Placeholder for headers */
+.skeleton-title {
+  height: 2em; /* Taller than regular text */
+  margin: 1em 0; /* More spacing for headers */
+  width: 50%; /* Partial width for visual effect */
+}
+
+/* Skeleton Paragraph
+   Placeholder for blocks of text */
+.skeleton-paragraph {
+  height: 100px; /* Multi-line height */
+  margin: 1em 0; /* Consistent spacing */
+}
