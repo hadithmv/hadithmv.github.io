@@ -146,8 +146,11 @@ a.noLine::after {
   }
 }
 
-/* Skeleton Base Style
-   Common styles for all skeleton elements */
+/* =================================
+  Skeleton Base Style
+==================================== */
+
+/* Common styles for all skeleton elements */
 .skeleton {
   background: linear-gradient(
     90deg,
@@ -212,4 +215,67 @@ a.noLine::after {
 
 .rtlText {
   direction: rtl;
+}
+
+/* =================================
+  Table Styles
+==================================== */
+
+/* Base table styling */
+table {
+  width: 100%;
+  margin: 1em 0;
+  border-collapse: collapse;
+}
+
+/* Table header cells */
+th {
+  /* background-color: var(--bg-color);--bg-color */
+  background-color: var(--border-color);
+  border: 1px solid var(--border-color);
+  padding: 0.75em;
+  font-weight: bold;
+}
+
+/* Table data cells */
+td {
+  border: 1px solid var(--border-color);
+  padding: 0.75em;
+  /* vertical-align: top; */
+}
+
+/* Zebra striping for rows */
+/* tr:nth-child(even) {
+  background-color: rgb(128 128 128 / 5%);
+} */
+
+/* Hover effect */
+/* tr:hover {
+  background-color: rgb(128 128 128 / 10%);
+} */
+
+/* First column (#) styling */
+/* td:first-child,
+th:first-child {
+  width: 3em;
+  text-align: center;
+} */
+
+/* Empty cells */
+/* td:empty {
+  background: linear-gradient(
+    45deg,
+    transparent 49%,
+    var(--border-color) 49% 51%,
+    transparent 51%
+  );
+} */
+
+/* Responsive tables */
+@media (max-width: 600px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
