@@ -4,7 +4,7 @@
 
 2024ވަނަ އަހަރުގެ ފޮތުގެ [ޕީޑީއެފް](https://archive.org/details/lafzuVakikohLiyumugeQawaid/lafzuVakikohLiyumugeQawaid-2024)
 
-[(ވަގުތުން ގަވާއިދަށް ދިޔުމަށް މިތަނަށް ފިތާލާ)](#jump_to_main)
+[(ވަގުތުން ގަވާއިދަށް ދިޔުމަށް މިތަނަށް ފިތާލާ)](#jumpTo1)
 
 2013ވަނަ އަހަރުގެ ބާ ފޮތުގެ [ޕީޑީއެފް](https://archive.org/details/lafzuVakikohLiyumugeQawaid/lafzuVakikohLiyumugeQawaid-old)
 
@@ -77,7 +77,7 @@ it seems app is no longer there now
 
 ---
 
-### ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު
+### ލަފުޒު ވަކިކޮށް ލިޔުމުގެ ގަވާއިދު <a name="jumpTo1"></a>
 
 ### 1. ނަން:
 
