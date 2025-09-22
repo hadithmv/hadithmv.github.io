@@ -31,7 +31,7 @@ The Hadithmv Project bridges language barriers and brings authentic Islamic know
 
 #### The Value We Provide
 
-Hadithmv has emerged as a leading digital platform for Islamic material in Dhivehi, delivering over 80 digital publications and attracting around 4000 website visitors a month. It has been downloaded more than 12,000 times, with over 5000 users on mobile, along with a 4.8 star rating. Hadithmv is made up of over 700,000 lines of code, has the [most public Maldivian contributions](https://github.com/gayanvoice/top-github-users/blob/main/markdown/public_contributions/maldives.md) on GitHub, with over 6000 commits. It is established as a trusted source of Dhivehi content, and delivers essential Islamic resources to the Maldivian community, such as:
+Hadithmv has emerged as a leading digital platform for Islamic material in Dhivehi, delivering over 80 digital publications and attracting around 4000 website visitors a month. It has been downloaded more than 12,000 times, with over 5000 users on mobile, along with a 4.8 star rating. Hadithmv is made up of over 800,000 lines of code, has the [most public Maldivian contributions](https://github.com/gayanvoice/top-github-users/blob/main/markdown/public_contributions/maldives.md) on GitHub, with over 6000 commits. It is established as a trusted source of Dhivehi content, and delivers essential Islamic resources to the Maldivian community, such as:
 
 - 40+ Articles on various Islamic topics, providing practical guidance for today’s Muslims.
 - 11 Books of Hadith and Athar translated into Dhivehi (around 14,000 entries)
