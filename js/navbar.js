@@ -262,7 +262,7 @@ function createNavbar() {
                         >
                   </li>
                   <li>
-                     <a href="../books/kithabulIlmAbiKhaithama.html" title="Abu Khaithama’s Book of Knowledge"
+                     <a href="../books/kitabulIlmAbiKhaithama.html" title="Abu Khaithama’s Book of Knowledge"
                         >5 އަބޫ ޚައިޘަމާ ލިޔުނު އިލްމުގެ ފޮތް</a
                         >
                   </li>
