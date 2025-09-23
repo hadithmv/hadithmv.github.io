@@ -39,7 +39,7 @@ alt: https://dharuma.mv/articles/548
 
 ---
 
-## އައިމިނަތު ޝިފްލީން
+## dhauru
 
 https://dhauru.com/post/news/39068
 
@@ -113,7 +113,7 @@ https://dhauru.com/post/news/39068
 
 ---
 
-## މިއަދު
+## miadhu
 
 https://miadhu.mv/article/read/4299216
 
