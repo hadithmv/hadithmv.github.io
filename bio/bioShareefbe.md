@@ -357,3 +357,189 @@ https://www.facebook.com/MohamedAdhynAli/posts/pfbid0UwmUuKcxf3rL6QKqdBj1XvLNk84
 https://www.facebook.com/aqsaam.mohamed/posts/pfbid0qaAVXYjzwfq7AFzK5oapZ8wYLc15KrcMBvTuV4DYJ85oPfuJcqq2JgdC15ro3SNxl?__cft__[0]=AZVBGsUE1gPeR26i3vI8Y5YUrashjwQLNsOJ5N0MW2bBbhPa_gEvJF7YqRNCVy3GhabB8C7FTI59VMCVSRVCWhwtDgTX-n1lhCtIjfAkCS3Gm-2BNW4qaUxvnnAaAma4F2YeKuzgst2NIqaYLmLUOz62D74YwCtM8N9hpVmumHO8HMW2xPkE2xwfYywJoKPV8lWHZ1kMYKhQN7KEWBPCMCkI&__tn__=%2CO%2CP-R
 
 އިސްމާއިލް ޝަރީފުއަކީ އަޅުގަނޑުގެ ވަރަށް ގާތް އަޚެކެވެ. ދޭތެރެ ދޭތެތެއިން އަސްރު ނަމާދު ނިމިގެން ސަޔަށް ދައުވަތުދެއެވެ. މާތްالله މައްޔިތާގެ ފާފަ ފުއްސަވާ ހެޔޮ ލަހްމަތް ލައްވާށި! އާމީން
+
+---
+
+## Project Proposal 2023 [since outdated]
+
+Publishing & Distribution Tafsir of the Qur'an in Dhivehi Language Project Financing Proposal
+
+AUGUST 2023
+
+### Project Summary
+
+This is a proposal seeking funds to publish Tafsir of the last 5 Juz of the Quran in 5 books & 1 book dedicated for 6 Surahs in the Quran in the Maldivian local language, Dhivehi.
+
+Although Maldives is a 100% Muslim country, currently there are very limited Quran Tafsirs available to the local population in the local language and none that are very comprehensive.
+
+In order to fill this gap, Mr. Ismail Shareef had assembled a team of Islamic and Dhivehi language scholars from 2012 onwards to produce and distribute Dhivehi Tafsir books in the Maldives islands.
+
+Currently Dhivehi Tafsir of 17 Juz has been completed. Amongst these, 5 Juz & a number of Surahs have been proof read and certified by the Ministry of Islamic Affairs, Maldives.
+
+Financial assistance is sought to publish the completed books and distribute it throughout the Maldives in printed form.
+
+Total No. of Books
+6
+
+No. of copies / book
+8,000
+
+Estimated costs in USD
+125,100/-
+
+### Project Background
+
+Maldives is a group of islands located south of India and Sri Lanka in the Indian Ocean. It is made up of over 1000 islands and a local population of 382,639 people. Maldives is regarded as a 100% Muslim nation.
+
+The history of Islam in the Maldives dates back to the 12th century when the islands embraced the religion under the influence of Arab traders and scholars. A Muslim Berber from Morocco, Yoosuf Barakath al Barbaree is widely credited for the initial conversion.
+
+There are over 650 mosques in the Maldives in 188 inhabited islands.
+
+### Project Need
+
+Literature on Quran Tafsir in the local language has been very limited in the Maldives. The first known works were by Malinge Hussain Didi from 1960s. The book was originally hand written, and a Tafsir is provided only from Juz 15 onwards. Copies of the book is currently sold in limited bookshops.
+
+Abu Bakr Ibrahim Ali had written a Tafsir in 2006 and has not been published. It is currently available in digital format.
+
+In 2023, translation of Tafsir al Waadih al Muyassar to Dhivehi language was completed by Sh. Mohammed Abdullah and published digitally.
+
+These are the only known works of Tafsir in the local language. Therefore, there has been a big need to produce a Tafsir that is an original work, which is more complete, readable for different audiences, and accessible to a wider population.
+
+### Project Timeline
+
+The project unofficially initiated in 2000 with the efforts of Mr. Ismail Shareef. The work has gained pace over the last few years and is currently progressing at a good pace
+
+2000 - Ismail Shareef assembled a team to add to existing Tafsir literature
+
+2012 - Sh. Jaufar joined the team and started work on existing Tafsir
+
+2016 - Work on the new Tafsir officially commenced
+
+2020 - 6000 copies of the Tafsir of Surah Al Kahf printed with the help of local donations and distribute
+
+2021 - 23 Juz of the Quran had been completed by Sh. Jaufar at the time of his passing
+
+2023 - Work on completing the remaining Juz initiated. Seeking funding to print the Tafsir books & distribute throughout Maldives
+
+### Our Team
+
+25 Total No. of volunteers engaged to date
+
+Ismail Shareef
+Founder
+
+Sh. Jaufar Faiz
+Former lead Author
+
+Sh. Mohamed Afzal
+Manager, International relations
+
+Sh. Mohamed Ashraaf Ibrahim
+Lead Author
+
+Uz. Yaugoob Hussain
+Linguistic Advisor / Editor
+
+Aishath Shubaa Shujau
+Senior Layout Designer
+
+Abdul Wahhab
+Administrative Executive / Editor
+
+Mohamed Shujau
+Administrative Executive / Editor
+
+Everyone in the team is participating voluntarily to achieve the common objective of producing the first ever comprehensive Qur’an Tafsir in the local language.
+
+The former lead Author of the project, the late Sh. Jaufar is a graduate from Imam Mohamed Bin Saud Islamic University (IMSIU). Sh. Jaufar did Bachelors in Sharia and Law initially, followed by Masters in Comparative Jurisprudence. The current lead Author, Sh. Ashraaf did Bachelor of Islamic Sciences in Hadith from Islamic University of Madinah and has now dedicated all his time for the completion of the works Sh. Jaufar had initiated
+
+In addition to the core team, there are currently 15 volunteers actively participating in the project at various capacities. They come from a range of background and professions.
+
+### Project Objectives
+
+Addressing Misconceptions: A local language Tafsir can help address misconceptions or misinterpretations that might arise from relying solely on translations. It provides a comprehensive understanding of the verses.
+
+Accessible Understanding: To make the Qur’an's teachings more accessible to a wider audience who may not be proficient in Arabic, the local language Tafsir provides a clear and comprehensive understanding of the Quranic message.
+
+Community Engagement: The publication of a Tafsir can stimulate community engagement, discussion, and learning through study circles, seminars, and other group activities.
+
+Scholarly Contribution: A well-researched and accurately presented Tafsir in the local language contributes to the scholarly landscape, providing local scholars with a valuable resource for research and reference.
+
+### Project Methodology
+
+Content Quality
+
+Sh. Jaufar had himself thoroughly checked and proof read the content upon completion of his work.
+
+Mr. Ismail Shareef and team of editors goes through linguistic issues in a rigorous system of proof reading.
+
+People from linguistic and religious backgrounds undertake an additional process of checking and double checking all books.
+
+Books sent to the Ministry of Islamic Affairs for review and they are given approval by the ministry with dedicated ISBN number.
+
+Distribution
+
+Warehouse space to be rented in Male'
+
+Volunteers will be engaged for distribution works
+
+Pop ups held in Male' City at popular locations during special events and weekends
+
+Distributed to mosques, libraries and schools in Male' City.
+
+Books handed to popular bookshops to be freely distributed
+
+Books distributed to islands with the assistance of NGOs based in the islands
+
+### Project Financing
+
+The current project is proposed to publish 5 books for the last the Quran 5
+
+Juz of Additionally, 1 Book dedicated for Surah Fathiha, Al Mulk, An Nas, Al Ikhlas, Al Kahf
+
+A4 size with hard cover is the expected print quality
+
+Each Tafsir book is expected to consist of 180 - 280 pages
+
+8,000 copies of each book is proposed to be printed
+
+48,000 copies in total will be printed for 6 books
+
+Over 10,000,000 pages expected to be printed
+
+Quotations taken from known value publishers from India.
+
+Average estimates at 2.5 USD / book
+
+115,100 USD is required for printing
+
+10,000 USD is expected for logistics and other local expenses
+
+TOTAL FUNDING REQUIRED
+125,100.00 USD
+
+### Financing Details
+
+| Book                   | No. of pages | No. of copies | Rate | Total       |
+| ---------------------- | ------------ | ------------- | ---- | ----------- |
+| Juz 26                 | 186          | 8000          | 2.15 | 17,200      |
+| Juz 27                 | 258          | 8000          | 2.70 | 21,600      |
+| Juz 28                 | 198          | 8000          | 2.25 | 18,000      |
+| Juz 29                 | 211          | 8000          | 2.35 | 18,800      |
+| Juz 30                 | 276          | 8000          | 2.84 | 22,720      |
+| 5 Surah                | 180          | 8000          | 2.10 | 16,800      |
+| **TOTAL for Printing** |              |               |      | **115,100** |
+
+| Description                | Total          |
+| -------------------------- | -------------- |
+| Printing                   | 115,100.00     |
+| Logistics & other expenses | 10,000.00      |
+| **TOTAL**                  | **125,100.00** |
+
+### Conclusion
+
+While Maldives is known as a 100% Muslim country, there has never been a comprehensive Qur’an Tafsir published and printed in the local language. This funding will contribute significantly in addressing this and bring a positive impact to the community.
+
+The project is a culmination of over 20 years of work by a dedicated group of volunteers. Funding for the project will enable this work to reach thousands of locals, who have never read the Qur’an Tafsir, especially in the local language. The project will have a significant positive impact for generations to come.
+
+For Further inquiries & communication, please get in touch
