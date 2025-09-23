@@ -1,6 +1,6 @@
 # އިސްމާޢީލް ޝަރީފް މުޙައްމަދު
 
-21/9/25
+21/9/2025
 29/3/1447
 
 ---
@@ -357,5 +357,3 @@ https://www.facebook.com/MohamedAdhynAli/posts/pfbid0UwmUuKcxf3rL6QKqdBj1XvLNk84
 https://www.facebook.com/aqsaam.mohamed/posts/pfbid0qaAVXYjzwfq7AFzK5oapZ8wYLc15KrcMBvTuV4DYJ85oPfuJcqq2JgdC15ro3SNxl?__cft__[0]=AZVBGsUE1gPeR26i3vI8Y5YUrashjwQLNsOJ5N0MW2bBbhPa_gEvJF7YqRNCVy3GhabB8C7FTI59VMCVSRVCWhwtDgTX-n1lhCtIjfAkCS3Gm-2BNW4qaUxvnnAaAma4F2YeKuzgst2NIqaYLmLUOz62D74YwCtM8N9hpVmumHO8HMW2xPkE2xwfYywJoKPV8lWHZ1kMYKhQN7KEWBPCMCkI&__tn__=%2CO%2CP-R
 
 އިސްމާއިލް ޝަރީފުއަކީ އަޅުގަނޑުގެ ވަރަށް ގާތް އަޚެކެވެ. ދޭތެރެ ދޭތެތެއިން އަސްރު ނަމާދު ނިމިގެން ސަޔަށް ދައުވަތުދެއެވެ. މާތްالله މައްޔިތާގެ ފާފަ ފުއްސަވާ ހެޔޮ ލަހްމަތް ލައްވާށި! އާމީން
-
----
