@@ -186,6 +186,6 @@ For a list of participants, see our [contributors](https://hadithmv.github.io/pa
 
 If you find a mistake, or have a suggestion, or want to contribute to this project, feel free to [contact us](https://hadithmv.github.io/page/contact.html).
 
-Subscribe: [Facebook](http://fb.me/hadithmvOfficial) | [Viber](https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX%2FZVrvGtq%2FbJboZzADy3OssLND4H1TFWklNmNQZC) | [Telegram](http://t.me/hadithmv) | [Instagram](https://instagram.com/hadithmv) | [X](https://x.com/hadithmv)
+Subscribe: [Telegram](http://t.me/hadithmv) | [Facebook](http://fb.me/hadithmvOfficial) | [Viber](https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX%2FZVrvGtq%2FbJboZzADy3OssLND4H1TFWklNmNQZC) | | [Instagram](https://instagram.com/hadithmv) | [X](https://x.com/hadithmv)
 
 Get the Hadithmv app: [Web](https://hadithmv.github.io/) | [Android](https://play.google.com/store/apps/details?id=com.hadithmv.hmv) | [Windows](https://github.com/hadithmv/hadithmv.github.io/releases)
