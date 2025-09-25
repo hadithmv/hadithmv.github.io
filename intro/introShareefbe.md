@@ -5,6 +5,10 @@
 
 ---
 
+## ތަފްސީރުގައިވާ [މައުލޫމާތު](introJaufar.html)
+
+---
+
 ## މުޙައްމަދު އަފްޟަލް
 
 https://www.liyuntherin.org/archives/46027
