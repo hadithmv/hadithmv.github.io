@@ -463,7 +463,7 @@ Dev drive + Defrag drive
 Data collection + bluetooth off
 Dark mode + Night light
 Windows clipboard history
-Fonts (faruma..) + Keyboards + Mouse speed, size
+Fonts (faruma..) + Keyboards + Mouse speed, font size
 Windows Backup
 IObit uninstall bloatware
 Office
@@ -472,6 +472,7 @@ Set BIOS auto-on times
 Upgrade hardware if needed (esp. memory)
 UniGetUI -&gt; update check freq: weekly
 Autostart with: run &gt; shell:startup
+Messaging apps, sync and backup, display size, autodownload settings
 
 <!-- last done: 5/5/25
 use: nirsoft uninstallview, vie, choose columns, deselect all but first, (alphabetical order?) select all, right click, copy list, remove first item 'Display Name'
