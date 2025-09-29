@@ -1,26 +1,53 @@
+<!-- TOC --><a name="support-hadithmv"></a>
+
 # Support Hadithmv
 
----
-
-There are several ways to support Hadithmv:
-
-1. [Help fund the project](#jumpTo1)
-2. [Translate if you know Arabic](#jumpTo2)
-3. [Proofread in Dhivehi](#jumpTo3)
-4. [Coding and development](#jumpTo4)
-5. [Show your support and spread the word](#jumpTo5)
+There are several ways to help with this project
 
 ---
 
-## 1. Help fund the project <a name="jumpTo1"></a>
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-#### Join us in spreading the sunnah - Your contribution makes a difference
+- [Help fund the project](#help-fund-the-project)
+  - [Join Us in Spreading the Sunnah](#join-us-in-spreading-the-sunnah)
+  - [Your Contribution Makes a Difference](#your-contribution-makes-a-difference)
+  - [Why Contribute](#why-contribute)
+  - [The Value We Provide](#the-value-we-provide)
+  - [How your Support Makes a Difference](#how-your-support-makes-a-difference)
+  - [Be Part of a Lasting Legacy](#be-part-of-a-lasting-legacy)
+  - [How to Contribute](#how-to-contribute)
+  - [What the Maldivian Community Says](#what-the-maldivian-community-says)
+- [Translate if you know Arabic](#translate-if-you-know-arabic)
+  - [Instructions for Translating](#instructions-for-translating)
+- [Proofread in Dhivehi](#proofread-in-dhivehi)
+- [Coding and Development](#coding-and-development)
+- [Show your Support and Spread the Word](#show-your-support-and-spread-the-word)
+
+* [Thank You and Jazakallah Khair](#thank-you-and-jazakallah-khair)
+
+<!-- TOC end -->
+
+---
+
+<!-- TOC --><a name="help-fund-the-project"></a>
+
+## Help fund the project
+
+<!-- TOC --><a name="join-us-in-spreading-the-sunnah"></a>
+
+### Join Us in Spreading the Sunnah
 
 The Hadithmv Project is a unique initiative dedicated to making the authentic teachings of Prophet Muhammad ﷺ and his righteous followers freely available in Dhivehi. We believe that knowledge should be accessible to everyone, without barriers. That’s why all our resources —Hadith collections, Quran translations, Tafsir, and Islamic books— are provided for free. By providing high-quality resources and material to everyone, we aim to empower individuals with knowledge and strengthen their connection to the Sunnah.
 
-That’s why here at Hadithmv, we’ve adopted a [“Give What You Wish”](https://en.wikipedia.org/wiki/Pay_what_you_want) model. Instead of locking our content and features behind a paywall or asking for donations, we let you decide on how you want to contribute, based on what our services are worth to you. This approach feels more inclusive, empowering, and less transactional, without restricting the benefits for anyone, as we know first-hand the value of shared knowledge. It emphasizes the value of the project while giving our users the freedom to contribute in a way that feels meaningful to them.
+<!-- TOC --><a name="your-contribution-makes-a-difference"></a>
 
-#### Why Contribute?
+### Your Contribution Makes a Difference
+
+Here at Hadithmv, we’ve adopted a [“Give What You Wish”](https://en.wikipedia.org/wiki/Pay_what_you_want) model. Instead of locking our content and features behind a paywall or asking for donations, we let you decide on how you want to contribute, based on what our services are worth to you. This approach feels more inclusive, empowering, and less transactional, without restricting the benefits for anyone, as we know first-hand the value of shared knowledge. It emphasizes the value of the project while giving our users the freedom to contribute in a way that feels meaningful to them.
+
+<!-- TOC --><a name="why-contribute"></a>
+
+### Why Contribute
 
 The Hadithmv Project bridges language barriers and brings authentic Islamic knowledge to every Maldivian home. When you support us, you're investing in:
 
@@ -29,7 +56,9 @@ The Hadithmv Project bridges language barriers and brings authentic Islamic know
 - Sadaqah Jariyah – Every time someone benefits from this platform, your contribution continues to bring you rewards, in sha Allah.
 - Preserving Knowledge - We are building a comprehensive digital library of Islamic texts in Dhivehi. Your support helps us preserve and share this knowledge for generations to come.
 
-#### The Value We Provide
+<!-- TOC --><a name="the-value-we-provide"></a>
+
+### The Value We Provide
 
 Hadithmv has emerged as a leading digital platform for Islamic material in Dhivehi, delivering over 80 digital publications and attracting over 20,000 website visitors annually. It has been downloaded more than 13,000 times, along with a 4.8 star rating. Hadithmv is made up of over 800,000 lines of code, has the [most public Maldivian contributions](https://github.com/gayanvoice/top-github-users/blob/main/markdown/public_contributions/maldives.md) on GitHub, with over 6000 commits. It is established as a trusted source of Dhivehi content, and delivers essential Islamic resources to the Maldivian community, such as:
 
@@ -40,7 +69,9 @@ Hadithmv has emerged as a leading digital platform for Islamic material in Dhive
 - 7 Dictionaries to aid learning and research (around 150,000 entries)
 - Free access across Web, Android, and Windows platforms.
 
-#### How your Support Makes a Difference
+<!-- TOC --><a name="how-your-support-makes-a-difference"></a>
+
+### How your Support Makes a Difference
 
 So far, we have invested around 200,000 in developing Hadithmv, and most of it has been out-of-pocket. Your support will help ensure the project’s continued growth and sustainability. Every contribution, no matter the size, benefits yourself as well as the community. When people gain knowledge from this platform and act upon the Sunnah, you get to share in the reward for having facilitated it, in sha Allah. Your support helps us:
 
@@ -50,9 +81,13 @@ So far, we have invested around 200,000 in developing Hadithmv, and most of it h
 - Develop and improve our digital platforms (Web, Android, Windows) and enhance features and user experience.
 - Enable our team of translators, developers, and scholars to focus on content development rather than fundraising.
 
+<!-- TOC --><a name="be-part-of-a-lasting-legacy"></a>
+
 ### Be Part of a Lasting Legacy
 
 The Hadithmv Project is more than just a platform – it’s a movement to bring the light of the Sunnah to every corner of the Maldives. With your help, we can continue to provide free, accessible, and authentic Islamic knowledge to everyone. Join us in this noble cause. Your contribution will benefit you in this life and the next, in Sha Allah.
+
+<!-- TOC --><a name="how-to-contribute"></a>
 
 ### How to Contribute
 
@@ -70,7 +105,9 @@ Your contribution, no matter how small, makes a difference. Contribute today and
 
 May Allah reward you generously.
 
-### What the Maldivian community [says](https://play.google.com/store/apps/details?id=com.hadithmv.hmv&hl=en)
+<!-- TOC --><a name="what-the-maldivian-community-says"></a>
+
+### What the Maldivian Community [Says](https://play.google.com/store/apps/details?id=com.hadithmv.hmv&hl=en)
 
 - ⭐⭐⭐⭐⭐ Such a beneficial app. May Allah bless the work of the people involved. Aameen. -أمة الغفور
 - ⭐⭐⭐⭐⭐ A very important app among the Dhivehi apps. May Allah bless the work being done by Hadithmv. Ameen. -Mohamed Shafraaz
@@ -80,11 +117,15 @@ May Allah reward you generously.
 
 ---
 
-## 2. Translate if you know Arabic <a name="jumpTo2"></a>
+<!-- TOC --><a name="translate-if-you-know-arabic"></a>
+
+## Translate if you know Arabic
 
 If you would like to help with translating Arabic texts, you can contact us from [here](contact.html).
 
-### Instructions for translating:
+<!-- TOC --><a name="instructions-for-translating"></a>
+
+### Instructions for Translating
 
 • Translate only if you know Arabic, and do not make Ta’weel of Islamic texts.
 
@@ -104,7 +145,9 @@ If you would like to help with translating Arabic texts, you can contact us from
 
 ---
 
-## 3. Proofread in Dhivehi <a name="jumpTo43"></a>
+<!-- TOC --><a name="proofread-in-dhivehi"></a>
+
+## Proofread in Dhivehi
 
 If you would like to help with proofreading translations, you can contact us from [here](contact.html).
 
@@ -112,7 +155,9 @@ Proofreaders help ensure that all content meets the highest standards of accurac
 
 ---
 
-## 4. Coding and Development <a name="jumpTo4"></a>
+<!-- TOC --><a name="coding-and-development"></a>
+
+## Coding and Development
 
 If you would like to help with developing and programming, you can contact us from [here](contact.html).
 
@@ -138,7 +183,9 @@ Skills we're looking for:
 
 ---
 
-## 5. Show your support and spread the word <a name="jumpTo5"></a>
+<!-- TOC --><a name="show-your-support-and-spread-the-word"></a>
+
+## Show Your Support and Spread the Word
 
 Here are several other ways you can support Hadithmv:
 
@@ -153,6 +200,10 @@ Here are several other ways you can support Hadithmv:
 - Make dua for the success of the project
 
 ---
+
+<!-- TOC --><a name="thank-you-and-jazakallah-khair"></a>
+
+# Thank You and Jazakallah Khair
 
 With your support we can reach more people who can contribute to and benefit from this project.
 

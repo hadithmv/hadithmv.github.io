@@ -1,26 +1,33 @@
+<!-- TOC --><a name="contributer-regulations"></a>
+
 # Contributer Regulations
 
 ---
 
-- [Contributer Regulations](#contributer-regulations)
-  - [Introduction](#introduction)
-  - [Purpose](#purpose)
-  - [Role](#role)
-  - [Responsibilities](#responsibilities)
-    - [Content Development](#content-development)
-    - [Collaboration and Communication](#collaboration-and-communication)
-    - [Professional Standards](#professional-standards)
-    - [Community Engagement](#community-engagement)
-    - [Additional Support (As Needed)](#additional-support-as-needed)
-  - [Privileges](#privileges)
-    - [Access and Resources](#access-and-resources)
-    - [Recognition and Representation](#recognition-and-representation)
-    - [Professional Development](#professional-development)
-    - [Collaboration and Community](#collaboration-and-community)
-    - [Leadership and Influence](#leadership-and-influence)
-  - [Code of Conduct](#code-of-conduct)
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Introduction](#introduction)
+- [Purpose](#purpose)
+- [Role](#role)
+- [Responsibilities](#responsibilities)
+  - [Content Development](#content-development)
+  - [Collaboration and Communication](#collaboration-and-communication)
+  - [Professional Standards](#professional-standards)
+  - [Community Engagement](#community-engagement)
+  - [Additional Support (As Needed)](#additional-support-as-needed)
+- [Privileges](#privileges)
+  - [Access and Resources](#access-and-resources)
+  - [Recognition and Representation](#recognition-and-representation)
+  - [Professional Development](#professional-development)
+  - [Collaboration and Community](#collaboration-and-community)
+  - [Leadership and Influence](#leadership-and-influence)
+- [Code of Conduct](#code-of-conduct)
+
+<!-- TOC end -->
 
 ---
+
+<!-- TOC --><a name="introduction"></a>
 
 ## Introduction
 
@@ -28,11 +35,15 @@ The regulation was created to ensure that all contributors understand the rules 
 
 ---
 
+<!-- TOC --><a name="purpose"></a>
+
 ## Purpose
 
 The purpose of Hadithmv is to provide a platform for the Sunnah in Maldivian community using modern technology. The platform is designed to work with various devices and software, enabling Maldivians worldwide to find and read religious content in Dhivehi.
 
 ---
+
+<!-- TOC --><a name="role"></a>
 
 ## Role
 
@@ -40,7 +51,11 @@ The role of contributors is to assist in the development and progress of the Had
 
 ---
 
+<!-- TOC --><a name="responsibilities"></a>
+
 ## Responsibilities
+
+<!-- TOC --><a name="content-development"></a>
 
 ### Content Development
 
@@ -48,6 +63,8 @@ The role of contributors is to assist in the development and progress of the Had
 - Ensure quality and accuracy of religious content
 - Maintain accessibility standards for all users
 - Assist in developing new features and functionalities
+
+<!-- TOC --><a name="collaboration-and-communication"></a>
 
 ### Collaboration and Communication
 
@@ -57,6 +74,8 @@ The role of contributors is to assist in the development and progress of the Had
 - Report issues or concerns in a timely manner
 - Coordinate efforts with other team members
 
+<!-- TOC --><a name="professional-standards"></a>
+
 ### Professional Standards
 
 - Adhere to guidelines set by the core Hadithmv team
@@ -65,6 +84,8 @@ The role of contributors is to assist in the development and progress of the Had
 - Be open to feedback and willing to learn
 - Stay up-to-date with developments in religious content and technology
 
+<!-- TOC --><a name="community-engagement"></a>
+
 ### Community Engagement
 
 - Assist in promoting the platform to increase visibility and reach
@@ -72,6 +93,8 @@ The role of contributors is to assist in the development and progress of the Had
 - Support the mission and vision of Hadithmv
 - Share knowledge and expertise with other team members
 - Participate in evaluation efforts to measure impact and effectiveness
+
+<!-- TOC --><a name="additional-support-as-needed"></a>
 
 ### Additional Support (As Needed)
 
@@ -82,7 +105,11 @@ The role of contributors is to assist in the development and progress of the Had
 
 ---
 
+<!-- TOC --><a name="privileges"></a>
+
 ## Privileges
+
+<!-- TOC --><a name="access-and-resources"></a>
 
 ### Access and Resources
 
@@ -91,11 +118,15 @@ The role of contributors is to assist in the development and progress of the Had
 - Research resources and tools to assist in their work
 - Opportunities for personal and professional development
 
+<!-- TOC --><a name="recognition-and-representation"></a>
+
 ### Recognition and Representation
 
 - Public acknowledgment of contributions on the Hadithmv website
 - Opportunity to represent Hadithmv at conferences, workshops, and events
 - Recognition for efforts and contributions to the platform's growth
+
+<!-- TOC --><a name="professional-development"></a>
 
 ### Professional Development
 
@@ -104,12 +135,16 @@ The role of contributors is to assist in the development and progress of the Had
 - Mentorship and coaching programs
 - Experience in content development, technology, and community engagement
 
+<!-- TOC --><a name="collaboration-and-community"></a>
+
 ### Collaboration and Community
 
 - Work with a diverse team of individuals sharing similar values and goals
 - Connect with other contributors through online forums and social media groups
 - Network and collaborate with external organizations and individuals
 - Participate in community outreach efforts with the Maldivian community
+
+<!-- TOC --><a name="leadership-and-influence"></a>
 
 ### Leadership and Influence
 
@@ -120,6 +155,8 @@ The role of contributors is to assist in the development and progress of the Had
 - Valued feedback and suggestions in shaping the future of Hadithmv
 
 ---
+
+<!-- TOC --><a name="code-of-conduct"></a>
 
 ## Code of Conduct
 

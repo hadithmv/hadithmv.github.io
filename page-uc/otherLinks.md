@@ -1,8 +1,39 @@
+<!-- TOC --><a name="other-links"></a>
+
 # Other Links
 
 ---
 
-### Websites
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Websites](#websites)
+- [Mobile Apps](#mobile-apps)
+- [Ebooks and PDFs](#ebooks-and-pdfs)
+- [Quran](#quran)
+- [Hadith](#hadith)
+- [Language](#language)
+- [Telegram Channels](#telegram-channels)
+- [AI](#ai)
+- [Miscellaneous](#miscellaneous)
+- [Browser and Extensions](#browser-and-extensions)
+  - [Setup](#setup)
+  - [Extensions](#extensions)
+- [Code Editor and Extensions](#code-editor-and-extensions)
+- [Node and NPM Packages](#node-and-npm-packages)
+- [Hardware and Setup](#hardware-and-setup)
+- [Windows Software &amp; Programs](#windows-software-amp-programs)
+  - [Setup](#setup-1)
+  - [PC Software](#pc-software)
+- [Android Apps](#android-apps)
+- [Twitter](#twitter)
+
+<!-- TOC end -->
+
+---
+
+<!-- TOC --><a name="websites"></a>
+
+## Websites
 
 [Abdul Muhsin al-Qasim Site | موقع عبد المحسن بن محمد القاسم](https://a-alqasim.com)
 
@@ -50,7 +81,9 @@
 
 ---
 
-### Mobile Apps
+<!-- TOC --><a name="mobile-apps"></a>
+
+## Mobile Apps
 
 [Majmu'ul Fatawa Ibn Taymia | مجموع فتاوى ابن تيمية](https://ibntaymia.net)
 
@@ -62,7 +95,9 @@
 
 ---
 
-### Ebooks and PDFs
+<!-- TOC --><a name="ebooks-and-pdfs"></a>
+
+## Ebooks and PDFs
 
 [Hadithmv Archive PDFs](https://archive.org/details/@hadithmv)
 
@@ -80,7 +115,9 @@
 
 ---
 
-### Quran
+<!-- TOC --><a name="quran"></a>
+
+## Quran
 
 [Qul](https://qul.tarteel.ai)
 
@@ -112,7 +149,9 @@
 
 ---
 
-### Hadith
+<!-- TOC --><a name="hadith"></a>
+
+## Hadith
 
 [Sunnah.one | الباحث الحديثي](https://sunnah.one)
 
@@ -156,7 +195,9 @@
 
 ---
 
-### Language
+<!-- TOC --><a name="language"></a>
+
+## Language
 
 [Arabicnames.hawramani | معجم الأسماء](http://arabicnames.hawramani.com)
 
@@ -220,7 +261,9 @@
 
 ---
 
-### Telegram Channels
+<!-- TOC --><a name="telegram-channels"></a>
+
+## Telegram Channels
 
 [قناة لنشر الآثار والفوائد السلفية](https://t.me/alathar)
 
@@ -238,7 +281,9 @@
 
 ---
 
-### AI
+<!-- TOC --><a name="ai"></a>
+
+## AI
 
 [Google AI Studio](https://aistudio.google.com/)
 
@@ -256,7 +301,9 @@
 
 ---
 
-### Miscellaneous
+<!-- TOC --><a name="miscellaneous"></a>
+
+## Miscellaneous
 
 [Google Keep](https://keep.google.com)
 
@@ -286,11 +333,15 @@
 
 ---
 
-### Browser and Extensions
+<!-- TOC --><a name="browser-and-extensions"></a>
+
+## Browser and Extensions
 
 [Microsoft Edge](https://www.microsoft.com/en-us/edge)
 
-#### Setup
+<!-- TOC --><a name="setup"></a>
+
+### Setup
 
 Vertical tabs: enable
 Show favourites, history, downloads on toolbar
@@ -306,7 +357,9 @@ copy first column only
 convert to unordered list
 -->
 
-#### Extensions
+<!-- TOC --><a name="extensions"></a>
+
+### Extensions
 
 Chrome Regex Search
 Dark Reader
@@ -330,7 +383,9 @@ UltraSurf
 
 ---
 
-### Code Editor and Extensions
+<!-- TOC --><a name="code-editor-and-extensions"></a>
+
+## Code Editor and Extensions
 
 [Visual Studio Code](https://code.visualstudio.com)
 
@@ -405,7 +460,9 @@ zhang-renyang.vscode-react
 
 ---
 
-### Node and NPM Packages
+<!-- TOC --><a name="node-and-npm-packages"></a>
+
+## Node and NPM Packages
 
 [Node.js](https://nodejs.org)
 
@@ -430,7 +487,9 @@ uglify-js
 
 ---
 
-### Hardware and Setup
+<!-- TOC --><a name="hardware-and-setup"></a>
+
+## Hardware and Setup
 
 <!-- USE: speccy / cpu-z -->
 
@@ -451,9 +510,13 @@ Canon PIXMA MegaTank G3010 All-in-One Wireless Ink Tank Colour Printer
 
 ---
 
-### Windows Software &amp; Programs
+<!-- TOC --><a name="windows-software-amp-programs"></a>
 
-#### Setup
+## Windows Software &amp; Programs
+
+<!-- TOC --><a name="setup-1"></a>
+
+### Setup
 
 Windows Media Creation Tool + Windows ISO
 Boot to drive + Disconnect internet + Install with local account
@@ -484,7 +547,9 @@ convert to unordered list
 https://old.reddit.com/r/buildapc/comments/7mn388/so_you_finished_building_your_pc_now_what/
 -->
 
-#### Software
+<!-- TOC --><a name="pc-software"></a>
+
+### PC Software
 
 7-Zip 24.09 (x64)
 Acer Display Widget
@@ -619,7 +684,9 @@ WhatsApp
 
 ---
 
-### Android Apps
+<!-- TOC --><a name="android-apps"></a>
+
+## Android Apps
 
 <!-- last done: 5/5/25
 use: App Manager, com.lbapp_manager, give file permissions, usage permissions, hold one app to select it first, then click 1/no and select all apps, share, what to share: App names 'only', send to tg
@@ -723,7 +790,9 @@ Zoom
 
 ---
 
-### • Twitter:
+<!-- TOC --><a name="twitter"></a>
+
+## Twitter
 
 [صحيح آثار الصحابة](https://twitter.com/ALATHER201)
 
