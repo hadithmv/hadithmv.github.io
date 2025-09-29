@@ -96,7 +96,21 @@ body {
   padding: 20px; /* Space around content */
   background-color: var(--bg-color);
   color: var(--text-color);
+
+  /* Global text wrapping */
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
+
+/* Links and table cells might need specific handling for overflow */
+a,
+td,
+th {
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+/*  */
 
 /* Link Styling
    Interactive link effects with hover animation */
@@ -226,6 +240,8 @@ table {
   width: 100%;
   margin: 1em 0;
   border-collapse: collapse;
+  /* Handle long content in tables */
+  table-layout: fixed;
 }
 
 /* Table header cells */
@@ -241,7 +257,10 @@ th {
 td {
   border: 1px solid var(--border-color);
   padding: 0.75em;
-  /* vertical-align: top; */
+  /* Break long content */
+  overflow-wrap: break-word;
+  /* Hyphenate long words if needed */
+  hyphens: auto;
 }
 
 /* Zebra striping for rows */
