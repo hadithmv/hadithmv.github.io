@@ -276,13 +276,15 @@ https://github.com/markedjs/marked -MIT
 
 https://github.com/JohannesKaufmann/html-to-markdown -MIT
 
+https://github.com/derlin/bitdowntoc -
+
 ---
 
 https://github.com/GoogleChrome/lighthouse -Apache 2.0
 
 https://github.com/htmlhint/HTMLHint -MIT
 
-https://github.com/prettier/prettier -MIT
+https://github.com/prettier/prettier -Commons Clause 1.0
 
 ---
 
