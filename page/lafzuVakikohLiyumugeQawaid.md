@@ -317,6 +317,8 @@ it seems app is no longer there now
 
 އަހަރެން ބުނި <u>ބުނުން</u> އަނބުރައި ގެނެސްފީމެވެ.
 
+---
+
 <!-- TOC --><a name="2-"></a>
 
 ### 2. ކަން:
@@ -550,6 +552,8 @@ update: now using overflow-wrap: anywhere; instead
 
 <!-- TOC --><a name="3-"></a>
 
+---
+
 ### 3. ނަންއިތުރު:
 
 (ހ) އާންމު ހަމަ:
@@ -602,6 +606,8 @@ update: now using overflow-wrap: anywhere; instead
 
 ރ. ކުދިބޮޑު
 
+---
+
 <!-- TOC --><a name="4-"></a>
 
 ### 4. ކަންއިތުރު:
@@ -619,6 +625,8 @@ update: now using overflow-wrap: anywhere; instead
 4. އޭނާ ދުވެފައި އައީ <u>ބާރަށް</u> އަންނާން ވެގެންނެވެ.
 
 5. ރީތި<u>ކޮށް ބަސްއަހައިގެން</u> އިންނާށެވެ!
+
+---
 
 <!-- TOC --><a name="5-"></a>
 
@@ -661,6 +669,8 @@ update: now using overflow-wrap: anywhere; instead
 3. ދުނިޔޭގެ ނިސްބަތުން ބަލާ އިރު ފުޓްބޯޅައިގައި ދިވެހިރާއްޖެ މިހާރު އޮތީ <u>155ވަނަ</u>އިގައެވެ.
 
 4. އެންމެ ގަދަ <u>10ވަނަ</u>އިގެ ތެރޭގައި އެ ކުއްޖާ ހިމެނެއެވެ.
+
+---
 
 <!-- TOC --><a name="6-"></a>
 
