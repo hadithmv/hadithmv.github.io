@@ -1,8 +1,30 @@
+<!-- TOC --><a name="privacy-policy"></a>
+
 # Privacy Policy
+
+Last updated: 20/9/2025
 
 ---
 
-### Last updated: 20/9/2025
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Privacy Policy](#privacy-policy)
+  - [What information does the software obtain and how is it used?](#what-information-does-the-software-obtain-and-how-is-it-used)
+    - [User Provided Information](#user-provided-information)
+    - [Automatically Collected Information](#automatically-collected-information)
+    - [Does the Application collect precise real time location information of the device?](#does-the-application-collect-precise-real-time-location-information-of-the-device)
+    - [Do third parties see and/or have access to information obtained by the Application?](#do-third-parties-see-andor-have-access-to-information-obtained-by-the-application)
+    - [What are my opt-out rights?](#what-are-my-opt-out-rights)
+  - [Data Retention Policy, Managing Your Information](#data-retention-policy-managing-your-information)
+  - [Children](#children)
+  - [Security](#security)
+  - [Changes](#changes)
+  - [Your Consent](#your-consent)
+  - [Contact Us](#contact-us)
+
+<!-- TOC end -->
+
+---
 
 This privacy policy governs the use of the software “Hadithmv” (later referred as the “Application”) operated by Mohamed Ashraaf Ibrahim (later referred as the “Developer”).
 
@@ -10,7 +32,11 @@ The Application is an Android and Windows application intended to make the sayin
 
 ---
 
+<!-- TOC --><a name="what-information-does-the-software-obtain-and-how-is-it-used"></a>
+
 ## What information does the software obtain and how is it used?
+
+<!-- TOC --><a name="user-provided-information"></a>
 
 ### User Provided Information
 
@@ -20,25 +46,35 @@ The only User Provided Data that this Application uses is the text you provide d
 
 All search or editing text is only stored locally on the device, within the Application private folder, following good security practices.
 
+<!-- TOC --><a name="automatically-collected-information"></a>
+
 ### Automatically Collected Information
 
 The Application does not collect any information automatically.
 
 The Application does not share any information automatically with third parties.
 
+<!-- TOC --><a name="does-the-application-collect-precise-real-time-location-information-of-the-device"></a>
+
 ### Does the Application collect precise real time location information of the device?
 
 The Application does not collect precise information about the location of your mobile device.
 
+<!-- TOC --><a name="do-third-parties-see-andor-have-access-to-information-obtained-by-the-application"></a>
+
 ### Do third parties see and/or have access to information obtained by the Application?
 
 Not applicable since the Application does not collect any information automatically.
+
+<!-- TOC --><a name="what-are-my-opt-out-rights"></a>
 
 ### What are my opt-out rights?
 
 You can easily delete all User Provided Data by uninstalling the Application from the device. You may use the standard removal processes as may be available as part of your mobile device or via the application marketplace or network.
 
 ---
+
+<!-- TOC --><a name="data-retention-policy-managing-your-information"></a>
 
 ## Data Retention Policy, Managing Your Information
 
@@ -50,11 +86,15 @@ If you would like to delete User Provided Data, you may do it by clearing the ap
 
 ---
 
+<!-- TOC --><a name="children"></a>
+
 ## Children
 
 The Application does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from anyone under the age of 13. We do not use the Application to knowingly solicit data from or market to children under the age of 13.
 
 ---
+
+<!-- TOC --><a name="security"></a>
 
 ## Security
 
@@ -68,6 +108,8 @@ We also advise you to regularly check for any OS update(s) that could be availab
 
 ---
 
+<!-- TOC --><a name="changes"></a>
+
 ## Changes
 
 This Privacy Policy may be updated from time to time for any reason. We will notify any changes to our Privacy Policy by posting the new Privacy Policy on this page.
@@ -78,6 +120,8 @@ You are advised to review this Privacy Policy periodically for any changes, as c
 
 ---
 
+<!-- TOC --><a name="your-consent"></a>
+
 ## Your Consent
 
 By using the Application, you only consent to the local processing of your information.
@@ -85,6 +129,8 @@ By using the Application, you only consent to the local processing of your infor
 At any time, no User Provided Data (such as search or editing text) will be shared, processed and/or stored by third parties. User Provided Data cannot and will not be sold to any other third parties.
 
 ---
+
+<!-- TOC --><a name="contact-us"></a>
 
 ## Contact Us
 

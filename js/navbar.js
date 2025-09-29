@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.5.96";
+var hmvVersionNo = "6.5.97";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
@@ -89,7 +89,7 @@ hadithmv.github.io/books/${CURRENT_PAGE}
 might be different for other files in other locations
 
 for example i have
-hadithmv.github.io/page/contributorsList.html
+hadithmv.github.io/page/contributorList.html
 
 there might also be directories more than one level deep
 what doesnt change is the source "hadithmv.github.io" directory, and the end file "{file}.html"
@@ -428,7 +428,7 @@ function createNavbar() {
          <a href="../page/FAQ.html" title="FAQ"><span class="faqIcon"></span>ތަކުރާރު ސުވާލުތައް</a>
       </li>
       <li>
-         <a href="../page/contributorsList.html" title="Contributers"><span class="helpersIcon"></span>އެހީތެރިން</a>
+         <a href="../page/contributorList.html" title="Contributers"><span class="helpersIcon"></span>އެހީތެރިން</a>
       </li>
       <li>
          <a href="https://github.com/hadithmv/hadithmv.github.io/releases" 
@@ -532,7 +532,7 @@ document.addEventListener("DOMContentLoaded", createNavbar);
             <li><a href="../notes/info/contact.html">ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a></li>
             <li><a href="../page/supportHadithmv.html">ތަރުޖަމާގައި އެހީވެދިނުމަށް</a></li>
             <li><a href="../notes/info/FAQ.html">ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a></li>
-            <li><a href="../notes/info/contributorsList.html">އެހީތެރިން</a></li>
+            <li><a href="../notes/info/contributorList.html">އެހީތެރިން</a></li>
             <li class="versionNo" onclick="openDiv()">⚙️ އިސްދާރު: v${hmvVersionNo}</li>
             <li><a href="https://t.me/ashraafmv">ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a></li>
             <li style="font-size: 90%">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</li>

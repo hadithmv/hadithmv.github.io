@@ -2,6 +2,26 @@
 
 ---
 
+- [Contributer Regulations](#contributer-regulations)
+  - [Introduction](#introduction)
+  - [Purpose](#purpose)
+  - [Role](#role)
+  - [Responsibilities](#responsibilities)
+    - [Content Development](#content-development)
+    - [Collaboration and Communication](#collaboration-and-communication)
+    - [Professional Standards](#professional-standards)
+    - [Community Engagement](#community-engagement)
+    - [Additional Support (As Needed)](#additional-support-as-needed)
+  - [Privileges](#privileges)
+    - [Access and Resources](#access-and-resources)
+    - [Recognition and Representation](#recognition-and-representation)
+    - [Professional Development](#professional-development)
+    - [Collaboration and Community](#collaboration-and-community)
+    - [Leadership and Influence](#leadership-and-influence)
+  - [Code of Conduct](#code-of-conduct)
+
+---
+
 ## Introduction
 
 The regulation was created to ensure that all contributors understand the rules and guidelines for contributing to Hadithmv.
