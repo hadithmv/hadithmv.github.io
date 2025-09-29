@@ -8,8 +8,8 @@ For questions that are not listed here, you can reach out and [contact us](conta
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [The Dhivehi Platform for the Sunnah](#the-dhivehi-platform-for-the-sunnah)
 - [📖 About Hadithmv](#-about-hadithmv)
+  - [The Dhivehi Platform for the Sunnah](#the-dhivehi-platform-for-the-sunnah)
   - [🔭 Our Vision](#-our-vision)
   - [🧩 Our Approach](#-our-approach)
   - [🎯 Project Aims](#-project-aims)
@@ -21,14 +21,14 @@ For questions that are not listed here, you can reach out and [contact us](conta
     - [📘 Featured books of Hadith and Athar:](#-featured-books-of-hadith-and-athar)
     - [📙 Featured books of Aqida and Usooluddeen:](#-featured-books-of-aqida-and-usooluddeen)
     - [📕 Also includes the following:](#-also-includes-the-following)
-    - [✨ Additional Features:](#-additional-features)
-- [Q\&A](#qa)
-  - [I don’t know how to use Hadithmv / I can’t copy or search / I find this difficult and am stuck?](#i-dont-know-how-to-use-hadithmv--i-cant-copy-or-search--i-find-this-difficult-and-am-stuck)
+    - [✨ Additional Features](#-additional-features)
+- [Q&A](#qa)
+  - [I don’t know how to use Hadithmv / I can’t copy or search / I find this difficult and am stuck?](#i-dont-know-how-to-use-hadithmv-i-cant-copy-or-search-i-find-this-difficult-and-am-stuck)
   - [Who founded Hadithmv?](#who-founded-hadithmv)
   - [Why was Hadithmv created?](#why-was-hadithmv-created)
   - [How is Hadithmv written?](#how-is-hadithmv-written)
-  - [I have a suggestion / correction / question. How can I contact you?](#i-have-a-suggestion--correction--question-how-can-i-contact-you)
-  - [Is Hadithmv on social media / can you make a page and post Hadith?](#is-hadithmv-on-social-media--can-you-make-a-page-and-post-hadith)
+  - [I have a suggestion / correction / question. How can I contact you?](#i-have-a-suggestion-correction-question-how-can-i-contact-you)
+  - [Is Hadithmv on social media / can you make a page and post Hadith?](#is-hadithmv-on-social-media-can-you-make-a-page-and-post-hadith)
   - [Why don’t you add a clickable Tasbih counter to Hisnul Muslim?](#why-dont-you-add-a-clickable-tasbih-counter-to-hisnul-muslim)
   - [How do I continue reading a book from the last place I was at a later time?](#how-do-i-continue-reading-a-book-from-the-last-place-i-was-at-a-later-time)
   - [Why am I getting a warning when downloading the Windows app?](#why-am-i-getting-a-warning-when-downloading-the-windows-app)
@@ -45,10 +45,10 @@ For questions that are not listed here, you can reach out and [contact us](conta
   - [There’s another separate ‘Bakurubeyge Tharujama’ app, was that made by you?](#theres-another-separate-bakurubeyge-tharujama-app-was-that-made-by-you)
   - [What can I mainly do on Hadithmv?](#what-can-i-mainly-do-on-hadithmv)
   - [Is it all just translations? What else is there on Hadithmv?](#is-it-all-just-translations-what-else-is-there-on-hadithmv)
-  - [What is the fastest way to write ﷺ?](#what-is-the-fastest-way-to-write-ﷺ)
-  - [What is the fastest way to add up a total / calculate my Zakat?](#what-is-the-fastest-way-to-add-up-a-total--calculate-my-zakat)
+  - [What is the fastest way to write ﷺ?](#what-is-the-fastest-way-to-write-)
+  - [What is the fastest way to add up a total / calculate my Zakat?](#what-is-the-fastest-way-to-add-up-a-total-calculate-my-zakat)
   - [What else can I do on the Text Editor?](#what-else-can-i-do-on-the-text-editor)
-  - [I messed up the search / settings on Hadithmv, how do I reset things?](#i-messed-up-the-search--settings-on-hadithmv-how-do-i-reset-things)
+  - [I messed up the search / settings on Hadithmv, how do I reset things?](#i-messed-up-the-search-settings-on-hadithmv-how-do-i-reset-things)
   - [Is Hadithmv free?](#is-hadithmv-free)
   - [How is Hadithmv different?](#how-is-hadithmv-different)
   - [Could you record video and audio to go with the Hadith?](#could-you-record-video-and-audio-to-go-with-the-hadith)
@@ -67,7 +67,7 @@ For questions that are not listed here, you can reach out and [contact us](conta
   - [Is it okay if I don’t reference the source books and numbers of Hadith when including Hadith in writings of my own?](#is-it-okay-if-i-dont-reference-the-source-books-and-numbers-of-hadith-when-including-hadith-in-writings-of-my-own)
   - [What are Hadith?](#what-are-hadith)
   - [What is Takhrij?](#what-is-takhrij)
-  - [Is there a dark mode / night theme?](#is-there-a-dark-mode--night-theme)
+  - [Is there a dark mode / night theme?](#is-there-a-dark-mode-night-theme)
   - [What fonts does Hadithmv use?](#what-fonts-does-hadithmv-use)
   - [For the Arabic Quran text, do you use Rasm Uthmani or Imlaaee?](#for-the-arabic-quran-text-do-you-use-rasm-uthmani-or-imlaaee)
   - [Why is the site different from the app?](#why-is-the-site-different-from-the-app)
@@ -85,34 +85,34 @@ For questions that are not listed here, you can reach out and [contact us](conta
   - [Will you continue to update and improve Hadithmv, both in content and design?](#will-you-continue-to-update-and-improve-hadithmv-both-in-content-and-design)
   - [What will happen to Hadithmv if something happens to you?](#what-will-happen-to-hadithmv-if-something-happens-to-you)
   - [What is your belief, Aqeedah, Manhaj and Usool?](#what-is-your-belief-aqeedah-manhaj-and-usool)
-  - [Do you ascribe to any particular sect / group / party / ideology / philosophy?](#do-you-ascribe-to-any-particular-sect--group--party--ideology--philosophy)
+  - [Do you ascribe to any particular sect / group / party / ideology / philosophy?](#do-you-ascribe-to-any-particular-sect-group-party-ideology-philosophy)
   - [What are some people called Abu/Umm?](#what-are-some-people-called-abuumm)
   - [How and when did you start Hadithmv?](#how-and-when-did-you-start-hadithmv)
   - [Has the Hadithmv logo changed?](#has-the-hadithmv-logo-changed)
-  - [How about using more / fancier images / icons / animations / transitions / colors / themes?](#how-about-using-more--fancier-images--icons--animations--transitions--colors--themes)
-  - [Can I use the texts of Hadithmv in my own app / How is Hadithmv licensed as a software?](#can-i-use-the-texts-of-hadithmv-in-my-own-app--how-is-hadithmv-licensed-as-a-software)
+  - [How about using more / fancier images / icons / animations / transitions / colors / themes?](#how-about-using-more-fancier-images-icons-animations-transitions-colors-themes)
+  - [Can I use the texts of Hadithmv in my own app / How is Hadithmv licensed as a software?](#can-i-use-the-texts-of-hadithmv-in-my-own-app-how-is-hadithmv-licensed-as-a-software)
   - [What tools was Hadithmv made with?](#what-tools-was-hadithmv-made-with)
   - [Why not make separate apps for all of the books?](#why-not-make-separate-apps-for-all-of-the-books)
   - [Why is it Hadithmv.github.io instead of Hadithmv.com?](#why-is-it-hadithmvgithubio-instead-of-hadithmvcom)
   - [What’s the deal with Thikijehi Thaana (Dhivehi Diacritics)?](#whats-the-deal-with-thikijehi-thaana-dhivehi-diacritics)
   - [I learned about a Hadith, can I issue Fatwa and solve Fiqh disputes?](#i-learned-about-a-hadith-can-i-issue-fatwa-and-solve-fiqh-disputes)
   - [What is the most important thing?](#what-is-the-most-important-thing)
-  - [What does the Ummah need most right now / Where should we concentrate our efforts / What is the essential solution for the Islamic community / What should the Muslims focus on / What has to be done first and foremost / What is the most pressing matter / Where should our priorities lie, What is it that we need to agree on before anything else, What must we unite and gather upon, etc.?](#what-does-the-ummah-need-most-right-now--where-should-we-concentrate-our-efforts--what-is-the-essential-solution-for-the-islamic-community--what-should-the-muslims-focus-on--what-has-to-be-done-first-and-foremost--what-is-the-most-pressing-matter--where-should-our-priorities-lie-what-is-it-that-we-need-to-agree-on-before-anything-else-what-must-we-unite-and-gather-upon-etc)
+  - [What does the Ummah need most right now / Where should we concentrate our efforts / What is the essential solution for the Islamic community / What should the Muslims focus on / What has to be done first and foremost / What is the most pressing matter / Where should our priorities lie, What is it that we need to agree on before anything else, What must we unite and gather upon, etc.?](#what-does-the-ummah-need-most-right-now-where-should-we-concentrate-our-efforts-what-is-the-essential-solution-for-the-islamic-community-what-should-the-muslims-focus-on-what-has-to-be-done-first-and-foremost-what-is-the-most-pressing-matter-where-should-our-priorities-lie-what-is-it-that-we-need-to-agree-on-before-anything-else-what-must-we-unite-and-gather-upon-etc)
   - [Any final advice?](#any-final-advice)
 
 <!-- TOC end -->
 
 ---
 
-<!-- TOC --><a name="the-dhivehi-platform-for-the-sunnah"></a>
-
-## The Dhivehi Platform for the Sunnah
-
-Welcome to the official Hadithmv app. Your extensive digital Islamic library in Dhivehi. We offer a wide collection of texts, tools, and references in the Maldivian language.
-
 <!-- TOC --><a name="-about-hadithmv"></a>
 
 ## 📖 About Hadithmv
+
+Welcome to the official Hadithmv app. Your extensive digital Islamic library in Dhivehi. We offer a wide collection of texts, tools, and references in the Maldivian language.
+
+<!-- TOC --><a name="the-dhivehi-platform-for-the-sunnah"></a>
+
+### The Dhivehi Platform for the Sunnah
 
 The Hadithmv project is a comprehensive, collaborative initiative dedicated to translating and disseminating the teachings of Prophet Muhammad ﷺ and the righteous Salaf in the Dhivehi language. We aim to make authentic Islamic knowledge accessible to all Maldivians and empower them to connect with traditional scholarship in their native tongue. Our mission bridges classical Islamic texts with modern technology to serve the unique needs of the Dhivehi-speaking community.
 
@@ -281,7 +281,7 @@ Hadithmv has emerged as a leading digital platform for Islamic material in Dhive
 
 <!-- TOC --><a name="-additional-features"></a>
 
-#### ✨ Additional Features:
+#### ✨ Additional Features
 
 - Unique: The first Dhivehi Hadith and Athar app in Maldives
 
