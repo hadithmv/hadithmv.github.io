@@ -131,6 +131,12 @@ If you would like to help with translating Arabic texts, you can contact us from
 
 • If you do not want to be known, you can translate anonymously by opening this [link](https://docs.google.com/forms/d/1V3-5h4TK0-S-ZrpN3ocSPQLVN50Rfxn8gweP4puYY6A) in incognito mode.
 
+• In the document; work on the Arabic texts provided. Write your translation just below the Arabic. Translate Arabic texts that have no Dhivehi translation written by others beneath them.
+
+• If all the Arabic texts in the document have been translated by others, then patiently wait until new texts are provided.
+
+• If you would like to edit a translation someone else has done, write your edit below that person’s translation.
+
 • You don’t have to write “Sahabi rivaa kurevvi, rasoolaa hadith kurevvi”, we will write those and make them consistent.
 
 • Likewise, you don’t have to translate the Takhrij. eg: “Rivaa kurevvee Bukhari”.
