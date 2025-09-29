@@ -464,6 +464,26 @@
             <button id="addTab">+</button>
           </div>
           <textarea id="textArea"></textarea>
+          <!-- double clicking word in text area selects space too html.
+           When double-clicking a word in a <textarea> or other editable text field within a web browser, the default behavior often includes the trailing space after the word in the selection. This behavior is consistent across many applications and operating systems, not just web browsers.
+The rationale behind this design choice is to facilitate common editing tasks. When a user intends to move, delete, or replace an entire word, including the trailing space ensures a clean operation without leaving orphaned spaces or requiring an additional step to select the space.
+While this is the default, there are ways to modify or account for this behavior:
+            -->
+          <script>
+            // Cache the textarea element
+            const textArea = document.querySelector("textarea");
+
+            if (textArea) {
+              textArea.addEventListener("dblclick", function (e) {
+                const { selectionStart: start, selectionEnd: end } = this;
+
+                // Only process if there's a selection and it ends with a space
+                if (start < end && this.value[end - 1] === " ") {
+                  this.setSelectionRange(start, end - 1);
+                }
+              });
+            }
+          </script>
           <!-- -->
           <div
             id="typoIssuesResults"
@@ -2397,6 +2417,7 @@
             </button>
             <button class="copy-button-lit">•</button>
             <button class="copy-button-lit">✽</button>
+            <button class="copy-button-lit">&lt;u&gt;&lt;/u&gt;</button>
             <button class="copy-button-lit">”“</button>
             <button class="copy-button-lit">’‘</button>
             <button class="copy-button-lit">«»</button>

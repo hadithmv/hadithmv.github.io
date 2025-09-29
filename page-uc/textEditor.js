@@ -4373,3 +4373,14 @@ two input boxes next to this button, saying "Find" and "Replace" as placeholders
 
   // END
 }); // document.addEventListener("DOMContentLoaded", () => {
+
+// Add this near your other textarea event listeners
+document.querySelector("textarea").addEventListener("dblclick", function () {
+  let start = textArea.selectionStart;
+  let end = textArea.selectionEnd;
+
+  // Check if a trailing space was selected by default
+  if (textArea.value.substring(start, end).slice(-1) === " ") {
+    textArea.setSelectionRange(start, end - 1); // Adjust selection to exclude the space
+  }
+});
