@@ -1,4 +1,22 @@
+<!-- TOC --><a name="how-to-use"></a>
+
 # How to Use
+
+---
+
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Navigation](#navigation)
+- [Reading Books](#reading-books)
+- [Reading Controls](#reading-controls)
+- [Copying Text](#copying-text)
+- [Searching](#searching)
+- [Continuing Where You Last Read](#continuing-where-you-last-read)
+- [Return To Home Page](#return-to-home-page)
+- [Troubleshooting](#troubleshooting)
+- [Desktop Keyboard Shortcuts](#desktop-keyboard-shortcuts)
+
+<!-- TOC end -->
 
 ---
 
@@ -10,7 +28,9 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### Navigation
+<!-- TOC --><a name="navigation"></a>
+
+## Navigation
 
 - Click on the "Navbar" at the very top to access the Menu.
 
@@ -18,7 +38,9 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### Reading Books
+<!-- TOC --><a name="reading-books"></a>
+
+## Reading Books
 
 - From the home page, select a category (e.g., Hadith) and open a book (e.g., Muwatta Malik).
 
@@ -28,7 +50,9 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### Reading Controls
+<!-- TOC --><a name="reading-controls"></a>
+
+## Reading Controls
 
 - "Show 1" adjusts the number of entries displayed per page. (note: doing so may cause other functions to not work as expected).
 
@@ -38,7 +62,9 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### Copying Text
+<!-- TOC --><a name="copying-text"></a>
+
+## Copying Text
 
 - "Copy" lets you copy all visible text. (note: hidden text won't be copied).
 
@@ -48,7 +74,9 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### Searching
+<!-- TOC --><a name="searching"></a>
+
+## Searching
 
 - Use the "Search Box" to find specific text within the current book.
 
@@ -62,7 +90,9 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### Continuing Where You Last Read
+<!-- TOC --><a name="continuing-where-you-last-read"></a>
+
+## Continuing Where You Last Read
 
 - When using either the online website or offline Android app: Your reading position is automatically saved.
 
@@ -72,7 +102,9 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### Return To Home Page
+<!-- TOC --><a name="return-to-home-page"></a>
+
+## Return To Home Page
 
 - On book pages with the Navbar, click the "Hadithmv Logo" at the top left.
 
@@ -82,7 +114,9 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### Troubleshooting
+<!-- TOC --><a name="troubleshooting"></a>
+
+## Troubleshooting
 
 - If something malfunctions on a book, open the Navbar menu, and refresh the page using "Soft Reload" or "Hard Reload" found at the bottom.
 
@@ -90,7 +124,9 @@ To make the most of Hadithmv and avoid getting stuck, it is recommended to go th
 
 ---
 
-### Desktop Keyboard Shortcuts
+<!-- TOC --><a name="desktop-keyboard-shortcuts"></a>
+
+## Desktop Keyboard Shortcuts
 
 - [tab] = Tab Navigation
 

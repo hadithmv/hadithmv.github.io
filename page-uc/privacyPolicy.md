@@ -8,19 +8,18 @@ Last updated: 20/9/2025
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [Privacy Policy](#privacy-policy)
-  - [What information does the software obtain and how is it used?](#what-information-does-the-software-obtain-and-how-is-it-used)
-    - [User Provided Information](#user-provided-information)
-    - [Automatically Collected Information](#automatically-collected-information)
-    - [Does the Application collect precise real time location information of the device?](#does-the-application-collect-precise-real-time-location-information-of-the-device)
-    - [Do third parties see and/or have access to information obtained by the Application?](#do-third-parties-see-andor-have-access-to-information-obtained-by-the-application)
-    - [What are my opt-out rights?](#what-are-my-opt-out-rights)
-  - [Data Retention Policy, Managing Your Information](#data-retention-policy-managing-your-information)
-  - [Children](#children)
-  - [Security](#security)
-  - [Changes](#changes)
-  - [Your Consent](#your-consent)
-  - [Contact Us](#contact-us)
+- [What information does the software obtain and how is it used?](#what-information-does-the-software-obtain-and-how-is-it-used)
+  - [User Provided Information](#user-provided-information)
+  - [Automatically Collected Information](#automatically-collected-information)
+  - [Does the Application collect precise real time location information of the device?](#does-the-application-collect-precise-real-time-location-information-of-the-device)
+  - [Do third parties see and/or have access to information obtained by the Application?](#do-third-parties-see-andor-have-access-to-information-obtained-by-the-application)
+  - [What are my opt-out rights?](#what-are-my-opt-out-rights)
+- [Data Retention Policy, Managing Your Information](#data-retention-policy-managing-your-information)
+- [Children](#children)
+- [Security](#security)
+- [Changes](#changes)
+- [Your Consent](#your-consent)
+- [Contact Us](#contact-us)
 
 <!-- TOC end -->
 
