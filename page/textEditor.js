@@ -1,1 +1,4386 @@
-document.addEventListener("DOMContentLoaded",(()=>{function e(){const e=this.value;I.value=e,k.value=e,E.style.fontSize=`${e}px`}function t(){var e=E.value;const t=e.trim()?e.trim().split(/\s+/).length:0,a=e?e.split("\n").length:0;$.textContent=`Char: ${e.length}`,S.textContent=`Wrd: ${t}`,w.textContent=`Ln: ${a}`,e=new Blob([e]).size,B.textContent=1024>e?`B: ${e}`:1048576>e?`KB: ${(e/1024).toFixed(2)}`:1073741824>e?`MB: ${(e/1048576).toFixed(2)}`:`GB: ${(e/1073741824).toFixed(2)}`}function a(e){T[C-1].content=E.value,C=e,E.value=T.find((t=>t.id===e)).content,document.querySelectorAll(".numbered-tab").forEach((t=>{t.classList.toggle("active",parseInt(t.dataset.tab)===e)})),t()}function n(){E.style.direction="ltr",E.style.textAlign="left"}function r(){window.scrollTo({top:0,behavior:"smooth"})}function l(){document.querySelectorAll(".dropdown-content").forEach((e=>{e.classList.remove("show")}))}function o(e){const t=/[\u07a6-\u07b0]/,a=/[\u064b-\u0650\u0652-\u0656]/,n=/[\u0780-\u07a5]/,r=/[\u064e\u064f\u0650]/,l=window.noFiliExceptions||[],o={"(":")","[":"]","{":"}",'"':'"',"'":"'","“":"”","=":"="},c=e.split(/\s+/),s=[];e=[];for(let m=0;m<c.length;m++){const p=c[m];let v=[];var u=l.some((e=>p.includes(e)));for(let l=0;l<p.length;l++){const c=p[l],s=p[l+1]||"",g=p[l-1]||"";if(c in o)e.push({char:c,wordIndex:m,charIndex:l});else if(Object.values(o).includes(c))if(0===e.length)v.push({type:"unbalanced",index:l,detail:`Unexpected closing ${c}`});else{var i=e[e.length-1];o[i.char]===c?e.pop():v.push({type:"unbalanced",index:l,detail:`Mismatched ${c}, expected ${o[i.char]}`})}if(t.test(c)&&t.test(s)||a.test(c)&&a.test(s)||"ّ"===c&&"ّ"===s)0<v.length&&"standalone"===v[v.length-1].type&&v[v.length-1].index===l-1&&v.pop(),v.push({type:"multiple",index:l}),l++;else{if(n.test(c)){i=n.test(s);var d=p[l+2]||"";i=i&&"."===d,d="."===s,t.test(s)||d||i||("ނ"!==c&&"ރ"!==c||u?"ނ"!==c&&"ރ"!==c&&v.push({type:"noDvFili",index:l}):v.push({type:"noDvFili",index:l})),i&&l++}!t.test(c)&&!a.test(c)&&"ّ"!==c||n.test(g)||/[\u0600-\u06FF]/.test(g)||"ّ"===c&&r.test(s)||v.push({type:"standalone",index:l})}}for(;0<e.length&&e[0].wordIndex===m;)u=e.shift(),v.push({type:"unbalanced",index:u.charIndex,detail:`Unclosed ${u.char}`});0<v.length&&s.push({word:p,index:m,issues:v})}return 0<e.length&&e.forEach((e=>{s.push({word:c[e.wordIndex],index:e.wordIndex,issues:[{type:"unbalanced",index:e.charIndex,detail:`Unclosed ${e.char}`}]})})),s}function c(e){if(0===e.length)j.innerHTML="No Issues Found";else{var t=e.reduce(((e,t)=>e+t.issues.length),0),a=E.value.split(/\s+/),n=`Found ${t} Issue${1<t?"s":""}<br>`;e.forEach(((e,t)=>{const r=a[e.index-1]||"",l=a[e.index+1]||"";let o=e.issues.map((t=>{switch(t.type){case"multiple":var a=`${e.word[t.index-1]||""}${e.word[t.index]} ${e.word[t.index+1]}`;a=`Multiple Fili :&nbsp; ${a}`;break;case"noDvFili":a=`Thaana w/o Fili :&nbsp; ${a=`${e.word[t.index-1]||""} ${e.word[t.index]}`}`;break;case"standalone":a=`Standalone Fili :&nbsp; ${a=`${e.word[t.index-1]||""} ${e.word[t.index]}`}`;break;case"unbalanced":a=e.word[t.index];a=`${e.word.slice(Math.max(0,t.index-2),t.index)}${a}${e.word.slice(t.index+1,t.index+3)}`,a=`${t.detail} :&nbsp; ...${a}...`}return a})).join(", ");n+=`${t+1}. ${r} <span style="color: blue;">${e.word}</span> ${l} : <span style="color: red;">${o}</span><br>`})),j.innerHTML=n}j.style.display="block"}function s(){const e=new Date,t="true"===localStorage.getItem("militaryTime"),a=e.getHours()%12||12,n=String(e.getHours()).padStart(2,"0");var r=t?n:a;const l=12<=e.getHours()?"PM":"AM";String(e.getMinutes()).padStart(2,"0");var o=e.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"});o=o.replace(/^(\w+)\s+(\d+)/,((e,t,a)=>`${t}, ${a}${["th","st","nd","rd"][3<a%10?0:a%10]}`)),document.getElementById("gregorianLongEn").textContent=`${o}, at ${t?n:a}:${String(e.getMinutes()).padStart(2,"0")}${t?"":" "+l}`,o="އާދީއްތަ ހޯމަ އަންގާރަ ބުދަ ބުރާސްފަތި ހުކުރު ހޮނިހިރު".split(" ");const c=t?"":12<=e.getHours()?"މެނދުރުފަސް":"މެނދުރުކުރި";r=`${o[e.getDay()]}، ${e.getDate()} ${"ޖަނަވަރީ ފެބުރުވަރީ މާރިޗު އެޕްރީލް މޭ ޖޫން ޖުލައި އޮގަސްޓު ސެޕްޓެންބަރު އޮކްޓޫބަރު ނޮވެންބަރު ޑިސެންބަރު".split(" ")[e.getMonth()]} ${e.getFullYear()}، ${r}:${String(e.getMinutes()).padStart(2,"0")}${t?"":" "+c}`,document.getElementById("gregorianLongDv").textContent=r,r=(r=e.toLocaleDateString("ar",{weekday:"long",day:"numeric",month:"long",year:"numeric",hour:"numeric",minute:"2-digit",hour12:!0,hour12:!t})).replace(/(\d{4})\s*،?\s*في/,"$1، في").replace(/\s+،/g,"،").replace(/\d{1,2}:\d{2}\s*[صم]/,`${t?n:a}:${String(e.getMinutes()).padStart(2,"0")}${t?"":12<=e.getHours()?" م":" ص"}`),document.getElementById("gregorianLongAr").textContent=r;try{const r={"محرم":["Muharram","މުޙައްރަމް"],"صفر":["Safar","ޞަފަރު"],"ربيع الأول":["Rabi' al-Awwal","ރަބީޢުލްއައްވަލް"],"ربيع الآخر":["Rabi' ath-Thani","ރަބީޢުލްއާޚިރު"],"جمادى الأولى":["Jumada al-Awwal","ޖުމާދަލްއޫލާ"],"جمادى الآخرة":["Jumada ath-Thani","ޖުމާދަލްއާޚިރާ"],"رجب":["Rajab","ރަޖަބު"],"شعبان":["Sha'ban","ޝަޢުބާން"],"رمضان":["Ramadan","ރަމަޟާން"],"شوال":["Shawwal","ޝައްވާލް"],"ذو القعدة":["Dhul-Qa'dah","ޛުލްގަޢިދާ"],"ذو الحجة":["Dhul-Hijjah","ޛުލްޙިއްޖާ"]},s=new Intl.DateTimeFormat("ar-TN-u-ca-islamic",{weekday:"long",day:"numeric",month:"long",year:"numeric",calendar:"islamic"}).format(e),u=`، في ${t?n:a}:${String(e.getMinutes()).padStart(2,"0")}${t?"":12<=e.getHours()?" م":" ص"}`;document.getElementById("hijriLongAr").textContent=s.replace(/هـ/,"").replace(/\s+،/g,"،").replace(/\s+$/,"")+u;const i=new Intl.DateTimeFormat("ar-u-ca-islamic-umalqura",{weekday:"long",day:"numeric",month:"long",year:"numeric",calendar:"islamic"}).formatToParts(e),d={"الأحد":"Sunday","الاثنين":"Monday","الثلاثاء":"Tuesday","الأربعاء":"Wednesday","الخميس":"Thursday","الجمعة":"Friday","السبت":"Saturday"};let m,p,v,g,y,h,b;i.forEach((e=>{if("weekday"===e.type&&(m=d[e.value]||e.value),"day"===e.type&&(p=e.value),"month"===e.type){var t=e.value;v=r[t]?.[0]||t}"year"===e.type&&(g=e.value)})),document.getElementById("hijriLongEn").textContent=`${m}, ${parseInt(p)} ${v} ${g} AH, at ${t?n:a}:${String(e.getMinutes()).padStart(2,"0")}${t?"":" "+l}`,i.forEach((e=>{if("day"===e.type&&(y=e.value),"month"===e.type){var t=e.value;h=r[t]?.[1]||t}"year"===e.type&&(b=e.value)})),document.getElementById("hijriLongDv").textContent=`${o[e.getDay()]}، ${parseInt(y)} ${h} ${b}، ${t?n:a}:${String(e.getMinutes()).padStart(2,"0")}${t?"":" "+c}`;const f=new Intl.DateTimeFormat("en-u-ca-islamic",{day:"numeric",month:"numeric",year:"numeric",calendar:"islamic"}).format(e).replace(/[^0-9/]/g,"");document.getElementById("hijriShort").textContent=`${f} ${t?n:a}:${String(e.getMinutes()).padStart(2,"0")}${t?"":" "+l}`}catch(e){console.error("Error formatting Hijri dates:",e),["hijriLongAr","hijriLongEn","hijriLongDv","hijriShort"].forEach((e=>{document.getElementById(e).textContent="Hijri date unavailable"}))}document.getElementById("gregorianShort").textContent=`${String(e.getDate()).padStart(2,"0")}/${String(e.getMonth()+1).padStart(2,"0")}/${e.getFullYear()} ${t?n:a}:${String(e.getMinutes()).padStart(2,"0")}${t?"":" "+l}`}function u(e,t){const a=document.createElement("span");a.textContent=t,a.className="copy-feedback",e.appendChild(a),e.classList.add("copy-success"),setTimeout((()=>{a.remove(),e.classList.remove("copy-success")}),1e3)}function i(){var e=document.getElementById("maghribTime"),t=document.getElementById("fajrTime");if(e.value&&t.value){e=d(e.value),(t=d(t.value))<e&&(t+=1440);var a=t-e;t=e+a/2;var n=e+a/3;e+=2*a/3,document.getElementById("midnightTime").textContent=m(t),document.getElementById("secondThirdTime").textContent=m(n),document.getElementById("lastThirdTime").textContent=m(e)}}function d(e){const[t,a]=e.split(":").map(Number);return 60*t+a}function m(e){e=Math.round(e),e%=1440;const t=Math.floor(e/60);if(e%=60,K)return`${String(t).padStart(2,"0")}:${String(e).padStart(2,"0")}`;const a=12<=t?"PM":"AM";return`${t%12||12}:${String(e).padStart(2,"0")} ${a}`}async function p(e,t){if(!e)throw Error("No data to encrypt");try{const a=window.crypto.getRandomValues(new Uint8Array(16)),n=window.crypto.getRandomValues(new Uint8Array(12)),r=await ee(t),l=await te(r,a,["encrypt"]),o=await window.crypto.subtle.encrypt({name:"AES-GCM",iv:n},l,Y.encode(e)),c=new Uint8Array(o);let s=new Uint8Array(a.byteLength+n.byteLength+c.byteLength);return s.set(a,0),s.set(n,a.byteLength),s.set(c,a.byteLength+n.byteLength),Q(s)}catch(e){throw console.error(`Encryption error: ${e}`),e}}async function v(e,t){if(!e)throw Error("No data to decrypt");try{const a=V(e),n=a.slice(0,16),r=a.slice(16,28),l=a.slice(28),o=await ee(t),c=await te(o,n,["decrypt"]),s=await window.crypto.subtle.decrypt({name:"AES-GCM",iv:r},c,l);return X.decode(s)}catch(e){throw console.error(`Decryption error: ${e}`),e}}function g(e){return new Promise(((t,a)=>{const n=new FileReader;n.onload=()=>t(n.result),n.onerror=()=>a(n.error),n.readAsArrayBuffer(e)}))}function y(e,t){e=URL.createObjectURL(e);const a=document.createElement("a");a.href=e,a.download=t,a.type="application/octet-stream",a.setAttribute("download",t),document.body.appendChild(a),a.click(),document.body.removeChild(a),URL.revokeObjectURL(e)}function h(e,t="Choose File"){e.nextElementSibling.textContent=e.files[0]?.name||t}const b=document.querySelectorAll(".top-tab"),f=document.querySelectorAll(".tab-content"),E=document.getElementById("textArea"),I=document.getElementById("fontSizeSlider"),k=document.getElementById("fontSize"),$=document.getElementById("charCount"),S=document.getElementById("wordCount"),w=document.getElementById("lineCount"),B=document.getElementById("fileSize"),x=document.getElementById("addTab"),L=document.querySelector(".numbered-tabs");let C=1,T=[{id:1,content:""}];b.forEach((e=>{e.addEventListener("click",(()=>{b.forEach((e=>e.classList.remove("active"))),e.classList.add("active"),f.forEach((t=>{t.classList.remove("active"),t.id===`${e.dataset.tab}Tab`&&t.classList.add("active")}))}))})),I.addEventListener("input",e),k.addEventListener("change",e),k.addEventListener("click",(function(){})),E.addEventListener("input",function(e){let t;return function(...a){clearTimeout(t),t=setTimeout((()=>{clearTimeout(t),e(...a)}),300)}}(t)),x.addEventListener("click",(()=>{const e=T.length+1;T.push({id:e,content:""});const t=document.createElement("button");t.classList.add("numbered-tab"),t.dataset.tab=e,t.textContent=e,L.insertBefore(t,x),a(e)})),L.addEventListener("click",(e=>{e.target.classList.contains("numbered-tab")&&a(parseInt(e.target.dataset.tab))})),document.querySelectorAll(".dropdown-button").forEach((e=>{const a=e.querySelector(".function-button"),o=e.querySelector(".dropdown-content");a.addEventListener("click",(e=>{e.stopPropagation(),l(),o.classList.toggle("show")})),o.addEventListener("click",(e=>{e.stopPropagation(),"BUTTON"===e.target.tagName&&e.target.dataset.action&&(function(e){switch(e){case"arabicToRegular":E.value=E.value.replace(/[٠١٢٣٤٥٦٧٨٩]/g,(e=>"٠١٢٣٤٥٦٧٨٩".indexOf(e)));break;case"regularToArabic":E.value=E.value.replace(/[0-9]/g,(e=>"٠١٢٣٤٥٦٧٨٩"[e]));case"removeFootnoteNumbers":E.value=E.value.replace(/⁽[¹²³⁴⁵⁶⁷⁸⁹⁰]+⁾/g,"");break;case"convertNumerals":var a={regular:"0123456789",arabic:"٠١٢٣٤٥٦٧٨٩",superscript:"⁰¹²³⁴⁵⁶⁷⁸⁹",mathSansSerif:"𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫",mathSansSerifBold:"𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵",fullWidth:"０１２３４５６７８９",circled:"⓪①②③④⑤⑥⑦⑧⑨",negativeCircled:"⓿❶❷❸❹❺❻❼❽❾"};const g=a[document.getElementById("numeralFrom").value],y=a[document.getElementById("numeralTo").value];E.value=E.value.replace(/[0-9]/g,(e=>{const t=g.indexOf(e);return-1!==t?y[t]:e}));break;case"removePrecedingZeros":E.value=E.value.replace(/\b0+(\d)/g,"$1");break;case"removeAllNumbers":E.value=E.value.replace(/[٠-٩0-9]/g,"");break;case"keepOnlyNumbers":E.value=E.value.replace(/[^٠-٩0-9]/g,"");break;case"rtlStraightToCurly":case"ltrStraightToCurly":a="rtlStraightToCurly"===e,E.value=E.value.replace(/(\W|^)"(\S)/g,`$1${a?"”":"“"}$2`).replace(new RegExp(`(${a?"”":"“"}[^"]*)"([^"]*$|[^${a?"”":"“"}"]*${a?"”":"“"})`,"g"),`$1${a?"“":"”"}$2`).replace(/([^0-9])"/g,"$1"+(a?"“":"”")).replace(/(\W|^)'(\S)/g,`$1${a?"’":"‘"}$2`).replace(/([a-z])'([a-z])/gi,"$1‘$2").replace(/((\u2019[^']*)|[a-z])'([^0-9]|$)/gi,`$1${a?"‘":"’"}$3`).replace(/(\u2019)([0-9]{2}[^\u2018]*)(\u2019([^0-9]|$)|$|\u2018[a-z])/gi,"‘$2$3").replace(/(\B|^)\u2019(?=([^\u2018]*\u2018\b)*([^\u2018\u2019]*\W[\u2018\u2019]\b|[^\u2018\u2019]*$))/gi,"$1‘").replace(/'''/g,"‴").replace(/''/g,"″").replace(/'/g,"′");break;case"curlyToStraight":E.value=E.value.replace(/[\u2018\u2019]/g,"'").replace(/[\u201C\u201D]/g,'"');break;case"reverseCurlyQuotes":E.value=E.value.replace(/“|”/g,(e=>"“"===e?"”":"“")).replace(/‘|’/g,(e=>"‘"===e?"’":"‘")).replace(/❝|❞/g,(e=>"❝"===e?"❞":"❝")).replace(/\ud83d\ude76|\ud83d\ude77/g,(e=>"🙷"));break;case"convertQuotes":var o={straightSingle:["'","'"],straightDouble:['"','"'],ltrCurlyDouble:["“","”"],rtlCurlyDouble:["”","“"],ltrCurlySingle:["‘","’"],rtlCurlySingle:["’","‘"],angleQuotes:["«","»"],doubleBrackets:["((","))"],heavyCommaQuotes:["❝","❞"],sansSerifHeavyCommaQuotes:["🙶","🙷"]};a=o[document.getElementById("quoteFrom").value],o=o[document.getElementById("quoteTo").value];var c=a[0].replace(/[.*+?^${}()|[\]\\]/g,"\\$&");a=a[1].replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),E.value=E.value.replace(new RegExp(`${c}([^${a}]*)${a}`,"g"),`${o[0]}$1${o[1]}`);break;case"removeJsComments":E.value=E.value.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g,""),n();break;case"removeHtmlComments":E.value=E.value.replace(/\x3c!--[\s\S]*?--\x3e/g,""),n();break;case"removeCssComments":E.value=E.value.replace(/\/\*[\s\S]*?\*\//g,""),n();break;case"removePowershellComments":E.value=E.value.replace(/#.*$/gm,"").replace(/<#[\s\S]*?#>/g,""),n();break;case"removePythonComments":E.value=E.value.replace(/#.*$/gm,"").replace(/'''[\s\S]*?'''|"""[\s\S]*?"""/g,""),n();break;case"removePhpComments":E.value=E.value.replace(/\/\*[\s\S]*?\*\/|\/\/.*|#.*$/gm,""),n();break;case"removeCComments":E.value=E.value.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g,""),n();break;case"removeCSharpComments":E.value=E.value.replace(/\/\*[\s\S]*?\*\/|\/\/\/.*|\/\/.*/g,""),n();break;case"removeJavaComments":E.value=E.value.replace(/\/\*[\s\S]*?\*\/|\/\*\*[\s\S]*?\*\/|\/\/.*/g,""),n();break;case"removeRubyComments":E.value=E.value.replace(/#.*$/gm,"").replace(/^=begin[\s\S]*?^=end/gm,""),n();break;case"removeBashComments":E.value=E.value.replace(/#.*$/gm,""),n();break;case"removeGoComments":E.value=E.value.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g,""),n();break;case"removeRustComments":E.value=E.value.replace(/\/\*[\s\S]*?\*\/|\/\/!.*|\/\/.*/g,""),n();break;case"removeSwiftComments":E.value=E.value.replace(/\/\*[\s\S]*?\*\/|\/\/\/.*|\/\/.*/g,""),n();break;case"removeKotlinComments":E.value=E.value.replace(/\/\*[\s\S]*?\*\/|\/\*\*[\s\S]*?\*\/|\/\/.*/g,""),n();break;case"removeDartComments":E.value=E.value.replace(/\/\*[\s\S]*?\*\/|\/\/\/.*|\/\/.*/g,""),n();break;case"removeSqlComments":E.value=E.value.replace(/\/\*[\s\S]*?\*\/|--.*$/gm,""),n();break;case"textToParagraphs":E.value=E.value.split("\n").filter((e=>e.trim())).map((e=>`<p>${e}</p>`)).join("\n"),n();break;case"textToBrTags":E.value=E.value.split("\n").join("<br>\n"),n();break;case"textToOrderedList":E.value="<ol>\n"+E.value.split("\n").filter((e=>e.trim())).map((e=>`  <li>${e}</li>`)).join("\n")+"\n</ol>",n();break;case"textToUnorderedList":E.value="<ul>\n"+E.value.split("\n").filter((e=>e.trim())).map((e=>`  <li>${e}</li>`)).join("\n")+"\n</ul>",n();break;case"removeHtmlTags":E.value=E.value.replace(/<[^>]*>/g,"");break;case"removeArabicDiacritics":E.value=E.value.replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED]/g,"");break;case"removeDhivehiFili":E.value=E.value.replace(/[\u07A6-\u07B0]/g,"");break;case"removeThikijehiThaana":const h={"ޘ":"ސ","ޙ":"ހ","ޛ":"ޒ","ޜ":"ޒ","ޞ":"ސ","ޠ":"ތ","ޡ":"ޒ","ޢ":"އ","ޤ":"ގ","ޥ":"ވ"};E.value=E.value.replace(/[ޘޙޛޜޞޠޡޢޤޥ]/g,(e=>h[e]||e));break;case"saveFile":a=new Blob([E.value],{type:"text/plain;charset=utf-8"}),(o=document.createElement("a")).href=URL.createObjectURL(a),o.download="saved_text.txt",o.click();break;case"loadFile":(a=document.createElement("input")).type="file",a.accept="text/plain",a.onchange=e=>{e=e.target.files[0];const a=new FileReader;a.onload=e=>{E.value=e.target.result,t()},a.readAsText(e)},a.click();break;case"titleCase":E.value=E.value.replace(/\w\S*/g,(e=>e.charAt(0).toUpperCase()+e.substr(1).toLowerCase()));break;case"sentenceCase":E.value=E.value.toLowerCase().replace(/(^\w|\.\s+\w)/g,(e=>e.toUpperCase()));break;case"lowercase":E.value=E.value.toLowerCase();break;case"UPPERCASE":E.value=E.value.toUpperCase();break;case"alternatingCase":E.value=E.value.split("").map(((e,t)=>0==t%2?e.toLowerCase():e.toUpperCase())).join("");break;case"inverseCase":E.value=E.value.split("").map((e=>e===e.toUpperCase()?e.toLowerCase():e.toUpperCase())).join("");break;case"randomCase":E.value=E.value.split("").map((e=>.5<Math.random()?e.toUpperCase():e.toLowerCase())).join("");break;case"camelCase":E.value=E.value.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g,((e,t)=>t.toUpperCase()));break;case"pascalCase":E.value=E.value.toLowerCase().replace(/(^|[^a-zA-Z0-9]+)(.)/g,((e,t,a)=>a.toUpperCase()));break;case"snakeCase":E.value=E.value.toLowerCase().replace(/[^a-zA-Z0-9]+/g,"_").replace(/^_+|_+$/g,"");break;case"constantCase":E.value=E.value.toUpperCase().replace(/[^A-Z0-9]+/g,"_").replace(/^_+|_+$/g,"");break;case"slugCase":E.value=E.value.toLowerCase().replace(/[^a-zA-Z0-9]+/g,"-").replace(/^-+|-+$/g,"");break;case"dotCase":E.value=E.value.toLowerCase().replace(/[^a-zA-Z0-9]+/g,".").replace(/^\.+|\.+$/g,"");break;case"flatcase":E.value=E.value.toLowerCase().replace(/[^a-zA-Z0-9]+/g,"");break;case"splitIntoWords":E.value=E.value.split(/\s+/).filter((e=>0<e.length)).join("\n");break;case"sortWordsByFrequency":r();const b={};(E.value.toLowerCase().match(/\b[\w']+\b/g)||[]).forEach((e=>{b[e]=(b[e]||0)+1})),a=Object.entries(b).sort(((e,t)=>t[1]-e[1])).map((([e,t])=>`${t}: ${e}`)),E.value=a.join("\n");break;case"sortLinesByFrequency":r();const f={};E.value.split("\n").filter((e=>""!==e.trim())).forEach((e=>{f[e]=(f[e]||0)+1})),a=Object.entries(f).sort(((e,t)=>t[1]-e[1])).map((([e,t])=>`${t}: ${e}`)),E.value=a.join("\n");break;case"sortLinesAscending":E.value=E.value.split("\n").sort(((e,t)=>e.localeCompare(t))).join("\n");break;case"sortLinesDescending":E.value=E.value.split("\n").sort(((e,t)=>t.localeCompare(e))).join("\n");break;case"randomizeLines":E.value=E.value.split("\n").sort((()=>Math.random()-.5)).join("\n");break;case"removeDuplicateLines":E.value=[...new Set(E.value.split("\n"))].join("\n");break;case"reverseTextHorizontal":E.value=E.value.split("").reverse().join("");break;case"reverseTextVertical":E.value=E.value.split("\n").reverse().join("\n");break;case"addLineNumbers":const I=document.getElementById("addNumbersWith").value;a=E.value.split("\n").map(((e,t)=>`${t+1}${I} ${e}`)),E.value=a.join("\n");break;case"removeLineNumbers":o=document.getElementById("removeNumbersWith").value,a=E.value.split("\n"),o=o.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");const k=new RegExp(`^\\d+${o}\\s+`);a=a.map((e=>e.replace(k,""))),E.value=a.join("\n");break;case"decodeUnicode":E.value=E.value.replace(/\\u([0-9a-fA-F]{4})/g,(function(e,t){return String.fromCharCode(parseInt(t,16))})),n();break;case"encodeUnicode":E.value=E.value.replace(/[\s\S]/g,(function(e){for(e=e.charCodeAt(0).toString(16);4>e.length;)e="0"+e;return"\\u"+e})),n();break;case"decodeURL":try{E.value=decodeURI(E.value)}catch(Z){alert("Invalid URL encoding")}n();break;case"encodeURL":E.value=encodeURI(E.value),n();break;case"whichUnicodeCharacter":for(a=E.value,o="",c=0;c<a.length;c++){var s=a.codePointAt(c),u=`https://codepoints.net/U+${s.toString(16).toUpperCase().padStart(4,"0")}`;o+=`U+${s.toString(16).toUpperCase().padStart(4,"0")} : ${a[c]} : ${u}\n`,65535<s&&c++}E.value=o,n();break;case"textToLeet":const $={a:"4",e:"3",i:"!",o:"0",t:"7",l:"1",s:"5"};E.value=E.value.toLowerCase().replace(/[aeiotls]/g,(e=>$[e])),n();break;case"leetToText":const S={4:"a",3:"e","!":"i",0:"o",7:"t",1:"l",5:"s"};E.value=E.value.replace(/[43!0715]/g,(e=>S[e])),n();break;case"textToBinary":E.value=E.value.split("").map((e=>e.charCodeAt(0).toString(2).padStart(8,"0"))).join(" ");break;case"binaryToText":try{E.value=E.value.trim().split(" ").map((e=>(e=parseInt(e,2),String.fromCharCode(e)))).join("")}catch(_){alert("Error converting machine code to text. Make sure you have valid binary numbers separated by spaces.")}break;case"convertBrackets":const w=(a={round:["(",")"],square:["[","]"],superscript:["⁽","⁾"],corner:["⌜","⌝"]})[document.getElementById("bracketFrom").value],B=a[document.getElementById("bracketTo").value],x=document.getElementById("bracketDirection").value,L=document.getElementById("bracketTo").value;document.getElementById("bracketFrom"),E.value=E.value.replace(new RegExp(`\\${w[0]}|\\${w[1]}`,"g"),(e=>"rtl"===x&&"corner"===L?e===w[0]?B[1]:B[0]:e===w[0]?B[0]:B[1]));break;case"reverseBracketDirection":const C={"(":")",")":"(","[":"]","]":"[","⁽":"⁾","⁾":"⁽","⌜":"⌝","⌝":"⌜"};E.value=E.value.replace(/[()[\]⁽⁾⌜⌝]/g,(e=>C[e]));break;case"convertNumberBrackets":const T={0:"⁰",1:"¹",2:"²",3:"³",4:"⁴",5:"⁵",6:"⁶",7:"⁷",8:"⁸",9:"⁹"},A=(a={none:["",""],round:["(",")"],square:["[","]"],superscript:["⁽","⁾"]})[document.getElementById("numberBracketFrom").value],M=a[document.getElementById("numberBracketTo").value],D=document.getElementById("numberBracketTo").value;a=E.value,A[0]&&(a=a.replace(new RegExp(`\\${A[0]}\\d+\\${A[1]}`,"g"),(e=>e.slice(A[0].length,-A[1].length)))),M[0]&&(a=a.replace(/\d+/g,(e=>(e="superscript"===D?e.split("").map((e=>T[e])).join(""):e,`${M[0]}${e}${M[1]}`)))),E.value=a;break;case"removeNumberBrackets":a={round:["(",")"],square:["[","]"],superscript:["⁽","⁾"],none:["",""]}[document.getElementById("numberBracketRemove").value],E.value=E.value.replace(new RegExp(`\\${a[0]}\\d+\\${a[1]}`,"g"),""),t();break;case"keepOnlyDhivehi":E.value=E.value.replace(/[^\u0780-\u07BF\s]/g,"");break;case"removeAllDhivehi":E.value=E.value.replace(/[\u0780-\u07BF]/g,"");break;case"keepOnlyArabic":E.value=E.value.replace(/[^\u0600-\u06ff\u0750-\u077f\ufb50-\ufbc1\ufbd3-\ufd3f\ufd50-\ufd8f\ufd92-\ufdc7\ufe70-\ufefc\uFDF0-\uFDFD\s]/g,"");break;case"removeAllArabic":E.value=E.value.replace(/[\u0600-\u06ff\u0750-\u077f\ufb50-\ufbc1\ufbd3-\ufd3f\ufd50-\ufd8f\ufd92-\ufdc7\ufe70-\ufefc\uFDF0-\uFDFD]/g,"");break;case"keepOnlyEnglish":E.value=E.value.replace(/[^A-Za-z\s]/g,"");break;case"removeAllEnglish":E.value=E.value.replace(/[A-Za-z]/g,"");break;case"removeSpacesTabsAndSingleLines":E.value=E.value.replace(/^ +| +$/gm,"").replace(/ +/g," ").replace(/\t+/g," ").trim().replace(/\n{2,}/g,"\n");break;case"removeSpacesAndDoubleLines":E.value=E.value.replace(/^ +| +$/gm,"").replace(/ +/g," ").trim().replace(/\n{3,}/g,"\n\n");break;case"wordWrap":E.value=E.value.replace(/\s+/g," ").trim();break;case"removeExtraSpacesOnly":E.value=E.value.replace(/^ +| +$/gm,"").replace(/ +/g," ").trim();break;case"convertTabsToSpaces":E.value=E.value.replace(/\t+/g," ").trim();break;case"removeSingleLinesOnly":E.value=E.value.trim().replace(/\n{2,}/g,"\n");break;case"removeDoubleLinesOnly":E.value=E.value.trim().replace(/\n{3,}/g,"\n\n");break;case"dotsToEllipsis":E.value=E.value.replace(/\.{3}/g,"…");break;case"ellipsisToDots":E.value=E.value.replace(/…/g,"...");break;case"convertDashes":a=(o={hyphen:"-",en:"–",em:"—"})[document.getElementById("dashFrom").value],o=o[document.getElementById("dashTo").value],E.value=E.value.replace(new RegExp(a,"g"),o);break;function i(e){var t="";e.useUppercase&&(t+="ABCDEFGHIJKLMNOPQRSTUVWXYZ"),e.useLowercase&&(t+="abcdefghijklmnopqrstuvwxyz"),e.useNumbers&&(t+="0123456789"),e.useSymbols&&(t+="!@#$%^&*()_+-=[]{}|;:,.<>?"),t||="abcdefghijklmnopqrstuvwxyz";let a="";for(let n=0;n<e.length;n++)a+=t.charAt(Math.floor(Math.random()*t.length));return e.useUppercase&&!/[A-Z]/.test(a)&&(t=Math.floor(Math.random()*e.length),a=a.substring(0,t)+"ABCDEFGHIJKLMNOPQRSTUVWXYZ".charAt(Math.floor(26*Math.random()))+a.substring(t+1)),e.useLowercase&&!/[a-z]/.test(a)&&(t=Math.floor(Math.random()*e.length),a=a.substring(0,t)+"abcdefghijklmnopqrstuvwxyz".charAt(Math.floor(26*Math.random()))+a.substring(t+1)),e.useNumbers&&!/[0-9]/.test(a)&&(t=Math.floor(Math.random()*e.length),a=a.substring(0,t)+"0123456789".charAt(Math.floor(10*Math.random()))+a.substring(t+1)),e.useSymbols&&!/[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(a)&&(e=Math.floor(Math.random()*e.length),a=a.substring(0,e)+"!@#$%^&*()_+-=[]{}|;:,.<>?".charAt(Math.floor(26*Math.random()))+a.substring(e+1)),a}case"setupPasswordGenerator":const F=document.getElementById("passwordCount");F&&F.addEventListener("input",(()=>{let e=parseInt(F.value);1>e&&(F.value=1),100<e&&(F.value=100)}));const j=document.getElementById("passwordLength");j&&j.addEventListener("input",(()=>{let e=parseInt(j.value);4>e&&(j.value=4),128<e&&(j.value=128)}));const q=document.querySelectorAll('.checkbox-group input[type="checkbox"]');q.forEach((e=>{e.addEventListener("change",(()=>{Array.from(q).some((e=>e.checked))||(e.checked=!0)}))}));break;case"generatePasswords":for(a=parseInt(document.getElementById("passwordCount").value)||1,o={length:parseInt(document.getElementById("passwordLength").value)||8,useUppercase:document.getElementById("useUppercase").checked,useLowercase:document.getElementById("useLowercase").checked,useNumbers:document.getElementById("useNumbers").checked,useSymbols:document.getElementById("useSymbols").checked},c=[],s=0;s<a;s++)c.push(i(o));E.value=c.join("\n"),t(),l();break;case"generateSequence":let U=parseInt(document.getElementById("seqMinInput").value)||1;c=parseInt(document.getElementById("seqMaxInput").value)||10,U>c&&([U,c]=[c,U],document.getElementById("seqMinInput").value=U,document.getElementById("seqMaxInput").value=c);var d=document.getElementById("seqPadStart")?.checked||!1,m=parseInt(document.getElementById("seqPadLength")?.value)||1;a="\\n"===document.getElementById("seqSeparator").value?"\n":document.getElementById("seqSeparator").value||"\n",o=document.getElementById("seqReverse")?.checked||!1;var p=document.getElementById("seqPrefix")?.value||"",v=document.getElementById("seqSuffix")?.value||"";c=Array.from({length:c-U+1},((e,t)=>(e=U+t,d&&(e=String(e).padStart(m,"0")),`${p}${e}${v}`))),o&&c.reverse(),E.value=c.join(a),t(),l();break;case"generateRandomNumber":let R=parseInt(document.getElementById("randNoMinInput").value)||1;if(o=parseInt(document.getElementById("randNoMaxInput").value)||10,u=parseInt(document.getElementById("randNoCount").value)||1,c=document.getElementById("randNoUnique").checked,R>o&&([R,o]=[o,R],document.getElementById("randNoMinInput").value=R,document.getElementById("randNoMaxInput").value=o),s=o-R+1,a=u,c&&u>s&&(a=s),u=[],c){for(c=(o=Array.from({length:s},((e,t)=>R+t))).length-1;0<c;c--)s=Math.floor(Math.random()*(c+1)),[o[c],o[s]]=[o[s],o[c]];u=o.slice(0,a)}else for(c=0;c<a;c++)u.push(Math.floor(Math.random()*(o-R+1))+R);E.value=u.join("\n"),t(),l();break;case"repeatText":a=parseInt(document.getElementById("repeatCount").value)||2,o="\\n"===document.getElementById("repeatSeparator").value?"\n":document.getElementById("repeatSeparator").value,E.value=Array(a).fill(E.value).join(o),t(),l();break;case"addPrefixSuffix":const P=document.getElementById("addPrefixInput").value,N=document.getElementById("addSuffixInput").value;a=E.value.split("\n").map((e=>P+e+N)),E.value=a.join("\n"),t(),l();break;case"removePrefixSuffix":const H=document.getElementById("removePrefixInput").value,z=document.getElementById("removeSuffixInput").value;a=E.value.split("\n").map((e=>(H&&e.startsWith(H)&&(e=e.slice(H.length)),z&&e.endsWith(z)&&(e=e.slice(0,-z.length)),e))),E.value=a.join("\n"),t(),l();break;case"removeCharsFromEnds":const O=parseInt(document.getElementById("removeStartChars").value)||0,W=parseInt(document.getElementById("removeEndChars").value)||0;a=E.value.split("\n").map((e=>e?(0<O&&(e=e.slice(O)),0<W&&0<e.length&&(e=e.slice(0,-W)),e):e)),E.value=a.join("\n"),t(),l();break;case"convertSalawat":a=(o={plain:"صلى الله عليه وسلم",symbol:"ﷺ",tashkeel:"صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ"})[document.getElementById("salawatFrom").value],o=o[document.getElementById("salawatTo").value],a=a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),E.value=E.value.replace(new RegExp(a,"g"),o);break;case"removeKashidas":E.value=E.value.replace(/ـ/g,"");break;case"shaddaB4Haraka":E.value=E.value.replace(RegExp("([ًٌٍَُِّْ])(ّ)","g"),((e,t,a)=>"ْ"===t?e:a+t));break;case"textToArabicDiacritics":case"arabicDiacriticsToText":E.value=Object.entries({"رضي الله عنهما":"رَضِيَ اللَّهُ عَنْهُمَا","رضي الله عنهم":"رَضِيَ اللَّهُ عَنْهُمْ","رضي الله عنها":"رَضِيَ اللَّهُ عَنْهَا","رضي الله عنه":"رَضِيَ اللَّهُ عَنْهُ","عليهما السلام":"عَلَيهِمَا السَّلَامُ","عليهم السلام":"عَلَيهِمُ السَّلَامُ","عليها السلام":"عَلَيهَا السَّلَامُ","عليه السلام":"عَلَيهِ السَّلَامُ","رحمهما الله":"رَحِمَهُمَا اللَّهُ","رحمهم الله":"رَحِمَهُمُ اللَّهُ","رحمها الله":"رَحِمَهَا اللَّهُ","رحمه الله":"رَحِمَهُ اللَّهُ","عز وجل":"عَزَّ وَجَلَّ","جل جلاله":"جَلَّ جَلَاﻟَﻪُ","تبارك وتعالى":"تَبَارَكَ وَتَعَالَى","تعالى":"تَعَالَى"}).reduce(((t,[a,n])=>t.replace(new RegExp(("textToArabicDiacritics"===e?a:n).replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"g"),"textToArabicDiacritics"===e?n:a)),E.value);break;case"removeQuranicMarks":E.value=E.value.replace(/[ۖۗۘۙۚۛۜ۝۞ۣ۟۠ۡۢۤۥۦۧۨ۩۪ۭ۫۬﴾﴿]/g,"").replace(/\s+/g," ").trim();break;case"replaceDoubleBracketsToSingle":E.value=E.value.replace(/\(\(([^)]*)\)\)/g,"($1)");break;case"textToQuranicBrackets":E.value=E.value.replace(/\{/g,"﴾").replace(/\}/g,"﴿").replace(/\*/g,"۝");break;case"quranicToTextBrackets":E.value=E.value.replace(/﴾/g,"{").replace(/﴿/g,"}").replace(/۝/g,"*");break;case"convertPunctuation":a=(o={colon:":",fullstop:".",comma:","})[document.getElementById("punctuationFrom").value],o=o[document.getElementById("punctuationTo").value],a=a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),E.value=E.value.replace(new RegExp(a,"g"),o);break;case"ltrToRtlPunc":E.value=E.value.replace(/[,;?]/g,(e=>({",":"،",";":"؛","?":"؟"}[e]||e)));break;case"rtlToLtrPunc":E.value=E.value.replace(/[،؛؟]/g,(e=>({"،":",","؛":";","؟":"?"}[e]||e)))}t()}(e.target.dataset.action),o.classList.remove("show"))}))})),document.addEventListener("click",l),document.getElementById("copyToClipboard").addEventListener("click",(()=>{navigator.clipboard.writeText(E.value)})),document.getElementById("clearAll").addEventListener("click",(()=>{E.value="",T=[{id:1,content:""}],L.innerHTML='<button class="numbered-tab active" data-tab="1">1</button><button id="addTab">+</button>',C=1,t()}));let A=!0;document.getElementById("toggleDirection").addEventListener("click",(()=>{A=!A,E.style.direction=A?"rtl":"ltr",E.style.textAlign=A?"right":"left"}));const M=[["އަ","a"],["އާ","aa"],["އި","i"],["އީ","ee"],["އު","u"],["އޫ","oo"],["އެ","e"],["އޭ","ey"],["އޮ","o"],["އޯ","oa"],["ުއް","uh"],["ިއް","ih"],["ެއް","eh"],["ަށް","ah"],["ައް","ah"],["ށް","h"],["ތް","i"],["ާއް","aah"],["އް","h"],["ަ","a"],["ާ","aa"],["ި","i"],["ީ","ee"],["ު","u"],["ޫ","oo"],["ެ","e"],["ޭ","ey"],["ޮ","o"],["ޯ","oa"],["ް",""],["ހ","h"],["ށ","sh"],["ނ","n"],["ރ","r"],["ބ","b"],["ޅ","lh"],["ކ","k"],["އ","a"],["ވ","v"],["މ","m"],["ފ","f"],["ދ","dh"],["ތ","th"],["ލ","l"],["ގ","g"],["ޏ","y"],["ސ","s"],["ޑ","d"],["ޒ","z"],["ޓ","t"],["ޔ","y"],["ޕ","p"],["ޖ","j"],["ޗ","ch"],["ޙ","h"],["ޚ","kh"],["ޛ‎","z"],["ޜ‎","z"],["ޝ‎","sh"],["ޝ","sh"],["ޤ","q"],["ޢ","a"],["ޞ","s"],["ޟ","dh"],["ޡ","z"],["ޠ","t"],["ާާޣ","gh"],["ޘ","th"],["ޛ","dh"],["ާާޜ","z"]];document.getElementById("transliterateDvToEn").addEventListener("click",(()=>{r(),E.value=function(e){e=e.replace(/[\u200B-\u200D\uFEFF]/g,"");for(const[t,a]of M)e=e.replace(new RegExp(t,"g"),a);return e.replace(/(^\s*\w|[.!?]\s*\w)/g,(e=>e.toUpperCase()))}(E.value),n(),t()}));const D=[["ـ",""],["آ","އާ"],["ب","ބ"],["ت","ތ"],["ث","ޘ"],["ج","ޖ"],["ح","ޙ"],["خ","ޚ"],["د","ދ"],["ذ","ޛ"],["ر","ރ"],["ز","ޒ"],["س","ސ"],["ش","ޝ"],["ص","ޞ"],["ض","ޟ"],["ط","ޠ"],["ظ","ޡ"],["ع","ޢ"],["غ","ޣ"],["ف","ފ"],["ق","ޤ"],["ك","ކ"],["ل","ލ"],["م","މ"],["ن","ނ"],["ه","ހ"],["و","ވ"],["ي","ޔ"],["ة","ތ"],["ء","އ"],["أ","އ"],["ؤ","އ"],["إ","އ"],["ئ","އ"],["ى","އ"],["َ","ަ"],["ِ","ި"],["ُ","ު"],["ْ","ް"],["ً","ަން"],["ٍ","ިން"],["ٌ","ުން"],["ަا","ާ"],["اލ","ލ"],["ލއްލަހ","ﷲ"],["ލލހ","ﷲ"],["ލއް","އް"],["ާ އްލަ","ަ އްލަ"],["ا",""],["ުވ","ޫ"],["އ އް"," އް"],["ޫ ލ","ު ލ"],["އްލަލ","އްލަ"],["«",'"'],["»",'"']];document.getElementById("transliterateArToDv").addEventListener("click",(()=>{r(),E.value=function(e){e=e.replace(/(.)ّ/g,((e,t)=>`އް${D.find((([e])=>e===t))?.[1]||t}`)),e=(e=e.replace(/ة([َِ ُ ً ٍ ٌ])/g,"ތ$1")).replace(/ة(?![َِ ُ ً ٍ ٌ])/g,"ހ");for(const[t,a]of D)e=e.replace(new RegExp(t,"g"),a);return e}(E.value),t()}));const F=new class{constructor(){this.ehbari="ސުމެއް އެއް ދެ ތިން ހަތަރު ފަސް ހަ ހަތް އަށް ނުވަ ދިހަ އެގާރަ ބާރަ ތޭރަ ސާދަ ފަނަރަ ސޯޅަ ސަތާރަ އަށާރަ ނަވާރަ ވިހި އެކާވީސް ބާވީސް ތޭވީސް ސައުވީސް ފަންސަވީސް ސައްބީސް ހަތާވީސް އަށާވީސް ނަވާވީސް".split(" "),this.dhihabari="ސުން ދިހަ ވިހި ތިރީސް ސާޅީސް ފަންސާސް ފަސްދޮޅަސް ހައްދިހަ އައްޑިހަ ނުވަދިހަ".split(" "),this.sunbari=["","ހާސް","މިލިޔަން","ބިލިޔަން","ޓްރިލިޔަން"]}convert(e){return e?1e3>(e=parseInt(e))?this.thousandSub(e):this.thousandUp(e):null}thousandSub(e){var t="ސަތޭކަ ";if(0>=e||29>=e)return this.ehbari[e];if(99>=e)return t=Math.floor(e/10),0===(e%=10)?this.dhihabari[t]:`${this.dhihabari[t]} ${this.ehbari[e]}`;if(999>=e){const a=e%100;return 2===(e=Math.floor(e/100))&&(this.ehbari[2]="ދުވި",t="ސައްތަ "),0===a?`${this.ehbari[e]} ${t}`:`${this.ehbari[e]} ${t}${this.thousandSub(a)}`}return""}thousandHalf(e){const t=[];for(;0!==e;)t.push(e%1e3),e=Math.floor(e/1e3);return t}thousandUp(e){var t=this.thousandHalf(e);e=t.length-1;const a=[];for(var n of t.reverse()){t=`${this.thousandSub(n)} `;let r=`${this.sunbari[e]} `;if(" "===t)break;"ސުން "!==t&&"ސުމެއް "!==t||(r=t=""),a.push(t+r),--e}return(n=a.join("")).endsWith(",")&&(n=n.slice(0,-1)),n.trim()}};document.getElementById("Nos2DvTxt").addEventListener("click",(()=>{r();const e=E.value.split("\n").map((e=>{const t=e.match(/\d+/g);return t?t.map((e=>F.convert(e).replace(/\s+/g," ").trim())).join("، "):e.trim()}));E.value=e.filter((e=>0<e.length)).join("\n"),t()}));const j=document.getElementById("typoIssuesResults");document.getElementById("findTypoIssues").addEventListener("click",(()=>{const e=E.value;if(window.noFiliExceptions){var t=o(e);c(t)}else(t=document.createElement("script")).src="noFiliExceptions.js",t.onload=()=>{c(o(e))},t.onerror=()=>{console.error("Failed to load exceptions"),j.innerHTML="Error loading exceptions. Continuing without them.";c(o(e))},document.head.appendChild(t)})),document.getElementById("removePunctuation").addEventListener("click",(()=>{r(),E.value=E.value.replace(/[^\w\s]/g,""),t()})),document.getElementById("numerateWords").addEventListener("click",(()=>{const e=document.getElementById("textArea");document.getElementById("numerateWords").textContent.includes("No → Wrd")?(e.value=e.value.replace(/\b\d+\b/g,(e=>function(e){const t=" one two three four five six seven eight nine".split(" "),a="  twenty thirty forty fifty sixty seventy eighty ninety".split(" ");var n="ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen".split(" ");return 10>e?t[e]:20>e?n[e-10]:100>e?(n=e%10,a[Math.floor(e/10)]+(n?`-${t[n]}`:"")):e}(parseInt(e)))).replace(/%/g,"percent"),document.getElementById("numerateWords").textContent="Wrd → No"):(e.value=e.value.replace(/\b(?:\w+(?:-\w+)*)\b/g,(e=>{var t=e.toLowerCase();return e={one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,eleven:11,twelve:12,thirteen:13,fourteen:14,fifteen:15,sixteen:16,seventeen:17,eighteen:18,nineteen:19,twenty:20,thirty:30,forty:40,fifty:50,sixty:60,seventy:70,eighty:80,ninety:90,hundred:100},t.includes("-")?e=(e[(t=t.split("-"))[0]]||0)+(e[t[1]]||0):e=e[t]||t,e})).replace(/\bpercent\b/g,"%"),document.getElementById("numerateWords").textContent="No → Wrd"),t()}));const q=document.getElementById("findInput"),U=document.getElementById("replaceInput");document.getElementById("findAndReplaceText").addEventListener("click",(()=>{var e=q.value;const a=U.value;e&&(e=new RegExp(e.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"g"),E.value=E.value.replace(e,a),t())})),document.getElementById("diffCompare").addEventListener("click",(()=>{window.open("diffCompare.html","_blank")})),document.getElementById("keyboardPage").addEventListener("click",(()=>{window.open("keyboardPage.html","_blank")})),document.getElementById("qrGenerator").addEventListener("click",(()=>{window.open("qrGenerator.html","_blank")})),document.getElementById("fullscreen").addEventListener("click",(()=>{document.fullscreenElement?(document.exitFullscreen(),E.style.height="300px"):(document.documentElement.requestFullscreen(),E.style.height="100vh")})),document.addEventListener("fullscreenchange",(()=>{document.fullscreenElement||(E.style.height="300px")})),s(),setInterval(s,6e4),document.getElementById("toggleMilitaryTime").addEventListener("click",(()=>{const e="true"===localStorage.getItem("militaryTime");localStorage.setItem("militaryTime",!e),s()})),E.addEventListener("input",(e=>{const t=e.target.selectionStart;var a=e.target.value.substring(0,t);"ss-"===a.split(/\s/).pop()&&(a=a.replace(/ss-$/,"ﷺ")+e.target.value.substring(t),e.target.value=a,e.target.setSelectionRange(t,t))})),document.querySelectorAll(".copy-button, .copy-button-lit, .copy-button-other").forEach((e=>{e.addEventListener("click",(async()=>{const t=e.dataset.text||e.textContent.trim();try{await navigator.clipboard.writeText(t),u(e,"Copied")}catch(e){console.error("Failed to copy:",e)}}))})),document.querySelectorAll("button").forEach((e=>{e.addEventListener("click",(t=>{e.closest(".dropdown-button")||u(e,"Clicked")}))}));var R=JSON.parse(localStorage.getItem("editorTabs"));R&&(T=R,T.forEach((e=>{if(1<e.id){const t=document.createElement("button");t.classList.add("numbered-tab"),t.dataset.tab=e.id,t.textContent=e.id,L.insertBefore(t,x)}})),a(parseInt(localStorage.getItem("currentTab"))||1)),setInterval((()=>{T[C-1].content=E.value,localStorage.setItem("editorTabs",JSON.stringify(T)),localStorage.setItem("currentTab",C)}),5e3),t();const P=document.getElementById("calcArea"),N=document.getElementById("addCalcTab"),H=document.querySelector(".calc-numbered-tabs");if(P&&N&&H){let me=1,pe=[{id:1,content:""}];const ve=document.getElementById("sumTotal"),ge=document.getElementById("zakatAmount"),ye=document.getElementById("lineResults"),he=document.getElementById("copyTotal"),be=document.getElementById("clearCalc");function z(){let e=0,t="";P.value.split("\n").forEach((a=>{a=function(e){let t=e.match(/[+-]?\d*\.?\d+(?:,\d{3})*(?:\d*\.?\d+)?/g)||[];e=e.match(/[\+\-\*x\/÷]/g)||[],t=t.map((e=>parseFloat(e.replace(/,/g,""))));for(let a=0;a<e.length;a++)"*"!==e[a]&&"x"!==e[a]&&"/"!==e[a]&&"÷"!==e[a]||(t.splice(a,2,"*"===e[a]||"x"===e[a]?t[a]*t[a+1]:t[a]/t[a+1]),e.splice(a,1),a--);return t.reduce(((e,t)=>e+t),0)}(a),e+=a,t+=`${e.toFixed(2)}\n`})),ve.textContent=e.toFixed(2),ge.textContent=(.025*e).toFixed(2),ye.textContent=t}function O(e){pe[me-1].content=P.value,me=e,P.value=pe[me-1].content,document.querySelectorAll(".calc-numbered-tab").forEach((t=>{t.classList.toggle("active",parseInt(t.dataset.tab)===e)})),z()}N.addEventListener("click",(()=>{const e=pe.length+1;pe.push({id:e,content:""});const t=document.createElement("button");t.classList.add("calc-numbered-tab"),t.dataset.tab=e,t.textContent=e,H.insertBefore(t,N),O(e)})),H.addEventListener("click",(e=>{e.target.classList.contains("calc-numbered-tab")&&O(e=parseInt(e.target.dataset.tab))})),P.addEventListener("input",z),he.addEventListener("click",(()=>{navigator.clipboard.writeText(ve.textContent),u(he,"Copied")})),be.addEventListener("click",(()=>{P.value="",ye.textContent="",ve.textContent="0.00",ge.textContent="0.00",pe=[{id:1,content:""}],me=1;const e=H.querySelectorAll(".calc-numbered-tab");e.forEach((e=>{"1"!==e.dataset.tab&&e.remove()})),e[0].classList.add("active"),u(be,"Cleared")})),(R=JSON.parse(localStorage.getItem("calculatorTabs")))&&(pe=R,pe.forEach((e=>{if(1<e.id){const t=document.createElement("button");t.classList.add("calc-numbered-tab"),t.dataset.tab=e.id,t.textContent=e.id,H.insertBefore(t,N)}})),O(parseInt(localStorage.getItem("currentCalcTab"))||1)),setInterval((()=>{pe[me-1].content=P.value,localStorage.setItem("calculatorTabs",JSON.stringify(pe)),localStorage.setItem("currentCalcTab",me)}),5e3)}const W=document.querySelector(".proportion-container"),Z=document.getElementById("addPropTab"),_=document.querySelector(".prop-numbered-tabs");if(W&&Z&&_){let fe=1,Ee=[{id:1,content:W.innerHTML}];function J(){document.querySelectorAll(".proportion-set").forEach((e=>{e.querySelectorAll(".prop-input").forEach((t=>{t.addEventListener("input",(()=>function(e){if(e=e.querySelectorAll(".prop-input"),3<=Array.from(e).filter((e=>""!==e.value)).length){const t=e[0].value,a=e[1].value,n=e[2].value;t&&a&&n&&(e[3].value=(a/t*n).toFixed(2))}else e[3].value=""}(e)))}))}))}function G(e){Ee[fe-1].content=W.innerHTML,fe=e,W.innerHTML=Ee[fe-1].content,document.querySelectorAll(".prop-numbered-tab").forEach((t=>{t.classList.toggle("active",parseInt(t.dataset.tab)===e)})),J()}Z.addEventListener("click",(()=>{const e=Ee.length+1;Ee.push({id:e,content:W.innerHTML});const t=document.createElement("button");t.classList.add("prop-numbered-tab"),t.dataset.tab=e,t.textContent=e,_.insertBefore(t,Z),G(e)})),_.addEventListener("click",(e=>{e.target.classList.contains("prop-numbered-tab")&&G(e=parseInt(e.target.dataset.tab))})),J(),(R=JSON.parse(localStorage.getItem("proportionTabs")))&&(Ee=R,Ee.forEach((e=>{if(1<e.id){const t=document.createElement("button");t.classList.add("prop-numbered-tab"),t.dataset.tab=e.id,t.textContent=e.id,_.insertBefore(t,Z)}})),G(parseInt(localStorage.getItem("currentPropTab"))||1)),setInterval((()=>{Ee[fe-1].content=W.innerHTML,localStorage.setItem("proportionTabs",JSON.stringify(Ee)),localStorage.setItem("currentPropTab",fe)}),5e3);const Ie=document.getElementById("clearProp");Ie.addEventListener("click",(()=>{document.querySelectorAll(".proportion-set").forEach((e=>{e.querySelectorAll(".prop-input").forEach(((e,t)=>{e.value=2===t?"1":""}))})),Ee=[{id:1,content:W.innerHTML}],fe=1;const e=_.querySelectorAll(".prop-numbered-tab");e.forEach((e=>{"1"!==e.dataset.tab&&e.remove()})),e[0].classList.add("active"),u(Ie,"Cleared")}))}let K="true"===localStorage.getItem("nightCalcMilitaryTime");document.getElementById("maghribTime").addEventListener("change",i),document.getElementById("fajrTime").addEventListener("change",i),document.getElementById("toggleNightCalcFormat").addEventListener("click",(()=>{K=!K,localStorage.setItem("nightCalcMilitaryTime",K),i()}));const Q=e=>btoa(new Uint8Array(e).reduce(((e,t)=>e+String.fromCharCode(t)),"")),V=e=>Uint8Array.from(atob(e),(e=>e.charCodeAt(0))),Y=new TextEncoder,X=new TextDecoder,ee=e=>window.crypto.subtle.importKey("raw",Y.encode(e||"empty"),"PBKDF2",!1,["deriveKey"]),te=(e,t,a)=>window.crypto.subtle.deriveKey({name:"PBKDF2",salt:t,iterations:25e4,hash:"SHA-256"},e,{name:"AES-GCM",length:256},!1,a),ae=document.querySelectorAll(".crypt-tab"),ne=document.querySelectorAll(".crypt-panel");ae.forEach((e=>{e.addEventListener("click",(()=>{ae.forEach((e=>e.classList.remove("active"))),ne.forEach((e=>e.classList.remove("active"))),e.classList.add("active"),document.getElementById(e.dataset.crypttab+"Crypt").classList.add("active")}))}));const re=document.getElementById("encryptButton"),le=document.getElementById("decryptButton"),oe=document.getElementById("copyEncrypted"),ce=document.getElementById("copyDecrypted");re&&re.addEventListener("click",(async()=>{const e=document.getElementById("textToEncrypt").value,t=document.getElementById("encryptPassword").value;if(e)try{const a=await p(e,t);document.getElementById("encryptedText").value=a,u(re,"Encrypted")}catch(e){console.error("Encryption failed:",e),u(re,"Encryption failed")}else u(re,"Please enter text to encrypt")})),le&&le.addEventListener("click",(async()=>{const e=document.getElementById("textToDecrypt").value,t=document.getElementById("decryptPassword").value;if(e)try{const a=await v(e,t);document.getElementById("decryptedText").value=a||"Decryption failed",u(le,a?"Decrypted":"Failed")}catch(e){console.error("Decryption failed:",e),u(le,"Decryption failed"),document.getElementById("decryptedText").value="Decryption failed"}else u(le,"Please enter text to decrypt")})),oe&&oe.addEventListener("click",(()=>{const e=document.getElementById("encryptedText").value;e&&(navigator.clipboard.writeText(e),u(oe,"Copied"))})),ce&&ce.addEventListener("click",(()=>{const e=document.getElementById("decryptedText").value;e&&(navigator.clipboard.writeText(e),u(ce,"Copied"))}));const se=document.getElementById("fileToEncrypt"),ue=document.getElementById("fileToDecrypt"),ie=document.getElementById("fileEncryptButton"),de=document.getElementById("fileDecryptButton");ie?.addEventListener("click",(async()=>{const e=se.files[0],t=document.getElementById("fileEncryptPassword").value;if(e)try{u(ie,"Encrypting...");const a=await g(e),n=await p(new Uint8Array(a),t);y(new Blob([V(n)],{type:"application/octet-stream"}),e.name+".encrypted"),u(ie,"Encrypted")}catch(e){console.error("File encryption failed:",e),u(ie,"Encryption failed")}else u(ie,"Please select a file")})),de?.addEventListener("click",(async()=>{const e=ue.files[0],t=document.getElementById("fileDecryptPassword").value;if(e)try{u(de,"Decrypting...");const a=await g(e),n=await v(Q(new Uint8Array(a)),t);y(new Blob([(new TextEncoder).encode(n)],{type:"application/octet-stream"}),e.name.replace(/\.encrypted$/,"")),u(de,"Decrypted")}catch(e){console.error("File decryption failed:",e),u(de,"Decryption failed")}else u(de,"Please select a file")})),se?.addEventListener("change",(()=>{h(se)})),ue?.addEventListener("change",(()=>{h(ue)})),document.querySelectorAll(".file-label").forEach((e=>{e.addEventListener("dragover",(t=>{t.preventDefault(),e.classList.add("dragover")})),e.addEventListener("dragleave",(()=>{e.classList.remove("dragover")})),e.addEventListener("drop",(t=>{t.preventDefault(),e.classList.remove("dragover");const a=document.getElementById(e.getAttribute("for"));0<(t=t.dataTransfer.files).length&&(a.files=t,h(a))}))}))}));
+// JavaScript code will be added here
+document.addEventListener("DOMContentLoaded", () => {
+  const topTabs = document.querySelectorAll(".top-tab");
+  const tabContents = document.querySelectorAll(".tab-content");
+  const textArea = document.getElementById("textArea");
+  const fontSizeSlider = document.getElementById("fontSizeSlider");
+  const fontSizeInput = document.getElementById("fontSize");
+  const charCount = document.getElementById("charCount");
+  const wordCount = document.getElementById("wordCount");
+  const lineCount = document.getElementById("lineCount");
+  const fileSize = document.getElementById("fileSize");
+  const addTabButton = document.getElementById("addTab");
+  const numberedTabs = document.querySelector(".numbered-tabs");
+
+  let currentTab = 1;
+  let tabs = [{ id: 1, content: "" }];
+
+  // Top tabs functionality
+  topTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      topTabs.forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      tabContents.forEach((content) => {
+        content.classList.remove("active");
+        if (content.id === `${tab.dataset.tab}Tab`) {
+          content.classList.add("active");
+        }
+      });
+    });
+  });
+
+  // Font size functionality
+  fontSizeSlider.addEventListener("input", updateFontSize);
+  fontSizeInput.addEventListener("change", updateFontSize);
+  fontSizeInput.addEventListener("click", showFontSizeDropdown);
+
+  function updateFontSize() {
+    const size = this.value;
+    fontSizeSlider.value = size;
+    fontSizeInput.value = size;
+    textArea.style.fontSize = `${size}px`;
+  }
+
+  function showFontSizeDropdown() {
+    // Implement font size dropdown here
+  }
+
+  // Text area stats update
+  function updateStats() {
+    const text = textArea.value;
+    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    const lines = text ? text.split("\n").length : 0;
+    charCount.textContent = `Char: ${text.length}`;
+    wordCount.textContent = `Wrd: ${words}`;
+    lineCount.textContent = `Ln: ${lines}`;
+    const bytes = new Blob([text]).size;
+    fileSize.textContent =
+      bytes < 1024
+        ? `B: ${bytes}`
+        : bytes < 1048576
+        ? `KB: ${(bytes / 1024).toFixed(2)}`
+        : bytes < 1073741824
+        ? `MB: ${(bytes / 1048576).toFixed(2)}`
+        : `GB: ${(bytes / 1073741824).toFixed(2)}`;
+  }
+
+  textArea.addEventListener("input", debounce(updateStats, 300));
+
+  // Debounce function
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  // Numbered tabs functionality
+  addTabButton.addEventListener("click", () => {
+    const newTabId = tabs.length + 1;
+    tabs.push({ id: newTabId, content: "" });
+    const newTab = document.createElement("button");
+    newTab.classList.add("numbered-tab");
+    newTab.dataset.tab = newTabId;
+    newTab.textContent = newTabId;
+    numberedTabs.insertBefore(newTab, addTabButton);
+    switchTab(newTabId);
+  });
+
+  numberedTabs.addEventListener("click", (e) => {
+    if (e.target.classList.contains("numbered-tab")) {
+      switchTab(parseInt(e.target.dataset.tab));
+    }
+  });
+
+  function switchTab(tabId) {
+    tabs[currentTab - 1].content = textArea.value;
+    currentTab = tabId;
+    textArea.value = tabs.find((tab) => tab.id === tabId).content;
+    document.querySelectorAll(".numbered-tab").forEach((tab) => {
+      tab.classList.toggle("active", parseInt(tab.dataset.tab) === tabId);
+    });
+    updateStats();
+  }
+
+  // =====================================================
+
+  // functions within FUNCTIONS
+
+  function ltrSwitch() {
+    textArea.style.direction = "ltr";
+    textArea.style.textAlign = "left";
+  }
+
+  function rtlSwitch() {
+    textArea.style.direction = "rtl";
+    textArea.style.textAlign = "right";
+  }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  //
+
+  // =====================================================
+
+  //  JavaScript to handle the dropdown functionality:
+
+  // Call this after your DOM is loaded
+  setupDropdowns();
+  //
+
+  // Add near the top of your DOMContentLoaded event handler
+  function setupDropdowns() {
+    document.querySelectorAll(".dropdown-button").forEach((dropdown) => {
+      const button = dropdown.querySelector(".function-button");
+      const content = dropdown.querySelector(".dropdown-content");
+
+      // Toggle dropdown on button click
+      button.addEventListener("click", (e) => {
+        e.stopPropagation();
+        closeAllDropdowns();
+        content.classList.toggle("show");
+      });
+
+      // Prevent closing when clicking inside dropdown content
+      content.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        // Only handle action if clicking a direct action button
+        if (e.target.tagName === "BUTTON" && e.target.dataset.action) {
+          const action = e.target.dataset.action;
+          handleDropdownAction(action);
+          content.classList.remove("show");
+        }
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener("click", closeAllDropdowns);
+  }
+
+  function closeAllDropdowns() {
+    document.querySelectorAll(".dropdown-content").forEach((content) => {
+      content.classList.remove("show");
+    });
+  }
+
+  // =====================================================
+
+  function handleDropdownAction(action) {
+    switch (action) {
+      //  DROPDOWN FUNCTIONS BEGIN FROM HERE BELOW
+
+      case "arabicToRegular":
+        textArea.value = textArea.value.replace(/[٠١٢٣٤٥٦٧٨٩]/g, (d) =>
+          "٠١٢٣٤٥٦٧٨٩".indexOf(d)
+        );
+        break;
+
+      case "regularToArabic":
+        textArea.value = textArea.value.replace(
+          /[0-9]/g,
+          (d) => "٠١٢٣٤٥٦٧٨٩"[d]
+        );
+      //
+
+      case "removeFootnoteNumbers":
+        textArea.value = textArea.value.replace(/⁽[¹²³⁴⁵⁶⁷⁸⁹⁰]+⁾/g, "");
+        break;
+      //
+
+      case "convertNumerals":
+        const numeralMappings = {
+          regular: "0123456789",
+          arabic: "٠١٢٣٤٥٦٧٨٩", // Arabic-Indic
+          superscript: "⁰¹²³⁴⁵⁶⁷⁸⁹", // Superscript
+          mathSansSerif: "𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫", // Mathematical Sans-serif
+          mathSansSerifBold: "𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵", // Mathematical Sans-serif Bold
+          fullWidth: "０１２３４５６７８９", // Fullwidth
+          circled: "⓪①②③④⑤⑥⑦⑧⑨", // Circled
+          negativeCircled: "⓿❶❷❸❹❺❻❼❽❾", // Negative Circled
+        };
+
+        const fromNumerals =
+          numeralMappings[document.getElementById("numeralFrom").value];
+        const toNumerals =
+          numeralMappings[document.getElementById("numeralTo").value];
+
+        textArea.value = textArea.value.replace(/[0-9]/g, (d) => {
+          const index = fromNumerals.indexOf(d);
+          return index !== -1 ? toNumerals[index] : d;
+        });
+        break;
+
+      //
+
+      case "removePrecedingZeros":
+        textArea.value = textArea.value.replace(/\b0+(\d)/g, "$1");
+        break;
+
+      case "removeAllNumbers":
+        textArea.value = textArea.value.replace(/[٠-٩0-9]/g, "");
+        break;
+
+      case "keepOnlyNumbers":
+        textArea.value = textArea.value.replace(/[^٠-٩0-9]/g, "");
+        break;
+
+      // =====================================================
+
+      case "rtlStraightToCurly":
+      case "ltrStraightToCurly":
+        const isRTL = action === "rtlStraightToCurly";
+        textArea.value = textArea.value
+          // Opening doubles
+          .replace(/(\W|^)"(\S)/g, `$1${isRTL ? "\u201D" : "\u201C"}$2`)
+          // Closing doubles
+          .replace(
+            new RegExp(
+              `(${isRTL ? "\u201D" : "\u201C"}[^"]*)"([^"]*$|[^${
+                isRTL ? "\u201D" : "\u201C"
+              }"]*${isRTL ? "\u201D" : "\u201C"})`,
+              "g"
+            ),
+            `$1${isRTL ? "\u201C" : "\u201D"}$2`
+          )
+          // Remaining double closing
+          .replace(/([^0-9])"/g, `$1${isRTL ? "\u201C" : "\u201D"}`)
+          // Opening singles
+          .replace(/(\W|^)'(\S)/g, `$1${isRTL ? "\u2019" : "\u2018"}$2`)
+          // Contractions
+          .replace(/([a-z])'([a-z])/gi, "$1\u2018$2")
+          // Closing singles
+          .replace(
+            /((\u2019[^']*)|[a-z])'([^0-9]|$)/gi,
+            `$1${isRTL ? "\u2018" : "\u2019"}$3`
+          )
+          // Abbrev. years like '93
+          .replace(
+            /(\u2019)([0-9]{2}[^\u2018]*)(\u2019([^0-9]|$)|$|\u2018[a-z])/gi,
+            "\u2018$2$3"
+          )
+          // Backwards apostrophe
+          .replace(
+            /(\B|^)\u2019(?=([^\u2018]*\u2018\b)*([^\u2018\u2019]*\W[\u2018\u2019]\b|[^\u2018\u2019]*$))/gi,
+            "$1\u2018"
+          )
+          // Triple prime
+          .replace(/'''/g, "\u2034")
+          // Double prime
+          .replace(/''/g, "\u2033")
+          // Prime
+          .replace(/'/g, "\u2032");
+        break;
+
+      case "curlyToStraight":
+        textArea.value = textArea.value
+          .replace(/[\u2018\u2019]/g, "'")
+          .replace(/[\u201C\u201D]/g, '"');
+        break;
+
+      case "reverseCurlyQuotes":
+        textArea.value = textArea.value
+          .replace(/“|”/g, (match) => (match === "“" ? "”" : "“")) // Swap curly double quotes
+          .replace(/‘|’/g, (match) => (match === "‘" ? "’" : "‘")) // Swap curly single quotes
+          .replace(/❝|❞/g, (match) => (match === "❝" ? "❞" : "❝"))
+          .replace(/🙶|🙷/g, (match) => (match === "🙶" ? "🙷" : "🙷"));
+        break;
+
+      //
+
+      case "convertQuotes":
+        const quoteMappings = {
+          straightSingle: ["'", "'"],
+          straightDouble: ['"', '"'],
+          ltrCurlyDouble: ["“", "”"], // Correct LTR curly double quotes
+          rtlCurlyDouble: ["”", "“"], // Correct RTL curly double quotes
+          ltrCurlySingle: ["‘", "’"], // Correct LTR curly single quotes
+          rtlCurlySingle: ["’", "‘"], // Correct RTL curly single quotes
+          angleQuotes: ["«", "»"],
+          doubleBrackets: ["((", "))"],
+          heavyCommaQuotes: ["❝", "❞"],
+          sansSerifHeavyCommaQuotes: ["🙶", "🙷"],
+        };
+
+        const fromQuotes =
+          quoteMappings[document.getElementById("quoteFrom").value];
+        const toQuotes =
+          quoteMappings[document.getElementById("quoteTo").value];
+
+        // Escape special characters for regex
+        const escapedFromOpen = fromQuotes[0].replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        );
+        const escapedFromClose = fromQuotes[1].replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        );
+
+        textArea.value = textArea.value.replace(
+          new RegExp(
+            `${escapedFromOpen}([^${escapedFromClose}]*)${escapedFromClose}`,
+            "g"
+          ),
+          `${toQuotes[0]}$1${toQuotes[1]}`
+        );
+        break;
+
+      /* OLD CODE
+          let isSmartQuotes = false;
+  document.getElementById("convertQuotes").addEventListener("click", () => {
+    if (isSmartQuotes) {
+      // Convert smart quotes to straight quotes
+      textArea.value = textArea.value
+        .replace(/[\u2018\u2019]/g, "'")
+        .replace(/[\u201C\u201D]/g, '"');
+    } else {
+      // Convert straight quotes to smart quotes for RTL
+      textArea.value = textArea.value
+        .replace(/(\W|^)"(\S)/g, "$1\u201D$2") // opening doubles
+        .replace(/(\u201D[^"]*)"([^"]*$|[^\u201D"]*\u201D)/g, "$1\u201C$2") // closing doubles
+        .replace(/([^0-9])"/g, "$1\u201C") // remaining double closing
+        .replace(/(\W|^)'(\S)/g, "$1\u2019$2") // opening singles
+        .replace(/([a-z])'([a-z])/gi, "$1\u2018$2") // contractions
+        .replace(/((\u2019[^']*)|[a-z])'([^0-9]|$)/gi, "$1\u2018$3") // closing singles
+        .replace(
+          /(\u2019)([0-9]{2}[^\u2018]*)(\u2019([^0-9]|$)|$|\u2018[a-z])/gi,
+          "\u2018$2$3"
+        ) // abbrev. years like '93
+        .replace(
+          /(\B|^)\u2019(?=([^\u2018]*\u2018\b)*([^\u2018\u2019]*\W[\u2018\u2019]\b|[^\u2018\u2019]*$))/gi,
+          "$1\u2018"
+        ) // backwards apostrophe
+        .replace(/'''/g, "\u2034") // triple prime
+        .replace(/''/g, "\u2033") // double prime
+        .replace(/'/g, "\u2032"); // prime
+    }
+    isSmartQuotes = !isSmartQuotes;
+    updateStats();
+  });
+  //
+  */
+
+      // =====================================================
+
+      // Web Languages
+
+      case "removeJsComments":
+        textArea.value = textArea.value.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "");
+        ltrSwitch();
+        break;
+
+      case "removeHtmlComments":
+        textArea.value = textArea.value.replace(/<!--[\s\S]*?-->/g, "");
+        ltrSwitch();
+        break;
+
+      case "removeCssComments":
+        textArea.value = textArea.value.replace(/\/\*[\s\S]*?\*\//g, "");
+        ltrSwitch();
+        break;
+
+      //
+
+      case "removePowershellComments":
+        textArea.value = textArea.value
+          .replace(/#.*$/gm, "") // Single line comments
+          .replace(/<#[\s\S]*?#>/g, ""); // Multi-line comments
+        ltrSwitch();
+        break;
+
+      case "removePythonComments":
+        textArea.value = textArea.value
+          .replace(/#.*$/gm, "") // Single line comments
+          .replace(/'''[\s\S]*?'''|"""[\s\S]*?"""/g, ""); // Triple quoted strings
+        ltrSwitch();
+        break;
+
+      case "removePhpComments":
+        textArea.value = textArea.value.replace(
+          /\/\*[\s\S]*?\*\/|\/\/.*|#.*$/gm,
+          ""
+        );
+        ltrSwitch();
+        break;
+
+      // C-Style Languages
+      case "removeCComments":
+        textArea.value = textArea.value.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "");
+        ltrSwitch();
+        break;
+
+      case "removeCSharpComments":
+        textArea.value = textArea.value.replace(
+          /\/\*[\s\S]*?\*\/|\/\/\/.*|\/\/.*/g,
+          ""
+        ); // Includes XML doc comments
+        ltrSwitch();
+        break;
+
+      case "removeJavaComments":
+        textArea.value = textArea.value.replace(
+          /\/\*[\s\S]*?\*\/|\/\*\*[\s\S]*?\*\/|\/\/.*/g,
+          ""
+        ); // Includes JavaDoc
+        ltrSwitch();
+        break;
+
+      // Scripting Languages
+      case "removeRubyComments":
+        textArea.value = textArea.value
+          .replace(/#.*$/gm, "") // Single line comments
+          .replace(/^=begin[\s\S]*?^=end/gm, ""); // Multi-line comments
+        ltrSwitch();
+        break;
+
+      // Shell Scripts
+      case "removeBashComments":
+        textArea.value = textArea.value.replace(/#.*$/gm, "");
+        ltrSwitch();
+        break;
+
+      // Modern Languages
+      case "removeGoComments":
+        textArea.value = textArea.value.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "");
+        ltrSwitch();
+        break;
+
+      case "removeRustComments":
+        textArea.value = textArea.value.replace(
+          /\/\*[\s\S]*?\*\/|\/\/!.*|\/\/.*/g,
+          ""
+        ); // Includes doc comments
+        ltrSwitch();
+        break;
+
+      case "removeSwiftComments":
+        textArea.value = textArea.value.replace(
+          /\/\*[\s\S]*?\*\/|\/\/\/.*|\/\/.*/g,
+          ""
+        ); // Includes doc comments
+        ltrSwitch();
+        break;
+
+      case "removeKotlinComments":
+        textArea.value = textArea.value.replace(
+          /\/\*[\s\S]*?\*\/|\/\*\*[\s\S]*?\*\/|\/\/.*/g,
+          ""
+        ); // Includes KDoc
+        ltrSwitch();
+        break;
+
+      case "removeDartComments":
+        textArea.value = textArea.value.replace(
+          /\/\*[\s\S]*?\*\/|\/\/\/.*|\/\/.*/g,
+          ""
+        ); // Includes doc comments
+        ltrSwitch();
+        break;
+
+      // Database
+      case "removeSqlComments":
+        textArea.value = textArea.value.replace(/\/\*[\s\S]*?\*\/|--.*$/gm, ""); // Multi-line and single-line comments
+        ltrSwitch();
+        break;
+
+      // =====================================================
+
+      case "textToParagraphs":
+        textArea.value = textArea.value
+          .split("\n")
+          .filter((line) => line.trim())
+          .map((line) => `<p>${line}</p>`)
+          .join("\n");
+        ltrSwitch();
+        break;
+
+      case "textToBrTags":
+        textArea.value = textArea.value.split("\n").join("<br>\n");
+        ltrSwitch();
+        break;
+
+      case "textToOrderedList":
+        textArea.value =
+          "<ol>\n" +
+          textArea.value
+            .split("\n")
+            .filter((line) => line.trim())
+            .map((line) => `  <li>${line}</li>`)
+            .join("\n") +
+          "\n</ol>";
+        ltrSwitch();
+        break;
+
+      case "textToUnorderedList":
+        textArea.value =
+          "<ul>\n" +
+          textArea.value
+            .split("\n")
+            .filter((line) => line.trim())
+            .map((line) => `  <li>${line}</li>`)
+            .join("\n") +
+          "\n</ul>";
+        ltrSwitch();
+        break;
+
+      case "addBulletPoints":
+        textArea.value = textArea.value
+          .split("\n")
+          .map((line) => (line.trim() ? `• ${line}` : line))
+          .join("\n");
+        ltrSwitch();
+        break;
+
+      case "removeHtmlTags":
+        textArea.value = textArea.value.replace(/<[^>]*>/g, "");
+        break;
+
+      // =====================================================
+
+      case "removeArabicDiacritics":
+        textArea.value = textArea.value.replace(
+          /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED]/g,
+          ""
+        );
+        break;
+      case "removeDhivehiFili":
+        textArea.value = textArea.value.replace(/[\u07A6-\u07B0]/g, "");
+        break;
+
+      // RMV THIKIJEHI THAANA
+      case "removeThikijehiThaana":
+        // Define the replacement map
+        const thikijehiReplacements = {
+          ޘ: "ސ",
+          ޙ: "ހ",
+          ޛ: "ޒ",
+          ޜ: "ޒ",
+          ޞ: "ސ",
+          ޠ: "ތ",
+          ޡ: "ޒ",
+          ޢ: "އ",
+          ޤ: "ގ",
+          ޥ: "ވ",
+        };
+
+        textArea.value = textArea.value.replace(
+          /[ޘޙޛޜޞޠޡޢޤޥ]/g,
+          (char) => thikijehiReplacements[char] || char
+        );
+        break;
+      //
+
+      // =====================================================
+
+      case "saveFile":
+        const blob = new Blob([textArea.value], {
+          type: "text/plain;charset=utf-8",
+        });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "saved_text.txt";
+        a.click();
+        break;
+
+      case "loadFile":
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "text/plain";
+        input.onchange = (e) => {
+          const file = e.target.files[0];
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            textArea.value = event.target.result;
+            updateStats();
+          };
+          reader.readAsText(file);
+        };
+        input.click();
+        break;
+
+      // =====================================================
+
+      case "titleCase":
+        textArea.value = textArea.value.replace(
+          /\w\S*/g,
+          (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+        );
+        break;
+
+      case "sentenceCase":
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/(^\w|\.\s+\w)/g, (letter) => letter.toUpperCase());
+        break;
+
+      case "lowercase":
+        textArea.value = textArea.value.toLowerCase();
+        break;
+
+      case "UPPERCASE":
+        textArea.value = textArea.value.toUpperCase();
+        break;
+
+      case "alternatingCase":
+        textArea.value = textArea.value
+          .split("")
+          .map((char, i) =>
+            i % 2 === 0 ? char.toLowerCase() : char.toUpperCase()
+          )
+          .join("");
+        break;
+
+      case "inverseCase":
+        textArea.value = textArea.value
+          .split("")
+          .map((char) =>
+            char === char.toUpperCase()
+              ? char.toLowerCase()
+              : char.toUpperCase()
+          )
+          .join("");
+        break;
+
+      case "randomCase":
+        textArea.value = textArea.value
+          .split("")
+          .map((char) =>
+            Math.random() > 0.5 ? char.toUpperCase() : char.toLowerCase()
+          )
+          .join("");
+        break;
+
+      case "camelCase":
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/[^a-zA-Z0-9]+(.)/g, (match, char) => char.toUpperCase());
+        break;
+
+      case "pascalCase":
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/(^|[^a-zA-Z0-9]+)(.)/g, (match, separator, char) =>
+            char.toUpperCase()
+          );
+        break;
+
+      case "snakeCase":
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/[^a-zA-Z0-9]+/g, "_")
+          .replace(/^_+|_+$/g, "");
+        break;
+
+      case "constantCase":
+        textArea.value = textArea.value
+          .toUpperCase()
+          .replace(/[^A-Z0-9]+/g, "_")
+          .replace(/^_+|_+$/g, "");
+        break;
+
+      case "slugCase":
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/[^a-zA-Z0-9]+/g, "-")
+          .replace(/^-+|-+$/g, "");
+        break;
+
+      case "dotCase":
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/[^a-zA-Z0-9]+/g, ".")
+          .replace(/^\.+|\.+$/g, "");
+        break;
+
+      case "flatcase":
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/[^a-zA-Z0-9]+/g, "");
+        break;
+
+      // removing underscores and hyphens
+      case "removeUnderscores":
+        textArea.value = textArea.value.replace(/_/g, " ");
+        break;
+
+      case "removeHyphens":
+        textArea.value = textArea.value.replace(/-/g, " ");
+        break;
+
+      // =====================================================
+
+      case "removeDuplicateLines":
+        textArea.value = [...new Set(textArea.value.split("\n"))].join("\n");
+        break;
+
+      case "keepDuplicateLines":
+        const allLines = textArea.value.split("\n");
+        const lineCount = {};
+
+        // Count occurrences of each line
+        allLines.forEach((line) => {
+          lineCount[line] = (lineCount[line] || 0) + 1;
+        });
+
+        // Keep only lines that appear more than once
+        const duplicateLines = allLines.filter((line) => lineCount[line] > 1);
+        textArea.value = duplicateLines.join("\n");
+        break;
+
+      case "findAdjacentDuplicates":
+        const textLines = textArea.value.split("\n");
+        const adjacentDuplicates = [];
+
+        for (let i = 0; i < textLines.length; i++) {
+          const currentLine = textLines[i];
+          const prevLine = i > 0 ? textLines[i - 1] : null;
+          const nextLine = i < textLines.length - 1 ? textLines[i + 1] : null;
+
+          // Check if current line matches previous or next line
+          if (currentLine === prevLine || currentLine === nextLine) {
+            adjacentDuplicates.push(currentLine);
+          }
+        }
+
+        textArea.value = adjacentDuplicates.join("\n");
+        break;
+
+      case "sortLinesAscending":
+        textArea.value = textArea.value
+          .split("\n")
+          .sort((a, b) => a.localeCompare(b))
+          .join("\n");
+        break;
+
+      case "sortLinesDescending":
+        textArea.value = textArea.value
+          .split("\n")
+          .sort((a, b) => b.localeCompare(a))
+          .join("\n");
+        break;
+
+      //
+
+      // Add this to your handleDropdownAction function
+      case "addLineNumbers":
+        const addSeparator = document.getElementById("addNumbersWith").value;
+        const textToNumber = textArea.value.split("\n");
+        const withNumbers = textToNumber.map(
+          (line, index) => `${index + 1}${addSeparator} ${line}`
+        );
+        textArea.value = withNumbers.join("\n");
+        break;
+
+      case "removeLineNumbers":
+        const removeSeparator =
+          document.getElementById("removeNumbersWith").value;
+        const textToClean = textArea.value.split("\n");
+        // Escape special characters for regex
+        const escapedSeparator = removeSeparator.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        );
+        const pattern = new RegExp(`^\\d+${escapedSeparator}\\s+`);
+        const withoutNumbers = textToClean.map((line) =>
+          line.replace(pattern, "")
+        );
+        textArea.value = withoutNumbers.join("\n");
+        break;
+
+      case "splitIntoWords":
+        textArea.value = textArea.value
+          .split(/\s+/)
+          .filter((word) => word.length > 0)
+          .join("\n");
+        break;
+
+      case "sortWordsByFrequency":
+        scrollToTop();
+        const text = textArea.value;
+        const words = text.toLowerCase().match(/\b[\w']+\b/g) || [];
+        const frequency = {};
+
+        words.forEach((word) => {
+          frequency[word] = (frequency[word] || 0) + 1;
+        });
+
+        const sortedWords = Object.entries(frequency)
+          .sort((a, b) => b[1] - a[1])
+          .map(([word, freq]) => `${freq}: ${word}`);
+
+        textArea.value = sortedWords.join("\n");
+        break;
+
+      case "sortLinesByFrequency":
+        scrollToTop();
+        const lines = textArea.value
+          .split("\n")
+          .filter((line) => line.trim() !== "");
+        const lineFrequency = {};
+
+        lines.forEach((line) => {
+          lineFrequency[line] = (lineFrequency[line] || 0) + 1;
+        });
+
+        const sortedLines = Object.entries(lineFrequency)
+          .sort((a, b) => b[1] - a[1])
+          .map(([line, freq]) => `${freq}: ${line}`);
+
+        textArea.value = sortedLines.join("\n");
+        break;
+
+      case "randomizeLines":
+        textArea.value = textArea.value
+          .split("\n")
+          .sort(() => Math.random() - 0.5)
+          .join("\n");
+        break;
+
+      case "reverseTextHorizontal":
+        textArea.value = textArea.value.split("").reverse().join("");
+        break;
+
+      case "reverseTextVertical":
+        textArea.value = textArea.value.split("\n").reverse().join("\n");
+        break;
+
+      //
+
+      case "checkLineNumberSequence":
+        scrollToTop();
+        const linesToCheck = textArea.value.split("\n");
+        const result = [];
+        let expectedNumber = 1;
+        let hasNumbers = false;
+
+        for (let i = 0; i < linesToCheck.length; i++) {
+          const line = linesToCheck[i].trim();
+
+          // Skip empty lines
+          if (line === "") {
+            result.push(line);
+            continue;
+          }
+
+          // Try to extract number from the beginning of the line
+          const numberMatch = line.match(/^(\d+)/);
+
+          if (numberMatch) {
+            hasNumbers = true;
+            const currentNumber = parseInt(numberMatch[1]);
+
+            // If this is the first number we've found, set expected number
+            if (result.length === 0 || !result.some((l) => /\d+/.test(l))) {
+              expectedNumber = currentNumber;
+            }
+
+            // Check if the number is consecutive
+            if (currentNumber !== expectedNumber) {
+              // Add error message before the non-consecutive line
+              result.push("[!! NOT CONSECUTIVE !!]");
+            }
+
+            result.push(line);
+            expectedNumber = currentNumber + 1;
+          } else {
+            // Line doesn't start with a number, just add it
+            result.push(line);
+          }
+        }
+
+        // If no numbers were found, show a message
+        if (!hasNumbers) {
+          alert("No line numbers found to check for sequence.");
+          return;
+        }
+
+        textArea.value = result.join("\n");
+        break;
+
+      //
+
+      case "addPrefixSuffix": {
+        const prefix = document.getElementById("addPrefixInput").value;
+        const suffix = document.getElementById("addSuffixInput").value;
+
+        const lines = textArea.value.split("\n");
+        const modifiedLines = lines.map((line) => prefix + line + suffix);
+        textArea.value = modifiedLines.join("\n");
+
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+
+      case "removePrefixSuffix": {
+        const prefix = document.getElementById("removePrefixInput").value;
+        const suffix = document.getElementById("removeSuffixInput").value;
+
+        const lines = textArea.value.split("\n");
+        const modifiedLines = lines.map((line) => {
+          let modifiedLine = line;
+          if (prefix && modifiedLine.startsWith(prefix)) {
+            modifiedLine = modifiedLine.slice(prefix.length);
+          }
+          if (suffix && modifiedLine.endsWith(suffix)) {
+            modifiedLine = modifiedLine.slice(0, -suffix.length);
+          }
+          return modifiedLine;
+        });
+
+        textArea.value = modifiedLines.join("\n");
+
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+
+      case "removeCharsFromEnds": {
+        const charsFromStart =
+          parseInt(document.getElementById("removeStartChars").value) || 0;
+        const charsFromEnd =
+          parseInt(document.getElementById("removeEndChars").value) || 0;
+
+        const lines = textArea.value.split("\n");
+        const modifiedLines = lines.map((line) => {
+          // Handle empty lines
+          if (!line) return line;
+
+          // Remove from start
+          let modifiedLine = line;
+          if (charsFromStart > 0) {
+            modifiedLine = modifiedLine.slice(charsFromStart);
+          }
+
+          // Remove from end
+          if (charsFromEnd > 0 && modifiedLine.length > 0) {
+            modifiedLine = modifiedLine.slice(0, -charsFromEnd);
+          }
+
+          return modifiedLine;
+        });
+
+        textArea.value = modifiedLines.join("\n");
+
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+
+      // =====================================================
+
+      case "decodeUnicode":
+        textArea.value = textArea.value.replace(
+          /\\u([0-9a-fA-F]{4})/g,
+          function (match, group1) {
+            return String.fromCharCode(parseInt(group1, 16));
+          }
+        );
+        ltrSwitch();
+        break;
+
+      case "encodeUnicode":
+        textArea.value = textArea.value.replace(/[\s\S]/g, function (char) {
+          let hex = char.charCodeAt(0).toString(16);
+          // Pad with zeros to ensure 4 digits
+          while (hex.length < 4) hex = "0" + hex;
+          return "\\u" + hex;
+        });
+        ltrSwitch();
+        break;
+
+      case "decodeURL":
+        try {
+          textArea.value = decodeURI(textArea.value);
+        } catch (e) {
+          alert("Invalid URL encoding");
+        }
+        ltrSwitch();
+        break;
+
+      case "encodeURL":
+        textArea.value = encodeURI(textArea.value);
+        ltrSwitch();
+        break;
+
+      case "whichUnicodeCharacter":
+        const inputText = textArea.value;
+        let output = "";
+        for (let i = 0; i < inputText.length; i++) {
+          const codePoint = inputText.codePointAt(i);
+          const unicodeLink = `https://codepoints.net/U+${codePoint
+            .toString(16)
+            .toUpperCase()
+            .padStart(4, "0")}`;
+          output += `U+${codePoint
+            .toString(16)
+            .toUpperCase()
+            .padStart(4, "0")} : ${inputText[i]} : ${unicodeLink}\n`;
+          if (codePoint > 0xffff) i++; // Increment i again if surrogate pair
+        }
+        textArea.value = output;
+        ltrSwitch();
+        break;
+
+      //
+
+      case "textToLeet":
+        const leetMap = {
+          a: "4",
+          e: "3",
+          i: "!",
+          o: "0",
+          t: "7",
+          l: "1",
+          s: "5",
+        };
+        textArea.value = textArea.value
+          .toLowerCase()
+          .replace(/[aeiotls]/g, (char) => leetMap[char]);
+        ltrSwitch();
+        break;
+
+      case "leetToText":
+        const reverseLeetMap = {
+          4: "a",
+          3: "e",
+          "!": "i",
+          0: "o",
+          7: "t",
+          1: "l",
+          5: "s",
+        };
+        textArea.value = textArea.value.replace(
+          /[43!0715]/g,
+          (char) => reverseLeetMap[char]
+        );
+        ltrSwitch();
+        break;
+
+      /* previously used:
+  const leetMap = {
+                a: "4",
+                e: "3",
+                l: "1",
+                o: "0",
+                s: "5",
+                t: "7",
+                a: "@",
+                // 4 λ ∂ α æ Λ
+                b: "8",
+                // ß
+                c: "€",
+                // ( ¢ ζ
+                d: "∂",
+                // ð Ð đ δ
+                e: "3",
+                // £ € ə ε ξ ℇ
+                f: "ƒ",
+                // ʃ
+                g: "9",
+                // ℊ
+                h: "#",
+                i: "!",
+                // ι
+                j: "ʝ",
+                // ĵ ¿
+                k: "ɮ",
+                // ₭
+                l: "ʅ",
+                // £ ℓ
+                m: "ണ",
+                // Պ സ ന ൩ ന ണ
+                n: "π",
+                // ₪ η
+                o: "0",
+                // ¤ Ω ø θ σ
+                p: "ρ",
+                // ? ₱ þ ¶
+                q: "ℚ",
+                //
+                r: "₹",
+                // Я
+                s: "$",
+                // §
+                t: "†",
+                // 7 + λ τ
+                u: "µ",
+                // Ü
+                v: "√",
+                // ▼ ѵ υ
+                w: "ω",
+                // Ш ɰ
+                x: "×",
+                // * Ж % χ א
+                y: "γ",
+                // Ψ ¥  Ч ψ
+                z: "2",
+              };
+              */
+      //
+
+      // Add these cases to your switch statement
+      case "textToBinary":
+        // Convert each character to its ASCII value, then to binary
+        textArea.value = textArea.value
+          .split("")
+          .map((char) => {
+            // Get ASCII code for each character
+            const ascii = char.charCodeAt(0);
+            // Convert to 8-bit binary representation with padding
+            return ascii.toString(2).padStart(8, "0");
+          })
+          .join(" "); // Add spaces between binary codes for readability
+        break;
+
+      case "binaryToText":
+        // Split by spaces, convert each binary code back to a character
+        try {
+          textArea.value = textArea.value
+            .trim()
+            .split(" ")
+            .map((binary) => {
+              // Convert binary to decimal (ASCII)
+              const decimal = parseInt(binary, 2);
+              // Convert ASCII to character
+              return String.fromCharCode(decimal);
+            })
+            .join("");
+        } catch (e) {
+          alert(
+            "Error converting machine code to text. Make sure you have valid binary numbers separated by spaces."
+          );
+        }
+        break;
+      //
+
+      // =====================================================
+
+      case "convertBrackets":
+        const bracketMappings = {
+          round: ["(", ")"],
+          square: ["[", "]"],
+          superscript: ["⁽", "⁾"],
+          corner: ["⌜", "⌝"],
+        };
+
+        const fromBrackets =
+          bracketMappings[document.getElementById("bracketFrom").value];
+        const toBrackets =
+          bracketMappings[document.getElementById("bracketTo").value];
+        const direction = document.getElementById("bracketDirection").value;
+        const toType = document.getElementById("bracketTo").value;
+        const fromType = document.getElementById("bracketFrom").value;
+
+        // Create a regex that matches either opening or closing bracket
+        const fromRegex = new RegExp(
+          `\\${fromBrackets[0]}|\\${fromBrackets[1]}`,
+          "g"
+        );
+
+        textArea.value = textArea.value.replace(fromRegex, (match) => {
+          if (direction === "rtl") {
+            if (toType === "corner") {
+              // When converting TO corner brackets in RTL, reverse them
+              return match === fromBrackets[0] ? toBrackets[1] : toBrackets[0];
+            } else if (fromType === "corner") {
+              // When converting FROM corner brackets in RTL, maintain direction
+              return match === fromBrackets[0] ? toBrackets[0] : toBrackets[1];
+            } else {
+              // For other RTL conversions, maintain direction
+              return match === fromBrackets[0] ? toBrackets[0] : toBrackets[1];
+            }
+          } else {
+            // For LTR, maintain direction
+            return match === fromBrackets[0] ? toBrackets[0] : toBrackets[1];
+          }
+        });
+        break;
+
+      case "reverseBracketDirection":
+        const allBrackets = {
+          "(": ")",
+          ")": "(",
+          "[": "]",
+          "]": "[",
+          "⁽": "⁾",
+          "⁾": "⁽",
+          "⌜": "⌝",
+          "⌝": "⌜",
+        };
+
+        const bracketRegex = /[()[\]⁽⁾⌜⌝]/g;
+
+        textArea.value = textArea.value.replace(
+          bracketRegex,
+          (match) => allBrackets[match]
+        );
+        break;
+
+      // =====================================================
+
+      case "convertNumberBrackets":
+        const numberBracketMappings = {
+          none: ["", ""],
+          round: ["(", ")"],
+          square: ["[", "]"],
+          superscript: ["⁽", "⁾"],
+        };
+
+        // Add superscript number mappings
+        const superscriptNumbers = {
+          0: "⁰",
+          1: "¹",
+          2: "²",
+          3: "³",
+          4: "⁴",
+          5: "⁵",
+          6: "⁶",
+          7: "⁷",
+          8: "⁸",
+          9: "⁹",
+        };
+
+        const fromNumberBrackets =
+          numberBracketMappings[
+            document.getElementById("numberBracketFrom").value
+          ];
+        const toNumberBrackets =
+          numberBracketMappings[
+            document.getElementById("numberBracketTo").value
+          ];
+        const toNumBrackType = document.getElementById("numberBracketTo").value;
+
+        // Convert from current format to plain numbers first
+        let processedText = textArea.value;
+        if (fromNumberBrackets[0]) {
+          const fromRegex = new RegExp(
+            `\\${fromNumberBrackets[0]}\\d+\\${fromNumberBrackets[1]}`,
+            "g"
+          );
+          processedText = processedText.replace(fromRegex, (match) =>
+            match.slice(
+              fromNumberBrackets[0].length,
+              -fromNumberBrackets[1].length
+            )
+          );
+        }
+
+        // Then convert to target format
+        if (toNumberBrackets[0]) {
+          processedText = processedText.replace(/\d+/g, (match) => {
+            const numbers =
+              toNumBrackType === "superscript"
+                ? match
+                    .split("")
+                    .map((n) => superscriptNumbers[n])
+                    .join("")
+                : match;
+            return `${toNumberBrackets[0]}${numbers}${toNumberBrackets[1]}`;
+          });
+        }
+
+        textArea.value = processedText;
+        break;
+
+      //
+
+      // Then in your handleDropdownAction function:
+      case "removeNumberBrackets":
+        const removeNumberBracketMappings = {
+          round: ["(", ")"],
+          square: ["[", "]"],
+          superscript: ["⁽", "⁾"],
+          none: ["", ""],
+        };
+        const bracketTypeToRemove =
+          removeNumberBracketMappings[
+            document.getElementById("numberBracketRemove").value
+          ];
+
+        // Create regex to match numbers with the selected bracket style
+        const removeRegex = new RegExp(
+          `\\${bracketTypeToRemove[0]}\\d+\\${bracketTypeToRemove[1]}`,
+          "g"
+        );
+
+        // Remove the entire pattern (brackets and numbers)
+        textArea.value = textArea.value.replace(removeRegex, "");
+        updateStats();
+        break;
+
+      // =====================================================
+
+      // Add these cases to your handleDropdownAction function
+      case "keepOnlyDhivehi":
+        textArea.value = textArea.value.replace(/[^\u0780-\u07BF\s]/g, "");
+        break;
+
+      case "removeAllDhivehi":
+        textArea.value = textArea.value.replace(/[\u0780-\u07BF]/g, "");
+        break;
+
+      case "keepOnlyArabic":
+        //textArea.value = textArea.value.replace(/[^\u0600-\u06FF\s]/g, "");
+        // https://notes.yshalsager.com/en/notes/Regex%20Match%20Arabic%20Letters/
+        textArea.value = textArea.value.replace(
+          /[^\u0600-\u06ff\u0750-\u077f\ufb50-\ufbc1\ufbd3-\ufd3f\ufd50-\ufd8f\ufd92-\ufdc7\ufe70-\ufefc\uFDF0-\uFDFD\s]/g,
+          ""
+        );
+        break;
+
+      case "removeAllArabic":
+        textArea.value = textArea.value.replace(
+          /[\u0600-\u06ff\u0750-\u077f\ufb50-\ufbc1\ufbd3-\ufd3f\ufd50-\ufd8f\ufd92-\ufdc7\ufe70-\ufefc\uFDF0-\uFDFD]/g,
+          ""
+        );
+        break;
+
+      case "keepOnlyEnglish":
+        textArea.value = textArea.value.replace(/[^A-Za-z\s]/g, "");
+        break;
+
+      case "removeAllEnglish":
+        textArea.value = textArea.value.replace(/[A-Za-z]/g, "");
+        break;
+
+      // =====================================================
+
+      // Add these cases to your handleDropdownAction function
+      case "removeSpacesTabsAndSingleLines":
+        textArea.value = textArea.value
+          .replace(/^ +| +$/gm, "") // Remove spaces at line starts/ends
+          .replace(/ +/g, " ") // Multiple spaces to single
+          .replace(/\t+/g, " ") // Multiple tabs to a single space
+          .trim() // Trim whole text
+          .replace(/\n{2,}/g, "\n"); // More than single empty line to single
+        break;
+
+      case "removeSpacesAndDoubleLines":
+        textArea.value = textArea.value
+          .replace(/^ +| +$/gm, "") // Remove spaces at line starts/ends
+          .replace(/ +/g, " ") // Multiple spaces to single
+          .trim() // Trim whole text
+          .replace(/\n{3,}/g, "\n\n"); // More than double empty line to double
+        break;
+
+      case "convertSingleToDoubleNewlines":
+        textArea.value = textArea.value.replace(
+          /([^\n])\n([^\n])/g,
+          "$1\n\n$2"
+        ); // Convert single newlines to double
+        break;
+
+      case "wordWrap":
+        textArea.value = textArea.value.replace(/\s+/g, " ").trim();
+        break;
+
+      case "removeExtraSpacesOnly":
+        textArea.value = textArea.value
+          .replace(/^ +| +$/gm, "") // Remove spaces at line starts/ends
+          .replace(/ +/g, " ") // Multiple spaces to single
+          .trim(); // Trim whole text
+        break;
+
+      case "convertTabsToSpaces":
+        textArea.value = textArea.value
+          .replace(/\t+/g, " ") // Multiple tabs to a single space
+          .trim(); // Trim whole text
+        break;
+
+      case "removeSingleLinesOnly":
+        textArea.value = textArea.value
+          .trim() // Trim whole text
+          .replace(/\n{2,}/g, "\n"); // More than single empty line to single
+        break;
+
+      case "removeDoubleLinesOnly":
+        textArea.value = textArea.value
+          .trim() // Trim whole text
+          .replace(/\n{3,}/g, "\n\n"); // More than double empty line to double
+        break;
+
+      // =====================================================
+
+      case "dotsToEllipsis":
+        textArea.value = textArea.value.replace(/\.{3}/g, "…");
+        break;
+
+      case "ellipsisToDots":
+        textArea.value = textArea.value.replace(/…/g, "...");
+        break;
+
+      // =====================================================
+
+      case "convertDashes":
+        const dashMappings = {
+          hyphen: "-",
+          en: "–",
+          em: "—",
+        };
+
+        const fromDash =
+          dashMappings[document.getElementById("dashFrom").value];
+        const toDash = dashMappings[document.getElementById("dashTo").value];
+
+        // Convert from current format to target format
+        textArea.value = textArea.value.replace(
+          new RegExp(fromDash, "g"),
+          toDash
+        );
+        break;
+
+        // =====================================================
+
+        // Define password generator function outside switch
+        function generatePassword(options) {
+          const charSets = {
+            uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            lowercase: "abcdefghijklmnopqrstuvwxyz",
+            numbers: "0123456789",
+            symbols: "!@#$%^&*()_+-=[]{}|;:,.<>?",
+          };
+
+          let chars = "";
+          if (options.useUppercase) chars += charSets.uppercase;
+          if (options.useLowercase) chars += charSets.lowercase;
+          if (options.useNumbers) chars += charSets.numbers;
+          if (options.useSymbols) chars += charSets.symbols;
+
+          if (!chars) chars = charSets.lowercase;
+
+          let password = "";
+          for (let i = 0; i < options.length; i++) {
+            password += chars.charAt(Math.floor(Math.random() * chars.length));
+          }
+
+          if (options.useUppercase && !/[A-Z]/.test(password)) {
+            const pos = Math.floor(Math.random() * options.length);
+            password =
+              password.substring(0, pos) +
+              charSets.uppercase.charAt(
+                Math.floor(Math.random() * charSets.uppercase.length)
+              ) +
+              password.substring(pos + 1);
+          }
+          if (options.useLowercase && !/[a-z]/.test(password)) {
+            const pos = Math.floor(Math.random() * options.length);
+            password =
+              password.substring(0, pos) +
+              charSets.lowercase.charAt(
+                Math.floor(Math.random() * charSets.lowercase.length)
+              ) +
+              password.substring(pos + 1);
+          }
+          if (options.useNumbers && !/[0-9]/.test(password)) {
+            const pos = Math.floor(Math.random() * options.length);
+            password =
+              password.substring(0, pos) +
+              charSets.numbers.charAt(
+                Math.floor(Math.random() * charSets.numbers.length)
+              ) +
+              password.substring(pos + 1);
+          }
+          if (
+            options.useSymbols &&
+            !/[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(password)
+          ) {
+            const pos = Math.floor(Math.random() * options.length);
+            password =
+              password.substring(0, pos) +
+              charSets.symbols.charAt(
+                Math.floor(Math.random() * charSets.symbols.length)
+              ) +
+              password.substring(pos + 1);
+          }
+
+          return password;
+        }
+
+      // In your switch statement:
+      case "setupPasswordGenerator": {
+        // Setup input validations when the dropdown is opened
+        const passwordCount = document.getElementById("passwordCount");
+        if (passwordCount) {
+          passwordCount.addEventListener("input", () => {
+            let value = parseInt(passwordCount.value);
+            if (value < 1) passwordCount.value = 1;
+            if (value > 100) passwordCount.value = 100;
+          });
+        }
+
+        const passwordLength = document.getElementById("passwordLength");
+        if (passwordLength) {
+          passwordLength.addEventListener("input", () => {
+            let value = parseInt(passwordLength.value);
+            if (value < 4) passwordLength.value = 4;
+            if (value > 128) passwordLength.value = 128;
+          });
+        }
+
+        const checkboxes = document.querySelectorAll(
+          '.checkbox-group input[type="checkbox"]'
+        );
+        checkboxes.forEach((checkbox) => {
+          checkbox.addEventListener("change", () => {
+            const anyChecked = Array.from(checkboxes).some((cb) => cb.checked);
+            if (!anyChecked) {
+              checkbox.checked = true;
+            }
+          });
+        });
+        break;
+      }
+
+      case "generatePasswords": {
+        const count =
+          parseInt(document.getElementById("passwordCount").value) || 1;
+        const length =
+          parseInt(document.getElementById("passwordLength").value) || 8;
+        const options = {
+          length: length,
+          useUppercase: document.getElementById("useUppercase").checked,
+          useLowercase: document.getElementById("useLowercase").checked,
+          useNumbers: document.getElementById("useNumbers").checked,
+          useSymbols: document.getElementById("useSymbols").checked,
+        };
+
+        const passwords = [];
+        for (let i = 0; i < count; i++) {
+          passwords.push(generatePassword(options));
+        }
+
+        textArea.value = passwords.join("\n");
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+
+      /* OLD CODE
+  document.getElementById("genRandPass").addEventListener("click", () => {
+    const length = Math.floor(Math.random() * 10) + 8; // Random length between 8 and 17
+    const charset =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+      password += charset.charAt(Math.floor(Math.random() * charset.length));
+    }
+    textArea.value += (textArea.value ? "\n" : "") + password;
+    updateStats();
+  });*/
+      //
+
+      // =====================================================
+
+      case "generateSequence": {
+        let seqMin =
+          parseInt(document.getElementById("seqMinInput").value) || 1;
+        let seqMax =
+          parseInt(document.getElementById("seqMaxInput").value) || 10;
+
+        // Swap if seqMin > seqMax
+        if (seqMin > seqMax) {
+          [seqMin, seqMax] = [seqMax, seqMin];
+          document.getElementById("seqMinInput").value = seqMin;
+          document.getElementById("seqMaxInput").value = seqMax;
+        }
+
+        // Generate sequence with options
+        const options = {
+          padStart: document.getElementById("seqPadStart")?.checked || false,
+          padLength:
+            parseInt(document.getElementById("seqPadLength")?.value) || 1,
+          // Handle separator special characters
+          separator:
+            document.getElementById("seqSeparator").value === "\\n"
+              ? "\n"
+              : document.getElementById("seqSeparator").value || "\n",
+          reverse: document.getElementById("seqReverse")?.checked || false,
+          prefix: document.getElementById("seqPrefix")?.value || "",
+          suffix: document.getElementById("seqSuffix")?.value || "",
+        };
+
+        // Create sequence array
+        let sequence = Array.from({ length: seqMax - seqMin + 1 }, (_, i) => {
+          let num = seqMin + i;
+          // Pad with zeros if enabled
+          if (options.padStart) {
+            num = String(num).padStart(options.padLength, "0");
+          }
+          return `${options.prefix}${num}${options.suffix}`;
+        });
+
+        // Reverse if enabled
+        if (options.reverse) {
+          sequence.reverse();
+        }
+
+        // Join with selected separator
+        textArea.value = sequence.join(options.separator);
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+
+      // =====================================================
+
+      case "generateRandomNumber": {
+        let randMin =
+          parseInt(document.getElementById("randNoMinInput").value) || 1;
+        let randMax =
+          parseInt(document.getElementById("randNoMaxInput").value) || 10;
+        const count =
+          parseInt(document.getElementById("randNoCount").value) || 1;
+        const unique = document.getElementById("randNoUnique").checked;
+
+        // Swap if randMin > randMax
+        if (randMin > randMax) {
+          [randMin, randMax] = [randMax, randMin];
+          document.getElementById("randNoMinInput").value = randMin;
+          document.getElementById("randNoMaxInput").value = randMax;
+        }
+
+        // Validate count for unique numbers
+        const possibleNumbers = randMax - randMin + 1;
+        let actualCount = count;
+        if (unique && count > possibleNumbers) {
+          actualCount = possibleNumbers;
+        }
+
+        // Generate random numbers
+        let numbers = [];
+        if (unique) {
+          // Create array of all possible numbers and shuffle it
+          const allNumbers = Array.from(
+            { length: possibleNumbers },
+            (_, i) => randMin + i
+          );
+          for (let i = allNumbers.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [allNumbers[i], allNumbers[j]] = [allNumbers[j], allNumbers[i]];
+          }
+          numbers = allNumbers.slice(0, actualCount);
+        } else {
+          // Generate random numbers without uniqueness constraint
+          for (let i = 0; i < actualCount; i++) {
+            numbers.push(
+              Math.floor(Math.random() * (randMax - randMin + 1)) + randMin
+            );
+          }
+        }
+
+        textArea.value = numbers.join("\n");
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+
+      // =====================================================
+
+      case "repeatText": {
+        const count =
+          parseInt(document.getElementById("repeatCount").value) || 2;
+        const separator =
+          document.getElementById("repeatSeparator").value === "\\n"
+            ? "\n"
+            : document.getElementById("repeatSeparator").value;
+
+        const originalText = textArea.value;
+        textArea.value = Array(count).fill(originalText).join(separator);
+
+        updateStats();
+        closeAllDropdowns();
+        break;
+      }
+      // =====================================================
+
+      case "convertSalawat":
+        const salawatMappings = {
+          plain: "صلى الله عليه وسلم",
+          symbol: "ﷺ",
+          tashkeel: "صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ",
+        };
+
+        const fromSalawat =
+          salawatMappings[document.getElementById("salawatFrom").value];
+        const toSalawat =
+          salawatMappings[document.getElementById("salawatTo").value];
+
+        // Escape special characters for regex
+        const escapedFromSalawat = fromSalawat.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        );
+
+        textArea.value = textArea.value.replace(
+          new RegExp(escapedFromSalawat, "g"),
+          toSalawat
+        );
+        break;
+
+      // =====================================================
+
+      case "removeKashidas":
+        textArea.value = textArea.value.replace(/ـ/g, "");
+        break;
+
+      case "shaddaB4Haraka":
+        function correctShaddaPlacement(text) {
+          const diacritics = "ًٌٍَُِّْ";
+          const shadda = "ّ";
+          return text.replace(
+            new RegExp(`([${diacritics}])(${shadda})`, "g"),
+            (match, diacritic, shadda) => {
+              // If the diacritic is a sukun, leave it after the shadda
+              if (diacritic === "ْ") {
+                return match;
+              }
+              // Otherwise, move the shadda before the diacritic
+              return shadda + diacritic;
+            }
+          );
+        }
+
+        textArea.value = correctShaddaPlacement(textArea.value);
+        break;
+
+      //
+
+      case "textToArabicDiacritics":
+      case "arabicDiacriticsToText":
+        const arabicPhrases = {
+          "رضي الله عنهما": "رَضِيَ اللَّهُ عَنْهُمَا",
+          "رضي الله عنهم": "رَضِيَ اللَّهُ عَنْهُمْ",
+          "رضي الله عنها": "رَضِيَ اللَّهُ عَنْهَا",
+          "رضي الله عنه": "رَضِيَ اللَّهُ عَنْهُ",
+          "عليهما السلام": "عَلَيهِمَا السَّلَامُ",
+          "عليهم السلام": "عَلَيهِمُ السَّلَامُ",
+          "عليها السلام": "عَلَيهَا السَّلَامُ",
+          "عليه السلام": "عَلَيهِ السَّلَامُ",
+          "رحمهما الله": "رَحِمَهُمَا اللَّهُ",
+          "رحمهم الله": "رَحِمَهُمُ اللَّهُ",
+          "رحمها الله": "رَحِمَهَا اللَّهُ",
+          "رحمه الله": "رَحِمَهُ اللَّهُ",
+          "عز وجل": "عَزَّ وَجَلَّ",
+          "جل جلاله": "جَلَّ جَلَاﻟَﻪُ",
+          "تبارك وتعالى": "تَبَارَكَ وَتَعَالَى",
+          تعالى: "تَعَالَى",
+        };
+
+        textArea.value = Object.entries(arabicPhrases).reduce(
+          (result, [plain, diacritic]) => {
+            return result.replace(
+              new RegExp(
+                escapeRegExp(
+                  action === "textToArabicDiacritics" ? plain : diacritic
+                ),
+                "g"
+              ),
+              action === "textToArabicDiacritics" ? diacritic : plain
+            );
+          },
+          textArea.value
+        );
+        break;
+
+      //
+
+      case "removeQuranicMarks":
+        textArea.value = textArea.value
+          .replace(/[ۖۗۘۙۚۛۜ۝۞ۣ۟۠ۡۢۤۥۦۧۨ۩۪ۭ۫۬﴾﴿]/g, "")
+          .replace(/\s+/g, " ")
+          .trim();
+        break;
+
+      case "replaceDoubleBracketsToSingle":
+        textArea.value = textArea.value.replace(/\(\(([^)]*)\)\)/g, "($1)");
+        break;
+
+      //
+
+      case "textToQuranicBrackets":
+        textArea.value = textArea.value
+          .replace(/\{/g, "﴾")
+          .replace(/\}/g, "﴿")
+          .replace(/\*/g, "۝");
+        break;
+
+      case "quranicToTextBrackets":
+        textArea.value = textArea.value
+          .replace(/﴾/g, "{")
+          .replace(/﴿/g, "}")
+          .replace(/۝/g, "*");
+        break;
+
+      // =====================================================
+
+      case "convertPunctuation":
+        const punctuationMappings = {
+          colon: ":",
+          fullstop: ".",
+          comma: ",",
+        };
+
+        const fromPunctuation =
+          punctuationMappings[document.getElementById("punctuationFrom").value];
+        const toPunctuation =
+          punctuationMappings[document.getElementById("punctuationTo").value];
+
+        // Escape special characters for regex
+        const escapedFromPunctuation = fromPunctuation.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        );
+
+        textArea.value = textArea.value.replace(
+          new RegExp(escapedFromPunctuation, "g"),
+          toPunctuation
+        );
+        break;
+
+      // =====================================================
+
+      case "ltrToRtlPunc":
+        textArea.value = textArea.value.replace(
+          /[,;?]/g,
+          (match) =>
+            ({
+              ",": "،",
+              ";": "؛",
+              "?": "؟",
+            }[match] || match)
+        );
+        break;
+
+      case "rtlToLtrPunc":
+        textArea.value = textArea.value.replace(
+          /[،؛؟]/g,
+          (match) =>
+            ({
+              "،": ",",
+              "؛": ";",
+              "؟": "?",
+            }[match] || match)
+        );
+        break;
+
+      // =====================================================
+
+      // TYPO FINDING CASES
+      case "findAllTypoIssues":
+        handleTypoFinding("findAllTypoIssues");
+        break;
+
+      case "findDiacriticIssues":
+        handleTypoFinding("findDiacriticIssues");
+        break;
+
+      case "findUnbalancedSymbols":
+        handleTypoFinding("findUnbalancedSymbols");
+        break;
+
+      // =====================================================
+
+      //     !!!  Add more cases as needed
+
+      // =====================================================
+
+      //
+
+      // CASES END
+    }
+    updateStats();
+  }
+
+  // =====================================================
+
+  // BUTTON FUNCTIONS
+
+  document.getElementById("copyToClipboard").addEventListener("click", () => {
+    navigator.clipboard.writeText(textArea.value);
+  });
+  //
+
+  document.getElementById("clearAll").addEventListener("click", () => {
+    textArea.value = "";
+    tabs = [{ id: 1, content: "" }];
+    numberedTabs.innerHTML =
+      '<button class="numbered-tab active" data-tab="1">1</button><button id="addTab">+</button>';
+    currentTab = 1;
+    updateStats();
+  });
+  //
+
+  let isRTL = true;
+  document.getElementById("toggleDirection").addEventListener("click", () => {
+    isRTL = !isRTL;
+    textArea.style.direction = isRTL ? "rtl" : "ltr";
+    textArea.style.textAlign = isRTL ? "right" : "left";
+  });
+  //
+
+  // TRANSLITERATION
+  // https://github.com/naxeem/thaana-transliterator-js/blob/main/thaana-transliterator.js
+
+  // above is dhivehi to english only. there is a bidirectional working example on https://dhivehi.mv/tools/latin-thaana/, but its closed s, may have been based on jawish's
+
+  // use an array of key-value pairs instead otherwise there might be issues with Unicode characters in the object literal
+
+  // Dhivehi to English transliteration mappings
+  const transliterationMappings = [
+    ["އަ", "a"],
+    ["އާ", "aa"],
+    ["އި", "i"],
+    ["އީ", "ee"],
+    ["އު", "u"],
+    ["އޫ", "oo"],
+    ["އެ", "e"],
+    ["އޭ", "ey"],
+    ["އޮ", "o"],
+    ["އޯ", "oa"],
+    ["ުއް", "uh"],
+    ["ިއް", "ih"],
+    ["ެއް", "eh"],
+    ["ަށް", "ah"],
+    ["ައް", "ah"],
+    ["ށް", "h"],
+    ["ތް", "i"],
+    ["ާއް", "aah"],
+    ["އް", "h"],
+    ["ަ", "a"],
+    ["ާ", "aa"],
+    ["ި", "i"],
+    ["ީ", "ee"],
+    ["ު", "u"],
+    ["ޫ", "oo"],
+    ["ެ", "e"],
+    ["ޭ", "ey"],
+    ["ޮ", "o"],
+    ["ޯ", "oa"],
+    ["ް", ""],
+    ["ހ", "h"],
+    ["ށ", "sh"],
+    ["ނ", "n"],
+    ["ރ", "r"],
+    ["ބ", "b"],
+    ["ޅ", "lh"],
+    ["ކ", "k"],
+    ["އ", "a"],
+    ["ވ", "v"],
+    ["މ", "m"],
+    ["ފ", "f"],
+    ["ދ", "dh"],
+    ["ތ", "th"],
+    ["ލ", "l"],
+    ["ގ", "g"],
+    ["ޏ", "y"],
+    ["ސ", "s"],
+    ["ޑ", "d"],
+    ["ޒ", "z"],
+    ["ޓ", "t"],
+    ["ޔ", "y"],
+    ["ޕ", "p"],
+    ["ޖ", "j"],
+    ["ޗ", "ch"],
+    ["ޙ", "h"],
+    ["ޚ", "kh"],
+    ["ޛ‎", "z"],
+    ["ޜ‎", "z"],
+    ["ޝ‎", "sh"],
+    ["ޝ", "sh"],
+    ["ޤ", "q"],
+    ["ޢ", "a"],
+    ["ޞ", "s"],
+    ["ޟ", "dh"],
+    ["ޡ", "z"],
+    ["ޠ", "t"],
+    ["ާާޣ", "gh"],
+    ["ޘ", "th"],
+    ["ޛ", "dh"],
+    ["ާާޜ", "z"],
+  ];
+
+  function transliterateDhivehi(input) {
+    let output = input;
+
+    // Remove zero-width characters
+    output = output.replace(/[\u200B-\u200D\uFEFF]/g, "");
+
+    // Apply transliteration
+    for (const [dhivehi, english] of transliterationMappings) {
+      output = output.replace(new RegExp(dhivehi, "g"), english);
+    }
+
+    // Capitalize first letter of each sentence
+    output = output.replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
+
+    return output;
+  }
+
+  document
+    .getElementById("transliterateDvToEn")
+    .addEventListener("click", () => {
+      scrollToTop();
+      //
+      textArea.value = transliterateDhivehi(textArea.value);
+      ltrSwitch();
+      updateStats();
+    });
+  //
+
+  // Arabic to Dhivehi transliteration mapping
+  // use an array of key-value pairs instead otherwise there might be issues with Unicode characters in the object literal
+  const arabicToDhivehiMap = [
+    // Remove kashida (tatweel)
+    ["ـ", ""],
+    // letters
+    ["آ", "އާ"],
+    ["ب", "ބ"],
+    ["ت", "ތ"],
+    ["ث", "ޘ"],
+    ["ج", "ޖ"],
+    ["ح", "ޙ"],
+    ["خ", "ޚ"],
+    ["د", "ދ"],
+    ["ذ", "ޛ"],
+    ["ر", "ރ"],
+    ["ز", "ޒ"],
+    ["س", "ސ"],
+    ["ش", "ޝ"],
+    ["ص", "ޞ"],
+    ["ض", "ޟ"],
+    ["ط", "ޠ"],
+    ["ظ", "ޡ"],
+    ["ع", "ޢ"],
+    ["غ", "ޣ"],
+    ["ف", "ފ"],
+    ["ق", "ޤ"],
+    ["ك", "ކ"],
+    ["ل", "ލ"],
+    ["م", "މ"],
+    ["ن", "ނ"],
+    ["ه", "ހ"],
+    ["و", "ވ"],
+    ["ي", "ޔ"],
+    ["ة", "ތ"],
+    // added additional Arabic characters
+    ["ء", "އ"],
+    ["أ", "އ"],
+    ["ؤ", "އ"],
+    ["إ", "އ"],
+    ["ئ", "އ"],
+    ["ى", "އ"],
+    // Harakat (diacritical marks)
+    ["َ", "ަ"], // fatha
+    ["ِ", "ި"], // kasra
+    ["ُ", "ު"], // damma
+    ["ْ", "ް"], // sukun
+    // Tanwin (nunation)
+    ["ً", "ަން"], // tanwin fath
+    ["ٍ", "ިން"], // tanwin kasr
+    ["ٌ", "ުން"], // tanwin damm
+    // words / multiple chars
+    // alif laam
+    ["ަا", "ާ"],
+    ["اލ", "ލ"],
+    //
+    ["ލއްލަހ", "ﷲ"],
+    ["ލލހ", "ﷲ"],
+    // އިއްނަމާ ލއަޢްމާލު
+    //["ާ ލ", "ަ ލ"],
+    // ބިލއްނިއްޔާތި
+    ["ލއް", "އް"],
+    // ބިހަޛާ އްލަފްޡި
+    ["ާ އްލަ", "ަ އްލަ"],
+    //
+    // ލިކުއްލި اމްރިއިން
+    ["ا", ""],
+    // ރަސުވލަ
+    ["ުވ", "ޫ"],
+    // އަތައ އްނަބިއްޔަ
+    ["އ އް", " އް"],
+    // ވައަބޫ ލޙުސަޔްނި
+    ["ޫ ލ", "ު ލ"],
+    // ޞަޙިޔޙަޔްހިމާ އްލަލޛަޔްނި
+    ["އްލަލ", "އްލަ"],
+    // other chars
+    ["«", '"'],
+    ["»", '"'],
+    /*
+    ["", ""],
+    */
+  ];
+
+  function transliterateArabicToDhivehi(text) {
+    let result = text;
+
+    /*
+    i also want the following:
+
+when there is a ّ  character that comes after an arabic character, the output should provide a އް character before the mapped converted character that comes before it, so the outputs for the following inputs should be:                    خَطَّا;                    ޚައްޠާ;                    خَطِّي;                    ޚައްޠީ;                    خَطُّوبِ;                    ޚައްޠޫ;                    i want you to do this for this character in the code: ة if any arabic diactric apart from ْ  comes after that ة, then that ة should be replaced with a ތ, else it should be replaced by a ހ
+ */
+
+    // Handle shadda (gemination)
+    //result = result.replace(/(.)\u0651/g, (match, p1) => {
+    result = result.replace(/(.)ّ/g, (match, p1) => {
+      // Find the Dhivehi equivalent of the Arabic character
+      const dhivehiChar =
+        arabicToDhivehiMap.find(([ar]) => ar === p1)?.[1] || p1;
+      // Add 'އް' before the Dhivehi character to represent gemination
+      return `އް${dhivehiChar}`;
+    });
+
+    // Handle taa marbuta
+    // Replace with 'ތ' if followed by a diacritic (except sukun)
+    result = result.replace(/ة([َِ ُ ً ٍ ٌ])/g, "ތ$1");
+    // Replace with 'ހ' in all other cases
+    result = result.replace(/ة(?![َِ ُ ً ٍ ٌ])/g, "ހ");
+
+    // Apply other transliterations
+    for (const [arabic, dhivehi] of arabicToDhivehiMap) {
+      result = result.replace(new RegExp(arabic, "g"), dhivehi);
+    }
+
+    return result;
+  }
+
+  // Add event listener for the new button
+  document
+    .getElementById("transliterateArToDv")
+    .addEventListener("click", () => {
+      scrollToTop();
+      //
+      textArea.value = transliterateArabicToDhivehi(textArea.value);
+      updateStats();
+    });
+  //
+
+  // https://github.com/ahmedmaazin/number-to-thaana/blob/master/src/NumberToThaana.php
+  // which itself is based on https://github.com/Sofwath/NumberToThaana
+  // an alternative could have been https://github.com/dhivehi/DhivehiMVR_excel, but it seems closed s
+  class NumberToDhivehi {
+    constructor() {
+      this.ehbari = [
+        "ސުމެއް",
+        "އެއް",
+        "ދެ",
+        "ތިން",
+        "ހަތަރު",
+        "ފަސް",
+        "ހަ",
+        "ހަތް",
+        "އަށް",
+        "ނުވަ",
+        "ދިހަ",
+        "އެގާރަ",
+        "ބާރަ",
+        "ތޭރަ",
+        "ސާދަ",
+        "ފަނަރަ",
+        "ސޯޅަ",
+        "ސަތާރަ",
+        "އަށާރަ",
+        "ނަވާރަ",
+        "ވިހި",
+        "އެކާވީސް",
+        "ބާވީސް",
+        "ތޭވީސް",
+        "ސައުވީސް",
+        "ފަންސަވީސް",
+        "ސައްބީސް",
+        "ހަތާވީސް",
+        "އަށާވީސް",
+        "ނަވާވީސް",
+      ];
+      this.dhihabari = [
+        "ސުން",
+        "ދިހަ",
+        "ވިހި",
+        "ތިރީސް",
+        "ސާޅީސް",
+        "ފަންސާސް",
+        "ފަސްދޮޅަސް",
+        "ހައްދިހަ",
+        "އައްޑިހަ",
+        "ނުވަދިހަ",
+      ];
+      this.sunbari = ["", "ހާސް", "މިލިޔަން", "ބިލިޔަން", "ޓްރިލިޔަން"];
+    }
+
+    convert(number) {
+      if (!number) return null;
+
+      number = parseInt(number);
+
+      if (number < 1000) {
+        return this.thousandSub(number);
+      } else {
+        return this.thousandUp(number);
+      }
+    }
+
+    thousandSub(number) {
+      let hundred = "ސަތޭކަ ";
+
+      if (number <= 0 || number <= 29) {
+        return this.ehbari[number];
+      } else if (number <= 99) {
+        const tens = Math.floor(number / 10);
+        const ones = number % 10;
+        if (ones === 0) {
+          return this.dhihabari[tens];
+        } else {
+          return `${this.dhihabari[tens]} ${this.ehbari[ones]}`;
+        }
+      } else if (number <= 999) {
+        const rem = number % 100;
+        const dig = Math.floor(number / 100);
+
+        if (dig === 2) {
+          this.ehbari[2] = "ދުވި";
+          hundred = "ސައްތަ ";
+        }
+        // added spaces before ${hundred}
+        if (rem === 0) {
+          return `${this.ehbari[dig]} ${hundred}`;
+        } else {
+          return `${this.ehbari[dig]} ${hundred}${this.thousandSub(rem)}`;
+        }
+      }
+
+      return "";
+    }
+
+    thousandHalf(number) {
+      const thousandArray = [];
+      while (number !== 0) {
+        thousandArray.push(number % 1000);
+        number = Math.floor(number / 1000);
+      }
+      return thousandArray;
+    }
+
+    thousandUp(number) {
+      const thousandHalfArray = this.thousandHalf(number);
+      let thousandHalfArrayLength = thousandHalfArray.length - 1;
+      const responseArray = [];
+
+      for (const value of thousandHalfArray.reverse()) {
+        let word = `${this.thousandSub(value)} `;
+        let zap = `${this.sunbari[thousandHalfArrayLength]} `;
+
+        if (word === " ") {
+          break;
+        } else if (word === "ސުން " || word === "ސުމެއް ") {
+          word = "";
+          zap = "";
+        }
+
+        responseArray.push(word + zap);
+        thousandHalfArrayLength -= 1;
+      }
+
+      let response = responseArray.join("");
+
+      if (response.endsWith(",")) {
+        response = response.slice(0, -1);
+      }
+
+      return response.trim();
+    }
+  }
+
+  // Usage
+  const converter = new NumberToDhivehi();
+
+  document.getElementById("Nos2DvTxt").addEventListener("click", () => {
+    scrollToTop();
+    //
+    /*
+this code joins new lines with comma, instead of keeping them as they are
+
+i want commas when the a sequence of numbers are on the same line
+
+like
+123
+456 789
+101112
+
+should give
+one hundred twenty-three
+four hundred fifty-six, seven hundred eighty-nine
+one hundred one thousand one hundred twelve
+
+i dont want output to have multiple spaces
+    */
+    const lines = textArea.value.split("\n");
+    const convertedLines = lines.map((line) => {
+      const numbers = line.match(/\d+/g);
+      if (numbers) {
+        return numbers
+          .map((num) => converter.convert(num).replace(/\s+/g, " ").trim())
+          .join("، ");
+      }
+      return line.trim(); // Trim any whitespace from lines without numbers
+    });
+    textArea.value = convertedLines
+      .filter((line) => line.length > 0)
+      .join("\n");
+
+    /*const numbers = textArea.value.match(/\d+/g);
+    if (numbers) {
+      const convertedText = numbers
+        .map((num) => converter.convert(num))
+        .join(", ");
+      textArea.value = convertedText;
+    }*/
+    updateStats(); // Assuming this function exists in your code
+  });
+  //
+
+  /*
+  when this button is clicked
+i want to find all instances of diacritics which are repeated, in the sense that a diacritic is immediately followed by another unwanted diacritic. for both arabic and dhivehi
+
+the Dhivehi diacritic Unicode block is u07a6-u07b0
+
+the Arabic diacritic Unicode block is made up of several parts like
+u064b-u0650
+after which is u0651 which is a shadda
+which is then followed by u0652-u0656
+
+as for the shadda, it can be followed by either u064e or u064f or u0650, which are the fatha damma and kasra, but the shadda cannot be followed by other diacritics, or even another shadda
+now once these instances are found
+
+i want a div to show under the button, which had initially display none. this div will show line by line the words where repeated diacritics occurred. in each instance, i want to see the word with repeated instance, as well as the word before and after it. but only the word with repeated instance should be blue, after which should be a new line containing the next such instance with repeated diacritics
+
+i also want these lines of occurences to be numbered followed by a space, like
+1. 2. 3.
+
+i also want, after the 3 words shown with the middle word being the instance, i want a space after the 3 words, then a colon :, then another spaces, then i want the repeated diacritic and the diacritic and letter character before it, with a space between the repeat diacritic and the diacritic before it, all in red color after the colon
+
+example:
+1. ބިން ޢުމަރު رَضِيَ  :  ރު ި
+2. اللَّهُ عََنْهُ ގެ : عَ َ
+3. ގެ އަރިަހުން ރިވާވެގެންވެއެވެ. : ރި ަ
+
+i also want it to find and show:
+Letters not followed diacritics in Dhivehi ONLY
+the Dhivehi letters Unicode block is: u0780-u07a5
+but its okay if character u0782 is not followed by a diacritic
+
+I also want to find and show: Diacritics without letters in both Arabic and Dhivehi
+remember that a shadda can be followed by a fatha damma kasra
+
+if a standalone issue is followed by a multiple issue, it should be shown as just a multiple issue, not a standalone and multiple issue
+
+it shows the diacritic with issue, with the diacritic without issue before it
+what i want is, i want the letter before the diacritic without issue to also show, followed by a space, followed by the diacritic with issue
+
+i also want another space after the issue description
+
+currently it gives:
+1. عَنِْ عَبْدِ : Multiple Fili: ن ِْ
+2. قَالَ ِ رَسُولُ : Standalone Fili: ِ
+3. رَسُولُ اللَّهَِ ﷺ : Multiple Fili: ه َِ
+4. ﷺ ޢަބްދ ﷲ : Thaana without Fili: ް ދ
+5. ބިން ު ޢުމަރު : Standalone Fili: ު
+6. އަރިހުން ރިަވާވެގެންވެއެވެ. ރަސޫލު : Multiple Fili: ރ ިަ
+7. ﷺ ޙަދީޘްކުރެއްވިއެިވެ : Multiple Fili: އ ެި
+
+when it should be giving:
+1. عَنِْ عَبْدِ : Multiple Fili :  نْ ِ
+2. قَالَ ِ رَسُولُ : Standalone Fili :  لَ  ِ 
+3. رَسُولُ اللَّهَِ ﷺ : Multiple Fili:  هِ َ
+4. ﷺ ޢަބްދ ﷲ : Thaana without Fili :  ް ދ
+5. ބިން ު ޢުމަރު : Standalone Fili :  ން ު
+6. އަރިހުން ރިަވާވެގެންވެއެވެ. ރަސޫލު : Multiple Fili :  ރި ަ
+7. ﷺ ޙަދީޘްކުރެއްވިއެިވެ : Multiple Fili :  އެ ި
+
+i want one more space after the colon that comes after the issue description
+
+  */
+
+  const resultsDiv = document.getElementById("typoIssuesResults");
+
+  function handleTypoFinding(action) {
+    const text = textArea.value;
+
+    // Check if exceptions are already loaded
+    if (window.noFiliExceptions) {
+      // If already loaded, proceed with checking
+      processTypoAction(action, text);
+      return;
+    }
+
+    // If not loaded, dynamically load the script
+    const script = document.createElement("script");
+    script.src = "noFiliExceptions.js"; // This should define window.noFiliExceptions
+
+    script.onload = () => {
+      // Script loaded, now process the text
+      processTypoAction(action, text);
+    };
+
+    script.onerror = () => {
+      console.error("Failed to load exceptions");
+      resultsDiv.innerHTML =
+        "Error loading exceptions. Continuing without them.";
+      // Still try to process without exceptions
+      processTypoAction(action, text);
+    };
+
+    // Add the script to the document to start loading
+    document.head.appendChild(script);
+  }
+
+  function processTypoAction(action, text) {
+    let results = [];
+
+    switch (action) {
+      case "findAllTypoIssues":
+        results = findIssues(text);
+        break;
+      case "findDiacriticIssues":
+        // Combine all diacritic-related issues
+        const multipleResults = findMultipleDiacritics(text);
+        const missingResults = findMissingDhivehiFili(text);
+        const standaloneResults = findStandaloneDiacritics(text);
+
+        // Merge all results
+        results = [...multipleResults, ...missingResults, ...standaloneResults];
+        break;
+      case "findUnbalancedSymbols":
+        results = findUnbalancedSymbols(text);
+        break;
+    }
+
+    displayResults(results, action);
+  }
+
+  function findIssues(text) {
+    const dhivehiDiacritics = /[\u07a6-\u07b0]/;
+    const arabicDiacritics = /[\u064b-\u0650\u0652-\u0656]/;
+    const dhivehiLetters = /[\u0780-\u07a5]/;
+    const shadda = "\u0651";
+    const allowedAfterShadda = /[\u064e\u064f\u0650]/;
+
+    // Access the global exceptions variable (or use empty array if not loaded)
+    const noFiliExceptions = window.noFiliExceptions || [];
+
+    // Define paired symbols to check for balance
+    const pairs = {
+      "(": ")", // Parentheses
+      "[": "]", // Square brackets
+      "{": "}", // Curly braces
+      '"': '"', // Double quotes (ASCII)
+      "'": "'", // Single quotes (ASCII)
+      "“": "”", // Left/Right double quotation marks (U+201C, U+201D)
+      "‘": "’", // Left/Right single quotation marks (U+2018, U+2019)
+      "«": "»", // Double angle quotes (U+00AB, U+00BB)
+      "‹": "›", // Single angle quotes (U+2039, U+203A)
+      "=": "=", // Equals sign (matches with itself)
+    };
+
+    const words = text.split(/\s+/);
+    const results = [];
+
+    // Stack to track opening symbols that need closing
+    let symbolStack = [];
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      let issues = [];
+
+      // note this is exact match only, so changed to below
+      // Check if current word is in exceptions list
+      // const isException = noFiliExceptions.includes(word);
+
+      // use this more flexible check that looks for substring matches:
+      const isException = noFiliExceptions.some((exception) =>
+        word.includes(exception)
+      );
+
+      for (let j = 0; j < word.length; j++) {
+        const current = word[j];
+        const next = word[j + 1] || "";
+        const prev = word[j - 1] || "";
+
+        // Check for unbalanced symbols
+        if (current in pairs) {
+          // Opening symbol - add to stack
+          symbolStack.push({ char: current, wordIndex: i, charIndex: j });
+        } else if (Object.values(pairs).includes(current)) {
+          // Closing symbol - check if it matches last opening symbol
+          if (symbolStack.length === 0) {
+            // Closing symbol with no opener
+            issues.push({
+              type: "unbalanced",
+              index: j,
+              detail: `Unexpected closing ${current}`,
+            });
+          } else {
+            const lastOpener = symbolStack[symbolStack.length - 1];
+            if (pairs[lastOpener.char] === current) {
+              symbolStack.pop(); // Matched pair - remove opener
+            } else {
+              issues.push({
+                type: "unbalanced",
+                index: j,
+                detail: `Mismatched ${current}, expected ${
+                  pairs[lastOpener.char]
+                }`,
+              });
+            }
+          }
+        }
+
+        // Existing typo checks
+        if (
+          (dhivehiDiacritics.test(current) && dhivehiDiacritics.test(next)) ||
+          (arabicDiacritics.test(current) && arabicDiacritics.test(next)) ||
+          (current === shadda && next === shadda)
+        ) {
+          // If the previous issue was a standalone, remove it and replace with this multiple
+          if (
+            issues.length > 0 &&
+            issues[issues.length - 1].type === "standalone" &&
+            issues[issues.length - 1].index === j - 1
+          ) {
+            issues.pop();
+          }
+          issues.push({ type: "multiple", index: j });
+          j++; // Skip the next character as it's part of this multiple issue
+          continue;
+        }
+
+        // Check for Dhivehi letters not followed by diacritics
+        if (dhivehiLetters.test(current)) {
+          // Check if this is part of a two-letter abbreviation followed by period
+          const nextIsAlsoDhivehiLetter = dhivehiLetters.test(next);
+          const nextNextChar = word[j + 2] || "";
+          const twoLetterAbbreviation =
+            nextIsAlsoDhivehiLetter && nextNextChar === ".";
+
+          // Check if this is a single letter abbreviation followed by period
+          const singleLetterAbbreviation = next === ".";
+
+          if (
+            !dhivehiDiacritics.test(next) &&
+            !singleLetterAbbreviation &&
+            !twoLetterAbbreviation
+          ) {
+            if (
+              (current === "\u0782" || current === "\u0783") &&
+              !isException
+            ) {
+              // ނ or ރ
+              issues.push({ type: "noDvFili", index: j });
+            } else if (current !== "\u0782" && current !== "\u0783") {
+              // all other Dhivehi letters
+              issues.push({ type: "noDvFili", index: j });
+            }
+          }
+
+          // Skip the second letter of a two-letter abbreviation
+          if (twoLetterAbbreviation) {
+            j++; // Skip checking the second letter
+          }
+        }
+
+        // Check for standalone diacritics
+        if (
+          (dhivehiDiacritics.test(current) ||
+            arabicDiacritics.test(current) ||
+            current === shadda) &&
+          !dhivehiLetters.test(prev) &&
+          !/[\u0600-\u06FF]/.test(prev)
+        ) {
+          // Special case for shadda
+          if (current === shadda && allowedAfterShadda.test(next)) {
+            continue;
+          }
+
+          issues.push({ type: "standalone", index: j });
+        }
+      }
+
+      // Add any remaining unclosed symbols from this word
+      while (symbolStack.length > 0 && symbolStack[0].wordIndex === i) {
+        const unclosed = symbolStack.shift();
+        issues.push({
+          type: "unbalanced",
+          index: unclosed.charIndex,
+          detail: `Unclosed ${unclosed.char}`,
+        });
+      }
+
+      if (issues.length > 0) {
+        results.push({
+          word,
+          index: i,
+          issues,
+        });
+      }
+    }
+
+    // Check for any remaining unclosed symbols across all words
+    if (symbolStack.length > 0) {
+      symbolStack.forEach((unclosed) => {
+        results.push({
+          word: words[unclosed.wordIndex],
+          index: unclosed.wordIndex,
+          issues: [
+            {
+              type: "unbalanced",
+              index: unclosed.charIndex,
+              detail: `Unclosed ${unclosed.char}`,
+            },
+          ],
+        });
+      });
+    }
+
+    return results;
+  }
+
+  function findMultipleDiacritics(text) {
+    const dhivehiDiacritics = /[\u07a6-\u07b0]/;
+    const arabicDiacritics = /[\u064b-\u0650\u0652-\u0656]/;
+    const shadda = "\u0651";
+
+    const words = text.split(/\s+/);
+    const results = [];
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      let issues = [];
+
+      for (let j = 0; j < word.length; j++) {
+        const current = word[j];
+        const next = word[j + 1] || "";
+
+        if (
+          (dhivehiDiacritics.test(current) && dhivehiDiacritics.test(next)) ||
+          (arabicDiacritics.test(current) && arabicDiacritics.test(next)) ||
+          (current === shadda && next === shadda)
+        ) {
+          issues.push({ type: "multiple", index: j });
+          j++; // Skip the next character as it's part of this multiple issue
+        }
+      }
+
+      if (issues.length > 0) {
+        results.push({
+          word,
+          index: i,
+          issues,
+        });
+      }
+    }
+
+    return results;
+  }
+
+  function findMissingDhivehiFili(text) {
+    const dhivehiDiacritics = /[\u07a6-\u07b0]/;
+    const dhivehiLetters = /[\u0780-\u07a5]/;
+
+    // Access the global exceptions variable (or use empty array if not loaded)
+    const noFiliExceptions = window.noFiliExceptions || [];
+
+    const words = text.split(/\s+/);
+    const results = [];
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      let issues = [];
+
+      // Check if current word is in exceptions list
+      const isException = noFiliExceptions.some((exception) =>
+        word.includes(exception)
+      );
+
+      for (let j = 0; j < word.length; j++) {
+        const current = word[j];
+        const next = word[j + 1] || "";
+
+        // Check for Dhivehi letters not followed by diacritics
+        if (dhivehiLetters.test(current)) {
+          // Check if this is part of a two-letter abbreviation followed by period
+          const nextIsAlsoDhivehiLetter = dhivehiLetters.test(next);
+          const nextNextChar = word[j + 2] || "";
+          const twoLetterAbbreviation =
+            nextIsAlsoDhivehiLetter && nextNextChar === ".";
+
+          // Check if this is a single letter abbreviation followed by period
+          const singleLetterAbbreviation = next === ".";
+
+          if (
+            !dhivehiDiacritics.test(next) &&
+            !singleLetterAbbreviation &&
+            !twoLetterAbbreviation
+          ) {
+            if (
+              (current === "\u0782" || current === "\u0783") &&
+              !isException
+            ) {
+              // ނ or ރ
+              issues.push({ type: "noDvFili", index: j });
+            } else if (current !== "\u0782" && current !== "\u0783") {
+              // all other Dhivehi letters
+              issues.push({ type: "noDvFili", index: j });
+            }
+          }
+
+          // Skip the second letter of a two-letter abbreviation
+          if (twoLetterAbbreviation) {
+            j++; // Skip checking the second letter
+          }
+        }
+      }
+
+      if (issues.length > 0) {
+        results.push({
+          word,
+          index: i,
+          issues,
+        });
+      }
+    }
+
+    return results;
+  }
+
+  function findStandaloneDiacritics(text) {
+    const dhivehiDiacritics = /[\u07a6-\u07b0]/;
+    const arabicDiacritics = /[\u064b-\u0650\u0652-\u0656]/;
+    const dhivehiLetters = /[\u0780-\u07a5]/;
+    const shadda = "\u0651";
+    const allowedAfterShadda = /[\u064e\u064f\u0650]/;
+
+    const words = text.split(/\s+/);
+    const results = [];
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      let issues = [];
+
+      for (let j = 0; j < word.length; j++) {
+        const current = word[j];
+        const next = word[j + 1] || "";
+        const prev = word[j - 1] || "";
+
+        // Check for standalone diacritics
+        if (
+          (dhivehiDiacritics.test(current) ||
+            arabicDiacritics.test(current) ||
+            current === shadda) &&
+          !dhivehiLetters.test(prev) &&
+          !/[\u0600-\u06FF]/.test(prev)
+        ) {
+          // Special case for shadda
+          if (current === shadda && allowedAfterShadda.test(next)) {
+            continue;
+          }
+
+          issues.push({ type: "standalone", index: j });
+        }
+      }
+
+      if (issues.length > 0) {
+        results.push({
+          word,
+          index: i,
+          issues,
+        });
+      }
+    }
+
+    return results;
+  }
+
+  function findUnbalancedSymbols(text) {
+    // Define paired symbols to check for balance
+    const pairs = {
+      "(": ")", // Parentheses
+      "[": "]", // Square brackets
+      "{": "}", // Curly braces
+      '"': '"', // Double quotes (ASCII)
+      "'": "'", // Single quotes (ASCII)
+      "“": "”", // Left/Right double quotation marks (U+201C, U+201D)
+      "‘": "’", // Left/Right single quotation marks (U+2018, U+2019)
+      "«": "»", // Double angle quotes (U+00AB, U+00BB)
+      "‹": "›", // Single angle quotes (U+2039, U+203A)
+      "=": "=", // Equals sign (matches with itself)
+    };
+
+    const words = text.split(/\s+/);
+    const results = [];
+
+    // Stack to track opening symbols that need closing
+    let symbolStack = [];
+
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      let issues = [];
+
+      for (let j = 0; j < word.length; j++) {
+        const current = word[j];
+
+        // Check for unbalanced symbols
+        if (current in pairs) {
+          // Opening symbol - add to stack
+          symbolStack.push({ char: current, wordIndex: i, charIndex: j });
+        } else if (Object.values(pairs).includes(current)) {
+          // Closing symbol - check if it matches last opening symbol
+          if (symbolStack.length === 0) {
+            // Closing symbol with no opener
+            issues.push({
+              type: "unbalanced",
+              index: j,
+              detail: `Unexpected closing ${current}`,
+            });
+          } else {
+            const lastOpener = symbolStack[symbolStack.length - 1];
+            if (pairs[lastOpener.char] === current) {
+              symbolStack.pop(); // Matched pair - remove opener
+            } else {
+              issues.push({
+                type: "unbalanced",
+                index: j,
+                detail: `Mismatched ${current}, expected ${
+                  pairs[lastOpener.char]
+                }`,
+              });
+            }
+          }
+        }
+      }
+
+      // Add any remaining unclosed symbols from this word
+      while (symbolStack.length > 0 && symbolStack[0].wordIndex === i) {
+        const unclosed = symbolStack.shift();
+        issues.push({
+          type: "unbalanced",
+          index: unclosed.charIndex,
+          detail: `Unclosed ${unclosed.char}`,
+        });
+      }
+
+      if (issues.length > 0) {
+        results.push({
+          word,
+          index: i,
+          issues,
+        });
+      }
+    }
+
+    // Check for any remaining unclosed symbols across all words
+    if (symbolStack.length > 0) {
+      symbolStack.forEach((unclosed) => {
+        results.push({
+          word: words[unclosed.wordIndex],
+          index: unclosed.wordIndex,
+          issues: [
+            {
+              type: "unbalanced",
+              index: unclosed.charIndex,
+              detail: `Unclosed ${unclosed.char}`,
+            },
+          ],
+        });
+      });
+    }
+
+    return results;
+  }
+
+  function displayResults(results, action = "findAllTypoIssues") {
+    // Check if any issues were found
+    if (results.length === 0) {
+      resultsDiv.innerHTML = "No Issues Found";
+      resultsDiv.style.display = "block";
+      return;
+    }
+
+    // Calculate total number of issues
+    const totalIssues = results.reduce(
+      (sum, result) => sum + result.issues.length,
+      0
+    );
+
+    // Split the input text into words
+    const words = textArea.value.split(/\s+/);
+    let html = `Found ${totalIssues} Issue${
+      totalIssues > 1 ? "s" : ""
+    }<br><br>`;
+
+    // If it's a specific action (not "findAllTypoIssues"), show results directly
+    if (action !== "findAllTypoIssues") {
+      if (action === "findDiacriticIssues") {
+        // For diacritic issues, group by type and show in separate sections
+        const groupedResults = groupResultsByType(results);
+
+        const diacriticTypes = [
+          { type: "multiple", title: "Multiple Diacritics 🔄" },
+          { type: "noDvFili", title: "Missing Dhivehi Fili 🥥" },
+          { type: "standalone", title: "Standalone Diacritics ⚡" },
+        ];
+
+        diacriticTypes.forEach((issueType, index) => {
+          const typeResults = groupedResults[issueType.type] || [];
+          if (typeResults.length > 0) {
+            if (index > 0) {
+              html += '<hr class="dropdown-separator" style="margin: 10px 0;">';
+            }
+            html += generateIssueSection(
+              typeResults,
+              action,
+              words,
+              issueType.title
+            );
+          }
+        });
+      } else {
+        html += generateIssueSection(results, action, words);
+      }
+    } else {
+      // For "findAllTypoIssues", group results by issue type
+      const groupedResults = groupResultsByType(results);
+
+      // Show each type of issue in its own section
+      const issueTypes = [
+        {
+          type: "multiple",
+          title: "Multiple Diacritics 🔄",
+          action: "findMultipleDiacritics",
+        },
+        {
+          type: "noDvFili",
+          title: "Missing Dhivehi Fili 🥥",
+          action: "findMissingDhivehiFili",
+        },
+        {
+          type: "standalone",
+          title: "Standalone Diacritics ⚡",
+          action: "findStandaloneDiacritics",
+        },
+        {
+          type: "unbalanced",
+          title: "Unbalanced Symbols ⚖️",
+          action: "findUnbalancedSymbols",
+        },
+      ];
+
+      issueTypes.forEach((issueType, index) => {
+        const typeResults = groupedResults[issueType.type] || [];
+        if (typeResults.length > 0) {
+          if (index > 0) {
+            html += '<hr class="dropdown-separator" style="margin: 10px 0;">';
+          }
+          html += generateIssueSection(
+            typeResults,
+            issueType.action,
+            words,
+            issueType.title
+          );
+        }
+      });
+    }
+
+    // Update the results div with the generated HTML and make it visible
+    resultsDiv.innerHTML = html;
+    resultsDiv.style.display = "block";
+  }
+
+  function groupResultsByType(results) {
+    const grouped = {
+      multiple: [],
+      noDvFili: [],
+      standalone: [],
+      unbalanced: [],
+    };
+
+    results.forEach((result) => {
+      result.issues.forEach((issue) => {
+        if (grouped[issue.type]) {
+          grouped[issue.type].push({
+            ...result,
+            issues: [issue], // Only include this specific issue
+          });
+        }
+      });
+    });
+
+    return grouped;
+  }
+
+  function generateIssueSection(results, action, words, customTitle = null) {
+    const actionTitles = {
+      findMultipleDiacritics: "Multiple Diacritics 🔄",
+      findMissingDhivehiFili: "Missing Dhivehi Fili 🥥",
+      findStandaloneDiacritics: "Standalone Diacritics ⚡",
+      findUnbalancedSymbols: "Unbalanced Symbols ⚖️",
+    };
+
+    const title = customTitle || actionTitles[action] || "Issues";
+    const issueCount = results.reduce(
+      (sum, result) => sum + result.issues.length,
+      0
+    );
+
+    let html = `<strong>${title} (${issueCount})</strong><br>`;
+
+    // Iterate through each result (word with issues)
+    results.forEach((result, index) => {
+      // Get the words before and after the current word for context
+      const prevWord = words[result.index - 1] || "";
+      const nextWord = words[result.index + 1] || "";
+
+      // Process each issue in the current word
+      let issueDescriptions = result.issues
+        .map((issue) => {
+          let chars;
+          let description;
+
+          switch (issue.type) {
+            case "multiple":
+              // For multiple Fili, show the base character and both diacritics
+              const baseChar = result.word[issue.index - 1] || "";
+              const firstDiacritic = result.word[issue.index];
+              const secondDiacritic = result.word[issue.index + 1];
+              chars = `${baseChar}${firstDiacritic} ${secondDiacritic}`;
+              description = `Multiple Fili :&nbsp; ${chars}`;
+              break;
+            case "noDvFili":
+              // For Thaana without Fili, show the previous character and the current one
+              const prevChar = result.word[issue.index - 1] || "";
+              chars = `${prevChar} ${result.word[issue.index]}`;
+              description = `Thaana w/o Fili :&nbsp; ${chars}`;
+              break;
+            case "standalone":
+              // For standalone Fili, show the base character and the diacritic
+              const baseCharStand = result.word[issue.index - 1] || "";
+              const diacritic = result.word[issue.index];
+              chars = `${baseCharStand} ${diacritic}`;
+              description = `Standalone Fili :&nbsp; ${chars}`;
+              break;
+            case "unbalanced":
+              // For unbalanced characters, show the problematic character and its context
+              const problemChar = result.word[issue.index];
+              const contextBefore = result.word.slice(
+                Math.max(0, issue.index - 2),
+                issue.index
+              );
+              const contextAfter = result.word.slice(
+                issue.index + 1,
+                issue.index + 3
+              );
+              chars = `${contextBefore}${problemChar}${contextAfter}`;
+              description = `${issue.detail} :&nbsp; ...${chars}...`;
+              break;
+          }
+          return description;
+        })
+        .join(", ");
+
+      // Construct the HTML for this result
+      // Include the index, previous word, the word with issues (in blue), next word,
+      // and the issue descriptions (in red)
+      html += `${index + 1}. ${prevWord} <span class="blueColor">${
+        result.word
+      }</span> ${nextWord} : <span class="redColor">${issueDescriptions}</span><br>`;
+    });
+
+    html += "<br>";
+    return html;
+  }
+  //
+  //
+
+  document.getElementById("removePunctuation").addEventListener("click", () => {
+    scrollToTop();
+    //
+    textArea.value = textArea.value.replace(/[^\w\s]/g, "");
+    updateStats();
+  });
+  //
+
+  document.getElementById("numerateWords").addEventListener("click", () => {
+    const textArea = document.getElementById("textArea");
+    const isNumberToWords = document
+      .getElementById("numerateWords")
+      .textContent.includes("No → Wrd");
+
+    if (isNumberToWords) {
+      // Convert numbers to words and "%" to "percent"
+      textArea.value = textArea.value
+        .replace(/\b\d+\b/g, (match) => numberToWords(parseInt(match))) // Numbers to words
+        .replace(/%/g, "percent"); // % to percent
+      document.getElementById("numerateWords").textContent = "Wrd → No";
+    } else {
+      // Convert words to numbers and "percent" to "%"
+      textArea.value = textArea.value
+        .replace(/\b(?:\w+(?:-\w+)*)\b/g, (match) =>
+          wordToNumber(match.toLowerCase())
+        ) // Words to numbers
+        .replace(/\bpercent\b/g, "%"); // Only "percent" to "%"
+      document.getElementById("numerateWords").textContent = "No → Wrd";
+    }
+
+    updateStats();
+  });
+
+  // Helper: Convert numbers to words
+  function numberToWords(num) {
+    const ones = [
+      "",
+      "one",
+      "two",
+      "three",
+      "four",
+      "five",
+      "six",
+      "seven",
+      "eight",
+      "nine",
+    ];
+    const tens = [
+      "",
+      "",
+      "twenty",
+      "thirty",
+      "forty",
+      "fifty",
+      "sixty",
+      "seventy",
+      "eighty",
+      "ninety",
+    ];
+    const teens = [
+      "ten",
+      "eleven",
+      "twelve",
+      "thirteen",
+      "fourteen",
+      "fifteen",
+      "sixteen",
+      "seventeen",
+      "eighteen",
+      "nineteen",
+    ];
+
+    if (num < 10) return ones[num];
+    if (num < 20) return teens[num - 10];
+    if (num < 100) {
+      const remainder = num % 10;
+      return (
+        tens[Math.floor(num / 10)] + (remainder ? `-${ones[remainder]}` : "")
+      );
+    }
+    return num; // Extend for larger numbers if needed
+  }
+
+  // Helper: Convert words to numbers
+  function wordToNumber(word) {
+    const wordsToNumbers = {
+      one: 1,
+      two: 2,
+      three: 3,
+      four: 4,
+      five: 5,
+      six: 6,
+      seven: 7,
+      eight: 8,
+      nine: 9,
+      ten: 10,
+      eleven: 11,
+      twelve: 12,
+      thirteen: 13,
+      fourteen: 14,
+      fifteen: 15,
+      sixteen: 16,
+      seventeen: 17,
+      eighteen: 18,
+      nineteen: 19,
+      twenty: 20,
+      thirty: 30,
+      forty: 40,
+      fifty: 50,
+      sixty: 60,
+      seventy: 70,
+      eighty: 80,
+      ninety: 90,
+      hundred: 100,
+    };
+
+    // Handle hyphenated numbers
+    if (word.includes("-")) {
+      const parts = word.split("-");
+      const tens = wordsToNumbers[parts[0]] || 0;
+      const ones = wordsToNumbers[parts[1]] || 0;
+      return tens + ones;
+    }
+
+    // Handle single-word numbers
+    return wordsToNumbers[word] || word;
+  }
+  //
+
+  /*
+two input boxes next to this button, saying "Find" and "Replace" as placeholders, which lets the user input characters, after which, clicking on the button will find and replace the characters from every line of text according to the input
+  */
+
+  const findInput = document.getElementById("findInput");
+  const replaceInput = document.getElementById("replaceInput");
+
+  document
+    .getElementById("findAndReplaceText")
+    .addEventListener("click", () => {
+      const findText = findInput.value;
+      const replaceText = replaceInput.value;
+
+      if (findText) {
+        // Create a regular expression for global case-sensitive search
+        const regex = new RegExp(escapeRegExp(findText), "g");
+
+        // Perform the find and replace operation
+        textArea.value = textArea.value.replace(regex, replaceText);
+
+        updateStats();
+      }
+    });
+
+  // Function to escape special characters in the search string
+  function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+  //
+
+  //
+  //
+
+  document.getElementById("diffCompare").addEventListener("click", () => {
+    window.open("diffCompare.html", "_blank");
+  });
+
+  document.getElementById("keyboardPage").addEventListener("click", () => {
+    window.open("keyboardPage.html", "_blank");
+  });
+
+  document.getElementById("qrGenerator").addEventListener("click", () => {
+    window.open("qrGenerator.html", "_blank");
+  });
+  //
+
+  document.getElementById("fullscreen").addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+      textArea.style.height = "100vh";
+    } else {
+      document.exitFullscreen();
+      textArea.style.height = "300px";
+    }
+  });
+  document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement) {
+      textArea.style.height = "300px";
+    }
+  });
+
+  //
+  // BUTTON FUNCTIONS END
+  //
+
+  // NEW DATE TIME CODE
+  function updateDateTimeButtons() {
+    const now = new Date();
+    const isMilitaryTime = localStorage.getItem("militaryTime") === "true";
+    const hours12 = now.getHours() % 12 || 12;
+    const hours24 = String(now.getHours()).padStart(2, "0");
+    const hours = isMilitaryTime ? hours24 : hours12;
+    const ampm = now.getHours() >= 12 ? "PM" : "AM";
+    const timeStr = isMilitaryTime
+      ? `${hours}:${String(now.getMinutes()).padStart(2, "0")}`
+      : `${hours}:${String(now.getMinutes()).padStart(2, "0")} ${ampm}`;
+
+    // Gregorian Long English
+    const enOptions = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    let enDate = now.toLocaleDateString("en-GB", enOptions);
+    // Add comma after weekday and fix day suffix
+    enDate = enDate.replace(/^(\w+)\s+(\d+)/, (_, weekday, day) => {
+      const suffix = ["th", "st", "nd", "rd"][day % 10 > 3 ? 0 : day % 10];
+      return `${weekday}, ${day}${suffix}`;
+    });
+
+    document.getElementById("gregorianLongEn").textContent = `${enDate}, at ${
+      isMilitaryTime ? hours24 : hours12
+    }:${String(now.getMinutes()).padStart(2, "0")}${
+      isMilitaryTime ? "" : " " + ampm
+    }`;
+
+    // Gregorian Long Dhivehi
+    const dvWeekdays = [
+      "އާދީއްތަ",
+      "ހޯމަ",
+      "އަންގާރަ",
+      "ބުދަ",
+      "ބުރާސްފަތި",
+      "ހުކުރު",
+      "ހޮނިހިރު",
+    ];
+    const dvMonths = [
+      "ޖަނަވަރީ",
+      "ފެބުރުވަރީ",
+      "މާރިޗު",
+      "އެޕްރީލް",
+      "މޭ",
+      "ޖޫން",
+      "ޖުލައި",
+      "އޮގަސްޓު",
+      "ސެޕްޓެންބަރު",
+      "އޮކްޓޫބަރު",
+      "ނޮވެންބަރު",
+      "ޑިސެންބަރު",
+    ];
+
+    const dvAmPm = isMilitaryTime
+      ? ""
+      : now.getHours() >= 12
+      ? "މެނދުރުފަސް"
+      : "މެނދުރުކުރި";
+    const dvDate = `${dvWeekdays[now.getDay()]}، ${now.getDate()} ${
+      dvMonths[now.getMonth()]
+    } ${now.getFullYear()}، ${hours}:${String(now.getMinutes()).padStart(
+      2,
+      "0"
+    )}${isMilitaryTime ? "" : " " + dvAmPm}`;
+
+    document.getElementById("gregorianLongDv").textContent = dvDate;
+
+    // Gregorian Long Arabic
+    const arOptions = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    };
+
+    let arDate = now.toLocaleDateString("ar", {
+      ...arOptions,
+      hour12: !isMilitaryTime,
+    });
+
+    arDate = arDate
+      .replace(/(\d{4})\s*،?\s*في/, "$1، في")
+      .replace(/\s+،/g, "،")
+      .replace(
+        /\d{1,2}:\d{2}\s*[صم]/,
+        `${isMilitaryTime ? hours24 : hours12}:${String(
+          now.getMinutes()
+        ).padStart(2, "0")}${
+          isMilitaryTime ? "" : now.getHours() >= 12 ? " م" : " ص"
+        }`
+      );
+    document.getElementById("gregorianLongAr").textContent = arDate;
+
+    // Hijri dates
+    try {
+      // Single mapping for Hijri months
+      const hijriMonths = {
+        محرم: ["Muharram", "މުޙައްރަމް"],
+        صفر: ["Safar", "ޞަފަރު"],
+        "ربيع الأول": ["Rabi' al-Awwal", "ރަބީޢުލްއައްވަލް"],
+        "ربيع الآخر": ["Rabi' ath-Thani", "ރަބީޢުލްއާޚިރު"],
+        "جمادى الأولى": ["Jumada al-Awwal", "ޖުމާދަލްއޫލާ"],
+        "جمادى الآخرة": ["Jumada ath-Thani", "ޖުމާދަލްއާޚިރާ"],
+        رجب: ["Rajab", "ރަޖަބު"],
+        شعبان: ["Sha'ban", "ޝަޢުބާން"],
+        رمضان: ["Ramadan", "ރަމަޟާން"],
+        شوال: ["Shawwal", "ޝައްވާލް"],
+        "ذو القعدة": ["Dhul-Qa'dah", "ޛުލްގަޢިދާ"],
+        "ذو الحجة": ["Dhul-Hijjah", "ޛުލްޙިއްޖާ"],
+      };
+
+      const toEnglish = (arMonth) => hijriMonths[arMonth]?.[0] || arMonth;
+      const toDhivehi = (arMonth) => hijriMonths[arMonth]?.[1] || arMonth;
+
+      // Hijri Long Arabic
+      const hijriArDate = new Intl.DateTimeFormat("ar-TN-u-ca-islamic", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        calendar: "islamic",
+      }).format(now);
+
+      const arTime = `، في ${isMilitaryTime ? hours24 : hours12}:${String(
+        now.getMinutes()
+      ).padStart(2, "0")}${
+        isMilitaryTime ? "" : now.getHours() >= 12 ? " م" : " ص"
+      }`;
+
+      document.getElementById("hijriLongAr").textContent =
+        hijriArDate
+          .replace(/هـ/, "")
+          .replace(/\s+،/g, "،")
+          .replace(/\s+$/, "") + arTime;
+
+      // Hijri Long English & Dhivehi
+      // using en-u-ca-islamic messes up the calendar months on mobile, for some reason that shows as gregorian, so instead used actual arabic month names
+      const hijriParts = new Intl.DateTimeFormat("ar-u-ca-islamic-umalqura", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        calendar: "islamic",
+      }).formatToParts(now);
+
+      //  weekday mapping
+      const weekdayMap = {
+        الأحد: "Sunday",
+        الاثنين: "Monday",
+        الثلاثاء: "Tuesday",
+        الأربعاء: "Wednesday",
+        الخميس: "Thursday",
+        الجمعة: "Friday",
+        السبت: "Saturday",
+      };
+
+      // Update the hijriParts section
+      let enWeekday, enDay, enMonth, enYear;
+      hijriParts.forEach((part) => {
+        if (part.type === "weekday")
+          enWeekday = weekdayMap[part.value] || part.value;
+        if (part.type === "day") enDay = part.value;
+        if (part.type === "month") enMonth = toEnglish(part.value);
+        if (part.type === "year") enYear = part.value;
+      });
+
+      document.getElementById(
+        "hijriLongEn"
+      ).textContent = `${enWeekday}, ${parseInt(
+        enDay
+      )} ${enMonth} ${enYear} AH, at ${
+        isMilitaryTime ? hours24 : hours12
+      }:${String(now.getMinutes()).padStart(2, "0")}${
+        isMilitaryTime ? "" : " " + ampm
+      }`;
+
+      let dvDay, dvMonth, dvYear;
+      hijriParts.forEach((part) => {
+        if (part.type === "day") dvDay = part.value;
+        if (part.type === "month") dvMonth = toDhivehi(part.value);
+        if (part.type === "year") dvYear = part.value;
+      });
+
+      document.getElementById("hijriLongDv").textContent = `${
+        dvWeekdays[now.getDay()]
+      }، ${parseInt(dvDay)} ${dvMonth} ${dvYear}، ${
+        isMilitaryTime ? hours24 : hours12
+      }:${String(now.getMinutes()).padStart(2, "0")}${
+        isMilitaryTime ? "" : " " + dvAmPm
+      }`;
+
+      // Hijri Short
+      const hijriShortDate = new Intl.DateTimeFormat("en-u-ca-islamic", {
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+        calendar: "islamic",
+      })
+        .format(now)
+        .replace(/[^0-9/]/g, "");
+
+      document.getElementById("hijriShort").textContent = `${hijriShortDate} ${
+        isMilitaryTime ? hours24 : hours12
+      }:${String(now.getMinutes()).padStart(2, "0")}${
+        isMilitaryTime ? "" : " " + ampm
+      }`;
+    } catch (e) {
+      console.error("Error formatting Hijri dates:", e);
+      ["hijriLongAr", "hijriLongEn", "hijriLongDv", "hijriShort"].forEach(
+        (id) => {
+          document.getElementById(id).textContent = "Hijri date unavailable";
+        }
+      );
+    }
+
+    // Gregorian Short
+    document.getElementById("gregorianShort").textContent = `${String(
+      now.getDate()
+    ).padStart(2, "0")}/${String(now.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}/${now.getFullYear()} ${isMilitaryTime ? hours24 : hours12}:${String(
+      now.getMinutes()
+    ).padStart(2, "0")}${isMilitaryTime ? "" : " " + ampm}`;
+  }
+
+  // Update button texts every minute
+  updateDateTimeButtons();
+  setInterval(updateDateTimeButtons, 60000);
+
+  // Toggle military time
+  document
+    .getElementById("toggleMilitaryTime")
+    .addEventListener("click", () => {
+      const currentSetting = localStorage.getItem("militaryTime") === "true";
+      localStorage.setItem("militaryTime", !currentSetting);
+      updateDateTimeButtons();
+    });
+
+  // OLD DATE TIME CODE
+  // document.getElementById("getDateTime").addEventListener("click", function () {
+  //   const now = new Date();
+  //   const day = now.getDate();
+  //   const month = now.getMonth() + 1; // getMonth() returns 0-11, so we add 1
+  //   const year = now.getFullYear();
+  //   const time = now.toLocaleTimeString();
+  //   const dateTimeString = `${day}/${month}/${year} ${time}`;
+  //   navigator.clipboard.writeText(dateTimeString);
+  // });
+
+  //
+  // COPY FUNCTIONS END
+  //
+
+  // Text expander
+  textArea.addEventListener("input", (e) => {
+    const cursorPosition = e.target.selectionStart;
+    const textBeforeCursor = e.target.value.substring(0, cursorPosition);
+    const lastWord = textBeforeCursor.split(/\s/).pop();
+
+    if (lastWord === "ss-") {
+      const newText =
+        textBeforeCursor.replace(/ss-$/, "ﷺ") +
+        e.target.value.substring(cursorPosition);
+      e.target.value = newText;
+      e.target.setSelectionRange(cursorPosition, cursorPosition);
+    }
+
+    // !!! complete
+  });
+
+  //
+
+  // Copy functionality for the Copy tab
+
+  // Copy this elsewhere if needed. currently in textEditor.js and index.html
+  // Copy functionality for copy-specific buttons
+  document
+    .querySelectorAll(".copy-button, .copy-button-lit, .copy-button-other")
+    .forEach((button) => {
+      button.addEventListener("click", async () => {
+        const text = button.dataset.text || button.textContent.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+          showButtonFeedback(button, "Copied");
+        } catch (err) {
+          console.error("Failed to copy:", err);
+        }
+      });
+    });
+
+  // Generic feedback for all buttons except dropdown triggers
+  document.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      if (button.closest(".dropdown-button")) {
+        // Skip feedback for dropdown buttons
+        return;
+      }
+      showButtonFeedback(button, "Clicked");
+    });
+  });
+
+  // Generic feedback tooltip
+  function showButtonFeedback(button, message) {
+    // Add feedback tooltip
+    const feedback = document.createElement("span");
+    feedback.textContent = message;
+    feedback.className = "copy-feedback";
+    button.appendChild(feedback);
+
+    // Add visual feedback
+    button.classList.add("copy-success");
+
+    // Remove feedback elements after a delay
+    setTimeout(() => {
+      feedback.remove();
+      button.classList.remove("copy-success");
+    }, 1000);
+  }
+
+  //
+
+  //
+
+  // Load saved content
+  const savedTabs = JSON.parse(localStorage.getItem("editorTabs"));
+  if (savedTabs) {
+    tabs = savedTabs;
+    tabs.forEach((tab) => {
+      if (tab.id > 1) {
+        const newTab = document.createElement("button");
+        newTab.classList.add("numbered-tab");
+        newTab.dataset.tab = tab.id;
+        newTab.textContent = tab.id;
+        numberedTabs.insertBefore(newTab, addTabButton);
+      }
+    });
+    switchTab(parseInt(localStorage.getItem("currentTab")) || 1);
+  }
+
+  // Save content periodically
+  setInterval(() => {
+    tabs[currentTab - 1].content = textArea.value;
+    localStorage.setItem("editorTabs", JSON.stringify(tabs));
+    localStorage.setItem("currentTab", currentTab);
+  }, 5000);
+
+  // Initial update
+  updateStats();
+
+  // =====================================================
+
+  // Calculator tab functionality
+  const calcArea = document.getElementById("calcArea");
+  const addCalcTabButton = document.getElementById("addCalcTab");
+  const calcNumberedTabs = document.querySelector(".calc-numbered-tabs");
+
+  // Check if calculator elements exist before adding functionality
+  if (calcArea && addCalcTabButton && calcNumberedTabs) {
+    let currentCalcTab = 1;
+    let calcTabs = [{ id: 1, content: "" }];
+
+    const sumTotalDisplay = document.getElementById("sumTotal");
+    const zakatDisplay = document.getElementById("zakatAmount");
+    const lineResults = document.getElementById("lineResults");
+    const copyTotalBtn = document.getElementById("copyTotal");
+    const clearCalcBtn = document.getElementById("clearCalc");
+
+    function calculateLine(line) {
+      const numberPattern = /[+-]?\d*\.?\d+(?:,\d{3})*(?:\d*\.?\d+)?/g;
+      const operatorPattern = /[\+\-\*x\/÷]/g;
+
+      let numbers = line.match(numberPattern) || [];
+      let operators = line.match(operatorPattern) || [];
+
+      // Convert comma-formatted numbers and handle explicit negative numbers
+      numbers = numbers.map((n) => {
+        // First remove commas, then parse as float
+        return parseFloat(n.replace(/,/g, ""));
+      });
+
+      // Process multiplication and division first
+      for (let i = 0; i < operators.length; i++) {
+        if (
+          operators[i] === "*" ||
+          operators[i] === "x" ||
+          operators[i] === "/" ||
+          operators[i] === "÷"
+        ) {
+          const result =
+            operators[i] === "*" || operators[i] === "x"
+              ? numbers[i] * numbers[i + 1]
+              : numbers[i] / numbers[i + 1];
+          numbers.splice(i, 2, result);
+          operators.splice(i, 1);
+          i--;
+        }
+      }
+
+      // Then process addition and subtraction
+      // Start with the first number and add/subtract the rest
+      return numbers.reduce((sum, num) => sum + num, 0);
+    }
+
+    function updateCalculations() {
+      const lines = calcArea.value.split("\n");
+      let runningTotal = 0;
+      let lineResultsText = "";
+
+      lines.forEach((line) => {
+        const lineTotal = calculateLine(line);
+        runningTotal += lineTotal;
+        // Format the running total with 2 decimal places
+        lineResultsText += `${runningTotal.toFixed(2)}\n`;
+      });
+
+      sumTotalDisplay.textContent = runningTotal.toFixed(2);
+      zakatDisplay.textContent = (runningTotal * 0.025).toFixed(2);
+      lineResults.textContent = lineResultsText;
+    }
+
+    // Add new calculation tab
+    addCalcTabButton.addEventListener("click", () => {
+      const newTabId = calcTabs.length + 1;
+      calcTabs.push({ id: newTabId, content: "" });
+
+      const newTab = document.createElement("button");
+      newTab.classList.add("calc-numbered-tab");
+      newTab.dataset.tab = newTabId;
+      newTab.textContent = newTabId;
+
+      calcNumberedTabs.insertBefore(newTab, addCalcTabButton);
+      switchCalcTab(newTabId);
+    });
+
+    // Switch between calculation tabs
+    calcNumberedTabs.addEventListener("click", (e) => {
+      if (e.target.classList.contains("calc-numbered-tab")) {
+        const tabId = parseInt(e.target.dataset.tab);
+        switchCalcTab(tabId);
+      }
+    });
+
+    function switchCalcTab(tabId) {
+      calcTabs[currentCalcTab - 1].content = calcArea.value;
+      currentCalcTab = tabId;
+      calcArea.value = calcTabs[currentCalcTab - 1].content;
+
+      document.querySelectorAll(".calc-numbered-tab").forEach((tab) => {
+        tab.classList.toggle("active", parseInt(tab.dataset.tab) === tabId);
+      });
+
+      updateCalculations(); // Add this line to update calculations when switching tabs
+    }
+
+    calcArea.addEventListener("input", updateCalculations);
+
+    copyTotalBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText(sumTotalDisplay.textContent);
+      showButtonFeedback(copyTotalBtn, "Copied");
+    });
+
+    clearCalcBtn.addEventListener("click", () => {
+      // Clear the current tab's content
+      calcArea.value = "";
+      lineResults.textContent = "";
+      sumTotalDisplay.textContent = "0.00";
+      zakatDisplay.textContent = "0.00";
+
+      // Reset to single tab
+      calcTabs = [{ id: 1, content: "" }];
+      currentCalcTab = 1;
+
+      // Clear all tabs except the first one
+      const tabButtons =
+        calcNumberedTabs.querySelectorAll(".calc-numbered-tab");
+      tabButtons.forEach((button) => {
+        if (button.dataset.tab !== "1") {
+          button.remove();
+        }
+      });
+
+      // Make sure first tab is active
+      tabButtons[0].classList.add("active");
+
+      showButtonFeedback(clearCalcBtn, "Cleared");
+    });
+
+    // Load saved calculator content
+    const savedCalcTabs = JSON.parse(localStorage.getItem("calculatorTabs"));
+    if (savedCalcTabs) {
+      calcTabs = savedCalcTabs;
+      calcTabs.forEach((tab) => {
+        if (tab.id > 1) {
+          const newTab = document.createElement("button");
+          newTab.classList.add("calc-numbered-tab");
+          newTab.dataset.tab = tab.id;
+          newTab.textContent = tab.id;
+          calcNumberedTabs.insertBefore(newTab, addCalcTabButton);
+        }
+      });
+      switchCalcTab(parseInt(localStorage.getItem("currentCalcTab")) || 1);
+    }
+
+    // Save calculator content periodically
+    setInterval(() => {
+      calcTabs[currentCalcTab - 1].content = calcArea.value;
+      localStorage.setItem("calculatorTabs", JSON.stringify(calcTabs));
+      localStorage.setItem("currentCalcTab", currentCalcTab);
+    }, 5000);
+  }
+
+  // =====================================================
+
+  // Direct Proportion Calculator functionality
+  const propContainer = document.querySelector(".proportion-container");
+  const addPropTabButton = document.getElementById("addPropTab");
+  const propNumberedTabs = document.querySelector(".prop-numbered-tabs");
+
+  if (propContainer && addPropTabButton && propNumberedTabs) {
+    let currentPropTab = 1;
+    let propTabs = [{ id: 1, content: propContainer.innerHTML }];
+
+    function updateProportions(set) {
+      const inputs = set.querySelectorAll(".prop-input");
+
+      // Count only actual input values (not placeholders)
+      const filledInputs = Array.from(inputs).filter(
+        (input) => input.value !== ""
+      ).length;
+
+      // Only calculate if at least 3 inputs have values
+      if (filledInputs >= 3) {
+        const firstX = inputs[0].value;
+        const firstY = inputs[1].value;
+        const secondX = inputs[2].value;
+
+        // Only calculate if we have the necessary values
+        if (firstX && firstY && secondX) {
+          // Calculate k (constant of proportionality)
+          const k = firstY / firstX;
+
+          // Update second Y based on proportion
+          inputs[3].value = (secondX * k).toFixed(2);
+        }
+      } else {
+        // Clear the result if less than 3 inputs
+        inputs[3].value = "";
+      }
+    }
+
+    // Add event listeners to all input fields
+    function setupInputListeners() {
+      document.querySelectorAll(".proportion-set").forEach((set) => {
+        set.querySelectorAll(".prop-input").forEach((input) => {
+          input.addEventListener("input", () => updateProportions(set));
+        });
+      });
+    }
+
+    // Add new proportion tab
+    addPropTabButton.addEventListener("click", () => {
+      const newTabId = propTabs.length + 1;
+      propTabs.push({ id: newTabId, content: propContainer.innerHTML });
+
+      const newTab = document.createElement("button");
+      newTab.classList.add("prop-numbered-tab");
+      newTab.dataset.tab = newTabId;
+      newTab.textContent = newTabId;
+
+      propNumberedTabs.insertBefore(newTab, addPropTabButton);
+      switchPropTab(newTabId);
+    });
+
+    // Switch between proportion tabs
+    propNumberedTabs.addEventListener("click", (e) => {
+      if (e.target.classList.contains("prop-numbered-tab")) {
+        const tabId = parseInt(e.target.dataset.tab);
+        switchPropTab(tabId);
+      }
+    });
+
+    function switchPropTab(tabId) {
+      propTabs[currentPropTab - 1].content = propContainer.innerHTML;
+      currentPropTab = tabId;
+      propContainer.innerHTML = propTabs[currentPropTab - 1].content;
+
+      document.querySelectorAll(".prop-numbered-tab").forEach((tab) => {
+        tab.classList.toggle("active", parseInt(tab.dataset.tab) === tabId);
+      });
+
+      setupInputListeners();
+    }
+
+    // Initialize input listeners
+    setupInputListeners();
+
+    // Load saved proportion content
+    const savedPropTabs = JSON.parse(localStorage.getItem("proportionTabs"));
+    if (savedPropTabs) {
+      propTabs = savedPropTabs;
+      propTabs.forEach((tab) => {
+        if (tab.id > 1) {
+          const newTab = document.createElement("button");
+          newTab.classList.add("prop-numbered-tab");
+          newTab.dataset.tab = tab.id;
+          newTab.textContent = tab.id;
+          propNumberedTabs.insertBefore(newTab, addPropTabButton);
+        }
+      });
+      switchPropTab(parseInt(localStorage.getItem("currentPropTab")) || 1);
+    }
+
+    // Save content periodically
+    setInterval(() => {
+      propTabs[currentPropTab - 1].content = propContainer.innerHTML;
+      localStorage.setItem("proportionTabs", JSON.stringify(propTabs));
+      localStorage.setItem("currentPropTab", currentPropTab);
+    }, 5000);
+
+    // Add inside the if (propContainer && addPropTabButton && propNumberedTabs) block
+    const clearPropBtn = document.getElementById("clearProp");
+
+    clearPropBtn.addEventListener("click", () => {
+      // Clear all proportion sets
+      document.querySelectorAll(".proportion-set").forEach((set) => {
+        const inputs = set.querySelectorAll(".prop-input");
+        inputs.forEach((input, index) => {
+          if (index === 2) {
+            // Keep "1" only in the first input of the second row
+            input.value = "1";
+          } else {
+            input.value = "";
+          }
+        });
+      });
+
+      // Reset to single tab
+      propTabs = [{ id: 1, content: propContainer.innerHTML }];
+      currentPropTab = 1;
+
+      // Clear all tabs except the first one
+      const tabButtons =
+        propNumberedTabs.querySelectorAll(".prop-numbered-tab");
+      tabButtons.forEach((button) => {
+        if (button.dataset.tab !== "1") {
+          button.remove();
+        }
+      });
+
+      // Make sure first tab is active
+      tabButtons[0].classList.add("active");
+
+      showButtonFeedback(clearPropBtn, "Cleared");
+    });
+  }
+
+  // =====================================================
+
+  // Add after your existing event listeners
+
+  // Add a new state variable near the top of your code
+  let nightCalcMilitaryTime =
+    localStorage.getItem("nightCalcMilitaryTime") === "true";
+
+  // Night Calculator Functions
+  function calculateNightTimes() {
+    const maghribInput = document.getElementById("maghribTime");
+    const fajrInput = document.getElementById("fajrTime");
+
+    if (!maghribInput.value || !fajrInput.value) return;
+
+    // Convert input times to minutes since midnight
+    const maghribTime = timeToMinutes(maghribInput.value);
+    let fajrTime = timeToMinutes(fajrInput.value);
+
+    // If Fajr is before Maghrib, add 24 hours
+    if (fajrTime < maghribTime) {
+      fajrTime += 24 * 60;
+    }
+
+    // Calculate total night duration
+    const nightDuration = fajrTime - maghribTime;
+    // First third starts at Maghrib
+
+    // Calculate various times
+    const midnight = maghribTime + nightDuration / 2;
+    const secondThird = maghribTime + nightDuration / 3; // Start of second third
+    const lastThird = maghribTime + (2 * nightDuration) / 3; // Start of last third
+
+    // Update display
+    document.getElementById("midnightTime").textContent =
+      minutesToTime(midnight);
+    document.getElementById("secondThirdTime").textContent =
+      minutesToTime(secondThird);
+    document.getElementById("lastThirdTime").textContent =
+      minutesToTime(lastThird);
+  }
+
+  function timeToMinutes(timeString) {
+    const [hours, minutes] = timeString.split(":").map(Number);
+    return hours * 60 + minutes;
+  }
+
+  function minutesToTime(totalMinutes) {
+    totalMinutes = Math.round(totalMinutes);
+    // Handle overflow past midnight
+    totalMinutes = totalMinutes % (24 * 60);
+
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    if (nightCalcMilitaryTime) {
+      // 24-hour format always shows leading zeros
+      return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+        2,
+        "0"
+      )}`;
+    } else {
+      // 12-hour format without leading zeros for hours
+      const period = hours >= 12 ? "PM" : "AM";
+      const hours12 = hours % 12 || 12;
+      // Don't pad hours with zeros, but still pad minutes
+      return `${hours12}:${String(minutes).padStart(2, "0")} ${period}`;
+    }
+  }
+
+  // Add event listeners for the time inputs
+  document
+    .getElementById("maghribTime")
+    .addEventListener("change", calculateNightTimes);
+  document
+    .getElementById("fajrTime")
+    .addEventListener("change", calculateNightTimes);
+
+  document
+    .getElementById("toggleNightCalcFormat")
+    .addEventListener("click", () => {
+      nightCalcMilitaryTime = !nightCalcMilitaryTime;
+      localStorage.setItem("nightCalcMilitaryTime", nightCalcMilitaryTime);
+      calculateNightTimes(); // Recalculate to update display
+    });
+
+  // =====================================================
+
+  // Utility functions
+  const buff_to_base64 = (buff) =>
+    btoa(
+      new Uint8Array(buff).reduce(
+        (data, byte) => data + String.fromCharCode(byte),
+        ""
+      )
+    );
+
+  const base64_to_buf = (b64) =>
+    Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+
+  const enc = new TextEncoder();
+  const dec = new TextDecoder();
+
+  // Password key generation
+  const getPasswordKey = (password) =>
+    window.crypto.subtle.importKey(
+      "raw",
+      enc.encode(password || "empty"),
+      "PBKDF2",
+      false,
+      ["deriveKey"]
+    );
+
+  const deriveKey = (passwordKey, salt, keyUsage) =>
+    window.crypto.subtle.deriveKey(
+      {
+        name: "PBKDF2",
+        salt: salt,
+        iterations: 250000,
+        hash: "SHA-256",
+      },
+      passwordKey,
+      { name: "AES-GCM", length: 256 },
+      false,
+      keyUsage
+    );
+
+  // Encryption function
+  async function encryptData(secretData, password) {
+    if (!secretData) {
+      throw new Error("No data to encrypt");
+    }
+
+    try {
+      const salt = window.crypto.getRandomValues(new Uint8Array(16));
+      const iv = window.crypto.getRandomValues(new Uint8Array(12));
+      const passwordKey = await getPasswordKey(password);
+      const aesKey = await deriveKey(passwordKey, salt, ["encrypt"]);
+      const encryptedContent = await window.crypto.subtle.encrypt(
+        {
+          name: "AES-GCM",
+          iv: iv,
+        },
+        aesKey,
+        enc.encode(secretData)
+      );
+
+      const encryptedContentArr = new Uint8Array(encryptedContent);
+      let buff = new Uint8Array(
+        salt.byteLength + iv.byteLength + encryptedContentArr.byteLength
+      );
+      buff.set(salt, 0);
+      buff.set(iv, salt.byteLength);
+      buff.set(encryptedContentArr, salt.byteLength + iv.byteLength);
+      const base64Buff = buff_to_base64(buff);
+      return base64Buff;
+    } catch (e) {
+      console.error(`Encryption error: ${e}`);
+      throw e;
+    }
+  }
+
+  // Decryption function
+  async function decryptData(encryptedData, password) {
+    if (!encryptedData) {
+      throw new Error("No data to decrypt");
+    }
+
+    try {
+      const encryptedDataBuff = base64_to_buf(encryptedData);
+      const salt = encryptedDataBuff.slice(0, 16);
+      const iv = encryptedDataBuff.slice(16, 16 + 12);
+      const data = encryptedDataBuff.slice(16 + 12);
+      const passwordKey = await getPasswordKey(password);
+      const aesKey = await deriveKey(passwordKey, salt, ["decrypt"]);
+      const decryptedContent = await window.crypto.subtle.decrypt(
+        {
+          name: "AES-GCM",
+          iv: iv,
+        },
+        aesKey,
+        data
+      );
+      return dec.decode(decryptedContent);
+    } catch (e) {
+      console.error(`Decryption error: ${e}`);
+      throw e;
+    }
+  }
+
+  // File handling utilities
+  function readFileAsArrayBuffer(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(reader.error);
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+  // Modified downloadFile function
+  function downloadFile(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.type = "application/octet-stream"; // Added explicit type
+    a.setAttribute("download", filename); // Force download attribute
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  // UI Event Handlers
+  // Tab switching functionality
+  const cryptTabs = document.querySelectorAll(".crypt-tab");
+  const cryptPanels = document.querySelectorAll(".crypt-panel");
+
+  cryptTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      cryptTabs.forEach((t) => t.classList.remove("active"));
+      cryptPanels.forEach((p) => p.classList.remove("active"));
+
+      tab.classList.add("active");
+      document
+        .getElementById(tab.dataset.crypttab + "Crypt")
+        .classList.add("active");
+    });
+  });
+
+  // Text encryption/decryption handlers
+  const encryptButton = document.getElementById("encryptButton");
+  const decryptButton = document.getElementById("decryptButton");
+  const copyEncrypted = document.getElementById("copyEncrypted");
+  const copyDecrypted = document.getElementById("copyDecrypted");
+
+  if (encryptButton) {
+    encryptButton.addEventListener("click", async () => {
+      const text = document.getElementById("textToEncrypt").value;
+      const password = document.getElementById("encryptPassword").value;
+
+      if (!text) {
+        showButtonFeedback(encryptButton, "Please enter text to encrypt");
+        return;
+      }
+
+      try {
+        const encrypted = await encryptData(text, password);
+        document.getElementById("encryptedText").value = encrypted;
+        showButtonFeedback(encryptButton, "Encrypted");
+      } catch (error) {
+        console.error("Encryption failed:", error);
+        showButtonFeedback(encryptButton, "Encryption failed");
+      }
+    });
+  }
+
+  if (decryptButton) {
+    decryptButton.addEventListener("click", async () => {
+      const text = document.getElementById("textToDecrypt").value;
+      const password = document.getElementById("decryptPassword").value;
+
+      if (!text) {
+        showButtonFeedback(decryptButton, "Please enter text to decrypt");
+        return;
+      }
+
+      try {
+        const decrypted = await decryptData(text, password);
+        document.getElementById("decryptedText").value =
+          decrypted || "Decryption failed";
+        showButtonFeedback(decryptButton, decrypted ? "Decrypted" : "Failed");
+      } catch (error) {
+        console.error("Decryption failed:", error);
+        showButtonFeedback(decryptButton, "Decryption failed");
+        document.getElementById("decryptedText").value = "Decryption failed";
+      }
+    });
+  }
+
+  // Copy button handlers
+  if (copyEncrypted) {
+    copyEncrypted.addEventListener("click", () => {
+      const text = document.getElementById("encryptedText").value;
+      if (text) {
+        navigator.clipboard.writeText(text);
+        showButtonFeedback(copyEncrypted, "Copied");
+      }
+    });
+  }
+
+  if (copyDecrypted) {
+    copyDecrypted.addEventListener("click", () => {
+      const text = document.getElementById("decryptedText").value;
+      if (text) {
+        navigator.clipboard.writeText(text);
+        showButtonFeedback(copyDecrypted, "Copied");
+      }
+    });
+  }
+
+  // File encryption/decryption handlers
+  const fileToEncrypt = document.getElementById("fileToEncrypt");
+  const fileToDecrypt = document.getElementById("fileToDecrypt");
+  const fileEncryptButton = document.getElementById("fileEncryptButton");
+  const fileDecryptButton = document.getElementById("fileDecryptButton");
+
+  // File encryption
+  fileEncryptButton?.addEventListener("click", async () => {
+    const file = fileToEncrypt.files[0];
+    const password = document.getElementById("fileEncryptPassword").value;
+
+    if (!file) {
+      showButtonFeedback(fileEncryptButton, "Please select a file");
+      return;
+    }
+
+    try {
+      showButtonFeedback(fileEncryptButton, "Encrypting...");
+      const fileData = await readFileAsArrayBuffer(file);
+      const encrypted = await encryptData(new Uint8Array(fileData), password);
+      // Create blob with explicit type and download with forced download attribute
+      const blob = new Blob([base64_to_buf(encrypted)], {
+        type: "application/octet-stream", // Changed from default type
+      });
+      downloadFile(blob, file.name + ".encrypted");
+      showButtonFeedback(fileEncryptButton, "Encrypted");
+    } catch (error) {
+      console.error("File encryption failed:", error);
+      showButtonFeedback(fileEncryptButton, "Encryption failed");
+    }
+  });
+
+  // File decryption
+  fileDecryptButton?.addEventListener("click", async () => {
+    const file = fileToDecrypt.files[0];
+    const password = document.getElementById("fileDecryptPassword").value;
+
+    if (!file) {
+      showButtonFeedback(fileDecryptButton, "Please select a file");
+      return;
+    }
+
+    try {
+      showButtonFeedback(fileDecryptButton, "Decrypting...");
+      const fileData = await readFileAsArrayBuffer(file);
+      const decrypted = await decryptData(
+        buff_to_base64(new Uint8Array(fileData)),
+        password
+      );
+      // Create blob with explicit type and download with forced download attribute
+      const blob = new Blob([new TextEncoder().encode(decrypted)], {
+        type: "application/octet-stream", // Changed from default type
+      });
+      downloadFile(blob, file.name.replace(/\.encrypted$/, ""));
+      showButtonFeedback(fileDecryptButton, "Decrypted");
+    } catch (error) {
+      console.error("File decryption failed:", error);
+      showButtonFeedback(fileDecryptButton, "Decryption failed");
+    }
+  });
+
+  // File input handling
+  function updateFileLabel(input, defaultText = "Choose File") {
+    const label = input.nextElementSibling;
+    label.textContent = input.files[0]?.name || defaultText;
+  }
+
+  fileToEncrypt?.addEventListener("change", () => {
+    updateFileLabel(fileToEncrypt);
+  });
+
+  fileToDecrypt?.addEventListener("change", () => {
+    updateFileLabel(fileToDecrypt);
+  });
+
+  // Drag and drop support
+  const fileLabels = document.querySelectorAll(".file-label");
+
+  fileLabels.forEach((label) => {
+    label.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      label.classList.add("dragover");
+    });
+
+    label.addEventListener("dragleave", () => {
+      label.classList.remove("dragover");
+    });
+
+    label.addEventListener("drop", (e) => {
+      e.preventDefault();
+      label.classList.remove("dragover");
+
+      const input = document.getElementById(label.getAttribute("for"));
+      const files = e.dataTransfer.files;
+
+      if (files.length > 0) {
+        input.files = files;
+        updateFileLabel(input);
+      }
+    });
+  });
+
+  // =====================================================
+
+  // END
+}); // document.addEventListener("DOMContentLoaded", () => {
+
+// Add this near your other textarea event listeners
+document.querySelector("textarea").addEventListener("dblclick", function () {
+  let start = textArea.selectionStart;
+  let end = textArea.selectionEnd;
+
+  // Check if a trailing space was selected by default
+  if (textArea.value.substring(start, end).slice(-1) === " ") {
+    textArea.setSelectionRange(start, end - 1); // Adjust selection to exclude the space
+  }
+});
