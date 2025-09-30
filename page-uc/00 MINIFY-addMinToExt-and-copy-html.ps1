@@ -1,4 +1,4 @@
-# SCRIPT 1 (CORRECTED): HTML FOLDER MINIFIER (with ALL replacements)
+# SCRIPT 1 (UPDATED): HTML FOLDER MINIFIER (with ALL replacements and full summary)
 #
 # PURPOSE:
 # Finds, filters, and minifies all .html files. Before minification, it performs
@@ -53,28 +53,19 @@ function MinifyHTML($inputFile, $outputFile) {
         $content = Get-Content -Path $inputFile -Raw -ErrorAction Stop
 
         # --- CUSTOM MODIFICATION LOGIC ---
-        # 1. Replaces initializePage(`${filename}.md`) with initializePage(`../page-uc/${filename}.md`);
         $content = $content -replace '(initializePage\(\s*`)(.+?\.md)(`\s*\))', '$1../page-uc/$2$3;'
-        
-        # 2. Replaces .css with .min.css in link tags (but not if it's already .min.css)
         $content = $content -replace '(href="[^"]*?)(?<!\.min)\.css"', '$1.min.css"'
-        
-        # 3. Replaces .js with .min.js in script tags (but not if it's already .min.js)
         $content = $content -replace '(src="[^"]*?)(?<!\.min)\.js"', '$1.min.js"'
         
-        # Write the modified content to a temporary file for processing
         $tempFile = [System.IO.Path]::GetTempFileName()
         $content | Set-Content -Path $tempFile -NoNewline -Encoding utf8 -ErrorAction Stop
 
-        # Ensure output directory exists
         $outputDir = Split-Path -Parent $outputFile
         if (-not (Test-Path $outputDir)) {
             New-Item -ItemType Directory -Path $outputDir -Force | Out-Null
         }
         
         $originalSize = (Get-Item $inputFile).Length
-        
-        # Use aggressive minification flags on the MODIFIED temporary file
         $minifierResult = html-minifier-next --collapse-boolean-attributes --collapse-whitespace --minify-css true --minify-js true --remove-comments --remove-optional-tags --remove-redundant-attributes --use-short-doctype $tempFile -o $outputFile 2>&1
         
         if ($LASTEXITCODE -ne 0) {
@@ -82,8 +73,10 @@ function MinifyHTML($inputFile, $outputFile) {
         }
         $newSize = (Get-Item $outputFile).Length
         return @{
-            Success = $true
-            KBSaved = [math]::Round(($originalSize - $newSize) / 1KB, 1)
+            Success      = $true
+            KBSaved      = [math]::Round(($originalSize - $newSize) / 1KB, 1)
+            BytesSaved   = ($originalSize - $newSize)
+            OriginalSize = $originalSize
         }
     }
     catch {
@@ -91,7 +84,6 @@ function MinifyHTML($inputFile, $outputFile) {
         return @{ Success = $false; Error = $_ }
     }
     finally {
-        # Clean up the temporary file if it was created
         if ($tempFile -and (Test-Path $tempFile)) {
             Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
         }
@@ -123,12 +115,11 @@ try {
     # --- APPLY MODIFIED-DAYS FILTER ---
     if ($ModifiedDaysOption -is [int] -and $ModifiedDaysOption -gt 0) {
         $since = (Get-Date).AddDays(-$ModifiedDaysOption)
-        Write-Host "🗓️  Filtering for files modified in the last $ModifiedDaysOption days (since $($since.ToString('yyyy-MM-dd HH:mm')))..." -ForegroundColor Cyan
+        Write-Host "🗓️  Filtering for files modified in the last $ModifiedDaysOption days..." -ForegroundColor Cyan
         
         $originalCount = $htmlFiles.Count
         $htmlFiles = $htmlFiles | Where-Object { $_.LastWriteTime -ge $since }
-        $filteredCount = $htmlFiles.Count
-        Write-Host "   -> Found $filteredCount files out of $originalCount that match the filter." -ForegroundColor Cyan
+        Write-Host "   -> Found $($htmlFiles.Count) files out of $originalCount that match the filter." -ForegroundColor Cyan
     }
     else {
         Write-Host "🗓️  Modified-days filter is OFF. Processing all files." -ForegroundColor DarkGray
@@ -141,13 +132,17 @@ try {
         exit 0
     }
 
+    # Initialize counters for summary
+    $totalOriginalSize = 0
+    $totalBytesSaved = 0
+    $htmlFiles | ForEach-Object { $totalOriginalSize += $_.Length }
+
     $processedCount = 0; $successCount = 0; $failCount = 0
-    Write-Host "`n🔄 Starting minification of $totalFiles HTML files..." -ForegroundColor Cyan
+    Write-Host "`n🔄 Starting minification of $totalFiles HTML files (Total Size: $([math]::Round($totalOriginalSize/1KB,1)) KB)..." -ForegroundColor Cyan
 
     # Process each file
     foreach ($file in $htmlFiles) {
         $processedCount++
-        # Construct the output path while preserving the sub-directory structure
         $outputFile = $file.FullName.Replace($resolvedSource, $resolvedOutput)
         
         Write-Host "[$processedCount/$totalFiles] Processing $($file.Name)... " -NoNewline
@@ -156,6 +151,7 @@ try {
         if ($result.Success) {
             Write-Host "✅ Success" -ForegroundColor Green -NoNewline
             Write-Host " (Saved $($result.KBSaved) KB)" -ForegroundColor Cyan
+            $totalBytesSaved += $result.BytesSaved
             $successCount++
         }
         else {
@@ -164,14 +160,21 @@ try {
         }
     }
 
-    # Final summary
+    # Final summary calculations
     $endTime = Get-Date
     $executionTime = [math]::Round(($endTime - $startTime).TotalSeconds, 2)
+    $totalKBSaved = [math]::Round($totalBytesSaved / 1KB, 1)
+    $totalPercentSaved = 0
+    if ($totalOriginalSize -gt 0) {
+        $totalPercentSaved = [math]::Round(($totalBytesSaved / $totalOriginalSize) * 100)
+    }
+
     Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
     Write-Host "📊 SUMMARY" -ForegroundColor Cyan
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
     Write-Host "✅ Successful: $successCount files" -ForegroundColor Green
     Write-Host "❌ Failed:     $failCount files" -ForegroundColor Red
+    Write-Host "💾 Total Space Saved: $totalKBSaved KB ($totalPercentSaved% smaller)" -ForegroundColor Yellow
     Write-Host "🕒 Total Time: $executionTime seconds" -ForegroundColor Cyan
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
 
