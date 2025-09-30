@@ -2422,7 +2422,7 @@ i want one more space after the colon that comes after the issue description
 
     // If not loaded, dynamically load the script
     const script = document.createElement("script");
-    script.src = "noFiliExceptions.js"; // This should define window.noFiliExceptions
+    script.src = "textEditor-noFiliExceptions.js"; // This should define window.noFiliExceptions
 
     script.onload = () => {
       // Script loaded, now process the text

@@ -87,7 +87,7 @@ function loadContent(markdownPath) {
     });
 }
 
-/* TITLE UPDATING
+/* TITLE UPDATING 
    Extracts and sets page title from markdown H1 */
 function updateTitle(markdown) {
   // Look for first H1 header in markdown

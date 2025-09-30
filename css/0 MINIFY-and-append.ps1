@@ -85,7 +85,8 @@ $separateFiles = @(
     "base-styles.css",
     "navbar.css",
     "DT-inline.css",
-    "quran-navigation-list.css"
+    "quran-navigation-list.css",
+    "markdown-page.css"
 )
 
 # Apply "modified within N days ago" filter if enabled

@@ -75,7 +75,8 @@ $separateFiles = @(
     "navbar.js",
     "DT-inline.js",
     "quran-navigation-objectMaps.js",
-    "quran-navigation-list.js"
+    "quran-navigation-list.js",
+    "markdown-loader.js"
 )
 
 # Apply "modified within N days ago" filter if enabled

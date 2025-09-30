@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.6.06";
+var hmvVersionNo = "6.6.07";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
@@ -160,6 +160,7 @@ function createNavbar() {
   // Define the HTML structure for the navbar and side menu
   // MINIFY THIS HTML WITH KANGAX. if need to edit, format with something else then reminify
   // Insert the navbar HTML into the container
+  // included onerror fallback for an image source
   document.getElementById("navbar-container").innerHTML = `
    <nav class="navbar">
    <div class="navbar-left">
@@ -168,6 +169,7 @@ function createNavbar() {
          alt="Site Icon"
          class="navbar-site-icon"
          src="../img/logo/logo.svg"
+         onerror="this.onerror=null; this.src='../../img/logo/logo.svg';"
          title="Homepage"
          />
       </a>
