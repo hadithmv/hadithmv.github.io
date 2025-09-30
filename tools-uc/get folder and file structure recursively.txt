@@ -1,0 +1,101 @@
+To obtain the folder structure in PowerShell, the primary command used is Get-ChildItem. This cmdlet is versatile and allows for various levels of detail and filtering.
+To list all folders and files, including those in subdirectories, use the -Recurse parameter:
+
+...
+
+Get-ChildItem -Recurse
+
+...
+...
+
+I'll create a PowerShell script that displays a complete folder hierarchy tree with all files and subfolders.
+Features:
+Visual tree structure with proper connectors (├──, └──, │)
+?Optional depth limiting to avoid overwhelming output
+Includes files
+?Export to file option
+?Handles access denied errors gracefully
+?Sorts items alphabetically
+
+The script uses box-drawing characters to create a nice visual tree structure, making it easy to understand the folder hierarchy at a glance!
+
+...
+
+
+# Folder Hierarchy Tree Script
+# Usage: .\Get-FolderTree.ps1 -Path "C:\Your\Path" [-Depth 5] [-FoldersOnly] [-ExportToFile "output.txt"]
+
+param(
+    [string]$Path = (Get-Location).Path,
+    [int]$Depth = -1,
+    [switch]$FoldersOnly,
+    [string]$ExportToFile = ""
+)
+
+function Show-Tree {
+    param(
+        [string]$Path,
+        [string]$Prefix = "",
+        [bool]$IsLast = $true,
+        [int]$CurrentDepth = 0,
+        [int]$MaxDepth = -1
+    )
+    
+    # Check depth limit
+    if ($MaxDepth -ge 0 -and $CurrentDepth -gt $MaxDepth) {
+        return
+    }
+    
+    try {
+        $item = Get-Item -Path $Path -ErrorAction Stop
+        
+        # Display current item
+        $connector = if ($IsLast) { "└── " } else { "├── " }
+        $line = $Prefix + $connector + $item.Name
+        
+        if ($item.PSIsContainer) {
+            $line += "\"
+        }
+        
+        Write-Output $line
+        
+        # Process subdirectories and files
+        if ($item.PSIsContainer) {
+            $childPrefix = $Prefix + $(if ($IsLast) { "    " } else { "│   " })
+            
+            # Get all child items
+            $children = @()
+            $children += Get-ChildItem -Path $Path -Directory -ErrorAction SilentlyContinue | Sort-Object Name
+            
+            if (-not $FoldersOnly) {
+                $children += Get-ChildItem -Path $Path -File -ErrorAction SilentlyContinue | Sort-Object Name
+            }
+            
+            $childCount = $children.Count
+            
+            for ($i = 0; $i -lt $childCount; $i++) {
+                $isLastChild = ($i -eq ($childCount - 1))
+                Show-Tree -Path $children[$i].FullName -Prefix $childPrefix -IsLast $isLastChild -CurrentDepth ($CurrentDepth + 1) -MaxDepth $MaxDepth
+            }
+        }
+    }
+    catch {
+        Write-Warning "Access denied or error: $Path"
+    }
+}
+
+# Main execution
+Write-Output ""
+Write-Output "Folder Tree for: $Path"
+Write-Output "=" * 80
+Write-Output ""
+
+if ($ExportToFile) {
+    Show-Tree -Path $Path -MaxDepth $Depth | Out-File -FilePath $ExportToFile -Encoding UTF8
+    Write-Output "Tree exported to: $ExportToFile"
+} else {
+    Show-Tree -Path $Path -MaxDepth $Depth
+}
+
+Write-Output ""
+Write-Output "=" * 80
