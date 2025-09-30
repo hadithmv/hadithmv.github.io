@@ -33,7 +33,12 @@ function MinifyHTML($inputFile, $outputFile) {
         if (-not (Get-Command html-minifier-next -ErrorAction SilentlyContinue)) { throw "html-minifier-next is not installed." }
         
         $content = Get-Content -Path $inputFile -Raw
-        # Generic update: change .css to .min.css and .js to .min.js
+        
+        # --- GENERAL MODIFICATIONS FOR ALL HTML FILES ---
+        # 1. Correct relative paths for the new flat directory structure.
+        $content = $content -replace '((?:href|src)=["''])\.\./\.\./', '$1../'
+        
+        # 2. Generic update: change .css to .min.css and .js to .min.js
         $content = $content -replace '(href="[^"]*?)(?<!\.min)\.css"', '$1.min.css"'
         $content = $content -replace '(src="[^"]*?)(?<!\.min)\.js"', '$1.min.js"'
         
@@ -80,13 +85,13 @@ try {
     # =========================================================================
     # CONFIG: Define all file build operations here
     # =========================================================================
-    $OutputFolder = "..\..\tools"
+    $OutputFolder = "..\tools"
     $operations = @()
 
     # --- diffCompare ---
     $operations += @{
         Type          = "CustomHTML"
-        Input         = "diffCompare/cdn-base.html"
+        Input         = "diffCompare/cdn-custom.html"
         Output        = Join-Path $OutputFolder "diffCompare.html"
         Name          = "diffCompare HTML"
         Modifications = {
@@ -98,13 +103,12 @@ try {
     $operations += @{ Type = "JS"; Input = "diffCompare/mergely.js"; Output = Join-Path $OutputFolder "diffCompare.min.js"; Name = "diffCompare JS" }
 
     # --- keyboardPage ---
-    $operations += @{ Type = "HTML"; Input = "keyboardPage/index-base.html"; Output = Join-Path $OutputFolder "keyboardPage.html"; Name = "keyboardPage HTML" }
+    $operations += @{ Type = "HTML"; Input = "keyboardPage/index-custom.html"; Output = Join-Path $OutputFolder "keyboardPage.html"; Name = "keyboardPage HTML" }
 
     # --- qrCode ---
     $operations += @{ Type = "HTML"; Input = "qrCode/qrcodegen-input-custom.html"; Output = Join-Path $OutputFolder "qrCode.html"; Name = "qrCode HTML" }
 
     # --- textEditor ---
-    # The standard 'HTML' type will auto-update .js to .min.js links
     $operations += @{ Type = "HTML"; Input = "textEditor/textEditor.html"; Output = Join-Path $OutputFolder "textEditor.html"; Name = "textEditor HTML" }
     $operations += @{ Type = "JS"; Input = "textEditor/textEditor.js"; Output = Join-Path $OutputFolder "textEditor.min.js"; Name = "textEditor.js" }
     $operations += @{ Type = "JS"; Input = "textEditor/textEditor-noFiliExceptions.js"; Output = Join-Path $OutputFolder "textEditor-noFiliExceptions.min.js"; Name = "textEditor-noFiliExceptions.js" }
@@ -159,9 +163,11 @@ try {
                 $tempFile = [System.IO.Path]::GetTempFileName()
                 try {
                     $content = Get-Content -Path $op.Input -Raw
+                    # Apply special modifications for this file
                     $modifiedContent = & $op.Modifications $content
+                    # Write the specially modified content to the temp file
                     $modifiedContent | Set-Content -Path $tempFile -NoNewline -Encoding utf8
-                    # Pass the specially modified content to the standard minifier
+                    # Pass the temp file to the standard HTML minifier, which applies GENERAL modifications
                     $result = MinifyHTML $tempFile $op.Output
                 }
                 finally { if (Test-Path $tempFile) { Remove-Item $tempFile -Force } }
