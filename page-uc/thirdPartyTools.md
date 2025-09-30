@@ -260,7 +260,7 @@ https://sqlitebrowser.org -MPL 2.0 &amp; GNU GPLv3
 
 ---
 
-https://github.com/kangax/html-minifier -MIT
+https://github.com/j9t/html-minifier-next -MIT
 
 https://github.com/google/closure-compiler -Apache 2.0
 
