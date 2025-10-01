@@ -5,11 +5,11 @@
 3 ޛުލްޤަޢިދާ 1446
 1 މޭ 2025
 
-[ރަމީޒު]
+[މުޙައްމަދު ރަމީޒް]
 
 ---
 
-ފޮތުގެ [ޕީޑީއެފް](https://archive.org/details/dhivehi-bahuge-hama-thah-mohamed-ikram)
+ފޮތުގެ [ޕީޑީއެފް](https://archive.org/details/dhivehi-bahuge-hama-thah-mohamed-rameez)
 
 ---
 
