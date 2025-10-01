@@ -109,8 +109,8 @@ try {
     Write-Host "🎯 Output: $resolvedOutput" -ForegroundColor Cyan
     Write-Host "----------------------------------------------------"
 
-    # Find all HTML files recursively
-    $htmlFiles = Get-ChildItem -Path $resolvedSource -Filter "*.html" -Recurse
+    # Find all HTML files in the current directory, non recursively (without -Recurse)
+    $htmlFiles = Get-ChildItem -Path $resolvedSource -Filter "*.html"
 
     # --- APPLY MODIFIED-DAYS FILTER ---
     if ($ModifiedDaysOption -is [int] -and $ModifiedDaysOption -gt 0) {
