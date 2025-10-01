@@ -6,6 +6,7 @@
 # 1. Updates 'initializePage()' paths.
 # 2. Updates all CSS links to their '.min.css' versions.
 # 3. Updates all JS links to their '.min.js' versions.
+# 4. Copies the processed '404.html' to a specified root location.
 #
 # PREREQUISITES:
 # - html-minifier-next: Must be installed globally via npm.
@@ -24,6 +25,15 @@ $OutputFolder = "..\page"
 # Toggle processing only files modified within N days ago.
 # Set to an integer (e.g., 1, 2, 5) or 'Off' to disable. Default: 2
 $ModifiedDaysOption = 2
+
+# --- 404 PAGE CONFIGURATION ---
+# Set to $true to copy the 404 page after processing.
+$Copy404Enabled = $true
+# The name of the 404 file inside the source folder.
+$Source404FileName = "404.html"
+# The final destination for the 404 file, relative to the OutputFolder.
+# Example: '..\404.html' places it one level above the OutputFolder.
+$Destination404Path = "..\404.html"
 
 # ----------------------------------------------------------------------------------
 
@@ -91,6 +101,9 @@ function MinifyHTML($inputFile, $outputFile) {
 }
 
 try {
+    # Initialize counters for summary
+    $processedCount = 0; $successCount = 0; $failCount = 0
+
     # Check if the source folder exists
     if (-not (Test-Path $SourceFolder)) {
         Write-Error "Configuration Error: The SourceFolder '$SourceFolder' does not exist."
@@ -129,38 +142,74 @@ try {
 
     if ($totalFiles -eq 0) {
         Write-Host "`nNo HTML files matched the criteria to be processed." -ForegroundColor Yellow
-        exit 0
+        # Proceed anyway in case we only need to copy the 404 file
+    }
+    else {
+        # Initialize size counters for summary
+        $totalOriginalSize = 0
+        $totalBytesSaved = 0
+        $htmlFiles | ForEach-Object { $totalOriginalSize += $_.Length }
+
+        Write-Host "`n🔄 Starting minification of $totalFiles HTML files (Total Size: $([math]::Round($totalOriginalSize/1KB,1)) KB)..." -ForegroundColor Cyan
+
+        # Process each file
+        foreach ($file in $htmlFiles) {
+            $processedCount++
+            $outputFile = $file.FullName.Replace($resolvedSource, $resolvedOutput)
+            
+            Write-Host "[$processedCount/$totalFiles] Processing $($file.Name)... " -NoNewline
+            $result = MinifyHTML $file.FullName $outputFile
+
+            if ($result.Success) {
+                Write-Host "✅ Success" -ForegroundColor Green -NoNewline
+                Write-Host " (Saved $($result.KBSaved) KB)" -ForegroundColor Cyan
+                $totalBytesSaved += $result.BytesSaved
+                $successCount++
+            }
+            else {
+                Write-Host "❌ FAILED" -ForegroundColor Red
+                $failCount++
+            }
+        }
     }
 
-    # Initialize counters for summary
-    $totalOriginalSize = 0
-    $totalBytesSaved = 0
-    $htmlFiles | ForEach-Object { $totalOriginalSize += $_.Length }
-
-    $processedCount = 0; $successCount = 0; $failCount = 0
-    Write-Host "`n🔄 Starting minification of $totalFiles HTML files (Total Size: $([math]::Round($totalOriginalSize/1KB,1)) KB)..." -ForegroundColor Cyan
-
-    # Process each file
-    foreach ($file in $htmlFiles) {
-        $processedCount++
-        $outputFile = $file.FullName.Replace($resolvedSource, $resolvedOutput)
+    # --- COPY 404 PAGE (NEW SECTION) ---
+    if ($Copy404Enabled) {
+        $source404File = Join-Path -Path $resolvedOutput -ChildPath $Source404FileName
         
-        Write-Host "[$processedCount/$totalFiles] Processing $($file.Name)... " -NoNewline
-        $result = MinifyHTML $file.FullName $outputFile
-
-        if ($result.Success) {
-            Write-Host "✅ Success" -ForegroundColor Green -NoNewline
-            Write-Host " (Saved $($result.KBSaved) KB)" -ForegroundColor Cyan
-            $totalBytesSaved += $result.BytesSaved
-            $successCount++
+        # Resolve the destination path relative to the output folder
+        $destination404File = $null
+        try {
+            $destination404File = Resolve-Path -Path (Join-Path -Path $resolvedOutput -ChildPath $Destination404Path) -ErrorAction Stop
         }
-        else {
-            Write-Host "❌ FAILED" -ForegroundColor Red
+        catch {
+            # This catch handles cases where the path is syntactically invalid
+        }
+
+        Write-Host "`n🔗 Attempting to copy 404 page..." -ForegroundColor Cyan
+        
+        if (-not $destination404File) {
+            Write-Host "   -> ❌ FAILED: Could not resolve destination path '$Destination404Path'." -ForegroundColor Red
             $failCount++
         }
+        elseif (Test-Path $source404File) {
+            try {
+                Copy-Item -Path $source404File -Destination $destination404File -Force -ErrorAction Stop
+                Write-Host "   -> ✅ Copied '$($Source404FileName)' to '$destination404File'" -ForegroundColor Green
+                $successCount++ # Increment success count for the copy operation
+            }
+            catch {
+                Write-Host "   -> ❌ FAILED to copy 404 page: $_" -ForegroundColor Red
+                $failCount++
+            }
+        }
+        else {
+            Write-Host "   -> ⚠️  Source file not found at '$source404File'. Was '$Source404FileName' processed? Skipping." -ForegroundColor Yellow
+        }
     }
 
-    # Final summary calculations
+
+    # --- FINAL SUMMARY ---
     $endTime = Get-Date
     $executionTime = [math]::Round(($endTime - $startTime).TotalSeconds, 2)
     $totalKBSaved = [math]::Round($totalBytesSaved / 1KB, 1)
@@ -172,14 +221,16 @@ try {
     Write-Host "`n═══════════════════════════════════════════════════" -ForegroundColor DarkGray
     Write-Host "📊 SUMMARY" -ForegroundColor Cyan
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
-    Write-Host "✅ Successful: $successCount files" -ForegroundColor Green
-    Write-Host "❌ Failed:     $failCount files" -ForegroundColor Red
-    Write-Host "💾 Total Space Saved: $totalKBSaved KB ($totalPercentSaved% smaller)" -ForegroundColor Yellow
-    Write-Host "🕒 Total Time: $executionTime seconds" -ForegroundColor Cyan
+    Write-Host "✅ Successful operations: $successCount" -ForegroundColor Green
+    Write-Host "❌ Failed operations:     $failCount" -ForegroundColor Red
+    if ($totalOriginalSize -gt 0) {
+        Write-Host "💾 Total Space Saved:   $totalKBSaved KB ($totalPercentSaved% smaller)" -ForegroundColor Yellow
+    }
+    Write-Host "🕒 Total Time:          $executionTime seconds" -ForegroundColor Cyan
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
 
     if ($failCount -eq 0) {
-        Write-Host "✅ ALL FILES PROCESSED SUCCESSFULLY ✅" -ForegroundColor Green
+        Write-Host "✅ ALL OPERATIONS COMPLETED SUCCESSFULLY ✅" -ForegroundColor Green
     }
     else {
         Write-Host "⚠️ COMPLETED WITH ERRORS ⚠️" -ForegroundColor Yellow
