@@ -209,7 +209,7 @@ Here are several other ways you can support Hadithmv:
 
 <!-- TOC --><a name="thank-you-and-jazakallah-khair"></a>
 
-# Thank You and Jazakallah Khair
+## Thank You and Jazakallah Khair
 
 With your support we can reach more people who can contribute to and benefit from this project.
 
