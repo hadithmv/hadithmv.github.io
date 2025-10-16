@@ -503,9 +503,11 @@ Crucial Pro 64GB Kit (32GBx2) DDR4-3200 UDIMM
 1TB NVMe Lexar SSD NM620
 Logitech ERGO K860 Wireless Split Keyboard
 Logitech MX Vertical Ergonomic Wireless Mouse
-Acer R271 Monitor
+
+<!-- Acer R271 Monitor
 HP 24es Monitor
-Philips 221V8/94 Monitor
+Philips 221V8/94 Monitor -->
+
 Canon PIXMA MegaTank G3010 All-in-One Wireless Ink Tank Colour Printer
 
 ---
