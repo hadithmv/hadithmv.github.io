@@ -1,0 +1,379 @@
+this is my current code for my website homepage
+
+it is very messy and repetitive and all over the place
+
+id like something more efficient, modern, beautiful, etc
+
+perhaps there should be a dynamicaly loaded json object or something where i could give values for sections, subsections, clickable links or buttons to pages with arabic text, dhivehi text, english text for the same page, as well as url link, as values in this json object or something, along with maybe tags or keywords
+
+i would also like a searchbar where i could write text in dhivehi/arabic/english or keywords and it would show results for matches or something
+
+feel free to do whatever you like or improve this homepage however you like
+
+...
+
+index should have links to css and js like
+
+    <link rel="stylesheet" href="../css/index.css" />
+    <script src="../js/index.js"></script>
+
+also need prefer darkmode and root variable colors etc
+
+as well as the fonts i used
+font-family: "mergedFont", "Quicksand", sans-serif, "faruma"
+
+i dont want all the book cards to show up all at once under each section, if there are too many (i should be able to set how many) there should be like a show more kind of button or clickable thing that, that will load/show the remainder when clicked
+
+...
+
+User
+it should also be mobile responsive
+the searchbard is flowing off screen
+give the full javascript code for all books
+
+...
+
+sections like
+القرآن والتفسير | ގުރްއާނާއި ތަފްސީރު
+should have the total number of books they hold within their sections (including subsections if any) kind of similar to how you have
+އިތުރަށް ދައްކާ (8+)
+but instead it would be like
+(10) ލިޔުން
+what about app download text links in the footer
+as well as social media text links in the footer
+id like a quick links section at the top, like how quran section is there and like it, but above the quran section
+quick links would have a donation page link, text editor link, azkaar link, aqiqa link
+
+
+...
+
+the dark mode colors that are used by these are not suitable
+book-title-ar
+section-title
+site-header
+
+the search bar is hard to see too
+
+could it be your choice of primary dark or something
+
+
+...
+...
+
+You've made an excellent point, and your diagnosis is spot on. The dark mode colors were not well-calibrated, leading to poor contrast, especially with the `--primary` color being too dark for text. The search bar was also too similar to the background.
+
+I have created a completely revised, professionally designed dark mode palette. This new palette is built on principles of accessibility and visual hierarchy, ensuring that text is always easy to read and important elements stand out.
+
+### Summary of Fixes:
+
+1.  **New Dark Mode Palette:** I've replaced the old dark mode variables with a more sophisticated set of colors. The new background is a soft dark blue-grey, with lighter shades for cards and the header to create a sense of depth.
+2.  **High-Contrast Text:** Section titles and book titles now use a bright, almost white color in dark mode, making them pop against the darker backgrounds.
+3.  **Visible Search Bar:** The search bar now has a lighter background and a subtle border in dark mode, making it clearly visible and defined.
+4.  **Cohesive Header:** The header color is now a lighter shade of the background, distinguishing it clearly from the main content area.
+
+---
+
+### The Corrected CSS File (`../css/index.css`)
+
+You only need to replace your existing CSS file with this complete, corrected version. All the necessary fixes are included.
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap');
+
+/* === RESET & BASICS === */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* --- LIGHT MODE PALETTE (Default) --- */
+    --primary: #29434e;      /* Dark Blue-Grey for headers/text */
+    --secondary: #1a5a9a;    /* Link Blue */
+    --accent: #ed8a28;       /* Action Orange */
+    --bg-main: #f1f5fb;      /* Light Grey-Blue background */
+    --card-bg: #ffffff;      /* White cards */
+    --text-main: #333;       /* Main dark text */
+    --text-muted: #666;      /* Lighter grey text */
+    --text-headings: var(--primary); /* Headings are dark */
+    --border: #e0e0e0;       /* Light border color */
+    --header-text: #ffffff;  /* White text on dark headers */
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* --- REVISED DARK MODE PALETTE --- */
+        --primary: #1a262d;      /* Header/Footer background */
+        --secondary: #3a7ca5;    /* Link Blue */
+        --accent: #d47c24;       /* Action Orange (slightly desaturated) */
+        --bg-main: #12181b;      /* Very dark, soft blue background */
+        --card-bg: #223038;      /* Lighter grey-blue for cards/search */
+        --text-main: #cdd5dc;    /* Main light text (soft white) */
+        --text-muted: #8899a6;   /* Muted grey text */
+        --text-headings: #f1f5fb;/* Bright, almost white for headings */
+        --border: #344955;       /* Subtle border color */
+        --header-text: #e0e0e0;  /* Light text on dark headers */
+    }
+}
+
+html {
+    direction: rtl;
+}
+
+body {
+    font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s; /* Smooth theme transitions */
+}
+
+/* === HEADER & SEARCH === */
+.site-header {
+    background-color: var(--primary);
+    color: var(--header-text);
+    text-align: center;
+    padding: 2rem 1rem;
+    border-bottom: 6px solid var(--accent);
+}
+
+.logo {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    background: #fff;
+    padding: 5px;
+}
+
+.site-header h1 {
+    font-family: 'Noto Sans Arabic', "mergedFont", sans-serif;
+    font-size: 2.2rem;
+}
+
+#searchInput {
+    width: 100%;
+    max-width: 600px;
+    padding: 1rem 1.2rem;
+    font-size: 1.1rem;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    background-color: var(--card-bg);
+    color: var(--text-main);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+/* Specific dark mode fix for search bar visibility */
+@media (prefers-color-scheme: dark) {
+    #searchInput {
+        border: 1px solid var(--border);
+    }
+}
+
+
+/* === MAIN CONTENT === */
+#content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.content-section {
+    margin-bottom: 4rem;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.section-title {
+    background-color: var(--bg-main);
+    padding: 0 1.5rem;
+    z-index: 1;
+    color: var(--text-headings); /* Uses the new high-contrast variable */
+    font-family: 'Noto Sans Arabic', "mergedFont", sans-serif;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.section-item-count {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: normal;
+    margin-right: 1rem;
+}
+
+.section-header::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: var(--border);
+    top: 50%;
+    left: 0;
+    z-index: 0;
+}
+
+/* === BOOK GRID & CARD === */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.book-card {
+    background-color: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 160px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    border-top: 6px solid var(--secondary);
+}
+
+.book-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.book-card:hover .book-title-ar,
+.book-card:hover .book-title-dv,
+.book-card:hover .book-status {
+  color: #fff;
+}
+
+.book-title-ar {
+  font-family: 'Noto Sans Arabic', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text-headings); /* Uses the new high-contrast variable */
+}
+
+.book-title-dv {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.book-status {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background: rgba(120, 120, 120, 0.1); /* Adjusted for better visibility */
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-top: auto;
+}
+
+.hidden-card {
+  display: none;
+}
+
+
+/* === SECTION COLORS === */
+.section-quick-links .book-card { border-color: var(--accent); }
+.section-quran .book-card { border-color: #ad0e1c; }
+.section-hadith .book-card { border-color: #136296; }
+.section-aqida .book-card { border-color: #c05602; }
+.section-language .book-card { border-color: #006e46; }
+
+/* === SHOW MORE BUTTON === */
+.show-more-container {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.show-more-btn {
+    font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+    background-color: var(--bg-main);
+    color: var(--text-muted);
+    border: 2px solid var(--border);
+    padding: 0.8rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.show-more-btn:hover {
+    background-color: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    transform: scale(1.05);
+}
+
+/* === FOOTER === */
+.site-footer {
+    text-align: center;
+    padding: 3rem 1rem 1rem;
+    background-color: var(--primary);
+    color: var(--header-text);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    gap: 2rem 4rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-column {
+    text-align: center;
+}
+
+.footer-column h3 {
+    margin-bottom: 1rem;
+    color: var(--header-text);
+    opacity: 0.9;
+    font-size: 1.2rem;
+}
+
+.footer-column a {
+    display: block;
+    color: var(--header-text);
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.footer-column a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.footer-copyright {
+    opacity: 0.5;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    margin-top: 1rem;
+}
+
+```
