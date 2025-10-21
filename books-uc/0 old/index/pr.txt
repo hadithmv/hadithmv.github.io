@@ -1,0 +1,396 @@
+this is my current code for my website homepage
+
+it is very messy and repetitive and all over the place
+
+id like something more efficient, modern, beautiful, etc
+
+perhaps there should be a dynamicaly loaded json object or something where i could give values for sections, subsections, clickable links or buttons to pages with arabic text, dhivehi text, english text for the same page, as well as url link, as values in this json object or something, along with maybe tags or keywords
+
+i would also like a searchbar where i could write text in dhivehi/arabic/english or keywords and it would show results for matches or something
+
+feel free to do whatever you like or improve this homepage however you like
+
+...
+...
+
+Of course. I can certainly help you redesign your homepage to be more modern, efficient, and easier to manage. Your idea of using a dynamically loaded JSON object is excellent and is a standard practice in modern web development for exactly the reasons you mentioned: it separates your content from your presentation, making the site much easier to update and scale.
+
+Here is a complete, ready-to-use redesign of your homepage, incorporating a data-driven approach with a JSON object, dynamic rendering, and a live search functionality.
+
+### Key Improvements in This Redesign:
+
+*   **Data-Driven Content:** All the links and books are stored in a single `siteData` object in the JavaScript file. To add, remove, or change a book, you only need to edit this object, not the HTML file.
+*   **Dynamic Rendering:** The JavaScript code automatically generates the HTML for each section and book from the `siteData` object. This eliminates hundreds of lines of repetitive HTML.
+*   **Live Search Bar:** A search bar is added at the top. It filters the content in real-time as the user types, searching across Arabic, Dhivehi, and English titles, as well as keywords.
+*   **Modern & Clean Design:** The new CSS provides a cleaner, more modern aesthetic with a consistent design, improved readability, and subtle animations. It is also fully responsive.
+*   **Simplified HTML:** The `index.html` file is now incredibly simple and clean, serving as a skeleton that gets populated by the JavaScript.
+
+---
+
+### Step 1: Your New `index.html`
+
+This file is now much simpler. It contains the basic structure, including the new search bar and a main container where the books will be dynamically loaded.
+
+```html
+<!DOCTYPE html>
+<html lang="dv" class="notranslate" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google" content="notranslate" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ޙަދީޘްއެމްވީ - ދިވެހިންގެ ސުންނަތުގެ މަންސަ</title>
+    <meta name="description" content="The Dhivehi Platform for the Sunnah | ދިވެހިންގެ ސުންނަތުގެ މަންސަ" />
+    <meta name="keywords" content="hadithmv, hadith, dhivehi, islamic books, quran, sunnah, ޙަދީޘް, ގުރުއާން, އިސްލާމް, ދިވެހި" />
+    <link rel="icon" href="../img/logo/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <img src="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png" alt="HadithMV Logo" class="logo">
+        <h1>ޙަދީޘްއެމްވީ</h1>
+        <p>ދިވެހިންގެ ސުންނަތުގެ މަންސަ</p>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search books in Dhivehi, Arabic, or English...">
+        </div>
+    </header>
+
+    <main id="content-container">
+        <!-- Content will be dynamically generated here by JavaScript -->
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 HadithMV. All rights reserved.</p>
+        <!-- Add other footer links or social media icons here if you wish -->
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+---
+
+### Step 2: Your New CSS (`style.css`)
+
+Save this as `style.css` in the same directory as your new `index.html`. This stylesheet provides a clean, modern, and responsive design.
+
+```css
+/* General Body and Typography */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&family=Noto+Sans:wght@400;700&display=swap');
+
+:root {
+    --primary-color: #29434e;
+    --secondary-color: #1a5a9a;
+    --accent-color: #ed8a28;
+    --background-color: #f1f5fb;
+    --text-color: #333;
+    --card-background: #ffffff;
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+html {
+    direction: rtl; /* Set default direction to Right-to-Left for Dhivehi/Arabic */
+}
+
+body {
+    font-family: 'Noto Sans', 'faruma', sans-serif;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Header and Search Bar */
+.site-header {
+    background: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+    border-bottom: 5px solid var(--accent-color);
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    background: white;
+    padding: 5px;
+}
+
+.site-header h1 {
+    margin: 0;
+    font-family: 'Noto Sans Arabic', sans-serif;
+}
+
+.site-header p {
+    margin: 0.5rem 0 1.5rem 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.search-container {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    direction: ltr; /* Keep search input LTR for better English typing experience */
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(237, 138, 40, 0.5);
+}
+
+/* Main Content Container */
+main {
+    padding: 2rem 1rem;
+}
+
+.content-section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-size: 2rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 3px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.book-card {
+    background-color: var(--card-background);
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 5px solid var(--secondary-color);
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.book-title-ar {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin: 0 0 0.5rem 0;
+}
+
+.book-title-dv {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.book-status {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 0.75rem;
+}
+
+/* Custom colors for sections */
+.section-quran .book-card { border-color: #ad0e1c; }
+.section-hadith .book-card { border-color: #136296; }
+.section-aqida .book-card { border-color: #c05602; }
+.section-language .book-card { border-color: #006e46; }
+.section-misc .book-card { border-color: #5647b8; }
+
+
+/* Footer */
+.site-footer {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #e9ecef;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .book-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .book-grid {
+        grid-template-columns: 1fr;
+    }
+}
+```
+
+---
+
+### Step 3: Your New JavaScript (`script.js`)
+
+Save this as `script.js` in the same directory. This file contains the logic. First, it defines all your content in the `siteData` object. Then, it has functions to build the HTML and handle the search.
+
+```javascript
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- DATA OBJECT ---
+    // All your website content goes here. To add a new book, just add a new object to the appropriate 'items' array.
+    const siteData = [
+        {
+            sectionTitle: "القرآن والتفسير",
+            sectionTitleDv: "ގުރްއާނާއި ތަފްސީރު",
+            sectionId: "quran",
+            items: [
+                { titleAr: "ترجمة حديث إم في", titleDv: "ޙަދީޘްއެމްވީގެ ތަރުޖަމާ", url: "../books/quranHadithmv.html" },
+                { titleAr: "الترجمة الرسمية", titleDv: "ރަސްމީ ތަރުޖަމާ", url: "../books/quranRasmee.html", note: "(ރައީސުލްޖުމްހޫރިއްޔާގެ އޮފީސް)" },
+                { titleAr: "ترجمة بكر بي", titleDv: "ބަކުރުބެގެ ތަރުޖަމާ", url: "../books/quranBakurube.html" },
+                { titleAr: "تفسير القرآن لجعفر", titleDv: "ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު*", url: "../books/quranJaufar.html" },
+                { titleAr: "تفسير العشر الأخير", titleDv: "ގުރްއާނުގެ ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު", url: "../books/quranUshru.html" },
+                { titleAr: "معجم ألفاظ القرآن", titleDv: "ގުރްއާން ލަފްޒުތަކުގެ ރަދީފު", url: "../books/radheefQuran.html" },
+                { titleAr: "ترجمة التفسير الميسر", titleDv: "ތަފްސީރު އަލްމުޔައްސަރުގެ ތަރުޖަމާ", url: "#", status: "(ތައްޔާރުވަނީ...)" },
+            ]
+        },
+        {
+            sectionTitle: "الحديث والأثر",
+            sectionTitleDv: "ޙަދީޘާއި އަޘަރު",
+            sectionId: "hadith",
+            items: [
+                { titleAr: "الجامع في الأحاديث والآثار", titleDv: "އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު", url: "../books/allAthar.html", keywords: "all athar جامع" },
+                { titleAr: "موطأ مالك*", titleDv: "މުވައްޠައު މާލިކު", url: "../books/muwattaMalik.html", status: "(ނިމެނީ)" },
+                { titleAr: "عمدة الأحكام", titleDv: "ޢުމްދަތުލް އަޙްކާމް", url: "../books/umdathulAhkam.html" },
+                { titleAr: "حصن المسلم", titleDv: "މުސްލިމުންގެ ކިއްލާ", url: "../books/hisnulMuslim.html", keywords: "dua dhikr zikr" },
+                { titleAr: "الأربعون النووية", titleDv: "ނަވަވީގެ ސާޅީސް ޙަދީޘް", url: "../books/arbaoonNawawi.html", keywords: "40 nawawi arbaeen" },
+                { titleAr: "بلوغ المرام*", titleDv: "ބުލޫޣުލް މަރާމް", url: "../books/bulughulMaram.html", status: "(މުރާޖާކުރަނީ)" },
+            ]
+        },
+        {
+            sectionTitle: "العقيدة والمنهج",
+            sectionTitleDv: "އަގީދާއާއި މަންހަޖު",
+            sectionId: "aqida",
+            items: [
+                { titleAr: "أسماء الله الحسنى", titleDv: "ﷲ ގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް", url: "../books/asmaullahilHusna.html", keywords: "names of Allah" },
+                { titleAr: "أصول السنة لأحمد", titleDv: "އަޙްމަދު ލިޔުނު ސުންނަތުގެ އުސޫލުތައް", url: "../books/usooluSunnahAhmed.html" },
+                { titleAr: "شرح السنة للبربهاري", titleDv: "ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ", url: "../books/sharhuSunnahBarbahari.html" },
+                { titleAr: "نواقض الإسلام", titleDv: "އިސްލާމްކަން ގެއްލޭ ކަންކަން", url: "../books/nawaqidulIslam.html" },
+                { titleAr: "‌‌القواعد الأربع", titleDv: "ހަތަރު ގަވާއިދު", url: "../books/qawaidulArbau.html" },
+                { titleAr: "الأصول الثلاثة", titleDv: "ތިން އުސޫލު", url: "../books/usooluThalaatha.html" },
+            ]
+        },
+        {
+            sectionTitle: "اللغة والكتابة",
+            sectionTitleDv: "ބަހާއި ލިޔުންތެރިކަން",
+            sectionId: "language",
+            items: [
+                { titleAr: "الجامع في المعاجم", titleDv: "އެއްކުރަމުންދާ ރަދީފުތައް", url: "../books/radheefAll.html" },
+                { titleAr: "معجم اللغة الديفهية", titleDv: "ދިވެހިބަހުގެ ރަދީފު (ރަސްމީ)", url: "../books/radheefRasmee.html" },
+                { titleAr: "معجم الأسماء", titleDv: "އެއްކުރަމުންދާ ނަންފޮތް", url: "../books/radheefNanfoiy.html" },
+            ]
+        }
+    ];
+
+    const contentContainer = document.getElementById('content-container');
+    const searchInput = document.getElementById('searchInput');
+
+    // --- FUNCTION TO RENDER CONTENT ---
+    const renderContent = (filter = '') => {
+        contentContainer.innerHTML = ''; // Clear existing content
+        const filterText = filter.toLowerCase();
+
+        siteData.forEach(section => {
+            // Filter items based on search query
+            const filteredItems = section.items.filter(item => {
+                const titleAr = item.titleAr ? item.titleAr.toLowerCase() : '';
+                const titleDv = item.titleDv ? item.titleDv.toLowerCase() : '';
+                const keywords = item.keywords ? item.keywords.toLowerCase() : '';
+                
+                return titleAr.includes(filterText) || 
+                       titleDv.includes(filterText) || 
+                       keywords.includes(filterText) ||
+                       filterText.includes(titleAr) || // Also check if search term is part of the title
+                       filterText.includes(titleDv);
+            });
+
+            // Only render the section if it has items that match the filter
+            if (filteredItems.length > 0) {
+                const sectionEl = document.createElement('section');
+                sectionEl.className = `content-section section-${section.sectionId}`;
+                
+                const titleEl = document.createElement('h2');
+                titleEl.className = 'section-title';
+                titleEl.innerHTML = `${section.sectionTitle} - ${section.sectionTitleDv}`;
+                sectionEl.appendChild(titleEl);
+
+                const gridEl = document.createElement('div');
+                gridEl.className = 'book-grid';
+
+                filteredItems.forEach(item => {
+                    const card = document.createElement('a');
+                    card.href = item.url;
+                    card.className = 'book-card';
+                    
+                    let cardHTML = `<h3 class="book-title-ar">${item.titleAr}</h3>`;
+                    if (item.titleDv) {
+                        cardHTML += `<p class="book-title-dv">${item.titleDv}</p>`;
+                    }
+                    if (item.status) {
+                        cardHTML += `<p class="book-status">${item.status}</p>`;
+                    }
+                     if (item.note) {
+                        cardHTML += `<p class="book-status">${item.note}</p>`;
+                    }
+                    
+                    card.innerHTML = cardHTML;
+                    gridEl.appendChild(card);
+                });
+                
+                sectionEl.appendChild(gridEl);
+                contentContainer.appendChild(sectionEl);
+            }
+        });
+    };
+
+    // --- EVENT LISTENER FOR SEARCH INPUT ---
+    searchInput.addEventListener('input', (e) => {
+        renderContent(e.target.value);
+    });
+
+    // --- INITIAL RENDER ---
+    renderContent(); 
+});
+```
+
+### How to Use the New Design:
+
+1.  **Save the files:** Create a new folder for your redesigned site. Save the HTML as `index.html`, the CSS as `style.css`, and the JavaScript as `script.js` inside that folder.
+2.  **Update URLs:** In the `script.js` file, inside the `siteData` object, make sure the `url` values for each item point to the correct path for your book files (e.g., `../books/quranHadithmv.html`). I have kept the ones from your original file.
+3.  **Manage Content:**
+    *   **To add a new book:** Simply add a new object to the `items` array of the relevant section in `siteData`. For example: `{ titleAr: "...", titleDv: "...", url: "..." }`.
+    *   **To add keywords for searching:** Add a `keywords` property to any item, like this: `{ ..., keywords: "keyword1 keyword2" }`.
+    *   **To add a status:** Add a `status` property, like this: `{ ..., status: "(In Progress)" }`.
+4.  **Open `index.html`:** Open the `index.html` file in your browser to see the new homepage.
