@@ -3,9 +3,7 @@
   font-family: "mergedFont";
   src: url(../font/merged-300.woff2) format("woff2"),
     url(../font/merged-300.woff) format("woff");
-  /* https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display */
   font-display: block;
-  /* previously swap */
 }
 
 /* === RESET & BASICS === */
@@ -16,32 +14,32 @@
 }
 
 :root {
-  /* Light Theme */
-  --primary: #29434e;
-  --secondary: #1a5a9a;
-  --accent: #ed8a28;
-  --bg-main: #f1f5fb;
-  --text-main: #333;
-  --text-muted: #666;
-  --card-bg: #ffffff;
-  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  --border: #e0e0e0;
-  --header-text: #ffffff;
+  /* --- LIGHT MODE PALETTE (Default) --- */
+  --primary: #29434e; /* Dark Blue-Grey for headers/text */
+  --secondary: #1a5a9a; /* Link Blue */
+  --accent: #ed8a28; /* Action Orange */
+  --bg-main: #f1f5fb; /* Light Grey-Blue background */
+  --card-bg: #ffffff; /* White cards */
+  --text-main: #333; /* Main dark text */
+  --text-muted: #666; /* Lighter grey text */
+  --text-headings: #29434e; /* Headings match primary color */
+  --border: #e0e0e0; /* Light border color */
+  --header-text: #ffffff; /* White text on dark headers */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Dark Theme */
-    --primary: #1a262d;
-    --secondary: #3a7ca5;
-    --accent: #d47c24;
-    --bg-main: #12181b;
-    --card-bg: #223038;
-    --text-main: #cdd5dc;
-    --text-muted: #8899a6;
-    --text-headings: #f1f5fb;
-    --border: #344955;
-    --header-text: #e0e0e0;
+    /* --- NEW & IMPROVED "BLUER" DARK MODE PALETTE --- */
+    --primary: #1b263b; /* Dark Slate Blue for Header/Footer */
+    --secondary: #415a77; /* Muted Blue for borders/secondary elements */
+    --accent: #d47c24; /* Rich Orange accent */
+    --bg-main: #0d1b2a; /* Deep Navy Blue background */
+    --card-bg: #2a3b4d; /* Lighter Slate Blue for cards & search */
+    --text-main: #cdd5dc; /* Main soft white text */
+    --text-muted: #778da9; /* Muted light blue for secondary text */
+    --text-headings: #e0fbfc; /* HIGH CONTRAST Bright Cyan-White for all headings */
+    --border: #415a77; /* Muted Blue-Grey for borders */
+    --header-text: #e0fbfc; /* Bright text on headers */
   }
 }
 
@@ -54,6 +52,7 @@ body {
   background-color: var(--bg-main);
   color: var(--text-main);
   line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* === HEADER & SEARCH === */
@@ -77,6 +76,7 @@ body {
 .site-header h1 {
   font-family: "mergedFont", "Arial", sans-serif, "faruma";
   font-size: 2.2rem;
+  color: var(--text-headings); /* Use high-contrast heading color */
 }
 
 #searchInput {
@@ -98,13 +98,6 @@ body {
 #searchInput:focus {
   outline: none;
   border-color: var(--accent);
-}
-
-/* Specific dark mode fix for search bar visibility */
-@media (prefers-color-scheme: dark) {
-  #searchInput {
-    border: 1px solid var(--border);
-  }
 }
 
 /* === MAIN CONTENT === */
@@ -130,7 +123,7 @@ body {
   background-color: var(--bg-main);
   padding: 0 1.5rem;
   z-index: 1;
-  color: var(--text-headings);
+  color: var(--text-headings); /* Use high-contrast heading color */
   font-family: "mergedFont", "Arial", sans-serif, "faruma";
   font-size: 1.8rem;
   text-align: center;
@@ -154,7 +147,7 @@ body {
   z-index: 0;
 }
 
-/* === BOOK GRID & CARD (With restored styles) === */
+/* === BOOK GRID & CARD === */
 .book-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -184,20 +177,18 @@ body {
   background-color: var(--primary);
 }
 
-/* Restored: Text color changes on hover for better contrast */
 .book-card:hover .book-title-ar,
 .book-card:hover .book-title-dv,
 .book-card:hover .book-status {
   color: #fff;
 }
 
-/* Restored: Specific styles for card text elements */
 .book-title-ar {
   font-family: "mergedFont", "Arial", sans-serif, "faruma";
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: var(--primary);
+  color: var(--text-headings); /* Use high-contrast heading color */
 }
 
 .book-title-dv {
@@ -214,7 +205,6 @@ body {
   margin-top: auto;
 }
 
-/* Restored: Hidden state for "Show More" feature */
 .hidden-card {
   display: none;
 }
