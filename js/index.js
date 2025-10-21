@@ -150,7 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
         },
       ],
     },
-    // ... all other sections from previous response ...
     {
       id: "hadith",
       titleAr: "الحديث والأثر",
@@ -319,6 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
       ],
     },
+    // ... (other sections) ...
   ];
 
   const contentContainer = document.getElementById("content-container");
@@ -334,11 +334,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const ar = (item.titleAr || "").toLowerCase();
         const dv = (item.titleDv || "").toLowerCase();
         const kw = (item.keywords || "").toLowerCase();
+        // --- NEW --- Add the URL to the searchable fields
+        const url = (item.url || "").toLowerCase();
+
         return (
           ar.includes(filterText) ||
           dv.includes(filterText) ||
-          kw.includes(filterText)
-        );
+          kw.includes(filterText) ||
+          url.includes(filterText)
+        ); // --- NEW --- Check the URL
       });
 
       if (filteredItems.length > 0) {
