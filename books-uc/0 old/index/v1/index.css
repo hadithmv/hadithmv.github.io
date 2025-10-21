@@ -1,0 +1,172 @@
+/* General Body and Typography */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&family=Noto+Sans:wght@400;700&display=swap');
+
+:root {
+    --primary-color: #29434e;
+    --secondary-color: #1a5a9a;
+    --accent-color: #ed8a28;
+    --background-color: #f1f5fb;
+    --text-color: #333;
+    --card-background: #ffffff;
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+html {
+    direction: rtl; /* Set default direction to Right-to-Left for Dhivehi/Arabic */
+}
+
+body {
+    font-family: 'Noto Sans', 'faruma', sans-serif;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Header and Search Bar */
+.site-header {
+    background: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+    border-bottom: 5px solid var(--accent-color);
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    background: white;
+    padding: 5px;
+}
+
+.site-header h1 {
+    margin: 0;
+    font-family: 'Noto Sans Arabic', sans-serif;
+}
+
+.site-header p {
+    margin: 0.5rem 0 1.5rem 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.search-container {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    direction: ltr; /* Keep search input LTR for better English typing experience */
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(237, 138, 40, 0.5);
+}
+
+/* Main Content Container */
+main {
+    padding: 2rem 1rem;
+}
+
+.content-section {
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-size: 2rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 3px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.book-card {
+    background-color: var(--card-background);
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 5px solid var(--secondary-color);
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.book-title-ar {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin: 0 0 0.5rem 0;
+}
+
+.book-title-dv {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.book-status {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 0.75rem;
+}
+
+/* Custom colors for sections */
+.section-quran .book-card { border-color: #ad0e1c; }
+.section-hadith .book-card { border-color: #136296; }
+.section-aqida .book-card { border-color: #c05602; }
+.section-language .book-card { border-color: #006e46; }
+.section-misc .book-card { border-color: #5647b8; }
+
+
+/* Footer */
+.site-footer {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #e9ecef;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .book-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .book-grid {
+        grid-template-columns: 1fr;
+    }
+}

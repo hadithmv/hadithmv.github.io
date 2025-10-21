@@ -1,0 +1,191 @@
+/* Import any external fonts if needed, e.g., Quicksand */
+/* @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap'); */
+
+/* 
+  If 'mergedFont' and 'faruma' are custom fonts, you would load them here.
+  For example:
+*/
+@font-face {
+  font-family: "mergedFont";
+  src: url("../fonts/mergedFont.woff2") format("woff2");
+}
+
+:root {
+  /* Light Theme Variables */
+  --primary-color: #29434e;
+  --secondary-color: #1a5a9a;
+  --accent-color: #ed8a28;
+  --background-color: #f1f5fb;
+  --text-color: #333;
+  --card-background: #ffffff;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --border-color: #e0e0e0;
+  --header-text-color: #ffffff;
+  --search-placeholder-color: #888;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark Theme Variables */
+    --primary-color: #1e2a31;
+    --secondary-color: #3a7ca5;
+    --accent-color: #f0a04b;
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --card-background: #1e1e1e;
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    --border-color: #333;
+    --header-text-color: #e0e0e0;
+    --search-placeholder-color: #aaa;
+  }
+}
+
+html {
+  direction: rtl;
+}
+
+body {
+  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Header and Search Bar */
+.site-header {
+  background: var(--primary-color);
+  color: var(--header-text-color);
+  text-align: center;
+  padding: 2rem 1rem;
+  border-bottom: 5px solid var(--accent-color);
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  background: white;
+  padding: 5px;
+}
+
+.site-header h1,
+.section-title,
+.book-title-ar {
+  font-family: "Noto Sans Arabic", "mergedFont", sans-serif;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  direction: rtl;
+  text-align: right;
+  background-color: var(--card-background);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+#searchInput::placeholder {
+  color: var(--search-placeholder-color);
+}
+
+#searchInput:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 10px rgba(237, 138, 40, 0.5);
+}
+
+/* Main Content and Book Cards */
+main {
+  padding: 2rem 1rem;
+}
+
+.content-section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 3px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.book-card {
+  background-color: var(--card-background);
+  border-radius: 10px;
+  box-shadow: var(--card-shadow);
+  text-decoration: none;
+  color: var(--text-color);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card.hidden-card {
+  display: none;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* "Show More" Button */
+.show-more-btn {
+  display: block;
+  margin: 2rem auto 0;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: bold;
+  color: white;
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.show-more-btn:hover {
+  background-color: #d47c24; /* A slightly darker accent color */
+}
+
+/* Section-specific border colors */
+.section-quran .book-card {
+  border-top: 5px solid #ad0e1c;
+}
+.section-hadith .book-card {
+  border-top: 5px solid #136296;
+}
+.section-aqida .book-card {
+  border-top: 5px solid #c05602;
+}
+.section-language .book-card {
+  border-top: 5px solid #006e46;
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: var(--primary-color);
+  color: var(--header-text-color);
+  opacity: 0.8;
+}
