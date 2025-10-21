@@ -503,6 +503,7 @@ Crucial Pro 64GB Kit (32GBx2) DDR4-3200 UDIMM
 1TB NVMe Lexar SSD NM620
 Logitech ERGO K860 Wireless Split Keyboard
 Logitech MX Vertical Ergonomic Wireless Mouse
+Acer SA322QK Monitor
 
 <!-- Acer R271 Monitor
 HP 24es Monitor
