@@ -1,5 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap");
+/* merged font */
+@font-face {
+  font-family: "mergedFont";
+  src: url(../font/merged-300.woff2) format("woff2"),
+    url(../font/merged-300.woff) format("woff");
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display */
+  font-display: block;
+  /* previously swap */
+}
 
 /* === RESET & BASICS === */
 * {
@@ -68,7 +75,7 @@ body {
 }
 
 .site-header h1 {
-  font-family: "Noto Sans Arabic", "mergedFont", sans-serif;
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
   font-size: 2.2rem;
 }
 
@@ -116,7 +123,7 @@ body {
   padding: 0 1.5rem;
   z-index: 1;
   color: var(--primary);
-  font-family: "Noto Sans Arabic", "mergedFont", sans-serif;
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
   font-size: 1.8rem;
   text-align: center;
 }
@@ -178,7 +185,7 @@ body {
 
 /* Restored: Specific styles for card text elements */
 .book-title-ar {
-  font-family: "Noto Sans Arabic", sans-serif;
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
@@ -230,7 +237,7 @@ body {
 }
 
 .show-more-btn {
-  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
   background-color: var(--bg-main);
   color: var(--text-muted);
   border: 2px solid var(--border);

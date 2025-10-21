@@ -267,7 +267,7 @@ body {
     z-index: 0;
 }
 
-/* === BOOK GRID & CARD === */
+/* === BOOK GRID & CARD (With restored styles) === */
 .book-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -294,13 +294,44 @@ body {
 .book-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    background-color: var(--primary); /* Added for hover background change */
 }
 
-.book-title-ar, .book-title-dv {
-    margin-bottom: 0.5rem;
+/* Restored: Text color changes on hover for better contrast */
+.book-card:hover .book-title-ar,
+.book-card:hover .book-title-dv,
+.book-card:hover .book-status {
+  color: #fff;
 }
 
-.hidden-card { display: none; }
+/* Restored: Specific styles for card text elements */
+.book-title-ar {
+  font-family: 'Noto Sans Arabic', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.book-title-dv {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.book-status {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.05);
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-top: auto; /* Pushes status to bottom if card stretches */
+}
+
+/* Restored: Hidden state for "Show More" feature */
+.hidden-card {
+  display: none;
+}
+
 
 /* === SECTION COLORS === */
 .section-quick-links .book-card { border-color: var(--accent); }
@@ -309,9 +340,9 @@ body {
 .section-aqida .book-card { border-color: #c05602; }
 .section-language .book-card { border-color: #006e46; }
 
-/* === SHOW MORE BUTTON (Using your provided style) === */
+/* === SHOW MORE BUTTON === */
 .show-more-container {
-    grid-column: 1 / -1; /* Span full width of grid */
+    grid-column: 1 / -1;
     display: flex;
     justify-content: center;
     margin-top: 1rem;
