@@ -37,90 +37,33 @@ sections like
 القرآن والتفسير | ގުރްއާނާއި ތަފްސީރު
 should have the total number of books they hold within their sections (including subsections if any) kind of similar to how you have
 އިތުރަށް ދައްކާ (8+)
-but instead it would be like 
+but instead it would be like
 (10) ލިޔުން
-
-what about app download icon links in the footer
-as well as social media icon links in the footer
-
-and a donation link somewhere appropriate
-
+what about app download text links in the footer
+as well as social media text links in the footer
 id like a quick links section at the top, like how quran section is there and like it, but above the quran section
-
-also currently there is only sections and book cards immediately under them, there is no option for sections having subsections that when opened show book cards under those subsections
-
-like
-دار فتية الكهف
-
-ދާރު ފިތްޔަތިލް ކަހްފި
-
-كناشة محمد المالديفي
-
-މުޙައްމަދު އަލްމާލްދީފީގެ ނޯޓުފޮތް
-
-كناشة حديث إم في
-
-ޙަދީޘްއެމްވީގެ ނޯޓުފޮތް
-
-should be subsections under
-
-كتابات أخرى 
-އެހެނިހެން ލިޔުންތައް
-which would be the section
-
-and the subsections i mentioned would have their own book cards
-sometimes there might be bookcards and subsections under a section
-
- أكاديمية حديث إم في
-
-ޙަދީޘްއެމްވީ އެކެޑެމީ
-
-should also be a section
-
-under which there are subsections and maybe book cards as well
-
- مناهج معهد تعليم اللغة العربية
-
-މަދީނާ އަރަބި ފޮތްތައް
-
- متون طالب العلم
-
-އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް
-
- المواد والمقررات الإضافية
-
-(އިތުރު މާއްދާތަކާއި މުގައްރަރުތައް ތައްޔާރުވަނީ...)
-
-and
-
- متون طالب العلم
-
-އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް
-
-would be a subsub section that when clickedwhich would have bookcards under it as well
+quick links would have a donation page link, text editor link, azkaar link, aqiqa link
 
 
 ...
 ...
 
-OExcellent requests. These features will significantly improve the structure, usability, and professionalism of your homepage. I have completely refactored the code to support all of your requirements.
+Of course. I've integrated all your new requests into the existing modern framework.
 
-Here is the new, fully-featured solution.
+Here is the final, complete solution with a "Quick Links" section, item counts in section titles, and a fully structured footer with text links.
 
-### Major Upgrades in This Version:
+### Summary of New Features:
 
-1.  **Nested Subsections:** The JavaScript and data structure now fully support sections, subsections, and even sub-subsections. These are rendered as interactive, collapsible "accordions."
-2.  **Dynamic Item Counts:** Section and subsection titles now automatically display the total number of books they contain (e.g., `(21) ލިޔުން`).
-3.  **Quick Links Section:** A new, prominent section appears below the header for important links.
-4.  **Donation & Footer Links:** A clear donation button has been added to the header. The footer now contains stylish, clickable SVG icons for app downloads and social media, built directly into the HTML for speed and easy styling.
-5.  **Smart Search:** The search now filters content *and* automatically expands any collapsed subsections that contain a matching result, ensuring you never miss a find.
-6.  **Modular Code:** The JavaScript is cleaner and uses a recursive function to build the page, no matter how deeply nested your content is.
+1.  **Quick Links Section:** A new, distinct section is now at the top of the page, providing direct access to the four key pages you specified.
+2.  **Dynamic Item Count:** Each section title now automatically displays the total number of books within it, like **(20) ލިޔުން**, which updates in real-time as you search.
+3.  **Structured Footer:** The footer now contains clean, organized text links for both app downloads and social media, which are fully responsive.
+4.  **Enhanced CSS:** The styling has been updated to accommodate the new elements, ensuring everything looks polished and cohesive.
 
 ---
 
-### Step 1: Your New `index.html`
+### 1. HTML (`index.html`)
 
-This HTML file includes the new containers for quick links, the donation button, and the detailed footer.
+The HTML remains simple. The new footer structure is included here.
 
 ```html
 <!DOCTYPE html>
@@ -141,94 +84,68 @@ This HTML file includes the new containers for quick links, the donation button,
         <img src="https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png" alt="HadithMV Logo" class="logo">
         <h1>ޙަދީޘްއެމްވީ</h1>
         <p>ދިވެހިންގެ ސުންނަތުގެ މަންސަ</p>
-        <div class="header-actions">
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="ފޮތްތަކުގެ ތެރެއިން ಹುಡುಕಾಟ...">
-            </div>
-            <a href="../page/supportHadithmv.html" class="donate-btn">އެހީވެދިނުމަށް</a>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="ފޮތްތަކުގެ ތެރެއިން ಹುಡುಕಾಟ...">
         </div>
     </header>
 
-    <main>
-        <section id="quick-links-container" class="quick-links-section">
-            <!-- Quick Links will be dynamically generated here -->
-        </section>
-
-        <div id="content-container">
-            <!-- Main Content will be dynamically generated here -->
-        </div>
+    <main id="content-container">
+        <!-- All content, including Quick Links, is dynamically generated here -->
     </main>
 
     <footer class="site-footer">
-        <div class="footer-section">
-            <h4>ޙަދީޘްއެމްވީ އެޕް ހޯދުމަށް</h4>
-            <div class="icon-group">
-                <a href="https://github.com/hadithmv/hadithmv.github.io/releases" target="_blank" aria-label="Windows App">
-                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,3H11V11H3V3M13,3H21V11H13V3M3,13H11V21H3V13M13,13H21V21H13V13Z" /></svg>
-                    <span>Windows</span>
-                </a>
-                <a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv" target="_blank" aria-label="Android App">
-                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.5,8.25L15.38,6.12L16.5,5L17.5,6L18.5,5L19.62,6.12L17.5,8.25M6.5,8.25L4.38,6.12L5.5,5L6.5,6L7.5,5L8.62,6.12L6.5,8.25M17,12H15V10H9V12H7A2,2 0 0,0 5,14V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V14A2,2 0 0,0 17,12Z" /></svg>
-                    <span>Android</span>
-                </a>
-                 <a href="https://hadithmv.github.io" target="_blank" aria-label="Web App">
-                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1h-2v-2h2c.55 0 1-.45 1-1V8h2c1.1 0 2-.9 2-2 0-.46-.17-.88-.45-1.22.9.83 1.45 2.05 1.45 3.44 0 2.27-1.42 4.2-3.44 4.93z"/></svg>
-                    <span>Web</span>
-                </a>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>އެޕް ހޯދުމަށް</h3>
+                <a href="https://github.com/hadithmv/hadithmv.github.io/releases" target="_blank">Windows</a>
+                <a href="https://play.google.com/store/apps/details?id=com.hadithmv.hmv" target="_blank">Android</a>
+                <a href="https://hadithmv.github.io" target="_blank">Web App</a>
+            </div>
+            <div class="footer-column">
+                <h3>ތަބާވުމަށް</h3>
+                <a href="http://fb.me/hadithmvOfficial" target="_blank">Facebook</a>
+                <a href="https://x.com/hadithmv" target="_blank">X (Twitter)</a>
+                <a href="http://t.me/hadithmv" target="_blank">Telegram</a>
+                <a href="https://invite.viber.com/?g2=AQA%2BbvnySNQHZEy9axm1ck2TX%2FZVrvGtq%2FbJboZzADy3OssLND4H1TFWklNmNQZC" target="_blank">Viber</a>
+                <a href="https://instagram.com/hadithmv" target="_blank">Instagram</a>
             </div>
         </div>
-        <div class="footer-section">
-            <h4>މީސްމީޑިއާގައި ތަބާވުމަށް</h4>
-            <div class="icon-group social">
-                <a href="http://fb.me/hadithmvOfficial" target="_blank" aria-label="Facebook">
-                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.32 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 12 2.04Z" /></svg>
-                </a>
-                <a href="https://x.com/hadithmv" target="_blank" aria-label="X/Twitter">
-                     <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
-                </a>
-                <a href="http://t.me/hadithmv" target="_blank" aria-label="Telegram">
-                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-1.39.2-1.62l16.84-6.37c.71-.27 1.45.17 1.45.95 0 .02-.42 16.43-.69 18.25-.26 1.76-1.55 2.12-2.65 1.13l-4.06-3.9-1.92 1.83c-.23.23-.42.41-.69.41z" /></svg>
-                </a>
-                 <a href="https://instagram.com/hadithmv" target="_blank" aria-label="Instagram">
-                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /></svg>
-                </a>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <p>&copy; 2025 HadithMV. All rights reserved.</p>
-        </div>
+        <p class="footer-copyright">&copy; 2025 HadithMV. All rights reserved.</p>
     </footer>
 
     <script src="../js/index.js"></script>
 </body>
 </html>
+
 ```
 
 ---
 
-### Step 2: Your Updated CSS (`../css/index.css`)
+### 2. CSS (`../css/index.css`)
 
-This new stylesheet includes styles for the quick links, donation button, footer icons, and the new collapsible subsections.
+Here is the updated stylesheet with styles for the item count and the new footer.
 
 ```css
-/* === FONT IMPORTS === */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap');
 
-/* === CSS VARIABLES (THEME) === */
+/* === RESET & BASICS === */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 :root {
     /* Light Theme */
     --primary: #29434e;
-    --primary-light: #3a5d6b;
     --secondary: #1a5a9a;
     --accent: #ed8a28;
-    --accent-dark: #d47c24;
     --bg-main: #f1f5fb;
-    --bg-alt: #ffffff;
     --text-main: #333;
     --text-muted: #666;
     --card-bg: #ffffff;
-    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     --border: #e0e0e0;
     --header-text: #ffffff;
 }
@@ -237,463 +154,225 @@ This new stylesheet includes styles for the quick links, donation button, footer
     :root {
         /* Dark Theme */
         --primary: #1a262d;
-        --primary-light: #2c3e47;
         --secondary: #3a7ca5;
-        --accent: #f0a04b;
-        --accent-dark: #d47c24;
+        --accent: #d47c24;
         --bg-main: #121212;
-        --bg-alt: #1e1e1e;
         --text-main: #e0e0e0;
         --text-muted: #aaa;
         --card-bg: #1e1e1e;
-        --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
         --border: #333;
         --header-text: #e0e0e0;
     }
 }
 
-/* === GENERAL & TYPOGRAPHY === */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { direction: rtl; }
+html {
+    direction: rtl;
+}
+
 body {
     font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
     background-color: var(--bg-main);
     color: var(--text-main);
-    line-height: 1.7;
+    line-height: 1.6;
 }
 
-/* === HEADER & ACTIONS === */
+/* === HEADER & SEARCH === */
 .site-header {
-    background: var(--primary);
+    background-color: var(--primary);
     color: var(--header-text);
     text-align: center;
     padding: 2rem 1rem;
     border-bottom: 6px solid var(--accent);
 }
-.logo { width: 90px; height: 90px; margin-bottom: 1rem; border-radius: 50%; background: #fff; padding: 5px; }
-.site-header h1 { font-family: 'Noto Sans Arabic', "mergedFont", sans-serif; font-size: 2.2rem; }
-.site-header p { opacity: 0.9; margin: 0.25rem 0 1.5rem; font-size: 1.1rem; }
-.header-actions { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-.search-container { max-width: 600px; width: 100%; }
+
+.logo {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    background: #fff;
+    padding: 5px;
+}
+
+.site-header h1 {
+    font-family: 'Noto Sans Arabic', "mergedFont", sans-serif;
+    font-size: 2.2rem;
+}
+
 #searchInput {
     width: 100%;
-    padding: 1rem;
+    max-width: 600px;
+    padding: 1rem 1.2rem;
     font-size: 1.1rem;
-    border: 2px solid var(--border);
+    border: 2px solid transparent;
     border-radius: 50px;
-    background-color: var(--bg-alt);
+    background-color: var(--card-bg);
     color: var(--text-main);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     transition: all 0.3s ease;
     text-align: center;
+    margin-top: 1.5rem;
 }
-#searchInput:focus { outline: none; border-color: var(--accent); }
-.donate-btn {
-    background-color: var(--accent);
-    color: #fff;
-    padding: 0.75rem 2rem;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-.donate-btn:hover { background-color: var(--accent-dark); }
 
-/* === QUICK LINKS === */
-.quick-links-section {
-    background-color: var(--bg-alt);
-    padding: 1.5rem 1rem;
-    text-align: center;
+#searchInput:focus {
+    outline: none;
+    border-color: var(--accent);
 }
-.quick-links-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
-}
-.quick-link {
-    background-color: var(--bg-main);
-    color: var(--text-muted);
-    border: 1px solid var(--border);
-    padding: 0.5rem 1.2rem;
-    border-radius: 20px;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-.quick-link:hover { background-color: var(--primary); color: #fff; border-color: var(--primary); }
 
-/* === MAIN CONTENT STRUCTURE === */
-main { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
-.content-section, .subsection { margin-bottom: 2rem; }
-.section-title, .subsection-title {
+/* === MAIN CONTENT === */
+#content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.content-section {
+    margin-bottom: 4rem;
+}
+
+.section-header {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    font-family: 'Noto Sans Arabic', "mergedFont", sans-serif;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.section-title {
+    background-color: var(--bg-main);
+    padding: 0 1.5rem;
+    z-index: 1;
     color: var(--primary);
-}
-.item-count {
-    background-color: var(--accent);
-    color: #fff;
-    font-size: 0.9rem;
-    font-weight: bold;
-    padding: 2px 10px;
-    border-radius: 12px;
-    direction: ltr;
+    font-family: 'Noto Sans Arabic', "mergedFont", sans-serif;
+    font-size: 1.8rem;
+    text-align: center;
 }
 
-/* === SUBSECTIONS (ACCORDION) === */
-.subsection {
-    background-color: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1rem;
-}
-.subsection-title {
-    cursor: pointer;
-    font-size: 1.5rem;
-    transition: color 0.2s;
-}
-.subsection-title:hover { color: var(--accent); }
-.subsection-title .toggle-icon {
-    font-size: 1.5rem;
-    transition: transform 0.3s ease;
-}
-.subsection.active .toggle-icon { transform: rotate(45deg); }
-.subsection-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease-in-out;
+/* Style for the item count */
+.section-item-count {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: normal;
+    margin-right: 1rem; /* Space between title and count */
 }
 
-/* === BOOK GRID & CARDS === */
-.book-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+.section-header::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: var(--border);
+    top: 50%;
+    left: 0;
+    z-index: 0;
+}
+
+/* === BOOK GRID & CARD === */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
 .book-card {
     background-color: var(--card-bg);
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 1.5rem;
     text-decoration: none;
     color: var(--text-main);
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    min-height: 150px;
+    min-height: 160px;
     box-shadow: var(--card-shadow);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border-left: 5px solid var(--secondary);
+    transition: all 0.3s ease;
+    border-top: 6px solid var(--secondary);
 }
-.book-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
-.book-title-ar { font-size: 1.3rem; margin-bottom: 0.5rem; }
-.book-title-dv { margin-bottom: 0.5rem; }
-.book-status { font-size: 0.85rem; color: var(--text-muted); margin-top: auto; }
+
+.book-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.book-title-ar, .book-title-dv {
+    margin-bottom: 0.5rem;
+}
+
 .hidden-card { display: none; }
-.show-more-btn {
-    background: transparent; color: var(--text-muted); border: 2px solid var(--border);
-    padding: 0.7rem 2rem; border-radius: 50px; font-family: inherit;
-    cursor: pointer; transition: all 0.2s ease; margin: 1.5rem auto 0; display: block;
-}
-.show-more-btn:hover { background-color: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* === SECTION COLORS === */
+.section-quick-links .book-card { border-color: var(--accent); }
+.section-quran .book-card { border-color: #ad0e1c; }
+.section-hadith .book-card { border-color: #136296; }
+.section-aqida .book-card { border-color: #c05602; }
+.section-language .book-card { border-color: #006e46; }
 
 /* === FOOTER === */
 .site-footer {
-    background-color: var(--primary-light);
+    text-align: center;
+    padding: 3rem 1rem 1rem;
+    background-color: var(--primary);
     color: var(--header-text);
-    padding: 2rem 1rem;
-    margin-top: 3rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    gap: 2rem 4rem; /* Row and column gap */
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-column {
     text-align: center;
 }
-.footer-section { margin-bottom: 2rem; }
-.footer-section h4 { opacity: 0.8; margin-bottom: 1rem; }
-.icon-group { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-.icon-group a {
+
+.footer-column h3 {
+    margin-bottom: 1rem;
+    color: var(--header-text);
+    opacity: 0.9;
+    font-size: 1.2rem;
+}
+
+.footer-column a {
+    display: block;
     color: var(--header-text);
     text-decoration: none;
-    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-    padding: 0.5rem; border-radius: 8px;
-    transition: background-color 0.2s;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
 }
-.icon-group a:hover { background-color: rgba(255, 255, 255, 0.1); }
-.icon { fill: currentColor; width: 32px; height: 32px; }
-.icon-group.social .icon { width: 28px; height: 28px; }
-.footer-copyright { border-top: 1px solid var(--primary); padding-top: 1.5rem; opacity: 0.7; }
 
-/* === RESPONSIVE === */
-@media (min-width: 600px) {
-    .header-actions { flex-direction: row; }
+.footer-column a:hover {
+    opacity: 1;
+    text-decoration: underline;
 }
-@media (max-width: 600px) {
-    .book-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
-    .section-title, .subsection-title { font-size: 1.5rem; }
+
+.footer-copyright {
+    opacity: 0.5;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    margin-top: 1rem;
 }
 ```
 
 ---
 
-### Step 3: Your Updated JavaScript (`../js/index.js`)
+### 3. JavaScript (`../js/index.js`)
 
-This is the new engine for your site. It contains the complete nested data structure and the recursive logic to build the page.
+The `siteData` object is now prepended with your "Quick Links" section. The rendering logic has been updated to display the book count in the titles.
 
 ```javascript
 document.addEventListener('DOMContentLoaded', () => {
 
     const INITIAL_ITEMS_TO_SHOW = 12;
 
-    // === QUICK LINKS DATA ===
-    const quickLinksData = [
-        { title: "ހެނދުނާއި ހަވީރުގެ ޒިކުރުތައް", url: "../books/hisnulMuslim.html#tableID=p74" },
-        { title: "ޙަދީޘްއެމްވީ އެކެޑެމީ", url: "#academy" }, // Anchor link to a section
-        { title: "ޓެކްސްޓު އެޑިޓަރ", url: "../tools/textEditor.html" },
-        { title: "އެހީތެރިން", url: "../page/contributorList.html" },
-        { title: "އินเทอร์เน็ต อาร์ไคฟ์", url: "https://archive.org/details/@hadithmv" }
-    ];
-
-    // === FULL SITE DATA (with nested structure) ===
-    const siteData = [
-         {
-            id: "quran", titleAr: "القرآن والتفسير", titleDv: "ގުރްއާނާއި ތަފްސީރު", items: [
-                { titleAr: "ترجمة حديث إم في", titleDv: "ޙަދީޘްއެމްވީގެ ތަރުޖަމާ", url: "../books/quranHadithmv.html" },
-                { titleAr: "الترجمة الرسمية", titleDv: "ރަސްމީ ތަރުޖަމާ", url: "../books/quranRasmee.html", status: "(ރައީސުލްޖުމްހޫރިއްޔާގެ އޮފީސް)" },
-                { titleAr: "ترجمة بكر بي", titleDv: "ބަކުރުބެގެ ތަރުޖަމާ", url: "../books/quranBakurube.html" },
-                { titleAr: "تفسير القرآن لجعفر", titleDv: "ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު*", url: "../books/quranJaufar.html" },
-                { titleAr: "تفسير العشر الأخير", titleDv: "ގުރްއާނުގެ ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު", url: "../books/quranUshru.html" },
-                { titleAr: "معجم ألفاظ القرآن", titleDv: "ގުރްއާން ލަފްޒުތަކުގެ ރަދީފު", url: "../books/radheefQuran.html" },
-                { titleAr: "ترجمة التفسير الميسر", titleDv: "ތަފްސީރު އަލްމުޔައްސަރުގެ ތަރުޖަމާ", url: "#", status: "(ތައްޔާރުވަނީ...)" },
-                { titleAr: "ترجمة ملنجي حسين ديدي", titleDv: "މަލިންގޭ ޙުސައިންދީދީގެ ތަރުޖަމާއާއި ތަފްސީރު", url: "https://archive.org/details/malinge-hussain-didi-quran-tharujamaa-aai-thafseer", status: "(PDF)", keywords: "malinge hussain didi" },
-                { titleAr: "التفسير الميسر (النص)", titleDv: "(އަރަބި ނައްސުގެ ލިންކު)", url: "https://read.tafsir.one/almuyassar" },
-                { titleAr: "المختصر في التفسير", titleDv: "(ލިންކު)", url: "https://read.tafsir.one/almukhtasar" },
-                { titleAr: "تفسير السعدي", titleDv: "(ލިންކު)", url: "https://read.tafsir.one/alsidi" },
-                { titleAr: "الميسر في غريب القرآن", titleDv: "(ލިންކު)", url: "https://read.tafsir.one/almuyassar-g" },
-                { titleAr: "إعراب القرآن", titleDv: "(ލިންކު)", url: "https://surahpedia.com/ar/projects/45" },
-                { titleAr: "الإعراب المرسوم", titleDv: "(ލިންކު)", url: "https://tafsir.app/iraab-graphs/1/1" },
-                { titleAr: "بطاقات تعريف السور", titleDv: "(ލިންކު)", url: "https://albitaqat.com" },
-                { titleAr: "موسوعة القراءات", titleDv: "(ލިންކު)", url: "https://shamela.ws/book/23610/1916" },
-                { titleAr: "مصحف التجويد", titleDv: "ތަޖްވީދު މުސްހަފު", url: "https://archive.org/details/mushaf-tajwid-darul-marifa", status: "(PDF)" },
-                { titleAr: "جهود علماء المالديف في ترجمة معاني القرآن", titleDv: "ގުރްއާން ތަރުޖަމާކުރުމުގައި ދިވެހި އިލްމުވެރިން ކުރި މަސައްކަތް", url: "https://archive.org/details/juhud-ulama-al-maldif-fi-tarjamati-maanil-quran-wa-tafsirihi", status: "(އަރަބި PDF)" },
-                { titleAr: "الروايات التفسيرية في فتح الباري", titleDv: "(ފަތްޙުލް ބާރީގައި ހުރި ތަފްސީރީ ރިވާޔަތްތައް)", url: "https://shamela.ws/book/7447", status: "(އަރަބި)" },
-                { titleAr: "القرآن في صفحة واحدة", titleDv: "މުޅި ގުރްއާން އެއް ސަފުހާއެއްގައި", url: "https://archive.org/details/entire-quran-on-one-page", status: "(PDF)" }
-            ]
-        },
-        {
-            id: "hadith", titleAr: "الحديث والأثر", titleDv: "ޙަދީޘާއި އަޘަރު", items: [
-                { titleAr: "الجامع في الأحاديث والآثار", titleDv: "އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު", url: "../books/allAthar.html", keywords: "jami athar full collection" },
-                { titleAr: "موطأ مالك*", titleDv: "މުވައްޠައު މާލިކު", url: "../books/muwattaMalik.html", status: "(ނިމެނީ)" },
-                { titleAr: "عمدة الأحكام", titleDv: "ޢުމްދަތުލް އަޙްކާމް", url: "../books/umdathulAhkam.html" },
-                { titleAr: "حصن المسلم", titleDv: "މުސްލިމުންގެ ކިއްލާ", url: "../books/hisnulMuslim.html", keywords: "dua dhikr zikr" },
-                { titleAr: "الأربعون للآجري*", titleDv: "އާޖުއްރީގެ ސާޅީސް ޙަދީޘް", url: "../books/arbaoonAajurry.html", status: "(އެކުލަވާ ނުނިމޭ)" },
-                { titleAr: "كتاب العلم لأبي خيثمة", titleDv: "އަބޫ ޚައިޘަމާ ލިޔުނު އިލްމުގެ ފޮތް", url: "../books/kitabulIlmAbiKhaithama.html" },
-                { titleAr: "أخبار الشيوخ وأخلاقهم للمروذي", titleDv: "ޝައިޚުންގެ ޚަbärutakāi e bēkalunge aḫlāq", url: "../books/akhbaruShuyukh.html" },
-                { titleAr: "أخلاق حملة القرآن للآجري", titleDv: "އާޖުއްރީ ލިޔުނު ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު", url: "../books/akhlaqHamalathilQuran.html" },
-                { titleAr: "بلوغ المرام*", titleDv: "ބުލޫޣުލް މަރާމް", url: "../books/bulughulMaram.html", status: "(މުރާޖާކުރަނީ)" },
-                { titleAr: "الأربعون النووية", titleDv: "ނަވަވީގެ ސާޅީސް ޙަދީޘް", url: "../books/arbaoonNawawi.html", keywords: "40 nawawi" },
-                { titleAr: "تيسير مصطلح الحديث", titleDv: "ޙަދީޘް މުސްޠަލަޙު ފަސޭހަކުރުން", url: "https://archive.org/details/uloomul-hadith-dv-ahmed-faruq-mohamed", status: "(PDF)" }
-            ]
-        },
-        {
-            id: "academy", titleAr: "أكاديمية حديث إم في", titleDv: "ޙަދީޘްއެމްވީ އެކެޑެމީ", items: [
-                { titleAr: "مناهج معهد تعليم اللغة العربية", titleDv: "މަދީނާ އަރަބި ފޮތްތައް", url: "https://hadithmv.github.io/mauhad/arabic.html" },
-                { 
-                    id: 'mutun', titleAr: "متون طالب العلم", titleDv: "އިލްމު އުނގެނޭ ދަރިވަރުގެ މަތުނުތައް", items: [
-                        { id: 'mutun-l1', titleAr: "المستوى الأول", titleDv: "ފުރަތަމަ ފިޔަވަހި", items: [
-                            { titleAr: "نواقض الإسلام", titleDv: "އިސްލާމްކަން ގެއްލޭ ކަންކަން", url: "../books/nawaqidulIslam.html" },
-                            { titleAr: "‌‌القواعد الأربع", titleDv: "ހަތަރު ގަވާއިދު", url: "../books/qawaidulArbau.html" },
-                            { titleAr: "الأصول الثلاثة", titleDv: "ތިން އުސޫލު", url: "../books/usooluThalaatha.html" },
-                            { titleAr: "الأربعون النووية", titleDv: "ނަވަވީގެ ސާޅީސް ޙަދީޘް", url: "../books/arbaoonNawawi.html" }
-                        ]},
-                        { id: 'mutun-l5', titleAr: "المستوى الخامس", titleDv: "ފަސްވަނަ ފިޔަވަހި", items: [
-                            { titleAr: "بلوغ المرام", titleDv: "ބުލޫޣުލް މަރާމް", url: "../books/bulughulMaram.html" }
-                        ]},
-                        { id: 'mutun-extra', titleAr: "المتون الإضافية", titleDv: "އިތުރު މަތުނުތައް", items: [
-                            { titleAr: "عمدة الأحكام", titleDv: "ޢުމްދަތުލް އަޙްކާމް", url: "../books/umdathulAhkam.html" },
-                            { titleAr: "الأصول الستة", titleDv: "ހަ އުސޫލު", url: "../books/usooluSiththa.html" }
-                        ]}
-                    ]
-                },
-                { titleAr: "المواد والمقررات الإضافية", titleDv: "(އިތުރު މާއްދާތަކާއި މުގައްރަރުތައް)", url: "#", status: "(ތައްޔާރުވަނީ...)" }
-            ]
-        },
-        {
-            id: "other_writings", titleAr: "كتابات أخرى", titleDv: "އެހެނިހެން ލިޔުންތައް", items: [
-                { 
-                    id: "kahf", titleAr: "دار فتية الكهف", titleDv: "ދާރު ފިތްޔަތިލް ކަހްފި", items: [
-                        { titleAr: "الجامع في الكهف", titleDv: "އެއްކުރަމުންދާ ކަހްފުގެ ފޮތްތައް", url: "../books/allKahf.html" },
-                        { titleAr: "تلخيص العقيدة من كتاب الشريعة للآجري", titleDv: "އާޖުއްރީ ލިޔުނު ޝަރީއަތް ފޮތުގެ އަގީދާގެ ޚުލާސާއެއް", url: "../books/talkhisKitabiShariah.html" },
-                        { titleAr: "شرح السنة للبربهاري", titleDv: "ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ", url: "../books/sharhuSunnahBarbahari-DFK.html" }
-                    ]
-                },
-                { titleAr: "كناشة محمد المالديفي", titleDv: "މުޙައްމަދު އަލްމާލްދީފީގެ ނޯޓުފޮތް", url: "../books/kunnaashaMuhammedMaldheefi.html" },
-                { titleAr: "كناشة حديث إم في", titleDv: "ޙަދީޘްއެމްވީގެ ނޯޓުފޮތް", url: "../books/kunnaashaHadithmv.html" }
-            ]
-        }
-    ];
-
-    const contentContainer = document.getElementById('content-container');
-    const searchInput = document.getElementById('searchInput');
-    const quickLinksContainer = document.getElementById('quick-links-container');
+    // === FULL SITE DATA ===
     
-    // --- UTILITY: RECURSIVE ITEM COUNTER ---
-    const countItemsRecursive = (items) => {
-        let count = 0;
-        items.forEach(item => {
-            if (item.url) { // It's a book
-                count++;
-            } else if (item.items) { // It's a subsection
-                count += countItemsRecursive(item.items);
-            }
-        });
-        return count;
-    };
-
-    // --- UTILITY: RECURSIVE SEARCH FILTER ---
-    const filterDataRecursive = (items, filterText) => {
-        if (!items) return [];
-        const results = [];
-        items.forEach(item => {
-            let match = false;
-            // Check if the item itself matches
-            const ar = (item.titleAr || '').toLowerCase();
-            const dv = (item.titleDv || '').toLowerCase();
-            const kw = (item.keywords || '').toLowerCase();
-            if (ar.includes(filterText) || dv.includes(filterText) || kw.includes(filterText)) {
-                match = true;
-            }
-
-            // If it's a section, search its children
-            if (item.items) {
-                const filteredChildren = filterDataRecursive(item.items, filterText);
-                if (filteredChildren.length > 0) {
-                    // If children match, include the parent section with only the matched children
-                    results.push({ ...item, items: filteredChildren });
-                } else if (match) {
-                    // If parent title matches but no children do, include parent with all its children
-                    results.push(item);
-                }
-            } else if (match) {
-                // If it's a book and it matches, include it
-                results.push(item);
-            }
-        });
-        return results;
-    };
-
-    // --- CORE: RECURSIVE RENDER FUNCTION ---
-    const renderNode = (node, container, isSearching) => {
-        // If node is a book (has a URL)
-        if (node.url) {
-            const card = document.createElement('a');
-            card.href = node.url;
-            card.className = 'book-card';
-            card.innerHTML = `
-                <h3 class="book-title-ar">${node.titleAr}</h3>
-                ${node.titleDv ? `<p class="book-title-dv">${node.titleDv}</p>` : ''}
-                ${node.status ? `<p class="book-status">${node.status}</p>` : ''}
-            `;
-            container.appendChild(card);
-            return;
-        }
-
-        // If node is a section/subsection (has items)
-        if (node.items) {
-            const totalItems = countItemsRecursive(node.items);
-            if (totalItems === 0) return;
-
-            const isTopLevel = container.id === 'content-container';
-            const element = document.createElement(isTopLevel ? 'section' : 'div');
-            element.className = isTopLevel ? 'content-section' : 'subsection';
-            element.id = node.id;
-
-            const title = document.createElement('h2');
-            title.className = isTopLevel ? 'section-title' : 'subsection-title';
-            title.innerHTML = `
-                <span class="toggle-icon">${isTopLevel ? '' : '+'}</span>
-                <span>${node.titleAr} | ${node.titleDv}</span>
-                <span class="item-count">${totalItems} ލިޔުން</span>
-            `;
-
-            const content = document.createElement('div');
-            content.className = isTopLevel ? '' : 'subsection-content';
-            
-            const grid = document.createElement('div');
-            grid.className = 'book-grid';
-
-            node.items.forEach((child, index) => {
-                const nodeEl = renderNode(child, grid, isSearching);
-                if (nodeEl && !isSearching && index >= INITIAL_ITEMS_TO_SHOW) {
-                    nodeEl.classList.add('hidden-card');
-                }
-            });
-
-            content.appendChild(grid);
-            element.appendChild(title);
-            element.appendChild(content);
-
-            if (!isTopLevel) {
-                 title.addEventListener('click', () => {
-                    element.classList.toggle('active');
-                    const contentDiv = title.nextElementSibling;
-                    if (contentDiv.style.maxHeight) {
-                        contentDiv.style.maxHeight = null;
-                    } else {
-                        contentDiv.style.maxHeight = contentDiv.scrollHeight + "px";
-                    }
-                });
-            }
-
-            container.appendChild(element);
-
-            // "Show More" button for top-level sections only
-            if (isTopLevel && !isSearching && node.items.length > INITIAL_ITEMS_TO_SHOW) {
-                 const showMoreBtn = document.createElement('button');
-                 showMoreBtn.className = 'show-more-btn';
-                 showMoreBtn.textContent = `އިތުރަށް ދައްކާ (${node.items.length - INITIAL_ITEMS_TO_SHOW}+)`;
-                 showMoreBtn.onclick = () => {
-                     element.querySelectorAll('.hidden-card').forEach(c => c.classList.remove('hidden-card'));
-                     showMoreBtn.remove();
-                 };
-                 element.appendChild(showMoreBtn);
-            }
-             // If searching, auto-expand subsections
-            if (isSearching && !isTopLevel) {
-                element.classList.add('active');
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-
-            return element;
-        }
-        return null;
-    };
-    
-    // --- MAIN RENDER TRIGGER ---
-    const renderPage = (filter = '') => {
-        contentContainer.innerHTML = '';
-        const filterText = filter.toLowerCase().trim();
-        const isSearching = filterText.length > 0;
-        
-        let dataToRender = isSearching ? filterDataRecursive(siteData, filterText) : siteData;
-
-        dataToRender.forEach(section => renderNode(section, contentContainer, isSearching));
-
-        if (contentContainer.children.length === 0 && isSearching) {
-            contentContainer.innerHTML = `<p style="text-align:center;font-size:1.2rem;color:var(--text-muted);">"${filter}" އާ ގުޅޭ އެއްޗެއް ނުފެނުނު</p>`;
-        }
-    };
-    
-    // --- RENDER QUICK LINKS ---
-    const renderQuickLinks = () => {
-        const grid = document.createElement('div');
-        grid.className = 'quick-links-grid';
-        quickLinksData.forEach(link => {
-            const a = document.createElement('a');
-            a.href = link.url;
-            a.className = 'quick-link';
-            a.textContent = link.title;
-            grid.appendChild(a);
-        });
-        quickLinksContainer.appendChild(grid);
-    };
-
-    // --- INITIALIZATION ---
-    renderQuickLinks();
-    renderPage();
-    searchInput.addEventListener('input', (e) => renderPage(e.target.value));
-});
-```
