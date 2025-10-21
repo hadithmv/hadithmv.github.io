@@ -35,12 +35,12 @@
     --primary: #1a262d;
     --secondary: #3a7ca5;
     --accent: #d47c24;
-    --bg-main: #12181b;
-    --card-bg: #223038;
-    --text-main: #cdd5dc;
-    --text-muted: #8899a6;
-    --text-headings: #f1f5fb;
-    --border: #344955;
+    --bg-main: #121212;
+    --text-main: #e0e0e0;
+    --text-muted: #aaa;
+    --card-bg: #1e1e1e;
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    --border: #333;
     --header-text: #e0e0e0;
   }
 }
@@ -81,9 +81,10 @@ body {
 
 #searchInput {
   font-family: "mergedFont", "Arial", sans-serif, "faruma";
+  font-size: 2.2rem;
   width: 100%;
   max-width: 600px;
-  padding: 1rem 1.2rem;
+  padding: 0.5rem 0.75rem;
   font-size: 1.1rem;
   border: 2px solid transparent;
   border-radius: 50px;
@@ -98,13 +99,6 @@ body {
 #searchInput:focus {
   outline: none;
   border-color: var(--accent);
-}
-
-/* Specific dark mode fix for search bar visibility */
-@media (prefers-color-scheme: dark) {
-  #searchInput {
-    border: 1px solid var(--border);
-  }
 }
 
 /* === MAIN CONTENT === */
@@ -130,7 +124,7 @@ body {
   background-color: var(--bg-main);
   padding: 0 1.5rem;
   z-index: 1;
-  color: var(--text-headings);
+  color: var(--primary);
   font-family: "mergedFont", "Arial", sans-serif, "faruma";
   font-size: 1.8rem;
   text-align: center;
@@ -181,7 +175,7 @@ body {
 .book-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-  background-color: var(--primary);
+  background-color: var(--primary); /* Added for hover background change */
 }
 
 /* Restored: Text color changes on hover for better contrast */
@@ -208,10 +202,10 @@ body {
 .book-status {
   font-size: 0.85rem;
   color: var(--text-muted);
-  background: rgba(120, 120, 120, 0.1);
+  background: rgba(0, 0, 0, 0.05);
   padding: 2px 8px;
   border-radius: 12px;
-  margin-top: auto;
+  margin-top: auto; /* Pushes status to bottom if card stretches */
 }
 
 /* Restored: Hidden state for "Show More" feature */
