@@ -249,12 +249,11 @@ body {
     text-align: center;
 }
 
-/* Style for the item count */
 .section-item-count {
     font-size: 1.1rem;
     color: var(--text-muted);
     font-weight: normal;
-    margin-right: 1rem; /* Space between title and count */
+    margin-right: 1rem;
 }
 
 .section-header::after {
@@ -310,6 +309,33 @@ body {
 .section-aqida .book-card { border-color: #c05602; }
 .section-language .book-card { border-color: #006e46; }
 
+/* === SHOW MORE BUTTON (Using your provided style) === */
+.show-more-container {
+    grid-column: 1 / -1; /* Span full width of grid */
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.show-more-btn {
+    font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+    background-color: var(--bg-main);
+    color: var(--text-muted);
+    border: 2px solid var(--border);
+    padding: 0.8rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.show-more-btn:hover {
+    background-color: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    transform: scale(1.05);
+}
+
 /* === FOOTER === */
 .site-footer {
     text-align: center;
@@ -321,7 +347,7 @@ body {
 .footer-content {
     display: flex;
     justify-content: center;
-    gap: 2rem 4rem; /* Row and column gap */
+    gap: 2rem 4rem;
     flex-wrap: wrap;
     margin-bottom: 2rem;
     max-width: 800px;
