@@ -14,6 +14,7 @@ There are several ways to help with this project
   - [Why Contribute](#why-contribute)
   - [The Value We Provide](#the-value-we-provide)
   - [How Your Support Makes a Difference](#how-your-support-makes-a-difference)
+  - [Monthly Expenses and Financial Categories](#monthly-expenses-and-financial-categories)
   - [Be Part of a Lasting Legacy](#be-part-of-a-lasting-legacy)
   - [How to Contribute](#how-to-contribute)
   - [What the Maldivian Community Says](#what-the-maldivian-community-says)
@@ -23,7 +24,7 @@ There are several ways to help with this project
 - [Coding and Development](#coding-and-development)
 - [Show Your Support and Spread the Word](#show-your-support-and-spread-the-word)
 
-* [Thank You and Jazakallah Khair](#thank-you-and-jazakallah-khair)
+- [Thank You and Jazakallah Khair](#thank-you-and-jazakallah-khair)
 
 <!-- TOC end -->
 
@@ -81,6 +82,24 @@ So far, around 250,000 MVR has been spent on Hadithmv related work, and most of 
 - Maintain high standards of accuracy and focus on authentic, reliable sources
 - Develop and improve our digital platforms (Web, Android, Windows) and enhance features and user experience
 - Enable our team of translators, developers, and scholars to focus on content development rather than fundraising
+
+<!-- TOC --><a name="monthly-expenses-and-financial-categories"></a>
+
+### Monthly Expenses and Financial Categories
+
+To maintain and grow the Hadithmv Project, there are recurring expenses that need to be managed. These expenditures ensure the platform remains online, updated, and accessible to everyone without interruption. Here’s a breakdown of our average monthly expenses:
+
+| Category                   | Estimated Monthly Cost (MVR) |
+| -------------------------- | ---------------------------- |
+| Network, Hosting & Storage | ~1000                        |
+| Software & License Fees    | ~1000                        |
+| Miscellaneous              | ~500                         |
+| **Total (Approximate)**    | **~2500 MVR per month**      |
+
+<!-- | Development & Maintenance  | 3,000                        |
+| Translation & Proofreading | 2,000                        | -->
+
+Your contributions help us meet these essential expenses and continue offering free access to authentic Islamic knowledge. Every bit of support helps sustain this project for the long term.
 
 <!-- TOC --><a name="be-part-of-a-lasting-legacy"></a>
 
