@@ -8,20 +8,20 @@ There are several ways to help with this project
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [Help fund the project](#help-fund-the-project)
+- [Help Fund the project](#help-fund-the-project)
   - [Join Us in Spreading the Sunnah](#join-us-in-spreading-the-sunnah)
   - [Your Contribution Makes a Difference](#your-contribution-makes-a-difference)
   - [Why Contribute](#why-contribute)
   - [The Value We Provide](#the-value-we-provide)
-  - [How your Support Makes a Difference](#how-your-support-makes-a-difference)
+  - [How Your Support Makes a Difference](#how-your-support-makes-a-difference)
   - [Be Part of a Lasting Legacy](#be-part-of-a-lasting-legacy)
   - [How to Contribute](#how-to-contribute)
   - [What the Maldivian Community Says](#what-the-maldivian-community-says)
-- [Translate if you know Arabic](#translate-if-you-know-arabic)
+- [Translate if You Know Arabic](#translate-if-you-know-arabic)
   - [Instructions for Translating](#instructions-for-translating)
 - [Proofread in Dhivehi](#proofread-in-dhivehi)
 - [Coding and Development](#coding-and-development)
-- [Show your Support and Spread the Word](#show-your-support-and-spread-the-word)
+- [Show Your Support and Spread the Word](#show-your-support-and-spread-the-word)
 
 * [Thank You and Jazakallah Khair](#thank-you-and-jazakallah-khair)
 
@@ -31,7 +31,7 @@ There are several ways to help with this project
 
 <!-- TOC --><a name="help-fund-the-project"></a>
 
-## Help fund the project
+## Help Fund the Project
 
 <!-- TOC --><a name="join-us-in-spreading-the-sunnah"></a>
 
@@ -73,13 +73,14 @@ Hadithmv has emerged as a leading digital platform for Islamic material in Dhive
 
 ### How your Support Makes a Difference
 
-So far, we have invested around 200,000 in developing Hadithmv, and most of it has been out-of-pocket. Your support will help ensure the project’s continued growth and sustainability. Every contribution, no matter the size, benefits yourself as well as the community. When people gain knowledge from this platform and act upon the Sunnah, you get to share in the reward for having facilitated it, in sha Allah. Your support helps us:
+So far, around 250,000 MVR has been spent on Hadithmv related work, and most of it has been out-of-pocket. Your support will help ensure the project’s continued growth and sustainability. Every contribution, no matter the size, benefits yourself as well as the community. When people gain knowledge from this platform and act upon the Sunnah, you get to share in the reward for having facilitated it, in sha Allah. Your support helps us:
 
-- Keep all content free and accessible for everyone.
-- Expand our library with more translations of Hadith, Quran, and Islamic texts.
-- Maintain high standards of accuracy and focus on authentic, reliable sources.
-- Develop and improve our digital platforms (Web, Android, Windows) and enhance features and user experience.
-- Enable our team of translators, developers, and scholars to focus on content development rather than fundraising.
+- Pay for licenses and software needed for development
+- Keep all content free and accessible for everyone
+- Expand our library with more translations of Hadith, Quran, and Islamic texts
+- Maintain high standards of accuracy and focus on authentic, reliable sources
+- Develop and improve our digital platforms (Web, Android, Windows) and enhance features and user experience
+- Enable our team of translators, developers, and scholars to focus on content development rather than fundraising
 
 <!-- TOC --><a name="be-part-of-a-lasting-legacy"></a>
 
@@ -119,7 +120,7 @@ May Allah reward you generously.
 
 <!-- TOC --><a name="translate-if-you-know-arabic"></a>
 
-## Translate if you know Arabic
+## Translate if You Know Arabic
 
 If you would like to help with translating Arabic texts, you can contact us from [here](contact.html).
 
