@@ -14,7 +14,7 @@ There are several ways to help with this project
   - [Why Contribute](#why-contribute)
   - [The Value We Provide](#the-value-we-provide)
   - [How Your Support Makes a Difference](#how-your-support-makes-a-difference)
-  - [Monthly Expenses and Financial Categories](#monthly-expenses-and-financial-categories)
+  - [Operational Costs per Team Member](#operational-costs-per-team-member)
   - [Be Part of a Lasting Legacy](#be-part-of-a-lasting-legacy)
   - [How to Contribute](#how-to-contribute)
   - [What the Maldivian Community Says](#what-the-maldivian-community-says)
@@ -83,21 +83,27 @@ So far, around 250,000 MVR has been spent on Hadithmv related work, and most of 
 - Develop and improve our digital platforms (Web, Android, Windows) and enhance features and user experience
 - Enable our team of translators, developers, and scholars to focus on content development rather than fundraising
 
-<!-- TOC --><a name="monthly-expenses-and-financial-categories"></a>
+<!-- TOC --><a name="operational-costs-per-team-member"></a>
 
-### Monthly Expenses and Financial Categories
+### Operational Costs per Team Member
 
-To maintain and grow the Hadithmv Project, there are recurring expenses that need to be managed. These expenditures ensure the platform remains online, updated, and accessible to everyone without interruption. Here’s a breakdown of our average monthly expenses:
+To maintain and grow the Hadithmv Project, there are recurring expenses that need to be managed by the team. These expenditures ensure the platform remains online, updated, and accessible to everyone without interruption. Here’s a breakdown of the average monthly expenses and their associated categories for a typical active member working on Hadithmv:
 
-| Category                   | Estimated Monthly Cost (MVR) |
-| -------------------------- | ---------------------------- |
-| Network, Hosting & Storage | ~1000                        |
-| Software & License Fees    | ~1000                        |
-| Miscellaneous              | ~500                         |
-| **Total (Approximate)**    | **~2500 MVR per month**      |
+| Category                   | Estimated Monthly Cost (MVR)       |
+| -------------------------- | ---------------------------------- |
+| Network, Hosting & Storage | ~1000                              |
+| Software & License Fees    | ~1000                              |
+| Miscellaneous              | ~500                               |
+| **Total (Approximate)**    | **~2500 MVR per member per month** |
 
-<!-- | Development & Maintenance  | 3,000                        |
-| Translation & Proofreading | 2,000                        | -->
+<!--
+| Development & Maintenance  | 3,000                        |
+| Translation & Proofreading | 2,000                        |
+| hadithmv.com and related services
+| Updates, fixes, and new feature development
+| Ongoing work to expand and refine Dhivehi content
+| Backups, data transfer, and related utilities
+-->
 
 Your contributions help us meet these essential expenses and continue offering free access to authentic Islamic knowledge. Every bit of support helps sustain this project for the long term.
 
