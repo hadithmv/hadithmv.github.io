@@ -61,6 +61,8 @@ hammer.js (CLOSURE+UGLIFY)	2.0.8	https://github.com/hammerjs/hammerjs.github.io/
 
 
 
+* marked.js	16.3.0	https://github.com/markedjs/marked
+
 
 ...
 
