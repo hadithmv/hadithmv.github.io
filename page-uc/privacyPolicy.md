@@ -133,6 +133,6 @@ At any time, no User Provided Data (such as search or editing text) will be shar
 
 ## Contact Us
 
-If you have any questions regarding privacy while using the Application, or have questions about our practices, you can contact us via email at: [hadithmv@gmail.com](mailto:hadithmv@gmail.com)
+If you have any questions regarding privacy while using the Application, or have questions about our practices, you can contact us via email at: [yahyasdadmv@gmail.com](mailto:yahyasdadmv@gmail.com)
 
 _The "Android" name, the Android logo, the "Google Play" brand, and other Google trademarks, are property of Google LLC and not part of the assets available through the Android Open Source Project._
