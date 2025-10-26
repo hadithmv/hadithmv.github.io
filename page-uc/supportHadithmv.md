@@ -74,7 +74,7 @@ Hadithmv has emerged as a leading digital platform for Islamic material in Dhive
 
 ### How your Support Makes a Difference
 
-So far, around 250,000 MVR has been spent on Hadithmv related work, and most of it has been out-of-pocket. Your support will help ensure the project’s continued growth and sustainability. Every contribution, no matter the size, benefits yourself as well as the community. When people gain knowledge from this platform and act upon the Sunnah, you get to share in the reward for having facilitated it, in sha Allah. Your support helps us:
+So far, around 270,000 MVR has been spent on Hadithmv related work, and most of it has been out-of-pocket. Your support will help ensure the project’s continued growth and sustainability. Every contribution, no matter the size, benefits yourself as well as the community. When people gain knowledge from this platform and act upon the Sunnah, you get to share in the reward for having facilitated it, in sha Allah. Your support helps us:
 
 - Pay for licenses and software needed for development
 - Keep all content free and accessible for everyone
