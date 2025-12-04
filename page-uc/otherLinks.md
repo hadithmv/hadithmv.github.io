@@ -18,13 +18,13 @@
 - [Browser and Extensions](#browser-and-extensions)
   - [Setup](#setup)
   - [Extensions](#extensions)
-- [Code Editor and Extensions](#code-editor-and-extensions)
-- [Node and NPM Packages](#node-and-npm-packages)
 - [Hardware and Setup](#hardware-and-setup)
 - [Windows Software &amp; Programs](#windows-software-amp-programs)
   - [Setup](#setup-1)
   - [PC Software](#pc-software)
 - [Android Apps](#android-apps)
+- [Code Editor and Extensions](#code-editor-and-extensions)
+- [Node and NPM Packages](#node-and-npm-packages)
 - [Twitter](#twitter)
 
 <!-- TOC end -->
@@ -383,110 +383,6 @@ UltraSurf
 
 ---
 
-<!-- TOC --><a name="code-editor-and-extensions"></a>
-
-## Code Editor and Extensions
-
-[Visual Studio Code](https://code.visualstudio.com)
-
-<!-- last done: 5/5/25
-use command:  code --list-extensions
-convert to unordered list
--->
-
-aaron-bond.better-comments
-alexcvzz.vscode-sqlite
-arturodent.problems-copy
-bierner.markdown-preview-github-styles
-bmewburn.vscode-intelephense-client
-bradlc.vscode-tailwindcss
-brapifra.phpserver
-burkeholland.simple-react-snippets
-cwan.native-ascii-converter
-davidanson.vscode-markdownlint
-dsznajder.es7-react-js-snippets
-eamodio.gitlens
-eldargerfanov.leet-html
-esbenp.prettier-vscode
-formulahendry.auto-rename-tag
-formulahendry.code-runner
-github.copilot
-github.copilot-chat
-github.remotehub
-github.vscode-github-actions
-github.vscode-pull-request-github
-gruntfuggly.todo-tree
-htmlhint.vscode-htmlhint
-ibm.output-colorizer
-influrium.haxe-jsx
-jannisx11.batch-rename-extension
-jock.svg
-johnpapa.vscode-peacock
-kisstkondoros.vscode-gutter-preview
-lacroixdavid1.vscode-format-context-menu
-lengmo.json-table-viewer
-leodevbro.blockman
-lewissteele.vscode-sql-lint
-mechatroner.rainbow-csv
-mhutchie.git-graph
-michaelcurrin.auto-commit-msg
-mkxml.vscode-filesize
-ms-python.debugpy
-ms-python.isort
-ms-python.python
-ms-python.vscode-pylance
-ms-toolsai.vscode-jupyter-cell-tags
-ms-toolsai.vscode-jupyter-slideshow
-ms-vscode-remote.remote-wsl
-ms-vscode.live-server
-ms-vscode.powershell
-ms-vscode.remote-repositories
-msjsdiag.vscode-react-native
-naumovs.color-highlight
-ntkhang03.run-file-command
-onecentlin.laravel-blade
-randomfractalsinc.vscode-data-preview
-rioj7.vscode-remove-comments
-techer.open-in-browser
-tombonnike.vscode-status-bar-format-toggle
-tomoki1207.pdf
-tyriar.vscode-terminal-here
-vincaslt.highlight-matching-tag
-vscode-icons-team.vscode-icons
-xdebug.php-debug
-yandeu.five-server
-yzane.markdown-pdf
-zhang-renyang.vscode-react
-
----
-
-<!-- TOC --><a name="node-and-npm-packages"></a>
-
-## Node and NPM Packages
-
-[Node.js](https://nodejs.org)
-
-<!-- last done: 5/5/25
-use command:
-npm list -g --json | node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync(0, 'utf-8')).dependencies).join('\n'))"
--->
-
-cssnano
-csso-cli
-google-closure-compiler
-html-minifier
-htmlhint
-npm
-papaparse
-postcss-cli
-postcss
-prettier
-stylelint
-terser
-uglify-js
-
----
-
 <!-- TOC --><a name="hardware-and-setup"></a>
 
 ## Hardware and Setup
@@ -521,27 +417,53 @@ Canon PIXMA MegaTank G3010 All-in-One Wireless Ink Tank Colour Printer
 
 ### Setup
 
-Windows Media Creation Tool + Windows ISO
-Boot to drive + Disconnect internet + Install with local account
-Windows Backup
-Update Windows + store + firmware and drivers
-Dev drive + Defrag drive
-Data collection + bluetooth off
-Dark mode + Night light
-Windows clipboard history
-Fonts (faruma..) + Keyboards + Mouse speed, font size
-Windows Backup
-IObit uninstall bloatware
-Office
-Transfer files
-Set BIOS auto-on times
-Upgrade hardware if needed (esp. memory)
-UniGetUI -&gt; update check freq: weekly
-Autostart with: run &gt; shell:startup
-Messaging apps, sync and backup, display size, autodownload settings
+Before Installation
 
-<!-- last done: 5/5/25
-use: nirsoft uninstallview, vie, choose columns, deselect all but first, (alphabetical order?) select all, right click, copy list, remove first item 'Display Name'
+- Upgrade Hardware (RAM + SSD)
+- Create Installation Media + Verify
+
+Installation
+
+- Windows Media Creation Tool + Windows ISO
+- Boot to USB drive + Choose Partions
+- Disconnect Internet + Install Windows with Local Account
+- Region US + Date UK + Short Date + Time Zone: UTC +5 Karachi
+- Language for Non Unicode Programs: Arabic Saudi
+
+Base System Setup
+
+- Update Windows + MS Store + Firmware and Drivers
+- Send optional diagnostic data OFF + Disable Tailored Experiences + Advertising ID OFF
+- Bluetooth OFF + Start Weather Widget Celsius
+- Dark mode + Night light
+- Fonts (Faruma) + Keyboards + Mouse speed + Scale/Font Size Adjustments
+- Windows Clipboard History
+
+Storage & System Optimization
+
+- Create Dev Drive
+- Defrag + Optimize Drives
+- Windows Backup Config
+
+Debloat / Apps
+
+- IObit Uninstall Bloatware
+  -- Alternatively take a look at: https://github.com/Raphire/Win11Debloat
+- UniGetUI, Update Check Frequency: Weekly
+- MS Office
+- Messaging Apps (Telegram, Whatsapp, Viber, Signal)
+- - Configure Sync and Backup, Display Size, Autodownload Settings
+- Set Autostart Apps, run; shell:startup
+
+Personal Files & Final Setup
+
+- Transfer Files and Folders
+- Set BIOS Auto-on Times
+- Windows Backup
+
+<!-- last done: 4/12/25
+use: nirsoft uninstallview, vie, choose columns, deselect all but first, (alphabetical order?)
+select all, right click, copy selected items, remove first item 'Display Name'
 convert to unordered list
 -->
 
@@ -554,13 +476,17 @@ https://old.reddit.com/r/buildapc/comments/7mn388/so_you_finished_building_your_
 
 ### PC Software
 
-7-Zip 24.09 (x64)
+Display Name
+7-Zip 25.01 (x64)
 Acer Display Widget
 Adobe Acrobat (64-bit)
+Adobe Illustrator 2025
 Adobe InDesign 2023
-Adobe Photoshop 2024
+Adobe Photoshop 2025
 Advanced SystemCare
 Android Studio
+Antigravity (User)
+AnyDesk
 Arclab Dir2HTML 4.1
 Aria2 Manager
 Browser for SQL Server 2022
@@ -577,99 +503,103 @@ Canon My Image Garden
 Canon My Image Garden Design Files
 Canon Quick Menu
 Canon Wi-Fi Connection Assistant
-CPUID CPU-Z 2.15
+Chrome Remote Desktop
+Chrome Remote Desktop Host
+CPUID CPU-Z 2.16
+CrystalDiskInfo 9.7.2
+CrystalDiskMark 9.0.1
+CrystalMark Retro 2.0.6
 Cursor (User)
 DB Browser for SQLite
 Dell SupportAssist
 Dell SupportAssist OS Recovery Plugin for Dell Update
-draw.io 26.2.15
+draw.io 28.1.2
 EaseUS Fixo
 Espanso version 2.2.3
-Everything 1.4.1.1026 (x64)
+Everything 1.4.1.1028 (x64)
 Fast Node Manager
 Git
 GitHub Desktop
-Glary Utilities 6.25
+Glary Utilities 6.31
 Google Drive
 GPL Ghostscript
-Herd
-High-Logic MainType 12
+High-Logic MainType 13
 HP Connection Optimizer
 Intel® Hardware Accelerated Execution Manager
-IObit Uninstaller 14
+IObit Uninstaller 15
 IObit Unlocker
-IrfanView 4.70 (64-bit)
-Java 8 Update 451 (64-bit)
+IrfanView 4.72 (64-bit)
+Java 8 Update 461 (64-bit)
 Java(TM) SE Development Kit 20.0.2 (64-bit)
-K-Lite Codec Pack 18.9.0 Standard
-Laragon 6.0.0
+K-Lite Codec Pack 19.1.5 Standard
 LDPlayer
 Logi Options+
 Logi Plugin Service
 Meld
 Microsoft 365 Apps for enterprise - en-us
 Microsoft Edge
-Microsoft Help Viewer 2.3
+Microsoft Intune Management Extension
 Microsoft ODBC Driver 17 for SQL Server
 Microsoft OLE DB Driver for SQL Server
 Microsoft OneDrive
+Microsoft SQL Server 2022 (64-bit)
 Microsoft SQL Server 2022 Setup (English)
-Microsoft SQL Server Management Studio - 20.2.1
 Microsoft Teams Meeting Add-in for Microsoft Office
 Microsoft Update Health Tools
 Microsoft Visual C++ 2005 Redistributable
 Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.6161
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.6161
 Microsoft Visual C++ 2010 x64 Redistributable - 10.0.40219
 Microsoft Visual C++ 2010 x86 Redistributable - 10.0.40219
 Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030
 Microsoft Visual C++ 2012 Redistributable (x86) - 11.0.61030
 Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.40664
 Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.40664
-Microsoft Visual C++ 2015-2022 Redistributable (x64) - 14.42.34438
-Microsoft Visual C++ 2015-2022 Redistributable (x86) - 14.42.34438
+Microsoft Visual C++ 2015-2022 Redistributable (x64) - 14.44.35211
+Microsoft Visual C++ 2015-2022 Redistributable (x86) - 14.44.35211
 Microsoft Visual Studio Code (User)
 Microsoft Visual Studio Installer
 Microsoft Visual Studio Tools for Applications 2019
 Microsoft VSS Writer for SQL Server 2022
-Microsoft Windows Desktop Runtime - 8.0.15 (x64)
+Microsoft Windows Desktop Runtime - 8.0.22 (x64)
 MSYS2
 Mushaf Publication
 Node.js
 Notepad++ (64-bit x64)
-Notion
+Notion 4.19.0
 Obsidian
 Patch My PC Home Updater
-PowerShell 7-x64
-PowerShell 7.4.6.0-x64
+PowerShell 7.5.4.0-x64
 PowerToys (Preview) x64
 Printer Registration
 Python 2.7.18 (64-bit)
 Python 3.12.10 (64-bit)
-Python 3.13.3 (64-bit)
+Python 3.13.7 (64-bit)
 Python Launcher
 Q-Dir
 Q-Dir
 Razer Synapse
 Rustup: the Rust toolchain installer
 Scratch 3 3.29.1
-Signal 7.53.0
+Signal 7.80.1
 SmartControl
 Speccy
 SQLiteStudio
 SumatraPDF
-TablePlus 6.4.8
 taskbar-monitor
-TeamViewer
 Telegram Desktop
 UniGetUI
+UXP WebView Support
+Viber
+Viber
 Visual Studio Build Tools 2022
 VLC media player
 vs_CoreEditorFonts
 Warp
 Windows SDK AddOn
-Windows Software Development Kit - Windows 10.0.22621.3233
+Windows Software Development Kit - Windows 10.0.22621.5040
 Windsurf (User)
-WizTree
+WizTree v4.27
 جامع خادم الحرمين الشريفين الملك عبد الله بن عبد العزيز للسنة النبوية المطهرة
 مصحف المدينة النبوية للنشر الحاسوبي
 
@@ -790,6 +720,110 @@ Zoom
 المكتبة الشاملة
 جامع الكتب التسعة
 فائدة
+
+---
+
+<!-- TOC --><a name="code-editor-and-extensions"></a>
+
+## Code Editor and Extensions
+
+[Visual Studio Code](https://code.visualstudio.com)
+
+<!-- last done: 5/5/25
+use command:  code --list-extensions
+convert to unordered list
+-->
+
+aaron-bond.better-comments
+alexcvzz.vscode-sqlite
+arturodent.problems-copy
+bierner.markdown-preview-github-styles
+bmewburn.vscode-intelephense-client
+bradlc.vscode-tailwindcss
+brapifra.phpserver
+burkeholland.simple-react-snippets
+cwan.native-ascii-converter
+davidanson.vscode-markdownlint
+dsznajder.es7-react-js-snippets
+eamodio.gitlens
+eldargerfanov.leet-html
+esbenp.prettier-vscode
+formulahendry.auto-rename-tag
+formulahendry.code-runner
+github.copilot
+github.copilot-chat
+github.remotehub
+github.vscode-github-actions
+github.vscode-pull-request-github
+gruntfuggly.todo-tree
+htmlhint.vscode-htmlhint
+ibm.output-colorizer
+influrium.haxe-jsx
+jannisx11.batch-rename-extension
+jock.svg
+johnpapa.vscode-peacock
+kisstkondoros.vscode-gutter-preview
+lacroixdavid1.vscode-format-context-menu
+lengmo.json-table-viewer
+leodevbro.blockman
+lewissteele.vscode-sql-lint
+mechatroner.rainbow-csv
+mhutchie.git-graph
+michaelcurrin.auto-commit-msg
+mkxml.vscode-filesize
+ms-python.debugpy
+ms-python.isort
+ms-python.python
+ms-python.vscode-pylance
+ms-toolsai.vscode-jupyter-cell-tags
+ms-toolsai.vscode-jupyter-slideshow
+ms-vscode-remote.remote-wsl
+ms-vscode.live-server
+ms-vscode.powershell
+ms-vscode.remote-repositories
+msjsdiag.vscode-react-native
+naumovs.color-highlight
+ntkhang03.run-file-command
+onecentlin.laravel-blade
+randomfractalsinc.vscode-data-preview
+rioj7.vscode-remove-comments
+techer.open-in-browser
+tombonnike.vscode-status-bar-format-toggle
+tomoki1207.pdf
+tyriar.vscode-terminal-here
+vincaslt.highlight-matching-tag
+vscode-icons-team.vscode-icons
+xdebug.php-debug
+yandeu.five-server
+yzane.markdown-pdf
+zhang-renyang.vscode-react
+
+---
+
+<!-- TOC --><a name="node-and-npm-packages"></a>
+
+## Node and NPM Packages
+
+[Node.js](https://nodejs.org)
+
+<!-- last done: 5/5/25
+use command:
+npm list -g --json | node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync(0, 'utf-8')).dependencies).join('\n'))"
+-->
+
+cssnano
+csso-cli
+google-closure-compiler
+html-minifier
+htmlhint
+npm
+papaparse
+postcss-cli
+postcss
+prettier
+stylelint
+terser
+uglify-js
 
 ---
 
