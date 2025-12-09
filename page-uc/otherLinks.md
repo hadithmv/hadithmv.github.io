@@ -434,10 +434,16 @@ Base System Setup
 
 - Update Windows + MS Store + Firmware and Drivers
 - Send optional diagnostic data OFF + Disable Tailored Experiences + Advertising ID OFF
+- Animation Effects OFF
 - Bluetooth OFF + Start Weather Widget Celsius
+- Right Click Taskbar, Settings, Search: Icon and Label
 - Dark mode + Night light
-- Fonts (Faruma) + Keyboards + Mouse speed + Scale/Font Size Adjustments
+- Fonts (Faruma) Mouse speed + Scale/Font Size Adjustments
+- US Keyboard, Ar Saudi, Divehi
+- UK Date + First Day of the Week; Sun
+- 12 Hour Clock + Short Time & Date No Zero
 - Windows Clipboard History
+- Add Peripherals; keyboard, mouse, printer
 
 Storage & System Optimization
 
@@ -448,7 +454,7 @@ Storage & System Optimization
 Debloat / Apps
 
 - IObit Uninstall Bloatware
-  -- Alternatively take a look at: https://github.com/Raphire/Win11Debloat
+  - - Alternatively take a look at: https://github.com/Raphire/Win11Debloat
 - UniGetUI, Update Check Frequency: Weekly
 - MS Office
 - Messaging Apps (Telegram, Whatsapp, Viber, Signal)
@@ -460,6 +466,12 @@ Personal Files & Final Setup
 - Transfer Files and Folders
 - Set BIOS Auto-on Times
 - Windows Backup
+
+Pin to Taskbar
+
+- Task Manager, Qdir, Notion, Browser, VsCode, Notepad++, Telegram, Meldmerge
+- Shamela, JamiulKhadem, File Explorer, Signal, Android Studio, Word, Excel, Notepad
+- Whatsapp, Email, Hmv, Teams, Antigravity, Chrome Remote Desktop
 
 <!-- last done: 4/12/25
 use: nirsoft uninstallview, vie, choose columns, deselect all but first, (alphabetical order?)
