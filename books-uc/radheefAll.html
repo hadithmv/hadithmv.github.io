@@ -177,6 +177,17 @@
       /* */
 
       /* CUSTOM PAGE STUFF */
+
+      /* Styling for radheefRasmee.json rows */
+      #tableID > tbody > tr.rasmee-row > td {
+        color: #dc2626; /* Dark red for light mode CC0000 */
+      }
+
+      @media (prefers-color-scheme: dark) {
+        #tableID > tbody > tr.rasmee-row > td {
+          color: #fb7185; /* Lighter red for dark mode FF6666 */
+        }
+      }
     </style>
   </head>
   <body>
@@ -192,6 +203,10 @@
       <div class="hmvSection">
         <div class="centerAlignedText">
           <p>މިއީ ހުރިހާ ރަދީފުތަކެއް އެއް ތަނަކުން ސާޗްކުރެވޭ ސަފުހާއެވެ.</p>
+
+          <p>
+            ރަތް ކުލައިގެ ލިޔުމަކީ ރަސްމީ މަސްދަރަކުން ނެގިފައިވާ ލިޔުމެކެވެ.
+          </p>
 
           <p>
             އަލްމަޢާނީ އަރަބި - އިނގިރޭސި ރަދީފުގެ
@@ -316,7 +331,7 @@
       };
 
       // Modified processJsonData function to handle column padding
-      function processJsonData(data, config, maxColumns) {
+      function processJsonData(data, config, maxColumns, sourceFile) {
         return data.map((row) => {
           const fullRow = Array.isArray(row) ? row : Object.values(row);
 
@@ -347,6 +362,9 @@
           while (processedRow.length < maxColumns) {
             processedRow.push("");
           }
+
+          // Add source file as hidden last column (will be used for styling)
+          processedRow.push(sourceFile);
 
           return processedRow;
         });
@@ -384,7 +402,8 @@
                     const processedData = processJsonData(
                       jsonData,
                       config,
-                      maxColumns
+                      maxColumns,
+                      file
                     );
                     loadedData = [...loadedData, ...processedData];
 
@@ -509,11 +528,23 @@
             title: "އިނގިރޭސި މާނަ",
             className: "colEng",
           },
+          {
+            // Hidden column for source file tracking
+            title: "source",
+            visible: false,
+          },
         ],
         columnDefs: [
           //
           ...columnDefsconfig,
         ],
+        // Underline rows from radheefRasmee.json
+        createdRow: function (row, data, dataIndex) {
+          // data[6] contains the source file name (hidden column)
+          if (data[6] === "radheefRasmee.json") {
+            $(row).addClass("rasmee-row");
+          }
+        },
       });
     </script>
     <!-- Google tag (gtag.js) -->
