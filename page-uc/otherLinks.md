@@ -18,10 +18,18 @@
 - [Browser and Extensions](#browser-and-extensions)
   - [Setup](#setup)
   - [Extensions](#extensions)
-- [Hardware and Setup](#hardware-and-setup)
+- [Hardware / Uses](#hardware-uses)
+- [Windows Setup](#windows-setup)
+  - [Pre Install](#pre-install)
+  - [Clean Install](#clean-install)
+  - [Base Setup](#base-setup)
+  - [Personalization](#personalization)
+  - [Apps & Debloat](#apps-debloat)
+  - [Personal Files & Final Setup](#personal-files-final-setup)
+  - [Pin to Taskbar](#pin-to-taskbar)
+  - [Third Party Configs](#third-party-configs)
+  - [TLast Restore Point](#tlast-restore-point)
 - [Windows Software &amp; Programs](#windows-software-amp-programs)
-  - [Setup](#setup-1)
-  - [PC Software](#pc-software)
 - [Android Apps](#android-apps)
 - [Code Editor and Extensions](#code-editor-and-extensions)
 - [Node and NPM Packages](#node-and-npm-packages)
@@ -383,9 +391,9 @@ UltraSurf
 
 ---
 
-<!-- TOC --><a name="hardware-and-setup"></a>
+<!-- TOC --><a name="hardware-uses"></a>
 
-## Hardware and Setup
+## Hardware / Uses
 
 <!-- USE: speccy / cpu-z -->
 
@@ -409,20 +417,57 @@ Canon PIXMA MegaTank G3010 All-in-One Wireless Ink Tank Colour Printer
 
 ---
 
-<!-- TOC --><a name="windows-software-amp-programs"></a>
+<!-- TOC --><a name="windows-setup"></a>
 
-## Windows Software &amp; Programs
+## Windows Setup
 
-<!-- TOC --><a name="setup-1"></a>
+<!-- dont know about these:
+Add Windows Sandbox setup (requires Pro/Enterprise)
+Configure Windows Defender exclusions for dev folders
+Disable unnecessary Windows services (Windows Search indexing for non-system drives, etc.)
+Configure Windows Terminal as default (better than CMD/PowerShell alone)
+Set up WSL2 if doing any Linux development
+Configure Windows Update to notify before restart during active hours
+Enable Storage Sense with custom cleanup rules
+Disable hibernation file if not needed (saves GBs): powercfg -h off
+Move pagefile to different drive if you have one
+Schedule automatic maintenance to run during off-hours
 
-### Setup
+Set SATA mode = AHCI (if applicable)
+Disable: Fast Boot (temporarily, during setup/troubleshooting)
 
-Before Installation
+Virtualization: Ensure VT-d / Virtualization Technology is enabled in BIOS.
 
+QuickLook (spacebar file preview like macOS)
+EarTrumpet (better volume mixer)
+1.1.1.1 warp?
+https://files.community/
+
+Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, consider Cloudflare WARP (1.1.1.1) (free, faster) or a reputable VPN like ProtonVPN.
+
+
+
+
+ -->
+
+<!-- TOC --><a name="pre-install"></a>
+
+### Pre Install
+
+- Note All Apps + Settings
+- Backup All Files + Folders
+- Log Out of All Apps
+- Delete Files, Uninstall Programs
+- Run PC Cleaning (PC Manager, Glary, IObit ASC)
 - Upgrade Hardware (RAM + SSD)
 - Create Installation Media + Verify
+- Defrag + Optimize Disk / Else Format or Delete Partition
 
-Installation
+<!-- !!! add similar steps for phone too -->
+
+<!-- TOC --><a name="clean-install"></a>
+
+### Clean Install
 
 - Windows Media Creation Tool + Windows ISO
 - Boot to USB drive + Choose Partions
@@ -430,48 +475,117 @@ Installation
 - Region US + Date UK + Short Date + Time Zone: UTC +5 Karachi
 - Language for Non Unicode Programs: Arabic Saudi
 
-Base System Setup
+<!-- TOC --><a name="base-setup"></a>
 
-- Update Windows + MS Store + Firmware and Drivers
-- Send optional diagnostic data OFF + Disable Tailored Experiences + Advertising ID OFF
-- Animation Effects OFF
-- Bluetooth OFF + Start Weather Widget Celsius
-- Right Click Taskbar, Settings, Search: Icon and Label
-- Dark mode + Night light
-- Fonts (Faruma) Mouse speed + Scale/Font Size Adjustments
-- US Keyboard, Ar Saudi, Divehi
-- UK Date + First Day of the Week; Sun
-- 12 Hour Clock + Short Time & Date No Zero
-- Windows Clipboard History
-- Add Peripherals; keyboard, mouse, printer
+### Base Setup
 
-Storage & System Optimization
-
+- Create Restore Point
+- Update Windows
+- Update Firmware (Chipset)
+- Update Drivers (GPU and Hardware)
+- Update MS Store
+- BIOS Auto-On
+- BIOS RAM Overclock
+- BIOS CPU Undervolt
+- BIOS Keyboard Backlight?
 - Create Dev Drive
-- Defrag + Optimize Drives
-- Windows Backup Config
+- Create Restore Point
 
-Debloat / Apps
+<!-- TOC --><a name="personalization"></a>
+
+### Personalization
+
+- Privacy & Telemetry
+- - Send optional diagnostic data OFF + Disable Tailored Experiences + Advertising ID OFF
+- Animation Effects OFF (except smooth edges of screen fonts)
+- Bluetooth OFF
+
+- UI, Input & Accessibility
+- - Right Click Taskbar, Settings, Search: Icon and Label
+- - Dark mode + Night light
+- - Fonts (Faruma, Fira Code) Mouse speed + Scale/Font Size Adjustments
+- - Adjust ClearType
+- - US Keyboard, Ar Saudi, Divehi
+- - UK Date + First Day of the Week; Sun
+- - 12 Hour Clock + Short Time & Date No Zero
+- - Windows Clipboard History
+- - Start Weather Widget Celsius
+
+- UX
+- - File Explorer Settings, View File Name Extensions
+- - Enable Biometrics / PIN
+
+<!-- TOC --><a name="apps-debloat"></a>
+
+### Apps & Debloat
 
 - IObit Uninstall Bloatware
-  - - Alternatively take a look at: https://github.com/Raphire/Win11Debloat
+- - Alternatively take a look at: https://github.com/Raphire/Win11Debloat (but thats overkill as is)
+- - or https://github.com/christitustech/Winutil
 - UniGetUI, Update Check Frequency: Weekly
 - MS Office
-- Messaging Apps (Telegram, Whatsapp, Viber, Signal)
-- - Configure Sync and Backup, Display Size, Autodownload Settings
 - Set Autostart Apps, run; shell:startup
+- Add Peripherals; Keyboard, Mouse, Printer
+- - Install Associated Drivers
 
-Personal Files & Final Setup
+<!-- TOC --><a name="personal-files-final-setup"></a>
 
-- Transfer Files and Folders
-- Set BIOS Auto-on Times
+### Personal Files & Final Setup
+
+- Transfer Files & Folders
 - Windows Backup
+- Cloud Backup (Google, OneDrive)
+- Power Mode: Battery / Performance
+- Screen Off 15 mins
+- Sleep 5 Hours
 
-Pin to Taskbar
+<!-- TOC --><a name="pin-to-taskbar"></a>
+
+### Pin to Taskbar
 
 - Task Manager, Qdir, Notion, Browser, VsCode, Notepad++, Telegram, Meldmerge
 - Shamela, JamiulKhadem, File Explorer, Signal, Android Studio, Word, Excel, Notepad
 - Whatsapp, Email, Hmv, Teams, Antigravity, Chrome Remote Desktop
+
+<!-- TOC --><a name="third-party-configs"></a>
+
+### Third Party Configs
+
+- PowerToys
+- - Autostart
+
+- Messaging Apps (Telegram, Whatsapp, Viber, Signal)
+- - Configure Sync and Backup, Display Size, Autodownload Settings
+
+- Focus Tab Groups
+- - Tab Repositioning; Reposition tabs direction & Reposition tab group direction; None
+
+- Dark Reader, uBlock Origin, UltraSurf
+- - Allow InPrivate
+
+- Dark Reader
+- - Allow access to file URLs
+
+- UltraSurf
+- - Disconnect after installing
+
+- IrfanView
+- - Open Images
+
+- 7Zip Manager
+- - Open Archives
+
+- QDir, Notepad++, etc
+- - Dark Mode
+
+- Startup Apps
+- - Delay / Disable what's not needed
+
+<!-- TOC --><a name="tlast-restore-point"></a>
+
+### TLast Restore Point
+
+- Create Restore Point
 
 <!-- last done: 4/12/25
 use: nirsoft uninstallview, vie, choose columns, deselect all but first, (alphabetical order?)
@@ -484,9 +598,11 @@ convert to unordered list
 https://old.reddit.com/r/buildapc/comments/7mn388/so_you_finished_building_your_pc_now_what/
 -->
 
-<!-- TOC --><a name="pc-software"></a>
+---
 
-### PC Software
+<!-- TOC --><a name="windows-software-amp-programs"></a>
+
+## Windows Software &amp; Programs
 
 Display Name
 7-Zip 25.01 (x64)
