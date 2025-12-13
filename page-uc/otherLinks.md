@@ -497,37 +497,38 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 ### Personalization
 
 - Privacy & Telemetry
-- - Send optional diagnostic data OFF + Disable Tailored Experiences + Advertising ID OFF
+  - Send optional diagnostic data OFF + Disable Tailored Experiences + Advertising ID OFF
 - Animation Effects OFF (except smooth edges of screen fonts)
 - Bluetooth OFF
 
 - UI, Input & Accessibility
-- - Right Click Taskbar, Settings, Search: Icon and Label
-- - Dark mode + Night light
-- - Fonts (Faruma, Fira Code) Mouse speed + Scale/Font Size Adjustments
-- - Adjust ClearType
-- - US Keyboard, Ar Saudi, Divehi
-- - UK Date + First Day of the Week; Sun
-- - 12 Hour Clock + Short Time & Date No Zero
-- - Windows Clipboard History
-- - Start Weather Widget Celsius
+
+  - Right Click Taskbar, Settings, Search: Icon and Label
+  - Dark mode + Night light
+  - Fonts (Faruma, Fira Code) Mouse speed + Scale/Font Size Adjustments
+  - Adjust ClearType
+  - US Keyboard, Ar Saudi, Divehi
+  - UK Date + First Day of the Week; Sun
+  - 12 Hour Clock + Short Time & Date No Zero
+  - Windows Clipboard History
+  - Start Weather Widget Celsius
 
 - UX
-- - File Explorer Settings; View File Name Extensions + Hidden Files
-- - Enable Biometrics / PIN
+  - File Explorer Settings; View File Name Extensions + Hidden Files
+  - Enable Biometrics / PIN
 
 <!-- TOC --><a name="apps-debloat"></a>
 
 ### Apps & Debloat
 
 - IObit Uninstall Bloatware (Preinstalled Software & Games)
-- - Alternatively take a look at: https://github.com/Raphire/Win11Debloat (but thats overkill as is)
-- - or https://github.com/christitustech/Winutil
+  - Alternatively take a look at: https://github.com/Raphire/Win11Debloat (but thats overkill as is)
+  - or https://github.com/christitustech/Winutil
 - UniGetUI, Update Check Frequency: Weekly
 - MS Office
 - Set Autostart Apps, run; shell:startup
 - Add Peripherals; Keyboard, Mouse, Printer
-- - Install Associated Drivers
+  - Install Associated Drivers
 
 <!-- TOC --><a name="personal-files-final-setup"></a>
 
@@ -554,34 +555,43 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 ### Third Party Configs
 
 - PowerToys
-- - Autostart
+
+  - Autostart
 
 - Messaging Apps (Telegram, Whatsapp, Viber, Signal)
-- - Configure Sync and Backup, Display Size, Autodownload Settings
+
+  - Configure Sync and Backup, Display Size, Autodownload Settings
 
 - Focus Tab Groups
-- - Tab Repositioning; Reposition tabs direction & Reposition tab group direction; None
+
+  - Tab Repositioning; Reposition tabs direction & Reposition tab group direction; None
 
 - Dark Reader, uBlock Origin, UltraSurf
-- - Allow InPrivate
+
+  - Allow InPrivate
 
 - Dark Reader
-- - Allow access to file URLs
+
+  - Allow access to file URLs
 
 - UltraSurf
-- - Disconnect after installing
+
+  - Disconnect after installing
 
 - IrfanView
-- - Open Images
+
+  - Open Images
 
 - 7Zip Manager
-- - Open Archives
+
+  - Open Archives
 
 - QDir, Notepad++, etc
-- - Dark Mode
+
+  - Dark Mode
 
 - Startup Apps
-- - Delay / Disable what's not needed
+  - Delay / Disable what's not needed
 
 <!-- TOC --><a name="tlast-restore-point"></a>
 
