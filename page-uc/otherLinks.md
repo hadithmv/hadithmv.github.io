@@ -470,7 +470,8 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 ### Clean Install
 
 - Windows Media Creation Tool + Windows ISO
-- Boot to USB drive + Choose Partions
+- Boot to USB drive + Create Partions
+- 150-200+GB for Windows + Other Partition / Disk
 - Disconnect Internet + Install Windows with Local Account
 - Region US + Date UK + Short Date + Time Zone: UTC +5 Karachi
 - Language for Non Unicode Programs: Arabic Saudi
@@ -480,7 +481,7 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 ### Base Setup
 
 - Create Restore Point
-- Update Windows
+- Update Windows (Until no more updates)
 - Update Firmware (Chipset)
 - Update Drivers (GPU and Hardware)
 - Update MS Store
@@ -512,14 +513,14 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 - - Start Weather Widget Celsius
 
 - UX
-- - File Explorer Settings, View File Name Extensions
+- - File Explorer Settings; View File Name Extensions + Hidden Files
 - - Enable Biometrics / PIN
 
 <!-- TOC --><a name="apps-debloat"></a>
 
 ### Apps & Debloat
 
-- IObit Uninstall Bloatware
+- IObit Uninstall Bloatware (Preinstalled Software & Games)
 - - Alternatively take a look at: https://github.com/Raphire/Win11Debloat (but thats overkill as is)
 - - or https://github.com/christitustech/Winutil
 - UniGetUI, Update Check Frequency: Weekly
@@ -543,6 +544,7 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 
 ### Pin to Taskbar
 
+- Remove Useless Pins
 - Task Manager, Qdir, Notion, Browser, VsCode, Notepad++, Telegram, Meldmerge
 - Shamela, JamiulKhadem, File Explorer, Signal, Android Studio, Word, Excel, Notepad
 - Whatsapp, Email, Hmv, Teams, Antigravity, Chrome Remote Desktop

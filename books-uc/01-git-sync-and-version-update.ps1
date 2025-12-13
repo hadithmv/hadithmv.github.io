@@ -120,7 +120,7 @@ function Generate-CommitMessage {
             continue
         }
     }
-    
+
     # Create a summary line with version info if available
     $versionInfo = if ($NewVersion) { "Update to v$NewVersion, " } else { "" }
     
