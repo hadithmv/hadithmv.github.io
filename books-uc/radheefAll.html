@@ -179,12 +179,14 @@
       /* CUSTOM PAGE STUFF */
 
       /* Styling for radheefRasmee.json rows */
-      #tableID > tbody > tr.rasmee-row > td {
+      #tableID > tbody > tr.rasmee-row > td,
+      .red-color-class {
         color: #dc2626; /* Dark red for light mode CC0000 */
       }
 
       @media (prefers-color-scheme: dark) {
-        #tableID > tbody > tr.rasmee-row > td {
+        #tableID > tbody > tr.rasmee-row > td,
+        .red-color-class {
           color: #fb7185; /* Lighter red for dark mode FF6666 */
         }
       }
@@ -205,7 +207,8 @@
           <p>މިއީ ހުރިހާ ރަދީފުތަކެއް އެއް ތަނަކުން ސާޗްކުރެވޭ ސަފުހާއެވެ.</p>
 
           <p>
-            ރަތް ކުލައިގެ ލިޔުމަކީ ރަސްމީ މަސްދަރަކުން ނެގިފައިވާ ލިޔުމެކެވެ.
+            <span class="red-color-class">ރަތް ކުލައިގެ ލިޔުމަކީ </span>
+            ރަސްމީ މަސްދަރަކުން ނެގިފައިވާ ލިޔުމެކެވެ.
           </p>
 
           <p>
