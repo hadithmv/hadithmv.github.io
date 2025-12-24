@@ -750,6 +750,7 @@ Microsoft Clipchamp
 Microsoft PC Manager
 Monitorian
 Monitor Profile Switcher
+Rufus USB Utility
 Shamela
 JADX
 Windows Subsystem for Linux
