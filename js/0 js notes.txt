@@ -19,29 +19,26 @@ but that was fixed by updating the keepConditions jquery specific logic to vanil
 
 :::	https://datatables.net/download/
 
-I NOW DO NOT MINIFY MANUALLY, INSTEAD I USE MINIFIED VERSION FROM OFFICIAL SITE
+I NOW DO NOT MINIFY MANUALLY (like CLOSURE+UGLIFY), INSTEAD I USE MINIFIED VERSION FROM OFFICIAL SITE
 
-dataTables.js (CLOSURE+UGLIFY)	2.3.4
+dataTables.js	2.3.6
 
 (then turn off core dt js checkbox)
 
-dataTables.inputPaging.js (CLOSURE+UGLIFY)	2.3.4	https://datatables.net/blog/2024/inputPaging
+dataTables.inputPaging.js	2.3.6	https://datatables.net/blog/2024/inputPaging
 
-dataTables.buttons.js (CLOSURE+UGLIFY)	3.2.5
+dataTables.buttons.js	3.2.6
+	buttons.colVis.js	3.2.6
+	buttons.html5.js	3.2.6
 
-buttons.colVis.js (CLOSURE+UGLIFY)	3.2.5
+dataTables.keyTable.js	2.12.2
 
-buttons.html5.js (CLOSURE+UGLIFY)	3.2.5
+dataTables.searchbuilder.js	1.8.4
+dataTables.searchPanes.js	2.3.5
 
-dataTables.keyTable.js (CLOSURE+UGLIFY)	2.12.1
+dataTables.select.js	3.1.3
 
-dataTables.searchbuilder.js (CLOSURE+UGLIFY)	1.8.4
-
-dataTables.searchPanes.js (CLOSURE+UGLIFY)	2.3.5
-
-dataTables.select.js (CLOSURE+UGLIFY)	3.1.0
-
-
+:::
 
 jquery.mark.js (CLOSURE+UGLIFY)	9.0.0	https://github.com/julkue/mark.js/blob/master/dist/jquery.mark.js
 
@@ -59,7 +56,7 @@ https://datatables.net/forums/discussion/56338)
 hammer.js (CLOSURE+UGLIFY)	2.0.8	https://github.com/hammerjs/hammerjs.github.io/blob/master/dist/hammer.js
 (dist version 2016-04-23 which is much smaller, not main repo version 2016-09-30)
 
-
+:::
 
 * marked.js	16.3.0	https://github.com/markedjs/marked
 
