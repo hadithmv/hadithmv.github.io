@@ -313,8 +313,14 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
           titleAr: "من خلقني ولماذا؟",
-          titleDv: "އަހަރެން އުފެއްދެވީ ކާކު؟ އަދި ކީއްވެ؟",
+          titleDv:
+            "އަހަރެން އުފެއްދެވީ ކޮން ފަރާތަކުން އަދި ކޮން މަގުސަދަކަށް؟",
           url: "../books/manKhalaqaniWaLimaza.html",
+        },
+        {
+          titleAr: "الإسلام رسالة موجزة",
+          titleDv: "އިސްލާމް ދީނާ ބެހޭ ލުއި ފޮތެއް",
+          url: "../books/nubzaAnilIslam.html",
         },
       ],
     },
