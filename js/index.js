@@ -327,6 +327,12 @@ document.addEventListener("DOMContentLoaded", () => {
           titleDv: "އިސްލާމް ދީނަކީ الله ގެ ރަސޫލުންގެ ދީނެވެ.",
           url: "../books/islamDeenRusulullah.html",
         },
+        {
+          titleAr: "الإسلام دين الفطرة والعقل والسعادة",
+          titleDv:
+            "އިސްލާމް ދީނަކީ ފިޠުރަތާއި ބުއްދިއާއި ބާއްޖަވެރިކަމުގެ ދީނެވެ.",
+          url: "../books/islamDeenulFitrah.html",
+        },
       ],
     },
     // ... (other sections) ...
