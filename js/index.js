@@ -322,6 +322,11 @@ document.addEventListener("DOMContentLoaded", () => {
           titleDv: "އިސްލާމް ދީނާ ބެހޭ ލުއި ފޮތެއް",
           url: "../books/nubzaAnilIslam.html",
         },
+        {
+          titleAr: "الإسلام دين رسل الله",
+          titleDv: "އިސްލާމް ދީނަކީ الله ގެ ރަސޫލުންގެ ދީނެވެ.",
+          url: "../books/islamDeenRusulullah.html",
+        },
       ],
     },
     // ... (other sections) ...
