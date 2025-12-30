@@ -28,7 +28,7 @@
   - [Personal Files & Final Setup](#personal-files-final-setup)
   - [Pin to Taskbar](#pin-to-taskbar)
   - [Third Party Configs](#third-party-configs)
-  - [TLast Restore Point](#tlast-restore-point)
+  - [Last Restore Point](#last-restore-point)
 - [Windows Software &amp; Programs](#windows-software-amp-programs)
 - [Android Apps](#android-apps)
 - [Code Editor and Extensions](#code-editor-and-extensions)
@@ -593,14 +593,14 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 - Startup Apps
   - Delay / Disable what's not needed
 
-<!-- TOC --><a name="tlast-restore-point"></a>
+<!-- TOC --><a name="last-restore-point"></a>
 
-### TLast Restore Point
+### Last Restore Point
 
 - Create Restore Point
 
 <!-- last done: 4/12/25
-use: nirsoft uninstallview, vie, choose columns, deselect all but first, (alphabetical order?)
+use: nirsoft uninstallview, view, choose columns, deselect all but first, (alphabetical order?)
 select all, right click, copy selected items, remove first item 'Display Name'
 convert to unordered list
 -->
@@ -708,6 +708,7 @@ Node.js
 Notepad++ (64-bit x64)
 Notion 4.19.0
 Obsidian
+Pandoc
 Patch My PC Home Updater
 PowerShell 7.5.4.0-x64
 PowerToys (Preview) x64
