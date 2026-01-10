@@ -1,0 +1,6 @@
+make sure to install pandoc first:
+https://github.com/jgm/pandoc/releases/latest
+
+if you are dealing with pdfs, will need a latex engine / distribution
+going with miktex as it is small and only installs additional things when needed on the fly (can stop it from asking every time too):
+https://miktex.org/download
