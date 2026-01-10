@@ -1,6 +1,20 @@
 make sure to install pandoc first:
 https://github.com/jgm/pandoc/releases/latest
 
-if you are dealing with pdfs, will need a latex engine / distribution
+if you are converting TO pdf, will need a latex engine / distribution
 going with miktex as it is small and only installs additional things when needed on the fly (can stop it from asking every time too):
 https://miktex.org/download
+
+...
+
+if you are converting FROM pdf, you will need a helper tool to extract text or images
+going with poppler, make sure to copy its directory to C: drive, and add the bin/ as system PATH environment variable:
+https://github.com/oschwartz10612/poppler-windows/releases/latest
+
+more info:
+https://stackoverflow.com/questions/73669337/how-to-how-to-install-poppler-from-the-tar-file-downloaded-from-poppler-officia
+https://stackoverflow.com/questions/77610957/installing-poppler-for-windows-without-using-package-manage-for-windows
+
+earch for "environment variables", select "Edit the system environment variables", click "Environment Variables...", choose "Path" under System variables, click "Edit", then "New", and paste your directory path, finally clicking OK on all windows to save
+
+"C:\poppler-25.12.0\Library\bin"
