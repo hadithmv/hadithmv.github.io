@@ -18,3 +18,6 @@ https://stackoverflow.com/questions/77610957/installing-poppler-for-windows-with
 earch for "environment variables", select "Edit the system environment variables", click "Environment Variables...", choose "Path" under System variables, click "Edit", then "New", and paste your directory path, finally clicking OK on all windows to save
 
 "C:\poppler-25.12.0\Library\bin"
+
+this converts from pdf TO text, not markdown
+note that the output layout is not very nice at times, like doesnt support columns and stuff
