@@ -462,6 +462,7 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 - Upgrade Hardware (RAM + SSD)
 - Create Installation Media + Verify
 - Defrag + Optimize Disk / Else Format or Delete Partition
+- Download MOBO and GPU Firmware and Drivers in Advance
 
 <!-- !!! add similar steps for phone too -->
 
@@ -482,12 +483,12 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 
 - Create Restore Point
 - Update Windows (Until no more updates)
-- Update Firmware (Chipset)
-- Update Drivers (GPU and Hardware)
+- Update MOBO Firmware and Drivers
+- Update GPU Firmware and Drivers
 - Update MS Store
 - BIOS Auto-On
-- BIOS RAM Overclock
 - BIOS CPU Undervolt
+- BIOS RAM Overclock?
 - BIOS Keyboard Backlight?
 - Create Dev Drive
 - Create Restore Point
@@ -521,6 +522,7 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 
 ### Apps & Debloat
 
+- Chrome Remote Desktop
 - IObit Uninstall Bloatware (Preinstalled Software & Games)
   - Alternatively take a look at: https://github.com/Raphire/Win11Debloat (but thats overkill as is)
   - or https://github.com/christitustech/Winutil
