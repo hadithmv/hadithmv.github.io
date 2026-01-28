@@ -501,9 +501,21 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
   - Send optional diagnostic data OFF + Disable Tailored Experiences + Advertising ID OFF
 - Animation Effects OFF (except smooth edges of screen fonts)
 - Bluetooth OFF
+- Search (Privacy & Security)
+  - Search History OFF
+  - Search Highlights OFF
+- Run "services.msc", scroll down to "Windows Search", right click, properties, startup type: disabled
+- Performance Options (System Properties > Performance > Settings), turn OFF:
+  - Animate controls and elements inside windows
+  - Animate windows when minimizing and maximizing
+  - Animations in the taskbar
+  - Fade out menu items after clicking
+  - Fade or slide menus into view
+  - Fade or slide Tool Tips into view
+  - Fade out menu items after clicking
+  - Show shadows under windows
 
 - UI, Input & Accessibility
-
   - Right Click Taskbar, Settings, Search: Icon and Label
   - Dark mode + Night light
   - Fonts (Faruma, Fira Code) Mouse speed + Scale/Font Size Adjustments
@@ -557,39 +569,30 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 ### Third Party Configs
 
 - PowerToys
-
   - Autostart
 
 - Messaging Apps (Telegram, Whatsapp, Viber, Signal)
-
   - Configure Sync and Backup, Display Size, Autodownload Settings
 
 - Focus Tab Groups
-
   - Tab Repositioning; Reposition tabs direction & Reposition tab group direction; None
 
 - Dark Reader, uBlock Origin, UltraSurf
-
   - Allow InPrivate
 
 - Dark Reader
-
   - Allow access to file URLs
 
 - UltraSurf
-
   - Disconnect after installing
 
 - IrfanView
-
   - Open Images
 
 - 7Zip Manager
-
   - Open Archives
 
 - QDir, Notepad++, etc
-
   - Dark Mode
 
 - Startup Apps
