@@ -514,6 +514,13 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
   - Fade or slide Tool Tips into view
   - Fade out menu items after clicking
   - Show shadows under windows
+  - Show shadows under mouse pointer
+  - Show translucent selection rectangle
+  - Show window contents while dragging
+  - Slide open combo boxes
+  - Use drop shadows for icpn labels on the desktop
+  - ?Save taskbar menu previews
+  - ?Smooth scroll list boxes
 
 - UI, Input & Accessibility
   - Right Click Taskbar, Settings, Search: Icon and Label
