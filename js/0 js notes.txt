@@ -3,7 +3,7 @@
 
 -- LOAD PRIORTY IN COMB: --
 
-jquery.js (UGLIFY)	3.7.1
+jquery.js (UGLIFY)	4.0.0
 	https://jquery.com/download/
 	
 (note, previously used the beta v4, the difference of which is: 84.12-76.26=7.86kb
