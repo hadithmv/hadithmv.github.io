@@ -336,7 +336,7 @@ function changeBook(newBook) {
   if (currentUrl.includes("quran")) {
     window.location = currentUrl
       .replace(
-        /quranHadithmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee/g,
+        /quranHadithmv|quranBakurube|quranSoabuni|quranRasmee/g,
         newBook
       )
       .replace(/\:v.*$/, "");
@@ -377,7 +377,7 @@ function changeBookQuran(newBook) {
   window.location = window.location
     .toString()
     .replace(
-      /quranUshru|quranHadithmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranMuyassarGhareeb|quranMukhtasar|quranMuyassar|quranSadi|quranBetaqat|quranQiraaath/g,
+      /quranUshru|quranHadithmv|quranBakurube|quranSoabuni|quranRasmee|quranMuyassarGhareeb|quranMukhtasar|quranMuyassar|quranSadi|quranBetaqat|quranQiraaath/g,
       newBook
     )
     .replace(/\:v.*$/, "");

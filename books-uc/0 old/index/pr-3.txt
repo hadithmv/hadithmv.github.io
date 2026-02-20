@@ -303,7 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 { titleAr: "ترجمة حديث إم في", titleDv: "ޙަދީޘްއެމްވީގެ ތަރުޖަމާ", url: "../books/quranHadithmv.html" },
                 { titleAr: "الترجمة الرسمية", titleDv: "ރަސްމީ ތަރުޖަމާ", url: "../books/quranRasmee.html" },
                 { titleAr: "ترجمة بكر بي", titleDv: "ބަކުރުބެގެ ތަރުޖަމާ", url: "../books/quranBakurube.html" },
-                { titleAr: "تفسير القرآن لجعفر", titleDv: "ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު*", url: "../books/quranJaufar.html" },
                 { titleAr: "تفسير العشر الأخير", titleDv: "ގުރްއާނުގެ ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު", url: "../books/quranUshru.html" },
                 { titleAr: "معجم ألفاظ القرآن", titleDv: "ގުރްއާން ލަފްޒުތަކުގެ ރަދީފު", url: "../books/radheefQuran.html" },
                 { titleAr: "ترجمة التفسير الميسر", titleDv: "ތަފްސީރު އަލްމުޔައްސަރުގެ ތަރުޖަމާ", url: "#", status: "(ތައްޔާރުވަނީ...)" },

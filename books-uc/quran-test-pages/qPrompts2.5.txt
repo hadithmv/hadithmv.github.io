@@ -109,7 +109,6 @@ const additionalJsons = [
   { name: "quranHadithmv", columns: [0], title: "ޙަދީޘްއެމްވީ ތަރުޖަމާ:" },
   { name: "quranRasmee", columns: [0, 1], title: "ރަސްމީ ތަރުޖަމާ:" },
   { name: "quranBakurube", columns: [0, 1], title: "ބަކުރުބެ ތަރުޖަމާ:" },
-  { name: "quranJaufar", columns: [0, 1], title: "ޖަޢުފަރު ތަފްސީރު:" },
   { name: "quranSoabuni", columns: [0, 1, 3, 4], title: "ޞ ތަފްސީރު:" },
   { name: "quranMukhtasar", columns: [0], title: "مختصر التفسير:" },
   { name: "quranMuyassar", columns: [0], title: "التفسير الميسر:" },
