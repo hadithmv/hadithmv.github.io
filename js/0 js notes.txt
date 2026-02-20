@@ -3,10 +3,11 @@
 
 -- LOAD PRIORTY IN COMB: --
 
-jquery.js (UGLIFY)	4.0.0
+jquery.js (UGLIFY)	3.7.1
 	https://jquery.com/download/
 	
-(note, previously used the beta v4, the difference of which is: 84.12-76.26=7.86kb
+(note, tried the new 4.0.0, but that seemed to break Arabic search, as well as keep conditions.
+also previously before then tried used the beta v4, the difference of which is: 84.12-76.26=7.86kb
 https://releases.jquery.com/jquery
 they removed all deprecated or under-supported dependencies, and while that file is smaller,
 but it seems unsuitable for production, as gives weird errors regarding pagination which were not fixable at the time
