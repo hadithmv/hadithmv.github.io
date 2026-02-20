@@ -301,7 +301,7 @@ function changeBook(newBook) {
     bookType = "quran";
     searchString = "quran";
     bookRegex =
-      /quranHadithmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranUshru/g;
+      /quranHadithmv|quranBakurube|quranSoabuni|quranRasmee|quranUshru/g;
   } else if (newBook.startsWith("radheef")) {
     bookType = "radheef";
     searchString = "radheef";

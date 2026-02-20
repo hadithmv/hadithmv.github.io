@@ -132,8 +132,6 @@ Hadithmv has emerged as a leading digital platform for Islamic material in Dhive
 
 • Bakurube’s Quran Translation
 
-<!-- • Jaufar’s Quran Tafsir -->
-
 • Tafsir of the Last Tenth of the Quran
 
 • Quran Translation of the Office of the President of Maldives
