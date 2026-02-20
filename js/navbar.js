@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.6.86";
+var hmvVersionNo = "6.6.87";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
@@ -9,7 +9,7 @@ var hmvVersionNo = "6.6.86";
 
 console.log(
   "%c Welcome to Hadithmv",
-  "font-size: 20px; font-weight: bold; color: white; background-image: linear-gradient(to right, #3f51b5, #2196f3); padding: 10px; border-radius: 5px;"
+  "font-size: 20px; font-weight: bold; color: white; background-image: linear-gradient(to right, #3f51b5, #2196f3); padding: 10px; border-radius: 5px;",
 );
 console.log("💻 Developer: https://t.me/ashraafmv");
 console.log("🚀 GitHub: https://github.com/hadithmv/hadithmv.github.io");
@@ -217,13 +217,6 @@ function createNavbar() {
                         href="../books/quranBakurube.html"
                         onclick="changeBook('quranBakurube'); return false;"title="Bakurube Translation"
                         >3 ބަކުރުބެގެ ތަރުޖަމާ</a
-                        >
-                  </li>
-                  <li>
-                     <a
-                        href="../books/quranJaufar.html"
-                        onclick="changeBook('quranJaufar'); return false;"title="Jaufar Tafsir"
-                        >4 ޖަޢުފަރުގެ ތަފްސީރު*</a
                         >
                   </li>
                   <li>
@@ -626,7 +619,7 @@ function sideMenutoggleNavbarDropdown(element, event) {
     event.stopPropagation();
   }
   const dropdownNavbarContent = element.querySelector(
-    ".navbar-dropdown-content, .sub-navbar-dropdown-content, .sub-sub-navbar-dropdown-content"
+    ".navbar-dropdown-content, .sub-navbar-dropdown-content, .sub-sub-navbar-dropdown-content",
   );
   const arrow = element.querySelector(".navbar-dropdown-arrow");
   if (dropdownNavbarContent) {
@@ -645,7 +638,7 @@ function sideMenutoggleNavbarDropdown(element, event) {
   for (let sibling of siblings) {
     if (sibling !== element) {
       const siblingNavbarDropdown = sibling.querySelector(
-        ".navbar-dropdown-content, .sub-navbar-dropdown-content, .sub-sub-navbar-dropdown-content"
+        ".navbar-dropdown-content, .sub-navbar-dropdown-content, .sub-sub-navbar-dropdown-content",
       );
       const siblingArrow = sibling.querySelector(".navbar-dropdown-arrow");
       if (siblingNavbarDropdown) {

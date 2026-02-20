@@ -27,11 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
           url: "../books/quranBakurube.html",
         },
         {
-          titleAr: "تفسير القرآن لجعفر",
-          titleDv: "ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު*",
-          url: "../books/quranJaufar.html",
-        },
-        {
           titleAr: "تفسير العشر الأخير",
           titleDv: "ގުރްއާނުގެ ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު",
           url: "../books/quranUshru.html",
