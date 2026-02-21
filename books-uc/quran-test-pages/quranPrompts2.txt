@@ -40,7 +40,6 @@ note that these jsons might have more than one column, but i just want a particu
 quranHadithmv (only has 1 column)
 quranRasmee (has 2 columns, only want the 1st)
 quranBakurube (has 2 columns, only want the 2nd)
-quranJaufar (has 2 columns, only want the 1st)
 quranSoabuni (has 4 columns, only want the 2nd)
 quranMukhtasar (only has 1 column)
 quranMuyassar (only has 1 column)
@@ -59,7 +58,6 @@ add another translation:
 'some string' (loads quranHadithmv)
 'some string' (loads quranRasmee)
 'some string' (loads quranBakurube)
-'some string' (loads quranJaufar)
 'some string' (loads quranSoabuni)
 'some string' (loads quranMukhtasar)
 'some string' (loads quranMuyassar)
@@ -178,7 +176,6 @@ const additionalJsons = [
   { name: "quranHadithmv", column: 0, title: "Hadithmv" },
   { name: "quranRasmee", column: 0, title: "Rasmee" },
   { name: "quranBakurube", column: 1, title: "Bakurube" },
-  { name: "quranJaufar", column: 0, title: "Jaufar" },
   { name: "quranSoabuni", column: 1, title: "Soabuni" },
   { name: "quranMukhtasar", column: 0, title: "Mukhtasar" },
   { name: "quranMuyassar", column: 0, title: "Muyassar" },
