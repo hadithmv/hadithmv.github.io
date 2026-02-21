@@ -247,7 +247,6 @@ i would also like to add additional data from json files in the same directory, 
 "quranHadithmv", columns: [0],
 "quranRasmee", columns: [0, 1], 
 "quranBakurube", columns: [0, 1]
-"quranJaufar", columns: [0, 1], 
 "quranSoabuni", columns: [0, 1],
 "quranMukhtasar", columns: [0], 
 "quranMuyassar", columns: [0], 
@@ -273,7 +272,6 @@ no, you are loading empty columns. that is wrong. the columns loaded should be t
 
 good. i'd like to be able to add the following json file data as well
 quranBakurube, it has 2 columns
-quranJaufar, it has 2 columns,
 quranSoabuni, it has 4 columns
 
 
