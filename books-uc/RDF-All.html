@@ -178,7 +178,7 @@
 
       /* CUSTOM PAGE STUFF */
 
-      /* Styling for radheefRasmee.json rows */
+      /* Styling for RFF-Rasmee.json rows */
       #tableID > tbody > tr.rasmee-row > td,
       .red-color-class {
         color: #dc2626; /* Dark red for light mode CC0000 */
@@ -541,10 +541,10 @@
           //
           ...columnDefsconfig,
         ],
-        // Underline rows from radheefRasmee.json
+        // Underline rows from RFF-Rasmee.json
         createdRow: function (row, data, dataIndex) {
           // data[6] contains the source file name (hidden column)
-          if (data[6] === "radheefRasmee.json") {
+          if (data[6] === "RFF-Rasmee.json") {
             $(row).addClass("rasmee-row");
           }
         },
