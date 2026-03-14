@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="dv" class="notranslate" translate="no">
   <head>
     <meta name="google" content="notranslate" />
@@ -42,25 +42,25 @@
       rel="stylesheet"
       href="../css/base-styles.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/navbar.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-COMB.min.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-inline.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <script src="../js/navbar.js"></script>
     <script src="../js/DT-COMB.min.js"></script>
@@ -82,14 +82,18 @@
           <button
             id="copyPageLink"
             class="customButtons"
-            onclick="copyURLToClipButton();"
+            onclick="copyURLToClipButton()"
           >
             &nbsp; نسخ رابط الصفحة &nbsp;
           </button>
           <button
             id="toggleFiliButton"
             class="customButtons"
-            onclick="toggleTashkeel();scrollUpTop();filiString2()"
+            onclick="
+              toggleTashkeel();
+              scrollUpTop();
+              filiString2();
+            "
           >
             &nbsp; إخفاء التشكيل &nbsp;
           </button>
@@ -418,7 +422,13 @@
             href="https://hadithmv.github.io/notes/harakis/harakiyyathuge_natheejaa.webp"
             target="_blank"
             >تبرر الوسيلة</a
-          >. بل دينهم كله غاية، لا دين لهم سواها. وإذا سقط حركتهم، سقط دينهم، أو
+          >. بل دينهم كله غاية، لا دين لهم سواها. وإذا
+
+          <a
+            href="https://hadithmv.github.io/notes/harakis/harakah_above_all.webp"
+            target="_blank"
+            >سقط حركتهم</a
+          >، سقط دينهم، أو
           <a
             href="https://hadithmv.github.io/notes/harakis/deenuhum-yaduuru-ma'l-harakah-wujoodan-wa-adama.webp"
             target="_blank"
@@ -681,7 +691,7 @@
 
     <script>
       const buttonSpan = document.querySelector(
-        "#tableID_wrapper > div:nth-child(1) > div > div.dt-buttons > button:nth-child(2) > span:nth-child(1)"
+        "#tableID_wrapper > div:nth-child(1) > div > div.dt-buttons > button:nth-child(2) > span:nth-child(1)",
       );
       if (buttonSpan) {
         buttonSpan.textContent = "⌥ خيارات";
@@ -690,7 +700,7 @@
       //
 
       const copyButtonSpan = document.querySelector(
-        "#tableID_wrapper > div:nth-child(1) > div > div.dt-buttons > button.dt-button.buttons-copy.buttons-html5 > span"
+        "#tableID_wrapper > div:nth-child(1) > div > div.dt-buttons > button.dt-button.buttons-copy.buttons-html5 > span",
       );
       if (copyButtonSpan) {
         copyButtonSpan.textContent = "⧉ نسخ";
@@ -701,7 +711,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         // Remove the item with the Telegram link
         const telegramItem = document.querySelector(
-          'li a[href="https://t.me/ashraafmv"]'
+          'li a[href="https://t.me/ashraafmv"]',
         );
         if (telegramItem) {
           telegramItem.closest("li").remove();
