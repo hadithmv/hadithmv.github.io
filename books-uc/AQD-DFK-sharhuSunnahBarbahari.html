@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="dv" class="notranslate" translate="no">
   <head>
     <meta name="google" content="notranslate" />
@@ -41,25 +41,25 @@
       rel="stylesheet"
       href="../css/base-styles.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/navbar.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-COMB.min.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-inline.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <script src="../js/navbar.js"></script>
     <script src="../js/DT-COMB.min.js"></script>
@@ -707,9 +707,11 @@
         // Replace the fetch-based ajax function with jQuery's ajax
         ajax: function (data, callback, settings) {
           // Create promises for both JSON requests
-          const promise1 = $.getJSON("../js/json/sharhuSunnahBarbahari.json");
+          const promise1 = $.getJSON(
+            "../js/json/AQD-sharhuSunnahBarbahari.json",
+          );
           const promise2 = $.getJSON(
-            "../js/json/sharhuSunnahBarbahari-DFK.json"
+            "../js/json/AQD-DFK-sharhuSunnahBarbahari.json",
           );
 
           // Use jQuery's when() instead of Promise.all()
