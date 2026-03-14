@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="dv" class="notranslate" translate="no">
   <head>
     <meta name="google" content="notranslate" />
@@ -40,25 +40,25 @@
       rel="stylesheet"
       href="../css/base-styles.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/navbar.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-COMB.min.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-inline.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <script src="../js/navbar.js"></script>
     <script src="../js/DT-COMB.min.js"></script>
@@ -291,7 +291,7 @@
     <script type="text/javascript">
       // Configuration object for each JSON file
       const jsonConfigs = {
-        "radheefRasmee.json": {
+        "RDF-Rasmee.json": {
           // radheef rasmee no longer in a google sheet, as it is compiled
           // rasmee: 0dv 1transliteration 2enMean 3dvMean 4dvMainClass 5dvTense 6dvAdabiClass 7dvDialect 8dvLevel 9dvField 10dvAtoll 11dvExample
           //NEED: 0 2 3
@@ -302,21 +302,21 @@
           // # ar dv en dvmean src cat
           keepColumns: [1, 2, 3, 4],
         },
-        "radheefAhmadFahmy.json": {
+        "RDF-AhmadFahmy.json": {
           // ar en dv
           keepColumns: [0, 1, 2],
         },
-        "radheefEegaal.json": {
+        "RDF-Eegaal.json": {
           // arName ar dv pageNo
           //NEED: 0 1 2
           keepColumns: [0, 1],
         },
-        "radheefManiku.json": {
+        "RDF-Maniku.json": {
           // transliteration dv enType enMean
           keepColumns: [0, 3, 5, 6],
           orderColumns: [5, 4, 0, 2, 3, 1], // here, 5 and 4 are empty cols, and i had to move 0 and 1 to the right places
         },
-        "radheefAll.json": {
+        "RDF-All.json": {
           // 0ar 1dv 2en 3arMean 4dvMean 5enMean
           keepColumns: [0, 1, 2, 3, 4, 5],
           //orderColumns: [5, 4, 2, 3, 1, 0], // Optional: specify desired column order
@@ -326,7 +326,7 @@
           // ar dv en
           keepColumns: [0, 1, 2],
         },
-        "radheefNanfoiy.json": {
+        "RDF-Nanfoiy.json": {
           // 0ar 1dv 2en 3arMean 4dvMean 5enMean 6gender 7source 8lang
           //NEED: 0 1 2 3 4 5
           keepColumns: [0, 1, 2, 3, 4, 5],
@@ -391,7 +391,7 @@
                 ? config.newColumns.length
                 : 0;
               return baseColumns + extraColumns;
-            })
+            }),
           );
 
           // Modified to use jQuery's ajax with promises
@@ -406,7 +406,7 @@
                       jsonData,
                       config,
                       maxColumns,
-                      file
+                      file,
                     );
                     loadedData = [...loadedData, ...processedData];
 
@@ -421,7 +421,7 @@
                     }
 
                     console.log(
-                      `Loaded ${file}: Total rows now: ${loadedData.length}`
+                      `Loaded ${file}: Total rows now: ${loadedData.length}`,
                     );
                   })
                   .fail(function (jqXHR, textStatus, error) {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="dv" class="notranslate" translate="no">
   <head>
     <meta name="google" content="notranslate" />
@@ -39,25 +39,25 @@
       rel="stylesheet"
       href="../css/base-styles.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/navbar.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-COMB.min.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-inline.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <script src="../js/navbar.js"></script>
     <script src="../js/DT-COMB.min.js"></script>
@@ -74,26 +74,32 @@
           <button
             id="copyPageLink"
             class="customButtons"
-            onclick="copyURLToClipButton();"
+            onclick="copyURLToClipButton()"
           >
             &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
           </button>
           <button
             id="toggleFiliButton"
             class="customButtons"
-            onclick="toggleTashkeel();scrollUpTop()"
+            onclick="
+              toggleTashkeel();
+              scrollUpTop();
+            "
           >
             &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
           </button>
           <button
             id="toggleShowButton"
             class="customButtons"
-            onclick="toggleShowOne();scrollUpTop()"
+            onclick="
+              toggleShowOne();
+              scrollUpTop();
+            "
           >
             &nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;
           </button>
 
-          <button class="customButtons" onclick="copyOneOnly();">
+          <button class="customButtons" onclick="copyOneOnly()">
             &nbsp; ފިއްޔާއެކު ކޮޕީ &nbsp;
           </button>
 
@@ -183,23 +189,23 @@
           keepColumns: [0, 1, 2, 3],
           newColumns: ["عقيدة الرازيين"],
         },
-        "kalimathulIkhlas.json": {
+        "DFK-kalimathulIkhlas.json": {
           keepColumns: [0, 2, 3, 4],
           newColumns: ["كلمة الإخلاص لابن رجب"],
         },
-        "kitabulEmanAbiUbaid.json": {
+        "DFK-kitabulEmanAbiUbaid.json": {
           keepColumns: [0, 3, 5, 6],
           newColumns: ["كتاب الإيمان لأبي عبيد"],
         },
-        "intisarLiAshabilHadith.json": {
+        "DFK-intisarLiAshabilHadith.json": {
           keepColumns: [1, 2, 3, 4],
           newColumns: ["الانتصار لأصحاب الحديث"],
         },
-        "aqidatuSalafSoabuni.json": {
+        "DFK-aqidatuSalafSoabuni.json": {
           keepColumns: [2, 3, 4, 5],
           newColumns: ["عقيدة السلف وأصحاب الحديث"],
         },
-        "talkhisKitabiShariah.json": {
+        "DFK-talkhisKitabiShariah.json": {
           keepColumns: [0, 1, 2, 3],
           newColumns: ["تلخيص الشريعة للآجري"],
         },
@@ -223,27 +229,27 @@
           keepColumns: [0, 1],
           newColumns: ["مختصر في توحيد الأسماء والصفات"],
         },
-        "huquqDaathIlaihalFitra.json": {
+        "IH-huquqDaathIlaihalFitra.json": {
           keepColumns: [0, 1],
           newColumns: ["حقوق دعت إليها الفطرة"],
         },
-        "manKhalaqaniWaLimaza.json": {
+        "IH-manKhalaqaniWaLimaza.json": {
           keepColumns: [0, 1],
           newColumns: ["من خلقني ولماذا؟"],
         },
-        "nubzaAnilIslam.json": {
+        "IH-nubzaMujazahAnilIslam.json": {
           keepColumns: [0, 1],
           newColumns: ["الإسلام رسالة موجزة"],
         },
-        "islamDeenRusulullah.json": {
+        "IH-islamDeenRusulullah.json": {
           keepColumns: [0, 1],
           newColumns: ["الإسلام دين رسل الله"],
         },
-        "islamDeenulFitrah.json": {
+        "IH-islamDeenulFitrah.json": {
           keepColumns: [0, 1],
           newColumns: ["الإسلام دين الفطرة والعقل والسعادة"],
         },
-        "sharhuSunnahBarbahari-DFK.json": {
+        "DFK-sharhuSunnahBarbahari.json": {
           keepColumns: [0, 1], //[0, 1, 2] this time, i didnt add the ar text from my barbahari
           newColumns: ["شرح السنة للبربهاري - DFK"],
         },
@@ -304,7 +310,7 @@
                 ? config.newColumns.length
                 : 0;
               return baseColumns + extraColumns;
-            })
+            }),
           );
 
           // Modified to use jQuery's ajax with promises
@@ -318,7 +324,7 @@
                     const processedData = processJsonData(
                       jsonData,
                       config,
-                      maxColumns
+                      maxColumns,
                     );
                     loadedData = [...loadedData, ...processedData];
 
@@ -333,7 +339,7 @@
                     }
 
                     console.log(
-                      `Loaded ${file}: Total rows now: ${loadedData.length}`
+                      `Loaded ${file}: Total rows now: ${loadedData.length}`,
                     );
                   })
                   .fail(function (jqXHR, textStatus, error) {
