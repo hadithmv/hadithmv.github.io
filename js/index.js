@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       id: "quick-links",
       titleAr: "روابط سريعة",
-      titleDv: "ފަސޭހަ ލިންކުތައް",
+      titleDv: "އަވަސް ލިންކުތައް",
       items: [
         {
           titleAr: "دعم المشروع",
