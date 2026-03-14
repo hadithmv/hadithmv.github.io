@@ -233,7 +233,11 @@ const baseColumns = [
       // Render function to format ayah text with Arabic numerals and brackets
       return replaceDigitsWithArabic(
         (a =
-          "﴿" + (a = a.replace(/\s([\u0660-\u0669]+)/, " ")) + " " + t[2] + "﴾")
+          "﴿" +
+          (a = a.replace(/\s([\u0660-\u0669]+)/, " ")) +
+          " " +
+          t[2] +
+          "﴾"),
       );
     },
   },
@@ -256,30 +260,30 @@ const baseColumns = [
 // Configuration for additional JSON translations/tafsirs
 const additionalJsons = [
   {
-    name: "quranData_rasmUthmani",
+    name: "QRN-Data_rasmUthmani",
     columns: [0],
     title: "ރަސްމު އުޘްމާނީ:",
   },
   {
-    name: "quranHadithmv",
+    name: "QRN-Hadithmv",
     columns: [0],
     title: "ޙަދީޘްއެމްވީ ތަރުޖަމާ:",
   },
-  { name: "quranRasmee", columns: [0, 1], title: "ރަސްމީ ތަރުޖަމާ:" },
+  { name: "QRN-Rasmee", columns: [0, 1], title: "ރަސްމީ ތަރުޖަމާ:" },
   {
-    name: "quranBakurube",
+    name: "QRN-Bakurube",
     columns: [0, 1],
     title: "ބަކުރުބެގެ ތަރުޖަމާ:",
   },
-  { name: "quranSoabuni", columns: [0, 1, 2, 3], title: "ޞގެ ތަފްސީރު:" },
-  { name: "quranMukhtasar", columns: [0], title: "مختصر التفسير:" },
-  { name: "quranMuyassar", columns: [0], title: "التفسير الميسر:" },
+  { name: "QRN-Soabuni", columns: [0, 1, 2, 3], title: "ޞގެ ތަފްސީރު:" },
+  { name: "QRN-Mukhtasar", columns: [0], title: "مختصر التفسير:" },
+  { name: "QRN-Muyassar", columns: [0], title: "التفسير الميسر:" },
 ];
 
 // Default translation to load
 defaultAdditionalJson = currentFileName;
-//defaultAdditionalJson = "quranHadithmv";
-//defaultAdditionalJson = "quranBakurube";
+//defaultAdditionalJson = "QRN-Hadithmv";
+//defaultAdditionalJson = "QRN-Bakurube";
 //defaultColumns = [0];
 
 //
@@ -461,7 +465,7 @@ function navigateToVerse() {
             null !== currentAyah &&
             parseInt(a[1]) === currentSurah &&
             parseInt(a[2]) === currentAyah
-      )
+      ),
     );
 
   if (0 < a.length) {
@@ -546,9 +550,9 @@ function initializeQDropdown(a, e, t) {
       n.closest(".q-nav-box").find(".q-nav-label").text() === "ސޫރަތް:"
         ? "ސޫރަތުގެ ނަން ނުވަތަ ނަމްބަރު ލިޔޭ"
         : n.closest(".q-nav-box").find(".q-nav-label").text() === "އާޔަތް:"
-        ? "އާޔަތް ނަމްބަރު ލިޔޭ"
-        : "ޖުޒް ނަމްބަރު ލިޔޭ"
-    }">`
+          ? "އާޔަތް ނަމްބަރު ލިޔޭ"
+          : "ޖުޒް ނަމްބަރު ލިޔޭ"
+    }">`,
   );
 
   // For ayah dropdown, get verse count from current surah
@@ -718,8 +722,8 @@ function getAllColumnDefinitions() {
         // Check if the translation data exists
         if (r[a.name] && r[a.name][e] !== undefined) {
           //
-          // Special case for quranSoabuni's third column when it's exactly "-"
-          if (a.name === "quranSoabuni" && e === 1 && r[a.name][e] === "-") {
+          // Special case for QRN-Soabuni's third column when it's exactly "-"
+          if (a.name === "QRN-Soabuni" && e === 1 && r[a.name][e] === "-") {
             return "ކުރިއަށް އޮތް އާޔަތުގެ ތަފްސީރު ބައްލަވާ";
           }
           //
@@ -757,7 +761,7 @@ function toggleTranslation(a, e, initialPage) {
     "column:",
     e,
     "using page:",
-    l
+    l,
   );
 
   // If translation is already loaded
@@ -770,7 +774,7 @@ function toggleTranslation(a, e, initialPage) {
     table.column(i).visible(!table.column(i).visible());
     console.log(
       "Redrawing table after toggling existing translation, page:",
-      l
+      l,
     );
     preserveWindowScrollDuring(function () {
       table.draw();
@@ -790,7 +794,7 @@ function toggleTranslation(a, e, initialPage) {
         "Additional JSON loaded for:",
         a,
         "stored page:",
-        currentPage
+        currentPage,
       );
       const t = table.data().toArray();
       // Add translation data to existing table data
@@ -808,7 +812,7 @@ function toggleTranslation(a, e, initialPage) {
       // Update table with new data
       console.log(
         "Redrawing table after loading new translation, restoring page:",
-        currentPage
+        currentPage,
       );
       preserveWindowScrollDuring(function () {
         table.clear().rows.add(t).draw();
@@ -876,7 +880,7 @@ function initializeTranslationSelector() {
           a,
           `${e.title} ${n + 1}`,
           `${e.name}-${t}`,
-          e.name === defaultAdditionalJson && 0 === n
+          e.name === defaultAdditionalJson && 0 === n,
         );
       });
     });
@@ -967,8 +971,8 @@ function addTranslationItem(a, e, t, n) {
     // Create checkbox and label for translation
     r.innerHTML = `
       <input type="checkbox" id="trans-${t}" value="${t}" ${
-      n || isDefaultColumn ? "checked" : ""
-    }>
+        n || isDefaultColumn ? "checked" : ""
+      }>
       <label for="trans-${t}">${e}</label>
     `;
     a.appendChild(r);
@@ -1016,7 +1020,7 @@ function applyTranslations() {
 
     // Check if any content columns are visible
     const hasVisibleColumns = contentColumns.some((idx) =>
-      table.column(idx).visible()
+      table.column(idx).visible(),
     );
 
     // Set title column visibility based on content columns
@@ -1054,7 +1058,7 @@ function toggleBaseColumn(a) {
 
 function createTranslationSelector() {
   const containers = document.getElementsByClassName(
-    "translation-selector-widget"
+    "translation-selector-widget",
   );
 
   if (!containers.length) return;

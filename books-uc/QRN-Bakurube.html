@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="dv" class="notranslate" translate="no">
   <head>
     <meta name="google" content="notranslate" />
@@ -46,25 +46,25 @@
       rel="stylesheet"
       href="../css/base-styles.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/navbar.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-COMB.min.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-inline.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <script src="../js/navbar.js"></script>
     <script src="../js/DT-COMB.min.js"></script>
@@ -75,7 +75,7 @@
       rel="stylesheet"
       href="../css/quran-navigation-list.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <script src="../js/quran-navigation-objectMaps.js"></script>
     <script src="../js/quran-navigation-list.js"></script>
@@ -352,7 +352,7 @@
             (It takes a long time to get them to update, as different devs
             handle different parts, and there is a lot of decision making.) The
             general translation is available on their Web platform, but not the
-            word by word yet. Last update from our main repo was around 13/12/23
+            word by word yet. Last update from our main repo was around 9/6/25
             as of this writing. (Gave them a json file.)
           </p>
 
@@ -462,13 +462,13 @@
         ...DTconfig,
 
         ajax: {
-          url: `${baseJsonUrl}quranData_juz-surah-ayahNo-basmalah-ayahImlai.json`,
+          url: `${baseJsonUrl}QRN-Data_juz-surah-ayahNo-basmalah-ayahImlai.json`,
           // dataSrc: "",
           dataSrc: function (json) {
             // console.log("Initial JSON loaded, current page:", table.page());
             // Store the initial data when main JSON is loaded
             originalData = json.map((row) =>
-              Array.isArray(row) ? [...row] : Object.values(row)
+              Array.isArray(row) ? [...row] : Object.values(row),
             );
             return json;
           },

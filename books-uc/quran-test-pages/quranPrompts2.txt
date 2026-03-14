@@ -233,7 +233,7 @@ function initializeTable() {
   table = new DataTable("#tableID", {
     ...DTconfig,
     ajax: {
-      url: `${baseJsonUrl}quranData_juz-surah-ayahNo-basmalah-ayahImlai.json`,
+      url: `${baseJsonUrl}QRN-Data_juz-surah-ayahNo-basmalah-ayahImlai.json`,
       dataSrc: "",
     },
     columns: getAllColumnDefinitions(),
