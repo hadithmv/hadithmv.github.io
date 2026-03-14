@@ -265,25 +265,25 @@ const additionalJsons = [
     title: "ރަސްމު އުޘްމާނީ:",
   },
   {
-    name: "QRN-Hadithmv",
+    name: "QRN-hadithmv",
     columns: [0],
     title: "ޙަދީޘްއެމްވީ ތަރުޖަމާ:",
   },
-  { name: "QRN-Rasmee", columns: [0, 1], title: "ރަސްމީ ތަރުޖަމާ:" },
+  { name: "QRN-rasmee", columns: [0, 1], title: "ރަސްމީ ތަރުޖަމާ:" },
   {
-    name: "QRN-Bakurube",
+    name: "QRN-bakurube",
     columns: [0, 1],
     title: "ބަކުރުބެގެ ތަރުޖަމާ:",
   },
-  { name: "QRN-Soabuni", columns: [0, 1, 2, 3], title: "ޞގެ ތަފްސީރު:" },
-  { name: "QRN-Mukhtasar", columns: [0], title: "مختصر التفسير:" },
-  { name: "QRN-Muyassar", columns: [0], title: "التفسير الميسر:" },
+  { name: "QRN-soabuni", columns: [0, 1, 2, 3], title: "ޞގެ ތަފްސީރު:" },
+  { name: "QRN-mukhtasar", columns: [0], title: "مختصر التفسير:" },
+  { name: "QRN-muyassar", columns: [0], title: "التفسير الميسر:" },
 ];
 
 // Default translation to load
 defaultAdditionalJson = currentFileName;
-//defaultAdditionalJson = "QRN-Hadithmv";
-//defaultAdditionalJson = "QRN-Bakurube";
+//defaultAdditionalJson = "QRN-hadithmv";
+//defaultAdditionalJson = "QRN-bakurube";
 //defaultColumns = [0];
 
 //
@@ -722,8 +722,8 @@ function getAllColumnDefinitions() {
         // Check if the translation data exists
         if (r[a.name] && r[a.name][e] !== undefined) {
           //
-          // Special case for QRN-Soabuni's third column when it's exactly "-"
-          if (a.name === "QRN-Soabuni" && e === 1 && r[a.name][e] === "-") {
+          // Special case for QRN-soabuni's third column when it's exactly "-"
+          if (a.name === "QRN-soabuni" && e === 1 && r[a.name][e] === "-") {
             return "ކުރިއަށް އޮތް އާޔަތުގެ ތަފްސީރު ބައްލަވާ";
           }
           //
