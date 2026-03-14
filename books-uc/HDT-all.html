@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="dv" class="notranslate" translate="no">
   <head>
     <meta name="google" content="notranslate" />
@@ -39,25 +39,25 @@
       rel="stylesheet"
       href="../css/base-styles.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/navbar.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-COMB.min.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-inline.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <script src="../js/navbar.js"></script>
     <script src="../js/DT-COMB.min.js"></script>
@@ -74,21 +74,27 @@
           <button
             id="copyPageLink"
             class="customButtons"
-            onclick="copyURLToClipButton();"
+            onclick="copyURLToClipButton()"
           >
             &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
           </button>
           <button
             id="toggleFiliButton"
             class="customButtons"
-            onclick="toggleTashkeel();scrollUpTop()"
+            onclick="
+              toggleTashkeel();
+              scrollUpTop();
+            "
           >
             &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
           </button>
           <button
             id="toggleShowButton"
             class="customButtons"
-            onclick="toggleShowOne();scrollUpTop()"
+            onclick="
+              toggleShowOne();
+              scrollUpTop();
+            "
           >
             &nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;
           </button>
@@ -96,7 +102,7 @@
           <button
             id="switchDiacriticsAndCopy"
             class="customButtons"
-            onclick="copyOneOnly();"
+            onclick="copyOneOnly()"
           >
             &nbsp; ފިއްޔާއެކު ކޮޕީ &nbsp;
           </button>
@@ -306,16 +312,19 @@
               autocomplete="off"
               name="s"
               id="search_form_input_homepage"
-              onfocus="if ('rc' in window) {
-                          nua('nro', rc)
-                      }
-                      ;
-                      fq = 1;"
+              onfocus="
+                if ('rc' in window) {
+                  nua('nro', rc);
+                }
+                fq = 1;
+              "
               onblur="fq = 0"
-              onclick="if (this.value == 'تأكد من صحة الحديث') {
-                          this.value = '';
-                          this.style.color = '#000000';
-                      }"
+              onclick="
+                if (this.value == 'تأكد من صحة الحديث') {
+                  this.value = '';
+                  this.style.color = '#000000';
+                }
+              "
               value=""
               placeholder="تأكد من صحة الحديث"
             />
@@ -333,16 +342,16 @@
       // - newColumns: array of new column names to add at the start
       // - orderColumns: optional array to reorder the columns after processing
       const jsonConfigs = {
-        "allAthar.json": {
+        "HDT-all.json": {
           keepColumns: [0, 1, 2, 3, 4],
           //newColumns: ["All Athar"], // This column will be added at the start, with the text specified in all rows
           //orderColumns: [5, 4, 2, 3, 1, 0], // Example: Reorder columns in reverse
         },
-        "arbaoonNawawi.json": {
+        "HDT-arbaoonNawawi.json": {
           keepColumns: [0, 4, 5, 6],
           newColumns: ["الأربعون النووية"],
         },
-        "umdathulAhkam.json": {
+        "HDT-umdathulAhkam.json": {
           keepColumns: [0, 5, 6, 7],
           newColumns: ["عمدة الأحكام"],
         },
@@ -350,23 +359,23 @@
           keepColumns: [0, 3, 4, 5],
           newColumns: ["حصن المسلم"],
         },
-        "kitabulIlmAbiKhaithama.json": {
+        "DFk-kitabulIlmAbiKhaithama.json": {
           keepColumns: [0, 1, 2, 3, 4],
           newColumns: ["أخبار الشيوخ للمروذي"],
         },
-        "akhbaruShuyukh.json": {
+        "DFk-akhbaruShuyukh.json": {
           keepColumns: [0, 1, 2, 3],
           newColumns: ["أخبار الشيوخ للمروذي"],
         },
-        "akhlaqHamalathilQuran.json": {
+        "DFk-akhlaqHamalathilQuran.json": {
           keepColumns: [0, 3, 5, 6],
           newColumns: ["أخلاق حملة القرآن للآجري"],
         },
-        "muwattaMalik.json": {
+        "HDT-muwattaMalik.json": {
           keepColumns: [0, 2, 6, 7],
           newColumns: ["موطأ مالك"],
         },
-        "bulughulMaramFull.json": {
+        "HDT-bulughulMaramFull.json": {
           keepColumns: [0, 5, 6, 7],
           newColumns: ["بلوغ المرام"],
         },
@@ -374,7 +383,7 @@
         //   keepColumns: [0, 5, 6, 7],
         //   newColumns: ["رياض الصالحين"],
         // },
-        "arbaoonAajurry.json": {
+        "HDT-arbaoonAajurry.json": {
           keepColumns: [0, 3, 5, 6],
           newColumns: ["الأربعون حديثا للآجري"],
         },
@@ -449,7 +458,7 @@
                 ? config.newColumns.length
                 : 0;
               return baseColumns + extraColumns;
-            })
+            }),
           );
 
           // Modified to use jQuery's ajax with promises
@@ -463,7 +472,7 @@
                     const processedData = processJsonData(
                       jsonData,
                       config,
-                      maxColumns
+                      maxColumns,
                     );
                     loadedData = [...loadedData, ...processedData];
 
@@ -478,7 +487,7 @@
                     }
 
                     console.log(
-                      `Loaded ${file}: Total rows now: ${loadedData.length}`
+                      `Loaded ${file}: Total rows now: ${loadedData.length}`,
                     );
                   })
                   .fail(function (jqXHR, textStatus, error) {
