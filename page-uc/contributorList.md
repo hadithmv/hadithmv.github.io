@@ -18,7 +18,7 @@ Abu Huraira narrated that the Messenger ﷺ said: “He who does not thank the p
 
 ## List
 
-1.  (Abu Yahya) Mohamed Ashraaf Ibrahim (Graduate of Hadith Faculty, Madina University, and Software Developer)
+1.  Abu Yahya (Graduate of Hadith Faculty, Madina University, and Software Developer)
 2.  Abdul Muiz Rasheed (Graduate of Sharia Faculty, Madina University)
 3.  Abdullah Ahsan Saeed (Graduate of Sharia Faculty, Madina University)
 4.  Abdullah Azzam Ahmed K. (Graduate of Sharia Faculty, Madina University)

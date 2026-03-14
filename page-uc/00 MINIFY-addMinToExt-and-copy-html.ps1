@@ -23,7 +23,7 @@ $SourceFolder = "."
 $OutputFolder = "..\page"
 
 # Toggle processing only files modified within N days ago.
-# Set to an integer (e.g., 1, 2, 5) or 'Off' to disable. Default: 2
+# Allowed values: 1, 2, 5, 10, or 'Off' (with quotes) to disable. Default: 2
 $ModifiedDaysOption = 2
 
 # --- 404 PAGE CONFIGURATION ---

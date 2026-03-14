@@ -25,7 +25,7 @@ Last updated: 20/9/2025
 
 ---
 
-This privacy policy governs the use of the software “Hadithmv” (later referred as the “Application”) operated by Mohamed Ashraaf Ibrahim (later referred as the “Developer”).
+This privacy policy governs the use of the software “Hadithmv” (later referred as the “Application”)
 
 The Application is an Android and Windows application intended to make the sayings and teachings of Muhammad ﷺ as accessible and understandable as possible for the Muslim Maldivian community. Once this work is complete, they will have a hadith collection in their native Dhivehi language, in sha Allah. We are also working on making other Islamic works available, as well as beneficial tools and content for those who wish to make use of them.
 
