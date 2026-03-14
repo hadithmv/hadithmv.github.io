@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.6.99";
+var hmvVersionNo = "6.7.00";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
@@ -188,7 +188,84 @@ function createNavbar() {
       <li>
          <a  href="../books/index.html" title="Homepage"><span class="homeIcon"></span>މައި ސަފުހާ</a>
       </li>
+      
+     
+      <li>
+         <a href="../page/contact.html" title="Contact"><span class="contactIcon"></span>ގުޅުއްވުމަށް</a>
+      </li>
+      <li>
+         <a href="../page/supportHadithmv.html" title="Support the Project"><span class="supportSideMenuIcon"></span>މަޝްރޫއަށް އެހީވެދިނުމަށް</a>
+      </li>
+      <li>
+         <a href="../page/FAQ.html" title="FAQ"><span class="faqIcon"></span>ތަކުރާރު ސުވާލުތައް</a>
+      </li>
+      <li>
+         <a href="../page/contributorList.html" title="Contributers"><span class="helpersIcon"></span>އެހީތެރިން</a>
+      </li>
+      <li>
+         <a href="https://github.com/hadithmv/hadithmv.github.io/releases" 
+            target="_blank"
+            class="versionNo"><span class="versionIcon"></span>އިސްދާރު: v${hmvVersionNo}</a>
+      </li>
+      <li>
+         <a href="https://t.me/ashraafmv" target="_blank" title="Message on Telegram"
+            ><span class="authorIcon"></span>ފަރުމާކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
+            >
+      </li>
+      <li>
+         <a style="font-size: 90%" onclick="openDiv()"
+            >- މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a
+            >
+      </li>
+      <hr>
+      <li class="wide-screen-toggle">
+         <!-- onclick='document.querySelector(".dtWrapper").style.maxWidth="none";' -->
+         <a href="#" 
+            onclick='const wrapper = document.querySelector(".dtWrapper"); 
+            wrapper.style.maxWidth = wrapper.style.maxWidth === "none" ? "980px" : "none"; 
+            return false;'><span class="fullScreenIcon"></span>ވައިޑް ސްކްރީން</a >
+      </li>
+      <li>
+         <a href="#"
+            onclick='window.scrollTo({top:0,behavior:"smooth"})'  title="Scroll Up"
+            ><span class="scrollUpIcon"></span>މައްޗަށް ސްކްރޯލްކުރޭ</a
+            >
+      </li>
       <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
+         <div class="navbar-dropdown-label" title="Reload Page">
+            <span class="navbar-dropdown-arrow reloadIcon"></span>ރީލޯޑު
+         </div>
+         <ul class="navbar-dropdown-content">
+            <li>
+               <a href="#" onclick="window.location.reload()" title="Soft Reload">މަޑު ރީލޯޑު</a>
+            </li>
+            <li>
+               <a
+                  href="#"
+                  onclick='window.location.href=window.location.href.split(".html")[0]+".html"' title="Hard Reload"
+                  >ހަރު ރީލޯޑު</a
+                  >
+            </li>
+         </ul>
+      </li>
+      <li>
+         <a href="https://github.com/hadithmv/hadithmv.github.io"
+            target="_blank" title="Github"><span class="githubIcon"></span>ގިޓްހަބް</a>
+      </li>
+   </ul>
+</div>
+`;
+}
+// the navbar.html code would be between the backticks above.
+
+// Ensure the navbar is created once the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", createNavbar);
+
+// PREV had sections dropdown in menu
+
+/*
+
+ <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
          <div class="navbar-dropdown-label" title="Categories">
             <span class="navbar-dropdown-arrow dropdownIcon"></span>ބައިތައް
          </div>
@@ -413,76 +490,8 @@ function createNavbar() {
             </li>
          </ul>
       </li>
-      <li>
-         <a href="../page/contact.html" title="Contact"><span class="contactIcon"></span>ގުޅުއްވުމަށް</a>
-      </li>
-      <li>
-         <a href="../page/supportHadithmv.html" title="Support the Project"><span class="supportSideMenuIcon"></span>މަޝްރޫއަށް އެހީވެދިނުމަށް</a>
-      </li>
-      <li>
-         <a href="../page/FAQ.html" title="FAQ"><span class="faqIcon"></span>ތަކުރާރު ސުވާލުތައް</a>
-      </li>
-      <li>
-         <a href="../page/contributorList.html" title="Contributers"><span class="helpersIcon"></span>އެހީތެރިން</a>
-      </li>
-      <li>
-         <a href="https://github.com/hadithmv/hadithmv.github.io/releases" 
-            target="_blank"
-            class="versionNo"><span class="versionIcon"></span>އިސްދާރު: v${hmvVersionNo}</a>
-      </li>
-      <li>
-         <a href="https://t.me/ashraafmv" target="_blank" title="Message on Telegram"
-            ><span class="authorIcon"></span>ފަރުމާކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-            >
-      </li>
-      <li>
-         <a style="font-size: 90%" onclick="openDiv()"
-            >- މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a
-            >
-      </li>
-      <hr>
-      <li class="wide-screen-toggle">
-         <!-- onclick='document.querySelector(".dtWrapper").style.maxWidth="none";' -->
-         <a href="#" 
-            onclick='const wrapper = document.querySelector(".dtWrapper"); 
-            wrapper.style.maxWidth = wrapper.style.maxWidth === "none" ? "980px" : "none"; 
-            return false;'><span class="fullScreenIcon"></span>ވައިޑް ސްކްރީން</a >
-      </li>
-      <li>
-         <a href="#"
-            onclick='window.scrollTo({top:0,behavior:"smooth"})'  title="Scroll Up"
-            ><span class="scrollUpIcon"></span>މައްޗަށް ސްކްރޯލްކުރޭ</a
-            >
-      </li>
-      <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
-         <div class="navbar-dropdown-label" title="Reload Page">
-            <span class="navbar-dropdown-arrow reloadIcon"></span>ރީލޯޑު
-         </div>
-         <ul class="navbar-dropdown-content">
-            <li>
-               <a href="#" onclick="window.location.reload()" title="Soft Reload">މަޑު ރީލޯޑު</a>
-            </li>
-            <li>
-               <a
-                  href="#"
-                  onclick='window.location.href=window.location.href.split(".html")[0]+".html"' title="Hard Reload"
-                  >ހަރު ރީލޯޑު</a
-                  >
-            </li>
-         </ul>
-      </li>
-      <li>
-         <a href="https://github.com/hadithmv/hadithmv.github.io"
-            target="_blank" title="Github"><span class="githubIcon"></span>ގިޓްހަބް</a>
-      </li>
-   </ul>
-</div>
-`;
-}
-// the navbar.html code would be between the backticks above.
 
-// Ensure the navbar is created once the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", createNavbar);
+*/
 
 /*
   <nav class="navbar">
