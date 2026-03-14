@@ -1,431 +1,594 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const INITIAL_ITEMS_TO_SHOW = 12;
+// =======================
+// TAB CODE
+// =======================
 
-  // === FULL SITE DATA ===
-  const siteData = [
-    {
-      id: "quick-links",
-      titleAr: "روابط سريعة",
-      titleDv: "އަވަސް ލިންކުތައް",
-      items: [
-        {
-          titleAr: "دعم المشروع",
-          titleDv: "މަޝްރޫއަށް އެހީވެދިނުމަށް",
-          url: "../page/supportHadithmv.html",
-          keywords: "donation",
-        },
-        {
-          titleAr: "محرر النصوص",
-          titleDv: "ޓެކްސްޓު އެޑިޓަރ",
-          url: "../tools/textEditor.html",
-          keywords: "editor",
-        },
-        {
-          titleAr: "حصن المسلم",
-          titleDv: "ހެނދުނާއި ހަވީރުގެ ޒިކުރުތައް",
-          url: "../books/hisnulMuslim.html",
-          keywords: "azkaar adhkar hisnul muslim",
-        },
-        {
-          titleAr: "العقيقة والآبار",
-          titleDv: "އަގީގާއާއި ވަޅުހެދުން",
-          url: "https://birrumv.com",
-          keywords: "aqiqa birru",
-        },
-      ],
-    },
-    {
-      id: "quran",
-      titleAr: "القرآن والتفسير",
-      titleDv: "ގުރްއާނާއި ތަފްސީރު",
-      items: [
-        {
-          titleAr: "ترجمة حديث إم في",
-          titleDv: "ޙަދީޘްއެމްވީގެ ތަރުޖަމާ",
-          url: "../books/quranHadithmv.html",
-        },
-        {
-          titleAr: "الترجمة الرسمية",
-          titleDv: "ރަސްމީ ތަރުޖަމާ",
-          url: "../books/quranRasmee.html",
-          status: "(ރައީސުލްޖުމްހޫރިއްޔާގެ އޮފީސް)",
-        },
-        {
-          titleAr: "ترجمة بكر بي",
-          titleDv: "ބަކުރުބެގެ ތަރުޖަމާ",
-          url: "../books/quranBakurube.html",
-        },
-        {
-          titleAr: "تفسير العشر الأخير",
-          titleDv: "ގުރްއާނުގެ ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު",
-          url: "../books/quranUshru.html",
-        },
-        {
-          titleAr: "معجم ألفاظ القرآن",
-          titleDv: "ގުރްއާން ލަފްޒުތަކުގެ ރަދީފު",
-          url: "../books/radheefQuran.html",
-        },
-        {
-          titleAr: "ترجمة التفسير الميسر",
-          titleDv: "ތަފްސީރު އަލްމުޔައްސަރުގެ ތަރުޖަމާ",
-          url: "#",
-          status: "(ތައްޔާރުވަނީ...)",
-        },
-        {
-          titleAr: "ترجمة ملنجي حسين ديدي",
-          titleDv: "މަލިންގޭ ޙުސައިންދީދީގެ ތަރުޖަމާއާއި ތަފްސީރު",
-          url: "https://archive.org/details/malinge-hussain-didi-quran-tharujamaa-aai-thafseer",
-          status: "(PDF)",
-          keywords: "malinge hussain didi",
-        },
-        {
-          titleAr: "التفسير الميسر (النص)",
-          titleDv: "(އަރަބި ނައްސުގެ ލިންކު)",
-          url: "https://read.tafsir.one/almuyassar",
-        },
-        {
-          titleAr: "المختصر في التفسير",
-          titleDv: "(ލިންކު)",
-          url: "https://read.tafsir.one/almukhtasar",
-        },
-        {
-          titleAr: "تفسير السعدي",
-          titleDv: "(ލިންކު)",
-          url: "https://read.tafsir.one/alsidi",
-        },
-        {
-          titleAr: "الميسر في غريب القرآن",
-          titleDv: "(ލިންކު)",
-          url: "https://read.tafsir.one/almuyassar-g",
-        },
-        {
-          titleAr: "إعراب القرآن",
-          titleDv: "(ލިންކު)",
-          url: "https://surahpedia.com/ar/projects/45",
-        },
-        {
-          titleAr: "الإعراب المرسوم",
-          titleDv: "(ލިންކު)",
-          url: "https://tafsir.app/iraab-graphs/1/1",
-        },
-        {
-          titleAr: "بطاقات تعريف السور",
-          titleDv: "(ލިންކު)",
-          url: "https://albitaqat.com",
-        },
-        {
-          titleAr: "موسوعة القراءات",
-          titleDv: "(ލިންކު)",
-          url: "https://shamela.ws/book/23610/1916",
-        },
-        {
-          titleAr: "مصحف التجويد",
-          titleDv: "ތަޖްވީދު މުސްހަފު",
-          url: "https://archive.org/details/mushaf-tajwid-darul-marifa",
-          status: "(PDF)",
-        },
-        {
-          titleAr: "جهود علماء المالديف في ترجمة معاني القرآن",
-          titleDv:
-            "ގުރްއާން ތަރުޖަމާކުރުމުގައި ދިވެހި އިލްމުވެރިން ކުރި މަސައްކަތް",
-          url: "https://archive.org/details/juhud-ulama-al-maldif-fi-tarjamati-maanil-quran-wa-tafsirihi",
-          status: "(އަރަބި PDF)",
-        },
-        {
-          titleAr: "الروايات التفسيرية في فتح الباري",
-          titleDv: "(ފަތްޙުލް ބާރީގައި ހުރި ތަފްސީރީ ރިވާޔަތްތައް)",
-          url: "https://shamela.ws/book/7447",
-          status: "(އަރަބި)",
-        },
-        {
-          titleAr: "القرآن في صفحة واحدة",
-          titleDv: "މުޅި ގުރްއާން އެއް ސަފުހާއެއްގައި",
-          url: "https://archive.org/details/entire-quran-on-one-page",
-          status: "(PDF)",
-        },
-      ],
-    },
-    {
-      id: "hadith",
-      titleAr: "الحديث والأثر",
-      titleDv: "ޙަދީޘާއި އަޘަރު",
-      items: [
-        {
-          titleAr: "الجامع في الأحاديث والآثار",
-          titleDv: "އެއްކުރަމުންދާ ޙަދީޘާއި އަޘަރު",
-          url: "../books/allAthar.html",
-          keywords: "jami athar full collection",
-        },
-        {
-          titleAr: "موطأ مالك*",
-          titleDv: "މުވައްޠައު މާލިކު",
-          url: "../books/muwattaMalik.html",
-          status: "(ނިމެނީ)",
-        },
-        {
-          titleAr: "عمدة الأحكام",
-          titleDv: "ޢުމްދަތުލް އަޙްކާމް",
-          url: "../books/umdathulAhkam.html",
-        },
-        {
-          titleAr: "حصن المسلم",
-          titleDv: "މުސްލިމުންގެ ކިއްލާ",
-          url: "../books/hisnulMuslim.html",
-          keywords: "dua dhikr zikr",
-        },
-        {
-          titleAr: "الأربعون للآجري*",
-          titleDv: "އާޖުއްރީގެ ސާޅީސް ޙަދީޘް",
-          url: "../books/arbaoonAajurry.html",
-          status: "(އެކުލަވާ ނުނިމޭ)",
-        },
-        {
-          titleAr: "كتاب العلم لأبي خيثمة",
-          titleDv: "އަބޫ ޚައިޘަމާ ލިޔުނު އިލްމުގެ ފޮތް",
-          url: "../books/kitabulIlmAbiKhaithama.html",
-        },
-        {
-          titleAr: "أخبار الشيوخ وأخلاقهم للمروذي",
-          titleDv: "ޝައިޚުންގެ ޚަބަރުތަކާއި އެ ބޭކަލުންގެ އަޚްލާގު",
-          url: "../books/akhbaruShuyukh.html",
-        },
-        {
-          titleAr: "أخلاق حملة القرآن للآجري",
-          titleDv: "އާޖުއްރީ ލިޔުނު ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު",
-          url: "../books/akhlaqHamalathilQuran.html",
-        },
-        {
-          titleAr: "بلوغ المرام*",
-          titleDv: "ބުލޫޣުލް މަރާމް",
-          url: "../books/bulughulMaram.html",
-          status: "(މުރާޖާކުރަނީ)",
-        },
-        {
-          titleAr: "الأربعون النووية",
-          titleDv: "ނަވަވީގެ ސާޅީސް ޙަދީޘް",
-          url: "../books/arbaoonNawawi.html",
-          keywords: "40 nawawi",
-        },
-        {
-          titleAr: "تيسير مصطلح الحديث",
-          titleDv: "ޙަދީޘް މުސްޠަލަޙު ފަސޭހަކުރުން",
-          url: "https://archive.org/details/uloomul-hadith-dv-ahmed-faruq-mohamed",
-          status: "(PDF)",
-        },
-      ],
-    },
-    {
-      id: "aqida",
-      titleAr: "العقيدة والمنهج",
-      titleDv: "އަގީދާއާއި މަންހަޖު",
-      items: [
-        {
-          titleAr: "الجامع في العقائد",
-          titleDv: "އެއްކުރަމުންދާ އަގީދާގެ ފޮތްތައް",
-          url: "../books/allAqida.html",
-        },
-        {
-          titleAr: "أسماء الله الحسنى",
-          titleDv: "ﷲ ގެ އެންމެ ރިވެތި އިސްމުފުޅުތައް",
-          url: "../books/asmaullahilHusna.html",
-          status: "(މުރާޖާކުރަނީ)",
-        },
-        {
-          titleAr: "أصول السنة لأحمد",
-          titleDv: "އަޙްމަދު ލިޔުނު ސުންނަތުގެ އުސޫލުތައް",
-          url: "../books/usooluSunnahAhmed.html",
-          status: "(މުރާޖާކުރަނީ)",
-        },
-        {
-          titleAr: "شرح السنة للبربهاري",
-          titleDv: "ބަރްބަހާރީ ލިޔުނު ސުންނަތުގެ ޝަރަހަ",
-          url: "../books/sharhuSunnahBarbahari.html",
-        },
-        {
-          titleAr: "عقيدة الرازيين",
-          titleDv: "ދެ ރާޒީންގެ އަގީދާ",
-          url: "../books/aqidatuRaziyain.html",
-        },
-        {
-          titleAr: "كلمة الإخلاص لابن رجب",
-          titleDv: "އިބްނު ރަޖަބު ލިޔުނު އިޚްލާސްގެ ކަލިމަ",
-          url: "../books/kalimathulIkhlas.html",
-        },
-        {
-          titleAr: "تلخيص العقيدة من كتاب الشريعة",
-          titleDv: "އާޖުއްރީގެ ޝަރީއަތް ފޮތުގެ އަގީދާގެ ޚުލާސާއެއް",
-          url: "../books/talkhisKitabiShariah.html",
-        },
-        {
-          titleAr: "الانتصار لأصحاب الحديث",
-          titleDv: "ޙަދީޘްގެ އަސްހާބުންނަށް ނަސްރުދިނުން",
-          url: "../books/intisarLiAshabilHadith.html",
-        },
-        {
-          titleAr: "عقيدة السلف للصابوني",
-          titleDv: "އައްޞާބޫނީ ލިޔުނު ސަލަފުންގެ އަގީދާ",
-          url: "../books/aqidatuSalafSoabuni.html",
-        },
-        {
-          titleAr: "كتاب الإيمان لأبي عبيد",
-          titleDv: "އަބޫ ޢުބައިދު ލިޔުނު އީމާންކަމުގެ ފޮތް",
-          url: "../books/kitabulEmanAbiUbaid.html",
-        },
-        {
-          titleAr: "نواقض الإسلام",
-          titleDv: "އިސްލާމްކަން ގެއްލޭ ކަންކަން",
-          url: "../books/nawaqidulIslam.html",
-        },
-        {
-          titleAr: "‌‌القواعد الأربع",
-          titleDv: "ހަތަރު ގަވާއިދު",
-          url: "../books/qawaidulArbau.html",
-        },
-        {
-          titleAr: "الأصول الستة",
-          titleDv: "ހަ އުސޫލު",
-          url: "../books/usooluSiththa.html",
-        },
-        {
-          titleAr: "الأصول الثلاثة",
-          titleDv: "ތިން އުސޫލު",
-          url: "../books/usooluThalaatha.html",
-        },
-        {
-          titleAr: "أحكام تهم المسلم",
-          titleDv: "މުސްލިމަކަށް މުހިއްމުވާ ހުކުމްތައް",
-          url: "../books/quranUshru.html#tableID=:p69",
-        },
-        {
-          titleAr: "مختصر في توحيد الأسماء والصفات",
-          titleDv: "އިސްމުފުޅުތަކާއި ސިފަފުޅުތަކުގެ ޚުލާޞާ",
-          url: "../books/mukhtasarTauhidilAsmaWaSifat.html",
-        },
-        {
-          titleAr: "حقوق دعت إليها الفطرة",
-          titleDv: "ފިތުރަތުން އެ ކަންކަމަށް ގޮވާލާ ހައްގުތައް",
-          url: "../books/huquqDaathIlaihalFitra.html",
-        },
-        {
-          titleAr: "من خلقني ولماذا؟",
-          titleDv:
-            "އަހަރެން އުފެއްދެވީ ކޮން ފަރާތަކުން އަދި ކޮން މަގުސަދަކަށް؟",
-          url: "../books/manKhalaqaniWaLimaza.html",
-        },
-        {
-          titleAr: "الإسلام رسالة موجزة",
-          titleDv: "އިސްލާމް ދީނާ ބެހޭ ލުއި ފޮތެއް",
-          url: "../books/nubzaAnilIslam.html",
-        },
-        {
-          titleAr: "الإسلام دين رسل الله",
-          titleDv: "އިސްލާމް ދީނަކީ الله ގެ ރަސޫލުންގެ ދީނެވެ.",
-          url: "../books/islamDeenRusulullah.html",
-        },
-        {
-          titleAr: "الإسلام دين الفطرة والعقل والسعادة",
-          titleDv:
-            "އިސްލާމް ދީނަކީ ފިޠުރަތާއި ބުއްދިއާއި ބާއްޖަވެރިކަމުގެ ދީނެވެ.",
-          url: "../books/islamDeenulFitrah.html",
-        },
-      ],
-    },
-    // ... (other sections) ...
-  ];
+// https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs_fade
+/*document.body.classList.add("changeBack");*/
 
-  const contentContainer = document.getElementById("content-container");
-  const searchInput = document.getElementById("searchInput");
+// Get the element with id="defaultOpen" and click on it
 
-  const renderContent = (filter = "") => {
-    contentContainer.innerHTML = "";
-    const filterText = filter.toLowerCase().trim();
-    const isSearching = filterText.length > 0;
+// https://stackoverflow.com/a/56105556
+// fix "Uncaught TypeError: Cannot read property 'click' of null"
+// if getting executed before the dom is ready. Try by putting it inside DOMContentLoaded event
 
-    siteData.forEach((section) => {
-      const filteredItems = section.items.filter((item) => {
-        const ar = (item.titleAr || "").toLowerCase();
-        const dv = (item.titleDv || "").toLowerCase();
-        const kw = (item.keywords || "").toLowerCase();
-        // --- NEW --- Add the URL to the searchable fields
-        const url = (item.url || "").toLowerCase();
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("tab1").style.display = "block";
+});
 
-        return (
-          ar.includes(filterText) ||
-          dv.includes(filterText) ||
-          kw.includes(filterText) ||
-          url.includes(filterText)
-        ); // --- NEW --- Check the URL
-      });
+// Track current tab and tab history stack
+let currentTab = "tab1";
+let tabHistory = ["tab1"]; // Stack to track tab navigation history
 
-      if (filteredItems.length > 0) {
-        const sectionEl = document.createElement("section");
-        sectionEl.className = `content-section section-${section.id}`;
+function openTab(evt, tabName) {
+  // Update history only if navigating to a new tab
+  if (tabName !== currentTab) {
+    tabHistory.push(currentTab);
+    currentTab = tabName;
+  }
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
 
-        const itemCount = filteredItems.length;
-        const headerEl = document.createElement("div");
-        headerEl.className = "section-header";
-        headerEl.innerHTML = `<h2 class="section-title">${section.titleAr} | ${section.titleDv} <span class="section-item-count">(${itemCount}) ލިޔުން</span></h2>`;
-        sectionEl.appendChild(headerEl);
+// Function to switch tabs without updating history (for back navigation)
+function switchToTab(tabName) {
+  currentTab = tabName;
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
 
-        const gridEl = document.createElement("div");
-        gridEl.className = "book-grid";
+  // Find and activate the correct tab button
+  const tabButton = document.querySelector(`[onclick*="${tabName}"]`);
+  if (tabButton) {
+    tabButton.className += " active";
+  }
+}
 
-        filteredItems.forEach((item, index) => {
-          const card = document.createElement("a");
-          card.href = item.url;
-          card.className = "book-card";
+function goBackToPreviousTab() {
+  // Only go back if we're not on tab1 and there's history
+  if (currentTab !== "tab1" && tabHistory.length > 0) {
+    const previousTab = tabHistory.pop();
+    switchToTab(previousTab);
+    scrollBack2Top();
+  }
+}
 
-          if (!isSearching && index >= INITIAL_ITEMS_TO_SHOW) {
-            card.classList.add("hidden-card");
-          }
+/* OLD CODE BELOW, cgpt prompt used to change below code to above:
+                  this code first hides a div then shows it, then when clicking buttons, switches to other divs .i want the main div to be shown by default, and then when buttons are clicked, to switch to other divs. i dont want there to be defaultOpen on an element
+                  
+                  document.addEventListener("DOMContentLoaded", function () {
+                  document.getElementById("defaultOpen").click();
+                  });
+                  
+                  function openTab(evt, tabName) {
+                  var i, tabcontent, tablinks;
+                  tabcontent = document.getElementsByClassName("tabcontent");
+                  for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                  }
+                  tablinks = document.getElementsByClassName("tablinks");
+                  for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(
+                      " active",
+                      ""
+                    );
+                  }
+                  document.getElementById(tabName).style.display = "block";
+                  evt.currentTarget.className += " active";
+                  }
+                  */
 
-          card.innerHTML = `
-                        <h3 class="book-title-ar">${item.titleAr}</h3>
-                        ${
-                          item.titleDv
-                            ? `<p class="book-title-dv">${item.titleDv}</p>`
-                            : ""
-                        }
-                        ${
-                          item.status
-                            ? `<p class="book-status">${item.status}</p>`
-                            : ""
-                        }
-                    `;
-          gridEl.appendChild(card);
-        });
+// =======================
+// scrollBack2Top
+// =======================
 
-        sectionEl.appendChild(gridEl);
+function scrollBack2Top() {
+  window.scrollTo(0, 0);
+}
 
-        if (!isSearching && filteredItems.length > INITIAL_ITEMS_TO_SHOW) {
-          const showMoreContainer = document.createElement("div");
-          showMoreContainer.className = "show-more-container";
-          showMoreContainer.innerHTML = `<button class="show-more-btn">އިތުރަށް ދައްކާ (${
-            filteredItems.length - INITIAL_ITEMS_TO_SHOW
-          }+)</button>`;
+// =======================
+// animate-table
+// =======================
 
-          showMoreContainer
-            .querySelector("button")
-            .addEventListener("click", () => {
-              sectionEl.querySelectorAll(".hidden-card").forEach((card) => {
-                card.classList.remove("hidden-card");
-              });
-              showMoreContainer.remove();
-            });
-
-          sectionEl.appendChild(showMoreContainer);
-        }
-
-        contentContainer.appendChild(sectionEl);
+document.addEventListener("DOMContentLoaded", function () {
+  const tables = document.querySelectorAll(".animate-table");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      } else {
+        entry.target.classList.remove("visible");
       }
     });
+  });
 
-    if (contentContainer.children.length === 0 && isSearching) {
-      contentContainer.innerHTML = `<p style="text-align:center; font-size: 1.2rem; color: var(--text-muted); padding: 2rem;">ހޯދަމުންދާ ތަކެއްޗެއް ނުފެނުނު</p>`;
-    }
-  };
-
-  searchInput.addEventListener("input", (e) => renderContent(e.target.value));
-
-  renderContent();
+  tables.forEach((table) => {
+    observer.observe(table);
+  });
 });
+
+// =======================
+// Copy functionality for copy-specific buttons document
+// =======================
+
+// Copy this elsewhere if needed. currently in textEditor.js and index.html
+// Copy functionality for copy-specific buttons document
+document
+  .querySelectorAll(".copy-button, .copy-button-lit, .copy-button-other")
+  .forEach((button) => {
+    button.addEventListener("click", async () => {
+      const text = button.dataset.text || button.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        showButtonFeedback(button, "Copied");
+      } catch (err) {
+        console.error("Failed to copy:", err);
+      }
+    });
+  });
+
+// Generic feedback for all buttons except dropdown triggers
+document.querySelectorAll("button").forEach((button) => {
+  button.addEventListener("click", (event) => {
+    if (button.closest(".dropdown-button")) {
+      // Skip feedback for dropdown buttons
+      return;
+    }
+    showButtonFeedback(button, "Clicked");
+  });
+});
+
+// Generic feedback tooltip
+function showButtonFeedback(button, message) {
+  // Add feedback tooltip
+  const feedback = document.createElement("span");
+  feedback.textContent = message;
+  feedback.className = "copy-feedback";
+  button.appendChild(feedback);
+
+  // Add visual feedback
+  button.classList.add("copy-success");
+
+  // Remove feedback elements after a delay
+  setTimeout(() => {
+    feedback.remove();
+    button.classList.remove("copy-success");
+  }, 1000);
+}
+
+// =======================
+// footer
+// =======================
+
+/*
+document.addEventListener("DOMContentLoaded", function () {
+  //....
+  document.getElementById("footer").classList.remove("hidden");
+});
+*/
+/*
+function unfade(document.getElementById("footer")) {
+var op = 0.1;  // initial opacity
+element.style.display = 'block';
+var timer = setInterval(function () {
+if (op >= 1){
+    clearInterval(timer);
+}
+element.style.opacity = op;
+element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+op += op * 0.1;
+}, 10);
+
+}*/
+
+// https://stackoverflow.com/questions/807878/how-to-make-javascript-execute-after-page-load/36096571#36096571
+
+document.addEventListener("DOMContentLoaded", function () {
+  //...
+  // https://www.geeksforgeeks.org/how-to-add-fade-in-effect-using-pure-javascript/#:~:text=The%20fade%20effect%20is%20described,as%20the%20fade%2Din%20effect.
+  var opacity = 0;
+  var intervalID = 0;
+  window.onload = fadeIn;
+
+  function fadeIn() {
+    setInterval(show, 75);
+  }
+
+  function show() {
+    var body = document.getElementById("footer");
+    opacity = Number(window.getComputedStyle(body).getPropertyValue("opacity"));
+    if (opacity < 1) {
+      opacity = opacity + 0.3;
+      body.style.opacity = opacity;
+    } else {
+      clearInterval(intervalID);
+    }
+  }
+  //...
+});
+
+// =======================
+// supriseDiv
+// =======================
+
+var openDiv_Clicks = 0;
+function openDiv() {
+  openDiv_Clicks++;
+  /*if (openDiv_Clicks == 1) {
+                    //run first function
+                  } else if (openDiv_Clicks == 2) {
+                    //run second function
+                  } else */ if (openDiv_Clicks == 5) {
+    document.getElementById("supriseDiv").style.display = "block";
+    openDiv_Clicks = 0;
+
+    //
+    /*document
+                .querySelector("body > div.mm-ocd.mm-ocd--right.mm-ocd--open")
+                .remove("mm-ocd--open");*/
+
+    // closes side menu
+    // drawer.close(); // not used, so removing open instead
+    document.getElementById("sideMenu").classList.remove("open");
+
+    // scroll to div
+    //supriseDiv.scrollIntoView({ behavior: "smooth" });
+    // a little above that
+    const rect = supriseDiv.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const offset = 50; // Adjust this value to scroll more or less above the element
+    window.scrollTo({
+      top: rect.top + scrollTop - offset,
+      behavior: "smooth",
+    });
+  }
+}
+
+// =======================
+// hiddenDiv JS - reminders
+// =======================
+
+// kahfReminder
+// https://dhivehi.mv/prayer-times
+/* claude:
+               html: ...
+                 <span class="hideOnPhoneOnly">ޙަދީޘްއެމްވީ – </span>
+                 <span>ދިވެހިންގެ ސުންނަތުގެ މަންސަ</span>
+             this shows the following text: ޙަދީޘްއެމްވީ – ދިވެހިންގެ ސުންނަތުގެ މަންސަ
+             and it shows this text on mobile: ދިވެހިންގެ ސުންނަތުގެ މަންސަ
+             using js, i want to change the text "ޙަދީޘްއެމްވީ – " to "hey man 1"
+             and i want to i want to change the text "ދިވެހިންގެ ސުންނަތުގެ މަންސަ" to "hey man 2"
+             //
+             only change it from 5 am to 6 pm on a friday
+             also in the order of position, bring span 2 first, with span 1 second
+             also during that time, also get a hidden element with id "kahfReminder" and show it it
+             */
+// Get the current day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+const currentDay = new Date().getDay();
+
+const currentTime = new Date().getHours();
+// REMEMBER TO DECLARE THIS ONLY ONCE, REMOVE FROM OTHER TIME CHECKS
+
+//
+document.addEventListener("DOMContentLoaded", function () {
+  // Check if the current day is Friday (5)
+  // AND
+  // Check if the current time is between 4 AM and 6 PM (inclusive)
+  if (currentDay === 5 && currentTime >= 4 && currentTime <= 18) {
+    // console.log("test");
+    // Get the span elements
+    const span1 = document.querySelector(".navbar-page-title");
+    if (span1) {
+      span1.textContent =
+        "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ، وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيتَ عَلَى إِبْرَاهِيمَ، وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ";
+    }
+
+    // Get the span elements
+    // const span1 = document.querySelector(".hideOnPhoneOnly");
+    // const span2 = document.querySelector(".hideOnPhoneOnly + span");
+
+    // Change the text content
+
+    // span2.textContent = "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ";
+    // span1.textContent =
+    //   "، وَعَلَى آلِ مُحَمَّدٍ، كَمَا صَلَّيتَ عَلَى إِبْرَاهِيمَ، وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ";
+
+    // Reorder the spans
+    // const parent = span1.parentNode;
+    // parent.insertBefore(span2, span1);
+    // }
+
+    // Get the element with the ID and show it
+    const kahfReminder = document.querySelector("#kahfReminder");
+    if (kahfReminder) {
+      kahfReminder.style.display = "flex";
+      // block, table-row
+    }
+
+    // make alert container visible
+    document.querySelectorAll(".alertContainer").forEach(function (element) {
+      element.style.display = "flex";
+    });
+  }
+});
+
+//
+//
+
+// https://dhivehi.mv/prayer-times
+/* claude: see the code above, it executes changes to the elements, but only from 5 am to 6 pm on a friday. i want you to make it so it changes the elements from 7pm to 2am, everyday */
+// Get the current hour
+// const currentTime = new Date().getHours();
+
+//
+
+// nightQuranReminder
+
+// Check if the current time is between 7 PM and 2 AM (inclusive)
+document.addEventListener("DOMContentLoaded", function () {
+  if (currentTime >= 19 || currentTime <= 2) {
+    /*// Get the span elements
+            const span1 = document.querySelector(".hideOnPhoneOnly");
+            const span2 = document.querySelector(".hideOnPhoneOnly + span");
+    
+            // Change the text content
+            span2.textContent = "ނިދުމުގެ ކުރިން ގުރްއާން ކިޔަވާ";
+            span1.textContent = " - ސުންނަތުގައި ހިފައިގެން ރައްކާތެރިކަން ހޯދާ";
+    
+            // Reorder the spans
+            const parent = span1.parentNode;
+            parent.insertBefore(span2, span1);*/
+    // Get the element with the ID and show it
+    const nightQuranReminder = document.querySelector("#nightQuranReminder");
+    if (nightQuranReminder) {
+      nightQuranReminder.style.display = "flex";
+    }
+
+    // make alert container visible
+    document.querySelectorAll(".alertContainer").forEach(function (element) {
+      element.style.display = "flex";
+    });
+  }
+});
+
+//
+//
+
+// morningQuranReminder
+
+// Check if the current time is between 4 AM and 8 AM (inclusive)
+document.addEventListener("DOMContentLoaded", function () {
+  if (currentTime >= 4 && currentTime <= 8) {
+    // ! ONLY FOR AZKAR
+    // Change background color and content of .azkarBook element
+    const azkarBook = document.querySelector(".azkarBook");
+    if (azkarBook) {
+      azkarBook.style.backgroundColor = "#b03b45"; // Change this to your desired color
+      azkarBook.style.color = "#eee";
+      azkarBook.innerHTML = `
+        <p><span class="pulsateThis">⚠️</span> أذكار الصباح والمساء</p>
+        <p>🤲 ހެނދުނާއި ހަވީރުގެ ޒިކުރުތައް</p>
+      `;
+    }
+
+    /*// Get the span elements
+            const span1 = document.querySelector(".hideOnPhoneOnly");
+            const span2 = document.querySelector(".hideOnPhoneOnly + span");
+    
+            // Change the text content
+            span2.textContent = "ހޭލައިގެން ގުރްއާން ކިޔަވާ";
+            span1.textContent = " - ހެނދުނުގެ ޒިކުރުތައްވެސް ކިޔާ";
+    
+            // Reorder the spans
+            const parent = span1.parentNode;
+            parent.insertBefore(span2, span1);*/
+
+    // Get the element with the ID and show it
+    const morningQuranReminder = document.querySelector(
+      "#morningQuranReminder",
+    );
+    if (morningQuranReminder) {
+      morningQuranReminder.style.display = "flex";
+    }
+
+    // make alert container visible
+    document.querySelectorAll(".alertContainer").forEach(function (element) {
+      element.style.display = "flex";
+    });
+  }
+});
+
+//
+//
+
+// supportReminder
+
+// Check if the current time is between 7 PM and 2 AM (inclusive)
+document.addEventListener("DOMContentLoaded", function () {
+  // if (currentTime >= 19 || currentTime <= 2) {
+  // Get the element with the ID and show it
+  const supportReminder = document.querySelector("#supportReminder");
+  if (supportReminder) {
+    supportReminder.style.display = "flex";
+  }
+
+  // make alert container visible
+  document.querySelectorAll(".alertContainer").forEach(function (element) {
+    element.style.display = "flex";
+  });
+  // }
+});
+
+//
+
+// =======================
+// toggleview code
+// =======================
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Retrieve the saved view state from localStorage
+  const savedViewState = localStorage.getItem("viewState");
+  let isListView = savedViewState === "list";
+
+  // Select all elements with the class "toggleView"
+  const toggleButtons = document.querySelectorAll(".toggleView");
+
+  // Function to update the view based on the global state
+  function updateView() {
+    // Find all tabcontent elements
+    const tabContents = document.querySelectorAll(".tabcontent");
+
+    // Update all containers based on the global state
+    tabContents.forEach((tabContent) => {
+      const containers = tabContent.querySelectorAll(".bookContainer");
+      containers.forEach((container) => {
+        // Toggle class for the current container
+        container.classList.toggle("list-view", isListView);
+
+        // Toggle list-item class on all books in this container
+        const books = container.querySelectorAll(".book");
+        books.forEach((book) => {
+          book.classList.toggle("list-item", isListView);
+        });
+      });
+    });
+
+    // Update the text of all toggle buttons
+    toggleButtons.forEach((button) => {
+      if (window.innerWidth <= 599) {
+        // Mobile view
+        button.innerHTML = isListView
+          ? "<span class='iconBase rowIcon'></span><span class='hiddenOnMobile'>&nbsp;ލިސްޓު</span>"
+          : "<span class='iconBase gridIcon'></span><span class='hiddenOnMobile'>&nbsp;ގްރިޑް</span>";
+      } else {
+        // Desktop view
+        button.innerHTML = isListView
+          ? "<span class='iconBase rowIcon'></span><span class='hiddenOnMobile'>&nbsp;ލިސްޓު</span>"
+          : "<span class='iconBase gridIcon'></span><span class='hiddenOnMobile'>&nbsp;ގްރިޑް</span>";
+      }
+    });
+  }
+
+  // Initialize view based on saved state
+  updateView();
+
+  // Add click event listener to each toggle button
+  toggleButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      // Toggle the global state
+      isListView = !isListView;
+
+      // Save the new view state to localStorage
+      localStorage.setItem("viewState", isListView ? "list" : "grid");
+
+      // Update the view
+      updateView();
+    });
+  });
+});
+
+// =======================
+// URL JUMP / CHECK CODE
+// =======================
+
+function redirectToUrl() {
+  const inputElement = document.getElementById("urlInput");
+  if (!inputElement) return;
+
+  const input = inputElement.value;
+  const currentUrl = window.location.href;
+  let newUrl = "";
+
+  if (input.includes("/books/")) {
+    const inputAfterBooks = input.split("/books/")[1];
+    const currentBase = currentUrl.split("/uc/")[0].split("/books/")[0];
+    newUrl = currentBase + "/books/" + inputAfterBooks;
+  } else if (input.includes("/uc/")) {
+    const inputAfterUc = input.split("/uc/")[1];
+    const currentBase = currentUrl.split("/books/")[0].split("/uc/")[0];
+    newUrl = currentBase + "/uc/" + inputAfterUc;
+  } else {
+    inputElement.value = "";
+    inputElement.classList.add("incorrect");
+    inputElement.setAttribute("placeholder", "ލިންކު ރަނގަޅެއް ނޫން");
+    inputElement.style.setProperty("--placeholder-color", "red");
+    inputElement.style.setProperty("--border-color", "red");
+
+    /* write html code for a input that has a placeholder too long for its width, so it slides across animating
+        the placeholder should disappear when text is typed in the input, reappear when no text is typed in the input
+        after the second red placeholder text shown, the initial placeholder text should show, just not in red, when cursor is placed, but typing hasnt happened. right now the initial placeholder text is gone as well
+        */
+
+    setTimeout(() => {
+      inputElement.classList.add("incorrect-fade");
+      setTimeout(() => {
+        inputElement.setAttribute(
+          "placeholder",
+          "ބޭނުންކުރަން ދަސްކުރެވޭނެ ތިރީގައިވާ ލިންކަކުން",
+        );
+        inputElement.classList.remove("incorrect-fade");
+      }, 500); // Match this duration to the CSS transition duration, this is transition: opacity 0.5s ease-in-out; time
+    }, 1000); // new text appears after this time
+
+    // Add focus event listener to reset styles
+    inputElement.addEventListener(
+      "focus",
+      () => {
+        inputElement.classList.remove("incorrect");
+        inputElement.classList.remove("incorrect-fade");
+        inputElement.removeAttribute("style");
+        inputElement.setAttribute(
+          "placeholder",
+          "ސޭވްކުރި ސަފުހާގެ ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ",
+        ); // Set to default or new placeholder text if needed
+      },
+      { once: true },
+    );
+    return;
+  }
+
+  window.location.href = newUrl;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const urlInput = document.getElementById("urlInput");
+  if (!urlInput) return;
+
+  urlInput.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      redirectToUrl();
+    }
+  });
+
+  // Remove incorrect class on focus
+
+  urlInput.addEventListener("focus", function () {
+    const inputElement = document.getElementById("urlInput");
+    inputElement.classList.remove("incorrect");
+    inputElement.setAttribute(
+      "placeholder",
+      "ސޭވްކުރި ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ",
+    );
+    inputElement.style.removeProperty("--placeholder-color");
+    inputElement.style.removeProperty("--border-color");
+  });
+});
+
+// =======================
+//
+// =======================

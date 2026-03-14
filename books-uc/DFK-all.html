@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="dv" class="notranslate" translate="no">
   <head>
     <meta name="google" content="notranslate" />
@@ -39,25 +39,25 @@
       rel="stylesheet"
       href="../css/base-styles.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/navbar.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-COMB.min.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-inline.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <script src="../js/navbar.js"></script>
     <script src="../js/DT-COMB.min.js"></script>
@@ -74,26 +74,32 @@
           <button
             id="copyPageLink"
             class="customButtons"
-            onclick="copyURLToClipButton();"
+            onclick="copyURLToClipButton()"
           >
             &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
           </button>
           <button
             id="toggleFiliButton"
             class="customButtons"
-            onclick="toggleTashkeel();scrollUpTop()"
+            onclick="
+              toggleTashkeel();
+              scrollUpTop();
+            "
           >
             &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
           </button>
           <button
             id="toggleShowButton"
             class="customButtons"
-            onclick="toggleShowOne();scrollUpTop()"
+            onclick="
+              toggleShowOne();
+              scrollUpTop();
+            "
           >
             &nbsp; ފުޓްނޯޓު ފޮރުވާ &nbsp;
           </button>
 
-          <button class="customButtons" onclick="copyOneOnly();">
+          <button class="customButtons" onclick="copyOneOnly()">
             &nbsp; ފިއްޔާއެކު ކޮޕީ &nbsp;
           </button>
 
@@ -170,44 +176,39 @@
     <script type="text/javascript">
       // Configuration object for each JSON file
       const jsonConfigs = {
-        "talkhisKitabiShariah.json": {
+        "DFK-talkhisKitabiShariah.json": {
           keepColumns: [0, 1, 2, 3],
           newColumns: ["تلخيص الشريعة للآجري"],
         },
-        "usooluSunnahAhmed.json": {
-          keepColumns: [0, 1, 2, 3],
-          //orderColumns: [5, 4, 2, 3, 1, 0], // Optional: specify desired column order
-          newColumns: ["أصول السنة لأحمد"],
-        },
-        "sharhuSunnahBarbahari.json": {
+        "AQD-DFK-sharhuSunnahBarbahari.json": {
           keepColumns: [0, 1, 2, 3],
           newColumns: ["شرح السنة للبربهاري"],
         },
-        "kitabulEmanAbiUbaid.json": {
+        "DFK-kitabulEmanAbiUbaid.json": {
           keepColumns: [0, 3, 5, 6],
           newColumns: ["كتاب الإيمان لأبي عبيد"],
         },
-        "akhlaqHamalathilQuran.json": {
+        "DFK-akhlaqHamalathilQuran.json": {
           keepColumns: [0, 3, 5, 6],
           newColumns: ["أخلاق حملة القرآن للآجري"],
         },
-        "akhbaruShuyukh.json": {
+        "DFK-akhbaruShuyukh.json": {
           keepColumns: [0, 1, 2, 3],
           newColumns: ["أخبار الشيوخ للمروذي"],
         },
-        "intisarLiAshabilHadith.json": {
+        "DFK-intisarLiAshabilHadith.json": {
           keepColumns: [1, 2, 3, 4],
           newColumns: ["الانتصار لأصحاب الحديث"],
         },
-        "kalimathulIkhlas.json": {
+        "DFK-kalimathulIkhlas.json": {
           keepColumns: [0, 2, 3, 4],
           newColumns: ["كلمة الإخلاص لابن رجب"],
         },
-        "kitabulIlmAbiKhaithama.json": {
+        "DFK-kitabulIlmAbiKhaithama.json": {
           keepColumns: [0, 1, 2, 3, 4],
           newColumns: ["أخبار الشيوخ للمروذي"],
         },
-        "aqidatuSalafSoabuni.json": {
+        "DFK-aqidatuSalafSoabuni.json": {
           keepColumns: [2, 3, 4, 5],
           newColumns: ["عقيدة السلف وأصحاب الحديث"],
         },
@@ -268,7 +269,7 @@
                 ? config.newColumns.length
                 : 0;
               return baseColumns + extraColumns;
-            })
+            }),
           );
 
           // Modified to use jQuery's ajax with promises
@@ -282,7 +283,7 @@
                     const processedData = processJsonData(
                       jsonData,
                       config,
-                      maxColumns
+                      maxColumns,
                     );
                     loadedData = [...loadedData, ...processedData];
 
@@ -297,7 +298,7 @@
                     }
 
                     console.log(
-                      `Loaded ${file}: Total rows now: ${loadedData.length}`
+                      `Loaded ${file}: Total rows now: ${loadedData.length}`,
                     );
                   })
                   .fail(function (jqXHR, textStatus, error) {

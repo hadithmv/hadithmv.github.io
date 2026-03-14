@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="dv" class="notranslate" translate="no">
   <head>
     <meta name="google" content="notranslate" />
@@ -32,7 +32,7 @@
       rel="stylesheet"
       href="../css/DT-COMB.min.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <script src="../js/DT-COMB.min.js"></script>
     <style>
@@ -328,14 +328,17 @@
           <button
             id="copyPageLink"
             class="customButtons"
-            onclick="copyURLToClipButton();"
+            onclick="copyURLToClipButton()"
           >
             &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
           </button>
           <button
             id="toggleFiliButton"
             class="customButtons"
-            onclick="toggleTashkeel();scrollUpTop()"
+            onclick="
+              toggleTashkeel();
+              scrollUpTop();
+            "
           >
             &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
           </button>
@@ -377,7 +380,7 @@
                         // Remove only the numbers before the closing bracket
                         cell.textContent = text.replace(
                           /\s[\u0660-\u0669]+﴾/,
-                          "﴾"
+                          "﴾",
                         );
                       }
                     }
@@ -1273,7 +1276,7 @@
                   (a = a.replace(/\s([\u0660-\u0669]+)/, " ")) +
                   " " +
                   t[2] +
-                  "﴾")
+                  "﴾"),
               );
             },
           },
@@ -1289,7 +1292,7 @@
                   (a = a.replace(/\s([\u0660-\u0669]+)/, " ")) +
                   " " +
                   t[2] +
-                  "﴾")
+                  "﴾"),
               );
             },
           },
@@ -1459,7 +1462,7 @@
                   null !== currentAyah &&
                   parseInt(a[1]) === currentSurah &&
                   parseInt(a[2]) === currentAyah
-            )
+            ),
           );
 
         if (0 < a.length) {
@@ -1523,7 +1526,7 @@
         // Update display values
         $("#juzValue").text(currentJuz);
         $("#surahValue").text(
-          `${currentSurah} ${arabicSurahNames[currentSurah]}`
+          `${currentSurah} ${arabicSurahNames[currentSurah]}`,
         );
         $("#ayahValue").text(currentAyah);
       }
@@ -1542,7 +1545,7 @@
         // Clear dropdown and add search input
         n.empty();
         n.append(
-          '<input type="text" class="q-dropdown-search" placeholder="ލިޔޭ ނޫނީ ތިރިއަށް ފިތާ">'
+          '<input type="text" class="q-dropdown-search" placeholder="ލިޔޭ ނޫނީ ތިރިއަށް ފިތާ">',
         );
 
         // For ayah dropdown, get verse count from current surah
@@ -1758,7 +1761,7 @@
                 a,
                 `${e.title} ${n + 1}`,
                 `${e.name}-${t}`,
-                e.name === defaultAdditionalJson && 0 === n
+                e.name === defaultAdditionalJson && 0 === n,
               );
             });
           });
@@ -1802,8 +1805,8 @@
           // Create checkbox and label for translation
           r.innerHTML = `
             <input type="checkbox" id="trans-${t}" value="${t}" ${
-            n ? "checked" : ""
-          }>
+              n ? "checked" : ""
+            }>
             <label for="trans-${t}">${e}</label>
         `;
           a.appendChild(r);
@@ -1851,7 +1854,7 @@
 
           // Check if any content columns are visible
           const hasVisibleColumns = contentColumns.some((idx) =>
-            table.column(idx).visible()
+            table.column(idx).visible(),
           );
 
           // Set title column visibility based on content columns
@@ -1912,7 +1915,7 @@
       table = new DataTable("#tableID", {
         ...DTconfig,
         ajax: {
-          url: `${baseJsonUrl}quranData_juz-surah-ayahNo-basmalah-ayahImlai.json`,
+          url: `${baseJsonUrl}QRN-Data_juz-surah-ayahNo-basmalah-ayahImlai.json`,
           dataSrc: "",
         },
         columns: getAllColumnDefinitions(),

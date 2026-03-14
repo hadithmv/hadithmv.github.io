@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="dv" class="notranslate" translate="no">
   <head>
     <meta name="google" content="notranslate" />
@@ -32,7 +32,7 @@
       rel="stylesheet"
       href="../css/DT-COMB.min.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <!--<script src="../js/DT-COMB.min.js"></script>-->
     <script src="../js/DT-COMB.min-TEMP.js"></script>
@@ -112,14 +112,17 @@
           <button
             id="copyPageLink"
             class="customButtons"
-            onclick="copyURLToClipButton();"
+            onclick="copyURLToClipButton()"
           >
             &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
           </button>
           <button
             id="toggleFiliButton"
             class="customButtons"
-            onclick="toggleTashkeel();scrollUpTop()"
+            onclick="
+              toggleTashkeel();
+              scrollUpTop();
+            "
           >
             &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
           </button>
@@ -475,7 +478,7 @@
       table = new DataTable("#tableID", {
         ...DTconfig,
         ajax: {
-          url: `${baseJsonUrl}quranData_juz-surah-ayahNo-basmalah-ayahImlai.json`,
+          url: `${baseJsonUrl}QRN-Data_juz-surah-ayahNo-basmalah-ayahImlai.json`,
           dataSrc: "",
         },
         columns: getAllColumnDefinitions(),

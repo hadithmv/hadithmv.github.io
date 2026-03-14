@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="dv" class="notranslate" translate="no">
   <head>
     <meta name="google" content="notranslate" />
@@ -40,25 +40,25 @@
       rel="stylesheet"
       href="../css/base-styles.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/navbar.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-COMB.min.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <link
       rel="stylesheet"
       href="../css/DT-inline.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <script src="../js/navbar.js"></script>
     <script src="../js/DT-COMB.min.js"></script>
@@ -69,7 +69,7 @@
       rel="stylesheet"
       href="../css/quran-navigation-list.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <script src="../js/quran-navigation-objectMaps.js"></script>
     <script src="../js/quran-navigation-list.js"></script>
@@ -261,13 +261,13 @@
         ...DTconfig,
 
         ajax: {
-          url: `${baseJsonUrl}quranData_juz-surah-ayahNo-basmalah-ayahImlai.json`,
+          url: `${baseJsonUrl}QRN-Data_juz-surah-ayahNo-basmalah-ayahImlai.json`,
           // dataSrc: "",
           dataSrc: function (json) {
             // console.log("Initial JSON loaded, current page:", table.page());
             // Store the initial data when main JSON is loaded
             originalData = json.map((row) =>
-              Array.isArray(row) ? [...row] : Object.values(row)
+              Array.isArray(row) ? [...row] : Object.values(row),
             );
             return json;
           },

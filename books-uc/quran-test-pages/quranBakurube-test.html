@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="dv" class="notranslate" translate="no">
   <head>
     <meta name="google" content="notranslate" />
@@ -110,14 +110,17 @@
           <button
             id="copyPageLink"
             class="customButtons"
-            onclick="copyURLToClipButton();"
+            onclick="copyURLToClipButton()"
           >
             &nbsp; ސަފުހާގެ ލިންކު ކޮޕީކުރޭ &nbsp;
           </button>
           <button
             id="toggleFiliButton"
             class="customButtons"
-            onclick="toggleTashkeel();scrollUpTop()"
+            onclick="
+              toggleTashkeel();
+              scrollUpTop();
+            "
           >
             &nbsp; ފިލިތައް ފޮރުވާ &nbsp;
           </button>
@@ -125,7 +128,10 @@
           <button
             id="toggleShowButton"
             class="customButtons"
-            onclick="toggleShowOne();scrollUpTop()"
+            onclick="
+              toggleShowOne();
+              scrollUpTop();
+            "
           >
             &nbsp; އިޖްމާލީ އެކަނި ދައްކާ &nbsp;
           </button>
@@ -151,7 +157,7 @@
             }
           </script>
 
-          <button class="customButtons" onclick="copyOneOnly();">
+          <button class="customButtons" onclick="copyOneOnly()">
             &nbsp; އިޖްމާލީ އެކަނި ކޮޕީ &nbsp;
           </button>
 
@@ -664,7 +670,7 @@
         table = new DataTable("#tableID", {
           ...DTconfig, // Spread operator to include additional DataTable configuration options
           ajax: {
-            url: `${baseJsonUrl}quranData_juz-surah-ayahNo-basmalah-ayahImlai.json`, // URL for the JSON data source
+            url: `${baseJsonUrl}QRN-Data_juz-surah-ayahNo-basmalah-ayahImlai.json`, // URL for the JSON data source
             dataSrc: "", // Specify that the data is directly in the root of the JSON response
           },
           columns: getAllColumnDefinitions(), // Get the column definitions for the DataTable
