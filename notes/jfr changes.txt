@@ -1,0 +1,88 @@
+D:\hadithmv\hadithmv.github.io\js\quran-navigation-list.js
+
+  { name: "quranJaufar", columns: [0, 1], title: "ޖަޢުފަރުގެ ތަފްސީރު:" },
+  { name: "quranSoabuni", columns: [0, 1, 2, 3], title: "ޞގެ ތަފްސީރު:" },
+
+
+D:\hadithmv\hadithmv.github.io\js\navbar.js
+
+                  <li>
+                     <a
+                        href="../books/quranJaufar.html"
+                        onclick="changeBook('quranJaufar'); return false;"title="Jaufar Tafsir"
+                        >4 ޖަޢުފަރުގެ ތަފްސީރު*</a
+                        >
+                  </li>
+                  <li>
+                     <a
+                        href="../books/quranSoabuni.html"
+                        onclick="changeBook('quranSoabuni'); return false;"title="S Tafsir"
+                        >&nbsp;</a>
+                  </li>
+
+D:\hadithmv\hadithmv.github.io\js\DT-inline.js
+
+  if (newBook.startsWith("quran")) {
+    bookType = "quran";
+    searchString = "quran";
+    bookRegex =
+      /quranHadithmv|quranBakurube|quranJaufar|quranSoabuni|quranRasmee|quranUshru/g;
+  } else if (newBook.startsWith("radheef")) {
+    bookType = "radheef";
+    searchString = "radheef";
+    bookRegex =
+      /radheefAll|radheefRasmee|radheefEegaal|radheefManiku|radheefNanfoiy/g;
+  } else {
+  
+
+D:\hadithmv\hadithmv.github.io\sitemap.xml
+
+<url>
+  <loc>https://hadithmv.github.io/books/quranJaufar.html</loc>
+  <lastmod>2025-04-27T14:10:08+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://hadithmv.github.io/books/quranSoabuni.html</loc>
+  <lastmod>2025-04-27T14:10:08+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
+D:\hadithmv\hadithmv.github.io\README.md
+
+<!-- • Jaufar’s Quran Tafsir -->
+• Tafsir of the Last Tenth of the Quran
+
+
+D:\hadithmv\hadithmv.github.io\js\index.js
+
+
+        {
+          titleAr: "تفسير القرآن لجعفر",
+          titleDv: "ޖަޢުފަރުގެ ގުރްއާން ތަފްސީރު*",
+          url: "../books/quranJaufar.html",
+        },
+        {
+          titleAr: "تفسير العشر الأخير",
+          titleDv: "ގުރްއާނުގެ ފަހު ދިހަބައި ކުޅަ އެއްބައިގެ ތަފްސީރު",
+          url: "../books/quranUshru.html",
+        },
+		
+...
+
+D:\hadithmv\hadithmv.github.io\js\json
+quranJaufar.json
+
+...
+
+D:\hadithmv\hadithmv.github.io\intro-uc\introJaufar.md
+D:\hadithmv\hadithmv.github.io\intro-uc\introQuranJaufar.md
+D:\hadithmv\hadithmv.github.io\intro-uc\introShareefbe.md
+D:\hadithmv\hadithmv.github.io\intro-uc\introJaufar.html
+D:\hadithmv\hadithmv.github.io\intro-uc\introQuranJaufar.html
+D:\hadithmv\hadithmv.github.io\intro-uc\introShareefbe.html
+
+D:\hadithmv\hadithmv.github.io\books-uc\quranJaufar.html
+
+...

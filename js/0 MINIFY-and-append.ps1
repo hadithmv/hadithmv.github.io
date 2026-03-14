@@ -26,7 +26,7 @@ catch {
 
 # --- CONFIGURATION ---
 # Toggle processing only files modified within N days ago.
-# Allowed values: 1, 2, 5, 10, or 'Off' to disable. Default: 2
+# Allowed values: 1, 2, 5, 10, or 'Off' (with quotes) to disable. Default: 2
 $ModifiedDaysOption = 2
 
 # Files to minify into their own separate '.min.js' file.
