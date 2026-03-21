@@ -286,19 +286,41 @@
         }
       }
 
-      /* Main Page link-group — distinct teal card + green button */
+      /* Main Page link-group — 404 hero style */
       .link-group-main {
         background: #e0f2f1;
         border: 1px solid #80cbc4;
-        border-left: 4px solid #00897b;
+        /* border-left: 4px solid #00897b; */
+        padding: 3rem 2rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 300px;
+        /* min-height: 180px; */
+
       }
       .link-group-main h3 {
         color: #00695c;
+        font-size: 1.4rem;
+        margin-bottom: 0.75rem;
+      }
+      .link-group-main p {
+        max-width: 480px;
+        margin: 0 auto 1.25rem;
+        line-height: 1.7;
+      }
+      .link-group-main .mirror-links {
+        justify-content: center;
       }
       .link-group-main .mirror-links a {
         color: white;
         border-color: #2e7d32;
         background-color: #2e7d32;
+        padding: 12px 28px;
+        font-size: 1.05rem;
+        border-radius: 8px;
       }
       .link-group-main .mirror-links a:hover {
         background-color: #1b5e20;
@@ -309,7 +331,7 @@
         .link-group-main {
           background: #0d2926;
           border-color: #1a4a44;
-          border-left-color: #26a69a;
+          /* border-left-color: #26a69a; */
         }
         .link-group-main h3 {
           color: #4db6ac;
@@ -323,6 +345,12 @@
           background-color: #1b5e20;
           border-color: #1b5e20;
           color: white;
+        }
+      }
+      @media (max-width: 599px) {
+        .link-group-main {
+          padding: 2rem 1.25rem;
+          /* min-height: 140px; */
         }
       }
 
@@ -347,15 +375,13 @@
         <h2>Page Not Found</h2>
         <!-- <h2>404 Page Not Found / Mirror Backups</h2> -->
 
-        <hr />
+        <!-- <hr /> -->
 
         <div class="link-group link-group-main">
           <h3>🏠 Main Page</h3>
           <p>
-            <p>
-          The page you were trying to view might have moved, please return to
-          the Main Page and try again.
-        </p>
+            The page you were trying to view might have moved, please return to
+            the Main Page and try again.
           </p>
           <div class="mirror-links">
             <a href="../books/index.html" target="_blank">Return to the Main Page</a>
