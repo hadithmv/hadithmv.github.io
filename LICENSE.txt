@@ -1,0 +1,34 @@
+Hadithmv
+
+    Hadithmv is licensed under the terms and conditions below. By using Hadithmv in any way, you are agreeing to them.
+
+General Use:
+    
+    1. Interpretation of these terms and conditions is at the discretion of the Developer.
+    
+    2. The Developer reserves the right to make final decisions regarding the terms and services.
+
+    3. Hadithmv should not be used in any way against the methodology of Ahlu-Sunnah-wal-Jamaa’ah (Ahlul Hadith). Where there are resources contaning the sayings of Ahlul-Bid’ah and the Zanadiqah (Jahmiyyah, Ashaa’irah, Murjiah, Khawarij, Rawafid, Sufiyyah, Mu’tazilah, Maaturidhiyyah, Qadariyyah, etc.), then there should be included a warning against them as well.
+
+Content Usage:
+
+    1. Permission is granted, without cost, to view, use, copy and distribute the content of Hadithmv, subject to the following conditions:
+        a. The usage falls under fair use and is not substantial.
+        b. The usage is non-commercial in nature.
+    Anything else requires permission from the respective owners.
+
+Ownership:
+
+    1. Original contributions to Hadithmv by the Developer and other parties are considered to be directly part of the core Hadithmv project, and fall under this license, subject to the stated terms and conditions.
+
+    2. Other than the above submissions to Hadithmv, third-party works, including but not limited to text, images, and multimedia, belong to their respective owners. This material is presented for educational and non-commercial purposes only. It is intended for fair use with the utmost respect for the original creators. No claim of ownership is made to any such material.
+
+Liability:
+
+    1. Hadithmv is provided "as is", without warranty of any kind. This includes, but is not limited to, the warranties of merchantability, fitness for a particular purpose, and noninfringement. The Developer and copyright holders shall not be liable for any claims, damages, or other liabilities arising from its use, whether in contract, tort, or otherwise.
+
+Future Changes and Termination:
+
+    1. The Developer may revoke or change these terms and conditions at any time.  Continued use of the service constitutes acceptance of the updated terms.
+
+    2. If the original Developer is deceased, Hadithmv becomes a Waqf and fully open-source under the MIT license.
