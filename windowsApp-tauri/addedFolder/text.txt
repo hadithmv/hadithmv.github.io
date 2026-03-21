@@ -19,6 +19,7 @@ Building
 Tauri builds your application directly from its CLI via the build, android build and ios build commands.
 npm run tauri build
 
+then you can get the .exe file from:
 D:\hadithmv\hadithmv.github.io\windowsApp-tauri\Hadithmv\src-tauri\target\release
 
 ...
