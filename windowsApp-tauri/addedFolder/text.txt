@@ -8,8 +8,7 @@ npm install @tauri-apps/cli@latest @tauri-apps/api@latest
 
 ...
 
-Start the development server
-can take a little while
+Start the development server (can take a little while)
 npm run tauri dev
 
 like hadithmv.github.io\windowsApp-tauri\Hadithmv> npm run tauri dev
@@ -120,3 +119,51 @@ Versioning
 
 Signing
 
+
+...
+...
+
+ Error Found version mismatched Tauri packages. Make sure the NPM package and Rust crate versions are on the same major/minor releases:
+tauri (v2.1.1) : @tauri-apps/api (v2.10.1)
+
+To fix the Tauri version mismatch error, you need to align the versions of your @tauri-apps/api NPM package and the tauri Rust crate to the same major and minor releases. 
+Tauri 2.0
+Tauri 2.0
+The error indicates you have:
+tauri (Rust crate): v2.1.1
+@tauri-apps/api (NPM package): v2.10.1 
+These minor versions (1 and 10) are incompatible. You should update one to match the other. 
+
+Steps to Fix the Mismatch
+You have two main options: update the Rust crate to v2.10.x or downgrade the NPM package to v2.1.x (or update both to the absolute latest version if desired). Updating to the latest version is generally recommended. 
+Option 1: Update the Rust crate (Recommended) 
+Navigate to the src-tauri directory in your terminal:
+bash
+cd src-tauri
+Edit the Cargo.toml file to update the tauri dependency version string. Change it to match the major/minor version of your NPM package, or a compatible version. For example:
+toml
+[dependencies]
+tauri = { version = "2.10.1", features = ["# add your features here #"] }
+# You may also need to update tauri-build or other plugins to match
+tauri-build = { version = "2.10.0" } # Example compatible version
+Run cargo update in the src-tauri directory to fetch the specified version and update the lock file.
+bash
+cargo update
+ 
+Tauri v1
+Tauri v1
+ +4
+Option 2: Update the NPM package
+Navigate to your project's root directory in your terminal.
+Update the @tauri-apps/api package using your preferred package manager (npm, yarn, or pnpm):
+bash
+npm update @tauri-apps/api
+# or
+yarn upgrade @tauri-apps/api
+# or
+pnpm update @tauri-apps/api
+You may need to update the @tauri-apps/cli as well:
+bash
+npm update @tauri-apps/cli
+After updating the NPM packages, you might need to align the tauri Rust crate to the new version if it doesn't match the new minor version of @tauri-apps/api. Check your src-tauri/Cargo.toml and potentially run cargo update in src-tauri. 
+Once the versions are synced (e.g., both are v2.10.x or both are v2.1.x), the error should be resolved, and you can run your application using your command (e.g., npm run tauri dev). 
