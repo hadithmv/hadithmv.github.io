@@ -286,6 +286,46 @@
         }
       }
 
+      /* Main Page link-group — distinct teal card + green button */
+      .link-group-main {
+        background: #e0f2f1;
+        border: 1px solid #80cbc4;
+        border-left: 4px solid #00897b;
+      }
+      .link-group-main h3 {
+        color: #00695c;
+      }
+      .link-group-main .mirror-links a {
+        color: white;
+        border-color: #2e7d32;
+        background-color: #2e7d32;
+      }
+      .link-group-main .mirror-links a:hover {
+        background-color: #1b5e20;
+        border-color: #1b5e20;
+        color: white;
+      }
+      @media (prefers-color-scheme: dark) {
+        .link-group-main {
+          background: #0d2926;
+          border-color: #1a4a44;
+          border-left-color: #26a69a;
+        }
+        .link-group-main h3 {
+          color: #4db6ac;
+        }
+        .link-group-main .mirror-links a {
+          background-color: #2e7d32;
+          color: white;
+          border-color: #2e7d32;
+        }
+        .link-group-main .mirror-links a:hover {
+          background-color: #1b5e20;
+          border-color: #1b5e20;
+          color: white;
+        }
+      }
+
       .mirror-links a {
         background-color: white;
       }
@@ -309,8 +349,8 @@
 
         <hr />
 
-        <div class="link-group">
-          <h3>↩️ Main Page</h3>
+        <div class="link-group link-group-main">
+          <h3>🏠 Main Page</h3>
           <p>
             <p>
           The page you were trying to view might have moved, please return to
