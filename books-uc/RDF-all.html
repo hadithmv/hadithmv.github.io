@@ -541,10 +541,10 @@
           //
           ...columnDefsconfig,
         ],
-        // Color Class rows from RDF-Rasmee.json
+        // Color Class rows from RDF-rasmee.json
         createdRow: function (row, data, dataIndex) {
           // data[6] contains the source file name (hidden column)
-          if (data[6] === "RDF-Rasmee.json") {
+          if (data[6] === "RDF-rasmee.json") {
             $(row).addClass("rasmee-row");
           }
         },
