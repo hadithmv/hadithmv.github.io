@@ -178,7 +178,7 @@
 
       /* CUSTOM PAGE STUFF */
 
-      /* Styling for RFF-Rasmee.json rows */
+      /* Styling for RDF-Rasmee.json rows */
       #tableID > tbody > tr.rasmee-row > td,
       .red-color-class {
         color: #dc2626; /* Dark red for light mode CC0000 */
@@ -298,7 +298,7 @@
           keepColumns: [0, 2, 3],
           orderColumns: [5, 0, 1, 3, 2, 4], // here, 5 and 2 are empty columns that i moved around to get the wanted columns in the right place, default order would be [0, 1, 2, 3, 4, 5]
         },
-        "asmaullahilHusna.json": {
+        "AQD-asmaullahilHusna.json": {
           // # ar dv en dvmean src cat
           keepColumns: [1, 2, 3, 4],
         },
@@ -322,7 +322,7 @@
           //orderColumns: [5, 4, 2, 3, 1, 0], // Optional: specify desired column order
           //newColumns: ["All"],
         },
-        "quranBakurube-w2w.json": {
+        "QRN-bakurube-w2w.json": {
           // ar dv en
           keepColumns: [0, 1, 2],
         },
@@ -541,10 +541,10 @@
           //
           ...columnDefsconfig,
         ],
-        // Underline rows from RFF-Rasmee.json
+        // Underline rows from RDF-Rasmee.json
         createdRow: function (row, data, dataIndex) {
           // data[6] contains the source file name (hidden column)
-          if (data[6] === "RFF-Rasmee.json") {
+          if (data[6] === "RDF-Rasmee.json") {
             $(row).addClass("rasmee-row");
           }
         },
