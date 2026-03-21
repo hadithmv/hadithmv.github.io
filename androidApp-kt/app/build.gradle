@@ -10,12 +10,12 @@ base {
 
 android {
     namespace 'com.hadithmv.hmv'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.hadithmv.hmv"
         minSdk 24
-        targetSdk 35
+        targetSdk 36
         versionCode 96
         versionName "6.7.46"
 
