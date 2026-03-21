@@ -84,6 +84,14 @@ try {
                 if ($content -match $file.Pattern) {
                     $fileVersion = $matches[1]
                     
+                    # Check if the version is already up to date
+                    if ($fileVersion -eq $currentVersion) {
+                        Write-Host "✅ " -ForegroundColor Green -NoNewline
+                        Write-Host "(Already up to date: $fileVersion)" -ForegroundColor Cyan
+                        $versionSuccessCount++
+                        continue
+                    }
+                    
                     # Replace the version in the file with the one from navbar.js
                     $replacement = $file.Replacement -f $currentVersion
                     $newContent = $content -replace $file.Pattern, $replacement
