@@ -585,7 +585,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "ސޭވްކުރި ސަފުހާގެ ލިންކު ޕޭސްޓްކުރޭ",
     );
     inputElement.style.removeProperty("--placeholder-color");
-    inputElement.style.removeProperty("--border-color");
+    inputElement.style.xremoveProperty("--border-color");
   });
 });
 
