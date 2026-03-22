@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.androidWebViewOfflineApplication" parent="android:Theme.Material.Light.NoActionBar">
+
+        <!-- added this to set statusbar color from grey to black -->
+        <!-- <item name="android:statusBarColor">@android:color/black</item> -->
+
+                <!-- Change to transparent for consistency with dark theme, need to apply these to the night theme too -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        
+        <!-- Add this to ensure dark status bar icons for better visibility on light background -->
+        <item name="android:windowLightStatusBar">true</item>
+
+<!--        https://stackoverflow.com/questions/79095037/android-15-edge-to-edge-mode-hide-a-top-view/79095115#79095115 -->
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+<!--        it seems i need to add this in the night theme xml code too, for it to work on dark mode-->
+
+    </style>
+
+    <!-- Splash screen theme -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Set the splash screen background color -->
+        <!-- <item name="windowSplashScreenBackground">@color/white</item> -->
+        
+        <!-- Use your app icon as the splash image -->
+        <!-- <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item> -->
+        <!-- https://developer.android.com/develop/ui/views/launch/splash-screen -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        
+        <!-- Set the theme that will be used after the splash screen -->
+        <item name="postSplashScreenTheme">@style/Theme.androidWebViewOfflineApplication</item>
+    </style>
+</resources>

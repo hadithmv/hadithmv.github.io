@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="barckground-cover-gradient"></div>
+
+
+<div class="top-bar">
+    <button class="menu-button" id="menuButton" onclick="openSidebar()">☰ Menu</button>
+    <button class="close-button" id="closeButton" onclick="closeSidebar()">X Close</button>
+</div>
+</div>
+
+
+<div class="sidebar" id="sidebar">
+    <ul>
+        <li><button onclick="showDialog()">About</button></li>
+    </ul>
+</div>
+
+
+<div class="content" id="content" onclick="closeSidebarIfOutside(event)">
+    <h1>Welcome to the Android WebView Offline Application</h1>
+</div>
+
+<dialog id="htmlDialog">
+    <h4>About The App</h4>
+    <p>This app is made with HTML CSS JavaScript and Android WebView. Works Offline.</p>
+    <div class="dialog-buttons">
+        <button onclick="closeDialog()">Close</button>
+    </div>
+</dialog>
+
+<script src="script.js"></script>
+</body>
+</html>
