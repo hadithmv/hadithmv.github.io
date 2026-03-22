@@ -17,7 +17,7 @@ android {
         minSdk 24
         targetSdk 36
         // REMEMBER TO INCREMENT THIS BELOW EVERYTIME B4 FINAL RELEASE TO PLAY STORE
-        versionCode 98
+        versionCode 99
         versionName "6.7.72"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
