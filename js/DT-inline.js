@@ -57,8 +57,8 @@ function toggleTashkeel() {
     // Remove tashkeel from each cell that contains a string
     const newData = originalData.map((row) =>
       row.map((cell) =>
-        typeof cell === "string" ? removeThashkeel(cell) : cell
-      )
+        typeof cell === "string" ? removeThashkeel(cell) : cell,
+      ),
     );
     // Update the table with the new data
     table.clear().rows.add(newData).draw(false);
@@ -560,7 +560,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function collapseSubSubBabDropdowns(rootElement) {
       // Select only the active sub-sub-bab-dropdown items
       const subSubBabDropdowns = rootElement.querySelectorAll(
-        "li > ul > li.active"
+        "li > ul > li.active",
       );
       subSubBabDropdowns.forEach((item) => {
         // Remove the active class to collapse the sub-sub-bab-dropdown
@@ -605,7 +605,7 @@ let columnDefsconfig = [
           // double newlines
           .replace(
             /(\r\n\r\n|\n\n|\r\r)+/g,
-            '\t<br class="dtBr">\t<br class="dtBr">'
+            '\t<br class="dtBr">\t<br class="dtBr">',
           )
           // single newlines
           .replace(/(\r\n|\n|\r)+/g, '\t<br class="dtBr">')
@@ -944,7 +944,8 @@ Object.assign(DataTable.defaults, {
     //lengthMenu: "ބަރި ދައްކާ _MENU_",
     loadingRecords: "ތައްޔާރުވަނީ... ⏳",
     search: "",
-    searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"، !މިލަފްޒު ނުލާ ހޯދާ',
+    searchPlaceholder: "ސާޗްކުރުމަށް...",
+    // searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"، !މިލަފްޒު ނުލާ ހޯދާ',
     zeroRecords: "– ނުފެނުނު 🗨️ –",
     paginate: {
       first: "<< ",
