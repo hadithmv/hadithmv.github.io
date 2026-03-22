@@ -207,24 +207,7 @@ function createNavbar() {
             target="_blank"
             class="versionNo"><span class="versionIcon"></span>އިސްދާރު: v${hmvVersionNo}</a>
       </li>
-      <li>
-         <a href="https://t.me/ashraafmv" target="_blank" title="Message on Telegram"
-            ><span class="authorIcon"></span>ފަރުމާކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a
-            >
-      </li>
-      <li>
-         <a style="font-size: 90%" onclick="openDiv()"
-            >- މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</a
-            >
-      </li>
       <hr>
-      <li class="wide-screen-toggle">
-         <!-- onclick='document.querySelector(".dtWrapper").style.maxWidth="none";' -->
-         <a href="#" 
-            onclick='const wrapper = document.querySelector(".dtWrapper"); 
-            wrapper.style.maxWidth = wrapper.style.maxWidth === "none" ? "980px" : "none"; 
-            return false;'><span class="fullScreenIcon"></span>ވައިޑް ސްކްރީން</a >
-      </li>
       <li>
          <a href="#"
             onclick='window.scrollTo({top:0,behavior:"smooth"})'  title="Scroll Up"
@@ -247,10 +230,6 @@ function createNavbar() {
                   >
             </li>
          </ul>
-      </li>
-      <li>
-         <a href="https://github.com/hadithmv/hadithmv.github.io"
-            target="_blank" title="Github"><span class="githubIcon"></span>ގިޓްހަބް</a>
       </li>
    </ul>
 </div>
