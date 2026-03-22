@@ -1,4 +1,4 @@
-package com.hadithmv.hmv
+package com.jaufar.tafsir
 
 import android.annotation.SuppressLint
 import android.os.Bundle

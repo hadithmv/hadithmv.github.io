@@ -5,15 +5,15 @@ plugins {
 }
 
 base {
-    archivesName = "hadithmv"
+    archivesName = "jaufarTafsirApp"
 }
 
 android {
-    namespace 'com.hadithmv.hmv'
+    namespace 'com.jaufar.tafsir'
     compileSdk 36
 
     defaultConfig {
-        applicationId "com.hadithmv.hmv"
+        applicationId "com.jaufar.tafsir"
         minSdk 24
         targetSdk 36
         // REMEMBER TO INCREMENT THIS BELOW EVERYTIME B4 FINAL RELEASE TO PLAY STORE

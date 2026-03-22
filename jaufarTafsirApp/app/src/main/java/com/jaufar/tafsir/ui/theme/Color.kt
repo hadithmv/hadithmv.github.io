@@ -1,4 +1,4 @@
-package com.hadithmv.hmv.ui.theme
+package com.jaufar.tafsir.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
