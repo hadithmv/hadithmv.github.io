@@ -265,19 +265,24 @@ const additionalJsons = [
     title: "ރަސްމު އުޘްމާނީ:",
   },
   {
-    name: "QRN-hadithmv",
+    name: "jaufarTafsir",
     columns: [0],
-    title: "ޙަދީޘްއެމްވީ ތަރުޖަމާ:",
+    title: "ޖަޢުފަރުގެ ތަފްސީރު:",
   },
-  { name: "QRN-rasmee", columns: [0, 1], title: "ރަސްމީ ތަރުޖަމާ:" },
-  {
-    name: "QRN-bakurube",
-    columns: [0, 1],
-    title: "ބަކުރުބެގެ ތަރުޖަމާ:",
-  },
-  { name: "QRN-soabuni", columns: [0, 1, 2, 3], title: "ޞގެ ތަފްސީރު:" },
-  { name: "QRN-mukhtasar", columns: [0], title: "مختصر التفسير:" },
-  { name: "QRN-muyassar", columns: [0], title: "التفسير الميسر:" },
+  // {
+  //   name: "QRN-hadithmv",
+  //   columns: [0],
+  //   title: "ޙަދީޘްއެމްވީ ތަރުޖަމާ:",
+  // },
+  // { name: "QRN-rasmee", columns: [0, 1], title: "ރަސްމީ ތަރުޖަމާ:" },
+  // {
+  //   name: "QRN-bakurube",
+  //   columns: [0, 1],
+  //   title: "ބަކުރުބެގެ ތަރުޖަމާ:",
+  // },
+  // { name: "QRN-soabuni", columns: [0, 1, 2, 3], title: "ޞގެ ތަފްސީރު:" },
+  // { name: "QRN-mukhtasar", columns: [0], title: "مختصر التفسير:" },
+  // { name: "QRN-muyassar", columns: [0], title: "التفسير الميسر:" },
 ];
 
 // Default translation to load
