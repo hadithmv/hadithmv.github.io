@@ -983,21 +983,23 @@ Object.assign(DataTable.defaults, {
     },
     searchBuilder: {
       button: "🔍 ކަސްޓަމް ސާޗް",
-      add: "+ އިތުރުކުރޭ",
-      condition: "ޝަރުތު",
-      clearAll: "ރީސެޓް",
-      //delete: "Delete",
-      data: "ބަރި",
-      //right: "Right",
-      //left: "Left",
-      logicAnd: "އަދި &",
-      logicOr: "ނޫނީ |",
-      title: {
-        0: "ސާޗް ޝަރުތުތައް",
-        _: "ސާޗް ޝަރުތުތައް (%d)",
-      },
-      value: "ލިޔުން",
-      valueJoiner: "އަދި",
+      data: "Column",
+      // data: "ބަރި",
+      //
+      // add: "+ އިތުރުކުރޭ",
+      // condition: "ޝަރުތު",
+      // clearAll: "ރީސެޓް",
+      // //delete: "Delete",
+      // //right: "Right",
+      // //left: "Left",
+      // logicAnd: "އަދި &",
+      // logicOr: "ނޫނީ |",
+      // title: {
+      //   0: "ސާޗް ޝަރުތުތައް",
+      //   _: "ސާޗް ޝަރުތުތައް (%d)",
+      // },
+      // value: "ލިޔުން",
+      // valueJoiner: "އަދި",
     },
     searchPanes: {
       // https://datatables.net/reference/option/language.searchPanes.collapse

@@ -22,7 +22,7 @@ but that was fixed by updating the keepConditions jquery specific logic to vanil
 
 I NOW DO NOT MINIFY MANUALLY (like CLOSURE+UGLIFY), INSTEAD I USE MINIFIED VERSION FROM OFFICIAL SITE
 
-dataTables.js	2.3.6
+dataTables.js	2.3.7
 
 (then turn off core dt js checkbox)
 
