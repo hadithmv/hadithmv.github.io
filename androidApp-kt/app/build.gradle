@@ -18,7 +18,7 @@ android {
         targetSdk 36
         // REMEMBER TO INCREMENT THIS BELOW EVERYTIME B4 FINAL RELEASE TO PLAY STORE
         versionCode 100
-        versionName "6.7.73"
+        versionName "6.7.76"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
