@@ -35,6 +35,8 @@ class MainActivity : ComponentActivity() {
         private const val PREFS_NAME = "WebViewPrefs"
         // Default URL pointing to local assets
         private const val DEFAULT_URL = "file:///android_asset/books/index.html"
+        // Path to the custom 404 error page
+        private const val ERROR_404_URL = "file:///android_asset/page/404.html"
     }
 
     // WebView instance that will be used throughout the activity's lifecycle
@@ -98,14 +100,17 @@ class MainActivity : ComponentActivity() {
 
                 /**
                  * Called when a page finishes loading. Save the URL to preferences
-                 * for persistence across app restarts.
+                 * for persistence across app restarts, unless it's an error page.
                  *
                  * @param view The WebView that is initiating the callback
                  * @param url The URL of the page that just finished loading
                  */
                 override fun onPageFinished(view: WebView?, url: String?) {
                     super.onPageFinished(view, url)
-                    url?.let { saveLastUrl(it) }
+                    // Only save the URL if it is not the 404 error page
+                    if (url != null && !url.endsWith("404.html")) {
+                        saveLastUrl(url)
+                    }
                 }
 
                 /**
@@ -127,8 +132,12 @@ class MainActivity : ComponentActivity() {
                     if (errorCode == ERROR_FILE_NOT_FOUND || 
                         errorCode == ERROR_HOST_LOOKUP ||
                         description?.contains("net::ERR_FILE_NOT_FOUND") == true) {
-                        // Redirect to custom 404 page when a file or resource is not found
-                        view?.loadUrl("file:///android_asset/page/404.html")
+                        
+                        // Reset the saved URL to Home so the user isn't stuck in a 404 loop
+                        saveLastUrl(DEFAULT_URL)
+                        
+                        // Redirect to custom 404 page
+                        view?.loadUrl(ERROR_404_URL)
                     } else {
                         // For all other errors, use default error handling
                         super.onReceivedError(view, errorCode, description, failingUrl)
