@@ -19,7 +19,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
 /**
  * MainActivity serves as the primary activity for the WebView-based application.
- * It handles URL loading, state persistence, and back button navigation with
+ * It handles URL loading, state persistence, and back navigation with
  * improved memory management and state handling.
  */
 class MainActivity : ComponentActivity() {
@@ -116,6 +116,7 @@ class MainActivity : ComponentActivity() {
                 /**
                  * Handle errors in the legacy WebView error callback.
                  * This method is deprecated but still needed for backward compatibility.
+                 * On older devices, this is only called for the main page.
                  *
                  * @param view The WebView that encountered the error
                  * @param errorCode The code of the error (e.g., ERROR_FILE_NOT_FOUND)
@@ -157,9 +158,12 @@ class MainActivity : ComponentActivity() {
                     request: WebResourceRequest?,
                     error: android.webkit.WebResourceError?
                 ) {
-                    // Delegate to the deprecated method to maintain consistent error handling
-                    error?.let {
-                        onReceivedError(view, it.errorCode, it.description?.toString(), request?.url?.toString())
+                    // CRITICAL: Only trigger the 404 redirect if the MAIN PAGE failed to load.
+                    // If a sub-resource like an image or script fails, we ignore it.
+                    if (request?.isForMainFrame == true) {
+                        error?.let {
+                            onReceivedError(view, it.errorCode, it.description?.toString(), request.url?.toString())
+                        }
                     }
                 }
             }
