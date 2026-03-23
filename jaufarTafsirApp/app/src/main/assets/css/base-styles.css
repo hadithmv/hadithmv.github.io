@@ -220,7 +220,7 @@ body {
   color: var(--color-text-primary);
   background-color: var(--color-bg-primary);
   /* */
-  font-family: "tafsirFontDv", "tafsirFontAr", "Arial", sans-serif, "faruma";
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
   /* text-align: right;
         direction: rtl;
         */
@@ -413,26 +413,15 @@ img {
      Typography - Font
      ========================================================================== */
 
-/* Dv font */
+/* merged font */
 @font-face {
-  font-family: "tafsirFontDv";
-  src: url(../font/MV_Typewriter_Regular.woff2) format("woff2");
-  font-display: block;
-}
-
-/* Ar font */
-@font-face {
-  font-family: "tafsirFontAr";
-  src: url(../font/NotoSansArabic-VariableFont_wdth,wght.woff2) format("woff2");
-  font-display: block;
-}
-
-/* @font-face {
   font-family: "mergedFont";
   src: url(../font/merged-300.woff2) format("woff2"),
     url(../font/merged-300.woff) format("woff");
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display */
   font-display: block;
-} */
+  /* previously swap */
+}
 
 /* https://www.cleancss.com/css-beautify/
   https://github.com/h5bp/html5-boilerplate updated with hassaan's css */
@@ -637,7 +626,7 @@ input::-webkit-search-cancel-button {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  font-family: "tafsirFontDv", "tafsirFontAr", "Arial", sans-serif, "faruma";
+  font-family: "mergedFont", "Arial", sans-serif, "faruma";
   -webkit-font-smoothing: antialiased;
   text-align: right;
   direction: rtl;
@@ -653,15 +642,9 @@ input::-webkit-search-cancel-button {
   color: var(--color-text-primary);
   /* ? */
   border-radius: 0.28571429rem;
-  box-shadow:
-    0 0 0 1px transparent inset,
-    0 0 0 0 rgba(34, 36, 38, 0.15) inset;
-  transition:
-    opacity 0.1s ease,
-    background-color 0.1s ease,
-    color 0.1s ease,
-    box-shadow 0.1s ease,
-    background 0.1s ease;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
+    box-shadow 0.1s ease, background 0.1s ease;
   /* added */
   margin: 5px;
   transition: transform 0.2s ease-out;
