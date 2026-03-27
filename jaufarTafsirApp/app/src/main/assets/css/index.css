@@ -3,7 +3,8 @@
 ======================== */
 
 html {
-  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+  font-family:
+    "mergedFontDv", "mergedFontAr", "Quicksand", sans-serif, "faruma";
   -webkit-font-smoothing: antialiased;
   text-align: right;
   font-size: 120%;
@@ -423,7 +424,8 @@ a > .card {
   transition: 0.3s;
   font-size: 17px;
   /* added */
-  font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
+  font-family:
+    "mergedFontDv", "mergedFontAr", "Quicksand", sans-serif, "faruma";
   color: #eee;
   flex-grow: 1;
   min-width: 20%;
