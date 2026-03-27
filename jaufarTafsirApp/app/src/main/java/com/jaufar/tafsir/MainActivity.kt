@@ -19,7 +19,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
 /**
  * MainActivity serves as the primary activity for the WebView-based application.
- * It handles URL loading, state persistence, and back button navigation with
+ * It handles URL loading, state persistence, and back navigation with
  * improved memory management and state handling.
  */
 class MainActivity : ComponentActivity() {
@@ -35,6 +35,8 @@ class MainActivity : ComponentActivity() {
         private const val PREFS_NAME = "WebViewPrefs"
         // Default URL pointing to local assets
         private const val DEFAULT_URL = "file:///android_asset/books/index.html"
+        // Path to the custom 404 error page
+        private const val ERROR_404_URL = "file:///android_asset/page/404.html"
     }
 
     // WebView instance that will be used throughout the activity's lifecycle
@@ -98,19 +100,23 @@ class MainActivity : ComponentActivity() {
 
                 /**
                  * Called when a page finishes loading. Save the URL to preferences
-                 * for persistence across app restarts.
+                 * for persistence across app restarts, unless it's an error page.
                  *
                  * @param view The WebView that is initiating the callback
                  * @param url The URL of the page that just finished loading
                  */
                 override fun onPageFinished(view: WebView?, url: String?) {
                     super.onPageFinished(view, url)
-                    url?.let { saveLastUrl(it) }
+                    // Only save the URL if it is not the 404 error page
+                    if (url != null && !url.endsWith("404.html")) {
+                        saveLastUrl(url)
+                    }
                 }
 
                 /**
                  * Handle errors in the legacy WebView error callback.
                  * This method is deprecated but still needed for backward compatibility.
+                 * On older devices, this is only called for the main page.
                  *
                  * @param view The WebView that encountered the error
                  * @param errorCode The code of the error (e.g., ERROR_FILE_NOT_FOUND)
@@ -124,11 +130,15 @@ class MainActivity : ComponentActivity() {
                     description: String?,
                     failingUrl: String?
                 ) {
-                    if (errorCode == ERROR_FILE_NOT_FOUND || 
+                    if (errorCode == ERROR_FILE_NOT_FOUND ||
                         errorCode == ERROR_HOST_LOOKUP ||
                         description?.contains("net::ERR_FILE_NOT_FOUND") == true) {
-                        // Redirect to custom 404 page when a file or resource is not found
-                        view?.loadUrl("file:///android_asset/page/404.html")
+
+                        // Reset the saved URL to Home so the user isn't stuck in a 404 loop
+                        saveLastUrl(DEFAULT_URL)
+
+                        // Redirect to custom 404 page
+                        view?.loadUrl(ERROR_404_URL)
                     } else {
                         // For all other errors, use default error handling
                         super.onReceivedError(view, errorCode, description, failingUrl)
@@ -148,32 +158,18 @@ class MainActivity : ComponentActivity() {
                     request: WebResourceRequest?,
                     error: android.webkit.WebResourceError?
                 ) {
-                    // Delegate to the deprecated method to maintain consistent error handling
-                    error?.let {
-                        onReceivedError(view, it.errorCode, it.description?.toString(), request?.url?.toString())
+                    // CRITICAL: Only trigger the 404 redirect if the MAIN PAGE failed to load.
+                    // If a sub-resource like an image or script fails, we ignore it.
+                    if (request?.isForMainFrame == true) {
+                        error?.let {
+                            onReceivedError(view, it.errorCode, it.description?.toString(), request.url?.toString())
+                        }
                     }
                 }
             }
 
             // Configure WebView settings
             settings.apply {
-                // Enable dark mode support
-                if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK) &&
-                    WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)) {
-                    when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                        Configuration.UI_MODE_NIGHT_YES -> {
-                            WebSettingsCompat.setForceDark(this, WebSettingsCompat.FORCE_DARK_ON)
-                            WebSettingsCompat.setForceDarkStrategy(
-                                this,
-                                WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY
-                            )
-                        }
-                        else -> {
-                            WebSettingsCompat.setForceDark(this, WebSettingsCompat.FORCE_DARK_OFF)
-                        }
-                    }
-                }
-
                 // Enable JavaScript execution (required for modern web apps)
                 javaScriptEnabled = true
 
@@ -206,9 +202,8 @@ class MainActivity : ComponentActivity() {
             addJavascriptInterface(object {
                 @JavascriptInterface
                 fun isDarkMode(): Boolean {
-                    return resources.configuration.uiMode and 
-                           Configuration.UI_MODE_NIGHT_MASK == 
-                           Configuration.UI_MODE_NIGHT_YES
+                    // Always return false as dark mode is disabled
+                    return false
                 }
             }, "Android")
 
