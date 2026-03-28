@@ -216,8 +216,4 @@ body {
   }
 }
 
-/* ---- FOUC Fix ---- */
-html {
-  visibility: visible;
-  opacity: 1;
-}
+
