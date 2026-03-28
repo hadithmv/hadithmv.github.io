@@ -1,137 +1,58 @@
-/* ==========================================================================
-    Navbar Styles
-     ========================================================================== */
+/* =======================
+   NAVBAR — Jaufar Tafsir Dark Theme
+======================== */
 
-/* CSS styles for the navbar
-add <div id="navbar-container"></div>
-to html, and link to the js
-*/
-
-/* Add CSS Custom Properties for NAVBAR theming */
+/* ---- Theme Variables ---- */
 :root {
-  /* Light theme */
-  --menu-bg: #235580;
-  --menu-text: #ffffff;
-  /* --nav-shadow: rgba(0, 0, 0, 0.1); */
-  --navbar-dropdown-bg: #0d4266;
-  --navbar-dropdown-hover: #1a5585;
-  --menu-border: rgba(255, 255, 255, 0.1);
+  --nav-bg: rgba(10, 22, 40, 0.88);
+  --nav-text: #e8edf4;
+  --nav-text-muted: rgba(232, 237, 244, 0.6);
+  --nav-border: rgba(255, 255, 255, 0.08);
+  --nav-accent: #4ea8de;
+  --nav-surface: rgba(255, 255, 255, 0.04);
+  --nav-surface-hover: rgba(255, 255, 255, 0.08);
+  --nav-dropdown-bg: rgba(12, 26, 48, 0.95);
+  --nav-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Dark theme */
-    --menu-bg: #1a3f61;
-    --menu-text: #e1e1e1;
-    /* --nav-shadow: rgba(0, 0, 0, 0.3); */
-    --navbar-dropdown-bg: #0a2540;
-    --navbar-dropdown-hover: #2a5075;
-    --menu-border: rgba(255, 255, 255, 0.15);
-  }
-}
-
-/* Optional: Add transition for smooth theme switching */
-/* .navbar,
-  .navbar-side-menu,
-  .navbar-dropdown-content,
-  .sub-navbar-dropdown-content,
-  .sub-sub-navbar-dropdown-content {
-    transition: background-color 0.3s ease, color 0.3s ease;
-  } */
-
-/* END theme styles*/
-
-/* Reset default margins and paddings
-        html,
-        body {
-          margin: 0;
-          padding: 0;
-        }      */
-
-/* Add top padding to body to account for fixed navbar */
+/* ---- Body Padding for Fixed Navbar ---- */
 html body {
-  padding-top: 47px; /* 60px; */
+  padding-top: 56px;
 }
 
-/* When using href attributes with ID targets (anchor links) and a fixed or sticky navigation bar, the target element can sometimes be hidden behind the navbar when the page jumps to it. This occurs because the browser scrolls the target element to the very top of the viewport, not accounting for the fixed-position element occupying that space.
-
-The scroll-padding-top property defines offsets for the top of the optimal viewing region of the scrollport: the region used as the target region for placing things in view of the user. This allows the author to exclude regions of the scrollport that are obscured by other content (such as fixed-positioned toolbars or sidebars) or to put more breathing room between a targeted element and the edges of the scrollport. */
 html {
   scroll-padding-top: 80px;
 }
 
-/* Navbar styles */
+/* ---- Navbar ---- */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 3000; /* 1000 */
+  z-index: 3000;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* material theme builder, source color C0DAF9, primary P-40 */
-  /*background-color: #235580;
-    color: white;*/
-  /* prev 0f4c75 #333; */
-
-  background-color: var(--menu-bg);
-  color: var(--menu-text);
-  /* box-shadow: 0 2px 4px var(--nav-shadow); */
-  /* ??? */
-  height: 50px; /* 60 */
-  /* hassan */
-  /*background-color: #fefefe;
-    box-shadow: 0 2px 2px #cacaca;*/
-  /* */
-
-  padding: 0 15px; /* Consistent padding */
+  height: 56px;
+  padding: 0 16px;
   box-sizing: border-box;
   width: 100%;
-
-  /*
-  When using href attributes with ID targets (anchor links) and a fixed or sticky navigation bar, the target element can sometimes be hidden behind the navbar when the page jumps to it. This occurs because the browser scrolls the target element to the very top of the viewport, not accounting for the fixed-position element occupying that space.
-Several solutions exist to address this issue:
-
-1. CSS scroll-margin-top:
-This is the most modern and recommended CSS-only solution. Apply scroll-margin-top to the target element (the element with the id you are linking to). The value should be equal to or slightly greater than the height of your fixed navbar.
-
-#your-section-id {
-  scroll-margin-top: 80px; 
-}
-  /* Adjust this value based on your navbar height */
-
-  /* 2. CSS scroll-padding-top (on parent container):
-Instead of applying scroll-margin-top to each individual target, you can apply scroll-padding-top to the parent container of your scrollable content. This effectively creates a "padding" at the top of the scrollable area, pushing the content down and preventing it from being obscured by the fixed navbar.  */
-
-  /* Or a more specific scrollable container */
-  /*html { 
-  scroll-padding-top: 80px; 
-}*/
-  /* Adjust this value based on your navbar height */
-
-  /* hassaans style */
-  /*box-shadow: 0 2px 2px #cacaca;*/
-
-  /* DONT WANT */
-  /* transition: transform 0.3s ease-out; */
-  /* for mobile sticky on scroll */
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: var(--nav-text);
+  border-bottom: 1px solid var(--nav-border);
 }
 
-/* DONT WANT */
-/* div class to add on mobile to make it hide on scroll down */
-/* .navbar-hidden {
-  transform: translateY(-100%);
-  transition: transform 0.3s ease-in-out;
-} */
-
+/* ---- Navbar Sections ---- */
 .navbar-left,
 .navbar-center,
 .navbar-right {
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center; /* Center all items */
+  justify-content: center;
   height: 100%;
 }
 
@@ -147,289 +68,255 @@ Instead of applying scroll-margin-top to each individual target, you can apply s
   display: flex;
   align-items: center;
   height: 100%;
-  text-decoration: none; /* Remove underline from link */
+  text-decoration: none;
 }
 
+/* ---- Site Icon ---- */
 .navbar-site-icon {
-  width: 46px;
-  height: 46px;
-  /* Remove cursor: pointer since it's now handled by the anchor tag */
-}
-
-/* Site icon styles */
-.navbar-site-icon {
-  width: 46px; /* 48 40 */
-  height: 46px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
-
-  display: flex; /* Ensure proper alignment */
-  justify-content: center; /* Center all items */
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  transition: transform var(--nav-transition), opacity var(--nav-transition);
+  opacity: 0.9;
 }
 
-/* Page title styles */
+.navbar-site-icon:hover {
+  transform: scale(1.08);
+  opacity: 1;
+}
+
+/* ---- Page Title ---- */
 .navbar-page-title {
-  font-size: 22px; /* Default size for larger screens */
-  white-space: nowrap; /* Prevent line breaks */
-  overflow: hidden; /* Hide overflow */
-  text-overflow: ellipsis; /* Add ellipsis for overflowing text */
-  max-width: 60vw; /* Limit width to 60% of viewport width */
+  font-size: 19px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 55vw;
   direction: rtl;
-
-  text-align: center; /* Ensure center alignment */
-  width: 100%; /* Take full width of container */
+  text-align: center;
+  width: 100%;
+  color: var(--nav-text);
+  letter-spacing: 0.3px;
+  font-family: "mergedFontDv", "mergedFontAr", sans-serif, "faruma";
 }
 
-/* Menu icon styles */
+/* ---- Menu Icon ---- */
 .navbar-menu-icon {
   font-size: 24px;
   cursor: pointer;
-
-  display: flex; /* Ensure proper alignment */
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px; /* Match the width of the navbar-site-icon */
-  height: 40px; /* Match the height of the navbar-site-icon */
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  transition: background var(--nav-transition);
 }
 
-/* Responsive adjustments for smaller screens */
+.navbar-menu-icon:hover {
+  background: var(--nav-surface-hover);
+}
+
+/* ---- Responsive ---- */
 @media screen and (max-width: 480px) {
   .navbar {
     padding: 0 10px;
+    height: 52px;
   }
-
-  .navbar-site-icon,
+  html body {
+    padding-top: 52px;
+  }
+  .navbar-site-icon {
+    width: 34px;
+    height: 34px;
+  }
+  .navbar-page-title {
+    font-size: 16px;
+  }
   .navbar-menu-icon {
     width: 36px;
     height: 36px;
   }
-
-  .navbar-page-title {
-    font-size: 18px;
-  }
-
-  .navbar-menu-icon {
-    font-size: 22px;
-  }
 }
 
-/* Side menu styles */
+/* =======================
+   SIDE MENU
+======================== */
+
+/* ---- Overlay Backdrop ---- */
+.navbar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--nav-transition), visibility var(--nav-transition);
+}
+
+.navbar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ---- Side Menu Panel ---- */
 .navbar-side-menu {
-  font-size: 19.5px !important;
+  font-size: 17px;
   position: fixed;
   top: 0;
-  right: -300px;
-  width: 275px; /* 300 */
-  /*height: 100%;*/
-  height: 100vh; /* fixes chrome address bar gap issue https://bokand.github.io/demo/urlbarsize.html */
-  transition: right 0.3s ease-in-out;
-  padding: 20px;
+  right: -320px;
+  width: 300px;
+  height: 100vh;
+  transition: right var(--nav-transition);
+  padding: 24px 20px;
   box-sizing: border-box;
   z-index: 1000;
-  /* material theme builder, source color C0DAF9, primary P-40 */
-  /*background-color: #235580;*/
-  /* prev 0f4c75 f1f1f1; */
-  /*color: #eee;*/
-  background-color: var(--menu-bg);
-  color: var(--menu-text);
-  border-left: 1px solid var(--menu-border); /* a */
-  text-align: right; /* Add this line for right-aligned text */
+  background: var(--nav-dropdown-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  color: var(--nav-text);
+  border-left: 1px solid var(--nav-border);
+  text-align: right;
   direction: rtl;
-  overflow-y: scroll; /* Add the ability to scroll */
+  overflow-y: auto;
 }
 
-/* Hide scrollbar but keep functionality */
-/* Chrome, Safari and Opera */
+/* Hide scrollbar */
 .navbar-side-menu::-webkit-scrollbar {
   display: none;
 }
-/* Hide scrollbar for IE, Edge and Firefox */
 .navbar-side-menu {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* https://stackoverflow.com/questions/52848856/100vh-height-when-address-bar-is-shown-chrome-mobile 
-        html {
-          height: 100%;
-        } */
-
-/* Side menu open state */
+/* Open state */
 .navbar-side-menu.open {
   right: 0;
 }
 
-/* Side menu close button styles */
+/* ---- Close Button ---- */
 .navbar-side-menu-close {
-  font-size: 24px;
+  font-size: 28px;
   cursor: pointer;
-  /* color: #eee;  */
-  color: var(--menu-text);
-  text-align: left; /* Add this line for right-aligned text. prev right */
+  color: var(--nav-text-muted);
+  text-align: left;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: all var(--nav-transition);
+  margin-bottom: 8px;
 }
 
-/* Side menu list styles */
+.navbar-side-menu-close:hover {
+  color: var(--nav-text);
+  background: var(--nav-surface-hover);
+}
+
+/* ---- Menu Items ---- */
 .navbar-side-menu ul {
   list-style-type: none;
   padding: 0;
-  /* */
   margin: 0;
 }
 
-/* Ensure each li takes full width */
-/* increased from 10 */
-/*  prev 5 which added like a little indent */
-/*.navbar-side-menu ul li {
-    display: block;
-    margin-bottom: 15px;
-    padding-right: 0;
-  }*/
 .navbar-side-menu li {
   margin: 0;
   padding: 0;
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 4px;
 }
 
-.navbar-side-menu li a,
-.navbar-dropdown-label {
-  color: var(--menu-text);
-}
-
-/* Add hover effects */
-.navbar-side-menu li a:hover,
-.navbar-dropdown-label:hover {
-  background-color: var(--navbar-dropdown-hover);
-}
-
-/*.navbar-side-menu ul li a {
-    text-decoration: none;
-    color: #eee; 
-  }*/
-/* #333; */
 .navbar-side-menu li a {
   display: block;
-  /*padding: 12px 16px;*/
-  padding-left: 14px;
-  padding-right: 14px;
-  padding-top: 0;
-  padding-bottom: 0;
-  /* color: #eee; */
+  padding: 10px 14px;
+  color: var(--nav-text);
   text-decoration: none;
+  border-radius: 10px;
+  transition: all var(--nav-transition);
+  font-family: "mergedFontDv", "mergedFontAr", sans-serif, "faruma";
 }
 
-/* Navbar Dropdown styles */
-.navbar-dropdown,
-.sub-navbar-dropdown,
-.sub-sub-navbar-dropdown {
-  position: relative;
-  /*display: block;*/ /* Make dropdown take full width */
-  width: 100%;
-
-  text-align: right; /* Add this line */
-  direction: rtl;
-  cursor: pointer;
-
-  /* */
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Standard */
+.navbar-side-menu li a:hover {
+  background: var(--nav-surface-hover);
+  color: var(--nav-accent);
 }
 
-/*padding: 12px 16px;*/
-/*.navbar-dropdown > a,
-  .sub-navbar-dropdown > a,
-  .sub-sub-navbar-dropdown > a {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-  
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-right: 16px;
-    padding-left: 16px;
-  }*/
+/* Remove base-styles animated underline in side menu */
+.navbar-side-menu li a::after {
+  display: none !important;
+}
+
+/* ---- Dropdown Label ---- */
 .navbar-dropdown-label {
   display: flex;
   align-items: center;
   cursor: pointer;
-  /* color: #eee; */
-  /*padding: 12px 16px;*/
-  padding-left: 16px;
-  padding-right: 16px;
-
+  color: var(--nav-text);
+  padding: 10px 14px;
   width: 100%;
   box-sizing: border-box;
-}
-.navbar-dropdown > .navbar-dropdown-label,
-.sub-navbar-dropdown > .navbar-dropdown-label,
-.sub-sub-navbar-dropdown > .navbar-dropdown-label {
-  padding-right: 16px;
-  padding-left: 16px;
+  border-radius: 10px;
+  transition: all var(--nav-transition);
+  font-family: "mergedFontDv", "mergedFontAr", sans-serif, "faruma";
 }
 
-/* Navbar Dropdown arrow styles */
-.navbar-dropdown-arrow {
-  display: inline-block;
-  margin-left: 10px;
-  transition: transform 0.3s ease;
+.navbar-dropdown-label:hover {
+  background: var(--nav-surface-hover);
+  color: var(--nav-accent);
 }
 
-/* NavbarDropdown content styles */
+/* ---- Dropdowns ---- */
+.navbar-dropdown,
+.sub-navbar-dropdown,
+.sub-sub-navbar-dropdown {
+  position: relative;
+  width: 100%;
+  text-align: right;
+  direction: rtl;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 .navbar-dropdown-content,
 .sub-navbar-dropdown-content,
 .sub-sub-navbar-dropdown-content {
   display: none;
   position: relative;
-  /*background-color: #0d4266;*/
-  /* #f9f9f9; */
-  background-color: var(--navbar-dropdown-bg);
-  /*width: 200px;*/
+  background: rgba(255, 255, 255, 0.02);
   min-width: 160px;
-  /*box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);*/ /* cleaner without shadows */
   z-index: 1;
-  /*  right: 0;  prev added this line to align to the right */
   direction: rtl;
-  text-align: right; /* Add this line for right-aligned text */
-  border-radius: 20px;
-  margin-top: 5px;
-  /*    text-indent: 15px;
-    cursor: pointer; */
-
-  padding-top: 12px !important;
-  padding-bottom: 12px !important;
-  line-height: 2.5;
+  text-align: right;
+  border-radius: 12px;
+  margin-top: 4px;
+  padding: 8px 0;
+  line-height: 2.2;
+  border: 1px solid var(--nav-border);
 }
 
-/* Show navbar dropdown content when active */
 .navbar-dropdown-content.show,
 .sub-navbar-dropdown-content.show,
 .sub-sub-navbar-dropdown-content.show {
   display: block;
 }
 
-/* Styles for list items within navbar dropdowns */
 .navbar-dropdown-content li,
 .sub-navbar-dropdown-content li,
 .sub-sub-navbar-dropdown-content li {
   padding: 0;
-  /* added. this makes the line gaps even. important overrides the parent margin given to this */
   margin: 0 !important;
 }
 
-/*.navbar-dropdown-content a,
-  .sub-navbar-dropdown-content a,
-  .sub-sub-navbar-dropdown-content a {
-    color: #eee;
-    text-decoration: none !important;
-    display: block;
-    padding: 12px 16px;
-  }*/
-/* display was grid before, and block before that */
-
-/* Remove specific styling for sub-navbar-dropdown and sub-sub-navbar-dropdown */
 .sub-navbar-dropdown,
 .sub-sub-navbar-dropdown {
   padding-right: 0;
@@ -440,163 +327,69 @@ Instead of applying scroll-margin-top to each individual target, you can apply s
   content: none;
 }
 
-#sideMenu hr {
-  border-bottom-color: var(--menu-text);
-  opacity: 0.5;
-  /* margin-top: 1.25em;
-  margin-bottom: 1.25em; */
+/* ---- Dropdown Arrow ---- */
+.navbar-dropdown-arrow {
+  display: inline-block;
+  margin-left: 10px;
+  transition: transform 0.3s ease;
 }
 
-/* Hide the element by default */
+/* ---- Side Menu Divider ---- */
+#sideMenu hr {
+  border: none;
+  border-bottom: 1px solid var(--nav-border);
+  margin: 12px 0;
+  opacity: 0.6;
+}
+
+/* Wide screen toggle */
 #sideMenu .wide-screen-toggle {
   display: none;
 }
 
-/* Show it only when viewport is wider than 980px */
 @media screen and (min-width: 981px) {
   #sideMenu .wide-screen-toggle {
-    display: block; /* or list-item, depending on your layout */
+    display: block;
   }
 }
 
-/* */
-
-/* */
-
-/* */
-
-/* */
-
-/* */
-
-/* */
-
-/* CLAUDE
-  
-  code for me a nice modern top navbar
-  
-  it should be responsive
-  
-  at the top left should be the site icon
-  
-  at the middle should be the text of the page, should be same as title of the html
-  
-  on the left should be something like a hamburger menu icon
-  
-  on the navbar, clicking on the top left site icon should take me to the home page
-  
-  clicking anywhere else on the navbar, should open the side menu from the right
-  
-  it should have lines of text, links etc. right aligned. it should also have dropdowns that when clicked, open a dropdown list.
-  
-  this navbar should be such that, i can place its js code on a page, and it will create the navbar on that page, using html elements
-  
-  write me the code, the html, the css, the js, for this
-  
-  ...
-  
-  clicking the hamburger doesnt open the side menu. it should open the side menu just like clicking anywhere else on the navbar. right now hamburger is clicked like it is something different from navbar. it is a part of navbar and clicking the hamburger icon should behave as if navbar was clicked
-  
-  the side menu shows itself behind the other body elements in the html
-  
-  i want to make the site icon larger, without making the navbar larger
-  
-  menu scrolls out of view when scrolling
-  
-  on mobile chrome, which has its own top navbar, when i scroll down, the top navbar of chrome goes up and disappears. in that moment, the bottom of the side menu is gone, and the body html can be seen
-  
-  ...
-  
-  in addition to dropdowns, i want sub-dropdowns, and sub-sub-dropdowns, in which can be text, or links
-  
-  feel free to change the code of the dropdowns itself, before making the other changes needed
-  
-  dropdowns sub dropdowns and sub sub dropdowns should not appear with just hover. they should be clicked on top appear.
-  
-  and i dont want them appearing to the side. they should appear below.
-  
-  ބައިތައް
-  only opens when i click the text itself, not when i click the area of the li it is in
-  
-  the a or the li of each nested dropdown moves a little to the left each level. i want them to be in the same space that the top level is in.
-  
-  also instead of the ▼ that appears before a dropdown or sub  or sub sub dropdown is opened, and disapears after it is opened,
-  
-  there should be a  ▼ arrow before the dropdown item text with a little space between them, the arrow should initially point towards the left where sub dropdowns are further nested, then when that dropdown is opened, the arrow should rotate to facing down. when a dropdown is closed, the down facing arrow should rotate to facing left again. no matter the level of nesting.
-  */
-
-/* =============================  */
-/* FOUC FIX */
-
-html {
-  visibility: visible;
-  opacity: 1;
+/* ---- Version badge ---- */
+.versionNo a {
+  font-size: 14px !important;
+  color: var(--nav-text-muted) !important;
 }
 
 /* =======================
-= NAV ICONS
+   NAV ICONS
 ======================== */
-/* .customIcons */
+
 #sideMenu > ul > li > a > span {
   background-size: 100%;
-  /*  */
   display: inline-block;
-  width: 24px;
-  height: 24px;
-  /*  */
-
-  filter: invert(100%);
-  vertical-align: middle;
-  /*  */
-  margin-left: 10px;
-}
-
-/* Shared base class for all icons */
-.iconBase {
-  display: inline-block;
-  width: 26px;
-  height: 26px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 80% 80%;
+  width: 22px;
+  height: 22px;
   filter: invert(100%);
   vertical-align: middle;
   margin-left: 10px;
+  opacity: 0.7;
 }
-
-/*  */
 
 .hamburgerIcon {
   display: inline-block;
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100% 100%;
   filter: invert(100%);
   vertical-align: middle;
-  margin-left: 10px;
-  /*  */
+  opacity: 0.85;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' fill-rule='evenodd' d='M3.464 20.535C4.93 22 7.286 22 12 22c4.714 0 7.071 0 8.535-1.465C22 19.072 22 16.714 22 12s0-7.071-1.465-8.536C19.072 2 16.714 2 12 2S4.929 2 3.464 3.464C2 4.93 2 7.286 2 12c0 4.714 0 7.071 1.464 8.535ZM18.75 16a.75.75 0 0 1-.75.75H6a.75.75 0 0 1 0-1.5h12a.75.75 0 0 1 .75.75ZM18 12.75a.75.75 0 0 0 0-1.5H6a.75.75 0 0 0 0 1.5h12ZM18.75 8a.75.75 0 0 1-.75.75H6a.75.75 0 0 1 0-1.5h12a.75.75 0 0 1 .75.75Z' clip-rule='evenodd'/%3E%3C/svg%3E");
 }
 
 .homeIcon {
   margin-right: -1px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m16.51 5.01-1.96-1.96c-1.4-1.4-3.7-1.4-5.1 0L7.49 5.01c-.39.39-.39 1.03 0 1.42l3.81 3.81c.39.39 1.02.39 1.41 0l3.81-3.81c.38-.39.38-1.03-.01-1.42ZM5.01 7.492l-1.96 1.96c-1.4 1.4-1.4 3.7 0 5.1l1.96 1.96c.39.39 1.02.39 1.41 0l3.81-3.81a.996.996 0 0 0 0-1.41l-3.8-3.8c-.39-.39-1.03-.39-1.42 0Zm15.94 1.96-1.96-1.96a.996.996 0 0 0-1.41 0l-3.81 3.81a.996.996 0 0 0 0 1.41l3.81 3.81c.39.39 1.02.39 1.41 0l1.96-1.96c1.4-1.41 1.4-3.71 0-5.11ZM7.49 18.99l1.96 1.96c1.4 1.4 3.7 1.4 5.1 0l1.96-1.96a.996.996 0 0 0 0-1.41l-3.81-3.81a.996.996 0 0 0-1.41 0l-3.81 3.81c-.38.38-.38 1.02.01 1.41Z'/%3E%3C/svg%3E");
-}
-
-.dropdownIcon {
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  vertical-align: middle;
-  transition: transform 0.3s ease;
-  margin-left: 15px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  filter: invert(100%);
-  /*  */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cpath d='M701.14 299.05 444.87 620.14c-24.31 29.37-61.78 29.37-85.09 0L103.52 299.05c-24.31-30.4-12.16-53.68 25.32-53.68h546.99c38.51 0 49.63 23.31 25.32 53.68Z' style='stroke:%23000;stroke-miterlimit:100;stroke-width:80px'/%3E%3C/svg%3E");
 }
 
 .contactIcon {
@@ -619,17 +412,6 @@ html {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800' viewBox='0 0 24 24'%3E%3Cg fill='none'%3E%3Cpath d='M24 0v24H0V0h24ZM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01-.184-.092Z'/%3E%3Cpath fill='%23000' d='M20.245 14.75c.935.614.892 2.037-.129 2.576l-7.181 3.796a2 2 0 0 1-1.87 0l-7.181-3.796c-1.02-.54-1.064-1.962-.129-2.576l.063.04 7.247 3.832a2 2 0 0 0 1.87 0l7.181-3.796a1.59 1.59 0 0 0 .13-.076Zm0-4a1.5 1.5 0 0 1 0 2.501l-.129.075-7.181 3.796a2 2 0 0 1-1.707.077l-.162-.077-7.182-3.796c-1.02-.54-1.064-1.962-.129-2.576l.063.04 7.247 3.832a2 2 0 0 0 1.708.077l.162-.077 7.181-3.796a1.59 1.59 0 0 0 .13-.076Zm-7.31-7.872 7.181 3.796c1.066.563 1.066 2.09 0 2.652l-7.181 3.796a2 2 0 0 1-1.87 0L3.884 9.327c-1.066-.563-1.066-2.089 0-2.652l7.181-3.796a2 2 0 0 1 1.87 0Z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-.authorIcon {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' width='800' height='800' version='1.0' viewBox='-16 -16 96 96'%3E%3Cpath d='m62.828 17.172-16-16a4 4 0 1 0-5.656 5.656l16 16C57.953 23.609 58.977 24 60 24s2.047-.391 2.828-1.172a3.997 3.997 0 0 0 0-5.656zM34.828 9.172A3.998 3.998 0 0 0 32 8H12a3.997 3.997 0 0 0-3.945 3.344L0 58l20.297-19.953C20.125 37.391 20 36.711 20 36c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8c-.711 0-1.387-.125-2.047-.297L6 64l46.656-8.055A3.997 3.997 0 0 0 56 52V32a3.998 3.998 0 0 0-1.172-2.828l-20-20z'/%3E%3C/svg%3E");
-}
-
-/* !! could not simplify and optimize */
-.fullScreenIcon {
-  margin-left: 10px;
-  margin-right: -2px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M22.002 5.754a1.75 1.75 0 0 0-1.75-1.75h-7.247c-.087 0-.173.006-.256.018v7.228h4.83l-.89-1.002a.75.75 0 0 1 1.122-.996l2 2.25a.75.75 0 0 1 0 .996l-2 2.25a.75.75 0 1 1-1.122-.996l.89-1.002h-4.83v7.23c.084.012.169.019.256.019h7.247a1.75 1.75 0 0 0 1.75-1.75V5.754ZM11.25 11.25H6.42l.89-1.002a.75.75 0 0 0-1.12-.996l-2 2.25a.75.75 0 0 0 0 .996l2 2.25a.75.75 0 1 0 1.12-.996l-.89-1.002h4.83v7.23a1.77 1.77 0 0 1-.245.016H3.757a1.75 1.75 0 0 1-1.75-1.75V5.751c0-.966.784-1.75 1.75-1.75h7.248a1.8 1.8 0 0 1 .245.017v7.232Z'/%3E%3C/svg%3E");
-}
-
 .scrollUpIcon {
   height: 20px !important;
   width: 20px !important;
@@ -647,10 +429,25 @@ html {
   background-repeat: no-repeat;
   background-size: contain;
   filter: invert(100%);
-  /*  */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 23.54 24'%3E%3Cpath d='M11.77 0c-15.69.07-15.69 23.93 0 24 15.69-.07 15.69-23.93 0-24Zm5 20-1.36-2.04C10.95 20.87 4.63 17.33 4.77 12h2c-.11 3.77 4.37 6.31 7.53 4.29L12.77 14h5.72l-1.72 6Zm0-8c.11-3.77-4.37-6.31-7.53-4.29L10.77 10H5.05l1.72-6 1.36 2.04c4.46-2.91 10.78.63 10.64 5.96h-2Z'/%3E%3C/svg%3E");
 }
 
-.githubIcon {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 592.89 600.99'%3E%3Cpath fill-rule='evenodd' d='M296.44.02c337.64-3.77 410.47 498.88 95.15 600.4-15.22 3.03-20.63-6.58-20.63-14.79-1.93-13.27 10.36-124.52-20.04-141.59 66.92-7.63 137.23-33.68 137.23-152.02 0-33.65-11.66-61.12-30.95-82.69 3.13-7.78 13.43-39.12-2.94-81.55 0 0-25.18-8.26-82.54 31.58-48.95-13.75-101.54-13.77-150.48 0-57.42-39.84-82.66-31.58-82.66-31.58-16.32 42.43-6.01 73.77-2.91 81.55-19.2 21.57-30.95 49.04-30.95 82.69 0 118.03 70.16 144.47 136.9 152.26-8.59 7.69-16.38 21.27-19.08 41.2-90.81 34.2-67.35-45.81-133.5-57.36 0 0-29.3-.39-2.05 18.72 41.76 16.33 14.5 101.51 134.59 81.43.15 25.75.42 50.03.42 57.36 0 8.14-5.53 17.67-20.52 14.81C-114.12 499.12-41.13-3.88 296.44.02'/%3E%3C/svg%3E");
+.dropdownIcon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  transition: transform 0.3s ease;
+  margin-left: 12px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: invert(100%);
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cpath d='M701.14 299.05 444.87 620.14c-24.31 29.37-61.78 29.37-85.09 0L103.52 299.05c-24.31-30.4-12.16-53.68 25.32-53.68h546.99c38.51 0 49.63 23.31 25.32 53.68Z' style='stroke:%23000;stroke-miterlimit:100;stroke-width:80px'/%3E%3C/svg%3E");
+}
+
+/* ---- FOUC FIX ---- */
+html {
+  visibility: visible;
+  opacity: 1;
 }

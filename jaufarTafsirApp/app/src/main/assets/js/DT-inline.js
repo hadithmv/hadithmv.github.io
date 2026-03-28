@@ -671,8 +671,6 @@ let DTconfig = {
             // Shown at the very top of the exported document
             // title: * (default) - Use the HTML page's title value.
 
-            //messageBottom: "- ޙަދީޘްއެމްވީ -",
-
             footer: false,
             header: false,
 
@@ -714,9 +712,7 @@ let DTconfig = {
                 var currentSurahName = arabicSurahNames[currentSurahNumber];
                 // Define the lines we want to replace
                 var linesToReplace = [
-                  "ترجمة حديث إم في – ޙަދީޘްއެމްވީ ގުރްއާން ތަރުޖަމާ",
                   "الترجمة الرسمية – ރަސްމީ ގުރްއާން ތަރުޖަމާ",
-                  "التفسير الواضح الميسر – ޞާބޫނީގެ ތަފްސީރު",
                 ];
                 // Replace the specified lines with Surah number and name
                 rows = rows.map(function (row) {
@@ -750,14 +746,6 @@ let DTconfig = {
               return data;
             },
           },
-          /*
-          // regular expression to find instances of \n- ޙަދީޘްއެމްވީ - that are preceded by a single newline and replace them with a double newline.
-              data = data.replace(
-                /(?<!\n)\n- ޙަދީޘްއެމްވީ -/g,
-                "\n\n- ޙަދީޘްއެމްވީ -"
-              );
-              //
-              */
 
           {
             extend: "collection",
@@ -1132,7 +1120,6 @@ Object.assign(DataTable.defaults, {
       titleAttr: "copy",
       text: "⧉ &nbsp; ކޮޕީ",
       //https://datatables.net/reference/api/buttons.exportInfo()
-      messageBottom: "- ޙަދީޘްއެމްވީ -", //messageTop: "- ޙަދީޘްއެމްވީ -",
       //title: "" // default: html page title, prev was: "hadithmv.com",
       // https://datatables.net/reference/button/copy
       footer: false, // if not set to false, leaves an empty blank line

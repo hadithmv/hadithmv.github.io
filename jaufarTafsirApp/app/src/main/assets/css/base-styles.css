@@ -1,93 +1,44 @@
 /* ==========================================================================
-    Theme Colors
+    Theme Colors — Dark First
    ========================================================================== */
 
-/* Add CSS Custom Properties for theming */
-
-/* Base variables */
-
 :root {
-  /* Light theme */
-  --color-bg-primary: #fff;
-  --color-bg-secondary: #e7edf6;
-  --color-bg-tertiary: #dee3eb;
-  --color-bg-quaternary: #ff6467;
-  --color-text-primary: #0a0a0a;
-  --color-text-secondary: #555;
-  --color-border: #c4c6d0;
-  --color-link: #0065cc;
-  --color-highlight: #82b8fa;
-  --color-accent: #286294;
-  --color-header: #0f4c75;
-  --color-selection: #b3d4fc;
-  --color-focus: #235580;
-  --color-divider: #415f91;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Dark theme */
-    color-scheme: dark;
-    --color-bg-primary: #1a1b1e;
-    --color-bg-secondary: #2d2e32;
-    --color-bg-tertiary: #3a3b40;
-    --color-bg-quaternary: #9f0712;
-    --color-text-primary: #e1e1e1;
-    --color-text-secondary: #a0a0a0;
-    --color-border: #4a4b50;
-    --color-link: #66b3ff;
-    --color-highlight: #2d5c99;
-    --color-accent: hsl(210, 52%, 54%);
-    --color-header: #99ccff;
-    --color-selection: #364c63;
-    --color-focus: #4d8ac7;
-    --color-divider: #4d8ac7;
-  }
+  /* Dark theme (default for Jaufar Tafsir app) */
+  color-scheme: dark;
+  --color-bg-primary: #0f1a2e;
+  --color-bg-secondary: #162240;
+  --color-bg-tertiary: #1d2b4a;
+  --color-bg-quaternary: #9f0712;
+  --color-text-primary: #e8edf4;
+  --color-text-secondary: #8899aa;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-link: #4ea8de;
+  --color-highlight: #2d5c99;
+  --color-accent: #4ea8de;
+  --color-header: #7ec8e3;
+  --color-selection: rgba(78, 168, 222, 0.3);
+  --color-focus: #4ea8de;
+  --color-divider: rgba(78, 168, 222, 0.3);
 }
 
 /* Editor & Diff Compare shared variables */
 
 :root {
-  /* added for text editor */
-  --button-bg: #f0f0f0;
-  --button-hover: #007bff;
-  --button-text: #000000;
+  /* Editor & Diff dark theme (default) */
+  --button-bg: #1d2b4a;
+  --button-hover: #4ea8de;
+  --button-text: #e8edf4;
   --button-hover-text: #ffffff;
-  --tab-active: #007bff;
-  --tab-border: #ccc;
-  --textarea-bg: #ffffff;
-  --textarea-text: #000000;
-  --textarea-border: #ccc;
-  /* added for diff compare */
-  --input-bg: #ffffff;
-  --input-border: #ccc;
-  --input-text: #000000;
-  --popup-bg: #ffffff;
-  --popup-text: #000000;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* ... existing dark theme variables ... */
-
-    /* Editor & Diff Compare dark theme */
-    /* added for text editor */
-    --button-bg: #2d2e32;
-    --button-hover: #4d8ac7;
-    --button-text: #e1e1e1;
-    --button-hover-text: #ffffff;
-    --tab-active: #4d8ac7;
-    --tab-border: #4a4b50;
-    --textarea-bg: #2d2e32;
-    --textarea-text: #e1e1e1;
-    --textarea-border: #4a4b50;
-    /* added for diff compare */
-    --input-bg: #1a1b1e;
-    --input-border: #4a4b50;
-    --input-text: #e1e1e1;
-    --popup-bg: #2d2e32;
-    --popup-text: #e1e1e1;
-  }
+  --tab-active: #4ea8de;
+  --tab-border: rgba(255, 255, 255, 0.1);
+  --textarea-bg: #0f1a2e;
+  --textarea-text: #e8edf4;
+  --textarea-border: rgba(255, 255, 255, 0.1);
+  --input-bg: #0f1a2e;
+  --input-border: rgba(255, 255, 255, 0.1);
+  --input-text: #e8edf4;
+  --popup-bg: #162240;
+  --popup-text: #e8edf4;
 }
 
 /* ... OTHER styles ... */
@@ -190,18 +141,13 @@ button {
 }
 
 .copy-success {
-  background-color: #90caf9; /* A moderate blue */
+  background-color: #2e7d32;
   transition: background-color 0.3s;
 }
 
-@media (prefers-color-scheme: dark) {
-  .copy-success {
-    background-color: #2e7d32; /* A brighter dark green */
-  }
-  .copy-feedback {
-    background: rgba(255, 255, 255, 0.8);
-    color: black;
-  }
+.copy-feedback {
+  background: rgba(255, 255, 255, 0.8);
+  color: black;
 }
 
 /* ==========================================================================
@@ -522,12 +468,10 @@ h3 {
   /* margin-top: 2rem; */
 }
 
-/* Add dark mode support */
-@media (prefers-color-scheme: dark) {
-  .warning-box {
-    background: #332d1a;
-    border-left-color: #ffc107;
-  }
+/* Warning box dark styles (always active) */
+.warning-box {
+  background: #332d1a;
+  border-left-color: #ffc107;
 }
 
 /* HELPER CLASSES */
