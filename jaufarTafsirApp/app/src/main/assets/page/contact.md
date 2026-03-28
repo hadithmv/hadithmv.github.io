@@ -13,10 +13,9 @@
 
 ## ގުޅޭނެ ގޮތްތައް
 
-- [ޓެލެގްރާމް](https://t.me/ashraafmv)
-- [ވަޓްސްއެޕް](https://wa.me/qr/FJFBCPFQXUBKJ1)
-- [އީމެއިލް](mailto:yahyasdadmv@gmail.com)
-- [ފޯމު](https://docs.google.com/forms/d/e/1FAIpQLSe8E1vOW0SmVESYCiYMT2VpZWMAfHiISXrcexm1t1NEdl-_iA/viewform)
+- [ޓެލެގްރާމް](https://t.me/jaufarTafsir)
+- [ވަޓްސްއެޕް](https://wa.me/qr/jaufarTafsir)
+- [އީމެއިލް](mailto:jaufarTafsir@gmail.com)
 
 ---
 
