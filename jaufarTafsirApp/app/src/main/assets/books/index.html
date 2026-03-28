@@ -37,34 +37,36 @@
     />
 
     <style>
+      /* Critical styles to prevent FOUC and huge logo */
+      :root {
+        --home-bg: #0a1628;
+      }
       html {
+        background-color: var(--home-bg);
         visibility: hidden;
         opacity: 0;
       }
+      .home-logo {
+        width: 120px;
+        height: 120px;
+        max-width: 120px;
+      }
+      @media (max-width: 599px) {
+        .home-logo {
+          width: 96px;
+          height: 96px;
+        }
+      }
     </style>
 
+    <!-- Load CSS synchronously for local assets to prevent FOUC -->
     <link rel="stylesheet" href="../css/app-theme.css" />
-    <link
-      rel="stylesheet"
-      href="../css/base-styles.css"
-      media="print"
-      onload="this.media = 'all'"
-    />
-    <link
-      rel="stylesheet"
-      href="../css/navbar.css"
-      media="print"
-      onload="this.media = 'all'"
-    />
+    <link rel="stylesheet" href="../css/base-styles.css" />
+    <link rel="stylesheet" href="../css/navbar.css" />
     <script src="../js/navbar.js"></script>
 
     <!-- index specific resources -->
-    <link
-      rel="stylesheet"
-      href="../css/index.css"
-      media="print"
-      onload="this.media = 'all'"
-    />
+    <link rel="stylesheet" href="../css/index.css" />
     <script src="../js/index.js"></script>
   </head>
 
@@ -91,6 +93,8 @@
           alt="Jaufar Tafsir Logo"
           class="home-logo"
           id="homeLogo"
+          width="120"
+          height="120"
         />
       </div>
 

@@ -16,7 +16,7 @@ import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import android.webkit.JavascriptInterface
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import java.io.IOException
+import android.graphics.Color
 
 /**
  * MainActivity serves as the primary activity for the WebView-based application.
@@ -42,6 +42,9 @@ class MainActivity : ComponentActivity() {
         prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
 
         webView = WebView(this).apply {
+            // Set background color immediately to prevent white flash
+            setBackgroundColor(Color.parseColor("#0A1628"))
+
             webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(
                     view: WebView?,
