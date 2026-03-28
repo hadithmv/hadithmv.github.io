@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.7.60";
+var hmvVersionNo = "1.0.60";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
@@ -248,11 +248,7 @@ document.addEventListener("DOMContentLoaded", createNavbar);
                </div>
                <ul class="sub-navbar-dropdown-content">
                   <li>
-                     <a
-                        href="../books/quranHadithmv.html"
-                        onclick="changeBook('quranHadithmv'); return false;" title="Hadithmv Translation"
-                        >1 ޙަދީޘްއެމްވީގެ ތަރުޖަމާ</a
-                        >
+                     
                   </li>
                   <li>
                      <a

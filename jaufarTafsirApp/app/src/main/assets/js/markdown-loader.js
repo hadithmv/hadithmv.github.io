@@ -13,7 +13,7 @@ export const siteConfig = {
   // Site branding elements
   siteName: "jaufarTafsir",
   siteNameDv: "ޖަޢުފަރުތަފްސީރު", // Dhivehi name
-  logo: "https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png",
+  logo: "../img/logo/logo.svg",
 
   // Theme color for browser UI
   themeColor: "#29434e",
