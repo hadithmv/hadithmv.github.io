@@ -1,24 +1,11 @@
 // configuration data
-/* SITE CONFIGURATION
-   Previously in config.js, now integrated here for simplicity
-   Contains all site-wide constants and settings */
-export const siteConfig = {
-  // Site meta description - shown in search results and social shares
-  description:
-    "The Dhivehi Platform for the Sunnah | ދިވެހިންގެ ސުންނަތުގެ މަންސަ",
-
-  // SEO keywords for search engines
-  keywords: "jaufarTafsir, jaufar Tafsir", // truncated for brevity
-
-  // Site branding elements
+var siteConfig = {
+  description: "The Dhivehi Platform for the Sunnah | ދިވެހިންގެ ސުންނަތުގެ މަންސަ",
+  keywords: "jaufarTafsir, jaufar Tafsir",
   siteName: "jaufarTafsir",
-  siteNameDv: "ޖަޢުފަރުތަފްސީރު", // Dhivehi name
+  siteNameDv: "ޖަޢުފަރުތަފްސީރު",
   logo: "../img/logo/logo.svg",
-
-  // Theme color for browser UI
   themeColor: "#29434e",
-
-  // Google Analytics configuration
   analytics: {
     id: "G-HL24Q9NN24",
     script: `
@@ -30,109 +17,100 @@ export const siteConfig = {
   },
 };
 
-/* MARKDOWN PAGE INITIALIZATION
-   Main export function that sets up the markdown page */
-export function initializePage(markdownPath) {
-  // Configure Marked.js parser options
+function initializePage(markdownPath) {
   marked.setOptions({
-    breaks: true, // Convert \n to <br>
-    gfm: true, // Enable GitHub Flavored Markdown
+    breaks: true,
+    gfm: true,
   });
-
-  // Set meta tags and other page metadata
   setMetadata();
-
-  // Begin content loading process
   loadContent(markdownPath);
 }
 
-/* METADATA SETUP
-   Sets all the meta tags for SEO and social sharing */
 function setMetadata() {
-  // Set basic meta tags
-  document.querySelector('meta[name="description"]').content =
-    siteConfig.description;
-  document.querySelector('meta[name="keywords"]').content = siteConfig.keywords;
-
-  // Set schema.org metadata (for rich snippets)
-  document.querySelector('meta[itemprop="description"]').content =
-    siteConfig.siteNameDv;
-  document.querySelector('meta[itemprop="image"]').content = siteConfig.logo;
-
-  // Set OpenGraph meta tags (for social sharing)
-  document.querySelector('meta[property="og:type"]').content = "website";
-  document.querySelector('meta[property="og:image"]').content = siteConfig.logo;
-
-  // Set theme color for browser UI
-  document.querySelector('meta[name="theme-color"]').content =
-    siteConfig.themeColor;
+  var descEl = document.querySelector('meta[name="description"]');
+  if (descEl) descEl.content = siteConfig.description;
+  var kwEl = document.querySelector('meta[name="keywords"]');
+  if (kwEl) kwEl.content = siteConfig.keywords;
+  var itemDescEl = document.querySelector('meta[itemprop="description"]');
+  if (itemDescEl) itemDescEl.content = siteConfig.siteNameDv;
+  var itemImgEl = document.querySelector('meta[itemprop="image"]');
+  if (itemImgEl) itemImgEl.content = siteConfig.logo;
+  var ogTypeEl = document.querySelector('meta[property="og:type"]');
+  if (ogTypeEl) ogTypeEl.content = "website";
+  var ogImgEl = document.querySelector('meta[property="og:image"]');
+  if (ogImgEl) ogImgEl.content = siteConfig.logo;
+  var themeEl = document.querySelector('meta[name="theme-color"]');
+  if (themeEl) themeEl.content = siteConfig.themeColor;
 }
 
-/* CONTENT LOADING
-   Fetches and processes markdown content */
 function loadContent(markdownPath) {
-  fetch(markdownPath)
-    .then((response) => response.text())
-    .then((markdown) => {
-      updateTitle(markdown); // Set page title from markdown
-      renderContent(markdown); // Convert and display markdown
-      loadAnalytics(); // Initialize analytics
-      showContent(); // Make content visible
-    })
-    .catch((error) => {
-      console.error("Error loading markdown:", error);
-      document.getElementById("content").innerHTML =
-        "<p>Error loading content.</p>";
-      showContent(); // Show error message if load fails
-    });
+  // 1) Try Android JS bridge first (most reliable for WebView apps)
+  if (window.Android && typeof window.Android.readAsset === "function") {
+    try {
+      var content = window.Android.readAsset("page/" + markdownPath);
+      if (content && content.length > 0) {
+        processMarkdown(content);
+        return;
+      }
+    } catch (e) {
+      console.error("Android.readAsset failed:", e);
+    }
+  }
+
+  // 2) Fallback to XMLHttpRequest (works with file:// protocol)
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", markdownPath, true);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if ((xhr.status === 200 || xhr.status === 0) && xhr.responseText && xhr.responseText.length > 0) {
+        processMarkdown(xhr.responseText);
+      } else {
+        console.error("XHR failed - status:", xhr.status, "path:", markdownPath);
+        document.getElementById("content").innerHTML =
+          "<p style='text-align:center; padding: 20px;'>Error loading content.</p>";
+        showContent();
+      }
+    }
+  };
+  xhr.send();
 }
 
-/* TITLE UPDATING 
-   Extracts and sets page title from markdown H1 */
+function processMarkdown(markdown) {
+  updateTitle(markdown);
+  renderContent(markdown);
+  loadAnalytics();
+  showContent();
+}
+
 function updateTitle(markdown) {
-  // Look for first H1 header in markdown
-  const titleMatch = markdown.match(/^#\s+(.+)$/m);
+  var titleMatch = markdown.match(/^#\s+(.+)$/m);
   if (titleMatch) {
-    const pageTitle = titleMatch[1];
-    // Update title in various locations
+    var pageTitle = titleMatch[1];
     document.title = pageTitle;
-    document.querySelector('meta[itemprop="name"]').content = pageTitle;
-    document.querySelector('meta[property="og:title"]').content = pageTitle;
+    var itemNameEl = document.querySelector('meta[itemprop="name"]');
+    if (itemNameEl) itemNameEl.content = pageTitle;
+    var ogTitleEl = document.querySelector('meta[property="og:title"]');
+    if (ogTitleEl) ogTitleEl.content = pageTitle;
   }
 }
 
-/* CONTENT RENDERING
-   Converts markdown to HTML and inserts into page */
 function renderContent(markdown) {
   document.getElementById("content").innerHTML = marked.parse(markdown);
 }
 
-/* CONTENT DISPLAY
-   Handles transition from loading to displaying content */
 function showContent() {
-  // Hide loading skeleton
   document.getElementById("skeleton").style.display = "none";
-  // Show main content
   document.getElementById("content").style.display = "block";
-
-  // Make page visible (prevents FOUC)
   document.documentElement.style.visibility = "visible";
   document.documentElement.style.opacity = "1";
 }
 
-/* ANALYTICS SETUP
-   Initializes Google Analytics */
 function loadAnalytics() {
-  // Add gtag.js script
-  const gtagScript = document.createElement("script");
-  gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${siteConfig.analytics.id}`;
+  var gtagScript = document.createElement("script");
+  gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=" + siteConfig.analytics.id;
   gtagScript.async = true;
   document.body.appendChild(gtagScript);
-
-  // Add initialization code
-  const inlineScript = document.createElement("script");
+  var inlineScript = document.createElement("script");
   inlineScript.textContent = siteConfig.analytics.script;
   document.body.appendChild(inlineScript);
 }
-
-// Add skeleton styles to your markdown-page.css
