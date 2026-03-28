@@ -551,8 +551,16 @@ function goToHomePage() {
 function toggleSideMenu() {
   const sideMenu = document.getElementById("sideMenu");
   const overlay = document.getElementById("navOverlay");
+  const hamburger = document.querySelector(".hamburgerIcon");
   sideMenu.classList.toggle("open");
   if (overlay) overlay.classList.toggle("active");
+  if (hamburger) {
+    if (sideMenu.classList.contains("open")) {
+      hamburger.classList.add("hidden");
+    } else {
+      hamburger.classList.remove("hidden");
+    }
+  }
 }
 
 document.addEventListener("click", function (event) {

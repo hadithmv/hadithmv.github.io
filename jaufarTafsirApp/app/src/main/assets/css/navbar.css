@@ -384,7 +384,13 @@ html {
   filter: invert(100%);
   vertical-align: middle;
   opacity: 0.85;
+  transition: opacity 0.3s ease;
 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='100' height='100' viewBox='0 0 72 72'%3E%3Cpath d='M56 48c2.209 0 4 1.791 4 4 0 2.209-1.791 4-4 4-1.202 0-38.798 0-40 0-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4C17.202 48 54.798 48 56 48zM56 32c2.209 0 4 1.791 4 4 0 2.209-1.791 4-4 4-1.202 0-38.798 0-40 0-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4C17.202 32 54.798 32 56 32zM56 16c2.209 0 4 1.791 4 4 0 2.209-1.791 4-4 4-1.202 0-38.798 0-40 0-2.209 0-4-1.791-4-4 0-2.209 1.791-4 4-4C17.202 16 54.798 16 56 16z'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.hamburgerIcon.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .homeIcon {
