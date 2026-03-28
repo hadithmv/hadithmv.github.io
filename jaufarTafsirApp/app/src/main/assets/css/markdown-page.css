@@ -62,7 +62,7 @@ body {
 .app-page #content h3 {
   font-size: 18px;
   font-weight: 600;
-  color: var(--app-accent, #4ea8de);
+  color: var(--app-gold, #d4a560);
   margin-top: 1.5em;
   margin-bottom: 0.5em;
 }
