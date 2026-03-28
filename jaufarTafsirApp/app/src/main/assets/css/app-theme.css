@@ -288,8 +288,4 @@ body {
   animation: appFadeIn 0.6s ease-out both;
 }
 
-/* ---- FOUC fix ---- */
-html {
-  visibility: visible;
-  opacity: 1;
-}
+
