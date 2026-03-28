@@ -3,11 +3,16 @@
    For content pages using the markdown-loader.js system
 ======================== */
 
-/* ---- Typography - Font ---- */
+/* ---- Typography - Fonts ---- */
 @font-face {
-  font-family: "mergedFont";
-  src: url(../font/merged-300.woff2) format("woff2"),
-    url(../font/merged-300.woff) format("woff");
+  font-family: "mergedFontDv";
+  src: url(../font/MV_Typewriter_Regular.woff2) format("woff2");
+  font-display: block;
+}
+
+@font-face {
+  font-family: "mergedFontAr";
+  src: url(../font/NotoSansArabic-VariableFont_wdth,wght.woff2) format("woff2");
   font-display: block;
 }
 
@@ -21,7 +26,7 @@ html {
 
 /* ---- Body ---- */
 body {
-  font-family: "mergedFont", "Arial", sans-serif, "faruma";
+  font-family: "mergedFontDv", "mergedFontAr", sans-serif, "faruma";
   line-height: 1.7;
   margin: 0;
   padding: 0;
