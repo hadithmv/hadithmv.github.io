@@ -1,38 +1,17 @@
-/* CSS Variables */
+/* CSS Variables — Dark First */
 :root {
-  /* Light theme (default) */
-  --qurNav-bg: #fff;
-  --qurNav-text: #333;
-  --qurNav-border: #ccc;
-  --qurNav-hover-bg: #f0f0f0;
-  --qurNav-active-bg: #e0e0e0;
-  --qurNav-dropdown-bg: #fff;
-  --qurNav-button-bg: #f8f9fa;
-  --qurNav-button-hover: #e9ecef;
-
-  --qurNav-scrollbar-bg: #f1f1f1;
-  --qurNav-scrollbar-thumb: #c1c1c1;
-  --qurNav-scrollbar-thumb-hover: #a8a8a8;
-}
-
-/* Dark theme */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* https://stackoverflow.com/questions/65940522/how-do-i-switch-to-chromes-dark-scrollbar-like-github-does */
-    color-scheme: dark;
-    --qurNav-bg: #1a1a1a;
-    --qurNav-text: #e0e0e0;
-    --qurNav-border: #444;
-    --qurNav-hover-bg: #2a2a2a;
-    --qurNav-active-bg: #333;
-    --qurNav-dropdown-bg: #242424;
-    --qurNav-button-bg: #2d2d2d;
-    --qurNav-button-hover: #3d3d3d;
-
-    --qurNav-scrollbar-bg: #2d2d2d;
-    --qurNav-scrollbar-thumb: #444;
-    --qurNav-scrollbar-thumb-hover: #555;
-  }
+  color-scheme: dark;
+  --qurNav-bg: #0f1a2e;
+  --qurNav-text: #e8edf4;
+  --qurNav-border: rgba(255, 255, 255, 0.1);
+  --qurNav-hover-bg: rgba(255, 255, 255, 0.06);
+  --qurNav-active-bg: rgba(78, 168, 222, 0.15);
+  --qurNav-dropdown-bg: #162240;
+  --qurNav-button-bg: #1d2b4a;
+  --qurNav-button-hover: rgba(78, 168, 222, 0.2);
+  --qurNav-scrollbar-bg: #0f1a2e;
+  --qurNav-scrollbar-thumb: rgba(255, 255, 255, 0.15);
+  --qurNav-scrollbar-thumb-hover: rgba(255, 255, 255, 0.25);
 }
 
 /* --------------------------- */
@@ -284,9 +263,9 @@ div.dt-buttons div.dt-button-split .dt-button:last-child {
 .translation-buttons-container {
   position: sticky;
   top: 0;
-  background-color: --qurNav-dropdown-bg;
+  background-color: var(--qurNav-dropdown-bg);
   padding: 10px;
-  border-bottom: 1px solid #ddd; /* Optional: adds separation */
+  border-bottom: 1px solid var(--qurNav-border);
   z-index: 1;
 }
 

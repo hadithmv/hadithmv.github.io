@@ -7,13 +7,6 @@ var hmvVersionNo = "6.7.60";
 
 // above is version no  var for hmv, shown in sidemenu and maybe main index page
 
-console.log(
-  "%c Welcome to Hadithmv",
-  "font-size: 20px; font-weight: bold; color: white; background-image: linear-gradient(to right, #3f51b5, #2196f3); padding: 10px; border-radius: 5px;",
-);
-console.log("💻 Developer: https://t.me/ashraafmv");
-console.log("🚀 GitHub: https://github.com/hadithmv/hadithmv.github.io");
-
 /* === === ===
 --- GET PAGE NAME AND DIRECTORY CODE ---
 === === === */
@@ -175,37 +168,33 @@ function createNavbar() {
       </a>
    </div>
    <div class="navbar-center">
-      <span class="navbar-page-title" title="Hadithmv - The Dhivehi Platform for the Sunnah
-         ">${pageTitle}</span>
+      <span class="navbar-page-title" title="Jaufar Tafsir - ޖަޢުފަރުގެ ތަފްސީރު">${pageTitle}</span>
    </div>
    <div class="navbar-right" title="Menu">
       <span class="navbar-menu-icon hamburgerIcon"></span>
    </div>
 </nav>
+<div class="navbar-overlay" id="navOverlay" onclick="toggleSideMenu()"></div>
 <div class="navbar-side-menu" id="sideMenu">
    <div class="navbar-side-menu-close" onclick="toggleSideMenu()">×</div>
    <ul>
       <li>
-         <a  href="../books/index.html" title="Homepage"><span class="homeIcon"></span>މައި ސަފުހާ</a>
+         <a href="../books/index.html" title="Homepage"><span class="homeIcon"></span>މައި ސަފުހާ</a>
       </li>
-      
-     
+      <li>
+         <a href="../books/jaufarTafsir.html" title="Open Tafsir"><span class="faqIcon"></span>ތަފްސީރު ހުޅުވާ</a>
+      </li>
+      <li>
+         <a href="../page/foreword.html" title="Foreword"><span class="supportSideMenuIcon"></span>ފެށުމުގެ ބަސް</a>
+      </li>
+      <li>
+         <a href="../page/contributorList.html" title="About the Team"><span class="helpersIcon"></span>ޓީމާ ބެހޭ</a>
+      </li>
+      <li>
+         <a href="../page/FAQ.html" title="About the Project"><span class="faqIcon"></span>މަޝްރޫއާ ބެހޭ</a>
+      </li>
       <li>
          <a href="../page/contact.html" title="Contact"><span class="contactIcon"></span>ގުޅުއްވުމަށް</a>
-      </li>
-      <li>
-         <a href="../page/supportHadithmv.html" title="Support the Project"><span class="supportSideMenuIcon"></span>މަޝްރޫއަށް އެހީވެދިނުމަށް</a>
-      </li>
-      <li>
-         <a href="../page/FAQ.html" title="FAQ"><span class="faqIcon"></span>ތަކުރާރު ސުވާލުތައް</a>
-      </li>
-      <li>
-         <a href="../page/contributorList.html" title="Contributers"><span class="helpersIcon"></span>އެހީތެރިން</a>
-      </li>
-      <li>
-         <a href="https://github.com/hadithmv/hadithmv.github.io/releases" 
-            target="_blank"
-            class="versionNo"><span class="versionIcon"></span>އިސްދާރު: v${hmvVersionNo}</a>
       </li>
       <hr>
       <li>
@@ -230,6 +219,10 @@ function createNavbar() {
                   >
             </li>
          </ul>
+      </li>
+      <li class="versionNo">
+         <a href="https://github.com/hadithmv/hadithmv.github.io/releases" 
+            target="_blank"><span class="versionIcon"></span>v${hmvVersionNo}</a>
       </li>
    </ul>
 </div>
@@ -561,7 +554,9 @@ function goToHomePage() {
 // Function to toggle the side menu's visibility
 function toggleSideMenu() {
   const sideMenu = document.getElementById("sideMenu");
+  const overlay = document.getElementById("navOverlay");
   sideMenu.classList.toggle("open");
+  if (overlay) overlay.classList.toggle("active");
 }
 
 document.addEventListener("click", function (event) {

@@ -23,28 +23,24 @@
   /* buttons style */
   border: none;
   /* material theme builder, source color C0DAF9 */
-  background: #dee3eb none;
-  /* https://material-foundation.github.io/material-theme-builder */
-  /* prev e0e1e2 */
+  background: var(--color-bg-tertiary, #1d2b4a) none;
   border-radius: 0.28571429rem;
-  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  box-shadow: 0 0 0 1px var(--color-border, rgba(255,255,255,0.1)) inset;
   transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
     box-shadow 0.1s ease, background 0.1s ease;
+  color: var(--color-text-primary, #e8edf4);
 }
 
 .belowPage-bab-dropdown ul {
   display: none;
   list-style-type: none;
   padding: 0;
-  /* material theme builder, source color C0DAF9 */
-  background-color: #eceef4;
-  /* prev f9f9f9 */
-  /* */
+  background-color: var(--color-bg-secondary, #162240);
   text-align: right;
 }
 
 .belowPage-bab-dropdown li {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--color-border, rgba(255,255,255,0.1));
 }
 
 .belowPage-bab-dropdown li:last-child {
@@ -52,19 +48,16 @@
 }
 
 .belowPage-bab-dropdown a {
-  color: #333;
+  color: var(--color-text-primary, #e8edf4);
   display: block;
-  /*padding: 12px 20px;*/
   padding: 10px;
   text-decoration: none;
   transition: background-color 0.3s;
-  cursor: pointer; /* Added pointer cursor */
+  cursor: pointer;
 }
 
 .belowPage-bab-dropdown a:hover {
-  /* material theme builder, source color C0DAF9 */
-  background-color: #286294;
-  /* prev f5f5f5 */
+  background-color: var(--color-accent, #4ea8de);
   color: #fff;
 }
 
@@ -118,7 +111,7 @@
 }
 
 .belowPage-bab-dropdown ul li:first-child {
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--color-border, rgba(255,255,255,0.1));
 }
 
 /* ==========================================================================
@@ -440,7 +433,7 @@ div.dt-scroll-body
   > div.dtsp-titleRow
   > button.dtsp-clearAll:not(.dtsp-disabledButton) {
   border: none;
-  background: #e0e1e2 none;
+  background: var(--color-bg-tertiary, #1d2b4a) none;
   border-radius: 0.28571429rem;
   /* ? */
   box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
@@ -506,43 +499,39 @@ mark {
     */
 
 /* ==========================================================================
-    DataTables Additional Specific Dark Mode Overrides
+    DataTables Dark Theme (Always Active)
      ========================================================================== */
 
-@media (prefers-color-scheme: dark) {
-  .cards tbody tr {
-    /* Enhance card shadows for dark mode ??? */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
+.cards tbody tr {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
 
-  /* Adjust input fields for dark mode */
-  .dt-container input[type="search"],
-  .dt-container select {
-    /*background-color: var(--color-bg-tertiary);*/
-    color: var(--color-text-primary);
-    border-color: var(--color-border);
-  }
-  /* Adjust button backgrounds for dark mode */
-  .dt-button,
-  .dtsb-button {
-    background: var(--color-bg-tertiary) none !important;
-  }
+/* Adjust input fields */
+.dt-container input[type="search"],
+.dt-container select {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
 
-  /* Enhance visibility of borders in dark mode */
-  .dt-container {
-    border-color: var(--color-border);
-  }
+/* Adjust button backgrounds */
+.dt-button,
+.dtsb-button {
+  background: var(--color-bg-tertiary) none !important;
+  color: var(--color-text-primary) !important;
+  border-color: var(--color-border) !important;
+}
 
-  /* color for disabled paging buttons */
+/* Borders */
+.dt-container {
+  border-color: var(--color-border);
+}
 
-  /*div.dt-container .dt-paging .dt-paging-button.disabled
-  default dt css has important, so had to specify it further */
-  div.dt-container div.dt-paging .dt-paging-button.disabled {
-    /* Dark mode */
-    opacity: 0.35;
-    color: var(--color-text-secondary) !important;
-    background-color: var(--color-bg-tertiary) !;
-  }
+/* Disabled paging buttons */
+div.dt-container div.dt-paging .dt-paging-button.disabled {
+  opacity: 0.35;
+  color: var(--color-text-secondary) !important;
+  background-color: var(--color-bg-tertiary);
 }
 
 /* ==========================================================================
@@ -720,7 +709,6 @@ div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
      ========================================================================== */
 
 /* from fomantic ui */
-/* first one is basic button buttons, the rest are searchbuilder buttons */
 .dt-container > div > div > div.dt-buttons > button.dt-button,
 .dtsb-searchBuilder > div.dtsb-group > button,
 .dtsb-searchBuilder > div.dtsb-titleRow > button,
@@ -732,24 +720,13 @@ div.dt-container > div.dt-layout-row:nth-child(1) > div.dt-layout-cell {
 .dtsb-searchBuilder > div.dtsb-group > div.dtsb-logicContainer,
 div.dtsb-searchBuilder > div.dtsb-titleRow > button.dtsb-clearAll.dtsb-button,
 div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
-  border: none;
-  /* material theme builder, source color C0DAF9 */
-  background: #dee3eb none;
-  /* prev e0e1e2 */
-  /*color: rgba(0, 0, 0, 0.6);
-     */
-  /*margin: 0 0.25em 0 0;
-     */
-  /* commenting this out makes them not stick to each other when stacked */
-  /*line-height: 1em;
-     */
+  border: 1px solid var(--color-border, rgba(255,255,255,0.1));
+  background: var(--color-bg-tertiary, #1d2b4a) none;
+  color: var(--color-text-primary, #e8edf4);
   border-radius: 0.28571429rem;
-  /* ? */
-  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  box-shadow: none;
   transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease,
     box-shadow 0.1s ease, background 0.1s ease;
-  /*font-size: 1rem;
-     */
 }
 /* button buttons fomantic padding for tablet size and up */
 @media (min-width: 600px) {
@@ -797,21 +774,11 @@ div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
 }
 /* hover button buttons */
 .dt-container > div > div > div.dt-buttons > button.dt-button:hover {
-  /*background-color: #cacbcd;
-     */
   background-image: none;
-  /* otherwise doesnt remove gradient */
-  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
-  color: rgba(0, 0, 0, 0.8);
-  /* cancel out default dt hover styles */
-  border: none;
-  /* custom colors */
+  box-shadow: none;
+  border: 1px solid var(--color-accent, #4ea8de);
   color: white;
-  /* material theme builder, source color C0DAF9 */
-  background-color: #286294;
-  /* prev 1f6cb9 */
-  /* #136296 #2185d0;
-      */
+  background-color: var(--color-accent, #4ea8de);
 }
 @media (max-width: 599px) {
   /* makes search input smaller on mobile */

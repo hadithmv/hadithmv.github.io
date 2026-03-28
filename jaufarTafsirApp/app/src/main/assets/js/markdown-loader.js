@@ -8,11 +8,11 @@ export const siteConfig = {
     "The Dhivehi Platform for the Sunnah | ދިވެހިންގެ ސުންނަތުގެ މަންސަ",
 
   // SEO keywords for search engines
-  keywords: "hadithmv, hadith mv, hadeeth mv...", // truncated for brevity
+  keywords: "jaufarTafsir, jaufar Tafsir", // truncated for brevity
 
   // Site branding elements
-  siteName: "Hadithmv",
-  siteNameDv: "ޙަދީޘްއެމްވީ", // Dhivehi name
+  siteName: "jaufarTafsir",
+  siteNameDv: "ޖަޢުފަރުތަފްސީރު", // Dhivehi name
   logo: "https://hadithmv.github.io/img/logo/NewLogo7/hadithmv-logo-7.0-whiteBack-512px.png",
 
   // Theme color for browser UI
