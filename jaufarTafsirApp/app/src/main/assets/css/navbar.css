@@ -89,6 +89,7 @@ html {
 
 /* ---- Page Title ---- */
 .navbar-page-title {
+  display: none; /* Hidden by default entirely, shown only on Tafsir reader page */
   font-size: 19px;
   font-weight: 500;
   white-space: nowrap;
