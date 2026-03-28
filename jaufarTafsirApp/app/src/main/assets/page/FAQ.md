@@ -28,23 +28,3 @@
 ### ކުށެއް ފެނިއްޖެ ނަމަ؟
 
 [ގުޅުއްވުމަށް](contact.html) ޞަފުޙާ އިން ކުށް ރިޕޯޓު ކުރައްވާ.
-
----
-
-## ޓެކްނިކަލް ނޯޓުތައް
-
-### Translation json columns:
-
-1. tafseer.
-2. footnote.
-
-### ބަދަލު ކުރެވިފައިވާ ސިމްބޮލްތައް
-
-- kashida (ـ) → [remove]
-- fixed reversed/incorrect numbers
-- fixed square brackets showing instead of curly quotes
-- fixed white space
-- سُبحَانَهُ وَتَعَالَى → restored
-- ﷺ → restored
-- عَلَيهِ السَّلَامُ → restored
-- رَضِيَ اللَّهُ عَنْهُ → restored
