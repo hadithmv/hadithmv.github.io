@@ -376,14 +376,15 @@ body:has(.home-main) {
 .home-btn-text {
   flex: 1;
   font-size: 18px;
-  font-weight: 600;
+  /* font-weight: 600; */
   text-align: right;
   font-family: "mergedFontDv", "mergedFontAr", sans-serif, "faruma";
   line-height: 1.4;
 }
 
 .home-btn-subtitle {
-  font-size: 13px;
+  font-size: 14px;
+  /* font-size: 13px; */
   color: var(--home-text-muted);
   font-weight: 400;
   white-space: nowrap;
