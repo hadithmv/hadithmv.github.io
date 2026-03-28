@@ -11,6 +11,9 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import androidx.activity.OnBackPressedCallback
 import android.content.SharedPreferences
+import android.content.res.Configuration
+import androidx.webkit.WebSettingsCompat
+import androidx.webkit.WebViewFeature
 import android.webkit.JavascriptInterface
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import java.io.IOException
@@ -97,6 +100,24 @@ class MainActivity : ComponentActivity() {
             }
 
             settings.apply {
+                // Enable dark mode support
+                if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK) &&
+                    WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)) {
+                    when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                        Configuration.UI_MODE_NIGHT_YES -> {
+                            WebSettingsCompat.setForceDark(this, WebSettingsCompat.FORCE_DARK_ON)
+                            WebSettingsCompat.setForceDarkStrategy(
+                                this,
+                                WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY
+                            )
+                        }
+                        else -> {
+                            WebSettingsCompat.setForceDark(this, WebSettingsCompat.FORCE_DARK_OFF)
+                        }
+                    }
+                }
+
+                // Enable JavaScript execution (required for modern web apps)
                 javaScriptEnabled = true
                 mediaPlaybackRequiresUserGesture = false
                 allowFileAccess = true
@@ -111,22 +132,10 @@ class MainActivity : ComponentActivity() {
 
             addJavascriptInterface(object {
                 @JavascriptInterface
-                fun isDarkMode(): Boolean = false
-
-                @JavascriptInterface
-                fun readAsset(path: String): String? {
-                    return try {
-                        // Extract asset path from full file:///android_asset/ URL
-                        val cleanPath = if (path.contains("android_asset/")) {
-                            path.substringAfter("android_asset/")
-                        } else {
-                            path.trimStart('/')
-                        }
-                        
-                        assets.open(cleanPath).bufferedReader().use { it.readText() }
-                    } catch (e: Exception) {
-                        null
-                    }
+                fun isDarkMode(): Boolean {
+                    return resources.configuration.uiMode and
+                            Configuration.UI_MODE_NIGHT_MASK ==
+                            Configuration.UI_MODE_NIGHT_YES
                 }
             }, "Android")
 
