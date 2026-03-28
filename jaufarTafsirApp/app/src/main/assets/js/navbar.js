@@ -182,7 +182,7 @@ function createNavbar() {
          <a href="../books/index.html" title="Homepage"><span class="homeIcon"></span>މައި ސަފުހާ</a>
       </li>
       <li>
-         <a href="../books/jaufarTafsir.html" title="Open Tafsir"><span class="faqIcon"></span>ތަފްސީރު ހުޅުވާ</a>
+         <a href="../books/jaufarTafsir.html" title="Open Tafsir"><span class="bookIcon"></span>ތަފްސީރު ހުޅުވާ</a>
       </li>
       <li>
          <a href="../page/foreword.html" title="Foreword"><span class="supportSideMenuIcon"></span>ފެށުމުގެ ބަސް</a>
@@ -208,8 +208,7 @@ function createNavbar() {
       </li>
       
       <li class="versionNo">
-         <a href="https://github.com/hadithmv/hadithmv.github.io/releases" 
-            target="_blank"><span class="versionIcon"></span>v${hmvVersionNo}</a>
+         <a ><span class="versionIcon"></span>v${hmvVersionNo}</a>
       </li>
    </ul>
 </div>
