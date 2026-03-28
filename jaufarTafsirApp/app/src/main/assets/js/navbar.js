@@ -203,23 +203,10 @@ function createNavbar() {
             ><span class="scrollUpIcon"></span>މައްޗަށް ސްކްރޯލްކުރޭ</a
             >
       </li>
-      <li onclick="sideMenutoggleNavbarDropdown(this)" class="navbar-dropdown">
-         <div class="navbar-dropdown-label" title="Reload Page">
-            <span class="navbar-dropdown-arrow reloadIcon"></span>ރީލޯޑު
-         </div>
-         <ul class="navbar-dropdown-content">
-            <li>
-               <a href="#" onclick="window.location.reload()" title="Soft Reload">މަޑު ރީލޯޑު</a>
-            </li>
-            <li>
-               <a
-                  href="#"
-                  onclick='window.location.href=window.location.href.split(".html")[0]+".html"' title="Hard Reload"
-                  >ހަރު ރީލޯޑު</a
-                  >
-            </li>
-         </ul>
+      <li>
+        <a href="#" onclick="window.location.reload()" title="Soft Reload"> <span class="navbar-dropdown-arrow reloadIcon"></span>ރީލޯޑު</a>
       </li>
+      
       <li class="versionNo">
          <a href="https://github.com/hadithmv/hadithmv.github.io/releases" 
             target="_blank"><span class="versionIcon"></span>v${hmvVersionNo}</a>
