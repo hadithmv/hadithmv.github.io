@@ -1,3 +1,5 @@
+#tableID > tbody > tr > td:nth-child(4), #tableID > tbody > tr > td:nth-child(5) {font-size: 18px;}
+
 /* ==========================================================================
     Nested belowpage bab dropdown styles - this part is none datatables specific
      ========================================================================== */
