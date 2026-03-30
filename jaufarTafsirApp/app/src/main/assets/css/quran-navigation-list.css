@@ -1,7 +1,7 @@
 /* CSS Variables — Dark First */
 :root {
   color-scheme: dark;
-  --qurNav-bg: #0f1a2e;
+  --qurNav-bg: #1d2b4a;
   --qurNav-text: #e8edf4;
   --qurNav-border: rgba(255, 255, 255, 0.1);
   --qurNav-hover-bg: rgba(255, 255, 255, 0.06);
@@ -9,7 +9,7 @@
   --qurNav-dropdown-bg: #162240;
   --qurNav-button-bg: #1d2b4a;
   --qurNav-button-hover: rgba(78, 168, 222, 0.2);
-  --qurNav-scrollbar-bg: #0f1a2e;
+  --qurNav-scrollbar-bg: #1d2b4a;
   --qurNav-scrollbar-thumb: rgba(255, 255, 255, 0.15);
   --qurNav-scrollbar-thumb-hover: rgba(255, 255, 255, 0.25);
 }
@@ -39,6 +39,8 @@
 }
 
 .q-nav-value {
+  padding-top: 5px;
+
   border: 1px solid var(--qurNav-border);
   border-radius: 0.28571429rem;
   -webkit-border-radius: 0.28571429rem;
