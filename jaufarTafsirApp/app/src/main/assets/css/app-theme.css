@@ -72,18 +72,18 @@ body {
 .app-page {
   min-height: 100vh;
   background: var(--app-bg-gradient);
-  padding-top: var(--app-navbar-height);
+  padding-top: 0;
 }
 
 .app-container {
   max-width: var(--app-max-width);
   margin: 0 auto;
-  padding: 32px 24px 64px;
+  padding: 16px 24px 64px;
 }
 
 @media (max-width: 599px) {
   .app-container {
-    padding: 20px 16px 48px;
+    padding: 12px 16px 48px;
   }
 }
 
@@ -245,7 +245,7 @@ body {
   gap: 8px;
   color: var(--app-text-muted);
   font-size: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
   transition: color var(--app-transition);
   direction: ltr;
 }

@@ -119,6 +119,10 @@ body {
   margin: 2em 0;
 }
 
+.app-page #content > hr:first-child {
+  display: none;
+}
+
 /* ---- Code ---- */
 .app-page #content code {
   background: var(--app-surface-elevated, rgba(255,255,255,0.06));
