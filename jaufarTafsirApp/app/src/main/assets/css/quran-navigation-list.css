@@ -129,7 +129,9 @@
 @media (max-width: 599px) {
   .q-navigation-container {
     font-size: 18px;
-    justify-content: space-evenly;
+    justify-content: center;
+      gap: 0px; /* Sets a fixed gap between items */
+
   }
   .q-nav-box {
     margin: 0;
@@ -139,6 +141,7 @@
   }
   .q-nav-value {
     font-size: 18px;
+    min-width: 75px;
   }
   #surahDropdown {
     left: 0;
