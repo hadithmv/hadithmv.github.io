@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", createNavbar);
          <ul class="navbar-dropdown-content">
             <li onclick="sideMenutoggleNavbarDropdown(this,event)" class="sub-navbar-dropdown">
                <div class="navbar-dropdown-label" title="Quran">
-                  <span class="navbar-dropdown-arrow dropdownIcon"></span>ގުރްއާން
+                  <span class="navbar-dropdown-arrow dropdownIcon"></span>ގުރްޢާން
                </div>
                <ul class="sub-navbar-dropdown-content">
                   <li>
@@ -299,7 +299,7 @@ document.addEventListener("DOMContentLoaded", createNavbar);
                   </li>
                   <li>
                      <a href="../books/akhlaqHamalathilQuran.html" title="Manners of the Quran Carriers"
-                        >7 އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a
+                        >7 އާޖުއްރީގެ ގުރްޢާން އުފުލާ މީހުންގެ އަޚްލާގު</a
                         >
                   </li>
                   <li>
@@ -469,7 +469,7 @@ document.addEventListener("DOMContentLoaded", createNavbar);
             <li class="navbar-dropdown" onclick="sideMenutoggleNavbarDropdown(this)">
                 <a><span class="navbar-dropdown-arrow">📍</span>ބައިތައް</a>
                 <ul class="navbar-dropdown-content">
-                    <li><a href="#">ގުރްއާން</a></li>
+                    <li><a href="#">ގުރްޢާން</a></li>
                     <li class="sub-navbar-dropdown" onclick="sideMenutoggleNavbarDropdown(this, event)">
                         <a><span class="navbar-dropdown-arrow">📍</span>ޙަދީޘް</a>
                         <ul class="sub-navbar-dropdown-content">
@@ -479,7 +479,7 @@ document.addEventListener("DOMContentLoaded", createNavbar);
                             <li><a href="hisnulMuslim.html">މުސްލިމުންގެ ކިއްލާ</a></li>
                             <li><a href="arbaoonAajurry.html">އާޖުއްރީގެ ސާޅީސް ޙަދީޘް*</a></li>
                             <li><a href="akhbaruShuyukh.html">ޝައިޚުންގެ ޚަބަރުތަކާއި އެބޭކަލުންގެ އަޚްލާގު</a></li>
-                            <li><a href="akhlaqHamalathilQuran.html">އާޖުއްރީގެ ގުރްއާން އުފުލާ މީހުންގެ އަޚްލާގު</a></li>
+                            <li><a href="akhlaqHamalathilQuran.html">އާޖުއްރީގެ ގުރްޢާން އުފުލާ މީހުންގެ އަޚްލާގު</a></li>
                             <li><a href="bulughulMaram.html">ބުލޫޣުލް މަރާމް*</a></li>
                             <li><a href="arbaoonNawawi.html">ނަވަވީގެ ސާޅީސް ޙަދީޘް</a></li>
                             <li><a href="riyaduSaliheen.html">ރިޔާޟުއްޞާލިޙީން*</a></li>
