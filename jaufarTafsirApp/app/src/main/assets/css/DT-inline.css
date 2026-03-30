@@ -750,7 +750,9 @@ div.dtsb-searchBuilder > div.dtsb-group > button.dtsb-add.dtsb-button {
   padding-right: 20px;
   padding-left: 20px;
   padding-top: 5px;
-  padding-bottom: 5px;
+  padding-bottom: 0px;
+    font-family: "mergedFontDv", "mergedFontAr", "Arial", sans-serif, "faruma";
+
 }
 /* adds some left margin to copy button on mobile, that the other buttons seem to have but this doesnt */
 @media (max-width: 599px) {
