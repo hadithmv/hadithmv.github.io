@@ -649,7 +649,7 @@ let DTconfig = {
   layout: {
     top: [
       "search",
-      "inputPaging",
+      // "inputPaging",
       "search",
 
       {
@@ -666,7 +666,7 @@ let DTconfig = {
             },
 
             titleAttr: "copy",
-            text: "⧉ ކޮޕީ",
+            text: "ކޮޕީކުރޭ",
 
             // Shown at the very top of the exported document
             // title: * (default) - Use the HTML page's title value.
@@ -747,142 +747,117 @@ let DTconfig = {
             },
           },
 
-          {
-            extend: "collection",
-            key: {
-              key: "m",
-              altKey: true,
-            },
-            text: "⌥ އިތުރު",
-            background: false,
+          // {
+          //   extend: "collection",
+          //   key: {
+          //     key: "m",
+          //     altKey: true,
+          //   },
+          //   text: "⌥ އިތުރު",
+          //   background: false,
 
-            buttons: [
-              {
-                extend: "colvis",
-                key: {
-                  key: "s",
-                  altKey: true,
-                },
+          //   buttons: [
+          //     {
+          //       extend: "colvis",
+          //       key: {
+          //         key: "s",
+          //         altKey: true,
+          //       },
 
-                text: "☰ ދައްކާ/ފޮރުވާ",
-                background: false,
-                postfixButtons: [
-                  // https://datatables.net/forums/discussion/36516
-                  {
-                    extend: "colvisGroup",
-                    text: "ހުރިހާ ދައްކާ &nbsp; +",
-                    show: ":hidden",
-                    titleAttr: "show all",
-                  },
-                  // https://datatables.net/extensions/buttons/examples/column_visibility/restore.html
-                  {
-                    extend: "colvisRestore",
-                    text: "ރީސެޓްކުރޭ &nbsp; ↺",
-                    titleAttr: "reset toggle",
-                  },
-                ],
-              },
-              {
-                extend: "searchBuilder",
-                key: {
-                  key: "b",
-                  altKey: true,
-                },
-                titleAttr: "custom search",
-              },
-              {
-                extend: "searchPanes",
-                key: {
-                  key: "v",
-                  altKey: true,
-                },
+          //       text: "☰ ދައްކާ/ފޮރުވާ",
+          //       background: false,
+          //       postfixButtons: [
+          //         // https://datatables.net/forums/discussion/36516
+          //         {
+          //           extend: "colvisGroup",
+          //           text: "ހުރިހާ ދައްކާ &nbsp; +",
+          //           show: ":hidden",
+          //           titleAttr: "show all",
+          //         },
+          //         // https://datatables.net/extensions/buttons/examples/column_visibility/restore.html
+          //         {
+          //           extend: "colvisRestore",
+          //           text: "ރީސެޓްކުރޭ &nbsp; ↺",
+          //           titleAttr: "reset toggle",
+          //         },
+          //       ],
+          //     },
+          //     {
+          //       extend: "searchBuilder",
+          //       key: {
+          //         key: "b",
+          //         altKey: true,
+          //       },
+          //       titleAttr: "custom search",
+          //     },
+          //     {
+          //       extend: "searchPanes",
+          //       key: {
+          //         key: "v",
+          //         altKey: true,
+          //       },
 
-                config: {
-                  cascadePanes: true,
+          //       config: {
+          //         cascadePanes: true,
 
-                  viewTotal: true,
+          //         viewTotal: true,
 
-                  collapse: false,
-                  dtOpts: {
-                    select: {
-                      style: "multi+shift",
-                    },
-                  },
-                },
-              },
-              {
-                extend: "pageLength",
-                key: {
-                  key: "p",
-                  altKey: true,
-                },
-                background: false,
-              },
-              //
+          //         collapse: false,
+          //         dtOpts: {
+          //           select: {
+          //             style: "multi+shift",
+          //           },
+          //         },
+          //       },
+          //     },
+          //     {
+          //       extend: "pageLength",
+          //       key: {
+          //         key: "p",
+          //         altKey: true,
+          //       },
+          //       background: false,
+          //     },
+          //     //
 
-              // https://stackoverflow.com/questions/53600956/how-to-add-custom-button-in-r-shiny-datatable
-              // https://datatables.net/extensions/buttons/examples/initialisation/customHTMLButtons.html
+          //     // https://stackoverflow.com/questions/53600956/how-to-add-custom-button-in-r-shiny-datatable
+          //     // https://datatables.net/extensions/buttons/examples/initialisation/customHTMLButtons.html
 
-              "<h3></h3>",
-              //'<h3 class="not-top-heading">Column Visibility</h3>',
-              // places css in DT inline css file
+          //     "<h3></h3>",
+          //     //'<h3 class="not-top-heading">Column Visibility</h3>',
+          //     // places css in DT inline css file
 
-              {
-                text: "ސަފުހާގެ ލިންކު ކޮޕީކުރޭ", // Button label
-                action: function (e, dt, node, config) {
-                  // Click handler. what should happen when the button is clicked
-                  // e: The click event. when and where the click happened
-                  // dt: The DataTable API instance. the DataTable table
-                  // node: The button element itself that was clicked
-                  // config: The button configuration. its settings
-                  //
-                  copyURLToClipButton(); // This will run
+          //     {
+          //       text: "ސަފުހާގެ ލިންކު ކޮޕީކުރޭ", // Button label
+          //       action: function (e, dt, node, config) {
+          //         // Click handler. what should happen when the button is clicked
+          //         // e: The click event. when and where the click happened
+          //         // dt: The DataTable API instance. the DataTable table
+          //         // node: The button element itself that was clicked
+          //         // config: The button configuration. its settings
+          //         //
+          //         copyURLToClipButton(); // This will run
 
-                  // alert("Button activated");
-                  // dt.ajax.reload();
-                },
-              },
-              // https://datatables.net/extensions/buttons/custom
+          //         // alert("Button activated");
+          //         // dt.ajax.reload();
+          //       },
+          //     },
+          //     // https://datatables.net/extensions/buttons/custom
 
-              {
-                text: "ފިލިތައް ފޮރުވާ/ދައްކާ",
-                action: function (e, dt, node, config) {
-                  toggleTashkeel();
-                },
-              },
+          //     {
+          //       text: "ފިލިތައް ފޮރުވާ/ދައްކާ",
+          //       action: function (e, dt, node, config) {
+          //         toggleTashkeel();
+          //       },
+          //     },
 
-              /*//
-              {
-                text: "⭐ ތަރުޖަމާތައް",
-                autoClose: true,
-                action: function (e, dt, node, config) {
-                  const dropdown = document.getElementById(
-                    "translationDropdown"
-                  );
-                  if (dropdown) {
-                    dropdown.classList.toggle("active");
-                    // console.log(
-                    //   "Active class toggled:",
-                    //   dropdown.classList.contains("active")
-                    // );
-                    // Prevent any default actions that might interfere
-                    e.preventDefault();
-                    e.stopPropagation();
-                    // without these doesnt work it seems
-                  } else {
-                    console.error("Translation dropdown element not found");
-                  }
-                  // closes the collection, detach works too
-                  $(".dt-button-collection").hide();
-                },
-              },
-              //*/
+              
 
-              "<h3></h3>",
+          //     "<h3></h3>",
 
-              //
-            ],
-          },
+          //     //
+          //   ],
+          // },
 
           /*{
             extend: "pageLength",
