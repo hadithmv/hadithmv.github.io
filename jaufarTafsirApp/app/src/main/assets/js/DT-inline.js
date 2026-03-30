@@ -901,7 +901,9 @@ Object.assign(DataTable.defaults, {
   // LANGUAGE SET DEFAULTS
   language: {
     emptyTable: "– ނުފެނުނު –",
-    info: "_TOTAL_ ގެ ތެރެއިން _START_ އިން _END_ އަށް",
+    info: "",
+    // info: "_TOTAL_ ގެ ތެރެއިން _START_ އިން _END_ އަށް",
+
     infoFiltered: "(ޖުމްލަ ބެލުނީ _MAX_)",
     infoEmpty: "– ނުފެނުނު –",
     //lengthMenu: "ބަރި ދައްކާ _MENU_",
