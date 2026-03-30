@@ -1126,12 +1126,21 @@ function createNavigationBoxes() {
     const navBox = `
       <div class="q-nav-box">
         <span class="q-nav-label">${label}:</span>
-        <span class="q-nav-arrow" data-type="${type}" data-direction="prev">▶</span>
+        <span class="q-nav-arrow" data-type="${type}" data-direction="prev"></span>
         <div class="q-nav-value" id="${type}Value">1</div>
-        <span class="q-nav-arrow" data-type="${type}" data-direction="next">◀</span>
+        <span class="q-nav-arrow" data-type="${type}" data-direction="next"></span>
         <div class="q-dropdown" id="${type}Dropdown"></div>
       </div>
     `;
+    // const navBox = `
+    //   <div class="q-nav-box">
+    //     <span class="q-nav-label">${label}:</span>
+    //     <span class="q-nav-arrow" data-type="${type}" data-direction="prev">▶</span>
+    //     <div class="q-nav-value" id="${type}Value">1</div>
+    //     <span class="q-nav-arrow" data-type="${type}" data-direction="next">◀</span>
+    //     <div class="q-dropdown" id="${type}Dropdown"></div>
+    //   </div>
+    // `;
     navContainer.insertAdjacentHTML("beforeend", navBox);
   });
 
