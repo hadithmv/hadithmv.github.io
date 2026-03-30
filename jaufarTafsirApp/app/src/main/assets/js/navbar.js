@@ -82,7 +82,7 @@ hadithmv.github.io/books/${CURRENT_PAGE}
 might be different for other files in other locations
 
 for example i have
-hadithmv.github.io/page/contributorList.html
+hadithmv.github.io/page/team.html
 
 there might also be directories more than one level deep
 what doesnt change is the source "hadithmv.github.io" directory, and the end file "{file}.html"
@@ -188,10 +188,10 @@ function createNavbar() {
          <a href="../page/foreword.html" title="Foreword"><span class="supportSideMenuIcon"></span>ފެށުމުގެ ބަސް</a>
       </li>
       <li>
-         <a href="../page/contributorList.html" title="About the Team"><span class="helpersIcon"></span>ޓީމާ ބެހޭ</a>
+         <a href="../page/team.html" title="About the Team"><span class="helpersIcon"></span>ޓީމާ ބެހޭ</a>
       </li>
       <li>
-         <a href="../page/FAQ.html" title="About the Project"><span class="faqIcon"></span>މަޝްރޫއާ ބެހޭ</a>
+         <a href="../page/about.html" title="About the Project"><span class="faqIcon"></span>މަޝްރޫއާ ބެހޭ</a>
       </li>
       <li>
          <a href="../page/contact.html" title="Contact"><span class="contactIcon"></span>ގުޅުއްވުމަށް</a>
@@ -489,8 +489,8 @@ document.addEventListener("DOMContentLoaded", createNavbar);
             </li>
             <li><a href="../notes/info/contact.html">ކުށެއް/ހިޔާލެއް ހުށަހެޅުމަށް</a></li>
             <li><a href="../page/supportHadithmv.html">ތަރުޖަމާގައި އެހީވެދިނުމަށް</a></li>
-            <li><a href="../notes/info/FAQ.html">ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a></li>
-            <li><a href="../notes/info/contributorList.html">އެހީތެރިން</a></li>
+            <li><a href="../notes/info/about.html">ތަކުރާރުކޮށް ކުރެވޭ ސުވާލުތައް</a></li>
+            <li><a href="../notes/info/team.html">އެހީތެރިން</a></li>
             <li class="versionNo" onclick="openDiv()">⚙️ އިސްދާރު: v${hmvVersionNo}</li>
             <li><a href="https://t.me/ashraafmv">ފަރުމާ ކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a></li>
             <li style="font-size: 90%">މަދީނާގެ ޙަދީޘް ކުއްލިއްޔާގެ ދަރިވަރެއް</li>
