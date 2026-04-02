@@ -641,6 +641,7 @@ Antigravity (User)
 AnyDesk
 Arclab Dir2HTML 4.1
 Aria2 Manager
+Audacity
 Browser for SQL Server 2022
 calibre 64bit
 Canon Easy-PhotoPrint Editor

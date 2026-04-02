@@ -18,9 +18,6 @@ import android.webkit.JavascriptInterface
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import android.graphics.Color
 
-/**
- * MainActivity serves as the primary activity for the WebView-based application.
- */
 class MainActivity : ComponentActivity() {
     companion object {
         private const val MAX_STATE_SIZE_BYTES = 500 * 1024
