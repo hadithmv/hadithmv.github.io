@@ -905,14 +905,14 @@ Object.assign(DataTable.defaults, {
     // info: "_TOTAL_ ގެ ތެރެއިން _START_ އިން _END_ އަށް",
 
     infoFiltered: "(ޖުމްލަ ބެލުނީ _MAX_)",
-    infoEmpty: "– ނުފެނުނު –",
+    infoEmpty: "ނަތީޖާއެއް ނުފެނުނު",
     //lengthMenu: "ބަރި ދައްކާ _MENU_",
     loadingRecords: "",
     // loadingRecords: "ލޯޑުވަނީ...",
     search: "",
     searchPlaceholder: "ސާރޗްކުރައްވާ...",
     // searchPlaceholder: 'ސީދާ ލަފްޒު "މިހެން ހޯދާ"، !މިލަފްޒު ނުލާ ހޯދާ',
-    zeroRecords: "– ނުފެނުނު –",
+    zeroRecords: "ނަތީޖާއެއް ނުފެނުނު",
     paginate: {
       first: "<< ",
       last: " >>",
