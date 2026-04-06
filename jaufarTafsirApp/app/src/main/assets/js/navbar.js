@@ -185,10 +185,10 @@ function createNavbar() {
          <a href="../books/jaufarTafsir.html" title="Open Tafsir"><span class="bookIcon"></span>ތަފްސީރު ހުޅުވާ</a>
       </li>
       <li>
-         <a href="../page/foreword.html" title="Foreword"><span class="supportSideMenuIcon"></span>ފެށުމުގެ ބަސް</a>
+         <a href="../page/forewordAuthor.html" title="ForewordAuthor"><span class="supportSideMenuIcon"></span>މުއައްލިފުގެ މުގައްދިމާ</a>
       </li>
       <li>
-         <a href="../page/team.html" title="About the Team"><span class="helpersIcon"></span>ޓީމާ ބެހޭ</a>
+         <a href="../page/forewordFounder.html" title="ForewordFounder"><span class="helpersIcon"></span>މުއައްސިސުގެ ބަސް</a>
       </li>
       <li>
          <a href="../page/about.html" title="About the Project"><span class="faqIcon"></span>މަޝްރޫއާ ބެހޭ</a>
