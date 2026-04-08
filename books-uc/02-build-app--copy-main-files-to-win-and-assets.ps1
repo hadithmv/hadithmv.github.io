@@ -199,7 +199,13 @@ try {
                 $targetDest = $_.Dest -replace [regex]::Escape($destPathAndroid), $destPath
                 
                 try {
-                    Copy-Item -Path $_.Source -Destination $targetDest -Force -ErrorAction Stop
+                    # Exclude any directories or files named 'old'.
+                    # Also apply -Recurse where appropriate (such as page\*) to ensure nested contents copy properly.
+                    if ($_.Source.EndsWith("\*")) {
+                        Copy-Item -Path $_.Source -Destination $targetDest -Exclude "old" -Recurse -Force -ErrorAction Stop
+                    } else {
+                        Copy-Item -Path $_.Source -Destination $targetDest -Exclude "old" -Force -ErrorAction Stop
+                    }
                     Write-Host "  ✅ [$opCount/$totalOps] Copied $($_.Desc) to $destType" -ForegroundColor Green
                     $successCount++
                 }
