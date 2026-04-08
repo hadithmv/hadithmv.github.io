@@ -150,7 +150,7 @@ try {
     # Step 3: Create the required directory structure in both destinations
     Write-Host "`n[3/4] 📂 Creating directory structure" -ForegroundColor Yellow
     
-    $directories = @("books", "js\json", "js", "css", "page", "font", "img\logo")
+    $directories = @("books", "js\json", "js", "css", "page", "font", "img\logo", "tools")
     $dirCount = 0
     $totalDirs = $directories.Count * 2  # For both Android and Windows
     
@@ -180,6 +180,7 @@ try {
         @{Source = "$sourcePath\css\*.min.css"; Dest = "$destPathAndroid\css"; Desc = "Minified CSS files" }
         @{Source = "$sourcePath\LICENSE.txt"; Dest = "$destPathAndroid"; Desc = "LICENSE file" }
         @{Source = "$sourcePath\page\*"; Dest = "$destPathAndroid\page"; Desc = "Page files" }
+        @{Source = "$sourcePath\tools\*"; Dest = "$destPathAndroid\tools"; Desc = "Tools files" }
         @{Source = "$sourcePath\font\merged-300.woff2"; Dest = "$destPathAndroid\font"; Desc = "Font file" }
         @{Source = "$sourcePath\img\logo\logo.svg"; Dest = "$destPathAndroid\img\logo"; Desc = "Logo file" }
     )
