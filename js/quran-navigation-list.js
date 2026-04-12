@@ -828,6 +828,13 @@ function toggleTranslation(a, e, initialPage) {
 
 // Gets column indices for a specific translation
 function getColumnIndices(a) {
+  const json = additionalJsons.find((e) => e.name === a);
+  if (!json) {
+    console.error(
+      `getColumnIndices: translation "${a}" not found in additionalJsons. Available: ${additionalJsons.map((j) => j.name).join(", ")}`,
+    );
+    return null;
+  }
   let e = baseColumns.length;
   // Calculate offset based on previous translations
   for (
@@ -838,12 +845,7 @@ function getColumnIndices(a) {
     e += additionalJsons[t].columns.length + 1;
   }
   // Return array of indices [titleIndex, ...contentIndices]
-  return [
-    e,
-    ...additionalJsons
-      .find((e) => e.name === a)
-      .columns.map((a, t) => e + t + 1),
-  ];
+  return [e, ...json.columns.map((a, t) => e + t + 1)];
 }
 
 // Shows all available translations
