@@ -962,7 +962,9 @@ function addTranslationItem(a, e, t, n) {
     // Check if this is a default column for the default translation
     let isDefaultColumn = false;
     if (typeof t === "string" && t.includes("-")) {
-      const [jsonName, colNum] = t.split("-");
+      const lastDash = t.lastIndexOf("-");
+      const jsonName = t.substring(0, lastDash);
+      const colNum = t.substring(lastDash + 1);
       isDefaultColumn =
         jsonName === defaultAdditionalJson &&
         defaultColumns.includes(parseInt(colNum));
@@ -996,7 +998,9 @@ function applyTranslations() {
 
       // Handle JSON-based translations
       if (typeof value === "string" && value.includes("-")) {
-        const [jsonName, colNum] = value.split("-");
+        const lastDash = value.lastIndexOf("-");
+        const jsonName = value.substring(0, lastDash);
+        const colNum = value.substring(lastDash + 1);
         if (
           isChecked !==
           table
