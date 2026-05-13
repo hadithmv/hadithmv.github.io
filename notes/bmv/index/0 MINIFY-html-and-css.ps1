@@ -31,11 +31,11 @@ $ModifiedDaysOption = 10
 # Define the default set of minification options for HTML
 $defaultHtmlOptions = @(
     "--collapse-boolean-attributes", "--collapse-whitespace", "--decode-entities",
-    "--minify-css", "true", "--minify-js", "true", "--process-scripts", "[text/html]",
+    "--minify-css", "true", "--minify-js", "true", "--process-scripts", 
     "--remove-attribute-quotes", "--remove-comments", "--remove-empty-attributes",
     "--remove-optional-tags", "--remove-redundant-attributes", "--remove-script-type-attributes",
     "--remove-style-link-type-attributes", "--remove-tag-whitespace", "--sort-attributes",
-    "--sort-class-name", "--trim-custom-fragments", "--use-short-doctype"
+    "--sort-class-names", "--trim-custom-fragments", "--use-short-doctype"
 )
 
 # Define all operations to be performed. Order matters!

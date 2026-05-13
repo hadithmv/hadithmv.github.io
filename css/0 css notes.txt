@@ -7,7 +7,7 @@
 
 I NOW DO NOT MINIFY MANUALLY (like: CSSO+NANO), INSTEAD I USE MINIFIED VERSION FROM OFFICIAL SITE
 
-dataTables.dataTables.css	2.3.7
+dataTables.dataTables.css	2.3.8
 	(nano messes up order icons)
 
 dataTables.inputPaging.css (REMOVE bootstrap & frameworks below it, then CSSO. note that til now we only needed just the first two rules;
