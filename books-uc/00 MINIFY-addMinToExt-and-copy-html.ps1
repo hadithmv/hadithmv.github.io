@@ -137,7 +137,7 @@ try {
     $operations += @{ Type = "JS"; Input = "../js/index.js"; Output = "../js/index.min.js"; Name = "index.js" }
 
     # --- Add all HTML files in the current directory ---
-    $htmlFiles = Get-ChildItem -Filter "*.html" | Where-Object { $_.Name -notmatch "(test|backup|copy)" }
+    $htmlFiles = Get-ChildItem -Filter "*.html" | Where-Object { $_.Name -notmatch "(^TST-|test|backup|copy)" }
     foreach ($file in $htmlFiles) {
         $isIndexFile = ($file.Name -eq "index.html")
         $operations += @{ 
