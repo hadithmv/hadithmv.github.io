@@ -1,22 +1,35 @@
+addedFolder just contains a copy of the original asset files from the initial empty demo template. can ignore it
+rather go into Hadithmv dir instead of that
+open that dir into vs code
+
+first update the npm package
+then run the dev server and see that its working
+then build release
+
+...
+...
+
 location: hadithmv.github.io\windowsApp-tauri\Hadithmv
 (D:\hadithmv\hadithmv.github.io\windowsApp-tauri\Hadithmv)
 
 ...
 
-Update npm Packages
+1 Update npm Packages
+
 npm install @tauri-apps/cli@latest @tauri-apps/api@latest
 
 ...
 
-Start the development server (can take a little while)
-npm run tauri dev
-
+2 Start the development server (can take a little while)
 like hadithmv.github.io\windowsApp-tauri\Hadithmv> npm run tauri dev
+
+npm run tauri dev
 
 ...
 
-Building
+3 Building
 Tauri builds your application directly from its CLI via the build, android build and ios build commands.
+
 npm run tauri build
 
 then you can get the .exe file from:
