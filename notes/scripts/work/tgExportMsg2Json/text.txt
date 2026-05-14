@@ -1,0 +1,7 @@
+1 export from tg
+2 place just the relevant "messages.html" file within the script directoy
+3 run the script to convert to json 
+
+you might want to convert that json to csv and upload (APPEND) to g sheets
+
+no need to write last updated date as it shows most recent first, and that is the last updated date
