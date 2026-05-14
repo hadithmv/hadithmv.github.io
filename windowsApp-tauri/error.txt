@@ -1,0 +1,47 @@
+if you get an error like:
+   Error Found version mismatched Tauri packages. Make sure the NPM package and Rust crate versions are on the same major/minor releases:
+tauri (v2.10.3) : @tauri-apps/api (v2.11.0)
+
+the issue: The Tauri Rust crate is on v2.10 while the NPM packages are on v2.11. update the Cargo.toml to align all Tauri packages to v2.11
+
+in
+src-tauri\Cargo.toml
+
+for
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2.10", features = [] }
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+change change "2.10/2" to change "2.11"
+
+Now sync the Rust dependencies to ensure they're properly resolved, by running:
+cargo update
+
+check the actual error details by running:
+npm tauri info
+if that doesnt work, then:
+npm run tauri -- info
+
+if the Cargo.lock file still has the old versions, regenerate it:
+rm Cargo.lock ; cargo update
+
+The issue - tauri-plugin-opener doesn't have a 2.11 version, to fix that:
+change
+tauri-plugin-opener = "2.11"
+to
+tauri-plugin-opener = "2"
+
+then run "cargo update" again
+The issue:
+tauri-build = { version = "2.11", features = [] }
+change to "2"
+
+Now verify the fix, by running:
+npm run tauri -- info
+or rather
+npx tauri info (within "d:\hadithmv\hadithmv.github.io\windowsApp-tauri\Hadithmv")

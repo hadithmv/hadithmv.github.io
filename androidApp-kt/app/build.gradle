@@ -16,9 +16,9 @@ android {
         applicationId "com.hadithmv.hmv"
         minSdk 24
         targetSdk 36
-        // REMEMBER TO INCREMENT THIS BELOW EVERYTIME B4 FINAL RELEASE TO PLAY STORE
-        versionCode 101
-        versionName "6.8.32"
+        // REMEMBER TO INCREMENT JUST THIS NUMBER BELOW EVERYTIME B4 FINAL RELEASE TO PLAY STORE
+        versionCode 102
+        versionName "6.8.52"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
