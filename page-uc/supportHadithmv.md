@@ -120,13 +120,11 @@ The Hadithmv Project is more than just a platform – it’s a movement to bring
 Your contribution, no matter how small, makes a difference. Contribute today and be part of this meaningful initiative:
 
 - For local supporters - Account transfer:
-
   - 7770000061020
   - MOHD.A.IBRAHIM
   - Remarks: Hadithmv support
 
 - For international supporters
-
   - Please [contact us](../page/contact.html) for international transaction options. Baarakallahu Feekum.
 
 May Allah reward you generously.
