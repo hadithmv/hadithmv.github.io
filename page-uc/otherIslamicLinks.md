@@ -1,6 +1,6 @@
-<!-- TOC --><a name="other-links"></a>
+<!-- TOC --><a name="other-islamic-links"></a>
 
-# Other Links
+# Other Islamic Links
 
 ---
 
