@@ -1,6 +1,6 @@
-<!-- TOC --><a name="software-and-programs"></a>
+<!-- TOC --><a name="tech-link"></a>
 
-# Software and Programs
+# Tech Links
 
 ---
 
@@ -212,48 +212,69 @@
 
 [GPU Performance Comparison](https://docs.google.com/spreadsheets/d/e/2PACX-1vRgu7g3uNNa8RpIC-SQr-PC9IcduMzVWaZNDG3qjEab1AkdoU6fuKPufPdto2_FS7ICPFiFhF1ixO8i/pubhtml)
 
-<!-- LOCAL SHOPS - MALDIVES
+---
 
-https://shop.personalcomputers.mv/
-(they have 3 year warranty and good discounts, like a thousand mvr, authorized service provider for ACER)
+<!-- TOC --><a name="specs"></a>
 
-https://click.mv/
-(they have NO warranty and BAD discounts, like a hundred mvr
-they only replace or refund if product has defect and you return in 24 hours, the moment you pay sales is final and you cannot cancel your order no matter what, they will not return your money once they get their hands on it, they will fight tool and nail to keep it, customer service is very bad)
+### PC Shops
 
-https://computerplus.com.mv/categories
+#### International
 
-https://www.megachipcomputers.com/shop
+[Amazon](https://www.amazon.com/)
 
-https://maxcom.com.mv/v3/shop-2/
-(authorized service provider for DELL)
+[eBay](https://www.amazon.com/)
 
-https://viewnetcomputers.com/
+[B&H](https://www.bhphotovideo.com/c/browse/computer-components/ci/26717)
 
-https://technicamv.com/
+[B&MyUS](https://www.myus.com/)
 
-https://shop.octotech.mv/
+[Temu](https://www.temu.com/)
 
-https://sbnt.gg/
+[AliExpress](https://www.aliexpress.com/)
 
-https://smake.tech/collections
+[Lazada](https://www.lazada.com.my/)
 
-https://www.goldsteps.mv/collections/all
+[Shopee](https://shopee.com/)
 
-https://levendonline.com/
+[CBEX](https://cbexglobal.com/)
 
-https://prolap.online/proshop/
+#### Local - Maldives
 
-https://www.astersonline.com/collections/computer-laptops
+[Personal Computers](https://shop.personalcomputers.mv/) (they have 3 year warranty and good discounts, like a thousand mvr, authorized service provider for ACER)
 
-https://www.redwave.mv/product-category/technology-electronics/
+[Click](https://click.mv/) (they have NO warranty and bad discounts, like a hundred mvr, they only replace or refund if product has defect and you return in 24 hours, the moment you pay sales is final and you cannot cancel your order no matter what, they will not return your money once they get their hands on it, they will fight tool and nail to keep it, customer service is bad)
 
-https://qutech.mv/categories
+[Computer Plus](https://computerplus.com.mv/categories)
 
-https://www.phene.mv/
+[Megachip Computers](https://www.megachipcomputers.com/shop)
 
-ibay
-https://ibay.com.mv/
+[Maxcom](https://maxcom.com.mv/v3/shop-2/) (authorized service provider for DELL)
+
+[Viewnet Computers](https://viewnetcomputers.com/)
+
+[TechnicaMV](https://technicamv.com/)
+
+[OctoTech](https://shop.octotech.mv/)
+
+[Subnet](https://sbnt.gg/)
+
+[Smake Tech](https://smake.tech/collections)
+
+[GoldSteps](https://www.goldsteps.mv/collections/all)
+
+[https://levendonline.com/](https://levendonline.com/)
+
+[https://prolap.online/proshop/](https://prolap.online/proshop/)
+
+[https://[www.astersonline.com/collections/computer-laptops](https://www.astersonline.com/collections/computer-laptops](<https://www.astersonline.com/collections/computer-laptops](https://www.astersonline.com/collections/computer-laptops)>)
+
+[https://[www.redwave.mv/product-category/technology-electronics/](https://www.redwave.mv/product-category/technology-electronics/](<https://www.redwave.mv/product-category/technology-electronics/](https://www.redwave.mv/product-category/technology-electronics/)>)
+
+[https://qutech.mv/categories](https://qutech.mv/categories)
+
+[https://[www.phene.mv/](https://www.phene.mv/](<https://www.phene.mv/](https://www.phene.mv/)>)
+
+ibay [https://ibay.com.mv/](https://ibay.com.mv/)
 
 ...
 
@@ -295,7 +316,7 @@ https://www.itshopmaldives.com/
 
 https://qutech.mv/
 
-https://www.techne.com.mv/ ? -->
+https://www.techne.com.mv/ ?
 
 ---
 
