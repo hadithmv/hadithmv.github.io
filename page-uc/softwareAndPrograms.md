@@ -6,7 +6,17 @@
 
 <!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
-- [AI](#ai)
+- [Software Websites](#software-websites)
+- [Misc Websites](#misc-websites)
+- [Learn Coding](#learn-coding)
+- [AI Models](#ai-models)
+- [AI Editors](#ai-editors)
+- [Documents and Files](#documents-and-files)
+- [VirusTotal](#virustotal)
+- [PC Building](#pc-building)
+  - [Compatibility](#compatibility)
+  - [Specs](#specs)
+- [Graphics and Media](#graphics-and-media)
 - [Miscellaneous](#miscellaneous)
 - [Browser and Extensions](#browser-and-extensions)
   - [Setup](#setup)
@@ -26,10 +36,11 @@
 - [Android Apps](#android-apps)
 - [Code Editor and Extensions](#code-editor-and-extensions)
 - [Node and NPM Packages](#node-and-npm-packages)
+- [Torrents](#torrents)
 
 <!-- TOC end -->
 
-<!-- TOC --><a name="ai"></a>
+<!-- TOC --><a name="software-websites"></a>
 
 ## Software Websites
 
@@ -49,9 +60,9 @@
 
 [npm](https://www.npmjs.com/)
 
-<!-- TOC --><a name="ai"></a>
-
 ---
+
+<!-- TOC --><a name="misc-websites"></a>
 
 ## Misc Websites
 
@@ -66,6 +77,8 @@
 [Goblin Tools](https://goblin.tools/)
 
 ---
+
+<!-- TOC --><a name="learn-coding"></a>
 
 ## Learn Coding
 
@@ -82,6 +95,8 @@
 [Regexr](https://regexr.com/)
 
 ---
+
+<!-- TOC --><a name="ai-models"></a>
 
 ## AI Models
 
@@ -101,6 +116,8 @@
 
 ---
 
+<!-- TOC --><a name="ai-editors"></a>
+
 ## AI Editors
 
 [Google AI Studio](https://aistudio.google.com/)
@@ -113,7 +130,7 @@
 
 ---
 
-<!-- TOC --><a name="miscellaneous"></a>
+<!-- TOC --><a name="documents-and-files"></a>
 
 ## Documents and Files
 
@@ -121,9 +138,11 @@
 
 [iLovePDF](https://www.ilovepdf.com/)
 
+<!-- TOC --><a name="virustotal"></a>
+
 ## [VirusTotal](https://www.virustotal.com)
 
-<!-- TOC --><a name="miscellaneous"></a>
+<!-- TOC --><a name="pc-building"></a>
 
 ## PC Building
 
@@ -141,6 +160,8 @@
 
 [PC Builds PC Builder](https://pc-builds.com/)
 
+<!-- TOC --><a name="compatibility"></a>
+
 ### Compatibility
 
 [Corsair Ram Compatibility](https://www.corsair.com/us/en/c/memory/find-by-compatibility)
@@ -153,7 +174,7 @@
 
 [Cybenetics PSU Performance Database](https://www.cybenetics.com/index.php?option=psu-performance-database)
 
-[Toms Hardware Cooler Benchmarks](https://www.tomshardware.com/reviews/best-cpu-coolers,4181.html#section-best-air-coolers)
+[TH Cooler Benchmarks](https://www.tomshardware.com/reviews/best-cpu-coolers,4181.html#section-best-air-coolers)
 
 [GN Cooler Benchmarks](https://gamersnexus.net/megacharts/cpu-coolers)
 
@@ -163,9 +184,122 @@
 
 [UserBenchmark SSD Benchmarks](https://ssd.userbenchmark.com/)
 
+<!-- TOC --><a name="specs"></a>
+
+### Specs
+
+[Passmark CPU Benchmarks](https://www.cpubenchmark.net/cpu-list/)
+
+[Disk Prices](https://diskprices.com/)
+
+[DisplaySpecifications](https://www.displayspecifications.com/en)
+
+[PPP Parts](https://pcpartpicker.com/products/)
+
+[Disk Prices](https://versus.com/en/)
+
+[Versus Comparison](https://versus.com/en)
+
+[MotherboardDB](https://motherboarddb.com/motherboards/)
+
+[Passmark GPU Value Benchmarks](https://www.videocardbenchmark.net/gpu_value.html)
+
+[Passmark GPU Top Benchmark](https://www.videocardbenchmark.net/high_end_gpus.html)
+
+[ZTT GPU Comparison](https://zttbuilds.com/pages/gpu-comparison-chart)
+
+[TH GPU Benchmarks](https://www.tomshardware.com/reviews/gpu-hierarchy,4388.html)
+
+[GPU Performance Comparison](https://docs.google.com/spreadsheets/d/e/2PACX-1vRgu7g3uNNa8RpIC-SQr-PC9IcduMzVWaZNDG3qjEab1AkdoU6fuKPufPdto2_FS7ICPFiFhF1ixO8i/pubhtml)
+
+<!-- LOCAL SHOPS - MALDIVES
+
+https://shop.personalcomputers.mv/
+(they have 3 year warranty and good discounts, like a thousand mvr, authorized service provider for ACER)
+
+https://click.mv/
+(they have NO warranty and BAD discounts, like a hundred mvr
+they only replace or refund if product has defect and you return in 24 hours, the moment you pay sales is final and you cannot cancel your order no matter what, they will not return your money once they get their hands on it, they will fight tool and nail to keep it, customer service is very bad)
+
+https://computerplus.com.mv/categories
+
+https://www.megachipcomputers.com/shop
+
+https://maxcom.com.mv/v3/shop-2/
+(authorized service provider for DELL)
+
+https://viewnetcomputers.com/
+
+https://technicamv.com/
+
+https://shop.octotech.mv/
+
+https://sbnt.gg/
+
+https://smake.tech/collections
+
+https://www.goldsteps.mv/collections/all
+
+https://levendonline.com/
+
+https://prolap.online/proshop/
+
+https://www.astersonline.com/collections/computer-laptops
+
+https://www.redwave.mv/product-category/technology-electronics/
+
+https://qutech.mv/categories
+
+https://www.phene.mv/
+
+ibay
+https://ibay.com.mv/
+
+...
+
+https://www.facebook.com/p/BIOS-100084201069975/
+https://www.bios.mv/ they dont update their site, but check facebook
+
+https://www.facebook.com/Gizmo.mv/ they viber catalogues
+
+https://www.facebook.com/phene.mv/ ? not much followers
+
+https://www.facebook.com/rosewareshop/
+https://www.rosewarecorp.com/v2/ ? no website
+
+https://www.facebook.com/ehub.maldives
+
+https://www.facebook.com/focuscompmv/ ?
+
+https://www.facebook.com/p/Waarithmv-100090853868870/ laptops only
+
+https://www.facebook.com/mixelectronicsmv/ laptops only
+
+https://www.facebook.com/premiomaldives/ laptops and misc
+
+https://www.facebook.com/Buymix.Mv/ misc
+
+https://www.facebook.com/p/Techinnovatemv-61552295521189/ laptops
+
+...
+
+https://shop.linkserve.mv/
+
+https://www.hampseshop.com/ laptops and monitors
+
+https://www.eplatinummobiles.com/laptop laptops only
+
+https://techstreet.mv/ laptops only
+
+https://www.itshopmaldives.com/
+
+https://qutech.mv/
+
+https://www.techne.com.mv/ ? -->
+
 ---
 
-<!-- TOC --><a name="miscellaneous"></a>
+<!-- TOC --><a name="graphics-and-media"></a>
 
 ## Graphics and Media
 
@@ -847,6 +981,8 @@ terser
 uglify-js
 
 ---
+
+<!-- TOC --><a name="torrents"></a>
 
 ## Torrents
 
