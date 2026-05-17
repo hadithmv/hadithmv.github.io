@@ -31,6 +31,58 @@
 
 <!-- TOC --><a name="ai"></a>
 
+## Software Websites
+
+[PortableApps](https://portableapps.com/)
+
+[AlternativeTo](https://alternativeto.net/)
+
+[Ninite](https://ninite.com/)
+
+[SourceForge](https://sourceforge.net/)
+
+[MajorGeeks](https://www.majorgeeks.com/)
+
+[SoftwareOK](https://www.softwareok.com/)
+
+[NirSoft](https://www.nirsoft.net/)
+
+[npm](https://www.npmjs.com/)
+
+<!-- TOC --><a name="ai"></a>
+
+---
+
+## Misc Websites
+
+[Remove Paywall](https://www.removepaywall.com/)
+
+[Hardware Detector](https://emu.cool/specs/)
+
+[Cloud Service Instances](https://instances.vantage.sh/)
+
+[CyberChef](https://gchq.github.io/CyberChef/)
+
+[Goblin Tools](https://goblin.tools/)
+
+---
+
+## Learn Coding
+
+[freeCodeCamp](https://www.freecodecamp.org/)
+
+[Roadmap.sh](https://roadmap.sh/)
+
+[MDN Web Docs](https://developer.mozilla.org/en-US/)
+
+[Explainshell](https://explainshell.com/)
+
+[Regex101](https://regex101.com/)
+
+[Regexr](https://regexr.com/)
+
+---
+
 ## AI Models
 
 [Claude](https://claude.ai/chat)
@@ -63,13 +115,75 @@
 
 <!-- TOC --><a name="miscellaneous"></a>
 
+## Documents and Files
+
+[TableConvert](https://tableconvert.com/)
+
+[iLovePDF](https://www.ilovepdf.com/)
+
+## [VirusTotal](https://www.virustotal.com)
+
+<!-- TOC --><a name="miscellaneous"></a>
+
+## PC Building
+
+[How to Build a PC - LTT](https://www.youtube.com/watch?v=s1fxZ-VWs2U)
+
+[PCPartPicker](https://pcpartpicker.com/)
+
+[PC Master Race](https://pcmasterrace.org/builds)
+
+[Corsair PC Builder](https://www.corsair.com/us/en/pc-builder/)
+
+[Neweegg PC Builder](https://www.newegg.com/tools/custom-pc-builder)
+
+[Star Tech PC Builder](https://www.startech.com.bd/tool/pc_builder)
+
+[PC Builds PC Builder](https://pc-builds.com/)
+
+### Compatibility
+
+[Corsair Ram Compatibility](https://www.corsair.com/us/en/c/memory/find-by-compatibility)
+
+[Crucial Upgrade Compatibility](https://www.crucial.com/upgrades)
+
+[SPL PSU Tier List](https://psutierlist.org/)
+
+[Newegg PSU Calculator](https://www.newegg.com/tools/power-supply-calculator)
+
+[Cybenetics PSU Performance Database](https://www.cybenetics.com/index.php?option=psu-performance-database)
+
+[Toms Hardware Cooler Benchmarks](https://www.tomshardware.com/reviews/best-cpu-coolers,4181.html#section-best-air-coolers)
+
+[GN Cooler Benchmarks](https://gamersnexus.net/megacharts/cpu-coolers)
+
+[SSD Benchmarks](https://docs.google.com/spreadsheets/d/1B27_j9NDPU3cNlj2HKcrfpJKHkOf-Oi1DbuuQva2gT4)
+
+[SSD Tester Rankings](https://ssd-tester.com/top_ssd.php)
+
+[UserBenchmark SSD Benchmarks](https://ssd.userbenchmark.com/)
+
+---
+
+<!-- TOC --><a name="miscellaneous"></a>
+
+## Graphics and Media
+
+[Draw.io](https://www.drawio.com/)
+
+[Photopea](https://www.photopea.com/)
+
+[Remove.bg](https://www.remove.bg/)
+
+---
+
+<!-- TOC --><a name="miscellaneous"></a>
+
 ## Miscellaneous
 
 [Google Keep](https://keep.google.com)
 
 [Google Tasks](https://calendar.google.com/calendar/u/0/r/tasks)
-
-[Photopea](https://www.photopea.com)
 
 [FreeCodeCamp](https://www.freecodecamp.org)
 
