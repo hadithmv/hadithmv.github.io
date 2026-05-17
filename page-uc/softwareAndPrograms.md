@@ -731,3 +731,16 @@ prettier
 stylelint
 terser
 uglify-js
+
+---
+
+## Torrents
+
+[qBittorrent](https://www.qbittorrent.org/)
+
+tools > options >
+
+- saving management > default save path
+- connection > conenction limits > global maximum number of upload slots, maximum number of upload slots
+- speed > global rate limits > upload, alternative rate limits > upload
+- bittorrent > torrent queueing > maximum active uploads
