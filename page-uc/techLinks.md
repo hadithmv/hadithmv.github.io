@@ -60,6 +60,14 @@
 
 [npm](https://www.npmjs.com/)
 
+[Filehorse](https://www.filehorse.com/)
+
+[Filehippo](https://filehippo.com/)
+
+[CNET](https://download.cnet.com/)
+
+[Softpedia](https://www.softpedia.com/)
+
 ---
 
 <!-- TOC --><a name="misc-websites"></a>
@@ -1013,3 +1021,143 @@ tools > options >
 - connection > conenction limits > global maximum number of upload slots, maximum number of upload slots
 - speed > global rate limits > upload, alternative rate limits > upload
 - bittorrent > torrent queueing > maximum active uploads
+
+---
+
+<!-- TOC --><a name="misc-websites"></a>
+
+## Android Sites
+
+[F-Droid](https://f-droid.org/en/)
+
+[APKMirror](https://www.apkmirror.com/)
+
+[Aptoide](https://en.aptoide.com/)
+
+[Uptodown](https://en.uptodown.com/)
+
+[AppBrain](https://www.appbrain.com/)
+
+<!-- TOC --><a name="misc-websites"></a>
+
+## Apple Sites
+
+[MacUpdate](https://www.macupdate.com/)
+
+[Thriftmac](https://www.thriftmac.com/)
+
+[Macapps.link](https://macapps.link/)
+
+[Mac menu bar](https://macmenubar.com/recently-added/)
+
+[AppAddict](https://appaddict.app/)
+
+[Mac Treasure](https://mactreasure.com/)
+
+[Open Source Mac Apps](https://indiegoodies.com/awesome-open-source-mac-apps)
+
+[Awesome Mac](https://github.com/jaywcjlove/awesome-mac)
+
+---
+
+<!-- last done: 17/5/26
+Copying the Finder View (Basic List)
+Open Finder and click Applications in the left sidebar.
+Click the View button in the Finder toolbar (the icon with four small squares) and select as List.
+Select all items (Cmd + A), copy them (Cmd + C), and paste them (Cmd + V) into a text file.
+-->
+
+## Apple Software & Programs
+
+Siri
+Adobe Acrobat DC
+Adobe Photoshop 2026
+Antigravity
+App Store
+Apps
+Automator
+Books
+CAI
+Calculator
+Calendar
+calibre
+Chess
+Chrome Remote Desktop Host Uninstaller
+Clipy
+Clock
+Commander One PRO
+Contacts
+DCommander
+Developer
+Dictionary
+FaceTime
+Find My
+Firefox
+Font Book
+Freeform
+Games
+GitHub Copilot for Xcode
+Google Chrome
+Home
+Image Capture
+iPhone Mirroring
+Journal
+Keynote
+Latest
+LibreOffice
+Logi Options
+MacUpdater
+Mail
+Maps
+Messages
+Microsoft Excel
+Microsoft PowerPoint
+Microsoft Word
+Mission Control
+Music
+NetSpeedMonitor
+Nextpad++
+Notes
+Notion
+Numbers
+Pages
+Passwords
+Phone
+Photo Booth
+Photos
+Podcasts
+PowerShell
+Preview
+Python 3.12
+Python 3.13
+Python 3.14
+QR Journal
+QuickTime Player
+Rectangle
+Reminders
+Safari
+Scratch 3
+Shortcuts
+Stats
+Stickies
+Stocks
+Swift Playground
+System Settings
+Telegram
+TestFlight
+TextEdit
+The Unarchiver
+Time Machine
+Tips
+TV
+UniGetUI
+Utilities
+Viber
+Visual Studio Code
+VLC
+Voice Memos
+Warp
+Weather
+WhatsApp
+Xcode
+Xnip
