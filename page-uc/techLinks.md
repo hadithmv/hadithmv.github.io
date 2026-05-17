@@ -262,61 +262,55 @@
 
 [GoldSteps](https://www.goldsteps.mv/collections/all)
 
-[https://levendonline.com/](https://levendonline.com/)
+[Le Vend](https://levendonline.com/)
 
-[https://prolap.online/proshop/](https://prolap.online/proshop/)
+[Prolap](https://prolap.online/proshop/)
 
-[https://[www.astersonline.com/collections/computer-laptops](https://www.astersonline.com/collections/computer-laptops](<https://www.astersonline.com/collections/computer-laptops](https://www.astersonline.com/collections/computer-laptops)>)
+[Asters](https://www.astersonline.com/collections/computer-laptops)
 
-[https://[www.redwave.mv/product-category/technology-electronics/](https://www.redwave.mv/product-category/technology-electronics/](<https://www.redwave.mv/product-category/technology-electronics/](https://www.redwave.mv/product-category/technology-electronics/)>)
+[Redwave](https://www.redwave.mv/product-category/technology-electronics/)
 
-[https://qutech.mv/categories](https://qutech.mv/categories)
+[Qutech](https://qutech.mv/categories)
 
-[https://[www.phene.mv/](https://www.phene.mv/](<https://www.phene.mv/](https://www.phene.mv/)>)
+[Phene](https://www.phene.mv/)
 
-ibay [https://ibay.com.mv/](https://ibay.com.mv/)
-
-...
-
-https://www.facebook.com/p/BIOS-100084201069975/
-https://www.bios.mv/ they dont update their site, but check facebook
-
-https://www.facebook.com/Gizmo.mv/ they viber catalogues
-
-https://www.facebook.com/phene.mv/ ? not much followers
-
-https://www.facebook.com/rosewareshop/
-https://www.rosewarecorp.com/v2/ ? no website
-
-https://www.facebook.com/ehub.maldives
-
-https://www.facebook.com/focuscompmv/ ?
-
-https://www.facebook.com/p/Waarithmv-100090853868870/ laptops only
-
-https://www.facebook.com/mixelectronicsmv/ laptops only
-
-https://www.facebook.com/premiomaldives/ laptops and misc
-
-https://www.facebook.com/Buymix.Mv/ misc
-
-https://www.facebook.com/p/Techinnovatemv-61552295521189/ laptops
+[ibay](https://ibay.com.mv/)
 
 ...
 
-https://shop.linkserve.mv/
+[Bios](https://www.facebook.com/p/BIOS-100084201069975/)
 
-https://www.hampseshop.com/ laptops and monitors
+[Gizmo](https://www.facebook.com/Gizmo.mv/) (they viber catalogues)
 
-https://www.eplatinummobiles.com/laptop laptops only
+[Roseware](https://www.facebook.com/rosewareshop/)
 
-https://techstreet.mv/ laptops only
+[eHub](https://www.facebook.com/ehub.maldives)
 
-https://www.itshopmaldives.com/
+[Focus Computers](https://www.facebook.com/focuscompmv/)
 
-https://qutech.mv/
+[Waarithmv](https://www.facebook.com/p/Waarithmv-100090853868870/) ( laptops only)
 
-https://www.techne.com.mv/ ?
+[Mix Electronics](https://www.facebook.com/mixelectronicsmv/) (laptops only)
+
+[Premio](https://www.facebook.com/premiomaldives/) (laptops and misc)
+
+[Buy Mix](https://www.facebook.com/Buymix.Mv/) (misc)
+
+[Techinnovate](https://www.facebook.com/p/Techinnovatemv-61552295521189/) (laptops)
+
+...
+
+[Link Serve](https://shop.linkserve.mv/)
+
+[Hamps e](https://www.hampseshop.com/) (laptops and monitors)
+
+[E Platinum](https://www.eplatinummobiles.com/laptop) (laptops)
+
+[Techstreet](https://techstreet.mv/) (laptops)
+
+[itshopmaldives](https://www.itshopmaldives.com/)
+
+[Techne](https://www.techne.com.mv/)
 
 ---
 
@@ -328,6 +322,8 @@ https://www.techne.com.mv/ ?
 
 [Photopea](https://www.photopea.com/)
 
+[Pixlr](https://pixlr.com/editor/)
+
 [Remove.bg](https://www.remove.bg/)
 
 ---
@@ -335,6 +331,8 @@ https://www.techne.com.mv/ ?
 <!-- TOC --><a name="miscellaneous"></a>
 
 ## Miscellaneous
+
+[Xe Currency Converter](https://www.xe.com/)
 
 [Google Keep](https://keep.google.com)
 
