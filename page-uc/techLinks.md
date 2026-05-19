@@ -1021,6 +1021,8 @@ tools > options >
 - connection > conenction limits > global maximum number of upload slots, maximum number of upload slots
 - speed > global rate limits > upload, alternative rate limits > upload
 - bittorrent > torrent queueing > maximum active uploads
+- bitttorent > seeding limits
+- advanced > display notifications
 
 ---
 
