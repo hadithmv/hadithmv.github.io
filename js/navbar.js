@@ -1,11 +1,12 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.8.65";
+var hmvVersionNo = "6.8.66";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
-
 // above is version no  var for hmv, shown in sidemenu and maybe main index page
+
+var hmvPlatform = "Web";
 
 console.log(
   "%c Welcome to Hadithmv",
@@ -205,8 +206,18 @@ function createNavbar() {
       <li>
          <a href="https://github.com/hadithmv/hadithmv.github.io/releases" 
             target="_blank"
-            class="versionNo"><span class="versionIcon"></span>އިސްދާރު: v${hmvVersionNo}</a>
+            class="versionNo">
+            <span class="versionIcon"></span>
+            ${hmvPlatform} v${hmvVersionNo}
+            </a>
       </li>
+      <!--<li>
+         <a href="https://github.com/hadithmv/hadithmv.github.io/releases" 
+            target="_blank"
+            class="versionNo">
+            <span class="versionIcon"></span>އިސްދާރު: v${hmvVersionNo}
+            </a>
+      </li>-->
       <li>
          <a href="https://t.me/ashraafmv" target="_blank" title="Message on Telegram"
             ><span class="authorIcon"></span>ފަރުމާކުރީ: އަބޫ ޔަޙްޔާ، މުޙައްމަދު އަޝްރާފު އިބްރާހީމް</a

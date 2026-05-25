@@ -223,6 +223,56 @@ try {
         }
     }
     
+    # Step 5: Update platform variable in navbar.min.js for each destination
+    Write-Host "`n[5/5] 🔧 Setting platform variables" -ForegroundColor Yellow
+    
+    $platformConfigs = @(
+        @{Path = "$destPathAndroid\js\navbar.min.js"; Platform = "Android"; Desc = "Android" }
+        @{Path = "$destPathWindows\js\navbar.min.js"; Platform = "Windows"; Desc = "Windows" }
+    )
+    
+    $platformCount = 0
+    $platformSuccessCount = 0
+    $platformFailCount = 0
+    
+    foreach ($config in $platformConfigs) {
+        $platformCount++
+        $percentComplete = [math]::Round(($platformCount / $platformConfigs.Count) * 100)
+        
+        Write-Host "  [$platformCount/$($platformConfigs.Count)] $percentComplete% " -NoNewline
+        Write-Host "navbar.min.js ($($config.Desc)) " -NoNewline
+        
+        try {
+            if (-not (Test-Path $config.Path)) {
+                Write-Host "⚠️ (File not found)" -ForegroundColor Yellow
+                continue
+            }
+            
+            # Read the file content
+            $content = Get-Content $config.Path -Raw -ErrorAction Stop
+            
+            # Replace hmvPlatform="Web" with hmvPlatform="Android" or hmvPlatform="Windows"
+            if ($content -match 'hmvPlatform="Web"') {
+                $newContent = $content -replace 'hmvPlatform="Web"', "hmvPlatform=`"$($config.Platform)`""
+                
+                # Write the updated content back to the file
+                $newContent | Set-Content $config.Path -NoNewline -ErrorAction Stop
+                
+                Write-Host "✅ " -ForegroundColor Green -NoNewline
+                Write-Host "(Web → $($config.Platform))" -ForegroundColor Cyan
+                $platformSuccessCount++
+            }
+            else {
+                Write-Host "⚠️ (Variable not found or already updated)" -ForegroundColor Yellow
+            }
+        }
+        catch {
+            Write-Host "❌" -ForegroundColor Red
+            Write-Error "Error updating platform in $($config.Path): $_"
+            $platformFailCount++
+        }
+    }
+    
     # Calculate execution time
     $endTime = Get-Date
     $executionTime = ($endTime - $startTime).TotalSeconds
@@ -239,13 +289,15 @@ try {
     }
     Write-Host "✅ File Operations: " -ForegroundColor Green -NoNewline
     Write-Host "$successCount successful" -ForegroundColor White
+    Write-Host "✅ Platform Variables: " -ForegroundColor Green -NoNewline
+    Write-Host "$platformSuccessCount updated" -ForegroundColor White
     Write-Host "❌ Failed Operations: " -ForegroundColor Red -NoNewline
-    Write-Host "$($versionFailCount + $failCount) total" -ForegroundColor White
+    Write-Host "$($versionFailCount + $failCount + $platformFailCount) total" -ForegroundColor White
     Write-Host "🕒 Total Time: " -ForegroundColor Cyan -NoNewline
     Write-Host "$([math]::Round($executionTime, 2)) seconds" -ForegroundColor White
     Write-Host "───────────────────────────────────────────────────" -ForegroundColor DarkGray
     
-    if (($versionFailCount + $failCount) -eq 0) {
+    if (($versionFailCount + $failCount + $platformFailCount) -eq 0) {
         Write-Host "✅ ALL OPERATIONS COMPLETED SUCCESSFULLY ✅" -ForegroundColor Green
     }
     else {
