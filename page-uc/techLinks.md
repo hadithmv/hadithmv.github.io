@@ -40,6 +40,8 @@
 
 <!-- TOC end -->
 
+---
+
 <!-- TOC --><a name="software-websites"></a>
 
 ## Software Websites
@@ -536,18 +538,18 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
   - Animate controls and elements inside windows
   - Animate windows when minimizing and maximizing
   - Animations in the taskbar
-  - Fade out menu items after clicking
   - Fade or slide menus into view
   - Fade or slide Tool Tips into view
   - Fade out menu items after clicking
-  - Show shadows under windows
   - Show shadows under mouse pointer
+  - Show shadows under windows
   - Show translucent selection rectangle
   - Show window contents while dragging
   - Slide open combo boxes
   - Use drop shadows for icpn labels on the desktop
   - ?Save taskbar menu previews
   - ?Smooth scroll list boxes
+  - (to put it short, remove everything else and just keep: Enable Peek, Show thumbnails instead of icons, Smooth edges of screen fonts, Smooth-scroll list boxes.)
 
 - UI, Input & Accessibility
   - Right Click Taskbar, Settings, Search: Icon and Label
