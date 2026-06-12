@@ -198,7 +198,7 @@
 
 <!-- TOC --><a name="browser-and-extensions"></a>
 
-## Browser
+## Web Browser
 
 [Microsoft Edge](https://www.microsoft.com/en-us/edge)
 
@@ -206,17 +206,19 @@
 
 ### Browser Setup
 
-Vertical tabs: enable
-Show favourites, history, downloads on toolbar
-Search engine: Google
-Start: open tabs from previous session
+- vertical tabs: enable
+- show favourites, history, downloads on toolbar
+- search engine: google
+- start: open tabs from previous session
 
 ### Export/Import Browser Bookmarks
 
 <!-- last done: 12/6/26 -->
 
-Open Bookmarks/Favorites menu, ..., Export Favorites
-Save HTML file
+- open bookmarks/favorites menu
+- ...
+- export favorites
+- save html file
 
 Note: if using workspaces, no normal way to export those as workspaces, instead have to:
 
@@ -230,8 +232,9 @@ Note: if using workspaces, no normal way to export those as workspaces, instead 
 <!-- last done: 12/6/26 -->
 
 Use: [Extension List](https://chromewebstore.google.com/detail/extension-list/cboicfdginkkdfppcjighdkchdlebdjp)
-Export All to CSV, open as spreadsheet
-Copy first column list
+
+- export all to csv, open as spreadsheet
+- copy first column list
 
 <!-- TOC --><a name="extensions"></a>
 
@@ -327,10 +330,11 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 <!-- last done: 12/6/26 -->
 
 Use: [UninstallView](https://www.nirsoft.net/utils/uninstall_view.html)
-Download, unzip, run exe
-View, choose columns, deslect all but first
-Back to the display list, select all, right click, copy selected items, paste
-remove first row 'Display Name'
+
+- download, unzip, run exe
+- view, choose columns, deslect all but first
+- back to the display list, select all, right click, copy selected items, paste
+- remove first row 'display name'
 
 <!-- Remove G -->
 
@@ -512,49 +516,49 @@ WhatsApp
 
 ### Third Party Configs
 
-- PowerToys
-  - Autostart
+- powertoys
+  - autostart
 
-- Messaging Apps (Telegram, Whatsapp, Viber, Signal)
-  - Configure Sync and Backup, Display Size, Autodownload Settings
+- messaging apps (telegram, whatsapp, viber, signal)
+  - configure sync and backup, display size, autodownload settings
 
-- Focus Tab Groups
-  - Tab Repositioning; Reposition tabs direction & Reposition tab group direction; None
+- focus tab groups
+  - tab repositioning; reposition tabs direction & reposition tab group direction; none
 
-- Dark Reader, uBlock Origin, UltraSurf
-  - Allow InPrivate
+- dark reader, ublock origin, ultrasurf
+  - allow inprivate
 
-- Dark Reader
-  - Allow access to file URLs
+- dark reader
+  - allow access to file urls
 
-- UltraSurf
-  - Disconnect after installing
+- ultrasurf
+  - disconnect after installing
 
-- IrfanView
-  - Open Images
+- irfanview
+  - open images
 
-- 7Zip Manager
-  - Open Archives
+- 7zip manager
+  - open archives
 
-- QDir, Notepad++, etc
-  - Dark Mode
+- qdir, notepad++, etc
+  - dark mode
 
-- Startup Apps
-  - Delay / Disable what's not needed
+- startup apps
+  - delay / disable what's not needed
 
 <!-- TOC --><a name="before-installing-fresh-windows"></a>
 
 ### Before Installing Fresh Windows
 
-- Note All Apps + Settings
-- Backup All Files + Folders
-- Log Out of All Apps
-- Delete Files, Uninstall Programs
-- Run PC Cleaning (PC Manager, Glary, IObit ASC)
-- Upgrade Hardware (RAM + SSD)
-- Create Installation Media + Verify
-- Defrag + Optimize Disk / Else Format or Delete Partition
-- Download MOBO and GPU Firmware and Drivers in Advance
+- note all apps + settings
+- backup all files + folders to a hard drive
+- log out of all apps
+- delete files, uninstall programs
+- run pc cleaning (pc manager, glary, iobit asc)
+- upgrade hardware (ram + ssd)
+- create installation media + verify
+- defrag + optimize disk / else format or delete partition
+- download mobo and gpu firmware and drivers in advance
 
 <!-- !!! add similar steps for phone too -->
 
@@ -562,107 +566,107 @@ WhatsApp
 
 ### Clean Install
 
-- Windows Media Creation Tool + Windows ISO
-- Boot to USB drive + Create Partions
-- 150-200+GB for Windows + Other Partition / Disk
-- Disconnect Internet + Install Windows with Local Account
-- Region US + Date UK + Short Date + Time Zone: UTC +5 Karachi
-- Language for Non Unicode Programs: Arabic Saudi
+- windows media creation tool + windows iso
+- boot to usb drive + create partions
+- 150-200+gb for windows + other partition / disk
+- disconnect internet + install windows with local account
+- region us + date uk + short date + time zone: utc +5 karachi
+- language for non unicode programs: arabic saudi
 
 <!-- TOC --><a name="base-setup"></a>
 
 ### Base Setup
 
-- Create Restore Point
-- Update Windows (Until no more updates)
-- Update MOBO Firmware and Drivers
-- Update GPU Firmware and Drivers
-- Update MS Store
-- BIOS Auto-On
-- BIOS CPU Undervolt
-- BIOS RAM Overclock?
-- BIOS Keyboard Backlight?
-- Create Dev Drive
-- Create Restore Point
+- create restore point
+- update windows (until no more updates)
+- update mobo firmware and drivers
+- update gpu firmware and drivers
+- update ms store
+- bios auto-on
+- bios cpu undervolt
+- bios ram overclock?
+- bios keyboard backlight?
+- create dev drive
+- create restore point
 
 <!-- TOC --><a name="personalization"></a>
 
 ### Personalization
 
-- Privacy & Telemetry
-  - Send optional diagnostic data OFF + Disable Tailored Experiences + Advertising ID OFF
-- Animation Effects OFF (except smooth edges of screen fonts)
-- Bluetooth OFF
-- Search (Privacy & Security)
-  - Search History OFF
-  - Search Highlights OFF
-- Run "services.msc", scroll down to "Windows Search", right click, properties, startup type: disabled
-- Performance Options (System Properties > Performance > Settings), turn OFF:
-  - Animate controls and elements inside windows
-  - Animate windows when minimizing and maximizing
-  - Animations in the taskbar
-  - Fade or slide menus into view
-  - Fade or slide Tool Tips into view
-  - Fade out menu items after clicking
-  - Show shadows under mouse pointer
-  - Show shadows under windows
-  - Show translucent selection rectangle
-  - Show window contents while dragging
-  - Slide open combo boxes
-  - Use drop shadows for icpn labels on the desktop
-  - ?Save taskbar menu previews
-  - ?Smooth scroll list boxes
-  - (to put it short, remove everything else and just keep: Enable Peek, Show thumbnails instead of icons, Smooth edges of screen fonts, Smooth-scroll list boxes.)
+- privacy & telemetry
+  - send optional diagnostic data off + disable tailored experiences + advertising id off
+- animation effects off (except smooth edges of screen fonts)
+- bluetooth off
+- search (privacy & security)
+  - search history off
+  - search highlights off
+- run "services.msc", scroll down to "windows search", right click, properties, startup type: disabled
+- performance options (system properties > performance > settings), turn off:
+  - animate controls and elements inside windows
+  - animate windows when minimizing and maximizing
+  - animations in the taskbar
+  - fade or slide menus into view
+  - fade or slide tool tips into view
+  - fade out menu items after clicking
+  - show shadows under mouse pointer
+  - show shadows under windows
+  - show translucent selection rectangle
+  - show window contents while dragging
+  - slide open combo boxes
+  - use drop shadows for icpn labels on the desktop
+  - ?save taskbar menu previews
+  - ?smooth scroll list boxes
+  - (to put it short, remove everything else and just keep: enable peek, show thumbnails instead of icons, smooth edges of screen fonts, smooth-scroll list boxes.)
 
-- UI, Input & Accessibility
-  - Right Click Taskbar, Settings, Search: Icon and Label
-  - Dark mode + Night light
-  - Fonts (Faruma, Fira Code) Mouse speed + Scale/Font Size Adjustments
-  - Adjust ClearType
-  - US Keyboard, Ar Saudi, Divehi
-  - UK Date + First Day of the Week; Sun
-  - 12 Hour Clock + Short Time & Date No Zero
-  - Windows Clipboard History
-  - Start Weather Widget Celsius
+- ui, input & accessibility
+  - right click taskbar, settings, search: icon and label
+  - dark mode + night light
+  - fonts (faruma, fira code) mouse speed + scale/font size adjustments
+  - adjust cleartype
+  - us keyboard, ar saudi, divehi
+  - uk date + first day of the week; sun
+  - 12 hour clock + short time & date no zero
+  - windows clipboard history
+  - start weather widget celsius
 
-- UX
-  - File Explorer Settings; View File Name Extensions + Hidden Files
-  - Enable Biometrics / PIN
+- ux
+  - file explorer settings; view file name extensions + hidden files
+  - enable biometrics / pin
 
 <!-- TOC --><a name="apps-debloat"></a>
 
 ### Apps & Debloat
 
-- Chrome Remote Desktop
-- IObit Uninstall Bloatware (Preinstalled Software & Games)
-  - Alternatively take a look at: https://github.com/Raphire/Win11Debloat (but thats overkill as is)
-  - or https://github.com/christitustech/Winutil
-- UniGetUI, Update Check Frequency: Weekly
-- MS Office
-- Set Autostart Apps, run; shell:startup
-- Add Peripherals; Keyboard, Mouse, Printer
-  - Install Associated Drivers
+- chrome remote desktop
+- iobit uninstall bloatware (preinstalled software & games)
+  - alternatively take a look at: https://github.com/raphire/win11debloat (but thats overkill as is)
+  - or https://github.com/christitustech/winutil
+- unigetui, update check frequency: weekly
+- ms office
+- set autostart apps, run; shell:startup
+- add peripherals; keyboard, mouse, printer
+  - install associated drivers
 
 <!-- TOC --><a name="pin-to-taskbar"></a>
 
 ### Pin to Taskbar
 
-- Remove Useless Pins
-- Task Manager, Qdir, Notion, Browser, VsCode, Notepad++, Telegram, Meldmerge
-- Shamela, JamiulKhadem, File Explorer, Signal, Android Studio, Word, Excel, Notepad
-- Whatsapp, Email, Hmv, Teams, Antigravity, Chrome Remote Desktop
+- remove useless pins
+- task manager, qdir, notion, browser, vscode, notepad++, telegram, meldmerge
+- shamela, jamiulkhadem, file explorer, signal, android studio, word, excel, notepad
+- whatsapp, email, hmv, teams, antigravity, chrome remote desktop
 
 <!-- TOC --><a name="personal-files-final-setup"></a>
 
 ### Personal Files & Final Setup
 
-- Transfer Files & Folders
-- Windows Backup
-- Cloud Backup (Google, OneDrive)
-- Power Mode: Battery / Performance
-- Screen Off 15 mins
-- Sleep 5 Hours
-- Create Restore Point Again
+- transfer files & folders
+- windows backup
+- cloud backup (google, onedrive)
+- power mode: battery / performance
+- screen off 15 mins
+- sleep 5 hours
+- create restore point again
 
 <!-- TOC --><a name="android-apps"></a>
 
@@ -671,12 +675,13 @@ WhatsApp
 <!-- last done: 12/6/26 -->
 
 Use: (App Manager)[https://play.google.com/store/apps/details?id=com.lb.app_manager]
-Install, skip permissions
-Tap and hold and app, then in top left corner open dropdown, select all apps
-In the top menu to the right, tap share
-What to share: change to App names
-Tap the copy icon to the right
-Paste elsewhere
+
+- install, skip permissions
+- tap and hold and app, then in top left corner open dropdown, select all apps
+- in the top menu to the right, tap share
+- what to share: change to app names
+- tap the copy icon to the right
+- paste elsewhere
 
 <!-- ! REMEMBER TO REMOVE:
 Binance
@@ -805,8 +810,9 @@ Zikuru
 
 ## Export Code Editor Extensions List
 
-In terminal, use command: code --list-extensions
-select them and copy
+in terminal, use command:
+code --list-extensions
+select and copy
 
 <!-- last done: 12/6/26 -->
 
@@ -835,6 +841,7 @@ htmlhint.vscode-htmlhint
 ibm.output-colorizer
 influrium.haxe-jsx
 jannisx11.batch-rename-extension
+jitendrasoni.text-case-changer
 jock.svg
 johnpapa.vscode-peacock
 kisstkondoros.vscode-gutter-preview
@@ -886,30 +893,33 @@ zh9528.file-size
 
 <!-- TOC --><a name="node-and-npm-packages"></a>
 
-## Node and NPM Packages
+## Node
 
 [Node.js](https://nodejs.org)
 
-<!-- last done: 5/5/25
-use command:
+## Export NPM Packages List
+
+<!-- last done: 12/6/26 -->
+
+in terminal, use command:
 npm list -g --json | node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync(0, 'utf-8')).dependencies).join('\n'))"
--->
+select and copy
+
+## NPM Packages
 
 cssnano
 csso-cli
 google-closure-compiler
-html-minifier
+html-minifier-next
 htmlhint
-npm
 papaparse
 postcss-cli
 postcss
 prettier
 stylelint
 terser
+typescript
 uglify-js
-
----
 
 <!-- TOC --><a name="torrents"></a>
 
