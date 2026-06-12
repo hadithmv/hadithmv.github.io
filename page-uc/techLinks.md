@@ -198,22 +198,36 @@
 
 <!-- TOC --><a name="browser-and-extensions"></a>
 
-## Browser and Extensions
+## Browser
 
 [Microsoft Edge](https://www.microsoft.com/en-us/edge)
 
 <!-- TOC --><a name="setup"></a>
 
-### Setup
+### Browser Setup
 
 Vertical tabs: enable
 Show favourites, history, downloads on toolbar
 Search engine: Google
 Start: open tabs from previous session
 
-### Export/Import Extensions
+### Export/Import Browser Bookmarks
 
-<!-- last done: 12/6/265 -->
+<!-- last done: 12/6/26 -->
+
+Open Bookmarks/Favorites menu, ..., Export Favorites
+Save HTML file
+
+Note: if using workspaces, no normal way to export those as workspaces, instead have to:
+
+- right click empty space in tab area
+- choose 'add open pages to favorites'
+- give it a folder name
+- have to do this one by one for each workspace
+
+### Export Browser Extensions List
+
+<!-- last done: 12/6/26 -->
 
 Use: [Extension List](https://chromewebstore.google.com/detail/extension-list/cboicfdginkkdfppcjighdkchdlebdjp)
 Export All to CSV, open as spreadsheet
@@ -221,7 +235,7 @@ Copy first column list
 
 <!-- TOC --><a name="extensions"></a>
 
-### Extensions
+### Browser Extensions
 
 Allow Copy +
 Chrome Regex Search
@@ -308,7 +322,7 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 
 -->
 
-### Make List of Desktop Software
+### Export Windows Software List
 
 <!-- last done: 12/6/26 -->
 
@@ -652,81 +666,104 @@ WhatsApp
 
 <!-- TOC --><a name="android-apps"></a>
 
-## Android Apps
+### Export Android Apps List
 
-<!-- last done: 5/5/25
-use: App Manager, com.lbapp_manager, give file permissions, usage permissions, hold one app to select it first, then click 1/no and select all apps, share, what to share: App names 'only', send to tg
-convert to unordered list
--->
+<!-- last done: 12/6/26 -->
+
+Use: (App Manager)[https://play.google.com/store/apps/details?id=com.lb.app_manager]
+Install, skip permissions
+Tap and hold and app, then in top left corner open dropdown, select all apps
+In the top menu to the right, tap share
+What to share: change to App names
+Tap the copy icon to the right
+Paste elsewhere
 
 <!-- ! REMEMBER TO REMOVE:
 Binance
 What to Expect
 -->
 
+## Android Apps
+
+1.1.1.1
+3CX
 Al Quran
-AliExpress
 Analytics
+AnyDesk
 App Manager
+app.villacollege.edu.mv
 Apps Backup Restore
 Authenticator
+Authenticator
 Avas App
-Avas Ride
 Ayah
+Bitwarden
 BML Mobile
-Brilliant
+Business Central
 Business Suite
 Calculator
 Calculator
 Calendar
+Call Assistant
 CamScanner
+CareCamPro
 ChatGPT
 Claude
 Compass
-DeepSeek
 Dheenuge Magu
+Dhikr & Dua
 Dhiraagu
 Dhivehi Calendar
 Dhivehi Foiy
-DhivehiTafseer
 Discord
 Docs
+Edge Gallery
 Efaas
+Excel
 Facebook
 FaisaMobile
+Family Link
 Firefox
+freeCodeCamp
 Gallery Editor
 Gemini
 Haasiboo
 Hadith Collection
 Hadithmv
 Hijri Calendar
+Hisnul Muslim
+Hisnul Muslim
 Instagram
 Keep Notes
 Lens
-Link to Windows
-LinkedIn
+Male' Map
 mamen
+Maskiraa App
 MetricS
 Mi Doc Viewer (Powered by WPS)
-Mi Home
 Mi Remote
+Mi Roaming
 Mi Store
 Microsoft SwiftKey Keyboard
-Mimo
+MWSC
 Namaadhu
+NotebookLM
 Notes
+Notion
 OneDrive
-OneNote
+Orbot
 Outlook
 PDF Reader - Hi Read
 Play Console
 QueueBee
 Quran
+Quran Majeed
 Quranly
+Radheef
 Radheef
 ReadEra
 Recorder
+Remote Desktop
 Roadmap
 RTL Travel App
 Scanner
@@ -734,11 +771,13 @@ Screen Recorder
 ShareMe
 Sheets
 Signal
-SIMDI Online
 Simple Markdown
+STELCO
+Tab
 Tasks
 Teams
 Telegram
+Temu
 Translate
 Ultrasurf VPN
 Viber
@@ -746,35 +785,40 @@ VLC
 Wallpaper Carousel
 Weather
 WhatsApp
+WhatsApp Business
+Word
 X
-Zoom
-المعاني عربي إنجليزي
+ZArchiver
+Zikuru
+المعاني عربي انجليزي
 المعاني عربي عربي
 المكتبة الشاملة
 جامع الكتب التسعة
-فائدة
 
 ---
 
 <!-- TOC --><a name="code-editor-and-extensions"></a>
 
-## Code Editor and Extensions
+## Code Editor
 
 [Visual Studio Code](https://code.visualstudio.com)
 
-<!-- last done: 5/5/25
-use command:  code --list-extensions
-convert to unordered list
--->
+## Export Code Editor Extensions List
+
+In terminal, use command: code --list-extensions
+select them and copy
+
+<!-- last done: 12/6/26 -->
 
 aaron-bond.better-comments
+alefragnani.project-manager
 alexcvzz.vscode-sqlite
 arturodent.problems-copy
 bierner.markdown-preview-github-styles
+blackmist.linkcheckmd
 bmewburn.vscode-intelephense-client
 bradlc.vscode-tailwindcss
 brapifra.phpserver
-burkeholland.simple-react-snippets
 cwan.native-ascii-converter
 davidanson.vscode-markdownlint
 dsznajder.es7-react-js-snippets
@@ -783,12 +827,10 @@ eldargerfanov.leet-html
 esbenp.prettier-vscode
 formulahendry.auto-rename-tag
 formulahendry.code-runner
-github.copilot
-github.copilot-chat
+fr43nk.seito-openfile
 github.remotehub
 github.vscode-github-actions
 github.vscode-pull-request-github
-gruntfuggly.todo-tree
 htmlhint.vscode-htmlhint
 ibm.output-colorizer
 influrium.haxe-jsx
@@ -808,9 +850,11 @@ ms-python.debugpy
 ms-python.isort
 ms-python.python
 ms-python.vscode-pylance
+ms-python.vscode-python-envs
 ms-toolsai.vscode-jupyter-cell-tags
 ms-toolsai.vscode-jupyter-slideshow
 ms-vscode-remote.remote-wsl
+ms-vscode.azure-repos
 ms-vscode.live-server
 ms-vscode.powershell
 ms-vscode.remote-repositories
@@ -820,16 +864,23 @@ ntkhang03.run-file-command
 onecentlin.laravel-blade
 randomfractalsinc.vscode-data-preview
 rioj7.vscode-remove-comments
+rooveterinaryinc.roo-cline
+shd101wyy.markdown-preview-enhanced
+standard.vscode-standard
+stylelint.vscode-stylelint
 techer.open-in-browser
 tombonnike.vscode-status-bar-format-toggle
 tomoki1207.pdf
 tyriar.vscode-terminal-here
+urosvujosevic.explorer-manager
 vincaslt.highlight-matching-tag
 vscode-icons-team.vscode-icons
+wattenberger.footsteps
 xdebug.php-debug
 yandeu.five-server
 yzane.markdown-pdf
-zhang-renyang.vscode-react
+yzhang.markdown-all-in-one
+zh9528.file-size
 
 ---
 
