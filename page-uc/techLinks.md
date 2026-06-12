@@ -312,7 +312,7 @@ Canon PIXMA MegaTank G3010 All-in-One Wireless Ink Tank Colour Printer
 
 <!-- TOC --><a name="windows-setup"></a>
 
-## Windows Setup
+## Windows Setup / Migration
 
 <!-- dont know about these:
 Add Windows Sandbox setup (requires Pro/Enterprise)
@@ -577,8 +577,6 @@ WhatsApp
 - defrag + optimize disk / else format or delete partition
 - download mobo and gpu firmware and drivers in advance
 
-<!-- !!! add similar steps for phone too -->
-
 <!-- TOC --><a name="clean-install"></a>
 
 ### Clean Install
@@ -677,13 +675,21 @@ WhatsApp
 
 ### Personal Files & Final Setup
 
-- transfer files & folders
+- transfer files + folders
 - windows backup
 - cloud backup (google, onedrive)
 - power mode: battery / performance
 - screen off 15 mins
 - sleep 5 hours
 - create restore point again
+
+---
+
+<!-- !!! ADD PHONE STUFF -->
+
+<!-- !!! ADD PHONE STUFF END -->
+
+---
 
 <!-- TOC --><a name="export-android-apps-list"></a>
 
