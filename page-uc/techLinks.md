@@ -148,181 +148,7 @@
 
 [iLovePDF](https://www.ilovepdf.com/)
 
-<!-- TOC --><a name="virustotal"></a>
-
-## [VirusTotal](https://www.virustotal.com)
-
-<!-- TOC --><a name="pc-building"></a>
-
-## PC Building
-
-[How to Build a PC - LTT](https://www.youtube.com/watch?v=s1fxZ-VWs2U)
-
-[PCPartPicker](https://pcpartpicker.com/)
-
-[PC Master Race](https://pcmasterrace.org/builds)
-
-[Corsair PC Builder](https://www.corsair.com/us/en/pc-builder/)
-
-[Neweegg PC Builder](https://www.newegg.com/tools/custom-pc-builder)
-
-[Star Tech PC Builder](https://www.startech.com.bd/tool/pc_builder)
-
-[PC Builds PC Builder](https://pc-builds.com/)
-
-<!-- TOC --><a name="compatibility"></a>
-
-### Compatibility
-
-[Corsair Ram Compatibility](https://www.corsair.com/us/en/c/memory/find-by-compatibility)
-
-[Crucial Upgrade Compatibility](https://www.crucial.com/upgrades)
-
-[SPL PSU Tier List](https://psutierlist.org/)
-
-[Newegg PSU Calculator](https://www.newegg.com/tools/power-supply-calculator)
-
-[Cybenetics PSU Performance Database](https://www.cybenetics.com/index.php?option=psu-performance-database)
-
-[TH Cooler Benchmarks](https://www.tomshardware.com/reviews/best-cpu-coolers,4181.html#section-best-air-coolers)
-
-[GN Cooler Benchmarks](https://gamersnexus.net/megacharts/cpu-coolers)
-
-[SSD Benchmarks](https://docs.google.com/spreadsheets/d/1B27_j9NDPU3cNlj2HKcrfpJKHkOf-Oi1DbuuQva2gT4)
-
-[SSD Tester Rankings](https://ssd-tester.com/top_ssd.php)
-
-[UserBenchmark SSD Benchmarks](https://ssd.userbenchmark.com/)
-
-<!-- TOC --><a name="specs"></a>
-
-### Specs
-
-[Passmark CPU Benchmarks](https://www.cpubenchmark.net/cpu-list/)
-
-[Disk Prices](https://diskprices.com/)
-
-[DisplaySpecifications](https://www.displayspecifications.com/en)
-
-[PPP Parts](https://pcpartpicker.com/products/)
-
-[Disk Prices](https://versus.com/en/)
-
-[Versus Comparison](https://versus.com/en)
-
-[MotherboardDB](https://motherboarddb.com/motherboards/)
-
-[Passmark GPU Value Benchmarks](https://www.videocardbenchmark.net/gpu_value.html)
-
-[Passmark GPU Top Benchmark](https://www.videocardbenchmark.net/high_end_gpus.html)
-
-[ZTT GPU Comparison](https://zttbuilds.com/pages/gpu-comparison-chart)
-
-[TH GPU Benchmarks](https://www.tomshardware.com/reviews/gpu-hierarchy,4388.html)
-
-[GPU Performance Comparison](https://docs.google.com/spreadsheets/d/e/2PACX-1vRgu7g3uNNa8RpIC-SQr-PC9IcduMzVWaZNDG3qjEab1AkdoU6fuKPufPdto2_FS7ICPFiFhF1ixO8i/pubhtml)
-
----
-
-<!-- TOC --><a name="specs"></a>
-
-### PC Shops
-
-#### International
-
-[Amazon](https://www.amazon.com/)
-
-[eBay](https://www.amazon.com/)
-
-[B&H](https://www.bhphotovideo.com/c/browse/computer-components/ci/26717)
-
-[B&MyUS](https://www.myus.com/)
-
-[Temu](https://www.temu.com/)
-
-[AliExpress](https://www.aliexpress.com/)
-
-[Lazada](https://www.lazada.com.my/)
-
-[Shopee](https://shopee.com/)
-
-[CBEX](https://cbexglobal.com/)
-
-#### Local - Maldives
-
-[Personal Computers](https://shop.personalcomputers.mv/) (they have 3 year warranty and good discounts, like a thousand mvr, authorized service provider for ACER)
-
-[Click](https://click.mv/) (they have NO warranty and bad discounts, like a hundred mvr, they only replace or refund if product has defect and you return in 24 hours, the moment you pay sales is final and you cannot cancel your order no matter what, they will not return your money once they get their hands on it, they will fight tool and nail to keep it, customer service is bad)
-
-[Computer Plus](https://computerplus.com.mv/categories)
-
-[Megachip Computers](https://www.megachipcomputers.com/shop)
-
-[Maxcom](https://maxcom.com.mv/v3/shop-2/) (authorized service provider for DELL)
-
-[Viewnet Computers](https://viewnetcomputers.com/)
-
-[TechnicaMV](https://technicamv.com/)
-
-[OctoTech](https://shop.octotech.mv/)
-
-[Subnet](https://sbnt.gg/)
-
-[Smake Tech](https://smake.tech/collections)
-
-[GoldSteps](https://www.goldsteps.mv/collections/all)
-
-[Le Vend](https://levendonline.com/)
-
-[Prolap](https://prolap.online/proshop/)
-
-[Asters](https://www.astersonline.com/collections/computer-laptops)
-
-[Redwave](https://www.redwave.mv/product-category/technology-electronics/)
-
-[Qutech](https://qutech.mv/categories)
-
-[Phene](https://www.phene.mv/)
-
-[ibay](https://ibay.com.mv/)
-
-...
-
-[Bios](https://www.facebook.com/p/BIOS-100084201069975/)
-
-[Gizmo](https://www.facebook.com/Gizmo.mv/) (they viber catalogues)
-
-[Roseware](https://www.facebook.com/rosewareshop/)
-
-[eHub](https://www.facebook.com/ehub.maldives)
-
-[Focus Computers](https://www.facebook.com/focuscompmv/)
-
-[Waarithmv](https://www.facebook.com/p/Waarithmv-100090853868870/) ( laptops only)
-
-[Mix Electronics](https://www.facebook.com/mixelectronicsmv/) (laptops only)
-
-[Premio](https://www.facebook.com/premiomaldives/) (laptops and misc)
-
-[Buy Mix](https://www.facebook.com/Buymix.Mv/) (misc)
-
-[Techinnovate](https://www.facebook.com/p/Techinnovatemv-61552295521189/) (laptops)
-
-...
-
-[Link Serve](https://shop.linkserve.mv/)
-
-[Hamps e](https://www.hampseshop.com/) (laptops and monitors)
-
-[E Platinum](https://www.eplatinummobiles.com/laptop) (laptops)
-
-[Techstreet](https://techstreet.mv/) (laptops)
-
-[itshopmaldives](https://www.itshopmaldives.com/)
-
-[Techne](https://www.techne.com.mv/)
-
----
+[VirusTotal](https://www.virustotal.com/)
 
 <!-- TOC --><a name="graphics-and-media"></a>
 
@@ -385,38 +211,44 @@ Show favourites, history, downloads on toolbar
 Search engine: Google
 Start: open tabs from previous session
 
-<!-- last done: 5/5/25
-use extension: Extension List
-https://chromewebstore.google.com/detail/extension-list/cboicfdginkkdfppcjighdkchdlebdjp?hl=en
-export to csv
-load in tableconvert
-copy first column only
-convert to unordered list
--->
+### Export/Import Extensions
+
+<!-- last done: 12/6/265 -->
+
+Use: [Extension List](https://chromewebstore.google.com/detail/extension-list/cboicfdginkkdfppcjighdkchdlebdjp)
+Export All to CSV, open as spreadsheet
+Copy first column list
 
 <!-- TOC --><a name="extensions"></a>
 
 ### Extensions
 
+Allow Copy +
 Chrome Regex Search
+Chrome Remote Desktop
 Dark Reader
 Extension List
+Extension List Exporter
+Focus Tab Groups
 GitHub Repository Size
 Google Docs Offline
 Google Translate
-HTML &amp; CSS Design Analysis
+Incognito Tab Mover
 Lighthouse
 Markdown Reader
+Mendeley Web Importer
 New Tab Draft
 Open Selected Links
-Refined GitHub
 Page Grid
 Page Ruler
+Refined GitHub
 Tab Manager by Workona
+Tab Manager Plus for Chrome
+Tab Suspender by Workona
 Table Capture
-Tidy Tabs
+Table Download
 uBlock Origin
-UltraSurf
+UltraSurf Security, Privacy & Freedom VPN
 
 ---
 
@@ -424,7 +256,7 @@ UltraSurf
 
 ## Hardware / Uses
 
-<!-- USE: speccy / cpu-z -->
+Use: Speccy / CPU-Z
 
 <!-- CPU: Dell Vostro 3910 -->
 <!-- Graphics: Dell Intel UHD Graphics 730 -->
@@ -474,14 +306,231 @@ https://files.community/
 
 Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, consider Cloudflare WARP (1.1.1.1) (free, faster) or a reputable VPN like ProtonVPN.
 
+-->
 
+### Make List of Desktop Software
 
+<!-- last done: 12/6/26 -->
 
- -->
+Use: [UninstallView](https://www.nirsoft.net/utils/uninstall_view.html)
+Download, unzip, run exe
+View, choose columns, deslect all but first
+Back to the display list, select all, right click, copy selected items, paste
+remove first row 'Display Name'
 
-<!-- TOC --><a name="pre-install"></a>
+<!-- Remove G -->
 
-### Pre Install
+<!-- https://www.microsoft.com/en-us/software-download/
+
+https://old.reddit.com/r/buildapc/comments/7mn388/so_you_finished_building_your_pc_now_what/
+-->
+
+---
+
+<!-- TOC --><a name="windows-software-amp-programs"></a>
+
+## Windows Software &amp; Programs
+
+QianXin Version 2.2.1
+7-Zip 26.01 (x64)
+Acer Display Widget
+Adobe Acrobat (64-bit)
+Adobe Illustrator 2025
+Adobe InDesign 2023
+Adobe Photoshop 2025
+Advanced SystemCare
+AllDup
+Android Studio
+Antigravity 2.0.6
+Antigravity IDE (User)
+AnyDesk
+Arclab Dir2HTML 4.1
+Aria2 Manager
+Audacity 3.7.7
+AULA F75
+Browser for SQL Server 2022
+calibre 64bit
+Canon Easy-PhotoPrint Editor
+Canon Easy-PhotoPrint EX
+Canon G3010 series MP Drivers
+Canon G3010 series On-screen Manual
+Canon IJ Network Scanner Selector EX2
+Canon IJ Printer Assistant Tool
+Canon IJ Scan Utility
+Canon Inkjet Printer/Scanner/Fax Extended Survey Program
+Canon My Image Garden
+Canon My Image Garden Design Files
+Canon Quick Menu
+Canon Wi-Fi Connection Assistant
+Chrome Remote Desktop
+Chrome Remote Desktop Host
+Cloudflare One Client
+Copilot
+CPUID CPU-Z 2.19
+CrystalDiskInfo 9.8.0
+CrystalDiskMark 9.0.2
+CrystalMark Retro 2.0.6
+Cursor (User)
+DB Browser for SQLite
+Dell Connected Service Delivery
+Dell Connected Service Delivery SubAgent
+Dell Core Services
+Dell SupportAssist
+Dell SupportAssist OS Recovery Plugin for Dell Update
+draw.io 29.6.1
+EaseUS Fixo
+Espanso version 2.2.3
+Everything 1.4.1.1032 (x64)
+Fast Node Manager
+FFmpeg 5.0.0 for Audacity - x86_64
+Git
+GitHub Desktop
+Glary Utilities 6.31
+Google Chrome
+Google Drive
+GPL Ghostscript
+Hard Disk Sentinel PRO
+High-Logic MainType 13
+HP Connection Optimizer
+Intel® Hardware Accelerated Execution Manager
+IObit Uninstaller 15
+IObit Unlocker
+IrfanView 4.73 (64-bit)
+Java 8 Update 461 (64-bit)
+Java(TM) SE Development Kit 20.0.2 (64-bit)
+K-Lite Codec Pack 19.6.0 Standard
+LDPlayer
+Logi Options+
+Logi Plugin Service
+Meld
+Microsoft 365 Apps for enterprise - en-us
+Microsoft Edge
+Microsoft GameInput
+Microsoft Intune Management Extension
+Microsoft ODBC Driver 17 for SQL Server
+Microsoft OLE DB Driver 19 for SQL Server
+Microsoft OLE DB Driver for SQL Server
+Microsoft OneDrive
+Microsoft SQL Server 2022 (64-bit)
+Microsoft SQL Server 2022 Setup (English)
+Microsoft Teams Meeting Add-in for Microsoft Office
+Microsoft Update Health Tools
+Microsoft Visual C++ 2005 Redistributable
+Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.6161
+Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.6161
+Microsoft Visual C++ 2010 x64 Redistributable - 10.0.40219
+Microsoft Visual C++ 2010 x86 Redistributable - 10.0.40219
+Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030
+Microsoft Visual C++ 2012 Redistributable (x86) - 11.0.61030
+Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.40664
+Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.40664
+Microsoft Visual C++ v14 Redistributable (x64) - 14.50.35719
+Microsoft Visual C++ v14 Redistributable (x86) - 14.50.35719
+Microsoft Visual Studio Code (User)
+Microsoft Visual Studio Installer
+Microsoft Visual Studio Tools for Applications 2019
+Microsoft VSS Writer for SQL Server 2022
+Microsoft Windows Desktop Runtime - 8.0.28 (x64)
+MiKTeX
+MSYS2
+Mushaf Publication
+Node.js
+Notepad++ (64-bit x64)
+Notion 7.20.0
+Obsidian
+Pandoc 3.9
+Pandoc 3.9.0.2
+Patch My PC Home Updater
+PowerShell 7-x64
+PowerShell 7.5.4.0-x64
+PowerToys (Preview) x64
+Printer Registration
+Python 2.7.18 (64-bit)
+Python 3.12.10 (64-bit)
+Python 3.13.12 (64-bit)
+Python 3.14.3 (64-bit)
+Python Launcher
+Q-Dir
+Q-Dir
+Razer Synapse
+Rustup: the Rust toolchain installer
+Scratch 3 3.29.1
+Shotcut
+Signal 8.12.0
+SmartControl
+SonicWall NetExtender
+Speccy
+SQLiteStudio
+SumatraPDF
+taskbar-monitor
+Telegram Desktop
+UniGetUI
+UXP WebView Support
+Viber
+Viber
+Visual Studio Build Tools 2022
+VLC media player
+vs_CoreEditorFonts
+Warp
+Windows SDK AddOn
+Windows Software Development Kit - Windows 10.0.22621.5040
+Windsurf (User)
+WizTree v4.31
+جامع خادم الحرمين الشريفين الملك عبد الله بن عبد العزيز للسنة النبوية المطهرة
+مصحف المدينة النبوية للنشر الحاسوبي
+
+<!-- below are some programs that do not appear on the list above, so kept them here seperately -->
+
+Microsoft 365 Copilot
+Microsoft Clipchamp
+Microsoft PC Manager
+Monitorian
+Monitor Profile Switcher
+Rufus USB Utility
+Shamela
+JADX
+Windows Subsystem for Linux
+WhatsApp
+
+---
+
+<!-- TOC --><a name="third-party-configs"></a>
+
+### Third Party Configs
+
+- PowerToys
+  - Autostart
+
+- Messaging Apps (Telegram, Whatsapp, Viber, Signal)
+  - Configure Sync and Backup, Display Size, Autodownload Settings
+
+- Focus Tab Groups
+  - Tab Repositioning; Reposition tabs direction & Reposition tab group direction; None
+
+- Dark Reader, uBlock Origin, UltraSurf
+  - Allow InPrivate
+
+- Dark Reader
+  - Allow access to file URLs
+
+- UltraSurf
+  - Disconnect after installing
+
+- IrfanView
+  - Open Images
+
+- 7Zip Manager
+  - Open Archives
+
+- QDir, Notepad++, etc
+  - Dark Mode
+
+- Startup Apps
+  - Delay / Disable what's not needed
+
+<!-- TOC --><a name="before-installing-fresh-windows"></a>
+
+### Before Installing Fresh Windows
 
 - Note All Apps + Settings
 - Backup All Files + Folders
@@ -580,6 +629,15 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 - Add Peripherals; Keyboard, Mouse, Printer
   - Install Associated Drivers
 
+<!-- TOC --><a name="pin-to-taskbar"></a>
+
+### Pin to Taskbar
+
+- Remove Useless Pins
+- Task Manager, Qdir, Notion, Browser, VsCode, Notepad++, Telegram, Meldmerge
+- Shamela, JamiulKhadem, File Explorer, Signal, Android Studio, Word, Excel, Notepad
+- Whatsapp, Email, Hmv, Teams, Antigravity, Chrome Remote Desktop
+
 <!-- TOC --><a name="personal-files-final-setup"></a>
 
 ### Personal Files & Final Setup
@@ -590,216 +648,7 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 - Power Mode: Battery / Performance
 - Screen Off 15 mins
 - Sleep 5 Hours
-
-<!-- TOC --><a name="pin-to-taskbar"></a>
-
-### Pin to Taskbar
-
-- Remove Useless Pins
-- Task Manager, Qdir, Notion, Browser, VsCode, Notepad++, Telegram, Meldmerge
-- Shamela, JamiulKhadem, File Explorer, Signal, Android Studio, Word, Excel, Notepad
-- Whatsapp, Email, Hmv, Teams, Antigravity, Chrome Remote Desktop
-
-<!-- TOC --><a name="third-party-configs"></a>
-
-### Third Party Configs
-
-- PowerToys
-  - Autostart
-
-- Messaging Apps (Telegram, Whatsapp, Viber, Signal)
-  - Configure Sync and Backup, Display Size, Autodownload Settings
-
-- Focus Tab Groups
-  - Tab Repositioning; Reposition tabs direction & Reposition tab group direction; None
-
-- Dark Reader, uBlock Origin, UltraSurf
-  - Allow InPrivate
-
-- Dark Reader
-  - Allow access to file URLs
-
-- UltraSurf
-  - Disconnect after installing
-
-- IrfanView
-  - Open Images
-
-- 7Zip Manager
-  - Open Archives
-
-- QDir, Notepad++, etc
-  - Dark Mode
-
-- Startup Apps
-  - Delay / Disable what's not needed
-
-<!-- TOC --><a name="last-restore-point"></a>
-
-### Last Restore Point
-
-- Create Restore Point
-
-<!-- last done: 4/12/25
-use: nirsoft uninstallview, view, choose columns, deselect all but first, (alphabetical order?)
-select all, right click, copy selected items, remove first item 'Display Name'
-convert to unordered list
--->
-
-<!-- https://www.microsoft.com/en-us/software-download/
-
-https://old.reddit.com/r/buildapc/comments/7mn388/so_you_finished_building_your_pc_now_what/
--->
-
----
-
-<!-- TOC --><a name="windows-software-amp-programs"></a>
-
-## Windows Software &amp; Programs
-
-Display Name
-7-Zip 25.01 (x64)
-Acer Display Widget
-Adobe Acrobat (64-bit)
-Adobe Illustrator 2025
-Adobe InDesign 2023
-Adobe Photoshop 2025
-Advanced SystemCare
-Android Studio
-Antigravity (User)
-AnyDesk
-Arclab Dir2HTML 4.1
-Aria2 Manager
-Audacity
-Browser for SQL Server 2022
-calibre 64bit
-Canon Easy-PhotoPrint Editor
-Canon Easy-PhotoPrint EX
-Canon G3010 series MP Drivers
-Canon G3010 series On-screen Manual
-Canon IJ Network Scanner Selector EX2
-Canon IJ Printer Assistant Tool
-Canon IJ Scan Utility
-Canon Inkjet Printer/Scanner/Fax Extended Survey Program
-Canon My Image Garden
-Canon My Image Garden Design Files
-Canon Quick Menu
-Canon Wi-Fi Connection Assistant
-Chrome Remote Desktop
-Chrome Remote Desktop Host
-CPUID CPU-Z 2.16
-CrystalDiskInfo 9.7.2
-CrystalDiskMark 9.0.1
-CrystalMark Retro 2.0.6
-Cursor (User)
-DB Browser for SQLite
-Dell SupportAssist
-Dell SupportAssist OS Recovery Plugin for Dell Update
-draw.io 28.1.2
-EaseUS Fixo
-Espanso version 2.2.3
-Everything 1.4.1.1028 (x64)
-Fast Node Manager
-Git
-GitHub Desktop
-Glary Utilities 6.31
-Google Drive
-GPL Ghostscript
-High-Logic MainType 13
-HP Connection Optimizer
-Intel® Hardware Accelerated Execution Manager
-IObit Uninstaller 15
-IObit Unlocker
-IrfanView 4.72 (64-bit)
-Java 8 Update 461 (64-bit)
-Java(TM) SE Development Kit 20.0.2 (64-bit)
-K-Lite Codec Pack 19.1.5 Standard
-LDPlayer
-Logi Options+
-Logi Plugin Service
-Meld
-Microsoft 365 Apps for enterprise - en-us
-Microsoft Edge
-Microsoft Intune Management Extension
-Microsoft ODBC Driver 17 for SQL Server
-Microsoft OLE DB Driver for SQL Server
-Microsoft OneDrive
-Microsoft SQL Server 2022 (64-bit)
-Microsoft SQL Server 2022 Setup (English)
-Microsoft Teams Meeting Add-in for Microsoft Office
-Microsoft Update Health Tools
-Microsoft Visual C++ 2005 Redistributable
-Microsoft Visual C++ 2008 Redistributable - x64 9.0.30729.6161
-Microsoft Visual C++ 2008 Redistributable - x86 9.0.30729.6161
-Microsoft Visual C++ 2010 x64 Redistributable - 10.0.40219
-Microsoft Visual C++ 2010 x86 Redistributable - 10.0.40219
-Microsoft Visual C++ 2012 Redistributable (x64) - 11.0.61030
-Microsoft Visual C++ 2012 Redistributable (x86) - 11.0.61030
-Microsoft Visual C++ 2013 Redistributable (x64) - 12.0.40664
-Microsoft Visual C++ 2013 Redistributable (x86) - 12.0.40664
-Microsoft Visual C++ 2015-2022 Redistributable (x64) - 14.44.35211
-Microsoft Visual C++ 2015-2022 Redistributable (x86) - 14.44.35211
-Microsoft Visual Studio Code (User)
-Microsoft Visual Studio Installer
-Microsoft Visual Studio Tools for Applications 2019
-Microsoft VSS Writer for SQL Server 2022
-Microsoft Windows Desktop Runtime - 8.0.22 (x64)
-MSYS2
-Mushaf Publication
-Node.js
-Notepad++ (64-bit x64)
-Notion 4.19.0
-Obsidian
-Pandoc
-Patch My PC Home Updater
-PowerShell 7.5.4.0-x64
-PowerToys (Preview) x64
-Printer Registration
-Python 2.7.18 (64-bit)
-Python 3.12.10 (64-bit)
-Python 3.13.7 (64-bit)
-Python Launcher
-Q-Dir
-Q-Dir
-Razer Synapse
-Rustup: the Rust toolchain installer
-Scratch 3 3.29.1
-Signal 7.80.1
-SmartControl
-Speccy
-SQLiteStudio
-SumatraPDF
-taskbar-monitor
-Telegram Desktop
-UniGetUI
-UXP WebView Support
-Viber
-Viber
-Visual Studio Build Tools 2022
-VLC media player
-vs_CoreEditorFonts
-Warp
-Windows SDK AddOn
-Windows Software Development Kit - Windows 10.0.22621.5040
-Windsurf (User)
-WizTree v4.27
-جامع خادم الحرمين الشريفين الملك عبد الله بن عبد العزيز للسنة النبوية المطهرة
-مصحف المدينة النبوية للنشر الحاسوبي
-
-<!-- below are programs that do not appear on the list above, so kept them there seperately -->
-
-Microsoft 365 Copilot
-Microsoft Clipchamp
-Microsoft PC Manager
-Monitorian
-Monitor Profile Switcher
-Rufus USB Utility
-Shamela
-JADX
-Windows Subsystem for Linux
-WhatsApp
-
----
+- Create Restore Point Again
 
 <!-- TOC --><a name="android-apps"></a>
 
@@ -1167,3 +1016,177 @@ Weather
 WhatsApp
 Xcode
 Xnip
+
+---
+
+<!-- TOC --><a name="pc-building"></a>
+
+## PC Building
+
+[How to Build a PC - LTT](https://www.youtube.com/watch?v=s1fxZ-VWs2U)
+
+[PCPartPicker](https://pcpartpicker.com/)
+
+[PC Master Race](https://pcmasterrace.org/builds)
+
+[Corsair PC Builder](https://www.corsair.com/us/en/pc-builder/)
+
+[Neweegg PC Builder](https://www.newegg.com/tools/custom-pc-builder)
+
+[Star Tech PC Builder](https://www.startech.com.bd/tool/pc_builder)
+
+[PC Builds PC Builder](https://pc-builds.com/)
+
+<!-- TOC --><a name="compatibility"></a>
+
+### Compatibility
+
+[Corsair Ram Compatibility](https://www.corsair.com/us/en/c/memory/find-by-compatibility)
+
+[Crucial Upgrade Compatibility](https://www.crucial.com/upgrades)
+
+[SPL PSU Tier List](https://psutierlist.org/)
+
+[Newegg PSU Calculator](https://www.newegg.com/tools/power-supply-calculator)
+
+[Cybenetics PSU Performance Database](https://www.cybenetics.com/index.php?option=psu-performance-database)
+
+[TH Cooler Benchmarks](https://www.tomshardware.com/reviews/best-cpu-coolers,4181.html#section-best-air-coolers)
+
+[GN Cooler Benchmarks](https://gamersnexus.net/megacharts/cpu-coolers)
+
+[SSD Benchmarks](https://docs.google.com/spreadsheets/d/1B27_j9NDPU3cNlj2HKcrfpJKHkOf-Oi1DbuuQva2gT4)
+
+[SSD Tester Rankings](https://ssd-tester.com/top_ssd.php)
+
+[UserBenchmark SSD Benchmarks](https://ssd.userbenchmark.com/)
+
+<!-- TOC --><a name="specs"></a>
+
+### Specs
+
+[Passmark CPU Benchmarks](https://www.cpubenchmark.net/cpu-list/)
+
+[Disk Prices](https://diskprices.com/)
+
+[DisplaySpecifications](https://www.displayspecifications.com/en)
+
+[PPP Parts](https://pcpartpicker.com/products/)
+
+[Disk Prices](https://versus.com/en/)
+
+[Versus Comparison](https://versus.com/en)
+
+[MotherboardDB](https://motherboarddb.com/motherboards/)
+
+[Passmark GPU Value Benchmarks](https://www.videocardbenchmark.net/gpu_value.html)
+
+[Passmark GPU Top Benchmark](https://www.videocardbenchmark.net/high_end_gpus.html)
+
+[ZTT GPU Comparison](https://zttbuilds.com/pages/gpu-comparison-chart)
+
+[TH GPU Benchmarks](https://www.tomshardware.com/reviews/gpu-hierarchy,4388.html)
+
+[GPU Performance Comparison](https://docs.google.com/spreadsheets/d/e/2PACX-1vRgu7g3uNNa8RpIC-SQr-PC9IcduMzVWaZNDG3qjEab1AkdoU6fuKPufPdto2_FS7ICPFiFhF1ixO8i/pubhtml)
+
+---
+
+<!-- TOC --><a name="specs"></a>
+
+### PC Shops
+
+#### International
+
+[Amazon](https://www.amazon.com/)
+
+[eBay](https://www.amazon.com/)
+
+[B&H](https://www.bhphotovideo.com/c/browse/computer-components/ci/26717)
+
+[B&MyUS](https://www.myus.com/)
+
+[Temu](https://www.temu.com/)
+
+[AliExpress](https://www.aliexpress.com/)
+
+[Lazada](https://www.lazada.com.my/)
+
+[Shopee](https://shopee.com/)
+
+[CBEX](https://cbexglobal.com/)
+
+#### Local - Maldives
+
+[Personal Computers](https://shop.personalcomputers.mv/) (they have 3 year warranty and good discounts, like a thousand mvr, authorized service provider for ACER)
+
+[Click](https://click.mv/) (they have NO warranty and bad discounts, like a hundred mvr, they only replace or refund if product has defect and you return in 24 hours, the moment you pay sales is final and you cannot cancel your order no matter what, they will not return your money once they get their hands on it, they will fight tool and nail to keep it, customer service is bad)
+
+[Computer Plus](https://computerplus.com.mv/categories)
+
+[Megachip Computers](https://www.megachipcomputers.com/shop)
+
+[Maxcom](https://maxcom.com.mv/v3/shop-2/) (authorized service provider for DELL)
+
+[Viewnet Computers](https://viewnetcomputers.com/)
+
+[TechnicaMV](https://technicamv.com/)
+
+[OctoTech](https://shop.octotech.mv/)
+
+[Subnet](https://sbnt.gg/)
+
+[Smake Tech](https://smake.tech/collections)
+
+[GoldSteps](https://www.goldsteps.mv/collections/all)
+
+[Le Vend](https://levendonline.com/)
+
+[Prolap](https://prolap.online/proshop/)
+
+[Asters](https://www.astersonline.com/collections/computer-laptops)
+
+[Redwave](https://www.redwave.mv/product-category/technology-electronics/)
+
+[Qutech](https://qutech.mv/categories)
+
+[Phene](https://www.phene.mv/)
+
+[ibay](https://ibay.com.mv/)
+
+...
+
+[Bios](https://www.facebook.com/p/BIOS-100084201069975/)
+
+[Gizmo](https://www.facebook.com/Gizmo.mv/) (they viber catalogues)
+
+[Roseware](https://www.facebook.com/rosewareshop/)
+
+[eHub](https://www.facebook.com/ehub.maldives)
+
+[Focus Computers](https://www.facebook.com/focuscompmv/)
+
+[Waarithmv](https://www.facebook.com/p/Waarithmv-100090853868870/) ( laptops only)
+
+[Mix Electronics](https://www.facebook.com/mixelectronicsmv/) (laptops only)
+
+[Premio](https://www.facebook.com/premiomaldives/) (laptops and misc)
+
+[Buy Mix](https://www.facebook.com/Buymix.Mv/) (misc)
+
+[Techinnovate](https://www.facebook.com/p/Techinnovatemv-61552295521189/) (laptops)
+
+...
+
+[Link Serve](https://shop.linkserve.mv/)
+
+[Hamps e](https://www.hampseshop.com/) (laptops and monitors)
+
+[E Platinum](https://www.eplatinummobiles.com/laptop) (laptops)
+
+[Techstreet](https://techstreet.mv/) (laptops)
+
+[itshopmaldives](https://www.itshopmaldives.com/)
+
+[Techne](https://www.techne.com.mv/)
+
+---
