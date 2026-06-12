@@ -12,31 +12,42 @@
 - [AI Models](#ai-models)
 - [AI Editors](#ai-editors)
 - [Documents and Files](#documents-and-files)
-- [VirusTotal](#virustotal)
-- [PC Building](#pc-building)
-  - [Compatibility](#compatibility)
-  - [Specs](#specs)
 - [Graphics and Media](#graphics-and-media)
 - [Miscellaneous](#miscellaneous)
-- [Browser and Extensions](#browser-and-extensions)
-  - [Setup](#setup)
-  - [Extensions](#extensions)
+- [Web Browser](#web-browser)
+  - [Browser Setup](#browser-setup)
+  - [Export/Import Browser Bookmarks](#exportimport-browser-bookmarks)
+  - [Export Browser Extensions List](#export-browser-extensions-list)
+  - [Browser Extensions](#browser-extensions)
 - [Hardware / Uses](#hardware-uses)
 - [Windows Setup](#windows-setup)
-  - [Pre Install](#pre-install)
+  - [Export Windows Software List](#export-windows-software-list)
+- [Windows Software &amp; Programs](#windows-software-amp-programs)
+  - [Third Party Configs](#third-party-configs)
+  - [Before Installing Fresh Windows](#before-installing-fresh-windows)
   - [Clean Install](#clean-install)
   - [Base Setup](#base-setup)
   - [Personalization](#personalization)
   - [Apps & Debloat](#apps-debloat)
-  - [Personal Files & Final Setup](#personal-files-final-setup)
   - [Pin to Taskbar](#pin-to-taskbar)
-  - [Third Party Configs](#third-party-configs)
-  - [Last Restore Point](#last-restore-point)
-- [Windows Software &amp; Programs](#windows-software-amp-programs)
+  - [Personal Files & Final Setup](#personal-files-final-setup)
+  - [Export Android Apps List](#export-android-apps-list)
 - [Android Apps](#android-apps)
-- [Code Editor and Extensions](#code-editor-and-extensions)
-- [Node and NPM Packages](#node-and-npm-packages)
+- [Code Editor](#code-editor)
+- [Export Code Editor Extensions List](#export-code-editor-extensions-list)
+- [Node](#node)
+- [Export NPM Packages List](#export-npm-packages-list)
+- [NPM Packages](#npm-packages)
 - [Torrents](#torrents)
+- [Android Sites](#android-sites)
+- [Apple Sites](#apple-sites)
+- [Apple Software & Programs](#apple-software-programs)
+- [PC Building](#pc-building)
+  - [Compatibility](#compatibility)
+  - [Specs](#specs)
+  - [PC Shops](#pc-shops)
+    - [International](#international)
+    - [Local - Maldives](#local-maldives)
 
 <!-- TOC end -->
 
@@ -196,13 +207,13 @@
 
 ---
 
-<!-- TOC --><a name="browser-and-extensions"></a>
+<!-- TOC --><a name="web-browser"></a>
 
 ## Web Browser
 
 [Microsoft Edge](https://www.microsoft.com/en-us/edge)
 
-<!-- TOC --><a name="setup"></a>
+<!-- TOC --><a name="browser-setup"></a>
 
 ### Browser Setup
 
@@ -210,6 +221,8 @@
 - show favourites, history, downloads on toolbar
 - search engine: google
 - start: open tabs from previous session
+
+<!-- TOC --><a name="exportimport-browser-bookmarks"></a>
 
 ### Export/Import Browser Bookmarks
 
@@ -227,6 +240,8 @@ Note: if using workspaces, no normal way to export those as workspaces, instead 
 - give it a folder name
 - have to do this one by one for each workspace
 
+<!-- TOC --><a name="export-browser-extensions-list"></a>
+
 ### Export Browser Extensions List
 
 <!-- last done: 12/6/26 -->
@@ -236,7 +251,7 @@ Use: [Extension List](https://chromewebstore.google.com/detail/extension-list/cb
 - export all to csv, open as spreadsheet
 - copy first column list
 
-<!-- TOC --><a name="extensions"></a>
+<!-- TOC --><a name="browser-extensions"></a>
 
 ### Browser Extensions
 
@@ -324,6 +339,8 @@ https://files.community/
 Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, consider Cloudflare WARP (1.1.1.1) (free, faster) or a reputable VPN like ProtonVPN.
 
 -->
+
+<!-- TOC --><a name="export-windows-software-list"></a>
 
 ### Export Windows Software List
 
@@ -668,7 +685,7 @@ WhatsApp
 - sleep 5 hours
 - create restore point again
 
-<!-- TOC --><a name="android-apps"></a>
+<!-- TOC --><a name="export-android-apps-list"></a>
 
 ### Export Android Apps List
 
@@ -687,6 +704,8 @@ Use: (App Manager)[https://play.google.com/store/apps/details?id=com.lb.app_mana
 Binance
 What to Expect
 -->
+
+<!-- TOC --><a name="android-apps"></a>
 
 ## Android Apps
 
@@ -802,11 +821,13 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="code-editor-and-extensions"></a>
+<!-- TOC --><a name="code-editor"></a>
 
 ## Code Editor
 
 [Visual Studio Code](https://code.visualstudio.com)
+
+<!-- TOC --><a name="export-code-editor-extensions-list"></a>
 
 ## Export Code Editor Extensions List
 
@@ -891,11 +912,13 @@ zh9528.file-size
 
 ---
 
-<!-- TOC --><a name="node-and-npm-packages"></a>
+<!-- TOC --><a name="node"></a>
 
 ## Node
 
 [Node.js](https://nodejs.org)
+
+<!-- TOC --><a name="export-npm-packages-list"></a>
 
 ## Export NPM Packages List
 
@@ -904,6 +927,8 @@ zh9528.file-size
 in terminal, use command:
 npm list -g --json | node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync(0, 'utf-8')).dependencies).join('\n'))"
 select and copy
+
+<!-- TOC --><a name="npm-packages"></a>
 
 ## NPM Packages
 
@@ -938,7 +963,7 @@ tools > options >
 
 ---
 
-<!-- TOC --><a name="misc-websites"></a>
+<!-- TOC --><a name="android-sites"></a>
 
 ## Android Sites
 
@@ -954,7 +979,7 @@ tools > options >
 
 ---
 
-<!-- TOC --><a name="misc-websites"></a>
+<!-- TOC --><a name="apple-sites"></a>
 
 ## Apple Sites
 
@@ -982,6 +1007,8 @@ Open Finder and click Applications in the left sidebar.
 Click the View button in the Finder toolbar (the icon with four small squares) and select as List.
 Select all items (Cmd + A), copy them (Cmd + C), and paste them (Cmd + V) into a text file.
 -->
+
+<!-- TOC --><a name="apple-software-programs"></a>
 
 ## Apple Software & Programs
 
@@ -1152,9 +1179,11 @@ Xnip
 
 ---
 
-<!-- TOC --><a name="specs"></a>
+<!-- TOC --><a name="pc-shops"></a>
 
 ### PC Shops
+
+<!-- TOC --><a name="international"></a>
 
 #### International
 
@@ -1175,6 +1204,8 @@ Xnip
 [Shopee](https://shopee.com/)
 
 [CBEX](https://cbexglobal.com/)
+
+<!-- TOC --><a name="local-maldives"></a>
 
 #### Local - Maldives
 
