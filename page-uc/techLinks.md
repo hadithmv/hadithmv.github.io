@@ -137,20 +137,6 @@
 
 ---
 
-<!-- TOC --><a name="ai-editors"></a>
-
-## AI Editors
-
-[Google AI Studio](https://aistudio.google.com/)
-
-[GitHub Copilot](https://github.com/copilot)
-
-[Cursor](https://cursor.com/)
-
-[Windsurf](https://windsurf.com/)
-
----
-
 <!-- TOC --><a name="documents-and-files"></a>
 
 ## Documents and Files
@@ -1053,9 +1039,17 @@ Zikuru
 
 <!-- TOC --><a name="code-editor"></a>
 
-## Code Editor
+## Code Editors
 
-[Visual Studio Code](https://code.visualstudio.com)
+[Visual Studio Code with GitHub Copilot](https://code.visualstudio.com)
+
+[Google AI Studio](https://aistudio.google.com/)
+
+[Cursor](https://cursor.com/)
+
+[Windsurf](https://windsurf.com/)
+
+---
 
 <!-- TOC --><a name="export-code-editor-extensions-list"></a>
 
