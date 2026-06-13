@@ -687,6 +687,135 @@ WhatsApp
 
 <!-- !!! ADD PHONE STUFF -->
 
+## Android Setup / Migration
+
+<!-- TOC --><a name="third-party-configs"></a>
+
+### Third Party Configs
+
+- authenticator apps (google, microsoft)
+  - export accounts via QR code to the new phone or ensure cloud sync is active before wiping the old phone
+- bitwarden
+  - sync vault, ensure master password is memorized
+- messaging apps (telegram, signal)
+  - telegram: nothing needed (cloud-based)
+  - whatsapp: ..., settings, chats, chat backup, 'back up'
+  - whatsapp business: do the same
+  - viber: ..., settings, account, viber backup, 'back up now'
+  - signal: ..., settings, backups, view settings, 'back up now'. view recovery key, record you recovery key, copy and save in password manager
+
+<!-- TOC --><a name="before-wiping-old-phone"></a>
+
+### Before Wiping Old Phone
+
+- export android apps list
+- take screenshots of home screen, to record where apps are positioned in the layout, take screenshots of homescreen folders too
+- check if you need any photos + videos and back those up to PC, external SSD, or cloud (OneDrive / Google Photos)
+- check if you need any files + downloads and back those to PC (via USB, or wirelessly via ShareMe / Quick Share)
+- transfer authenticator codes
+  - google authenticator: works with cloud backup, but if you want you can; ..., transfer codes, export codes, select codes, next...
+  - microsoft authenticator: settings, backup, cloud backup should be on
+- log out of banking apps and efaas
+- remove google accounts and screen lock from the old phone before factory resetting (prevents FRP - Factory Reset Protection lock)
+- remove SIM card + microSD card
+
+---
+
+<!-- TOC --><a name="clean-install--initial-setup"></a>
+
+### Clean Install & Initial Setup
+
+- insert SIM card into the new phone
+- boot up
+- connect to Wi-Fi
+<!-- - run android setup process: choose "copy apps & data" using a USB-C cable from the old phone (this transfers call logs, SMS, and app data) -->
+- create / sign in google account
+- region / time zone: utc +5 maldives / karachi
+- primary languages: english (us)
+
+---
+
+<!-- TOC --><a name="base-setup"></a>
+
+### Base Setup
+
+- update android OS (settings > system update) until no more updates are available
+- update google play system (settings > security > google play system update)
+- update all apps in google play store
+- update system apps in OEM store (galaxy store, xiaomi getapps)
+- enable developer options (tap "build number" 7 times in about phone)
+- set up biometrics (fingerprints unlock)
+- set up PIN, turn off make pattern visible
+
+---
+
+<!-- TOC --><a name="personalization"></a>
+
+### Personalization
+
+- privacy & telemetry
+  - turn off usage & diagnostics (google settings)
+  - disable ad personalization / advertising ID
+  - turn off wi-fi & bluetooth scanning (location settings)
+- animations (in developer options)
+  - window animation scale: 0.5x or off
+  - transition animation scale: 0.5x or off
+  - animator duration scale: 0.5x or off
+- ui, display & accessibility
+  - lock screen, sleep: after 5 minutes of inactivity
+  - dark mode + night light (eye comfort shield)
+  - adjust screen zoom / font size to preference
+  - set refresh rate to high / adaptive (120hz)?
+  - 12 hour clock + short date
+  - display battery percentage in status bar
+- keyboard (microsoft swiftkey)
+  - set as default keyboard
+  - languages: us english, arabic saudi, divehi
+  - keyboard dark theme
+  - adjust keyboard height?
+- sound and vibration
+  - vibrate on tap: off
+
+---
+
+<!-- TOC --><a name="apps--debloat"></a>
+
+### Apps & Debloat
+
+- uninstall pre-installed bloatware (carrier apps, useless OEM games/tools)
+- alternatively, use [Universal Android Debloater (UAD)](https://github.com/0x192/universal-android-debloater) via PC (overkill, but highly effective for samsung/xiaomi devices)?
+- reinstall missing apps from your backup list.
+- arrange home screen layout, including folders
+- grant app permissions (deny location/camera/mic to apps that don't need it)
+
+---
+
+### Home Screen Layout
+
+- remove all unneeded app shortcut pins from the home screen to keep it clean
+
+- **dock (bottom row):** contacts, phone, browser, whatsapp, telegram
+- **folder - work:**
+- **folder - productivity:**
+- **folder - islamic:**
+- **folder - utility:**
+- **folder - finance:**
+- **folder - social:**
+
+<!-- !!! ADD  -->
+
+<!-- TOC --><a name="personal-files--final-setup"></a>
+
+### Personal Files & Final Setup
+
+- transfer backed up files + folders via USB (from PC, or wirelessly via ShareMe / Quick Share)
+
+- battery settings
+  - set power profile (turn on battery saver)
+  - put unused apps to sleep
+- set up do not disturb (dnd) schedule for sleep hours?
+- restart phone to ensure everything is running smoothly
+
 <!-- !!! ADD PHONE STUFF END -->
 
 ---
