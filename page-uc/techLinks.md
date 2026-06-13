@@ -759,6 +759,7 @@ WhatsApp
 
 - update android OS (settings > system update) until no more updates
 - update google play system (settings > security > google play system update)
+  - if some apps not showing updates in play store, but showing in OEM store, might have to remove them and reinstall from playstore?
 - update all apps in google play store
 - update system apps in OEM store (galaxy store, xiaomi getapps)
 <!-- - restart phone after major updates -->
@@ -780,6 +781,8 @@ WhatsApp
   - layout and keys: number row on, long press symbols on, accented characters on, key popups on, long press duration: 175ms
   - sound and vibration, all off
   - when typing in the keyboard, open clipboard, add commonly pinned text
+- add other google accounts, skip add recovery phone, skip set a home address
+- sign in to browser
 - turn off bluetooth
 - enable developer options (tap "build number" 7 times in about phone)
   - enable usb debugging
