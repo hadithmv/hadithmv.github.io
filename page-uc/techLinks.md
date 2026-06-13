@@ -685,8 +685,6 @@ WhatsApp
 
 ---
 
-<!-- !!! ADD PHONE STUFF -->
-
 ## Android Setup / Migration
 
 ### Backups
@@ -700,6 +698,8 @@ WhatsApp
   - whatsapp business: do the same
   - viber: ..., settings, account, viber backup, 'back up now'
   - signal: ..., settings, backups, view settings, 'back up now'. view recovery key, record your recovery key, copy and save in password manager
+- google contacts
+  - organize, export to file, select all, save as vcf in downloads, copy elsewhere
 
 <!-- TOC --><a name="before-wiping-old-phone"></a>
 
@@ -707,11 +707,13 @@ WhatsApp
 
 - export android apps list
 - take screenshots of home screen layout, to record where apps and widgets are positioned, homescreen folders too
+- take screenshots of alarms
 - check if you need any photos + videos and back those up to PC, external SSD, or cloud (OneDrive / Google Photos)
 - check if you need any files + downloads and back those to PC (via USB, or wirelessly via ShareMe / Quick Share)
 - transfer authenticator codes
   - google authenticator: works with cloud backup, but if you want you can; ..., transfer codes, export codes, select codes, next...
   - microsoft authenticator: settings, backup, cloud backup should be on
+  - disable 2FA where necessarily, even if temporarily
 - sync accounts: settings, additonal settings, accounts and sync, press 'sync now' to sync all accounts, wait till they are all done. then manually check the their last synced dates to make sure, sometimes some of them dont get synced. note that not all google account apps need to be on the latest date here.
 - check on various accounts recovery emails and phone numbers
 - bitwarden: ..., sync
@@ -744,9 +746,13 @@ WhatsApp
 - create / sign in to google account
   - add recovery phone / email
 - set region / time zone: utc +5 maldives / karachi
+- set sunday as first day of the week
 - set primary language: english (us)
 - set up biometrics (fingerprints unlock)
 - set up PIN
+- turn off advertising ID
+- turn off usage and diagnostics
+- settings > google > manage your google account > data & privacy > turn off web & app activity, location history, youtube history if desired.
 
 ---
 
@@ -766,6 +772,17 @@ WhatsApp
 
 ### Personalization
 
+- install keyboard (microsoft swiftkey)
+  - set as default keyboard
+  - disable gboard
+  - add languages: english us, arabic pc (saudi), dhivehi (phonetic)
+  - remove english uk
+  - typing, autocorrect: off
+  - rich input: turn off copilot stuff, voice typing?
+  - rich input, clipboard: remember screenshots, always allow access
+  - layout and keys: number row on, long press symbols on, accented characters on, key popups on, long press duration: 175ms
+  - sound and vibration, all off
+  - when typing in the keyboard, open clipboard, add commonly pinned text
 - turn off bluetooth
 - enable developer options (tap "build number" 7 times in about phone)
   - enable usb debugging
@@ -787,16 +804,9 @@ WhatsApp
   - 12 hour clock + short date
   - display battery percentage in status bar
   - vision, remove animations
-- keyboard (microsoft swiftkey)
-  - set as default keyboard
-  - languages: us english, arabic saudi, divehi
-  - keyboard dark theme
-  - autocorrect: off
-  - rich input: voice typing?
-  - layout and keys: number row on, long press symbols on, accented characters on, key popups on, long press duration: 175ms
-  - sound and vibration, all off
-  - clipboard, remember copied items, pin common text manually
+
   <!-- - adjust keyboard height -->
+
 - sound and vibration
   - notification: droplets
   - ringtone: beep
@@ -817,8 +827,10 @@ WhatsApp
 
 ### Apps & Debloat
 
+- remove useless widgets/pins: delete the google search bar and any unwanted default panels.
 - uninstall pre-installed bloatware (carrier apps, useless OEM games/tools)
 - place uninstallable apps in a separate folder called 'bloat' away from home screen
+- disable/restrict unused system services (careful)?
 - alternatively, use [Universal Android Debloater (UAD)](https://github.com/0x192/universal-android-debloater) via PC (overkill, but highly effective for samsung/xiaomi devices)?
 - reinstall missing apps from your backup list.
 - restore social media app backups
@@ -836,7 +848,8 @@ WhatsApp
   - BML mobile, faisamobile, MWSC, STELCO, dhiraagu, etc.
   - efaas
   - business apps (business central, business suite, play console)
-  - arrange home screen layout, including folders
+- arrange home screen layout, including folders
+- set alarms
 - grant app permissions (deny location/camera/mic to apps that don't need it)
 
 ---
@@ -895,11 +908,9 @@ WhatsApp
 - disable or delay startup apps you don't need (developer options / phone manager)?
 - check if calls and SMS working on all SIMs used
 - restart phone to ensure everything is running smoothly
-- keep old phone until everything is tested on new device
+- keep old phone around atleast a month until everything is tested and working on new device
 - factory reset old phone after confirming everything is on new device
 - clean old phone and store away
-
-<!-- !!! ADD PHONE STUFF END -->
 
 ---
 
