@@ -712,27 +712,29 @@ WhatsApp
 - transfer authenticator codes
   - google authenticator: works with cloud backup, but if you want you can; ..., transfer codes, export codes, select codes, next...
   - microsoft authenticator: settings, backup, cloud backup should be on
-- sync accounts: settings, additonal settings, accounts and sync, press 'sync now' to sync all accounts, wait till they are all done
+- sync accounts: settings, additonal settings, accounts and sync, press 'sync now' to sync all accounts, wait till they are all done. then manually check the their last synced dates to make sure, sometimes some of them dont get synced. note that not all google account apps need to be on the latest date here.
+- check on various accounts recovery emails and phone numbers
 - bitwarden: ..., sync
 - sign out of banking apps (bml, mib), money transfer apps, and efaas
+- sign out of session / devices in relevant apps in their settings, like google, social apps, remote desktop, etc.
 <!-- - note notification settings for key apps
 - note custom keyboard settings (swiftkey layouts, shortcuts, clipboard)
 - note bluetooth pairings (earphones, smartwatch, car, etc.)
-- note any custom APN / mobile data configs
+- note any custom APN / mobile data configs, SIM/eSIM settings
 - deregister samsung pay / google pay if active
 - sign out of play console
-- disconnect any remote desktop / anydesk sessions
 - sign out of microsoft apps (outlook, teams, word, excel, onedrive)
 - sign out of facebook, instagram, x
 - family link: check setup before switching device -->
 - remove google accounts and screen lock from the old phone (must do else FRP - protection lock will happen after factory reset, which is to be done after setting up the new phone)
+- disable Find My Device
 - remove SIM card + microSD card
 
 ---
 
 ### Initial Setup
 
-- charge the phone
+- charge both phones
 - insert SIM, verify signal
 - boot up
 <!-- - sign into google account (restores contacts, calendar, some app data) -->
@@ -740,6 +742,7 @@ WhatsApp
 - skip or defer manufacturer account (mi/samsung), do after basics?
 <!-- - run android setup process: choose "copy apps & data" using a USB-C cable from the old phone (this transfers call logs, SMS, and app data) -->
 - create / sign in to google account
+  - add recovery phone / email
 - set region / time zone: utc +5 maldives / karachi
 - set primary language: english (us)
 
@@ -872,9 +875,9 @@ WhatsApp
 - set up do not disturb (dnd) schedule for sleep hours?
 - disable or delay startup apps you don't need (developer options / phone manager)?
 - check if calls and SMS working on all SIMs used
-
 - restart phone to ensure everything is running smoothly
-- old phone: factory reset after confirming everything is on new device
+- keep old phone until everything is tested on new device
+- factory reset old phone after confirming everything is on new device
 
 <!-- !!! ADD PHONE STUFF END -->
 
