@@ -745,6 +745,8 @@ WhatsApp
   - add recovery phone / email
 - set region / time zone: utc +5 maldives / karachi
 - set primary language: english (us)
+- set up biometrics (fingerprints unlock)
+- set up PIN
 
 ---
 
@@ -752,14 +754,11 @@ WhatsApp
 
 ### Base Setup
 
-- update android OS (settings > system update) until no more updates are available
+- update android OS (settings > system update) until no more updates
 - update google play system (settings > security > google play system update)
 - update all apps in google play store
 - update system apps in OEM store (galaxy store, xiaomi getapps)
-- enable developer options (tap "build number" 7 times in about phone)
-- enable usb debugging
-- set up biometrics (fingerprints unlock)
-- set up PIN
+<!-- - restart phone after major updates -->
 
 ---
 
@@ -767,6 +766,8 @@ WhatsApp
 
 ### Personalization
 
+- enable developer options (tap "build number" 7 times in about phone)
+  - enable usb debugging
 - privacy & telemetry
   - turn off usage & diagnostics (google settings)
   - disable ad personalization / advertising ID
