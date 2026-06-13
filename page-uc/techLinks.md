@@ -728,6 +728,8 @@ WhatsApp
 <!-- - run android setup process: choose "copy apps & data" using a USB-C cable from the old phone (this transfers call logs, SMS, and app data) -->
 - create / sign in to google account
   - add recovery phone / email
+- skip apps it offers to install
+- if it asks to set verify your purchases instantly, choose password instead of biometrics
 - set region / time zone: utc +5 maldives / karachi
 - set sunday as first day of the week
 - set primary language: english (us)
@@ -768,8 +770,7 @@ WhatsApp
   - layout and keys: number row on, long press symbols on, accented characters on, key popups on, long press duration: 175ms
   - sound and vibration, all off
   - when typing in the keyboard, open clipboard, add commonly pinned text
-- add other google accounts, skip add recovery phone, skip set a home address
-- sign in to browser
+
 - turn off bluetooth
 - enable developer options (tap "build number" 7 times in about phone)
   - enable usb debugging
@@ -823,32 +824,61 @@ WhatsApp
 
 <!-- TOC --><a name="apps--debloat"></a>
 
-### Apps & Debloat
+### Debloat
 
 - remove useless widgets/pins: delete the google search bar and any unwanted default panels.
 - uninstall pre-installed bloatware (carrier apps, useless OEM games/tools)
 - place uninstallable apps in a separate folder called 'bloat' away from home screen
 - disable/restrict unused system services (careful)?
 - alternatively, use [Universal Android Debloater (UAD)](https://github.com/0x192/universal-android-debloater) via PC (overkill, but highly effective for samsung/xiaomi devices)?
-- reinstall missing apps from your backup list.
+
+---
+
+<!-- TOC --><a name="apps--debloat"></a>
+
+### App Restoration
+
+- reinstall missing apps from your backup list
+- grant app permissions (deny location/camera/mic to apps that don't need it)
+- add old google accounts, skip add recovery phone, skip set a home address
+- add recovery email for new google account
+- sign in to browser
 - restore social media app backups
   - whatsapp → verify number → restore when prompted
   - whatsapp business too
   - signal → transfer or restore → enter passphrase
   - viber from google drive
 - restore authenticator / 2FA codes
-  - google authenticator: import from old device or backup; others: use your export
+  - google authenticator: it should automatically be added with google sign in, else can transfer codes, and import from old device
+  - microsoft authenticator: dont 'add account', instead 'begin recovery'
+    - this auto adds personal account authenticators
+    - for work/school: in browser, go to: mysignins.microsoft.com/security-info, add sign in method, microsoft authenticator (even if it was there before)
+    - this shows a qr code
+    - in new phone, tap 'action' required on those required, then scan the qr code
+    - repeat for the rest of the accounts
+    - turn off app lock
 - sign into:
   - bitwarden
-  - microsoft apps (outlook, teams, onedrive, office)
-  - notion
-  - social apps (facebook, instagram, x, discord)
-  - BML mobile, faisamobile, MWSC, STELCO, dhiraagu, etc.
-  - efaas
-  - business apps (business central, business suite, play console)
-- arrange home screen layout, including folders
-- set alarms
-- grant app permissions (deny location/camera/mic to apps that don't need it)
+  - microsoft
+    - outlook: how to sign in via qr code (for personal accounts)
+      - on your computer: open your web browser and log in to your account at outlook on the web, click on the help (question mark) icon, select outlook mobile to generate a sign-in qr code
+      - on your mobile device: open the outlook mobile app and tap add account, if prompted, select sign in using the qr code on your computer, select scan qr code to open your camera, then point it at the qr code displayed on your computer screen (might have to turn off dark mode)
+      - for work/school accounts, have to sign in manually
+      - teams, onedrive, office too
+- BML mobile, dark theme
+<!-- - dual apps -->
+- faisamobile
+  <!-- - use biometrics -->
+- mwsc, stelco
+- dhiraagu
+<!-- - dual apps -->
+- efaas
+- notion
+- social apps (facebook, instagram, x, discord)
+  - facebook, skip access to cotnacts
+- business apps (business central, business suite, play console)
+
+- mamen
 
 ---
 
@@ -905,6 +935,7 @@ WhatsApp
 - disable or delay startup apps you don't need (developer options / phone manager)?
 - check if calls and SMS working on all SIMs used
 - restart phone to ensure everything is running smoothly
+- set alarms
 - keep old phone around atleast a month until everything is tested and working on new device
 - factory reset old phone after confirming everything is on new device
 - clean old phone and store away
