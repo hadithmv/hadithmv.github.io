@@ -766,12 +766,13 @@ WhatsApp
 
 ### Personalization
 
+- turn off bluetooth
 - enable developer options (tap "build number" 7 times in about phone)
   - enable usb debugging
 - privacy & telemetry
   - turn off usage & diagnostics (google settings)
   - disable ad personalization / advertising ID
-  - turn off wi-fi & bluetooth scanning (location settings)
+  - location, location services: turn off wi-fi and bluetooth scanning
 - animations (in developer options)
   - window animation scale: 0.5x or off
   - transition animation scale: 0.5x or off
@@ -779,20 +780,36 @@ WhatsApp
 - ui, display & accessibility
   - lock screen, sleep: after 5 minutes of inactivity
   - dark mode + night light (eye comfort shield)
-  - brightness level
+  - reading mode
+  - disable automatic brightness, set level manually
   - adjust screen zoom / font size
   - set refresh rate to high / adaptive (120hz)?
   - 12 hour clock + short date
   - display battery percentage in status bar
+  - vision, remove animations
 - keyboard (microsoft swiftkey)
   - set as default keyboard
   - languages: us english, arabic saudi, divehi
   - keyboard dark theme
-  - adjust keyboard height?
+  - autocorrect: off
+  - rich input: voice typing?
+  - layout and keys: number row on, long press symbols on, accented characters on, key popups on, long press duration: 175ms
+  - sound and vibration, all off
+  - clipboard, remember copied items, pin common text manually
+  <!-- - adjust keyboard height -->
 - sound and vibration
+  - notification: droplets
+  - ringtone: beep
+  - alarm: beep?
+  - vibrate in silent mode: off
   - vibrate on tap: off
+  - additional settings: off play sounds for: dial pad tones, locking device, taking screenshots, uninstaling apps, deleting items. (leave when charger connected)
 - lock screen
   - turn off make pattern visible
+- digital wellbeing
+  - bedtime mode, next, use a schedule, done, turn off motion and light detection
+  - screen time reminders: on
+- nfc settings?
 
 ---
 
@@ -846,13 +863,14 @@ WhatsApp
 ### Third Party Configs
 
 - messaging apps (telegram, whatsapp, viber, signal)
-  - font size, autodownload settings, notification sounds, media visibility
+  - font/display size, autodownload settings, notification sounds, media visibility
   <!-- - ultrasurf / orbot / 1.1.1.1
   - verify VPN config; set auto-connect preferences
   - mi remote
   - re-add devices if on xiaomi -->
 - browser
-  - sign in, restore bookmarks, enable extensions (ublock if available)
+  - sign in and sync (restore bookmarks, enable extensions)
+  <!-- - dark mode, homepage, search engine, download folder? -->
 
 - namaadhu
   - location, notification settings, widget
@@ -860,7 +878,7 @@ WhatsApp
   - translations and tafsirs
 - anydesk / remote desktop
   - re-add saved connections
-- camera settings: grid, aspect ratio, video quality?
+- camera settings: grid, aspect ratio, quality
 
 ---
 
@@ -879,6 +897,7 @@ WhatsApp
 - restart phone to ensure everything is running smoothly
 - keep old phone until everything is tested on new device
 - factory reset old phone after confirming everything is on new device
+- clean old phone and store away
 
 <!-- !!! ADD PHONE STUFF END -->
 
