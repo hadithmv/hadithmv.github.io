@@ -733,6 +733,7 @@ WhatsApp
 - set primary language: english (us)
 - set up biometrics (fingerprints unlock)
 - set up PIN
+- system navigation: buttons
 - turn off advertising ID
 - turn off usage and diagnostics
 - settings > google > manage your google account > data & privacy > turn off web & app activity, location history, youtube history if desired.
@@ -790,6 +791,17 @@ WhatsApp
   - 12 hour clock + short date
   - display battery percentage in status bar
   - vision, remove animations
+- home screen
+  - home screen: with app drawer
+  - -1 screen: google discover
+  - swipe down on the home screen: app finder
+  - home screen search: compact search?
+  - home screen layout: 4x6?
+- system navigation, shortcuts
+  - press and hold menu button: launch digital assistant
+  - press and hold home button: circle to search
+  - press and hold back button: turn off screen
+  - arrange items in recents, show memory status: on
 
   <!-- - adjust keyboard height -->
 
