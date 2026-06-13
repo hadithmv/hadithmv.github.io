@@ -244,7 +244,8 @@ Note: if using workspaces, no normal way to export those as workspaces, instead 
 
 ### Export Browser Extensions List
 
-<!-- last done: 12/6/26 -->
+<!-- last done: 12/6/26
+make sure to take one backup of last list before adding new one -->
 
 Use: [Extension List](https://chromewebstore.google.com/detail/extension-list/cboicfdginkkdfppcjighdkchdlebdjp)
 
@@ -344,7 +345,8 @@ Ultrasurf: This is quite old-school. If you need a proxy for privacy/bypassing, 
 
 ### Export Windows Software List
 
-<!-- last done: 12/6/26 -->
+<!-- last done: 12/6/26
+make sure to take one backup of last list before adding new one -->
 
 Use: [UninstallView](https://www.nirsoft.net/utils/uninstall_view.html)
 
@@ -354,11 +356,6 @@ Use: [UninstallView](https://www.nirsoft.net/utils/uninstall_view.html)
 - remove first row 'display name'
 
 <!-- Remove G -->
-
-<!-- https://www.microsoft.com/en-us/software-download/
-
-https://old.reddit.com/r/buildapc/comments/7mn388/so_you_finished_building_your_pc_now_what/
--->
 
 ---
 
@@ -900,7 +897,6 @@ WhatsApp
 ### Personal Files & Final Setup
 
 - transfer backed up files + folders via USB (from PC, or wirelessly via ShareMe / Quick Share)
-
 - battery settings
   - set power profile (turn on battery saver)
   - put unused apps to sleep
@@ -918,7 +914,8 @@ WhatsApp
 
 ### Export Android Apps List
 
-<!-- last done: 12/6/26 -->
+<!-- last done: 12/6/26
+make sure to take one backup of last list before adding new one -->
 
 Use: (App Manager)[https://play.google.com/store/apps/details?id=com.lb.app_manager]
 
@@ -928,6 +925,7 @@ Use: (App Manager)[https://play.google.com/store/apps/details?id=com.lb.app_mana
 - what to share: change to app names
 - tap the copy icon to the right
 - paste elsewhere
+- some apps will not be available from playstore, so will have to get them from apk mirrors, or back them up using another app like 'apps backup restore'
 
 <!-- ! REMEMBER TO REMOVE:
 Binance
@@ -1064,7 +1062,8 @@ in terminal, use command:
 code --list-extensions
 select and copy
 
-<!-- last done: 12/6/26 -->
+<!-- last done: 12/6/26
+make sure to take one backup of last list before adding new one -->
 
 aaron-bond.better-comments
 alefragnani.project-manager
@@ -1151,7 +1150,8 @@ zh9528.file-size
 
 ## Export NPM Packages List
 
-<!-- last done: 12/6/26 -->
+<!-- last done: 12/6/26
+make sure to take one backup of last list before adding new one -->
 
 in terminal, use command:
 npm list -g --json | node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync(0, 'utf-8')).dependencies).join('\n'))"
@@ -1405,6 +1405,10 @@ Xnip
 [TH GPU Benchmarks](https://www.tomshardware.com/reviews/gpu-hierarchy,4388.html)
 
 [GPU Performance Comparison](https://docs.google.com/spreadsheets/d/e/2PACX-1vRgu7g3uNNa8RpIC-SQr-PC9IcduMzVWaZNDG3qjEab1AkdoU6fuKPufPdto2_FS7ICPFiFhF1ixO8i/pubhtml)
+
+<!--
+https://old.reddit.com/r/buildapc/comments/7mn388/so_you_finished_building_your_pc_now_what/
+-->
 
 ---
 
