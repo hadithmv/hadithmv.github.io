@@ -944,6 +944,10 @@ ZKBio CVAccess
   <!-- - settings, account, biometrics -->
 - use 'SMS Backup & Restore' to restore sms and call logs
 - sign in to mamen; after inserting sim
+- namaadhu app
+  - grant access, select location
+  - settings, general, turn of 24 hour format, widget theme dark
+  - add widget
 
 ---
 
