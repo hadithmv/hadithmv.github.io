@@ -545,7 +545,7 @@ VIGI Security Manager
 VMS
 Web Components
 webplugin.exe3.0.0.2
-wireshark
+Wireshark
 ZKAccess3.5 Security System
 ZKBio CVAccess
 
@@ -732,6 +732,7 @@ ZKBio CVAccess
 - take screenshots of alarms
 - check if you need any photos + videos and back those up to PC, external SSD, or cloud (OneDrive / Google Photos)
 - check if you need any files + downloads and back those to PC (via USB, or wirelessly via ShareMe / Quick Share)
+- use 'SMS Backup & Restore' to make a backup of sms and call logs, or copy over important messages manually
 - transfer authenticator codes
   - google authenticator: works with cloud backup, but if you want you can; ..., transfer codes, export codes, select codes, next...
   - microsoft authenticator: settings, backup, cloud backup should be on
@@ -806,7 +807,12 @@ ZKBio CVAccess
   - typing, autocorrect: off
   - rich input: turn off copilot stuff, voice typing?
   - rich input, clipboard: remember screenshots, always allow access
-  - layout and keys: number row on, long press symbols on, accented characters on, key popups on, long press duration: 175ms
+  - layout and keys:
+    - resize to the height of the test type box
+    - number row on
+    - long press symbols on
+    - accented characters on
+    - key popups on, long press duration: 175ms
   - sound and vibration, all off
   - when typing in the keyboard, open clipboard, add commonly pinned text
 
@@ -865,9 +871,10 @@ ZKBio CVAccess
 
 ### Debloat
 
-- remove useless widgets/pins: delete the google search bar and any unwanted default panels.
+- remove useless widgets/pins: delete the google search bar and any unwanted default panels
 - uninstall pre-installed bloatware (carrier apps, useless OEM games/tools)
 - place uninstallable apps in a separate folder called 'bloat' away from home screen
+- disable notifications for bloatware like: themese
 - disable/restrict unused system services (careful)?
 - alternatively, use [Universal Android Debloater (UAD)](https://github.com/0x192/universal-android-debloater) via PC (overkill, but highly effective for samsung/xiaomi devices)?
 
@@ -880,15 +887,17 @@ ZKBio CVAccess
 - reinstall missing apps from your backup list
 - grant app permissions (deny location/camera/mic to apps that don't need it)
 - add old google accounts, skip add recovery phone, skip set a home address
+- install google messages, phone and contacts
+- set google phone as default phone app
+- switch google apps to other google account (chrome, google, authenticator, drive, gmail, maps, youtube, meet, google one, gemini, docs, sheets, family link, keep, messages, phone, contacts, tasks)
+- sign in to play console
 - add recovery email for new google account
-- sign in to browser
 - restore social media app backups
   - whatsapp → verify number → restore when prompted
   - whatsapp business too
   - signal → transfer or restore → enter passphrase
   - viber from google drive
 - restore authenticator / 2FA codes
-  - google authenticator: it should automatically be added with google sign in, else can transfer codes, and import from old device
   - microsoft authenticator: dont 'add account', instead 'begin recovery'
     - this auto adds personal account authenticators
     - for work/school: in browser, go to: mysignins.microsoft.com/security-info, add sign in method, microsoft authenticator (even if it was there before)
@@ -913,11 +922,18 @@ ZKBio CVAccess
 <!-- - dual apps -->
 - efaas
 - notion
-- social apps (facebook, instagram, x, discord)
-  - facebook, skip access to cotnacts
-- business apps (business central, business suite, play console)
-
-- mamen
+- social apps
+  - facebook, instagram; skip access to contacts | ..., settings: dark mode
+  - business suite; phone settings, display, dark mode options, individual apps: business suite
+  - x
+  - discord
+- chat apps
+  - telegram
+  - whatsapp / business
+  - signal
+  - viber
+- use 'SMS Backup & Restore' to restore sms and call logs
+- sign in to mamen; after inserting sim
 
 ---
 
@@ -1094,6 +1110,7 @@ ShareMe
 Sheets
 Signal
 Simple Markdown
+SMS Backup & Restore
 STELCO
 Tab
 Tasks
