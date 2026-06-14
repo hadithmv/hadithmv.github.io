@@ -926,17 +926,20 @@ ZKBio CVAccess
   - business suite; phone settings, display, dark mode options, individual apps: business suite
   - x
 - chat apps
+  - discord
   - telegram
     - nowadays telegram shows a 'sms fee' screen, which wont let you continue unless you pay a dollar to get sms otp
+    - first try to use data instead of wifi
     - to get around this, first create a passkey on old device. Now telegram will show an option to 'login with passkey' on new device, might have to enter pin from old device too
     - another way is to sign in with email on initial sign in, type the email manually and continue, dont click the gmail sign in below, it might take a while for the email to arrive
-    - if uou are stuck on 'sms fee' screen; force stop, clear cache, turn off wifi, turn on data, reopen telegram and try signing up, else reinstall
-    - if it still shows, can try again the next day
-  - discord
+    - if you are stuck on 'sms fee' screen; force stop, clear cache, reopen telegram and try signing up, else reinstall
+    - or can try again 24 hours later, without repeatedly requesting for codes
+    - or you can find and install an older version of telegram that doesnt ask you to pay for sms, then update
+    - or you can try installing telegram x instead and use that
 - (after recent backup)
   - whatsapp / business
-  - signal
   - viber
+  - signal
 - bitwarden
   <!-- - settings, account, biometrics -->
 - use 'SMS Backup & Restore' to restore sms and call logs
@@ -996,7 +999,7 @@ ZKBio CVAccess
 - set up do not disturb (dnd) schedule for sleep hours?
 - disable or delay startup apps you don't need (developer options / phone manager)?
 - insert sim, verify signal
-  - take note of which way the sim is supposed to go, and note that 2nd sim goes sideways instead of the way sim 1 is
+  - take note of which way the sim is supposed to go, and note that 2nd sim goes sideways instead of the way sim 1 is, settings should auto configure, might recieve an sms
 - check if calls and SMS working on sims
 - restart phone to ensure everything is running smoothly
 - set alarms
