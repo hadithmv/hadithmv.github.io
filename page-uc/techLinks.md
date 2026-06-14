@@ -512,6 +512,45 @@ WhatsApp
 
 ---
 
+<!-- from other devices/people? -->
+
+## Other Windows Software
+
+Advanced IP Scanner 2.5.1
+AXIS IP Utility 5.3.1.0
+Batch Configuration
+BioPlatform ISSOnline Service 2.0.70
+CMS
+Conexant ISST Audio
+ConfigTool 5.001.0000002.0
+CrossChex Standard
+DisplayLink Graphics Driver
+Fingerprint Driver SDK 5.3.0.28
+HCWebControl
+IP Scanner
+IPTool
+iVMS-4200
+NetIPCamera
+NetSurveillance
+Npcap
+PuTTY release 0.84 (64-bit)
+SADP
+SDTtelecom USBDrv v3.0 for x64
+Silicon Laboratories CP210x USB to UART Bridge (Driver Removal)
+Silicon Laboratories CP210x VCP Drivers for Windows XP/2003 Server/Vista/7
+SmartPSSLite 1.003.0000006.0
+Technitium MAC Address Changer v6.0
+VideoPlayTool 4.0.3.3
+VIGI Security Manager
+VMS
+Web Components
+webplugin.exe3.0.0.2
+wireshark
+ZKAccess3.5 Security System
+ZKBio CVAccess
+
+---
+
 <!-- TOC --><a name="third-party-configs"></a>
 
 ### Third Party Configs
@@ -869,7 +908,7 @@ WhatsApp
 <!-- - dual apps -->
 - faisamobile
   <!-- - use biometrics -->
-- mwsc, stelco
+- mwsc, stelco; dark mode
 - dhiraagu
 <!-- - dual apps -->
 - efaas
