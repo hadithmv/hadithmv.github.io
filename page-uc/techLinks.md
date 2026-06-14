@@ -760,7 +760,6 @@ ZKBio CVAccess
 ### Initial Setup
 
 - charge both phones
-- insert SIM, verify signal
 - boot up
 <!-- - sign into google account (restores contacts, calendar, some app data) -->
 - connect to Wi-Fi
@@ -926,12 +925,20 @@ ZKBio CVAccess
   - facebook, instagram; skip access to contacts | ..., settings: dark mode
   - business suite; phone settings, display, dark mode options, individual apps: business suite
   - x
-  - discord
 - chat apps
   - telegram
+    - nowadays telegram shows a 'sms fee' screen, which wont let you continue unless you pay a dollar to get sms otp
+    - to get around this, first create a passkey on old device. Now telegram will show an option to 'login with passkey' on new device, might have to enter pin from old device too
+    - another way is to sign in with email on initial sign in, type the email manually and continue, dont click the gmail sign in below, it might take a while for the email to arrive
+    - if uou are stuck on 'sms fee' screen; force stop, clear cache, turn off wifi, turn on data, reopen telegram and try signing up, else reinstall
+    - if it still shows, can try again the next day
+  - discord
+- (after recent backup)
   - whatsapp / business
   - signal
   - viber
+- bitwarden
+  <!-- - settings, account, biometrics -->
 - use 'SMS Backup & Restore' to restore sms and call logs
 - sign in to mamen; after inserting sim
 
@@ -988,7 +995,9 @@ ZKBio CVAccess
   - put unused apps to sleep
 - set up do not disturb (dnd) schedule for sleep hours?
 - disable or delay startup apps you don't need (developer options / phone manager)?
-- check if calls and SMS working on all SIMs used
+- insert sim, verify signal
+  - take note of which way the sim is supposed to go, and note that 2nd sim goes sideways instead of the way sim 1 is
+- check if calls and SMS working on sims
 - restart phone to ensure everything is running smoothly
 - set alarms
 - keep old phone around atleast a month until everything is tested and working on new device
