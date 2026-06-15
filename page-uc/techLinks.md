@@ -978,7 +978,7 @@ ZKBio CVAccess
     - or can try again 24 hours later, without repeatedly requesting for codes
     - or you can find and install an older version of telegram that doesnt ask you to pay for sms, then update
     - or you can try installing telegram x instead and use that
-- (after recent backup)
+- (after recent backup, note that doing this logs out of desktop instances as well)
   - whatsapp / business
   - viber
   - signal
