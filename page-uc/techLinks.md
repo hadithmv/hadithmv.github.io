@@ -1,4 +1,4 @@
-<!-- TOC --><a name="tech-link"></a>
+<!-- TOC --><a name="tech-links"></a>
 
 # Tech Links
 
@@ -10,7 +10,6 @@
 - [Misc Websites](#misc-websites)
 - [Learn Coding](#learn-coding)
 - [AI Models](#ai-models)
-- [AI Editors](#ai-editors)
 - [Documents and Files](#documents-and-files)
 - [Graphics and Media](#graphics-and-media)
 - [Miscellaneous](#miscellaneous)
@@ -20,9 +19,10 @@
   - [Export Browser Extensions List](#export-browser-extensions-list)
   - [Browser Extensions](#browser-extensions)
 - [Hardware / Uses](#hardware-uses)
-- [Windows Setup](#windows-setup)
+- [Windows Setup / Migration](#windows-setup-migration)
   - [Export Windows Software List](#export-windows-software-list)
 - [Windows Software &amp; Programs](#windows-software-amp-programs)
+- [Other Windows Software](#other-windows-software)
   - [Third Party Configs](#third-party-configs)
   - [Before Installing Fresh Windows](#before-installing-fresh-windows)
   - [Clean Install](#clean-install)
@@ -31,9 +31,22 @@
   - [Apps & Debloat](#apps-debloat)
   - [Pin to Taskbar](#pin-to-taskbar)
   - [Personal Files & Final Setup](#personal-files-final-setup)
+- [Android Setup / Migration](#android-setup-migration)
+  - [Backups](#backups)
+  - [Before Wiping Old Phone](#before-wiping-old-phone)
+  - [Initial Setup](#initial-setup)
+  - [Base Setup](#base-setup-1)
+  - [Keyboard Settings](#keyboard-settings)
+  - [Phone Settings](#phone-settings)
+  - [Other Settings](#other-settings)
+  - [Debloat and Remove Ads](#debloat-and-remove-ads)
+  - [App Restoration](#app-restoration)
+  - [Home Screen Layout](#home-screen-layout)
+  - [Third Party Configs](#third-party-configs-1)
+  - [Personal Files & Final Setup](#personal-files-final-setup-1)
   - [Export Android Apps List](#export-android-apps-list)
 - [Android Apps](#android-apps)
-- [Code Editor](#code-editor)
+- [Code Editors](#code-editors)
 - [Export Code Editor Extensions List](#export-code-editor-extensions-list)
 - [Node](#node)
 - [Export NPM Packages List](#export-npm-packages-list)
@@ -297,7 +310,7 @@ Canon PIXMA MegaTank G3010 All-in-One Wireless Ink Tank Colour Printer
 
 ---
 
-<!-- TOC --><a name="windows-setup"></a>
+<!-- TOC --><a name="windows-setup-migration"></a>
 
 ## Windows Setup / Migration
 
@@ -515,6 +528,8 @@ WhatsApp
 
 <!-- from other devices/people? -->
 
+<!-- TOC --><a name="other-windows-software"></a>
+
 ## Other Windows Software
 
 Advanced IP Scanner 2.5.1
@@ -708,7 +723,11 @@ ZKBio CVAccess
 
 ---
 
+<!-- TOC --><a name="android-setup-migration"></a>
+
 ## Android Setup / Migration
+
+<!-- TOC --><a name="backups"></a>
 
 ### Backups
 
@@ -759,6 +778,8 @@ ZKBio CVAccess
 
 ---
 
+<!-- TOC --><a name="initial-setup"></a>
+
 ### Initial Setup
 
 - charge both phones
@@ -784,7 +805,7 @@ ZKBio CVAccess
 
 ---
 
-<!-- TOC --><a name="base-setup"></a>
+<!-- TOC --><a name="base-setup-1"></a>
 
 ### Base Setup
 
@@ -797,7 +818,7 @@ ZKBio CVAccess
 
 ---
 
-<!-- TOC --><a name="personalization"></a>
+<!-- TOC --><a name="keyboard-settings"></a>
 
 ### Keyboard Settings
 
@@ -819,6 +840,8 @@ ZKBio CVAccess
   - when typing in the keyboard, open clipboard, add commonly pinned text
 
 ---
+
+<!-- TOC --><a name="phone-settings"></a>
 
 ### Phone Settings
 
@@ -915,6 +938,8 @@ ZKBio CVAccess
   - gridlines: golden ratio, center mark
   - shutter sound: off
 
+<!-- TOC --><a name="other-settings"></a>
+
 ### Other Settings
 
 - enable developer options (about phone, tap os version / build number 7 times)
@@ -927,9 +952,9 @@ ZKBio CVAccess
 
 ---
 
-<!-- TOC --><a name="apps--debloat"></a>
+<!-- TOC --><a name="debloat-and-remove-ads"></a>
 
-### Debloat
+### Debloat and Remove Ads
 
 - remove useless widgets/pins: delete the google search bar and any unwanted default panels
 - uninstall pre-installed bloatware (carrier apps, useless OEM games/tools)
@@ -949,14 +974,13 @@ ZKBio CVAccess
       - show online recommendations on startup off
       - personalized recommendations off
       - withdrawal of consent?
-  -
   - settings, fingerprints and security, authorization and revocation, msa off
 - disable/restrict unused system services (careful)?
 - alternatively, use [Universal Android Debloater (UAD)](https://github.com/0x192/universal-android-debloater) via PC (overkill, but highly effective for samsung/xiaomi devices)?
 
 ---
 
-<!-- TOC --><a name="apps--debloat"></a>
+<!-- TOC --><a name="app-restoration"></a>
 
 ### App Restoration
 
@@ -1034,6 +1058,8 @@ ZKBio CVAccess
 
 ---
 
+<!-- TOC --><a name="home-screen-layout"></a>
+
 ### Home Screen Layout
 
 - remove all unneeded apps and shortcut pins from the home screen to keep it clean
@@ -1051,7 +1077,7 @@ ZKBio CVAccess
 
 ---
 
-<!-- TOC --><a name="third-party-configs"></a>
+<!-- TOC --><a name="third-party-configs-1"></a>
 
 ### Third Party Configs
 
@@ -1075,7 +1101,7 @@ ZKBio CVAccess
 
 ---
 
-<!-- TOC --><a name="personal-files--final-setup"></a>
+<!-- TOC --><a name="personal-files-final-setup-1"></a>
 
 ### Personal Files & Final Setup
 
@@ -1237,7 +1263,7 @@ Zikuru
 
 ---
 
-<!-- TOC --><a name="code-editor"></a>
+<!-- TOC --><a name="code-editors"></a>
 
 ## Code Editors
 
