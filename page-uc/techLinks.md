@@ -769,9 +769,10 @@ ZKBio CVAccess
   - add recovery phone / email
 - skip apps it offers to install
 - if it asks to set verify your purchases instantly, choose password instead of biometrics
+- set dark mode
 - set region / time zone: utc +5 maldives / karachi
 - set sunday as first day of the week
-- set primary language: english (us)
+- set primary language: english (uk)
 - set up biometrics (fingerprints unlock)
 - set up PIN
 - system navigation: buttons
@@ -815,7 +816,83 @@ ZKBio CVAccess
   - sound and vibration, all off
   - when typing in the keyboard, open clipboard, add commonly pinned text
 
-- turn off bluetooth
+- bluetooth off
+- lock screen
+  - sleep after 2 mins of inactivity
+  - customise shortcuts: left calculator, right camera
+  - notifications and status bar
+    - customise icon display: connection speed on
+    - alarm on
+    - battery indicator: percentage in the icon
+  - home screen
+  - home screen: with app drawer
+  - -1 screen: google discover
+  - swipe down on the home screen: app finder
+  - home screen search: compact search?
+  - home screen layout: 4x6?
+  - system navigation, shortcuts
+    - press and hold menu button: launch digital assistant
+    - press and hold home button: circle to search
+    - press and hold back button: turn off screen
+  - arrange items in recents, show memory status: on
+- display and brightness
+  - automatic brightness off
+  - set screen brightness
+  - reading mode on, cycle
+  - refresh rate default, others like it high (120hz)?
+  - font size / zoom?
+- sound and vibration
+  - notification: preinstalled ringtones, droplets
+  - ringtone: beep
+  - alarm: beep
+  - vibrate in silent mode: off
+  - vibrate on tap: off
+  - additional settings, off play sounds for:
+    - dial pad tones
+    - locking device
+    - taking screenshots
+    - uninstaling apps
+    - deleting items
+    - (only leave; when charger connected)
+  - fingerprint effects, fingeprint recognition, fingerprint animation: off
+  - themes, my account, settings: show ads off, personalised recommendations off
+- fingerprints, add more fingers
+  - fingerprint settings, use with always on display off
+- lock screen
+  - make pattern visible off
+- safety and emergency
+  - medical information
+    - name
+    - blood type
+  - emergency contacts: add
+  - emergency sos?
+- apps
+  - background autostart, turn off
+    - google wallet
+    - facebook
+    - notes
+    - wallpaper carousel
+    - signal
+    - calendar?
+- battery
+  - set power profile (balanced/battery saver?)
+  - close apsp that drain battery / put unused apps to sleep
+- digital wellbeing
+  - bedtime mode
+    - next, use a schedule, done
+    - motion and light detection off, allow, not now
+  - screen time reminders: on
+- gesture shortcuts
+  - launch digital assistant: off
+  - power off: press and hold the power button for 0.5s
+- additional settings
+  - date and time, 24 hour format off
+
+- nfc settings?
+
+- ui, display & accessibility
+  - vision, remove animations
+- find my device / find hub / remote lock?
 - enable developer options (tap "build number" 7 times in about phone)
   - enable usb debugging
 - privacy & telemetry
@@ -826,43 +903,8 @@ ZKBio CVAccess
   - window animation scale: 0.5x or off
   - transition animation scale: 0.5x or off
   - animator duration scale: 0.5x or off
-- ui, display & accessibility
-  - lock screen, sleep: after 5 minutes of inactivity
-  - dark mode + night light (eye comfort shield)
-  - reading mode
-  - disable automatic brightness, set level manually
-  - adjust screen zoom / font size
-  - set refresh rate to high / adaptive (120hz)?
-  - 12 hour clock + short date
-  - display battery percentage in status bar
-  - vision, remove animations
-- home screen
-  - home screen: with app drawer
-  - -1 screen: google discover
-  - swipe down on the home screen: app finder
-  - home screen search: compact search?
-  - home screen layout: 4x6?
-- system navigation, shortcuts
-  - press and hold menu button: launch digital assistant
-  - press and hold home button: circle to search
-  - press and hold back button: turn off screen
-  - arrange items in recents, show memory status: on
 
   <!-- - adjust keyboard height -->
-
-- sound and vibration
-  - notification: droplets
-  - ringtone: beep
-  - alarm: beep?
-  - vibrate in silent mode: off
-  - vibrate on tap: off
-  - additional settings: off play sounds for: dial pad tones, locking device, taking screenshots, uninstaling apps, deleting items. (leave when charger connected)
-- lock screen
-  - turn off make pattern visible
-- digital wellbeing
-  - bedtime mode, next, use a schedule, done, turn off motion and light detection
-  - screen time reminders: on
-- nfc settings?
 
 ---
 
@@ -941,6 +983,7 @@ ZKBio CVAccess
   - viber
   - signal
 - bitwarden
+- temu
   <!-- - settings, account, biometrics -->
 - use 'SMS Backup & Restore' to restore sms and call logs
 - sign in to mamen; after inserting sim
@@ -997,15 +1040,13 @@ ZKBio CVAccess
 ### Personal Files & Final Setup
 
 - transfer backed up files + folders via USB (from PC, or wirelessly via ShareMe / Quick Share)
-- battery settings
-  - set power profile (turn on battery saver)
-  - put unused apps to sleep
 - set up do not disturb (dnd) schedule for sleep hours?
 - disable or delay startup apps you don't need (developer options / phone manager)?
 - insert sim, verify signal
   - take note of which way the sim is supposed to go, and note that 2nd sim goes sideways instead of the way sim 1 is, settings should auto configure, might recieve an sms
-- check if calls and SMS working on sims
-- restart phone to ensure everything is running smoothly
+  - give names to sims
+  - check if calls and SMS working on sims
+- restart phone to ensure everything is running smoothly?
 - set alarms
 - keep old phone around atleast a month until everything is tested and working on new device
 - factory reset old phone after confirming everything is on new device
