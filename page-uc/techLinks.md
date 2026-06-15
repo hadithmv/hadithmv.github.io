@@ -401,6 +401,7 @@ Espanso version 2.2.3
 Everything 1.4.1.1032 (x64)
 Fast Node Manager
 FFmpeg 5.0.0 for Audacity - x86_64
+FileZilla
 Git
 GitHub Desktop
 Glary Utilities 6.31
@@ -730,8 +731,9 @@ ZKBio CVAccess
 - export android apps list
 - take screenshots of home screen layout, to record where apps and widgets are positioned, homescreen folders too
 - take screenshots of alarms
-- check if you need any photos + videos and back those up to PC, external SSD, or cloud (OneDrive / Google Photos)
-- check if you need any files + downloads and back those to PC (via USB, or wirelessly via ShareMe / Quick Share)
+- check if you need any photos + videos and back those up to PC, external SSD, or cloud (Google Photos)
+- check if you need any files + downloads and back those up to PC (via USB, or wirelessly via ShareMe / Quick Share / FT{})
+- check if you need any audio recordings and back those up to PC
 - use 'SMS Backup & Restore' to make a backup of sms and call logs, or copy over important messages manually
 - transfer authenticator codes
   - google authenticator: works with cloud backup, but if you want you can; ..., transfer codes, export codes, select codes, next...
@@ -772,7 +774,7 @@ ZKBio CVAccess
 - set dark mode
 - set region / time zone: utc +5 maldives / karachi
 - set sunday as first day of the week
-- set primary language: english (uk)
+- set primary language: english (us)
 - set up biometrics (fingerprints unlock)
 - set up PIN
 - system navigation: buttons
@@ -797,7 +799,7 @@ ZKBio CVAccess
 
 <!-- TOC --><a name="personalization"></a>
 
-### Personalization
+### Keyboard Settings
 
 - install keyboard (microsoft swiftkey)
   - set as default keyboard
@@ -815,6 +817,10 @@ ZKBio CVAccess
     - key popups on, long press duration: 175ms
   - sound and vibration, all off
   - when typing in the keyboard, open clipboard, add commonly pinned text
+
+---
+
+### Phone Settings
 
 - bluetooth off
 - lock screen
@@ -858,6 +864,7 @@ ZKBio CVAccess
   - themes, my account, settings: show ads off, personalised recommendations off
 - fingerprints, add more fingers
   - fingerprint settings, use with always on display off
+  - privacy, find hub: allow device to be location, set remote lock onhline
 - lock screen
   - make pattern visible off
 - safety and emergency
@@ -882,9 +889,13 @@ ZKBio CVAccess
     - next, use a schedule, done
     - motion and light detection off, allow, not now
   - screen time reminders: on
-- gesture shortcuts
-  - launch digital assistant: off
-  - power off: press and hold the power button for 0.5s
+- accessibility
+  - general, gesture shortcuts
+    - launch digital assistant: off
+    - power off: press and hold the power button for 0.5s
+  - vision
+    - display size and magnification?
+    - remove animations on
 - additional settings
   - date and time, 24 hour format off
 - privacy
@@ -898,23 +909,21 @@ ZKBio CVAccess
   - usage and diagnostics off
 - location
   - share location info with carrier: deny
-- nfc settings?
+  - wifi scanning off
+  - bluetooth scanning off
+- camera, down arrow from the top, settings, general
+  - gridlines: golden ratio, center mark
+  - shutter sound: off
 
-- ui, display & accessibility
-  - vision, remove animations
-- find my device / find hub / remote lock?
-- enable developer options (tap "build number" 7 times in about phone)
-  - enable usb debugging
-- privacy & telemetry
-  - turn off usage & diagnostics (google settings)
-  - disable ad personalization / advertising ID
-  - location, location services: turn off wi-fi and bluetooth scanning
-- animations (in developer options)
+### Other Settings
+
+- enable developer options (about phone, tap os version / build number 7 times)
+- settings, additional settings, developer options
+  - enable usb debugging / wireless debugging?
+  <!--- - show taps, pointer location, key presses, touchpad input
   - window animation scale: 0.5x or off
   - transition animation scale: 0.5x or off
-  - animator duration scale: 0.5x or off
-
-  <!-- - adjust keyboard height -->
+  - animator duration scale: 0.5x or off -->
 
 ---
 
@@ -925,7 +934,23 @@ ZKBio CVAccess
 - remove useless widgets/pins: delete the google search bar and any unwanted default panels
 - uninstall pre-installed bloatware (carrier apps, useless OEM games/tools)
 - place uninstallable apps in a separate folder called 'bloat' away from home screen
-- disable notifications for bloatware like: themese
+- disable notifications for bloatware like: themes
+- disable ads on individual oem apps:
+  - file manager, ..., settings, withdrawal of consent?
+  - security, settings, recieve recommendations off
+  - themes, my account, settings: show ads off, personalised recommendations off
+  - downloads, ..., settings, show recommended content off
+  - game center, profile, settings,
+    - privacy and security, personalized recommendations off
+    - withdrawal of consent?
+  - gallery, ..., settings, on this day off
+    - music, ..., settings, advanced settings
+    - show ads off
+      - show online recommendations on startup off
+      - personalized recommendations off
+      - withdrawal of consent?
+  -
+  - settings, fingerprints and security, authorization and revocation, msa off
 - disable/restrict unused system services (careful)?
 - alternatively, use [Universal Android Debloater (UAD)](https://github.com/0x192/universal-android-debloater) via PC (overkill, but highly effective for samsung/xiaomi devices)?
 
@@ -941,6 +966,7 @@ ZKBio CVAccess
 - install google messages, phone and contacts
 - set google phone as default phone app
 - switch google apps to other google account (chrome, google, authenticator, drive, gmail, maps, youtube, meet, google one, gemini, docs, sheets, family link, keep, messages, phone, contacts, tasks, remote desktop)
+- gmail, auto sync on
 - sign in to play console
 - add recovery email for new google account
 - restore social media app backups
@@ -969,7 +995,7 @@ ZKBio CVAccess
 - faisamobile
   <!-- - use biometrics -->
 - mwsc, stelco; dark mode
-- dhiraagu
+- dhiraagu (turn off notifications)
 <!-- - dual apps -->
 - efaas
 - notion
@@ -990,8 +1016,8 @@ ZKBio CVAccess
     - or you can try installing telegram x instead and use that
 - (after recent backup, note that doing this logs out of desktop instances as well)
   - whatsapp / business
-  - viber
-  - signal
+  - viber (mute spammy groups)
+  - signal (enable backups too, have to allow setting alarms and reminders)
 - bitwarden
     <!-- - settings, account, biometrics -->
 - temu
@@ -1053,12 +1079,15 @@ ZKBio CVAccess
 
 ### Personal Files & Final Setup
 
+- nfc settings?
 - transfer backed up files + folders via USB (from PC, or wirelessly via ShareMe / Quick Share)
 - set up do not disturb (dnd) schedule for sleep hours?
 - disable or delay startup apps you don't need (developer options / phone manager)?
 - insert sim, verify signal
   - take note of which way the sim is supposed to go, and note that 2nd sim goes sideways instead of the way sim 1 is, settings should auto configure, might recieve an sms
-  - check if data is working, if not need to set apn, for dhiraagu it is: internet.dhimobile
+  - check if data is working, if not need to set apn
+    - for dhiraagu it is: internet.dhimobile
+    - might show just h+ initially, but after a while should show higher bands
   - give names to sims
   - check if calls and SMS working on sims
 - restart phone to ensure everything is running smoothly?
