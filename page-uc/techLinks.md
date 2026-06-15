@@ -1044,6 +1044,7 @@ ZKBio CVAccess
 - disable or delay startup apps you don't need (developer options / phone manager)?
 - insert sim, verify signal
   - take note of which way the sim is supposed to go, and note that 2nd sim goes sideways instead of the way sim 1 is, settings should auto configure, might recieve an sms
+  - check if data is working, if not need to set apn, for dhiraagu it is: internet.dhimobile
   - give names to sims
   - check if calls and SMS working on sims
 - restart phone to ensure everything is running smoothly?
