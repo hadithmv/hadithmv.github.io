@@ -1116,6 +1116,7 @@ ZKBio CVAccess
     - might show just h+ initially, but after a while should show higher bands
   - give names to sims
   - check if calls and SMS working on sims
+  - block / mute sms from numbers
 - restart phone to ensure everything is running smoothly?
 - set alarms
 - keep old phone around atleast a month until everything is tested and working on new device
