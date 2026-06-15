@@ -930,7 +930,7 @@ ZKBio CVAccess
 - add old google accounts, skip add recovery phone, skip set a home address
 - install google messages, phone and contacts
 - set google phone as default phone app
-- switch google apps to other google account (chrome, google, authenticator, drive, gmail, maps, youtube, meet, google one, gemini, docs, sheets, family link, keep, messages, phone, contacts, tasks)
+- switch google apps to other google account (chrome, google, authenticator, drive, gmail, maps, youtube, meet, google one, gemini, docs, sheets, family link, keep, messages, phone, contacts, tasks, remote desktop)
 - sign in to play console
 - add recovery email for new google account
 - restore social media app backups
@@ -983,14 +983,18 @@ ZKBio CVAccess
   - viber
   - signal
 - bitwarden
+    <!-- - settings, account, biometrics -->
 - temu
-  <!-- - settings, account, biometrics -->
+- hr
+- 3cx?
+  <!-- - binance -->
 - use 'SMS Backup & Restore' to restore sms and call logs
 - sign in to mamen; after inserting sim
 - namaadhu app
   - grant access, select location
   - settings, general, turn of 24 hour format, widget theme dark
-  - add widget
+  - change notification
+  - add widget to home screen
 
 ---
 
