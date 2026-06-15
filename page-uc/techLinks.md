@@ -887,7 +887,17 @@ ZKBio CVAccess
   - power off: press and hold the power button for 0.5s
 - additional settings
   - date and time, 24 hour format off
-
+- privacy
+  - ads
+    - ads privacy:
+      - ad topics off
+      - app suggested ads off
+      - ad measurement off, reset
+    - reset advertising id
+    - delete advertising id
+  - usage and diagnostics off
+- location
+  - share location info with carrier: deny
 - nfc settings?
 
 - ui, display & accessibility
