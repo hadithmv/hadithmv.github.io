@@ -884,7 +884,7 @@ ZKBio CVAccess
     - deleting items
     - (only leave; when charger connected)
   - fingerprint effects, fingeprint recognition, fingerprint animation: off
-  - themes, my account, settings: show ads off, personalised recommendations off
+  - themes, my account, settings: show ads off, personalized recommendations off
 - fingerprints, add more fingers
   - fingerprint settings, use with always on display off
   - privacy, find hub: allow device to be location, set remote lock onhline
@@ -963,7 +963,7 @@ ZKBio CVAccess
 - disable ads on individual oem apps:
   - file manager, ..., settings, withdrawal of consent?
   - security, settings, recieve recommendations off
-  - themes, my account, settings: show ads off, personalised recommendations off
+  - themes, my account, settings: show ads off, personalized recommendations off
   - downloads, ..., settings, show recommended content off
   - game center, profile, settings,
     - privacy and security, personalized recommendations off
@@ -1031,17 +1031,196 @@ ZKBio CVAccess
   - discord
   - telegram
     - nowadays telegram shows a 'sms fee' screen, which wont let you continue unless you pay a dollar to get sms otp
-    - first try to use data instead of wifi
-    - to get around this, first create a passkey on old device. Now telegram will show an option to 'login with passkey' on new device, might have to enter pin from old device too
-    - another way is to sign in with email on initial sign in, type the email manually and continue, dont click the gmail sign in below, it might take a while for the email to arrive
+      - to get around this, find an older version of telegram, like 9.7.2, from a good source, perhaps uptodown, download and install, sign in with login code from other device, then go to settings, press telegram for android version at the bottom, it shows a debug menu, click check app update, update
+      - or you can try installing telegram x instead and use that
+      <!-- - try using data instead of wifi
+    - method: create a passkey on old device. Now telegram will show an option to 'login with passkey' on new device, might have to enter pin from old device too
+    - method: sign in with email on initial sign in, type the email manually and continue, dont click the gmail sign in below, it might take a while for the email to arrive
     - if you are stuck on 'sms fee' screen; force stop, clear cache, reopen telegram and try signing up, else reinstall
-    - or can try again 24 hours later, without repeatedly requesting for codes
-    - or you can find and install an older version of telegram that doesnt ask you to pay for sms, then update
-    - or you can try installing telegram x instead and use that
-- (after recent backup, note that doing this logs out of desktop instances as well)
+    - or can try again 24 hours later, without repeatedly requesting for codes -->
+    - add accounts
+    - settings:
+      - chat settings
+        - browse themes, see the row of circles within circles a little below and the current one says ..., scroll horizontally to the right and pic the first blue circle that does not have another circile within it theme
+        - in app browser off
+        - raise to listen: off
+      - privacy and security
+        - two step verification on
+        - auto delete messages off
+        - passcode lock?
+        - passkeys?
+        - phone number: my contacts
+        - last seen and online: nobody + exceptions
+        - profile photos: my contacts
+        - forwarded messages: nobody + exceptions
+        - birthday: nobody
+        - calls?
+        - bio?
+        - saved music: nobody
+        - invites?
+        - delete my account, if away for ...
+        - map preview provider: googel
+        - link previews: on
+      - notifications (exceptions are those unmuted manually):
+        - private chats: off + exceptions
+        - groups: off + exceptions
+        - channels: off + exceptions
+        - stories: off + auto exceptions?
+        - reactions: on
+        - vibrate: disabled
+        - in app sounds: off
+        - in app vibrate: off
+        - in app preview: off
+        - in chat sounds: off
+        - in app pop on screen: off
+        - contact joined telegram: off
+        - pinned messages: on
+        - keep alive service: on
+        - background connection: on
+        - repeat notifications: 1 hour
+      - data and storage
+        - automatic media download
+          - when using mobile data: off
+          - when connected to wifi: photos only
+          - when roaming: off
+        - save to gallery: all off
+      - chat folders
+        - set up
+        - add 'personal' from recommended folders
+        - create another folder, call it 'unread personal'
+          - included chats: contacts, non contacts
+          - excluded chats: read
+          - move it to be under 'personal' folder
+        - add these folders:
+          - family
+          - friends?
+          - work?
+          - class?
+          - islamic?
+          - news?
+          - business?
+      - devices, remove unneeded sessions
+      - power saving
+        - always enabled
+        - power saving options items all off
+        - enable smooth transitions off
+      - language: show translate button on
+      - long pressing on the telegram for android version at the bottom opens a debug menu
+        - disable in app camera
+- (restore the following chat apps after taking a recent backup, note that doing this logs out of their desktop instances as well)
   - whatsapp / business
+    - ..., settings
+      - account
+        - email address
+        - two step verification
+      - privacy
+        - last seen and online
+          - last seen: nobody
+          - when im online: everyone
+        - profile picture: my contacts
+        - about: my contacts
+        - status: my contacts
+        - read reciepts: on
+        - default message timer: off
+        - groups: everyone
+        - avatar stickers: nobody
+        - live location: off
+        - calls: silence unknown callers
+        - app lock?
+        - allow camera effects: off
+        - lists
+          - unread
+          - favourites
+          - work
+        - chat
+          - media visibility on
+        - notifications
+          - conversation tones off
+          - vibrate off for all vibrate options
+        - storage and data
+          - media upload quality?
+          - auto download quality: auto
+          - media auto download
+            - when using mobile data: no media
+            - when connected on wifi: photos
+            - when roaming: no media
+          - accessibility, animation, all off
   - viber (mute spammy groups)
-  - signal (enable backups too, have to allow setting alarms and reminders)
+    - ... more
+      - settings
+        - account, desktop and tablets, terminate unwanted sessions
+        - privacy
+          - 2 step verification?
+          - share online status: on
+          - send seen status: on
+          - show your photo: off
+          - share your birth date: off
+          - allow friend suggestions: off
+        - personal data
+          - collect analytics: off
+          - allow content personalization: off
+          - location services: off
+        - notifications
+          - show message preview: on
+          - contact joined viber: off
+          - get birthday notifications: off
+          - show birthday reminders: off
+          - show explore notifications: off
+          - show comment notifications: on
+          - outgoing message sounds: off
+          - vibrate when ringing: off
+        - calls and messages
+          - caller id?
+          - message translation?
+          - viber in calls: on
+          - silence unknown callers: on
+        - media
+          - photo quality: good
+          - save to gallery: on
+          - viber watermark: off
+          - auto download media over mobile network: off
+          - auto download media when connected to wifi: on
+          - auto play videos: off
+        - general
+          - open links internally: off
+      - manage folders
+        - unread
+        - work
+        - family
+        - business / projects
+  - signal
+    - enable backups, allow setting alaarm and reminders
+    - ..., settings
+      - account
+        - signal pin?
+        - pin reminder: off?
+      - linked devices: terminate unneeded sessions
+      - appearance, app icon?
+      - stories, view receipts?
+      - notifications
+        - messages
+          - notifications: on
+          - in chat sounds: off
+          - show?
+        - calls
+          - notifications: on
+          - vibrate: off
+        - notify when, contact joins signal: off
+      - privacy
+        - phone number
+          - who can see my number: nobody
+          - who can find me by number?
+        - messaging
+          - read reciepts: on
+          - typing indicators: off
+        - backups
+        - data and storage
+          - media auto download
+            - when using mobile data: none
+            - when using wifi: images
+            - when roaming: none
+            - media quality: standard
+            - stay connected in background: off
 - bitwarden
     <!-- - settings, account, biometrics -->
 - temu
