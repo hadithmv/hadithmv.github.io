@@ -1081,7 +1081,7 @@ ZKBio CVAccess
       - data and storage
         - automatic media download
           - when using mobile data: off
-          - when connected to wifi: photos only
+          - when connected to wifi: photos off
           - when roaming: off
         - save to gallery: all off
       - chat folders
@@ -1179,7 +1179,7 @@ ZKBio CVAccess
           - save to gallery: on
           - viber watermark: off
           - auto download media over mobile network: off
-          - auto download media when connected to wifi: on
+          - auto download media when connected to wifi: off
           - auto play videos: off
         - general
           - open links internally: off
