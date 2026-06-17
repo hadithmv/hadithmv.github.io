@@ -565,6 +565,10 @@ Wireshark
 ZKAccess3.5 Security System
 ZKBio CVAccess
 
+...
+
+ShareX / BandiCam
+
 ---
 
 <!-- TOC --><a name="third-party-configs"></a>
