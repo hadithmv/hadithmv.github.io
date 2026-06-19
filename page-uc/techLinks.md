@@ -816,7 +816,7 @@ ShareX / BandiCam
 ### Base Setup
 
 - update android OS (settings > system update) until no more updates
-- update google play system (settings > security > google play system update)
+- update google play system (settings > security > google play system update / fingerprint and security, privacy, google play system update)
   - if some apps not showing updates in play store, but showing in OEM store, might have to remove them and reinstall from playstore?
 - update all apps in google play store
 - update system apps in OEM store (galaxy store, xiaomi getapps)
@@ -892,13 +892,16 @@ ShareX / BandiCam
   - fingerprint effects, fingeprint recognition, fingerprint animation: off
   - themes, my account, settings: show ads off, personalized recommendations: off
 - fingerprints, add more fingers
+  - lock screen
+    - make pattern visible: off
   - other lock screen types, pin
   - fingerprint settings
     - low light fingerprint unlock on
     - use with always on display: off
-  - privacy, find hub: allow device to be location, set remote lock onhline
-- lock screen
-  - make pattern visible: off
+  - privacy
+    - enroll in user experience program: off
+    - ad services, personalized ads: off
+    - find hub: allow device to be location, set remote lock online
 - safety and emergency
   - medical information
     - name
