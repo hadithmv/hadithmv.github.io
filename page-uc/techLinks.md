@@ -664,6 +664,7 @@ ShareX
 
 - glary utilities
   - settings, auto care, automatic update: disable
+  - windows notifications: off
 
 - iobit uninstaller
   - settings, user interface, transparency: 0
