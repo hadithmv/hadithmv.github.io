@@ -23,7 +23,8 @@
   - [Export Windows Software List](#export-windows-software-list)
 - [Windows Software &amp; Programs](#windows-software-amp-programs)
 - [Other Windows Software](#other-windows-software)
-  - [Third Party Configs](#third-party-configs)
+  - [Other Program Configs](#other-program-configs)
+  - [Messaging Programs](#messaging-programs)
   - [Before Installing Fresh Windows](#before-installing-fresh-windows)
   - [Clean Install](#clean-install)
   - [Base Setup](#base-setup)
@@ -32,6 +33,7 @@
   - [Pin to Taskbar](#pin-to-taskbar)
   - [Personal Files & Final Setup](#personal-files-final-setup)
 - [Android Setup / Migration](#android-setup-migration)
+- [Android Apps](#android-apps)
   - [Backups](#backups)
   - [Before Wiping Old Phone](#before-wiping-old-phone)
   - [Initial Setup](#initial-setup)
@@ -41,11 +43,10 @@
   - [Other Settings](#other-settings)
   - [Debloat and Remove Ads](#debloat-and-remove-ads)
   - [App Restoration](#app-restoration)
+  - [Messaging Apps](#messaging-apps)
   - [Home Screen Layout](#home-screen-layout)
-  - [Third Party Configs](#third-party-configs-1)
   - [Personal Files & Final Setup](#personal-files-final-setup-1)
   - [Export Android Apps List](#export-android-apps-list)
-- [Android Apps](#android-apps)
 - [Code Editors](#code-editors)
 - [Export Code Editor Extensions List](#export-code-editor-extensions-list)
 - [Node](#node)
@@ -572,7 +573,7 @@ ShareX
 
 ---
 
-<!-- TOC --><a name="third-party-configs"></a>
+<!-- TOC --><a name="other-program-configs"></a>
 
 ### Other Program Configs
 
@@ -593,6 +594,9 @@ ShareX
 
 - irfanview
   - open images
+
+- apps, startup
+  - disable unneeded
 
   <!-- !! -- >
 
@@ -623,15 +627,86 @@ ShareX
   - options, general, unicode text support: on
   - search method, find duplicate on basis of: file name
 
-  <!-- !! next -->
+  <!-- !! ? -->
 
-- qdir, notepad++, etc
-  - dark mode
+- android studio
+- antigravity
+- cursor
+- vscode?
 
-- startup apps
-  - delay / disable what's not needed
+- ld player
+- logi options
+  <!-- !! ? -->
+
+- anydesk
+  - your address code, save
+  - settings
+    - allow collection of usage data: off
+  - access, unattended access?
+
+- audacity
+  - download and install separate FFmpeg import/export library
+
+- aula keyboard
+  - global
+    - autorun: off
+    - when you click X: exit
+    - tap: off
+    - sleep: on
+    - debounce: 2 stage
+  - key assignment
+    - instead of this, use powertoys keyboard manager to remap keys
+    - otherwise can set fn keys
+  - light effect
+    - fixed_on
+    - brightness: 1
+    - color: red
+
+- glary utilities
+  - settings, auto care, automatic update: disable
+
+- iobit uninstaller
+  - settings, user interface, transparency: 0
+  - general, enable and load at windows startup: off
+  - update method: update manually
+
+- irfanview
+  - download all plugins and install
+  - options, viewing, window options: enable dark mode, ok
+
+- meld
+  - ..., preferences
+    - font
+      - editor font, select font 'sakkal majalla', size 23?
+      - enable text wrapping
+      - highlight current line
+      - show line numbers
+      - show whitespace
+      - prefer dark theme?
+
+- notepad++
+  - settings, preferences, dark mode
+
+- notion
+  - settings, notifications, meeting detection: off
+
+- patch my pc
+  - schedular, off
+
+- qdir
+  - extras, dark theme
+
+- sumatrapdf
+  - settings, theme, dark
+
+- unigetui
+  - settings
+    - telemetry, manage, decline
+    - privacy, hide my username from the logs: on
 
 ---
+
+<!-- TOC --><a name="messaging-programs"></a>
 
 ### Messaging Programs
 
@@ -909,8 +984,6 @@ ShareX
 
 ## Android Setup / Migration
 
-<!-- TOC --><a name="backups"></a>
-
 <!-- ! REMEMBER TO REMOVE:
 Binance
 What to Expect
@@ -1032,6 +1105,8 @@ Zikuru
 جامع الكتب التسعة
 
 ---
+
+<!-- TOC --><a name="backups"></a>
 
 ### Backups
 
@@ -1369,6 +1444,8 @@ Zikuru
   - translations and tafsirs
 - anydesk / remote desktop
   - re-add saved connections
+
+<!-- TOC --><a name="messaging-apps"></a>
 
 ### Messaging Apps
 
