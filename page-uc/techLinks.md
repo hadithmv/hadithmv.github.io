@@ -651,12 +651,14 @@ ShareX / BandiCam
 ### Personalization
 
 - privacy & telemetry
-  - send optional diagnostic data off + disable tailored experiences + advertising id off
-- animation effects off (except smooth edges of screen fonts)
-- bluetooth off
+  - send optional diagnostic data: off
+  - disable tailored experiences
+  - advertising id: off
+- animation effects: off (except smooth edges of screen fonts)
+- bluetooth: off
 - search (privacy & security)
-  - search history off
-  - search highlights off
+  - search history: off
+  - search highlights: off
 - run "services.msc", scroll down to "windows search", right click, properties, startup type: disabled
 - performance options (system properties > performance > settings), turn off:
   - animate controls and elements inside windows
@@ -670,7 +672,7 @@ ShareX / BandiCam
   - show translucent selection rectangle
   - show window contents while dragging
   - slide open combo boxes
-  - use drop shadows for icpn labels on the desktop
+  - use drop shadows for icon labels on the desktop
   - ?save taskbar menu previews
   - ?smooth scroll list boxes
   - (to put it short, remove everything else and just keep: enable peek, show thumbnails instead of icons, smooth edges of screen fonts, smooth-scroll list boxes.)
@@ -721,8 +723,8 @@ ShareX / BandiCam
 - windows backup
 - cloud backup (google, onedrive)
 - power mode: battery / performance
-- screen off 15 mins
-- sleep 5 hours
+- screen off: 15 mins
+- sleep: 5 hours
 - create restore point again
 
 ---
@@ -840,7 +842,7 @@ ShareX / BandiCam
     - long press symbols on
     - accented characters on
     - key popups on, long press duration: 175ms
-  - sound and vibration, all off
+  - sound and vibration; all off
   - when typing in the keyboard, open clipboard, add commonly pinned text
 
 ---
@@ -849,7 +851,7 @@ ShareX / BandiCam
 
 ### Phone Settings
 
-- bluetooth off
+- bluetooth: off
 - lock screen
   - sleep after 2 mins of inactivity
   - customise shortcuts: left calculator, right camera
@@ -869,7 +871,7 @@ ShareX / BandiCam
     - press and hold back button: turn off screen
   - arrange items in recents, show memory status: on
 - display and brightness
-  - automatic brightness off
+  - automatic brightness: off
   - set screen brightness
   - reading mode on, cycle
   - refresh rate default, others like it high (120hz)?
@@ -888,12 +890,15 @@ ShareX / BandiCam
     - deleting items
     - (only leave; when charger connected)
   - fingerprint effects, fingeprint recognition, fingerprint animation: off
-  - themes, my account, settings: show ads off, personalized recommendations off
+  - themes, my account, settings: show ads off, personalized recommendations: off
 - fingerprints, add more fingers
-  - fingerprint settings, use with always on display off
+  - other lock screen types, pin
+  - fingerprint settings
+    - low light fingerprint unlock on
+    - use with always on display: off
   - privacy, find hub: allow device to be location, set remote lock onhline
 - lock screen
-  - make pattern visible off
+  - make pattern visible: off
 - safety and emergency
   - medical information
     - name
@@ -901,7 +906,7 @@ ShareX / BandiCam
   - emergency contacts: add
   - emergency sos?
 - apps
-  - background autostart, turn off
+  - background autostart, turn off:
     - google wallet
     - facebook
     - notes
@@ -914,7 +919,7 @@ ShareX / BandiCam
 - digital wellbeing
   - bedtime mode
     - next, use a schedule, done
-    - motion and light detection off, allow, not now
+    - motion and light detection: off
   - screen time reminders: on
 - accessibility
   - general, gesture shortcuts
@@ -924,20 +929,20 @@ ShareX / BandiCam
     - display size and magnification?
     - remove animations on
 - additional settings
-  - date and time, 24 hour format off
+  - date and time, 24 hour format: off
 - privacy
   - ads
     - ads privacy:
-      - ad topics off
-      - app suggested ads off
-      - ad measurement off, reset
+      - ad topics: off
+      - app suggested ads: off
+      - ad measurement: off, reset
     - reset advertising id
     - delete advertising id
-  - usage and diagnostics off
+  - usage and diagnostics: off
 - location
   - share location info with carrier: deny
-  - wifi scanning off
-  - bluetooth scanning off
+  - wifi scanning: off
+  - bluetooth scanning: off
 - camera, down arrow from the top, settings, general
   - gridlines: golden ratio, center mark
   - shutter sound: off
@@ -966,19 +971,21 @@ ShareX / BandiCam
 - disable notifications for bloatware like: themes
 - disable ads on individual oem apps:
   - file manager, ..., settings, withdrawal of consent?
-  - security, settings, recieve recommendations off
-  - themes, my account, settings: show ads off, personalized recommendations off
-  - downloads, ..., settings, show recommended content off
+  - security, settings, recieve recommendations: off
+  - themes, my account, settings
+    - show ads: off
+    - personalized recommendations: off
+  - downloads, ..., settings, show recommended content: off
   - game center, profile, settings,
-    - privacy and security, personalized recommendations off
+    - privacy and security, personalized recommendations: off
     - withdrawal of consent?
-  - gallery, ..., settings, on this day off
+  - gallery, ..., settings, on this day: off
     - music, ..., settings, advanced settings
-    - show ads off
-      - show online recommendations on startup off
-      - personalized recommendations off
+    - show ads: off
+      - show online recommendations on startup: off
+      - personalized recommendations: off
       - withdrawal of consent?
-  - settings, fingerprints and security, authorization and revocation, msa off
+  - settings, fingerprints and security, authorization and revocation, msa: off
 - disable/restrict unused system services (careful)?
 - alternatively, use [Universal Android Debloater (UAD)](https://github.com/0x192/universal-android-debloater) via PC (overkill, but highly effective for samsung/xiaomi devices)?
 
@@ -1023,7 +1030,6 @@ ShareX / BandiCam
 - faisamobile
   <!-- - use biometrics -->
 - mwsc, stelco; dark mode
-- dhiraagu (turn off notifications)
 <!-- - dual apps -->
 - efaas
 - notion
@@ -1031,213 +1037,257 @@ ShareX / BandiCam
   - facebook, instagram; skip access to contacts | ..., settings: dark mode
   - business suite; phone settings, display, dark mode options, individual apps: business suite
   - x
-- chat apps
-  - discord
-  - telegram
-    - nowadays telegram shows a 'sms fee' screen, which wont let you continue unless you pay a dollar to get sms otp
-      - to get around this, find an older version of telegram, like 9.7.2, from a good source, perhaps uptodown, download and install, sign in with login code from other device, then go to settings, press telegram for android version at the bottom, it shows a debug menu, click check app update, update
-      - or you can try installing telegram x instead and use that
-      <!-- - try using data instead of wifi
-    - method: create a passkey on old device. Now telegram will show an option to 'login with passkey' on new device, might have to enter pin from old device too
-    - method: sign in with email on initial sign in, type the email manually and continue, dont click the gmail sign in below, it might take a while for the email to arrive
-    - if you are stuck on 'sms fee' screen; force stop, clear cache, reopen telegram and try signing up, else reinstall
-    - or can try again 24 hours later, without repeatedly requesting for codes -->
-    - add accounts
-    - settings:
-      - chat settings
-        - browse themes, see the row of circles within circles a little below and the current one says ..., scroll horizontally to the right and pic the first blue circle that does not have another circile within it theme
-        - in app browser off
-        - raise to listen: off
-      - privacy and security
-        - two step verification on
-        - auto delete messages off
-        - passcode lock?
-        - passkeys?
-        - phone number: my contacts
-        - last seen and online: nobody + exceptions
-        - profile photos: my contacts
-        - forwarded messages: nobody + exceptions
-        - birthday: nobody
-        - calls?
-        - bio?
-        - saved music: nobody
-        - invites?
-        - delete my account, if away for ...
-        - map preview provider: googel
-        - link previews: on
-      - notifications (exceptions are those unmuted manually):
-        - private chats: off + exceptions
-        - groups: off + exceptions
-        - channels: off + exceptions
-        - stories: off + auto exceptions?
-        - reactions: on
-        - vibrate: disabled
-        - in app sounds: off
-        - in app vibrate: off
-        - in app preview: off
-        - in chat sounds: off
-        - in app pop on screen: off
-        - contact joined telegram: off
-        - pinned messages: on
-        - keep alive service: on
-        - background connection: on
-        - repeat notifications: 1 hour
-      - data and storage
-        - automatic media download
-          - when using mobile data: off
-          - when connected to wifi: photos off
-          - when roaming: off
-        - save to gallery: all off
-      - chat folders
-        - set up
-        - add 'personal' from recommended folders
-        - create another folder, call it 'unread personal'
-          - included chats: contacts, non contacts
-          - excluded chats: read
-          - move it to be under 'personal' folder
-        - add these folders:
-          - family
-          - friends?
-          - work?
-          - class?
-          - islamic?
-          - news?
-          - business?
-      - devices, remove unneeded sessions
-      - power saving
-        - always enabled
-        - power saving options items all off
-        - enable smooth transitions off
-      - language: show translate button on
-      - long pressing on the telegram for android version at the bottom opens a debug menu
-        - disable in app camera
-- (restore the following chat apps after taking a recent backup, note that doing this logs out of their desktop instances as well)
-  - whatsapp / business
-    - ..., settings
-      - account
-        - email address
-        - two step verification
-      - privacy
-        - last seen and online
-          - last seen: nobody
-          - when im online: everyone
-        - profile picture: my contacts
-        - about: my contacts
-        - status: my contacts
-        - read reciepts: on
-        - default message timer: off
-        - groups: everyone
-        - avatar stickers: nobody
-        - live location: off
-        - calls: silence unknown callers
-        - app lock?
-        - allow camera effects: off
-        - lists
-          - unread
-          - favourites
-          - work
-        - chat
-          - media visibility on
-        - notifications
-          - conversation tones off
-          - vibrate off for all vibrate options
-        - storage and data
-          - media upload quality?
-          - auto download quality: auto
-          - media auto download
-            - when using mobile data: no media
-            - when connected on wifi: photos
-            - when roaming: no media
-          - accessibility, animation, all off
-  - viber (mute spammy groups)
-    - ... more
-      - settings
-        - account, desktop and tablets, terminate unwanted sessions
-        - privacy
-          - 2 step verification?
-          - share online status: on
-          - send seen status: on
-          - show your photo: off
-          - share your birth date: off
-          - allow friend suggestions: off
-        - personal data
-          - collect analytics: off
-          - allow content personalization: off
-          - location services: off
-        - notifications
-          - show message preview: on
-          - contact joined viber: off
-          - get birthday notifications: off
-          - show birthday reminders: off
-          - show explore notifications: off
-          - show comment notifications: on
-          - outgoing message sounds: off
-          - vibrate when ringing: off
-        - calls and messages
-          - caller id?
-          - message translation?
-          - viber in calls: on
-          - silence unknown callers: on
-        - media
-          - photo quality: good
-          - save to gallery: on
-          - viber watermark: off
-          - auto download media over mobile network: off
-          - auto download media when connected to wifi: off
-          - auto play videos: off
-        - general
-          - open links internally: off
-      - manage folders
-        - unread
-        - work
-        - family
-        - business / projects
-  - signal
-    - enable backups, allow setting alaarm and reminders
-    - ..., settings
-      - account
-        - signal pin?
-        - pin reminder: off?
-      - linked devices: terminate unneeded sessions
-      - appearance, app icon?
-      - stories, view receipts?
-      - notifications
-        - messages
-          - notifications: on
-          - in chat sounds: off
-          - show?
-        - calls
-          - notifications: on
-          - vibrate: off
-        - notify when, contact joins signal: off
-      - privacy
-        - phone number
-          - who can see my number: nobody
-          - who can find me by number?
-        - messaging
-          - read reciepts: on
-          - typing indicators: off
-        - backups
-        - data and storage
-          - media auto download
-            - when using mobile data: none
-            - when using wifi: images
-            - when roaming: none
-            - media quality: standard
-            - stay connected in background: off
-- bitwarden
+  - bitwarden
     <!-- - settings, account, biometrics -->
-- temu
-- hr
-- 3cx?
+  - temu
+  - hr
+  - 3cx?
   <!-- - binance -->
-- use 'SMS Backup & Restore' to restore sms and call logs
-- sign in to mamen; after inserting sim
-- namaadhu app
-  - grant access, select location
-  - settings, general, turn of 24 hour format, widget theme dark
-  - change notification
-  - add widget to home screen
+  - use 'SMS Backup & Restore' to restore sms and call logs
+  - dhiraagu / ooredoo, turn off notifications
+  - mamen; sign in after inserting sim
+  - namaadhu app
+    - grant access, select location
+    - settings, general, turn of 24 hour format, widget theme dark
+    - change notification
+    - add widget to home screen
+
+### Messaging Apps
+
+- discord
+  - settings
+    - account,
+    - content and social
+      - share when i come online: off
+      - discovery, phone: off
+      - discovery, email: off
+    - data and privacy
+      - use data to improve discord: off
+      - use data to personalize my discord experience: off
+      - use my discord activity to personalize sponsored content: off
+      - share when i update my profile: off
+    - devices, terminate unneeded sessions
+    - clips, allow my voice to be recorded in clips: off
+    - accessibility
+      - automatically play gifs: off
+      - play animated emoji: off
+      - stickers: never animate
+    - chat
+      - data saving mode: on
+    - web browser, external browser: on
+    - notifications
+      - notify on every new message in conversations: on
+      - community activity alerts: based on need?
+      - voice activity notifications: off
+      - friends online: off
+      - status notifications: off
+      - friend gaming activity: off
+
+- telegram
+  - nowadays telegram shows a 'sms fee' screen, which wont let you continue unless you pay a dollar to get sms otp
+    - to get around this, find an older version of telegram, like 9.7.2, from a good source, perhaps uptodown, download and install, sign in with gin code from other device
+      - add other accounts if you have any (important to do this now, otherwise if adding later will run into sms fee screen again, and will have uninstall, reinstall and do all settings all over again)
+      - go to settings, press telegram for android version at the bottom, it shows a debug menu, click check app update, update
+    - or you can try installing telegram x instead, and use that as a replacement
+    <!-- - try using data instead of wifi
+  - method: create a passkey on old device. Now telegram will show an option to 'login with passkey' on new device, might have to enter pin from d device too
+  - method: sign in with email on initial sign in, type the email manually and continue, dont click the gmail sign in below, it might take a while r the email to arrive
+  - if you are stuck on 'sms fee' screen; force stop, clear cache, reopen telegram and try signing up, else reinstall
+  - or can try again 24 hours later, without repeatedly requesting for codes -->
+  - add accounts
+  - settings:
+    - chat settings
+      - browse themes, see the row of circles within circles a little below and the current one says ..., scroll horizontally to the right and pic e first blue circle that does not have another circile within it theme
+      - in app browser: off
+      - raise to listen: off
+    - privacy and security
+      - two step verification on
+      - auto delete messages: off
+      - passcode lock?
+      - passkeys?
+      - phone number: my contacts
+      - last seen and online: nobody + exceptions
+      - profile photos: my contacts
+      - forwarded messages: nobody + exceptions
+      - birthday: nobody
+      - calls?
+      - bio?
+      - saved music: nobody
+      - invites?
+      - delete my account, if away for...
+      - sync contacts on
+      - suggest frequent contacts on
+      - map preview provider: google
+      - link previews: on
+    - notifications (exceptions are those unmuted manually):
+      - show notifications from: all accounts
+      - private chats: off + exceptions
+      - groups: off + exceptions
+      - channels: off + exceptions
+      - stories: off + auto exceptions?
+      - reactions: on
+      - calls vibrate: disabled
+      - show badge icon: on
+      - include muted chats: off
+      - count unread messages on
+      - in app sounds: off
+      - in app vibrate: off
+      - in app preview: on
+      - in chat sounds: off
+      - in app pop on screen: off
+      - contact joined telegram: off
+      - pinned messages: on
+      - keep alive service: on
+      - background connection: on
+      - repeat notifications: 1 hour
+    - data and storage
+      - automatic media download
+        - when using mobile data: off
+        - when connected to wifi: photos off
+        - when roaming: off
+      - save to gallery; all off
+    - chat folders
+      - set up
+      - add 'personal' from recommended folders
+      - create another folder, call it 'unread personal'
+        - included chats: contacts, non contacts
+        - excluded chats: read
+        - move it to be under 'personal' folder
+      - add these folders:
+        - family
+        - friends?
+        - work?
+        - class?
+        - islamic?
+        - news?
+        - business?
+    - devices, remove unneeded sessions
+      - set automatically terminate old sessions, if inactive for...
+    - power saving
+      - always enabled
+      - power saving options items; all off
+      - enable smooth transitions: off
+    - language: show translate button: on
+    - long pressing on the telegram for android version at the bottom opens a debug menu
+      - disable in app camera
+
+(restore the following chat apps after taking a recent backup, note that doing this logs out of their desktop instances as well)
+
+- whatsapp / business
+  - ..., settings
+    - account
+      - email address
+      - two step verification
+    - privacy
+      - last seen and online
+        - last seen: nobody
+        - when im online: everyone
+      - profile picture: my contacts
+      - about: my contacts
+      - status: my contacts
+      - read reciepts: on
+      - default message timer: off
+      - groups: everyone
+      - avatar stickers: nobody
+      - live location: off
+      - calls: silence unknown callers
+      - app lock?
+      - allow camera effects: off
+      - lists
+        - unread
+        - favourites
+        - work
+      - chat
+        - media visibility on
+      - notifications
+        - conversation tones off
+        - vibrate off for all vibrate options
+      - storage and data
+        - media upload quality?
+        - auto download quality: auto
+        - media auto download
+          - when using mobile data: no media
+          - when connected on wifi: photos
+          - when roaming: no media
+        - accessibility, animation, all off
+
+- viber (mute spammy groups)
+  - ... more
+    - settings
+      - account, desktop and tablets, terminate unwanted sessions
+      - privacy
+        - 2 step verification?
+        - share online status: on
+        - send seen status: on
+        - show your photo: off
+        - share your birth date: off
+        - allow friend suggestions: off
+      - personal data
+        - collect analytics: off
+        - allow content personalization: off
+        - location services: off
+      - notifications
+        - show message preview: on
+        - contact joined viber: off
+        - get birthday notifications: off
+        - show birthday reminders: off
+        - show explore notifications: off
+        - show comment notifications: on
+        - outgoing message sounds: off
+        - vibrate when ringing: off
+      - calls and messages
+        - caller id?
+        - message translation?
+        - viber in calls: on
+        - silence unknown callers: on
+      - media
+        - photo quality: good
+        - save to gallery: on
+        - viber watermark: off
+        - auto download media over mobile network: off
+        - auto download media when connected to wifi: off
+        - auto play videos: off
+      - general
+        - open links internally: off
+    - manage folders
+      - unread
+      - work
+      - family
+      - business / projects
+
+- signal
+  - enable backups, allow setting alaarm and reminders
+  - ..., settings
+    - account
+      - signal pin?
+      - pin reminder: off?
+    - linked devices: terminate unneeded sessions
+    - appearance, app icon?
+    - stories, view receipts?
+    - notifications
+      - messages
+        - notifications: on
+        - in chat sounds: off
+        - show?
+      - calls
+        - notifications: on
+        - vibrate: off
+      - notify when, contact joins signal: off
+    - privacy
+      - phone number
+        - who can see my number: nobody
+        - who can find me by number?
+      - messaging
+        - read reciepts: on
+        - typing indicators: off
+      - backups
+      - data and storage
+        - media auto download
+          - when using mobile data: none
+          - when using wifi: images
+          - when roaming: none
+          - media quality: standard
+          - stay connected in background: off
 
 ---
 
