@@ -567,19 +567,16 @@ ZKBio CVAccess
 
 ...
 
-ShareX / BandiCam
+ShareX
 
 ---
 
 <!-- TOC --><a name="third-party-configs"></a>
 
-### Third Party Configs
+### Other Program Configs
 
 - powertoys
   - autostart
-
-- messaging apps (telegram, whatsapp, viber, signal)
-  - configure sync and backup, display size, autodownload settings
 
 - focus tab groups
   - tab repositioning; reposition tabs direction & reposition tab group direction; none
@@ -604,6 +601,156 @@ ShareX / BandiCam
 
 - startup apps
   - delay / disable what's not needed
+
+---
+
+### Messaging Programs
+
+- telegram
+  - add accounts
+  - settings
+    - notifications and sounds
+      - show notifications from: all accounts
+      - global settings
+        - desktop notifications: on
+        - flash the taskbar icon: on
+        - allow sound: on
+        - notifications for chats
+          - private chats: off + exceptions
+          - groups: off + exceptions
+          - channels: off + exceptions
+          - reactions: on
+        - contact joined telegram: off
+        - pinned messages: on
+        - accept calls on this device: on
+        - badge counter
+          - include muted chats in unread count: on
+          - include muted chats in folder counters: on
+          - count unread messasges: on
+        - system integration
+          - use windows notifications: off
+          - respect system focus mode: off
+      - privacy and security
+        - connected websites
+          - disconnect unneeded
+        - local passcode?
+        - chat settings
+          - loop animated stickers: off
+      - advanced
+        - automatic media download
+          - in private chats
+            - automatically download
+              - photos: on
+              - files: off
+              - limit by size: 1 mb
+            - autoplay
+              - round video messages: off
+              - videos: off
+              - gifs: off
+              - limit by size: 1 mb
+          - same with in groups and in channels
+        - window title bar
+          - show chat name: on
+          - show active account: on
+          - total unread count: on
+          - use system window frame: off
+        - system integration
+          - show tray icon: on
+          - show taskbar icon: on
+          - use monochrome icon: on
+          - launch telegram when system starts: off
+          - place telegram in send to menu: off
+        - performance
+          - battery and animations: all off
+          - hardware accelerated video decoding: off
+        - version and updates
+          - update automatically: on
+        - export telegram data?
+        - default interface scale: 170%?
+  - tips
+    - while forwarding, right click to remove sender info
+    - double click on someone's message to reply
+
+- whatsapp
+  - you
+    - general
+      - start whatsapp at login: off?
+      - font size: 80%?
+    - privacy
+      - app lock?
+      - turn off previews: on
+    - chats
+      - media auto download
+        - photos: on
+        - audio: off
+        - videos: off
+        - documents: off
+    - notifications
+      - show notification banner: always
+      - show taskbar notification badge: always
+      - messages, groups, calls: on
+      - status: off
+      - show previews: on
+      - play sound for outgoing messages: off
+
+- viber
+  - settings
+    - account
+      - interface scale: 125%?
+      - start up: off, off
+    - media
+      - keep media?
+      - media downloaded automatically: off
+      - play videos automatically: off
+      - note where viber media files are saved in a folder, clear from time to time
+      - photo quality: good
+    - privacy and security
+      - viber screen lock?
+      - auto spam check?
+      - silence unknown callers: on
+    - notifications
+      - show notifications for
+        - 1 on 1 messages: on
+        - group messages: on
+        - communities channels: off
+        - service channels: off
+        - mentions messages: on
+      - play sounds for
+        - all messages: off
+        - combined notifications: off
+      - show notification effects
+        - unread badge: off
+        - alert in taskbar badge: off
+
+- signal
+  - settings
+    - general
+      - system, open at computer login: off
+      - automatically download updates: on
+    - appearance
+      - zoom level: 100%?
+    - chats
+      - generate link previews: on
+    - calls
+      - play calling sounds: off
+    - notifications
+      - enable notifications: on
+      - show notifications for calls: on
+      - draw attention to this window: off
+      - include muted chats in badge count: off
+      - notification content?
+      - push notification sounds: off
+      - in chat message sounds: off
+    - privacy
+      - screen security?
+    - data usage
+      - media auto download
+        - photos: on
+        - videos: off
+        - audio: off
+        - documents: off
+
+---
 
 <!-- TOC --><a name="before-installing-fresh-windows"></a>
 
@@ -734,6 +881,128 @@ ShareX / BandiCam
 ## Android Setup / Migration
 
 <!-- TOC --><a name="backups"></a>
+
+<!-- ! REMEMBER TO REMOVE:
+Binance
+What to Expect
+-->
+
+<!-- TOC --><a name="android-apps"></a>
+
+## Android Apps
+
+1.1.1.1
+3CX
+Al Quran
+Analytics
+AnyDesk
+App Manager
+app.villacollege.edu.mv
+Apps Backup Restore
+Authenticator
+Authenticator
+Avas App
+Ayah
+Bitwarden
+BML Mobile
+Business Central
+Business Suite
+Calculator
+Calculator
+Calendar
+Call Assistant
+CamScanner
+CareCamPro
+ChatGPT
+Claude
+Compass
+Dheenuge Magu
+Dhikr & Dua
+Dhiraagu
+Dhivehi Calendar
+Dhivehi Foiy
+Discord
+Docs
+Edge Gallery
+Efaas
+Excel
+Facebook
+FaisaMobile
+Family Link
+Firefox
+freeCodeCamp
+Gallery Editor
+Gemini
+Haasiboo
+Hadith Collection
+Hadithmv
+Hijri Calendar
+Hisnul Muslim
+Hisnul Muslim
+Instagram
+Keep Notes
+Lens
+Male' Map
+mamen
+Maskiraa App
+MetricS
+Mi Doc Viewer (Powered by WPS)
+Mi Remote
+Mi Roaming
+Mi Store
+Microsoft SwiftKey Keyboard
+MWSC
+Namaadhu
+NotebookLM
+Notes
+Notion
+OneDrive
+Orbot
+Outlook
+PDF Reader - Hi Read
+Play Console
+QueueBee
+Quran
+Quran Majeed
+Quranly
+Radheef
+Radheef
+ReadEra
+Recorder
+Remote Desktop
+Roadmap
+RTL Travel App
+Scanner
+Screen Recorder
+ShareMe
+Sheets
+Signal
+Simple Markdown
+SMS Backup & Restore
+STELCO
+Tab
+Tasks
+Teams
+Telegram
+Temu
+Translate
+Ultrasurf VPN
+Viber
+VLC
+Wallpaper Carousel
+Weather
+WhatsApp
+WhatsApp Business
+Word
+X
+ZArchiver
+Zikuru
+المعاني عربي انجليزي
+المعاني عربي عربي
+المكتبة الشاملة
+جامع الكتب التسعة
+
+---
 
 ### Backups
 
@@ -933,6 +1202,7 @@ ShareX / BandiCam
     - remove animations on
 - additional settings
   - date and time, 24 hour format: off
+  - memory extension: off
 - privacy
   - ads
     - ads privacy:
@@ -946,9 +1216,12 @@ ShareX / BandiCam
   - share location info with carrier: deny
   - wifi scanning: off
   - bluetooth scanning: off
-- camera, down arrow from the top, settings, general
-  - gridlines: golden ratio, center mark
-  - shutter sound: off
+- camera, down arrow from the top, settings
+  - photo
+    - quality?
+  - general
+    - gridlines: golden ratio, center mark
+    - shutter sound: off
 
 <!-- TOC --><a name="other-settings"></a>
 
@@ -1005,6 +1278,13 @@ ShareX / BandiCam
 - set google phone as default phone app
 - switch google apps to other google account (chrome, google, authenticator, drive, gmail, maps, youtube, meet, google one, gemini, docs, sheets, family link, keep, messages, phone, contacts, tasks, remote desktop)
 - gmail, auto sync on
+- browser: sign in and sync
+  <!-- - restore bookmarks
+  - enable extensions
+  - dark mode
+  - set home page
+  - set search engine
+  - set download folder? -->
 - sign in to play console
 - add recovery email for new google account
 - restore social media app backups
@@ -1054,6 +1334,12 @@ ShareX / BandiCam
     - settings, general, turn of 24 hour format, widget theme dark
     - change notification
     - add widget to home screen
+  - 1.1.1.1 / ultrasurf / orbot
+    - verify VPN config, set auto-connect preferences?
+- al quran / quran apps
+  - translations and tafsirs
+- anydesk / remote desktop
+  - re-add saved connections
 
 ### Messaging Apps
 
@@ -1131,8 +1417,8 @@ ShareX / BandiCam
       - reactions: on
       - calls vibrate: disabled
       - show badge icon: on
-      - include muted chats: off
-      - count unread messages on
+      - include muted chats: on
+      - count unread messages: on
       - in app sounds: off
       - in app vibrate: off
       - in app preview: on
@@ -1266,6 +1552,10 @@ ShareX / BandiCam
       - pin reminder: off?
     - linked devices: terminate unneeded sessions
     - appearance, app icon?
+    - chats
+      - generate link previews: on
+      - chat folders?
+      - export chat?
     - stories, view receipts?
     - notifications
       - messages
@@ -1283,6 +1573,11 @@ ShareX / BandiCam
       - messaging
         - read reciepts: on
         - typing indicators: off
+      - disappearing messages?
+      - app security
+        - screen lock?
+        - screen security?
+        - incognito keyboard: on
       - backups
       - data and storage
         - media auto download
@@ -1310,30 +1605,6 @@ ShareX / BandiCam
 - **folder - social:**
 
 <!-- !!! ADD  -->
-
----
-
-<!-- TOC --><a name="third-party-configs-1"></a>
-
-### Third Party Configs
-
-- messaging apps (telegram, whatsapp, viber, signal)
-  - font/display size, autodownload settings, notification sounds, media visibility
-  <!-- - ultrasurf / orbot / 1.1.1.1
-  - verify VPN config; set auto-connect preferences
-  - mi remote
-  - re-add devices if on xiaomi -->
-- browser
-  - sign in and sync (restore bookmarks, enable extensions)
-  <!-- - dark mode, homepage, search engine, download folder? -->
-
-- namaadhu
-  - location, notification settings, widget
-- al quran / quran apps
-  - translations and tafsirs
-- anydesk / remote desktop
-  - re-add saved connections
-- camera settings: grid, aspect ratio, quality
 
 ---
 
@@ -1377,126 +1648,6 @@ Use: (App Manager)[https://play.google.com/store/apps/details?id=com.lb.app_mana
 - tap the copy icon to the right
 - paste elsewhere
 - some apps will not be available from playstore, so will have to get them from apk mirrors, or back them up using another app like 'apps backup restore'
-
-<!-- ! REMEMBER TO REMOVE:
-Binance
-What to Expect
--->
-
-<!-- TOC --><a name="android-apps"></a>
-
-## Android Apps
-
-1.1.1.1
-3CX
-Al Quran
-Analytics
-AnyDesk
-App Manager
-app.villacollege.edu.mv
-Apps Backup Restore
-Authenticator
-Authenticator
-Avas App
-Ayah
-Bitwarden
-BML Mobile
-Business Central
-Business Suite
-Calculator
-Calculator
-Calendar
-Call Assistant
-CamScanner
-CareCamPro
-ChatGPT
-Claude
-Compass
-Dheenuge Magu
-Dhikr & Dua
-Dhiraagu
-Dhivehi Calendar
-Dhivehi Foiy
-Discord
-Docs
-Edge Gallery
-Efaas
-Excel
-Facebook
-FaisaMobile
-Family Link
-Firefox
-freeCodeCamp
-Gallery Editor
-Gemini
-Haasiboo
-Hadith Collection
-Hadithmv
-Hijri Calendar
-Hisnul Muslim
-Hisnul Muslim
-Instagram
-Keep Notes
-Lens
-Male' Map
-mamen
-Maskiraa App
-MetricS
-Mi Doc Viewer (Powered by WPS)
-Mi Remote
-Mi Roaming
-Mi Store
-Microsoft SwiftKey Keyboard
-MWSC
-Namaadhu
-NotebookLM
-Notes
-Notion
-OneDrive
-Orbot
-Outlook
-PDF Reader - Hi Read
-Play Console
-QueueBee
-Quran
-Quran Majeed
-Quranly
-Radheef
-Radheef
-ReadEra
-Recorder
-Remote Desktop
-Roadmap
-RTL Travel App
-Scanner
-Screen Recorder
-ShareMe
-Sheets
-Signal
-Simple Markdown
-SMS Backup & Restore
-STELCO
-Tab
-Tasks
-Teams
-Telegram
-Temu
-Translate
-Ultrasurf VPN
-Viber
-VLC
-Wallpaper Carousel
-Weather
-WhatsApp
-WhatsApp Business
-Word
-X
-ZArchiver
-Zikuru
-المعاني عربي انجليزي
-المعاني عربي عربي
-المكتبة الشاملة
-جامع الكتب التسعة
 
 ---
 
