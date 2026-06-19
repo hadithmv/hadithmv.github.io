@@ -593,8 +593,36 @@ ShareX
 - irfanview
   - open images
 
+  <!-- !! -- >
+
+
 - 7zip manager
-  - open archives
+  - default app to open archives
+  - view, 2 panels
+    - options
+      - integrate to shell context menu
+      - cascaded context menu
+      - icons in context menu: on
+
+- advanced systemcare
+  - when running a care scan, set to auto fix
+  - ...
+    - transparency: off
+  - speed up
+    - turbo boost, configure, system services
+      windows media player network sharing service: off
+  - startup optimizer (optimize, disable or delay programs based on need)
+    - quick optimization
+    - startup items
+    - services too
+    - schedules tasks
+    - browser startups?
+
+- alldup
+  - options, general, unicode text support: on
+  - search method, find duplicate on basis of: file name
+
+  <!-- !! next -->
 
 - qdir, notepad++, etc
   - dark mode
