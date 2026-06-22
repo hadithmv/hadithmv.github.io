@@ -861,56 +861,152 @@ ShareX
 
 ### Before Installing Fresh Windows
 
-- note all apps + settings
+- note all apps + settings on old pc
 - backup all files + folders to a hard drive
 - log out of all apps
 - delete files, uninstall programs
 - run pc cleaning (pc manager, glary, iobit asc)
-- upgrade hardware (ram + ssd)
-- create installation media + verify
-- defrag + optimize disk / else format or delete partition
+- upgrade hardware (ram + ssd)?
 - download mobo and gpu firmware and drivers in advance
+- download windows iso from official source
+- defrag + optimize disk / else format or delete partition
+
+---
 
 <!-- TOC --><a name="clean-install"></a>
 
-### Clean Install
+### Creating Bootable Drive
 
-- windows media creation tool + windows iso
-- boot to usb drive + create partions
-- 150-200+gb for windows + other partition / disk
-- disconnect internet + install windows with local account
-- region us + date uk + short date + time zone: utc +5 karachi
-- language for non unicode programs: arabic saudi
+- create bootable drive on windows iso
+  - windows media creation tool
+    - uncheck: use the recommended options for this pc
+    - choose which media to use: usb flash drive
+  - rufus
+    - device: usb drive
+    - boot selection: select iso file
+    - start
+      - remove requirement for 4gb ram, secure boot, and tpm 2
+      - remove requirement for online microosft account
+      - disable data collection
+      - all else unchecked
+      - ok
+      - status will no progress to 100%
+    - when full it will change to 'ready', do not click start again
+    - close, remove flash drive
+- plug in usb to new pc
+- power on new pc
+
+---
+
+<!-- TOC --><a name="clean-install"></a>
+
+### Booting and Partioning
+
+- boot pc
+  - press hotkey to go to boot menu in bios (del, f12, f2, f1, f3, f4, tab? based on manufacturer)
+  - select usb drive, enter (might have to change order of boot device?)
+
+---
+
+<!-- TOC --><a name="clean-install"></a>
+
+### Installing Windows
+
+- unplug from internet?
+- windows install
+  - select language: english us
+  - time and currency: english us
+  - keyboard: us
+  - select setup option
+    - install windows
+    - i agree that everything will be deleted
+    - product key: i dont have a product key?
+    - select image: windows 11 pro
+    - partitioning
+      - delete all partions (if not needed)
+      - that turns them all into unallocated space, click that then next
+      - create partions
+        - 150 to 200+ gb for the partion you will be installing windows in (C:)
+        - the remainder for the other partion (for devdrive later?)
+    - install
+  - choose country: us
+  - name the pc
+  - connect to network: i dont have internet
+  - it will ask to sign into your microsoft account
+    - use alternative method to install windows with local account?
+      - shift + f10: command window
+      - oobe\bypassnro | start ms-cxh:localonly
+      - enter
+  - create user for this pc
+  - create password / pin
+  - choose privacy settings
+    - uncheck all of them
+  - customize your experience
+    - skip
+  - use your phone from your pc
+    - skip
+  - have access to your recent browsing data
+    - not now
+  - microsoft 365 family trial
+    - decline
+  - get more cloud storage with microsoft 365 basic
+    - decline
+- windows should start
+  - log in
+
+---
 
 <!-- TOC --><a name="base-setup"></a>
 
-### Base Setup
+### Drivers and Updates
 
+- plug in to internet?
 - create restore point
 - update windows (until no more updates)
-- update mobo firmware and drivers
-- update gpu firmware and drivers
-- update ms store
-- bios auto-on
-- bios cpu undervolt
-- bios ram overclock?
-- bios keyboard backlight?
+- update motherboard firmware and drivers (from official sources)
+- update gpu firmware and drivers (nvidia, amd, intel?)
+- update microsoft store
+
+---
+
+### Initial Setup
+
+- date uk + short date + time zone: utc +5 karachi
+- language for non unicode programs: arabic saudi
+- startup apps
+  - turn off unneeded
+- mouse settings
+  - set pointer speed: 10
+  - mouse pointer and touch
+    - size: 2?
+  - acceleration?
+
+- bios settings
+  - bios auto-on schedule?
+  - bios cpu undervolt
+  - bios ram overclock?
+  - bios keyboard backlight?
 - create dev drive
 - create restore point
+
+---
 
 <!-- TOC --><a name="personalization"></a>
 
 ### Personalization
 
-- privacy & telemetry
-  - send optional diagnostic data: off
-  - disable tailored experiences
-  - advertising id: off
-- animation effects: off (except smooth edges of screen fonts)
 - bluetooth: off
-- search (privacy & security)
-  - search history: off
-  - search highlights: off
+- privacy and security
+  - advertising id
+    - turn everything off
+  - diagnostics and feedback
+    - send optional diagnostic data: off
+  - search (privacy & security)
+    - search history: off
+    - show search highlights: off
+    - search my accounts
+      - microsoft account: off
+      - work or school account: off
 - run "services.msc", scroll down to "windows search", right click, properties, startup type: disabled
 - performance options (system properties > performance > settings), turn off:
   - animate controls and elements inside windows
@@ -928,18 +1024,24 @@ ShareX
   - ?save taskbar menu previews
   - ?smooth scroll list boxes
   - (to put it short, remove everything else and just keep: enable peek, show thumbnails instead of icons, smooth edges of screen fonts, smooth-scroll list boxes.)
-
 - ui, input & accessibility
-  - right click taskbar, settings, search: icon and label
+  - display settings
+    - set main display
+    - night light: on
+    - hdr: off
+    - scale: 125%?
+    - display resolution: til icons are clear
+    - refresh rate?
   - dark mode + night light
-  - fonts (faruma, fira code) mouse speed + scale/font size adjustments
+  - fonts (faruma, fira code) / font size adjustments
   - adjust cleartype
-  - us keyboard, ar saudi, divehi
+  - add keyboards: ar saudi, divehi (phonetic)
   - uk date + first day of the week; sun
   - 12 hour clock + short time & date no zero
   - windows clipboard history
-  - start weather widget celsius
-
+- taskbar settings
+  - search: search box
+  - widgets: off
 - ux
   - file explorer settings; view file name extensions + hidden files
   - enable biometrics / pin
@@ -948,12 +1050,16 @@ ShareX
 
 ### Apps & Debloat
 
+- ninite?
+- use edge to download chrome
+  - skip ignore all edge questions / offers
 - chrome remote desktop
 - iobit uninstall bloatware (preinstalled software & games)
-  - alternatively take a look at: https://github.com/raphire/win11debloat (but thats overkill as is)
-  - or https://github.com/christitustech/winutil
+  - alternatively take a look at: https://github.com/raphire/win11debloat (but thats overkill as is)?
+  - or https://github.com/christitustech/winutil?
+    - standard?
 - unigetui, update check frequency: weekly
-- ms office
+- microsoft office
 - set autostart apps, run; shell:startup
 - add peripherals; keyboard, mouse, printer
   - install associated drivers
@@ -2051,6 +2157,10 @@ Weather
 WhatsApp
 Xcode
 Xnip
+
+---
+
+## Router / Hotspot Setup
 
 ---
 
