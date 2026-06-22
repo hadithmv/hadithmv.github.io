@@ -207,84 +207,6 @@
 
 ---
 
-<!-- TOC --><a name="web-browser"></a>
-
-## Web Browser
-
-[Microsoft Edge](https://www.microsoft.com/en-us/edge)
-
-<!-- TOC --><a name="browser-setup"></a>
-
-### Browser Setup
-
-- vertical tabs: enable
-- show favourites, history, downloads on toolbar
-- search engine: google
-- start: open tabs from previous session
-
-<!-- TOC --><a name="exportimport-browser-bookmarks"></a>
-
-### Export/Import Browser Bookmarks
-
-<!-- last done: 12/6/26 -->
-
-- open bookmarks/favorites menu
-- ...
-- export favorites
-- save html file
-
-Note: if using workspaces, no normal way to export those as workspaces, instead have to:
-
-- right click empty space in tab area
-- choose 'add open pages to favorites'
-- give it a folder name
-- have to do this one by one for each workspace
-
-<!-- TOC --><a name="export-browser-extensions-list"></a>
-
-### Export Browser Extensions List
-
-<!-- last done: 12/6/26
-make sure to take one backup of last list before adding new one -->
-
-Use: [Extension List](https://chromewebstore.google.com/detail/extension-list/cboicfdginkkdfppcjighdkchdlebdjp)
-
-- export all to csv, open as spreadsheet
-- copy first column list
-
-<!-- TOC --><a name="browser-extensions"></a>
-
-### Browser Extensions
-
-Allow Copy +
-Chrome Regex Search
-Chrome Remote Desktop
-Dark Reader
-Extension List
-Extension List Exporter
-Focus Tab Groups
-GitHub Repository Size
-Google Docs Offline
-Google Translate
-Incognito Tab Mover
-Lighthouse
-Markdown Reader
-Mendeley Web Importer
-New Tab Draft
-Open Selected Links
-Page Grid
-Page Ruler
-Refined GitHub
-Tab Manager by Workona
-Tab Manager Plus for Chrome
-Tab Suspender by Workona
-Table Capture
-Table Download
-uBlock Origin
-UltraSurf Security, Privacy & Freedom VPN
-
----
-
 <!-- TOC --><a name="hardware-uses"></a>
 
 ## Hardware / Uses
@@ -1046,6 +968,8 @@ ShareX
   - file explorer settings; view file name extensions + hidden files
   - enable biometrics / pin
 
+---
+
 <!-- TOC --><a name="apps-debloat"></a>
 
 ### Apps & Debloat
@@ -1084,6 +1008,103 @@ ShareX
 - screen off: 15 mins
 - sleep: 5 hours
 - create restore point again
+
+---
+
+<!-- TOC --><a name="apps-debloat"></a>
+
+### Web Browser
+
+- chrome
+  - sign in?
+  - settings
+    - profile, theme color, avatar
+    - ad privacy
+      - ad topics: off
+      - site suggested ads: off
+      - ad measurement: off
+    - performance
+      - memory saver: on, balanced?
+    - appearance
+      - customize your toolbar
+        - bookmarks: on
+        - history: on
+        - downloads: on
+        - reading mode: on
+      - show bookmarks bar: on
+      - show tab search button
+      - show tab groups in bookmark bar
+      - side panel position: right
+      - show tab preview images
+      - show tab memory usage
+      - font size: medium?
+      - page zoom: 125%?
+      - allow split view drag and drop
+    - search engine: google
+    - on startup: continue where you left off
+    - chrome://flags
+      - vertical tabs: enabled
+        - close and reopen chrome
+        - right click tab: show tabs vertically
+
+---
+
+<!-- TOC --><a name="exportimport-browser-bookmarks"></a>
+
+### Export/Import Browser Bookmarks
+
+<!-- last done: 12/6/26 -->
+
+- open bookmarks/favorites menu
+  - ...
+  - export favorites
+  - save html file
+- note: if using workspaces, no normal way to export those as workspaces, instead have to:
+  - right click empty space in tab area
+  - choose 'add open pages to favorites'
+  - give it a folder name
+  - have to do this one by one for each workspace
+
+<!-- TOC --><a name="export-browser-extensions-list"></a>
+
+### Export Browser Extensions List
+
+<!-- last done: 12/6/26
+make sure to take one backup of last list before adding new one -->
+
+Use: [Extension List](https://chromewebstore.google.com/detail/extension-list/cboicfdginkkdfppcjighdkchdlebdjp)
+
+- export all to csv, open as spreadsheet
+- copy first column list
+
+<!-- TOC --><a name="browser-extensions"></a>
+
+### Browser Extensions
+
+Allow Copy +
+Chrome Regex Search
+Chrome Remote Desktop
+Dark Reader
+Extension List
+Focus Tab Groups
+GitHub Repository Size
+Google Docs Offline
+Incognito Tab Mover
+Lighthouse
+Markdown Reader
+New Tab Draft
+Office Editing for Docs, Sheets & Slides
+Open Selected Links
+Page Grid
+Page Ruler
+Refined GitHub
+Tab Manager by Workona
+Tab Manager Plus for Chrome
+Tab Suspender by Workona
+Table Capture
+Table Download
+uBlock Origin
+UltraSurf Security, Privacy & Freedom VPN
 
 ---
 
