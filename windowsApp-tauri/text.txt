@@ -9,6 +9,18 @@ then build release
 ...
 ...
 
+(if on a different system or newly using, then;
+https://v2.tauri.app/start/prerequisites/
+make sure you have: 
+	Visual Studio Build Tools for C++ (choose: Desktop development with C++, NOTE can be like 8gb)
+	Rust
+	Node.js
+restart your Terminal (and in some cases your system),
+before starting making windows programs)
+
+...
+...
+
 location: hadithmv.github.io\windowsApp-tauri\Hadithmv
 (D:\hadithmv\hadithmv.github.io\windowsApp-tauri\Hadithmv)
 
