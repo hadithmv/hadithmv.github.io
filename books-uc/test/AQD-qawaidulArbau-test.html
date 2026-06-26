@@ -6,10 +6,35 @@
     <link rel="stylesheet" href="datatables.min.css" />
   </head>
   <body>
-    <table id="table" class="display" style="width: 100%">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
+    <style>
+      #tableWrapper {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        /* direction: rtl; */
+        width: 100%;
+      }
+
+      #tableWrapper table {
+        width: auto;
+        max-width: 100%;
+        direction: rtl;
+        text-align: right;
+        vertical-align: top;
+      }
+
+      #tableWrapper table.dataTable th,
+      #tableWrapper table.dataTable td {
+        vertical-align: top !important;
+      }
+    </style>
+
+    <div id="tableWrapper">
+      <table id="table" class="display" style="width: auto">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
     <script src="jquery-3.7.1.min.js"></script>
     <script src="datatables.min.js"></script>
