@@ -22,16 +22,28 @@
 
       Papa.parse(csvUrl, {
         download: true,
-        header: true,
+        header: false,
         dynamicTyping: true,
         complete: function (results) {
-          const data = results.data.filter((row) =>
-            Object.values(row).some((value) => value !== null && value !== ""),
+          const data = results.data.filter(
+            (row) =>
+              Array.isArray(row) &&
+              row.some((value) => value !== null && value !== ""),
           );
 
-          const columns = results.meta.fields.map((field) => ({
-            title: field,
-            data: field,
+          const maxCols = data.reduce(
+            (max, row) => Math.max(max, row.length),
+            0,
+          );
+
+          const columns = Array.from({ length: maxCols }, (_, idx) => ({
+            title:
+              idx === 0
+                ? "#"
+                : idx === maxCols - 1
+                  ? "Notes"
+                  : "Column " + (idx + 1),
+            data: idx,
             defaultContent: "",
           }));
 
