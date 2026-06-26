@@ -17,9 +17,10 @@ android {
         minSdk 24
         targetSdk 37
         // REMEMBER TO MANUALLY INCREMENT THIS NUMBER BELOW B4 RELEASE TO PLAY STORE EVERYTIME
-        versionCode 102
+        versionCode 103
+        //
         // this versionName number below gets auto updated when '02-build-app--copy-main-files-to-win-and-assets' gets run
-        versionName "6.8.66"
+        versionName "6.9.22"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

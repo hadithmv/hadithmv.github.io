@@ -571,6 +571,11 @@ ShareX
       - gpu mem
         - enabled: off?
 
+- tauri
+  - microsoft c++ build tools
+    - desktop development with c++
+  - rust
+
 - snipping tool
   - open powertoys,
     - input and output
