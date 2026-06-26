@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV DataTables Viewer</title>
+    <!-- DataTables CSS CDN -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        h1 {
+            font-size: 24px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #333333;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+        #loading {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin: 40px 0;
+        }
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+            display: none;
+        }
+        /* Style Table nicely */
+        table.dataTable {
+            width: 100% !important;
+            margin-top: 15px !important;
+            border-collapse: collapse;
+        }
+        table.dataTable thead th {
+            background-color: #f1f3f5;
+            color: #495057;
+            font-weight: 600;
+            border-bottom: 2px solid #dee2e6 !important;
+            padding: 12px 10px;
+        }
+        table.dataTable tbody td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>CSV DataTables Viewer</h1>
+    
+    <div id="error" class="error-message"></div>
+    <div id="loading">Loading CSV data, please wait...</div>
+    
+    <table id="csvTable" class="display" style="width:100%; display:none;">
+        <thead>
+            <!-- Will be populated dynamically -->
+        </thead>
+        <tbody>
+            <!-- Will be populated dynamically -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Scripts (jQuery, DataTables, and PapaParse) -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        const csvUrl = 'data.csv';
+
+        Papa.parse(csvUrl, {
+            download: true,
+            header: true,
+            dynamicTyping: true,
+            skipEmptyLines: 'greedy', // skips completely empty lines
+            complete: function(results) {
+                const data = results.data;
+                const fields = results.meta.fields;
+
+                if (!fields || fields.length === 0 || data.length === 0) {
+                    $('#loading').hide();
+                    $('#error').text('The CSV file appears to be empty or invalid.').show();
+                    return;
+                }
+
+                // Dynamically construct table header
+                const tableHeader = $('#csvTable thead');
+                let headerRow = $('<tr></tr>');
+                fields.forEach(field => {
+                    headerRow.append($('<th></th>').text(field));
+                });
+                tableHeader.append(headerRow);
+
+                // Map columns for DataTables configuration
+                const columns = fields.map(field => ({
+                    data: field,
+                    defaultContent: '' // handles missing properties in some rows safely
+                }));
+
+                // Initialize DataTable
+                $('#csvTable').DataTable({
+                    data: data,
+                    columns: columns,
+                    pageLength: 10,
+                    responsive: true,
+                    initComplete: function() {
+                        // Hide loading indicator and show the table once fully loaded
+                        $('#loading').hide();
+                        $('#csvTable').fadeIn();
+                    }
+                });
+            },
+            error: function(err) {
+                console.error("CSV loading error: ", err);
+                $('#loading').hide();
+                $('#error').text('Failed to load CSV data. Please make sure data.csv exists and is accessible.').show();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
