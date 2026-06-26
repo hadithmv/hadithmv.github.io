@@ -32,6 +32,7 @@
           const columns = results.meta.fields.map((field) => ({
             title: field,
             data: field,
+            defaultContent: "",
           }));
 
           $("#table").DataTable({
@@ -39,6 +40,7 @@
             columns: columns,
             deferRender: true,
             pageLength: 10,
+            responsive: true,
           });
         },
         error: function (err) {

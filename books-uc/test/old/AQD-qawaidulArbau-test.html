@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DataTables CSV Example</title>
+    <link rel="stylesheet" href="datatables.min.css" />
+  </head>
+  <body>
+    <table id="table" class="display" style="width: 100%">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="datatables.min.js"></script>
+    <script src="papaparse.min.js"></script>
+
+    <script>
+      // const csvUrl = "data.csv"; // path to your CSV file
+      const currentFile = window.location.pathname.split("/").pop();
+      const csvUrl = currentFile.replace(/\.html$/, ".csv"); // path to the CSV file matching the HTML filename
+
+      Papa.parse(csvUrl, {
+        download: true,
+        header: true,
+        dynamicTyping: true,
+        complete: function (results) {
+          const data = results.data.filter((row) =>
+            Object.values(row).some((value) => value !== null && value !== ""),
+          );
+
+          const columns = results.meta.fields.map((field) => ({
+            title: field,
+            data: field,
+            defaultContent: "",
+          }));
+
+          $("#table").DataTable({
+            data: data,
+            columns: columns,
+            deferRender: true,
+            pageLength: 10,
+            responsive: true,
+          });
+        },
+        error: function (err) {
+          console.error("CSV load error:", err);
+        },
+      });
+    </script>
+  </body>
+</html>
