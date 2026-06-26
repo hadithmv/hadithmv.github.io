@@ -16,6 +16,9 @@ import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import android.webkit.JavascriptInterface
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.graphics.Color
 
 /**
  * MainActivity serves as the primary activity for the WebView-based application.
@@ -229,8 +232,30 @@ class MainActivity : ComponentActivity() {
             loadUrl(getLastUrl())
         }
 
-        // Set the WebView as the content view
-        setContentView(webView)
+        // Create a root layout that respects system windows (status bar, notch)
+        val rootLayout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            // This property handles the status bar/notch padding automatically
+            fitsSystemWindows = true
+            
+            // Set background to match the theme so the status bar area looks correct
+            val isDark = (resources.configuration.uiMode and 
+                         Configuration.UI_MODE_NIGHT_MASK) == 
+                         Configuration.UI_MODE_NIGHT_YES
+            setBackgroundColor(if (isDark) Color.BLACK else Color.WHITE)
+        }
+
+        // Add ONLY the WebView to the layout, taking up all remaining space
+        rootLayout.addView(webView, LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        ))
+
+        setContentView(rootLayout)
 
         // Configure back button handling
         setupBackNavigation()

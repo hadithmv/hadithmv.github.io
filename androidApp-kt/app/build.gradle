@@ -15,9 +15,10 @@ android {
     defaultConfig {
         applicationId "com.hadithmv.hmv"
         minSdk 24
-        targetSdk 36
-        // REMEMBER TO INCREMENT JUST THIS NUMBER BELOW EVERYTIME B4 FINAL RELEASE TO PLAY STORE
+        targetSdk 37
+        // REMEMBER TO MANUALLY INCREMENT THIS NUMBER BELOW B4 RELEASE TO PLAY STORE EVERYTIME
         versionCode 102
+        // this versionName number below gets auto updated when '02-build-app--copy-main-files-to-win-and-assets' gets run
         versionName "6.8.66"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
