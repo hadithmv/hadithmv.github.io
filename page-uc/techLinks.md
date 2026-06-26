@@ -549,6 +549,36 @@ ShareX
   - options, general, unicode text support: on
   - search method, find duplicate on basis of: file name
 
+- taskbar monitor
+  - right click app in tray, settings
+    - general
+      - history size: 40
+      - poll time: 5
+    - graphs
+      - mem
+        - move up, above cpu
+      - net
+        - move up, above mem
+      - gpu
+        - enabled: off?
+      - gpu mem
+        - enabled: off?
+
+- snipping tool
+  - open powertoys,
+    - input and output
+      - keyboard manager
+        - on
+        - switch to new editor
+        - editor: open editor
+          - add new mapping
+            - trigger: press to start recording
+            - ctrl + shift + s
+            - action: press to start recording
+            - hit a random key to give it some input at first
+            - then click the dropdown on that shown key and choose: print screen
+            - ok
+
   <!-- !! ? -->
 
 - android studio
