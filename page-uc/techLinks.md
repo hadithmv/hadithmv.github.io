@@ -549,6 +549,13 @@ ShareX
   - options, general, unicode text support: on
   - search method, find duplicate on basis of: file name
 
+- android studio
+  - open folder of project
+  - import dependencies
+  - update gradle
+  - migrations if any
+  - install resizable emulator with latest system image api
+
 - taskbar monitor
   - right click app in tray, settings
     - general
@@ -581,7 +588,6 @@ ShareX
 
   <!-- !! ? -->
 
-- android studio
 - antigravity
 - cursor
 - vscode?
