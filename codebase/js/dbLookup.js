@@ -60,7 +60,7 @@ export async function getPageMetadata(fileName) {
  * @returns {string} Path to the CSV file in db folder
  */
 export function getCsvPath(fileName) {
-  return `db/${fileName}.csv`;
+  return `../db/${fileName}.csv`;
 }
 
 /**
