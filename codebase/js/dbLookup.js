@@ -68,8 +68,14 @@ export function getCsvPath(fileName) {
  * @param {Function} callback - Callback function that receives the metadata
  */
 export async function initializePageWithMetadata(callback) {
-  const currentPath = window.location.pathname;
-  const fileName = currentPath.split("/").pop().replace(".html", "");
+  const urlParams = new URLSearchParams(window.location.search);
+  const fileName = urlParams.get("book");
+
+  if (!fileName) {
+    const dbNames = await loadDbNames();
+    renderDashboard(dbNames);
+    return;
+  }
 
   const metadata = await getPageMetadata(fileName);
 
@@ -84,5 +90,32 @@ export async function initializePageWithMetadata(callback) {
       fileName_CODE: fileName,
       csvPath: getCsvPath(fileName),
     });
+  }
+}
+
+/**
+ * Render the book selection grid
+ * @param {Array} dbNames - Array of book metadata objects
+ */
+function renderDashboard(dbNames) {
+  const loading = document.getElementById("loadingMessage");
+  if (loading) loading.style.display = "none";
+
+  const dashboard = document.getElementById("dashboardWrapper");
+  if (dashboard) dashboard.style.display = "block";
+
+  const grid = document.getElementById("bookGrid");
+  if (grid) {
+    grid.innerHTML = dbNames
+      .map(
+        (book) => `
+      <a href="?book=${book.fileName_CODE}" class="book-card">
+        <div class="title-ar">${book.bookName_AR || ""}</div>
+        <div class="title-dv">${book.bookName_DV || ""}</div>
+        <div class="title-en">${book.bookName_EN || book.fileName_CODE}</div>
+      </a>
+    `
+      )
+      .join("");
   }
 }

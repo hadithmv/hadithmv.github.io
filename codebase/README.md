@@ -16,11 +16,7 @@ test/
 │   ├── datatables.min.css
 │   └── papaparse.min.js
 │
-├── books/                          📖 Book HTML files
-│   ├── book-template.html          - Universal template (use as base)
-│   ├── AQD-nawaqidulIslam.html
-│   ├── AQD-qawaidulArbau.html
-│   └── (add more books here)
+│   └── index.html                  - Single entry viewer and dashboard selector
 │
 ├── db/                             🗄️ CSV data files
 │   ├── AQD-nawaqidulIslam.csv
@@ -39,11 +35,12 @@ test/
 
 ### Visit a Book
 
-Open any book file directly:
+Open the viewer and select a book, or open it directly via a query parameter:
 
 ```
-test/books/AQD-qawaidulArbau.html
-test/books/AQD-nawaqidulIslam.html
+test/books/index.html
+test/books/index.html?book=AQD-qawaidulArbau
+test/books/index.html?book=AQD-nawaqidulIslam
 ```
 
 Each page automatically loads:
@@ -68,12 +65,7 @@ Each page automatically loads:
 
    (With your book data)
 
-3. **Create HTML page**:
-   ```bash
-   cp books/book-template.html books/AQD-myBook.html
-   ```
-
-Done! No code changes needed.
+Done! No code or HTML changes needed. The dashboard will automatically display the new book.
 
 ### Update Dependencies
 
@@ -101,18 +93,20 @@ To upgrade: Replace the file and no HTML updates needed (all books use the same 
 
 ## How It Works
 
-1. User opens `books/AQD-qawaidulArbau.html`
-2. Page extracts filename: `AQD-qawaidulArbau`
+1. User opens `books/index.html?book=AQD-qawaidulArbau`
+2. Page extracts book query param: `AQD-qawaidulArbau`
 3. Looks up in `dbNames.csv` → finds metadata
 4. Loads CSV from `db/AQD-qawaidulArbau.csv`
 5. Renders table with metadata header
+
+If the user opens `books/index.html` without any parameters, a dashboard index of all registered books is dynamically generated.
 
 All handled by `js/dbLookup.js`.
 
 ## File Relationships
 
 ```
-books/AQD-book.html
+books/index.html?book=AQD-book
     ↓ loads metadata from
 dbNames.csv
     ↓ finds entry
@@ -123,7 +117,7 @@ dbNames.csv
     ↓ uses to load data from
 db/AQD-book.csv
     ↓ renders in
-books/AQD-book.html (DataTable)
+books/index.html (DataTable)
 ```
 
 ## Common Tasks
@@ -143,14 +137,7 @@ Update `dbNames.csv` - page reflects change on next load.
 
 ### Update the template
 
-Edit `books/book-template.html`:
-
-```html
-<!-- Copy updated template -->
-cp books/book-template.html books/AQD-book.html
-```
-
-Or use server-side routing to serve one template for all URLs.
+Since there is only one file, simply edit `books/index.html` directly. All changes will instantly apply to all books.
 
 ### Move/reorganize folders
 
@@ -199,7 +186,7 @@ New:
 ```
 test/
 ├── books/
-│   └── AQD-qawaidulArbau.html
+│   └── index.html
 ├── dependencies/
 │   └── jquery-3.7.1.min.js
 ├── docs/

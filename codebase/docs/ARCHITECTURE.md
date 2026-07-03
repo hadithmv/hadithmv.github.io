@@ -4,24 +4,23 @@ This system provides a **zero-duplication** way to manage book pages and CSV dat
 
 ## Files
 
-- **../dbNames.csv** - Central registry mapping filenames to book metadata
-- **../js/dbLookup.js** - Module that handles loading and looking up metadata
-- **../books/book-template.html** - Universal template (use as base for all books)
-- **../books/\*.html** - Book pages using this system
+- **../dbNames.csv** - Central registry mapping book codes to metadata
+- **../js/dbLookup.js** - Module that handles loading, query parameter routing, and dashboard rendering
+- **../books/index.html** - Single entry viewer and dashboard selector
 
 ## How It Works
 
-1. **Filename → Metadata Lookup**: When an HTML page loads, it extracts its filename (e.g., `AQD-qawaidulArbau`) and looks it up in `dbNames.csv`
+1. **Filename → Metadata Lookup**: When the index page loads, it checks the URL query parameter `?book=CODE` (e.g., `?book=AQD-qawaidulArbau`) and looks it up in `dbNames.csv`.
 
 2. **Metadata Retrieval**: The matching row provides:
-   - `bookName_EN` - English name (displays on page)
-   - `bookName_AR` - Arabic name (displays on page)
-   - `bookName_DV` - Dhivehi name (displays on page)
-   - `fileName_CODE` - The filename code (for matching)
+   - `bookName_EN` - English name
+   - `bookName_AR` - Arabic name
+   - `bookName_DV` - Dhivehi name
+   - `fileName_CODE` - The filename code
 
-3. **CSV Loading**: The CSV file is automatically loaded from `../db/{filename}.csv`
+3. **CSV Loading**: If a book code is present, its CSV file is loaded from `../db/{filename}.csv`.
 
-4. **Page Rendering**: The page displays the book metadata and loads the table with CSV data
+4. **Page Rendering**: The page displays the book metadata header and loads the DataTable. If no parameter is specified, a modern grid dashboard selector is rendered.
 
 ## File Structure
 
@@ -36,76 +35,37 @@ books-uc/test/
     datatables.min.css
     papaparse.min.js
   books/                         ← Book HTML files
-    book-template.html           ← Universal template
-    AQD-nawaqidulIslam.html
-    AQD-qawaidulArbau.html
+    index.html                   ← Single entry viewer page & dashboard
   db/                            ← CSV data files
     AQD-nawaqidulIslam.csv
     AQD-qawaidulArbau.csv
   js/
-    dbLookup.js                  ← Core logic (SINGLE file to maintain)
+    dbLookup.js                  ← Routing & lookup logic (SINGLE file to maintain)
   old/                           ← Old/archived files
 ```
 
-## Single Template Approach
+## Single Viewer Architecture
 
-You only have **ONE HTML template** (`books/book-template.html`) that all books use. When you add a new book:
+You have **ONE single HTML page** (`books/index.html`) that serves as both the home library dashboard and the dynamic book viewer.
+
+### How it works:
+1. **No query parameters**: Opening `/books/index.html` loads the metadata registry and displays a grid of all registered books.
+2. **With query parameter**: Opening `/books/index.html?book=AQD-qawaidulArbau` extracts the code `AQD-qawaidulArbau` and dynamically loads that book.
+
+When you add a new book:
 
 ### Step 1: Add to dbNames.csv
-
 ```
 AQD-myNewBook,كتاب جديد,ނިވަތި ފޮތް,My New Book
 ```
 
-### Step 2: Copy the CSV file
-
+### Step 2: Create the CSV file
 Place your CSV file at:
-
 ```
 db/AQD-myNewBook.csv
 ```
 
-### Step 3: Copy or Link the HTML
-
-Either:
-
-- **Copy** `books/book-template.html` → `books/AQD-myNewBook.html` (simplest)
-- **Link** your book code to the template via routing/URL mapping (most efficient)
-
-That's it! No code changes needed.
-
-## Implementation Options
-
-### Option A: Simple Copy (Easiest)
-
-```bash
-cp books/book-template.html books/AQD-myNewBook.html
-```
-
-- Simple and straightforward
-- Each book has its own file (easier for traditional hosting)
-
-### Option B: Server-Side Routing (Most Efficient)
-
-Configure your server to route all book requests to `books/book-template.html`
-
-- One file for all books
-- Server rewrites requests based on URL pattern
-- Example: `/books-uc/test/books/*.html` → `/books-uc/test/books/book-template.html`
-
-### Option C: Build Process (Automated)
-
-Use a script to automatically generate HTML files from the template:
-
-```javascript
-// pseudo-code
-dbNames.forEach((book) => {
-  generate(`books/${book.fileName_CODE}.html`, "books/book-template.html");
-});
-```
-
-- Most maintainable
-- Any template updates apply to all books automatically
+Done! The book will dynamically appear on the library index and load correctly when clicked.
 
 ## Available Functions
 
@@ -150,12 +110,11 @@ initializePageWithMetadata(function (metadata) {
 
 - [ ] Add row to `../dbNames.csv` with: fileName_CODE, bookName_AR, bookName_DV, bookName_EN
 - [ ] Create CSV file: `../db/{fileName_CODE}.csv`
-- [ ] Copy `books/book-template.html` to `books/{fileName_CODE}.html`
-- [ ] Test the page loads and displays correctly
+- [ ] Test the page loads and displays correctly by visiting the index page or appending `?book=fileName_CODE`
 
 ## Key Benefits
 
-✅ **Single Source of Truth**: Logic only in `dbLookup.js` and `book-template.html`  
+✅ **Single Source of Truth**: Logic only in `dbLookup.js` and `index.html`  
 ✅ **Easy Maintenance**: Fix a bug once, applies to all books  
 ✅ **Scalable**: Works with 2 books or 200 books  
 ✅ **DRY Principle**: No code duplication  
@@ -164,7 +123,7 @@ initializePageWithMetadata(function (metadata) {
 
 ## Current Pages
 
-- **AQD-nawaqidulIslam.html** - Nawaqidul Islam
-- **AQD-qawaidulArbau.html** - Qawaidul Arbau
+- **AQD-nawaqidulIslam** - Nawaqidul Islam (loaded via `?book=AQD-nawaqidulIslam`)
+- **AQD-qawaidulArbau** - Qawaidul Arbau (loaded via `?book=AQD-qawaidulArbau`)
 
 Both automatically load their metadata from `dbNames.csv` and their data from `db/` folder.

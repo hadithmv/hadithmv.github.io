@@ -15,17 +15,13 @@ This system provides a **zero-duplication** way to manage book pages and CSV dat
 2. **Create CSV data file**:
    - Place at: `../db/AQD-myNewBook.csv`
 
-3. **Create HTML page**:
-   - Copy `book-template.html` → `AQD-myNewBook.html`
-   - Or use server routing to one template
-
-Done! The page automatically loads metadata and data.
+Done! The dashboard will automatically detect and list the new book. No HTML file creation is needed.
 
 ## How It Works
 
-When a book page loads (e.g., `AQD-qawaidulArbau.html`):
+When a book page loads (e.g., `index.html?book=AQD-qawaidulArbau`):
 
-1. Filename is extracted: `AQD-qawaidulArbau`
+1. The book code is extracted from the URL query parameter: `AQD-qawaidulArbau`
 2. Looked up in `../dbNames.csv`
 3. Metadata retrieved (book names, etc.)
 4. CSV automatically loaded from `../db/AQD-qawaidulArbau.csv`
@@ -86,9 +82,7 @@ test/
 │   ├── datatables.min.css
 │   └── papaparse.min.js
 ├── books/                   Book HTML files
-│   ├── book-template.html   (Universal template)
-│   ├── AQD-nawaqidulIslam.html
-│   └── AQD-qawaidulArbau.html
+│   └── index.html           (Viewer page and selector dashboard)
 ├── db/                      CSV data files
 │   ├── AQD-nawaqidulIslam.csv
 │   └── AQD-qawaidulArbau.csv
@@ -128,7 +122,7 @@ Edit `getCsvPath()` in `../js/dbLookup.js`. All books use the new format.
 
 ### Update Template
 
-Edit `books/book-template.html`. When you copy it to new files, all books get updates (or use routing for zero-copy approach).
+Edit `books/index.html` directly. The changes apply to all books instantly.
 
 ### Add Custom Per-Book Configuration
 
