@@ -2,52 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title></title>
+    <title>DataTables CSV Example</title>
     <link rel="stylesheet" href="datatables.min.css" />
   </head>
   <body>
-    <style>
-      #tableWrapper {
-        display: flex;
-        justify-content: flex-end;
-        align-items: flex-start;
-        /* direction: rtl; */
-        width: 100%;
-      }
-
-      #tableWrapper table {
-        width: auto;
-        max-width: 100%;
-        direction: rtl;
-        text-align: right;
-        vertical-align: top;
-      }
-
-      #tableWrapper table.dataTable th,
-      #tableWrapper table.dataTable td {
-        vertical-align: top !important;
-      }
-    </style>
-
-    <div id="tableWrapper">
-      <table id="table" class="display" style="width: auto">
-        <thead></thead>
-        <tbody></tbody>
-      </table>
+    <!-- Page Title from Metadata -->
+    <div id="pageHeader" style="margin-bottom: 20px">
+      <h1 id="pageTitle"></h1>
+      <p id="pageSubtitle"></p>
     </div>
+
+    <table id="table" class="display" style="width: 100%">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
 
     <script src="jquery-3.7.1.min.js"></script>
     <script src="datatables.min.js"></script>
     <script src="papaparse.min.js"></script>
-
     <script type="module">
       import { initializePageWithMetadata } from "../js/dbLookup.js";
 
-      // Initialize page with metadata and CSV
+      // Initialize page with metadata
       initializePageWithMetadata(function (metadata) {
-        const csvUrl = metadata.csvPath;
+        // Display metadata on page
+        document.getElementById("pageTitle").textContent =
+          metadata.bookName_EN || metadata.fileName_CODE;
+        document.getElementById("pageSubtitle").textContent =
+          metadata.bookName_AR || "";
 
-        Papa.parse(csvUrl, {
+        // Load CSV data
+        Papa.parse(metadata.csvPath, {
           download: true,
           header: false,
           dynamicTyping: true,
@@ -74,16 +59,13 @@
               defaultContent: "",
             }));
 
-            $("#table").DataTable({
+            new DataTable("#table", {
               data: data,
               columns: columns,
-              deferRender: true,
-              pageLength: 10,
-              responsive: true,
+              paging: true,
+              searching: true,
+              ordering: true,
             });
-          },
-          error: function (err) {
-            console.error("CSV load error:", err);
           },
         });
       });
