@@ -317,7 +317,9 @@ Reading the instructions first might help. Learn about them [here](howToUse.html
 
 ### Who founded Hadithmv?
 
-Abu Yahya. Graduate of the Faculty of Hadith -Islamic University of Madina, and Web Developer.
+Abu Yahya, Mohamed Ashraaf Ibrahim.
+BA in Hadith, Islamic University of Madina.
+MS in Information Technology, UWE.
 
 <!-- TOC --><a name="why-was-hadithmv-created"></a>
 

@@ -275,6 +275,7 @@ const additionalJsons = [
     columns: [0, 1],
     title: "ބަކުރުބެގެ ތަރުޖަމާ:",
   },
+  { name: "quranJaufar", columns: [0, 1], title: "ޖަޢުފަރުގެ ތަފްސީރު:" },
   { name: "QRN-soabuni", columns: [0, 1, 2, 3], title: "ޞގެ ތަފްސީރު:" },
   { name: "QRN-mukhtasar", columns: [0], title: "مختصر التفسير:" },
   { name: "QRN-muyassar", columns: [0], title: "التفسير الميسر:" },

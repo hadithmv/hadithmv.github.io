@@ -1,6 +1,6 @@
 // this was initially just navbar code, but then i added other snippets i needed on every page, but not the dt stuff
 
-var hmvVersionNo = "6.9.31";
+var hmvVersionNo = "6.9.32";
 // changed from 4.1.43 to 6.2.88, to match number of commits
 
 // cant be 4.0, has to be like 4.1 or 4.01, as empty zeros will get removes
@@ -305,6 +305,13 @@ document.addEventListener("DOMContentLoaded", createNavbar);
                         href="../books/quranBakurube.html"
                         onclick="changeBook('quranBakurube'); return false;"title="Bakurube Translation"
                         >3 ބަކުރުބެގެ ތަރުޖަމާ</a
+                        >
+                  </li>
+                  <li>
+                     <a
+                        href="../books/quranJaufar.html"
+                        onclick="changeBook('quranJaufar'); return false;"title="Jaufar Tafsir"
+                        >4 ޖަޢުފަރުގެ ތަފްސީރު*</a
                         >
                   </li>
                   <li>

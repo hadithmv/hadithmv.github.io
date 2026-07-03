@@ -32,7 +32,7 @@ npm install @tauri-apps/cli@latest @tauri-apps/api@latest
 
 ...
 
-2 Start the development server (can take a little while)
+2 Start the development server (can take a little while at first) this will run the app
 like hadithmv.github.io\windowsApp-tauri\Hadithmv> npm run tauri dev
 
 npm run tauri dev

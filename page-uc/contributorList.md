@@ -18,7 +18,7 @@ Abu Huraira narrated that the Messenger ﷺ said: “He who does not thank the p
 
 ## List
 
-1.  Abu Yahya (Graduate of Hadith Faculty, Madina University, and Software Developer)
+1.  (Abu Yahya) Mohamed Ashraaf Ibrahim (Graduate of Hadith Faculty, Madina University. MS in IT, UWE.)
 2.  Abdul Muiz Rasheed (Graduate of Sharia Faculty, Madina University)
 3.  Abdullah Ahsan Saeed (Graduate of Sharia Faculty, Madina University)
 4.  Abdullah Azzam Ahmed K. (Graduate of Sharia Faculty, Madina University)
@@ -57,7 +57,7 @@ Abu Huraira narrated that the Messenger ﷺ said: “He who does not thank the p
 37. Hussain Toriq (Graduate of Sharia Faculty, Madina University)
 38. Ibrahim Adil (Software Developer)
 39. Ibrahim Ruwais Ahmed (Student of Arabic Institute, Madina University)
-40. Ibrahim Samooh (Student of Dawah Faculty, Madina University)
+40. Ibrahim Samooh (Graduate of Dawah Faculty, Madina University)
 41. Ibrahim Saneeh (Helper)
 42. Imad Yusuf (Graduate of Ummul Qura University, Makka)
 43. Imthithaau Abbas (Graduate of Hadith Faculty, Madina University)
@@ -75,7 +75,7 @@ Abu Huraira narrated that the Messenger ﷺ said: “He who does not thank the p
 55. Mohamed Ahmed (Graduate of Sharia Faculty, Madina University)
 56. Mohamed Fazeel (Graduate of Sharia Faculty, Madina University)
 57. Mohamed Hafeez (Student of Medicine, Newcastle University, Australia)
-58. Mohamed Humam Yusuf (Student of Sharia Faculty, Madina University)
+58. Mohamed Humam Yusuf (Graduate of Sharia Faculty, Madina University)
 59. Mohamed Ihsan (Graduate of Dawah Faculty, Madina University)
 60. Mohamed Jazlan Umar (Graduate of Law Faculty, Madina University)
 61. Mohamed Maaiz Muaviyath (Graduate of Dawah Faculty, Madina University)
