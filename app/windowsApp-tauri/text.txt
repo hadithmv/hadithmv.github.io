@@ -26,26 +26,26 @@ location: hadithmv.github.io\windowsApp-tauri\Hadithmv
 
 ...
 
-1 Update npm Packages.
+1 UPDATE npm packages
 
 npm install @tauri-apps/cli@latest @tauri-apps/api@latest
 
 ...
 
-2 Start the development server.
-(can take a little while at first) this will run the app
+2 START DEV SERVER
 
 npm run tauri dev
 
+(can take a little while at first) this runs the app
 like: hadithmv.github.io\app\windowsApp-tauri\Hadithmv> npm run tauri dev
 
 ...
 
-3 Building.
-Tauri builds your application directly from its CLI via the build, android build and ios build commands.
+3 BUILD THE EXE APP
 
 npm run tauri build
 
+Tauri builds your application directly from its CLI via the build, android build and ios build commands.
 then you can get the .exe file from:
 D:\hadithmv\hadithmv.github.io\app\windowsApp-tauri\Hadithmv\src-tauri\target\release
 
