@@ -69,6 +69,32 @@ Load and cache the metadata database.
 const allBooks = await loadDbNames();
 ```
 
+### `extractTags(fileNameCode)`
+
+Extract tag objects from a book's fileName_CODE (e.g., `"AQD-DFK-sharhuSunnahBarbahari"` returns tags for Aqidah and DFK).
+
+```javascript
+const tags = extractTags("AQD-qawaidulArbau");
+// [{ code: "AQD", label: "Aqidah", color: "...", bg: "..." }]
+```
+
+## Tag System
+
+The `fileName_CODE` includes **tag prefixes** (e.g., `AQD`, `HDT`, `DFK`) separated by `-`. The last segment is the book name, everything before it are tags.
+
+**Current tags**:
+
+| Code | Label         | Example                         |
+| ---- | ------------- | ------------------------------- |
+| AQD  | Aqidah        | `AQD-nawaqidulIslam`            |
+| HDT  | Hadith        | `HDT-umdathulAhkam`             |
+| QRN  | Quran         | —                               |
+| RDF  | Radheef       | —                               |
+| DFK  | DFK Publisher | `AQD-DFK-sharhuSunnahBarbahari` |
+| IH   | Islamhouse    | —                               |
+
+To add a new tag, edit `TAG_DEFINITIONS` in `js/dbLookup.js`.
+
 ## File Organization
 
 ```

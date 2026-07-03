@@ -1,243 +1,285 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="../dependencies/datatables.min.css" />
+    <style>
+      #tableWrapper {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        width: 100%;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <title></title>
-  <link rel="stylesheet" href="../dependencies/datatables.min.css" />
-  <style>
-    #tableWrapper {
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-start;
-      width: 100%;
-    }
+      #tableWrapper table {
+        width: auto;
+        max-width: 100%;
+        direction: rtl;
+        text-align: right;
+        vertical-align: top;
+      }
 
-    #tableWrapper table {
-      width: auto;
-      max-width: 100%;
-      direction: rtl;
-      text-align: right;
-      vertical-align: top;
-    }
+      #tableWrapper table.dataTable th,
+      #tableWrapper table.dataTable td {
+        vertical-align: top !important;
+      }
 
-    #tableWrapper table.dataTable th,
-    #tableWrapper table.dataTable td {
-      vertical-align: top !important;
-    }
+      #pageHeader {
+        margin-bottom: 20px;
+        padding: 20px;
+        border-bottom: 2px solid #ddd;
+      }
 
-    #pageHeader {
-      margin-bottom: 20px;
-      padding: 20px;
-      border-bottom: 2px solid #ddd;
-    }
+      #pageHeader h1 {
+        margin: 0 0 10px 0;
+      }
 
-    #pageHeader h1 {
-      margin: 0 0 10px 0;
-    }
+      #pageHeader p {
+        margin: 0;
+        color: #666;
+      }
 
-    #pageHeader p {
-      margin: 0;
-      color: #666;
-    }
+      .loading {
+        text-align: center;
+        padding: 40px;
+        color: #999;
+      }
 
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: #999;
-    }
+      .error {
+        color: #d32f2f;
+        padding: 20px;
+        background-color: #ffebee;
+        border-radius: 4px;
+        margin: 20px;
+      }
 
-    .error {
-      color: #d32f2f;
-      padding: 20px;
-      background-color: #ffebee;
-      border-radius: 4px;
-      margin: 20px;
-    }
+      /* Dashboard Styles */
+      #dashboardWrapper {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 20px;
+        font-family:
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
 
-    /* Dashboard Styles */
-    #dashboardWrapper {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 20px;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
+      .dashboard-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #1a202c;
+        letter-spacing: -0.025em;
+      }
 
-    .dashboard-title {
-      font-size: 2.2rem;
-      font-weight: 800;
-      text-align: center;
-      margin-bottom: 40px;
-      color: #1a202c;
-      letter-spacing: -0.025em;
-    }
+      .book-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+      }
 
-    .book-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
-    }
+      .book-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 24px;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 160px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease,
+          border-color 0.2s ease;
+      }
 
-    .book-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 24px;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 160px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    }
+      .book-card:hover {
+        transform: translateY(-4px);
+        box-shadow:
+          0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        border-color: #cbd5e1;
+      }
 
-    .book-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      border-color: #cbd5e1;
-    }
+      .book-card .title-ar {
+        font-size: 1.4rem;
+        color: #1a202c;
+        direction: rtl;
+        text-align: right;
+        font-weight: 700;
+        margin-bottom: 8px;
+        font-family: "Traditional Arabic", "Scheherazade New", serif;
+      }
 
-    .book-card .title-ar {
-      font-size: 1.4rem;
-      color: #1a202c;
-      direction: rtl;
-      text-align: right;
-      font-weight: 700;
-      margin-bottom: 8px;
-      font-family: "Traditional Arabic", "Scheherazade New", serif;
-    }
+      .book-card .title-dv {
+        font-size: 1.1rem;
+        color: #4a5568;
+        direction: rtl;
+        text-align: right;
+        margin-bottom: 12px;
+        font-family: "Faruma", "MV Boli", sans-serif;
+      }
 
-    .book-card .title-dv {
-      font-size: 1.1rem;
-      color: #4a5568;
-      direction: rtl;
-      text-align: right;
-      margin-bottom: 12px;
-      font-family: "Faruma", "MV Boli", sans-serif;
-    }
+      .book-card .title-en {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #718096;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-top: auto;
+      }
 
-    .book-card .title-en {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #718096;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-top: auto;
-    }
-  </style>
-</head>
+      .book-card .card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
 
-<body>
-  <!-- Dashboard Container (shown when no book is selected) -->
-  <div id="dashboardWrapper" style="display: none">
-    <h1 class="dashboard-title">Hadithmv</h1>
-    <div id="bookGrid" class="book-grid"></div>
-  </div>
+      .book-card .tag-badge {
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        border: 1px solid rgba(0, 0, 0, 0.04);
+      }
+    </style>
+  </head>
 
-  <!-- Page Header with Metadata -->
-  <div id="pageHeader" style="display: none">
-    <h1 id="pageTitle"></h1>
-    <p id="pageSubtitle"></p>
-    <p id="pageSubsubtitle"></p>
-  </div>
+  <body>
+    <!-- Dashboard Container (shown when no book is selected) -->
+    <div id="dashboardWrapper" style="display: none">
+      <h1 class="dashboard-title">Hadithmv</h1>
+      <div id="bookGrid" class="book-grid"></div>
+    </div>
 
-  <!-- Loading State -->
-  <div id="loadingMessage" class="loading">Loading book data...</div>
+    <!-- Page Header with Metadata -->
+    <div id="pageHeader" style="display: none">
+      <h1 id="pageTitle"></h1>
+      <p id="pageSubtitle"></p>
+      <p id="pageSubsubtitle"></p>
+      <div id="pageTags" class="card-tags" style="margin-top: 10px"></div>
+    </div>
 
-  <!-- Error State -->
-  <div id="errorMessage" class="error" style="display: none"></div>
+    <!-- Loading State -->
+    <div id="loadingMessage" class="loading">Loading book data...</div>
 
-  <!-- Table Container -->
-  <div id="tableWrapper" style="display: none">
-    <table id="table" class="display" style="width: auto">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
-  </div>
+    <!-- Error State -->
+    <div id="errorMessage" class="error" style="display: none"></div>
 
-  <script src="../dependencies/jquery-3.7.1.min.js"></script>
-  <script src="../dependencies/datatables.min.js"></script>
-  <script src="../dependencies/papaparse.min.js"></script>
+    <!-- Table Container -->
+    <div id="tableWrapper" style="display: none">
+      <table id="table" class="display" style="width: auto">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
-  <script type="module">
-    import { initializePageWithMetadata } from "../js/dbLookup.js";
+    <script src="../dependencies/jquery-3.7.1.min.js"></script>
+    <script src="../dependencies/datatables.min.js"></script>
+    <script src="../dependencies/papaparse.min.js"></script>
 
-    // Initialize page with metadata and CSV
-    initializePageWithMetadata(async function (metadata) {
-      // Set page title
-      document.title = metadata.bookName_EN || metadata.fileName_CODE;
+    <script type="module">
+      import {
+        initializePageWithMetadata,
+        extractTags,
+      } from "../js/dbLookup.js";
 
-      // Display metadata on page
-      document.getElementById("pageTitle").textContent =
-        metadata.bookName_EN || metadata.fileName_CODE;
-      document.getElementById("pageSubtitle").textContent =
-        metadata.bookName_AR || "";
-      document.getElementById("pageSubsubtitle").textContent =
-        metadata.bookName_DV || "";
-      document.getElementById("pageHeader").style.display = "block";
+      // Initialize page with metadata and CSV
+      initializePageWithMetadata(async function (metadata) {
+        // Set page title
+        document.title = metadata.bookName_EN || metadata.fileName_CODE;
 
-      // Load CSV data
-      Papa.parse(metadata.csvPath, {
-        download: true,
-        header: false,
-        dynamicTyping: true,
-        complete: function (results) {
-          const data = results.data.filter(
-            (row) =>
-              Array.isArray(row) &&
-              row.some((value) => value !== null && value !== ""),
-          );
+        // Display metadata on page
+        document.getElementById("pageTitle").textContent =
+          metadata.bookName_EN || metadata.fileName_CODE;
+        document.getElementById("pageSubtitle").textContent =
+          metadata.bookName_AR || "";
+        document.getElementById("pageSubsubtitle").textContent =
+          metadata.bookName_DV || "";
+        document.getElementById("pageHeader").style.display = "block";
 
-          if (data.length === 0) {
-            showError("No data found in CSV file: " + metadata.csvPath);
-            return;
-          }
+        // Display tags in page header
+        const pageTagsContainer = document.getElementById("pageTags");
+        const tags = extractTags(metadata.fileName_CODE);
+        if (tags.length > 0) {
+          pageTagsContainer.innerHTML = tags
+            .map(
+              (t) =>
+                `<span class="tag-badge" style="color:${t.color};background:${t.bg}">${t.label}</span>`,
+            )
+            .join("");
+        }
 
-          const maxCols = data.reduce(
-            (max, row) => Math.max(max, row.length),
-            0,
-          );
+        // Load CSV data
+        Papa.parse(metadata.csvPath, {
+          download: true,
+          header: false,
+          dynamicTyping: true,
+          complete: function (results) {
+            const data = results.data.filter(
+              (row) =>
+                Array.isArray(row) &&
+                row.some((value) => value !== null && value !== ""),
+            );
 
-          const columns = Array.from({ length: maxCols }, (_, idx) => ({
-            title:
-              idx === 0
-                ? "#"
-                : idx === maxCols - 1
-                  ? "Notes"
-                  : "Column " + (idx + 1),
-            data: idx,
-            defaultContent: "",
-          }));
+            if (data.length === 0) {
+              showError("No data found in CSV file: " + metadata.csvPath);
+              return;
+            }
 
-          // Hide loading, show table
-          document.getElementById("loadingMessage").style.display = "none";
-          document.getElementById("tableWrapper").style.display = "flex";
+            const maxCols = data.reduce(
+              (max, row) => Math.max(max, row.length),
+              0,
+            );
 
-          // Initialize DataTable
-          $("#table").DataTable({
-            data: data,
-            columns: columns,
-            deferRender: true,
-            pageLength: 10,
-            responsive: true,
-            destroy: true, // Allow reinitializing if needed
-          });
-        },
-        error: function (err) {
-          showError("Error loading CSV: " + err);
-        },
+            const columns = Array.from({ length: maxCols }, (_, idx) => ({
+              title:
+                idx === 0
+                  ? "#"
+                  : idx === maxCols - 1
+                    ? "Notes"
+                    : "Column " + (idx + 1),
+              data: idx,
+              defaultContent: "",
+            }));
+
+            // Hide loading, show table
+            document.getElementById("loadingMessage").style.display = "none";
+            document.getElementById("tableWrapper").style.display = "flex";
+
+            // Initialize DataTable
+            $("#table").DataTable({
+              data: data,
+              columns: columns,
+              deferRender: true,
+              pageLength: 10,
+              responsive: true,
+              destroy: true, // Allow reinitializing if needed
+            });
+          },
+          error: function (err) {
+            showError("Error loading CSV: " + err);
+          },
+        });
       });
-    });
 
-    function showError(message) {
-      document.getElementById("loadingMessage").style.display = "none";
-      document.getElementById("errorMessage").textContent = message;
-      document.getElementById("errorMessage").style.display = "block";
-      console.error(message);
-    }
-  </script>
-</body>
-
+      function showError(message) {
+        document.getElementById("loadingMessage").style.display = "none";
+        document.getElementById("errorMessage").textContent = message;
+        document.getElementById("errorMessage").style.display = "block";
+        console.error(message);
+      }
+    </script>
+  </body>
 </html>

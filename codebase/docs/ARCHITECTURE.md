@@ -49,18 +49,22 @@ books-uc/test/
 You have **ONE single HTML page** (`books/index.html`) that serves as both the home library dashboard and the dynamic book viewer.
 
 ### How it works:
+
 1. **No query parameters**: Opening `/books/index.html` loads the metadata registry and displays a grid of all registered books.
 2. **With query parameter**: Opening `/books/index.html?book=AQD-qawaidulArbau` extracts the code `AQD-qawaidulArbau` and dynamically loads that book.
 
 When you add a new book:
 
 ### Step 1: Add to dbNames.csv
+
 ```
 AQD-myNewBook,كتاب جديد,ނިވަތި ފޮތް,My New Book
 ```
 
 ### Step 2: Create the CSV file
+
 Place your CSV file at:
+
 ```
 db/AQD-myNewBook.csv
 ```
@@ -105,6 +109,45 @@ initializePageWithMetadata(function (metadata) {
   console.log("CSV:", metadata.csvPath);
 });
 ```
+
+### `extractTags(fileNameCode)`
+
+Extracts tag objects from a book's fileName_CODE. Tags are the leading `-` separated segments before the book name.
+
+```javascript
+const tags = extractTags("AQD-DFK-sharhuSunnahBarbahari");
+// Returns: [{ code: "AQD", label: "Aqidah", ... }, { code: "DFK", label: "DFK", ... }]
+```
+
+## Tag System
+
+The `fileName_CODE` in `dbNames.csv` includes **tag prefixes** separated by `-`. The last segment is always the book's unique name; everything before it are tags.
+
+### How tags work
+
+| fileName_CODE                   | Tags        | Book Name             |
+| ------------------------------- | ----------- | --------------------- |
+| `AQD-nawaqidulIslam`            | Aqidah      | nawaqidulIslam        |
+| `AQD-qawaidulArbau`             | Aqidah      | qawaidulArbau         |
+| `HDT-umdathulAhkam`             | Hadith      | umdathulAhkam         |
+| `AQD-DFK-sharhuSunnahBarbahari` | Aqidah, DFK | sharhuSunnahBarbahari |
+
+### Adding a new tag
+
+Define it in `js/dbLookup.js` inside the `TAG_DEFINITIONS` object:
+
+```javascript
+const TAG_DEFINITIONS = {
+  AQD: { label: "Aqidah", color: "#4f46e5", bg: "#eef2ff" },
+  // Add your new tag:
+  NEW: { label: "New Tag", color: "#000000", bg: "#f0f0f0" },
+};
+```
+
+### Where tags appear
+
+- **Dashboard cards** (`books/index.html`): Shown as colored badges at the top of each book card
+- **Book viewer header**: Shown as colored badges below the book title metadata
 
 ## Adding a New Book (Checklist)
 
