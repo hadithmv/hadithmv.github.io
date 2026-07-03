@@ -11,7 +11,7 @@ This system provides a **zero-duplication** way to manage book pages and CSV dat
 
 ## How It Works
 
-1. **Filename → Metadata Lookup**: When an HTML page loads, it extracts its filename (e.g., `AQD-qawaidulArbau-test`) and looks it up in `dbNames.csv`
+1. **Filename → Metadata Lookup**: When an HTML page loads, it extracts its filename (e.g., `AQD-qawaidulArbau`) and looks it up in `dbNames.csv`
 
 2. **Metadata Retrieval**: The matching row provides:
    - `bookName_EN` - English name (displays on page)
@@ -37,11 +37,11 @@ books-uc/test/
     papaparse.min.js
   books/                         ← Book HTML files
     book-template.html           ← Universal template
-    AQD-nawaqidulIslam-test.html
-    AQD-qawaidulArbau-test.html
+    AQD-nawaqidulIslam.html
+    AQD-qawaidulArbau.html
   db/                            ← CSV data files
-    AQD-nawaqidulIslam-test.csv
-    AQD-qawaidulArbau-test.csv
+    AQD-nawaqidulIslam.csv
+    AQD-qawaidulArbau.csv
   js/
     dbLookup.js                  ← Core logic (SINGLE file to maintain)
   old/                           ← Old/archived files
@@ -122,7 +122,7 @@ const allEntries = await loadDbNames();
 Look up metadata for a specific filename.
 
 ```javascript
-const metadata = await getPageMetadata("AQD-qawaidulArbau-test");
+const metadata = await getPageMetadata("AQD-qawaidulArbau");
 console.log(metadata.bookName_EN); // "Qawaidul Arbau"
 ```
 
@@ -131,8 +131,8 @@ console.log(metadata.bookName_EN); // "Qawaidul Arbau"
 Get the CSV path for a filename.
 
 ```javascript
-const csvPath = getCsvPath("AQD-qawaidulArbau-test");
-// Returns: "../db/AQD-qawaidulArbau-test.csv"
+const csvPath = getCsvPath("AQD-qawaidulArbau");
+// Returns: "../db/AQD-qawaidulArbau.csv"
 ```
 
 ### `initializePageWithMetadata(callback)`
@@ -162,9 +162,9 @@ initializePageWithMetadata(function (metadata) {
 ✅ **Data Driven**: All book info in `dbNames.csv`  
 ✅ **Organized**: Clear separation of concerns (docs, dependencies, books, data)
 
-## Current Test Pages
+## Current Pages
 
-- **AQD-nawaqidulIslam-test.html** - Nawaqidul Islam
-- **AQD-qawaidulArbau-test.html** - Qawaidul Arbau
+- **AQD-nawaqidulIslam.html** - Nawaqidul Islam
+- **AQD-qawaidulArbau.html** - Qawaidul Arbau
 
 Both automatically load their metadata from `dbNames.csv` and their data from `db/` folder.

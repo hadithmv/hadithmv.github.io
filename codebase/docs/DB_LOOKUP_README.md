@@ -23,12 +23,12 @@ Done! The page automatically loads metadata and data.
 
 ## How It Works
 
-When a book page loads (e.g., `AQD-qawaidulArbau-test.html`):
+When a book page loads (e.g., `AQD-qawaidulArbau.html`):
 
-1. Filename is extracted: `AQD-qawaidulArbau-test`
+1. Filename is extracted: `AQD-qawaidulArbau`
 2. Looked up in `../dbNames.csv`
 3. Metadata retrieved (book names, etc.)
-4. CSV automatically loaded from `../db/AQD-qawaidulArbau-test.csv`
+4. CSV automatically loaded from `../db/AQD-qawaidulArbau.csv`
 5. Table displayed with metadata header
 
 ## Core Functions
@@ -53,7 +53,7 @@ initializePageWithMetadata(function (metadata) {
 Look up metadata for a specific book.
 
 ```javascript
-const metadata = await getPageMetadata("AQD-qawaidulArbau-test");
+const metadata = await getPageMetadata("AQD-qawaidulArbau");
 ```
 
 ### `getCsvPath(fileName)`
@@ -61,8 +61,8 @@ const metadata = await getPageMetadata("AQD-qawaidulArbau-test");
 Get the CSV file path for a book.
 
 ```javascript
-const csvPath = getCsvPath("AQD-qawaidulArbau-test");
-// Returns: "../db/AQD-qawaidulArbau-test.csv"
+const csvPath = getCsvPath("AQD-qawaidulArbau");
+// Returns: "../db/AQD-qawaidulArbau.csv"
 ```
 
 ### `loadDbNames()`
@@ -87,11 +87,11 @@ test/
 │   └── papaparse.min.js
 ├── books/                   Book HTML files
 │   ├── book-template.html   (Universal template)
-│   ├── AQD-nawaqidulIslam-test.html
-│   └── AQD-qawaidulArbau-test.html
+│   ├── AQD-nawaqidulIslam.html
+│   └── AQD-qawaidulArbau.html
 ├── db/                      CSV data files
-│   ├── AQD-nawaqidulIslam-test.csv
-│   └── AQD-qawaidulArbau-test.csv
+│   ├── AQD-nawaqidulIslam.csv
+│   └── AQD-qawaidulArbau.csv
 ├── js/
 │   └── dbLookup.js          (Core module)
 ├── old/                     Archived files
@@ -104,8 +104,8 @@ test/
 
 ```csv
 fileName_CODE,bookName_AR,bookName_DV,bookName_EN
-AQD-qawaidulArbau-test,القواعد الأربع,ހަތަރު ގަވާއިދު,Qawaidul Arbau
-AQD-nawaqidulIslam-test,نواقض الإسلام,އިސްލާމްކަން ގެއްލޭ ކަންކަން,Nawaqidul Islam
+AQD-qawaidulArbau,القواعد الأربع,ހަތަރު ގަވާއިދު,Qawaidul Arbau
+AQD-nawaqidulIslam,نواقض الإسلام,އިސްލާމްކަން ގެއްލޭ ކަންކަން,Nawaqidul Islam
 ```
 
 ## Benefits
