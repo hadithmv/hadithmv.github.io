@@ -46,7 +46,7 @@ export async function loadDbNames() {
 
 /**
  * Look up page metadata by filename
- * @param {string} fileName - The filename without extension (e.g., "AQD-qawaidulArbau-test")
+ * @param {string} fileName - The filename without extension (e.g., "AQD-qawaidulArbau")
  * @returns {Promise<Object|null>} The metadata object or null if not found
  */
 export async function getPageMetadata(fileName) {

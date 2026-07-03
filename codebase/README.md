@@ -18,13 +18,13 @@ test/
 │
 ├── books/                          📖 Book HTML files
 │   ├── book-template.html          - Universal template (use as base)
-│   ├── AQD-nawaqidulIslam-test.html
-│   ├── AQD-qawaidulArbau-test.html
+│   ├── AQD-nawaqidulIslam.html
+│   ├── AQD-qawaidulArbau.html
 │   └── (add more books here)
 │
 ├── db/                             🗄️ CSV data files
-│   ├── AQD-nawaqidulIslam-test.csv
-│   ├── AQD-qawaidulArbau-test.csv
+│   ├── AQD-nawaqidulIslam.csv
+│   ├── AQD-qawaidulArbau.csv
 │   └── (add more CSVs here)
 │
 ├── js/
@@ -42,8 +42,8 @@ test/
 Open any book file directly:
 
 ```
-test/books/AQD-qawaidulArbau-test.html
-test/books/AQD-nawaqidulIslam-test.html
+test/books/AQD-qawaidulArbau.html
+test/books/AQD-nawaqidulIslam.html
 ```
 
 Each page automatically loads:
@@ -101,10 +101,10 @@ To upgrade: Replace the file and no HTML updates needed (all books use the same 
 
 ## How It Works
 
-1. User opens `books/AQD-qawaidulArbau-test.html`
-2. Page extracts filename: `AQD-qawaidulArbau-test`
+1. User opens `books/AQD-qawaidulArbau.html`
+2. Page extracts filename: `AQD-qawaidulArbau`
 3. Looks up in `dbNames.csv` → finds metadata
-4. Loads CSV from `db/AQD-qawaidulArbau-test.csv`
+4. Loads CSV from `db/AQD-qawaidulArbau.csv`
 5. Renders table with metadata header
 
 All handled by `js/dbLookup.js`.
@@ -199,7 +199,7 @@ New:
 ```
 test/
 ├── books/
-│   └── AQD-qawaidulArbau-test.html
+│   └── AQD-qawaidulArbau.html
 ├── dependencies/
 │   └── jquery-3.7.1.min.js
 ├── docs/
