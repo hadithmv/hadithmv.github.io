@@ -2043,6 +2043,12 @@ in terminal, use command:
 npm list -g --json | node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync(0, 'utf-8')).dependencies).join('\n'))"
 select and copy
 
+## Install NPM Packages Globally
+
+1 package: npm install -g 'package_name'
+
+multiple packages: npm install -g 'package-one' 'package-two' 'package-three'
+
 <!-- TOC --><a name="npm-packages"></a>
 
 ## NPM Packages
