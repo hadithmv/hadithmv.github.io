@@ -558,6 +558,7 @@ hr {
   font-family: serif;
   pointer-events: none;
   opacity: 0.6;
+  transform: rotate(180deg);
 }
 .testimonial-card:hover {
   transform: translateY(-4px);
