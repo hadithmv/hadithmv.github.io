@@ -8,18 +8,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const tabContents = document.querySelectorAll(".tab-content");
 
   function openTab(tabId) {
-    // Hide all tab contents
     tabContents.forEach(function (content) {
       content.classList.remove("active");
     });
 
-    // Deactivate all tab buttons
     tabBtns.forEach(function (btn) {
       btn.classList.remove("active");
       btn.setAttribute("aria-selected", "false");
     });
 
-    // Activate the selected tab
     const selectedContent = document.getElementById(tabId);
     if (selectedContent) {
       selectedContent.classList.add("active");
@@ -32,12 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Add click handlers to tab buttons
   tabBtns.forEach(function (btn) {
     btn.addEventListener("click", function () {
       const tabId = this.getAttribute("data-tab");
       openTab(tabId);
-      // Smooth scroll to tabs
       setTimeout(function () {
         document.querySelector(".tab-nav").scrollIntoView({
           behavior: "smooth",
@@ -47,7 +42,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Open default tab
   const defaultBtn = document.getElementById("defaultOpen");
   if (defaultBtn) {
     defaultBtn.click();
@@ -67,14 +61,12 @@ function closeModal() {
   modal.classList.remove("open");
 }
 
-// Close modal on overlay click
 modal.addEventListener("click", function (event) {
   if (event.target === modal) {
     closeModal();
   }
 });
 
-// Close modal on Escape key
 document.addEventListener("keydown", function (event) {
   if (event.key === "Escape" && modal.classList.contains("open")) {
     closeModal();
@@ -106,7 +98,6 @@ function setSecondDate() {
   document.getElementById("afterMaghrib").innerHTML = date.toDateString();
 }
 
-// Initialize calculator on page load
 document.addEventListener("DOMContentLoaded", function () {
   const dateInput = document.getElementById("date1");
   if (dateInput) {
