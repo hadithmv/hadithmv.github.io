@@ -522,6 +522,8 @@ hr {
   border-radius: var(--radius);
   padding: 1.5rem 1.8rem;
   border: 1px solid var(--primary);
+  display: flex;
+  flex-direction: column;
 }
 .steps-box h3 {
   font-size: 1.1rem;
@@ -532,6 +534,7 @@ hr {
 .steps-box ol {
   margin: 0;
   padding-inline-start: 1.5rem;
+  flex: 1;
 }
 .steps-box li {
   padding: 0.15rem 0;
@@ -546,6 +549,7 @@ hr {
   color: var(--text-light);
   background: var(--bg-card);
   border-radius: var(--radius-sm);
+  align-self: flex-start;
 }
 .steps-box .calc-hint a {
   font-weight: 600;
@@ -598,6 +602,7 @@ hr {
   font-family: "Quicksand", sans-serif;
   font-size: 0.95rem;
   font-weight: 500;
+  margin-left: auto;
 }
 
 /* ===== TESTIMONIALS ===== */

@@ -1,6 +1,6 @@
 # BirruMv — Only the Best Wells & Aqiqah
 
-![BirruMv Logo](index/img/birrumv-logo-2.0.svg)
+![BirruMv Logo](img/birrumv-logo-2.0.svg)
 
 > **BirruMv** is a Maldivian charitable initiative providing well construction (Nepal, Africa) and Aqiqah/Udhiya sacrifice services across multiple African countries.
 
@@ -9,28 +9,40 @@
 ## 📁 Directory Structure
 
 ```
-bmv/
-├── index/                    # Website root (deployed)
-│   ├── index.html           # Main landing page
-│   ├── minimal-mod.css      # Core stylesheet
-│   ├── minimal-mod.min.css  # Minified stylesheet
-│   ├── merged-300.woff      # Custom font (WOFF)
-│   ├── merged-300.woff2     # Custom font (WOFF2)
-│   ├── img/                 # Image assets
-│   ├── src/                 # Source files (modular, redesigned)
-│   ├── docs/                # Project documentation
-│   └── old/                 # Archived previous versions
+bmv/index/
+├── index.html              # Main landing page
+├── css/
+│   └── style.css           # Core stylesheet (modular)
+├── js/
+│   └── main.js             # JavaScript (carousel, tabs, modal, calculator)
+├── font/
+│   ├── merged-300.woff2    # Custom font (WOFF2)
+│   └── merged-300.woff     # Custom font (WOFF)
+├── img/                    # Image assets (WebP format, 500px width)
+├── info/                   # Markdown content files (loaded dynamically)
+│   ├── aqiqah.md
+│   └── udhiya.md
+├── docs/                   # Project documentation
+│   ├── architecture.md
+│   ├── content-strategy.md
+│   ├── design-guide.md
+│   ├── seo.md
+│   ├── accessibility.md
+│   └── maintenance.md
+├── old/                    # Archived previous versions
+└── README.md               # This file
 ```
 
 ---
 
 ## ✨ Key Features
 
-- **Bilingual**: English & Dhivehi (ދިވެހި)
-- **Dark/Light Mode**: Auto-detects system preference
-- **Responsive**: Mobile-first design
-- **Fast**: Minified CSS, optimized images (WebP), custom fonts
-- **Accessible**: Semantic HTML, screen-reader friendly
+- **Bilingual**: English & Dhivehi (ދިވެހި) — side-by-side layout
+- **Dark/Light Mode**: Auto-detects system preference via `@media (prefers-color-scheme)`
+- **Responsive**: Mobile-first design, fluid grid, accessible on all devices
+- **Fast**: Optimized images (WebP, 500px), custom fonts, modular CSS/JS
+- **Accessible**: Semantic HTML, ARIA attributes, keyboard-friendly
+- **Modular**: Separated HTML, CSS, and JS files for maintainability
 
 ---
 
@@ -48,29 +60,15 @@ bmv/
 
 ## 🛠 Maintenance
 
-### Updating Prices
+See the [Maintenance Guide](docs/maintenance.md) for detailed instructions on:
 
-Edit the `.price` text in `index.html` — prices are plain text within `<b>` tags.
-
-### Adding Products
-
-1. Add a new image to `img/` (500px width, WebP format recommended)
-2. Copy an existing product block (`.flexRow` + `.Pr`)
-3. Update image `src`, title text, and price text
-
-### Fonts
-
-- Custom merged font files: `merged-300.woff2` and `merged-300.woff`
-- Font is defined in `minimal-mod.css` under `@font-face`
-- To update: replace font files and update the `url()` paths
-
-### Social Media Links
-
-Edit the social button blocks in `<div style="direction:ltr">` near the top of the page.
-
-### Contact Methods
-
-Edit the modal content inside `<div id="myModal">` — add/remove contact method links.
+- Updating prices
+- Adding products (images, cards)
+- Updating social media links and contact methods
+- Managing expandable info sections (Aqiqah/Udhiya content in `info/`)
+- Font updates
+- CSS/JS modifications
+- Deployment checklist
 
 ---
 

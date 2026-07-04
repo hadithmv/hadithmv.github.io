@@ -1,21 +1,48 @@
 # Maintenance Guide
 
+## Project Structure
+
+```
+bmv/index/
+├── index.html              # Main page — edit for content changes
+├── css/style.css           # Core stylesheet — edit for style changes
+├── js/main.js              # JavaScript — edit for behavior changes
+├── img/                    # Product/asset images (WebP, 500px)
+├── font/                   # Custom font files (WOFF2, WOFF)
+├── info/                   # Expandable section content (markdown)
+│   ├── aqiqah.md
+│   └── udhiya.md
+└── docs/                   # Project documentation
+```
+
 ## How to Update Prices
 
-Prices are plain text inside `<b>` tags within `.price` divs. To update:
+Prices are plain text inside `.card-price` buttons. To update:
 
 1. Open `index.html`
-2. Search for the price you want to change (e.g., `4500/- MVR`)
+2. Search for the price you want to change (e.g., `4,500/- MVR`)
 3. Replace with the new price
 
 **Example:**
 
 ```html
 <!-- Before -->
-<h3 class="price" onclick="openModal()"><b>4500/- MVR</b></h3>
+<button
+  class="card-price"
+  onclick="openModal()"
+  aria-label="Order Nepal Standard Well for 4500 MVR"
+>
+  4,500/- MVR
+</button>
 
 <!-- After -->
-<h3 class="price" onclick="openModal()"><b>5000/- MVR</b></h3>
+<button
+  class="card-price"
+  onclick="openModal()"
+  aria-label="Order Nepal Standard Well for 5000 MVR"
+>
+  5,000/- MVR
+</button>
 ```
 
 ## How to Add a New Product
@@ -26,41 +53,45 @@ Prices are plain text inside `<b>` tags within `.price` divs. To update:
 - Convert to WebP format (use [squoosh.app](https://squoosh.app) or similar)
 - Save to `img/` folder with a descriptive filename (e.g., `well-ethiopia-500px.webp`)
 
-### 2. Add the HTML
+### 2. Add the Carousel HTML
 
-Copy an existing product block and modify:
+Each product card has an image carousel. Copy an existing `.product-card` block and modify:
 
 ```html
-<!-- Image Row -->
-<div class="flexRow">
-  <img
-    alt="descriptive alt text"
-    class="flexItem"
-    src="img/your-new-image.webp"
-    loading="lazy"
-    width="500"
-  />
-</div>
-<br />
-
-<!-- Title Row (Bilingual) -->
-<div class="flexRow">
-  <div class="flexItem">
-    <h3 class="iTitle">English Title</h3>
+<div class="product-card">
+  <div class="carousel" data-carousel="uniqueId">
+    <div class="carousel-track">
+      <img
+        src="img/your-new-image.webp"
+        alt="Descriptive alt text"
+        loading="lazy"
+      />
+      <!-- Add more <img> tags for multiple images -->
+    </div>
+    <!-- Carousel controls (only if more than 1 image) -->
+    <button class="carousel-btn carousel-prev" aria-label="Previous image">
+      ‹
+    </button>
+    <button class="carousel-btn carousel-next" aria-label="Next image">
+      ›
+    </button>
+    <div class="carousel-dots">
+      <span class="active"></span>
+      <span></span>
+    </div>
   </div>
-  <div class="flexItem dv">
-    <h3 class="iTitle">Dhivehi Title</h3>
+  <div class="card-body">
+    <div class="card-title">English Title</div>
+    <div class="card-title-dv">Dhivehi Title</div>
+    <button
+      class="card-price"
+      onclick="openModal()"
+      aria-label="Order Product for PRICE MVR"
+    >
+      PRICE/- MVR
+    </button>
   </div>
 </div>
-<br />
-
-<!-- Price -->
-<div class="Pr">
-  <h3 class="price" onclick="openModal()"><b>9999/- MVR</b></h3>
-</div>
-<br />
-<hr />
-<br />
 ```
 
 ### 3. Add to the Correct Tab
@@ -68,21 +99,48 @@ Copy an existing product block and modify:
 - **Wells tab** (`id="tabTwo"`): Add after existing well products
 - **Aqiqah/Udhiya tab** (`id="tabThree"`): Add after existing sacrifice products
 
+## How to Update Expandable Info Sections
+
+Expandable sections (Udhiya and Aqiqah info) load their content from markdown files in the `info/` folder.
+
+### Update Content
+
+1. Open the relevant file in `info/`:
+   - `info/udhiya.md` — Udhiya information
+   - `info/aqiqah.md` — Aqiqah information
+2. Edit the markdown content
+3. Content is split by double newlines (`\n\n`) into paragraphs
+
+### Add a New Expandable Section
+
+1. Create a new markdown file in `info/` (e.g., `info/faq.md`)
+2. Add the button and content container in `index.html`:
+   ```html
+   <button
+     class="expand-toggle"
+     onclick="toggleExpand('faqInfo')"
+     aria-expanded="false"
+   >
+     Click here to learn more about the FAQ
+   </button>
+   <div class="expand-content" id="faqInfo"></div>
+   ```
+
 ## How to Update Social Media Links
 
-Social media icons are in the header section:
+Social media icons are in the header `.social-bar` section:
 
 ```html
-<div style="direction:ltr">
-  <a href="http://fb.me/birrumv" class="noLine resp-sharing-button__link" ...>
-    <!-- Facebook -->
-  </a>
+<div class="social-bar">
   <a
-    href="https://invite.viber.com/..."
-    class="noLine resp-sharing-button__link"
-    ...
+    href="http://fb.me/birrumv"
+    class="social-btn"
+    style="background: #1877f2"
+    target="_blank"
+    rel="noopener"
+    aria-label="Facebook"
   >
-    <!-- Viber -->
+    <svg viewBox="0 0 24 24">...</svg>
   </a>
   <!-- ... more social links ... -->
 </div>
@@ -90,111 +148,99 @@ Social media icons are in the header section:
 
 To add a new social platform:
 
-1. Copy an existing `<a>` block
+1. Copy an existing `.social-btn` block
 2. Update the `href` with your new URL
-3. Add the appropriate icon CSS class (or create a new one in `minimal-mod.css`)
-4. Add the button color class (e.g., `.fbBtn`, `.tgBtn`)
+3. Update the SVG icon path
+4. Set the background color to match the platform's brand color
+5. Update the `aria-label`
 
 ## How to Update Contact Methods
 
 Contact methods are in the modal (`id="myModal"`):
 
 ```html
-<div class="modal" id="myModal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <div class="mid">
-      <h2>How would you like to contact us?</h2>
-      <hr />
-      <br />
-      <h3><a href="http://m.me/birrumv" ...>Messenger</a></h3>
-      <br />
-      <h3><a href="https://wa.me/..." ...>WhatsApp</a></h3>
-      <br />
-      <!-- ... more contact methods ... -->
-    </div>
-  </div>
-</div>
+<a
+  href="http://m.me/birrumv"
+  class="contact-item"
+  target="_blank"
+  rel="noopener"
+>
+  <span class="icon-wrap" style="background: #1877f2">
+    <svg viewBox="0 0 24 24">...</svg>
+  </span>
+  Messenger
+</a>
 ```
 
 To add a new contact method:
 
-1. Copy an existing `<h3><a>...</a></h3>` block
+1. Copy an existing `.contact-item` block
 2. Update the `href` with your contact URL
-3. Update the icon class and text
+3. Add an appropriate SVG icon
+4. Update the text
 
 ## How to Update Testimonials
 
-Testimonials are in the `<ul class="quotes">` section:
+Testimonials are in the `.testimonials-grid` section:
 
 ```html
-<ul class="quotes" id="quotes">
-  <li class="show">
-    ⭐⭐⭐⭐⭐
-    <span class="stars"></span>
-    "Testimonial text here."
-    <span>-Customer Name.</span>
-  </li>
-  <!-- ... more testimonials ... -->
-</ul>
+<div class="testimonial-card">
+  <span class="stars">⭐⭐⭐⭐⭐</span>
+  <p class="quote">"Testimonial text here."</p>
+  <span class="author">— Customer Name</span>
+</div>
 ```
 
 To add a new testimonial:
 
-1. Copy an existing `<li>` block
-2. Update the star rating, text, and customer name
-3. Add the CSS animation timing (see `@keyframes quote` in the inline `<style>`)
-
-**Animation timing formula:**
-
-- Each testimonial gets 5 seconds of display time
-- Total cycle: 30 seconds (6 testimonials × 5s)
-- Add `animation: 30s Xs infinite quote` where X = (index - 1) × 5
-
-## How to Update the Aqiqah Date Calculator
-
-The calculator is in the `#jumpCalcHere` section. It uses:
-
-- `<input type="date">` for birth date
-- `<select>` for days to count (7, 14, 21)
-- JavaScript `setSecondDate()` function
-
-To modify:
-
-- **Change default days**: Edit `<option>` values in `<select id="selectDays">`
-- **Change calculation logic**: Edit the `setSecondDate()` function
-- **Change output format**: Edit the `toDateString()` call or replace with `toLocaleDateString()`
+1. Copy an existing `.testimonial-card` block
+2. Update the star rating, quote text, and author name
+3. No CSS animation timing needed — the grid layout handles display
 
 ## How to Update Fonts
 
 1. Generate new WOFF2/WOFF font files
-2. Replace `merged-300.woff2` and `merged-300.woff` in the root
-3. Update the `@font-face` declaration in `minimal-mod.css` if filenames change
+2. Replace files in `font/`:
+   - `font/merged-300.woff2`
+   - `font/merged-300.woff`
+3. Update the `@font-face` declaration in `css/style.css` if filenames change
 
-## How to Minify CSS
+## How to Edit Styles
 
-Run the PowerShell script:
+All styles are in `css/style.css`. The file is organized with clear section comments:
 
-```powershell
-.\0 MINIFY-html-and-css.ps1
-```
+- `:root` — CSS custom properties (colors, shadows, transitions)
+- Typography — headings, paragraphs, links
+- Components — hero, tabs, product cards, carousel, modal, footer
+- `@media (prefers-color-scheme: dark)` — dark mode overrides
+- `@media (max-width: 599px)` — responsive overrides
 
-Or manually:
+## How to Edit JavaScript
 
-1. Copy `minimal-mod.css` content
-2. Use an online minifier (e.g., [cssminifier.com](https://cssminifier.com))
-3. Save output to `minimal-mod.min.css`
+All JavaScript is in `js/main.js`. Key functions:
+
+| Function                   | Purpose                                     |
+| -------------------------- | ------------------------------------------- |
+| `goTo(i)`                  | Navigate carousel to specific image index   |
+| `next() / prev()`          | Next/previous carousel image                |
+| `startAuto() / stopAuto()` | Auto-play carousel on timer                 |
+| `openTab(tabId)`           | Switch between Wells and Aqiqah/Udhiya tabs |
+| `openModal()`              | Show contact modal                          |
+| `closeModal()`             | Hide contact modal                          |
+| `toggleExpand(id)`         | Load and expand/collapse info section       |
+| `setSecondDate()`          | Calculate Aqiqah dates                      |
+| `jumpCalc()`               | Scroll to calculator                        |
 
 ## Deployment Checklist
 
 - [ ] Prices updated and correct
 - [ ] Images optimized (WebP, 500px width)
-- [ ] CSS minified
 - [ ] Tested in dark/light mode
 - [ ] Tested on mobile (Chrome DevTools device emulation)
-- [ ] Testimonials animation timing correct
 - [ ] All links working (social, contact, Telegram embeds)
 - [ ] Google Analytics tag present
 - [ ] Canonical URL correct
 - [ ] No broken images
 - [ ] Aqiqah calculator working correctly
+- [ ] Carousel auto-play working on all product cards
+- [ ] Expandable sections load content correctly

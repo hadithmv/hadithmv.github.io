@@ -6,20 +6,22 @@ The BirruMv website is a **single-page application (SPA)** built with vanilla HT
 
 ### File Roles
 
-| File                  | Purpose                                                                                            |
-| --------------------- | -------------------------------------------------------------------------------------------------- |
-| `index.html`          | Main entry point — contains all HTML, inline CSS, and inline JavaScript                            |
-| `minimal-mod.css`     | Core stylesheet (~1344 lines) — layout, typography, dark mode, social buttons, tabs, scroll-to-top |
-| `minimal-mod.min.css` | Minified version of `minimal-mod.css` for production                                               |
-| `merged-300.woff2`    | Custom merged font (WOFF2 format) — combines Quicksand + Faruma for bilingual support              |
-| `merged-300.woff`     | Custom merged font (WOFF format) — fallback for older browsers                                     |
-| `img/*.webp`          | Optimized WebP images (500px width)                                                                |
+| File                    | Purpose                                                                                      |
+| ----------------------- | -------------------------------------------------------------------------------------------- |
+| `index.html`            | Main entry point — contains all semantic HTML structure                                      |
+| `css/style.css`         | Core stylesheet (~1016 lines) — layout, typography, dark mode, carousel, tabs, modal, footer |
+| `js/main.js`            | JavaScript — carousels, tab system, modal, expandable sections, calculator, scroll-to-top    |
+| `font/merged-300.woff2` | Custom merged font (WOFF2 format) — combines Quicksand + Faruma for bilingual support        |
+| `font/merged-300.woff`  | Custom merged font (WOFF format) — fallback for older browsers                               |
+| `img/*.webp`            | Optimized WebP images (500px width)                                                          |
+| `info/aqiqah.md`        | Aqiqah information content (loaded dynamically)                                              |
+| `info/udhiya.md`        | Udhiya information content (loaded dynamically)                                              |
 
 ### Key Design Decisions
 
 1. **No Framework**: The site uses zero dependencies. No React, Vue, or jQuery. This keeps the page lightweight and fast.
 
-2. **Inline Everything**: CSS and JS are embedded directly in `index.html` for the critical path. This reduces HTTP requests and improves load time.
+2. **Modular Structure**: HTML, CSS, and JavaScript are split into separate files (`index.html`, `css/style.css`, `js/main.js`) for maintainability.
 
 3. **Bilingual via CSS Classes**: English content uses `.eng` class (LTR, Quicksand font). Dhivehi content uses `.dv` class (RTL, mergedFont/Faruma). Both languages coexist on the same page.
 
@@ -27,11 +29,13 @@ The BirruMv website is a **single-page application (SPA)** built with vanilla HT
 
 5. **Tab System**: Custom vanilla JS tab implementation with fade animation. Two tabs: Wells and Aqiqah/Udhiya.
 
-6. **Modal**: Custom modal for contact options (Messenger, WhatsApp, Telegram, Viber, Email, Call).
+6. **Image Carousel**: Each product card has its own carousel with prev/next buttons, dot indicators, and auto-play.
 
-7. **Testimonial Carousel**: Pure CSS animation cycling through 6 testimonials with 30-second loop.
+7. **Modal**: Custom modal for contact options (Messenger, WhatsApp, Telegram, Viber, Email, Call).
 
-8. **Aqiqah Date Calculator**: Client-side JavaScript that calculates the 7th/14th/21st day after birth, accounting for Maghrib time.
+8. **Expandable Sections**: Udhiya and Aqiqah info content is loaded dynamically from `info/` markdown files via `fetch()`.
+
+9. **Aqiqah Date Calculator**: Client-side JavaScript that calculates the 7th/14th/21st day after birth, accounting for Maghrib time.
 
 ### Data Flow
 
@@ -44,6 +48,14 @@ User clicks "Order Now" or price button
 ```
 
 ```
+User clicks "Click here to learn more" (expandable section)
+  → toggleExpand(id) called
+  → If content not loaded yet, fetches info/{id}.md via fetch()
+  → Processes markdown into HTML paragraphs
+  → Displays content with slide-in animation
+```
+
+```
 User selects birth date in calculator
   → setSecondDate() called
   → Calculates 7/14/21 days after birth
@@ -53,15 +65,35 @@ User selects birth date in calculator
 ### Performance Considerations
 
 - Images are pre-optimized to 500px width in WebP format
-- Custom font is loaded with `font-display: block` (was `swap`)
-- CSS is minified for production
+- Custom font is loaded with `font-display: swap`
 - Google Analytics is loaded asynchronously
 - Telegram widgets are loaded with `defer`
+- Dynamic content is fetched only when user expands the section
+
+### CSS Organization
+
+The stylesheet (`css/style.css`) follows a modular structure with clear section comments:
+
+```
+Variables          → :root custom properties
+Reset              → Box-sizing, margin/padding
+Typography         → Headings, paragraphs, links
+Hero               → Header, logo, social bar
+Tabs               → Navigation, content panels
+Product Cards      → Image grid, carousel, pricing
+Expandable Sections → Info buttons and content
+Steps              → Order instructions
+Calculator         → Aqiqah date calculator
+Testimonials       → Review cards
+Modal              → Contact overlay
+Footer             → Full-width footer
+Scroll-to-Top      → Fixed position button
+Dark Mode          → prefers-color-scheme overrides
+Responsive         → Media queries
+```
 
 ### Limitations
 
-- All content is in a single HTML file — can become unwieldy
-- No CSS preprocessing (no variables, mixins, nesting)
-- No JavaScript modularization
-- Commented-out dead code accumulates over time
+- No CSS preprocessing (no variables, mixins, nesting) — using native CSS custom properties instead
+- No JavaScript modularization (single file with section comments)
 - No automated testing
