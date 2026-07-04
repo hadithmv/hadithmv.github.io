@@ -457,7 +457,7 @@ hr {
   margin-bottom: 0.2rem;
 }
 .product-card .card-title-dv {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--text-light);
   margin-bottom: 0.5rem;
 }
@@ -547,13 +547,13 @@ hr {
 .steps-box li {
   padding: 0.15rem 0;
   line-height: 1.5;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 .steps-box .calc-hint {
   display: inline-block;
   margin-top: 0.75rem;
   padding: 0.4rem 0.9rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--text-light);
   background: var(--bg-card);
   border-radius: var(--radius-sm);
@@ -880,6 +880,9 @@ hr {
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
   }
+  .basmala {
+    color: var(--gold);
+  }
   .tab-btn.active {
     background: var(--primary);
   }
@@ -1015,7 +1018,7 @@ hr {
     font-size: 0.9rem;
   }
   .product-card .card-title-dv {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
   .product-card .card-price {
     font-size: 0.9rem;
