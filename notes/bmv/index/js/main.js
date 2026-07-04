@@ -73,17 +73,50 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
-// ----- Expandable Sections -----
+// ----- Expandable Sections (loads content from markdown files) -----
 function toggleExpand(id) {
   const el = document.getElementById(id);
   const btn = el.previousElementSibling;
   if (el.classList.contains("open")) {
     el.classList.remove("open");
     btn.setAttribute("aria-expanded", "false");
-  } else {
+    return;
+  }
+  // If content already loaded, just open
+  if (el.dataset.loaded) {
     el.classList.add("open");
     btn.setAttribute("aria-expanded", "true");
+    return;
   }
+  // Fetch markdown content
+  const file = id.replace("Info", "");
+  fetch("info/" + file + ".md")
+    .then(function (res) {
+      if (!res.ok) throw new Error("Failed to load");
+      return res.text();
+    })
+    .then(function (text) {
+      // Convert plain text to paragraphs
+      var html = text
+        .split("\n\n")
+        .filter(function (p) {
+          return p.trim().length > 0;
+        })
+        .map(function (p) {
+          return "<p>" + p.trim().replace(/\n/g, "<br>") + "</p>";
+        })
+        .join("\n");
+      el.innerHTML = html;
+      el.dataset.loaded = "1";
+      el.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+    })
+    .catch(function () {
+      el.innerHTML = "<p>Content could not be loaded.</p>";
+      el.dataset.loaded = "1";
+      el.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
+    });
 }
 
 // ----- Aqiqah Date Calculator -----
