@@ -11,10 +11,8 @@
 ```
 bmv/index/
 ├── index.html              # Main landing page
-├── css/
-│   └── style.css           # Core stylesheet (modular)
-├── js/
-│   └── main.js             # JavaScript (carousel, tabs, modal, calculator)
+├── style.css               # Core stylesheet (modular)
+├── main.js                 # JavaScript (carousel, tabs, modal, calculator)
 ├── font/
 │   ├── merged-300.woff2    # Custom font (WOFF2)
 │   └── merged-300.woff     # Custom font (WOFF)

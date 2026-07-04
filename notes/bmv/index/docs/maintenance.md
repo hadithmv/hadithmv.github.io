@@ -5,8 +5,8 @@
 ```
 bmv/index/
 ├── index.html              # Main page — edit for content changes
-├── css/style.css           # Core stylesheet — edit for style changes
-├── js/main.js              # JavaScript — edit for behavior changes
+├── style.css               # Core stylesheet — edit for style changes
+├── main.js                 # JavaScript — edit for behavior changes
 ├── img/                    # Product/asset images (WebP, 500px)
 ├── font/                   # Custom font files (WOFF2, WOFF)
 ├── info/                   # Expandable section content (markdown)
@@ -203,11 +203,11 @@ To add a new testimonial:
 2. Replace files in `font/`:
    - `font/merged-300.woff2`
    - `font/merged-300.woff`
-3. Update the `@font-face` declaration in `css/style.css` if filenames change
+3. Update the `@font-face` declaration in `style.css` if filenames change
 
 ## How to Edit Styles
 
-All styles are in `css/style.css`. The file is organized with clear section comments:
+All styles are in `style.css`. The file is organized with clear section comments:
 
 - `:root` — CSS custom properties (colors, shadows, transitions)
 - Typography — headings, paragraphs, links
@@ -217,7 +217,7 @@ All styles are in `css/style.css`. The file is organized with clear section comm
 
 ## How to Edit JavaScript
 
-All JavaScript is in `js/main.js`. Key functions:
+All JavaScript is in `main.js`. Key functions:
 
 | Function                   | Purpose                                     |
 | -------------------------- | ------------------------------------------- |

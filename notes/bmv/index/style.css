@@ -3,9 +3,9 @@
    ============================================================ */
 
 :root {
-  --primary: #0d6e6e;
-  --primary-dark: #0a5555;
-  --primary-light: #e8f5f5;
+  --primary: #1565c0;
+  --primary-dark: #0d47a1;
+  --primary-light: #e3f2fd;
   --accent: #c44536;
   --accent-hover: #a83a2e;
   --gold: #d4a843;
@@ -42,7 +42,7 @@ html {
   -webkit-font-smoothing: antialiased;
   text-align: left;
   direction: ltr;
-  font-size: 110%;
+  font-size: 118%;
   scroll-behavior: smooth;
   overflow-wrap: anywhere;
   overflow-y: scroll;
@@ -75,7 +75,7 @@ h4 {
 }
 p {
   font-size: 1rem;
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
 a {
@@ -280,7 +280,7 @@ hr {
   border: none;
   background: transparent;
   font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-light);
   cursor: pointer;
@@ -447,19 +447,19 @@ hr {
   background: #fff;
 }
 .product-card .card-body {
-  padding: 1.2rem;
+  padding: 0.7rem;
   text-align: center;
 }
 .product-card .card-title {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--text);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
 }
 .product-card .card-title-dv {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--text-light);
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.5rem;
 }
 .product-card .card-price {
   display: inline-block;
@@ -467,10 +467,9 @@ hr {
   color: #fff;
   border: none;
   border-radius: 50px;
-  padding: 0.7rem 2rem;
+  padding: 0.4rem 1.2rem;
   font-family: "Quicksand", sans-serif;
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
   transition:
     transform var(--transition),
@@ -547,14 +546,14 @@ hr {
 }
 .steps-box li {
   padding: 0.15rem 0;
-  line-height: 1.4;
-  font-size: 0.85rem;
+  line-height: 1.5;
+  font-size: 0.95rem;
 }
 .steps-box .calc-hint {
   display: inline-block;
   margin-top: 0.75rem;
   padding: 0.4rem 0.9rem;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--text-light);
   background: var(--bg-card);
   border-radius: var(--radius-sm);
@@ -799,7 +798,7 @@ hr {
   text-align: center !important;
   padding: 2.5rem 1.5rem;
   margin-top: 3rem;
-  background: #0a5555;
+  background: #0d47a1;
   color: #fff;
 }
 .footer * {
@@ -839,7 +838,7 @@ hr {
 /* ===== SCROLL TO TOP ===== */
 .scroll-top {
   position: fixed;
-  bottom: 80px;
+  bottom: 100px;
   right: 24px;
   width: 44px;
   height: 44px;
@@ -876,8 +875,8 @@ hr {
     --bg-card: #1a2533;
     --text: #e0e0e0;
     --text-light: #8899aa;
-    --primary-dark: #4a9e9e;
-    --primary-light: #1a3a3a;
+    --primary-dark: #5c9ce6;
+    --primary-light: #1a2a4a;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
   }
@@ -888,7 +887,7 @@ hr {
     color: var(--text);
   }
   .steps-box {
-    background: #1a3a3a;
+    background: #1a2a4a;
     border-color: var(--primary);
   }
   .steps-box h3 {
@@ -902,7 +901,7 @@ hr {
     background: #1a2533 !important;
   }
   .expand-toggle {
-    background: #1a3a3a;
+    background: #1a2a4a;
     border-color: var(--primary);
     color: var(--text);
   }
@@ -920,7 +919,7 @@ hr {
     background: #1a2533;
   }
   .contact-item:hover {
-    background: #1a3a3a;
+    background: #1a2a4a;
   }
   .calc-row input,
   .calc-row select {
@@ -929,16 +928,18 @@ hr {
     border-color: #2a3a4a;
   }
   a {
-    color: #5ab4b4;
+    color: #6ab4f4;
   }
   .testimonial-card::after {
-    color: #5ab4b4;
+    color: #6ab4f4;
     opacity: 0.6;
   }
   .testimonial-card .author {
-    color: #5ab4b4;
+    color: #6ab4f4;
   }
-  /* Footer keeps its hardcoded #0a5555 from light mode */
+  .footer {
+    background: #0a1a3a;
+  }
   .carousel-btn {
     background: rgba(0, 0, 0, 0.65);
     color: #fff;
@@ -1004,11 +1005,21 @@ hr {
     display: block;
   }
   .tab-btn {
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     padding: 0.8rem 0.5rem;
   }
   .product-card .card-body {
-    padding: 1rem;
+    padding: 0.6rem;
+  }
+  .product-card .card-title {
+    font-size: 0.9rem;
+  }
+  .product-card .card-title-dv {
+    font-size: 0.9rem;
+  }
+  .product-card .card-price {
+    font-size: 0.9rem;
+    padding: 0.35rem 1rem;
   }
   .calculator-card {
     padding: 1.2rem;

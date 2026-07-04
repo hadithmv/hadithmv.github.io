@@ -6,22 +6,22 @@ The BirruMv website is a **single-page application (SPA)** built with vanilla HT
 
 ### File Roles
 
-| File                    | Purpose                                                                                      |
-| ----------------------- | -------------------------------------------------------------------------------------------- |
-| `index.html`            | Main entry point — contains all semantic HTML structure                                      |
-| `css/style.css`         | Core stylesheet (~1016 lines) — layout, typography, dark mode, carousel, tabs, modal, footer |
-| `js/main.js`            | JavaScript — carousels, tab system, modal, expandable sections, calculator, scroll-to-top    |
-| `font/merged-300.woff2` | Custom merged font (WOFF2 format) — combines Quicksand + Faruma for bilingual support        |
-| `font/merged-300.woff`  | Custom merged font (WOFF format) — fallback for older browsers                               |
-| `img/*.webp`            | Optimized WebP images (500px width)                                                          |
-| `info/aqiqah.md`        | Aqiqah information content (loaded dynamically)                                              |
-| `info/udhiya.md`        | Udhiya information content (loaded dynamically)                                              |
+| File                    | Purpose                                                                                   |
+| ----------------------- | ----------------------------------------------------------------------------------------- |
+| `index.html`            | Main entry point — contains all semantic HTML structure                                   |
+| `style.css`             | Core stylesheet — layout, typography, dark mode, carousel, tabs, modal, footer            |
+| `main.js`               | JavaScript — carousels, tab system, modal, expandable sections, calculator, scroll-to-top |
+| `font/merged-300.woff2` | Custom merged font (WOFF2 format) — combines Quicksand + Faruma for bilingual support     |
+| `font/merged-300.woff`  | Custom merged font (WOFF format) — fallback for older browsers                            |
+| `img/*.webp`            | Optimized WebP images (500px width)                                                       |
+| `info/aqiqah.md`        | Aqiqah information content (loaded dynamically)                                           |
+| `info/udhiya.md`        | Udhiya information content (loaded dynamically)                                           |
 
 ### Key Design Decisions
 
 1. **No Framework**: The site uses zero dependencies. No React, Vue, or jQuery. This keeps the page lightweight and fast.
 
-2. **Modular Structure**: HTML, CSS, and JavaScript are split into separate files (`index.html`, `css/style.css`, `js/main.js`) for maintainability.
+2. **Modular Structure**: HTML, CSS, and JavaScript are split into separate files (`index.html`, `style.css`, `main.js`) for maintainability.
 
 3. **Bilingual via CSS Classes**: English content uses `.eng` class (LTR, Quicksand font). Dhivehi content uses `.dv` class (RTL, mergedFont/Faruma). Both languages coexist on the same page.
 
@@ -72,7 +72,7 @@ User selects birth date in calculator
 
 ### CSS Organization
 
-The stylesheet (`css/style.css`) follows a modular structure with clear section comments:
+The stylesheet (`style.css`) follows a modular structure with clear section comments:
 
 ```
 Variables          → :root custom properties
