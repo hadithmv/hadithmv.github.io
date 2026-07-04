@@ -160,7 +160,8 @@
           aria-controls="tabTwo"
           data-tab="tabTwo"
         >
-          Wells — ފެންވަޅު
+          <span class="tab-label">Wells</span><span class="tab-sep"> — </span
+          ><span class="tab-label-dv">ފެންވަޅު</span>
         </button>
         <button
           class="tab-btn"
@@ -170,7 +171,9 @@
           data-tab="tabThree"
           id="defaultOpen"
         >
-          Aqiqa/Udhiya — އަގީގާ/އުޟްހިޔާ
+          <span class="tab-label">Aqiqa/Udhiya</span
+          ><span class="tab-sep"> — </span
+          ><span class="tab-label-dv">އަގީގާ/އުޟްހިޔާ</span>
         </button>
       </div>
 
@@ -234,27 +237,47 @@
 
         <div class="product-grid">
           <div class="product-card">
-            <div class="image-grid">
-              <img
-                src="img/birrumv-well-art-500px.webp"
-                alt="Well construction artwork"
-                loading="lazy"
-              />
-              <img
-                src="img/well-nepal-8-500px.webp"
-                alt="Nepal well with hand pump"
-                loading="lazy"
-              />
-              <img
-                src="img/well-nepal-9-500px.webp"
-                alt="Nepal well construction"
-                loading="lazy"
-              />
-              <img
-                src="img/well-nepal-500px.webp"
-                alt="Completed well in Nepal"
-                loading="lazy"
-              />
+            <div class="carousel" data-carousel="wellStandard">
+              <div class="carousel-track">
+                <img
+                  src="img/birrumv-well-art-500px.webp"
+                  alt="Well construction artwork"
+                  loading="lazy"
+                />
+                <img
+                  src="img/well-nepal-8-500px.webp"
+                  alt="Nepal well with hand pump"
+                  loading="lazy"
+                />
+                <img
+                  src="img/well-nepal-9-500px.webp"
+                  alt="Nepal well construction"
+                  loading="lazy"
+                />
+                <img
+                  src="img/well-nepal-500px.webp"
+                  alt="Completed well in Nepal"
+                  loading="lazy"
+                />
+              </div>
+              <button
+                class="carousel-btn carousel-prev"
+                aria-label="Previous image"
+              >
+                ‹
+              </button>
+              <button
+                class="carousel-btn carousel-next"
+                aria-label="Next image"
+              >
+                ›
+              </button>
+              <div class="carousel-dots">
+                <span class="active"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
             </div>
             <div class="card-body">
               <div class="card-title">Nepal Standard Hand Pump Well</div>
@@ -281,17 +304,35 @@
           </div>
 
           <div class="product-card">
-            <div class="image-grid">
-              <img
-                src="img/well-nepal-7-500px.webp"
-                alt="Nepal well with electric pump"
-                loading="lazy"
-              />
-              <img
-                src="img/well-nepal-10-500px.webp"
-                alt="Nepal well with tap system"
-                loading="lazy"
-              />
+            <div class="carousel" data-carousel="wellElectric">
+              <div class="carousel-track">
+                <img
+                  src="img/well-nepal-7-500px.webp"
+                  alt="Nepal well with electric pump"
+                  loading="lazy"
+                />
+                <img
+                  src="img/well-nepal-10-500px.webp"
+                  alt="Nepal well with tap system"
+                  loading="lazy"
+                />
+              </div>
+              <button
+                class="carousel-btn carousel-prev"
+                aria-label="Previous image"
+              >
+                ‹
+              </button>
+              <button
+                class="carousel-btn carousel-next"
+                aria-label="Next image"
+              >
+                ›
+              </button>
+              <div class="carousel-dots">
+                <span class="active"></span>
+                <span></span>
+              </div>
             </div>
             <div class="card-body">
               <div class="card-title">Nepal Electric Motor Pump Well</div>
@@ -369,6 +410,7 @@
         </div>
 
         <div
+          class="steps-grid"
           style="
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -376,16 +418,16 @@
             margin-bottom: 1.5rem;
           "
         >
-          <div>
-            <h3 style="margin-bottom: 0.5rem">Steps to order:</h3>
-            <ol style="padding-left: 1.2rem; line-height: 1.8">
+          <div class="steps-box">
+            <h3>Steps to order:</h3>
+            <ol>
               <li>Take a look at these offers & choose the one you want.</li>
               <li>Click on the price or click on 'Order now'.</li>
               <li>
                 You will then be directed to chat with us to confirm your order.
               </li>
             </ol>
-            <p style="font-size: 0.9rem; margin-top: 0.5rem">
+            <span class="calc-hint">
               * Use our
               <a
                 href="#"
@@ -396,11 +438,11 @@
                 >date calculator</a
               >
               if you don't know the Aqiqah date.
-            </p>
+            </span>
           </div>
-          <div class="dv">
-            <h3 style="margin-bottom: 0.5rem">އޯޑަރު ކުރާނެ ގޮތް:</h3>
-            <ol style="padding-right: 1.2rem; line-height: 1.8">
+          <div class="steps-box dv dv-steps">
+            <h3>އޯޑަރު ކުރާނެ ގޮތް:</h3>
+            <ol>
               <li>އޮފާތައް ބައްލަވާފަ ބޭނުންވާ އައިޓަމެއް ޚިޔާރު ކުރައްވާ.</li>
               <li>
                 އަގަށް ފިތާލައްވާ، ނޫނީ 'މިހާރު އޯޑަރ ކުރޭ' އަށް ފިތާލައްވާ.
@@ -409,8 +451,8 @@
                 ދެން އޯޑަރ ފޮނުއްވުމަށްޓަކައި އަޅުނގަޑުމެންނާ ޗެޓް ކުރެވޭނެ.
               </li>
             </ol>
-            <p style="font-size: 0.9rem; margin-top: 0.5rem">
-              * އަޅުގަނޑުމެންގެ
+            <span class="calc-hint">
+              * އަގީގާގެ ތާރީޚު އިނގިނުލައްވާ ނަމަ، އަޅުގަނޑުމެންގެ
               <a
                 href="#"
                 onclick="
@@ -420,7 +462,7 @@
                 >ތާރީޚު ކެލްކިއުލޭޓަރ</a
               >
               ބޭނުން ކުރެވިދާނެ.
-            </p>
+            </span>
           </div>
         </div>
 
@@ -428,27 +470,47 @@
 
         <div class="product-grid">
           <div class="product-card">
-            <div class="image-grid">
-              <img
-                src="img/birrumv-aqiqa-art-500px.webp"
-                alt="Goat for Aqiqah"
-                loading="lazy"
-              />
-              <img
-                src="img/goat-africa-7-500px.webp"
-                alt="African goat"
-                loading="lazy"
-              />
-              <img
-                src="img/goat-africa-5-500px.webp"
-                alt="African goat herd"
-                loading="lazy"
-              />
-              <img
-                src="img/goat-africa-6-500px.webp"
-                alt="African goat close-up"
-                loading="lazy"
-              />
+            <div class="carousel" data-carousel="goat">
+              <div class="carousel-track">
+                <img
+                  src="img/birrumv-aqiqa-art-500px.webp"
+                  alt="Goat for Aqiqah"
+                  loading="lazy"
+                />
+                <img
+                  src="img/goat-africa-7-500px.webp"
+                  alt="African goat"
+                  loading="lazy"
+                />
+                <img
+                  src="img/goat-africa-5-500px.webp"
+                  alt="African goat herd"
+                  loading="lazy"
+                />
+                <img
+                  src="img/goat-africa-6-500px.webp"
+                  alt="African goat close-up"
+                  loading="lazy"
+                />
+              </div>
+              <button
+                class="carousel-btn carousel-prev"
+                aria-label="Previous image"
+              >
+                ‹
+              </button>
+              <button
+                class="carousel-btn carousel-next"
+                aria-label="Next image"
+              >
+                ›
+              </button>
+              <div class="carousel-dots">
+                <span class="active"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
             </div>
             <div class="card-body">
               <div class="card-title">Africa Goat</div>
@@ -464,17 +526,35 @@
           </div>
 
           <div class="product-card">
-            <div class="image-grid">
-              <img
-                src="img/sheep-africa-6-500px.webp"
-                alt="African sheep"
-                loading="lazy"
-              />
-              <img
-                src="img/sheep-africa-4-500px.webp"
-                alt="African sheep flock"
-                loading="lazy"
-              />
+            <div class="carousel" data-carousel="sheep">
+              <div class="carousel-track">
+                <img
+                  src="img/sheep-africa-6-500px.webp"
+                  alt="African sheep"
+                  loading="lazy"
+                />
+                <img
+                  src="img/sheep-africa-4-500px.webp"
+                  alt="African sheep flock"
+                  loading="lazy"
+                />
+              </div>
+              <button
+                class="carousel-btn carousel-prev"
+                aria-label="Previous image"
+              >
+                ‹
+              </button>
+              <button
+                class="carousel-btn carousel-next"
+                aria-label="Next image"
+              >
+                ›
+              </button>
+              <div class="carousel-dots">
+                <span class="active"></span>
+                <span></span>
+              </div>
             </div>
             <div class="card-body">
               <div class="card-title">Africa Sheep</div>
@@ -490,12 +570,17 @@
           </div>
 
           <div class="product-card">
-            <div class="image-grid">
-              <img
-                src="img/cow-africa-500px.webp"
-                alt="Cow for Udhiya"
-                loading="lazy"
-              />
+            <div class="carousel" data-carousel="cow">
+              <div class="carousel-track">
+                <img
+                  src="img/cow-africa-500px.webp"
+                  alt="Cow for Udhiya"
+                  loading="lazy"
+                />
+              </div>
+              <div class="carousel-dots">
+                <span class="active"></span>
+              </div>
             </div>
             <div class="card-body">
               <div class="card-title">Cow</div>
@@ -692,7 +777,7 @@
               "I was happy to get photos & video of the well as it progressed &
               to see that it was completed on time."
             </p>
-            <span class="author">— S. Abdul Rahman.</span>
+            <span class="author">— S. Abdul Rahman</span>
           </div>
           <div class="testimonial-card">
             <span class="stars">⭐⭐⭐⭐⭐</span>
@@ -701,7 +786,7 @@
               Khair for making this sadaqa jariya possible for us.. It was
               really fast and reliable."
             </p>
-            <span class="author">— S. Hassan.</span>
+            <span class="author">— S. Hassan</span>
           </div>
         </div>
       </section>
@@ -818,7 +903,8 @@
         <div class="footer-divider"></div>
         <p class="footer-copy">
           Copyright &copy; <span id="copyRyear">2022</span> BirruMv
-          <span class="footer-break"><br /></span> — All Rights Reserved
+          <span class="footer-break"><br /></span
+          ><span class="footer-dash"> — </span>All Rights Reserved
         </p>
       </div>
     </footer>

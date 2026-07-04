@@ -2,6 +2,85 @@
    BirruMv — Main JavaScript
    ============================================================ */
 
+// ----- Product Card Carousels -----
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".carousel").forEach(function (carousel) {
+    var track = carousel.querySelector(".carousel-track");
+    var prevBtn = carousel.querySelector(".carousel-prev");
+    var nextBtn = carousel.querySelector(".carousel-next");
+    var dots = carousel.querySelectorAll(".carousel-dots span");
+    var images = track.querySelectorAll("img");
+    var index = 0;
+    var autoTimer = null;
+
+    // Initialize: first image visible, others hidden
+    images.forEach(function (img, i) {
+      if (i === 0) img.classList.add("active");
+    });
+
+    function goTo(i) {
+      if (i < 0) i = images.length - 1;
+      if (i >= images.length) i = 0;
+      if (i === index) return;
+      // Remove active from current, add to target
+      images[index].classList.remove("active");
+      index = i;
+      images[index].classList.add("active");
+      dots.forEach(function (d, j) {
+        d.classList.toggle("active", j === index);
+      });
+    }
+
+    function next() {
+      goTo(index + 1);
+    }
+    function prev() {
+      goTo(index - 1);
+    }
+
+    function startAuto() {
+      stopAuto();
+      autoTimer = setInterval(next, 3000);
+    }
+
+    function stopAuto() {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    }
+
+    if (prevBtn)
+      prevBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        prev();
+        startAuto();
+      });
+
+    if (nextBtn)
+      nextBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        next();
+        startAuto();
+      });
+
+    dots.forEach(function (dot, i) {
+      dot.addEventListener("click", function (e) {
+        e.stopPropagation();
+        goTo(i);
+        startAuto();
+      });
+    });
+
+    carousel.addEventListener("mouseenter", stopAuto);
+    carousel.addEventListener("mouseleave", startAuto);
+
+    if (images.length > 1) {
+      startAuto();
+    }
+  });
+});
+
 // ----- Tab System -----
 document.addEventListener("DOMContentLoaded", function () {
   const tabBtns = document.querySelectorAll(".tab-btn");
