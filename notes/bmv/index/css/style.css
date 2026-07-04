@@ -262,7 +262,7 @@ hr {
   background: var(--bg-card);
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: var(--shadow);
+  border: 2px solid var(--primary);
   margin-bottom: 2rem;
   direction: ltr;
 }
@@ -279,27 +279,13 @@ hr {
   transition: all var(--transition);
   position: relative;
 }
-.tab-btn::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 20%;
-  right: 20%;
-  height: 3px;
-  background: var(--primary);
-  border-radius: 3px 3px 0 0;
-  transform: scaleX(0);
-  transition: transform var(--transition);
-}
 .tab-btn:hover {
-  color: var(--text);
-}
-.tab-btn.active {
-  color: var(--primary);
+  color: var(--primary-dark);
   background: var(--primary-light);
 }
-.tab-btn.active::after {
-  transform: scaleX(1);
+.tab-btn.active {
+  color: #fff;
+  background: var(--primary);
 }
 .tab-content {
   display: none;
