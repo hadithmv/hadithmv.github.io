@@ -156,6 +156,7 @@ hr {
 }
 .basmala {
   font-size: 1.4rem !important;
+  font-weight: 400;
   font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
   color: var(--primary);
   margin-bottom: 1.5rem;
