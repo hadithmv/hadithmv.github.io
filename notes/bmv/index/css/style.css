@@ -241,6 +241,7 @@ hr {
 .tab-hint {
   text-align: center !important;
   margin: 1.5rem 0 1rem;
+  padding-right: 0.3em;
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--text);
@@ -793,6 +794,11 @@ hr {
 }
 
 /* ===== RESPONSIVE ===== */
+@media (min-width: 600px) {
+  .footer-break {
+    display: none;
+  }
+}
 @media (max-width: 599px) {
   .wrapper {
     padding: 0 1rem;
