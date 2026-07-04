@@ -176,6 +176,15 @@ hr {
   font-weight: 500;
   margin-bottom: 1.2rem;
 }
+.tagline-brand {
+  white-space: nowrap;
+}
+.tagline-sep {
+  white-space: nowrap;
+}
+.tagline-desc {
+  white-space: nowrap;
+}
 
 .social-bar {
   display: flex;
@@ -830,7 +839,7 @@ hr {
 /* ===== SCROLL TO TOP ===== */
 .scroll-top {
   position: fixed;
-  bottom: 102px;
+  bottom: 80px;
   right: 24px;
   width: 44px;
   height: 44px;
@@ -969,7 +978,7 @@ hr {
   }
   .tab-label-dv {
     display: block;
-    font-size: 0.8rem;
+    font-size: 0.95rem;
     opacity: 0.85;
   }
   .wrapper {
@@ -987,6 +996,12 @@ hr {
   }
   .tagline {
     font-size: 1.1rem;
+  }
+  .tagline-sep {
+    display: none;
+  }
+  .tagline-desc {
+    display: block;
   }
   .tab-btn {
     font-size: 0.85rem;
