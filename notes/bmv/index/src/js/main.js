@@ -3,62 +3,95 @@
    ============================================================ */
 
 // ----- Tab System -----
-let initialClickDone = false;
-
-function openTab(event, tabId) {
-  const tabContents = document.getElementsByClassName("tabcontent");
-  for (let i = 0; i < tabContents.length; i++) {
-    tabContents[i].style.display = "none";
-  }
-
-  const tabLinks = document.getElementsByClassName("tablinks");
-  for (let i = 0; i < tabLinks.length; i++) {
-    tabLinks[i].className = tabLinks[i].className.replace(" active", "");
-  }
-
-  document.getElementById(tabId).style.display = "block";
-  event.currentTarget.className += " active";
-
-  if (initialClickDone) {
-    afterClickFunction();
-  }
-}
-
-function afterClickFunction() {
-  console.log("Tab opened successfully!");
-  window.scrollTo({ top: 650, behavior: "smooth" });
-}
-
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("defaultOpen").click();
-  initialClickDone = true;
+  const tabBtns = document.querySelectorAll(".tab-btn");
+  const tabContents = document.querySelectorAll(".tab-content");
+
+  function openTab(tabId) {
+    // Hide all tab contents
+    tabContents.forEach(function (content) {
+      content.classList.remove("active");
+    });
+
+    // Deactivate all tab buttons
+    tabBtns.forEach(function (btn) {
+      btn.classList.remove("active");
+      btn.setAttribute("aria-selected", "false");
+    });
+
+    // Activate the selected tab
+    const selectedContent = document.getElementById(tabId);
+    if (selectedContent) {
+      selectedContent.classList.add("active");
+    }
+
+    const selectedBtn = document.querySelector('[data-tab="' + tabId + '"]');
+    if (selectedBtn) {
+      selectedBtn.classList.add("active");
+      selectedBtn.setAttribute("aria-selected", "true");
+    }
+  }
+
+  // Add click handlers to tab buttons
+  tabBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const tabId = this.getAttribute("data-tab");
+      openTab(tabId);
+      // Smooth scroll to tabs
+      setTimeout(function () {
+        document.querySelector(".tab-nav").scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 100);
+    });
+  });
+
+  // Open default tab
+  const defaultBtn = document.getElementById("defaultOpen");
+  if (defaultBtn) {
+    defaultBtn.click();
+  } else if (tabBtns.length > 0) {
+    tabBtns[0].click();
+  }
 });
 
 // ----- Modal -----
 const modal = document.getElementById("myModal");
-const span = document.getElementsByClassName("close")[0];
 
 function openModal() {
-  modal.style.display = "block";
+  modal.classList.add("open");
 }
 
-span.onclick = function () {
-  modal.style.display = "none";
-};
+function closeModal() {
+  modal.classList.remove("open");
+}
 
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
+// Close modal on overlay click
+modal.addEventListener("click", function (event) {
+  if (event.target === modal) {
+    closeModal();
   }
-};
+});
+
+// Close modal on Escape key
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape" && modal.classList.contains("open")) {
+    closeModal();
+  }
+});
 
 // ----- Expandable Sections -----
-function showhide() {
-  document.getElementById("hiddenPost").classList.toggle("showOnClick");
-}
-
-function showhide2() {
-  document.getElementById("hiddenPost2").classList.toggle("showOnClick2");
+function toggleExpand(id) {
+  const el = document.getElementById(id);
+  const btn = el.previousElementSibling;
+  if (el.classList.contains("open")) {
+    el.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
+  } else {
+    el.classList.add("open");
+    btn.setAttribute("aria-expanded", "true");
+  }
 }
 
 // ----- Aqiqah Date Calculator -----
@@ -67,11 +100,9 @@ function setSecondDate() {
   const date = new Date(document.getElementById("date1").value);
 
   date.setDate(date.getDate() + parseInt(days));
-  document.getElementById("date2").valueAsDate = date;
   document.getElementById("b4Maghrib").innerHTML = date.toDateString();
 
   date.setDate(date.getDate() + 1);
-  document.getElementById("date3").valueAsDate = date;
   document.getElementById("afterMaghrib").innerHTML = date.toDateString();
 }
 
@@ -84,18 +115,35 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+// ----- Jump to Calculator -----
+function jumpCalc() {
+  document.getElementById("jumpCalcHere").scrollIntoView({
+    behavior: "smooth",
+  });
+}
+
 // ----- Scroll to Top Button -----
-const toTop = document.querySelector(".toTop");
-window.addEventListener("scroll", function () {
-  if (window.pageYOffset > 100) {
-    toTop.classList.add("active_toTop");
-  } else {
-    toTop.classList.remove("active_toTop");
-  }
-});
+const scrollTopBtn = document.getElementById("scrollTop");
+
+if (scrollTopBtn) {
+  window.addEventListener("scroll", function () {
+    if (window.pageYOffset > 200) {
+      scrollTopBtn.classList.add("visible");
+    } else {
+      scrollTopBtn.classList.remove("visible");
+    }
+  });
+
+  scrollTopBtn.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
 
 // ----- Dynamic Copyright Year -----
-document.querySelector("#copyRyear").innerText = new Date().getFullYear();
+const copyYear = document.getElementById("copyRyear");
+if (copyYear) {
+  copyYear.innerText = new Date().getFullYear();
+}
 
 // ----- Google Analytics -----
 window.dataLayer = window.dataLayer || [];

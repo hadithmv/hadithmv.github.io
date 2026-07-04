@@ -118,7 +118,7 @@ hr {
 
 /* ----- Utility ----- */
 .mid {
-  text-align: center;
+  text-align: center !important;
 }
 .hidden {
   display: none !important;
@@ -144,9 +144,13 @@ hr {
    HEADER / HERO
    ============================================================ */
 .hero {
-  text-align: center;
-  padding: 2rem 1rem 1.5rem;
+  text-align: center !important;
+  padding: 1.5rem 1rem 1.5rem;
   position: relative;
+}
+
+.hero * {
+  text-align: center !important;
 }
 
 .hero::after {
@@ -166,17 +170,17 @@ hr {
 }
 
 .basmala {
-  font-size: 1.8rem !important;
+  font-size: 1.4rem !important;
   font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
   color: var(--primary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   line-height: 1.4;
 }
 
 .logo {
-  width: 140px;
-  height: 140px;
-  margin: 0 auto 1rem;
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 0.75rem;
   transition: transform var(--transition);
 }
 
@@ -265,7 +269,7 @@ hr {
    TAB SYSTEM
    ============================================================ */
 .tab-hint {
-  text-align: center;
+  text-align: center !important;
   margin: 1.5rem 0 1rem;
   font-size: 0.9rem;
   color: var(--text-light);
@@ -288,7 +292,7 @@ hr {
   background: transparent;
   font-family: "mergedFont", "Quicksand", sans-serif, "faruma";
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--text-light);
   cursor: pointer;
   transition: all var(--transition);
@@ -332,7 +336,7 @@ hr {
    SECTION TITLES
    ============================================================ */
 .section-title {
-  text-align: center;
+  text-align: center !important;
   margin-bottom: 1.5rem;
 }
 
@@ -345,7 +349,7 @@ hr {
 .section-title h2::after {
   content: "";
   display: block;
-  width: 60px;
+  width: 100%;
   height: 3px;
   background: var(--gold);
   margin: 0.5rem auto 0;
@@ -763,10 +767,14 @@ hr {
    FOOTER
    ============================================================ */
 .footer {
-  text-align: center;
+  text-align: center !important;
   padding: 2rem 1rem;
   margin-top: 3rem;
   border-top: 1px solid #e0e0e0;
+}
+
+.footer * {
+  text-align: center !important;
 }
 
 .footer-links {
@@ -801,9 +809,9 @@ hr {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--bg-card);
-  color: var(--primary);
-  border: 2px solid var(--primary);
+  background: var(--accent);
+  color: #fff;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -812,8 +820,8 @@ hr {
   pointer-events: none;
   transition: all var(--transition);
   z-index: 999;
-  font-size: 1.2rem;
-  box-shadow: var(--shadow);
+  font-size: 1.3rem;
+  box-shadow: 0 4px 12px rgba(196, 69, 54, 0.3);
 }
 
 .scroll-top.visible {
@@ -822,9 +830,8 @@ hr {
 }
 
 .scroll-top:hover {
-  background: var(--primary);
-  color: #fff;
   transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(196, 69, 54, 0.4);
 }
 
 /* ============================================================
@@ -844,11 +851,9 @@ hr {
   .tab-btn.active {
     background: #1a3a3a;
   }
-
   .expand-toggle {
     border-color: var(--primary);
   }
-
   .expand-content li {
     border-color: #2a3a4a;
   }
@@ -870,10 +875,8 @@ hr {
   .footer {
     border-color: #2a3a4a;
   }
-
   .scroll-top {
-    background: var(--bg-card);
-    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(196, 69, 54, 0.2);
   }
 }
 
@@ -885,7 +888,7 @@ hr {
     padding: 0 1rem;
   }
   .basmala {
-    font-size: 1.4rem !important;
+    font-size: 1.2rem !important;
   }
   .logo {
     width: 100px;
