@@ -321,7 +321,7 @@ hr {
 }
 .info-list li {
   padding: 0.6rem 0;
-  padding-left: 1.5rem;
+  padding-left: 2.2rem;
   position: relative;
   line-height: 1.6;
 }
@@ -330,7 +330,7 @@ hr {
   color: var(--primary);
   font-weight: bold;
   position: absolute;
-  left: 0;
+  left: 0.5rem;
 }
 
 /* ===== PRODUCT CARDS ===== */
