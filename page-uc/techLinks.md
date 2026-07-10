@@ -523,6 +523,13 @@ ShareX
   <!-- !! -- >
 
 
+- anydesk
+  - settings, unlock
+    - security, access
+      - unattended access
+        - set password
+        - allow other devices to save login: off
+
 - 7zip manager
   - default app to open archives
   - view, 2 panels
