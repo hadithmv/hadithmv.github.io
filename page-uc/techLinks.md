@@ -523,13 +523,6 @@ ShareX
   <!-- !! -- >
 
 
-- anydesk
-  - settings, unlock
-    - security, access
-      - unattended access
-        - set password
-        - allow other devices to save login: off
-
 - 7zip manager
   - default app to open archives
   - view, 2 panels
@@ -537,6 +530,13 @@ ShareX
       - integrate to shell context menu
       - cascaded context menu
       - icons in context menu: on
+
+- anydesk
+  - settings, unlock
+    - security, access
+      - unattended access
+        - set password
+        - allow other devices to save login: off
 
 - advanced systemcare
   - when running a care scan, set to auto fix
@@ -584,7 +584,7 @@ ShareX
   - rust
 
 - snipping tool
-  - open powertoys,
+  - open powertoys
     - input and output
       - keyboard manager
         - on
@@ -597,6 +597,18 @@ ShareX
             - hit a random key to give it some input at first
             - then click the dropdown on that shown key and choose: print screen
             - ok
+
+- sharex
+  - settings
+    - task settings
+      - screen recording options
+        - install recorder devices (if havent already, if that has issues, install sharex from ms store instead)
+        - test its working
+      - screen recorder
+        - screen recording fps: 60
+        - back in screen recording options,
+          - in 'additional command line arguments:' box
+            - add '-threads 1', close
 
   <!-- !! ? -->
 
