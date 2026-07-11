@@ -2,6 +2,16 @@
    Book Viewer — Shared Styles
    ============================================================ */
 
+/* ---- Fonts ---- */
+@font-face {
+  font-family: "Hadithmv";
+  src: url("../font/merged-300.woff2") format("woff2"),
+       url("../font/merged-300.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ---- Page header ---- */
 #pageHeader {
   max-width: 800px;
@@ -12,11 +22,13 @@
 
 #pageHeader h1 {
   margin: 0 0 10px 0;
+  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", serif;
 }
 
 #pageHeader p {
   margin: 0;
   color: #666;
+  font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
 }
 
 /* ---- Shared states ---- */
@@ -97,7 +109,7 @@
   text-align: right;
   font-weight: 700;
   margin-bottom: 8px;
-  font-family: "Traditional Arabic", "Scheherazade New", serif;
+  font-family: "Hadithmv", "Traditional Arabic", "Scheherazade New", serif;
 }
 
 .book-card .title-dv {
@@ -106,7 +118,7 @@
   direction: rtl;
   text-align: right;
   margin-bottom: 12px;
-  font-family: "Faruma", "MV Boli", sans-serif;
+  font-family: "Hadithmv", "Faruma", "MV Boli", sans-serif;
 }
 
 .book-card .title-en {
@@ -153,9 +165,10 @@
   margin: 0 auto 60px;
   padding: 0 20px;
   font-family:
-    "Traditional Arabic", "Scheherazade New", "Noto Naskh Arabic",
+    "Hadithmv",
+    "Traditional Arabic", "Scheherazade New",
     "Faruma", "MV Boli",
-    system-ui, sans-serif;
+    serif;
 }
 
 /* ---- Navigation bar ---- */
@@ -229,8 +242,6 @@
   margin-bottom: 20px;
   letter-spacing: 0.025em;
   font-family: system-ui, -apple-system, sans-serif;
-  direction: ltr;
-  text-align: left;
 }
 
 .reader-field {

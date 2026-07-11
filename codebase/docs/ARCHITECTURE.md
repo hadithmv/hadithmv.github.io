@@ -19,7 +19,7 @@ A metadata-driven, single-page viewer that displays multiple books without dupli
 2. `dbLookup.js` loads `bookNames.csv` (via PapaParse) and looks up the matching row.
 3. It loads `tags.csv` to resolve tag badges from the book code's prefix segments.
 4. It tells the caller the matching CSV path (`data/{bookCode}.csv`).
-5. The page loads that CSV (via PapaParse + DataTables) and renders the table.
+5. The page loads that CSV (via PapaParse) and renders one row at a time in a vertical reading card, with Previous/Next navigation and keyboard support.
 
 If no `?book=` parameter is present, the page shows a **dashboard** — a card grid of all registered books with tag badges and titles in all three languages.
 

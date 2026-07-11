@@ -13,10 +13,13 @@ css/
   styles.css           ← All presentation styles
 js/
   dbLookup.js          ← Metadata loader, tag extraction, dashboard renderer
+font/
+  merged-300.woff2     ← Custom merged font (Arabic + Thaana + Latin)
+  merged-300.woff
 data/
   AQD-*.csv            ← Per-book data files (hadith/text content)
   HDT-*.csv
-dependencies/          ← Vendored libraries (jQuery, DataTables, PapaParse)
+dependencies/          ← Vendored libraries (PapaParse)
 docs/
   ARCHITECTURE.md      ← System design overview
   DB_LOOKUP_README.md  ← API reference for dbLookup.js
