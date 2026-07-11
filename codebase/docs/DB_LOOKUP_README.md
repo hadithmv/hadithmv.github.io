@@ -1,82 +1,86 @@
-# Book Lookup System - README
+# dbLookup.js — API Reference
 
-This project uses a shared viewer page and a metadata registry to load books dynamically from CSV files.
+ES module that loads metadata from `bookNames.csv` and `tags.csv`, resolves book lookups, and renders the dashboard. All parsing uses PapaParse for robust CSV handling (quoted fields, embedded commas, etc.).
 
-## Quick start
+## Exports
 
-### Add a new book
+### `initializePageWithMetadata(callback)`
 
-1. Update bookNames.csv:
-
-```csv
-bookCode,titleAR,titleDV,titleEN
-AQD-myNewBook,كتاب جديد,ނިވަތި ފޮތް,My New Book
-```
-
-2. Create the matching CSV file:
-
-```text
-data/AQD-myNewBook.csv
-```
-
-## Core functions
-
-### initializePageWithMetadata(callback)
+Main entry point. Reads `?book=CODE` from the URL, preloads tag definitions and book metadata, then either renders the dashboard or invokes the callback with metadata for the selected book.
 
 ```javascript
 import { initializePageWithMetadata } from "../js/dbLookup.js";
 
-initializePageWithMetadata(function (metadata) {
-  // metadata.bookCode
-  // metadata.titleEN
-  // metadata.titleAR
-  // metadata.titleDV
-  // metadata.csvPath
+initializePageWithMetadata(async function (metadata) {
+  // metadata.bookCode   — e.g. "AQD-qawaidulArbau"
+  // metadata.titleEN    — "Qawaidul Arbau"
+  // metadata.titleAR    — "القواعد الأربع"
+  // metadata.titleDV    — "ހަތަރު ގަވާއިދު"
+  // metadata.csvPath    — "../data/AQD-qawaidulArbau.csv"
 });
 ```
 
-### getPageMetadata(bookCode)
+- **No `?book=` param** → renders the dashboard (card grid of all books).
+- **Book found** → calls `callback(metadata)`.
+- **Book not found or registry failed** → shows an error message in the page.
+
+### `loadBookNames()`
+
+Fetches and caches `bookNames.csv`. Safe to call multiple times — subsequent calls return the cache.
 
 ```javascript
-const metadata = await getPageMetadata("AQD-qawaidulArbau");
+const books = await loadBookNames();
+// [{ bookCode: "AQD-nawaqidulIslam", titleAR: "نواقض الإسلام", ... }, ...]
 ```
 
-### getCsvPath(bookCode)
+Returns `[]` on error.
+
+### `getPageMetadata(bookCode)`
+
+Looks up a single book by code.
 
 ```javascript
-const csvPath = getCsvPath("AQD-qawaidulArbau");
-// Returns: "../data/AQD-qawaidulArbau.csv"
+const meta = await getPageMetadata("AQD-qawaidulArbau");
+// { bookCode, titleAR, titleDV, titleEN } or null
 ```
 
-### loadBookNames()
+### `getCsvPath(bookCode)`
+
+Returns the path to a book's data CSV.
 
 ```javascript
-const allBooks = await loadBookNames();
+getCsvPath("AQD-qawaidulArbau");
+// → "../data/AQD-qawaidulArbau.csv"
 ```
 
-### extractTags(bookCode)
+### `extractTags(bookCode)`
+
+Synchronous. Splits the book code on `-`, drops the last segment (book name), and resolves remaining segments against `tags.csv`. Returns an array of tag objects with `code`, `label`, `color`, and `bg`.
 
 ```javascript
-const tags = extractTags("AQD-qawaidulArbau");
+const tags = extractTags("AQD-DFK-sharhuSunnahBarbahari");
+// [
+//   { code: "AQD", label: "Aqidah", color: "#4f46e5", bg: "#eef2ff" },
+//   { code: "DFK", label: "DFK",    color: "#7c3aed", bg: "#f5f3ff" },
+// ]
 ```
 
-## File organization
+Tags must be preloaded (via `loadTagDefinitions()`) before this returns useful results. `initializePageWithMetadata()` handles this automatically. If called before tags are loaded, returns `[]` gracefully.
+
+## Internal functions (not exported)
+
+### `loadTagDefinitions()`
+
+Fetches and caches `tags.csv`, building a lookup map of `{ code → { label, color, bg } }`. Called once by `initializePageWithMetadata()` before any rendering.
+
+### `renderDashboard(bookNames)`
+
+Renders the card grid from the book registry. Shows an error message if the list is empty.
+
+## File dependencies
 
 ```text
-books/
-  index.html
-data/
-  *.csv
-js/
-  dbLookup.js
-bookNames.csv
-docs/
-```
-
-## Metadata format
-
-```csv
-bookCode,titleAR,titleDV,titleEN
-AQD-qawaidulArbau,القواعد الأربع,ހަތަރު ގަވާއިދު,Qawaidul Arbau
-AQD-nawaqidulIslam,نواقض الإسلام,އިސްލާމްކަން ގެއްލޭ ކަންކަން,Nawaqidul Islam
+js/dbLookup.js
+  ├── reads ../bookNames.csv    (via fetch + PapaParse)
+  └── reads ../tags.csv         (via fetch + PapaParse)
 ```
