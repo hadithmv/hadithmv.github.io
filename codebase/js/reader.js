@@ -86,6 +86,7 @@ initializePageWithMetadata(async function (metadata) {
       const searchInput = document.getElementById("searchInput");
       const searchClear = document.getElementById("searchClear");
       const searchInfo = document.getElementById("searchInfo");
+      const searchResults = document.getElementById("searchResults");
       const pageInput = document.getElementById("pageInput");
       const pageList = document.getElementById("pageList");
       const pageOfTotal = document.getElementById("pageOfTotal");
@@ -148,6 +149,17 @@ initializePageWithMetadata(async function (metadata) {
         return text.replace(TASHKEEL_RE, '<span class="tashkeel">$&</span>');
       }
 
+      // ── Search highlight ───────────────────────────────────
+      function escapeRegex(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      }
+
+      function highlightMatches(text, query) {
+        if (!query) return text;
+        const re = new RegExp("(" + escapeRegex(query) + ")", "gi");
+        return text.replace(re, "<mark>$1</mark>");
+      }
+
       // ── Total pages (respects rowsPerPage) ─────────────────
       function totalPages() {
         return Math.ceil(filteredData.length / rowsPerPage);
@@ -190,8 +202,11 @@ initializePageWithMetadata(async function (metadata) {
             }
           }
 
+          const query = searchInput.value.trim();
           for (let i = 0; i < fields.length; i++) {
-            const display = markupTashkeel(fields[i].value);
+            const display = markupTashkeel(
+              highlightMatches(fields[i].value, query),
+            );
             if (i === fields.length - 1 && fields.length > 1) {
               html += `<div class="reader-divider"></div>`;
               html += `<div class="reader-field reader-footnotes" dir="auto">${display}</div>`;
@@ -260,10 +275,6 @@ initializePageWithMetadata(async function (metadata) {
         });
 
         let cnt = `ސަފްހާ ${cur} / ${total}`;
-        const query = searchInput.value.trim();
-        if (query && total !== Math.ceil(allData.length / rowsPerPage)) {
-          cnt += ` · ${filteredData.length} ނަތީޖާ`;
-        }
         if (pageOfTotal) pageOfTotal.textContent = cnt;
         if (pageOfTotalBtm)
           pageOfTotalBtm.textContent = `ސަފްހާ ${cur} / ${total}`;
@@ -294,6 +305,79 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       // ── Search ──────────────────────────────────────────────
+      let selectedResultIdx = -1; // index within searchResults DOM children
+
+      function buildSnippets(row, q) {
+        // Return one snippet per matching column
+        const lower = q.toLowerCase();
+        var results = [];
+        for (let i = 0; i < row.length; i++) {
+          const cell = row[i];
+          if (cell === null || cell === undefined) continue;
+          const str = String(cell);
+          const pos = str.toLowerCase().indexOf(lower);
+          if (pos === -1) continue;
+          var start = Math.max(0, pos - 150);
+          var end = Math.min(str.length, pos + q.length + 150);
+          var snip =
+            (start > 0 ? "…" : "") +
+            str.slice(start, end) +
+            (end < str.length ? "…" : "");
+          results.push(highlightMatches(snip, q));
+        }
+        return results;
+      }
+
+      function buildResultsHTML(query) {
+        const MAX = 50;
+        const q = query.trim();
+        if (!q || filteredData.length === 0) return "";
+        let html = "";
+        let count = 0;
+        for (let i = 0; i < filteredData.length && count < MAX; i++) {
+          const row = filteredData[i];
+          const rowNum = row[0] || allData.indexOf(row) + 1;
+          var snippets = buildSnippets(row, q);
+          for (var s = 0; s < snippets.length && count < MAX; s++) {
+            html +=
+              '<div class="search-result" data-idx="' +
+              i +
+              '">' +
+              '<span class="search-result-num">#' +
+              rowNum +
+              "</span>" +
+              '<span class="search-result-snippet">' +
+              snippets[s] +
+              "</span>" +
+              "</div>";
+            count++;
+          }
+        }
+        if (count >= MAX && count < filteredData.length) {
+          html +=
+            '<div class="search-result" style="color:var(--color-text-subtle);cursor:default">' +
+            "… އަދި އިތުރު ނަތީޖާ" +
+            "</div>";
+        }
+        return html;
+      }
+
+      function updateSearchResults(query) {
+        searchResults.innerHTML = buildResultsHTML(query);
+        searchResults.style.display =
+          query.trim() && filteredData.length > 0 ? "" : "none";
+        selectedResultIdx = -1;
+        // Wire clicks
+        searchResults
+          .querySelectorAll(".search-result[data-idx]")
+          .forEach(function (el) {
+            el.addEventListener("click", function () {
+              goTo(parseInt(this.dataset.idx));
+              searchInput.blur();
+            });
+          });
+      }
+
       function applySearch(query) {
         const q = query.trim();
         if (!q) {
@@ -301,6 +385,7 @@ initializePageWithMetadata(async function (metadata) {
           currentPage = 0;
           searchClear.style.display = "none";
           searchInfo.style.display = "none";
+          searchResults.style.display = "none";
         } else {
           const lower = q.toLowerCase();
           filteredData = allData.filter(function (row) {
@@ -317,17 +402,19 @@ initializePageWithMetadata(async function (metadata) {
           searchInfo.style.display = "";
           searchInfo.textContent =
             filteredData.length === 0
-              ? "ނަތީޖާ ނުފެނުނު"
-              : filteredData.length + " ނަތީޖާ";
+              ? "ނަތީޖާ: 0"
+              : "ނަތީޖާ: " + filteredData.length;
         }
         if (filteredData.length === 0) {
           readerContent.innerHTML =
-            '<div class="reader-no-results">އެއްވެސް ނަތީޖާ ނުފެނުނު: "' +
+            '<div class="reader-no-results">މިއަށް ނަތީޖާއެއް ނުފެނުނު: "' +
             query +
             '"</div>';
-          pageText = 'އެއްވެސް ނަތީޖާ ނުފެނުނު: "' + query + '"';
+          pageText = 'މިއަށް ނަތީޖާއެއް ނުފެނުނު: "' + query + '"';
+          searchResults.style.display = "none";
           updatePagination();
         } else {
+          updateSearchResults(query);
           renderPage(currentPage);
         }
       }
@@ -339,6 +426,18 @@ initializePageWithMetadata(async function (metadata) {
         searchInput.value = "";
         applySearch("");
         searchInput.focus();
+      });
+      // Close results when clicking outside
+      document.addEventListener("click", function (e) {
+        if (!searchResults.contains(e.target) && e.target !== searchInput) {
+          searchResults.style.display = "none";
+        }
+      });
+      // Re-open when focusing search with an active query
+      searchInput.addEventListener("focus", function () {
+        if (this.value.trim() && filteredData.length > 0) {
+          updateSearchResults(this.value);
+        }
       });
 
       // ── Toolbar: rows per page ──────────────────────────────
@@ -451,11 +550,46 @@ initializePageWithMetadata(async function (metadata) {
 
       // ── Keyboard ────────────────────────────────────────────
       document.addEventListener("keydown", function onKey(e) {
-        if (
-          document.activeElement === searchInput ||
-          document.activeElement === pageInput
-        )
+        // Search-results navigation (when search input is focused)
+        if (document.activeElement === searchInput) {
+          var items = searchResults.querySelectorAll(
+            ".search-result[data-idx]",
+          );
+          if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+            e.preventDefault();
+            if (items.length === 0) return;
+            if (e.key === "ArrowDown")
+              selectedResultIdx = Math.min(
+                selectedResultIdx + 1,
+                items.length - 1,
+              );
+            else selectedResultIdx = Math.max(selectedResultIdx - 1, 0);
+            items.forEach(function (el, i) {
+              el.classList.toggle("active", i === selectedResultIdx);
+            });
+            if (selectedResultIdx >= 0)
+              items[selectedResultIdx].scrollIntoView({ block: "nearest" });
+            return;
+          }
+          if (
+            e.key === "Enter" &&
+            selectedResultIdx >= 0 &&
+            items[selectedResultIdx]
+          ) {
+            e.preventDefault();
+            goTo(parseInt(items[selectedResultIdx].dataset.idx));
+            searchInput.blur();
+            return;
+          }
+          if (e.key === "Escape") {
+            searchResults.style.display = "none";
+            selectedResultIdx = -1;
+            return;
+          }
           return;
+        }
+
+        if (document.activeElement === pageInput) return;
 
         if (e.key === "ArrowLeft") {
           e.preventDefault();
