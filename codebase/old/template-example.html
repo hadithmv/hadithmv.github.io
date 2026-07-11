@@ -27,9 +27,9 @@
       initializePageWithMetadata(function (metadata) {
         // Display metadata on page
         document.getElementById("pageTitle").textContent =
-          metadata.bookName_EN || metadata.fileName_CODE;
+          metadata.titleEN || metadata.bookCode;
         document.getElementById("pageSubtitle").textContent =
-          metadata.bookName_AR || "";
+          metadata.titleAR || "";
 
         // Load CSV data
         Papa.parse(metadata.csvPath, {

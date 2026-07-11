@@ -44,7 +44,7 @@
       // const csvUrl = "data.csv"; // path to your CSV file
       const currentFile = window.location.pathname.split("/").pop();
       // const csvUrl = currentFile.replace(/\.html$/, ".csv");
-      const csvUrl = `db/${currentFile.replace(/\.html$/, ".csv")}`; // path to the CSV file matching the HTML filename
+      const csvUrl = `data/${currentFile.replace(/\.html$/, ".csv")}`; // path to the CSV file matching the HTML filename
 
       Papa.parse(csvUrl, {
         download: true,

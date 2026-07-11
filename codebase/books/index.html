@@ -198,20 +198,20 @@
       // Initialize page with metadata and CSV
       initializePageWithMetadata(async function (metadata) {
         // Set page title
-        document.title = metadata.bookName_EN || metadata.fileName_CODE;
+        document.title = metadata.titleEN || metadata.bookCode;
 
         // Display metadata on page
         document.getElementById("pageTitle").textContent =
-          metadata.bookName_EN || metadata.fileName_CODE;
+          metadata.titleEN || metadata.bookCode;
         document.getElementById("pageSubtitle").textContent =
-          metadata.bookName_AR || "";
+          metadata.titleAR || "";
         document.getElementById("pageSubsubtitle").textContent =
-          metadata.bookName_DV || "";
+          metadata.titleDV || "";
         document.getElementById("pageHeader").style.display = "block";
 
         // Display tags in page header
         const pageTagsContainer = document.getElementById("pageTags");
-        const tags = extractTags(metadata.fileName_CODE);
+        const tags = extractTags(metadata.bookCode);
         if (tags.length > 0) {
           pageTagsContainer.innerHTML = tags
             .map(

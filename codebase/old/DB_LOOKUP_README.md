@@ -1,24 +1,24 @@
 # Database Lookup System
 
-This system provides a dynamic way to load page metadata and CSV data based on filename mapping in `dbNames.csv`.
+This system provides a dynamic way to load page metadata and CSV data based on filename mapping in `bookNames.csv`.
 
 ## Files
 
-- **dbNames.csv** - Central registry mapping filenames to book metadata
+- **bookNames.csv** - Central registry mapping filenames to book metadata
 - **js/dbLookup.js** - Module that handles loading and looking up metadata
 - **test/\*.html** - HTML pages that use this system
 
 ## How It Works
 
-1. **Filename → Metadata Lookup**: When an HTML page loads, it extracts its filename (e.g., `AQD-qawaidulArbau-test`) and looks it up in `dbNames.csv`
+1. **Filename → Metadata Lookup**: When an HTML page loads, it extracts its filename (e.g., `AQD-qawaidulArbau-test`) and looks it up in `bookNames.csv`
 
 2. **Metadata Retrieval**: The matching row provides:
-   - `bookName_EN` - English name
-   - `bookName_AR` - Arabic name
-   - `bookName_DV` - Dhivehi name
-   - `fileName_CODE` - The filename code
+   - `titleEN` - English name
+   - `titleAR` - Arabic name
+   - `titleDV` - Dhivehi name
+   - `bookCode` - The book code
 
-3. **CSV Loading**: The CSV file is automatically loaded from `db/{filename}.csv`
+3. **CSV Loading**: The CSV file is automatically loaded from `data/{filename}.csv`
 
 ## Example HTML Template
 
@@ -29,11 +29,11 @@ This system provides a dynamic way to load page metadata and CSV data based on f
   // Initialize page with metadata and CSV
   initializePageWithMetadata(function (metadata) {
     // metadata object contains:
-    // - fileName_CODE: "AQD-qawaidulArbau-test"
-    // - bookName_EN: "Qawaidul Arbau"
-    // - bookName_AR: "القواعد الأربع"
-    // - bookName_DV: "ހަތަރު ގަވާއިދު"
-    // - csvPath: "db/AQD-qawaidulArbau-test.csv"
+    // - bookCode: "AQD-qawaidulArbau-test"
+    // - titleEN: "Qawaidul Arbau"
+    // - titleAR: "القواعد الأربع"
+    // - titleDV: "ހަތަރު ގަވާއިދު"
+    // - csvPath: "data/AQD-qawaidulArbau-test.csv"
 
     const csvUrl = metadata.csvPath;
 
@@ -51,44 +51,44 @@ This system provides a dynamic way to load page metadata and CSV data based on f
 
 ## Available Functions
 
-### `loadDbNames()`
+### `loadBookNames()`
 
-Loads and caches the dbNames.csv file.
+Loads and caches the bookNames.csv file.
 
 **Returns**: `Promise<Array>` - Array of metadata objects
 
 ```javascript
-const allEntries = await loadDbNames();
+const allEntries = await loadBookNames();
 ```
 
-### `getPageMetadata(fileName)`
+### `getPageMetadata(bookCode)`
 
-Look up metadata for a specific filename.
+Look up metadata for a specific book code.
 
 **Parameters**:
 
-- `fileName` (string) - Filename without extension (e.g., "AQD-qawaidulArbau-test")
+- `bookCode` (string) - Book code without extension (e.g., "AQD-qawaidulArbau-test")
 
 **Returns**: `Promise<Object|null>` - Metadata object or null if not found
 
 ```javascript
 const metadata = await getPageMetadata("AQD-qawaidulArbau-test");
-console.log(metadata.bookName_EN); // "Qawaidul Arbau"
+console.log(metadata.titleEN); // "Qawaidul Arbau"
 ```
 
-### `getCsvPath(fileName)`
+### `getCsvPath(bookCode)`
 
-Get the CSV path for a filename.
+Get the CSV path for a book code.
 
 **Parameters**:
 
-- `fileName` (string) - Filename without extension
+- `bookCode` (string) - Book code without extension
 
-**Returns**: `string` - Path to CSV file (e.g., "db/AQD-qawaidulArbau-test.csv")
+**Returns**: `string` - Path to CSV file (e.g., "data/AQD-qawaidulArbau-test.csv")
 
 ```javascript
 const csvPath = getCsvPath("AQD-qawaidulArbau-test");
-// Returns: "db/AQD-qawaidulArbau-test.csv"
+// Returns: "data/AQD-qawaidulArbau-test.csv"
 ```
 
 ### `initializePageWithMetadata(callback)`
@@ -104,26 +104,27 @@ Automatically detects the current page's filename and loads its metadata. This i
 ```javascript
 initializePageWithMetadata(function (metadata) {
   // Use metadata here
-  console.log("Page:", metadata.bookName_EN);
+  console.log("Page:", metadata.titleEN);
   console.log("CSV:", metadata.csvPath);
 });
 ```
 
 ## Adding New Pages
 
-1. Add a new row to `dbNames.csv`:
+1. Add a new row to `bookNames.csv`:
 
    ```
    AQD-newbook-test,كتاب جديد,ނިވަތި ފޮތް,New Book
    ```
 
-2. Create the corresponding CSV file in the `db/` folder:
+2. Create the corresponding CSV file in the `data/` folder:
 
    ```
-   db/AQD-newbook-test.csv
+   data/AQD-newbook-test.csv
    ```
 
 3. Create the HTML file with the same filename:
+
    ```html
    <script type="module">
      import { initializePageWithMetadata } from "../js/dbLookup.js";
@@ -142,4 +143,4 @@ That's it! The system will automatically find the metadata and load the correct 
 - **AQD-nawaqidulIslam-test.html** - Nawaqidul Islam
 - **AQD-qawaidulArbau-test.html** - Qawaidul Arbau
 
-Both automatically load their metadata from `dbNames.csv` and their data from `db/` folder.
+Both automatically load their metadata from `bookNames.csv` and their data from `data/` folder.
