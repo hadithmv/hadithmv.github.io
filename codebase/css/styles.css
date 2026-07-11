@@ -1,32 +1,11 @@
 /* ============================================================
    Book Viewer — Shared Styles
-   Extracted from books/index.html to keep presentation separate
    ============================================================ */
-
-/* ---- Table wrapper ---- */
-#tableWrapper {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-  width: 100%;
-}
-
-#tableWrapper table {
-  width: auto;
-  max-width: 100%;
-  direction: rtl;
-  text-align: right;
-  vertical-align: top;
-}
-
-#tableWrapper table.dataTable th,
-#tableWrapper table.dataTable td {
-  vertical-align: top !important;
-}
 
 /* ---- Page header ---- */
 #pageHeader {
-  margin-bottom: 20px;
+  max-width: 800px;
+  margin: 0 auto 20px;
   padding: 20px;
   border-bottom: 2px solid #ddd;
 }
@@ -163,4 +142,148 @@
   flex-wrap: wrap;
   gap: 6px;
   margin-top: 10px;
+}
+
+/* ============================================================
+   Reader — single-row vertical reading view
+   ============================================================ */
+
+#readerWrapper {
+  max-width: 800px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+  font-family:
+    "Traditional Arabic", "Scheherazade New", "Noto Naskh Arabic",
+    "Faruma", "MV Boli",
+    system-ui, sans-serif;
+}
+
+/* ---- Navigation bar ---- */
+#readerNav,
+#readerNavBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+#readerNavBottom {
+  margin-top: 32px;
+  margin-bottom: 0;
+  border-bottom: none;
+  border-top: 1px solid #e2e8f0;
+}
+
+.nav-btn {
+  padding: 8px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4a5568;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: #edf2f7;
+  border-color: #cbd5e1;
+  color: #1a202c;
+}
+
+.nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.nav-counter {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #718096;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* ---- Reader content ---- */
+#readerContent {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 32px 36px;
+  line-height: 2.2;
+  font-size: 1.25rem;
+  color: #1a202c;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.reader-row-num {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #94a3b8;
+  margin-bottom: 20px;
+  letter-spacing: 0.025em;
+  font-family: system-ui, -apple-system, sans-serif;
+  direction: ltr;
+  text-align: left;
+}
+
+.reader-field {
+  margin-bottom: 18px;
+  text-align: right;
+  white-space: pre-line;
+}
+
+.reader-field:last-child {
+  margin-bottom: 0;
+}
+
+/* Divider between main text and footnotes */
+.reader-divider {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 24px 0 20px;
+  /* Decorative Arabic-style centered ornament */
+  text-align: center;
+  line-height: 0;
+}
+
+.reader-divider::after {
+  content: "◆";
+  position: relative;
+  top: -0.55em;
+  font-size: 0.55rem;
+  color: #cbd5e1;
+  background: #ffffff;
+  padding: 0 12px;
+}
+
+/* Footnotes / sources (last column) */
+.reader-footnotes {
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.8;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+  #readerContent {
+    padding: 20px 16px;
+    font-size: 1.1rem;
+    line-height: 2;
+  }
+
+  .nav-btn {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+  }
+
+  .nav-counter {
+    font-size: 0.8rem;
+  }
 }

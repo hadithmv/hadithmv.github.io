@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
-    <link rel="stylesheet" href="../dependencies/datatables.min.css" />
     <link rel="stylesheet" href="../css/styles.css" />
   </head>
 
@@ -28,16 +28,21 @@
     <!-- Error State -->
     <div id="errorMessage" class="error" style="display: none"></div>
 
-    <!-- Table Container -->
-    <div id="tableWrapper" style="display: none">
-      <table id="table" class="display" style="width: auto">
-        <thead></thead>
-        <tbody></tbody>
-      </table>
+    <!-- Reader Container (single-row vertical reading view) -->
+    <div id="readerWrapper" style="display: none">
+      <nav id="readerNav">
+        <button id="prevBtn" class="nav-btn" title="Previous (← arrow key)">← Previous</button>
+        <span id="rowCounter" class="nav-counter"></span>
+        <button id="nextBtn" class="nav-btn" title="Next (→ arrow key)">Next →</button>
+      </nav>
+      <article id="readerContent" dir="rtl"></article>
+      <nav id="readerNavBottom">
+        <button id="prevBtnBottom" class="nav-btn" title="Previous (← arrow key)">← Previous</button>
+        <span id="rowCounterBottom" class="nav-counter"></span>
+        <button id="nextBtnBottom" class="nav-btn" title="Next (→ arrow key)">Next →</button>
+      </nav>
     </div>
 
-    <script src="../dependencies/jquery-3.7.1.min.js"></script>
-    <script src="../dependencies/datatables.min.js"></script>
     <script src="../dependencies/papaparse.min.js"></script>
 
     <script type="module">
@@ -47,7 +52,7 @@
       } from "../js/dbLookup.js";
 
       initializePageWithMetadata(async function (metadata) {
-        // Set document title immediately (invisible change)
+        // Set document title immediately
         document.title = metadata.titleEN || metadata.bookCode;
 
         // Load CSV data — keep loading visible until everything is ready
@@ -69,12 +74,11 @@
 
             // Detect and remove a header row (convention: first field is "#")
             // The header row is for the author's reference and is not displayed.
-            let headerRow = null;
             if (data.length > 0 && data[0][0] === "#") {
-              headerRow = data.shift();
+              data.shift();
             }
 
-            // Populate header content
+            // Populate page header
             document.getElementById("pageTitle").textContent =
               metadata.titleEN || metadata.bookCode;
             document.getElementById("pageSubtitle").textContent =
@@ -94,39 +98,82 @@
                 .join("");
             }
 
-            // Build column definitions, using the header row for titles if present
-            const maxCols = data.reduce(
-              (max, row) => Math.max(max, row.length),
-              0,
-            );
+            // ── Reader state ──────────────────────────────────────
+            let currentIndex = 0;
+            const totalRows = data.length;
 
-            const columns = Array.from({ length: maxCols }, (_, idx) => ({
-              title:
-                headerRow && headerRow[idx]
-                  ? headerRow[idx]
-                  : idx === 0
-                    ? "#"
-                    : idx === maxCols - 1
-                      ? "Notes"
-                      : "Column " + (idx + 1),
-              data: idx,
-              defaultContent: "",
-            }));
+            function renderRow(index) {
+              const row = data[index];
+              if (!row) return;
 
-            // Reveal everything at once — no flash between states
+              const rowNum = row[0] || index + 1;
+              let html = `<div class="reader-row-num">#${rowNum}</div>`;
+
+              // Collect non-empty columns (skip col 0 — the row number)
+              const fields = [];
+              for (let i = 1; i < row.length; i++) {
+                const value = row[i];
+                if (value !== null && value !== undefined && String(value).trim() !== "") {
+                  fields.push({ index: i, value: String(value).trim() });
+                }
+              }
+
+              // Render all fields except the last one
+              for (let i = 0; i < fields.length; i++) {
+                if (i === fields.length - 1 && fields.length > 1) {
+                  // Last field — add a divider above it (footnotes / sources)
+                  html += `<div class="reader-divider"></div>`;
+                  html += `<div class="reader-field reader-footnotes" dir="auto">${fields[i].value}</div>`;
+                } else {
+                  html += `<div class="reader-field" dir="auto">${fields[i].value}</div>`;
+                }
+              }
+
+              document.getElementById("readerContent").innerHTML = html;
+
+              // Update all nav counters
+              const counterText = `Row ${index + 1} of ${totalRows}`;
+              document.getElementById("rowCounter").textContent = counterText;
+              document.getElementById("rowCounterBottom").textContent = counterText;
+
+              // Update button states
+              document.getElementById("prevBtn").disabled = index === 0;
+              document.getElementById("prevBtnBottom").disabled = index === 0;
+              document.getElementById("nextBtn").disabled = index === totalRows - 1;
+              document.getElementById("nextBtnBottom").disabled = index === totalRows - 1;
+
+              // Scroll reader into view
+              document.getElementById("readerContent").scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+
+            function goTo(index) {
+              if (index >= 0 && index < totalRows) {
+                currentIndex = index;
+                renderRow(currentIndex);
+              }
+            }
+
+            // Wire navigation — top bar
+            document.getElementById("prevBtn").addEventListener("click", () => goTo(currentIndex - 1));
+            document.getElementById("nextBtn").addEventListener("click", () => goTo(currentIndex + 1));
+
+            // Wire navigation — bottom bar
+            document.getElementById("prevBtnBottom").addEventListener("click", () => goTo(currentIndex - 1));
+            document.getElementById("nextBtnBottom").addEventListener("click", () => goTo(currentIndex + 1));
+
+            // Keyboard navigation
+            document.addEventListener("keydown", function onArrow(e) {
+              if (e.key === "ArrowLeft")  { e.preventDefault(); goTo(currentIndex - 1); }
+              if (e.key === "ArrowRight") { e.preventDefault(); goTo(currentIndex + 1); }
+            });
+
+            // Initial render
+            renderRow(0);
+
+            // Reveal everything at once
             document.getElementById("loadingMessage").style.display = "none";
             document.getElementById("pageHeader").style.display = "block";
-            document.getElementById("tableWrapper").style.display = "flex";
-
-            // Initialize DataTable
-            $("#table").DataTable({
-              data: data,
-              columns: columns,
-              deferRender: true,
-              pageLength: 10,
-              responsive: true,
-              destroy: true,
-            });
+            document.getElementById("readerWrapper").style.display = "block";
           },
           error: function (err) {
             showError("Error loading CSV: " + err);

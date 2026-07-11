@@ -4,14 +4,14 @@ A metadata-driven, single-page viewer that displays multiple books without dupli
 
 ## Files
 
-| File               | Purpose                                                        |
-| ------------------ | -------------------------------------------------------------- |
-| `bookNames.csv`    | Central registry of books (code, titles in AR/DV/EN)           |
-| `tags.csv`         | Tag definitions (code, label, badge colors)                    |
-| `books/index.html` | Shared viewer page and library dashboard                       |
-| `css/styles.css`   | All presentation styles                                        |
+| File               | Purpose                                                       |
+| ------------------ | ------------------------------------------------------------- |
+| `bookNames.csv`    | Central registry of books (code, titles in AR/DV/EN)          |
+| `tags.csv`         | Tag definitions (code, label, badge colors)                   |
+| `books/index.html` | Shared viewer page and library dashboard                      |
+| `css/styles.css`   | All presentation styles                                       |
 | `js/dbLookup.js`   | Logic for loading metadata, parsing tags, and rendering the UI |
-| `data/*.csv`       | Per-book content files                                         |
+| `data/*.csv`       | Per-book content files                                        |
 
 ## How it works
 
@@ -27,25 +27,25 @@ If no `?book=` parameter is present, the page shows a **dashboard** — a card g
 
 ### bookNames.csv
 
-| Column     | Description                                            |
-| ---------- | ------------------------------------------------------ |
-| `bookCode` | Unique identifier, also used for the data CSV filename |
-| `titleAR`  | Arabic title                                           |
-| `titleDV`  | Dhivehi title                                          |
-| `titleEN`  | English title                                          |
+| Column     | Description                                                |
+| ---------- | ---------------------------------------------------------- |
+| `bookCode` | Unique identifier, also used for the data CSV filename     |
+| `titleAR`  | Arabic title                                               |
+| `titleDV`  | Dhivehi title                                              |
+| `titleEN`  | English title                                              |
 
 ### tags.csv
 
-| Column  | Description                                     |
-| ------- | ----------------------------------------------- |
-| `code`  | Tag code (matches a prefix segment in bookCode) |
-| `label` | Display name                                    |
-| `color` | Text color (CSS hex)                            |
-| `bg`    | Background color (CSS hex)                      |
+| Column  | Description                                             |
+| ------- | ------------------------------------------------------- |
+| `code`  | Tag code (matches a prefix segment in bookCode)         |
+| `label` | Display name                                            |
+| `color` | Text color (CSS hex)                                    |
+| `bg`    | Background color (CSS hex)                              |
 
 ### data/{bookCode}.csv
 
-Each book's content CSV has an optional **header row**. The convention: if the first field of the first row is `#`, it is treated as a header — excluded from the displayed data. If there is no `#` header row, all rows are rendered as content.
+Each book's content CSV has an optional **header row**. The convention: if the first field of the first row is `#`, it is treated as a header — used for DataTable column titles and excluded from the displayed data.
 
 ```csv
 #,section,arabic_text,dhivehi_text,notes
@@ -53,7 +53,7 @@ Each book's content CSV has an optional **header row**. The convention: if the f
 2,Chapter 1,الحمد لله...,އަލްޙަމްދު...,—
 ```
 
-If there is no `#` header row, all rows are rendered as content directly.
+If there is no `#` header row, columns are auto-named (`#`, `Column 2`, …, `Notes`).
 
 ## Tag system
 

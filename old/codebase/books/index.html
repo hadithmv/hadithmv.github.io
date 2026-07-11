@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <link rel="stylesheet" href="../dependencies/datatables.min.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+
+  <body>
+    <!-- Dashboard Container (shown when no book is selected) -->
+    <div id="dashboardWrapper" style="display: none">
+      <h1 class="dashboard-title">Hadithmv</h1>
+      <div id="bookGrid" class="book-grid"></div>
+    </div>
+
+    <!-- Page Header with Metadata (shown once data is ready) -->
+    <div id="pageHeader" style="display: none">
+      <h1 id="pageTitle"></h1>
+      <p id="pageSubtitle"></p>
+      <p id="pageSubsubtitle"></p>
+      <div id="pageTags"></div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loadingMessage" class="loading">Loading book data...</div>
+
+    <!-- Error State -->
+    <div id="errorMessage" class="error" style="display: none"></div>
+
+    <!-- Table Container -->
+    <div id="tableWrapper" style="display: none">
+      <table id="table" class="display" style="width: auto">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <script src="../dependencies/jquery-3.7.1.min.js"></script>
+    <script src="../dependencies/datatables.min.js"></script>
+    <script src="../dependencies/papaparse.min.js"></script>
+
+    <script type="module">
+      import {
+        initializePageWithMetadata,
+        extractTags,
+      } from "../js/dbLookup.js";
+
+      initializePageWithMetadata(async function (metadata) {
+        // Set document title immediately (invisible change)
+        document.title = metadata.titleEN || metadata.bookCode;
+
+        // Load CSV data — keep loading visible until everything is ready
+        Papa.parse(metadata.csvPath, {
+          download: true,
+          header: false,
+          dynamicTyping: true,
+          complete: function (results) {
+            const data = results.data.filter(
+              (row) =>
+                Array.isArray(row) &&
+                row.some((value) => value !== null && value !== ""),
+            );
+
+            if (data.length === 0) {
+              showError("No data found in CSV file: " + metadata.csvPath);
+              return;
+            }
+
+            // Detect and remove a header row (convention: first field is "#")
+            // The header row is for the author's reference and is not displayed.
+            let headerRow = null;
+            if (data.length > 0 && data[0][0] === "#") {
+              headerRow = data.shift();
+            }
+
+            // Populate header content
+            document.getElementById("pageTitle").textContent =
+              metadata.titleEN || metadata.bookCode;
+            document.getElementById("pageSubtitle").textContent =
+              metadata.titleAR || "";
+            document.getElementById("pageSubsubtitle").textContent =
+              metadata.titleDV || "";
+
+            // Render tags in page header
+            const pageTagsContainer = document.getElementById("pageTags");
+            const tags = extractTags(metadata.bookCode);
+            if (tags.length > 0) {
+              pageTagsContainer.innerHTML = tags
+                .map(
+                  (t) =>
+                    `<span class="tag-badge" style="color:${t.color};background:${t.bg}">${t.label}</span>`,
+                )
+                .join("");
+            }
+
+            // Build column definitions, using the header row for titles if present
+            const maxCols = data.reduce(
+              (max, row) => Math.max(max, row.length),
+              0,
+            );
+
+            const columns = Array.from({ length: maxCols }, (_, idx) => ({
+              title:
+                headerRow && headerRow[idx]
+                  ? headerRow[idx]
+                  : idx === 0
+                    ? "#"
+                    : idx === maxCols - 1
+                      ? "Notes"
+                      : "Column " + (idx + 1),
+              data: idx,
+              defaultContent: "",
+            }));
+
+            // Reveal everything at once — no flash between states
+            document.getElementById("loadingMessage").style.display = "none";
+            document.getElementById("pageHeader").style.display = "block";
+            document.getElementById("tableWrapper").style.display = "flex";
+
+            // Initialize DataTable
+            $("#table").DataTable({
+              data: data,
+              columns: columns,
+              deferRender: true,
+              pageLength: 10,
+              responsive: true,
+              destroy: true,
+            });
+          },
+          error: function (err) {
+            showError("Error loading CSV: " + err);
+          },
+        });
+      });
+
+      function showError(message) {
+        document.getElementById("loadingMessage").style.display = "none";
+        document.getElementById("errorMessage").textContent = message;
+        document.getElementById("errorMessage").style.display = "block";
+        console.error(message);
+      }
+    </script>
+  </body>
+</html>

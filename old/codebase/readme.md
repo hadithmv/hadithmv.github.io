@@ -58,7 +58,7 @@ Each book's CSV in `data/` can optionally include a **header row** for the autho
 2,Chapter 1,الحمد لله...,އަލްޙަމްދު...,—
 ```
 
-**Convention:** if the first field of the first row is `#`, the viewer treats it as a header — it is excluded from the displayed data and the rest of the row is rendered normally.
+**Convention:** if the first field of the first row is `#`, the viewer treats it as a header — it labels the DataTable columns with it and excludes it from the displayed data. If there's no `#` row, columns get auto-generated names.
 
 ## How it works
 
@@ -66,7 +66,7 @@ Each book's CSV in `data/` can optionally include a **header row** for the autho
 2. `dbLookup.js` loads `bookNames.csv` (via PapaParse) to find the book's titles.
 3. It loads `tags.csv` to resolve any category badges from the book code prefix.
 4. PapaParse loads the matching `data/{bookCode}.csv`.
-5. The page renders each row as a vertical reading card — one row at a time, with Previous/Next navigation and keyboard support (arrow keys).
+5. The page renders a DataTable with proper column headers, page title, and tag badges.
 
 **No book selected?** The dashboard shows all registered books as cards, grouped by tag.
 
@@ -78,9 +78,11 @@ Each book's CSV in `data/` can optionally include a **header row** for the autho
 
 ## Dependencies
 
-Vendored in `dependencies/` — no CDN, no build step:
+All vendored in `dependencies/` — no CDN, no build step:
 
-- [PapaParse](https://www.papaparse.com/) — CSV parsing
+- [jQuery 3.7.1](https://jquery.com/)
+- [DataTables](https://datatables.net/)
+- [PapaParse](https://www.papaparse.com/)
 
 ## Documentation
 
