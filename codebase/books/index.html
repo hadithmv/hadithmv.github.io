@@ -4,156 +4,7 @@
     <meta charset="UTF-8" />
     <title></title>
     <link rel="stylesheet" href="../dependencies/datatables.min.css" />
-    <style>
-      #tableWrapper {
-        display: flex;
-        justify-content: flex-end;
-        align-items: flex-start;
-        width: 100%;
-      }
-
-      #tableWrapper table {
-        width: auto;
-        max-width: 100%;
-        direction: rtl;
-        text-align: right;
-        vertical-align: top;
-      }
-
-      #tableWrapper table.dataTable th,
-      #tableWrapper table.dataTable td {
-        vertical-align: top !important;
-      }
-
-      #pageHeader {
-        margin-bottom: 20px;
-        padding: 20px;
-        border-bottom: 2px solid #ddd;
-      }
-
-      #pageHeader h1 {
-        margin: 0 0 10px 0;
-      }
-
-      #pageHeader p {
-        margin: 0;
-        color: #666;
-      }
-
-      .loading {
-        text-align: center;
-        padding: 40px;
-        color: #999;
-      }
-
-      .error {
-        color: #d32f2f;
-        padding: 20px;
-        background-color: #ffebee;
-        border-radius: 4px;
-        margin: 20px;
-      }
-
-      /* Dashboard Styles */
-      #dashboardWrapper {
-        max-width: 1000px;
-        margin: 40px auto;
-        padding: 0 20px;
-        font-family:
-          system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          sans-serif;
-      }
-
-      .dashboard-title {
-        font-size: 2.2rem;
-        font-weight: 800;
-        text-align: center;
-        margin-bottom: 40px;
-        color: #1a202c;
-        letter-spacing: -0.025em;
-      }
-
-      .book-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 24px;
-      }
-
-      .book-card {
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 24px;
-        text-decoration: none;
-        color: inherit;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        min-height: 160px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease,
-          border-color 0.2s ease;
-      }
-
-      .book-card:hover {
-        transform: translateY(-4px);
-        box-shadow:
-          0 10px 15px -3px rgba(0, 0, 0, 0.1),
-          0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        border-color: #cbd5e1;
-      }
-
-      .book-card .title-ar {
-        font-size: 1.4rem;
-        color: #1a202c;
-        direction: rtl;
-        text-align: right;
-        font-weight: 700;
-        margin-bottom: 8px;
-        font-family: "Traditional Arabic", "Scheherazade New", serif;
-      }
-
-      .book-card .title-dv {
-        font-size: 1.1rem;
-        color: #4a5568;
-        direction: rtl;
-        text-align: right;
-        margin-bottom: 12px;
-        font-family: "Faruma", "MV Boli", sans-serif;
-      }
-
-      .book-card .title-en {
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: #718096;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-top: auto;
-      }
-
-      .book-card .card-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-bottom: 12px;
-      }
-
-      .book-card .tag-badge {
-        font-size: 0.7rem;
-        font-weight: 700;
-        padding: 3px 8px;
-        border-radius: 6px;
-        text-transform: uppercase;
-        letter-spacing: 0.025em;
-        border: 1px solid rgba(0, 0, 0, 0.04);
-      }
-    </style>
+    <link rel="stylesheet" href="../css/styles.css" />
   </head>
 
   <body>
@@ -163,12 +14,12 @@
       <div id="bookGrid" class="book-grid"></div>
     </div>
 
-    <!-- Page Header with Metadata -->
+    <!-- Page Header with Metadata (shown once data is ready) -->
     <div id="pageHeader" style="display: none">
       <h1 id="pageTitle"></h1>
       <p id="pageSubtitle"></p>
       <p id="pageSubsubtitle"></p>
-      <div id="pageTags" class="card-tags" style="margin-top: 10px"></div>
+      <div id="pageTags"></div>
     </div>
 
     <!-- Loading State -->
@@ -195,33 +46,11 @@
         extractTags,
       } from "../js/dbLookup.js";
 
-      // Initialize page with metadata and CSV
       initializePageWithMetadata(async function (metadata) {
-        // Set page title
+        // Set document title immediately (invisible change)
         document.title = metadata.titleEN || metadata.bookCode;
 
-        // Display metadata on page
-        document.getElementById("pageTitle").textContent =
-          metadata.titleEN || metadata.bookCode;
-        document.getElementById("pageSubtitle").textContent =
-          metadata.titleAR || "";
-        document.getElementById("pageSubsubtitle").textContent =
-          metadata.titleDV || "";
-        document.getElementById("pageHeader").style.display = "block";
-
-        // Display tags in page header
-        const pageTagsContainer = document.getElementById("pageTags");
-        const tags = extractTags(metadata.bookCode);
-        if (tags.length > 0) {
-          pageTagsContainer.innerHTML = tags
-            .map(
-              (t) =>
-                `<span class="tag-badge" style="color:${t.color};background:${t.bg}">${t.label}</span>`,
-            )
-            .join("");
-        }
-
-        // Load CSV data
+        // Load CSV data — keep loading visible until everything is ready
         Papa.parse(metadata.csvPath, {
           download: true,
           header: false,
@@ -238,6 +67,27 @@
               return;
             }
 
+            // Populate header content
+            document.getElementById("pageTitle").textContent =
+              metadata.titleEN || metadata.bookCode;
+            document.getElementById("pageSubtitle").textContent =
+              metadata.titleAR || "";
+            document.getElementById("pageSubsubtitle").textContent =
+              metadata.titleDV || "";
+
+            // Render tags in page header
+            const pageTagsContainer = document.getElementById("pageTags");
+            const tags = extractTags(metadata.bookCode);
+            if (tags.length > 0) {
+              pageTagsContainer.innerHTML = tags
+                .map(
+                  (t) =>
+                    `<span class="tag-badge" style="color:${t.color};background:${t.bg}">${t.label}</span>`,
+                )
+                .join("");
+            }
+
+            // Build column definitions
             const maxCols = data.reduce(
               (max, row) => Math.max(max, row.length),
               0,
@@ -254,8 +104,9 @@
               defaultContent: "",
             }));
 
-            // Hide loading, show table
+            // Reveal everything at once — no flash between states
             document.getElementById("loadingMessage").style.display = "none";
+            document.getElementById("pageHeader").style.display = "block";
             document.getElementById("tableWrapper").style.display = "flex";
 
             // Initialize DataTable
@@ -265,7 +116,7 @@
               deferRender: true,
               pageLength: 10,
               responsive: true,
-              destroy: true, // Allow reinitializing if needed
+              destroy: true,
             });
           },
           error: function (err) {
