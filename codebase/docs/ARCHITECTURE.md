@@ -1,109 +1,144 @@
 # Book Lookup System Architecture
 
-A metadata-driven, single-page viewer that displays multiple books without duplicating HTML or JavaScript. All configuration lives in CSV files — adding content or categories never requires code changes.
+A metadata-driven, single-page viewer for Islamic texts. All configuration lives in CSV files — adding content or categories never requires code changes. The UI is in Dhivehi; error messages are in English.
 
 ## Files
 
-| File               | Purpose                                                        |
-| ------------------ | -------------------------------------------------------------- |
-| `bookNames.csv`    | Central registry of books (code, titles in AR/DV/EN)           |
-| `tags.csv`         | Tag definitions (code, label, badge colors)                    |
-| `books/index.html` | Shared viewer page and library dashboard                       |
-| `css/styles.css`   | All presentation styles (light + dark themes via custom props) |
-| `js/dbLookup.js`   | Logic for loading metadata, parsing tags, and rendering the UI |
-| `font/`            | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)     |
-| `data/*.csv`       | Per-book content files                                         |
-| `dependencies/`    | Vendored libraries (PapaParse only)                            |
+| File               | Purpose                                                       |
+| ------------------ | ------------------------------------------------------------- |
+| `bookNames.csv`    | Central registry of books (code, titles in AR/DV/EN)          |
+| `tags.csv`         | Tag definitions (code, label, badge colors)                   |
+| `books/index.html` | Shared viewer page and library dashboard                      |
+| `css/styles.css`   | All styles: light + dark themes, reader, toolbar, responsive  |
+| `js/dbLookup.js`   | Metadata loading, tag extraction, dashboard rendering         |
+| `js/reader.js`     | Book viewer: pagination, search, toolbar, clipboard, keyboard |
+| `font/`            | Custom merged font (Arabic + Thaana + Latin, WOFF2 + WOFF)    |
+| `data/*.csv`       | Per-book content files                                        |
+| `dependencies/`    | PapaParse only                                                |
 
-## How it works
+## Request flow
 
-1. The page reads `?book=CODE` from the URL query string.
-1. `dbLookup.js` loads `bookNames.csv` (via PapaParse) and looks up the matching row.
-1. It loads `tags.csv` to resolve tag badges from the book code's prefix segments.
-1. It tells the caller the matching CSV path (`data/{bookCode}.csv`).
-1. The page loads that CSV (via PapaParse), detects and skips any `#` header row, then renders one row at a time as a vertical reading card.
+```text
+URL: ?book=AQD-nawaqidulIslam
+        │
+        ▼
+  dbLookup.js
+    ├─ fetch ../bookNames.csv  ──→  find row by bookCode
+    ├─ fetch ../tags.csv       ──→  resolve tag badges from prefix
+    └─ returns { bookCode, titleAR, titleDV, titleEN, csvPath }
+        │
+        ▼
+  reader.js
+    ├─ Papa.parse(../data/AQD-nawaqidulIslam.csv)
+    ├─ skip # header row if present
+    ├─ build column toggle buttons from header or auto-names
+    ├─ renderPage(0) → vertical reading card
+    └─ wire pagination / search / toolbar / keyboard
+```
 
-If no `?book=` parameter is present, the page shows a **dashboard** — a card grid of all registered books with tag badges and titles in all three languages.
+No `?book=` → `dbLookup.js` calls `renderDashboard()` → card grid of all registered books.
 
 ## Reader UI
 
+### Layout
+
+```text
+┌─ Search bar ──────────────────────────────────────┐
+│  މި ފޮތުން ހޯދާ…                          [✕]  N ނަތީޖާ │
+├─ Toolbar ─────────────────────────────────────────┤
+│  [📋 ކޮޕީ ކުރޭ] [◉ ފިލި ފޮރުވާ]           │
+│  އެއްފަހަރާ ދައްކަންވީ ކިތައް ސަފްހާ: [1 ▾]               │
+│  ކޮލަމް ފޮރުވާ: [#] [1] [2] [3] [4] [ނޯޓު]        │
+├─ Pagination (top) ────────────────────────────────┤
+│  »  »»  10  …  3  2  1  ««  «     މިހާރުގެ ސަފްހާ [1 ▾]  ސަފްހާ 1 / 10 │
+├─ Reader content ──────────────────────────────────┤
+│  #1                                                │
+│  [column 1]                                        │
+│  [column 2]                                        │
+│  column 3 …                                        │
+│  column 4 …                                        │
+│         ◆                                          │
+│  footnotes                                         │
+├─ Pagination (bottom) ─────────────────────────────┤
+│  »  »»  10  …  3  2  1  ««  «     ސަފްހާ 1 / 10   │
+└────────────────────────────────────────────────────┘
+```
+
 ### Vertical reading card
 
-Each CSV row is rendered as a stacked set of fields, one page at a time. Column 0 is shown as the `#N` heading. All non-empty columns (1 through N-1) are displayed in order with `dir="auto"` for automatic RTL/LTR detection. The **last non-empty column** is separated by a decorative `◆` divider and rendered in a smaller footnotes style.
+Column 0 is the row number (`#N`), toggleable via the column controls. All non-empty columns are displayed in order with `dir="auto"` for automatic RTL/LTR detection. The last non-empty column is separated by a decorative `◆` divider and rendered as footnotes.
 
 ### Pagination
 
-A full pagination bar sits above and below the reader content:
-
-- **First / Last** (`««` / `»»`) — jump to boundaries.
-- **Previous / Next** (`«` / `»`) — step one page.
-- **Page number strip** — clickable buttons:
-  - ≤ 9 total pages: all shown.
-  - > 9 pages: first page, `…` ellipsis, a window of ±2 around current, `…` ellipsis, last page.
-- **Page input** (top bar only) — type a number + Enter, or pick from the `<datalist>` dropdown.
-- Counter displays "Page X of Y" (with match count appended when searching).
+- **Page strip** — clickable buttons. ≤ 9 pages: all shown. > 9: first, `…`, ±2 window around current, `…`, last.
+- **First / Last** (`««` / `»»`) and **Prev / Next** (`«` / `»`).
+- **Page input** — type + Enter, or pick from `<datalist>` dropdown. Top nav only.
+- Nav flows RTL (`dir="rtl"`) to match Arabic: `» »» 10 … 1 «« «`.
+- Counter: `ސަފްހާ X / Y` (with `· N ނަތީޖާ` when searching).
 
 ### Search
 
-A search bar above the top navigation filters rows in real-time:
+Real-time filtering against all columns, case-insensitive. Pagination operates on the filtered set. `/` or `Ctrl+F` focuses the input.
 
-- Matches any text in any column, case-insensitive.
-- Pagination operates within the filtered set.
-- Clear button (✕) resets to full dataset.
-- "No matches" state shown when the filter yields zero rows.
-- Keyboard: `/` or `Ctrl+F` focuses the search bar.
+### Toolbar
+
+| Control            | Implementation                                                                                                                                                                          |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Copy               | Builds plain text from fields with book title header, blank lines between fields, and `ـ` divider before footnotes. Uses `navigator.clipboard.writeText()` with `execCommand` fallback. |
+| Hide diacritics    | Wraps Unicode ranges U+064B–U+065F, U+0610–U+061A, U+06D6–U+06ED in `<span class="tashkeel">`. Toggle adds `.hide-tashkeel` class → CSS `display: none`.                                |
+| Show pages at once | Changes `rowsPerPage` (1/2/3/5). `renderPage` slices the filtered data into pages of N rows, separated by dashed `<hr>`.                                                                |
+| Hide columns       | Per-index toggle buttons. Hidden indices stored in `hiddenColumns[]`. `renderPage` skips hidden columns. Column 0 (row number) is toggleable.                                           |
+
+All toolbar settings persist to `localStorage` under `reader:` keys.
 
 ### Dark mode
 
-A fixed toggle button (top-right) switches between light and dark themes. Theme preference is persisted in `localStorage` and applied before the first paint via a blocking `<script>` in `<head>` (no flash). All colors are CSS custom properties under `:root` (light) and `[data-theme="dark"]` (dark).
+CSS custom properties under `:root` (light) and `[data-theme="dark"]` (dark). Toggle button applies `data-theme` attribute on `<html>`. Preference saved to `localStorage` and restored via blocking `<script>` in `<head>` before CSS paints — no flash.
 
-### Keyboard shortcuts
+### Keyboard
 
-| Key               | Action                  |
-| ----------------- | ----------------------- |
-| `←` / `→`         | Previous / next page    |
-| `Home` / `End`    | First / last page       |
-| `/` or `Ctrl+F`   | Focus search bar        |
+| Key             | Action               |
+| --------------- | -------------------- |
+| `←` / `→`       | Previous / next page |
+| `Home` / `End`  | First / last page    |
+| `/` or `Ctrl+F` | Focus search bar     |
 
-Arrow keys are suppressed while the search input or page input is focused, so normal typing is never interrupted.
+Suppressed while search or page input is focused.
 
 ## Data shape
 
 ### bookNames.csv
 
-| Column     | Description                                            |
-| ---------- | ------------------------------------------------------ |
-| `bookCode` | Unique identifier, also used for the data CSV filename |
-| `titleAR`  | Arabic title                                           |
-| `titleDV`  | Dhivehi title                                          |
-| `titleEN`  | English title                                          |
+| Column     | Description                                         |
+| ---------- | --------------------------------------------------- |
+| `bookCode` | Unique identifier, doubles as the data CSV filename |
+| `titleAR`  | Arabic title                                        |
+| `titleDV`  | Dhivehi title                                       |
+| `titleEN`  | English title (used for `<title>` and page heading) |
 
 ### tags.csv
 
-| Column  | Description                                     |
-| ------- | ----------------------------------------------- |
-| `code`  | Tag code (matches a prefix segment in bookCode) |
-| `label` | Display name                                    |
-| `color` | Text color (CSS hex)                            |
-| `bg`    | Background color (CSS hex)                      |
+| Column  | Description                                              |
+| ------- | -------------------------------------------------------- |
+| `code`  | Tag code — matches a hyphen-separated prefix in bookCode |
+| `label` | Display name for the badge                               |
+| `color` | Text color (CSS hex)                                     |
+| `bg`    | Background color (CSS hex)                               |
 
 ### data/{bookCode}.csv
 
-Each book's content CSV has an optional **header row**. Convention: if the first field of the first row is `#`, it is a header — excluded from the displayed data.
+Optional `#` header row. If present, column labels are taken from it for the toolbar toggles. The row itself is excluded from display.
 
 ```csv
 #,section,arabic_text,dhivehi_text,notes
 1,Introduction,بسم الله...,ބިސްމި...,—
-2,Chapter 1,الحمد لله...,އަލްޙަމްދު...,—
 ```
 
-If there is no `#` header row, all rows are rendered as content directly.
+Without a header row, auto-names are used: `#`, `1`, `2`, …, `ނޯޓު`.
 
 ## Tag system
 
-Tag codes are extracted from the `bookCode` by splitting on `-` and taking all segments **except the last** (which is the book name). Each code is looked up in `tags.csv` for its display label and colors. Unknown codes are silently ignored.
-
-Examples:
+Tag codes are the hyphen-separated prefix segments of `bookCode`, excluding the final segment (the book name). Each code is looked up in `tags.csv`. Unknown codes are silently ignored.
 
 | bookCode                        | Tags        | Book Name             |
 | ------------------------------- | ----------- | --------------------- |
@@ -114,27 +149,30 @@ Examples:
 
 ## Error states
 
-Three error paths are handled with visible messages (no silent blank pages):
+All error paths show visible messages in English (no silent blank screens):
 
-- **Registry fails to load:** "Unable to load the book registry. Please check your connection."
-- **Book code not found:** "Book X was not found in the registry."
-- **Data CSV empty or fails:** "No data found in CSV file: …" or "Error loading CSV: …"
+- **Registry fails:** "Unable to load the book registry. Please check your connection and try again."
+- **Book not found:** "Book X was not found in the registry. The registry may have failed to load, or the book code is incorrect."
+- **CSV empty/fails:** "No data found in CSV file: …" / "Error loading CSV: …"
 
-## Adding a new book
+## Adding content
+
+### New book
 
 1. Add a row to `bookNames.csv`.
-1. Create `data/{bookCode}.csv` (with an optional `#` header row).
-1. Open the viewer or dashboard — it appears automatically.
+1. Create `data/{bookCode}.csv` with an optional `#` header row.
+1. Open the viewer — it appears automatically.
 
-## Adding a new tag category
+### New tag category
 
 1. Add a row to `tags.csv`.
-1. Use the new code as a prefix in any `bookCode` — badges render automatically.
+1. Use the code as a prefix in any `bookCode` — badges render automatically.
 
 ## Key benefits
 
-- **Single source of truth** for book metadata and tag definitions
+- **Single source of truth** — book metadata and tag definitions in CSV files
 - **Shared template** — one HTML page for all books
 - **Zero code changes** — adding books or categories is CSV-only
+- **Light + dark themes** — persisted, no flash
+- **RTL-native** — nav flows right-to-left to match Arabic/Dhivehi reading direction
 - **Graceful errors** — failures show messages, not blank screens
-- **Light + dark themes** — persisted preference, no flash on load

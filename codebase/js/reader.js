@@ -6,10 +6,7 @@
  * rows-per-page control, and per-column visibility toggles.
  */
 
-import {
-  initializePageWithMetadata,
-  extractTags,
-} from "./dbLookup.js";
+import { initializePageWithMetadata, extractTags } from "./dbLookup.js";
 
 initializePageWithMetadata(async function (metadata) {
   document.title = metadata.titleEN || metadata.bookCode;
@@ -62,37 +59,43 @@ initializePageWithMetadata(async function (metadata) {
       // ── Settings (persisted) ────────────────────────────────
       const LS = {
         get(key, fallback) {
-          try { const v = localStorage.getItem("reader:" + key); return v !== null ? JSON.parse(v) : fallback; }
-          catch (_) { return fallback; }
+          try {
+            const v = localStorage.getItem("reader:" + key);
+            return v !== null ? JSON.parse(v) : fallback;
+          } catch (_) {
+            return fallback;
+          }
         },
         set(key, val) {
-          try { localStorage.setItem("reader:" + key, JSON.stringify(val)); } catch (_) {}
+          try {
+            localStorage.setItem("reader:" + key, JSON.stringify(val));
+          } catch (_) {}
         },
       };
 
-      let rowsPerPage   = LS.get("rowsPerPage", 1);
-      let hideTashkeel  = LS.get("hideTashkeel", false);
+      let rowsPerPage = LS.get("rowsPerPage", 1);
+      let hideTashkeel = LS.get("hideTashkeel", false);
       let hiddenColumns = LS.get("hiddenColumns", []);
 
       // ── Reader state ────────────────────────────────────────
       const allData = data;
-      let filteredData   = allData;
-      let currentPage    = 0;
+      let filteredData = allData;
+      let currentPage = 0;
 
       // DOM refs
-      const searchInput     = document.getElementById("searchInput");
-      const searchClear     = document.getElementById("searchClear");
-      const searchInfo      = document.getElementById("searchInfo");
-      const pageInput       = document.getElementById("pageInput");
-      const pageList        = document.getElementById("pageList");
-      const pageOfTotal     = document.getElementById("pageOfTotal");
-      const pageOfTotalBtm  = document.getElementById("pageOfTotalBottom");
-      const selRowsPerPage  = document.getElementById("selRowsPerPage");
-      const btnTashkeel     = document.getElementById("btnTashkeel");
-      const btnCopy         = document.getElementById("btnCopy");
-      const columnToggles   = document.getElementById("columnToggles");
-      const columnTogglesGrp= document.getElementById("columnTogglesGroup");
-      const readerContent   = document.getElementById("readerContent");
+      const searchInput = document.getElementById("searchInput");
+      const searchClear = document.getElementById("searchClear");
+      const searchInfo = document.getElementById("searchInfo");
+      const pageInput = document.getElementById("pageInput");
+      const pageList = document.getElementById("pageList");
+      const pageOfTotal = document.getElementById("pageOfTotal");
+      const pageOfTotalBtm = document.getElementById("pageOfTotalBottom");
+      const selRowsPerPage = document.getElementById("selRowsPerPage");
+      const btnTashkeel = document.getElementById("btnTashkeel");
+      const btnCopy = document.getElementById("btnCopy");
+      const columnToggles = document.getElementById("columnToggles");
+      const columnTogglesGrp = document.getElementById("columnTogglesGroup");
+      const readerContent = document.getElementById("readerContent");
 
       // Init UI controls from persisted state
       selRowsPerPage.value = rowsPerPage;
@@ -106,8 +109,8 @@ initializePageWithMetadata(async function (metadata) {
       function colLabel(idx) {
         if (headerRow && headerRow[idx]) return headerRow[idx];
         if (idx === 0) return "#";
-        if (idx === maxCols - 1) return "Notes";
-        return "C" + idx;
+        if (idx === maxCols - 1) return "ނޯޓު";
+        return "" + idx;
       }
 
       // ── Column toggle buttons ───────────────────────────────
@@ -115,7 +118,8 @@ initializePageWithMetadata(async function (metadata) {
         columnToggles.innerHTML = "";
         for (let i = 0; i < maxCols; i++) {
           const btn = document.createElement("button");
-          btn.className = "col-toggle" + (hiddenColumns.indexOf(i) !== -1 ? " off" : "");
+          btn.className =
+            "col-toggle" + (hiddenColumns.indexOf(i) !== -1 ? " off" : "");
           btn.textContent = colLabel(i);
           btn.title = "Toggle column " + colLabel(i);
           btn.addEventListener("click", function () {
@@ -150,11 +154,11 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       // ── Render current page ─────────────────────────────────
-      let pageText = "";   // plain-text copy of current page (no tashkeel spans)
+      let pageText = ""; // plain-text copy of current page (no tashkeel spans)
 
       function renderPage(pageIdx) {
         const start = pageIdx * rowsPerPage;
-        const rows  = filteredData.slice(start, start + rowsPerPage);
+        const rows = filteredData.slice(start, start + rowsPerPage);
         if (rows.length === 0) {
           readerContent.innerHTML = "";
           pageText = "";
@@ -170,7 +174,7 @@ initializePageWithMetadata(async function (metadata) {
             text += "\n";
           }
           const row = rows[r];
-          const rowNum = row[0] || (start + r + 1);
+          const rowNum = row[0] || start + r + 1;
           if (hiddenColumns.indexOf(0) === -1) {
             html += `<div class="reader-row-num">#${rowNum}</div>`;
             text += `#${rowNum}\n\n`;
@@ -219,7 +223,7 @@ initializePageWithMetadata(async function (metadata) {
         let h = pageBtn(1, current === 1);
         if (current > 4) h += `<span class="page-ellipsis">…</span>`;
         const start = Math.max(2, current - 2);
-        const end   = Math.min(total - 1, current + 2);
+        const end = Math.min(total - 1, current + 2);
         for (let p = start; p <= end; p++) h += pageBtn(p, p === current);
         if (current < total - 3) h += `<span class="page-ellipsis">…</span>`;
         h += pageBtn(total, current === total);
@@ -228,7 +232,7 @@ initializePageWithMetadata(async function (metadata) {
 
       function updatePagination() {
         const total = totalPages();
-        const cur   = currentPage + 1; // 1-based
+        const cur = currentPage + 1; // 1-based
 
         const strip = pageNumbersHTML(cur, total);
         document.getElementById("pageNumbers").innerHTML = strip;
@@ -241,22 +245,28 @@ initializePageWithMetadata(async function (metadata) {
         });
 
         const atFirst = currentPage === 0;
-        const atLast  = currentPage === total - 1;
+        const atLast = currentPage === total - 1;
         [
-          "firstBtn","prevBtn","nextBtn","lastBtn",
-          "firstBtnBottom","prevBtnBottom","nextBtnBottom","lastBtnBottom",
+          "firstBtn",
+          "prevBtn",
+          "nextBtn",
+          "lastBtn",
+          "firstBtnBottom",
+          "prevBtnBottom",
+          "nextBtnBottom",
+          "lastBtnBottom",
         ].forEach(function (id, i) {
           document.getElementById(id).disabled = i % 4 < 2 ? atFirst : atLast;
         });
 
-        let cnt = `Page ${cur} of ${total}`;
+        let cnt = `ސަފްހާ ${cur} / ${total}`;
         const query = searchInput.value.trim();
         if (query && total !== Math.ceil(allData.length / rowsPerPage)) {
-          cnt += ` · ${filteredData.length} match${filteredData.length === 1 ? "" : "es"}`;
+          cnt += ` · ${filteredData.length} ނަތީޖާ`;
         }
         if (pageOfTotal) pageOfTotal.textContent = cnt;
         if (pageOfTotalBtm)
-          pageOfTotalBtm.textContent = `Page ${cur} of ${total}`;
+          pageOfTotalBtm.textContent = `ސަފްހާ ${cur} / ${total}`;
 
         if (pageInput) {
           pageInput.max = total;
@@ -296,7 +306,8 @@ initializePageWithMetadata(async function (metadata) {
           filteredData = allData.filter(function (row) {
             return row.some(function (cell) {
               return (
-                cell !== null && cell !== undefined &&
+                cell !== null &&
+                cell !== undefined &&
                 String(cell).toLowerCase().indexOf(lower) !== -1
               );
             });
@@ -304,14 +315,17 @@ initializePageWithMetadata(async function (metadata) {
           currentPage = 0;
           searchClear.style.display = "";
           searchInfo.style.display = "";
-          searchInfo.textContent = filteredData.length === 0
-            ? "No matches"
-            : filteredData.length + " match" + (filteredData.length === 1 ? "" : "es");
+          searchInfo.textContent =
+            filteredData.length === 0
+              ? "ނަތީޖާ ނުފެނުނު"
+              : filteredData.length + " ނަތީޖާ";
         }
         if (filteredData.length === 0) {
           readerContent.innerHTML =
-            '<div class="reader-no-results">No rows match "' + query + '"</div>';
-          pageText = 'No rows match "' + query + '"';
+            '<div class="reader-no-results">އެއްވެސް ނަތީޖާ ނުފެނުނު: "' +
+            query +
+            '"</div>';
+          pageText = 'އެއްވެސް ނަތީޖާ ނުފެނުނު: "' + query + '"';
           updatePagination();
         } else {
           renderPage(currentPage);
@@ -330,7 +344,7 @@ initializePageWithMetadata(async function (metadata) {
       // ── Toolbar: rows per page ──────────────────────────────
       selRowsPerPage.addEventListener("change", function () {
         const oldRows = rowsPerPage;
-        const firstRowIdx = currentPage * oldRows;    // top row currently visible
+        const firstRowIdx = currentPage * oldRows; // top row currently visible
         rowsPerPage = parseInt(this.value, 10) || 1;
         LS.set("rowsPerPage", rowsPerPage);
         currentPage = Math.floor(firstRowIdx / rowsPerPage);
@@ -356,19 +370,27 @@ initializePageWithMetadata(async function (metadata) {
       btnCopy.addEventListener("click", function () {
         const text = pageText;
         if (!text) return;
-        navigator.clipboard.writeText(text).then(function () {
-          showToast("Copied!");
-        }).catch(function () {
-          // Fallback for older browsers / non-HTTPS
-          const ta = document.createElement("textarea");
-          ta.value = text;
-          ta.style.position = "fixed"; ta.style.left = "-9999px";
-          document.body.appendChild(ta);
-          ta.select();
-          try { document.execCommand("copy"); showToast("Copied!"); }
-          catch (_) { showToast("Copy failed"); }
-          document.body.removeChild(ta);
-        });
+        navigator.clipboard
+          .writeText(text)
+          .then(function () {
+            showToast("ކޮޕީ ކުރެވިއްޖެ!");
+          })
+          .catch(function () {
+            // Fallback for older browsers / non-HTTPS
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            ta.style.position = "fixed";
+            ta.style.left = "-9999px";
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+              document.execCommand("copy");
+              showToast("ކޮޕީ ކުރެވިއްޖެ!");
+            } catch (_) {
+              showToast("ކޮޕީ ނުކުރެވުނު");
+            }
+            document.body.removeChild(ta);
+          });
       });
 
       function showToast(msg) {
@@ -388,13 +410,23 @@ initializePageWithMetadata(async function (metadata) {
 
       // ── Navigation: buttons ─────────────────────────────────
       [
-        "firstBtn","prevBtn","nextBtn","lastBtn",
-        "firstBtnBottom","prevBtnBottom","nextBtnBottom","lastBtnBottom",
+        "firstBtn",
+        "prevBtn",
+        "nextBtn",
+        "lastBtn",
+        "firstBtnBottom",
+        "prevBtnBottom",
+        "nextBtnBottom",
+        "lastBtnBottom",
       ].forEach(function (id) {
-        const delta = id.indexOf("first") === 0 ? -1e9
-                    : id.indexOf("prev")  === 0 ? -1
-                    : id.indexOf("next")  === 0 ? 1
-                    : 1e9;
+        const delta =
+          id.indexOf("first") === 0
+            ? -1e9
+            : id.indexOf("prev") === 0
+              ? -1
+              : id.indexOf("next") === 0
+                ? 1
+                : 1e9;
         document.getElementById(id).addEventListener("click", function () {
           if (delta === -1e9) goTo(0);
           else if (delta === 1e9) goTo(totalPages() - 1);
@@ -422,12 +454,25 @@ initializePageWithMetadata(async function (metadata) {
         if (
           document.activeElement === searchInput ||
           document.activeElement === pageInput
-        ) return;
+        )
+          return;
 
-        if (e.key === "ArrowLeft")  { e.preventDefault(); goTo(currentPage - 1); }
-        if (e.key === "ArrowRight") { e.preventDefault(); goTo(currentPage + 1); }
-        if (e.key === "Home")       { e.preventDefault(); goTo(0); }
-        if (e.key === "End")        { e.preventDefault(); goTo(totalPages() - 1); }
+        if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          goTo(currentPage - 1);
+        }
+        if (e.key === "ArrowRight") {
+          e.preventDefault();
+          goTo(currentPage + 1);
+        }
+        if (e.key === "Home") {
+          e.preventDefault();
+          goTo(0);
+        }
+        if (e.key === "End") {
+          e.preventDefault();
+          goTo(totalPages() - 1);
+        }
         if (e.key === "/" || (e.key === "f" && (e.ctrlKey || e.metaKey))) {
           e.preventDefault();
           searchInput.focus();

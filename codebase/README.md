@@ -10,18 +10,19 @@ tags.csv               ← Tag definitions (code, label, colors)
 books/
   index.html           ← Shared viewer + dashboard (the only HTML page)
 css/
-  styles.css           ← All presentation styles (light + dark themes)
+  styles.css           ← All styles (light + dark themes, custom properties)
 js/
   dbLookup.js          ← Metadata loader, tag extraction, dashboard renderer
+  reader.js            ← Book viewer: pagination, search, toolbar, keyboard
 font/
   merged-300.woff2     ← Custom merged font (Arabic + Thaana + Latin)
   merged-300.woff
 data/
-  AQD-*.csv            ← Per-book data files
-  HDT-*.csv
-dependencies/          ← Vendored libraries (PapaParse)
+  *.csv                ← Per-book content files
+dependencies/
+  papaparse.min.js     ← CSV parsing (only dependency)
 docs/
-  ARCHITECTURE.md      ← System design overview
+  ARCHITECTURE.md      ← System design and conventions
   DB_LOOKUP_README.md  ← API reference for dbLookup.js
 ```
 
@@ -49,11 +50,11 @@ code,label,color,bg
 FQH,Fiqh,#b91c1c,#fef2f2
 ```
 
-Books with a `FQH-` prefix in their `bookCode` will now show a "Fiqh" badge. No JavaScript edits needed.
+Books with a `FQH-` prefix in their `bookCode` will show a "Fiqh" badge. No code needed.
 
 ## Data CSV format
 
-Each book's CSV in `data/` can optionally include a **header row** for the author's reference. The viewer detects and hides it automatically.
+Each book's CSV in `data/` can optionally include a header row for reference. The viewer detects and hides it automatically.
 
 ```csv
 #,section,arabic_text,dhivehi_text,notes
@@ -61,58 +62,78 @@ Each book's CSV in `data/` can optionally include a **header row** for the autho
 2,Chapter 1,الحمد لله...,އަލްޙަމްދު...,—
 ```
 
-**Convention:** if the first field of the first row is `#`, the viewer treats it as a header — it is excluded from the displayed data.
+**Convention:** if the first field of the first row is `#`, the viewer treats it as a header — excluded from display and used to label columns in the toolbar.
 
 ## How it works
 
-1. The page reads `?book=CODE` from the URL query string.
-1. `dbLookup.js` loads `bookNames.csv` (via PapaParse) to find the book's titles.
-1. It loads `tags.csv` to resolve any category badges from the book code prefix.
-1. PapaParse loads the matching `data/{bookCode}.csv`.
-1. The page renders one row at a time as a vertical reading card, with full pagination (page strip, First/Last, page-number input) and a search bar for filtering rows.
+1. The page reads `?book=CODE` from the URL.
+1. `dbLookup.js` loads `bookNames.csv` and `tags.csv` for metadata and badges.
+1. `reader.js` loads `data/{bookCode}.csv` via PapaParse.
+1. Each row renders as a vertical reading card — columns stacked top to bottom, one page at a time.
 
-**No book selected?** The dashboard shows all registered books as cards, grouped by tag.
+**No book selected?** The dashboard shows all registered books as a card grid.
 
 ## Reader features
 
+### Reading view
+
+- **Vertical layout** — each row's columns are stacked with `dir="auto"` for proper RTL/LTR rendering.
+- **Footnotes divider** — the last column is separated by a decorative `◆` divider and rendered in smaller text.
+- **Multi-row pages** — show 1, 2, 3, or 5 rows per page via the toolbar selector.
+
 ### Pagination
 
-- **Page strip** — shows surrounding page numbers with the current page highlighted. Uses `…` ellipsis when there are many pages.
-- **First / Last buttons** (`««` / `»»`) — jump to the beginning or end.
-- **Page input** — type a page number and hit Enter, or pick from the dropdown. Located in the top navigation bar.
-- Counter shows "Page X of Y" (or "Page X of Y · N matches" when searching).
+- **Page strip** — clickable page numbers with the current page highlighted. Uses `…` ellipsis for large ranges.
+- **First / Last** (`««` / `»»`) and **Prev / Next** (`«` / `»`) buttons.
+- **Page input** — type a number + Enter, or pick from the dropdown.
+- Counter displays current position and match count when searching.
 
 ### Search
 
-- **Real-time filtering** — type in the search bar to filter rows. Matches any text in any column, case-insensitive.
-- **Navigate matches** — pagination works within the filtered set.
-- **Clear button** (✕) resets to the full dataset.
-- Shows "No matches" when nothing is found.
-- Keyboard: press `/` or `Ctrl+F` to focus the search bar.
+- Real-time filtering — matches any text in any column, case-insensitive.
+- Pagination operates within the filtered set.
+- Clear button (✕) resets to full dataset.
+- Keyboard: `/` or `Ctrl+F` focuses the search bar.
+
+### Toolbar
+
+| Control | Description |
+|---|---|
+| 📋 Copy | Copy current page to clipboard with proper formatting |
+| ◉ Hide diacritics | Toggle Arabic tashkeel (harakat) visibility |
+| Show pages at once | Select rows per page: 1 / 2 / 3 / 5 |
+| Hide columns | Per-column toggle buttons — click to show/hide any column |
 
 ### Dark mode
 
-- **Toggle button** (top-right corner) switches between light and dark themes.
-- **Persisted** — your choice is saved to `localStorage` and restored on every visit.
-- **No flash** — the saved theme is applied before the page paints.
+- Toggle button (top-right) switches between light and dark themes.
+- Persisted to `localStorage`, applied before paint — no flash.
+- All colors defined as CSS custom properties.
 
 ### Keyboard shortcuts
 
-| Key               | Action                  |
-| ----------------- | ----------------------- |
-| `←` / `→`         | Previous / next page    |
-| `Home` / `End`    | First / last page       |
-| `/` or `Ctrl+F`   | Focus search bar        |
+| Key | Action |
+|---|---|
+| `←` / `→` | Previous / next page |
+| `Home` / `End` | First / last page |
+| `/` or `Ctrl+F` | Focus search bar |
+
+Arrow keys are suppressed when the search or page input is focused.
 
 ### Font
 
-The bundled `font/merged-300.*` files provide a custom merged font covering Arabic, Thaana (Dhivehi), and Latin scripts. Served as WOFF2 with a WOFF fallback. Applied to all Arabic and Dhivehi text throughout the reader and dashboard.
+The bundled `font/merged-300.*` files provide a custom font covering Arabic, Thaana (Dhivehi), and Latin scripts. Applied via `@font-face` to all reader content, dashboard titles, and UI labels.
+
+### Language
+
+The UI (toolbar, nav, search, counters) is written in Dhivehi. Error messages remain in English.
 
 ## Error handling
 
-- **Registry failed to load** → the dashboard shows a visible error message instead of a silent blank page.
-- **Book code not found** → an error explains which book was requested and suggests the registry may have failed.
-- **CSV parse warnings** → logged to the browser console (non-fatal).
+- **Registry failed to load** — visible error message on the dashboard.
+- **Book code not found** — error explains which book was requested.
+- **Data CSV empty or fails** — error shown in the reader.
+- **CSV parse warnings** — logged to console (non-fatal).
 
 ## Dependencies
 

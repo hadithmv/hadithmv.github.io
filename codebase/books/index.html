@@ -37,7 +37,7 @@
     </div>
 
     <!-- Loading State -->
-    <div id="loadingMessage" class="loading">Loading book data...</div>
+    <div id="loadingMessage" class="loading">ފޮތް ލޯޑް ކުރަނީ…</div>
 
     <!-- Error State -->
     <div id="errorMessage" class="error" style="display: none"></div>
@@ -49,8 +49,8 @@
           id="searchInput"
           type="search"
           class="search-input"
-          placeholder="Search this book…"
-          dir="auto"
+          placeholder="މި ފޮތުން ހޯދާ…"
+          dir="rtl"
         />
         <button
           id="searchClear"
@@ -62,26 +62,26 @@
         </button>
         <span id="searchInfo" class="search-info" style="display: none"></span>
       </div>
-      <div id="readerToolbar" class="reader-toolbar">
+      <div id="readerToolbar" class="reader-toolbar" dir="rtl">
         <div class="toolbar-group">
           <button
             id="btnCopy"
             class="toolbar-btn"
             title="Copy page to clipboard"
           >
-            📋
+            📋 ކޮޕީ ކުރޭ
           </button>
           <button
             id="btnTashkeel"
             class="toolbar-btn"
             title="Toggle Arabic diacritics (tashkeel)"
           >
-            ◉
+            ◉ ފިލި ފޮރުވާ
           </button>
         </div>
         <div class="toolbar-group">
           <label class="toolbar-label" for="selRowsPerPage"
-            >Show pages at once:</label
+            >އެއްފަހަރާ ދައްކަންވީ ކިތައް ސަފްހާ:</label
           >
           <select id="selRowsPerPage" class="toolbar-select">
             <option value="1">1</option>
@@ -95,11 +95,11 @@
           id="columnTogglesGroup"
           style="display: none"
         >
-          <label class="toolbar-label">Hide columns:</label>
+          <label class="toolbar-label">ކޮލަމް ފޮރުވާ:</label>
           <div id="columnToggles" class="column-toggles"></div>
         </div>
       </div>
-      <nav id="readerNav" class="reader-nav">
+      <nav id="readerNav" class="reader-nav" dir="rtl">
         <div class="nav-pages">
           <button
             id="firstBtn"
@@ -118,7 +118,9 @@
           </button>
         </div>
         <div class="nav-goto">
-          <label for="pageInput" class="page-label">Current page no:</label>
+          <label for="pageInput" class="page-label"
+            >މި ސަފްހާގެ ނަންބަރު:</label
+          >
           <input
             type="number"
             id="pageInput"
@@ -132,7 +134,7 @@
         </div>
       </nav>
       <article id="readerContent" dir="rtl"></article>
-      <nav id="readerNavBottom" class="reader-nav">
+      <nav id="readerNavBottom" class="reader-nav" dir="rtl">
         <div class="nav-pages">
           <button
             id="firstBtnBottom"

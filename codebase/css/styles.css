@@ -335,7 +335,7 @@ body {
   flex-shrink: 0;
   font-size: 0.8rem;
   color: var(--color-text-subtle);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   white-space: nowrap;
 }
 
@@ -365,7 +365,7 @@ body {
   border: 1px solid var(--color-border);
   border-radius: 6px;
   cursor: pointer;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   transition:
     background 0.15s ease,
     border-color 0.15s ease,
@@ -389,8 +389,7 @@ body {
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-text-subtle);
-  font-family: system-ui, -apple-system, sans-serif;
-  text-transform: uppercase;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   letter-spacing: 0.04em;
 }
 
@@ -423,7 +422,7 @@ body {
   padding: 3px 7px;
   font-size: 0.72rem;
   font-weight: 600;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   color: var(--color-nav-btn-text);
   background: var(--color-nav-btn-bg);
   border: 1px solid var(--color-border);
@@ -605,8 +604,7 @@ body {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--color-text-subtle);
-  font-family: system-ui, -apple-system, sans-serif;
-  text-transform: uppercase;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   letter-spacing: 0.05em;
 }
 
@@ -640,7 +638,7 @@ body {
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--color-text-muted);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   white-space: nowrap;
 }
 
@@ -648,7 +646,7 @@ body {
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--color-text-muted);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: "Hadithmv", "Faruma", system-ui, -apple-system, sans-serif;
   white-space: nowrap;
 }
 
