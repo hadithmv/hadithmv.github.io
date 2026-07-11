@@ -1,9 +1,9 @@
 /**
  * Reader Module
  *
- * Initialises the book viewer: loads CSV data via PapaParse, renders one
- * row at a time as a vertical reading card, and provides pagination and
- * full-text search.
+ * Book viewer: loads CSV data via PapaParse, renders vertical reading cards,
+ * provides pagination, full-text search, copy-to-clipboard, tashkeel toggle,
+ * rows-per-page control, and per-column visibility toggles.
  */
 
 import {
@@ -31,8 +31,9 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       // Detect and remove a header row (convention: first field is "#")
+      let headerRow = null;
       if (data.length > 0 && data[0][0] === "#") {
-        data.shift();
+        headerRow = data.shift();
       }
 
       // Populate page header
@@ -55,55 +56,140 @@ initializePageWithMetadata(async function (metadata) {
           .join("");
       }
 
-      // ── Reader state ──────────────────────────────────────
+      // ── Settings (persisted) ────────────────────────────────
+      const LS = {
+        get(key, fallback) {
+          try { const v = localStorage.getItem("reader:" + key); return v !== null ? JSON.parse(v) : fallback; }
+          catch (_) { return fallback; }
+        },
+        set(key, val) {
+          try { localStorage.setItem("reader:" + key, JSON.stringify(val)); } catch (_) {}
+        },
+      };
+
+      let rowsPerPage   = LS.get("rowsPerPage", 1);
+      let hideTashkeel  = LS.get("hideTashkeel", false);
+      let hiddenColumns = LS.get("hiddenColumns", []);
+
+      // ── Reader state ────────────────────────────────────────
       const allData = data;
-      let filteredData = allData;
-      let currentIndex = 0;
-      const searchInput    = document.getElementById("searchInput");
-      const searchClear    = document.getElementById("searchClear");
-      const searchInfo     = document.getElementById("searchInfo");
-      const pageInput      = document.getElementById("pageInput");
-      const pageList       = document.getElementById("pageList");
-      const pageOfTotal    = document.getElementById("pageOfTotal");
-      const pageOfTotalBtm = document.getElementById("pageOfTotalBottom");
+      let filteredData   = allData;
+      let currentPage    = 0;
 
+      // DOM refs
+      const searchInput     = document.getElementById("searchInput");
+      const searchClear     = document.getElementById("searchClear");
+      const searchInfo      = document.getElementById("searchInfo");
+      const pageInput       = document.getElementById("pageInput");
+      const pageList        = document.getElementById("pageList");
+      const pageOfTotal     = document.getElementById("pageOfTotal");
+      const pageOfTotalBtm  = document.getElementById("pageOfTotalBottom");
+      const selRowsPerPage  = document.getElementById("selRowsPerPage");
+      const btnTashkeel     = document.getElementById("btnTashkeel");
+      const btnCopy         = document.getElementById("btnCopy");
+      const columnToggles   = document.getElementById("columnToggles");
+      const columnTogglesGrp= document.getElementById("columnTogglesGroup");
+      const readerContent   = document.getElementById("readerContent");
+
+      // Init UI controls from persisted state
+      selRowsPerPage.value = rowsPerPage;
+      if (hideTashkeel) {
+        btnTashkeel.classList.add("active");
+        readerContent.classList.add("hide-tashkeel");
+      }
+
+      // ── Column info ─────────────────────────────────────────
+      const maxCols = allData.reduce((m, r) => Math.max(m, r.length), 0);
+      function colLabel(idx) {
+        if (headerRow && headerRow[idx]) return headerRow[idx];
+        if (idx === 0) return "#";
+        if (idx === maxCols - 1) return "Notes";
+        return "C" + (idx + 1);
+      }
+
+      // ── Column toggle buttons ───────────────────────────────
+      function buildColumnToggles() {
+        columnToggles.innerHTML = "";
+        for (let i = 1; i < maxCols; i++) {
+          const btn = document.createElement("button");
+          btn.className = "col-toggle" + (hiddenColumns.indexOf(i) !== -1 ? " off" : "");
+          btn.textContent = colLabel(i);
+          btn.title = "Toggle column " + colLabel(i);
+          btn.addEventListener("click", function () {
+            const pos = hiddenColumns.indexOf(i);
+            if (pos === -1) {
+              hiddenColumns.push(i);
+              btn.classList.add("off");
+            } else {
+              hiddenColumns.splice(pos, 1);
+              btn.classList.remove("off");
+            }
+            LS.set("hiddenColumns", hiddenColumns);
+            renderPage(currentPage);
+          });
+          columnToggles.appendChild(btn);
+        }
+        if (maxCols > 1) columnTogglesGrp.style.display = "";
+      }
+      buildColumnToggles();
+
+      // ── Tashkeel helpers ────────────────────────────────────
+      // Unicode ranges for Arabic diacritics / tashkeel
+      const TASHKEEL_RE = /[ً-ٟؐ-ؚۖ-ۭ]+/g;
+
+      function markupTashkeel(text) {
+        return text.replace(TASHKEEL_RE, '<span class="tashkeel">$&</span>');
+      }
+
+      // ── Total pages (respects rowsPerPage) ─────────────────
       function totalPages() {
-        return filteredData.length;
+        return Math.ceil(filteredData.length / rowsPerPage);
       }
 
-      // ── Render current page ────────────────────────────────
-      function renderPage(index) {
-        const row = filteredData[index];
-        if (!row) return;
+      // ── Render current page ─────────────────────────────────
+      function renderPage(pageIdx) {
+        const start = pageIdx * rowsPerPage;
+        const rows  = filteredData.slice(start, start + rowsPerPage);
+        if (rows.length === 0) {
+          readerContent.innerHTML = "";
+          updatePagination();
+          return;
+        }
 
-        const rowNum = row[0] || index + 1;
-        let html = `<div class="reader-row-num">#${rowNum}</div>`;
-        const fields = [];
-        for (let i = 1; i < row.length; i++) {
-          const v = row[i];
-          if (v !== null && v !== undefined && String(v).trim() !== "") {
-            fields.push({ value: String(v).trim() });
+        let html = "";
+        for (let r = 0; r < rows.length; r++) {
+          if (r > 0) html += `<hr class="reader-page-sep" />`;
+          const row = rows[r];
+          const rowNum = row[0] || (start + r + 1);
+          html += `<div class="reader-row-num">#${rowNum}</div>`;
+
+          // Collect visible, non-empty columns (skip col 0)
+          const fields = [];
+          for (let i = 1; i < row.length; i++) {
+            if (hiddenColumns.indexOf(i) !== -1) continue;
+            const v = row[i];
+            if (v !== null && v !== undefined && String(v).trim() !== "") {
+              fields.push({ value: String(v).trim(), index: i });
+            }
+          }
+
+          for (let i = 0; i < fields.length; i++) {
+            const display = markupTashkeel(fields[i].value);
+            if (i === fields.length - 1 && fields.length > 1) {
+              html += `<div class="reader-divider"></div>`;
+              html += `<div class="reader-field reader-footnotes" dir="auto">${display}</div>`;
+            } else {
+              html += `<div class="reader-field" dir="auto">${display}</div>`;
+            }
           }
         }
-        for (let i = 0; i < fields.length; i++) {
-          if (i === fields.length - 1 && fields.length > 1) {
-            html += `<div class="reader-divider"></div>`;
-            html +=
-              `<div class="reader-field reader-footnotes" dir="auto">${fields[i].value}</div>`;
-          } else {
-            html +=
-              `<div class="reader-field" dir="auto">${fields[i].value}</div>`;
-          }
-        }
-        document.getElementById("readerContent").innerHTML = html;
 
+        readerContent.innerHTML = html;
         updatePagination();
-        document
-          .getElementById("readerContent")
-          .scrollIntoView({ behavior: "smooth", block: "start" });
+        readerContent.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
-      // ── Pagination UI ──────────────────────────────────────
+      // ── Pagination UI ───────────────────────────────────────
       function pageBtn(page, active) {
         return `<button class="page-num${active ? " active" : ""}" data-page="${page}">${page}</button>`;
       }
@@ -112,72 +198,56 @@ initializePageWithMetadata(async function (metadata) {
         if (total <= 1) return "";
         if (total <= 9) {
           let h = "";
-          for (let p = 1; p <= total; p++) {
-            h += pageBtn(p, p === current);
-          }
+          for (let p = 1; p <= total; p++) h += pageBtn(p, p === current);
           return h;
         }
-        // Sliding window: first … window … last
         let h = pageBtn(1, current === 1);
         if (current > 4) h += `<span class="page-ellipsis">…</span>`;
-
         const start = Math.max(2, current - 2);
-        const end = Math.min(total - 1, current + 2);
-        for (let p = start; p <= end; p++) {
-          h += pageBtn(p, p === current);
-        }
-
-        if (current < total - 3)
-          h += `<span class="page-ellipsis">…</span>`;
+        const end   = Math.min(total - 1, current + 2);
+        for (let p = start; p <= end; p++) h += pageBtn(p, p === current);
+        if (current < total - 3) h += `<span class="page-ellipsis">…</span>`;
         h += pageBtn(total, current === total);
         return h;
       }
 
       function updatePagination() {
         const total = totalPages();
-        const cur = currentIndex + 1; // 1-based for display
+        const cur   = currentPage + 1; // 1-based
 
-        // Page strip
         const strip = pageNumbersHTML(cur, total);
         document.getElementById("pageNumbers").innerHTML = strip;
         document.getElementById("pageNumbersBottom").innerHTML = strip;
 
-        // Wire page-number click handlers
         document.querySelectorAll(".page-num").forEach(function (btn) {
           btn.addEventListener("click", function () {
             goTo(parseInt(this.dataset.page) - 1);
           });
         });
 
-        // Edge buttons
-        const atFirst = currentIndex === 0;
-        const atLast = currentIndex === total - 1;
-        document.getElementById("firstBtn").disabled = atFirst;
-        document.getElementById("prevBtn").disabled = atFirst;
-        document.getElementById("nextBtn").disabled = atLast;
-        document.getElementById("lastBtn").disabled = atLast;
-        document.getElementById("firstBtnBottom").disabled = atFirst;
-        document.getElementById("prevBtnBottom").disabled = atFirst;
-        document.getElementById("nextBtnBottom").disabled = atLast;
-        document.getElementById("lastBtnBottom").disabled = atLast;
+        const atFirst = currentPage === 0;
+        const atLast  = currentPage === total - 1;
+        [
+          "firstBtn","prevBtn","nextBtn","lastBtn",
+          "firstBtnBottom","prevBtnBottom","nextBtnBottom","lastBtnBottom",
+        ].forEach(function (id, i) {
+          document.getElementById(id).disabled = i % 4 < 2 ? atFirst : atLast;
+        });
 
-        // Counter text
         let cnt = `Page ${cur} of ${total}`;
         const query = searchInput.value.trim();
-        if (query && total !== allData.length) {
-          cnt += ` · ${total} match${total === 1 ? "" : "es"}`;
+        if (query && total !== Math.ceil(allData.length / rowsPerPage)) {
+          cnt += ` · ${filteredData.length} match${filteredData.length === 1 ? "" : "es"}`;
         }
         if (pageOfTotal) pageOfTotal.textContent = cnt;
         if (pageOfTotalBtm)
           pageOfTotalBtm.textContent = `Page ${cur} of ${total}`;
 
-        // Page input
         if (pageInput) {
           pageInput.max = total;
           pageInput.value = cur;
         }
 
-        // Datalist — rebuild when total changes
         if (pageList && pageList.options.length !== total) {
           pageList.innerHTML = "";
           for (let p = 1; p <= total; p++) {
@@ -188,21 +258,21 @@ initializePageWithMetadata(async function (metadata) {
         }
       }
 
-      function goTo(index) {
+      function goTo(pageIdx) {
         const total = totalPages();
         if (total === 0) return;
-        if (index < 0) index = 0;
-        if (index >= total) index = total - 1;
-        currentIndex = index;
-        renderPage(currentIndex);
+        if (pageIdx < 0) pageIdx = 0;
+        if (pageIdx >= total) pageIdx = total - 1;
+        currentPage = pageIdx;
+        renderPage(currentPage);
       }
 
-      // ── Search ─────────────────────────────────────────────
+      // ── Search ──────────────────────────────────────────────
       function applySearch(query) {
         const q = query.trim();
         if (!q) {
           filteredData = allData;
-          currentIndex = 0;
+          currentPage = 0;
           searchClear.style.display = "none";
           searchInfo.style.display = "none";
         } else {
@@ -210,34 +280,24 @@ initializePageWithMetadata(async function (metadata) {
           filteredData = allData.filter(function (row) {
             return row.some(function (cell) {
               return (
-                cell !== null &&
-                cell !== undefined &&
-                String(cell)
-                  .toLowerCase()
-                  .indexOf(lower) !== -1
+                cell !== null && cell !== undefined &&
+                String(cell).toLowerCase().indexOf(lower) !== -1
               );
             });
           });
-          currentIndex = 0;
+          currentPage = 0;
           searchClear.style.display = "";
           searchInfo.style.display = "";
-          if (filteredData.length === 0) {
-            searchInfo.textContent = "No matches";
-          } else {
-            searchInfo.textContent =
-              filteredData.length +
-              " match" +
-              (filteredData.length === 1 ? "" : "es");
-          }
+          searchInfo.textContent = filteredData.length === 0
+            ? "No matches"
+            : filteredData.length + " match" + (filteredData.length === 1 ? "" : "es");
         }
         if (filteredData.length === 0) {
-          document.getElementById("readerContent").innerHTML =
-            '<div class="reader-no-results">No rows match "' +
-            query +
-            '"</div>';
+          readerContent.innerHTML =
+            '<div class="reader-no-results">No rows match "' + query + '"</div>';
           updatePagination();
         } else {
-          renderPage(currentIndex);
+          renderPage(currentPage);
         }
       }
 
@@ -250,104 +310,115 @@ initializePageWithMetadata(async function (metadata) {
         searchInput.focus();
       });
 
-      // ── Navigation: buttons ────────────────────────────────
-      document
-        .getElementById("firstBtn")
-        .addEventListener("click", function () {
-          goTo(0);
-        });
-      document
-        .getElementById("prevBtn")
-        .addEventListener("click", function () {
-          goTo(currentIndex - 1);
-        });
-      document
-        .getElementById("nextBtn")
-        .addEventListener("click", function () {
-          goTo(currentIndex + 1);
-        });
-      document
-        .getElementById("lastBtn")
-        .addEventListener("click", function () {
-          goTo(totalPages() - 1);
-        });
-      document
-        .getElementById("firstBtnBottom")
-        .addEventListener("click", function () {
-          goTo(0);
-        });
-      document
-        .getElementById("prevBtnBottom")
-        .addEventListener("click", function () {
-          goTo(currentIndex - 1);
-        });
-      document
-        .getElementById("nextBtnBottom")
-        .addEventListener("click", function () {
-          goTo(currentIndex + 1);
-        });
-      document
-        .getElementById("lastBtnBottom")
-        .addEventListener("click", function () {
-          goTo(totalPages() - 1);
-        });
+      // ── Toolbar: rows per page ──────────────────────────────
+      selRowsPerPage.addEventListener("change", function () {
+        const oldRows = rowsPerPage;
+        const firstRowIdx = currentPage * oldRows;    // top row currently visible
+        rowsPerPage = parseInt(this.value, 10) || 1;
+        LS.set("rowsPerPage", rowsPerPage);
+        currentPage = Math.floor(firstRowIdx / rowsPerPage);
+        renderPage(currentPage);
+      });
 
-      // ── Navigation: page input ─────────────────────────────
+      // ── Toolbar: tashkeel toggle ────────────────────────────
+      btnTashkeel.addEventListener("click", function () {
+        hideTashkeel = !hideTashkeel;
+        LS.set("hideTashkeel", hideTashkeel);
+        if (hideTashkeel) {
+          readerContent.classList.add("hide-tashkeel");
+          btnTashkeel.classList.add("active");
+        } else {
+          readerContent.classList.remove("hide-tashkeel");
+          btnTashkeel.classList.remove("active");
+        }
+        // Re-render to apply/remove markup
+        if (filteredData.length > 0) renderPage(currentPage);
+      });
+
+      // ── Toolbar: copy to clipboard ──────────────────────────
+      btnCopy.addEventListener("click", function () {
+        const text = readerContent.innerText.trim();
+        if (!text) return;
+        navigator.clipboard.writeText(text).then(function () {
+          showToast("Copied!");
+        }).catch(function () {
+          // Fallback for older browsers / non-HTTPS
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed"; ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand("copy"); showToast("Copied!"); }
+          catch (_) { showToast("Copy failed"); }
+          document.body.removeChild(ta);
+        });
+      });
+
+      function showToast(msg) {
+        let el = document.querySelector(".copy-toast");
+        if (!el) {
+          el = document.createElement("div");
+          el.className = "copy-toast";
+          document.body.appendChild(el);
+        }
+        el.textContent = msg;
+        el.classList.add("show");
+        clearTimeout(el._timeout);
+        el._timeout = setTimeout(function () {
+          el.classList.remove("show");
+        }, 1500);
+      }
+
+      // ── Navigation: buttons ─────────────────────────────────
+      [
+        "firstBtn","prevBtn","nextBtn","lastBtn",
+        "firstBtnBottom","prevBtnBottom","nextBtnBottom","lastBtnBottom",
+      ].forEach(function (id) {
+        const delta = id.indexOf("first") === 0 ? -1e9
+                    : id.indexOf("prev")  === 0 ? -1
+                    : id.indexOf("next")  === 0 ? 1
+                    : 1e9;
+        document.getElementById(id).addEventListener("click", function () {
+          if (delta === -1e9) goTo(0);
+          else if (delta === 1e9) goTo(totalPages() - 1);
+          else goTo(currentPage + delta);
+        });
+      });
+
+      // ── Navigation: page input ──────────────────────────────
       pageInput.addEventListener("keydown", function (e) {
         if (e.key === "Enter") {
           e.preventDefault();
           const v = parseInt(pageInput.value, 10);
-          if (!isNaN(v) && v >= 1 && v <= totalPages()) {
-            goTo(v - 1);
-          } else {
-            pageInput.value = currentIndex + 1;
-          }
+          if (!isNaN(v) && v >= 1 && v <= totalPages()) goTo(v - 1);
+          else pageInput.value = currentPage + 1;
         }
       });
       pageInput.addEventListener("change", function () {
         const v = parseInt(pageInput.value, 10);
-        if (!isNaN(v) && v >= 1 && v <= totalPages()) {
-          goTo(v - 1);
-        } else {
-          pageInput.value = currentIndex + 1;
-        }
+        if (!isNaN(v) && v >= 1 && v <= totalPages()) goTo(v - 1);
+        else pageInput.value = currentPage + 1;
       });
 
-      // ── Keyboard ───────────────────────────────────────────
+      // ── Keyboard ────────────────────────────────────────────
       document.addEventListener("keydown", function onKey(e) {
         if (
           document.activeElement === searchInput ||
           document.activeElement === pageInput
-        )
-          return;
+        ) return;
 
-        if (e.key === "ArrowLeft") {
-          e.preventDefault();
-          goTo(currentIndex - 1);
-        }
-        if (e.key === "ArrowRight") {
-          e.preventDefault();
-          goTo(currentIndex + 1);
-        }
-        if (e.key === "Home") {
-          e.preventDefault();
-          goTo(0);
-        }
-        if (e.key === "End") {
-          e.preventDefault();
-          goTo(totalPages() - 1);
-        }
-        if (
-          e.key === "/" ||
-          (e.key === "f" && (e.ctrlKey || e.metaKey))
-        ) {
+        if (e.key === "ArrowLeft")  { e.preventDefault(); goTo(currentPage - 1); }
+        if (e.key === "ArrowRight") { e.preventDefault(); goTo(currentPage + 1); }
+        if (e.key === "Home")       { e.preventDefault(); goTo(0); }
+        if (e.key === "End")        { e.preventDefault(); goTo(totalPages() - 1); }
+        if (e.key === "/" || (e.key === "f" && (e.ctrlKey || e.metaKey))) {
           e.preventDefault();
           searchInput.focus();
           searchInput.select();
         }
       });
 
-      // Initial render
+      // ── Initial render ──────────────────────────────────────
       renderPage(0);
 
       // Reveal everything at once

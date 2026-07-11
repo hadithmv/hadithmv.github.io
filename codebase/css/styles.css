@@ -339,6 +339,153 @@ body {
   white-space: nowrap;
 }
 
+/* ---- Reader toolbar ---- */
+.reader-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.toolbar-btn {
+  padding: 5px 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-nav-btn-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: system-ui, -apple-system, sans-serif;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+  white-space: nowrap;
+}
+
+.toolbar-btn:hover {
+  background: var(--color-nav-btn-hover-bg);
+  border-color: var(--color-card-hover-border);
+  color: var(--color-nav-btn-hover-text);
+}
+
+.toolbar-btn.active {
+  background: var(--color-nav-btn-text);
+  color: var(--color-reader-bg);
+  border-color: var(--color-nav-btn-text);
+}
+
+.toolbar-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-subtle);
+  font-family: system-ui, -apple-system, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.toolbar-select {
+  padding: 4px 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: var(--color-text);
+  background: var(--color-reader-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.toolbar-select:focus {
+  border-color: var(--color-card-hover-border);
+}
+
+/* Column toggle buttons */
+.column-toggles {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.col-toggle {
+  padding: 3px 7px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: var(--color-nav-btn-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+  white-space: nowrap;
+}
+
+.col-toggle:hover {
+  background: var(--color-nav-btn-hover-bg);
+  border-color: var(--color-card-hover-border);
+}
+
+.col-toggle.off {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+
+/* ── Tashkeel hide mode ── */
+.hide-tashkeel .tashkeel {
+  display: none;
+}
+
+/* ── Multi-row page separator ── */
+.reader-page-sep {
+  border: none;
+  border-top: 1px dashed var(--color-divider);
+  margin: 28px 0;
+}
+
+/* ── Copy feedback toast ── */
+.copy-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #fff;
+  background: #1a202c;
+  border-radius: 8px;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+[data-theme="dark"] .copy-toast {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.copy-toast.show {
+  opacity: 1;
+}
+
 /* ---- Navigation bar ---- */
 .reader-nav {
   display: flex;
@@ -617,6 +764,20 @@ body {
     width: 50px;
     padding: 4px 4px;
     font-size: 0.8rem;
+  }
+
+  .reader-toolbar {
+    gap: 8px;
+  }
+
+  .toolbar-btn {
+    padding: 5px 8px;
+    font-size: 0.78rem;
+  }
+
+  .col-toggle {
+    padding: 2px 5px;
+    font-size: 0.68rem;
   }
 
   #themeToggle {
