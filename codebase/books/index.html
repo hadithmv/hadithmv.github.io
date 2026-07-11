@@ -67,6 +67,13 @@
               return;
             }
 
+            // Detect and remove a header row (convention: first field is "#")
+            // The header row is for the author's reference and is not displayed.
+            let headerRow = null;
+            if (data.length > 0 && data[0][0] === "#") {
+              headerRow = data.shift();
+            }
+
             // Populate header content
             document.getElementById("pageTitle").textContent =
               metadata.titleEN || metadata.bookCode;
@@ -87,7 +94,7 @@
                 .join("");
             }
 
-            // Build column definitions
+            // Build column definitions, using the header row for titles if present
             const maxCols = data.reduce(
               (max, row) => Math.max(max, row.length),
               0,
@@ -95,11 +102,13 @@
 
             const columns = Array.from({ length: maxCols }, (_, idx) => ({
               title:
-                idx === 0
-                  ? "#"
-                  : idx === maxCols - 1
-                    ? "Notes"
-                    : "Column " + (idx + 1),
+                headerRow && headerRow[idx]
+                  ? headerRow[idx]
+                  : idx === 0
+                    ? "#"
+                    : idx === maxCols - 1
+                      ? "Notes"
+                      : "Column " + (idx + 1),
               data: idx,
               defaultContent: "",
             }));
