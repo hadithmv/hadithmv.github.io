@@ -56,6 +56,9 @@ initializePageWithMetadata(async function (metadata) {
           .join("");
       }
 
+      // Clipboard header — book title line
+      const clipboardHeader = metadata.titleDV + " - " + metadata.titleAR;
+
       // ── Settings (persisted) ────────────────────────────────
       const LS = {
         get(key, fallback) {
@@ -104,13 +107,13 @@ initializePageWithMetadata(async function (metadata) {
         if (headerRow && headerRow[idx]) return headerRow[idx];
         if (idx === 0) return "#";
         if (idx === maxCols - 1) return "Notes";
-        return "C" + (idx + 1);
+        return "C" + idx;
       }
 
       // ── Column toggle buttons ───────────────────────────────
       function buildColumnToggles() {
         columnToggles.innerHTML = "";
-        for (let i = 1; i < maxCols; i++) {
+        for (let i = 0; i < maxCols; i++) {
           const btn = document.createElement("button");
           btn.className = "col-toggle" + (hiddenColumns.indexOf(i) !== -1 ? " off" : "");
           btn.textContent = colLabel(i);
@@ -129,7 +132,7 @@ initializePageWithMetadata(async function (metadata) {
           });
           columnToggles.appendChild(btn);
         }
-        if (maxCols > 1) columnTogglesGrp.style.display = "";
+        if (maxCols > 0) columnTogglesGrp.style.display = "";
       }
       buildColumnToggles();
 
@@ -147,21 +150,31 @@ initializePageWithMetadata(async function (metadata) {
       }
 
       // ── Render current page ─────────────────────────────────
+      let pageText = "";   // plain-text copy of current page (no tashkeel spans)
+
       function renderPage(pageIdx) {
         const start = pageIdx * rowsPerPage;
         const rows  = filteredData.slice(start, start + rowsPerPage);
         if (rows.length === 0) {
           readerContent.innerHTML = "";
+          pageText = "";
           updatePagination();
           return;
         }
 
         let html = "";
+        let text = clipboardHeader + "\n\n";
         for (let r = 0; r < rows.length; r++) {
-          if (r > 0) html += `<hr class="reader-page-sep" />`;
+          if (r > 0) {
+            html += `<hr class="reader-page-sep" />`;
+            text += "\n";
+          }
           const row = rows[r];
           const rowNum = row[0] || (start + r + 1);
-          html += `<div class="reader-row-num">#${rowNum}</div>`;
+          if (hiddenColumns.indexOf(0) === -1) {
+            html += `<div class="reader-row-num">#${rowNum}</div>`;
+            text += `#${rowNum}\n\n`;
+          }
 
           // Collect visible, non-empty columns (skip col 0)
           const fields = [];
@@ -178,15 +191,17 @@ initializePageWithMetadata(async function (metadata) {
             if (i === fields.length - 1 && fields.length > 1) {
               html += `<div class="reader-divider"></div>`;
               html += `<div class="reader-field reader-footnotes" dir="auto">${display}</div>`;
+              text += "ــــــــــــــــــــــــــــــــــــــــــــ\n";
             } else {
               html += `<div class="reader-field" dir="auto">${display}</div>`;
             }
+            text += fields[i].value + "\n\n";
           }
         }
 
         readerContent.innerHTML = html;
+        pageText = text.trim();
         updatePagination();
-        readerContent.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
       // ── Pagination UI ───────────────────────────────────────
@@ -265,6 +280,7 @@ initializePageWithMetadata(async function (metadata) {
         if (pageIdx >= total) pageIdx = total - 1;
         currentPage = pageIdx;
         renderPage(currentPage);
+        readerContent.scrollIntoView({ behavior: "smooth", block: "start" });
       }
 
       // ── Search ──────────────────────────────────────────────
@@ -295,6 +311,7 @@ initializePageWithMetadata(async function (metadata) {
         if (filteredData.length === 0) {
           readerContent.innerHTML =
             '<div class="reader-no-results">No rows match "' + query + '"</div>';
+          pageText = 'No rows match "' + query + '"';
           updatePagination();
         } else {
           renderPage(currentPage);
@@ -337,7 +354,7 @@ initializePageWithMetadata(async function (metadata) {
 
       // ── Toolbar: copy to clipboard ──────────────────────────
       btnCopy.addEventListener("click", function () {
-        const text = readerContent.innerText.trim();
+        const text = pageText;
         if (!text) return;
         navigator.clipboard.writeText(text).then(function () {
           showToast("Copied!");
