@@ -5,9 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
     <link rel="stylesheet" href="../css/styles.css" />
+    <!-- Apply saved theme before paint to avoid flash -->
+    <script>
+      (function(){var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);})();
+    </script>
   </head>
 
   <body>
+    <!-- Theme toggle -->
+    <button id="themeToggle" title="Toggle dark / light theme">
+      <span class="icon-dark">🌙</span>
+      <span class="icon-light">☀️</span>
+      <span class="label-dark">Dark</span>
+      <span class="label-light">Light</span>
+    </button>
     <!-- Dashboard Container (shown when no book is selected) -->
     <div id="dashboardWrapper" style="display: none">
       <h1 class="dashboard-title">Hadithmv</h1>
@@ -42,6 +53,16 @@
         <button id="nextBtnBottom" class="nav-btn" title="Next (→ arrow key)">Next →</button>
       </nav>
     </div>
+
+    <script>
+      // Theme toggle — runs before module so it works on dashboard too
+      document.getElementById("themeToggle").addEventListener("click", function () {
+        var html = document.documentElement;
+        var next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        html.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+      });
+    </script>
 
     <script src="../dependencies/papaparse.min.js"></script>
 

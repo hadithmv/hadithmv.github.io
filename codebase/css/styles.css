@@ -1,6 +1,71 @@
 /* ============================================================
    Book Viewer — Shared Styles
+   Colour scheme uses custom properties; toggled via [data-theme]
    ============================================================ */
+
+/* ---- Theme: light (default) ---- */
+:root {
+  --color-bg: #ffffff;
+  --color-text: #1a202c;
+  --color-text-muted: #718096;
+  --color-text-subtle: #94a3b8;
+  --color-border: #e2e8f0;
+  --color-card-bg: #ffffff;
+  --color-card-hover-border: #cbd5e1;
+  --color-error-bg: #ffebee;
+  --color-error-text: #d32f2f;
+  --color-nav-btn-bg: #f7fafc;
+  --color-nav-btn-hover-bg: #edf2f7;
+  --color-nav-btn-text: #4a5568;
+  --color-nav-btn-hover-text: #1a202c;
+  --color-reader-bg: #ffffff;
+  --color-divider: #e2e8f0;
+  --color-divider-ornament: #cbd5e1;
+  --color-page-header-border: #ddd;
+  --color-loading: #999;
+  --color-footnotes: #64748b;
+  --color-shadow-sm: rgba(0, 0, 0, 0.04);
+  --color-shadow-card: rgba(0, 0, 0, 0.05);
+  --color-shadow-card-hover: rgba(0, 0, 0, 0.1);
+  --color-theme-toggle-bg: #f1f5f9;
+  --color-theme-toggle-text: #475569;
+}
+
+/* ---- Theme: dark ---- */
+[data-theme="dark"] {
+  --color-bg: #0f172a;
+  --color-text: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-text-subtle: #64748b;
+  --color-border: #334155;
+  --color-card-bg: #1e293b;
+  --color-card-hover-border: #475569;
+  --color-error-bg: #450a0a;
+  --color-error-text: #fca5a5;
+  --color-nav-btn-bg: #1e293b;
+  --color-nav-btn-hover-bg: #334155;
+  --color-nav-btn-text: #94a3b8;
+  --color-nav-btn-hover-text: #e2e8f0;
+  --color-reader-bg: #1e293b;
+  --color-divider: #334155;
+  --color-divider-ornament: #475569;
+  --color-page-header-border: #334155;
+  --color-loading: #64748b;
+  --color-footnotes: #94a3b8;
+  --color-shadow-sm: rgba(0, 0, 0, 0.2);
+  --color-shadow-card: rgba(0, 0, 0, 0.2);
+  --color-shadow-card-hover: rgba(0, 0, 0, 0.35);
+  --color-theme-toggle-bg: #1e293b;
+  --color-theme-toggle-text: #94a3b8;
+}
+
+/* ---- Body ---- */
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+}
 
 /* ---- Fonts ---- */
 @font-face {
@@ -12,12 +77,52 @@
   font-display: swap;
 }
 
+/* ---- Theme toggle ---- */
+#themeToggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: var(--color-theme-toggle-text);
+  background: var(--color-theme-toggle-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+#themeToggle:hover {
+  border-color: var(--color-card-hover-border);
+}
+
+#themeToggle .icon-light,
+#themeToggle .icon-dark {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+/* Show/hide icon and label based on theme */
+#themeToggle .icon-light,
+#themeToggle .label-light { display: none; }
+
+[data-theme="dark"] #themeToggle .icon-dark,
+[data-theme="dark"] #themeToggle .label-dark { display: none; }
+[data-theme="dark"] #themeToggle .icon-light,
+[data-theme="dark"] #themeToggle .label-light { display: inline; }
+
 /* ---- Page header ---- */
 #pageHeader {
   max-width: 800px;
   margin: 0 auto 20px;
   padding: 20px;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid var(--color-page-header-border);
 }
 
 #pageHeader h1 {
@@ -27,7 +132,7 @@
 
 #pageHeader p {
   margin: 0;
-  color: #666;
+  color: var(--color-text-muted);
   font-family: "Hadithmv", "Traditional Arabic", "Faruma", serif;
 }
 
@@ -35,13 +140,13 @@
 .loading {
   text-align: center;
   padding: 40px;
-  color: #999;
+  color: var(--color-loading);
 }
 
 .error {
-  color: #d32f2f;
+  color: var(--color-error-text);
   padding: 20px;
-  background-color: #ffebee;
+  background-color: var(--color-error-bg);
   border-radius: 4px;
   margin: 20px;
 }
@@ -65,7 +170,7 @@
   font-weight: 800;
   text-align: center;
   margin-bottom: 40px;
-  color: #1a202c;
+  color: var(--color-text);
   letter-spacing: -0.025em;
 }
 
@@ -77,8 +182,8 @@
 
 /* ---- Book cards ---- */
 .book-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 24px;
   text-decoration: none;
@@ -87,7 +192,7 @@
   flex-direction: column;
   justify-content: space-between;
   min-height: 160px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px var(--color-shadow-card);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -97,14 +202,14 @@
 .book-card:hover {
   transform: translateY(-4px);
   box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  border-color: #cbd5e1;
+    0 10px 15px -3px var(--color-shadow-card-hover),
+    0 4px 6px -2px var(--color-shadow-card);
+  border-color: var(--color-card-hover-border);
 }
 
 .book-card .title-ar {
   font-size: 1.4rem;
-  color: #1a202c;
+  color: var(--color-text);
   direction: rtl;
   text-align: right;
   font-weight: 700;
@@ -114,7 +219,7 @@
 
 .book-card .title-dv {
   font-size: 1.1rem;
-  color: #4a5568;
+  color: var(--color-text-muted);
   direction: rtl;
   text-align: right;
   margin-bottom: 12px;
@@ -124,7 +229,7 @@
 .book-card .title-en {
   font-size: 0.9rem;
   font-weight: 500;
-  color: #718096;
+  color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-top: auto;
@@ -179,23 +284,23 @@
   justify-content: space-between;
   padding: 12px 0;
   margin-bottom: 24px;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 #readerNavBottom {
   margin-top: 32px;
   margin-bottom: 0;
   border-bottom: none;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--color-border);
 }
 
 .nav-btn {
   padding: 8px 20px;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #4a5568;
-  background: #f7fafc;
-  border: 1px solid #e2e8f0;
+  color: var(--color-nav-btn-text);
+  background: var(--color-nav-btn-bg);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   cursor: pointer;
   transition:
@@ -206,9 +311,9 @@
 }
 
 .nav-btn:hover:not(:disabled) {
-  background: #edf2f7;
-  border-color: #cbd5e1;
-  color: #1a202c;
+  background: var(--color-nav-btn-hover-bg);
+  border-color: var(--color-card-hover-border);
+  color: var(--color-nav-btn-hover-text);
 }
 
 .nav-btn:disabled {
@@ -219,26 +324,26 @@
 .nav-counter {
   font-size: 0.9rem;
   font-weight: 500;
-  color: #718096;
+  color: var(--color-text-muted);
   font-family: system-ui, -apple-system, sans-serif;
 }
 
 /* ---- Reader content ---- */
 #readerContent {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
+  background: var(--color-reader-bg);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 32px 36px;
   line-height: 2.2;
   font-size: 1.25rem;
-  color: #1a202c;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  color: var(--color-text);
+  box-shadow: 0 1px 3px var(--color-shadow-sm);
 }
 
 .reader-row-num {
   font-size: 0.85rem;
   font-weight: 700;
-  color: #94a3b8;
+  color: var(--color-text-subtle);
   margin-bottom: 20px;
   letter-spacing: 0.025em;
   font-family: system-ui, -apple-system, sans-serif;
@@ -257,9 +362,8 @@
 /* Divider between main text and footnotes */
 .reader-divider {
   border: none;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--color-divider);
   margin: 24px 0 20px;
-  /* Decorative Arabic-style centered ornament */
   text-align: center;
   line-height: 0;
 }
@@ -269,15 +373,15 @@
   position: relative;
   top: -0.55em;
   font-size: 0.55rem;
-  color: #cbd5e1;
-  background: #ffffff;
+  color: var(--color-divider-ornament);
+  background: var(--color-reader-bg);
   padding: 0 12px;
 }
 
 /* Footnotes / sources (last column) */
 .reader-footnotes {
   font-size: 0.9rem;
-  color: #64748b;
+  color: var(--color-footnotes);
   line-height: 1.8;
 }
 
@@ -296,5 +400,12 @@
 
   .nav-counter {
     font-size: 0.8rem;
+  }
+
+  #themeToggle {
+    top: 8px;
+    right: 8px;
+    padding: 5px 10px;
+    font-size: 0.75rem;
   }
 }
