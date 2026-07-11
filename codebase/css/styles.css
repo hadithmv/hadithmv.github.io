@@ -276,6 +276,69 @@ body {
     serif;
 }
 
+/* ---- Search bar ---- */
+#searchBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  font-family:
+    "Hadithmv",
+    "Traditional Arabic", "Scheherazade New",
+    "Faruma", "MV Boli",
+    serif;
+  color: var(--color-text);
+  background: var(--color-reader-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.search-input:focus {
+  border-color: var(--color-card-hover-border);
+}
+
+.search-input::placeholder {
+  color: var(--color-text-subtle);
+  opacity: 1;
+}
+
+/* Clear button inside the search bar */
+.search-clear {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.search-clear:hover {
+  background: var(--color-nav-btn-bg);
+  color: var(--color-text);
+}
+
+.search-info {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  color: var(--color-text-subtle);
+  font-family: system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
+}
+
 /* ---- Navigation bar ---- */
 #readerNav,
 #readerNavBottom {
@@ -340,6 +403,14 @@ body {
   box-shadow: 0 1px 3px var(--color-shadow-sm);
 }
 
+.reader-no-results {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
 .reader-row-num {
   font-size: 0.85rem;
   font-weight: 700;
@@ -391,6 +462,11 @@ body {
     padding: 20px 16px;
     font-size: 1.1rem;
     line-height: 2;
+  }
+
+  .search-input {
+    font-size: 0.85rem;
+    padding: 8px 10px;
   }
 
   .nav-btn {

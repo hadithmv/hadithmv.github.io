@@ -41,6 +41,17 @@
 
     <!-- Reader Container (single-row vertical reading view) -->
     <div id="readerWrapper" style="display: none">
+      <div id="searchBar">
+        <input
+          id="searchInput"
+          type="search"
+          class="search-input"
+          placeholder="Search this book…"
+          dir="auto"
+        />
+        <button id="searchClear" class="search-clear" title="Clear search" style="display: none">✕</button>
+        <span id="searchInfo" class="search-info" style="display: none"></span>
+      </div>
       <nav id="readerNav">
         <button id="prevBtn" class="nav-btn" title="Previous (← arrow key)">← Previous</button>
         <span id="rowCounter" class="nav-counter"></span>
@@ -120,11 +131,14 @@
             }
 
             // ── Reader state ──────────────────────────────────────
+            const allData = data;               // never changes
+            let filteredData = allData;         // subset when searching
             let currentIndex = 0;
-            const totalRows = data.length;
+
+            function rowCount() { return filteredData.length; }
 
             function renderRow(index) {
-              const row = data[index];
+              const row = filteredData[index];
               if (!row) return;
 
               const rowNum = row[0] || index + 1;
@@ -139,10 +153,9 @@
                 }
               }
 
-              // Render all fields except the last one
+              // Render all fields, with a divider before the last one
               for (let i = 0; i < fields.length; i++) {
                 if (i === fields.length - 1 && fields.length > 1) {
-                  // Last field — add a divider above it (footnotes / sources)
                   html += `<div class="reader-divider"></div>`;
                   html += `<div class="reader-field reader-footnotes" dir="auto">${fields[i].value}</div>`;
                 } else {
@@ -152,28 +165,84 @@
 
               document.getElementById("readerContent").innerHTML = html;
 
-              // Update all nav counters
-              const counterText = `Row ${index + 1} of ${totalRows}`;
+              // Build counter text
+              const total = rowCount();
+              let counterText = `Row ${index + 1} of ${total}`;
+              const query = document.getElementById("searchInput").value.trim();
+              if (query && total !== allData.length) {
+                counterText += ` · ${total} match${total === 1 ? "" : "es"}`;
+              }
+
               document.getElementById("rowCounter").textContent = counterText;
               document.getElementById("rowCounterBottom").textContent = counterText;
 
               // Update button states
               document.getElementById("prevBtn").disabled = index === 0;
               document.getElementById("prevBtnBottom").disabled = index === 0;
-              document.getElementById("nextBtn").disabled = index === totalRows - 1;
-              document.getElementById("nextBtnBottom").disabled = index === totalRows - 1;
+              document.getElementById("nextBtn").disabled = index === total - 1;
+              document.getElementById("nextBtnBottom").disabled = index === total - 1;
 
               // Scroll reader into view
               document.getElementById("readerContent").scrollIntoView({ behavior: "smooth", block: "start" });
             }
 
             function goTo(index) {
-              if (index >= 0 && index < totalRows) {
+              const total = rowCount();
+              if (index >= 0 && index < total) {
                 currentIndex = index;
                 renderRow(currentIndex);
               }
             }
 
+            // ── Search ─────────────────────────────────────────
+            const searchInput = document.getElementById("searchInput");
+            const searchClear = document.getElementById("searchClear");
+            const searchInfo  = document.getElementById("searchInfo");
+
+            function applySearch(query) {
+              const q = query.trim();
+              if (!q) {
+                // Reset to full dataset
+                filteredData = allData;
+                currentIndex = 0;
+                searchClear.style.display = "none";
+                searchInfo.style.display = "none";
+              } else {
+                const lower = q.toLowerCase();
+                filteredData = allData.filter(function (row) {
+                  return row.some(function (cell) {
+                    return cell !== null && cell !== undefined &&
+                           String(cell).toLowerCase().indexOf(lower) !== -1;
+                  });
+                });
+                currentIndex = 0;
+                searchClear.style.display = "";
+                searchInfo.style.display = "";
+                if (filteredData.length === 0) {
+                  searchInfo.textContent = "No matches";
+                } else {
+                  searchInfo.textContent = filteredData.length + " match" + (filteredData.length === 1 ? "" : "es");
+                }
+              }
+              if (filteredData.length === 0) {
+                document.getElementById("readerContent").innerHTML =
+                  '<div class="reader-no-results">No rows match "' + query + '"</div>';
+              } else {
+                renderRow(currentIndex);
+              }
+            }
+
+            searchInput.addEventListener("input", function () {
+              applySearch(this.value);
+            });
+
+            searchClear.addEventListener("click", function () {
+              searchInput.value = "";
+              applySearch("");
+              searchInput.focus();
+            });
+
+            // ── Navigation ─────────────────────────────────────
             // Wire navigation — top bar
             document.getElementById("prevBtn").addEventListener("click", () => goTo(currentIndex - 1));
             document.getElementById("nextBtn").addEventListener("click", () => goTo(currentIndex + 1));
@@ -182,10 +251,18 @@
             document.getElementById("prevBtnBottom").addEventListener("click", () => goTo(currentIndex - 1));
             document.getElementById("nextBtnBottom").addEventListener("click", () => goTo(currentIndex + 1));
 
-            // Keyboard navigation
-            document.addEventListener("keydown", function onArrow(e) {
-              if (e.key === "ArrowLeft")  { e.preventDefault(); goTo(currentIndex - 1); }
-              if (e.key === "ArrowRight") { e.preventDefault(); goTo(currentIndex + 1); }
+            // Keyboard: arrow keys navigate, / focuses search
+            document.addEventListener("keydown", function onKey(e) {
+              // Don't steal focus when typing in search
+              if (document.activeElement === searchInput) return;
+
+              if (e.key === "ArrowLeft")   { e.preventDefault(); goTo(currentIndex - 1); }
+              if (e.key === "ArrowRight")  { e.preventDefault(); goTo(currentIndex + 1); }
+              if (e.key === "/" || e.key === "f" && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                searchInput.focus();
+                searchInput.select();
+              }
             });
 
             // Initial render
