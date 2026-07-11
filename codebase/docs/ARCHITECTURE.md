@@ -43,9 +43,13 @@ No `?book=` → `dbLookup.js` calls `renderDashboard()` → card grid of all reg
 ### Layout
 
 ```text
-┌─ Search bar ──────────────────────────────────────┐
-│  މި ފޮތުން ހޯދާ…                          [✕]  N ނަތީޖާ │
-├─ Toolbar ─────────────────────────────────────────┤
+┌─ Search bar ──────────────────────────────────────────────┐
+│  މި ފޮތުން ހޯދާ…                            [✕]  ނަތީޖާ N │
+├─ Search results (dropdown, visible while searching) ──────┤
+│  #5  …matching text from column 1 with <mark>…           │
+│  #5  …matching text from column 3 with <mark>…           │
+│  #8  …matching text from column 2 with <mark>…           │
+├─ Toolbar ─────────────────────────────────────────────────┤
 │  [📋 ކޮޕީ ކުރޭ] [◉ ފިލި ފޮރުވާ]           │
 │  އެއްފަހަރާ ދައްކަންވީ ކިތައް ސަފްހާ: [1 ▾]               │
 │  ކޮލަމް ފޮރުވާ: [#] [1] [2] [3] [4] [ނޯޓު]        │
@@ -74,11 +78,13 @@ Column 0 is the row number (`#N`), toggleable via the column controls. All non-e
 - **First / Last** (`««` / `»»`) and **Prev / Next** (`«` / `»`).
 - **Page input** — type + Enter, or pick from `<datalist>` dropdown. Top nav only.
 - Nav flows RTL (`dir="rtl"`) to match Arabic: `» »» 10 … 1 «« «`.
-- Counter: `ސަފްހާ X / Y` (with `· N ނަތީޖާ` when searching).
+- Counter: `ސަފްހާ X / Y`. Match count appears separately next to the search bar.
 
 ### Search
 
 Real-time filtering against all columns, case-insensitive. Pagination operates on the filtered set. `/` or `Ctrl+F` focuses the input.
+
+A **results dropdown** appears below the search bar showing up to 50 matches. Each matching column in a row gets its own entry with a ~300-char snippet and `<mark>` highlighting. Click a result or press Enter to jump directly to that page. ↑/↓ arrows navigate the list; Escape closes it. Match count is shown as `ނަތީޖާ N` (or `ނަތީޖާ 0` when none).
 
 ### Toolbar
 

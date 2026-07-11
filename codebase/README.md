@@ -86,12 +86,15 @@ Each book's CSV in `data/` can optionally include a header row for reference. Th
 - **Page strip** — clickable page numbers with the current page highlighted. Uses `…` ellipsis for large ranges.
 - **First / Last** (`««` / `»»`) and **Prev / Next** (`«` / `»`) buttons.
 - **Page input** — type a number + Enter, or pick from the dropdown.
-- Counter displays current position and match count when searching.
+- Counter displays `ސަފްހާ X / Y`.
 
 ### Search
 
 - Real-time filtering — matches any text in any column, case-insensitive.
-- Pagination operates within the filtered set.
+- **Results dropdown** — appears below the search bar showing up to 50 matches. Each matching column gets its own row with a highlighted snippet (~300 chars of context).
+- **Click** a result or press **Enter** to jump directly to that page.
+- **↑ / ↓** arrows navigate the results list. **Escape** closes it.
+- Match count shown as `ނަތީޖާ N` next to the search bar.
 - Clear button (✕) resets to full dataset.
 - Keyboard: `/` or `Ctrl+F` focuses the search bar.
 
